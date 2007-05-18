@@ -133,11 +133,6 @@ class TubePressOptionsPackage
                                             _tpMsg("VIDTHUMBURL"), '', false, "boolean"),
                   TP_VID_DESC =>        new TubePressOption(TP_VID_DESC,
                                             _tpMsg("VIDDESC"),     '', false, "boolean"),
-                                            
-        /* -------- VIDEO SEARCH OPTION ----------------------------------- */
-
-                  TP_OPT_SEARCHBY => new TubePressOption(TP_OPT_SEARCHBY, ' ',
-                                          '', TP_SRCH_FEATURED), //TODO: fix me
 
         /* -------- VIDEO SEARCH VALUES ------------------------------------ */
         
@@ -173,53 +168,38 @@ class TubePressOptionsPackage
                   TP_OPT_THUMBHEIGHT => new TubePressOption(TP_OPT_THUMBHEIGHT,
                                             _tpMsg("THUMBHEIGHT_TITLE"),
                                             _tpMsg("THUMBHEIGHT_DESC"), "90", "integer"),
+
                   
               /* -------- ADVANCED OPTIONS ------------------------------------- */                      
                   
-                  TP_OPT_KEYWORD =>  new TubePressOption(TP_OPT_KEYWORD,
-                                         _tpMsg("KEYWORD_TITLE"),
-                                         _tpMsg("KEYWORD_DESC"),
-                                         TP_OPTION_NAME),
-                  TP_OPT_TIMEOUT =>  new TubePressOption(TP_OPT_TIMEOUT,
-                                         _tpMsg("TIMEOUT_TITLE"),
-                                         _tpMsg("TIMEOUT_DESC"),
-                                         "6", "integer"),
-                  TP_OPT_DEVID =>    new TubePressOption(TP_OPT_DEVID,
-                                         _tpMsg("DEVID_TITLE"),
-                                         _tpMsg("DEVID_DESC") . ' <a href="' .
-                                         TP_YOUTUBEDEVLINK . '">' .
-                                         TP_YOUTUBEDEVLINK . '</a>',
-                                         "qh7CQ9xJIIc"),
-                  TP_OPT_USERNAME => new TubePressOption(TP_OPT_USERNAME,
-                                         _tpMsg("USERNAME_TITLE"),
-                                         _tpMsg("USERNAME_DESC"),
-                                         "3hough"),
-                  TP_DEBUG_ON => new TubePressOption(TP_DEBUG_ON,
-                                         "Enable debugging", "If set to 'true', " .
-                                     		"anyone will be able to view your debugging" .
-                                     		"information. This is a very small privacy" .
-                                     		"risk. If you're not having problems with" .
-                                     		"TubePress, or you're worried about revealing" .
-                                     		"any details of your TubePress pages, feel free to disable debugging here.",
-                                     		true, "boolean"),
-        
-        /* -------- PLAYER LOCATION OPTIONS ----------------------------------- */
+                  TP_OPT_KEYWORD =>  new TubePressOption(TP_OPT_KEYWORD, _tpMsg("KEYWORD_TITLE"),
+                                         _tpMsg("KEYWORD_DESC"), TP_OPTION_NAME),
+                                         
+                  TP_OPT_TIMEOUT =>  new TubePressOption(TP_OPT_TIMEOUT, _tpMsg("TIMEOUT_TITLE"),
+                                         _tpMsg("TIMEOUT_DESC"), "6", "integer"),
+                                         
+                  TP_OPT_DEVID =>    new TubePressOption(TP_OPT_DEVID, _tpMsg("DEVID_TITLE"),
+                                         _tpMsg("DEVID_DESC") . ' <a href="' . TP_YOUTUBEDEVLINK . '">' .
+                                         TP_YOUTUBEDEVLINK . '</a>', "qh7CQ9xJIIc"),
+                                         
+                  TP_OPT_USERNAME => new TubePressOption(TP_OPT_USERNAME, _tpMsg("USERNAME_TITLE"), 
+                  						_tpMsg("USERNAME_DESC"), "3hough"),
+                  						
+                  TP_DEBUG_ON => new TubePressOption(TP_DEBUG_ON, _tpMsg("DEBUGDESC"), true, "boolean"),
+ 
+         /* -------- VIDEO SEARCH OPTION ----------------------------------- */
+
+                  TP_OPT_SEARCHBY => new TubePressOption(TP_OPT_SEARCHBY, ' ',
+                  	'', TP_SRCH_FEATURED), //TODO: fix me
+
+        /* -------- PLAYER LOCATION OPTION ----------------------------------- */
  
                   TP_OPT_PLAYIN => new TubePressOption(TP_OPT_PLAYIN, 
                                        _tpMsg("PLAYIN_TITLE"), ' ', TP_PLAYIN_NORMAL));
-             	
-             	$playerLocationEnums = 
-             	    array(TP_PLAYIN_NORMAL, TP_PLAYIN_NW, TP_PLAYIN_YT, 
-                          TP_PLAYIN_POPUP,TP_PLAYIN_LWINDOW,TP_PLAYIN_THICKBOX);                
-         
-                $returnVal[TP_OPT_PLAYIN]->setValidValues($playerLocationEnums);
-         
-                $modeEnums = 
-                    array(TP_SRCH_CATEGORY, TP_SRCH_PLST,TP_SRCH_TAG,TP_SRCH_REL, 
-                          TP_SRCH_USER, TP_SRCH_FAV, TP_SRCH_FEATURED, TP_SRCH_POPULAR);
-             
-                 $returnVal[TP_OPT_SEARCHBY]->setValidValues($modeEnums);
-              
+             	         
+                $returnVal[TP_OPT_PLAYIN]->setValidValues(TubePressOptionsPackage::getPlayerLocationNames());
+				$returnVal[TP_OPT_SEARCHBY]->setValidValues(TubePressOptionsPackage::getModeNames());
+                
                  return $returnVal;                        
     }
 
@@ -244,15 +224,32 @@ class TubePressOptionsPackage
         
     	foreach ($modelOptions as $defaultOption) {
     		if (!is_a($suspectOptions[$defaultOption->getName()], TubePressOption)) {
-    			return PEAR::raiseError("You have options that are not current TubePressOptions");
+    			return PEAR::raiseError(_tpMsg("OLDDB"));
     		}
     		
     		if (!array_key_exists($defaultOption->getName(), $suspectOptions)) {
-    			return PEAR::raiseError("Database options appear to be invalid. Missing '" . $defaultOption->getName()
-    			    . "' option. Database has " . count($suspectOptions) . " options and it should "
-    			    . "have " . count($modelOptions) . ". Perhaps you need to initialize your database?");
+    			return PEAR::raiseError(_tpMsg("DBMISS", 
+    				array($defaultOption->getName(), count($suspectOptions), count($modelOptions))));
+    			
     		}
     	}	
     }
+    
+    function getPlayerLocationNames() {
+        return
+        	array(TP_PLAYIN_NORMAL, TP_PLAYIN_NW, TP_PLAYIN_YT, 
+            	TP_PLAYIN_POPUP,TP_PLAYIN_LWINDOW,TP_PLAYIN_THICKBOX);
+    }
+    
+    function getModeNames() {
+        return
+        	array(TP_SRCH_CATEGORY, TP_SRCH_PLST,TP_SRCH_TAG,TP_SRCH_REL, 
+            	TP_SRCH_USER, TP_SRCH_FAV, TP_SRCH_FEATURED, TP_SRCH_POPULAR);
+    }
+    
+     function getAdvancedOptionNames() {
+                  return
+                  	array(TP_OPT_KEYWORD, TP_OPT_TIMEOUT, TP_OPT_DEVID, TP_OPT_USERNAME, TP_DEBUG_ON);
+              }
 }
 ?>

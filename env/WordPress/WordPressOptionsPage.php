@@ -23,59 +23,117 @@
 
 class WordPressOptionsPage
 {
-    /**
-     * Helper utility to print out a list of text boxes, labels, descriptions,
-     * and default values
-     */
-    function printHTML_genericOptionsArray($theArray, 
-        $arrayName, $inputSize = 20, $radioName = '')
-    {
-        WordPressOptionsPage::printHTML_optionHeader($arrayName);
-    
-        $openBracket = "";
-        $closeBracket = "";
-        foreach ($theArray as $option) {
-    
-            if ($option->getName() == TP_OPT_KEYWORD) {
-                $openBracket = '[';
-                $closeBracket = ']';
-            } else {
-                $openBracket = "";
-                $closeBracket = "";
+	function printHTML_advanced($options) {
+	   WordPressOptionsPage::printHTML_optionHeader(_tpMsg("ADV_GRP_TITLE"));
+
+	   WordPressOptionsPackage::_printHTML_textBoxOption(TP_OPT_KEYWORD, $options);
+	   WordPressOptionsPackage::_printHTML_textBoxOption(TP_OPT_TIMEOUT, $options);
+	   WordPressOptionsPackage::_printHTML_textBoxOption(TP_OPT_DEVID, $options);
+	   WordPressOptionsPackage::_printHTML_textBoxOption(TP_OPT_USERNAME, $options);
+	  
+	   $selected = "";
+            if ($options->getValue(TP_DEBUG_ON) == true) {
+            	$selected = "CHECKED";
             }
-            print <<<EOT
-                <tr valign="top">
-                    <th style="font-weight: bold; font-size: 1em" 
-                        scope="row">$option->getTitle():</th>
-                    <td>$openBracket<input name="$option->getName()" 
-                        type="text" id="$option->getName()" class="code"
-                        value="$option->getValue()" size="$inputSize" />
-                        $closeBracket
-                        <br />$option->getDescription()
-                    </td>
-                </tr>
+        $debugName = TP_DEBUG_ON;
+	  print <<< EOT
+	                  <td>
+                    <input type="checkbox" name="$debugName" value="$debugName"
+                    $selected />
+                </td>
+                <td><b>$options->getTitle($debugName)</b></td>
+EOT;
+	  
+		WordPressOptionsPackage::_printHTML_textBoxOption(TP_OPT_THUMBHEIGHT, $options);
+
+       WordPressOptionsPage::printHTML_optionFooter(); 
+	}
+	
+	function printHTML_display($options) {
+	   WordPressOptionsPage::printHTML_optionHeader(_tpMsg("VIDDISP"));
+	   
+	   WordPressOptionsPackage::_printHTML_textBoxOption(TP_OPT_VIDSPERPAGE, $options);
+	   WordPressOptionsPackage::_printHTML_textBoxOption(TP_OPT_VIDWIDTH, $options);
+	   WordPressOptionsPackage::_printHTML_textBoxOption(TP_OPT_VIDHEIGHT, $options);
+	   WordPressOptionsPackage::_printHTML_textBoxOption(TP_OPT_THUMBWIDTH, $options);
+	   WordPressOptionsPackage::_printHTML_textBoxOption(TP_OPT_THUMBHEIGHT, $options);
+
+       WordPressOptionsPage::printHTML_optionFooter();    
+	}
+	
+	
+	/**
+     * Prints out the drop down menu asking where to play the videos
+     * (normally, new window, popup, in youtube, etc.)
+     */
+    function printHTML_player($options) {
+        $locationVars =     $options->getPlayerLocationNames();
+        
+        WordPressOptionsPage::printHTML_optionHeader("");
+
+        print <<<EOT
+            <tr>
+                <th style="font-weight: bold; font-size: 1em">
+                    $options->getTitle(TP_OPT_PLAYIN)</th>
+                <td><select name="$options->getName(TP_OPT_PLAYIN)">
+EOT;
+        foreach ($locationVars as $location) {
+            $selected = "";
+            if ($location == $options->getValue(TP_OPT_PLAYIN))
+                $selected = "selected";
+            $inputBox = "";
+    
+        print <<<EOT
+            <option value="$location" $selected>$location</option>
 EOT;
         }
+        
+        echo "</select></td></tr>";
+        
         WordPressOptionsPage::printHTML_optionFooter();
     }
+	
+	function _printHTML_textBoxOption($optionName, $options) {
+		$openBracket = "";
+        $closeBracket = "";
+		if ($options->getName($optionName) == TP_OPT_KEYWORD) {
+        	$openBracket = '[';
+           	$closeBracket = ']';
+        } 
+		print <<<EOT
+        	<tr valign="top">
+            	<th style="font-weight: bold; font-size: 1em" scope="row">
+                		$options->getTitle($optionName):
+               	</th>
+              	<td>$openBracket
+              		<input name="$options->getName($optionName)" 
+                    	type="text" id="$options->getName($optionName)" class="code"
+                        value="$options->getValue($optionName)" size="$inputSize" />
+                        	$closeBracket<br />$options->getDescription($optionName)
+              	</td>
+          	</tr>
+EOT;
+	}
     
     /**
      * Prints out the meta value checkboxes. Fascinating stuff here!
      */
-    function printHTML_metaArray($theArray)
+    function printHTML_meta($options)
     {
         WordPressOptionsPage::printHTML_optionHeader(_tpMsg("META"));
+        
+        $metas = TubePressOptionsPackage::getMetaOptionNames();
         
         echo "<tr><td width='10%'></td><td><table cellspacing='0' " .
                 "cellpadding='0' width='100%'>";
     
         $colIterator = 0;
-        foreach ($theArray as $metaOption) {
+        foreach ($metas as $meta) {
     
             $colCount = $colIterator % 5;
     
             $selected = "";
-            if ($metaOption->getValue() == true) {
+            if ($options->getValue($meta) == true) {
             	$selected = "CHECKED";
             }
             
@@ -85,10 +143,10 @@ EOT;
     
             print <<<EOT
                 <td>
-                    <input type="checkbox" name="meta[]" value="$metaOption->getName()"
+                    <input type="checkbox" name="meta[]" value="$options->getName($meta)"
                     $selected />
                 </td>
-                <td><b>$metaOption->getTitle()</b></td>
+                <td><b>$options->getTitle($meta)</b></td>
 EOT;
             
             if ($colCount == 4) {
@@ -123,92 +181,20 @@ EOT;
         echo "</table></fieldset>";
     }
     
-    /**
-     * Prints out the drop down menu asking where to play the videos
-     * (normally, new window, popup, in youtube, etc.)
-     */
-    function printHTML_playerLocationMenu($dbOptions) {
-        $locationVars =     $dbOptions->getPlayerLocationOptions();
-        $theOption =        $dbOptions->get(TP_OPT_PLAYIN);
-        
-        WordPressOptionsPage::printHTML_optionHeader("");
+
     
-        print <<<EOT
-            <tr>
-                <th style="font-weight: bold; font-size: 1em">
-                    $theOption->getTitle()</th>
-                <td><select name="$theOption->getName()">
-EOT;
-        foreach ($locationVars as $location) {
-            $selected = "";
-            if ($location->getName() == $theOption->getValue())
-                $selected = "selected";
-            $inputBox = "";
-    
-        print <<<EOT
-            <option value="$location->getName()" $selected>$location->getTitle()</option>
-EOT;
-        }
-        
-        echo "</select></td></tr>";
-        
-        WordPressOptionsPage::printHTML_optionFooter();
-    }
-    
-    /**
-     * Prints out the HTML inputs for determining which videos to play
-     * (all tags, any tags, etc.). This is really a helper function
-     * for printHTML_searchArray()
-     */
-    function printHTML_quickSrchVal($value, $searchVars, $inputSize)
-    {
-        $whichValue = "";
-        
-        switch ($value) {
-        
-            case TP_SRCH_TAG:
-                $whichValue = TP_SRCH_TAGVAL;
-                $inputSize = 40;
-                break;
-        
-            case TP_SRCH_REL:
-                $whichValue = TP_SRCH_RELVAL;
-                $inputSize = 40;
-                break;
-        
-            case TP_SRCH_USER:
-                $whichValue = TP_SRCH_USERVAL;
-                break;
-        
-            case TP_SRCH_PLST:
-                $whichValue = TP_SRCH_PLSTVAL;
-                break;
-        
-            case TP_SRCH_POPULAR:
-                $whichValue = TP_SRCH_POPVAL;
-                break;
-        
-            //case TP_SRCH_CATEGORY: $whichValue = TP_SRCH_CATVAL;break;
-        
-            case TP_SRCH_FAV:
-                $whichValue = TP_SRCH_FAVVAL;
-                break;
-        }
-        return '<input type="text" name="' . $searchVars[$whichValue]->getName() 
-            . '" size="' . $inputSize . '" value="' 
-            . $searchVars[$whichValue]->getValue()
-            . '" />';
-    }
+
     
     /**
      * 
      */
-    function printHTML_searchArray($theArray, 
-        $searchVars, $inputSize=20)
+    function printHTML_modes($theArray, $searchVars, $inputSize=20)
     {
         WordPressOptionsPage::printHTML_optionHeader(_tpMsg("WHICHVIDS"));
 
         $radioName = TP_OPT_SEARCHBY;
+
+
     
         foreach ($theArray as $option) {
             $selected = "";
@@ -220,7 +206,7 @@ EOT;
             
             /* The idea here is only the "featured" mode doesn't need any kind of input */
             if ($option->getName() != TP_SRCH_FEATURED) {
-                    $inputBox = WordPressOptionsPage::printHTML_quickSrchVal($option->getName(), 
+                    $inputBox = WordPressOptionsPage::_printHTML_quickSrchVal($option->getName(), 
                         $searchVars, $inputSize);
             }
             
@@ -252,6 +238,51 @@ EOT;
         }
    
         WordPressOptionsPage::printHTML_optionFooter();
+    }
+    
+        /**
+     * Prints out the HTML inputs for determining which videos to play
+     * (all tags, any tags, etc.). This is really a helper function
+     * for printHTML_searchArray()
+     */
+    function _printHTML_quickSrchVal($value, $searchVars, $inputSize)
+    {
+        $whichValue = "";
+        
+        switch ($value) {
+        
+            case TP_SRCH_TAG:
+                $whichValue = TP_SRCH_TAGVAL;
+                $inputSize = 40;
+                break;
+        
+            case TP_SRCH_REL:
+                $whichValue = TP_SRCH_RELVAL;
+                $inputSize = 40;
+                break;
+        
+            case TP_SRCH_USER:
+                $whichValue = TP_SRCH_USERVAL;
+                break;
+        
+            case TP_SRCH_PLST:
+                $whichValue = TP_SRCH_PLSTVAL;
+                break;
+        
+            case TP_SRCH_POPULAR:
+                $whichValue = TP_SRCH_POPVAL;
+                break;
+        
+            case TP_SRCH_CATEGORY:
+            	$whichValue = TP_SRCH_CATVAL;
+            	break;
+        
+            case TP_SRCH_FAV:
+                $whichValue = TP_SRCH_FAVVAL;
+                break;
+        }
+        return sprintf('<input type="text" name="%s" size="%s" value="%s" />',
+        	$searchVars[$whichValue]->getName(), $inputSize, $searchVars[$whichValue]->getValue());
     }
     
     /**

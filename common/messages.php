@@ -51,6 +51,8 @@ $tubepressMessages =
     	  "MISSATT" => "%s is missing from the video's XML",
     	  "PARSERR" => "There was a problem parsing the TubePress tag in this page",
     	  "GALERR" => "There was a problem generating the gallery",
+    	  "DBMISS" => "Database is missing the '%s' option. You have %s out of %s options stored. Perhaps you need to initialize your database?",
+          "OLDDB" => "You have options that are not current TubePressOptions",
           
           /*******************************************************************/
           /*** META INFO *****************************************************/
@@ -105,6 +107,12 @@ $tubepressMessages =
           "USERNAME_TITLE" => "Alternate YouTube username",
           "USERNAME_DESC" => "Default is \"3hough\". Again, no reason to change " .
           		"this value unless you know something I don't :p",
+          "DEBUGDESC" => "Enable debugging", "If set to 'true', " .
+                         "anyone will be able to view your debugging" .
+                         "information. This is a very small privacy" .
+                         "risk. If you're not having problems with" .
+                         "TubePress, or you're worried about revealing" .
+                         "any details of your TubePress pages, feel free to disable debugging here.",
           
           /*******************************************************************/
           /*** MODES *********************************************************/
