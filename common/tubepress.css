@@ -1,0 +1,57 @@
+.tubepress_mainvideo {
+	text-align:center;
+}
+
+.tubepress_meta {
+	color: #666;
+	font-style: italic;
+}
+
+.tubepress_meta_group {
+	padding: 0 17px 0 17px;
+}
+
+.tubepress_pagination {
+	clear: both;
+	float: left;	
+}
+
+.tubepress_pagination .tubepress_prev {
+	float: left;	
+}
+
+.tubepress_pagination .tubepress_next {
+	float: right;	
+}
+
+.tubepress_runtime {
+	font-size: 11px;
+	color: #000;
+	font-weight: bold;
+}
+
+.tubepress_thumb {
+	float: left;
+	width: 33%;
+	line-height: 1.1em;
+	font-size: 11px;
+	height: 175px;
+}
+
+.tubepress_title, .tubepress_title a, .tubepress_title a:hover {
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.tubepress_video_thumb_img {
+	text-align: center;
+}
+
+.tubepress_video_thumbs {
+	clear:both;
+	padding: 0 0 0 5px;
+	height: 500px;
+	overflow:scroll;
+	border: 1px solid gray;
+	padding-top: 1em;
+}

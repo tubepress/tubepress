@@ -1,0 +1,340 @@
+#overlay {
+	/* REQUIRED */
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 50;
+	/* REQUIRED */
+
+}
+
+	/* REQUIRED */
+	#overlay[id] {
+   		position: fixed;
+	}
+	/* REQUIRED */
+
+#lightWindow {
+	/* REQUIRED */
+	/* Of Note - The height and width of this element are set to 0px */
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 100;
+	/* REQUIRED */
+}
+
+	/* REQUIRED */
+	#lightWindow[id] {
+		position: fixed;
+	}
+	/* REQUIRED */
+
+#lightWindow-contents {
+	/* REQUIRED */
+	display: none;
+	position: absolute;
+	overflow: hidden;
+	/* REQUIRED */
+
+	background-color: #ffffff;
+	/* Of Note - If you specify a padding or border be sure to adjust the 'cushion' option, by default its set to 10 */
+	border: 10px solid #ffffff;
+}
+	
+#lightWindow-loading {
+	/* REQUIRED */
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 9999; 
+	/* REQUIRED */
+	
+	background-color: #f0f0f0;
+	padding: 10px;
+}
+
+	#lightWindow-loading-message {
+    	font-size: 14px;
+		line-height: 32px;
+		color: #444444;
+		float: left;
+		padding: 0 10px 0 0;
+	}
+
+	#lightWindow-loading-options {
+    	font-size: 12px;
+		line-height: 32px;
+		color: #444444;
+		float: left;
+		border-left: 2px solid #cccccc;
+		padding: 0 0 0 10px;
+	}	
+
+	#lightWindow-loading-options a, 
+	#lightWindow-loading-options a:visited {
+		color: #09F;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	#lightWindow-loading-options a:hover {
+		text-decoration: underline;
+	}
+
+
+	#lightWindow-loading img {
+   		float: left;
+   		margin: 0 10px 0 0;
+	}
+
+
+/*-----------------------------------------------------------------------------------------------
+	I liked the Navigation so much from http://www.huddletogether.com/projects/lightbox2/
+	I mean let's face it, it works really well and is very easy to figure out.
+-----------------------------------------------------------------------------------------------*/
+
+#lightWindow-navigation {
+	/* REQUIRED */
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 150;
+	/* REQUIRED */
+
+	height: 100%;
+	width: 100%;
+}
+
+	#lightWindow-navigation a { 
+		/* REQUIRED */
+		outline: none;
+		/* REQUIRED */
+	}
+
+	#lightWindow-previous, 
+	#lightWindow-next {
+		width: 49%;
+		height: 100%;
+		background: transparent url(../images/blank.gif) no-repeat; /* Trick IE into showing hover */
+		display: block;
+	}
+
+	#lightWindow-previous { 
+		float: left;
+		left: 0px;
+	}
+
+	#lightWindow-next { 
+		float: right;
+		right: 0px;
+	}
+
+	#lightWindow-previous:hover, 
+	#lightWindow-previous:visited:hover { 
+		background: url(../images/prevlabel.gif) left 15% no-repeat; 
+	}
+
+	#lightWindow-next:hover, 
+	#lightWindow-next:visited:hover { 
+		background: url(../images/nextlabel.gif) right 15% no-repeat; 
+	}
+
+#lightWindow-photo-galleries {
+	/* REQUIRED */
+	height: 20px;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 9999; 
+	/* REQUIRED */
+}
+
+	#lightWindow-photo-tab-container {
+		width: 100%;
+		height: 20px;
+	}
+		
+	#lightWindow-photo-galleries-tab {
+		display: block;
+		height: 20px;
+		width: 70px;
+		float: right;
+		-moz-opacity:  0.70;
+		opacity: .70;
+		filter: alpha(opacity=70);
+		line-height: 22px;
+		color: #ffffff;
+		text-decoration: none;
+		font-weight: bold;
+		cursor: pointer;
+		padding: 0 0 0 7px;
+		font-size: 11px;
+	}
+
+	a:hover#lightWindow-photo-galleries-tab	{
+		color: #ffffbe;
+	}
+
+	.up	{
+		background: url(../images/arrow-up.gif) no-repeat 60px 5px #000000;
+	}
+
+	.down {
+		background: url(../images/arrow-down.gif) no-repeat 60px 6px #000000;
+	}
+
+	#lightWindow-photo-galleries-list {
+		background-color: #000000;
+		-moz-opacity:  0.70;
+		opacity: .70;
+		filter: alpha(opacity=70);
+		overflow: hidden;
+	}
+
+	.lightWindow-photo-gallery-listing {
+		width: 200px;
+		float: left;
+		margin: 0 0 10px 0;
+		padding: 10px;
+	}
+
+	.lightWindow-photo-gallery-listing h1 {	
+		color: #09F;
+		text-decoration: none;
+		font-weight: bold;
+		cursor: pointer;
+		margin: 5px 0 10px 0;
+		font-size: 16px;
+	}
+
+	.lightWindow-photo-gallery-listing li {
+		margin: 0 0 5px 0;
+	}
+
+	.lightWindow-photo-gallery-listing a {
+		display: block;
+		line-height: 22px;
+		color: #ffffff;
+		text-decoration: none;
+		font-weight: bold;
+		cursor: pointer;
+		padding: 0 0 0 10px;
+		font-size: 11px;
+	}
+
+	.lightWindow-photo-gallery-listing a:hover {
+		background: #000000;
+		color: #ffffbe;
+		border-left: 3px solid #ffffbe;
+		padding: 0 0 0 7px;
+	}
+		
+#lightWindow-data {
+	/* REQUIRED */
+	position: absolute;
+	/* REQUIRED */
+	
+	background-color: #ffffff;
+	font-size: 11px;
+	font-family: Verdana, Helvetica, sans-serif;
+}
+
+	#lightWindow-data-slide {
+		/* REQUIRED */
+		position: relative;
+		/* REQUIRED */
+	}
+
+	#lightWindow-data-title {
+		width: 75%;
+		padding: 0 0 0 10px;
+		font-weight: bold;
+		color: #666666;
+		line-height: 1.4em;
+	}
+	
+	#lightWindow-data-caption {
+		width: 75%;
+		padding: 0 0 0 10px;
+		color: #666666;
+		line-height: 1.4em;
+	}
+	
+	#lightWindow-data-author {
+		position: absolute;
+		width: 100px;
+		top: 0px;
+		right: 10px;
+		text-align: right;
+		color: #666666;
+		line-height: 1.4em;
+	 	font-style: italic;
+		font-size: 9px;
+	}
+	
+	#lightWindow-data-image {
+		position: absolute;
+		font-size: 9px;
+		width: 100px;
+		top: 15px;
+		right: 10px;
+		text-align: right;
+		color: #666666;
+		line-height: 1.4em;
+	}
+	
+#lightWindow-title-bar
+{
+	/* REQUIRED */
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	/* REQUIRED */
+	
+
+}
+	
+	#lightWindow-title-bar-title
+	{
+		text-align: left;
+		float: left;
+		color: #ffffbe;
+		font-size: 14px;
+		width: 80%;
+		line-height: 25px;
+		
+		z-index: 50;
+	}
+	
+	#lightWindow-title-bar-close
+	{
+		float: left;
+		width: 20%;
+		text-align: right;
+		line-height: 25px;
+			z-index: 50;
+	}
+	
+	
+	a#lightWindow-title-bar-close-link
+	{
+		cursor: pointer;
+		color: #ffffbe;
+		line-height: 25px;
+		padding: 0;
+		margin: 0;
+	}
+	
+	a:hover#lightWindow-title-bar-close-link
+	{
+		color: #ffffff;
+	}
