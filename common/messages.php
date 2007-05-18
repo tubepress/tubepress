@@ -37,8 +37,8 @@ $tubepressMessages =
           "NOCOUNT" => "YouTube didn't return a total video count",
           "OKNOVIDS" => "YouTube responded with OK, but no video_list returned",
           "BADMODE" => "Invalid mode specified (%s)",
-          "BADTYPE" => "Type mismatch while setting the value for %s. " .
-    		    "Expected %s but instead got %s with value %s",
+          "BADTYPE" => "Type mismatch while setting the value for '%s.' " .
+    		    "Expected a %s but instead got a %s with value '%s'",
     	  "BADVAL" => "This value is not in the valid values list.",
     	  "NOVALS" => "No valid values defined for this option",
     	  "ARRSET" => "Can only set valid options with an array",
@@ -159,8 +159,10 @@ $tubepressMessages =
 
 function _tpMsg() {
 	global $tubepressMessages;
-	if (func_num_args > 1) {
-		return vsprintf($tubepressMessages[func_get_arg(0)], func_get_arg(1));
+	if (func_num_args() > 1) {
+		$format = func_get_arg(0);
+		$args = func_get_arg(1);
+		return vsprintf($tubepressMessages[$format], $args);
 	} else {
 		return $tubepressMessages[func_get_arg(0)];
 	}

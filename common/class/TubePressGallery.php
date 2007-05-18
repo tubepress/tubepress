@@ -117,7 +117,7 @@ class TubePressGallery {
         $css = new TubePressCSS();
         
         /* we only do this stuff if we're operating in "normal" play mode */
-        if ($options->get(TP_OPT_PLAYIN) != TP_PLAYIN_NORMAL) {
+        if ($options->getValue(TP_OPT_PLAYIN) != TP_PLAYIN_NORMAL) {
             return "";
         }
         
@@ -145,8 +145,8 @@ EOT;
      */
     function printHTML_embeddedVid($id, $options)
     {
-        $height = $options->get(TP_OPT_VIDHEIGHT);
-        $width = $options->get(TP_OPT_VIDWIDTH);
+        $height = $options->getValue(TP_OPT_VIDHEIGHT);
+        $width = $options->getValue(TP_OPT_VIDWIDTH);
         
         return <<<EOT
             <object type="application/x-shockwave-flash" 
@@ -172,18 +172,18 @@ EOT;
     
         /* first do the title */    //TODO: is this right???
         $content = sprintf('<div class="%s">', $css->title_class);
-        if ($options->get(TP_VID_TITLE) == true) {
+        if ($options->getValue(TP_VID_TITLE) == true) {
             $content .= sprintf('<a %s>%s</a><br/></div><!--%s-->', 
                 $link, $vid->metaValues[TP_VID_TITLE], $css->title_class);
         }
         
         /* now do the runtime */
-        if ($options->get(TP_VID_LENGTH) == true) {
+        if ($options->getValue(TP_VID_LENGTH) == true) {
             $content .= sprintf('<span class="%s">%s</span><br/>',
                 $css->runtime_class, $vid->metaValues[TP_VID_LENGTH]);
         }
         
-        $metaOptions = array_keys($options->getMetaOptions());
+        $metaOptions = $options->getMetaOptionNames();
         /* now do the rest, since they all look alike */
         foreach ($metaOptions as $metaName) {
             
@@ -192,7 +192,7 @@ EOT;
                 continue;
             }
             /* only bother with the ones the user wants to see */
-            if ($options->get($metaName)) {
+            if ($options->getValue($metaName)) {
                 $content .=  sprintf('<span class="%s">', $css->meta_class);
                 switch ($metaName) {
                     
@@ -201,12 +201,12 @@ EOT;
                         break;
                         
                     case TP_VID_THUMBURL:
-                        $content .= TubePressGallery::printHTML_metaLink($option->title, 
+                        $content .= TubePressGallery::printHTML_metaLink($option->getTitle(), 
                             $vid->metaValues[$metaName]);
                         break;
                         
                     case TP_VID_URL:
-                        $content .= TubePressGallery::printHTML_metaLink($option->title, 
+                        $content .= TubePressGallery::printHTML_metaLink($option->getTitle(), 
                             $vid->metaValues[$metaName]);
                         break;
                         
@@ -283,7 +283,7 @@ EOT;
     
         /* vidcount will always be one more than what the user wanted, 
          * unless we're on the last page */
-        $nextText = (($vidCount < $options->get(TP_OPT_VIDSPERPAGE))? 
+        $nextText = (($vidCount < $options->getValue(TP_OPT_VIDSPERPAGE))? 
             "&nbsp;"
              : TubePressGallery::printHTML_paginationLink($url, $currentPage + 1, "next >"));
     
@@ -345,8 +345,8 @@ EOT;
         
         $caption = sprintf('%s (%s)', $vid->metaValues[TP_VID_TITLE], 
             $vid->metaValues[TP_VID_LENGTH]);
-        $thumbWidth = $options->get(TP_OPT_THUMBWIDTH);
-        $thumbHeight = $options->get(TP_OPT_THUMBHEIGHT);
+        $thumbWidth = $options->getValue(TP_OPT_THUMBWIDTH);
+        $thumbHeight = $options->getValue(TP_OPT_THUMBHEIGHT);
         $title = htmlspecialchars($vid->metaValues[TP_VID_TITLE]);
         $link = TubePressGallery::printHTML_smallVidLinkAttributes($vid, $options);
     
@@ -365,7 +365,7 @@ EOT;
         $content .= TubePressGallery::printHTML_metaInfo($vid, $options, $css, $link);
         $content .= sprintf('</div><!--%s-->', $css->thumb_class);
         
-        if ($options->get(TP_OPT_PLAYIN) == TP_PLAYIN_THICKBOX) {
+        if ($options->getValue(TP_OPT_PLAYIN) == TP_PLAYIN_THICKBOX) {
             $content .= sprintf('<div id="tp%s" style="display:none">%s</div>', 
                 $vid->metaValues[TP_VID_ID],
                 TubePressGallery::printHTML_embeddedVid($vid->metaValues[TP_VID_ID], $options));
@@ -383,10 +383,10 @@ EOT;
     function printHTML_smallVidLinkAttributes($vid, $options)
     {
         $id = $vid->metaValues[TP_VID_ID];
-        $height = $options->get(TP_OPT_VIDHEIGHT);
-        $width = $options->get(TP_OPT_VIDWIDTH);
+        $height = $options->getValue(TP_OPT_VIDHEIGHT);
+        $width = $options->getValue(TP_OPT_VIDWIDTH);
         
-        switch ($options->get(TP_OPT_PLAYIN)) {
+        switch ($options->getValue(TP_OPT_PLAYIN)) {
             case TP_PLAYIN_THICKBOX:
                 return sprintf(
                     'href="#TB_inline?height=350&amp;width=425&amp;' .
@@ -409,8 +409,8 @@ EOT;
             		$options->get('site_url'),
                     htmlspecialchars($vid->metaValues[TP_VID_TITLE]),
                     $id,
-                    $options->get(TP_OPT_VIDWIDTH),
-                    $options->get(TP_OPT_VIDHEIGHT),
+                    $options->getValue(TP_OPT_VIDWIDTH),
+                    $options->getValue(TP_OPT_VIDHEIGHT),
                     htmlspecialchars($vid->metaValues[TP_VID_TITLE]));
         
             case TP_PLAYIN_NORMAL:
@@ -419,7 +419,7 @@ EOT;
             		$id, $height, $width,
                     htmlspecialchars($vid->metaValues[TP_VID_TITLE]),
                     $vid->metaValues[TP_VID_LENGTH],
-                    $options->get('site_url'));
+                    "http://localhost/wp");
     
             default:
             	return sprintf('href="#" onclick="javascript:playVideo(' .

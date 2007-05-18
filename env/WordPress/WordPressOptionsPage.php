@@ -46,12 +46,12 @@ class WordPressOptionsPage
             print <<<EOT
                 <tr valign="top">
                     <th style="font-weight: bold; font-size: 1em" 
-                        scope="row">$option->title:</th>
+                        scope="row">$option->getTitle():</th>
                     <td>$openBracket<input name="$option->getName()" 
                         type="text" id="$option->getName()" class="code"
-                        value="$option->value" size="$inputSize" />
+                        value="$option->getValue()" size="$inputSize" />
                         $closeBracket
-                        <br />$option->description
+                        <br />$option->getDescription()
                     </td>
                 </tr>
 EOT;
@@ -75,7 +75,7 @@ EOT;
             $colCount = $colIterator % 5;
     
             $selected = "";
-            if ($metaOption->value == true) {
+            if ($metaOption->getValue() == true) {
             	$selected = "CHECKED";
             }
             
@@ -88,7 +88,7 @@ EOT;
                     <input type="checkbox" name="meta[]" value="$metaOption->getName()"
                     $selected />
                 </td>
-                <td><b>$metaOption->title</b></td>
+                <td><b>$metaOption->getTitle()</b></td>
 EOT;
             
             if ($colCount == 4) {
@@ -136,17 +136,17 @@ EOT;
         print <<<EOT
             <tr>
                 <th style="font-weight: bold; font-size: 1em">
-                    $theOption->title</th>
+                    $theOption->getTitle()</th>
                 <td><select name="$theOption->getName()">
 EOT;
         foreach ($locationVars as $location) {
             $selected = "";
-            if ($location->getName() == $theOption->value)
+            if ($location->getName() == $theOption->getValue())
                 $selected = "selected";
             $inputBox = "";
     
         print <<<EOT
-            <option value="$location->getName()" $selected>$location->title</option>
+            <option value="$location->getName()" $selected>$location->getTitle()</option>
 EOT;
         }
         
@@ -196,7 +196,7 @@ EOT;
         }
         return '<input type="text" name="' . $searchVars[$whichValue]->getName() 
             . '" size="' . $inputSize . '" value="' 
-            . $searchVars[$whichValue]->value
+            . $searchVars[$whichValue]->getValue()
             . '" />';
     }
     
@@ -213,7 +213,7 @@ EOT;
         foreach ($theArray as $option) {
             $selected = "";
             
-            if ($option->getName() == $searchVars[TP_OPT_SEARCHBY]->value) {
+            if ($option->getName() == $searchVars[TP_OPT_SEARCHBY]->getValue()) {
                 $selected = "CHECKED";
             }
             $inputBox = "";
@@ -232,7 +232,7 @@ EOT;
                 $period = array("day", "week", "month");
                 foreach ($period as $thisPeriod) {
                     $inputBox .= '<option value="' . $thisPeriod . '"';
-                    if ($thisPeriod == $searchVars[TP_SRCH_POPVAL]->value) {
+                    if ($thisPeriod == $searchVars[TP_SRCH_POPVAL]->getValue()) {
                         $inputBox .= ' SELECTED';
                     }
                     $inputBox .= '>' . $thisPeriod . '</option>';
@@ -242,10 +242,10 @@ EOT;
             
             print <<<EOT
                 <tr>
-                    <th style="font-weight: bold; font-size: 1em" valign="top">$option->title</th>
+                    <th style="font-weight: bold; font-size: 1em" valign="top">$option->getTitle()</th>
                     <td>
                         <input type="radio" name="$radioName" id="$option->getName()" value="$option->getName()" $selected /> $inputBox
-                        <br />$option->description
+                        <br />$option->getDescription()
                     </td>
                 </tr>
 EOT;

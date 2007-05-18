@@ -30,7 +30,13 @@ class TubePressXML
     function fetchRawXML($options)
     {   
         $snoopy = new snoopy;
-        $snoopy->read_timeout = $options->get(TP_OPT_TIMEOUT);
+        $snoopy->read_timeout = $options->getValue(TP_OPT_TIMEOUT);
+
+		$request = TubePressXML::generateRequest($options);
+		
+		if (PEAR::isError($request)) {
+			return $request;
+		}
 
         if (!$snoopy->fetch($request)) {
             return PEAR::raiseError(_tpMsg("REFUSED") .
@@ -55,7 +61,7 @@ class TubePressXML
     function parseRawXML(&$youtube_xml)
     {
     
-	    class_exists('XML_Unserializer') || require(dirname(__FILE__) . '/../lib/PEAR/XML/XML_Serializer/Unserializer.php');
+	    class_exists('XML_Unserializer') || require(dirname(__FILE__) . '/../../lib/PEAR/XML/XML_Serializer/Unserializer.php');
 	
         $unserializer_options = array ('parseAttributes' => TRUE);
 

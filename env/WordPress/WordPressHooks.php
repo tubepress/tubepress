@@ -59,18 +59,15 @@ class_exists("WordPressOptionsPage") || require(ABSPATH . "wp-content/plugins/tu
             <br /><br />
 EOT;
     
-        WordPressOptionsPage::printHTML_searchArray($dbOptions->getSearchByOptions(),
-            $dbOptions->getSearchByValues());
+        WordPressOptionsPage::printHTML_modes($dbOptions);
             
-        WordPressOptionsPage::printHTML_genericOptionsArray($dbOptions->getDisplayOptions(),
-            _tpMsg("VIDDISP, 5"));
+        WordPressOptionsPage::printHTML_display($dbOptions);
         
-        WordPressOptionsPage::printHTML_playerLocationMenu($dbOptions);
+        WordPressOptionsPage::printHTML_player($dbOptions);
         
-        WordPressOptionsPage::printHTML_metaArray($dbOptions->getMetaOptions());
+        WordPressOptionsPage::printHTML_meta($dbOptions);
         
-        WordPressOptionsPage::printHTML_genericOptionsArray($dbOptions->getAdvancedOptions(),
-            _tpMsg("ADV_GRP_TITLE"),20);
+        WordPressOptionsPage::printHTML_advanced($dbOptions);
     
         $saveValue = _tpMsg("SAVE");
         

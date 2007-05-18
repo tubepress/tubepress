@@ -75,7 +75,7 @@ class TubePressStatic
      */
     function determineNextAction($options)
     {
-        if ($options->get(TP_OPT_PLAYIN) == TP_PLAYIN_NW
+        if ($options->getValue(TP_OPT_PLAYIN) == TP_PLAYIN_NW
             && isset($_GET[TP_VID_PARAM]))
                 return "SINGLEVIDEO";
     }

@@ -90,8 +90,8 @@ class WordPressOptionsPackage extends TubePressOptionsPackage {
         foreach ($dbOptions->_allOptions as $dbOption) {
             
             /* if we have this option in the tag, let's use that instead */        
-            if (array_key_exists($dbOption->getName(), $customOptions)) {
-            	$result = $dbOptions->setValue($dbOption->getName(), $customOptions[$dbOption->getName()]->getValue());
+            if (array_key_exists($dbOption->getName(), $customOptions)) {            	
+            	$result = $dbOptions->setValue($dbOption->getName(), $customOptions[$dbOption->getName()]);
             	
             	if (PEAR::isError($result)) {
             		return $result;
@@ -124,11 +124,18 @@ class WordPressOptionsPackage extends TubePressOptionsPackage {
      */
     function cleanupTagValue($nameOrValue)
     {
-        return trim(
+        $returnVal = trim(
             str_replace(
                 array("&#8220;", "&#8221;", "&#8217;", "&#8216;",
                       "&#8242;", "&#8243;", "&#34"),"", 
                       trim($nameOrValue)));
+        if ($returnVal == "true") {
+    		return true;
+    	}
+    	if ($returnVal == "false") {
+    		return false;
+    	}
+    	return $returnVal;
     }
     
     /**

@@ -29,6 +29,7 @@ function_exists('_tpMsg') || require('common/messages.php');
 defined(TP_OPTION_NAME) || require('common/defines.php');
 class_exists('WordPressOptionsPackage') || require('env/WordPress/WordPressOptionsPackage.php');
 class_exists('TubePressStatic') || require('common/class/TubePressStatic.php');
+class_exists('TubePressGallery') || require('common/class/TubePressGallery.php');
 
 /**
  * Main filter hook. Looks for a tubepress tag
@@ -48,8 +49,8 @@ function tp_main ($content = '')
         return $content;
     }
 
-    $keyword = $quickOpts[TP_OPT_KEYWORD]->value;
-    if (strpos($content, '[' . $keyword->value) === false) {
+    $keyword = $quickOpts[TP_OPT_KEYWORD]->getValue();
+    if (strpos($content, '[' . $keyword) === false) {
         return $content;
     }
  
@@ -67,8 +68,8 @@ function tp_main ($content = '')
 	/* ------------------------------------------------------------ */ 
 
 	/* Are we debugging? */
-	$debug = $options->get(TP_DEBUG_ON);
-    if ($debug->value == true
+	$debug = $options->getValue(TP_DEBUG_ON);
+    if ($debug == true
         && isset($_GET[TP_DEBUG_PARAM]) 
         && ($_GET[TP_DEBUG_PARAM] == true)) {
             $newcontent .= tp_debug($options);
@@ -105,7 +106,7 @@ function add_tubepress_hooks()
 
     if ($quickOpts != NULL) {
 
-	    switch ($quickOpts[TP_OPT_PLAYIN]->value) {
+	    switch ($quickOpts[TP_OPT_PLAYIN]->getValue()) {
 		    case TP_PLAYIN_THICKBOX:
 			    add_action('wp_head', 'tp_insertThickBox');
 			    break;
