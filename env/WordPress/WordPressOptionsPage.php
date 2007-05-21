@@ -26,10 +26,10 @@ class WordPressOptionsPage
 	function printHTML_advanced($options) {
 	   WordPressOptionsPage::printHTML_optionHeader(_tpMsg("ADV_GRP_TITLE"));
 
-	   WordPressOptionsPackage::_printHTML_textBoxOption(TP_OPT_KEYWORD, $options);
-	   WordPressOptionsPackage::_printHTML_textBoxOption(TP_OPT_TIMEOUT, $options);
-	   WordPressOptionsPackage::_printHTML_textBoxOption(TP_OPT_DEVID, $options);
-	   WordPressOptionsPackage::_printHTML_textBoxOption(TP_OPT_USERNAME, $options);
+	   WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_KEYWORD, $options);
+	   WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_TIMEOUT, $options);
+	   WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_DEVID, $options);
+	   WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_USERNAME, $options);
 	  
 	   $selected = "";
             if ($options->getValue(TP_DEBUG_ON) == true) {
@@ -44,7 +44,7 @@ class WordPressOptionsPage
                 <td><b>$options->getTitle($debugName)</b></td>
 EOT;
 	  
-		WordPressOptionsPackage::_printHTML_textBoxOption(TP_OPT_THUMBHEIGHT, $options);
+		WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_THUMBHEIGHT, $options);
 
        WordPressOptionsPage::printHTML_optionFooter(); 
 	}
@@ -52,11 +52,11 @@ EOT;
 	function printHTML_display($options) {
 	   WordPressOptionsPage::printHTML_optionHeader(_tpMsg("VIDDISP"));
 	   
-	   WordPressOptionsPackage::_printHTML_textBoxOption(TP_OPT_VIDSPERPAGE, $options);
-	   WordPressOptionsPackage::_printHTML_textBoxOption(TP_OPT_VIDWIDTH, $options);
-	   WordPressOptionsPackage::_printHTML_textBoxOption(TP_OPT_VIDHEIGHT, $options);
-	   WordPressOptionsPackage::_printHTML_textBoxOption(TP_OPT_THUMBWIDTH, $options);
-	   WordPressOptionsPackage::_printHTML_textBoxOption(TP_OPT_THUMBHEIGHT, $options);
+	   WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_VIDSPERPAGE, $options);
+	   WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_VIDWIDTH, $options);
+	   WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_VIDHEIGHT, $options);
+	   WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_THUMBWIDTH, $options);
+	   WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_THUMBHEIGHT, $options);
 
        WordPressOptionsPage::printHTML_optionFooter();    
 	}
@@ -96,7 +96,7 @@ EOT;
 	function _printHTML_textBoxOption($optionName, $options) {
 		$openBracket = "";
         $closeBracket = "";
-		if ($options->getName($optionName) == TP_OPT_KEYWORD) {
+		if ($optionName == TP_OPT_KEYWORD) {
         	$openBracket = '[';
            	$closeBracket = ']';
         } 
@@ -188,50 +188,50 @@ EOT;
     /**
      * 
      */
-    function printHTML_modes($theArray, $searchVars, $inputSize=20)
+    function printHTML_modes($options)
     {
         WordPressOptionsPage::printHTML_optionHeader(_tpMsg("WHICHVIDS"));
 
         $radioName = TP_OPT_SEARCHBY;
-
-
-    
-        foreach ($theArray as $option) {
+        
+        $modes = TubePressOptionsPackage::getModeNames();
+        
+        foreach ($modes as $mode) {
             $selected = "";
             
-            if ($option->getName() == $searchVars[TP_OPT_SEARCHBY]->getValue()) {
+            if ($mode == $options->getValue(TP_OPT_SEARCHBY)) {
                 $selected = "CHECKED";
             }
             $inputBox = "";
             
             /* The idea here is only the "featured" mode doesn't need any kind of input */
-            if ($option->getName() != TP_SRCH_FEATURED) {
-                    $inputBox = WordPressOptionsPage::_printHTML_quickSrchVal($option->getName(), 
-                        $searchVars, $inputSize);
+            if ($mode != TP_SRCH_FEATURED) {
+                    $inputBox = WordPressOptionsPage::_printHTML_quickSrchVal($mode, 
+                        $options, 20);
             }
             
             /* handle the "popular" mode */
-            if ($option->getName() == TP_SRCH_POPULAR) {
+            if ($mode == TP_SRCH_POPULAR) {
             	
                 $name = TP_SRCH_POPVAL;
                 $inputBox = '<select name="' . $name . '">';
                 $period = array("day", "week", "month");
                 foreach ($period as $thisPeriod) {
                     $inputBox .= '<option value="' . $thisPeriod . '"';
-                    if ($thisPeriod == $searchVars[TP_SRCH_POPVAL]->getValue()) {
+                    if ($thisPeriod == $options->getValue(TP_SRCH_POPVAL)) {
                         $inputBox .= ' SELECTED';
                     }
                     $inputBox .= '>' . $thisPeriod . '</option>';
                 }
                 $inputBox .= '</select>';
             }
-            
+
             print <<<EOT
                 <tr>
-                    <th style="font-weight: bold; font-size: 1em" valign="top">$option->getTitle()</th>
+                    <th style="font-weight: bold; font-size: 1em" valign="top">{$options->getDescription($mode)}</th>
                     <td>
-                        <input type="radio" name="$radioName" id="$option->getName()" value="$option->getName()" $selected /> $inputBox
-                        <br />$option->getDescription()
+                        <input type="radio" name="$radioName" id="$mode" value="$mode" $selected /> $inputBox
+                        <br />{$options->getDescription($mode)}
                     </td>
                 </tr>
 EOT;
@@ -245,11 +245,11 @@ EOT;
      * (all tags, any tags, etc.). This is really a helper function
      * for printHTML_searchArray()
      */
-    function _printHTML_quickSrchVal($value, $searchVars, $inputSize)
+    function _printHTML_quickSrchVal($mode, $options, $inputSize)
     {
         $whichValue = "";
         
-        switch ($value) {
+        switch ($mode) {
         
             case TP_SRCH_TAG:
                 $whichValue = TP_SRCH_TAGVAL;
@@ -282,7 +282,7 @@ EOT;
                 break;
         }
         return sprintf('<input type="text" name="%s" size="%s" value="%s" />',
-        	$searchVars[$whichValue]->getName(), $inputSize, $searchVars[$whichValue]->getValue());
+        	$mode, $inputSize, $options->getValue($mode));
     }
     
     /**

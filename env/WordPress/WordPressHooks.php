@@ -29,7 +29,13 @@ class_exists("WordPressOptionsPage") || require(ABSPATH . "wp-content/plugins/tu
 	 */
 	function tp_executeOptionsPage()
     {
-    	
+    	if (function_exists('add_options_page')) {
+			add_options_page(_tpMsg("OPTPANELTITLE"), _tpMsg("OPTPANELMENU"), 9, 
+				'WordPressHooks.php', '_tp_executeOptionsPage');
+    	}
+    }
+    function _tp_executeOptionsPage()
+    {
     	/* initialize the database if we need to */
     	WordPressOptionsPackage::initDB();
     	
@@ -116,6 +122,4 @@ GBS;
 	        <link rel="stylesheet" href="{$url}/thickbox.css" media="screen" type="text/css" />
 GBS;
     }
-
-
 ?>

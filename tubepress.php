@@ -96,7 +96,7 @@ function tp_main ($content = '')
 }
 
 function add_tubepress_hooks()
-{
+{	
     add_filter('the_content', 'tp_main');
     add_action('admin_menu',  'tp_executeOptionsPage');    
     add_action('wp_head',     'tp_insertCSSJS');
