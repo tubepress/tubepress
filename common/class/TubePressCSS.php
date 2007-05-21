@@ -28,7 +28,11 @@ class TubePressCSS
         $runtime_class, $title_class, $success_class, $meta_group,
         $pagination, $nextlink, $prevlink;
          
-    function TubePressCSS() {
+    /**
+     * Simple constructor. Nice and easy.
+     */
+    function TubePressCSS()
+    {
         $this->container =             "tubepress_container";
         $this->mainVid_id =            "tubepress_mainvideo";
         $this->mainVid_class =         "tubepress_mainvideo";

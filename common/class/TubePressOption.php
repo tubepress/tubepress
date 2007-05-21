@@ -28,7 +28,8 @@ class TubePressOption
     /**
      * Constructor
      */
-    function TubePressOption($theName, $theTitle, $theDesc, $theValue, $theType = "string")
+    function TubePressOption($theName, $theTitle, $theDesc, $theValue, 
+        $theType = "string")
     {
         $this->_name = $theName;
         $this->_description = $theDesc;
@@ -37,61 +38,80 @@ class TubePressOption
         $this->_type = $theType;
     }
     
-    function getName() {
-    	return $this->_name;
+    /**
+     * Just returns this option's internal name (e.g. "id")
+     */
+    function getName()
+    {
+        return $this->_name;
     }
     
-    function getTitle() {
-    	return $this->_title;
+    /**
+     * Returns this option's visible title (e.g. "Video ID"")
+     */
+    function getTitle()
+    {
+        return $this->_title;
     }
     
-    function getDescription() {
-    	return $this->_description;
+    /**
+     * Returns this option's visible description (e.g. "YouTube video id")
+     */
+    function getDescription()
+    {
+        return $this->_description;
     }
     
-    function getValue() {
-    	return $this->_value;
+    /**
+     * This option's current value (e.g. "12345678abc")
+     */
+    function getValue()
+    {
+        return $this->_value;
     }
     
-    function setValue($candidate) {
-    	if (gettype($candidate) != $this->_type) {
-    		return PEAR::raiseError(_tpMsg("BADTYPE", 
-    		    array($this->_title, $this->_type,
-    		    gettype($candidate), $candidate)));
-    	}
-    	
-    	if (is_array($this->_valid_values)) {
-    		$validOpt = false;
-    		foreach ($this->_valid_values as $val) {
-    			if ($val->_name == $candidate) {
-    				$validOpt = true;
-    			}
-    		}
-    		if ($validOpt == false) {
-    			return PEAR::raiseError(_tpMsg("BADVAL"));
-    		}
-    	}
-    	$this->_value = $candidate;
+    function setValue($candidate)
+    {
+        if (gettype($candidate) != $this->_type) {
+            return PEAR::raiseError(_tpMsg("BADTYPE", 
+                array($this->_title, $this->_type,
+                gettype($candidate), $candidate)));
+        }
+        
+        if (is_array($this->_valid_values)) {
+            $validOpt = false;
+            foreach ($this->_valid_values as $val) {
+                if ($val->_name == $candidate) {
+                    $validOpt = true;
+                }
+            }
+            if ($validOpt == false) {
+                return PEAR::raiseError(_tpMsg("BADVAL"));
+            }
+        }
+        $this->_value = $candidate;
     }
     
-    function getValidValues() {
-    	if (is_array($this->_valid_values)) {
-    		return $this->_valid_values;
-    	}
-    	return PEAR::raiseError(_tpMsg("NOVALS"));
+    function getValidValues()
+    {
+        if (is_array($this->_valid_values)) {
+            return $this->_valid_values;
+        }
+        return PEAR::raiseError(_tpMsg("NOVALS"));
     }
     
-    function setValidValues($theVals) {
-    	if (!is_array($theVals)) {
-    		return PEAR::raiseError(_tpMsg("ARRSET"));
-    	}
-    	foreach ($theVals as $val) {
-    		if (!is_a($val, TubePressEnum)) {
-    			return PEAR::raiseError(_tpMsg("VALTYPE"));
-    		}
-    	}
+    function setValidValues($theVals)
+    {
+        if (!is_array($theVals)) {
+            return PEAR::raiseError(_tpMsg("ARRSET"));
+        }
+        foreach ($theVals as $val) {
+            if (!is_a($val, TubePressEnum)) {
+                return PEAR::raiseError(_tpMsg("VALTYPE"));
+            }
+        }
     
-    	$this->_valid_values = $theVals;
+        $this->_valid_values = $theVals;
     }
 }
 ?>

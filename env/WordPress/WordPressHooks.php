@@ -21,13 +21,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("WordPressOptionsPage") || require(ABSPATH . "wp-content/plugins/tubepress/env/WordPress/WordPressOptionsPage.php");
+class_exists("WordPressOptionsPage")
+    || require(ABSPATH . 
+    "wp-content/plugins/tubepress/env/WordPress/WordPressOptionsPage.php");
 
-	/**
-	 * This is the main method for the TubePress global options page,
-	 * which is loaded when you're in the wp-admin section of your blog
-	 */
-	function tp_executeOptionsPage()
+    /**
+     * This is the main method for the TubePress global options page,
+     * which is loaded when you're in the wp-admin section of your blog
+     */
+    function tp_executeOptionsPage()
     {
     	if (function_exists('add_options_page')) {
 			add_options_page(_tpMsg("OPTPANELTITLE"), _tpMsg("OPTPANELMENU"), 9, 
@@ -43,16 +45,17 @@ class_exists("WordPressOptionsPage") || require(ABSPATH . "wp-content/plugins/tu
         $dbOptions = new WordPressOptionsPackage();
     
         if (PEAR::isError($dbOptions->error)) {
-        	$css = new TubePressCSS();
-        	WordPressOptionsPage::printStatusMsg($dbOptions->error->msg, $css->failure_class);
+            $css = new TubePressCSS();
+            WordPressOptionsPage::printStatusMsg($dbOptions->error->msg,
+                $css->failure_class);
         }
     
         $pageTitle = _tpMsg("OPTPANELTITLE");
     
         /* are we updating? */
         if (isset($_POST['tubepress_save'])) {
-        	
-        	WordPressOptionsPage::update();
+            
+            WordPressOptionsPage::update();
             
             $dbOptions = new WordPressOptionsPackage();
         }
@@ -60,7 +63,8 @@ class_exists("WordPressOptionsPage") || require(ABSPATH . "wp-content/plugins/tu
         print <<<EOT
         <div class="wrap">
               <form method="post">
-            <h2>$pageTitle</h2>Set default options for the plugin. Each option here can be overridden 
+            <h2>$pageTitle</h2>Set default options for the plugin. 
+            Each option here can be overridden 
             on any page that has your TubePress trigger tag.
             <br /><br />
 EOT;
@@ -78,35 +82,44 @@ EOT;
         $saveValue = _tpMsg("SAVE");
         
         print <<<EOT
-            <input type="submit" name="tubepress_save" value="$saveValue" />
+            <input type="submit" name="tubepress_save" 
+                value="$saveValue" />
               </form>
          </div>
 EOT;
     
     }
-	
+    
     /**
      * Spits out the CSS and JS files that we always need for TubePress
      */
     function tp_insertCSSJS()
     {
-    	$url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
-	    print<<<GBS
-	        <script type="text/javascript" src="{$url}/tubepress.js"></script>
-	        <link rel="stylesheet" href="{$url}/tubepress.css" type="text/css" />
+        $url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
+        print<<<GBS
+            <script type="text/javascript" src="{$url}/tubepress.js"></script>
+            <link rel="stylesheet" href="{$url}/tubepress.css" 
+                type="text/css" />
 GBS;
     }
 
     /**
      * Spits out the CSS and JS files that we need for LightWindow
      */
-    function tp_insertLightWindow() {
-	    $url = get_settings('siteurl') . "/wp-content/plugins/tubepress/lib/lightWindow";
+    function tp_insertLightWindow()
+    {
+        $url = get_settings('siteurl') .
+            "/wp-content/plugins/tubepress/lib/lightWindow";
         print<<<GBS
-            <script type="text/javascript" src="{$url}/javascript/prototype.js"></script>
-    	    <script type="text/javascript" src="{$url}/javascript/effects.js"></script>
-	        <script type="text/javascript" src="{$url}/javascript/lightWindow.js"></script>
-	        <link rel="stylesheet" href="{$url}/css/lightWindow.css" media="screen" type="text/css" />
+            <script type="text/javascript" 
+                src="{$url}/javascript/prototype.js"></script>
+            <script type="text/javascript" 
+                src="{$url}/javascript/effects.js"></script>
+            <script type="text/javascript" 
+                src="{$url}/javascript/lightWindow.js"></script>
+            <link rel="stylesheet" 
+                href="{$url}/css/lightWindow.css" 
+                media="screen" type="text/css" />
 GBS;
     }
 
@@ -115,11 +128,15 @@ GBS;
      */
     function tp_insertThickBox()
     {
-	    $url = get_settings('siteurl') . "/wp-content/plugins/tubepress/lib/thickbox";
-	    print<<<GBS
-	        <script type="text/javascript" src="{$url}/jquery.js"></script>
-	        <script type="text/javascript" src="{$url}/thickbox.js"></script>
-	        <link rel="stylesheet" href="{$url}/thickbox.css" media="screen" type="text/css" />
+        $url = get_settings('siteurl') .
+            "/wp-content/plugins/tubepress/lib/thickbox";
+        print<<<GBS
+            <script type="text/javascript" 
+                src="{$url}/jquery.js"></script>
+            <script type="text/javascript"
+                src="{$url}/thickbox.js"></script>
+            <link rel="stylesheet"
+                href="{$url}/thickbox.css" media="screen" type="text/css" />
 GBS;
     }
 ?>

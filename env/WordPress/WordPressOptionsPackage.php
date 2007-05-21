@@ -22,51 +22,59 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists('TubePressOptionsPackage') || require(dirname(__FILE__) . "/../../common/class/TubePressOptionsPackage.php");
-class_exists("PEAR") || require(ABSPATH . "wp-content/plugins/tubepress/lib/PEAR/PEAR.php");
+class_exists('TubePressOptionsPackage')
+    || require(dirname(__FILE__) .
+        "/../../common/class/TubePressOptionsPackage.php");
+class_exists("PEAR")
+    || require(ABSPATH .
+        "wp-content/plugins/tubepress/lib/PEAR/PEAR.php");
 
-class WordPressOptionsPackage extends TubePressOptionsPackage {
-	
-	/* need to keep the tag string around for string replacement later */
-	var $tagString;
-	 
-	/**
-	 * Default constructor. Just pulls the options from the db. Will return
-	 * error if the options appear to be corrupt.
-	 */
-	function WordPressOptionsPackage()
-	{
-		/* In the db we now store all the options in a single, flat array */
-	    $options = get_option(TP_OPTION_NAME);
-	    
-	    $result = TubePressOptionsPackage::areValid($options);
-	    if (PEAR::isError($result)) {
-	    	$this->error = $result;
-	    	return;
-	    }
-	  
-	    foreach ($options as $option) {
+class WordPressOptionsPackage extends TubePressOptionsPackage
+{
+    
+    /* need to keep the tag string around for string replacement later */
+    var $tagString;
+     
+    /**
+     * Default constructor. Just pulls the options from the db. Will return
+     * error if the options appear to be corrupt.
+     */
+    function WordPressOptionsPackage()
+    {
+        /* In the db we now store all the options in a single, flat array */
+        $options = get_option(TP_OPTION_NAME);
+        
+        $result = TubePressOptionsPackage::areValid($options);
+        if (PEAR::isError($result)) {
+            $this->error = $result;
+            return;
+        }
+      
+        foreach ($options as $option) {
             $this->_allOptions[$option->getName()] = $option;
         }
-	} 
-	 
+    } 
+     
     /**
      * This function is used when the plugin parses a tag from a post/page.
      * It pulls all the options from the db, but uses option values found in the
      * tag when it can.
      */
-    function parse($keyword, $content) {
-    	
-    	$customOptions = array();  
-    	  
-        /* Use a regular expression to match everything in square brackets after the TubePress keyword */
+    function parse($keyword, $content)
+    {
+        
+        $customOptions = array();  
+          
+        /* Use a regular expression to match everything in square brackets 
+         * after the TubePress keyword */
         $regexp = '\[' . $keyword . "(.*)\]";
         preg_match("/$regexp/", $content, $matches);
 
         /* Anything was matched by the parentheses? */
         if (isset($matches[1])) {
         
-            /* Break up the options by comma and store them in an associative array */
+            /* Break up the options by comma and store them in an 
+             * associative array */
             $pairs = explode(",", $matches[1]);
         
             $optionsArray = array();
@@ -81,7 +89,7 @@ class WordPressOptionsPackage extends TubePressOptionsPackage {
         $dbOptions = new WordPressOptionsPackage();
         
         if (PEAR::isError($dbOptions->error)) {
-        	return $dbOptions->error;
+            return $dbOptions->error;
         }
         
         /* we'll need the full tag string so we can replace it later */
@@ -90,19 +98,19 @@ class WordPressOptionsPackage extends TubePressOptionsPackage {
         foreach ($dbOptions->_allOptions as $dbOption) {
             
             /* if we have this option in the tag, let's use that instead */        
-            if (array_key_exists($dbOption->getName(), $customOptions)) {            	
-            	$result = $dbOptions->setValue($dbOption->getName(), $customOptions[$dbOption->getName()]);
-            	
-            	if (PEAR::isError($result)) {
-            		return $result;
-            	}
+            if (array_key_exists($dbOption->getName(), $customOptions)) {                
+                $result = $dbOptions->setValue($dbOption->getName(), $customOptions[$dbOption->getName()]);
+                
+                if (PEAR::isError($result)) {
+                    return $result;
+                }
             }
         }
         
         /* one last error check */
         $result = TubePressOptionsPackage::areValid($dbOptions->_allOptions);
         if (PEAR::isError($result)) {
-        	return $result;
+            return $result;
         }
         
         return $dbOptions;
@@ -114,8 +122,8 @@ class WordPressOptionsPackage extends TubePressOptionsPackage {
     function initDB()
     {
         WordPressOptionsPackage::deleteLegacyOptions();
-	    
-	    add_option(TP_OPTION_NAME, TubePressOptionsPackage::getDefaultPackage());
+        
+        add_option(TP_OPTION_NAME, TubePressOptionsPackage::getDefaultPackage());
     }
 
     /**
@@ -130,12 +138,12 @@ class WordPressOptionsPackage extends TubePressOptionsPackage {
                       "&#8242;", "&#8243;", "&#34"),"", 
                       trim($nameOrValue)));
         if ($returnVal == "true") {
-    		return true;
-    	}
-    	if ($returnVal == "false") {
-    		return false;
-    	}
-    	return $returnVal;
+            return true;
+        }
+        if ($returnVal == "false") {
+            return false;
+        }
+        return $returnVal;
     }
     
     /**

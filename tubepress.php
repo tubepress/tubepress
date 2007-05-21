@@ -8,7 +8,7 @@ Version: 1.5.0
 Author URI: http://ehough.com
 
 Copyright (C) 2007 Eric D. Hough (http://ehough.com)
-
+    
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
 as published by the Free Software Foundation; either version 2
@@ -24,12 +24,20 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-function_exists('tp_insertCSSJS') || require('env/WordPress/WordPressHooks.php');
-function_exists('_tpMsg') || require('common/messages.php');
-defined(TP_OPTION_NAME) || require('common/defines.php');
-class_exists('WordPressOptionsPackage') || require('env/WordPress/WordPressOptionsPackage.php');
-class_exists('TubePressStatic') || require('common/class/TubePressStatic.php');
-class_exists('TubePressGallery') || require('common/class/TubePressGallery.php');
+function_exists('tp_insertCSSJS')
+    || require('env/WordPress/WordPressHooks.php');
+function_exists('_tpMsg')
+    || require('common/messages.php');
+    
+defined(TP_OPTION_NAME)
+    || require('common/defines.php');
+    
+class_exists('WordPressOptionsPackage')
+    || require('env/WordPress/WordPressOptionsPackage.php');
+class_exists('TubePressStatic')
+    || require('common/class/TubePressStatic.php');
+class_exists('TubePressGallery')
+    || require('common/class/TubePressGallery.php');
 
 /**
  * Main filter hook. Looks for a tubepress tag
@@ -38,11 +46,11 @@ class_exists('TubePressGallery') || require('common/class/TubePressGallery.php')
 function tp_main ($content = '')
 {
     /* Store everything we generate in the following string */
- 	$newcontent = "";
-	
-	/* ------------------------------------------------------------ */
-	/* ------------ DETERMINE IF WE NEED TO EXECUTE --------------- */
-	/* ------------------------------------------------------------ */
+     $newcontent = "";
+    
+    /* ------------------------------------------------------------ */
+    /* ------------ DETERMINE IF WE NEED TO EXECUTE --------------- */
+    /* ------------------------------------------------------------ */
 
     $quickOpts = get_option(TP_OPTION_NAME);
     if ($quickOpts == NULL) {
@@ -54,47 +62,50 @@ function tp_main ($content = '')
         return $content;
     }
  
-	/* ------------------------------------------------------------ */
-	/* ------------ PARSE THE TAG --------------------------------- */
-	/* ------------------------------------------------------------ */ 
+    /* ------------------------------------------------------------ */
+    /* ------------ PARSE THE TAG --------------------------------- */
+    /* ------------------------------------------------------------ */ 
  
     $options = WordPressOptionsPackage::parse($keyword, $content);
-	if (PEAR::isError($options)) {
-	    return TubePressStatic::bail(_tpMsg("PARSERR"), $options);
-	}
+    if (PEAR::isError($options)) {
+        return TubePressStatic::bail(_tpMsg("PARSERR"), $options);
+    }
 
-	/* ------------------------------------------------------------ */
-	/* ------------ PRINT DEBUG OUTPUT IF WE NEED IT -------------- */
-	/* ------------------------------------------------------------ */ 
+    /* ------------------------------------------------------------ */
+    /* ------------ PRINT DEBUG OUTPUT IF WE NEED IT -------------- */
+    /* ------------------------------------------------------------ */ 
 
-	/* Are we debugging? */
-	$debug = $options->getValue(TP_DEBUG_ON);
+    /* Are we debugging? */
+    $debug = $options->getValue(TP_DEBUG_ON);
     if ($debug == true
         && isset($_GET[TP_DEBUG_PARAM]) 
         && ($_GET[TP_DEBUG_PARAM] == true)) {
             $newcontent .= tp_debug($options);
     }
     
-	/* ------------------------------------------------------------ */
-	/* ------------ NOW THE FUN PART ------------------------------ */
-	/* ------------------------------------------------------------ */ 
+    /* ------------------------------------------------------------ */
+    /* ------------ NOW THE FUN PART ------------------------------ */
+    /* ------------------------------------------------------------ */ 
 
-	switch (TubePressStatic::determineNextAction($options)) {
-	    case "SINGLEVIDEO":
-	        $newcontent .= TubePressGallery::printHTML_singleVideo($options);
-	        break;
+    switch (TubePressStatic::determineNextAction($options)) {
+        case "SINGLEVIDEO":
+            $newcontent .= TubePressGallery::printHTML_singleVideo($options);
+            break;
         default:
             $result = TubePressGallery::generate($options);
             $newcontent .= PEAR::isError($result)?
                 TubePressStatic::bail(_tpMsg("GALERR"), $result) :
                 $result;
             break;
-	}
+    }
 
     /* We're done! Replace the tag with our new content */
     return str_replace($options->tagString, $newcontent, $content);
 }
 
+/**
+ * Adds the WordPress hooks. Simple!
+ */
 function add_tubepress_hooks()
 {	
     add_filter('the_content', 'tp_main');
@@ -106,15 +117,15 @@ function add_tubepress_hooks()
 
     if ($quickOpts != NULL) {
 
-	    switch ($quickOpts[TP_OPT_PLAYIN]->getValue()) {
-		    case TP_PLAYIN_THICKBOX:
-			    add_action('wp_head', 'tp_insertThickBox');
-			    break;
-    		case TP_PLAYIN_LWINDOW:
-	    		add_action('wp_head', 'tp_insertLightWindow');
-		    	break;
-		    default:
-	    }
+        switch ($quickOpts[TP_OPT_PLAYIN]->getValue()) {
+            case TP_PLAYIN_THICKBOX:
+                add_action('wp_head', 'tp_insertThickBox');
+                break;
+            case TP_PLAYIN_LWINDOW:
+                add_action('wp_head', 'tp_insertLightWindow');
+                break;
+            default:
+        }
     }   
 }
 

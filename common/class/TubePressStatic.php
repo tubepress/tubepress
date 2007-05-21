@@ -22,27 +22,27 @@
 */
 
 class TubePressStatic
-{	
-	/**
-	 * Take a PEAR error object and return a prettified message
-	 */
+{    
+    /**
+     * Take a PEAR error object and return a prettified message
+     */
     function bail($msg, $error)
     {
-    	$returnMsg = sprintf("%s (%s)<br /><br />", $msg, $error->message);
-    	
-    	foreach ($error->getBackTrace() as $back) {
-    		if (strpos($back['file'], "plugins/tubepress") === false) {
-    			continue;
-    		}
-    		if (!(strpos($back['file'], "lib/PEAR") === false)) {
-    			continue;
-    		}
-    		$returnMsg .= 
-    		    sprintf("%s line %s <br />",
-    		        substr($back['file'], strpos($back['file'], "tubepress")),
-    		        $back['line']);
-    	}
-	    return $returnMsg;
+        $returnMsg = sprintf("%s (%s)<br /><br />", $msg, $error->message);
+        
+        foreach ($error->getBackTrace() as $back) {
+            if (strpos($back['file'], "plugins/tubepress") === false) {
+                continue;
+            }
+            if (!(strpos($back['file'], "lib/PEAR") === false)) {
+                continue;
+            }
+            $returnMsg .= 
+                sprintf("%s line %s <br />",
+                    substr($back['file'], strpos($back['file'], "tubepress")),
+                    $back['line']);
+        }
+        return $returnMsg;
     }
 
     /**
@@ -50,7 +50,7 @@ class TubePressStatic
      */
     function areWePaging($options)
     {
-    	//TODO: fix me!
+        //TODO: fix me!
         $searchBy = $options->getValue(TP_OPT_SEARCHBY);
         if (($searchBy == TP_SRCH_USER)
             || ($searchBy == TP_SRCH_TAG)
@@ -76,8 +76,10 @@ class TubePressStatic
     function determineNextAction($options)
     {
         if ($options->getValue(TP_OPT_PLAYIN) == TP_PLAYIN_NW
-            && isset($_GET[TP_VID_PARAM]))
+            && isset($_GET[TP_VID_PARAM])) {
                 return "SINGLEVIDEO";
+            }
+                
     }
 }
 ?>

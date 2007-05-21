@@ -32,11 +32,11 @@ class TubePressXML
         $snoopy = new snoopy;
         $snoopy->read_timeout = $options->getValue(TP_OPT_TIMEOUT);
 
-		$request = TubePressXML::generateRequest($options);
-		
-		if (PEAR::isError($request)) {
-			return $request;
-		}
+        $request = TubePressXML::generateRequest($options);
+        
+        if (PEAR::isError($request)) {
+            return $request;
+        }
 
         if (!$snoopy->fetch($request)) {
             return PEAR::raiseError(_tpMsg("REFUSED") .
@@ -61,8 +61,8 @@ class TubePressXML
     function parseRawXML(&$youtube_xml)
     {
     
-	    class_exists('XML_Unserializer') || require(dirname(__FILE__) . '/../../lib/PEAR/XML/XML_Serializer/Unserializer.php');
-	
+        class_exists('XML_Unserializer') || require(dirname(__FILE__) . '/../../lib/PEAR/XML/XML_Serializer/Unserializer.php');
+    
         $unserializer_options = array ('parseAttributes' => TRUE);
 
         $Unserializer = &new XML_Unserializer($unserializer_options);
@@ -87,12 +87,12 @@ class TubePressXML
     
         /* see if YouTube liked us */
         if ($result['status'] != "ok") {
-    	    $msg = "Unknown error";
-    	    if (is_array($result['error']) && array_key_exists('description', $result['error']) 
-    	        && array_key_exists('code', $result['error'])) {
-    		        $msg = $result['error']['description'] . " Code " . $result['error']['code'];
-    	    }
-    	    return PEAR::raiseError(_tpMsg("YTERROR", $msg));
+            $msg = "Unknown error";
+            if (is_array($result['error']) && array_key_exists('description', $result['error']) 
+                && array_key_exists('code', $result['error'])) {
+                    $msg = $result['error']['description'] . " Code " . $result['error']['code'];
+            }
+            return PEAR::raiseError(_tpMsg("YTERROR", $msg));
         }
 
         if (!array_key_exists('total', $result['video_list'])) {
@@ -101,7 +101,7 @@ class TubePressXML
     
         /* if we have a video_list, just return it */
         if (is_array($result['video_list'])) {
-    	    return $result['video_list'];
+            return $result['video_list'];
         }
     
         return PEAR::raiseError(_tpMsg("OKNOVIDS"));
@@ -109,14 +109,14 @@ class TubePressXML
 
     function generateRequest($options)
     {
-    	class_exists('TubePressStatic') || require("TubePressStatic.php");
-    	
+        class_exists('TubePressStatic') || require("TubePressStatic.php");
+        
         $request = TP_YOUTUBE_RESTURL . "method=youtube.";
 
-		$result = $options->getValue(TP_OPT_SEARCHBY);
-		if (PEAR::isError($result)) {
-			return $result;
-		}
+        $result = $options->getValue(TP_OPT_SEARCHBY);
+        if (PEAR::isError($result)) {
+            return $result;
+        }
 
         switch ($result) {
        
@@ -167,7 +167,8 @@ class TubePressXML
         }
 
         if (TubePressStatic::areWePaging($options)) {
-            $pageNum = ((isset($_GET[TP_PAGE_PARAM]))? $_GET[TP_PAGE_PARAM] : 1);
+            $pageNum = ((isset($_GET[TP_PAGE_PARAM]))?
+                $_GET[TP_PAGE_PARAM] : 1);
             $request .= sprintf("&page=%s&per_page=%s",
                 $pageNum, $options->getValue(TP_OPT_VIDSPERPAGE));
         }
@@ -175,8 +176,9 @@ class TubePressXML
         $request .= "&dev_id=" . $options->getValue(TP_OPT_DEVID);
         return $request;
     }
-    function TubePressXML() {
-    	die("This is a static class");
+    function TubePressXML()
+    {
+        die("This is a static class");
     }
 }
 ?>
