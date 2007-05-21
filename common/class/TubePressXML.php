@@ -135,9 +135,14 @@ class TubePressXML
                     "&tag=" . urlencode($options->getValue(TP_SRCH_TAGVAL));
                 break;
             
+            /* list_by_related is now deprecated, and returns identical results to
+             * list_by_tag. See http://groups.google.com/group/youtube-api-newbies/
+             * browse_thread/thread/871006b92d2141c3/66eef9a7fced754e?
+             * lnk=gst&q=list_by_tag+identical&rnum=1#66eef9a7fced754e
+             */
             case TP_SRCH_REL:
-                $request .= "videos.list_by_related" .
-                    "&tag=" . urlencode($options->getValue(TP_SRCH_RELVAL));
+                $request .= "videos.list_by_tag" .
+                    "&tag=" . urlencode($options->getValue(TP_SRCH_TAGVAL));
                 break;
             
             case TP_SRCH_PLST:

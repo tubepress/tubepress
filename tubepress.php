@@ -103,6 +103,9 @@ function tp_main ($content = '')
     return str_replace($options->tagString, $newcontent, $content);
 }
 
+/* don't forget to add our hooks! */
+add_tubepress_hooks();
+
 /**
  * Adds the WordPress hooks. Simple!
  */
@@ -129,6 +132,5 @@ function add_tubepress_hooks()
     }   
 }
 
-/* don't forget to add our hooks! */
-add_tubepress_hooks();
+
 ?>

@@ -22,8 +22,7 @@
 */
 
 class_exists("WordPressOptionsPage")
-    || require(ABSPATH . 
-    "wp-content/plugins/tubepress/env/WordPress/WordPressOptionsPage.php");
+    || require("WordPressOptionsPage.php");
 
     /**
      * This is the main method for the TubePress global options page,
@@ -44,6 +43,7 @@ class_exists("WordPressOptionsPage")
     	/* see what we've got in the db */
         $dbOptions = new WordPressOptionsPackage();
     
+        /* any db failures? */
         if (PEAR::isError($dbOptions->error)) {
             $css = new TubePressCSS();
             WordPressOptionsPage::printStatusMsg($dbOptions->error->msg,
