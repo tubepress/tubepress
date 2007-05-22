@@ -39,7 +39,7 @@ class TubePressOption
     }
     
     /**
-     * Just returns this option's internal name (e.g. "id")
+     * This option's internal name (e.g. "id")
      */
     function getName()
     {
@@ -47,7 +47,7 @@ class TubePressOption
     }
     
     /**
-     * Returns this option's visible title (e.g. "Video ID"")
+     * This option's visible title (e.g. "Video ID"")
      */
     function getTitle()
     {
@@ -55,7 +55,7 @@ class TubePressOption
     }
     
     /**
-     * Returns this option's visible description (e.g. "YouTube video id")
+     * This option's visible description (e.g. "YouTube video id")
      */
     function getDescription()
     {
@@ -70,28 +70,32 @@ class TubePressOption
         return $this->_value;
     }
     
+    /**
+     * FIXME
+     */
     function setValue($candidate)
     {
+    	/* make sure it's the right type */
         if (gettype($candidate) != $this->_type) {
             return PEAR::raiseError(_tpMsg("BADTYPE", 
                 array($this->_title, $this->_type,
                 gettype($candidate), $candidate)));
         }
         
-        if (is_array($this->_valid_values)) {
-            $validOpt = false;
-            foreach ($this->_valid_values as $val) {
-                if ($val->_name == $candidate) {
-                    $validOpt = true;
-                }
-            }
-            if ($validOpt == false) {
-                return PEAR::raiseError(_tpMsg("BADVAL"));
-            }
+        /* see if it's a valid value */
+        if (!in_array($candidate, $this->_valid_values)) {
+        	return PEAR::raiseError(_tpMsg("BADVAL",
+        	$candidate, $this->_title,
+        	implode(", ", $this->_valid_values)));
         }
+        
+        /* looks good! */
         $this->_value = $candidate;
     }
     
+    /**
+     * FIXME
+     */
     function getValidValues()
     {
         if (is_array($this->_valid_values)) {
@@ -100,17 +104,15 @@ class TubePressOption
         return PEAR::raiseError(_tpMsg("NOVALS"));
     }
     
+    /**
+     * FIXME
+     */
     function setValidValues($theVals)
     {
         if (!is_array($theVals)) {
             return PEAR::raiseError(_tpMsg("ARRSET"));
         }
-        foreach ($theVals as $val) {
-            if (!is_a($val, TubePressEnum)) {
-                return PEAR::raiseError(_tpMsg("VALTYPE"));
-            }
-        }
-    
+
         $this->_valid_values = $theVals;
     }
 }

@@ -44,12 +44,12 @@ class TubePressOptionsPackageTest extends UnitTestCase {
 	}
 	
 	function testSetNonBoolDebugger() {
-		$result = $this->v->setValue(TP_DEBUG_ON, "fake");
+		$result = $this->v->setValue(TP_OPT_DEBUG, "fake");
 		$this->assertTrue(PEAR::isError($result));
 	}
 	
 	function testSetNonBoolDebugger2() {
-		$result = $this->v->setValue(TP_DEBUG_ON, true);
+		$result = $this->v->setValue(TP_OPT_DEBUG, true);
 		$this->assertFalse(PEAR::isError($result));
 	}
 	

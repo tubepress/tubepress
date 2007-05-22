@@ -96,9 +96,7 @@ class WordPressOptionsPackage extends TubePressOptionsPackage
         $dbOptions->tagString = $matches[0];
 
         foreach ($dbOptions->_allOptions as $dbOption) {
-            
-            
-            
+
             /* if we have this option in the tag, let's use that instead */        
             if (array_key_exists($dbOption->getName(), $customOptions)) {                
                 $result = $dbOptions->setValue($dbOption->getName(), $customOptions[$dbOption->getName()]);

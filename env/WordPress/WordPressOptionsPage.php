@@ -32,10 +32,10 @@ class WordPressOptionsPage
 	   WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_USERNAME, $options);
 	  
 	   $selected = "";
-            if ($options->getValue(TP_DEBUG_ON) == true) {
+            if ($options->getValue(TP_OPT_DEBUG) == true) {
             	$selected = "CHECKED";
             }
-        $debugName = TP_DEBUG_ON;
+        $debugName = TP_OPT_DEBUG;
 	  print <<< EOT
 	                  <td>
                     <input type="checkbox" name="$debugName" value="$debugName"
@@ -122,7 +122,7 @@ EOT;
     {
         WordPressOptionsPage::printHTML_optionHeader(_tpMsg("META"));
         
-        $metas = TubePressOptionsPackage::getMetaOptionNames();
+        $metas = TubePressVideo::getMetaNames();
         
         echo "<tr><td width='10%'></td><td><table cellspacing='0' " .
                 "cellpadding='0' width='100%'>";
@@ -205,20 +205,20 @@ EOT;
             $inputBox = "";
             
             /* The idea here is only the "featured" mode doesn't need any kind of input */
-            if ($mode != TP_SRCH_FEATURED) {
+            if ($mode != TP_MODE_FEATURED) {
                     $inputBox = WordPressOptionsPage::_printHTML_quickSrchVal($mode, 
                         $options, 20);
             }
             
             /* handle the "popular" mode */
-            if ($mode == TP_SRCH_POPULAR) {
+            if ($mode == TP_MODE_POPULAR) {
             	
-                $name = TP_SRCH_POPVAL;
+                $name = TP_OPT_POPVAL;
                 $inputBox = '<select name="' . $name . '">';
                 $period = array("day", "week", "month");
                 foreach ($period as $thisPeriod) {
                     $inputBox .= '<option value="' . $thisPeriod . '"';
-                    if ($thisPeriod == $options->getValue(TP_SRCH_POPVAL)) {
+                    if ($thisPeriod == $options->getValue(TP_OPT_POPVAL)) {
                         $inputBox .= ' SELECTED';
                     }
                     $inputBox .= '>' . $thisPeriod . '</option>';
@@ -251,34 +251,34 @@ EOT;
         
         switch ($mode) {
         
-            case TP_SRCH_TAG:
-                $whichValue = TP_SRCH_TAGVAL;
+            case TP_MODE_TAG:
+                $whichValue = TP_OPT_TAGVAL;
                 $inputSize = 40;
                 break;
         
-            case TP_SRCH_REL:
-                $whichValue = TP_SRCH_RELVAL;
+            case TP_MODE_REL:
+                $whichValue = TP_OPT_RELVAL;
                 $inputSize = 40;
                 break;
         
-            case TP_SRCH_USER:
-                $whichValue = TP_SRCH_USERVAL;
+            case TP_MODE_USER:
+                $whichValue = TP_OPT_USERVAL;
                 break;
         
-            case TP_SRCH_PLST:
-                $whichValue = TP_SRCH_PLSTVAL;
+            case TP_MODE_PLST:
+                $whichValue = TP_OPT_PLSTVAL;
                 break;
         
-            case TP_SRCH_POPULAR:
-                $whichValue = TP_SRCH_POPVAL;
+            case TP_MODE_POPULAR:
+                $whichValue = TP_OPT_POPVAL;
                 break;
         
-            case TP_SRCH_CATEGORY:
-            	$whichValue = TP_SRCH_CATVAL;
+            case TP_MODE_CATEGORY:
+            	$whichValue = TP_OPT_CATVAL;
             	break;
         
-            case TP_SRCH_FAV:
-                $whichValue = TP_SRCH_FAVVAL;
+            case TP_MODE_FAV:
+                $whichValue = TP_OPT_FAVVAL;
                 break;
         }
         return sprintf('<input type="text" name="%s" size="%s" value="%s" />',
@@ -303,7 +303,7 @@ EOT;
 	
 	    /* go through the post variables and try to update */
         foreach (array_keys($oldOpts->_allOptions) as $optName) {
-        	if (($optName == TP_DEBUG_ON)
+        	if (($optName == TP_OPT_DEBUG)
         	    || array_key_exists($optName, $oldOpts->getMetaOptions())
         	    || array_key_exists($optName, $oldOpts->getSearchByOptions())
         	    || array_key_exists($optName, $oldOpts->getPlayerLocationOptions())) {

@@ -35,6 +35,10 @@ class_exists("WordPressOptionsPage")
 				'WordPressHooks.php', '_tp_executeOptionsPage');
     	}
     }
+    
+    /**
+     * FIXME
+     */
     function _tp_executeOptionsPage()
     {
     	/* initialize the database if we need to */

@@ -76,7 +76,7 @@ function tp_main ($content = '')
     /* ------------------------------------------------------------ */ 
 
     /* Are we debugging? */
-    $debug = $options->getValue(TP_DEBUG_ON);
+    $debug = $options->getValue(TP_OPT_DEBUG);
     if ($debug == true
         && isset($_GET[TP_DEBUG_PARAM]) 
         && ($_GET[TP_DEBUG_PARAM] == true)) {

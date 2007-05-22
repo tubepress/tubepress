@@ -65,15 +65,18 @@ class TubePressGallery
         }
         
         /* keeps track of how many videos we've actually printed */
-        $videoCount = 0;
+        $videosPrintedCnt = 0;
+        
+        /* how many videos we actually got from YouTube */
+        $videosReturnedCnt = $videoArray['total'];
         
         /* Next two lines figure out how many videos we're going to show */
-        $vidLimit = ($paging?
-            $options->get(TP_OPT_VIDSPERPAGE) : 
-            $videoArray['total']);
+        $vidLimit = ($paging ?
+            $options->getValue(TP_OPT_VIDSPERPAGE) : 
+            $videosReturnedCnt);
             
-        if ($videoArray['total'] < $vidLimit) {
-            $vidLimit = $videoArray['total'];
+        if ($videosReturnedCnt < $vidLimit) {
+            $vidLimit = $videosReturnedCnt;
         }
 
         for ($x = 0; $x < $vidLimit; $x++) {
@@ -85,24 +88,26 @@ class TubePressGallery
                 continue;
             }
         
-            /* If we're on the first video, see if we need to print a big one */
-            if ($videoCount++ == 0) {
+            /* Top of the gallery is special */
+            if ($videosPrintedCnt++ == 0) {
                 $newcontent .= TubePressGallery::printHTML_bigvid($video, $options);
                 if ($paging) {
                     $newcontent .= 
-                        TubePressGallery::printHTML_pagination($videoArray['total'], 
+                        TubePressGallery::_printHTML_pagination($videosReturnedCnt, 
                             $options);
                 }
                 $newcontent .= sprintf('<div class="%s">',
                     $css->thumb_container_class);
             }
-            $newcontent .= TubePressGallery::printHTML_smallvid($video, $options);
+            
+            /* Here's where each thumbnail gets printed */
+            $newcontent .= TubePressGallery::_printHTML_smallvid($video, $options);
         }
     
-        $newcontent .= '</div>';
+        $newcontent .= sprintf('</div><!-- %s -->', $css->thumb_container_class);
         if ($paging) {
             $newcontent .= 
-                TubePressGallery::printHTML_pagination($videoArray['total'],
+                TubePressGallery::_printHTML_pagination($videosReturnedCnt,
                     $options);
         }
     
@@ -118,25 +123,23 @@ class TubePressGallery
      */
     function printHTML_bigvid($vid, $options)
     {    
-        $css = new TubePressCSS();
-        
         /* we only do this stuff if we're operating in "normal" play mode */
         if ($options->getValue(TP_OPT_PLAYIN) != TP_PLAYIN_NORMAL) {
             return "";
         }
         
-        $returnVal = <<<EOT
-            <div id="$css->mainVid_id" class="$css->mainVid_class">
-                <span class="$css->title_class">
-                    {$vid->metaValues[TP_VID_TITLE]}</span>
-                <span class="$css->runtime_class">
-                    ({$vid->metaValues[TP_VID_LENGTH]})</span><br />
-EOT;
+        $css = new TubePressCSS();
         
+        $returnVal = sprintf('<div id="%s" class="%s">', $css->mainVid_id, $css->mainVid_class);
+        
+        $returnVal .= sprintf(' <span class="%s">%s</span><span class="%s">%s</span><br />',
+        	$css->title_class, $vid->metaValues[TP_VID_TITLE], $css->runtime_class,
+        	$vid->metaValues[TP_VID_LENGTH]);
+  
         $returnVal .= 
             TubePressGallery::printHTML_embeddedVid($vid->metaValues[TP_VID_ID], $options);
         
-        $returnVal .= sprintf('</div> <!--%s-->', $css->mainVid_class);
+        $returnVal .= sprintf('</div> <!--%s-->', $css->mainVid_id);
         
         return $returnVal;
     }
@@ -149,177 +152,11 @@ EOT;
      */
     function printHTML_embeddedVid($id, $options)
     {
-        $height = $options->getValue(TP_OPT_VIDHEIGHT);
-        $width = $options->getValue(TP_OPT_VIDWIDTH);
-        
-        return <<<EOT
-            <object type="application/x-shockwave-flash" 
-                style="width:{$width}px; height:{$height}px;" 
-                data="http://www.youtube.com/v/$id" >
-                    <param name="movie" value="http://www.youtube.com/v/$id" />
-            </object>
-EOT;
-    }
-    
-    /**
-     * Prints out video meta information below a video thumbnail.
-     * The title and runtime are handled slightly differently than 
-     * the rest since they output so differently.
-     * 
-     * @param vid A TubePressVideo object of the video in question
-     * @param options A TubePressTag object holding all of our options
-     * @param link The attributes of the anchor for the title text. 
-     * This is generated from 
-     * TubePressGallery::printHTML_smallVidLinkAttributes()
-     */
-    function printHTML_metaInfo($vid, $options, $link)
-    {
-    	$css = new TubePressCSS();
-    
-        /* first do the title */    //TODO: is this right???
-        $content = sprintf('<div class="%s">', $css->title_class);
-        if ($options->getValue(TP_VID_TITLE) == true) {
-            $content .= sprintf('<a %s>%s</a><br/></div><!--%s-->', 
-                $link, $vid->metaValues[TP_VID_TITLE], $css->title_class);
-        }
-        
-        /* now do the runtime */
-        if ($options->getValue(TP_VID_LENGTH) == true) {
-            $content .= sprintf('<span class="%s">%s</span><br/>',
-                $css->runtime_class, $vid->metaValues[TP_VID_LENGTH]);
-        }
-        
-        $metaOptions = $options->getMetaOptionNames();
-        /* now do the rest, since they all look alike */
-        foreach ($metaOptions as $metaName) {
-            
-            /* ignore the title and runtime */
-            if (($metaName == TP_VID_LENGTH) || ($metaName == TP_VID_TITLE)) {
-                continue;
-            }
-            /* only bother with the ones the user wants to see */
-            if ($options->getValue($metaName)) {
-                $content .=  sprintf('<span class="%s">', $css->meta_class);
-                switch ($metaName) {
-                    
-                    case TP_VID_DESC:
-                        $content .= 
-                            sprintf('</span>%s', $vid->metaValues[$metaName]);
-                        break;
-                        
-                    case TP_VID_THUMBURL:
-                        $content .= 
-                            TubePressGallery::printHTML_metaLink($option->getTitle(),
-                            $vid->metaValues[$metaName]);
-                        break;
-                        
-                    case TP_VID_URL:
-                        $content .=
-                            TubePressGallery::printHTML_metaLink($option->getTitle(), 
-                            $vid->metaValues[$metaName]);
-                        break;
-                        
-                    case TP_VID_AUTHOR:
-                        $content .= sprintf('%s: %s', $metaName,
-                            TubePressGallery::printHTML_metaLink($vid->metaValues[$metaName],
-                            'http://www.youtube.com/profile?user='
-                            . $vid->metaValues[$metaName]));
-                        break;
-                        
-                    case TP_VID_COMMENT_CNT:
-                        $content .= sprintf('%s: %s', $metaName,
-                            TubePressGallery::printHTML_metaLink($vid->metaValues[$metaName],
-                           'http://youtube.com/comment_servlet?all_comments&amp;v='
-                            . $vid->metaValues[$metaName]));
-                        break;
-                        
-                    case TP_VID_TAGS:
-                        $tags = explode(" ", $vid->metaValues[$metaName]);
-                        $tags = implode("%20", $tags);
-                        $content .= sprintf('%s: %s', $metaName,
-                            TubePressGallery::printHTML_metaLink($vid->metaValues[$metaName],
-                                sprintf('http://youtube.com/results?' .
-                                    'search_query=%s&amp;search=Search',
-                                    $tags)));
-                        break;
-                        
-                    default:
-                        $content .=  sprintf('%s: </span>%s', $metaName,
-                            $vid->metaValues[$metaName]);
-                }
-                $content .= '<br/>';
-            }
-        }
-        $content .= sprintf('</div><!--%s-->', $css->meta_group);
-        
-        return $content;
-    }
-    
-    /**
-     * Simple helper method for TubePressGallery::printHTML_metaInfo(). Prints
-     * out a link for a line of meta information.
-     * 
-     * @param linkText The text of the link
-     * @param linkvalue The anchor attributes
-     */
-    function printHTML_metaLink($linkText, $linkValue)
-    {
-        return sprintf('</span><a href="%s">%s</a>"', $linkValue, $linkText);
-    }
-        
-    /**
-     * Handles the logic and printing of pagination links ("next" and "prev")
-     * 
-     * @param vidCount How many videos we're supposed to print out per page 
-     * (+ 1, unless we're on the last page)
-     * @param options A TubePressTag object holding all of our options
-     * @param css A CSS holder object
-     */
-    function printHTML_pagination($vidCount, $options)
-    {
-        $css = new TubePressCSS();
-    
-        /* if we're already on a page, save that value, otherwise assume 
-         * we're on the first page */
-        $currentPage = (isset($_GET[TP_PAGE_PARAM])? $_GET[TP_PAGE_PARAM] : 1);
-    
-        /* save our current full address */
-        $url = TubePressTag::fullURL();
-    
-        /* print a previous button if we're not on the first page */
-        $prevText = (($currentPage > 1)? 
-            TubePressGallery::printHTML_paginationLink($url, $currentPage - 1, "< prev")
-             : "&nbsp;");
-    
-        /* vidcount will always be one more than what the user wanted, 
-         * unless we're on the last page */
-        $nextText = (($vidCount < $options->getValue(TP_OPT_VIDSPERPAGE))? 
-            "&nbsp;"
-             : TubePressGallery::printHTML_paginationLink($url,
-                 $currentPage + 1, "next >"));
-    
-        return sprintf('<div class="%s"><div class="%s">%s</div>' .
-                '<div class="%s">%s</div></div>',
-                $css->pagination, $css->prevlink, $prevText, 
-                $css->nextlink, $nextText);
-    }
-    
-    /**
-     * Simple helper for TubePressGallery::printHTML_pagination(). 
-     * Prints out the actual anchor tag
-     * 
-     * @param queryString The full URL of the page we're currently on
-     * @param pageNum The page for which this method will print out a link
-     * @param text The text of the link (always either "next" or "prev")
-     */
-    function printHTML_paginationLink($queryString, $pageNum, $text)
-    {
-        $url = new Net_URL($queryString);
-        $url->removeQueryString(TP_PAGE_PARAM);
-        $url->addQueryString(TP_PAGE_PARAM, $pageNum);
-        
-        return sprintf('<a href="%s">%s</a>"', 
-            str_replace("&", "&amp;", $url->getURL()), $text);
+        return sprintf('<object type="application/x-shockwave-flash" style="width:%spx; ' .
+        		'height:%spx;" data="http://www.youtube.com/v/%s">' .
+        		'<param name="movie" value="http://www.youtube.com/v/%s" />' .
+        		'</object>', $options->getValue(TP_OPT_VIDWIDTH), 
+        		$options->getValue(TP_OPT_VIDHEIGHT), $id, $id);
     }
     
     /**
@@ -335,118 +172,16 @@ EOT;
         $url = new Net_URL(TubePressStatic::fullURL());
         $url->removeQueryString(TP_VID_PARAM);
         
-        $returnVal = '<div id="' . $css->mainVid_id . '" class="' 
-            . $css->mainVid_class . '">';
+        $returnVal = sprintf('<div id="%s" class="%s">', $css->mainVid_id,
+        	$css->mainVid_class);
+        	
         $returnVal .= TubePressGallery::printHTML_embeddedVid($_GET[TP_VID_PARAM],
             $options);
-        $returnVal .= '</div><a href="' . $url->getURL() . '">' 
-            . _tpMsg("BACK2GALLERY") . '</a>';
+            
+        $returnVal .= sprintf('</div><!-- %s --><a href="%s">%s</a>', $css->mainVid_id,
+        	$url->getURL(), _tpMsg("BACK2GALLERY"));
         
         return $returnVal;
-    }
-    
-    /**
-     * The main wrapper method for printing out a single video 
-     * thumbnail and the meta information for it.
-     * 
-     * @param vid A TubePressVideo object for which this method 
-     * will print the thumb
-     * @param options A TubePressTag object holding all of our options
-     */
-    function printHTML_smallvid($vid, $options)
-    {
-        $css = new TubePressCSS();
-        
-        $caption = sprintf('%s (%s)', $vid->metaValues[TP_VID_TITLE], 
-            $vid->metaValues[TP_VID_LENGTH]);
-        $thumbWidth = $options->getValue(TP_OPT_THUMBWIDTH);
-        $thumbHeight = $options->getValue(TP_OPT_THUMBHEIGHT);
-        $title = htmlspecialchars($vid->metaValues[TP_VID_TITLE]);
-        $link = TubePressGallery::printHTML_smallVidLinkAttributes($vid,
-            $options);
-  
-        $content = sprintf('<div class="%s"><div class="%s">', 
-            $css->thumb_class, $css->thumbImg_class);
-        $thumbSrc = $vid->metaValues[TP_VID_THUMBURL];
-        $content .= <<<EOT
-                <a $link>
-                    <img alt="{$vid->metaValues[TP_VID_TITLE]}"  
-                        src="$thumbSrc" width="$thumbWidth"  
-                        height="$thumbHeight"  />
-                </a>
-            </div><!-- {$css->thumbImg_class} -->
-            <div class="{$css->meta_group}">
-EOT;
-        $content .= TubePressGallery::printHTML_metaInfo($vid, $options,
-            $link);
-        $content .= sprintf('</div><!-- %s -->', $css->thumb_class);
-        
-        if ($options->getValue(TP_OPT_PLAYIN) == TP_PLAYIN_THICKBOX) {
-            $content .= sprintf('<div id="tp%s" style="display:none">%s</div>',
-                $vid->metaValues[TP_VID_ID],
-                TubePressGallery::printHTML_embeddedVid($vid->metaValues[TP_VID_ID],
-                    $options));
-        }
-        
-        return $content;
-    }
-    
-    /**
-     * Prints out the "play" link attributes for a video thumbnail
-     * 
-     * @param vid A TubePressVideo object for the video in question
-     * @param options A TubePressTag object holding all of our options
-     */
-    function printHTML_smallVidLinkAttributes($vid, $options)
-    {
-        $id = $vid->metaValues[TP_VID_ID];
-        $height = $options->getValue(TP_OPT_VIDHEIGHT);
-        $width = $options->getValue(TP_OPT_VIDWIDTH);
-        
-        switch ($options->getValue(TP_OPT_PLAYIN)) {
-            case TP_PLAYIN_THICKBOX:
-                return sprintf(
-                    'href="#TB_inline?height=350&amp;width=425&amp;' .
-                    'inlineId=tp%s" class="thickbox" title="%s"',
-                    $id, $vid->metaValues[TP_VID_TITLE]);
-                
-            case TP_PLAYIN_NW:
-                $url = new Net_URL(TubePressTag::fullURL());
-                $url->addQueryString(TP_VID_PARAM, $id);
-                return sprintf('href="%s"', $url->getURL());
-            
-            case TP_PLAYIN_YT:
-                return sprintf('href="http://youtube.com/watch?v=%s', $id);
-            
-            case TP_PLAYIN_LWINDOW:
-                //TODO: test me with relative quotes
-                return sprintf('href="%s/wp-content/plugins/' .
-                        'tubepress/tp_popup.php?' .
-                        'name=%s&id=%s&w=%s&h=%s" class="lWOn" title="%s" ' .
-                        'params="lWWidth=425,lWHeight=355"', 
-                    $options->get('site_url'),
-                    htmlspecialchars($vid->metaValues[TP_VID_TITLE]),
-                    $id,
-                    $options->getValue(TP_OPT_VIDWIDTH),
-                    $options->getValue(TP_OPT_VIDHEIGHT),
-                    htmlspecialchars($vid->metaValues[TP_VID_TITLE]));
-        
-            case TP_PLAYIN_NORMAL:
-                return sprintf('href="#" onclick="javascript:playVideo(' .
-                        '\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'normal\', \'%s\')"',
-                    $id, $height, $width,
-                    htmlspecialchars($vid->metaValues[TP_VID_TITLE]),
-                    $vid->metaValues[TP_VID_LENGTH],
-                    "http://localhost/wp");
-    
-            default:
-                return sprintf('href="#" onclick="javascript:playVideo(' .
-                        '\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'popup\', \'%s\')"',
-                    $id, $height, $width,
-                    htmlspecialchars($vid->metaValues[TP_VID_TITLE]),
-                    $vid->metaValues[TP_VID_LENGTH],
-                    $options->get('site_url'));
-        }
     }
     
     /**
@@ -470,5 +205,266 @@ EOT;
         $css = new TubePressCSS();
         return sprintf('<div class="%s">', $css->container);
     }
+    
+    /*************************************************************************/
+	/*************************************************************************/
+	/************************* "PRIVATE" FUNCTIONS ***************************/
+	/*************************************************************************/
+	/*************************************************************************/
+    
+    /**
+     * Prints out video meta information below a video thumbnail.
+     * The title and runtime are handled slightly differently than 
+     * the rest since they output so differently.
+     * 
+     * @param vid A TubePressVideo object of the video in question
+     * @param options A TubePressTag object holding all of our options
+     * @param link The attributes of the anchor for the title text. 
+     * This is generated from 
+     * TubePressGallery::printHTML_smallVidLinkAttributes()
+     */
+    function _printHTML_metaInfo($vid, $options, $link)
+    {
+    	$css = new TubePressCSS();
+    
+        /* first do the title */    //TODO: is this right???
+        $content = sprintf('<div class="%s">', $css->title_class);
+        if ($options->getValue(TP_VID_TITLE) == true) {
+            $content .= sprintf('<a %s>%s</a><br/></div><!-- %s -->', 
+                $link, $vid->metaValues[TP_VID_TITLE], $css->title_class);
+        }
+        
+        /* now do the runtime */
+        if ($options->getValue(TP_VID_LENGTH) == true) {
+            $content .= sprintf('<span class="%s">%s</span><br/>',
+                $css->runtime_class, $vid->metaValues[TP_VID_LENGTH]);
+        }
+        
+        $metaOptions = TubePressVideo::getMetaNames();
+        /* now do the rest, since they all look alike */
+        foreach ($metaOptions as $metaName) {
+            
+            /* ignore the title and runtime */
+            if (($metaName == TP_VID_LENGTH) || ($metaName == TP_VID_TITLE)) {
+                continue;
+            }
+            
+            /* only bother with the ones the user wants to see */
+            if ($options->getValue($metaName)) {
+                $content .=  sprintf('<span class="%s">', $css->meta_class);
+                switch ($metaName) {
+                    
+                    case TP_VID_DESC:
+                        $content .= 
+                            sprintf('</span>%s', $vid->metaValues[$metaName]);
+                        break;
+                        
+                    case TP_VID_THUMBURL:
+                        $content .= 
+                            TubePressGallery::_printHTML_metaLink($option->getTitle(),
+                            $vid->metaValues[$metaName]);
+                        break;
+                        
+                    case TP_VID_URL:
+                        $content .=
+                            TubePressGallery::_printHTML_metaLink($option->getTitle(), 
+                            $vid->metaValues[$metaName]);
+                        break;
+                        
+                    case TP_VID_AUTHOR:
+                        $content .= sprintf('%s: %s', $metaName,
+                            TubePressGallery::_printHTML_metaLink($vid->metaValues[$metaName],
+                            'http://www.youtube.com/profile?user='
+                            . $vid->metaValues[$metaName]));
+                        break;
+                        
+                    case TP_VID_COMMENT_CNT:
+                        $content .= sprintf('%s: %s', $metaName,
+                            TubePressGallery::_printHTML_metaLink($vid->metaValues[$metaName],
+                           'http://youtube.com/comment_servlet?all_comments&amp;v='
+                            . $vid->metaValues[$metaName]));
+                        break;
+                        
+                    case TP_VID_TAGS:
+                        $tags = explode(" ", $vid->metaValues[$metaName]);
+                        $tags = implode("%20", $tags);
+                        $content .= sprintf('%s: %s', $metaName,
+                            TubePressGallery::__printHTML_metaLink($vid->metaValues[$metaName],
+                                sprintf('http://youtube.com/results?' .
+                                    'search_query=%s&amp;search=Search',
+                                    $tags)));
+                        break;
+                        
+                    default:
+                        $content .=  sprintf('%s: </span>%s', $metaName,
+                            $vid->metaValues[$metaName]);
+                }
+                $content .= '<br/>';
+            }
+        }
+        $content .= sprintf('</div><!-- %s -->', $css->meta_group);
+        
+        return $content;
+    }
+    
+    /**
+     * Simple helper method for TubePressGallery::printHTML_metaInfo(). Prints
+     * out a link for a line of meta information.
+     * 
+     * @param linkText The text of the link
+     * @param linkvalue The anchor attributes
+     */
+    function _printHTML_metaLink($linkText, $linkValue)
+    {
+        return sprintf('</span><a href="%s">%s</a>', $linkValue, $linkText);
+    }
+    
+    /**
+     * Handles the logic and printing of pagination links ("next" and "prev")
+     * 
+     * @param vidCount How many videos we're supposed to print out per page 
+     * (+ 1, unless we're on the last page)
+     * @param options A TubePressTag object holding all of our options
+     * @param css A CSS holder object
+     */
+    function _printHTML_pagination($vidCount, $options)
+    {
+        $css = new TubePressCSS();
+    
+        /* if we're already on a page, save that value, otherwise assume 
+         * we're on the first page */
+        $currentPage = (isset($_GET[TP_PAGE_PARAM]) ? $_GET[TP_PAGE_PARAM] : 1);
+    
+        /* save our current full address */
+        $url = TubePressTag::fullURL();
+    
+        /* print a previous button if we're not on the first page */
+        $prevText = (($currentPage > 1) ? 
+            TubePressGallery::_printHTML_paginationLink($url, $currentPage - 1, _tpMsg("PREV"))
+             : "&nbsp;");
+    
+        /* vidcount will always be one more than what the user wanted, 
+         * unless we're on the last page */
+        $nextText = (($vidCount < $options->getValue(TP_OPT_VIDSPERPAGE))? 
+            "&nbsp;"
+             : TubePressGallery::_printHTML_paginationLink($url,
+                 $currentPage + 1, _tpMsg("NEXT")));
+    
+        return sprintf('<div class="%s"><div class="%s">%s</div>' .
+                '<div class="%s">%s</div></div>',
+                $css->pagination, $css->prevlink, $prevText, 
+                $css->nextlink, $nextText);
+    }
+    
+    /**
+     * Simple helper for TubePressGallery::printHTML_pagination(). 
+     * Prints out the actual anchor tag
+     * 
+     * @param queryString The full URL of the page we're currently on
+     * @param pageNum The page for which this method will print out a link
+     * @param text The text of the link (always either "next" or "prev")
+     */
+    function _printHTML_paginationLink($queryString, $pageNum, $text)
+    {
+        $url = new Net_URL($queryString);
+        $url->removeQueryString(TP_PAGE_PARAM);
+        $url->addQueryString(TP_PAGE_PARAM, $pageNum);
+        
+        return sprintf('<a href="%s">%s</a>"', 
+            str_replace("&", "&amp;", $url->getURL()), $text);
+    }
+    
+    /**
+     * The main wrapper method for printing out a single video 
+     * thumbnail and the meta information for it.
+     * 
+     * @param vid A TubePressVideo object for which this method 
+     * will print the thumb
+     * @param options A TubePressTag object holding all of our options
+     */
+    function _printHTML_smallvid($vid, $options)
+    {
+        $css = new TubePressCSS();
+
+        $link = TubePressGallery::_printHTML_smallVidLinkAttributes($vid,
+            $options);
+  
+        $content = sprintf('<div class="%s"><div class="%s">', 
+            $css->thumb_class, $css->thumbImg_class);
+   
+        $content .= sprintf('<a %s><img alt="%s" src="%s width="%s" height="%s" /></a>',
+        	$link, $vid->metaValues[TP_VID_TITLE], $vid->metaValues[TP_VID_THUMBURL],
+        	$options->getValue(TP_OPT_THUMBWIDTH), $options->getValue(TP_OPT_THUMBHEIGHT));
+  
+  		$content .= sprintf('</div><!-- %s --><div class="%s">', $css->thumbImg_class,
+  			$css->meta_group);
+ 
+        $content .= TubePressGallery::_printHTML_metaInfo($vid, $options,
+            $link);
+            
+        $content .= sprintf('</div><!-- %s -->', $css->thumb_class);
+        
+        if ($options->getValue(TP_OPT_PLAYIN) == TP_PLAYIN_THICKBOX) {
+            $content .= sprintf('<div id="tp%s" style="display:none">%s</div>',
+                $vid->metaValues[TP_VID_ID],
+                TubePressGallery::printHTML_embeddedVid($vid->metaValues[TP_VID_ID],
+                    $options));
+        }
+        
+        return $content;
+    }
+    
+    /**
+     * Prints out the "play" link attributes for a video thumbnail
+     * 
+     * @param vid A TubePressVideo object for the video in question
+     * @param options A TubePressTag object holding all of our options
+     */
+    function _printHTML_smallVidLinkAttributes($vid, $options)
+    {
+        $id = $vid->metaValues[TP_VID_ID];
+        $height = $options->getValue(TP_OPT_VIDHEIGHT);
+        $width = $options->getValue(TP_OPT_VIDWIDTH);
+        $title = $vid->metaValues[TP_VID_TITLE];
+        
+        switch ($options->getValue(TP_OPT_PLAYIN)) {
+            case TP_PLAYIN_THICKBOX:
+                return sprintf(
+                    'href="#TB_inline?height=%s&amp;width=%s&amp;' .
+                    'inlineId=tp%s" class="thickbox" title="%s"',
+                    $height, $width, $id, $title);
+                
+            case TP_PLAYIN_NW:
+                $url = new Net_URL(TubePressTag::fullURL());
+                $url->addQueryString(TP_VID_PARAM, $id);
+                return sprintf('href="%s"', $url->getURL());
+            
+            case TP_PLAYIN_YT:
+                return sprintf('href="http://youtube.com/watch?v=%s', $id);
+            
+            case TP_PLAYIN_LWINDOW:
+                //TODO: test me with relative quotes
+                return sprintf('href="%s/wp-content/plugins/' .
+                        'tubepress/tp_popup.php?' .
+                        'name=%s&id=%s&w=%s&h=%s" class="lWOn" title="%s" ' .
+                        'params="lWWidth=425,lWHeight=355"', 
+                    $options->get('site_url'), $title, $id,
+                    $width, $height, $title);
+        
+            case TP_PLAYIN_NORMAL:
+                return sprintf('href="#" onclick="javascript:playVideo(' .
+                        '\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'normal\', \'%s\')"',
+                    $id, $height, $width, $title,
+                    $vid->metaValues[TP_VID_LENGTH], "http://localhost/wp");
+    
+            default:
+                return sprintf('href="#" onclick="javascript:playVideo(' .
+                        '\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'popup\', \'%s\')"',
+                    $id, $height, $width,
+                    $title, $vid->metaValues[TP_VID_LENGTH], $options->get('site_url'));
+        }
+    }
+    
+
 }
 ?>

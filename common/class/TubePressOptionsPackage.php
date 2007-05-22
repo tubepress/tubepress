@@ -52,6 +52,9 @@ class TubePressOptionsPackage
         return $this->_allOptions[$optionName];
     }
     
+    /**
+     * FIXME
+     */
     function getTitle($optionName)
     {
         $result = $this->_get($optionName);
@@ -61,6 +64,9 @@ class TubePressOptionsPackage
         return $result->getTitle();
     }
     
+    /**
+     * FIXME
+     */
     function getDescription($optionName)
     {
         $result = $this->_get($optionName);
@@ -70,6 +76,9 @@ class TubePressOptionsPackage
             return $result->getDescription();
    }
     
+    /**
+     * FIXME
+     */
     function getValue($optionName)
     {
         $result = $this->_get($optionName);
@@ -94,14 +103,6 @@ class TubePressOptionsPackage
             return $result;
         }
     }
-
-   function getMetaOptionNames()
-   {
-      return array(TP_VID_TITLE, TP_VID_LENGTH, TP_VID_VIEW, TP_VID_AUTHOR,
-          TP_VID_ID, TP_VID_RATING_AVG, TP_VID_RATING_CNT, TP_VID_UPLOAD_TIME,
-          TP_VID_COMMENT_CNT, TP_VID_TAGS, TP_VID_URL, TP_VID_THUMBURL,
-          TP_VID_DESC);    
-   }
 
     /**
      * Returns a fresh array of TubePress options.
@@ -155,19 +156,19 @@ class TubePressOptionsPackage
 
         /* -------- VIDEO SEARCH VALUES ------------------------------------ */
         
-                  TP_SRCH_TAGVAL =>  new TubePressOption(TP_SRCH_TAGVAL, ' ',
+                  TP_OPT_TAGVAL =>  new TubePressOption(TP_OPT_TAGVAL, ' ',
                                          '', "stewart daily show"),
-                  TP_SRCH_RELVAL =>  new TubePressOption(TP_SRCH_RELVAL, ' ',
+                  TP_OPT_RELVAL =>  new TubePressOption(TP_OPT_RELVAL, ' ',
                                          '', "mooninite aqua teen hunger force"),
-                  TP_SRCH_USERVAL => new TubePressOption(TP_SRCH_USERVAL, ' ',
+                  TP_OPT_USERVAL => new TubePressOption(TP_OPT_USERVAL, ' ',
                                      '', "3hough"),
-                  TP_SRCH_PLSTVAL => new TubePressOption(TP_SRCH_PLSTVAL,
+                  TP_OPT_PLSTVAL => new TubePressOption(TP_OPT_PLSTVAL,
                                          ' ', '', "D2B04665B213AE35"),
-                  TP_SRCH_FAVVAL =>  new TubePressOption(TP_SRCH_FAVVAL, ' ',
+                  TP_OPT_FAVVAL =>  new TubePressOption(TP_OPT_FAVVAL, ' ',
                                          '', "mrdeathgod"),
-                  TP_SRCH_POPVAL =>  new TubePressOption(TP_SRCH_POPVAL,
+                  TP_OPT_POPVAL =>  new TubePressOption(TP_OPT_POPVAL,
                                          ' ', '', "day"),
-                  TP_SRCH_CATVAL =>  new TubePressOption(TP_SRCH_CATVAL, ' ',
+                  TP_OPT_CATVAL =>  new TubePressOption(TP_OPT_CATVAL, ' ',
                                        '', "19"),
             
            /* -------- DISPLAY OPTIONS -------------------------------------- */
@@ -214,13 +215,13 @@ class TubePressOptionsPackage
                                          _tpMsg("USERNAME_TITLE"), 
                                          _tpMsg("USERNAME_DESC"), "3hough"),
                                           
-                  TP_DEBUG_ON => new TubePressOption(TP_DEBUG_ON,
+                  TP_OPT_DEBUG => new TubePressOption(TP_OPT_DEBUG,
                                      _tpMsg("DEBUGDESC"), true, "boolean"),
  
          /* -------- VIDEO SEARCH OPTION ----------------------------------- */
 
                   TP_OPT_SEARCHBY => new TubePressOption(TP_OPT_SEARCHBY, ' ',
-                                         '', TP_SRCH_FEATURED),
+                                         '', TP_MODE_FEATURED),
 
         /* -------- PLAYER LOCATION OPTION ----------------------------------- */
  
@@ -251,18 +252,23 @@ class TubePressOptionsPackage
         $modelOptions = TubePressOptionsPackage::getDefaultPackage();
         
         foreach ($modelOptions as $defaultOption) {
-            if (!is_a($suspectOptions[$defaultOption->getName()], TubePressOption)) {
-                return PEAR::raiseError(_tpMsg("OLDDB"));
-            }
-            
+        	/* Make sure we have all the keys */
             if (!array_key_exists($defaultOption->getName(), $suspectOptions)) {
                 return PEAR::raiseError(_tpMsg("DBMISS", 
                     array($defaultOption->getName(), 
                         count($suspectOptions), count($modelOptions))));
             }
+
+        	/* Make sure each entry is a valid TubePressOption */
+            if (!is_a($suspectOptions[$defaultOption->getName()], TubePressOption)) {
+                return PEAR::raiseError(_tpMsg("OLDDB"));
+            }
         }    
     }
     
+    /**
+     * FIXME
+     */
     function getPlayerLocationNames()
     {
         return
@@ -270,18 +276,14 @@ class TubePressOptionsPackage
                 TP_PLAYIN_POPUP,TP_PLAYIN_LWINDOW,TP_PLAYIN_THICKBOX);
     }
     
+    /**
+     * FIXME
+     */
     function getModeNames()
     {
         return
-            array(TP_SRCH_CATEGORY, TP_SRCH_PLST,TP_SRCH_TAG,TP_SRCH_REL, 
-                TP_SRCH_USER, TP_SRCH_FAV, TP_SRCH_FEATURED, TP_SRCH_POPULAR);
-    }
-    
-    function getAdvancedOptionNames()
-    {
-        return
-            array(TP_OPT_KEYWORD, TP_OPT_TIMEOUT, TP_OPT_DEVID, 
-                TP_OPT_USERNAME, TP_DEBUG_ON);
+            array(TP_MODE_CATEGORY, TP_MODE_PLST,TP_MODE_TAG,TP_MODE_REL, 
+                TP_MODE_USER, TP_MODE_FAV, TP_MODE_FEATURED, TP_MODE_POPULAR);
     }
 }
 ?>

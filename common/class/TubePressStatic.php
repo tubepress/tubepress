@@ -50,11 +50,11 @@ class TubePressStatic
      */
     function areWePaging($options)
     {
-        //TODO: fix me!
-        $searchBy = $options->getValue(TP_OPT_SEARCHBY);
-        if (($searchBy == TP_SRCH_USER)
-            || ($searchBy == TP_SRCH_TAG)
-            || ($searchBy == TP_SRCH_REL)) {
+        $mode = $options->getValue(TP_OPT_SEARCHBY);
+        if (($mode == TP_MODE_USER)
+            || ($mode == TP_MODE_TAG)
+            || ($mode == TP_MODE_REL)
+            || ($mode == TP_MODE_PLST)) {
                 return true;
         }
         return false;

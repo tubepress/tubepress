@@ -31,30 +31,30 @@ define("TP_PAGE_PARAM", "tubepress_page");
 define("TP_VID_PARAM", "tubepress_id");
 define("TP_DEBUG_PARAM", "tubepress_debug");
 define("TP_OPTION_NAME", "tubepress");
-define("TP_DEBUG_ON", "debugging_enabled");
+define("TP_OPT_DEBUG", "debugging_enabled");
 
 /*****************************************************************************/
 /*** SEARCHING MODES *********************************************************/
 /*****************************************************************************/
-define("TP_SRCH_FAV", "favorites");
-define("TP_SRCH_TAG", "tag");
-define("TP_SRCH_REL", "related");
-define("TP_SRCH_USER", "user");
-define("TP_SRCH_PLST", "playlist");
-define("TP_SRCH_FEATURED", "featured");
-define("TP_SRCH_POPULAR", "popular");
-define("TP_SRCH_CATEGORY", "category");
+define("TP_MODE_FAV", "favorites");
+define("TP_MODE_TAG", "tag");
+define("TP_MODE_REL", "related");
+define("TP_MODE_USER", "user");
+define("TP_MODE_PLST", "playlist");
+define("TP_MODE_FEATURED", "featured");
+define("TP_MODE_POPULAR", "popular");
+define("TP_MODE_CATEGORY", "category");
 
 /*****************************************************************************/
 /*** SEARCHING VALUES ********************************************************/
 /*****************************************************************************/
-define("TP_SRCH_TAGVAL", "tagValue");
-define("TP_SRCH_RELVAL", "relatedValue");
-define("TP_SRCH_USERVAL", "userValue");
-define("TP_SRCH_PLSTVAL", "playlistValue");
-define("TP_SRCH_POPVAL", "popularValue");
-define("TP_SRCH_FAVVAL", "favoritesValue");
-define("TP_SRCH_CATVAL", "categoryValue");
+define("TP_OPT_TAGVAL", "tagValue");
+define("TP_OPT_RELVAL", "relatedValue");
+define("TP_OPT_USERVAL", "userValue");
+define("TP_OPT_PLSTVAL", "playlistValue");
+define("TP_OPT_POPVAL", "popularValue");
+define("TP_OPT_FAVVAL", "favoritesValue");
+define("TP_OPT_CATVAL", "categoryValue");
 
 /*****************************************************************************/
 /*** PLAYER LOCATIONS ********************************************************/

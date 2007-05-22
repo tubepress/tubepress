@@ -120,19 +120,19 @@ class TubePressXML
 
         switch ($result) {
        
-            case TP_SRCH_USER:
+            case TP_MODE_USER:
                 $request .= "videos.list_by_user" .
-                    "&user=" . $options->getValue(TP_SRCH_USERVAL);
+                    "&user=" . $options->getValue(TP_OPT_USERVAL);
                 break;
             
-            case TP_SRCH_FAV:
+            case TP_MODE_FAV:
                 $request .= "users.list_favorite_videos" .
-                    "&user=" . $options->getValue(TP_SRCH_FAVVAL);
+                    "&user=" . $options->getValue(TP_OPT_FAVVAL);
                 break;
             
-            case TP_SRCH_TAG:
+            case TP_MODE_TAG:
                 $request .= "videos.list_by_tag" .
-                    "&tag=" . urlencode($options->getValue(TP_SRCH_TAGVAL));
+                    "&tag=" . urlencode($options->getValue(TP_OPT_TAGVAL));
                 break;
             
             /* list_by_related is now deprecated, and returns identical results to
@@ -140,30 +140,30 @@ class TubePressXML
              * browse_thread/thread/871006b92d2141c3/66eef9a7fced754e?
              * lnk=gst&q=list_by_tag+identical&rnum=1#66eef9a7fced754e
              */
-            case TP_SRCH_REL:
+            case TP_MODE_REL:
                 $request .= "videos.list_by_tag" .
-                    "&tag=" . urlencode($options->getValue(TP_SRCH_TAGVAL));
+                    "&tag=" . urlencode($options->getValue(TP_OPT_TAGVAL));
                 break;
             
-            case TP_SRCH_PLST:
+            case TP_MODE_PLST:
                 $request .= "videos.list_by_playlist" .
-                    "&id=" . $options->getValue(TP_SRCH_PLSTVAL);
+                    "&id=" . $options->getValue(TP_OPT_PLSTVAL);
                 break;
             
-            case TP_SRCH_POPULAR:
+            case TP_MODE_POPULAR:
                 $request .= "videos.list_popular" .
-                    "&time_range=" . $options->getValue(TP_SRCH_POPVAL);
+                    "&time_range=" . $options->getValue(TP_OPT_POPVAL);
                 break;
             
-            case TP_SRCH_CATEGORY:
+            case TP_MODE_CATEGORY:
                 $request .= "videos.list_by_category" .
                     "&page=1" .
                     "&per_page=" . $options->getValue(TP_OPT_VIDSPERPAGE) .
-                    "&category_id=" . $options->getValue(TP_SRCH_CATVAL);
+                    "&category_id=" . $options->getValue(TP_OPT_CATVAL);
                 $paging = true;
                 break;
         
-            case TP_SRCH_FEATURED:
+            case TP_MODE_FEATURED:
                 $request .= "videos.list_featured";
                 break;
             default:

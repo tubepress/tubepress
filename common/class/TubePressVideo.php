@@ -108,5 +108,16 @@ class TubePressVideo
         $length .=     ":" . $leftOverSeconds;
         return $length;
     }
+    
+    /**
+     * FIXME
+     */
+     function getMetaNames()
+     {
+     	return array(TP_VID_TITLE, TP_VID_LENGTH, TP_VID_VIEW, TP_VID_AUTHOR,
+           TP_VID_ID, TP_VID_RATING_AVG, TP_VID_RATING_CNT, TP_VID_UPLOAD_TIME,
+           TP_VID_COMMENT_CNT, TP_VID_TAGS, TP_VID_URL, TP_VID_THUMBURL,
+           TP_VID_DESC);
+     }
 }
 ?>

@@ -24,6 +24,8 @@
 $tubepressMessages = 
     array(
           "BACK2GALLERY" => "Back to gallery",
+          "PREV" => "< prev",
+          "NEXT" => "next >",
           
           /*******************************************************************/
           /*** ERRORS ********************************************************/
@@ -39,7 +41,7 @@ $tubepressMessages =
           "BADMODE" => "Invalid mode specified (%s)",
           "BADTYPE" => "Type mismatch while setting the value for '%s.' " .
                 "Expected a %s but instead got a %s with value '%s'",
-          "BADVAL" => "This value is not in the valid values list.",
+          "BADVAL" => "%s not a valid value for %s. Must be one of: %s",
           "NOVALS" => "No valid values defined for this option",
           "ARRSET" => "Can only set valid options with an array",
           "VALTYPE" => "Must set valid option values with TubePressEnum class",
