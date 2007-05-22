@@ -73,14 +73,6 @@ $tubepressMessages =
           "VIDUPLOAD" => "Uploaded date",
           "VIDURL" => "YouTube URL",
           "VIDVIEWS" => "Views",
-          
-
-
-
-
-
-
-
 
           "META" => "Video meta display",
           
@@ -96,6 +88,13 @@ $tubepressMessages =
           /*** ADVANCED OPTIONS **********************************************/
           /*******************************************************************/
           "ADV_GRP_TITLE" => "Advanced",
+          "DEBUGDESC" => "Enable debugging", "If set to 'true', " .
+                         "anyone will be able to view your debugging" .
+                         "information. This is a very small privacy" .
+                         "risk. If you're not having problems with" .
+                         "TubePress, or you're worried about revealing" .
+                         "any details of your TubePress pages, feel free to " .
+                         "disable debugging here.",
           "DEVID_TITLE" => "Alternate YouTube developer ID",
           "DEVID_DESC" => "Default is \"qh7CQ9xJIIc\". I can't think of a " .
                   "reason why you'd want/need to change the default developer " .
@@ -111,34 +110,24 @@ $tubepressMessages =
           "USERNAME_TITLE" => "Alternate YouTube username",
           "USERNAME_DESC" => "Default is \"3hough\". Again, no reason to " .
                   "change this value unless you know something I don't :p",
-          "DEBUGDESC" => "Enable debugging", "If set to 'true', " .
-                         "anyone will be able to view your debugging" .
-                         "information. This is a very small privacy" .
-                         "risk. If you're not having problems with" .
-                         "TubePress, or you're worried about revealing" .
-                         "any details of your TubePress pages, feel free to " .
-                         "disable debugging here.",
           
           /*******************************************************************/
           /*** MODES *********************************************************/
           /*******************************************************************/
-          "WHICHVIDS" => "Which videos?",
-          "SRCH_CATEGORY_TITLE" => "this category",
-          "SRCH_FAV_TITLE" => "this user's \"favorites\"",
-          "SRCH_FEATURED_TITLE" => "The latest 25 \"featured\" videos " .
+          "MODE_HEADER" => "Which videos?",
+          "MODE_CAT_TITLE" => "this category",
+          "MODE_FAV_TITLE" => "this user's \"favorites\"",
+          "MODE_FEAT_TITLE" => "The latest 25 \"featured\" videos " .
                   "on YouTube's homepage.",
-          "SRCH_PLST_TITLE" => "this playlist",
-          "SRCH_PLST_DESC" => "Will usually look something like this:" .
+          "MODE_PLST_TITLE" => "this playlist",
+          "MODE_PLST_DESC" => "Will usually look something like this:" .
                   " D2B04665B213AE35. Copy the playlist id from the end of the " .
                   "URL in your browser's address bar (while looking at a YouTube " .
                   "playlist). It comes right after the 'p='. For instance: " .
                   "http://youtube.com/my_playlists?p=D2B04665B213AE35.",
-          "SRCH_POPULAR_TITLE" => "Top 25 most-viewed videos from the past...",
-          "SRCH_REL_TITLE" => "<i>any</i> of these tags",
-          "SRCH_TAG_TITLE" => "<i>all</i> of these tags",
-          "SRCH_USER_TITLE" => "this user's videos",
-          "SRCH_TAGREL_DESC" => "Space-separated tags with no special characters " .
-                  "or punctuation.",
+          "MODE_POPULAR_TITLE" => "Top 25 most-viewed videos from the past...",
+          "MODE_TAG_TITLE" => "YouTube search",
+          "MODE_USER_TITLE" => "this user's videos",
           
           /*******************************************************************/
           /*** DISPLAY OPTIONS ***********************************************/

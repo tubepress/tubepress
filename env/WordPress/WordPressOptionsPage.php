@@ -190,7 +190,7 @@ EOT;
      */
     function printHTML_modes($options)
     {
-        WordPressOptionsPage::printHTML_optionHeader(_tpMsg("WHICHVIDS"));
+        WordPressOptionsPage::printHTML_optionHeader(_tpMsg("MODE_HEADER"));
 
         $radioName = TP_OPT_SEARCHBY;
         
