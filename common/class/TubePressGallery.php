@@ -456,7 +456,8 @@ EOT;
      */
     function printHTML_videofooter()
     {
-        return '</div><p>';
+    	$css = new TubePressCSS();
+        return sprintf('</div><!-- %s -->', $css->container);
     }
     
     /**
@@ -467,7 +468,7 @@ EOT;
     function printHTML_videoheader()
     {
         $css = new TubePressCSS();
-        return sprintf('</p><div class="%s">', $css->container);
+        return sprintf('<div class="%s">', $css->container);
     }
 }
 ?>

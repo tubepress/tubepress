@@ -44,7 +44,7 @@ class TubePressXML
         }
     
         if ($snoopy->timed_out) {
-            return PEAR::raiseError(_tpMsg("TIMEOUT")); 
+            return PEAR::raiseError(_tpMsg("TIMEOUT", $snoopy->read_timeout)); 
         }
     
         if (strpos($snoopy->response_code, "200 OK") === false) {

@@ -28,10 +28,10 @@ $tubepressMessages =
           /*******************************************************************/
           /*** ERRORS ********************************************************/
           /*******************************************************************/          
-          "TIMEOUT" => "Timed out while trying to contact YouTube",
+          "TIMEOUT" => "Timed out while trying to contact YouTube after %s seconds",
           "BADHTTP" => "YouTube did not respond with an HTTP OK (%s)",
           "NOSTATUS" => "Valid XML from YouTube, but status is missing",
-          "REFUSED" => "Unable to connect to YouTube",
+          "REFUSED" => "Unable to connect to YouTube - ",
           "XMLUNSERR" => "XML unserialization error",
           "YTERROR" => "YouTube responded with an error message: %s",
           "NOCOUNT" => "YouTube didn't return a total video count",
