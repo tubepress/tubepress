@@ -59,7 +59,8 @@ class TubePressVideo
                       $videoXML['id'],
                       
                   TP_VID_TITLE =>       
-                      str_replace("'","&#145;", $videoXML['title']),
+                      str_replace('"', "&#34;", 
+                      str_replace("'","&#8217;", $videoXML['title'])),
                       
                   TP_VID_LENGTH =>      
                       TubePressVideo::_humanTime($videoXML['length_seconds']),

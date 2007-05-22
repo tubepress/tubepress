@@ -174,6 +174,7 @@ EOT;
      */
     function printHTML_metaInfo($vid, $options, $link)
     {
+    	$css = new TubePressCSS();
     
         /* first do the title */    //TODO: is this right???
         $content = sprintf('<div class="%s">', $css->title_class);
@@ -363,7 +364,7 @@ EOT;
         $title = htmlspecialchars($vid->metaValues[TP_VID_TITLE]);
         $link = TubePressGallery::printHTML_smallVidLinkAttributes($vid,
             $options);
-    
+  
         $content = sprintf('<div class="%s"><div class="%s">', 
             $css->thumb_class, $css->thumbImg_class);
         $thumbSrc = $vid->metaValues[TP_VID_THUMBURL];
@@ -373,12 +374,12 @@ EOT;
                         src="$thumbSrc" width="$thumbWidth"  
                         height="$thumbHeight"  />
                 </a>
-            </div><!-- $css->thumbImg_class -->
-            <div class="$css->meta_group">
+            </div><!-- {$css->thumbImg_class} -->
+            <div class="{$css->meta_group}">
 EOT;
         $content .= TubePressGallery::printHTML_metaInfo($vid, $options,
-            $css, $link);
-        $content .= sprintf('</div><!--%s-->', $css->thumb_class);
+            $link);
+        $content .= sprintf('</div><!-- %s -->', $css->thumb_class);
         
         if ($options->getValue(TP_OPT_PLAYIN) == TP_PLAYIN_THICKBOX) {
             $content .= sprintf('<div id="tp%s" style="display:none">%s</div>',
@@ -432,7 +433,7 @@ EOT;
         
             case TP_PLAYIN_NORMAL:
                 return sprintf('href="#" onclick="javascript:playVideo(' .
-                        '\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'normal\', %s)\'',
+                        '\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'normal\', \'%s\')"',
                     $id, $height, $width,
                     htmlspecialchars($vid->metaValues[TP_VID_TITLE]),
                     $vid->metaValues[TP_VID_LENGTH],
@@ -440,7 +441,7 @@ EOT;
     
             default:
                 return sprintf('href="#" onclick="javascript:playVideo(' .
-                        '\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'popup\', %s)\'',
+                        '\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'popup\', \'%s\')"',
                     $id, $height, $width,
                     htmlspecialchars($vid->metaValues[TP_VID_TITLE]),
                     $vid->metaValues[TP_VID_LENGTH],
