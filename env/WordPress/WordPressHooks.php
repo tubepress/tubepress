@@ -99,7 +99,7 @@ EOT;
      */
     function tp_insertCSSJS()
     {
-        $url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
+        $url = get_settings('siteurl') . "/wp-content/plugins/tubepress/common";
         print<<<GBS
             <script type="text/javascript" src="{$url}/tubepress.js"></script>
             <link rel="stylesheet" href="{$url}/tubepress.css" 

@@ -83,7 +83,7 @@ class TubePressOption
         }
         
         /* see if it's a valid value */
-        if (!in_array($candidate, $this->_valid_values)) {
+        if (is_array($this->_valid_values) && !in_array($candidate, $this->_valid_values)) {
         	return PEAR::raiseError(_tpMsg("BADVAL",
         	$candidate, $this->_title,
         	implode(", ", $this->_valid_values)));

@@ -132,7 +132,7 @@ class TubePressGallery
         
         $returnVal = sprintf('<div id="%s" class="%s">', $css->mainVid_id, $css->mainVid_class);
         
-        $returnVal .= sprintf(' <span class="%s">%s</span><span class="%s">%s</span><br />',
+        $returnVal .= sprintf(' <span class="%s">%s</span> <span class="%s">(%s)</span><br />',
         	$css->title_class, $vid->metaValues[TP_VID_TITLE], $css->runtime_class,
         	$vid->metaValues[TP_VID_LENGTH]);
   
@@ -151,12 +151,11 @@ class TubePressGallery
      * @param options A TubePressTag object holding all of our options
      */
     function printHTML_embeddedVid($id, $options)
-    {
-        return sprintf('<object type="application/x-shockwave-flash" style="width:%spx; ' .
-        		'height:%spx;" data="http://www.youtube.com/v/%s">' .
+    {    	 
+        return sprintf('<object type="application/x-shockwave-flash" style="width:%spx;height:%spx;" data="http://www.youtube.com/v/%s">' .
         		'<param name="movie" value="http://www.youtube.com/v/%s" />' .
-        		'</object>', $options->getValue(TP_OPT_VIDWIDTH), 
-        		$options->getValue(TP_OPT_VIDHEIGHT), $id, $id);
+        		'</object>', min($options->getValue(TP_OPT_VIDWIDTH), 424), 
+        		min($options->getValue(TP_OPT_VIDHEIGHT), 336), $id, $id);
     }
     
     /**
@@ -392,7 +391,7 @@ class TubePressGallery
         $content = sprintf('<div class="%s"><div class="%s">', 
             $css->thumb_class, $css->thumbImg_class);
    
-        $content .= sprintf('<a %s><img alt="%s" src="%s width="%s" height="%s" /></a>',
+        $content .= sprintf('<a %s><img alt="%s" src="%s" width="%s" height="%s" /></a>',
         	$link, $vid->metaValues[TP_VID_TITLE], $vid->metaValues[TP_VID_THUMBURL],
         	$options->getValue(TP_OPT_THUMBWIDTH), $options->getValue(TP_OPT_THUMBHEIGHT));
   
