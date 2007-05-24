@@ -22,6 +22,7 @@
 class_exists("TubePressCSS") || require("TubePressCSS.php");
 class_exists("TubePressXML") || require("TubePressXML.php");
 class_exists("TubePressVideo") || require("TubePressVideo.php");
+class_exists("Net_URL") || require(dirname(__FILE__) . "/../../lib/PEAR/Networking/Net_URL/URL.php");
 
 /**
  * Handles fetching and printing out a YouTube gallery. This is meant
@@ -78,6 +79,8 @@ class TubePressGallery
         if ($videosReturnedCnt < $vidLimit) {
             $vidLimit = $videosReturnedCnt;
         }
+
+		$css = new TubePressCSS();
 
         for ($x = 0; $x < $vidLimit; $x++) {
             
@@ -139,7 +142,7 @@ class TubePressGallery
         $returnVal .= 
             TubePressGallery::printHTML_embeddedVid($vid->metaValues[TP_VID_ID], $options);
         
-        $returnVal .= sprintf('</div> <!--%s-->', $css->mainVid_id);
+        $returnVal .= sprintf('</div> <!--%s--> <br />', $css->mainVid_id);
         
         return $returnVal;
     }
@@ -335,7 +338,7 @@ class TubePressGallery
         $currentPage = (isset($_GET[TP_PAGE_PARAM]) ? $_GET[TP_PAGE_PARAM] : 1);
     
         /* save our current full address */
-        $url = TubePressTag::fullURL();
+        $url = TubePressStatic::fullURL();
     
         /* print a previous button if we're not on the first page */
         $prevText = (($currentPage > 1) ? 

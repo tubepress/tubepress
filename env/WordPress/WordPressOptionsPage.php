@@ -228,10 +228,10 @@ EOT;
 
             print <<<EOT
                 <tr>
-                    <th style="font-weight: bold; font-size: 1em" valign="top">{$options->getDescription($mode)}</th>
+                    <th style="font-weight: bold; font-size: 1em" valign="top">$options->getDescription($mode)</th>
                     <td>
                         <input type="radio" name="$radioName" id="$mode" value="$mode" $selected /> $inputBox
-                        <br />{$options->getDescription($mode)}
+                        <br />$options->getDescription($mode)
                     </td>
                 </tr>
 EOT;
