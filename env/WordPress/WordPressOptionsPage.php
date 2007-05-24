@@ -23,44 +23,39 @@
 
 class WordPressOptionsPage
 {
-	function printHTML_advanced($options) {
-	   WordPressOptionsPage::printHTML_optionHeader(_tpMsg("ADV_GRP_TITLE"));
+    function printHTML_advanced($options) {
+	    WordPressOptionsPage::_printHTML_optionHeader(_tpMsg("ADV_GRP_TITLE"));
 
-	   WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_KEYWORD, $options);
-	   WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_TIMEOUT, $options);
-	   WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_DEVID, $options);
-	   WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_USERNAME, $options);
+	    WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_KEYWORD, $options);
+	    WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_TIMEOUT, $options);
+	    WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_DEVID, $options);
+	    WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_USERNAME, $options);
 	  
-	   $selected = "";
-            if ($options->getValue(TP_OPT_DEBUG) == true) {
-            	$selected = "CHECKED";
-            }
-        $debugName = TP_OPT_DEBUG;
-	  print <<< EOT
-	                  <td>
-                    <input type="checkbox" name="$debugName" value="$debugName"
-                    $selected />
-                </td>
-                <td><b>$options->getTitle($debugName)</b></td>
-EOT;
-	  
+	    $selected = "";
+        if ($options->getValue(TP_OPT_DEBUG) == true) {
+            $selected = "CHECKED";
+        }
+        
+	    printf('<td><input type="checkbox" name="%s" value="%s" %s /></td>', 
+	        TP_OPT_DEBUG, TP_OPT_DEBUG, $selected);
+        printf('<td><b>%s</b></td>', $options->getTitle(TP_OPT_DEBUG));
+
 		WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_THUMBHEIGHT, $options);
 
-       WordPressOptionsPage::printHTML_optionFooter(); 
-	}
+        WordPressOptionsPage::_printHTML_optionFooter(); 
+    }
 	
-	function printHTML_display($options) {
-	   WordPressOptionsPage::printHTML_optionHeader(_tpMsg("VIDDISP"));
+    function printHTML_display($options) {
+	    WordPressOptionsPage::_printHTML_optionHeader(_tpMsg("VIDDISP"));
 	   
-	   WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_VIDSPERPAGE, $options);
-	   WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_VIDWIDTH, $options);
-	   WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_VIDHEIGHT, $options);
-	   WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_THUMBWIDTH, $options);
-	   WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_THUMBHEIGHT, $options);
+	    WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_VIDSPERPAGE, $options);
+	    WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_VIDWIDTH, $options);
+	    WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_VIDHEIGHT, $options);
+	    WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_THUMBWIDTH, $options);
+	    WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_THUMBHEIGHT, $options);
 
-       WordPressOptionsPage::printHTML_optionFooter();    
-	}
-	
+        WordPressOptionsPage::_printHTML_optionFooter();    
+    }
 	
 	/**
      * Prints out the drop down menu asking where to play the videos
@@ -69,28 +64,24 @@ EOT;
     function printHTML_player($options) {
         $locationVars =     $options->getPlayerLocationNames();
         
-        WordPressOptionsPage::printHTML_optionHeader("");
+        WordPressOptionsPage::_printHTML_optionHeader("");
 
-        print <<<EOT
-            <tr>
-                <th style="font-weight: bold; font-size: 1em">
-                    $options->getTitle(TP_OPT_PLAYIN)</th>
-                <td><select name="$options->getName(TP_OPT_PLAYIN)">
-EOT;
+        printf('<tr> <th style="font-weight: bold; font-size: 1em">%s</th>', 
+            $options->getTitle(TP_OPT_PLAYIN));
+        printf('<td><select name="%s">', $options->getName(TP_OPT_PLAYIN));
+
         foreach ($locationVars as $location) {
             $selected = "";
             if ($location == $options->getValue(TP_OPT_PLAYIN))
                 $selected = "selected";
             $inputBox = "";
     
-        print <<<EOT
-            <option value="$location" $selected>$location</option>
-EOT;
+            printf('<option value="%s" %s>%s</option>', $location, $selected, $location);
         }
         
         echo "</select></td></tr>";
         
-        WordPressOptionsPage::printHTML_optionFooter();
+        WordPressOptionsPage::_printHTML_optionFooter();
     }
 	
 	function _printHTML_textBoxOption($optionName, $options) {
@@ -100,19 +91,14 @@ EOT;
         	$openBracket = '[';
            	$closeBracket = ']';
         } 
-		print <<<EOT
-        	<tr valign="top">
-            	<th style="font-weight: bold; font-size: 1em" scope="row">
-                		$options->getTitle($optionName):
-               	</th>
-              	<td>$openBracket
-              		<input name="$options->getName($optionName)" 
-                    	type="text" id="$options->getName($optionName)" class="code"
-                        value="$options->getValue($optionName)" size="$inputSize" />
-                        	$closeBracket<br />$options->getDescription($optionName)
-              	</td>
-          	</tr>
-EOT;
+		printf('<tr valign="top"><th style="font-weight: bold; font-size: 1em" scope="row">' .
+            '%s</th><td>%s<input name="%s" type="text" id="%s" class="code" value="%s" ' .
+            'size="%s" />%s<br />%s</td></tr>',       		
+            $options->getTitle($optionName), $openBracket,
+            $options->getName($optionName), $options->getName($optionName),
+            $options->getValue($optionName), $closeBracket,
+            $options->getDescription($optionName)
+            );
 	}
     
     /**
@@ -120,7 +106,7 @@ EOT;
      */
     function printHTML_meta($options)
     {
-        WordPressOptionsPage::printHTML_optionHeader(_tpMsg("META"));
+        WordPressOptionsPage::_printHTML_optionHeader(_tpMsg("META"));
         
         $metas = TubePressVideo::getMetaNames();
         
@@ -141,14 +127,11 @@ EOT;
             	echo "<tr>";
             }
     
-            print <<<EOT
-                <td>
-                    <input type="checkbox" name="meta[]" value="$options->getName($meta)"
-                    $selected />
-                </td>
-                <td><b>$options->getTitle($meta)</b></td>
-EOT;
-            
+            printf('<td><input type="checkbox" name="meta[]" value="%s" %s />' .
+                '</td><td><b>%s</b></td>',
+                $options->getName($meta), $selected,
+                $options->getTitle($meta));
+                    
             if ($colCount == 4) {
             	echo "</tr>";
             }
@@ -157,18 +140,18 @@ EOT;
         }
         echo "</tr></table>";
         
-        WordPressOptionsPage::printHTML_optionFooter();
+        WordPressOptionsPage::_printHTML_optionFooter();
     }
     
     /**
      * Spits out a bit of HTML at the top of each option group
      */
-    function printHTML_optionHeader($arrayName)
+    function _printHTML_optionHeader($arrayName)
     {
         echo "<fieldset>";
         
         if ($arrayName != "") {
-            echo '<h3>' . $arrayName . '</h3>';
+            printf('<h3>%s</h3>', $arrayName);
         }
     
         echo '<table class="editform optiontable">';
@@ -177,20 +160,16 @@ EOT;
     /**
      * Spits out a bit of HTML at the bottom of each option group
      */
-    function printHTML_optionFooter() {
+    function _printHTML_optionFooter() {
         echo "</table></fieldset>";
     }
-    
 
-    
-
-    
     /**
      * 
      */
     function printHTML_modes($options)
     {
-        WordPressOptionsPage::printHTML_optionHeader(_tpMsg("MODE_HEADER"));
+        WordPressOptionsPage::_printHTML_optionHeader(_tpMsg("MODE_HEADER"));
 
         $radioName = TP_OPT_SEARCHBY;
         
@@ -214,30 +193,25 @@ EOT;
             if ($mode == TP_MODE_POPULAR) {
             	
                 $name = TP_OPT_POPVAL;
-                $inputBox = '<select name="' . $name . '">';
+                $inputBox = sprintf('<select name="%s">', $name);
                 $period = array("day", "week", "month");
                 foreach ($period as $thisPeriod) {
-                    $inputBox .= '<option value="' . $thisPeriod . '"';
+                    $inputBox .= sprintf('<option value="%s"', $thisPeriod);
                     if ($thisPeriod == $options->getValue(TP_OPT_POPVAL)) {
                         $inputBox .= ' SELECTED';
                     }
-                    $inputBox .= '>' . $thisPeriod . '</option>';
+                    $inputBox .= sprintf('>%s</option>', $thisPeriod);
                 }
                 $inputBox .= '</select>';
             }
 
-            print <<<EOT
-                <tr>
-                    <th style="font-weight: bold; font-size: 1em" valign="top">$options->getDescription($mode)</th>
-                    <td>
-                        <input type="radio" name="$radioName" id="$mode" value="$mode" $selected /> $inputBox
-                        <br />$options->getDescription($mode)
-                    </td>
-                </tr>
-EOT;
+            printf('<tr><th style="font-weight: bold; font-size: 1em" valign="top">%s</th>' .
+                '<td><input type="radio" name="%s" id="%s" value="%s" %s /> %s <br />%s</td></tr>',
+                $options->getDescription($mode), $radioName, $mode, $mode, $selected, $inputBox,
+                $options->getDescription($mode));
         }
    
-        WordPressOptionsPage::printHTML_optionFooter();
+        WordPressOptionsPage::_printHTML_optionFooter();
     }
     
         /**
@@ -282,7 +256,7 @@ EOT;
                 break;
         }
         return sprintf('<input type="text" name="%s" size="%s" value="%s" />',
-        	$mode, $inputSize, $options->getValue($mode));
+        	$whichValue, $inputSize, $options->getValue($whichValue));
     }
     
     /**
@@ -342,17 +316,14 @@ EOT;
 	    if (PEAR::isError($oldOpts)) {
 	    	WordPressOptionsPage::printStatusMsg($oldOpts->msg, $css->failure_class);
 	    } else {
-	    	WordPressOptionsPage::printStatusMsg("Success!", $css->success_class);
+	    	WordPressOptionsPage::printStatusMsg(_tpMsg("OPTSUCCESS"), $css->success_class);
 	    }
     }
     
     function printStatusMsg($msg, $cssClass)
     {
-	    print <<<EOT
-	        <div id="message" class="$cssClass">
-	            <p><strong></strong></p>
-	        </div>
-EOT;
+	    printf('<div id="message" class="%s"><p><strong>%s</strong></p></div>',
+	        $cssClass, $msg);
     }
 }
 ?>
