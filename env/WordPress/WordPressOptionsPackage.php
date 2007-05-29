@@ -45,6 +45,7 @@ class WordPressOptionsPackage extends TubePressOptionsPackage
         $options = get_option(TP_OPTION_NAME);
         
         $result = TubePressOptionsPackage::areValid($options);
+        
         if (PEAR::isError($result)) {
             $this->error = $result;
             return;
@@ -122,8 +123,18 @@ class WordPressOptionsPackage extends TubePressOptionsPackage
     function initDB()
     {
         WordPressOptionsPackage::deleteLegacyOptions();
+        $stored = get_option(TP_OPTION_NAME);
+        $validity = TubePressOptionsPackage::areValid($stored);
         
-        add_option(TP_OPTION_NAME, TubePressOptionsPackage::getDefaultPackage());
+        if (PEAR::isError($stored)) {
+        	delete_option(TP_OPTION_NAME);
+        	add_option(TP_OPTION_NAME, TubePressOptionsPackage::getDefaultPackage());
+        }
+        
+        if (PEAR::isError($validity)) {
+        	delete_option(TP_OPTION_NAME);
+        	add_option(TP_OPTION_NAME, TubePressOptionsPackage::getDefaultPackage());
+        }
     }
 
     /**
@@ -191,7 +202,6 @@ class WordPressOptionsPackage extends TubePressOptionsPackage
         delete_option("devID");
         delete_option("devIDlink");
         delete_option("searchByValue");
-        delete_option("tubepress");
     }
 }
 ?>

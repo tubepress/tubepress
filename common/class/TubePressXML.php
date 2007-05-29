@@ -21,6 +21,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+class_exists("snoopy") || require(dirname(__FILE__) . "/../../lib/snoopy/Snoopy.class.php");
+
 class TubePressXML
 {
 
@@ -29,7 +31,7 @@ class TubePressXML
      */
     function fetchRawXML($options)
     {   
-        $snoopy = new snoopy;
+        $snoopy = new snoopy();
         $snoopy->read_timeout = $options->getValue(TP_OPT_TIMEOUT);
 
         $request = TubePressXML::generateRequest($options);

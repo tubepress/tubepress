@@ -49,12 +49,11 @@ define("TP_MODE_CATEGORY", "category");
 /*** SEARCHING VALUES ********************************************************/
 /*****************************************************************************/
 define("TP_OPT_TAGVAL", "tagValue");
-define("TP_OPT_RELVAL", "relatedValue");
 define("TP_OPT_USERVAL", "userValue");
 define("TP_OPT_PLSTVAL", "playlistValue");
 define("TP_OPT_POPVAL", "popularValue");
 define("TP_OPT_FAVVAL", "favoritesValue");
-define("TP_OPT_CATVAL", "categoryValue");
+//define("TP_OPT_CATVAL", "categoryValue");
 
 /*****************************************************************************/
 /*** PLAYER LOCATIONS ********************************************************/

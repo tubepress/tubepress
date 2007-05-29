@@ -39,8 +39,8 @@ $tubepressMessages =
           "NOCOUNT" => "YouTube didn't return a total video count",
           "OKNOVIDS" => "YouTube responded with OK, but no video_list returned",
           "BADMODE" => "Invalid mode specified (%s)",
-          "BADTYPE" => "Type mismatch while setting the value for '%s.' " .
-                "Expected a %s but instead got a %s with value '%s'",
+          "BADTYPE" => "Type mismatch while setting the value for '%s'. " .
+                "Expected any %s but instead got '%s' of type '%s'",
           "BADVAL" => "%s not a valid value for %s. Must be one of: %s",
           "NOVALS" => "No valid values defined for this option",
           "ARRSET" => "Can only set valid options with an array",
@@ -88,13 +88,14 @@ $tubepressMessages =
           /*** ADVANCED OPTIONS **********************************************/
           /*******************************************************************/
           "ADV_GRP_TITLE" => "Advanced",
-          "DEBUGDESC" => "Enable debugging", "If set to 'true', " .
-                         "anyone will be able to view your debugging" .
-                         "information. This is a very small privacy" .
-                         "risk. If you're not having problems with" .
-                         "TubePress, or you're worried about revealing" .
+          "DEBUGTITLE" => "Enable debugging",
+          "DEBUGDESC" => "If checked, " .
+                         "anyone will be able to view your debugging " .
+                         "information. This is a very small privacy " .
+                         "risk. If you're not having problems with " .
+                         "TubePress, or you're worried about revealing " .
                          "any details of your TubePress pages, feel free to " .
-                         "disable debugging here.",
+                         "disable the feature.",
           "DEVID_TITLE" => "Alternate YouTube developer ID",
           "DEVID_DESC" => "Default is \"qh7CQ9xJIIc\". I can't think of a " .
                   "reason why you'd want/need to change the default developer " .
@@ -116,18 +117,18 @@ $tubepressMessages =
           /*******************************************************************/
           "MODE_HEADER" => "Which videos?",
           "MODE_CAT_TITLE" => "this category",
-          "MODE_FAV_TITLE" => "this user's \"favorites\"",
+          "MODE_FAV_TITLE" => "this YouTube user's \"favorites\"",
           "MODE_FEAT_TITLE" => "The latest 25 \"featured\" videos " .
-                  "on YouTube's homepage.",
+                  "on YouTube's homepage",
           "MODE_PLST_TITLE" => "this playlist",
           "MODE_PLST_DESC" => "Will usually look something like this:" .
                   " D2B04665B213AE35. Copy the playlist id from the end of the " .
                   "URL in your browser's address bar (while looking at a YouTube " .
                   "playlist). It comes right after the 'p='. For instance: " .
-                  "http://youtube.com/my_playlists?p=D2B04665B213AE35.",
+                  "http://youtube.com/my_playlists?p=D2B04665B213AE35",
           "MODE_POPULAR_TITLE" => "Top 25 most-viewed videos from the past...",
-          "MODE_TAG_TITLE" => "YouTube search",
-          "MODE_USER_TITLE" => "this user's videos",
+          "MODE_TAG_TITLE" => "YouTube search for",
+          "MODE_USER_TITLE" => "vides from this YouTube user",
           
           /*******************************************************************/
           /*** DISPLAY OPTIONS ***********************************************/
@@ -138,14 +139,12 @@ $tubepressMessages =
           "THUMBWIDTH_DESC" => "Default is 120",
           "THUMBWIDTH_TITLE" => "Width (px) of thumbs",
           "VIDHEIGHT_TITLE" => "Max height (px) of main video",
-          "VIDHEIGHT_DESC" => "Default is 350",
+          "VIDHEIGHT_DESC" => "Default (and maximum) is 336",
           "VIDWIDTH_TITLE" => "Max width (px) of main video",
-          "VIDWIDTH_DESC" => "Default is 425",
+          "VIDWIDTH_DESC" => "Default (and maximum) is 424",
           "VIDSPERPAGE_TITLE" => "Videos per page",
           "VIDSPERPAGE_DESC" => "Default is 20, maximum is 100. The only modes that " .
-                  "support pagination are the tag modes, and videos from some user. " .
-                  "Playlists are supposed to page but it appears to be broken on YouTube's" .
-                  " side :(",
+                  "support pagination are the tag modes, and videos from some user. ",
           
           /*******************************************************************/
           /*** VIDEO PLAYER LOCATIONS ****************************************/
@@ -155,8 +154,7 @@ $tubepressMessages =
           "PLAYIN_YT_TITLE" => "from the original YouTube page",
           "PLAYIN_NORMAL_TITLE" => "normally (at the top of your gallery)",
           "PLAYIN_POPUP_TITLE" => "in a popup window",
-          "PLAYIN_LB_TITLE" => "using Thickbox (experimental)",
-          "PLAYIN_LB_TITLE" => "with ThickBox (experimental)",
+          "PLAYIN_TB_TITLE" => "using Thickbox (experimental)",
           "PLAYIN_LW_TITLE" => "with LightWindow (experimental)");
 
 function _tpMsg()

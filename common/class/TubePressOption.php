@@ -75,11 +75,19 @@ class TubePressOption
      */
     function setValue($candidate)
     {
+    	/* integers come in here as strings */
+    	if ($this->_type == "integer") {
+    		$intval = intval($candidate);
+    		if ($candidate == "0" || $intval != 0) {
+    			$candidate = (integer)$candidate;
+    		}
+    	}
+    	
     	/* make sure it's the right type */
         if (gettype($candidate) != $this->_type) {
             return PEAR::raiseError(_tpMsg("BADTYPE", 
                 array($this->_title, $this->_type,
-                gettype($candidate), $candidate)));
+                $candidate, gettype($candidate))));
         }
         
         /* see if it's a valid value */

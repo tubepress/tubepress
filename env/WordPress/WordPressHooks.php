@@ -74,13 +74,9 @@ class_exists("WordPressOptionsPage")
 EOT;
     
         WordPressOptionsPage::printHTML_modes($dbOptions);
-            
         WordPressOptionsPage::printHTML_display($dbOptions);
-        
         WordPressOptionsPage::printHTML_player($dbOptions);
-        
         WordPressOptionsPage::printHTML_meta($dbOptions);
-        
         WordPressOptionsPage::printHTML_advanced($dbOptions);
     
         $saveValue = _tpMsg("SAVE");

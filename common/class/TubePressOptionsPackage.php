@@ -20,6 +20,7 @@
 */
 
 class_exists('TubePressOption') || require('TubePressOption.php');
+defined("TP_OPTION_NAME") || require(dirname(__FILE__) . "/../defines.php");
 
 /**
  * This is meant to be an abstract class, though PHP 4 doesn't support
@@ -158,8 +159,6 @@ class TubePressOptionsPackage
         
                   TP_OPT_TAGVAL =>  new TubePressOption(TP_OPT_TAGVAL, ' ',
                                          '', "stewart daily show"),
-                  TP_OPT_RELVAL =>  new TubePressOption(TP_OPT_RELVAL, ' ',
-                                         '', "mooninite aqua teen hunger force"),
                   TP_OPT_USERVAL => new TubePressOption(TP_OPT_USERVAL, ' ',
                                      '', "3hough"),
                   TP_OPT_PLSTVAL => new TubePressOption(TP_OPT_PLSTVAL,
@@ -168,8 +167,8 @@ class TubePressOptionsPackage
                                          '', "mrdeathgod"),
                   TP_OPT_POPVAL =>  new TubePressOption(TP_OPT_POPVAL,
                                          ' ', '', "day"),
-                  TP_OPT_CATVAL =>  new TubePressOption(TP_OPT_CATVAL, ' ',
-                                       '', "19"),
+                  //TP_OPT_CATVAL =>  new TubePressOption(TP_OPT_CATVAL, ' ',
+                  //                     '', "19"),
             
            /* -------- DISPLAY OPTIONS -------------------------------------- */
                   
@@ -216,7 +215,7 @@ class TubePressOptionsPackage
                                          _tpMsg("USERNAME_DESC"), "3hough"),
                                           
                   TP_OPT_DEBUG => new TubePressOption(TP_OPT_DEBUG,
-                                     _tpMsg("DEBUGDESC"), true, "boolean"),
+                                     _tpMsg("DEBUGTITLE"), true, "boolean"),
  
          /* -------- VIDEO SEARCH OPTION ----------------------------------- */
 
@@ -263,7 +262,13 @@ class TubePressOptionsPackage
             if (!is_a($suspectOptions[$defaultOption->getName()], TubePressOption)) {
                 return PEAR::raiseError(_tpMsg("OLDDB"));
             }
-        }    
+        }
+        
+        /* finally, make sure that we have the right number of options */
+        if (count($suspectOptions) != count($modelOptions)) {
+        	return PEAR::raiseError("You have extra options! Expecting " . count($modelOptions)
+        	. " but you seem to have " . count($suspectOptions));
+        }
     }
     
     /**
@@ -282,8 +287,8 @@ class TubePressOptionsPackage
     function getModeNames()
     {
         return
-            array(TP_MODE_CATEGORY, TP_MODE_PLST,TP_MODE_TAG,TP_MODE_REL, 
-                TP_MODE_USER, TP_MODE_FAV, TP_MODE_FEATURED, TP_MODE_POPULAR);
+            array(TP_MODE_USER, TP_MODE_FAV, TP_MODE_PLST,TP_MODE_TAG, 
+                 TP_MODE_FEATURED, TP_MODE_POPULAR);
     }
 }
 ?>

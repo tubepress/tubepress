@@ -35,12 +35,11 @@ class WordPressOptionsPage
         if ($options->getValue(TP_OPT_DEBUG) == true) {
             $selected = "CHECKED";
         }
-        
-	    printf('<td><input type="checkbox" name="%s" value="%s" %s /></td>', 
-	        TP_OPT_DEBUG, TP_OPT_DEBUG, $selected);
-        printf('<td><b>%s</b></td>', $options->getTitle(TP_OPT_DEBUG));
 
-		WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_THUMBHEIGHT, $options);
+        printf('<tr valign="top"><th style="font-weight: bold; font-size: 1em" scope="row">' .
+        		'%s</th><td><input type="checkbox" name="%s" value="%s" %s /><br />%s</td>', 
+        	$options->getTitle(TP_OPT_DEBUG), TP_OPT_DEBUG, TP_OPT_DEBUG, $selected,
+        	_tpMsg("DEBUGDESC"));
 
         WordPressOptionsPage::_printHTML_optionFooter(); 
     }
@@ -68,7 +67,7 @@ class WordPressOptionsPage
 
         printf('<tr> <th style="font-weight: bold; font-size: 1em">%s</th>', 
             $options->getTitle(TP_OPT_PLAYIN));
-        printf('<td><select name="%s">', $options->getName(TP_OPT_PLAYIN));
+        printf('<td><select name="%s">', TP_OPT_PLAYIN);
 
         foreach ($locationVars as $location) {
             $selected = "";
@@ -76,7 +75,30 @@ class WordPressOptionsPage
                 $selected = "selected";
             $inputBox = "";
     
-            printf('<option value="%s" %s>%s</option>', $location, $selected, $location);
+    		$desc = "";
+    		switch ($location) {
+    			case TP_PLAYIN_NORMAL:
+    				$desc = _tpMsg("PLAYIN_NORMAL_TITLE");
+    				break;
+    			case TP_PLAYIN_NW:
+    				$desc = _tpMsg("PLAYIN_NW_TITLE");
+    				break;
+    			case TP_PLAYIN_YT:
+    				$desc = _tpMsg("PLAYIN_YT_TITLE");
+    				break;
+    			case TP_PLAYIN_POPUP:
+    				$desc = _tpMsg("PLAYIN_POPUP_TITLE");
+    				break;
+    			case TP_PLAYIN_LWINDOW:
+    				$desc = _tpMsg("PLAYIN_LW_TITLE");
+    				break;
+    			case TP_PLAYIN_THICKBOX:
+    				$desc = _tpMsg("PLAYIN_TB_TITLE");
+    				break;
+    		}
+    
+    
+            printf('<option value="%s" %s>%s</option>', $location, $selected, $desc);
         }
         
         echo "</select></td></tr>";
@@ -95,8 +117,8 @@ class WordPressOptionsPage
             '%s</th><td>%s<input name="%s" type="text" id="%s" class="code" value="%s" ' .
             'size="%s" />%s<br />%s</td></tr>',       		
             $options->getTitle($optionName), $openBracket,
-            $options->getName($optionName), $options->getName($optionName),
-            $options->getValue($optionName), $closeBracket,
+            $optionName, $optionName,
+            $options->getValue($optionName), 20, $closeBracket,
             $options->getDescription($optionName)
             );
 	}
@@ -129,7 +151,7 @@ class WordPressOptionsPage
     
             printf('<td><input type="checkbox" name="meta[]" value="%s" %s />' .
                 '</td><td><b>%s</b></td>',
-                $options->getName($meta), $selected,
+                $meta, $selected,
                 $options->getTitle($meta));
                     
             if ($colCount == 4) {
@@ -170,11 +192,9 @@ class WordPressOptionsPage
     function printHTML_modes($options)
     {
         WordPressOptionsPage::_printHTML_optionHeader(_tpMsg("MODE_HEADER"));
-
-        $radioName = TP_OPT_SEARCHBY;
         
         $modes = TubePressOptionsPackage::getModeNames();
-        
+
         foreach ($modes as $mode) {
             $selected = "";
             
@@ -205,12 +225,37 @@ class WordPressOptionsPage
                 $inputBox .= '</select>';
             }
 
+			$title = "";
+			$desc = "";
+			
+			switch($mode) {
+				case TP_MODE_POPULAR:
+					$title = _tpMsg("MODE_POPULAR_TITLE");
+					break;
+				case TP_MODE_FEATURED:
+					$title = _tpMsg("MODE_FEAT_TITLE");
+					break;
+				case TP_MODE_FAV:
+					$title = _tpMsg("MODE_FAV_TITLE");
+					break;
+				case TP_MODE_PLST:
+					$title = _tpMsg("MODE_PLST_TITLE");
+					$desc = _tpMsg("MODE_PLST_DESC");
+					break;
+				case TP_MODE_TAG:
+					$title = _tpMsg("MODE_TAG_TITLE");
+					break;
+				case TP_MODE_USER:
+					$title = _tpMsg("MODE_USER_TITLE");
+					break;
+				default:
+			}
+
             printf('<tr><th style="font-weight: bold; font-size: 1em" valign="top">%s</th>' .
                 '<td><input type="radio" name="%s" id="%s" value="%s" %s /> %s <br />%s</td></tr>',
-                $options->getDescription($mode), $radioName, $mode, $mode, $selected, $inputBox,
-                $options->getDescription($mode));
+                $title, TP_OPT_SEARCHBY, $mode, $mode, $selected, $inputBox,
+                $desc);
         }
-   
         WordPressOptionsPage::_printHTML_optionFooter();
     }
     
@@ -229,12 +274,7 @@ class WordPressOptionsPage
                 $whichValue = TP_OPT_TAGVAL;
                 $inputSize = 40;
                 break;
-        
-            case TP_MODE_REL:
-                $whichValue = TP_OPT_RELVAL;
-                $inputSize = 40;
-                break;
-        
+
             case TP_MODE_USER:
                 $whichValue = TP_OPT_USERVAL;
                 break;
@@ -274,34 +314,33 @@ class WordPressOptionsPage
 	    	WordPressOptionsPage::printStatusMsg($oldOpts->message, $css->failure_class);
 	    	return;
 	    }
-	
+	    
 	    /* go through the post variables and try to update */
         foreach (array_keys($oldOpts->_allOptions) as $optName) {
         	if (($optName == TP_OPT_DEBUG)
-        	    || array_key_exists($optName, $oldOpts->getMetaOptions())
-        	    || array_key_exists($optName, $oldOpts->getSearchByOptions())
-        	    || array_key_exists($optName, $oldOpts->getPlayerLocationOptions())) {
+        	    || in_array($optName, TubePressVideo::getMetaNames())
+        	    || in_array($optName, TubePressOptionsPackage::getPlayerLocationNames())
+        	    || in_array($optName, TubePressOptionsPackage::getModeNames())) {
         	    	continue;
             }
         	
-            $result = $oldOpts->set($oldOpts->get($optName), $_POST[$optName]);
+            $result = $oldOpts->setValue($optName, $_POST[$optName]);
         		
         	if (PEAR::isError($result)) {
         		$errors = true;
         		WordPressOptionsPage::printStatusMsg($result->message, $css->failure_class);
-        		break;
+        		return;
         	}
         }
 
 	    /* We treat meta values differently since they rely on true/false */
-	    $metaOptions = $oldOpts->getMetaOptions();
+	    $metaOptions = TubePressVideo::getMetaNames();
 	    
-	    foreach (array_keys($metaOptions) as $index) {
-	        $metaOption =& $metaOptions[$index];
-	        if (in_array($metaOption->getName(), $_POST['meta'])) {	
-	            $oldOpts->set($oldOpts->get($metaOption->getName()), true);
+	    foreach ($metaOptions as $metaOption) {
+	        if (in_array($metaOption, $_POST['meta'])) {	
+	            $oldOpts->setValue($metaOption, true);
 	        } else {
-	            $oldOpts->set($oldOpts->get($metaOption->getName()), false);
+	            $oldOpts->setValue($metaOption, false);
 	        }
 	    }
 	

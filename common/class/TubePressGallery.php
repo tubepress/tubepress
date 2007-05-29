@@ -180,7 +180,7 @@ class TubePressGallery
         $returnVal .= TubePressGallery::printHTML_embeddedVid($_GET[TP_VID_PARAM],
             $options);
             
-        $returnVal .= sprintf('</div><!-- %s --><a href="%s">%s</a>', $css->mainVid_id,
+        $returnVal .= sprintf('</div><!-- %s --><br /><a href="%s">%s</a>', $css->mainVid_id,
         	$url->getURL(), _tpMsg("BACK2GALLERY"));
         
         return $returnVal;
@@ -263,13 +263,13 @@ class TubePressGallery
                         
                     case TP_VID_THUMBURL:
                         $content .= 
-                            TubePressGallery::_printHTML_metaLink($option->getTitle(),
+                            TubePressGallery::_printHTML_metaLink($options->getTitle($metaName),
                             $vid->metaValues[$metaName]);
                         break;
                         
                     case TP_VID_URL:
                         $content .=
-                            TubePressGallery::_printHTML_metaLink($option->getTitle(), 
+                            TubePressGallery::_printHTML_metaLink($options->getTitle($metaName), 
                             $vid->metaValues[$metaName]);
                         break;
                         
@@ -291,7 +291,7 @@ class TubePressGallery
                         $tags = explode(" ", $vid->metaValues[$metaName]);
                         $tags = implode("%20", $tags);
                         $content .= sprintf('%s: %s', $metaName,
-                            TubePressGallery::__printHTML_metaLink($vid->metaValues[$metaName],
+                            TubePressGallery::_printHTML_metaLink($vid->metaValues[$metaName],
                                 sprintf('http://youtube.com/results?' .
                                     'search_query=%s&amp;search=Search',
                                     $tags)));
@@ -432,38 +432,37 @@ class TubePressGallery
         switch ($options->getValue(TP_OPT_PLAYIN)) {
             case TP_PLAYIN_THICKBOX:
                 return sprintf(
-                    'href="#TB_inline?height=%s&amp;width=%s&amp;' .
-                    'inlineId=tp%s" class="thickbox" title="%s"',
+                    'href="http://localhost/wp/wp-content/plugins/tubepress/common/popup.php?keepThis=true&TB_iframe=true&height=%s&amp;width=%s"' .
+                    '" class="thickbox" title="%s"',
                     $height, $width, $id, $title);
                 
             case TP_PLAYIN_NW:
-                $url = new Net_URL(TubePressTag::fullURL());
+                $url = new Net_URL(TubePressStatic::fullURL());
                 $url->addQueryString(TP_VID_PARAM, $id);
                 return sprintf('href="%s"', $url->getURL());
             
             case TP_PLAYIN_YT:
-                return sprintf('href="http://youtube.com/watch?v=%s', $id);
+                return sprintf('href="http://youtube.com/watch?v=%s"', $id);
             
             case TP_PLAYIN_LWINDOW:
                 //TODO: test me with relative quotes
-                return sprintf('href="%s/wp-content/plugins/' .
-                        'tubepress/tp_popup.php?' .
+                return sprintf('href="%s/wp-content/plugins/tubepress/common/popup.php?' .
                         'name=%s&id=%s&w=%s&h=%s" class="lWOn" title="%s" ' .
-                        'params="lWWidth=425,lWHeight=355"', 
-                    $options->get('site_url'), $title, $id,
-                    $width, $height, $title);
+                        'params="lWWidth=%s,lWHeight=%s"', 
+                    "http://localhost/wp", rawurlencode($title), $id,
+                    $width, $height, $title, $width, $height);
         
             case TP_PLAYIN_NORMAL:
                 return sprintf('href="#" onclick="javascript:playVideo(' .
                         '\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'normal\', \'%s\')"',
-                    $id, $height, $width, $title,
+                    $id, $height, $width, rawurlencode($title),
                     $vid->metaValues[TP_VID_LENGTH], "http://localhost/wp");
     
             default:
                 return sprintf('href="#" onclick="javascript:playVideo(' .
-                        '\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'popup\', \'%s\')"',
+                        '\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'popup\', \'http://localhost\')"',
                     $id, $height, $width,
-                    $title, $vid->metaValues[TP_VID_LENGTH], $options->get('site_url'));
+                    rawurlencode($title), $vid->metaValues[TP_VID_LENGTH]);
         }
     }
     
