@@ -129,14 +129,20 @@ GBS;
     function tp_insertThickBox()
     {
         $url = get_settings('siteurl') .
-            "/wp-content/plugins/tubepress/lib/thickbox";
+            "/wp-content/plugins/tubepress/lib/greybox";
         print<<<GBS
+        <script type="text/javascript">
+    var GB_ROOT_DIR = "$url/";
+</script>
+        
             <script type="text/javascript" 
-                src="{$url}/jquery.js"></script>
+                src="{$url}/AJS.js"></script>
             <script type="text/javascript"
-                src="{$url}/thickbox.js"></script>
+                src="{$url}/AJS_fx.js"></script>
+            <script type="text/javascript"
+                src="{$url}/gb_scripts.js"></script>
             <link rel="stylesheet"
-                href="{$url}/thickbox.css" media="screen" type="text/css" />
+                href="{$url}/gb_styles.css" type="text/css" />
 GBS;
     }
 ?>

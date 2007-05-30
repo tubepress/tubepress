@@ -48,6 +48,7 @@ class TubePressCSS
         $this->nextlink =              "tubepress_next";
         $this->prevlink =              "tubepress_prev";
         $this->failure_class =         "error fade";
+        $this->pages =                 "tubepress_pages";
     }
 }
 ?>

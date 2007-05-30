@@ -69,7 +69,7 @@ class TubePressGallery
         $videosPrintedCnt = 0;
         
         /* how many videos we actually got from YouTube */
-        $videosReturnedCnt = $videoArray['total'];
+        $videosReturnedCnt = count($videoArray['video']);
         
         /* Next two lines figure out how many videos we're going to show */
         $vidLimit = ($paging ?
@@ -96,7 +96,7 @@ class TubePressGallery
                 $newcontent .= TubePressGallery::printHTML_bigvid($video, $options);
                 if ($paging) {
                     $newcontent .= 
-                        TubePressGallery::_printHTML_pagination($videosReturnedCnt, 
+                        TubePressGallery::_printHTML_pagination($videoArray['total'], 
                             $options);
                 }
                 $newcontent .= sprintf('<div class="%s">',
@@ -110,7 +110,7 @@ class TubePressGallery
         $newcontent .= sprintf('</div><!-- %s -->', $css->thumb_container_class);
         if ($paging) {
             $newcontent .= 
-                TubePressGallery::_printHTML_pagination($videosReturnedCnt,
+                TubePressGallery::_printHTML_pagination($videoArray['total'],
                     $options);
         }
     
@@ -345,16 +345,22 @@ class TubePressGallery
             TubePressGallery::_printHTML_paginationLink($url, $currentPage - 1, _tpMsg("PREV"))
              : "&nbsp;");
     
-        /* vidcount will always be one more than what the user wanted, 
-         * unless we're on the last page */
-        $nextText = (($vidCount < $options->getValue(TP_OPT_VIDSPERPAGE))? 
-            "&nbsp;"
-             : TubePressGallery::_printHTML_paginationLink($url,
-                 $currentPage + 1, _tpMsg("NEXT")));
+    	$vidsPerPage = $options->getValue(TP_OPT_VIDSPERPAGE);
+    
+        $nextText = "&nbsp;";
+    	if ($vidCount >= $vidsPerPage
+    	    && ($vidCount > $vidsPerPage * $currentPage)) {
+    	    	$nextText = TubePressGallery::_printHTML_paginationLink($url,
+                 $currentPage + 1, _tpMsg("NEXT"));
+    	    }
+
+		$pagesText = _tpMsg("PAGES", array($currentPage, ceil($vidCount / $vidsPerPage)));
     
         return sprintf('<div class="%s"><div class="%s">%s</div>' .
-                '<div class="%s">%s</div></div>',
-                $css->pagination, $css->prevlink, $prevText, 
+                '<div class="%s">%s</div>' .
+				'<div class="%s">%s</div></div>',
+                $css->pagination, $css->prevlink, $prevText,
+                $css->pages, $pagesText,
                 $css->nextlink, $nextText);
     }
     
@@ -372,7 +378,7 @@ class TubePressGallery
         $url->removeQueryString(TP_PAGE_PARAM);
         $url->addQueryString(TP_PAGE_PARAM, $pageNum);
         
-        return sprintf('<a href="%s">%s</a>"', 
+        return sprintf('<a href="%s">%s</a>', 
             str_replace("&", "&amp;", $url->getURL()), $text);
     }
     
@@ -432,9 +438,9 @@ class TubePressGallery
         switch ($options->getValue(TP_OPT_PLAYIN)) {
             case TP_PLAYIN_THICKBOX:
                 return sprintf(
-                    'href="http://localhost/wp/wp-content/plugins/tubepress/common/popup.php?keepThis=true&TB_iframe=true&height=%s&amp;width=%s"' .
-                    '" class="thickbox" title="%s"',
-                    $height, $width, $id, $title);
+                    'href="http://localhost/wp/wp-content/plugins/tubepress/common/popup.php?h=%s&amp;w=%s' .
+                    '&amp;id=%s&amp;name=%s" title="%s" rel="gb_page_center[%s, %s]"',
+                    $height, $width, $id, $title, $title, $width, $height);
                 
             case TP_PLAYIN_NW:
                 $url = new Net_URL(TubePressStatic::fullURL());

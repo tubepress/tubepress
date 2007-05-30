@@ -56,6 +56,7 @@ $tubepressMessages =
           "DBMISS" => "Database is missing the '%s' option. You have %s out of " .
                   "%s options stored. Perhaps you need to initialize your database?",
           "OLDDB" => "You have options that are not current TubePressOptions",
+          "PAGES" => "Page %s of %s",
           
           /*******************************************************************/
           /*** META INFO *****************************************************/

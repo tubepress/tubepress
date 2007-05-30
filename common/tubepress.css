@@ -13,15 +13,25 @@
 
 .tubepress_pagination {
 	clear: both;
-	float: left;	
+	float: left;
+	width: 100%;
 }
 
 .tubepress_pagination .tubepress_prev {
-	float: left;	
+	float: left;
+	width: 33%;
 }
 
 .tubepress_pagination .tubepress_next {
-	float: right;	
+	float: left;
+	text-align: right;
+	width: 33%;	
+}
+
+.tubepress_pagination .tubepress_pages {
+	float: left;
+	text-align: center;
+	width: 33%;	
 }
 
 .tubepress_runtime {
