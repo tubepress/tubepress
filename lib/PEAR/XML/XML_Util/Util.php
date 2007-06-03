@@ -745,7 +745,6 @@ class XML_Util {
     */
     function raiseError($msg, $code)
     {
-        require_once 'PEAR.php';
         return PEAR::raiseError($msg, $code);
     }
 }

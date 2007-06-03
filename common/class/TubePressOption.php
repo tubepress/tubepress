@@ -23,19 +23,20 @@
 
 class TubePressOption
 {
-    var $_name, $_title, $_description, $_value, $_type, $_valid_values;
+    var $_name, $_title, $_description, $_value, $_type, $_valid_values, $_max;
 
     /**
      * Constructor
      */
     function TubePressOption($theName, $theTitle, $theDesc, $theValue, 
-        $theType = "string")
+        $theType = "string", $max = 2147483647)
     {
         $this->_name = $theName;
         $this->_description = $theDesc;
         $this->_value = $theValue;
         $this->_title = $theTitle;
         $this->_type = $theType;
+        $this->_max = $max;
     }
     
     /**
@@ -93,8 +94,17 @@ class TubePressOption
         /* see if it's a valid value */
         if (is_array($this->_valid_values) && !in_array($candidate, $this->_valid_values)) {
         	return PEAR::raiseError(_tpMsg("BADVAL",
-        	$candidate, $this->_title,
-        	implode(", ", $this->_valid_values)));
+        	array($candidate, $this->_title,
+        	implode(", ", $this->_valid_values))));
+        }
+        
+        /* check max and min */
+        if (is_int($candidate)) {
+        	if (($candidate < 1)
+        	    || ($candidate > $this->_max)) {
+        	    	return PEAR::raiseError(_tpMsg("MAXMIN",
+        	    	array($this->_title, $this->_max, $candidate)));
+        	    }
         }
         
         /* looks good! */

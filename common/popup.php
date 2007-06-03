@@ -22,17 +22,19 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+/*
+ * If someone can explain to me why I need to modify the header here,
+ * and the XHTML meta tag doesn't work, I would be very grateful :)
+ */
+header('Content-Type: text/html;charset=utf-8');
 ?>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title><?php echo urldecode($_GET['name']); ?></title>	
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<title><?php echo rawurldecode($_GET['name']); ?></title>	
 	</head>
 	<body style="margin: 0pt 0pt; background-color: black">
-	
 		<object type="application/x-shockwave-flash" style="width:<?php echo $_GET['w']; ?>px; height:<?php echo $_GET['h'];?>px;" data="http://www.youtube.com/v/<?php echo $_GET['id']; ?>" >
 				<param name="movie" value="http://www.youtube.com/v/<?php echo $_GET['id']; ?>" />
 				<param name="wmode" value="transparent" />

@@ -26,9 +26,9 @@ class TubePressStatic
     /**
      * Take a PEAR error object and return a prettified message
      */
-    function bail($msg, $error)
+    function bail($error)
     {
-        $returnMsg = sprintf("%s (%s)<br /><br />", $msg, $error->message);
+        $returnMsg = sprintf("%s<br /><br />", $error->message);
         
         foreach ($error->getBackTrace() as $back) {
             if (strpos($back['file'], "plugins/tubepress") === false) {
@@ -59,7 +59,15 @@ class TubePressStatic
         }
         return false;
     }
-    
+    function getPageNum()
+    {
+        $pageNum = ((isset($_GET[TP_PAGE_PARAM]))?
+            $_GET[TP_PAGE_PARAM] : 1);
+            if (!is_numeric($pageNum) || ($pageNum < 1)) {
+            	$pageNum = 1;
+            }
+        return $pageNum;
+    }
     /**
      * Returns what's in the address bar (obviously, only http, not https)
      */

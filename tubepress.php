@@ -24,8 +24,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-function_exists('tp_insertCSSJS')
-    || require('env/WordPress/WordPressHooks.php');
+function_exists('tp_executeOptionsPage')
+    || require('env/WordPress/TubePressOptions.php');
 function_exists('_tpMsg')
     || require('common/messages.php');
     
@@ -38,6 +38,12 @@ class_exists('TubePressStatic')
     || require('common/class/TubePressStatic.php');
 class_exists('TubePressGallery')
     || require('common/class/TubePressGallery.php');
+class_exists('TubePressDebug')
+    || require('common/class/TubePressDebug.php');
+    
+if (!isset($tubepress_base_url)) {
+	$tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
+}
 
 /**
  * Main filter hook. Looks for a tubepress tag
@@ -68,7 +74,7 @@ function tp_main ($content = '')
  
     $options = WordPressOptionsPackage::parse($keyword, $content);
     if (PEAR::isError($options)) {
-        return TubePressStatic::bail(_tpMsg("PARSERR"), $options);
+        return TubePressStatic::bail($options);
     }
 
     /* ------------------------------------------------------------ */
@@ -80,7 +86,7 @@ function tp_main ($content = '')
     if ($debug == true
         && isset($_GET[TP_DEBUG_PARAM]) 
         && ($_GET[TP_DEBUG_PARAM] == true)) {
-            $newcontent .= tp_debug($options);
+            $newcontent .= TubePressDebug::debug($options);
     }
     
     /* ------------------------------------------------------------ */
@@ -94,7 +100,7 @@ function tp_main ($content = '')
         default:
             $result = TubePressGallery::generate($options);
             $newcontent .= PEAR::isError($result)?
-                TubePressStatic::bail(_tpMsg("GALERR"), $result) :
+                TubePressStatic::bail($result) :
                 $result;
             break;
     }
@@ -121,8 +127,8 @@ function add_tubepress_hooks()
     if ($quickOpts != NULL) {
 
         switch ($quickOpts[TP_OPT_PLAYIN]->getValue()) {
-            case TP_PLAYIN_THICKBOX:
-                add_action('wp_head', 'tp_insertThickBox');
+            case TP_PLAYIN_GREYBOX:
+                add_action('wp_head', 'tp_insertGreyBox');
                 break;
             case TP_PLAYIN_LWINDOW:
                 add_action('wp_head', 'tp_insertLightWindow');
@@ -132,5 +138,61 @@ function add_tubepress_hooks()
     }   
 }
 
+/**
+ * Spits out the CSS and JS files that we always need for TubePress
+ */
+function tp_insertCSSJS()
+{
+	global $tubepress_base_url;
+    $url = $tubepress_base_url . "/common";
+    print<<<GBS
+        <script type="text/javascript" src="{$url}/tubepress.js"></script>
+        <link rel="stylesheet" href="{$url}/tubepress.css" 
+            type="text/css" />
+        <link rel="stylesheet" href="{$url}/pagination.css" 
+            type="text/css" />
+GBS;
+}
 
+/**
+ * Spits out the CSS and JS files that we need for ThickBox
+ */
+function tp_insertGreyBox()
+{
+	global $tubepress_base_url;
+    $url = $tubepress_base_url . "/lib/greybox";
+    print<<<GBS
+    	<script type="text/javascript">
+			var GB_ROOT_DIR = "$url/";
+		</script>
+        <script type="text/javascript" 
+            src="{$url}/AJS.js"></script>
+        <script type="text/javascript"
+            src="{$url}/AJS_fx.js"></script>
+        <script type="text/javascript"
+            src="{$url}/gb_scripts.js"></script>
+        <link rel="stylesheet"
+            href="{$url}/gb_styles.css" type="text/css" />
+GBS;
+}
+    
+/**
+ * Spits out the CSS and JS files that we need for LightWindow
+ */
+function tp_insertLightWindow()
+{
+    global $tubepress_base_url;
+    $url = $tubepress_base_url . "/lib/lightWindow";
+    print<<<GBS
+        <script type="text/javascript" 
+            src="{$url}/javascript/prototype.js"></script>
+        <script type="text/javascript" 
+            src="{$url}/javascript/effects.js"></script>
+        <script type="text/javascript" 
+            src="{$url}/javascript/lightWindow.js"></script>
+        <link rel="stylesheet" 
+            href="{$url}/css/lightWindow.css" 
+            media="screen" type="text/css" />
+GBS;
+}
 ?>

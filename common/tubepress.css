@@ -1,5 +1,16 @@
-.tubepress_mainvideo {
+#tubepress_mainvideo {
 	text-align:center;
+}
+
+#tubepress_mainvideo #inner {
+	text-align: left;
+	margin: auto;
+}
+
+#tubepress_mainvideo #inner #title {
+	font-weight: bold;
+	font-size: larger;
+	margin-bottom: .3em;
 }
 
 .tubepress_meta {
@@ -8,30 +19,7 @@
 }
 
 .tubepress_meta_group {
-	padding: 0 17px 0 17px;
-}
-
-.tubepress_pagination {
-	clear: both;
-	float: left;
-	width: 100%;
-}
-
-.tubepress_pagination .tubepress_prev {
-	float: left;
-	width: 33%;
-}
-
-.tubepress_pagination .tubepress_next {
-	float: left;
-	text-align: right;
-	width: 33%;	
-}
-
-.tubepress_pagination .tubepress_pages {
-	float: left;
-	text-align: center;
-	width: 33%;	
+	text-align: left;
 }
 
 .tubepress_runtime {
@@ -46,6 +34,8 @@
 	line-height: 1.1em;
 	font-size: 11px;
 	height: 175px;
+	text-align: center;
+	overflow: hidden;
 }
 
 .tubepress_title, .tubepress_title a, .tubepress_title a:hover {
@@ -53,8 +43,8 @@
 	font-weight: bold;
 }
 
-.tubepress_video_thumb_img {
-	text-align: center;
+.tubepress_video_thumb_inner {
+	margin: auto;
 }
 
 .tubepress_video_thumbs {

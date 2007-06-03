@@ -92,7 +92,7 @@ class WordPressOptionsPage
     			case TP_PLAYIN_LWINDOW:
     				$desc = _tpMsg("PLAYIN_LW_TITLE");
     				break;
-    			case TP_PLAYIN_THICKBOX:
+    			case TP_PLAYIN_GREYBOX:
     				$desc = _tpMsg("PLAYIN_TB_TITLE");
     				break;
     		}

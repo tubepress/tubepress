@@ -24,7 +24,7 @@
 class TubePressCSS
 {
     var $container, $mainVid_id, $mainVid_class, $meta_class,
-        $thumb_container_class, $thumb_class, $thumbImg_class,
+        $thumb_container_class, $thumb_class, $thumbInner,
         $runtime_class, $title_class, $success_class, $meta_group,
         $pagination, $nextlink, $prevlink;
          
@@ -35,20 +35,18 @@ class TubePressCSS
     {
         $this->container =             "tubepress_container";
         $this->mainVid_id =            "tubepress_mainvideo";
-        $this->mainVid_class =         "tubepress_mainvideo";
+        $this->mainVid_inner =		   "inner";
+        $this->mainVid_title =		   "title";
         $this->meta_class =            "tubepress_meta";
         $this->thumb_container_class = "tubepress_video_thumbs";
         $this->thumb_class =           "tubepress_thumb";
-        $this->thumbImg_class =        "tubepress_video_thumb_img";
+        $this->thumbInner =            "tubepress_video_thumb_inner";
         $this->runtime_class =         "tubepress_runtime";
         $this->title_class =           "tubepress_title";
         $this->success_class =         "updated fade";
         $this->meta_group =            "tubepress_meta_group";
         $this->pagination =            "tubepress_pagination";
-        $this->nextlink =              "tubepress_next";
-        $this->prevlink =              "tubepress_prev";
         $this->failure_class =         "error fade";
-        $this->pages =                 "tubepress_pages";
     }
 }
 ?>

@@ -21,8 +21,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("snoopy") || require(dirname(__FILE__) . "/../../lib/snoopy/Snoopy.class.php");
-
 class TubePressXML
 {
 
@@ -31,11 +29,15 @@ class TubePressXML
      */
     function fetchRawXML($options)
     {   
+    	class_exists("snoopy") || require(dirname(__FILE__) . "/../../lib/snoopy/Snoopy.class.php");
+    	
+    	error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+    	
         $snoopy = new snoopy();
         $snoopy->read_timeout = $options->getValue(TP_OPT_TIMEOUT);
 
         $request = TubePressXML::generateRequest($options);
-        
+
         if (PEAR::isError($request)) {
             return $request;
         }
@@ -54,6 +56,8 @@ class TubePressXML
                 $snoopy->response_code));
         }
     
+    	error_reporting(E_ALL ^ E_NOTICE);
+
         return $snoopy->results;
     }
 
@@ -92,9 +96,9 @@ class TubePressXML
             $msg = "Unknown error";
             if (is_array($result['error']) && array_key_exists('description', $result['error']) 
                 && array_key_exists('code', $result['error'])) {
-                    $msg = $result['error']['description'] . " Code " . $result['error']['code'];
+                    $msg = $result['error']['description'] . " (YouTube error code " . $result['error']['code'] . ")";
             }
-            return PEAR::raiseError(_tpMsg("YTERROR", $msg));
+            return PEAR::raiseError($msg);
         }
 
         if (!array_key_exists('total', $result['video_list'])) {
@@ -174,8 +178,7 @@ class TubePressXML
         }
 
         if (TubePressStatic::areWePaging($options)) {
-            $pageNum = ((isset($_GET[TP_PAGE_PARAM]))?
-                $_GET[TP_PAGE_PARAM] : 1);
+			$pageNum = TubePressStatic::getPageNum();
             $request .= sprintf("&page=%s&per_page=%s",
                 $pageNum, $options->getValue(TP_OPT_VIDSPERPAGE));
         }

@@ -23,9 +23,9 @@
 
 $tubepressMessages = 
     array(
-          "BACK2GALLERY" => "Back to gallery",
-          "PREV" => "< prev",
-          "NEXT" => "next >",
+          "BACK2GALLERY" => "&laquo; back to gallery",
+          "PREV" => "&laquo; prev",
+          "NEXT" => "next &raquo;",
           
           /*******************************************************************/
           /*** ERRORS ********************************************************/
@@ -35,7 +35,6 @@ $tubepressMessages =
           "NOSTATUS" => "Valid XML from YouTube, but status is missing",
           "REFUSED" => "Unable to connect to YouTube - ",
           "XMLUNSERR" => "XML unserialization error",
-          "YTERROR" => "YouTube responded with an error message: %s",
           "NOCOUNT" => "YouTube didn't return a total video count",
           "OKNOVIDS" => "YouTube responded with OK, but no video_list returned",
           "BADMODE" => "Invalid mode specified (%s)",
@@ -45,18 +44,17 @@ $tubepressMessages =
           "NOVALS" => "No valid values defined for this option",
           "ARRSET" => "Can only set valid options with an array",
           "VALTYPE" => "Must set valid option values with TubePressEnum class",
-          "SETOPT" => "%s is not a valid option",
+          "NOSUCHOPT" => "%s is not a valid option",
           "NODB" => "Database options are completely missing.",
-          "BADDB" => "Database options are not coming back as an array",
+          "BADDB" => "Database options appear to be of type '%s' instead of an array.",
           "VIDNOARR" => "Attempted to make video out of non-array",
           "VIDEMTARR" => "Attempted to make video out of empty array",
           "MISSATT" => "%s is missing from the video's XML",
           "PARSERR" => "There was a problem parsing the TubePress tag in this page",
-          "GALERR" => "There was a problem generating the gallery",
           "DBMISS" => "Database is missing the '%s' option. You have %s out of " .
                   "%s options stored. Perhaps you need to initialize your database?",
           "OLDDB" => "You have options that are not current TubePressOptions",
-          "PAGES" => "Page %s of %s",
+          "MAXMIN" => "%s must be between 1 and %s. You supplied %s.",
           
           /*******************************************************************/
           /*** META INFO *****************************************************/
@@ -92,7 +90,7 @@ $tubepressMessages =
           "DEBUGTITLE" => "Enable debugging",
           "DEBUGDESC" => "If checked, " .
                          "anyone will be able to view your debugging " .
-                         "information. This is a very small privacy " .
+                         "information. This is a rather small privacy " .
                          "risk. If you're not having problems with " .
                          "TubePress, or you're worried about revealing " .
                          "any details of your TubePress pages, feel free to " .
@@ -117,7 +115,7 @@ $tubepressMessages =
           /*** MODES *********************************************************/
           /*******************************************************************/
           "MODE_HEADER" => "Which videos?",
-          "MODE_CAT_TITLE" => "this category",
+          //"MODE_CAT_TITLE" => "this category",
           "MODE_FAV_TITLE" => "this YouTube user's \"favorites\"",
           "MODE_FEAT_TITLE" => "The latest 25 \"featured\" videos " .
                   "on YouTube's homepage",
@@ -135,17 +133,17 @@ $tubepressMessages =
           /*** DISPLAY OPTIONS ***********************************************/
           /*******************************************************************/
           "VIDDISP" => "Video display",
-          "THUMBHEIGHT_DESC" => "Default is 90",
+          "THUMBHEIGHT_DESC" => "Default (and maximum) is 90",
           "THUMBHEIGHT_TITLE" => "Height (px) of thumbs",
-          "THUMBWIDTH_DESC" => "Default is 120",
+          "THUMBWIDTH_DESC" => "Default (and maximum) is 120",
           "THUMBWIDTH_TITLE" => "Width (px) of thumbs",
           "VIDHEIGHT_TITLE" => "Max height (px) of main video",
           "VIDHEIGHT_DESC" => "Default (and maximum) is 336",
           "VIDWIDTH_TITLE" => "Max width (px) of main video",
           "VIDWIDTH_DESC" => "Default (and maximum) is 424",
           "VIDSPERPAGE_TITLE" => "Videos per page",
-          "VIDSPERPAGE_DESC" => "Default is 20, maximum is 100. The only modes that " .
-                  "support pagination are the tag modes, and videos from some user. ",
+          "VIDSPERPAGE_DESC" => "Default is 20, maximum is 100. Only some modes " .
+          		"support pagination (see above).",
           
           /*******************************************************************/
           /*** VIDEO PLAYER LOCATIONS ****************************************/
@@ -155,8 +153,8 @@ $tubepressMessages =
           "PLAYIN_YT_TITLE" => "from the original YouTube page",
           "PLAYIN_NORMAL_TITLE" => "normally (at the top of your gallery)",
           "PLAYIN_POPUP_TITLE" => "in a popup window",
-          "PLAYIN_TB_TITLE" => "using Thickbox (experimental)",
-          "PLAYIN_LW_TITLE" => "with LightWindow (experimental)");
+          "PLAYIN_TB_TITLE" => "using GreyBox (experimental)",
+          "PLAYIN_LW_TITLE" => "with lightWindow (experimental)");
 
 function _tpMsg()
 {

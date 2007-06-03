@@ -48,7 +48,7 @@ class TubePressOptionsPackage
     function _get($optionName)
     {
         if (!array_key_exists($optionName, $this->_allOptions)) {
-            return PEAR::raiseError(_tpMsg("SETOPT", array($optionName)));
+            return PEAR::raiseError(_tpMsg("NOSUCHOPT", array($optionName)));
         }
         return $this->_allOptions[$optionName];
     }
@@ -96,7 +96,7 @@ class TubePressOptionsPackage
     function setValue($optionName, $optionValue)
     {
         if (!array_key_exists($optionName, $this->_allOptions)) {
-            return PEAR::raiseError(_tpMsg("SETOPT", array($optionName)));
+            return PEAR::raiseError(_tpMsg("NOSUCHOPT", array($optionName)));
         }
         
         $result = $this->_allOptions[$optionName]->setValue($optionValue);
@@ -175,23 +175,23 @@ class TubePressOptionsPackage
                   TP_OPT_VIDSPERPAGE=>  new TubePressOption(TP_OPT_VIDSPERPAGE,
                                             _tpMsg("VIDSPERPAGE_TITLE"),
                                             _tpMsg("VIDSPERPAGE_DESC"),
-                                            "20", "integer"),      
+                                            20, "integer", 100),      
                   TP_OPT_VIDWIDTH =>    new TubePressOption(TP_OPT_VIDWIDTH,
                                             _tpMsg("VIDWIDTH_TITLE"),
                                             _tpMsg("VIDWIDTH_DESC"),
-                                            "425", "integer"),
+                                            424, "integer", 424),
                   TP_OPT_VIDHEIGHT =>   new TubePressOption(TP_OPT_VIDHEIGHT,
                                             _tpMsg("VIDHEIGHT_TITLE"),
                                             _tpMsg("VIDHEIGHT_DESC"),
-                                            "350", "integer"),
+                                            336, "integer", 336),
                   TP_OPT_THUMBWIDTH =>  new TubePressOption(TP_OPT_THUMBWIDTH,
                                             _tpMsg("THUMBWIDTH_TITLE"),
                                             _tpMsg("THUMBWIDTH_DESC"),
-                                            "120", "integer"),
+                                            120, "integer", 120),
                   TP_OPT_THUMBHEIGHT => new TubePressOption(TP_OPT_THUMBHEIGHT,
                                             _tpMsg("THUMBHEIGHT_TITLE"),
                                             _tpMsg("THUMBHEIGHT_DESC"),
-                                            "90", "integer"),
+                                            90, "integer", 90),
 
                   
               /* -------- ADVANCED OPTIONS ------------------------------------- */                    
@@ -202,7 +202,7 @@ class TubePressOptionsPackage
                                          
                   TP_OPT_TIMEOUT =>  new TubePressOption(TP_OPT_TIMEOUT,
                                          _tpMsg("TIMEOUT_TITLE"),
-                                         _tpMsg("TIMEOUT_DESC"), "6", "integer"),
+                                         _tpMsg("TIMEOUT_DESC"), 6, "integer"),
                                          
                   TP_OPT_DEVID =>    new TubePressOption(TP_OPT_DEVID,
                                          _tpMsg("DEVID_TITLE"),
@@ -245,7 +245,8 @@ class TubePressOptionsPackage
             return PEAR::raiseError(_tpMsg("NODB"));
         }
         if (!is_array($suspectOptions)) {
-            return PEAR::raiseError(_tpMsg("BADDB"));
+            return PEAR::raiseError(_tpMsg("BADDB",
+            array(gettype($suspectOptions))));
         }
         
         $modelOptions = TubePressOptionsPackage::getDefaultPackage();
@@ -278,7 +279,7 @@ class TubePressOptionsPackage
     {
         return
             array(TP_PLAYIN_NORMAL, TP_PLAYIN_NW, TP_PLAYIN_YT, 
-                TP_PLAYIN_POPUP,TP_PLAYIN_LWINDOW,TP_PLAYIN_THICKBOX);
+                TP_PLAYIN_POPUP,TP_PLAYIN_LWINDOW,TP_PLAYIN_GREYBOX);
     }
     
     /**
@@ -289,6 +290,12 @@ class TubePressOptionsPackage
         return
             array(TP_MODE_USER, TP_MODE_FAV, TP_MODE_PLST,TP_MODE_TAG, 
                  TP_MODE_FEATURED, TP_MODE_POPULAR);
+    }
+    
+    function debug()
+    {
+    	/* this should be overridden by subclasses */
+    	return "";
     }
 }
 ?>

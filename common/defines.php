@@ -62,7 +62,7 @@ define("TP_PLAYIN_NW", "new_window");
 define("TP_PLAYIN_YT", "youtube");
 define("TP_PLAYIN_NORMAL", "normal");
 define("TP_PLAYIN_POPUP", "popup");
-define("TP_PLAYIN_THICKBOX", "thickbox");
+define("TP_PLAYIN_GREYBOX", "thickbox");
 define("TP_PLAYIN_LWINDOW", "lightwindow");
 
 /*****************************************************************************/

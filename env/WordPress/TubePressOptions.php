@@ -1,6 +1,6 @@
 <?php
 /**
- * WordPressHooks.php
+ * TubePressOptions.php
  * 
  * The four (so far) hooks that we implement
  * 
@@ -32,7 +32,7 @@ class_exists("WordPressOptionsPage")
     {
     	if (function_exists('add_options_page')) {
 			add_options_page(_tpMsg("OPTPANELTITLE"), _tpMsg("OPTPANELMENU"), 9, 
-				'WordPressHooks.php', '_tp_executeOptionsPage');
+				'TubePressOptions.php', '_tp_executeOptionsPage');
     	}
     }
     
@@ -88,61 +88,5 @@ EOT;
          </div>
 EOT;
     
-    }
-    
-    /**
-     * Spits out the CSS and JS files that we always need for TubePress
-     */
-    function tp_insertCSSJS()
-    {
-        $url = get_settings('siteurl') . "/wp-content/plugins/tubepress/common";
-        print<<<GBS
-            <script type="text/javascript" src="{$url}/tubepress.js"></script>
-            <link rel="stylesheet" href="{$url}/tubepress.css" 
-                type="text/css" />
-GBS;
-    }
-
-    /**
-     * Spits out the CSS and JS files that we need for LightWindow
-     */
-    function tp_insertLightWindow()
-    {
-        $url = get_settings('siteurl') .
-            "/wp-content/plugins/tubepress/lib/lightWindow";
-        print<<<GBS
-            <script type="text/javascript" 
-                src="{$url}/javascript/prototype.js"></script>
-            <script type="text/javascript" 
-                src="{$url}/javascript/effects.js"></script>
-            <script type="text/javascript" 
-                src="{$url}/javascript/lightWindow.js"></script>
-            <link rel="stylesheet" 
-                href="{$url}/css/lightWindow.css" 
-                media="screen" type="text/css" />
-GBS;
-    }
-
-    /**
-     * Spits out the CSS and JS files that we need for ThickBox
-     */
-    function tp_insertThickBox()
-    {
-        $url = get_settings('siteurl') .
-            "/wp-content/plugins/tubepress/lib/greybox";
-        print<<<GBS
-        <script type="text/javascript">
-    var GB_ROOT_DIR = "$url/";
-</script>
-        
-            <script type="text/javascript" 
-                src="{$url}/AJS.js"></script>
-            <script type="text/javascript"
-                src="{$url}/AJS_fx.js"></script>
-            <script type="text/javascript"
-                src="{$url}/gb_scripts.js"></script>
-            <link rel="stylesheet"
-                href="{$url}/gb_styles.css" type="text/css" />
-GBS;
     }
 ?>

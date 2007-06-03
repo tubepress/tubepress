@@ -19,7 +19,7 @@ class CSSTest extends UnitTestCase {
 		$this->assertEqual($this->o->meta_class, "tubepress_meta", $this->o->container);
 		$this->assertEqual($this->o->thumb_container_class, "tubepress_video_thumbs", $this->o->container);
 		$this->assertEqual($this->o->thumb_class, "tubepress_thumb", $this->o->container);
-		$this->assertEqual($this->o->thumbImg_class, "tubepress_video_thumb_img", $this->o->container);
+		$this->assertEqual($this->o->thumbInner, "tubepress_video_thumb_img", $this->o->container);
 		$this->assertEqual($this->o->runtime_class, "tubepress_runtime", $this->o->container);
 		$this->assertEqual($this->o->title_class, "tubepress_title", $this->o->container);
 		$this->assertEqual($this->o->success_class, "updated fade", $this->o->container);

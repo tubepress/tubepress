@@ -203,5 +203,11 @@ class WordPressOptionsPackage extends TubePressOptionsPackage
         delete_option("devIDlink");
         delete_option("searchByValue");
     }
+    
+    function debug()
+    {
+    	return "<li>Here's the tag string you're using in this page: " .
+            "<pre>" . $this->tagString . "</pre></li>";
+    }
 }
 ?>
