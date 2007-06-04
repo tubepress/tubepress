@@ -237,6 +237,7 @@ class WordPressOptionsPage
 					break;
 				case TP_MODE_FAV:
 					$title = _tpMsg("MODE_FAV_TITLE");
+					$desc = _tpMsg("MODE_FAV_DESC");
 					break;
 				case TP_MODE_PLST:
 					$title = _tpMsg("MODE_PLST_TITLE");
@@ -256,6 +257,7 @@ class WordPressOptionsPage
                 $title, TP_OPT_SEARCHBY, $mode, $mode, $selected, $inputBox,
                 $desc);
         }
+         echo "<sup>*</sup><i>mode supports pagination</i>";
         WordPressOptionsPage::_printHTML_optionFooter();
     }
     
@@ -314,7 +316,7 @@ class WordPressOptionsPage
 	    	WordPressOptionsPage::printStatusMsg($oldOpts->message, $css->failure_class);
 	    	return;
 	    }
-	    
+
 	    /* go through the post variables and try to update */
         foreach (array_keys($oldOpts->_allOptions) as $optName) {
         	if (($optName == TP_OPT_DEBUG)
@@ -338,11 +340,27 @@ class WordPressOptionsPage
 	    
 	    foreach ($metaOptions as $metaOption) {
 	        if (in_array($metaOption, $_POST['meta'])) {	
-	            $oldOpts->setValue($metaOption, true);
+	            $result = $oldOpts->setValue($metaOption, true);
 	        } else {
-	            $oldOpts->setValue($metaOption, false);
+	            $result = $oldOpts->setValue($metaOption, false);
 	        }
+	        if (PEAR::isError($result)) {
+        		$errors = true;
+        		WordPressOptionsPage::printStatusMsg($result->message, $css->failure_class);
+        		return;
+        	}
 	    }
+
+	    if (isset($_POST[TP_OPT_DEBUG])) {
+	    	$result = $oldOpts->setValue(TP_OPT_DEBUG, true);
+	    } else {
+	    	$result = $oldOpts->setValue(TP_OPT_DEBUG, false);
+	    }
+	    if (PEAR::isError($result)) {
+        	$errors = true;
+        	WordPressOptionsPage::printStatusMsg($result->message, $css->failure_class);
+            return;
+        }
 	
 	    if (!$errors) {
 	    	update_option(TP_OPTION_NAME, $oldOpts->_allOptions);

@@ -117,17 +117,18 @@ $tubepressMessages =
           "MODE_HEADER" => "Which videos?",
           //"MODE_CAT_TITLE" => "this category",
           "MODE_FAV_TITLE" => "this YouTube user's \"favorites\"",
+          "MODE_FAV_DESC" => "YouTube limits this mode to the latest 10 favorites",
           "MODE_FEAT_TITLE" => "The latest 25 \"featured\" videos " .
                   "on YouTube's homepage",
-          "MODE_PLST_TITLE" => "this playlist",
+          "MODE_PLST_TITLE" => "<sup>*</sup>this playlist",
           "MODE_PLST_DESC" => "Will usually look something like this:" .
                   " D2B04665B213AE35. Copy the playlist id from the end of the " .
                   "URL in your browser's address bar (while looking at a YouTube " .
                   "playlist). It comes right after the 'p='. For instance: " .
                   "http://youtube.com/my_playlists?p=D2B04665B213AE35",
-          "MODE_POPULAR_TITLE" => "Top 25 most-viewed videos from the past...",
-          "MODE_TAG_TITLE" => "YouTube search for",
-          "MODE_USER_TITLE" => "vides from this YouTube user",
+          "MODE_POPULAR_TITLE" => "Most-viewed videos from the past...",
+          "MODE_TAG_TITLE" => "<sup>*</sup>YouTube search for",
+          "MODE_USER_TITLE" => "<sup>*</sup>videos from this YouTube user",
           
           /*******************************************************************/
           /*** DISPLAY OPTIONS ***********************************************/

@@ -215,7 +215,7 @@ class TubePressOptionsPackage
                                          _tpMsg("USERNAME_DESC"), "3hough"),
                                           
                   TP_OPT_DEBUG => new TubePressOption(TP_OPT_DEBUG,
-                                     _tpMsg("DEBUGTITLE"), true, "boolean"),
+                                     _tpMsg("DEBUGTITLE"), ' ', true, "boolean"),
  
          /* -------- VIDEO SEARCH OPTION ----------------------------------- */
 
