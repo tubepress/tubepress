@@ -3,7 +3,7 @@
 
 tp_popup.php
 
-The HTML associated with popup windows
+The HTML associated with popup windows (and some modal windows)
 
 Copyright (C) 2007 Eric D. Hough (http://ehough.com)
 
@@ -30,15 +30,15 @@ header('Content-Type: text/html;charset=utf-8');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-		<title><?php echo rawurldecode($_GET['name']); ?></title>	
-	</head>
-	<body style="margin: 0pt 0pt; background-color: black">
-		<object type="application/x-shockwave-flash" style="width:<?php echo $_GET['w']; ?>px; height:<?php echo $_GET['h'];?>px;" data="http://www.youtube.com/v/<?php echo $_GET['id']; ?>" >
-				<param name="movie" value="http://www.youtube.com/v/<?php echo $_GET['id']; ?>" />
-				<param name="wmode" value="transparent" />
-		</object>
-		
-	</body>
+        <head>
+                <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+                <title><?php echo rawurldecode($_GET['name']); ?></title>        
+        </head>
+        <body style="margin: 0pt 0pt; background-color: black">
+                <object type="application/x-shockwave-flash" style="width:<?php echo $_GET['w']; ?>px; height:<?php echo $_GET['h'];?>px;" data="http://www.youtube.com/v/<?php echo $_GET['id']; ?>" >
+                                <param name="movie" value="http://www.youtube.com/v/<?php echo $_GET['id']; ?>" />
+                                <param name="wmode" value="transparent" />
+                </object>
+                
+        </body>
 </html>

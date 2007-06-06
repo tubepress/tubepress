@@ -1,10 +1,10 @@
 <?php
 
-require_once(dirname(__FILE__) . '/../../common/TubePressOptionsPackage.php');
+require_once(dirname(__FILE__) . '/../../common/class/TubePressOptionsPackage.php');
+require_once(dirname(__FILE__) . '/../../common/messages.php');
+require_once(dirname(__FILE__) . '/../../common/defines.php');
 
-require_once(dirname(__FILE__) . '/../../tp_strings.php');
-
-class TubePressOptionsPackageTest extends UnitTestCase {
+class TubePressOptionsPackageTest extends PHPUnit_Framework_TestCase {
 	var $v;
 	
 	function testSetNonNumeric() {
@@ -20,7 +20,7 @@ class TubePressOptionsPackageTest extends UnitTestCase {
 	function testSetPos() {
 		$result = $this->v->setValue(TP_OPT_VIDHEIGHT, 10);
 		$this->assertFalse(PEAR::isError($result));
-		$this->assertEqual(10, $this->v->getValue(TP_OPT_VIDHEIGHT));
+		$this->assertEquals    (10, $this->v->getValue(TP_OPT_VIDHEIGHT));
 	}
 	
 	function testSetPos2() {
@@ -56,19 +56,19 @@ class TubePressOptionsPackageTest extends UnitTestCase {
 	function testGetTitle() {
 		$result = $this->v->getTitle(TP_OPT_THUMBHEIGHT);
 		$this->assertFalse(PEAR::isError($result));
-		$this->assertEqual($result, _tpMsg("THUMBHEIGHT_TITLE"));
+		$this->assertEquals    ($result, _tpMsg("THUMBHEIGHT_TITLE"));
 	}
 	
 	function testGetValue() {
 		$result = $this->v->getValue(TP_OPT_THUMBHEIGHT);
 		$this->assertFalse(PEAR::isError($result));
-		$this->assertEqual($result, "90");
+		$this->assertEquals    ($result, "90");
 	}
 	
 	function testGetDesc() {
 		$result = $this->v->getDescription(TP_OPT_THUMBHEIGHT);
 		$this->assertFalse(PEAR::isError($result), $result->message);
-		$this->assertEqual($result, _tpMsg("THUMBHEIGHT_DESC"));
+		$this->assertEquals    ($result, _tpMsg("THUMBHEIGHT_DESC"));
 	}
 	
 	function testGetFakeTitle() {

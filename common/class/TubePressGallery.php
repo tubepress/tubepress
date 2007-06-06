@@ -2,6 +2,8 @@
 /**
  * TubePressGallery.php
  * 
+ * The gallery generation class
+ * 
  * Copyright (C) 2007 Eric D. Hough (http://ehough.com)
  * 
  * This program is free software; you can redistribute it and/or
@@ -84,18 +86,18 @@ class TubePressGallery
             $vidLimit = $videosReturnedCnt;
         }
 
-		$css = new TubePressCSS();
+        $css = new TubePressCSS();
 
         for ($x = 0; $x < $vidLimit; $x++) {
             
             /* Create a TubePressVideo object from the XML (if we can) */
             if ($videosReturnedCnt == 1) {
-            	$video = new TubePressVideo($videoArray['video']);
+                $video = new TubePressVideo($videoArray['video']);
             } else {
-            	$video = new TubePressVideo($videoArray['video'][$x]);
+                $video = new TubePressVideo($videoArray['video'][$x]);
             }
             
-    
+            /* we're just skipping any videos we don't understand */    
             if (PEAR::isError($video)) {
                 continue;
             }
@@ -150,10 +152,11 @@ class TubePressGallery
         
         $returnVal .= sprintf('<div id="%s">%s</div>',
             $css->mainVid_title,
-        	$vid->metaValues[TP_VID_TITLE]) . "\r\n";
+            $vid->metaValues[TP_VID_TITLE]) . "\r\n";
   
         $returnVal .= 
-            TubePressGallery::printHTML_embeddedVid($vid->metaValues[TP_VID_ID], $options);
+            TubePressGallery::printHTML_embeddedVid($vid->metaValues[TP_VID_ID],
+            $options);
         
         $returnVal .= sprintf('</div><!-- %s --></div> <!--%s--> <br />',
             $css->mainVid_inner,
@@ -169,11 +172,11 @@ class TubePressGallery
      * @param options A TubePressTag object holding all of our options
      */
     function printHTML_embeddedVid($id, $options)
-    {    	 
+    {         
         return sprintf('<object type="application/x-shockwave-flash" style="width:%spx;height:%spx;" data="http://www.youtube.com/v/%s">' .
-        		'<param name="movie" value="http://www.youtube.com/v/%s" />' .
-        		'</object>', min($options->getValue(TP_OPT_VIDWIDTH), 424), 
-        		min($options->getValue(TP_OPT_VIDHEIGHT), 336), $id, $id) . "\r\n";
+                '<param name="movie" value="http://www.youtube.com/v/%s" />' .
+                '</object>', $options->getValue(TP_OPT_VIDWIDTH), 
+                $options->getValue(TP_OPT_VIDHEIGHT), $id, $id) . "\r\n";
     }
     
     /**
@@ -187,19 +190,19 @@ class TubePressGallery
         $css = new TubePressCSS();
         
         $url = new Net_URL(TubePressStatic::fullURL());
-        $url->removeQueryString(TP_VID_PARAM);
+        $url->removeQueryString(TP_PARAM_VID);
         
         $returnVal = sprintf('<div id="%s"><div id="%s" style="width: %spx">', 
             $css->mainVid_id, $css->mainVid_inner,
             $options->getValue(TP_OPT_VIDWIDTH)) . "\r\n";
-        	
-        $returnVal .= TubePressGallery::printHTML_embeddedVid($_GET[TP_VID_PARAM],
+            
+        $returnVal .= TubePressGallery::printHTML_embeddedVid($_GET[TP_PARAM_VID],
             $options);
             
         $returnVal .= sprintf('</div><!-- %s -->' .
-        		'</div><!-- %s --><br /><a href="%s">%s</a>',
-        		$css->mainVid_id, $css->mainVid_inner,
-        	    $url->getURL(), _tpMsg("BACK2GALLERY"));
+                '</div><!-- %s --><br /><a href="%s">%s</a>',
+                $css->mainVid_id, $css->mainVid_inner,
+                $url->getURL(), _tpMsg("BACK2GALLERY"));
         
         return $returnVal;
     }
@@ -211,7 +214,7 @@ class TubePressGallery
      */
     function printHTML_videofooter()
     {
-    	$css = new TubePressCSS();
+        $css = new TubePressCSS();
         return sprintf('</div><!-- %s -->', $css->container);
     }
     
@@ -227,10 +230,8 @@ class TubePressGallery
     }
     
     /*************************************************************************/
-	/*************************************************************************/
-	/************************* "PRIVATE" FUNCTIONS ***************************/
-	/*************************************************************************/
-	/*************************************************************************/
+    /************************* "PRIVATE" FUNCTIONS ***************************/
+    /*************************************************************************/
     
     /**
      * Prints out video meta information below a video thumbnail.
@@ -245,9 +246,9 @@ class TubePressGallery
      */
     function _printHTML_metaInfo($vid, $options, $link)
     {
-    	$css = new TubePressCSS();
+        $css = new TubePressCSS();
     
-        /* first do the title */    //TODO: is this right???
+        /* first do the title */
         $content = sprintf('<div class="%s">', $css->title_class);
         if ($options->getValue(TP_VID_TITLE) == true) {
             $content .= sprintf('<a %s>%s</a><br/></div><!-- %s -->', 
@@ -354,17 +355,17 @@ class TubePressGallery
         /* if we're already on a page, save that value, otherwise assume 
          * we're on the first page */
         $currentPage = TubePressStatic::getPageNum();
-    	$vidsPerPage = $options->getValue(TP_OPT_VIDSPERPAGE);
+        $vidsPerPage = $options->getValue(TP_OPT_VIDSPERPAGE);
     
-    	$newurl = new Net_URL(TubePressStatic::fullURL());
-        $newurl->removeQueryString(TP_PAGE_PARAM);
+        $newurl = new Net_URL(TubePressStatic::fullURL());
+        $newurl->removeQueryString(TP_PARAM_PAGE);
  
- 		if ($options->getValue(TP_OPT_SEARCHBY) == TP_MODE_TAG) {
- 			$vidCount = min($vidCount, 400);
- 		}
+         if ($options->getValue(TP_OPT_MODE) == TP_MODE_TAG) {
+             $vidCount = min($vidCount, 400);
+         }
  
         return diggstyle_getPaginationString($currentPage, $vidCount, $vidsPerPage, 
-    	    1, $newurl->getURL(), TP_PAGE_PARAM);
+            1, $newurl->getURL(), TP_PARAM_PAGE);
     }
     
     /**
@@ -386,10 +387,10 @@ class TubePressGallery
             $css->thumb_class, $css->thumbInner, $options->getValue(TP_OPT_THUMBWIDTH)) . "\r\n";
    
         $content .= sprintf('<a %s><img alt="%s" src="%s" width="%s" height="%s" /></a>',
-        	$link, $vid->metaValues[TP_VID_TITLE], $vid->metaValues[TP_VID_THUMBURL],
-        	$options->getValue(TP_OPT_THUMBWIDTH), $options->getValue(TP_OPT_THUMBHEIGHT)) . "\r\n";
+            $link, $vid->metaValues[TP_VID_TITLE], $vid->metaValues[TP_VID_THUMBURL],
+            $options->getValue(TP_OPT_THUMBWIDTH), $options->getValue(TP_OPT_THUMBHEIGHT)) . "\r\n";
   
-  		$content .= sprintf('<div class="%s">', $css->meta_group) . "\r\n";
+          $content .= sprintf('<div class="%s">', $css->meta_group) . "\r\n";
  
         $content .= TubePressGallery::_printHTML_metaInfo($vid, $options,
             $link);
@@ -407,7 +408,7 @@ class TubePressGallery
      */
     function _printHTML_smallVidLinkAttributes($vid, $options)
     {
-    	global $tubepress_base_url;
+        global $tubepress_base_url;
         $id = $vid->metaValues[TP_VID_ID];
         $height = $options->getValue(TP_OPT_VIDHEIGHT);
         $width = $options->getValue(TP_OPT_VIDWIDTH);
@@ -423,7 +424,7 @@ class TubePressGallery
                 
             case TP_PLAYIN_NW:
                 $url = new Net_URL(TubePressStatic::fullURL());
-                $url->addQueryString(TP_VID_PARAM, $id);
+                $url->addQueryString(TP_PARAM_VID, $id);
                 return sprintf('href="%s"', $url->getURL());
             
             case TP_PLAYIN_YT:
@@ -450,7 +451,5 @@ class TubePressGallery
                     $tubepress_base_url);
         }
     }
-    
-
 }
 ?>

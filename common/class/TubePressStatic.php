@@ -24,6 +24,21 @@
 class TubePressStatic
 {    
     /**
+     * Returns true if we're in a mode that supports pagination
+     */
+    function areWePaging($options)
+    {
+        $mode = $options->getValue(TP_OPT_MODE);
+        if (($mode == TP_MODE_USER)
+            || ($mode == TP_MODE_TAG)
+            || ($mode == TP_MODE_REL)
+            || ($mode == TP_MODE_PLST)) {
+                return true;
+        }
+        return false;
+    }
+    
+    /**
      * Take a PEAR error object and return a prettified message
      */
     function bail($error)
@@ -38,42 +53,11 @@ class TubePressStatic
                 continue;
             }
             $returnMsg .= 
-                sprintf("%s line %s <br />",
+                sprintf("<i>%s line %s</i> <br />",
                     substr($back['file'], strpos($back['file'], "tubepress")),
                     $back['line']);
         }
         return $returnMsg;
-    }
-
-    /**
-     * Returns true if we're in a mode that supports pagination
-     */
-    function areWePaging($options)
-    {
-        $mode = $options->getValue(TP_OPT_SEARCHBY);
-        if (($mode == TP_MODE_USER)
-            || ($mode == TP_MODE_TAG)
-            || ($mode == TP_MODE_REL)
-            || ($mode == TP_MODE_PLST)) {
-                return true;
-        }
-        return false;
-    }
-    function getPageNum()
-    {
-        $pageNum = ((isset($_GET[TP_PAGE_PARAM]))?
-            $_GET[TP_PAGE_PARAM] : 1);
-            if (!is_numeric($pageNum) || ($pageNum < 1)) {
-            	$pageNum = 1;
-            }
-        return $pageNum;
-    }
-    /**
-     * Returns what's in the address bar (obviously, only http, not https)
-     */
-    function fullURL()
-    {
-        return "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
     }
     
     /**
@@ -84,10 +68,32 @@ class TubePressStatic
     function determineNextAction($options)
     {
         if ($options->getValue(TP_OPT_PLAYIN) == TP_PLAYIN_NW
-            && isset($_GET[TP_VID_PARAM])) {
+            && isset($_GET[TP_PARAM_VID])) {
                 return "SINGLEVIDEO";
             }
                 
+    }
+    
+    /**
+     * Returns what's in the address bar (obviously, only http, not https)
+     */
+    function fullURL()
+    {
+        return "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+    }
+    
+    /**
+     * Try to figure out what page we're on by looking at the query string
+     * Defaults to '1' if there's any doubt
+     */
+    function getPageNum()
+    {
+        $pageNum = ((isset($_GET[TP_PARAM_PAGE]))?
+            $_GET[TP_PARAM_PAGE] : 1);
+            if (!is_numeric($pageNum) || ($pageNum < 1)) {
+                $pageNum = 1;
+            }
+        return $pageNum;
     }
 }
 ?>

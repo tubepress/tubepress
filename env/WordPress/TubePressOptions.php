@@ -2,7 +2,7 @@
 /**
  * TubePressOptions.php
  * 
- * The four (so far) hooks that we implement
+ * Handles printing out the WordPress options page for TubePress
  * 
  * Copyright (C) 2007 Eric D. Hough (http://ehough.com)
  * 
@@ -26,25 +26,26 @@ class_exists("WordPressOptionsPage")
 
     /**
      * This is the main method for the TubePress global options page,
-     * which is loaded when you're in the wp-admin section of your blog
+     * which is loaded when you're in the wp-admin section of your blog.
+     * It basically just loads _tp_executeOptionsPage()
      */
     function tp_executeOptionsPage()
     {
-    	if (function_exists('add_options_page')) {
-			add_options_page(_tpMsg("OPTPANELTITLE"), _tpMsg("OPTPANELMENU"), 9, 
-				'TubePressOptions.php', '_tp_executeOptionsPage');
-    	}
+        if (function_exists('add_options_page')) {
+            add_options_page(_tpMsg("OPTPANELTITLE"), _tpMsg("OPTPANELMENU"), 9, 
+                'TubePressOptions.php', '_tp_executeOptionsPage');
+        }
     }
     
     /**
-     * FIXME
+     * The "real" works happens here
      */
     function _tp_executeOptionsPage()
     {
-    	/* initialize the database if we need to */
-    	WordPressOptionsPackage::initDB();
-    	
-    	/* see what we've got in the db */
+        /* initialize the database if we need to */
+        WordPressOptionsPackage::initDB();
+        
+        /* see what we've got in the db */
         $dbOptions = new WordPressOptionsPackage();
     
         /* any db failures? */
@@ -64,14 +65,8 @@ class_exists("WordPressOptionsPage")
             $dbOptions = new WordPressOptionsPackage();
         }
     
-        print <<<EOT
-        <div class="wrap">
-              <form method="post">
-            <h2>$pageTitle</h2>Set default options for the plugin. 
-            Each option here can be overridden 
-            on any page that has your TubePress trigger tag.
-            <br /><br />
-EOT;
+        printf('<div class="wrap"><form method="post"><h2>%s</h2><br/><br/>%s',
+            $pageTitle, _tpMsg("OPTPAGEDESC"));
     
         WordPressOptionsPage::printHTML_modes($dbOptions);
         WordPressOptionsPage::printHTML_display($dbOptions);

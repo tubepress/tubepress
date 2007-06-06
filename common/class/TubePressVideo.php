@@ -22,9 +22,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
 class TubePressVideo
 {
+    /* an array of meta values about this video */
     var $metaValues;
 
     /**
@@ -93,6 +93,18 @@ class TubePressVideo
     }
     
     /**
+     * The full list of meta values that we want to retrieve from each
+     * video
+     */
+     function getMetaNames()
+     {
+         return array(TP_VID_TITLE, TP_VID_LENGTH, TP_VID_VIEW, TP_VID_AUTHOR,
+           TP_VID_ID, TP_VID_RATING_AVG, TP_VID_RATING_CNT, TP_VID_UPLOAD_TIME,
+           TP_VID_COMMENT_CNT, TP_VID_TAGS, TP_VID_URL, TP_VID_THUMBURL,
+           TP_VID_DESC);
+     }
+     
+    /**
      * Converts seconds to minutes and seconds
      * 
      * @param length_seconds The runtime of a video, in seconds
@@ -103,21 +115,10 @@ class TubePressVideo
         $length = intval($seconds / 60);
         $leftOverSeconds = $seconds % 60;
         if ($leftOverSeconds < 10) {
-        	$leftOverSeconds = "0" . $leftOverSeconds;
+            $leftOverSeconds = "0" . $leftOverSeconds;
         }
         $length .=     ":" . $leftOverSeconds;
         return $length;
     }
-    
-    /**
-     * FIXME
-     */
-     function getMetaNames()
-     {
-     	return array(TP_VID_TITLE, TP_VID_LENGTH, TP_VID_VIEW, TP_VID_AUTHOR,
-           TP_VID_ID, TP_VID_RATING_AVG, TP_VID_RATING_CNT, TP_VID_UPLOAD_TIME,
-           TP_VID_COMMENT_CNT, TP_VID_TAGS, TP_VID_URL, TP_VID_THUMBURL,
-           TP_VID_DESC);
-     }
 }
 ?>

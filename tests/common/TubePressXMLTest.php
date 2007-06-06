@@ -1,14 +1,12 @@
 <?php
 
-require(dirname(__FILE__) . '/../../common/TubePressXML.php');
-require_once(dirname(__FILE__) . '/../../common/TubePressOptionsPackage.php');
+require(dirname(__FILE__) . '/../../common/class/TubePressXML.php');
+require_once(dirname(__FILE__) . '/../../common/class/TubePressOptionsPackage.php');
 require_once(dirname(__FILE__) . '/../../lib/PEAR/Networking/Net_URL/URL.php');
 
-require(dirname(__FILE__) . '/../../tp_strings.php');
+require_once(dirname(__FILE__) . '/../../common/defines.php');
 
-require("PEAR.php");
-
-class TubePressXMLTest extends UnitTestCase {
+class TubePressXMLTest extends PHPUnit_Framework_TestCase {
 	var $normalXML;
 	var $errorXML;
 	var $malFormedXML;
@@ -17,125 +15,125 @@ class TubePressXMLTest extends UnitTestCase {
 	function testGenRequestPlaylist() {
 		
 		/* test playlist mode */
-		$result = $this->fakeOpts->setValue(TP_OPT_SEARCHBY, TP_MODE_PLST);
+		$result = $this->fakeOpts->setValue(TP_OPT_MODE, TP_MODE_PLST);
 		$this->assertFalse(PEAR::isError($result));
 		$result = TubePressXML::generateRequest($this->fakeOpts);
 		$this->assertFalse(PEAR::isError($result), $result->message);
 		$url = new Net_Url($result);
 		TubePressXMLTest::_testBasics($url);
 		$this->assertTrue(count($url->querystring) == 3);
-		$this->assertEqual($url->querystring["method"], "youtube.videos.list_by_playlist");
-		$this->assertEqual($url->querystring["id"], "D2B04665B213AE35");
-		$this->assertEqual($url->querystring["dev_id"], "qh7CQ9xJIIc");
+		$this->assertEquals    ($url->querystring["method"], "youtube.videos.list_by_playlist");
+		$this->assertEquals    ($url->querystring["id"], "D2B04665B213AE35");
+		$this->assertEquals    ($url->querystring["dev_id"], "qh7CQ9xJIIc");
 	}
 	function testGenRequestUser() {
-		$result = $this->fakeOpts->setValue(TP_OPT_SEARCHBY, TP_MODE_USER);
+		$result = $this->fakeOpts->setValue(TP_OPT_MODE, TP_MODE_USER);
 		$this->assertFalse(PEAR::isError($result));
 		$result = TubePressXML::generateRequest($this->fakeOpts);
 		$this->assertFalse(PEAR::isError($result));
 		$url = new Net_Url($result);
 		TubePressXMLTest::_testBasics($url);
 		$this->assertTrue(count($url->querystring) == 5);
-		$this->assertEqual($url->querystring["method"], "youtube.videos.list_by_user");
-		$this->assertEqual($url->querystring["user"], $this->fakeOpts->getValue(TP_OPT_USERVAL));
-		$this->assertEqual($url->querystring["dev_id"], "qh7CQ9xJIIc");
-		$this->assertEqual($url->querystring["page"], "1");
-		$this->assertEqual($url->querystring["per_page"], "20");
+		$this->assertEquals    ($url->querystring["method"], "youtube.videos.list_by_user");
+		$this->assertEquals    ($url->querystring["user"], $this->fakeOpts->getValue(TP_OPT_USERVAL));
+		$this->assertEquals    ($url->querystring["dev_id"], "qh7CQ9xJIIc");
+		$this->assertEquals    ($url->querystring["page"], "1");
+		$this->assertEquals    ($url->querystring["per_page"], "20");
 	}
 	
 	function testGenRequestFavorites() {	
 		/* test favorites mode */
-		$result = $this->fakeOpts->setValue(TP_OPT_SEARCHBY, TP_MODE_FAV);
+		$result = $this->fakeOpts->setValue(TP_OPT_MODE, TP_MODE_FAV);
 		$this->assertFalse(PEAR::isError($result));
 		$result = TubePressXML::generateRequest($this->fakeOpts);
 		$this->assertFalse(PEAR::isError($result));
 		$url = new Net_Url($result);
 		TubePressXMLTest::_testBasics($url);
 		$this->assertTrue(count($url->querystring) == 3);
-		$this->assertEqual($url->querystring["method"], "youtube.users.list_favorite_videos");
-		$this->assertEqual($url->querystring["user"], $this->fakeOpts->getValue(TP_OPT_FAVVAL));
-		$this->assertEqual($url->querystring["dev_id"], "qh7CQ9xJIIc");
+		$this->assertEquals    ($url->querystring["method"], "youtube.users.list_favorite_videos");
+		$this->assertEquals    ($url->querystring["user"], $this->fakeOpts->getValue(TP_OPT_FAVVAL));
+		$this->assertEquals    ($url->querystring["dev_id"], "qh7CQ9xJIIc");
 	}
 
 	function testGenRequestTag() {		
 		/* test tag mode */
-		$result = $this->fakeOpts->setValue(TP_OPT_SEARCHBY, TP_MODE_TAG);
+		$result = $this->fakeOpts->setValue(TP_OPT_MODE, TP_MODE_TAG);
 		$this->assertFalse(PEAR::isError($result));
 		$result = TubePressXML::generateRequest($this->fakeOpts);
 		$this->assertFalse(PEAR::isError($result));
 		$url = new Net_Url($result);
 		TubePressXMLTest::_testBasics($url);
 		$this->assertTrue(count($url->querystring) == 5);
-		$this->assertEqual($url->querystring["method"], "youtube.videos.list_by_tag");
-		$this->assertEqual($url->querystring["tag"], urlencode($this->fakeOpts->getValue(TP_OPT_TAGVAL)));
-		$this->assertEqual($url->querystring["dev_id"], "qh7CQ9xJIIc");
-		$this->assertEqual($url->querystring["page"], "1");
-		$this->assertEqual($url->querystring["per_page"], "20");
+		$this->assertEquals    ($url->querystring["method"], "youtube.videos.list_by_tag");
+		$this->assertEquals    ($url->querystring["tag"], urlencode($this->fakeOpts->getValue(TP_OPT_TAGVAL)));
+		$this->assertEquals    ($url->querystring["dev_id"], "qh7CQ9xJIIc");
+		$this->assertEquals    ($url->querystring["page"], "1");
+		$this->assertEquals    ($url->querystring["per_page"], "20");
 	}
 	
 	function testGenRequestRelated() {		
 		/* test related mode */
-		$result = $this->fakeOpts->setValue(TP_OPT_SEARCHBY, TP_MODE_REL);
+		$result = $this->fakeOpts->setValue(TP_OPT_MODE, TP_MODE_REL);
 		$this->assertFalse(PEAR::isError($result));
 		$result = TubePressXML::generateRequest($this->fakeOpts);
 		$this->assertFalse(PEAR::isError($result));
 		$url = new Net_Url($result);
 		TubePressXMLTest::_testBasics($url);
 		$this->assertTrue(count($url->querystring) == 5);
-		$this->assertEqual($url->querystring["method"], "youtube.videos.list_by_related");
-		$this->assertEqual($url->querystring["tag"], urlencode($this->fakeOpts->getValue(TP_OPT_RELVAL)));
-		$this->assertEqual($url->querystring["dev_id"], "qh7CQ9xJIIc");
-		$this->assertEqual($url->querystring["page"], "1");
-		$this->assertEqual($url->querystring["per_page"], "20");
+		$this->assertEquals    ($url->querystring["method"], "youtube.videos.list_by_related");
+		$this->assertEquals    ($url->querystring["tag"], urlencode($this->fakeOpts->getValue(TP_OPT_RELVAL)));
+		$this->assertEquals    ($url->querystring["dev_id"], "qh7CQ9xJIIc");
+		$this->assertEquals    ($url->querystring["page"], "1");
+		$this->assertEquals    ($url->querystring["per_page"], "20");
 	}
 
 	function testGenRequestPopular() {		
 		/* test popular mode */
-		$result = $this->fakeOpts->setValue(TP_OPT_SEARCHBY, TP_MODE_POPULAR);
+		$result = $this->fakeOpts->setValue(TP_OPT_MODE, TP_MODE_POPULAR);
 		$this->assertFalse(PEAR::isError($result));
 		$result = TubePressXML::generateRequest($this->fakeOpts);
 		$this->assertFalse(PEAR::isError($result));
 		$url = new Net_Url($result);
 		TubePressXMLTest::_testBasics($url);
 		$this->assertTrue(count($url->querystring) == 3);
-		$this->assertEqual($url->querystring["method"], "youtube.videos.list_popular");
-		$this->assertEqual($url->querystring["time_range"], $this->fakeOpts->getValue(TP_OPT_POPVAL));
-		$this->assertEqual($url->querystring["dev_id"], "qh7CQ9xJIIc");
+		$this->assertEquals    ($url->querystring["method"], "youtube.videos.list_popular");
+		$this->assertEquals    ($url->querystring["time_range"], $this->fakeOpts->getValue(TP_OPT_POPVAL));
+		$this->assertEquals    ($url->querystring["dev_id"], "qh7CQ9xJIIc");
 	}
 
 	function testGenRequestCat() {		
 		/* test category mode */
-		$result = $this->fakeOpts->setValue(TP_OPT_SEARCHBY, TP_MODE_CATEGORY);
+		$result = $this->fakeOpts->setValue(TP_OPT_MODE, TP_MODE_CATEGORY);
 		$this->assertFalse(PEAR::isError($result));
 		$result = TubePressXML::generateRequest($this->fakeOpts);
 		$this->assertFalse(PEAR::isError($result));
 		$url = new Net_Url($result);
 		TubePressXMLTest::_testBasics($url);
 		$this->assertTrue(count($url->querystring) == 5);
-		$this->assertEqual($url->querystring["method"], "youtube.videos.list_by_category");
-		$this->assertEqual($url->querystring["page"], "1");
-		$this->assertEqual($url->querystring["per_page"], $this->fakeOpts->getValue(TP_OPT_VIDSPERPAGE));
-		$this->assertEqual($url->querystring["category_id"], $this->fakeOpts->getValue(TP_OPT_CATVAL));
-		$this->assertEqual($url->querystring["dev_id"], "qh7CQ9xJIIc");
+		$this->assertEquals    ($url->querystring["method"], "youtube.videos.list_by_category");
+		$this->assertEquals    ($url->querystring["page"], "1");
+		$this->assertEquals    ($url->querystring["per_page"], $this->fakeOpts->getValue(TP_OPT_VIDSPERPAGE));
+		$this->assertEquals    ($url->querystring["category_id"], $this->fakeOpts->getValue(TP_OPT_CATVAL));
+		$this->assertEquals    ($url->querystring["dev_id"], "qh7CQ9xJIIc");
 	}
 
 	function testGenRequestFeatured() {		
 		/* test featured mode */
-		$result = $this->fakeOpts->setValue(TP_OPT_SEARCHBY, TP_MODE_FEATURED);
+		$result = $this->fakeOpts->setValue(TP_OPT_MODE, TP_MODE_FEATURED);
 		$this->assertFalse(PEAR::isError($result));
 		$result = TubePressXML::generateRequest($this->fakeOpts);
 		$this->assertFalse(PEAR::isError($result));
 		$url = new Net_Url($result);
 		TubePressXMLTest::_testBasics($url);
 		$this->assertTrue(count($url->querystring) == 2);
-		$this->assertEqual($url->querystring["method"], "youtube.videos.list_featured");
-		$this->assertEqual($url->querystring["dev_id"], "qh7CQ9xJIIc");
+		$this->assertEquals    ($url->querystring["method"], "youtube.videos.list_featured");
+		$this->assertEquals    ($url->querystring["dev_id"], "qh7CQ9xJIIc");
 	}
 	
 	function _testBasics(&$url) {
-		$this->assertEqual($url->host, "www.youtube.com");
-		$this->assertEqual($url->port, "80");
-		$this->assertEqual($url->path, "/api2_rest");
+		$this->assertEquals    ($url->host, "www.youtube.com");
+		$this->assertEquals    ($url->port, "80");
+		$this->assertEquals    ($url->path, "/api2_rest");
 	}
 	
 	function testErrorXML() {
@@ -177,20 +175,20 @@ class TubePressXMLTest extends UnitTestCase {
 		$this->assertTrue(array_key_exists('thumbnail_url', $v));
 		$this->assertTrue(array_key_exists('embed_status', $v));
 		
-		$this->assertEqual($v['author'], "3hough");
-		$this->assertEqual($v['id'], "oU-qqkWOKJk");
-		$this->assertEqual($v['title'], "Scuba in the Bahamas");
-		$this->assertEqual($v['length_seconds'], "13");
-		$this->assertEqual($v['rating_avg'], "0.00");
-		$this->assertEqual($v['rating_count'], "0");
-		$this->assertEqual($v['description'], "Katie filmed me jumpin in");
-		$this->assertEqual($v['view_count'], "31");
-		$this->assertEqual($v['upload_time'], "1177894154");
-		$this->assertEqual($v['comment_count'], "0");
-		$this->assertEqual($v['tags'], "scuba bahamas");
-		$this->assertEqual($v['url'], "http://www.youtube.com/?v=oU-qqkWOKJk");
-		$this->assertEqual($v['thumbnail_url'], "http://img.youtube.com/vi/oU-qqkWOKJk/2.jpg");
-		$this->assertEqual($v['embed_status'], "ok");
+		$this->assertEquals    ($v['author'], "3hough");
+		$this->assertEquals    ($v['id'], "oU-qqkWOKJk");
+		$this->assertEquals    ($v['title'], "Scuba in the Bahamas");
+		$this->assertEquals    ($v['length_seconds'], "13");
+		$this->assertEquals    ($v['rating_avg'], "0.00");
+		$this->assertEquals    ($v['rating_count'], "0");
+		$this->assertEquals    ($v['description'], "Katie filmed me jumpin in");
+		$this->assertEquals    ($v['view_count'], "31");
+		$this->assertEquals    ($v['upload_time'], "1177894154");
+		$this->assertEquals    ($v['comment_count'], "0");
+		$this->assertEquals    ($v['tags'], "scuba bahamas");
+		$this->assertEquals    ($v['url'], "http://www.youtube.com/?v=oU-qqkWOKJk");
+		$this->assertEquals    ($v['thumbnail_url'], "http://img.youtube.com/vi/oU-qqkWOKJk/2.jpg");
+		$this->assertEquals    ($v['embed_status'], "ok");
 	}
 	
 	function setUp() {

@@ -23,16 +23,26 @@
 
 class TubePressXML
 {
+    /**
+     * Constructor
+     */
+    function TubePressXML()
+    {
+        die("This is a static class");
+    }
 
     /**
      * Connects to YouTube and returns raw XML
      */
     function fetchRawXML($options)
     {   
-    	class_exists("snoopy") || require(dirname(__FILE__) . "/../../lib/snoopy/Snoopy.class.php");
-    	
-    	error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
-    	
+        class_exists("snoopy") || require(dirname(__FILE__) . "/../../lib/snoopy/Snoopy.class.php");
+        
+        /* We turn off error reporting here because Snoopy is very noisy if we
+         * can't connect
+         */
+        error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+        
         $snoopy = new snoopy();
         $snoopy->read_timeout = $options->getValue(TP_OPT_TIMEOUT);
 
@@ -56,70 +66,22 @@ class TubePressXML
                 $snoopy->response_code));
         }
     
-    	error_reporting(E_ALL ^ E_NOTICE);
+        error_reporting(E_ALL ^ E_NOTICE);
 
         return $snoopy->results;
     }
 
     /**
-     * Takes YouTube's raw xml and tries to return an array of the videos
+     * Looks at what the user is trying to do and generates the URL that will
+     * be sent to YouTube base on that
      */
-    function parseRawXML(&$youtube_xml)
-    {
-    
-        class_exists('XML_Unserializer') || require(dirname(__FILE__) . '/../../lib/PEAR/XML/XML_Serializer/Unserializer.php');
-    
-        $unserializer_options = array ('parseAttributes' => TRUE);
-
-        $Unserializer = &new XML_Unserializer($unserializer_options);
-
-        $status = $Unserializer->unserialize($youtube_xml);
-
-        if (PEAR::isError($status)) {
-            return $status;
-        }
-
-        $result = $Unserializer->getUnserializedData();
-    
-        /* make sure we could read the xml */
-        if (!is_array($result) || PEAR::isError($result)) {
-            return PEAR::raiseError(_tpMsg("XMLUNSERR"));
-        }
-    
-        /* make sure we have a status from YouTube */
-        if (!array_key_exists('status', $result)) {
-            return PEAR::raiseError(_tpMsg("NOSTATUS"));
-        }
-    
-        /* see if YouTube liked us */
-        if ($result['status'] != "ok") {
-            $msg = "Unknown error";
-            if (is_array($result['error']) && array_key_exists('description', $result['error']) 
-                && array_key_exists('code', $result['error'])) {
-                    $msg = $result['error']['description'] . " (YouTube error code " . $result['error']['code'] . ")";
-            }
-            return PEAR::raiseError($msg);
-        }
-
-        if (!array_key_exists('total', $result['video_list'])) {
-            return PEAR::raiseError(_tpMsg("NOCOUNT"));
-        }
-    
-        /* if we have a video_list, just return it */
-        if (is_array($result['video_list'])) {
-            return $result['video_list'];
-        }
-    
-        return PEAR::raiseError(_tpMsg("OKNOVIDS"));
-    }
-
     function generateRequest($options)
     {
         class_exists('TubePressStatic') || require("TubePressStatic.php");
         
         $request = TP_YOUTUBE_RESTURL . "method=youtube.";
 
-        $result = $options->getValue(TP_OPT_SEARCHBY);
+        $result = $options->getValue(TP_OPT_MODE);
         if (PEAR::isError($result)) {
             return $result;
         }
@@ -174,11 +136,11 @@ class TubePressXML
                 break;
             default:
                 return PEAR::raiseError(_tpMsg("BADMODE",
-                    $options->getValue(TP_OPT_SEARCHBY)));
+                    $options->getValue(TP_OPT_MODE)));
         }
 
         if (TubePressStatic::areWePaging($options)) {
-			$pageNum = TubePressStatic::getPageNum();
+            $pageNum = TubePressStatic::getPageNum();
             $request .= sprintf("&page=%s&per_page=%s",
                 $pageNum, $options->getValue(TP_OPT_VIDSPERPAGE));
         }
@@ -186,9 +148,57 @@ class TubePressXML
         $request .= "&dev_id=" . $options->getValue(TP_OPT_DEVID);
         return $request;
     }
-    function TubePressXML()
+    
+    /**
+     * Takes YouTube's raw xml and tries to return an array of the videos
+     */
+    function parseRawXML(&$youtube_xml)
     {
-        die("This is a static class");
+    
+        class_exists('XML_Unserializer') || require(dirname(__FILE__) . '/../../lib/PEAR/XML/XML_Serializer/Unserializer.php');
+    
+        $unserializer_options = array ('parseAttributes' => TRUE);
+
+        $Unserializer = &new XML_Unserializer($unserializer_options);
+
+        $status = $Unserializer->unserialize($youtube_xml);
+
+        if (PEAR::isError($status)) {
+            return $status;
+        }
+
+        $result = $Unserializer->getUnserializedData();
+    
+        /* make sure we could read the xml */
+        if (!is_array($result) || PEAR::isError($result)) {
+            return PEAR::raiseError(_tpMsg("XMLUNSERR"));
+        }
+    
+        /* make sure we have a status from YouTube */
+        if (!array_key_exists('status', $result)) {
+            return PEAR::raiseError(_tpMsg("NOSTATUS"));
+        }
+    
+        /* see if YouTube liked us */
+        if ($result['status'] != "ok") {
+            $msg = "Unknown error";
+            if (is_array($result['error']) && array_key_exists('description', $result['error']) 
+                && array_key_exists('code', $result['error'])) {
+                    $msg = $result['error']['description'] . " (YouTube error code " . $result['error']['code'] . ")";
+            }
+            return PEAR::raiseError($msg);
+        }
+
+        if (!array_key_exists('total', $result['video_list'])) {
+            return PEAR::raiseError(_tpMsg("NOCOUNT"));
+        }
+    
+        /* if we have a video_list, just return it */
+        if (is_array($result['video_list'])) {
+            return $result['video_list'];
+        }
+    
+        return PEAR::raiseError(_tpMsg("OKNOVIDS"));
     }
 }
 ?>

@@ -1,10 +1,9 @@
 <?php
 
-require_once(dirname(__FILE__) . '/../../common/TubePressVideo.php');
-require_once("PEAR.php");
-require_once(dirname(__FILE__) . '/../../tp_strings.php');
+require_once(dirname(__FILE__) . '/../../common/class/TubePressVideo.php');
+require_once(dirname(__FILE__) . '/../../common/defines.php');
 
-class TubePressVideoTest extends UnitTestCase {
+class TubePressVideoTest extends PHPUnit_Framework_TestCase {
 	var $v;
 	
 	function testNonArrayConst() {

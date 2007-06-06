@@ -42,7 +42,7 @@ class_exists('TubePressDebug')
     || require('common/class/TubePressDebug.php');
     
 if (!isset($tubepress_base_url)) {
-	$tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
+    $tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
 }
 
 /**
@@ -84,8 +84,8 @@ function tp_main ($content = '')
     /* Are we debugging? */
     $debug = $options->getValue(TP_OPT_DEBUG);
     if ($debug == true
-        && isset($_GET[TP_DEBUG_PARAM]) 
-        && ($_GET[TP_DEBUG_PARAM] == true)) {
+        && isset($_GET[TP_PARAM_DEBUG]) 
+        && ($_GET[TP_PARAM_DEBUG] == true)) {
             $newcontent .= TubePressDebug::debug($options);
     }
     
@@ -116,7 +116,7 @@ add_tubepress_hooks();
  * Adds the WordPress hooks. Simple!
  */
 function add_tubepress_hooks()
-{	
+{    
     add_filter('the_content', 'tp_main');
     add_action('admin_menu',  'tp_executeOptionsPage');    
     add_action('wp_head',     'tp_insertCSSJS');
@@ -143,7 +143,7 @@ function add_tubepress_hooks()
  */
 function tp_insertCSSJS()
 {
-	global $tubepress_base_url;
+    global $tubepress_base_url;
     $url = $tubepress_base_url . "/common";
     print<<<GBS
         <script type="text/javascript" src="{$url}/tubepress.js"></script>
@@ -159,12 +159,12 @@ GBS;
  */
 function tp_insertGreyBox()
 {
-	global $tubepress_base_url;
+    global $tubepress_base_url;
     $url = $tubepress_base_url . "/lib/greybox";
     print<<<GBS
-    	<script type="text/javascript">
-			var GB_ROOT_DIR = "$url/";
-		</script>
+        <script type="text/javascript">
+            var GB_ROOT_DIR = "$url/";
+        </script>
         <script type="text/javascript" 
             src="{$url}/AJS.js"></script>
         <script type="text/javascript"

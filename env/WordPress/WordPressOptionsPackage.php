@@ -31,7 +31,6 @@ class_exists("PEAR")
 
 class WordPressOptionsPackage extends TubePressOptionsPackage
 {
-    
     /* need to keep the tag string around for string replacement later */
     var $tagString;
      
@@ -44,7 +43,7 @@ class WordPressOptionsPackage extends TubePressOptionsPackage
         /* In the db we now store all the options in a single, flat array */
         $options = get_option(TP_OPTION_NAME);
         
-        $result = TubePressOptionsPackage::areValid($options);
+        $result = TubePressOptionsPackage::checkValidity($options);
         
         if (PEAR::isError($result)) {
             $this->error = $result;
@@ -56,6 +55,103 @@ class WordPressOptionsPackage extends TubePressOptionsPackage
         }
     } 
      
+ 
+    /**
+     * Tries to strip out any quotes from a tag option name or option value. This
+     * is ugly, ugly, ugly, and it still doesn't work as well as I'd like it to
+     */
+    function cleanupTagValue($nameOrValue)
+    {
+        $returnVal = trim(
+            str_replace(
+                array("&#8220;", "&#8221;", "&#8217;", "&#8216;",
+                      "&#8242;", "&#8243;", "&#34"),"", 
+                      trim($nameOrValue)));
+        if ($returnVal == "true") {
+            return true;
+        }
+        if ($returnVal == "false") {
+            return false;
+        }
+        return $returnVal;
+    }
+    
+    /**
+     * Used during debugging
+     */
+    function debug()
+    {
+        return "<li>Here's the tag string you're using in this page: " .
+            "<pre>" . $this->tagString . "</pre></li>";
+    }
+    
+    /**
+     *  Gets rid of legacy options if they still exist.
+     *  Please email me if you think I missed one!
+     */
+    function deleteLegacyOptions()
+    {
+        delete_option(TP_OPTS_ADV);
+        delete_option(TP_OPTS_DISP);
+        delete_option(TP_OPTS_META);
+        delete_option(TP_OPTS_PLAYERLOCATION);
+        delete_option(TP_OPTS_PLAYERMENU);
+        delete_option(TP_OPTS_SEARCH);
+        delete_option(TP_OPTS_SRCHV);
+        delete_option("tubepress_accountInfo");
+        delete_option("[tubepress]");
+        delete_option("TP_OPT_MODE_TAGVAL");
+        delete_option("TP_OPT_MODE_USERVAL");
+        delete_option("TP_OPT_SEARCHKEY");
+        delete_option("TP_OPT_THUMBHEIGHT");
+        delete_option("tp_display_author");
+        delete_option("tp_display_comment_count");
+        delete_option("tp_display_description");
+        delete_option("tp_display_id");
+        delete_option("tp_display_length");
+        delete_option("tp_display_rating_avg");
+        delete_option("tp_display_rating_count");
+        delete_option("tp_display_tags");
+        delete_option("tp_display_title");
+        delete_option("tp_display_upload_time");
+        delete_option("tp_display_url");
+        delete_option("tp_display_view_count");
+        delete_option("mainVidHeight");
+        delete_option("mainVidWidth");
+        delete_option("searchBy");
+        delete_option("searchByTagValue");
+        delete_option("searchByUserValue");
+        delete_option("thumbHeight");
+        delete_option("thumbWidth");
+        delete_option("timeout");
+        delete_option("TP_OPT_THUMBEIGHT");
+        delete_option("TP_VID_METAS");
+        delete_option("username");
+        delete_option("devID");
+        delete_option("devIDlink");
+        delete_option("searchByValue");
+    }
+    
+    /**
+     * Will initialize our database entry for WordPress
+     */
+    function initDB()
+    {
+        WordPressOptionsPackage::deleteLegacyOptions();
+        $stored = get_option(TP_OPTION_NAME);
+        $validity = TubePressOptionsPackage::checkValidity($stored);
+        
+        if (PEAR::isError($stored)) {
+            delete_option(TP_OPTION_NAME);
+            add_option(TP_OPTION_NAME, TubePressOptionsPackage::getDefaultPackage());
+        }
+        
+        if (PEAR::isError($validity)) {
+            delete_option(TP_OPTION_NAME);
+            add_option(TP_OPTION_NAME, TubePressOptionsPackage::getDefaultPackage());
+        }
+    }
+    
     /**
      * This function is used when the plugin parses a tag from a post/page.
      * It pulls all the options from the db, but uses option values found in the
@@ -109,105 +205,13 @@ class WordPressOptionsPackage extends TubePressOptionsPackage
         }
         
         /* one last error check */
-        $result = TubePressOptionsPackage::areValid($dbOptions->_allOptions);
+        $result = TubePressOptionsPackage::checkValidity($dbOptions->_allOptions);
         if (PEAR::isError($result)) {
             return $result;
         }
         
         return $dbOptions;
     }
-
-    /**
-     * Will initialize our database entry for WordPress
-     */
-    function initDB()
-    {
-        WordPressOptionsPackage::deleteLegacyOptions();
-        $stored = get_option(TP_OPTION_NAME);
-        $validity = TubePressOptionsPackage::areValid($stored);
-        
-        if (PEAR::isError($stored)) {
-        	delete_option(TP_OPTION_NAME);
-        	add_option(TP_OPTION_NAME, TubePressOptionsPackage::getDefaultPackage());
-        }
-        
-        if (PEAR::isError($validity)) {
-        	delete_option(TP_OPTION_NAME);
-        	add_option(TP_OPTION_NAME, TubePressOptionsPackage::getDefaultPackage());
-        }
-    }
-
-    /**
-     * Tries to strip out any quotes from a tag option name or option value. This
-     * is ugly, ugly, ugly, and it still doesn't work as well as I'd like it to
-     */
-    function cleanupTagValue($nameOrValue)
-    {
-        $returnVal = trim(
-            str_replace(
-                array("&#8220;", "&#8221;", "&#8217;", "&#8216;",
-                      "&#8242;", "&#8243;", "&#34"),"", 
-                      trim($nameOrValue)));
-        if ($returnVal == "true") {
-            return true;
-        }
-        if ($returnVal == "false") {
-            return false;
-        }
-        return $returnVal;
-    }
     
-    /**
-     *  Gets rid of legacy options if they still exist.
-     *  Please email me if you think I missed one!
-     */
-    function deleteLegacyOptions()
-    {
-        delete_option(TP_OPTS_ADV);
-        delete_option(TP_OPTS_DISP);
-        delete_option(TP_OPTS_META);
-        delete_option(TP_OPTS_PLAYERLOCATION);
-        delete_option(TP_OPTS_PLAYERMENU);
-        delete_option(TP_OPTS_SEARCH);
-        delete_option(TP_OPTS_SRCHV);
-        delete_option("tubepress_accountInfo");
-        delete_option("[tubepress]");
-        delete_option("TP_OPT_SEARCHBY_TAGVAL");
-        delete_option("TP_OPT_SEARCHBY_USERVAL");
-        delete_option("TP_OPT_SEARCHKEY");
-        delete_option("TP_OPT_THUMBHEIGHT");
-        delete_option("tp_display_author");
-        delete_option("tp_display_comment_count");
-        delete_option("tp_display_description");
-        delete_option("tp_display_id");
-        delete_option("tp_display_length");
-        delete_option("tp_display_rating_avg");
-        delete_option("tp_display_rating_count");
-        delete_option("tp_display_tags");
-        delete_option("tp_display_title");
-        delete_option("tp_display_upload_time");
-        delete_option("tp_display_url");
-        delete_option("tp_display_view_count");
-        delete_option("mainVidHeight");
-        delete_option("mainVidWidth");
-        delete_option("searchBy");
-        delete_option("searchByTagValue");
-        delete_option("searchByUserValue");
-        delete_option("thumbHeight");
-        delete_option("thumbWidth");
-        delete_option("timeout");
-        delete_option("TP_OPT_THUMBEIGHT");
-        delete_option("TP_VID_METAS");
-        delete_option("username");
-        delete_option("devID");
-        delete_option("devIDlink");
-        delete_option("searchByValue");
-    }
-    
-    function debug()
-    {
-    	return "<li>Here's the tag string you're using in this page: " .
-            "<pre>" . $this->tagString . "</pre></li>";
-    }
 }
 ?>

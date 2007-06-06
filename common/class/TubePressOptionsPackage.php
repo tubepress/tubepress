@@ -2,6 +2,12 @@
 /**
  * TubePressOptionsPackage.php
  * 
+ * This is meant to be an abstract class, though PHP 4 doesn't support
+ * them :(. The idea here is that each implementation (WordPress, MoveableType)
+ * extends this class and passes it around as the class that holds all 
+ * of the users options. It's essentially just an array of TubePressOptions 
+ * with some extra methods related to metadata on those options.
+ * 
  * Copyright (C) 2007 Eric D. Hough (http://ehough.com)
  * 
  * This program is free software; you can redistribute it and/or
@@ -22,15 +28,9 @@
 class_exists('TubePressOption') || require('TubePressOption.php');
 defined("TP_OPTION_NAME") || require(dirname(__FILE__) . "/../defines.php");
 
-/**
- * This is meant to be an abstract class, though PHP 4 doesn't support
- * them :(. The idea here is that each implementation (WordPress, MoveableType)
- * extends this class and passes it around as the class that holds all 
- * of the users options. It's essentially just an array of TubePressOptions 
- * with some extra methods related to metadata on those options.
- */
 class TubePressOptionsPackage
 {
+    /* this is our array of TubePressOptions */
     var $_allOptions;
 
     /**
@@ -40,78 +40,63 @@ class TubePressOptionsPackage
     {
         //die("This is an abstract class");
     }
-
-    /**
-     * Tries to get a single option from this package. Returns
-     * error if the option is not part of the package.
-     */
-    function _get($optionName)
-    {
-        if (!array_key_exists($optionName, $this->_allOptions)) {
-            return PEAR::raiseError(_tpMsg("NOSUCHOPT", array($optionName)));
-        }
-        return $this->_allOptions[$optionName];
-    }
     
-    /**
-     * FIXME
+        /**
+     * Checks to see if parameter appears to be a correct set of options
+     * 
+     * @param An array of the options that the user currently has
+     * (typically pulled from the db)
      */
-    function getTitle($optionName)
+    function checkValidity($suspectOptions)
     {
-        $result = $this->_get($optionName);
-        if (PEAR::isError($result)) {
-            return $result;
+        /* make sure the db looks ok */
+        if ($suspectOptions == NULL) {
+            return PEAR::raiseError(_tpMsg("NODB"));
         }
-        return $result->getTitle();
-    }
-    
-    /**
-     * FIXME
-     */
-    function getDescription($optionName)
-    {
-        $result = $this->_get($optionName);
-        if (PEAR::isError($result)) {
-            return $result;
-        }
-            return $result->getDescription();
-   }
-    
-    /**
-     * FIXME
-     */
-    function getValue($optionName)
-    {
-        $result = $this->_get($optionName);
-        if (PEAR::isError($result)) {
-            return $result;
-        }
-        return $result->getValue();
-    }
-    
-    /**
-     * Set a single option's value for this package. Returns error if
-     * option does not exist, or invalid option value.
-     */
-    function setValue($optionName, $optionValue)
-    {
-        if (!array_key_exists($optionName, $this->_allOptions)) {
-            return PEAR::raiseError(_tpMsg("NOSUCHOPT", array($optionName)));
+        if (!is_array($suspectOptions)) {
+            return PEAR::raiseError(_tpMsg("BADDB",
+            array(gettype($suspectOptions))));
         }
         
-        $result = $this->_allOptions[$optionName]->setValue($optionValue);
-        if (PEAR::isError($result)) {
-            return $result;
+        $modelOptions = TubePressOptionsPackage::getDefaultPackage();
+        
+        foreach ($modelOptions as $defaultOption) {
+            /* Make sure we have all the keys */
+            if (!array_key_exists($defaultOption->getName(), $suspectOptions)) {
+                return PEAR::raiseError(_tpMsg("DBMISS", 
+                    array($defaultOption->getName(), 
+                        count($suspectOptions), count($modelOptions))));
+            }
+
+            /* Make sure each entry is a valid TubePressOption */
+            if (!is_a($suspectOptions[$defaultOption->getName()], TubePressOption)) {
+                return PEAR::raiseError(_tpMsg("OLDDB"));
+            }
+        }
+        
+        /* finally, make sure that we have the right number of options */
+        if (count($suspectOptions) != count($modelOptions)) {
+            return PEAR::raiseError("You have extra options! Expecting " . count($modelOptions)
+            . " but you seem to have " . count($suspectOptions));
         }
     }
-
+    
+    /**
+     * Used during debugging. Really meant to be overriden by
+     * subclasses
+     */
+    function debug()
+    {
+        return "";
+    }
+    
     /**
      * Returns a fresh array of TubePress options.
      * The structure of this array defines what is stored in our db row.
      */
     function getDefaultPackage()
     {
-        $returnVal =
+        return
         
         /* -------- META OPTIONS ------------------------------------------- */
         
@@ -167,8 +152,6 @@ class TubePressOptionsPackage
                                          '', "mrdeathgod"),
                   TP_OPT_POPVAL =>  new TubePressOption(TP_OPT_POPVAL,
                                          ' ', '', "day"),
-                  //TP_OPT_CATVAL =>  new TubePressOption(TP_OPT_CATVAL, ' ',
-                  //                     '', "19"),
             
            /* -------- DISPLAY OPTIONS -------------------------------------- */
                   
@@ -192,7 +175,6 @@ class TubePressOptionsPackage
                                             _tpMsg("THUMBHEIGHT_TITLE"),
                                             _tpMsg("THUMBHEIGHT_DESC"),
                                             90, "integer", 90),
-
                   
               /* -------- ADVANCED OPTIONS ------------------------------------- */                    
                   
@@ -219,61 +201,31 @@ class TubePressOptionsPackage
  
          /* -------- VIDEO SEARCH OPTION ----------------------------------- */
 
-                  TP_OPT_SEARCHBY => new TubePressOption(TP_OPT_SEARCHBY, ' ',
-                                         '', TP_MODE_FEATURED),
+                  TP_OPT_MODE => new TubePressOption(TP_OPT_MODE, ' ',
+                                         '', TP_MODE_FEATURED,
+                                         0, TubePressOptionsPackage::getModeNames()),
 
         /* -------- PLAYER LOCATION OPTION ----------------------------------- */
  
                   TP_OPT_PLAYIN => new TubePressOption(TP_OPT_PLAYIN, 
-                                       _tpMsg("PLAYIN_TITLE"), ' ', TP_PLAYIN_NORMAL));
-                          
-        $returnVal[TP_OPT_PLAYIN]->setValidValues(TubePressOptionsPackage::getPlayerLocationNames());
-        $returnVal[TP_OPT_SEARCHBY]->setValidValues(TubePressOptionsPackage::getModeNames());
-                
-        return $returnVal;                        
-    }
-
-    /**
-     * Checks to see if parameter appears to be a correct set of options
-     * 
-     * @param An array of the options that the user currently has
-     * (typically pulled from the db)
-     */
-    function areValid($suspectOptions)
-    {
-        if ($suspectOptions == NULL) {
-            return PEAR::raiseError(_tpMsg("NODB"));
-        }
-        if (!is_array($suspectOptions)) {
-            return PEAR::raiseError(_tpMsg("BADDB",
-            array(gettype($suspectOptions))));
-        }
-        
-        $modelOptions = TubePressOptionsPackage::getDefaultPackage();
-        
-        foreach ($modelOptions as $defaultOption) {
-        	/* Make sure we have all the keys */
-            if (!array_key_exists($defaultOption->getName(), $suspectOptions)) {
-                return PEAR::raiseError(_tpMsg("DBMISS", 
-                    array($defaultOption->getName(), 
-                        count($suspectOptions), count($modelOptions))));
-            }
-
-        	/* Make sure each entry is a valid TubePressOption */
-            if (!is_a($suspectOptions[$defaultOption->getName()], TubePressOption)) {
-                return PEAR::raiseError(_tpMsg("OLDDB"));
-            }
-        }
-        
-        /* finally, make sure that we have the right number of options */
-        if (count($suspectOptions) != count($modelOptions)) {
-        	return PEAR::raiseError("You have extra options! Expecting " . count($modelOptions)
-        	. " but you seem to have " . count($suspectOptions));
-        }
+                                       _tpMsg("PLAYIN_TITLE"), ' ', TP_PLAYIN_NORMAL,
+                                       0, TubePressOptionsPackage::getPlayerLocationNames()));                       
     }
     
     /**
-     * FIXME
+     * A wrapper for TubePressOption's getDescription()
+     */
+    function getDescription($optionName)
+    {
+        $result = $this->_get($optionName);
+        if (PEAR::isError($result)) {
+            return $result;
+        }
+        return $result->getDescription();
+   }
+    
+    /**
+     * The valid ways to play each video (new window, popup, lightWindow, etc)
      */
     function getPlayerLocationNames()
     {
@@ -283,7 +235,7 @@ class TubePressOptionsPackage
     }
     
     /**
-     * FIXME
+     * The allowed mode names (each represents an API call to YouTube)
      */
     function getModeNames()
     {
@@ -291,11 +243,58 @@ class TubePressOptionsPackage
             array(TP_MODE_USER, TP_MODE_FAV, TP_MODE_PLST,TP_MODE_TAG, 
                  TP_MODE_FEATURED, TP_MODE_POPULAR);
     }
+        
     
-    function debug()
+    /**
+     * A wrapper for TubePressOption's getTitle()
+     */
+    function getTitle($optionName)
     {
-    	/* this should be overridden by subclasses */
-    	return "";
+        $result = $this->_get($optionName);
+        if (PEAR::isError($result)) {
+            return $result;
+        }
+        return $result->getTitle();
+    }
+    
+    /**
+     * A wrapper for TubePressOption's getValue()
+     */
+    function getValue($optionName)
+    {
+        $result = $this->_get($optionName);
+        if (PEAR::isError($result)) {
+            return $result;
+        }
+        return $result->getValue();
+    }
+    
+    /**
+     * Set a single option's value for this package. Returns error if
+     * option does not exist, or invalid option value.
+     */
+    function setValue($optionName, $optionValue)
+    {
+        if (!array_key_exists($optionName, $this->_allOptions)) {
+            return PEAR::raiseError(_tpMsg("NOSUCHOPT", array($optionName)));
+        }
+        
+        $result = $this->_allOptions[$optionName]->setValue($optionValue);
+        if (PEAR::isError($result)) {
+            return $result;
+        }
+    }
+    
+    /**
+     * Tries to get a single option from this package. Returns
+     * error if the option is not part of the package.
+     */
+    function _get($optionName)
+    {
+        if (!array_key_exists($optionName, $this->_allOptions)) {
+            return PEAR::raiseError(_tpMsg("NOSUCHOPT", array($optionName)));
+        }
+        return $this->_allOptions[$optionName];
     }
 }
 ?>

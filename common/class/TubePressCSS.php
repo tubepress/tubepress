@@ -35,8 +35,8 @@ class TubePressCSS
     {
         $this->container =             "tubepress_container";
         $this->mainVid_id =            "tubepress_mainvideo";
-        $this->mainVid_inner =		   "inner";
-        $this->mainVid_title =		   "title";
+        $this->mainVid_inner =         "inner";
+        $this->mainVid_title =         "title";
         $this->meta_class =            "tubepress_meta";
         $this->thumb_container_class = "tubepress_video_thumbs";
         $this->thumb_class =           "tubepress_thumb";

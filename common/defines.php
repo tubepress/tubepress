@@ -23,18 +23,22 @@
 */
 
 /*****************************************************************************/
-/*** FIXME *******************************************************************/
+/*** MISC ********************************************************************/
 /*****************************************************************************/
 define("TP_YOUTUBEDEVLINK", "http://www.youtube.com/my_profile_dev");
 define("TP_YOUTUBE_RESTURL", "http://www.youtube.com/api2_rest?");
-define("TP_PAGE_PARAM", "tubepress_page");
-define("TP_VID_PARAM", "tubepress_id");
-define("TP_DEBUG_PARAM", "tubepress_debug");
+/* DO NOT CHANGE THIS DEFINE */
 define("TP_OPTION_NAME", "tubepress");
-define("TP_OPT_DEBUG", "debugging_enabled");
 
 /*****************************************************************************/
-/*** SEARCHING MODES *********************************************************/
+/*** QUERY STRING PARAMS *****************************************************/
+/*****************************************************************************/
+define("TP_PARAM_PAGE", "tubepress_page");
+define("TP_PARAM_VID", "tubepress_id");
+define("TP_PARAM_DEBUG", "tubepress_debug");
+
+/*****************************************************************************/
+/*** MODES *******************************************************************/
 /*****************************************************************************/
 define("TP_MODE_FAV", "favorites");
 define("TP_MODE_TAG", "tag");
@@ -46,18 +50,19 @@ define("TP_MODE_POPULAR", "popular");
 define("TP_MODE_CATEGORY", "category");
 
 /*****************************************************************************/
-/*** SEARCHING VALUES ********************************************************/
+/*** MODES *******************************************************************/
 /*****************************************************************************/
+define("TP_OPT_MODE", "mode");
 define("TP_OPT_TAGVAL", "tagValue");
 define("TP_OPT_USERVAL", "userValue");
 define("TP_OPT_PLSTVAL", "playlistValue");
 define("TP_OPT_POPVAL", "popularValue");
 define("TP_OPT_FAVVAL", "favoritesValue");
-//define("TP_OPT_CATVAL", "categoryValue");
 
 /*****************************************************************************/
 /*** PLAYER LOCATIONS ********************************************************/
 /*****************************************************************************/
+define("TP_OPT_PLAYIN", "playerLocation");
 define("TP_PLAYIN_NW", "new_window");
 define("TP_PLAYIN_YT", "youtube");
 define("TP_PLAYIN_NORMAL", "normal");
@@ -66,19 +71,22 @@ define("TP_PLAYIN_GREYBOX", "thickbox");
 define("TP_PLAYIN_LWINDOW", "lightwindow");
 
 /*****************************************************************************/
-/*** FIX ME ******************************************************************/
+/*** DISPLAY OPTIONS *********************************************************/
 /*****************************************************************************/
-define("TP_OPT_DEVID", "devID");
-define("TP_OPT_KEYWORD", "tubepress");
-define("TP_OPT_SEARCHBY", "mode");
 define("TP_OPT_THUMBHEIGHT", "thumbHeight");
 define("TP_OPT_THUMBWIDTH", "thumbWidth");
-define("TP_OPT_USERNAME", "username");
 define("TP_OPT_VIDHEIGHT", "mainVidHeight");
 define("TP_OPT_VIDWIDTH", "mainVidWidth");
-define("TP_OPT_TIMEOUT", "timeout");
-define("TP_OPT_PLAYIN", "playerLocation");
 define("TP_OPT_VIDSPERPAGE", "resultsPerPage");
+
+/*****************************************************************************/
+/*** ADVANCED OPTIONS ********************************************************/
+/*****************************************************************************/
+define("TP_OPT_DEBUG", "debugging_enabled");
+define("TP_OPT_DEVID", "devID");
+define("TP_OPT_USERNAME", "username");
+define("TP_OPT_KEYWORD", "tubepress");
+define("TP_OPT_TIMEOUT", "timeout");
 
 /*****************************************************************************/
 /*** META INFORMATION ********************************************************/

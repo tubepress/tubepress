@@ -23,10 +23,6 @@
 
 $tubepressMessages = 
     array(
-          "BACK2GALLERY" => "&laquo; back to gallery",
-          "PREV" => "&laquo; prev",
-          "NEXT" => "next &raquo;",
-          
           /*******************************************************************/
           /*** ERRORS ********************************************************/
           /*******************************************************************/          
@@ -42,7 +38,6 @@ $tubepressMessages =
                 "Expected any %s but instead got '%s' of type '%s'",
           "BADVAL" => "%s not a valid value for %s. Must be one of: %s",
           "NOVALS" => "No valid values defined for this option",
-          "ARRSET" => "Can only set valid options with an array",
           "VALTYPE" => "Must set valid option values with TubePressEnum class",
           "NOSUCHOPT" => "%s is not a valid option",
           "NODB" => "Database options are completely missing.",
@@ -59,6 +54,7 @@ $tubepressMessages =
           /*******************************************************************/
           /*** META INFO *****************************************************/
           /*******************************************************************/
+          "META" => "Video meta display",
           "VIDAUTHOR" => "Author",
           "VIDCOMMENTS" => "Comments",
           "VIDDESC" => "Description",
@@ -72,8 +68,6 @@ $tubepressMessages =
           "VIDUPLOAD" => "Uploaded date",
           "VIDURL" => "YouTube URL",
           "VIDVIEWS" => "Views",
-
-          "META" => "Video meta display",
           
           /*******************************************************************/
           /*** PAGE WIDE MESSAGES ********************************************/
@@ -82,6 +76,9 @@ $tubepressMessages =
           "OPTPANELMENU" => "TubePress",
           "OPTSUCCESS" => "Options updated",
           "SAVE" => "Save",
+          "OPTPAGEDESC" => "Set default options for the plugin. 
+            Each option here can be overridden 
+            on any page that has your TubePress trigger tag.",
           
           /*******************************************************************/
           /*** ADVANCED OPTIONS **********************************************/
@@ -114,12 +111,11 @@ $tubepressMessages =
           /*******************************************************************/
           /*** MODES *********************************************************/
           /*******************************************************************/
-          "MODE_HEADER" => "Which videos?",
-          //"MODE_CAT_TITLE" => "this category",
           "MODE_FAV_TITLE" => "this YouTube user's \"favorites\"",
           "MODE_FAV_DESC" => "YouTube limits this mode to the latest 10 favorites",
           "MODE_FEAT_TITLE" => "The latest 25 \"featured\" videos " .
                   "on YouTube's homepage",
+          "MODE_HEADER" => "Which videos?",
           "MODE_PLST_TITLE" => "<sup>*</sup>this playlist",
           "MODE_PLST_DESC" => "Will usually look something like this:" .
                   " D2B04665B213AE35. Copy the playlist id from the end of the " .
@@ -133,30 +129,40 @@ $tubepressMessages =
           /*******************************************************************/
           /*** DISPLAY OPTIONS ***********************************************/
           /*******************************************************************/
-          "VIDDISP" => "Video display",
           "THUMBHEIGHT_DESC" => "Default (and maximum) is 90",
           "THUMBHEIGHT_TITLE" => "Height (px) of thumbs",
           "THUMBWIDTH_DESC" => "Default (and maximum) is 120",
           "THUMBWIDTH_TITLE" => "Width (px) of thumbs",
+          "VIDDISP" => "Video display",
           "VIDHEIGHT_TITLE" => "Max height (px) of main video",
           "VIDHEIGHT_DESC" => "Default (and maximum) is 336",
           "VIDWIDTH_TITLE" => "Max width (px) of main video",
           "VIDWIDTH_DESC" => "Default (and maximum) is 424",
           "VIDSPERPAGE_TITLE" => "Videos per page",
           "VIDSPERPAGE_DESC" => "Default is 20, maximum is 100. Only some modes " .
-          		"support pagination (see above).",
+                  "support pagination (see above).",
           
           /*******************************************************************/
           /*** VIDEO PLAYER LOCATIONS ****************************************/
           /*******************************************************************/
-          "PLAYIN_TITLE" => "Play each video...",
-          "PLAYIN_NW_TITLE" => "in a new window by itself",
-          "PLAYIN_YT_TITLE" => "from the original YouTube page",
+          "PLAYIN_LW_TITLE" => "with lightWindow (experimental)",
           "PLAYIN_NORMAL_TITLE" => "normally (at the top of your gallery)",
+          "PLAYIN_NW_TITLE" => "in a new window by itself",
           "PLAYIN_POPUP_TITLE" => "in a popup window",
           "PLAYIN_TB_TITLE" => "using GreyBox (experimental)",
-          "PLAYIN_LW_TITLE" => "with lightWindow (experimental)");
+          "PLAYIN_TITLE" => "Play each video...",
+          "PLAYIN_YT_TITLE" => "from the original YouTube page",
+          
+          /*******************************************************************/
+          /*** MISC **********************************************************/
+          /*******************************************************************/
+          "BACK2GALLERY" => "&laquo; back to gallery",
+          "PREV" => "&laquo; prev",
+          "NEXT" => "next &raquo;");
 
+/**
+ * Our main messaging function
+ */
 function _tpMsg()
 {
     global $tubepressMessages;
@@ -167,6 +173,5 @@ function _tpMsg()
     } else {
         return $tubepressMessages[func_get_arg(0)];
     }
-    
 }
 ?>
