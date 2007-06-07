@@ -85,7 +85,7 @@ define("TP_OPT_VIDSPERPAGE", "resultsPerPage");
 define("TP_OPT_DEBUG", "debugging_enabled");
 define("TP_OPT_DEVID", "devID");
 define("TP_OPT_USERNAME", "username");
-define("TP_OPT_KEYWORD", "tubepress");
+define("TP_OPT_KEYWORD", "keyword");
 define("TP_OPT_TIMEOUT", "timeout");
 
 /*****************************************************************************/
