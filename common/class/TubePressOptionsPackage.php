@@ -25,7 +25,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists('TubePressOption') || require('TubePressOption.php');
+if (!class_exists('TubePressIntegerOption')) {
+    require('options/TubePressIntegerOpt.php');
+    require('options/TubePressStringOpt.php');
+    require('options/TubePressEnumOpt.php');
+    require('options/TubePressBooleanOpt.php');
+}
+function_exists("_tpMsg") || require(dirname(__FILE__) . "/../messages.php");
 defined("TP_OPTION_NAME") || require(dirname(__FILE__) . "/../defines.php");
 
 class TubePressOptionsPackage
@@ -38,7 +44,7 @@ class TubePressOptionsPackage
      */
     function TubePressOptionsPackage()
     {
-        //die("This is an abstract class");
+        $this->_allOptions = TubePressOptionsPackage::getDefaultPackage();
     }
     
         /**
@@ -47,37 +53,37 @@ class TubePressOptionsPackage
      * @param An array of the options that the user currently has
      * (typically pulled from the db)
      */
-    function checkValidity($suspectOptions)
+    function checkValidity()
     {
         /* make sure the db looks ok */
-        if ($suspectOptions == NULL) {
+        if ($this->_allOptions == NULL) {
             return PEAR::raiseError(_tpMsg("NODB"));
         }
-        if (!is_array($suspectOptions)) {
+        if (!is_array($this->_allOptions)) {
             return PEAR::raiseError(_tpMsg("BADDB",
-            array(gettype($suspectOptions))));
+            array(gettype($this->_allOptions))));
         }
         
-        $modelOptions = TubePressOptionsPackage::getDefaultPackage();
+        $modelOptions = array_keys(TubePressOptionsPackage::getDefaultPackage());
         
         foreach ($modelOptions as $defaultOption) {
             /* Make sure we have all the keys */
-            if (!array_key_exists($defaultOption->getName(), $suspectOptions)) {
+            if (!array_key_exists($defaultOption, $this->_allOptions)) {
                 return PEAR::raiseError(_tpMsg("DBMISS", 
-                    array($defaultOption->getName(), 
-                        count($suspectOptions), count($modelOptions))));
+                    array($defaultOption, 
+                        count($this->_allOptions), count($modelOptions))));
             }
 
             /* Make sure each entry is a valid TubePressOption */
-            if (!is_a($suspectOptions[$defaultOption->getName()], TubePressOption)) {
+            if (!is_a($this->_allOptions[$defaultOption], TubePressOption)) {
                 return PEAR::raiseError(_tpMsg("OLDDB"));
             }
         }
         
         /* finally, make sure that we have the right number of options */
-        if (count($suspectOptions) != count($modelOptions)) {
+        if (count($this->_allOptions) != count($modelOptions)) {
             return PEAR::raiseError("You have extra options! Expecting " . count($modelOptions)
-            . " but you seem to have " . count($suspectOptions));
+            . " but you seem to have " . count($this->_allOptions));
         }
     }
     
@@ -100,116 +106,98 @@ class TubePressOptionsPackage
         
         /* -------- META OPTIONS ------------------------------------------- */
         
-            array(TP_VID_TITLE =>       new TubePressOption(TP_VID_TITLE, 
-                                            _tpMsg("VIDTITLE"), '',
-                                            true, "boolean"),
-                  TP_VID_LENGTH =>      new TubePressOption(TP_VID_LENGTH,
-                                            _tpMsg("VIDLEN"),      '',
-                                            true, "boolean"),
-                  TP_VID_VIEW =>        new TubePressOption(TP_VID_VIEW,
-                                            _tpMsg("VIDVIEWS"),    '',
-                                            true, "boolean"),
-                  TP_VID_AUTHOR =>      new TubePressOption(TP_VID_AUTHOR ,
-                                            _tpMsg("VIDAUTHOR"),   '',
-                                            false, "boolean"),
-                  TP_VID_ID =>          new TubePressOption(TP_VID_ID,
-                                            _tpMsg("VIDID"),       '',
-                                            false, "boolean"),
-                  TP_VID_RATING_AVG =>  new TubePressOption(TP_VID_RATING_AVG,
-                                            _tpMsg("VIDRATING"),   '',
-                                            false, "boolean"),
-                  TP_VID_RATING_CNT =>  new TubePressOption(TP_VID_RATING_CNT,
-                                            _tpMsg("VIDRATINGS"),  '',
-                                            false, "boolean"),
-                  TP_VID_UPLOAD_TIME => new TubePressOption(TP_VID_UPLOAD_TIME,
-                                            _tpMsg("VIDUPLOAD"),   '',
-                                            false, "boolean"),
-                  TP_VID_COMMENT_CNT => new TubePressOption(TP_VID_COMMENT_CNT,
-                                            _tpMsg("VIDCOMMENTS"), '',
-                                            false, "boolean"),
-                  TP_VID_TAGS =>        new TubePressOption(TP_VID_TAGS,
-                                            _tpMsg("VIDTAGS"),     '',
-                                            false, "boolean"),
-                  TP_VID_URL =>         new TubePressOption(TP_VID_URL,
-                                            _tpMsg("VIDURL"),      '',
-                                            false, "boolean"),
-                  TP_VID_THUMBURL =>    new tubePressOption(TP_VID_THUMBURL,
-                                            _tpMsg("VIDTHUMBURL"), '',
-                                            false, "boolean"),
-                  TP_VID_DESC =>        new TubePressOption(TP_VID_DESC,
-                                            _tpMsg("VIDDESC"),     '',
-                                            false, "boolean"),
+            array(TP_VID_TITLE =>       new TubePressBooleanOpt( 
+                                            _tpMsg("VIDTITLE"), ' ', true),
+                  TP_VID_LENGTH =>      new TubePressBooleanOpt(
+                                            _tpMsg("VIDLEN"), ' ', true),
+                  TP_VID_VIEW =>        new TubePressBooleanOpt(
+                                            _tpMsg("VIDVIEWS"), ' ', true),
+                  TP_VID_AUTHOR =>      new TubePressBooleanOpt(
+                                            _tpMsg("VIDAUTHOR"), ' ', false),
+                  TP_VID_ID =>          new TubePressBooleanOpt(
+                                            _tpMsg("VIDID"), ' ', false),
+                  TP_VID_RATING_AVG =>  new TubePressBooleanOpt(
+                                            _tpMsg("VIDRATING"), ' ', false),
+                  TP_VID_RATING_CNT =>  new TubePressBooleanOpt(
+                                            _tpMsg("VIDRATINGS"), ' ', false),
+                  TP_VID_UPLOAD_TIME => new TubePressBooleanOpt(
+                                            _tpMsg("VIDUPLOAD"), ' ', false),
+                  TP_VID_COMMENT_CNT => new TubePressBooleanOpt(
+                                            _tpMsg("VIDCOMMENTS"), ' ', false),
+                  TP_VID_TAGS =>        new TubePressBooleanOpt(
+                                            _tpMsg("VIDTAGS"), ' ', false),
+                  TP_VID_URL =>         new TubePressBooleanOpt(
+                                            _tpMsg("VIDURL"), ' ', false),
+                  TP_VID_THUMBURL =>    new TubePressBooleanOpt(
+                                            _tpMsg("VIDTHUMBURL"), ' ', false),
+                  TP_VID_DESC =>        new TubePressBooleanOpt(
+                                            _tpMsg("VIDDESC"), ' ', false),
 
         /* -------- VIDEO SEARCH VALUES ------------------------------------ */
         
-                  TP_OPT_TAGVAL =>  new TubePressOption(TP_OPT_TAGVAL, ' ',
-                                         '', "stewart daily show"),
-                  TP_OPT_USERVAL => new TubePressOption(TP_OPT_USERVAL, ' ',
-                                     '', "3hough"),
-                  TP_OPT_PLSTVAL => new TubePressOption(TP_OPT_PLSTVAL,
-                                         ' ', '', "D2B04665B213AE35"),
-                  TP_OPT_FAVVAL =>  new TubePressOption(TP_OPT_FAVVAL, ' ',
+                  TP_OPT_TAGVAL =>  new TubePressStringOpt(' ',
+                                         ' ', "stewart daily show"),
+                  TP_OPT_USERVAL => new TubePressStringOpt(' ',
+                                     ' ', "3hough"),
+                  TP_OPT_PLSTVAL => new TubePressStringOpt(
+                                     ' ', '', "D2B04665B213AE35"),
+                  TP_OPT_FAVVAL =>  new TubePressStringOpt(' ',
                                          '', "mrdeathgod"),
-                  TP_OPT_POPVAL =>  new TubePressOption(TP_OPT_POPVAL,
+                  TP_OPT_POPVAL =>  new TubePressStringOpt(
                                          ' ', '', "day"),
             
            /* -------- DISPLAY OPTIONS -------------------------------------- */
                   
-                  TP_OPT_VIDSPERPAGE=>  new TubePressOption(TP_OPT_VIDSPERPAGE,
+                  TP_OPT_VIDSPERPAGE=>  new TubePressIntegerOpt(
                                             _tpMsg("VIDSPERPAGE_TITLE"),
-                                            _tpMsg("VIDSPERPAGE_DESC"),
-                                            20, "integer", 100),      
-                  TP_OPT_VIDWIDTH =>    new TubePressOption(TP_OPT_VIDWIDTH,
+                                            _tpMsg("VIDSPERPAGE_DESC"), 20, 100),      
+                  TP_OPT_VIDWIDTH =>    new TubePressIntegerOpt(
                                             _tpMsg("VIDWIDTH_TITLE"),
-                                            _tpMsg("VIDWIDTH_DESC"),
-                                            424, "integer", 424),
-                  TP_OPT_VIDHEIGHT =>   new TubePressOption(TP_OPT_VIDHEIGHT,
+                                            _tpMsg("VIDWIDTH_DESC"), 424, 424),
+                  TP_OPT_VIDHEIGHT =>   new TubePressIntegerOpt(
                                             _tpMsg("VIDHEIGHT_TITLE"),
-                                            _tpMsg("VIDHEIGHT_DESC"),
-                                            336, "integer", 336),
-                  TP_OPT_THUMBWIDTH =>  new TubePressOption(TP_OPT_THUMBWIDTH,
+                                            _tpMsg("VIDHEIGHT_DESC"), 336, 336),
+                  TP_OPT_THUMBWIDTH =>  new TubePressIntegerOpt(
                                             _tpMsg("THUMBWIDTH_TITLE"),
-                                            _tpMsg("THUMBWIDTH_DESC"),
-                                            120, "integer", 120),
-                  TP_OPT_THUMBHEIGHT => new TubePressOption(TP_OPT_THUMBHEIGHT,
+                                            _tpMsg("THUMBWIDTH_DESC"), 120, 120),
+                  TP_OPT_THUMBHEIGHT => new TubePressIntegerOpt(
                                             _tpMsg("THUMBHEIGHT_TITLE"),
-                                            _tpMsg("THUMBHEIGHT_DESC"),
-                                            90, "integer", 90),
+                                            _tpMsg("THUMBHEIGHT_DESC"), 90, 90),
                   
               /* -------- ADVANCED OPTIONS ------------------------------------- */                    
                   
-                  TP_OPT_KEYWORD =>  new TubePressOption(TP_OPT_KEYWORD,
+                  TP_OPT_KEYWORD =>  new TubePressStringOpt(
                                          _tpMsg("KEYWORD_TITLE"),
-                                         _tpMsg("KEYWORD_DESC"), TP_OPTION_NAME),
+                                         _tpMsg("KEYWORD_DESC"), "tubepress"),
                                          
-                  TP_OPT_TIMEOUT =>  new TubePressOption(TP_OPT_TIMEOUT,
+                  TP_OPT_TIMEOUT =>  new TubePressIntegerOpt(
                                          _tpMsg("TIMEOUT_TITLE"),
-                                         _tpMsg("TIMEOUT_DESC"), 6, "integer"),
+                                         _tpMsg("TIMEOUT_DESC"), 6),
                                          
-                  TP_OPT_DEVID =>    new TubePressOption(TP_OPT_DEVID,
+                  TP_OPT_DEVID =>    new TubePressStringOpt(
                                          _tpMsg("DEVID_TITLE"),
                                          _tpMsg("DEVID_DESC") .
                                          ' <a href="' . TP_YOUTUBEDEVLINK . '">' .
                                          TP_YOUTUBEDEVLINK . '</a>', "qh7CQ9xJIIc"),
                                          
-                  TP_OPT_USERNAME => new TubePressOption(TP_OPT_USERNAME,
+                  TP_OPT_USERNAME => new TubePressStringOpt(
                                          _tpMsg("USERNAME_TITLE"), 
                                          _tpMsg("USERNAME_DESC"), "3hough"),
                                           
-                  TP_OPT_DEBUG => new TubePressOption(TP_OPT_DEBUG,
-                                     _tpMsg("DEBUGTITLE"), ' ', true, "boolean"),
+                  TP_OPT_DEBUG => new TubePressBooleanOpt(
+                                     _tpMsg("DEBUGTITLE"), ' ', true),
  
          /* -------- VIDEO SEARCH OPTION ----------------------------------- */
 
-                  TP_OPT_MODE => new TubePressOption(TP_OPT_MODE, ' ',
-                                         '', TP_MODE_FEATURED,
-                                         0, TubePressOptionsPackage::getModeNames()),
+                  TP_OPT_MODE => new TubePressEnumOpt(' ',
+                                         ' ', TP_MODE_FEATURED,
+                                         TubePressOptionsPackage::getModeNames()),
 
         /* -------- PLAYER LOCATION OPTION ----------------------------------- */
  
-                  TP_OPT_PLAYIN => new TubePressOption(TP_OPT_PLAYIN, 
+                  TP_OPT_PLAYIN => new TubePressEnumOpt( 
                                        _tpMsg("PLAYIN_TITLE"), ' ', TP_PLAYIN_NORMAL,
-                                       0, TubePressOptionsPackage::getPlayerLocationNames()));                       
+                                       TubePressOptionsPackage::getPlayerLocationNames()));                       
     }
     
     /**
@@ -241,7 +229,7 @@ class TubePressOptionsPackage
     {
         return
             array(TP_MODE_USER, TP_MODE_FAV, TP_MODE_PLST,TP_MODE_TAG, 
-                 TP_MODE_FEATURED, TP_MODE_POPULAR);
+                 TP_MODE_FEATURED, TP_MODE_POPULAR, TP_MODE_REL);
     }
         
     
@@ -291,7 +279,8 @@ class TubePressOptionsPackage
      */
     function _get($optionName)
     {
-        if (!array_key_exists($optionName, $this->_allOptions)) {
+        if ((!array_key_exists($optionName, $this->_allOptions))
+            || (!is_a($this->_allOptions[$optionName], "TubePressOption"))) {
             return PEAR::raiseError(_tpMsg("NOSUCHOPT", array($optionName)));
         }
         return $this->_allOptions[$optionName];

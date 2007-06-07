@@ -50,9 +50,8 @@ class_exists("WordPressOptionsPage")
     
         /* any db failures? */
         if (PEAR::isError($dbOptions->error)) {
-            $css = new TubePressCSS();
             WordPressOptionsPage::printStatusMsg($dbOptions->error->msg,
-                $css->failure_class);
+                TP_CSS_FAILURE);
         }
     
         $pageTitle = _tpMsg("OPTPANELTITLE");

@@ -248,13 +248,12 @@ class WordPressOptionsPage
      */
     function update()
     {
-        $css = new TubePressCSS();
         $errors = false;
     
         /* get what we have in the db */
         $oldOpts = new WordPressOptionsPackage();
         if (PEAR::isError($oldOpts)) {
-            WordPressOptionsPage::printStatusMsg($oldOpts->message, $css->failure_class);
+            WordPressOptionsPage::printStatusMsg($oldOpts->message, TP_CSS_FAILURE);
             return;
         }
 
@@ -271,7 +270,7 @@ class WordPressOptionsPage
                 
             if (PEAR::isError($result)) {
                 $errors = true;
-                WordPressOptionsPage::printStatusMsg($result->message, $css->failure_class);
+                WordPressOptionsPage::printStatusMsg($result->message, TP_CSS_FAILURE);
                 return;
             }
         }
@@ -286,7 +285,7 @@ class WordPressOptionsPage
             }
             if (PEAR::isError($result)) {
                 $errors = true;
-                WordPressOptionsPage::printStatusMsg($result->message, $css->failure_class);
+                WordPressOptionsPage::printStatusMsg($result->message, TP_CSS_FAILURE);
                 return;
             }
         }
@@ -299,7 +298,7 @@ class WordPressOptionsPage
         }
         if (PEAR::isError($result)) {
             $errors = true;
-            WordPressOptionsPage::printStatusMsg($result->message, $css->failure_class);
+            WordPressOptionsPage::printStatusMsg($result->message, TP_CSS_FAILURE);
             return;
         }
     
@@ -313,9 +312,9 @@ class WordPressOptionsPage
         /* make sure the store happened */
         $oldOpts = new WordPressOptionsPackage();
         if (PEAR::isError($oldOpts)) {
-            WordPressOptionsPage::printStatusMsg($oldOpts->msg, $css->failure_class);
+            WordPressOptionsPage::printStatusMsg($oldOpts->msg, TP_CSS_FAILURE);
         } else {
-            WordPressOptionsPage::printStatusMsg(_tpMsg("OPTSUCCESS"), $css->success_class);
+            WordPressOptionsPage::printStatusMsg(_tpMsg("OPTSUCCESS"), TP_CSS_SUCCESS);
         }
     }    
     

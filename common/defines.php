@@ -104,4 +104,21 @@ define("TP_VID_COMMENT_CNT", "comments");
 define("TP_VID_TAGS", "tags");
 define("TP_VID_URL", "url");
 define("TP_VID_THUMBURL", "thumburl");
+
+/*****************************************************************************/
+/*** CSS  ********************************************************************/
+/*****************************************************************************/
+define("TP_CSS_CONTAINER", "tubepress_container");
+define("TP_CSS_MAINVID_ID", "tubepress_mainvideo");
+define("TP_CSS_MAINVID_INNER", "inner");
+define("TP_CSS_BIGTITLE", "title");
+define("TP_CSS_METAWRAP", "tubepress_meta");
+define("TP_CSS_THUMBBOX", "tubepress_video_thumbs");
+define("TP_CSS_ONETHUMB", "tubepress_thumb");
+define("TP_CSS_INTHUMB", "tubepress_video_thumb_inner");
+define("TP_CSS_RUNTIME", "tubepress_runtime");
+define("TP_CSS_SMALLTITLE", "tubepress_title");
+define("TP_CSS_SUCCESS", "updated fade");
+define("TP_CSS_METAGROUP", "tubepress_meta_group");
+define("TP_CSS_FAILURE", "error fade");
 ?>

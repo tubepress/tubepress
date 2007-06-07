@@ -21,6 +21,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+class_exists("TubePressOptionsPackage") || require("TubePressOptionsPackage.php");
+
 class TubePressStatic
 {    
     /**
@@ -61,20 +63,6 @@ class TubePressStatic
     }
     
     /**
-     * Right now the only two "actions" that we do are either print out a
-     * gallery or print out a single video. An "action" is loosely defined
-     * as something that fills the page with data that we generate.
-     */
-    function determineNextAction($options)
-    {
-        if ($options->getValue(TP_OPT_PLAYIN) == TP_PLAYIN_NW
-            && isset($_GET[TP_PARAM_VID])) {
-                return "SINGLEVIDEO";
-            }
-                
-    }
-    
-    /**
      * Returns what's in the address bar (obviously, only http, not https)
      */
     function fullURL()
@@ -90,7 +78,8 @@ class TubePressStatic
     {
         $pageNum = ((isset($_GET[TP_PARAM_PAGE]))?
             $_GET[TP_PARAM_PAGE] : 1);
-            if (!is_numeric($pageNum) || ($pageNum < 1)) {
+            if (!is_numeric($pageNum)
+                || ($pageNum < 1)) {
                 $pageNum = 1;
             }
         return $pageNum;

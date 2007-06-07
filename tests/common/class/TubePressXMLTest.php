@@ -1,10 +1,10 @@
 <?php
 
-require(dirname(__FILE__) . '/../../common/class/TubePressXML.php');
-require_once(dirname(__FILE__) . '/../../common/class/TubePressOptionsPackage.php');
-require_once(dirname(__FILE__) . '/../../lib/PEAR/Networking/Net_URL/URL.php');
+require(dirname(__FILE__) . '/../../../common/class/TubePressXML.php');
+require_once(dirname(__FILE__) . '/../../../common/class/TubePressOptionsPackage.php');
+require_once(dirname(__FILE__) . '/../../../lib/PEAR/Networking/Net_URL/URL.php');
 
-require_once(dirname(__FILE__) . '/../../common/defines.php');
+require_once(dirname(__FILE__) . '/../../../common/defines.php');
 
 class TubePressXMLTest extends PHPUnit_Framework_TestCase {
 	var $normalXML;
@@ -21,10 +21,12 @@ class TubePressXMLTest extends PHPUnit_Framework_TestCase {
 		$this->assertFalse(PEAR::isError($result), $result->message);
 		$url = new Net_Url($result);
 		TubePressXMLTest::_testBasics($url);
-		$this->assertTrue(count($url->querystring) == 3);
+		$this->assertEquals(5, count($url->querystring));
 		$this->assertEquals    ($url->querystring["method"], "youtube.videos.list_by_playlist");
 		$this->assertEquals    ($url->querystring["id"], "D2B04665B213AE35");
 		$this->assertEquals    ($url->querystring["dev_id"], "qh7CQ9xJIIc");
+		$this->assertEquals(1, $url->querystring['page']);
+		$this->assertEquals(20, $url->querystring['per_page']);
 	}
 	function testGenRequestUser() {
 		$result = $this->fakeOpts->setValue(TP_OPT_MODE, TP_MODE_USER);
@@ -80,8 +82,8 @@ class TubePressXMLTest extends PHPUnit_Framework_TestCase {
 		$url = new Net_Url($result);
 		TubePressXMLTest::_testBasics($url);
 		$this->assertTrue(count($url->querystring) == 5);
-		$this->assertEquals    ($url->querystring["method"], "youtube.videos.list_by_related");
-		$this->assertEquals    ($url->querystring["tag"], urlencode($this->fakeOpts->getValue(TP_OPT_RELVAL)));
+		$this->assertEquals    ($url->querystring["method"], "youtube.videos.list_by_tag");
+		$this->assertEquals    ($url->querystring["tag"], urlencode($this->fakeOpts->getValue(TP_OPT_TAGVAL)));
 		$this->assertEquals    ($url->querystring["dev_id"], "qh7CQ9xJIIc");
 		$this->assertEquals    ($url->querystring["page"], "1");
 		$this->assertEquals    ($url->querystring["per_page"], "20");
@@ -98,22 +100,6 @@ class TubePressXMLTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue(count($url->querystring) == 3);
 		$this->assertEquals    ($url->querystring["method"], "youtube.videos.list_popular");
 		$this->assertEquals    ($url->querystring["time_range"], $this->fakeOpts->getValue(TP_OPT_POPVAL));
-		$this->assertEquals    ($url->querystring["dev_id"], "qh7CQ9xJIIc");
-	}
-
-	function testGenRequestCat() {		
-		/* test category mode */
-		$result = $this->fakeOpts->setValue(TP_OPT_MODE, TP_MODE_CATEGORY);
-		$this->assertFalse(PEAR::isError($result));
-		$result = TubePressXML::generateRequest($this->fakeOpts);
-		$this->assertFalse(PEAR::isError($result));
-		$url = new Net_Url($result);
-		TubePressXMLTest::_testBasics($url);
-		$this->assertTrue(count($url->querystring) == 5);
-		$this->assertEquals    ($url->querystring["method"], "youtube.videos.list_by_category");
-		$this->assertEquals    ($url->querystring["page"], "1");
-		$this->assertEquals    ($url->querystring["per_page"], $this->fakeOpts->getValue(TP_OPT_VIDSPERPAGE));
-		$this->assertEquals    ($url->querystring["category_id"], $this->fakeOpts->getValue(TP_OPT_CATVAL));
 		$this->assertEquals    ($url->querystring["dev_id"], "qh7CQ9xJIIc");
 	}
 
@@ -143,6 +129,71 @@ class TubePressXMLTest extends PHPUnit_Framework_TestCase {
 	
 	function testMalformedXML() {
 		$result = TubePressXML::parseRawXML($this->malFormedXML);
+		$this->assertTrue(PEAR::isError($result));
+	}
+	
+	function testSimpleXML() {
+		$xml = '<?xml version="1.0" encoding="utf-8"?><bla>bla</bla>';
+		$result = TubePressXML::parseRawXML($xml);
+		$this->assertTrue(PEAR::isError($result));
+	}
+	
+	function testNoStatus() {
+		$xml = '<?xml version="1.0" encoding="utf-8"?>' .
+				'<ut_response blabla="fail">' .
+				'<error><code>6</code>' .
+				'<description>Unknown method specified.</description>' .
+				'</error></ut_response>';
+		$result = TubePressXML::parseRawXML($xml);
+		$this->assertTrue(PEAR::isError($result));
+	}
+	
+	function testNoTotal() {
+		$xml = '<?xml version="1.0" encoding="utf-8"?>' .
+				'<ut_response status="ok">' .
+				'<video_list><video><author>3hough</author>' .
+				'<id>oU-qqkWOKJk</id>' .
+				'<title>Scuba in the Bahamas</title>' .
+				'<length_seconds>13</length_seconds>' .
+				'<rating_avg>0.00</rating_avg>' .
+				'<rating_count>0</rating_count>' .
+				'<description>Katie filmed me jumpin in</description>' .
+				'<view_count>31</view_count>' .
+				'<upload_time>1177894154</upload_time>' .
+				'<comment_count>0</comment_count>' .
+				'<tags>scuba bahamas</tags>' .
+				'<url>http://www.youtube.com/?v=oU-qqkWOKJk</url>' .
+				'<thumbnail_url>http://img.youtube.com/vi/oU-qqkWOKJk/2.jpg</thumbnail_url>' .
+				'<embed_status>ok</embed_status></video><video><author>3hough</author><id>65PFepXO9sM</id><title>Speeding in the orange Mustang</title><length_seconds>38</length_seconds><rating_avg>0.00</rating_avg><rating_count>0</rating_count><description>I get some air towards the end of the video. Probably not the safest thing I\'ve done.</description><view_count>95</view_count><upload_time>1156808174</upload_time><comment_count>0</comment_count><tags>driving</tags><url>http://www.youtube.com/?v=65PFepXO9sM</url><thumbnail_url>http://img.youtube.com/vi/65PFepXO9sM/2.jpg</thumbnail_url><embed_status>ok</embed_status></video></video_list></ut_response>';
+		$result = TubePressXML::parseRawXML($xml);
+		$this->assertTrue(PEAR::isError($result));
+	}
+	
+	function testNoMode() {
+		$this->fakeOpts->_allOptions[TP_OPT_MODE] = "blabla";
+		$this->assertTrue(PEAR::isError(TubePressXML::generateRequest($this->fakeOpts)));
+	}
+    
+	function testFetchXML() {
+		$result = TubePressXML::fetchRawXML($this->fakeOpts);
+		$this->assertFalse(PEAR::isError($result));
+	}
+	
+    function testFetchXMLBadOptions() {
+    	$this->fakeOpts->_allOptions[TP_OPT_MODE] = "blabla";
+		$result = TubePressXML::fetchRawXML($this->fakeOpts);
+		$this->assertTrue(PEAR::isError($result));
+	}
+	
+	function testInvalidMode() {
+		$this->fakeOpts->_allOptions[TP_OPT_MODE]->_value = "blabla";
+		$this->assertTrue(PEAR::isError(TubePressXML::generateRequest($this->fakeOpts)));
+	}
+	
+	function testNoVideos() {
+		$xml = '<?xml version="1.0" encoding="utf-8"?>' .
+				'<ut_response status="ok"></ut_response>';
+		$result = TubePressXML::parseRawXML($xml);
 		$this->assertTrue(PEAR::isError($result));
 	}
 	

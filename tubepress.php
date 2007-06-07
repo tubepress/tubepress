@@ -1,11 +1,6 @@
 <?php
 /**
-Plugin Name: TubePress
-Plugin URI: http://ehough.com/youtube/tubepress
-Description: Display configurable YouTube galleries in your posts and/or pages
-Author: Eric Hough
-Version: 1.5.0
-Author URI: http://ehough.com
+tubepress.php
 
 Copyright (C) 2007 Eric D. Hough (http://ehough.com)
     
@@ -32,111 +27,14 @@ function_exists('_tpMsg')
 defined(TP_OPTION_NAME)
     || require('common/defines.php');
     
-class_exists('WordPressOptionsPackage')
-    || require('env/WordPress/WordPressOptionsPackage.php');
+class_exists('TubePressOptionsPackage')
+    || require('common/class/TubePressOptionsPackage.php');
 class_exists('TubePressStatic')
     || require('common/class/TubePressStatic.php');
 class_exists('TubePressGallery')
     || require('common/class/TubePressGallery.php');
 class_exists('TubePressDebug')
     || require('common/class/TubePressDebug.php');
-    
-if (!isset($tubepress_base_url)) {
-    $tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
-}
-
-/**
- * Main filter hook. Looks for a tubepress tag
- * and replaces it with a gallery (or single video) if it's found
-*/
-function tp_main ($content = '')
-{
-    /* Store everything we generate in the following string */
-     $newcontent = "";
-    
-    /* ------------------------------------------------------------ */
-    /* ------------ DETERMINE IF WE NEED TO EXECUTE --------------- */
-    /* ------------------------------------------------------------ */
-
-    $quickOpts = get_option(TP_OPTION_NAME);
-    if ($quickOpts == NULL) {
-        return $content;
-    }
-
-    $keyword = $quickOpts[TP_OPT_KEYWORD]->getValue();
-    if (strpos($content, '[' . $keyword) === false) {
-        return $content;
-    }
- 
-    /* ------------------------------------------------------------ */
-    /* ------------ PARSE THE TAG --------------------------------- */
-    /* ------------------------------------------------------------ */ 
- 
-    $options = WordPressOptionsPackage::parse($keyword, $content);
-    if (PEAR::isError($options)) {
-        return TubePressStatic::bail($options);
-    }
-
-    /* ------------------------------------------------------------ */
-    /* ------------ PRINT DEBUG OUTPUT IF WE NEED IT -------------- */
-    /* ------------------------------------------------------------ */ 
-
-    /* Are we debugging? */
-    $debug = $options->getValue(TP_OPT_DEBUG);
-    if ($debug == true
-        && isset($_GET[TP_PARAM_DEBUG]) 
-        && ($_GET[TP_PARAM_DEBUG] == true)) {
-            $newcontent .= TubePressDebug::debug($options);
-    }
-    
-    /* ------------------------------------------------------------ */
-    /* ------------ NOW THE FUN PART ------------------------------ */
-    /* ------------------------------------------------------------ */ 
-
-    switch (TubePressStatic::determineNextAction($options)) {
-        case "SINGLEVIDEO":
-            $newcontent .= TubePressGallery::printHTML_singleVideo($options);
-            break;
-        default:
-            $result = TubePressGallery::generate($options);
-            $newcontent .= PEAR::isError($result)?
-                TubePressStatic::bail($result) :
-                $result;
-            break;
-    }
-
-    /* We're done! Replace the tag with our new content */
-    return str_replace($options->tagString, $newcontent, $content);
-}
-
-/* don't forget to add our hooks! */
-add_tubepress_hooks();
-
-/**
- * Adds the WordPress hooks. Simple!
- */
-function add_tubepress_hooks()
-{    
-    add_filter('the_content', 'tp_main');
-    add_action('admin_menu',  'tp_executeOptionsPage');    
-    add_action('wp_head',     'tp_insertCSSJS');
-    
-    /* add ThickBox or LightWindow, if we need them */
-    $quickOpts = get_option(TP_OPTION_NAME);
-
-    if ($quickOpts != NULL) {
-
-        switch ($quickOpts[TP_OPT_PLAYIN]->getValue()) {
-            case TP_PLAYIN_GREYBOX:
-                add_action('wp_head', 'tp_insertGreyBox');
-                break;
-            case TP_PLAYIN_LWINDOW:
-                add_action('wp_head', 'tp_insertLightWindow');
-                break;
-            default:
-        }
-    }   
-}
 
 /**
  * Spits out the CSS and JS files that we always need for TubePress

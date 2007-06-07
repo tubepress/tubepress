@@ -21,6 +21,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+class_exists("TubePressOptionsPackage") || require("TubePressOptionsPackage.php");
+
 class TubePressDebug
 {
     /**
@@ -35,8 +37,12 @@ class TubePressDebug
      * This is the only public function here. Actually it's
      * the only real function.
      */
-    function debug($options)
+    function debug($options = "PHPisLAMO")
     {
+    	if ($options == "PHPisLAMO") {
+    		$options = new TubePressOptionsPackage();
+    	}
+    	
         echo "TUBEPRESS DEBUG MODE<BR/><ol>";
         
         /* make sure our base URL is defined */
@@ -58,7 +64,7 @@ class TubePressDebug
         }
         
         /* make sure the options look good */
-        $validOpts = TubePressOptionsPackage::checkValidity($options->_allOptions);
+        $validOpts = $options->checkValidity();
         if (PEAR::isError($validOpts)) {
             echo "<li>There is a problem with your options: " . $validOpts->message;
             echo "<br /><pre>";
@@ -71,8 +77,8 @@ class TubePressDebug
         }
     
         /* see what we're going to do */
-        $next = TubePressStatic::determineNextAction($options);
-        if ($next == "SINGLEVIDEO") {
+        if ($options->getValue(TP_OPT_PLAYIN) == TP_PLAYIN_NW
+            && isset($_GET[TP_PARAM_VID])) {
             echo "<li>We will print just one video on this page.</li>";
         } else {
             echo "<li>We will print a gallery on this page.</li>";

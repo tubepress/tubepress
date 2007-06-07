@@ -1,11 +1,28 @@
 <?php
 
-require_once(dirname(__FILE__) . '/../../common/class/TubePressOptionsPackage.php');
-require_once(dirname(__FILE__) . '/../../common/messages.php');
-require_once(dirname(__FILE__) . '/../../common/defines.php');
+require_once(dirname(__FILE__) . '/../../../common/class/TubePressOptionsPackage.php');
+require_once(dirname(__FILE__) . '/../../../common/messages.php');
+require_once(dirname(__FILE__) . '/../../../common/defines.php');
 
 class TubePressOptionsPackageTest extends PHPUnit_Framework_TestCase {
 	var $v;
+	
+	function testCheckValidity() {
+		$result = $this->v->checkValidity();
+		$this->assertFalse(PEAR::isError($result));
+		
+		$this->v->_allOptions = NULL;
+		$result = $this->v->checkValidity();
+		$this->assertTrue(PEAR::isError($result));
+		
+		$this->v->_allOptions[TP_OPT_MODE] = "blll";
+		$result = $this->v->checkValidity();
+		$this->assertTrue(PEAR::isError($result));
+		
+		$this->v->_allOptions = "hello";
+		$result = $this->v->checkValidity();
+		$this->assertTrue(PEAR::isError($result));
+	}
 	
 	function testSetNonNumeric() {
 		$result = $this->v->setValue(TP_OPT_VIDHEIGHT, "fake");

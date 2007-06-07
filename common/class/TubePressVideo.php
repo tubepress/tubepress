@@ -22,6 +22,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+function_exists("_tpMsg")
+    || require(dirname(__FILE__) . "/../messages.php");
+defined("TP_VID_TITLE")
+    || require(dirname(__FILE__) . "/../defines.php");
+
 class TubePressVideo
 {
     /* an array of meta values about this video */
@@ -31,65 +36,47 @@ class TubePressVideo
      * Constructor
      */
     function TubePressVideo($videoXML)
-    {    
-        if (!is_array($videoXML)) {
-            return PEAR::raiseError(_tpMsg("VIDNOARR"));
+    {   
+    	if (!is_array($videoXML)) {
+    		return;
+    	}
+    	
+        $this->metaValues[TP_VID_AUTHOR] = $videoXML['author'];
+        $this->metaValues[TP_VID_ID] = $videoXML['id'];
+        $this->metaValues[TP_VID_TITLE] = htmlspecialchars($videoXML['title'], ENT_QUOTES);
+        $this->metaValues[TP_VID_LENGTH] = TubePressVideo::_humanTime($videoXML['length_seconds']);
+        $this->metaValues[TP_VID_RATING_AVG] = $videoXML['rating_avg'];
+        $this->metaValues[TP_VID_RATING_CNT] = number_format($videoXML['rating_count']);
+        $this->metaValues[TP_VID_DESC] = $videoXML['description'];
+        $this->metaValues[TP_VID_VIEW] = number_format($videoXML['view_count']);
+        if (is_numeric($videoXML['upload_time'])) {
+        	$this->metaValues[TP_VID_UPLOAD_TIME] = date("M j, Y", $videoXML['upload_time']);
         }
-        
-        if (count($videoXML) == 0) {
-            return PEAR::raiseError("VIDEMTARR");
-        }
-        
-        $ut_vid_attributes = array("author", "id", "title",
-            "length_seconds", "rating_avg", "rating_count",
-            "description", "view_count", "upload_time", "comment_count",
-            "tags", "url", "thumbnail_url");
-        
-        foreach ($ut_vid_attributes as $ut_att) {
-            if (!array_key_exists($ut_att, $videoXML)) {
-                return PEAR::raiseError(_tpMsg("MISSATT", array($ut_att)));
-            }
-        }
-        
-        $this->metaValues =
-            array(TP_VID_AUTHOR =>
-                      $videoXML['author'],
-                
-                  TP_VID_ID =>          
-                      $videoXML['id'],
-                      
-                  TP_VID_TITLE =>       
-                      htmlspecialchars($videoXML['title'], ENT_QUOTES),
-                      
-                  TP_VID_LENGTH =>      
-                      TubePressVideo::_humanTime($videoXML['length_seconds']),
-                      
-                  TP_VID_RATING_AVG =>  
-                      $videoXML['rating_avg'],
-                      
-                  TP_VID_RATING_CNT =>  
-                      number_format($videoXML['rating_count']),
-                      
-                  TP_VID_DESC =>        
-                      $videoXML['description'],
-                      
-                  TP_VID_VIEW =>        
-                      number_format($videoXML['view_count']),
-                      
-                  TP_VID_UPLOAD_TIME => 
-                      date("M j, Y", $videoXML['upload_time']),
-                      
-                  TP_VID_COMMENT_CNT => 
-                      number_format($videoXML['comment_count']),
-                      
-                  TP_VID_TAGS =>        
-                      $videoXML['tags'],
-                      
-                  TP_VID_URL =>         
-                      $videoXML['url'],
-                      
-                  TP_VID_THUMBURL =>    
-                      $videoXML['thumbnail_url']);
+        $this->metaValues[TP_VID_COMMENT_CNT] = number_format($videoXML['comment_count']);
+        $this->metaValues[TP_VID_TAGS] = $videoXML['tags'];
+        $this->metaValues[TP_VID_URL] = $videoXML['url'];
+        $this->metaValues[TP_VID_THUMBURL] = $videoXML['thumbnail_url'];
+    }
+    
+    /**
+     * Checks to see if this video was properly filled in
+     */
+    function isValid()
+    {
+    	if (!is_array($this->metaValues)) {
+    		return false;
+    	}
+    	
+    	$metas = TubePressVideo::getMetaNames();
+    	foreach ($metas as $meta) {
+			if (!array_key_exists($meta, $this->metaValues)) {
+				return false;
+			}
+    		if ($this->metaValues[$meta] == "") {
+    			return false;
+    		}
+    	}
+    	return true;
     }
     
     /**

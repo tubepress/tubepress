@@ -44,7 +44,11 @@ class TubePressXML
         error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
         
         $snoopy = new snoopy();
-        $snoopy->read_timeout = $options->getValue(TP_OPT_TIMEOUT);
+        $timeout = $options->getValue(TP_OPT_TIMEOUT);
+        if (PEAR::isError($timeout)) {
+        	return $timeout;
+        }
+        $snoopy->read_timeout = $timeout;
 
         $request = TubePressXML::generateRequest($options);
 
@@ -89,18 +93,30 @@ class TubePressXML
         switch ($result) {
        
             case TP_MODE_USER:
+            	$val = $options->getValue(TP_OPT_USERVAL);
+            	if (PEAR::isError($val)) {
+            		return $val;
+            	}
                 $request .= "videos.list_by_user" .
-                    "&user=" . $options->getValue(TP_OPT_USERVAL);
+                    "&user=" . $val;
                 break;
             
             case TP_MODE_FAV:
+                $val = $options->getValue(TP_OPT_FAVVAL);
+            	if (PEAR::isError($val)) {
+            		return $val;
+            	}
                 $request .= "users.list_favorite_videos" .
-                    "&user=" . $options->getValue(TP_OPT_FAVVAL);
+                    "&user=" . $val;
                 break;
             
             case TP_MODE_TAG:
+                $val = $options->getValue(TP_OPT_TAGVAL);
+            	if (PEAR::isError($val)) {
+            		return $val;
+            	}
                 $request .= "videos.list_by_tag" .
-                    "&tag=" . urlencode($options->getValue(TP_OPT_TAGVAL));
+                    "&tag=" . urlencode($val);
                 break;
             
             /* list_by_related is now deprecated, and returns identical results to
@@ -109,26 +125,30 @@ class TubePressXML
              * lnk=gst&q=list_by_tag+identical&rnum=1#66eef9a7fced754e
              */
             case TP_MODE_REL:
+                $val = $options->getValue(TP_OPT_TAGVAL);
+            	if (PEAR::isError($val)) {
+            		return $val;
+            	}
                 $request .= "videos.list_by_tag" .
-                    "&tag=" . urlencode($options->getValue(TP_OPT_TAGVAL));
+                    "&tag=" . urlencode($val);
                 break;
             
             case TP_MODE_PLST:
+                $val = $options->getValue(TP_OPT_PLSTVAL);
+            	if (PEAR::isError($val)) {
+            		return $val;
+            	}
                 $request .= "videos.list_by_playlist" .
-                    "&id=" . $options->getValue(TP_OPT_PLSTVAL);
+                    "&id=" . $val;
                 break;
             
             case TP_MODE_POPULAR:
+                $val = $options->getValue(TP_OPT_POPVAL);
+            	if (PEAR::isError($val)) {
+            		return $val;
+            	}
                 $request .= "videos.list_popular" .
-                    "&time_range=" . $options->getValue(TP_OPT_POPVAL);
-                break;
-            
-            case TP_MODE_CATEGORY:
-                $request .= "videos.list_by_category" .
-                    "&page=1" .
-                    "&per_page=" . $options->getValue(TP_OPT_VIDSPERPAGE) .
-                    "&category_id=" . $options->getValue(TP_OPT_CATVAL);
-                $paging = true;
+                    "&time_range=" . $val;
                 break;
         
             case TP_MODE_FEATURED:
@@ -136,16 +156,24 @@ class TubePressXML
                 break;
             default:
                 return PEAR::raiseError(_tpMsg("BADMODE",
-                    $options->getValue(TP_OPT_MODE)));
+                    $val));
         }
 
         if (TubePressStatic::areWePaging($options)) {
+            $val = $options->getValue(TP_OPT_VIDSPERPAGE);
+            if (PEAR::isError($val)) {
+            	return $val;
+            }
             $pageNum = TubePressStatic::getPageNum();
             $request .= sprintf("&page=%s&per_page=%s",
-                $pageNum, $options->getValue(TP_OPT_VIDSPERPAGE));
+                $pageNum, $val);
         }
 
-        $request .= "&dev_id=" . $options->getValue(TP_OPT_DEVID);
+        $val = $options->getValue(TP_OPT_DEVID);
+        if (PEAR::isError($val)) {
+            return $val;
+        }
+        $request .= "&dev_id=" . $val;
         return $request;
     }
     
@@ -163,14 +191,15 @@ class TubePressXML
 
         $status = $Unserializer->unserialize($youtube_xml);
 
+        /* make sure we could read the xml */
         if (PEAR::isError($status)) {
             return $status;
         }
 
         $result = $Unserializer->getUnserializedData();
     
-        /* make sure we could read the xml */
-        if (!is_array($result) || PEAR::isError($result)) {
+        /* double check to make sure we have an array */
+        if (!is_array($result)) {
             return PEAR::raiseError(_tpMsg("XMLUNSERR"));
         }
     
@@ -189,16 +218,14 @@ class TubePressXML
             return PEAR::raiseError($msg);
         }
 
+        if (!is_array($result['video_list'])) {
+        	return PEAR::raiseError(_tpMsg("OKNOVIDS"));
+        }
+        
         if (!array_key_exists('total', $result['video_list'])) {
             return PEAR::raiseError(_tpMsg("NOCOUNT"));
         }
-    
-        /* if we have a video_list, just return it */
-        if (is_array($result['video_list'])) {
-            return $result['video_list'];
-        }
-    
-        return PEAR::raiseError(_tpMsg("OKNOVIDS"));
+        return $result['video_list'];
     }
 }
 ?>
