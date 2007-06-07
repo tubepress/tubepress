@@ -47,7 +47,7 @@ class TubePressOptionsPackage
         $this->_allOptions = TubePressOptionsPackage::getDefaultPackage();
     }
     
-        /**
+    /**
      * Checks to see if parameter appears to be a correct set of options
      * 
      * @param An array of the options that the user currently has
@@ -75,7 +75,10 @@ class TubePressOptionsPackage
             }
 
             /* Make sure each entry is a valid TubePressOption */
-            if (!is_a($this->_allOptions[$defaultOption], TubePressOption)) {
+            if ((!is_a($this->_allOptions[$defaultOption], TubePressBooleanOpt))
+                && (!is_a($this->_allOptions[$defaultOption], TubePressEnumOpt))
+                && (!is_a($this->_allOptions[$defaultOption], TubePressIntegerOpt))
+                && (!is_a($this->_allOptions[$defaultOption], TubePressStringOpt))) {
                 return PEAR::raiseError(_tpMsg("OLDDB"));
             }
         }

@@ -1,6 +1,11 @@
 <?php
 /**
-tubepress.php
+Plugin Name: TubePress
+Plugin URI: http://ehough.com/youtube/tubepress
+Description: Display configurable YouTube galleries in your posts and/or pages
+Author: Eric Hough
+Version: 1.5.0
+Author URI: http://ehough.com
 
 Copyright (C) 2007 Eric D. Hough (http://ehough.com)
     
@@ -18,79 +23,92 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+function_exists("tp_insertCSSJS") || require("tubepress_lib.php");
 
-function_exists('tp_executeOptionsPage')
-    || require('env/WordPress/TubePressOptions.php');
-function_exists('_tpMsg')
-    || require('common/messages.php');
-    
-defined(TP_OPTION_NAME)
-    || require('common/defines.php');
-    
-class_exists('TubePressOptionsPackage')
-    || require('common/class/TubePressOptionsPackage.php');
-class_exists('TubePressStatic')
-    || require('common/class/TubePressStatic.php');
-class_exists('TubePressGallery')
-    || require('common/class/TubePressGallery.php');
-class_exists('TubePressDebug')
-    || require('common/class/TubePressDebug.php');
+class_exists('WordPressOptionsPackage')
+    || require('env/WordPress/WordPressOptionsPackage.php');
 
-/**
- * Spits out the CSS and JS files that we always need for TubePress
- */
-function tp_insertCSSJS()
-{
-    global $tubepress_base_url;
-    $url = $tubepress_base_url . "/common";
-    print<<<GBS
-        <script type="text/javascript" src="{$url}/tubepress.js"></script>
-        <link rel="stylesheet" href="{$url}/tubepress.css" 
-            type="text/css" />
-        <link rel="stylesheet" href="{$url}/pagination.css" 
-            type="text/css" />
-GBS;
+if (!isset($tubepress_base_url)) {
+    $tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
 }
 
 /**
- * Spits out the CSS and JS files that we need for ThickBox
- */
-function tp_insertGreyBox()
+ * Main filter hook. Looks for a tubepress tag
+ * and replaces it with a gallery (or single video) if it's found
+*/
+function tp_main ($content = '')
 {
-    global $tubepress_base_url;
-    $url = $tubepress_base_url . "/lib/greybox";
-    print<<<GBS
-        <script type="text/javascript">
-            var GB_ROOT_DIR = "$url/";
-        </script>
-        <script type="text/javascript" 
-            src="{$url}/AJS.js"></script>
-        <script type="text/javascript"
-            src="{$url}/AJS_fx.js"></script>
-        <script type="text/javascript"
-            src="{$url}/gb_scripts.js"></script>
-        <link rel="stylesheet"
-            href="{$url}/gb_styles.css" type="text/css" />
-GBS;
-}
+    /* Store everything we generate in the following string */
+     $newcontent = "";
     
-/**
- * Spits out the CSS and JS files that we need for LightWindow
+    /* ------------------------------------------------------------ */
+    /* ------------ DETERMINE IF WE NEED TO EXECUTE --------------- */
+    /* ------------------------------------------------------------ */
+
+    $quickOpts = get_option(TP_OPTION_NAME);
+    if ($quickOpts == NULL) {
+        return $content;
+    }
+
+    $keyword = $quickOpts[TP_OPT_KEYWORD]->getValue();
+    if (strpos($content, '[' . $keyword) === false) {
+        return $content;
+    }
+ 
+    /* ------------------------------------------------------------ */
+    /* ------------ PARSE THE TAG --------------------------------- */
+    /* ------------------------------------------------------------ */ 
+
+    $options = WordPressOptionsPackage::parse($keyword, $content);
+    if (PEAR::isError($options)) {
+        return TubePressStatic::bail($options);
+    }
+
+    /* ------------------------------------------------------------ */
+    /* ------------ PRINT DEBUG OUTPUT IF WE NEED IT -------------- */
+    /* ------------------------------------------------------------ */ 
+
+    /* Are we debugging? */
+    $debug = $options->getValue(TP_OPT_DEBUG);
+    if ($debug == true
+        && isset($_GET[TP_PARAM_DEBUG]) 
+        && ($_GET[TP_PARAM_DEBUG] == true)) {
+            $newcontent .= TubePressDebug::debug($options);
+    }
+    
+    /* ------------------------------------------------------------ */
+    /* ------------ NOW THE FUN PART ------------------------------ */
+    /* ------------------------------------------------------------ */ 
+    $newcontent .= TubePressGallery::generate($options);
+
+    /* We're done! Replace the tag with our new content */
+    return str_replace($options->tagString, $newcontent, $content);
+}
+
+/* don't forget to add our hooks! */
+add_filter('the_content', 'tp_main');
+add_action('admin_menu',  'tp_executeOptionsPage');
+add_action('wp_head', 'tp_insertCSSJS');
+
+/*
+ * get rid of these by default since they interfere
+ * with people's themes
  */
-function tp_insertLightWindow()
-{
-    global $tubepress_base_url;
-    $url = $tubepress_base_url . "/lib/lightWindow";
-    print<<<GBS
-        <script type="text/javascript" 
-            src="{$url}/javascript/prototype.js"></script>
-        <script type="text/javascript" 
-            src="{$url}/javascript/effects.js"></script>
-        <script type="text/javascript" 
-            src="{$url}/javascript/lightWindow.js"></script>
-        <link rel="stylesheet" 
-            href="{$url}/css/lightWindow.css" 
-            media="screen" type="text/css" />
-GBS;
+remove_action('wp_head', 'tp_insertGreyBox');
+remove_action('wp_head', 'tp_insertLightWindow');
+
+/* add ThickBox or LightWindow, if we need them */
+$quickOpts = get_option(TP_OPTION_NAME);
+
+if ($quickOpts != NULL) {
+    switch ($quickOpts[TP_OPT_PLAYIN]->getValue()) {
+        case TP_PLAYIN_GREYBOX:
+            add_action('wp_head', 'tp_insertGreyBox');
+            break;
+        case TP_PLAYIN_LWINDOW:
+            add_action('wp_head', 'tp_insertLightWindow');
+            break;
+        default:
+    }   
 }
 ?>

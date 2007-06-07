@@ -28,6 +28,9 @@ class_exists('TubePressOptionsPackage')
 class_exists("PEAR")
     || require(ABSPATH .
         "wp-content/plugins/tubepress/lib/PEAR/PEAR.php");
+defined("TP_OPTION_NAME")
+    || require(dirname(__FILE__) .
+        "/../../common/defines.php");
 
 class WordPressOptionsPackage extends TubePressOptionsPackage
 {
@@ -41,18 +44,7 @@ class WordPressOptionsPackage extends TubePressOptionsPackage
     function WordPressOptionsPackage()
     {
         /* In the db we now store all the options in a single, flat array */
-        $options = get_option(TP_OPTION_NAME);
-        
-        $result = TubePressOptionsPackage::checkValidity($options);
-        
-        if (PEAR::isError($result)) {
-            $this->error = $result;
-            return;
-        }
-      
-        foreach ($options as $option) {
-            $this->_allOptions[$option->getName()] = $option;
-        }
+        $this->_allOptions = get_option(TP_OPTION_NAME);
     } 
      
  
@@ -138,15 +130,11 @@ class WordPressOptionsPackage extends TubePressOptionsPackage
     function initDB()
     {
         WordPressOptionsPackage::deleteLegacyOptions();
-        $stored = get_option(TP_OPTION_NAME);
-        $validity = TubePressOptionsPackage::checkValidity($stored);
+        $opts = new TubePressOptionsPackage();
+        $opts->_allOptions = get_option(TP_OPTION_NAME);
+        $opts->checkValidity();
         
-        if (PEAR::isError($stored)) {
-            delete_option(TP_OPTION_NAME);
-            add_option(TP_OPTION_NAME, TubePressOptionsPackage::getDefaultPackage());
-        }
-        
-        if (PEAR::isError($validity)) {
+        if (PEAR::isError($opts->checkValidity())) {
             delete_option(TP_OPTION_NAME);
             add_option(TP_OPTION_NAME, TubePressOptionsPackage::getDefaultPackage());
         }
@@ -185,29 +173,23 @@ class WordPressOptionsPackage extends TubePressOptionsPackage
         /* options in the tag overwrite any options from the db */
         $dbOptions = new WordPressOptionsPackage();
         
-        if (PEAR::isError($dbOptions->error)) {
+        if (PEAR::isError($dbOptions->checkValidity())) {
             return $dbOptions->error;
         }
         
         /* we'll need the full tag string so we can replace it later */
         $dbOptions->tagString = $matches[0];
 
-        foreach ($dbOptions->_allOptions as $dbOption) {
+        foreach (array_keys($dbOptions->_allOptions) as $dbOption) {
 
             /* if we have this option in the tag, let's use that instead */        
-            if (array_key_exists($dbOption->getName(), $customOptions)) {                
-                $result = $dbOptions->setValue($dbOption->getName(), $customOptions[$dbOption->getName()]);
+            if (array_key_exists($dbOption, $customOptions)) {                
+                $result = $dbOptions->setValue($dbOption, $customOptions[$dbOption]);
                 
                 if (PEAR::isError($result)) {
                     return $result;
                 }
             }
-        }
-        
-        /* one last error check */
-        $result = TubePressOptionsPackage::checkValidity($dbOptions->_allOptions);
-        if (PEAR::isError($result)) {
-            return $result;
         }
         
         return $dbOptions;

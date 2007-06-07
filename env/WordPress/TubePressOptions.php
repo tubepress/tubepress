@@ -42,14 +42,14 @@ class_exists("WordPressOptionsPage")
      */
     function _tp_executeOptionsPage()
     {
-        /* initialize the database if we need to */
+    	/* initialize the database if we need to */
         WordPressOptionsPackage::initDB();
-        
+
         /* see what we've got in the db */
         $dbOptions = new WordPressOptionsPackage();
     
         /* any db failures? */
-        if (PEAR::isError($dbOptions->error)) {
+        if (PEAR::isError($dbOptions->checkValidity())) {
             WordPressOptionsPage::printStatusMsg($dbOptions->error->msg,
                 TP_CSS_FAILURE);
         }
