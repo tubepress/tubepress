@@ -1,8 +1,6 @@
 <?php
 /**
- * TubePressBooleanOpt.php
- * 
- * A boolean TubePressOption
+ * TubePressBooleanOpt.php 
  * 
  * Copyright (C) 2007 Eric D. Hough (http://ehough.com)
  * 
@@ -26,24 +24,28 @@ function_exists("_tpMsg")
     || require(dirname(__FILE__) . "/../../messages.php");
 class_exists("TubePressOption") || require("TubePressOption.php");
     
+/**
+ * A boolean TubePressOption   
+ */
 class TubePressBooleanOpt extends TubePressOption
 {
-	/**
-	 * Constructor
-	 */
-	function TubePressBooleanOpt($theTitle, $theDesc, $defaultValue) {
-		parent::TubePressOption($theTitle, $theDesc, $defaultValue);
-	}
-	
+    /**
+     * Constructor
+     */
+    function TubePressBooleanOpt($theTitle, $theDesc, $defaultValue)
+    {
+        parent::TubePressOption($theTitle, $theDesc, $defaultValue);
+    }
+    
     /**
      * Tries to set the value after type checking
      */
     function setValue($candidate)
     {
-    	/* make sure it's the right type */
+        /* make sure it's the right type */
         $result = parent::checkType($candidate, "boolean");
         if (PEAR::isError($result)) {
-        	return $result;
+            return $result;
         }
         
         /* looks good! */

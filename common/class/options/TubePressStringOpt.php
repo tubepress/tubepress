@@ -2,8 +2,6 @@
 /**
  * TubePressStringOpt.php
  * 
- * A string TubePressOption
- * 
  * Copyright (C) 2007 Eric D. Hough (http://ehough.com)
  * 
  * This program is free software; you can redistribute it and/or
@@ -26,23 +24,27 @@ function_exists("_tpMsg")
     || require(dirname(__FILE__) . "/../../messages.php");
 class_exists("TubePressOption") || require("TubePressOption.php");
     
+/**
+ * A string TubePressOption
+ */
 class TubePressStringOpt extends TubePressOption
 {
-	/**
-	 * Constructor
-	 */
-	function TubePressStringOpt($theTitle, $theDesc, $defaultValue) {
-		parent::TubePressOption($theTitle, $theDesc, $defaultValue);
-	}
-	
+    /**
+     * Constructor
+     */
+    function TubePressStringOpt($theTitle, $theDesc, $defaultValue)
+    {
+        parent::TubePressOption($theTitle, $theDesc, $defaultValue);
+    }
+    
     /**
      * Tries to set value after type checking
      */
     function setValue($candidate)
-    {	
+    {    
         $result = parent::checkType($candidate, "string");
         if (PEAR::isError($result)) {
-        	return $result;
+            return $result;
         }
         
         /* looks good! */

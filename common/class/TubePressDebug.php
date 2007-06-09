@@ -2,8 +2,6 @@
 /**
  * TubePressDebug.php
  * 
- * Prints out gobs of debugging information
- * 
  * Copyright (C) 2007 Eric D. Hough (http://ehough.com)
  * 
  * This program is free software; you can redistribute it and/or
@@ -21,8 +19,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("TubePressOptionsPackage") || require("TubePressOptionsPackage.php");
+class_exists("TubePressOptionsPackage")
+    || require("TubePressOptionsPackage.php");
 
+/**
+ * Prints out gobs of debugging information
+ */
 class TubePressDebug
 {
     /**
@@ -39,10 +41,10 @@ class TubePressDebug
      */
     function debug($options = "PHPisLAMO")
     {
-    	if ($options == "PHPisLAMO") {
-    		$options = new TubePressOptionsPackage();
-    	}
-    	
+        if ($options == "PHPisLAMO") {
+            $options = new TubePressOptionsPackage();
+        }
+        
         echo "TUBEPRESS DEBUG MODE<BR/><ol>";
         
         /* make sure our base URL is defined */
@@ -66,7 +68,8 @@ class TubePressDebug
         /* make sure the options look good */
         $validOpts = $options->checkValidity();
         if (PEAR::isError($validOpts)) {
-            echo "<li>There is a problem with your options: " . $validOpts->message;
+            echo "<li>There is a problem with your options: " . 
+                $validOpts->message;
             echo "<br /><pre>";
             print_r($options);
             echo "</pre></li>";
@@ -95,7 +98,8 @@ class TubePressDebug
         echo $options->debug();
     
         /* print out the entire package */
-        echo "<li>And now, the motherload. This is your TubePressOptionsPackage...<br/><pre>";
+        echo "<li>And now, the motherload. This is your " .
+            "TubePressOptionsPackage...<br/><pre>";
         print_r($options);
         echo "</pre></li>";
         TubePressDebug::_finish();
@@ -117,20 +121,23 @@ class TubePressDebug
         /* see if we can make the request for YouTube */
         $request = TubePressXML::generateRequest($options);
         if (PEAR::isError($request)) {
-            echo "<li>Could not generate a request: " . $request->message . "</li>";
+            echo "<li>Could not generate a request: " . $request->message . 
+                "</li>";
             return;
         } else {
             echo "<li>The parameters we'll send to YouTube<pre>";
             $theUrl = new Net_URL($request);
             print_r($theUrl->querystring);
             echo "</pre></li>";
-            echo "<li><a href='" . $request . "'>Click here to see the raw results from YouTube</a></li>";
+            echo "<li><a href='" . $request . "'>Click here to simulate the " . 
+                "call with YouTube</a></li>";
         }
         
         /* see if we can talk to YouTube */
         $youtube_xml = TubePressXML::fetchRawXML($options);
         if (PEAR::isError($youtube_xml)) {
-            echo "<li>Problem talking to YouTube: " . $youtube_xml->message . "</li>";
+            echo "<li>Problem talking to YouTube: " . $youtube_xml->message .
+                "</li>";
             return;
         } else {
             echo "<li>No problems talking to YouTube</li>";
@@ -139,7 +146,8 @@ class TubePressDebug
         /* see if we can understand the XML result */
         $videoArray = TubePressXML::parseRawXML($youtube_xml);
         if (PEAR::isError($videoArray)) {
-            echo "<li>The results from YouTube seem to be malformed: " . $videoArray->message . "</li>";
+            echo "<li>The results from YouTube seem to be malformed: " . 
+                $videoArray->message . "</li>";
             return;
         } else {
             echo "<li>No problem parsing the results from YouTube</li>";
@@ -159,15 +167,19 @@ class TubePressDebug
             $options->getValue(TP_OPT_VIDSPERPAGE) : 
             $videosReturnedCnt);
         if ($paging) {
-            echo "<li>Since we are in a mode that supports paging, our video limit for this page will be " .
-                $options->getValue(TP_OPT_VIDSPERPAGE) . ", which is user defined</li>";
+            echo "<li>Since we are in a mode that supports paging, our video " .
+                "limit for this page will be " .
+                $options->getValue(TP_OPT_VIDSPERPAGE) . ", which is user " .
+                "defined</li>";
         } else {
-            echo "<li>Since we're in a non-paging mode, we'll print that many videos</li>";
+            echo "<li>Since we're in a non-paging mode, we'll print that many" .
+                " videos</li>";
         }
         if ($videosReturnedCnt < $vidLimit) {
             echo "<li>We got less videos than we can handle for this page</li>";
             $vidLimit = $videosReturnedCnt;
-            echo "<li>Our new videos-to-print count is now " . $vidLimit . "</li>";
+            echo "<li>Our new videos-to-print count is now " . $vidLimit .
+                "</li>";
         }
         
         /* see if we can interpret each video result */

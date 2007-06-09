@@ -2,8 +2,6 @@
 /**
  * TubePressOption.php
  * 
- * An "abstract" TubePressOption
- * 
  * Copyright (C) 2007 Eric D. Hough (http://ehough.com)
  * 
  * This program is free software; you can redistribute it and/or
@@ -25,6 +23,9 @@ require_once("PEAR.php");
 function_exists("_tpMsg")
     || require(dirname(__FILE__) . "/../../messages.php");
 
+/**
+ * An "abstract" TubePressOption
+ */
 class TubePressOption
 {
     var $_title, $_description, $_value;
@@ -56,15 +57,6 @@ class TubePressOption
     }
     
     /**
-     * This option's current value (e.g. "12345678abc")
-     */
-    function getValue()
-    {
-        return $this->_value;
-    }
-    
-    
-    /**
      * Meant to be overridden
      */ 
     function setValue($candidate)
@@ -72,7 +64,12 @@ class TubePressOption
         die("TubePressOption is an abstract class");
     }
     
-    function checkType($candidate, $type) {
+    /**
+     * Makes sure that the candidate value is of the
+     * appropriate type.
+     */
+    function checkType($candidate, $type)
+    {
         if (gettype($candidate) != $type) {
             return PEAR::raiseError(_tpMsg("BADTYPE", 
                 array($this->_title, $type,

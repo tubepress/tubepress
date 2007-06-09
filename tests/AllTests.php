@@ -19,13 +19,13 @@ class AllTests
     {
         $suite = new PHPUnit_Framework_TestSuite('PHPUnit');
         $filenames = array(
-    		dirname(__FILE__).'/common/class/TubePressOptionsPackageTest.php',
-    		dirname(__FILE__).'/common/class/TubePressXMLTest.php',
-    		dirname(__FILE__).'/common/class/options/TubePressIntegerOptTest.php',
-    		dirname(__FILE__).'/common/class/options/TubePressBooleanOptTest.php',
-    		dirname(__FILE__).'/common/class/options/TubePressStringOptTest.php',
-    		dirname(__FILE__).'/common/class/options/TubePressEnumOptTest.php',
-    		dirname(__FILE__).'/common/class/TubePressVideoTest.php');
+            dirname(__FILE__).'/common/class/TubePressOptionsPackageTest.php',
+            dirname(__FILE__).'/common/class/TubePressXMLTest.php',
+            dirname(__FILE__).'/common/class/options/TubePressIntegerOptTest.php',
+            dirname(__FILE__).'/common/class/options/TubePressBooleanOptTest.php',
+            dirname(__FILE__).'/common/class/options/TubePressStringOptTest.php',
+            dirname(__FILE__).'/common/class/options/TubePressEnumOptTest.php',
+            dirname(__FILE__).'/common/class/TubePressVideoTest.php');
         $suite->addTestFiles($filenames);
         return $suite;
     }

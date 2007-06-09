@@ -42,7 +42,7 @@ class_exists("WordPressOptionsPage")
      */
     function _tp_executeOptionsPage()
     {
-    	/* initialize the database if we need to */
+        /* initialize the database if we need to */
         WordPressOptionsPackage::initDB();
 
         /* see what we've got in the db */

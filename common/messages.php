@@ -36,7 +36,7 @@ $tubepressMessages =
           "BADMODE" => "Invalid mode specified (%s)",
           "BADTYPE" => "Type mismatch while setting the value for '%s'. " .
                 "Expected any %s but instead got '%s' of type '%s'",
-          "BADVAL" => "%s not a valid value for %s. Must be one of: %s",
+          "BADVAL" => "\"%s\" not a valid value for \"%s\". Must be one of the following: '%s'",
           "NOVALS" => "No valid values defined for this option",
           "VALTYPE" => "Must set valid option values with TubePressEnum class",
           "NOSUCHOPT" => "%s is not a valid option",
@@ -96,7 +96,8 @@ $tubepressMessages =
           "DEVID_DESC" => "Default is \"qh7CQ9xJIIc\". I can't think of a " .
                   "reason why you'd want/need to change the default developer " .
                   "id to you own, but the option is here for completeness." .
-                  " Available from",
+                  " Available from <a href=\"http://www.youtube.com/my_profile_dev\"" .
+                  ">http://www.youtube.com/my_profile_dev</a>",
           "KEYWORD_TITLE" => "Trigger keyword",
           "KEYWORD_DESC" => "The word you insert (in plaintext, between " .
                   "square brackets) into your posts to display your YouTube " .
@@ -111,6 +112,7 @@ $tubepressMessages =
           /*******************************************************************/
           /*** MODES *********************************************************/
           /*******************************************************************/
+          "MODE_TITLE" => "Mode",
           "MODE_FAV_TITLE" => "this YouTube user's \"favorites\"",
           "MODE_FAV_DESC" => "YouTube limits this mode to the latest 10 favorites",
           "MODE_FEAT_TITLE" => "The latest 25 \"featured\" videos " .
@@ -141,15 +143,23 @@ $tubepressMessages =
           "VIDSPERPAGE_TITLE" => "Videos per page",
           "VIDSPERPAGE_DESC" => "Default is 20, maximum is 100. Only some modes " .
                   "support pagination (see above).",
+          "TP_OPT_GREYBOXON_TITLE" => "Enable GreyBox",
+          "TP_OPT_LWON_TITLE" => "Enable lightWindow",
+          "TP_OPT_GREYBOXON_DESC" => "Checking this box will load the GreyBox JS libraries" .
+              " in your blog. This <i>may</i> interfere with your theme and/or other plugins," .
+              " so it's good practice to leave this disabled if you're not using GreyBox.",
+          "TP_OPT_LWON_DESC" => "Checking this box will load the lightWindow JS libraries" .
+              " in your blog. This <i>may</i> interfere with your theme and/or other plugins," .
+              " so it's good practice to leave this disabled if you're not using lightWindow.",
           
           /*******************************************************************/
           /*** VIDEO PLAYER LOCATIONS ****************************************/
           /*******************************************************************/
-          "PLAYIN_LW_TITLE" => "with lightWindow (experimental)",
+          "PLAYIN_LW_TITLE" => "with lightWindow (experimental... enable it above)",
           "PLAYIN_NORMAL_TITLE" => "normally (at the top of your gallery)",
           "PLAYIN_NW_TITLE" => "in a new window by itself",
           "PLAYIN_POPUP_TITLE" => "in a popup window",
-          "PLAYIN_TB_TITLE" => "using GreyBox (experimental)",
+          "PLAYIN_TB_TITLE" => "with GreyBox (experimental... enable it above)",
           "PLAYIN_TITLE" => "Play each video...",
           "PLAYIN_YT_TITLE" => "from the original YouTube page",
           

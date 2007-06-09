@@ -44,10 +44,10 @@ function tp_insertCSSJS()
     global $tubepress_base_url;
     $url = $tubepress_base_url . "/common";
     print<<<GBS
-        <script type="text/javascript" src="{$url}/tubepress.js"></script>
-        <link rel="stylesheet" href="{$url}/tubepress.css" 
+        <script type="text/javascript" src="$url/tubepress.js"></script>
+        <link rel="stylesheet" href="$url/tubepress.css" 
             type="text/css" />
-        <link rel="stylesheet" href="{$url}/pagination.css" 
+        <link rel="stylesheet" href="$url/pagination.css" 
             type="text/css" />
 GBS;
 }
@@ -64,13 +64,13 @@ function tp_insertGreyBox()
             var GB_ROOT_DIR = "$url/";
         </script>
         <script type="text/javascript" 
-            src="{$url}/AJS.js"></script>
+            src="$url/AJS.js"></script>
         <script type="text/javascript"
-            src="{$url}/AJS_fx.js"></script>
+            src="$url/AJS_fx.js"></script>
         <script type="text/javascript"
-            src="{$url}/gb_scripts.js"></script>
+            src="$url/gb_scripts.js"></script>
         <link rel="stylesheet"
-            href="{$url}/gb_styles.css" type="text/css" />
+            href="$url/gb_styles.css" type="text/css" />
 GBS;
 }
     
@@ -83,13 +83,13 @@ function tp_insertLightWindow()
     $url = $tubepress_base_url . "/lib/lightWindow";
     print<<<GBS
         <script type="text/javascript" 
-            src="{$url}/javascript/prototype.js"></script>
+            src="$url/javascript/prototype.js"></script>
         <script type="text/javascript" 
-            src="{$url}/javascript/effects.js"></script>
+            src="$url/javascript/effects.js"></script>
         <script type="text/javascript" 
-            src="{$url}/javascript/lightWindow.js"></script>
+            src="$url/javascript/lightWindow.js"></script>
         <link rel="stylesheet" 
-            href="{$url}/css/lightWindow.css" 
+            href="$url/css/lightWindow.css" 
             media="screen" type="text/css" />
 GBS;
 }

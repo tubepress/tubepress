@@ -25,7 +25,6 @@
 /*****************************************************************************/
 /*** MISC ********************************************************************/
 /*****************************************************************************/
-define("TP_YOUTUBEDEVLINK", "http://www.youtube.com/my_profile_dev");
 define("TP_YOUTUBE_RESTURL", "http://www.youtube.com/api2_rest?");
 /* DO NOT CHANGE THIS DEFINE */
 define("TP_OPTION_NAME", "tubepress");
@@ -67,7 +66,7 @@ define("TP_PLAYIN_NW", "new_window");
 define("TP_PLAYIN_YT", "youtube");
 define("TP_PLAYIN_NORMAL", "normal");
 define("TP_PLAYIN_POPUP", "popup");
-define("TP_PLAYIN_GREYBOX", "thickbox");
+define("TP_PLAYIN_GREYBOX", "greybox");
 define("TP_PLAYIN_LWINDOW", "lightwindow");
 
 /*****************************************************************************/

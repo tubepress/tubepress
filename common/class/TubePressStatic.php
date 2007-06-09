@@ -2,8 +2,6 @@
 /**
  * TubePressStatic.php
  * 
- * A bunch of "static" utilities that are used throughout the app
- * 
  * Copyright (C) 2007 Eric D. Hough (http://ehough.com)
  * 
  * This program is free software; you can redistribute it and/or
@@ -21,8 +19,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("TubePressOptionsPackage") || require("TubePressOptionsPackage.php");
+class_exists("TubePressOptionsPackage")
+    || require("TubePressOptionsPackage.php");
 
+/**
+ * A bunch of "static" utilities that are used throughout the app
+ */
 class TubePressStatic
 {    
     /**
@@ -46,19 +48,6 @@ class TubePressStatic
     function bail($error)
     {
         $returnMsg = sprintf("%s<br /><br />", $error->message);
-        
-        foreach ($error->getBackTrace() as $back) {
-            if (strpos($back['file'], "plugins/tubepress") === false) {
-                continue;
-            }
-            if (!(strpos($back['file'], "lib/PEAR") === false)) {
-                continue;
-            }
-            $returnMsg .= 
-                sprintf("<i>%s line %s</i> <br />",
-                    substr($back['file'], strpos($back['file'], "tubepress")),
-                    $back['line']);
-        }
         return $returnMsg;
     }
     

@@ -26,7 +26,8 @@ class WordPressOptionsPage
     /**
      * Prints out the advanced options. Simple!
      */
-    function printHTML_advanced($options) {
+    function printHTML_advanced($options)
+    {
         WordPressOptionsPage::_printHTML_optionHeader(_tpMsg("ADV_GRP_TITLE"));
 
         WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_KEYWORD, $options);
@@ -34,16 +35,7 @@ class WordPressOptionsPage
         WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_DEVID, $options);
         WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_USERNAME, $options);
       
-          /* the debug options is a little hairy */
-        $selected = "";
-        if ($options->getValue(TP_OPT_DEBUG) == true) {
-            $selected = "CHECKED";
-        }
-        printf('<tr valign="top"><th style="font-weight: bold; font-size: 1em" scope="row">' .
-                '%s</th><td><input type="checkbox" name="%s" value="%s" %s /><br />%s</td>', 
-            $options->getTitle(TP_OPT_DEBUG), TP_OPT_DEBUG, TP_OPT_DEBUG, $selected,
-            _tpMsg("DEBUGDESC"));
-
+        WordPressOptionsPage::_printHTML_booleanOpt($options, TP_OPT_DEBUG, "DEBUGDESC");
         WordPressOptionsPage::_printHTML_optionFooter(); 
     }
     
@@ -59,7 +51,23 @@ class WordPressOptionsPage
         WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_THUMBWIDTH, $options);
         WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_THUMBHEIGHT, $options);
 
+        WordPressOptionsPage::_printHTML_booleanOpt($options, TP_OPT_GREYBOXON,
+            "TP_OPT_GREYBOXON_DESC");
+        WordPressOptionsPage::_printHTML_booleanOpt($options, TP_OPT_LWON,
+            "TP_OPT_LWON_DESC");
+      
         WordPressOptionsPage::_printHTML_optionFooter();    
+    }
+    
+    function _printHTML_booleanOpt($options, $optName, $msg) {
+        $selected = "";
+        if ($options->getValue($optName) == true) {
+            $selected = "CHECKED";
+        }
+        printf('<tr valign="top"><th style="font-weight: bold; font-size: 1em" scope="row">' .
+                '%s</th><td><input type="checkbox" name="%s" value="%s" %s /><br />%s</td>', 
+            $options->getTitle($optName), $optName, $optName, $selected,
+            _tpMsg("$msg"));
     }
     
     /**
@@ -168,6 +176,10 @@ class WordPressOptionsPage
         $modes = TubePressOptionsPackage::getModeNames();
 
         foreach ($modes as $mode) {
+        	if ($mode == TP_MODE_REL) {
+        		continue;
+        	}
+        	
             $selected = "";
             
             if ($mode == $options->getValue(TP_OPT_MODE)) {
@@ -260,6 +272,8 @@ class WordPressOptionsPage
         /* go through the post variables and try to update */
         foreach (array_keys($oldOpts->_allOptions) as $optName) {
             if (($optName == TP_OPT_DEBUG)
+                || ($optName == TP_OPT_GREYBOXON)
+                || ($optName == TP_OPT_LWON)
                 || in_array($optName, TubePressVideo::getMetaNames())
                 || in_array($optName, TubePressOptionsPackage::getPlayerLocationNames())
                 || in_array($optName, TubePressOptionsPackage::getModeNames())) {
@@ -275,31 +289,26 @@ class WordPressOptionsPage
             }
         }
 
-        /* We treat meta values differently since they rely on true/false */
+        /* Do the booleans */
         $metaOptions = TubePressVideo::getMetaNames();
         foreach ($metaOptions as $metaOption) {
-            if (in_array($metaOption, $_POST['meta'])) {    
-                $result = $oldOpts->setValue($metaOption, true);
-            } else {
-                $result = $oldOpts->setValue($metaOption, false);
-            }
-            if (PEAR::isError($result)) {
-                $errors = true;
-                WordPressOptionsPage::printStatusMsg($result->message, TP_CSS_FAILURE);
-                return;
-            }
+        	if (!WordPressOptionsPage::_updateBoolean($metaOption, $oldOpts, $errors,
+        	    in_array($metaOption, $_POST['meta']))) {
+        		return;
+        	}
         }
 
-        /* handle the debug option */
-        if (isset($_POST[TP_OPT_DEBUG])) {
-            $result = $oldOpts->setValue(TP_OPT_DEBUG, true);
-        } else {
-            $result = $oldOpts->setValue(TP_OPT_DEBUG, false);
+        if (!WordPressOptionsPage::_updateBoolean(TP_OPT_DEBUG, $oldOpts,
+            $errors, isset($_POST[TP_OPT_DEBUG]))) {
+        	return;
         }
-        if (PEAR::isError($result)) {
-            $errors = true;
-            WordPressOptionsPage::printStatusMsg($result->message, TP_CSS_FAILURE);
-            return;
+        if (!WordPressOptionsPage::_updateBoolean(TP_OPT_GREYBOXON, $oldOpts,
+            $errors, isset($_POST[TP_OPT_GREYBOXON]))) {
+        	return;
+        }
+        if (!WordPressOptionsPage::_updateBoolean(TP_OPT_LWON, $oldOpts,
+            $errors, isset($_POST[TP_OPT_LWON]))) {
+        	return;
         }
     
         /* now actually update is we didn't have any errors */
@@ -317,6 +326,16 @@ class WordPressOptionsPage
             WordPressOptionsPage::printStatusMsg(_tpMsg("OPTSUCCESS"), TP_CSS_SUCCESS);
         }
     }    
+    
+    function _updateBoolean($optName, &$options, &$errors, $newValue) {
+        $result = $options->setValue($optName, $newValue);
+        if (PEAR::isError($result)) {
+            $errors = true;
+            WordPressOptionsPage::printStatusMsg($result->message, TP_CSS_FAILURE);
+            return false;
+        }
+        return true;
+    }
     
     /**
      * Spits out a bit of HTML at the bottom of each option group

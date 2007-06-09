@@ -2,8 +2,6 @@
 /**
  * TubePressEnumOpt.php
  * 
- * An "enumeration" TubePressOption
- * 
  * Copyright (C) 2007 Eric D. Hough (http://ehough.com)
  * 
  * This program is free software; you can redistribute it and/or
@@ -26,19 +24,22 @@ function_exists("_tpMsg")
     || require(dirname(__FILE__) . "/../../messages.php");
 class_exists("TubePressOption") || require("TubePressOption.php");
     
+/**
+ * An "enumeration" TubePressOption
+ */
 class TubePressEnumOpt extends TubePressOption
 {
-	var $_validValues;
-	
-	/**
-	 * Constructor
-	 */
-	function TubePressEnumOpt($theTitle, $theDesc, $defaultValue, $validValues)
-	{
-		parent::TubePressOption($theTitle, $theDesc, $defaultValue);
-		$this->_validValues = $validValues;
-	}
-	
+    var $_validValues;
+    
+    /**
+     * Constructor
+     */
+    function TubePressEnumOpt($theTitle, $theDesc, $defaultValue, $validValues)
+    {
+        parent::TubePressOption($theTitle, $theDesc, $defaultValue);
+        $this->_validValues = $validValues;
+    }
+    
     /**
      * Tries to set the value after seeing if it's valid
      */
@@ -49,7 +50,7 @@ class TubePressEnumOpt extends TubePressOption
             && !in_array($candidate, $this->_validValues)) {
             return PEAR::raiseError(_tpMsg("BADVAL",
             array($candidate, $this->_title,
-            implode(", ", $this->_validValues))));
+            implode("', '", $this->_validValues))));
         }
         /* looks good! */
         $this->_value = $candidate;

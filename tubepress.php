@@ -36,7 +36,7 @@ if (!isset($tubepress_base_url)) {
  * Main filter hook. Looks for a tubepress tag
  * and replaces it with a gallery (or single video) if it's found
 */
-function tp_main ($content = '')
+function tp_main($content = '')
 {
     /* Store everything we generate in the following string */
      $newcontent = "";
@@ -46,15 +46,18 @@ function tp_main ($content = '')
     /* ------------------------------------------------------------ */
 
     $quickOpts = get_option(TP_OPTION_NAME);
-    if ($quickOpts == NULL) {
+    if (($quickOpts == NULL) 
+        || (!array_key_exists(TP_OPT_KEYWORD, $quickOpts))
+        || (!is_a($quickOpts[TP_OPT_KEYWORD], "TubePressStringOpt"))) {
         return $content;
     }
 
-    $keyword = $quickOpts[TP_OPT_KEYWORD]->getValue();
+    $keyword = $quickOpts[TP_OPT_KEYWORD]->_value;
+
     if (strpos($content, '[' . $keyword) === false) {
         return $content;
     }
- 
+
     /* ------------------------------------------------------------ */
     /* ------------ PARSE THE TAG --------------------------------- */
     /* ------------------------------------------------------------ */ 
@@ -70,6 +73,9 @@ function tp_main ($content = '')
 
     /* Are we debugging? */
     $debug = $options->getValue(TP_OPT_DEBUG);
+    if (PEAR::isError($debug)) {
+        return TubePressStatic::bail($debug);
+    }
     if ($debug == true
         && isset($_GET[TP_PARAM_DEBUG]) 
         && ($_GET[TP_PARAM_DEBUG] == true)) {
@@ -101,14 +107,12 @@ remove_action('wp_head', 'tp_insertLightWindow');
 $quickOpts = get_option(TP_OPTION_NAME);
 
 if ($quickOpts != NULL) {
-    switch ($quickOpts[TP_OPT_PLAYIN]->getValue()) {
-        case TP_PLAYIN_GREYBOX:
-            add_action('wp_head', 'tp_insertGreyBox');
-            break;
-        case TP_PLAYIN_LWINDOW:
-            add_action('wp_head', 'tp_insertLightWindow');
-            break;
-        default:
+	
+    if ($quickOpts[TP_OPT_GREYBOXON]->_value) {
+        add_action('wp_head', 'tp_insertGreyBox');
+    }
+    if ($quickOpts[TP_OPT_LWON]->_value) {
+    	 add_action('wp_head', 'tp_insertLightWindow');
     }   
 }
 ?>

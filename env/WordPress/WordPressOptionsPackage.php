@@ -136,14 +136,15 @@ class WordPressOptionsPackage extends TubePressOptionsPackage
         
         if (PEAR::isError($opts->checkValidity())) {
             delete_option(TP_OPTION_NAME);
-            add_option(TP_OPTION_NAME, TubePressOptionsPackage::getDefaultPackage());
+            add_option(TP_OPTION_NAME, 
+                TubePressOptionsPackage::getDefaultPackage());
         }
     }
     
     /**
      * This function is used when the plugin parses a tag from a post/page.
-     * It pulls all the options from the db, but uses option values found in the
-     * tag when it can.
+     * It pulls all the options from the db, but uses option values found in
+     * the tag when it can.
      */
     function parse($keyword, $content)
     {
@@ -184,16 +185,20 @@ class WordPressOptionsPackage extends TubePressOptionsPackage
 
             /* if we have this option in the tag, let's use that instead */        
             if (array_key_exists($dbOption, $customOptions)) {                
-                $result = $dbOptions->setValue($dbOption, $customOptions[$dbOption]);
+                $result =
+                    $dbOptions->setValue($dbOption, $customOptions[$dbOption]);
                 
+                /*
+                 * Spit back the error with the tagstring so the user can see what
+                 * they did incorrectly
+                 */
                 if (PEAR::isError($result)) {
+                    $result->message .= "<br /><pre>" . $matches[0] . "</pre>";
                     return $result;
                 }
             }
-        }
-        
+        }   
         return $dbOptions;
-    }
-    
+    }   
 }
 ?>

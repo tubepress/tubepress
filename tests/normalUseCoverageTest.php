@@ -6,9 +6,9 @@ require_once PHPCOVERAGE_HOME . "/reporter/HtmlCoverageReporter.php";
 $reporter = new HtmlCoverageReporter("Code Coverage Report", "", "/Users/ehough/Desktop/realCoverage");
 
 $includePaths = array(dirname(__FILE__) . "/../tubepress.php",
-	dirname(__FILE__) . "/../common",
-	dirname(__FILE__) . "/../common/class",
-	dirname(__FILE__) . "/../common/class/options"
+    dirname(__FILE__) . "/../common",
+    dirname(__FILE__) . "/../common/class",
+    dirname(__FILE__) . "/../common/class/options"
 );
 $excludePaths = array("");
 $cov = new CoverageRecorder($includePaths, $excludePaths, $reporter);

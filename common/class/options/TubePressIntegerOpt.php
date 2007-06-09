@@ -2,8 +2,6 @@
 /**
  * TubePressIntegerOpt.php
  * 
- * An integer TubePressOption
- * 
  * Copyright (C) 2007 Eric D. Hough (http://ehough.com)
  * 
  * This program is free software; you can redistribute it and/or
@@ -26,19 +24,23 @@ function_exists("_tpMsg")
     || require(dirname(__FILE__) . "/../../messages.php");
 class_exists("TubePressOption") || require("TubePressOption.php");
 
+/**
+ * An integer TubePressOption
+ */
 class TubePressIntegerOpt extends TubePressOption
 {
-	var $_max;
-	
-	/**
-	 * Constructor
-	 */
-	function TubePressIntegerOpt($theTitle, $theDesc, $defaultValue, $theMax = 2147483647) 
-	{
-		parent::TubePressOption($theTitle, $theDesc, $defaultValue);
-		$this->_max = $theMax;
-	}
-	
+    var $_max;
+    
+    /**
+     * Constructor
+     */
+    function TubePressIntegerOpt($theTitle, $theDesc, $defaultValue,
+        $theMax = 2147483647) 
+    {
+        parent::TubePressOption($theTitle, $theDesc, $defaultValue);
+        $this->_max = $theMax;
+    }
+    
     /**
      * Tries to change the value after some integer error checking
      */
@@ -49,11 +51,11 @@ class TubePressIntegerOpt extends TubePressOption
             || $intval != 0) {
             $candidate = (integer)$candidate;
         }
-    	
+        
         /* make sure it's the right type */
         $result = parent::checkType($candidate, "integer");
         if (PEAR::isError($result)) {
-        	return $result;
+            return $result;
         }
         
         /* No TubePressIntegerOpts can be less than 1 */
