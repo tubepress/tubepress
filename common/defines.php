@@ -109,14 +109,14 @@ define("TP_VID_THUMBURL", "thumburl");
 /*****************************************************************************/
 define("TP_CSS_CONTAINER", "tubepress_container");
 define("TP_CSS_MAINVID_ID", "tubepress_mainvideo");
-define("TP_CSS_MAINVID_INNER", "inner");
-define("TP_CSS_BIGTITLE", "title");
+define("TP_CSS_MAINVID_INNER", "tubepress_inner");
+define("TP_CSS_BIGTITLE", "tubepress_btitle");
 define("TP_CSS_METAWRAP", "tubepress_meta");
 define("TP_CSS_THUMBBOX", "tubepress_video_thumbs");
 define("TP_CSS_ONETHUMB", "tubepress_thumb");
 define("TP_CSS_INTHUMB", "tubepress_video_thumb_inner");
 define("TP_CSS_RUNTIME", "tubepress_runtime");
-define("TP_CSS_SMALLTITLE", "tubepress_title");
+define("TP_CSS_SMALLTITLE", "tubepress_stitle");
 define("TP_CSS_SUCCESS", "updated fade");
 define("TP_CSS_METAGROUP", "tubepress_meta_group");
 define("TP_CSS_FAILURE", "error fade");

@@ -6,8 +6,8 @@ function playVideo(id, height, width, title, time, location, url) {
             break;
         default:
             document.getElementById('tubepress_mainvideo').innerHTML = ' \
-                    <div id="inner" style="width: ' + Math.min(width, 424) + 'px"> \
-                    <div id="title">' + decodeURIComponent(title) + ' \
+                    <div id="tubepress_inner" style="width: ' + Math.min(width, 424) + 'px"> \
+                    <div id="tubepress_btitle">' + decodeURIComponent(title) + ' \
     <object type="application/x-shockwave-flash" style="width:' + Math.min(width, 424) + 'px;height:' + Math.min(height, 336) + 'px;" data="http://www.youtube.com/v/' + id + '"> \
                 <param name="movie" value="http://www.youtube.com/v/' + id + '" /> \
                 </object></div> \
