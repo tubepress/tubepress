@@ -67,8 +67,7 @@ class TubePressXML
         }
     
         if (strpos($snoopy->response_code, "200 OK") === false) {
-            return PEAR::raiseError(_tpMsg("BADHTTP", 
-                $snoopy->response_code));
+            return PEAR::raiseError(_tpMsg("BADHTTP"));
         }
     
         error_reporting(E_ALL ^ E_NOTICE);
