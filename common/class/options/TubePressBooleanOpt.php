@@ -19,7 +19,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-require_once("PEAR.php");
+class_exists("PEAR")
+    || require(dirname(__FILE__) . "/../../../lib/PEAR/PEAR.php");
 function_exists("_tpMsg")
     || require(dirname(__FILE__) . "/../../messages.php");
 class_exists("TubePressOption") || require("TubePressOption.php");

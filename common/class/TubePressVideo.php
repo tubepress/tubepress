@@ -30,52 +30,117 @@ defined("TP_VID_TITLE")
 class TubePressVideo
 {
     /* an array of meta values about this video */
-    var $metaValues;
+    var $_vid;
 
     /**
-     * Constructor
+     * Constructor. This is expecting an array that looks like this:
+     * Array (
+                    [author] => CTVNews
+                    [id] => g2JCej7WudM
+                    [title] => Minuteman Protest - Daily Show Coverage
+                    [length_seconds] => 154
+                    [rating_avg] => 4.68
+                    [rating_count] => 592
+                    [description] => The Daily Show's Jon Stewart reports on the Minuteman Controversy at Columbia University using CTV News' video of the incident.
+                    [view_count] => 249654
+                    [upload_time] => 1160541265
+                    [comment_count] => 579
+                    [tags] => CTV News Columbia University Television Jon Stewart Daily Show Minuteman Minutemen
+                    [url] => http://www.youtube.com/?v=g2JCej7WudM
+                    [thumbnail_url] => http://img.youtube.com/vi/g2JCej7WudM/default.jpg
+                )
      */
+
+    function getAuthor()
+    {
+    	return $this->_vid['author'];
+    }
+    
+    function getId()
+    {
+    	return $this->_vid['id'];
+    }
+    
+    function getTitle()
+    {
+    	return $this->_vid['title'];
+    }
+    
+    function getRuntime()
+    {
+    	return $this->_vid['length_seconds'];
+    }
+    
+    function getRatingAverage()
+    {
+    	return $this->_vid['rating_avg'];
+    }
+    
+    function getRatingCount()
+    {
+    	return $this->_vid['rating_count'];
+    }
+    
+    function getDescription()
+    {
+    	return $this->_vid['description'];
+    }
+    
+    function getViewCount()
+    {
+    	return $this->_vid['view_count'];
+    }
+    
+    function getUploadTime()
+    {
+    	return $this->_vid['upload_time'];
+    }
+    
+    function getCommentCount()
+    {
+    	return $this->_vid['comment_count'];
+    }
+    
+    function getTags()
+    {
+    	return $this->_vid['tags'];
+    }
+    
+    function getURL()
+    {
+    	return $this->_vid['url'];
+    }
+    
+    function getThumbURL()
+    {
+    	return $this->_vid['thumbnail_url'];
+    }
+    
+    
     function TubePressVideo($videoXML)
     {   
         if (!is_array($videoXML)) {
             return;
         }
         
-        $this->metaValues[TP_VID_AUTHOR] = $videoXML['author'];
-        $this->metaValues[TP_VID_ID] = $videoXML['id'];
-        $this->metaValues[TP_VID_TITLE] =
+        $videoXML['title'] =
             htmlspecialchars($videoXML['title'], ENT_QUOTES);
-        $this->metaValues[TP_VID_LENGTH] =
+        $videoXML['length_seconds'] =
             TubePressVideo::_humanTime($videoXML['length_seconds']);
-        $this->metaValues[TP_VID_RATING_AVG] = $videoXML['rating_avg'];
-        $this->metaValues[TP_VID_RATING_CNT] =
+        $videoXML['rating_count'] =
             number_format($videoXML['rating_count']);
-        $this->metaValues[TP_VID_DESC] = $videoXML['description'];
-        $this->metaValues[TP_VID_VIEW] =
+        $videoXML['view_count'] =
             number_format($videoXML['view_count']);
         if (is_numeric($videoXML['upload_time'])) {
-            $this->metaValues[TP_VID_UPLOAD_TIME] =
+            $videoXML['upload_time'] =
                 date("M j, Y", $videoXML['upload_time']);
         }
-        $this->metaValues[TP_VID_COMMENT_CNT] =
+        $videoXML['comment_count'] =
             number_format($videoXML['comment_count']);
-        $this->metaValues[TP_VID_TAGS] = $videoXML['tags'];
-        $this->metaValues[TP_VID_URL] = $videoXML['url'];
-        $this->metaValues[TP_VID_THUMBURL] = $videoXML['thumbnail_url'];
+            
+        $this->_vid = $videoXML;
     }
-    
-    /**
-     * The full list of meta values that we want to retrieve from each
-     * video
-     */
-     function getMetaNames()
-     {
-         return array(TP_VID_TITLE, TP_VID_LENGTH, TP_VID_VIEW, TP_VID_AUTHOR,
-           TP_VID_ID, TP_VID_RATING_AVG, TP_VID_RATING_CNT, TP_VID_UPLOAD_TIME,
-           TP_VID_COMMENT_CNT, TP_VID_TAGS, TP_VID_URL, TP_VID_THUMBURL,
-           TP_VID_DESC);
-     }
-     
+
     /**
      * Converts seconds to minutes and seconds
      * 
