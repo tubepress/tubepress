@@ -65,27 +65,6 @@ class TubePressVideo
     }
     
     /**
-     * Checks to see if this video was properly filled in
-     */
-    function isValid()
-    {
-        if (!is_array($this->metaValues)) {
-            return false;
-        }
-        
-        $metas = TubePressVideo::getMetaNames();
-        foreach ($metas as $meta) {
-            if (!array_key_exists($meta, $this->metaValues)) {
-                return false;
-            }
-            if ($this->metaValues[$meta] == "") {
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    /**
      * The full list of meta values that we want to retrieve from each
      * video
      */

@@ -117,11 +117,6 @@ class TubePressGallery
             } else {
                 $video = new TubePressVideo($videoArray['video'][$x]);
             }
-            
-            /* we're just skipping any videos we don't understand */    
-            if (!$video->isValid()) {
-                continue;
-            }
         
             /* Top of the gallery is special */
             if ($videosPrintedCnt++ == 0) {
