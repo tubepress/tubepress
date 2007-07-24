@@ -168,7 +168,7 @@ class TubePressGallery
         $tpl->setVariable('WIDTH', $options->getValue(TP_OPT_VIDWIDTH));
         $tpl->setVariable('TITLE', $vid->getTitle());
         $tpl->setVariable('HEIGHT', $options->getValue(TP_OPT_VIDHEIGHT));
-        $tpl->setVariable('ID', $vid->getTitle());
+        $tpl->setVariable('ID', $vid->getId());
         $tpl->parseCurrentBlock();
     }
     
@@ -230,14 +230,14 @@ class TubePressGallery
         
         if ($options->getValue(TP_VID_AUTHOR)) {
             $tpl->setCurrentBlock('author');
-            $tpl->setVariable('METANAME', $metaName);
+            $tpl->setVariable('METANAME', $options->getTitle(TP_VID_AUTHOR));
             $tpl->setVariable('AUTHOR', $vid->getAuthor());
             $tpl->parseCurrentBlock();
         }
         
         if ($options->getValue(TP_VID_COMMENT_CNT)) {
             $tpl->setCurrentBlock('comments');
-            $tpl->setVariable('METANAME', $metaName);
+            $tpl->setVariable('METANAME', $options->getTitle(TP_VID_COMMENT_CNT));
             $tpl->setVariable('COUNT', $vid->getCommentCount());
             $tpl->setVariable('ID', $vid->getId());
             $tpl->parseCurrentBlock();
@@ -247,7 +247,7 @@ class TubePressGallery
             $tags = explode(" ", $vid->getTags());
             $tags = implode("%20", $tags);
             $tpl->setCurrentBlock('tags');
-            $tpl->setVariable('METANAME', $metaName);
+            $tpl->setVariable('METANAME', $options->getTitle(TP_VID_TAGS));
             $tpl->setVariable('SEARCHSTRING', $tags);
             $tpl->setVariable('TAGS', $vid->getTags());
             $tpl->parseCurrentBlock();
@@ -256,20 +256,47 @@ class TubePressGallery
         if ($options->getValue(TP_VID_THUMBURL)) {
             $tpl->setCurrentBlock('url');
         	$tpl->setVariable('LINKVALUE', $vid->getThumbURL());
-        	$tpl->setVariable('LINKTEXT', $options->getTitle($metaName));
+        	$tpl->setVariable('LINKTEXT', $options->getTitle(TP_VID_THUMBURL));
             $tpl->parseCurrentBlock();
         }
         
         if ($options->getValue(TP_VID_URL)) {
             $tpl->setCurrentBlock('url');
         	$tpl->setVariable('LINKVALUE', $vid->getURL());
-        	$tpl->setVariable('LINKTEXT', $options->getTitle($metaName));
+        	$tpl->setVariable('LINKTEXT', $options->getTitle(TP_VID_URL));
             $tpl->parseCurrentBlock();
         }
-                    
-    	$tpl->setCurrentBlock('meta');
-       	$tpl->setVariable('METANAME', $metaName);
-        $tpl->setVariable('METAVALUE', $vid->metaValues[$metaName]);
+        
+        $left = array(TP_VID_VIEW, TP_VID_ID, TP_VID_RATING_AVG,
+            TP_VID_RATING_CNT, TP_VID_UPLOAD_TIME);
+        
+        foreach ($left as $leftover) {
+            if ($options->getValue($leftover)) {
+                $tpl->setCurrentBlock('meta');
+       	        $tpl->setVariable('METANAME', $options->getTitle($leftover));
+       	        
+       	        switch ($leftover) {
+       	        case TP_VID_VIEW:
+       	            $tpl->setVariable('METAVALUE', $vid->getViewCount());
+       	            break;
+       	        case TP_VID_ID:
+       	            $tpl->setVariable('METAVALUE', $vid->getId());
+       	            break;
+       	        case TP_VID_RATING_AVG:
+       	            $tpl->setVariable('METAVALUE', $vid->getRatingAverage());
+       	            break;
+       	        case TP_VID_RATING_CNT:
+       	            $tpl->setVariable('METAVALUE', $vid->getRatingCount());
+       	            break;
+       	        case TP_VID_UPLOAD_TIME:
+       	            $tpl->setVariable('METAVALUE', $vid->getUploadTime()); 
+       	        }
+                
+                $tpl->parseCurrentBlock();
+            }
+        }
+        
+    	
     }
 
     /**
