@@ -1,0 +1,174 @@
+<div class="wrap">
+	<form method="post">
+		<!-- BEGIN main -->
+		<h2>{TITLE}</h2>
+		<br/><br/>
+		{INTROTEXT}
+		
+		<!-- BEGIN modes -->
+		<fieldset>
+			<h3>{TITLE}</h3>
+			<table class="editform optiontable">
+				
+				<!-- BEGIN normalMode -->
+				<tr>
+					<th style="font-weight: bold; font-size: 1em" valign="top">
+						<!-- BEGIN normalSupportsPagination -->
+						<sup>*</sup>
+						<!-- END normalSupportsPagination -->
+						{TITLE}
+					</th>
+					<td>
+						<input type="radio" name="mode" id="{NAME}" value="{NAME}"  /> 
+						<input type="text" name="{VALUENAME}" size="20" value="{VALUE}" /> 
+						<br />
+					</td>
+				</tr>
+				<!-- END normalMode -->
+	
+				<!-- BEGIN featuredMode -->
+				<tr>
+					<th style="font-weight: bold; font-size: 1em" valign="top">
+						{TITLE}
+					</th>
+					<td>
+						<input type="radio" name="mode" id="{NAME}" value="{VALUE}"  />  
+						<br />
+					</td>
+				</tr>
+				<!-- END featuredMode -->
+				
+				<!-- BEGIN popularMode -->
+				<tr>
+					<th style="font-weight: bold; font-size: 1em" valign="top">
+						Most-viewed videos from the past...
+					</th>
+					<td>
+						<input type="radio" name="mode" id="popular" value="popular"  /> 
+						<select name="popularValue">
+							<option value="day" SELECTED>day</option>
+							<option value="week">week</option>
+							<option value="month">month</option>
+						</select> 
+						<br />
+					</td>
+				</tr>
+				<!-- END popularMode -->
+				
+			</table>
+		</fieldset>
+		<!-- END modes -->
+		
+		<!-- BEGIN display -->
+		<fieldset>
+			<h3>{TITLE}</h3>
+			<table class="editform optiontable">
+			
+				<!-- BEGIN displayTextOption -->
+				<tr valign="top">
+					<th style="font-weight: bold; font-size: 1em" scope="row">
+						{TITLE}
+					</th>
+					<td>
+						<input name="{NAME}" type="text" id="{NAME}" 
+							class="code" value="{VALUE}" size="20" />
+						<br />{DESCRIPTION}
+					</td>
+				</tr>
+				<!-- END displayTextOption -->
+	
+				<!-- BEGIN displayBoolOption -->
+				<tr valign="top">
+					<th style="font-weight: bold; font-size: 1em" scope="row">
+						{TITLE}
+					</th>
+					<td>
+						<input type="checkbox" name="{NAME}" value="{NAME}" {SELECTED} />
+						<br />{DESCRIPTION}
+					</td>
+				</tr>
+				<!-- END displayBoolOption -->			
+			</table>
+		</fieldset>
+		<!-- END display -->
+		
+		<!-- BEGIN playerLocations -->
+		<fieldset>
+			<table class="editform optiontable">
+				<tr>
+					<th style="font-weight: bold; font-size: 1em">
+						{TITLE}
+					</th>
+					<td>
+						<select name="playerLocation">
+							<!-- BEGIN playerLocation -->
+							<option value="{VALUE}" {SELECTED}>{DESCRIPTION}</option>
+							<!-- END playerLocation -->
+						</select>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+		<!-- END playerLocations -->
+		
+		<!-- BEGIN metas -->
+		<fieldset>
+			<h3>Video meta display</h3>
+			<table class="editform optiontable">
+				<tr>
+					<td width='10%'></td>
+					<td>
+						<table cellspacing='0' cellpadding='0' width='100%'>
+							
+							<!-- BEGIN metaOptionRow -->
+							<tr>
+								<!-- BEGIN metaOption -->
+								<td>
+									<input type="checkbox" name="meta[]" value="{NAME}" {SELECTED} />
+								</td>
+								<!-- END metaOption -->
+							</tr>
+							<!-- END metaOptionRow -->
+						</table>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+		<!-- END metas -->
+				
+		<!-- BEGIN advanced -->
+		<fieldset>
+			<h3>{TITLE}</h3>
+			<table class="editform optiontable">
+				<!-- BEGIN advancedTextOption -->
+				<tr valign="top">
+					<th style="font-weight: bold; font-size: 1em" scope="row">
+						{TITLE}
+					</th>
+					<td>
+						<input name="{NAME}" type="text" id="{NAME}" 
+							class="code" value="{VALUE}" size="20" />
+						<br />{DESCRIPTION}
+					</td>
+				</tr>
+				<!-- END advancedTextOption -->
+				
+				<!-- BEGIN advancedBoolOption -->
+				<tr valign="top">
+					<th style="font-weight: bold; font-size: 1em" scope="row">
+						{TITLE}
+					</th>
+					<td>
+						<input type="checkbox" name="{NAME}" value="{NAME}" {SELECTED} />
+						<br />{DESCRIPTION}
+					</td>
+				</tr>
+				<!-- END advancedBoolOption -->					
+			</table>
+		</fieldset>
+		<!-- END advanced -->
+		
+		<input type="submit" name="tubepress_save" value="{SAVE}" />
+		<!-- END main -->
+	</form>
+</div>

@@ -28,8 +28,6 @@ class WordPressOptionsPage
      */
     function printHTML_advanced($options)
     {
-        WordPressOptionsPage::_printHTML_optionHeader(_tpMsg("ADV_GRP_TITLE"));
-
         WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_KEYWORD, $options);
         WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_TIMEOUT, $options);
         WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_DEVID, $options);
@@ -169,9 +167,10 @@ class WordPressOptionsPage
     /**
      * Prints out the mode options. Simple!
      */
-    function printHTML_modes($options)
+    function printHTML_modes(&$tpl, $options)
     {
-        WordPressOptionsPage::_printHTML_optionHeader(_tpMsg("MODE_HEADER"));
+    	$tpl->setCurrentBlock('modes')
+        $tpl->setVariable('TITLE', _tpMsg("MODE_HEADER"));
         
         $modes = TubePressOptionsPackage::getModeNames();
 
@@ -342,20 +341,6 @@ class WordPressOptionsPage
      */
     function _printHTML_optionFooter() {
         echo "</table></fieldset>";
-    }
-    
-    /**
-     * Spits out a bit of HTML at the top of each option group
-     */
-    function _printHTML_optionHeader($arrayName)
-    {
-        echo "<fieldset>";
-        
-        if ($arrayName != "") {
-            printf('<h3>%s</h3>', $arrayName);
-        }
-    
-        echo '<table class="editform optiontable">';
     }
     
         /**

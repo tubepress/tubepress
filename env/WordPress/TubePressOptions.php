@@ -54,8 +54,17 @@ class_exists("WordPressOptionsPage")
                 TP_CSS_FAILURE);
         }
     
-        $pageTitle = _tpMsg("OPTPANELTITLE");
-    
+        $tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../common/templates");
+        $tpl->loadTemplatefile("options_page.tpl.html", true, true);
+        if (PEAR::isError($tpl)) {
+        	return $tpl;
+        }
+        
+        $tpl->setCurrentBlock("main");
+        $tpl->setVariable('TITLE', _tpMsg("OPTPANELTITLE"));
+    	$tpl->setVariable('INTROTEXT', _tpMsg("OPTPAGEDESC"));
+        $tpl->setVariable('SAVE', _tpMsg("SAVE"));
+    	
         /* are we updating? */
         if (isset($_POST['tubepress_save'])) {
             
@@ -64,23 +73,13 @@ class_exists("WordPressOptionsPage")
             $dbOptions = new WordPressOptionsPackage();
         }
     
-        printf('<div class="wrap"><form method="post"><h2>%s</h2><br/><br/>%s',
-            $pageTitle, _tpMsg("OPTPAGEDESC"));
-    
-        WordPressOptionsPage::printHTML_modes($dbOptions);
-        WordPressOptionsPage::printHTML_display($dbOptions);
-        WordPressOptionsPage::printHTML_player($dbOptions);
-        WordPressOptionsPage::printHTML_meta($dbOptions);
-        WordPressOptionsPage::printHTML_advanced($dbOptions);
-    
-        $saveValue = _tpMsg("SAVE");
-        
-        print <<<EOT
-            <input type="submit" name="tubepress_save" 
-                value="$saveValue" />
-              </form>
-         </div>
-EOT;
-    
+        WordPressOptionsPage::printHTML_modes($tpl, $dbOptions);
+        WordPressOptionsPage::printHTML_display($tpl, $dbOptions);
+        WordPressOptionsPage::printHTML_player($tpl, $dbOptions);
+        WordPressOptionsPage::printHTML_meta($tpl, $dbOptions);
+        WordPressOptionsPage::printHTML_advanced($tpl, $dbOptions);
+
+        $tpl->parse('main');
+        $tpl->show();
     }
 ?>
