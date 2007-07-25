@@ -41,14 +41,14 @@
 				<!-- BEGIN popularMode -->
 				<tr>
 					<th style="font-weight: bold; font-size: 1em" valign="top">
-						Most-viewed videos from the past...
+						{TITLE}
 					</th>
 					<td>
-						<input type="radio" name="mode" id="popular" value="popular"  /> 
+						<input type="radio" name="{NAME}" id="{NAME}" value="{VALUE}"  /> 
 						<select name="popularValue">
-							<option value="day" SELECTED>day</option>
-							<option value="week">week</option>
-							<option value="month">month</option>
+							<!-- BEGIN period -->
+							<option value="{PERIOD}" {SELECTED}>{VALUETITLE}</option>
+							<!-- END period -->
 						</select> 
 						<br />
 					</td>

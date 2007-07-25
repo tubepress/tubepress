@@ -1,6 +1,6 @@
 <?php
 /**
- * TubePressOption.php
+ * TubePressPlayer.php
  * 
  * Copyright (C) 2007 Eric D. Hough (http://ehough.com)
  * 
@@ -23,21 +23,20 @@ class_exists("TubePressBaseDataItem")
     || require(dirname(__FILE__) . "/../TubePressBaseDataItem.php");
 
 /**
- * An "abstract" TubePressOption
+ * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
-class TubePressOption extends TubePressBaseDataItem
+class TubePressPlayer extends TubePressBaseDataItem
 {
-    /**
-     * Makes sure that the candidate value is of the
-     * appropriate type.
-     */
-    function checkType($candidate, $type)
-    {
-        if (gettype($candidate) != $type) {
-            return PEAR::raiseError(_tpMsg("BADTYPE", 
-                array($this->_title, $type,
-                $candidate, gettype($candidate))));
-        }
-    }
+	/*
+	 * for each player, we want to know which CSS
+	 * and JS libraries that it needs
+	 */
+	var $_cssLibs, $_jsLibs;
+
+	function TubePressPlayer($title, $cssLibs = "", $jsLibs = "") {
+		$this->_title = $title;
+		$this->_cssLibs = $cssLibs;
+		$this->_jsLibs = $jsLibs;
+	}
 }
 ?>

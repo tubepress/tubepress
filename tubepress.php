@@ -101,18 +101,13 @@ add_action('wp_head', 'tp_insertCSSJS');
  * with people's themes
  */
 remove_action('wp_head', 'tp_insertGreyBox');
-remove_action('wp_head', 'tp_insertLightWindow');
 
 /* add ThickBox or LightWindow, if we need them */
 $quickOpts = get_option(TP_OPTION_NAME);
 
 if ($quickOpts != NULL) {
-	
     if ($quickOpts[TP_OPT_GREYBOXON]->_value) {
         add_action('wp_head', 'tp_insertGreyBox');
-    }
-    if ($quickOpts[TP_OPT_LWON]->_value) {
-    	 add_action('wp_head', 'tp_insertLightWindow');
-    }   
+    } 
 }
 ?>

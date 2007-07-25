@@ -90,22 +90,22 @@ class WordPressOptionsPage
             $desc = "";
             switch ($location) {
                 case TP_PLAYIN_NORMAL:
-                    $desc = _tpMsg("PLAYIN_NORMAL_TITLE");
+                    $desc = ;
                     break;
                 case TP_PLAYIN_NW:
-                    $desc = _tpMsg("PLAYIN_NW_TITLE");
+                    $desc = ;
                     break;
                 case TP_PLAYIN_YT:
-                    $desc = _tpMsg("PLAYIN_YT_TITLE");
+                    $desc = ;
                     break;
                 case TP_PLAYIN_POPUP:
-                    $desc = _tpMsg("PLAYIN_POPUP_TITLE");
+                    $desc = ;
                     break;
                 case TP_PLAYIN_LWINDOW:
-                    $desc = _tpMsg("PLAYIN_LW_TITLE");
+                    $desc = ;
                     break;
                 case TP_PLAYIN_GREYBOX:
-                    $desc = _tpMsg("PLAYIN_TB_TITLE");
+                    $desc = ;
                     break;
             }
     
@@ -162,8 +162,6 @@ class WordPressOptionsPage
         WordPressOptionsPage::_printHTML_optionFooter();
     }
     
-
-
     /**
      * Prints out the mode options. Simple!
      */
@@ -175,12 +173,7 @@ class WordPressOptionsPage
         $modes = TubePressOptionsPackage::getModeNames();
 
         foreach ($modes as $mode) {
-        	if ($mode == TP_MODE_REL) {
-        		continue;
-        	}
         	
-            $selected = "";
-            
             if ($mode == $options->getValue(TP_OPT_MODE)) {
                 $selected = "CHECKED";
             }
@@ -196,8 +189,7 @@ class WordPressOptionsPage
             if ($mode == TP_MODE_POPULAR) {
                 
                 $name = TP_OPT_POPVAL;
-                $inputBox = sprintf('<select name="%s">', $name);
-                $period = array("day", "week", "month");
+
                 foreach ($period as $thisPeriod) {
                     $inputBox .= sprintf('<option value="%s"', $thisPeriod);
                     if ($thisPeriod == $options->getValue(TP_OPT_POPVAL)) {
@@ -207,41 +199,7 @@ class WordPressOptionsPage
                 }
                 $inputBox .= '</select>';
             }
-
-            $title = "";
-            $desc = "";
-            
-            switch($mode) {
-                case TP_MODE_POPULAR:
-                    $title = _tpMsg("MODE_POPULAR_TITLE");
-                    break;
-                case TP_MODE_FEATURED:
-                    $title = _tpMsg("MODE_FEAT_TITLE");
-                    break;
-                case TP_MODE_FAV:
-                    $title = _tpMsg("MODE_FAV_TITLE");
-                    $desc = _tpMsg("MODE_FAV_DESC");
-                    break;
-                case TP_MODE_PLST:
-                    $title = _tpMsg("MODE_PLST_TITLE");
-                    $desc = _tpMsg("MODE_PLST_DESC");
-                    break;
-                case TP_MODE_TAG:
-                    $title = _tpMsg("MODE_TAG_TITLE");
-                    break;
-                case TP_MODE_USER:
-                    $title = _tpMsg("MODE_USER_TITLE");
-                    break;
-                default:
-            }
-
-            printf('<tr><th style="font-weight: bold; font-size: 1em" valign="top">%s</th>' .
-                '<td><input type="radio" name="%s" id="%s" value="%s" %s /> %s <br />%s</td></tr>',
-                $title, TP_OPT_MODE, $mode, $mode, $selected, $inputBox,
-                $desc);
         }
-         echo "<sup>*</sup><i>mode supports pagination</i>";
-        WordPressOptionsPage::_printHTML_optionFooter();
     }
     
     /**
@@ -343,7 +301,7 @@ class WordPressOptionsPage
         echo "</table></fieldset>";
     }
     
-        /**
+    /**
      * Prints out the HTML inputs for determining which videos to play
      * (all tags, any tags, etc.). This is really a helper function
      * for printHTML_searchArray()

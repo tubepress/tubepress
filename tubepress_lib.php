@@ -73,24 +73,5 @@ function tp_insertGreyBox()
             href="$url/gb_styles.css" type="text/css" />
 GBS;
 }
-    
-/**
- * Spits out the CSS and JS files that we need for LightWindow
- */
-function tp_insertLightWindow()
-{
-    global $tubepress_base_url;
-    $url = $tubepress_base_url . "/lib/lightWindow";
-    print<<<GBS
-        <script type="text/javascript" 
-            src="$url/javascript/prototype.js"></script>
-        <script type="text/javascript" 
-            src="$url/javascript/effects.js"></script>
-        <script type="text/javascript" 
-            src="$url/javascript/lightWindow.js"></script>
-        <link rel="stylesheet" 
-            href="$url/css/lightWindow.css" 
-            media="screen" type="text/css" />
-GBS;
-}
+
 ?>

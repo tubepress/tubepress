@@ -41,7 +41,7 @@ class TubePressOptionsPackage
     var $_allOptions;
 
     /**
-     * Don't let anyone instantiate this directly.
+     * Default options
      */
     function TubePressOptionsPackage()
     {
@@ -124,14 +124,6 @@ class TubePressOptionsPackage
                   TP_VID_URL => new TubePressBooleanOpt(_tpMsg("VIDURL"), ' ', false),
                   TP_VID_THUMBURL => new TubePressBooleanOpt(_tpMsg("VIDTHUMBURL"), ' ', false),
                   TP_VID_DESC => new TubePressBooleanOpt(_tpMsg("VIDDESC"), ' ', false),
-
-        /* -------- VIDEO SEARCH VALUES ------------------------------------ */
-        
-                  TP_OPT_TAGVAL =>  new TubePressStringOpt(' ',' ', "stewart daily show"),
-                  TP_OPT_USERVAL => new TubePressStringOpt(' ',' ', "3hough"),
-                  TP_OPT_PLSTVAL => new TubePressStringOpt(' ',' ', "D2B04665B213AE35"),
-                  TP_OPT_FAVVAL =>  new TubePressStringOpt(' ',' ', "mrdeathgod"),
-                  TP_OPT_POPVAL =>  new TubePressStringOpt(' ', '', "day"),
             
            /* -------- DISPLAY OPTIONS -------------------------------------- */
                   
@@ -192,26 +184,7 @@ class TubePressOptionsPackage
         return $result->getDescription();
    }
     
-    /**
-     * The valid ways to play each video (new window, popup, lightWindow, etc)
-     */
-    function getPlayerLocationNames()
-    {
-        return
-            array(TP_PLAYIN_NORMAL, TP_PLAYIN_NW, TP_PLAYIN_YT, 
-                TP_PLAYIN_POPUP,TP_PLAYIN_LWINDOW,TP_PLAYIN_GREYBOX);
-    }
-    
-    /**
-     * The allowed mode names (each represents an API call to YouTube)
-     */
-    function getModeNames()
-    {
-        return
-            array(TP_MODE_USER, TP_MODE_FAV, TP_MODE_PLST,TP_MODE_TAG, 
-                 TP_MODE_FEATURED, TP_MODE_POPULAR, TP_MODE_REL);
-    }
-        
+
     
     /**
      * A wrapper for TubePressOption's getTitle()
