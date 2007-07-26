@@ -22,12 +22,10 @@
 /**
  * A TubePress "mode", such as favorites, popular, playlist, etc
  */
-class TubePressModePackage 
+class TubePressModePackage extends TubePressDataPackage
 {
-	var $_allModes;
-    
     function TubePressModePackage() {
-    	$this->_allModes = array(
+    	$this->_dataArray = array(
     	
     		TP_MODE_USER => new TubePressMode(_tpMsg("MODE_USER_TITLE"),
     			"", "3hough"),

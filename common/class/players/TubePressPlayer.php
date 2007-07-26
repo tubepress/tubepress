@@ -31,12 +31,27 @@ class TubePressPlayer extends TubePressBaseDataItem
 	 * for each player, we want to know which CSS
 	 * and JS libraries that it needs
 	 */
-	var $_cssLibs, $_jsLibs;
+	var $_cssLibs, $_jsLibs, $_extraJS;
 
-	function TubePressPlayer($title, $cssLibs = "", $jsLibs = "") {
+	function TubePressPlayer($title $cssLibs = "", $jsLibs = "", $extraJS = "") {
 		$this->_title = $title;
 		$this->_cssLibs = $cssLibs;
 		$this->_jsLibs = $jsLibs;
+		$this->_extraJS = $extraJS;
+	}
+	
+	function getJS()
+	{
+		return $this->_jsLibs;
+	}
+	
+	function getCss()
+	{
+		return $this->_cssLibs;
+	}
+	
+	function getExtraJS() {
+		return $this->_extraJS;
 	}
 }
 ?>

@@ -23,10 +23,6 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-function_exists("tp_insertCSSJS") || require("tubepress_lib.php");
-
-class_exists('WordPressOptionsPackage')
-    || require('env/WordPress/WordPressOptionsPackage.php');
 
 if (!isset($tubepress_base_url)) {
     $tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
@@ -46,14 +42,19 @@ function tp_main($content = '')
     /* ------------------------------------------------------------ */
 
     $quickOpts = get_option(TP_OPTION_NAME);
-    if (($quickOpts == NULL) 
-        || (!array_key_exists(TP_OPT_KEYWORD, $quickOpts))
-        || (!is_a($quickOpts[TP_OPT_KEYWORD], "TubePressStringOpt"))) {
-        return $content;
+    if (($quickOpts == NULL) {
+    	return NULL;
     }
-
-    $keyword = $quickOpts[TP_OPT_KEYWORD]->_value;
-
+    
+	if (!array_key_exists(TP_OPT_KEYWORD, $quickOpts["options"])) {
+    	return NULL;
+    }
+    
+    if (!is_a($quickOpts["options"][TP_OPT_KEYWORD], "TubePressStringOpt")) {
+        return NULL;
+    }
+    $keyword = $quickOpts["options"][TP_OPT_KEYWORD]->_value;
+	
     if (strpos($content, '[' . $keyword) === false) {
         return $content;
     }
@@ -91,23 +92,26 @@ function tp_main($content = '')
     return str_replace($options->tagString, $newcontent, $content);
 }
 
+/**
+ * Spits out the CSS and JS files that we always need for TubePress
+ */
+function tp_insertCSSJS()
+{
+    global $tubepress_base_url;
+    $url = $tubepress_base_url . "/common";
+    print<<<GBS
+        <script type="text/javascript" src="$url/tubepress.js"></script>
+        <link rel="stylesheet" href="$url/tubepress.css" 
+            type="text/css" />
+        <link rel="stylesheet" href="$url/pagination.css" 
+            type="text/css" />
+GBS;
+	
+	print TubePressPlayerPackage::getHeadContents(get_option(TP_OPTION_NAME)["options"]);
+}
+
 /* don't forget to add our hooks! */
 add_filter('the_content', 'tp_main');
 add_action('admin_menu',  'tp_executeOptionsPage');
 add_action('wp_head', 'tp_insertCSSJS');
-
-/*
- * get rid of these by default since they interfere
- * with people's themes
- */
-remove_action('wp_head', 'tp_insertGreyBox');
-
-/* add ThickBox or LightWindow, if we need them */
-$quickOpts = get_option(TP_OPTION_NAME);
-
-if ($quickOpts != NULL) {
-    if ($quickOpts[TP_OPT_GREYBOXON]->_value) {
-        add_action('wp_head', 'tp_insertGreyBox');
-    } 
-}
 ?>

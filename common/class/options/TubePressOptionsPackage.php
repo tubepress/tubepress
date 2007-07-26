@@ -35,70 +35,14 @@ defined("TP_OPTION_NAME") || require(dirname(__FILE__) . "/../defines.php");
  * of the users options. It's essentially just an array of TubePressOptions 
  * with some extra methods related to metadata on those options.
 */
-class TubePressOptionsPackage
+class TubePressOptionsPackage extends TubePressDataPackage
 {
-    /* this is our array of TubePressOptions */
-    var $_allOptions;
-
     /**
      * Default options
      */
     function TubePressOptionsPackage()
     {
-        $this->_allOptions = TubePressOptionsPackage::getDefaultPackage();
-    }
-    
-    /**
-     * Checks to see if parameter appears to be a correct set of options
-     * 
-     * @param An array of the options that the user currently has
-     * (typically pulled from the db)
-     */
-    function checkValidity()
-    {
-        /* make sure the db looks ok */
-        if ($this->_allOptions == NULL) {
-            return PEAR::raiseError(_tpMsg("NODB"));
-        }
-        if (!is_array($this->_allOptions)) {
-            return PEAR::raiseError(_tpMsg("BADDB",
-            array(gettype($this->_allOptions))));
-        }
-        
-        $modelOptions = array_keys(TubePressOptionsPackage::getDefaultPackage());
-        
-        foreach ($modelOptions as $defaultOption) {
-            /* Make sure we have all the keys */
-            if (!array_key_exists($defaultOption, $this->_allOptions)) {
-                return PEAR::raiseError(_tpMsg("DBMISS", 
-                    array($defaultOption, 
-                        count($this->_allOptions), count($modelOptions))));
-            }
-
-            /* Make sure each entry is a valid TubePressOption */
-            if ((!is_a($this->_allOptions[$defaultOption], TubePressBooleanOpt))
-                && (!is_a($this->_allOptions[$defaultOption], TubePressEnumOpt))
-                && (!is_a($this->_allOptions[$defaultOption], TubePressIntegerOpt))
-                && (!is_a($this->_allOptions[$defaultOption], TubePressStringOpt))) {
-                return PEAR::raiseError(_tpMsg("OLDDB"));
-            }
-        }
-        
-        /* finally, make sure that we have the right number of options */
-        if (count($this->_allOptions) != count($modelOptions)) {
-            return PEAR::raiseError("You have extra options! Expecting " . 
-                count($modelOptions)
-                . " but you seem to have " . count($this->_allOptions));
-        }
-    }
-    
-    /**
-     * Used during debugging. Really meant to be overriden by
-     * subclasses
-     */
-    function debug()
-    {
-        return "";
+        $this->_dataArray = TubePressOptionsPackage::getDefaultPackage();
     }
     
     /**
@@ -170,73 +114,6 @@ class TubePressOptionsPackage
                   TP_OPT_PLAYIN => new TubePressEnumOpt( 
                       _tpMsg("PLAYIN_TITLE"), ' ', TP_PLAYIN_NORMAL,
                       TubePressOptionsPackage::getPlayerLocationNames()));                       
-    }
-    
-    /**
-     * A wrapper for TubePressOption's getDescription()
-     */
-    function getDescription($optionName)
-    {
-        $result = $this->_get($optionName);
-        if (PEAR::isError($result)) {
-            return $result;
-        }
-        return $result->getDescription();
-   }
-    
-
-    
-    /**
-     * A wrapper for TubePressOption's getTitle()
-     */
-    function getTitle($optionName)
-    {
-        $result = $this->_get($optionName);
-        if (PEAR::isError($result)) {
-            return $result;
-        }
-        return $result->getTitle();
-    }
-    
-    /**
-     * A wrapper for TubePressOption's getValue()
-     */
-    function getValue($optionName)
-    {
-        $result = $this->_get($optionName);
-        if (PEAR::isError($result)) {
-            return $result;
-        }
-        return $result->_value;
-    }
-    
-    /**
-     * Set a single option's value for this package. Returns error if
-     * option does not exist, or invalid option value.
-     */
-    function setValue($optionName, $optionValue)
-    {
-        if (!array_key_exists($optionName, $this->_allOptions)) {
-            return PEAR::raiseError(_tpMsg("NOSUCHOPT", array($optionName)));
-        }
-        
-        $result = $this->_allOptions[$optionName]->setValue($optionValue);
-        if (PEAR::isError($result)) {
-            return $result;
-        }
-    }
-    
-    /**
-     * Tries to get a single option from this package. Returns
-     * error if the option is not part of the package.
-     */
-    function _get($optionName)
-    {
-        if ((!array_key_exists($optionName, $this->_allOptions))
-            || (!is_a($this->_allOptions[$optionName], "TubePressOption"))) {
-            return PEAR::raiseError(_tpMsg("NOSUCHOPT", array($optionName)));
-        }
-        return $this->_allOptions[$optionName];
     }
 }
 ?>

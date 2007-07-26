@@ -1,6 +1,6 @@
 <?php
 /**
- * TubePressOptionsPackage.php
+ * TubePressDataPackage.php
  * 
  * Copyright (C) 2007 Eric D. Hough (http://ehough.com)
  * 
@@ -26,7 +26,7 @@
  * of the users options. It's essentially just an array of TubePressOptions 
  * with some extra methods related to metadata on those options.
 */
-class TubePressOptionsPackage
+class TubePressDataPackage
 {
     /* this is our array of items */
     var $_dataArray;
@@ -39,12 +39,7 @@ class TubePressOptionsPackage
      */
     function TubePressOptionsPackage()
     {
-    	$this->_validTypes = array(
-    		"TubePressBooleanOpt",
-    		"TubePressEnumOpt",
-    		
-    	);
-        $this->_dataArray = TubePressOptionsPackage::getDefaultPackage();
+		die "This is an abstract class";
     }
     
     /**
@@ -74,16 +69,19 @@ class TubePressOptionsPackage
                         count($this->_dataArray), count($modelItems))));
             }
 
-            /* Make sure each entry is a valid TubePressOption */
-            if ((!is_a($this->_dataArray[$defaultItem], TubePressBooleanOpt))
-                && (!is_a($this->_dataArray[$defaultItem], TubePressEnumOpt))
-                && (!is_a($this->_dataArray[$defaultItem], TubePressIntegerOpt))
-                && (!is_a($this->_dataArray[$defaultItem], TubePressStringOpt))) {
-                return PEAR::raiseError(_tpMsg("OLDDB"));
-            }
+            /* Make sure each entry is a valid type */
+			$found = false;
+            foreach ($this->_validTypes as $type) {
+				if (is_a($this->_dataArray[$defaultItem], $type)) {
+					$found = true;
+				}
+			}
+         	if (!$found) {
+         		return PEAR::raiseError(_tpMsg("OLDDB")
+         	}
         }
         
-        /* finally, make sure that we have the right number of options */
+        /* finally, make sure that we have the right number of items */
         if (count($this->_dataArray) != count($modelItems)) {
             return PEAR::raiseError("You have extra items in this package! Expecting " . 
                 count($modelItems)
@@ -103,6 +101,11 @@ class TubePressOptionsPackage
         return $result->getDescription();
    }
     
+   function getNames()
+   {
+   		return array_keys($this->_dataArray);
+   }
+   
     /**
      * A wrapper for TubePressOption's getTitle()
      */

@@ -22,22 +22,56 @@
 /**
  * A TubePress "mode", such as favorites, popular, playlist, etc
  */
-class TubePressPlayerPackage 
-{
-	var $_allPlayers;
+class TubePressPlayerPackage extends TubePressDataPackage
+{	
+	function getHeadContents($optionsArray) {
+		if (!array_key_exists(TP_OPT_MODE, $optionsArray)) {
+    		return "";
+    	}
     
-	    /**
-     * The valid ways to play each video (new window, popup, lightWindow, etc)
-     */
-    function getPlayerLocationNames()
-    {
-        return
-            array(, TP_PLAYIN_NW, TP_PLAYIN_YT, 
-                TP_PLAYIN_POPUP,TP_PLAYIN_LWINDOW,TP_PLAYIN_GREYBOX);
-    }   
-	
+    	if (!is_a($optionsArray[TP_OPT_MODE], "TubePressStringOpt")) {
+        	return "";
+    	}
+    	
+    	/* find out which mode we're supposed to be in */
+    	$modeName = $optionsArray->getValue([TP_OPT_MODE]);
+    	if (PEAR::isError($modeName)) {
+    		return "";
+    	}
+    	
+    	/* get the mode object that represents it */
+    	$pack = new TubePressPlayerPackage();
+    	$modeObj = $pack->_get(TP_OPT_MODE);
+		if (PEAR::isError($modeObj)) {
+    		return "";
+    	}
+    	
+    	$jsLibs = $modeObj->getJS();
+    	$cssLibs = $modeObj->getCSS();
+    	$extraJS = $modeObj->getExtraJS();
+    	
+    	$content = "";
+    	
+    	foreach ($jsLibs as $jsLib) {
+    		$content .= "<script type=\"text/javascript\" src=\"" . $jsLib "\"></script>";
+    	}
+    	
+    	foreach ($cssLibs as $cssLib) {
+    		$content .= "<link rel=\"stylesheet\" href=\"" . $cssLib . "\"" .
+            	" type=\"text/css\" />"
+    	}
+            	
+        if ($extraJS != "") {
+        	$content .= "<script type=\"text/javascript\">" . $extraJS . "</script>";
+        }
+        return $content;
+	}
+
     function TubePressPlayerPackage() {
-    	$this->_allModes = array(
+    
+    	global $tubepress_base_url;
+    
+    	$this->_dataArray = array(
     	
     		TP_PLAYIN_NORMAL => new TubePressPlayer(_tpMsg("PLAYIN_NORMAL_TITLE"),
     			"", ""),
@@ -48,10 +82,10 @@ class TubePressPlayerPackage
     		TP_PLAYIN_YT => new TubePressPlayer(_tpMsg("PLAYIN_YT_TITLE"),
     			"", ""),
     		
-    		TP_PLAYIN_POPUP => new TubePressMode(_tpMsg("PLAYIN_POPUP_TITLE"),
+    		TP_PLAYIN_POPUP => new TubePressPlayer(_tpMsg("PLAYIN_POPUP_TITLE"),
     			"", ""),
     			
-    		$lwURL = "/lib/lightWindow/";
+    		$lwURL = $tubepress_base_url . "/lib/lightWindow/";
     		$lwJS = array($lwURL . "javascript/prototype.js",
     			$lwURL . "javascript/effects.js",
     			$lwURL . "javascript/lightWindow.js");
@@ -59,22 +93,15 @@ class TubePressPlayerPackage
     		TP_PLAYIN_LWINDOW => new TubePressMode(_tpMsg("PLAYIN_LW_TITLE"),
     			$lwCSS, $lwJS),
     			
-    		$gbURL = "/lib/greybox/";
+    		$gbURL = $tubepress_base_url . "/lib/greybox/";
     		$gbJS = array($gbURL . "AJS.js",
     			$gbURL . "AJS_fx.js",
     			$gbURL . "gb_scripts.js");
     		$bgCSS = array("gb_styles.css");
+    		$extra = "var GB_ROOT_DIR = \"" . $url . "\/\"";
     		TP_PLAYIN_GREYBOX => new TubePressMode(_tpMsg("PLAYIN_TB_TITLE"),
-    			"", "")
+    			"", "", $extra)
     	);
-    }
-    
-    function setValue($modeName, $modeValue) {
-    	if (is_array_key) {
-    		$this->_allModes[$modeName]->setValue($modeValue);
-    	} else {
-    		PEAR::raiseError($modeName . " is not a valid mode");
-    	}
     }
 }
 ?>
