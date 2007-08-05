@@ -19,29 +19,34 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+class_exists("TubePressPlayer")
+    || require("TubePressPlayer.php");
+
 /**
  * A TubePress "mode", such as favorites, popular, playlist, etc
  */
 class TubePressPlayerPackage extends TubePressDataPackage
 {	
-	function getHeadContents($optionsArray) {
-		if (!array_key_exists(TP_OPT_MODE, $optionsArray)) {
-    		return "";
-    	}
+    function TubePressPlayerPackage()
+    {
+        $this->_validTypes = array("TubePressPlayer");
+        $this->_dataArray = TubePressPlayerPackage::getDefaultPackage();
+    }
     
-    	if (!is_a($optionsArray[TP_OPT_MODE], "TubePressStringOpt")) {
-        	return "";
-    	}
-    	
-    	/* find out which mode we're supposed to be in */
-    	$modeName = $optionsArray->getValue([TP_OPT_MODE]);
-    	if (PEAR::isError($modeName)) {
-    		return "";
-    	}
-    	
-    	/* get the mode object that represents it */
-    	$pack = new TubePressPlayerPackage();
-    	$modeObj = $pack->_get(TP_OPT_MODE);
+    function getHeadContents($box) {
+
+        $mode = $box->options->get(TP_OPT_MODE);
+        if (PEAR::isError($mode)) {
+            return "";
+        }
+
+        $modeName = $mode->getValue();
+        if (PEAR::isError($modeName)) {
+            return "";
+        }
+
+        /* get the mode object that represents it */
+        $modeObj = $box->players->get(TP_OPT_MODE);
 		if (PEAR::isError($modeObj)) {
     		return "";
     	}
@@ -53,12 +58,12 @@ class TubePressPlayerPackage extends TubePressDataPackage
     	$content = "";
     	
     	foreach ($jsLibs as $jsLib) {
-    		$content .= "<script type=\"text/javascript\" src=\"" . $jsLib "\"></script>";
+    		$content .= "<script type=\"text/javascript\" src=\"" . $jsLib . "\"></script>";
     	}
     	
     	foreach ($cssLibs as $cssLib) {
     		$content .= "<link rel=\"stylesheet\" href=\"" . $cssLib . "\"" .
-            	" type=\"text/css\" />"
+            	" type=\"text/css\" />";
     	}
             	
         if ($extraJS != "") {
@@ -67,40 +72,43 @@ class TubePressPlayerPackage extends TubePressDataPackage
         return $content;
 	}
 
-    function TubePressPlayerPackage() {
+    function getDefaultPackage() {
     
     	global $tubepress_base_url;
-    
-    	$this->_dataArray = array(
+
+    	$gbURL = $tubepress_base_url . "/lib/greybox/";
+    	$gbJS = array($gbURL . "AJS.js",
+    	$gbURL . "AJS_fx.js",
+    	$gbURL . "gb_scripts.js");
+    	$gbCSS = array("gb_styles.css");
+    	$extra = "var GB_ROOT_DIR = \"" . $tubepress_base_url . "/\"";
+
+    	$lwURL = $tubepress_base_url . "/lib/lightWindow/";
+    	$lwJS = array($lwURL . "javascript/prototype.js",
+    	$lwURL . "javascript/effects.js",
+    	$lwURL . "javascript/lightWindow.js");
+    	$lwCSS = array("css/lightWindow.css");
+    		
+    	return array(
     	
     		TP_PLAYIN_NORMAL => new TubePressPlayer(_tpMsg("PLAYIN_NORMAL_TITLE"),
-    			"", ""),
+    			" ", " "),
     			
     		TP_PLAYIN_NW => new TubePressPlayer(_tpMsg("PLAYIN_NW_TITLE"),
-    			"", ""),
+    			" ", " "),
     			
     		TP_PLAYIN_YT => new TubePressPlayer(_tpMsg("PLAYIN_YT_TITLE"),
-    			"", ""),
+    			" ", " "),
     		
     		TP_PLAYIN_POPUP => new TubePressPlayer(_tpMsg("PLAYIN_POPUP_TITLE"),
-    			"", ""),
+    			" ", " "),
     			
-    		$lwURL = $tubepress_base_url . "/lib/lightWindow/";
-    		$lwJS = array($lwURL . "javascript/prototype.js",
-    			$lwURL . "javascript/effects.js",
-    			$lwURL . "javascript/lightWindow.js");
-    		$lwCSS = array("css/lightWindow.css");
-    		TP_PLAYIN_LWINDOW => new TubePressMode(_tpMsg("PLAYIN_LW_TITLE"),
+    		TP_PLAYIN_LWINDOW => new TubePressPlayer(_tpMsg("PLAYIN_LW_TITLE"),
     			$lwCSS, $lwJS),
     			
-    		$gbURL = $tubepress_base_url . "/lib/greybox/";
-    		$gbJS = array($gbURL . "AJS.js",
-    			$gbURL . "AJS_fx.js",
-    			$gbURL . "gb_scripts.js");
-    		$bgCSS = array("gb_styles.css");
-    		$extra = "var GB_ROOT_DIR = \"" . $url . "\/\"";
-    		TP_PLAYIN_GREYBOX => new TubePressMode(_tpMsg("PLAYIN_TB_TITLE"),
-    			"", "", $extra)
+    		
+    		TP_PLAYIN_GREYBOX => new TubePressPlayer(_tpMsg("PLAYIN_TB_TITLE"),
+    			$gbCSS, $gbJS, $extra)
     	);
     }
 }

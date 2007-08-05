@@ -1,7 +1,7 @@
 <div class="wrap">
 	<form method="post">
 		<!-- BEGIN main -->
-		<h2>{TITLE}</h2>
+		<h2>{PAGETITLE}</h2>
 		<br/><br/>
 		{INTROTEXT}
 		
@@ -16,11 +16,11 @@
 						<!-- BEGIN normalSupportsPagination -->
 						<sup>*</sup>
 						<!-- END normalSupportsPagination -->
-						{TITLE}
+						{MODETITLE}
 					</th>
 					<td>
-						<input type="radio" name="mode" id="{NAME}" value="{NAME}"  /> 
-						<input type="text" name="{VALUENAME}" size="20" value="{VALUE}" /> 
+						<input type="radio" name="mode" id="{MODENAME}" value="{MODENAME}" {MODESELECTED} /> 
+						<input type="text" name="{MODENAME}" size="20" value="{MODEVALUE}" /> 
 						<br />
 					</td>
 				</tr>
@@ -29,10 +29,10 @@
 				<!-- BEGIN featuredMode -->
 				<tr>
 					<th style="font-weight: bold; font-size: 1em" valign="top">
-						{TITLE}
+						{FEATUREDTITLE}
 					</th>
 					<td>
-						<input type="radio" name="mode" id="{NAME}" value="{VALUE}"  />  
+						<input type="radio" name="mode" id="{FEATUREDNAME}" value="{FEATUREDNAME}" {FEATUREDSELECTED} />  
 						<br />
 					</td>
 				</tr>
@@ -41,13 +41,13 @@
 				<!-- BEGIN popularMode -->
 				<tr>
 					<th style="font-weight: bold; font-size: 1em" valign="top">
-						{TITLE}
+						{POPULARTITLE}
 					</th>
 					<td>
-						<input type="radio" name="{NAME}" id="{NAME}" value="{VALUE}"  /> 
+						<input type="radio" name="mode" id="{POPULARNAME}" value="{POPULARNAME}" {POPULARSELECTED} /> 
 						<select name="popularValue">
 							<!-- BEGIN period -->
-							<option value="{PERIOD}" {SELECTED}>{VALUETITLE}</option>
+							<option value="{PERIOD}" {PERIODSELECTED}>{PERIOD}</option>
 							<!-- END period -->
 						</select> 
 						<br />
@@ -61,18 +61,18 @@
 		
 		<!-- BEGIN display -->
 		<fieldset>
-			<h3>{TITLE}</h3>
+			<h3>{DISPLAYTITLE}</h3>
 			<table class="editform optiontable">
 			
 				<!-- BEGIN displayTextOption -->
 				<tr valign="top">
 					<th style="font-weight: bold; font-size: 1em" scope="row">
-						{TITLE}
+						{DISPOPTTITLE}
 					</th>
 					<td>
-						<input name="{NAME}" type="text" id="{NAME}" 
-							class="code" value="{VALUE}" size="20" />
-						<br />{DESCRIPTION}
+						<input name="{DISPOPTNAME}" type="text" id="{DISPOPTNAME}" 
+							class="code" value="{DISPOPTVALUE}" size="20" />
+						<br />{DISPOPTDESCRIPTION}
 					</td>
 				</tr>
 				<!-- END displayTextOption -->
@@ -80,11 +80,11 @@
 				<!-- BEGIN displayBoolOption -->
 				<tr valign="top">
 					<th style="font-weight: bold; font-size: 1em" scope="row">
-						{TITLE}
+						{DISPBOOLTITLE}
 					</th>
 					<td>
-						<input type="checkbox" name="{NAME}" value="{NAME}" {SELECTED} />
-						<br />{DESCRIPTION}
+						<input type="checkbox" name="{DISPBOOLNAME}" value="{DISPBOOLNAME}" {DISPBOOLSELECTED} />
+						<br />{DISPBOOLDESCRIPTION}
 					</td>
 				</tr>
 				<!-- END displayBoolOption -->			
@@ -97,12 +97,12 @@
 			<table class="editform optiontable">
 				<tr>
 					<th style="font-weight: bold; font-size: 1em">
-						{TITLE}
+						{PLAYERTITLE}
 					</th>
 					<td>
 						<select name="playerLocation">
 							<!-- BEGIN playerLocation -->
-							<option value="{VALUE}" {SELECTED}>{DESCRIPTION}</option>
+							<option {PLAYERSELECTED} value="{PLAYERNAME}">{PLAYERDESCRIPTION}</option>
 							<!-- END playerLocation -->
 						</select>
 					</td>
@@ -113,7 +113,7 @@
 		
 		<!-- BEGIN metas -->
 		<fieldset>
-			<h3>Video meta display</h3>
+			<h3>{METATITLE}</h3>
 			<table class="editform optiontable">
 				<tr>
 					<td width='10%'></td>
@@ -124,7 +124,10 @@
 							<tr>
 								<!-- BEGIN metaOption -->
 								<td>
-									<input type="checkbox" name="meta[]" value="{NAME}" {SELECTED} />
+									<input type="checkbox" name="meta[]" value="{METANAME}" {METASELECTED} />
+								</td>
+								<td>
+								   <b>{METAOPTIONTITLE}</b>
 								</td>
 								<!-- END metaOption -->
 							</tr>
@@ -138,17 +141,17 @@
 				
 		<!-- BEGIN advanced -->
 		<fieldset>
-			<h3>{TITLE}</h3>
+			<h3>{ADVTITLE}</h3>
 			<table class="editform optiontable">
 				<!-- BEGIN advancedTextOption -->
 				<tr valign="top">
 					<th style="font-weight: bold; font-size: 1em" scope="row">
-						{TITLE}
+						{ADVTEXTTITLE}
 					</th>
 					<td>
-						<input name="{NAME}" type="text" id="{NAME}" 
-							class="code" value="{VALUE}" size="20" />
-						<br />{DESCRIPTION}
+						<input name="{ADVTEXTNAME}" type="text" id="{ADVTEXTNAME}" 
+							class="code" value="{ADVTEXTVALUE}" size="20" />
+						<br />{ADVTEXTDESCRIPTION}
 					</td>
 				</tr>
 				<!-- END advancedTextOption -->
@@ -156,11 +159,11 @@
 				<!-- BEGIN advancedBoolOption -->
 				<tr valign="top">
 					<th style="font-weight: bold; font-size: 1em" scope="row">
-						{TITLE}
+						{ADVBOOLTITLE}
 					</th>
 					<td>
-						<input type="checkbox" name="{NAME}" value="{NAME}" {SELECTED} />
-						<br />{DESCRIPTION}
+						<input type="checkbox" name="{ADVBOOLNAME}" value="{ADVBOOLNAME}" {ADVBOOLSELECTED} />
+						<br />{ADVBOOLDESCRIPTION}
 					</td>
 				</tr>
 				<!-- END advancedBoolOption -->					

@@ -77,6 +77,8 @@ define("TP_OPT_THUMBWIDTH", "thumbWidth");
 define("TP_OPT_VIDHEIGHT", "mainVidHeight");
 define("TP_OPT_VIDWIDTH", "mainVidWidth");
 define("TP_OPT_VIDSPERPAGE", "resultsPerPage");
+define("TP_OPT_GREYBOXON", "greyBoxEnabled");
+define("TP_OPT_LWON", "lightWindowEnabled");
 
 /*****************************************************************************/
 /*** ADVANCED OPTIONS ********************************************************/

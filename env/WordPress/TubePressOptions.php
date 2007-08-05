@@ -21,8 +21,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("WordPressOptionsPage")
-    || require("WordPressOptionsPage.php");
+function_exists("_tpMsg") || require(dirname(__FILE__) . "/../../common/messages.php");
+class_exists("WordPressStorageBox") || require("WordPressStorageBox.php");
+class_exists("WordPressOptionsPage") || require("WordPressOptionsPage.php");
+class_exists("HTML_Template_IT") || require(dirname(__FILE__) . "/../../lib/PEAR/HTML/HTML_Template_IT/IT.php");
 
     /**
      * This is the main method for the TubePress global options page,
@@ -43,25 +45,29 @@ class_exists("WordPressOptionsPage")
     function _tp_executeOptionsPage()
     {
         /* initialize the database if we need to */
-        WordPressOptionsPackage::initDB();
+        WordPressStorageBox::initDB();
 
         /* see what we've got in the db */
-        $dbOptions = new WordPressOptionsPackage();
-    
-        /* any db failures? */
-        if (PEAR::isError($dbOptions->checkValidity())) {
-            WordPressOptionsPage::printStatusMsg($dbOptions->error->msg,
+        $stored = get_option(TP_OPTION_NAME);
+        if ($stored == NULL) {
+                WordPressOptionsPage::printStatusMsg("Options did not store!",
+                TP_CSS_FAILURE);
+        }
+        
+        $valid = $stored->checkValidity();
+        if (PEAR::isError($valid)) {
+            WordPressOptionsPage::printStatusMsg($valid->message,
                 TP_CSS_FAILURE);
         }
     
         $tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../common/templates");
         $tpl->loadTemplatefile("options_page.tpl.html", true, true);
         if (PEAR::isError($tpl)) {
-        	return $tpl;
+        	WordPressOptionsPage::printStatusMsg($tpl->message,
+                TP_CSS_FAILURE);
         }
         
-        $tpl->setCurrentBlock("main");
-        $tpl->setVariable('TITLE', _tpMsg("OPTPANELTITLE"));
+        $tpl->setVariable('PAGETITLE', _tpMsg("OPTPANELTITLE"));
     	$tpl->setVariable('INTROTEXT', _tpMsg("OPTPAGEDESC"));
         $tpl->setVariable('SAVE', _tpMsg("SAVE"));
     	
@@ -70,14 +76,24 @@ class_exists("WordPressOptionsPage")
             
             WordPressOptionsPage::update();
             
-            $dbOptions = new WordPressOptionsPackage();
+            $stored = get_option(TP_OPTION_NAME);
+            if ($stored == NULL) {
+                WordPressOptionsPage::printStatusMsg("Options did not store!",
+                TP_CSS_FAILURE);
+            }
+        
+            $valid = $stored->checkValidity();
+            if (PEAR::isError($valid)) {
+                WordPressOptionsPage::printStatusMsg($valid->message,
+                TP_CSS_FAILURE);
+            }
         }
     
-        WordPressOptionsPage::printHTML_modes($tpl, $dbOptions);
-        WordPressOptionsPage::printHTML_display($tpl, $dbOptions);
-        WordPressOptionsPage::printHTML_player($tpl, $dbOptions);
-        WordPressOptionsPage::printHTML_meta($tpl, $dbOptions);
-        WordPressOptionsPage::printHTML_advanced($tpl, $dbOptions);
+        WordPressOptionsPage::printHTML_modes($tpl, $stored);
+        WordPressOptionsPage::printHTML_display($tpl, $stored);
+        WordPressOptionsPage::printHTML_player($tpl, $stored);
+        WordPressOptionsPage::printHTML_meta($tpl, $stored);
+        WordPressOptionsPage::printHTML_advanced($tpl, $stored);
 
         $tpl->parse('main');
         $tpl->show();

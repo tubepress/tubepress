@@ -137,9 +137,9 @@ $tubepressMessages =
           "THUMBWIDTH_TITLE" => "Width (px) of thumbs",
           "VIDDISP" => "Video display",
           "VIDHEIGHT_TITLE" => "Max height (px) of main video",
-          "VIDHEIGHT_DESC" => "Default (and maximum) is 336",
+          "VIDHEIGHT_DESC" => "Default is 336",
           "VIDWIDTH_TITLE" => "Max width (px) of main video",
-          "VIDWIDTH_DESC" => "Default (and maximum) is 424",
+          "VIDWIDTH_DESC" => "Default is 424",
           "VIDSPERPAGE_TITLE" => "Videos per page",
           "VIDSPERPAGE_DESC" => "Default is 20, maximum is 100. Only some modes " .
                   "support pagination (see above).",

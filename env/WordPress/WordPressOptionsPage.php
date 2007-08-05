@@ -26,179 +26,172 @@ class WordPressOptionsPage
     /**
      * Prints out the advanced options. Simple!
      */
-    function printHTML_advanced($options)
+    function printHTML_advanced(&$tpl, $stored)
     {
-        WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_KEYWORD, $options);
-        WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_TIMEOUT, $options);
-        WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_DEVID, $options);
-        WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_USERNAME, $options);
-      
-        WordPressOptionsPage::_printHTML_booleanOpt($options, TP_OPT_DEBUG, "DEBUGDESC");
-        WordPressOptionsPage::_printHTML_optionFooter(); 
+        $tpl->setVariable("ADVTITLE", _tpMsg("ADV_GRP_TITLE"));
+        
+        $texts = array(TP_OPT_KEYWORD, TP_OPT_TIMEOUT, TP_OPT_DEVID,
+            TP_OPT_USERNAME);
+        $bools = array(TP_OPT_DEBUG);
+            
+        foreach ($texts as $text) {
+            $opt = $stored->options->get($text);
+            $tpl->setVariable("ADVTEXTTITLE", $opt->getTitle());
+            $tpl->setVariable("ADVTEXTNAME", $text);
+            $tpl->setVariable("ADVTEXTVALUE", $opt->getValue());
+            $tpl->setVariable("ADVTEXTDESCRIPTION", $opt->getDescription());
+            $tpl->parse("advancedTextOption");
+        }
+
+        foreach ($bools as $bool) {
+            $opt = $stored->options->get($bool);
+            $tpl->setVariable("ADVBOOLTITLE", $opt->getTitle());
+            $tpl->setVariable("ADVBOOLNAME", $bool);
+            if ($opt->getValue() == true) {
+                $tpl->setVariable("ADVBOOLSELECTED", "CHECKED");
+            }
+            $tpl->setVariable("ADVBOOLDESCRIPTION", $opt->getDescription());
+            $tpl->parse("advancedBoolOption");
+        }
     }
     
     /**
      * Prints out the display options. Simple!
      */
-    function printHTML_display($options) {
-        WordPressOptionsPage::_printHTML_optionHeader(_tpMsg("VIDDISP"));
-       
-        WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_VIDSPERPAGE, $options);
-        WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_VIDWIDTH, $options);
-        WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_VIDHEIGHT, $options);
-        WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_THUMBWIDTH, $options);
-        WordPressOptionsPage::_printHTML_textBoxOption(TP_OPT_THUMBHEIGHT, $options);
+    function printHTML_display(&$tpl, $stored) {
 
-        WordPressOptionsPage::_printHTML_booleanOpt($options, TP_OPT_GREYBOXON,
-            "TP_OPT_GREYBOXON_DESC");
-        WordPressOptionsPage::_printHTML_booleanOpt($options, TP_OPT_LWON,
-            "TP_OPT_LWON_DESC");
-      
-        WordPressOptionsPage::_printHTML_optionFooter();    
-    }
-    
-    function _printHTML_booleanOpt($options, $optName, $msg) {
-        $selected = "";
-        if ($options->getValue($optName) == true) {
-            $selected = "CHECKED";
+        $tpl->setVariable("DISPLAYTITLE", _tpMsg("VIDDISP"));
+        
+        $texts = array(TP_OPT_VIDSPERPAGE, TP_OPT_VIDWIDTH,
+            TP_OPT_VIDHEIGHT, TP_OPT_THUMBWIDTH, TP_OPT_THUMBHEIGHT);
+        $bools = array(TP_OPT_GREYBOXON, TP_OPT_LWON);
+            
+        foreach ($texts as $text) {
+            $opt = $stored->options->get($text);
+            $tpl->setVariable("DISPOPTTITLE", $opt->getTitle());
+            $tpl->setVariable("DISPOPTNAME", $text);
+            $tpl->setVariable("DISPOPTVALUE", $opt->getValue());
+            $tpl->setVariable("DISPOPTDESCRIPTION", $opt->getDescription());
+            $tpl->parse("displayTextOption");
         }
-        printf('<tr valign="top"><th style="font-weight: bold; font-size: 1em" scope="row">' .
-                '%s</th><td><input type="checkbox" name="%s" value="%s" %s /><br />%s</td>', 
-            $options->getTitle($optName), $optName, $optName, $selected,
-            _tpMsg("$msg"));
+
+        foreach ($bools as $bool) {
+            $opt = $stored->options->get($bool);
+            $tpl->setVariable("DISPBOOLTITLE", $opt->getTitle());
+            $tpl->setVariable("DISPBOOLNAME", $bool);
+            if ($opt->getValue() == true) {
+                $tpl->setVariable("DISPBOOLSELECTED", "CHECKED");
+            }
+            $tpl->setVariable("DISPBOOLDESCRIPTION", $opt->getDescription());
+            $tpl->parse("displayBoolOption");
+        }
     }
     
     /**
      * Prints out the drop down menu asking where to play the videos
      * (normally, new window, popup, in youtube, etc.)
      */
-    function printHTML_player($options) {
-        $locationVars =     $options->getPlayerLocationNames();
+    function printHTML_player(&$tpl, $stored) {
         
-        WordPressOptionsPage::_printHTML_optionHeader("");
+        $tpl->setVariable("PLAYERTITLE", _tpMsg("PLAYIN_TITLE"));
+        
+        $currentLoc = $stored->options->get(TP_OPT_PLAYIN);
+        
+        $locationVars = $stored->players->getNames();
 
-        printf('<tr> <th style="font-weight: bold; font-size: 1em">%s</th>', 
-            $options->getTitle(TP_OPT_PLAYIN));
-        printf('<td><select name="%s">', TP_OPT_PLAYIN);
-
-        foreach ($locationVars as $location) {
-            $selected = "";
-            if ($location == $options->getValue(TP_OPT_PLAYIN))
-                $selected = "selected";
-            $inputBox = "";
-    
-            $desc = "";
-            switch ($location) {
-                case TP_PLAYIN_NORMAL:
-                    $desc = ;
-                    break;
-                case TP_PLAYIN_NW:
-                    $desc = ;
-                    break;
-                case TP_PLAYIN_YT:
-                    $desc = ;
-                    break;
-                case TP_PLAYIN_POPUP:
-                    $desc = ;
-                    break;
-                case TP_PLAYIN_LWINDOW:
-                    $desc = ;
-                    break;
-                case TP_PLAYIN_GREYBOX:
-                    $desc = ;
-                    break;
+        foreach ($locationVars as $locationName) {
+            $actualPlayer = $stored->players->get($locationName);
+            $tpl->setVariable("PLAYERNAME", $locationName);
+            $tpl->setVariable("PLAYERDESCRIPTION", $actualPlayer->getTitle());
+            if ($locationName == $currentLoc->getValue()) {
+                $tpl->setVariable("PLAYERSELECTED", "selected=\"selected\"");
             }
-    
-    
-            printf('<option value="%s" %s>%s</option>', $location, $selected, $desc);
+            $tpl->parse("playerLocation");
         }
-        
-        echo "</select></td></tr>";
-        
-        WordPressOptionsPage::_printHTML_optionFooter();
     }
-    
-
     
     /**
      * Prints out the meta value checkboxes. Fascinating stuff here!
      */
-    function printHTML_meta($options)
+    function printHTML_meta(&$tpl, $stored)
     {
-        WordPressOptionsPage::_printHTML_optionHeader(_tpMsg("META"));
+        $tpl->setVariable("METATITLE", _tpMsg("META"));
         
-        $metas = TubePressVideo::getMetaNames();
+        $metas = TubePressOptionsPackage::getMetaNames();
         
-        echo "<tr><td width='10%'></td><td><table cellspacing='0' " .
-                "cellpadding='0' width='100%'>";
-    
         $colIterator = 0;
         foreach ($metas as $meta) {
-    
-            $colCount = $colIterator % 5;
-    
-            $selected = "";
-            if ($options->getValue($meta) == true) {
-                $selected = "CHECKED";
-            }
+            $actualMeta = $stored->options->get($meta);
             
-            if ($colCount == 0) {
-                echo "<tr>";
+            $tpl->setVariable("METANAME", $meta);
+            if ($actualMeta->getValue() == true) {
+                $tpl->setVariable("METASELECTED", "CHECKED");
             }
-    
-            printf('<td><input type="checkbox" name="meta[]" value="%s" %s />' .
-                '</td><td><b>%s</b></td>',
-                $meta, $selected,
-                $options->getTitle($meta));
-                    
-            if ($colCount == 4) {
-                echo "</tr>";
+            $tpl->setVariable("METAOPTIONTITLE", $actualMeta->getTitle());
+            $tpl->parse("metaOption");
+   
+            if ($colIterator++ % 5 == 4) {
+                $tpl->parse("metaOptionRow");
             }
-            
-            $colIterator++;
         }
-        echo "</tr></table>";
-        
-        WordPressOptionsPage::_printHTML_optionFooter();
     }
     
     /**
      * Prints out the mode options. Simple!
      */
-    function printHTML_modes(&$tpl, $options)
+    function printHTML_modes(&$tpl, $stored)
     {
-    	$tpl->setCurrentBlock('modes')
         $tpl->setVariable('TITLE', _tpMsg("MODE_HEADER"));
-        
-        $modes = TubePressOptionsPackage::getModeNames();
 
-        foreach ($modes as $mode) {
+        foreach ($stored->modes->getNames() as $modeName) {
         	
-            if ($mode == $options->getValue(TP_OPT_MODE)) {
-                $selected = "CHECKED";
-            }
-            $inputBox = "";
-            
-            /* The idea here is only the "featured" mode doesn't need any kind of input */
-            if ($mode != TP_MODE_FEATURED) {
-                    $inputBox = WordPressOptionsPage::_printHTML_quickSrchVal($mode, 
-                        $options, 20);
+            $storedMode = $stored->options->get(TP_OPT_MODE);
+            $actualMode = $stored->modes->get($modeName);;
+            /* handle featured */
+            if ($modeName == TP_MODE_FEATURED) {
+                $tpl->setVariable('FEATUREDTITLE', $actualMode->getTitle());
+                $tpl->setVariable('FEATUREDNAME', $modeName);
+                $tpl->setVariable('FEATUREDVALUE', $actualMode->getValue());
+                
+                if ($modeName == $storedMode->getValue()) {
+                    $tpl->setVariable("FEATUREDSELECTED", "checked");
+                }
+                
+                $tpl->parse("featuredMode");
+                continue;
             }
             
             /* handle the "popular" mode */
-            if ($mode == TP_MODE_POPULAR) {
-                
-                $name = TP_OPT_POPVAL;
-
+            if ($modeName == TP_MODE_POPULAR) {
+                $tpl->setVariable("POPULARTITLE", $actualMode->getTitle());
+                $tpl->setVariable("POPULARNAME", $modeName);
+                $tpl->setVariable("POPULARVALUE", $actualMode->getValue());
+             
+                $period = array("day", "month", "week", "all time");
                 foreach ($period as $thisPeriod) {
-                    $inputBox .= sprintf('<option value="%s"', $thisPeriod);
-                    if ($thisPeriod == $options->getValue(TP_OPT_POPVAL)) {
-                        $inputBox .= ' SELECTED';
+                    
+                    $tpl->setVariable("PERIOD", $thisPeriod);
+                    
+                    if ($thisPeriod == $actualMode->getValue()) {
+                        $tpl->setVariable("PERIODSELECTED", "selected");
                     }
-                    $inputBox .= sprintf('>%s</option>', $thisPeriod);
+                    $tpl->parse("period");
                 }
-                $inputBox .= '</select>';
+                if ($modeName == $storedMode->getValue()) {
+                    $tpl->setVariable("POPULARSELECTED", "checked=\"checked\"");
+                }
+                
+                $tpl->parse("popularMode");
+                continue;
             }
+            
+            $tpl->setVariable("MODETITLE", $actualMode->getTitle());
+            $tpl->setVariable("MODEVALUE", $actualMode->getValue());
+            $tpl->setVariable("MODENAME", $modeName);
+            if ($modeName == $storedMode->getValue()) {
+                    $tpl->setVariable("MODESELECTED", "checked=\"checked\"");
+            }
+            $tpl->parse("normalMode");
         }
     }
     
@@ -218,147 +211,129 @@ class WordPressOptionsPage
     function update()
     {
         $errors = false;
-    
-        /* get what we have in the db */
-        $oldOpts = new WordPressOptionsPackage();
-        if (PEAR::isError($oldOpts)) {
-            WordPressOptionsPage::printStatusMsg($oldOpts->message, TP_CSS_FAILURE);
+
+        /* First get what we have in the DB */
+        $stored = get_option(TP_OPTION_NAME);
+        if ($stored == NULL) {
+            WordPressOptionsPage::printStatusMsg("Options did not store!",
+            TP_CSS_FAILURE);
             return;
         }
-
-        /* go through the post variables and try to update */
-        foreach (array_keys($oldOpts->_allOptions) as $optName) {
-            if (($optName == TP_OPT_DEBUG)
-                || ($optName == TP_OPT_GREYBOXON)
-                || ($optName == TP_OPT_LWON)
-                || in_array($optName, TubePressVideo::getMetaNames())
-                || in_array($optName, TubePressOptionsPackage::getPlayerLocationNames())
-                || in_array($optName, TubePressOptionsPackage::getModeNames())) {
-                    continue;
-            }
-            
-            $result = $oldOpts->setValue($optName, $_POST[$optName]);
-                
+        
+        $valid = $stored->checkValidity();
+        if (PEAR::isError($valid)) {
+            WordPressOptionsPage::printStatusMsg($valid->message,
+            TP_CSS_FAILURE);
+            return;
+        }
+       
+        /* Do the modes */
+        $modes = $stored->modes->getNames();
+        foreach ($modes as $mode) {
+            $actualMode =& $stored->modes->get($mode);
+            $result = $actualMode->setValue($_POST[$mode]);
+          
             if (PEAR::isError($result)) {
-                $errors = true;
+                WordPressOptionsPage::printStatusMsg($result->message, TP_CSS_FAILURE);
+                return;
+            }
+        }
+        $actualMode =& $stored->options->get(TP_OPT_MODE);
+        $result = $actualMode->setValue($_POST['mode']);
+        if (PEAR::isError($result)) {
+            WordPressOptionsPage::printStatusMsg($result->message, TP_CSS_FAILURE);
+            return; 
+        }
+        $popMode =& $stored->modes->get(TP_MODE_POPULAR);
+        $result = $popMode->setValue($_POST[TP_OPT_POPVAL]);
+        if (PEAR::isError($result)) {
+            WordPressOptionsPage::printStatusMsg($result->message, TP_CSS_FAILURE);
+            return; 
+        }
+        
+        /* Do the display options */
+        $texts = array(TP_OPT_VIDSPERPAGE, TP_OPT_VIDWIDTH,
+            TP_OPT_VIDHEIGHT, TP_OPT_THUMBWIDTH, TP_OPT_THUMBHEIGHT);
+        $bools = array(TP_OPT_GREYBOXON, TP_OPT_LWON);
+        foreach ($texts as $text) {
+            $actualOpt =& $stored->options->get($text);
+            $result = $actualOpt->setValue($_POST[$text]);
+          
+            if (PEAR::isError($result)) {
+                WordPressOptionsPage::printStatusMsg($result->message, TP_CSS_FAILURE);
+                return;
+            }
+        }
+        foreach ($bools as $bool) {
+            $actualOpt =& $stored->options->get($bool);
+            $result = $actualOpt->setValue(isset($_POST[$bool]));
+            if (PEAR::isError($result)) {
+                WordPressOptionsPage::printStatusMsg($result->message, TP_CSS_FAILURE);
+                return;
+            }
+        }
+        
+        /* Do the player */
+        $playerOpt =& $stored->options->get(TP_OPT_PLAYIN);
+        $result = $playerOpt->setValue($_POST[TP_OPT_PLAYIN]);
+        if (PEAR::isError($result)) {
+                WordPressOptionsPage::printStatusMsg($result->message, TP_CSS_FAILURE);
+                return;
+        }
+
+        /* Do the meta */
+        $metaOptions = TubePressOptionsPackage::getMetaNames();
+        foreach ($metaOptions as $metaOption) {
+            $actualOpt =& $stored->options->get($metaOption);
+            
+        	$result = $actualOpt->setValue(in_array($metaOption, $_POST['meta']));
+            if (PEAR::isError($result)) {
                 WordPressOptionsPage::printStatusMsg($result->message, TP_CSS_FAILURE);
                 return;
             }
         }
 
-        /* Do the booleans */
-        $metaOptions = TubePressVideo::getMetaNames();
-        foreach ($metaOptions as $metaOption) {
-        	if (!WordPressOptionsPage::_updateBoolean($metaOption, $oldOpts, $errors,
-        	    in_array($metaOption, $_POST['meta']))) {
-        		return;
-        	}
+        /* Do the advanced options */
+        $texts = array(TP_OPT_KEYWORD, TP_OPT_TIMEOUT, TP_OPT_DEVID,
+            TP_OPT_USERNAME);
+        $bools = array(TP_OPT_DEBUG);
+        foreach ($texts as $text) {
+            $actualOpt =& $stored->options->get($text);
+            $result = $actualOpt->setValue($_POST[$text]);
+          
+            if (PEAR::isError($result)) {
+                WordPressOptionsPage::printStatusMsg($result->message, TP_CSS_FAILURE);
+                return;
+            }
         }
-
-        if (!WordPressOptionsPage::_updateBoolean(TP_OPT_DEBUG, $oldOpts,
-            $errors, isset($_POST[TP_OPT_DEBUG]))) {
-        	return;
+        foreach ($bools as $bool) {
+            $actualOpt =& $stored->options->get($bool);
+            $result = $actualOpt->setValue(isset($_POST[$bool]));
+            if (PEAR::isError($result)) {
+                WordPressOptionsPage::printStatusMsg($result->message, TP_CSS_FAILURE);
+                return;
+            }
         }
-        if (!WordPressOptionsPage::_updateBoolean(TP_OPT_GREYBOXON, $oldOpts,
-            $errors, isset($_POST[TP_OPT_GREYBOXON]))) {
-        	return;
-        }
-        if (!WordPressOptionsPage::_updateBoolean(TP_OPT_LWON, $oldOpts,
-            $errors, isset($_POST[TP_OPT_LWON]))) {
-        	return;
-        }
+        
     
-        /* now actually update is we didn't have any errors */
-        if (!$errors) {
-            update_option(TP_OPTION_NAME, $oldOpts->_allOptions);
-        } else {
+        /* now actually update since we didn't have any errors */
+        update_option(TP_OPTION_NAME, $stored);
+        $new = get_option(TP_OPTION_NAME);
+
+        if ($new == NULL) {
+            WordPressOptionsPage::printStatusMsg("Options did not store!",
+            TP_CSS_FAILURE);
             return;
         }
         
-        /* make sure the store happened */
-        $oldOpts = new WordPressOptionsPackage();
-        if (PEAR::isError($oldOpts)) {
-            WordPressOptionsPage::printStatusMsg($oldOpts->msg, TP_CSS_FAILURE);
-        } else {
+        $valid = $new->checkValidity();
+        if (PEAR::isError($valid)) {
+            WordPressOptionsPage::printStatusMsg($valid->message,
+            TP_CSS_FAILURE);
+            return;
+        }
             WordPressOptionsPage::printStatusMsg(_tpMsg("OPTSUCCESS"), TP_CSS_SUCCESS);
-        }
+      
     }    
-    
-    function _updateBoolean($optName, &$options, &$errors, $newValue) {
-        $result = $options->setValue($optName, $newValue);
-        if (PEAR::isError($result)) {
-            $errors = true;
-            WordPressOptionsPage::printStatusMsg($result->message, TP_CSS_FAILURE);
-            return false;
-        }
-        return true;
-    }
-    
-    /**
-     * Spits out a bit of HTML at the bottom of each option group
-     */
-    function _printHTML_optionFooter() {
-        echo "</table></fieldset>";
-    }
-    
-    /**
-     * Prints out the HTML inputs for determining which videos to play
-     * (all tags, any tags, etc.). This is really a helper function
-     * for printHTML_searchArray()
-     */
-    function _printHTML_quickSrchVal($mode, $options, $inputSize)
-    {
-        $whichValue = "";
-        
-        switch ($mode) {
-        
-            case TP_MODE_TAG:
-                $whichValue = TP_OPT_TAGVAL;
-                $inputSize = 40;
-                break;
-
-            case TP_MODE_USER:
-                $whichValue = TP_OPT_USERVAL;
-                break;
-        
-            case TP_MODE_PLST:
-                $whichValue = TP_OPT_PLSTVAL;
-                break;
-        
-            case TP_MODE_POPULAR:
-                $whichValue = TP_OPT_POPVAL;
-                break;
-        
-            case TP_MODE_CATEGORY:
-                $whichValue = TP_OPT_CATVAL;
-                break;
-        
-            case TP_MODE_FAV:
-                $whichValue = TP_OPT_FAVVAL;
-                break;
-        }
-        return sprintf('<input type="text" name="%s" size="%s" value="%s" />',
-            $whichValue, $inputSize, $options->getValue($whichValue));
-    }
-    
-    /**
-     * Helper function to spit out a textbox input
-     */
-    function _printHTML_textBoxOption($optionName, $options) {
-        $openBracket = "";
-        $closeBracket = "";
-        if ($optionName == TP_OPT_KEYWORD) {
-            $openBracket = '[';
-               $closeBracket = ']';
-        } 
-        printf('<tr valign="top"><th style="font-weight: bold; font-size: 1em" scope="row">' .
-            '%s</th><td>%s<input name="%s" type="text" id="%s" class="code" value="%s" ' .
-            'size="%s" />%s<br />%s</td></tr>',               
-            $options->getTitle($optionName), $openBracket,
-            $optionName, $optionName,
-            $options->getValue($optionName), 20, $closeBracket,
-            $options->getDescription($optionName)
-            );
-    }
 }
 ?>

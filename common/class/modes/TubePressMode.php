@@ -19,13 +19,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("TubePressBaseDataItem")
-    || require(dirname(__FILE__) . "/../TubePressBaseDataItem.php");
+class_exists("TubePressDataItem")
+    || require(dirname(__FILE__) . "/../abstract/TubePressDataItem.php");
 
 /**
  * A TubePress "mode", such as favorites, popular, playlist, etc
  */
-class TubePressMode extends TubePressBaseDataItem
+class TubePressMode extends TubePressDataItem
 {
     function setValue($candidate)
     {

@@ -20,13 +20,18 @@
 */
 
 if (!class_exists('TubePressIntegerOption')) {
-    require('options/TubePressIntegerOpt.php');
-    require('options/TubePressStringOpt.php');
-    require('options/TubePressEnumOpt.php');
-    require('options/TubePressBooleanOpt.php');
+    require('TubePressIntegerOpt.php');
+    require('TubePressStringOpt.php');
+    require('TubePressEnumOpt.php');
+    require('TubePressBooleanOpt.php');
 }
-function_exists("_tpMsg") || require(dirname(__FILE__) . "/../messages.php");
-defined("TP_OPTION_NAME") || require(dirname(__FILE__) . "/../defines.php");
+
+class_exists("TubePressDataPackage")
+    || require(dirname(__FILE__) . "/../abstract/TubePressDataPackage.php");
+class_exists("TubePressPlayerPackage")
+    || require(dirname(__FILE__) . "/../players/TubePressPlayerPackage.php");
+class_exists("TubePressModePackage")
+    || require(dirname(__FILE__) . "/../modes/TubePressModePackage.php");  
 
 /**
  * This is meant to be an abstract class, though PHP 4 doesn't support
@@ -43,6 +48,20 @@ class TubePressOptionsPackage extends TubePressDataPackage
     function TubePressOptionsPackage()
     {
         $this->_dataArray = TubePressOptionsPackage::getDefaultPackage();
+        $this->_validTypes  = array(
+            "TubePressBooleanOpt", "TubePressEnumOpt",
+            "TubePressIntegerOpt", "TubePressStringOpt"
+        );
+    }
+    
+    function getMetaNames()
+    {
+        return array(
+            TP_VID_TITLE, TP_VID_LENGTH, TP_VID_VIEW,
+            TP_VID_AUTHOR, TP_VID_ID, TP_VID_RATING_AVG,
+            TP_VID_RATING_CNT, TP_VID_UPLOAD_TIME, TP_VID_COMMENT_CNT,
+            TP_VID_TAGS, TP_VID_URL, TP_VID_THUMBURL, TP_VID_DESC
+        );
     }
     
     /**
@@ -74,17 +93,19 @@ class TubePressOptionsPackage extends TubePressDataPackage
                   TP_OPT_VIDSPERPAGE=>  new TubePressIntegerOpt(
                       _tpMsg("VIDSPERPAGE_TITLE"), _tpMsg("VIDSPERPAGE_DESC"), 20, 100),      
                   TP_OPT_VIDWIDTH =>    new TubePressIntegerOpt(
-                      _tpMsg("VIDWIDTH_TITLE"), _tpMsg("VIDWIDTH_DESC"), 424, 424),
+                      _tpMsg("VIDWIDTH_TITLE"), _tpMsg("VIDWIDTH_DESC"), 424),
                   TP_OPT_VIDHEIGHT =>   new TubePressIntegerOpt(
-                      _tpMsg("VIDHEIGHT_TITLE"), _tpMsg("VIDHEIGHT_DESC"), 336, 336),
+                      _tpMsg("VIDHEIGHT_TITLE"), _tpMsg("VIDHEIGHT_DESC"), 336),
                   TP_OPT_THUMBWIDTH =>  new TubePressIntegerOpt(
                       _tpMsg("THUMBWIDTH_TITLE"), _tpMsg("THUMBWIDTH_DESC"), 120, 120),
                   TP_OPT_THUMBHEIGHT => new TubePressIntegerOpt(
                       _tpMsg("THUMBHEIGHT_TITLE"), _tpMsg("THUMBHEIGHT_DESC"), 90, 90),
                   TP_OPT_GREYBOXON => new TubePressBooleanOpt(
-                      _tpMsg("TP_OPT_GREYBOXON_TITLE"), ' ', false),
+                      _tpMsg("TP_OPT_GREYBOXON_TITLE"), _tpMsg("TP_OPT_GREYBOXON_DESC"),
+                       false),
                   TP_OPT_LWON => new TubePressBooleanOpt(
-                      _tpMsg("TP_OPT_LWON_TITLE"), ' ', false),
+                      _tpMsg("TP_OPT_LWON_TITLE"), _tpMsg("TP_OPT_LWON_DESC")
+                      , false),
                 
                   
               /* -------- ADVANCED OPTIONS ------------------------------------- */                    
@@ -102,18 +123,19 @@ class TubePressOptionsPackage extends TubePressDataPackage
                       _tpMsg("USERNAME_TITLE"), _tpMsg("USERNAME_DESC"), "3hough"),
                                           
                   TP_OPT_DEBUG => new TubePressBooleanOpt(
-                      _tpMsg("DEBUGTITLE"), ' ', true),
+                      _tpMsg("DEBUGTITLE"), _tpMsg("DEBUGDESC"), true),
  
          /* -------- VIDEO SEARCH OPTION ----------------------------------- */
 
                   TP_OPT_MODE => new TubePressEnumOpt(_tpMsg("MODE_TITLE"),
-                      ' ', TP_MODE_FEATURED, TubePressOptionsPackage::getModeNames()),
+                      ' ', TP_MODE_FEATURED, 
+                      array_keys(TubePressModePackage::getDefaultPackage())),
 
         /* -------- PLAYER LOCATION OPTION ----------------------------------- */
  
                   TP_OPT_PLAYIN => new TubePressEnumOpt( 
                       _tpMsg("PLAYIN_TITLE"), ' ', TP_PLAYIN_NORMAL,
-                      TubePressOptionsPackage::getPlayerLocationNames()));                       
+                      array_keys(TubePressPlayerPackage::getDefaultPackage())));                       
     }
 }
 ?>

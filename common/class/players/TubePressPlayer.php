@@ -19,13 +19,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("TubePressBaseDataItem")
-    || require(dirname(__FILE__) . "/../TubePressBaseDataItem.php");
+class_exists("TubePressDataItem")
+    || require(dirname(__FILE__) . "/../abstract/TubePressDataItem.php");
 
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
-class TubePressPlayer extends TubePressBaseDataItem
+class TubePressPlayer extends TubePressDataItem
 {
 	/*
 	 * for each player, we want to know which CSS
@@ -33,7 +33,7 @@ class TubePressPlayer extends TubePressBaseDataItem
 	 */
 	var $_cssLibs, $_jsLibs, $_extraJS;
 
-	function TubePressPlayer($title $cssLibs = "", $jsLibs = "", $extraJS = "") {
+	function TubePressPlayer($title, $cssLibs = " ", $jsLibs = " ", $extraJS = " ") {
 		$this->_title = $title;
 		$this->_cssLibs = $cssLibs;
 		$this->_jsLibs = $jsLibs;

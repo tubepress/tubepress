@@ -22,8 +22,8 @@
 class_exists("PEAR")
     || require(dirname(__FILE__) . "/../../../lib/PEAR/PEAR.php");
 function_exists("_tpMsg")
-    || require(dirname(__FILE__) . "/../../messages.php");
-class_exists("TubePressOption") || require("TubePressOption.php");
+    || require(dirname(__FILE__) . "/../../../messages.php");
+class_exists("TubePressOption") || require(dirname(__FILE__) . "/../abstract/TubePressOption.php");
 
 /**
  * An integer TubePressOption

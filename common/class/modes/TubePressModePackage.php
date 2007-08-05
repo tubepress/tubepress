@@ -19,16 +19,25 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+class_exists("TubePressMode")
+    || require("TubePressMode.php");
+
 /**
  * A TubePress "mode", such as favorites, popular, playlist, etc
  */
 class TubePressModePackage extends TubePressDataPackage
 {
     function TubePressModePackage() {
-    	$this->_dataArray = array(
+        $this->_validTypes = array("TubePressMode");
+    	$this->_dataArray = TubePressModePackage::getDefaultPackage();
+    }
+    
+    function getDefaultPackage()
+    {
+        return array(
     	
     		TP_MODE_USER => new TubePressMode(_tpMsg("MODE_USER_TITLE"),
-    			"", "3hough"),
+    			" ", "3hough"),
     			
     		TP_MODE_FAV => new TubePressMode(_tpMsg("MODE_FAV_TITLE"),
     			_tpMsg("MODE_FAV_DESC"), "mrdeathgod"),
@@ -37,13 +46,13 @@ class TubePressModePackage extends TubePressDataPackage
     			_tpMsg("MODE_PLST_DESC"), "D2B04665B213AE35"),
     		
     		TP_MODE_TAG => new TubePressMode(_tpMsg("MODE_TAG_TITLE"),
-    			"", "stewart daily show"),
+    			" ", "stewart daily show"),
     			
     		TP_MODE_FEATURED => new TubePressMode(_tpMsg("MODE_FEAT_TITLE"),
-    			""),
+    			" ", " "),
     			
     		TP_MODE_POPULAR => new TubePressMode(_tpMsg("MODE_POPULAR_TITLE"),
-    			"", "day")
+    			" ", "day")
     	);
     }
     

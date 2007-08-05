@@ -24,6 +24,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+defined("TP_OPTION_NAME")
+    || require("common/defines.php");
+
+function_exists("tp_executeOptionsPage")
+    || require("env/WordPress/TubePressOptions.php");
+    
 if (!isset($tubepress_base_url)) {
     $tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
 }
@@ -41,31 +47,19 @@ function tp_main($content = '')
     /* ------------ DETERMINE IF WE NEED TO EXECUTE --------------- */
     /* ------------------------------------------------------------ */
 
-    $quickOpts = get_option(TP_OPTION_NAME);
-    if (($quickOpts == NULL) {
-    	return NULL;
-    }
-    
-	if (!array_key_exists(TP_OPT_KEYWORD, $quickOpts["options"])) {
-    	return NULL;
-    }
-    
-    if (!is_a($quickOpts["options"][TP_OPT_KEYWORD], "TubePressStringOpt")) {
-        return NULL;
-    }
-    $keyword = $quickOpts["options"][TP_OPT_KEYWORD]->_value;
-	
-    if (strpos($content, '[' . $keyword) === false) {
+    $keyword = "";
+    $stored = "";
+    if (!tp_shouldWeExecute($content, $keyword, $stored)) {
         return $content;
     }
-
+    
     /* ------------------------------------------------------------ */
     /* ------------ PARSE THE TAG --------------------------------- */
     /* ------------------------------------------------------------ */ 
 
-    $options = WordPressOptionsPackage::parse($keyword, $content);
-    if (PEAR::isError($options)) {
-        return TubePressStatic::bail($options);
+    WordPressStorageBox::applyTag($keyword, $content, $stored->options);
+    if (PEAR::isError($stored->options)) {
+        return TubePressStatic::bail($stored->options);
     }
 
     /* ------------------------------------------------------------ */
@@ -73,23 +67,23 @@ function tp_main($content = '')
     /* ------------------------------------------------------------ */ 
 
     /* Are we debugging? */
-    $debug = $options->getValue(TP_OPT_DEBUG);
+    $debug = $stored->options->getValue(TP_OPT_DEBUG);
     if (PEAR::isError($debug)) {
         return TubePressStatic::bail($debug);
     }
     if ($debug == true
         && isset($_GET[TP_PARAM_DEBUG]) 
         && ($_GET[TP_PARAM_DEBUG] == true)) {
-            $newcontent .= TubePressDebug::debug($options);
+            $newcontent .= TubePressDebug::debug($stored);
     }
     
     /* ------------------------------------------------------------ */
     /* ------------ NOW THE FUN PART ------------------------------ */
     /* ------------------------------------------------------------ */ 
-    $newcontent .= TubePressGallery::generate($options);
+    $newcontent .= TubePressGallery::generate($stored);
 
     /* We're done! Replace the tag with our new content */
-    return str_replace($options->tagString, $newcontent, $content);
+    return str_replace($stored->options->tagString, $newcontent, $content);
 }
 
 /**
@@ -97,6 +91,19 @@ function tp_main($content = '')
  */
 function tp_insertCSSJS()
 {
+    $stored = get_option(TP_OPTION_NAME);
+    if ($stored == NULL) {
+    	return;
+    }
+    
+    if (!is_a($stored, "TubePressStorageBox")) {
+        return;
+    }
+
+    if (PEAR::isError($stored->checkValidity())) {
+        return;    
+    }
+    
     global $tubepress_base_url;
     $url = $tubepress_base_url . "/common";
     print<<<GBS
@@ -107,7 +114,33 @@ function tp_insertCSSJS()
             type="text/css" />
 GBS;
 	
-	print TubePressPlayerPackage::getHeadContents(get_option(TP_OPTION_NAME)["options"]);
+	print TubePressPlayerPackage::getHeadContents($stored);
+}
+
+function tp_shouldWeExecute($content, &$keyword, &$stored) {
+    
+    $stored = get_option(TP_OPTION_NAME);
+    if ($stored == NULL) {
+    	return false;
+    }
+    
+    if (!is_a($stored, "TubePressStorageBox")) {
+        return false;
+    }
+    
+    if (PEAR::isError($stored->checkValidity())) {
+        return false;
+    }
+    
+    $keyword = $stored->options->getValue(TP_OPT_KEYWORD);
+    if (PEAR::isError($keyword)) {
+        return false;
+    }
+    
+    if (strpos($content, '[' . $keyword) === false) {
+        return false;
+    }
+    return true;
 }
 
 /* don't forget to add our hooks! */
