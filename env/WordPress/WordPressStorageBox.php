@@ -122,9 +122,10 @@ class WordPressStorageBox extends TubePressStorageBox
     function initDB()
     {
         WordPressStorageBox::deleteLegacyOptions();
-        $opts = tp_safeGetStorage();
-
-        if ($opts == NULL) {
+        $opts = get_option(TP_OPTION_NAME);
+        
+        $valid = $opts->checkValidity();
+        if (PEAR::isError($valid)) {
             delete_option(TP_OPTION_NAME);
             add_option(TP_OPTION_NAME, 
                 new WordPressStorageBox());

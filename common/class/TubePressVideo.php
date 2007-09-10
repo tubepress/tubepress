@@ -32,25 +32,6 @@ class TubePressVideo
     /* an array of meta values about this video */
     var $_vid;
 
-    /**
-     * Constructor. This is expecting an array that looks like this:
-     * Array (
-                    [author] => CTVNews
-                    [id] => g2JCej7WudM
-                    [title] => Minuteman Protest - Daily Show Coverage
-                    [length_seconds] => 154
-                    [rating_avg] => 4.68
-                    [rating_count] => 592
-                    [description] => The Daily Show's Jon Stewart reports on the Minuteman Controversy at Columbia University using CTV News' video of the incident.
-                    [view_count] => 249654
-                    [upload_time] => 1160541265
-                    [comment_count] => 579
-                    [tags] => CTV News Columbia University Television Jon Stewart Daily Show Minuteman Minutemen
-                    [url] => http://www.youtube.com/?v=g2JCej7WudM
-                    [thumbnail_url] => http://img.youtube.com/vi/g2JCej7WudM/default.jpg
-                )
-     */
-
     function getAuthor()
     {
     	return $this->_vid['author'];
@@ -68,7 +49,7 @@ class TubePressVideo
     
     function getRuntime()
     {
-    	return $this->_vid['length_seconds'];
+    	return $this->_vid['runtime'];
     }
     
     function getRatingAverage()
@@ -123,22 +104,39 @@ class TubePressVideo
             return;
         }
         
-        $videoXML['title'] =
-            htmlspecialchars($videoXML['title'], ENT_QUOTES);
-        $videoXML['length_seconds'] =
-            TubePressVideo::_humanTime($videoXML['length_seconds']);
-        $videoXML['rating_count'] =
-            number_format($videoXML['rating_count']);
-        $videoXML['view_count'] =
-            number_format($videoXML['view_count']);
-        if (is_numeric($videoXML['upload_time'])) {
-            $videoXML['upload_time'] =
-                date("M j, Y", $videoXML['upload_time']);
-        }
-        $videoXML['comment_count'] =
-            number_format($videoXML['comment_count']);
+        $this->_vid['author'] = 
+            $videoXML['author']['name'];
+          
+        $this->_vid['id'] = $videoXML['id'];
+        $pos = strrpos($this->_vid['id'], "/");
+        $this->_vid['id'] = substr($this->_vid['id'], $pos);
             
-        $this->_vid = $videoXML;
+        $this->_vid['title'] =
+            htmlspecialchars($videoXML['title']['_content'], ENT_QUOTES);
+        
+        $videoXML['runtime'] =
+            TubePressVideo::_humanTime($videoXML['media:group']['yt:duration']['seconds']);
+            
+        //$videoXML['rating_count'] =
+        //    number_format($videoXML['rating_count']);
+            
+        $this->_vid['description'] = 
+            $videoXML['media:group']['media:description']['_content'];    
+            
+        $this->_vid['view_count'] =
+            number_format($videoXML['yt:statistics']['viewCount']);
+        
+        $this->_vid['thumbnail_url'] = 
+            $videoXML['media:group']['media:thumbnail'][0]['url'];
+            
+        //if (is_numeric($videoXML['upload_time'])) {
+        //    $videoXML['upload_time'] =
+        //        date("M j, Y", $videoXML['upload_time']);
+        //}
+        //$videoXML['comment_count'] =
+        //    number_format($videoXML['comment_count']);
+            
+        //$this->_vid['author'] = $videoXML;
     }
 
     /**

@@ -23,18 +23,21 @@
  * This is meant to be an abstract class, though PHP 4 doesn't support
  * them :(. The idea here is that each implementation (WordPress, MoveableType)
  * extends this class and passes it around as the class that holds all 
- * of the users options. It's essentially just an array of TubePressOptions 
+ * of the users options. It's essentially just an array of TubePressDataItems
  * with some extra methods related to metadata on those options.
 */
 class TubePressDataPackage
 {
-    /* this is our array of items */
+    /**
+     * This is our array of items. Should never be accessed directly from
+     * the outside
+     */
     var $_dataArray;
 
     /**
-     * Default options
+     * Constructor
      */
-    function TubePressOptionsPackage()
+    function TubePressDataPackage()
     {
 		die("TubePressDataPackage is an abstract class");
     }
@@ -49,16 +52,20 @@ class TubePressDataPackage
     {
         /* make sure the db looks ok */
         if ($this->_dataArray == NULL) {
-            return PEAR::raiseError(_tpMsg("NODB"));
+            return PEAR::raiseError("Database options are completely missing.");
         }
+        
         if (!is_array($this->_dataArray)) {
-            return PEAR::raiseError(_tpMsg("BADDB",
-            array(gettype($this->_dataArray))));
+            return PEAR::raiseError(
+                sprintf("Database options appear to be of type '%s' instead of an array.",
+                gettype($this->_dataArray)));
         }
 
         $validTypes = $this->getValidTypes();
         $modelItems = $this->getNames();
+        
         foreach ($modelItems as $defaultItem) {
+            
             /* Make sure we have all the keys */
             if (!array_key_exists($defaultItem, $this->_dataArray)) {
                 return PEAR::raiseError(_tpMsg("DBMISS", 
@@ -73,6 +80,7 @@ class TubePressDataPackage
 					$found = true;
 				}
 			}
+            
          	if (!$found) {
          	    return PEAR::raiseError(_tpMsg("OLDDB"));
          	}
@@ -88,15 +96,15 @@ class TubePressDataPackage
     }
 
     
-   function getNames()
-   {
+    function getNames()
+    {
    		die("Can't call \"getNames\" from TubePressDataPackage");
-   }
+    }
     
-      function getValidTypes()
-   {
-   		die("Can't call \"getValidTypes\" from TubePressDataPackage");
-   }
+    function getValidTypes()
+    {
+   	    die("Can't call \"getValidTypes\" from TubePressDataPackage");
+    }
    
     /**
      * Tries to get a single option from this package. Returns

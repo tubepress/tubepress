@@ -19,9 +19,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("TubePressOptionsPackage")
-    || require("TubePressOptionsPackage.php");
-
 /**
  * A bunch of "static" utilities that are used throughout the app
  */

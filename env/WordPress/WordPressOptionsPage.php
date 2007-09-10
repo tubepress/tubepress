@@ -293,8 +293,7 @@ class WordPressOptionsPage
         }
 
         /* Do the advanced options */
-        $texts = array(TP_OPT_KEYWORD, TP_OPT_TIMEOUT, TP_OPT_DEVID,
-            TP_OPT_USERNAME);
+        $texts = array(TP_OPT_KEYWORD, TP_OPT_TIMEOUT);
         $bools = array(TP_OPT_DEBUG);
         foreach ($texts as $text) {
             $actualOpt =& $stored->options->get($text);

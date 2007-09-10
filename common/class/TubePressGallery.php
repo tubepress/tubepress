@@ -122,7 +122,7 @@ class TubePressGallery
         /* put the XML into a nice, friendly array */
         $videoArray = TubePressXML::parseRawXML($youtube_xml);
 
-        /* Any parsing errors? Or errors from YouTube? */
+        /* Any parsing errors? */
         if (PEAR::isError($videoArray)) {
             return $videoArray;
         }
@@ -131,9 +131,11 @@ class TubePressGallery
         $videosPrintedCnt = 0;
         
         /* how many videos we actually got from YouTube */
-        $videosReturnedCnt = is_array($videoArray['video'][0]) ?
-            count($videoArray['video']) :
-            1;
+        //$videosReturnedCnt = is_array($videoArray['video'][0]) ?
+        //    count($videoArray['video']) :
+        //    1;
+        $videosReturnedCnt = count($videoArray);
+        
         
         /* Next two lines figure out how many videos we're going to show */
         $vidsPerPage = $stored->options->get(TP_OPT_VIDSPERPAGE);
@@ -156,11 +158,7 @@ class TubePressGallery
         
         for ($x = 0; $x < $vidLimit; $x++) {
             /* Create a TubePressVideo object from the XML (if we can) */
-            if ($videosReturnedCnt == 1) {
-                $video = new TubePressVideo($videoArray['video']);
-            } else {
-                $video = new TubePressVideo($videoArray['video'][$x]);
-            }
+            $video = new TubePressVideo($videoArray[$x]);
         
             /* Top of the gallery is special */
             if ($videosPrintedCnt++ == 0) {

@@ -61,7 +61,9 @@ class TubePressXML
         }
     
         if (strpos($snoopy->response_code, "200 OK") === false) {
-            return PEAR::raiseError(_tpMsg("BADHTTP"));
+            return PEAR::raiseError(
+                sprintf("YouTube did not respond with an HTTP OK: %s", 
+                $snoopy->response_code));
         }
     
         error_reporting(E_ALL ^ E_NOTICE);
@@ -85,12 +87,12 @@ class TubePressXML
        
             case TP_MODE_USER:
                 $modeObj = $stored->modes->get(TP_MODE_USER);
-                $request .= "/feeds/uses/" . $modeObj->getValue() . "/uploads";
+                $request .= "/feeds/users/" . $modeObj->getValue() . "/uploads";
                 break;
             
             case TP_MODE_FAV:
                 $modeObj = $stored->modes->get(TP_MODE_FAV);
-                 $request .= "/feeds/uses/" . $modeObj->getValue() . "/favorites";
+                 $request .= "/feeds/users/" . $modeObj->getValue() . "/favorites";
                 break;
             
             case TP_MODE_TAG:
@@ -126,13 +128,13 @@ class TubePressXML
                     $currentMode->getValue()));
         }
 
-        if (TubePressStatic::areWePaging($stored->options)) {
-            $val = $stored->options->get(TP_OPT_VIDSPERPAGE);
-            $pageNum = TubePressStatic::getPageNum();
-            $request .= sprintf("&page=%s&per_page=%s",
-                $pageNum, $val->getValue());
-        }
-       
+        //if (TubePressStatic::areWePaging($stored->options)) {
+         //   $val = $stored->options->get(TP_OPT_VIDSPERPAGE);
+         //   $pageNum = TubePressStatic::getPageNum();
+         //   $request .= sprintf("&page=%s&per_page=%s",
+         //       $pageNum, $val->getValue());
+       // }
+
         return $request;
     }
     
@@ -157,39 +159,17 @@ class TubePressXML
         }
 
         $result = $Unserializer->getUnserializedData();
-    
-        print_r($result);
-    
+
         /* double check to make sure we have an array */
         if (!is_array($result)) {
-            return PEAR::raiseError(_tpMsg("XMLUNSERR"));
-        }
-    
-        /* make sure we have a status from YouTube */
-        if (!array_key_exists('status', $result)) {
-            return PEAR::raiseError(_tpMsg("NOSTATUS"));
-        }
-    
-        /* see if YouTube liked us */
-        if ($result['status'] != "ok") {
-            $msg = "Unknown error";
-            if (is_array($result['error']) && array_key_exists('description',
-                $result['error'])
-                && array_key_exists('code', $result['error'])) {
-                    $msg = $result['error']['description'] .
-                    " (YouTube error code " . $result['error']['code'] . ")";
-            }
-            return PEAR::raiseError($msg);
+            return PEAR::raiseError("XML unserialization error");
         }
 
-        if (!is_array($result['video_list'])) {
-            return PEAR::raiseError(_tpMsg("OKNOVIDS"));
+        if (!is_array($result['entry'])) {
+            return PEAR::raiseError("No matching videos!");
         }
         
-        if (!array_key_exists('total', $result['video_list'])) {
-            return PEAR::raiseError(_tpMsg("NOCOUNT"));
-        }
-        return $result['video_list'];
+        return $result['entry'];
     }
 }
 ?>

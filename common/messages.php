@@ -27,12 +27,8 @@ $tubepressMessages =
           /*** ERRORS ********************************************************/
           /*******************************************************************/          
           "TIMEOUT" => "Timed out while trying to contact YouTube after %s seconds",
-          "BADHTTP" => "YouTube did not respond with an HTTP OK",
-          "NOSTATUS" => "Valid XML from YouTube, but status is missing",
           "REFUSED" => "Unable to connect to YouTube - ",
-          "XMLUNSERR" => "XML unserialization error",
           "NOCOUNT" => "YouTube didn't return a total video count",
-          "OKNOVIDS" => "YouTube responded with OK, but no video_list returned",
           "BADMODE" => "Invalid mode specified (%s)",
           "BADTYPE" => "Type mismatch while setting the value for '%s'. " .
                 "Expected any %s but instead got '%s' of type '%s'",
@@ -40,8 +36,6 @@ $tubepressMessages =
           "NOVALS" => "No valid values defined for this option",
           "VALTYPE" => "Must set valid option values with TubePressEnum class",
           "NOSUCHOPT" => "%s is not a valid option",
-          "NODB" => "Database options are completely missing.",
-          "BADDB" => "Database options appear to be of type '%s' instead of an array.",
           "VIDNOARR" => "Attempted to make video out of non-array",
           "VIDEMTARR" => "Attempted to make video out of empty array",
           "MISSATT" => "%s is missing from the video's XML",
@@ -92,12 +86,6 @@ $tubepressMessages =
                          "TubePress, or you're worried about revealing " .
                          "any details of your TubePress pages, feel free to " .
                          "disable the feature.",
-          "DEVID_TITLE" => "Alternate YouTube developer ID",
-          "DEVID_DESC" => "Default is \"qh7CQ9xJIIc\". I can't think of a " .
-                  "reason why you'd want/need to change the default developer " .
-                  "id to you own, but the option is here for completeness." .
-                  " Available from <a href=\"http://www.youtube.com/my_profile_dev\"" .
-                  ">http://www.youtube.com/my_profile_dev</a>",
           "KEYWORD_TITLE" => "Trigger keyword",
           "KEYWORD_DESC" => "The word you insert (in plaintext, between " .
                   "square brackets) into your posts to display your YouTube " .
@@ -105,9 +93,6 @@ $tubepressMessages =
           "TIMEOUT_TITLE" => "How long to wait (in seconds) for YouTube to " .
                   "respond",
           "TIMEOUT_DESC" => "Default is 6 seconds",
-          "USERNAME_TITLE" => "Alternate YouTube username",
-          "USERNAME_DESC" => "Default is \"3hough\". Again, no reason to " .
-                  "change this value unless you know something I don't :p",
           
           /*******************************************************************/
           /*** MODES *********************************************************/

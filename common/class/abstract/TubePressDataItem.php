@@ -25,10 +25,13 @@ function_exists("_tpMsg")
     || require(dirname(__FILE__) . "/../../messages.php");
 
 /**
- * An "abstract" TubePressOption or TubePressMode
+ * An "abstract" item in TubePress (a mode, option, or player)
  */
 class TubePressDataItem
 {
+    /**
+     * Each data item has a title, a description, and a default value
+     */
     var $_title, $_description, $_value;
 
     /**
@@ -70,7 +73,7 @@ class TubePressDataItem
      */ 
     function setValue($candidate)
     {
-        die("TubePressBaseDataObject is an abstract class");
+        die("TubePressBaseDataItem is an abstract class");
     }
 }
 ?>
