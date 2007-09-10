@@ -30,16 +30,13 @@ class TubePressDataPackage
 {
     /* this is our array of items */
     var $_dataArray;
-    
-    /* an array of class names that we're allowed to hold */
-	var $_validTypes;
 
     /**
      * Default options
      */
     function TubePressOptionsPackage()
     {
-		die("This is an abstract class");
+		die("TubePressDataPackage is an abstract class");
     }
     
     /**
@@ -58,9 +55,9 @@ class TubePressDataPackage
             return PEAR::raiseError(_tpMsg("BADDB",
             array(gettype($this->_dataArray))));
         }
-        
-        $modelItems = array_keys($this->getDefaultPackage());
-        
+
+        $validTypes = $this->getValidTypes();
+        $modelItems = $this->getNames();
         foreach ($modelItems as $defaultItem) {
             /* Make sure we have all the keys */
             if (!array_key_exists($defaultItem, $this->_dataArray)) {
@@ -71,14 +68,13 @@ class TubePressDataPackage
 
             /* Make sure each entry is a valid type */
 			$found = false;
-            foreach ($this->_validTypes as $type) {
+            foreach ($validTypes as $type) {
 				if (is_a($this->_dataArray[$defaultItem], $type)) {
 					$found = true;
 				}
 			}
          	if (!$found) {
          	    return PEAR::raiseError(_tpMsg("OLDDB"));
-         		
          	}
         }
         
@@ -94,9 +90,13 @@ class TubePressDataPackage
     
    function getNames()
    {
-   		return array_keys($this->getDefaultPackage());
+   		die("Can't call \"getNames\" from TubePressDataPackage");
    }
     
+      function getValidTypes()
+   {
+   		die("Can't call \"getValidTypes\" from TubePressDataPackage");
+   }
    
     /**
      * Tries to get a single option from this package. Returns

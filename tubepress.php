@@ -4,7 +4,7 @@ Plugin Name: TubePress
 Plugin URI: http://tubepress.org
 Description: Display configurable YouTube galleries in your posts and/or pages
 Author: Eric Hough
-Version: 1.5.0
+Version: 1.5.5
 Author URI: http://ehough.com
 
 Copyright (C) 2007 Eric D. Hough (http://ehough.com)
@@ -29,6 +29,9 @@ defined("TP_OPTION_NAME")
 
 function_exists("tp_executeOptionsPage")
     || require("env/WordPress/TubePressOptions.php");
+    
+class_exists("TubePressGallery")
+    || require("common/class/TubePressGallery.php");
     
 if (!isset($tubepress_base_url)) {
     $tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
@@ -57,21 +60,16 @@ function tp_main($content = '')
     /* ------------ PARSE THE TAG --------------------------------- */
     /* ------------------------------------------------------------ */ 
 
-    WordPressStorageBox::applyTag($keyword, $content, $stored->options);
-    if (PEAR::isError($stored->options)) {
-        return TubePressStatic::bail($stored->options);
-    }
+    WordPressStorageBox::applyTag($keyword->getValue(), $content, $stored->options);
 
     /* ------------------------------------------------------------ */
     /* ------------ PRINT DEBUG OUTPUT IF WE NEED IT -------------- */
     /* ------------------------------------------------------------ */ 
 
     /* Are we debugging? */
-    $debug = $stored->options->getValue(TP_OPT_DEBUG);
-    if (PEAR::isError($debug)) {
-        return TubePressStatic::bail($debug);
-    }
-    if ($debug == true
+    $debug = $stored->options->get(TP_OPT_DEBUG);
+
+    if ($debug->getValue() == true
         && isset($_GET[TP_PARAM_DEBUG]) 
         && ($_GET[TP_PARAM_DEBUG] == true)) {
             $newcontent .= TubePressDebug::debug($stored);
@@ -91,17 +89,9 @@ function tp_main($content = '')
  */
 function tp_insertCSSJS()
 {
-    $stored = get_option(TP_OPTION_NAME);
+    $stored = tp_safeGetStorage();
     if ($stored == NULL) {
-    	return;
-    }
-    
-    if (!is_a($stored, "TubePressStorageBox")) {
         return;
-    }
-
-    if (PEAR::isError($stored->checkValidity())) {
-        return;    
     }
     
     global $tubepress_base_url;
@@ -113,34 +103,49 @@ function tp_insertCSSJS()
         <link rel="stylesheet" href="$url/pagination.css" 
             type="text/css" />
 GBS;
-	
-	print TubePressPlayerPackage::getHeadContents($stored);
+    
+    print TubePressPlayerPackage::getHeadContents($stored);
 }
 
 function tp_shouldWeExecute($content, &$keyword, &$stored) {
     
-    $stored = get_option(TP_OPTION_NAME);
+    $stored = tp_safeGetStorage();
     if ($stored == NULL) {
-    	return false;
-    }
-    
-    if (!is_a($stored, "TubePressStorageBox")) {
         return false;
     }
     
-    if (PEAR::isError($stored->checkValidity())) {
-        return false;
-    }
+    $keyword = $stored->options->get(TP_OPT_KEYWORD);
     
-    $keyword = $stored->options->getValue(TP_OPT_KEYWORD);
-    if (PEAR::isError($keyword)) {
-        return false;
-    }
-    
-    if (strpos($content, '[' . $keyword) === false) {
+    if (strpos($content, '[' . $keyword->getValue()) === false) {
         return false;
     }
     return true;
+}
+
+function tp_safeGetStorage() {
+    
+    global $tubepress_storagebox;
+    
+    if (isset($tubepress_storagebox)) {
+        return $tubepress_storagebox;
+    }
+    
+    $stored = get_option(TP_OPTION_NAME);
+    if ($stored == NULL) {
+        return NULL;
+    }
+    
+    if (!is_a($stored, "TubePressStorageBox")) {
+        return NULL;
+    }
+    
+    $result = $stored->checkValidity();
+    if (PEAR::isError($result)) {
+        return NULL;
+    }
+    
+    $tubepress_storagebox = $stored;
+    return $stored;
 }
 
 /* don't forget to add our hooks! */

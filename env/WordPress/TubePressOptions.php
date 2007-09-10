@@ -63,14 +63,14 @@ class_exists("HTML_Template_IT") || require(dirname(__FILE__) . "/../../lib/PEAR
         $tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../common/templates");
         $tpl->loadTemplatefile("options_page.tpl.html", true, true);
         if (PEAR::isError($tpl)) {
-        	WordPressOptionsPage::printStatusMsg($tpl->message,
+            WordPressOptionsPage::printStatusMsg($tpl->message,
                 TP_CSS_FAILURE);
         }
         
         $tpl->setVariable('PAGETITLE', _tpMsg("OPTPANELTITLE"));
-    	$tpl->setVariable('INTROTEXT', _tpMsg("OPTPAGEDESC"));
+        $tpl->setVariable('INTROTEXT', _tpMsg("OPTPAGEDESC"));
         $tpl->setVariable('SAVE', _tpMsg("SAVE"));
-    	
+        
         /* are we updating? */
         if (isset($_POST['tubepress_save'])) {
             

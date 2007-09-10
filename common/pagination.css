@@ -2,6 +2,7 @@ div.pagination {
     padding: 3px;
     margin: 3px;
     text-align:center;
+    clear: both;
 }
 div.pagination a {
     border: 1px solid #dedfde;

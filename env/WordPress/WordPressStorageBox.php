@@ -39,19 +39,6 @@ class WordPressStorageBox extends TubePressStorageBox
 {
     /* need to keep the tag string around for string replacement later */
     var $tagString;
-     
-    /**
-     * Default constructor. Just pulls the options from the db. Will return
-     * error if the options appear to be corrupt.
-     */
-    function WordPressStorageBox()
-    {
-        /* In the db we now store all the options in a single, flat array */
-        $this->options = new TubePressOptionsPackage();
-        $this->players = new TubePressPlayerPackage();
-        $this->modes = new TubePressModePackage();
-    }
-     
  
     /**
      * Tries to strip out any quotes from a tag option name or option value. This
@@ -135,11 +122,9 @@ class WordPressStorageBox extends TubePressStorageBox
     function initDB()
     {
         WordPressStorageBox::deleteLegacyOptions();
-        $opts = get_option(TP_OPTION_NAME);
+        $opts = tp_safeGetStorage();
 
-        if ($opts == NULL
-            || (!is_a($opts, "TubePressStorageBox"))
-            || PEAR::isError($opts->checkValidity())) {
+        if ($opts == NULL) {
             delete_option(TP_OPTION_NAME);
             add_option(TP_OPTION_NAME, 
                 new WordPressStorageBox());
@@ -151,10 +136,11 @@ class WordPressStorageBox extends TubePressStorageBox
      * It pulls all the options from the db, but uses option values found in
      * the tag when it can.
      */
-    function parse($keyword, $content, $dbOptions)
+    function applyTag($keyword, $content, &$dbOptions)
     {
         
-        $customOptions = array();  
+        $customOptions = array();
+        $matches = array();
           
         /* Use a regular expression to match everything in square brackets 
          * after the TubePress keyword */
@@ -162,41 +148,47 @@ class WordPressStorageBox extends TubePressStorageBox
         preg_match("/$regexp/", $content, $matches);
 
         /* Anything was matched by the parentheses? */
-        if (isset($matches[1])) {
+        if ($matches[1] != "") {
         
             /* Break up the options by comma and store them in an 
              * associative array */
             $pairs = explode(",", $matches[1]);
-        
-            $optionsArray = array();
+
             foreach ($pairs as $pair) {
                 $pieces = explode("=", $pair);
-                $customOptions[WordPressOptionsPackage::cleanupTagValue($pieces[0])] = 
-                    WordPressOptionsPackage::cleanupTagValue($pieces[1]);
+                $customOptions[WordPressStorageBox::cleanupTagValue($pieces[0])] = 
+                    WordPressStorageBox::cleanupTagValue($pieces[1]);
             }
         }
         
         /* we'll need the full tag string so we can replace it later */
         $dbOptions->tagString = $matches[0];
 
-        foreach (array_keys($dbOptions->_allOptions) as $dbOption) {
-
-            /* if we have this option in the tag, let's use that instead */        
-            if (array_key_exists($dbOption, $customOptions)) {                
-                $result =
-                    $dbOptions->setValue($dbOption, $customOptions[$dbOption]);
-                
-                /*
-                 * Spit back the error with the tagstring so the user can see what
-                 * they did incorrectly
-                 */
-                if (PEAR::isError($result)) {
-                    $result->message .= "<br /><pre>" . $matches[0] . "</pre>";
-                    return $result;
-                }
+        foreach (array_keys($customOptions) as $customOptionName) {
+            if (!array_key_exists($customOptionName, $dbOptions->getNames())) {
+                continue;
             }
-        }   
-        return $dbOptions;
+            $realOpt = $dbOptions->get($customOptionName);
+            $realOpt->setValue($customOptions[$customOptionName]);
+        }
+        
+//        foreach (array_keys($dbOptions->_dataArray) as $dbOption) {
+//
+//            /* if we have this option in the tag, let's use that instead */        
+//            if (array_key_exists($dbOption, $customOptions)) {                
+//                $result =
+//                    $dbOptions->setValue($dbOption, $customOptions[$dbOption]);
+//                
+//                /*
+//                 * Spit back the error with the tagstring so the user can see what
+//                 * they did incorrectly
+//                 */
+//                if (PEAR::isError($result)) {
+//                    $result->message .= "<br /><pre>" . $matches[0] . "</pre>";
+//                    return $result;
+//                }
+//            }
+//        }   
     }   
 }
 ?>

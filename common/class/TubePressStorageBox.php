@@ -26,6 +26,13 @@
  * of the users options. It's essentially just an array of TubePressOptions 
  * with some extra methods related to metadata on those options.
 */
+class_exists('TubePressOptionsPackage') ||
+    require('options/TubePressOptionsPackage.php');
+class_exists('TubePressPlayerPackage') ||
+    require('players/TubePressPlayerPackage.php');
+class_exists('TubePressModePackage') ||
+    require('modes/TubePressModePackage.php');
+
 class TubePressStorageBox
 {
     /* this is our array of items */
@@ -38,7 +45,7 @@ class TubePressStorageBox
     {
 		$this->options = new TubePressOptionsPackage();
 		$this->players = new TubePressPlayerPackage();
-		$this->modes = new TubePressModesPackage();
+		$this->modes = new TubePressModePackage();
     }
     
     function checkValidity()

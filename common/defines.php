@@ -25,7 +25,7 @@
 /*****************************************************************************/
 /*** MISC ********************************************************************/
 /*****************************************************************************/
-define("TP_YOUTUBE_RESTURL", "http://www.youtube.com/api2_rest?");
+
 /* DO NOT CHANGE THIS DEFINE */
 define("TP_OPTION_NAME", "tubepress");
 
@@ -37,7 +37,7 @@ define("TP_PARAM_VID", "tubepress_id");
 define("TP_PARAM_DEBUG", "tubepress_debug");
 
 /*****************************************************************************/
-/*** MODES *******************************************************************/
+/*** MODE NAMES **************************************************************/
 /*****************************************************************************/
 define("TP_MODE_FAV", "favorites");
 define("TP_MODE_TAG", "tag");
@@ -49,14 +49,9 @@ define("TP_MODE_POPULAR", "popular");
 define("TP_MODE_CATEGORY", "category");
 
 /*****************************************************************************/
-/*** MODES *******************************************************************/
+/*** MODE  *************************************************************/
 /*****************************************************************************/
 define("TP_OPT_MODE", "mode");
-define("TP_OPT_TAGVAL", "tagValue");
-define("TP_OPT_USERVAL", "userValue");
-define("TP_OPT_PLSTVAL", "playlistValue");
-define("TP_OPT_POPVAL", "popularValue");
-define("TP_OPT_FAVVAL", "favoritesValue");
 
 /*****************************************************************************/
 /*** PLAYER LOCATIONS ********************************************************/
@@ -84,8 +79,6 @@ define("TP_OPT_LWON", "lightWindowEnabled");
 /*** ADVANCED OPTIONS ********************************************************/
 /*****************************************************************************/
 define("TP_OPT_DEBUG", "debugging_enabled");
-define("TP_OPT_DEVID", "devID");
-define("TP_OPT_USERNAME", "username");
 define("TP_OPT_KEYWORD", "keyword");
 define("TP_OPT_TIMEOUT", "timeout");
 
@@ -106,20 +99,4 @@ define("TP_VID_TAGS", "tags");
 define("TP_VID_URL", "url");
 define("TP_VID_THUMBURL", "thumburl");
 
-/*****************************************************************************/
-/*** CSS  ********************************************************************/
-/*****************************************************************************/
-define("TP_CSS_CONTAINER", "tubepress_container");
-define("TP_CSS_MAINVID_ID", "tubepress_mainvideo");
-define("TP_CSS_MAINVID_INNER", "tubepress_inner");
-define("TP_CSS_BIGTITLE", "tubepress_btitle");
-define("TP_CSS_METAWRAP", "tubepress_meta");
-define("TP_CSS_THUMBBOX", "tubepress_video_thumbs");
-define("TP_CSS_ONETHUMB", "tubepress_thumb");
-define("TP_CSS_INTHUMB", "tubepress_video_thumb_inner");
-define("TP_CSS_RUNTIME", "tubepress_runtime");
-define("TP_CSS_SMALLTITLE", "tubepress_stitle");
-define("TP_CSS_SUCCESS", "updated fade");
-define("TP_CSS_METAGROUP", "tubepress_meta_group");
-define("TP_CSS_FAILURE", "error fade");
 ?>

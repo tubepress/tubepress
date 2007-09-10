@@ -1,6 +1,6 @@
 <?php
 /**
- * TubePressPlayer.php
+ * TPNormalPlayer.php
  * 
  * Copyright (C) 2007 Eric D. Hough (http://ehough.com)
  * 
@@ -19,39 +19,36 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("TubePressDataItem")
-    || require(dirname(__FILE__) . "/../abstract/TubePressDataItem.php");
+class_exists("TubePressPlayer")
+    || require(dirname(__FILE__) . "/../abstract/TubePressPlayer.php");
 
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
-class TubePressPlayer extends TubePressDataItem
+class TPNormalPlayer extends TubePressPlayer 
 {
-	/*
-	 * for each player, we want to know which CSS
-	 * and JS libraries that it needs
-	 */
-	var $_cssLibs, $_jsLibs, $_extraJS;
-
-	function TubePressPlayer($title, $cssLibs = " ", $jsLibs = " ", $extraJS = " ") {
-		$this->_title = $title;
-		$this->_cssLibs = $cssLibs;
-		$this->_jsLibs = $jsLibs;
-		$this->_extraJS = $extraJS;
+	function TPNormalPlayer() {
+		$this->_title = _tpMsg("PLAYIN_NORMAL_TITLE");
+		$this->_cssLibs = array();
+		$this->_jsLibs = array();
 	}
 	
-	function getJS()
+    function getPlayLink($vid, $options)
 	{
-		return $this->_jsLibs;
-	}
-	
-	function getCss()
-	{
-		return $this->_cssLibs;
-	}
-	
-	function getExtraJS() {
-		return $this->_extraJS;
+	    $widthOpt = $options->get(TP_OPT_VIDWIDTH);
+	    $width = $widthOpt->getValue();
+	    
+	    $heightOpt = $options->get(TP_OPT_VIDHEIGHT);
+	    $height = $heightOpt->getValue();
+	    
+	    $title = $vid->getTitle();
+	    $id = $vid->getId();
+	    
+	    return sprintf('href="#" onclick="javascript:playVideo(' .
+            '\'%s\', \'%s\', \'%s\', \'%s\', \'%s\',' .
+            ' \'normal\', \'%s\')"',
+            $id, $height, $width, rawurlencode($title),
+            $vid->getRuntime(), "http://localhost/wp");
 	}
 }
 ?>

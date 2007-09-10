@@ -28,7 +28,6 @@ class_exists("TubePressMode")
 class TubePressModePackage extends TubePressDataPackage
 {
     function TubePressModePackage() {
-        $this->_validTypes = array("TubePressMode");
     	$this->_dataArray = TubePressModePackage::getDefaultPackage();
     }
     
@@ -54,6 +53,15 @@ class TubePressModePackage extends TubePressDataPackage
     		TP_MODE_POPULAR => new TubePressMode(_tpMsg("MODE_POPULAR_TITLE"),
     			" ", "day")
     	);
+    }
+    
+    function getNames() {
+        return array(TP_MODE_USER, TP_MODE_FAV, TP_MODE_PLST, TP_MODE_TAG,
+            TP_MODE_FEATURED, TP_MODE_POPULAR);
+    }
+    
+    function getValidTypes() {
+        return array("TubePressMode");
     }
     
     function setValue($modeName, $modeValue) {

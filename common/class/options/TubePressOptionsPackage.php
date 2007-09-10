@@ -48,10 +48,6 @@ class TubePressOptionsPackage extends TubePressDataPackage
     function TubePressOptionsPackage()
     {
         $this->_dataArray = TubePressOptionsPackage::getDefaultPackage();
-        $this->_validTypes  = array(
-            "TubePressBooleanOpt", "TubePressEnumOpt",
-            "TubePressIntegerOpt", "TubePressStringOpt"
-        );
     }
     
     function getMetaNames()
@@ -115,12 +111,6 @@ class TubePressOptionsPackage extends TubePressDataPackage
                                          
                   TP_OPT_TIMEOUT =>  new TubePressIntegerOpt(
                       _tpMsg("TIMEOUT_TITLE"), _tpMsg("TIMEOUT_DESC"), 6),
-                                         
-                  TP_OPT_DEVID =>    new TubePressStringOpt(
-                      _tpMsg("DEVID_TITLE"), _tpMsg("DEVID_DESC"), "qh7CQ9xJIIc"),
-                                         
-                  TP_OPT_USERNAME => new TubePressStringOpt(
-                      _tpMsg("USERNAME_TITLE"), _tpMsg("USERNAME_DESC"), "3hough"),
                                           
                   TP_OPT_DEBUG => new TubePressBooleanOpt(
                       _tpMsg("DEBUGTITLE"), _tpMsg("DEBUGDESC"), true),
@@ -129,13 +119,33 @@ class TubePressOptionsPackage extends TubePressDataPackage
 
                   TP_OPT_MODE => new TubePressEnumOpt(_tpMsg("MODE_TITLE"),
                       ' ', TP_MODE_FEATURED, 
-                      array_keys(TubePressModePackage::getDefaultPackage())),
+                      TubePressModePackage::getNames()),
 
         /* -------- PLAYER LOCATION OPTION ----------------------------------- */
  
                   TP_OPT_PLAYIN => new TubePressEnumOpt( 
                       _tpMsg("PLAYIN_TITLE"), ' ', TP_PLAYIN_NORMAL,
-                      array_keys(TubePressPlayerPackage::getDefaultPackage())));                       
+                      TubePressPlayerPackage::getNames()));                       
     }
+    
+    function getNames() {
+        return array(TP_VID_TITLE, TP_VID_LENGTH, TP_VID_VIEW, TP_VID_AUTHOR,
+            TP_VID_ID, TP_VID_RATING_AVG, TP_VID_RATING_CNT, TP_VID_UPLOAD_TIME,
+            TP_VID_COMMENT_CNT, TP_VID_TAGS, TP_VID_URL, TP_VID_THUMBURL, TP_VID_DESC,
+            TP_OPT_VIDSPERPAGE, TP_OPT_VIDWIDTH, TP_OPT_VIDHEIGHT, TP_OPT_THUMBWIDTH,
+            TP_OPT_THUMBHEIGHT, TP_OPT_GREYBOXON, TP_OPT_LWON, TP_OPT_KEYWORD,
+            TP_OPT_TIMEOUT, TP_OPT_DEBUG, TP_OPT_MODE,
+            TP_OPT_PLAYIN
+            );
+    }
+    
+    function getValidTypes() {
+        return array(
+            "TubePressBooleanOpt", "TubePressEnumOpt",
+            "TubePressIntegerOpt", "TubePressStringOpt"
+        );
+    }
+    
+    
 }
 ?>

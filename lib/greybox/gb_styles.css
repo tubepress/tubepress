@@ -1,16 +1,11 @@
 /* Last-Modified: 28/06/06 00:08:22 */
 #GB_overlay {
-
-    position: fixed;
+    background-color: #000;
+    position: absolute;
     margin: auto;
     top: 0;
     left: 0;
-
-	display: block;
-	background-repeat: repeat;
-    height: 100%;
-    width: 100%;
-    background-image: url("../lightWindow/images/black-70.png");
+    z-index: 100;
 }
 
 #GB_window {
@@ -19,7 +14,7 @@
     font-size: 1px;
     position: absolute;
     overflow: visible;
-
+    z-index: 150;
 }
 
 #GB_window .content {

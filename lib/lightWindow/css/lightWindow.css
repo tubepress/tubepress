@@ -1,95 +1,95 @@
-#overlay {
-    /* REQUIRED */
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 50;
-    /* REQUIRED */
-
-}
-
-	/* REQUIRED */
-	#overlay[id] {
-   		position: fixed;
-	}
-	/* REQUIRED */
-
-#lightWindow {
-	/* REQUIRED */
-	/* Of Note - The height and width of this element are set to 0px */
-	display: none;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	z-index: 100;
-	/* REQUIRED */
-}
-
-	/* REQUIRED */
-	#lightWindow[id] {
-		position: fixed;
-	}
-	/* REQUIRED */
-
-#lightWindow-contents {
+#lightwindow_overlay {
 	/* REQUIRED */
 	display: none;
-	position: absolute;
-	overflow: hidden;
-	/* REQUIRED */
-
-	background-color: #ffffff;
-	/* Of Note - If you specify a padding or border be sure to adjust the 'cushion' option, by default its set to 10 */
-	border: 10px solid #ffffff;
-}
-	
-#lightWindow-loading {
-	/* REQUIRED */
-	height: 100%;
-	width: 100%;
+	visibility: hidden;
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 9999; 
+	width: 100%;
+	height: 100px;
+	z-index: 500;
 	/* REQUIRED */
-	
+}
+
+#lightwindow {
+	/* REQUIRED */
+	/* Of Note - The height and width of this element are set to 0px */
+	display: none;
+	visibility: hidden;
+	position: absolute;
+	z-index: 999;
+	line-height: 0px;
+	/* REQUIRED */
+}
+
+	#lightwindow_container {
+		/* REQUIRED */
+		display: none;
+		visibility: hidden;
+		position: absolute;
+		/* REQUIRED */
+		padding: 0 0 0 0;
+		margin: 0 0 0 0;
+	}
+
+	/* IE6 needs this or it messes with our positioning */
+	* html #lightwindow_container {
+		overflow: hidden;
+	}
+
+	#lightwindow_contents {
+		overflow: hidden;
+		z-index: 0;
+		position: relative;
+		border: 10px solid #ffffff;
+		background-color: #ffffff;
+	}		
+
+#lightwindow_loading {
+	/* REQUIRED */
+	height: 100%;
+	width: 100%;
+	top: 0px;
+	left: 0px;
+	z-index: 9999;
+	position: absolute;
+	/* REQUIRED */
 	background-color: #f0f0f0;
 	padding: 10px;
 }
 
-	#lightWindow-loading-message {
-    	font-size: 14px;
+	#lightwindow_loading_shim { 
+		display: none;
+		left: 0px; 
+		position: absolute; 
+		top: 0px;
+		width: 100%; 
+		height: 100%;
+	}
+
+	#lightwindow_loading span {
+    	font-size: 12px;
 		line-height: 32px;
 		color: #444444;
 		float: left;
 		padding: 0 10px 0 0;
 	}
 
-	#lightWindow-loading-options {
-    	font-size: 12px;
-		line-height: 32px;
-		color: #444444;
-		float: left;
-		border-left: 2px solid #cccccc;
-		padding: 0 0 0 10px;
-	}	
-
-	#lightWindow-loading-options a, 
-	#lightWindow-loading-options a:visited {
+	#lightwindow_loading span a,
+	#lightwindow_loading span a:link, 
+	#lightwindow_loading span a:visited {
 		color: #09F;
 		text-decoration: none;
 		cursor: pointer;
 	}
 
-	#lightWindow-loading-options a:hover {
+	#lightwindow_loading span a:hover,
+	#lightwindow_loading span a:active {
 		text-decoration: underline;
 	}
 
 
-	#lightWindow-loading img {
+	#lightwindow_loading img {
    		float: left;
    		margin: 0 10px 0 0;
 	}
@@ -100,126 +100,170 @@
 	I mean let's face it, it works really well and is very easy to figure out.
 -----------------------------------------------------------------------------------------------*/
 
-#lightWindow-navigation {
+#lightwindow_navigation {
 	/* REQUIRED */
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	z-index: 150;
+	display: none;
 	/* REQUIRED */
-
-	height: 100%;
-	width: 100%;
 }
+	/* We need to shim the navigation for IE, though its more of a sub-floor */
+	#lightwindow_navigation_shim { 
+		/* REQUIRED */
+		display: none;
+		left: 0px; 
+		position: absolute; 
+		top: 0px;
+		width: 100%; 
+		height: 100%;
+		/* REQUIRED */
+	}
 
-	#lightWindow-navigation a { 
+	#lightwindow_navigation a,
+	#lightwindow_navigation a:link,
+	#lightwindow_navigation a:visited,
+	#lightwindow_navigation a:hover,
+	#lightwindow_navigation a:active { 
 		/* REQUIRED */
 		outline: none;
 		/* REQUIRED */
 	}
 
-	#lightWindow-previous, 
-	#lightWindow-next {
+	#lightwindow_previous, 
+	#lightwindow_next {
 		width: 49%;
 		height: 100%;
 		background: transparent url(../images/blank.gif) no-repeat; /* Trick IE into showing hover */
 		display: block;
 	}
-
-	#lightWindow-previous { 
+	
+	#lightwindow_previous { 
 		float: left;
 		left: 0px;
 	}
 
-	#lightWindow-next { 
+	#lightwindow_next { 
 		float: right;
 		right: 0px;
 	}
 
-	#lightWindow-previous:hover, 
-	#lightWindow-previous:visited:hover { 
+	#lightwindow_previous:hover, 
+	#lightwindow_previous:active { 
 		background: url(../images/prevlabel.gif) left 15% no-repeat; 
 	}
 
-	#lightWindow-next:hover, 
-	#lightWindow-next:visited:hover { 
+	#lightwindow_next:hover, 
+	#lightwindow_next:active { 
 		background: url(../images/nextlabel.gif) right 15% no-repeat; 
 	}
-
-#lightWindow-photo-galleries {
-	/* REQUIRED */
-	height: 20px;
+	
+	#lightwindow_previous_title,
+	#lightwindow_next_title {
+		display: none;
+	}
+	 	
+#lightwindow_galleries {
 	width: 100%;
 	position: absolute;
-	bottom: 0;
-	left: 0;
-	z-index: 9999; 
-	/* REQUIRED */
+	z-index: 50; 
+	display: none;
+	overflow: hidden;
+	margin: 0 0 0 10px;
+	bottom: 0px;
+	left: 0px;
 }
 
-	#lightWindow-photo-tab-container {
+	#lightwindow_galleries_tab_container {
 		width: 100%;
-		height: 20px;
+		height: 0px;
+		overflow: hidden;
 	}
-		
-	#lightWindow-photo-galleries-tab {
+
+	a#lightwindow_galleries_tab,		
+	a:link#lightwindow_galleries_tab,
+	a:visited#lightwindow_galleries_tab {
 		display: block;
 		height: 20px;
-		width: 70px;
+		width: 77px;
 		float: right;
-		-moz-opacity:  0.70;
-		opacity: .70;
-		filter: alpha(opacity=70);
 		line-height: 22px;
 		color: #ffffff;
 		text-decoration: none;
 		font-weight: bold;
 		cursor: pointer;
-		padding: 0 0 0 7px;
 		font-size: 11px;
-	}
-
-	a:hover#lightWindow-photo-galleries-tab	{
 		color: #ffffbe;
+		background: url(../images/black-70.png) repeat 0 0 transparent;
 	}
-
-	.up	{
-		background: url(../images/arrow-up.gif) no-repeat 60px 5px #000000;
-	}
-
-	.down {
-		background: url(../images/arrow-down.gif) no-repeat 60px 6px #000000;
-	}
-
-	#lightWindow-photo-galleries-list {
+	
+	* html a#lightwindow_galleries_tab,		
+	* html a:link#lightwindow_galleries_tab,
+	* html a:visited#lightwindow_galleries_tab {	
+		background: none;
 		background-color: #000000;
-		-moz-opacity:  0.70;
 		opacity: .70;
 		filter: alpha(opacity=70);
-		overflow: hidden;
 	}
 
-	.lightWindow-photo-gallery-listing {
+	a:hover#lightwindow_galleries_tab,
+	a:active#lightwindow_galleries_tab {
+		color: #ffffbe;
+
+	}
+
+	#lightwindow_galleries_tab_span {
+		display: block;
+		height: 20px;
+		width: 63px;
+		padding: 0 7px 0 7px;
+	}
+	
+	#lightwindow_galleries_tab .up	{
+		background: url(../images/arrow-up.gif) no-repeat 60px 5px transparent;
+	}
+
+	#lightwindow_galleries_tab .down {
+		background: url(../images/arrow-down.gif) no-repeat 60px 6px transparent;
+	}
+
+	#lightwindow_galleries_list {
+		background: url(../images/black-70.png) repeat 0 0 transparent;
+		overflow: hidden;
+		height: 0px;
+	}
+
+	* html #lightwindow_galleries_list {
+		background: none;
+		background-color: #000000;
+		opacity: .70;
+		filter: alpha(opacity=70);
+	}	
+
+	.lightwindow_galleries_list {
 		width: 200px;
 		float: left;
 		margin: 0 0 10px 0;
 		padding: 10px;
 	}
 
-	.lightWindow-photo-gallery-listing h1 {	
+	.lightwindow_galleries_list h1 {	
 		color: #09F;
 		text-decoration: none;
 		font-weight: bold;
 		cursor: pointer;
-		margin: 5px 0 10px 0;
+		padding: 10px 0 5px 0;
 		font-size: 16px;
 	}
 
-	.lightWindow-photo-gallery-listing li {
-		margin: 0 0 5px 0;
+	.lightwindow_galleries_list li {
+		margin: 5px 0 5px 0;
+		list-style-type: none;
 	}
 
-	.lightWindow-photo-gallery-listing a {
+	.lightwindow_galleries_list a, 
+	.lightwindow_galleries_list a:link, 
+	.lightwindow_galleries_list a:visited {
 		display: block;
 		line-height: 22px;
 		color: #ffffff;
@@ -230,103 +274,84 @@
 		font-size: 11px;
 	}
 
-	.lightWindow-photo-gallery-listing a:hover {
+	.lightwindow_galleries_list a:hover, 
+	.lightwindow_galleries_list a:active {
 		background: #000000;
 		color: #ffffbe;
 		border-left: 3px solid #ffffbe;
 		padding: 0 0 0 7px;
 	}
 		
-#lightWindow-data {
+#lightwindow_data {
 	/* REQUIRED */
 	position: absolute;
 	/* REQUIRED */
-	
-	background-color: #ffffff;
-	font-size: 11px;
-	font-family: Verdana, Helvetica, sans-serif;
 }
 
-	#lightWindow-data-slide {
+	#lightwindow_data_slide {
 		/* REQUIRED */
 		position: relative;
 		/* REQUIRED */
 	}
 
-	#lightWindow-data-title {
-		width: 75%;
-		padding: 0 0 0 10px;
-		font-weight: bold;
-		color: #666666;
-		line-height: 1.4em;
+	#lightwindow_data_slide_inner {
+		background-color: #ffffff;
+		padding: 0 10px 10px 10px;
 	}
-	
-	#lightWindow-data-caption {
-		width: 75%;
-		padding: 0 0 0 10px;
-		color: #666666;
-		line-height: 1.4em;
-	}
-	
-	#lightWindow-data-author {
-		position: absolute;
-		width: 100px;
-		top: 0px;
-		right: 10px;
-		text-align: right;
-		color: #666666;
-		line-height: 1.4em;
-	 	font-style: italic;
-		font-size: 9px;
-	}
-	
-	#lightWindow-data-image {
-		position: absolute;
-		font-size: 9px;
-		width: 100px;
-		top: 15px;
-		right: 10px;
-		text-align: right;
-		color: #666666;
-		line-height: 1.4em;
-	}
-	
-#lightWindow-title-bar
-{
-	/* REQUIRED */
-	display: none;
-	position: absolute;
-	top: 0;
-	left: 0;
-	/* REQUIRED */
-	
 
-}
+	#lightwindow_data_caption {
+		padding: 10px 0 0 0;
+		color: #666666;
+		line-height: 25px;
+		background-color: #ffffff;
+		clear: both;
+	}
+
+	#lightwindow_data_details {
+		background-color: #f0f0f0;
+		padding: 0 10px 0 10px;
+		height: 20px;
+	}
 	
-	#lightWindow-title-bar-title
-	{
+	#lightwindow_data_author_container {
+		width: 40%;
+		text-align: right;
+		color: #666666;
+	 	font-style: italic;
+		font-size: 10px;
+		line-height: 20px;
+		float: right;
+		overflow: hidden;
+	}
+	
+	#lightwindow_data_gallery_container {
+		font-size: 10px;
+		width: 40%;
 		text-align: left;
+		color: #666666;
+		line-height: 20px;
 		float: left;
+		overflow: hidden;
+	}
+	
+#lightwindow_title_bar {
+	height: 25px;
+	overflow: hidden;		
+}
+
+	#lightwindow_title_bar_title {
 		color: #ffffbe;
 		font-size: 14px;
-		width: 80%;
 		line-height: 25px;
-		
-		z-index: 50;
-	}
-	
-	#lightWindow-title-bar-close
-	{
+		text-align: left;
 		float: left;
-		width: 20%;
-		text-align: right;
-		line-height: 25px;
-			z-index: 50;
 	}
-	
-	
-	a#lightWindow-title-bar-close-link
-	{
+
+	a#lightwindow_title_bar_close_link,	
+	a:link#lightwindow_title_bar_close_link,
+	a:visited#lightwindow_title_bar_close_link {
+		float: right;
+		text-align: right;		
 		cursor: pointer;
 		color: #ffffbe;
 		line-height: 25px;
@@ -334,7 +359,18 @@
 		margin: 0;
 	}
 	
-	a:hover#lightWindow-title-bar-close-link
-	{
+	a:hover#lightwindow_title_bar_close_link,
+	a:active#lightwindow_title_bar_close_link {
 		color: #ffffff;
 	}
+
+/*-----------------------------------------------------------------------------------------------
+	Theme styling stuff
+-----------------------------------------------------------------------------------------------*/	
+
+#lightwindow p {
+	color: #000000;
+	padding-right: 10px;
+}
+
+

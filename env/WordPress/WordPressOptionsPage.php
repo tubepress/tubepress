@@ -30,8 +30,7 @@ class WordPressOptionsPage
     {
         $tpl->setVariable("ADVTITLE", _tpMsg("ADV_GRP_TITLE"));
         
-        $texts = array(TP_OPT_KEYWORD, TP_OPT_TIMEOUT, TP_OPT_DEVID,
-            TP_OPT_USERNAME);
+        $texts = array(TP_OPT_KEYWORD, TP_OPT_TIMEOUT);
         $bools = array(TP_OPT_DEBUG);
             
         foreach ($texts as $text) {
@@ -144,7 +143,7 @@ class WordPressOptionsPage
         $tpl->setVariable('TITLE', _tpMsg("MODE_HEADER"));
 
         foreach ($stored->modes->getNames() as $modeName) {
-        	
+            
             $storedMode = $stored->options->get(TP_OPT_MODE);
             $actualMode = $stored->modes->get($modeName);;
             /* handle featured */
@@ -286,7 +285,7 @@ class WordPressOptionsPage
         foreach ($metaOptions as $metaOption) {
             $actualOpt =& $stored->options->get($metaOption);
             
-        	$result = $actualOpt->setValue(in_array($metaOption, $_POST['meta']));
+            $result = $actualOpt->setValue(in_array($metaOption, $_POST['meta']));
             if (PEAR::isError($result)) {
                 WordPressOptionsPage::printStatusMsg($result->message, TP_CSS_FAILURE);
                 return;

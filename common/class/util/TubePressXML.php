@@ -34,10 +34,10 @@ class TubePressXML
     /**
      * Connects to YouTube and returns raw XML
      */
-    function fetchRawXML($options)
+    function fetchRawXML($options, $request)
     {   
         class_exists("snoopy") || require(dirname(__FILE__) .
-            "/../../lib/snoopy/Snoopy.class.php");
+            "/../../../lib/snoopy/Snoopy.class.php");
         
         /* We turn off error reporting here because Snoopy is very noisy if we
          * can't connect
@@ -45,17 +45,11 @@ class TubePressXML
         error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
         
         $snoopy = new snoopy();
-        $timeout = $options->getValue(TP_OPT_TIMEOUT);
+        $timeout = $options->get(TP_OPT_TIMEOUT);
         if (PEAR::isError($timeout)) {
             return $timeout;
         }
-        $snoopy->read_timeout = $timeout;
-
-        $request = TubePressXML::generateRequest($options);
-
-        if (PEAR::isError($request)) {
-            return $request;
-        }
+        $snoopy->read_timeout = $timeout->getValue();
 
         if (!$snoopy->fetch($request)) {
             return PEAR::raiseError(_tpMsg("REFUSED") .
@@ -79,45 +73,28 @@ class TubePressXML
      * Looks at what the user is trying to do and generates the URL that will
      * be sent to YouTube base on that
      */
-    function generateRequest($options)
+    function generateRequest($stored)
     {
         class_exists('TubePressStatic') || require("TubePressStatic.php");
         
-        $request = TP_YOUTUBE_RESTURL . "method=youtube.";
+        $request = "http://gdata.youtube.com";
 
-        $result = $options->getValue(TP_OPT_MODE);
-        if (PEAR::isError($result)) {
-            return $result;
-        }
+        $currentMode = $stored->options->get(TP_OPT_MODE);
 
-        switch ($result) {
+        switch ($currentMode->getValue()) {
        
             case TP_MODE_USER:
-                $val = $options->getValue(TP_OPT_USERVAL);
-                if (PEAR::isError($val)) {
-                    return $val;
-                }
-                $request .= "videos.list_by_user" .
-                    "&user=" . $val;
+                $modeObj = $stored->modes->get(TP_MODE_USER);
+                $request .= "/feeds/uses/" . $modeObj->getValue() . "/uploads";
                 break;
             
             case TP_MODE_FAV:
-                $val = $options->getValue(TP_OPT_FAVVAL);
-                if (PEAR::isError($val)) {
-                    return $val;
-                }
-                $request .= "users.list_favorite_videos" .
-                    "&user=" . $val;
+                $modeObj = $stored->modes->get(TP_MODE_FAV);
+                 $request .= "/feeds/uses/" . $modeObj->getValue() . "/favorites";
                 break;
             
             case TP_MODE_TAG:
-                $val = $options->getValue(TP_OPT_TAGVAL);
-                if (PEAR::isError($val)) {
-                    return $val;
-                }
-                $request .= "videos.list_by_tag" .
-                    "&tag=" . urlencode($val);
-                break;
+            case TP_MODE_REL:
             
             /* list_by_related is now deprecated, and returns identical 
              * results to list_by_tag. See http://groups.google.com/group/
@@ -125,56 +102,37 @@ class TubePressXML
              * 66eef9a7fced754e?lnk=gst&q=list_by_tag+identical&rnum=
              * 1#66eef9a7fced754e
              */
-            case TP_MODE_REL:
-                $val = $options->getValue(TP_OPT_TAGVAL);
-                if (PEAR::isError($val)) {
-                    return $val;
-                }
-                $request .= "videos.list_by_tag" .
-                    "&tag=" . urlencode($val);
+            
+                $modeObj = $stored->modes->get(TP_MODE_REL);
+                print_r($modeObj);
+                $request .= "/feeds/videos?vq=" . urlencode($modeObj->getValue());
                 break;
             
             case TP_MODE_PLST:
-                $val = $options->getValue(TP_OPT_PLSTVAL);
-                if (PEAR::isError($val)) {
-                    return $val;
-                }
-                $request .= "videos.list_by_playlist" .
-                    "&id=" . $val;
+                $modeObj = $stored->modes->get(TP_MODE_PLST);
+                $request .= "/feeds/playlists/" . $modeObj->getValue();
                 break;
             
             case TP_MODE_POPULAR:
-                $val = $options->getValue(TP_OPT_POPVAL);
-                if (PEAR::isError($val)) {
-                    return $val;
-                }
-                $request .= "videos.list_popular" .
-                    "&time_range=" . $val;
+                $modeObj = $stored->modes->get(TP_MODE_POPULAR);
+                $request .= "/feeds/standardfeeds/most_viewed?time=" . $modeObj->getValue();
                 break;
         
             case TP_MODE_FEATURED:
-                $request .= "videos.list_featured";
+                $request .= "/feeds/standardfeeds/recently_featured";
                 break;
             default:
                 return PEAR::raiseError(_tpMsg("BADMODE",
-                    $val));
+                    $currentMode->getValue()));
         }
 
-        if (TubePressStatic::areWePaging($options)) {
-            $val = $options->getValue(TP_OPT_VIDSPERPAGE);
-            if (PEAR::isError($val)) {
-                return $val;
-            }
+        if (TubePressStatic::areWePaging($stored->options)) {
+            $val = $stored->options->get(TP_OPT_VIDSPERPAGE);
             $pageNum = TubePressStatic::getPageNum();
             $request .= sprintf("&page=%s&per_page=%s",
-                $pageNum, $val);
+                $pageNum, $val->getValue());
         }
-
-        $val = $options->getValue(TP_OPT_DEVID);
-        if (PEAR::isError($val)) {
-            return $val;
-        }
-        $request .= "&dev_id=" . $val;
+       
         return $request;
     }
     
@@ -185,7 +143,7 @@ class TubePressXML
     {
     
         class_exists('XML_Unserializer') || require(dirname(__FILE__) .
-            '/../../lib/PEAR/XML/XML_Serializer/Unserializer.php');
+            '/../../../lib/PEAR/XML/XML_Serializer/Unserializer.php');
     
         $unserializer_options = array ('parseAttributes' => TRUE);
 
@@ -199,6 +157,8 @@ class TubePressXML
         }
 
         $result = $Unserializer->getUnserializedData();
+    
+        print_r($result);
     
         /* double check to make sure we have an array */
         if (!is_array($result)) {

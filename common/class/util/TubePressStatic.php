@@ -32,11 +32,11 @@ class TubePressStatic
      */
     function areWePaging($options)
     {
-        $mode = $options->getValue(TP_OPT_MODE);
-        if (($mode == TP_MODE_USER)
-            || ($mode == TP_MODE_TAG)
-            || ($mode == TP_MODE_REL)
-            || ($mode == TP_MODE_PLST)) {
+        $mode = $options->get(TP_OPT_MODE);
+        if (($mode->getValue() == TP_MODE_USER)
+            || ($mode->getValue() == TP_MODE_TAG)
+            || ($mode->getValue() == TP_MODE_REL)
+            || ($mode->getValue() == TP_MODE_PLST)) {
                 return true;
         }
         return false;
