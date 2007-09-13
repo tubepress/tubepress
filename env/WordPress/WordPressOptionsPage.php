@@ -31,7 +31,7 @@ class WordPressOptionsPage
         $tpl->setVariable("ADVTITLE", _tpMsg("ADV_GRP_TITLE"));
         
         $texts = array(TP_OPT_KEYWORD, TP_OPT_TIMEOUT);
-        $bools = array(TP_OPT_DEBUG);
+        $bools = array(TP_OPT_DEBUG, TP_OPT_RANDOM_THUMBS);
             
         foreach ($texts as $text) {
             $opt = $stored->options->get($text);

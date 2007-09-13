@@ -62,6 +62,7 @@ $tubepressMessages =
           "VIDUPLOAD" => "Uploaded date",
           "VIDURL" => "YouTube URL",
           "VIDVIEWS" => "Views",
+          "VIDCAT" => "Category",
           
           /*******************************************************************/
           /*** PAGE WIDE MESSAGES ********************************************/

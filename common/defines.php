@@ -81,6 +81,7 @@ define("TP_OPT_LWON", "lightWindowEnabled");
 define("TP_OPT_DEBUG", "debugging_enabled");
 define("TP_OPT_KEYWORD", "keyword");
 define("TP_OPT_TIMEOUT", "timeout");
+define("TP_OPT_RANDOM_THUMBS", "randomize_thumbnails");
 
 /*****************************************************************************/
 /*** META INFORMATION ********************************************************/
@@ -98,5 +99,6 @@ define("TP_VID_COMMENT_CNT", "comments");
 define("TP_VID_TAGS", "tags");
 define("TP_VID_URL", "url");
 define("TP_VID_THUMBURL", "thumburl");
+define("TP_VID_CATEGORY", "category");
 
 ?>

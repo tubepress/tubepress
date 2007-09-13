@@ -122,6 +122,8 @@ class TubePressGallery
         /* put the XML into a nice, friendly array */
         $videoArray = TubePressXML::parseRawXML($youtube_xml);
 
+print_r($videoArray);
+
         /* Any parsing errors? */
         if (PEAR::isError($videoArray)) {
             return $videoArray;
@@ -315,7 +317,7 @@ class TubePressGallery
          * treatment
          */
         $left = array(TP_VID_VIEW, TP_VID_ID, TP_VID_RATING_AVG,
-            TP_VID_RATING_CNT, TP_VID_UPLOAD_TIME);
+            TP_VID_RATING_CNT, TP_VID_UPLOAD_TIME, TP_VID_CATEGORY);
         
         foreach ($left as $leftover) {
             $opt = $options->get($leftover);
@@ -338,7 +340,10 @@ class TubePressGallery
        	                $tpl->setVariable('METAVALUE', $vid->getRatingCount());
        	                break;
        	            case TP_VID_UPLOAD_TIME:
-       	                $tpl->setVariable('METAVALUE', $vid->getUploadTime()); 
+       	                $tpl->setVariable('METAVALUE', $vid->getUploadTime());
+                        break;
+                    case TP_VID_CATEGORY:
+                        $tpl->setVariable('METAVALUE', $vid->getCategory());
        	        }
                 $tpl->parse('meta');
             }

@@ -29,72 +29,109 @@ defined("TP_VID_TITLE")
 
 class TubePressVideo
 {
-    /* an array of meta values about this video */
-    var $_vid;
+    /* the raw xml about this video */
+    var $_videoXML;
+    var $_cachedThumbURL;
 
     function getAuthor()
     {
-    	return $this->_vid['author'];
+    	return $this->_videoXML['author']['name'];
+    }
+    
+    function getCategory() {
+    	$keywords = array();
+        foreach ($this->_videoXML['category'] as $cat) {
+            if (substr_count($cat['scheme'], "categories.cat") == 1) {
+               return $cat['label'];
+            }
+        }
+       return "";
     }
     
     function getId()
     {
-    	return $this->_vid['id'];
+        $pos = strrpos($this->_videoXML['id'], "/");
+        return substr($this->_videoXML['id'], $pos + 1);
     }
     
     function getTitle()
     {
-    	return $this->_vid['title'];
+        return htmlspecialchars($this->_videoXML['title']['_content'], ENT_QUOTES);
     }
     
     function getRuntime()
     {
-    	return $this->_vid['runtime'];
+    	return TubePressVideo::_seconds2HumanTime($this->_videoXML['media:group']['yt:duration']['seconds']);
     }
     
     function getRatingAverage()
     {
-    	return $this->_vid['rating_avg'];
+    	return "";
     }
     
     function getRatingCount()
     {
-    	return $this->_vid['rating_count'];
+    	return "";
     }
     
     function getDescription()
     {
-    	return $this->_vid['description'];
+        return $this->_videoXML['media:group']['media:description']['_content'];
     }
     
     function getViewCount()
     {
-    	return $this->_vid['view_count'];
+    	return number_format($this->_videoXML['yt:statistics']['viewCount']);
     }
     
     function getUploadTime()
     {
-    	return $this->_vid['upload_time'];
+    	return TubePressVideo::_RFC3339_2_humanTime($this->_videoXML['published']);
     }
     
     function getCommentCount()
     {
-    	return $this->_vid['comment_count'];
+    	return "";
     }
-    
+
     function getTags()
     {
-    	return $this->_vid['tags'];
+        $keywords = array();
+        foreach ($this->_videoXML['category'] as $cat) {
+            if (substr_count($cat['scheme'], "keywords.cat") == 1) {
+                array_push($keywords, $cat['term']);
+            }
+        }
+       return implode(" ", $keywords);
     }
     
     function getURL()
     {
-    	return $this->_vid['url'];
+        foreach ($this->_videoXML['link'] as $link) {
+            if (!is_array($link)) {
+                continue;
+            }
+            if ($link['rel'] == "alternate") {
+                return $link['href'];
+            }
+        }
+    	return "";
     }
     
-    function getThumbURL()
-    {
-    	return $this->_vid['thumbnail_url'];
+    function getThumbURL($which = -1)
+    {   
+        if (($which == -1)
+            || ($which < 0)
+            || ($which > count($this->_videoXML['media:group']['media:thumbnail']) -1)) {
+            if ($this->_cachedThumbURL == "") {
+                $random = rand(0, count($this->_videoXML['media:group']['media:thumbnail']) - 1);
+                $this->_cachedThumbURL = $this->_videoXML['media:group']['media:thumbnail'][$random]['url'];
+            }
+            return $this->_cachedThumbURL;
+        }
+        
+        
+        return $this->_videoXML['media:group']['media:thumbnail'][$which]['url'];
     }
     
     
@@ -103,40 +140,22 @@ class TubePressVideo
         if (!is_array($videoXML)) {
             return;
         }
-        
-        $this->_vid['author'] = 
-            $videoXML['author']['name'];
-          
-        $this->_vid['id'] = $videoXML['id'];
-        $pos = strrpos($this->_vid['id'], "/");
-        $this->_vid['id'] = substr($this->_vid['id'], $pos);
-            
-        $this->_vid['title'] =
-            htmlspecialchars($videoXML['title']['_content'], ENT_QUOTES);
-        
-        $videoXML['runtime'] =
-            TubePressVideo::_humanTime($videoXML['media:group']['yt:duration']['seconds']);
-            
-        //$videoXML['rating_count'] =
-        //    number_format($videoXML['rating_count']);
-            
-        $this->_vid['description'] = 
-            $videoXML['media:group']['media:description']['_content'];    
-            
-        $this->_vid['view_count'] =
-            number_format($videoXML['yt:statistics']['viewCount']);
-        
-        $this->_vid['thumbnail_url'] = 
-            $videoXML['media:group']['media:thumbnail'][0]['url'];
-            
-        //if (is_numeric($videoXML['upload_time'])) {
-        //    $videoXML['upload_time'] =
-        //        date("M j, Y", $videoXML['upload_time']);
-        //}
-        //$videoXML['comment_count'] =
-        //    number_format($videoXML['comment_count']);
-            
-        //$this->_vid['author'] = $videoXML;
+        $this->_videoXML = $videoXML;
+    }
+
+    /**
+     * Converts gdata timestamps to human readable
+     * 
+     * @param length_seconds The runtime of a video, in seconds
+     */
+    function _RFC3339_2_humanTime($rfc3339)
+    {
+        $tmp = str_replace( "T", " ", $rfc3339);
+        $tmp = ereg_replace("(\.[0-9]{1,})?", "", $tmp);
+
+        $datetime = substr($tmp, 0, 19);  // Grab the datetime part of the string
+        $timezone = str_replace(":", "", substr($tmp, 19, 6)); // Grab the timezone, (-/+0000) PHP 4 doesn't support the colon
+        return date("M d, Y, h:i A", strtotime($datetime . " " . $timezone));
     }
 
     /**
@@ -144,7 +163,7 @@ class TubePressVideo
      * 
      * @param length_seconds The runtime of a video, in seconds
      */
-    function _humanTime($length_seconds)
+    function _seconds2HumanTime($length_seconds)
     {
         $seconds = $length_seconds;
         $length = intval($seconds / 60);
