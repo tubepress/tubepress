@@ -31,18 +31,27 @@ class_exists("TPYouTubePlayer") || require("TPYouTubePlayer.php");
  */
 class TubePressPlayerPackage extends TubePressDataPackage
 {	
+	/**
+	 * Default constructor
+	 */
     function TubePressPlayerPackage()
     {
         $this->_dataArray = TubePressPlayerPackage::getDefaultPackage();
     }
     
+    /**
+     * Figures out which player the user wants, and spits out the JS and CSS
+     * needed by that player
+     */
     function getHeadContents($box) {
 
+    	/* first get the player object */
         $playerOpt = $box->options->get(TP_OPT_PLAYIN);
         if (PEAR::isError($playerOpt)) {
             return "";
         }
 
+        /* now get the player name */
         $playerName = $playerOpt->getValue();
         if (PEAR::isError($playerName)) {
             return "";
@@ -76,30 +85,36 @@ class TubePressPlayerPackage extends TubePressDataPackage
         return $content;
 	}
 
+	/**
+	 * Returns all of our players that we know about
+	 */
     function getDefaultPackage() {
         
     	return array(
     	
     		TP_PLAYIN_NORMAL => new TPNormalPlayer(),
-    			
     		TP_PLAYIN_NW => new TPNewWindowPlayer(),
-    			
     		TP_PLAYIN_YT => new TPYouTubePlayer(),
-    		
     		TP_PLAYIN_POPUP => new TPPopupPlayer(),
-    			
     		TP_PLAYIN_LWINDOW => new TPlightWindowPlayer(),
-    			
     		TP_PLAYIN_GREYBOX => new TPGreyBoxPlayer()
     	);
     }
     
-    function getNames() {
+    /**
+     * Ugly, but fast
+     */
+    function getNames()
+    {
         return array(TP_PLAYIN_NORMAL, TP_PLAYIN_NW, TP_PLAYIN_YT,
             TP_PLAYIN_POPUP, TP_PLAYIN_LWINDOW, TP_PLAYIN_GREYBOX);
     }
     
-    function getValidTypes() {
+    /**
+     * Which types of items can we hold?
+     */
+    function getValidTypes()
+    {
         return array("TPGreyBoxPlayer", "TPlightWindowPlayer",
             "TPNewWindowPlayer", "TPNormalPlayer", "TPPopupPlayer", "TPYouTubePlayer");
     }

@@ -20,12 +20,8 @@
 */
 
 /**
- * This is meant to be an abstract class, though PHP 4 doesn't support
- * them :(. The idea here is that each implementation (WordPress, MoveableType)
- * extends this class and passes it around as the class that holds all 
- * of the users options. It's essentially just an array of TubePressDataItems
- * with some extra methods related to metadata on those options.
-*/
+ * This is another "abstract" class that holds an array of items
+ */
 class TubePressDataPackage
 {
     /**
@@ -44,9 +40,6 @@ class TubePressDataPackage
     
     /**
      * Checks to see if parameter appears to be a correct set of options
-     * 
-     * @param An array of the options that the user currently has
-     * (typically pulled from the db)
      */
     function checkValidity()
     {
@@ -68,9 +61,11 @@ class TubePressDataPackage
             
             /* Make sure we have all the keys */
             if (!array_key_exists($defaultItem, $this->_dataArray)) {
-                return PEAR::raiseError(_tpMsg("DBMISS", 
-                    array($defaultItem, 
-                        count($this->_dataArray), count($modelItems))));
+                return PEAR::raiseError(
+                	vsprintf("Database is missing the '%s' option. You have %s out of " .
+                 		 "%s options stored. Perhaps you need to initialize your database?",
+                    	array($defaultItem, 
+                        	count($this->_dataArray), count($modelItems))));
             }
 
             /* Make sure each entry is a valid type */
@@ -82,7 +77,7 @@ class TubePressDataPackage
 			}
             
          	if (!$found) {
-         	    return PEAR::raiseError(_tpMsg("OLDDB"));
+         	    return PEAR::raiseError("You have options that are not current TubePressOptions");
          	}
         }
         
@@ -114,7 +109,8 @@ class TubePressDataPackage
     {
         if ((!array_key_exists($name, $this->_dataArray))
             || (!is_a($this->_dataArray[$name], "TubePressDataItem"))) {
-            return PEAR::raiseError(_tpMsg("NOSUCHOPT", array($name)));
+            return PEAR::raiseError(
+            	sprintf("%s is not a valid option", $name));
         }
         return $this->_dataArray[$name];
     }

@@ -23,7 +23,7 @@ class_exists("TubePressPlayer")
     || require(dirname(__FILE__) . "/../abstract/TubePressPlayer.php");
 
 /**
- * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
+ * Plays videos with lightWindow
  */
 class TPlightWindowPlayer extends TubePressPlayer
 {
@@ -43,6 +43,9 @@ class TPlightWindowPlayer extends TubePressPlayer
 		$this->_extraJS = "var tubepressLWPath = \"" . $lwURL . "\"";
 	}
 	
+	/**
+	 * Tells the gallery how to play the videos
+	 */
 	function getPlayLink($vid, $options)
 	{
 	    global $tubepress_base_url;

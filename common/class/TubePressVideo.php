@@ -33,11 +33,17 @@ class TubePressVideo
     var $_videoXML;
     var $_cachedThumbURL;
 
+    /**
+     * The video's author
+     */
     function getAuthor()
     {
     	return $this->_videoXML['author']['name'];
     }
     
+    /**
+     * Which category this video is in
+     */
     function getCategory() {
     	$keywords = array();
         foreach ($this->_videoXML['category'] as $cat) {
@@ -48,52 +54,82 @@ class TubePressVideo
        return "";
     }
     
+    /**
+     * This video's YouTube ID
+     */
     function getId()
     {
         $pos = strrpos($this->_videoXML['id'], "/");
         return substr($this->_videoXML['id'], $pos + 1);
     }
     
+    /**
+     * The video's title
+     */
     function getTitle()
     {
         return htmlspecialchars($this->_videoXML['title']['_content'], ENT_QUOTES);
     }
     
+    /**
+     * The video's runtime in minutes and seconds
+     */
     function getRuntime()
     {
     	return TubePressVideo::_seconds2HumanTime($this->_videoXML['media:group']['yt:duration']['seconds']);
     }
     
+    /**
+     * The average rating for this video
+     */
     function getRatingAverage()
     {
     	return "";
     }
     
+    /**
+     * How many people have rated the video
+     */
     function getRatingCount()
     {
     	return "";
     }
     
+    /**
+     * Returns the video's textual description
+     */
     function getDescription()
     {
         return $this->_videoXML['media:group']['media:description']['_content'];
     }
     
+    /**
+     * Returns the view count
+     */
     function getViewCount()
     {
     	return number_format($this->_videoXML['yt:statistics']['viewCount']);
     }
     
+    /**
+     * When was this video uploaded?
+     */
     function getUploadTime()
     {
     	return TubePressVideo::_RFC3339_2_humanTime($this->_videoXML['published']);
     }
     
+    /**
+     * How many comments?
+     */
     function getCommentCount()
     {
     	return "";
     }
 
+    /**
+     * Gets a space-separated list of tags for this video
+     */
     function getTags()
     {
         $keywords = array();
@@ -105,6 +141,9 @@ class TubePressVideo
        return implode(" ", $keywords);
     }
     
+    /**
+     * The URL to this video on YouTube.com
+     */
     function getURL()
     {
         foreach ($this->_videoXML['link'] as $link) {
@@ -118,6 +157,10 @@ class TubePressVideo
     	return "";
     }
     
+    /**
+     * The URL to this video's thumbnail. Typically there are
+     * multiple to choose from.
+     */
     function getThumbURL($which = -1)
     {   
         if (($which == -1)
@@ -134,7 +177,9 @@ class TubePressVideo
         return $this->_videoXML['media:group']['media:thumbnail'][$which]['url'];
     }
     
-    
+    /**
+     * Main constructor
+     */
     function TubePressVideo($videoXML)
     {   
         if (!is_array($videoXML)) {

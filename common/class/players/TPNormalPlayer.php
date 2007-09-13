@@ -23,16 +23,22 @@ class_exists("TubePressPlayer")
     || require(dirname(__FILE__) . "/../abstract/TubePressPlayer.php");
 
 /**
- * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
+ * Plays videos at the top of a gallery
  */
 class TPNormalPlayer extends TubePressPlayer 
 {
+	/**
+	 * Default constructor
+	 */
 	function TPNormalPlayer() {
 		$this->_title = _tpMsg("PLAYIN_NORMAL_TITLE");
 		$this->_cssLibs = array();
 		$this->_jsLibs = array();
 	}
 	
+	/**
+	 * Tells the gallery how to play the videos
+	 */
     function getPlayLink($vid, $options)
 	{
 	    $widthOpt = $options->get(TP_OPT_VIDWIDTH);

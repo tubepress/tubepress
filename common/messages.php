@@ -30,20 +30,12 @@ $tubepressMessages =
           "REFUSED" => "Unable to connect to YouTube - ",
           "NOCOUNT" => "YouTube didn't return a total video count",
           "BADMODE" => "Invalid mode specified (%s)",
-          "BADTYPE" => "Type mismatch while setting the value for '%s'. " .
-                "Expected any %s but instead got '%s' of type '%s'",
-          "BADVAL" => "\"%s\" not a valid value for \"%s\". Must be one of the following: '%s'",
           "NOVALS" => "No valid values defined for this option",
           "VALTYPE" => "Must set valid option values with TubePressEnum class",
-          "NOSUCHOPT" => "%s is not a valid option",
           "VIDNOARR" => "Attempted to make video out of non-array",
           "VIDEMTARR" => "Attempted to make video out of empty array",
           "MISSATT" => "%s is missing from the video's XML",
           "PARSERR" => "There was a problem parsing the TubePress tag in this page",
-          "DBMISS" => "Database is missing the '%s' option. You have %s out of " .
-                  "%s options stored. Perhaps you need to initialize your database?",
-          "OLDDB" => "You have options that are not current TubePressOptions",
-          "MAXMIN" => "%s must be between 1 and %s. You supplied %s.",
           
           /*******************************************************************/
           /*** META INFO *****************************************************/

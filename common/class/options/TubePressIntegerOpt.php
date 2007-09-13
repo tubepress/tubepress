@@ -62,8 +62,9 @@ class TubePressIntegerOpt extends TubePressOption
         /* No TubePressIntegerOpts can be less than 1 */
         if (($candidate < 1)
             || ($candidate > $this->_max)) {
-                return PEAR::raiseError(_tpMsg("MAXMIN",
-                array($this->_title, $this->_max, $candidate)));
+                return PEAR::raiseError(
+                	vsprintf("%s must be between 1 and %s. You supplied %s.",
+                		array($this->_title, $this->_max, $candidate)));
             }
         
         /* looks good! */

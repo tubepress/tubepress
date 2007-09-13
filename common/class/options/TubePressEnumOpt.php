@@ -26,7 +26,8 @@ function_exists("_tpMsg")
 class_exists("TubePressOption") || require("TubePressOption.php");
     
 /**
- * An "enumeration" TubePressOption
+ * An "enumeration" TubePressOption. This option can only take on
+ * certain values.
  */
 class TubePressEnumOpt extends TubePressOption
 {
@@ -49,9 +50,10 @@ class TubePressEnumOpt extends TubePressOption
         /* see if it's a valid value */
         if (is_array($this->_validValues)
             && !in_array($candidate, $this->_validValues)) {
-            return PEAR::raiseError(_tpMsg("BADVAL",
-            array($candidate, $this->_title,
-            implode("', '", $this->_validValues))));
+           
+            return PEAR::raiseError(
+            	vsprintf("\"%s\" not a valid value for \"%s\". Must be one of the following: '%s'",
+            		array($candidate, $this->_title, implode("', '", $this->_validValues))));
         }
         /* looks good! */
         $this->_value = $candidate;

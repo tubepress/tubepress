@@ -20,11 +20,7 @@
 */
 
 /**
- * This is meant to be an abstract class, though PHP 4 doesn't support
- * them :(. The idea here is that each implementation (WordPress, MoveableType)
- * extends this class and passes it around as the class that holds all 
- * of the users options. It's essentially just an array of TubePressOptions 
- * with some extra methods related to metadata on those options.
+ * 
 */
 class_exists('TubePressOptionsPackage') ||
     require('options/TubePressOptionsPackage.php');
@@ -39,7 +35,7 @@ class TubePressStorageBox
     var $options, $players, $modes;
     
     /**
-     * Default options
+     * Default Constructor
      */
     function TubePressStorageBox()
     {
@@ -48,6 +44,9 @@ class TubePressStorageBox
 		$this->modes = new TubePressModePackage();
     }
     
+    /**
+     * Makes sure that each of its subpackages look good
+     */
     function checkValidity()
     {
         $packages = array($this->options, $this->players, $this->modes);

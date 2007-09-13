@@ -23,10 +23,13 @@ class_exists("TubePressPlayer")
     || require(dirname(__FILE__) . "/../abstract/TubePressPlayer.php");
 
 /**
- * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
+ * Plays videos from the original YouTube page
  */
 class TPYouTubePlayer extends TubePressPlayer
 {
+	/**
+	 * Default constructor
+	 */
 	function TPYouTubePlayer() {
 		$this->_title = _tpMsg("PLAYIN_YT_TITLE");
 		$this->_cssLibs = array();
@@ -34,6 +37,9 @@ class TPYouTubePlayer extends TubePressPlayer
 		$this->_extraJS = "";
 	}
 	
+	/**
+	 * Tells the gallery how to play a video
+	 */
 	function getPlayLink($vid, $options)
 	{   
 	    return sprintf('href="http://youtube.com/watch?v=%s"', $vid->getId());

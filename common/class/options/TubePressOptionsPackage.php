@@ -34,8 +34,7 @@ class_exists("TubePressModePackage")
     || require(dirname(__FILE__) . "/../modes/TubePressModePackage.php");  
 
 /**
- * This is meant to be an abstract class, though PHP 4 doesn't support
- * them :(. The idea here is that each implementation (WordPress, MoveableType)
+ * The idea here is that each implementation (WordPress, MoveableType)
  * extends this class and passes it around as the class that holds all 
  * of the users options. It's essentially just an array of TubePressOptions 
  * with some extra methods related to metadata on those options.
@@ -50,6 +49,9 @@ class TubePressOptionsPackage extends TubePressDataPackage
         $this->_dataArray = TubePressOptionsPackage::getDefaultPackage();
     }
     
+    /**
+     * Tells which options are the meta value-related ones
+     */
     function getMetaNames()
     {
         return array(
@@ -63,7 +65,6 @@ class TubePressOptionsPackage extends TubePressDataPackage
     
     /**
      * Returns a fresh array of TubePress options.
-     * The structure of this array defines what is stored in our db row.
      */
     function getDefaultPackage()
     {
@@ -133,7 +134,12 @@ class TubePressOptionsPackage extends TubePressDataPackage
                       TubePressPlayerPackage::getNames()));                       
     }
     
-    function getNames() {
+    /**
+     * This is ugly as hell, but MUCH faster than calling array_keys
+     * on a new default package
+     */
+    function getNames()
+    {
         return array(TP_VID_TITLE, TP_VID_LENGTH, TP_VID_VIEW, TP_VID_AUTHOR,
             TP_VID_ID, TP_VID_RATING_AVG, TP_VID_RATING_CNT, TP_VID_UPLOAD_TIME,
             TP_VID_COMMENT_CNT, TP_VID_TAGS, TP_VID_URL, TP_VID_THUMBURL, TP_VID_DESC,
@@ -145,13 +151,15 @@ class TubePressOptionsPackage extends TubePressDataPackage
             );
     }
     
-    function getValidTypes() {
+    /**
+     * Which types of data can we store?
+     */
+    function getValidTypes()
+    {
         return array(
             "TubePressBooleanOpt", "TubePressEnumOpt",
             "TubePressIntegerOpt", "TubePressStringOpt"
         );
     }
-    
-    
 }
 ?>

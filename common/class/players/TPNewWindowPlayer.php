@@ -23,10 +23,13 @@ class_exists("TubePressPlayer")
     || require(dirname(__FILE__) . "/../abstract/TubePressPlayer.php");
 
 /**
- * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
+ * Plays videos by themselves in a new window
  */
 class TPNewWindowPlayer extends TubePressPlayer
 {
+	/**
+	 * Default constructor
+	 */
 	function TPNewWindowPlayer() {
 		$this->_title = _tpMsg("PLAYIN_NW_TITLE");
 		$this->_cssLibs = array();
@@ -34,6 +37,9 @@ class TPNewWindowPlayer extends TubePressPlayer
 		$this->_extraJS = "";
 	}
 	
+	/**
+	 * Tells the gallery how to make the play link
+	 */
     function getPlayLink($vid, $options)
 	{	    
 	    $url = new Net_URL(TubePressStatic::fullURL());

@@ -23,14 +23,20 @@ class_exists("TubePressMode")
     || require("TubePressMode.php");
 
 /**
- * A TubePress "mode", such as favorites, popular, playlist, etc
+ * Manages all of the gallery modes that we know about
  */
 class TubePressModePackage extends TubePressDataPackage
 {
+	/**
+	 * Default constructor
+	 */
     function TubePressModePackage() {
     	$this->_dataArray = TubePressModePackage::getDefaultPackage();
     }
     
+    /**
+     * Returns an array of all the modes we know about
+     */
     function getDefaultPackage()
     {
         return array(
@@ -55,17 +61,24 @@ class TubePressModePackage extends TubePressDataPackage
     	);
     }
     
+    /**
+     * Ugly but fast
+     */
     function getNames() {
         return array(TP_MODE_USER, TP_MODE_FAV, TP_MODE_PLST, TP_MODE_TAG,
             TP_MODE_FEATURED, TP_MODE_POPULAR);
     }
     
+    /**
+     * We can only hold modes!
+     */
     function getValidTypes() {
         return array("TubePressMode");
     }
     
+    
     function setValue($modeName, $modeValue) {
-    	if (is_array_key) {
+    	if (is_array_key($modeName, TubePressModePackage::getNames())) {
     		$this->_allModes[$modeName]->setValue($modeValue);
     	} else {
     		PEAR::raiseError($modeName . " is not a valid mode");
