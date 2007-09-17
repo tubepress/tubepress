@@ -87,15 +87,7 @@ class TubePressGallery
      * are valid.
      */
     function _generate($stored)
-    {   
-
-        /* printing a single video only? */
-        $playerLocation = $stored->options->get(TP_OPT_PLAYIN);
-        if ($playerLocation->getValue() == TP_PLAYIN_NW
-            && isset($_GET[TP_PARAM_VID])) {
-            return TubePressGallery::printHTMLSingleVideo();
-        }
-        
+    {           
         /* load up the gallery template */
         $tpl = new HTML_Template_IT(dirname(__FILE__) . "/../templates");
         $tpl->loadTemplatefile("gallery.tpl.html", true, true);

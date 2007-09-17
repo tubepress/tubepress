@@ -78,7 +78,15 @@ function tp_main($content = '')
     /* ------------------------------------------------------------ */
     /* ------------ NOW THE FUN PART ------------------------------ */
     /* ------------------------------------------------------------ */ 
-    $newcontent .= TubePressGallery::generate($stored);
+    
+    /* printing a single video only? */
+    $playerLocation = $stored->options->get(TP_OPT_PLAYIN);
+    if ($playerLocation->getValue() == TP_PLAYIN_NW
+    	&& isset($_GET[TP_PARAM_VID])) {
+    	$newcontent .= TubePressGallery::printHTMLSingleVideo();
+    } else {
+    	$newcontent .= TubePressGallery::generate($stored);
+    }
 
     /* We're done! Replace the tag with our new content */
     return str_replace($stored->options->tagString, $newcontent, $content);
