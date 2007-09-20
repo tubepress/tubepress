@@ -34,7 +34,7 @@ class TubePressXML
     /**
      * Connects to YouTube and returns raw XML
      */
-    function fetchRawXML($options, $request)
+    function fetch($options, $request)
     {   
         class_exists("snoopy") || require(dirname(__FILE__) .
             "/../../../lib/snoopy/Snoopy.class.php");
@@ -43,7 +43,7 @@ class TubePressXML
          * can't connect
          */
         error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
-        
+
         $snoopy = new snoopy();
         $timeout = $options->get(TP_OPT_TIMEOUT);
         if (PEAR::isError($timeout)) {
@@ -75,7 +75,7 @@ class TubePressXML
      * Looks at what the user is trying to do and generates the URL that will
      * be sent to YouTube base on that
      */
-    function generateRequest($stored)
+    function generateGalleryRequest($stored)
     {
         class_exists('TubePressStatic') || require("TubePressStatic.php");
         
@@ -106,7 +106,6 @@ class TubePressXML
              */
             
                 $modeObj = $stored->modes->get(TP_MODE_REL);
-                print_r($modeObj);
                 $request .= "/feeds/videos?vq=" . urlencode($modeObj->getValue());
                 break;
             
@@ -138,10 +137,15 @@ class TubePressXML
         return $request;
     }
     
+    function generateVideoRequest($videoID)
+    {
+    	return "http://gdata.youtube.com/feeds/videos/" . $videoID;
+    }
+    
     /**
      * Takes YouTube's raw xml and tries to return an array of the videos
      */
-    function parseRawXML(&$youtube_xml)
+    function toArray(&$youtube_xml)
     {
     
         class_exists('XML_Unserializer') || require(dirname(__FILE__) .
@@ -165,11 +169,15 @@ class TubePressXML
             return PEAR::raiseError("XML unserialization error");
         }
 
-        if (!is_array($result['entry'])) {
-            return PEAR::raiseError("No matching videos!");
+        if (is_array($result['entry'])) {
+            return $result['entry'];
         }
         
-        return $result['entry'];
+        if (is_array($result)) {
+            return $result;
+        }
+
+        return PEAR::raiseError("No matching videos!");
     }
 }
 ?>

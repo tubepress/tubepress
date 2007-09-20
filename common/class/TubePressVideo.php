@@ -33,7 +33,25 @@ class TubePressVideo
     var $_videoXML;
     var $_cachedThumbURL;
 
-    /**
+    function TubePressVideo($videoXML, $options = "")
+    {   
+        if (!is_array($videoXML)) {
+            
+            $vidRequest = TubePressXML::generateVideoRequest($videoXML);
+            if (PEAR::isError($vidRequest)) {
+            	return;
+            }
+            $videoXML = TubePressXML::fetch($options, $vidRequest);
+            if (PEAR::isError($videoXML)) {
+            	return;
+            }
+            $videoXML = TubePressXML::toArray($videoXML);
+            
+        }
+        $this->_videoXML = $videoXML;
+    }
+
+	/**
      * The video's author
      */
     function getAuthor()
@@ -177,16 +195,8 @@ class TubePressVideo
         return $this->_videoXML['media:group']['media:thumbnail'][$which]['url'];
     }
     
-    /**
-     * Main constructor
-     */
-    function TubePressVideo($videoXML)
-    {   
-        if (!is_array($videoXML)) {
-            return;
-        }
-        $this->_videoXML = $videoXML;
-    }
+    
+
 
     /**
      * Converts gdata timestamps to human readable

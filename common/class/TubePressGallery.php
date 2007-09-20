@@ -98,12 +98,13 @@ class TubePressGallery
         /* are we paging? */
         $paging = TubePressStatic::areWePaging($stored->options);
             
-        /* Grab the XML from YouTube's API */
-        $request = TubePressXML::generateRequest($stored);
+        /* Grab the XML from YouTube */
+        $request = TubePressXML::generateGalleryRequest($stored);
         if (PEAR::isError($request)) {
             return $request;
         }
-        $youtube_xml = TubePressXML::fetchRawXML($stored->options,
+
+        $youtube_xml = TubePressXML::fetch($stored->options,
             $request);
 
         /* Any HTTP errors? */
@@ -112,9 +113,7 @@ class TubePressGallery
         }
 
         /* put the XML into a nice, friendly array */
-        $videoArray = TubePressXML::parseRawXML($youtube_xml);
-
-print_r($videoArray);
+        $videoArray = TubePressXML::toArray($youtube_xml);
 
         /* Any parsing errors? */
         if (PEAR::isError($videoArray)) {
@@ -151,9 +150,10 @@ print_r($videoArray);
         }
         
         for ($x = 0; $x < $vidLimit; $x++) {
+
             /* Create a TubePressVideo object from the XML (if we can) */
             $video = new TubePressVideo($videoArray[$x]);
-        
+            
             /* Top of the gallery is special */
             if ($videosPrintedCnt++ == 0) {
                 TubePressGallery::printHTML_bigvid($video, 

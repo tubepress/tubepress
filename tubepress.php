@@ -33,6 +33,9 @@ function_exists("tp_executeOptionsPage")
 class_exists("TubePressGallery")
     || require("common/class/TubePressGallery.php");
     
+class_exists("TubePressSingleVideo")
+    || require("common/class/TubePressSingleVideo.php");
+    
 if (!isset($tubepress_base_url)) {
     $tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
 }
@@ -83,7 +86,7 @@ function tp_main($content = '')
     $playerLocation = $stored->options->get(TP_OPT_PLAYIN);
     if ($playerLocation->getValue() == TP_PLAYIN_NW
     	&& isset($_GET[TP_PARAM_VID])) {
-    	$newcontent .= TubePressGallery::printHTMLSingleVideo();
+    	$newcontent .= TubePressSingleVideo::generateHTML($stored->options);
     } else {
     	$newcontent .= TubePressGallery::generate($stored);
     }
