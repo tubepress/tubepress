@@ -31,7 +31,7 @@ class WordPressOptionsPage
         $tpl->setVariable("ADVTITLE", _tpMsg("ADV_GRP_TITLE"));
         
         $texts = array(TP_OPT_KEYWORD, TP_OPT_TIMEOUT);
-        $bools = array(TP_OPT_DEBUG, TP_OPT_RANDOM_THUMBS);
+        $bools = array(TP_OPT_DEBUG, TP_OPT_RANDOM_THUMBS, TP_OPT_FILTERADULT);
             
         foreach ($texts as $text) {
             $opt = $stored->options->get($text);
@@ -166,16 +166,24 @@ class WordPressOptionsPage
                 $tpl->setVariable("POPULARNAME", $modeName);
                 $tpl->setVariable("POPULARVALUE", $actualMode->getValue());
              
-                $period = array("day", "month", "week", "all time");
+                $period = array(
+                	array("today", "today"),
+                	array("this_week", "this week"),
+                	array("this_month", "this month"),
+                	array("all_time", "all time")
+                );
+                
                 foreach ($period as $thisPeriod) {
                     
-                    $tpl->setVariable("PERIOD", $thisPeriod);
+                    $tpl->setVariable("PERIOD", $thisPeriod[0]);
+                    $tpl->setVariable("PERIODTITLE", $thisPeriod[1]);
                     
                     if ($thisPeriod == $actualMode->getValue()) {
                         $tpl->setVariable("PERIODSELECTED", "selected");
                     }
                     $tpl->parse("period");
                 }
+                
                 if ($modeName == $storedMode->getValue()) {
                     $tpl->setVariable("POPULARSELECTED", "checked=\"checked\"");
                 }

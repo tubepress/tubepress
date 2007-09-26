@@ -41,7 +41,7 @@ class TubePressVideo
             if (PEAR::isError($vidRequest)) {
             	return;
             }
-            $videoXML = TubePressXML::fetch($options, $vidRequest);
+            $videoXML = TubePressXML::fetch($vidRequest, $options);
             if (PEAR::isError($videoXML)) {
             	return;
             }
@@ -98,19 +98,29 @@ class TubePressVideo
     }
     
     /**
-     * The average rating for this video
+     * The average rating for this video. I HATE this method!!
      */
     function getRatingAverage()
     {
-    	return "";
+    	$crappyHTML = $this->_videoXML['content']['_content'];
+    	$fullStars = substr_count($crappyHTML, "http://gdata.youtube.com/static/images/icn_star_full_11x11.gif");
+    	$halfStars = substr_count($crappyHTML, "http://gdata.youtube.com/static/images/icn_star_half_11x11.gif");
+        return $fullStars + (0.5 * $halfStars);
     }
     
     /**
-     * How many people have rated the video
+     * How many people have rated the video. I hate this function
+     * even more than the previous.
      */
     function getRatingCount()
     {
-    	return "";
+    	$crappyHTML = $this->_videoXML['content']['_content'];
+    	
+    	$first = strpos($crappyHTML, '<div style="font-size: 11px;">');
+    	$last = strpos($crappyHTML, '>', $first);
+    	
+    	$ratingString = substr($crappyHTML, $last + 1, strpos($crappyHTML, '<', $last + 1) - $last - 1);
+        return number_format($ratingString);
     }
     
     /**
@@ -140,10 +150,10 @@ class TubePressVideo
     /**
      * How many comments?
      */
-    function getCommentCount()
-    {
-    	return "";
-    }
+    //function getCommentCount()
+    //{
+    //	return "";
+    //}
 
     /**
      * Gets a space-separated list of tags for this video
@@ -183,15 +193,14 @@ class TubePressVideo
     {   
         if (($which == -1)
             || ($which < 0)
-            || ($which > count($this->_videoXML['media:group']['media:thumbnail']) -1)) {
+            || ($which >= count($this->_videoXML['media:group']['media:thumbnail']))) {
             if ($this->_cachedThumbURL == "") {
                 $random = rand(0, count($this->_videoXML['media:group']['media:thumbnail']) - 1);
                 $this->_cachedThumbURL = $this->_videoXML['media:group']['media:thumbnail'][$random]['url'];
             }
             return $this->_cachedThumbURL;
         }
-        
-        
+
         return $this->_videoXML['media:group']['media:thumbnail'][$which]['url'];
     }
     

@@ -57,9 +57,10 @@ class TubePressOptionsPackage extends TubePressDataPackage
         return array(
             TP_VID_TITLE, TP_VID_LENGTH, TP_VID_VIEW,
             TP_VID_AUTHOR, TP_VID_ID, TP_VID_RATING_AVG,
-            TP_VID_RATING_CNT, TP_VID_UPLOAD_TIME, TP_VID_COMMENT_CNT,
-            TP_VID_TAGS, TP_VID_URL, TP_VID_THUMBURL, TP_VID_DESC,
+            TP_VID_RATING_CNT, TP_VID_UPLOAD_TIME,
+            TP_VID_TAGS, TP_VID_URL, TP_VID_DESC,
             TP_VID_CATEGORY
+            //,TP_VID_COMMENT_CNT
         );
     }
     
@@ -80,14 +81,18 @@ class TubePressOptionsPackage extends TubePressDataPackage
                   TP_VID_RATING_AVG => new TubePressBooleanOpt(_tpMsg("VIDRATING"),' ', false),
                   TP_VID_RATING_CNT => new TubePressBooleanOpt(_tpMsg("VIDRATINGS"),' ', false),
                   TP_VID_UPLOAD_TIME => new TubePressBooleanOpt(_tpMsg("VIDUPLOAD"), ' ', false),
-                  TP_VID_COMMENT_CNT => new TubePressBooleanOpt(_tpMsg("VIDCOMMENTS"), ' ', false),
+                  //TP_VID_COMMENT_CNT => new TubePressBooleanOpt(_tpMsg("VIDCOMMENTS"), ' ', false),
                   TP_VID_TAGS => new TubePressBooleanOpt(_tpMsg("VIDTAGS"), ' ', false),
                   TP_VID_URL => new TubePressBooleanOpt(_tpMsg("VIDURL"), ' ', false),
-                  TP_VID_THUMBURL => new TubePressBooleanOpt(_tpMsg("VIDTHUMBURL"), ' ', false),
+     
                   TP_VID_DESC => new TubePressBooleanOpt(_tpMsg("VIDDESC"), ' ', false),
                   TP_VID_CATEGORY => new TubePressBooleanOpt(_tpMsg("VIDCAT"), ' ', false),
             
            /* -------- DISPLAY OPTIONS -------------------------------------- */
+                  
+                  TP_OPT_ORDERBY => new TubePressEnumOpt(
+                      "Order videos by", " ", "updated",
+                      array("updated", "viewCount", "rating", "relevance")),
                   
                   TP_OPT_VIDSPERPAGE=>  new TubePressIntegerOpt(
                       _tpMsg("VIDSPERPAGE_TITLE"), _tpMsg("VIDSPERPAGE_DESC"), 20, 100),      
@@ -105,8 +110,7 @@ class TubePressOptionsPackage extends TubePressDataPackage
                   TP_OPT_LWON => new TubePressBooleanOpt(
                       _tpMsg("TP_OPT_LWON_TITLE"), _tpMsg("TP_OPT_LWON_DESC")
                       , false),
-                
-                  
+                   
               /* -------- ADVANCED OPTIONS ------------------------------------- */                    
                   
                   TP_OPT_KEYWORD =>  new TubePressStringOpt(
@@ -119,8 +123,11 @@ class TubePressOptionsPackage extends TubePressDataPackage
                       _tpMsg("DEBUGTITLE"), _tpMsg("DEBUGDESC"), true),
                       
                   TP_OPT_RANDOM_THUMBS => new TubePressBooleanOpt(
-                    "Randomize thumbnails", "Each video comes with 4", true),
+                    "Randomize thumbnails", "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized", true),
  
+                  TP_OPT_FILTERADULT => new TubePressBooleanOpt(
+                  "Filter \"racy\" content", "Not sure who decides what's racy and what isn't, but YouTube has this as an option for you", false),
+                  
          /* -------- VIDEO SEARCH OPTION ----------------------------------- */
 
                   TP_OPT_MODE => new TubePressEnumOpt(_tpMsg("MODE_TITLE"),
@@ -142,12 +149,13 @@ class TubePressOptionsPackage extends TubePressDataPackage
     {
         return array(TP_VID_TITLE, TP_VID_LENGTH, TP_VID_VIEW, TP_VID_AUTHOR,
             TP_VID_ID, TP_VID_RATING_AVG, TP_VID_RATING_CNT, TP_VID_UPLOAD_TIME,
-            TP_VID_COMMENT_CNT, TP_VID_TAGS, TP_VID_URL, TP_VID_THUMBURL, TP_VID_DESC,
+             TP_VID_TAGS, TP_VID_URL, TP_VID_DESC,
             TP_VID_CATEGORY,
             TP_OPT_VIDSPERPAGE, TP_OPT_VIDWIDTH, TP_OPT_VIDHEIGHT, TP_OPT_THUMBWIDTH,
             TP_OPT_THUMBHEIGHT, TP_OPT_GREYBOXON, TP_OPT_LWON, TP_OPT_KEYWORD,
             TP_OPT_TIMEOUT, TP_OPT_DEBUG, TP_OPT_MODE,
-            TP_OPT_PLAYIN,TP_OPT_RANDOM_THUMBS
+            TP_OPT_PLAYIN,TP_OPT_RANDOM_THUMBS, TP_OPT_FILTERADULT, TP_OPT_ORDERBY
+            //,TP_VID_COMMENT_CNT
             );
     }
     

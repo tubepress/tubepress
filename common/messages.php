@@ -50,7 +50,6 @@ $tubepressMessages =
           "VIDRATING" => "Rating",
           "VIDRATINGS" => "Ratings",
           "VIDTAGS" => "Tags",
-          "VIDTHUMBURL" => "Thumbnail URL",
           "VIDUPLOAD" => "Uploaded date",
           "VIDURL" => "YouTube URL",
           "VIDVIEWS" => "Views",
@@ -102,7 +101,7 @@ $tubepressMessages =
                   "URL in your browser's address bar (while looking at a YouTube " .
                   "playlist). It comes right after the 'p='. For instance: " .
                   "http://youtube.com/my_playlists?p=D2B04665B213AE35",
-          "MODE_POPULAR_TITLE" => "Most-viewed videos from the past...",
+          "MODE_POPULAR_TITLE" => "Most-viewed videos from...",
           "MODE_TAG_TITLE" => "<sup>*</sup>YouTube search for",
           "MODE_USER_TITLE" => "<sup>*</sup>videos from this YouTube user",
           

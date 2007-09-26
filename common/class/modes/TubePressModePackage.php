@@ -57,7 +57,13 @@ class TubePressModePackage extends TubePressDataPackage
     			" ", " "),
     			
     		TP_MODE_POPULAR => new TubePressMode(_tpMsg("MODE_POPULAR_TITLE"),
-    			" ", "day")
+    			" ", "today"),
+    		
+    		TP_MODE_TOPRATED => new TubePressMode("Top rated videos from...",
+    		    " ", "today"),
+    		
+    		TP_MODE_MOBILE => new TubePressMode("Videos for mobile phones",
+    		    " ", " ")
     	);
     }
     
@@ -66,7 +72,7 @@ class TubePressModePackage extends TubePressDataPackage
      */
     function getNames() {
         return array(TP_MODE_USER, TP_MODE_FAV, TP_MODE_PLST, TP_MODE_TAG,
-            TP_MODE_FEATURED, TP_MODE_POPULAR);
+            TP_MODE_FEATURED, TP_MODE_POPULAR, TP_MODE_TOPRATED, TP_MODE_MOBILE);
     }
     
     /**

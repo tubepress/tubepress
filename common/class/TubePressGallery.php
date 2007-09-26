@@ -104,8 +104,7 @@ class TubePressGallery
             return $request;
         }
 
-        $youtube_xml = TubePressXML::fetch($stored->options,
-            $request);
+        $youtube_xml = TubePressXML::fetch($request, $stored->options);
 
         /* Any HTTP errors? */
         if (PEAR::isError($youtube_xml)) {
@@ -193,30 +192,7 @@ class TubePressGallery
         $tpl->setVariable('ID', $vid->getId());
         $tpl->parse('bigVideo');
     }
-    
-    /**
-     * Used in "single video" mode to print out a single video and a 
-     * "back to gallery" link
-     *
-     * @param options A TubePressTag object holding all of our options
-     */
-    function printHTML_singleVideo($options)
-    {
-        $width = $options->get(TP_OPT_VIDWIDTH);
-        $height = $options->get(TP_OPT_VIDHEIGHT);
-        
-        $url = new Net_URL(TubePressStatic::fullURL());
-        $url->removeQueryString(TP_PARAM_VID);
-
-    	$tpl =& new TubePressSavant();
-    	$tpl->assign('width', $width->getValue());
-    	$tpl->assign('height', $height->getValue());
-    	$tpl->assign('id', $id);
-    	$tpl->assign('url', $url->getURL());
-    	$tpl->assign('linktext', _tpMsg("BACK2GALLERY"));
-        
-        return $tpl->fetch('single_video.tpl.php');
-    }
+   
     
     /*************************************************************************/
     /************************* "PRIVATE" FUNCTIONS ***************************/
@@ -265,14 +241,14 @@ class TubePressGallery
         }
         
         /* the video's comment count */
-        $comment = $options->get(TP_VID_COMMENT_CNT);
-        if ($comment->getValue()) {
-            $opt = $options->get(TP_VID_COMMENT_CNT);
-            $tpl->setVariable('METANAME', $opt->getTitle());
-            $tpl->setVariable('COUNT', $vid->getCommentCount());
-            $tpl->setVariable('ID', $vid->getId());
-            $tpl->parse('comments');
-        }
+        //$comment = $options->get(TP_VID_COMMENT_CNT);
+        //if ($comment->getValue()) {
+         //   $opt = $options->get(TP_VID_COMMENT_CNT);
+        //    $tpl->setVariable('METANAME', $opt->getTitle());
+        //    $tpl->setVariable('COUNT', $vid->getCommentCount());
+        //    $tpl->setVariable('ID', $vid->getId());
+        //    $tpl->parse('comments');
+        //}
         
         /* the tags, space separated */
         $tags = $options->get(TP_VID_TAGS);
@@ -284,15 +260,6 @@ class TubePressGallery
             $tpl->setVariable('SEARCHSTRING', $tags);
             $tpl->setVariable('TAGS', $vid->getTags());
             $tpl->parse('tags');
-        }
-        
-        /* the thumbnail URL */
-        $thumb = $options->get(TP_VID_THUMBURL);
-        if ($thumb->getValue()) {
-            $opt = $options->get(TP_VID_THUMBURL);
-        	$tpl->setVariable('LINKVALUE', $vid->getThumbURL());
-        	$tpl->setVariable('LINKTEXT', $opt->getTitle());
-            $tpl->parse('url');
         }
         
         /* the video URL */
@@ -379,14 +346,22 @@ class TubePressGallery
         $playerObj = $stored->players->get($playerOpt->getValue());
         $playLink = $playerObj->getPlayLink($vid, $stored->options);
         
-        TubePressGallery::_printHTML_metaInfo($vid, $stored->options,$playLink, $tpl);
+        $randomizeOpt = $stored->options->get(TP_OPT_RANDOM_THUMBS);
+        
+        TubePressGallery::_printHTML_metaInfo($vid, $stored->options,$playLink, $tpl, $whichThumb);
         
         $height = $stored->options->get(TP_OPT_THUMBHEIGHT);
         $width = $stored->options->get(TP_OPT_THUMBWIDTH);
         
         $tpl->setVariable('PLAYLINK', $playLink);
         $tpl->setVariable('TITLE', $vid->getTitle());
-        $tpl->setVariable('THUMBURL', $vid->getThumbURL());
+        
+        if ($randomizeOpt->getValue()) {
+            $tpl->setVariable('THUMBURL', $vid->getThumbURL());
+        } else {
+             $tpl->setVariable('THUMBURL', $vid->getThumbURL(0));
+        }    
+        
         $tpl->setVariable('THUMBWIDTH', $width->getValue());
         $tpl->setVariable('THUMBHEIGHT', $height->getValue());
         

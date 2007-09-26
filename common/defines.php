@@ -47,6 +47,8 @@ define("TP_MODE_PLST", "playlist");
 define("TP_MODE_FEATURED", "featured");
 define("TP_MODE_POPULAR", "popular");
 define("TP_MODE_CATEGORY", "category");
+define("TP_MODE_TOPRATED", "top_rated");
+define("TP_MODE_MOBILE", "mobile");
 
 /*****************************************************************************/
 /*** MODE  *************************************************************/
@@ -74,6 +76,7 @@ define("TP_OPT_VIDWIDTH", "mainVidWidth");
 define("TP_OPT_VIDSPERPAGE", "resultsPerPage");
 define("TP_OPT_GREYBOXON", "greyBoxEnabled");
 define("TP_OPT_LWON", "lightWindowEnabled");
+define("TP_OPT_ORDERBY", "orderBy");
 
 /*****************************************************************************/
 /*** ADVANCED OPTIONS ********************************************************/
@@ -82,6 +85,7 @@ define("TP_OPT_DEBUG", "debugging_enabled");
 define("TP_OPT_KEYWORD", "keyword");
 define("TP_OPT_TIMEOUT", "timeout");
 define("TP_OPT_RANDOM_THUMBS", "randomize_thumbnails");
+define("TP_OPT_FILTERADULT", "filter_racy");
 
 /*****************************************************************************/
 /*** META INFORMATION ********************************************************/

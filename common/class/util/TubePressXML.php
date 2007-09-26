@@ -34,7 +34,7 @@ class TubePressXML
     /**
      * Connects to YouTube and returns raw XML
      */
-    function fetch($options, $request)
+    function fetch($request, $options = "")
     {   
         class_exists("snoopy") || require(dirname(__FILE__) .
             "/../../../lib/snoopy/Snoopy.class.php");
@@ -45,11 +45,14 @@ class TubePressXML
         error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 
         $snoopy = new snoopy();
-        $timeout = $options->get(TP_OPT_TIMEOUT);
-        if (PEAR::isError($timeout)) {
-            return $timeout;
+        $snoopy->read_timeout = 6;
+        if (is_a($options, "TubePressOptionsPackage")) {
+            $timeout = $options->get(TP_OPT_TIMEOUT);
+            if (PEAR::isError($timeout)) {
+                return $timeout;
+            }
+            $snoopy->read_timeout = $timeout->getValue();
         }
-        $snoopy->read_timeout = $timeout->getValue();
 
         if (!$snoopy->fetch($request)) {
             return PEAR::raiseError(_tpMsg("REFUSED") .
