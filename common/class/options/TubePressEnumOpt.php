@@ -50,7 +50,7 @@ class TubePressEnumOpt extends TubePressOption
         if (is_array($this->_validValues)
             && !in_array($candidate, $this->_validValues)) {
            
-            return PEAR::raiseError(
+            throw new Exception(
             	vsprintf("\"%s\" not a valid value for \"%s\". Must be one of the following: '%s'",
             		array($candidate, $this->_title, implode("', '", $this->_validValues))));
         }

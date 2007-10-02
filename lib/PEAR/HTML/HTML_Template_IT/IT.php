@@ -399,7 +399,7 @@ class HTML_Template_IT
             return IT_OK;
         }
 
-        return PEAR::raiseError(
+        throw new Exception(
                 $this->errorMessage(IT_UNKNOWN_OPTION) . ": '{$option}'",
                 IT_UNKNOWN_OPTION
             );
@@ -496,7 +496,7 @@ class HTML_Template_IT
         static $regs, $values;
 
         if (!isset($this->blocklist[$block])) {
-            return PEAR::raiseError(
+            throw new Exception(
                 $this->errorMessage( IT_BLOCK_NOT_FOUND ) . '"' . $block . "'",
                         IT_BLOCK_NOT_FOUND
                 );
@@ -645,7 +645,7 @@ class HTML_Template_IT
     {
 
         if (!isset($this->blocklist[$block])) {
-            return PEAR::raiseError(
+            throw new Exception(
                 $this->errorMessage( IT_BLOCK_NOT_FOUND ) .
                 '"' . $block . "'", IT_BLOCK_NOT_FOUND
             );
@@ -668,7 +668,7 @@ class HTML_Template_IT
     function touchBlock($block)
     {
         if (!isset($this->blocklist[$block])) {
-            return PEAR::raiseError(
+            throw new Exception(
                 $this->errorMessage(IT_BLOCK_NOT_FOUND) .
                 '"' . $block . "'", IT_BLOCK_NOT_FOUND);
         }

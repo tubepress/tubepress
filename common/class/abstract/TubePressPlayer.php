@@ -4,51 +4,49 @@
  * 
  * Copyright (C) 2007 Eric D. Hough (http://ehough.com)
  * 
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
+ * This file is part of TubePress
  * 
- * This program is distributed in the hope that it will be useful,
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * TubePress is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
-
-class_exists("TubePressDataItem")
-    || require("TubePressDataItem.php");
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
-class TubePressPlayer extends TubePressDataItem
+abstract class TubePressPlayer extends TubePressDataItem
 {
 	/*
 	 * for each player, we want to know which CSS
 	 * and JS libraries that it needs
 	 */
-	var $_cssLibs, $_jsLibs, $_extraJS;
-
-	function TubePressPlayer() {
-		die("TubePressPlayer is an abstract class");
-	}
+	private $_cssLibs = array();
+	private $_jsLibs = array();
+	private $_extraJS = array();
 	
-	function getJS()
-	{
-		return $this->_jsLibs;
-	}
+	public final function getJS() { return $this->_jsLibs; }
 	
-	function getCss()
-	{
-		return $this->_cssLibs;
-	}
+	/**
+	 * @return An array of the FQ CSS libraries
+	 */
+	public final function getCss() { return $this->_cssLibs; }
 	
-	function getExtraJS() {
-		return $this->_extraJS;
-	}
+	/**
+	 * Enter description here...
+	 *
+	 * @return unknown
+	 */
+	public final function getExtraJS() { return $this->_extraJS; }
+	
+	public abstract function getPlayLink();
 }
 ?>

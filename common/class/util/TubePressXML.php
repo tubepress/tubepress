@@ -21,28 +21,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("snoopy") || require(dirname(__FILE__) .
-            "/../../../lib/snoopy/Snoopy.class.php");
-class_exists("PEAR")
-    || require(dirname(__FILE__) . "/../../../lib/PEAR/PEAR.php");
-class_exists("XML_Unserializer")
-    || require(dirname(__FILE__) . "/../../../lib/PEAR/XML/XML_Serializer/Unserializer.php");
 
-
-class TubePressXML
+abstract class TubePressXML
 {
-    /**
-     * Constructor
-     */
-    function TubePressXML()
-    {
-        die("This is a static class");
-    }
 
     /**
      * Connects to YouTube and returns raw XML
      */
-    function fetch($request, $options = "")
+    public static function fetch($request, $options = "")
     {   
         
         /* We turn off error reporting here because Snoopy is very noisy if we
@@ -61,16 +47,16 @@ class TubePressXML
         }
 
         if (!$snoopy->fetch($request)) {
-            return PEAR::raiseError(_tpMsg("REFUSED") .
+            throw new Exception(_tpMsg("REFUSED") .
                 $snoopy->error); 
         }
     
         if ($snoopy->timed_out) {
-            return PEAR::raiseError(_tpMsg("TIMEOUT", $snoopy->read_timeout)); 
+            throw new Exception(_tpMsg("TIMEOUT", $snoopy->read_timeout)); 
         }
     
         if (strpos($snoopy->response_code, "200 OK") === false) {
-            return PEAR::raiseError(
+            throw new Exception(
                 sprintf("YouTube did not respond with an HTTP OK: %s", 
                 $snoopy->response_code));
         }
@@ -84,7 +70,7 @@ class TubePressXML
      * Looks at what the user is trying to do and generates the URL that will
      * be sent to YouTube base on that
      */
-    function generateGalleryRequest($stored)
+    public static function generateGalleryRequest($stored)
     {
         class_exists('TubePressStatic') || require("TubePressStatic.php");
         
@@ -143,7 +129,7 @@ class TubePressXML
                 break;
                 
             default:
-                return PEAR::raiseError(sprintf("Invalid mode specified (%s)",
+                throw new Exception(sprintf("Invalid mode specified (%s)",
                     $currentMode->getValue()));
         }
 
@@ -190,7 +176,7 @@ class TubePressXML
         return $request;
     }
     
-    function generateVideoRequest($videoID)
+    public static function generateVideoRequest($videoID)
     {
     	return "http://gdata.youtube.com/feeds/videos/" . $videoID;
     }
@@ -198,7 +184,7 @@ class TubePressXML
     /**
      * Takes YouTube's raw xml and tries to return an array of the videos
      */
-    function toArray(&$youtube_xml)
+    public static function toArray(&$youtube_xml)
     {
     
         class_exists('XML_Unserializer') || require(dirname(__FILE__) .
@@ -219,7 +205,7 @@ class TubePressXML
 
         /* double check to make sure we have an array */
         if (!is_array($result)) {
-            return PEAR::raiseError("XML unserialization error");
+            throw new Exception("XML unserialization error");
         }
 
         return $result;

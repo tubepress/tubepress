@@ -19,8 +19,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("TubePressPlayer")
-    || require(dirname(__FILE__) . "/../abstract/TubePressPlayer.php");
 
 /**
  * Plays videos with GreyBox
@@ -51,7 +49,7 @@ class TPGreyBoxPlayer extends TubePressPlayer
 	/**
 	 * Tells the gallery how to play the vids
 	 */
-	function getPlayLink($vid, $options)
+	public function getPlayLink($vid, $options)
 	{
 	    global $tubepress_base_url;
 	    

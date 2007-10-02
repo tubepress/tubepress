@@ -473,11 +473,11 @@ class PEAR
             if ($this->_checkDelExpect($error_code)) {
                 return true;
             } else {
-                return PEAR::raiseError("The expected error you submitted does not exist"); // IMPROVE ME
+                throw new Exception("The expected error you submitted does not exist"); // IMPROVE ME
             }
         } else {
             // $error_code is empty
-            return PEAR::raiseError("The expected error you submitted is empty"); // IMPROVE ME
+            throw new Exception("The expected error you submitted is empty"); // IMPROVE ME
         }
     }
 

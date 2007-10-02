@@ -39,7 +39,7 @@ define("TP_PARAM_DEBUG", "tubepress_debug");
 /*****************************************************************************/
 /*** MODE NAMES **************************************************************/
 /*****************************************************************************/
-define("TP_MODE_FAV", "favorites");
+
 define("TP_MODE_SEARCH", "tag");
 define("TP_MODE_TAG", "tag");
 define("TP_MODE_REL", "related");

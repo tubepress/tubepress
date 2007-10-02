@@ -745,7 +745,7 @@ class XML_Util {
     */
     function raiseError($msg, $code)
     {
-        return PEAR::raiseError($msg, $code);
+        throw new Exception($msg, $code);
     }
 }
 ?>

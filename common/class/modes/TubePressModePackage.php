@@ -19,14 +19,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("TubePressDataPackage")
-    || require(dirname(__FILE__) . "/../abstract/TubePressDataPackage.php");
 defined(TP_OPTION_NAME)
     || require(dirname(__FILE__) . "/../../defines.php");
-class_exists("TubePressMode")
-    || require("TubePressMode.php");
-class_exists("PEAR")
-    || require(dirname(__FILE__) . "/../../../lib/PEAR/PEAR.php");
 function_exists("_tpMsg")
     || require(dirname(__FILE__) . "/../../messages.php");
 
@@ -91,7 +85,7 @@ class TubePressModePackage extends TubePressDataPackage
     }
     
     
-    function setValue($modeName, $modeValue) {
+    public function setValue($modeName, $modeValue) {
     	if (is_array_key($modeName, TubePressModePackage::getNames())) {
     		$this->_allModes[$modeName]->setValue($modeValue);
     	} else {

@@ -55,7 +55,7 @@ class TubePressStorageBox
         $packages = array($this->options, $this->players, $this->modes);
         foreach($packages as $package) {
             if (!is_a($package, "TubePressDataPackage")) {
-                return PEAR::raiseError("Your options are old!");
+                throw new Exception("Your options are old!");
             }
             $test = $package->checkValidity();
             

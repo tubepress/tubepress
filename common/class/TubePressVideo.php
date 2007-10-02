@@ -25,8 +25,8 @@
 class TubePressVideo
 {
     /* the raw xml about this video */
-    var $_videoXML;
-    var $_cachedThumbURL;
+    private $_videoXML;
+    private $_cachedThumbURL;
 
     function TubePressVideo($videoXML, $options = "")
     {   

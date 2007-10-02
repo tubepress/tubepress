@@ -4,42 +4,33 @@
  * 
  * Copyright (C) 2007 Eric D. Hough (http://ehough.com)
  * 
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
+ * This file is part of TubePress
  * 
- * This program is distributed in the hope that it will be useful,
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * TubePress is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
-
-class_exists("PEAR")
-    || require(dirname(__FILE__) . "/../../../lib/PEAR/PEAR.php");
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 /**
- * This is another "abstract" class that holds an array of items
+ * This is another abstract class that holds an array of items
+ * and supports some basic functions on those items
  */
-class TubePressDataPackage
+abstract class TubePressDataPackage
 {
     /**
      * This is our array of items. Should never be accessed directly from
      * the outside
      */
-    var $_dataArray;
-
-    /**
-     * Constructor
-     */
-    function TubePressDataPackage()
-    {
-		die("TubePressDataPackage is an abstract class");
-    }
+    private $_dataArray;
     
     /**
      * Checks to see if parameter appears to be a correct set of options
@@ -48,11 +39,11 @@ class TubePressDataPackage
     {
         /* make sure the db looks ok */
         if ($this->_dataArray == NULL) {
-            return PEAR::raiseError("Database options are completely missing.");
+           throw new Exception("Database options are completely missing.");
         }
         
         if (!is_array($this->_dataArray)) {
-            return PEAR::raiseError(
+            throw new Exception(
                 sprintf("Database options appear to be of type '%s' instead of an array.",
                 gettype($this->_dataArray)));
         }
@@ -64,7 +55,7 @@ class TubePressDataPackage
             
             /* Make sure we have all the keys */
             if (!array_key_exists($defaultItem, $this->_dataArray)) {
-                return PEAR::raiseError(
+                throw new Exception(
                 	vsprintf("Database is missing the '%s' option. You have %s out of " .
                  		 "%s options stored. Perhaps you need to initialize your database?",
                     	array($defaultItem, 
@@ -80,13 +71,13 @@ class TubePressDataPackage
 			}
             
          	if (!$found) {
-         	    return PEAR::raiseError("You have options that are not current TubePressOptions");
+         	    throw new Exception("You have options that are not current TubePressOptions");
          	}
         }
         
         /* finally, make sure that we have the right number of items */
         if (count($this->_dataArray) != count($modelItems)) {
-            return PEAR::raiseError("You have extra items in this package! Expecting " . 
+            throw new Exception("You have extra items in this package! Expecting " . 
                 count($modelItems)
                 . " but you seem to have " . count($this->_dataArray));
         }
@@ -99,10 +90,7 @@ class TubePressDataPackage
    		die("Can't call \"getNames\" from TubePressDataPackage");
     }
     
-    function getValidTypes()
-    {
-   	    die("Can't call \"getValidTypes\" from TubePressDataPackage");
-    }
+    public abstract function getValidTypes();
    
     /**
      * Tries to get a single option from this package. Returns
@@ -112,7 +100,7 @@ class TubePressDataPackage
     {
         if ((!array_key_exists($name, $this->_dataArray))
             || (!is_a($this->_dataArray[$name], "TubePressDataItem"))) {
-            return PEAR::raiseError(
+            throw new Exception(
             	sprintf("%s is not a valid option", $name));
         }
         return $this->_dataArray[$name];

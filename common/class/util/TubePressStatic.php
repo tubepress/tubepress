@@ -25,12 +25,12 @@ defined(TP_OPTION_NAME)
 /**
  * A bunch of "static" utilities that are used throughout the app
  */
-class TubePressStatic
+abstract class TubePressStatic
 {    
     /**
      * Take a PEAR error object and return a prettified message
      */
-    function bail($error)
+    public static function bail($error)
     {
         $returnMsg = sprintf("%s<br /><br />", $error->message);
         return $returnMsg;
@@ -39,7 +39,7 @@ class TubePressStatic
     /**
      * Returns what's in the address bar (obviously, only http, not https)
      */
-    function fullURL()
+    public static function fullURL()
     {
         return "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
     }
@@ -48,7 +48,7 @@ class TubePressStatic
      * Try to figure out what page we're on by looking at the query string
      * Defaults to '1' if there's any doubt
      */
-    function getPageNum()
+    public static function getPageNum()
     {
         $pageNum = ((isset($_GET[TP_PARAM_PAGE]))?
             $_GET[TP_PARAM_PAGE] : 1);
