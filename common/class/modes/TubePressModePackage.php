@@ -19,8 +19,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+class_exists("TubePressDataPackage")
+    || require(dirname(__FILE__) . "/../abstract/TubePressDataPackage.php");
+defined(TP_OPTION_NAME)
+    || require(dirname(__FILE__) . "/../../defines.php");
 class_exists("TubePressMode")
     || require("TubePressMode.php");
+class_exists("PEAR")
+    || require(dirname(__FILE__) . "/../../../lib/PEAR/PEAR.php");
+function_exists("_tpMsg")
+    || require(dirname(__FILE__) . "/../../messages.php");
 
 /**
  * Manages all of the gallery modes that we know about
@@ -50,8 +58,8 @@ class TubePressModePackage extends TubePressDataPackage
     		TP_MODE_PLST => new TubePressMode(_tpMsg("MODE_PLST_TITLE"),
     			_tpMsg("MODE_PLST_DESC"), "D2B04665B213AE35"),
     		
-    		TP_MODE_TAG => new TubePressMode(_tpMsg("MODE_TAG_TITLE"),
-    			" ", "stewart daily show"),
+    		TP_MODE_SEARCH => new TubePressMode(_tpMsg("MODE_TAG_TITLE"),
+    			"YouTube limits this mode to 1,000 results", "stewart daily show"),
     			
     		TP_MODE_FEATURED => new TubePressMode(_tpMsg("MODE_FEAT_TITLE"),
     			" ", " "),
@@ -71,7 +79,7 @@ class TubePressModePackage extends TubePressDataPackage
      * Ugly but fast
      */
     function getNames() {
-        return array(TP_MODE_USER, TP_MODE_FAV, TP_MODE_PLST, TP_MODE_TAG,
+        return array(TP_MODE_USER, TP_MODE_FAV, TP_MODE_PLST, TP_MODE_SEARCH,
             TP_MODE_FEATURED, TP_MODE_POPULAR, TP_MODE_TOPRATED, TP_MODE_MOBILE);
     }
     

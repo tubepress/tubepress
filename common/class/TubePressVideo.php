@@ -22,11 +22,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-function_exists("_tpMsg")
-    || require(dirname(__FILE__) . "/../messages.php");
-defined("TP_VID_TITLE")
-    || require(dirname(__FILE__) . "/../defines.php");
-
 class TubePressVideo
 {
     /* the raw xml about this video */
@@ -77,8 +72,9 @@ class TubePressVideo
      */
     function getId()
     {
-        $pos = strrpos($this->_videoXML['id'], "/");
-        return substr($this->_videoXML['id'], $pos + 1);
+        $url = $this->_videoXML['media:group']['media:player']['url'];
+        $pos = strrpos($url, "=");
+        return substr($url, $pos + 1);
     }
     
     /**

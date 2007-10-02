@@ -29,7 +29,6 @@ $tubepressMessages =
           "TIMEOUT" => "Timed out while trying to contact YouTube after %s seconds",
           "REFUSED" => "Unable to connect to YouTube - ",
           "NOCOUNT" => "YouTube didn't return a total video count",
-          "BADMODE" => "Invalid mode specified (%s)",
           "NOVALS" => "No valid values defined for this option",
           "VALTYPE" => "Must set valid option values with TubePressEnum class",
           "VIDNOARR" => "Attempted to make video out of non-array",
@@ -90,20 +89,20 @@ $tubepressMessages =
           /*** MODES *********************************************************/
           /*******************************************************************/
           "MODE_TITLE" => "Mode",
-          "MODE_FAV_TITLE" => "this YouTube user's \"favorites\"",
-          "MODE_FAV_DESC" => "YouTube limits this mode to the latest 10 favorites",
-          "MODE_FEAT_TITLE" => "The latest 25 \"featured\" videos " .
+          "MODE_FAV_TITLE" => "This YouTube user's \"favorites\"",
+          "MODE_FAV_DESC" => "YouTube limits this mode to the latest 500 favorites",
+          "MODE_FEAT_TITLE" => "The latest \"featured\" videos " .
                   "on YouTube's homepage",
           "MODE_HEADER" => "Which videos?",
-          "MODE_PLST_TITLE" => "<sup>*</sup>this playlist",
-          "MODE_PLST_DESC" => "Will usually look something like this:" .
+          "MODE_PLST_TITLE" => "This playlist",
+          "MODE_PLST_DESC" => "Limited to 200 videos per playlist. Will usually look something like this:" .
                   " D2B04665B213AE35. Copy the playlist id from the end of the " .
                   "URL in your browser's address bar (while looking at a YouTube " .
                   "playlist). It comes right after the 'p='. For instance: " .
                   "http://youtube.com/my_playlists?p=D2B04665B213AE35",
           "MODE_POPULAR_TITLE" => "Most-viewed videos from...",
-          "MODE_TAG_TITLE" => "<sup>*</sup>YouTube search for",
-          "MODE_USER_TITLE" => "<sup>*</sup>videos from this YouTube user",
+          "MODE_TAG_TITLE" => "YouTube search for",
+          "MODE_USER_TITLE" => "Videos from this YouTube user",
           
           /*******************************************************************/
           /*** DISPLAY OPTIONS ***********************************************/
@@ -118,8 +117,7 @@ $tubepressMessages =
           "VIDWIDTH_TITLE" => "Max width (px) of main video",
           "VIDWIDTH_DESC" => "Default is 424",
           "VIDSPERPAGE_TITLE" => "Videos per page",
-          "VIDSPERPAGE_DESC" => "Default is 20, maximum is 100. Only some modes " .
-                  "support pagination (see above).",
+          "VIDSPERPAGE_DESC" => "Default is 20.",
           "TP_OPT_GREYBOXON_TITLE" => "Enable GreyBox",
           "TP_OPT_LWON_TITLE" => "Enable lightWindow",
           "TP_OPT_GREYBOXON_DESC" => "Checking this box will load the GreyBox JS libraries" .

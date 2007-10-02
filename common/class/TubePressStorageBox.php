@@ -22,12 +22,15 @@
 /**
  * 
 */
-class_exists('TubePressOptionsPackage') ||
-    require('options/TubePressOptionsPackage.php');
-class_exists('TubePressPlayerPackage') ||
-    require('players/TubePressPlayerPackage.php');
-class_exists('TubePressModePackage') ||
-    require('modes/TubePressModePackage.php');
+
+class_exists("TubePressDataPackage")
+    || require("abstract/TubePressDataItem.php");
+class_exists("PEAR")
+    || require(dirname(__FILE__) . "/../../lib/PEAR/PEAR.php");
+class_exists("TubePressOptionsPackage.php") 
+    || require("options/TubePressOptionsPackage.php");
+class_exists("TubePressPlayerPackage")
+    || require("players/TubePressPlayerPackage.php");
 
 class TubePressStorageBox
 {

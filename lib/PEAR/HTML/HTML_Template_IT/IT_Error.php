@@ -17,8 +17,6 @@
 //
 // $Id: IT_Error.php,v 1.3 2006/08/17 15:44:31 dsp Exp $
 
-require_once "PEAR.php";
-
 /**
 * IT[X] Error class
 * 

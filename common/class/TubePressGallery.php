@@ -21,21 +21,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("TubePressOptionsPackage")
-    || require("options/TubePressOptionsPackage.php");
-class_exists("HTML_Template_IT")
-    || require(dirname(__FILE__) . 
-        "/../../lib/PEAR/HTML/HTML_Template_IT/IT.php");
-class_exists("TubePressXML") || require("util/TubePressXML.php");
-class_exists("TubePressVideo") || require("TubePressVideo.php");
-class_exists("TubePressStatic") || require("util/TubePressStatic.php");
+class_exists("TubePressStatic")
+    || require("util/TubePressStatic.php");
+class_exists("PEAR")
+    || require(dirname(__FILE__) . "/../../lib/PEAR/PEAR.php");
+class_exists("TubePressXML")
+    || require("util/TubePressXML.php");
+class_exists("TubePressVideo")
+    || require("TubePressVideo.php");
 class_exists("Net_URL")
-    || require(dirname(__FILE__) . 
-        "/../../lib/PEAR/Networking/Net_URL/URL.php");
-
+    || require(dirname(__FILE__) . "/../../lib/PEAR/Networking/Net_URL/URL.php");
 function_exists("diggstyle_getPaginationString")
     || require(dirname(__FILE__) . "/../../lib/diggstyle_function.php");
-
+    
 /**
  * Handles fetching and printing out a YouTube gallery. This is meant
  * to be a "static" class, but PHP 4 doesn't support them :(
@@ -95,63 +93,59 @@ class TubePressGallery
         	return $tpl;
         }
 
-        /* are we paging? */
-        $paging = TubePressStatic::areWePaging($stored->options);
-            
         /* Grab the XML from YouTube */
         $request = TubePressXML::generateGalleryRequest($stored);
         if (PEAR::isError($request)) {
             return $request;
         }
-
+        
         $youtube_xml = TubePressXML::fetch($request, $stored->options);
-
+        
         /* Any HTTP errors? */
         if (PEAR::isError($youtube_xml)) {
             return $youtube_xml;
         }
-
-        /* put the XML into a nice, friendly array */
+        
+        /* put the XML into a friendly array */
         $videoArray = TubePressXML::toArray($youtube_xml);
-
+        
         /* Any parsing errors? */
         if (PEAR::isError($videoArray)) {
             return $videoArray;
         }
         
+        $totalVideoResults = $videoArray['openSearch:totalResults'];
+        
         /* keeps track of how many videos we've actually printed */
         $videosPrintedCnt = 0;
         
+        if ($totalVideoResults == 0) {
+            return "No matching videos!";
+        }
+        
         /* how many videos we actually got from YouTube */
-        //$videosReturnedCnt = is_array($videoArray['video'][0]) ?
-        //    count($videoArray['video']) :
-        //    1;
-        $videosReturnedCnt = count($videoArray);
-        
-        
-        /* Next two lines figure out how many videos we're going to show */
-        $vidsPerPage = $stored->options->get(TP_OPT_VIDSPERPAGE);
-        $vidLimit = ($paging ?
-            $vidsPerPage->getValue() : 
-            $videosReturnedCnt);
-        if ($videosReturnedCnt < $vidLimit) {
-            $vidLimit = $videosReturnedCnt;
+        if ($totalVideoResults > 1) {
+            $videosReturnedCnt = count($videoArray['entry']);
+        } else {
+            $videosReturnedCnt = 1;
         }
 
-        /* If we're paging, spit out the top/bottom pagination */
-        if ($paging) {
-            $tpl->setVariable('PAGINATION', 
-                TubePressGallery::_printHTML_pagination(
-                    $videoArray['total'], 
-                    $stored->options));
-            $tpl->parse('topPagination');
-            $tpl->parse('bottomPagination');
+        /* Next few lines figure out how many videos we're going to show */
+        $vidsPerPage = $stored->options->get(TP_OPT_VIDSPERPAGE);
+        $vidLimit = $vidsPerPage->getValue(); 
+        
+        if ($videosReturnedCnt < $vidLimit) {
+            $vidLimit = $videosReturnedCnt;
         }
         
         for ($x = 0; $x < $vidLimit; $x++) {
 
             /* Create a TubePressVideo object from the XML (if we can) */
-            $video = new TubePressVideo($videoArray[$x]);
+            if ($totalVideoResults == 1) {
+                $video = new TubePressVideo($videoArray['entry']);
+            } else {
+                 $video = new TubePressVideo($videoArray['entry'][$x]);
+            }
             
             /* Top of the gallery is special */
             if ($videosPrintedCnt++ == 0) {
@@ -163,6 +157,13 @@ class TubePressGallery
             TubePressGallery::_printHTML_smallvid($video,
                  $stored, $tpl);
         }
+        
+                /* Spit out the top/bottom pagination */
+        $pagination =  TubePressGallery::_printHTML_pagination(
+                $totalVideoResults, 
+                $stored->options);
+        $tpl->setVariable('TOPPAGINATION', $pagination);
+        $tpl->setVariable('BOTPAGINATION', $pagination);
 
         return $tpl->get();
     }
@@ -322,10 +323,10 @@ class TubePressGallery
     
         $newurl = new Net_URL(TubePressStatic::fullURL());
         $newurl->removeQueryString(TP_PARAM_PAGE);
- 
+
         $currentMode = $options->get(TP_OPT_MODE);
         if ($currentMode->getValue() == TP_MODE_TAG) {
-            $vidCount = min($vidCount, 400);
+            $vidCount = min($vidCount, 1000);
         }
  
         return diggstyle_getPaginationString($currentPage, $vidCount,

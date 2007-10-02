@@ -21,7 +21,7 @@
 					<td>
 						<input type="radio" name="mode" id="{MODENAME}" value="{MODENAME}" {MODESELECTED} /> 
 						<input type="text" name="{MODENAME}" size="20" value="{MODEVALUE}" /> 
-						<br />
+						<br />{MODEDESC}
 					</td>
 				</tr>
 				<!-- END normalMode -->
@@ -45,7 +45,7 @@
 					</th>
 					<td>
 						<input type="radio" name="mode" id="{POPULARNAME}" value="{POPULARNAME}" {POPULARSELECTED} /> 
-						<select name="popularValue">
+						<select name="{POPULARNAME}Value">
 							<!-- BEGIN period -->
 							<option value="{PERIOD}" {PERIODSELECTED}>{PERIODTITLE}</option>
 							<!-- END period -->
@@ -63,6 +63,22 @@
 		<fieldset>
 			<h3>{DISPLAYTITLE}</h3>
 			<table class="editform optiontable">
+			
+				<!-- BEGIN displayMenuOption -->
+				<tr>
+					<th style="font-weight: bold; font-size: 1em" valign="top">
+						{DISPMENUTITLE}
+					</th>
+					<td>
+						<select name="{DISPMENUNAME}Value">
+							<!-- BEGIN displayMenuItems -->
+							<option value="{DISPMENUITEMVAL}" {DISPMENUSELECTED}>{DISPMENUTITLE}</option>
+							<!-- END displayMenuItems -->
+						</select> 
+						<br />
+					</td>
+				</tr>
+				<!-- END displayMenuOption -->
 			
 				<!-- BEGIN displayTextOption -->
 				<tr valign="top">

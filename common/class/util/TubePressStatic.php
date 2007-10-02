@@ -19,26 +19,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+defined(TP_OPTION_NAME)
+    || require(dirname(__FILE__) . "/../../defines.php");
+
 /**
  * A bunch of "static" utilities that are used throughout the app
  */
 class TubePressStatic
 {    
-    /**
-     * Returns true if we're in a mode that supports pagination
-     */
-    function areWePaging($options)
-    {
-        $mode = $options->get(TP_OPT_MODE);
-        if (($mode->getValue() == TP_MODE_USER)
-            || ($mode->getValue() == TP_MODE_TAG)
-            || ($mode->getValue() == TP_MODE_REL)
-            || ($mode->getValue() == TP_MODE_PLST)) {
-                return true;
-        }
-        return false;
-    }
-    
     /**
      * Take a PEAR error object and return a prettified message
      */

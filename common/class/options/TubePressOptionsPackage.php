@@ -19,19 +19,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-if (!class_exists('TubePressIntegerOption')) {
-    require('TubePressIntegerOpt.php');
-    require('TubePressStringOpt.php');
-    require('TubePressEnumOpt.php');
-    require('TubePressBooleanOpt.php');
-}
-
 class_exists("TubePressDataPackage")
     || require(dirname(__FILE__) . "/../abstract/TubePressDataPackage.php");
-class_exists("TubePressPlayerPackage")
-    || require(dirname(__FILE__) . "/../players/TubePressPlayerPackage.php");
+defined(TP_OPTION_NAME)
+    || require(dirname(__FILE__) . "/../../defines.php");
+class_exists("TubePressBooleanOpt")
+    || require("TubePressBooleanOpt.php");
+class_exists("TubePressEnumOpt")
+    || require("TubePressEnumOpt.php");
+class_exists("TubePressIntegerOpt")
+    || require("TubePressIntegerOpt.php");
+class_exists("TubePressStringOpt")
+    || require("TubePressStringOpt.php");
 class_exists("TubePressModePackage")
-    || require(dirname(__FILE__) . "/../modes/TubePressModePackage.php");  
+    || require(dirname(__FILE__) . "/../modes/TubePressModePackage.php");
 
 /**
  * The idea here is that each implementation (WordPress, MoveableType)
@@ -95,7 +96,7 @@ class TubePressOptionsPackage extends TubePressDataPackage
                       array("updated", "viewCount", "rating", "relevance")),
                   
                   TP_OPT_VIDSPERPAGE=>  new TubePressIntegerOpt(
-                      _tpMsg("VIDSPERPAGE_TITLE"), _tpMsg("VIDSPERPAGE_DESC"), 20, 100),      
+                      _tpMsg("VIDSPERPAGE_TITLE"), _tpMsg("VIDSPERPAGE_DESC"), 20, 50),      
                   TP_OPT_VIDWIDTH =>    new TubePressIntegerOpt(
                       _tpMsg("VIDWIDTH_TITLE"), _tpMsg("VIDWIDTH_DESC"), 424),
                   TP_OPT_VIDHEIGHT =>   new TubePressIntegerOpt(
@@ -169,5 +170,6 @@ class TubePressOptionsPackage extends TubePressDataPackage
             "TubePressIntegerOpt", "TubePressStringOpt"
         );
     }
+
 }
 ?>

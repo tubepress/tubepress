@@ -24,14 +24,18 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-defined("TP_OPTION_NAME")
+defined(TP_OPTION_NAME)
     || require("common/defines.php");
-
+class_exists("TubePressStorageBox")
+    || require("common/class/TubePressStorageBox.php");
+class_exists("PEAR")
+    || require("lib/PEAR/PEAR.php");
 function_exists("tp_executeOptionsPage")
     || require("env/WordPress/TubePressOptions.php");
-    
 class_exists("TubePressGallery")
     || require("common/class/TubePressGallery.php");
+class_exists("TubePressDebug")
+    || require("common/class/util/TubePressDebug.php");
     
 if (!isset($tubepress_base_url)) {
     $tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
@@ -60,7 +64,7 @@ function tp_main($content = '')
     /* ------------ PARSE THE TAG --------------------------------- */
     /* ------------------------------------------------------------ */ 
 
-    WordPressStorageBox::applyTag($keyword->getValue(), $content, $stored->options);
+    WordPressStorageBox::applyTag($keyword->getValue(), $content, $stored, $stored->options);
 
     /* ------------------------------------------------------------ */
     /* ------------ PRINT DEBUG OUTPUT IF WE NEED IT -------------- */
@@ -93,7 +97,7 @@ function tp_main($content = '')
     }
 
     /* We're done! Replace the tag with our new content */
-    return str_replace($stored->options->tagString, $newcontent, $content);
+    return str_replace($stored->tagString, $newcontent, $content);
 }
 
 /**
@@ -137,16 +141,15 @@ function tp_shouldWeExecute($content, &$keyword, &$stored) {
 function tp_safeGetStorage() {
     
     global $tubepress_storagebox;
-    
+
     if (isset($tubepress_storagebox)) {
         return $tubepress_storagebox;
     }
-    
+
     $stored = get_option(TP_OPTION_NAME);
     if ($stored == NULL) {
         return NULL;
     }
-    
     if (!is_a($stored, "TubePressStorageBox")) {
         return NULL;
     }
@@ -155,7 +158,7 @@ function tp_safeGetStorage() {
     if (PEAR::isError($result)) {
         return NULL;
     }
-    
+
     $tubepress_storagebox = $stored;
     return $stored;
 }

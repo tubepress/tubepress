@@ -36,7 +36,6 @@
 /**
  * uses PEAR's error handling
  */
-class_exists("PEAR") || require_once dirname(__FILE__) . '/../../PEAR.php';
 
 /**
  * resource could not be created

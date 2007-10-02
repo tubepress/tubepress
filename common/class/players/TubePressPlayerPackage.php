@@ -18,14 +18,25 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-    
-class_exists("TPGreyBoxPlayer") || require("TPGreyBoxPlayer.php");
-class_exists("TPlightWindow") || require("TPlightWindowPlayer.php");
-class_exists("TPNewWindowPlayer") || require("TPNewWindowPlayer.php");
-class_exists("TPNormalPlayer") || require("TPNormalPlayer.php");
-class_exists("TPPopupPlayer") || require("TPPopupPlayer.php");
-class_exists("TPYouTubePlayer") || require("TPYouTubePlayer.php");
 
+class_exists("TubePressDataPackage")
+    || require(dirname(__FILE__) . "/../abstract/TubePressDataPackage.php");
+class_exists("PEAR")
+    || require(dirname(__FILE__) . "/../../../lib/PEAR/PEAR.php");
+class_exists("TPGreyBoxPlayer")
+    || require("TPGreyBoxPlayer.php");
+class_exists("TPlightWindowPlayer")
+    || require("TPlightWindowPlayer.php");
+class_exists("TPNewWindowPlayer")
+    || require("TPNewWindowPlayer.php");
+class_exists("TPNormalPlayer")
+    || require("TPNormalPlayer.php");
+class_exists("TPPopupPlayer")
+    || require("TPPopupPlayer.php");
+class_exists("TPYouTubePlayer")
+    || require("TPYouTubePlayer.php");
+    
+    
 /**
  * A TubePress "mode", such as favorites, popular, playlist, etc
  */

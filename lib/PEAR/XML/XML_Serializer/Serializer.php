@@ -27,12 +27,10 @@
 /**
  * uses PEAR error management
  */
-class_exists("PEAR") || require_once dirname(__FILE__) . '/../../PEAR.php';
 
 /**
  * uses XML_Util to create XML tags
  */
-require_once dirname(__FILE__) . '/../XML_Util/Util.php';
 
 /**
  * option: string used for indentation

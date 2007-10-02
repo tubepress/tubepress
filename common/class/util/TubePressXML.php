@@ -21,6 +21,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+class_exists("snoopy") || require(dirname(__FILE__) .
+            "/../../../lib/snoopy/Snoopy.class.php");
+class_exists("PEAR")
+    || require(dirname(__FILE__) . "/../../../lib/PEAR/PEAR.php");
+class_exists("XML_Unserializer")
+    || require(dirname(__FILE__) . "/../../../lib/PEAR/XML/XML_Serializer/Unserializer.php");
+
+
 class TubePressXML
 {
     /**
@@ -36,8 +44,6 @@ class TubePressXML
      */
     function fetch($request, $options = "")
     {   
-        class_exists("snoopy") || require(dirname(__FILE__) .
-            "/../../../lib/snoopy/Snoopy.class.php");
         
         /* We turn off error reporting here because Snoopy is very noisy if we
          * can't connect
@@ -100,6 +106,7 @@ class TubePressXML
             
             case TP_MODE_TAG:
             case TP_MODE_REL:
+            case TP_MODE_SEARCH:
             
             /* list_by_related is now deprecated, and returns identical 
              * results to list_by_tag. See http://groups.google.com/group/
@@ -108,7 +115,7 @@ class TubePressXML
              * 1#66eef9a7fced754e
              */
             
-                $modeObj = $stored->modes->get(TP_MODE_REL);
+                $modeObj = $stored->modes->get(TP_MODE_SEARCH);
                 $request .= "/feeds/videos?vq=" . urlencode($modeObj->getValue());
                 break;
             
@@ -125,18 +132,61 @@ class TubePressXML
             case TP_MODE_FEATURED:
                 $request .= "/feeds/standardfeeds/recently_featured";
                 break;
+                
+            case TP_MODE_MOBILE:
+                $request .= "/feeds/standardfeeds/watch_on_mobile";
+                break;
+            
+            case TP_MODE_TOPRATED:
+                $modeObj = $stored->modes->get(TP_MODE_TOPRATED);
+                $request .= "/feeds/standardfeeds/top_rated?time=" . $modeObj->getValue();
+                break;
+                
             default:
-                return PEAR::raiseError(_tpMsg("BADMODE",
+                return PEAR::raiseError(sprintf("Invalid mode specified (%s)",
                     $currentMode->getValue()));
         }
 
-        //if (TubePressStatic::areWePaging($stored->options)) {
-         //   $val = $stored->options->get(TP_OPT_VIDSPERPAGE);
-         //   $pageNum = TubePressStatic::getPageNum();
-         //   $request .= sprintf("&page=%s&per_page=%s",
-         //       $pageNum, $val->getValue());
-       // }
-
+        $val = $stored->options->get(TP_OPT_VIDSPERPAGE);
+        $val = $val->getValue();
+        $pageNum = TubePressStatic::getPageNum();
+        $start = ($pageNum * $val) - $val + 1;
+        
+        if ($start + $val > 1000) {
+            $val = 1000 - $start;
+        }
+        
+        $delimeter = '?';
+        if (strpos($request, '?') !== false) {
+            $delimeter = '&';
+        }
+        $request .= sprintf("%sstart-index=%s&max-results=%s",
+            $delimeter, $start, $val);
+    $delimeter = '?';
+        if (strpos($request, '?') !== false) {
+            $delimeter = '&';
+        }
+        $racyOpt = $stored->options->get(TP_OPT_FILTERADULT);
+        if (!$racyOpt->getValue()
+            && $currentMode->getValue() != TP_MODE_MOBILE
+            && $currentMode->getValue() != TP_MODE_FEATURED
+            && $currentMode->getValue() != TP_MODE_FAV
+            && $currentMode->getValue() != TP_MODE_USER) {
+            $request .= sprintf("%sracy=include", $delimeter);
+        }
+        
+        
+        if ($currentMode->getValue() != TP_MODE_PLST) {
+        $orderOpt = $stored->options->get(TP_OPT_ORDERBY);
+        $oderVal = $orderOpt->getValue();
+        $delimeter = '?';
+        if (strpos($request, '?') !== false) {
+            $delimeter = '&';
+        }
+            $request .= sprintf("%sorderby=%s", $delimeter,
+                $oderVal);
+        }
+        echo $request;
         return $request;
     }
     
@@ -172,15 +222,7 @@ class TubePressXML
             return PEAR::raiseError("XML unserialization error");
         }
 
-        if (is_array($result['entry'])) {
-            return $result['entry'];
-        }
-        
-        if (is_array($result)) {
-            return $result;
-        }
-
-        return PEAR::raiseError("No matching videos!");
+        return $result;
     }
 }
 ?>

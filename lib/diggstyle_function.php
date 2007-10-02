@@ -36,7 +36,7 @@ function diggstyle_getPaginationString($page = 1, $totalitems, $limit = 15, $adj
 		}
 		else
 			$pagination .= "<span class=\"disabled\">" . _tpMsg("PREV") . "</span>";	
-		
+
 		//pages	
 		if ($lastpage < 7 + ($adjacents * 2))	//not enough pages to bother breaking it up
 		{	
@@ -107,7 +107,7 @@ function diggstyle_getPaginationString($page = 1, $totalitems, $limit = 15, $adj
 			else
 			{
 				$url->addQueryString($pagestring, 1);
-				
+				$newurl = $url->getURL();
 				$pagination .= "<a href=\"$newurl\">1</a>";
 				$url->addQueryString($pagestring, 2);
 				$newurl = $url->getURL();

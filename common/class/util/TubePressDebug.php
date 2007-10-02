@@ -19,9 +19,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("TubePressOptionsPackage")
-    || require("TubePressOptionsPackage.php");
-
 /**
  * Prints out gobs of debugging information
  */
@@ -39,10 +36,10 @@ class TubePressDebug
      * This is the only public function here. Actually it's
      * the only real function.
      */
-    function debug($options = "PHPisLAMO")
+    function debug($stored = "PHPisLAMO")
     {
-        if ($options == "PHPisLAMO") {
-            $options = new TubePressOptionsPackage();
+        if ($stored == "PHPisLAMO") {
+            $stored = new TubePressStorageBox();
         }
         
         echo "TUBEPRESS DEBUG MODE<BR/><ol>";
@@ -59,14 +56,14 @@ class TubePressDebug
         }
         
         /* see if we even have some options */
-        if ($options == NULL) {
+        if ($stored == NULL) {
             echo "<li>Your options are completely missing!</li>";
             echo TubePressDebug::_finish();
             return;
         }
         
         /* make sure the options look good */
-        $validOpts = $options->checkValidity();
+        $validOpts = $stored->options->checkValidity();
         if (PEAR::isError($validOpts)) {
             echo "<li>There is a problem with your options: " . 
                 $validOpts->message;
@@ -80,12 +77,13 @@ class TubePressDebug
         }
     
         /* see what we're going to do */
-        if ($options->getValue(TP_OPT_PLAYIN) == TP_PLAYIN_NW
+        $playerName = $stored->options->get(TP_OPT_PLAYIN);
+        if ($playerName->getValue() == TP_PLAYIN_NW
             && isset($_GET[TP_PARAM_VID])) {
             echo "<li>We will print just one video on this page.</li>";
         } else {
             echo "<li>We will print a gallery on this page.</li>";
-            TubePressDebug::_galleryDebug($options);
+            TubePressDebug::_galleryDebug($stored);
         }
         
         /* the full URL to this page */
@@ -95,12 +93,20 @@ class TubePressDebug
         /* this is intended for subclasses of TubePressOptionsPackage
          * to spit out any debugging info they want
          */
-        echo $options->debug();
+        echo $stored->debug();
     
         /* print out the entire package */
-        echo "<li>And now, the motherload. This is your " .
+        echo "<li>This is your " .
             "TubePressOptionsPackage...<br/><pre>";
-        print_r($options);
+        print_r($stored->options);
+        echo "</pre></li>";
+        echo "<li>This is your " .
+            "TubePressPlayerPackage...<br/><pre>";
+        print_r($stored->players);
+        echo "</pre></li>";
+        echo "<li>This is your " .
+            "TubePressModesPackage...<br/><pre>";
+        print_r($stored->modes);
         echo "</pre></li>";
         TubePressDebug::_finish();
     }
@@ -108,18 +114,11 @@ class TubePressDebug
     /**
      * Debugs gallery generation
      */
-    function _galleryDebug($options)
+    function _galleryDebug($stored)
     {
-        /* see if we're in a mode that does paging */
-        $paging = TubePressStatic::areWePaging($options);
-        if ($paging) {
-            echo "<li>We will do pagination if we need to</li>";
-        } else {
-            echo "<li>We won't do pagination</li>";
-        }
         
         /* see if we can make the request for YouTube */
-        $request = TubePressXML::generateRequest($options);
+        $request = TubePressXML::generateGalleryRequest($stored);
         if (PEAR::isError($request)) {
             echo "<li>Could not generate a request: " . $request->message . 
                 "</li>";
@@ -134,7 +133,7 @@ class TubePressDebug
         }
         
         /* see if we can talk to YouTube */
-        $youtube_xml = TubePressXML::fetchRawXML($options);
+        $youtube_xml = TubePressXML::fetch($request, $stored->options);
         if (PEAR::isError($youtube_xml)) {
             echo "<li>Problem talking to YouTube: " . $youtube_xml->message .
                 "</li>";
@@ -144,7 +143,7 @@ class TubePressDebug
         }
         
         /* see if we can understand the XML result */
-        $videoArray = TubePressXML::parseRawXML($youtube_xml);
+        $videoArray = TubePressXML::toArray($youtube_xml);
         if (PEAR::isError($videoArray)) {
             echo "<li>The results from YouTube seem to be malformed: " . 
                 $videoArray->message . "</li>";
@@ -155,26 +154,26 @@ class TubePressDebug
             print_r($videoArray);
             echo "</pre></li>";
         }
-        
+       
         /* see how many videos we actually received */
-        $videosReturnedCnt = is_array($videoArray['video'][0]) ?
-            count($videoArray['video']) :
-            1;
+        $totalVideoResults = $videoArray['openSearch:totalResults'];
+
+        if ($totalVideoResults == 0) {
+            $videosReturnedCnt = 0;
+        }
+        
+        /* how many videos we actually got from YouTube */
+        if ($totalVideoResults > 1) {
+            $videosReturnedCnt = count($videoArray['entry']);
+        } else {
+            $videosReturnedCnt = 1;
+        }
         echo "<li>We seem to have received " . $videosReturnedCnt . " videos</li>";
         
         /* find out how many videos we'll actually print */
-        $vidLimit = ($paging ?
-            $options->getValue(TP_OPT_VIDSPERPAGE) : 
-            $videosReturnedCnt);
-        if ($paging) {
-            echo "<li>Since we are in a mode that supports paging, our video " .
-                "limit for this page will be " .
-                $options->getValue(TP_OPT_VIDSPERPAGE) . ", which is user " .
-                "defined</li>";
-        } else {
-            echo "<li>Since we're in a non-paging mode, we'll print that many" .
-                " videos</li>";
-        }
+        $vidLimit =  $stored->options->get(TP_OPT_VIDSPERPAGE);
+        $vidLimit = $vidLimit->getValue();
+           
         if ($videosReturnedCnt < $vidLimit) {
             echo "<li>We got less videos than we can handle for this page</li>";
             $vidLimit = $videosReturnedCnt;
@@ -182,27 +181,6 @@ class TubePressDebug
                 "</li>";
         }
         
-        /* see if we can interpret each video result */
-        echo "<li>Checking each video...</li><ol>";
-        for ($x = 0; $x < $vidLimit; $x++) {
-            
-            /* Create a TubePressVideo object from the XML (if we can) */
-            if ($videosReturnedCnt == 1) {
-                $video = new TubePressVideo($videoArray['video']);
-            } else {
-                $video = new TubePressVideo($videoArray['video'][$x]);
-            }
-            
-            echo "<li>" . $video->metaValues[TP_VID_TITLE] . "... ";
-    
-            if (PEAR::isError($video)) {
-                echo "ERROR: " . $video->message;
-            } else {
-                echo "OK";
-            }
-            echo "</li>";
-        }
-        echo "</ol>";
     }
     
     /**

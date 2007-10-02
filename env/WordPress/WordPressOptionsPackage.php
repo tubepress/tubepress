@@ -34,8 +34,6 @@ defined("TP_OPTION_NAME")
 
 class WordPressOptionsPackage extends TubePressOptionsPackage
 {
-    /* need to keep the tag string around for string replacement later */
-    var $tagString;
      
     /**
      * Default constructor. Just pulls the options from the db. Will return

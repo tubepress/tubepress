@@ -25,6 +25,8 @@ function_exists("_tpMsg") || require(dirname(__FILE__) . "/../../common/messages
 class_exists("WordPressStorageBox") || require("WordPressStorageBox.php");
 class_exists("WordPressOptionsPage") || require("WordPressOptionsPage.php");
 class_exists("HTML_Template_IT") || require(dirname(__FILE__) . "/../../lib/PEAR/HTML/HTML_Template_IT/IT.php");
+defined(TP_OPTION_NAME)
+    || function_exists("_tpMsg") || require(dirname(__FILE__) . "/../../common/defines.php");
 
     /**
      * This is the main method for the TubePress global options page,
@@ -52,6 +54,7 @@ class_exists("HTML_Template_IT") || require(dirname(__FILE__) . "/../../lib/PEAR
         if ($stored == NULL) {
                 WordPressOptionsPage::printStatusMsg("Options did not store!",
                 TP_CSS_FAILURE);
+                return;
         }
         
         $valid = $stored->checkValidity();

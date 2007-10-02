@@ -21,6 +21,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+defined(TP_OPTION_NAME)
+    || require(dirname(__FILE__) . "/../../common/defines.php");
+class_exists("TubePressOptionsPackage")
+    || require(dirname(__FILE__) . "/../../common/class/options/TubePressOptionsPackage.php");
+
 class WordPressOptionsPage
 {
     /**
@@ -84,6 +89,29 @@ class WordPressOptionsPage
             $tpl->setVariable("DISPBOOLDESCRIPTION", $opt->getDescription());
             $tpl->parse("displayBoolOption");
         }
+        
+        $opt = $stored->options->get(TP_OPT_ORDERBY);
+        $period = array(
+            array("viewCount", "view count"),
+            array("rating", "rating"),
+            array("updated", "date updated"),
+            array("relevance", "relevance")
+        );
+                
+        foreach ($period as $thisPeriod) {
+                    
+            $tpl->setVariable("DISPMENUITEMVAL", $thisPeriod[0]);
+            $tpl->setVariable("DISPMENUTITLE", $thisPeriod[1]);
+                    
+            if ($thisPeriod[0] == $opt->getValue()) {
+                $tpl->setVariable("DISPMENUSELECTED", "selected");
+            }
+            $tpl->parse("displayMenuItems");
+        }
+        
+        $tpl->setVariable("DISPMENUNAME", TP_OPT_ORDERBY);
+        $tpl->setVariable("DISPMENUTITLE", $opt->getTitle());
+        $tpl->parse("displayMenuOption");
     }
     
     /**
@@ -160,6 +188,51 @@ class WordPressOptionsPage
                 continue;
             }
             
+            if ($modeName == TP_MODE_MOBILE) {
+                $tpl->setVariable('FEATUREDTITLE', $actualMode->getTitle());
+                $tpl->setVariable('FEATUREDNAME', $modeName);
+                $tpl->setVariable('FEATUREDVALUE', $actualMode->getValue());
+                
+                if ($modeName == $storedMode->getValue()) {
+                    $tpl->setVariable("FEATUREDSELECTED", "checked");
+                }
+                
+                $tpl->parse("featuredMode");
+                continue;
+            }
+            
+            /* handle the "top rated" mode */
+            if ($modeName == TP_MODE_TOPRATED) {
+                $tpl->setVariable("POPULARTITLE", $actualMode->getTitle());
+                $tpl->setVariable("POPULARNAME", $modeName);
+                $tpl->setVariable("POPULARVALUE", $actualMode->getValue());
+             
+                $period = array(
+                	array("today", "today"),
+                	array("this_week", "this week"),
+                	array("this_month", "this month"),
+                	array("all_time", "all time")
+                );
+                
+                foreach ($period as $thisPeriod) {
+                    
+                    $tpl->setVariable("PERIOD", $thisPeriod[0]);
+                    $tpl->setVariable("PERIODTITLE", $thisPeriod[1]);
+                    
+                    if ($thisPeriod[0] == $actualMode->getValue()) {
+                        $tpl->setVariable("PERIODSELECTED", "selected");
+                    }
+                    $tpl->parse("period");
+                }
+                
+                if ($modeName == $storedMode->getValue()) {
+                    $tpl->setVariable("POPULARSELECTED", "checked=\"checked\"");
+                }
+                
+                $tpl->parse("popularMode");
+                continue;
+            }
+            
             /* handle the "popular" mode */
             if ($modeName == TP_MODE_POPULAR) {
                 $tpl->setVariable("POPULARTITLE", $actualMode->getTitle());
@@ -178,7 +251,7 @@ class WordPressOptionsPage
                     $tpl->setVariable("PERIOD", $thisPeriod[0]);
                     $tpl->setVariable("PERIODTITLE", $thisPeriod[1]);
                     
-                    if ($thisPeriod == $actualMode->getValue()) {
+                    if ($thisPeriod[0] == $actualMode->getValue()) {
                         $tpl->setVariable("PERIODSELECTED", "selected");
                     }
                     $tpl->parse("period");
@@ -198,6 +271,7 @@ class WordPressOptionsPage
             if ($modeName == $storedMode->getValue()) {
                     $tpl->setVariable("MODESELECTED", "checked=\"checked\"");
             }
+            $tpl->setVariable("MODEDESC", $actualMode->getDescription());
             $tpl->parse("normalMode");
         }
     }
@@ -252,7 +326,19 @@ class WordPressOptionsPage
             return; 
         }
         $popMode =& $stored->modes->get(TP_MODE_POPULAR);
-        $result = $popMode->setValue($_POST[TP_OPT_POPVAL]);
+        $result = $popMode->setValue($_POST[TP_MODE_POPULAR . "Value"]);
+        if (PEAR::isError($result)) {
+            WordPressOptionsPage::printStatusMsg($result->message, TP_CSS_FAILURE);
+            return; 
+        }
+        $featMode =& $stored->modes->get(TP_MODE_TOPRATED);
+        $result = $featMode->setValue($_POST[TP_MODE_TOPRATED . "Value"]);
+        if (PEAR::isError($result)) {
+            WordPressOptionsPage::printStatusMsg($result->message, TP_CSS_FAILURE);
+            return; 
+        }
+        $featMode =& $stored->options->get(TP_OPT_ORDERBY);
+        $result = $featMode->setValue($_POST[TP_OPT_ORDERBY . "Value"]);
         if (PEAR::isError($result)) {
             WordPressOptionsPage::printStatusMsg($result->message, TP_CSS_FAILURE);
             return; 
@@ -302,7 +388,7 @@ class WordPressOptionsPage
 
         /* Do the advanced options */
         $texts = array(TP_OPT_KEYWORD, TP_OPT_TIMEOUT);
-        $bools = array(TP_OPT_DEBUG);
+        $bools = array(TP_OPT_DEBUG, TP_OPT_FILTERADULT, TP_OPT_RANDOM_THUMBS);
         foreach ($texts as $text) {
             $actualOpt =& $stored->options->get($text);
             $result = $actualOpt->setValue($_POST[$text]);

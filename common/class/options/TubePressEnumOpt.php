@@ -19,12 +19,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+class_exists("TubePressOption")
+    || require(dirname(__FILE__) . "/../abstract/TubePressOption.php");
 class_exists("PEAR")
     || require(dirname(__FILE__) . "/../../../lib/PEAR/PEAR.php");
-function_exists("_tpMsg")
-    || require(dirname(__FILE__) . "/../../messages.php");
-class_exists("TubePressOption") || require("TubePressOption.php");
-    
+
 /**
  * An "enumeration" TubePressOption. This option can only take on
  * certain values.

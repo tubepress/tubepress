@@ -19,6 +19,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+class_exists("PEAR")
+    || require(dirname(__FILE__) . "/../../../lib/PEAR/PEAR.php");
+
 /**
  * This is another "abstract" class that holds an array of items
  */

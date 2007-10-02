@@ -34,12 +34,14 @@ class_exists("PEAR")
 defined("TP_OPTION_NAME")
     || require(dirname(__FILE__) .
         "/../../common/defines.php");
+class_exists("WordPressOptionsPackage")
+    || require("WordPressOptionsPackage.php");
 
 class WordPressStorageBox extends TubePressStorageBox
 {
     /* need to keep the tag string around for string replacement later */
     var $tagString;
- 
+    
     /**
      * Tries to strip out any quotes from a tag option name or option value. This
      * is ugly, ugly, ugly, and it still doesn't work as well as I'd like it to
@@ -124,8 +126,10 @@ class WordPressStorageBox extends TubePressStorageBox
         WordPressStorageBox::deleteLegacyOptions();
         $opts = get_option(TP_OPTION_NAME);
         
-        $valid = $opts->checkValidity();
-        if (PEAR::isError($valid)) {
+        if ($opts == NULL
+            || (!is_a($opts, "WordPressStorageBox"))
+            || PEAR::isError($opts->checkValidity())
+            ) {
             delete_option(TP_OPTION_NAME);
             add_option(TP_OPTION_NAME, 
                 new WordPressStorageBox());
@@ -137,9 +141,8 @@ class WordPressStorageBox extends TubePressStorageBox
      * It pulls all the options from the db, but uses option values found in
      * the tag when it can.
      */
-    function applyTag($keyword, $content, &$dbOptions)
+    function applyTag($keyword, $content, &$dbStored, &$dbOptions)
     {
-        
         $customOptions = array();
         $matches = array();
           
@@ -147,7 +150,7 @@ class WordPressStorageBox extends TubePressStorageBox
          * after the TubePress keyword */
         $regexp = '\[' . $keyword . "(.*)\]";
         preg_match("/$regexp/", $content, $matches);
-
+        
         /* Anything was matched by the parentheses? */
         if ($matches[1] != "") {
         
@@ -161,35 +164,29 @@ class WordPressStorageBox extends TubePressStorageBox
                     WordPressStorageBox::cleanupTagValue($pieces[1]);
             }
         }
-        
+
         /* we'll need the full tag string so we can replace it later */
-        $dbOptions->tagString = $matches[0];
+        $dbStored->tagString = $matches[0];
 
         foreach (array_keys($customOptions) as $customOptionName) {
-            if (!array_key_exists($customOptionName, $dbOptions->getNames())) {
-                continue;
+            if (!in_array($customOptionName, $dbOptions->getNames())) {
+
+                if (strpos($customOptionName, "Value") === -1) {
+                    continue;
+                }
+                
+               $modeObj =& $dbStored->modes->get(str_replace("Value", "", $customOptionName));
+               if (PEAR::isError($modeObj)) {
+                   continue;
+               }
+               $modeObj->setValue($customOptions[$customOptionName]);
+               continue;
             }
-            $realOpt = $dbOptions->get($customOptionName);
+            $realOpt =& $dbOptions->get($customOptionName);
             $realOpt->setValue($customOptions[$customOptionName]);
         }
         
-//        foreach (array_keys($dbOptions->_dataArray) as $dbOption) {
-//
-//            /* if we have this option in the tag, let's use that instead */        
-//            if (array_key_exists($dbOption, $customOptions)) {                
-//                $result =
-//                    $dbOptions->setValue($dbOption, $customOptions[$dbOption]);
-//                
-//                /*
-//                 * Spit back the error with the tagstring so the user can see what
-//                 * they did incorrectly
-//                 */
-//                if (PEAR::isError($result)) {
-//                    $result->message .= "<br /><pre>" . $matches[0] . "</pre>";
-//                    return $result;
-//                }
-//            }
-//        }   
+        
     }   
 }
 ?>

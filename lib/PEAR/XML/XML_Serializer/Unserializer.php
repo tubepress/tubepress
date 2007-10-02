@@ -27,12 +27,10 @@
 /**
  * uses PEAR error managemt
  */
-class_exists("PEAR") || require_once dirname(__FILE__) . '/../../PEAR.php';
 
 /**
  * uses XML_Parser to unserialize document
  */
-require_once dirname(__FILE__) . '/../XML_Parser/Parser.php';
 
 /**
  * option: Convert nested tags to array or object
@@ -217,6 +215,9 @@ define('XML_UNSERIALIZER_OPTION_GUESS_TYPES', 'guessTypes');
  * error code for no serialization done
  */
 define('XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION', 151);
+
+class_exists("XML_Parser")
+    || require(dirname(__FILE__) . "/../XML_Parser/Parser.php");
 
 /**
  * XML_Unserializer

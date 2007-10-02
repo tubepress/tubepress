@@ -40,6 +40,7 @@ define("TP_PARAM_DEBUG", "tubepress_debug");
 /*** MODE NAMES **************************************************************/
 /*****************************************************************************/
 define("TP_MODE_FAV", "favorites");
+define("TP_MODE_SEARCH", "tag");
 define("TP_MODE_TAG", "tag");
 define("TP_MODE_REL", "related");
 define("TP_MODE_USER", "user");
@@ -105,4 +106,6 @@ define("TP_VID_URL", "url");
 define("TP_VID_THUMBURL", "thumburl");
 define("TP_VID_CATEGORY", "category");
 
+define("TP_CSS_SUCCESS", "updated fade");
+define("TP_CSS_FAILURE", "error fade");
 ?>
