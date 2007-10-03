@@ -23,9 +23,9 @@
 /**
  * A boolean TubePressOption   
  */
-class TubePressBooleanOpt extends TubePressDataItem
-{
-    /**
+class TubePressBooleanValue extends TPAbstractHasName implements TubePressValue {
+    
+/**
      * Tries to set the value after type checking
      */
     function setValue($candidate)

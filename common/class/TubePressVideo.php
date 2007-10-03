@@ -24,6 +24,8 @@
 
 class TubePressVideo
 {
+
+	
     private $_rawArray;
     private $author;
     private $category;

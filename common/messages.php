@@ -23,20 +23,8 @@
 
 $tubepressMessages = 
     array(
-          /*******************************************************************/
-          /*** ERRORS ********************************************************/
-          /*******************************************************************/          
-          "NOCOUNT" => "YouTube didn't return a total video count",
-          "NOVALS" => "No valid values defined for this option",
-          "VALTYPE" => "Must set valid option values with TubePressEnum class",
-          "VIDNOARR" => "Attempted to make video out of non-array",
-          "VIDEMTARR" => "Attempted to make video out of empty array",
-          "MISSATT" => "%s is missing from the video's XML",
-          "PARSERR" => "There was a problem parsing the TubePress tag in this page",
-          
-          /*******************************************************************/
-          /*** META INFO *****************************************************/
-          /*******************************************************************/
+
+
           "META" => "Video meta display",
           "VIDAUTHOR" => "Author",
           "VIDCOMMENTS" => "Comments",

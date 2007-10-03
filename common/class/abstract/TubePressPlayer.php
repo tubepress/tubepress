@@ -23,8 +23,15 @@
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
-abstract class TubePressPlayer extends TubePressDataItem
+abstract class TubePressPlayer extends TPAbstractHasTitle implements TubePressValue
 {
+	define("TP_PLAYIN_NW", "new_window");
+define("TP_PLAYIN_YT", "youtube");
+define("TP_PLAYIN_NORMAL", "normal");
+define("TP_PLAYIN_POPUP", "popup");
+define("TP_PLAYIN_GREYBOX", "greybox");
+define("TP_PLAYIN_LWINDOW", "lightwindow");
+	
 	/*
 	 * for each player, we want to know which CSS
 	 * and JS libraries that it needs
