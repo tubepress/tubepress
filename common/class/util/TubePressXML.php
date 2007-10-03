@@ -47,12 +47,14 @@ abstract class TubePressXML
         }
 
         if (!$snoopy->fetch($request)) {
-            throw new Exception(_tpMsg("REFUSED") .
+            throw new Exception("Unable to connect to YouTube - " .
                 $snoopy->error); 
         }
     
         if ($snoopy->timed_out) {
-            throw new Exception(_tpMsg("TIMEOUT", $snoopy->read_timeout)); 
+            throw new Exception(
+                sprintf("Timed out while trying to contact YouTube after %s seconds",
+                    $snoopy->read_timeout)); 
         }
     
         if (strpos($snoopy->response_code, "200 OK") === false) {

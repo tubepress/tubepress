@@ -19,20 +19,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("TubePressDataPackage")
-    || require(dirname(__FILE__) . "/../abstract/TubePressDataPackage.php");
-defined(TP_OPTION_NAME)
-    || require(dirname(__FILE__) . "/../../defines.php");
-class_exists("TubePressBooleanOpt")
-    || require("TubePressBooleanOpt.php");
-class_exists("TubePressEnumOpt")
-    || require("TubePressEnumOpt.php");
-class_exists("TubePressIntegerOpt")
-    || require("TubePressIntegerOpt.php");
-class_exists("TubePressStringOpt")
-    || require("TubePressStringOpt.php");
-class_exists("TubePressModePackage")
-    || require(dirname(__FILE__) . "/../modes/TubePressModePackage.php");
 
 /**
  * The idea here is that each implementation (WordPress, MoveableType)

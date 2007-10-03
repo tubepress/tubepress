@@ -29,68 +29,43 @@ function_exists("_tpMsg")
  */
 class TubePressModePackage extends TubePressDataPackage
 {
+    private $_validTypes = array("TubePressMode");
+    
 	/**
 	 * Default constructor
 	 */
-    function TubePressModePackage() {
-    	$this->_dataArray = TubePressModePackage::getDefaultPackage();
-    }
-    
-    /**
-     * Returns an array of all the modes we know about
-     */
-    function getDefaultPackage()
-    {
-        return array(
+    public function TubePressModePackage() {
+    	$this->_dataArray = array(
     	
-    		TP_MODE_USER => new TubePressMode(_tpMsg("MODE_USER_TITLE"),
+    		TubePressMode::user => new TubePressMode("Videos from this YouTube user",
     			" ", "3hough"),
     			
-    		TP_MODE_FAV => new TubePressMode(_tpMsg("MODE_FAV_TITLE"),
-    			_tpMsg("MODE_FAV_DESC"), "mrdeathgod"),
+    		TubePressMode::favorites => new TubePressMode("This YouTube user's \"favorites\"",
+    			"YouTube limits this mode to the latest 500 favorites",
+    			"mrdeathgod"),
     			
-    		TP_MODE_PLST => new TubePressMode(_tpMsg("MODE_PLST_TITLE"),
-    			_tpMsg("MODE_PLST_DESC"), "D2B04665B213AE35"),
+    		TubePressMode::playlist => new TubePressMode("This playlist",
+    			"Limited to 200 videos per playlist. Will usually look something like this:" .
+                  " D2B04665B213AE35. Copy the playlist id from the end of the " .
+                  "URL in your browser's address bar (while looking at a YouTube " .
+                  "playlist). It comes right after the 'p='. For instance: " .
+                  "http://youtube.com/my_playlists?p=D2B04665B213AE35", "D2B04665B213AE35"),
     		
-    		TP_MODE_SEARCH => new TubePressMode(_tpMsg("MODE_TAG_TITLE"),
+    		TubePressMode::tag => new TubePressMode("YouTube search for",
     			"YouTube limits this mode to 1,000 results", "stewart daily show"),
     			
-    		TP_MODE_FEATURED => new TubePressMode(_tpMsg("MODE_FEAT_TITLE"),
-    			" ", " "),
+    		TubePressMode::featured => new TubePressMode("The latest \"featured\" videos " .
+                  "on YouTube's homepage", " ", " "),
     			
-    		TP_MODE_POPULAR => new TubePressMode(_tpMsg("MODE_POPULAR_TITLE"),
+    		TubePressMode::popular => new TubePressMode("Most-viewed videos from...",
     			" ", "today"),
     		
-    		TP_MODE_TOPRATED => new TubePressMode("Top rated videos from...",
+    		TubePressMode::top_rated => new TubePressMode("Top rated videos from...",
     		    " ", "today"),
     		
-    		TP_MODE_MOBILE => new TubePressMode("Videos for mobile phones",
+    		TubePressMode::mobile => new TubePressMode("Videos for mobile phones",
     		    " ", " ")
     	);
-    }
-    
-    /**
-     * Ugly but fast
-     */
-    function getNames() {
-        return array(TP_MODE_USER, TP_MODE_FAV, TP_MODE_PLST, TP_MODE_SEARCH,
-            TP_MODE_FEATURED, TP_MODE_POPULAR, TP_MODE_TOPRATED, TP_MODE_MOBILE);
-    }
-    
-    /**
-     * We can only hold modes!
-     */
-    function getValidTypes() {
-        return array("TubePressMode");
-    }
-    
-    
-    public function setValue($modeName, $modeValue) {
-    	if (is_array_key($modeName, TubePressModePackage::getNames())) {
-    		$this->_allModes[$modeName]->setValue($modeValue);
-    	} else {
-    		PEAR::raiseError($modeName . " is not a valid mode");
-    	}
     }
 }
 ?>

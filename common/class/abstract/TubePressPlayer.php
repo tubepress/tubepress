@@ -29,9 +29,9 @@ abstract class TubePressPlayer extends TubePressDataItem
 	 * for each player, we want to know which CSS
 	 * and JS libraries that it needs
 	 */
-	private $_cssLibs = array();
-	private $_jsLibs = array();
-	private $_extraJS = array();
+	protected $_cssLibs = array();
+	protected $_jsLibs = array();
+	protected $_extraJS = array();
 	
 	public final function getJS() { return $this->_jsLibs; }
 	

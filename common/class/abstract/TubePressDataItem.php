@@ -31,7 +31,7 @@ abstract class TubePressDataItem
      */
     private $_title = "";
     private $_description = "";
-    private $_value = "";
+    protected $value = "";
 
     /**
      * Simple constructor

@@ -40,16 +40,7 @@ define("TP_PARAM_DEBUG", "tubepress_debug");
 /*** MODE NAMES **************************************************************/
 /*****************************************************************************/
 
-define("TP_MODE_SEARCH", "tag");
-define("TP_MODE_TAG", "tag");
-define("TP_MODE_REL", "related");
-define("TP_MODE_USER", "user");
-define("TP_MODE_PLST", "playlist");
-define("TP_MODE_FEATURED", "featured");
-define("TP_MODE_POPULAR", "popular");
-define("TP_MODE_CATEGORY", "category");
-define("TP_MODE_TOPRATED", "top_rated");
-define("TP_MODE_MOBILE", "mobile");
+
 
 /*****************************************************************************/
 /*** MODE  *************************************************************/

@@ -19,37 +19,24 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("TubePressOption")
-    || require(dirname(__FILE__) . "/../abstract/TubePressOption.php");
-class_exists("PEAR")
-    || require(dirname(__FILE__) . "/../../../lib/PEAR/PEAR.php");
 
 /**
  * A boolean TubePressOption   
  */
-class TubePressBooleanOpt extends TubePressOption
+class TubePressBooleanOpt extends TubePressDataItem
 {
-    /**
-     * Constructor
-     */
-    function TubePressBooleanOpt($theTitle, $theDesc, $defaultValue)
-    {
-        parent::TubePressOption($theTitle, $theDesc, $defaultValue);
-    }
-    
     /**
      * Tries to set the value after type checking
      */
     function setValue($candidate)
     {
         /* make sure it's the right type */
-        $result = parent::checkType($candidate, "boolean");
-        if (PEAR::isError($result)) {
-            return $result;
+        if (!is_a($candidate, "boolean")) {
+            throw new Exception("Must use a boolean");
         }
         
         /* looks good! */
-        $this->_value = $candidate;
+        $this->value = $candidate;
     }
 }
 ?>

@@ -26,8 +26,6 @@ $tubepressMessages =
           /*******************************************************************/
           /*** ERRORS ********************************************************/
           /*******************************************************************/          
-          "TIMEOUT" => "Timed out while trying to contact YouTube after %s seconds",
-          "REFUSED" => "Unable to connect to YouTube - ",
           "NOCOUNT" => "YouTube didn't return a total video count",
           "NOVALS" => "No valid values defined for this option",
           "VALTYPE" => "Must set valid option values with TubePressEnum class",
@@ -89,20 +87,7 @@ $tubepressMessages =
           /*** MODES *********************************************************/
           /*******************************************************************/
           "MODE_TITLE" => "Mode",
-          "MODE_FAV_TITLE" => "This YouTube user's \"favorites\"",
-          "MODE_FAV_DESC" => "YouTube limits this mode to the latest 500 favorites",
-          "MODE_FEAT_TITLE" => "The latest \"featured\" videos " .
-                  "on YouTube's homepage",
           "MODE_HEADER" => "Which videos?",
-          "MODE_PLST_TITLE" => "This playlist",
-          "MODE_PLST_DESC" => "Limited to 200 videos per playlist. Will usually look something like this:" .
-                  " D2B04665B213AE35. Copy the playlist id from the end of the " .
-                  "URL in your browser's address bar (while looking at a YouTube " .
-                  "playlist). It comes right after the 'p='. For instance: " .
-                  "http://youtube.com/my_playlists?p=D2B04665B213AE35",
-          "MODE_POPULAR_TITLE" => "Most-viewed videos from...",
-          "MODE_TAG_TITLE" => "YouTube search for",
-          "MODE_USER_TITLE" => "Videos from this YouTube user",
           
           /*******************************************************************/
           /*** DISPLAY OPTIONS ***********************************************/

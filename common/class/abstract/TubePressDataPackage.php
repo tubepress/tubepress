@@ -30,12 +30,13 @@ abstract class TubePressDataPackage
      * This is our array of items. Should never be accessed directly from
      * the outside
      */
-    private $_dataArray;
+    protected $_dataArray = array();
+    private abstract $_validTypes;
     
     /**
      * Checks to see if parameter appears to be a correct set of options
      */
-    function checkValidity()
+    public final function checkValidity()
     {
         /* make sure the db looks ok */
         if ($this->_dataArray == NULL) {
@@ -85,10 +86,7 @@ abstract class TubePressDataPackage
     }
 
     
-    function getNames()
-    {
-   		die("Can't call \"getNames\" from TubePressDataPackage");
-    }
+    public abstract function getNames();
     
     public abstract function getValidTypes();
    
@@ -96,7 +94,7 @@ abstract class TubePressDataPackage
      * Tries to get a single option from this package. Returns
      * error if the option is not part of the package.
      */
-    function &get($name)
+    public final function &get($name)
     {
         if ((!array_key_exists($name, $this->_dataArray))
             || (!is_a($this->_dataArray[$name], "TubePressDataItem"))) {
@@ -104,6 +102,15 @@ abstract class TubePressDataPackage
             	sprintf("%s is not a valid option", $name));
         }
         return $this->_dataArray[$name];
+    }
+    
+    public function setValue($name, $value) {
+    	if (is_array_key($name, $this->_dataArray)
+    	    && is_a($value, )) {
+    		$this->_dataArray[$name]->setValue($modeValue);
+    	} else {
+    		throw new Exception($modeName . " is not a valid mode");
+    	}
     }
 }
 ?>

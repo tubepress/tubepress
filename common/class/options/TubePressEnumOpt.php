@@ -19,26 +19,25 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("TubePressOption")
-    || require(dirname(__FILE__) . "/../abstract/TubePressOption.php");
-class_exists("PEAR")
-    || require(dirname(__FILE__) . "/../../../lib/PEAR/PEAR.php");
 
 /**
  * An "enumeration" TubePressOption. This option can only take on
  * certain values.
  */
-class TubePressEnumOpt extends TubePressOption
+class TubePressEnumOpt extends TubePressDataItem
 {
-    var $_validValues;
+    private $validValues;
     
     /**
      * Constructor
      */
-    function TubePressEnumOpt($theTitle, $theDesc, $defaultValue, $validValues)
+    function TubePressEnumOpt($theTitle, $theDesc, $defaultValue, $vals)
     {
-        parent::TubePressOption($theTitle, $theDesc, $defaultValue);
-        $this->_validValues = $validValues;
+        parent::TubePressDataItem($theTitle, $theDesc, $defaultValue);
+        if (!is_array($vals)) {
+            throw new Exception("Enum options must have an array of valid values");
+        }
+        $this->validValues = $vals;
     }
     
     /**
@@ -47,15 +46,14 @@ class TubePressEnumOpt extends TubePressOption
     function setValue($candidate)
     {
         /* see if it's a valid value */
-        if (is_array($this->_validValues)
-            && !in_array($candidate, $this->_validValues)) {
+        if (!in_array($candidate, $this->validValues)) {
            
             throw new Exception(
             	vsprintf("\"%s\" not a valid value for \"%s\". Must be one of the following: '%s'",
-            		array($candidate, $this->_title, implode("', '", $this->_validValues))));
+            		array($candidate, $this->_title, implode("', '", $this->validValues))));
         }
         /* looks good! */
-        $this->_value = $candidate;
+        $this->value = $candidate;
     }
 }
 ?>

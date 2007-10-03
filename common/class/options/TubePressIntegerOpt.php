@@ -19,17 +19,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("TubePressOption")
-    || require(dirname(__FILE__) . "/../abstract/TubePressOption.php");
-class_exists("PEAR")
-    || require(dirname(__FILE__) . "/../../../lib/PEAR/PEAR.php");
 
 /**
  * An integer TubePressOption
  */
-class TubePressIntegerOpt extends TubePressOption
+class TubePressIntegerOpt extends TubePressDataItem
 {
-    var $_max;
+    private $max;
     
     /**
      * Constructor
@@ -38,7 +34,7 @@ class TubePressIntegerOpt extends TubePressOption
         $theMax = 2147483647) 
     {
         parent::TubePressOption($theTitle, $theDesc, $defaultValue);
-        $this->_max = $theMax;
+        $this->max = $theMax;
     }
     
     /**
@@ -52,22 +48,16 @@ class TubePressIntegerOpt extends TubePressOption
             $candidate = (integer)$candidate;
         }
         
-        /* make sure it's the right type */
-        $result = parent::checkType($candidate, "integer");
-        if (PEAR::isError($result)) {
-            return $result;
-        }
-        
-        /* No TubePressIntegerOpts can be less than 1 */
+        /* No TubePressIntegerOpt can be less than 1 */
         if (($candidate < 1)
-            || ($candidate > $this->_max)) {
+            || ($candidate > $this->max)) {
                 throw new Exception(
                 	vsprintf("%s must be between 1 and %s. You supplied %s.",
-                		array($this->_title, $this->_max, $candidate)));
+                		array($this->getTitle(), $this->max, $candidate)));
             }
         
         /* looks good! */
-        $this->_value = $candidate;
+        $this->value = $candidate;
     }
 }
 ?>
