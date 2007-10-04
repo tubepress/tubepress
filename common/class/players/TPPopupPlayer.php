@@ -25,8 +25,8 @@
 class TPPopupPlayer extends TubePressPlayer
 {
     public function __construct() {
-        parent::__construct(TubePressPlayer::popup,
-            "in a popup window");
+        $this->name = TubePressPlayer::popup;
+        $this->title = "in a popup window";
     }
 	
 	/**
@@ -36,7 +36,6 @@ class TPPopupPlayer extends TubePressPlayer
 	{
 	    global $tubepress_base_url;
 
-	    
 	    $title = $vid->getTitle();
 	    $id = $vid->getId();
 	    

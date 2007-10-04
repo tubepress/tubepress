@@ -25,8 +25,8 @@
 class TPNewWindowPlayer extends TubePressPlayer
 {
     public function __construct() {
-        parent::__construct(TubePressPlayer::newWindow,
-            "in a new window by itself");
+        $this->name = TubePressPlayer::newWindow;
+        $this->title = "in a new window by itself";
     }
 	
 	/**

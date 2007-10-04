@@ -28,8 +28,8 @@ class_exists("TubePressPlayer")
 class TPNormalPlayer extends TubePressPlayer 
 {
     public function __construct() {
-        parent::__construct(TubePressPlayer::normal,
-            "normally (at the top of your gallery)");
+        $this->name = TubePressPlayer::normal;
+        $this->title = "normally (at the top of your gallery)";
     }
 	
 	/**

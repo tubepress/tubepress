@@ -1,7 +1,13 @@
 <?php
-class TubePressBoolValue extends TPAbstractHasName implements TubePressValue {
+class TubePressBoolValue implements TubePressValue, TubePressHasName {
 	
     private $bool;
+    private $name;
+    
+    public function __construct($theName, $theDefault) {
+        $this->bool = $theDefault;
+        $this->name = $theName;   
+    }
     
     public function printValueForHTML() {
         

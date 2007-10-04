@@ -26,8 +26,8 @@
 class TPYouTubePlayer extends TubePressPlayer
 {
     public function __construct() {
-        parent::__construct(TubePressPlayer::youTube,
-            "from the original YouTube page");
+        $this->name = TubePressPlayer::youTube;
+        $this->title = "from the original YouTube page";
     }
 	
 	/**

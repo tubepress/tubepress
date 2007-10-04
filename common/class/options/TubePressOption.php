@@ -1,5 +1,6 @@
 <?php
-class TubePressOption extends TPAbstractHasValue {
+class TubePressOption implements TubePressHasValue,
+    TubePressHasDescription, TubePressHasName, TubePressHasTitle {
 	
 	const storageIdentifier = "tubepress";
 	
@@ -7,39 +8,32 @@ class TubePressOption extends TPAbstractHasValue {
 
 	const currentPlayerName = "playerLocation";
 	
-	const thumbHeight = "thumbHeight";
-	const thumbWidth = "thumbWidth";
-	const mainVidHeight = "mainVidHeight";
-	const mainVidWidth = "mainVidWidth";
-	const resultsPerPage = "resultsPerPage";
-	const greyBoxEnabled = "greyBoxEnabled";
-	const lightWindowEnabled = "lightWindowEnabled";
-	const orderBy = "orderBy";
 
-	const debugEnabled = "debugging_enabled";
-	const triggerWord = "keyword";
-	const timeout = "timeout";
-	const randomThumbs = "randomize_thumbnails";
-	const filter = "filter_racy";
 	
 	const author = "author";
-	const id = "id";
-	const title = "title";
-	const length = "length";
-	const ratings = "ratings";
-	const rating = "rating";
-	const description = "description";
-	const views = "views";
-	const uploaded = "uploaded";
-	const tags = "tags";
-	const URL = "url";
-	const thumbURL ="thumburl";
 	const category ="category";
+	const description = "description";
+	const id = "id";
+	const length = "length";
+	const rating = "rating";
+	const ratings = "ratings";
+	const tags = "tags";
+	const thumbURL ="thumburl";
+	const title = "title";
+	const uploaded = "uploaded";
+	const URL = "url";
+	const views = "views";
 	
-	public function __construct($name, $title, $description, $default) {
-		parent::__construct($theName, $theTitle, $theDescription);
-		$this->defaultValue = $default;
+    private $name;
+    private $title;
+    private $description;
+    private $value;
+	
+	public function __construct($theName, $theTitle, $theDescription, $theDefault) {
+		$this->name = $theName;
+		$this->title = $theTitle;
+		$this->description = $theDescription;
+		$this->value = $theDefault;
 	}
-	
 }
 ?>

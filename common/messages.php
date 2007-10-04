@@ -51,25 +51,6 @@ $tubepressMessages =
             Each option here can be overridden 
             on any page that has your TubePress trigger tag.",
           
-          /*******************************************************************/
-          /*** ADVANCED OPTIONS **********************************************/
-          /*******************************************************************/
-          "ADV_GRP_TITLE" => "Advanced",
-          "DEBUGTITLE" => "Enable debugging",
-          "DEBUGDESC" => "If checked, " .
-                         "anyone will be able to view your debugging " .
-                         "information. This is a rather small privacy " .
-                         "risk. If you're not having problems with " .
-                         "TubePress, or you're worried about revealing " .
-                         "any details of your TubePress pages, feel free to " .
-                         "disable the feature.",
-          "KEYWORD_TITLE" => "Trigger keyword",
-          "KEYWORD_DESC" => "The word you insert (in plaintext, between " .
-                  "square brackets) into your posts to display your YouTube " .
-                  "gallery.",
-          "TIMEOUT_TITLE" => "How long to wait (in seconds) for YouTube to " .
-                  "respond",
-          "TIMEOUT_DESC" => "Default is 6 seconds",
           
           /*******************************************************************/
           /*** MODES *********************************************************/
@@ -84,11 +65,8 @@ $tubepressMessages =
           "THUMBHEIGHT_TITLE" => "Height (px) of thumbs",
           "THUMBWIDTH_DESC" => "Default (and maximum) is 120",
           "THUMBWIDTH_TITLE" => "Width (px) of thumbs",
-          "VIDDISP" => "Video display",
-          "VIDHEIGHT_TITLE" => "Max height (px) of main video",
-          "VIDHEIGHT_DESC" => "Default is 336",
-          "VIDWIDTH_TITLE" => "Max width (px) of main video",
-          "VIDWIDTH_DESC" => "Default is 424",
+
+
           "VIDSPERPAGE_TITLE" => "Videos per page",
           "VIDSPERPAGE_DESC" => "Default is 20.",
           "TP_OPT_GREYBOXON_TITLE" => "Enable GreyBox",

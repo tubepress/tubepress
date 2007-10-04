@@ -23,7 +23,8 @@
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
-abstract class TubePressPlayer extends TPAbstractHasTitle implements TubePressValue
+abstract class TubePressPlayer implements TubePressValue,
+    TubePressHasTitle, TubePressHasName
 {
 	const newWindow = "new_window";
 	const youTube = "youtube";

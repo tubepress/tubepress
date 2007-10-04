@@ -24,6 +24,8 @@
  */
 class TubePressDebug
 {
+    define("TP_PARAM_DEBUG", "tubepress_debug");
+    
     /**
      * Static class
      */

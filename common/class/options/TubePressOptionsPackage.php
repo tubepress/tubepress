@@ -75,46 +75,8 @@ class TubePressOptionsPackage extends TubePressDataPackage
                   TP_VID_DESC => new TubePressBooleanOpt(_tpMsg("VIDDESC"), ' ', false),
                   TP_VID_CATEGORY => new TubePressBooleanOpt(_tpMsg("VIDCAT"), ' ', false),
             
-           /* -------- DISPLAY OPTIONS -------------------------------------- */
-                  
-                  TP_OPT_ORDERBY => new TubePressEnumOpt(
-                      "Order videos by", " ", "updated",
-                      array("updated", "viewCount", "rating", "relevance")),
-                  
-                  TP_OPT_VIDSPERPAGE=>  new TubePressIntegerOpt(
-                      _tpMsg("VIDSPERPAGE_TITLE"), _tpMsg("VIDSPERPAGE_DESC"), 20, 50),      
-                  TP_OPT_VIDWIDTH =>    new TubePressIntegerOpt(
-                      _tpMsg("VIDWIDTH_TITLE"), _tpMsg("VIDWIDTH_DESC"), 424),
-                  TP_OPT_VIDHEIGHT =>   new TubePressIntegerOpt(
-                      _tpMsg("VIDHEIGHT_TITLE"), _tpMsg("VIDHEIGHT_DESC"), 336),
-                  TP_OPT_THUMBWIDTH =>  new TubePressIntegerOpt(
-                      _tpMsg("THUMBWIDTH_TITLE"), _tpMsg("THUMBWIDTH_DESC"), 120, 120),
-                  TP_OPT_THUMBHEIGHT => new TubePressIntegerOpt(
-                      _tpMsg("THUMBHEIGHT_TITLE"), _tpMsg("THUMBHEIGHT_DESC"), 90, 90),
-                  TP_OPT_GREYBOXON => new TubePressBooleanOpt(
-                      _tpMsg("TP_OPT_GREYBOXON_TITLE"), _tpMsg("TP_OPT_GREYBOXON_DESC"),
-                       false),
-                  TP_OPT_LWON => new TubePressBooleanOpt(
-                      _tpMsg("TP_OPT_LWON_TITLE"), _tpMsg("TP_OPT_LWON_DESC")
-                      , false),
-                   
-              /* -------- ADVANCED OPTIONS ------------------------------------- */                    
-                  
-                  TP_OPT_KEYWORD =>  new TubePressStringOpt(
-                      _tpMsg("KEYWORD_TITLE"), _tpMsg("KEYWORD_DESC"), "tubepress"),
-                                         
-                  TP_OPT_TIMEOUT =>  new TubePressIntegerOpt(
-                      _tpMsg("TIMEOUT_TITLE"), _tpMsg("TIMEOUT_DESC"), 6),
-                                          
-                  TP_OPT_DEBUG => new TubePressBooleanOpt(
-                      _tpMsg("DEBUGTITLE"), _tpMsg("DEBUGDESC"), true),
-                      
-                  TP_OPT_RANDOM_THUMBS => new TubePressBooleanOpt(
-                    "Randomize thumbnails", "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized", true),
- 
-                  TP_OPT_FILTERADULT => new TubePressBooleanOpt(
-                  "Filter \"racy\" content", "Not sure who decides what's racy and what isn't, but YouTube has this as an option for you", false),
-                  
+
+
          /* -------- VIDEO SEARCH OPTION ----------------------------------- */
 
                   TP_OPT_MODE => new TubePressEnumOpt(_tpMsg("MODE_TITLE"),
