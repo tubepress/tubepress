@@ -1,5 +1,5 @@
 <?php
-class TubePressGalleryMode extends TPAbstractHasDescription implements TubePressValue {
+abstract class TubePressGalleryMode extends TPAbstractHasDescription implements TubePressValue {
 	
 	/* All valid modes here */
 	const favorites = 	"favorites";
@@ -13,5 +13,10 @@ class TubePressGalleryMode extends TPAbstractHasDescription implements TubePress
     const top_rated = 	"top_rated";
     const mobile = 		"mobile";
 	
+    public function __construct() {
+        
+    }
+    
+    public abstract function getVideos(int $start, int $perPage);
 }
 ?>

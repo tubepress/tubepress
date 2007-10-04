@@ -27,26 +27,16 @@ class_exists("TubePressPlayer")
  */
 class TPNormalPlayer extends TubePressPlayer 
 {
-	/**
-	 * Default constructor
-	 */
-	function TPNormalPlayer() {
-		$this->_title = _tpMsg("PLAYIN_NORMAL_TITLE");
-		$this->_cssLibs = array();
-		$this->_jsLibs = array();
-	}
+    public function __construct() {
+        parent::__construct(TubePressPlayer::normal,
+            "normally (at the top of your gallery)");
+    }
 	
 	/**
 	 * Tells the gallery how to play the videos
 	 */
-    function getPlayLink($vid, $options)
-	{
-	    $widthOpt = $options->get(TP_OPT_VIDWIDTH);
-	    $width = $widthOpt->getValue();
-	    
-	    $heightOpt = $options->get(TP_OPT_VIDHEIGHT);
-	    $height = $heightOpt->getValue();
-	    
+    function getPlayLink(TubePressVideo $vid, $height, $width)
+    {   
 	    $title = $vid->getTitle();
 	    $id = $vid->getId();
 	    

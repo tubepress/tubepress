@@ -19,28 +19,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("TubePressPlayer")
-    || require(dirname(__FILE__) . "/../abstract/TubePressPlayer.php");
-
 /**
  * Plays videos by themselves in a new window
  */
 class TPNewWindowPlayer extends TubePressPlayer
 {
-	/**
-	 * Default constructor
-	 */
-	function TPNewWindowPlayer() {
-		$this->_title = _tpMsg("PLAYIN_NW_TITLE");
-		$this->_cssLibs = array();
-		$this->_jsLibs = array();
-		$this->_extraJS = "";
-	}
+    public function __construct() {
+        parent::__construct(TubePressPlayer::newWindow,
+            "in a new window by itself");
+    }
 	
 	/**
 	 * Tells the gallery how to make the play link
 	 */
-    function getPlayLink($vid, $options)
+    function getPlayLink(TubePressVideo $vid, $height, $width)
 	{	    
 	    $url = new Net_URL(TubePressStatic::fullURL());
         $url->addQueryString(TP_PARAM_VID, $vid->getId());

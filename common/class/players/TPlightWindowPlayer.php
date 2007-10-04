@@ -19,42 +19,34 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("TubePressPlayer")
-    || require(dirname(__FILE__) . "/../abstract/TubePressPlayer.php");
-
 /**
  * Plays videos with lightWindow
  */
 class TPlightWindowPlayer extends TubePressPlayer
 {
-	function TPlightWindowPlayer() {
+    public function __construct() {
+        parent::__construct(TubePressPlayer::lightWindow,
+            "with lightWindow (experimental... enable it above)");
+
 		global $tubepress_base_url;
-	    
-	    $this->_title = _tpMsg("PLAYIN_LW_TITLE");
-		
+
 		$lwURL = $tubepress_base_url . "/lib/lightWindow/";
     	
 		$lwJS = array($lwURL . "javascript/prototype.js",
-    	$lwURL . "javascript/scriptaculous.js?load=effects",
-    	$lwURL . "javascript/lightwindow.js?shit=poop");
+    	    $lwURL . "javascript/scriptaculous.js?load=effects",
+    	    $lwURL . "javascript/lightwindow.js?shit=poop");
 		
-		$this->_cssLibs = array($lwURL . "css/lightwindow.css");
-		$this->_jsLibs = $lwJS;
-		$this->_extraJS = "var tubepressLWPath = \"" . $lwURL . "\"";
+    	$this->setJSLibs($lwJS);
+		$this->setCSSLibs(array($lwURL . "css/lightwindow.css"));
+		$this->setExtraJS("var tubepressLWPath = \"" . $lwURL . "\"");
 	}
 	
 	/**
 	 * Tells the gallery how to play the videos
 	 */
-	function getPlayLink($vid, $options)
+	function getPlayLink(TubePressVideo $vid, $height, $width)
 	{
 	    global $tubepress_base_url;
-	    
-	    $widthOpt = $options->get(TP_OPT_VIDWIDTH);
-	    $width = $widthOpt->getValue();
-	    
-	    $heightOpt = $options->get(TP_OPT_VIDHEIGHT);
-	    $height = $heightOpt->getValue();
 	    
 	    $title = $vid->getTitle();
 	    $id = $vid->getId();

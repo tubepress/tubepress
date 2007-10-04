@@ -19,28 +19,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("TubePressPlayer")
-    || require(dirname(__FILE__) . "/../abstract/TubePressPlayer.php");
 
 /**
  * Plays videos from the original YouTube page
  */
 class TPYouTubePlayer extends TubePressPlayer
 {
-	/**
-	 * Default constructor
-	 */
-	function TPYouTubePlayer() {
-		$this->_title = _tpMsg("PLAYIN_YT_TITLE");
-		$this->_cssLibs = array();
-		$this->_jsLibs = array();
-		$this->_extraJS = "";
-	}
+    public function __construct() {
+        parent::__construct(TubePressPlayer::youTube,
+            "from the original YouTube page");
+    }
 	
 	/**
 	 * Tells the gallery how to play a video
 	 */
-	function getPlayLink($vid, $options)
+	function getPlayLink(TubePressVideo $vid, $height, $width)
 	{   
 	    return sprintf('href="http://youtube.com/watch?v=%s"', $vid->getId());
 	}

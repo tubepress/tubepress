@@ -1,5 +1,5 @@
 <?php
-class TubePressOption extends TPAbstractHasDescription {
+class TubePressOption extends TPAbstractHasValue {
 	
 	const storageIdentifier = "tubepress";
 	
@@ -35,13 +35,6 @@ class TubePressOption extends TPAbstractHasDescription {
 	const URL = "url";
 	const thumbURL ="thumburl";
 	const category ="category";
-	
-	
-	/* Something that implements TubePressValue */
-	private $defaultValue;
-	
-	/* Something that implements TubePressValue */
-	private $currentValue;
 	
 	public function __construct($name, $title, $description, $default) {
 		parent::__construct($theName, $theTitle, $theDescription);

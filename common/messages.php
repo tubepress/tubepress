@@ -103,13 +103,8 @@ $tubepressMessages =
           /*******************************************************************/
           /*** VIDEO PLAYER LOCATIONS ****************************************/
           /*******************************************************************/
-          "PLAYIN_LW_TITLE" => "with lightWindow (experimental... enable it above)",
-          "PLAYIN_NORMAL_TITLE" => "normally (at the top of your gallery)",
-          "PLAYIN_NW_TITLE" => "in a new window by itself",
-          "PLAYIN_POPUP_TITLE" => "in a popup window",
-          "PLAYIN_TB_TITLE" => "with GreyBox (experimental... enable it above)",
+
           "PLAYIN_TITLE" => "Play each video...",
-          "PLAYIN_YT_TITLE" => "from the original YouTube page",
           
           /*******************************************************************/
           /*** MISC **********************************************************/

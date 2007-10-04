@@ -26,16 +26,7 @@ defined(TP_OPTION_NAME)
  * A bunch of "static" utilities that are used throughout the app
  */
 abstract class TubePressStatic
-{    
-    /**
-     * Take a PEAR error object and return a prettified message
-     */
-    public static function bail($error)
-    {
-        $returnMsg = sprintf("%s<br /><br />", $error->message);
-        return $returnMsg;
-    }
-    
+{        
     /**
      * Returns what's in the address bar (obviously, only http, not https)
      */

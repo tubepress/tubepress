@@ -25,40 +25,32 @@
  */
 class TPGreyBoxPlayer extends TubePressPlayer
 {
-	/**
-	 * Default constructor
-	 */
-	function TPGreyBoxPlayer() {
-		
+    public function __construct() {
+        parent::__construct(TubePressPlayer::lightWindow,
+            "with GreyBox (experimental... enable it above)");
+   	
 	    global $tubepress_base_url;
-	    
-	    $this->_title = _tpMsg("PLAYIN_TB_TITLE");
-		
+
 		$gbURL = $tubepress_base_url . "/lib/greybox/";
     	$gbJS = array($gbURL . "AJS.js",
-    	$gbURL . "AJS_fx.js",
-    	$gbURL . "gb_scripts.js");
+    	    $gbURL . "AJS_fx.js",
+    	    $gbURL . "gb_scripts.js");
+    	
     	$gbCSS = array($gbURL . "gb_styles.css");
     	$extra = "var GB_ROOT_DIR = \"" . $gbURL . "/\"";
 
-		$this->_cssLibs = $gbCSS;
-		$this->_jsLibs = $gbJS;
-		$this->_extraJS = $extra;
+		$this->setCSSLibs($gbCSS);
+		$this->setJSLibs($gbJS);
+		$this->setExtraJS($extra);
 	}
 	
 	/**
 	 * Tells the gallery how to play the vids
 	 */
-	public function getPlayLink($vid, $options)
+	public function getPlayLink(TubePressVideo $vid, $height, $width)
 	{
 	    global $tubepress_base_url;
-	    
-	    $widthOpt = $options->get(TP_OPT_VIDWIDTH);
-	    $width = $widthOpt->getValue();
-	    
-	    $heightOpt = $options->get(TP_OPT_VIDHEIGHT);
-	    $height = $heightOpt->getValue();
-	    
+
 	    $title = $vid->getTitle();
 	    $id = $vid->getId();
 	    
