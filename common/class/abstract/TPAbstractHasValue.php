@@ -1,10 +1,7 @@
 <?php
-class TPAbstractHasValue extends TPAbstractHasDescription implements TubePressValue {
+abstract class TPAbstractHasValue extends TPAbstractHasDescription implements TubePressValue {
+
+    protected $value;
     
-    private $defaultValue;
-    
-    private $currentValue;
-    
-    protected abstract function setDefault($candidate);
 }
 ?>
