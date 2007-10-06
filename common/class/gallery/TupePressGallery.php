@@ -16,7 +16,7 @@ abstract class TubePressGallery
     const mobile = 		"mobile";
     
     const pageParameter = "tubepress_page";
-    const idParameter = "tubepress_id";
+    
     
     protected abstract $value;
     protected abstract $description;

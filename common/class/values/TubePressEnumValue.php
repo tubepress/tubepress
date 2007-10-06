@@ -1,8 +1,15 @@
 <?php
-abstract class TubePressEnumValue implements TubePressValue {
+abstract class TubePressEnumValue implements TubePressValue, TubePressHasName {
     
     protected $validValues;
     protected $value;
+    protected $name;
+    
+    public function __construct($theName, array $theValidValues, $defaultValue) {
+        $this->name = $theName;
+        $this->validValues = $theValidValues;
+        $this->setValue($defaultValue);
+    }
     
 	/**
      * Tries to set the value after seeing if it's valid
@@ -19,5 +26,7 @@ abstract class TubePressEnumValue implements TubePressValue {
         /* looks good! */
         $this->value = $candidate;
     }
+    
+    public function getName() { return $this->name; }
 }
 ?>

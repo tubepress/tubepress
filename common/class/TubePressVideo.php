@@ -24,8 +24,8 @@
 
 class TubePressVideo
 {
-
-	
+    const idParameter = "tubepress_id";
+    
     private $_rawArray;
     private $author;
     private $category;

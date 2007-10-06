@@ -1,6 +1,7 @@
 <?php
 class TubePressDisplayOptions extends TubePressOptionsCategory {
     
+    const currentPlayerName = "playerLocation";
     const greyBoxEnabled = "greyBoxEnabled";
     const lightWindowEnabled = "lightWindowEnabled";
     const mainVidHeight = "mainVidHeight";
@@ -12,6 +13,16 @@ class TubePressDisplayOptions extends TubePressOptionsCategory {
 
 	public function __construct() {
         $this->title = "Video Display Options";
+        
+        $ext = new ReflectionExtension('TubePressPlayer');
+        new TubePressOption(
+            TubePressDisplayOptions::currentPlayerName,
+            "Play each video...", " ",
+            new TubePressEnumValue(
+                TubePressDisplayOptions::currentPlayerName,
+                $ext->getConstants(),
+                TubePressPlayer::normal)
+        );
         
         new TubePressOption(
             TubePressDisplayOptions::mainVidHeight,
@@ -33,44 +44,68 @@ class TubePressDisplayOptions extends TubePressOptionsCategory {
             )
         );
         
+        $thumbHeightValue = new TubePressIntValue(TubePressDisplayOptions::thumbWidth, 120);
+        $thumbHeightValue->setMax(90);
         new TubePressOption(
             TubePressDisplayOptions::thumbHeight,
-            "Max height (px) of main video",
-            "Default is 90",
-            new TubePressIntValue(
-                TubePressDisplayOptions::thumbHeight,
-                90
+            "Height (px) of thumbs",
+            "Default (and maximum) is 90",
+            $thumbHeightValue
+        );
+        
+        $thumbWidthValue = new TubePressIntValue(TubePressDisplayOptions::thumbWidth, 120);
+        $thumbWidthValue->setMax(120);
+        new TubePressOption(
+            TubePressDisplayOptions::thumbWidth,
+            "Width (px) of thumbs",
+            "Default (and maximum) is 120",
+            $thumbWidthValue
+        );        
+        
+        $resultsPerPageValue = new TubePressIntValue(TubePressDisplayOptions::resultsPerPage, 20);
+        $resultsPerPageValue->setMax(50);
+        new TubePressOption(
+            TubePressDisplayOptions::resultsPerPage,
+            "Videos per page",
+            "Default is 20, maximum is 50",
+            $resultsPerPageValue
+        );
+        
+        new TubePressOption(
+            TubePressDisplayOptions::lightWindowEnabled,
+            "Enable lightWindow",
+            "Checking this box will load the lightWindow JS libraries" .
+              " in your blog. This <i>may</i> interfere with your theme and/or other plugins," .
+              " so it's good practice to leave this disabled if you're not using lightWindow.",
+            new TubePressBoolOption(
+                TubePressDisplayOptions::lightWindowEnabled,
+                false
             )
         );
         
         new TubePressOption(
-            TubePressDisplayOptions::mainVidWidth,
-            "Max width (px) of main video",
-            "Default is 424",
-            new TubePressIntValue(
-                TubePressDisplayOptions::mainVidWidth,
-                424
+            TubePressDisplayOptions::greyBoxEnabled,
+            "Enable GreyBox",
+            "Checking this box will load the GreyBox JS libraries" .
+              " in your blog. This <i>may</i> interfere with your theme and/or other plugins," .
+              " so it's good practice to leave this disabled if you're not using GreyBox.",
+            new TubePressBoolOption(
+                TubePressDisplayOptions::greyBoxEnabled,
+                false
             )
-        );        
+        );
         
+        new TubePressOption(
+            TubePressDisplayOptions::orderBy,
+            "Enable GreyBox",
+            "Checking this box will load the GreyBox JS libraries" .
+              " in your blog. This <i>may</i> interfere with your theme and/or other plugins," .
+              " so it's good practice to leave this disabled if you're not using GreyBox.",
+            new TubePressOrderValue(
+                TubePressDisplayOptions::orderBy,
+                TubePressOrderValue::views
+            )
+        );
 	}
 }
 ?>
-
-                  TP_OPT_ORDERBY => new TubePressEnumOpt(
-                      "Order videos by", " ", "updated",
-                      array("updated", "viewCount", "rating", "relevance")),
-                  
-                  TP_OPT_VIDSPERPAGE=>  new TubePressIntegerOpt(
-                      _tpMsg("VIDSPERPAGE_TITLE"), _tpMsg("VIDSPERPAGE_DESC"), 20, 50),      
-
-                  TP_OPT_THUMBWIDTH =>  new TubePressIntegerOpt(
-                      _tpMsg("THUMBWIDTH_TITLE"), _tpMsg("THUMBWIDTH_DESC"), 120, 120),
-                  TP_OPT_THUMBHEIGHT => new TubePressIntegerOpt(
-                      _tpMsg("THUMBHEIGHT_TITLE"), _tpMsg("THUMBHEIGHT_DESC"), 90, 90),
-                  TP_OPT_GREYBOXON => new TubePressBooleanOpt(
-                      _tpMsg("TP_OPT_GREYBOXON_TITLE"), _tpMsg("TP_OPT_GREYBOXON_DESC"),
-                       false),
-                  TP_OPT_LWON => new TubePressBooleanOpt(
-                      _tpMsg("TP_OPT_LWON_TITLE"), _tpMsg("TP_OPT_LWON_DESC")
-                      , false),
