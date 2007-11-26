@@ -7,17 +7,13 @@ class TubePressOrderValue extends TubePressEnumValue {
     const updated = "updated";
     
     public function __construct($theName, $theDefault) {
-        $this->validValues = array(
+        
+        parent::__construct($theName, array(
             TubePressOrderValue::relevance,
             TubePressOrderValue::views,
             TubePressOrderValue::rating,
             TubePressOrderValue::updated
-        );
-        $this->name = $theName;
-        $this->setValue($theDefault);
+        ), $theDefault);
     }
-    
-    
-    
 }
 ?>

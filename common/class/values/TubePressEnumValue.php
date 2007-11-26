@@ -1,20 +1,20 @@
 <?php
-abstract class TubePressEnumValue implements TubePressValue, TubePressHasName {
+abstract class TubePressEnumValue extends TubePressAbstractValue {
     
-    protected $validValues;
-    protected $value;
-    protected $name;
+    /* an array of the valid values that this value can take on */
+    private $validValues;
     
     public function __construct($theName, array $theValidValues, $defaultValue) {
-        $this->name = $theName;
+        
+        $this->setName($theName);
         $this->validValues = $theValidValues;
-        $this->setValue($defaultValue);
+        $this->setCurrentValue($defaultValue);
     }
     
 	/**
      * Tries to set the value after seeing if it's valid
      */
-    function setValue($candidate)
+    public final function updateManually($candidate)
     {
         /* see if it's a valid value */
         if (!in_array($candidate, $this->validValues)) {
@@ -24,9 +24,7 @@ abstract class TubePressEnumValue implements TubePressValue, TubePressHasName {
             		array($candidate, implode("', '", $this->validValues))));
         }
         /* looks good! */
-        $this->value = $candidate;
+        $this->setCurrentValue($candidate);
     }
-    
-    public function getName() { return $this->name; }
 }
 ?>

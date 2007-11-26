@@ -26,8 +26,8 @@
 class TPYouTubePlayer extends TubePressPlayer
 {
     public function __construct() {
-        $this->name = TubePressPlayer::youTube;
-        $this->title = "from the original YouTube page";
+        $this->setName(TubePressPlayer::youTube);
+        $this->setTitle("from the original YouTube page");
     }
 	
 	/**
@@ -35,7 +35,8 @@ class TPYouTubePlayer extends TubePressPlayer
 	 */
 	function getPlayLink(TubePressVideo $vid, $height, $width)
 	{   
-	    return sprintf('href="http://youtube.com/watch?v=%s"', $vid->getId());
+	    return sprintf('href="http://youtube.com/watch?v=%s"',
+	        $vid->getId());
 	}
 }
 ?>

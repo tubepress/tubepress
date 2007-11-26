@@ -1,29 +1,12 @@
 <?php
-class TubePressTextValue implements TubePressValue, TubePressHasName {
+class TubePressTextValue extends TubePressAbstractValue {
 	
-    private $string;
-    private $name;
-    
     public function __construct($theName, $defaultValue) {
         if (!is_a($defaultValue, "string")) {
             throw new Exception("Text values must have defaults that are strings!");
         }
-        $this->string = $defaultValue;
-        $this->name = $theName;
+        $this->setCurrentValue($defaultValue);
+        $this->setName($theName);
     }
-    
-    public function printValueForHTML() {
-        
-    }
-    
-    public function setValue(string $candidate) {
-        
-    }
-    
-    public function updateValueFromHTML(string $newValue) {
-        
-    }
-    
-    public function getName() { return $this->name; }
 }
 ?>

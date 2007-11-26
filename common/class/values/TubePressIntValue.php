@@ -1,34 +1,38 @@
 <?php
-class TubePressIntValue implements TubePressValue, TubePressHasName {
+class TubePressIntValue extends TubePressAbstractValue {
     
-    private $int;
     private $min = 1;
     private $max = 2147483647;
-    private $name;
     
     public function __construct($theName, $defaultValue) {
-        $this->setValue($defaultValue);
-        $this->name = $theName;
-    }
-    
-    public function printValueForHTML() {
         
+        if (!is_int($defaultValue)) {
+            throw new Exception("TubePressIntValue can only take on integers");
+        }
+        
+        $this->setCurrentValue($defaultValue);
+        $this->setName($theName);
     }
     
-    public function setValue($candidate) {
+    public final function updateManually($candidate) {
         if (($candidate < $this->min) || ($candidate > $this->max)) {
             throw new Exception(
                 vsprintf("Out of range. Must be between %s and %s. You supplied %s.",
-                array($this->getTitle(), $this->max, $candidate)));
+                array($this->min, $this->max, $candidate)));
         }
-        $this->int = $candidate;
+        $this->setCurrentValue($candidate);
     }
     
-    public function updateValueFromHTML(int $newValue) {
+    public final function setMax($newMax) {
         
-    }
-    
-    public function setMax(int $newMax) {
+        if (!is_int($newMax)) {
+            throw new Exception("Max value must be an integer");
+        }
+        
+        if ($newMax < $this->min) {
+            throw new Exception("Max must be greater than or equal to 1");
+        }
+        
         $this->max = $newMax;
     }
 }

@@ -6,7 +6,7 @@ class TubePressStorage {
     private $metaOptions;
     private $advOptions;
     
-    final public $version = 1551;
+    const version = 1551;
     
     public function __construct() {
         
@@ -15,5 +15,10 @@ class TubePressStorage {
         $this->metaOptions = new TubePressMetaOptions();
         $this->advOptions = new TubePressAdvancedOptions();
     }
+    
+    public function getGalleryOptions() { return $this->galleryOptions; }
+    public function getDisplayOptions() { return $this->displayOptions; }
+    public function getMetaOptions() { return $this->metaOptions; }
+    public function getAdvancedOptions() { return $this->advOptions; }
 }
 ?>

@@ -1,25 +1,26 @@
 <?php
-class TubePressBoolValue implements TubePressValue, TubePressHasName {
+class TubePressBoolValue extends TubePressAbstractValue {
 	
-    private $bool;
-    private $name;
-    
     public function __construct($theName, $theDefault) {
-        $this->bool = $theDefault;
-        $this->name = $theName;   
+        
+        if (!is_bool($theDefault)) {
+            throw new Exception("TubePressBoolValues can only take on booleans as values");
+        }
+        
+        $this->setCurrentValue($theDefault);
+        $this->setName($theName);
     }
     
-    public function printValueForHTML() {
+    public final function printForOptionsPage() {
         
     }
     
-    public function setValue(boolean $candidate) {
+    public final function updateManually(boolean $candidate) {
         
     }
     
-    public function updateValueFromHTML(boolean $newValue) {
+    public final function updateFromOptionsPage(boolean $newValue) {
         
     }
-    
 }
 ?>

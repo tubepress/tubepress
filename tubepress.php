@@ -24,19 +24,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-defined(TP_OPTION_NAME)
-    || require("common/defines.php");
-class_exists("TubePressStorageBox")
-    || require("common/class/TubePressStorageBox.php");
-class_exists("PEAR")
-    || require("lib/PEAR/PEAR.php");
 function_exists("tp_executeOptionsPage")
     || require("env/WordPress/TubePressOptions.php");
-class_exists("TubePressGallery")
-    || require("common/class/TubePressGallery.php");
-class_exists("TubePressDebug")
-    || require("common/class/util/TubePressDebug.php");
-    
+
 if (!isset($tubepress_base_url)) {
     $tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
 }
@@ -48,16 +38,18 @@ if (!isset($tubepress_base_url)) {
 function tp_main($content = '')
 {
     /* Store everything we generate in the following string */
-     $newcontent = "";
+    $newcontent = "";
     
     /* ------------------------------------------------------------ */
     /* ------------ DETERMINE IF WE NEED TO EXECUTE --------------- */
     /* ------------------------------------------------------------ */
 
-    $keyword = "";
-    $stored = "";
-    if (!tp_shouldWeExecute($content, $keyword, $stored)) {
-        return $content;
+    try {
+        if (!tp_shouldWeExecute($content)) {
+            return $content;
+        }
+    } catch (Exception $e) {
+        return $e->getMessage();
     }
     
     /* ------------------------------------------------------------ */
@@ -65,27 +57,16 @@ function tp_main($content = '')
     /* ------------------------------------------------------------ */ 
 
     WordPressStorageBox::applyTag($keyword->getValue(), $content, $stored, $stored->options);
-
-    /* ------------------------------------------------------------ */
-    /* ------------ PRINT DEBUG OUTPUT IF WE NEED IT -------------- */
-    /* ------------------------------------------------------------ */ 
-
-    /* Are we debugging? */
-    $debug = $stored->options->get(TP_OPT_DEBUG);
-
-    if ($debug->getValue() == true
-        && isset($_GET[TP_PARAM_DEBUG]) 
-        && ($_GET[TP_PARAM_DEBUG] == true)) {
-            $newcontent .= TubePressDebug::debug($stored);
-    }
     
     /* ------------------------------------------------------------ */
     /* ------------ NOW THE FUN PART ------------------------------ */
     /* ------------------------------------------------------------ */ 
     
     /* printing a single video only? */
-    $playerLocation = $stored->options->get(TP_OPT_PLAYIN);
-    if ($playerLocation->getValue() == TP_PLAYIN_NW
+    $player = $stored->getDisplayOptions()->get(TubePressDisplayOptions::player)->getCurrentValue();
+    $gallery = $stored->getGalleryOptions()->get(TubePressGalleryOptions::mode)->getCurrentValue();
+    
+    if (is_a($player, "TPNewWindowPlayer")
     	&& isset($_GET[TP_PARAM_VID])) {
     	ob_start();
         include dirname(__FILE__) . "/common/templates/single_video.php";
@@ -93,7 +74,7 @@ function tp_main($content = '')
         ob_end_clean();
         return $contents;
     } else {
-    	$newcontent .= TubePressGallery::generate($stored);
+    	$newcontent .= $gallery->generate($stored);
     }
 
     /* We're done! Replace the tag with our new content */
@@ -105,10 +86,6 @@ function tp_main($content = '')
  */
 function tp_insertCSSJS()
 {
-    $stored = tp_safeGetStorage();
-    if ($stored == NULL) {
-        return;
-    }
     
     global $tubepress_base_url;
     $url = $tubepress_base_url . "/common";
@@ -120,47 +97,73 @@ function tp_insertCSSJS()
             type="text/css" />
 GBS;
     
-    print TubePressPlayerPackage::getHeadContents($stored);
+    $stored = get_option("tubepress");
+    
+    if ($stored == NULL || !is_a($stored, "TubePressStorage")) {
+        return;
+    }
+    
+    $player = $stored->getDisplayOptions()->get(TubePressDisplayOptions::currentPlayerName)->getCurrentValue();
+    
+    print $player->getHeadContents();
 }
 
-function tp_shouldWeExecute($content, &$keyword, &$stored) {
+function tp_shouldWeExecute($content) {
     
-    $stored = tp_safeGetStorage();
+    $stored = get_option("tubepress");
+    
     if ($stored == NULL) {
         return false;
     }
     
-    $keyword = $stored->options->get(TP_OPT_KEYWORD);
+    if (!is_a($stored, "TubePressStorage")) {
+        throw new Exception("Your stored options are invalid for this version
+           of TubePress. Please go to WP-Admin > Options > TubePress to initialize them.");
+    }
     
-    if (strpos($content, '[' . $keyword->getValue()) === false) {
+    $keyword = $stored->getAdvancedOptions()->get(TubePressAdvancedOptions::triggerWord)->getCurrentValue();
+    
+    if (strpos($content, '[' . $keyword) === false) {
         return false;
     }
     return true;
 }
 
-function tp_safeGetStorage() {
+function __autoload($className) {
+
+    $folder = tp_classFolder($className);
+
+    if ($folder) {
+        require_once($folder.$className.".class.php");
+    }
+}
+
+function tp_classFolder($className, $sub = "/") {
     
-    global $tubepress_storagebox;
-
-    if (isset($tubepress_storagebox)) {
-        return $tubepress_storagebox;
-    }
-
-    $stored = get_option(TP_OPTION_NAME);
-    if ($stored == NULL) {
-        return NULL;
-    }
-    if (!is_a($stored, "TubePressStorageBox")) {
-        return NULL;
-    }
+    $currentDir = dirname(__FILE__);
     
-    $result = $stored->checkValidity();
-    if (PEAR::isError($result)) {
-        return NULL;
+    $dir = dir($currentDir.$sub);
+    
+    if (file_exists($currentDir.$sub.$className.".class.php")) {
+        return $currentDir.$sub;
     }
 
-    $tubepress_storagebox = $stored;
-    return $stored;
+    while (false !== ($folder = $dir->read())) {
+        
+        if (strpos($folder, ".") === 0) {
+            continue;
+        }
+        
+        if (is_dir($currentDir.$sub.$folder)) {
+            $subFolder = tp_classFolder($className, $sub.$folder."/");
+                
+            if ($subFolder) {
+                return $subFolder;
+            }
+        }     
+    }
+    $dir->close();
+    return false;
 }
 
 /* don't forget to add our hooks! */

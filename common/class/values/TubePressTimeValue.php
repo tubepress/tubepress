@@ -1,16 +1,19 @@
 <?php
-class TubePressTimeValue implements TubePressValue {
+class TubePressTimeValue extends TubePressEnumValue {
     
     const today = "today";
     const week = "this_week";
     const month = "this_month";
     const allTime = "all_time";
     
-    public function __construct() {
-        $this->validValues = array(
-            "today", "this_week", "this_month", "all_time"
-        );
-        $this->value = TubePressTimeValue::today;
+    public function __construct($theName, $theDefaultValue) {
+
+        parent::__construct($theName, array(
+            TubePressTimeValue::today,
+            TubePressTimeValue::week,
+            TubePressTimeValue::month,
+            TubePressTimeValue::allTime
+        ), $theDefaultValue);
     }
 }
 

@@ -21,12 +21,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-function_exists("_tpMsg") || require(dirname(__FILE__) . "/../../common/messages.php");
-class_exists("WordPressStorageBox") || require("WordPressStorageBox.php");
-class_exists("WordPressOptionsPage") || require("WordPressOptionsPage.php");
-class_exists("HTML_Template_IT") || require(dirname(__FILE__) . "/../../lib/PEAR/HTML/HTML_Template_IT/IT.php");
-defined(TP_OPTION_NAME)
-    || function_exists("_tpMsg") || require(dirname(__FILE__) . "/../../common/defines.php");
 
     /**
      * This is the main method for the TubePress global options page,
@@ -36,7 +30,7 @@ defined(TP_OPTION_NAME)
     function tp_executeOptionsPage()
     {
         if (function_exists('add_options_page')) {
-            add_options_page(_tpMsg("OPTPANELTITLE"), _tpMsg("OPTPANELMENU"), 9, 
+            add_options_page("TubePress Options", "TubePress", 9, 
                 'TubePressOptions.php', '_tp_executeOptionsPage');
         }
     }
@@ -47,32 +41,26 @@ defined(TP_OPTION_NAME)
     function _tp_executeOptionsPage()
     {
         /* initialize the database if we need to */
-        WordPressStorageBox::initDB();
+        TubePress_WordPress_Environment::initDB();
 
         /* see what we've got in the db */
-        $stored = get_option(TP_OPTION_NAME);
+        $stored = get_option("tubepress");
         if ($stored == NULL) {
                 WordPressOptionsPage::printStatusMsg("Options did not store!",
                 TP_CSS_FAILURE);
                 return;
         }
-        
-        $valid = $stored->checkValidity();
-        if (PEAR::isError($valid)) {
-            WordPressOptionsPage::printStatusMsg($valid->message,
-                TP_CSS_FAILURE);
-        }
     
         $tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../common/templates");
-        $tpl->loadTemplatefile("options_page.tpl.html", true, true);
-        if (PEAR::isError($tpl)) {
+        if (!$tpl->loadTemplatefile("options_page.tpl.html", true, true)) {
             WordPressOptionsPage::printStatusMsg($tpl->message,
                 TP_CSS_FAILURE);
+            return;
         }
         
-        $tpl->setVariable('PAGETITLE', _tpMsg("OPTPANELTITLE"));
-        $tpl->setVariable('INTROTEXT', _tpMsg("OPTPAGEDESC"));
-        $tpl->setVariable('SAVE', _tpMsg("SAVE"));
+        $tpl->setVariable('PAGETITLE', "blabla");
+        $tpl->setVariable('INTROTEXT', "blablabla");
+        $tpl->setVariable('SAVE', "blablablablablabla");
         
         /* are we updating? */
         if (isset($_POST['tubepress_save'])) {

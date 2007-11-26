@@ -33,6 +33,10 @@ abstract class TubePressPlayer implements TubePressValue,
 	const greyBox = "greybox";
 	const lightWindow = "lightwindow";
 	
+	private $title;
+	private $value;
+	private $name;
+	
 	/*
 	 * for each player, we want to know which CSS
 	 * and JS libraries that it needs
@@ -41,7 +45,7 @@ abstract class TubePressPlayer implements TubePressValue,
 	private $_jsLibs = array();
 	private $_extraJS = array();
 	
-	public function getHeadContents() {
+	public final function getHeadContents() {
     	$content = "";
 	    if ($this->_extraJS != "") {
         	$content .= "<script type=\"text/javascript\">" . $this->_extraJS . "</script>";
@@ -58,26 +62,37 @@ abstract class TubePressPlayer implements TubePressValue,
     	return $content;
 	}
 	
-	protected function setExtraJS($extraJS) {
+	protected final function setExtraJS($extraJS) {
 	    if (!is_a($jsLibs, "string")) {
 	        throw new Exception("Extra JS must be a string");
 	    }
 	    $this->_extraJS = $extraJS;
 	}
 	
-	protected function setJSLibs($jsLibs) {
+	protected final function setJSLibs($jsLibs) {
 	    if (!is_array($jsLibs)) {
 	        throw new Exception("JS libraries must be an array");
 	    }
 	    $this->_jsLibs = $jsLibs;
 	}
 	
-	protected function setCSSLibs($cssLibs) {
+	protected final function setCSSLibs($cssLibs) {
 	    if (!is_array($cssLibs)) {
 	        throw new Exception("CSS libraries must be an array");
 	    }
 	    $this->_cssLibs = $cssLibs;
 	}
+	
+	protected final function setTitle($newTitle) {
+	    $this->title = $newTitle;
+	}
+	
+	protected final function setName($newName) {
+	    $this->name = $newName;
+	}
+	
+	public final function getTitle() { return $this->title; }
+	public final function getName() { return $this->name; }
 	
 	public abstract function getPlayLink(TubePressVideo $vid, $height, $width);
 }

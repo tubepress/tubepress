@@ -25,8 +25,8 @@
 class TPPopupPlayer extends TubePressPlayer
 {
     public function __construct() {
-        $this->name = TubePressPlayer::popup;
-        $this->title = "in a popup window";
+        $this->setName(TubePressPlayer::popup);
+        $this->setTitle("in a popup window");
     }
 	
 	/**

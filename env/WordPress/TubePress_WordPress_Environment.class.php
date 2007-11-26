@@ -1,52 +1,21 @@
 <?php
-/**
- * WordPressStorageBox.php
- * 
- * Implements a TubePressOptions package for WordPress. Can parse a tag from 
- * a post/page and can talk to the WP database. Awesome.
- * 
- * Copyright (C) 2007 Eric D. Hough (http://ehough.com)
- * 
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
-
-class_exists('TubePressOptionsPackage')
-    || require(dirname(__FILE__) .
-        "/../../common/class/options/TubePressOptionsPackage.php");
-class_exists("TubePressStorageBox")
-    || require(ABSPATH .
-        "wp-content/plugins/tubepress/common/class/TubePressStorageBox.php");
-class_exists("PEAR")
-    || require(ABSPATH .
-        "wp-content/plugins/tubepress/lib/PEAR/PEAR.php");
-defined("TP_OPTION_NAME")
-    || require(dirname(__FILE__) .
-        "/../../common/defines.php");
-class_exists("WordPressOptionsPackage")
-    || require("WordPressOptionsPackage.php");
-
-class WordPressStorageBox extends TubePressStorageBox
+class TubePress_WordPress_Environment
 {
     /* need to keep the tag string around for string replacement later */
-    var $tagString;
+    private $tagString;
+    
+    /**
+     * Private constructor
+     */
+    private function __construct() {
+        /* don't let anyone instantiate me */
+    }
     
     /**
      * Tries to strip out any quotes from a tag option name or option value. This
      * is ugly, ugly, ugly, and it still doesn't work as well as I'd like it to
      */
-    function cleanupTagValue($nameOrValue)
+    public static function cleanupTagValue(&$nameOrValue)
     {
         $returnVal = trim(
             str_replace(
@@ -59,23 +28,14 @@ class WordPressStorageBox extends TubePressStorageBox
         if ($returnVal == "false") {
             return false;
         }
-        return $returnVal;
-    }
-    
-    /**
-     * Used during debugging
-     */
-    function debug()
-    {
-        return "<li>Here's the tag string you're using in this page: " .
-            "<pre>" . $this->tagString . "</pre></li>";
+        $nameOrValue = $returnVal;
     }
     
     /**
      *  Gets rid of legacy options if they still exist.
      *  Please email me if you think I missed one!
      */
-    function deleteLegacyOptions()
+    public static function deleteLegacyOptions()
     {
         delete_option(TP_OPTS_ADV);
         delete_option(TP_OPTS_DISP);
@@ -121,18 +81,16 @@ class WordPressStorageBox extends TubePressStorageBox
     /**
      * Will initialize our database entry for WordPress
      */
-    function initDB()
+    public static function initDB()
     {
-        WordPressStorageBox::deleteLegacyOptions();
+        TubePress_WordPress_Environment::deleteLegacyOptions();
         $opts = get_option(TP_OPTION_NAME);
         
         if ($opts == NULL
-            || (!is_a($opts, "WordPressStorageBox"))
-            || PEAR::isError($opts->checkValidity())
-            ) {
-            delete_option(TP_OPTION_NAME);
-            add_option(TP_OPTION_NAME, 
-                new WordPressStorageBox());
+            || (!is_a($opts, "TubePressStorage"))) {
+            delete_option("tubepress");
+            add_option("tubepress", 
+                new TubePressStorage());
         }
     }
     
@@ -141,7 +99,7 @@ class WordPressStorageBox extends TubePressStorageBox
      * It pulls all the options from the db, but uses option values found in
      * the tag when it can.
      */
-    function applyTag($keyword, $content, &$dbStored, &$dbOptions)
+    public static function applyTag($keyword, $content, &$dbStored, &$dbOptions)
     {
         $customOptions = array();
         $matches = array();

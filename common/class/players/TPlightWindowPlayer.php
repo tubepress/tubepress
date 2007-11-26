@@ -25,8 +25,8 @@
 class TPlightWindowPlayer extends TubePressPlayer
 {
     public function __construct() {
-        $this->name = TubePressPlayer::lightWindow;
-        $this->title = "with lightWindow (experimental... enable it above)";
+        $this->setName(TubePressPlayer::lightWindow);
+        $this->setTitle("with lightWindow (experimental... enable it above)");
 
 		global $tubepress_base_url;
 

@@ -15,5 +15,10 @@ class TubePressOption implements TubePressHasValue,
 		$this->description = $theDescription;
 		$this->value = $theDefault;
 	}
+	
+	public final function getName() { return $this->name; }
+	public final function getTitle() { return $this->title; }
+	public final function getDescription() { return $this->description; }
+	public final function &getValue() { return $this->value; }
 }
 ?>

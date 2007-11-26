@@ -19,17 +19,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("TubePressPlayer")
-    || require(dirname(__FILE__) . "/../abstract/TubePressPlayer.php");
-
 /**
  * Plays videos at the top of a gallery
  */
 class TPNormalPlayer extends TubePressPlayer 
 {
     public function __construct() {
-        $this->name = TubePressPlayer::normal;
-        $this->title = "normally (at the top of your gallery)";
+        $this->setName(TubePressPlayer::normal);
+        $this->setTitle("normally (at the top of your gallery)");
     }
 	
 	/**

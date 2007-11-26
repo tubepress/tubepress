@@ -26,8 +26,8 @@
 class TPGreyBoxPlayer extends TubePressPlayer
 {
     public function __construct() {
-        $this->name = TubePressPlayer::lightWindow;
-        $this->title = "with GreyBox (experimental... enable it above)";
+        $this->setName(TubePressPlayer::lightWindow);
+        $this->setTitle("with GreyBox (experimental... enable it above)");
    	
 	    global $tubepress_base_url;
 
