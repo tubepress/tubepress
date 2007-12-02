@@ -32,7 +32,8 @@ abstract class TubePressOptionsCategory implements TubePressHasTitle {
     }
     
     public final function get($optionName) {
-        if (!in_array($optionName, $this->options)) {
+        
+        if (!array_key_exists($optionName, $this->options)) {
             throw new Exception("No such option in this category");
         }
         return $this->options[$optionName];

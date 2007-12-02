@@ -35,5 +35,14 @@ class TubePressIntValue extends TubePressAbstractValue {
         
         $this->max = $newMax;
     }
+    
+    public function printForOptionsPage() {
+        
+    }
+    
+    public function updateFromOptionsPage(array $postVars) {
+        
+    }
+    
 }
 ?>

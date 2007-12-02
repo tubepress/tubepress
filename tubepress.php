@@ -35,51 +35,40 @@ if (!isset($tubepress_base_url)) {
  * Main filter hook. Looks for a tubepress tag
  * and replaces it with a gallery (or single video) if it's found
 */
+
 function tp_main($content = '')
 {
     /* Store everything we generate in the following string */
     $newcontent = "";
-    
-    /* ------------------------------------------------------------ */
-    /* ------------ DETERMINE IF WE NEED TO EXECUTE --------------- */
-    /* ------------------------------------------------------------ */
 
     try {
+    
         if (!tp_shouldWeExecute($content)) {
             return $content;
         }
+
+        //WordPressStorageBox::applyTag($keyword->getValue(), $content, $stored, $stored->options);
+    
+        /* ------------------------------------------------------------ */
+        /* ------------ NOW THE FUN PART ------------------------------ */
+        /* ------------------------------------------------------------ */ 
+        
+        $stored = get_option("tubepress");
+        
+        /* printing a single video only? */
+        $player = $stored->getDisplayOptions()->get(TubePressDisplayOptions::currentPlayerName)->getValue()->getCurrentValue();
+        $gallery = $stored->getGalleryOptions()->get(TubePressGalleryOptions::mode)->getValue()->getCurrentValue();
+
+        $newcontent .= $gallery->generate($stored);
+
+    	/* replace the tag with our new content */
+        return str_replace("[tubepress]", $newcontent, $content);
+    
     } catch (Exception $e) {
         return $e->getMessage();
     }
-    
-    /* ------------------------------------------------------------ */
-    /* ------------ PARSE THE TAG --------------------------------- */
-    /* ------------------------------------------------------------ */ 
-
-    WordPressStorageBox::applyTag($keyword->getValue(), $content, $stored, $stored->options);
-    
-    /* ------------------------------------------------------------ */
-    /* ------------ NOW THE FUN PART ------------------------------ */
-    /* ------------------------------------------------------------ */ 
-    
-    /* printing a single video only? */
-    $player = $stored->getDisplayOptions()->get(TubePressDisplayOptions::player)->getCurrentValue();
-    $gallery = $stored->getGalleryOptions()->get(TubePressGalleryOptions::mode)->getCurrentValue();
-    
-    if (is_a($player, "TPNewWindowPlayer")
-    	&& isset($_GET[TP_PARAM_VID])) {
-    	ob_start();
-        include dirname(__FILE__) . "/common/templates/single_video.php";
-        $contents = ob_get_contents();
-        ob_end_clean();
-        return $contents;
-    } else {
-    	$newcontent .= $gallery->generate($stored);
-    }
-
-    /* We're done! Replace the tag with our new content */
-    return str_replace($stored->tagString, $newcontent, $content);
 }
+
 
 /**
  * Spits out the CSS and JS files that we always need for TubePress
@@ -90,73 +79,79 @@ function tp_insertCSSJS()
     global $tubepress_base_url;
     $url = $tubepress_base_url . "/common";
     print<<<GBS
-        <script type="text/javascript" src="$url/tubepress.js"></script>
-        <link rel="stylesheet" href="$url/tubepress.css" 
+        <script type="text/javascript" src="$url/js/tubepress.js"></script>
+        <link rel="stylesheet" href="$url/css/tubepress.css" 
             type="text/css" />
-        <link rel="stylesheet" href="$url/pagination.css" 
+        <link rel="stylesheet" href="$url/css/pagination.css" 
             type="text/css" />
 GBS;
     
     $stored = get_option("tubepress");
     
-    if ($stored == NULL || !is_a($stored, "TubePressStorage")) {
+    /* we're in the head here, so just return quietly */
+    if ($stored == NULL || !($stored instanceof TubePressStorage_v157)) {
         return;
     }
     
-    $player = $stored->getDisplayOptions()->get(TubePressDisplayOptions::currentPlayerName)->getCurrentValue();
-    
-    print $player->getHeadContents();
+    try {
+        $player = $stored->getDisplayOptions()->get(TubePressDisplayOptions::currentPlayerName)->getValue()->getCurrentValue();
+        print $player->getHeadContents();
+    } catch (Exception $error) {
+        /* this is in the head, so just print an HTML comment and proceed */
+        print "<!-- " . $error->getMessage() . " -->";
+    }
 }
 
 function tp_shouldWeExecute($content) {
     
     $stored = get_option("tubepress");
     
-    if ($stored == NULL) {
+    if ($stored == NULL
+        || !($stored instanceof TubePressStorage_v157)) {
         return false;
     }
     
-    if (!is_a($stored, "TubePressStorage")) {
-        throw new Exception("Your stored options are invalid for this version
-           of TubePress. Please go to WP-Admin > Options > TubePress to initialize them.");
-    }
+    $trigger = $stored->getAdvancedOptions()->get(TubePressAdvancedOptions::triggerWord)->getValue()->getCurrentValue();
     
-    $keyword = $stored->getAdvancedOptions()->get(TubePressAdvancedOptions::triggerWord)->getCurrentValue();
-    
-    if (strpos($content, '[' . $keyword) === false) {
+    if (strpos($content, '[' . $trigger) === false) {
         return false;
     }
+    
     return true;
 }
 
 function __autoload($className) {
 
     $folder = tp_classFolder($className);
-
-    if ($folder) {
-        require_once($folder.$className.".class.php");
+    
+    if ($folder !== false) {
+        require_once($folder . $className . ".class.php");
+    } else {
+        if (!class_exists($className, false)) {
+            echo $className . " class not found <br />";
+        }
     }
 }
-
-function tp_classFolder($className, $sub = "/") {
     
+function tp_classFolder($className, $sub = DIRECTORY_SEPARATOR) {
+        
     $currentDir = dirname(__FILE__);
-    
-    $dir = dir($currentDir.$sub);
-    
+        
+    $dir = dir($currentDir . $sub);
+        
     if (file_exists($currentDir.$sub.$className.".class.php")) {
         return $currentDir.$sub;
     }
-
+    
     while (false !== ($folder = $dir->read())) {
-        
+            
         if (strpos($folder, ".") === 0) {
             continue;
         }
-        
+            
         if (is_dir($currentDir.$sub.$folder)) {
-            $subFolder = tp_classFolder($className, $sub.$folder."/");
-                
+            $subFolder = tp_classFolder($className, $sub.$folder.DIRECTORY_SEPARATOR);
+                    
             if ($subFolder) {
                 return $subFolder;
             }

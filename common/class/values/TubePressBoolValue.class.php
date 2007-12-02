@@ -15,11 +15,11 @@ class TubePressBoolValue extends TubePressAbstractValue {
         
     }
     
-    public final function updateManually(boolean $candidate) {
+    public final function updateManually($candidate) {
         
     }
     
-    public final function updateFromOptionsPage(boolean $newValue) {
+    public final function updateFromOptionsPage(array $postVars) {
         
     }
 }

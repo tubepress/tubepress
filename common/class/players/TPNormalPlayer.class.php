@@ -43,5 +43,18 @@ class TPNormalPlayer extends TubePressPlayer
             $id, $height, $width, rawurlencode($title),
             $vid->getRuntime(), "http://localhost/wp");
 	}
+	
+    public function printForOptionsPage() {
+        
+    }
+    
+    public function updateFromOptionsPage(array $postVars) {
+        
+    }
+    
+    public function updateManually($newValue) {
+        
+    }
+	
 }
 ?>

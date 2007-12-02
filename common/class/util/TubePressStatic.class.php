@@ -19,18 +19,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-defined(TP_OPTION_NAME)
-    || require(dirname(__FILE__) . "/../../defines.php");
-
 /**
  * A bunch of "static" utilities that are used throughout the app
  */
-abstract class TubePressStatic
-{        
+final class TubePressStatic
+{    
     /**
      * Returns what's in the address bar (obviously, only http, not https)
      */
-    public static function fullURL()
+    public static final function fullURL()
     {
         return "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
     }
@@ -39,10 +36,10 @@ abstract class TubePressStatic
      * Try to figure out what page we're on by looking at the query string
      * Defaults to '1' if there's any doubt
      */
-    public static function getPageNum()
+    public static final function getPageNum()
     {
-        $pageNum = ((isset($_GET[TP_PARAM_PAGE]))?
-            $_GET[TP_PARAM_PAGE] : 1);
+        $pageNum = ((isset($_GET[TubePressGallery::pageParameter]))?
+            $_GET[TubePressGallery::pageParameter] : 1);
             if (!is_numeric($pageNum)
                 || ($pageNum < 1)) {
                 $pageNum = 1;

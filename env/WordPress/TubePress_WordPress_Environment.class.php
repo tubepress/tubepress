@@ -1,5 +1,5 @@
 <?php
-class TubePress_WordPress_Environment
+final class TubePress_WordPress_Environment
 {
     /* need to keep the tag string around for string replacement later */
     private $tagString;
@@ -84,13 +84,13 @@ class TubePress_WordPress_Environment
     public static function initDB()
     {
         TubePress_WordPress_Environment::deleteLegacyOptions();
-        $opts = get_option(TP_OPTION_NAME);
+        $opts = get_option("tubepress");
         
         if ($opts == NULL
-            || (!is_a($opts, "TubePressStorage"))) {
+            || (!($opts instanceof TubePressStorage_v157))) {
             delete_option("tubepress");
             add_option("tubepress", 
-                new TubePressStorage());
+                new TubePressStorage_v157());
         }
     }
     
@@ -143,8 +143,6 @@ class TubePress_WordPress_Environment
             $realOpt =& $dbOptions->get($customOptionName);
             $realOpt->setValue($customOptions[$customOptionName]);
         }
-        
-        
     }   
 }
 ?>

@@ -8,11 +8,12 @@ class TubePressGalleryOptions extends TubePressOptionsCategory {
         $this->setTitle("Which videos?");
     
         $this->setOptions(array(
-            new TubePressOption(
+            TubePressGalleryOptions::mode => new TubePressOption(
                 TubePressGalleryOptions::mode,
             	" ", " ",
                 new TubePressGalleryValue(
-                    TubePressGallery::featured)
+                    TubePressGalleryOptions::mode,
+                    new TubePressPopularGallery())
             )));
     }
 }

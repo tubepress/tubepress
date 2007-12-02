@@ -24,19 +24,22 @@
 
 class TubePressVideo
 {
-    const idParameter = "tubepress_id";
-    
+
     private $_rawArray;
-    private $author;
-    private $category;
-    private $description;
-    private $id;
-    private $rating;
-    private $ratings;
-    private $runtime;
-    private $tags;
-    private $url;
-    private $views;
+    private $processedAlready = array();
+    
+    const author = "author";
+    const category =  "category";
+    const description = "description";
+    const id = "id";
+    const rating = "rating";
+    const ratings = "ratings";
+    const runtime = "runtime";
+    const tags = "tags";
+    const title = "title";
+    const uploaded = "uploaded";
+    const url = "url";
+    const views = "views";
     
     /**
      * Simple constructor
@@ -63,82 +66,24 @@ class TubePressVideo
         $this->_rawArray = (array) $videoXML;
     }
 
-  	/**
-     * The video's author
-     */
-    public function getAuthor() {
-        return $this->quickGet('author');
-    }
-
-    /**
-     * Which category this video is in
-     */
-    public function getCategory() { return $this->quickGet('category'); }
-
-    public function getDefaultThumbURL() {
-        return $this->getSpecificThumbURL(0);;
-    }
-    
-    /**
-     * Returns the video's textual description
-     */
-    public function getDescription() { return $this->quickGet('description'); }
-    
-    /**
-     * This video's YouTube ID
-     */
-    public function getId() { return $this->quickGet('id'); }
-    
-    /**
-     * The URL to this video's thumbnail. Typically there are
-     * multiple to choose from.
-     */
+    public function getAuthor() { return $this->quickGet(TubePressVideo::author); }
+    public function getCategory() { return $this->quickGet(TubePressVideo::category); }
+    public function getDefaultThumbURL() { return $this->getSpecificThumbURL(0);}
+    public function getDescription() { return $this->quickGet(TubePressVideo::description); }
+    public function getId() { return $this->quickGet(TubePressVideo::id); }
     public function getRandomThumbURL()
     {   
-        $random = rand(0, count($this->_videoXML['media:group']['media:thumbnail']) - 1);
+        $random = rand(0, count($this->_rawArray['media:group']['media:thumbnail']) - 2);
         return $this->getSpecificThumbURL($random);
     }
-    
-    /**
-     * The average rating for this video. I HATE this method!!
-     */
-    public function getRatingAverage() { return $this->quickGet('rating'); }
-    
-    /**
-     * How many people have rated the video. I hate this function
-     * even more than the previous.
-     */
-    public function getRatingCount() { return $this->quickGet('ratings'); }
-    
-    /**
-     * The video's runtime in minutes and seconds
-     */
-    public function getRuntime() { return $this->quickGet('runtime'); }
-    
-    /**
-     * Gets a space-separated list of tags for this video
-     */
-    public function getTags() { return $this->quickGet('tags'); }
-    
-    /**
-     * The video's title
-     */
-    public function getTitle() { return $this->quickGet('title'); }
-    
-    /**
-     * When was this video uploaded?
-     */
-    public function getUploadTime() { return $this->quickGet('uploaded'); }
-    
-    /**
-     * The URL to this video on YouTube.com
-     */
-    public function getURL() { return $this->quickGet('url'); }
-    
-    /**
-     * Returns the view count
-     */
-    public function getViewCount() { return $this->quickGet('views'); }
+    public function getRatingAverage() { return $this->quickGet(TubePressVideo::rating); }
+    public function getRatingCount() { return $this->quickGet(TubePressVideo::ratings); }
+    public function getRuntime() { return $this->quickGet(TubePressVideo::runtime); }
+    public function getTags() { return $this->quickGet(TubePressVideo::tags); }
+    public function getTitle() { return $this->quickGet(TubePressVideo::title); }
+    public function getUploadTime() { return $this->quickGet(TubePressVideo::uploaded); }
+    public function getURL() { return $this->quickGet(TubePressVideo::url); }
+    public function getViewCount() { return $this->quickGet(TubePressVideo::views); }
 
     /*
      * -----------------------------------------------------------------------
@@ -147,12 +92,12 @@ class TubePressVideo
      */
     
     private function _getAuthor() {
-        return $this->_videoXML['author']['name'];
+        return $this->_rawArray['author']['name'];
     }
     
     private function _getCategory() {
         $keywords = array();
-        foreach ($this->_videoXML['category'] as $cat) {
+        foreach ($this->_rawArray['category'] as $cat) {
             if (substr_count($cat['scheme'], "categories.cat") == 1) {
                 return $cat['label'];
             }
@@ -161,17 +106,17 @@ class TubePressVideo
     }
     
     private function _getDescription() {
-        $this->_videoXML['media:group']['media:description']['_content'];
+        $this->_rawArray['media:group']['media:description']['_content'];
     }
     
     private function _getId() {
-        $url = $this->_videoXML['media:group']['media:player']['url'];
+        $url = $this->_rawArray['media:group']['media:player']['url'];
         $pos = strrpos($url, "=");
         return substr($url, $pos + 1);
     }
     
     private function _getRatings() {
-        $crappyHTML = $this->_videoXML['content']['_content'];
+        $crappyHTML = $this->_rawArray['content']['_content'];
  
     	$first = strpos($crappyHTML, '<div style="font-size: 11px;">');
     	$last = strpos($crappyHTML, '>', $first);
@@ -181,12 +126,12 @@ class TubePressVideo
     }
     
     private function _getRuntime() {
-        return TubePressVideo::_seconds2HumanTime($this->_videoXML['media:group']['yt:duration']['seconds']);
+        return TubePressVideo::seconds2HumanTime($this->_rawArray['media:group']['yt:duration']['seconds']);
     }
     
     private function _getTags() {
         $keywords = array();
-        foreach ($this->_videoXML['category'] as $cat) {
+        foreach ($this->_rawArray['category'] as $cat) {
             if (substr_count($cat['scheme'], "keywords.cat") == 1) {
                 array_push($keywords, $cat['term']);
             }
@@ -195,15 +140,15 @@ class TubePressVideo
     }
     
     private function _getTitle() {
-        return htmlspecialchars($this->_videoXML['title']['_content'], ENT_QUOTES);
+        return htmlspecialchars($this->_rawArray['title'], ENT_QUOTES);
     }
     
     private function _getUploaded() {
-        return TubePressVideo::rfc3339_2_humanTime($this->_videoXML['published']);
+        return TubePressVideo::rfc3339_2_humanTime($this->_rawArray['published']);
     }
     
     private function _getUrl() {
-        foreach ($this->_videoXML['link'] as $link) {
+        foreach ($this->_rawArray['link'] as $link) {
             if (!is_array($link)) {
                 continue;
             }
@@ -215,11 +160,11 @@ class TubePressVideo
     }
     
     private function _getViews() {
-        return number_format($this->_videoXML['yt:statistics']['viewCount']);
+        return number_format($this->_rawArray['yt:statistics']['viewCount']);
     }
     
-    private function getSpecificThumbURL(int $which) {
-        $this->_videoXML['media:group']['media:thumbnail'][$which]['url'];
+    private function getSpecificThumbURL($which) {
+        return $this->_rawArray['media:group']['media:thumbnail'][$which]['url'];
     }
 
 
@@ -256,10 +201,10 @@ class TubePressVideo
     }
     
     private function quickGet($member) {
-        if (!isset($this->$member)) {
-            $this->$member = call_user_func(array($this, '_get' . ucwords($member)));
+        if (!isset($this->processedAlready[$member])) {
+            $this->processedAlready[$member] = call_user_func(array($this, '_get' . ucwords($member)));
         }
-        return $this->$member;
+        return $this->processedAlready[$member];
     }
 }
 ?>

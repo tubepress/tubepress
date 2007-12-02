@@ -42,7 +42,7 @@ class TubePressXML
          */
         error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 
-        $timeout = $stored->getAdvancedOptions()->get(TubePressAdvancedOptions::timeout)->getCurrentValue();
+        $timeout = $stored->getAdvancedOptions()->get(TubePressAdvancedOptions::timeout)->getValue()->getCurrentValue();
         
         $snoopy = new Snoopy_TubePress();
         $snoopy->read_timeout = $timeout;

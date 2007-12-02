@@ -21,7 +21,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
+class_exists("HTML_Template_IT")
+    || require(dirname(__FILE__) . "/../../lib/PEAR/HTML/HTML_Template_IT/IT.php");
+class_exists("PEAR")
+    || require(dirname(__FILE__) . "/../../lib/PEAR/PEAR.php");
+class_exists("WordPressOptionsPage")
+    || require("WordPressOptionsPage.php");
+    
     /**
      * This is the main method for the TubePress global options page,
      * which is loaded when you're in the wp-admin section of your blog.
@@ -67,7 +73,7 @@
             
             WordPressOptionsPage::update();
             
-            $stored = get_option(TP_OPTION_NAME);
+            $stored = get_option("tubepress");
             if ($stored == NULL) {
                 WordPressOptionsPage::printStatusMsg("Options did not store!",
                 TP_CSS_FAILURE);

@@ -26,5 +26,13 @@ abstract class TubePressEnumValue extends TubePressAbstractValue {
         /* looks good! */
         $this->setCurrentValue($candidate);
     }
+    
+    public function printForOptionsPage() {
+        
+    }
+    
+    public function updateFromOptionsPage(array $postVars) {
+        
+    }
 }
 ?>

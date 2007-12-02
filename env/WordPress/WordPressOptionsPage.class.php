@@ -21,11 +21,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-defined(TP_OPTION_NAME)
-    || require(dirname(__FILE__) . "/../../common/defines.php");
-class_exists("TubePressOptionsPackage")
-    || require(dirname(__FILE__) . "/../../common/class/options/TubePressOptionsPackage.php");
-
 class WordPressOptionsPage
 {
     /**

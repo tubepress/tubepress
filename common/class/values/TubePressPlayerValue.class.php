@@ -1,10 +1,10 @@
 <?php
-final class TubePressGalleryValue extends TubePressAbstractValue {
+final class TubePressPlayerValue extends TubePressAbstractValue {
    
     public function __construct($theName, $theDefault) {
         
-        if (!is_a($theDefault, "TubePressGallery")) {
-            throw new Exception("Gallery value can only take on a TubePressGallery");
+        if (!is_a($theDefault, "TubePressPlayer")) {
+            throw new Exception("Player value can only take on a TubePressPlayer");
         }
         
         $this->setName($theName);

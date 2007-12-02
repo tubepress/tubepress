@@ -1,13 +1,11 @@
 <?php
-class TubePressStorage {
+class TubePressStorage_v157 {
     
     private $galleryOptions;
     private $displayOptions;
     private $metaOptions;
     private $advOptions;
-    
-    const version = 1551;
-    
+
     public function __construct() {
         
         $this->galleryOptions = new TubePressGalleryOptions();

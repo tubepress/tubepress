@@ -13,7 +13,7 @@ abstract class TubePressAbstractValue implements TubePressValue, TubePressHasNam
         $this->name = $newName;
     }
     
-    protected final function getCurrentValue() {
+    public final function getCurrentValue() {
         return $this->currentValue;
     }
     
