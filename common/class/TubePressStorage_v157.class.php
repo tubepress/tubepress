@@ -1,22 +1,46 @@
 <?php
 class TubePressStorage_v157 {
     
-    private $galleryOptions;
-    private $displayOptions;
-    private $metaOptions;
-    private $advOptions;
+    private $optionPackages = array();
 
     public function __construct() {
         
-        $this->galleryOptions = new TubePressGalleryOptions();
-        $this->displayOptions = new TubePressDisplayOptions();
-        $this->metaOptions = new TubePressMetaOptions();
-        $this->advOptions = new TubePressAdvancedOptions();
+        $this->optionPackages = array(
+            "gallery" => new TubePressGalleryOptions(),
+            "display" => new TubePressDisplayOptions(),
+            "meta" => new TubePressMetaOptions(),
+            "advanced" => new TubePressAdvancedOptions()
+        );
     }
     
-    public function getGalleryOptions() { return $this->galleryOptions; }
-    public function getDisplayOptions() { return $this->displayOptions; }
-    public function getMetaOptions() { return $this->metaOptions; }
-    public function getAdvancedOptions() { return $this->advOptions; }
+    public function &getOptionPackages() { return $this->optionPackages; }
+    public function getGalleryOptions() { return $this->optionPackages["gallery"]; }
+    public function getDisplayOptions() { return $this->optionPackages["display"]; }
+    public function getMetaOptions() { return $this->optionPackages["meta"]; }
+    public function getAdvancedOptions() { return $this->optionPackages["advanced"]; }
+    
+    public function getCurrentValue($optionName) {
+            
+        foreach ($this->optionPackages as $optPackage) {
+            if (array_key_exists($optionName, $optPackage->getOptions())) {
+                return $optPackage->get($optionName)->getValue()->getCurrentValue();
+            }
+        }
+        throw new Exception("No such option: " . $optionName);
+    }
+    
+    public function setCurrentValue($optionName, $optionValue) {
+        
+        foreach ($this->optionPackages as $optPackage) {
+            if (array_key_exists($optionName, $optPackage->getOptions())) {
+                
+                $option =& $optPackage->get($optionName);
+                $value =& $option->getValue();
+                $value->updateManually($optionValue);
+            }
+        }
+        
+        throw new Exception("No such option: " . $optionName);
+    }
 }
 ?>

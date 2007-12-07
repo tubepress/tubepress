@@ -47,7 +47,7 @@ class_exists("WordPressOptionsPage")
     function _tp_executeOptionsPage()
     {
         /* initialize the database if we need to */
-        TubePress_WordPress_Environment::initDB();
+        WordPressStorage_v157::initDB();
 
         /* see what we've got in the db */
         $stored = get_option("tubepress");

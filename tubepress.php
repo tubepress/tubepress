@@ -42,27 +42,18 @@ function tp_main($content = '')
     $newcontent = "";
 
     try {
-    
+
         if (!tp_shouldWeExecute($content)) {
             return $content;
         }
-
-        //WordPressStorageBox::applyTag($keyword->getValue(), $content, $stored, $stored->options);
-    
-        /* ------------------------------------------------------------ */
-        /* ------------ NOW THE FUN PART ------------------------------ */
-        /* ------------------------------------------------------------ */ 
         
         $stored = get_option("tubepress");
+        $stored->parse($content);
         
-        /* printing a single video only? */
-        $player = $stored->getDisplayOptions()->get(TubePressDisplayOptions::currentPlayerName)->getValue()->getCurrentValue();
-        $gallery = $stored->getGalleryOptions()->get(TubePressGalleryOptions::mode)->getValue()->getCurrentValue();
-
-        $newcontent .= $gallery->generate($stored);
+        $newcontent .= $stored->getCurrentValue(TubePressGalleryOptions::mode)->generate($stored);
 
     	/* replace the tag with our new content */
-        return str_replace("[tubepress]", $newcontent, $content);
+        return str_replace($stored->getTagString(), $newcontent, $content);
     
     } catch (Exception $e) {
         return $e->getMessage();
@@ -94,11 +85,11 @@ GBS;
     }
     
     try {
-        $player = $stored->getDisplayOptions()->get(TubePressDisplayOptions::currentPlayerName)->getValue()->getCurrentValue();
+        $player = $stored->getCurrentValue(TubePressDisplayOptions::currentPlayerName);
         print $player->getHeadContents();
-    } catch (Exception $error) {
+    } catch (Exception $e) {
         /* this is in the head, so just print an HTML comment and proceed */
-        print "<!-- " . $error->getMessage() . " -->";
+        print "<!-- " . $e->getMessage() . " -->";
     }
 }
 
@@ -111,7 +102,7 @@ function tp_shouldWeExecute($content) {
         return false;
     }
     
-    $trigger = $stored->getAdvancedOptions()->get(TubePressAdvancedOptions::triggerWord)->getValue()->getCurrentValue();
+    $trigger = $stored->getCurrentValue(TubePressAdvancedOptions::triggerWord);
     
     if (strpos($content, '[' . $trigger) === false) {
         return false;

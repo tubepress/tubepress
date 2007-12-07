@@ -51,7 +51,7 @@ abstract class TubePressGallery
         TubePressGallery::countResults($videoArray, $totalResults, $thisResult);
         
         /* Figure out how many videos we're going to show */
-        $vidLimit = $stored->getDisplayOptions()->get(TubePressDisplayOptions::resultsPerPage)->getValue()->getCurrentValue();
+        $vidLimit = $stored->getCurrentValue(TubePressDisplayOptions::resultsPerPage);
         if ($thisResult < $vidLimit) {
             $vidLimit = $thisResult;
         }   
@@ -124,17 +124,15 @@ abstract class TubePressGallery
      */
     private function parseBigVidHTML(TubePressVideo $vid, TubePressStorage_v157 $stored, HTML_Template_IT &$tpl)
     {    
-        
-        $dispOptions = $stored->getDisplayOptions();
-        
+
         /* we only do this stuff if we're operating in "normal" play mode */
-        $player = $dispOptions->get(TubePressDisplayOptions::currentPlayerName)->getValue()->getCurrentValue();
+        $player = $stored->getCurrentValue(TubePressDisplayOptions::currentPlayerName);
         if (!($player instanceof TPNormalPlayer)) {
             return;
         }
         
-        $width = $dispOptions->get(TubePressDisplayOptions::mainVidWidth)->getValue()->getCurrentValue();
-        $height = $dispOptions->get(TubePressDisplayOptions::mainVidHeight)->getValue()->getCurrentValue();
+        $width = $stored->getCurrentValue(TubePressDisplayOptions::mainVidWidth);
+        $height = $stored->getCurrentValue(TubePressDisplayOptions::mainVidHeight);
         
         $tpl->setVariable('WIDTH', $width);
         $tpl->setVariable('TITLE', $vid->getTitle());
@@ -152,7 +150,7 @@ abstract class TubePressGallery
     private static function parsePaginationHTML($vidCount, TubePressStorage_v157 $stored, HTML_Template_IT &$tpl)
     {
         $currentPage = TubePressStatic::getPageNum();
-        $vidsPerPage = $stored->getDisplayOptions()->get(TubePressDisplayOptions::resultsPerPage)->getValue()->getCurrentValue();
+        $vidsPerPage = $stored->getCurrentValue(TubePressDisplayOptions::resultsPerPage);
     
         $newurl = new Net_URL(TubePressStatic::fullURL());
         $newurl->removeQueryString(TubePressGallery::pageParameter);
@@ -174,16 +172,21 @@ abstract class TubePressGallery
      */
     private static function parseSmallVideoHTML(TubePressVideo $vid, TubePressStorage_v157 $stored, HTML_Template_IT &$tpl)
     {
-        $player = $stored->getDisplayOptions()->get(TubePressDisplayOptions::currentPlayerName)->getValue()->getCurrentValue();
-        $randomizeOpt = $stored->getAdvancedOptions()->get(TubePressAdvancedOptions::randomThumbs)->getValue()->getCurrentValue();
+        $player = $stored->getCurrentValue(TubePressDisplayOptions::currentPlayerName);
+        $randomizeOpt = $stored->getCurrentValue(TubePressAdvancedOptions::randomThumbs);
         
-        $thumbWidth = $stored->getDisplayOptions()->get(TubePressDisplayOptions::thumbWidth)->getValue()->getCurrentValue();
-        $thumbHeight = $stored->getDisplayOptions()->get(TubePressDisplayOptions::thumbHeight)->getValue()->getCurrentValue();
+        $thumbWidth = $stored->getCurrentValue(TubePressDisplayOptions::thumbWidth);
+        $thumbHeight = $stored->getCurrentValue(TubePressDisplayOptions::thumbHeight);
         
-        TubePressMetaProcessor::process($vid, $stored, $player->getPlayLink($vid, $height, $width), $tpl);
+        $height = $stored->getCurrentValue(TubePressDisplayOptions::mainVidHeight);
+        $width = $stored->getCurrentValue(TubePressDisplayOptions::mainVidWidth);
         
-        $tpl->setVariable('PLAYLINK', $playLink);
-        $tpl->setVariable('TITLE', $vid->getTitle());
+        $playLink = $player->getPlayLink($vid, $height, $width);
+
+        $tpl->setVariable('IMAGEPLAYLINK', $playLink);
+        $tpl->setVariable('IMAGETITLE', $vid->getTitle());
+        
+        TubePressMetaProcessor::process($vid, $stored, $playLink, $tpl);
         
         if ($randomizeOpt) {
             $tpl->setVariable('THUMBURL', $vid->getRandomThumbURL());
@@ -191,8 +194,8 @@ abstract class TubePressGallery
              $tpl->setVariable('THUMBURL', $vid->getDefaultThumbURL());
         }    
         
-        $tpl->setVariable('THUMBWIDTH', $width);
-        $tpl->setVariable('THUMBHEIGHT', $height);
+        $tpl->setVariable('THUMBWIDTH', $thumbWidth);
+        $tpl->setVariable('THUMBHEIGHT', $thumbHeight);
         
 		$tpl->parse('thumb');
     }
@@ -206,9 +209,9 @@ abstract class TubePressGallery
      */
     private static function urlPostProcessing(&$request, TubePressStorage_v157 $stored) {
         
-        $perPage = $stored->getDisplayOptions()->get(TubePressDisplayOptions::resultsPerPage)->getValue()->getCurrentValue();
-        $filter = $stored->getAdvancedOptions()->get(TubePressAdvancedOptions::filter)->getValue()->getCurrentValue();
-        $order = $stored->getDisplayOptions()->get(TubePressDisplayOptions::orderBy)->getValue()->getCurrentValue();
+        $perPage = $stored->getCurrentValue(TubePressDisplayOptions::resultsPerPage);
+        $filter = $stored->getCurrentValue(TubePressAdvancedOptions::filter);
+        $order = $stored->getCurrentValue(TubePressDisplayOptions::orderBy);
         
         $currentPage = TubePressStatic::getPageNum();
         

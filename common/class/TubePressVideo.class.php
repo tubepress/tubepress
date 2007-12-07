@@ -106,7 +106,7 @@ class TubePressVideo
     }
     
     private function _getDescription() {
-        $this->_rawArray['media:group']['media:description']['_content'];
+        return $this->_rawArray['media:group']['media:description']['_content'];
     }
     
     private function _getId() {
@@ -115,14 +115,13 @@ class TubePressVideo
         return substr($url, $pos + 1);
     }
     
+    private function _getRating() {
+        return $this->_rawArray['gd:rating']['average'];
+    }
+    
     private function _getRatings() {
-        $crappyHTML = $this->_rawArray['content']['_content'];
- 
-    	$first = strpos($crappyHTML, '<div style="font-size: 11px;">');
-    	$last = strpos($crappyHTML, '>', $first);
-    	
-    	$ratingString = substr($crappyHTML, $last + 1, strpos($crappyHTML, '<', $last + 1) - $last - 1);
-        return number_format($ratingString);
+        $count = $this->_rawArray['gd:rating']['numRaters'];
+        return number_format($count);
     }
     
     private function _getRuntime() {

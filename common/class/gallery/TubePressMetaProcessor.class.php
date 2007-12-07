@@ -4,7 +4,7 @@ class TubePressMetaProcessor {
     public static function process(TubePressVideo $vid, TubePressStorage_v157 $stored, $link, HTML_Template_IT &$tpl) {
         
         $metaOpts = $stored->getMetaOptions()->getOptions();
-        
+
         foreach ($metaOpts as $metaOpt) {
             
             if ($metaOpt->getValue()->getCurrentValue() === false) {
@@ -49,7 +49,7 @@ class TubePressMetaProcessor {
                 case TubePressMetaOptions::URL:
                     $opt = $metaOpts[TubePressMetaOptions::URL];
         	        $tpl->setVariable('LINKVALUE', $vid->getURL());
-        	        $tpl->setVariable('LINKTEXT', $opt->getTitle());
+        	        $tpl->setVariable('LINKTEXT', "YouTube link");
                     $tpl->parse('url');
                     break;
                     

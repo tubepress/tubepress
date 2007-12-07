@@ -12,6 +12,5 @@ class TubePressFavoritesGallery extends TubePressGallery {
         return "http://gdata.youtube.com/feeds/users/"
         	. $this->getValue() . "/favorites";
     }
-    
 }
 ?>

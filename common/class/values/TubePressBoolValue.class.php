@@ -16,7 +16,10 @@ class TubePressBoolValue extends TubePressAbstractValue {
     }
     
     public final function updateManually($candidate) {
-        
+        if ($candidate instanceof boolean) {
+            throw new Exception("Boolean values can only take on booleans");
+        }
+        $this->setCurrentValue($candidate);
     }
     
     public final function updateFromOptionsPage(array $postVars) {
