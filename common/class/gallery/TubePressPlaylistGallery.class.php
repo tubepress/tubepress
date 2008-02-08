@@ -1,5 +1,7 @@
 <?php
-class TubePressPlaylistGallery extends TubePressGallery {
+class TubePressPlaylistGallery extends TubePressGallery implements TubePressHasValue {
+    
+    private $playlistId;
     
     public function __construct() {
         $this->setName(TubePressGallery::playlist);
@@ -10,11 +12,15 @@ class TubePressPlaylistGallery extends TubePressGallery {
             "URL in your browser's address bar (while looking at a YouTube " .
             "playlist). It comes right after the 'p='. For instance: " .
             "http://youtube.com/my_playlists?p=D2B04665B213AE35");
-        $this->setValue("D2B04665B213AE35");
+        $this->playlistId = new TubePressTextValue("FIXME", "D2B04665B213AE35");
     }
     
     protected final function getRequestURL() {
         return "http://gdata.youtube.com/feeds/playlists/" . $this->getValue();
     }
+	
+	public function &getValue() {
+	    return $this->playlistId;
+	}
 }
 ?>

@@ -95,5 +95,16 @@ abstract class TubePressPlayer implements TubePressValue,
 	public final function getName() { return $this->name; }
 	
 	public abstract function getPlayLink(TubePressVideo $vid, $height, $width);
+	
+	public static function getInstance($name) {
+	    switch ($name) {
+	        case TubePressPlayer::normal:
+	            return new TPNormalPlayer();
+	            break;
+	        default:
+	            throw new Exception("No such player with name '" . $name . "'");
+	        
+	    }
+	}
 }
 ?>

@@ -11,8 +11,13 @@ class TubePressBoolValue extends TubePressAbstractValue {
         $this->setName($theName);
     }
     
-    public final function printForOptionsPage() {
+    public final function printForOptionsPage(HTML_Template_IT &$tpl) {
         
+        if ($this->getCurrentValue()) {
+            $tpl->setVariable("OPTION_SELECTED", "CHECKED");
+        }
+				
+	    $tpl->parse("checkbox");
     }
     
     public final function updateManually($candidate) {

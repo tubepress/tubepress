@@ -4,7 +4,7 @@ Plugin Name: TubePress
 Plugin URI: http://tubepress.org
 Description: Display configurable YouTube galleries in your posts and/or pages
 Author: Eric Hough
-Version: 1.5.5
+Version: 1.6.0
 Author URI: http://ehough.com
 
 Copyright (C) 2007 Eric D. Hough (http://ehough.com)
@@ -78,14 +78,15 @@ function tp_insertCSSJS()
 GBS;
     
     $stored = get_option("tubepress");
-    
+   
     /* we're in the head here, so just return quietly */
     if ($stored == NULL || !($stored instanceof TubePressStorage_v157)) {
         return;
     }
     
     try {
-        $player = $stored->getCurrentValue(TubePressDisplayOptions::currentPlayerName);
+        $playerName = $stored->getCurrentValue(TubePressDisplayOptions::currentPlayerName);
+        $player = TubePressPlayer::getInstance($playerName);
         print $player->getHeadContents();
     } catch (Exception $e) {
         /* this is in the head, so just print an HTML comment and proceed */
@@ -109,47 +110,6 @@ function tp_shouldWeExecute($content) {
     }
     
     return true;
-}
-
-function __autoload($className) {
-
-    $folder = tp_classFolder($className);
-    
-    if ($folder !== false) {
-        require_once($folder . $className . ".class.php");
-    } else {
-        if (!class_exists($className, false)) {
-            echo $className . " class not found <br />";
-        }
-    }
-}
-    
-function tp_classFolder($className, $sub = DIRECTORY_SEPARATOR) {
-        
-    $currentDir = dirname(__FILE__);
-        
-    $dir = dir($currentDir . $sub);
-        
-    if (file_exists($currentDir.$sub.$className.".class.php")) {
-        return $currentDir.$sub;
-    }
-    
-    while (false !== ($folder = $dir->read())) {
-            
-        if (strpos($folder, ".") === 0) {
-            continue;
-        }
-            
-        if (is_dir($currentDir.$sub.$folder)) {
-            $subFolder = tp_classFolder($className, $sub.$folder.DIRECTORY_SEPARATOR);
-                    
-            if ($subFolder) {
-                return $subFolder;
-            }
-        }     
-    }
-    $dir->close();
-    return false;
 }
 
 /* don't forget to add our hooks! */

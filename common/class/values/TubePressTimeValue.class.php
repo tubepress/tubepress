@@ -9,10 +9,10 @@ class TubePressTimeValue extends TubePressEnumValue {
     public function __construct($theName) {
 
         parent::__construct($theName, array(
-            TubePressTimeValue::today,
-            TubePressTimeValue::week,
-            TubePressTimeValue::month,
-            TubePressTimeValue::allTime
+            TubePressTimeValue::today => "today",
+            TubePressTimeValue::week => "this week",
+            TubePressTimeValue::month => "this month",
+            TubePressTimeValue::allTime => "all time"
         ), TubePressTimeValue::week);
     }
 }

@@ -9,15 +9,16 @@ class TubePressTextValue extends TubePressAbstractValue {
         $this->setName($theName);
     }
     
-    public final function printForOptionsPage() {
+    public final function printForOptionsPage(HTML_Template_IT &$tpl) {
+        $tpl->setVariable("OPTION_VALUE", $this->getCurrentValue());
+	    $tpl->parse("text");
+    }
+    
+    public function updateManually($candidate) {
         
     }
     
-    public final function updateManually($candidate) {
-        
-    }
-    
-    public final function updateFromOptionsPage(array $postVars) {
+    public function updateFromOptionsPage(array $postVars) {
         
     }
 }

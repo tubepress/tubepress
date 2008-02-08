@@ -1,5 +1,5 @@
 <?php
-class TubePressIntValue extends TubePressAbstractValue {
+class TubePressIntValue extends TubePressTextValue {
     
     private $min = 1;
     private $max = 2147483647;
@@ -34,14 +34,6 @@ class TubePressIntValue extends TubePressAbstractValue {
         }
         
         $this->max = $newMax;
-    }
-    
-    public function printForOptionsPage() {
-        
-    }
-    
-    public function updateFromOptionsPage(array $postVars) {
-        
     }
     
 }

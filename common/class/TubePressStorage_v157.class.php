@@ -23,7 +23,12 @@ class TubePressStorage_v157 {
             
         foreach ($this->optionPackages as $optPackage) {
             if (array_key_exists($optionName, $optPackage->getOptions())) {
-                return $optPackage->get($optionName)->getValue()->getCurrentValue();
+                $value = $optPackage->get($optionName)->getValue();
+                if ($value instanceof TubePressValue) {
+                    return $value->getCurrentValue();
+                } else {
+                    return $value;
+                }
             }
         }
         throw new Exception("No such option: " . $optionName);

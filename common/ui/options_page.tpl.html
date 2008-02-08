@@ -1,193 +1,52 @@
 <div class="wrap">
 	<form method="post">
-		<!-- BEGIN main -->
+		<!-- BEGIN options -->
 		<h2>{PAGETITLE}</h2>
-		<br/><br/>
+		
 		{INTROTEXT}
 		
-		<!-- BEGIN modes -->
+		<!-- BEGIN optionCategory -->
 		<fieldset>
-			<h3>{TITLE}</h3>
+			<h3>{OPTION_CATEGORY_TITLE}</h3>
 			<table class="editform optiontable">
 				
-				<!-- BEGIN normalMode -->
+				<!-- BEGIN optionRow -->
 				<tr>
-					<th style="font-weight: bold; font-size: 1em" valign="top">
-						<!-- BEGIN normalSupportsPagination -->
-						<sup>*</sup>
-						<!-- END normalSupportsPagination -->
-						{MODETITLE}
+					<!-- BEGIN option -->
+					<th style="font-weight: bold; font-size: 1em{EXTRA_STYLE}" valign="top">
+						{OPTION_TITLE}
 					</th>
-					<td>
-						<input type="radio" name="mode" id="{MODENAME}" value="{MODENAME}" {MODESELECTED} /> 
-						<input type="text" name="{MODENAME}" size="20" value="{MODEVALUE}" /> 
-						<br />{MODEDESC}
-					</td>
-				</tr>
-				<!-- END normalMode -->
-	
-				<!-- BEGIN featuredMode -->
-				<tr>
-					<th style="font-weight: bold; font-size: 1em" valign="top">
-						{FEATUREDTITLE}
-					</th>
-					<td>
-						<input type="radio" name="mode" id="{FEATUREDNAME}" value="{FEATUREDNAME}" {FEATUREDSELECTED} />  
-						<br />
-					</td>
-				</tr>
-				<!-- END featuredMode -->
-				
-				<!-- BEGIN popularMode -->
-				<tr>
-					<th style="font-weight: bold; font-size: 1em" valign="top">
-						{POPULARTITLE}
-					</th>
-					<td>
-						<input type="radio" name="mode" id="{POPULARNAME}" value="{POPULARNAME}" {POPULARSELECTED} /> 
-						<select name="{POPULARNAME}Value">
-							<!-- BEGIN period -->
-							<option value="{PERIOD}" {PERIODSELECTED}>{PERIODTITLE}</option>
-							<!-- END period -->
+					<td style="vertical-align: top">
+						<!-- BEGIN galleryType -->
+						<input type="radio" name="mode" id="{OPTION_NAME}" value="{OPTION_NAME}" {OPTION_SELECTED} />
+						<!-- END galleryType -->
+						
+						<!-- BEGIN text -->
+						<input type="text" name="{OPTION_NAME}" size="20" value="{OPTION_VALUE}" />
+						<!-- END text -->
+						
+						<!-- BEGIN menu -->
+						<select name="{OPTION_NAME}Value">
+							<!-- BEGIN menuItem -->
+							<option value="MENU_ITEM_VALUE" {OPTION_SELECTED}>{MENU_ITEM_TITLE}</option>
+							<!-- END menuItem -->
 						</select> 
-						<br />
+						<!-- END menu -->
+						
+						<!-- BEGIN checkbox -->
+						<input type="checkbox" name="{OPTION_NAME}" value="{OPTION_NAME}" {OPTION_SELECTED} />
+						<!-- END checkbox -->
+						
+						<br />{OPTION_DESC}
 					</td>
+					<!-- END option -->
 				</tr>
-				<!-- END popularMode -->
-				
+				<!-- END optionRow -->
 			</table>
 		</fieldset>
-		<!-- END modes -->
-		
-		<!-- BEGIN display -->
-		<fieldset>
-			<h3>{DISPLAYTITLE}</h3>
-			<table class="editform optiontable">
-			
-				<!-- BEGIN displayMenuOption -->
-				<tr>
-					<th style="font-weight: bold; font-size: 1em" valign="top">
-						{DISPMENUTITLE}
-					</th>
-					<td>
-						<select name="{DISPMENUNAME}Value">
-							<!-- BEGIN displayMenuItems -->
-							<option value="{DISPMENUITEMVAL}" {DISPMENUSELECTED}>{DISPMENUTITLE}</option>
-							<!-- END displayMenuItems -->
-						</select> 
-						<br />
-					</td>
-				</tr>
-				<!-- END displayMenuOption -->
-			
-				<!-- BEGIN displayTextOption -->
-				<tr valign="top">
-					<th style="font-weight: bold; font-size: 1em" scope="row">
-						{DISPOPTTITLE}
-					</th>
-					<td>
-						<input name="{DISPOPTNAME}" type="text" id="{DISPOPTNAME}" 
-							class="code" value="{DISPOPTVALUE}" size="20" />
-						<br />{DISPOPTDESCRIPTION}
-					</td>
-				</tr>
-				<!-- END displayTextOption -->
-	
-				<!-- BEGIN displayBoolOption -->
-				<tr valign="top">
-					<th style="font-weight: bold; font-size: 1em" scope="row">
-						{DISPBOOLTITLE}
-					</th>
-					<td>
-						<input type="checkbox" name="{DISPBOOLNAME}" value="{DISPBOOLNAME}" {DISPBOOLSELECTED} />
-						<br />{DISPBOOLDESCRIPTION}
-					</td>
-				</tr>
-				<!-- END displayBoolOption -->			
-			</table>
-		</fieldset>
-		<!-- END display -->
-		
-		<!-- BEGIN playerLocations -->
-		<fieldset>
-			<table class="editform optiontable">
-				<tr>
-					<th style="font-weight: bold; font-size: 1em">
-						{PLAYERTITLE}
-					</th>
-					<td>
-						<select name="playerLocation">
-							<!-- BEGIN playerLocation -->
-							<option {PLAYERSELECTED} value="{PLAYERNAME}">{PLAYERDESCRIPTION}</option>
-							<!-- END playerLocation -->
-						</select>
-					</td>
-				</tr>
-			</table>
-		</fieldset>
-		<!-- END playerLocations -->
-		
-		<!-- BEGIN metas -->
-		<fieldset>
-			<h3>{METATITLE}</h3>
-			<table class="editform optiontable">
-				<tr>
-					<td width='10%'></td>
-					<td>
-						<table cellspacing='0' cellpadding='0' width='100%'>
-							
-							<!-- BEGIN metaOptionRow -->
-							<tr>
-								<!-- BEGIN metaOption -->
-								<td>
-									<input type="checkbox" name="meta[]" value="{METANAME}" {METASELECTED} />
-								</td>
-								<td>
-								   <b>{METAOPTIONTITLE}</b>
-								</td>
-								<!-- END metaOption -->
-							</tr>
-							<!-- END metaOptionRow -->
-						</table>
-					</td>
-				</tr>
-			</table>
-		</fieldset>
-		<!-- END metas -->
-				
-		<!-- BEGIN advanced -->
-		<fieldset>
-			<h3>{ADVTITLE}</h3>
-			<table class="editform optiontable">
-				<!-- BEGIN advancedTextOption -->
-				<tr valign="top">
-					<th style="font-weight: bold; font-size: 1em" scope="row">
-						{ADVTEXTTITLE}
-					</th>
-					<td>
-						<input name="{ADVTEXTNAME}" type="text" id="{ADVTEXTNAME}" 
-							class="code" value="{ADVTEXTVALUE}" size="20" />
-						<br />{ADVTEXTDESCRIPTION}
-					</td>
-				</tr>
-				<!-- END advancedTextOption -->
-				
-				<!-- BEGIN advancedBoolOption -->
-				<tr valign="top">
-					<th style="font-weight: bold; font-size: 1em" scope="row">
-						{ADVBOOLTITLE}
-					</th>
-					<td>
-						<input type="checkbox" name="{ADVBOOLNAME}" value="{ADVBOOLNAME}" {ADVBOOLSELECTED} />
-						<br />{ADVBOOLDESCRIPTION}
-					</td>
-				</tr>
-				<!-- END advancedBoolOption -->					
-			</table>
-		</fieldset>
-		<!-- END advanced -->
-		
+		<!-- END optionCategory -->
+
 		<input type="submit" name="tubepress_save" value="{SAVE}" />
-		<!-- END main -->
+		<!-- END options -->
 	</form>
 </div>

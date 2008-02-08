@@ -44,7 +44,7 @@ class TPNormalPlayer extends TubePressPlayer
             $vid->getRuntime(), "http://localhost/wp");
 	}
 	
-    public function printForOptionsPage() {
+    public function printForOptionsPage(HTML_Template_IT &$tpl) {
         
     }
     

@@ -70,5 +70,30 @@ class TubePressMetaOptions extends TubePressOptionsCategory {
     	));
 	    
 	}
+	
+    public function printForOptionsForm(HTML_Template_IT &$tpl) {
+
+        $tpl->setVariable("OPTION_CATEGORY_TITLE", $this->getTitle());
+        
+        $colCount = 0;
+        
+        /* go through each option in the category */
+        foreach($this->getOptions() as $option) {            
+            $tpl->setVariable("EXTRA_STYLE", "; width: 15em"); 
+            $tpl->setVariable("OPTION_TITLE", $option->getTitle());
+            $tpl->setVariable("OPTION_DESC", $option->getDescription());
+            $tpl->setVariable("OPTION_NAME", $option->getName());
+            $option->getValue()->printForOptionsPage($tpl);
+
+            if (++$colCount % 5 === 0) {
+                $tpl->parse("optionRow");
+            } else {
+                $tpl->parse("option");
+            }
+            
+        
+        }
+        $tpl->parse("optionCategory");
+    }
 }
 ?>                

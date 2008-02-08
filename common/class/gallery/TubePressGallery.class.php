@@ -5,18 +5,16 @@ function_exists("diggstyle_getPaginationString")
     || require(dirname(__FILE__) . "/../../../lib/diggstyle_function.php");
 
 abstract class TubePressGallery
-	implements TubePressValue, TubePressHasValue, TubePressHasDescription,
+	implements TubePressHasDescription,
 		TubePressHasName, TubePressHasTitle {
 	
 	/* All valid gallery types here */
 	const favorites = 	"favorites";
 	const tag = 		"tag";
-    const related= 		"related";
     const user= 		"user";
     const playlist = 	"playlist";
     const featured = 	"featured";
     const popular = 	"popular";
-    const category = 	"category";
     const top_rated = 	"top_rated";
     const mobile = 		"mobile";
     
@@ -239,13 +237,11 @@ abstract class TubePressGallery
     /* getters */
     public final function getTitle()       { return $this->title; }
     public final function getName() 	   { return $this->name; }
-    public final function &getValue() 	   { return $this->value; }
     public final function getDescription() { return $this->description; }
     
     /* setters */
     protected final function setTitle($newTitle) { $this->title = $newTitle; }
     protected final function setName($newName) { $this->name = $newName; }
-    protected final function setValue(TubePressValue $newValue) { $this->value = $newValue; }
     protected final function setDescription($newDesc) { $this->description = $newDesc; }
     
 }

@@ -2,20 +2,21 @@
 class TubePressDisplayOptions extends TubePressOptionsCategory {
     
     const currentPlayerName = "playerLocation";
-    const greyBoxEnabled = "greyBoxEnabled";
-    const lightWindowEnabled = "lightWindowEnabled";
     const mainVidHeight = "mainVidHeight";
 	const mainVidWidth = "mainVidWidth";
 	const orderBy = "orderBy";
 	const resultsPerPage = "resultsPerPage";
     const thumbHeight = "thumbHeight";
 	const thumbWidth = "thumbWidth";
+	const playerColor = "playerColor";
+	const autoplay = "autoplay";
+	const showRelated = "showRelated";
 
 	public function __construct() {
 	    
-        $this->setTitle("Video Display Options");
+        $this->setTitle("Video display");
         
-        $thumbHeightValue = new TubePressIntValue(TubePressDisplayOptions::thumbHeight, 120);
+        $thumbHeightValue = new TubePressIntValue(TubePressDisplayOptions::thumbHeight, 90);
         $thumbHeightValue->setMax(90);
         
         $thumbWidthValue = new TubePressIntValue(TubePressDisplayOptions::thumbWidth, 120);
@@ -74,41 +75,32 @@ class TubePressDisplayOptions extends TubePressOptionsCategory {
                 $resultsPerPageValue
             ),
             
-           TubePressDisplayOptions::lightWindowEnabled => new TubePressOption(
-                TubePressDisplayOptions::lightWindowEnabled,
-                "Enable lightWindow",
-                "Checking this box will load the lightWindow JS libraries" .
-                  " in your blog. This <i>may</i> interfere with your theme and/or other plugins," .
-                  " so it's good practice to leave this disabled if you're not using lightWindow.",
-                new TubePressBoolValue(
-                    TubePressDisplayOptions::lightWindowEnabled,
-                    false
-                )
-            ),
-            
-            TubePressDisplayOptions::greyBoxEnabled => new TubePressOption(
-                TubePressDisplayOptions::greyBoxEnabled,
-                "Enable GreyBox",
-                "Checking this box will load the GreyBox JS libraries" .
-                  " in your blog. This <i>may</i> interfere with your theme and/or other plugins," .
-                  " so it's good practice to leave this disabled if you're not using GreyBox.",
-                new TubePressBoolValue(
-                    TubePressDisplayOptions::greyBoxEnabled,
-                    false
-                )
-            ),
-            
-            TubePressDisplayOptions::orderBy => new TubePressOption(
-                TubePressDisplayOptions::orderBy,
-                "Enable GreyBox",
-                "Checking this box will load the GreyBox JS libraries" .
-                  " in your blog. This <i>may</i> interfere with your theme and/or other plugins," .
-                  " so it's good practice to leave this disabled if you're not using GreyBox.",
-                new TubePressOrderValue(
-                    TubePressDisplayOptions::orderBy,
-                    TubePressOrderValue::views
-                )
-            )
+           TubePressDisplayOptions::orderBy => new TubePressOption(
+               TubePressDisplayOptions::orderBy,
+               "Order videos by",
+               "",
+               new TubePressOrderValue(TubePressDisplayOptions::orderBy)
+           ),
+           
+           TubePressDisplayOptions::playerColor => new TubePressOption(
+               TubePressDisplayOptions::playerColor,
+               "Player frame color",
+               "This is a tweak that YouTube released recently. FIXME",
+               new TubePressColorValue(TubePressDisplayOptions::playerColor)
+           ),
+           
+           TubePressDisplayOptions::autoplay => new TubePressOption(
+               TubePressDisplayOptions::autoplay,
+               "Auto-play videos after thumbnail click", "",
+               new TubePressBoolValue(TubePressDisplayOptions::autoplay, false)
+           ),
+           
+           TubePressDisplayOptions::showRelated => new TubePressOption(
+               TubePressDisplayOptions::showRelated,
+               "Enable 'show related' feature'",
+               "Toggles the related videos feature that appears after you watch a video",
+               new TubePressBoolValue(TubePressDisplayOptions::showRelated, true)
+           )
         ));
 	}
 }

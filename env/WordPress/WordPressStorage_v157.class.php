@@ -86,9 +86,12 @@ class WordPressStorage_v157 extends TubePressStorage_v157
     public static function initDB()
     {
         WordPressStorage_v157::deleteLegacyOptions();
-        
+
+        try {
         $storage = get_option("tubepress");
-        
+        } catch (Exception $egg) {
+            echo "fuck";
+        }
         if (!($storage instanceof WordPressStorage_v157)) {
             delete_option("tubepress");
             add_option("tubepress", new WordPressStorage_v157());

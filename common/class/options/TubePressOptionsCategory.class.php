@@ -38,5 +38,20 @@ abstract class TubePressOptionsCategory implements TubePressHasTitle {
         }
         return $this->options[$optionName];
     }
+    
+    public function printForOptionsForm(HTML_Template_IT &$tpl) {
+
+        $tpl->setVariable("OPTION_CATEGORY_TITLE", $this->title);
+            
+        /* go through each option in the category */
+        foreach($this->options as $option) {             
+            $tpl->setVariable("OPTION_TITLE", $option->getTitle());
+            $tpl->setVariable("OPTION_DESC", $option->getDescription());
+            $tpl->setVariable("OPTION_NAME", $option->getName());
+            $option->getValue()->printForOptionsPage($tpl);
+            $tpl->parse("optionRow");
+        }
+        $tpl->parse("optionCategory");
+    }
 }
 ?>

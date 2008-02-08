@@ -6,14 +6,14 @@ class TubePressOrderValue extends TubePressEnumValue {
     const rating = "rating";
     const updated = "updated";
     
-    public function __construct($theName, $theDefault) {
+    public function __construct($theName) {
         
         parent::__construct($theName, array(
-            TubePressOrderValue::relevance,
-            TubePressOrderValue::views,
-            TubePressOrderValue::rating,
-            TubePressOrderValue::updated
-        ), $theDefault);
+            TubePressOrderValue::relevance => "relevance",
+            TubePressOrderValue::views => "view count",
+            TubePressOrderValue::rating => "rating",
+            TubePressOrderValue::updated => "last updated"
+        ), TubePressOrderValue::views);
     }
 }
 ?>

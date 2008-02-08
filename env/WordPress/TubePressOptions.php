@@ -21,12 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-class_exists("HTML_Template_IT")
-    || require(dirname(__FILE__) . "/../../lib/PEAR/HTML/HTML_Template_IT/IT.php");
-class_exists("PEAR")
-    || require(dirname(__FILE__) . "/../../lib/PEAR/PEAR.php");
-class_exists("WordPressOptionsPage")
-    || require("WordPressOptionsPage.php");
+require_once(dirname(__FILE__) . "/../../common/tubepress_classloader.php");
     
     /**
      * This is the main method for the TubePress global options page,
@@ -46,23 +41,18 @@ class_exists("WordPressOptionsPage")
      */
     function _tp_executeOptionsPage()
     {
-        /* initialize the database if we need to */
+		/* initialize the database if we need to */
         WordPressStorage_v157::initDB();
 
         /* see what we've got in the db */
         $stored = get_option("tubepress");
-        if ($stored == NULL) {
-                WordPressOptionsPage::printStatusMsg("Options did not store!",
-                TP_CSS_FAILURE);
-                return;
+        if (!($stored instanceof TubePressStorage_v157)) {
+            throw new Exception("Options did not store!");
         }
     
-        $tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../common/templates");
-        if (!$tpl->loadTemplatefile("options_page.tpl.html", true, true)) {
-            WordPressOptionsPage::printStatusMsg($tpl->message,
-                TP_CSS_FAILURE);
-            return;
-        }
+        TubePressOptionsForm::display($stored);
+        
+        return;
         
         $tpl->setVariable('PAGETITLE', "blabla");
         $tpl->setVariable('INTROTEXT', "blablabla");
