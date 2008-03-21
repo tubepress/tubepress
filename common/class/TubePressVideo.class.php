@@ -25,7 +25,8 @@
 class TubePressVideo
 {
 
-    private $_rawArray;
+    private $domElement;
+    private $mediaGroup;
     private $processedAlready = array();
     
     const author = "author";
@@ -41,6 +42,10 @@ class TubePressVideo
     const url = "url";
     const views = "views";
     
+    const ns_media = 'http://search.yahoo.com/mrss/';
+    const ns_yt = 'http://gdata.youtube.com/schemas/2007';
+    const ns_gd = 'http://schemas.google.com/g/2005';
+    
     /**
      * Simple constructor
      *
@@ -48,9 +53,9 @@ class TubePressVideo
      * @param unknown_type $options
      * @return TubePressVideo
      */
-    public function TubePressVideo($videoXML, $options = "")
+    public function TubePressVideo($rss, $options = "")
     {   
-        if (!is_array($videoXML)) {
+        if (!($rss instanceof DOMElement)) {
             
             $vidRequest = TubePressXML::generateVideoRequest($videoXML);
             if (PEAR::isError($vidRequest)) {
@@ -63,7 +68,8 @@ class TubePressVideo
             $videoXML = TubePressXML::toArray($videoXML);
             
         }
-        $this->_rawArray = (array) $videoXML;
+        $this->domElement = $rss;
+        $this->mediaGroup = $this->domElement->getElementsByTagNameNS(TubePressVideo::ns_media,'group')->item(0);
     }
 
     public function getAuthor() { return $this->quickGet(TubePressVideo::author); }
@@ -73,8 +79,9 @@ class TubePressVideo
     public function getId() { return $this->quickGet(TubePressVideo::id); }
     public function getRandomThumbURL()
     {   
-        $random = rand(0, count($this->_rawArray['media:group']['media:thumbnail']) - 2);
-        return $this->getSpecificThumbURL($random);
+        $thumbs = $this->mediaGroup->getElementsByTagNameNS(TubePressVideo::ns_media, 'thumbnail');
+        $random = rand(0, count($thumbs->length - 2));
+        return $thumbs->item($random)->getAttribute('url');
     }
     public function getRatingAverage() { return $this->quickGet(TubePressVideo::rating); }
     public function getRatingCount() { return $this->quickGet(TubePressVideo::ratings); }
@@ -92,78 +99,81 @@ class TubePressVideo
      */
     
     private function _getAuthor() {
-        return $this->_rawArray['author']['name'];
+        $authorNode = $this->domElement->getElementsByTagName('author')->item(0);
+        return $authorNode->getElementsByTagName('name')->item(0)->nodeValue;
     }
     
     private function _getCategory() {
-        $keywords = array();
-        foreach ($this->_rawArray['category'] as $cat) {
-            if (substr_count($cat['scheme'], "categories.cat") == 1) {
-                return $cat['label'];
-            }
-        }
-        return "";
+        return $this->domElement->getElementsByTagNameNS(TubePressVideo::ns_media, 'category')->item(0)->nodeValue;
+    	
     }
     
     private function _getDescription() {
-        return $this->_rawArray['media:group']['media:description']['_content'];
+    	return $this->mediaGroup->getElementsByTagNameNS(TubePressVideo::ns_media, 'description')->item(0)->nodeValue;
     }
     
     private function _getId() {
-        $url = $this->_rawArray['media:group']['media:player']['url'];
+    	$player = $this->domElement->getElementsByTagNameNS(TubePressVideo::ns_media, 'player')->item(0);
+        $url = $player->getAttribute('url');
         $pos = strrpos($url, "=");
         return substr($url, $pos + 1);
     }
     
     private function _getRating() {
-        return $this->_rawArray['gd:rating']['average'];
+        $count = $this->domElement->getElementsByTagNameNS(TubePressVideo::ns_gd, 'rating')->item(0);
+		if ($count != NULL) {
+        	return $count->getAttribute('average');
+		}
+		return "N/A";
     }
     
     private function _getRatings() {
-        $count = $this->_rawArray['gd:rating']['numRaters'];
-        return number_format($count);
+    	$count = $this->domElement->getElementsByTagNameNS(TubePressVideo::ns_gd, 'rating')->item(0);
+    	if ($count != NULL) {
+        	return $count->getAttribute('numRaters');
+		}
+        return "0";
     }
     
     private function _getRuntime() {
-        return TubePressVideo::seconds2HumanTime($this->_rawArray['media:group']['yt:duration']['seconds']);
+    	$duration = $this->mediaGroup->getElementsByTagNameNS(TubePressVideo::ns_yt, 'duration')->item(0);
+        return TubePressVideo::seconds2HumanTime($duration->getAttribute('seconds'));
     }
     
     private function _getTags() {
-        $keywords = array();
-        foreach ($this->_rawArray['category'] as $cat) {
-            if (substr_count($cat['scheme'], "keywords.cat") == 1) {
-                array_push($keywords, $cat['term']);
-            }
-        }
-       return implode(" ", $keywords);
+        $rawKeywords = $this->mediaGroup->getElementsByTagNameNS(TubePressVideo::ns_media, 'keywords')->item(0);
+		return str_replace(',', '', $rawKeywords->nodeValue);
     }
     
     private function _getTitle() {
-        return htmlspecialchars($this->_rawArray['title'], ENT_QUOTES);
+    	$title = $this->domElement->getElementsByTagName('title')->item(0)->nodeValue;
+        return htmlspecialchars($title, ENT_QUOTES);
     }
     
     private function _getUploaded() {
-        return TubePressVideo::rfc3339_2_humanTime($this->_rawArray['published']);
+    	$views = $this->domElement->getElementsByTagName('published')->item(0);
+        return TubePressVideo::rfc3339_2_humanTime($views->nodeValue);
     }
     
     private function _getUrl() {
-        foreach ($this->_rawArray['link'] as $link) {
-            if (!is_array($link)) {
-                continue;
-            }
-            if ($link['rel'] == "alternate") {
-                return $link['href'];
-            }
-        }
-    	return "";
+    	$links = $this->mediaGroup->getElementsByTagName('link');
+    	for ($x = 0; $x < $links->length; $x++) {
+    		$link = $links->item($x);
+    		if ($link->getAttribute('rel') != 'alternate') {
+    			continue;
+    		}
+    		return $link->getAttribute('href');
+    	}
     }
     
     private function _getViews() {
-        return number_format($this->_rawArray['yt:statistics']['viewCount']);
+    	$stats = $this->domElement->getElementsByTagNameNS(TubePressVideo::ns_yt, 'statistics')->item(0);
+        return number_format($stats->getAttribute('viewCount'));
     }
     
     private function getSpecificThumbURL($which) {
-        return $this->_rawArray['media:group']['media:thumbnail'][$which]['url'];
+    	$thumbs = $this->mediaGroup->getElementsByTagNameNS(TubePressVideo::ns_media, 'thumbnail');
+        return $thumbs->item($which)->getAttribute('url');
     }
 
 
@@ -179,7 +189,7 @@ class TubePressVideo
 
         $datetime = substr($tmp, 0, 19);  // Grab the datetime part of the string
         $timezone = str_replace(":", "", substr($tmp, 19, 6)); // Grab the timezone, (-/+0000) PHP 4 doesn't support the colon
-        return date("M d, Y, h:i A", strtotime($datetime . " " . $timezone));
+        return date("M d, Y", strtotime($datetime . " " . $timezone));
     }
 
     /**

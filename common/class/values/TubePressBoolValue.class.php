@@ -28,7 +28,11 @@ class TubePressBoolValue extends TubePressAbstractValue {
     }
     
     public final function updateFromOptionsPage(array $postVars) {
-        
+        if (in_array($this->getName(), $postVars)) {
+        	$this->updateManually(true);
+        } else {
+        	$this->updateManually(false);
+        }
     }
 }
 ?>

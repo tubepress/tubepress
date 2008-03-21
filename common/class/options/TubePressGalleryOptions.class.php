@@ -4,28 +4,31 @@ class TubePressGalleryOptions extends TubePressOptionsCategory {
     const mode = "mode";
     
     private $galleries;
-    private $activeIndex = 0;
     
     public function __construct() {
             
         $this->setTitle("Which videos?");
     
         $this->galleries = array(
-            TubePressGallery::top_rated => new TubePressTopRatedGallery(),
-            TubePressGallery::favorites => new TubePressFavoritesGallery(),
-            TubePressGallery::featured => new TubePressFeaturedGallery(),
-            TubePressGallery::mobile => new TubePressMobileGallery(),
-            TubePressGallery::playlist => new TubePressPlaylistGallery(),
-            TubePressGallery::popular => new TubePressPopularGallery(),
-            TubePressGallery::tag => new TubePressSearchGallery(),
-            TubePressGallery::user => new TubePressUserGallery()
+            TubePressGalleryValue::top_rated => new TubePressTopRatedGallery(),
+            TubePressGalleryValue::favorites => new TubePressFavoritesGallery(),
+            TubePressGalleryValue::featured => new TubePressFeaturedGallery(),
+            TubePressGalleryValue::mobile => new TubePressMobileGallery(),
+            TubePressGalleryValue::playlist => new TubePressPlaylistGallery(),
+            TubePressGalleryValue::popular => new TubePressPopularGallery(),
+            TubePressGalleryValue::tag => new TubePressSearchGallery(),
+            TubePressGalleryValue::user => new TubePressUserGallery(),
+            TubePressGalleryValue::most_linked => new TubePressMostLinkedGallery(),
+            TubePressGalleryValue::most_recent => new TubePressMostRecentGallery(),
+            TubePressGalleryValue::most_discussed => new TubePressMostDiscussedGallery(),
+            TubePressGalleryValue::most_responded => new TubePressMostRespondedGallery()
         );
         
         $this->setOptions(array(
             TubePressGalleryOptions::mode => new TubePressOption(
                 TubePressGalleryOptions::mode,
             	" ", " ",
-                TubePressGallery::popular
+                new TubePressGalleryValue(TubePressGalleryOptions::mode, $this->galleries)
             )));
     }
     
@@ -39,7 +42,7 @@ class TubePressGalleryOptions extends TubePressOptionsCategory {
             $tpl->setVariable("OPTION_DESC", $gallery->getDescription());
             $tpl->setVariable("OPTION_NAME", $gallery->getName());
             
-            if ($this->get(TubePressGalleryOptions::mode)->getValue() == $gallery->getName()) {
+            if ($this->get(TubePressGalleryOptions::mode)->getValue()->getCurrentValue() == $gallery->getName()) {
                 $tpl->setVariable("OPTION_SELECTED", "CHECKED");
             }
             
@@ -51,6 +54,10 @@ class TubePressGalleryOptions extends TubePressOptionsCategory {
             $tpl->parse("optionRow");
         }
         $tpl->parse("optionCategory");
+    }
+    
+    public function getGallery($galleryName) {
+    	return $this->galleries[$galleryName];
     }
 }
 ?>

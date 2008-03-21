@@ -32,29 +32,14 @@ class TPNormalPlayer extends TubePressPlayer
 	/**
 	 * Tells the gallery how to play the videos
 	 */
-    function getPlayLink(TubePressVideo $vid, $height, $width)
-    {   
-	    $title = $vid->getTitle();
-	    $id = $vid->getId();
+	public function getPlayLink(TubePressVideo $vid, TubePressStorage_v157 $stored)
+	{
+	    $embed = new TubePressEmbeddedPlayer($vid, $stored);
 	    
-	    return sprintf('href="#" onclick="javascript:playVideo(' .
-            '\'%s\', \'%s\', \'%s\', \'%s\', \'%s\',' .
-            ' \'normal\', \'%s\')"',
-            $id, $height, $width, rawurlencode($title),
-            $vid->getRuntime(), "http://localhost/wp");
+	    return "href='#' onclick='tubePress_normalPlayer(" .
+            "\"" . $embed->toString() . "\", " .
+	    	$stored->getCurrentValue(TubePressEmbeddedOptions::embeddedWidth) .
+	    	", \"" . $vid->getTitle() . "\")'";
 	}
-	
-    public function printForOptionsPage(HTML_Template_IT &$tpl) {
-        
-    }
-    
-    public function updateFromOptionsPage(array $postVars) {
-        
-    }
-    
-    public function updateManually($newValue) {
-        
-    }
-	
 }
 ?>

@@ -27,8 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 function_exists("tp_executeOptionsPage")
     || require("env/WordPress/TubePressOptions.php");
 
+function_exists("tp_classFolder")
+	|| require("tubepress_classloader.php");
+    
 if (!isset($tubepress_base_url)) {
     $tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
+    if (!file_exists(dirname(__FILE__) . "/.tubepress_cache")) {
+		mkdir(dirname(__FILE__) . "/.tubepress_cache");
+    }
 }
 
 /**
@@ -50,7 +56,9 @@ function tp_main($content = '')
         $stored = get_option("tubepress");
         $stored->parse($content);
         
-        $newcontent .= $stored->getCurrentValue(TubePressGalleryOptions::mode)->generate($stored);
+        $modeName = $stored->getCurrentValue(TubePressGalleryOptions::mode);
+        $gallery = $stored->getGalleryOptions()->getGallery($modeName);
+        $newcontent .= $gallery->generate($stored);
 
     	/* replace the tag with our new content */
         return str_replace($stored->getTagString(), $newcontent, $content);

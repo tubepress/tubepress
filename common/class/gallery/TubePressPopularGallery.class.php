@@ -4,9 +4,9 @@ class TubePressPopularGallery extends TubePressGallery implements TubePressHasVa
     private $timeframe;
     
     public function __construct() {
-        $this->setName(TubePressGallery::popular);
+        $this->setName(TubePressGalleryValue::popular);
         $this->setTitle("Most-viewed videos from...");
-        $this->timeframe = new TubePressTimeValue(TubePressGallery::popular);
+        $this->timeframe = new TubePressTimeValue(TubePressGalleryValue::popular);
     }
     
     protected final function getRequestURL() {

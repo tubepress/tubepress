@@ -8,11 +8,13 @@ class TubePressStorage_v157 {
         $this->optionPackages = array(
             "gallery" => new TubePressGalleryOptions(),
             "display" => new TubePressDisplayOptions(),
+        	"embedded" => new TubePressEmbeddedOptions(),
             "meta" => new TubePressMetaOptions(),
             "advanced" => new TubePressAdvancedOptions()
         );
     }
     
+    public function getEmbeddedOptions() { return $this->optionPackages["embedded"]; }
     public function &getOptionPackages() { return $this->optionPackages; }
     public function getGalleryOptions() { return $this->optionPackages["gallery"]; }
     public function getDisplayOptions() { return $this->optionPackages["display"]; }

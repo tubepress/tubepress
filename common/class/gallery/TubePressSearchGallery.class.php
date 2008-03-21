@@ -4,14 +4,14 @@ class TubePressSearchGallery extends TubePressGallery implements TubePressHasVal
     private $searchString;
     
     public function __construct() {
-        $this->setName(TubePressGallery::tag);
+        $this->setName(TubePressGalleryValue::tag);
         $this->setTitle("YouTube search for");
         $this->setDescription("YouTube limits this mode to 1,000 results");
-        $this->searchString = new TubePressTextValue("FIXME", "stewart daily show");
+        $this->searchString = new TubePressTextValue(TubePressGalleryValue::tag . "Value", "stewart daily show");
     }
 
     protected final function getRequestURL() {
-        return "http://gdata.youtube.com/feeds/videos?vq=" . urlencode($this->getValue());
+        return "http://gdata.youtube.com/feeds/api/videos?vq=" . urlencode($this->getValue()->getCurrentValue());
     }
 	
 	public function &getValue() {

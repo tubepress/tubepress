@@ -32,19 +32,21 @@ class TPPopupPlayer extends TubePressPlayer
 	/**
 	 * Tells the gallery how to play the videos
 	 */
-	function getPlayLink(TubePressVideo $vid, $height, $width)
+	public function getPlayLink(TubePressVideo $vid, TubePressStorage_v157 $stored)
 	{
 	    global $tubepress_base_url;
 
 	    $title = $vid->getTitle();
-	    $id = $vid->getId();
+	    $height = $stored->getCurrentValue(TubePressEmbeddedOptions::embeddedHeight);
+	    $width = $stored->getCurrentValue(TubePressEmbeddedOptions::embeddedWidth);
+	    $embed = new TubePressEmbeddedPlayer($vid, $stored);
+		
+	    $url = new Net_URL($tubepress_base_url . "/common/ui/popup.php");
+	    $url->addQueryString("embed", $embed->toString());
+	    $url->addQueryString("name", $title);
 	    
-	    return sprintf('href="#" onclick="javascript:playVideo(' .
-            '\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'popup\',' .
-            ' \'%s\')"',
-            $id, $height, $width,
-            rawurlencode($title), $vid->getRuntime(),
-            $tubepress_base_url);
+	    return "href='#' onclick='tubePress_popup(" .
+            '"' . $url->getURL() . '",' . $height . ',' . $width . ')\''; 
 	}
 }
 ?>

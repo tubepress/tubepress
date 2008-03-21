@@ -22,16 +22,6 @@ class TubePressAdvancedOptions extends TubePressOptionsCategory {
                 )
             ),
             
-            TubePressAdvancedOptions::timeout => new TubePressOption(
-                TubePressAdvancedOptions::timeout,
-                "How long to wait (in seconds) for YouTube to respond",
-                "Default is 6 seconds",
-                new TubePressIntValue(
-                    TubePressAdvancedOptions::timeout,
-                    6
-                )
-            ),
-            
             TubePressAdvancedOptions::debugEnabled => new TubePressOption(
                 TubePressAdvancedOptions::debugEnabled,
                 "Enable debugging",
@@ -61,7 +51,7 @@ class TubePressAdvancedOptions extends TubePressOptionsCategory {
             TubePressAdvancedOptions::filter => new TubePressOption(
                 TubePressAdvancedOptions::filter,
             	"Filter \"racy\" content",
-                "Not sure who decides what's racy and what isn't, but YouTube has this as an option for you",
+                "Don't show videos that may not be suitable for minors.",
                 new TubePressBoolValue(
                     TubePressAdvancedOptions::filter,
                     true

@@ -24,6 +24,8 @@
  */
 class TPNewWindowPlayer extends TubePressPlayer
 {
+	const video_param = "tubepress_id";
+	
     public function __construct() {
         $this->setName(TubePressPlayer::newWindow);
         $this->setTitle("in a new window by itself");
@@ -35,7 +37,7 @@ class TPNewWindowPlayer extends TubePressPlayer
     function getPlayLink(TubePressVideo $vid, $height, $width)
 	{	    
 	    $url = new Net_URL(TubePressStatic::fullURL());
-        $url->addQueryString(TP_PARAM_VID, $vid->getId());
+        $url->addQueryString(TPNewWindowPlayer::video_param, $vid->getId());
         return sprintf('href="%s"', $url->getURL());
 	}
 }

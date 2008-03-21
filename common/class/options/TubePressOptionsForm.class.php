@@ -22,9 +22,26 @@ class TubePressOptionsForm {
         print $tpl->get();
     }
     
-    public final function collect(array $postVars) {
-        
+    /**
+     * Updates options from a keyed array
+     *
+     * @param TubePressStorage_v157 $stored
+     * @param array $postVars
+     */
+    public final function collect(TubePressStorage_v157 &$stored, array $postVars) {
+    	
+        /* go through each category */
+    	$packages =& $stored->getOptionPackages();
+        foreach ($packages as &$optionCategory) {
+        	
+        	$options =& $optionCategory->getOptions();
+        	
+        	/* update each option */
+            foreach ($options as &$option) {
+            	$value =& $option->getValue();
+            	$value->updateFromOptionsPage($postVars);
+            }
+        }
     }
-    
 }
 ?>

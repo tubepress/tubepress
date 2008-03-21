@@ -1,10 +1,12 @@
 <?php
-function __autoload($className) {
+spl_autoload_register("tubepress_classloader");
 
+function tubepress_classloader($className) {
+	
     $folder = tp_classFolder($className);
     
     if ($folder !== false) {
-        require_once($folder . $className . ".class.php");
+        include_once($folder . $className . ".class.php");
     } else {
         if (!class_exists($className, false)) {
             echo $className . " class not found <br />";

@@ -26,7 +26,7 @@ class TPlightWindowPlayer extends TubePressPlayer
 {
     public function __construct() {
         $this->setName(TubePressPlayer::lightWindow);
-        $this->setTitle("with lightWindow (experimental... enable it above)");
+        $this->setTitle("with lightWindow (experimental)");
 
 		global $tubepress_base_url;
 
@@ -44,19 +44,21 @@ class TPlightWindowPlayer extends TubePressPlayer
 	/**
 	 * Tells the gallery how to play the videos
 	 */
-	function getPlayLink(TubePressVideo $vid, $height, $width)
+	public function getPlayLink(TubePressVideo $vid, TubePressStorage_v157 $stored)
 	{
 	    global $tubepress_base_url;
-	    
+
 	    $title = $vid->getTitle();
-	    $id = $vid->getId();
+	    $height = $stored->getCurrentValue(TubePressEmbeddedOptions::embeddedHeight);
+	    $width = $stored->getCurrentValue(TubePressEmbeddedOptions::embeddedWidth);
+	    $embed = new TubePressEmbeddedPlayer($vid, $stored);
+		
+	    $url = new Net_URL($tubepress_base_url . "/common/ui/popup.php");
+	    $url->addQueryString("embed", $embed->toString());
 	    
-	    return sprintf('href="%s/common/popup.php?' .
-            'name=%s&id=%s&w=%s&h=%s" class="lightwindow" title="%s" ' .
+	    return sprintf('href="%s" class="lightwindow" title="%s" ' .
             'params="lightwindow_width=%s,lightwindow_height=%s"', 
-            $tubepress_base_url, rawurlencode($title), $id,
-            $width, $height, $title, 
-            $width, $height);
+            $url->getURL(), $title, $width, $height);
 	}
 }
 ?>

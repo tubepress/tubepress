@@ -37,7 +37,7 @@ class TubePressMetaOptions extends TubePressOptionsCategory {
     	        new TubePressBoolValue(TubePressMetaOptions::author, false)),
     	    
     	    TubePressMetaOptions::id => new TubePressOption(TubePressMetaOptions::id,
-    	        "Video ID", " ",
+    	        "ID", " ",
     	        new TubePressBoolValue(TubePressMetaOptions::id, false)),
     	    
     	    TubePressMetaOptions::rating => new TubePressOption(TubePressMetaOptions::rating,
@@ -49,7 +49,7 @@ class TubePressMetaOptions extends TubePressOptionsCategory {
     	        new TubePressBoolValue(TubePressMetaOptions::ratings, false)),
     	    
     	    TubePressMetaOptions::uploaded => new TubePressOption(TubePressMetaOptions::uploaded,
-    	        "Uploaded date", " ",
+    	        "Uploaded", " ",
     	        new TubePressBoolValue(TubePressMetaOptions::uploaded, false)),
     	    
     	    TubePressMetaOptions::tags => new TubePressOption(TubePressMetaOptions::tags,

@@ -23,8 +23,7 @@
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
-abstract class TubePressPlayer implements TubePressValue,
-    TubePressHasTitle, TubePressHasName
+abstract class TubePressPlayer implements TubePressHasTitle, TubePressHasName
 {
 	const newWindow = "new_window";
 	const youTube = "youtube";
@@ -63,7 +62,7 @@ abstract class TubePressPlayer implements TubePressValue,
 	}
 	
 	protected final function setExtraJS($extraJS) {
-	    if (!is_a($jsLibs, "string")) {
+	    if (!is_string($extraJS)) {
 	        throw new Exception("Extra JS must be a string");
 	    }
 	    $this->_extraJS = $extraJS;
@@ -94,13 +93,29 @@ abstract class TubePressPlayer implements TubePressValue,
 	public final function getTitle() { return $this->title; }
 	public final function getName() { return $this->name; }
 	
-	public abstract function getPlayLink(TubePressVideo $vid, $height, $width);
+	public abstract function getPlayLink(TubePressVideo $vid, TubePressStorage_v157 $stored);
 	
 	public static function getInstance($name) {
 	    switch ($name) {
 	        case TubePressPlayer::normal:
 	            return new TPNormalPlayer();
 	            break;
+	        case TubePressPlayer::greyBox:
+	        	return new TPGreyBoxPlayer();
+	        	break;
+	        case TubePressPlayer::popup:
+	        	return new TPPopupPlayer();
+	        	break;
+	        case TubePressPlayer::youTube:
+	        	return new TPYouTubePlayer();
+	        	break;
+	        case TubePressPlayer::newWindow:
+	        	return new TPNewWindowPlayer();
+	        	break;
+	        case TubePressPlayer::lightWindow:
+	        	return new TPlightWindowPlayer();
+	        case TubePressPlayer::greyBox:
+	        	return new TPGreyBoxPlayer();
 	        default:
 	            throw new Exception("No such player with name '" . $name . "'");
 	        

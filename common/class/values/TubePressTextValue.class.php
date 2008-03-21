@@ -10,16 +10,22 @@ class TubePressTextValue extends TubePressAbstractValue {
     }
     
     public final function printForOptionsPage(HTML_Template_IT &$tpl) {
+    	$tpl->setVariable("OPTION_NAME", $this->getName());
         $tpl->setVariable("OPTION_VALUE", $this->getCurrentValue());
 	    $tpl->parse("text");
     }
     
     public function updateManually($candidate) {
-        
+        if (!is_string($candidate)) {
+        	throw new Exception($this->getName() . " can only take string values. You supplied " . $candidate);
+        }
+        $this->setCurrentValue($candidate);
     }
     
     public function updateFromOptionsPage(array $postVars) {
-        
+        if (array_key_exists($this->getName(), $postVars)) {
+        	$this->updateManually($postVars[$this->getName()]);
+        }
     }
 }
 ?>

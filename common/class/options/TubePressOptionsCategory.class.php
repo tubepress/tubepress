@@ -8,7 +8,7 @@ abstract class TubePressOptionsCategory implements TubePressHasTitle {
     private $options;
     
     public final function getTitle() { return $this->title; }
-    public final function getOptions() { return $this->options; }
+    public final function &getOptions() { return $this->options; }
     
     protected final function setTitle($newTitle) {
         $this->title = $newTitle;

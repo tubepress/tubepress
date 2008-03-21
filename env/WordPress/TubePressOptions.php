@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-require_once(dirname(__FILE__) . "/../../common/tubepress_classloader.php");
+require_once(dirname(__FILE__) . "/../../tubepress_classloader.php");
     
     /**
      * This is the main method for the TubePress global options page,
@@ -37,7 +37,7 @@ require_once(dirname(__FILE__) . "/../../common/tubepress_classloader.php");
     }
     
     /**
-     * The "real" works happens here
+     * This is where the fun stuff happens
      */
     function _tp_executeOptionsPage()
     {
@@ -47,42 +47,22 @@ require_once(dirname(__FILE__) . "/../../common/tubepress_classloader.php");
         /* see what we've got in the db */
         $stored = get_option("tubepress");
         if (!($stored instanceof TubePressStorage_v157)) {
-            throw new Exception("Options did not store!");
+            throw new Exception("Problem retrieving options from database");
         }
-    
-        TubePressOptionsForm::display($stored);
-        
-        return;
-        
-        $tpl->setVariable('PAGETITLE', "blabla");
-        $tpl->setVariable('INTROTEXT', "blablabla");
-        $tpl->setVariable('SAVE', "blablablablablabla");
-        
+
         /* are we updating? */
         if (isset($_POST['tubepress_save'])) {
-            
-            WordPressOptionsPage::update();
-            
-            $stored = get_option("tubepress");
-            if ($stored == NULL) {
-                WordPressOptionsPage::printStatusMsg("Options did not store!",
-                TP_CSS_FAILURE);
-            }
-        
-            $valid = $stored->checkValidity();
-            if (PEAR::isError($valid)) {
-                WordPressOptionsPage::printStatusMsg($valid->message,
-                TP_CSS_FAILURE);
-            }
+        	try {
+	            TubePressOptionsForm::collect($stored, $_POST);
+	            update_option("tubepress", $stored);
+	            echo '<div id="message" class="updated fade"><p><strong>Options updated</strong></p></div>';
+        	} catch (Exception $error) {
+        		echo '<div id="message" class="error fade"><p><strong>' . $error->getMessage() . '</strong></p></div>';
+        	}
         }
-    
-        WordPressOptionsPage::printHTML_modes($tpl, $stored);
-        WordPressOptionsPage::printHTML_display($tpl, $stored);
-        WordPressOptionsPage::printHTML_player($tpl, $stored);
-        WordPressOptionsPage::printHTML_meta($tpl, $stored);
-        WordPressOptionsPage::printHTML_advanced($tpl, $stored);
-
-        $tpl->parse('main');
-        $tpl->show();
+        
+        $newOptions = get_option("tubepress");
+        
+        TubePressOptionsForm::display($newOptions);
     }
 ?>
