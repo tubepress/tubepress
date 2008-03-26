@@ -31,6 +31,7 @@ abstract class TubePressPlayer implements TubePressHasTitle, TubePressHasName
 	const popup = "popup";
 	const greyBox = "greybox";
 	const lightWindow = "lightwindow";
+	const shadowBox = "shadowbox";
 	
 	private $title;
 	private $value;
@@ -42,17 +43,22 @@ abstract class TubePressPlayer implements TubePressHasTitle, TubePressHasName
 	 */
 	private $_cssLibs = array();
 	private $_jsLibs = array();
-	private $_extraJS = array();
+	private $_preLoadHeaderJs = "";
+	private $_postLoadHeaderJs = "";
 	
 	public final function getHeadContents() {
     	$content = "";
-	    if ($this->_extraJS != "") {
-        	$content .= "<script type=\"text/javascript\">" . $this->_extraJS . "</script>";
+	    if ($this->_preLoadHeaderJs != "") {
+        	$content .= "<script type=\"text/javascript\">" . $this->_preLoadHeaderJs . "</script>";
         }
     	
     	foreach ($this->_jsLibs as $jsLib) {
     		$content .= "<script type=\"text/javascript\" src=\"" . $jsLib . "\"></script>";
     	}
+    	
+		if ($this->_postLoadHeaderJs != "") {
+        	$content .= "<script type=\"text/javascript\">" . $this->_postLoadHeaderJs . "</script>";
+        }
     	
     	foreach ($this->_cssLibs as $cssLib) {
     		$content .= "<link rel=\"stylesheet\" href=\"" . $cssLib . "\"" .
@@ -61,11 +67,18 @@ abstract class TubePressPlayer implements TubePressHasTitle, TubePressHasName
     	return $content;
 	}
 	
-	protected final function setExtraJS($extraJS) {
+	protected final function setPostLoadJs($extraJS) {
 	    if (!is_string($extraJS)) {
-	        throw new Exception("Extra JS must be a string");
+	        throw new Exception("Postload JS must be a string");
 	    }
-	    $this->_extraJS = $extraJS;
+	    $this->_postLoadHeaderJs = $extraJS;
+	}
+	
+	protected final function setPreLoadJs($extraJS) {
+	    if (!is_string($extraJS)) {
+	        throw new Exception("Preload JS must be a string");
+	    }
+	    $this->_preLoadHeaderJs = $extraJS;
 	}
 	
 	protected final function setJSLibs($jsLibs) {
@@ -116,6 +129,8 @@ abstract class TubePressPlayer implements TubePressHasTitle, TubePressHasName
 	        	return new TPlightWindowPlayer();
 	        case TubePressPlayer::greyBox:
 	        	return new TPGreyBoxPlayer();
+	        case TubePressPlayer::shadowBox:
+	        	return new TPShadowBoxPlayer();
 	        default:
 	            throw new Exception("No such player with name '" . $name . "'");
 	        

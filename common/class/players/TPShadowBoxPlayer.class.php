@@ -1,6 +1,6 @@
 <?php
 /**
- * TPGreyBoxPlayer.php
+ * TPShadowBoxPlayer.php
  * 
  * Copyright (C) 2007 Eric D. Hough (http://ehough.com)
  * 
@@ -23,25 +23,29 @@
 /**
  * Plays videos with GreyBox
  */
-class TPGreyBoxPlayer extends TubePressPlayer
+class TPShadowBoxPlayer extends TubePressPlayer
 {
     public function __construct() {
-        $this->setName(TubePressPlayer::lightWindow);
-        $this->setTitle("with GreyBox (experimental)");
+        $this->setName(TubePressPlayer::shadowBox);
+        $this->setTitle("with Shadowbox.js (experimental)");
    	
 	    global $tubepress_base_url;
 
-		$gbURL = $tubepress_base_url . "/lib/greybox/";
-    	$gbJS = array($gbURL . "AJS.js",
-    	    $gbURL . "AJS_fx.js",
-    	    $gbURL . "gb_scripts.js");
+		$sbUrl = $tubepress_base_url . "/lib/shadowbox/";
+    	$gbJS = array(
+    		$sbUrl . "src/js/lib/yui-utilities.js",
+    		$sbUrl . "src/js/adapter/shadowbox-yui.js",
+    		$sbUrl . "src/js/shadowbox.js");
     	
-    	$gbCSS = array($gbURL . "gb_styles.css");
-    	$extra = "var GB_ROOT_DIR = \"" . $gbURL . "/\"";
-
-		$this->setCSSLibs($gbCSS);
+    	
+    	$sbCSS = array($sbUrl . "src/css/shadowbox.css");
+    	$extra = "YAHOO.util.Event.onDOMReady(function() {var options = { assetURL: ";
+    	$extra .= "'" . $sbUrl . "'";
+		$extra .= "}; Shadowbox.init(options);});";
+		
+		$this->setCSSLibs($sbCSS);
 		$this->setJSLibs($gbJS);
-		$this->setPreLoadJs($extra);
+		$this->setPostLoadJs($extra);
 	}
 	
 	/**
@@ -58,10 +62,11 @@ class TPGreyBoxPlayer extends TubePressPlayer
 		
 	    $url = new Net_URL($tubepress_base_url . "/common/ui/popup.php");
 	    $url->addQueryString("embed", $embed->toString());
+	    $url->addQueryString("name", $title);
 	   
 	    return sprintf('href="%s" title="%s" ' .
-            'rel="gb_page_center[%s, %s]"',
-            $url->getURL(), $title, $width, $height);
+            'rel="shadowbox;height=%s;width=%s"',
+            $url->getURL(), $title, $height, $width);
 	}
 }
 ?>

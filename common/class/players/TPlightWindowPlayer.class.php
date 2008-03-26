@@ -38,7 +38,7 @@ class TPlightWindowPlayer extends TubePressPlayer
 		
     	$this->setJSLibs($lwJS);
 		$this->setCSSLibs(array($lwURL . "css/lightwindow.css"));
-		$this->setExtraJS("var tubepressLWPath = \"" . $lwURL . "\"");
+		$this->setPreLoadJs("var tubepressLWPath = \"" . $lwURL . "\"");
 	}
 	
 	/**
