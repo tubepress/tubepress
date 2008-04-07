@@ -3,7 +3,7 @@
 Plugin Name: TubePress
 Plugin URI: http://tubepress.org
 Description: Display configurable YouTube galleries in your posts and/or pages
-Author: Eric Hough
+Author: Eric D. Hough
 Version: 1.6.0
 Author URI: http://ehough.com
 
@@ -32,12 +32,8 @@ function_exists("tp_executeOptionsPage")
 function_exists("tp_classFolder")
 	|| require("tubepress_classloader.php");
     
-if (!isset($tubepress_base_url)) {
-    $tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
-    if (!file_exists(dirname(__FILE__) . "/.tubepress_cache")) {
-		mkdir(dirname(__FILE__) . "/.tubepress_cache");
-    }
-}
+isset($tubepress_base_url)
+    || $tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
 
 /**
  * Main filter hook. Looks for a tubepress tag

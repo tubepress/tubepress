@@ -110,7 +110,7 @@ abstract class TubePressGallery
         $request = $this->getRequestURL();
         TubePressGallery::urlPostProcessing($request, $stored);
         
-		$Cache_Lite = new Cache_Lite(array("cacheDir" => dirname(__FILE__) . "/../../../.tubepress_cache/"));
+		$Cache_Lite = new Cache_Lite(array("cacheDir" => sys_get_temp_dir()));
 
 		
 		if (!($data = $Cache_Lite->get($request))) {

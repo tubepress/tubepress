@@ -36,7 +36,7 @@ function tubepress_classloader($className) {
     
 function tp_classFolder($className, $sub = DIRECTORY_SEPARATOR) {
     
-    $currentDir = dirname(__FILE__) . DIRECTORY_SEPARATOR . "..";
+    $currentDir = dirname(__FILE__);
 
     $dir = dir($currentDir . $sub);
 
