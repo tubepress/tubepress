@@ -1,10 +1,8 @@
 <?php
 /**
- * TubePressPlayer.php
+ * Copyright 2006, 2007, 2008 Eric D. Hough (http://ehough.com)
  * 
- * Copyright (C) 2007 Eric D. Hough (http://ehough.com)
- * 
- * This file is part of TubePress
+ * This file is part of TubePress (http://tubepress.org)
  * 
  * TubePress is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +16,7 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
 /**
