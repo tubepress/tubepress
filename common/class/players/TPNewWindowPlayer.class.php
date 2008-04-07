@@ -34,11 +34,18 @@ class TPNewWindowPlayer extends TubePressPlayer
 	/**
 	 * Tells the gallery how to make the play link
 	 */
-    function getPlayLink(TubePressVideo $vid, $height, $width)
+    public function getPlayLink(TubePressVideo $vid, TubePressStorage_v157 $stored)
 	{	    
 	    $url = new Net_URL(TubePressStatic::fullURL());
         $url->addQueryString(TPNewWindowPlayer::video_param, $vid->getId());
         return sprintf('href="%s"', $url->getURL());
+	}
+	
+	static public function doWeExecute() {
+		if (isset($_GET[TPNewWindowPlayer::video_param])) {
+			return true;
+		}
+		return false;
 	}
 }
 ?>

@@ -86,12 +86,9 @@ class WordPressStorage_v157 extends TubePressStorage_v157
     public static function initDB()
     {
         WordPressStorage_v157::deleteLegacyOptions();
+        
+      	$storage = get_option("tubepress");
 
-        try {
-        $storage = get_option("tubepress");
-        } catch (Exception $egg) {
-            echo "fuck";
-        }
         if (!($storage instanceof WordPressStorage_v157)) {
             delete_option("tubepress");
             add_option("tubepress", new WordPressStorage_v157());
@@ -105,7 +102,8 @@ class WordPressStorage_v157 extends TubePressStorage_v157
      */
     public function parse($content)
     {
-        
+        $debug = $this->getCurrentValue(TubePressAdvancedOptions::debugEnabled);
+    	
         /* what trigger word are we using? */
         $keyword = $this->getCurrentValue(TubePressAdvancedOptions::triggerWord);
         
@@ -117,6 +115,10 @@ class WordPressStorage_v157 extends TubePressStorage_v157
 
         /* we'll need the full tag string so we can replace it later */
         $this->tagString = $matches[0]; 
+        
+        if ($debug) {
+        	echo "<ol><li>Tag string on this page is <code>" . $this->tagString . "</code></li></ol>";
+        }
         
         /* Anything matched? */
         if (!isset($matches[1])) {

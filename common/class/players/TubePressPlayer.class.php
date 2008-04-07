@@ -122,9 +122,6 @@ abstract class TubePressPlayer implements TubePressHasTitle, TubePressHasName
 	        case TubePressPlayer::youTube:
 	        	return new TPYouTubePlayer();
 	        	break;
-	        case TubePressPlayer::newWindow:
-	        	return new TPNewWindowPlayer();
-	        	break;
 	        case TubePressPlayer::lightWindow:
 	        	return new TPlightWindowPlayer();
 	        case TubePressPlayer::greyBox:

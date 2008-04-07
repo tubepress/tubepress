@@ -56,6 +56,10 @@ function tp_main($content = '')
         $stored = get_option("tubepress");
         $stored->parse($content);
         
+        if ($stored->getCurrentValue(TubePressAdvancedOptions::debugEnabled)) {
+        	TubePressStatic::debugEnvironment($stored);
+        }
+        
         $modeName = $stored->getCurrentValue(TubePressGalleryOptions::mode);
         $gallery = $stored->getGalleryOptions()->getGallery($modeName);
         $newcontent .= $gallery->generate($stored);

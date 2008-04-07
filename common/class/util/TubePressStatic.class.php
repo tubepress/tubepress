@@ -54,5 +54,14 @@ final class TubePressStatic
             }
         return $pageNum;
     }
+    
+    public static final function debugEnvironment(TubePressStorage_v157 $options) {
+    	echo "<ol><li>";
+    	global $tubepress_base_url;
+    	echo "<code>tubepress_base_url</code> is defined to be <code>" . $tubepress_base_url . "</code>";
+    	echo "</li><li>Your options: <code>" . var_dump($options) . "</code>";
+    	
+    	echo "</li></ol>";
+    }
 }
 ?>

@@ -13,7 +13,6 @@ final class TubePressPlayerValue extends TubePressEnumValue {
             TubePressPlayer::normal => "normally (at the top of your gallery)",
             TubePressPlayer::popup => "in a popup window",
             TubePressPlayer::youTube => "from the original YouTube page",
-            TubePressPlayer::newWindow => "in a new window by itself",
             TubePressPlayer::lightWindow => "with lightWindow (experimental)",
             TubePressPlayer::greyBox => "with GreyBox (experimental)",
             TubePressPlayer::shadowBox => "with Shadowbox.js (experimental)"
