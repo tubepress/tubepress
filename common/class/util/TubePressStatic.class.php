@@ -63,5 +63,12 @@ final class TubePressStatic
     	
     	echo "</li></ol>";
     }
+    
+    public static final function areWeDebugging(TubePressStorage_v157 $options) {
+    	$enabled = $options->getCurrentValue(TubePressAdvancedOptions::debugEnabled);
+    	return $enabled
+    		&& isset($_GET['tubepress_debug'])
+    		&& ($_GET['tubepress_debug'] == 'true');
+    }
 }
 ?>

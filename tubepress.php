@@ -58,7 +58,7 @@ function tp_main($content = '')
         $stored = get_option("tubepress");
         $stored->parse($content);
         
-        if ($stored->getCurrentValue(TubePressAdvancedOptions::debugEnabled)) {
+        if (TubePressStatic::areWeDebugging($stored)) {
         	TubePressStatic::debugEnvironment($stored);
         }
         
