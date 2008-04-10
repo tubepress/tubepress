@@ -149,6 +149,7 @@ abstract class TubePressGallery
         $embed = new TubePressEmbeddedPlayer($vid, $stored);
         $tpl->setVariable("EMBEDSRC", $embed->toString());
         $tpl->setVariable("TITLE", $vid->getTitle());
+        $tpl->setVariable("WIDTH", $stored->getCurrentValue(TubePressEmbeddedOptions::embeddedWidth));
         
         $tpl->parse('bigVideo');
     }

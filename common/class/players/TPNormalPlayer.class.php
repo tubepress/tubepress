@@ -36,7 +36,7 @@ class TPNormalPlayer extends TubePressPlayer
 	    $embed = new TubePressEmbeddedPlayer($vid, $stored);
 	    
 	    return "href='#' onclick='tubePress_normalPlayer(" .
-            "\"" . $embed->toString() . "\", " .
+            "\"" . rawurlencode($embed->toString()) . "\", " .
 	    	$stored->getCurrentValue(TubePressEmbeddedOptions::embeddedWidth) .
 	    	", \"" . $vid->getTitle() . "\")'";
 	}
