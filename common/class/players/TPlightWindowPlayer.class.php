@@ -33,7 +33,7 @@ class TPlightWindowPlayer extends TubePressPlayer
     	
 		$lwJS = array($lwURL . "javascript/prototype.js",
     	    $lwURL . "javascript/scriptaculous.js?load=effects",
-    	    $lwURL . "javascript/lightwindow.js");
+    	    $lwURL . "javascript/lightWindow.js");
 		
     	$this->setJSLibs($lwJS);
 		$this->setCSSLibs(array($lwURL . "css/lightwindow.css"));
