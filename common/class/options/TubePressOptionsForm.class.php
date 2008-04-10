@@ -29,7 +29,7 @@ class TubePressOptionsForm {
         }
         
         $tpl->setVariable("PAGETITLE", "TubePress Options");
-        $tpl->setVariable("INTROTEXT", "This is some intro text");
+        $tpl->setVariable("INTROTEXT", "Set default options for the plugin. Each option here can be overridden on a per page/post basis. See the <a href=\"http://code.google.com/p/tubepress/wiki/Documentation\">documentation</a> for more info.");
         $tpl->setVariable("SAVE", "Save");
         
         /* go through each category */
