@@ -27,10 +27,6 @@ function tubepress_classloader($className) {
     
     if ($folder !== false) {
         include_once($folder . $className . ".class.php");
-    } else {
-        if (!class_exists($className, false)) {
-            echo $className . " class not found <br />";
-        }
     }
 }
     
