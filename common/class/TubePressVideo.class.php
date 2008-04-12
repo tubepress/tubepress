@@ -165,7 +165,11 @@ class TubePressVideo
     
     private function _getViews() {
     	$stats = $this->domElement->getElementsByTagNameNS(TubePressVideo::ns_yt, 'statistics')->item(0);
-        return number_format($stats->getAttribute('viewCount'));
+        if ($stats != null) {
+    		return number_format($stats->getAttribute('viewCount'));
+        } else {
+        	return "N/A";
+        }
     }
     
     private function getSpecificThumbURL($which) {
