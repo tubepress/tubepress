@@ -113,8 +113,8 @@ function tp_shouldWeExecute($content) {
     }
     
     if (!($stored instanceof TubePressStorage_v160)) {
-        echo "Please visit WP-Admin > Options > TubePress to finish the upgrade process for TubePress";
-        return false;
+        WordPressStorage_v160::initDB();
+        $stored = get_option("tubepress");
     }
     
     $trigger = $stored->getCurrentValue(TubePressAdvancedOptions::triggerWord);
