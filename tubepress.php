@@ -90,7 +90,7 @@ GBS;
     $stored = get_option("tubepress");
    
     /* we're in the head here, so just return quietly */
-    if ($stored == NULL || !($stored instanceof TubePressStorage_v157)) {
+    if ($stored == NULL || !($stored instanceof TubePressStorage_v160)) {
         return;
     }
     
@@ -109,7 +109,7 @@ function tp_shouldWeExecute($content) {
     $stored = get_option("tubepress");
     
     if ($stored == NULL
-        || !($stored instanceof TubePressStorage_v157)) {
+        || !($stored instanceof TubePressStorage_v160)) {
         return false;
     }
     

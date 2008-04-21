@@ -32,7 +32,7 @@ class TPYouTubePlayer extends TubePressPlayer
 	/**
 	 * Tells the gallery how to play a video
 	 */
-	function getPlayLink(TubePressVideo $vid, TubePressStorage_v157 $stored)
+	function getPlayLink(TubePressVideo $vid, TubePressStorage_v160 $stored)
 	{   
 	    return sprintf('href="http://youtube.com/watch?v=%s"',
 	        $vid->getId());

@@ -32,7 +32,7 @@ class TPPopupPlayer extends TubePressPlayer
 	/**
 	 * Tells the gallery how to play the videos
 	 */
-	public function getPlayLink(TubePressVideo $vid, TubePressStorage_v157 $stored)
+	public function getPlayLink(TubePressVideo $vid, TubePressStorage_v160 $stored)
 	{
 	    global $tubepress_base_url;
 

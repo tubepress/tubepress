@@ -25,6 +25,7 @@ class TubePressAdvancedOptions extends TubePressOptionsCategory {
 	const randomThumbs = "randomize_thumbnails";
 	const timeout = "timeout";
 	const triggerWord = "keyword";
+	const dateFormat = "dateFormat";
 
     public function __construct() {
         
@@ -74,6 +75,16 @@ class TubePressAdvancedOptions extends TubePressOptionsCategory {
                 new TubePressBoolValue(
                     TubePressAdvancedOptions::filter,
                     true
+                )
+            ),
+            
+            TubePressAdvancedOptions::dateFormat => new TubePressOption(
+                TubePressAdvancedOptions::dateFormat,
+            	"Date format",
+                "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\">date</a> for examples.",
+                new TubePressTextValue(
+                    TubePressAdvancedOptions::dateFormat,
+                    "M j, Y"
                 )
             )
         ));

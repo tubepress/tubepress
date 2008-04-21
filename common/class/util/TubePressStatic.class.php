@@ -55,7 +55,7 @@ final class TubePressStatic
         return $pageNum;
     }
     
-    public static final function debugEnvironment(TubePressStorage_v157 $options) {
+    public static final function debugEnvironment(TubePressStorage_v160 $options) {
     	echo "<ol><li>";
     	global $tubepress_base_url;
     	echo "<code>tubepress_base_url</code> is defined to be <code>" . $tubepress_base_url . "</code>";
@@ -64,7 +64,7 @@ final class TubePressStatic
     	echo "</li></ol>";
     }
     
-    public static final function areWeDebugging(TubePressStorage_v157 $options) {
+    public static final function areWeDebugging(TubePressStorage_v160 $options) {
     	$enabled = $options->getCurrentValue(TubePressAdvancedOptions::debugEnabled);
     	return $enabled
     		&& isset($_GET['tubepress_debug'])

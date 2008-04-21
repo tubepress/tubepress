@@ -190,7 +190,7 @@ class TubePressVideo
 
         $datetime = substr($tmp, 0, 19);  // Grab the datetime part of the string
         $timezone = str_replace(":", "", substr($tmp, 19, 6)); // Grab the timezone, (-/+0000) PHP 4 doesn't support the colon
-        return date("M d, Y", strtotime($datetime . " " . $timezone));
+        return strtotime($datetime . " " . $timezone);
     }
 
     /**

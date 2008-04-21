@@ -20,7 +20,7 @@
  */
 
 
-class WordPressStorage_v157 extends TubePressStorage_v157
+class WordPressStorage_v160 extends TubePressStorage_v160
 {
     /* the tag the user used in the page */
     private $tagString;
@@ -82,13 +82,13 @@ class WordPressStorage_v157 extends TubePressStorage_v157
      */
     public static function initDB()
     {
-        WordPressStorage_v157::deleteLegacyOptions();
+        WordPressStorage_v160::deleteLegacyOptions();
         
       	$storage = get_option("tubepress");
 
-        if (!($storage instanceof WordPressStorage_v157)) {
+        if (!($storage instanceof WordPressStorage_v160)) {
             delete_option("tubepress");
-            add_option("tubepress", new WordPressStorage_v157());
+            add_option("tubepress", new WordPressStorage_v160());
         }
     }
     
@@ -127,8 +127,8 @@ class WordPressStorage_v157 extends TubePressStorage_v157
         foreach ($pairs as $pair) {
                 
             $pieces = explode("=", $pair);
-            $pieces[0] =WordPressStorage_v157::cleanupTagValue($pieces[0]);
-            $pieces[1] =WordPressStorage_v157::cleanupTagValue($pieces[1]);
+            $pieces[0] =WordPressStorage_v160::cleanupTagValue($pieces[0]);
+            $pieces[1] =WordPressStorage_v160::cleanupTagValue($pieces[1]);
             $customOptions[$pieces[0]] = $pieces[1];
         }
         

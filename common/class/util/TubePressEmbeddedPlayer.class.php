@@ -22,7 +22,7 @@ class TubePressEmbeddedPlayer {
 	
 	private $asString;
 	
-	public function __construct(TubePressVideo $vid, TubePressStorage_v157 $stored) {
+	public function __construct(TubePressVideo $vid, TubePressStorage_v160 $stored) {
 		$id = $vid->getId();
 		$height = $stored->getCurrentValue(TubePressEmbeddedOptions::embeddedHeight);
 		$width = $stored->getCurrentValue(TubePressEmbeddedOptions::embeddedWidth);

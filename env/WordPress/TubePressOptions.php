@@ -40,11 +40,11 @@ require_once(dirname(__FILE__) . "/../../tubepress_classloader.php");
     function _tp_executeOptionsPage()
     {
 		/* initialize the database if we need to */
-        WordPressStorage_v157::initDB();
+        WordPressStorage_v160::initDB();
 
         /* see what we've got in the db */
         $stored = get_option("tubepress");
-        if (!($stored instanceof TubePressStorage_v157)) {
+        if (!($stored instanceof TubePressStorage_v160)) {
             throw new Exception("Problem retrieving options from database");
         }
 

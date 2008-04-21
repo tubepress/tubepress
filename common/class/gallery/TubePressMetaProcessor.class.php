@@ -20,7 +20,7 @@
  */
 class TubePressMetaProcessor {
     
-    public static function process(TubePressVideo $vid, TubePressStorage_v157 $stored, $link, HTML_Template_IT &$tpl) {
+    public static function process(TubePressVideo $vid, TubePressStorage_v160 $stored, $link, HTML_Template_IT &$tpl) {
         
         $metaOpts = $stored->getMetaOptions()->getOptions();
 
@@ -71,7 +71,7 @@ class TubePressMetaProcessor {
         	        $tpl->setVariable('LINKTEXT', "YouTube link");
                     $tpl->parse('url');
                     break;
-                    
+                
                 default:
                     $tpl->setVariable('METANAME', $metaOpt->getTitle());
                    	
@@ -89,7 +89,8 @@ class TubePressMetaProcessor {
            	                $tpl->setVariable('METAVALUE', $vid->getRatingCount());
            	                break;
            	            case TubePressMetaOptions::uploaded:
-           	                $tpl->setVariable('METAVALUE', $vid->getUploadTime());
+           	                $niceDate = date($stored->getCurrentValue(TubePressAdvancedOptions::dateFormat), $vid->getUploadTime());
+           	                $tpl->setVariable('METAVALUE', $niceDate);
                             break;
                         case TubePressMetaOptions::category:
                             $tpl->setVariable('METAVALUE', $vid->getCategory());

@@ -105,7 +105,7 @@ abstract class TubePressPlayer implements TubePressHasTitle, TubePressHasName
 	public final function getTitle() { return $this->title; }
 	public final function getName() { return $this->name; }
 	
-	public abstract function getPlayLink(TubePressVideo $vid, TubePressStorage_v157 $stored);
+	public abstract function getPlayLink(TubePressVideo $vid, TubePressStorage_v160 $stored);
 	
 	public static function getInstance($name) {
 	    switch ($name) {

@@ -48,7 +48,7 @@ abstract class TubePressGallery
     /* defines where to fetch this gallery's feed */
     protected abstract function getRequestURL();
     
-    public final function generate(TubePressStorage_v157 $stored)
+    public final function generate(TubePressStorage_v160 $stored)
     {
         /* load up the gallery template */
         $tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../ui");
@@ -78,7 +78,7 @@ abstract class TubePressGallery
         return $tpl->get();
     }
     
-    private static function parseVideo(DOMDocument $rss, $index, $totalResults, TubePressStorage_v157 $stored, HTML_Template_IT &$tpl) {
+    private static function parseVideo(DOMDocument $rss, $index, $totalResults, TubePressStorage_v160 $stored, HTML_Template_IT &$tpl) {
 
         /* Create a TubePressVideo object from the XML */
         $video = new TubePressVideo($rss->getElementsByTagName('entry')->item($index));
@@ -108,7 +108,7 @@ abstract class TubePressGallery
 		$thisResult = $xml->getElementsByTagName('entry')->length;
     }
     
-    private function getRss(TubePressStorage_v157 $stored)
+    private function getRss(TubePressStorage_v160 $stored)
     {
         /* Grab the video XML from YouTube */
         $request = $this->getRequestURL();
@@ -139,7 +139,7 @@ abstract class TubePressGallery
      * @param options A TubePressTag object holding all of our options
      * @param tpl Our template object
      */
-    private function parseBigVidHTML(TubePressVideo $vid, TubePressStorage_v157 $stored, HTML_Template_IT &$tpl)
+    private function parseBigVidHTML(TubePressVideo $vid, TubePressStorage_v160 $stored, HTML_Template_IT &$tpl)
     {    
 
         /* we only do this stuff if we're operating in "normal" play mode */
@@ -164,7 +164,7 @@ abstract class TubePressGallery
      * @param vidCount The grand total video count
      * @param options Current options
      */
-    private static function parsePaginationHTML($vidCount, TubePressStorage_v157 $stored, HTML_Template_IT &$tpl)
+    private static function parsePaginationHTML($vidCount, TubePressStorage_v160 $stored, HTML_Template_IT &$tpl)
     {
         $currentPage = TubePressStatic::getPageNum();
         $vidsPerPage = $stored->getCurrentValue(TubePressDisplayOptions::resultsPerPage);
@@ -187,7 +187,7 @@ abstract class TubePressGallery
      * @param TubePressStorage options
      * @param HTML_Template_IT tpl
      */
-    private static function parseSmallVideoHTML(TubePressVideo $vid, TubePressStorage_v157 $stored, HTML_Template_IT &$tpl)
+    private static function parseSmallVideoHTML(TubePressVideo $vid, TubePressStorage_v160 $stored, HTML_Template_IT &$tpl)
     {
         $playerName = $stored->getCurrentValue(TubePressDisplayOptions::currentPlayerName);
         $player = TubePressPlayer::getInstance($playerName);
@@ -225,7 +225,7 @@ abstract class TubePressGallery
      * @param string $request The request to be manipulated (pass by reference)
      * @param TubePressStorage $stored The TubePress options
      */
-    private static function urlPostProcessing(&$request, TubePressStorage_v157 $stored) {
+    private static function urlPostProcessing(&$request, TubePressStorage_v160 $stored) {
         
         $perPage = $stored->getCurrentValue(TubePressDisplayOptions::resultsPerPage);
         $filter = $stored->getCurrentValue(TubePressAdvancedOptions::filter);

@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class TubePressStorage_v157 {
+class TubePressStorage_v160 {
     
     private $optionPackages = array();
 

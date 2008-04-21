@@ -20,7 +20,7 @@
  */
 class TubePressOptionsForm {
     
-    public final function display(TubePressStorage_v157 $stored) {
+    public final function display(TubePressStorage_v160 $stored) {
 
         /* load up the template */
         $tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../ui");
@@ -44,10 +44,10 @@ class TubePressOptionsForm {
     /**
      * Updates options from a keyed array
      *
-     * @param TubePressStorage_v157 $stored
+     * @param TubePressStorage_v160 $stored
      * @param array $postVars
      */
-    public final function collect(TubePressStorage_v157 &$stored, array $postVars) {
+    public final function collect(TubePressStorage_v160 &$stored, array $postVars) {
     	
         /* go through each category */
     	$packages =& $stored->getOptionPackages();
