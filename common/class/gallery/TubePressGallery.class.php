@@ -22,6 +22,10 @@
 /* we need this function for pagination */
 function_exists("diggstyle_getPaginationString")
     || require(dirname(__FILE__) . "/../../../lib/diggstyle_function.php");
+
+/* thanks to shickm for this... http://code.google.com/p/tubepress/issues/detail?id=27 */
+function_exists("sys_get_temp_dir")
+	|| require(dirname(__FILE__) . "/../../../lib/sys_get_temp_dir.php");
     
 abstract class TubePressGallery
 	implements TubePressHasDescription,

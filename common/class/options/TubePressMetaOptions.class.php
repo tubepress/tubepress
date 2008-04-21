@@ -68,7 +68,7 @@ class TubePressMetaOptions extends TubePressOptionsCategory {
     	        new TubePressBoolValue(TubePressMetaOptions::ratings, false)),
     	    
     	    TubePressMetaOptions::uploaded => new TubePressOption(TubePressMetaOptions::uploaded,
-    	        "Uploaded", " ",
+    	        "Posted", " ",
     	        new TubePressBoolValue(TubePressMetaOptions::uploaded, false)),
     	    
     	    TubePressMetaOptions::tags => new TubePressOption(TubePressMetaOptions::tags,

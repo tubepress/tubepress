@@ -151,7 +151,7 @@ class WordPressStorage_v157 extends TubePressStorage_v157
                 if ($customOption == TubePressGalleryOptions::mode) {
                     $gallery = $this->getGalleryOptions()->getGallery($customOptions[$customOption]);
                     if ($gallery instanceof TubePressHasValue) {
-                        $gallery->getValue()->updateManually($customOptions[$customOption . "Value"]);
+                       $gallery->getValue()->updateManually($customOptions[$customOptions[$customOption] . "Value"]);
                     }
                 }
                 
