@@ -35,7 +35,7 @@ class TubePressStorage_v157 {
     
     public function getEmbeddedOptions() { return $this->optionPackages["embedded"]; }
     public function &getOptionPackages() { return $this->optionPackages; }
-    public function getGalleryOptions() { return $this->optionPackages["gallery"]; }
+    public function &getGalleryOptions() { return $this->optionPackages["gallery"]; }
     public function getDisplayOptions() { return $this->optionPackages["display"]; }
     public function getMetaOptions() { return $this->optionPackages["meta"]; }
     public function getAdvancedOptions() { return $this->optionPackages["advanced"]; }

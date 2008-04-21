@@ -75,7 +75,7 @@ class TubePressGalleryOptions extends TubePressOptionsCategory {
         $tpl->parse("optionCategory");
     }
     
-    public function getGallery($galleryName) {
+    public function &getGallery($galleryName) {
     	return $this->galleries[$galleryName];
     }
 }
