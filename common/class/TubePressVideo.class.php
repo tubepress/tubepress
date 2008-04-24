@@ -148,8 +148,13 @@ class TubePressVideo
     }
     
     private function _getUploaded() {
-    	$views = $this->domElement->getElementsByTagName('published')->item(0);
+    	$publishedNode = $this->domElement->getElementsByTagName('published');
+        if ($publishedNode->length == 0) {
+            return "N/A";
+        }
+        $views = $publishedNode->item(0);
         return TubePressVideo::rfc3339_2_humanTime($views->nodeValue);
+        
     }
     
     private function _getUrl() {

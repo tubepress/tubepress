@@ -89,8 +89,11 @@ class TubePressMetaProcessor {
            	                $tpl->setVariable('METAVALUE', $vid->getRatingCount());
            	                break;
            	            case TubePressMetaOptions::uploaded:
-           	                $niceDate = date($stored->getCurrentValue(TubePressAdvancedOptions::dateFormat), $vid->getUploadTime());
-           	                $tpl->setVariable('METAVALUE', $niceDate);
+           	                $niceDate = $vid->getUploadTime();
+                            if ($niceDate != "N/A") {
+                                $niceDate = date($stored->getCurrentValue(TubePressAdvancedOptions::dateFormat), $vid->getUploadTime());
+                            }
+                            $tpl->setVariable('METAVALUE', $niceDate);
                             break;
                         case TubePressMetaOptions::category:
                             $tpl->setVariable('METAVALUE', $vid->getCategory());
