@@ -126,6 +126,11 @@ abstract class TubePressGallery
 		}
         
 		$doc = new DOMDocument();
+		
+		if (substr($data, 0, 5) != "<?xml") {
+			return $doc;
+		}
+	
     	$doc->loadXML($data);
     	return $doc;
     }
