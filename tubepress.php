@@ -130,5 +130,4 @@ function tp_shouldWeExecute($content) {
 add_filter('the_content', 'tp_main');
 add_action('admin_menu',  'tp_executeOptionsPage');
 add_action('wp_head', 'tp_insertCSSJS');
-register_activation_hook('WordPressStorage_v160', 'initDB');
 ?>
