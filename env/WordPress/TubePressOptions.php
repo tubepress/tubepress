@@ -19,7 +19,7 @@
  *
  */
 
-if (substr(phpversion(), 0, 1) == "5" && !function_exists("tp_executeOptionsPage")) {
+if (substr(phpversion(), 0, 1) == "5" && !function_exists("__tp_executeOptionsPage")) {
 	include("TubePressOptions_main.php");
 }
 
