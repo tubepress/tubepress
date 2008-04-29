@@ -168,7 +168,7 @@ class WordPressStorage_v160 extends TubePressStorage_v160
         $nameOrValue = trim(
             str_replace(
                 array("&#8220;", "&#8221;", "&#8217;", "&#8216;",
-                      "&#8242;", "&#8243;", "&#34", "'"),"", 
+                      "&#8242;", "&#8243;", "&#34", "'", "\""),"", 
                       trim($nameOrValue)));
         if ($nameOrValue == "true") {
             return true;

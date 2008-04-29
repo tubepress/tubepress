@@ -19,48 +19,30 @@
  *
  */
 
-require_once(dirname(__FILE__) . "/../../tubepress_classloader.php");
-    
-    /**
-     * This is the main method for the TubePress global options page,
-     * which is loaded when you're in the wp-admin section of your blog.
-     * It basically just loads _tp_executeOptionsPage()
-     */
-    function tp_executeOptionsPage()
-    {
-        if (function_exists('add_options_page')) {
-            add_options_page("TubePress Options", "TubePress", 9, 
-                'TubePressOptions.php', '_tp_executeOptionsPage');
-        }
-    }
-    
-    /**
-     * This is where the fun stuff happens
-     */
-    function _tp_executeOptionsPage()
-    {
-		/* initialize the database if we need to */
-        WordPressStorage_v160::initDB();
+if (substr(phpversion(), 0, 1) == "5" && !function_exists("tp_executeOptionsPage")) {
+	include("TubePressOptions_main.php");
+}
 
-        /* see what we've got in the db */
-        $stored = get_option("tubepress");
-        if (!($stored instanceof TubePressStorage_v160)) {
-            throw new Exception("Problem retrieving options from database");
-        }
+/**
+ * This is the main method for the TubePress global options page,
+ * which is loaded when you're in the wp-admin section of your blog.
+ * It basically just loads _tp_executeOptionsPage()
+ */
+function tp_executeOptionsPage()
+{
+	if (function_exists('add_options_page')) {
+		add_options_page("TubePress Options", "TubePress", 9, 
+			'TubePressOptions.php', '_tp_executeOptionsPage');
+	}
+}
 
-        /* are we updating? */
-        if (isset($_POST['tubepress_save'])) {
-        	try {
-	            TubePressOptionsForm::collect($stored, $_POST);
-	            update_option("tubepress", $stored);
-	            echo '<div id="message" class="updated fade"><p><strong>Options updated</strong></p></div>';
-        	} catch (Exception $error) {
-        		echo '<div id="message" class="error fade"><p><strong>' . $error->getMessage() . '</strong></p></div>';
-        	}
-        }
-        
-        $newOptions = get_option("tubepress");
-        
-        TubePressOptionsForm::display($newOptions);
-    }
+function _tp_executeOptionsPage()
+{
+	if (substr(phpversion(), 0, 1) == "5") {
+		__tp_executeOptionsPage();
+	} else {
+		echo '<div id="message" class="error fade"><p><strong>This version of TubePress requires PHP5 or higher. Please <a href="http://php.net">upgrade your PHP installation</a> or visit <a href="http://tubepress.org">tubepress.org</a> to obtain a different version of the plugin.</strong</p></div>';
+	}
+}
+
 ?>

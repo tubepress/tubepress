@@ -53,7 +53,7 @@ class TubePressGalleryValue extends TubePressEnumValue {
             TubePressGalleryValue::top_rated,
             TubePressGalleryValue::mobile,
             TubePressGalleryValue::most_linked
-        ), TubePressGalleryValue::featured);
+        ), TubePressGalleryValue::user);
         
         $this->galleries = $theGalleries;
     }
