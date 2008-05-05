@@ -58,7 +58,7 @@ GBS;
     }
     
     try {
-        $playerName = $stored->getCurrentValue(TubePressDisplayOptions::currentPlayerName);
+        $playerName = $stored->getCurrentValue(TubePressDisplayOptions::CURRENT_PLAYER_NAME);
         $player = TubePressPlayer::getInstance($playerName);
         print $player->getHeadContents();
     } catch (Exception $e) {

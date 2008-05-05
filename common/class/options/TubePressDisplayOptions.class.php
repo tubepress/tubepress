@@ -20,9 +20,9 @@
  */
 class TubePressDisplayOptions extends TubePressOptionsCategory {
     
-    const currentPlayerName = "playerLocation";
+    const CURRENT_PLAYER_NAME = "playerLocation";
 	const orderBy = "orderBy";
-	const resultsPerPage = "resultsPerPage";
+	const RESULTS_PER_PAGE = "resultsPerPage";
     const thumbHeight = "thumbHeight";
 	const thumbWidth = "thumbWidth";
 
@@ -36,15 +36,15 @@ class TubePressDisplayOptions extends TubePressOptionsCategory {
         $thumbWidthValue = new TubePressIntValue(TubePressDisplayOptions::thumbWidth, 120);
         $thumbWidthValue->setMax(120);
         
-        $resultsPerPageValue = new TubePressIntValue(TubePressDisplayOptions::resultsPerPage, 20);
+        $resultsPerPageValue = new TubePressIntValue(TubePressDisplayOptions::RESULTS_PER_PAGE, 20);
         $resultsPerPageValue->setMax(50);
         
         $this->setOptions(array(
-            TubePressDisplayOptions::currentPlayerName => new TubePressOption(
-                TubePressDisplayOptions::currentPlayerName,
+            TubePressDisplayOptions::CURRENT_PLAYER_NAME => new TubePressOption(
+                TubePressDisplayOptions::CURRENT_PLAYER_NAME,
                 "Play each video...", " ",
                 new TubePressPlayerValue(
-                    TubePressDisplayOptions::currentPlayerName,
+                    TubePressDisplayOptions::CURRENT_PLAYER_NAME,
                     new TPNormalPlayer())
             ),
             
@@ -62,8 +62,8 @@ class TubePressDisplayOptions extends TubePressOptionsCategory {
                 $thumbWidthValue
            ),
            
-           TubePressDisplayOptions::resultsPerPage => new TubePressOption(
-                TubePressDisplayOptions::resultsPerPage,
+           TubePressDisplayOptions::RESULTS_PER_PAGE => new TubePressOption(
+                TubePressDisplayOptions::RESULTS_PER_PAGE,
                 "Videos per page",
                 "Default is 20, maximum is 50",
                 $resultsPerPageValue

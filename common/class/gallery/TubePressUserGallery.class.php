@@ -29,11 +29,12 @@ class TubePressUserGallery extends TubePressGallery implements TubePressHasValue
     }
     
     protected final function getRequestURL() {
-        return "http://gdata.youtube.com/feeds/api/users/" . $this->getValue()->getCurrentValue() . "/uploads";
+        return "http://gdata.youtube.com/feeds/api/users/" . \
+            $this->getValue()->getCurrentValue() . "/uploads";
     }
-	
-	public function &getValue() {
-	    return $this->user;
-	}
+    
+    public function &getValue() {
+        return $this->user;
+    }
 }
 ?>

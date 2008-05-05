@@ -21,33 +21,49 @@
 
 /* we need this function for pagination */
 function_exists("diggstyle_getPaginationString")
-    || require(dirname(__FILE__) . "/../../../lib/diggstyle_function.php");
+    || require dirname(__FILE__) . "/../../../lib/diggstyle_function.php";
 
-/* thanks to shickm for this... http://code.google.com/p/tubepress/issues/detail?id=27 */
+/* 
+ * thanks to shickm for this...
+ * http://code.google.com/p/tubepress/issues/detail?id=27
+*/
 function_exists("sys_get_temp_dir")
-	|| require(dirname(__FILE__) . "/../../../lib/sys_get_temp_dir.php");
-    
-abstract class TubePressGallery
-	implements TubePressHasDescription,
-		TubePressHasName, TubePressHasTitle {
-    
-    const pageParameter = "tubepress_page";
+    || require dirname(__FILE__) . "/../../../lib/sys_get_temp_dir.php";
 
-    /* some galleries need user input */
-    private $value;
+/**
+ * Parent class of all TubePress galleries
+ */
+abstract class TubePressGallery
+    implements TubePressHasDescription,
+        TubePressHasName, TubePressHasTitle
+{
     
+    const PAGE_PARAM = "tubepress_page";
+
     /* this gallery's description */
-    private $description;
+    private $_description;
     
     /* this gallery's name */
-    private $name;
+    private $_name;
     
     /* this gallery's title */
-    private $title;
+    private $_title;
     
-    /* defines where to fetch this gallery's feed */
+    /**
+     * Defines where to fetch this gallery's feed
+     * 
+     * @return The location of this gallery's feed from YouTube 
+    **/
     protected abstract function getRequestURL();
     
+    /**
+     * Generates the content of this gallery
+     * 
+     * @param TubePressStorage_v160 $stored The TubePress storage 
+     *        object containing all the user's options
+     * 
+     * @return The HTML content for this gallery
+     */
     public final function generate(TubePressStorage_v160 $stored)
     {
         /* load up the gallery template */
@@ -57,152 +73,212 @@ abstract class TubePressGallery
         }
         
         /* get the videos as an array */
-        $xml = TubePressGallery::getRss($stored);
+        $xml = TubePressGallery::_getRss($stored);
 
-        TubePressGallery::countResults($xml, $totalResults, $thisResult);
+        TubePressGallery::_countResults($xml, $totalResults, $thisResult);
         
         /* Figure out how many videos we're going to show */
-        $vidLimit = $stored->getCurrentValue(TubePressDisplayOptions::resultsPerPage);
+        $vidLimit =
+            $stored->getCurrentValue(TubePressDisplayOptions::RESULTS_PER_PAGE);
         if ($thisResult < $vidLimit) {
             $vidLimit = $thisResult;
         }   
         
         /* parse 'em out */
         for ($x = 0; $x < $vidLimit; $x++) {
-            TubePressGallery::parseVideo($xml, $x, $totalResults, $stored, $tpl);
+            TubePressGallery::_parseVideo($xml, $x, 
+                $totalResults, $stored, $tpl);
         }
         
         /* Spit out the top/bottom pagination */
-        TubePressGallery::parsePaginationHTML($totalResults, $stored, $tpl);
+        TubePressGallery::_parsePaginationHTML($totalResults, $stored, $tpl);
 
         return $tpl->get();
     }
     
-    private static function parseVideo(DOMDocument $rss, $index, $totalResults, TubePressStorage_v160 $stored, HTML_Template_IT &$tpl) {
+    /**
+     * Creates the HTML for a single video retrieved from YouTube
+     * 
+     * @param DOMDocument           $rss          The RSS retrieved from 
+     * 	                                           YouTube
+     * @param int                   $index        The index (in the RSS) 
+     *                                             of the video we're going to
+     *                                             parse
+     * @param int                   $totalResults The total number of results 
+     *                                             that we got back for this 
+     *                                             query
+     * @param TubePressStorage_v160 $stored       The TubePress storage object
+     * @param HTML_Template_IT      &$tpl         The HTML template to write to
+     * 
+     * @return string The HTML for a single video returned from YouTube
+     */
+    private static function _parseVideo(DOMDocument $rss, 
+        $index, $totalResults, TubePressStorage_v160 $stored, 
+        HTML_Template_IT &$tpl)
+    {
 
         /* Create a TubePressVideo object from the XML */
-        $video = new TubePressVideo($rss->getElementsByTagName('entry')->item($index));
+        $video = new TubePressVideo(
+            $rss->getElementsByTagName('entry')->item($index));
             
         /* Top of the gallery is special */
         if ($index == 0) {
-            TubePressGallery::parseBigVidHTML($video, $stored, $tpl);
+            TubePressGallery::_parseBigVidHTML($video, $stored, $tpl);
         }
             
         /* Here's where each thumbnail gets printed */
-        TubePressGallery::parseSmallVideoHTML($video, $stored, $tpl);        
+        TubePressGallery::_parseSmallVideoHTML($video, $stored, $tpl);        
     }
     
-    private static function countResults(DOMDocument $xml, &$totalResults, &$thisResult)
+    /**
+     * Counts the number of videos that we got back from YouTube
+     * 
+     * @param DOMDocument $xml           The raw YouTube RSS
+     * @param int         &$totalResults How many YouTube said we got overall
+     * @param int         &$thisResult   How many we counted in this query
+     * 
+     * @return int The number of videos we got back from YouTube
+     */
+    private static function _countResults(DOMDocument $xml, &$totalResults, 
+        &$thisResult)
     {
         /* how many YouTube said we got */
-        $totalResults = $xml->getElementsByTagNameNS(
-        	'http://a9.com/-/spec/opensearchrss/1.0/',
-        	'totalResults'
-        )->item(0)->nodeValue;
+        $totalResults =
+            $xml->getElementsByTagNameNS('http://a9.com/-/spec' . \
+            '/opensearchrss/1.0/', 'totalResults')->item(0)->nodeValue;
         
         /* see if we got any */
         if ($totalResults == 0) {
             throw new Exception("YouTube returned no videos for your query!");
         }
         
-		$thisResult = $xml->getElementsByTagName('entry')->length;
+        $thisResult = $xml->getElementsByTagName('entry')->length;
     }
     
-    private function getRss(TubePressStorage_v160 $stored)
+    /**
+     * Fetches the RSS from YouTube (or from cache)
+     * 
+     * @param TubePressStorage_v160 $stored The TubePress storage object
+     * 
+     * @return DOMDocument The raw RSS from YouTube
+     */
+    private function _getRss(TubePressStorage_v160 $stored)
     {
         /* Grab the video XML from YouTube */
         $request = $this->getRequestURL();
         TubePressGallery::urlPostProcessing($request, $stored);
         
-		$Cache_Lite = new Cache_Lite(array("cacheDir" => sys_get_temp_dir()));
+        $cache = new Cache_Lite(array("cacheDir" => sys_get_temp_dir()));
 
-		
-		if (!($data = $Cache_Lite->get($request))) {
-			$req =& new HTTP_Request($request);
-			if (!PEAR::isError($req->sendRequest())) {
-    			$data = $req->getResponseBody();
-			}
-			$Cache_Lite->save($data, $request);
-		}
         
-		$doc = new DOMDocument();
-		
-		if (substr($data, 0, 5) != "<?xml") {
-			return $doc;
-		}
-	
-    	$doc->loadXML($data);
-    	return $doc;
+        if (!($data = $cache->get($request))) {
+            $req =& new HTTP_Request($request);
+            if (!PEAR::isError($req->sendRequest())) {
+                $data = $req->getResponseBody();
+            }
+            $cache->save($data, $request);
+        }
+        
+        $doc = new DOMDocument();
+        
+        if (substr($data, 0, 5) != "<?xml") {
+            return $doc;
+        }
+    
+        $doc->loadXML($data);
+        return $doc;
     }
 
     
      /**
      * Prints out an embedded video at the top of the gallery.
-     * Used in "normal" video playing mode only.
+     * Used in "normal" video playing mode only
      * 
-     * @param vid A TubePressVideo object of the video we're going to play
-     * @param options A TubePressTag object holding all of our options
-     * @param tpl Our template object
+     * TODO: move to normal player class? maybe an abstract method on player?
+     * 
+     * @param TubePressVideo        $vid    The video to parse
+     * @param TubePressStorage_v160 $stored The TubePressStorage object
+     * @param HTML_Template_IT      &$tpl   HTML template to write to
+     * 
+     * @return void
      */
-    private function parseBigVidHTML(TubePressVideo $vid, TubePressStorage_v160 $stored, HTML_Template_IT &$tpl)
+    private function _parseBigVidHTML(TubePressVideo $vid, 
+        TubePressStorage_v160 $stored, HTML_Template_IT &$tpl)
     {    
 
         /* we only do this stuff if we're operating in "normal" play mode */
-        $playerName = $stored->getCurrentValue(TubePressDisplayOptions::currentPlayerName);
-        $player = TubePressPlayer::getInstance($playerName);
+        $playerName =
+            $stored->
+                getCurrentValue(TubePressDisplayOptions::CURRENT_PLAYER_NAME);
+        $player     = TubePressPlayer::getInstance($playerName);
+        
+        //TODO: this is hacky
         if (!($player instanceof TPNormalPlayer)) {
             return;
         }
         
-        
         $embed = new TubePressEmbeddedPlayer($vid, $stored);
         $tpl->setVariable("EMBEDSRC", $embed->toString());
         $tpl->setVariable("TITLE", $vid->getTitle());
-        $tpl->setVariable("WIDTH", $stored->getCurrentValue(TubePressEmbeddedOptions::embeddedWidth));
+        $tpl->setVariable("WIDTH", 
+            $stored->getCurrentValue(TubePressEmbeddedOptions::EMBEDDED_WIDTH));
         
         $tpl->parse('bigVideo');
     }
 
     /**
-     * Handles the logic and printing of pagination links ("next" and "prev")
+     * Handles the parsing of pagination links ("next" and "prev")
      * 
-     * @param vidCount The grand total video count
-     * @param options Current options
+     * @param int                   $vidCount The grand total video count
+     * @param TubePressStorage_v160 $stored   The TubePressStorage object
+     * @param HTML_Template_IT      &$tpl     The HTML template to write to
+     * 
+     * @return void
      */
-    private static function parsePaginationHTML($vidCount, TubePressStorage_v160 $stored, HTML_Template_IT &$tpl)
+    private static function _parsePaginationHTML($vidCount, 
+        TubePressStorage_v160 $stored, HTML_Template_IT &$tpl)
     {
         $currentPage = TubePressStatic::getPageNum();
-        $vidsPerPage = $stored->getCurrentValue(TubePressDisplayOptions::resultsPerPage);
+        $vidsPerPage = $stored->
+            getCurrentValue(TubePressDisplayOptions::RESULTS_PER_PAGE);
     
         $newurl = new Net_URL(TubePressStatic::fullURL());
-        $newurl->removeQueryString(TubePressGallery::pageParameter);
+        $newurl->removeQueryString(TubePressGallery::PAGE_PARAM);
  
         $pagination = diggstyle_getPaginationString($currentPage, $vidCount,
-            $vidsPerPage, 1, $newurl->getURL(), TubePressGallery::pageParameter);
+            $vidsPerPage, 1, $newurl->getURL(), 
+                TubePressGallery::PAGE_PARAM);
             
         $tpl->setVariable('TOPPAGINATION', $pagination);
         $tpl->setVariable('BOTPAGINATION', $pagination);
     }
     
     /**
-     * The main wrapper method for printing out a single video 
-     * thumbnail and the meta information for it.
+     * The main method for printing out a single video 
+     * thumbnail and the meta information for it
      * 
-     * @param TubePressVideo vid 
-     * @param TubePressStorage options
-     * @param HTML_Template_IT tpl
+     * @param TubePressVideo        $vid    The video to parse
+     * @param TubePressStorage_v160 $stored The TubePressStorage object
+     * @param HTML_Template_IT      &$tpl   The HTML template to write to
+     * 
+     * @return void
      */
-    private static function parseSmallVideoHTML(TubePressVideo $vid, TubePressStorage_v160 $stored, HTML_Template_IT &$tpl)
+    private static function _parseSmallVideoHTML(TubePressVideo $vid, 
+        TubePressStorage_v160 $stored, HTML_Template_IT &$tpl)
     {
-        $playerName = $stored->getCurrentValue(TubePressDisplayOptions::currentPlayerName);
-        $player = TubePressPlayer::getInstance($playerName);
-        $randomizeOpt = $stored->getCurrentValue(TubePressAdvancedOptions::randomThumbs);
-        
-        $thumbWidth = $stored->getCurrentValue(TubePressDisplayOptions::thumbWidth);
-        $thumbHeight = $stored->getCurrentValue(TubePressDisplayOptions::thumbHeight);
-        
-        $height = $stored->getCurrentValue(TubePressEmbeddedOptions::embeddedHeight);
-        $width = $stored->getCurrentValue(TubePressEmbeddedOptions::embeddedWidth);
+        $playerName   = $stored->
+            getCurrentValue(TubePressDisplayOptions::CURRENT_PLAYER_NAME);
+        $player       = TubePressPlayer::getInstance($playerName);
+        $randomizeOpt = $stored->
+            getCurrentValue(TubePressAdvancedOptions::RANDOM_THUMBS);
+        $thumbWidth   = $stored->
+            getCurrentValue(TubePressDisplayOptions::thumbWidth);
+        $thumbHeight  = $stored->
+            getCurrentValue(TubePressDisplayOptions::thumbHeight);
+        $height       = $stored->
+            getCurrentValue(TubePressEmbeddedOptions::embeddedHeight);
+        $width        = $stored->
+            getCurrentValue(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
         
         $playLink = $player->getPlayLink($vid, $stored);
 
@@ -220,7 +296,7 @@ abstract class TubePressGallery
         $tpl->setVariable('THUMBWIDTH', $thumbWidth);
         $tpl->setVariable('THUMBHEIGHT', $thumbHeight);
         
-		$tpl->parse('thumb');
+        $tpl->parse('thumb');
     }
     
     /**
@@ -230,9 +306,11 @@ abstract class TubePressGallery
      * @param string $request The request to be manipulated (pass by reference)
      * @param TubePressStorage $stored The TubePress options
      */
-    private static function urlPostProcessing(&$request, TubePressStorage_v160 $stored) {
+    private static function urlPostProcessing(&$request, 
+        TubePressStorage_v160 $stored) {
         
-        $perPage = $stored->getCurrentValue(TubePressDisplayOptions::resultsPerPage);
+        $perPage = $stored->
+            getCurrentValue(TubePressDisplayOptions::RESULTS_PER_PAGE);
         $filter = $stored->getCurrentValue(TubePressAdvancedOptions::filter);
         $order = $stored->getCurrentValue(TubePressDisplayOptions::orderBy);
         $mode = $stored->getCurrentValue(TubePressGalleryOptions::mode);
@@ -256,21 +334,32 @@ abstract class TubePressGallery
         }
       
         if ($mode != TubePressGalleryValue::playlist) {
-        	$requestURL->addQueryString("orderby", $order);
+            $requestURL->addQueryString("orderby", $order);
         }       
         
         $request = $requestURL->getURL();
     }
     
     /* getters */
-    public final function getTitle()       { return $this->title; }
-    public final function getName() 	   { return $this->name; }
-    public final function getDescription() { return $this->description; }
+    public final function getTitle()
+    {
+        return $this->_title;
+    }
+    
+    public final function getName()
+    {
+        return $this->_name;
+    }
+    
+    public final function getDescription()
+    {
+        return $this->_description;
+    }
     
     /* setters */
-    protected final function setTitle($newTitle) { $this->title = $newTitle; }
-    protected final function setName($newName) { $this->name = $newName; }
-    protected final function setDescription($newDesc) { $this->description = $newDesc; }
+    protected final function setTitle($newTitle) { $this->_title = $newTitle; }
+    protected final function setName($newName) { $this->_name = $newName; }
+    protected final function setDescription($newDesc) {
+        $this->_description = $newDesc; }
     
 }
-?>

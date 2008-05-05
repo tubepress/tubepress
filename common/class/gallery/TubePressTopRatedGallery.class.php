@@ -31,9 +31,9 @@ class TubePressTopRatedGallery extends TubePressGallery implements TubePressHasV
     protected final function getRequestURL() {
         return "http://gdata.youtube.com/feeds/standardfeeds/top_rated?time=" . $this->getValue()->getCurrentValue();
     }
-	
-	public function &getValue() {
-	    return $this->timeFrame;
-	}
+    
+    public function &getValue() {
+        return $this->timeFrame;
+    }
 }
 ?>

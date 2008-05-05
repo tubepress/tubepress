@@ -38,7 +38,7 @@ class TPPopupPlayer extends TubePressPlayer
 
 	    $title = $vid->getTitle();
 	    $height = $stored->getCurrentValue(TubePressEmbeddedOptions::embeddedHeight);
-	    $width = $stored->getCurrentValue(TubePressEmbeddedOptions::embeddedWidth);
+	    $width = $stored->getCurrentValue(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
 	    $embed = new TubePressEmbeddedPlayer($vid, $stored);
 		
 	    $url = new Net_URL($tubepress_base_url . "/common/ui/popup.php");

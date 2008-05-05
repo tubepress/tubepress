@@ -21,7 +21,7 @@
 class TubePressEmbeddedOptions extends TubePressOptionsCategory {
     
     const embeddedHeight = "embeddedHeight";
-	const embeddedWidth = "embeddedWidth";
+	const EMBEDDED_WIDTH = "embeddedWidth";
 	const playerColor = "playerColor";
 	const autoplay = "autoplay";
 	const showRelated = "showRelated";
@@ -45,12 +45,12 @@ class TubePressEmbeddedOptions extends TubePressOptionsCategory {
                 )
             ),
             
-            TubePressEmbeddedOptions::embeddedWidth => new TubePressOption(
-                TubePressEmbeddedOptions::embeddedWidth,
+            TubePressEmbeddedOptions::EMBEDDED_WIDTH => new TubePressOption(
+                TubePressEmbeddedOptions::EMBEDDED_WIDTH,
                 "Max width (px)",
                 "Default is 425",
                 new TubePressIntValue(
-                    TubePressEmbeddedOptions::embeddedWidth,
+                    TubePressEmbeddedOptions::EMBEDDED_WIDTH,
                     425
                 )
             ),

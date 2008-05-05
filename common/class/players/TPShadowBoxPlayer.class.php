@@ -57,7 +57,7 @@ class TPShadowBoxPlayer extends TubePressPlayer
 
 	    $title = $vid->getTitle();
 	    $height = $stored->getCurrentValue(TubePressEmbeddedOptions::embeddedHeight);
-	    $width = $stored->getCurrentValue(TubePressEmbeddedOptions::embeddedWidth);
+	    $width = $stored->getCurrentValue(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
 
 	    return sprintf('href="http://youtube.com/v/%s" title="%s" ' .
             'rel="shadowbox;height=%s;width=%s"',

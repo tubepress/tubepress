@@ -32,9 +32,9 @@ class TubePressSearchGallery extends TubePressGallery implements TubePressHasVal
     protected final function getRequestURL() {
         return "http://gdata.youtube.com/feeds/api/videos?vq=" . urlencode($this->getValue()->getCurrentValue());
     }
-	
-	public function &getValue() {
-	    return $this->searchString;
-	}
+    
+    public function &getValue() {
+        return $this->searchString;
+    }
 }
 ?>

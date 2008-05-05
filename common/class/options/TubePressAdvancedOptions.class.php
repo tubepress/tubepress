@@ -22,7 +22,7 @@ class TubePressAdvancedOptions extends TubePressOptionsCategory {
     
     const debugEnabled = "debugging_enabled";
     const filter = "filter_racy";
-	const randomThumbs = "randomize_thumbnails";
+	const RANDOM_THUMBS = "randomize_thumbnails";
 	const timeout = "timeout";
 	const triggerWord = "keyword";
 	const dateFormat = "dateFormat";
@@ -58,12 +58,12 @@ class TubePressAdvancedOptions extends TubePressOptionsCategory {
                 )
             ),
             
-            TubePressAdvancedOptions::randomThumbs => new TubePressOption(
-                TubePressAdvancedOptions::randomThumbs,
+            TubePressAdvancedOptions::RANDOM_THUMBS => new TubePressOption(
+                TubePressAdvancedOptions::RANDOM_THUMBS,
                 "Randomize thumbnails",
                 "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized",
                 new TubePressBoolValue(
-                    TubePressAdvancedOptions::randomThumbs,
+                    TubePressAdvancedOptions::RANDOM_THUMBS,
                     true
                 )
             ),

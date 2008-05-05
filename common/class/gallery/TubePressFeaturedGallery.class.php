@@ -18,7 +18,8 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class TubePressFeaturedGallery extends TubePressGallery {
+class TubePressFeaturedGallery extends TubePressGallery
+{
     
     public function __construct() {
         $this->setName(TubePressGalleryValue::featured);
@@ -26,7 +27,7 @@ class TubePressFeaturedGallery extends TubePressGallery {
     }
     
     protected final function getRequestURL() {
-        return "http://gdata.youtube.com/feeds/api/standardfeeds/recently_featured";
+        return "http://gdata.youtube.com/feeds/api/" . \
+            "standardfeeds/recently_featured";
     }
 }
-?>

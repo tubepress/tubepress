@@ -32,9 +32,9 @@ class TubePressPopularGallery extends TubePressGallery implements TubePressHasVa
         return "http://gdata.youtube.com/feeds/api/standardfeeds/most_viewed?time=" . $this->getValue()->getCurrentValue();
     }
     
-	public function &getValue() {
-	    return $this->timeframe;
-	}
+    public function &getValue() {
+        return $this->timeframe;
+    }
 
 }
 ?>
