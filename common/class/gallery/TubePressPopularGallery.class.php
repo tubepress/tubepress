@@ -18,23 +18,43 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class TubePressPopularGallery extends TubePressGallery implements TubePressHasValue {
-    
-    private $timeframe;
-    
-    public function __construct() {
+
+/**
+ * A gallery with the most popular videos on YouTube from some timeframe
+ *
+ */
+class TubePressPopularGallery extends TubePressGallery implements TubePressHasValue
+{
+    private $_timeframe;
+
+    /**
+     * Default constructor
+     *
+     */
+    public function __construct()
+    {
         $this->setName(TubePressGalleryValue::popular);
         $this->setTitle("Most-viewed videos from...");
-        $this->timeframe = new TubePressTimeValue(TubePressGalleryValue::popular);
+        $this->_timeframe = new TubePressTimeValue(TubePressGalleryValue::popular);
     }
     
-    protected final function getRequestURL() {
+    /**
+     * Defines where to fetch this gallery's feed
+     * 
+     * @return string The location of this gallery's feed from YouTube 
+     */
+    protected final function getRequestURL()
+    {
         return "http://gdata.youtube.com/feeds/api/standardfeeds/most_viewed?time=" . $this->getValue()->getCurrentValue();
     }
     
-    public function &getValue() {
-        return $this->timeframe;
+    /**
+     * Get the timeframe of the popularity
+     *
+     * @return TubePressTimeValue The timeframe of the popularity
+     */
+    public function &getValue()
+    {
+        return $this->_timeframe;
     }
-
 }
-?>

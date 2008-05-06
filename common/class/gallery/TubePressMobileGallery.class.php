@@ -18,16 +18,31 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class TubePressMobileGallery extends TubePressGallery {
-    
-    public function __construct() {
+
+/**
+ * A gallery with videos that are somehow made for mobile phones, or something
+ *
+ */
+class TubePressMobileGallery extends TubePressGallery
+{
+    /**
+     * Default constructor
+     *
+     */
+    public function __construct()
+    {
         $this->setName(TubePressGalleryValue::mobile);
         $this->setTitle("Videos for mobile phones");
     }
     
-    protected final function getRequestURL() {
-        return "http://gdata.youtube.com/feeds/api/standardfeeds/watch_on_mobile";
-    }
-    
+    /**
+     * Defines where to fetch this gallery's feed
+     * 
+     * @return string The location of this gallery's feed from YouTube 
+     */
+    protected final function getRequestURL()
+    {
+        return "http://gdata.youtube.com/feeds/api/" . \
+            "standardfeeds/watch_on_mobile";
+    } 
 }
-?>

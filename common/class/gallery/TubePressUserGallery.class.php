@@ -18,23 +18,47 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class TubePressUserGallery extends TubePressGallery implements TubePressHasValue {
+
+/**
+ * A gallery showing videos uploaded by a YouTube user
+ *
+ */
+class TubePressUserGallery extends TubePressGallery 
+    implements TubePressHasValue
+{
+    private $_user;
     
-    private $user;
-    
-    public function __construct() {
+    /**
+     * Default constructor
+     *
+     */
+    public function __construct()
+    {
         $this->setName(TubePressGalleryValue::user);
         $this->setTitle("Videos from this YouTube user");
-        $this->user = new TubePressTextValue(TubePressGalleryValue::user . "Value", "3hough");
+        $this->_user = new TubePressTextValue(TubePressGalleryValue::user . 
+            "Value", "3hough");
     }
     
-    protected final function getRequestURL() {
+    /**
+     * Defines where to fetch this gallery's feed
+     * 
+     * @return string The location of this gallery's feed from YouTube 
+     */
+    protected final function getRequestURL()
+    {
         return "http://gdata.youtube.com/feeds/api/users/" . \
             $this->getValue()->getCurrentValue() . "/uploads";
     }
     
-    public function &getValue() {
-        return $this->user;
+    /**
+     * Get the YouTube user id of the user whose videos will fill the gallery
+     *
+     * @return TubePressTextValue The YouTube user id of the user whose videos
+     *                            will fill the gallery
+     */
+    public function &getValue()
+    {
+        return $this->_user;
     }
 }
-?>

@@ -18,15 +18,29 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class TubePressMostDiscussedGallery extends TubePressGallery {
 
+/**
+ * A gallery of the most discussed videos on YouTube
+ *
+ */
+class TubePressMostDiscussedGallery extends TubePressGallery
+{
+    /**
+     * Default constructor
+     *
+     */
     public function __construct() {
         $this->setName(TubePressGalleryValue::most_discussed);
         $this->setTitle("Most discussed");
     }
-     
+
+    /**
+     * Defines where to fetch this gallery's feed
+     * 
+     * @return string The location of this gallery's feed from YouTube 
+     */
     protected final function getRequestURL() {
-        return "http://gdata.youtube.com/feeds/api/standardfeeds/most_discussed";
+        return "http://gdata.youtube.com/feeds/api/" . \
+            "standardfeeds/most_discussed";
     }
 }
-?>

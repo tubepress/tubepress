@@ -18,26 +18,49 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
+/**
+ * A single TubePress options
+ *
+ */
 class TubePressOption implements TubePressHasValue,
-    TubePressHasDescription, TubePressHasName, TubePressHasTitle {
+    TubePressHasDescription, TubePressHasName, TubePressHasTitle
+{
 	
 	const storageIdentifier = "tubepress";
 
-    private $name;
-    private $title;
-    private $description;
-    private $value;
+    private $_name;
+    private $_title;
+    private $_description;
+    private $_value;
 	
-	public function __construct($theName, $theTitle, $theDescription, $theDefault) {
-		$this->name = $theName;
-		$this->title = $theTitle;
-		$this->description = $theDescription;
-		$this->value = $theDefault;
+	public function __construct($theName, $theTitle, $theDescription, 
+	    $theDefault)
+	{
+		$this->_name = $theName;
+		$this->_title = $theTitle;
+		$this->_description = $theDescription;
+		$this->_value = $theDefault;
 	}
 
-	public final function getName() { return $this->name; }
-	public final function getTitle() { return $this->title; }
-	public final function getDescription() { return $this->description; }
-	public final function &getValue() { return $this->value; }
+	public final function getDescription()
+	{
+	    return $this->_description;
+	}
+	
+	public final function getName()
+	{ 
+	    return $this->_name;
+    }
+	
+    public final function getTitle()
+    { 
+        return $this->_title; 
+    }
+	
+	public final function &getValue()
+	{ 
+	    return $this->_value;
+	}
 }
 ?>

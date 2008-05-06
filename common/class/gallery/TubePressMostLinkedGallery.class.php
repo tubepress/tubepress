@@ -18,15 +18,28 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class TubePressMostLinkedGallery extends TubePressGallery {
 
+/**
+ * A gallery that displayes the most linked videos on YouTube
+ *
+ */
+class TubePressMostLinkedGallery extends TubePressGallery
+{
+    /**
+     * Default constructor
+     *
+     */
     public function __construct() {
         $this->setName(TubePressGalleryValue::most_linked);
         $this->setTitle("Most-linked videos");
     }
      
+    /**
+     * Defines where to fetch this gallery's feed
+     * 
+     * @return string The location of this gallery's feed from YouTube 
+     */
     protected final function getRequestURL() {
         return "http://gdata.youtube.com/feeds/api/standardfeeds/most_linked";
     }
 }
-?>

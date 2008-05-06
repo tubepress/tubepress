@@ -18,7 +18,13 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class TubePressDisplayOptions extends TubePressOptionsCategory {
+
+/**
+ * Display options for the plugin
+ *
+ */
+class TubePressDisplayOptions extends TubePressOptionsCategory
+{
     
     const CURRENT_PLAYER_NAME = "playerLocation";
 	const ORDER_BY = "orderBy";
@@ -30,34 +36,41 @@ class TubePressDisplayOptions extends TubePressOptionsCategory {
 	    
         $this->setTitle("Gallery options");
         
-        $thumbHeightValue = new TubePressIntValue(TubePressDisplayOptions::THUMB_HEIGHT, 90);
+        $thumbHeightValue = 
+            new TubePressIntValue(TubePressDisplayOptions::THUMB_HEIGHT, 90);
         $thumbHeightValue->setMax(90);
         
-        $thumbWidthValue = new TubePressIntValue(TubePressDisplayOptions::THUMB_WIDTH, 120);
+        $thumbWidthValue = 
+            new TubePressIntValue(TubePressDisplayOptions::THUMB_WIDTH, 120);
         $thumbWidthValue->setMax(120);
         
-        $resultsPerPageValue = new TubePressIntValue(TubePressDisplayOptions::RESULTS_PER_PAGE, 20);
+        $resultsPerPageValue = 
+            new TubePressIntValue(TubePressDisplayOptions::RESULTS_PER_PAGE,
+                20);
         $resultsPerPageValue->setMax(50);
         
         $this->setOptions(array(
-            TubePressDisplayOptions::CURRENT_PLAYER_NAME => new TubePressOption(
-                TubePressDisplayOptions::CURRENT_PLAYER_NAME,
-                "Play each video...", " ",
-                new TubePressPlayerValue(
+            TubePressDisplayOptions::CURRENT_PLAYER_NAME => 
+                new TubePressOption(
                     TubePressDisplayOptions::CURRENT_PLAYER_NAME,
-                    new TPNormalPlayer())
-            ),
+                    "Play each video...", " ",
+                    new TubePressPlayerValue(
+                        TubePressDisplayOptions::CURRENT_PLAYER_NAME,
+                        new TPNormalPlayer())
+                ),
             
-            TubePressDisplayOptions::THUMB_HEIGHT => new TubePressOption(
-                TubePressDisplayOptions::THUMB_HEIGHT,
-                "Height (px) of thumbs",
-                "Default (and maximum) is 90",
-                $thumbHeightValue
-            ),
+            TubePressDisplayOptions::THUMB_HEIGHT =>
+                new TubePressOption(
+                    TubePressDisplayOptions::THUMB_HEIGHT,
+                    "Height (px) of thumbs",
+                    "Default (and maximum) is 90",
+                    $thumbHeightValue
+                ),
                 
-            TubePressDisplayOptions::THUMB_WIDTH => new TubePressOption(
-                TubePressDisplayOptions::THUMB_WIDTH,
-                "Width (px) of thumbs",
+            TubePressDisplayOptions::THUMB_WIDTH => 
+                new TubePressOption(
+                    TubePressDisplayOptions::THUMB_WIDTH,
+                    "Width (px) of thumbs",
                 "Default (and maximum) is 120",
                 $THUMB_WIDTHValue
            ),
@@ -78,4 +91,3 @@ class TubePressDisplayOptions extends TubePressOptionsCategory {
         ));
 	}
 }
-?>

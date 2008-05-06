@@ -18,7 +18,13 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class TubePressEmbeddedOptions extends TubePressOptionsCategory {
+
+/**
+ * Options for the embedded player
+ *
+ */
+class TubePressEmbeddedOptions extends TubePressOptionsCategory
+{
     
     const EMBEDDED_HEIGHT = "embeddedHeight";
 	const EMBEDDED_WIDTH = "embeddedWidth";
@@ -29,7 +35,12 @@ class TubePressEmbeddedOptions extends TubePressOptionsCategory {
 	const genie = "genie";
 	const border = "border";
 
-	public function __construct() {
+	/**
+	 * Default constructor
+	 *
+	 */
+	public function __construct()
+	{
 	    
         $this->setTitle("Embedded player");
         
@@ -98,4 +109,3 @@ class TubePressEmbeddedOptions extends TubePressOptionsCategory {
         ));
 	}
 }
-?>

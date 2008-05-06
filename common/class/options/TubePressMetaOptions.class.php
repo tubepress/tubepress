@@ -18,7 +18,14 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class TubePressMetaOptions extends TubePressOptionsCategory {
+
+/**
+ * Options that control which meta info is displayed below video
+ * thumbnails
+ *
+ */
+class TubePressMetaOptions extends TubePressOptionsCategory
+{
     
     const author = "author";
 	const category ="category";
@@ -34,7 +41,12 @@ class TubePressMetaOptions extends TubePressOptionsCategory {
 	const URL = "url";
 	const views = "views";
     
-	function __construct() {
+	/**
+	 * Default constructor
+	 *
+	 */
+	function __construct()
+	{
 	    
 	    $this->setTitle("Meta display");
 	    
@@ -90,7 +102,8 @@ class TubePressMetaOptions extends TubePressOptionsCategory {
 	    
 	}
 	
-    public function printForOptionsForm(HTML_Template_IT &$tpl) {
+    public function printForOptionsForm(HTML_Template_IT &$tpl) 
+    {
 
         $tpl->setVariable("OPTION_CATEGORY_TITLE", $this->getTitle());
         
@@ -115,4 +128,4 @@ class TubePressMetaOptions extends TubePressOptionsCategory {
         $tpl->parse("optionCategory");
     }
 }
-?>                
+              

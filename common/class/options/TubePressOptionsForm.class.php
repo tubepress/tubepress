@@ -18,9 +18,16 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class TubePressOptionsForm {
+
+/**
+ * Displays a generic options form for TubePress
+ *
+ */
+class TubePressOptionsForm
+{
     
-    public final function display(TubePressStorage_v160 $stored) {
+    public final function display(TubePressStorage_v160 $stored)
+    {
 
         /* load up the template */
         $tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../ui");
@@ -29,7 +36,10 @@ class TubePressOptionsForm {
         }
         
         $tpl->setVariable("PAGETITLE", "TubePress Options");
-        $tpl->setVariable("INTROTEXT", "Set default options for the plugin. Each option here can be overridden on a per page/post basis. See the <a href=\"http://code.google.com/p/tubepress/wiki/Documentation\">documentation</a> for more info.");
+        $tpl->setVariable("INTROTEXT", "Set default options for the plugin. " .
+            "Each option here can be overridden on a per page/post basis. " .
+            "See the <a href=\"http://code.google.com/p/tubepress/wiki/" .
+            "Documentation\">documentation</a> for more info.");
         $tpl->setVariable("SAVE", "Save");
         
         /* go through each category */
@@ -47,7 +57,9 @@ class TubePressOptionsForm {
      * @param TubePressStorage_v160 $stored
      * @param array $postVars
      */
-    public final function collect(TubePressStorage_v160 &$stored, array $postVars) {
+    public final function collect(TubePressStorage_v160 &$stored, 
+        array $postVars)
+    {
     	
         /* go through each category */
     	$packages =& $stored->getOptionPackages();
@@ -63,4 +75,3 @@ class TubePressOptionsForm {
         }
     }
 }
-?>

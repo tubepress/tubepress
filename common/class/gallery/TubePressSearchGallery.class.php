@@ -18,23 +18,44 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class TubePressSearchGallery extends TubePressGallery implements TubePressHasValue {
+
+/**
+ * A gallery that shows videos resulting from a YouTube search
+ *
+ */
+class TubePressSearchGallery extends TubePressGallery implements TubePressHasValue
+{
+    private $_searchString;
     
-    private $searchString;
-    
-    public function __construct() {
+    /**
+     * Default constructor
+     *
+     */
+    public function __construct()
+    {
         $this->setName(TubePressGalleryValue::tag);
         $this->setTitle("YouTube search for");
         $this->setDescription("YouTube limits this mode to 1,000 results");
-        $this->searchString = new TubePressTextValue(TubePressGalleryValue::tag . "Value", "stewart daily show");
+        $this->_searchString = new TubePressTextValue(TubePressGalleryValue::tag . "Value", "stewart daily show");
     }
 
-    protected final function getRequestURL() {
+    /**
+     * Defines where to fetch this gallery's feed
+     * 
+     * @return string The location of this gallery's feed from YouTube 
+     */
+    protected final function getRequestURL()
+    {
         return "http://gdata.youtube.com/feeds/api/videos?vq=" . urlencode($this->getValue()->getCurrentValue());
     }
-    
-    public function &getValue() {
-        return $this->searchString;
+
+    /**
+     * Get the search string for the gallery
+     *
+     * @return TubePressTextValue The search string
+     */
+    public function &getValue()
+    {
+        return $this->_searchString;
     }
 }
-?>

@@ -18,7 +18,13 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class TubePressAdvancedOptions extends TubePressOptionsCategory {
+
+/**
+ * Advanced options for the plugin
+ *
+ */
+class TubePressAdvancedOptions extends TubePressOptionsCategory
+{
     
     const debugEnabled = "debugging_enabled";
     const FILTER = "filter_racy";
@@ -27,7 +33,8 @@ class TubePressAdvancedOptions extends TubePressOptionsCategory {
 	const triggerWord = "keyword";
 	const dateFormat = "dateFormat";
 
-    public function __construct() {
+    public function __construct()
+    {
         
         $this->setTitle("Advanced");
         $this->setOptions(array(
@@ -35,7 +42,9 @@ class TubePressAdvancedOptions extends TubePressOptionsCategory {
             TubePressAdvancedOptions::triggerWord => new TubePressOption(
                 TubePressAdvancedOptions::triggerWord,
                 "Trigger keyword",
-                "The word you insert (in plaintext, between square brackets) into your posts to display your YouTube gallery.",
+                "The word you insert (in plaintext, between square " . \
+                    "brackets) into your posts to display your " . \
+                    "YouTube gallery.",
                 new TubePressTextValue(
                     TubePressAdvancedOptions::triggerWord,
                     "tubepress"
@@ -50,8 +59,8 @@ class TubePressAdvancedOptions extends TubePressOptionsCategory {
                              "information. This is a rather small privacy " .
                              "risk. If you're not having problems with " .
                              "TubePress, or you're worried about revealing " .
-                             "any details of your TubePress pages, feel free to " .
-                             "disable the feature.",
+                             "any details of your TubePress pages, feel " . 
+                             "free to disable the feature.",
                 new TubePressBoolValue(
                     TubePressAdvancedOptions::debugEnabled,
                     true
@@ -61,7 +70,10 @@ class TubePressAdvancedOptions extends TubePressOptionsCategory {
             TubePressAdvancedOptions::RANDOM_THUMBS => new TubePressOption(
                 TubePressAdvancedOptions::RANDOM_THUMBS,
                 "Randomize thumbnails",
-                "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized",
+                "Most videos come with several thumbnails. By selecting " . 
+                    "this option, each time someone views your gallery they " .
+                    "will see the same videos with each video's thumbnail " . 
+                    "randomized",
                 new TubePressBoolValue(
                     TubePressAdvancedOptions::RANDOM_THUMBS,
                     true
@@ -81,7 +93,9 @@ class TubePressAdvancedOptions extends TubePressOptionsCategory {
             TubePressAdvancedOptions::dateFormat => new TubePressOption(
                 TubePressAdvancedOptions::dateFormat,
             	"Date format",
-                "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\">date</a> for examples.",
+                "Set the textual formatting of date information for videos." .
+                " See <a href=\"http://us.php.net/date\">date</a> for " .
+                "examples.",
                 new TubePressTextValue(
                     TubePressAdvancedOptions::dateFormat,
                     "M j, Y"
@@ -89,6 +103,4 @@ class TubePressAdvancedOptions extends TubePressOptionsCategory {
             )
         ));
     }
-}
-?>
-                  
+} 

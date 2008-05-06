@@ -18,22 +18,37 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-abstract class TubePressOptionsCategory implements TubePressHasTitle {
+
+/**
+ * Holds a bunch of related TubePress options together
+ *
+ */
+abstract class TubePressOptionsCategory implements TubePressHasTitle
+{
 
     /* the title of this options category */
-    private $title;
+    private $_title;
     
     /* an array of TubePressOptions */
     private $options;
     
-    public final function getTitle() { return $this->title; }
-    public final function &getOptions() { return $this->options; }
-    
-    protected final function setTitle($newTitle) {
-        $this->title = $newTitle;
+    public final function getTitle()
+    { 
+        return $this->_title;
     }
     
-    protected final function setOptions($newOptions) {
+    public final function &getOptions()
+    {
+        return $this->options;
+    }
+    
+    protected final function setTitle($newTitle) 
+    {
+        $this->_title = $newTitle;
+    }
+    
+    protected final function setOptions($newOptions) 
+    {
         
         /* make sure that we're getting an array */
         if (!is_array($newOptions)) {
@@ -50,17 +65,18 @@ abstract class TubePressOptionsCategory implements TubePressHasTitle {
         $this->options = $newOptions;
     }
     
-    public final function &get($optionName) {
-        
+    public final function &get($optionName)
+    {
         if (!array_key_exists($optionName, $this->options)) {
-            throw new Exception("No such option in this category");
+            throw new Exception("No such option ($optionName) in this category");
         }
         return $this->options[$optionName];
     }
     
-    public function printForOptionsForm(HTML_Template_IT &$tpl) {
+    public function printForOptionsForm(HTML_Template_IT &$tpl)
+    {
 
-        $tpl->setVariable("OPTION_CATEGORY_TITLE", $this->title);
+        $tpl->setVariable("OPTION_CATEGORY_TITLE", $this->_title);
             
         /* go through each option in the category */
         foreach($this->options as $option) {             

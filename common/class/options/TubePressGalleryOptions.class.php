@@ -18,13 +18,20 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class TubePressGalleryOptions extends TubePressOptionsCategory {
+
+/**
+ * Options that let you choose which videos to show
+ *
+ */
+class TubePressGalleryOptions extends TubePressOptionsCategory
+{
     
     const MODE = "mode";
     
     private $galleries;
     
-    public function __construct() {
+    public function __construct()
+    {
             
         $this->setTitle("Which videos?");
     
@@ -51,7 +58,8 @@ class TubePressGalleryOptions extends TubePressOptionsCategory {
             )));
     }
     
-    public function printForOptionsForm(HTML_Template_IT &$tpl) {
+    public function printForOptionsForm(HTML_Template_IT &$tpl)
+    {
 
         $tpl->setVariable("OPTION_CATEGORY_TITLE", $this->getTitle());
             
@@ -75,7 +83,8 @@ class TubePressGalleryOptions extends TubePressOptionsCategory {
         $tpl->parse("optionCategory");
     }
     
-    public function &getGallery($galleryName) {
+    public function &getGallery($galleryName)
+    {
     	return $this->galleries[$galleryName];
     }
 }
