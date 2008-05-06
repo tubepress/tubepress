@@ -21,7 +21,7 @@ function tp_main($content = '')
         	TubePressStatic::debugEnvironment($stored);
         }
         
-        $modeName = $stored->getCurrentValue(TubePressGalleryOptions::mode);
+        $modeName = $stored->getCurrentValue(TubePressGalleryOptions::MODE);
         $gallery = $stored->getGalleryOptions()->getGallery($modeName);
         $newcontent .= $gallery->generate($stored);
 

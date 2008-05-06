@@ -48,7 +48,7 @@ class TPlightWindowPlayer extends TubePressPlayer
 	    global $tubepress_base_url;
 
 	    $title = $vid->getTitle();
-	    $height = $stored->getCurrentValue(TubePressEmbeddedOptions::embeddedHeight);
+	    $height = $stored->getCurrentValue(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
 	    $width = $stored->getCurrentValue(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
 	    $embed = new TubePressEmbeddedPlayer($vid, $stored);
 		

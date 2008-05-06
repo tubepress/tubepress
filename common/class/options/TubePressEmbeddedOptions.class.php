@@ -20,7 +20,7 @@
  */
 class TubePressEmbeddedOptions extends TubePressOptionsCategory {
     
-    const embeddedHeight = "embeddedHeight";
+    const EMBEDDED_HEIGHT = "embeddedHeight";
 	const EMBEDDED_WIDTH = "embeddedWidth";
 	const playerColor = "playerColor";
 	const autoplay = "autoplay";
@@ -35,12 +35,12 @@ class TubePressEmbeddedOptions extends TubePressOptionsCategory {
         
         $this->setOptions(array(
             
-            TubePressEmbeddedOptions::embeddedHeight => new TubePressOption(
-                TubePressEmbeddedOptions::embeddedHeight,
+            TubePressEmbeddedOptions::EMBEDDED_HEIGHT => new TubePressOption(
+                TubePressEmbeddedOptions::EMBEDDED_HEIGHT,
                 "Max height (px)",
                 "Default is 355",
                 new TubePressIntValue(
-                    TubePressEmbeddedOptions::embeddedHeight,
+                    TubePressEmbeddedOptions::EMBEDDED_HEIGHT,
                     355
                 )
             ),

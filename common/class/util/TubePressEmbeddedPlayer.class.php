@@ -24,7 +24,7 @@ class TubePressEmbeddedPlayer {
 	
 	public function __construct(TubePressVideo $vid, TubePressStorage_v160 $stored) {
 		$id = $vid->getId();
-		$height = $stored->getCurrentValue(TubePressEmbeddedOptions::embeddedHeight);
+		$height = $stored->getCurrentValue(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
 		$width = $stored->getCurrentValue(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
 		$rel = $stored->getCurrentValue(TubePressEmbeddedOptions::showRelated)? "1" : "0";
 		$colors = $stored->getCurrentValue(TubePressEmbeddedOptions::playerColor);

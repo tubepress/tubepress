@@ -50,13 +50,6 @@ abstract class TubePressGallery
     private $_title;
     
     /**
-     * Defines where to fetch this gallery's feed
-     * 
-     * @return The location of this gallery's feed from YouTube 
-    **/
-    protected abstract function getRequestURL();
-    
-    /**
      * Generates the content of this gallery
      * 
      * @param TubePressStorage_v160 $stored The TubePress storage 
@@ -97,38 +90,11 @@ abstract class TubePressGallery
     }
     
     /**
-     * Creates the HTML for a single video retrieved from YouTube
+     * Defines where to fetch this gallery's feed
      * 
-     * @param DOMDocument           $rss          The RSS retrieved from 
-     * 	                                           YouTube
-     * @param int                   $index        The index (in the RSS) 
-     *                                             of the video we're going to
-     *                                             parse
-     * @param int                   $totalResults The total number of results 
-     *                                             that we got back for this 
-     *                                             query
-     * @param TubePressStorage_v160 $stored       The TubePress storage object
-     * @param HTML_Template_IT      &$tpl         The HTML template to write to
-     * 
-     * @return string The HTML for a single video returned from YouTube
+     * @return The location of this gallery's feed from YouTube 
      */
-    private static function _parseVideo(DOMDocument $rss, 
-        $index, $totalResults, TubePressStorage_v160 $stored, 
-        HTML_Template_IT &$tpl)
-    {
-
-        /* Create a TubePressVideo object from the XML */
-        $video = new TubePressVideo(
-            $rss->getElementsByTagName('entry')->item($index));
-            
-        /* Top of the gallery is special */
-        if ($index == 0) {
-            TubePressGallery::_parseBigVidHTML($video, $stored, $tpl);
-        }
-            
-        /* Here's where each thumbnail gets printed */
-        TubePressGallery::_parseSmallVideoHTML($video, $stored, $tpl);        
-    }
+    protected abstract function getRequestURL();
     
     /**
      * Counts the number of videos that we got back from YouTube
@@ -166,7 +132,7 @@ abstract class TubePressGallery
     {
         /* Grab the video XML from YouTube */
         $request = $this->getRequestURL();
-        TubePressGallery::urlPostProcessing($request, $stored);
+        TubePressGallery::_urlPostProcessing($request, $stored);
         
         $cache = new Cache_Lite(array("cacheDir" => sys_get_temp_dir()));
 
@@ -188,9 +154,8 @@ abstract class TubePressGallery
         $doc->loadXML($data);
         return $doc;
     }
-
     
-     /**
+    /**
      * Prints out an embedded video at the top of the gallery.
      * Used in "normal" video playing mode only
      * 
@@ -225,7 +190,7 @@ abstract class TubePressGallery
         
         $tpl->parse('bigVideo');
     }
-
+    
     /**
      * Handles the parsing of pagination links ("next" and "prev")
      * 
@@ -272,11 +237,11 @@ abstract class TubePressGallery
         $randomizeOpt = $stored->
             getCurrentValue(TubePressAdvancedOptions::RANDOM_THUMBS);
         $thumbWidth   = $stored->
-            getCurrentValue(TubePressDisplayOptions::thumbWidth);
+            getCurrentValue(TubePressDisplayOptions::THUMB_WIDTH);
         $thumbHeight  = $stored->
-            getCurrentValue(TubePressDisplayOptions::thumbHeight);
+            getCurrentValue(TubePressDisplayOptions::THUMB_HEIGHT);
         $height       = $stored->
-            getCurrentValue(TubePressEmbeddedOptions::embeddedHeight);
+            getCurrentValue(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
         $width        = $stored->
             getCurrentValue(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
         
@@ -300,20 +265,57 @@ abstract class TubePressGallery
     }
     
     /**
+     * Creates the HTML for a single video retrieved from YouTube
+     * 
+     * @param DOMDocument           $rss          The RSS retrieved from 
+     * 	                                           YouTube
+     * @param int                   $index        The index (in the RSS) 
+     *                                             of the video we're going to
+     *                                             parse
+     * @param int                   $totalResults The total number of results 
+     *                                             that we got back for this 
+     *                                             query
+     * @param TubePressStorage_v160 $stored       The TubePress storage object
+     * @param HTML_Template_IT      &$tpl         The HTML template to write to
+     * 
+     * @return string The HTML for a single video returned from YouTube
+     */
+    private static function _parseVideo(DOMDocument $rss, 
+        $index, $totalResults, TubePressStorage_v160 $stored, 
+        HTML_Template_IT &$tpl)
+    {
+
+        /* Create a TubePressVideo object from the XML */
+        $video = new TubePressVideo(
+            $rss->getElementsByTagName('entry')->item($index));
+            
+        /* Top of the gallery is special */
+        if ($index == 0) {
+            TubePressGallery::_parseBigVidHTML($video, $stored, $tpl);
+        }
+            
+        /* Here's where each thumbnail gets printed */
+        TubePressGallery::_parseSmallVideoHTML($video, $stored, $tpl);        
+    }
+    
+    /**
      * Appends some global query parameters on the request
      * before we fire it off to YouTube
      *
-     * @param string $request The request to be manipulated (pass by reference)
-     * @param TubePressStorage $stored The TubePress options
+     * @param string                &$request The request to be manipulated
+     * @param TubePressStorage_v160 $stored   The TubePressStorage object
+     * 
+     * @return void
      */
-    private static function urlPostProcessing(&$request, 
-        TubePressStorage_v160 $stored) {
+    private static function _urlPostProcessing(&$request, 
+        TubePressStorage_v160 $stored)
+    {
         
         $perPage = $stored->
             getCurrentValue(TubePressDisplayOptions::RESULTS_PER_PAGE);
-        $filter = $stored->getCurrentValue(TubePressAdvancedOptions::filter);
-        $order = $stored->getCurrentValue(TubePressDisplayOptions::orderBy);
-        $mode = $stored->getCurrentValue(TubePressGalleryOptions::mode);
+        $filter  = $stored->getCurrentValue(TubePressAdvancedOptions::FILTER);
+        $order   = $stored->getCurrentValue(TubePressDisplayOptions::ORDER_BY);
+        $mode    = $stored->getCurrentValue(TubePressGalleryOptions::MODE);
         
         $currentPage = TubePressStatic::getPageNum();
         
@@ -333,33 +335,76 @@ abstract class TubePressGallery
             $requestURL->addQueryString("racy", "include");
         }
       
-        if ($mode != TubePressGalleryValue::playlist) {
+        if ($mode != TubePressGalleryValue::PLAYLIST) {
             $requestURL->addQueryString("orderby", $order);
         }       
         
         $request = $requestURL->getURL();
     }
-    
-    /* getters */
+
+    /**
+     * Gets the title of this gallery
+     * 
+     * @return string The title of this gallery
+     */
     public final function getTitle()
     {
         return $this->_title;
     }
     
+    /**
+     * Gets the name of this gallery
+     * 
+     * @return string The name of this gallery
+     */
     public final function getName()
     {
         return $this->_name;
     }
     
+    /**
+     * Gets the description of this gallery
+     * 
+     * @return string The description of this gallery
+     */
     public final function getDescription()
     {
         return $this->_description;
     }
     
-    /* setters */
-    protected final function setTitle($newTitle) { $this->_title = $newTitle; }
-    protected final function setName($newName) { $this->_name = $newName; }
-    protected final function setDescription($newDesc) {
-        $this->_description = $newDesc; }
+    /**
+     * Sets the title of this gallery
+     * 
+     * @param string $newTitle The new title of the gallery
+     * 
+     * @return void
+     */
+    protected final function setTitle($newTitle)
+    {
+        $this->_title = $newTitle;
+    }
     
+    /**
+     * Sets the name of this gallery
+     * 
+     * @param string $newName The new name of the gallery
+     * 
+     * @return void
+     */
+    protected final function setName($newName)
+    { 
+        $this->_name = $newName;
+    }
+    
+    /**
+     * Sets the description of this gallery
+     * 
+     * @param string $newDesc The new description of the gallery
+     * 
+     * @return void
+     */
+    protected final function setDescription($newDesc)
+    {
+        $this->_description = $newDesc;
+    }
 }

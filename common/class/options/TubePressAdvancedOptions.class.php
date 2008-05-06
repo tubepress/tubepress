@@ -21,7 +21,7 @@
 class TubePressAdvancedOptions extends TubePressOptionsCategory {
     
     const debugEnabled = "debugging_enabled";
-    const filter = "filter_racy";
+    const FILTER = "filter_racy";
 	const RANDOM_THUMBS = "randomize_thumbnails";
 	const timeout = "timeout";
 	const triggerWord = "keyword";
@@ -68,12 +68,12 @@ class TubePressAdvancedOptions extends TubePressOptionsCategory {
                 )
             ),
             
-            TubePressAdvancedOptions::filter => new TubePressOption(
-                TubePressAdvancedOptions::filter,
+            TubePressAdvancedOptions::FILTER => new TubePressOption(
+                TubePressAdvancedOptions::FILTER,
             	"Filter \"racy\" content",
                 "Don't show videos that may not be suitable for minors.",
                 new TubePressBoolValue(
-                    TubePressAdvancedOptions::filter,
+                    TubePressAdvancedOptions::FILTER,
                     true
                 )
             ),

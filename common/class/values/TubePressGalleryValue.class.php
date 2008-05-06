@@ -21,11 +21,11 @@
 class TubePressGalleryValue extends TubePressEnumValue {
     
   	/* All valid gallery types here */
-	const favorites = 	"favorites";
+	const FAVORITES = 	"favorites";
 	const tag = 		"tag";
     const user= 		"user";
-    const playlist = 	"playlist";
-    const featured = 	"featured";
+    const PLAYLIST = 	"playlist";
+    const FEATURED = 	"featured";
     const popular = 	"popular";
     const top_rated = 	"top_rated";
     const mobile = 		"mobile";
@@ -44,11 +44,11 @@ class TubePressGalleryValue extends TubePressEnumValue {
     public function __construct($theName, array $theGalleries) {
 
         parent::__construct($theName, array(
-            TubePressGalleryValue::favorites,
+            TubePressGalleryValue::FAVORITES,
             TubePressGalleryValue::tag,
             TubePressGalleryValue::user,
-            TubePressGalleryValue::playlist,
-            TubePressGalleryValue::featured,
+            TubePressGalleryValue::PLAYLIST,
+            TubePressGalleryValue::FEATURED,
             TubePressGalleryValue::popular,
             TubePressGalleryValue::top_rated,
             TubePressGalleryValue::mobile,

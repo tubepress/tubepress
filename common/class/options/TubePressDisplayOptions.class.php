@@ -21,19 +21,19 @@
 class TubePressDisplayOptions extends TubePressOptionsCategory {
     
     const CURRENT_PLAYER_NAME = "playerLocation";
-	const orderBy = "orderBy";
+	const ORDER_BY = "orderBy";
 	const RESULTS_PER_PAGE = "resultsPerPage";
-    const thumbHeight = "thumbHeight";
-	const thumbWidth = "thumbWidth";
+    const THUMB_HEIGHT = "thumbHeight";
+	const THUMB_WIDTH = "thumbWidth";
 
 	public function __construct() {
 	    
         $this->setTitle("Gallery options");
         
-        $thumbHeightValue = new TubePressIntValue(TubePressDisplayOptions::thumbHeight, 90);
+        $thumbHeightValue = new TubePressIntValue(TubePressDisplayOptions::THUMB_HEIGHT, 90);
         $thumbHeightValue->setMax(90);
         
-        $thumbWidthValue = new TubePressIntValue(TubePressDisplayOptions::thumbWidth, 120);
+        $thumbWidthValue = new TubePressIntValue(TubePressDisplayOptions::THUMB_WIDTH, 120);
         $thumbWidthValue->setMax(120);
         
         $resultsPerPageValue = new TubePressIntValue(TubePressDisplayOptions::RESULTS_PER_PAGE, 20);
@@ -48,18 +48,18 @@ class TubePressDisplayOptions extends TubePressOptionsCategory {
                     new TPNormalPlayer())
             ),
             
-            TubePressDisplayOptions::thumbHeight => new TubePressOption(
-                TubePressDisplayOptions::thumbHeight,
+            TubePressDisplayOptions::THUMB_HEIGHT => new TubePressOption(
+                TubePressDisplayOptions::THUMB_HEIGHT,
                 "Height (px) of thumbs",
                 "Default (and maximum) is 90",
                 $thumbHeightValue
             ),
                 
-            TubePressDisplayOptions::thumbWidth => new TubePressOption(
-                TubePressDisplayOptions::thumbWidth,
+            TubePressDisplayOptions::THUMB_WIDTH => new TubePressOption(
+                TubePressDisplayOptions::THUMB_WIDTH,
                 "Width (px) of thumbs",
                 "Default (and maximum) is 120",
-                $thumbWidthValue
+                $THUMB_WIDTHValue
            ),
            
            TubePressDisplayOptions::RESULTS_PER_PAGE => new TubePressOption(
@@ -69,11 +69,11 @@ class TubePressDisplayOptions extends TubePressOptionsCategory {
                 $resultsPerPageValue
             ),
             
-           TubePressDisplayOptions::orderBy => new TubePressOption(
-               TubePressDisplayOptions::orderBy,
+           TubePressDisplayOptions::ORDER_BY => new TubePressOption(
+               TubePressDisplayOptions::ORDER_BY,
                "Order videos by",
                "",
-               new TubePressOrderValue(TubePressDisplayOptions::orderBy)
+               new TubePressOrderValue(TubePressDisplayOptions::ORDER_BY)
            )
         ));
 	}

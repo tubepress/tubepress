@@ -23,7 +23,7 @@ class TubePressPlaylistGallery extends TubePressGallery implements TubePressHasV
     private $playlistId;
     
     public function __construct() {
-        $this->setName(TubePressGalleryValue::playlist);
+        $this->setName(TubePressGalleryValue::PLAYLIST);
         $this->setTitle("This playlist");
         $this->setDescription("Limited to 200 videos per playlist." .
             " Will usually look something like this:" .
@@ -31,7 +31,7 @@ class TubePressPlaylistGallery extends TubePressGallery implements TubePressHasV
             "URL in your browser's address bar (while looking at a YouTube " .
             "playlist). It comes right after the 'p='. For instance: " .
             "http://youtube.com/my_playlists?p=D2B04665B213AE35");
-        $this->playlistId = new TubePressTextValue(TubePressGalleryValue::playlist . "Value", "D2B04665B213AE35");
+        $this->playlistId = new TubePressTextValue(TubePressGalleryValue::PLAYLIST . "Value", "D2B04665B213AE35");
     }
     
     protected final function getRequestURL() {

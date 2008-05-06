@@ -20,7 +20,7 @@
  */
 class TubePressGalleryOptions extends TubePressOptionsCategory {
     
-    const mode = "mode";
+    const MODE = "mode";
     
     private $galleries;
     
@@ -30,10 +30,10 @@ class TubePressGalleryOptions extends TubePressOptionsCategory {
     
         $this->galleries = array(
             TubePressGalleryValue::top_rated => new TubePressTopRatedGallery(),
-            TubePressGalleryValue::favorites => new TubePressFavoritesGallery(),
-            TubePressGalleryValue::featured => new TubePressFeaturedGallery(),
+            TubePressGalleryValue::FAVORITES => new TubePressFavoritesGallery(),
+            TubePressGalleryValue::FEATURED => new TubePressFeaturedGallery(),
             TubePressGalleryValue::mobile => new TubePressMobileGallery(),
-            TubePressGalleryValue::playlist => new TubePressPlaylistGallery(),
+            TubePressGalleryValue::PLAYLIST => new TubePressPlaylistGallery(),
             TubePressGalleryValue::popular => new TubePressPopularGallery(),
             TubePressGalleryValue::tag => new TubePressSearchGallery(),
             TubePressGalleryValue::user => new TubePressUserGallery(),
@@ -44,10 +44,10 @@ class TubePressGalleryOptions extends TubePressOptionsCategory {
         );
         
         $this->setOptions(array(
-            TubePressGalleryOptions::mode => new TubePressOption(
-                TubePressGalleryOptions::mode,
+            TubePressGalleryOptions::MODE => new TubePressOption(
+                TubePressGalleryOptions::MODE,
             	" ", " ",
-                new TubePressGalleryValue(TubePressGalleryOptions::mode, $this->galleries)
+                new TubePressGalleryValue(TubePressGalleryOptions::MODE, $this->galleries)
             )));
     }
     
@@ -61,7 +61,7 @@ class TubePressGalleryOptions extends TubePressOptionsCategory {
             $tpl->setVariable("OPTION_DESC", $gallery->getDescription());
             $tpl->setVariable("OPTION_NAME", $gallery->getName());
             
-            if ($this->get(TubePressGalleryOptions::mode)->getValue()->getCurrentValue() == $gallery->getName()) {
+            if ($this->get(TubePressGalleryOptions::MODE)->getValue()->getCurrentValue() == $gallery->getName()) {
                 $tpl->setVariable("OPTION_SELECTED", "CHECKED");
             }
             

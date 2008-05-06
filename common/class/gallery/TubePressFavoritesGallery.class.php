@@ -18,28 +18,49 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
+/**
+ * A gallery of a user's "favorite" videos from YouTube
+ */
 class TubePressFavoritesGallery extends TubePressGallery 
     implements TubePressHasValue
 {
     
     private $_user;
     
-    public function __construct() {
-        $this->setName(TubePressGalleryValue::favorites);
+    /**
+     * Default constructor
+     */
+    public function __construct()
+    {
+        $this->setName(TubePressGalleryValue::FAVORITES);
         $this->setTitle("This YouTube user's \"favorites\"");
         $this->setDescription("YouTube limits this mode to the " . \
             "latest 500 favorites");
         $this->_user = 
-            new TubePressTextValue(TubePressGalleryValue::favorites . \
+            new TubePressTextValue(TubePressGalleryValue::FAVORITES . \
             "Value", "mrdeathgod");
     }
-     
-    protected final function getRequestURL() {
+    
+    /**
+     * Defines where to fetch this gallery's feed
+     * 
+     * @return string The location of this gallery's feed from YouTube 
+     */
+    protected final function getRequestURL()
+    {
         return "http://gdata.youtube.com/feeds/api/users/"
             . $this->getValue()->getCurrentValue() . "/favorites";
     }
     
-    public function &getValue() {
+    /**
+     * Returns the current user for which we're retrieving favorites
+     * 
+     * @return TubePressTextValue The YouTube user whose favorites we're
+     *                             fetching 
+     */
+    public function &getValue()
+    {
         return $this->_user;
     }
 }
