@@ -72,7 +72,7 @@ class TubePressDisplayOptions extends TubePressOptionsCategory
                     TubePressDisplayOptions::THUMB_WIDTH,
                     "Width (px) of thumbs",
                 "Default (and maximum) is 120",
-                $THUMB_WIDTHValue
+                $thumbWidthValue
            ),
            
            TubePressDisplayOptions::RESULTS_PER_PAGE => new TubePressOption(
