@@ -18,9 +18,26 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class TubePressMetaProcessor {
+
+/**
+ * Handles the parsing of the meta info below each video thumbnail
+ *
+ */
+class TubePressMetaProcessor
+{
     
-    public static function process(TubePressVideo $vid, TubePressStorage_v160 $stored, $link, HTML_Template_IT &$tpl) {
+	/**
+	 * Parses a single video's meta information into a template
+	 *
+	 * @param TubePressVideo        $vid    The video to parse
+	 * @param TubePressStorage_v160 $stored The TubePressStorage object
+	 * @param string                $link   The link that will play the video
+	 * @param HTML_Template_IT      &$tpl   The HTML template to parse into
+	 * 
+	 * @return void
+	 */
+    public static function process(TubePressVideo $vid, 
+        TubePressStorage_v160 $stored, $link, HTML_Template_IT &$tpl) {
         
         $metaOpts = $stored->getMetaOptions()->getOptions();
 
@@ -77,7 +94,8 @@ class TubePressMetaProcessor {
                        
                     switch ($metaOpt->getName()) {
                            case TubePressMetaOptions::views:
-                               $tpl->setVariable('METAVALUE', $vid->getViewCount());
+                               $tpl->setVariable('METAVALUE', 
+                                   $vid->getViewCount());
                                break;
                            case TubePressMetaOptions::id:
                                $tpl->setVariable('METAVALUE', $vid->getId());
@@ -91,7 +109,9 @@ class TubePressMetaProcessor {
                            case TubePressMetaOptions::uploaded:
                                $niceDate = $vid->getUploadTime();
                             if ($niceDate != "N/A") {
-                                $niceDate = date($stored->getCurrentValue(TubePressAdvancedOptions::dateFormat), $vid->getUploadTime());
+                                $niceDate = date($stored->
+                                	getCurrentValue(TubePressAdvancedOptions::dateFormat), 
+                                	$vid->getUploadTime());
                             }
                             $tpl->setVariable('METAVALUE', $niceDate);
                             break;
@@ -105,4 +125,3 @@ class TubePressMetaProcessor {
             
     }
 }
-?>

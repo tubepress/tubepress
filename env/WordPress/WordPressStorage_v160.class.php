@@ -148,7 +148,7 @@ class WordPressStorage_v160 extends TubePressStorage_v160
                 $val->updateManually($customOptions[$customOption]);
                 
                 /* if this is a mode that takes on a value, try to set that value too */
-                if ($customOption == TubePressGalleryOptions::mode) {
+                if ($customOption == TubePressGalleryOptions::MODE) {
                     $gallery = $this->getGalleryOptions()->getGallery($customOptions[$customOption]);
                     if ($gallery instanceof TubePressHasValue) {
                        $gallery->getValue()->updateManually($customOptions[$customOptions[$customOption] . "Value"]);
