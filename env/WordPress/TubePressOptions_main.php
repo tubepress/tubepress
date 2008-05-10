@@ -35,6 +35,11 @@ require_once(dirname(__FILE__) . "/../../tubepress_classloader.php");
             throw new Exception("Problem retrieving options from database");
         }
 
+        if (isset($_GET['init'])) {
+        	delete_option("tubepress");
+        	WordPressStorage_v160::initDB();
+        }
+        
         /* are we updating? */
         if (isset($_POST['tubepress_save'])) {
         	try {
