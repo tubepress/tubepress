@@ -14,12 +14,13 @@ function tp_main($content = '')
             return $content;
         }
         
-        $tpom = new TubePressOptionsManager(new WordPressStorageManager());
+        $wpsm = new WordPressStorageManager();
+        $tpom = new TubePressOptionsManager($wpsm);
         TubePressTag::parse($content, &$tpom);
         
-//        if (TubePressStatic::areWeDebugging($stored)) {
-//        	TubePressStatic::debugEnvironment($stored);
-//        }
+        if (TubePressDebug::areWeDebugging($tpom)) {
+        	TubePressDebug::execute($tpom, $wpsm);
+        }
         
         $modeName = $tpom->get(TubePressGalleryOptions::MODE);
         $gallery = new TubePressGallery();
@@ -39,7 +40,6 @@ function tp_main($content = '')
  */
 function tp_insertCSSJS()
 {
-    
     global $tubepress_base_url;
     $url = $tubepress_base_url . "/common";
     print<<<GBS
@@ -66,8 +66,8 @@ GBS;
     }
 }
 
-function tp_shouldWeExecute($content) {
-    
+function tp_shouldWeExecute($content)
+{    
 	$wpsm = new WordPressStorageManager();
 	
     $trigger = $wpsm->get(TubePressAdvancedOptions::KEYWORD);

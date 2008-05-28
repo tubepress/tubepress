@@ -18,33 +18,27 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
-
-class WordPressStorageManager extends TubePressStorageManager
-{
-    protected function setOption($optionName, $optionValue)
+class TubePressDebug {
+	
+    public static final function execute(TubePressOptionsManager $tpom, TubePressStorageManager $tpsm)
     {
-    	update_option("tubepress-$optionName", $optionValue);
+    	global $tubepress_base_url;
+    	$tpomAsString = print_r($tpom, true);
+    	$tpsmAsString = $tpsm->debug();
+
+    	echo "<ol>";
+    	echo "<li>tubepress_base_url<code><pre>$tubepress_base_url</pre></code></li>";
+    	echo "<li>Your options manager: <code><pre>$tpomAsString</pre></code></li>";
+    	echo "<li>Your storage manager: <code><pre>$tpsmAsString</pre></code></li>";	
+    	echo "</ol>";
+    }
+    
+    public static final function areWeDebugging(TubePressOptionsManager $tpom)
+    {
+    	$enabled = $tpom->get(TubePressAdvancedOptions::DEBUG_ON);
+    	return $enabled
+    		&& isset($_GET['tubepress_debug'])
+    		&& ($_GET['tubepress_debug'] == 'true');
     }
 	
-	public function get($optionName)
-	{
-		return get_option("tubepress-$optionName");
-	}
-	
-	protected function delete($optionName)
-	{
-		delete_option($optionName);
-	}
-	
-	protected function create($optionName, $optionValue)
-	{
-		add_option("tubepress-$optionName", $optionValue);
-	}
-	
-	public function exists($optionName)
-	{
-		return get_option("tubepress-$optionName") !== FALSE;
-	}
 }
-?>

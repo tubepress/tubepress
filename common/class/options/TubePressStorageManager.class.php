@@ -228,4 +228,61 @@ abstract class TubePressStorageManager {
 	protected abstract function create($optionName, $optionValue);
 	
 	public abstract function exists($optionName);
+	
+	public function debug()
+	{
+		$allOpts = array(
+			TubePressAdvancedOptions::DATEFORMAT,
+			TubePressAdvancedOptions::DEBUG_ON,
+			TubePressAdvancedOptions::FILTER,
+			TubePressAdvancedOptions::KEYWORD,
+			TubePressAdvancedOptions::RANDOM_THUMBS,
+			TubePressDisplayOptions::CURRENT_PLAYER_NAME,
+			TubePressDisplayOptions::ORDER_BY,
+			TubePressDisplayOptions::RESULTS_PER_PAGE,
+			TubePressDisplayOptions::THUMB_HEIGHT,
+			TubePressDisplayOptions::THUMB_WIDTH,
+			TubePressEmbeddedOptions::AUTOPLAY,
+			TubePressEmbeddedOptions::BORDER,
+			TubePressEmbeddedOptions::EMBEDDED_HEIGHT,
+			TubePressEmbeddedOptions::EMBEDDED_WIDTH,
+			TubePressEmbeddedOptions::GENIE,
+			TubePressEmbeddedOptions::LOOP,
+			TubePressEmbeddedOptions::PLAYER_COLOR,
+			TubePressEmbeddedOptions::SHOW_RELATED,
+			TubePressGalleryOptions::MODE,
+			TubePressGalleryOptions::FAVORITES_VALUE,
+			TubePressGalleryOptions::MOST_VIEWED_VALUE,
+			TubePressGalleryOptions::PLAYLIST_VALUE,
+			TubePressGalleryOptions::TAG_VALUE,
+			TubePressGalleryOptions::TOP_RATED_VALUE,
+			TubePressGalleryOptions::USER_VALUE,
+			TubePressMetaOptions::AUTHOR,
+			TubePressMetaOptions::CATEGORY,
+			TubePressMetaOptions::DESCRIPTION,
+			TubePressMetaOptions::ID,
+			TubePressMetaOptions::LENGTH,
+			TubePressMetaOptions::RATING,
+			TubePressMetaOptions::RATINGS,
+			TubePressMetaOptions::TAGS,
+			TubePressMetaOptions::TITLE,
+			TubePressMetaOptions::UPLOADED,
+			TubePressMetaOptions::URL,
+			TubePressMetaOptions::VIEWS
+		);
+		
+		$result = "Should have " . sizeof($allOpts) . " options total";
+		
+		$result .= "<ol>";
+		foreach ($allOpts as $opt) {
+			if ($this->exists($opt)) {
+				$result .= "<li><font color=\"green\">$opt exists and its value is \"" . $this->get($opt) . "\"</font></li>";
+			} else {
+				$result .= "<li><font color=\"red\">$opt does not exist!</font></li>";
+			}
+			
+		}
+		$result .= "</ol>";
+		return $result;
+	}
 }
