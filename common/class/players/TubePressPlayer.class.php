@@ -22,19 +22,14 @@
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
-abstract class TubePressPlayer implements TubePressHasTitle, TubePressHasName
+abstract class TubePressPlayer
 {
-	const newWindow = "new_window";
-	const youTube = "youtube";
-	const normal = "normal";
-	const popup = "popup";
-	const greyBox = "greybox";
-	const lightWindow = "lightwindow";
-	const shadowBox = "shadowbox";
-	
-	private $title;
-	private $value;
-	private $name;
+	const GREYBOX 		= "greybox";
+	const LIGHTWINDOW 	= "lightwindow";
+	const NORMAL 		= "normal";
+	const POPUP 		= "popup";
+	const SHADOWBOX 	= "shadowbox";
+	const YOUTUBE 		= "youtube";
 	
 	/*
 	 * for each player, we want to know which CSS
@@ -94,38 +89,25 @@ abstract class TubePressPlayer implements TubePressHasTitle, TubePressHasName
 	    $this->_cssLibs = $cssLibs;
 	}
 	
-	protected final function setTitle($newTitle) {
-	    $this->title = $newTitle;
-	}
-	
-	protected final function setName($newName) {
-	    $this->name = $newName;
-	}
-	
-	public final function getTitle() { return $this->title; }
-	public final function getName() { return $this->name; }
-	
-	public abstract function getPlayLink(TubePressVideo $vid, TubePressStorage_v160 $stored);
+	public abstract function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom);
 	
 	public static function getInstance($name) {
 	    switch ($name) {
-	        case TubePressPlayer::normal:
+	        case TubePressPlayer::NORMAL:
 	            return new TPNormalPlayer();
 	            break;
-	        case TubePressPlayer::greyBox:
+	        case TubePressPlayer::GREYBOX:
 	        	return new TPGreyBoxPlayer();
 	        	break;
-	        case TubePressPlayer::popup:
+	        case TubePressPlayer::POPUP:
 	        	return new TPPopupPlayer();
 	        	break;
-	        case TubePressPlayer::youTube:
+	        case TubePressPlayer::YOUTUBE:
 	        	return new TPYouTubePlayer();
 	        	break;
-	        case TubePressPlayer::lightWindow:
+	        case TubePressPlayer::LIGHTWINDOW:
 	        	return new TPlightWindowPlayer();
-	        case TubePressPlayer::greyBox:
-	        	return new TPGreyBoxPlayer();
-	        case TubePressPlayer::shadowBox:
+	        case TubePressPlayer::SHADOWBOX:
 	        	return new TPShadowBoxPlayer();
 	        default:
 	            throw new Exception("No such player with name '" . $name . "'");

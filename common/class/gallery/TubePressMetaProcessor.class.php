@@ -25,7 +25,6 @@
  */
 class TubePressMetaProcessor
 {
-    
 	/**
 	 * Parses a single video's meta information into a template
 	 *
@@ -37,46 +36,47 @@ class TubePressMetaProcessor
 	 * @return void
 	 */
     public static function process(TubePressVideo $vid, 
-        TubePressStorage_v160 $stored, $link, HTML_Template_IT &$tpl) {
+        TubePressOptionsManager $tpom, $link, HTML_Template_IT &$tpl) {
         
-        $metaOpts = $stored->getMetaOptions()->getOptions();
+        $class = new ReflectionClass("TubePressMetaOptions");	
 
-        foreach ($metaOpts as $metaOpt) {
-            
-            if ($metaOpt->getValue()->getCurrentValue() === false) {
+        /* go through each option in the category */
+        foreach($class->getConstants() as $constant) {
+
+            if ($tpom->get($constant) != 1) {
                 continue;
             }
             
-            switch ($metaOpt->getName()) {
+            switch ($constant) {
                 
-                case TubePressMetaOptions::title:
+                case TubePressMetaOptions::TITLE:
                     $tpl->setVariable('PLAYLINK', $link);
                     $tpl->setVariable('TITLE', $vid->getTitle());
                     $tpl->parse('title');
                     break;
                     
-                case TubePressMetaOptions::length:
+                case TubePressMetaOptions::LENGTH:
                     $tpl->setVariable('RUNTIME', $vid->getRuntime());
                     $tpl->parse('runtime');
                     break;
                     
-                case TubePressMetaOptions::description:
+                case TubePressMetaOptions::DESCRIPTION:
                     $tpl->setVariable('DESCRIPTION', $vid->getDescription());
                     $tpl->parse('description');
                     break;
                 
-                case TubePressMetaOptions::author:
-                    $opt = $metaOpts[TubePressMetaOptions::author];
-                    $tpl->setVariable('METANAME', $opt->getTitle());
+                case TubePressMetaOptions::AUTHOR:
+                    $opt = $metaOpts[TubePressMetaOptions::AUTHOR];
+                    $tpl->setVariable('METANAME', TpMsg::_("video-" . $constant));
                     $tpl->setVariable('AUTHOR', $vid->getAuthor());
                     $tpl->parse('author');
                     break;
                     
-                case TubePressMetaOptions::tags:
+                case TubePressMetaOptions::TAGS:
                     $tags = explode(" ", $vid->getTags());
                     $tags = implode("%20", $tags);
-                    $opt = $metaOpts[TubePressMetaOptions::tags];
-                    $tpl->setVariable('METANAME', $opt->getTitle());
+                    $opt = $metaOpts[TubePressMetaOptions::TAGS];
+                    $tpl->setVariable('METANAME', TpMsg::_("video-" . $constant));
                     $tpl->setVariable('SEARCHSTRING', $tags);
                     $tpl->setVariable('TAGS', $vid->getTags());
                     $tpl->parse('tags');
@@ -85,37 +85,37 @@ class TubePressMetaProcessor
                 case TubePressMetaOptions::URL:
                     $opt = $metaOpts[TubePressMetaOptions::URL];
                     $tpl->setVariable('LINKVALUE', $vid->getURL());
-                    $tpl->setVariable('LINKTEXT', "YouTube link");
+                    $tpl->setVariable('LINKTEXT', TpMsg::_("video-" . $constant));
                     $tpl->parse('url');
                     break;
                 
                 default:
-                    $tpl->setVariable('METANAME', $metaOpt->getTitle());
+                    $tpl->setVariable('METANAME', TpMsg::_("video-" . $constant));
                        
-                    switch ($metaOpt->getName()) {
-                           case TubePressMetaOptions::views:
+                    switch ($constant) {
+                           case TubePressMetaOptions::VIEWS:
                                $tpl->setVariable('METAVALUE', 
                                    $vid->getViewCount());
                                break;
-                           case TubePressMetaOptions::id:
+                           case TubePressMetaOptions::ID:
                                $tpl->setVariable('METAVALUE', $vid->getId());
                                break;
-                           case TubePressMetaOptions::rating:
+                           case TubePressMetaOptions::RATING:
                                $tpl->setVariable('METAVALUE', $vid->getRatingAverage());
                                break;
-                           case TubePressMetaOptions::ratings:
+                           case TubePressMetaOptions::RATINGS:
                                $tpl->setVariable('METAVALUE', $vid->getRatingCount());
                                break;
-                           case TubePressMetaOptions::uploaded:
+                           case TubePressMetaOptions::UPLOADED:
                                $niceDate = $vid->getUploadTime();
                             if ($niceDate != "N/A") {
-                                $niceDate = date($stored->
-                                	getCurrentValue(TubePressAdvancedOptions::dateFormat), 
+                                $niceDate = date($tpom->
+                                	get(TubePressAdvancedOptions::DATEFORMAT), 
                                 	$vid->getUploadTime());
                             }
                             $tpl->setVariable('METAVALUE', $niceDate);
                             break;
-                        case TubePressMetaOptions::category:
+                        case TubePressMetaOptions::CATEGORY:
                             $tpl->setVariable('METAVALUE', $vid->getCategory());
                        }
             }

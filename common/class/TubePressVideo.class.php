@@ -127,7 +127,7 @@ class TubePressVideo
     private function _getRatings() {
     	$count = $this->domElement->getElementsByTagNameNS(TubePressVideo::ns_gd, 'rating')->item(0);
     	if ($count != NULL) {
-        	return $count->getAttribute('numRaters');
+        	return number_format($count->getAttribute('numRaters'));
 		}
         return "0";
     }

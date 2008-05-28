@@ -22,22 +22,17 @@
  * Plays videos at the top of a gallery
  */
 class TPNormalPlayer extends TubePressPlayer 
-{
-    public function __construct() {
-        $this->setName(TubePressPlayer::normal);
-        $this->setTitle("normally (at the top of your gallery)");
-    }
-	
+{	
 	/**
 	 * Tells the gallery how to play the videos
 	 */
-	public function getPlayLink(TubePressVideo $vid, TubePressStorage_v160 $stored)
+	public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
 	{
-	    $embed = new TubePressEmbeddedPlayer($vid, $stored);
+	    $embed = new TubePressEmbeddedPlayer($vid, $tpom);
 	    
 	    return "href='#' onclick='tubePress_normalPlayer(" .
             "\"" . rawurlencode($embed->toString()) . "\", " .
-	    	$stored->getCurrentValue(TubePressEmbeddedOptions::EMBEDDED_WIDTH) .
+	    	$tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH) .
 	    	", \"" . rawurlencode($vid->getTitle()) . "\")'";
 	}
 }

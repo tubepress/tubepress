@@ -46,8 +46,8 @@ final class TubePressStatic
      */
     public static final function getPageNum()
     {
-        $pageNum = ((isset($_GET[TubePressGallery::PAGE_PARAM]))?
-            $_GET[TubePressGallery::PAGE_PARAM] : 1);
+        $pageNum = ((isset($_GET["tubepress_page"]))?
+            $_GET["tubepress_page"] : 1);
             if (!is_numeric($pageNum)
                 || ($pageNum < 1)) {
                 $pageNum = 1;

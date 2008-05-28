@@ -18,9 +18,33 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-interface TubePressHasDescription {
+
+
+class WordPressStorageManager extends TubePressStorageManager
+{
+    protected function setOption($optionName, $optionValue)
+    {
+    	update_option("tubepress-$optionName", $optionValue);
+    }
 	
-	function getDescription();
+	public function get($optionName)
+	{
+		return get_option("tubepress-$optionName");
+	}
 	
+	protected function delete($optionName)
+	{
+		delete_option($optionName);
+	}
+	
+	protected function create($optionName, $optionValue)
+	{
+		add_option("tubepress-$optionName", $optionValue);
+	}
+	
+	public function exists($optionName)
+	{
+		return get_option("tubepress-$optionName") != NULL;
+	}
 }
 ?>

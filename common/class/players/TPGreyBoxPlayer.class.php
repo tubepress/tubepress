@@ -24,9 +24,6 @@
 class TPGreyBoxPlayer extends TubePressPlayer
 {
     public function __construct() {
-        $this->setName(TubePressPlayer::lightWindow);
-        $this->setTitle("with GreyBox (experimental)");
-   	
 	    global $tubepress_base_url;
 
 		$gbURL = $tubepress_base_url . "/lib/greybox/";
@@ -45,14 +42,14 @@ class TPGreyBoxPlayer extends TubePressPlayer
 	/**
 	 * Tells the gallery how to play the vids
 	 */
-	public function getPlayLink(TubePressVideo $vid, TubePressStorage_v160 $stored)
+	public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
 	{
 	    global $tubepress_base_url;
 
 	    $title = $vid->getTitle();
-	    $height = $stored->getCurrentValue(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
-	    $width = $stored->getCurrentValue(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
-		$embed = new TubePressEmbeddedPlayer($vid, $stored);
+	    $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
+	    $width = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
+		$embed = new TubePressEmbeddedPlayer($vid, $tpom);
 		
 	    $url = new Net_URL($tubepress_base_url . "/common/ui/popup.php");
 	    $url->addQueryString("embed", $embed->toString());

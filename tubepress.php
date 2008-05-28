@@ -26,18 +26,23 @@ You should have received a copy of the GNU General Public License
 along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/* load up the options page */
 function_exists("tp_executeOptionsPage")
-    || require("env/WordPress/TubePressOptions.php");
+	|| require("env/WordPress/TubePressOptions.php");
 
-function_exists("tp_classFolder")
-	|| require("tubepress_classloader.php");
+/* load up the class loader */
+function_exists("tp_classFolder") || require("tubepress_classloader.php");
     
 isset($tubepress_base_url)
     || $tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
-
+    
+load_plugin_textdomain("tubepress", 'wp-content/plugins/tubepress/common/messages');
+    
+/* only load the rest if they have PHP5 installed and we haven't already loaded */
 if (substr(phpversion(), 0, 1) == "5" && !function_exists("tp_main")) {
 	include("tubepress_main.php");
 }
 
+/* adds the options page */
 add_action('admin_menu',  'tp_executeOptionsPage');
 ?>

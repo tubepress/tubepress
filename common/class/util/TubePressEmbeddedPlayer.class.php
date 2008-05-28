@@ -22,17 +22,17 @@ class TubePressEmbeddedPlayer {
 	
 	private $asString;
 	
-	public function __construct(TubePressVideo $vid, TubePressStorage_v160 $stored) {
+	public function __construct(TubePressVideo $vid, TubePressOptionsManager $tpom) {
 		$id = $vid->getId();
-		$height = $stored->getCurrentValue(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
-		$width = $stored->getCurrentValue(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
-		$rel = $stored->getCurrentValue(TubePressEmbeddedOptions::showRelated)? "1" : "0";
-		$colors = $stored->getCurrentValue(TubePressEmbeddedOptions::playerColor);
-		$autoPlay = $stored->getCurrentValue(TubePressEmbeddedOptions::autoplay)? "1" : "0";
-		$loop = $stored->getCurrentValue(TubePressEmbeddedOptions::loop)? "1" : "0";
-		$egm = $stored->getCurrentValue(TubePressEmbeddedOptions::genie)? "1" : "0";
-		$border = $stored->getCurrentValue(TubePressEmbeddedOptions::border)? "1" : "0";
-		
+		$height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
+		$width = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
+		$rel = $tpom->get(TubePressEmbeddedOptions::SHOW_RELATED)? "1" : "0";
+		$colors = $tpom->get(TubePressEmbeddedOptions::PLAYER_COLOR);
+		$autoPlay = $tpom->get(TubePressEmbeddedOptions::AUTOPLAY)? "1" : "0";
+		$loop = $tpom->get(TubePressEmbeddedOptions::LOOP)? "1" : "0";
+		$egm = $tpom->get(TubePressEmbeddedOptions::GENIE)? "1" : "0";
+		$border = $tpom->get(TubePressEmbeddedOptions::BORDER)? "1" : "0";
+
 		$link = "http://www.youtube.com/v/$id";
 		
 		if ($colors != "/") {

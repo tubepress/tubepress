@@ -21,38 +21,24 @@
 
 require_once(dirname(__FILE__) . "/../../tubepress_classloader.php");
     
-    /**
-     * This is where the fun stuff happens
-     */
-    function __tp_executeOptionsPage()
-    {
-		/* initialize the database if we need to */
-        WordPressStorage_v160::initDB();
-
-        /* see what we've got in the db */
-        $stored = get_option("tubepress");
-        if (!($stored instanceof TubePressStorage_v160)) {
-            throw new Exception("Problem retrieving options from database");
-        }
-
-        if (isset($_GET['init'])) {
-        	delete_option("tubepress");
-        	WordPressStorage_v160::initDB();
-        }
+/**
+ * This is where the fun stuff happens
+ */
+function __tp_executeOptionsPage()
+{
+	/* initialize the database if we need to */
+   	$wpsm = new WordPressStorageManager();
+    $wpsm->init();
         
-        /* are we updating? */
-        if (isset($_POST['tubepress_save'])) {
-        	try {
-	            TubePressOptionsForm::collect($stored, $_POST);
-	            update_option("tubepress", $stored);
-	            echo '<div id="message" class="updated fade"><p><strong>Options updated</strong></p></div>';
-        	} catch (Exception $error) {
-        		echo '<div id="message" class="error fade"><p><strong>' . $error->getMessage() . '</strong></p></div>';
-        	}
+    /* are we updating? */
+    if (isset($_POST['tubepress_save'])) {
+    	try {
+        	TubePressOptionsForm::collect($wpsm, $_POST);
+	        echo '<div id="message" class="updated fade"><p><strong>Options updated</strong></p></div>';
+        } catch (Exception $error) {
+        	echo '<div id="message" class="error fade"><p><strong>' . $error->getMessage() . '</strong></p></div>';
         }
-        
-        $newOptions = get_option("tubepress");
-        
-        TubePressOptionsForm::display($newOptions);
     }
-?>
+    
+    TubePressOptionsForm::display($wpsm);
+}

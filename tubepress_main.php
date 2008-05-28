@@ -14,19 +14,19 @@ function tp_main($content = '')
             return $content;
         }
         
-        $stored = get_option("tubepress");
-        $stored->parse($content);
+        $tpom = new TubePressOptionsManager(new WordPressStorageManager());
+        TubePressTag::parse($content, &$tpom);
         
-        if (TubePressStatic::areWeDebugging($stored)) {
-        	TubePressStatic::debugEnvironment($stored);
-        }
+//        if (TubePressStatic::areWeDebugging($stored)) {
+//        	TubePressStatic::debugEnvironment($stored);
+//        }
         
-        $modeName = $stored->getCurrentValue(TubePressGalleryOptions::MODE);
-        $gallery = $stored->getGalleryOptions()->getGallery($modeName);
-        $newcontent .= $gallery->generate($stored);
+        $modeName = $tpom->get(TubePressGalleryOptions::MODE);
+        $gallery = new TubePressGallery();
+        $newcontent .= $gallery->generate($tpom);
 
     	/* replace the tag with our new content */
-        return str_replace($stored->getTagString(), $newcontent, $content);
+        return str_replace($tpom->getTagString(), $newcontent, $content);
     
     } catch (Exception $e) {
         return $e->getMessage();
@@ -49,16 +49,15 @@ function tp_insertCSSJS()
         <link rel="stylesheet" href="$url/css/pagination.css" 
             type="text/css" />
 GBS;
+
+    $wpsm = new WordPressStorageManager();
     
-    $stored = get_option("tubepress");
-   
-    /* we're in the head here, so just return quietly */
-    if ($stored == NULL || !($stored instanceof TubePressStorage_v160)) {
-        return;
+    if ($wpsm->get(TubePressAdvancedOptions::KEYWORD) === NULL) {
+    	return;
     }
     
     try {
-        $playerName = $stored->getCurrentValue(TubePressDisplayOptions::CURRENT_PLAYER_NAME);
+        $playerName = $wpsm->get(TubePressDisplayOptions::CURRENT_PLAYER_NAME);
         $player = TubePressPlayer::getInstance($playerName);
         print $player->getHeadContents();
     } catch (Exception $e) {
@@ -69,18 +68,9 @@ GBS;
 
 function tp_shouldWeExecute($content) {
     
-    $stored = get_option("tubepress");
-    
-    if ($stored == NULL) {
-        return false;
-    }
-    
-    if (!($stored instanceof TubePressStorage_v160)) {
-        WordPressStorage_v160::initDB();
-        $stored = get_option("tubepress");
-    }
-    
-    $trigger = $stored->getCurrentValue(TubePressAdvancedOptions::triggerWord);
+	$wpsm = new WordPressStorageManager();
+	
+    $trigger = $wpsm->get(TubePressAdvancedOptions::KEYWORD);
     
     if (strpos($content, '[' . $trigger) === false) {
         return false;

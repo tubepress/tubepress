@@ -26,9 +26,6 @@
 class TPShadowBoxPlayer extends TubePressPlayer
 {
     public function __construct() {
-        $this->setName(TubePressPlayer::shadowBox);
-        $this->setTitle("with Shadowbox.js (experimental)");
-   	
 	    global $tubepress_base_url;
 
 		$sbUrl = $tubepress_base_url . "/lib/shadowbox/";
@@ -51,17 +48,26 @@ class TPShadowBoxPlayer extends TubePressPlayer
 	/**
 	 * Tells the gallery how to play the vids
 	 */
-	public function getPlayLink(TubePressVideo $vid, TubePressStorage_v160 $stored)
+	public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
 	{
 	    global $tubepress_base_url;
 
 	    $title = $vid->getTitle();
-	    $height = $stored->getCurrentValue(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
-	    $width = $stored->getCurrentValue(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
+	    $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
+	    $width = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
 
-	    return sprintf('href="http://youtube.com/v/%s" title="%s" ' .
+	    $embed = new TubePressEmbeddedPlayer($vid, $tpom);
+	    
+	    $url = new Net_URL($tubepress_base_url . "/common/ui/popup.php");
+	    $url->addQueryString("embed", $embed->toString());
+	    $url->addQueryString("name", $title);
+	    
+	    //return "href='#' onclick='tubePress_popup(" .
+        //    '"' .  . '",' . $height . ',' . $width . ')\''; 
+	    
+	    return sprintf('href="%s" title="%s" ' .
             'rel="shadowbox;height=%s;width=%s"',
-            $vid->getId(), $title, $height - 10, $width - 18);
+            $url->getURL(), $title, $height - 10, $width - 18);
 	}
 }
 ?>
