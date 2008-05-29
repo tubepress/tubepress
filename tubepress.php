@@ -4,7 +4,7 @@ Plugin Name: TubePress
 Plugin URI: http://tubepress.org
 Description: Display configurable YouTube galleries in your posts and/or pages
 Author: Eric D. Hough
-Version: 1.6.0
+Version: 1.6.0-svn
 Author URI: http://ehough.com
 
 
