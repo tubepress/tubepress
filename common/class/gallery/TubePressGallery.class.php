@@ -35,24 +35,24 @@ function_exists("sys_get_temp_dir")
  */
 class TubePressGallery
 {
-    const FAVORITES 		= "favorites";
-	const FEATURED 			= "featured";
-	const MOBILE 			= "mobile";
-    const MOST_DISCUSSESD 	= "most_discussed";
-    const MOST_LINKED 		= "most_linked";
-    const MOST_RECENT 		= "most_recent";
-    const MOST_RESPONDED 	= "most_responded";
-    const PLAYLIST 			= "playlist";
-    const POPULAR 			= "popular";
-	const TAG 				= "tag";
-	const TOP_RATED 		= "top_rated";
-    const USER				= "user";
+    const FAVORITES       = "favorites";
+    const FEATURED        = "featured";
+    const MOBILE          = "mobile";
+    const MOST_DISCUSSESD = "most_discussed";
+    const MOST_LINKED     = "most_linked";
+    const MOST_RECENT     = "most_recent";
+    const MOST_RESPONDED  = "most_responded";
+    const PLAYLIST        = "playlist";
+    const POPULAR         = "popular";
+    const TAG             = "tag";
+    const TOP_RATED       = "top_rated";
+    const USER            = "user";
     
     /**
      * Generates the content of this gallery
      * 
-     * @param TubePressStorage_v160 $stored The TubePress storage 
-     *        object containing all the user's options
+     * @param TubePressOptionsManager $tpom The TubePress options 
+     *        manager containing all the user's options
      * 
      * @return The HTML content for this gallery
      */
@@ -121,9 +121,9 @@ class TubePressGallery
      * 
      * TODO: move to normal player class? maybe an abstract method on player?
      * 
-     * @param TubePressVideo        $vid    The video to parse
-     * @param TubePressStorage_v160 $stored The TubePressStorage object
-     * @param HTML_Template_IT      &$tpl   HTML template to write to
+     * @param TubePressVideo          $vid  The video to parse
+     * @param TubePressOptionsManager $tpom The TubePress options manager
+     * @param HTML_Template_IT        &$tpl HTML template to write to
      * 
      * @return void
      */
@@ -154,9 +154,9 @@ class TubePressGallery
     /**
      * Handles the parsing of pagination links ("next" and "prev")
      * 
-     * @param int                   $vidCount The grand total video count
-     * @param TubePressStorage_v160 $stored   The TubePressStorage object
-     * @param HTML_Template_IT      &$tpl     The HTML template to write to
+     * @param int                     $vidCount The grand total video count
+     * @param TubePressOptionsManager $tpom     The TubePress options manager
+     * @param HTML_Template_IT        &$tpl     The HTML template to write to
      * 
      * @return void
      */
@@ -182,9 +182,9 @@ class TubePressGallery
      * The main method for printing out a single video 
      * thumbnail and the meta information for it
      * 
-     * @param TubePressVideo        $vid    The video to parse
-     * @param TubePressStorage_v160 $stored The TubePressStorage object
-     * @param HTML_Template_IT      &$tpl   The HTML template to write to
+     * @param TubePressVideo          $vid  The video to parse
+     * @param TubePressOptionsManager $tpom The TubePress options manager
+     * @param HTML_Template_IT        &$tpl The HTML template to write to
      * 
      * @return void
      */
@@ -227,16 +227,16 @@ class TubePressGallery
     /**
      * Creates the HTML for a single video retrieved from YouTube
      * 
-     * @param DOMDocument           $rss          The RSS retrieved from 
-     * 	                                           YouTube
-     * @param int                   $index        The index (in the RSS) 
-     *                                             of the video we're going to
-     *                                             parse
-     * @param int                   $totalResults The total number of results 
-     *                                             that we got back for this 
-     *                                             query
-     * @param TubePressStorage_v160 $stored       The TubePress storage object
-     * @param HTML_Template_IT      &$tpl         The HTML template to write to
+     * @param DOMDocument             $rss          The RSS retrieved from 
+     *                                                YouTube
+     * @param int                     $index        The index (in the RSS) 
+     *                                               of the video we're going to
+     *                                               parse
+     * @param int                     $totalResults The total number of results 
+     *                                               that we got back for this 
+     *                                               query
+     * @param TubePressOptionsManager $tpom         The TubePress options manager
+     * @param HTML_Template_IT        &$tpl         The HTML template to write to
      * 
      * @return string The HTML for a single video returned from YouTube
      */

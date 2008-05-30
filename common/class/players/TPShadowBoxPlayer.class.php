@@ -26,48 +26,48 @@
 class TPShadowBoxPlayer extends TubePressPlayer
 {
     public function __construct() {
-	    global $tubepress_base_url;
+        global $tubepress_base_url;
 
-		$sbUrl = $tubepress_base_url . "/lib/shadowbox/";
-    	$gbJS = array(
-    		$sbUrl . "src/js/lib/yui-utilities.js",
-    		$sbUrl . "src/js/adapter/shadowbox-yui.js",
-    		$sbUrl . "src/js/shadowbox.js");
-    	
-    	
-    	$sbCSS = array($sbUrl . "src/css/shadowbox.css");
-    	$extra = "YAHOO.util.Event.onDOMReady(function() {var options = { assetURL: ";
-    	$extra .= "'" . $sbUrl . "'";
-		$extra .= "}; Shadowbox.init(options);});";
-		
-		$this->setCSSLibs($sbCSS);
-		$this->setJSLibs($gbJS);
-		$this->setPostLoadJs($extra);
-	}
-	
-	/**
-	 * Tells the gallery how to play the vids
-	 */
-	public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
-	{
-	    global $tubepress_base_url;
+        $sbUrl = $tubepress_base_url . "/lib/shadowbox/";
+        $gbJS = array(
+            $sbUrl . "src/js/lib/yui-utilities.js",
+            $sbUrl . "src/js/adapter/shadowbox-yui.js",
+            $sbUrl . "src/js/shadowbox.js");
+        
+        
+        $sbCSS = array($sbUrl . "src/css/shadowbox.css");
+        $extra = "YAHOO.util.Event.onDOMReady(function() {var options = { assetURL: ";
+        $extra .= "'" . $sbUrl . "'";
+        $extra .= "}; Shadowbox.init(options);});";
+        
+        $this->setCSSLibs($sbCSS);
+        $this->setJSLibs($gbJS);
+        $this->setPostLoadJs($extra);
+    }
+    
+    /**
+     * Tells the gallery how to play the vids
+     */
+    public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    {
+        global $tubepress_base_url;
 
-	    $title = $vid->getTitle();
-	    $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
-	    $width = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
+        $title = $vid->getTitle();
+        $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
+        $width = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
 
-	    $embed = new TubePressEmbeddedPlayer($vid, $tpom);
-	    
-	    $url = new Net_URL($tubepress_base_url . "/common/ui/popup.php");
-	    $url->addQueryString("embed", $embed->toString());
-	    $url->addQueryString("name", $title);
-	    
-	    //return "href='#' onclick='tubePress_popup(" .
+        $embed = new TubePressEmbeddedPlayer($vid, $tpom);
+        
+        $url = new Net_URL($tubepress_base_url . "/common/ui/popup.php");
+        $url->addQueryString("embed", $embed->toString());
+        $url->addQueryString("name", $title);
+        
+        //return "href='#' onclick='tubePress_popup(" .
         //    '"' .  . '",' . $height . ',' . $width . ')\''; 
-	    
-	    return sprintf('href="%s" title="%s" ' .
+        
+        return sprintf('href="%s" title="%s" ' .
             'rel="shadowbox;height=%s;width=%s"',
             $url->getURL(), $title, $height - 10, $width - 18);
-	}
+    }
 }
 ?>

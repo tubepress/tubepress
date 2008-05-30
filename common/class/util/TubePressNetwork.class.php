@@ -1,6 +1,6 @@
 <?php
 class TubePressNetwork {
-	
+    
     /**
      * Fetches the RSS from YouTube (or from cache)
      * 
@@ -33,7 +33,7 @@ class TubePressNetwork {
         $doc->loadXML($data);
         return $doc;
     }
-	
+    
 /**
      * Appends some global query parameters on the request
      * before we fire it off to YouTube

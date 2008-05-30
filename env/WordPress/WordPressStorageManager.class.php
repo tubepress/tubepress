@@ -24,27 +24,27 @@ class WordPressStorageManager extends TubePressStorageManager
 {
     protected function setOption($optionName, $optionValue)
     {
-    	update_option("tubepress-$optionName", $optionValue);
+        update_option("tubepress-$optionName", $optionValue);
     }
-	
-	public function get($optionName)
-	{
-		return get_option("tubepress-$optionName");
-	}
-	
-	protected function delete($optionName)
-	{
-		delete_option($optionName);
-	}
-	
-	protected function create($optionName, $optionValue)
-	{
-		add_option("tubepress-$optionName", $optionValue);
-	}
-	
-	public function exists($optionName)
-	{
-		return get_option("tubepress-$optionName") !== FALSE;
-	}
+    
+    public function get($optionName)
+    {
+        return get_option("tubepress-$optionName");
+    }
+    
+    protected function delete($optionName)
+    {
+        delete_option($optionName);
+    }
+    
+    protected function create($optionName, $optionValue)
+    {
+        add_option("tubepress-$optionName", $optionValue);
+    }
+    
+    public function exists($optionName)
+    {
+        return get_option("tubepress-$optionName") !== FALSE;
+    }
 }
 ?>

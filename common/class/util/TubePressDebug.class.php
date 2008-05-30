@@ -19,26 +19,26 @@
  *
  */
 class TubePressDebug {
-	
+    
     public static final function execute(TubePressOptionsManager $tpom, TubePressStorageManager $tpsm)
     {
-    	global $tubepress_base_url;
-    	$tpomAsString = print_r($tpom, true);
-    	$tpsmAsString = $tpsm->debug();
+        global $tubepress_base_url;
+        $tpomAsString = print_r($tpom, true);
+        $tpsmAsString = $tpsm->debug();
 
-    	echo "<ol>";
-    	echo "<li>tubepress_base_url<code><pre>$tubepress_base_url</pre></code></li>";
-    	echo "<li>Your options manager: <code><pre>$tpomAsString</pre></code></li>";
-    	echo "<li>Your storage manager: <code><pre>$tpsmAsString</pre></code></li>";	
-    	echo "</ol>";
+        echo "<ol>";
+        echo "<li>tubepress_base_url<code><pre>$tubepress_base_url</pre></code></li>";
+        echo "<li>Your options manager: <code><pre>$tpomAsString</pre></code></li>";
+        echo "<li>Your storage manager: <code><pre>$tpsmAsString</pre></code></li>";    
+        echo "</ol>";
     }
     
     public static final function areWeDebugging(TubePressOptionsManager $tpom)
     {
-    	$enabled = $tpom->get(TubePressAdvancedOptions::DEBUG_ON);
-    	return $enabled
-    		&& isset($_GET['tubepress_debug'])
-    		&& ($_GET['tubepress_debug'] == 'true');
+        $enabled = $tpom->get(TubePressAdvancedOptions::DEBUG_ON);
+        return $enabled
+            && isset($_GET['tubepress_debug'])
+            && ($_GET['tubepress_debug'] == 'true');
     }
-	
+    
 }

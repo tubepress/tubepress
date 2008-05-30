@@ -32,6 +32,6 @@ header('Content-Type: text/html;charset=utf-8');
                 <title><?php echo stripslashes(rawurldecode($_GET['name'])); ?></title>        
         </head>
         <body style="margin: 0pt 0pt; background-color: black">
-        	     <?php echo stripslashes(rawurldecode($_GET['embed'])); ?>
+                 <?php echo stripslashes(rawurldecode($_GET['embed'])); ?>
         </body>
 </html>

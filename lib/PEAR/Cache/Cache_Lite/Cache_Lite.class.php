@@ -395,11 +395,11 @@ class Cache_Lite
                 $res = $this->_write($data);
             }
             if (is_object($res)) {
-	        	// $res is a PEAR_Error object 
+                // $res is a PEAR_Error object 
                 if (!($this->_errorHandlingAPIBreak)) {   
-	                return false; // we return false (old API)
-	            }
-	        }
+                    return false; // we return false (old API)
+                }
+            }
             return $res;
         }
         return false;

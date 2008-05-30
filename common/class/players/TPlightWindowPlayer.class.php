@@ -25,37 +25,37 @@ class TPlightWindowPlayer extends TubePressPlayer
 {
     public function __construct() {
 
-		global $tubepress_base_url;
+        global $tubepress_base_url;
 
-		$lwURL = $tubepress_base_url . "/lib/lightWindow/";
-    	
-		$lwJS = array($lwURL . "javascript/prototype.js",
-    	    $lwURL . "javascript/scriptaculous.js?load=effects",
-    	    $lwURL . "javascript/lightWindow.js");
-		
-    	$this->setJSLibs($lwJS);
-		$this->setCSSLibs(array($lwURL . "css/lightWindow.css"));
-		$this->setPreLoadJs("var tubepressLWPath = \"" . $lwURL . "\"");
-	}
-	
-	/**
-	 * Tells the gallery how to play the videos
-	 */
-	public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
-	{
-	    global $tubepress_base_url;
+        $lwURL = $tubepress_base_url . "/lib/lightWindow/";
+        
+        $lwJS = array($lwURL . "javascript/prototype.js",
+            $lwURL . "javascript/scriptaculous.js?load=effects",
+            $lwURL . "javascript/lightWindow.js");
+        
+        $this->setJSLibs($lwJS);
+        $this->setCSSLibs(array($lwURL . "css/lightWindow.css"));
+        $this->setPreLoadJs("var tubepressLWPath = \"" . $lwURL . "\"");
+    }
+    
+    /**
+     * Tells the gallery how to play the videos
+     */
+    public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    {
+        global $tubepress_base_url;
 
-	    $title = $vid->getTitle();
-	    $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
-	    $width = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
-	    $embed = new TubePressEmbeddedPlayer($vid, $tpom);
-		
-	    $url = new Net_URL($tubepress_base_url . "/common/ui/popup.php");
-	    $url->addQueryString("embed", $embed->toString());
-	    
-	    return sprintf('href="%s" class="lightwindow" title="%s" ' .
+        $title = $vid->getTitle();
+        $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
+        $width = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
+        $embed = new TubePressEmbeddedPlayer($vid, $tpom);
+        
+        $url = new Net_URL($tubepress_base_url . "/common/ui/popup.php");
+        $url->addQueryString("embed", $embed->toString());
+        
+        return sprintf('href="%s" class="lightwindow" title="%s" ' .
             'params="lightwindow_width=%s,lightwindow_height=%s"', 
             $url->getURL(), $title, $width, $height);
-	}
+    }
 }
 ?>

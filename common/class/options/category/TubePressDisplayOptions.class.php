@@ -25,21 +25,21 @@
  */
 class TubePressDisplayOptions
 {
-    const CURRENT_PLAYER_NAME 	= "playerLocation";
-	const ORDER_BY 				= "orderBy";
-	const RESULTS_PER_PAGE 		= "resultsPerPage";
-    const THUMB_HEIGHT 			= "thumbHeight";
-	const THUMB_WIDTH 			= "thumbWidth";
-	
-	public function printForOptionsForm(HTML_Template_IT &$tpl, TubePressStorageManager $tpsm)
+    const CURRENT_PLAYER_NAME     = "playerLocation";
+    const ORDER_BY                 = "orderBy";
+    const RESULTS_PER_PAGE         = "resultsPerPage";
+    const THUMB_HEIGHT             = "thumbHeight";
+    const THUMB_WIDTH             = "thumbWidth";
+    
+    public function printForOptionsForm(HTML_Template_IT &$tpl, TubePressStorageManager $tpsm)
     {
 
-    	$title = "display";
-    	
+        $title = "display";
+        
         $tpl->setVariable("OPTION_CATEGORY_TITLE",
-        	TpMsg::_("options-category-title-" . $title));
+            TpMsg::_("options-category-title-" . $title));
 
-        $class = new ReflectionClass("TubePressDisplayOptions");	
+        $class = new ReflectionClass("TubePressDisplayOptions");    
 
         /* go through each option in the category */
         foreach($class->getConstants() as $constant) {
@@ -48,38 +48,38 @@ class TubePressDisplayOptions
             $tpl->setVariable("OPTION_NAME", $constant);
             
             switch ($constant) {
-            	case TubePressDisplayOptions::RESULTS_PER_PAGE:
-            	case TubePressDisplayOptions::THUMB_HEIGHT:
-            	case TubePressDisplayOptions::THUMB_WIDTH:
-            		TubePressOptionsForm::displayTextInput($tpl, $constant, $tpsm->get($constant));
-            		break;
-            	case TubePressDisplayOptions::CURRENT_PLAYER_NAME:
-            		$values = array(
-            			TpMsg::_("player-" . TubePressPlayer::NORMAL . "-desc") 
-            				=> TubePressPlayer::NORMAL,
-           				TpMsg::_("player-" . TubePressPlayer::POPUP . "-desc")		
-           					=> TubePressPlayer::POPUP,
-            			TpMsg::_("player-" . TubePressPlayer::YOUTUBE . "-desc")		
-            				=> TubePressPlayer::YOUTUBE,
-            			TpMsg::_("player-" . TubePressPlayer::LIGHTWINDOW . "-desc") 	
-            				=> TubePressPlayer::LIGHTWINDOW,
-            			TpMsg::_("player-" . TubePressPlayer::GREYBOX . "-desc")		
-            				=> TubePressPlayer::GREYBOX,
-            			TpMsg::_("player-" . TubePressPlayer::SHADOWBOX . "-desc") 	
-            				=> TubePressPlayer::SHADOWBOX);
+                case TubePressDisplayOptions::RESULTS_PER_PAGE:
+                case TubePressDisplayOptions::THUMB_HEIGHT:
+                case TubePressDisplayOptions::THUMB_WIDTH:
+                    TubePressOptionsForm::displayTextInput($tpl, $constant, $tpsm->get($constant));
+                    break;
+                case TubePressDisplayOptions::CURRENT_PLAYER_NAME:
+                    $values = array(
+                        TpMsg::_("player-" . TubePressPlayer::NORMAL . "-desc") 
+                            => TubePressPlayer::NORMAL,
+                           TpMsg::_("player-" . TubePressPlayer::POPUP . "-desc")        
+                               => TubePressPlayer::POPUP,
+                        TpMsg::_("player-" . TubePressPlayer::YOUTUBE . "-desc")        
+                            => TubePressPlayer::YOUTUBE,
+                        TpMsg::_("player-" . TubePressPlayer::LIGHTWINDOW . "-desc")     
+                            => TubePressPlayer::LIGHTWINDOW,
+                        TpMsg::_("player-" . TubePressPlayer::GREYBOX . "-desc")        
+                            => TubePressPlayer::GREYBOX,
+                        TpMsg::_("player-" . TubePressPlayer::SHADOWBOX . "-desc")     
+                            => TubePressPlayer::SHADOWBOX);
 
-            		TubePressOptionsForm::displayMenuInput($tpl, $constant, 
-            			$values, $tpsm->get($constant));
-        			break;
-            	case TubePressDisplayOptions::ORDER_BY:
-            		$values = array(
-            			TpMsg::_("order-relevance") => "relevance",
-            			TpMsg::_("order-views") => "viewCount",
-            			TpMsg::_("order-rating") => "rating",
-            			TpMsg::_("order-updated") => "updated"
-            		);
-            		TubePressOptionsForm::displayMenuInput($tpl, $constant, $values, $tpsm->get($constant));
-            		break;
+                    TubePressOptionsForm::displayMenuInput($tpl, $constant, 
+                        $values, $tpsm->get($constant));
+                    break;
+                case TubePressDisplayOptions::ORDER_BY:
+                    $values = array(
+                        TpMsg::_("order-relevance") => "relevance",
+                        TpMsg::_("order-views") => "viewCount",
+                        TpMsg::_("order-rating") => "rating",
+                        TpMsg::_("order-updated") => "updated"
+                    );
+                    TubePressOptionsForm::displayMenuInput($tpl, $constant, $values, $tpsm->get($constant));
+                    break;
             }
             
             $tpl->parse("optionRow");

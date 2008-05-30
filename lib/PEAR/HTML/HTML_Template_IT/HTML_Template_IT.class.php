@@ -918,9 +918,9 @@ class HTML_Template_IT
             return "";
         }
 
-		$fsize = filesize($filename);
+        $fsize = filesize($filename);
         if ($fsize < 1) {
-			fclose($fh);
+            fclose($fh);
             return '';
         }
 

@@ -19,14 +19,14 @@ function tp_main($content = '')
         TubePressTag::parse($content, &$tpom);
         
         if (TubePressDebug::areWeDebugging($tpom)) {
-        	TubePressDebug::execute($tpom, $wpsm);
+            TubePressDebug::execute($tpom, $wpsm);
         }
         
         $modeName = $tpom->get(TubePressGalleryOptions::MODE);
         $gallery = new TubePressGallery();
         $newcontent .= $gallery->generate($tpom);
 
-    	/* replace the tag with our new content */
+        /* replace the tag with our new content */
         return str_replace($tpom->getTagString(), $newcontent, $content);
     
     } catch (Exception $e) {
@@ -53,7 +53,7 @@ GBS;
     $wpsm = new WordPressStorageManager();
     
     if ($wpsm->get(TubePressAdvancedOptions::KEYWORD) === NULL) {
-    	return;
+        return;
     }
     
     try {
@@ -68,8 +68,8 @@ GBS;
 
 function tp_shouldWeExecute($content)
 {    
-	$wpsm = new WordPressStorageManager();
-	
+    $wpsm = new WordPressStorageManager();
+    
     $trigger = $wpsm->get(TubePressAdvancedOptions::KEYWORD);
     
     if (strpos($content, '[' . $trigger) === false) {

@@ -26,34 +26,34 @@
  */
 class TubePressMetaOptions
 {   
-    const AUTHOR 		= "author";
-	const CATEGORY 		= "category";
-	const DESCRIPTION 	= "description";
-	const ID 			= "id";
-	const LENGTH 		= "length";
-	const RATING 		= "rating";
-	const RATINGS 		= "ratings";
-	const TAGS 			= "tags";
-	const TITLE 		= "title";
-	const UPLOADED 		= "uploaded";
-	const URL 			= "url";
-	const VIEWS 		= "views";
-	
-	public function printForOptionsForm(HTML_Template_IT &$tpl, TubePressStorageManager $tpsm)
+    const AUTHOR         = "author";
+    const CATEGORY         = "category";
+    const DESCRIPTION     = "description";
+    const ID             = "id";
+    const LENGTH         = "length";
+    const RATING         = "rating";
+    const RATINGS         = "ratings";
+    const TAGS             = "tags";
+    const TITLE         = "title";
+    const UPLOADED         = "uploaded";
+    const URL             = "url";
+    const VIEWS         = "views";
+    
+    public function printForOptionsForm(HTML_Template_IT &$tpl, TubePressStorageManager $tpsm)
     {
 
-    	$title = "meta";
-    	
+        $title = "meta";
+        
         $tpl->setVariable("OPTION_CATEGORY_TITLE",
-        	TpMsg::_("options-category-title-" . $title));
+            TpMsg::_("options-category-title-" . $title));
 
-        $class = new ReflectionClass("TubePressMetaOptions");	
+        $class = new ReflectionClass("TubePressMetaOptions");    
 
         $colCount = 0;
         
         /* go through each option in the category */
         foreach($class->getConstants() as $constant) {
-        	$tpl->setVariable("EXTRA_STYLE", "; width: 15em");
+            $tpl->setVariable("EXTRA_STYLE", "; width: 15em");
             $tpl->setVariable("OPTION_TITLE", TpMsg::_(sprintf("options-%s-title-%s", $title, $constant)));
             $tpl->setVariable("OPTION_DESC", TpMsg::_(sprintf("options-%s-desc-%s", $title, $constant)));
             $tpl->setVariable("OPTION_NAME", $constant);

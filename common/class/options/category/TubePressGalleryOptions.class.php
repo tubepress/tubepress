@@ -25,61 +25,61 @@
  */
 class TubePressGalleryOptions
 {
-	const MODE = "mode";
-	
-	const FAVORITES_VALUE 	= "favoritesValue";
-	const MOST_VIEWED_VALUE = "most_viewedValue";
-	const PLAYLIST_VALUE 	= "playlistValue";
-	const TAG_VALUE 		= "tagValue";
-	const TOP_RATED_VALUE 	= "top_ratedValue";
-	const USER_VALUE 		= "userValue";
-	
-	public function printForOptionsForm(HTML_Template_IT &$tpl, TubePressStorageManager $tpsm)
+    const MODE = "mode";
+    
+    const FAVORITES_VALUE     = "favoritesValue";
+    const MOST_VIEWED_VALUE = "most_viewedValue";
+    const PLAYLIST_VALUE     = "playlistValue";
+    const TAG_VALUE         = "tagValue";
+    const TOP_RATED_VALUE     = "top_ratedValue";
+    const USER_VALUE         = "userValue";
+    
+    public function printForOptionsForm(HTML_Template_IT &$tpl, TubePressStorageManager $tpsm)
     {
 
-    	$title = "gallery";
-    	
+        $title = "gallery";
+        
         $tpl->setVariable("OPTION_CATEGORY_TITLE",
-        	TpMsg::_("options-category-title-" . $title));
+            TpMsg::_("options-category-title-" . $title));
 
-        $class = new ReflectionClass("TubePressGallery");	
+        $class = new ReflectionClass("TubePressGallery");    
 
         /* go through each option in the category */
         foreach($class->getConstants() as $constant) {
             $tpl->setVariable("OPTION_TITLE", TpMsg::_(sprintf("options-%s-title-%s", $title, $constant)));
             $tpl->setVariable("OPTION_DESC", TpMsg::_(sprintf("options-%s-desc-%s", $title, $constant)));
-			$tpl->setVariable("OPTION_NAME", $constant);
+            $tpl->setVariable("OPTION_NAME", $constant);
             
             TubePressOptionsForm::displayGalleryInput($tpl, $constant, $tpsm->get(TubePressGalleryOptions::MODE));
 
             switch ($constant) {
-            	case TubePressGallery::FAVORITES:
-            		TubePressOptionsForm::displayTextInput($tpl, TubePressGalleryOptions::FAVORITES_VALUE,
-            			$tpsm->get(TubePressGalleryOptions::FAVORITES_VALUE));
-            		break;
-            	case TubePressGallery::PLAYLIST:
-            		TubePressOptionsForm::displayTextInput($tpl, TubePressGalleryOptions::PLAYLIST_VALUE,
-            			$tpsm->get(TubePressGalleryOptions::PLAYLIST_VALUE));
-            		break;
-            	case TubePressGallery::TAG:
-            		TubePressOptionsForm::displayTextInput($tpl, TubePressGalleryOptions::TAG_VALUE,
-            			$tpsm->get(TubePressGalleryOptions::TAG_VALUE));
-            		break;
-            	case TubePressGallery::USER:
-            		TubePressOptionsForm::displayTextInput($tpl, TubePressGalleryOptions::USER_VALUE,
-            			$tpsm->get(TubePressGalleryOptions::USER_VALUE));
-            		break;
-            	case TubePressGallery::POPULAR:
-            	case TubePressGallery::TOP_RATED:
-            		$values = array(
-            			TpMsg::_("timeframe-today") => "today",
-            			TpMsg::_("timeframe-week") => "this_week",
-            			TpMsg::_("timeframe-month") => "this_month",
-            			TpMsg::_("timeframe-alltime") => "all_time"
-            		);
-               		$tpl->setVariable("OPTION_NAME", $constant);
-            		TubePressOptionsForm::displayMenuInput($tpl, $constant . "Value",
-            			$values, $tpsm->get($constant . "Value"));
+                case TubePressGallery::FAVORITES:
+                    TubePressOptionsForm::displayTextInput($tpl, TubePressGalleryOptions::FAVORITES_VALUE,
+                        $tpsm->get(TubePressGalleryOptions::FAVORITES_VALUE));
+                    break;
+                case TubePressGallery::PLAYLIST:
+                    TubePressOptionsForm::displayTextInput($tpl, TubePressGalleryOptions::PLAYLIST_VALUE,
+                        $tpsm->get(TubePressGalleryOptions::PLAYLIST_VALUE));
+                    break;
+                case TubePressGallery::TAG:
+                    TubePressOptionsForm::displayTextInput($tpl, TubePressGalleryOptions::TAG_VALUE,
+                        $tpsm->get(TubePressGalleryOptions::TAG_VALUE));
+                    break;
+                case TubePressGallery::USER:
+                    TubePressOptionsForm::displayTextInput($tpl, TubePressGalleryOptions::USER_VALUE,
+                        $tpsm->get(TubePressGalleryOptions::USER_VALUE));
+                    break;
+                case TubePressGallery::POPULAR:
+                case TubePressGallery::TOP_RATED:
+                    $values = array(
+                        TpMsg::_("timeframe-today") => "today",
+                        TpMsg::_("timeframe-week") => "this_week",
+                        TpMsg::_("timeframe-month") => "this_month",
+                        TpMsg::_("timeframe-alltime") => "all_time"
+                    );
+                       $tpl->setVariable("OPTION_NAME", $constant);
+                    TubePressOptionsForm::displayMenuInput($tpl, $constant . "Value",
+                        $values, $tpsm->get($constant . "Value"));
             }
             
             $tpl->parse("optionRow");

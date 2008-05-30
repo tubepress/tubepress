@@ -86,10 +86,10 @@ class Cache_Lite_Function extends Cache_Lite
     {
         $availableOptions = array('debugCacheLiteFunction', 'defaultGroup', 'dontCacheWhenTheOutputContainsNOCACHE', 'dontCacheWhenTheResultIsFalse', 'dontCacheWhenTheResultIsNull');
         while (list($name, $value) = each($options)) {
-	        if (in_array($name, $availableOptions)) {
-	            $property = '_'.$name;
-	            $this->$property = $value;
-	        }
+            if (in_array($name, $availableOptions)) {
+                $property = '_'.$name;
+                $this->$property = $value;
+            }
         }
         reset($options);
         $this->Cache_Lite($options);
@@ -131,18 +131,18 @@ class Cache_Lite_Function extends Cache_Lite
                 $method = $target[1];
                 $result = call_user_func_array(array(&$object, $method), $arguments);
             } else {
-	            if (strstr($target, '::')) { // classname::staticMethod
-	                list($class, $method) = explode('::', $target);
-	                $result = call_user_func_array(array($class, $method), $arguments);
-	            } else if (strstr($target, '->')) { // object->method
-	                // use a stupid name ($objet_123456789 because) of problems where the object
-	                // name is the same as this var name
-	                list($object_123456789, $method) = explode('->', $target);
-	                global $$object_123456789;
-	                $result = call_user_func_array(array($$object_123456789, $method), $arguments);
-	            } else { // function
-	                $result = call_user_func_array($target, $arguments);
-	            }
+                if (strstr($target, '::')) { // classname::staticMethod
+                    list($class, $method) = explode('::', $target);
+                    $result = call_user_func_array(array($class, $method), $arguments);
+                } else if (strstr($target, '->')) { // object->method
+                    // use a stupid name ($objet_123456789 because) of problems where the object
+                    // name is the same as this var name
+                    list($object_123456789, $method) = explode('->', $target);
+                    global $$object_123456789;
+                    $result = call_user_func_array(array($$object_123456789, $method), $arguments);
+                } else { // function
+                    $result = call_user_func_array($target, $arguments);
+                }
             }
             $output = ob_get_contents();
             ob_end_clean();

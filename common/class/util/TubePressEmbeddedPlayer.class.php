@@ -19,45 +19,45 @@
  *
  */
 class TubePressEmbeddedPlayer {
-	
-	private $asString;
-	
-	public function __construct(TubePressVideo $vid, TubePressOptionsManager $tpom) {
-		$id = $vid->getId();
-		$height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
-		$width = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
-		$rel = $tpom->get(TubePressEmbeddedOptions::SHOW_RELATED)? "1" : "0";
-		$colors = $tpom->get(TubePressEmbeddedOptions::PLAYER_COLOR);
-		$autoPlay = $tpom->get(TubePressEmbeddedOptions::AUTOPLAY)? "1" : "0";
-		$loop = $tpom->get(TubePressEmbeddedOptions::LOOP)? "1" : "0";
-		$egm = $tpom->get(TubePressEmbeddedOptions::GENIE)? "1" : "0";
-		$border = $tpom->get(TubePressEmbeddedOptions::BORDER)? "1" : "0";
+    
+    private $asString;
+    
+    public function __construct(TubePressVideo $vid, TubePressOptionsManager $tpom) {
+        $id = $vid->getId();
+        $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
+        $width = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
+        $rel = $tpom->get(TubePressEmbeddedOptions::SHOW_RELATED)? "1" : "0";
+        $colors = $tpom->get(TubePressEmbeddedOptions::PLAYER_COLOR);
+        $autoPlay = $tpom->get(TubePressEmbeddedOptions::AUTOPLAY)? "1" : "0";
+        $loop = $tpom->get(TubePressEmbeddedOptions::LOOP)? "1" : "0";
+        $egm = $tpom->get(TubePressEmbeddedOptions::GENIE)? "1" : "0";
+        $border = $tpom->get(TubePressEmbeddedOptions::BORDER)? "1" : "0";
 
-		$link = "http://www.youtube.com/v/$id";
-		
-		if ($colors != "/") {
-			$colors = explode("/", $colors);
-			$link .= "&amp;color1=" . $colors[0] . "&amp;color2=" . $colors[1];
-		}
-		
-		$link .= "&amp;rel=$rel";
-		$link .= "&amp;autoplay=$autoPlay";
-		$link .= "&amp;loop=$loop";
-		$link .= "&amp;egm=$egm";
-		$link .= "&amp;border=$border";
-	
-		$string = '<object type="application/x-shockwave-flash" style="width:' .
-			$width . 'px;height:' . $height . 'px"';
-		$string .= ' data="' . $link . '">';
-		$string .= '<param name="wmode" value="transparent" />';
-		$string .= '<param name="movie" value="' . $link . '" />';   
-		$string .= '</object>';
-		$this->asString = $string;
-	}
-	
-	public function toString() {
-		return $this->asString;
-	}
+        $link = "http://www.youtube.com/v/$id";
+        
+        if ($colors != "/") {
+            $colors = explode("/", $colors);
+            $link .= "&amp;color1=" . $colors[0] . "&amp;color2=" . $colors[1];
+        }
+        
+        $link .= "&amp;rel=$rel";
+        $link .= "&amp;autoplay=$autoPlay";
+        $link .= "&amp;loop=$loop";
+        $link .= "&amp;egm=$egm";
+        $link .= "&amp;border=$border";
+    
+        $string = '<object type="application/x-shockwave-flash" style="width:' .
+            $width . 'px;height:' . $height . 'px"';
+        $string .= ' data="' . $link . '">';
+        $string .= '<param name="wmode" value="transparent" />';
+        $string .= '<param name="movie" value="' . $link . '" />';   
+        $string .= '</object>';
+        $this->asString = $string;
+    }
+    
+    public function toString() {
+        return $this->asString;
+    }
 }
 
 ?>

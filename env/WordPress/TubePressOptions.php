@@ -20,7 +20,7 @@
  */
 
 if (substr(phpversion(), 0, 1) == "5" && !function_exists("__tp_executeOptionsPage")) {
-	include("TubePressOptions_main.php");
+    include("TubePressOptions_main.php");
 }
 
 /**
@@ -30,19 +30,19 @@ if (substr(phpversion(), 0, 1) == "5" && !function_exists("__tp_executeOptionsPa
  */
 function tp_executeOptionsPage()
 {
-	if (function_exists('add_options_page')) {
-		add_options_page("TubePress Options", "TubePress", 9, 
-			'TubePressOptions.php', '_tp_executeOptionsPage');
-	}
+    if (function_exists('add_options_page')) {
+        add_options_page("TubePress Options", "TubePress", 9, 
+            'TubePressOptions.php', '_tp_executeOptionsPage');
+    }
 }
 
 function _tp_executeOptionsPage()
 {
-	if (substr(phpversion(), 0, 1) == "5") {
-		__tp_executeOptionsPage();
-	} else {
-		echo '<div id="message" class="error fade"><p><strong>This version of TubePress requires PHP5 or higher. Please <a href="http://php.net">upgrade your PHP installation</a> or visit <a href="http://tubepress.org">tubepress.org</a> to obtain a different version of the plugin.</strong</p></div>';
-	}
+    if (substr(phpversion(), 0, 1) == "5") {
+        __tp_executeOptionsPage();
+    } else {
+        echo '<div id="message" class="error fade"><p><strong>This version of TubePress requires PHP5 or higher. Please <a href="http://php.net">upgrade your PHP installation</a> or visit <a href="http://tubepress.org">tubepress.org</a> to obtain a different version of the plugin.</strong</p></div>';
+    }
 }
 
 ?>

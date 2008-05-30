@@ -24,39 +24,39 @@
 class TPGreyBoxPlayer extends TubePressPlayer
 {
     public function __construct() {
-	    global $tubepress_base_url;
+        global $tubepress_base_url;
 
-		$gbURL = $tubepress_base_url . "/lib/greybox/";
-    	$gbJS = array($gbURL . "AJS.js",
-    	    $gbURL . "AJS_fx.js",
-    	    $gbURL . "gb_scripts.js");
-    	
-    	$gbCSS = array($gbURL . "gb_styles.css");
-    	$extra = "var GB_ROOT_DIR = \"" . $gbURL . "/\"";
+        $gbURL = $tubepress_base_url . "/lib/greybox/";
+        $gbJS = array($gbURL . "AJS.js",
+            $gbURL . "AJS_fx.js",
+            $gbURL . "gb_scripts.js");
+        
+        $gbCSS = array($gbURL . "gb_styles.css");
+        $extra = "var GB_ROOT_DIR = \"" . $gbURL . "/\"";
 
-		$this->setCSSLibs($gbCSS);
-		$this->setJSLibs($gbJS);
-		$this->setPreLoadJs($extra);
-	}
-	
-	/**
-	 * Tells the gallery how to play the vids
-	 */
-	public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
-	{
-	    global $tubepress_base_url;
+        $this->setCSSLibs($gbCSS);
+        $this->setJSLibs($gbJS);
+        $this->setPreLoadJs($extra);
+    }
+    
+    /**
+     * Tells the gallery how to play the vids
+     */
+    public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    {
+        global $tubepress_base_url;
 
-	    $title = $vid->getTitle();
-	    $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
-	    $width = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
-		$embed = new TubePressEmbeddedPlayer($vid, $tpom);
-		
-	    $url = new Net_URL($tubepress_base_url . "/common/ui/popup.php");
-	    $url->addQueryString("embed", $embed->toString());
-	   
-	    return sprintf('href="%s" title="%s" ' .
+        $title = $vid->getTitle();
+        $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
+        $width = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
+        $embed = new TubePressEmbeddedPlayer($vid, $tpom);
+        
+        $url = new Net_URL($tubepress_base_url . "/common/ui/popup.php");
+        $url->addQueryString("embed", $embed->toString());
+       
+        return sprintf('href="%s" title="%s" ' .
             'rel="gb_page_center[%s, %s]"',
             $url->getURL(), $title, $width, $height);
-	}
+    }
 }
 ?>

@@ -22,18 +22,18 @@
  * Plays videos at the top of a gallery
  */
 class TPNormalPlayer extends TubePressPlayer 
-{	
-	/**
-	 * Tells the gallery how to play the videos
-	 */
-	public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
-	{
-	    $embed = new TubePressEmbeddedPlayer($vid, $tpom);
-	    
-	    return "href='#' onclick='tubePress_normalPlayer(" .
+{    
+    /**
+     * Tells the gallery how to play the videos
+     */
+    public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    {
+        $embed = new TubePressEmbeddedPlayer($vid, $tpom);
+        
+        return "href='#' onclick='tubePress_normalPlayer(" .
             "\"" . rawurlencode($embed->toString()) . "\", " .
-	    	$tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH) .
-	    	", \"" . rawurlencode($vid->getTitle()) . "\")'";
-	}
+            $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH) .
+            ", \"" . rawurlencode($vid->getTitle()) . "\")'";
+    }
 }
 ?>

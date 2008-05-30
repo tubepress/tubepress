@@ -56,11 +56,11 @@ class TubePressVideo
             
             $vidRequest = TubePressXML::generateVideoRequest($videoXML);
             if (PEAR::isError($vidRequest)) {
-            	return;
+                return;
             }
             $videoXML = TubePressXML::fetch($vidRequest, $options);
             if (PEAR::isError($videoXML)) {
-            	return;
+                return;
             }
             $videoXML = TubePressXML::toArray($videoXML);
             
@@ -102,15 +102,15 @@ class TubePressVideo
     
     private function _getCategory() {
         return $this->domElement->getElementsByTagNameNS(TubePressVideo::ns_media, 'category')->item(0)->nodeValue;
-    	
+        
     }
     
     private function _getDescription() {
-    	return $this->mediaGroup->getElementsByTagNameNS(TubePressVideo::ns_media, 'description')->item(0)->nodeValue;
+        return $this->mediaGroup->getElementsByTagNameNS(TubePressVideo::ns_media, 'description')->item(0)->nodeValue;
     }
     
     private function _getId() {
-    	$player = $this->domElement->getElementsByTagNameNS(TubePressVideo::ns_media, 'player')->item(0);
+        $player = $this->domElement->getElementsByTagNameNS(TubePressVideo::ns_media, 'player')->item(0);
         $url = $player->getAttribute('url');
         $pos = strrpos($url, "=");
         return substr($url, $pos + 1);
@@ -118,37 +118,37 @@ class TubePressVideo
     
     private function _getRating() {
         $count = $this->domElement->getElementsByTagNameNS(TubePressVideo::ns_gd, 'rating')->item(0);
-		if ($count != NULL) {
-        	return $count->getAttribute('average');
-		}
-		return "N/A";
+        if ($count != NULL) {
+            return $count->getAttribute('average');
+        }
+        return "N/A";
     }
     
     private function _getRatings() {
-    	$count = $this->domElement->getElementsByTagNameNS(TubePressVideo::ns_gd, 'rating')->item(0);
-    	if ($count != NULL) {
-        	return number_format($count->getAttribute('numRaters'));
-		}
+        $count = $this->domElement->getElementsByTagNameNS(TubePressVideo::ns_gd, 'rating')->item(0);
+        if ($count != NULL) {
+            return number_format($count->getAttribute('numRaters'));
+        }
         return "0";
     }
     
     private function _getRuntime() {
-    	$duration = $this->mediaGroup->getElementsByTagNameNS(TubePressVideo::ns_yt, 'duration')->item(0);
+        $duration = $this->mediaGroup->getElementsByTagNameNS(TubePressVideo::ns_yt, 'duration')->item(0);
         return TubePressVideo::seconds2HumanTime($duration->getAttribute('seconds'));
     }
     
     private function _getTags() {
         $rawKeywords = $this->mediaGroup->getElementsByTagNameNS(TubePressVideo::ns_media, 'keywords')->item(0);
-		return str_replace(',', '', $rawKeywords->nodeValue);
+        return str_replace(',', '', $rawKeywords->nodeValue);
     }
     
     private function _getTitle() {
-    	$title = $this->domElement->getElementsByTagName('title')->item(0)->nodeValue;
+        $title = $this->domElement->getElementsByTagName('title')->item(0)->nodeValue;
         return htmlspecialchars($title, ENT_QUOTES);
     }
     
     private function _getUploaded() {
-    	$publishedNode = $this->domElement->getElementsByTagName('published');
+        $publishedNode = $this->domElement->getElementsByTagName('published');
         if ($publishedNode->length == 0) {
             return "N/A";
         }
@@ -158,27 +158,27 @@ class TubePressVideo
     }
     
     private function _getUrl() {
-    	$links = $this->mediaGroup->getElementsByTagName('link');
-    	for ($x = 0; $x < $links->length; $x++) {
-    		$link = $links->item($x);
-    		if ($link->getAttribute('rel') != 'alternate') {
-    			continue;
-    		}
-    		return $link->getAttribute('href');
-    	}
+        $links = $this->mediaGroup->getElementsByTagName('link');
+        for ($x = 0; $x < $links->length; $x++) {
+            $link = $links->item($x);
+            if ($link->getAttribute('rel') != 'alternate') {
+                continue;
+            }
+            return $link->getAttribute('href');
+        }
     }
     
     private function _getViews() {
-    	$stats = $this->domElement->getElementsByTagNameNS(TubePressVideo::ns_yt, 'statistics')->item(0);
+        $stats = $this->domElement->getElementsByTagNameNS(TubePressVideo::ns_yt, 'statistics')->item(0);
         if ($stats != null) {
-    		return number_format($stats->getAttribute('viewCount'));
+            return number_format($stats->getAttribute('viewCount'));
         } else {
-        	return "N/A";
+            return "N/A";
         }
     }
     
     private function getSpecificThumbURL($which) {
-    	$thumbs = $this->mediaGroup->getElementsByTagNameNS(TubePressVideo::ns_media, 'thumbnail');
+        $thumbs = $this->mediaGroup->getElementsByTagNameNS(TubePressVideo::ns_media, 'thumbnail');
         return $thumbs->item($which)->getAttribute('url');
     }
 

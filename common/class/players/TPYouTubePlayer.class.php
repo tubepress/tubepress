@@ -23,14 +23,14 @@
  * Plays videos from the original YouTube page
  */
 class TPYouTubePlayer extends TubePressPlayer
-{	
-	/**
-	 * Tells the gallery how to play a video
-	 */
-	function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
-	{   
-	    return sprintf('href="http://youtube.com/watch?v=%s"',
-	        $vid->getId());
-	}
+{    
+    /**
+     * Tells the gallery how to play a video
+     */
+    function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    {   
+        return sprintf('href="http://youtube.com/watch?v=%s"',
+            $vid->getId());
+    }
 }
 ?>

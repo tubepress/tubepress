@@ -1,12 +1,12 @@
 <?php
 class TubePressTag {
-	/**
+    /**
      * This function is used when the plugin parses a tag from a post/page.
      * It pulls all the options from the db, but uses option values found in
      * the tag when it can.
      */
     public function parse($content, TubePressOptionsManager &$tpom)
-    {	
+    {    
         /* what trigger word are we using? */
         $keyword = $tpom->get(TubePressAdvancedOptions::KEYWORD);
         
@@ -17,7 +17,7 @@ class TubePressTag {
         preg_match("/$regexp/", $content, $matches);
         
 //        if (TubePressStatic::areWeDebugging($this)) {
-//        	echo "<ol><li>Tag string on this page is <code>" . $this->tagString . "</code></li></ol>";
+//            echo "<ol><li>Tag string on this page is <code>" . $this->tagString . "</code></li></ol>";
 //        }
         
         $tpom->setTagString($matches[0]);
