@@ -25,18 +25,24 @@
  */
 class TubePressEmbeddedOptions
 {
-    const AUTOPLAY             = "autoplay";
-    const BORDER             = "border";
-    const EMBEDDED_HEIGHT     = "embeddedHeight";
-    const EMBEDDED_WIDTH     = "embeddedWidth";
-    const GENIE             = "genie";
-    const LOOP                 = "loop";
-    const PLAYER_COLOR         = "playerColor";
-    const SHOW_RELATED         = "showRelated";
+    const AUTOPLAY        = "autoplay";
+    const BORDER          = "border";
+    const EMBEDDED_HEIGHT = "embeddedHeight";
+    const EMBEDDED_WIDTH  = "embeddedWidth";
+    const GENIE           = "genie";
+    const LOOP            = "loop";
+    const PLAYER_COLOR    = "playerColor";
+    const SHOW_RELATED    = "showRelated";
     
-    public function printForOptionsForm(HTML_Template_IT &$tpl, TubePressStorageManager $tpsm)
+    /**
+     * Displays the embedded options for the options form
+     *
+     * @param HTML_Template_IT        &$tpl The template to write to
+     * @param TubePressStorageManager $tpsm The TubePress storage manager
+     */
+    public function printForOptionsForm(HTML_Template_IT &$tpl, 
+        TubePressStorageManager $tpsm)
     {
-
         $title = "embedded";
         
         $tpl->setVariable("OPTION_CATEGORY_TITLE",
@@ -45,39 +51,46 @@ class TubePressEmbeddedOptions
         $class = new ReflectionClass("TubePressEmbeddedOptions");    
 
         /* go through each option in the category */
-        foreach($class->getConstants() as $constant) {
-            $tpl->setVariable("OPTION_TITLE", TpMsg::_(sprintf("options-%s-title-%s", $title, $constant)));
-            $tpl->setVariable("OPTION_DESC", TpMsg::_(sprintf("options-%s-desc-%s", $title, $constant)));
+        foreach ($class->getConstants() as $constant) {
+            $tpl->setVariable("OPTION_TITLE", 
+                TpMsg::_(sprintf("options-%s-title-%s", $title, $constant)));
+            $tpl->setVariable("OPTION_DESC", 
+                TpMsg::_(sprintf("options-%s-desc-%s", $title, $constant)));
             $tpl->setVariable("OPTION_NAME", $constant);
             
             switch ($constant) {
-                case TubePressEmbeddedOptions::AUTOPLAY:
-                case TubePressEmbeddedOptions::BORDER:
-                case TubePressEmbeddedOptions::GENIE:
-                case TubePressEmbeddedOptions::LOOP:
-                case TubePressEmbeddedOptions::SHOW_RELATED:
-                    TubePressOptionsForm::displayBooleanInput($tpl, $constant, $tpsm->get($constant));
-                    break;
-                case TubePressEmbeddedOptions::EMBEDDED_HEIGHT:
-                case TubePressEmbeddedOptions::EMBEDDED_WIDTH:
-                    TubePressOptionsForm::displayTextInput($tpl, $constant, $tpsm->get($constant));
-                    break;
-                case TubePressEmbeddedOptions::PLAYER_COLOR:
-                    $values = array(
-                        TpMsg::_("color-normal")     => "/", 
-                        TpMsg::_("color-darkgrey")     => "0x3a3a3a/0x999999",
-                        TpMsg::_("color-darkblue")     => "0x2b405b/0x6b8ab6", 
-                        TpMsg::_("color-lightblue") => "0x006699/0x54abd6",
-                        TpMsg::_("color-green")     => "0x234900/0x4e9e00", 
-                        TpMsg::_("color-orange")    => "0xe1600f/0xfebd01",
-                        TpMsg::_("color-pink")         => "0xcc2550/0xe87a9f", 
-                        TpMsg::_("color-purple")     => "0x402061/0x9461ca",
-                        TpMsg::_("color-red")         => "0x5d1719/0xcd311b"
-                    );
-                    TubePressOptionsForm::displayMenuInput($tpl, $constant, $values, $tpsm->get($constant));
-                    break;
-            }
+                
+            case TubePressEmbeddedOptions::AUTOPLAY:
+            case TubePressEmbeddedOptions::BORDER:
+            case TubePressEmbeddedOptions::GENIE:
+            case TubePressEmbeddedOptions::LOOP:
+            case TubePressEmbeddedOptions::SHOW_RELATED:
+                TubePressOptionsForm::displayBooleanInput($tpl, 
+                    $constant, $tpsm->get($constant));
+                break;
             
+            case TubePressEmbeddedOptions::EMBEDDED_HEIGHT:
+            case TubePressEmbeddedOptions::EMBEDDED_WIDTH:
+                TubePressOptionsForm::displayTextInput($tpl, 
+                    $constant, $tpsm->get($constant));
+                break;
+             
+            case TubePressEmbeddedOptions::PLAYER_COLOR:
+                $values = array(
+                    TpMsg::_("color-normal")    => "/", 
+                    TpMsg::_("color-darkgrey")  => "0x3a3a3a/0x999999",
+                    TpMsg::_("color-darkblue")  => "0x2b405b/0x6b8ab6", 
+                    TpMsg::_("color-lightblue") => "0x006699/0x54abd6",
+                    TpMsg::_("color-green")     => "0x234900/0x4e9e00", 
+                    TpMsg::_("color-orange")    => "0xe1600f/0xfebd01",
+                    TpMsg::_("color-pink")      => "0xcc2550/0xe87a9f", 
+                    TpMsg::_("color-purple")    => "0x402061/0x9461ca",
+                    TpMsg::_("color-red")       => "0x5d1719/0xcd311b"
+                );
+                TubePressOptionsForm::displayMenuInput($tpl, 
+                    $constant, $values, $tpsm->get($constant));
+                break;
+            }
             $tpl->parse("optionRow");
         }
         $tpl->parse("optionCategory");

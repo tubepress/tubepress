@@ -25,7 +25,13 @@
  */
 class TubePressOptionsForm
 {
-    
+    /**
+     * Displays all the TubePress options in HTML
+     *
+     * @param TubePressStorageManager $tpsm The TubePress storage manager
+     * 
+     * @return void
+     */
     public static final function display(TubePressStorageManager $tpsm)
     {
         /* load up the template */
@@ -34,9 +40,9 @@ class TubePressOptionsForm
             throw new Exception("Could not load options page template");
         }
         
-        $tpl->setVariable("PAGETITLE",  TpMsg::_("options-page-title"));
-        $tpl->setVariable("INTROTEXT",  TpMsg::_("options-page-intro-text"));
-        $tpl->setVariable("SAVE",         TpMsg::_("options-page-save-button"));
+        $tpl->setVariable("PAGETITLE", TpMsg::_("options-page-title"));
+        $tpl->setVariable("INTROTEXT", TpMsg::_("options-page-intro-text"));
+        $tpl->setVariable("SAVE", TpMsg::_("options-page-save-button"));
 
         foreach (TubePressOptionsForm::_getCategoryInstances() as $category) {
             $category->printForOptionsForm(&$tpl, $tpsm);
@@ -45,9 +51,20 @@ class TubePressOptionsForm
         print $tpl->get();
     }
 
-    public static function displayMenuInput(HTML_Template_IT &$tpl, $name, array $values, $value)
+    /**
+     * Displays a drop-down menu
+     *
+     * @param HTML_Template_IT &$tpl   The template to write to
+     * @param string           $name   The name of the select input
+     * @param array            $values The possible values for the drop-down
+     * @param string           $value  The current value
+     * 
+     * @return void
+     */
+    public static function displayMenuInput(HTML_Template_IT &$tpl, 
+        $name, array $values, $value)
     {    
-        foreach($values as $validValueTitle => $validValue) {
+        foreach ($values as $validValueTitle => $validValue) {
             
             if ($validValue === $value) {
                 $tpl->setVariable("OPTION_SELECTED", "SELECTED");
@@ -59,13 +76,33 @@ class TubePressOptionsForm
         $tpl->parse("menu");
     }
     
-    public static function displayTextInput(HTML_Template_IT &$tpl, $name, $value)
+    /**
+     * Displays a text input
+     *
+     * @param HTML_Template_IT &$tpl  The template to write to
+     * @param string           $name  The name of the input
+     * @param string           $value The current value
+     * 
+     * @return void
+     */
+    public static function displayTextInput(HTML_Template_IT &$tpl, 
+        $name, $value)
     {    
         $tpl->setVariable("OPTION_VALUE", $value);
         $tpl->parse("text");
     }
     
-    public static function displayBooleanInput(HTML_Template_IT &$tpl, $name, $value)
+    /**
+     * Displays a checkbox input
+     *
+     * @param HTML_Template_IT &$tpl  The template to write to
+     * @param string           $name  The name of the checkbox input
+     * @param boolean          $value The current value
+     * 
+     * @return void
+     */
+    public static function displayBooleanInput(HTML_Template_IT &$tpl, 
+        $name, $value)
     {    
         if ($value) {
             $tpl->setVariable("OPTION_SELECTED", "CHECKED");
@@ -73,7 +110,17 @@ class TubePressOptionsForm
         $tpl->parse("checkbox");
     }
     
-    public static function displayGalleryInput(HTML_Template_IT &$tpl, $name, $value)
+    /**
+     * Displays a radio button and then an optional additional input
+     *
+     * @param HTML_Template_IT &$tpl  The template to write to
+     * @param string           $name  The name of the input
+     * @param string           $value The current value
+     * 
+     * @return void
+     */
+    public static function displayGalleryInput(HTML_Template_IT &$tpl, 
+        $name, $value)
     {    
         if ($name === $value) {
             $tpl->setVariable("OPTION_SELECTED", "CHECKED");
@@ -84,8 +131,10 @@ class TubePressOptionsForm
     /**
      * Updates options from a keyed array
      *
-     * @param TubePressStorage_v160 $stored
-     * @param array $postVars
+     * @param TubePressStorageManager $tpsm     The TubePress storage manager
+     * @param array                   $postVars The POST variables
+     * 
+     * @return void
      */
     public final function collect(TubePressStorageManager $tpsm, 
         array $postVars)
@@ -108,6 +157,7 @@ class TubePressOptionsForm
             TubePressEmbeddedOptions::LOOP,
             TubePressEmbeddedOptions::SHOW_RELATED
         ));
+        
         foreach ($bools as $bool) {
             if (array_key_exists($bool, $postVars)) {
                 $tpsm->set($bool, true);
@@ -117,6 +167,11 @@ class TubePressOptionsForm
         }
     }
     
+    /**
+     * Enter description here...
+     *
+     * @return unknown
+     */
     private static function _getCategoryInstances()
     {
         $cats = array();
@@ -125,7 +180,7 @@ class TubePressOptionsForm
             'Gallery', 'Display', 'Embedded', 'Meta', 'Advanced');
         
         foreach ($categories as $category) {
-            $ref = new ReflectionClass("TubePress" . $category . "Options");
+            $ref    = new ReflectionClass("TubePress" . $category . "Options");
             $cats[] = $ref->newInstance();
         }
         return $cats;

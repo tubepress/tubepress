@@ -18,14 +18,32 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-abstract class TubePressStorageManager {
 
+/**
+ * Handles persistent storage of TubePress options
+ *
+ */
+abstract class TubePressStorageManager
+{
+    /**
+     * Sets an option value
+     *
+     * @param string       $optionName  The option name
+     * @param unknown_type $optionValue The option value
+     * 
+     * @return void
+     */
     public final function set($optionName, $optionValue)
     {
         TubePressValidator::validate($optionName, $optionValue);
         $this->setOption($optionName, $optionValue);
     }
     
+    /**
+     * Initializes the storage
+     *
+     * @return void
+     */
     public final function init()
     {
         /* first do the advanced options */
@@ -139,7 +157,8 @@ abstract class TubePressStorageManager {
         
         if (!$this->exists(TubePressGalleryOptions::PLAYLIST_VALUE)) {
             $this->delete(TubePressGalleryOptions::PLAYLIST_VALUE);
-            $this->create(TubePressGalleryOptions::PLAYLIST_VALUE, "D2B04665B213AE35");
+            $this->create(TubePressGalleryOptions::PLAYLIST_VALUE, 
+                "D2B04665B213AE35");
         }
         
         if (!$this->exists(TubePressGalleryOptions::TAG_VALUE)) {
@@ -219,16 +238,58 @@ abstract class TubePressStorageManager {
         }
     }
     
+    /**
+     * Sets an option to a new value
+     *
+     * @param string       $optionName  The name of the option to update
+     * @param unknown_type $optionValue The new option value
+     * 
+     * @return void
+     */
     protected abstract function setOption($optionName, $optionValue);
     
+    /**
+     * Retrieve the current value of an option
+     *
+     * @param string $optionName The name of the option
+     * 
+     * @return unknown_type
+     */
     public abstract function get($optionName);
     
+    /**
+     * Deletes an option from storage
+     *
+     * @param unknown_type $optionName The name of the option to delete
+     * 
+     * @return void
+     */
     protected abstract function delete($optionName);
     
+    /**
+     * Creates an option in storage
+     *
+     * @param unknown_type $optionName  The name of the option to create
+     * @param unknown_type $optionValue The default value of the new option
+     * 
+     * @return void
+     */
     protected abstract function create($optionName, $optionValue);
     
+    /**
+     * Determines if an option exists
+     *
+     * @param string $optionName The name of the option in question
+     * 
+     * @return boolean True if the option exists, false otherwise
+     */
     public abstract function exists($optionName);
     
+    /**
+     * Enter description here...
+     *
+     * @return void
+     */
     public function debug()
     {
         $allOpts = array(
@@ -276,9 +337,12 @@ abstract class TubePressStorageManager {
         $result .= "<ol>";
         foreach ($allOpts as $opt) {
             if ($this->exists($opt)) {
-                $result .= "<li><font color=\"green\">$opt exists and its value is \"" . $this->get($opt) . "\"</font></li>";
+                $result .= "<li><font color=\"green\">" .
+                    "$opt exists and its value is \"" . $this->get($opt) .
+                    "\"</font></li>";
             } else {
-                $result .= "<li><font color=\"red\">$opt does not exist!</font></li>";
+                $result .= "<li><font color=\"red\">" .
+                    "$opt does not exist!</font></li>";
             }
             
         }

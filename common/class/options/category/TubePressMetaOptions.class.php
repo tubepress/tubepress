@@ -22,26 +22,33 @@
 /**
  * Options that control which meta info is displayed below video
  * thumbnails
- *
  */
 class TubePressMetaOptions
-{   
-    const AUTHOR         = "author";
-    const CATEGORY         = "category";
-    const DESCRIPTION     = "description";
-    const ID             = "id";
-    const LENGTH         = "length";
-    const RATING         = "rating";
-    const RATINGS         = "ratings";
-    const TAGS             = "tags";
-    const TITLE         = "title";
-    const UPLOADED         = "uploaded";
-    const URL             = "url";
-    const VIEWS         = "views";
+{
+    const AUTHOR      = "author";
+    const CATEGORY    = "category";
+    const DESCRIPTION = "description";
+    const ID          = "id";
+    const LENGTH      = "length";
+    const RATING      = "rating";
+    const RATINGS     = "ratings";
+    const TAGS        = "tags";
+    const TITLE       = "title";
+    const UPLOADED    = "uploaded";
+    const URL         = "url";
+    const VIEWS       = "views";
     
-    public function printForOptionsForm(HTML_Template_IT &$tpl, TubePressStorageManager $tpsm)
+    /**
+     * Displays meta options for the options form
+     *
+     * @param HTML_Template_IT        &$tpl The template to write to
+     * @param TubePressStorageManager $tpsm The TubePress storage manager
+     * 
+     * @return void
+     */
+    public function printForOptionsForm(HTML_Template_IT &$tpl, 
+        TubePressStorageManager $tpsm)
     {
-
         $title = "meta";
         
         $tpl->setVariable("OPTION_CATEGORY_TITLE",
@@ -52,13 +59,16 @@ class TubePressMetaOptions
         $colCount = 0;
         
         /* go through each option in the category */
-        foreach($class->getConstants() as $constant) {
+        foreach ($class->getConstants() as $constant) {
             $tpl->setVariable("EXTRA_STYLE", "; width: 15em");
-            $tpl->setVariable("OPTION_TITLE", TpMsg::_(sprintf("options-%s-title-%s", $title, $constant)));
-            $tpl->setVariable("OPTION_DESC", TpMsg::_(sprintf("options-%s-desc-%s", $title, $constant)));
+            $tpl->setVariable("OPTION_TITLE", 
+                TpMsg::_(sprintf("options-%s-title-%s", $title, $constant)));
+            $tpl->setVariable("OPTION_DESC", 
+                TpMsg::_(sprintf("options-%s-desc-%s", $title, $constant)));
             $tpl->setVariable("OPTION_NAME", $constant);
         
-            TubePressOptionsForm::displayBooleanInput($tpl, $constant, $tpsm->get($constant));
+            TubePressOptionsForm::displayBooleanInput($tpl, 
+                $constant, $tpsm->get($constant));
             
             if (++$colCount % 5 === 0) {
                 $tpl->parse("optionRow");

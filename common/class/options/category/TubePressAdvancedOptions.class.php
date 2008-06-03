@@ -31,9 +31,17 @@ class TubePressAdvancedOptions
     const KEYWORD       = "keyword";
     const RANDOM_THUMBS = "randomize_thumbnails";
     
-    public function printForOptionsForm(HTML_Template_IT &$tpl, TubePressStorageManager $tpsm)
+    /**
+     * Displays advanced options for the options form
+     *
+     * @param HTML_Template_IT        &$tpl The template to write to
+     * @param TubePressStorageManager $tpsm The TubePress storage manager
+     * 
+     * @return void
+     */
+    public function printForOptionsForm(HTML_Template_IT &$tpl, 
+        TubePressStorageManager $tpsm)
     {
-
         $title = "advanced";
         
         $tpl->setVariable("OPTION_CATEGORY_TITLE",
@@ -42,23 +50,27 @@ class TubePressAdvancedOptions
         $class = new ReflectionClass("TubePressAdvancedOptions");    
 
         /* go through each option in the category */
-        foreach($class->getConstants() as $constant) {
-            $tpl->setVariable("OPTION_TITLE", TpMsg::_(sprintf("options-%s-title-%s", $title, $constant)));
-            $tpl->setVariable("OPTION_DESC", TpMsg::_(sprintf("options-%s-desc-%s", $title, $constant)));
+        foreach ($class->getConstants() as $constant) {
+            $tpl->setVariable("OPTION_TITLE", 
+                TpMsg::_(sprintf("options-%s-title-%s", $title, $constant)));
+            $tpl->setVariable("OPTION_DESC", 
+                TpMsg::_(sprintf("options-%s-desc-%s", $title, $constant)));
             $tpl->setVariable("OPTION_NAME", $constant);
             
             switch ($constant) {
                 
-                case TubePressAdvancedOptions::DATEFORMAT:
-                case TubePressAdvancedOptions::KEYWORD:
-                    TubePressOptionsForm::displayTextInput($tpl, $constant, $tpsm->get($constant));
-                    break;
-                
-                case TubePressAdvancedOptions::DEBUG_ON:
-                case TubePressAdvancedOptions::FILTER:
-                case TubePressAdvancedOptions::RANDOM_THUMBS:
-                    TubePressOptionsForm::displayBooleanInput($tpl, $constant, $tpsm->get($constant));
-                    break;
+            case TubePressAdvancedOptions::DATEFORMAT:
+            case TubePressAdvancedOptions::KEYWORD:
+                TubePressOptionsForm::displayTextInput($tpl, 
+                    $constant, $tpsm->get($constant));
+                break;
+              
+            case TubePressAdvancedOptions::DEBUG_ON:
+            case TubePressAdvancedOptions::FILTER:
+            case TubePressAdvancedOptions::RANDOM_THUMBS:
+                TubePressOptionsForm::displayBooleanInput($tpl, 
+                    $constant, $tpsm->get($constant));
+                break;
             }
             
             $tpl->parse("optionRow");
