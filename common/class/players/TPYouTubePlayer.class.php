@@ -23,9 +23,14 @@
  * Plays videos from the original YouTube page
  */
 class TPYouTubePlayer extends TubePressPlayer
-{    
+{
     /**
-     * Tells the gallery how to play a video
+     * Tells the gallery how to play videos on YouTube
+     *
+     * @param TubePressVideo          $vid  The video to be played
+     * @param TubePressOptionsManager $tpom The TubePress options manager
+     * 
+     * @return string The play link attributes
      */
     function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
     {   

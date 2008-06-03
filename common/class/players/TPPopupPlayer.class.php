@@ -23,18 +23,23 @@
  * Plays videos in an HTML popup window
  */
 class TPPopupPlayer extends TubePressPlayer
-{    
+{
     /**
-     * Tells the gallery how to play the videos
+     * Tells the gallery how to play videos in a popup window
+     *
+     * @param TubePressVideo          $vid  The video to be played
+     * @param TubePressOptionsManager $tpom The TubePress options manager
+     * 
+     * @return string The play link attributes
      */
     public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
     {
         global $tubepress_base_url;
 
-        $title = $vid->getTitle();
+        $title  = $vid->getTitle();
         $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
-        $width = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
-        $embed = new TubePressEmbeddedPlayer($vid, $tpom);
+        $width  = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
+        $embed  = new TubePressEmbeddedPlayer($vid, $tpom);
         
         $url = new Net_URL($tubepress_base_url . "/common/ui/popup.php");
         $url->addQueryString("embed", $embed->toString());

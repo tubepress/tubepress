@@ -18,13 +18,19 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
 /**
  * Plays videos at the top of a gallery
  */
-class TPNormalPlayer extends TubePressPlayer 
-{    
+class TPNormalPlayer extends TubePressPlayer
+{
     /**
-     * Tells the gallery how to play the videos
+     * Tells the gallery how to play videos with the normal player
+     *
+     * @param TubePressVideo          $vid  The video to be played
+     * @param TubePressOptionsManager $tpom The TubePress options manager
+     * 
+     * @return string The play link attributes
      */
     public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
     {

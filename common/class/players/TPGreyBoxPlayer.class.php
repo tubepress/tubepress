@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Copyright 2006, 2007, 2008 Eric D. Hough (http://ehough.com)
  * 
@@ -18,16 +18,23 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
 /**
  * Plays videos with GreyBox
  */
 class TPGreyBoxPlayer extends TubePressPlayer
 {
-    public function __construct() {
+    /**
+     * Constructor
+     *
+     * @return void
+     */
+    public function __construct()
+    {
         global $tubepress_base_url;
 
         $gbURL = $tubepress_base_url . "/lib/greybox/";
-        $gbJS = array($gbURL . "AJS.js",
+        $gbJS  = array($gbURL . "AJS.js",
             $gbURL . "AJS_fx.js",
             $gbURL . "gb_scripts.js");
         
@@ -40,16 +47,21 @@ class TPGreyBoxPlayer extends TubePressPlayer
     }
     
     /**
-     * Tells the gallery how to play the vids
+     * Tells the gallery how to play videos in GreyBox
+     *
+     * @param TubePressVideo          $vid  The video to be played
+     * @param TubePressOptionsManager $tpom The TubePress options manager
+     * 
+     * @return string The play link attributes
      */
     public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
     {
         global $tubepress_base_url;
 
-        $title = $vid->getTitle();
+        $title  = $vid->getTitle();
         $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
-        $width = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
-        $embed = new TubePressEmbeddedPlayer($vid, $tpom);
+        $width  = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
+        $embed  = new TubePressEmbeddedPlayer($vid, $tpom);
         
         $url = new Net_URL($tubepress_base_url . "/common/ui/popup.php");
         $url->addQueryString("embed", $embed->toString());

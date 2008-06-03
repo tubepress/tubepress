@@ -19,24 +19,30 @@
  *
  */
 
-
 /**
  * Plays videos with GreyBox
  */
 class TPShadowBoxPlayer extends TubePressPlayer
 {
-    public function __construct() {
+    /**
+     * Constructor
+     *
+     * @return void
+     */    
+    public function __construct()
+    {
         global $tubepress_base_url;
 
         $sbUrl = $tubepress_base_url . "/lib/shadowbox/";
-        $gbJS = array(
+        $gbJS  = array(
             $sbUrl . "src/js/lib/yui-utilities.js",
             $sbUrl . "src/js/adapter/shadowbox-yui.js",
             $sbUrl . "src/js/shadowbox.js");
         
         
-        $sbCSS = array($sbUrl . "src/css/shadowbox.css");
-        $extra = "YAHOO.util.Event.onDOMReady(function() {var options = { assetURL: ";
+        $sbCSS  = array($sbUrl . "src/css/shadowbox.css");
+        $extra  = "YAHOO.util.Event.onDOMReady(function() " .
+            "{var options = { assetURL: ";
         $extra .= "'" . $sbUrl . "'";
         $extra .= "}; Shadowbox.init(options);});";
         
@@ -46,15 +52,20 @@ class TPShadowBoxPlayer extends TubePressPlayer
     }
     
     /**
-     * Tells the gallery how to play the vids
+     * Tells the gallery how to play videos in ShadowBox.js
+     *
+     * @param TubePressVideo          $vid  The video to be played
+     * @param TubePressOptionsManager $tpom The TubePress options manager
+     * 
+     * @return string The play link attributes
      */
     public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
     {
         global $tubepress_base_url;
 
-        $title = $vid->getTitle();
+        $title  = $vid->getTitle();
         $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
-        $width = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
+        $width  = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
 
         $embed = new TubePressEmbeddedPlayer($vid, $tpom);
         
