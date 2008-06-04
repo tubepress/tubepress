@@ -62,7 +62,7 @@ class TubePressOptionsManager
     /**
      * Gets the value of an option
      *
-     * @param string   $optionName The name of the option
+     * @param string $optionName The name of the option
      * 
      * @return unknown The option value
      */
@@ -77,27 +77,34 @@ class TubePressOptionsManager
     /**
      * Enter description here...
      *
-     * @param array $customOpts
+     * @param array $customOpts Custom options
+     * 
+     * @return void
      */
-    public function setCustomOptions(array $customOpts) {
+    public function setCustomOptions(array $customOpts)
+    {
         $this->_customOptions = $customOpts;
     }
     
     /**
      * Enter description here...
      *
-     * @param string $newTagString
+     * @param string $newTagString The new tag string
+     * 
+     * @return void
      */
-    public function setTagString($newTagString) {
+    public function setTagString($newTagString)
+    {
         $this->_tagString = $newTagString;
     }
     
     /**
      * Enter description here...
      *
-     * @return string
+     * @return string The full tag string
      */
-    public function getTagString() {
+    public function getTagString()
+    {
         return $this->_tagString;
     }
 }

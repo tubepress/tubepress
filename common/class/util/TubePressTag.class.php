@@ -1,9 +1,36 @@
 <?php
-class TubePressTag {
+/**
+ * Copyright 2006, 2007, 2008 Eric D. Hough (http://ehough.com)
+ * 
+ * This file is part of TubePress (http://tubepress.org)
+ * 
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+/**
+ * Handles parsing a tag to options
+ */
+class TubePressTag
+{
     /**
-     * This function is used when the plugin parses a tag from a post/page.
-     * It pulls all the options from the db, but uses option values found in
-     * the tag when it can.
+     * This function is used to parse a tag into options that TubePress can use.
+     *
+     * @param string                  $content The haystack in which to search
+     * @param TubePressOptionsManager &$tpom   The TubePress options manager
+     * 
+     * @return void
      */
     public function parse($content, TubePressOptionsManager &$tpom)
     {    
@@ -15,10 +42,6 @@ class TubePressTag {
         /* Match everything in square brackets after the trigger */
         $regexp = '\[' . $keyword . "(.*)\]";
         preg_match("/$regexp/", $content, $matches);
-        
-//        if (TubePressStatic::areWeDebugging($this)) {
-//            echo "<ol><li>Tag string on this page is <code>" . $this->tagString . "</code></li></ol>";
-//        }
         
         $tpom->setTagString($matches[0]);
         
@@ -33,9 +56,9 @@ class TubePressTag {
         $optionsArray = array();
         foreach ($pairs as $pair) {
                 
-            $pieces = explode("=", $pair);
-            $pieces[0] = TubePressTag::_cleanupTagValue($pieces[0]);
-            $pieces[1] = TubePressTag::_cleanupTagValue($pieces[1]);
+            $pieces                    = explode("=", $pair);
+            $pieces[0]                 = TubePressTag::_cleanupTagValue($pieces[0]);
+            $pieces[1]                 = TubePressTag::_cleanupTagValue($pieces[1]);
             $customOptions[$pieces[0]] = $pieces[1];
         }
 
@@ -45,14 +68,19 @@ class TubePressTag {
     /**
      * Tries to strip out any quotes from a tag option name or option value. This
      * is ugly, ugly, ugly, and it still doesn't work as well as I'd like it to
+     *
+     * @param string &$nameOrValue The raw option name or value
+     * 
+     * @return string The cleaned up option name or value
      */
     private static function _cleanupTagValue(&$nameOrValue)
     {
-        $nameOrValue = trim(
-            str_replace(
-                array("&#8220;", "&#8221;", "&#8217;", "&#8216;",
-                      "&#8242;", "&#8243;", "&#34", "'", "\""),"", 
-                      trim($nameOrValue)));
+        $nameOrValue = 
+            trim(str_replace(array("&#8220;", 
+                "&#8221;", "&#8217;", "&#8216;",
+                "&#8242;", "&#8243;", "&#34", "'", "\""),"", 
+                trim($nameOrValue)));
+        
         if ($nameOrValue == "true") {
             return true;
         }

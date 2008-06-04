@@ -18,26 +18,40 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class TubePressEmbeddedPlayer {
+
+/**
+ * Represents an HTML-embeddable YouTube player
+ *
+ */
+class TubePressEmbeddedPlayer
+{
+    private $_asString;
     
-    private $asString;
-    
-    public function __construct(TubePressVideo $vid, TubePressOptionsManager $tpom) {
-        $id = $vid->getId();
-        $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
-        $width = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
-        $rel = $tpom->get(TubePressEmbeddedOptions::SHOW_RELATED)? "1" : "0";
-        $colors = $tpom->get(TubePressEmbeddedOptions::PLAYER_COLOR);
+    /**
+     * Constructor
+     *
+     * @param TubePressVideo          $vid  The video to play
+     * @param TubePressOptionsManager $tpom The TubePress options manager
+     * 
+     * @return void
+     */
+    public function __construct(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    {
+        $id       = $vid->getId();
+        $height   = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
+        $width    = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
+        $rel      = $tpom->get(TubePressEmbeddedOptions::SHOW_RELATED)? "1" : "0";
+        $colors   = $tpom->get(TubePressEmbeddedOptions::PLAYER_COLOR);
         $autoPlay = $tpom->get(TubePressEmbeddedOptions::AUTOPLAY)? "1" : "0";
-        $loop = $tpom->get(TubePressEmbeddedOptions::LOOP)? "1" : "0";
-        $egm = $tpom->get(TubePressEmbeddedOptions::GENIE)? "1" : "0";
-        $border = $tpom->get(TubePressEmbeddedOptions::BORDER)? "1" : "0";
+        $loop     = $tpom->get(TubePressEmbeddedOptions::LOOP)? "1" : "0";
+        $egm      = $tpom->get(TubePressEmbeddedOptions::GENIE)? "1" : "0";
+        $border   = $tpom->get(TubePressEmbeddedOptions::BORDER)? "1" : "0";
 
         $link = "http://www.youtube.com/v/$id";
         
         if ($colors != "/") {
             $colors = explode("/", $colors);
-            $link .= "&amp;color1=" . $colors[0] . "&amp;color2=" . $colors[1];
+            $link  .= "&amp;color1=" . $colors[0] . "&amp;color2=" . $colors[1];
         }
         
         $link .= "&amp;rel=$rel";
@@ -46,17 +60,24 @@ class TubePressEmbeddedPlayer {
         $link .= "&amp;egm=$egm";
         $link .= "&amp;border=$border";
     
-        $string = '<object type="application/x-shockwave-flash" style="width:' .
+        $string          = '<object " .
+        	"type="application/x-shockwave-flash" style="width:' .
             $width . 'px;height:' . $height . 'px"';
-        $string .= ' data="' . $link . '">';
-        $string .= '<param name="wmode" value="transparent" />';
-        $string .= '<param name="movie" value="' . $link . '" />';   
-        $string .= '</object>';
-        $this->asString = $string;
+        $string         .= ' data="' . $link . '">';
+        $string         .= '<param name="wmode" value="transparent" />';
+        $string         .= '<param name="movie" value="' . $link . '" />';   
+        $string         .= '</object>';
+        $this->_asString = $string;
     }
     
-    public function toString() {
-        return $this->asString;
+    /**
+     * Spits back the text for this embedded player
+     *
+     * @return string The text for this embedded player
+     */
+    public function toString()
+    {
+        return $this->_asString;
     }
 }
 

@@ -39,6 +39,8 @@ class TubePressEmbeddedOptions
      *
      * @param HTML_Template_IT        &$tpl The template to write to
      * @param TubePressStorageManager $tpsm The TubePress storage manager
+     * 
+     * @return void
      */
     public function printForOptionsForm(HTML_Template_IT &$tpl, 
         TubePressStorageManager $tpsm)

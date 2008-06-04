@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Copyright 2006, 2007, 2008 Eric D. Hough (http://ehough.com)
  * 
@@ -18,21 +18,45 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class TubePressDebug {
-    
-    public static final function execute(TubePressOptionsManager $tpom, TubePressStorageManager $tpsm)
+
+/**
+ * Performs various debugging functions
+ *
+ */
+class TubePressDebug
+{
+    /**
+     * Executes the debugging. Amazing!
+     *
+     * @param TubePressOptionsManager $tpom The TubePress options manager
+     * @param TubePressStorageManager $tpsm The TubePress storage manager
+     * 
+     * @return void
+     */
+    public static final function execute(TubePressOptionsManager $tpom, 
+        TubePressStorageManager $tpsm)
     {
         global $tubepress_base_url;
         $tpomAsString = print_r($tpom, true);
         $tpsmAsString = $tpsm->debug();
 
         echo "<ol>";
-        echo "<li>tubepress_base_url<code><pre>$tubepress_base_url</pre></code></li>";
-        echo "<li>Your options manager: <code><pre>$tpomAsString</pre></code></li>";
-        echo "<li>Your storage manager: <code><pre>$tpsmAsString</pre></code></li>";    
+        echo "<li>tubepress_base_url<code><pre>" .
+            "$tubepress_base_url</pre></code></li>";
+        echo "<li>Your options manager: <code><pre>" .
+            "$tpomAsString</pre></code></li>";
+        echo "<li>Your storage manager: <code><pre>" .
+            "$tpsmAsString</pre></code></li>";    
         echo "</ol>";
     }
     
+    /**
+     * Determines if we are in debug mode
+     *
+     * @param TubePressOptionsManager $tpom The TubePress options manager
+     * 
+     * @return boolean True if we're in debug mode, false otherwise
+     */
     public static final function areWeDebugging(TubePressOptionsManager $tpom)
     {
         $enabled = $tpom->get(TubePressAdvancedOptions::DEBUG_ON);
