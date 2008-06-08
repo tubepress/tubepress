@@ -340,7 +340,7 @@ class TubePressVideo
      */
     private function _getUrl() 
     {
-        $links = $this->_mediaGroup->getElementsByTagName('link');
+        $links = $this->_domElement->getElementsByTagName('link');
         for ($x = 0; $x < $links->length; $x++) {
             $link = $links->item($x);
             if ($link->getAttribute('rel') != 'alternate') {
