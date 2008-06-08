@@ -1,0 +1,323 @@
+"Project-Id-Version: TubePress 1.6.1"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Eric Hough <ehough@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "TubePress Options"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Set default options for the plugin. Each option here can be overridden on a per page/post basis. See the <a href=\"http://code.google.com/p/tubepress/wiki/Documentation\">documentation</a> for more info."
+msgstr ""
+
+msgid "Which videos?"
+msgstr ""
+
+msgid "Top rated videos from..."
+msgstr ""
+
+msgid "This YouTube user's \"favorites\""
+msgstr ""
+
+msgid "The latest \"featured\" videos on YouTube's homepage"
+msgstr ""
+
+msgid "Videos for mobile phones"
+msgstr ""
+
+msgid "This playlist"
+msgstr ""
+
+msgid "Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the 'p='. For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35"
+msgstr ""
+
+msgid "Most-viewed videos from"
+msgstr ""
+
+msgid "Most-linked videos"
+msgstr ""
+
+msgid "Most-recently added videos"
+msgstr ""
+
+msgid "Most-discussed videos"
+msgstr ""
+
+msgid "Most-responded to videos"
+msgstr ""
+
+msgid "Views"
+msgstr ""
+
+msgid "YouTube search for..."
+msgstr ""
+
+msgid "Videos from this YouTube user"
+msgstr ""
+
+msgid "YouTube limits this mode to 1,000 results"
+msgstr ""
+
+msgid "Display Options"
+msgstr ""
+
+msgid "Play each video"
+msgstr ""
+
+msgid "Height (px) of thumbs"
+msgstr ""
+
+msgid "Default (and maximum) is 90"
+msgstr ""
+
+msgid "Width (px) of thumbs"
+msgstr ""
+
+msgid "Default (and maximum) is 120"
+msgstr ""
+
+msgid "Videos per Page"
+msgstr ""
+
+msgid "Default is 20. Maximum is 50"
+msgstr ""
+
+msgid "Order videos by"
+msgstr ""
+
+msgid "Embedded Player"
+msgstr ""
+
+msgid "Auto-play videos"
+msgstr ""
+
+msgid "Show border"
+msgstr ""
+
+msgid "Max height (px)"
+msgstr ""
+
+msgid "Default is 355"
+msgstr ""
+
+msgid "Max height (px)"
+msgstr ""
+
+msgid "Default is 425"
+msgstr ""
+
+msgid "Enhanced genie menu"
+msgstr ""
+
+msgid "Show the genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button"
+msgstr ""
+
+msgid "Loop"
+msgstr ""
+
+msgid "Continue playing the video until the user stops it"
+msgstr ""
+
+msgid "Color"
+msgstr ""
+
+msgid "Show related videos"
+msgstr ""
+
+msgid "Toggles the display of related videos after a video finishes"
+msgstr ""
+
+msgid "Meta Display"
+msgstr ""
+
+msgid "Author"
+msgstr ""
+
+msgid "Category"
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "ID"
+msgstr ""
+
+msgid "Length"
+msgstr ""
+
+msgid "Rating"
+msgstr ""
+
+msgid "Ratings"
+msgstr ""
+
+msgid "Tags"
+msgstr ""
+
+msgid "Title"
+msgstr ""
+
+msgid "Posted"
+msgstr ""
+
+msgid "URL"
+msgstr ""
+
+msgid "Views"
+msgstr ""
+
+msgid "Advanced"
+msgstr ""
+
+msgid "Date format"
+msgstr ""
+
+msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\">date</a> for examples."
+msgstr ""
+
+msgid "Enable debugging"
+msgstr ""
+
+msgid "If checked, anyone will be able to view your debugging information. This is a rather small privacy risk. If you're not having problems with TubePress, or you're worried about revealing any details of your TubePress pages, feel free to disable the feature."
+msgstr ""
+
+msgid "Filter \"racy\" content"
+msgstr ""
+
+msgid "Don't show videos that may not be suitable for minors."
+msgstr ""
+
+msgid "Trigger keyword"
+msgstr ""
+
+msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
+msgstr ""
+
+msgid "Randomize thumbnails"
+msgstr ""
+
+msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized"
+msgstr ""
+
+msgid "normally (at the top of your gallery)"
+msgstr ""
+
+msgid "in a popup window"
+msgstr ""
+
+msgid "from the original YouTube page"
+msgstr ""
+
+msgid "with lightWindow (experimental)"
+msgstr ""
+
+msgid "with GreyBox (experimental)"
+msgstr ""
+
+msgid "with Shadowbox.js (experimental)"
+msgstr ""
+
+msgid "normal"
+msgstr ""
+
+msgid "dark gray"
+msgstr ""
+
+msgid "dark blue"
+msgstr ""
+
+msgid "light blue"
+msgstr ""
+
+msgid "green"
+msgstr ""
+
+msgid "orange"
+msgstr ""
+
+msgid "pink"
+msgstr ""
+
+msgid "purple"
+msgstr ""
+
+msgid "red"
+msgstr ""
+
+msgid "relevance"
+msgstr ""
+
+msgid "view count"
+msgstr ""
+
+msgid "rating"
+msgstr ""
+
+msgid "date updated"
+msgstr ""
+
+msgid "today"
+msgstr ""
+
+msgid "this week"
+msgstr ""
+
+msgid "this month"
+msgstr ""
+
+msgid "all time"
+msgstr ""
+
+#
+# VIDEO META INFO STUFF
+#
+msgid "Author"
+msgstr ""
+
+msgid "Category"
+msgstr ""
+
+msgid "ID"
+msgstr ""
+
+msgid "Rating"
+msgstr ""
+
+msgid "Ratings"
+msgstr ""
+
+msgid "Tags"
+msgstr ""
+
+msgid "Posted"
+msgstr ""
+
+msgid "URL"
+msgstr ""
+
+msgid "Views"
+msgstr ""
+
+#
+# VALIDATION
+#
+msgid "%s can only take on integer values. You supplied %s."
+msgstr ""
+
+msgid "%s must be between %d and %d. You supplied %d."
+msgstr ""
+
+msgid "%s must be one of \"today\", \"this_week\", \"this_month\", \"all_time\". You supplied %s."
+msgstr ""
+
+msgid "%s must be on of \"relevance\", \"viewCount\", \"rating\", \"updated\". You supplied %s."
+msgstr ""
+
+msgid "%s must be a string. You supplied %s."msgstr ""
+msgstr ""
