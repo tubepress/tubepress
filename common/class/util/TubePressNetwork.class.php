@@ -39,6 +39,10 @@ class TubePressNetwork
         $request = TubePressGalleryUrl::get($tpom);
         TubePressNetwork::_urlPostProcessing($request, $tpom);
         
+        if (TubePressDebug::areWeDebugging($tpom)) {
+        	echo $request;
+        }
+        
         $cache = new Cache_Lite(array("cacheDir" => sys_get_temp_dir()));
 
         if (!($data = $cache->get($request))) {
