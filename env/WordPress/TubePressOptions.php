@@ -19,14 +19,17 @@
  *
  */
 
-if (substr(phpversion(), 0, 1) == "5" && !function_exists("__tp_executeOptionsPage")) {
-    include("TubePressOptions_main.php");
+if (substr(phpversion(), 0, 1) == "5" 
+    && !function_exists("__tp_executeOptionsPage")) {
+    include "TubePressOptions_main.php";
 }
 
 /**
  * This is the main method for the TubePress global options page,
  * which is loaded when you're in the wp-admin section of your blog.
  * It basically just loads _tp_executeOptionsPage()
+ * 
+ * @return void
  */
 function tp_executeOptionsPage()
 {
@@ -36,12 +39,22 @@ function tp_executeOptionsPage()
     }
 }
 
+/**
+ * Enter description here...
+ *
+ * @return void
+ */
 function _tp_executeOptionsPage()
 {
     if (substr(phpversion(), 0, 1) == "5") {
         __tp_executeOptionsPage();
     } else {
-        echo '<div id="message" class="error fade"><p><strong>This version of TubePress requires PHP5 or higher. Please <a href="http://php.net">upgrade your PHP installation</a> or visit <a href="http://tubepress.org">tubepress.org</a> to obtain a different version of the plugin.</strong</p></div>';
+        echo '<div id="message" class="error fade"><p>'
+            . '<strong>This version of TubePress requires PHP5 '
+            . 'or higher. Please <a href="http://php.net">upgrade '
+            . 'your PHP installation</a> or visit <a href="'
+            . 'http://tubepress.org">tubepress.org</a> to obtain a '
+            . 'different version of the plugin.</strong</p></div>';
     }
 }
 
