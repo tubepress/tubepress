@@ -169,9 +169,6 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-msgid "Views"
-msgstr ""
-
 msgid "Advanced"
 msgstr ""
 
@@ -272,36 +269,6 @@ msgid "this month"
 msgstr ""
 
 msgid "all time"
-msgstr ""
-
-#
-# VIDEO META INFO STUFF
-#
-msgid "Author"
-msgstr ""
-
-msgid "Category"
-msgstr ""
-
-msgid "ID"
-msgstr ""
-
-msgid "Rating"
-msgstr ""
-
-msgid "Ratings"
-msgstr ""
-
-msgid "Tags"
-msgstr ""
-
-msgid "Posted"
-msgstr ""
-
-msgid "URL"
-msgstr ""
-
-msgid "Views"
 msgstr ""
 
 #
