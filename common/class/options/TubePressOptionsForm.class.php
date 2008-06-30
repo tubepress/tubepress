@@ -45,7 +45,7 @@ class TubePressOptionsForm
         $tpl->setVariable("SAVE", TpMsg::_("options-page-save-button"));
 
         foreach (TubePressOptionsForm::_getCategoryInstances() as $category) {
-            $category->printForOptionsForm(&$tpl, $tpsm);
+            $category->printForOptionsForm($tpl, $tpsm);
         }
   
         print $tpl->get();

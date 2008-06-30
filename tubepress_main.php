@@ -16,7 +16,7 @@ function tp_main($content = '')
         
         $wpsm = new WordPressStorageManager();
         $tpom = new TubePressOptionsManager($wpsm);
-        TubePressTag::parse($content, &$tpom);
+        TubePressTag::parse($content, $tpom);
         
         if (TubePressDebug::areWeDebugging($tpom)) {
             TubePressDebug::execute($tpom, $wpsm);
