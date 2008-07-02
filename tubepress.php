@@ -33,10 +33,10 @@ function_exists("tp_executeOptionsPage")
 /* load up the class loader */
 function_exists("tp_classFolder") || require("tubepress_classloader.php");
     
-isset($tubepress_base_url)
-    || $tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
-    
-load_plugin_textdomain("tubepress", 'wp-content/plugins/tubepress/common/messages');
+if (!isset($tubepress_base_url)) {
+	$tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
+	load_plugin_textdomain("tubepress", 'wp-content/plugins/tubepress/common/messages');
+}
     
 /* only load the rest if they have PHP5 installed and we haven't already loaded */
 if (substr(phpversion(), 0, 1) == "5" && !function_exists("tp_main")) {

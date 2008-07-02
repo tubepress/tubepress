@@ -5,34 +5,40 @@
 */
 function tp_main($content = '')
 {
-    /* Store everything we generate in the following string */
-    $newcontent = "";
+    if (!tp_shouldWeExecute($content)) {
+	    return $content;
+	}
+	
+	/* Store everything we generate in the following string */
+    $newcontent = $content;
 
-    try {
-
-        if (!tp_shouldWeExecute($content)) {
-            return $content;
-        }
-        
-        $wpsm = new WordPressStorageManager();
-        $tpom = new TubePressOptionsManager($wpsm);
-        TubePressTag::parse($content, $tpom);
-        
-        if (TubePressDebug::areWeDebugging($tpom)) {
-            TubePressDebug::execute($tpom, $wpsm);
-        }
-        
-        $modeName = $tpom->get(TubePressGalleryOptions::MODE);
-        $gallery = new TubePressGallery();
-        $newcontent .= $gallery->generate($tpom);
-
-        /* replace the tag with our new content */
-        return str_replace($tpom->getTagString(), $newcontent, $content);
+    $wpsm = new WordPressStorageManager();
+    $trigger = $wpsm->get(TubePressAdvancedOptions::KEYWORD);
     
-    } catch (Exception $e) {
-        return $e->getMessage();
+    while (TubePressTag::somethingToParse($newcontent, $trigger)) {
+	    try {
+
+	        $tpom = new TubePressOptionsManager($wpsm);
+	        TubePressTag::parse($newcontent, &$tpom);
+	        
+	        if (TubePressDebug::areWeDebugging($tpom)) {
+	            TubePressDebug::execute($tpom, $wpsm);
+	        }
+	        
+	        $modeName = $tpom->get(TubePressGalleryOptions::MODE);
+	        $gallery = new TubePressGallery();
+	
+	        /* replace the tag with our new content */
+	        $newcontent = TubePressTag::str_replaceFirst($tpom->getTagString(), $gallery->generate($tpom), $newcontent);
+	    
+	    } catch (Exception $e) {
+	        return $e->getMessage();
+	    }
     }
+    
+    return $newcontent;
 }
+
 
 
 /**
@@ -72,11 +78,7 @@ function tp_shouldWeExecute($content)
     
     $trigger = $wpsm->get(TubePressAdvancedOptions::KEYWORD);
     
-    if (strpos($content, '[' . $trigger) === false) {
-        return false;
-    }
-    
-    return true;
+    return TubePressTag::somethingToParse($content, $trigger);
 }
 
 /* don't forget to add our hooks! */

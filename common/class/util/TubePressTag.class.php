@@ -64,6 +64,20 @@ class TubePressTag
 
         $tpom->setCustomOptions($customOptions);
     }
+
+    public function somethingToParse($content, $trigger)
+    {
+    	return strpos($content, '[' . $trigger) !== false;
+    }
+    
+    public function str_replaceFirst($s,$r,$str)
+	{
+		$l = strlen($str);
+		$a = strpos($str,$s);
+		$b = $a + strlen($s);
+		$temp = substr($str,0,$a) . $r . substr($str,$b,($l-$b));
+		return $temp;
+	}
     
     /**
      * Tries to strip out any quotes from a tag option name or option value. This
@@ -89,4 +103,6 @@ class TubePressTag
         }
         return $nameOrValue;
     }
+
+
 }
