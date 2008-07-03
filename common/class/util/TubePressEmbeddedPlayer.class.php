@@ -60,8 +60,8 @@ class TubePressEmbeddedPlayer
         $link .= "&amp;egm=$egm";
         $link .= "&amp;border=$border";
     
-        $string          = '<object " .
-        	type="application/x-shockwave-flash" style="width:' .
+        $string          = '<object ' .  
+       	    'type="application/x-shockwave-flash" style="width:' .
             $width . 'px;height:' . $height . 'px"';
         $string         .= ' data="' . $link . '">';
         $string         .= '<param name="wmode" value="transparent" />';

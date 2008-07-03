@@ -78,7 +78,7 @@ class TPShadowBoxPlayer extends TubePressPlayer
         
         return sprintf('href="%s" title="%s" ' .
             'rel="shadowbox;height=%s;width=%s"',
-            $url->getURL(), $title, $height - 10, $width - 18);
-    }
+		$url->getURL(), $title, $height, $width); 
+   }
 }
 ?>
