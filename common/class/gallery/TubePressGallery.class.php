@@ -82,9 +82,11 @@ class TubePressGallery
                 $totalResults, $tpom, $tpl);
         }
         
-        /* Spit out the top/bottom pagination */
-        TubePressGallery::_parsePaginationHTML($totalResults, $tpom, $tpl);
-
+        /* Spit out the top/bottom pagination if we have any videos */
+        if ($vidLimit > 0) {
+            TubePressGallery::_parsePaginationHTML($totalResults, $tpom, $tpl);
+        }
+        
         return $tpl->get();
     }
 
