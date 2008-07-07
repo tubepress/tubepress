@@ -343,6 +343,15 @@ class TpMsg {
 
 			case "validation-text":
 			    return "%s must be a string. You supplied %s.";
+			    
+			case "next":
+			    return "next";
+			    
+			case "prev":
+			    return "prev";
+			    
+			default:
+			    return "";
 		}
 		 
 	}

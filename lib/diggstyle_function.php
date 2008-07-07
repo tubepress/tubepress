@@ -32,10 +32,10 @@ function diggstyle_getPaginationString($page = 1, $totalitems, $limit = 15, $adj
         if ($page > 1) {
             $url->addQueryString($pagestring, $prev);
             $newurl = $url->getURL();
-            $pagination .= "<a href=\"$newurl\">" .prev . "</a>";
+            $pagination .= "<a href=\"$newurl\">" . TpMsg::_("prev") . "</a>";
         }
         else
-            $pagination .= "<span class=\"disabled\">" .prev . "</span>";    
+            $pagination .= "<span class=\"disabled\">" . TpMsg::_("prev") . "</span>";    
 
         //pages    
         if ($lastpage < 7 + ($adjacents * 2))    //not enough pages to bother breaking it up
@@ -130,9 +130,9 @@ function diggstyle_getPaginationString($page = 1, $totalitems, $limit = 15, $adj
         if ($page < $counter - 1) {
             $url->addQueryString($pagestring, $next);
             $newurl = $url->getURL();
-            $pagination .= "<a href=\"$newurl\">" .next . "</a>";
+            $pagination .= "<a href=\"$newurl\">" . TpMsg::_("next") . "</a>";
         } else {
-            $pagination .= "<span class=\"disabled\">" .next . "</span>";
+            $pagination .= "<span class=\"disabled\">" . TpMsg::_("next") . "</span>";
         }
         $pagination .= "</div>\n";
     }

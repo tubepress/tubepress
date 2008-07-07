@@ -287,6 +287,12 @@ msgstr ""
 msgid "all time"
 msgstr ""
 
+msgid "next"
+msgstr ""
+
+msgid "prev"
+msgstr ""
+
 #
 # VALIDATION
 #
