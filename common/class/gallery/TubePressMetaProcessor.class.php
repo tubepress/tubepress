@@ -44,7 +44,8 @@ class TubePressMetaProcessor
         /* go through each option in the category */
         foreach ($class->getConstants() as $constant) {
 
-            if ($tpom->get($constant) != 1) {
+            if ($tpom->get($constant) != 1 
+                && $tpom->get($constant) != $constant) {
                 continue;
             }
             

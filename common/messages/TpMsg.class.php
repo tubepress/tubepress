@@ -10,7 +10,9 @@ class TpMsg {
 	 */
 	public static function _($msgId)
 	{
-		return __(TpMsg::_keyToMessage($msgId), "tubepress");
+	    $message = TpMsg::_keyToMessage($msgId);
+	    return $message == "" ? "" : 
+		    __($message, "tubepress");
 	}
 
 	/**
@@ -341,7 +343,6 @@ class TpMsg {
 
 			case "validation-text":
 			    return "%s must be a string. You supplied %s.";
-    		
 		}
 		 
 	}
