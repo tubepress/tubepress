@@ -54,7 +54,7 @@ class TpMsg {
 			case "options-gallery-desc-playlist":
 			    return "Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the 'p='. For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35";
 
-			case "options-gallery-title-popular":
+			case "options-gallery-title-most_viewed":
 			    return "Most-viewed videos from";
 
 			case "options-gallery-title-most_linked":

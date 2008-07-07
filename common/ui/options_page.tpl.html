@@ -6,17 +6,17 @@
 		{INTROTEXT}
 		
 		<!-- BEGIN optionCategory -->
-		<fieldset>
+	
 			<h3>{OPTION_CATEGORY_TITLE}</h3>
-			<table class="editform optiontable">
+			<table class="form-table" style="margin: 0">
 				
 				<!-- BEGIN optionRow -->
-				<tr>
+				<tr valign="top">
 					<!-- BEGIN option -->
-					<th style="font-weight: bold; font-size: 1em{EXTRA_STYLE}" valign="top">
+					<th style="border-bottom-style: none; font-weight: bold; font-size: 1em{EXTRA_STYLE}" valign="top">
 						{OPTION_TITLE}
 					</th>
-					<td style="vertical-align: top">
+					<td style="vertical-align: top; border-bottom-style: none">
 						<!-- BEGIN galleryType -->
 						<input type="radio" name="mode" id="{OPTION_NAME}" value="{OPTION_NAME}" {OPTION_SELECTED} />
 						<!-- END galleryType -->
@@ -43,10 +43,12 @@
 				</tr>
 				<!-- END optionRow -->
 			</table>
-		</fieldset>
+			<br />
 		<!-- END optionCategory -->
 
-		<input type="submit" name="tubepress_save" value="{SAVE}" />
+		<p class="submit">
+			<input type="submit" name="tubepress_save" value="{SAVE}" />
+		</p>
 		<!-- END options -->
 	</form>
 </div>
