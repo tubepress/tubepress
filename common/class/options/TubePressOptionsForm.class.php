@@ -63,7 +63,8 @@ class TubePressOptionsForm
      */
     public static function displayMenuInput(HTML_Template_IT &$tpl, 
         $name, array $values, $value)
-    {    
+    {   
+        $tpl->setVariable("OPTION_NAME", $name);
         foreach ($values as $validValueTitle => $validValue) {
             
             if ($validValue === $value) {
@@ -89,6 +90,7 @@ class TubePressOptionsForm
         $name, $value)
     {    
         $tpl->setVariable("OPTION_VALUE", $value);
+        $tpl->setVariable("OPTION_NAME", $name);
         $tpl->parse("text");
     }
     
