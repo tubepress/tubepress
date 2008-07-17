@@ -19,7 +19,7 @@ function tp_main($content = '')
 	    try {
 
 	        $tpom = new TubePressOptionsManager($wpsm);
-	        TubePressTag::parse($newcontent, &$tpom);
+	        TubePressTag::parse($newcontent, $tpom);
 	        
 	        if (TubePressDebug::areWeDebugging($tpom)) {
 	            TubePressDebug::execute($tpom, $wpsm);
