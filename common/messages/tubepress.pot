@@ -89,6 +89,12 @@ msgstr ""
 msgid "Play each video"
 msgstr ""
 
+msgid "Maximum description length"
+msgstr ""
+
+msgid "Maximum number of characters to display in video descriptions. Set to 0 for no limit."
+msgstr ""
+
 msgid "Height (px) of thumbs"
 msgstr ""
 
@@ -291,6 +297,9 @@ msgid "next"
 msgstr ""
 
 msgid "prev"
+msgstr ""
+
+msgid "Displays YouTube videos in your sidebar using TubePress"
 msgstr ""
 
 #

@@ -63,7 +63,12 @@ class TubePressMetaProcessor
                 break;
                     
             case TubePressMetaOptions::DESCRIPTION:
-                $tpl->setVariable('DESCRIPTION', $vid->getDescription());
+            	$limit = $tpom->get(TubePressDisplayOptions::DESC_LIMIT);
+            	$desc = $vid->getDescription();
+            	if ($limit > 0 && strlen($desc) > $limit) {
+            		$desc = substr($desc, 0, $limit) . " ...";
+            	}
+                $tpl->setVariable('DESCRIPTION', $desc);
                 $tpl->parse('description');
                 break;
                 

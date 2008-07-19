@@ -26,6 +26,7 @@
 class TubePressDisplayOptions
 {
     const CURRENT_PLAYER_NAME = "playerLocation";
+    const DESC_LIMIT          = "descriptionLimit";
     const ORDER_BY            = "orderBy";
     const RESULTS_PER_PAGE    = "resultsPerPage";
     const THUMB_HEIGHT        = "thumbHeight";
@@ -59,6 +60,7 @@ class TubePressDisplayOptions
             
             switch ($constant) {
                 
+            case TubePressDisplayOptions::DESC_LIMIT;
             case TubePressDisplayOptions::RESULTS_PER_PAGE:
             case TubePressDisplayOptions::THUMB_HEIGHT:
             case TubePressDisplayOptions::THUMB_WIDTH:

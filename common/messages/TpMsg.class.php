@@ -89,6 +89,12 @@ class TpMsg {
 			case "options-display-title-playerLocation":
 			    return "Play each video";
 
+			case "options-display-title-descriptionLimit":
+				return "Maximum description length";
+				
+			case "options-display-desc-descriptionLimit":
+				return "Maximum number of characters to display in video descriptions. Set to 0 for no limit.";
+			    
 			case "options-display-title-thumbHeight":
 			    return "Height (px) of thumbs";
 
@@ -349,6 +355,9 @@ class TpMsg {
 			    
 			case "prev":
 			    return "prev";
+			    
+			case "widget-description":
+				return "Displays YouTube videos in your sidebar using TubePress";    
 			    
 			default:
 			    return "";

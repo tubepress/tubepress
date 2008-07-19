@@ -22,7 +22,7 @@
 /**
  * A bunch of utilities that are used throughout the app
  */
-final class TubePressStatic
+final class TubePressQueryString
 {
     /**
      * Returns what's in the address bar

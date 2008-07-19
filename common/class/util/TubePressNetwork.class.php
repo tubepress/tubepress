@@ -33,7 +33,7 @@ class TubePressNetwork
      * 
      * @return DOMDocument The raw RSS from YouTube
      */
-    public function getRss(TubePressOptionsManager $tpom)
+    public static function getRss(TubePressOptionsManager $tpom)
     {
         /* Grab the video XML from YouTube */
         $request = TubePressGalleryUrl::get($tpom);
@@ -81,7 +81,7 @@ class TubePressNetwork
         $order   = $tpom->get(TubePressDisplayOptions::ORDER_BY);
         $mode    = $tpom->get(TubePressGalleryOptions::MODE);
         
-        $currentPage = TubePressStatic::getPageNum();
+        $currentPage = TubePressQueryString::getPageNum();
         
         $start = ($currentPage * $perPage) - $perPage + 1;
         

@@ -19,26 +19,18 @@
  *
  */
 
-require_once(dirname(__FILE__) . "/../../tubepress_classloader.php");
-    
-/**
- * This is where the fun stuff happens
- */
-function __tp_executeOptionsPage()
-{
-    /* initialize the database if we need to */
-       $wpsm = new WordPressStorageManager();
-    $wpsm->init();
-        
-    /* are we updating? */
-    if (isset($_POST['tubepress_save'])) {
-        try {
-            TubePressOptionsForm::collect($wpsm, $_POST);
-            echo '<div id="message" class="updated fade"><p><strong>Options updated</strong></p></div>';
-        } catch (Exception $error) {
-            echo '<div id="message" class="error fade"><p><strong>' . $error->getMessage() . '</strong></p></div>';
-        }
-    }
-    
-    TubePressOptionsForm::display($wpsm);
+function_exists("tp_classFolder") 
+    || require("tubepress_classloader.php");
+
+if (substr(phpversion(), 0, 1) == "5"
+        && !function_exists("tp_main")) {
+        	
+    $tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
+	load_plugin_textdomain("tubepress", 'wp-content/plugins/tubepress/common/messages');
+    include dirname(__FILE__) . "/../functions/main.php";
+
+	add_filter('the_content', 'tp_main');
+	add_action('wp_head', 'tp_insertCSSJS');
 }
+
+?>

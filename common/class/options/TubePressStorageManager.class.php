@@ -78,6 +78,11 @@ abstract class TubePressStorageManager
             $this->create(TubePressDisplayOptions::CURRENT_PLAYER_NAME, "normal");
         }
         
+        if (!$this->exists(TubePressDisplayOptions::DESC_LIMIT)) {
+        	$this->delete(TubePressDisplayOptions::DESC_LIMIT);
+        	$this->create(TubePressDisplayOptions::DESC_LIMIT, 80);
+        }
+        
         if (!$this->exists(TubePressDisplayOptions::ORDER_BY)) {
             $this->delete(TubePressDisplayOptions::ORDER_BY);
             $this->create(TubePressDisplayOptions::ORDER_BY, "viewCount");

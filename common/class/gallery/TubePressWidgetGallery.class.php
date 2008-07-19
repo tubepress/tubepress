@@ -20,23 +20,10 @@
  */
 
 /**
- * Parent class of all TubePress galleries
+ * Widget galleries
  */
-class TubePressGallery extends AbstractTubePressGallery
+class TubePressWidgetGallery extends AbstractTubePressGallery
 {
-    const FAVORITES       = "favorites";
-    const FEATURED        = "featured";
-    const MOBILE          = "mobile";
-    const MOST_DISCUSSESD = "most_discussed";
-    const MOST_LINKED     = "most_linked";
-    const MOST_RECENT     = "most_recent";
-    const MOST_RESPONDED  = "most_responded";
-    const PLAYLIST        = "playlist";
-    const POPULAR         = "most_viewed";
-    const TAG             = "tag";
-    const TOP_RATED       = "top_rated";
-    const USER            = "user";
-    
     /**
      * Generates the content of this gallery
      * 
@@ -45,8 +32,8 @@ class TubePressGallery extends AbstractTubePressGallery
      * 
      * @return The HTML content for this gallery
      */
-    public final function generate(TubePressOptionsManager $tpom)
+    public static final function generate(TubePressOptionsManager $tpom)
     {
-     	return parent::generateThumbs("gallery.tpl.html", $tpom);
+        return parent::generateThumbs("widget_gallery.tpl.html", $tpom);   
     }
 }

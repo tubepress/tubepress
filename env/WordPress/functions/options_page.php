@@ -19,11 +19,6 @@
  *
  */
 
-if (substr(phpversion(), 0, 1) == "5" 
-    && !function_exists("__tp_executeOptionsPage")) {
-    include "TubePressOptions_main.php";
-}
-
 /**
  * This is the main method for the TubePress global options page,
  * which is loaded when you're in the wp-admin section of your blog.
@@ -35,7 +30,7 @@ function tp_executeOptionsPage()
 {
     if (function_exists('add_options_page')) {
         add_options_page("TubePress Options", "TubePress", 9, 
-            'TubePressOptions.php', '_tp_executeOptionsPage');
+            __FILE__, '_tp_executeOptionsPage');
     }
 }
 
@@ -47,6 +42,8 @@ function tp_executeOptionsPage()
 function _tp_executeOptionsPage()
 {
     if (substr(phpversion(), 0, 1) == "5") {
+    	function_exists("__tp_executeOptionsPage")
+    	    || require "options_page_php5.php";  
         __tp_executeOptionsPage();
     } else {
         echo '<div id="message" class="error fade"><p>'
@@ -57,5 +54,3 @@ function _tp_executeOptionsPage()
             . 'different version of the plugin.</strong</p></div>';
     }
 }
-
-?>

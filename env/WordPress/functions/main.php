@@ -5,15 +5,14 @@
 */
 function tp_main($content = '')
 {
-    if (!tp_shouldWeExecute($content)) {
+	$wpsm = new WordPressStorageManager();
+    $trigger = $wpsm->get(TubePressAdvancedOptions::KEYWORD);
+    if (!TubePressTag::somethingToParse($content, $trigger)) {
 	    return $content;
 	}
 	
 	/* Store everything we generate in the following string */
     $newcontent = $content;
-
-    $wpsm = new WordPressStorageManager();
-    $trigger = $wpsm->get(TubePressAdvancedOptions::KEYWORD);
     
     while (TubePressTag::somethingToParse($newcontent, $trigger)) {
 	    try {
@@ -39,20 +38,19 @@ function tp_main($content = '')
     return $newcontent;
 }
 
-
-
 /**
  * Spits out the CSS and JS files that we always need for TubePress
  */
 function tp_insertCSSJS()
 {
     global $tubepress_base_url;
-    $url = $tubepress_base_url . "/common";
     print<<<GBS
-        <script type="text/javascript" src="$url/js/tubepress.js"></script>
-        <link rel="stylesheet" href="$url/css/tubepress.css" 
+        <script type="text/javascript" src="$tubepress_base_url/common/js/tubepress.js"></script>
+        <link rel="stylesheet" href="$tubepress_base_url/common/css/tubepress.css" 
             type="text/css" />
-        <link rel="stylesheet" href="$url/css/pagination.css" 
+       <link rel="stylesheet" href="$tubepress_base_url/common/css/tubepress_widget.css" 
+            type="text/css" />
+        <link rel="stylesheet" href="$tubepress_base_url/common/css/pagination.css" 
             type="text/css" />
 GBS;
 
@@ -72,16 +70,4 @@ GBS;
     }
 }
 
-function tp_shouldWeExecute($content)
-{    
-    $wpsm = new WordPressStorageManager();
-    
-    $trigger = $wpsm->get(TubePressAdvancedOptions::KEYWORD);
-    
-    return TubePressTag::somethingToParse($content, $trigger);
-}
-
-/* don't forget to add our hooks! */
-add_filter('the_content', 'tp_main');
-add_action('wp_head', 'tp_insertCSSJS');
 ?>
