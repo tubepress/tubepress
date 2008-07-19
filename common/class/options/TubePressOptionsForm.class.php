@@ -42,6 +42,7 @@ class TubePressOptionsForm
         
         $tpl->setVariable("PAGETITLE", TpMsg::_("options-page-title"));
         $tpl->setVariable("INTROTEXT", TpMsg::_("options-page-intro-text"));
+        $tpl->setVariable("DONATION", TpMsg::_("options-page-donation"));
         $tpl->setVariable("SAVE", TpMsg::_("options-page-save-button"));
 
         foreach (TubePressOptionsForm::_getCategoryInstances() as $category) {

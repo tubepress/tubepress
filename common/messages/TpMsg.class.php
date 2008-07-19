@@ -35,6 +35,9 @@ class TpMsg {
 			case "options-page-intro-text":
 				return "Set default options for the plugin. Each option here can be overridden on a per page/post basis. See the <a href=\"http://code.google.com/p/tubepress/wiki/Documentation\">documentation</a> for more info.";
 
+			case "options-page-donation":
+				return "Please consider a small donation to support TubePress. Thanks!";
+				
 			case "options-category-title-gallery":
 				return "Which videos?";
 

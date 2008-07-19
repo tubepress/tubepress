@@ -20,7 +20,7 @@
  */
 
 function_exists("tp_classFolder") 
-    || require("tubepress_classloader.php");
+    || require dirname(__FILE__) . "/../../../tubepress_classloader.php";
 
 if (substr(phpversion(), 0, 1) == "5"
         && !function_exists("tp_main")) {

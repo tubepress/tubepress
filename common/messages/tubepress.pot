@@ -35,6 +35,9 @@ msgstr ""
 msgid "Set default options for the plugin. Each option here can be overridden on a per page/post basis. See the <a href=\"http://code.google.com/p/tubepress/wiki/Documentation\">documentation</a> for more info."
 msgstr ""
 
+msgid "Please consider a small donation to support TubePress. Thanks!"
+msgstr
+
 msgid "Which videos?"
 msgstr ""
 
