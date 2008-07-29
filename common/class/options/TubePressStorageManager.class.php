@@ -88,6 +88,11 @@ abstract class TubePressStorageManager
             $this->create(TubePressDisplayOptions::ORDER_BY, "viewCount");
         }
         
+        if (!$this->exists(TubePressDisplayOptions::RELATIVE_DATES)) {
+            $this->delete(TubePressDisplayOptions::RELATIVE_DATES);
+            $this->create(TubePressDisplayOptions::RELATIVE_DATES, false);
+        }
+        
         if (!$this->exists(TubePressDisplayOptions::RESULTS_PER_PAGE)) {
             $this->delete(TubePressDisplayOptions::RESULTS_PER_PAGE);
             $this->create(TubePressDisplayOptions::RESULTS_PER_PAGE, 20);
@@ -241,6 +246,16 @@ abstract class TubePressStorageManager
             $this->delete(TubePressMetaOptions::VIEWS);
             $this->create(TubePressMetaOptions::VIEWS, true);
         }
+        
+        if (!$this->exists(TubePressWidgetOptions::TITLE)) {
+        	$this->delete(TubePressWidgetOptions::TITLE);
+        	$this->create(TubePressWidgetOptions::TITLE, "TubePress");
+        }
+        
+    	if (!$this->exists(TubePressWidgetOptions::TAGSTRING)) {
+        	$this->delete(TubePressWidgetOptions::TAGSTRING);
+        	$this->create(TubePressWidgetOptions::TAGSTRING, "[tubepress thumbHeight='105', thumbWidth='135']");
+        }
     }
     
     /**
@@ -304,6 +319,7 @@ abstract class TubePressStorageManager
             TubePressAdvancedOptions::KEYWORD,
             TubePressAdvancedOptions::RANDOM_THUMBS,
             TubePressDisplayOptions::CURRENT_PLAYER_NAME,
+            TubePressDisplayOptions::DESC_LIMIT,
             TubePressDisplayOptions::ORDER_BY,
             TubePressDisplayOptions::RESULTS_PER_PAGE,
             TubePressDisplayOptions::THUMB_HEIGHT,
@@ -334,7 +350,9 @@ abstract class TubePressStorageManager
             TubePressMetaOptions::TITLE,
             TubePressMetaOptions::UPLOADED,
             TubePressMetaOptions::URL,
-            TubePressMetaOptions::VIEWS
+            TubePressMetaOptions::VIEWS,
+            TubePressWidgetOptions::TAGSTRING,
+            TubePressWidgetOptions::TITLE
         );
         
         $result = "Should have " . sizeof($allOpts) . " options total";

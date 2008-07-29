@@ -28,6 +28,7 @@ class TubePressDisplayOptions
     const CURRENT_PLAYER_NAME = "playerLocation";
     const DESC_LIMIT          = "descriptionLimit";
     const ORDER_BY            = "orderBy";
+    const RELATIVE_DATES      = "relativeDates";
     const RESULTS_PER_PAGE    = "resultsPerPage";
     const THUMB_HEIGHT        = "thumbHeight";
     const THUMB_WIDTH         = "thumbWidth";
@@ -97,8 +98,12 @@ class TubePressDisplayOptions
                 TubePressOptionsForm::displayMenuInput($tpl, 
                     $constant, $values, $tpsm->get($constant));
                 break;
-            }
             
+            case TubePressDisplayOptions::RELATIVE_DATES:
+            	TubePressOptionsForm::displayBooleanInput($tpl, $constant, $tpsm->get($constant));
+            	break;
+            }	
+            	
             $tpl->parse("optionRow");
         }
         $tpl->parse("optionCategory");

@@ -1,4 +1,6 @@
 #sidebar .tubepress_thumb {
 	width: 100%;
 	text-align: left;
+	margin-top: 1em;
+	height: auto;
 }

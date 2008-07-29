@@ -35,7 +35,7 @@ msgstr ""
 msgid "Set default options for the plugin. Each option here can be overridden on a per page/post basis. See the <a href=\"http://code.google.com/p/tubepress/wiki/Documentation\">documentation</a> for more info."
 msgstr ""
 
-msgid "Please consider a small donation to support TubePress. Thanks!"
+msgid "Please consider a small donation to support my work on TubePress. Thanks!"
 msgstr
 
 msgid "Which videos?"
@@ -108,6 +108,12 @@ msgid "Width (px) of thumbs"
 msgstr ""
 
 msgid "Default (and maximum) is 120"
+msgstr ""
+
+msgid "Use relative dates"
+msgstr ""
+
+msgid "e.g. \"yesterday\" instead of \"November 3, 1980\""
 msgstr ""
 
 msgid "Videos per Page"
@@ -303,6 +309,9 @@ msgid "prev"
 msgstr ""
 
 msgid "Displays YouTube videos in your sidebar using TubePress"
+msgstr ""
+
+msgid "Tag string. See the <a href=\"http://code.google.com/p/tubepress/wiki/TubePressWidget\">widget documentation</a>."
 msgstr ""
 
 #

@@ -83,7 +83,7 @@ class TubePressOptionsManager
      */
     public function setCustomOptions(array $customOpts)
     {
-        $this->_customOptions = $customOpts;
+        $this->_customOptions = array_merge($this->_customOptions, $customOpts);
     }
     
     /**

@@ -154,6 +154,7 @@ class TubePressOptionsForm
             TubePressAdvancedOptions::DEBUG_ON,
             TubePressAdvancedOptions::FILTER,
             TubePressAdvancedOptions::RANDOM_THUMBS,
+            TubePressDisplayOptions::RELATIVE_DATES,
             TubePressEmbeddedOptions::AUTOPLAY,
             TubePressEmbeddedOptions::BORDER,
             TubePressEmbeddedOptions::GENIE,

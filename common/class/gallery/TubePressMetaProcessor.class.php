@@ -19,6 +19,10 @@
  *
  */
 
+if (!function_exists("TubePressRelativeTime")) {
+	include dirname(__FILE__) . "/../../../lib/relative_time.php";
+}
+
 /**
  * Handles the parsing of the meta info below each video thumbnail
  *
@@ -66,7 +70,7 @@ class TubePressMetaProcessor
             	$limit = $tpom->get(TubePressDisplayOptions::DESC_LIMIT);
             	$desc = $vid->getDescription();
             	if ($limit > 0 && strlen($desc) > $limit) {
-            		$desc = substr($desc, 0, $limit) . " ...";
+            		$desc = substr($desc, 0, $limit) . "...";
             	}
                 $tpl->setVariable('DESCRIPTION', $desc);
                 $tpl->parse('description');
@@ -120,9 +124,14 @@ class TubePressMetaProcessor
                 case TubePressMetaOptions::UPLOADED:
                     $niceDate = $vid->getUploadTime();
                     if ($niceDate != "N/A") {
-                        $niceDate = date($tpom->
-                            get(TubePressAdvancedOptions::DATEFORMAT), 
-                            $vid->getUploadTime());
+                    	if ($tpom->get(TubePressDisplayOptions::RELATIVE_DATES)) {
+                    		$niceDate = 
+                    		    TubePressRelativeTime($vid->getUploadTime());
+                    	} else {
+                            $niceDate = date($tpom->
+                                get(TubePressAdvancedOptions::DATEFORMAT), 
+                                $vid->getUploadTime());
+                    	}
                     }
                     $tpl->setVariable('METAVALUE', $niceDate);
                     break;

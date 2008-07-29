@@ -36,7 +36,7 @@ class TpMsg {
 				return "Set default options for the plugin. Each option here can be overridden on a per page/post basis. See the <a href=\"http://code.google.com/p/tubepress/wiki/Documentation\">documentation</a> for more info.";
 
 			case "options-page-donation":
-				return "Please consider a small donation to support TubePress. Thanks!";
+				return "Please consider a small donation to support my work on TubePress. Thanks!";
 				
 			case "options-category-title-gallery":
 				return "Which videos?";
@@ -110,6 +110,12 @@ class TpMsg {
 			case "options-display-desc-thumbWidth":
 			    return "Default (and maximum) is 120";
 
+			case "options-display-title-relativeDates":
+				return "Use relative dates";
+				
+			case "options-display-desc-relativeDates":
+				return "e.g. \"yesterday\" instead of \"November 3, 1980\"";
+			    
 			case "options-display-title-resultsPerPage":
 			    return "Videos per Page";
 
@@ -360,7 +366,10 @@ class TpMsg {
 			    return "prev";
 			    
 			case "widget-description":
-				return "Displays YouTube videos in your sidebar using TubePress";    
+				return "Displays YouTube videos in your sidebar using TubePress";
+				
+			case "widget-tagstring-description":
+				return "Tag string. See the <a href=\"http://code.google.com/p/tubepress/wiki/TubePressWidget\">widget documentation</a>.";
 			    
 			default:
 			    return "";
