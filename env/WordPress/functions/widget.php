@@ -33,7 +33,8 @@ function tubepress_widget($opts)
 	    array(TubePressDisplayOptions::RESULTS_PER_PAGE => 3,
 	        TubePressMetaOptions::VIEWS => false,
 	        TubePressMetaOptions::DESCRIPTION => true,
-	        TubePressDisplayOptions::DESC_LIMIT => 50
+	        TubePressDisplayOptions::DESC_LIMIT => 50,
+	        TubePressDisplayOptions::CURRENT_PLAYER_NAME => TubePressPlayer::POPUP
 	        ));
 	TubePressTag::parse($wpsm->get(TubePressWidgetOptions::TAGSTRING), $tpom);
 	$gallery = new TubePressWidgetGallery();
