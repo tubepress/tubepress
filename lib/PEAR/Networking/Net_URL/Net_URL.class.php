@@ -184,7 +184,7 @@ class Net_URL
                         if ($value{0} == '/') {
                             $this->path = $value;
                         } else {
-                            $path = dirname($this->path) == DIRECTORY_SEPARATOR ? '' : dirname($this->path);
+                            $path = dirname($this->path) == "/" ? '' : dirname($this->path);
                             $this->path = sprintf('%s/%s', $path, $value);
                         }
                         break;

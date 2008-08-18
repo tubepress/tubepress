@@ -19,11 +19,7 @@
  *
  */
 
-if (substr(phpversion(), 0, 1) == "5") {
-    spl_autoload_register("tubepress_classloader");
-}
-
-function tubepress_classloader($className) {
+function __autoload($className) {
     
     $folder = tp_classFolder($className);
     

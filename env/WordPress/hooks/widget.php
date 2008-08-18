@@ -19,9 +19,6 @@
  *
  */
 
-function_exists("tp_classFolder") 
-    || require dirname(__FILE__) . "/../../../tubepress_classloader.php";
-
 if (substr(phpversion(), 0, 1) == "5"
     && !function_exists("tubepress_init_widget")) {
         include dirname(__FILE__) . "/../functions/widget.php";

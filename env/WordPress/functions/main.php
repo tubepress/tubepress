@@ -1,10 +1,20 @@
 <?php
+
 /**
  * Main filter hook. Looks for a tubepress tag
  * and, if found, replaces it with a gallery
 */
 function tp_main($content = '')
 {
+	try {
+		return _tp_main($content);
+	} catch (Exception $e) {
+		return $e->getMessage();;	
+	}
+}
+
+function _tp_main($content) {
+	
 	$wpsm = new WordPressStorageManager();
     $trigger = $wpsm->get(TubePressAdvancedOptions::KEYWORD);
     if (!TubePressTag::somethingToParse($content, $trigger)) {
@@ -15,24 +25,20 @@ function tp_main($content = '')
     $newcontent = $content;
     
     while (TubePressTag::somethingToParse($newcontent, $trigger)) {
-	    try {
-
-	        $tpom = new TubePressOptionsManager($wpsm);
-	        TubePressTag::parse($newcontent, $tpom);
+    	
+	    $tpom = new TubePressOptionsManager($wpsm);
+	    TubePressTag::parse($newcontent, $tpom);
 	        
-	        if (TubePressDebug::areWeDebugging($tpom)) {
-	            TubePressDebug::execute($tpom, $wpsm);
-	        }
-	        
-	        $modeName = $tpom->get(TubePressGalleryOptions::MODE);
-	        $gallery = new TubePressGallery();
-	
-	        /* replace the tag with our new content */
-	        $newcontent = TubePressTag::str_replaceFirst($tpom->getTagString(), $gallery->generate($tpom), $newcontent);
-	    
-	    } catch (Exception $e) {
-	        return $e->getMessage();
+	    if (TubePressDebug::areWeDebugging($tpom)) {
+	        TubePressDebug::execute($tpom, $wpsm);
 	    }
+
+	    $modeName = $tpom->get(TubePressGalleryOptions::MODE);
+	    $gallery = new TubePressGallery();
+	
+	    /* replace the tag with our new content */
+	    $newcontent = TubePressTag::str_replaceFirst($tpom->getTagString(), 
+	        $gallery->generate($tpom), $newcontent);
     }
     
     return $newcontent;
@@ -43,6 +49,15 @@ function tp_main($content = '')
  */
 function tp_insertCSSJS()
 {
+	try {
+	    _tp_insertCSSJS();
+	} catch (Exception $e) {
+		/* this is in the head, so just print an HTML comment and proceed */
+        print "<!-- " . $e->getMessage() . " -->";
+	}
+}
+
+function _tp_insertCSSJS() {
     global $tubepress_base_url;
     print<<<GBS
         <script type="text/javascript" src="$tubepress_base_url/common/js/tubepress.js"></script>
@@ -60,14 +75,9 @@ GBS;
         return;
     }
     
-    try {
-        $playerName = $wpsm->get(TubePressDisplayOptions::CURRENT_PLAYER_NAME);
-        $player = TubePressPlayer::getInstance($playerName);
-        print $player->getHeadContents();
-    } catch (Exception $e) {
-        /* this is in the head, so just print an HTML comment and proceed */
-        print "<!-- " . $e->getMessage() . " -->";
-    }
+    $playerName = $wpsm->get(TubePressDisplayOptions::CURRENT_PLAYER_NAME);
+    $player = TubePressPlayer::getInstance($playerName);
+    print $player->getHeadContents();
 }
 
 ?>

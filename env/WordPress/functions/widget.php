@@ -14,6 +14,10 @@ function tubepress_init_widget()
 	    'tubepress_widget_control');
 }
 
+function tubepress_widget_exception_handler($e) {
+	print $e->getMessage();
+}
+
 /**
  * Executes the main widget functionality
  *
@@ -21,7 +25,8 @@ function tubepress_init_widget()
  */
 function tubepress_widget($opts)
 {
-	extract($opts);
+	set_exception_handler("tubepress_widget_exception_handler");
+	extract($opts);	
 	$wpsm = new WordPressStorageManager();
 	$tpom = new TubePressOptionsManager($wpsm);
 	$tpom->setCustomOptions(
@@ -32,11 +37,13 @@ function tubepress_widget($opts)
 	        ));
 	TubePressTag::parse($wpsm->get(TubePressWidgetOptions::TAGSTRING), $tpom);
 	$gallery = new TubePressWidgetGallery();
+		
 	$out = $gallery->generate($tpom);
-	
+		
 	echo $before_widget . $before_title . 
 	    $wpsm->get(TubePressWidgetOptions::TITLE) .
 	    $after_title . $out . $after_widget;
+    restore_exception_handler();
 }
 
 /**
@@ -44,6 +51,8 @@ function tubepress_widget($opts)
  *
  */
 function tubepress_widget_control() {
+	
+	set_exception_handler("tubepress_widget_exception_handler");
 	
 	if ( $_POST["tubepress-widget-submit"] ) {
 		$wpsm = new WordPressStorageManager();
@@ -66,6 +75,8 @@ function tubepress_widget_control() {
     $tpl->setVariable("WIDGET-TAGSTRING", TpMsg::_("widget-tagstring-description"));
     $tpl->setVariable("WIDGET-TAGSTRING-VALUE", $wpsm->get(TubePressWidgetOptions::TAGSTRING));
     echo $tpl->get();
+    
+    restore_exception_handler();
 }
 
 ?>

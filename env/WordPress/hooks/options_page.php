@@ -19,9 +19,6 @@
  *
  */
 
-function_exists("tp_classFolder") 
-    || require dirname(__FILE__) . "/../../../tubepress_classloader.php";
-
 if (!function_exists("tp_executeOptionsPage")) {
 	require dirname(__FILE__) . "/../functions/options_page.php";
 	add_action('admin_menu',  'tp_executeOptionsPage');

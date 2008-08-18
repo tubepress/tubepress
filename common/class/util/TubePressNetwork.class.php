@@ -85,10 +85,6 @@ class TubePressNetwork
         
         $start = ($currentPage * $perPage) - $perPage + 1;
         
-        if ($start + $val > 1000) {
-            $val = 1000 - $start;
-        }
-        
         $requestURL = new Net_URL($request);
         $requestURL->addQueryString("start-index", $start);
         $requestURL->addQueryString("max-results", $perPage);

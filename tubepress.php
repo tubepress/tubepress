@@ -25,7 +25,14 @@ You should have received a copy of the GNU General Public License
 along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
 */
  
+function_exists("tp_classFolder")
+    || require("tubepress_classloader.php");
+    
+error_reporting(E_ALL ^ E_NOTICE);
+ini_set("display_errors", 1);    
+    
 include "env/WordPress/hooks/main.php";
 include "env/WordPress/hooks/options_page.php";
-include "env/WordPress/hooks/widget.php";
+include "env/WordPress/hooks/widget.php";	
+
 ?>
