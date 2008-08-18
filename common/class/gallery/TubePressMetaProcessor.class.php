@@ -77,7 +77,6 @@ class TubePressMetaProcessor
                 break;
                 
             case TubePressMetaOptions::AUTHOR:
-                $opt = $metaOpts[TubePressMetaOptions::AUTHOR];
                 $tpl->setVariable('METANAME', TpMsg::_("video-" . $constant));
                 $tpl->setVariable('AUTHOR', $vid->getAuthor());
                 $tpl->parse('author');
@@ -86,7 +85,6 @@ class TubePressMetaProcessor
             case TubePressMetaOptions::TAGS:
                 $tags = explode(" ", $vid->getTags());
                 $tags = implode("%20", $tags);
-                $opt  = $metaOpts[TubePressMetaOptions::TAGS];
                 $tpl->setVariable('METANAME', TpMsg::_("video-" . $constant));
                 $tpl->setVariable('SEARCHSTRING', $tags);
                 $tpl->setVariable('TAGS', $vid->getTags());
@@ -94,7 +92,6 @@ class TubePressMetaProcessor
                 break;
                     
             case TubePressMetaOptions::URL:
-                $opt = $metaOpts[TubePressMetaOptions::URL];
                 $tpl->setVariable('LINKVALUE', $vid->getURL());
                 $tpl->setVariable('LINKTEXT', TpMsg::_("video-" . $constant));
                 $tpl->parse('url');
