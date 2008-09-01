@@ -97,7 +97,10 @@ class TubePressNetwork
       
         if ($mode != TubePressGallery::PLAYLIST) {
             $requestURL->addQueryString("orderby", $order);
-        }       
+        }
+        
+        $requestURL->addQueryString("client", $tpom->get(TubePressAdvancedOptions::CLIENT_KEY));
+        $requestURL->addQueryString("key", $tpom->get(TubePressAdvancedOptions::DEV_KEY));
         
         $request = $requestURL->getURL();
     }

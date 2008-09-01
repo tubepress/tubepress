@@ -36,7 +36,7 @@ msgid "Set default options for the plugin. Each option here can be overridden on
 msgstr ""
 
 msgid "TubePress is free. But if you enjoy the plugin, and appreciate the hundreds of hours I've spent developing and supporting it, please consider a donation. No amount is too small. Thanks!"
-msgstr
+msgstr ""
 
 msgid "Which videos?"
 msgstr ""
@@ -231,6 +231,18 @@ msgid "Randomize thumbnails"
 msgstr ""
 
 msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized"
+msgstr ""
+
+msgid "YouTube API Client ID"
+msgstr ""
+
+msgid "YouTube will use this client ID for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing."
+msgstr ""
+
+msgid "YouTube API Developer Key"
+msgstr ""
+
+msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing."
 msgstr ""
 
 msgid "normally (at the top of your gallery)"

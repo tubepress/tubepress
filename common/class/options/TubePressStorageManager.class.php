@@ -72,6 +72,16 @@ abstract class TubePressStorageManager
             $this->create(TubePressAdvancedOptions::RANDOM_THUMBS, true);
         }
         
+        if (!$this->exists(TubePressAdvancedOptions::CLIENT_KEY)) {
+            $this->delete(TubePressAdvancedOptions::CLIENT_KEY);
+            $this->create(TubePressAdvancedOptions::CLIENT_KEY, "ytapi-EricHough-TubePress-ki6oq9tc-0");
+        }
+        
+        if (!$this->exists(TubePressAdvancedOptions::DEV_KEY)) {
+            $this->delete(TubePressAdvancedOptions::DEV_KEY);
+            $this->create(TubePressAdvancedOptions::DEV_KEY, "AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg");
+        }
+        
         /* now the display options */
         if (!$this->exists(TubePressDisplayOptions::CURRENT_PLAYER_NAME)) {
             $this->delete(TubePressDisplayOptions::CURRENT_PLAYER_NAME);
@@ -312,48 +322,17 @@ abstract class TubePressStorageManager
      */
     public function debug()
     {
-        $allOpts = array(
-            TubePressAdvancedOptions::DATEFORMAT,
-            TubePressAdvancedOptions::DEBUG_ON,
-            TubePressAdvancedOptions::FILTER,
-            TubePressAdvancedOptions::KEYWORD,
-            TubePressAdvancedOptions::RANDOM_THUMBS,
-            TubePressDisplayOptions::CURRENT_PLAYER_NAME,
-            TubePressDisplayOptions::DESC_LIMIT,
-            TubePressDisplayOptions::ORDER_BY,
-            TubePressDisplayOptions::RESULTS_PER_PAGE,
-            TubePressDisplayOptions::THUMB_HEIGHT,
-            TubePressDisplayOptions::THUMB_WIDTH,
-            TubePressEmbeddedOptions::AUTOPLAY,
-            TubePressEmbeddedOptions::BORDER,
-            TubePressEmbeddedOptions::EMBEDDED_HEIGHT,
-            TubePressEmbeddedOptions::EMBEDDED_WIDTH,
-            TubePressEmbeddedOptions::GENIE,
-            TubePressEmbeddedOptions::LOOP,
-            TubePressEmbeddedOptions::PLAYER_COLOR,
-            TubePressEmbeddedOptions::SHOW_RELATED,
-            TubePressGalleryOptions::MODE,
-            TubePressGalleryOptions::FAVORITES_VALUE,
-            TubePressGalleryOptions::MOST_VIEWED_VALUE,
-            TubePressGalleryOptions::PLAYLIST_VALUE,
-            TubePressGalleryOptions::TAG_VALUE,
-            TubePressGalleryOptions::TOP_RATED_VALUE,
-            TubePressGalleryOptions::USER_VALUE,
-            TubePressMetaOptions::AUTHOR,
-            TubePressMetaOptions::CATEGORY,
-            TubePressMetaOptions::DESCRIPTION,
-            TubePressMetaOptions::ID,
-            TubePressMetaOptions::LENGTH,
-            TubePressMetaOptions::RATING,
-            TubePressMetaOptions::RATINGS,
-            TubePressMetaOptions::TAGS,
-            TubePressMetaOptions::TITLE,
-            TubePressMetaOptions::UPLOADED,
-            TubePressMetaOptions::URL,
-            TubePressMetaOptions::VIEWS,
-            TubePressWidgetOptions::TAGSTRING,
-            TubePressWidgetOptions::TITLE
-        );
+    	$allCategories = array("TubePressAdvancedOptions", "TubePressDisplayOptions",
+    	    "TubePressEmbeddedOptions", "TubePressGalleryOptions",
+    	    "TubePressMetaOptions", "TubePressWidgetOptions");
+    	
+    	$allOpts = array();
+    	foreach ($allCategories as $category) {
+    		$class = new ReflectionClass($category);
+    		foreach ($class->getConstants() as $constant) {
+    			array_push($allOpts, $constant);
+    		}
+    	}
         
         $result = "Should have " . sizeof($allOpts) . " options total";
         

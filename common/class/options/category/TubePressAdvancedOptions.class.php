@@ -25,11 +25,14 @@
  */
 class TubePressAdvancedOptions
 {
+	
     const DATEFORMAT    = "dateFormat";
     const DEBUG_ON      = "debugging_enabled";
     const FILTER        = "filter_racy";
     const KEYWORD       = "keyword";
     const RANDOM_THUMBS = "randomize_thumbnails";
+    const CLIENT_KEY    = "clientKey";
+    const DEV_KEY       = "developerKey";
     
     /**
      * Displays advanced options for the options form
@@ -61,6 +64,8 @@ class TubePressAdvancedOptions
                 
             case TubePressAdvancedOptions::DATEFORMAT:
             case TubePressAdvancedOptions::KEYWORD:
+            case TubePressAdvancedOptions::CLIENT_KEY:
+            case TubePressAdvancedOptions::DEV_KEY:
                 TubePressOptionsForm::displayTextInput($tpl, 
                     $constant, $tpsm->get($constant));
                 break;

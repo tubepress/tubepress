@@ -46,7 +46,9 @@ class TubePressDebug
         echo "<li>Your options manager: <code><pre>" .
             "$tpomAsString</pre></code></li>";
         echo "<li>Your storage manager: <code><pre>" .
-            "$tpsmAsString</pre></code></li>";    
+            "$tpsmAsString</pre></code></li>";
+        echo "<li>Click <a href=\"" . $tubepress_base_url . 
+            "/common/class/util/TubePressConnectionTest.php\">here</a> to view the results of the YouTube connection test.</li>"; 
         echo "</ol>";
     }
     

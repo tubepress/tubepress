@@ -239,6 +239,18 @@ class TpMsg {
 			case "options-advanced-desc-randomize_thumbnails":
 			    return "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized";
 
+			case "options-advanced-title-clientKey":
+				return "YouTube API Client ID";
+
+			case "options-advanced-desc-clientKey":
+				return "YouTube will use this client ID for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing.";
+			    
+			case "options-advanced-title-developerKey":
+				return "YouTube API Developer Key";
+
+			case "options-advanced-desc-developerKey":
+				return "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing.";
+				
 			case "player-normal-desc":
 			    return "normally (at the top of your gallery)";
 
