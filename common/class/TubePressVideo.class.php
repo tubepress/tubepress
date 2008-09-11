@@ -37,11 +37,10 @@ class TubePressVideo
      * Constructor
      *
      * @param DOMElement   $rss     The raw XML of what we got from YouTube
-     * @param unknown_type $options ?
      * 
      * @return TubePressVideo
      */
-    public function TubePressVideo($rss, $options = "")
+    public function TubePressVideo(DOMElement $rss)
     {   
         $this->_domElement = $rss;
         $this->_mediaGroup = 
@@ -109,7 +108,7 @@ class TubePressVideo
         $thumbs = 
             $this->_mediaGroup->getElementsByTagNameNS(TubePressVideo::NS_MEDIA, 
                 'thumbnail');
-        $random = rand(0, count($thumbs->length - 2));
+        $random = rand(0, $thumbs->length - 1);
         return $thumbs->item($random)->getAttribute('url');
     }
     
@@ -217,8 +216,8 @@ class TubePressVideo
      */
     private function _getCategory() 
     {
-        return $this->_domElement->getElementsByTagNameNS(TubePressVideo::NS_MEDIA,
-            'category')->item(0)->nodeValue;
+        return trim($this->_domElement->getElementsByTagNameNS(TubePressVideo::NS_MEDIA,
+            'category')->item(0)->nodeValue);
         
     }
     
@@ -229,8 +228,8 @@ class TubePressVideo
      */
     private function _getDescription() 
     {
-        return $this->_mediaGroup->getElementsByTagNameNS(TubePressVideo::NS_MEDIA,
-            'description')->item(0)->nodeValue;
+        return trim($this->_mediaGroup->getElementsByTagNameNS(TubePressVideo::NS_MEDIA,
+            'description')->item(0)->nodeValue);
     }
     
     /**
@@ -302,7 +301,7 @@ class TubePressVideo
         $rawKeywords = 
             $this->_mediaGroup->getElementsByTagNameNS(TubePressVideo::NS_MEDIA,
                 'keywords')->item(0);
-        return str_replace(',', '', $rawKeywords->nodeValue);
+        return trim(str_replace(',', '', $rawKeywords->nodeValue));
     }
     
     /**

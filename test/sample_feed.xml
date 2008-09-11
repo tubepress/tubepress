@@ -1,0 +1,3801 @@
+<xml version='1.0' encoding='UTF-8'>
+	<feed xmlns='http://www.w3.org/2005/Atom'
+		xmlns:openSearch='http://a9.com/-/spec/opensearchrss/1.0/'
+		xmlns:gml='http://www.opengis.net/gml'
+		xmlns:georss='http://www.georss.org/georss'
+		xmlns:media='http://search.yahoo.com/mrss/'
+		xmlns:batch='http://schemas.google.com/gdata/batch'
+		xmlns:yt='http://gdata.youtube.com/schemas/2007'
+		xmlns:gd='http://schemas.google.com/g/2005'>
+		<id>
+			http://gdata.youtube.com/feeds/api/standardfeeds/top_rated
+		</id>
+		<updated>2008-09-11T04:45:22.000-07:00</updated>
+		<category scheme='http://schemas.google.com/g/2005#kind'
+			term='http://gdata.youtube.com/schemas/2007#video' />
+		<title type='text'>Top Rated</title>
+		<logo>
+			http://www.youtube.com/img/pic_youtubelogo_123x63.gif
+		</logo>
+		<link rel='alternate' type='text/html'
+			href='http://www.youtube.com/browse?s=tr' />
+		<link rel='http://schemas.google.com/g/2005#feed'
+			type='application/atom+xml'
+			href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated' />
+		<link rel='http://schemas.google.com/g/2005#batch'
+			type='application/atom+xml'
+			href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/batch' />
+		<link rel='self' type='application/atom+xml'
+			href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated?start-index=1&amp;max-results=25' />
+		<link rel='next' type='application/atom+xml'
+			href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated?start-index=26&amp;max-results=25' />
+		<author>
+			<name>YouTube</name>
+			<uri>http://www.youtube.com/</uri>
+		</author>
+		<generator version='2.0' uri='http://gdata.youtube.com/'>
+			YouTube data API
+		</generator>
+		<openSearch:totalResults>100</openSearch:totalResults>
+		<openSearch:startIndex>1</openSearch:startIndex>
+		<openSearch:itemsPerPage>25</openSearch:itemsPerPage>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/m3gMgK7h-BA
+			</id>
+			<published>2006-10-24T20:52:35.000-07:00</published>
+			<updated>2008-09-11T08:36:20.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='feet' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='guitar' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Music' label='Music' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='park' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='balboa' />
+			<title type='text'>amazing guitar player</title>
+			<content type='text'>
+				....one of those that will make you say...holy %$#^
+			</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=m3gMgK7h-BA' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/m3gMgK7h-BA/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/m3gMgK7h-BA/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=m3gMgK7h-BA' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/m3gMgK7h-BA' />
+			<author>
+				<name>dhyrenz</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/dhyrenz
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					amazing guitar player
+				</media:title>
+				<media:description type='plain'>
+					....one of those that will make you say...holy %$#^
+				</media:description>
+				<media:keywords>
+					balboa, feet, guitar, park
+				</media:keywords>
+				<yt:duration seconds='150' />
+				<media:category label='Music'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Music
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/m3gMgK7h-BA&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='150' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQkQ-OGugAx4mxMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='150'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQkQ-OGugAx4mxMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='150'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=m3gMgK7h-BA' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/m3gMgK7h-BA/2.jpg' height='97'
+					width='130' time='00:01:15' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/m3gMgK7h-BA/1.jpg' height='97'
+					width='130' time='00:00:37.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/m3gMgK7h-BA/3.jpg' height='97'
+					width='130' time='00:01:52.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/m3gMgK7h-BA/0.jpg' height='240'
+					width='320' time='00:01:15' />
+			</media:group>
+			<yt:statistics viewCount='5286665' favoriteCount='33434' />
+			<gd:rating min='1' max='5' numRaters='29065' average='4.92' />
+			<yt:location>balboa park</yt:location>
+			<yt:recorded>2006-10-22</yt:recorded>
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/m3gMgK7h-BA/comments'
+					countHint='18150' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/T1e9hz11IjY
+			</id>
+			<published>2007-03-29T16:29:21.000-07:00</published>
+			<updated>2008-09-11T08:59:21.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='prison' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='tupac' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='shakur' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='wallace' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='dying' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='notorious' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='christopher' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='live' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='runnin' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='studio' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='makaveli' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='to' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='resurrection' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='biggie' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='smalls' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='2pac' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Music' label='Music' />
+			<title type='text'>
+				2Pac, Notorious BIG - Runnin' (Dying to Live)
+				(Uncensored)
+			</title>
+			<content type='text'>
+				DVD-RIP/2003/Tupac Resurrection OST "[Notorious B.I.G.]
+				Check it, I grew up a fuckin screw up Got introduced to
+				the game, got a ounce and fuckin blew up Choppin rocks
+				overnight The nigga Biggie Smalls tryin ta turn into the
+				black Frank White We had to grow dreads to change our
+				description Two cops is on the milk box missin Show they
+				toes you know they got stepped on A fist full of bullets
+				a chest full of Teflon Run from the police picture that,
+				nigga I'm too fat I fuck around and catch a asthma
+				attack That's why I bust back, it don't phase me When he
+				drop, take his glock, and I'm Swayze celebrate my
+				escape, sold the glock, bought some weight Laid back, I
+				got some money to make, motherfucker [Chorus] [2Pac] And
+				still I'm havin memories of high speeds, when the cops
+				crashed As I laugh pushin the gas when my glocks blast
+				We was young, and we was dumb but we had heart In the
+				dark when we survived through the bad parts Many dreams
+				is what I had, and plenty wishes No hesitation in
+				extermination of these snitches envious bitches continue
+				to per sue me A couple of movies now the whole world
+				tryin to screw me even the cops tried to sue me So what
+				can I do but stay true, sippin 22's a brewin now the
+				medias tryin to test me got the press askin questions,
+				tryin to stress me misery is all I see, thats my mind's
+				state My history with the police is shakin' the crime
+				rate Ma main man had 2 stikes, slipped, got arrested and
+				flipped He screamed 'Thug Life!' and emptied the clip
+				gots tired of runnin from the police"
+			</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=T1e9hz11IjY' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/T1e9hz11IjY/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/T1e9hz11IjY/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=T1e9hz11IjY' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/T1e9hz11IjY' />
+			<author>
+				<name>euphanasiarecords</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/euphanasiarecords
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					2Pac, Notorious BIG - Runnin' (Dying to Live)
+					(Uncensored)
+				</media:title>
+				<media:description type='plain'>
+					DVD-RIP/2003/Tupac Resurrection OST "[Notorious
+					B.I.G.] Check it, I grew up a fuckin screw up Got
+					introduced to the game, got a ounce and fuckin blew
+					up Choppin rocks overnight The nigga Biggie Smalls
+					tryin ta turn into the black Frank White We had to
+					grow dreads to change our description Two cops is on
+					the milk box missin Show they toes you know they got
+					stepped on A fist full of bullets a chest full of
+					Teflon Run from the police picture that, nigga I'm
+					too fat I fuck around and catch a asthma attack
+					That's why I bust back, it don't phase me When he
+					drop, take his glock, and I'm Swayze celebrate my
+					escape, sold the glock, bought some weight Laid
+					back, I got some money to make, motherfucker
+					[Chorus] [2Pac] And still I'm havin memories of high
+					speeds, when the cops crashed As I laugh pushin the
+					gas when my glocks blast We was young, and we was
+					dumb but we had heart In the dark when we survived
+					through the bad parts Many dreams is what I had, and
+					plenty wishes No hesitation in extermination of
+					these snitches envious bitches continue to per sue
+					me A couple of movies now the whole world tryin to
+					screw me even the cops tried to sue me So what can I
+					do but stay true, sippin 22's a brewin now the
+					medias tryin to test me got the press askin
+					questions, tryin to stress me misery is all I see,
+					thats my mind's state My history with the police is
+					shakin' the crime rate Ma main man had 2 stikes,
+					slipped, got arrested and flipped He screamed 'Thug
+					Life!' and emptied the clip gots tired of runnin
+					from the police"
+				</media:description>
+				<media:keywords>
+					2pac, biggie, christopher, dying, live, makaveli,
+					notorious, prison, resurrection, runnin, shakur,
+					smalls, studio, to, tupac, wallace
+				</media:keywords>
+				<yt:duration seconds='253' />
+				<media:category label='Music'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Music
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/T1e9hz11IjY&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='253' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQk2InU9h71XTxMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='253'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQk2InU9h71XTxMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='253'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=T1e9hz11IjY' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/T1e9hz11IjY/2.jpg' height='97'
+					width='130' time='00:02:06.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/T1e9hz11IjY/1.jpg' height='97'
+					width='130' time='00:01:03.250' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/T1e9hz11IjY/3.jpg' height='97'
+					width='130' time='00:03:09.750' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/T1e9hz11IjY/0.jpg' height='240'
+					width='320' time='00:02:06.500' />
+			</media:group>
+			<yt:statistics viewCount='1797784' favoriteCount='12566' />
+			<gd:rating min='1' max='5' numRaters='6027' average='4.93' />
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/T1e9hz11IjY/comments'
+					countHint='4355' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/VVlw9iWvE5k
+			</id>
+			<published>2008-03-06T17:51:56.000-08:00</published>
+			<updated>2008-09-11T09:01:36.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Max' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='song' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='roxbury' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Axelrod777' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='is' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='at' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='the' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Pepsi' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='night' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='flash' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Haddaway' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Commercial' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='love' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='what' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='music' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='in' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Techno' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Music' label='Music' />
+			<title type='text'>
+				What is Love? on Mario Paint Composer
+			</title>
+			<content type='text'>
+				Milestones: 100,000 views June 3 2008 200,000 views July
+				7 2008 300,000 views July 25 2008 400,000 views August 2
+				2008 (100k in 8 days!) 500,000 views August 15 2008
+				600,000 views September 1 2008 MP3 Now Available! Thanks
+				to Waacm for setting it all up.
+				http://www.savefile.com/files/1689289 Holy Crap my first
+				honors in the music category! As of Saturday, March 8 at
+				7:33 EST #92 - Top Favorites (Today) - Music #89 - Top
+				Rated (Today) - Music Thanks everyone! July 30 (and
+				about 1 week therafter) Honors: #2 - Top Rated (All
+				Time) #1 - Top Rated (All Time) - Music ARE YOU KIDDING
+				ME? THANK YOU SO MUCH EVERYONE! THIS IS AMAZING! I have
+				worked on this piece for longer than any I can remember,
+				it is longer than any I can remember Composing, and the
+				composition part is probably a shining example of what I
+				am capable of. I may have spent about 10 or so hours
+				total or more on this. Unfortunately, the computer I
+				usually work on had its sound card break, so I went on
+				my secondary one to make this. Well, it has a different
+				version of Camstudio that I don't like, and when I'm
+				recording the sound quality is less than fabulous.
+				Furthermore, I miscalculated where I could properly
+				re-use clips, and some of the transitions aren't very
+				clean. This piece didn't come out like I had hoped, and
+				I'm planning on re-doing it once the better computer is
+				fixed. Because I don't know how long that will take,
+				I've uploaded this in the meantime. Expect an update
+				sometime in the next 70 or so years (my way of saying I
+				have no idea when it can be fixed). OK, well about the
+				piece... Yes, I can do more than video game music, and I
+				really like this song so I looked at some sheet music
+				and it looked possible, but the sheet music was flawed,
+				with the bass rhythm off and percussion next to
+				illegible. The result: I did a lot more of this song by
+				ear than I usually do. All of the percussion is by ear,
+				the bass rhythm is by ear, and much of the gameboy parts
+				are by ear (and since I'm not very good at
+				pitch-picking, they could be wrong. If you know the
+				correct notes PLEASE TELL ME so I can fix it in my
+				update). The cars (strings) in this tune aren't very
+				prominent in the real song, so I decreased the volume
+				for most car parts, but it's not as quiet as the song
+				had because I liked how it filled in a lot of the
+				emptiness. If the string part was next to nothing in the
+				song, though, I left it out of here. The cars aren't
+				always on the exactly correct beat because if they were
+				I couldn't decrease the volume for only the cars because
+				volume control is for the whole beat. It makes the piece
+				a little sloppy but I dealt with it. The flowers that
+				seem to be in random (and sometimes off-the-scale)
+				places are the result of a glitch that lets me make them
+				shorter by placing them on the low A (I thank LoloGuru
+				for teaching me this trick). My only instrument choice
+				regret is that the plane sound is quiet. It would be
+				perfect if it were louder, because it is long enough to
+				simulate the echo effect that the actual song has during
+				almost all of the vocals. Thanks for watching, and I
+				dare you not to bob your head while listening. Software
+				used: Music: Mario Paint Composer -
+				http://www.unfungames.com/mariopaint/ Notation:
+				MidiNotate Player -
+				http://www.notation.com/MidiNotatePlayer.htm Video:
+				Camstudio 2.5 beta - http://camstudio.org/ Editing:
+				Windows Movie Maker All free, legal, and unlimited.
+			</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=VVlw9iWvE5k' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/VVlw9iWvE5k/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/VVlw9iWvE5k/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=VVlw9iWvE5k' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/VVlw9iWvE5k' />
+			<author>
+				<name>axelrod777</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/axelrod777
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					What is Love? on Mario Paint Composer
+				</media:title>
+				<media:description type='plain'>
+					Milestones: 100,000 views June 3 2008 200,000 views
+					July 7 2008 300,000 views July 25 2008 400,000 views
+					August 2 2008 (100k in 8 days!) 500,000 views August
+					15 2008 600,000 views September 1 2008 MP3 Now
+					Available! Thanks to Waacm for setting it all up.
+					http://www.savefile.com/files/1689289 Holy Crap my
+					first honors in the music category! As of Saturday,
+					March 8 at 7:33 EST #92 - Top Favorites (Today) -
+					Music #89 - Top Rated (Today) - Music Thanks
+					everyone! July 30 (and about 1 week therafter)
+					Honors: #2 - Top Rated (All Time) #1 - Top Rated
+					(All Time) - Music ARE YOU KIDDING ME? THANK YOU SO
+					MUCH EVERYONE! THIS IS AMAZING! I have worked on
+					this piece for longer than any I can remember, it is
+					longer than any I can remember Composing, and the
+					composition part is probably a shining example of
+					what I am capable of. I may have spent about 10 or
+					so hours total or more on this. Unfortunately, the
+					computer I usually work on had its sound card break,
+					so I went on my secondary one to make this. Well, it
+					has a different version of Camstudio that I don't
+					like, and when I'm recording the sound quality is
+					less than fabulous. Furthermore, I miscalculated
+					where I could properly re-use clips, and some of the
+					transitions aren't very clean. This piece didn't
+					come out like I had hoped, and I'm planning on
+					re-doing it once the better computer is fixed.
+					Because I don't know how long that will take, I've
+					uploaded this in the meantime. Expect an update
+					sometime in the next 70 or so years (my way of
+					saying I have no idea when it can be fixed). OK,
+					well about the piece... Yes, I can do more than
+					video game music, and I really like this song so I
+					looked at some sheet music and it looked possible,
+					but the sheet music was flawed, with the bass rhythm
+					off and percussion next to illegible. The result: I
+					did a lot more of this song by ear than I usually
+					do. All of the percussion is by ear, the bass rhythm
+					is by ear, and much of the gameboy parts are by ear
+					(and since I'm not very good at pitch-picking, they
+					could be wrong. If you know the correct notes PLEASE
+					TELL ME so I can fix it in my update). The cars
+					(strings) in this tune aren't very prominent in the
+					real song, so I decreased the volume for most car
+					parts, but it's not as quiet as the song had because
+					I liked how it filled in a lot of the emptiness. If
+					the string part was next to nothing in the song,
+					though, I left it out of here. The cars aren't
+					always on the exactly correct beat because if they
+					were I couldn't decrease the volume for only the
+					cars because volume control is for the whole beat.
+					It makes the piece a little sloppy but I dealt with
+					it. The flowers that seem to be in random (and
+					sometimes off-the-scale) places are the result of a
+					glitch that lets me make them shorter by placing
+					them on the low A (I thank LoloGuru for teaching me
+					this trick). My only instrument choice regret is
+					that the plane sound is quiet. It would be perfect
+					if it were louder, because it is long enough to
+					simulate the echo effect that the actual song has
+					during almost all of the vocals. Thanks for
+					watching, and I dare you not to bob your head while
+					listening. Software used: Music: Mario Paint
+					Composer - http://www.unfungames.com/mariopaint/
+					Notation: MidiNotate Player -
+					http://www.notation.com/MidiNotatePlayer.htm Video:
+					Camstudio 2.5 beta - http://camstudio.org/ Editing:
+					Windows Movie Maker All free, legal, and unlimited.
+				</media:description>
+				<media:keywords>
+					at, Axelrod777, Commercial, flash, Haddaway, in, is,
+					love, Max, music, night, Pepsi, roxbury, song,
+					Techno, the, video, what
+				</media:keywords>
+				<yt:duration seconds='234' />
+				<media:category label='Music'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Music
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/VVlw9iWvE5k&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='234' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQmZE68l9nBZVRMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='234'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQmZE68l9nBZVRMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='234'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=VVlw9iWvE5k' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/VVlw9iWvE5k/2.jpg' height='97'
+					width='130' time='00:01:57' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/VVlw9iWvE5k/1.jpg' height='97'
+					width='130' time='00:00:58.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/VVlw9iWvE5k/3.jpg' height='97'
+					width='130' time='00:02:55.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/VVlw9iWvE5k/0.jpg' height='240'
+					width='320' time='00:01:57' />
+			</media:group>
+			<yt:statistics viewCount='696087' favoriteCount='9581' />
+			<gd:rating min='1' max='5' numRaters='8214' average='4.92' />
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/VVlw9iWvE5k/comments'
+					countHint='3102' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/vnRqYMTpXHc
+			</id>
+			<published>2006-12-29T16:51:01.000-08:00</published>
+			<updated>2008-09-11T08:43:12.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='louis' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='armstrong' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Music' label='Music' />
+			<title type='text'>
+				What a Wonderful World - Louis Armstrong
+			</title>
+			<content type='text'>
+				Impressive. One of this video watcher a "live book"
+				about Armstrong. His message:
+				------------------------------------- Hi David, Sorry
+				for taking so long to reply. I'm not on that video nor
+				was I there. I'm a life-long Louis Armstrong nut so I
+				know when he did everything. There are two books that I
+				get my information about videos from, "All Of Me-The
+				Complete Discography of Louis Armstrong" by Jos Willems
+				&amp; "Louis Armstrong On The Screen" by Dr. Klaus
+				Stratemann. The Louis clip you posted is from the first
+				of two BBC-TV shows. Each show was 45 minutes &amp; they
+				were taped on the same day, July 2, 1968. Aside from
+				Louis the rest of the band is Tyree Glenn-trombone, Joe
+				Muranyi-clarinet, Marty Napoleon-piano, Buddy
+				Catlett-bass &amp; Danny Barcelona-drums. Louis died
+				three years later, on July 6, 1971. He was only on the
+				road full time for another two months after this clip.
+				By mid September of 1968 he was seriously ill in the
+				hospital &amp; was out of commisiion for most of 1969. I
+				hope that's enough information for you. Best wishes,
+				Phil ------------------------------ Phil, I am very been
+				thankful by the information. Thank you so much.
+			</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=vnRqYMTpXHc' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/vnRqYMTpXHc/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/vnRqYMTpXHc/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=vnRqYMTpXHc' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/vnRqYMTpXHc' />
+			<author>
+				<name>davidnob</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/davidnob
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					What a Wonderful World - Louis Armstrong
+				</media:title>
+				<media:description type='plain'>
+					Impressive. One of this video watcher a "live book"
+					about Armstrong. His message:
+					------------------------------------- Hi David,
+					Sorry for taking so long to reply. I'm not on that
+					video nor was I there. I'm a life-long Louis
+					Armstrong nut so I know when he did everything.
+					There are two books that I get my information about
+					videos from, "All Of Me-The Complete Discography of
+					Louis Armstrong" by Jos Willems &amp; "Louis
+					Armstrong On The Screen" by Dr. Klaus Stratemann.
+					The Louis clip you posted is from the first of two
+					BBC-TV shows. Each show was 45 minutes &amp; they
+					were taped on the same day, July 2, 1968. Aside from
+					Louis the rest of the band is Tyree Glenn-trombone,
+					Joe Muranyi-clarinet, Marty Napoleon-piano, Buddy
+					Catlett-bass &amp; Danny Barcelona-drums. Louis died
+					three years later, on July 6, 1971. He was only on
+					the road full time for another two months after this
+					clip. By mid September of 1968 he was seriously ill
+					in the hospital &amp; was out of commisiion for most
+					of 1969. I hope that's enough information for you.
+					Best wishes, Phil ------------------------------
+					Phil, I am very been thankful by the information.
+					Thank you so much.
+				</media:description>
+				<media:keywords>armstrong, louis</media:keywords>
+				<yt:duration seconds='138' />
+				<media:category label='Music'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Music
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/vnRqYMTpXHc&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='138' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQl3XOnEYGp0vhMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='138'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQl3XOnEYGp0vhMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='138'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=vnRqYMTpXHc' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/vnRqYMTpXHc/2.jpg' height='97'
+					width='130' time='00:01:09' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/vnRqYMTpXHc/1.jpg' height='97'
+					width='130' time='00:00:34.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/vnRqYMTpXHc/3.jpg' height='97'
+					width='130' time='00:01:43.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/vnRqYMTpXHc/0.jpg' height='240'
+					width='320' time='00:01:09' />
+			</media:group>
+			<yt:statistics viewCount='7920020' favoriteCount='47525' />
+			<gd:rating min='1' max='5' numRaters='23210' average='4.92' />
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/vnRqYMTpXHc/comments'
+					countHint='10920' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/SmVAWKfJ4Go
+			</id>
+			<published>2005-12-12T18:25:05.000-08:00</published>
+			<updated>2008-09-11T09:20:59.000-07:00</updated>
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='hurt' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Cash' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Music' label='Music' />
+			<title type='text'>Johnny Cash Hurt</title>
+			<content type='text'>
+				Johnny Cash hurt video. Yes Trent Reznor wrote the
+				original. Yes its a cover song. But J.R. made it his
+				own. Both songs are equal in their own respect. No
+				spamming No Arguing Keep comments only about the video.
+				I will ban/block/remove all spam/hate comments.
+			</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=SmVAWKfJ4Go' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/SmVAWKfJ4Go/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/SmVAWKfJ4Go/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=SmVAWKfJ4Go' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/SmVAWKfJ4Go' />
+			<author>
+				<name>beachbuggy</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/beachbuggy
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>Johnny Cash Hurt</media:title>
+				<media:description type='plain'>
+					Johnny Cash hurt video. Yes Trent Reznor wrote the
+					original. Yes its a cover song. But J.R. made it his
+					own. Both songs are equal in their own respect. No
+					spamming No Arguing Keep comments only about the
+					video. I will ban/block/remove all spam/hate
+					comments.
+				</media:description>
+				<media:keywords>Cash, hurt</media:keywords>
+				<yt:duration seconds='241' />
+				<media:category label='Music'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Music
+				</media:category>
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQlq4MmnWEBlShMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' isDefault='true' expression='full'
+					duration='241' yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQlq4MmnWEBlShMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='241'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=SmVAWKfJ4Go' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/SmVAWKfJ4Go/2.jpg' height='97'
+					width='130' time='00:02:00.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/SmVAWKfJ4Go/1.jpg' height='97'
+					width='130' time='00:01:00.250' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/SmVAWKfJ4Go/3.jpg' height='97'
+					width='130' time='00:03:00.750' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/SmVAWKfJ4Go/0.jpg' height='240'
+					width='320' time='00:02:00.500' />
+			</media:group>
+			<yt:statistics viewCount='11938409' favoriteCount='98763' />
+			<yt:noembed />
+			<gd:rating min='1' max='5' numRaters='55546' average='4.92' />
+			<georss:where>
+				<gml:Point>
+					<gml:pos>27.059125784374068 -80.15625</gml:pos>
+				</gml:Point>
+			</georss:where>
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/SmVAWKfJ4Go/comments'
+					countHint='31630' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/adYbFQFXG0U
+			</id>
+			<published>2008-06-28T16:16:14.000-07:00</published>
+			<updated>2008-09-11T09:26:02.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='friendship' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Africa' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Berg' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Houston' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Bourke' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='View' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='get' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='ABC' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='touch' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Animals' label='Pets &amp; Animals' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='affection' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='remembered' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Will' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='George' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='hugging' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Adamson' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Anthony' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='in' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Love' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Free' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='The' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='hug' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Whitney' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='reunion' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Rendall' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Ace' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='TimesOnline' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Always' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='friends' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='hugs' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Lion' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='MSNBC' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='You' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Times' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Christian' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='John' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Born' />
+			<title type='text'>
+				Christian the Lion - the full story (in HQ)
+			</title>
+			<content type='text'>
+				Â© Beckmann Group. TO MAKE A DONATION AND HELP THE
+				WORLD'S WILDLIFE PLEASE FOLLOW THIS LINK...
+				http://www.bornfree.org.uk/shop/acatalog/Donations.html
+				THE DVD, "CHRISTIAN THE LION AT WORLD'S END" CAN BE
+				PURCHASED AT...
+				http://www.bornfree.org.uk/shop/acatalog/Videos_and_DVDs.html
+				WHICH WILL HELP THE BORN FREE FOUNDATION SAVE EVEN MORE
+				OF THE WORLD'S WILDLIFE. THEY ALSO HAVE SIGNED COPIES OF
+				VIRGINIA MCKENNA'S BOOK "CHRISTIAN THE LION'S JOURNEY TO
+				FREEDOM" AVAILABLE AT...
+				http://www.bornfree.org.uk/shop/acatalog/Books.html The
+				dvd is also available at
+				http://www.beckmanndirect.com/Wildlife_BFWChristianTheLionWorldsEndDVD.php
+				There's also more info at Wikipedia:
+				http://en.wikipedia.org/wiki/Christian_the_lion Many
+				thanks to all the TV shows and news programmes who've
+				used my video in their reports and helped to raise
+				awareness of animal welfare throughout the world. This
+				is also true of news publications such as The Sunday
+				Times (27-07-08) &amp; TimesOnline...
+				http://www.timesonline.co.uk/tol/news/uk/article4407100.ece
+				and The Daily Telegraph (31.07.08)...
+				http://www.telegraph.co.uk/earth/main.jhtml?xml=/earth/2008/07/30/ealion130.xml
+				and also The Sun (28.07.08)...
+				http://www.thesun.co.uk/sol/homepage/woman/real_life/article1479860.ece
+				Christian left the Kora Reserve in 1973. He made his new
+				territory along the Tana river, but when the Wakamba
+				herdsmen kept bringing their livestock to his hunting
+				ground, he moved on. George Adamson said in his
+				autobiography, "I used to count the days on which we
+				hadn't seen Christian, but when they reached 97, I gave
+				up recording them in my diary." Because a lion can live
+				from 12 to 15 years in the wild, Adamson believed that
+				Christian ended his days in the Meru National Reserve
+				only a few miles up river. "Lion Man" Gareth Patterson,
+				author, environmentalist, and the person who continued
+				George Adamson's lion rehabilitation work, revisited
+				Kora in 1998. This is what he found...
+				http://www.fatheroflions.org/Kora_Revisited.html As for
+				the two guys, the Born Free Foundation tells me that
+				Anthony "Ace" Bourke (referred to as Ace "Berg" in a
+				Daily Mail article) lives in Australia as a lecturer and
+				expert in the area of Aboriginal Art, and John Rendall
+				lives in the UK and is a Trustee of the George Adamson
+				Wildlife Preservation Trust. Anyone wishing to donate to
+				the George Adamson Wildlife Preservation Trust can do so
+				by contacting one of the following.... George Adamson
+				Wildlife Preservation Trust 16a Park View Road London N3
+				2JB UK Tel: +44 (0)20 8343 4246 Fax: +44 (0)20 8343 4048
+				info@georgeadamson.org The Tony Fitzjohn/George Adamson
+				African Wildlife Preservation Trust Georgianna
+				Pennington Regnier 116 La Patera Drive Camarillo CA
+				93010 USA +1 805 987 0997 Honours received for this
+				video at various times: #1 - Top Rated (All Time) -
+				Global #1 - Top Rated (All Time) - Pets &amp; Animals -
+				Global #1 - Most Responded (Today) - Pets &amp; Animals
+				- Global #1 - Most Responded (This Week) - Pets &amp;
+				Animals - Global #1 - Most Responded (This Month) - Pets
+				&amp; Animals - Global #1 - Top Favorites (All Time) -
+				Pets &amp; Animals - Global #1 - Most Viewed (All Time)
+				- Pets &amp; Animals - Global
+			</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=adYbFQFXG0U' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/adYbFQFXG0U/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/adYbFQFXG0U/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=adYbFQFXG0U' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/adYbFQFXG0U' />
+			<author>
+				<name>TadManly</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/tadmanly
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					Christian the Lion - the full story (in HQ)
+				</media:title>
+				<media:description type='plain'>
+					Â© Beckmann Group. TO MAKE A DONATION AND HELP THE
+					WORLD'S WILDLIFE PLEASE FOLLOW THIS LINK...
+					http://www.bornfree.org.uk/shop/acatalog/Donations.html
+					THE DVD, "CHRISTIAN THE LION AT WORLD'S END" CAN BE
+					PURCHASED AT...
+					http://www.bornfree.org.uk/shop/acatalog/Videos_and_DVDs.html
+					WHICH WILL HELP THE BORN FREE FOUNDATION SAVE EVEN
+					MORE OF THE WORLD'S WILDLIFE. THEY ALSO HAVE SIGNED
+					COPIES OF VIRGINIA MCKENNA'S BOOK "CHRISTIAN THE
+					LION'S JOURNEY TO FREEDOM" AVAILABLE AT...
+					http://www.bornfree.org.uk/shop/acatalog/Books.html
+					The dvd is also available at
+					http://www.beckmanndirect.com/Wildlife_BFWChristianTheLionWorldsEndDVD.php
+					There's also more info at Wikipedia:
+					http://en.wikipedia.org/wiki/Christian_the_lion Many
+					thanks to all the TV shows and news programmes
+					who've used my video in their reports and helped to
+					raise awareness of animal welfare throughout the
+					world. This is also true of news publications such
+					as The Sunday Times (27-07-08) &amp; TimesOnline...
+					http://www.timesonline.co.uk/tol/news/uk/article4407100.ece
+					and The Daily Telegraph (31.07.08)...
+					http://www.telegraph.co.uk/earth/main.jhtml?xml=/earth/2008/07/30/ealion130.xml
+					and also The Sun (28.07.08)...
+					http://www.thesun.co.uk/sol/homepage/woman/real_life/article1479860.ece
+					Christian left the Kora Reserve in 1973. He made his
+					new territory along the Tana river, but when the
+					Wakamba herdsmen kept bringing their livestock to
+					his hunting ground, he moved on. George Adamson said
+					in his autobiography, "I used to count the days on
+					which we hadn't seen Christian, but when they
+					reached 97, I gave up recording them in my diary."
+					Because a lion can live from 12 to 15 years in the
+					wild, Adamson believed that Christian ended his days
+					in the Meru National Reserve only a few miles up
+					river. "Lion Man" Gareth Patterson, author,
+					environmentalist, and the person who continued
+					George Adamson's lion rehabilitation work, revisited
+					Kora in 1998. This is what he found...
+					http://www.fatheroflions.org/Kora_Revisited.html As
+					for the two guys, the Born Free Foundation tells me
+					that Anthony "Ace" Bourke (referred to as Ace "Berg"
+					in a Daily Mail article) lives in Australia as a
+					lecturer and expert in the area of Aboriginal Art,
+					and John Rendall lives in the UK and is a Trustee of
+					the George Adamson Wildlife Preservation Trust.
+					Anyone wishing to donate to the George Adamson
+					Wildlife Preservation Trust can do so by contacting
+					one of the following.... George Adamson Wildlife
+					Preservation Trust 16a Park View Road London N3 2JB
+					UK Tel: +44 (0)20 8343 4246 Fax: +44 (0)20 8343 4048
+					info@georgeadamson.org The Tony Fitzjohn/George
+					Adamson African Wildlife Preservation Trust
+					Georgianna Pennington Regnier 116 La Patera Drive
+					Camarillo CA 93010 USA +1 805 987 0997 Honours
+					received for this video at various times: #1 - Top
+					Rated (All Time) - Global #1 - Top Rated (All Time)
+					- Pets &amp; Animals - Global #1 - Most Responded
+					(Today) - Pets &amp; Animals - Global #1 - Most
+					Responded (This Week) - Pets &amp; Animals - Global
+					#1 - Most Responded (This Month) - Pets &amp;
+					Animals - Global #1 - Top Favorites (All Time) -
+					Pets &amp; Animals - Global #1 - Most Viewed (All
+					Time) - Pets &amp; Animals - Global
+				</media:description>
+				<media:keywords>
+					ABC, Ace, Adamson, affection, Africa, Always,
+					Anthony, Berg, Born, Bourke, Christian, Free,
+					friends, friendship, George, get, Houston, hug,
+					hugging, hugs, in, John, Lion, Love, MSNBC,
+					remembered, Rendall, reunion, The, Times,
+					TimesOnline, touch, View, Whitney, Will, You
+				</media:keywords>
+				<yt:duration seconds='148' />
+				<media:category label='Pets &amp; Animals'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Animals
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/adYbFQFXG0U&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='148' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQlFG1cBFRvWaRMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='148'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQlFG1cBFRvWaRMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='148'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=adYbFQFXG0U' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/adYbFQFXG0U/2.jpg' height='97'
+					width='130' time='00:01:14' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/adYbFQFXG0U/1.jpg' height='97'
+					width='130' time='00:00:37' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/adYbFQFXG0U/3.jpg' height='97'
+					width='130' time='00:01:51' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/adYbFQFXG0U/0.jpg' height='240'
+					width='320' time='00:01:14' />
+			</media:group>
+			<yt:statistics viewCount='13931428' favoriteCount='62797' />
+			<gd:rating min='1' max='5' numRaters='20440' average='4.92' />
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/adYbFQFXG0U/comments'
+					countHint='14472' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/M89c3hWx3RQ
+			</id>
+			<published>2006-11-28T05:02:05.000-08:00</published>
+			<updated>2008-09-11T08:00:21.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='named' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='prison' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='boy' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='cash' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='sue' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='johnny' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='quentin' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='live' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='san' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='original' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Music' label='Music' />
+			<title type='text'>
+				Johnny Cash "A Boy Named Sue" ORIGINAL
+			</title>
+			<content type='text'>
+				This is live at San Quentin in 1969. This is the
+				original radio version (except no bleep) that your daddy
+				knows!
+			</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=M89c3hWx3RQ' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/M89c3hWx3RQ/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=M89c3hWx3RQ' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/M89c3hWx3RQ' />
+			<author>
+				<name>jegjr</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/jegjr
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					Johnny Cash "A Boy Named Sue" ORIGINAL
+				</media:title>
+				<media:description type='plain'>
+					This is live at San Quentin in 1969. This is the
+					original radio version (except no bleep) that your
+					daddy knows!
+				</media:description>
+				<media:keywords>
+					boy, cash, johnny, live, named, original, prison,
+					quentin, san, sue
+				</media:keywords>
+				<yt:duration seconds='187' />
+				<media:category label='Music'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Music
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/M89c3hWx3RQ&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='187' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQkU3bEV3lzPMxMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='187'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQkU3bEV3lzPMxMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='187'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=M89c3hWx3RQ' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/M89c3hWx3RQ/2.jpg' height='97'
+					width='130' time='00:01:33.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/M89c3hWx3RQ/1.jpg' height='97'
+					width='130' time='00:00:46.750' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/M89c3hWx3RQ/3.jpg' height='97'
+					width='130' time='00:02:20.250' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/M89c3hWx3RQ/0.jpg' height='240'
+					width='320' time='00:01:33.500' />
+			</media:group>
+			<yt:statistics viewCount='2230470' favoriteCount='18060' />
+			<gd:rating min='1' max='5' numRaters='6949' average='4.92' />
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/M89c3hWx3RQ/comments'
+					countHint='2275' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/fEhoBOyfK2w
+			</id>
+			<published>2006-05-02T08:33:24.000-07:00</published>
+			<updated>2008-09-11T08:47:08.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='raab' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Men' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='stefan' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Will' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Smith' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Black' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Comedy' label='Comedy' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='in' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='ukulele' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='fun' />
+			<title type='text'>Will Smith vs. Stefan Raab funny</title>
+			<content type='text'>
+				German Comedian and Will Smith
+			</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=fEhoBOyfK2w' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/fEhoBOyfK2w/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/fEhoBOyfK2w/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=fEhoBOyfK2w' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/fEhoBOyfK2w' />
+			<author>
+				<name>UnrealG</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/unrealg
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					Will Smith vs. Stefan Raab funny
+				</media:title>
+				<media:description type='plain'>
+					German Comedian and Will Smith
+				</media:description>
+				<media:keywords>
+					Black, fun, in, Men, raab, Smith, stefan, ukulele,
+					Will
+				</media:keywords>
+				<yt:duration seconds='265' />
+				<media:category label='Comedy'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Comedy
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/fEhoBOyfK2w&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='265' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQlsK5_sBGhIfBMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='265'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQlsK5_sBGhIfBMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='265'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=fEhoBOyfK2w' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/fEhoBOyfK2w/2.jpg' height='97'
+					width='130' time='00:02:12.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/fEhoBOyfK2w/1.jpg' height='97'
+					width='130' time='00:01:06.250' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/fEhoBOyfK2w/3.jpg' height='97'
+					width='130' time='00:03:18.750' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/fEhoBOyfK2w/0.jpg' height='240'
+					width='320' time='00:02:12.500' />
+			</media:group>
+			<yt:statistics viewCount='1679650' favoriteCount='11751' />
+			<gd:rating min='1' max='5' numRaters='8142' average='4.92' />
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/fEhoBOyfK2w/comments'
+					countHint='1792' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/V5BxymuiAxQ
+			</id>
+			<published>2008-04-09T16:45:20.000-07:00</published>
+			<updated>2008-09-11T08:50:19.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='commercials' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='tv' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Channel' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Entertainment' label='Entertainment' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Discovery' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='the' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='boomdeyada' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='advertising' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='World' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Love' />
+			<title type='text'>
+				Discovery Channel: I Love the World
+			</title>
+			<content type='text'>
+				Full Credits Client: Discovery Channel Agency:
+				72andSunny Creative Director: Glenn Cole CD/Designer:
+				Bryan Rowles CD/Copywriter: Jason Norcross Agency
+				Executive Producer: Sam Baerwald Agency Producer: Angelo
+				Ferrugia Production Company: Outsider Director: James
+				Rouse Director of Photography: Max Goldman Producer:
+				Jeremy Barrett Editorial Company: Mad River Post Editor:
+				Lucas Eskin Producer (Editorial): Ann Kirk VFX: Method
+				VFX/Online Artist: Alex Kolansinski VFX Producer: Helena
+				Lee Music: Beacon Street Studios Composer: Brian Chapman
+				Producer (Music): Adrea Lavezzoli Sound Design: Lime
+				Studios Mixer: Loren Silber Telecine: Company 3
+				Colorist: Stefan Sonnenfeld
+			</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=V5BxymuiAxQ' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/V5BxymuiAxQ/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/V5BxymuiAxQ/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=V5BxymuiAxQ' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/V5BxymuiAxQ' />
+			<author>
+				<name>mrmachadochannel</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/mrmachadochannel
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					Discovery Channel: I Love the World
+				</media:title>
+				<media:description type='plain'>
+					Full Credits Client: Discovery Channel Agency:
+					72andSunny Creative Director: Glenn Cole
+					CD/Designer: Bryan Rowles CD/Copywriter: Jason
+					Norcross Agency Executive Producer: Sam Baerwald
+					Agency Producer: Angelo Ferrugia Production Company:
+					Outsider Director: James Rouse Director of
+					Photography: Max Goldman Producer: Jeremy Barrett
+					Editorial Company: Mad River Post Editor: Lucas
+					Eskin Producer (Editorial): Ann Kirk VFX: Method
+					VFX/Online Artist: Alex Kolansinski VFX Producer:
+					Helena Lee Music: Beacon Street Studios Composer:
+					Brian Chapman Producer (Music): Adrea Lavezzoli
+					Sound Design: Lime Studios Mixer: Loren Silber
+					Telecine: Company 3 Colorist: Stefan Sonnenfeld
+				</media:description>
+				<media:keywords>
+					advertising, boomdeyada, Channel, commercials,
+					Discovery, Love, the, tv, World
+				</media:keywords>
+				<yt:duration seconds='61' />
+				<media:category label='Entertainment'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Entertainment
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/V5BxymuiAxQ&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='61' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQkUA6JrynGQVxMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='61'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQkUA6JrynGQVxMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='61'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=V5BxymuiAxQ' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/V5BxymuiAxQ/2.jpg' height='97'
+					width='130' time='00:00:30.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/V5BxymuiAxQ/1.jpg' height='97'
+					width='130' time='00:00:15.250' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/V5BxymuiAxQ/3.jpg' height='97'
+					width='130' time='00:00:45.750' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/V5BxymuiAxQ/0.jpg' height='240'
+					width='320' time='00:00:30.500' />
+			</media:group>
+			<yt:statistics viewCount='2465930' favoriteCount='23286' />
+			<gd:rating min='1' max='5' numRaters='11503' average='4.92' />
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/V5BxymuiAxQ/comments'
+					countHint='6457' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/0WTMESWDWMA
+			</id>
+			<published>2006-02-21T02:12:34.000-08:00</published>
+			<updated>2008-09-11T06:57:51.000-07:00</updated>
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Selena' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Music' label='Music' />
+			<title type='text'>Selena - I Could Fall in Love</title>
+			<content type='text'>
+				Music Video - Selena - I Could Fall in Love Just an FYI
+				i got a lot of comments on this videos i know i miss her
+				too she rocked but i also got a lot of messages on this
+				and to answer your questions NO i did not know her lol
+				just cuzi have her videos does not mean i knew her lol
+				but yea enjoy the video.
+			</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=0WTMESWDWMA' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/0WTMESWDWMA/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/0WTMESWDWMA/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=0WTMESWDWMA' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/0WTMESWDWMA' />
+			<author>
+				<name>klarizag</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/klarizag
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					Selena - I Could Fall in Love
+				</media:title>
+				<media:description type='plain'>
+					Music Video - Selena - I Could Fall in Love Just an
+					FYI i got a lot of comments on this videos i know i
+					miss her too she rocked but i also got a lot of
+					messages on this and to answer your questions NO i
+					did not know her lol just cuzi have her videos does
+					not mean i knew her lol but yea enjoy the video.
+				</media:description>
+				<media:keywords>Selena</media:keywords>
+				<yt:duration seconds='268' />
+				<media:category label='Music'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Music
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/0WTMESWDWMA&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='268' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQnAWIMlEcxk0RMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='268'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQnAWIMlEcxk0RMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='268'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=0WTMESWDWMA' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/0WTMESWDWMA/2.jpg' height='97'
+					width='130' time='00:02:14' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/0WTMESWDWMA/1.jpg' height='97'
+					width='130' time='00:01:07' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/0WTMESWDWMA/3.jpg' height='97'
+					width='130' time='00:03:21' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/0WTMESWDWMA/0.jpg' height='240'
+					width='320' time='00:02:14' />
+			</media:group>
+			<yt:statistics viewCount='1936583' favoriteCount='15785' />
+			<gd:rating min='1' max='5' numRaters='5105' average='4.94' />
+			<yt:recorded>2006-02-20</yt:recorded>
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/0WTMESWDWMA/comments'
+					countHint='2706' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/jRVBB64PJ8I
+			</id>
+			<published>2006-06-24T15:08:45.000-07:00</published>
+			<updated>2008-09-11T08:24:36.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Dionne' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Home' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Luther' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Warrick' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='VanDross' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='House' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Music' label='Music' />
+			<title type='text'>
+				Luther VanDross - A House is not a Home (Live)
+			</title>
+			<content type='text'>
+				An excerpt from the 1988 NAACP awards, in which Luther
+				VanDross sings "A House is not a Home" live. He, more or
+				less, sings this song directly to Dionne Warrick (who,
+				originally, sung this song). With the exception of "Stop
+				to Love" (Live at Wembley), this is the best Luther
+				VanDross performance I've ever seen.
+			</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=jRVBB64PJ8I' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/jRVBB64PJ8I/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/jRVBB64PJ8I/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=jRVBB64PJ8I' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/jRVBB64PJ8I' />
+			<author>
+				<name>seppydude</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/seppydude
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					Luther VanDross - A House is not a Home (Live)
+				</media:title>
+				<media:description type='plain'>
+					An excerpt from the 1988 NAACP awards, in which
+					Luther VanDross sings "A House is not a Home" live.
+					He, more or less, sings this song directly to Dionne
+					Warrick (who, originally, sung this song). With the
+					exception of "Stop to Love" (Live at Wembley), this
+					is the best Luther VanDross performance I've ever
+					seen.
+				</media:description>
+				<media:keywords>
+					Dionne, Home, House, Luther, VanDross, Warrick
+				</media:keywords>
+				<yt:duration seconds='402' />
+				<media:category label='Music'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Music
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/jRVBB64PJ8I&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='402' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQnCJw-uB0EVjRMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='402'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQnCJw-uB0EVjRMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='402'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=jRVBB64PJ8I' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/jRVBB64PJ8I/2.jpg' height='97'
+					width='130' time='00:03:21' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/jRVBB64PJ8I/1.jpg' height='97'
+					width='130' time='00:01:40.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/jRVBB64PJ8I/3.jpg' height='97'
+					width='130' time='00:05:01.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/jRVBB64PJ8I/0.jpg' height='240'
+					width='320' time='00:03:21' />
+			</media:group>
+			<yt:statistics viewCount='1555954' favoriteCount='16402' />
+			<gd:rating min='1' max='5' numRaters='5341' average='4.93' />
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/jRVBB64PJ8I/comments'
+					countHint='3296' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/ryH1TB4gEUY
+			</id>
+			<published>2008-03-26T13:01:01.000-07:00</published>
+			<updated>2008-09-11T08:15:51.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='And' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Kasumi' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Oum' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Alive' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='High' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Kairi' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Monty' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Rachel' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Fight' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Hitomi' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Rinoa' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Ayame' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Two' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Riku' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Film' label='Film &amp; Animation' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Dead' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Final' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Yuna' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Quality' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Fantasy' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Tifa' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='One' />
+			<title type='text'>Dead Fantasy 1 &amp; 2</title>
+			<content type='text'>
+				This high quality animation movie is called Dead Fantasy
+				featuring the hot vixens from Tecmo and Square Enix
+				games in an all out scrap. Which was created by the
+				Great "Monty Oum" I'm now a huge fan of his work.
+				Because he's given me more inspiration to continue my
+				own series "Jin's Search", and simply because this is by
+				far the best fan based animations I've ever seen. So I
+				put Dead Fantasy I&amp;II together in high quality.
+				NOTE: Some people don't seem to know how to read or
+				don't bother to read this damn description. If anyone
+				has any questions, ask Monty Oum himself. DO NOT ASK ME.
+				If anyone asks me ANY questions about this video, it'll
+				lead to an instant block, no questions asked. Be sure to
+				stop at http://www.gametrailers.com/ Goto Monty Oum's
+				profile at
+				http://montyoum.gametrailers.com/gamepad/index.php?action=fanmovs
+				for MORE of his animations, and again, if you have
+				questions for Monty, ask him there. Do NOT ask me!! Dead
+				Fantasy I is available here in both SD and HD. This
+				episode is also downloadable in SD and HD.
+				http://www.gametrailers.com/player/26451.html Dead
+				Fantasy II is available here in both SD and HD. But this
+				episode isn't downloadable yet.
+				http://www.gametrailers.com/player/usermovies/193489.html
+				Enjoy!!! #16 - Most Discussed (This Month) - Film &amp;
+				Animation #66 - Most Viewed (This Month) - Film &amp;
+				Animation #41 - Top Favorites (This Month) #3 - Top
+				Favorites (This Month) - Film &amp; Animation #89 - Top
+				Rated (This Month) #5 - Top Rated (This Month) - Film
+				&amp; Animation #18 - Top Rated (All Time) - Film &amp;
+				Animation SPOILERS AHEAD, READ WHEN DONE WATCHING THIS
+				ANIMATION MOVIE!!! This is my comment on this movie. So
+				far in my opinion, it's evened up. Tecmo girls 1 and
+				Square Enix girls 1. Tecmo girls mashed it up in the
+				first episode. But in the second episode... Square Enix
+				girls clapped back big time. So it's 1-1. And to think
+				it couldn't get any better, Monty says we haven't seen
+				anything yet. It makes me think.. "What else can this
+				man do?" It makes me excited but sad at the same time.
+				Because that cliff hanger makes me want more and it also
+				opens up a lot of possibilities. But I'm very excited
+				that Hitomi and Tifa are in the same warp though. Tifa
+				sees Hitomi as her match I guess haha. So this next
+				episode is gonna be tense. I just can't wait to see what
+				Monty is hyping us up for... I just hope it doesn't
+				flop. But who am I kidding? it's freakin Monty Oum we're
+				talking about, no flopage there. I thank you Monty Oum
+				for making such a great serie. Keep it up man, I truly
+				look forward to more of your work!!!
+			</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=ryH1TB4gEUY' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/ryH1TB4gEUY/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/ryH1TB4gEUY/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=ryH1TB4gEUY' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/ryH1TB4gEUY' />
+			<author>
+				<name>kojiroBADNESS</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/kojirobadness
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					Dead Fantasy 1 &amp; 2
+				</media:title>
+				<media:description type='plain'>
+					This high quality animation movie is called Dead
+					Fantasy featuring the hot vixens from Tecmo and
+					Square Enix games in an all out scrap. Which was
+					created by the Great "Monty Oum" I'm now a huge fan
+					of his work. Because he's given me more inspiration
+					to continue my own series "Jin's Search", and simply
+					because this is by far the best fan based animations
+					I've ever seen. So I put Dead Fantasy I&amp;II
+					together in high quality. NOTE: Some people don't
+					seem to know how to read or don't bother to read
+					this damn description. If anyone has any questions,
+					ask Monty Oum himself. DO NOT ASK ME. If anyone asks
+					me ANY questions about this video, it'll lead to an
+					instant block, no questions asked. Be sure to stop
+					at http://www.gametrailers.com/ Goto Monty Oum's
+					profile at
+					http://montyoum.gametrailers.com/gamepad/index.php?action=fanmovs
+					for MORE of his animations, and again, if you have
+					questions for Monty, ask him there. Do NOT ask me!!
+					Dead Fantasy I is available here in both SD and HD.
+					This episode is also downloadable in SD and HD.
+					http://www.gametrailers.com/player/26451.html Dead
+					Fantasy II is available here in both SD and HD. But
+					this episode isn't downloadable yet.
+					http://www.gametrailers.com/player/usermovies/193489.html
+					Enjoy!!! #16 - Most Discussed (This Month) - Film
+					&amp; Animation #66 - Most Viewed (This Month) -
+					Film &amp; Animation #41 - Top Favorites (This
+					Month) #3 - Top Favorites (This Month) - Film &amp;
+					Animation #89 - Top Rated (This Month) #5 - Top
+					Rated (This Month) - Film &amp; Animation #18 - Top
+					Rated (All Time) - Film &amp; Animation SPOILERS
+					AHEAD, READ WHEN DONE WATCHING THIS ANIMATION
+					MOVIE!!! This is my comment on this movie. So far in
+					my opinion, it's evened up. Tecmo girls 1 and Square
+					Enix girls 1. Tecmo girls mashed it up in the first
+					episode. But in the second episode... Square Enix
+					girls clapped back big time. So it's 1-1. And to
+					think it couldn't get any better, Monty says we
+					haven't seen anything yet. It makes me think.. "What
+					else can this man do?" It makes me excited but sad
+					at the same time. Because that cliff hanger makes me
+					want more and it also opens up a lot of
+					possibilities. But I'm very excited that Hitomi and
+					Tifa are in the same warp though. Tifa sees Hitomi
+					as her match I guess haha. So this next episode is
+					gonna be tense. I just can't wait to see what Monty
+					is hyping us up for... I just hope it doesn't flop.
+					But who am I kidding? it's freakin Monty Oum we're
+					talking about, no flopage there. I thank you Monty
+					Oum for making such a great serie. Keep it up man, I
+					truly look forward to more of your work!!!
+				</media:description>
+				<media:keywords>
+					Alive, And, Ayame, Dead, Fantasy, Fight, Final,
+					High, Hitomi, Kairi, Kasumi, Monty, One, Oum,
+					Quality, Rachel, Riku, Rinoa, Tifa, Two, Yuna
+				</media:keywords>
+				<yt:duration seconds='939' />
+				<media:category label='Film &amp; Animation'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Film
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/ryH1TB4gEUY&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='939' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQlGESAeTPUhrxMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='939'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQlGESAeTPUhrxMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='939'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=ryH1TB4gEUY' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/ryH1TB4gEUY/2.jpg' height='97'
+					width='130' time='00:07:49.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/ryH1TB4gEUY/1.jpg' height='97'
+					width='130' time='00:03:54.750' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/ryH1TB4gEUY/3.jpg' height='97'
+					width='130' time='00:11:44.250' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/ryH1TB4gEUY/0.jpg' height='240'
+					width='320' time='00:07:49.500' />
+			</media:group>
+			<yt:statistics viewCount='673507' favoriteCount='16089' />
+			<gd:rating min='1' max='5' numRaters='5884' average='4.93' />
+			<yt:location>undefined</yt:location>
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/ryH1TB4gEUY/comments'
+					countHint='4932' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/dsU3B0W3TMs
+			</id>
+			<published>2007-12-08T15:17:37.000-08:00</published>
+			<updated>2008-09-11T09:16:23.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='windows' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Robbi-985' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='98' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='xp' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='SomethingUnreal' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='electronic' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='tracker' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='music' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='modplug' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='original' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Music' label='Music' />
+			<title type='text'>
+				Music using ONLY sounds from Windows XP and 98!
+			</title>
+			<content type='text'>
+				EDIT 4: Make sure you get this version of ModPlug
+				Tracker:
+				http://www.softpedia.com/get/Multimedia/Audio/Audio-Editors-Recorders/MODPlug-Tracker.shtml
+				That will install itself as a program, which you can
+				start running from the Start menu, as you would with
+				most other programs. ;) A while ago, I made a VERY brief
+				(sorry) guide for getting started with ModPlug Tracker,
+				and at least getting SOME sound out of it. It's at my
+				site, here:
+				http://robbi-985.homeip.net:8000/information/modplug/mpt_info.txt
+				(Since that's a text file, it might be easier to read if
+				you download it (right-click, Save Link or Target As)
+				and view it in a text editor like Notepad.) EDIT 3: Just
+				to try to avoid me having to reply to every other
+				comment which says that it must have taken me ages to
+				make, or that I must've been bored: This was just a way
+				for me to pass a few hours of boredom. Yes, I WAS bored.
+				No, I'm not trying to "prove" anything - that this is
+				what I'm "capable of". I just thought I'd upload my
+				music as a video here, to YouTube. I'm not the one who
+				spread it around to Digg or random blogs, - I uploaded
+				it here at YouTube some time back in December 2007 and
+				it has only just "taken off", after all. EDIT 2: I'm
+				making the IT file be available now too, don't really
+				mind any more. I guess I'm too busy working on new
+				things (not mod music) to worry about the 'old' ones. :P
+				ã”ã‚ã‚“ã€ç¿»è¨³ã¯ã«ãã„ã‘ã©ã€ã“ã‚Œã‹ã‚‰ITãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã§ãã‚‹ã§ã™ã€‚
+				http://www.zshare.net/download/773938201a8e01 638 KB, as
+				ZIP EDIT 1: There's an extended version - please look at
+				the end of this description text!
+				æ‹¡å¼µç‰ˆãŒã‚ã‚Šã¾ã™ã€‚ã“ã®ãƒ†ã‚­ã‚¹ãƒˆã®æœ€å¾Œã‚’è¦‹ã¦ãã
+				ã•ã„ï¼ A piece of music I made using some of the
+				various sounds Windows XP and 98 come with. The music is
+				about 1:31 long. After that, I show the sounds which
+				were used. The video is screen-captured from ModPlug
+				Tracker, the program which I made the music on. Windows
+				XPã¨98ã§æ¥ã‚‹æ§˜ã€…ãªéŸ³ã‚’ä½¿ç”¨ã•ã‚Œã‚‹ã“ã¨ã§ã€ä¿ºãŒä½œã£ãŸéŸ³æ¥½ã€‚
+				éŸ³æ¥½ã¯é•·ã•ç´„1åˆ†31ç§’ã§ã™ã€‚ãã®ã‚ã¨ã«ã€ä½¿ç”¨ã•ã‚ŒãŸéŸ³ã‚’è¦‹ã•ã›ã¦
+				ãƒ“ãƒ‡ã‚ªã¯ModPlug
+				Trackerã€ä¿ºãŒéŸ³æ¥½ã‚’ä½œã£ãŸãƒ—ãƒ­ã‚°ãƒ©ãƒ ã€‚ - -
+				- - - - - - - - - - - - - - - - - - High-quality stereo
+				MP3: ä¸Šè³ªã®ã‚¹ãƒ†ãƒ¬ã‚ªã®MP3:
+				http://www.zshare.net/download/7739331d923b91 (2.41 MB)
+				EXTENDED VERSION! (MP3 inside a ZIP): æ‹¡å¼µç‰ˆ!
+				(ZIPã®ä¸­ã§ã®MP3):
+				http://www.zshare.net/download/7815810f0ca4ca
+				(MegaUpload ---&amp;gt; zSHARE.net) (3.33 MB) (I
+				might've gone a little over-the-top at the end...)
+				(æœ€å¾Œã§ã¡ã‚‡ã£ã¨å¤šã™ãŽã¾ã—ãŸã‹ãª...) CBR
+				(320 Kb/sec) EXTENDED VERSION: If the extended version
+				above gives you problems - such as cutting off at the
+				end, because the duration was miscalculated (appears to
+				happen with iTunes?), then I've made this constant
+				bitrate version, as an alternative to the variable
+				bitrate version above. This will fix the cutting off and
+				miscalculation of the duration, but is a little
+				unnecessarily large and is a little lower quality than
+				VBR (but highest possible when using CBR).
+				http://robbi-985.shana-tan.com/hosted_audio/XP_Sounds_Attempt_Extended_CBR320.mp3
+				(4.16 MB) - - - - - - - - - - - - - - - - - - - -
+			</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=dsU3B0W3TMs' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/dsU3B0W3TMs/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/dsU3B0W3TMs/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=dsU3B0W3TMs' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/dsU3B0W3TMs' />
+			<author>
+				<name>SomethingUnreal</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/somethingunreal
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					Music using ONLY sounds from Windows XP and 98!
+				</media:title>
+				<media:description type='plain'>
+					EDIT 4: Make sure you get this version of ModPlug
+					Tracker:
+					http://www.softpedia.com/get/Multimedia/Audio/Audio-Editors-Recorders/MODPlug-Tracker.shtml
+					That will install itself as a program, which you can
+					start running from the Start menu, as you would with
+					most other programs. ;) A while ago, I made a VERY
+					brief (sorry) guide for getting started with ModPlug
+					Tracker, and at least getting SOME sound out of it.
+					It's at my site, here:
+					http://robbi-985.homeip.net:8000/information/modplug/mpt_info.txt
+					(Since that's a text file, it might be easier to
+					read if you download it (right-click, Save Link or
+					Target As) and view it in a text editor like
+					Notepad.) EDIT 3: Just to try to avoid me having to
+					reply to every other comment which says that it must
+					have taken me ages to make, or that I must've been
+					bored: This was just a way for me to pass a few
+					hours of boredom. Yes, I WAS bored. No, I'm not
+					trying to "prove" anything - that this is what I'm
+					"capable of". I just thought I'd upload my music as
+					a video here, to YouTube. I'm not the one who spread
+					it around to Digg or random blogs, - I uploaded it
+					here at YouTube some time back in December 2007 and
+					it has only just "taken off", after all. EDIT 2: I'm
+					making the IT file be available now too, don't
+					really mind any more. I guess I'm too busy working
+					on new things (not mod music) to worry about the
+					'old' ones. :P
+					ã”ã‚ã‚“ã€ç¿»è¨³ã¯ã«ãã„ã‘ã©ã€ã“ã‚Œã‹ã‚‰ITãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã§ãã‚‹ã§ã™ã€‚
+					http://www.zshare.net/download/773938201a8e01 638
+					KB, as ZIP EDIT 1: There's an extended version -
+					please look at the end of this description text!
+					æ‹¡å¼µç‰ˆãŒã‚ã‚Šã¾ã™ã€‚ã“ã®ãƒ†ã‚­ã‚¹ãƒˆã®æœ€å¾Œã‚’è¦‹ã¦ãã
+					ã•ã„ï¼ A piece of music I made using some of the
+					various sounds Windows XP and 98 come with. The
+					music is about 1:31 long. After that, I show the
+					sounds which were used. The video is screen-captured
+					from ModPlug Tracker, the program which I made the
+					music on. Windows
+					XPã¨98ã§æ¥ã‚‹æ§˜ã€…ãªéŸ³ã‚’ä½¿ç”¨ã•ã‚Œã‚‹ã“ã¨ã§ã€ä¿ºãŒä½œã£ãŸéŸ³æ¥½ã€‚
+					éŸ³æ¥½ã¯é•·ã•ç´„1åˆ†31ç§’ã§ã™ã€‚ãã®ã‚ã¨ã«ã€ä½¿ç”¨ã•ã‚ŒãŸéŸ³ã‚’è¦‹ã•ã›ã¦
+					ãƒ“ãƒ‡ã‚ªã¯ModPlug
+					Trackerã€ä¿ºãŒéŸ³æ¥½ã‚’ä½œã£ãŸãƒ—ãƒ­ã‚°ãƒ©ãƒ ã€‚
+					- - - - - - - - - - - - - - - - - - - - High-quality
+					stereo MP3: ä¸Šè³ªã®ã‚¹ãƒ†ãƒ¬ã‚ªã®MP3:
+					http://www.zshare.net/download/7739331d923b91 (2.41
+					MB) EXTENDED VERSION! (MP3 inside a ZIP): æ‹¡å¼µç‰ˆ!
+					(ZIPã®ä¸­ã§ã®MP3):
+					http://www.zshare.net/download/7815810f0ca4ca
+					(MegaUpload ---&amp;gt; zSHARE.net) (3.33 MB) (I
+					might've gone a little over-the-top at the end...)
+					(æœ€å¾Œã§ã¡ã‚‡ã£ã¨å¤šã™ãŽã¾ã—ãŸã‹ãª...)
+					CBR (320 Kb/sec) EXTENDED VERSION: If the extended
+					version above gives you problems - such as cutting
+					off at the end, because the duration was
+					miscalculated (appears to happen with iTunes?), then
+					I've made this constant bitrate version, as an
+					alternative to the variable bitrate version above.
+					This will fix the cutting off and miscalculation of
+					the duration, but is a little unnecessarily large
+					and is a little lower quality than VBR (but highest
+					possible when using CBR).
+					http://robbi-985.shana-tan.com/hosted_audio/XP_Sounds_Attempt_Extended_CBR320.mp3
+					(4.16 MB) - - - - - - - - - - - - - - - - - - - -
+				</media:description>
+				<media:keywords>
+					98, electronic, modplug, music, original, Robbi-985,
+					SomethingUnreal, tracker, windows, xp
+				</media:keywords>
+				<yt:duration seconds='149' />
+				<media:category label='Music'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Music
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/dsU3B0W3TMs&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='149' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQnLTLdFBzfFdhMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='149'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQnLTLdFBzfFdhMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='149'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=dsU3B0W3TMs' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/dsU3B0W3TMs/2.jpg' height='97'
+					width='130' time='00:01:14.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/dsU3B0W3TMs/1.jpg' height='97'
+					width='130' time='00:00:37.250' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/dsU3B0W3TMs/3.jpg' height='97'
+					width='130' time='00:01:51.750' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/dsU3B0W3TMs/0.jpg' height='240'
+					width='320' time='00:01:14.500' />
+			</media:group>
+			<yt:statistics viewCount='3254942' favoriteCount='31156' />
+			<gd:rating min='1' max='5' numRaters='20114' average='4.92' />
+			<yt:recorded>2007-12-08</yt:recorded>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/cI1AwZN4ZYg
+			</id>
+			<published>2008-03-18T22:53:51.000-07:00</published>
+			<updated>2008-09-11T09:11:25.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='chan' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='cinemassacre' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='action' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Entertainment' label='Entertainment' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='jackie' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='stunts' />
+			<title type='text'>
+				Cinemassacre's Top 10 Jackie Chan Stunts
+			</title>
+			<content type='text'>
+				http://www.spike.com/profile/Cinemassacre Here's one
+				I've been holding onto for a rainy day, (from 2007)
+				celebrating one of the greatest actors to ever live.
+				Coming next: Jackie Chan Fight Scenes (Probably after
+				Rocky Month is over)
+			</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=cI1AwZN4ZYg' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/cI1AwZN4ZYg/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/cI1AwZN4ZYg/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=cI1AwZN4ZYg' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/cI1AwZN4ZYg' />
+			<author>
+				<name>JamesNintendoNerd</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/jamesnintendonerd
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					Cinemassacre's Top 10 Jackie Chan Stunts
+				</media:title>
+				<media:description type='plain'>
+					http://www.spike.com/profile/Cinemassacre Here's one
+					I've been holding onto for a rainy day, (from 2007)
+					celebrating one of the greatest actors to ever live.
+					Coming next: Jackie Chan Fight Scenes (Probably
+					after Rocky Month is over)
+				</media:description>
+				<media:keywords>
+					action, chan, cinemassacre, jackie, stunts
+				</media:keywords>
+				<yt:duration seconds='355' />
+				<media:category label='Entertainment'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Entertainment
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/cI1AwZN4ZYg&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='355' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQmIZXiTwUCNcBMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='355'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQmIZXiTwUCNcBMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='355'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=cI1AwZN4ZYg' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/cI1AwZN4ZYg/2.jpg' height='97'
+					width='130' time='00:02:57.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/cI1AwZN4ZYg/1.jpg' height='97'
+					width='130' time='00:01:28.750' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/cI1AwZN4ZYg/3.jpg' height='97'
+					width='130' time='00:04:26.250' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/cI1AwZN4ZYg/0.jpg' height='240'
+					width='320' time='00:02:57.500' />
+			</media:group>
+			<yt:statistics viewCount='4029973' favoriteCount='6976' />
+			<gd:rating min='1' max='5' numRaters='25122' average='4.92' />
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/cI1AwZN4ZYg/comments'
+					countHint='10629' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/lg8LfoyDFUM
+			</id>
+			<published>2008-04-24T22:49:58.000-07:00</published>
+			<updated>2008-09-11T09:13:30.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='XS' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='distortion' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='beats' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='motif' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='keyboard' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='ronald' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='XS8' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='fruityloops' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='studio' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='instrumental' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='fl' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='beat' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='e-piano' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='jam' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='jenkees' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Music' label='Music' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='fun' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='hip-hop' />
+			<title type='text'>
+				messin with an e-piano sound (with distortion, LOL)
+			</title>
+			<content type='text'>
+				buy this song:
+				http://www.ronaldjenkees.com/2008/08/16/stay-crunchy-youtube-jam/
+				buy my first CD:
+				http://www.ronaldjenkees.com/music-store **second CD due
+				late summer This is another one in the very early
+				stages, but it's fun to jam with. I messed with it quite
+				a bit before I filmed, but each time it came out
+				drastically different. LOL I used FL Studio 8 and my
+				Motif XS8 to make this one. The sound I'm using is
+				actually an e-piano (patch is called "Drive EP AS1" on
+				the Motif XS series. I adjusted the distortion and delay
+				to make it sound like it is. Thanks again for watching
+				and being a subscriber to my vids!!
+			</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=lg8LfoyDFUM' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/lg8LfoyDFUM/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/lg8LfoyDFUM/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=lg8LfoyDFUM' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/lg8LfoyDFUM' />
+			<author>
+				<name>ronaldjenkees</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/ronaldjenkees
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					messin with an e-piano sound (with distortion, LOL)
+				</media:title>
+				<media:description type='plain'>
+					buy this song:
+					http://www.ronaldjenkees.com/2008/08/16/stay-crunchy-youtube-jam/
+					buy my first CD:
+					http://www.ronaldjenkees.com/music-store **second CD
+					due late summer This is another one in the very
+					early stages, but it's fun to jam with. I messed
+					with it quite a bit before I filmed, but each time
+					it came out drastically different. LOL I used FL
+					Studio 8 and my Motif XS8 to make this one. The
+					sound I'm using is actually an e-piano (patch is
+					called "Drive EP AS1" on the Motif XS series. I
+					adjusted the distortion and delay to make it sound
+					like it is. Thanks again for watching and being a
+					subscriber to my vids!!
+				</media:description>
+				<media:keywords>
+					beat, beats, distortion, e-piano, fl, fruityloops,
+					fun, hip-hop, instrumental, jam, jenkees, keyboard,
+					motif, ronald, studio, XS, XS8
+				</media:keywords>
+				<yt:duration seconds='265' />
+				<media:category label='Music'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Music
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/lg8LfoyDFUM&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='265' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQlDFYOMfgsPlhMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='265'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQlDFYOMfgsPlhMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='265'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=lg8LfoyDFUM' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/lg8LfoyDFUM/2.jpg' height='97'
+					width='130' time='00:02:12.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/lg8LfoyDFUM/1.jpg' height='97'
+					width='130' time='00:01:06.250' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/lg8LfoyDFUM/3.jpg' height='97'
+					width='130' time='00:03:18.750' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/lg8LfoyDFUM/0.jpg' height='240'
+					width='320' time='00:02:12.500' />
+			</media:group>
+			<yt:statistics viewCount='1025965' favoriteCount='6222' />
+			<gd:rating min='1' max='5' numRaters='7144' average='4.92' />
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/lg8LfoyDFUM/comments'
+					countHint='4845' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/Wl54ABY8VgY
+			</id>
+			<published>2006-02-12T10:22:08.000-08:00</published>
+			<updated>2008-09-11T09:24:25.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Tupac' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='2Pac' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Music' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Video' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Music' label='Music' />
+			<title type='text'>2Pac - Brenda's Got A Baby</title>
+			<content type='text'>Brenda's Got A Baby</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=Wl54ABY8VgY' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/Wl54ABY8VgY/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/Wl54ABY8VgY/related' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/Wl54ABY8VgY' />
+			<author>
+				<name>bgjoker</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/bgjoker
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					2Pac - Brenda's Got A Baby
+				</media:title>
+				<media:description type='plain'>
+					Brenda's Got A Baby
+				</media:description>
+				<media:keywords>
+					2Pac, Music, Tupac, Video
+				</media:keywords>
+				<yt:duration seconds='235' />
+				<media:category label='Music'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Music
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/Wl54ABY8VgY&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='235' yt:format='5' />
+				<media:player
+					url='http://www.youtube.com/watch?v=Wl54ABY8VgY' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/Wl54ABY8VgY/2.jpg' height='97'
+					width='130' time='00:01:57.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/Wl54ABY8VgY/1.jpg' height='97'
+					width='130' time='00:00:58.750' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/Wl54ABY8VgY/3.jpg' height='97'
+					width='130' time='00:02:56.250' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/Wl54ABY8VgY/0.jpg' height='240'
+					width='320' time='00:01:57.500' />
+			</media:group>
+			<yt:statistics viewCount='3136647' favoriteCount='17592' />
+			<gd:rating min='1' max='5' numRaters='8730' average='4.92' />
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/Wl54ABY8VgY/comments'
+					countHint='6041' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/tn1d5DmdMqY
+			</id>
+			<published>2007-05-18T11:14:31.000-07:00</published>
+			<updated>2008-09-11T07:35:35.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Don' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='McKee' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Andy' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Guitar' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Ross' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Acoustic' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Music' label='Music' />
+			<title type='text'>
+				Andy McKee - Guitar - Tight Trite Night (Don Ross)
+			</title>
+			<content type='text'>
+				New Andy McKee CD Available Now Gates of Gnomeria
+				http://www.candyrat.com Andy McKee playing Tight Trite
+				Night a composition by Don Ross Andy McKee Tour
+				Schedule: http://www.myspace.com/andymckee2
+				http://www.candyrat.com
+			</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=tn1d5DmdMqY' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/tn1d5DmdMqY/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/tn1d5DmdMqY/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=tn1d5DmdMqY' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/tn1d5DmdMqY' />
+			<author>
+				<name>rpoland</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/rpoland
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					Andy McKee - Guitar - Tight Trite Night (Don Ross)
+				</media:title>
+				<media:description type='plain'>
+					New Andy McKee CD Available Now Gates of Gnomeria
+					http://www.candyrat.com Andy McKee playing Tight
+					Trite Night a composition by Don Ross Andy McKee
+					Tour Schedule: http://www.myspace.com/andymckee2
+					http://www.candyrat.com
+				</media:description>
+				<media:keywords>
+					Acoustic, Andy, Don, Guitar, McKee, Ross
+				</media:keywords>
+				<yt:duration seconds='240' />
+				<media:category label='Music'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Music
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/tn1d5DmdMqY&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='240' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQmmMp055F19thMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='240'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQmmMp055F19thMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='240'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=tn1d5DmdMqY' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/tn1d5DmdMqY/2.jpg' height='97'
+					width='130' time='00:02:00' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/tn1d5DmdMqY/1.jpg' height='97'
+					width='130' time='00:01:00' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/tn1d5DmdMqY/3.jpg' height='97'
+					width='130' time='00:03:00' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/tn1d5DmdMqY/0.jpg' height='240'
+					width='320' time='00:02:00' />
+			</media:group>
+			<yt:statistics viewCount='1350863' favoriteCount='7820' />
+			<gd:rating min='1' max='5' numRaters='5340' average='4.93' />
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/tn1d5DmdMqY/comments'
+					countHint='2365' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/aqg6BNSUG5Q
+			</id>
+			<published>2007-07-06T14:01:58.000-07:00</published>
+			<updated>2008-09-11T09:05:43.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='song' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='wrong' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='anyway' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Comedy' label='Comedy' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='drinking' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='meow' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='name' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='whose' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='line' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='bed' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='yell' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='irish' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='in' />
+			<title type='text'>
+				Whose Line is it Anyway - Irish drinking song - Wrong
+				name
+			</title>
+			<content type='text'>
+				Irish drinking song about yelling the wrong name in bed
+				which turns out to be a complete messup. See the whole
+				story here: http://youtube.com/watch?v=a83PLYXqiIk
+				Irlandzka piosenka pijacka o krzyczeniu zÅ‚ego imienia w
+				Å‚Ã³Å¼ku, ktÃ³ra okazuje siÄ™ totalnÄ… wpadkÄ…
+			</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=aqg6BNSUG5Q' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/aqg6BNSUG5Q/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/aqg6BNSUG5Q/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=aqg6BNSUG5Q' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/aqg6BNSUG5Q' />
+			<author>
+				<name>TadekDDZ</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/tadekddz
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					Whose Line is it Anyway - Irish drinking song -
+					Wrong name
+				</media:title>
+				<media:description type='plain'>
+					Irish drinking song about yelling the wrong name in
+					bed which turns out to be a complete messup. See the
+					whole story here:
+					http://youtube.com/watch?v=a83PLYXqiIk Irlandzka
+					piosenka pijacka o krzyczeniu zÅ‚ego imienia w
+					Å‚Ã³Å¼ku, ktÃ³ra okazuje siÄ™ totalnÄ… wpadkÄ…
+				</media:description>
+				<media:keywords>
+					anyway, bed, drinking, in, irish, line, meow, name,
+					song, whose, wrong, yell
+				</media:keywords>
+				<yt:duration seconds='104' />
+				<media:category label='Comedy'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Comedy
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/aqg6BNSUG5Q&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='104' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQmUG5TUBDqoahMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='104'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQmUG5TUBDqoahMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='104'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=aqg6BNSUG5Q' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/aqg6BNSUG5Q/2.jpg' height='97'
+					width='130' time='00:00:52' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/aqg6BNSUG5Q/1.jpg' height='97'
+					width='130' time='00:00:26' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/aqg6BNSUG5Q/3.jpg' height='97'
+					width='130' time='00:01:18' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/aqg6BNSUG5Q/0.jpg' height='240'
+					width='320' time='00:00:52' />
+			</media:group>
+			<yt:statistics viewCount='864697' favoriteCount='12607' />
+			<gd:rating min='1' max='5' numRaters='4699' average='4.94' />
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/aqg6BNSUG5Q/comments'
+					countHint='2934' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/ol_75jFEpck
+			</id>
+			<published>2006-12-03T07:13:28.000-08:00</published>
+			<updated>2008-09-11T08:39:29.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='classico' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Music' label='Music' />
+			<title type='text'>tenacious d - Classico</title>
+			<content type='text'>awsome its out of the film</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=ol_75jFEpck' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/ol_75jFEpck/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/ol_75jFEpck/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=ol_75jFEpck' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/ol_75jFEpck' />
+			<author>
+				<name>riotinggoth</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/riotinggoth
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					tenacious d - Classico
+				</media:title>
+				<media:description type='plain'>
+					awsome its out of the film
+				</media:description>
+				<media:keywords>classico</media:keywords>
+				<yt:duration seconds='113' />
+				<media:category label='Music'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Music
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/ol_75jFEpck&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='113' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQnJpUQx5vtfohMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='113'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQnJpUQx5vtfohMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='113'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=ol_75jFEpck' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/ol_75jFEpck/2.jpg' height='97'
+					width='130' time='00:00:56.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/ol_75jFEpck/1.jpg' height='97'
+					width='130' time='00:00:28.250' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/ol_75jFEpck/3.jpg' height='97'
+					width='130' time='00:01:24.750' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/ol_75jFEpck/0.jpg' height='240'
+					width='320' time='00:00:56.500' />
+			</media:group>
+			<yt:statistics viewCount='1612635' favoriteCount='9853' />
+			<gd:rating min='1' max='5' numRaters='5252' average='4.93' />
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/ol_75jFEpck/comments'
+					countHint='2369' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/5AoNRkskGHQ
+			</id>
+			<published>2007-12-11T05:04:26.000-08:00</published>
+			<updated>2008-09-11T06:46:32.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='karyn' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='garcia' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='loving' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='por' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='of' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='that' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='making' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='studio' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='me' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='hate' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='you' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='ballad' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='te' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='odeio' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='amar' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Music' label='Music' />
+			<title type='text'>
+				'I hate loving you' in studio - KARYN GARCIA
+			</title>
+			<content type='text'>
+				http://myspace.com/karyngarciaofficial "I hate loving
+				you" is one my fav songs! I wrote it originally in
+				Portuguese, than my friend Leduc translated it and here
+				it is the English version. I HATE LOVING YOU Lyrics:
+				Karyn Garcia/Leduc - Music: Karyn Garcia/Cuca I see no
+				light in the dark of my world These days are so gray and
+				my prayers have no meaning So hard to explain
+				understand, what is love? I mix all my senses my body
+				and my soul I just can't explain all these nights I've
+				been dreaming Your skin and your eyes make my cry make
+				me fly All night and day I can feel you are here Telling
+				me things, words I don't wanna hear CHORUS: Oh baby who
+				can say what I can do Everytime you look at me I'll try
+				to pretend that I'm all aright I promise myself I'll try
+				Please tell me lies walk away make me crazy Make
+				everything that you fell that you should But something
+				bad, make me sad make me blue At least to forget to stop
+				loving you It's not enough if you don't wanna love me I
+				can't control what I wish what I feel There are thousand
+				reasons but I don't change my heart My sin, my love, how
+				I hate loving you CHORUS
+			</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=5AoNRkskGHQ' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/5AoNRkskGHQ/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/5AoNRkskGHQ/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=5AoNRkskGHQ' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/5AoNRkskGHQ' />
+			<author>
+				<name>KarynGarcia</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/karyngarcia
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					'I hate loving you' in studio - KARYN GARCIA
+				</media:title>
+				<media:description type='plain'>
+					http://myspace.com/karyngarciaofficial "I hate
+					loving you" is one my fav songs! I wrote it
+					originally in Portuguese, than my friend Leduc
+					translated it and here it is the English version. I
+					HATE LOVING YOU Lyrics: Karyn Garcia/Leduc - Music:
+					Karyn Garcia/Cuca I see no light in the dark of my
+					world These days are so gray and my prayers have no
+					meaning So hard to explain understand, what is love?
+					I mix all my senses my body and my soul I just can't
+					explain all these nights I've been dreaming Your
+					skin and your eyes make my cry make me fly All night
+					and day I can feel you are here Telling me things,
+					words I don't wanna hear CHORUS: Oh baby who can say
+					what I can do Everytime you look at me I'll try to
+					pretend that I'm all aright I promise myself I'll
+					try Please tell me lies walk away make me crazy Make
+					everything that you fell that you should But
+					something bad, make me sad make me blue At least to
+					forget to stop loving you It's not enough if you
+					don't wanna love me I can't control what I wish what
+					I feel There are thousand reasons but I don't change
+					my heart My sin, my love, how I hate loving you
+					CHORUS
+				</media:description>
+				<media:keywords>
+					amar, ballad, garcia, hate, karyn, loving, making,
+					me, odeio, of, por, studio, te, that, you
+				</media:keywords>
+				<yt:duration seconds='198' />
+				<media:category label='Music'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Music
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/5AoNRkskGHQ&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='198' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQl0GCRLRg0K5BMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='198'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQl0GCRLRg0K5BMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='198'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=5AoNRkskGHQ' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/5AoNRkskGHQ/2.jpg' height='97'
+					width='130' time='00:01:39' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/5AoNRkskGHQ/1.jpg' height='97'
+					width='130' time='00:00:49.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/5AoNRkskGHQ/3.jpg' height='97'
+					width='1
+30' time='00:02:28.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/5AoNRkskGHQ/0.jpg' height='240'
+					width='320' time='00:01:39' />
+			</media:group>
+			<yt:statistics viewCount='1224570' favoriteCount='12423' />
+			<gd:rating min='1' max='5' numRaters='16786' average='4.92' />
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/5AoNRkskGHQ/comments'
+					countHint='595' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/A_hlVrFHE_A
+			</id>
+			<published>2006-07-18T10:43:47.000-07:00</published>
+			<updated>2008-09-11T09:12:57.000-07:00</updated>
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Music' label='Music' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='drum' />
+			<title type='text'>drum and bass</title>
+			<content type='text'>street drum and bass</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=A_hlVrFHE_A' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/A_hlVrFHE_A/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/A_hlVrFHE_A/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=A_hlVrFHE_A' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/A_hlVrFHE_A' />
+			<author>
+				<name>blafla</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/blafla
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>drum and bass</media:title>
+				<media:description type='plain'>
+					street drum and bass
+				</media:description>
+				<media:keywords>drum</media:keywords>
+				<yt:duration seconds='93' />
+				<media:category label='Music'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Music
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/A_hlVrFHE_A&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='93' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQnwE0exVmX4AxMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='93'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQnwE0exVmX4AxMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='93'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=A_hlVrFHE_A' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/A_hlVrFHE_A/2.jpg' height='97'
+					width='130' time='00:00:46.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/A_hlVrFHE_A/1.jpg' height='97'
+					width='130' time='00:00:23.250' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/A_hlVrFHE_A/3.jpg' height='97'
+					width='130' time='00:01:09.750' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/A_hlVrFHE_A/0.jpg' height='240'
+					width='320' time='00:00:46.500' />
+			</media:group>
+			<yt:statistics viewCount='1644275' favoriteCount='12116' />
+			<gd:rating min='1' max='5' numRaters='7526' average='4.92' />
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/A_hlVrFHE_A/comments'
+					countHint='4172' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/nmE3QaGetn4
+			</id>
+			<published>2006-11-20T12:11:56.000-08:00</published>
+			<updated>2008-09-11T07:44:01.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Andy' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Guitar' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Mckee' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Music' label='Music' />
+			<title type='text'>
+				Andy Mckee - Art of Motion - Guitar - www.candyrat.com
+			</title>
+			<content type='text'>
+				Art of Motion - Andy McKee Original Song CD &amp; Tabs -
+				Art of Motion http://www.candyrat.com Andy McKee
+				Myspace: http://www.myspace.com/andymckee2 Candyrat
+				Myspace: http://www.myspace.com/candyratrecords
+			</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=nmE3QaGetn4' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/nmE3QaGetn4/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/nmE3QaGetn4/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=nmE3QaGetn4' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/nmE3QaGetn4' />
+			<author>
+				<name>rpoland</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/rpoland
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					Andy Mckee - Art of Motion - Guitar -
+					www.candyrat.com
+				</media:title>
+				<media:description type='plain'>
+					Art of Motion - Andy McKee Original Song CD &amp;
+					Tabs - Art of Motion http://www.candyrat.com Andy
+					McKee Myspace: http://www.myspace.com/andymckee2
+					Candyrat Myspace:
+					http://www.myspace.com/candyratrecords
+				</media:description>
+				<media:keywords>Andy, Guitar, Mckee</media:keywords>
+				<yt:duration seconds='209' />
+				<media:category label='Music'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Music
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/nmE3QaGetn4&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='209' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQl-tp6hQTdhnhMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='209'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQl-tp6hQTdhnhMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='209'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=nmE3QaGetn4' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/nmE3QaGetn4/2.jpg' height='97'
+					width='130' time='00:01:44.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/nmE3QaGetn4/1.jpg' height='97'
+					width='130' time='00:00:52.250' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/nmE3QaGetn4/3.jpg' height='97'
+					width='130' time='00:02:36.750' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/nmE3QaGetn4/0.jpg' height='240'
+					width='320' time='00:01:44.500' />
+			</media:group>
+			<yt:statistics viewCount='2988846' favoriteCount='12173' />
+			<gd:rating min='1' max='5' numRaters='9835' average='4.92' />
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/nmE3QaGetn4/comments'
+					countHint='3663' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/67XTB9fytdA
+			</id>
+			<published>2007-07-02T21:22:44.000-07:00</published>
+			<updated>2008-09-11T08:07:19.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='funny' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='ventriliquist' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='Jeff' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='walter' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='comedian' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='dunham' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Comedy' label='Comedy' />
+			<title type='text'>Jeff Dunham and Walter # 2</title>
+			<content type='text'>Ventriliquist</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=67XTB9fytdA' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/67XTB9fytdA/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/67XTB9fytdA/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=67XTB9fytdA' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/67XTB9fytdA' />
+			<author>
+				<name>brigurl88</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/brigurl88
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					Jeff Dunham and Walter # 2
+				</media:title>
+				<media:description type='plain'>
+					Ventriliquist
+				</media:description>
+				<media:keywords>
+					comedian, dunham, funny, Jeff, ventriliquist, walter
+				</media:keywords>
+				<yt:duration seconds='597' />
+				<media:category label='Comedy'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Comedy
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/67XTB9fytdA&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='597' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQnQtfLXB9O16xMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='597'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQnQtfLXB9O16xMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='597'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=67XTB9fytdA' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/67XTB9fytdA/2.jpg' height='97'
+					width='130' time='00:04:58.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/67XTB9fytdA/1.jpg' height='97'
+					width='130' time='00:02:29.250' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/67XTB9fytdA/3.jpg' height='97'
+					width='130' time='00:07:27.750' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/67XTB9fytdA/0.jpg' height='240'
+					width='320' time='00:04:58.500' />
+			</media:group>
+			<yt:statistics viewCount='5068008' favoriteCount='27938' />
+			<gd:rating min='1' max='5' numRaters='15799' average='4.92' />
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/67XTB9fytdA/comments'
+					countHint='2427' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/GJbCWJNQUYI
+			</id>
+			<published>2008-07-05T19:56:35.000-07:00</published>
+			<updated>2008-09-11T08:57:08.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='vs' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='infringement' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='copyright' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Entertainment' label='Entertainment' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='you' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='lawsuit' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='legal' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='help' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='viacom' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='use' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='fair' />
+			<title type='text'>VIACOM VS YOU = BOYCOTT</title>
+			<content type='text'>
+				http://www.youtube.com/watch?v=-NjnsLQCl_w
+				http://digg.com/world_news/VIACOM_VS_YOU Please digg to
+				help support this video The Judge" Judge Louis L Stanton
+				Daniel Patrick Moynihan Courthouse United States
+				Courthouse 500 Pearl St., Room 2250 New York, NY10007
+				Phones (212) 805-0252 Faxes (212) 805-0389 Online
+				Petition:
+				http://www.petitiononline.com/privacy9/petition.html
+				Please check this video out as well. I will be doing a
+				follow up video soon for more clarification on this
+				subject. http://www.youtube.com/watch?v=VQmyGrDIW5k
+				Viacom vs you. Google must divulge the viewing habits of
+				every user who has ever watched any video on YouTube, a
+				US court has ruled. The ruling comes as part of Google's
+				legal battle with Viacom over allegations of copyright
+				infringement. Digital rights group the Electronic
+				Frontier Foundation (EFF) called the ruling a "set-back
+				to privacy rights". The viewing log, which will be
+				handed to Viacom, contains the log-in ID of users, the
+				computer IP address (online identifier) and video clip
+				details. While the legal battle between the two firms is
+				being contested in the US, it is thought the ruling will
+				apply to YouTube users and their viewing habits
+				everywhere. Viacom, which owns MTV and Paramount
+				Pictures, has alleged that YouTube is guilty of massive
+				copyright infringement. The UK's Premier League
+				association is also seeking class action status with
+				Viacom on the issue, alleging YouTube, which was bought
+				by Google in 2006, has been used to watch football
+				highlights. Legal action When it initiated legal action
+				in March 2007 Viacom said it had identified about
+				160,000 unauthorised clips of its programmes on the
+				website, which had been viewed more than 1.5 billion
+				times. Following the launch of its billion-dollar
+				lawsuit, YouTube introduced filtering tools in an effort
+				to prevent copyright materials from appearing on the
+				site. The US court declined Viacom's request that Google
+				be forced to hand over the source code of YouTube,
+				saying it was a "trade secret" that should not be
+				disclosed. But it said privacy concerns expressed by
+				Google about handing over the log were "speculative".
+				Google's senior litigation counsel Catherine Lacavera
+				said in a statement: "We are disappointed the court
+				granted Viacom's over-reaching demand for viewing
+				history. "We will ask Viacom to respect users' privacy
+				and allow us to anonymise the logs before producing them
+				under the court's order." The ruling will see the
+				viewing habits of millions of YouTube users given to
+				Viacom, totalling more than 12 terabytes of data. Viacom
+				said it wanted the data to "compare the attractiveness
+				of allegedly infringing video with that of
+				non-infringing videos." YouTube and Google had
+				"compelled" it to go to court, Viacom said, "by
+				continuing to defend their illegal and irresponsible
+				conduct and profiting from copyright infringement, when
+				they could be implementing the safe and legal user
+				generated content experience they promise". It said it
+				would not be asking for any "personally identifiable
+				information" of any user. "Any information that we or
+				our outside advisors obtain will be used exclusively for
+				the purpose of proving our case against You Tube and
+				Google (and) will be handled subject to a court
+				protective order and in a highly confidential manner."
+				'Erroneous ruling' Leading privacy expert Simon Davies
+				told BBC News that the privacy of millions of YouTube
+				users was threatened. He said: "The chickens have come
+				home to roost for Google. "Their arrogance and refusal
+				to listen to friendly advice has resulted in the privacy
+				of tens of millions being placed under threat." Mr
+				Davies said privacy campaigners had warned Google for
+				years that IP addresses were personally identifiable
+				information. Google pledged last year to anonymise IP
+				addresses for search information but it has said nothing
+				about YouTube data. Mr Davies said: "Governments and
+				organisations are realising that companies like Google
+				have a warehouse full of data. And while that data is
+				stored it is under threat of being used and putting
+				privacy in danger." The EFF said: "The Court's erroneous
+				ruling is a set-back to privacy rights, and will allow
+				Viacom to see what you are watching on YouTube. "We urge
+				Viacom to back off this overbroad request and Google to
+				take all steps necessary to challenge this order and
+				protect the rights of its users." The body said the
+				ruling was also potentially unlawful because the log
+				data did contain personally identifiable data. The court
+				also ruled that Google disclose to Viacom the details of
+				all videos that have been removed from the site for any
+				reason.
+			</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=GJbCWJNQUYI' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/GJbCWJNQUYI/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/GJbCWJNQUYI/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=GJbCWJNQUYI' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/GJbCWJNQUYI' />
+			<author>
+				<name>therealweeklynews</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/therealweeklynews
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					VIACOM VS YOU = BOYCOTT
+				</media:title>
+				<media:description type='plain'>
+					http://www.youtube.com/watch?v=-NjnsLQCl_w
+					http://digg.com/world_news/VIACOM_VS_YOU Please digg
+					to help support this video The Judge" Judge Louis L
+					Stanton Daniel Patrick Moynihan Courthouse United
+					States Courthouse 500 Pearl St., Room 2250 New York,
+					NY10007 Phones (212) 805-0252 Faxes (212) 805-0389
+					Online Petition:
+					http://www.petitiononline.com/privacy9/petition.html
+					Please check this video out as well. I will be doing
+					a follow up video soon for more clarification on
+					this subject.
+					http://www.youtube.com/watch?v=VQmyGrDIW5k Viacom vs
+					you. Google must divulge the viewing habits of every
+					user who has ever watched any video on YouTube, a US
+					court has ruled. The ruling comes as part of
+					Google's legal battle with Viacom over allegations
+					of copyright infringement. Digital rights group the
+					Electronic Frontier Foundation (EFF) called the
+					ruling a "set-back to privacy rights". The viewing
+					log, which will be handed to Viacom, contains the
+					log-in ID of users, the computer IP address (online
+					identifier) and video clip details. While the legal
+					battle between the two firms is being contested in
+					the US, it is thought the ruling will apply to
+					YouTube users and their viewing habits everywhere.
+					Viacom, which owns MTV and Paramount Pictures, has
+					alleged that YouTube is guilty of massive copyright
+					infringement. The UK's Premier League association is
+					also seeking class action status with Viacom on the
+					issue, alleging YouTube, which was bought by Google
+					in 2006, has been used to watch football highlights.
+					Legal action When it initiated legal action in March
+					2007 Viacom said it had identified about 160,000
+					unauthorised clips of its programmes on the website,
+					which had been viewed more than 1.5 billion times.
+					Following the launch of its billion-dollar lawsuit,
+					YouTube introduced filtering tools in an effort to
+					prevent copyright materials from appearing on the
+					site. The US court declined Viacom's request that
+					Google be forced to hand over the source code of
+					YouTube, saying it was a "trade secret" that should
+					not be disclosed. But it said privacy concerns
+					expressed by Google about handing over the log were
+					"speculative". Google's senior litigation counsel
+					Catherine Lacavera said in a statement: "We are
+					disappointed the court granted Viacom's
+					over-reaching demand for viewing history. "We will
+					ask Viacom to respect users' privacy and allow us to
+					anonymise the logs before producing them under the
+					court's order." The ruling will see the viewing
+					habits of millions of YouTube users given to Viacom,
+					totalling more than 12 terabytes of data. Viacom
+					said it wanted the data to "compare the
+					attractiveness of allegedly infringing video with
+					that of non-infringing videos." YouTube and Google
+					had "compelled" it to go to court, Viacom said, "by
+					continuing to defend their illegal and irresponsible
+					conduct and profiting from copyright infringement,
+					when they could be implementing the safe and legal
+					user generated content experience they promise". It
+					said it would not be asking for any "personally
+					identifiable information" of any user. "Any
+					information that we or our outside advisors obtain
+					will be used exclusively for the purpose of proving
+					our case against You Tube and Google (and) will be
+					handled subject to a court protective order and in a
+					highly confidential manner." 'Erroneous ruling'
+					Leading privacy expert Simon Davies told BBC News
+					that the privacy of millions of YouTube users was
+					threatened. He said: "The chickens have come home to
+					roost for Google. "Their arrogance and refusal to
+					listen to friendly advice has resulted in the
+					privacy of tens of millions being placed under
+					threat." Mr Davies said privacy campaigners had
+					warned Google for years that IP addresses were
+					personally identifiable information. Google pledged
+					last year to anonymise IP addresses for search
+					information but it has said nothing about YouTube
+					data. Mr Davies said: "Governments and organisations
+					are realising that companies like Google have a
+					warehouse full of data. And while that data is
+					stored it is under threat of being used and putting
+					privacy in danger." The EFF said: "The Court's
+					erroneous ruling is a set-back to privacy rights,
+					and will allow Viacom to see what you are watching
+					on YouTube. "We urge Viacom to back off this
+					overbroad request and Google to take all steps
+					necessary to challenge this order and protect the
+					rights of its users." The body said the ruling was
+					also potentially unlawful because the log data did
+					contain personally identifiable data. The court also
+					ruled that Google disclose to Viacom the details of
+					all videos that have been removed from the site for
+					any reason.
+				</media:description>
+				<media:keywords>
+					copyright, fair, help, infringement, lawsuit, legal,
+					use, viacom, vs, you
+				</media:keywords>
+				<yt:duration seconds='358' />
+				<media:category label='Entertainment'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Entertainment
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/GJbCWJNQUYI&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='358' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQmCUVCTWMKWGBMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='358'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQmCUVCTWMKWGBMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='358'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=GJbCWJNQUYI' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/GJbCWJNQUYI/2.jpg' height='97'
+					width='130' time='00:02:59' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/GJbCWJNQUYI/1.jpg' height='97'
+					width='130' time='00:01:29.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/GJbCWJNQUYI/3.jpg' height='97'
+					width='130' time='00:04:28.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/GJbCWJNQUYI/0.jpg' height='240'
+					width='320' time='00:02:59' />
+			</media:group>
+			<yt:statistics viewCount='743278' favoriteCount='1127' />
+			<gd:rating min='1' max='5' numRaters='19911' average='4.92' />
+			<georss:where>
+				<gml:Point>
+					<gml:pos>
+						21.37124437061831 -157.87353515625
+					</gml:pos>
+				</gml:Point>
+			</georss:where>
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/GJbCWJNQUYI/comments'
+					countHint='12025' />
+			</gd:comments>
+		</entry>
+		<entry>
+			<id>
+				http://gdata.youtube.com/feeds/api/videos/ua0_88OwrRs
+			</id>
+			<published>2007-07-08T18:38:16.000-07:00</published>
+			<updated>2008-09-11T08:07:22.000-07:00</updated>
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='funny' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='jeff' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='ventriliquist' />
+			<category scheme='http://schemas.google.com/g/2005#kind'
+				term='http://gdata.youtube.com/schemas/2007#video' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='brigurl88' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='walter' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='brigurl' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='dunham' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/categories.cat'
+				term='Comedy' label='Comedy' />
+			<category
+				scheme='http://gdata.youtube.com/schemas/2007/keywords.cat'
+				term='sabrina' />
+			<title type='text'>Walter and Jeff Dunham # 3</title>
+			<content type='text'>Walter and Jeff Ventriliquist</content>
+			<link rel='alternate' type='text/html'
+				href='http://www.youtube.com/watch?v=ua0_88OwrRs' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.responses'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/ua0_88OwrRs/responses' />
+			<link
+				rel='http://gdata.youtube.com/schemas/2007#video.related'
+				type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/videos/ua0_88OwrRs/related' />
+			<link rel='http://gdata.youtube.com/schemas/2007#mobile'
+				type='text/html' href='http://m.youtube.com/details?v=ua0_88OwrRs' />
+			<link rel='self' type='application/atom+xml'
+				href='http://gdata.youtube.com/feeds/api/standardfeeds/top_rated/v/ua0_88OwrRs' />
+			<author>
+				<name>brigurl88</name>
+				<uri>
+					http://gdata.youtube.com/feeds/api/users/brigurl88
+				</uri>
+			</author>
+			<media:group>
+				<media:title type='plain'>
+					Walter and Jeff Dunham # 3
+				</media:title>
+				<media:description type='plain'>
+					Walter and Jeff Ventriliquist
+				</media:description>
+				<media:keywords>
+					brigurl, brigurl88, dunham, funny, jeff, sabrina,
+					ventriliquist, walter
+				</media:keywords>
+				<yt:duration seconds='82' />
+				<media:category label='Comedy'
+					scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>
+					Comedy
+				</media:category>
+				<media:content
+					url='http://www.youtube.com/v/ua0_88OwrRs&amp;f=gdata_standard'
+					type='application/x-shockwave-flash' medium='video'
+					isDefault='true' expression='full' duration='82' yt:format='5' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQkbrbDD8z-tuRMYDSANFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='82'
+					yt:format='1' />
+				<media:content
+					url='rtsp://rtsp2.youtube.com/CioLENy73wIaIQkbrbDD8z-tuRMYESARFEgGUg5nZGF0YV9zdGFuZGFyZAw=/0/0/0/video.3gp'
+					type='video/3gpp' medium='video' expression='full' duration='82'
+					yt:format='6' />
+				<media:player
+					url='http://www.youtube.com/watch?v=ua0_88OwrRs' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/ua0_88OwrRs/2.jpg' height='97'
+					width='130' time='00:00:41' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/ua0_88OwrRs/1.jpg' height='97'
+					width='130' time='00:00:20.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/ua0_88OwrRs/3.jpg' height='97'
+					width='130' time='00:01:01.500' />
+				<media:thumbnail
+					url='http://img.youtube.com/vi/ua0_88OwrRs/0.jpg' height='240'
+					width='320' time='00:00:41' />
+			</media:group>
+			<yt:statistics viewCount='3205170' favoriteCount='18886' />
+			<gd:rating min='1' max='5' numRaters='7211' average='4.92' />
+			<gd:comments>
+				<gd:feedLink
+					href='http://gdata.youtube.com/feeds/api/videos/ua0_88OwrRs/comments'
+					countHint='1370' />
+			</gd:comments>
+		</entry>
+	</feed>
+</xml>

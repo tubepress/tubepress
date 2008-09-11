@@ -65,7 +65,7 @@ class TubePressTag
         $tpom->setCustomOptions($customOptions);
     }
 
-    public function somethingToParse($content, $trigger)
+    public static function somethingToParse($content, $trigger)
     {
     	return strpos($content, '[' . $trigger) !== false;
     }
