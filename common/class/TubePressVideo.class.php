@@ -239,12 +239,10 @@ class TubePressVideo
      */
     private function _getId()
     {
-        $player = 
-            $this->_domElement->getElementsByTagNameNS(TubePressVideo::NS_MEDIA,
-                'player')->item(0);
-        $url    = $player->getAttribute('url');
-        $pos    = strrpos($url, "=");
-        return substr($url, $pos + 1);
+        $idUrl = 
+            $this->_domElement->getElementsByTagName("id")->item(0)->nodeValue;
+        $pos    = strrpos($idUrl, "/");
+        return substr($idUrl, $pos + 1);
     }
     
     /**
