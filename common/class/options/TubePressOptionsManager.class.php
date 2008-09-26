@@ -107,4 +107,21 @@ class TubePressOptionsManager
     {
         return $this->_tagString;
     }
+    
+    public static function getAllOptionNames() {
+    	
+    	$allCategories = array("TubePressAdvancedOptions", "TubePressDisplayOptions",
+    	    "TubePressEmbeddedOptions", "TubePressGalleryOptions",
+    	    "TubePressMetaOptions", "TubePressWidgetOptions");
+    	
+    	$allOpts = array();
+    	foreach ($allCategories as $category) {
+    		$class = new ReflectionClass($category);
+    		foreach ($class->getConstants() as $constant) {
+    			array_push($allOpts, $constant);
+    		}
+    	}
+    	
+    	return $allOpts;
+    }
 }

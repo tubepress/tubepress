@@ -36,7 +36,7 @@ function tubepress_widget($opts)
 	        TubePressDisplayOptions::DESC_LIMIT => 50,
 	        TubePressDisplayOptions::CURRENT_PLAYER_NAME => TubePressPlayer::POPUP
 	        ));
-	TubePressTag::parse($wpsm->get(TubePressWidgetOptions::TAGSTRING), $tpom);
+	TubePressShortcode::parse($wpsm->get(TubePressWidgetOptions::TAGSTRING), $tpom);
 	$gallery = new TubePressWidgetGallery();
 		
 	$out = $gallery->generate($tpom);

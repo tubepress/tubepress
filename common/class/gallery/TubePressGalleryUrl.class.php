@@ -93,7 +93,51 @@ class TubePressGalleryUrl
             $url = "standardfeeds/recently_featured";
             break;
         }
+
+        $request = "http://gdata.youtube.com/feeds/api/$url";
+        TubePressGalleryUrl::_urlPostProcessing($request,
+            $tpom);
+        return $request;
+    }
+    
+/**
+     * Appends some global query parameters on the request
+     * before we fire it off to YouTube
+     *
+     * @param string                  &$request The request to be manipulated
+     * @param TubePressOptionsManager $tpom     The TubePress options manager
+     * 
+     * @return void
+     */
+    private static function _urlPostProcessing(&$request, 
+        TubePressOptionsManager $tpom)
+    {
         
-        return "http://gdata.youtube.com/feeds/api/$url";
+        $perPage = $tpom->get(TubePressDisplayOptions::RESULTS_PER_PAGE);
+        $filter  = $tpom->get(TubePressAdvancedOptions::FILTER);
+        $order   = $tpom->get(TubePressDisplayOptions::ORDER_BY);
+        $mode    = $tpom->get(TubePressGalleryOptions::MODE);
+        
+        $currentPage = TubePressQueryString::getPageNum();
+        
+        /* start index of the videos */
+        $start = ($currentPage * $perPage) - $perPage + 1;
+        
+        $requestURL = new Net_URL($request);
+        $requestURL->addQueryString("start-index", $start);
+        $requestURL->addQueryString("max-results", $perPage);
+        
+        $requestURL->addQueryString("racy", $filter ? "exclude" : "include");
+      
+        //TODO: this is ugly and stupid, in that order
+        if ($mode != TubePressGallery::PLAYLIST) {
+            $requestURL->addQueryString("orderby", $order);
+        }
+        
+        /* YouTube API client ID and developer keys */
+        $requestURL->addQueryString("client", $tpom->get(TubePressAdvancedOptions::CLIENT_KEY));
+        $requestURL->addQueryString("key", $tpom->get(TubePressAdvancedOptions::DEV_KEY));
+        
+        $request = $requestURL->getURL();
     }
 }

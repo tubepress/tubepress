@@ -35,73 +35,36 @@ class TubePressNetwork
      */
     public static function getRss(TubePressOptionsManager $tpom)
     {
-        /* Grab the video XML from YouTube */
+        /* First generate the request URL */
         $request = TubePressGalleryUrl::get($tpom);
-        TubePressNetwork::_urlPostProcessing($request, $tpom);
         
-        if (TubePressDebug::areWeDebugging($tpom)) {
-        	echo $request;
-        }
-        
+        /* get a handle to the cache */
         $cache = new Cache_Lite(array("cacheDir" => sys_get_temp_dir()));
 
+        /* cache miss? */
         if (!($data = $cache->get($request))) {
+        	
+        	/* go out and grab the response */
             $req =& new HTTP_Request($request);
             if (!PEAR::isError($req->sendRequest())) {
                 $data = $req->getResponseBody();
             }
+            /* and save it to the cache for next time */
             $cache->save($data, $request);
         }
         
         $doc = new DOMDocument();
         
+        /*
+         * Make sure we're looking at XML. This is a
+         * bit hacky.
+         */
+        //TODO: find a better way to validate the response
         if (substr($data, 0, 5) != "<?xml") {
             return $doc;
         }
     
         $doc->loadXML($data);
         return $doc;
-    }
-    
-    /**
-     * Appends some global query parameters on the request
-     * before we fire it off to YouTube
-     *
-     * @param string                  &$request The request to be manipulated
-     * @param TubePressOptionsManager $tpom     The TubePress options manager
-     * 
-     * @return void
-     */
-    private static function _urlPostProcessing(&$request, 
-        TubePressOptionsManager $tpom)
-    {
-        
-        $perPage = $tpom->get(TubePressDisplayOptions::RESULTS_PER_PAGE);
-        $filter  = $tpom->get(TubePressAdvancedOptions::FILTER);
-        $order   = $tpom->get(TubePressDisplayOptions::ORDER_BY);
-        $mode    = $tpom->get(TubePressGalleryOptions::MODE);
-        
-        $currentPage = TubePressQueryString::getPageNum();
-        
-        $start = ($currentPage * $perPage) - $perPage + 1;
-        
-        $requestURL = new Net_URL($request);
-        $requestURL->addQueryString("start-index", $start);
-        $requestURL->addQueryString("max-results", $perPage);
-        
-        if ($filter) {
-            $requestURL->addQueryString("racy", "exclude");
-        } else {
-            $requestURL->addQueryString("racy", "include");
-        }
-      
-        if ($mode != TubePressGallery::PLAYLIST) {
-            $requestURL->addQueryString("orderby", $order);
-        }
-        
-        $requestURL->addQueryString("client", $tpom->get(TubePressAdvancedOptions::CLIENT_KEY));
-        $requestURL->addQueryString("key", $tpom->get(TubePressAdvancedOptions::DEV_KEY));
-        
-        $request = $requestURL->getURL();
     }
 }

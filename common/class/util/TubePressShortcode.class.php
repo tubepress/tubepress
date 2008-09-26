@@ -20,19 +20,19 @@
  */
 
 /**
- * Handles parsing a tag to options
+ * Handles parsing a shortcode to options
  */
-class TubePressTag
+class TubePressShortcode
 {
     /**
-     * This function is used to parse a tag into options that TubePress can use.
+     * This function is used to parse a shortcode into options that TubePress can use.
      *
      * @param string                  $content The haystack in which to search
      * @param TubePressOptionsManager &$tpom   The TubePress options manager
      * 
      * @return void
      */
-    public function parse($content, TubePressOptionsManager &$tpom)
+    public function parse($content, TubePressOptionsManager $tpom)
     {    
         /* what trigger word are we using? */
         $keyword = $tpom->get(TubePressAdvancedOptions::KEYWORD);
@@ -55,10 +55,9 @@ class TubePressTag
         
         $optionsArray = array();
         foreach ($pairs as $pair) {
-                
             $pieces                    = explode("=", $pair);
-            $pieces[0]                 = TubePressTag::_cleanupTagValue($pieces[0]);
-            $pieces[1]                 = TubePressTag::_cleanupTagValue($pieces[1]);
+            $pieces[0]                 = TubePressShortcode::_cleanupTagValue($pieces[0]);
+            $pieces[1]                 = TubePressShortcode::_cleanupTagValue($pieces[1]);
             $customOptions[$pieces[0]] = $pieces[1];
         }
 
@@ -69,15 +68,6 @@ class TubePressTag
     {
     	return strpos($content, '[' . $trigger) !== false;
     }
-    
-    public function str_replaceFirst($s,$r,$str)
-	{
-		$l = strlen($str);
-		$a = strpos($str,$s);
-		$b = $a + strlen($s);
-		$temp = substr($str,0,$a) . $r . substr($str,$b,($l-$b));
-		return $temp;
-	}
     
     /**
      * Tries to strip out any quotes from a tag option name or option value. This

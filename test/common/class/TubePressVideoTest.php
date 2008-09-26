@@ -1,5 +1,5 @@
 <?php
-class TubePressVideoTest extends UnitTestCase {
+class TubePressVideoTest extends PHPUnit_Framework_TestCase {
     
     private $vid;
     
@@ -14,49 +14,49 @@ class TubePressVideoTest extends UnitTestCase {
         $this->vid = new TubePressVideo($doc->getElementsByTagName("entry")->item(0));   
     }
     
-    function testGetAuthor()
+    function testRetrievesAuthorFromDomElement()
     {
-        $this->assertEqual($this->vid->getAuthor(), "dhyrenz");
+        $this->assertEquals($this->vid->getAuthor(), "dhyrenz");
     }
     
-    function testGetCategory()
+    function testRetrievesCategoryFromDomElement()
     {
-        $this->assertEqual($this->vid->getCategory(), "Music");
+        $this->assertEquals($this->vid->getCategory(), "Music");
     }
     
-    function testGetDefaultThumbURL()
+    function testRetrievesDefaultThumbUrlFromDomElement()
     {
-        $this->assertEqual($this->vid->getDefaultThumbURL(), "http://img.youtube.com/vi/m3gMgK7h-BA/2.jpg");
+        $this->assertEquals($this->vid->getDefaultThumbURL(), "http://img.youtube.com/vi/m3gMgK7h-BA/2.jpg");
     }
     
-    function testGetDescription()
+    function testRetrievesDescriptionFromDomElement()
     {
-        $this->assertEqual($this->vid->getDescription(), "....one of those that will make you say...holy %$#^");
+        $this->assertEquals($this->vid->getDescription(), "....one of those that will make you say...holy %$#^");
     }
     
-    function testGetId()
+    function testRetrievesIdFromDomElement()
     {
-        $this->assertEqual($this->vid->getId(), "m3gMgK7h-BA");
+        $this->assertEquals($this->vid->getId(), "m3gMgK7h-BA");
     }
     
-    function testGetRandomThumbURLGivesGoodValues()
+    function testCanProvideRandomThumbnailUrls()
     {
         for ($x = 0; $x < 100; $x++) {
             $this->assertTrue(array_search($this->vid->getRandomThumbURL(), $this->thumbUrls) !== FALSE);
         }
     }
     
-    function testGetRatingAverage()
+    function testRetrievesRatingAverageFromDomElement()
     {
-        $this->assertEqual($this->vid->getRatingAverage(), "4.92");
+        $this->assertEquals($this->vid->getRatingAverage(), "4.92");
     }
     
-    function testGetRatingCount()
+    function testRetrievesRatingCountFromDomElement()
     {
-        $this->assertEqual($this->vid->getRatingCount(), "29,065");
+        $this->assertEquals($this->vid->getRatingCount(), "29,065");
     }
     
-    function testGetRandomThumbURLIsRandom()
+    function testProvidesTrulyRandomThumbnailUrls()
     {      
         $hits = array(false, false, false, false);
         
@@ -69,34 +69,34 @@ class TubePressVideoTest extends UnitTestCase {
         $this->assertTrue($hits[0] && $hits[1] && $hits[2] && $hits[3]);
     }
     
-    function testGetRuntime()
+    function testRetrievesRuntimeFromDomElement()
     {
-        $this->assertEqual($this->vid->getRuntime(), "2:30");
+        $this->assertEquals($this->vid->getRuntime(), "2:30");
     }
 
-    function testGetTags()
+    function testRetrievesTagsFromDomElement()
     {
-        $this->assertEqual($this->vid->getTags(), "balboa feet guitar park");
+        $this->assertEquals($this->vid->getTags(), "balboa feet guitar park");
     }
     
-    function testGetTitle()
+    function testRetrievesTitleFromDomElement()
     {
-        $this->assertEqual($this->vid->getTitle(), "amazing guitar player");
+        $this->assertEquals($this->vid->getTitle(), "amazing guitar player");
     }
 
-    function testGetUploadTime()
+    function testRetrievesUploadTimeFromDomElement()
     {
-        $this->assertEqual($this->vid->getUploadTime(), 1161748355);
+        $this->assertEquals($this->vid->getUploadTime(), 1161748355);
     }
     
-    function testGetURL()
+    function testRetrievesUrlFromDomElement()
     {
-        $this->assertEqual($this->vid->getURL(), "http://www.youtube.com/watch?v=m3gMgK7h-BA");
+        $this->assertEquals($this->vid->getURL(), "http://www.youtube.com/watch?v=m3gMgK7h-BA");
     }
     
-    function testGetViewCount()
+    function testRetrievesViewCountFromDomElement()
     {
-        $this->assertEqual($this->vid->getViewCount(), "5,286,665");
+        $this->assertEquals($this->vid->getViewCount(), "5,286,665");
     }
 }
 ?>

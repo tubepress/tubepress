@@ -36,20 +36,29 @@ class TubePressDebug
     public static final function execute(TubePressOptionsManager $tpom, 
         TubePressStorageManager $tpsm)
     {
-        global $tubepress_base_url;
-        $tpomAsString = print_r($tpom, true);
-        $tpsmAsString = $tpsm->debug();
+    	global $tubepress_base_url;
+    
+        /* load up the debug template */
+        $tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../ui");
+        if (!$tpl->loadTemplatefile("debug_blurb.tpl.html", true, true)) {
+           print "Could not load debug template!";
+           return;
+        }
 
-        echo "<ol>";
-        echo "<li>tubepress_base_url<code><pre>" .
-            "$tubepress_base_url</pre></code></li>";
-        echo "<li>Your options manager: <code><pre>" .
-            "$tpomAsString</pre></code></li>";
-        echo "<li>Your storage manager: <code><pre>" .
-            "$tpsmAsString</pre></code></li>";
-        echo "<li>Click <a href=\"" . $tubepress_base_url . 
-            "/common/class/util/TubePressConnectionTest.php\">here</a> to view the results of the YouTube connection test.</li>"; 
-        echo "</ol>";
+        $debugStuff = array("tubepress_base_url" => $tubepress_base_url,
+    	    "Options manager" => print_r($tpom, true),
+    	    "Storage manager" => $tpsm->debug(),
+            "YouTube connection test" => "Click <a href=\"" . $tubepress_base_url . 
+                "/common/class/util/TubePressConnectionTest.php\">here</a> to view results",
+            "Request URL" => TubePressGalleryUrl::get($tpom));
+        
+        foreach ($debugStuff as $key => $val) {
+        	$tpl->setVariable("ELEMENT_TITLE", $key);
+        	$tpl->setVariable("ELEMENT_VALUE", $val);
+        	$tpl->parse("debugElement");
+        }
+        
+        $tpl->show();
     }
     
     /**

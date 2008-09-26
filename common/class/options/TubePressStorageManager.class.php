@@ -322,17 +322,7 @@ abstract class TubePressStorageManager
      */
     public function debug()
     {
-    	$allCategories = array("TubePressAdvancedOptions", "TubePressDisplayOptions",
-    	    "TubePressEmbeddedOptions", "TubePressGalleryOptions",
-    	    "TubePressMetaOptions", "TubePressWidgetOptions");
-    	
-    	$allOpts = array();
-    	foreach ($allCategories as $category) {
-    		$class = new ReflectionClass($category);
-    		foreach ($class->getConstants() as $constant) {
-    			array_push($allOpts, $constant);
-    		}
-    	}
+    	$allOpts = TubePressOptionsManager::getAllOptionNames();
         
         $result = "Should have " . sizeof($allOpts) . " options total";
         

@@ -17,17 +17,17 @@ function _tp_main($content) {
 	
 	$wpsm = new WordPressStorageManager();
     $trigger = $wpsm->get(TubePressAdvancedOptions::KEYWORD);
-    if (!TubePressTag::somethingToParse($content, $trigger)) {
+    if (!TubePressShortcode::somethingToParse($content, $trigger)) {
 	    return $content;
 	}
 	
 	/* Store everything we generate in the following string */
     $newcontent = $content;
     
-    while (TubePressTag::somethingToParse($newcontent, $trigger)) {
+    while (TubePressShortcode::somethingToParse($newcontent, $trigger)) {
     	
 	    $tpom = new TubePressOptionsManager($wpsm);
-	    TubePressTag::parse($newcontent, $tpom);
+	    TubePressShortcode::parse($newcontent, $tpom);
 	        
 	    if (TubePressDebug::areWeDebugging($tpom)) {
 	        TubePressDebug::execute($tpom, $wpsm);
@@ -37,7 +37,7 @@ function _tp_main($content) {
 	    $gallery = new TubePressGallery();
 	
 	    /* replace the tag with our new content */
-	    $newcontent = TubePressTag::str_replaceFirst($tpom->getTagString(), 
+	    $newcontent = TubePressStringUtils::replaceFirst($tpom->getTagString(), 
 	        $gallery->generate($tpom), $newcontent);
     }
     
