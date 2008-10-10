@@ -33,6 +33,7 @@ class TubePressAdvancedOptions
     const RANDOM_THUMBS = "randomize_thumbnails";
     const CLIENT_KEY    = "clientKey";
     const DEV_KEY       = "developerKey";
+    const CACHE_ENABLED	= "cacheEnabled";
     
     /**
      * Displays advanced options for the options form
@@ -73,6 +74,7 @@ class TubePressAdvancedOptions
             case TubePressAdvancedOptions::DEBUG_ON:
             case TubePressAdvancedOptions::FILTER:
             case TubePressAdvancedOptions::RANDOM_THUMBS:
+            case TubePressAdvancedOptions::CACHE_ENABLED:
                 TubePressOptionsForm::displayBooleanInput($tpl, 
                     $constant, $tpsm->get($constant));
                 break;

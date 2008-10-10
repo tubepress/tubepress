@@ -154,12 +154,13 @@ class TubePressOptionsForm
             TubePressAdvancedOptions::DEBUG_ON,
             TubePressAdvancedOptions::FILTER,
             TubePressAdvancedOptions::RANDOM_THUMBS,
+            TubePressAdvancedOptions::CACHE_ENABLED,
             TubePressDisplayOptions::RELATIVE_DATES,
             TubePressEmbeddedOptions::AUTOPLAY,
             TubePressEmbeddedOptions::BORDER,
             TubePressEmbeddedOptions::GENIE,
             TubePressEmbeddedOptions::LOOP,
-            TubePressEmbeddedOptions::SHOW_RELATED
+            TubePressEmbeddedOptions::SHOW_RELATED,
         ));
         
         foreach ($bools as $bool) {

@@ -251,6 +251,12 @@ class TpMsg {
 			case "options-advanced-desc-developerKey":
 				return "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing.";
 				
+			case "options-advanced-title-cacheEnabled":
+				return "Enable request cache";
+				
+			case "options-advanced-desc-cacheEnabled":
+				return "Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness.";
+				
 			case "player-normal-desc":
 			    return "normally (at the top of your gallery)";
 

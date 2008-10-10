@@ -37,24 +37,26 @@ class TubePressNetwork
     {
         /* First generate the request URL */
         $request = TubePressGalleryUrl::get($tpom);
-        
-        /* get a handle to the cache */
-        $cache = new Cache_Lite(array("cacheDir" => sys_get_temp_dir()));
-
-        /* cache miss? */
-        if (!($data = $cache->get($request))) {
+        echo sys_get_temp_dir();
+        $data = "";
+        if ($tpom->get(TubePressAdvancedOptions::CACHE_ENABLED)) {
+        	/* get a handle to the cache */
+        	$cache = new Cache_Lite(array("cacheDir" => sys_get_temp_dir()));
         	
-        	/* go out and grab the response */
-            $req =& new HTTP_Request($request);
-            if (!PEAR::isError($req->sendRequest())) {
-                $data = $req->getResponseBody();
+            /* cache miss? */
+            if (!($data = $cache->get($request))) {
+        	
+        	    /* go out and grab the response */
+                $data = TubePressNetwork::_fetchFromNetwork($request);
+                /* and save it to the cache for next time */
+          	    $cache->save($data, $request);
             }
-            /* and save it to the cache for next time */
-            $cache->save($data, $request);
+        } else {
+        	$data = TubePressNetwork::_fetchFromNetwork($request);
         }
-        
+
         $doc = new DOMDocument();
-        
+                
         /*
          * Make sure we're looking at XML. This is a
          * bit hacky.
@@ -66,5 +68,14 @@ class TubePressNetwork
     
         $doc->loadXML($data);
         return $doc;
+    }
+    
+    private static function _fetchFromNetwork() {
+    	$data = "";
+    	$req = new HTTP_Request($request);
+        if (!PEAR::isError($req->sendRequest())) {
+            $data = $req->getResponseBody();
+        }
+        return $data;
     }
 }
