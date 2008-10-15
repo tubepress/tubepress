@@ -37,7 +37,7 @@ class TubePressNetwork
     {
         /* First generate the request URL */
         $request = TubePressGalleryUrl::get($tpom);
-        echo sys_get_temp_dir();
+        
         $data = "";
         if ($tpom->get(TubePressAdvancedOptions::CACHE_ENABLED)) {
         	/* get a handle to the cache */
@@ -56,25 +56,20 @@ class TubePressNetwork
         }
 
         $doc = new DOMDocument();
-                
-        /*
-         * Make sure we're looking at XML. This is a
-         * bit hacky.
-         */
-        //TODO: find a better way to validate the response
-        if (substr($data, 0, 5) != "<?xml") {
-            return $doc;
-        }
     
-        $doc->loadXML($data);
+        if ($doc->loadXML($data) === FALSE) {
+        	throw new Exception("YouTube didn't return XML for this query.");
+        }
         return $doc;
     }
     
-    private static function _fetchFromNetwork() {
+    private static function _fetchFromNetwork($request) {
     	$data = "";
     	$req = new HTTP_Request($request);
         if (!PEAR::isError($req->sendRequest())) {
             $data = $req->getResponseBody();
+        } else {
+        	throw new Exception($shit->getMessage());
         }
         return $data;
     }
