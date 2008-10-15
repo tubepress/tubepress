@@ -130,7 +130,8 @@ class TubePressGalleryUrl
         $requestURL->addQueryString("racy", $filter ? "exclude" : "include");
       
         //TODO: this is ugly and stupid, in that order
-        if ($mode != TubePressGallery::PLAYLIST) {
+        if ($mode != TubePressGallery::PLAYLIST
+        	&& $tpom->get(TubePressDisplayOptions::ORDER_BY) != "random") {
             $requestURL->addQueryString("orderby", $order);
         }
         

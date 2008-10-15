@@ -93,7 +93,8 @@ class TubePressDisplayOptions
                     TpMsg::_("order-relevance") => "relevance",
                     TpMsg::_("order-views") => "viewCount",
                     TpMsg::_("order-rating") => "rating",
-                    TpMsg::_("order-updated") => "updated"
+                    TpMsg::_("order-updated") => "updated",
+                    TpMsg::_("order-random") => "random"
                 );
                 TubePressOptionsForm::displayMenuInput($tpl, 
                     $constant, $values, $tpsm->get($constant));

@@ -314,6 +314,9 @@ msgstr ""
 msgid "date updated"
 msgstr ""
 
+msgid "randomly"
+msgstr ""
+
 msgid "today"
 msgstr ""
 
@@ -350,7 +353,7 @@ msgstr ""
 msgid "%s must be one of \"today\", \"this_week\", \"this_month\", \"all_time\". You supplied %s."
 msgstr ""
 
-msgid "%s must be on of \"relevance\", \"viewCount\", \"rating\", \"updated\". You supplied %s."
+msgid "%s must be on of \"relevance\", \"viewCount\", \"rating\", \"updated\", \"random\". You supplied %s."
 msgstr ""
 
 msgid "%s must be a string. You supplied %s."

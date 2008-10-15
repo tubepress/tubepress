@@ -65,8 +65,9 @@ abstract class AbstractTubePressGallery
         }   
         
         /* parse 'em out */
+        $displayOrder = AbstractTubePressGallery::_getDisplayOrder($tpom, $vidLimit);
         for ($x = 0; $x < $vidLimit; $x++) {
-            TubePressGallery::_parseVideo($xml, $x, 
+            TubePressGallery::_parseVideo($xml, $displayOrder[$x], 
                 $totalResults, $tpom, $tpl);
         }
         
@@ -246,6 +247,20 @@ abstract class AbstractTubePressGallery
             
         /* Here's where each thumbnail gets printed */
         TubePressGallery::_parseSmallVideoHTML($video, $tpom, $tpl);        
+    }
+    
+    private static function _getDisplayOrder(TubePressOptionsManager $tpom, $vidLimit) 
+    {
+    	
+    	$toReturn = array();
+		for ($y = 0; $y < $vidLimit; $y++) {
+    		$toReturn[] = $y;
+    	}
+    	if ($tpom->get(TubePressDisplayOptions::ORDER_BY) == "random") {
+    		shuffle($toReturn);
+    	}
+    	
+		return $toReturn;
     }
 
 }

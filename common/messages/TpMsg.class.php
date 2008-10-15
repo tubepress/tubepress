@@ -319,6 +319,9 @@ class TpMsg {
 
 			case "order-updated":
 			    return "date updated";
+			    
+			case "order-random":
+				return "randomly";
 
 			case "timeframe-today":
 			    return "today";
@@ -378,7 +381,7 @@ class TpMsg {
 			    return "%s must be one of \"today\", \"this_week\", \"this_month\", \"all_time\". You supplied %s.";
 
 			case "validation-order":
-			    return "%s must be on of \"relevance\", \"viewCount\", \"rating\", \"updated\". You supplied %s.";
+			    return "%s must be on of \"relevance\", \"viewCount\", \"rating\", \"updated\", \"random\". You supplied %s.";
 
 			case "validation-text":
 			    return "%s must be a string. You supplied %s.";

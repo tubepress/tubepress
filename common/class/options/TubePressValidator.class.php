@@ -68,7 +68,7 @@ class TubePressValidator
     private function _orderValidation($name, $candidate)
     {
         if (!in_array($candidate, 
-            array("relevance", "viewCount", "rating", "updated"))) {
+            array("relevance", "viewCount", "rating", "updated", "random"))) {
                 throw new Exception(sprintf(TpMsg::_("validation-order"), 
                     $name, $candidate));
         }
