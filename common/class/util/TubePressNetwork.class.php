@@ -66,10 +66,11 @@ class TubePressNetwork
     private static function _fetchFromNetwork($request) {
     	$data = "";
     	$req = new HTTP_Request($request);
-        if (!PEAR::isError($req->sendRequest())) {
+    	$call = $req->sendRequest();
+        if (!PEAR::isError($call)) {
             $data = $req->getResponseBody();
         } else {
-        	throw new Exception($shit->getMessage());
+        	throw new Exception($call->getMessage());
         }
         return $data;
     }
