@@ -155,6 +155,7 @@ class TubePressOptionsForm
             TubePressAdvancedOptions::FILTER,
             TubePressAdvancedOptions::RANDOM_THUMBS,
             TubePressAdvancedOptions::CACHE_ENABLED,
+            TubePressAdvancedOptions::NOFOLLOW_LINKS,
             TubePressDisplayOptions::RELATIVE_DATES,
             TubePressEmbeddedOptions::AUTOPLAY,
             TubePressEmbeddedOptions::BORDER,

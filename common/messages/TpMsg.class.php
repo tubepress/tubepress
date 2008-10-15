@@ -257,6 +257,12 @@ class TpMsg {
 			case "options-advanced-desc-cacheEnabled":
 				return "Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness.";
 				
+			case "options-advanced-title-nofollowLinks":
+				return "Add rel=nofollow to most YouTube links";
+
+			case "options-advanced-desc-nofollowLinks":
+				return "Prevents search engines from indexing outbound links to youtube.com. The only exception is the link to a video's original page on YouTube.";
+				
 			case "player-normal-desc":
 			    return "normally (at the top of your gallery)";
 

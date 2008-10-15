@@ -53,6 +53,13 @@ class TubePressMetaProcessor
                 continue;
             }
             
+            if ($tpom->get(TubePressAdvancedOptions::NOFOLLOW_LINKS)
+            	&& $constant != TubePressMetaOptions::URL) {
+        		$tpl->setVariable("NOFOLLOW", "rel=\"external nofollow\"");
+        	} else {
+        		$tpl->setVariable("NOFOLLOW", "");
+        	}
+            
             switch ($constant) {
                 
             case TubePressMetaOptions::TITLE:
@@ -136,8 +143,9 @@ class TubePressMetaProcessor
                 case TubePressMetaOptions::CATEGORY:
                     $tpl->setVariable('METAVALUE', $vid->getCategory());
                 }
+                $tpl->parse('meta');
             }
-            $tpl->parse('meta');
+            
         }
     }
 }

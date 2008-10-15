@@ -251,6 +251,12 @@ msgstr ""
 msgid "Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
 msgstr ""
 
+msgid "Add rel=nofollow to most YouTube links"
+msgstr ""
+
+msgid "Prevents search engines from indexing outbound links to youtube.com. The only exception is the link to a video's original page on YouTube."
+msgstr ""
+
 msgid "normally (at the top of your gallery)"
 msgstr ""
 

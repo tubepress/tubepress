@@ -67,6 +67,11 @@ abstract class TubePressStorageManager
         	$this->create(TubePressAdvancedOptions::CACHE_ENABLED, true);
         }
         
+    	if (!$this->exists(TubePressAdvancedOptions::NOFOLLOW_LINKS)) {
+        	$this->delete(TubePressAdvancedOptions::NOFOLLOW_LINKS);
+        	$this->create(TubePressAdvancedOptions::NOFOLLOW_LINKS, true);
+        }
+        
         if (!$this->exists(TubePressAdvancedOptions::KEYWORD)) {
             $this->delete(TubePressAdvancedOptions::KEYWORD);
             $this->create(TubePressAdvancedOptions::KEYWORD, "tubepress");

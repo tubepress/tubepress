@@ -25,7 +25,7 @@
 class TubePressGallery extends AbstractTubePressGallery
 {
     const FAVORITES       = "favorites";
-    const FEATURED        = "featured";
+    const FEATURED        = "recently_featured";
     const MOBILE          = "mobile";
     const MOST_DISCUSSESD = "most_discussed";
     const MOST_LINKED     = "most_linked";
@@ -34,6 +34,7 @@ class TubePressGallery extends AbstractTubePressGallery
     const PLAYLIST        = "playlist";
     const POPULAR         = "most_viewed";
     const TAG             = "tag";
+    const TOP_FAVS		  = "top_favorites";
     const TOP_RATED       = "top_rated";
     const USER            = "user";
     

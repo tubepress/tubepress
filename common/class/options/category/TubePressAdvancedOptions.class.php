@@ -26,14 +26,15 @@
 class TubePressAdvancedOptions
 {
 	
-    const DATEFORMAT    = "dateFormat";
-    const DEBUG_ON      = "debugging_enabled";
-    const FILTER        = "filter_racy";
-    const KEYWORD       = "keyword";
-    const RANDOM_THUMBS = "randomize_thumbnails";
-    const CLIENT_KEY    = "clientKey";
-    const DEV_KEY       = "developerKey";
-    const CACHE_ENABLED	= "cacheEnabled";
+    const DATEFORMAT    	= "dateFormat";
+    const DEBUG_ON      	= "debugging_enabled";
+    const FILTER        	= "filter_racy";
+    const KEYWORD       	= "keyword";
+    const RANDOM_THUMBS 	= "randomize_thumbnails";
+    const CLIENT_KEY    	= "clientKey";
+    const DEV_KEY       	= "developerKey";
+    const CACHE_ENABLED		= "cacheEnabled";
+    const NOFOLLOW_LINKS	= "nofollowLinks";
     
     /**
      * Displays advanced options for the options form
@@ -75,6 +76,7 @@ class TubePressAdvancedOptions
             case TubePressAdvancedOptions::FILTER:
             case TubePressAdvancedOptions::RANDOM_THUMBS:
             case TubePressAdvancedOptions::CACHE_ENABLED:
+            case TubePressAdvancedOptions::NOFOLLOW_LINKS:
                 TubePressOptionsForm::displayBooleanInput($tpl, 
                     $constant, $tpsm->get($constant));
                 break;
