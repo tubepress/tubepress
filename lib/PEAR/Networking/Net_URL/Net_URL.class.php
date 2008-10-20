@@ -283,7 +283,7 @@ class Net_URL
                     $querystring[] = $name;
                 }
             }
-            $querystring = implode(ini_get('arg_separator.output'), $querystring);
+            $querystring = implode("&amp;", $querystring);
         } else {
             $querystring = '';
         }
