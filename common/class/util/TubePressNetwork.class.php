@@ -58,7 +58,7 @@ class TubePressNetwork
         $doc = new DOMDocument();
     
         if ($doc->loadXML($data) === FALSE) {
-        	throw new Exception("YouTube didn't return XML for this query.");
+        	throw new Exception("YouTube didn't like your request: " . $data);
         }
         return $doc;
     }
