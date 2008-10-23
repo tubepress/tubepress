@@ -34,7 +34,6 @@ class TubePressGallery extends AbstractTubePressGallery
     const PLAYLIST        = "playlist";
     const POPULAR         = "most_viewed";
     const TAG             = "tag";
-    const TOP_FAVS		  = "top_favorites";
     const TOP_RATED       = "top_rated";
     const USER            = "user";
     

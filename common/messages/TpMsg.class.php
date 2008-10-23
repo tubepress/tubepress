@@ -47,7 +47,7 @@ class TpMsg {
 			case "options-gallery-title-favorites":
 			    return "This YouTube user's \"favorites\"";
 
-			case "options-gallery-title-featured":
+			case "options-gallery-title-recently_featured":
 			    return "The latest \"featured\" videos on YouTube's homepage";
 
 			case "options-gallery-title-mobile":

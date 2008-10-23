@@ -53,12 +53,7 @@ class TubePressMetaProcessor
                 continue;
             }
             
-            if ($tpom->get(TubePressAdvancedOptions::NOFOLLOW_LINKS)
-            	&& $constant != TubePressMetaOptions::URL) {
-        		$tpl->setVariable("NOFOLLOW", "rel=\"external nofollow\"");
-        	} else {
-        		$tpl->setVariable("NOFOLLOW", "");
-        	}
+            $nofollow = $tpom->get(TubePressAdvancedOptions::NOFOLLOW_LINKS);
             
             switch ($constant) {
                 
@@ -86,6 +81,7 @@ class TubePressMetaProcessor
             case TubePressMetaOptions::AUTHOR:
                 $tpl->setVariable('METANAME', TpMsg::_("video-" . $constant));
                 $tpl->setVariable('AUTHOR', $vid->getAuthor());
+                if ($nofollow) { $tpl->setVariable("NOFOLLOW", "rel=\"external nofollow\""); }
                 $tpl->parse('author');
                 break;
                     
@@ -95,6 +91,7 @@ class TubePressMetaProcessor
                 $tpl->setVariable('METANAME', TpMsg::_("video-" . $constant));
                 $tpl->setVariable('SEARCHSTRING', $tags);
                 $tpl->setVariable('TAGS', $vid->getTags());
+             	if ($nofollow) { $tpl->setVariable("NOFOLLOW", "rel=\"external nofollow\""); }
                 $tpl->parse('tags');
                 break;
                     
