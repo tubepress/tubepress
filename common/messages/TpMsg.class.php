@@ -396,7 +396,7 @@ class TpMsg {
 				return "Displays YouTube videos in your sidebar using TubePress";
 				
 			case "widget-tagstring-description":
-				return "Tag string. See the <a href=\"http://code.google.com/p/tubepress/wiki/TubePressWidget\">widget documentation</a>.";
+				return "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>.";
 			    
 			default:
 			    return "";

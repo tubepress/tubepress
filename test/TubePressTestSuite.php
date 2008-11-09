@@ -1,6 +1,6 @@
 <?php
 
-require_once '/Applications/MAMP/bin/php5/lib/php/PHPUnit.php';
+require_once '/Applications/MAMP/bin/php5/lib/php/PHPUnit/Framework.php';
 include dirname(__FILE__) . "/../tubepress_classloader.php";
 
 require_once "common/class/TubePressVideoTest.php";

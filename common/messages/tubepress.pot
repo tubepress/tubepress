@@ -338,7 +338,7 @@ msgstr ""
 msgid "Displays YouTube videos in your sidebar using TubePress"
 msgstr ""
 
-msgid "Tag string. See the <a href=\"http://code.google.com/p/tubepress/wiki/TubePressWidget\">widget documentation</a>."
+msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>."
 msgstr ""
 
 #

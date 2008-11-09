@@ -34,7 +34,9 @@ function tubepress_widget($opts)
 	        TubePressMetaOptions::VIEWS => false,
 	        TubePressMetaOptions::DESCRIPTION => true,
 	        TubePressDisplayOptions::DESC_LIMIT => 50,
-	        TubePressDisplayOptions::CURRENT_PLAYER_NAME => TubePressPlayer::POPUP
+	        TubePressDisplayOptions::CURRENT_PLAYER_NAME => TubePressPlayer::POPUP,
+	        TubePressDisplayOptions::THUMB_HEIGHT => 105,
+	        TubePressDisplayOptions::THUMB_WIDTH => 135
 	        ));
 	TubePressShortcode::parse($wpsm->get(TubePressWidgetOptions::TAGSTRING), $tpom);
 	$gallery = new TubePressWidgetGallery();
@@ -70,7 +72,7 @@ function tubepress_widget_control() {
     }
     
     $wpsm = new WordPressStorageManager();
-    
+
     $tpl->setVariable("WIDGET-TITLE", TpMsg::_("options-meta-title-title"));
     $tpl->setVariable("WIDGET-TITLE-VALUE", $wpsm->get(TubePressWidgetOptions::TITLE));
     $tpl->setVariable("WIDGET-TAGSTRING", TpMsg::_("widget-tagstring-description"));
