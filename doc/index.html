@@ -8,6 +8,7 @@
         </title>
         <link href="toc.css" rel="stylesheet" type="text/css" />
         <link href="style.css" rel="stylesheet" type="text/css" />
+        <link href="tables.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="mootools-1.2.1-core-yc.js"></script>
         <script type="text/javascript" src="mootools-1.2-more.js"></script>
         <script type="text/javascript">
@@ -66,37 +67,59 @@
             <h1>
                 1. Introduction
             </h1>
-            <h2>
-
-                1.1 What is TubePress?
-            </h2>
             <p>
                 TubePress is a PHP library that displays beautiful YouTube video galleries in your web site. It’s highly configurable and easy to
-                use.
+                use. Check out a demo gallery <a href="http://tubepress.org/demo">here</a>.
             </p>
             <p>
                 There are two different TubePress packages available:
             </p>
             <ol>
-                <li>As a WordPress plugin (free!)
+                <li>A WordPress plugin (free!)
                 </li>
 
-                <li>As a stand-alone library for use anywhere that supports PHP (only $10)
+                <li>A stand-alone library for use anywhere that supports PHP (only $10)
                 </li>
             </ol>
             <p>
-                Both packages are released under the <a href="http://www.gnu.org/copyleft/gpl.html">GPLv3</a>.
+                Both packages are released under the <a href="http://www.gnu.org/copyleft/gpl.html">GPLv3</a>. TubePress was created, is developed and maintained by <a href="http://ehough.com/">Eric Hough</a>
             </p>
-            <h2>
-                1.2 Author
-            </h2>TubePress was created, is developed and maintained by <a href="http://ehough.com/">Eric Hough</a>
+          <h1>2. Download</h1>
+          <h2> 2.1 Zip files</h2>
+          The latest version of TubePress can always be downloaded as a zip file from <a href="http://tubepress.org/download">http://tubepress.org/download</a>
+          <h2>2.2 Subversion</h2>
+Interested in using the very latest version of TubePress? You can use any subversion client to check out the plugin in your WordPress installation.
+
+<h3>2.2.1 From the command line</h3>
+
+If you have command line access to your server, and have an svn client in your path, this method is the easiest.
+
+<ol>
+<li>Change directories to <tt>wp-content/plugins</tt></li>
+<li>Make sure you've removed any existing installs of TubePress from this directory</li>
+<li>Execute <pre>svn checkout http://tubepress.googlecode.com/svn/trunk/ tubepress</pre></li>
+</ol>
+
+That's it! You'll now be using the very latest build of the plugin. You can now upgrade by doing the following
+
+<ol><li>Change directories to <tt>wp-content/plugins/tubepress</tt></li>
+<li>Execute <pre>svn update</pre></li></ol>
+
+<h3>2.2.2 Using FTP</h3>
+
+You'll need to check out the latest build locally (i.e. to your desktop machine) and then upload it to your server using FTP.
+
+<ol><li>Use any SVN client to browse to <tt>http://tubepress.googlecode.com/svn/trunk/</tt></li>
+<li>Checkout the trunk directory to a local directory called <tt>tubepress</tt></li>
+<li>Upload the tubepress directory you just created to your WordPress installation at <tt>wp-content/plugins</tt></li></ol>
+      
 
             <h1>
-                2. WordPress Plugin
+                3. WordPress Plugin
             </h1>
 		As a WordPress plugin, TubePress lets you easily insert custom video galleries throughout your WordPress-powered blog.
             <h2>
-                2.1 Quick Start
+                3.1 Quick Start
             </h2>
             <p>
                 TubePress can be managed just like any other WordPress plugin. See the <a rel="nofollow" href=
@@ -108,11 +131,8 @@
                 </li>
                 <li>Unzip into your plugins directory (<tt>wp-content/plugins</tt>)
                 </li>
-                <li>Activate TubePress from <tt>Site Admin &gt; Plugins</tt>
-
-                </li>
-                <li>Configure from <tt>Site Admin &gt; Settings &gt; TubePress</tt>
-                </li>
+                <li>Activate TubePress from <tt>Site Admin &gt; Plugins</tt></li>
+                <li>Configure from <tt>Site Admin &gt; Settings &gt; TubePress</tt></li>
                 <li>Type
                     <pre>
 [tubepress]
@@ -121,10 +141,12 @@
                     TubePress shortcode).</a> See the image below for an example.
                 </li>
             </ol>
-            <p>
-                <a href="http://tubepress.org/wp-content/uploads/2008/10/visual_editor.jpg"><img class="alignnone size-full wp-image-35" title=
+            <div class="figure">
+                <img class="alignnone size-full wp-image-35" title=
                 "visual_editor" src="http://tubepress.org/wp-content/uploads/2008/10/visual_editor.jpg" alt=
-                "Inserting a gallery into a WordPress post" width="500" height="184" /></a><br />
+                "Inserting a gallery into a WordPress post" width="500" height="184" />
+            </div>
+            <p>
                 This will result in something like the following…
             </p>
             <p>
@@ -133,16 +155,16 @@
 
             </p>
             <h2>
-                2.2 Multiple galleries
+                3.2 Multiple galleries
             </h2>
             <p>
-                The options in <tt>Settings &gt; TubePress</tt> are just the global options for TubePress. The real power of the plugin lies in the
+                The options in <tt>Settings &gt; TubePress</tt> are the global options for TubePress. The real power of the plugin lies in the
                 ability to put multiple galleries on multiple pages. You can do this by using <a href="#toc-shortcodes">TubePress shortcodes</a> on
                 your posts/pages.
             </p>
 
             <p>
-                For example, on one page I want to display a gallery of videos that are tagged with “football”. On this page, I would type
+                For example, say on one page I want to display a gallery of videos that are tagged with “football”. On this page, I would type
             </p>
             <pre>[tubepress mode='tag', tagValue='football']</pre>
             <p>
@@ -154,10 +176,10 @@
 [tubepress]
 </pre>
             <p>
-                where I wanted the gallery to show up. You can follow this procedure for unlimited galleries on unlimited posts/pages. Get creative!
+                where I wanted the gallery to show up. You can follow this procedure for unlimited galleries on unlimited posts/pages. Just use any <a href="#toc-shortcodes">TubePress shortcode</a> to control the gallery content. Get creative!
             </p>
             <h2>
-                2.3 Upgrading
+                3.3 Upgrading
             </h2>
             <p>
                 Upgrading is usually just a matter of copying the latest version of TubePress over your existing installation. However, if you want
@@ -165,16 +187,16 @@
             </p>
 
             <ol>
-                <li>Remove your existing TubePress install directory (wp-content/plugins/tubepress)
+                <li>Remove your existing TubePress install directory (<tt>wp-content/plugins/tubepress</tt>)
                 </li>
-                <li>Unzip the latest version of TubePress into (wp-content/plugins)
+                <li>Unzip the latest version of TubePress into (<tt>wp-content/plugins</tt>)
                 </li>
-                <li>Visit Site Admin &gt; Settings &gt; TubePress once initialize your options
+                <li>Visit <tt>Site Admin &gt; Settings &gt; TubePress</tt> once initialize your options
                 </li>
             </ol>
 
             <h2>
-                2.4 Sidebar Widget
+                3.4 Sidebar Widget
             </h2>
             <p>
                 The TubePress plugin comes with widget functionality, which allows you to place a customizable list of videos in your blog’s sidebar.
@@ -190,95 +212,97 @@
                 the <a href="http://codex.wordpress.org/Plugins/WordPress_Widgets">WordPress widget documentation</a> for general info on how to
                 enable and disable widgets.
             </p>
+            <p>This is what the TubePress widget control looks like:</p>
             <p>
                 <a href="http://tubepress.org/wp-content/uploads/2008/11/widget.png"><img class="alignnone size-full wp-image-37" title="widget" src=
                 "http://tubepress.org/wp-content/uploads/2008/11/widget.png" alt="" width="309" height="436" /></a>
             </p>
             <p>
-                In the “Title” section of the widget, enter the text you’d like for the sidebar’s header.
+                In the “Title” section of the widget control, enter the text you’d like for the sidebar’s header.
             </p>
 
             <p>
-                To customize which videos show up in your sidebar, just use a TubePress shortcode. Please note that by default, the TubePress widget
+                To customize which videos show up in your sidebar, just use a <a href="#toc-shortcodes">TubePress shortcode</a>. Please note that by default, the TubePress widget
                 will use the following shortcode:
             </p>
             <pre>
 [tubepress resultsPerPage='3', views='false', description='true', descriptionLimit='50', playerLocation='popup', thumbHeight='105', thumbWidth='135']
 </pre>
             <p>
-                Of course, like any TubePress shortcode, you can override any setting you like.
+                Of course, like any <a href="#toc-shortcodes">TubePress shortcode</a>, you can override any setting you like.
             </p>
+            <a name="toc-shortcodes" />
             <h1>
-               3. Shortcodes
+               4. TubePress Shortcodes
             </h1>
 
             <p>
-                TubePress shortcodes let you insert your galleries wherever you’d like throughout your blog. There are very similar to <a rel=
+                TubePress shortcodes are small snippets of text that allow you to easily control the content, style, and behavior of TubePress galleries. There are very similar to <a rel=
                 "nofollow" href="http://faq.wordpress.com/2008/06/18/what-are-the-wordpress-shortcodes/">WordPress shortcodes</a>, with some minor
                 syntax differences.
             </p>
             <p>
-                TubePress will replace any TubePress shortcodes it finds with a video gallery. Each gallery can be configured completely
-                independently from the others.
+                TubePress will replace any TubePress shortcodes with a video gallery. Each gallery can be configured completely
+                independently from the others, based on the content of the shortcode.
             </p>
             <p>
                 The simplest shortcode is
-            </p>
+        </p>
 
             <pre>
 [tubepress]
-</pre>. TubePress will replace this shortcode with a video gallery defined by the settings in <tt>Site Admin &gt; Settings &gt; TubePress</tt>. Think
-of these settings as the defaults. You can override each TubePress setting by providing shortcode attributes.
-            <p>
-                Shortcode attributes are <strong>comma-separated</strong> name-value pairs that you insert between the square brackets. They all
-                follow the pattern <em>name=’value’</em>. Please note the single quotes around the value!
-            </p>
+</pre>TubePress will replace this shortcode with a video gallery with the default settings. You can override each TubePress setting by providing shortcode attributes, which are <strong>comma-separated</strong> name-value pairs that you insert between the square brackets. They all
+                follow the pattern <pre>name=’value’</pre>Please note the single quotes around the value!
+            
 
             <p>
-                So for instance, if I wanted a gallery with my favorite videos, 10 videos per page, the description included under each thumbnail,
-                and that plays videos using !lightWindow, my shortcode would be:
-            </p>
+                So for instance, say I wanted a gallery with</p>
+                <ul><li>my favorite videos</li><li>10 videos per page</li><li>the description included under each thumbnail</li>
+                 <li>that plays videos using lightWindow</li></ul> My shortcode for this gallery would be:
+         
             <pre>
 [tubepress mode='favorites', favoritesValue='3hough', resultsPerPage='10', description='true', playerLocation='lightwindow']
 </pre>
             <h2>
-                3.1 Gallery Options
+                4.1 Gallery Options
             </h2>
             <p>
                 These settings control which group of videos the gallery will display.
             </p>
 
-            <table border="0">
-                <tbody>
+            <table>
+                <thead>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <strong>Setting</strong>
-                        </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <strong>Description</strong>
-
-                        </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <strong>Valid Values</strong>
-                        </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <strong>Example</strong>
-                        </td>
+                        <th>Setting</th>
+                        <th>Description</th>
+                        <th>Valid Values</th>
+                        <th>Example</th>
                     </tr>
-
+				</thead>
+				<tbody>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>mode</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Which set of videos will be displayed
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>favorites, featured, mobile, most_discussed, most_linked, most_recent, most_responded, playlist, most_viewed,
-                            top_rated, tag, user</tt>
+                        <td>
+                            <tt>favorites</tt><br />
+                            <tt>featured</tt><br />
+                            <tt>mobile</tt><br />
+                            <tt>most_discussed<br /></tt>
+                            <tt>most_linked<br /></tt>
+                            <tt>most_recent<br /></tt>
+                            <tt>most_responded<br /></tt>
+                            <tt>playlist<br /></tt>
+                            <tt>most_viewed<br /></tt>
+                            <tt>top_rated<br /></tt>
+                            <tt>tag<br /></tt>
+                            <tt>user<br /></tt>
 
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress mode=’featured’]</tt>
                         </td>
                     </tr>
@@ -286,293 +310,275 @@ of these settings as the defaults. You can override each TubePress setting by pr
             </table>
             <h3>
 
-                3.1.1 Modes
+                4.1.1 Gallery Descriptions
             </h3>
-            <ul>
-                <li>
-                    <tt>favorites</tt> - “Favorite” videos of the given YouTube user. Accompany this mode setting with a <tt>favoritesValue</tt>
-                    attribute to define the YouTube user name. For instance: <tt>[tubepress mode='favorites', favoritesValue='3hough']</tt>
+            <table>
+            	<thead><tr><th>Mode name</th><th>Description</th></tr></thead>
+            	<tbody>
+            	<tr><td><tt>favorites</tt></td><td>“Favorite” videos of the given YouTube user. Accompany this mode setting with a <tt>favoritesValue</tt>
+                    attribute to define the YouTube user name. For instance<pre>[tubepress mode='favorites', favoritesValue='3hough']</pre>
 
-                </li>
-                <li>
-                    <tt>featured</tt> - The lastest “featured” videos on YouTube’s homepage
-                </li>
-                <li>
-                    <tt>most_discussed</tt> - The most-commented videos on YouTube
-                </li>
-                <li>
-
-                    <tt>most_linked</tt> - Videos with the most links
-                </li>
-                <li>
-                    <tt>most_recent</tt> - Videos recently uploaded to YouTube
-                </li>
-                <li>
-                    <tt>playlist</tt> - Videos from the given playlist. Accompany this mode setting with a <tt>playlistValue</tt> attribute to define
-                    which YouTube playlist to retrieve. For instance: <tt>[tubepress mode='playlist', playlistValue='6813408AE8D50E6F']</tt>
-
-                </li>
-                <li>
-                    <tt>mobile</tt> - Videos suitable for mobile devices
-                </li>
-                <li>
-                    <tt>user</tt> - Videos uploaded by a specific user. Accompany this mode setting with a <tt>userValue</tt> attribute to define the
-                    YouTube user name. For instance: <tt>[tubepress mode='user', userValue='3hough']</tt>
-
-                </li>
-            </ul>
-            <h2 id="toc-video-display-options">
-                3.2 Video Display Options
+                </td></tr>
+                <tr><td><tt>featured</tt></td><td>The lastest “featured” videos on YouTube’s homepage</td></tr>
+                <tr><td><tt>most_discussed</tt></td><td>The most-commented videos on YouTube</td></tr>
+                <tr><td><tt>most_linked</tt></td><td>Videos with the most links</td></tr>
+                <tr><td><tt>most_recent</tt></td><td>Videos recently uploaded to YouTube</td></tr>
+                <tr><td><tt>playlist</tt></td><td>Videos from the given playlist. Accompany this mode setting with a <tt>playlistValue</tt> attribute to define
+                    which YouTube playlist to retrieve. For instance<pre>[tubepress mode='playlist', playlistValue='6813408AE8D50E6F']</pre></td></tr>
+<tr><td><tt>mobile</tt></td><td>Videos suitable for mobile devices</td></tr>
+               <tr><td><tt>user</tt></td><td>Videos uploaded by a specific user. Accompany this mode setting with a <tt>userValue</tt> attribute to define the
+                    YouTube user name. For instance<pre>[tubepress mode='user', userValue='3hough']</pre></td></tr>
+</tbody></table>
+               
+            <h2>
+                4.2 Video Display Options
             </h2>
             <p>
                 These settings control the overall viewing experience for the user
             </p>
-            <table border="0">
-                <tbody>
-
+            <table>
+                 <thead>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <strong>Setting</strong>
-                        </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <strong>Description</strong>
-                        </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-
-                            <strong>Valid Values</strong>
-                        </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <strong>Example</strong>
-                        </td>
+                        <th>Setting</th>
+                        <th>Description</th>
+                        <th>Valid Values</th>
+                        <th>Example</th>
                     </tr>
+				</thead>
+				<tbody>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
 
                             <tt>playerLocation</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            How the user will view each video
+                        <td>
+                            How the user will view each video. See secion 4.2.1 for descriptions of these values.
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>normal, popup, greybox, lightwindow, shadowbox, youtube</tt>
+                        <td>
+                            <tt>normal</tt><br /><tt>popup</tt><br /><tt>youtube</tt>
                         </td>
 
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress playerLocation=’shadowbox’]</tt>
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>orderBy</tt>
                         </td>
 
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             The sort order of the video thumbnails
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>updated, viewCount, rating, relevance</tt>
+                        <td>
+                            <tt>updated</tt><br /><tt>viewCount</tt><br /><tt>rating</tt><br /><tt>relevance</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress orderBy=’viewCount’]</tt>
 
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>resultsPerPage</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             How many video thumbnails to display on a single page
                         </td>
 
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Any integer <tt>x</tt> such that 0 &lt; <tt>x</tt> &lt;= 50
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress resultsPerPage=’30’]</tt>
 
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>thumbHeight</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Vertical size (in px) of thumbnails
                         </td>
 
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Any integer <tt>x</tt> such that 0 &lt; <tt>x</tt> &lt;= 90
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress thumbHeight=’45’]</tt>
 
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>thumbWidth</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Horizontal size (in px) of thumbnails
                         </td>
 
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Any integer <tt>x</tt> such that 0 &lt; <tt>x</tt> &lt;= 120
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress thumbWidth=’60’]</tt>
 
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <h3>4.2.1 Video Players</h3>
+             <table>
+            	<thead><tr><th>Player name</th><th>Description</th></tr></thead>
+            	<tbody>
+            	<tr><td><tt>normal</tt></td><td>Plays videos in an embedded Flash player above the video thumbnails
+
+                </td></tr>
+                <tr><td><tt>popup</tt></td><td>Plays videos in an HTML popup window</td></tr>
+                <tr><td><tt>youtube</tt></td><td>Sends user to the video's original YouTube page to view the video</td></tr>
+               
+</tbody></table>
+               
             <h2>
-               3.3 Embedded Player Options
+               4.3 Embedded Player Options
             </h2>
             <p>
                 These settings apply to the embedded Flash player from YouTube
             </p>
 
-            <table border="0">
-                <tbody>
+            <table>
+            <thead>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <strong>Setting</strong>
-                        </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <strong>Description</strong>
-
-                        </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <strong>Valid Values</strong>
-                        </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <strong>Example</strong>
-                        </td>
+                        <th>Setting</th>
+                        <th>Description</th>
+                        <th>Valid Values</th>
+                        <th>Example</th>
                     </tr>
-
+				</thead>
+                <tbody>
+                    
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>autoPlay</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Toggles start of video playback without user intervention
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>true, false</tt>
+                        <td>
+                            <tt>true</tt><br /><tt>false</tt>
 
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress autoPlay=’true’]</tt>
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>border</tt>
 
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Toggles frame around embedded player
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>true, false</tt>
+                        <td>
+                            <tt>true</tt><br /><tt>false</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress border=’true’]</tt>
 
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>embeddedHeight</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Vertical size (in px) of embedded player
                         </td>
 
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Any positive integer
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress embeddedHeight=’true’]</tt>
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
 
                             <tt>embeddedWidth</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Horizontal size (in px) of embedded player
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Any positive integer
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
 
                             <tt>[tubepress embeddedWidth=’true’]</tt>
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>genie</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
 
                             Toggles display of “genie” menu during video playback
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>true, false</tt>
+                        <td>
+                            <tt>true</tt><br /><tt>false</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress genie=’true’]</tt>
                         </td>
 
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>loop</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Toggles repeat of videos without user intervention
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
 
-                            <tt>true, false</tt>
+                            <tt>true</tt><br /><tt>false</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress loop=’true’]</tt>
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
 
                             <tt>playerColor</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Primary and secondary colors of embedded player
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Two HTML color values in hex, combined with a single forward slash
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
 
                             <tt>[tubepress playerColor=’0xffaabb/0xaa2233’]</tt>
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>showRelated</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
 
                             Toggles display of related videos after playback
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>true, false</tt>
+                        <td>
+                            <tt>true</tt><br /><tt>false</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress showRelated=’true’]</tt>
                         </td>
 
@@ -580,214 +586,207 @@ of these settings as the defaults. You can override each TubePress setting by pr
                 </tbody>
             </table>
             <h2>
-               3.4 Video Meta Display
+               4.4 Video Meta Display
             </h2>
             <p>
                 These settings control what information gets printed out below each video thumbnail
             </p>
-            <table border="0">
-
-                <tbody>
+            <table>
+<thead>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <strong>Setting</strong>
-                        </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <strong>Description</strong>
-                        </td>
-
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <strong>Valid Values</strong>
-                        </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <strong>Example</strong>
-                        </td>
+                        <th>Setting</th>
+                        <th>Description</th>
+                        <th>Valid Values</th>
+                        <th>Example</th>
                     </tr>
+				</thead>
+                <tbody>
+                   
                     <tr>
 
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>author</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Toggles display of video author below thumbnails
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>true, false</tt>
+                        <td>
+                            <tt>true</tt><br /><tt>false</tt>
 
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress author=’true’]</tt>
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>category</tt>
 
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Toggles display of video category below thumbnails
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>true, false</tt>
+                        <td>
+                            <tt>true</tt><br /><tt>false</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress category=’false’]</tt>
 
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>description</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Toggles display of video description below thumbnails
                         </td>
 
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>true, false</tt>
+                        <td>
+                            <tt>true</tt><br /><tt>false</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress description=’false’]</tt>
                         </td>
                     </tr>
                     <tr>
 
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>id</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Toggles display of video ID below thumbnails
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>true, false</tt>
+                        <td>
+                            <tt>true</tt><br /><tt>false</tt>
 
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress id=’true’]</tt>
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>length</tt>
 
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Toggles display of video run time below thumbnails
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>true, false</tt>
+                        <td>
+                            <tt>true</tt><br /><tt>false</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress length=’false’]</tt>
 
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>rating</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Toggles display of average video rating below thumbnails
                         </td>
 
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>true, false</tt>
+                        <td>
+                            <tt>true</tt><br /><tt>false</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress rating=’true’]</tt>
                         </td>
                     </tr>
                     <tr>
 
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>ratings</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Toggles display of video rating count below thumbnails
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>true, false</tt>
+                        <td>
+                            <tt>true</tt><br /><tt>false</tt>
 
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress ratings=’true’]</tt>
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>tags</tt>
 
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Toggles display of video tags below thumbnails
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>true, false</tt>
+                        <td>
+                            <tt>true</tt><br /><tt>false</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress tags=’false’]</tt>
 
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>title</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Toggles display of video title below thumbnails
                         </td>
 
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>true, false</tt>
+                        <td>
+                            <tt>true</tt><br /><tt>false</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress title=’true’]</tt>
                         </td>
                     </tr>
                     <tr>
 
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>uploaded</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Toggles display of video upload time below thumbnails
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>true, false</tt>
+                        <td>
+                            <tt>true</tt><br /><tt>false</tt>
 
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress uploaded=’false’]</tt>
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>url</tt>
 
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Toggles display of video URL on YouTube<a href="http://code.google.com/p/tubepress/w/edit/YouTube">?</a> below thumbnails
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>true, false</tt>
+                        <td>
+                            <tt>true</tt><br /><tt>false</tt>
                         </td>
 
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress url=’false’]</tt>
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>views</tt>
                         </td>
 
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Toggles display of video view count below thumbnails
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>true, false</tt>
+                        <td>
+                            <tt>true</tt><br /><tt>false</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress views=’true’]</tt>
 
                         </td>
@@ -795,90 +794,84 @@ of these settings as the defaults. You can override each TubePress setting by pr
                 </tbody>
             </table>
             <h2>
-               3.5 Advanced Options
+               4.5 Advanced Options
             </h2>
             <p>
-                Various advanced features that casual users will not likely need/want to adjust
+                Various features that casual users will not likely need/want to adjust
             </p>
 
-            <table border="0">
-                <tbody>
+            <table>
+            <thead>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <strong>Setting</strong>
-                        </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <strong>Description</strong>
-
-                        </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <strong>Valid Values</strong>
-                        </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <strong>Example</strong>
-                        </td>
+                        <th>Setting</th>
+                        <th>Description</th>
+                        <th>Valid Values</th>
+                        <th>Example</th>
                     </tr>
+				</thead>
+                <tbody>
+                
 
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>dateFormat</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Formatting of date information for videos. See <a rel="nofollow" href="http://us.php.net/date">http://us.php.net/date</a>
                             for examples
                         </td>
 
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Any valid string as defined by <a rel="nofollow" href="http://php.net/date">http://php.net/date</a>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress dateFormat=’l jS \of F Y h:i:s A']</tt>
                         </td>
                     </tr>
 
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>debugging_enabled</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Toggles ability to perform remote debugging
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>true, false</tt>
+                        <td>
+                            <tt>true</tt><br /><tt>false</tt>
 
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress debugging_enabled=’false’]</tt>
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>randomize_thumbnails</tt>
 
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Toggles random thumbnail selection for each video (each video comes with several thumbnails)
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>true, false</tt>
+                        <td>
+                            <tt>true</tt><br /><tt>false</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress randomize_thumbnails=’false’]</tt>
 
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>filter_racy</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             Toggles filtering of “racy” videos
                         </td>
 
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
-                            <tt>true, false</tt>
+                        <td>
+                            <tt>true</tt><br /><tt>false</tt>
                         </td>
-                        <td style="border: 1px solid #aaaaaa; padding: 5px;">
+                        <td>
                             <tt>[tubepress filter_racy=’true’]</tt>
                         </td>
                     </tr>
@@ -886,69 +879,50 @@ of these settings as the defaults. You can override each TubePress setting by pr
 
             </table>
             <h1>
-               4. Troubleshooting
+               5. Troubleshooting
             </h1>
             <h2>
-                4.1 Enable debug mode
+                5.1 Enable debug mode
             </h2>
             <p>
                 This mode will print out tons of debugging information. To use it, you just need to add <tt>tubepress_debug=true</tt> to the URL
-                string (in your browser’s address bar). For instance, if the TubePress page you’re trying to debug has an address of
+                string (in your browser’s address bar). For instance, if the TubePress page you’re trying to debug has an address of</p>
            <pre>http://ehough.com/?page_id=19</pre>
 
                 then you should add <tt>tubepress_debug=true</tt> to the URL to enable debugging
            
                 <pre>http://ehough.com/?page_id=19&amp;tubepress_debug=true</pre>
 		You should see the debugging information displayed above any galleries you have. The following image shows generally what you can expect to see
-            </p>
+            
 		<p><img src="images/debugging_output.png" /></p>
-	    <h2> 4.2 YouTube Connection Test</h2>
-		Some web servers place restrictions on what PHP scripts are allowed to execute. TubePress needs the ability to open network connections to remote servers. One way to verify that TubePress has this ability is to run the YouTube connection test. You can find a link to the test in the debug output (see section 4.1). The test will attempt to retrieve the HTML content of YouTube's homepage, and then it will execute a sample video query against YouTube's API. The result of the latter will be printed to the screen as plain XML.
+	    <h2> 5.2 YouTube Connection Test</h2>
+		Some web servers place restrictions on what PHP scripts are allowed to execute. TubePress needs the ability to open network connections to remote servers. One way to verify that TubePress has this ability is to run the YouTube connection test. You can find a link to the test in the debug output (see section 5.1). The test will attempt to retrieve the HTML content of YouTube's homepage, and then it will execute a sample video query against YouTube's API. The result of the latter will be printed to the screen as plain XML.
             <h2>
-               4.2 Discussion Forum
+               5.2 Discussion Forum
             </h2>
             <p>
                 Still can’t solve your issue? Try searching or posting in the <a href="http://groups.google.com/group/tubepress-users">TubePress
                 discussion forum</a>, hosted by Google Groups. You’ll need a Google account to post.
             </p>
+            <h2>5.3 Open a trouble ticket</h2>
+            <p>
+            	If you can't find a solution to your problem in the discussion forum, someone may have already submitted a trouble ticket. The current list
+            	of tickets can be found at <a href="http://code.google.com/p/tubepress/issues/list">http://code.google.com/p/tubepress/issues/list</a>. Please
+            	feel free to submit a trouble ticket. Note that you'll need a Google account.
+            </p>
             <h1>
-               5. Contributing
+               6. Contributing
             </h1>
-<h2>5.1 Getting the source</h2>
-Interested in using the very latest version of TubePress? You can use any subversion client to check out the plugin in your WordPress installation.
-
-<h3>5.1.1 From the command line</h3>
-
-If you have command line access to your server, and have an svn client in your path, this method is the easiest.
-
-<ol>
-<li>Change directories to <tt>wp-content/plugins</tt></li>
-<li>Make sure you've removed any existing installs of TubePress from this directory</li>
-<li>Execute <pre>svn checkout http://tubepress.googlecode.com/svn/trunk/ tubepress</pre></li>
-</ol>
-
-That's it! You'll now be using the very latest build of the plugin. You can now upgrade by doing the following
-
-<ol><li>Change directories to <tt>wp-content/plugins/tubepress</tt></li>
-<li>Execute <pre>svn update</pre></li></ol>
-
-<h3>5.1.2 Using FTP</h3>
-
-You'll need to check out the latest build locally (i.e. to your desktop machine) and then upload it to your server using FTP.
-
-<ol><li>Use any SVN client to browse to <tt>http://tubepress.googlecode.com/svn/trunk/</tt></li>
-<li>Checkout the trunk directory to a local directory called <tt>tubepress</tt></li>
-<li>Upload the tubepress directory you just created to your WordPress installation at <tt>wp-content/plugins</tt></li></ol>
-           
-<h2>5.2 Submit a patch</h2>
+            
+<h2>6.1 Submit a patch</h2>
 Patches are always welcome! You'll receive full credit for your contribution, of course. Here's how to submit
-<ol><li>Checkout the trunk version of TubePress (see section 5.1)</li>
+<ol><li>Checkout the trunk version of TubePress (see section 2.2)</li>
 <li>Generate your patch against it</li>
 <li>Submit your patch as an attachment to a new issue report at <a href="http://code.google.com/p/tubepress/issues/list">http://code.google.com/p/tubepress/issues/list</a></li>
 </ol>
 
  <h2>
-               5.3 I18N
+               6.2 I18N
             </h2>
             <p>
                 As of version 1.6.5, TubePress can be translated into any language using the <a rel="nofollow" href=
@@ -971,17 +945,17 @@ Patches are always welcome! You'll receive full credit for your contribution, of
                 how it works, I highly recommend reading WordPress’s <a rel="nofollow" href=
                 "http://codex.wordpress.org/Translating_WordPress">excellent i18n documentation</a>.
             </p>
-	    <h2>5.4 Donate</h2>
+	    <h2>6.3 Donate</h2>
 	    	<p>
-			TubePress is an open source project. I've spent many long nights working on this project. If you enjoy the software, please consider a donation. No amount is too small. Thanks! <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+			TubePress is an open source project. I've spent many long nights working on this project. If you enjoy the software, please consider a donation. No amount is too small. Thanks!</p><form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+<input type="hidden" name="cmd" value="_s-xclick" />
+<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online!" />
+<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
 <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHPwYJKoZIhvcNAQcEoIIHMDCCBywCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYCUfMhzBnkCchQ4gUgtCWC8oo7YQ+QBKNq3iHkjt2iHjYf5lbIQKBa3hIoYGvYr4mErX3+Aq+AHEsiRXSzMsKRgFdZ47hSv7e3TvyMLIu3LNvEjVTvdaHikpQaxgFgEwrmkPCgnQbS9SKN7sbFKt8uJ5fcwCReQyQdd7RGehMV4DjELMAkGBSsOAwIaBQAwgbwGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQI7SDpEJc2CLmAgZhqF+rYu72UzZOww9a2OnFJqmbD0tAsWBR+AvMr2fSbgf7YtOP2KemhvcDS4+I/NRCoNjcugfx+1ShiG/Tp2qJUOmtkOm9mA+fmEqDasZgCDKuBMTczt34otRrkR/mzbRfPznNsOk5y4XElqoaA5aMj3YZR0P77JqrLPFk3dCwPVfVbbkSBFFML1FIp4pRifkML/PNSaHmisKCCA4cwggODMIIC7KADAgECAgEAMA0GCSqGSIb3DQEBBQUAMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbTAeFw0wNDAyMTMxMDEzMTVaFw0zNTAyMTMxMDEzMTVaMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAwUdO3fxEzEtcnI7ZKZL412XvZPugoni7i7D7prCe0AtaHTc97CYgm7NsAtJyxNLixmhLV8pyIEaiHXWAh8fPKW+R017+EmXrr9EaquPmsVvTywAAE1PMNOKqo2kl4Gxiz9zZqIajOm1fZGWcGS0f5JQ2kBqNbvbg2/Za+GJ/qwUCAwEAAaOB7jCB6zAdBgNVHQ4EFgQUlp98u8ZvF71ZP1LXChvsENZklGswgbsGA1UdIwSBszCBsIAUlp98u8ZvF71ZP1LXChvsENZklGuhgZSkgZEwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tggEAMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEFBQADgYEAgV86VpqAWuXvX6Oro4qJ1tYVIT5DgWpE692Ag422H7yRIr/9j/iKG4Thia/Oflx4TdL+IFJBAyPK9v6zZNZtBgPBynXb048hsP16l2vi0k5Q2JKiPDsEfBhGI+HnxLXEaUWAcVfCsQFvd2A1sxRr67ip5y2wwBelUecP3AjJ+YcxggGaMIIBlgIBATCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwCQYFKw4DAhoFAKBdMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTA4MDcxOTA3NTIyOVowIwYJKoZIhvcNAQkEMRYEFMNiBs8TEUgviJKPzEEeNRxQBd+AMA0GCSqGSIb3DQEBAQUABIGAbnx7LGYzvK0ZaC6PFzSZ1WG6a7BEuDstqng7F6CrjgKc/T8+WvEEq0BdET2Heym3z9ukcyQhXqdtEnaZKlwhCtXr1QETgnIXKeJ/IREilPrTf+zkQjT72stym91K/kLbDpIMJhqCzu6iP+u9MVMNFHTr1NIAjMaYDlM1Wf9oEr4=-----END PKCS7-----
-">
+" />
 </form>
-</p>
+
         </div>
     </body>
 </html>
