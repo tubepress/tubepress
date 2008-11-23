@@ -68,7 +68,7 @@
                 1. Introduction
             </h1>
             <p>
-                TubePress is a PHP library that displays beautiful YouTube video galleries in your web site. It’s highly configurable and easy to
+                TubePress is a PHP library that displays beautiful YouTube video galleries in your web site. It's highly configurable and easy to
                 use. Check out a demo gallery <a href="http://tubepress.org/demo">here</a>.
             </p>
             <p>
@@ -136,7 +136,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                 <li>Type
                     <pre>
 [tubepress]
-</pre>in a post or a page where you’d like to insert your gallery (this is actually the simplest form of a <a href="#toc-shortcodes">
+</pre>in a post or a page where you'd like to insert your gallery (this is actually the simplest form of a <a href="#toc-shortcodes">
 
                     TubePress shortcode).</a> See the image below for an example.
                 </li>
@@ -164,7 +164,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
             </p>
 
             <p>
-                For example, say on one page I want to display a gallery of videos that are tagged with “football”. On this page, I would type
+                For example, say on one page I want to display a gallery of videos that are tagged with "football". On this page, I would type
             </p>
             <pre>[tubepress mode='tag', tagValue='football']</pre>
             <p>
@@ -199,8 +199,8 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                 3.4 Sidebar Widget
             </h2>
             <p>
-                The TubePress plugin comes with widget functionality, which allows you to place a customizable list of videos in your blog’s sidebar.
-                Here’s an example of the widget’s output:
+                The TubePress plugin comes with widget functionality, which allows you to place a customizable list of videos in your blog's sidebar.
+                Here's an example of the widget's output:
             </p>
             <p>
                 <a href="http://tubepress.org/wp-content/uploads/2008/11/sidebar.png"><img class="alignnone size-full wp-image-38" title="sidebar"
@@ -208,7 +208,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
             </p>
             <p>
 
-                There are no separate installation instructions; if you’ve installed and enabled the TubePress plugin then you’re done. Please see
+                There are no separate installation instructions; if you've installed and enabled the TubePress plugin then you're done. Please see
                 the <a href="http://codex.wordpress.org/Plugins/WordPress_Widgets">WordPress widget documentation</a> for general info on how to
                 enable and disable widgets.
             </p>
@@ -218,7 +218,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                 "http://tubepress.org/wp-content/uploads/2008/11/widget.png" alt="" width="309" height="436" /></a>
             </p>
             <p>
-                In the “Title” section of the widget control, enter the text you’d like for the sidebar’s header.
+                In the "Title" section of the widget control, enter the text you'd like for the sidebar's header.
             </p>
 
             <p>
@@ -252,7 +252,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
             <pre>
 [tubepress]
 </pre>TubePress will replace this shortcode with a video gallery with the default settings. You can override each TubePress setting by providing shortcode attributes, which are <strong>comma-separated</strong> name-value pairs that you insert between the square brackets. They all
-                follow the pattern <pre>name=’value’</pre>Please note the single quotes around the value!
+                follow the pattern <pre>name='value'</pre>Please note the single quotes around the value!
             
 
             <p>
@@ -303,7 +303,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
 
                         </td>
                         <td>
-                            <tt>[tubepress mode=’featured’]</tt>
+                            <tt>[tubepress mode='featured']</tt>
                         </td>
                     </tr>
                 </tbody>
@@ -315,11 +315,11 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
             <table>
             	<thead><tr><th>Mode name</th><th>Description</th></tr></thead>
             	<tbody>
-            	<tr><td><tt>favorites</tt></td><td>“Favorite” videos of the given YouTube user. Accompany this mode setting with a <tt>favoritesValue</tt>
+            	<tr><td><tt>favorites</tt></td><td>"Favorite" videos of the given YouTube user. Accompany this mode setting with a <tt>favoritesValue</tt>
                     attribute to define the YouTube user name. For instance<pre>[tubepress mode='favorites', favoritesValue='3hough']</pre>
 
                 </td></tr>
-                <tr><td><tt>featured</tt></td><td>The lastest “featured” videos on YouTube’s homepage</td></tr>
+                <tr><td><tt>featured</tt></td><td>The lastest "featured" videos on YouTube's homepage</td></tr>
                 <tr><td><tt>most_discussed</tt></td><td>The most-commented videos on YouTube</td></tr>
                 <tr><td><tt>most_linked</tt></td><td>Videos with the most links</td></tr>
                 <tr><td><tt>most_recent</tt></td><td>Videos recently uploaded to YouTube</td></tr>
@@ -359,7 +359,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                         </td>
 
                         <td>
-                            <tt>[tubepress playerLocation=’shadowbox’]</tt>
+                            <tt>[tubepress playerLocation='shadowbox']</tt>
                         </td>
                     </tr>
                     <tr>
@@ -374,7 +374,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                             <tt>updated</tt><br /><tt>viewCount</tt><br /><tt>rating</tt><br /><tt>relevance</tt>
                         </td>
                         <td>
-                            <tt>[tubepress orderBy=’viewCount’]</tt>
+                            <tt>[tubepress orderBy='viewCount']</tt>
 
                         </td>
                     </tr>
@@ -390,7 +390,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                             Any integer <tt>x</tt> such that 0 &lt; <tt>x</tt> &lt;= 50
                         </td>
                         <td>
-                            <tt>[tubepress resultsPerPage=’30’]</tt>
+                            <tt>[tubepress resultsPerPage='30']</tt>
 
                         </td>
                     </tr>
@@ -406,7 +406,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                             Any integer <tt>x</tt> such that 0 &lt; <tt>x</tt> &lt;= 90
                         </td>
                         <td>
-                            <tt>[tubepress thumbHeight=’45’]</tt>
+                            <tt>[tubepress thumbHeight='45']</tt>
 
                         </td>
                     </tr>
@@ -422,7 +422,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                             Any integer <tt>x</tt> such that 0 &lt; <tt>x</tt> &lt;= 120
                         </td>
                         <td>
-                            <tt>[tubepress thumbWidth=’60’]</tt>
+                            <tt>[tubepress thumbWidth='60']</tt>
 
                         </td>
                     </tr>
@@ -470,7 +470,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
 
                         </td>
                         <td>
-                            <tt>[tubepress autoPlay=’true’]</tt>
+                            <tt>[tubepress autoPlay='true']</tt>
                         </td>
                     </tr>
                     <tr>
@@ -485,7 +485,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                             <tt>true</tt><br /><tt>false</tt>
                         </td>
                         <td>
-                            <tt>[tubepress border=’true’]</tt>
+                            <tt>[tubepress border='true']</tt>
 
                         </td>
                     </tr>
@@ -501,7 +501,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                             Any positive integer
                         </td>
                         <td>
-                            <tt>[tubepress embeddedHeight=’true’]</tt>
+                            <tt>[tubepress embeddedHeight='true']</tt>
                         </td>
                     </tr>
                     <tr>
@@ -517,7 +517,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                         </td>
                         <td>
 
-                            <tt>[tubepress embeddedWidth=’true’]</tt>
+                            <tt>[tubepress embeddedWidth='true']</tt>
                         </td>
                     </tr>
                     <tr>
@@ -526,13 +526,13 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                         </td>
                         <td>
 
-                            Toggles display of “genie” menu during video playback
+                            Toggles display of "genie" menu during video playback
                         </td>
                         <td>
                             <tt>true</tt><br /><tt>false</tt>
                         </td>
                         <td>
-                            <tt>[tubepress genie=’true’]</tt>
+                            <tt>[tubepress genie='true']</tt>
                         </td>
 
                     </tr>
@@ -548,7 +548,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                             <tt>true</tt><br /><tt>false</tt>
                         </td>
                         <td>
-                            <tt>[tubepress loop=’true’]</tt>
+                            <tt>[tubepress loop='true']</tt>
                         </td>
                     </tr>
                     <tr>
@@ -564,7 +564,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                         </td>
                         <td>
 
-                            <tt>[tubepress playerColor=’0xffaabb/0xaa2233’]</tt>
+                            <tt>[tubepress playerColor='0xffaabb/0xaa2233']</tt>
                         </td>
                     </tr>
                     <tr>
@@ -579,7 +579,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                             <tt>true</tt><br /><tt>false</tt>
                         </td>
                         <td>
-                            <tt>[tubepress showRelated=’true’]</tt>
+                            <tt>[tubepress showRelated='true']</tt>
                         </td>
 
                     </tr>
@@ -615,7 +615,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
 
                         </td>
                         <td>
-                            <tt>[tubepress author=’true’]</tt>
+                            <tt>[tubepress author='true']</tt>
                         </td>
                     </tr>
                     <tr>
@@ -630,7 +630,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                             <tt>true</tt><br /><tt>false</tt>
                         </td>
                         <td>
-                            <tt>[tubepress category=’false’]</tt>
+                            <tt>[tubepress category='false']</tt>
 
                         </td>
                     </tr>
@@ -646,7 +646,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                             <tt>true</tt><br /><tt>false</tt>
                         </td>
                         <td>
-                            <tt>[tubepress description=’false’]</tt>
+                            <tt>[tubepress description='false']</tt>
                         </td>
                     </tr>
                     <tr>
@@ -662,7 +662,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
 
                         </td>
                         <td>
-                            <tt>[tubepress id=’true’]</tt>
+                            <tt>[tubepress id='true']</tt>
                         </td>
                     </tr>
                     <tr>
@@ -677,7 +677,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                             <tt>true</tt><br /><tt>false</tt>
                         </td>
                         <td>
-                            <tt>[tubepress length=’false’]</tt>
+                            <tt>[tubepress length='false']</tt>
 
                         </td>
                     </tr>
@@ -693,7 +693,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                             <tt>true</tt><br /><tt>false</tt>
                         </td>
                         <td>
-                            <tt>[tubepress rating=’true’]</tt>
+                            <tt>[tubepress rating='true']</tt>
                         </td>
                     </tr>
                     <tr>
@@ -709,7 +709,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
 
                         </td>
                         <td>
-                            <tt>[tubepress ratings=’true’]</tt>
+                            <tt>[tubepress ratings='true']</tt>
                         </td>
                     </tr>
                     <tr>
@@ -724,7 +724,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                             <tt>true</tt><br /><tt>false</tt>
                         </td>
                         <td>
-                            <tt>[tubepress tags=’false’]</tt>
+                            <tt>[tubepress tags='false']</tt>
 
                         </td>
                     </tr>
@@ -740,7 +740,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                             <tt>true</tt><br /><tt>false</tt>
                         </td>
                         <td>
-                            <tt>[tubepress title=’true’]</tt>
+                            <tt>[tubepress title='true']</tt>
                         </td>
                     </tr>
                     <tr>
@@ -756,7 +756,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
 
                         </td>
                         <td>
-                            <tt>[tubepress uploaded=’false’]</tt>
+                            <tt>[tubepress uploaded='false']</tt>
                         </td>
                     </tr>
                     <tr>
@@ -772,7 +772,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                         </td>
 
                         <td>
-                            <tt>[tubepress url=’false’]</tt>
+                            <tt>[tubepress url='false']</tt>
                         </td>
                     </tr>
                     <tr>
@@ -787,7 +787,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                             <tt>true</tt><br /><tt>false</tt>
                         </td>
                         <td>
-                            <tt>[tubepress views=’true’]</tt>
+                            <tt>[tubepress views='true']</tt>
 
                         </td>
                     </tr>
@@ -825,7 +825,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                             Any valid string as defined by <a rel="nofollow" href="http://php.net/date">http://php.net/date</a>
                         </td>
                         <td>
-                            <tt>[tubepress dateFormat=’l jS \of F Y h:i:s A']</tt>
+                            <tt>[tubepress dateFormat='l jS \of F Y h:i:s A']</tt>
                         </td>
                     </tr>
 
@@ -841,7 +841,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
 
                         </td>
                         <td>
-                            <tt>[tubepress debugging_enabled=’false’]</tt>
+                            <tt>[tubepress debugging_enabled='false']</tt>
                         </td>
                     </tr>
                     <tr>
@@ -856,7 +856,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                             <tt>true</tt><br /><tt>false</tt>
                         </td>
                         <td>
-                            <tt>[tubepress randomize_thumbnails=’false’]</tt>
+                            <tt>[tubepress randomize_thumbnails='false']</tt>
 
                         </td>
                     </tr>
@@ -865,14 +865,14 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                             <tt>filter_racy</tt>
                         </td>
                         <td>
-                            Toggles filtering of “racy” videos
+                            Toggles filtering of "racy" videos
                         </td>
 
                         <td>
                             <tt>true</tt><br /><tt>false</tt>
                         </td>
                         <td>
-                            <tt>[tubepress filter_racy=’true’]</tt>
+                            <tt>[tubepress filter_racy='true']</tt>
                         </td>
                     </tr>
                 </tbody>
@@ -886,7 +886,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
             </h2>
             <p>
                 This mode will print out tons of debugging information. To use it, you just need to add <tt>tubepress_debug=true</tt> to the URL
-                string (in your browser’s address bar). For instance, if the TubePress page you’re trying to debug has an address of</p>
+                string (in your browser's address bar). For instance, if the TubePress page you're trying to debug has an address of</p>
            <pre>http://ehough.com/?page_id=19</pre>
 
                 then you should add <tt>tubepress_debug=true</tt> to the URL to enable debugging
@@ -901,8 +901,8 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                5.2 Discussion Forum
             </h2>
             <p>
-                Still can’t solve your issue? Try searching or posting in the <a href="http://groups.google.com/group/tubepress-users">TubePress
-                discussion forum</a>, hosted by Google Groups. You’ll need a Google account to post.
+                Still can't solve your issue? Try searching or posting in the <a href="http://groups.google.com/group/tubepress-users">TubePress
+                discussion forum</a>, hosted by Google Groups. You'll need a Google account to post.
             </p>
             <h2>5.3 Open a trouble ticket</h2>
             <p>
@@ -941,8 +941,8 @@ Patches are always welcome! You'll receive full credit for your contribution, of
 
             </ol>
             <p>
-                You will, of course, receive full credit for your contribution to an open source project! If you’re interested in the gory details of
-                how it works, I highly recommend reading WordPress’s <a rel="nofollow" href=
+                You will, of course, receive full credit for your contribution to an open source project! If you're interested in the gory details of
+                how it works, I highly recommend reading WordPress's <a rel="nofollow" href=
                 "http://codex.wordpress.org/Translating_WordPress">excellent i18n documentation</a>.
             </p>
 	    <h2>6.3 Donate</h2>
