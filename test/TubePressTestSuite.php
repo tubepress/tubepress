@@ -6,7 +6,13 @@ include dirname(__FILE__) . "/../tubepress_classloader.php";
 require_once "common/class/TubePressVideoTest.php";
 require_once "common/class/util/TubePressStringUtilsTest.php";
 require_once "common/class/util/TubePressShortcodeTest.php";
-require_once "common/class/options/TubePressStorageManagerTest.php";
+require_once "common/class/options/SimpleTubePressOptionsManagerTest.php";
+require_once "common/class/options/TubePressValidatorTest.php";
+require_once "common/class/options/category/TubePressAdvancedOptionsTest.php";
+
+function __($key) {
+	return $key;
+}
 
 class TubePressTestSuite
 {
@@ -16,7 +22,9 @@ class TubePressTestSuite
 		$suite->addTestSuite("TubePressVideoTest");
 		$suite->addTestSuite("TubePressStringUtilsTest");
 		$suite->addTestSuite("TubePressShortcodeTest");
-		$suite->addTestSuite("TubePressStorageManagerTest");
+		$suite->addTestSuite("SimpleTubePressOptionsManagerTest");
+		$suite->addTestSuite("TubePressValidatorTest");
+		$suite->addTestSuite("TubePressAdvancedOptionsTest");
 		return $suite;
 	}
 }
