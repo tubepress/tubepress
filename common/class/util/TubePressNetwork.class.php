@@ -74,7 +74,7 @@ class TubePressNetwork
         if (!PEAR::isError($call)) {
             $data = $req->getResponseBody();
         } else {
-        	throw new Exception($call->getMessage());
+        	throw new Exception("Couldn't connect to YouTube");
         }
         return $data;
     }

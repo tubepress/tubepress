@@ -14,19 +14,20 @@ function tp_main($content = '')
 }
 
 function _tp_main($content) {
-	
+
 	$wpsm = new WordPressStorageManager();
     $trigger = $wpsm->get(TubePressAdvancedOptions::KEYWORD);
     if (!TubePressShortcode::somethingToParse($content, $trigger)) {
 	    return $content;
 	}
-	
+
 	/* Store everything we generate in the following string */
     $newcontent = $content;
     
     while (TubePressShortcode::somethingToParse($newcontent, $trigger)) {
-    	
-	    $tpom = new TubePressOptionsManager($wpsm);
+ 
+	    $tpom = new SimpleTubePressOptionsManager();
+	    $tpom->setStorageManager($wpsm);
 	    TubePressShortcode::parse($newcontent, $tpom);
 	        
 	    if (TubePressDebug::areWeDebugging($tpom)) {
@@ -35,9 +36,9 @@ function _tp_main($content) {
 
 	    $modeName = $tpom->get(TubePressGalleryOptions::MODE);
 	    $gallery = new TubePressGallery();
-	
+	    
 	    /* replace the tag with our new content */
-	    $newcontent = TubePressStringUtils::replaceFirst($tpom->getTagString(), 
+	    $newcontent = TubePressStringUtils::replaceFirst($tpom->getShortcode(), 
 	        $gallery->generate($tpom), $newcontent);
     }
     

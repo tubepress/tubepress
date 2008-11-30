@@ -43,7 +43,7 @@ class TubePressShortcode
         $regexp = '\[' . $keyword . "(.*)\]";
         preg_match("/$regexp/", $content, $matches);
         
-        $tpom->setTagString($matches[0]);
+        $tpom->setShortcode($matches[0]);
         
         /* Anything matched? */
         if (!isset($matches[1]) || $matches[1] == "") {
@@ -64,7 +64,7 @@ class TubePressShortcode
         $tpom->setCustomOptions($customOptions);
     }
 
-    public static function somethingToParse($content, $trigger)
+    public static function somethingToParse($content, $trigger = "tubepress")
     {
     	return strpos($content, '[' . $trigger) !== false;
     }

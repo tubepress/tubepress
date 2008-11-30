@@ -19,31 +19,27 @@
  *
  */
 
-class WordPressStorageManager extends AbstractTubePressStorageManager
+/**
+ * Holds the current options for TubePress. This is the default options,
+ * usually in persistent storage somewhere, and custom options parsed
+ * from a shortcode
+ */
+abstract class AbstractTubePressOptionsManager implements TubePressOptionsManager
 {
-    protected function setOption($optionName, $optionValue)
-    {
-        update_option("tubepress-$optionName", $optionValue);
-    }
-    
-    public function get($optionName)
-    {
-        return get_option("tubepress-$optionName");
-    }
-    
-    protected function delete($optionName)
-    {
-        delete_option($optionName);
-    }
-    
-    protected function create($optionName, $optionValue)
-    {
-        add_option("tubepress-$optionName", $optionValue);
-    }
-    
-    public function exists($optionName)
-    {
-        return get_option("tubepress-$optionName") !== FALSE;
+    public static function getAllOptionNames() {
+    	
+    	$allCategories = array("TubePressAdvancedOptions", "TubePressDisplayOptions",
+    	    "TubePressEmbeddedOptions", "TubePressGalleryOptions",
+    	    "TubePressMetaOptions", "TubePressWidgetOptions");
+    	
+    	$allOpts = array();
+    	foreach ($allCategories as $category) {
+    		$class = new ReflectionClass($category);
+    		foreach ($class->getConstants() as $constant) {
+    			array_push($allOpts, $constant);
+    		}
+    	}
+    	
+    	return $allOpts;
     }
 }
-?>

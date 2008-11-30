@@ -24,9 +24,29 @@
  * usually in persistent storage somewhere, and custom options parsed
  * from a shortcode
  */
-interface TubePressOptionsManager
+class SimpleTubePressOptionsManager extends AbstractTubePressOptionsManager
 {
-   
+    /**
+     * Enter description here...
+     *
+     * @var array
+     */
+    private $_customOptions = array();
+    
+    /**
+     * Enter description here...
+     *
+     * @var TubePressStorageManager
+     */
+    private $_tpsm;
+    
+    /**
+     * The shortcode currently in use
+     *
+     * @var string
+     */
+    private $_shortcode;
+    
     /**
      * Gets the value of an option
      *
@@ -34,7 +54,13 @@ interface TubePressOptionsManager
      * 
      * @return unknown The option value
      */
-    public function get($optionName);
+    public function get($optionName)
+    {
+        if (array_key_exists($optionName, $this->_customOptions)) {
+            return $this->_customOptions[$optionName];
+        }
+        return $this->_tpsm->get($optionName);
+    }
     
     /**
      * Enter description here...
@@ -43,7 +69,10 @@ interface TubePressOptionsManager
      * 
      * @return void
      */
-    public function setCustomOptions(array $customOpts);
+    public function setCustomOptions(array $customOpts)
+    {
+        $this->_customOptions = array_merge($this->_customOptions, $customOpts);
+    }
     
     /**
      * Enter description here...
@@ -52,16 +81,23 @@ interface TubePressOptionsManager
      * 
      * @return void
      */
-    public function setShortcode($newTagString);
+    public function setShortcode($newTagString)
+    {
+        $this->_shortcode = $newTagString;
+    }
     
     /**
      * Enter description here...
      *
      * @return string The full shortcode
      */
-    public function getShortcode();
+    public function getShortcode()
+    {
+        return $this->_shortcode;
+    }
     
-    public static function getAllOptionNames();
-    
-    public function setStorageManager(TubePressStorageManager $tpsm);
+    public function setStorageManager(TubePressStorageManager $tpsm)
+    {
+    	$this->_tpsm = $tpsm;
+    }
 }
