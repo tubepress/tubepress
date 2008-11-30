@@ -75,7 +75,7 @@ class TubePressVideo
      */
     public function getDefaultThumbURL()
     {
-        return $this->_getSpecificThumbURL(0);
+        return "http://img.youtube.com/vi/" . $this->getId() . "/default.jpg";
     }
     
     /**
