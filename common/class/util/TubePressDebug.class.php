@@ -45,12 +45,13 @@ class TubePressDebug
            return;
         }
 
+        $builder = new SimpleTubePressUrlBuilder();
         $debugStuff = array("tubepress_base_url" => $tubepress_base_url,
     	    "Options manager" => print_r($tpom, true),
     	    "Storage manager" => $tpsm->debug(),
             "YouTube connection test" => "Click <a href=\"" . $tubepress_base_url . 
                 "/common/class/util/TubePressConnectionTest.php\">here</a> to view results",
-            "Request URL" => TubePressGalleryUrl::get($tpom));
+            "Request URL" => $builder->buildGalleryUrl($tpom));
         
         foreach ($debugStuff as $key => $val) {
         	$tpl->setVariable("ELEMENT_TITLE", $key);

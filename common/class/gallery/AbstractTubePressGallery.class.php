@@ -35,7 +35,15 @@ function_exists("sys_get_temp_dir")
  */
 abstract class AbstractTubePressGallery
 {
-    
+	private $_gdataService;
+    private $_urlBuilder;
+	
+	function __construct()
+	{
+		$this->_gdataService = new SimpleTubePressGdataService();
+		$this->_urlBuilder = new SimpleTubePressUrlBuilder();
+	}
+	
     /**
      * Generates the content of this gallery
      * 
@@ -53,7 +61,9 @@ abstract class AbstractTubePressGallery
         }
         
         /* get the videos as an array */
-        $xml = TubePressNetwork::getRss($tpom);
+        $url = $this->_urlBuilder->buildGalleryUrl($tpom);
+        $cacheEnabled = $tpom->get(TubePressAdvancedOptions::CACHE_ENABLED);
+        $xml = $this->_gdataService->fetch($url, $cacheEnabled);
 
         TubePressGallery::_countResults($xml, $totalResults, $thisResult);
         
@@ -261,6 +271,10 @@ abstract class AbstractTubePressGallery
     	}
     	
 		return $toReturn;
+    }
+    
+    public function setTubePressNetwork(TubePressNetwork $tpn) {
+    	$this->_tubePressNetwork = $tpn;
     }
 
 }

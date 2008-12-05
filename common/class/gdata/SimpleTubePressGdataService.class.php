@@ -23,7 +23,7 @@
  * Represents an HTML-embeddable YouTube player
  *
  */
-class TubePressNetwork
+class SimpleTubePressGdataService implements TubePressGdataService
 {
     
     /**
@@ -33,26 +33,23 @@ class TubePressNetwork
      * 
      * @return DOMDocument The raw RSS from YouTube
      */
-    public static function getRss(TubePressOptionsManager $tpom)
-    {
-        /* First generate the request URL */
-        $request = TubePressGalleryUrl::get($tpom);
-        
+    public function fetch($url, $useCache)
+    {   
         $data = "";
-        if ($tpom->get(TubePressAdvancedOptions::CACHE_ENABLED)) {
+        if ($useCache) {
         	/* get a handle to the cache */
         	$cache = new Cache_Lite(array("cacheDir" => sys_get_temp_dir()));
         	
             /* cache miss? */
-            if (!($data = $cache->get($request))) {
+            if (!($data = $cache->get($url))) {
         	
         	    /* go out and grab the response */
-                $data = TubePressNetwork::_fetchFromNetwork($request);
+                $data = $this->_fetchFromNetwork($url);
                 /* and save it to the cache for next time */
-          	    $cache->save($data, $request);
+          	    $cache->save($data, $url);
             }
         } else {
-        	$data = TubePressNetwork::_fetchFromNetwork($request);
+        	$data = $this->_fetchFromNetwork($url);
         }
 
         $doc = new DOMDocument();
@@ -67,8 +64,9 @@ class TubePressNetwork
         return $doc;
     }
     
-    private static function _fetchFromNetwork($request) {
+    private function _fetchFromNetwork($request) {
     	$data = "";
+    	$request = str_replace("&amp;", "&", $request);
     	$req = new HTTP_Request($request);
     	$call = $req->sendRequest();
         if (!PEAR::isError($call)) {
@@ -76,6 +74,7 @@ class TubePressNetwork
         } else {
         	throw new Exception("Couldn't connect to YouTube");
         }
+        $req->disconnect();
         return $data;
     }
 }

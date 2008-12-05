@@ -23,7 +23,7 @@
  * Returns the YouTube query URL based on which mode we're in
  *
  */
-class TubePressGalleryUrl
+class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
 {
     /**
      * The main logic in this class
@@ -32,7 +32,7 @@ class TubePressGalleryUrl
      * 
      * @return string The YouTube request URL for this mode
      */
-    public function get(TubePressOptionsManager $tpom)
+    public function buildGalleryUrl(TubePressOptionsManager $tpom)
     {
         $url = "";
         
@@ -86,7 +86,7 @@ class TubePressGalleryUrl
         case TubePressGallery::TAG:
             $tags = $tpom->get(TubePressGalleryOptions::TAG_VALUE);
             $tags = explode(" ", $tags);
-            $url  = "videos?vq=" . implode("+", $tags);
+            $url  = "videos?q=" . implode("+", $tags);
             break;
                                 
         default:
@@ -95,7 +95,7 @@ class TubePressGalleryUrl
         }
 
         $request = "http://gdata.youtube.com/feeds/api/$url";
-        TubePressGalleryUrl::_urlPostProcessing($request,
+        $this->_urlPostProcessing($request,
             $tpom);
         return $request;
     }
@@ -140,5 +140,16 @@ class TubePressGalleryUrl
         $requestURL->addQueryString("key", $tpom->get(TubePressAdvancedOptions::DEV_KEY));
         
         $request = $requestURL->getURL();
+    }
+    
+    public function buildSingleVideoUrl($id, $tpom)
+    {
+    	$requestURL = new Net_URL("http://gdata.youtube.com/feeds/api/videos");
+    	$requestURL->addQueryString("q", $id);
+    	$requestURL->addQueryString("max-results", 1);
+    	$requestURL->addQueryString("client", $tpom->get(TubePressAdvancedOptions::CLIENT_KEY));
+        $requestURL->addQueryString("key", $tpom->get(TubePressAdvancedOptions::DEV_KEY));
+        
+       	return $requestURL->getURL();
     }
 }
