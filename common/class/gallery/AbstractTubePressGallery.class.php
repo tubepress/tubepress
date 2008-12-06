@@ -23,25 +23,20 @@
 function_exists("diggstyle_getPaginationString")
     || require dirname(__FILE__) . "/../../../lib/diggstyle_function.php";
 
-/* 
- * thanks to shickm for this...
- * http://code.google.com/p/tubepress/issues/detail?id=27
-*/
-function_exists("sys_get_temp_dir")
-    || require dirname(__FILE__) . "/../../../lib/sys_get_temp_dir.php";
-
 /**
  * Parent class of all TubePress galleries
  */
 abstract class AbstractTubePressGallery
 {
+	private $_cache;
 	private $_gdataService;
     private $_urlBuilder;
 	
 	function __construct()
 	{
-		$this->_gdataService = new SimpleTubePressGdataService();
-		$this->_urlBuilder = new SimpleTubePressUrlBuilder();
+		$this->_cache 			= new SimpleTubePressCacheService();
+		$this->_gdataService 	= new SimpleTubePressGdataService();
+		$this->_urlBuilder 		= new SimpleTubePressUrlBuilder();
 	}
 	
     /**
@@ -63,7 +58,12 @@ abstract class AbstractTubePressGallery
         /* get the videos as an array */
         $url = $this->_urlBuilder->buildGalleryUrl($tpom);
         $cacheEnabled = $tpom->get(TubePressAdvancedOptions::CACHE_ENABLED);
-        $xml = $this->_gdataService->fetch($url, $cacheEnabled);
+        $xml = "";
+        if ($cacheEnabled && $this->_cache->has($url)) {
+        	$xml = $this->_cache->get($url);
+        } else {
+        	$xml = $this->_gdataService->fetch($url, $cacheEnabled);	
+        }
 
         TubePressGallery::_countResults($xml, $totalResults, $thisResult);
         
@@ -271,10 +271,6 @@ abstract class AbstractTubePressGallery
     	}
     	
 		return $toReturn;
-    }
-    
-    public function setTubePressNetwork(TubePressNetwork $tpn) {
-    	$this->_tubePressNetwork = $tpn;
     }
 
 }

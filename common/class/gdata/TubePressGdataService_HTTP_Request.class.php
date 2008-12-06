@@ -25,9 +25,9 @@
  */
 class SimpleTubePressGdataService implements TubePressGdataService
 {
-    
+	
     /**
-     * Fetches the RSS from YouTube (or from cache)
+     * Fetches the RSS from YouTube
      * 
      * @param TubePressOptionsManager $tpom The TubePress options manager
      * 
@@ -35,22 +35,7 @@ class SimpleTubePressGdataService implements TubePressGdataService
      */
     public function fetch($url, $useCache)
     {   
-        $data = "";
-        if ($useCache) {
-        	/* get a handle to the cache */
-        	$cache = new Cache_Lite(array("cacheDir" => sys_get_temp_dir()));
-        	
-            /* cache miss? */
-            if (!($data = $cache->get($url))) {
-        	
-        	    /* go out and grab the response */
-                $data = $this->_fetchFromNetwork($url);
-                /* and save it to the cache for next time */
-          	    $cache->save($data, $url);
-            }
-        } else {
-        	$data = $this->_fetchFromNetwork($url);
-        }
+        $data = $this->_fetchFromNetwork($url);
 
         $doc = new DOMDocument();
     

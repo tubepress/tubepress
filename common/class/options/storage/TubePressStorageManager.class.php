@@ -24,17 +24,23 @@
  *
  */
 interface TubePressStorageManager
-{
+{   
     /**
-     * Sets an option value
+     * Enter description here...
      *
-     * @param string       $optionName  The option name
-     * @param unknown_type $optionValue The option value
-     * 
      * @return void
      */
-    public function set($optionName, $optionValue);
+    public function debug();    
     
+    /**
+     * Determines if an option exists
+     *
+     * @param string $optionName The name of the option in question
+     * 
+     * @return boolean True if the option exists, false otherwise
+     */
+    public function exists($optionName);
+	
     /**
      * Initializes the storage
      *
@@ -51,19 +57,13 @@ interface TubePressStorageManager
      */
     public function get($optionName);
     
-    /**
-     * Determines if an option exists
+        /**
+     * Sets an option value
      *
-     * @param string $optionName The name of the option in question
+     * @param string       $optionName  The option name
+     * @param unknown_type $optionValue The option value
      * 
-     * @return boolean True if the option exists, false otherwise
-     */
-    public function exists($optionName);
-    
-    /**
-     * Enter description here...
-     *
      * @return void
      */
-    public function debug();
+    public function set($optionName, $optionValue);
 }
