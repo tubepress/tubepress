@@ -20,10 +20,10 @@
  */
 
 /**
- * Represents an HTML-embeddable YouTube player
+ * Implementation of TubePressGdataService that uses PEAR's HTTP_Request class
  *
  */
-class SimpleTubePressGdataService implements TubePressGdataService
+class TubePressGdataService_HTTP_Request implements TubePressGdataService
 {
 	
     /**
