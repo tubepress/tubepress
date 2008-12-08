@@ -110,7 +110,7 @@ class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
      * 
      * @return void
      */
-    private function _urlPostProcessing($request)
+    private function _urlPostProcessing(&$request)
     {
         
         $perPage = $this->_tpom->get(TubePressDisplayOptions::RESULTS_PER_PAGE);
@@ -131,7 +131,7 @@ class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
       
         //TODO: this is ugly and stupid, in that order
         if ($mode != TubePressGallery::PLAYLIST
-        	&& $this->_tpom->get(TubePressDisplayOptions::ORDER_BY) != "random") {
+        	&& $order != "random") {
             $requestURL->addQueryString("orderby", $order);
         }
         
