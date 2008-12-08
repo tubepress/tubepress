@@ -69,5 +69,10 @@ class TPlightWindowPlayer extends TubePressPlayer
             'params="lightwindow_width=%s,lightwindow_height=%s"', 
             $url->getURL(), $title, $width, $height);
     }
+    
+    public function getPreGalleryHtml(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    {
+    	return "";
+    }
 }
 ?>

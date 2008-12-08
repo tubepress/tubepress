@@ -20,21 +20,19 @@
  */
 
 /**
- * Widget galleries
+ * Examines the feed results
+ *
  */
-class TubePressWidgetGallery extends AbstractTubePressGallery
-{
-    /**
-     * Generates the content of this gallery
-     * 
-     * @param TubePressOptionsManager $tpom The TubePress options 
-     *        manager containing all the user's options
-     * 
-     * @return The HTML content for this gallery
-     */
-    public static final function generate(TubePressOptionsManager $tpom)
+class SimpleTubePressFeedInspectionService implements TubePressFeedInspectionService
+{   
+    public function getTotalResultCount(DOMDocument $dom)
     {
-    	$this->setCommonInterfaces($tpom);
-        return parent::generateThumbs("widget_gallery.tpl.html");   
+    	return $dom->getElementsByTagNameNS('http://a9.com/-/spec' . 
+            '/opensearchrss/1.0/', 'totalResults')->item(0)->nodeValue;	
+    }
+    
+    public function getQueryResultCount(DOMDocument $dom)
+    {
+    	return $dom->getElementsByTagName('entry')->length;
     }
 }

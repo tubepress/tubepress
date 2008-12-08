@@ -24,48 +24,56 @@
  */
 class TubePressVideo
 {
-
-    private $_domElement;
-    private $_mediaGroup;
-    private $_processedAlready = array();
-
-    const NS_MEDIA = 'http://search.yahoo.com/mrss/';
-    const NS_YT    = 'http://gdata.youtube.com/schemas/2007';
-    const NS_GD    = 'http://schemas.google.com/g/2005';
+    private $_author;
+    private $_category;
+    private $_thumbUrls;
+    private $_description;
+    private $_id;
+    private $_rating;
+    private $_ratings;
+    private $_length;
+    private $_tags;
+    private $_title;
+    private $_uploadTime;
+    private $_youTubeUrl;
+    private $_views;
     
-    /**
-     * Constructor
-     *
-     * @param DOMElement   $rss     The raw XML of what we got from YouTube
-     * 
-     * @return TubePressVideo
-     */
-    public function TubePressVideo(DOMElement $rss)
-    {   
-        $this->_domElement = $rss;
-        $this->_mediaGroup = 
-            $this->_domElement->getElementsByTagNameNS(TubePressVideo::NS_MEDIA, 
-                'group')->item(0);
-    }
-
+    public function getAuthor() {      return $this->_author; }
+    public function getCategory() {    return $this->_category; }
+    public function getThumbUrls() {   return $this->_thumbUrls; }
+    public function getDescription() { return $this->_description; }
+    public function getId() {          return $this->_id; }
+    public function getRating() {      return $this->_rating; }
+    public function getRatings() {     return $this->_ratings; }
+    public function getLength() {      return $this->_length; }
+    public function getTags() {        return $this->_tags; }
+    public function getTitle() {       return $this->_title; }
+    public function getUploadTime() {  return $this->_uploadTime; }
+    public function getYouTubeUrl() {  return $this->_youTubeUrl; }
+    public function getViews() {       return $this->_views; }
+    
+    public function setAuthor($author) {             $this->_author = $author; }
+    public function setCategory($category) {         $this->_category = $category; }
+    public function setThumbUrls(array $thumbUrls) { $this->_thumbUrls = $thumbUrls; }
+    public function setDescription($description) {   $this->_description = $description; }
+    public function setId($id) {                     $this->_id = $id; }
+    public function setRating($rating) {             $this->_rating = $rating; }
+    public function setRatings($ratings) {           $this->_ratings = $ratings; }
+    public function setLength($length) {             $this->_length = $length; }
+    public function setTags(array $tags) {           $this->_tags = $tags; }
+    public function setTitle($title) {               $this->_title = $title; }
+    public function setUploadTime($uploadTime) {     $this->_uploadTime = $uploadTime; }
+    public function setYouTubeUrl($youTubeUrl) {     $this->_youTubeUrl = $youTubeUrl; }
+    public function setViews($views) {               $this->_views = $views; }
+    
     /**
      * Enter description here...
      *
      * @return unknown
      */
-    public function getAuthor()
+    public function getRandomThumbURL()
     {
-        return $this->_quickGet("author");
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    public function getCategory()
-    {
-        return $this->_quickGet("category");
+        return array_rand($this->getThumbUrls());
     }
     
     /**
@@ -78,360 +86,5 @@ class TubePressVideo
         return "http://img.youtube.com/vi/" . $this->getId() . "/default.jpg";
     }
     
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    public function getDescription()
-    {
-        return $this->_quickGet("description");
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    public function getId()
-    { 
-        return $this->_quickGet("id");
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    public function getRandomThumbURL()
-    {   
-        $thumbs = 
-            $this->_mediaGroup->getElementsByTagNameNS(TubePressVideo::NS_MEDIA, 
-                'thumbnail');
-        $random = rand(0, $thumbs->length - 1);
-        return $thumbs->item($random)->getAttribute('url');
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    public function getRatingAverage()
-    { 
-        return $this->_quickGet("rating"); 
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    public function getRatingCount()
-    { 
-        return $this->_quickGet("ratings"); 
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    public function getRuntime()
-    { 
-        return $this->_quickGet("runtime"); 
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    public function getTags()
-    { 
-        return $this->_quickGet("tags"); 
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    public function getTitle()
-    { 
-        return $this->_quickGet("title"); 
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    public function getUploadTime()
-    { 
-        return $this->_quickGet("uploaded"); 
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    public function getURL()
-    { 
-        return $this->_quickGet("url"); 
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    public function getViewCount() 
-    { 
-        return $this->_quickGet("views"); 
-    }
-
-    /*
-     * -----------------------------------------------------------------------
-     * PRIVATE METHODS -------------------------------------------------------
-     * -----------------------------------------------------------------------
-     */
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    private function _getAuthor()
-    {
-        $authorNode = $this->_domElement->getElementsByTagName('author')->item(0);
-        return $authorNode->getElementsByTagName('name')->item(0)->nodeValue;
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    private function _getCategory() 
-    {
-        return trim($this->_domElement->getElementsByTagNameNS(TubePressVideo::NS_MEDIA,
-            'category')->item(0)->nodeValue);
-        
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    private function _getDescription() 
-    {
-        return trim($this->_mediaGroup->getElementsByTagNameNS(TubePressVideo::NS_MEDIA,
-            'description')->item(0)->nodeValue);
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    private function _getId()
-    {   
-        $thumb = 
-             $this->_domElement->getElementsByTagNameNS(TubePressVideo::NS_MEDIA,
-                 "thumbnail")->item(0);
-        $id = $thumb->getAttribute("url");
-        $id = substr($id, 0, strrpos($id, "/"));
-        $id = substr($id, strrpos($id, "/") + 1);
-        return $id;
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    private function _getRating()
-    {
-        $count = $this->_domElement->getElementsByTagNameNS(TubePressVideo::NS_GD,
-            'rating')->item(0);
-        if ($count != null) {
-            return $count->getAttribute('average');
-        }
-        return "N/A";
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    private function _getRatings() 
-    {
-        $count = $this->_domElement->getElementsByTagNameNS(TubePressVideo::NS_GD,
-            'rating')->item(0);
-        if ($count != null) {
-            return number_format($count->getAttribute('numRaters'));
-        }
-        return "0";
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    private function _getRuntime() 
-    {
-        $duration = 
-            $this->_mediaGroup->getElementsByTagNameNS(TubePressVideo::NS_YT,
-                'duration')->item(0);
-        return 
-            TubePressVideo::_seconds2HumanTime($duration->getAttribute('seconds'));
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    private function _getTags() 
-    {
-        $rawKeywords = 
-            $this->_mediaGroup->getElementsByTagNameNS(TubePressVideo::NS_MEDIA,
-                'keywords')->item(0);
-        return trim(str_replace(',', '', $rawKeywords->nodeValue));
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    private function _getTitle() 
-    {
-        $title = 
-            $this->_domElement->getElementsByTagName('title')->item(0)->nodeValue;
-        return htmlspecialchars($title, ENT_QUOTES);
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    private function _getUploaded() 
-    {
-        $publishedNode = $this->_domElement->getElementsByTagName('published');
-        if ($publishedNode->length == 0) {
-            return "N/A";
-        }
-        $views = $publishedNode->item(0);
-        return TubePressVideo::_rfc3339toHumanTime($views->nodeValue);
-        
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    private function _getUrl() 
-    {
-        $links = $this->_domElement->getElementsByTagName('link');
-        for ($x = 0; $x < $links->length; $x++) {
-            $link = $links->item($x);
-            if ($link->getAttribute('rel') != 'alternate') {
-                continue;
-            }
-            return $link->getAttribute('href');
-        }
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @return unknown
-     */
-    private function _getViews()
-    {
-        $stats = $this->_domElement->getElementsByTagNameNS(TubePressVideo::NS_YT,
-            'statistics')->item(0);
-        if ($stats != null) {
-            return number_format($stats->getAttribute('viewCount'));
-        } else {
-            return "N/A";
-        }
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @param unknown_type $which ?
-     * 
-     * @return unknown
-     */
-    private function _getSpecificThumbURL($which)
-    {
-        $thumbs = 
-            $this->_mediaGroup->getElementsByTagNameNS(TubePressVideo::NS_MEDIA,
-                'thumbnail');
-        return $thumbs->item($which)->getAttribute('url');
-    }
-
-
-    /**
-     * Converts gdata timestamps to human readable
-     * 
-     * @param string $rfc3339 The RFC 3339 format of time
-     * 
-     * @return string Human time format
-     */
-    private static function _rfc3339toHumanTime($rfc3339)
-    {
-        $tmp = str_replace("T", " ", $rfc3339);
-        $tmp = ereg_replace("(\.[0-9]{1,})?", "", $tmp);
-
-        $datetime = substr($tmp, 0, 19);
-        $timezone = str_replace(":", "", substr($tmp, 19, 6));
-        return strtotime($datetime . " " . $timezone);
-    }
-
-    /**
-     * Converts seconds to minutes and seconds
-     * 
-     * @param string $length_seconds The runtime of a video, in seconds
-     * 
-     * @return string Human time format
-     */
-    private static function _seconds2HumanTime($length_seconds)
-    {
-        $seconds         = $length_seconds;
-        $length          = intval($seconds / 60);
-        $leftOverSeconds = $seconds % 60;
-        if ($leftOverSeconds < 10) {
-            $leftOverSeconds = "0" . $leftOverSeconds;
-        }
-        $length .= ":" . $leftOverSeconds;
-        return $length;
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @param unknown_type $member ?
-     * 
-     * @return unknown
-     */
-    private function _quickGet($member) 
-    {
-        if (!isset($this->_processedAlready[$member])) {
-            $this->_processedAlready[$member] = 
-                call_user_func(array($this, '_get' . ucwords($member)));
-        }
-        return $this->_processedAlready[$member];
-    }
 }
 ?>

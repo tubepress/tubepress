@@ -19,17 +19,14 @@
  *
  */
 
+
 /**
- * TubePress's network interface
+ * Handles the parsing of the meta info below each video thumbnail
  *
  */
-interface TubePressGdataService
+interface TubePressThumbnailService
 {
+    public function getHtml(TubePressVideo $vid, TubePressPlayer $player);
     
-    /**
-     * Fetches the RSS from YouTube (or from cache)
-     * 
-     * @return DOMDocument The raw RSS from YouTube
-     */
-    public function fetch($url, $useCache);
+    public function setOptionsManager(TubePressOptionsManager $tpom);
 }

@@ -232,9 +232,34 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
             <p>
                 Of course, like any <a href="#toc-shortcodes">TubePress shortcode</a>, you can override any setting you like.
             </p>
-            <a name="toc-shortcodes" />
+           <h1>4. TubePress Pro</h1>
+           <pre>
+1.  &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+2.        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+3.  &lt;?php 
+4. 		
+5. 		<strong>$tubepress_base_url = "http://example.com/libraries/tubepress/";</strong>
+6. 
+7. 	 	<strong>require_once "tubepress/tubepress-standalone.php";</strong>
+8. 
+9.  ?&gt;
+10. 
+11. &lt;html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"&gt;
+12. 	&lt;head&gt;
+13. 		&lt;title&gt;TubePress Standalone Example&lt;/title&gt;
+14. 		&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;
+15. 		
+16. 		<strong>&lt;?php print tubepressHeadElements(); ?&gt;</strong>
+17.     &lt;/head&gt;
+18.     &lt;body&gt;
+19. 		&lt;div style="width:500px"&gt;	
+20. 			<strong>&lt;?php print tubepressGallery("resultsPerPage='3', mode='featured'"); ?&gt;</strong>
+21. 		&lt;/div&gt;
+22. 	&lt;/body&gt;
+23. &lt;/html&gt;
+</pre>
             <h1><a name="shortcodes">
-               4. TubePress Shortcodes
+               5. TubePress Shortcodes
                </a>
             </h1>
 
@@ -266,7 +291,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
 [tubepress mode='favorites', favoritesValue='3hough', resultsPerPage='10', description='true', playerLocation='lightwindow']
 </pre>
             <h2>
-                4.1 Gallery Options
+                5.1 Gallery Options
             </h2>
             <p>
                 These settings control which group of videos the gallery will display.
@@ -312,7 +337,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
             </table>
             <h3>
 
-                4.1.1 Gallery Descriptions
+                5.1.1 Gallery Descriptions
             </h3>
             <table>
             	<thead><tr><th>Mode name</th><th>Description</th></tr></thead>
@@ -333,7 +358,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
 </tbody></table>
                
             <h2>
-                4.2 Video Display Options
+                5.2 Video Display Options
             </h2>
             <p>
                 These settings control the overall viewing experience for the user
@@ -354,7 +379,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                             <tt>playerLocation</tt>
                         </td>
                         <td>
-                            How the user will view each video. See secion 4.2.1 for descriptions of these values.
+                            How the user will view each video. See secion 5.2.1 for descriptions of these values.
                         </td>
                         <td>
                             <tt>normal</tt><br /><tt>popup</tt><br /><tt>youtube</tt>
@@ -430,7 +455,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                     </tr>
                 </tbody>
             </table>
-            <h3>4.2.1 Video Players</h3>
+            <h3>5.2.1 Video Players</h3>
              <table>
             	<thead><tr><th>Player name</th><th>Description</th></tr></thead>
             	<tbody>
@@ -443,7 +468,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
 </tbody></table>
                
             <h2>
-               4.3 Embedded Player Options
+               5.3 Embedded Player Options
             </h2>
             <p>
                 These settings apply to the embedded Flash player from YouTube
@@ -588,7 +613,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                 </tbody>
             </table>
             <h2>
-               4.4 Video Meta Display
+               5.4 Video Meta Display
             </h2>
             <p>
                 These settings control what information gets printed out below each video thumbnail
@@ -796,7 +821,7 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                 </tbody>
             </table>
             <h2>
-               4.5 Advanced Options
+               5.5 Advanced Options
             </h2>
             <p>
                 Various features that casual users will not likely need/want to adjust
@@ -881,10 +906,10 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
 
             </table>
             <h1>
-               5. Troubleshooting
+               6. Troubleshooting
             </h1>
             <h2>
-                <a name="debug">5.1 Enable debug mode</a>
+                <a name="debug">6.1 Enable debug mode</a>
             </h2>
             <p>
                 This mode will print out tons of debugging information. To use it, you just need to add <tt>tubepress_debug=true</tt> to the URL
@@ -897,26 +922,26 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
 		You should see the debugging information displayed above any galleries you have. The following image shows generally what you can expect to see
             
 		<p><img src="images/debugging_output.png" /></p>
-	    <h2> 5.2 YouTube Connection Test</h2>
-		Some web servers place restrictions on what PHP scripts are allowed to execute. TubePress needs the ability to open network connections to remote servers. One way to verify that TubePress has this ability is to run the YouTube connection test. You can find a link to the test in the debug output (see section 5.1). The test will attempt to retrieve the HTML content of YouTube's homepage, and then it will execute a sample video query against YouTube's API. The result of the latter will be printed to the screen as plain XML.
+	    <h2> 6.2 YouTube Connection Test</h2>
+		Some web servers place restrictions on what PHP scripts are allowed to execute. TubePress needs the ability to open network connections to remote servers. One way to verify that TubePress has this ability is to run the YouTube connection test. You can find a link to the test in the debug output (see section 6.1). The test will attempt to retrieve the HTML content of YouTube's homepage, and then it will execute a sample video query against YouTube's API. The result of the latter will be printed to the screen as plain XML.
             <h2>
-               5.2 Discussion Forum
+               6.2 Discussion Forum
             </h2>
             <p>
                 Still can't solve your issue? Try searching or posting in the <a href="http://groups.google.com/group/tubepress-users">TubePress
                 discussion forum</a>, hosted by Google Groups. You'll need a Google account to post.
             </p>
-            <h2>5.3 Open a trouble ticket</h2>
+            <h2>6.3 Open a trouble ticket</h2>
             <p>
             	If you can't find a solution to your problem in the discussion forum, someone may have already submitted a trouble ticket. The current list
             	of tickets can be found at <a href="http://code.google.com/p/tubepress/issues/list">http://code.google.com/p/tubepress/issues/list</a>. Please
             	feel free to submit a trouble ticket. Note that you'll need a Google account.
             </p>
             <h1>
-               6. Contributing
+               7. Contributing
             </h1>
             
-<h2>6.1 Submit a patch</h2>
+<h2>7.1 Submit a patch</h2>
 Patches are always welcome! You'll receive full credit for your contribution, of course. Here's how to submit
 <ol><li>Checkout the trunk version of TubePress (see section 2.2)</li>
 <li>Generate your patch against it</li>
@@ -924,7 +949,7 @@ Patches are always welcome! You'll receive full credit for your contribution, of
 </ol>
 
  <h2>
-               6.2 I18N
+               7.2 I18N
             </h2>
             <p>
                 As of version 1.6.5, TubePress can be translated into any language using the <a rel="nofollow" href=
@@ -947,7 +972,7 @@ Patches are always welcome! You'll receive full credit for your contribution, of
                 how it works, I highly recommend reading WordPress's <a rel="nofollow" href=
                 "http://codex.wordpress.org/Translating_WordPress">excellent i18n documentation</a>.
             </p>
-	    <h2>6.3 Donate</h2>
+	    <h2>7.3 Donate</h2>
 	    	<p>
 			TubePress is an open source project. I've spent many long nights working on this project. If you enjoy the software, please consider a donation. No amount is too small. Thanks!</p><form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 

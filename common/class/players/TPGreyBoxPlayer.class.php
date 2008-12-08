@@ -70,5 +70,10 @@ class TPGreyBoxPlayer extends TubePressPlayer
             'rel="gb_page_center[%s, %s]"',
             $url->getURL(), $title, $width, $height);
     }
+    
+    public function getPreGalleryHtml(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    {
+    	return "";
+    }
 }
 ?>

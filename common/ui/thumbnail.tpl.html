@@ -1,0 +1,44 @@
+<div class="tubepress_thumb">
+	<div class="tubepress_video_thumb_inner" style="width: {THUMBWIDTH}px">
+		<a {IMAGEPLAYLINK}> <img alt="{IMAGETITLE}" src="{THUMBURL}" width="{THUMBWIDTH}" height="{THUMBHEIGHT}" /></a>
+		
+		<div class="tubepress_meta_group">
+	
+			<!-- BEGIN title -->
+			<div class="tubepress_stitle"><a {PLAYLINK}>{TITLE}</a><br /></div>
+			<!-- END title -->
+
+			<!-- BEGIN runtime -->
+			<span class="tubepress_runtime"> {RUNTIME} </span><br />
+			<!-- END runtime -->
+			
+			<!--  BEGIN author -->
+			<span class="tubepress_meta">{METANAME}: </span>
+			<a {NOFOLLOW} href="http://www.youtube.com/profile?user={AUTHOR}">{AUTHOR}</a><br />
+			<!--  END author --> 
+			
+			<!-- BEGIN comments -->
+			<span class="tubepress_meta">{METANAME}: </span>
+			<a {NOFOLLOW} href="http://youtube.com/comment_servlet?all_comments&amp;v={ID}">{COUNT}</a><br />
+			<!-- END comments --> 
+
+			<!-- BEGIN tags -->
+			<span class="tubepress_meta">{METANAME}: </span>
+			<a {NOFOLLOW} href="http://youtube.com/results?search_query={SEARCHSTRING}&amp;search=Search">{TAGS}</a><br />
+			<!-- END tags --> 
+			
+			<!--  BEGIN url --> 
+			<a {NOFOLLOW} href="{LINKVALUE}">{LINKTEXT}</a><br />
+			<!--  END url --> 
+			
+			<!-- BEGIN meta -->
+			<span class="tubepress_meta">{METANAME}: </span>{METAVALUE}<br />
+			<!-- END meta --> 
+			
+			<!--  BEGIN description --> 
+			{DESCRIPTION} 
+			<!--  END description -->
+
+		</div><!-- tubepress_meta_group -->
+	</div><!-- tubepress_video_thumb_inner -->
+</div><!-- tubepress_thumb -->

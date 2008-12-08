@@ -32,7 +32,10 @@ interface TubePressUrlBuilder
      * 
      * @return string The YouTube request URL for this mode
      */
-    public function buildGalleryUrl(TubePressOptionsManager $tpom);
+    public function buildGalleryUrl();
     
-    public function buildSingleVideoUrl($id, $tpom);
+    public function buildSingleVideoUrl($id);
+    
+    public function setOptionsManager(TubePressOptionsManager $tpom);
+    public function setQueryStringService(TubePressQueryStringService $queryStringService);
 }

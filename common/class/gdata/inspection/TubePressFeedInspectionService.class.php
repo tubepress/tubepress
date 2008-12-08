@@ -20,21 +20,12 @@
  */
 
 /**
- * Widget galleries
+ * Examines the feed results
+ *
  */
-class TubePressWidgetGallery extends AbstractTubePressGallery
-{
-    /**
-     * Generates the content of this gallery
-     * 
-     * @param TubePressOptionsManager $tpom The TubePress options 
-     *        manager containing all the user's options
-     * 
-     * @return The HTML content for this gallery
-     */
-    public static final function generate(TubePressOptionsManager $tpom)
-    {
-    	$this->setCommonInterfaces($tpom);
-        return parent::generateThumbs("widget_gallery.tpl.html");   
-    }
+interface TubePressFeedInspectionService
+{   
+    public function getTotalResultCount(DOMDocument $dom);
+    
+    public function getQueryResultCount(DOMDocument $dom);
 }

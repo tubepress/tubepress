@@ -41,5 +41,20 @@ class TPNormalPlayer extends TubePressPlayer
             $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH) .
             ", \"" . rawurlencode($vid->getTitle()) . "\")'";
     }
+    
+    public function getPreGalleryHtml(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    {
+    	$tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../ui");
+        if (!$tpl->loadTemplatefile("normal_mode_pre_gallery.tpl.html", true, true)) {
+            throw new Exception("Couldn't load pre gallery template");
+        }
+    	
+    	$embed = new TubePressEmbeddedPlayer($vid, $tpom);
+        $tpl->setVariable("EMBEDSRC", $embed->toString());
+        $tpl->setVariable("TITLE", $vid->getTitle());
+        $tpl->setVariable("WIDTH", 
+            $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH));
+        return $tpl->get();	
+    }
 }
 ?>

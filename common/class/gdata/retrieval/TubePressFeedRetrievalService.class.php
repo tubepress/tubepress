@@ -20,21 +20,16 @@
  */
 
 /**
- * Widget galleries
+ * TubePress's network interface
+ *
  */
-class TubePressWidgetGallery extends AbstractTubePressGallery
+interface TubePressFeedRetrievalService
 {
+    
     /**
-     * Generates the content of this gallery
+     * Fetches the RSS from YouTube
      * 
-     * @param TubePressOptionsManager $tpom The TubePress options 
-     *        manager containing all the user's options
-     * 
-     * @return The HTML content for this gallery
+     * @return DOMDocument The raw RSS from YouTube
      */
-    public static final function generate(TubePressOptionsManager $tpom)
-    {
-    	$this->setCommonInterfaces($tpom);
-        return parent::generateThumbs("widget_gallery.tpl.html");   
-    }
+    public function fetch($url);
 }

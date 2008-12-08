@@ -20,21 +20,11 @@
  */
 
 /**
- * Widget galleries
+ * General purpose cache for TubePress
  */
-class TubePressWidgetGallery extends AbstractTubePressGallery
+interface TubePressPaginationService
 {
-    /**
-     * Generates the content of this gallery
-     * 
-     * @param TubePressOptionsManager $tpom The TubePress options 
-     *        manager containing all the user's options
-     * 
-     * @return The HTML content for this gallery
-     */
-    public static final function generate(TubePressOptionsManager $tpom)
-    {
-    	$this->setCommonInterfaces($tpom);
-        return parent::generateThumbs("widget_gallery.tpl.html");   
-    }
+	public function getHtml($totalResults);
+	
+	public function setOptionsManager(TubePressOptionsManager $tpom);
 }

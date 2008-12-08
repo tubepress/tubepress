@@ -25,6 +25,9 @@
  */
 class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
 {
+	private $_tpom;
+	private $_queryStringService;
+	
     /**
      * The main logic in this class
      *
@@ -32,30 +35,30 @@ class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
      * 
      * @return string The YouTube request URL for this mode
      */
-    public function buildGalleryUrl(TubePressOptionsManager $tpom)
+    public function buildGalleryUrl()
     {
         $url = "";
         
-        switch ($tpom->get(TubePressGalleryOptions::MODE)) {
+        switch ($this->_tpom->get(TubePressGalleryOptions::MODE)) {
             
         case TubePressGallery::USER:
-            $url = "users/" . $tpom->get(TubePressGalleryOptions::USER_VALUE) .
+            $url = "users/" . $this->_tpom->get(TubePressGalleryOptions::USER_VALUE) .
                 "/uploads";
             break;
             
         case TubePressGallery::TOP_RATED:
             $url = "standardfeeds/top_rated?time=" . 
-                $tpom->get(TubePressGalleryOptions::TOP_RATED_VALUE);
+                $this->_tpom->get(TubePressGalleryOptions::TOP_RATED_VALUE);
             break;
             
         case TubePressGallery::POPULAR:
             $url = "standardfeeds/most_viewed?time=" . 
-                $tpom->get(TubePressGalleryOptions::MOST_VIEWED_VALUE);
+                $this->_tpom->get(TubePressGalleryOptions::MOST_VIEWED_VALUE);
             break;
             
         case TubePressGallery::PLAYLIST:
             $url = "playlists/" . 
-                $tpom->get(TubePressGalleryOptions::PLAYLIST_VALUE);
+                $this->_tpom->get(TubePressGalleryOptions::PLAYLIST_VALUE);
             break;
                 
         case TubePressGallery::MOST_RESPONDED:
@@ -79,12 +82,12 @@ class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
             break;
                
         case TubePressGallery::FAVORITES:
-            $url = "users/" . $tpom->get(TubePressGalleryOptions::FAVORITES_VALUE) .
+            $url = "users/" . $this->_tpom->get(TubePressGalleryOptions::FAVORITES_VALUE) .
                 "/favorites";
             break;
                 
         case TubePressGallery::TAG:
-            $tags = $tpom->get(TubePressGalleryOptions::TAG_VALUE);
+            $tags = $this->_tpom->get(TubePressGalleryOptions::TAG_VALUE);
             $tags = explode(" ", $tags);
             $url  = "videos?q=" . implode("+", $tags);
             break;
@@ -95,8 +98,7 @@ class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
         }
 
         $request = "http://gdata.youtube.com/feeds/api/$url";
-        $this->_urlPostProcessing($request,
-            $tpom);
+        $this->_urlPostProcessing($request);
         return $request;
     }
     
@@ -105,20 +107,18 @@ class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
      * before we fire it off to YouTube
      *
      * @param string                  &$request The request to be manipulated
-     * @param TubePressOptionsManager $tpom     The TubePress options manager
      * 
      * @return void
      */
-    private static function _urlPostProcessing(&$request, 
-        TubePressOptionsManager $tpom)
+    private function _urlPostProcessing($request)
     {
         
-        $perPage = $tpom->get(TubePressDisplayOptions::RESULTS_PER_PAGE);
-        $filter  = $tpom->get(TubePressAdvancedOptions::FILTER);
-        $order   = $tpom->get(TubePressDisplayOptions::ORDER_BY);
-        $mode    = $tpom->get(TubePressGalleryOptions::MODE);
+        $perPage = $this->_tpom->get(TubePressDisplayOptions::RESULTS_PER_PAGE);
+        $filter  = $this->_tpom->get(TubePressAdvancedOptions::FILTER);
+        $order   = $this->_tpom->get(TubePressDisplayOptions::ORDER_BY);
+        $mode    = $this->_tpom->get(TubePressGalleryOptions::MODE);
         
-        $currentPage = TubePressQueryString::getPageNum();
+        $currentPage = $this->_queryStringService->getPageNum();
         
         /* start index of the videos */
         $start = ($currentPage * $perPage) - $perPage + 1;
@@ -131,25 +131,28 @@ class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
       
         //TODO: this is ugly and stupid, in that order
         if ($mode != TubePressGallery::PLAYLIST
-        	&& $tpom->get(TubePressDisplayOptions::ORDER_BY) != "random") {
+        	&& $this->_tpom->get(TubePressDisplayOptions::ORDER_BY) != "random") {
             $requestURL->addQueryString("orderby", $order);
         }
         
         /* YouTube API client ID and developer keys */
-        $requestURL->addQueryString("client", $tpom->get(TubePressAdvancedOptions::CLIENT_KEY));
-        $requestURL->addQueryString("key", $tpom->get(TubePressAdvancedOptions::DEV_KEY));
+        $requestURL->addQueryString("client", $this->_tpom->get(TubePressAdvancedOptions::CLIENT_KEY));
+        $requestURL->addQueryString("key", $this->_tpom->get(TubePressAdvancedOptions::DEV_KEY));
         
         $request = $requestURL->getURL();
     }
     
-    public function buildSingleVideoUrl($id, $tpom)
+    public function buildSingleVideoUrl($id)
     {
     	$requestURL = new Net_URL("http://gdata.youtube.com/feeds/api/videos");
     	$requestURL->addQueryString("q", $id);
     	$requestURL->addQueryString("max-results", 1);
-    	$requestURL->addQueryString("client", $tpom->get(TubePressAdvancedOptions::CLIENT_KEY));
-        $requestURL->addQueryString("key", $tpom->get(TubePressAdvancedOptions::DEV_KEY));
+    	$requestURL->addQueryString("client", $this->_tpom->get(TubePressAdvancedOptions::CLIENT_KEY));
+        $requestURL->addQueryString("key", $this->_tpom->get(TubePressAdvancedOptions::DEV_KEY));
         
        	return $requestURL->getURL();
     }
+    
+    public function setOptionsManager(TubePressOptionsManager $tpom) { $this->_tpom = $tpom; }
+    public function setQueryStringService(TubePressQueryStringService $queryStringService) { $this->_queryStringService = $queryStringService; }
 }

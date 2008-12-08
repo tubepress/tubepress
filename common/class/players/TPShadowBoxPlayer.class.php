@@ -80,5 +80,10 @@ class TPShadowBoxPlayer extends TubePressPlayer
             'rel="shadowbox;height=%s;width=%s"',
 		$url->getURL(), $title, $height, $width); 
    }
+   
+    public function getPreGalleryHtml(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    {
+    	return "";
+    }
 }
 ?>

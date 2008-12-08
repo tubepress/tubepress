@@ -48,5 +48,10 @@ class TPPopupPlayer extends TubePressPlayer
         return "href='#' onclick='tubePress_popup(" .
             '"' . $url->getURL() . '",' . $height . ',' . $width . ')\''; 
     }
+    
+    public function getPreGalleryHtml(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    {
+    	return "";
+    }
 }
 ?>

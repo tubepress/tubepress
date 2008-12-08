@@ -23,7 +23,7 @@
  * Implementation of TubePressGdataService that uses PEAR's HTTP_Request class
  *
  */
-class TubePressGdataService_HTTP_Request implements TubePressGdataService
+class TubePressFeedRetrievalService_HTTP_Request implements TubePressFeedRetrievalService
 {
 	
     /**
@@ -33,7 +33,7 @@ class TubePressGdataService_HTTP_Request implements TubePressGdataService
      * 
      * @return DOMDocument The raw RSS from YouTube
      */
-    public function fetch($url, $useCache)
+    public function fetch($url)
     {   
         $data = $this->_fetchFromNetwork($url);
 

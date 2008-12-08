@@ -140,6 +140,9 @@ abstract class TubePressPlayer
      */
     public abstract function getPlayLink(TubePressVideo $vid, 
         TubePressOptionsManager $tpom);
+        
+    public abstract function getPreGalleryHtml(TubePressVideo $vid,
+    	TubePressOptionsManager $tpom);
     
     /**
      * Gets a new player instance
