@@ -1,102 +1,104 @@
 <?php
 class TubePressVideoTest extends PHPUnit_Framework_TestCase {
     
-    private $vid;
-    
-    private $thumbUrls = array("http://img.youtube.com/vi/m3gMgK7h-BA/2.jpg",
-					"http://img.youtube.com/vi/m3gMgK7h-BA/1.jpg",
-                    "http://img.youtube.com/vi/m3gMgK7h-BA/3.jpg",
-                    "http://img.youtube.com/vi/m3gMgK7h-BA/0.jpg");
-    
-    function setUp() {
-        $doc = new DOMDocument();
-        $doc->load(dirname(__FILE__) . "/../../sample_feed.xml");
-        $this->vid = new TubePressVideo($doc->getElementsByTagName("entry")->item(0));   
-    }
-    
-    function testRetrievesAuthorFromDomElement()
-    {
-        $this->assertEquals($this->vid->getAuthor(), "dhyrenz");
-    }
-    
-    function testRetrievesCategoryFromDomElement()
-    {
-        $this->assertEquals($this->vid->getCategory(), "Music");
-    }
-    
-    function testRetrievesDefaultThumbUrlFromDomElement()
-    {
-        $this->assertEquals($this->vid->getDefaultThumbURL(), "http://img.youtube.com/vi/m3gMgK7h-BA/2.jpg");
-    }
-    
-    function testRetrievesDescriptionFromDomElement()
-    {
-        $this->assertEquals($this->vid->getDescription(), "....one of those that will make you say...holy %$#^");
-    }
-    
-    function testRetrievesIdFromDomElement()
-    {
-        $this->assertEquals($this->vid->getId(), "m3gMgK7h-BA");
-    }
-    
-    function testCanProvideRandomThumbnailUrls()
-    {
-        for ($x = 0; $x < 100; $x++) {
-            $this->assertTrue(array_search($this->vid->getRandomThumbURL(), $this->thumbUrls) !== FALSE);
-        }
-    }
-    
-    function testRetrievesRatingAverageFromDomElement()
-    {
-        $this->assertEquals($this->vid->getRatingAverage(), "4.92");
-    }
-    
-    function testRetrievesRatingCountFromDomElement()
-    {
-        $this->assertEquals($this->vid->getRatingCount(), "29,065");
-    }
-    
-    function testProvidesTrulyRandomThumbnailUrls()
-    {      
-        $hits = array(false, false, false, false);
-        
-        for ($x = 0; $x < 100; $x++) {
-            $index = array_search($this->vid->getRandomThumbURL(), $this->thumbUrls);
-            if ($index !== FALSE) {
-                $hits[$index] = true;
-            }
-        }
-        $this->assertTrue($hits[0] && $hits[1] && $hits[2] && $hits[3]);
-    }
-    
-    function testRetrievesRuntimeFromDomElement()
-    {
-        $this->assertEquals($this->vid->getRuntime(), "2:30");
-    }
-
-    function testRetrievesTagsFromDomElement()
-    {
-        $this->assertEquals($this->vid->getTags(), "balboa feet guitar park");
-    }
-    
-    function testRetrievesTitleFromDomElement()
-    {
-        $this->assertEquals($this->vid->getTitle(), "amazing guitar player");
-    }
-
-    function testRetrievesUploadTimeFromDomElement()
-    {
-        $this->assertEquals($this->vid->getUploadTime(), 1161748355);
-    }
-    
-    function testRetrievesUrlFromDomElement()
-    {
-        $this->assertEquals($this->vid->getURL(), "http://www.youtube.com/watch?v=m3gMgK7h-BA");
-    }
-    
-    function testRetrievesViewCountFromDomElement()
-    {
-        $this->assertEquals($this->vid->getViewCount(), "5,286,665");
-    }
+	private $_vid;
+	
+	function setUp()
+	{
+		$this->_vid = new TubePressVideo();
+	}
+	
+	function testSetGetAuthor()
+	{
+		$this->_vid->setAuthor("hough");
+		$this->assertEquals($this->_vid->getAuthor(), "hough");
+	}
+	
+	function testSetGetCategory()
+	{
+		$this->_vid->setCategory("Sports");
+		$this->assertEquals($this->_vid->getCategory(), "Sports");
+	}
+	
+	function testSetGetThumbUrls()
+	{
+		$thumbs = array("1.jpg", "2.jpg", "3.jpg");
+		$this->_vid->setThumbUrls($thumbs);
+		$this->assertTrue($this->_vid->getThumbUrls() === $thumbs);
+	}
+	
+	function testSetGetDescription()
+	{ 	
+		$this->_vid->setDescription("fake");
+		$this->assertEquals($this->_vid->getDescription(), "fake");
+	}
+	
+	function testSetGetId() 
+	{
+		$this->_vid->setId("ERERKJKFF");
+		$this->assertEquals($this->_vid->getId(), "ERERKJKFF");
+	}
+	
+	function testSetGetRating() 
+	{
+		$this->_vid->setRating("4.5");
+		$this->assertEquals($this->_vid->getRating(), "4.5");
+	}
+	
+	function testSetGetRatings() 
+	{
+		$this->_vid->setRatings("33000");
+		$this->assertEquals($this->_vid->getRatings(), "33000");
+	}
+	
+	function testSetGetLength() 
+	{
+		$this->_vid->setLength("3:12");
+		$this->assertEquals($this->_vid->getLength(), "3:12");
+	}
+	
+	function testSetGetTags() 
+	{
+		$tags = array("one", "two", "three");
+		$this->_vid->setTags($tags);
+		$this->assertTrue($this->_vid->getTags() === $tags);
+	}
+	
+	function testSetGetTitle() 
+	{ 		
+		$this->_vid->setTitle("Mr. Title");
+		$this->assertEquals($this->_vid->getTitle(), "Mr. Title");
+	}
+	
+	function testSetGetUploadTime() 
+	{
+		$this->_vid->setUploadTime("112233");
+		$this->assertEquals($this->_vid->getUploadTime(), "112233");
+	}
+	
+	function testSetGetYouTubeUrl() 
+	{ 	
+		$this->_vid->setYouTubeUrl("http://youtube.com");
+		$this->assertEquals($this->_vid->getYouTubeUrl(), "http://youtube.com");
+	}
+	
+	function testSetGetViews() 
+	{
+		$this->_vid->setViews("12000");
+		$this->assertEquals($this->_vid->getViews(), "12000");
+	}
+	
+	function testGetDefaultThumbUrl()
+	{
+		$this->_vid->setId("34");
+		$this->assertEquals($this->_vid->getDefaultThumbUrl(), "http://img.youtube.com/vi/34/default.jpg");
+	}
+	
+	function testGetRandomThumbUrl()
+	{
+		$thumbs = array("1.jpg", "2.jpg", "3.jpg");
+		$this->_vid->setThumbUrls($thumbs);
+        $this->assertTrue(in_array($this->_vid->getRandomThumbUrl(), $thumbs));
+	}
 }
 ?>

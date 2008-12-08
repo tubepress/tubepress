@@ -4,12 +4,16 @@ require_once '/Applications/MAMP/bin/php5/lib/php/PHPUnit/Framework.php';
 include dirname(__FILE__) . "/../tubepress_classloader.php";
 
 $testNames = array(
-	"TubePressVideoTest",
+	"SimpleTubePressVideoFactoryTest",
 	"TubePressStringUtilsTest",
 	"TubePressShortcodeTest",
 	"SimpleTubePressOptionsManagerTest",
 	"TubePressValidatorTest",
-	"TubePressAdvancedOptionsTest"
+	"TubePressVideoTest",
+	"TubePressAdvancedOptionsTest",
+	"TubePressEmbeddedPlayerTest",
+	"TubePressPaginationService_DiggStyleTest",
+	"SimpleTubePressQueryStringServiceTest"
 );
 
 foreach ($testNames as $test) {
