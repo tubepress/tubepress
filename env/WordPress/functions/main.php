@@ -18,6 +18,7 @@ function _tp_main($content) {
 	$wpsm = new WordPressStorageManager();
     $trigger = $wpsm->get(TubePressAdvancedOptions::KEYWORD);
 	$shortcodeService = new SimpleTubePressShortcodeService();
+	$messageService = new WordPressMessageService();
     
     if (!$shortcodeService->somethingToParse($content, $trigger)) {
 	    return $content;
@@ -41,7 +42,7 @@ function _tp_main($content) {
 	    
 	    /* replace the tag with our new content */
 	    $newcontent = TubePressStringUtils::replaceFirst($tpom->getShortcode(), 
-	        $gallery->generate($tpom), $newcontent);
+	        $gallery->generate($tpom, $messageService), $newcontent);
     }
     
     return $newcontent;

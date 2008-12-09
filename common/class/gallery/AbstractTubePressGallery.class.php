@@ -28,6 +28,7 @@ abstract class AbstractTubePressGallery
 	private $_cache;
 	private $_feedInspectionService;
 	private $_feedRetrievalService;
+	private $_messageService;
 	private $_optionsManager;
 	private $_paginationService;
     private $_urlBuilder;
@@ -171,10 +172,11 @@ abstract class AbstractTubePressGallery
         return $xml;
     }
     
-    protected function setCommonInterfaces($tpom)
+    protected function setCommonInterfaces($tpom, TubePressMessageService $messageService)
     {
     	$thumbService = new SimpleTubePressThumbnailService();
     	$thumbService->setOptionsManager($tpom);
+    	$thumbService->setMessageService($messageService);
     	
     	$queryStringService = new SimpleTubePressQueryStringService();
     	
@@ -183,6 +185,7 @@ abstract class AbstractTubePressGallery
     	$urlBuilderService->setQueryStringService($queryStringService);
     	
     	$paginationService = new TubePressPaginationService_DiggStyle();
+    	$paginationService->setMessageService($messageService);
     	$paginationService->setOptionsManager($tpom);
     	$paginationService->setQueryStringService($queryStringService);
     	

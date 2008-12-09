@@ -23,7 +23,7 @@
  * Options that control which meta info is displayed below video
  * thumbnails
  */
-class TubePressMetaOptions
+class TubePressMetaOptions implements TubePressOptionsCategory
 {
     const AUTHOR      = "author";
     const CATEGORY    = "category";
@@ -37,6 +37,13 @@ class TubePressMetaOptions
     const UPLOADED    = "uploaded";
     const URL         = "url";
     const VIEWS       = "views";
+    
+	private $_messageService;
+    
+    public function setMessageService(TubePressMessageService $messageService)
+    {
+    	$this->_messageService = $messageService;
+    }
     
     /**
      * Displays meta options for the options form
@@ -52,7 +59,7 @@ class TubePressMetaOptions
         $title = "meta";
         
         $tpl->setVariable("OPTION_CATEGORY_TITLE",
-            TpMsg::_("options-category-title-" . $title));
+            $this->_messageService->_("options-category-title-" . $title));
 
         $class = new ReflectionClass("TubePressMetaOptions");    
 
@@ -62,9 +69,9 @@ class TubePressMetaOptions
         foreach ($class->getConstants() as $constant) {
             $tpl->setVariable("EXTRA_STYLE", "; width: 15em");
             $tpl->setVariable("OPTION_TITLE", 
-                TpMsg::_(sprintf("options-%s-title-%s", $title, $constant)));
+                $this->_messageService->_(sprintf("options-%s-title-%s", $title, $constant)));
             $tpl->setVariable("OPTION_DESC", 
-                TpMsg::_(sprintf("options-%s-desc-%s", $title, $constant)));
+                $this->_messageService->_(sprintf("options-%s-desc-%s", $title, $constant)));
             $tpl->setVariable("OPTION_NAME", $constant);
         
             TubePressOptionsForm::displayBooleanInput($tpl, 

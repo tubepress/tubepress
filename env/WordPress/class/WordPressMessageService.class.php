@@ -22,13 +22,19 @@
 /**
  * General purpose cache for TubePress
  */
-interface TubePressPaginationService
+class WordPressMessageService extends AbstractTubePressMessageService
 {
-	public function getHtml($totalResults);
-	
-	public function setMessageService(TubePressMessageService $messageService);
-	
-	public function setOptionsManager(TubePressOptionsManager $tpom);
-	
-	public function setQueryStringService(TubePressQueryStringService $queryStringService);
+	/**
+	 * Retrieves a message for TubePress
+	 *
+	 * @param string $msgId The message ID
+	 *
+	 * @return string The corresponding message, or "" if not found
+	 */
+	public function _($msgId)
+	{
+	    $message = $this->_keyToMessage($msgId);
+	    return $message == "" ? "" : 
+		    __($message, "tubepress");
+	}
 }

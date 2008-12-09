@@ -25,6 +25,8 @@
  */
 abstract class AbstractTubePressStorageManager implements TubePressStorageManager
 {   
+	private $_validationService;
+	
     /**
      * Creates an option in storage
      *
@@ -129,7 +131,7 @@ abstract class AbstractTubePressStorageManager implements TubePressStorageManage
     	);
     	
     	foreach($vals as $val => $key) {
-    		_init($val, $key);
+    		$this->_init($val, $key);
     	}
     }    
 
@@ -151,7 +153,7 @@ abstract class AbstractTubePressStorageManager implements TubePressStorageManage
      */
     public final function set($optionName, $optionValue)
     {
-        TubePressValidator::validate($optionName, $optionValue);
+        $this->_validationService->validate($optionName, $optionValue);
         $this->setOption($optionName, $optionValue);
     }    
     
@@ -164,4 +166,9 @@ abstract class AbstractTubePressStorageManager implements TubePressStorageManage
      * @return void
      */
     protected abstract function setOption($optionName, $optionValue);
+    
+    public function setValidationService(TubePressInputValidationService $validationService)
+    {
+    	$this->_validationService = $validationService;
+    }
 }

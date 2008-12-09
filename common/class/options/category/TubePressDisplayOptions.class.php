@@ -23,7 +23,7 @@
  * Display options for the plugin
  *
  */
-class TubePressDisplayOptions
+class TubePressDisplayOptions implements TubePressOptionsCategory
 {
     const CURRENT_PLAYER_NAME = "playerLocation";
     const DESC_LIMIT          = "descriptionLimit";
@@ -32,6 +32,13 @@ class TubePressDisplayOptions
     const RESULTS_PER_PAGE    = "resultsPerPage";
     const THUMB_HEIGHT        = "thumbHeight";
     const THUMB_WIDTH         = "thumbWidth";
+    
+	private $_messageService;
+    
+    public function setMessageService(TubePressMessageService $messageService)
+    {
+    	$this->_messageService = $messageService;
+    }
     
     /**
      * Displays the display options for the options form
@@ -47,16 +54,16 @@ class TubePressDisplayOptions
         $title = "display";
         
         $tpl->setVariable("OPTION_CATEGORY_TITLE",
-            TpMsg::_("options-category-title-" . $title));
+            $this->_messageService->_("options-category-title-" . $title));
 
         $class = new ReflectionClass("TubePressDisplayOptions");    
 
         /* go through each option in the category */
         foreach ($class->getConstants() as $constant) {
             $tpl->setVariable("OPTION_TITLE", 
-                TpMsg::_(sprintf("options-%s-title-%s", $title, $constant)));
+                $this->_messageService->_(sprintf("options-%s-title-%s", $title, $constant)));
             $tpl->setVariable("OPTION_DESC", 
-                TpMsg::_(sprintf("options-%s-desc-%s", $title, $constant)));
+                $this->_messageService->_(sprintf("options-%s-desc-%s", $title, $constant)));
             $tpl->setVariable("OPTION_NAME", $constant);
             
             switch ($constant) {
@@ -71,17 +78,17 @@ class TubePressDisplayOptions
             
             case TubePressDisplayOptions::CURRENT_PLAYER_NAME:
                 $values = array(
-                    TpMsg::_("player-" . TubePressPlayer::NORMAL . "-desc") 
+                    $this->_messageService->_("player-" . TubePressPlayer::NORMAL . "-desc") 
                         => TubePressPlayer::NORMAL,
-                    TpMsg::_("player-" . TubePressPlayer::POPUP . "-desc")        
+                    $this->_messageService->_("player-" . TubePressPlayer::POPUP . "-desc")        
                         => TubePressPlayer::POPUP,
-                    TpMsg::_("player-" . TubePressPlayer::YOUTUBE . "-desc")        
+                    $this->_messageService->_("player-" . TubePressPlayer::YOUTUBE . "-desc")        
                         => TubePressPlayer::YOUTUBE,
-                    TpMsg::_("player-" . TubePressPlayer::LIGHTWINDOW . "-desc")     
+                    $this->_messageService->_("player-" . TubePressPlayer::LIGHTWINDOW . "-desc")     
                         => TubePressPlayer::LIGHTWINDOW,
-                    TpMsg::_("player-" . TubePressPlayer::GREYBOX . "-desc")        
+                    $this->_messageService->_("player-" . TubePressPlayer::GREYBOX . "-desc")        
                         => TubePressPlayer::GREYBOX,
-                    TpMsg::_("player-" . TubePressPlayer::SHADOWBOX . "-desc")     
+                    $this->_messageService->_("player-" . TubePressPlayer::SHADOWBOX . "-desc")     
                         => TubePressPlayer::SHADOWBOX);
 
                 TubePressOptionsForm::displayMenuInput($tpl, $constant, 
@@ -90,11 +97,11 @@ class TubePressDisplayOptions
             
             case TubePressDisplayOptions::ORDER_BY:
                 $values = array(
-                    TpMsg::_("order-relevance") => "relevance",
-                    TpMsg::_("order-views") => "viewCount",
-                    TpMsg::_("order-rating") => "rating",
-                    TpMsg::_("order-updated") => "updated",
-                    TpMsg::_("order-random") => "random"
+                    $this->_messageService->_("order-relevance") => "relevance",
+                    $this->_messageService->_("order-views") => "viewCount",
+                    $this->_messageService->_("order-rating") => "rating",
+                    $this->_messageService->_("order-updated") => "updated",
+                    $this->_messageService->_("order-random") => "random"
                 );
                 TubePressOptionsForm::displayMenuInput($tpl, 
                     $constant, $values, $tpsm->get($constant));

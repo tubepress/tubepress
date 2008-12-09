@@ -25,6 +25,8 @@
  */
 class TubePressOptionsForm
 {
+	private $_messageService;
+	
     /**
      * Displays all the TubePress options in HTML
      *
@@ -32,7 +34,7 @@ class TubePressOptionsForm
      * 
      * @return void
      */
-    public static final function display(TubePressStorageManager $tpsm)
+    public final function display(TubePressStorageManager $tpsm)
     {
         /* load up the template */
         $tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../ui");
@@ -40,10 +42,10 @@ class TubePressOptionsForm
             throw new Exception("Could not load options page template");
         }
         
-        $tpl->setVariable("PAGETITLE", TpMsg::_("options-page-title"));
-        $tpl->setVariable("INTROTEXT", TpMsg::_("options-page-intro-text"));
-        $tpl->setVariable("DONATION", TpMsg::_("options-page-donation"));
-        $tpl->setVariable("SAVE", TpMsg::_("options-page-save-button"));
+        $tpl->setVariable("PAGETITLE", $this->_messageService->_("options-page-title"));
+        $tpl->setVariable("INTROTEXT", $this->_messageService->_("options-page-intro-text"));
+        $tpl->setVariable("DONATION", $this->_messageService->_("options-page-donation"));
+        $tpl->setVariable("SAVE", $this->_messageService->_("options-page-save-button"));
 
         foreach (TubePressOptionsForm::_getCategoryInstances() as $category) {
             $category->printForOptionsForm($tpl, $tpsm);
@@ -62,7 +64,7 @@ class TubePressOptionsForm
      * 
      * @return void
      */
-    public static function displayMenuInput(HTML_Template_IT &$tpl, 
+    public function displayMenuInput(HTML_Template_IT &$tpl, 
         $name, array $values, $value)
     {   
         $tpl->setVariable("OPTION_NAME", $name);
@@ -87,7 +89,7 @@ class TubePressOptionsForm
      * 
      * @return void
      */
-    public static function displayTextInput(HTML_Template_IT &$tpl, 
+    public function displayTextInput(HTML_Template_IT &$tpl, 
         $name, $value)
     {    
         $tpl->setVariable("OPTION_VALUE", $value);
@@ -104,7 +106,7 @@ class TubePressOptionsForm
      * 
      * @return void
      */
-    public static function displayBooleanInput(HTML_Template_IT &$tpl, 
+    public function displayBooleanInput(HTML_Template_IT &$tpl, 
         $name, $value)
     {    
         if ($value) {
@@ -122,7 +124,7 @@ class TubePressOptionsForm
      * 
      * @return void
      */
-    public static function displayGalleryInput(HTML_Template_IT &$tpl, 
+    public function displayGalleryInput(HTML_Template_IT &$tpl, 
         $name, $value)
     {    
         if ($name === $value) {
@@ -178,7 +180,7 @@ class TubePressOptionsForm
      *
      * @return unknown
      */
-    private static function _getCategoryInstances()
+    private function _getCategoryInstances()
     {
         $cats = array();
            
@@ -187,8 +189,12 @@ class TubePressOptionsForm
         
         foreach ($categories as $category) {
             $ref    = new ReflectionClass("TubePress" . $category . "Options");
-            $cats[] = $ref->newInstance();
+            $inst = $ref->newInstance();
+            $inst->setMessageService($this->_messageService);
+            $cats[] = $inst;
         }
         return $cats;
     }
+    
+    public function setMessageService(TubePressMessageService $messageService) { $this->_messageService = $messageService; }
 }

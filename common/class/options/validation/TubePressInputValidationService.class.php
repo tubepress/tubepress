@@ -20,15 +20,13 @@
  */
 
 /**
- * General purpose cache for TubePress
+ * Holds the current options for TubePress. This is the default options,
+ * usually in persistent storage somewhere, and custom options parsed
+ * from a shortcode
  */
-interface TubePressPaginationService
+interface TubePressInputValidationService
 {
-	public function getHtml($totalResults);
+	public function validate($name, $candidate);
 	
 	public function setMessageService(TubePressMessageService $messageService);
-	
-	public function setOptionsManager(TubePressOptionsManager $tpom);
-	
-	public function setQueryStringService(TubePressQueryStringService $queryStringService);
 }

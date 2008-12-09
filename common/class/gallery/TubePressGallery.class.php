@@ -45,10 +45,10 @@ class TubePressGallery extends AbstractTubePressGallery
      * 
      * @return The HTML content for this gallery
      */
-    public final function generate(TubePressOptionsManager $tpom)
+    public final function generate(TubePressOptionsManager $tpom, TubePressMessageService $messageService)
     {
     	try {
-    		$this->setCommonInterfaces($tpom);
+    		$this->setCommonInterfaces($tpom, $messageService);
      	    return parent::generateThumbs("gallery.tpl.html");
     	} catch (Exception $e) {
     		return $e->getMessage();

@@ -23,8 +23,15 @@
  * Widget options for the plugin
  *
  */
-class TubePressWidgetOptions
+class TubePressWidgetOptions implements TubePressOptionsCategory
 {
     const TITLE     = "widget-title";
     const TAGSTRING = "widget-tagstring";
+    
+    private $_messageService;
+    
+    public function setMessageService(TubePressMessageService $messageService)
+    {
+    	$this->_messageService = $messageService;
+    }
 } 

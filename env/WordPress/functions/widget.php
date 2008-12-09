@@ -6,8 +6,9 @@
  */
 function tubepress_init_widget()
 {
+	$msg = new WordPressMessageService();
 	$widget_ops = array('classname' => 'widget_tubepress', 
-	    'description' => TpMsg::_("widget-description"));
+	    'description' => $msg->_("widget-description"));
 	wp_register_sidebar_widget('tubepress', "TubePress", 
 	    'tubepress_widget', $widget_ops);
 	wp_register_widget_control('tubepress', "TubePress", 
@@ -74,9 +75,11 @@ function tubepress_widget_control() {
     
     $wpsm = new WordPressStorageManager();
 
-    $tpl->setVariable("WIDGET-TITLE", TpMsg::_("options-meta-title-title"));
+    $msg = new WordPressMessageService();
+    
+    $tpl->setVariable("WIDGET-TITLE", $msg->_("options-meta-title-title"));
     $tpl->setVariable("WIDGET-TITLE-VALUE", $wpsm->get(TubePressWidgetOptions::TITLE));
-    $tpl->setVariable("WIDGET-TAGSTRING", TpMsg::_("widget-tagstring-description"));
+    $tpl->setVariable("WIDGET-TAGSTRING", $msg->_("widget-tagstring-description"));
     $tpl->setVariable("WIDGET-TAGSTRING-VALUE", $wpsm->get(TubePressWidgetOptions::TAGSTRING));
     echo $tpl->get();
     

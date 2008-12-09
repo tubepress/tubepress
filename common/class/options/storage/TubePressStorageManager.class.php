@@ -66,4 +66,6 @@ interface TubePressStorageManager
      * @return void
      */
     public function set($optionName, $optionValue);
+    
+    public function setValidationService(TubePressInputValidationService $validationService);
 }

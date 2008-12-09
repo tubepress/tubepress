@@ -23,7 +23,7 @@
  * Options that let you choose which videos to show
  *
  */
-class TubePressGalleryOptions
+class TubePressGalleryOptions implements TubePressOptionsCategory
 {
     const MODE = "mode";
     
@@ -33,6 +33,13 @@ class TubePressGalleryOptions
     const TAG_VALUE         = "tagValue";
     const TOP_RATED_VALUE   = "top_ratedValue";
     const USER_VALUE        = "userValue";
+    
+	private $_messageService;
+    
+    public function setMessageService(TubePressMessageService $messageService)
+    {
+    	$this->_messageService = $messageService;
+    }
     
     /**
      * Displays the gallery options for the options form
@@ -49,16 +56,16 @@ class TubePressGalleryOptions
         $title = "gallery";
         
         $tpl->setVariable("OPTION_CATEGORY_TITLE",
-            TpMsg::_("options-category-title-" . $title));
+            $this->_messageService->_("options-category-title-" . $title));
 
         $class = new ReflectionClass("TubePressGallery");    
 
         /* go through each option in the category */
         foreach ($class->getConstants() as $constant) {
             $tpl->setVariable("OPTION_TITLE", 
-                TpMsg::_(sprintf("options-%s-title-%s", $title, $constant)));
+                $this->_messageService->_(sprintf("options-%s-title-%s", $title, $constant)));
             $tpl->setVariable("OPTION_DESC", 
-                TpMsg::_(sprintf("options-%s-desc-%s", $title, $constant)));
+                $this->_messageService->_(sprintf("options-%s-desc-%s", $title, $constant)));
             $tpl->setVariable("OPTION_NAME", $constant);
             
             TubePressOptionsForm::displayGalleryInput($tpl, $constant, 
@@ -93,10 +100,10 @@ class TubePressGalleryOptions
             case TubePressGallery::POPULAR:
             case TubePressGallery::TOP_RATED:
                 $values = array(
-                    TpMsg::_("timeframe-today")   => "today",
-                    TpMsg::_("timeframe-week")    => "this_week",
-                    TpMsg::_("timeframe-month")   => "this_month",
-                    TpMsg::_("timeframe-alltime") => "all_time"
+                    $this->_messageService->_("timeframe-today")   => "today",
+                    $this->_messageService->_("timeframe-week")    => "this_week",
+                    $this->_messageService->_("timeframe-month")   => "this_month",
+                    $this->_messageService->_("timeframe-alltime") => "all_time"
                 );
                 $tpl->setVariable("OPTION_NAME", $constant);
                 TubePressOptionsForm::displayMenuInput($tpl, 

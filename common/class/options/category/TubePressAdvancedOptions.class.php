@@ -23,7 +23,7 @@
  * Advanced options for the plugin
  *
  */
-class TubePressAdvancedOptions
+class TubePressAdvancedOptions implements TubePressOptionsCategory
 {
 	
     const DATEFORMAT    	= "dateFormat";
@@ -35,6 +35,13 @@ class TubePressAdvancedOptions
     const DEV_KEY       	= "developerKey";
     const CACHE_ENABLED		= "cacheEnabled";
     const NOFOLLOW_LINKS	= "nofollowLinks";
+    
+	private $_messageService;
+    
+    public function setMessageService(TubePressMessageService $messageService)
+    {
+    	$this->_messageService = $messageService;
+    }
     
     /**
      * Displays advanced options for the options form
@@ -50,16 +57,16 @@ class TubePressAdvancedOptions
         $title = "advanced";
         
         $tpl->setVariable("OPTION_CATEGORY_TITLE",
-            TpMsg::_("options-category-title-" . $title));
+            $this->_messageService->_("options-category-title-" . $title));
 
         $class = new ReflectionClass("TubePressAdvancedOptions");    
 
         /* go through each option in the category */
         foreach ($class->getConstants() as $constant) {
             $tpl->setVariable("OPTION_TITLE", 
-                TpMsg::_(sprintf("options-%s-title-%s", $title, $constant)));
+                $this->_messageService->_(sprintf("options-%s-title-%s", $title, $constant)));
             $tpl->setVariable("OPTION_DESC", 
-                TpMsg::_(sprintf("options-%s-desc-%s", $title, $constant)));
+                $this->_messageService->_(sprintf("options-%s-desc-%s", $title, $constant)));
             $tpl->setVariable("OPTION_NAME", $constant);
             
             switch ($constant) {

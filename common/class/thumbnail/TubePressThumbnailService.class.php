@@ -29,4 +29,6 @@ interface TubePressThumbnailService
     public function getHtml(TubePressVideo $vid, TubePressPlayer $player);
     
     public function setOptionsManager(TubePressOptionsManager $tpom);
+    
+    public function setMessageService(TubePressMessageService $messageService);
 }

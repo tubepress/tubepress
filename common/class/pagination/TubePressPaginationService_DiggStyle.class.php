@@ -28,6 +28,7 @@ function_exists("diggstyle_getPaginationString")
  */
 class TubePressPaginationService_DiggStyle implements TubePressPaginationService
 {
+	private $_messageService;
 	private $_tpom;
 	private $_queryStringService;
 	
@@ -40,11 +41,12 @@ class TubePressPaginationService_DiggStyle implements TubePressPaginationService
         $newurl = new Net_URL($this->_queryStringService->getFullUrl($_SERVER));
         $newurl->removeQueryString("tubepress_page");
  
-        return diggstyle_getPaginationString($currentPage, $vidCount,
+        return diggstyle_getPaginationString($this->_messageService, $currentPage, $vidCount,
             $vidsPerPage, 1, $newurl->getURL(), 
                 "tubepress_page");
 	}
 	
+	public function setMessageService(TubePressMessageService $messageService) { $this->_messageService = $messageService; }
 	public function setQueryStringService(TubePressQueryStringService $queryStringService) { $this->_queryStringService = $queryStringService; }
 	public function setOptionsManager(TubePressOptionsManager $tpom) { $this->_tpom = $tpom; }
 }

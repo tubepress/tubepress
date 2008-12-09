@@ -1,7 +1,8 @@
 <?php
 //function to return the pagination string
-function diggstyle_getPaginationString($page = 1, $totalitems, $limit = 15, $adjacents = 1, $targetpage = "/", $pagestring = "?page=")
-{    
+function diggstyle_getPaginationString(TubePressMessageService $messageService, $page = 1, $totalitems, $limit = 15, $adjacents = 1, $targetpage = "/", $pagestring = "?page=")
+{   
+	
     //defaults
     if(!$adjacents) $adjacents = 1;
     if(!$limit) $limit = 15;
@@ -32,10 +33,10 @@ function diggstyle_getPaginationString($page = 1, $totalitems, $limit = 15, $adj
         if ($page > 1) {
             $url->addQueryString($pagestring, $prev);
             $newurl = $url->getURL();
-            $pagination .= "<a href=\"$newurl\">" . TpMsg::_("prev") . "</a>";
+            $pagination .= "<a href=\"$newurl\">" . $messageService->_("prev") . "</a>";
         }
         else
-            $pagination .= "<span class=\"disabled\">" . TpMsg::_("prev") . "</span>";    
+            $pagination .= "<span class=\"disabled\">" . $messageService->_("prev") . "</span>";    
 
         //pages    
         if ($lastpage < 7 + ($adjacents * 2))    //not enough pages to bother breaking it up
@@ -130,9 +131,9 @@ function diggstyle_getPaginationString($page = 1, $totalitems, $limit = 15, $adj
         if ($page < $counter - 1) {
             $url->addQueryString($pagestring, $next);
             $newurl = $url->getURL();
-            $pagination .= "<a href=\"$newurl\">" . TpMsg::_("next") . "</a>";
+            $pagination .= "<a href=\"$newurl\">" . $messageService->_("next") . "</a>";
         } else {
-            $pagination .= "<span class=\"disabled\">" . TpMsg::_("next") . "</span>";
+            $pagination .= "<span class=\"disabled\">" . $messageService->_("next") . "</span>";
         }
         $pagination .= "</div>\n";
     }

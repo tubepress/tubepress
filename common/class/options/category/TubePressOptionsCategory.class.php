@@ -20,15 +20,10 @@
  */
 
 /**
- * General purpose cache for TubePress
+ * Advanced options for the plugin
+ *
  */
-interface TubePressPaginationService
+interface TubePressOptionsCategory
 {
-	public function getHtml($totalResults);
-	
 	public function setMessageService(TubePressMessageService $messageService);
-	
-	public function setOptionsManager(TubePressOptionsManager $tpom);
-	
-	public function setQueryStringService(TubePressQueryStringService $queryStringService);
-}
+} 

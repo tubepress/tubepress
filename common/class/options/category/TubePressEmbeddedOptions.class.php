@@ -23,7 +23,7 @@
  * Options for the embedded player
  *
  */
-class TubePressEmbeddedOptions
+class TubePressEmbeddedOptions implements TubePressOptionsCategory
 {
     const AUTOPLAY        = "autoplay";
     const BORDER          = "border";
@@ -33,6 +33,13 @@ class TubePressEmbeddedOptions
     const LOOP            = "loop";
     const PLAYER_COLOR    = "playerColor";
     const SHOW_RELATED    = "showRelated";
+    
+	private $_messageService;
+    
+    public function setMessageService(TubePressMessageService $messageService)
+    {
+    	$this->_messageService = $messageService;
+    }
     
     /**
      * Displays the embedded options for the options form
@@ -48,16 +55,16 @@ class TubePressEmbeddedOptions
         $title = "embedded";
         
         $tpl->setVariable("OPTION_CATEGORY_TITLE",
-            TpMsg::_("options-category-title-" . $title));
+            $this->_messageService->_("options-category-title-" . $title));
 
         $class = new ReflectionClass("TubePressEmbeddedOptions");    
 
         /* go through each option in the category */
         foreach ($class->getConstants() as $constant) {
             $tpl->setVariable("OPTION_TITLE", 
-                TpMsg::_(sprintf("options-%s-title-%s", $title, $constant)));
+                $this->_messageService->_(sprintf("options-%s-title-%s", $title, $constant)));
             $tpl->setVariable("OPTION_DESC", 
-                TpMsg::_(sprintf("options-%s-desc-%s", $title, $constant)));
+                $this->_messageService->_(sprintf("options-%s-desc-%s", $title, $constant)));
             $tpl->setVariable("OPTION_NAME", $constant);
             
             switch ($constant) {
@@ -79,15 +86,15 @@ class TubePressEmbeddedOptions
              
             case TubePressEmbeddedOptions::PLAYER_COLOR:
                 $values = array(
-                    TpMsg::_("color-normal")    => "/", 
-                    TpMsg::_("color-darkgrey")  => "0x3a3a3a/0x999999",
-                    TpMsg::_("color-darkblue")  => "0x2b405b/0x6b8ab6", 
-                    TpMsg::_("color-lightblue") => "0x006699/0x54abd6",
-                    TpMsg::_("color-green")     => "0x234900/0x4e9e00", 
-                    TpMsg::_("color-orange")    => "0xe1600f/0xfebd01",
-                    TpMsg::_("color-pink")      => "0xcc2550/0xe87a9f", 
-                    TpMsg::_("color-purple")    => "0x402061/0x9461ca",
-                    TpMsg::_("color-red")       => "0x5d1719/0xcd311b"
+                    $this->_messageService->_("color-normal")    => "/", 
+                    $this->_messageService->_("color-darkgrey")  => "0x3a3a3a/0x999999",
+                    $this->_messageService->_("color-darkblue")  => "0x2b405b/0x6b8ab6", 
+                    $this->_messageService->_("color-lightblue") => "0x006699/0x54abd6",
+                    $this->_messageService->_("color-green")     => "0x234900/0x4e9e00", 
+                    $this->_messageService->_("color-orange")    => "0xe1600f/0xfebd01",
+                    $this->_messageService->_("color-pink")      => "0xcc2550/0xe87a9f", 
+                    $this->_messageService->_("color-purple")    => "0x402061/0x9461ca",
+                    $this->_messageService->_("color-red")       => "0x5d1719/0xcd311b"
                 );
                 TubePressOptionsForm::displayMenuInput($tpl, 
                     $constant, $values, $tpsm->get($constant));

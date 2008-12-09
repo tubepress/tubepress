@@ -31,6 +31,7 @@ class SimpleTubePressThumbnailService implements TubePressThumbnailService
 {
 	private $_tpl;
 	private $_tpom;
+	private $_msg;
 	
     public function getHtml(TubePressVideo $vid, TubePressPlayer $player)
     {
@@ -118,7 +119,7 @@ class SimpleTubePressThumbnailService implements TubePressThumbnailService
                 break;
                 
             case TubePressMetaOptions::AUTHOR:
-                $this->_tpl->setVariable('METANAME', TpMsg::_("video-" . $constant));
+                $this->_tpl->setVariable('METANAME', $this->_msg->_("video-" . $constant));
                 $this->_tpl->setVariable('AUTHOR', $vid->getAuthor());
                 if ($nofollow) { $this->_tpl->setVariable("NOFOLLOW", "rel=\"external nofollow\""); }
                 $this->_tpl->parse('author');
@@ -127,7 +128,7 @@ class SimpleTubePressThumbnailService implements TubePressThumbnailService
             case TubePressMetaOptions::TAGS:
                 $tags = explode(" ", $vid->getTags());
                 $tags = implode("%20", $tags);
-                $this->_tpl->setVariable('METANAME', TpMsg::_("video-" . $constant));
+                $this->_tpl->setVariable('METANAME', $this->_msg->_("video-" . $constant));
                 $this->_tpl->setVariable('SEARCHSTRING', $tags);
                 $this->_tpl->setVariable('TAGS', $vid->getTags());
              	if ($nofollow) { $this->_tpl->setVariable("NOFOLLOW", "rel=\"external nofollow\""); }
@@ -136,12 +137,12 @@ class SimpleTubePressThumbnailService implements TubePressThumbnailService
                     
             case TubePressMetaOptions::URL:
                 $this->_tpl->setVariable('LINKVALUE', $vid->getYouTubeUrl());
-                $this->_tpl->setVariable('LINKTEXT', TpMsg::_("video-" . $constant));
+                $this->_tpl->setVariable('LINKTEXT', $this->_msg->_("video-" . $constant));
                 $this->_tpl->parse('url');
                 break;
                 
             default:
-                $this->_tpl->setVariable('METANAME', TpMsg::_("video-" . $constant));
+                $this->_tpl->setVariable('METANAME', $this->_msg->_("video-" . $constant));
                    
                 switch ($constant) {
 
@@ -181,7 +182,8 @@ class SimpleTubePressThumbnailService implements TubePressThumbnailService
                 }
                 $this->_tpl->parse('meta');
             }
-            
         }
     }
+    
+    public function setMessageService(TubePressMessageService $messageService) { $this->_msg = $messageService; }
 }

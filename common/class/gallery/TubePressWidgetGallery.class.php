@@ -32,9 +32,9 @@ class TubePressWidgetGallery extends AbstractTubePressGallery
      * 
      * @return The HTML content for this gallery
      */
-    public static final function generate(TubePressOptionsManager $tpom)
+    public static final function generate(TubePressOptionsManager $tpom, TubePressMessageService $messageService)
     {
-    	$this->setCommonInterfaces($tpom);
+    	$this->setCommonInterfaces($tpom, $messageService);
         return parent::generateThumbs("widget_gallery.tpl.html");   
     }
 }

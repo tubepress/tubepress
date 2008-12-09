@@ -20,11 +20,14 @@
  */
 
 /**
- * Validates option values before they get stored
- *
+ * Holds the current options for TubePress. This is the default options,
+ * usually in persistent storage somewhere, and custom options parsed
+ * from a shortcode
  */
-class TubePressValidator
+class SimpleTubePressInputValidationService implements TubePressInputValidationService
 {
+	private $_messageService;
+	
     /**
      * Validates options before they get stored
      *
@@ -38,19 +41,19 @@ class TubePressValidator
         switch ($optionName) {
         
         case TubePressDisplayOptions::THUMB_HEIGHT:
-            TubePressValidator::
+            $this->
                 _integerValidation(TubePressDisplayOptions::THUMB_HEIGHT, 
                 $candidate, 1, 90);
             break;
 
         case TubePressDisplayOptions::THUMB_WIDTH:
-            TubePressValidator::
+            $this->
                 _integerValidation(TubePressDisplayOptions::THUMB_WIDTH, 
                 $candidate, 1, 120);
             break;
 
         case TubePressDisplayOptions::RESULTS_PER_PAGE:
-            TubePressValidator::
+            $this->
                 _integerValidation(TubePressDisplayOptions::RESULTS_PER_PAGE, 
                 $candidate, 1, 50);
             break;
@@ -69,7 +72,7 @@ class TubePressValidator
     {
         if (!in_array($candidate, 
             array("relevance", "viewCount", "rating", "updated", "random"))) {
-                throw new Exception(sprintf(TpMsg::_("validation-order"), 
+                throw new Exception(sprintf($this->_messageService->_("validation-order"), 
                     $name, $candidate));
         }
     }
@@ -85,7 +88,7 @@ class TubePressValidator
     private function _textValidation($name, $candidate)
     {
         if (!is_string($candidate)) {
-            throw new Exception(sprintf(TpMsg::_("validation-text"), 
+            throw new Exception(sprintf($this->_messageService->_("validation-text"), 
                 $name, $candidate));
         }
     }
@@ -102,7 +105,7 @@ class TubePressValidator
     {
         if (!in_array($candidate, 
             array("today", "this_week", "this_month", "all_time"))) {
-                throw new Exception(sprintf(TpMsg::_("validation-time"), 
+                throw new Exception(sprintf($this->_messageService->_("validation-time"), 
                     $name, $candidate));
         }
     }
@@ -123,14 +126,18 @@ class TubePressValidator
     {
         
         if (intval($candidate) == 0) {
-            throw new Exception(sprintf(TpMsg::_("validation-int-type"), 
+            throw new Exception(sprintf($this->_messageService->_("validation-int-type"), 
                 $name, $candidate));
         }
         
         if ($candidate < $min || $candidate > $max) {
-            throw new Exception(sprintf(TpMsg::_("validation-int-range"), 
+            throw new Exception(sprintf($this->_messageService->_("validation-int-range"), 
                 $name, $min, $max, $candidate));
         }
     }
+    
+    public function setMessageService(TubePressMessageService $messageService)
+    {
+    	$this->_messageService = $messageService;
+    }
 }
-?>

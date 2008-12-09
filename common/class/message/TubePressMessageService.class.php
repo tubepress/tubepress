@@ -22,13 +22,7 @@
 /**
  * General purpose cache for TubePress
  */
-interface TubePressPaginationService
+interface TubePressMessageService
 {
-	public function getHtml($totalResults);
-	
-	public function setMessageService(TubePressMessageService $messageService);
-	
-	public function setOptionsManager(TubePressOptionsManager $tpom);
-	
-	public function setQueryStringService(TubePressQueryStringService $queryStringService);
+	public function _($messageKey);
 }
