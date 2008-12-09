@@ -22,21 +22,18 @@
 /**
  * Handles some tasks related to the query string
  */
-interface TubePressQueryStringService
+interface TubePressShortcodeService
 {
-    /**
-     * Returns what's in the address bar
+   /**
+     * This function is used to parse a shortcode into options that TubePress can use.
+     *
+     * @param string                  $content The haystack in which to search
+     * @param TubePressOptionsManager &$tpom   The TubePress options manager
      * 
-     * @return string What's in the address bar
+     * @return void
      */
-    public function getFullUrl(array $serverVars);
-    
-    /**
-     * Try to figure out what page we're on by looking at the query string
-     * Defaults to '1' if there's any doubt
-     * 
-     * @return int The page number
-     */
-    public function getPageNum(array $getVars);
+    public function parse($content, TubePressOptionsManager $tpom);
+
+    public function somethingToParse($content, $trigger = "tubepress");
 }
 ?>

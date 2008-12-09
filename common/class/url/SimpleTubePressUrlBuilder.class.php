@@ -118,7 +118,7 @@ class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
         $order   = $this->_tpom->get(TubePressDisplayOptions::ORDER_BY);
         $mode    = $this->_tpom->get(TubePressGalleryOptions::MODE);
         
-        $currentPage = $this->_queryStringService->getPageNum();
+        $currentPage = $this->_queryStringService->getPageNum($_GET);
         
         /* start index of the videos */
         $start = ($currentPage * $perPage) - $perPage + 1;

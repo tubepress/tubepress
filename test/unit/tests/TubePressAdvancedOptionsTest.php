@@ -30,20 +30,5 @@ class TubePressAdvancedOptionsTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(sizeof($this->_expectedNames), sizeof($this->_actualNames));
 	}
 	
-	public function testPrintForOptionsForm()
-	{
-		$tpsm = $this->getMock("TubePressStorageManager");
-		
-		foreach ($this->_expectedNames as $expectedName) {
-			$tpsm->expects($this->any())
-				 ->method("get")
-				 ->with($this->equalTo($expectedName))
-				 ->will($this->returnValue("foo"));
-		}
-		
-		$template = $this->getMock("HTML_Template_IT");
-		$sut = new TubePressAdvancedOptions();
-		$sut->printForOptionsForm($template, $tpsm);
-	}
 }
 ?>

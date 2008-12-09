@@ -8,6 +8,7 @@ $testNames = array(
 	"SimpleTubePressFeedInspectionService",
 	"SimpleTubePressOptionsManager",
 	"SimpleTubePressQueryStringService",
+	"SimpleTubePressShortcodeService",
 	"SimpleTubePressThumbnailService",
 	"SimpleTubePressUrlBuilder",
 	"SimpleTubePressVideoFactory",
@@ -26,7 +27,6 @@ $testNames = array(
 	"TubePressMetaOptions",
 	"TubePressOptionsForm",
 	"TubePressPaginationService_DiggStyle",
-	"TubePressShortcode",
 	"TubePressStringUtils",
 	"TubePressValidator",
 	"TubePressVideo",
@@ -43,12 +43,12 @@ function __($key) {
 	return $key;
 }
 
-class TubePressTestSuite
+class TubePressUnitTests
 {
 	public static function suite()
 	{
 		global $testNames;
-		$suite = new PHPUnit_Framework_TestSuite("TubePress Tests");
+		$suite = new PHPUnit_Framework_TestSuite("TubePress Unit Tests");
 		foreach ($testNames as $test) {
 			$suite->addTestSuite($test . "Test");
 		}

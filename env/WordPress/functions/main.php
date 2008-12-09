@@ -17,18 +17,20 @@ function _tp_main($content) {
 
 	$wpsm = new WordPressStorageManager();
     $trigger = $wpsm->get(TubePressAdvancedOptions::KEYWORD);
-    if (!TubePressShortcode::somethingToParse($content, $trigger)) {
+	$shortcodeService = new SimpleTubePressShortcodeService();
+    
+    if (!$shortcodeService->somethingToParse($content, $trigger)) {
 	    return $content;
 	}
 
 	/* Store everything we generate in the following string */
     $newcontent = $content;
     
-    while (TubePressShortcode::somethingToParse($newcontent, $trigger)) {
+    while ($shortcodeService->somethingToParse($newcontent, $trigger)) {
  
 	    $tpom = new SimpleTubePressOptionsManager();
 	    $tpom->setStorageManager($wpsm);
-	    TubePressShortcode::parse($newcontent, $tpom);
+	    $shortcodeService->parse($newcontent, $tpom);
 	        
 	    if (TubePressDebug::areWeDebugging($tpom)) {
 	        TubePressDebug::execute($tpom, $wpsm);

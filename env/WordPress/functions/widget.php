@@ -38,7 +38,8 @@ function tubepress_widget($opts)
 	        TubePressDisplayOptions::THUMB_HEIGHT => 105,
 	        TubePressDisplayOptions::THUMB_WIDTH => 135
 	        ));
-	TubePressShortcode::parse($wpsm->get(TubePressWidgetOptions::TAGSTRING), $tpom);
+	$shortcodeService = new SimpleTubePressShortcodeService();
+	$shortcodeService->parse($wpsm->get(TubePressWidgetOptions::TAGSTRING), $tpom);
 	$gallery = new TubePressWidgetGallery();
 		
 	$out = $gallery->generate($tpom);

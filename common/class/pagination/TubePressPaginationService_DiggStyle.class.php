@@ -33,11 +33,11 @@ class TubePressPaginationService_DiggStyle implements TubePressPaginationService
 	
 	public function getHtml($vidCount)
 	{
-		$currentPage = $this->_queryStringService->getPageNum();
+		$currentPage = $this->_queryStringService->getPageNum($_GET);
         $vidsPerPage = $this->_tpom->
             get(TubePressDisplayOptions::RESULTS_PER_PAGE);
     
-        $newurl = new Net_URL($this->_queryStringService->getFullUrl());
+        $newurl = new Net_URL($this->_queryStringService->getFullUrl($_SERVER));
         $newurl->removeQueryString("tubepress_page");
  
         return diggstyle_getPaginationString($currentPage, $vidCount,

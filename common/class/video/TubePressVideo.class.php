@@ -26,13 +26,13 @@ class TubePressVideo
 {
     private $_author;
     private $_category;
-    private $_thumbUrls;
     private $_description;
     private $_id;
     private $_rating;
     private $_ratings;
     private $_length;
     private $_tags;
+    private $_thumbUrls;
     private $_title;
     private $_uploadTime;
     private $_youTubeUrl;
@@ -40,13 +40,13 @@ class TubePressVideo
     
     public function getAuthor() {      return $this->_author; }
     public function getCategory() {    return $this->_category; }
-    public function getThumbUrls() {   return $this->_thumbUrls; }
     public function getDescription() { return $this->_description; }
     public function getId() {          return $this->_id; }
     public function getRating() {      return $this->_rating; }
     public function getRatings() {     return $this->_ratings; }
     public function getLength() {      return $this->_length; }
     public function getTags() {        return $this->_tags; }
+	public function getThumbUrls() {   return $this->_thumbUrls; }
     public function getTitle() {       return $this->_title; }
     public function getUploadTime() {  return $this->_uploadTime; }
     public function getYouTubeUrl() {  return $this->_youTubeUrl; }
@@ -54,13 +54,13 @@ class TubePressVideo
     
     public function setAuthor($author) {             $this->_author = $author; }
     public function setCategory($category) {         $this->_category = $category; }
-    public function setThumbUrls(array $thumbUrls) { $this->_thumbUrls = $thumbUrls; }
     public function setDescription($description) {   $this->_description = $description; }
     public function setId($id) {                     $this->_id = $id; }
     public function setRating($rating) {             $this->_rating = $rating; }
     public function setRatings($ratings) {           $this->_ratings = $ratings; }
     public function setLength($length) {             $this->_length = $length; }
     public function setTags(array $tags) {           $this->_tags = $tags; }
+	public function setThumbUrls(array $thumbUrls) { $this->_thumbUrls = $thumbUrls; }
     public function setTitle($title) {               $this->_title = $title; }
     public function setUploadTime($uploadTime) {     $this->_uploadTime = $uploadTime; }
     public function setYouTubeUrl($youTubeUrl) {     $this->_youTubeUrl = $youTubeUrl; }
@@ -73,7 +73,8 @@ class TubePressVideo
      */
     public function getRandomThumbURL()
     {
-        return array_rand($this->getThumbUrls());
+    	$thumbs = $this->getThumbUrls();
+        return $thumbs[array_rand($this->getThumbUrls())];
     }
     
     /**

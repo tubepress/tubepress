@@ -10,12 +10,7 @@ class SimpleTubePressQueryStringServiceTest extends PHPUnit_Framework_TestCase {
 	
 	public function testGetPageNumNothingSet()
 	{
-		$this->assertEquals(1, $this->_sut->getPageNum());
-	}
-	
-	public function testGetFullUrl()
-	{
-		$this->assertTrue(false);
+		$this->assertEquals(1, $this->_sut->getPageNum(array()));
 	}
 }
 ?>

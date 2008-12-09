@@ -20,11 +20,11 @@
  */
 
 /**
- * Handles parsing a shortcode to options
+ * Handles some tasks related to the query string
  */
-class TubePressShortcode
+class SimpleTubePressShortcodeService implements TubePressShortcodeService
 {
-    /**
+   /**
      * This function is used to parse a shortcode into options that TubePress can use.
      *
      * @param string                  $content The haystack in which to search
@@ -56,15 +56,15 @@ class TubePressShortcode
         $optionsArray = array();
         foreach ($pairs as $pair) {
             $pieces                    = explode("=", $pair);
-            $pieces[0]                 = TubePressShortcode::_cleanupTagValue($pieces[0]);
-            $pieces[1]                 = TubePressShortcode::_cleanupTagValue($pieces[1]);
+            $pieces[0]                 = SimpleTubePressShortcodeService::_cleanupTagValue($pieces[0]);
+            $pieces[1]                 = SimpleTubePressShortcodeService::_cleanupTagValue($pieces[1]);
             $customOptions[$pieces[0]] = $pieces[1];
         }
 
         $tpom->setCustomOptions($customOptions);
     }
 
-    public static function somethingToParse($content, $trigger = "tubepress")
+    public function somethingToParse($content, $trigger = "tubepress")
     {
     	return strpos($content, '[' . $trigger) !== false;
     }
@@ -93,6 +93,6 @@ class TubePressShortcode
         }
         return $nameOrValue;
     }
-
-
+	
 }
+?>

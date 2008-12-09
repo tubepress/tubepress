@@ -29,18 +29,18 @@ class SimpleTubePressQueryStringService implements TubePressQueryStringService
      * 
      * @return string What's in the address bar
      */
-    public function getFullUrl()
+    public function getFullUrl(array $serverVars)
     {
         $pageURL = 'http';
-        if ($_SERVER["HTTPS"] == "on") {
+        if ($serverVars["HTTPS"] == "on") {
             $pageURL .= "s";
         }
         $pageURL .= "://";
-        if ($_SERVER["SERVER_PORT"] != "80") {
-             $pageURL .= $_SERVER["SERVER_NAME"].":".
-                 $_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+        if ($serverVars["SERVER_PORT"] != "80") {
+             $pageURL .= $serverVars["SERVER_NAME"].":".
+                 $serverVars["SERVER_PORT"].$serverVars["REQUEST_URI"];
         } else {
-             $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+             $pageURL .= $serverVars["SERVER_NAME"].$serverVars["REQUEST_URI"];
         }
         return $pageURL;
     }
@@ -51,10 +51,10 @@ class SimpleTubePressQueryStringService implements TubePressQueryStringService
      * 
      * @return int The page number
      */
-    public function getPageNum()
+    public function getPageNum(array $getVars)
     {
         $pageNum = ((isset($_GET["tubepress_page"])) ?
-            $_GET["tubepress_page"] : 1);
+            $getVars["tubepress_page"] : 1);
         
         if (!is_numeric($pageNum) || ($pageNum < 1)) {
             $pageNum = 1;
