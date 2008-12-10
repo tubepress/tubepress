@@ -102,7 +102,7 @@ abstract class AbstractTubePressGallery
     private function _parsePaginationHTML($vidCount, 
         HTML_Template_IT &$tpl)
     {
-     	$pagination = $this->_paginationService->getHtml($this->_tpom, $vidCount);       
+     	$pagination = $this->_paginationService->getHtml($vidCount);
         $tpl->setVariable('TOPPAGINATION', $pagination);
         $tpl->setVariable('BOTPAGINATION', $pagination);
     }
@@ -202,6 +202,7 @@ abstract class AbstractTubePressGallery
     public function setCacheService(TubePressCacheService $cache) { $this->_cache = $cache; }
 	public function setFeedInspectionService(TubePressFeedInspectionService $feedInspector) { $this->_feedInspectionService = $feedInspector; }
 	public function setFeedRetrievalService(TubePressFeedRetrievalService $feedRetriever) { $this->_feedRetrievalService = $feedRetriever; }
+	public function setMessageService(TubePressMessageService $messageService) { $this->_messageService = $messageService; }
 	public function setOptionsManager(TubePressOptionsManager $tpom) { $this->_tpom = $tpom; }
 	public function setPaginationService(TubePressPaginationService $paginator) { $this->_paginationService = $paginator; }
 	public function setThumbnailService(TubePressThumbnailService $thumbService) { $this->_thumbnailService = $thumbService; }

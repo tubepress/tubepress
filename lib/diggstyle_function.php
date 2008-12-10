@@ -2,7 +2,6 @@
 //function to return the pagination string
 function diggstyle_getPaginationString(TubePressMessageService $messageService, $page = 1, $totalitems, $limit = 15, $adjacents = 1, $targetpage = "/", $pagestring = "?page=")
 {   
-	
     //defaults
     if(!$adjacents) $adjacents = 1;
     if(!$limit) $limit = 15;
@@ -22,7 +21,7 @@ function diggstyle_getPaginationString(TubePressMessageService $messageService, 
     $pagination = "";
     
     $url = new Net_URL($targetpage);
-    
+
     if($lastpage > 1)
     {    
         $pagination .= "<div class=\"pagination\"";

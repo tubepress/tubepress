@@ -39,10 +39,11 @@ function _tp_main($content) {
 
 	    $modeName = $tpom->get(TubePressGalleryOptions::MODE);
 	    $gallery = new TubePressGallery();
+	    _tp_setGalleryInterfaces($gallery, $tpom);
 	    
 	    /* replace the tag with our new content */
 	    $newcontent = TubePressStringUtils::replaceFirst($tpom->getShortcode(), 
-	        $gallery->generate($tpom, $messageService), $newcontent);
+	        $gallery->generate(), $newcontent);
     }
     
     return $newcontent;
@@ -82,6 +83,35 @@ GBS;
     $playerName = $wpsm->get(TubePressDisplayOptions::CURRENT_PLAYER_NAME);
     $player = TubePressPlayer::getInstance($playerName);
     print $player->getHeadContents();
+}
+
+function _tp_setGalleryInterfaces(TubePressGallery $gallery, TubePressOptionsManager $tpom)
+{
+	$messageService = new WordPressMessageService();
+	
+	$thumbService = new SimpleTubePressThumbnailService();
+    $thumbService->setOptionsManager($tpom);
+    $thumbService->setMessageService($messageService);
+    	
+    $queryStringService = new SimpleTubePressQueryStringService();
+    	
+    $urlBuilderService = new SimpleTubePressUrlBuilder();
+    $urlBuilderService->setOptionsManager($tpom);
+    $urlBuilderService->setQueryStringService($queryStringService);
+    	
+    $paginationService = new TubePressPaginationService_DiggStyle();
+    $paginationService->setMessageService($messageService);
+    $paginationService->setOptionsManager($tpom);
+    $paginationService->setQueryStringService($queryStringService);
+    	
+    $gallery->setCacheService(			 new SimpleTubePressCacheService());
+	$gallery->setFeedInspectionService( new SimpleTubePressFeedInspectionService());
+	$gallery->setFeedRetrievalService(	 new TubePressFeedRetrievalService_HTTP_Request());
+	$gallery->setOptionsManager(		 $tpom);
+	$gallery->setPaginationService(	 $paginationService);
+	$gallery->setThumbnailService(		 $thumbService);
+	$gallery->setUrlBuilderService(	 $urlBuilderService);
+	$gallery->setVideoFactory(			 new SimpleTubePressVideoFactory());
 }
 
 ?>

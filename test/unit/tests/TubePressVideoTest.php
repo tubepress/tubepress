@@ -100,5 +100,12 @@ class TubePressVideoTest extends PHPUnit_Framework_TestCase {
 		$this->_vid->setThumbUrls($thumbs);
         $this->assertTrue(in_array($this->_vid->getRandomThumbUrl(), $thumbs));
 	}
+	
+	public static function getFakeInstance($random)
+	{
+		$vid = new TubePressVideo();
+		$vid->setAuthor("3hough");
+		return $vid;
+	}
 }
 ?>
