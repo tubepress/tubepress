@@ -22,7 +22,7 @@ $testNames = array(
 	"TubePressDisplayOptions",
 	"TubePressEmbeddedOptions",
 	"TubePressEmbeddedPlayer",
-	"TubePressFeedRetrievalService_HTTP_Request",
+	"TubePressFeedRetrievalService_HTTP_Request2",
 	"TubePressGalleryOptions",
 	"TubePressGallery",
 	"TubePressMetaOptions",

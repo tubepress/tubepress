@@ -20,7 +20,7 @@ function diggstyle_getPaginationString(TubePressMessageService $messageService, 
     */
     $pagination = "";
     
-    $url = new Net_URL($targetpage);
+    $url = new Net_URL2($targetpage);
 
     if($lastpage > 1)
     {    
@@ -30,7 +30,7 @@ function diggstyle_getPaginationString(TubePressMessageService $messageService, 
 
         //previous button
         if ($page > 1) {
-            $url->addQueryString($pagestring, $prev);
+            $url->setQueryVariable($pagestring, $prev);
             $newurl = $url->getURL();
             $pagination .= "<a href=\"$newurl\">" . $messageService->_("prev") . "</a>";
         }
@@ -45,7 +45,7 @@ function diggstyle_getPaginationString(TubePressMessageService $messageService, 
                 if ($counter == $page)
                     $pagination .= "<span class=\"current\">$counter</span>";
                 else {
-                    $url->addQueryString($pagestring, $counter);
+                    $url->setQueryVariable($pagestring, $counter);
                     $newurl = $url->getURL();
                     $pagination .= "<a href=\"$newurl\">$counter</a>";
                 }            
@@ -61,26 +61,26 @@ function diggstyle_getPaginationString(TubePressMessageService $messageService, 
                     if ($counter == $page)
                         $pagination .= "<span class=\"current\">$counter</span>";
                     else {
-                        $url->addQueryString($pagestring, $counter);
+                        $url->setQueryVariable($pagestring, $counter);
                         $newurl = $url->getURL();
                         $pagination .= "<a href=\"$newurl\">$counter</a>";
                     }                
                 }
                 $pagination .= "...";
-                $url->addQueryString($pagestring, $lpm1);
+                $url->setQueryVariable($pagestring, $lpm1);
                 $newurl = $url->getURL();
                 $pagination .= " <a href=\"$newurl\">$lpm1</a>";
-                $url->addQueryString($pagestring, $lastpage);
+                $url->setQueryVariable($pagestring, $lastpage);
                 $newurl = $url->getURL();
                 $pagination .= "<a href=\"$newurl\">$lastpage</a>";        
             }
             //in middle; hide some front and some back
             elseif($lastpage - ($adjacents * 2) > $page && $page > ($adjacents * 2))
             {
-                $url->addQueryString($pagestring, 1);
+                $url->setQueryVariable($pagestring, 1);
                 $newurl = $url->getURL();
                 $pagination .= "<a href=\"$newurl\">1</a>";
-                $url->addQueryString($pagestring, 2);
+                $url->setQueryVariable($pagestring, 2);
                 $newurl = $url->getURL();
                 $pagination .= "<a href=\"$newurl\">2</a>";
                 $pagination .= "...";
@@ -89,27 +89,27 @@ function diggstyle_getPaginationString(TubePressMessageService $messageService, 
                     if ($counter == $page)
                         $pagination .= "<span class=\"current\">$counter</span>";
                     else {
-                        $url->addQueryString($pagestring, $counter);
+                        $url->setQueryVariable($pagestring, $counter);
                         $newurl = $url->getURL();
                         $pagination .= " <a href=\"$newurl\">$counter</a>";
                     }            
                 }
                 $pagination .= "...";
                 
-                $url->addQueryString($pagestring, $lpm1);
+                $url->setQueryVariable($pagestring, $lpm1);
                 $newurl = $url->getURL();
                 $pagination .= " <a href=\"$newurl\">$lpm1</a>";
-                $url->addQueryString($pagestring, $lastpage);
+                $url->setQueryVariable($pagestring, $lastpage);
                 $newurl = $url->getURL();
                 $pagination .= " <a href=\"$newurl\">$lastpage</a>";        
             }
             //close to end; only hide early pages
             else
             {
-                $url->addQueryString($pagestring, 1);
+                $url->setQueryVariable($pagestring, 1);
                 $newurl = $url->getURL();
                 $pagination .= "<a href=\"$newurl\">1</a>";
-                $url->addQueryString($pagestring, 2);
+                $url->setQueryVariable($pagestring, 2);
                 $newurl = $url->getURL();
                 $pagination .= "<a href=\"$newurl\">2</a>";
                 $pagination .= "...";
@@ -118,7 +118,7 @@ function diggstyle_getPaginationString(TubePressMessageService $messageService, 
                     if ($counter == $page)
                         $pagination .= "<span class=\"current\">$counter</span>";
                     else {
-                        $url->addQueryString($pagestring, $counter);
+                        $url->setQueryVariable($pagestring, $counter);
                         $newurl = $url->getURL();
                         $pagination .= " <a href=\"$newurl\">$counter</a>";    
                     }
@@ -128,7 +128,7 @@ function diggstyle_getPaginationString(TubePressMessageService $messageService, 
         }
         //next button
         if ($page < $counter - 1) {
-            $url->addQueryString($pagestring, $next);
+            $url->setQueryVariable($pagestring, $next);
             $newurl = $url->getURL();
             $pagination .= "<a href=\"$newurl\">" . $messageService->_("next") . "</a>";
         } else {

@@ -18,9 +18,9 @@
  * @author     Stig Bakken <ssb@php.net>
  * @author     Tomas V.V.Cox <cox@idecnet.com>
  * @author     Greg Beaver <cellog@php.net>
- * @copyright  1997-2006 The PHP Group
+ * @copyright  1997-2008 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: PEAR.php,v 1.101 2006/04/25 02:41:03 cellog Exp $
+ * @version    CVS: $Id: PEAR.php,v 1.104 2008/01/03 20:26:34 cellog Exp $
  * @link       http://pear.php.net/package/PEAR
  * @since      File available since Release 0.1
  */
@@ -93,7 +93,7 @@ $GLOBALS['_PEAR_error_handler_stack']    = array();
  * @author     Greg Beaver <cellog@php.net>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    Release: 1.5.3
+ * @version    Release: 1.7.2
  * @link       http://pear.php.net/package/PEAR
  * @see        PEAR_Error
  * @since      Class available since PHP 4.0.2
@@ -473,11 +473,11 @@ class PEAR
             if ($this->_checkDelExpect($error_code)) {
                 return true;
             } else {
-                throw new Exception("The expected error you submitted does not exist"); // IMPROVE ME
+                return PEAR::raiseError("The expected error you submitted does not exist"); // IMPROVE ME
             }
         } else {
             // $error_code is empty
-            throw new Exception("The expected error you submitted is empty"); // IMPROVE ME
+            return PEAR::raiseError("The expected error you submitted is empty"); // IMPROVE ME
         }
     }
 
@@ -565,13 +565,17 @@ class PEAR
         } else {
             $ec = 'PEAR_Error';
         }
-        if ($skipmsg) {
-            $a = &new $ec($code, $mode, $options, $userinfo);
-            return $a;
-        } else {
-            $a = &new $ec($message, $code, $mode, $options, $userinfo);
+        if (intval(PHP_VERSION) < 5) {
+            // little non-eval hack to fix bug #12147
+            include 'PEAR/FixPHP5PEARWarnings.php';
             return $a;
         }
+        if ($skipmsg) {
+            $a = new $ec($code, $mode, $options, $userinfo);
+        } else {
+            $a = new $ec($message, $code, $mode, $options, $userinfo);
+        }
+        return $a;
     }
 
     // }}}
@@ -764,7 +768,42 @@ class PEAR
     // }}}
 }
 
+// {{{ _PEAR_call_destructors()
 
+function _PEAR_call_destructors()
+{
+    global $_PEAR_destructor_object_list;
+    if (is_array($_PEAR_destructor_object_list) &&
+        sizeof($_PEAR_destructor_object_list))
+    {
+        reset($_PEAR_destructor_object_list);
+        if (PEAR::getStaticProperty('PEAR', 'destructlifo')) {
+            $_PEAR_destructor_object_list = array_reverse($_PEAR_destructor_object_list);
+        }
+        while (list($k, $objref) = each($_PEAR_destructor_object_list)) {
+            $classname = get_class($objref);
+            while ($classname) {
+                $destructor = "_$classname";
+                if (method_exists($objref, $destructor)) {
+                    $objref->$destructor();
+                    break;
+                } else {
+                    $classname = get_parent_class($classname);
+                }
+            }
+        }
+        // Empty the object list to ensure that destructors are
+        // not called more than once.
+        $_PEAR_destructor_object_list = array();
+    }
+
+    // Now call the shutdown functions
+    if (is_array($GLOBALS['_PEAR_shutdown_funcs']) AND !empty($GLOBALS['_PEAR_shutdown_funcs'])) {
+        foreach ($GLOBALS['_PEAR_shutdown_funcs'] as $value) {
+            call_user_func_array($value[0], $value[1]);
+        }
+    }
+}
 
 // }}}
 /**
@@ -779,7 +818,7 @@ class PEAR
  * @author     Gregory Beaver <cellog@php.net>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    Release: 1.5.3
+ * @version    Release: 1.7.2
  * @link       http://pear.php.net/manual/en/core.pear.pear-error.php
  * @see        PEAR::raiseError(), PEAR::throwError()
  * @since      Class available since PHP 4.0.2
@@ -1013,6 +1052,12 @@ class PEAR_Error
 
     // }}}
     // {{{ toString()
+    function __toString()
+    {
+        return $this->getMessage();
+    }
+    // }}}
+    // {{{ toString()
 
     /**
      * Make a string representation of this object.
@@ -1070,43 +1115,4 @@ class PEAR_Error
  * c-basic-offset: 4
  * End:
  */
-
-// {{{ _PEAR_call_destructors()
-
-function _PEAR_call_destructors()
-{
-    global $_PEAR_destructor_object_list;
-    if (is_array($_PEAR_destructor_object_list) &&
-        sizeof($_PEAR_destructor_object_list))
-    {
-        reset($_PEAR_destructor_object_list);
-        if (PEAR::getStaticProperty('PEAR', 'destructlifo')) {
-            $_PEAR_destructor_object_list = array_reverse($_PEAR_destructor_object_list);
-        }
-        while (list($k, $objref) = each($_PEAR_destructor_object_list)) {
-            $classname = get_class($objref);
-            while ($classname) {
-                $destructor = "_$classname";
-                if (method_exists($objref, $destructor)) {
-                    $objref->$destructor();
-                    break;
-                } else {
-                    $classname = get_parent_class($classname);
-                }
-            }
-        }
-        // Empty the object list to ensure that destructors are
-        // not called more than once.
-        $_PEAR_destructor_object_list = array();
-    }
-
-    // Now call the shutdown functions
-    if (is_array($GLOBALS['_PEAR_shutdown_funcs']) AND !empty($GLOBALS['_PEAR_shutdown_funcs'])) {
-        foreach ($GLOBALS['_PEAR_shutdown_funcs'] as $value) {
-            call_user_func_array($value[0], $value[1]);
-        }
-    }
-}
-
-
 ?>

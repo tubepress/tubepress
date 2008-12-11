@@ -99,7 +99,8 @@ class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
 
         $request = "http://gdata.youtube.com/feeds/api/$url";
         $this->_urlPostProcessing($request);
-        return $request;
+        
+        return str_replace("&", "&amp;", $request);
     }
     
 /**
@@ -123,32 +124,32 @@ class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
         /* start index of the videos */
         $start = ($currentPage * $perPage) - $perPage + 1;
         
-        $requestURL = new Net_URL($request);
-        $requestURL->addQueryString("start-index", $start);
-        $requestURL->addQueryString("max-results", $perPage);
+        $requestURL = new Net_URL2($request);
+        $requestURL->setQueryVariable("start-index", $start);
+        $requestURL->setQueryVariable("max-results", $perPage);
         
-        $requestURL->addQueryString("racy", $filter ? "exclude" : "include");
+        $requestURL->setQueryVariable("racy", $filter ? "exclude" : "include");
       
         //TODO: this is ugly and stupid, in that order
         if ($mode != TubePressGallery::PLAYLIST
         	&& $order != "random") {
-            $requestURL->addQueryString("orderby", $order);
+            $requestURL->setQueryVariable("orderby", $order);
         }
         
         /* YouTube API client ID and developer keys */
-        $requestURL->addQueryString("client", $this->_tpom->get(TubePressAdvancedOptions::CLIENT_KEY));
-        $requestURL->addQueryString("key", $this->_tpom->get(TubePressAdvancedOptions::DEV_KEY));
+        $requestURL->setQueryVariable("client", $this->_tpom->get(TubePressAdvancedOptions::CLIENT_KEY));
+        $requestURL->setQueryVariable("key", $this->_tpom->get(TubePressAdvancedOptions::DEV_KEY));
         
         $request = $requestURL->getURL();
     }
     
     public function buildSingleVideoUrl($id)
     {
-    	$requestURL = new Net_URL("http://gdata.youtube.com/feeds/api/videos");
-    	$requestURL->addQueryString("q", $id);
-    	$requestURL->addQueryString("max-results", 1);
-    	$requestURL->addQueryString("client", $this->_tpom->get(TubePressAdvancedOptions::CLIENT_KEY));
-        $requestURL->addQueryString("key", $this->_tpom->get(TubePressAdvancedOptions::DEV_KEY));
+    	$requestURL = new Net_URL2("http://gdata.youtube.com/feeds/api/videos");
+    	$requestURL->setQueryVariable("q", $id);
+    	$requestURL->setQueryVariable("max-results", 1);
+    	$requestURL->setQueryVariable("client", $this->_tpom->get(TubePressAdvancedOptions::CLIENT_KEY));
+        $requestURL->setQueryVariable("key", $this->_tpom->get(TubePressAdvancedOptions::DEV_KEY));
         
        	return $requestURL->getURL();
     }

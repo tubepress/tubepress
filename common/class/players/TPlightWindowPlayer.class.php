@@ -62,8 +62,8 @@ class TPlightWindowPlayer extends TubePressPlayer
         $width  = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
         $embed  = new TubePressEmbeddedPlayer($vid, $tpom);
         
-        $url = new Net_URL($tubepress_base_url . "/common/ui/popup.php");
-        $url->addQueryString("embed", $embed->toString());
+        $url = new Net_URL2($tubepress_base_url . "/common/ui/popup.php");
+        $url->setQueryVariable("embed", $embed->toString());
         
         return sprintf('href="%s" class="lightwindow" title="%s" ' .
             'params="lightwindow_width=%s,lightwindow_height=%s"', 

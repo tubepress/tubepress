@@ -19,7 +19,7 @@
 *
 * @package Cache_Lite
 * @category Caching
-* @version $Id: Lite.php,v 1.45 2006/06/03 08:10:33 fab Exp $
+* @version $Id: Lite.php,v 1.50 2008/04/13 14:41:23 tacker Exp $
 * @author Fabien MARTY <fab@php.net>
 */
 
@@ -482,7 +482,7 @@ class Cache_Lite
         if ($this->_caching) {
             $array = array(
                 'counter' => $this->_memoryCachingCounter,
-                'array' => $this->_memoryCachingState
+                'array' => $this->_memoryCachingArray
             );
             $data = serialize($array);
             $this->save($data, $id, $group);
@@ -597,8 +597,8 @@ class Cache_Lite
             $motif = ($group) ? 'cache_'.$group.'_' : 'cache_';
         }
         if ($this->_memoryCaching) {
-            while (list($key, ) = each($this->_memoryCachingArray)) {
-                if (strpos($key, $motif, 0)) {
+	    foreach($this->_memoryCachingArray as $key => $v) {
+                if (strpos($key, $motif) !== false) {
                     unset($this->_memoryCachingArray[$key]);
                     $this->_memoryCachingCounter = $this->_memoryCachingCounter - 1;
                 }
@@ -626,7 +626,7 @@ class Cache_Lite
                                 }
                                 break;
                             case 'notingrou':
-                                if (!strpos($file2, $motif, 0)) {
+                                if (strpos($file2, $motif) === false) {
                                     $result = ($result and ($this->_unlink($file2)));
                                 }
                                 break;
@@ -638,7 +638,7 @@ class Cache_Lite
                                 break;
                             case 'ingroup':
                             default:
-                                if (strpos($file2, $motif, 0)) {
+                                if (strpos($file2, $motif) !== false) {
                                     $result = ($result and ($this->_unlink($file2)));
                                 }
                                 break;
@@ -764,8 +764,10 @@ class Cache_Lite
             if ($this->_readControl) {
                 @fwrite($fp, $this->_hash($data, $this->_readControlType), 32);
             }
-            $len = strlen($data);
-            @fwrite($fp, $data, $len);
+            $mqr = get_magic_quotes_runtime();
+            set_magic_quotes_runtime(0);
+            @fwrite($fp, $data);
+            set_magic_quotes_runtime($mqr);
             if ($this->_fileLocking) @flock($fp, LOCK_UN);
             @fclose($fp);
             return true;
@@ -788,7 +790,7 @@ class Cache_Lite
         }
         $dataRead = $this->_read();
         if (is_object($dataRead)) {
-            return $result; # We return the PEAR_Error object
+            return $dataRead; # We return the PEAR_Error object
         }
         if ((is_bool($dataRead)) && (!$dataRead)) {
             return false; 

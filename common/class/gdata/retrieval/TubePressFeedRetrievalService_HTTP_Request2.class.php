@@ -23,7 +23,7 @@
  * Implementation of TubePressGdataService that uses PEAR's HTTP_Request class
  *
  */
-class TubePressFeedRetrievalService_HTTP_Request implements TubePressFeedRetrievalService
+class TubePressFeedRetrievalService_HTTP_Request2 implements TubePressFeedRetrievalService
 {
 	
     /**
@@ -51,16 +51,12 @@ class TubePressFeedRetrievalService_HTTP_Request implements TubePressFeedRetriev
     
     private function _fetchFromNetwork($request) {
     	$data = "";
-    	$request = str_replace("&amp;", "&", $request);
-    	$req = new HTTP_Request($request);
+    	$request = new Net_URL2($request);
+    	$req = new HTTP_Request2($request);
+    	$req->setAdapter(new HTTP_Request2_Adapter_Socket());
 
-    	$call = $req->sendRequest();
-        if (!PEAR::isError($call)) {
-
-            $data = $req->getResponseBody();
-        } else {
-        	throw new Exception("Couldn't connect to YouTube");
-        }
+    	$response = $req->send();
+       	$data = $response->getBody();
         return $data;
     }
 }

@@ -69,9 +69,9 @@ class TPShadowBoxPlayer extends TubePressPlayer
 
         $embed = new TubePressEmbeddedPlayer($vid, $tpom);
         
-        $url = new Net_URL($tubepress_base_url . "/common/ui/popup.php");
-        $url->addQueryString("embed", $embed->toString());
-        $url->addQueryString("name", $title);
+        $url = new Net_URL2($tubepress_base_url . "/common/ui/popup.php");
+        $url->setQueryVariable("embed", $embed->toString());
+        $url->setQueryVariable("name", $title);
         
         //return "href='#' onclick='tubePress_popup(" .
         //    '"' .  . '",' . $height . ',' . $width . ')\''; 

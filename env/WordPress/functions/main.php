@@ -106,7 +106,7 @@ function _tp_setGalleryInterfaces(TubePressGallery $gallery, TubePressOptionsMan
     	
     $gallery->setCacheService(			 new SimpleTubePressCacheService());
 	$gallery->setFeedInspectionService( new SimpleTubePressFeedInspectionService());
-	$gallery->setFeedRetrievalService(	 new TubePressFeedRetrievalService_HTTP_Request());
+	$gallery->setFeedRetrievalService(	 new TubePressFeedRetrievalService_HTTP_Request2());
 	$gallery->setOptionsManager(		 $tpom);
 	$gallery->setPaginationService(	 $paginationService);
 	$gallery->setThumbnailService(		 $thumbService);

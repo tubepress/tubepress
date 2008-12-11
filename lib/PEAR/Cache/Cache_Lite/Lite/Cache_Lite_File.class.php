@@ -15,8 +15,6 @@
 * @author Fabien MARTY <fab@php.net>
 */
  
-require_once('Cache/Lite.php');
-
 class Cache_Lite_File extends Cache_Lite
 {
 

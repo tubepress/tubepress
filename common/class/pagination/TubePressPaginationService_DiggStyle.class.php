@@ -38,8 +38,8 @@ class TubePressPaginationService_DiggStyle implements TubePressPaginationService
         $vidsPerPage = $this->_tpom->
             get(TubePressDisplayOptions::RESULTS_PER_PAGE);
     
-        $newurl = new Net_URL($this->_queryStringService->getFullUrl($_SERVER));
-        $newurl->removeQueryString("tubepress_page");
+        $newurl = new Net_URL2($this->_queryStringService->getFullUrl($_SERVER));
+        $newurl->unsetQueryVariable("tubepress_page");
 
         return diggstyle_getPaginationString($this->_messageService, $currentPage, $vidCount,
             $vidsPerPage, 1, $newurl->getURL(), 
