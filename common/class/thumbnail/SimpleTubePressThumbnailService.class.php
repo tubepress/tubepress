@@ -155,11 +155,11 @@ class SimpleTubePressThumbnailService implements TubePressThumbnailService
                     break;
 
                 case TubePressMetaOptions::RATING:
-                    $this->_tpl->setVariable('METAVALUE', $vid->getRatingAverage());
+                    $this->_tpl->setVariable('METAVALUE', $vid->getRating());
                     break;
                            
                 case TubePressMetaOptions::RATINGS:
-                    $this->_tpl->setVariable('METAVALUE', $vid->getRatingCount());
+                    $this->_tpl->setVariable('METAVALUE', $vid->getRatings());
                     break;
                            
                 case TubePressMetaOptions::UPLOADED:
