@@ -33,8 +33,7 @@ class TubePressDebug
      * 
      * @return void
      */
-    public static final function execute(TubePressOptionsManager $tpom, 
-        TubePressStorageManager $tpsm)
+    public static final function execute(TubePressGallery $gallery, TubePressOptionsManager $tpom)
     {
     	global $tubepress_base_url;
     
@@ -46,12 +45,13 @@ class TubePressDebug
         }
 
         $builder = new SimpleTubePressUrlBuilder();
+        $builder->setOptionsManager($tpom);
+        $builder->setQueryStringService(new SimpleTubePressQueryStringService());
         $debugStuff = array("tubepress_base_url" => $tubepress_base_url,
-    	    "Options manager" => print_r($tpom, true),
-    	    "Storage manager" => $tpsm->debug(),
+    	    "Gallery" => print_r($gallery, true),
             "YouTube connection test" => "Click <a href=\"" . $tubepress_base_url . 
-                "/common/class/util/TubePressConnectionTest.php\">here</a> to view results",
-            "Request URL" => $builder->buildGalleryUrl($tpom));
+                "/common/class/gdata/retrieval/TubePressConnectionTest.php\">here</a> to view results",
+            "Request URL" => $builder->buildGalleryUrl());
         
         foreach ($debugStuff as $key => $val) {
         	$tpl->setVariable("ELEMENT_TITLE", $key);

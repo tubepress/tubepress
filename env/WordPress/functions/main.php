@@ -32,15 +32,13 @@ function _tp_main($content) {
 	    $tpom = new SimpleTubePressOptionsManager();
 	    $tpom->setStorageManager($wpsm);
 	    $shortcodeService->parse($newcontent, $tpom);
-	        
-	    if (TubePressDebug::areWeDebugging($tpom)) {
-	        TubePressDebug::execute($tpom, $wpsm);
-	    }
 
-	    $modeName = $tpom->get(TubePressGalleryOptions::MODE);
 	    $gallery = new TubePressGallery();
 	    _tp_setGalleryInterfaces($gallery, $tpom);
-	    
+    	if (TubePressDebug::areWeDebugging($tpom)) {
+	        TubePressDebug::execute($gallery, $tpom);
+	    }
+
 	    /* replace the tag with our new content */
 	    $newcontent = TubePressStringUtils::replaceFirst($tpom->getShortcode(), 
 	        $gallery->generate(), $newcontent);

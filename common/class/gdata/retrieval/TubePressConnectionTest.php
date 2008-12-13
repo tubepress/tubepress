@@ -23,7 +23,7 @@
  * This bit of code simply tests your connection to YouTube
  */
 
-include dirname(__FILE__) . "/../../../tubepress_classloader.php";
+include dirname(__FILE__) . "/../../../../tubepress_classloader.php";
 
 print "You should see YouTube's homepage load below...<br /><br />";
 tubepress_run_connection_test("http://www.youtube.com");
@@ -32,17 +32,18 @@ tubepress_run_connection_test("http://gdata.youtube.com/feeds/api/standardfeeds/
 
 
 function tubepress_run_connection_test($url, $escape = false) {
-    $req =& new HTTP_Request($url);
-    $result = $req->sendRequest();
-    if (!PEAR::isError($result)) {
-        $data = $req->getResponseBody();
-        if ($escape) {
-        	$data = htmlentities($data);
-        }
-        print_r($data);
-    } else {
-	    print_r($result);
+    
+	$request = new Net_URL2($url);
+    $req = new HTTP_Request2($request);
+    $req->setAdapter(new HTTP_Request2_Adapter_Socket());
+
+    $response = $req->send();
+    $data = $response->getBody();
+	
+	if ($escape) {
+        $data = htmlentities($data);
     }
+    print_r($data);
 }
 
 ?>
