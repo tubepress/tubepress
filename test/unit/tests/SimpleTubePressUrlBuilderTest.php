@@ -31,7 +31,7 @@ class SimpleTubePressUrlBuilderTest extends PHPUnit_Framework_TestCase {
 
 		$this->_sut->setQueryStringService($this->_setupQss());
 		
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/top_rated?time=today&amp;" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl());
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/top_rated?time=today&" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl());
 	}
 	
 	function testBuildGalleryUrlPopular()
@@ -44,7 +44,7 @@ class SimpleTubePressUrlBuilderTest extends PHPUnit_Framework_TestCase {
 
 		$this->_sut->setQueryStringService($this->_setupQss());
 		
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_viewed?time=today&amp;" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl());
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_viewed?time=today&" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl());
 	}
 	
 	function testBuildGalleryUrlPlaylist()
@@ -57,7 +57,7 @@ class SimpleTubePressUrlBuilderTest extends PHPUnit_Framework_TestCase {
 
 		$this->_sut->setQueryStringService($this->_setupQss());
 		
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/fakeplaylist?start-index=1&amp;max-results=3&amp;racy=exclude&amp;client=clientkey&amp;key=devkey", $this->_sut->buildGalleryUrl());
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/fakeplaylist?start-index=1&max-results=3&racy=exclude&client=clientkey&key=devkey", $this->_sut->buildGalleryUrl());
 	}
 	
 	function testBuildGalleryUrlMostResponded()
@@ -97,7 +97,7 @@ class SimpleTubePressUrlBuilderTest extends PHPUnit_Framework_TestCase {
 	
 	private function _standardPostProcessingStuff()
 	{
-		return "start-index=1&amp;max-results=3&amp;racy=exclude&amp;orderby=relevance&amp;client=clientkey&amp;key=devkey";
+		return "start-index=1&max-results=3&racy=exclude&orderby=relevance&client=clientkey&key=devkey";
 	}
 }
 
