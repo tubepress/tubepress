@@ -99,8 +99,8 @@ class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
 
         $request = "http://gdata.youtube.com/feeds/api/$url";
         $this->_urlPostProcessing($request);
-        
-        return str_replace("&", "&amp;", $request);
+        return $request;
+        //return str_replace("&", "&amp;", $request);
     }
     
 /**
@@ -127,6 +127,7 @@ class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
         $requestURL = new Net_URL2($request);
         $requestURL->setQueryVariable("start-index", $start);
         $requestURL->setQueryVariable("max-results", $perPage);
+        //$requestURL->setQueryVariable("v", "2.0");
         
         $requestURL->setQueryVariable("racy", $filter ? "exclude" : "include");
       
