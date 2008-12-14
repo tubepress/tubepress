@@ -28,11 +28,13 @@ abstract class AbstractTubePressGallery
     private $_cache;
     private $_feedInspectionService;
     private $_feedRetrievalService;
+    private $_galleryTemplate;
     private $_messageService;
     private $_optionsManager;
     private $_paginationService;
     private $_urlBuilder;
     private $_thumbnailService;
+    private $_thumbnailTemplate;
     private $_videoFactory;
     
     /**
@@ -43,14 +45,14 @@ abstract class AbstractTubePressGallery
      * 
      * @return The HTML content for this gallery
      */
-    public final function generateThumbs($template)
+    public final function generateThumbs()
     {
         /* load up the gallery template */
         $tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../ui");
-        if (!$tpl->loadTemplatefile($template, true, true)) {
+        if (!$tpl->loadTemplatefile($this->_galleryTemplate, true, true)) {
             throw new Exception("Couldn't load gallery template");
         }
-        
+
         $xml = $this->_getFeed();
         
         $totalResults = $this->_feedInspectionService->getTotalResultCount($xml);
@@ -137,7 +139,7 @@ abstract class AbstractTubePressGallery
         }
             
         /* Here's where each thumbnail gets printed */
-        return $this->_thumbnailService->getHtml($video, $player);       
+        return $this->_thumbnailService->getHtml($this->_thumbnailTemplate, $video, $player);       
     }
     
     private function _getDisplayOrder($vidLimit) 
@@ -200,13 +202,15 @@ abstract class AbstractTubePressGallery
     }
     
     public function setCacheService(TubePressCacheService $cache) {                           $this->_cache                 = $cache; }
+    public function setGalleryTemplate($templateFile) {										  $this->_galleryTemplate		= $templateFile; }
     public function setFeedInspectionService(TubePressFeedInspectionService $feedInspector) { $this->_feedInspectionService = $feedInspector; }
     public function setFeedRetrievalService(TubePressFeedRetrievalService $feedRetriever) {   $this->_feedRetrievalService  = $feedRetriever; }
     public function setMessageService(TubePressMessageService $messageService) {              $this->_messageService        = $messageService; }
     public function setOptionsManager(TubePressOptionsManager $tpom) {                        $this->_tpom                  = $tpom; }
     public function setPaginationService(TubePressPaginationService $paginator) {             $this->_paginationService     = $paginator; }
     public function setThumbnailService(TubePressThumbnailService $thumbService) {            $this->_thumbnailService      = $thumbService; }
+    public function setThumbnailTemplate($templateFile) {									  $this->_thumbnailTemplate		= $templateFile; }
     public function setUrlBuilderService(TubePressUrlBuilder $urlBuilder) {                   $this->_urlBuilder            = $urlBuilder; }
     public function setVideoFactory(TubePressVideoFactory $factory) {                         $this->_videoFactory          = $factory; }
-
+	
 }

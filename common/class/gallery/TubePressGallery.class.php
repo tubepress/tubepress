@@ -48,7 +48,9 @@ class TubePressGallery extends AbstractTubePressGallery
     public final function generate()
     {
     	try {
-     	    return $this->generateThumbs("gallery.tpl.html");
+    		$this->setThumbnailTemplate("thumbnail.tpl.html");
+    		$this->setGalleryTemplate("gallery.tpl.html");
+     	    return $this->generateThumbs();
     	} catch (Exception $e) {
     		return $e->getMessage();
     	}

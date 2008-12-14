@@ -29,7 +29,8 @@ function tubepress_widget($opts)
 	set_exception_handler("tubepress_widget_exception_handler");
 	extract($opts);	
 	$wpsm = new WordPressStorageManager();
-	$tpom = new TubePressOptionsManager($wpsm);
+	$tpom = new SimpleTubePressOptionsManager();
+	$tpom->setStorageManager($wpsm);
 	$tpom->setCustomOptions(
 	    array(TubePressDisplayOptions::RESULTS_PER_PAGE => 3,
 	        TubePressMetaOptions::VIEWS => false,
@@ -41,7 +42,9 @@ function tubepress_widget($opts)
 	        ));
 	$shortcodeService = new SimpleTubePressShortcodeService();
 	$shortcodeService->parse($wpsm->get(TubePressWidgetOptions::TAGSTRING), $tpom);
+	
 	$gallery = new TubePressWidgetGallery();
+	_tp_widget_setGalleryInterfaces($gallery, $tpom);
 		
 	$out = $gallery->generate($tpom);
 		
@@ -56,11 +59,12 @@ function tubepress_widget($opts)
  *
  */
 function tubepress_widget_control() {
-	
+
 	set_exception_handler("tubepress_widget_exception_handler");
 	
 	if ( $_POST["tubepress-widget-submit"] ) {
 		$wpsm = new WordPressStorageManager();
+		$wpsm->setValidationService(new SimpleTubePressInputValidationService());
 		$wpsm->set(TubePressWidgetOptions::TAGSTRING, 
 		    strip_tags(stripslashes($_POST["tubepress-widget-tagstring"])));
 		$wpsm->set(TubePressWidgetOptions::TITLE, 
@@ -68,8 +72,8 @@ function tubepress_widget_control() {
 	}
 
     /* load up the gallery template */
-    $tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../../common/ui");
-    if (!$tpl->loadTemplatefile("widget_controls.tpl.html", true, true)) {
+    $tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../../common/ui/widget");
+    if (!$tpl->loadTemplatefile("controls.tpl.html", true, true)) {
         throw new Exception("Couldn't load widget control template");
     }
     
@@ -84,6 +88,35 @@ function tubepress_widget_control() {
     echo $tpl->get();
     
     restore_exception_handler();
+}
+
+function _tp_widget_setGalleryInterfaces(AbstractTubePressGallery $gallery, TubePressOptionsManager $tpom)
+{
+	$messageService = new WordPressMessageService();
+	
+	$thumbService = new SimpleTubePressThumbnailService();
+    $thumbService->setOptionsManager($tpom);
+    $thumbService->setMessageService($messageService);
+    	
+    $queryStringService = new SimpleTubePressQueryStringService();
+    	
+    $urlBuilderService = new SimpleTubePressUrlBuilder();
+    $urlBuilderService->setOptionsManager($tpom);
+    $urlBuilderService->setQueryStringService($queryStringService);
+    	
+    $paginationService = new TubePressPaginationService_DiggStyle();
+    $paginationService->setMessageService($messageService);
+    $paginationService->setOptionsManager($tpom);
+    $paginationService->setQueryStringService($queryStringService);
+    	
+    $gallery->setCacheService(			 new SimpleTubePressCacheService());
+	$gallery->setFeedInspectionService( new SimpleTubePressFeedInspectionService());
+	$gallery->setFeedRetrievalService(	 new TubePressFeedRetrievalService_HTTP_Request2());
+	$gallery->setOptionsManager(		 $tpom);
+	$gallery->setPaginationService(	 $paginationService);
+	$gallery->setThumbnailService(		 $thumbService);
+	$gallery->setUrlBuilderService(	 $urlBuilderService);
+	$gallery->setVideoFactory(			 new SimpleTubePressVideoFactory());
 }
 
 ?>

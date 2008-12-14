@@ -33,10 +33,10 @@ class SimpleTubePressThumbnailService implements TubePressThumbnailService
 	private $_tpom;
 	private $_msg;
 	
-    public function getHtml(TubePressVideo $vid, TubePressPlayer $player)
+    public function getHtml($templateFile, TubePressVideo $vid, TubePressPlayer $player)
     {
     	$this->_tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../ui");
-        if (!$this->_tpl->loadTemplatefile("thumbnail.tpl.html", true, true)) {
+        if (!$this->_tpl->loadTemplatefile($templateFile, true, true)) {
             throw new Exception("Couldn't load thumbnail template");
         }
     	//$this->_tpl->init();

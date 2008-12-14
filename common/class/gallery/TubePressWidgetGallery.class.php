@@ -32,8 +32,10 @@ class TubePressWidgetGallery extends AbstractTubePressGallery
      * 
      * @return The HTML content for this gallery
      */
-    public static final function generate()
+    public final function generate()
     {
-        return parent::generateThumbs("widget_gallery.tpl.html");   
+    	$this->setThumbnailTemplate("widget/thumb.tpl.html");
+    	$this->setGalleryTemplate("widget/gallery.tpl.html");
+        return $this->generateThumbs();   
     }
 }
