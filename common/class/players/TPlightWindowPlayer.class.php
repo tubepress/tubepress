@@ -67,7 +67,7 @@ class TPlightWindowPlayer extends TubePressPlayer
         
         return sprintf('href="%s" class="lightwindow" title="%s" ' .
             'params="lightwindow_width=%s,lightwindow_height=%s"', 
-            $url->getURL(), $title, $width, $height);
+            $url->getURL(true), $title, $width, $height);
     }
     
     public function getPreGalleryHtml(TubePressVideo $vid, TubePressOptionsManager $tpom)

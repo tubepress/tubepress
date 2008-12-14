@@ -128,7 +128,6 @@ class Net_URL2
                          "&");
         $this->setOption(self::OPTION_SEPARATOR_OUTPUT,
                          "&");
-        $this->setOption(self::OPTION_ENCODE_KEYS, false);
         if (is_array($options)) {
             foreach ($options as $optionName => $value) {
                 $this->setOption($optionName);
@@ -467,7 +466,7 @@ class Net_URL2
                             : ($name . '=' . $v);
                     }
                 } elseif (!is_null($value)) {
-                    $parts[] = $name . '=' . $value;
+                    $parts[] = $name . '=' . rawurlencode($value);
                 } else {
                     $parts[] = $name;
                 }
@@ -507,7 +506,7 @@ class Net_URL2
      *
      * @return  string
      */
-    public function getURL()
+    public function getURL($encodeAmpersands = false)
     {
         // See RFC 3986, section 5.3
         $url = "";
@@ -530,6 +529,9 @@ class Net_URL2
             $url .= '#' . $this->fragment;
         }
     
+        if ($encodeAmpersands) {
+        	return str_replace("&", "&amp;=", $url);
+        }
         return $url;
     }
 

@@ -41,7 +41,7 @@ class SimpleTubePressThumbnailService implements TubePressThumbnailService
         }
     	//$this->_tpl->init();
         $this->_getCommonStuff($vid, $player);
-        $this->_getMetaStuff($vid);
+        $this->_getMetaStuff($vid, $player);
         return $this->_tpl->get();
     }
     
@@ -81,10 +81,12 @@ class SimpleTubePressThumbnailService implements TubePressThumbnailService
         $this->_tpl->setVariable('THUMBHEIGHT', $thumbHeight);
     }
     
-    private function _getMetaStuff(TubePressVideo $vid)
+    private function _getMetaStuff(TubePressVideo $vid, TubePressPlayer $player)
     {
         $class = new ReflectionClass("TubePressMetaOptions");    
 
+        $link = $playLink = $player->getPlayLink($vid, $this->_tpom);
+        
         /* go through each option in the category */
         foreach ($class->getConstants() as $constant) {
 
