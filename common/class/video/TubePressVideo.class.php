@@ -20,7 +20,7 @@
  */
 
 /**
- * A video that TubePress can play around with
+ * A YouTube video that TubePress can pass around easily
  */
 class TubePressVideo
 {
@@ -38,39 +38,240 @@ class TubePressVideo
     private $_youTubeUrl;
     private $_views;
     
-    public function getAuthor() {      return $this->_author; }
-    public function getCategory() {    return $this->_category; }
-    public function getDescription() { return $this->_description; }
-    public function getId() {          return $this->_id; }
-    public function getRating() {      return $this->_rating; }
-    public function getRatings() {     return $this->_ratings; }
-    public function getLength() {      return $this->_length; }
-    public function getTags() {        return $this->_tags; }
-	public function getThumbUrls() {   return $this->_thumbUrls; }
-    public function getTitle() {       return $this->_title; }
-    public function getUploadTime() {  return $this->_uploadTime; }
-    public function getYouTubeUrl() {  return $this->_youTubeUrl; }
-    public function getViews() {       return $this->_views; }
-    
-    public function setAuthor($author) {             $this->_author = $author; }
-    public function setCategory($category) {         $this->_category = $category; }
-    public function setDescription($description) {   $this->_description = $description; }
-    public function setId($id) {                     $this->_id = $id; }
-    public function setRating($rating) {             $this->_rating = $rating; }
-    public function setRatings($ratings) {           $this->_ratings = $ratings; }
-    public function setLength($length) {             $this->_length = $length; }
-    public function setTags(array $tags) {           $this->_tags = $tags; }
-	public function setThumbUrls(array $thumbUrls) { $this->_thumbUrls = $thumbUrls; }
-    public function setTitle($title) {               $this->_title = $title; }
-    public function setUploadTime($uploadTime) {     $this->_uploadTime = $uploadTime; }
-    public function setYouTubeUrl($youTubeUrl) {     $this->_youTubeUrl = $youTubeUrl; }
-    public function setViews($views) {               $this->_views = $views; }
+    /**
+     * Get the video's author
+     * 
+     * @return string The YouTube username of the person that uploaded
+     *                 the video.
+     * 
+     * Example: "3hough"
+     */
+    public function getAuthor()
+    {
+    	return $this->_author; 
+    }
     
     /**
-     * Enter description here...
-     *
-     * @return unknown
+     * Get the video's category
+     * 
+     * @return string The YouTube-defined category of the video
+     * 
+     * Example: "Sports"
      */
+    public function getCategory()
+    {    
+    	return $this->_category; 
+    }
+    
+    /**
+     * Get the video's description
+     * 
+     * @return string The description field of the video.
+     * 
+     * Example: "This is a great video."
+     */
+    public function getDescription() 
+    { 
+    	return $this->_description; 
+    }
+    
+    /**
+     * Get the video's ID
+     * 
+     * @return string The YouTube video ID
+     * 
+     * Example: "3EVVD77X2FD"
+     */
+    public function getId()
+    {
+    	return $this->_id; 
+    }
+    
+    /**
+     * Get the video's average rating
+     * 
+     * @return string The average rating of the video
+     * 
+     * Example: "4.3"
+     */
+    public function getRating() 
+    {
+    	return $this->_rating; 
+    }
+    
+    /**
+     * Get the number of ratings
+     * 
+     * @return string The number of times this video has been rated.
+     * 
+     * Example: "3hough"
+     */
+    public function getRatings() 
+    {
+    	return $this->_ratings; 
+    }
+    
+    /**
+     * Get the video's length
+     * 
+     * @return string The runtime of the video
+     * 
+     * Example: "3:25"
+     */
+    public function getLength() 
+    {      
+    	return $this->_length; 
+    }
+    
+    /**
+     * Get the video's tags
+     * 
+     * @return array The tags of this video
+     * 
+     * Example: "beer sports women awesome"
+     */
+    public function getTags() 
+    {        
+    	return $this->_tags; 
+    }
+    
+    /**
+     * Get the video's thumbnail URLs
+     * 
+     * @return string All of the video's thumbnail URLs
+     * 
+     * Example: "http://img.youtube.com/355VDRRJK8/default.jpg"
+     */
+	public function getThumbUrls() 
+	{   
+		return $this->_thumbUrls; 
+	}
+	
+	/**
+     * Get the video's title
+     * 
+     * @return string The title of the video
+     * 
+     * Example: "My Awesome Video"
+     */
+    public function getTitle() 
+    {       
+    	return $this->_title; 
+    }
+    
+    /**
+     * Get the video's upload time
+     * 
+     * @return string The timestamp of when this video was uploaded
+     * 
+     * Example: "3hough"
+     */
+    public function getUploadTime() 
+    {  
+    	return $this->_uploadTime; 
+    }
+    
+    /**
+     * Get the video's URL on YouTube
+     * 
+     * @return string The absolute URL of this video's home on YouTube
+     * 
+     * Example: "http://www.youtube.com/v/355VDRRJK8"
+     */
+    public function getYouTubeUrl() 
+    {  
+    	return $this->_youTubeUrl; 
+    }
+    
+    /**
+     * Get the video's view count
+     * 
+     * @return string The number of times this video has been viewed
+     * 
+     * Example: "3hough"
+     */
+    public function getViews() 
+    {       
+    	return $this->_views; 
+    }
+    
+    /**
+     * Set this video's author
+     *
+     * @param string $author The YouTube author of this video
+     * 
+     * @return void
+     */
+    public function setAuthor($author) 
+    {
+    	$this->_author = $author; 
+    }
+    
+	/**
+	 * Set this video's category
+	 *
+	 * @param string $category The YouTube category of this video
+	 */
+    public function setCategory($category) 
+    {         
+    	$this->_category = $category; 
+    }
+    
+    public function setDescription($description) 
+    {   
+    	$this->_description = $description; 
+    }
+    
+    public function setId($id) 
+    {          
+    	$this->_id = $id; 
+    }
+    
+    public function setRating($rating)
+    {      
+    	$this->_rating = $rating; 
+    }
+    
+    public function setRatings($ratings)
+    { 
+    	$this->_ratings = $ratings;  
+    }
+
+    public function setLength($length) 
+    {
+    	$this->_length = $length; 
+    }
+
+    public function setTags(array $tags)
+    {
+    	$this->_tags = $tags; 
+    }
+    
+	public function setThumbUrls(array $thumbUrls) 
+	{
+		$this->_thumbUrls = $thumbUrls; 
+	}
+
+    public function setTitle($title) 
+    {               
+    	$this->_title = $title; 
+    }
+    
+    public function setUploadTime($uploadTime) 
+    {     
+    	$this->_uploadTime = $uploadTime; 
+    }
+    
+    public function setYouTubeUrl($youTubeUrl) 
+    {
+    	$this->_youTubeUrl = $youTubeUrl; 
+    }
+    
+    public function setViews($views) 
+    {
+    	$this->_views = $views; 
+    }
+    
     public function getRandomThumbURL()
     {
     	$thumbs = $this->getThumbUrls();

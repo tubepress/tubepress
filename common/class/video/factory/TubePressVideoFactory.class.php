@@ -20,17 +20,16 @@
  */
 
 /**
- * Takes XML and spits out a TubePressVideo
+ * Takes a DOMDocument from YouTube and spits back a TubePressVideo
  */
 interface TubePressVideoFactory
 {
-    
     /**
      * Main method
      *
-     * @param DOMElement   $rss     The raw XML of what we got from YouTube
+     * @param DOMElement $rss The raw XML of what we got from YouTube
      * 
-     * @return TubePressVideo
+     * @return TubePressVideo A TubePressVideo representing this video
      */
     public function generate(DOMElement $rss);
 }

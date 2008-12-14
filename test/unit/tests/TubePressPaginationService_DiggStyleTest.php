@@ -1,4 +1,5 @@
 <?php
+include_once dirname(__FILE__) . "/../../../tubepress_classloader.php";
 class TubePressPaginationService_DiggStyleTest extends PHPUnit_Framework_TestCase {
     
 	public function testGetHtml100Videos()

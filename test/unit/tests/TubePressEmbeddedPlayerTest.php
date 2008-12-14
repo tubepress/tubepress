@@ -1,4 +1,6 @@
 <?php
+include_once dirname(__FILE__) . "/../../../tubepress_classloader.php";
+
 class TubePressEmbeddedPlayerTest extends PHPUnit_Framework_TestCase {
     
 	function testAsString()

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<project name="TubePress" default="unit-test">
+    <target name="unit-test" description="TubePress Unit Tests">
+    	
+    	<coverage-setup database="/tmp/coverage.db">
+    	  <fileset dir=".">
+    	    <include name="**/*.php"/>
+    	  </fileset>
+    	</coverage-setup>
+    	
+    	<coverage-report outfile="/tmp/coverage.xml">
+    	  <report todir="~/Desktop/coverage/" styledir="/Applications/MAMP/bin/php5/lib/php/data/phing/etc"/>
+    	</coverage-report>
+    	
+		<phpunit codecoverage="false" printsummary="true">
+			<formatter type="plain" usefile="false" />
+			<batchtest>
+				<fileset dir="test/unit/tests">
+					<include name="*Test.php"/>
+				</fileset>
+			</batchtest>
+		</phpunit>
+	</target>
+	
+	<target name="lint">
+    	<phplint>
+    	  <fileset dir=".">
+    	    <include name="common/**/*.php"/>
+    	  	<include name="env/**/*.php"/>
+    	  </fileset>
+    	</phplint>
+	</target>
+	
+	<target name="sniff">
+		<phpcodesniffer verbosity="0" standard="PEAR" format="report" tabWidth="4">
+			<fileset dir="${project.basedir}">
+				<include name="common/**/*.class.php"/>
+			   
+				<exclude name="**/AbstractTubePressMessageService.class.php" />
+			 </fileset>
+		</phpcodesniffer>
+	</target>
+</project>
