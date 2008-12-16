@@ -26,6 +26,10 @@ class SimpleTubePressCacheService implements TubePressCacheService
 {
 	private $_cache;
 	
+	/**
+	 * Simple constructor
+	 *
+	 */
 	public function __construct()
 	{
 		/* 
@@ -38,18 +42,30 @@ class SimpleTubePressCacheService implements TubePressCacheService
 		$this->_cache = new Cache_Lite(array("cacheDir" => sys_get_temp_dir()));
 	}
 	
+	/**
+	 * @see TubePressCacheService::get($key)
+	 */
 	public function get($key)
 	{
 		return $this->_cache->get($key);
 	}
 	
+	/**
+	 * @see TubePressCacheService::has($key)
+	 */
 	public function has($key)
 	{
 		return $this->_cache->get($key) !== false;
 	}
 	
+	/**
+	 * @see TubePressCacheService::save($key, $data)
+	 */
 	public function save($key, $data)
 	{
+		if (!is_string($data)) {
+			throw new Exception("Cache can only save string data");
+		}
 		$this->_cache->save($data, $key);
 	}
 }
