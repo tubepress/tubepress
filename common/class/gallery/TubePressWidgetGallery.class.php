@@ -20,15 +20,12 @@
  */
 
 /**
- * Widget galleries
+ * Widget gallery
  */
 class TubePressWidgetGallery extends AbstractTubePressGallery
 {
     /**
      * Generates the content of this gallery
-     * 
-     * @param TubePressOptionsManager $tpom The TubePress options 
-     *        manager containing all the user's options
      * 
      * @return The HTML content for this gallery
      */

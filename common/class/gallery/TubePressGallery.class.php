@@ -20,7 +20,7 @@
  */
 
 /**
- * Parent class of all TubePress galleries
+ * Regular TubePress gallery
  */
 class TubePressGallery extends AbstractTubePressGallery
 {
@@ -39,9 +39,6 @@ class TubePressGallery extends AbstractTubePressGallery
     
     /**
      * Generates the content of this gallery
-     * 
-     * @param TubePressOptionsManager $tpom The TubePress options 
-     *        manager containing all the user's options
      * 
      * @return The HTML content for this gallery
      */

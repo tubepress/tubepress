@@ -19,7 +19,6 @@
  *
  */
 
-
 /**
  * Parent class of all TubePress galleries
  */
@@ -39,9 +38,6 @@ abstract class AbstractTubePressGallery
     
     /**
      * Generates the content of this gallery
-     * 
-     * @param  The TubePress options 
-     *        manager containing all the user's options
      * 
      * @return The HTML content for this gallery
      */
@@ -96,8 +92,7 @@ abstract class AbstractTubePressGallery
      * Handles the parsing of pagination links ("next" and "prev")
      * 
      * @param int                     $vidCount The grand total video count
-     * @param      The TubePress options manager
-     * @param HTML_Template_IT        &$tpl     The HTML template to write to
+     * @param HTML_Template_IT        $tpl      The HTML template to write to
      * 
      * @return void
      */
@@ -117,11 +112,7 @@ abstract class AbstractTubePressGallery
      * @param int                     $index        The index (in the RSS) 
      *                                               of the video we're going to
      *                                               parse
-     * @param int                     $totalResults The total number of results 
-     *                                               that we got back for this 
-     *                                               query
-     * @param          The TubePress options manager
-     * @param HTML_Template_IT        &$tpl         The HTML template to write to
+     * @param HTML_Template_IT        $tpl          The HTML template to write to
      * 
      * @return string The HTML for a single video returned from YouTube
      */
@@ -142,6 +133,13 @@ abstract class AbstractTubePressGallery
         return $this->_thumbnailService->getHtml($this->_thumbnailTemplate, $video, $player);       
     }
     
+    /**
+     * Generate the order in which we're going to display the gallery
+     *
+     * @param int $vidLimit The maximum number of videos to display on this page
+     * 
+     * @return array The array inidicating the order in which we'll display the videos
+     */
     private function _getDisplayOrder($vidLimit) 
     {
         
@@ -201,16 +199,58 @@ abstract class AbstractTubePressGallery
         $this->setVideoFactory(             new SimpleTubePressVideoFactory());
     }
     
-    public function setCacheService(TubePressCacheService $cache) {                           $this->_cache                 = $cache; }
-    public function setGalleryTemplate($templateFile) {										  $this->_galleryTemplate		= $templateFile; }
-    public function setFeedInspectionService(TubePressFeedInspectionService $feedInspector) { $this->_feedInspectionService = $feedInspector; }
-    public function setFeedRetrievalService(TubePressFeedRetrievalService $feedRetriever) {   $this->_feedRetrievalService  = $feedRetriever; }
-    public function setMessageService(TubePressMessageService $messageService) {              $this->_messageService        = $messageService; }
-    public function setOptionsManager(TubePressOptionsManager $tpom) {                        $this->_tpom                  = $tpom; }
-    public function setPaginationService(TubePressPaginationService $paginator) {             $this->_paginationService     = $paginator; }
-    public function setThumbnailService(TubePressThumbnailService $thumbService) {            $this->_thumbnailService      = $thumbService; }
-    public function setThumbnailTemplate($templateFile) {									  $this->_thumbnailTemplate		= $templateFile; }
-    public function setUrlBuilderService(TubePressUrlBuilder $urlBuilder) {                   $this->_urlBuilder            = $urlBuilder; }
-    public function setVideoFactory(TubePressVideoFactory $factory) {                         $this->_videoFactory          = $factory; }
+    public function setCacheService(TubePressCacheService $cache) 
+    {                           $this->_cache                 = $cache; 
+    }
+    
+    public function setGalleryTemplate($templateFile) 
+    {										  
+    	$this->_galleryTemplate		= $templateFile; 
+    }
+    
+    public function setFeedInspectionService(TubePressFeedInspectionService $feedInspector) 
+    { 
+    	$this->_feedInspectionService = $feedInspector; 
+    }
+    
+    public function setFeedRetrievalService(TubePressFeedRetrievalService $feedRetriever) 
+    {   
+    	$this->_feedRetrievalService  = $feedRetriever; 
+    }
+    
+    public function setMessageService(TubePressMessageService $messageService) 
+    {              
+    	$this->_messageService        = $messageService; 
+    }
+    
+    public function setOptionsManager(TubePressOptionsManager $tpom) 
+    {                        
+    	$this->_tpom                  = $tpom; 
+    }
+    
+    public function setPaginationService(TubePressPaginationService $paginator) 
+    {             
+    	$this->_paginationService     = $paginator; 
+    }
+    
+    public function setThumbnailService(TubePressThumbnailService $thumbService) 
+    {            
+    	$this->_thumbnailService      = $thumbService; 
+    }
+    
+    public function setThumbnailTemplate($templateFile) 
+    {									  
+    	$this->_thumbnailTemplate		= $templateFile; 
+    }
+    
+    public function setUrlBuilderService(TubePressUrlBuilder $urlBuilder) 
+    {                   
+    	$this->_urlBuilder            = $urlBuilder; 
+    }
+    
+    public function setVideoFactory(TubePressVideoFactory $factory) 
+    {
+    	$this->_videoFactory          = $factory; 
+    }
 	
 }
