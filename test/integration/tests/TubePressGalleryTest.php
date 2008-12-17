@@ -16,29 +16,29 @@ class TubePressGalleryTest extends PHPUnit_Framework_TestCase {
 					   ->method("_")
 					   ->will($this->returnCallback("_msgCallback"));
 		
-//        $thumbService = new SimpleTubePressThumbnailService();
-//        $thumbService->setOptionsManager($tpom);
-//        $thumbService->setMessageService($messageService);
-//        
+        $thumbService = new SimpleTubePressThumbnailService();
+        $thumbService->setOptionsManager($tpom);
+        $thumbService->setMessageService($messageService);
+        
         $queryStringService = new SimpleTubePressQueryStringService();
-//        
+        
         $urlBuilderService = new SimpleTubePressUrlBuilder();
         $urlBuilderService->setOptionsManager($tpom);
         $urlBuilderService->setQueryStringService($queryStringService);
-//        
-//        $paginationService = new TubePressPaginationService_DiggStyle();
-//        $paginationService->setMessageService($messageService);
-//        $paginationService->setOptionsManager($tpom);
-//        $paginationService->setQueryStringService($queryStringService);
-//        
+        
+        $paginationService = new TubePressPaginationService_DiggStyle();
+        $paginationService->setMessageService($messageService);
+        $paginationService->setOptionsManager($tpom);
+        $paginationService->setQueryStringService($queryStringService);
+        
         $this->_sut->setCacheService(             new SimpleTubePressCacheService());
-//        $this->_sut->setFeedInspectionService( new SimpleTubePressFeedInspectionService());
+        $this->_sut->setFeedInspectionService( new SimpleTubePressFeedInspectionService());
         $this->_sut->setFeedRetrievalService(     new TubePressFeedRetrievalService_HTTP_Request2());
         $this->_sut->setOptionsManager(         $tpom);
-//        $this->_sut->setPaginationService(     $paginationService);
-//        $this->_sut->setThumbnailService(         $thumbService);
+        $this->_sut->setPaginationService(     $paginationService);
+        $this->_sut->setThumbnailService(         $thumbService);
         $this->_sut->setUrlBuilderService(     $urlBuilderService);
-//        $this->_sut->setVideoFactory(             new SimpleTubePressVideoFactory());
+        $this->_sut->setVideoFactory(             new SimpleTubePressVideoFactory());
 	}
 	
 	function testGenerate()

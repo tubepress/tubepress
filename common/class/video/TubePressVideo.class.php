@@ -217,61 +217,121 @@ class TubePressVideo
     	$this->_category = $category; 
     }
     
+    /**
+     * Set the description for this video
+     *
+     * @param string $description The description for this video
+     */
     public function setDescription($description) 
     {   
     	$this->_description = $description; 
     }
     
+    /**
+     * Set the YouTube video ID of this video
+     *
+     * @param string $id The YouTube video ID of this video
+     */
     public function setId($id) 
     {          
     	$this->_id = $id; 
     }
     
+    /**
+     * Set the average rating of this video
+     *
+     * @param string $rating The average rating of this video
+     */
     public function setRating($rating)
     {      
     	$this->_rating = $rating; 
     }
     
+    /**
+     * Set the number of ratings of this video
+     *
+     * @param string $ratings The bumber of times this video has been rated
+     */
     public function setRatings($ratings)
     { 
     	$this->_ratings = $ratings;  
     }
 
+    /**
+     * Set the length of this video
+     *
+     * @param string $length The runtime of this video
+     */
     public function setLength($length) 
     {
     	$this->_length = $length; 
     }
 
+    /**
+     * Set the tags of this video
+     *
+     * @param array $tags The tags of this video
+     */
     public function setTags(array $tags)
     {
     	$this->_tags = $tags; 
     }
     
+    /**
+     * Set the thumbnail URLs of this video
+     *
+     * @param array $thumbUrls The thumbnail URLs of this video
+     */
 	public function setThumbUrls(array $thumbUrls) 
 	{
 		$this->_thumbUrls = $thumbUrls; 
 	}
 
+	/**
+	 * Set the title of this video
+	 *
+	 * @param string $title The title of this video
+	 */
     public function setTitle($title) 
     {               
     	$this->_title = $title; 
     }
     
+    /**
+     * Set the upload time of this video
+     *
+     * @param string $uploadTime The upload time of this video
+     */
     public function setUploadTime($uploadTime) 
     {     
     	$this->_uploadTime = $uploadTime; 
     }
     
+    /**
+     * Set the YouTube URL of this video
+     *
+     * @param string $youTubeUrl The YouTube URL of this video
+     */
     public function setYouTubeUrl($youTubeUrl) 
     {
     	$this->_youTubeUrl = $youTubeUrl; 
     }
     
+    /**
+     * Set the number of views of this video
+     *
+     * @param string $views The number of views for this video
+     */
     public function setViews($views) 
     {
     	$this->_views = $views; 
     }
     
+    /**
+     * Get a random thumbnail URL for this video
+     *
+     * @return string A random thumbnail URL for this video
+     */
     public function getRandomThumbURL()
     {
     	$thumbs = $this->getThumbUrls();
@@ -279,9 +339,9 @@ class TubePressVideo
     }
     
     /**
-     * Enter description here...
+     * Returns the "default" YouTube thumbnail URL for this video
      *
-     * @return unknown
+     * @return string the "default" thumbnail URL for this video
      */
     public function getDefaultThumbURL()
     {

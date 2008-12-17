@@ -1,6 +1,6 @@
 <?php
 include_once dirname(__FILE__) . "/../../../tubepress_classloader.php";
-class TubePressGalleryTest extends PHPUnit_Framework_TestCase {
+class TubePressGalleryUnitTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;
 	
@@ -63,7 +63,7 @@ EOT;
 								 ->will($this->returnValue($fakeUrl));
 		$this->_optionsManager->expects($this->any())
 							  ->method("get")
-							  ->will($this->returnCallback("_tpomCallback"));
+							  ->will($this->returnCallback("_tpomCallbackGalleryUnitTest"));
 		$this->_cacheService->expects($this->once())
 							->method("has")
 							->with($this->equalTo($fakeUrl))
@@ -120,7 +120,7 @@ EOT;
 	
 }
 
-function _tpomCallback()
+function _tpomCallbackGalleryUnitTest()
 {
 	$args = func_get_args();
 	$vals = array(

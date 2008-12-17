@@ -20,19 +20,33 @@
  */
 
 /**
- * Examines the feed results
+ * Examines the feed from YouTube
  *
  */
 class SimpleTubePressFeedInspectionService implements TubePressFeedInspectionService
 {   
+	const NS_OPENSEARCH = 'http://a9.com/-/spec/opensearchrss/1.0/';
+	
     public function getTotalResultCount(DOMDocument $dom)
     {
-    	return $dom->getElementsByTagNameNS('http://a9.com/-/spec' . 
-            '/opensearchrss/1.0/', 'totalResults')->item(0)->nodeValue;	
+    	$result = $dom->getElementsByTagNameNS(SimpleTubePressFeedInspectionService::NS_OPENSEARCH,
+    		'totalResults')->item(0)->nodeValue;
+    	
+    	$this->_makeSureNumeric($result);
+    	return $result;
     }
     
     public function getQueryResultCount(DOMDocument $dom)
     {
-    	return $dom->getElementsByTagName('entry')->length;
+    	$result = $dom->getElementsByTagName('entry')->length;
+    	$this->_makeSureNumeric($result);
+    	return $result;
+    }
+    
+    private function _makeSureNumeric($result)
+    {
+    	if (is_numeric($result) === FALSE) {
+    		throw new Exception("YouTube returned a non-numeric total result count: $result");
+    	}	
     }
 }

@@ -19,6 +19,14 @@ class SimpleTubePressCacheServiceTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($data, $this->_sut->get($key));
 	}
 
+	/**
+     * @expectedException Exception
+     */
+	function testSetNonStringData()
+	{
+		$this->_sut->save("fake", 3);
+	}
+
 	private function _randomString() {
 		$chars = "abcdefghijkmnopqrstuvwxyz023456789";
 		srand((double)microtime()*1000000);

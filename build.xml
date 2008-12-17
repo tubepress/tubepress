@@ -1,44 +1,60 @@
 <?xml version="1.0"?>
 
 <project name="TubePress" default="unit-test">
-    <target name="unit-test" description="TubePress Unit Tests">
-    	
-    	<coverage-setup database="/tmp/coverage.db">
-    	  <fileset dir=".">
-    	    <include name="**/*.php"/>
-    	  </fileset>
-    	</coverage-setup>
-    	
-    	<coverage-report outfile="/tmp/coverage.xml">
-    	  <report todir="~/Desktop/coverage/" styledir="/Applications/MAMP/bin/php5/lib/php/data/phing/etc"/>
-    	</coverage-report>
-    	
-		<phpunit codecoverage="false" printsummary="true">
-			<formatter type="plain" usefile="false" />
+	
+	<property name="report-output-directory" value="/Users/ehough/Desktop/coverage" />
+	
+	<fileset dir="${project.basedir}" id="test.code">
+		<include name="**/*Test.php" />
+		<exclude name="**/TubePressConnectionTest.php" />
+	</fileset>
+	
+	<fileset dir="${project.basedir}" id="source.code">
+		<include name="**/*.class.php" />
+		<exclude name="**/*Test.php" />
+		<exclude name="lib/**/*.php" />
+		<exclude name="**/AbstractTubePressMessageService.class.php" />
+		<exclude name="**/popup.php" />
+		<exclude name="/tubepress_classloader.php" />
+	</fileset>
+	
+    <target name="unit-test" description="TubePress Unit Tests" depends="coverage-setup">
+    	<phpunit codecoverage="true" printsummary="true" haltonfailure="true" haltonerror="true">
+			<formatter type="xml" todir="${report-output-directory}" outfile="logfile.xml"/>
 			<batchtest>
-				<fileset dir="test/unit/tests">
-					<include name="*Test.php"/>
-				</fileset>
+				<fileset refid="test.code" />
 			</batchtest>
 		</phpunit>
-	</target>
-	
-	<target name="lint">
-    	<phplint>
-    	  <fileset dir=".">
-    	    <include name="common/**/*.php"/>
-    	  	<include name="env/**/*.php"/>
-    	  </fileset>
-    	</phplint>
+    	<coverage-report outfile="${report-output-directory}/coverage.xml">
+    		<report todir="${report-output-directory}" styledir="/Applications/MAMP/bin/php5/lib/php/data/phing/etc"/>
+    	</coverage-report>
+
 	</target>
 	
 	<target name="sniff">
-		<phpcodesniffer verbosity="0" standard="PEAR" format="report" tabWidth="4">
-			<fileset dir="${project.basedir}">
-				<include name="common/**/*.class.php"/>
-			   
-				<exclude name="**/AbstractTubePressMessageService.class.php" />
-			 </fileset>
+		<phpcodesniffer verbosity="1" standard="PEAR" format="report" tabWidth="4">
+			<fileset refid="source.code" />
 		</phpcodesniffer>
 	</target>
+	
+	<target name="coverage-setup">
+		<adhoc-task name="stub-autoload">
+			<![CDATA[
+				class StubAutoloadTask extends Task 
+					{ 
+						function main() 
+						{ 
+							include "/Applications/MAMP/htdocs/tp/wp-content/plugins/tubepress/tubepress_classloader.php";
+						} 
+					} 
+			]]>
+		</adhoc-task>
+		<stub-autoload/>
+		<delete dir="${report-output-directory}"/>
+		<mkdir dir="${report-output-directory}" />
+		<coverage-setup database="${report-output-directory}/coverage.db">
+			<fileset refid="source.code" />
+		</coverage-setup>
+	</target> 
+
 </project>
