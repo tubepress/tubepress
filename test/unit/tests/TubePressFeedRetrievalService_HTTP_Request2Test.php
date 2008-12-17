@@ -9,9 +9,36 @@ class TubePressFeedRetrievalService_HTTP_Request2Test extends PHPUnit_Framework_
 		$this->_sut = new TubePressFeedRetrievalService_HTTP_Request2();
 	}
 	
-	function testFetch()
+    /**
+     * @expectedException Exception
+     */
+	function testFetchNonXml()
 	{
-		
+		$this->_sut->fetch("http://www.gnu.org/licenses/gpl-3.0.txt");
+	}
+	
+    /**
+     * @expectedException Exception
+     */	
+	function testFetchBadXml()
+	{
+		$this->_sut->fetch("http://tubepress.org/badxml.test");
+	}
+	
+	function testFetchGoodXml()
+	{
+		$this->_sut->fetch("http://tubepress.org/goodxml.test");
+	}
+	
+	/**
+     * @expectedException Exception
+     */
+	function getExpectedNetworkOutput($url)
+	{
+		$ch = curl_init($url);
+        $output = curl_exec($ch);      
+        curl_close($ch);
+        return $output;
 	}
 }
 ?>

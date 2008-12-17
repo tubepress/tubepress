@@ -37,10 +37,12 @@ class TubePressFeedRetrievalService_HTTP_Request2 implements TubePressFeedRetrie
     {   
         $data = $this->_fetchFromNetwork($url);
 
+        $data = trim($data);
+        
         $doc = new DOMDocument();
-    
-        if (strpos($data, "<") === FALSE) {
-        	throw new Exception("YouTube didn't like your request: " . $data);
+
+       if (substr($data,0,1) != "<") {
+        	throw new Exception("YouTube returned non-xml: " . $data);
         }
         if ($doc->loadXML($data) === FALSE) {
         	throw new Exception("YouTube returned invalid XML: " . $data);
