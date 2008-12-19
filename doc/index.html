@@ -233,6 +233,17 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                 Of course, like any <a href="#toc-shortcodes">TubePress shortcode</a>, you can override any setting you like.
             </p>
            <h1>4. TubePress Pro</h1>
+           TubePress Pro allows you to run TubePress anywhere that supports PHP5. This means that you can easily insert video galleries
+           in your PHP-enabled site! 
+           <h2>4.1 Plain PHP</h2>
+           There are basically four steps to use TubePress Pro. You can see each step in <strong>bold</strong> in the code snippet below.
+           <ol>
+           		<li>Set the global <pre>tubepress_base_url</pre> to the web-accessible location of your TubePress installation base</li>
+           		<li>Include the <tt>tubepress-standalone.php</tt> file to load up the TubePress Pro libraries</li>
+           		<li>In the <tt>head</tt> of your document, insert <pre>print tubepressHeadElements();</pre> to include the TubePress CSS and JS files</li>
+           		<li>Anywhere you'd like a video gallery, type <pre>print tubepressGallery("resultsPerPage='3', mode='featured'");</pre> As the argument to this function,
+           		you can include any shortcode you'd like (with or without the square brackets).</li>
+           </ol>
            <pre>
 1.  &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 2.        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
@@ -257,6 +268,33 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
 21. 		&lt;/div&gt;
 22. 	&lt;/body&gt;
 23. &lt;/html&gt;
+</pre>
+<h2>4.2 Outside the WordPress loop</h2>
+You can also use TubePress Pro to insert video galleries outside the WordPress loop (outside the content of a post or page). It's even easier to use than in standalone PHP. There are just two
+steps, which are in <strong>bold</strong> in the code snippet below. This example shows how you can use TubePress Pro in a regular WordPress template. The steps are
+<ol>
+	<li>Include the <tt>tubepress-standalone.php</tt> file to load up the TubePress Pro libraries</li>
+	<li>Anywhere you'd like a video gallery, type <pre>print tubepressGallery("resultsPerPage='3'");</pre> As the argument to this function,
+           		you can include any shortcode you'd like (with or without the square brackets).</li>
+</ol>
+<pre>
+&lt;?php
+
+	<strong>require_once "tubepress/tubepress-standalone.php";</strong>
+
+	get_header();
+
+	<strong>print tubepressGallery("resultsPerPage='3'");</strong>
+	
+	if (have_posts()) :
+	   while (have_posts()) :
+	      the_post();
+	      the_content();
+	   endwhile;
+	endif;
+	get_sidebar();
+	get_footer(); 
+?&gt;
 </pre>
             <h1><a name="shortcodes">
                5. TubePress Shortcodes
