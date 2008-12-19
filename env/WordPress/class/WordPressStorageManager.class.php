@@ -19,31 +19,73 @@
  *
  */
 
+/**
+ * Implementation of TubePressStorageManager that uses the
+ * regular WordPress option api
+ *
+ */
 class WordPressStorageManager extends AbstractTubePressStorageManager
 {
+    /**
+     * Sets an option to a new value, without validation
+     *
+     * @param string       $optionName  The name of the option to update
+     * @param unknown_type $optionValue The new option value
+     * 
+     * @return void
+     */
     protected function setOption($optionName, $optionValue)
     {
         update_option("tubepress-$optionName", $optionValue);
     }
     
+    /**
+     * Retrieve the current value of an option
+     *
+     * @param string $optionName The name of the option
+     * 
+     * @return unknown_type The option's value
+     */
     public function get($optionName)
     {
         return get_option("tubepress-$optionName");
     }
     
+    /**
+     * Deletes an option from storage
+     *
+     * @param unknown_type $optionName The name of the option to delete
+     * 
+     * @return void
+     */
     protected function delete($optionName)
     {
         delete_option($optionName);
     }
     
+    /**
+     * Creates an option in storage
+     *
+     * @param unknown_type $optionName  The name of the option to create
+     * @param unknown_type $optionValue The default value of the new option
+     * 
+     * @return void
+     */
     protected function create($optionName, $optionValue)
     {
         add_option("tubepress-$optionName", $optionValue);
     }
     
+    /**
+     * Determines if an option exists
+     *
+     * @param string $optionName The name of the option in question
+     * 
+     * @return boolean True if the option exists, false otherwise
+     */
     public function exists($optionName)
     {
-        return get_option("tubepress-$optionName") !== FALSE;
+        return get_option("tubepress-$optionName") !== false;
     }
 }
 ?>

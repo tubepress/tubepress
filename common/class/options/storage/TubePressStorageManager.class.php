@@ -26,7 +26,8 @@
 interface TubePressStorageManager
 {   
     /**
-     * Enter description here...
+     * Print out debugging info for this
+     * storage manager
      *
      * @return void
      */
@@ -40,6 +41,12 @@ interface TubePressStorageManager
      * @return boolean True if the option exists, false otherwise
      */
     public function exists($optionName);
+    
+    /**
+     * Initialize the persistent storage
+     * 
+     * @return void
+     */
 	
     /**
      * Initializes the storage
@@ -53,11 +60,11 @@ interface TubePressStorageManager
      *
      * @param string $optionName The name of the option
      * 
-     * @return unknown_type
+     * @return unknown_type The option's value
      */
     public function get($optionName);
     
-        /**
+    /**
      * Sets an option value
      *
      * @param string       $optionName  The option name
@@ -67,5 +74,10 @@ interface TubePressStorageManager
      */
     public function set($optionName, $optionValue);
     
+    /**
+     * Set the TubePressInputValidationService
+     *
+     * @param TubePressInputValidationService $validationService The validation service
+     */
     public function setValidationService(TubePressInputValidationService $validationService);
 }

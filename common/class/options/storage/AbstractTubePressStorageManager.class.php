@@ -38,7 +38,8 @@ abstract class AbstractTubePressStorageManager implements TubePressStorageManage
     protected abstract function create($optionName, $optionValue);    
     
     /**
-     * Enter description here...
+     * Print out debugging info for this
+     * storage manager
      *
      * @return void
      */
@@ -74,8 +75,8 @@ abstract class AbstractTubePressStorageManager implements TubePressStorageManage
     protected abstract function delete($optionName);    
      
     /**
-     * Initializes the storage
-     *
+     * Initialize the persistent storage
+     * 
      * @return void
      */
     public final function init()
@@ -158,7 +159,7 @@ abstract class AbstractTubePressStorageManager implements TubePressStorageManage
     }    
     
     /**
-     * Sets an option to a new value
+     * Sets an option to a new value, without validation
      *
      * @param string       $optionName  The name of the option to update
      * @param unknown_type $optionValue The new option value
@@ -167,6 +168,11 @@ abstract class AbstractTubePressStorageManager implements TubePressStorageManage
      */
     protected abstract function setOption($optionName, $optionValue);
     
+    /**
+     * Set the TubePressInputValidationService
+     *
+     * @param TubePressInputValidationService $validationService The validation service
+     */
     public function setValidationService(TubePressInputValidationService $validationService)
     {
     	$this->_validationService = $validationService;
