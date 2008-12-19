@@ -25,11 +25,12 @@
  */
 interface TubePressFeedRetrievalService
 {
-    
     /**
      * Fetches the RSS from YouTube
      * 
      * @return DOMDocument The raw RSS from YouTube
      */
-    public function fetch($url);
+    public function fetch($url, $useCache);
+    
+    public function setCacheService(TubePressCacheService $cache);
 }

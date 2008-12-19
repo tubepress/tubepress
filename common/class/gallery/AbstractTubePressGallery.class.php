@@ -24,7 +24,6 @@
  */
 abstract class AbstractTubePressGallery
 {
-    private $_cache;
     private $_feedInspectionService;
     private $_feedRetrievalService;
     private $_galleryTemplate;
@@ -49,7 +48,9 @@ abstract class AbstractTubePressGallery
             throw new Exception("Couldn't load gallery template");
         }
 
-        $xml = $this->_getFeed();
+        $url = $this->_urlBuilder->buildGalleryUrl($this->_optionsManager);
+        $xml = $this->_feedRetrievalService->fetch(
+        	$url, $this->_optionsManager->get(TubePressAdvancedOptions::CACHE_ENABLED));
         
         $totalResults = $this->_feedInspectionService->getTotalResultCount($xml);
         $thisResult   = $this->_feedInspectionService->getQueryResultCount($xml);
@@ -61,20 +62,20 @@ abstract class AbstractTubePressGallery
         
         /* Figure out how many videos we're going to show */
         $vidLimit =
-            $this->_tpom->get(TubePressDisplayOptions::RESULTS_PER_PAGE);
+            $this->_optionsManager->get(TubePressDisplayOptions::RESULTS_PER_PAGE);
         if ($thisResult < $vidLimit) {
             $vidLimit = $thisResult;
         }   
         
         $videos = $this->_videoFactory->dom2TubePressVideoArray($xml, $vidLimit);
         
-    	if ($this->_tpom->get(TubePressDisplayOptions::ORDER_BY) == "random") {
+    	if ($this->_optionsManager->get(TubePressDisplayOptions::ORDER_BY) == "random") {
             $videos = shuffle($videos);
         }
         
         $thumbsHtml = "";
         $playerName =
-        	$this->_tpom->
+        	$this->_optionsManager->
             	get(TubePressDisplayOptions::CURRENT_PLAYER_NAME);
         $player     = TubePressPlayer::getInstance($playerName);
         
@@ -82,7 +83,7 @@ abstract class AbstractTubePressGallery
         	
             /* Top of the gallery is special */
 	        if ($x == 0) {
-	            $tpl->setVariable("PRE_GALLERY_PLAYER_HTML", $player->getPreGalleryHtml($videos[$x], $this->_tpom));
+	            $tpl->setVariable("PRE_GALLERY_PLAYER_HTML", $player->getPreGalleryHtml($videos[$x], $this->_optionsManager));
 	        }
 	            
 	        /* Here's where each thumbnail gets printed */
@@ -115,56 +116,6 @@ abstract class AbstractTubePressGallery
         $tpl->setVariable('BOTPAGINATION', $pagination);
     }
     
-    private function _getFeed()
-    {
-        /* get the video feed */
-        $url = $this->_urlBuilder->buildGalleryUrl($this->_tpom);
-        $xml = "";
-        if ($this->_tpom->get(TubePressAdvancedOptions::CACHE_ENABLED)) {
-            if ($this->_cache->has($url)) {
-                $xml = $this->_cache->get($url);
-            } else {
-                $xml = $this->_feedRetrievalService->fetch($url);
-                $this->_cache->save($url, $xml);
-            }
-        } else {
-            $xml = $this->_feedRetrievalService->fetch($url);
-        }
-        return $xml;
-    }
-//    
-//    protected function setCommonInterfaces($tpom, TubePressMessageService $messageService)
-//    {
-//        $thumbService = new SimpleTubePressThumbnailService();
-//        $thumbService->setOptionsManager($tpom);
-//        $thumbService->setMessageService($messageService);
-//        
-//        $queryStringService = new SimpleTubePressQueryStringService();
-//        
-//        $urlBuilderService = new SimpleTubePressUrlBuilder();
-//        $urlBuilderService->setOptionsManager($tpom);
-//        $urlBuilderService->setQueryStringService($queryStringService);
-//        
-//        $paginationService = new TubePressPaginationService_DiggStyle();
-//        $paginationService->setMessageService($messageService);
-//        $paginationService->setOptionsManager($tpom);
-//        $paginationService->setQueryStringService($queryStringService);
-//        
-//        $this->setCacheService(             new SimpleTubePressCacheService());
-//        $this->setFeedInspectionService( new SimpleTubePressFeedInspectionService());
-//        $this->setFeedRetrievalService(     new TubePressFeedRetrievalService_HTTP_Request2());
-//        $this->setOptionsManager(         $tpom);
-//        $this->setPaginationService(     $paginationService);
-//        $this->setThumbnailService(         $thumbService);
-//        $this->setUrlBuilderService(     $urlBuilderService);
-//        $this->setVideoFactory(             new SimpleTubePressVideoFactory());
-//    }
-    
-    public function setCacheService(TubePressCacheService $cache) 
-    {                           
-    	$this->_cache = $cache; 
-    }
-    
     public function setGalleryTemplate($templateFile) 
     {										  
     	$this->_galleryTemplate		= $templateFile; 
@@ -187,7 +138,7 @@ abstract class AbstractTubePressGallery
     
     public function setOptionsManager(TubePressOptionsManager $tpom) 
     {                        
-    	$this->_tpom                  = $tpom; 
+    	$this->_optionsManager                  = $tpom; 
     }
     
     public function setPaginationService(TubePressPaginationService $paginator) 

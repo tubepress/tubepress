@@ -20,11 +20,12 @@
  */
 
 /**
- * Implementation of TubePressGdataService that uses PEAR's HTTP_Request class
+ * Base functionality for TubePressFeedRetrieval services
  *
  */
-class TubePressFeedRetrievalService_HTTP_Request implements TubePressFeedRetrievalService
+abstract class AbstractTubePressFeedRetrievalService implements TubePressFeedRetrievalService
 {
+	private $_cache;
 	
     /**
      * Fetches the RSS from YouTube
@@ -33,14 +34,33 @@ class TubePressFeedRetrievalService_HTTP_Request implements TubePressFeedRetriev
      * 
      * @return DOMDocument The raw RSS from YouTube
      */
-    public function fetch($url)
+    public function fetch($url, $useCache)
     {   
-        $data = $this->_fetchFromNetwork($url);
-
-        $doc = new DOMDocument();
+    	$xml = new DOMDocument();
+        if ($useCache) {
+            if ($this->_cache->has($url)) {
+                $cached = $this->_cache->get($url);
+                $xml->loadXML($cached);
+            } else {
+                $xml = $this->_getFromNetwork($url);
+                $this->_cache->save($url, $xml->saveXML());
+            }
+        } else {
+            $xml = $this->_getFromNetwork($url);
+        }
+        return $xml;
+    }
     
-        if (strpos($data, "<") === FALSE) {
-        	throw new Exception("YouTube didn't like your request: " . $data);
+    private function _getFromNetwork($url)
+    {
+    	$data = $this->_fetchFromNetwork($url);
+
+        $data = trim($data);
+        
+        $doc = new DOMDocument();
+
+       if (substr($data,0,1) != "<") {
+        	throw new Exception("YouTube returned non-xml: " . $data);
         }
         if ($doc->loadXML($data) === FALSE) {
         	throw new Exception("YouTube returned invalid XML: " . $data);
@@ -49,18 +69,10 @@ class TubePressFeedRetrievalService_HTTP_Request implements TubePressFeedRetriev
         return $doc;
     }
     
-    private function _fetchFromNetwork($request) {
-    	$data = "";
-    	$request = str_replace("&amp;", "&", $request);
-    	$req = new HTTP_Request($request);
-
-    	$call = $req->sendRequest();
-        if (!PEAR::isError($call)) {
-
-            $data = $req->getResponseBody();
-        } else {
-        	throw new Exception("Couldn't connect to YouTube");
-        }
-        return $data;
+    protected abstract function _fetchFromNetwork($request);
+    
+    public function setCacheService(TubePressCacheService $cache)
+    {
+    	$this->_cache = $cache;
     }
 }

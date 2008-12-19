@@ -4,7 +4,6 @@ class TubePressGalleryUnitTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;
 	
-	private $_cacheService;
 	private $_paginationService;
 	private $_feedInspectionService;
 	private $_feedRetrievalService;
@@ -64,15 +63,9 @@ EOT;
 		$this->_optionsManager->expects($this->any())
 							  ->method("get")
 							  ->will($this->returnCallback("_tpomCallbackGalleryUnitTest"));
-		$this->_cacheService->expects($this->once())
-							->method("has")
-							->with($this->equalTo($fakeUrl))
-							->will($this->returnValue(true));
-		$this->_cacheService->expects($this->once())
-							->method("get")
-							->with($this->equalTo($fakeUrl))
-							->will($this->returnValue($fakeXml));
-							
+		$this->_feedRetrievalService->expects($this->once())
+									->method("fetch")
+									->will($this->returnValue($fakeXml));
 		$this->_feedInspectionService->expects($this->once())
 									 ->method("getTotalResultCount")
 									 ->with($fakeXml)
@@ -94,7 +87,6 @@ EOT;
 	
 	private function _applyMocks()
 	{
-		$this->_sut->setCacheService($this->_cacheService);
 		$this->_sut->setPaginationService($this->_paginationService);
 		$this->_sut->setFeedInspectionService($this->_feedInspectionService);
 		$this->_sut->setFeedRetrievalService($this->_feedRetrievalService);
@@ -107,7 +99,6 @@ EOT;
 	
 	private function _createMocks()
 	{
-		$this->_cacheService 			= $this->getMock("TubePressCacheService");
 		$this->_paginationService 		= $this->getMock("TubePressPaginationService");
 		$this->_feedInspectionService 	= $this->getMock("TubePressFeedInspectionService");
 		$this->_feedRetrievalService 	= $this->getMock("TubePressFeedRetrievalService");

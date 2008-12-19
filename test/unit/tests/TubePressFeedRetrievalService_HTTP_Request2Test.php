@@ -2,10 +2,12 @@
 include_once dirname(__FILE__) . "/../../../tubepress_classloader.php";
 class TubePressFeedRetrievalService_HTTP_Request2Test extends PHPUnit_Framework_TestCase {
     
+	private $_mockCache;
 	private $_sut;
 	
 	function setUp()
 	{
+		$this->_mockCache = $this->getMock("TubePressCacheService");
 		$this->_sut = new TubePressFeedRetrievalService_HTTP_Request2();
 	}
 	
@@ -14,7 +16,7 @@ class TubePressFeedRetrievalService_HTTP_Request2Test extends PHPUnit_Framework_
      */
 	function testFetchNonXml()
 	{
-		$this->_sut->fetch("http://www.gnu.org/licenses/gpl-3.0.txt");
+		$this->_sut->fetch("http://www.gnu.org/licenses/gpl-3.0.txt", false);
 	}
 	
     /**
@@ -22,13 +24,22 @@ class TubePressFeedRetrievalService_HTTP_Request2Test extends PHPUnit_Framework_
      */	
 	function testFetchBadXml()
 	{
-		$this->_sut->fetch("http://tubepress.org/badxml.test");
+		$this->_sut->fetch("http://tubepress.org/badxml.test", false);
 	}
 	
-	function testFetchGoodXml()
+	function testFetchGoodXmlCacheDisabled()
 	{
-		$this->_sut->fetch("http://tubepress.org/goodxml.test");
+		$this->_sut->fetch("http://tubepress.org/goodxml.test", false);
 	}
+
+	function testFetchGoodXmlCacheMiss()
+	{
+		$this->_mockCache->expects($this->once())
+						 ->method("has")
+						 ->will($this->returnValue(false));
+		$this->_sut->setCacheService($this->_mockCache);
+		$this->_sut->fetch("http://tubepress.org/goodxml.test", true);
+	}	
 	
 	/**
      * @expectedException Exception

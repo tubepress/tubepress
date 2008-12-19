@@ -101,10 +101,11 @@ function _tp_setGalleryInterfaces(TubePressGallery $gallery, TubePressOptionsMan
     $paginationService->setMessageService($messageService);
     $paginationService->setOptionsManager($tpom);
     $paginationService->setQueryStringService($queryStringService);
-    	
-    $gallery->setCacheService(			 new SimpleTubePressCacheService());
+
+    $feedRetrievalService = new TubePressFeedRetrievalService_HTTP_Request2();
+    $feedRetrievalService->setCacheService(new SimpleTubePressCacheService());
 	$gallery->setFeedInspectionService( new SimpleTubePressFeedInspectionService());
-	$gallery->setFeedRetrievalService(	 new TubePressFeedRetrievalService_HTTP_Request2());
+	$gallery->setFeedRetrievalService(	 $feedRetrievalService);
 	$gallery->setOptionsManager(		 $tpom);
 	$gallery->setPaginationService(	 $paginationService);
 	$gallery->setThumbnailService(		 $thumbService);

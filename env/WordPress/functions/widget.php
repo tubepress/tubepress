@@ -109,9 +109,11 @@ function _tp_widget_setGalleryInterfaces(AbstractTubePressGallery $gallery, Tube
     $paginationService->setOptionsManager($tpom);
     $paginationService->setQueryStringService($queryStringService);
     	
-    $gallery->setCacheService(			 new SimpleTubePressCacheService());
+    
 	$gallery->setFeedInspectionService( new SimpleTubePressFeedInspectionService());
-	$gallery->setFeedRetrievalService(	 new TubePressFeedRetrievalService_HTTP_Request2());
+	$feedRetrievalService = new TubePressFeedRetrievalService_HTTP_Request2();
+	$feedRetrievalService->setCacheService(			 new SimpleTubePressCacheService());
+	$gallery->setFeedRetrievalService(	$feedRetrievalService );
 	$gallery->setOptionsManager(		 $tpom);
 	$gallery->setPaginationService(	 $paginationService);
 	$gallery->setThumbnailService(		 $thumbService);

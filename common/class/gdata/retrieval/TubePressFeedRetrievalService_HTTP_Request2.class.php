@@ -20,38 +20,11 @@
  */
 
 /**
- * Implementation of TubePressGdataService that uses PEAR's HTTP_Request class
  *
  */
-class TubePressFeedRetrievalService_HTTP_Request2 implements TubePressFeedRetrievalService
+class TubePressFeedRetrievalService_HTTP_Request2 extends AbstractTubePressFeedRetrievalService
 {
-	
-    /**
-     * Fetches the RSS from YouTube
-     * 
-     * @param TubePressOptionsManager $tpom The TubePress options manager
-     * 
-     * @return DOMDocument The raw RSS from YouTube
-     */
-    public function fetch($url)
-    {   
-        $data = $this->_fetchFromNetwork($url);
-
-        $data = trim($data);
-        
-        $doc = new DOMDocument();
-
-       if (substr($data,0,1) != "<") {
-        	throw new Exception("YouTube returned non-xml: " . $data);
-        }
-        if ($doc->loadXML($data) === FALSE) {
-        	throw new Exception("YouTube returned invalid XML: " . $data);
-        }
-        
-        return $doc;
-    }
-    
-    private function _fetchFromNetwork($request) {
+    protected function _fetchFromNetwork($request) {
     	$data = "";
     	$request = new Net_URL2($request);
     	$req = new HTTP_Request2($request);
