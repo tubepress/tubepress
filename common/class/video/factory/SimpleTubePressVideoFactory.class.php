@@ -37,26 +37,37 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
      * 
      * @return TubePressVideo
      */
-    public function generate(DOMElement $rss)
+    public function dom2TubePressVideoArray(DOMDocument $rss, $limit)
     {   
+    	$results = array();
+    	$entries = $rss->getElementsByTagName('entry');
+    	
+    	for ($j = 0; $j < min($limit, $entries->length); $j++) {
+    		$results[] = $this->_createVideo($entries->item($j));
+    	}
+    	return $results;
+    }
+
+    private function _createVideo($entry) {
+    	
         $this->_mediaGroup = 
-            $rss->getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_MEDIA, 
+            $entry->getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_MEDIA, 
                 'group')->item(0);
             
         $vid = new TubePressVideo();
-        $vid->setAuthor(		$this->getAuthor($rss));
-		$vid->setCategory(		$this->getCategory($rss));
-		$vid->setThumbUrls(		$this->getThumbUrls($rss));
-		$vid->setDescription(	$this->getDescription($rss));
-		$vid->setId(			$this->getId($rss));
-		$vid->setRating(		$this->getRatingAverage($rss));
-		$vid->setRatings(		$this->getRatingCount($rss));
-		$vid->setLength(		$this->getRuntime($rss));
-		$vid->setTags(			$this->getTags($rss));
-		$vid->setTitle(			$this->getTitle($rss));
-		$vid->setUploadTime(	$this->getUploadTime($rss));
-		$vid->setYouTubeUrl(	$this->getURL($rss));
-		$vid->setViews(			$this->getViewCount($rss));
+        $vid->setAuthor(		$this->getAuthor($entry));
+		$vid->setCategory(		$this->getCategory($entry));
+		$vid->setThumbUrls(		$this->getThumbUrls($entry));
+		$vid->setDescription(	$this->getDescription($entry));
+		$vid->setId(			$this->getId($entry));
+		$vid->setRating(		$this->getRatingAverage($entry));
+		$vid->setRatings(		$this->getRatingCount($entry));
+		$vid->setLength(		$this->getRuntime($entry));
+		$vid->setTags(			$this->getTags($entry));
+		$vid->setTitle(			$this->getTitle($entry));
+		$vid->setUploadTime(	$this->getUploadTime($entry));
+		$vid->setYouTubeUrl(	$this->getURL($entry));
+		$vid->setViews(			$this->getViewCount($entry));
 
 		return $vid;
     }

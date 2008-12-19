@@ -20,22 +20,26 @@
  */
 
 /**
- * Returns the YouTube query URL based on which mode we're in
+ * Builds URLs to send out to YouTube for gdata
  *
  */
 interface TubePressUrlBuilder
 {
     /**
-     * The main logic in this class
+     * Builds a gdata request url for a list of videos
      *
-     * @param TubePressOptionsManager $tpom The TubePress options manager
-     * 
-     * @return string The YouTube request URL for this mode
+     * @return string The gdata request URL for this gallery
      */
     public function buildGalleryUrl();
-    
+
+    /**
+     * Builds a gdata request url for a single video
+     *
+     * @param string $id The YouTube video ID to search for
+     */
     public function buildSingleVideoUrl($id);
     
     public function setOptionsManager(TubePressOptionsManager $tpom);
+    
     public function setQueryStringService(TubePressQueryStringService $queryStringService);
 }

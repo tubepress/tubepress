@@ -20,7 +20,7 @@
  */
 
 /**
- * Returns the YouTube query URL based on which mode we're in
+ * Builds URLs to send out to YouTube for gdata
  *
  */
 class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
@@ -29,11 +29,9 @@ class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
 	private $_queryStringService;
 	
     /**
-     * The main logic in this class
+     * Builds a gdata request url for a list of videos
      *
-     * @param TubePressOptionsManager $tpom The TubePress options manager
-     * 
-     * @return string The YouTube request URL for this mode
+     * @return string The gdata request URL for this gallery
      */
     public function buildGalleryUrl()
     {
@@ -155,6 +153,13 @@ class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
        	return $requestURL->getURL();
     }
     
-    public function setOptionsManager(TubePressOptionsManager $tpom) { $this->_tpom = $tpom; }
-    public function setQueryStringService(TubePressQueryStringService $queryStringService) { $this->_queryStringService = $queryStringService; }
+    public function setOptionsManager(TubePressOptionsManager $tpom)
+    { 
+    	$this->_tpom = $tpom; 
+    }
+    
+    public function setQueryStringService(TubePressQueryStringService $queryStringService) 
+    { 
+    	$this->_queryStringService = $queryStringService; 
+    }
 }

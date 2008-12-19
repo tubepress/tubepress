@@ -66,24 +66,35 @@ abstract class AbstractTubePressGallery
             $vidLimit = $thisResult;
         }   
         
-        /* parse 'em out */
-        $displayOrder = $this->_getDisplayOrder($vidLimit);
-        $thumbsHtml = "";
-      
-        $playerName =
-        $this->_tpom->
-            get(TubePressDisplayOptions::CURRENT_PLAYER_NAME);
-        $player     = TubePressPlayer::getInstance($playerName);
-        for ($x = 0; $x < $vidLimit; $x++) {
-            $thumbsHtml .= $this->_parseVideo($xml, $displayOrder[$x], 
-                $player, $tpl);
-        }
-        $tpl->setVariable("THUMBS", $thumbsHtml);
+        $videos = $this->_videoFactory->dom2TubePressVideoArray($xml, $vidLimit);
         
-        /* Spit out the top/bottom pagination if we have any videos */
-        if ($vidLimit > 0) {
-               $this->_parsePaginationHTML($totalResults, $tpl);
+    	if ($this->_tpom->get(TubePressDisplayOptions::ORDER_BY) == "random") {
+            $videos = shuffle($videos);
         }
+        
+        $thumbsHtml = "";
+        $playerName =
+        	$this->_tpom->
+            	get(TubePressDisplayOptions::CURRENT_PLAYER_NAME);
+        $player     = TubePressPlayer::getInstance($playerName);
+        
+        for ($x = 0; $x < sizeof($videos); $x++) {
+        	
+            /* Top of the gallery is special */
+	        if ($x == 0) {
+	            $tpl->setVariable("PRE_GALLERY_PLAYER_HTML", $player->getPreGalleryHtml($videos[$x], $this->_tpom));
+	        }
+	            
+	        /* Here's where each thumbnail gets printed */
+	        $thumbsHtml .= $this->_thumbnailService->getHtml($this->_thumbnailTemplate, $videos[$x], $player);     
+	    }
+	    
+	    $tpl->setVariable("THUMBS", $thumbsHtml);
+	        
+	    /* Spit out the top/bottom pagination if we have any videos */
+	    if ($vidLimit > 0) {
+	           $this->_parsePaginationHTML($totalResults, $tpl);
+	    }
         
         return $tpl->get();
     }
@@ -104,56 +115,6 @@ abstract class AbstractTubePressGallery
         $tpl->setVariable('BOTPAGINATION', $pagination);
     }
     
-    /**
-     * Creates the HTML for a single video retrieved from YouTube
-     * 
-     * @param DOMDocument             $rss          The RSS retrieved from 
-     *                                                YouTube
-     * @param int                     $index        The index (in the RSS) 
-     *                                               of the video we're going to
-     *                                               parse
-     * @param HTML_Template_IT        $tpl          The HTML template to write to
-     * 
-     * @return string The HTML for a single video returned from YouTube
-     */
-    private function _parseVideo(DOMDocument $rss, 
-        $index, TubePressPlayer $player, HTML_Template_IT $tpl)
-    {
-
-        /* Create a TubePressVideo object from the XML */
-        $video = $this->_videoFactory->generate(
-            $rss->getElementsByTagName('entry')->item($index));
-            
-        /* Top of the gallery is special */
-        if ($index == 0) {
-            $tpl->setVariable("PRE_GALLERY_PLAYER_HTML", $player->getPreGalleryHtml($video, $this->_tpom));
-        }
-            
-        /* Here's where each thumbnail gets printed */
-        return $this->_thumbnailService->getHtml($this->_thumbnailTemplate, $video, $player);       
-    }
-    
-    /**
-     * Generate the order in which we're going to display the gallery
-     *
-     * @param int $vidLimit The maximum number of videos to display on this page
-     * 
-     * @return array The array inidicating the order in which we'll display the videos
-     */
-    private function _getDisplayOrder($vidLimit) 
-    {
-        
-        $toReturn = array();
-        for ($y = 0; $y < $vidLimit; $y++) {
-            $toReturn[] = $y;
-        }
-        if ($this->_tpom->get(TubePressDisplayOptions::ORDER_BY) == "random") {
-            shuffle($toReturn);
-        }
-        
-        return $toReturn;
-    }
-    
     private function _getFeed()
     {
         /* get the video feed */
@@ -171,36 +132,37 @@ abstract class AbstractTubePressGallery
         }
         return $xml;
     }
-    
-    protected function setCommonInterfaces($tpom, TubePressMessageService $messageService)
-    {
-        $thumbService = new SimpleTubePressThumbnailService();
-        $thumbService->setOptionsManager($tpom);
-        $thumbService->setMessageService($messageService);
-        
-        $queryStringService = new SimpleTubePressQueryStringService();
-        
-        $urlBuilderService = new SimpleTubePressUrlBuilder();
-        $urlBuilderService->setOptionsManager($tpom);
-        $urlBuilderService->setQueryStringService($queryStringService);
-        
-        $paginationService = new TubePressPaginationService_DiggStyle();
-        $paginationService->setMessageService($messageService);
-        $paginationService->setOptionsManager($tpom);
-        $paginationService->setQueryStringService($queryStringService);
-        
-        $this->setCacheService(             new SimpleTubePressCacheService());
-        $this->setFeedInspectionService( new SimpleTubePressFeedInspectionService());
-        $this->setFeedRetrievalService(     new TubePressFeedRetrievalService_HTTP_Request2());
-        $this->setOptionsManager(         $tpom);
-        $this->setPaginationService(     $paginationService);
-        $this->setThumbnailService(         $thumbService);
-        $this->setUrlBuilderService(     $urlBuilderService);
-        $this->setVideoFactory(             new SimpleTubePressVideoFactory());
-    }
+//    
+//    protected function setCommonInterfaces($tpom, TubePressMessageService $messageService)
+//    {
+//        $thumbService = new SimpleTubePressThumbnailService();
+//        $thumbService->setOptionsManager($tpom);
+//        $thumbService->setMessageService($messageService);
+//        
+//        $queryStringService = new SimpleTubePressQueryStringService();
+//        
+//        $urlBuilderService = new SimpleTubePressUrlBuilder();
+//        $urlBuilderService->setOptionsManager($tpom);
+//        $urlBuilderService->setQueryStringService($queryStringService);
+//        
+//        $paginationService = new TubePressPaginationService_DiggStyle();
+//        $paginationService->setMessageService($messageService);
+//        $paginationService->setOptionsManager($tpom);
+//        $paginationService->setQueryStringService($queryStringService);
+//        
+//        $this->setCacheService(             new SimpleTubePressCacheService());
+//        $this->setFeedInspectionService( new SimpleTubePressFeedInspectionService());
+//        $this->setFeedRetrievalService(     new TubePressFeedRetrievalService_HTTP_Request2());
+//        $this->setOptionsManager(         $tpom);
+//        $this->setPaginationService(     $paginationService);
+//        $this->setThumbnailService(         $thumbService);
+//        $this->setUrlBuilderService(     $urlBuilderService);
+//        $this->setVideoFactory(             new SimpleTubePressVideoFactory());
+//    }
     
     public function setCacheService(TubePressCacheService $cache) 
-    {                           $this->_cache                 = $cache; 
+    {                           
+    	$this->_cache = $cache; 
     }
     
     public function setGalleryTemplate($templateFile) 

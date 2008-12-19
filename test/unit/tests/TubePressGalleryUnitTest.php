@@ -81,9 +81,9 @@ EOT;
 									 ->method("getQueryResultCount")
 									 ->with($fakeXml)
 									 ->will($this->returnValue(4));
-		$this->_videoFactory->expects($this->exactly(3))
-							->method("generate")
-							->will($this->returnValue($fakeVideo));
+		$this->_videoFactory->expects($this->once())
+							->method("dom2TubePressVideoArray")
+							->will($this->returnValue(array($fakeVideo, $fakeVideo, $fakeVideo)));
 		$this->_thumbService->expects($this->exactly(3))
 							->method("getHtml")
 							->will($this->returnValue($fakeHtml));

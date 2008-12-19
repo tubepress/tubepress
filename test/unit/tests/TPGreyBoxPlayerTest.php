@@ -8,7 +8,11 @@ class TPGreyBoxPlayerTest extends PHPUnit_Framework_TestCase {
 	function setUp()
 	{
 		$this->_sut = new TPGreyBoxPlayer();
+		$tpom = $this->getMock("TubePressOptionsManager");
+		
 	}
+	
+	
 	
 	function testGetPlayLink()
 	{

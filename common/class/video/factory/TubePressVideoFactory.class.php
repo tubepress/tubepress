@@ -27,10 +27,11 @@ interface TubePressVideoFactory
     /**
      * Main method
      *
-     * @param DOMElement $rss The raw XML of what we got from YouTube
+     * @param DOMElement $rss   The raw XML of what we got from YouTube
+     * @param int        $limit The max number of videos to return
      * 
      * @return TubePressVideo A TubePressVideo representing this video
      */
-    public function generate(DOMElement $rss);
+    public function dom2TubePressVideoArray(DOMDocument $rss, $limit);
 }
 ?>
