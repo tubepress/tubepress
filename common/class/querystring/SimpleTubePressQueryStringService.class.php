@@ -53,7 +53,7 @@ class SimpleTubePressQueryStringService implements TubePressQueryStringService
      */
     public function getPageNum(array $getVars)
     {
-        $pageNum = ((isset($_GET["tubepress_page"])) ?
+        $pageNum = ((isset($getVars["tubepress_page"])) ?
             $getVars["tubepress_page"] : 1);
         
         if (!is_numeric($pageNum) || ($pageNum < 1)) {
