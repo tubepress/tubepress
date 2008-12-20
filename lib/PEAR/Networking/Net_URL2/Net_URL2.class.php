@@ -530,7 +530,7 @@ class Net_URL2
         }
     
         if ($encodeAmpersands) {
-        	return str_replace("&", "&amp;=", $url);
+        	return str_replace("&", "&amp;", $url);
         }
         return $url;
     }

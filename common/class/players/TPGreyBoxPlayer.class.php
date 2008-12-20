@@ -22,28 +22,24 @@
 /**
  * Plays videos with GreyBox
  */
-class TPGreyBoxPlayer extends TubePressPlayer
+class TPGreyBoxPlayer extends TubePressPlayerAdapter
 {
-    /**
-     * Constructor
-     *
-     * @return void
-     */
-    public function __construct()
+    protected function getPreLoadJs()
     {
-        global $tubepress_base_url;
-
-        $gbURL = $tubepress_base_url . "/lib/greybox/";
-        $gbJS  = array($gbURL . "AJS.js",
+    	return "var GB_ROOT_DIR = \"" . $this->_getGbBaseUrl() . "/\"";
+    }
+    
+    protected function getJSLibs()
+    {
+    	$gbURL = $this->_getGbBaseUrl();
+    	return array($gbURL . "AJS.js",
             $gbURL . "AJS_fx.js",
             $gbURL . "gb_scripts.js");
-        
-        $gbCSS = array($gbURL . "gb_styles.css");
-        $extra = "var GB_ROOT_DIR = \"" . $gbURL . "/\"";
-
-        $this->setCSSLibs($gbCSS);
-        $this->setJSLibs($gbJS);
-        $this->setPreLoadJs($extra);
+    }
+    
+    protected function getCSSLibs()
+    {
+    	return array($this->_getGbBaseUrl() . "gb_styles.css");
     }
     
     /**
@@ -58,22 +54,26 @@ class TPGreyBoxPlayer extends TubePressPlayer
     {
         global $tubepress_base_url;
 
+        $embed = new TubePressEmbeddedPlayer();
+        
         $title  = $vid->getTitle();
         $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
         $width  = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
-        $embed  = new TubePressEmbeddedPlayer($vid, $tpom);
-        
         $url = new Net_URL2($tubepress_base_url . "/common/ui/popup.php");
-        $url->setQueryVariable("embed", $embed->toString());
+        $url->setQueryVariable("id", $vid->getId());
+        $url->setQueryVariable("opts", $embed->packOptionsToString($vid, $tpom));
        
-        return sprintf('href="%s" title="%s" ' .
-            'rel="gb_page_center[%s, %s]"',
-            $url->getURL(true), $title, $width, $height);
+        return sprintf(<<<EOT
+href="%s" title="%s" rel="gb_page_center[%s, %s]"
+EOT
+			, $url->getURL(true), $title, $width, $height);
     }
     
-    public function getPreGalleryHtml(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    private function _getGbBaseUrl()
     {
-    	return "";
+    	global $tubepress_base_url;
+
+        return $tubepress_base_url . "/lib/greybox/";
     }
 }
 ?>

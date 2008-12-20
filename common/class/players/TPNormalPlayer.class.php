@@ -22,7 +22,7 @@
 /**
  * Plays videos at the top of a gallery
  */
-class TPNormalPlayer extends TubePressPlayer
+class TPNormalPlayer extends TubePressPlayerAdapter
 {
     /**
      * Tells the gallery how to play videos with the normal player
@@ -34,12 +34,19 @@ class TPNormalPlayer extends TubePressPlayer
      */
     public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
     {
-        $embed = new TubePressEmbeddedPlayer($vid, $tpom);
+    	
+    	$embed = new TubePressEmbeddedPlayer();
         
-        return "href='#' onclick='tubePress_normalPlayer(" .
-            "\"" . rawurlencode($embed->toString()) . "\", " .
-            $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH) .
-            ", \"" . rawurlencode($vid->getTitle()) . "\")'";
+        $title  = $vid->getTitle();
+        $width  = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
+
+        $optionsString = $embed->packOptionsToString($vid, $tpom);
+		$embed->parseOptionsFromString($optionsString);
+        
+        return sprintf(<<<EOT
+href="#" onclick="tubePress_normalPlayer('%s', '%d', '%s')"
+EOT
+			, rawurlencode($embed->toString(), $height, $title));
     }
     
     public function getPreGalleryHtml(TubePressVideo $vid, TubePressOptionsManager $tpom)
@@ -49,7 +56,10 @@ class TPNormalPlayer extends TubePressPlayer
             throw new Exception("Couldn't load pre gallery template");
         }
     	
-    	$embed = new TubePressEmbeddedPlayer($vid, $tpom);
+    	$embed = new TubePressEmbeddedPlayer();
+    	$optionsString = $embed->packOptionsToString($vid, $tpom);
+    	$embed->parseOptionsFromString($optionsString);
+    	
         $tpl->setVariable("EMBEDSRC", $embed->toString());
         $tpl->setVariable("TITLE", $vid->getTitle());
         $tpl->setVariable("WIDTH", 

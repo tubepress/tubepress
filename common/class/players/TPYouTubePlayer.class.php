@@ -22,7 +22,7 @@
 /**
  * Plays videos from the original YouTube page
  */
-class TPYouTubePlayer extends TubePressPlayer
+class TPYouTubePlayer extends TubePressPlayerAdapter
 {
     /**
      * Tells the gallery how to play videos on YouTube
@@ -36,11 +36,6 @@ class TPYouTubePlayer extends TubePressPlayer
     {   
         return sprintf('href="http://youtube.com/watch?v=%s"',
             $vid->getId());
-    }
-    
-    public function getPreGalleryHtml(TubePressVideo $vid, TubePressOptionsManager $tpom)
-    {
-    	return "";
     }
 }
 ?>

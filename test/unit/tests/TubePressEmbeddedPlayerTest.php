@@ -14,11 +14,19 @@ class TubePressEmbeddedPlayerTest extends PHPUnit_Framework_TestCase {
 			 ->method("get")
 			 ->will($this->returnCallback('callback'));
 			 
-		$embed = new TubePressEmbeddedPlayer($vid, $this->_tpom);
-
-		$link = "http://www.youtube.com/v/FAKEID&amp;color1=0x111111&amp;color2=0x777777&amp;rel=1&amp;autoplay=0&amp;loop=1&amp;egm=0&amp;border=1";
+		$embed = new TubePressEmbeddedPlayer();
+		$optionsString = $embed->packOptionsToString($vid, $this->_tpom);
+		$embed->parseOptionsFromString($optionsString);
 		
-		$this->assertEquals('<object type="application/x-shockwave-flash" style="width:450px;height:350px" data="' . $link . '"><param name="wmode" value="transparent" /><param name="movie" value="' . $link . '" /></object>', $embed->toString());
+		$link = "http://www.youtube.com/v/FAKEID?color1=0x111111&amp;color2=0x777777&amp;rel=1&amp;autoplay=0&amp;loop=1&amp;egm=0&amp;border=1";
+		
+		$this->assertEquals(<<<EOT
+<object type="application/x-shockwave-flash" style="width: 450px; height: 350px" data="$link">
+    <param name="wmode" value="transparent" />
+    <param name="movie" value="$link" />
+</object>
+EOT
+			,  $embed->toString());
 	}
 }
 

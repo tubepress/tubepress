@@ -26,14 +26,13 @@
 class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
 {
 	private $_tpom;
-	private $_queryStringService;
 	
     /**
      * Builds a gdata request url for a list of videos
      *
      * @return string The gdata request URL for this gallery
      */
-    public function buildGalleryUrl()
+    public function buildGalleryUrl($currentPage)
     {
         $url = "";
         
@@ -96,7 +95,7 @@ class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
         }
 
         $request = "http://gdata.youtube.com/feeds/api/$url";
-        $this->_urlPostProcessing($request);
+        $this->_urlPostProcessing($request, $currentPage);
         return $request;
         //return str_replace("&", "&amp;", $request);
     }
@@ -109,15 +108,13 @@ class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
      * 
      * @return void
      */
-    private function _urlPostProcessing(&$request)
+    private function _urlPostProcessing(&$request, $currentPage)
     {
         
         $perPage = $this->_tpom->get(TubePressDisplayOptions::RESULTS_PER_PAGE);
         $filter  = $this->_tpom->get(TubePressAdvancedOptions::FILTER);
         $order   = $this->_tpom->get(TubePressDisplayOptions::ORDER_BY);
         $mode    = $this->_tpom->get(TubePressGalleryOptions::MODE);
-        
-        $currentPage = $this->_queryStringService->getPageNum($_GET);
         
         /* start index of the videos */
         $start = ($currentPage * $perPage) - $perPage + 1;
@@ -147,8 +144,6 @@ class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
     	$requestURL = new Net_URL2("http://gdata.youtube.com/feeds/api/videos");
     	$requestURL->setQueryVariable("q", $id);
     	$requestURL->setQueryVariable("max-results", 1);
-    	$requestURL->setQueryVariable("client", $this->_tpom->get(TubePressAdvancedOptions::CLIENT_KEY));
-        $requestURL->setQueryVariable("key", $this->_tpom->get(TubePressAdvancedOptions::DEV_KEY));
         
        	return $requestURL->getURL();
     }
@@ -156,10 +151,5 @@ class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
     public function setOptionsManager(TubePressOptionsManager $tpom)
     { 
     	$this->_tpom = $tpom; 
-    }
-    
-    public function setQueryStringService(TubePressQueryStringService $queryStringService) 
-    { 
-    	$this->_queryStringService = $queryStringService; 
     }
 }

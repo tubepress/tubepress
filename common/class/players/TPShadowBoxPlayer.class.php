@@ -22,33 +22,48 @@
 /**
  * Plays videos with GreyBox
  */
-class TPShadowBoxPlayer extends TubePressPlayer
-{
+class TPShadowBoxPlayer extends TubePressPlayerAdapter
+{    
     /**
-     * Constructor
+     * Sets JS to be executed after the document has loaded
      *
      * @return void
-     */    
-    public function __construct()
+     */
+    protected function getPostLoadJS()
     {
-        global $tubepress_base_url;
-
-        $sbUrl = $tubepress_base_url . "/lib/shadowbox/";
-        $gbJS  = array(
+    	return sprintf(<<<EOT
+YAHOO.util.Event.onDOMReady(function() { 
+    var options = { assetURL: "%s" };
+    Shadowbox.init(options);
+});
+EOT
+		, $this->_getBaseUrl());
+    }
+    
+    /**
+     * Sets the JS libraries to include
+     *
+     * @return void
+     */
+    protected function getJSLibs()
+    {
+    	$sbUrl = $this->_getBaseUrl();
+    	return array(
             $sbUrl . "src/js/lib/yui-utilities.js",
             $sbUrl . "src/js/adapter/shadowbox-yui.js",
             $sbUrl . "src/js/shadowbox.js");
-        
-        
-        $sbCSS  = array($sbUrl . "src/css/shadowbox.css");
-        $extra  = "YAHOO.util.Event.onDOMReady(function() " .
-            "{var options = { assetURL: ";
-        $extra .= "'" . $sbUrl . "'";
-        $extra .= "}; Shadowbox.init(options);});";
-        
-        $this->setCSSLibs($sbCSS);
-        $this->setJSLibs($gbJS);
-        $this->setPostLoadJs($extra);
+    }
+    
+    /**
+     * Sets the CSS libraries to include
+     *
+     * @param array $cssLibs An array of CSS libs to include
+     * 
+     * @return void
+     */
+    protected function getCSSLibs()
+    {
+    	return array($this->_getBaseUrl() . "src/css/shadowbox.css");
     }
     
     /**
@@ -62,28 +77,26 @@ class TPShadowBoxPlayer extends TubePressPlayer
     public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
     {
         global $tubepress_base_url;
-
+        
+        $embed = new TubePressEmbeddedPlayer();
+        
         $title  = $vid->getTitle();
         $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
         $width  = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
-
-        $embed = new TubePressEmbeddedPlayer($vid, $tpom);
-        
         $url = new Net_URL2($tubepress_base_url . "/common/ui/popup.php");
-        $url->setQueryVariable("embed", $embed->toString());
-        $url->setQueryVariable("name", $title);
-        
-        //return "href='#' onclick='tubePress_popup(" .
-        //    '"' .  . '",' . $height . ',' . $width . ')\''; 
+        $url->setQueryVariable("id", $vid->getId());
+        $url->setQueryVariable("opts", $embed->packOptionsToString($vid, $tpom));
         
         return sprintf('href="%s" title="%s" ' .
             'rel="shadowbox;height=%s;width=%s"',
 		$url->getURL(true), $title, $height, $width); 
    }
    
-    public function getPreGalleryHtml(TubePressVideo $vid, TubePressOptionsManager $tpom)
-    {
-    	return "";
-    }
+   private function _getBaseUrl()
+   {
+   		global $tubepress_base_url;
+
+        return $tubepress_base_url . "/lib/shadowbox/";
+   }
 }
 ?>

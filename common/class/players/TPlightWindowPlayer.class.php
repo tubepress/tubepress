@@ -22,27 +22,43 @@
 /**
  * Plays videos with lightWindow
  */
-class TPlightWindowPlayer extends TubePressPlayer
+class TPlightWindowPlayer extends TubePressPlayerAdapter
 {
     /**
-     * Constructor
+     * Enter description here...
+     *
+     * @param unknown_type $extraJS The text of the JS to run
+     * 
+     * @return void
+     */
+    protected function getPreLoadJs()
+    {
+    	return "var tubepressLWPath = \"" . $this->_getBaseUrl() . "\"";
+    }
+    
+    /**
+     * Sets the JS libraries to include
      *
      * @return void
      */
-    public function __construct()
+    protected function getJSLibs()
     {
-
-        global $tubepress_base_url;
-
-        $lwURL = $tubepress_base_url . "/lib/lightWindow/";
-        
-        $lwJS = array($lwURL . "javascript/prototype.js",
+    	$lwURL = $this->_getBaseUrl();
+    	return array($lwURL . "javascript/prototype.js",
             $lwURL . "javascript/scriptaculous.js?load=effects",
             $lwURL . "javascript/lightWindow.js");
-        
-        $this->setJSLibs($lwJS);
-        $this->setCSSLibs(array($lwURL . "css/lightWindow.css"));
-        $this->setPreLoadJs("var tubepressLWPath = \"" . $lwURL . "\"");
+    }
+    
+    /**
+     * Sets the CSS libraries to include
+     *
+     * @param array $cssLibs An array of CSS libs to include
+     * 
+     * @return void
+     */
+    protected function getCSSLibs()
+    {
+		return array($this->_getBaseUrl() . "css/lightWindow.css");
     }
     
     /**
@@ -60,19 +76,23 @@ class TPlightWindowPlayer extends TubePressPlayer
         $title  = $vid->getTitle();
         $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
         $width  = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
-        $embed  = new TubePressEmbeddedPlayer($vid, $tpom);
+        $embed  = new TubePressEmbeddedPlayer();
         
         $url = new Net_URL2($tubepress_base_url . "/common/ui/popup.php");
-        $url->setQueryVariable("embed", $embed->toString());
+        $url->setQueryVariable("id", $vid->getId());
+        $url->setQueryVariable("opts", $embed->packOptionsToString($vid, $tpom));
         
-        return sprintf('href="%s" class="lightwindow" title="%s" ' .
-            'params="lightwindow_width=%s,lightwindow_height=%s"', 
-            $url->getURL(true), $title, $width, $height);
+        return sprintf(<<<EOT
+href="%s" class="lightwindow" title="%s" params="lightwindow_width=%s,lightwindow_height=%s"
+EOT
+            ,$url->getURL(true), $title, $width, $height);
     }
     
-    public function getPreGalleryHtml(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    private function _getBaseUrl()
     {
-    	return "";
+    	global $tubepress_base_url;
+
+        return $tubepress_base_url . "/lib/lightWindow/";
     }
 }
 ?>

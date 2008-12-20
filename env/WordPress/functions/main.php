@@ -95,7 +95,6 @@ function _tp_setGalleryInterfaces(TubePressGallery $gallery, TubePressOptionsMan
     	
     $urlBuilderService = new SimpleTubePressUrlBuilder();
     $urlBuilderService->setOptionsManager($tpom);
-    $urlBuilderService->setQueryStringService($queryStringService);
     	
     $paginationService = new TubePressPaginationService_DiggStyle();
     $paginationService->setMessageService($messageService);
@@ -108,6 +107,7 @@ function _tp_setGalleryInterfaces(TubePressGallery $gallery, TubePressOptionsMan
 	$gallery->setFeedRetrievalService(	 $feedRetrievalService);
 	$gallery->setOptionsManager(		 $tpom);
 	$gallery->setPaginationService(	 $paginationService);
+	$gallery->setQueryStringService(new SimpleTubePressQueryStringService());
 	$gallery->setThumbnailService(		 $thumbService);
 	$gallery->setUrlBuilderService(	 $urlBuilderService);
 	$gallery->setVideoFactory(			 new SimpleTubePressVideoFactory());

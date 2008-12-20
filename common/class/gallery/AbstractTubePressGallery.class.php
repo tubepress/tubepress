@@ -30,6 +30,7 @@ abstract class AbstractTubePressGallery
     private $_messageService;
     private $_optionsManager;
     private $_paginationService;
+    private $_queryStringService;
     private $_urlBuilder;
     private $_thumbnailService;
     private $_thumbnailTemplate;
@@ -48,7 +49,8 @@ abstract class AbstractTubePressGallery
             throw new Exception("Couldn't load gallery template");
         }
 
-        $url = $this->_urlBuilder->buildGalleryUrl($this->_optionsManager);
+        $currentPage = $this->_queryStringService->getPageNum($_GET);
+        $url = $this->_urlBuilder->buildGalleryUrl($currentPage);
         $xml = $this->_feedRetrievalService->fetch(
         	$url, $this->_optionsManager->get(TubePressAdvancedOptions::CACHE_ENABLED));
         
@@ -144,6 +146,11 @@ abstract class AbstractTubePressGallery
     public function setPaginationService(TubePressPaginationService $paginator) 
     {             
     	$this->_paginationService     = $paginator; 
+    }
+
+    public function setQueryStringService(TubePressQueryStringService $qss) 
+    {             
+    	$this->_queryStringService     = $qss; 
     }
     
     public function setThumbnailService(TubePressThumbnailService $thumbService) 

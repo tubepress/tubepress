@@ -31,15 +31,6 @@ abstract class TubePressPlayer
     const SHADOWBOX   = "shadowbox";
     const YOUTUBE     = "youtube";
     
-    /*
-     * for each player, we want to know which CSS
-     * and JS libraries that it needs
-     */
-    private $_cssLibs          = array();
-    private $_jsLibs           = array();
-    private $_preLoadHeaderJs  = "";
-    private $_postLoadHeaderJs = "";
-    
     /**
      * Puts JS and CSS libraries in the head
      *
@@ -48,22 +39,24 @@ abstract class TubePressPlayer
     public final function getHeadContents()
     {
         $content = "";
-        if ($this->_preLoadHeaderJs != "") {
+        if ($this->getPreLoadJs() != "") {
             $content .= "<script type=\"text/javascript\">" . 
-                $this->_preLoadHeaderJs . "</script>";
+                $this->getPreLoadJS() . "</script>";
         }
         
-        foreach ($this->_jsLibs as $jsLib) {
+        $jsLibs = $this->getJSLibs();
+        foreach ($jsLibs as $jsLib) {
             $content .= "<script type=\"text/javascript\" src=\"" . 
                 $jsLib . "\"></script>";
         }
         
-        if ($this->_postLoadHeaderJs != "") {
+        if ($this->getPostLoadJS() != "") {
             $content .= "<script type=\"text/javascript\">" . 
-                $this->_postLoadHeaderJs . "</script>";
+                $this->getPostLoadJS() . "</script>";
         }
         
-        foreach ($this->_cssLibs as $cssLib) {
+        $cssLibs = $this->getCSSLibs();
+        foreach ($cssLibs as $cssLib) {
             $content .= "<link rel=\"stylesheet\" href=\"" . $cssLib . "\"" .
                 " type=\"text/css\" />";
         }
@@ -73,17 +66,9 @@ abstract class TubePressPlayer
     /**
      * Sets JS to be executed after the document has loaded
      *
-     * @param string $extraJS The text of the JS to run
-     * 
      * @return void
      */
-    protected final function setPostLoadJs($extraJS)
-    {
-        if (!is_string($extraJS)) {
-            throw new Exception("Postload JS must be a string");
-        }
-        $this->_postLoadHeaderJs = $extraJS;
-    }
+    protected abstract function getPostLoadJS();
     
     /**
      * Enter description here...
@@ -92,28 +77,14 @@ abstract class TubePressPlayer
      * 
      * @return void
      */
-    protected final function setPreLoadJs($extraJS)
-    {
-        if (!is_string($extraJS)) {
-            throw new Exception("Preload JS must be a string");
-        }
-        $this->_preLoadHeaderJs = $extraJS;
-    }
+    protected abstract function getPreLoadJs();
     
     /**
      * Sets the JS libraries to include
      *
-     * @param array $jsLibs An array of JS libs to include
-     * 
      * @return void
      */
-    protected final function setJSLibs($jsLibs)
-    {
-        if (!is_array($jsLibs)) {
-            throw new Exception("JS libraries must be an array");
-        }
-        $this->_jsLibs = $jsLibs;
-    }
+    protected abstract function getJSLibs();
     
     /**
      * Sets the CSS libraries to include
@@ -122,13 +93,7 @@ abstract class TubePressPlayer
      * 
      * @return void
      */
-    protected final function setCSSLibs(array $cssLibs)
-    {
-        if (!is_array($cssLibs)) {
-            throw new Exception("CSS libraries must be an array");
-        }
-        $this->_cssLibs = $cssLibs;
-    }
+    protected abstract function getCSSLibs();
     
     /**
      * Tells the gallery how to play the videos

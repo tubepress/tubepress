@@ -9,6 +9,7 @@ class TubePressGalleryUnitTest extends PHPUnit_Framework_TestCase {
 	private $_feedRetrievalService;
 	private $_messageService;
 	private $_optionsManager;
+	private $_qss;
 	private $_thumbService;
 	private $_urlBuilderService;
 	private $_videoFactory;
@@ -29,7 +30,10 @@ class TubePressGalleryUnitTest extends PHPUnit_Framework_TestCase {
 	<div id="tubepress_mainvideo">
 	<div id="tubepress_inner" style="width: 500px">
     	<div id="tubepress_btitle"></div>
-            <object type="application/x-shockwave-flash" style="width:500px;height:600px" data="http://www.youtube.com/v/&amp;rel=0&amp;autoplay=1&amp;loop=1&amp;egm=0&amp;border=1"><param name="wmode" value="transparent" /><param name="movie" value="http://www.youtube.com/v/&amp;rel=0&amp;autoplay=1&amp;loop=1&amp;egm=0&amp;border=1" /></object>
+            <object type="application/x-shockwave-flash" style="width: 500px; height: 600px" data="http://www.youtube.com/v/?rel=0&amp;autoplay=1&amp;loop=1&amp;egm=0&amp;border=1">
+    <param name="wmode" value="transparent" />
+    <param name="movie" value="http://www.youtube.com/v/?rel=0&amp;autoplay=1&amp;loop=1&amp;egm=0&amp;border=1" />
+</object>
     </div><!-- tubepress_inner -->
 </div> <!--tubepress_mainvideo--> <br />
 	
@@ -74,6 +78,9 @@ EOT;
 									 ->method("getQueryResultCount")
 									 ->with($fakeXml)
 									 ->will($this->returnValue(4));
+		$this->_qss->expects($this->once())
+				   ->method("getPageNum")
+				   ->will($this->returnValue(1));
 		$this->_videoFactory->expects($this->once())
 							->method("dom2TubePressVideoArray")
 							->will($this->returnValue(array($fakeVideo, $fakeVideo, $fakeVideo)));
@@ -92,6 +99,7 @@ EOT;
 		$this->_sut->setFeedRetrievalService($this->_feedRetrievalService);
 		$this->_sut->setMessageService($this->_messageService);
 		$this->_sut->setOptionsManager($this->_optionsManager);
+		$this->_sut->setQueryStringService($this->_qss);
 		$this->_sut->setThumbnailService($this->_thumbService);
 		$this->_sut->setUrlBuilderService($this->_urlBuilderService);
 		$this->_sut->setVideoFactory($this->_videoFactory);
@@ -104,6 +112,7 @@ EOT;
 		$this->_feedRetrievalService 	= $this->getMock("TubePressFeedRetrievalService");
 		$this->_messageService 			= $this->getMock("TubePressMessageService");
 		$this->_optionsManager 			= $this->getMock("TubePressOptionsManager");
+		$this->_qss						= $this->getMock("TubePressQueryStringService");
 		$this->_thumbService 			= $this->getMock("TubePressThumbnailService");
 		$this->_urlBuilderService 		= $this->getMock("TubePressUrlBuilder");
 		$this->_videoFactory 			= $this->getMock("TubePressVideoFactory");

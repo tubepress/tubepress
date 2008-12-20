@@ -18,9 +18,7 @@ class SimpleTubePressUrlBuilderTest extends PHPUnit_Framework_TestCase {
 			 ->will($this->returnCallback("userModeCallback"));
 		$this->_sut->setOptionsManager($tpom);
 		
-		$this->_sut->setQueryStringService($this->_setupQss());
-		
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl());
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl(1));
 	}
 	
 	function testBuildGalleryUrlTopRated()
@@ -31,9 +29,7 @@ class SimpleTubePressUrlBuilderTest extends PHPUnit_Framework_TestCase {
 			 ->will($this->returnCallback("topRatedModeCallback"));
 		$this->_sut->setOptionsManager($tpom);
 
-		$this->_sut->setQueryStringService($this->_setupQss());
-		
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/top_rated?time=today&" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl());
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/top_rated?time=today&" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl(1));
 	}
 	
 	function testBuildGalleryUrlPopular()
@@ -44,9 +40,7 @@ class SimpleTubePressUrlBuilderTest extends PHPUnit_Framework_TestCase {
 			 ->will($this->returnCallback("popularModeCallback"));
 		$this->_sut->setOptionsManager($tpom);
 
-		$this->_sut->setQueryStringService($this->_setupQss());
-		
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_viewed?time=today&" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl());
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_viewed?time=today&" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl(1));
 	}
 	
 	function testBuildGalleryUrlPlaylist()
@@ -57,9 +51,7 @@ class SimpleTubePressUrlBuilderTest extends PHPUnit_Framework_TestCase {
 			 ->will($this->returnCallback("playlistModeCallback"));
 		$this->_sut->setOptionsManager($tpom);
 
-		$this->_sut->setQueryStringService($this->_setupQss());
-		
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/fakeplaylist?start-index=1&max-results=3&racy=exclude&client=clientkey&key=devkey", $this->_sut->buildGalleryUrl());
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/fakeplaylist?start-index=1&max-results=3&racy=exclude&client=clientkey&key=devkey", $this->_sut->buildGalleryUrl(1));
 	}
 	
 	function testBuildGalleryUrlMostResponded()
@@ -70,9 +62,7 @@ class SimpleTubePressUrlBuilderTest extends PHPUnit_Framework_TestCase {
 			 ->will($this->returnCallback("mostRespondedModeCallback"));
 		$this->_sut->setOptionsManager($tpom);
 
-		$this->_sut->setQueryStringService($this->_setupQss());
-		
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_responded?" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl());
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_responded?" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl(1));
 	}
 	
 	function testBuildGalleryUrlMostRecent()
@@ -83,9 +73,7 @@ class SimpleTubePressUrlBuilderTest extends PHPUnit_Framework_TestCase {
 			 ->will($this->returnCallback("mostRecentCallback"));
 		$this->_sut->setOptionsManager($tpom);
 
-		$this->_sut->setQueryStringService($this->_setupQss());
-		
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_recent?" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl());
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_recent?" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl(1));
 	}
 
 	function testBuildGalleryUrlMostLinked()
@@ -96,9 +84,7 @@ class SimpleTubePressUrlBuilderTest extends PHPUnit_Framework_TestCase {
 			 ->will($this->returnCallback("mostLinkedCallback"));
 		$this->_sut->setOptionsManager($tpom);
 
-		$this->_sut->setQueryStringService($this->_setupQss());
-		
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_linked?" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl());
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_linked?" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl(1));
 	}
 	
 	function testBuildGalleryUrlMostDiscussed()
@@ -109,9 +95,7 @@ class SimpleTubePressUrlBuilderTest extends PHPUnit_Framework_TestCase {
 			 ->will($this->returnCallback("mostDiscussedCallback"));
 		$this->_sut->setOptionsManager($tpom);
 
-		$this->_sut->setQueryStringService($this->_setupQss());
-		
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_discussed?" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl());
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_discussed?" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl(1));
 	}
 	
 	function testBuildGalleryUrlMobile()
@@ -122,9 +106,7 @@ class SimpleTubePressUrlBuilderTest extends PHPUnit_Framework_TestCase {
 			 ->will($this->returnCallback("mobileCallback"));
 		$this->_sut->setOptionsManager($tpom);
 
-		$this->_sut->setQueryStringService($this->_setupQss());
-		
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/watch_on_mobile?" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl());
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/watch_on_mobile?" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl(1));
 	}
 	
 	function testBuildGalleryUrlFavorites()
@@ -135,9 +117,7 @@ class SimpleTubePressUrlBuilderTest extends PHPUnit_Framework_TestCase {
 			 ->will($this->returnCallback("favoritesCallback"));
 		$this->_sut->setOptionsManager($tpom);
 
-		$this->_sut->setQueryStringService($this->_setupQss());
-		
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/favorites?" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl());
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/favorites?" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl(1));
 	}
 	
 	function testBuildGalleryUrlTag()
@@ -148,9 +128,7 @@ class SimpleTubePressUrlBuilderTest extends PHPUnit_Framework_TestCase {
 			 ->will($this->returnCallback("tagCallback"));
 		$this->_sut->setOptionsManager($tpom);
 
-		$this->_sut->setQueryStringService($this->_setupQss());
-		
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/videos?q=foo%2Bbar&" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl());
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/videos?q=foo%2Bbar&" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl(1));
 	}
 	
 	function testBuildGalleryUrlFeatured()
@@ -161,18 +139,7 @@ class SimpleTubePressUrlBuilderTest extends PHPUnit_Framework_TestCase {
 			 ->will($this->returnCallback("featuredCallback"));
 		$this->_sut->setOptionsManager($tpom);
 
-		$this->_sut->setQueryStringService($this->_setupQss());
-		
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/recently_featured?" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl());
-	}
-	
-	private function _setupQss()
-	{
-		$qss = $this->getMock("TubePressQueryStringService");
-		$qss->expects($this->once())
-			->method("getPageNum")
-			->will($this->returnValue(1));
-		return $qss;
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/recently_featured?" . $this->_standardPostProcessingStuff(), $this->_sut->buildGalleryUrl(1));
 	}
 	
 	private function _standardPostProcessingStuff()

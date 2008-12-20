@@ -27,25 +27,28 @@
  */
 header('Content-Type: text/html;charset=utf-8');
 
-if (!class_exists("StripTags")) {
-	require dirname(__FILE__) . "/../../lib/StripTags.class.php";
-}
+require dirname(__FILE__) . "/../../tubepress_classloader.php";
 
-$tagsAndAttrs = array(
-      'object' => array('type', 'style', 'data'),    
-      'param' => array('name', 'value')
-  );
+$urlBuilder = new SimpleTubePressUrlBuilder();
+$url = $urlBuilder->buildSingleVideoUrl($_GET["id"]);
 
-$st = new StripTags($tagsAndAttrs);
-  
+$frs = new TubePressFeedRetrievalService_HTTP_Request2();
+$xml = $frs->fetch($url, false);
+
+$factory = new SimpleTubePressVideoFactory();
+$vid = $factory->dom2TubePressVideoArray($xml, 1);
+
+$embed = new TubePressEmbeddedPlayer();
+$embed->parseOptionsFromString($_GET["opts"]);
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
         <head>
                 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-                <title><?php echo $st->strip(stripslashes(rawurldecode($_GET['name']))); ?></title>        
+                <title><?php echo $vid[0]->getTitle(); ?></title>        
         </head>
         <body style="margin: 0pt 0pt; background-color: black">
-                 <?php echo $st->strip(stripslashes(rawurldecode($_GET['embed']))); ?>
+                 <?php echo $embed->toString(); ?>
         </body>
 </html>

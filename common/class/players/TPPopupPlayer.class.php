@@ -22,7 +22,7 @@
 /**
  * Plays videos in an HTML popup window
  */
-class TPPopupPlayer extends TubePressPlayer
+class TPPopupPlayer extends TubePressPlayerAdapter
 {
     /**
      * Tells the gallery how to play videos in a popup window
@@ -36,22 +36,18 @@ class TPPopupPlayer extends TubePressPlayer
     {
         global $tubepress_base_url;
 
-        $title  = $vid->getTitle();
         $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
         $width  = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
-        $embed  = new TubePressEmbeddedPlayer($vid, $tpom);
+        $embed  = new TubePressEmbeddedPlayer();
         
         $url = new Net_URL2($tubepress_base_url . "/common/ui/popup.php");
-        $url->setQueryVariable("embed", $embed->toString());
-        $url->setQueryVariable("name", $title);
+        $url->setQueryVariable("id", $vid->getId());
+        $url->setQueryVariable("opts", $embed->packOptionsToString($vid, $tpom));
         
-        return "href='#' onclick='tubePress_popup(" .
-            '"' . $url->getURL(true) . '",' . $height . ',' . $width . ')\''; 
-    }
-    
-    public function getPreGalleryHtml(TubePressVideo $vid, TubePressOptionsManager $tpom)
-    {
-    	return "";
+        return sprintf(<<<EOT
+href="#" onclick="tubePress_popup('%s', %d, %d);"
+EOT
+            , $url->getURL(true), $height, $width);
     }
 }
 ?>

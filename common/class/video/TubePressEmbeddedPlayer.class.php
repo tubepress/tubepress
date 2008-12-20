@@ -25,51 +25,17 @@
  */
 class TubePressEmbeddedPlayer
 {
-    private $_asString;
-    
-    /**
-     * Constructor
-     *
-     * @param TubePressVideo          $vid  The video to play
-     * @param TubePressOptionsManager $tpom The TubePress options manager
-     * 
-     * @return void
-     */
-    public function __construct(TubePressVideo $vid, TubePressOptionsManager $tpom)
-    {
-        $id       = $vid->getId();
-        $height   = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
-        $width    = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
-        $rel      = $tpom->get(TubePressEmbeddedOptions::SHOW_RELATED) ? "1" : "0";
-        $colors   = $tpom->get(TubePressEmbeddedOptions::PLAYER_COLOR);
-        $autoPlay = $tpom->get(TubePressEmbeddedOptions::AUTOPLAY) ? "1" : "0";
-        $loop     = $tpom->get(TubePressEmbeddedOptions::LOOP) ? "1" : "0";
-        $egm      = $tpom->get(TubePressEmbeddedOptions::GENIE) ? "1" : "0";
-        $border   = $tpom->get(TubePressEmbeddedOptions::BORDER) ? "1" : "0";
-
-        $link = "http://www.youtube.com/v/$id";
-        
-        if ($colors != "/") {
-            $colors = explode("/", $colors);
-            $link  .= "&amp;color1=" . $colors[0] . "&amp;color2=" . $colors[1];
-        }
-        
-        $link .= "&amp;rel=$rel";
-        $link .= "&amp;autoplay=$autoPlay";
-        $link .= "&amp;loop=$loop";
-        $link .= "&amp;egm=$egm";
-        $link .= "&amp;border=$border";
-    
-        $string          = '<object ' .  
-       	    'type="application/x-shockwave-flash" style="width:' .
-            $width . 'px;height:' . $height . 'px"';
-        $string         .= ' data="' . $link . '">';
-        $string         .= '<param name="wmode" value="transparent" />';
-        $string         .= '<param name="movie" value="' . $link . '" />';   
-        $string         .= '</object>';
-        $this->_asString = $string;
-    }
-    
+	private $_color1      = "";
+	private $_color2      = "";
+	private $_showRelated = false;
+	private $_autoPlay    = false;
+	private $_loop        = false;
+	private $_genie       = false;
+	private $_border      = false;
+	private $_id          = "";
+	private $_width       = 425;
+	private $_height      = 355;
+	
     /**
      * Spits back the text for this embedded player
      *
@@ -77,7 +43,109 @@ class TubePressEmbeddedPlayer
      */
     public function toString()
     {
-        return $this->_asString;
+    	$link = new Net_URL2(sprintf("http://www.youtube.com/v/%s", $this->_id));
+        
+        if ($this->_color1 != "" && $this->_color2 != "") {
+            $link->setQueryVariable("color1", $this->_color1);
+            $link->setQueryVariable("color2", $this->_color2);
+        }
+        
+        $link->setQueryVariable("rel",      $this->_showRelated ? "1" : "0");
+        $link->setQueryVariable("autoplay", $this->_autoPlay    ? "1" : "0");
+        $link->setQueryVariable("loop",     $this->_loop        ? "1" : "0");
+        $link->setQueryVariable("egm",      $this->_genie       ? "1" : "0");
+        $link->setQueryVariable("border",   $this->_border      ? "1" : "0");
+        
+        $link = $link->getURL(true);
+        
+		return sprintf(<<<EOT
+<object type="application/x-shockwave-flash" style="width: %spx; height: %spx" data="%s">
+    <param name="wmode" value="transparent" />
+    <param name="movie" value="%s" />
+</object>
+EOT
+,
+			$this->_width, 
+			$this->_height,
+			$link, $link);
+    }
+    
+    public function packOptionsToString(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    {
+    	$opts = array(
+			"r" => $tpom->get(TubePressEmbeddedOptions::SHOW_RELATED),
+    		"a" => $tpom->get(TubePressEmbeddedOptions::AUTOPLAY),
+    		"l" => $tpom->get(TubePressEmbeddedOptions::LOOP),
+    		"g" => $tpom->get(TubePressEmbeddedOptions::GENIE),
+    		"b" => $tpom->get(TubePressEmbeddedOptions::BORDER),
+    		"id" => $vid->getId(),
+    		"w" => $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH),
+    		"h" => $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT)
+    	);
+    	
+    	$color = $tpom->get(TubePressEmbeddedOptions::PLAYER_COLOR);
+    	if ($color != "/") {
+    		$colors = split("/", $color);
+    		$toMerge = array(
+    			"c1" => $colors[0],
+    			"c2" => $colors[1]
+    		);
+    		$opts = array_merge($opts, $toMerge);
+    	}
+    	
+    	$result = array();
+    	foreach ($opts as $key => $value) {
+    		$result[] = $key . "=" . $value;
+    	}
+    	return implode(";", $result);
+    }
+    
+    public function parseOptionsFromString($packed)
+    {
+        $broken = split(";", $packed);
+        
+        foreach ($broken as $pair) {
+        	
+			$keyValue = split("=", $pair);
+			$value = $keyValue[1];
+			if ($value == "") {
+				continue;
+			}
+			
+        	switch($keyValue[0]) {
+        		
+        		case "c1":
+        			$this->_color1 = $value;
+        			break;
+        		case "c2":
+        			$this->_color2 = $value;
+        			break;
+        		case "r":
+        			$this->_showRelated = $value;
+        			break;
+        		case "a":
+        			$this->_autoPlay = $value;
+        			break;
+        		case "l":
+        			$this->_loop = $value;
+        			break;
+        		case "g":
+        			$this->_genie = $value;
+        			break;
+        		case "b":
+        			$this->_border = $value;
+        			break;
+        		case "id":
+        			$this->_id = $value;
+        			break;
+        		case "w":
+        			$this->_width = $value;
+        			break;
+        		case "h":
+        			$this->_height = $value;
+        			break;        		
+        	}
+        }
     }
 }
 

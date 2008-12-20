@@ -30,7 +30,7 @@ interface TubePressUrlBuilder
      *
      * @return string The gdata request URL for this gallery
      */
-    public function buildGalleryUrl();
+    public function buildGalleryUrl($currentPage);
 
     /**
      * Builds a gdata request url for a single video
@@ -40,6 +40,4 @@ interface TubePressUrlBuilder
     public function buildSingleVideoUrl($id);
     
     public function setOptionsManager(TubePressOptionsManager $tpom);
-    
-    public function setQueryStringService(TubePressQueryStringService $queryStringService);
 }
