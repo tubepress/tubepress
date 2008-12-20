@@ -26,7 +26,7 @@ class TPGreyBoxPlayer extends TubePressPlayerAdapter
 {
     protected function getPreLoadJs()
     {
-    	return "var GB_ROOT_DIR = \"" . $this->_getGbBaseUrl() . "/\"";
+    	return "var GB_ROOT_DIR = \"" . $this->_getGbBaseUrl() . "\"";
     }
     
     protected function getJSLibs()
