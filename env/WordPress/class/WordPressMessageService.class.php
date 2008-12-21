@@ -20,7 +20,7 @@
  */
 
 /**
- * General purpose cache for TubePress
+ * Message service that uses gettext (via WordPress)
  */
 class WordPressMessageService extends AbstractTubePressMessageService
 {

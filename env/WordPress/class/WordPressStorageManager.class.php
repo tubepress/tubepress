@@ -21,11 +21,13 @@
 
 /**
  * Implementation of TubePressStorageManager that uses the
- * regular WordPress option api
+ * regular WordPress options API
  *
  */
 class WordPressStorageManager extends AbstractTubePressStorageManager
 {
+	const OPTION_PREFIX = "tubepress-";
+	
     /**
      * Sets an option to a new value, without validation
      *
@@ -36,7 +38,8 @@ class WordPressStorageManager extends AbstractTubePressStorageManager
      */
     protected function setOption($optionName, $optionValue)
     {
-        update_option("tubepress-$optionName", $optionValue);
+        update_option(WordPressStorageManager::OPTION_PREFIX . $optionName,
+            $optionValue);
     }
     
     /**
@@ -48,7 +51,7 @@ class WordPressStorageManager extends AbstractTubePressStorageManager
      */
     public function get($optionName)
     {
-        return get_option("tubepress-$optionName");
+        return get_option(WordPressStorageManager::OPTION_PREFIX . $optionName);
     }
     
     /**
@@ -73,7 +76,8 @@ class WordPressStorageManager extends AbstractTubePressStorageManager
      */
     protected function create($optionName, $optionValue)
     {
-        add_option("tubepress-$optionName", $optionValue);
+        add_option(WordPressStorageManager::OPTION_PREFIX . $optionName,
+            $optionValue);
     }
     
     /**
@@ -85,7 +89,8 @@ class WordPressStorageManager extends AbstractTubePressStorageManager
      */
     public function exists($optionName)
     {
-        return get_option("tubepress-$optionName") !== false;
+        return get_option(WordPressStorageManager::OPTION_PREFIX . $optionName)
+           !== false;
     }
 }
 ?>
