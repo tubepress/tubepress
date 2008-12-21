@@ -4,8 +4,11 @@ include_once dirname(__FILE__) . "/../../../tubepress_classloader.php";
 class TubePressAdvancedOptionsTest extends PHPUnit_Framework_TestCase {
 	
 	private $_expectedNames;
-	
 	private $_actualNames;
+	private $_tpsm;
+	private $_template;	
+	private $_sut;
+	private $_msgService;
 	
 	public function setup()
 	{
@@ -16,14 +19,22 @@ class TubePressAdvancedOptionsTest extends PHPUnit_Framework_TestCase {
     	);
     	$class = new ReflectionClass("TubePressAdvancedOptions");    
         $this->_actualNames = $class->getConstants();
+        $this->_tpsm = $this->getMock("TubePressStorageManager");
+        $this->_template = $this->getMock("HTML_Template_IT");
+        $this->_sut = new TubePressAdvancedOptions();
+        $this->_msgService = $this->getMock("TubePressMessageService");
+	}
+
+	public function testPrintForOptionsPage()
+	{
+		$this->_sut->setMessageService($this->_msgService);
+		$this->_sut->printForOptionsForm($this->_template, $this->_tpsm);
 	}
 	
 	public function testHasRightOptionNames()
 	{
 		foreach ($this->_expectedNames as $expectedName) {
-			if (!in_array($expectedName, $this->_actualNames)) {
-				$this->fail($expectedName . " is missing");
-			}
+			$this->assertTrue(in_array($expectedName, $this->_actualNames));
 		}
 	}
 	

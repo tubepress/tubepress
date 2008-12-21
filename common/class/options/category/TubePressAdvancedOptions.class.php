@@ -25,7 +25,6 @@
  */
 class TubePressAdvancedOptions implements TubePressOptionsCategory
 {
-	
     const DATEFORMAT    	= "dateFormat";
     const DEBUG_ON      	= "debugging_enabled";
     const FILTER        	= "filter_racy";
@@ -51,7 +50,7 @@ class TubePressAdvancedOptions implements TubePressOptionsCategory
      * 
      * @return void
      */
-    public function printForOptionsForm(HTML_Template_IT &$tpl, 
+    public function printForOptionsForm(HTML_Template_IT $tpl, 
         TubePressStorageManager $tpsm)
     {
         $title = "advanced";
