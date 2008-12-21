@@ -31,8 +31,12 @@ class TubePressWidgetGallery extends AbstractTubePressGallery
      */
     public final function generate()
     {
-    	$this->setThumbnailTemplate("widget/thumb.tpl.html");
-    	$this->setGalleryTemplate("widget/gallery.tpl.html");
-        return $this->generateThumbs();   
+    	try {
+	    	$this->setThumbnailTemplate("widget/thumb.tpl.html");
+	    	$this->setGalleryTemplate("widget/gallery.tpl.html");
+	        return $this->generateThumbs();   
+	    } catch (Exception $e) {
+    		return $e->getMessage();
+    	}
     }
 }
