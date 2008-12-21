@@ -37,10 +37,14 @@ class SimpleTubePressShortcodeService implements TubePressShortcodeService
         /* what trigger word are we using? */
         $keyword = $tpom->get(TubePressAdvancedOptions::KEYWORD);
         
+        if (!$this->somethingToParse($content, $keyword)) {
+        	return;
+        }
+        
         $customOptions = array();  
           
         /* Match everything in square brackets after the trigger */
-        $regexp = '\[' . $keyword . "(.*)\]";
+        $regexp = "\[$keyword(.*)\]";
         preg_match("/$regexp/", $content, $matches);
         
         $tpom->setShortcode($matches[0]);
