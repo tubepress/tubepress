@@ -1,4 +1,23 @@
 <?php
+/**
+ * Copyright 2006, 2007, 2008 Eric D. Hough (http://ehough.com)
+ * 
+ * This file is part of TubePress (http://tubepress.org)
+ * 
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 /**
  * Registers TubePress as a widget
@@ -27,7 +46,9 @@ function tubepress_widget_exception_handler($e) {
 function tubepress_widget($opts)
 {
 	set_exception_handler("tubepress_widget_exception_handler");
-	extract($opts);	
+	extract($opts);
+	
+	/* set up the options manager with some sensible defaults */
 	$wpsm = new WordPressStorageManager();
 	$tpom = new SimpleTubePressOptionsManager();
 	$tpom->setStorageManager($wpsm);
@@ -39,15 +60,20 @@ function tubepress_widget($opts)
 	        TubePressDisplayOptions::CURRENT_PLAYER_NAME => TubePressPlayer::POPUP,
 	        TubePressDisplayOptions::THUMB_HEIGHT => 105,
 	        TubePressDisplayOptions::THUMB_WIDTH => 135
-	        ));
+	        )
+	);
+	
+	/* now apply the user's shortcode */
 	$shortcodeService = new SimpleTubePressShortcodeService();
 	$shortcodeService->parse($wpsm->get(TubePressWidgetOptions::TAGSTRING), $tpom);
 	
 	$gallery = new TubePressWidgetGallery();
-	_tp_widget_setGalleryInterfaces($gallery, $tpom);
+	tubepress_widget_inject_deps($gallery, $tpom);
 		
+	/* get the output */
 	$out = $gallery->generate($tpom);
-		
+
+	/* do the standard WordPress widget dance */
 	echo $before_widget . $before_title . 
 	    $wpsm->get(TubePressWidgetOptions::TITLE) .
 	    $after_title . $out . $after_widget;
@@ -81,46 +107,51 @@ function tubepress_widget_control() {
 
     $msg = new WordPressMessageService();
     
-    $tpl->setVariable("WIDGET-TITLE", $msg->_("options-meta-title-title"));
-    $tpl->setVariable("WIDGET-TITLE-VALUE", $wpsm->get(TubePressWidgetOptions::TITLE));
-    $tpl->setVariable("WIDGET-TAGSTRING", $msg->_("widget-tagstring-description"));
-    $tpl->setVariable("WIDGET-TAGSTRING-VALUE", $wpsm->get(TubePressWidgetOptions::TAGSTRING));
+    $tpl->setVariable("WIDGET-TITLE", 
+        $msg->_("options-meta-title-title"));
+    $tpl->setVariable("WIDGET-TITLE-VALUE", 
+        $wpsm->get(TubePressWidgetOptions::TITLE));
+    $tpl->setVariable("WIDGET-TAGSTRING", 
+        $msg->_("widget-tagstring-description"));
+    $tpl->setVariable("WIDGET-TAGSTRING-VALUE", 
+        $wpsm->get(TubePressWidgetOptions::TAGSTRING));
     echo $tpl->get();
     
     restore_exception_handler();
 }
 
-function _tp_widget_setGalleryInterfaces(AbstractTubePressGallery $gallery, TubePressOptionsManager $tpom)
+function tubepress_widget_inject_deps(AbstractTubePressGallery $gallery, 
+    TubePressOptionsManager $tpom)
 {
-	$messageService = new WordPressMessageService();
-	
-	$thumbService = new SimpleTubePressThumbnailService();
-    $thumbService->setOptionsManager($tpom);
+	$cacheService          = new SimpleTubePressCacheService();
+	$embedService          = new SimpleTubePressEmbeddedPlayerService();
+	$feedInsepctionService = new SimpleTubePressFeedInspectionService();
+	$feedRetrievalService  = new TubePressFeedRetrievalService_HTTP_Request2();
+	$messageService        = new WordPressMessageService();
+	$paginationService     = new TubePressPaginationService_DiggStyle();
+	$playerFactory         = new SimpleTubePressPlayerFactory();
+	$queryStringService    = new SimpleTubePressQueryStringService();
+	$thumbService          = new SimpleTubePressThumbnailService();
+    $urlBuilderService     = new SimpleTubePressUrlBuilder();
+    $videoFactory          = new SimpleTubePressVideoFactory();
+    
+	$thumbService->setOptionsManager($tpom);
     $thumbService->setMessageService($messageService);
-    	
-    $queryStringService = new SimpleTubePressQueryStringService();
-    	
-    $urlBuilderService = new SimpleTubePressUrlBuilder();
     $urlBuilderService->setOptionsManager($tpom);
-    	
-    $paginationService = new TubePressPaginationService_DiggStyle();
+    $feedRetrievalService->setCacheService($cacheService);
     $paginationService->setMessageService($messageService);
     $paginationService->setOptionsManager($tpom);
     $paginationService->setQueryStringService($queryStringService);
-    	
-    
-	$gallery->setFeedInspectionService( new SimpleTubePressFeedInspectionService());
-	$feedRetrievalService = new TubePressFeedRetrievalService_HTTP_Request2();
-	$feedRetrievalService->setCacheService(			 new SimpleTubePressCacheService());
-	$gallery->setFeedRetrievalService(	$feedRetrievalService );
-	$gallery->setOptionsManager(		 $tpom);
+	$gallery->setFeedInspectionService($feedInsepctionService);
+	$gallery->setFeedRetrievalService($feedRetrievalService );
+	$gallery->setOptionsManager($tpom);
 	$gallery->setQueryStringService($queryStringService);
-	$gallery->setEmbeddedPlayerService(new SimpleTubePressEmbeddedPlayerService());
-	$gallery->setPaginationService(	 $paginationService);
-	$gallery->setPlayerFactory(new SimpleTubePressPlayerFactory());
-	$gallery->setThumbnailService(		 $thumbService);
-	$gallery->setUrlBuilderService(	 $urlBuilderService);
-	$gallery->setVideoFactory(			 new SimpleTubePressVideoFactory());
+	$gallery->setEmbeddedPlayerService($embedService);
+	$gallery->setPaginationService($paginationService);
+	$gallery->setPlayerFactory($playerFactory);
+	$gallery->setThumbnailService($thumbService);
+	$gallery->setUrlBuilderService($urlBuilderService);
+	$gallery->setVideoFactory($videoFactory);
 }
 
 ?>

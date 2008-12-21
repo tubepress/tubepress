@@ -19,9 +19,9 @@
  *
  */
 
-if (!function_exists("tp_executeOptionsPage")) {
+if (!function_exists("tubepress_admin_menu_hook")) {
 	require dirname(__FILE__) . "/../functions/options_page.php";
-	add_action('admin_menu',  'tp_executeOptionsPage');
+	add_action('admin_menu',  'tubepress_admin_menu_hook');
 }
 
 ?>

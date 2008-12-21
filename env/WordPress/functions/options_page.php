@@ -19,38 +19,33 @@
  *
  */
 
-/**
- * This is the main method for the TubePress global options page,
- * which is loaded when you're in the wp-admin section of your blog.
- * It basically just loads _tp_executeOptionsPage()
- * 
- * @return void
- */
-function tp_executeOptionsPage()
+function tubepress_admin_menu_hook()
 {
     if (function_exists('add_options_page')) {
         add_options_page("TubePress Options", "TubePress", 9, 
-            __FILE__, '_tp_executeOptionsPage');
+            __FILE__, '_tubepress_admin_menu_hook');
     }
 }
 
-/**
- * Enter description here...
- *
- * @return void
- */
-function _tp_executeOptionsPage()
+function _tubepress_admin_menu_hook()
 {
     if (substr(phpversion(), 0, 1) == "5") {
     	function_exists("__tp_executeOptionsPage")
     	    || require "options_page_php5.php";  
         __tp_executeOptionsPage();
     } else {
-        echo '<div id="message" class="error fade"><p>'
-            . '<strong>This version of TubePress requires PHP5 '
-            . 'or higher. Please <a href="http://php.net">upgrade '
-            . 'your PHP installation</a> or visit <a href="'
-            . 'http://tubepress.org">tubepress.org</a> to obtain a '
-            . 'different version of the plugin.</strong</p></div>';
+        print <<<EOT
+<div id="message" class="error fade">
+    <p>
+        <strong>
+            This version of TubePress requires PHP5 or higher. 
+            Please <a href="http://php.net">upgrade your PHP installation</a> 
+            or visit <a href="http://tubepress.org">tubepress.org</a> to obtain 
+            a different version of the plugin.
+        </strong>
+    </p>
+</div>
+EOT
+    ;
     }
 }
