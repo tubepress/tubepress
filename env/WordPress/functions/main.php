@@ -26,19 +26,19 @@
 function tubepress_content_filter($content = '')
 {
 	try {
-		return _tp_main($content);
+		return _tubepress_content_filter($content);
 	} catch (Exception $e) {
-		return $e->getMessage();
+		return $e->getMessage() . $content;
 	}
 }
 
-function _tp_main($content) {
+function _tubepress_content_filter($content) {
 
 	$wpsm             = new WordPressStorageManager();
     $trigger          = $wpsm->get(TubePressAdvancedOptions::KEYWORD);
 	$shortcodeService = new SimpleTubePressShortcodeService();
-	$messageService   = new WordPressMessageService();
     
+	/* no shortcode? get out */
     if (!$shortcodeService->somethingToParse($content, $trigger)) {
 	    return $content;
 	}
@@ -53,7 +53,7 @@ function _tp_main($content) {
 	    $shortcodeService->parse($newcontent, $tpom);
 
 	    $gallery = new TubePressGallery();
-	    _tp_setGalleryInterfaces($gallery, $tpom);
+	    _tubepress_dependency_inject($gallery, $tpom);
     	if (TubePressDebug::areWeDebugging($tpom)) {
 	        TubePressDebug::execute($gallery, $tpom);
 	    }
@@ -72,14 +72,14 @@ function _tp_main($content) {
 function tubepress_head_filter()
 {
 	try {
-	    _tp_insertCSSJS();
+	    _tubepress_head_filter();
 	} catch (Exception $e) {
 		/* this is in the head, so just print an HTML comment and proceed */
         print "<!-- " . $e->getMessage() . " -->";
 	}
 }
 
-function _tp_insertCSSJS() {
+function _tubepress_head_filter() {
     global $tubepress_base_url;
     print<<<GBS
         <script type="text/javascript" src="$tubepress_base_url/common/js/tubepress.js"></script>
@@ -98,42 +98,43 @@ GBS;
     }
     
     $playerName = $wpsm->get(TubePressDisplayOptions::CURRENT_PLAYER_NAME);
-    $factory = new SimpleTubePressPlayerFactory();
-    $player = $factory->getInstance($playerName);
+    $factory    = new SimpleTubePressPlayerFactory();
+    $player     = $factory->getInstance($playerName);
     print $player->getHeadContents();
 }
 
-function _tp_setGalleryInterfaces(TubePressGallery $gallery, TubePressOptionsManager $tpom)
+function _tubepress_dependency_inject(TubePressGallery $gallery, 
+    TubePressOptionsManager $tpom)
 {
-	$messageService = new WordPressMessageService();
-	$playerFactory = new SimpleTubePressPlayerFactory();
+	$cacheService          = new SimpleTubePressCacheService();
+	$embedService          = new SimpleTubePressEmbeddedPlayerService();
+	$feedInspectionService = new SimpleTubePressFeedInspectionService();
+	$feedRetrievalService  = new TubePressFeedRetrievalService_HTTP_Request2();
+	$messageService        = new WordPressMessageService();
+	$playerFactory         = new SimpleTubePressPlayerFactory();
+	$queryStringService    = new SimpleTubePressQueryStringService();
+	$paginationService     = new TubePressPaginationService_DiggStyle();
+	$thumbService          = new SimpleTubePressThumbnailService();
+	$urlBuilderService     = new SimpleTubePressUrlBuilder();
+    $videoFactory          = new SimpleTubePressVideoFactory();
 	
-	$thumbService = new SimpleTubePressThumbnailService();
-    $thumbService->setOptionsManager($tpom);
+	$thumbService->setOptionsManager($tpom);
     $thumbService->setMessageService($messageService);
-    	
-    $queryStringService = new SimpleTubePressQueryStringService();
-    	
-    $urlBuilderService = new SimpleTubePressUrlBuilder();
     $urlBuilderService->setOptionsManager($tpom);
-    	
-    $paginationService = new TubePressPaginationService_DiggStyle();
     $paginationService->setMessageService($messageService);
     $paginationService->setOptionsManager($tpom);
     $paginationService->setQueryStringService($queryStringService);
-
-    $feedRetrievalService = new TubePressFeedRetrievalService_HTTP_Request2();
-    $feedRetrievalService->setCacheService(new SimpleTubePressCacheService());
-	$gallery->setFeedInspectionService( new SimpleTubePressFeedInspectionService());
-	$gallery->setFeedRetrievalService(	 $feedRetrievalService);
-	$gallery->setOptionsManager(		 $tpom);
-	$gallery->setPaginationService(	 $paginationService);
+    $feedRetrievalService->setCacheService($cacheService);
+	$gallery->setFeedInspectionService($feedInspectionService);
+	$gallery->setFeedRetrievalService($feedRetrievalService);
+	$gallery->setOptionsManager($tpom);
+	$gallery->setPaginationService($paginationService);
 	$gallery->setPlayerFactory($playerFactory);
-	$gallery->setQueryStringService(new SimpleTubePressQueryStringService());
-	$gallery->setEmbeddedPlayerService(new SimpleTubePressEmbeddedPlayerService());
-	$gallery->setThumbnailService(		 $thumbService);
-	$gallery->setUrlBuilderService(	 $urlBuilderService);
-	$gallery->setVideoFactory(			 new SimpleTubePressVideoFactory());
+	$gallery->setQueryStringService($queryStringService);
+	$gallery->setEmbeddedPlayerService($embedService);
+	$gallery->setThumbnailService($thumbService);
+	$gallery->setUrlBuilderService($urlBuilderService);
+	$gallery->setVideoFactory($videoFactory);
 }
 
 ?>
