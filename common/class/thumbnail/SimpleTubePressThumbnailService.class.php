@@ -41,7 +41,6 @@ class SimpleTubePressThumbnailService implements TubePressThumbnailService
         if (!$this->_tpl->loadTemplatefile($templateFile, true, true)) {
             throw new Exception("Couldn't load thumbnail template");
         }
-    	//$this->_tpl->init();
         $this->_getCommonStuff($vid, $player);
         $this->_getMetaStuff($vid, $player);
         return $this->_tpl->get();
@@ -127,11 +126,10 @@ class SimpleTubePressThumbnailService implements TubePressThumbnailService
                 break;
                     
             case TubePressMetaOptions::TAGS:
-                $tags = explode(" ", $vid->getTags());
-                $tags = implode("%20", $tags);
+                $tags = implode("%20", $vid->getTags());
                 $this->_tpl->setVariable('METANAME', $this->_msg->_("video-" . $constant));
                 $this->_tpl->setVariable('SEARCHSTRING', $tags);
-                $this->_tpl->setVariable('TAGS', $vid->getTags());
+                $this->_tpl->setVariable('TAGS', implode(" ", $vid->getTags()));
              	if ($nofollow) { $this->_tpl->setVariable("NOFOLLOW", "rel=\"external nofollow\""); }
                 $this->_tpl->parse('tags');
                 break;
