@@ -22,7 +22,7 @@
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
-abstract class TubePressPlayer
+interface TubePressPlayer
 {
     const GREYBOX     = "greybox";
     const LIGHTWINDOW = "lightwindow";
@@ -36,64 +36,7 @@ abstract class TubePressPlayer
      *
      * @return void
      */
-    public final function getHeadContents()
-    {
-        $content = "";
-        if ($this->getPreLoadJs() != "") {
-            $content .= "<script type=\"text/javascript\">" . 
-                $this->getPreLoadJS() . "</script>";
-        }
-        
-        $jsLibs = $this->getJSLibs();
-        foreach ($jsLibs as $jsLib) {
-            $content .= "<script type=\"text/javascript\" src=\"" . 
-                $jsLib . "\"></script>";
-        }
-        
-        if ($this->getPostLoadJS() != "") {
-            $content .= "<script type=\"text/javascript\">" . 
-                $this->getPostLoadJS() . "</script>";
-        }
-        
-        $cssLibs = $this->getCSSLibs();
-        foreach ($cssLibs as $cssLib) {
-            $content .= "<link rel=\"stylesheet\" href=\"" . $cssLib . "\"" .
-                " type=\"text/css\" />";
-        }
-        return $content;
-    }
-    
-    /**
-     * Sets JS to be executed after the document has loaded
-     *
-     * @return void
-     */
-    protected abstract function getPostLoadJS();
-    
-    /**
-     * Enter description here...
-     *
-     * @param unknown_type $extraJS The text of the JS to run
-     * 
-     * @return void
-     */
-    protected abstract function getPreLoadJs();
-    
-    /**
-     * Sets the JS libraries to include
-     *
-     * @return void
-     */
-    protected abstract function getJSLibs();
-    
-    /**
-     * Sets the CSS libraries to include
-     *
-     * @param array $cssLibs An array of CSS libs to include
-     * 
-     * @return void
-     */
-    protected abstract function getCSSLibs();
+    public function getHeadContents();
     
     /**
      * Tells the gallery how to play the videos
@@ -103,48 +46,10 @@ abstract class TubePressPlayer
      * 
      * @return string The play link attributes
      */
-    public abstract function getPlayLink(TubePressVideo $vid, 
-        TubePressOptionsManager $tpom);
+    public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom);
         
-    public abstract function getPreGalleryHtml(TubePressVideo $vid,
-    	TubePressOptionsManager $tpom);
+    public function getPreGalleryHtml(TubePressVideo $vid, TubePressOptionsManager $tpom);
     
-    /**
-     * Gets a new player instance
-     *
-     * @param string $name The name of the TubePressPlayer to instantiate
-     * 
-     * @return TubePressPlayer an instance of the player
-     */
-    public static function getInstance($name)
-    {
-        switch ($name) {
-            
-        case TubePressPlayer::NORMAL:
-            return new TPNormalPlayer();
-            break;
-
-        case TubePressPlayer::GREYBOX:
-            return new TPGreyBoxPlayer();
-            break;
-
-        case TubePressPlayer::POPUP:
-            return new TPPopupPlayer();
-            break;
-
-        case TubePressPlayer::YOUTUBE:
-            return new TPYouTubePlayer();
-            break;
-
-        case TubePressPlayer::LIGHTWINDOW:
-            return new TPlightWindowPlayer();
-
-        case TubePressPlayer::SHADOWBOX:
-            return new TPShadowBoxPlayer();
-
-        default:
-            throw new Exception("No such player with name '" . $name . "'");
-        }
-    }
+    public function setEmbeddedPlayerService(TubePressEmbeddedPlayerService $tpeps);
 }
 ?>

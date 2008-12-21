@@ -22,7 +22,7 @@
 /**
  * Plays videos with lightWindow
  */
-class TPlightWindowPlayer extends TubePressPlayerAdapter
+class TPlightWindowPlayer extends AbstractTubePressPlayer
 {
     /**
      * Enter description here...
@@ -76,11 +76,10 @@ class TPlightWindowPlayer extends TubePressPlayerAdapter
         $title  = $vid->getTitle();
         $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
         $width  = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
-        $embed  = new TubePressEmbeddedPlayer();
         
         $url = new Net_URL2($tubepress_base_url . "/common/ui/popup.php");
         $url->setQueryVariable("id", $vid->getId());
-        $url->setQueryVariable("opts", $embed->packOptionsToString($vid, $tpom));
+        $url->setQueryVariable("opts", $this->getEmbeddedPlayerService()->packOptionsToString($vid, $tpom));
         
         return sprintf(<<<EOT
 href="%s" class="lightwindow" title="%s" params="lightwindow_width=%s,lightwindow_height=%s"

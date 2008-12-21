@@ -1,9 +1,14 @@
 <?php
-include_once dirname(__FILE__) . "/../../../tubepress_classloader.php";
-
-class TubePressEmbeddedPlayerTest extends PHPUnit_Framework_TestCase {
+class SimpleTubePressEmbeddedPlayerServiceTest extends PHPUnit_Framework_TestCase {
     
-	function testAsString()
+	private $_sut;
+	
+	function setUp()
+	{
+		$this->_sut = new SimpleTubePressEmbeddedPlayerService();
+	}
+	
+	function testToString()
 	{
 		$vid = new TubePressVideo();
 		$vid->setId("FAKEID");
@@ -14,9 +19,7 @@ class TubePressEmbeddedPlayerTest extends PHPUnit_Framework_TestCase {
 			 ->method("get")
 			 ->will($this->returnCallback('callback'));
 			 
-		$embed = new TubePressEmbeddedPlayer();
-		$optionsString = $embed->packOptionsToString($vid, $this->_tpom);
-		$embed->parseOptionsFromString($optionsString);
+		$this->_sut->applyOptions($vid, $this->_tpom);
 		
 		$link = "http://www.youtube.com/v/FAKEID?color1=0x111111&amp;color2=0x777777&amp;rel=1&amp;autoplay=0&amp;loop=1&amp;egm=0&amp;border=1";
 		
@@ -26,7 +29,7 @@ class TubePressEmbeddedPlayerTest extends PHPUnit_Framework_TestCase {
     <param name="movie" value="$link" />
 </object>
 EOT
-			,  $embed->toString());
+			,  $this->_sut->toString());
 	}
 }
 

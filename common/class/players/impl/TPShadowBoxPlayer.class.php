@@ -22,7 +22,7 @@
 /**
  * Plays videos with GreyBox
  */
-class TPShadowBoxPlayer extends TubePressPlayerAdapter
+class TPShadowBoxPlayer extends AbstractTubePressPlayer
 {    
     /**
      * Sets JS to be executed after the document has loaded
@@ -78,14 +78,12 @@ EOT
     {
         global $tubepress_base_url;
         
-        $embed = new TubePressEmbeddedPlayer();
-        
         $title  = $vid->getTitle();
         $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
         $width  = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
         $url = new Net_URL2($tubepress_base_url . "/common/ui/popup.php");
         $url->setQueryVariable("id", $vid->getId());
-        $url->setQueryVariable("opts", $embed->packOptionsToString($vid, $tpom));
+        $url->setQueryVariable("opts", $this->getEmbeddedPlayerService()->packOptionsToString($vid, $tpom));
         
         return sprintf('href="%s" title="%s" ' .
             'rel="shadowbox;height=%s;width=%s"',

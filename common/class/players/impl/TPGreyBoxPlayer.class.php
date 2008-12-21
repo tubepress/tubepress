@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Copyright 2006, 2007, 2008 Eric D. Hough (http://ehough.com)
  * 
@@ -20,12 +20,30 @@
  */
 
 /**
- * Plays videos at the top of a gallery
+ * Plays videos with GreyBox
  */
-class TPNormalPlayer extends TubePressPlayerAdapter
+class TPGreyBoxPlayer extends AbstractTubePressPlayer
 {
+    protected function getPreLoadJs()
+    {
+    	return "var GB_ROOT_DIR = \"" . $this->_getGbBaseUrl() . "\"";
+    }
+    
+    protected function getJSLibs()
+    {
+    	$gbURL = $this->_getGbBaseUrl();
+    	return array($gbURL . "AJS.js",
+            $gbURL . "AJS_fx.js",
+            $gbURL . "gb_scripts.js");
+    }
+    
+    protected function getCSSLibs()
+    {
+    	return array($this->_getGbBaseUrl() . "gb_styles.css");
+    }
+    
     /**
-     * Tells the gallery how to play videos with the normal player
+     * Tells the gallery how to play videos in GreyBox
      *
      * @param TubePressVideo          $vid  The video to be played
      * @param TubePressOptionsManager $tpom The TubePress options manager
@@ -34,37 +52,26 @@ class TPNormalPlayer extends TubePressPlayerAdapter
      */
     public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
     {
-    	
-    	$embed = new TubePressEmbeddedPlayer();
-        
-        $title  = $vid->getTitle();
-        $width  = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
+        global $tubepress_base_url;
 
-        $optionsString = $embed->packOptionsToString($vid, $tpom);
-		$embed->parseOptionsFromString($optionsString);
-        
+        $title  = $vid->getTitle();
+        $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
+        $width  = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
+        $url = new Net_URL2($tubepress_base_url . "/common/ui/popup.php");
+        $url->setQueryVariable("id", $vid->getId());
+        $url->setQueryVariable("opts", $this->getEmbeddedPlayerService()->packOptionsToString($vid, $tpom));
+       
         return sprintf(<<<EOT
-href="#" onclick="tubePress_normalPlayer('%s', '%d', '%s')"
+href="%s" title="%s" rel="gb_page_center[%s, %s]"
 EOT
-			, rawurlencode($embed->toString(), $height, $title));
+			, $url->getURL(true), $title, $width, $height);
     }
     
-    public function getPreGalleryHtml(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    private function _getGbBaseUrl()
     {
-    	$tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../ui");
-        if (!$tpl->loadTemplatefile("normal_mode_pre_gallery.tpl.html", true, true)) {
-            throw new Exception("Couldn't load pre gallery template");
-        }
-    	
-    	$embed = new TubePressEmbeddedPlayer();
-    	$optionsString = $embed->packOptionsToString($vid, $tpom);
-    	$embed->parseOptionsFromString($optionsString);
-    	
-        $tpl->setVariable("EMBEDSRC", $embed->toString());
-        $tpl->setVariable("TITLE", $vid->getTitle());
-        $tpl->setVariable("WIDTH", 
-            $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH));
-        return $tpl->get();	
+    	global $tubepress_base_url;
+
+        return $tubepress_base_url . "/lib/greybox/";
     }
 }
 ?>

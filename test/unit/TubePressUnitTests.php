@@ -21,7 +21,7 @@ $testNames = array(
 	"TubePressAdvancedOptions",
 	"TubePressDisplayOptions",
 	"TubePressEmbeddedOptions",
-	"TubePressEmbeddedPlayer",
+	"SimpleTubePressEmbeddedPlayerService",
 	"TubePressFeedRetrievalService_HTTP_Request2",
 	"TubePressGalleryOptions",
 	"TubePressGalleryUnit",

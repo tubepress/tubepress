@@ -5,12 +5,14 @@ class TPlightWindowPlayerTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;
 	private $_tpom;
+	private $_tpeps;
 	
 	function setUp()
 	{
 		global $tubepress_base_url;
 		$tubepress_base_url = "fakeurl";
 		$this->_sut = new TPlightWindowPlayer();
+		$this->_tpeps = $this->getMock("TubePressEmbeddedPlayerService");
 		$this->_tpom = $this->getMock("TubePressOptionsManager");
 	}
 	
@@ -27,12 +29,18 @@ EOX
 		global $tubepress_base_url;
 		$fakeVideo = new TubePressVideo();
 		$fakeVideo->setTitle("fake title");
-		$this->_tpom->expects($this->exactly(10))
+		$this->_tpom->expects($this->exactly(2))
 					->method("get")
 					->will($this->returnCallback("lwCallback"));
 		
+		$this->_tpeps->expects($this->once())
+					 ->method("packOptionsToString")
+					 ->will($this->returnValue("fakeopts"));
+		
+		$this->_sut->setEmbeddedPlayerService($this->_tpeps);
+					
 		$this->assertEquals(<<<EOT
-href="fakeurl/common/ui/popup.php?id=&amp;opts=r%3D%3Ba%3D%3Bl%3D%3Bg%3D%3Bb%3D%3Bid%3D%3Bw%3D222%3Bh%3D111" class="lightwindow" title="fake title" params="lightwindow_width=222,lightwindow_height=111"
+href="fakeurl/common/ui/popup.php?id=&amp;opts=fakeopts" class="lightwindow" title="fake title" params="lightwindow_width=222,lightwindow_height=111"
 EOT
 			, $this->_sut->getPlayLink($fakeVideo, $this->_tpom));
 	}
@@ -44,12 +52,6 @@ function lwCallback()
    	$vals = array(
 		TubePressEmbeddedOptions::EMBEDDED_HEIGHT => 111,
 		TubePressEmbeddedOptions::EMBEDDED_WIDTH => 222,
-		TubePressEmbeddedOptions::SHOW_RELATED => false,
-    	TubePressEmbeddedOptions::AUTOPLAY => false,
-    	TubePressEmbeddedOptions::LOOP => false,
-    	TubePressEmbeddedOptions::GENIE => false,
-    	TubePressEmbeddedOptions::BORDER => false,
-    	TubePressEmbeddedOptions::PLAYER_COLOR => "/"
 	);
 	return $vals[$args[0]]; 
 }

@@ -12,7 +12,10 @@ class TPYouTubePlayerTest extends PHPUnit_Framework_TestCase {
 	
 	function testGetPlayLink()
 	{
-		
+		$vid = new TubePressVideo();
+		$vid->setId("fakeid");
+		$tpom = $this->getMock("TubePressOptionsManager");
+		$this->assertEquals("href=\"http://youtube.com/watch?v=fakeid\"", $this->_sut->getPlayLink($vid, $tpom));
 	}
 }
 ?>

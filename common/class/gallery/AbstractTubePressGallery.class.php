@@ -30,10 +30,12 @@ abstract class AbstractTubePressGallery
     private $_messageService;
     private $_optionsManager;
     private $_paginationService;
+    private $_playerFactory;
     private $_queryStringService;
     private $_urlBuilder;
     private $_thumbnailService;
     private $_thumbnailTemplate;
+    private $_tpeps;
     private $_videoFactory;
     
     /**
@@ -79,7 +81,8 @@ abstract class AbstractTubePressGallery
         $playerName =
         	$this->_optionsManager->
             	get(TubePressDisplayOptions::CURRENT_PLAYER_NAME);
-        $player     = TubePressPlayer::getInstance($playerName);
+        $player     = $this->_playerFactory->getInstance($playerName);
+        $player->setEmbeddedPlayerService($this->_tpeps);
         
         for ($x = 0; $x < sizeof($videos); $x++) {
         	
@@ -147,6 +150,11 @@ abstract class AbstractTubePressGallery
     {             
     	$this->_paginationService     = $paginator; 
     }
+    
+    public function setPlayerFactory(TubePressPlayerFactory $playerFactory) 
+    {             
+    	$this->_playerFactory     = $playerFactory; 
+    }
 
     public function setQueryStringService(TubePressQueryStringService $qss) 
     {             
@@ -161,6 +169,11 @@ abstract class AbstractTubePressGallery
     public function setThumbnailTemplate($templateFile) 
     {									  
     	$this->_thumbnailTemplate		= $templateFile; 
+    }
+    
+    public function setEmbeddedPlayerService(TubePressEmbeddedPlayerService $tpeps)
+    {
+    	$this->_tpeps = $tpeps;
     }
     
     public function setUrlBuilderService(TubePressUrlBuilder $urlBuilder) 

@@ -115,7 +115,9 @@ function _tp_widget_setGalleryInterfaces(AbstractTubePressGallery $gallery, Tube
 	$gallery->setFeedRetrievalService(	$feedRetrievalService );
 	$gallery->setOptionsManager(		 $tpom);
 	$gallery->setQueryStringService($queryStringService);
+	$gallery->setEmbeddedPlayerService(new SimpleTubePressEmbeddedPlayerService());
 	$gallery->setPaginationService(	 $paginationService);
+	$gallery->setPlayerFactory(new SimpleTubePressPlayerFactory());
 	$gallery->setThumbnailService(		 $thumbService);
 	$gallery->setUrlBuilderService(	 $urlBuilderService);
 	$gallery->setVideoFactory(			 new SimpleTubePressVideoFactory());

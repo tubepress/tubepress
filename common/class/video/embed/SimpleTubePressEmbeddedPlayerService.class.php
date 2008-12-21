@@ -23,7 +23,7 @@
  * Represents an HTML-embeddable YouTube player
  *
  */
-class TubePressEmbeddedPlayer
+class SimpleTubePressEmbeddedPlayerService implements TubePressEmbeddedPlayerService
 {
 	private $_color1      = "";
 	private $_color2      = "";
@@ -100,7 +100,7 @@ EOT
     	return implode(";", $result);
     }
     
-    public function parseOptionsFromString($packed)
+    public function applyOptionsFromPackedString($packed)
     {
         $broken = split(";", $packed);
         
@@ -146,6 +146,25 @@ EOT
         			break;        		
         	}
         }
+    }
+    
+    public function applyOptions(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    {
+    	$color = $tpom->get(TubePressEmbeddedOptions::PLAYER_COLOR);
+    	if ($color != "/") {
+    		$colors = split("/", $color);
+    		$this->_color1 = $colors[0];
+    		$this->_color2 = $colors[1];
+    	}
+    	
+		$this->_showRelated = $tpom->get(TubePressEmbeddedOptions::SHOW_RELATED);
+		$this->_autoPlay    = $tpom->get(TubePressEmbeddedOptions::AUTOPLAY);
+		$this->_loop        = $tpom->get(TubePressEmbeddedOptions::LOOP);
+		$this->_genie       = $tpom->get(TubePressEmbeddedOptions::GENIE);
+		$this->_border      = $tpom->get(TubePressEmbeddedOptions::BORDER);
+		$this->_id          = $vid->getId();
+		$this->_width       = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
+		$this->_height      = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
     }
 }
 

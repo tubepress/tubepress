@@ -15,10 +15,10 @@ function tp_main($content = '')
 
 function _tp_main($content) {
 
-	$wpsm = new WordPressStorageManager();
-    $trigger = $wpsm->get(TubePressAdvancedOptions::KEYWORD);
+	$wpsm             = new WordPressStorageManager();
+    $trigger          = $wpsm->get(TubePressAdvancedOptions::KEYWORD);
 	$shortcodeService = new SimpleTubePressShortcodeService();
-	$messageService = new WordPressMessageService();
+	$messageService   = new WordPressMessageService();
     
     if (!$shortcodeService->somethingToParse($content, $trigger)) {
 	    return $content;
@@ -79,13 +79,15 @@ GBS;
     }
     
     $playerName = $wpsm->get(TubePressDisplayOptions::CURRENT_PLAYER_NAME);
-    $player = TubePressPlayer::getInstance($playerName);
+    $factory = new SimpleTubePressPlayerFactory();
+    $player = $factory->getInstance($playerName);
     print $player->getHeadContents();
 }
 
 function _tp_setGalleryInterfaces(TubePressGallery $gallery, TubePressOptionsManager $tpom)
 {
 	$messageService = new WordPressMessageService();
+	$playerFactory = new SimpleTubePressPlayerFactory();
 	
 	$thumbService = new SimpleTubePressThumbnailService();
     $thumbService->setOptionsManager($tpom);
@@ -107,7 +109,9 @@ function _tp_setGalleryInterfaces(TubePressGallery $gallery, TubePressOptionsMan
 	$gallery->setFeedRetrievalService(	 $feedRetrievalService);
 	$gallery->setOptionsManager(		 $tpom);
 	$gallery->setPaginationService(	 $paginationService);
+	$gallery->setPlayerFactory($playerFactory);
 	$gallery->setQueryStringService(new SimpleTubePressQueryStringService());
+	$gallery->setEmbeddedPlayerService(new SimpleTubePressEmbeddedPlayerService());
 	$gallery->setThumbnailService(		 $thumbService);
 	$gallery->setUrlBuilderService(	 $urlBuilderService);
 	$gallery->setVideoFactory(			 new SimpleTubePressVideoFactory());

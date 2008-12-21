@@ -32,6 +32,8 @@ class SimpleTubePressThumbnailService implements TubePressThumbnailService
 	private $_tpl;
 	private $_tpom;
 	private $_msg;
+	private $_tppf;
+	private $_tpeps;
 	
     public function getHtml($templateFile, TubePressVideo $vid, TubePressPlayer $player)
     {
@@ -52,9 +54,6 @@ class SimpleTubePressThumbnailService implements TubePressThumbnailService
     
     private function _getCommonStuff(TubePressVideo $vid, TubePressPlayer $player)
     {
-    	$playerName   = $this->_tpom->
-            get(TubePressDisplayOptions::CURRENT_PLAYER_NAME);
-        $player       = TubePressPlayer::getInstance($playerName);
         $randomizeOpt = $this->_tpom->
             get(TubePressAdvancedOptions::RANDOM_THUMBS);
         $thumbWidth   = $this->_tpom->
@@ -187,5 +186,8 @@ class SimpleTubePressThumbnailService implements TubePressThumbnailService
         }
     }
     
-    public function setMessageService(TubePressMessageService $messageService) { $this->_msg = $messageService; }
+    public function setMessageService(TubePressMessageService $messageService)
+    { 
+    	$this->_msg = $messageService; 
+    }
 }

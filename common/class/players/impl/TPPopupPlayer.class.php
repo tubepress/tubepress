@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Copyright 2006, 2007, 2008 Eric D. Hough (http://ehough.com)
  * 
@@ -20,30 +20,12 @@
  */
 
 /**
- * Plays videos with GreyBox
+ * Plays videos in an HTML popup window
  */
-class TPGreyBoxPlayer extends TubePressPlayerAdapter
+class TPPopupPlayer extends AbstractTubePressPlayer
 {
-    protected function getPreLoadJs()
-    {
-    	return "var GB_ROOT_DIR = \"" . $this->_getGbBaseUrl() . "\"";
-    }
-    
-    protected function getJSLibs()
-    {
-    	$gbURL = $this->_getGbBaseUrl();
-    	return array($gbURL . "AJS.js",
-            $gbURL . "AJS_fx.js",
-            $gbURL . "gb_scripts.js");
-    }
-    
-    protected function getCSSLibs()
-    {
-    	return array($this->_getGbBaseUrl() . "gb_styles.css");
-    }
-    
     /**
-     * Tells the gallery how to play videos in GreyBox
+     * Tells the gallery how to play videos in a popup window
      *
      * @param TubePressVideo          $vid  The video to be played
      * @param TubePressOptionsManager $tpom The TubePress options manager
@@ -54,26 +36,17 @@ class TPGreyBoxPlayer extends TubePressPlayerAdapter
     {
         global $tubepress_base_url;
 
-        $embed = new TubePressEmbeddedPlayer();
-        
-        $title  = $vid->getTitle();
         $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
         $width  = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
+        
         $url = new Net_URL2($tubepress_base_url . "/common/ui/popup.php");
         $url->setQueryVariable("id", $vid->getId());
-        $url->setQueryVariable("opts", $embed->packOptionsToString($vid, $tpom));
-       
+        $url->setQueryVariable("opts", $this->getEmbeddedPlayerService()->packOptionsToString($vid, $tpom));
+        
         return sprintf(<<<EOT
-href="%s" title="%s" rel="gb_page_center[%s, %s]"
+href="#" onclick="tubePress_popup('%s', %d, %d);"
 EOT
-			, $url->getURL(true), $title, $width, $height);
-    }
-    
-    private function _getGbBaseUrl()
-    {
-    	global $tubepress_base_url;
-
-        return $tubepress_base_url . "/lib/greybox/";
+            , $url->getURL(true), $height, $width);
     }
 }
 ?>

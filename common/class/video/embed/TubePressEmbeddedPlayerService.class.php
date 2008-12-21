@@ -20,22 +20,23 @@
  */
 
 /**
- * Plays videos from the original YouTube page
+ * Represents an HTML-embeddable YouTube player
+ *
  */
-class TPYouTubePlayer extends TubePressPlayerAdapter
-{
+interface TubePressEmbeddedPlayerService
+{	
     /**
-     * Tells the gallery how to play videos on YouTube
+     * Spits back the text for this embedded player
      *
-     * @param TubePressVideo          $vid  The video to be played
-     * @param TubePressOptionsManager $tpom The TubePress options manager
-     * 
-     * @return string The play link attributes
+     * @return string The text for this embedded player
      */
-    function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
-    {   
-        return sprintf('href="http://youtube.com/watch?v=%s"',
-            $vid->getId());
-    }
+    public function toString();
+    
+    public function packOptionsToString(TubePressVideo $vid, TubePressOptionsManager $tpom);
+    
+    public function applyOptionsFromPackedString($packed);
+    
+    public function applyOptions(TubePressVideo $vid, TubePressOptionsManager $tpom);
 }
+
 ?>

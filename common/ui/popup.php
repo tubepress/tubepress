@@ -38,8 +38,8 @@ $xml = $frs->fetch($url, false);
 $factory = new SimpleTubePressVideoFactory();
 $vid = $factory->dom2TubePressVideoArray($xml, 1);
 
-$embed = new TubePressEmbeddedPlayer();
-$embed->parseOptionsFromString($_GET["opts"]);
+$embed = new SimpleTubePressEmbeddedPlayerService();
+$embed->applyOptionsFromPackedString($_GET["opts"]);
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
