@@ -232,6 +232,10 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
             <p>
                 Of course, like any <a href="#toc-shortcodes">TubePress shortcode</a>, you can override any setting you like.
             </p>
+            <h2>3.5 Initialize your options</h2>
+            If you'd like to reset your TubePress options to their default values, you can do so by using a special page nested inside the plugin. If your
+            blog URL is <pre>http://myblog.com</pre> you'd need to navigate to <pre>http://myblog.com/wp-content/plugins/tubepress/env/WordPress/functions/db_nuke.php</pre> with your web browser. Once there, you
+            can just click the "Reset TubePress Options" button. Of course, you'll need to be a WordPress administrator (access level 9) for your blog to do this.
            <h1>4. TubePress Pro</h1>
            TubePress Pro allows you to run TubePress anywhere that supports PHP5. This means that you can easily insert video galleries
            in your PHP-enabled site! 
@@ -354,7 +358,7 @@ steps, which are in <strong>bold</strong> in the code snippet below. This exampl
                         </td>
                         <td>
                             <tt>favorites</tt><br />
-                            <tt>featured</tt><br />
+                            <tt>recently_featured</tt><br />
                             <tt>mobile</tt><br />
                             <tt>most_discussed<br /></tt>
                             <tt>most_linked<br /></tt>
