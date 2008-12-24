@@ -29,7 +29,7 @@ class SimpleTubePressQueryStringService implements TubePressQueryStringService
      * 
      * @return string What's in the address bar
      */
-    public function getFullUrl(array $serverVars)
+    public function getFullUrl($serverVars)
     {
         $pageURL = 'http';
         if ($serverVars["HTTPS"] == "on") {
@@ -51,7 +51,7 @@ class SimpleTubePressQueryStringService implements TubePressQueryStringService
      * 
      * @return int The page number
      */
-    public function getPageNum(array $getVars)
+    public function getPageNum($getVars)
     {
         $pageNum = ((isset($getVars["tubepress_page"])) ?
             $getVars["tubepress_page"] : 1);

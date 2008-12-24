@@ -272,7 +272,7 @@ class TubePressVideo
      *
      * @param array $tags The tags of this video
      */
-    public function setTags(array $tags)
+    public function setTags($tags)
     {
     	$this->_tags = $tags; 
     }
@@ -282,7 +282,7 @@ class TubePressVideo
      *
      * @param array $thumbUrls The thumbnail URLs of this video
      */
-	public function setThumbUrls(array $thumbUrls) 
+	public function setThumbUrls($thumbUrls) 
 	{
 		$this->_thumbUrls = $thumbUrls; 
 	}

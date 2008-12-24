@@ -103,7 +103,7 @@ class HTTP_Request2_MultipartBody
     * @param    array   file uploads set via {@link HTTP_Request2::addUpload()}
     * @param    bool    whether to append brackets to array variable names
     */
-    public function __construct(array $params, array $uploads, $useBrackets = true)
+    public function __construct($params, $uploads, $useBrackets = true)
     {
         $this->_params = self::_flattenArray('', $params, $useBrackets);
         foreach ($uploads as $fieldName => $f) {

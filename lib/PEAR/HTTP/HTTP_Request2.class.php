@@ -178,7 +178,7 @@ class HTTP_Request2 implements SplSubject
     * @param    string              Request method
     * @param    array               Configuration for this Request instance
     */
-    public function __construct($url = null, $method = self::METHOD_GET, array $config = array())
+    public function __construct($url = null, $method = self::METHOD_GET, $config = array())
     {
         if (!empty($url)) {
             $this->setUrl($url);
@@ -285,7 +285,7 @@ class HTTP_Request2 implements SplSubject
     * @return   HTTP_Request2
     * @throws   HTTP_Request2_Exception If the parameter is unknown
     */
-    public function setConfig(array $config = array())
+    public function setConfig($config = array())
     {
         foreach ($config as $k => $v) {
             if (!array_key_exists($k, $this->config)) {

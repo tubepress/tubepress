@@ -69,7 +69,7 @@ class SimpleTubePressOptionsManager extends AbstractTubePressOptionsManager
      * 
      * @return void
      */
-    public function setCustomOptions(array $customOpts)
+    public function setCustomOptions($customOpts)
     {
         $this->_customOptions = array_merge($this->_customOptions, $customOpts);
     }

@@ -449,7 +449,7 @@ class Net_URL2
      *
      * @return void
      */
-    public function setQueryVariables(array $array)
+    public function setQueryVariables($array)
     {
         if (!$array) {
             $this->query = false;

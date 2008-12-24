@@ -65,7 +65,7 @@ class TubePressOptionsForm
      * @return void
      */
     public function displayMenuInput(HTML_Template_IT &$tpl, 
-        $name, array $values, $value)
+        $name, $values, $value)
     {   
         $tpl->setVariable("OPTION_NAME", $name);
         foreach ($values as $validValueTitle => $validValue) {
@@ -142,7 +142,7 @@ class TubePressOptionsForm
      * @return void
      */
     public final function collect(TubePressStorageManager $tpsm, 
-        array $postVars)
+        $postVars)
     {    
         foreach ($postVars as $name => $value) {
             if ($tpsm->exists($name)) {

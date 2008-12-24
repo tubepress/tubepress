@@ -29,7 +29,7 @@ interface TubePressQueryStringService
      * 
      * @return string What's in the address bar
      */
-    public function getFullUrl(array $serverVars);
+    public function getFullUrl($serverVars);
     
     /**
      * Try to figure out what page we're on by looking at the query string
@@ -37,6 +37,6 @@ interface TubePressQueryStringService
      * 
      * @return int The page number
      */
-    public function getPageNum(array $getVars);
+    public function getPageNum($getVars);
 }
 ?>

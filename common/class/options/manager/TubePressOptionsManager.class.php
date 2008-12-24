@@ -43,7 +43,7 @@ interface TubePressOptionsManager
      * 
      * @return void
      */
-    public function setCustomOptions(array $customOpts);
+    public function setCustomOptions($customOpts);
     
     /**
      * Enter description here...
