@@ -26,7 +26,7 @@ along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 function_exists("tp_classFolder")
-    || require("tubepress_classloader.php");
+    || require("common/tubepress_classloader.php");
     
 error_reporting(E_ALL ^ E_NOTICE);
 ini_set("display_errors", 1);    

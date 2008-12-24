@@ -19,7 +19,7 @@
  *
  */
 
-if (substr(phpversion(), 0, 1) == "5"
+if (version_compare(PHP_VERSION, '5.0.0', '>=')
         && !function_exists("tubepress_content_filter")) {
         	
     $tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";

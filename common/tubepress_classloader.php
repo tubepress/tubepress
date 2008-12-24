@@ -30,7 +30,7 @@ function tubepress_classloader($className) {
     
 function tp_classFolder($className, $sub = DIRECTORY_SEPARATOR) {
     
-    $currentDir = dirname(__FILE__);
+    $currentDir = dirname(__FILE__) . "/../";
 
     $dir = dir($currentDir . $sub);
 
@@ -56,5 +56,11 @@ function tp_classFolder($className, $sub = DIRECTORY_SEPARATOR) {
     return false;
 }
 
-spl_autoload_register("tubepress_classloader");
+if (version_compare(PHP_VERSION, '5.1.2', '>=')) {
+	spl_autoload_register("tubepress_classloader");
+} else {
+	function __autoload($className) {
+		return tubepress_classloader($className);
+	}
+}
 ?>

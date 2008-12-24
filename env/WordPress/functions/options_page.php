@@ -29,7 +29,7 @@ function tubepress_admin_menu_hook()
 
 function _tubepress_admin_menu_hook()
 {
-    if (substr(phpversion(), 0, 1) == "5") {
+	if (version_compare(PHP_VERSION, '5.0.0', '>=')) {
     	function_exists("__tp_executeOptionsPage")
     	    || require "options_page_php5.php";  
         __tp_executeOptionsPage();
