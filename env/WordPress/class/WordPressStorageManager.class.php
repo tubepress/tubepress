@@ -63,7 +63,7 @@ class WordPressStorageManager extends AbstractTubePressStorageManager
      */
     protected function delete($optionName)
     {
-        delete_option($optionName);
+        delete_option(WordPressStorageManager::OPTION_PREFIX . $optionName);
     }
     
     /**
@@ -91,6 +91,17 @@ class WordPressStorageManager extends AbstractTubePressStorageManager
     {
         return get_option(WordPressStorageManager::OPTION_PREFIX . $optionName)
            !== false;
+    }
+    
+    public function nuclear()
+    {
+    	$allOptions = get_alloptions();
+    	foreach ($allOptions as $key => $value) {
+    		if (preg_match("/^tubepress.*/", $key)) {
+    			delete_option($key);
+    		}
+    	}
+    	$this->init();
     }
 }
 ?>

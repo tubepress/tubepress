@@ -19,7 +19,7 @@
  *
  */
 
-function __autoload($className) {
+function tubepress_classloader($className) {
     
     $folder = tp_classFolder($className);
     
@@ -55,4 +55,6 @@ function tp_classFolder($className, $sub = DIRECTORY_SEPARATOR) {
     $dir->close();
     return false;
 }
+
+spl_autoload_register("tubepress_classloader");
 ?>
