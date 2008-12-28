@@ -1,35 +1,18 @@
 <?xml version="1.0"?>
 
-<project name="TubePress" default="unit-test">
+<project name="TubePress" default="sniff">
 	
-	<property name="report-output-directory" value="/Users/ehough/Desktop/coverage" />
-	
-	<fileset dir="${project.basedir}" id="test.code">
-		<include name="**/*Test.php" />
-		<exclude name="**/TubePressConnectionTest.php" />
-	</fileset>
-	
+	<property name="wordpress-development-directory" value="/Applications/MAMP/htdocs/tp/wp-content/plugins/tubepress" />
+	<property name="packaging-directory"             value="/Users/ehough/Desktop" />
+		
 	<fileset dir="${project.basedir}" id="source.code">
 		<include name="**/*.class.php" />
 		<exclude name="**/*Test.php" />
 		<exclude name="lib/**/*.php" />
 		<exclude name="**/AbstractTubePressMessageService.class.php" />
 		<exclude name="**/popup.php" />
-		<exclude name="/tubepress_classloader.php" />
+		<exclude name="/common/tubepress_classloader.php" />
 	</fileset>
-	
-    <target name="unit-test" description="TubePress Unit Tests" depends="coverage-setup">
-    	<phpunit codecoverage="true" printsummary="true" haltonfailure="true" haltonerror="true">
-			<formatter type="xml" todir="${report-output-directory}" outfile="logfile.xml"/>
-			<batchtest>
-				<fileset refid="test.code" />
-			</batchtest>
-		</phpunit>
-    	<coverage-report outfile="${report-output-directory}/coverage.xml">
-    		<report todir="${report-output-directory}" styledir="/Applications/MAMP/bin/php5/lib/php/data/phing/etc"/>
-    	</coverage-report>
-
-	</target>
 	
 	<target name="sniff">
 		<phpcodesniffer verbosity="0" standard="PEAR" format="report" tabWidth="4">
@@ -37,24 +20,25 @@
 		</phpcodesniffer>
 	</target>
 	
-	<target name="coverage-setup">
-		<adhoc-task name="stub-autoload">
-			<![CDATA[
-				class StubAutoloadTask extends Task 
-					{ 
-						function main() 
-						{ 
-							include "/Applications/MAMP/htdocs/tp/wp-content/plugins/tubepress/tubepress_classloader.php";
-						} 
-					} 
-			]]>
-		</adhoc-task>
-		<stub-autoload/>
-		<delete dir="${report-output-directory}"/>
-		<mkdir dir="${report-output-directory}" />
-		<coverage-setup database="${report-output-directory}/coverage.db">
-			<fileset refid="source.code" />
-		</coverage-setup>
-	</target> 
+	<target name="assemble-wordpress">
+		<copy todir="${wordpress-development-directory}">
+			<fileset dir="${project.basedir}">
+				<include name="**/*" />
+				<exclude name="test/**" />
+				<exclude name="**/.*" />
+				<exclude name="build.xml" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="clean-then-assemble-wordpress">
+		<delete dir="${wordpress-development-directory}" includeemptydirs="true" verbose="true" failonerror="true" />
+		<mkdir dir="${wordpress-development-directory}" />
+		<phingcall target="assemble-wordpress" />
+	</target>
+	
+	<target name="package-wordpress" depends="clean-then-assemble-wordpress">
+		<zip destfile="${packaging-directory}/tubepress.zip" basedir="${wordpress-development-directory}" />
+	</target>
 
 </project>
