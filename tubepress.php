@@ -25,7 +25,7 @@ You should have received a copy of the GNU General Public License
 along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-function_exists("tp_classFolder")
+function_exists("tubepress_classloader")
     || require("common/tubepress_classloader.php");
     
 error_reporting(E_ALL ^ E_NOTICE);
