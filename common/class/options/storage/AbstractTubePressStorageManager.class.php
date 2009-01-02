@@ -108,6 +108,7 @@ abstract class AbstractTubePressStorageManager implements TubePressStorageManage
     		TubePressEmbeddedOptions::LOOP 				 => false,
     		TubePressEmbeddedOptions::PLAYER_COLOR 		 => "/",
     		TubePressEmbeddedOptions::SHOW_RELATED 		 => true,
+    		TubePressEmbeddedOptions::QUALITY            => "normal",
     		TubePressGalleryOptions::MODE 				 => "recently_featured",
     		TubePressGalleryOptions::FAVORITES_VALUE 	 => "mrdeathgod",
     		TubePressGalleryOptions::MOST_VIEWED_VALUE 	 => "today",

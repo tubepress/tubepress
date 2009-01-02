@@ -164,6 +164,21 @@ msgstr ""
 msgid "Toggles the display of related videos after a video finishes"
 msgstr ""
 
+msgid "Video quality"
+msgstr ""
+
+msgid "Normal"
+msgstr ""
+
+msgid "High"
+msgstr ""
+
+msgid "Higher"
+msgstr ""
+
+msgid "Highest"
+msgstr ""
+
 msgid "Meta Display"
 msgstr ""
 

@@ -32,6 +32,7 @@ class TubePressEmbeddedOptions implements TubePressOptionsCategory
     const GENIE           = "genie";
     const LOOP            = "loop";
     const PLAYER_COLOR    = "playerColor";
+    const QUALITY         = "quality";
     const SHOW_RELATED    = "showRelated";
     
 	private $_messageService;
@@ -117,6 +118,16 @@ class TubePressEmbeddedOptions implements TubePressOptionsCategory
                 TubePressOptionsForm::displayMenuInput($tpl, 
                     $constant, $values, $tpsm->get($constant));
                 break;
+                
+            case TubePressEmbeddedOptions::QUALITY:
+                $values = array(
+                	$this->_messageService->_("quality-normal")  => "normal", 
+                	$this->_messageService->_("quality-high")    => "high",
+                	$this->_messageService->_("quality-higher")  => "higher", 
+                	$this->_messageService->_("quality-highest") => "highest"
+                );
+                TubePressOptionsForm::displayMenuInput($tpl,
+                    $constant, $values, $tpsm->get($constant));
             }
             $tpl->parse("optionRow");
         }

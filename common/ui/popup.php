@@ -27,7 +27,7 @@
  */
 header('Content-Type: text/html;charset=utf-8');
 
-require dirname(__FILE__) . "/../../tubepress_classloader.php";
+require dirname(__FILE__) . "/../../common/tubepress_classloader.php";
 
 $urlBuilder = new SimpleTubePressUrlBuilder();
 $url = $urlBuilder->buildSingleVideoUrl($_GET["id"]);

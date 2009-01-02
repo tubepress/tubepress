@@ -34,8 +34,22 @@ class TPYouTubePlayer extends AbstractTubePressPlayer
      */
     function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
     {   
-        return sprintf('href="http://youtube.com/watch?v=%s"',
-            $vid->getId());
+        $link = new Net_URL2(sprintf('href="http://youtube.com/watch?v=%s"',
+            $vid->getId()));
+        
+        switch ($tpom->get(TubePressEmbeddedOptions::QUALITY)) {
+            case "high":
+                $link->setQueryVariable("fmt", "6");
+                break;
+            case "higher":
+                $link->setQueryVariable("fmt", "18");
+                break;
+            case "highest":
+                $link->setQueryVariable("fmt", "22");
+                break;      
+        }
+        
+        return $link->getURL();
     }
 }
 ?>

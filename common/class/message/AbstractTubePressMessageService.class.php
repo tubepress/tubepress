@@ -79,7 +79,8 @@ abstract class AbstractTubePressMessageService implements TubePressMessageServic
         "options-embedded-desc-loop"            => "Continue playing the video until the user stops it", 
         "options-embedded-title-playerColor"    => "Color", 
         "options-embedded-title-showRelated"    => "Show related videos", 
-        "options-embedded-desc-showRelated"     => "Toggles the display of related videos after a video finishes", 
+        "options-embedded-desc-showRelated"     => "Toggles the display of related videos after a video finishes",
+        "options-embedded-title-quality"		=> "Video quality",
         
         "options-meta-title-author"      => "Author", 
         "options-meta-title-category"    => "Category", 
@@ -163,7 +164,12 @@ abstract class AbstractTubePressMessageService implements TubePressMessageServic
         "prev" => "prev", 
 
     	"widget-description"           => "Displays YouTube videos in your sidebar using TubePress", 
-        "widget-tagstring-description" => "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>."
+        "widget-tagstring-description" => "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>.",
+        
+        "quality-normal"  => "Normal",
+        "quality-high"    => "High",
+        "quality-higher"  => "Higher",
+        "quality-highest" => "Highest"
     );
     
 	/**
@@ -178,6 +184,6 @@ abstract class AbstractTubePressMessageService implements TubePressMessageServic
 	    if (array_key_exists($msgId, $this->_msgs)) {
 	        return $this->_msgs[$msgId];	 
 	    }
-	    return $msgId;
+	    return "";
 	}
 }

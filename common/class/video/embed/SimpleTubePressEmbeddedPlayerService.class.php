@@ -35,6 +35,7 @@ class SimpleTubePressEmbeddedPlayerService implements TubePressEmbeddedPlayerSer
 	private $_id          = "";
 	private $_width       = 425;
 	private $_height      = 355;
+	private $_quality     = "normal";
 	
     /**
      * Spits back the text for this embedded player
@@ -55,6 +56,21 @@ class SimpleTubePressEmbeddedPlayerService implements TubePressEmbeddedPlayerSer
         $link->setQueryVariable("loop",     $this->_loop        ? "1" : "0");
         $link->setQueryVariable("egm",      $this->_genie       ? "1" : "0");
         $link->setQueryVariable("border",   $this->_border      ? "1" : "0");
+        
+        switch ($this->_quality) {
+            case "high":
+                $link->setQueryVariable("ap", "%26");
+                $link->setQueryVariable("fmt", "6");
+                break;
+            case "higher":
+                $link->setQueryVariable("ap", "%26");
+                $link->setQueryVariable("fmt", "18");
+                break;
+            case "highest":
+                $link->setQueryVariable("ap", "%26");
+                $link->setQueryVariable("fmt", "22");
+                break;      
+        }
         
         $link = $link->getURL(true);
         
@@ -80,7 +96,8 @@ EOT
     		"b" => $tpom->get(TubePressEmbeddedOptions::BORDER),
     		"id" => $vid->getId(),
     		"w" => $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH),
-    		"h" => $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT)
+    		"h" => $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT),
+    	    "q" => $tpom->get(TubePressEmbeddedOptions::QUALITY)
     	);
     	
     	$color = $tpom->get(TubePressEmbeddedOptions::PLAYER_COLOR);
@@ -144,6 +161,9 @@ EOT
         		case "h":
         			$this->_height = $value;
         			break;        		
+        		case "q":
+        		       $this->_quality = $value;
+        		       break;
         	}
         }
     }
@@ -165,6 +185,7 @@ EOT
 		$this->_id          = $vid->getId();
 		$this->_width       = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
 		$this->_height      = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
+		$this->_quality     = $tpom->get(TubePressEmbeddedOptions::QUALITY);
     }
 }
 
