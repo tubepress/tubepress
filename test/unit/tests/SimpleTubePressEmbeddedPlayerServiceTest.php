@@ -15,7 +15,7 @@ class SimpleTubePressEmbeddedPlayerServiceTest extends PHPUnit_Framework_TestCas
 		
 		$this->_tpom = $this->getMock("TubePressOptionsManager");
 		
-		$this->_tpom->expects($this->exactly(8))
+		$this->_tpom->expects($this->exactly(9))
 			 ->method("get")
 			 ->will($this->returnCallback('callback'));
 			 
@@ -43,7 +43,8 @@ function callback() {
 		TubePressEmbeddedOptions::AUTOPLAY => false,
 		TubePressEmbeddedOptions::LOOP => true,
 		TubePressEmbeddedOptions::GENIE => false,
-		TubePressEmbeddedOptions::BORDER => true
+		TubePressEmbeddedOptions::BORDER => true,
+		TubePressEmbeddedOptions::QUALITY => "normal"
 	);
 	return $vals[$args[0]]; 
 }

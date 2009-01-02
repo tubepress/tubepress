@@ -21,7 +21,7 @@ class SimpleTubePressOptionsManagerTest extends PHPUnit_Framework_TestCase {
     		"top_ratedValue", "userValue", "widget-title",
     	 	"widget-tagstring", "author", "category", "description",
     	 	"id", "length", "rating", "ratings", "tags", "title",
-    	 	"uploaded", "url", "views"
+    	 	"uploaded", "url", "views", "quality"
     	);
 	}
 	

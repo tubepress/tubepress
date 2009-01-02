@@ -12,7 +12,7 @@ class TubePressEmbeddedOptionsTest extends PHPUnit_Framework_TestCase {
 	{
 		$this->_expectedNames = array(
 			"autoplay", "border", "embeddedHeight", "embeddedWidth", 
-			"genie", "loop", "playerColor", "showRelated"
+			"genie", "loop", "playerColor", "showRelated", "quality"
     	);
     	$class = new ReflectionClass("TubePressEmbeddedOptions");    
         $this->_actualNames = $class->getConstants();
