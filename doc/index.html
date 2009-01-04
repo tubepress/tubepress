@@ -236,43 +236,57 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
             If you'd like to reset your TubePress options to their default values, you can do so by using a special page nested inside the plugin. If your
             blog URL is <pre>http://myblog.com</pre> you'd need to navigate to <pre>http://myblog.com/wp-content/plugins/tubepress/env/WordPress/functions/db_nuke.php</pre> with your web browser. Once there, you
             can just click the "Reset TubePress Options" button. Of course, you'll need to be a WordPress administrator (access level 9) for your blog to do this.
-           <h1>4. TubePress Pro</h1>
+           <h1><a name="pro">4. TubePress Pro</a></h1>
            TubePress Pro allows you to run TubePress anywhere that supports PHP5. This means that you can easily insert video galleries
            in your PHP-enabled site! 
            <h2>4.1 Plain PHP</h2>
-           There are basically four steps to use TubePress Pro. You can see each step in <strong>bold</strong> in the code snippet below.
-           <ol>
-           		<li>Set the global <pre>tubepress_base_url</pre> to the web-accessible location of your TubePress installation base</li>
-           		<li>Include the <tt>tubepress-standalone.php</tt> file to load up the TubePress Pro libraries</li>
-           		<li>In the <tt>head</tt> of your document, insert <pre>print tubepressHeadElements();</pre> to include the TubePress CSS and JS files</li>
-           		<li>Anywhere you'd like a video gallery, type <pre>print tubepressGallery("resultsPerPage='3', mode='featured'");</pre> As the argument to this function,
-           		you can include any shortcode you'd like (with or without the square brackets).</li>
-           </ol>
-           <pre>
-1.  &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-2.        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-3.  &lt;?php 
-4. 		
-5. 		<strong>$tubepress_base_url = "http://example.com/libraries/tubepress/";</strong>
-6. 
-7. 	 	<strong>require_once "tubepress/tubepress-standalone.php";</strong>
-8. 
-9.  ?&gt;
-10. 
-11. &lt;html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"&gt;
-12. 	&lt;head&gt;
-13. 		&lt;title&gt;TubePress Standalone Example&lt;/title&gt;
-14. 		&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;
-15. 		
-16. 		<strong>&lt;?php print tubepressHeadElements(); ?&gt;</strong>
-17.     &lt;/head&gt;
-18.     &lt;body&gt;
-19. 		&lt;div style="width:500px"&gt;	
-20. 			<strong>&lt;?php print tubepressGallery("resultsPerPage='3', mode='featured'"); ?&gt;</strong>
-21. 		&lt;/div&gt;
-22. 	&lt;/body&gt;
-23. &lt;/html&gt;
+           Here are step-by-step instructions for using TubePress Pro on your site.
+<ol>
+<li><strong>Download</strong><br />After you purchase TubePress Pro, check your email that you've registered with PayPal. You'll find an email, from tubepress.org, that contains your download link. When you click on this link, your web browser will prompt you to download (or open) a zip file containing TubePress Pro. Click "Save file" and download the zip file to somewhere easy to find, like your desktop. As of this writing, the name of the zip file is <tt>tubepress_pro_1_6_9.zip</tt>.<br /><br /></li>
+<li><strong>Unzip</strong><br />You'll want to unzip the file you just downloaded (<tt>tubepress_pro_1_6_9.zip</tt>). It will expand into a directory named <tt>tubepress_pro_1_6_9</tt>.<br /><br /></li>
+<li><strong>Upload</strong><br />This entire directory that you unzipped must be uploaded to your web server in a place that's web accessible. In this example, my webserver has a URL of <tt>http://myblog.com</tt> and a document root of <tt>/var/www/html</tt>, so I'll need to upload the entire <tt>tubepress_pro_1_6_9</tt> directory to anywhere inside <tt>/var/www/html</tt> on <tt>myblog.com</tt>. For this example, I'll just upload the directory to the <tt>/var/www/html</tt> directory. Now my TubePress installation is web accessible at <tt>http://myblog.com/tubepress_pro_1_6_9</tt> and on the server's filesystem at <tt>/var/www/html/tubepress_pro_1_6_9</tt>.<br /><br /></li>
+<li><strong>Verify upload</strong><br /> It's a good idea to make sure that the directory you just uploaded is actually readable by your web server. Try navigating to <tt>http://myblog.com/tubepress_pro_1_6_9/tubepress-standalone.php</tt>. You should get a blank white screen with no errors.<br /><br /></li>
+<li><strong>Create gallery page</strong><br /> I want to create a gallery in <tt>/var/www/html/index.php</tt>. Below are the contents of <tt>index.php</tt>. It's an extremely simple PHP file with four steps added to include a TubePress gallery. We'll go the steps one-by-one.
+
+<pre>
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;?php 
+
+<strong>/* STEP 1: Enter the web-accessible URL of your TubePress installation */
+$tubepress_base_url = "http://myblog.com/tubepress_pro_1_6_9";</strong>
+
+<strong>/* STEP 2: Include the TubePress stand-alone library file (tubepress-standalone.php) */
+require_once "tubepress_pro_1_6_9/tubepress-standalone.php";</strong>
+?&gt;
+
+&lt;html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"&gt;
+	&lt;head&gt;
+		&lt;title&gt;TubePress Standalone Example&lt;/title&gt;
+		&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;
+		
+		<strong>&lt;!-- STEP 3: Include this statement inside the HEAD of your HTML document --&gt;
+		&lt;?php print tubepressHeadElements(); ?&gt;</strong>
+    &lt;/head&gt;
+    &lt;body&gt;
+		&lt;div style="width:500px"&gt;
+
+			<strong>&lt;!-- STEP 4: Call "tubepressGallery" anywhere you like --&gt;
+			&lt;?php print tubepressGallery("resultsPerPage='3'"); ?&gt;</strong>
+
+		&lt;/div&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
 </pre>
+
+<strong>Step 1:</strong><br /> Set the <tt>tubepress_base_url</tt> variable to the web URL of your TubePress Pro installation. In this example, it's <tt>http://myblog.com/tubepress_pro_1_6_9</tt>.<br /><br />
+<strong>Step 2:</strong><br /> Include the TubePress Pro library file, <tt>tubepress-standalone.php</tt>. This file is located right inside your TubePress Pro installation directory, so in this example it's found at <tt>tubepress_pro_1_6_9/tubepress-standalone.php</tt><br /><br />
+<strong>Step 3:</strong><br /> In the head of your PHP file, execute <tt>print tubepressHeadElements();</tt> one time. This will include TubePress's CSS and JavaScript files.<br /><br />
+<strong>Step 4:</strong><br /> Anywhere you want a gallery, just execute <tt>print tubepressGallery("resultsPerPage='3'");</tt> Note that you can put any <a href="#shortcodes">TubePress shortcode syntax</a> as a parameter to this function call. Note that you can leave out the opening and closing brackets of the shortcode (along with the "tubepress" word) if you like.<br /><br />
+</li>
+<li><strong>Result</strong><br /> Here's the resulting output of the example: <a href="http://tubepress.org/pro_demo">http://tubepress.org/pro_demo</a></li>
+</ol>
+           
 <h2>4.2 Outside the WordPress loop</h2>
 You can also use TubePress Pro to insert video galleries outside the WordPress loop (outside the content of a post or page). It's even easier to use than in standalone PHP. There are just two
 steps, which are in <strong>bold</strong> in the code snippet below. This example shows how you can use TubePress Pro in a regular WordPress template. The steps are
@@ -645,7 +659,7 @@ steps, which are in <strong>bold</strong> in the code snippet below. This exampl
                             Quality of video and audio
                         </td>
                         <td>
-                           <tt>normal</tt><br /><tt>high</tt><tt>higher</tt><br /><tt>highest</tt>
+                           <tt>normal</tt><br /><tt>high</tt><br /><tt>higher</tt><br /><tt>highest</tt>
                         </td>
                         <td>
 
