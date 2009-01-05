@@ -122,13 +122,10 @@ class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
         $requestURL = new Net_URL2($request);
         $requestURL->setQueryVariable("start-index", $start);
         $requestURL->setQueryVariable("max-results", $perPage);
-        //$requestURL->setQueryVariable("v", "2.0");
         
         $requestURL->setQueryVariable("racy", $filter ? "exclude" : "include");
       
-        //TODO: this is ugly and stupid, in that order
-        if ($mode != TubePressGallery::PLAYLIST
-        	&& $order != "random") {
+        if ($order != "random") {
             $requestURL->setQueryVariable("orderby", $order);
         }
         

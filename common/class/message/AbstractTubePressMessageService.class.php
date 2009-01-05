@@ -130,11 +130,11 @@ abstract class AbstractTubePressMessageService implements TubePressMessageServic
         "color-purple"    => "purple", 
         "color-red"       => "red", 
     
-        "order-relevance" => "relevance", 
-        "order-views"     => "view count", 
-        "order-rating"    => "rating", 
-        "order-updated"   => "date updated", 
-        "order-random"    => "randomly", 
+        "order-relevance"  => "relevance", 
+        "order-views"      => "view count", 
+        "order-rating"     => "rating", 
+        "order-published"  => "date published", 
+        "order-random"     => "randomly", 
     
         "timeframe-today"   => "today", 
         "timeframe-week"    => "this week", 

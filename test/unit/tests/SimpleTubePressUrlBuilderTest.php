@@ -49,7 +49,7 @@ class SimpleTubePressUrlBuilderTest extends PHPUnit_Framework_TestCase {
 			 ->will($this->returnCallback("playlistModeCallback"));
 		$this->_sut->setOptionsManager($tpom);
 
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/fakeplaylist?start-index=1&max-results=3&racy=exclude&client=clientkey&key=devkey", $this->_sut->buildGalleryUrl(1));
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/fakeplaylist?start-index=1&max-results=3&racy=exclude&orderby=relevance&client=clientkey&key=devkey", $this->_sut->buildGalleryUrl(1));
 	}
 	
 	function testBuildGalleryUrlMostResponded()

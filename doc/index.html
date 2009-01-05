@@ -399,16 +399,18 @@ steps, which are in <strong>bold</strong> in the code snippet below. This exampl
             	<thead><tr><th>Mode name</th><th>Description</th></tr></thead>
             	<tbody>
             	<tr><td><tt>favorites</tt></td><td>"Favorite" videos of the given YouTube user. Accompany this mode setting with a <tt>favoritesValue</tt>
-                    attribute to define the YouTube user name. For instance<pre>[tubepress mode='favorites', favoritesValue='3hough']</pre>
+                    attribute to define the YouTube user name. For instance<pre>[tubepress mode='favorites', favoritesValue='3hough']</pre>. YouTube limits the number of videos in this type of gallery to 50.
 
                 </td></tr>
-                <tr><td><tt>featured</tt></td><td>The lastest "featured" videos on YouTube's homepage</td></tr>
+                <tr><td><tt>recently_featured</tt></td><td>The lastest "featured" videos on YouTube's homepage</td></tr>
                 <tr><td><tt>most_discussed</tt></td><td>The most-commented videos on YouTube</td></tr>
                 <tr><td><tt>most_linked</tt></td><td>Videos with the most links</td></tr>
                 <tr><td><tt>most_recent</tt></td><td>Videos recently uploaded to YouTube</td></tr>
+                <tr><td><tt>most_responded</tt></td><td>Videos with the most video responses</td></tr>
                 <tr><td><tt>playlist</tt></td><td>Videos from the given playlist. Accompany this mode setting with a <tt>playlistValue</tt> attribute to define
-                    which YouTube playlist to retrieve. For instance<pre>[tubepress mode='playlist', playlistValue='6813408AE8D50E6F']</pre></td></tr>
+                    which YouTube playlist to retrieve. For instance<pre>[tubepress mode='playlist', playlistValue='6813408AE8D50E6F']</pre>. YouTube limits the number of videos in a playlist to 200. Only public playlists can be shown with TubePress.</td></tr>
 <tr><td><tt>mobile</tt></td><td>Videos suitable for mobile devices</td></tr>
+				<tr><td><tt>tag</tt></td><td>Show videos matching a search term. Accompany this mode setting with a <tt>tagValue</tt> attribute to define your search term. For instance <pre>[tubepress mode='tag', tagValue='barack obama john mccain']</pre></td></tr>
                <tr><td><tt>user</tt></td><td>Videos uploaded by a specific user. Accompany this mode setting with a <tt>userValue</tt> attribute to define the
                     YouTube user name. For instance<pre>[tubepress mode='user', userValue='3hough']</pre></td></tr>
 </tbody></table>
@@ -454,7 +456,7 @@ steps, which are in <strong>bold</strong> in the code snippet below. This exampl
                             The sort order of the video thumbnails
                         </td>
                         <td>
-                            <tt>updated</tt><br /><tt>viewCount</tt><br /><tt>rating</tt><br /><tt>relevance</tt>
+                            <tt>published</tt><br /><tt>viewCount</tt><br /><tt>rating</tt><br /><tt>relevance</tt>
                         </td>
                         <td>
                             <tt>[tubepress orderBy='viewCount']</tt>
@@ -521,6 +523,21 @@ steps, which are in <strong>bold</strong> in the code snippet below. This exampl
                 <tr><td><tt>popup</tt></td><td>Plays videos in an HTML popup window</td></tr>
                 <tr><td><tt>youtube</tt></td><td>Sends user to the video's original YouTube page to view the video</td></tr>
                
+</tbody></table>
+<h3>5.2.2 Video sort order</h3>
+Please note that these galleries can't be sorted
+<ul><li><strong>Favorites</strong><br/>A gallery of a user's favorite videos will always be sorted in the order that the videos were favorited.<br /><br /></li>
+<li><strong>Playlist</strong><br/>A playlist gallery will always be sorted in the order that the videos appear in the playlist<br /><br /></li>
+</ul>
+             <table>
+            	<thead><tr><th>orderBy value</th><th>Description</th></tr></thead>
+            	<tbody>
+            	<tr><td><tt>published</tt></td><td>
+Show videos in the order they were published to YouTube, with the more-recent videos first.
+                </td></tr>
+                <tr><td><tt>viewCount</tt></td><td>Shows videos in order of how many times they've been viewed, with the more-viewed videos first.</td></tr>
+                <tr><td><tt>rating</tt></td><td>Shows videos in order of their rating, with the higher-rated videos first.</td></tr>
+                <tr><td><tt>relevance</tt></td><td>Shows videos in order of relevance. This sort order really only applies to "tag" mode galleries</td></tr>
 </tbody></table>
                
             <h2>

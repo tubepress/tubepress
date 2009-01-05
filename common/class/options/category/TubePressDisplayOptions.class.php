@@ -100,7 +100,7 @@ class TubePressDisplayOptions implements TubePressOptionsCategory
                     $this->_messageService->_("order-relevance") => "relevance",
                     $this->_messageService->_("order-views") => "viewCount",
                     $this->_messageService->_("order-rating") => "rating",
-                    $this->_messageService->_("order-updated") => "updated",
+                    $this->_messageService->_("order-published") => "published",
                     $this->_messageService->_("order-random") => "random"
                 );
                 TubePressOptionsForm::displayMenuInput($tpl, 
