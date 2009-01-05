@@ -61,5 +61,11 @@ class SimpleTubePressQueryStringService implements TubePressQueryStringService
         }
         return $pageNum;
     }
+    
+    public function getCustomVideo($getVars)
+    {
+        return isset($getVars["tubepress_video"]) ?
+            $getVars["tubepress_video"] : "";
+    }
 }
 ?>

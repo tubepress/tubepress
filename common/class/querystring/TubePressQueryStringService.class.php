@@ -38,5 +38,7 @@ interface TubePressQueryStringService
      * @return int The page number
      */
     public function getPageNum($getVars);
+    
+    public function getCustomVideo($getVars);
 }
 ?>

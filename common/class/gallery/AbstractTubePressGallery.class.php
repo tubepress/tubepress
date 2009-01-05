@@ -89,7 +89,7 @@ abstract class AbstractTubePressGallery
             /* Top of the gallery is special */
 	        if ($x == 0) {
 	            $tpl->setVariable("PRE_GALLERY_PLAYER_HTML", 
-	                $player->getPreGalleryHtml($videos[$x], $this->_optionsManager));
+	                $player->getPreGalleryHtml($this->_getPreGalleryVideo($videos), $this->_optionsManager));
 	        }
 	            
 	        /* Here's where each thumbnail gets printed */
@@ -105,6 +105,19 @@ abstract class AbstractTubePressGallery
 	    }
         
         return $tpl->get();
+    }
+    
+    private function _getPreGalleryVideo($videos)
+    {
+        $customVideoId = $this->_queryStringService->getCustomVideo($_GET);
+        if ($customVideoId != "") {
+            $videoUrl = $this->_urlBuilder->buildSingleVideoUrl($customVideoId);
+            $results = $this->_feedRetrievalService->fetch($videoUrl,
+                $this->_optionsManager->get(TubePressAdvancedOptions::CACHE_ENABLED));
+            $videoArray = $this->_videoFactory->dom2TubePressVideoArray($results, 1);
+            return $videoArray[0];
+        }
+        return $videos[0];
     }
     
     /**
