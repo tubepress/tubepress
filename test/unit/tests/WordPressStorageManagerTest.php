@@ -1,4 +1,8 @@
 <?php
+function get_option($optionName) {
+    return "";
+}
+
 class WordPressStorageManagerTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;
@@ -10,7 +14,7 @@ class WordPressStorageManagerTest extends PHPUnit_Framework_TestCase {
 	
 	function testInit()
 	{
-		
+		$this->_sut->init();
 	}
     
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006, 2007, 2008 Eric D. Hough (http://ehough.com)
+ * Copyright 2006, 2007, 2008, 2009 Eric D. Hough (http://ehough.com)
  * 
  * This file is part of TubePress (http://tubepress.org)
  * 
