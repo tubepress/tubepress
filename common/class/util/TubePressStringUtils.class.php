@@ -25,12 +25,22 @@
  */
 class TubePressStringUtils
 {
+    /**
+     * Replaces the first occurence of a string by another string
+     *
+     * @param string $search  The haystack
+     * @param string $replace The replacement string
+     * @param string $str     The needle
+     * 
+     * @return string The haystack with the first needle replaced
+     *     by the replacement string
+     */
     public function replaceFirst($search, $replace, $str)
-	{	
-		$l = strlen($str);
-		$a = strpos($str,$search);
-		$b = $a + strlen($search);
-		$temp = substr($str,0,$a) . $replace . substr($str,$b,($l-$b));
-		return $temp;
-	}
+    {    
+        $l    = strlen($str);
+        $a    = strpos($str, $search);
+        $b    = $a + strlen($search);
+        $temp = substr($str, 0, $a) . $replace . substr($str, $b, ($l-$b));
+        return $temp;
+    }
 }
