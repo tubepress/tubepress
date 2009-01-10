@@ -26,45 +26,11 @@
  */
 class WordPressStorageManager extends AbstractTubePressStorageManager
 {
+    /*
+     * Prefix all our option names in the WordPress DB
+     * with this value. Helps avoid naming conflicts.
+     */
 	const OPTION_PREFIX = "tubepress-";
-	
-    /**
-     * Sets an option to a new value, without validation
-     *
-     * @param string       $optionName  The name of the option to update
-     * @param unknown_type $optionValue The new option value
-     * 
-     * @return void
-     */
-    protected function setOption($optionName, $optionValue)
-    {
-        update_option(WordPressStorageManager::OPTION_PREFIX . $optionName,
-            $optionValue);
-    }
-    
-    /**
-     * Retrieve the current value of an option
-     *
-     * @param string $optionName The name of the option
-     * 
-     * @return unknown_type The option's value
-     */
-    public function get($optionName)
-    {
-        return get_option(WordPressStorageManager::OPTION_PREFIX . $optionName);
-    }
-    
-    /**
-     * Deletes an option from storage
-     *
-     * @param unknown_type $optionName The name of the option to delete
-     * 
-     * @return void
-     */
-    protected function delete($optionName)
-    {
-        delete_option(WordPressStorageManager::OPTION_PREFIX . $optionName);
-    }
     
     /**
      * Creates an option in storage
@@ -78,8 +44,20 @@ class WordPressStorageManager extends AbstractTubePressStorageManager
     {
         add_option(WordPressStorageManager::OPTION_PREFIX . $optionName,
             $optionValue);
-    }
-    
+    }	
+	
+    /**
+     * Deletes an option from storage
+     *
+     * @param unknown_type $optionName The name of the option to delete
+     * 
+     * @return void
+     */
+    protected function delete($optionName)
+    {
+        delete_option(WordPressStorageManager::OPTION_PREFIX . $optionName);
+    }	
+	
     /**
      * Determines if an option exists
      *
@@ -91,8 +69,25 @@ class WordPressStorageManager extends AbstractTubePressStorageManager
     {
         return get_option(WordPressStorageManager::OPTION_PREFIX . $optionName)
            !== false;
-    }
+    }    
     
+	/**
+     * Retrieve the current value of an option
+     *
+     * @param string $optionName The name of the option
+     * 
+     * @return unknown_type The option's value
+     */
+    public function get($optionName)
+    {
+        return get_option(WordPressStorageManager::OPTION_PREFIX . $optionName);
+    }
+	
+    /**
+     * Wipes out all TubePress options and replaces them with their defaults
+     * 
+     * @return void
+     */
     public function nuclear()
     {
     	$allOptions = get_alloptions();
@@ -102,6 +97,20 @@ class WordPressStorageManager extends AbstractTubePressStorageManager
     		}
     	}
     	$this->init();
+    }    
+    
+    /**
+     * Sets an option to a new value, without validation
+     *
+     * @param string       $optionName  The name of the option to update
+     * @param unknown_type $optionValue The new option value
+     * 
+     * @return void
+     */
+    protected function setOption($optionName, $optionValue)
+    {
+        update_option(WordPressStorageManager::OPTION_PREFIX . $optionName,
+            $optionValue);
     }
 }
 ?>
