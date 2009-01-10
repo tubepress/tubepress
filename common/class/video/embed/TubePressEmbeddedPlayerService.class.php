@@ -24,19 +24,46 @@
  *
  */
 interface TubePressEmbeddedPlayerService
-{	
+{
+    /**
+     * Applies options from a TubePressOptionsManager
+     *
+     * @param TubePressVideo          $vid  The video that this embedded player 
+     *                                       will show
+     * @param TubePressOptionsManager $tpom The options manager
+     * 
+     * @return void
+     */
+    public function applyOptions(TubePressVideo $vid, 
+        TubePressOptionsManager $tpom);
+    
+    /**
+     * Applies options from a string
+     *
+     * @param string $packed The string containing the options
+     * 
+     * @return void
+     */
+    public function applyOptionsFromPackedString($packed);
+    
+    /**
+     * Packs options from a TubePressOptionsManager to a string
+     *
+     * @param TubePressVideo          $vid  The video that this embedded 
+     *                                       player will show
+     * @param TubePressOptionsManager $tpom The options manager that will 
+     *                                       be packed to a string
+     * 
+     * @return void
+     */
+    public function packOptionsToString(TubePressVideo $vid, 
+        TubePressOptionsManager $tpom);
+    
     /**
      * Spits back the text for this embedded player
      *
      * @return string The text for this embedded player
      */
     public function toString();
-    
-    public function packOptionsToString(TubePressVideo $vid, TubePressOptionsManager $tpom);
-    
-    public function applyOptionsFromPackedString($packed);
-    
-    public function applyOptions(TubePressVideo $vid, TubePressOptionsManager $tpom);
 }
-
 ?>

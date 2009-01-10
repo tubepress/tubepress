@@ -41,14 +41,14 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
      */
     public function dom2TubePressVideoArray(DOMDocument $rss, $limit)
     {   
-    	$results = array();
-    	$entries = $rss->getElementsByTagName('entry');
-    	
-    	/* create a TubePressVideo out of each "entry" node */
-    	for ($j = 0; $j < min($limit, $entries->length); $j++) {
-    		$results[] = $this->_createVideo($entries->item($j));
-    	}
-    	return $results;
+        $results = array();
+        $entries = $rss->getElementsByTagName('entry');
+        
+        /* create a TubePressVideo out of each "entry" node */
+        for ($j = 0; $j < min($limit, $entries->length); $j++) {
+            $results[] = $this->_createVideo($entries->item($j));
+        }
+        return $results;
     }
 
     /**
@@ -67,19 +67,19 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
         /* everyone loves the builder pattern */
         $vid = new TubePressVideo();
         $vid->setAuthor($this->_getAuthor($entry));
-		$vid->setCategory($this->_getCategory($entry));
-		$vid->setDescription($this->_getDescription($entry));
-		$vid->setId($this->_getId($entry));
-		$vid->setLength($this->_getRuntime($entry));
-		$vid->setRating($this->_getRatingAverage($entry));
-		$vid->setRatings($this->_getRatingCount($entry));
-		$vid->setTags($this->_getTags($entry));
-		$vid->setThumbUrls($this->_getThumbUrls($entry));
-		$vid->setTitle($this->_getTitle($entry));
-		$vid->setUploadTime($this->_getUploadTime($entry));
-		$vid->setViews($this->_getViewCount($entry));
-		$vid->setYouTubeUrl($this->_getURL($entry));
-		return $vid;
+        $vid->setCategory($this->_getCategory($entry));
+        $vid->setDescription($this->_getDescription($entry));
+        $vid->setId($this->_getId($entry));
+        $vid->setLength($this->_getRuntime($entry));
+        $vid->setRating($this->_getRatingAverage($entry));
+        $vid->setRatings($this->_getRatingCount($entry));
+        $vid->setTags($this->_getTags($entry));
+        $vid->setThumbUrls($this->_getThumbUrls($entry));
+        $vid->setTitle($this->_getTitle($entry));
+        $vid->setUploadTime($this->_getUploadTime($entry));
+        $vid->setViews($this->_getViewCount($entry));
+        $vid->setYouTubeUrl($this->_getURL($entry));
+        return $vid;
     }
 
     /**
@@ -105,8 +105,8 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
     private function _getCategory(DOMElement $rss)
     {
         return trim($rss->
-        	getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_MEDIA,
-            	'category')->item(0)->nodeValue);
+            getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_MEDIA,
+                'category')->item(0)->nodeValue);
     }
     
     /**
@@ -119,8 +119,8 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
     private function _getDescription(DOMElement $rss)
     {
         return trim($this->_mediaGroup->
-        	getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_MEDIA,
-            	'description')->item(0)->nodeValue);
+            getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_MEDIA,
+                'description')->item(0)->nodeValue);
     }
     
     /**
@@ -186,11 +186,11 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
     { 
         $duration = 
             $this->_mediaGroup->
-            	getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_YT,
-                	'duration')->item(0);
+                getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_YT,
+                    'duration')->item(0);
         return 
             SimpleTubePressVideoFactory::
-            	_seconds2HumanTime($duration->getAttribute('seconds'));
+                _seconds2HumanTime($duration->getAttribute('seconds'));
     }
     
     /**
@@ -204,8 +204,8 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
     { 
         $rawKeywords = 
             $this->_mediaGroup->
-            	getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_MEDIA,
-                	'keywords')->item(0);
+                getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_MEDIA,
+                    'keywords')->item(0);
         return split(", ", trim($rawKeywords->nodeValue));
     }
     
@@ -218,15 +218,15 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
      */
     private function _getThumbUrls(DOMElement $rss)
     {
-    	$results = array();
-    	$thumbs  = 
+        $results = array();
+        $thumbs  = 
             $this->_mediaGroup->
-            	getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_MEDIA, 
-                	'thumbnail');
-    	for ($x = 0; $x < $thumbs->length; $x++) {
-    		array_push($results, $thumbs->item($x)->getAttribute('url'));
-    	}
-    	return $results;
+                getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_MEDIA, 
+                    'thumbnail');
+        for ($x = 0; $x < $thumbs->length; $x++) {
+            array_push($results, $thumbs->item($x)->getAttribute('url'));
+        }
+        return $results;
     }
     
     /**

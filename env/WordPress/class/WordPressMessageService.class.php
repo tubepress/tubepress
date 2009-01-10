@@ -24,17 +24,17 @@
  */
 class WordPressMessageService extends AbstractTubePressMessageService
 {
-	/**
-	 * Retrieves a message for TubePress
-	 *
-	 * @param string $msgId The message ID
-	 *
-	 * @return string The corresponding message, or "" if not found
-	 */
-	public function _($msgId)
-	{
-	    $message = $this->_keyToMessage($msgId);
-	    return $message == "" ? "" : 
-		    __($message, "tubepress");
-	}
+    /**
+     * Retrieves a message for TubePress
+     *
+     * @param string $msgId The message ID
+     *
+     * @return string The corresponding message, or "" if not found
+     */
+    public function _($msgId)
+    {
+        $message = $this->_keyToMessage($msgId);
+        return $message == "" ? "" : 
+            __($message, "tubepress");
+    }
 }

@@ -15,7 +15,7 @@
 	</fileset>
 	
 	<target name="sniff">
-		<phpcodesniffer verbosity="0" standard="PEAR" format="report" tabWidth="4">
+		<phpcodesniffer verbosity="0" standard="PEAR" format="report">
 			<fileset refid="source.code" />
 		</phpcodesniffer>
 	</target>

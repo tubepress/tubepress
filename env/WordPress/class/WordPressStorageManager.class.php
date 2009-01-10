@@ -30,7 +30,7 @@ class WordPressStorageManager extends AbstractTubePressStorageManager
      * Prefix all our option names in the WordPress DB
      * with this value. Helps avoid naming conflicts.
      */
-	const OPTION_PREFIX = "tubepress-";
+    const OPTION_PREFIX = "tubepress-";
     
     /**
      * Creates an option in storage
@@ -44,8 +44,8 @@ class WordPressStorageManager extends AbstractTubePressStorageManager
     {
         add_option(WordPressStorageManager::OPTION_PREFIX . $optionName,
             $optionValue);
-    }	
-	
+    }    
+    
     /**
      * Deletes an option from storage
      *
@@ -56,8 +56,8 @@ class WordPressStorageManager extends AbstractTubePressStorageManager
     protected function delete($optionName)
     {
         delete_option(WordPressStorageManager::OPTION_PREFIX . $optionName);
-    }	
-	
+    }    
+    
     /**
      * Determines if an option exists
      *
@@ -71,7 +71,7 @@ class WordPressStorageManager extends AbstractTubePressStorageManager
            !== false;
     }    
     
-	/**
+    /**
      * Retrieve the current value of an option
      *
      * @param string $optionName The name of the option
@@ -82,7 +82,7 @@ class WordPressStorageManager extends AbstractTubePressStorageManager
     {
         return get_option(WordPressStorageManager::OPTION_PREFIX . $optionName);
     }
-	
+    
     /**
      * Wipes out all TubePress options and replaces them with their defaults
      * 
@@ -90,13 +90,13 @@ class WordPressStorageManager extends AbstractTubePressStorageManager
      */
     public function nuclear()
     {
-    	$allOptions = get_alloptions();
-    	foreach ($allOptions as $key => $value) {
-    		if (preg_match("/^tubepress.*/", $key)) {
-    			delete_option($key);
-    		}
-    	}
-    	$this->init();
+        $allOptions = get_alloptions();
+        foreach ($allOptions as $key => $value) {
+            if (preg_match("/^tubepress.*/", $key)) {
+                delete_option($key);
+            }
+        }
+        $this->init();
     }    
     
     /**

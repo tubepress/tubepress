@@ -48,7 +48,7 @@ class TubePressVideo
      */
     public function getAuthor()
     {
-    	return $this->_author; 
+        return $this->_author; 
     }
     
     /**
@@ -60,7 +60,7 @@ class TubePressVideo
      */
     public function getCategory()
     {    
-    	return $this->_category; 
+        return $this->_category; 
     }
     
     /**
@@ -82,7 +82,7 @@ class TubePressVideo
      */
     public function getDescription() 
     { 
-    	return $this->_description; 
+        return $this->_description; 
     }
     
     /**
@@ -94,7 +94,7 @@ class TubePressVideo
      */
     public function getId()
     {
-    	return $this->_id; 
+        return $this->_id; 
     }
     
     /**
@@ -106,7 +106,7 @@ class TubePressVideo
      */
     public function getLength() 
     {      
-    	return $this->_length; 
+        return $this->_length; 
     }    
     
     /**
@@ -116,7 +116,7 @@ class TubePressVideo
      */
     public function getRandomThumbURL()
     {
-    	$thumbs = $this->getThumbUrls();
+        $thumbs = $this->getThumbUrls();
         return $thumbs[array_rand($this->getThumbUrls())];
     }    
     
@@ -129,7 +129,7 @@ class TubePressVideo
      */
     public function getRating() 
     {
-    	return $this->_rating; 
+        return $this->_rating; 
     }
     
     /**
@@ -141,7 +141,7 @@ class TubePressVideo
      */
     public function getRatings() 
     {
-    	return $this->_ratings; 
+        return $this->_ratings; 
     }
     
     /**
@@ -153,7 +153,7 @@ class TubePressVideo
      */
     public function getTags() 
     {        
-    	return $this->_tags; 
+        return $this->_tags; 
     }
     
     /**
@@ -163,12 +163,12 @@ class TubePressVideo
      * 
      * Example: "http://img.youtube.com/355VDRRJK8/default.jpg"
      */
-	public function getThumbUrls() 
-	{   
-		return $this->_thumbUrls; 
-	}
-	
-	/**
+    public function getThumbUrls() 
+    {   
+        return $this->_thumbUrls; 
+    }
+    
+    /**
      * Get the video's title
      * 
      * @return string The title of the video
@@ -177,7 +177,7 @@ class TubePressVideo
      */
     public function getTitle() 
     {       
-    	return $this->_title; 
+        return $this->_title; 
     }
     
     /**
@@ -189,7 +189,7 @@ class TubePressVideo
      */
     public function getUploadTime() 
     {  
-    	return $this->_uploadTime; 
+        return $this->_uploadTime; 
     }
     
     /**
@@ -201,7 +201,7 @@ class TubePressVideo
      */
     public function getViews() 
     {       
-    	return $this->_views; 
+        return $this->_views; 
     }    
     
     /**
@@ -213,7 +213,7 @@ class TubePressVideo
      */
     public function getYouTubeUrl() 
     {  
-    	return $this->_youTubeUrl; 
+        return $this->_youTubeUrl; 
     }
     
     /**
@@ -225,19 +225,19 @@ class TubePressVideo
      */
     public function setAuthor($author) 
     {
-    	$this->_author = $author; 
+        $this->_author = $author; 
     }
     
-	/**
-	 * Set this video's category
-	 *
-	 * @param string $category The YouTube category of this video
-	 * 
-	 * @return void
-	 */
+    /**
+     * Set this video's category
+     *
+     * @param string $category The YouTube category of this video
+     * 
+     * @return void
+     */
     public function setCategory($category) 
     {         
-    	$this->_category = $category; 
+        $this->_category = $category; 
     }
     
     /**
@@ -249,7 +249,7 @@ class TubePressVideo
      */
     public function setDescription($description) 
     {   
-    	$this->_description = $description; 
+        $this->_description = $description; 
     }
     
     /**
@@ -261,7 +261,7 @@ class TubePressVideo
      */
     public function setId($id) 
     {          
-    	$this->_id = $id; 
+        $this->_id = $id; 
     }
     
     /**
@@ -273,7 +273,7 @@ class TubePressVideo
      */
     public function setLength($length) 
     {
-    	$this->_length = $length; 
+        $this->_length = $length; 
     }    
     
     /**
@@ -285,7 +285,7 @@ class TubePressVideo
      */
     public function setRating($rating)
     {      
-    	$this->_rating = $rating; 
+        $this->_rating = $rating; 
     }
     
     /**
@@ -297,7 +297,7 @@ class TubePressVideo
      */
     public function setRatings($ratings)
     { 
-    	$this->_ratings = $ratings;  
+        $this->_ratings = $ratings;  
     }
 
     /**
@@ -309,7 +309,7 @@ class TubePressVideo
      */
     public function setTags($tags)
     {
-    	$this->_tags = $tags; 
+        $this->_tags = $tags; 
     }
     
     /**
@@ -319,21 +319,21 @@ class TubePressVideo
      * 
      * @return void
      */
-	public function setThumbUrls($thumbUrls) 
-	{
-		$this->_thumbUrls = $thumbUrls; 
-	}
+    public function setThumbUrls($thumbUrls) 
+    {
+        $this->_thumbUrls = $thumbUrls; 
+    }
 
-	/**
-	 * Set the title of this video
-	 *
-	 * @param string $title The title of this video
-	 * 
-	 * @return void
-	 */
+    /**
+     * Set the title of this video
+     *
+     * @param string $title The title of this video
+     * 
+     * @return void
+     */
     public function setTitle($title) 
     {               
-    	$this->_title = $title; 
+        $this->_title = $title; 
     }
     
     /**
@@ -345,7 +345,7 @@ class TubePressVideo
      */
     public function setUploadTime($uploadTime) 
     {     
-    	$this->_uploadTime = $uploadTime; 
+        $this->_uploadTime = $uploadTime; 
     }
     
     /**
@@ -357,7 +357,7 @@ class TubePressVideo
      */
     public function setViews($views) 
     {
-    	$this->_views = $views; 
+        $this->_views = $views; 
     }    
     
     /**
@@ -369,7 +369,7 @@ class TubePressVideo
      */
     public function setYouTubeUrl($youTubeUrl) 
     {
-    	$this->_youTubeUrl = $youTubeUrl; 
+        $this->_youTubeUrl = $youTubeUrl; 
     }    
 }
 ?>
