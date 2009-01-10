@@ -26,6 +26,7 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
 {
     private $_mediaGroup;
 
+    /* shorthands for the namespaces */
     const NS_MEDIA = 'http://search.yahoo.com/mrss/';
     const NS_YT    = 'http://gdata.youtube.com/schemas/2007';
     const NS_GD    = 'http://schemas.google.com/g/2005';
@@ -36,48 +37,57 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
      * @param DOMDocument $rss   The raw XML of what we got from YouTube
      * @param int         $limit The maximum size of the array to return
      * 
-     * @return array An array of TubePressVideos
+     * @return array An array of TubePressVideos (may be empty)
      */
     public function dom2TubePressVideoArray(DOMDocument $rss, $limit)
     {   
     	$results = array();
     	$entries = $rss->getElementsByTagName('entry');
     	
+    	/* create a TubePressVideo out of each "entry" node */
     	for ($j = 0; $j < min($limit, $entries->length); $j++) {
     		$results[] = $this->_createVideo($entries->item($j));
     	}
     	return $results;
     }
 
-    private function _createVideo($entry)
+    /**
+     * Creates a video from a single "entry" XML node
+     *
+     * @param DOMNode $entry The "entry" XML node
+     * 
+     * @return TubePressVideo The TubePressVideo representation of this node
+     */
+    private function _createVideo(DOMNode $entry)
     {
-    	
         $this->_mediaGroup = 
             $entry->getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_MEDIA, 
                 'group')->item(0);
             
+        /* everyone loves the builder pattern */
         $vid = new TubePressVideo();
         $vid->setAuthor($this->_getAuthor($entry));
 		$vid->setCategory($this->_getCategory($entry));
-		$vid->setThumbUrls($this->_getThumbUrls($entry));
 		$vid->setDescription($this->_getDescription($entry));
 		$vid->setId($this->_getId($entry));
+		$vid->setLength($this->_getRuntime($entry));
 		$vid->setRating($this->_getRatingAverage($entry));
 		$vid->setRatings($this->_getRatingCount($entry));
-		$vid->setLength($this->_getRuntime($entry));
 		$vid->setTags($this->_getTags($entry));
+		$vid->setThumbUrls($this->_getThumbUrls($entry));
 		$vid->setTitle($this->_getTitle($entry));
 		$vid->setUploadTime($this->_getUploadTime($entry));
-		$vid->setYouTubeUrl($this->_getURL($entry));
 		$vid->setViews($this->_getViewCount($entry));
-
+		$vid->setYouTubeUrl($this->_getURL($entry));
 		return $vid;
     }
 
     /**
-     * Enter description here...
+     * Gets the YouTube author from the XML
      *
-     * @return unknown
+     * @param DOMElement $rss The "entry" XML element
+     * 
+     * @return string The YouTube author from the XML
      */
     private function _getAuthor(DOMElement $rss)
     {
@@ -86,9 +96,11 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
     }
     
     /**
-     * Enter description here...
+     * Gets the YouTube category from the XML
+     * 
+     * @param DOMElement $rss The "entry" XML element
      *
-     * @return unknown
+     * @return string The YouTube category from the XML
      */
     private function _getCategory(DOMElement $rss)
     {
@@ -98,9 +110,11 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
     }
     
     /**
-     * Enter description here...
+     * Gets the video's description
+     * 
+     * @param DOMElement $rss The "entry" XML element
      *
-     * @return unknown
+     * @return string The video's description
      */
     private function _getDescription(DOMElement $rss)
     {
@@ -110,9 +124,11 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
     }
     
     /**
-     * Enter description here...
+     * Gets the video's ID from XML
+     * 
+     * @param DOMElement $rss The "entry" XML element
      *
-     * @return unknown
+     * @return string The video's ID from XML
      */
     private function _getId(DOMElement $rss)
     { 
@@ -126,9 +142,11 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
     }
     
     /**
-     * Enter description here...
+     * Gets the average rating of the video
+     * 
+     * @param DOMElement $rss The "entry" XML element
      *
-     * @return unknown
+     * @return string The average rating of the video
      */
     private function _getRatingAverage(DOMElement $rss)
     { 
@@ -141,9 +159,11 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
     }
     
     /**
-     * Enter description here...
+     * Gets the number of times this video has been rated
+     * 
+     * @param DOMElement $rss The "entry" XML element
      *
-     * @return unknown
+     * @return string The number of times this video has been rated
      */
     private function _getRatingCount(DOMElement $rss)
     { 
@@ -156,9 +176,11 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
     }
     
     /**
-     * Enter description here...
+     * Gets the runtime of this video
+     * 
+     * @param DOMElement $rss The "entry" XML element
      *
-     * @return unknown
+     * @return string The runtime of this video
      */
     private function _getRuntime(DOMElement $rss)
     { 
@@ -172,9 +194,11 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
     }
     
     /**
-     * Enter description here...
+     * Gets the tags of this video (space separated)
      *
-     * @return unknown
+     * @param DOMElement $rss The "entry" XML element
+     * 
+     * @return string The tags of this video (space separated)
      */
     private function _getTags(DOMElement $rss)
     { 
@@ -185,6 +209,13 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
         return split(", ", trim($rawKeywords->nodeValue));
     }
     
+    /**
+     * Gets this video's thumbnail URLs
+     *
+     * @param DOMElement $rss The "entry" XML element
+     * 
+     * @return array An array of this video's thumbnail URLs
+     */
     private function _getThumbUrls(DOMElement $rss)
     {
     	$results = array();
@@ -199,9 +230,11 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
     }
     
     /**
-     * Enter description here...
+     * Gets this video's title
+     * 
+     * @param DOMElement $rss The "entry" XML element
      *
-     * @return unknown
+     * @return string Get this video's title
      */
     private function _getTitle(DOMElement $rss)
     { 
@@ -211,9 +244,11 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
     }
     
     /**
-     * Enter description here...
+     * Get this video's upload timestamp
+     * 
+     * @param DOMElement $rss The "entry" XML element
      *
-     * @return unknown
+     * @return string This video's upload timestamp
      */
     private function _getUploadTime(DOMElement $rss)
     { 
@@ -226,9 +261,11 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
     }
     
     /**
-     * Enter description here...
+     * Get this video's YouTube URL
+     * 
+     * @param DOMElement $rss The "entry" XML element
      *
-     * @return unknown
+     * @return string This video's YouTube URL
      */
     private function _getURL(DOMElement $rss)
     { 
@@ -243,9 +280,11 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
     }
     
     /**
-     * Enter description here...
+     * Get the number of times this video has been viewed
+     * 
+     * @param DOMElement $rss The "entry" XML element
      *
-     * @return unknown
+     * @return string The number of times this video has been viewed
      */
     private function _getViewCount(DOMElement $rss) 
     { 
@@ -257,7 +296,6 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
             return "N/A";
         }
     }
-    
   
     /**
      * Converts gdata timestamps to human readable
@@ -294,6 +332,5 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
         $length .= ":" . $leftOverSeconds;
         return $length;
     }
-
 }
 ?>

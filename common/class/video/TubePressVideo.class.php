@@ -64,6 +64,16 @@ class TubePressVideo
     }
     
     /**
+     * Returns the "default" YouTube thumbnail URL for this video
+     *
+     * @return string the "default" thumbnail URL for this video
+     */
+    public function getDefaultThumbURL()
+    {
+        return "http://img.youtube.com/vi/" . $this->getId() . "/default.jpg";
+    }    
+    
+    /**
      * Get the video's description
      * 
      * @return string The description field of the video.
@@ -88,6 +98,29 @@ class TubePressVideo
     }
     
     /**
+     * Get the video's length
+     * 
+     * @return string The runtime of the video
+     * 
+     * Example: "3:25"
+     */
+    public function getLength() 
+    {      
+    	return $this->_length; 
+    }    
+    
+    /**
+     * Get a random thumbnail URL for this video
+     *
+     * @return string A random thumbnail URL for this video
+     */
+    public function getRandomThumbURL()
+    {
+    	$thumbs = $this->getThumbUrls();
+        return $thumbs[array_rand($this->getThumbUrls())];
+    }    
+    
+    /**
      * Get the video's average rating
      * 
      * @return string The average rating of the video
@@ -109,18 +142,6 @@ class TubePressVideo
     public function getRatings() 
     {
     	return $this->_ratings; 
-    }
-    
-    /**
-     * Get the video's length
-     * 
-     * @return string The runtime of the video
-     * 
-     * Example: "3:25"
-     */
-    public function getLength() 
-    {      
-    	return $this->_length; 
     }
     
     /**
@@ -172,18 +193,6 @@ class TubePressVideo
     }
     
     /**
-     * Get the video's URL on YouTube
-     * 
-     * @return string The absolute URL of this video's home on YouTube
-     * 
-     * Example: "http://www.youtube.com/v/355VDRRJK8"
-     */
-    public function getYouTubeUrl() 
-    {  
-    	return $this->_youTubeUrl; 
-    }
-    
-    /**
      * Get the video's view count
      * 
      * @return string The number of times this video has been viewed
@@ -193,6 +202,18 @@ class TubePressVideo
     public function getViews() 
     {       
     	return $this->_views; 
+    }    
+    
+    /**
+     * Get the video's URL on YouTube
+     * 
+     * @return string The absolute URL of this video's home on YouTube
+     * 
+     * Example: "http://www.youtube.com/v/355VDRRJK8"
+     */
+    public function getYouTubeUrl() 
+    {  
+    	return $this->_youTubeUrl; 
     }
     
     /**
@@ -211,6 +232,8 @@ class TubePressVideo
 	 * Set this video's category
 	 *
 	 * @param string $category The YouTube category of this video
+	 * 
+	 * @return void
 	 */
     public function setCategory($category) 
     {         
@@ -221,6 +244,8 @@ class TubePressVideo
      * Set the description for this video
      *
      * @param string $description The description for this video
+     * 
+     * @return void
      */
     public function setDescription($description) 
     {   
@@ -231,6 +256,8 @@ class TubePressVideo
      * Set the YouTube video ID of this video
      *
      * @param string $id The YouTube video ID of this video
+     * 
+     * @return void
      */
     public function setId($id) 
     {          
@@ -238,9 +265,23 @@ class TubePressVideo
     }
     
     /**
+     * Set the length of this video
+     *
+     * @param string $length The runtime of this video
+     * 
+     * @return void
+     */
+    public function setLength($length) 
+    {
+    	$this->_length = $length; 
+    }    
+    
+    /**
      * Set the average rating of this video
      *
      * @param string $rating The average rating of this video
+     * 
+     * @return void
      */
     public function setRating($rating)
     {      
@@ -251,6 +292,8 @@ class TubePressVideo
      * Set the number of ratings of this video
      *
      * @param string $ratings The bumber of times this video has been rated
+     * 
+     * @return void
      */
     public function setRatings($ratings)
     { 
@@ -258,19 +301,11 @@ class TubePressVideo
     }
 
     /**
-     * Set the length of this video
-     *
-     * @param string $length The runtime of this video
-     */
-    public function setLength($length) 
-    {
-    	$this->_length = $length; 
-    }
-
-    /**
      * Set the tags of this video
      *
      * @param array $tags The tags of this video
+     * 
+     * @return void
      */
     public function setTags($tags)
     {
@@ -281,6 +316,8 @@ class TubePressVideo
      * Set the thumbnail URLs of this video
      *
      * @param array $thumbUrls The thumbnail URLs of this video
+     * 
+     * @return void
      */
 	public function setThumbUrls($thumbUrls) 
 	{
@@ -291,6 +328,8 @@ class TubePressVideo
 	 * Set the title of this video
 	 *
 	 * @param string $title The title of this video
+	 * 
+	 * @return void
 	 */
     public function setTitle($title) 
     {               
@@ -301,6 +340,8 @@ class TubePressVideo
      * Set the upload time of this video
      *
      * @param string $uploadTime The upload time of this video
+     * 
+     * @return void
      */
     public function setUploadTime($uploadTime) 
     {     
@@ -308,45 +349,27 @@ class TubePressVideo
     }
     
     /**
-     * Set the YouTube URL of this video
-     *
-     * @param string $youTubeUrl The YouTube URL of this video
-     */
-    public function setYouTubeUrl($youTubeUrl) 
-    {
-    	$this->_youTubeUrl = $youTubeUrl; 
-    }
-    
-    /**
      * Set the number of views of this video
      *
      * @param string $views The number of views for this video
+     * 
+     * @return void
      */
     public function setViews($views) 
     {
     	$this->_views = $views; 
-    }
+    }    
     
     /**
-     * Get a random thumbnail URL for this video
+     * Set the YouTube URL of this video
      *
-     * @return string A random thumbnail URL for this video
+     * @param string $youTubeUrl The YouTube URL of this video
+     * 
+     * @return void
      */
-    public function getRandomThumbURL()
+    public function setYouTubeUrl($youTubeUrl) 
     {
-    	$thumbs = $this->getThumbUrls();
-        return $thumbs[array_rand($this->getThumbUrls())];
-    }
-    
-    /**
-     * Returns the "default" YouTube thumbnail URL for this video
-     *
-     * @return string the "default" thumbnail URL for this video
-     */
-    public function getDefaultThumbURL()
-    {
-        return "http://img.youtube.com/vi/" . $this->getId() . "/default.jpg";
-    }
-    
+    	$this->_youTubeUrl = $youTubeUrl; 
+    }    
 }
 ?>
