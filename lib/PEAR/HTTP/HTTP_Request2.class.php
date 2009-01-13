@@ -51,7 +51,7 @@
  * @version    Release: 0.1.0
  * @link       http://tools.ietf.org/html/rfc2616#section-5
  */
-class HTTP_Request2 implements SplSubject
+class HTTP_Request2
 {
    /**#@+
     * Constants for HTTP request methods
@@ -564,36 +564,6 @@ class HTTP_Request2 implements SplSubject
         }
 
         return $this;
-    }
-
-   /**
-    * Attaches a new observer
-    *
-    * @param    SplObserver
-    */
-    public function attach(SplObserver $observer)
-    {
-        foreach ($this->observers as $attached) {
-            if ($attached === $observer) {
-                return;
-            }
-        }
-        $this->observers[] = $observer;
-    }
-
-   /**
-    * Detaches an existing observer
-    *
-    * @param    SplObserver
-    */
-    public function detach(SplObserver $observer)
-    {
-        foreach ($this->observers as $key => $attached) {
-            if ($attached === $observer) {
-                unset($this->observers[$key]);
-                return;
-            }
-        }
     }
 
    /**

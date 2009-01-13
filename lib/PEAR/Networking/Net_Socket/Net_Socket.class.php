@@ -563,30 +563,4 @@ class Net_Socket extends PEAR {
         }
         return $result;
     }
-
-    /**
-     * Turns encryption on/off on a connected socket.
-     *
-     * @param bool    $enabled  Set this parameter to true to enable encryption
-     *                          and false to disable encryption.
-     * @param integer $type     Type of encryption. See
-     *                          http://se.php.net/manual/en/function.stream-socket-enable-crypto.php for values.
-     *
-     * @access public
-     * @return false on error, true on success and 0 if there isn't enough data and the
-     *         user should try again (non-blocking sockets only). A PEAR_Error object
-     *         is returned if the socket is not connected
-     */
-    function enableCrypto($enabled, $type)
-    {
-        if (version_compare(phpversion(), "5.1.0", ">=")) {
-            if (!is_resource($this->fp)) {
-                return $this->raiseError('not connected');
-            }
-            return @stream_socket_enable_crypto($this->fp, $enabled, $type);
-        } else {
-            return $this->raiseError('Net_Socket::enableCrypto() requires php version >= 5.1.0');
-        }
-    }
-
 }
