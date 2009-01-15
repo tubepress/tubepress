@@ -1,11 +1,4 @@
 /* Basic stuff */
-body {
-	margin: 0; padding: 2em;
-	font: 12px Helvetica, Arial, sans-serif;
-	font-size: 12px;
-	background: #fff;
-}
-/* Basic stuff */
 
 table {
 	border-collapse: collapse;
