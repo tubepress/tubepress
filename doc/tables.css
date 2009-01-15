@@ -1,83 +1,54 @@
-@CHARSET "UTF-8";
-/* roScripts
-Table Design by Mihalcea Romeo
-www.roscripts.com
------------------------------------------------ */
+/* Basic stuff */
+body {
+	margin: 0; padding: 2em;
+	font: 12px Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	background: #fff;
+}
+/* Basic stuff */
 
 table {
-		border-collapse:collapse;
-		background:#EFF4FB url(http://www.roscripts.com/images/teaser.gif) repeat-x;
-		border-left:1px solid #686868;
-		border-right:1px solid #686868;
-		font:0.8em/145% 'Trebuchet MS',helvetica,arial,verdana;
-		color: #333;
+	border-collapse: collapse;
+	border: 0;
+	border-bottom: 2px solid #d2ecdd;
+}
+ td,
+ th {
+	border: 1px solid #eee;
+	padding: 8px 12px;
+}
+ th { font-weight: bold; }
+ thead th {
+	background-color: #dcf1f5;
+	color: #3c423c;
+	border-top-color: #e5f3f7;
+	border-right-color: #c2e0f2;
+	border-bottom-color: #c2e0f2;
+	border-left-color: #e5f3f7;
+}
+ tbody th {
+	padding: 0;
+	background-color: #f4fcf0;
+	color: #354042;
+	border-right-color: #d2ecdd;
+	border-bottom-color: #d2ecdd;
+	border-left-color: #eff7e9;
+}
+ tbody td {}
+ .alt td { background-color: #edf7e9; }
+ tbody .alt th { background-color: #e9f7e4; }
+ .center { text-align: center; }
+ .num {
+	font-family: monaco,"Lucida Console",courier,mono-space,monospace;
+	font-size: 13px;
+}
+ thead td { border: 0; }
+ a {
+	border: 0;
+	text-decoration: none;
+}
+ a:hover {
+	background: none;
+	text-decoration: underline;
 }
 
-td, th {
-		padding:5px;
-}
-
-caption {
-		padding: 0 0 .5em 0;
-		text-align: left;
-		font-size: 1.4em;
-		font-weight: bold;
-		text-transform: uppercase;
-		color: #333;
-		background: transparent;
-}
-
-/* =links
------------------------------------------------ */
-
-table a {
-		color:#950000;
-		text-decoration:none;
-}
-
-table a:link {}
-
-table a:visited {
-		font-weight:normal;
-		color:#666;
-		text-decoration: line-through;
-}
-
-table a:hover {
-		border-bottom: 1px dashed #bbb;
-}
-
-/* =head =foot
------------------------------------------------ */
-
-thead th, tfoot th, tfoot td {
-		background:#333 url(http://www.roscripts.com/images/llsh.gif) repeat-x;
-		color:#fff;
-		text-align: left;
-}
-
-tfoot td {
-		text-align:right
-}
-
-/* =body
------------------------------------------------ */
-
-tbody th, tbody td {
-		vertical-align: top;
-		border-bottom: dotted 1px #333;
-}
-
-tbody th {
-		white-space: nowrap;
-}
-
-tbody th a {
-		color:#333;
-}
-
-.odd {}
-
-tbody tr:hover {
-		background:#fafafa
-}
