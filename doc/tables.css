@@ -4,11 +4,12 @@ table {
 	border-collapse: collapse;
 	border: 0;
 	border-bottom: 2px solid #d2ecdd;
+	font-size: 95%;
 }
  td,
  th {
 	border: 1px solid #eee;
-	padding: 8px 12px;
+	padding: 4px 6px;
 }
  th { font-weight: bold; }
  thead th {
