@@ -99,7 +99,7 @@ $GLOBALS['_PEAR_error_handler_stack']    = array();
  * @since      Class available since PHP 4.0.2
  * @link        http://pear.php.net/manual/en/core.pear.php#core.pear.pear
  */
-class PEAR
+class net_php_pear_PEAR
 {
     // {{{ properties
 
@@ -167,7 +167,7 @@ class PEAR
      * @access public
      * @return void
      */
-    function PEAR($error_class = null)
+    function net_php_pear_PEAR($error_class = null)
     {
         $classname = strtolower(get_class($this));
         if ($this->_debug) {
@@ -467,17 +467,17 @@ class PEAR
                     $deleted = false;
                 }
             }
-            return $deleted ? true : PEAR::raiseError("The expected error you submitted does not exist"); // IMPROVE ME
+            return $deleted ? true : net_php_pear_PEAR::raiseError("The expected error you submitted does not exist"); // IMPROVE ME
         } elseif (!empty($error_code)) {
             // $error_code comes alone, trying to unset it
             if ($this->_checkDelExpect($error_code)) {
                 return true;
             } else {
-                return PEAR::raiseError("The expected error you submitted does not exist"); // IMPROVE ME
+                return net_php_pear_PEAR::raiseError("The expected error you submitted does not exist"); // IMPROVE ME
             }
         } else {
             // $error_code is empty
-            return PEAR::raiseError("The expected error you submitted is empty"); // IMPROVE ME
+            return net_php_pear_PEAR::raiseError("The expected error you submitted is empty"); // IMPROVE ME
         }
     }
 
@@ -592,11 +592,11 @@ class PEAR
                          $code = null,
                          $userinfo = null)
     {
-        if (isset($this) && is_a($this, 'PEAR')) {
+        if (isset($this) && is_a($this, 'net_php_pear_PEAR')) {
             $a = &$this->raiseError($message, $code, null, null, $userinfo);
             return $a;
         } else {
-            $a = &PEAR::raiseError($message, $code, null, null, $userinfo);
+            $a = &net_php_pear_PEAR::raiseError($message, $code, null, null, $userinfo);
             return $a;
         }
     }
@@ -690,7 +690,7 @@ class PEAR
     function pushErrorHandling($mode, $options = null)
     {
         $stack = &$GLOBALS['_PEAR_error_handler_stack'];
-        if (isset($this) && is_a($this, 'PEAR')) {
+        if (isset($this) && is_a($this, 'net_php_pear_PEAR')) {
             $def_mode    = &$this->_default_error_mode;
             $def_options = &$this->_default_error_options;
         } else {
@@ -699,10 +699,10 @@ class PEAR
         }
         $stack[] = array($def_mode, $def_options);
 
-        if (isset($this) && is_a($this, 'PEAR')) {
+        if (isset($this) && is_a($this, 'net_php_pear_PEAR')) {
             $this->setErrorHandling($mode, $options);
         } else {
-            PEAR::setErrorHandling($mode, $options);
+            net_php_pear_PEAR::setErrorHandling($mode, $options);
         }
         $stack[] = array($mode, $options);
         return true;
@@ -724,10 +724,10 @@ class PEAR
         array_pop($stack);
         list($mode, $options) = $stack[sizeof($stack) - 1];
         array_pop($stack);
-        if (isset($this) && is_a($this, 'PEAR')) {
+        if (isset($this) && is_a($this, 'net_php_pear_PEAR')) {
             $this->setErrorHandling($mode, $options);
         } else {
-            PEAR::setErrorHandling($mode, $options);
+            net_php_pear_PEAR::setErrorHandling($mode, $options);
         }
         return true;
     }
@@ -777,7 +777,7 @@ function _PEAR_call_destructors()
         sizeof($_PEAR_destructor_object_list))
     {
         reset($_PEAR_destructor_object_list);
-        if (PEAR::getStaticProperty('PEAR', 'destructlifo')) {
+        if (net_php_pear_PEAR::getStaticProperty('net_php_pear_PEAR', 'destructlifo')) {
             $_PEAR_destructor_object_list = array_reverse($_PEAR_destructor_object_list);
         }
         while (list($k, $objref) = each($_PEAR_destructor_object_list)) {
@@ -868,7 +868,7 @@ class PEAR_Error
         $this->code      = $code;
         $this->mode      = $mode;
         $this->userinfo  = $userinfo;
-        if (!PEAR::getStaticProperty('PEAR_Error', 'skiptrace')) {
+        if (!net_php_pear_PEAR::getStaticProperty('PEAR_Error', 'skiptrace')) {
             $this->backtrace = debug_backtrace();
             if (isset($this->backtrace[0]) && isset($this->backtrace[0]['object'])) {
                 unset($this->backtrace[0]['object']);

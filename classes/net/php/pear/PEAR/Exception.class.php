@@ -1,7 +1,7 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4 foldmethod=marker: */
 /**
- * PEAR_Exception
+ * net_php_pear_PEAR_Exception
  *
  * PHP versions 4 and 5
  *
@@ -100,7 +100,7 @@
  * @since      Class available since Release 1.3.3
  *
  */
-class PEAR_Exception extends Exception
+class net_php_pear_PEAR_Exception extends Exception
 {
     const OBSERVER_PRINT = -2;
     const OBSERVER_TRIGGER = -4;
@@ -133,7 +133,7 @@ class PEAR_Exception extends Exception
             // using is_object allows both Exception and PEAR_Error
             if (is_object($p2) && !($p2 instanceof Exception)) {
                 if (!class_exists('PEAR_Error') || !($p2 instanceof PEAR_Error)) {
-                    throw new PEAR_Exception('exception cause must be Exception, ' .
+                    throw new net_php_pear_PEAR_Exception('exception cause must be Exception, ' .
                         'array, or PEAR_Error');
                 }
             }
@@ -251,7 +251,7 @@ class PEAR_Exception extends Exception
             }
         }
         $causes[] = $cause;
-        if ($this->cause instanceof PEAR_Exception) {
+        if ($this->cause instanceof net_php_pear_PEAR_Exception) {
             $this->cause->getCauseMessage($causes);
         } elseif ($this->cause instanceof Exception) {
             $causes[] = array('class'   => get_class($this->cause),
@@ -265,7 +265,7 @@ class PEAR_Exception extends Exception
                               'line' => 'unknown');
         } elseif (is_array($this->cause)) {
             foreach ($this->cause as $cause) {
-                if ($cause instanceof PEAR_Exception) {
+                if ($cause instanceof net_php_pear_PEAR_Exception) {
                     $cause->getCauseMessage($causes);
                 } elseif ($cause instanceof Exception) {
                     $causes[] = array('class'   => get_class($cause),

@@ -54,7 +54,7 @@
  * @package    HTTP_Request2
  * @version    Release: 0.1.0
  */
-class net_php_pear_HTTP_Request2_Exception extends PEAR_Exception
+class net_php_pear_HTTP_Request2_Exception extends net_php_pear_PEAR_Exception
 {
 }
 ?>

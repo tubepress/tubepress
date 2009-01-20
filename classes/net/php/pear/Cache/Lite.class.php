@@ -533,7 +533,7 @@ class net_php_pear_Cache_Lite
     */
     function raiseError($msg, $code)
     {
-        return PEAR::raiseError($msg, $code, $this->_pearErrorMode);
+        return net_php_pear_PEAR::raiseError($msg, $code, $this->_pearErrorMode);
     }
     
     /**

@@ -422,7 +422,7 @@ class net_php_pear_HTML_Template_IT
         if (is_array($options)) {
             foreach ($options as $option => $value) {
                 $error = $this->setOption($option, $value);
-                if (PEAR::isError($error)) {
+                if (net_php_pear_PEAR::isError($error)) {
                     return $error;
                 }
             }
@@ -456,7 +456,7 @@ class net_php_pear_HTML_Template_IT
         }
 
         if (!isset($this->blocklist[$block])) {
-            $this->err[] = PEAR::raiseError(
+            $this->err[] = net_php_pear_PEAR::raiseError(
                             $this->errorMessage(IT_BLOCK_NOT_FOUND) .
                             '"' . $block . "'",
                             IT_BLOCK_NOT_FOUND
@@ -859,7 +859,7 @@ class net_php_pear_HTML_Template_IT
                 $blockcontent = $match[2];
 
                 if (isset($this->blocklist[$blockname])) {
-                    $this->err[] = PEAR::raiseError(
+                    $this->err[] = net_php_pear_PEAR::raiseError(
                                             $this->errorMessage(
                                             IT_BLOCK_DUPLICATE, $blockname),
                                             IT_BLOCK_DUPLICATE
@@ -910,7 +910,7 @@ class net_php_pear_HTML_Template_IT
         $filename = $this->fileRoot . $filename;
 
         if (!($fh = @fopen($filename, 'r'))) {
-            $this->err[] = PEAR::raiseError(
+            $this->err[] = net_php_pear_PEAR::raiseError(
                         $this->errorMessage(IT_TPL_NOT_FOUND) .
                         ': "' .$filename .'"',
                         IT_TPL_NOT_FOUND
@@ -988,7 +988,7 @@ class net_php_pear_HTML_Template_IT
             );
         }
 
-        if (PEAR::isError($value)) {
+        if (net_php_pear_PEAR::isError($value)) {
             $value = $value->getCode();
         }
 
