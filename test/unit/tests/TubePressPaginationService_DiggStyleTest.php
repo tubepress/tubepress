@@ -20,7 +20,7 @@ class TubePressPaginationService_DiggStyleTest extends PHPUnit_Framework_TestCas
 			->with($this->equalTo(TubePressDisplayOptions::RESULTS_PER_PAGE))
 			->will($this->returnValue(4));
 		
-		$msgService = $this->getMock("TubePressMessageService");
+		$msgService = $this->getMock("org_tubepress_message_MessageService");
 		$msgService->expects($this->any())
 				   ->method("_")
 				   ->will($this->returnCallback("msgCallback"));	

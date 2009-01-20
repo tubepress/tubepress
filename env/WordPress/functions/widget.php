@@ -25,7 +25,7 @@
  */
 function tubepress_init_widget()
 {
-	$msg = new WordPressMessageService();
+	$msg = new org_tubepress_message_WordPressMessageService();
 	$widget_ops = array('classname' => 'widget_tubepress', 
 	    'description' => $msg->_("widget-description"));
 	wp_register_sidebar_widget('tubepress', "TubePress", 
@@ -105,7 +105,7 @@ function tubepress_widget_control() {
     
     $wpsm = new WordPressStorageManager();
 
-    $msg = new WordPressMessageService();
+    $msg = new org_tubepress_message_WordPressMessageService();
     
     $tpl->setVariable("WIDGET-TITLE", 
         $msg->_("options-meta-title-title"));
@@ -127,7 +127,7 @@ function tubepress_widget_inject_deps(org_tubepress_gallery_AbstractGallery $gal
 	$embedService          = new SimpleTubePressEmbeddedPlayerService();
 	$feedInsepctionService = new SimpleTubePressFeedInspectionService();
 	$feedRetrievalService  = new TubePressFeedRetrievalService_HTTP_Request2();
-	$messageService        = new WordPressMessageService();
+	$messageService        = new org_tubepress_message_WordPressMessageService();
 	$paginationService     = new TubePressPaginationService_DiggStyle();
 	$playerFactory         = new SimpleTubePressPlayerFactory();
 	$queryStringService    = new SimpleTubePressQueryStringService();

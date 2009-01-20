@@ -1,6 +1,6 @@
 <?php
 //function to return the pagination string
-function diggstyle_getPaginationString(TubePressMessageService $messageService, $page = 1, $totalitems, $limit = 15, $adjacents = 1, $targetpage = "/", $pagestring = "?page=")
+function diggstyle_getPaginationString(org_tubepress_message_MessageService $messageService, $page = 1, $totalitems, $limit = 15, $adjacents = 1, $targetpage = "/", $pagestring = "?page=")
 {   
     //defaults
     if(!$adjacents) $adjacents = 1;

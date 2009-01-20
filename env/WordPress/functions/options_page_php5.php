@@ -25,7 +25,7 @@
 function __tp_executeOptionsPage()
 {
 	try {
-		$msgService = new WordPressMessageService();
+		$msgService = new org_tubepress_message_WordPressMessageService();
 		$validationService = new SimpleTubePressInputValidationService();
 		$validationService->setMessageService($msgService);
 		

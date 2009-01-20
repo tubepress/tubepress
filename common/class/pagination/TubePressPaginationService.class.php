@@ -26,7 +26,7 @@ interface TubePressPaginationService
 {
 	public function getHtml($totalResults);
 	
-	public function setMessageService(TubePressMessageService $messageService);
+	public function setMessageService(org_tubepress_message_MessageService $messageService);
 	
 	public function setOptionsManager(TubePressOptionsManager $tpom);
 	

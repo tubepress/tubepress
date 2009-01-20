@@ -196,5 +196,5 @@ class TubePressOptionsForm
         return $cats;
     }
     
-    public function setMessageService(TubePressMessageService $messageService) { $this->_messageService = $messageService; }
+    public function setMessageService(org_tubepress_message_MessageService $messageService) { $this->_messageService = $messageService; }
 }

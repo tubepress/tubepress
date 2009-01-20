@@ -116,7 +116,7 @@ EOT;
 		$this->_paginationService 		= $this->getMock("TubePressPaginationService");
 		$this->_feedInspectionService 	= $this->getMock("TubePressFeedInspectionService");
 		$this->_feedRetrievalService 	= $this->getMock("TubePressFeedRetrievalService");
-		$this->_messageService 			= $this->getMock("TubePressMessageService");
+		$this->_messageService 			= $this->getMock("org_tubepress_message_MessageService");
 		$this->_optionsManager 			= $this->getMock("TubePressOptionsManager");
 		$this->_playerFactory			= $this->getMock("TubePressPlayerFactory");
 		$this->_qss						= $this->getMock("TubePressQueryStringService");

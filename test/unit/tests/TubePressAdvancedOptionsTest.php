@@ -20,7 +20,7 @@ class TubePressAdvancedOptionsTest extends PHPUnit_Framework_TestCase {
         $this->_tpsm = $this->getMock("TubePressStorageManager");
         $this->_template = $this->getMock("HTML_Template_IT");
         $this->_sut = new TubePressAdvancedOptions();
-        $this->_msgService = $this->getMock("TubePressMessageService");
+        $this->_msgService = $this->getMock("org_tubepress_message_MessageService");
 	}
 
 	public function testPrintForOptionsPage()

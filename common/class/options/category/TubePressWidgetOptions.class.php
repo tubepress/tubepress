@@ -30,7 +30,7 @@ class TubePressWidgetOptions implements TubePressOptionsCategory
     
     private $_messageService;
     
-    public function setMessageService(TubePressMessageService $messageService)
+    public function setMessageService(org_tubepress_message_MessageService $messageService)
     {
     	$this->_messageService = $messageService;
     }

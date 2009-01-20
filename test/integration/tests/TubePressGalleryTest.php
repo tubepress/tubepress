@@ -11,7 +11,7 @@ class TubePressGalleryTest extends PHPUnit_Framework_TestCase {
 		$tpom->expects($this->any())
 			 ->method("get")
 			 ->will($this->returnCallback("_tpomCallback"));
-		$messageService = $this->getMock("TubePressMessageService");
+		$messageService = $this->getMock("org_tubepress_message_MessageService");
 		$messageService->expects($this->any())
 					   ->method("_")
 					   ->will($this->returnCallback("_msgCallback"));

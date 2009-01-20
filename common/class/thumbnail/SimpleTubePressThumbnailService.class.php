@@ -184,7 +184,7 @@ class SimpleTubePressThumbnailService implements TubePressThumbnailService
         }
     }
     
-    public function setMessageService(TubePressMessageService $messageService)
+    public function setMessageService(org_tubepress_message_MessageService $messageService)
     { 
     	$this->_msg = $messageService; 
     }

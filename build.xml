@@ -9,7 +9,7 @@
 		<include name="**/*.class.php" />
 		<exclude name="**/*Test.php" />
 		<exclude name="lib/**/*.php" />
-		<exclude name="**/AbstractTubePressMessageService.class.php" />
+		<exclude name="**/AbstractMessageService.class.php" />
 		<exclude name="**/popup.php" />
 		<exclude name="/common/tubepress_classloader.php" />
 	</fileset>

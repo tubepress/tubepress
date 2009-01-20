@@ -20,11 +20,11 @@
  */
 
 /**
- * Shared message functionality for TubePressMessageService implementations.
+ * Shared message functionality for org_tubepress_message_MessageService implementations.
  * This class basically provides one additional layer of abstraction between
  * the code and the actual message in the .pot files.
  */
-abstract class AbstractTubePressMessageService implements TubePressMessageService
+abstract class org_tubepress_message_AbstractMessageService implements org_tubepress_message_MessageService
 {
     private $_msgs = array(
     	"options-page-title"       => "TubePress Options",

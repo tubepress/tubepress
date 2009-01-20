@@ -110,7 +110,7 @@ function _tubepress_dependency_inject(org_tubepress_gallery_Gallery $gallery,
 	$embedService          = new SimpleTubePressEmbeddedPlayerService();
 	$feedInspectionService = new SimpleTubePressFeedInspectionService();
 	$feedRetrievalService  = new TubePressFeedRetrievalService_HTTP_Request2();
-	$messageService        = new WordPressMessageService();
+	$messageService        = new org_tubepress_message_WordPressMessageService();
 	$playerFactory         = new SimpleTubePressPlayerFactory();
 	$queryStringService    = new SimpleTubePressQueryStringService();
 	$paginationService     = new TubePressPaginationService_DiggStyle();
