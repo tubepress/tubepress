@@ -69,12 +69,12 @@ EOT
     /**
      * Tells the gallery how to play videos in ShadowBox.js
      *
-     * @param TubePressVideo          $vid  The video to be played
+     * @param org_tubepress_video_Video          $vid  The video to be played
      * @param TubePressOptionsManager $tpom The TubePress options manager
      * 
      * @return string The play link attributes
      */
-    public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    public function getPlayLink(org_tubepress_video_Video $vid, TubePressOptionsManager $tpom)
     {
         global $tubepress_base_url;
         

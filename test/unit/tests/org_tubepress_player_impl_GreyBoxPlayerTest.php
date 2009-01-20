@@ -12,7 +12,7 @@ class org_tubepress_player_impl_GreyBoxPlayerTest extends PHPUnit_Framework_Test
 		$tubepress_base_url = "fakeurl";
 		$this->_sut = new org_tubepress_player_impl_GreyBoxPlayer();
 		$this->_tpom = $this->getMock("TubePressOptionsManager");
-		$this->_tpeps = $this->getMock("TubePressEmbeddedPlayerService");
+		$this->_tpeps = $this->getMock("org_tubepress_video_embed_EmbeddedPlayerService");
 	}
 	
 	function testGetHeadContents()                                                
@@ -26,7 +26,7 @@ EOX
 	function testGetPlayLink()
 	{
 		global $tubepress_base_url;
-		$fakeVideo = new TubePressVideo();
+		$fakeVideo = new org_tubepress_video_Video();
 		$fakeVideo->setTitle("fake title");
 		
 		$this->_tpeps->expects($this->once())

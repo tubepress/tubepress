@@ -107,7 +107,7 @@ function _tubepress_dependency_inject(org_tubepress_gallery_Gallery $gallery,
     TubePressOptionsManager $tpom)
 {
 	$cacheService          = new org_tubepress_cache_SimpleCacheService();
-	$embedService          = new SimpleTubePressEmbeddedPlayerService();
+	$embedService          = new org_tubepress_video_embed_SimpleEmbeddedPlayerService();
 	$feedInspectionService = new SimpleTubePressFeedInspectionService();
 	$feedRetrievalService  = new TubePressFeedRetrievalService_HTTP_Request2();
 	$messageService        = new org_tubepress_message_WordPressMessageService();
@@ -116,7 +116,7 @@ function _tubepress_dependency_inject(org_tubepress_gallery_Gallery $gallery,
 	$paginationService     = new org_tubepress_pagination_DiggStylePaginationService();
 	$thumbService          = new SimpleTubePressThumbnailService();
 	$urlBuilderService     = new org_tubepress_url_SimpleUrlBuilder();
-    $videoFactory          = new SimpleTubePressVideoFactory();
+    $videoFactory          = new org_tubepress_video_factory_SimpleVideoFactory();
 	
 	$thumbService->setOptionsManager($tpom);
     $thumbService->setMessageService($messageService);

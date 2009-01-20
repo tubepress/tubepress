@@ -27,12 +27,12 @@ class org_tubepress_player_impl_NormalPlayer extends org_tubepress_player_Abstra
     /**
      * Tells the gallery how to play videos with the normal player
      *
-     * @param TubePressVideo          $vid  The video to be played
+     * @param org_tubepress_video_Video          $vid  The video to be played
      * @param TubePressOptionsManager $tpom The TubePress options manager
      * 
      * @return string The play link attributes
      */
-    public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    public function getPlayLink(org_tubepress_video_Video $vid, TubePressOptionsManager $tpom)
     {
         $title  = $vid->getTitle();
         $height  = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
@@ -45,7 +45,7 @@ EOT
 			, rawurlencode($this->getEmbeddedPlayerService()->toString()), $height, $title);
     }
     
-    public function getPreGalleryHtml(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    public function getPreGalleryHtml(org_tubepress_video_Video $vid, TubePressOptionsManager $tpom)
     {
     	$tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../../../../common/ui");
         if (!$tpl->loadTemplatefile("normal_mode_pre_gallery.tpl.html", true, true)) {

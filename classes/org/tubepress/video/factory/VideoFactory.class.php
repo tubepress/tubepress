@@ -20,9 +20,9 @@
  */
 
 /**
- * Takes a DOMDocument from YouTube and spits back a TubePressVideo
+ * Takes a DOMDocument from YouTube and spits back a org_tubepress_video_Video
  */
-interface TubePressVideoFactory
+interface org_tubepress_video_factory_VideoFactory
 {
     /**
      * Main method
@@ -30,7 +30,7 @@ interface TubePressVideoFactory
      * @param DOMElement $rss   The raw XML of what we got from YouTube
      * @param int        $limit The max number of videos to return
      * 
-     * @return TubePressVideo A TubePressVideo representing this video
+     * @return org_tubepress_video_Video A org_tubepress_video_Video representing this video
      */
     public function dom2TubePressVideoArray(DOMDocument $rss, $limit);
 }

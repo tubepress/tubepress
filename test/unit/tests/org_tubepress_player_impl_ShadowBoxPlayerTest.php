@@ -10,7 +10,7 @@ class org_tubepress_player_impl_ShadowBoxPlayerTest extends PHPUnit_Framework_Te
 		global $tubepress_base_url;
 		$tubepress_base_url = "fakeurl";
 		$this->_sut = new org_tubepress_player_impl_ShadowBoxPlayer();
-		$this->_tpeps = $this->getMock("TubePressEmbeddedPlayerService");
+		$this->_tpeps = $this->getMock("org_tubepress_video_embed_EmbeddedPlayerService");
 		$this->_tpom = $this->getMock("TubePressOptionsManager");
 	}
 	
@@ -28,7 +28,7 @@ EOX
 	function testGetPlayLink()
 	{
 		global $tubepress_base_url;
-		$fakeVideo = new TubePressVideo();
+		$fakeVideo = new org_tubepress_video_Video();
 		$fakeVideo->setTitle("fake title");
 		$this->_tpom->expects($this->exactly(2))
 					->method("get")

@@ -35,10 +35,10 @@ $url = $urlBuilder->buildSingleVideoUrl($_GET["id"]);
 $frs = new TubePressFeedRetrievalService_HTTP_Request2();
 $xml = $frs->fetch($url, false);
 
-$factory = new SimpleTubePressVideoFactory();
+$factory = new org_tubepress_video_factory_SimpleVideoFactory();
 $vid = $factory->dom2TubePressVideoArray($xml, 1);
 
-$embed = new SimpleTubePressEmbeddedPlayerService();
+$embed = new org_tubepress_video_embed_SimpleEmbeddedPlayerService();
 $embed->applyOptionsFromPackedString($_GET["opts"]);
 
 ?>

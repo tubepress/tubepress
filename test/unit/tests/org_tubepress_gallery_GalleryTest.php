@@ -56,7 +56,7 @@ EOT;
 	{
 		$fakeUrl = "http://fakeurl";
 		$fakeXml = DOMDocument::load(dirname(__FILE__) . "/../sample_feed.xml");
-		$fakeVideo = TubePressVideoTest::getFakeInstance(false);
+		$fakeVideo = org_tubepress_video_VideoTest::getFakeInstance(false);
 		$fakeHtml = "stuff";
 		
 		$this->_urlBuilderService->expects($this->once())
@@ -122,8 +122,8 @@ EOT;
 		$this->_qss						= $this->getMock("TubePressQueryStringService");
 		$this->_thumbService 			= $this->getMock("TubePressThumbnailService");
 		$this->_urlBuilderService 		= $this->getMock("org_tubepress_url_UrlBuilder");
-		$this->_videoFactory 			= $this->getMock("TubePressVideoFactory");
-		$this->_tpeps					= $this->getMock("TubePressEmbeddedPlayerService");
+		$this->_videoFactory 			= $this->getMock("org_tubepress_video_factory_VideoFactory");
+		$this->_tpeps					= $this->getMock("org_tubepress_video_embed_EmbeddedPlayerService");
 	}
 	
 }

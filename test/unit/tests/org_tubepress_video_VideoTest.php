@@ -1,11 +1,11 @@
 <?php
-class TubePressVideoTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_video_VideoTest extends PHPUnit_Framework_TestCase {
     
 	private $_vid;
 	
 	function setUp()
 	{
-		$this->_vid = new TubePressVideo();
+		$this->_vid = new org_tubepress_video_Video();
 	}
 	
 	function testSetGetAuthor()
@@ -103,7 +103,7 @@ class TubePressVideoTest extends PHPUnit_Framework_TestCase {
 	
 	public static function getFakeInstance($random)
 	{
-		$vid = new TubePressVideo();
+		$vid = new org_tubepress_video_Video();
 		$vid->setAuthor("3hough");
 		return $vid;
 	}

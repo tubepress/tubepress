@@ -22,7 +22,7 @@
 /**
  * A YouTube video that TubePress can pass around easily
  */
-class TubePressVideo
+class org_tubepress_video_Video
 {
     private $_author;
     private $_category;

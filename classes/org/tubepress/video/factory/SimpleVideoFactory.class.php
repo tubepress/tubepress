@@ -20,9 +20,9 @@
  */
 
 /**
- * Simple implementation of TubePressVideoFactory
+ * Simple implementation of org_tubepress_video_factory_VideoFactory
  */
-class SimpleTubePressVideoFactory implements TubePressVideoFactory
+class org_tubepress_video_factory_SimpleVideoFactory implements org_tubepress_video_factory_VideoFactory
 {
     private $_mediaGroup;
 
@@ -44,7 +44,7 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
         $results = array();
         $entries = $rss->getElementsByTagName('entry');
         
-        /* create a TubePressVideo out of each "entry" node */
+        /* create a org_tubepress_video_Video out of each "entry" node */
         for ($j = 0; $j < min($limit, $entries->length); $j++) {
             $results[] = $this->_createVideo($entries->item($j));
         }
@@ -56,16 +56,16 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
      *
      * @param DOMNode $entry The "entry" XML node
      * 
-     * @return TubePressVideo The TubePressVideo representation of this node
+     * @return org_tubepress_video_Video The org_tubepress_video_Video representation of this node
      */
     private function _createVideo(DOMNode $entry)
     {
         $this->_mediaGroup = 
-            $entry->getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_MEDIA, 
+            $entry->getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_MEDIA, 
                 'group')->item(0);
             
         /* everyone loves the builder pattern */
-        $vid = new TubePressVideo();
+        $vid = new org_tubepress_video_Video();
         $vid->setAuthor($this->_getAuthor($entry));
         $vid->setCategory($this->_getCategory($entry));
         $vid->setDescription($this->_getDescription($entry));
@@ -105,7 +105,7 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
     private function _getCategory(DOMElement $rss)
     {
         return trim($rss->
-            getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_MEDIA,
+            getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_MEDIA,
                 'category')->item(0)->nodeValue);
     }
     
@@ -119,7 +119,7 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
     private function _getDescription(DOMElement $rss)
     {
         return trim($this->_mediaGroup->
-            getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_MEDIA,
+            getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_MEDIA,
                 'description')->item(0)->nodeValue);
     }
     
@@ -133,7 +133,7 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
     private function _getId(DOMElement $rss)
     { 
         $thumb = 
-             $rss->getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_MEDIA,
+             $rss->getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_MEDIA,
                  "thumbnail")->item(0);
         $id    = $thumb->getAttribute("url");
         $id    = substr($id, 0, strrpos($id, "/"));
@@ -150,7 +150,7 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
      */
     private function _getRatingAverage(DOMElement $rss)
     { 
-        $count = $rss->getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_GD,
+        $count = $rss->getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_GD,
             'rating')->item(0);
         if ($count != null) {
             return $count->getAttribute('average');
@@ -167,7 +167,7 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
      */
     private function _getRatingCount(DOMElement $rss)
     { 
-        $count = $rss->getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_GD,
+        $count = $rss->getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_GD,
             'rating')->item(0);
         if ($count != null) {
             return number_format($count->getAttribute('numRaters'));
@@ -186,10 +186,10 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
     { 
         $duration = 
             $this->_mediaGroup->
-                getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_YT,
+                getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_YT,
                     'duration')->item(0);
         return 
-            SimpleTubePressVideoFactory::
+            org_tubepress_video_factory_SimpleVideoFactory::
                 _seconds2HumanTime($duration->getAttribute('seconds'));
     }
     
@@ -204,7 +204,7 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
     { 
         $rawKeywords = 
             $this->_mediaGroup->
-                getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_MEDIA,
+                getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_MEDIA,
                     'keywords')->item(0);
         return split(", ", trim($rawKeywords->nodeValue));
     }
@@ -221,7 +221,7 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
         $results = array();
         $thumbs  = 
             $this->_mediaGroup->
-                getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_MEDIA, 
+                getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_MEDIA, 
                     'thumbnail');
         for ($x = 0; $x < $thumbs->length; $x++) {
             array_push($results, $thumbs->item($x)->getAttribute('url'));
@@ -257,7 +257,7 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
             return "N/A";
         }
         $views = $publishedNode->item(0);
-        return SimpleTubePressVideoFactory::_rfc3339toHumanTime($views->nodeValue);
+        return org_tubepress_video_factory_SimpleVideoFactory::_rfc3339toHumanTime($views->nodeValue);
     }
     
     /**
@@ -288,7 +288,7 @@ class SimpleTubePressVideoFactory implements TubePressVideoFactory
      */
     private function _getViewCount(DOMElement $rss) 
     { 
-        $stats = $rss->getElementsByTagNameNS(SimpleTubePressVideoFactory::NS_YT,
+        $stats = $rss->getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_YT,
             'statistics')->item(0);
         if ($stats != null) {
             return number_format($stats->getAttribute('viewCount'));

@@ -38,7 +38,7 @@ class TubePressGalleryTest extends PHPUnit_Framework_TestCase {
         $this->_sut->setPaginationService(     $paginationService);
         $this->_sut->setThumbnailService(         $thumbService);
         $this->_sut->setUrlBuilderService(     $urlBuilderService);
-        $this->_sut->setVideoFactory(             new SimpleTubePressVideoFactory());
+        $this->_sut->setVideoFactory(             new org_tubepress_video_factory_SimpleVideoFactory());
 	}
 	
 	function testGenerate()

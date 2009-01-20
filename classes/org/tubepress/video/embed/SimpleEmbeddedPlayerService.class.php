@@ -23,7 +23,7 @@
  * Represents an HTML-embeddable YouTube player
  *
  */
-class SimpleTubePressEmbeddedPlayerService implements TubePressEmbeddedPlayerService
+class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubepress_video_embed_EmbeddedPlayerService
 {
     private $_color1      = "";
     private $_color2      = "";
@@ -40,13 +40,13 @@ class SimpleTubePressEmbeddedPlayerService implements TubePressEmbeddedPlayerSer
     /**
      * Applies options from a TubePressOptionsManager
      *
-     * @param TubePressVideo          $vid  The video that this embedded player 
+     * @param org_tubepress_video_Video          $vid  The video that this embedded player 
      *                                       will show
      * @param TubePressOptionsManager $tpom The options manager
      * 
      * @return void
      */
-    public function applyOptions(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    public function applyOptions(org_tubepress_video_Video $vid, TubePressOptionsManager $tpom)
     {
         $color = $tpom->get(TubePressEmbeddedOptions::PLAYER_COLOR);
         if ($color != "/") {
@@ -127,14 +127,14 @@ class SimpleTubePressEmbeddedPlayerService implements TubePressEmbeddedPlayerSer
     /**
      * Packs options from a TubePressOptionsManager to a string
      *
-     * @param TubePressVideo          $vid  The video that this embedded 
+     * @param org_tubepress_video_Video          $vid  The video that this embedded 
      *                                       player will show
      * @param TubePressOptionsManager $tpom The options manager that will 
      *                                       be packed to a string
      * 
      * @return void
      */    
-    public function packOptionsToString(TubePressVideo $vid, 
+    public function packOptionsToString(org_tubepress_video_Video $vid, 
         TubePressOptionsManager $tpom)
     {
         $opts = array(

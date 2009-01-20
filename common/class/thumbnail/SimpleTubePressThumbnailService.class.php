@@ -35,7 +35,7 @@ class SimpleTubePressThumbnailService implements TubePressThumbnailService
 	private $_tppf;
 	private $_tpeps;
 	
-    public function getHtml($templateFile, TubePressVideo $vid, org_tubepress_player_Player $player)
+    public function getHtml($templateFile, org_tubepress_video_Video $vid, org_tubepress_player_Player $player)
     {
     	$this->_tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../ui");
         if (!$this->_tpl->loadTemplatefile($templateFile, true, true)) {
@@ -51,7 +51,7 @@ class SimpleTubePressThumbnailService implements TubePressThumbnailService
     	$this->_tpom = $tpom;
     }
     
-    private function _getCommonStuff(TubePressVideo $vid, org_tubepress_player_Player $player)
+    private function _getCommonStuff(org_tubepress_video_Video $vid, org_tubepress_player_Player $player)
     {
         $randomizeOpt = $this->_tpom->
             get(TubePressAdvancedOptions::RANDOM_THUMBS);
@@ -79,7 +79,7 @@ class SimpleTubePressThumbnailService implements TubePressThumbnailService
         $this->_tpl->setVariable('THUMBHEIGHT', $thumbHeight);
     }
     
-    private function _getMetaStuff(TubePressVideo $vid, org_tubepress_player_Player $player)
+    private function _getMetaStuff(org_tubepress_video_Video $vid, org_tubepress_player_Player $player)
     {
         $class = new ReflectionClass("TubePressMetaOptions");    
 

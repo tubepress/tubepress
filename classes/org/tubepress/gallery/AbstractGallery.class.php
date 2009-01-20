@@ -186,7 +186,7 @@ abstract class org_tubepress_gallery_AbstractGallery
     	$this->_thumbnailTemplate = $templateFile; 
     }
     
-    public function setEmbeddedPlayerService(TubePressEmbeddedPlayerService $tpeps)
+    public function setEmbeddedPlayerService(org_tubepress_video_embed_EmbeddedPlayerService $tpeps)
     {
     	$this->_tpeps = $tpeps;
     }
@@ -196,7 +196,7 @@ abstract class org_tubepress_gallery_AbstractGallery
     	$this->_urlBuilder = $urlBuilder; 
     }
     
-    public function setVideoFactory(TubePressVideoFactory $factory) 
+    public function setVideoFactory(org_tubepress_video_factory_VideoFactory $factory) 
     {
     	$this->_videoFactory = $factory; 
     }

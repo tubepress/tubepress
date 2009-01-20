@@ -102,7 +102,7 @@ abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_play
     	return array();
     }
     
-    public final function setEmbeddedPlayerService(TubePressEmbeddedPlayerService $tpeps)
+    public final function setEmbeddedPlayerService(org_tubepress_video_embed_EmbeddedPlayerService $tpeps)
     {
     	$this->_tpeps = $tpeps;	
     }
@@ -112,7 +112,7 @@ abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_play
     	return $this->_tpeps;
     }
     
-    public function getPreGalleryHtml(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    public function getPreGalleryHtml(org_tubepress_video_Video $vid, TubePressOptionsManager $tpom)
     {
     	return "";
     }

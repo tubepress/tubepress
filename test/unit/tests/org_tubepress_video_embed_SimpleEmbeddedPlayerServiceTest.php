@@ -1,16 +1,16 @@
 <?php
-class SimpleTubePressEmbeddedPlayerServiceTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_video_embed_SimpleEmbeddedPlayerServiceTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;
 	
 	function setUp()
 	{
-		$this->_sut = new SimpleTubePressEmbeddedPlayerService();
+		$this->_sut = new org_tubepress_video_embed_SimpleEmbeddedPlayerService();
 	}
 	
 	function testToString()
 	{
-		$vid = new TubePressVideo();
+		$vid = new org_tubepress_video_Video();
 		$vid->setId("FAKEID");
 		
 		$this->_tpom = $this->getMock("TubePressOptionsManager");

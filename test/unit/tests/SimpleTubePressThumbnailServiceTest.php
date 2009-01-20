@@ -27,7 +27,7 @@ class SimpleTubePressThumbnailServiceTest extends PHPUnit_Framework_TestCase {
 					  
 		$this->_sut->setMessageService($this->_messageService);
 		$this->_sut->setOptionsManager($this->_tpom);
-		$vid = new TubePressVideo();
+		$vid = new org_tubepress_video_Video();
 		$vid->setId("fakeid");
 		$vid->setTitle("Fake title");
 		$vid->setLength("1:50");
