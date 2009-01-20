@@ -10,7 +10,7 @@ $testNames = array(
 	"SimpleTubePressQueryStringService",
 	"SimpleTubePressShortcodeService",
 	"SimpleTubePressThumbnailService",
-	"SimpleTubePressUrlBuilder",
+	"org_tubepress_url_SimpleUrlBuilder",
 	"SimpleTubePressInputValidationService",
 	"SimpleTubePressVideoFactory",
 	"org_tubepress_player_impl_GreyBoxPlayer",

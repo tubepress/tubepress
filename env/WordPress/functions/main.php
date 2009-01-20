@@ -115,7 +115,7 @@ function _tubepress_dependency_inject(org_tubepress_gallery_Gallery $gallery,
 	$queryStringService    = new SimpleTubePressQueryStringService();
 	$paginationService     = new org_tubepress_pagination_DiggStylePaginationService();
 	$thumbService          = new SimpleTubePressThumbnailService();
-	$urlBuilderService     = new SimpleTubePressUrlBuilder();
+	$urlBuilderService     = new org_tubepress_url_SimpleUrlBuilder();
     $videoFactory          = new SimpleTubePressVideoFactory();
 	
 	$thumbService->setOptionsManager($tpom);

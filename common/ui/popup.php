@@ -29,7 +29,7 @@ header('Content-Type: text/html;charset=utf-8');
 
 require dirname(__FILE__) . "/../../common/tubepress_classloader.php";
 
-$urlBuilder = new SimpleTubePressUrlBuilder();
+$urlBuilder = new org_tubepress_url_SimpleUrlBuilder();
 $url = $urlBuilder->buildSingleVideoUrl($_GET["id"]);
 
 $frs = new TubePressFeedRetrievalService_HTTP_Request2();

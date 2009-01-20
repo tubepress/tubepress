@@ -23,7 +23,7 @@
  * Builds URLs to send out to YouTube for gdata
  *
  */
-interface TubePressUrlBuilder
+interface org_tubepress_url_UrlBuilder
 {
     /**
      * Builds a gdata request url for a list of videos

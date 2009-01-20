@@ -23,7 +23,7 @@
  * Builds URLs to send out to YouTube for gdata
  *
  */
-class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
+class org_tubepress_url_SimpleUrlBuilder implements org_tubepress_url_UrlBuilder
 {
 	private $_tpom;
 	

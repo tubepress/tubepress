@@ -45,7 +45,7 @@ class TubePressDebug
            return;
         }
 
-        $builder = new SimpleTubePressUrlBuilder();
+        $builder = new org_tubepress_url_SimpleUrlBuilder();
         $builder->setOptionsManager($tpom);
         $builder->setQueryStringService(new SimpleTubePressQueryStringService());
         $debugStuff = array("tubepress_base_url" => $tubepress_base_url,

@@ -1,11 +1,11 @@
 <?php
-class SimpleTubePressUrlBuilderTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_url_SimpleUrlBuilderTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;
 	
 	function setUp()
 	{
-		$this->_sut = new SimpleTubePressUrlBuilder();
+		$this->_sut = new org_tubepress_url_SimpleUrlBuilder();
 	}
 	
 	function testBuildGalleryUrlUserMode()

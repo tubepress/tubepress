@@ -191,7 +191,7 @@ abstract class org_tubepress_gallery_AbstractGallery
     	$this->_tpeps = $tpeps;
     }
     
-    public function setUrlBuilderService(TubePressUrlBuilder $urlBuilder) 
+    public function setUrlBuilderService(org_tubepress_url_UrlBuilder $urlBuilder) 
     {                   
     	$this->_urlBuilder = $urlBuilder; 
     }

@@ -132,7 +132,7 @@ function tubepress_widget_inject_deps(org_tubepress_gallery_AbstractGallery $gal
 	$playerFactory         = new org_tubepress_player_factory_SimplePlayerFactory();
 	$queryStringService    = new SimpleTubePressQueryStringService();
 	$thumbService          = new SimpleTubePressThumbnailService();
-    $urlBuilderService     = new SimpleTubePressUrlBuilder();
+    $urlBuilderService     = new org_tubepress_url_SimpleUrlBuilder();
     $videoFactory          = new SimpleTubePressVideoFactory();
     
 	$thumbService->setOptionsManager($tpom);
