@@ -28,11 +28,11 @@ interface org_tubepress_shortcode_ShortcodeService
      * This function is used to parse a shortcode into options that TubePress can use.
      *
      * @param string                  $content The haystack in which to search
-     * @param TubePressOptionsManager &$tpom   The TubePress options manager
+     * @param org_tubepress_options_manager_OptionsManager &$tpom   The TubePress options manager
      * 
      * @return void
      */
-    public function parse($content, TubePressOptionsManager $tpom);
+    public function parse($content, org_tubepress_options_manager_OptionsManager $tpom);
 
     public function somethingToParse($content, $trigger = "tubepress");
 }

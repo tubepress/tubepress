@@ -38,32 +38,32 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
     private $_quality     = "normal";
     
     /**
-     * Applies options from a TubePressOptionsManager
+     * Applies options from a org_tubepress_options_manager_OptionsManager
      *
      * @param org_tubepress_video_Video          $vid  The video that this embedded player 
      *                                       will show
-     * @param TubePressOptionsManager $tpom The options manager
+     * @param org_tubepress_options_manager_OptionsManager $tpom The options manager
      * 
      * @return void
      */
-    public function applyOptions(org_tubepress_video_Video $vid, TubePressOptionsManager $tpom)
+    public function applyOptions(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom)
     {
-        $color = $tpom->get(TubePressEmbeddedOptions::PLAYER_COLOR);
+        $color = $tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR);
         if ($color != "/") {
             $colors        = split("/", $color);
             $this->_color1 = $colors[0];
             $this->_color2 = $colors[1];
         }
         
-        $this->_showRelated = $tpom->get(TubePressEmbeddedOptions::SHOW_RELATED);
-        $this->_autoPlay    = $tpom->get(TubePressEmbeddedOptions::AUTOPLAY);
-        $this->_loop        = $tpom->get(TubePressEmbeddedOptions::LOOP);
-        $this->_genie       = $tpom->get(TubePressEmbeddedOptions::GENIE);
-        $this->_border      = $tpom->get(TubePressEmbeddedOptions::BORDER);
+        $this->_showRelated = $tpom->get(org_tubepress_options_category_Embedded::SHOW_RELATED);
+        $this->_autoPlay    = $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY);
+        $this->_loop        = $tpom->get(org_tubepress_options_category_Embedded::LOOP);
+        $this->_genie       = $tpom->get(org_tubepress_options_category_Embedded::GENIE);
+        $this->_border      = $tpom->get(org_tubepress_options_category_Embedded::BORDER);
         $this->_id          = $vid->getId();
-        $this->_width       = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
-        $this->_height      = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
-        $this->_quality     = $tpom->get(TubePressEmbeddedOptions::QUALITY);
+        $this->_width       = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
+        $this->_height      = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT);
+        $this->_quality     = $tpom->get(org_tubepress_options_category_Embedded::QUALITY);
     }    
     
     /**
@@ -125,31 +125,31 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
     }    
     
     /**
-     * Packs options from a TubePressOptionsManager to a string
+     * Packs options from a org_tubepress_options_manager_OptionsManager to a string
      *
      * @param org_tubepress_video_Video          $vid  The video that this embedded 
      *                                       player will show
-     * @param TubePressOptionsManager $tpom The options manager that will 
+     * @param org_tubepress_options_manager_OptionsManager $tpom The options manager that will 
      *                                       be packed to a string
      * 
      * @return void
      */    
     public function packOptionsToString(org_tubepress_video_Video $vid, 
-        TubePressOptionsManager $tpom)
+        org_tubepress_options_manager_OptionsManager $tpom)
     {
         $opts = array(
-            "r" => $tpom->get(TubePressEmbeddedOptions::SHOW_RELATED),
-            "a" => $tpom->get(TubePressEmbeddedOptions::AUTOPLAY),
-            "l" => $tpom->get(TubePressEmbeddedOptions::LOOP),
-            "g" => $tpom->get(TubePressEmbeddedOptions::GENIE),
-            "b" => $tpom->get(TubePressEmbeddedOptions::BORDER),
+            "r" => $tpom->get(org_tubepress_options_category_Embedded::SHOW_RELATED),
+            "a" => $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY),
+            "l" => $tpom->get(org_tubepress_options_category_Embedded::LOOP),
+            "g" => $tpom->get(org_tubepress_options_category_Embedded::GENIE),
+            "b" => $tpom->get(org_tubepress_options_category_Embedded::BORDER),
             "id" => $vid->getId(),
-            "w" => $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH),
-            "h" => $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT),
-            "q" => $tpom->get(TubePressEmbeddedOptions::QUALITY)
+            "w" => $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH),
+            "h" => $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT),
+            "q" => $tpom->get(org_tubepress_options_category_Embedded::QUALITY)
         );
         
-        $color = $tpom->get(TubePressEmbeddedOptions::PLAYER_COLOR);
+        $color = $tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR);
         if ($color != "/") {
             $colors  = split("/", $color);
             $toMerge = array(

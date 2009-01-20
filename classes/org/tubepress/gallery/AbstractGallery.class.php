@@ -54,7 +54,7 @@ abstract class org_tubepress_gallery_AbstractGallery
         $currentPage  = $this->_queryStringService->getPageNum($_GET);
         $url          = $this->_urlBuilder->buildGalleryUrl($currentPage);
         $useCache     = $this->_optionsManager->get(
-            TubePressAdvancedOptions::CACHE_ENABLED);
+            org_tubepress_options_category_Advanced::CACHE_ENABLED);
         $xml          = $this->_feedRetrievalService->fetch($url, $useCache);
         $totalResults = $this->_feedInspectionService->getTotalResultCount($xml);
         $queryResult  = $this->_feedInspectionService->getQueryResultCount($xml);
@@ -66,21 +66,21 @@ abstract class org_tubepress_gallery_AbstractGallery
         
         /* Figure out how many videos we're going to show */
         $vidLimit =
-            $this->_optionsManager->get(TubePressDisplayOptions::RESULTS_PER_PAGE);
+            $this->_optionsManager->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
         if ($queryResult < $vidLimit) {
             $vidLimit = $queryResult;
         }   
         
         $videos = $this->_videoFactory->dom2TubePressVideoArray($xml, $vidLimit);
         
-    	if ($this->_optionsManager->get(TubePressDisplayOptions::ORDER_BY) == "random") {
+    	if ($this->_optionsManager->get(org_tubepress_options_category_Display::ORDER_BY) == "random") {
             $videos = shuffle($videos);
         }
         
         $thumbsHtml = "";
         $playerName =
         	$this->_optionsManager->
-            	get(TubePressDisplayOptions::CURRENT_PLAYER_NAME);
+            	get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
         $player     = $this->_playerFactory->getInstance($playerName);
         $player->setEmbeddedPlayerService($this->_tpeps);
         
@@ -113,7 +113,7 @@ abstract class org_tubepress_gallery_AbstractGallery
         if ($customVideoId != "") {
             $videoUrl = $this->_urlBuilder->buildSingleVideoUrl($customVideoId);
             $results = $this->_feedRetrievalService->fetch($videoUrl,
-                $this->_optionsManager->get(TubePressAdvancedOptions::CACHE_ENABLED));
+                $this->_optionsManager->get(org_tubepress_options_category_Advanced::CACHE_ENABLED));
             $videoArray = $this->_videoFactory->dom2TubePressVideoArray($results, 1);
             return $videoArray[0];
         }
@@ -156,7 +156,7 @@ abstract class org_tubepress_gallery_AbstractGallery
     	$this->_messageService = $messageService; 
     }
     
-    public function setOptionsManager(TubePressOptionsManager $tpom) 
+    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) 
     {                        
     	$this->_optionsManager = $tpom; 
     }

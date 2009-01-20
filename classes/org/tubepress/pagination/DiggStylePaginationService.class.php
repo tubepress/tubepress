@@ -36,7 +36,7 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
 	{
 		$currentPage = $this->_queryStringService->getPageNum($_GET);
         $vidsPerPage = $this->_tpom->
-            get(TubePressDisplayOptions::RESULTS_PER_PAGE);
+            get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
     
         $newurl = new Net_URL2($this->_queryStringService->getFullUrl($_SERVER));
         $newurl->unsetQueryVariable("tubepress_page");
@@ -48,5 +48,5 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
 	
 	public function setMessageService(org_tubepress_message_MessageService $messageService) { $this->_messageService = $messageService; }
 	public function setQueryStringService(org_tubepress_querystring_QueryStringService $queryStringService) { $this->_queryStringService = $queryStringService; }
-	public function setOptionsManager(TubePressOptionsManager $tpom) { $this->_tpom = $tpom; }
+	public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }
 }

@@ -28,14 +28,14 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
      * This function is used to parse a shortcode into options that TubePress can use.
      *
      * @param string                  $content The haystack in which to search
-     * @param TubePressOptionsManager &$tpom   The TubePress options manager
+     * @param org_tubepress_options_manager_OptionsManager &$tpom   The TubePress options manager
      * 
      * @return void
      */
-    public function parse($content, TubePressOptionsManager $tpom)
+    public function parse($content, org_tubepress_options_manager_OptionsManager $tpom)
     {    
         /* what trigger word are we using? */
-        $keyword = $tpom->get(TubePressAdvancedOptions::KEYWORD);
+        $keyword = $tpom->get(org_tubepress_options_category_Advanced::KEYWORD);
         
         if (!$this->somethingToParse($content, $keyword)) {
         	return;

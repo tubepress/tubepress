@@ -26,15 +26,15 @@ function __tp_executeOptionsPage()
 {
 	try {
 		$msgService = new org_tubepress_message_WordPressMessageService();
-		$validationService = new SimpleTubePressInputValidationService();
+		$validationService = new org_tubepress_options_validation_SimpleInputValidationService();
 		$validationService->setMessageService($msgService);
 		
 	    /* initialize the database if we need to */
-	    $wpsm = new WordPressStorageManager();
+	    $wpsm = new org_tubepress_options_storage_WordPressStorageManager();
 	    $wpsm->setValidationService($validationService);
 	    $wpsm->init();
 	    
-	    $optionsForm = new TubePressOptionsForm();
+	    $optionsForm = new org_tubepress_options_Form();
 	    $optionsForm->setMessageService($msgService);
 	        
 	    /* are we updating? */

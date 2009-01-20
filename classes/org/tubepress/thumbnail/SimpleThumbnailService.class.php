@@ -46,7 +46,7 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
         return $this->_tpl->get();
     }
     
-    public function setOptionsManager(TubePressOptionsManager $tpom)
+    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom)
     {
     	$this->_tpom = $tpom;
     }
@@ -54,15 +54,15 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
     private function _getCommonStuff(org_tubepress_video_Video $vid, org_tubepress_player_Player $player)
     {
         $randomizeOpt = $this->_tpom->
-            get(TubePressAdvancedOptions::RANDOM_THUMBS);
+            get(org_tubepress_options_category_Advanced::RANDOM_THUMBS);
         $thumbWidth   = $this->_tpom->
-            get(TubePressDisplayOptions::THUMB_WIDTH);
+            get(org_tubepress_options_category_Display::THUMB_WIDTH);
         $thumbHeight  = $this->_tpom->
-            get(TubePressDisplayOptions::THUMB_HEIGHT);
+            get(org_tubepress_options_category_Display::THUMB_HEIGHT);
         $height       = $this->_tpom->
-            get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
+            get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT);
         $width        = $this->_tpom->
-            get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
+            get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
         
         $playLink = $player->getPlayLink($vid, $this->_tpom);
 
@@ -81,7 +81,7 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
     
     private function _getMetaStuff(org_tubepress_video_Video $vid, org_tubepress_player_Player $player)
     {
-        $class = new ReflectionClass("TubePressMetaOptions");    
+        $class = new ReflectionClass("org_tubepress_options_category_Meta");    
 
         $link = $playLink = $player->getPlayLink($vid, $this->_tpom);
         
@@ -93,23 +93,23 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
                 continue;
             }
             
-            $nofollow = $this->_tpom->get(TubePressAdvancedOptions::NOFOLLOW_LINKS);
+            $nofollow = $this->_tpom->get(org_tubepress_options_category_Advanced::NOFOLLOW_LINKS);
             
             switch ($constant) {
                 
-            case TubePressMetaOptions::TITLE:
+            case org_tubepress_options_category_Meta::TITLE:
                 $this->_tpl->setVariable('PLAYLINK', $link);
                 $this->_tpl->setVariable('TITLE', $vid->getTitle());
                 $this->_tpl->parse('title');
                 break;
                     
-            case TubePressMetaOptions::LENGTH:
+            case org_tubepress_options_category_Meta::LENGTH:
                 $this->_tpl->setVariable('RUNTIME', $vid->getLength());
                 $this->_tpl->parse('runtime');
                 break;
                     
-            case TubePressMetaOptions::DESCRIPTION:
-            	$limit = $this->_tpom->get(TubePressDisplayOptions::DESC_LIMIT);
+            case org_tubepress_options_category_Meta::DESCRIPTION:
+            	$limit = $this->_tpom->get(org_tubepress_options_category_Display::DESC_LIMIT);
             	$desc = $vid->getDescription();
             	if ($limit > 0 && strlen($desc) > $limit) {
             		$desc = substr($desc, 0, $limit) . "...";
@@ -118,14 +118,14 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
                 $this->_tpl->parse('description');
                 break;
                 
-            case TubePressMetaOptions::AUTHOR:
+            case org_tubepress_options_category_Meta::AUTHOR:
                 $this->_tpl->setVariable('METANAME', $this->_msg->_("video-" . $constant));
                 $this->_tpl->setVariable('AUTHOR', $vid->getAuthor());
                 if ($nofollow) { $this->_tpl->setVariable("NOFOLLOW", "rel=\"external nofollow\""); }
                 $this->_tpl->parse('author');
                 break;
                     
-            case TubePressMetaOptions::TAGS:
+            case org_tubepress_options_category_Meta::TAGS:
                 $tags = implode("%20", $vid->getTags());
                 $this->_tpl->setVariable('METANAME', $this->_msg->_("video-" . $constant));
                 $this->_tpl->setVariable('SEARCHSTRING', $tags);
@@ -134,7 +134,7 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
                 $this->_tpl->parse('tags');
                 break;
                     
-            case TubePressMetaOptions::URL:
+            case org_tubepress_options_category_Meta::URL:
                 $this->_tpl->setVariable('LINKVALUE', $vid->getYouTubeUrl());
                 $this->_tpl->setVariable('LINKTEXT', $this->_msg->_("video-" . $constant));
                 $this->_tpl->parse('url');
@@ -145,38 +145,38 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
                    
                 switch ($constant) {
 
-                case TubePressMetaOptions::VIEWS:
+                case org_tubepress_options_category_Meta::VIEWS:
                     $this->_tpl->setVariable('METAVALUE', $vid->getViews());
                     break;
                            
-                case TubePressMetaOptions::ID:            
+                case org_tubepress_options_category_Meta::ID:            
                     $this->_tpl->setVariable('METAVALUE', $vid->getId());
                     break;
 
-                case TubePressMetaOptions::RATING:
+                case org_tubepress_options_category_Meta::RATING:
                     $this->_tpl->setVariable('METAVALUE', $vid->getRating());
                     break;
                            
-                case TubePressMetaOptions::RATINGS:
+                case org_tubepress_options_category_Meta::RATINGS:
                     $this->_tpl->setVariable('METAVALUE', $vid->getRatings());
                     break;
                            
-                case TubePressMetaOptions::UPLOADED:
+                case org_tubepress_options_category_Meta::UPLOADED:
                     $niceDate = $vid->getUploadTime();
                     if ($niceDate != "N/A") {
-                    	if ($this->_tpom->get(TubePressDisplayOptions::RELATIVE_DATES)) {
+                    	if ($this->_tpom->get(org_tubepress_options_category_Display::RELATIVE_DATES)) {
                     		$niceDate = 
                     		    TubePressRelativeTime($vid->getUploadTime());
                     	} else {
                             $niceDate = date($this->_tpom->
-                                get(TubePressAdvancedOptions::DATEFORMAT), 
+                                get(org_tubepress_options_category_Advanced::DATEFORMAT), 
                                 $vid->getUploadTime());
                     	}
                     }
                     $this->_tpl->setVariable('METAVALUE', $niceDate);
                     break;
                         
-                case TubePressMetaOptions::CATEGORY:
+                case org_tubepress_options_category_Meta::CATEGORY:
                     $this->_tpl->setVariable('METAVALUE', $vid->getCategory());
                 }
                 $this->_tpl->parse('meta');

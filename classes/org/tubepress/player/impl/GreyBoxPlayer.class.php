@@ -46,17 +46,17 @@ class org_tubepress_player_impl_GreyBoxPlayer extends org_tubepress_player_Abstr
      * Tells the gallery how to play videos in GreyBox
      *
      * @param org_tubepress_video_Video          $vid  The video to be played
-     * @param TubePressOptionsManager $tpom The TubePress options manager
+     * @param org_tubepress_options_manager_OptionsManager $tpom The TubePress options manager
      * 
      * @return string The play link attributes
      */
-    public function getPlayLink(org_tubepress_video_Video $vid, TubePressOptionsManager $tpom)
+    public function getPlayLink(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom)
     {
         global $tubepress_base_url;
 
         $title  = $vid->getTitle();
-        $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
-        $width  = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
+        $height = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT);
+        $width  = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
         $url = new Net_URL2($tubepress_base_url . "/common/ui/popup.php");
         $url->setQueryVariable("id", $vid->getId());
         $url->setQueryVariable("opts", $this->getEmbeddedPlayerService()->packOptionsToString($vid, $tpom));

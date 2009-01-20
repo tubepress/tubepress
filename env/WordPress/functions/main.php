@@ -34,8 +34,8 @@ function tubepress_content_filter($content = '')
 
 function _tubepress_content_filter($content) {
 
-	$wpsm             = new WordPressStorageManager();
-    $trigger          = $wpsm->get(TubePressAdvancedOptions::KEYWORD);
+	$wpsm             = new org_tubepress_options_storage_WordPressStorageManager();
+    $trigger          = $wpsm->get(org_tubepress_options_category_Advanced::KEYWORD);
 	$shortcodeService = new org_tubepress_shortcode_SimpleShortcodeService();
     
 	/* no shortcode? get out */
@@ -48,7 +48,7 @@ function _tubepress_content_filter($content) {
     
     while ($shortcodeService->somethingToParse($newcontent, $trigger)) {
  
-	    $tpom = new SimpleTubePressOptionsManager();
+	    $tpom = new org_tubepress_options_manager_SimpleOptionsManager();
 	    $tpom->setStorageManager($wpsm);
 	    $shortcodeService->parse($newcontent, $tpom);
 
@@ -91,20 +91,20 @@ function _tubepress_head_filter() {
             type="text/css" />
 GBS;
 
-    $wpsm = new WordPressStorageManager();
+    $wpsm = new org_tubepress_options_storage_WordPressStorageManager();
     
-    if ($wpsm->get(TubePressAdvancedOptions::KEYWORD) === NULL) {
+    if ($wpsm->get(org_tubepress_options_category_Advanced::KEYWORD) === NULL) {
         return;
     }
     
-    $playerName = $wpsm->get(TubePressDisplayOptions::CURRENT_PLAYER_NAME);
+    $playerName = $wpsm->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
     $factory    = new org_tubepress_player_factory_SimplePlayerFactory();
     $player     = $factory->getInstance($playerName);
     print $player->getHeadContents();
 }
 
 function _tubepress_dependency_inject(org_tubepress_gallery_Gallery $gallery, 
-    TubePressOptionsManager $tpom)
+    org_tubepress_options_manager_OptionsManager $tpom)
 {
 	$cacheService          = new org_tubepress_cache_SimpleCacheService();
 	$embedService          = new org_tubepress_video_embed_SimpleEmbeddedPlayerService();

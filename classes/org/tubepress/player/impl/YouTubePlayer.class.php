@@ -28,16 +28,16 @@ class org_tubepress_player_impl_YouTubePlayer extends org_tubepress_player_Abstr
      * Tells the gallery how to play videos on YouTube
      *
      * @param org_tubepress_video_Video          $vid  The video to be played
-     * @param TubePressOptionsManager $tpom The TubePress options manager
+     * @param org_tubepress_options_manager_OptionsManager $tpom The TubePress options manager
      * 
      * @return string The play link attributes
      */
-    function getPlayLink(org_tubepress_video_Video $vid, TubePressOptionsManager $tpom)
+    function getPlayLink(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom)
     {   
         $link = new Net_URL2(sprintf('href="http://youtube.com/watch?v=%s"',
             $vid->getId()));
         
-        switch ($tpom->get(TubePressEmbeddedOptions::QUALITY)) {
+        switch ($tpom->get(org_tubepress_options_category_Embedded::QUALITY)) {
             case "high":
                 $link->setQueryVariable("fmt", "6");
                 break;

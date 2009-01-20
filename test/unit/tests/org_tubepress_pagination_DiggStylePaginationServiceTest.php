@@ -13,11 +13,11 @@ class org_tubepress_pagination_DiggStylePaginationServiceTest extends PHPUnit_Fr
 			 ->method("getFullUrl")
 			 ->will($this->returnValue("http://ehough.com"));
 		
-		$tpom = $this->getMock("TubePressOptionsManager");
+		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		
 		$tpom->expects($this->once())
 			->method("get")
-			->with($this->equalTo(TubePressDisplayOptions::RESULTS_PER_PAGE))
+			->with($this->equalTo(org_tubepress_options_category_Display::RESULTS_PER_PAGE))
 			->will($this->returnValue(4));
 		
 		$msgService = $this->getMock("org_tubepress_message_MessageService");

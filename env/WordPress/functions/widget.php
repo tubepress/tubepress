@@ -49,23 +49,23 @@ function tubepress_widget($opts)
 	extract($opts);
 	
 	/* set up the options manager with some sensible defaults */
-	$wpsm = new WordPressStorageManager();
-	$tpom = new SimpleTubePressOptionsManager();
+	$wpsm = new org_tubepress_options_storage_WordPressStorageManager();
+	$tpom = new org_tubepress_options_manager_SimpleOptionsManager();
 	$tpom->setStorageManager($wpsm);
 	$tpom->setCustomOptions(
-	    array(TubePressDisplayOptions::RESULTS_PER_PAGE => 3,
-	        TubePressMetaOptions::VIEWS => false,
-	        TubePressMetaOptions::DESCRIPTION => true,
-	        TubePressDisplayOptions::DESC_LIMIT => 50,
-	        TubePressDisplayOptions::CURRENT_PLAYER_NAME => org_tubepress_player_Player::POPUP,
-	        TubePressDisplayOptions::THUMB_HEIGHT => 105,
-	        TubePressDisplayOptions::THUMB_WIDTH => 135
+	    array(org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
+	        org_tubepress_options_category_Meta::VIEWS => false,
+	        org_tubepress_options_category_Meta::DESCRIPTION => true,
+	        org_tubepress_options_category_Display::DESC_LIMIT => 50,
+	        org_tubepress_options_category_Display::CURRENT_PLAYER_NAME => org_tubepress_player_Player::POPUP,
+	        org_tubepress_options_category_Display::THUMB_HEIGHT => 105,
+	        org_tubepress_options_category_Display::THUMB_WIDTH => 135
 	        )
 	);
 	
 	/* now apply the user's shortcode */
 	$shortcodeService = new org_tubepress_shortcode_SimpleShortcodeService();
-	$shortcodeService->parse($wpsm->get(TubePressWidgetOptions::TAGSTRING), $tpom);
+	$shortcodeService->parse($wpsm->get(org_tubepress_options_category_Widget::TAGSTRING), $tpom);
 	
 	$gallery = new org_tubepress_gallery_WidgetGallery();
 	tubepress_widget_inject_deps($gallery, $tpom);
@@ -75,7 +75,7 @@ function tubepress_widget($opts)
 
 	/* do the standard WordPress widget dance */
 	echo $before_widget . $before_title . 
-	    $wpsm->get(TubePressWidgetOptions::TITLE) .
+	    $wpsm->get(org_tubepress_options_category_Widget::TITLE) .
 	    $after_title . $out . $after_widget;
     restore_exception_handler();
 }
@@ -89,11 +89,11 @@ function tubepress_widget_control() {
 	set_exception_handler("tubepress_widget_exception_handler");
 	
 	if ( $_POST["tubepress-widget-submit"] ) {
-		$wpsm = new WordPressStorageManager();
-		$wpsm->setValidationService(new SimpleTubePressInputValidationService());
-		$wpsm->set(TubePressWidgetOptions::TAGSTRING, 
+		$wpsm = new org_tubepress_options_storage_WordPressStorageManager();
+		$wpsm->setValidationService(new org_tubepress_options_validation_SimpleInputValidationService());
+		$wpsm->set(org_tubepress_options_category_Widget::TAGSTRING, 
 		    strip_tags(stripslashes($_POST["tubepress-widget-tagstring"])));
-		$wpsm->set(TubePressWidgetOptions::TITLE, 
+		$wpsm->set(org_tubepress_options_category_Widget::TITLE, 
 		    strip_tags(stripslashes($_POST["tubepress-widget-title"])));
 	}
 
@@ -103,25 +103,25 @@ function tubepress_widget_control() {
         throw new Exception("Couldn't load widget control template");
     }
     
-    $wpsm = new WordPressStorageManager();
+    $wpsm = new org_tubepress_options_storage_WordPressStorageManager();
 
     $msg = new org_tubepress_message_WordPressMessageService();
     
     $tpl->setVariable("WIDGET-TITLE", 
         $msg->_("options-meta-title-title"));
     $tpl->setVariable("WIDGET-TITLE-VALUE", 
-        $wpsm->get(TubePressWidgetOptions::TITLE));
+        $wpsm->get(org_tubepress_options_category_Widget::TITLE));
     $tpl->setVariable("WIDGET-TAGSTRING", 
         $msg->_("widget-tagstring-description"));
     $tpl->setVariable("WIDGET-TAGSTRING-VALUE", 
-        $wpsm->get(TubePressWidgetOptions::TAGSTRING));
+        $wpsm->get(org_tubepress_options_category_Widget::TAGSTRING));
     echo $tpl->get();
     
     restore_exception_handler();
 }
 
 function tubepress_widget_inject_deps(org_tubepress_gallery_AbstractGallery $gallery, 
-    TubePressOptionsManager $tpom)
+    org_tubepress_options_manager_OptionsManager $tpom)
 {
 	$cacheService          = new org_tubepress_cache_SimpleCacheService();
 	$embedService          = new org_tubepress_video_embed_SimpleEmbeddedPlayerService();

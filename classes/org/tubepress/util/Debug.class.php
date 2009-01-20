@@ -28,13 +28,13 @@ class org_tubepress_util_Debug
     /**
      * Executes the debugging. Amazing!
      *
-     * @param TubePressOptionsManager $tpom The TubePress options manager
-     * @param TubePressStorageManager $tpsm The TubePress storage manager
+     * @param org_tubepress_options_manager_OptionsManager $tpom The TubePress options manager
+     * @param org_tubepress_options_storage_StorageManager $tpsm The TubePress storage manager
      * 
      * @return void
      */
     public static final function execute(org_tubepress_gallery_Gallery $gallery, 
-        TubePressOptionsManager $tpom)
+        org_tubepress_options_manager_OptionsManager $tpom)
     {
         global $tubepress_base_url;
     
@@ -67,13 +67,13 @@ class org_tubepress_util_Debug
     /**
      * Determines if we are in debug mode
      *
-     * @param TubePressOptionsManager $tpom The TubePress options manager
+     * @param org_tubepress_options_manager_OptionsManager $tpom The TubePress options manager
      * 
      * @return boolean True if we're in debug mode, false otherwise
      */
-    public static final function areWeDebugging(TubePressOptionsManager $tpom)
+    public static final function areWeDebugging(org_tubepress_options_manager_OptionsManager $tpom)
     {
-        $enabled = $tpom->get(TubePressAdvancedOptions::DEBUG_ON);
+        $enabled = $tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON);
         return $enabled
             && isset($_GET['tubepress_debug'])
             && ($_GET['tubepress_debug'] == 'true');

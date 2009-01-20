@@ -30,7 +30,7 @@ abstract class org_tubepress_gdata_retrieval_AbstractFeedRetrievalService implem
     /**
      * Fetches the RSS from YouTube
      * 
-     * @param TubePressOptionsManager $tpom The TubePress options manager
+     * @param org_tubepress_options_manager_OptionsManager $tpom The TubePress options manager
      * 
      * @return DOMDocument The raw RSS from YouTube
      */

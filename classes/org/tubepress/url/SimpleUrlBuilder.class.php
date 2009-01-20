@@ -36,26 +36,26 @@ class org_tubepress_url_SimpleUrlBuilder implements org_tubepress_url_UrlBuilder
     {
         $url = "";
         
-        switch ($this->_tpom->get(TubePressGalleryOptions::MODE)) {
+        switch ($this->_tpom->get(org_tubepress_options_category_Gallery::MODE)) {
             
         case org_tubepress_gallery_Gallery::USER:
-            $url = "users/" . $this->_tpom->get(TubePressGalleryOptions::USER_VALUE) .
+            $url = "users/" . $this->_tpom->get(org_tubepress_options_category_Gallery::USER_VALUE) .
                 "/uploads";
             break;
             
         case org_tubepress_gallery_Gallery::TOP_RATED:
             $url = "standardfeeds/top_rated?time=" . 
-                $this->_tpom->get(TubePressGalleryOptions::TOP_RATED_VALUE);
+                $this->_tpom->get(org_tubepress_options_category_Gallery::TOP_RATED_VALUE);
             break;
             
         case org_tubepress_gallery_Gallery::POPULAR:
             $url = "standardfeeds/most_viewed?time=" . 
-                $this->_tpom->get(TubePressGalleryOptions::MOST_VIEWED_VALUE);
+                $this->_tpom->get(org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE);
             break;
             
         case org_tubepress_gallery_Gallery::PLAYLIST:
             $url = "playlists/" . 
-                $this->_tpom->get(TubePressGalleryOptions::PLAYLIST_VALUE);
+                $this->_tpom->get(org_tubepress_options_category_Gallery::PLAYLIST_VALUE);
             break;
                 
         case org_tubepress_gallery_Gallery::MOST_RESPONDED:
@@ -79,12 +79,12 @@ class org_tubepress_url_SimpleUrlBuilder implements org_tubepress_url_UrlBuilder
             break;
                
         case org_tubepress_gallery_Gallery::FAVORITES:
-            $url = "users/" . $this->_tpom->get(TubePressGalleryOptions::FAVORITES_VALUE) .
+            $url = "users/" . $this->_tpom->get(org_tubepress_options_category_Gallery::FAVORITES_VALUE) .
                 "/favorites";
             break;
                 
         case org_tubepress_gallery_Gallery::TAG:
-            $tags = $this->_tpom->get(TubePressGalleryOptions::TAG_VALUE);
+            $tags = $this->_tpom->get(org_tubepress_options_category_Gallery::TAG_VALUE);
             $tags = explode(" ", $tags);
             $url  = "videos?q=" . implode("+", $tags);
             break;
@@ -111,10 +111,10 @@ class org_tubepress_url_SimpleUrlBuilder implements org_tubepress_url_UrlBuilder
     private function _urlPostProcessing(&$request, $currentPage)
     {
         
-        $perPage = $this->_tpom->get(TubePressDisplayOptions::RESULTS_PER_PAGE);
-        $filter  = $this->_tpom->get(TubePressAdvancedOptions::FILTER);
-        $order   = $this->_tpom->get(TubePressDisplayOptions::ORDER_BY);
-        $mode    = $this->_tpom->get(TubePressGalleryOptions::MODE);
+        $perPage = $this->_tpom->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
+        $filter  = $this->_tpom->get(org_tubepress_options_category_Advanced::FILTER);
+        $order   = $this->_tpom->get(org_tubepress_options_category_Display::ORDER_BY);
+        $mode    = $this->_tpom->get(org_tubepress_options_category_Gallery::MODE);
         
         /* start index of the videos */
         $start = ($currentPage * $perPage) - $perPage + 1;
@@ -130,8 +130,8 @@ class org_tubepress_url_SimpleUrlBuilder implements org_tubepress_url_UrlBuilder
         }
         
         /* YouTube API client ID and developer keys */
-        $requestURL->setQueryVariable("client", $this->_tpom->get(TubePressAdvancedOptions::CLIENT_KEY));
-        $requestURL->setQueryVariable("key", $this->_tpom->get(TubePressAdvancedOptions::DEV_KEY));
+        $requestURL->setQueryVariable("client", $this->_tpom->get(org_tubepress_options_category_Advanced::CLIENT_KEY));
+        $requestURL->setQueryVariable("key", $this->_tpom->get(org_tubepress_options_category_Advanced::DEV_KEY));
         
         $request = $requestURL->getURL();
     }
@@ -145,7 +145,7 @@ class org_tubepress_url_SimpleUrlBuilder implements org_tubepress_url_UrlBuilder
        	return $requestURL->getURL();
     }
     
-    public function setOptionsManager(TubePressOptionsManager $tpom)
+    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom)
     { 
     	$this->_tpom = $tpom; 
     }

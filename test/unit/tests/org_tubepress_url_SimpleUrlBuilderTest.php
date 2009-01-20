@@ -10,7 +10,7 @@ class org_tubepress_url_SimpleUrlBuilderTest extends PHPUnit_Framework_TestCase 
 	
 	function testBuildGalleryUrlUserMode()
 	{
-		$tpom = $this->getMock("TubePressOptionsManager");
+		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$tpom->expects($this->exactly(8))
 			 ->method("get")
 			 ->will($this->returnCallback("userModeCallback"));
@@ -21,7 +21,7 @@ class org_tubepress_url_SimpleUrlBuilderTest extends PHPUnit_Framework_TestCase 
 	
 	function testBuildGalleryUrlTopRated()
 	{
-		$tpom = $this->getMock("TubePressOptionsManager");
+		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$tpom->expects($this->exactly(8))
 			 ->method("get")
 			 ->will($this->returnCallback("topRatedModeCallback"));
@@ -32,7 +32,7 @@ class org_tubepress_url_SimpleUrlBuilderTest extends PHPUnit_Framework_TestCase 
 	
 	function testBuildGalleryUrlPopular()
 	{
-		$tpom = $this->getMock("TubePressOptionsManager");
+		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$tpom->expects($this->exactly(8))
 			 ->method("get")
 			 ->will($this->returnCallback("popularModeCallback"));
@@ -43,7 +43,7 @@ class org_tubepress_url_SimpleUrlBuilderTest extends PHPUnit_Framework_TestCase 
 	
 	function testBuildGalleryUrlPlaylist()
 	{
-		$tpom = $this->getMock("TubePressOptionsManager");
+		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$tpom->expects($this->exactly(8))
 			 ->method("get")
 			 ->will($this->returnCallback("playlistModeCallback"));
@@ -54,7 +54,7 @@ class org_tubepress_url_SimpleUrlBuilderTest extends PHPUnit_Framework_TestCase 
 	
 	function testBuildGalleryUrlMostResponded()
 	{
-		$tpom = $this->getMock("TubePressOptionsManager");
+		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$tpom->expects($this->exactly(7))
 			 ->method("get")
 			 ->will($this->returnCallback("mostRespondedModeCallback"));
@@ -65,7 +65,7 @@ class org_tubepress_url_SimpleUrlBuilderTest extends PHPUnit_Framework_TestCase 
 	
 	function testBuildGalleryUrlMostRecent()
 	{
-		$tpom = $this->getMock("TubePressOptionsManager");
+		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$tpom->expects($this->exactly(7))
 			 ->method("get")
 			 ->will($this->returnCallback("mostRecentCallback"));
@@ -76,7 +76,7 @@ class org_tubepress_url_SimpleUrlBuilderTest extends PHPUnit_Framework_TestCase 
 
 	function testBuildGalleryUrlMostLinked()
 	{
-		$tpom = $this->getMock("TubePressOptionsManager");
+		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$tpom->expects($this->exactly(7))
 			 ->method("get")
 			 ->will($this->returnCallback("mostLinkedCallback"));
@@ -87,7 +87,7 @@ class org_tubepress_url_SimpleUrlBuilderTest extends PHPUnit_Framework_TestCase 
 	
 	function testBuildGalleryUrlMostDiscussed()
 	{
-		$tpom = $this->getMock("TubePressOptionsManager");
+		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$tpom->expects($this->exactly(7))
 			 ->method("get")
 			 ->will($this->returnCallback("mostDiscussedCallback"));
@@ -98,7 +98,7 @@ class org_tubepress_url_SimpleUrlBuilderTest extends PHPUnit_Framework_TestCase 
 	
 	function testBuildGalleryUrlMobile()
 	{
-		$tpom = $this->getMock("TubePressOptionsManager");
+		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$tpom->expects($this->exactly(7))
 			 ->method("get")
 			 ->will($this->returnCallback("mobileCallback"));
@@ -109,7 +109,7 @@ class org_tubepress_url_SimpleUrlBuilderTest extends PHPUnit_Framework_TestCase 
 	
 	function testBuildGalleryUrlFavorites()
 	{
-		$tpom = $this->getMock("TubePressOptionsManager");
+		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$tpom->expects($this->exactly(8))
 			 ->method("get")
 			 ->will($this->returnCallback("favoritesCallback"));
@@ -120,7 +120,7 @@ class org_tubepress_url_SimpleUrlBuilderTest extends PHPUnit_Framework_TestCase 
 	
 	function testBuildGalleryUrlTag()
 	{
-		$tpom = $this->getMock("TubePressOptionsManager");
+		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$tpom->expects($this->exactly(8))
 			 ->method("get")
 			 ->will($this->returnCallback("tagCallback"));
@@ -131,7 +131,7 @@ class org_tubepress_url_SimpleUrlBuilderTest extends PHPUnit_Framework_TestCase 
 	
 	function testBuildGalleryUrlFeatured()
 	{
-		$tpom = $this->getMock("TubePressOptionsManager");
+		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$tpom->expects($this->exactly(7))
 			 ->method("get")
 			 ->will($this->returnCallback("featuredCallback"));
@@ -150,13 +150,13 @@ function mostRecentCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::MOST_RECENT,
-		TubePressDisplayOptions::RESULTS_PER_PAGE => 3,
-        TubePressAdvancedOptions::FILTER => true,
-        TubePressDisplayOptions::ORDER_BY => "relevance",
-        TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::MOST_RECENT,
-        TubePressAdvancedOptions::CLIENT_KEY => "clientkey",
-        TubePressAdvancedOptions::DEV_KEY => "devkey"
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_RECENT,
+		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
+        org_tubepress_options_category_Advanced::FILTER => true,
+        org_tubepress_options_category_Display::ORDER_BY => "relevance",
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_RECENT,
+        org_tubepress_options_category_Advanced::CLIENT_KEY => "clientkey",
+        org_tubepress_options_category_Advanced::DEV_KEY => "devkey"
 	);
 	return $vals[$args[0]]; 
 }
@@ -165,13 +165,13 @@ function mostRespondedModeCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::MOST_RESPONDED,
-		TubePressDisplayOptions::RESULTS_PER_PAGE => 3,
-        TubePressAdvancedOptions::FILTER => true,
-        TubePressDisplayOptions::ORDER_BY => "relevance",
-        TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::MOST_RESPONDED,
-        TubePressAdvancedOptions::CLIENT_KEY => "clientkey",
-        TubePressAdvancedOptions::DEV_KEY => "devkey"
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_RESPONDED,
+		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
+        org_tubepress_options_category_Advanced::FILTER => true,
+        org_tubepress_options_category_Display::ORDER_BY => "relevance",
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_RESPONDED,
+        org_tubepress_options_category_Advanced::CLIENT_KEY => "clientkey",
+        org_tubepress_options_category_Advanced::DEV_KEY => "devkey"
 	);
 	return $vals[$args[0]]; 
 }
@@ -180,14 +180,14 @@ function playlistModeCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::PLAYLIST,
-		TubePressGalleryOptions::PLAYLIST_VALUE => "fakeplaylist",
-		TubePressDisplayOptions::RESULTS_PER_PAGE => 3,
-        TubePressAdvancedOptions::FILTER => true,
-        TubePressDisplayOptions::ORDER_BY => "relevance",
-        TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::PLAYLIST,
-        TubePressAdvancedOptions::CLIENT_KEY => "clientkey",
-        TubePressAdvancedOptions::DEV_KEY => "devkey"
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::PLAYLIST,
+		org_tubepress_options_category_Gallery::PLAYLIST_VALUE => "fakeplaylist",
+		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
+        org_tubepress_options_category_Advanced::FILTER => true,
+        org_tubepress_options_category_Display::ORDER_BY => "relevance",
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::PLAYLIST,
+        org_tubepress_options_category_Advanced::CLIENT_KEY => "clientkey",
+        org_tubepress_options_category_Advanced::DEV_KEY => "devkey"
 	);
 	return $vals[$args[0]]; 
 }
@@ -196,14 +196,14 @@ function popularModeCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::POPULAR,
-		TubePressGalleryOptions::MOST_VIEWED_VALUE => "today",
-		TubePressDisplayOptions::RESULTS_PER_PAGE => 3,
-        TubePressAdvancedOptions::FILTER => true,
-        TubePressDisplayOptions::ORDER_BY => "relevance",
-        TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::POPULAR,
-        TubePressAdvancedOptions::CLIENT_KEY => "clientkey",
-        TubePressAdvancedOptions::DEV_KEY => "devkey"
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::POPULAR,
+		org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE => "today",
+		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
+        org_tubepress_options_category_Advanced::FILTER => true,
+        org_tubepress_options_category_Display::ORDER_BY => "relevance",
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::POPULAR,
+        org_tubepress_options_category_Advanced::CLIENT_KEY => "clientkey",
+        org_tubepress_options_category_Advanced::DEV_KEY => "devkey"
 	);
 	return $vals[$args[0]]; 
 }
@@ -212,14 +212,14 @@ function topRatedModeCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::TOP_RATED,
-		TubePressGalleryOptions::TOP_RATED_VALUE => "today",
-		TubePressDisplayOptions::RESULTS_PER_PAGE => 3,
-        TubePressAdvancedOptions::FILTER => true,
-        TubePressDisplayOptions::ORDER_BY => "relevance",
-        TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::TOP_RATED,
-        TubePressAdvancedOptions::CLIENT_KEY => "clientkey",
-        TubePressAdvancedOptions::DEV_KEY => "devkey"
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::TOP_RATED,
+		org_tubepress_options_category_Gallery::TOP_RATED_VALUE => "today",
+		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
+        org_tubepress_options_category_Advanced::FILTER => true,
+        org_tubepress_options_category_Display::ORDER_BY => "relevance",
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::TOP_RATED,
+        org_tubepress_options_category_Advanced::CLIENT_KEY => "clientkey",
+        org_tubepress_options_category_Advanced::DEV_KEY => "devkey"
 	);
 	return $vals[$args[0]]; 
 }
@@ -228,14 +228,14 @@ function userModeCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::USER,
-		TubePressGalleryOptions::USER_VALUE => "3hough",
-		TubePressDisplayOptions::RESULTS_PER_PAGE => 3,
-        TubePressAdvancedOptions::FILTER => true,
-        TubePressDisplayOptions::ORDER_BY => "relevance",
-        TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::USER,
-        TubePressAdvancedOptions::CLIENT_KEY => "clientkey",
-        TubePressAdvancedOptions::DEV_KEY => "devkey"
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
+		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
+		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
+        org_tubepress_options_category_Advanced::FILTER => true,
+        org_tubepress_options_category_Display::ORDER_BY => "relevance",
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
+        org_tubepress_options_category_Advanced::CLIENT_KEY => "clientkey",
+        org_tubepress_options_category_Advanced::DEV_KEY => "devkey"
 	);
 	return $vals[$args[0]]; 
 }
@@ -244,14 +244,14 @@ function mostLinkedCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::USER,
-		TubePressGalleryOptions::USER_VALUE => "3hough",
-		TubePressDisplayOptions::RESULTS_PER_PAGE => 3,
-        TubePressAdvancedOptions::FILTER => true,
-        TubePressDisplayOptions::ORDER_BY => "relevance",
-        TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::MOST_LINKED,
-        TubePressAdvancedOptions::CLIENT_KEY => "clientkey",
-        TubePressAdvancedOptions::DEV_KEY => "devkey"
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
+		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
+		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
+        org_tubepress_options_category_Advanced::FILTER => true,
+        org_tubepress_options_category_Display::ORDER_BY => "relevance",
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_LINKED,
+        org_tubepress_options_category_Advanced::CLIENT_KEY => "clientkey",
+        org_tubepress_options_category_Advanced::DEV_KEY => "devkey"
 	);
 	return $vals[$args[0]]; 
 }
@@ -260,14 +260,14 @@ function mostDiscussedCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::USER,
-		TubePressGalleryOptions::USER_VALUE => "3hough",
-		TubePressDisplayOptions::RESULTS_PER_PAGE => 3,
-        TubePressAdvancedOptions::FILTER => true,
-        TubePressDisplayOptions::ORDER_BY => "relevance",
-        TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::MOST_DISCUSSESD,
-        TubePressAdvancedOptions::CLIENT_KEY => "clientkey",
-        TubePressAdvancedOptions::DEV_KEY => "devkey"
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
+		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
+		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
+        org_tubepress_options_category_Advanced::FILTER => true,
+        org_tubepress_options_category_Display::ORDER_BY => "relevance",
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_DISCUSSESD,
+        org_tubepress_options_category_Advanced::CLIENT_KEY => "clientkey",
+        org_tubepress_options_category_Advanced::DEV_KEY => "devkey"
 	);
 	return $vals[$args[0]]; 
 }
@@ -276,14 +276,14 @@ function mobileCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::USER,
-		TubePressGalleryOptions::USER_VALUE => "3hough",
-		TubePressDisplayOptions::RESULTS_PER_PAGE => 3,
-        TubePressAdvancedOptions::FILTER => true,
-        TubePressDisplayOptions::ORDER_BY => "relevance",
-        TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::MOBILE,
-        TubePressAdvancedOptions::CLIENT_KEY => "clientkey",
-        TubePressAdvancedOptions::DEV_KEY => "devkey"
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
+		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
+		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
+        org_tubepress_options_category_Advanced::FILTER => true,
+        org_tubepress_options_category_Display::ORDER_BY => "relevance",
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOBILE,
+        org_tubepress_options_category_Advanced::CLIENT_KEY => "clientkey",
+        org_tubepress_options_category_Advanced::DEV_KEY => "devkey"
 	);
 	return $vals[$args[0]]; 
 }
@@ -292,15 +292,15 @@ function favoritesCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::USER,
-		TubePressGalleryOptions::USER_VALUE => "3hough",
-		TubePressDisplayOptions::RESULTS_PER_PAGE => 3,
-        TubePressAdvancedOptions::FILTER => true,
-        TubePressDisplayOptions::ORDER_BY => "relevance",
-        TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::FAVORITES,
-        TubePressGalleryOptions::FAVORITES_VALUE => "3hough",
-        TubePressAdvancedOptions::CLIENT_KEY => "clientkey",
-        TubePressAdvancedOptions::DEV_KEY => "devkey"
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
+		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
+		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
+        org_tubepress_options_category_Advanced::FILTER => true,
+        org_tubepress_options_category_Display::ORDER_BY => "relevance",
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::FAVORITES,
+        org_tubepress_options_category_Gallery::FAVORITES_VALUE => "3hough",
+        org_tubepress_options_category_Advanced::CLIENT_KEY => "clientkey",
+        org_tubepress_options_category_Advanced::DEV_KEY => "devkey"
 	);
 	return $vals[$args[0]]; 
 }
@@ -309,15 +309,15 @@ function tagCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::USER,
-		TubePressGalleryOptions::USER_VALUE => "3hough",
-		TubePressDisplayOptions::RESULTS_PER_PAGE => 3,
-        TubePressAdvancedOptions::FILTER => true,
-        TubePressDisplayOptions::ORDER_BY => "relevance",
-        TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::TAG,
-        TubePressAdvancedOptions::CLIENT_KEY => "clientkey",
-        TubePressAdvancedOptions::DEV_KEY => "devkey",
-        TubePressGalleryOptions::TAG_VALUE => "foo bar"
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
+		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
+		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
+        org_tubepress_options_category_Advanced::FILTER => true,
+        org_tubepress_options_category_Display::ORDER_BY => "relevance",
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::TAG,
+        org_tubepress_options_category_Advanced::CLIENT_KEY => "clientkey",
+        org_tubepress_options_category_Advanced::DEV_KEY => "devkey",
+        org_tubepress_options_category_Gallery::TAG_VALUE => "foo bar"
 	);
 	return $vals[$args[0]]; 
 }
@@ -326,15 +326,15 @@ function featuredCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::USER,
-		TubePressGalleryOptions::USER_VALUE => "3hough",
-		TubePressDisplayOptions::RESULTS_PER_PAGE => 3,
-        TubePressAdvancedOptions::FILTER => true,
-        TubePressDisplayOptions::ORDER_BY => "relevance",
-        TubePressGalleryOptions::MODE => org_tubepress_gallery_Gallery::FEATURED,
-        TubePressAdvancedOptions::CLIENT_KEY => "clientkey",
-        TubePressAdvancedOptions::DEV_KEY => "devkey",
-        TubePressGalleryOptions::TAG_VALUE => "foo bar"
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
+		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
+		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
+        org_tubepress_options_category_Advanced::FILTER => true,
+        org_tubepress_options_category_Display::ORDER_BY => "relevance",
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::FEATURED,
+        org_tubepress_options_category_Advanced::CLIENT_KEY => "clientkey",
+        org_tubepress_options_category_Advanced::DEV_KEY => "devkey",
+        org_tubepress_options_category_Gallery::TAG_VALUE => "foo bar"
 	);
 	return $vals[$args[0]]; 
 }

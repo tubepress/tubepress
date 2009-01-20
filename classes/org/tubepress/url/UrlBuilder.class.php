@@ -39,5 +39,5 @@ interface org_tubepress_url_UrlBuilder
      */
     public function buildSingleVideoUrl($id);
     
-    public function setOptionsManager(TubePressOptionsManager $tpom);
+    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom);
 }

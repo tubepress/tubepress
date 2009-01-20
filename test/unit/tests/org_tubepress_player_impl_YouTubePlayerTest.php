@@ -13,7 +13,7 @@ class org_tubepress_player_impl_YouTubePlayerTest extends PHPUnit_Framework_Test
 	{
 		$vid = new org_tubepress_video_Video();
 		$vid->setId("fakeid");
-		$tpom = $this->getMock("TubePressOptionsManager");
+		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$this->assertEquals("href=\"http://youtube.com/watch?v=fakeid\"", $this->_sut->getPlayLink($vid, $tpom));
 	}
 }

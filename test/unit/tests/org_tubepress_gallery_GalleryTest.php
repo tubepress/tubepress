@@ -117,7 +117,7 @@ EOT;
 		$this->_feedInspectionService 	= $this->getMock("org_tubepress_gdata_inspection_FeedInspectionService");
 		$this->_feedRetrievalService 	= $this->getMock("org_tubepress_gdata_retrieval_FeedRetrievalService");
 		$this->_messageService 			= $this->getMock("org_tubepress_message_MessageService");
-		$this->_optionsManager 			= $this->getMock("TubePressOptionsManager");
+		$this->_optionsManager 			= $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$this->_playerFactory			= $this->getMock("org_tubepress_player_factory_PlayerFactory");
 		$this->_qss						= $this->getMock("org_tubepress_querystring_QueryStringService");
 		$this->_thumbService 			= $this->getMock("org_tubepress_thumbnail_ThumbnailService");
@@ -132,18 +132,18 @@ function _tpomCallbackGalleryUnitTest()
 {
 	$args = func_get_args();
 	$vals = array(
-		TubePressAdvancedOptions::CACHE_ENABLED => true,
-		TubePressDisplayOptions::RESULTS_PER_PAGE => 3,
-		TubePressDisplayOptions::ORDER_BY => "relevance",
-		TubePressDisplayOptions::CURRENT_PLAYER_NAME => "normal",
-		TubePressEmbeddedOptions::EMBEDDED_WIDTH => 500,
-		TubePressEmbeddedOptions::EMBEDDED_HEIGHT => 600,
-        TubePressEmbeddedOptions::SHOW_RELATED => false,
-        TubePressEmbeddedOptions::PLAYER_COLOR => "/",
-        TubePressEmbeddedOptions::AUTOPLAY => true,
-        TubePressEmbeddedOptions::LOOP => true,
-        TubePressEmbeddedOptions::GENIE => false,
-        TubePressEmbeddedOptions::BORDER => true
+		org_tubepress_options_category_Advanced::CACHE_ENABLED => true,
+		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
+		org_tubepress_options_category_Display::ORDER_BY => "relevance",
+		org_tubepress_options_category_Display::CURRENT_PLAYER_NAME => "normal",
+		org_tubepress_options_category_Embedded::EMBEDDED_WIDTH => 500,
+		org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT => 600,
+        org_tubepress_options_category_Embedded::SHOW_RELATED => false,
+        org_tubepress_options_category_Embedded::PLAYER_COLOR => "/",
+        org_tubepress_options_category_Embedded::AUTOPLAY => true,
+        org_tubepress_options_category_Embedded::LOOP => true,
+        org_tubepress_options_category_Embedded::GENIE => false,
+        org_tubepress_options_category_Embedded::BORDER => true
 	);
 	return $vals[$args[0]];
 }

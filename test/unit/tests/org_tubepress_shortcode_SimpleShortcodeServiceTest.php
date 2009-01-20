@@ -6,7 +6,7 @@ class org_tubepress_shortcode_SimpleShortcodeServiceTest extends PHPUnit_Framewo
 	
 	function setUp()
 	{
-		$this->_tpom = $this->getMock("TubePressOptionsManager");
+		$this->_tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$this->_sut = new org_tubepress_shortcode_SimpleShortcodeService();
 	}
 	

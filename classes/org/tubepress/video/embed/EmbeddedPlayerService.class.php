@@ -26,16 +26,16 @@
 interface org_tubepress_video_embed_EmbeddedPlayerService
 {
     /**
-     * Applies options from a TubePressOptionsManager
+     * Applies options from a org_tubepress_options_manager_OptionsManager
      *
      * @param org_tubepress_video_Video          $vid  The video that this embedded player 
      *                                       will show
-     * @param TubePressOptionsManager $tpom The options manager
+     * @param org_tubepress_options_manager_OptionsManager $tpom The options manager
      * 
      * @return void
      */
     public function applyOptions(org_tubepress_video_Video $vid, 
-        TubePressOptionsManager $tpom);
+        org_tubepress_options_manager_OptionsManager $tpom);
     
     /**
      * Applies options from a string
@@ -47,17 +47,17 @@ interface org_tubepress_video_embed_EmbeddedPlayerService
     public function applyOptionsFromPackedString($packed);
     
     /**
-     * Packs options from a TubePressOptionsManager to a string
+     * Packs options from a org_tubepress_options_manager_OptionsManager to a string
      *
      * @param org_tubepress_video_Video          $vid  The video that this embedded 
      *                                       player will show
-     * @param TubePressOptionsManager $tpom The options manager that will 
+     * @param org_tubepress_options_manager_OptionsManager $tpom The options manager that will 
      *                                       be packed to a string
      * 
      * @return void
      */
     public function packOptionsToString(org_tubepress_video_Video $vid, 
-        TubePressOptionsManager $tpom);
+        org_tubepress_options_manager_OptionsManager $tpom);
     
     /**
      * Spits back the text for this embedded player

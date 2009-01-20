@@ -11,7 +11,7 @@ class org_tubepress_player_impl_GreyBoxPlayerTest extends PHPUnit_Framework_Test
 		global $tubepress_base_url;
 		$tubepress_base_url = "fakeurl";
 		$this->_sut = new org_tubepress_player_impl_GreyBoxPlayer();
-		$this->_tpom = $this->getMock("TubePressOptionsManager");
+		$this->_tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$this->_tpeps = $this->getMock("org_tubepress_video_embed_EmbeddedPlayerService");
 	}
 	
@@ -50,8 +50,8 @@ function greyboxCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		TubePressEmbeddedOptions::EMBEDDED_HEIGHT => 111,
-		TubePressEmbeddedOptions::EMBEDDED_WIDTH => 222
+		org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT => 111,
+		org_tubepress_options_category_Embedded::EMBEDDED_WIDTH => 222
 	);
 	return $vals[$args[0]]; 
 }

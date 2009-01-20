@@ -42,13 +42,13 @@ interface org_tubepress_player_Player
      * Tells the gallery how to play the videos
      *
      * @param org_tubepress_video_Video          $vid  The video to play
-     * @param TubePressOptionsManager $tpom The TubePress options manager
+     * @param org_tubepress_options_manager_OptionsManager $tpom The TubePress options manager
      * 
      * @return string The play link attributes
      */
-    public function getPlayLink(org_tubepress_video_Video $vid, TubePressOptionsManager $tpom);
+    public function getPlayLink(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom);
         
-    public function getPreGalleryHtml(org_tubepress_video_Video $vid, TubePressOptionsManager $tpom);
+    public function getPreGalleryHtml(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom);
     
     public function setEmbeddedPlayerService(org_tubepress_video_embed_EmbeddedPlayerService $tpeps);
 }

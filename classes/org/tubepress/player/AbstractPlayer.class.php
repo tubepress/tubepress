@@ -112,7 +112,7 @@ abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_play
     	return $this->_tpeps;
     }
     
-    public function getPreGalleryHtml(org_tubepress_video_Video $vid, TubePressOptionsManager $tpom)
+    public function getPreGalleryHtml(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom)
     {
     	return "";
     }

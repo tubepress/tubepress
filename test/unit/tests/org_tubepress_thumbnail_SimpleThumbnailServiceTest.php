@@ -8,7 +8,7 @@ class org_tubepress_thumbnail_SimpleThumbnailServiceTest extends PHPUnit_Framewo
 	
 	function setUp()
 	{
-		$this->_tpom = $this->getMock("TubePressOptionsManager");
+		$this->_tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$this->_messageService = $this->getMock("org_tubepress_message_MessageService");
 		$this->_player = $this->getMock("org_tubepress_player_Player");
 		$this->_sut = new org_tubepress_thumbnail_SimpleThumbnailService();
@@ -95,27 +95,27 @@ function stptsCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		TubePressAdvancedOptions::RANDOM_THUMBS => false,
-		TubePressDisplayOptions::THUMB_WIDTH => 40,
-		TubePressDisplayOptions::THUMB_HEIGHT => 100,
-		TubePressDisplayOptions::DESC_LIMIT => 20,
-		TubePressEmbeddedOptions::EMBEDDED_HEIGHT => 500,
-		TubePressEmbeddedOptions::EMBEDDED_WIDTH => 600,
-		TubePressAdvancedOptions::NOFOLLOW_LINKS => false,
-		TubePressMetaOptions::TITLE => true,
-		TubePressMetaOptions::LENGTH => true,
-		TubePressMetaOptions::DESCRIPTION => true,
-		TubePressMetaOptions::AUTHOR => true,
-		TubePressMetaOptions::TAGS => true,
-		TubePressMetaOptions::URL => true,
-		TubePressMetaOptions::VIEWS => true,
-		TubePressMetaOptions::ID => true,
-		TubePressMetaOptions::RATING => true,
-		TubePressMetaOptions::RATINGS => true,
-		TubePressMetaOptions::UPLOADED => true,
-		TubePressDisplayOptions::RELATIVE_DATES => false,
-		TubePressAdvancedOptions::DATEFORMAT => "m, d",
-		TubePressMetaOptions::CATEGORY => true
+		org_tubepress_options_category_Advanced::RANDOM_THUMBS => false,
+		org_tubepress_options_category_Display::THUMB_WIDTH => 40,
+		org_tubepress_options_category_Display::THUMB_HEIGHT => 100,
+		org_tubepress_options_category_Display::DESC_LIMIT => 20,
+		org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT => 500,
+		org_tubepress_options_category_Embedded::EMBEDDED_WIDTH => 600,
+		org_tubepress_options_category_Advanced::NOFOLLOW_LINKS => false,
+		org_tubepress_options_category_Meta::TITLE => true,
+		org_tubepress_options_category_Meta::LENGTH => true,
+		org_tubepress_options_category_Meta::DESCRIPTION => true,
+		org_tubepress_options_category_Meta::AUTHOR => true,
+		org_tubepress_options_category_Meta::TAGS => true,
+		org_tubepress_options_category_Meta::URL => true,
+		org_tubepress_options_category_Meta::VIEWS => true,
+		org_tubepress_options_category_Meta::ID => true,
+		org_tubepress_options_category_Meta::RATING => true,
+		org_tubepress_options_category_Meta::RATINGS => true,
+		org_tubepress_options_category_Meta::UPLOADED => true,
+		org_tubepress_options_category_Display::RELATIVE_DATES => false,
+		org_tubepress_options_category_Advanced::DATEFORMAT => "m, d",
+		org_tubepress_options_category_Meta::CATEGORY => true
 	);
 	return $vals[$args[0]];
 }

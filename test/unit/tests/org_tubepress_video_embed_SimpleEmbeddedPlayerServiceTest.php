@@ -13,7 +13,7 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerServiceTest extends PHPUnit_
 		$vid = new org_tubepress_video_Video();
 		$vid->setId("FAKEID");
 		
-		$this->_tpom = $this->getMock("TubePressOptionsManager");
+		$this->_tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		
 		$this->_tpom->expects($this->exactly(9))
 			 ->method("get")
@@ -37,15 +37,15 @@ EOT
 function callback() {
    	$args = func_get_args();
    	$vals = array(
-		TubePressEmbeddedOptions::EMBEDDED_HEIGHT => "350",
-		TubePressEmbeddedOptions::EMBEDDED_WIDTH => "450",
-		TubePressEmbeddedOptions::SHOW_RELATED => true,
-		TubePressEmbeddedOptions::PLAYER_COLOR => "0x111111/0x777777",
-		TubePressEmbeddedOptions::AUTOPLAY => false,
-		TubePressEmbeddedOptions::LOOP => true,
-		TubePressEmbeddedOptions::GENIE => false,
-		TubePressEmbeddedOptions::BORDER => true,
-		TubePressEmbeddedOptions::QUALITY => "normal"
+		org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT => "350",
+		org_tubepress_options_category_Embedded::EMBEDDED_WIDTH => "450",
+		org_tubepress_options_category_Embedded::SHOW_RELATED => true,
+		org_tubepress_options_category_Embedded::PLAYER_COLOR => "0x111111/0x777777",
+		org_tubepress_options_category_Embedded::AUTOPLAY => false,
+		org_tubepress_options_category_Embedded::LOOP => true,
+		org_tubepress_options_category_Embedded::GENIE => false,
+		org_tubepress_options_category_Embedded::BORDER => true,
+		org_tubepress_options_category_Embedded::QUALITY => "normal"
 	);
 	return $vals[$args[0]]; 
 }
