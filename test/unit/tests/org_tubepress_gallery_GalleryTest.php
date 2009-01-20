@@ -120,7 +120,7 @@ EOT;
 		$this->_optionsManager 			= $this->getMock("TubePressOptionsManager");
 		$this->_playerFactory			= $this->getMock("org_tubepress_player_factory_PlayerFactory");
 		$this->_qss						= $this->getMock("TubePressQueryStringService");
-		$this->_thumbService 			= $this->getMock("TubePressThumbnailService");
+		$this->_thumbService 			= $this->getMock("org_tubepress_thumbnail_ThumbnailService");
 		$this->_urlBuilderService 		= $this->getMock("org_tubepress_url_UrlBuilder");
 		$this->_videoFactory 			= $this->getMock("org_tubepress_video_factory_VideoFactory");
 		$this->_tpeps					= $this->getMock("org_tubepress_video_embed_EmbeddedPlayerService");

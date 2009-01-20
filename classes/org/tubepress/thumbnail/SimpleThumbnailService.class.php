@@ -20,14 +20,14 @@
  */
 
 if (!function_exists("TubePressRelativeTime")) {
-	include dirname(__FILE__) . "/../../../lib/relative_time.php";
+	include dirname(__FILE__) . "/../../../../lib/relative_time.php";
 }
 
 /**
  * Handles the parsing of the meta info below each video thumbnail
  *
  */
-class SimpleTubePressThumbnailService implements TubePressThumbnailService
+class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_thumbnail_ThumbnailService
 {
 	private $_tpl;
 	private $_tpom;
@@ -37,7 +37,7 @@ class SimpleTubePressThumbnailService implements TubePressThumbnailService
 	
     public function getHtml($templateFile, org_tubepress_video_Video $vid, org_tubepress_player_Player $player)
     {
-    	$this->_tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../ui");
+    	$this->_tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../../../common/ui");
         if (!$this->_tpl->loadTemplatefile($templateFile, true, true)) {
             throw new Exception("Couldn't load thumbnail template");
         }

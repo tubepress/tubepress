@@ -9,7 +9,7 @@ $testNames = array(
 	"SimpleTubePressOptionsManager",
 	"SimpleTubePressQueryStringService",
 	"SimpleTubePressShortcodeService",
-	"SimpleTubePressThumbnailService",
+	"org_tubepress_thumbnail_SimpleThumbnailService",
 	"org_tubepress_url_SimpleUrlBuilder",
 	"SimpleTubePressInputValidationService",
 	"org_tubepress_video_factory_SimpleVideoFactory",

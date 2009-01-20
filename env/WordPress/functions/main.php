@@ -114,7 +114,7 @@ function _tubepress_dependency_inject(org_tubepress_gallery_Gallery $gallery,
 	$playerFactory         = new org_tubepress_player_factory_SimplePlayerFactory();
 	$queryStringService    = new SimpleTubePressQueryStringService();
 	$paginationService     = new org_tubepress_pagination_DiggStylePaginationService();
-	$thumbService          = new SimpleTubePressThumbnailService();
+	$thumbService          = new org_tubepress_thumbnail_SimpleThumbnailService();
 	$urlBuilderService     = new org_tubepress_url_SimpleUrlBuilder();
     $videoFactory          = new org_tubepress_video_factory_SimpleVideoFactory();
 	

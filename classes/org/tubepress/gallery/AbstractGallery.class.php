@@ -176,7 +176,7 @@ abstract class org_tubepress_gallery_AbstractGallery
     	$this->_queryStringService = $qss; 
     }
     
-    public function setThumbnailService(TubePressThumbnailService $thumbService) 
+    public function setThumbnailService(org_tubepress_thumbnail_ThumbnailService $thumbService) 
     {            
     	$this->_thumbnailService = $thumbService; 
     }

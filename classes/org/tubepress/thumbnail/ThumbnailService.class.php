@@ -24,7 +24,7 @@
  * Handles the parsing of the meta info below each video thumbnail
  *
  */
-interface TubePressThumbnailService
+interface org_tubepress_thumbnail_ThumbnailService
 {
     public function getHtml($templateFile, org_tubepress_video_Video $vid, org_tubepress_player_Player $player);
     

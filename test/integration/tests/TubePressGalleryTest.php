@@ -16,7 +16,7 @@ class TubePressGalleryTest extends PHPUnit_Framework_TestCase {
 					   ->method("_")
 					   ->will($this->returnCallback("_msgCallback"));
 		
-        $thumbService = new SimpleTubePressThumbnailService();
+        $thumbService = new org_tubepress_thumbnail_SimpleThumbnailService();
         $thumbService->setOptionsManager($tpom);
         $thumbService->setMessageService($messageService);
         
