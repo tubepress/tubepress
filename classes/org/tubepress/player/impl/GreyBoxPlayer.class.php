@@ -57,7 +57,7 @@ class org_tubepress_player_impl_GreyBoxPlayer extends org_tubepress_player_Abstr
         $title  = $vid->getTitle();
         $height = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT);
         $width  = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
-        $url = new Net_URL2($tubepress_base_url . "/common/ui/popup.php");
+        $url = new net_php_pear_Net_URL2($tubepress_base_url . "/common/ui/popup.php");
         $url->setQueryVariable("id", $vid->getId());
         $url->setQueryVariable("opts", $this->getEmbeddedPlayerService()->packOptionsToString($vid, $tpom));
        

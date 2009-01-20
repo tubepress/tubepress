@@ -173,7 +173,7 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
      */
     public function toString()
     {
-        $link = new Net_URL2(sprintf("http://www.youtube.com/v/%s", $this->_id));
+        $link = new net_php_pear_Net_URL2(sprintf("http://www.youtube.com/v/%s", $this->_id));
         
         if ($this->_color1 != "" && $this->_color2 != "") {
             $link->setQueryVariable("color1", $this->_color1);

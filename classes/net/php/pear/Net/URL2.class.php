@@ -34,13 +34,13 @@
 //
 // $Id: URL2.php,v 1.10 2008/04/26 21:57:08 schmidt Exp $
 //
-// Net_URL2 Class (PHP5 Only)
+// net_php_pear_Net_URL2 Class (PHP5 Only)
 
 // This code is released under the BSD License - http://www.opensource.org/licenses/bsd-license.php
 /**
  * @license BSD License
  */
-class Net_URL2
+class net_php_pear_Net_URL2
 {
     /**
      * Do strict parsing in resolve() (see RFC 3986, section 5.2.2). Default
@@ -549,9 +549,9 @@ class Net_URL2
     }
 
     /** 
-     * Returns a normalized Net_URL2 instance.
+     * Returns a normalized net_php_pear_Net_URL2 instance.
      *
-     * @return  Net_URL2
+     * @return  net_php_pear_Net_URL2
      */
     public function normalize()
     {
@@ -602,12 +602,12 @@ class Net_URL2
     }
 
     /**
-     * Returns an Net_URL2 instance representing an absolute URL relative to
+     * Returns an net_php_pear_Net_URL2 instance representing an absolute URL relative to
      * this URL.
      *
-     * @param Net_URL2|string $reference relative URL
+     * @param net_php_pear_Net_URL2|string $reference relative URL
      *
-     * @return Net_URL2
+     * @return net_php_pear_Net_URL2
      */
     public function resolve($reference)
     {
@@ -726,7 +726,7 @@ class Net_URL2
     }
 
     /**
-     * Returns a Net_URL2 instance representing the canonical URL of the
+     * Returns a net_php_pear_Net_URL2 instance representing the canonical URL of the
      * currently executing PHP script.
      * 
      * @return  string
@@ -762,10 +762,10 @@ class Net_URL2
     }
 
     /**
-     * Returns a Net_URL2 instance representing the URL used to retrieve the
+     * Returns a net_php_pear_Net_URL2 instance representing the URL used to retrieve the
      * current request.
      *
-     * @return  Net_URL2
+     * @return  net_php_pear_Net_URL2
      */
     public static function getRequested()
     {

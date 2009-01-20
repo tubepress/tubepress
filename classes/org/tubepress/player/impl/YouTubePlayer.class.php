@@ -34,7 +34,7 @@ class org_tubepress_player_impl_YouTubePlayer extends org_tubepress_player_Abstr
      */
     function getPlayLink(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom)
     {   
-        $link = new Net_URL2(sprintf('href="http://youtube.com/watch?v=%s"',
+        $link = new net_php_pear_Net_URL2(sprintf('href="http://youtube.com/watch?v=%s"',
             $vid->getId()));
         
         switch ($tpom->get(org_tubepress_options_category_Embedded::QUALITY)) {

@@ -119,7 +119,7 @@ class org_tubepress_url_SimpleUrlBuilder implements org_tubepress_url_UrlBuilder
         /* start index of the videos */
         $start = ($currentPage * $perPage) - $perPage + 1;
         
-        $requestURL = new Net_URL2($request);
+        $requestURL = new net_php_pear_Net_URL2($request);
         $requestURL->setQueryVariable("start-index", $start);
         $requestURL->setQueryVariable("max-results", $perPage);
         
@@ -138,7 +138,7 @@ class org_tubepress_url_SimpleUrlBuilder implements org_tubepress_url_UrlBuilder
     
     public function buildSingleVideoUrl($id)
     {
-    	$requestURL = new Net_URL2("http://gdata.youtube.com/feeds/api/videos");
+    	$requestURL = new net_php_pear_Net_URL2("http://gdata.youtube.com/feeds/api/videos");
     	$requestURL->setQueryVariable("q", $id);
     	$requestURL->setQueryVariable("max-results", 1);
         

@@ -26,7 +26,7 @@ class org_tubepress_gdata_retrieval_HTTPRequest2 extends org_tubepress_gdata_ret
 {
     protected function _fetchFromNetwork($request) {
     	$data = "";
-    	$request = new Net_URL2($request);
+    	$request = new net_php_pear_Net_URL2($request);
     	$req = new net_php_pear_HTTP_Request2($request);
     	$req->setAdapter(new net_php_pear_HTTP_Request2_Adapter_Socket());
 

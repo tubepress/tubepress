@@ -20,7 +20,7 @@ function diggstyle_getPaginationString(org_tubepress_message_MessageService $mes
     */
     $pagination = "";
     
-    $url = new Net_URL2($targetpage);
+    $url = new net_php_pear_Net_URL2($targetpage);
 
     if($lastpage > 1)
     {    

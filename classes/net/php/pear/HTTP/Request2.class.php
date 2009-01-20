@@ -92,7 +92,7 @@ class net_php_pear_HTTP_Request2
 
    /**
     * Request URL
-    * @var  Net_URL2
+    * @var  net_php_pear_Net_URL2
     */
     protected $url;
 
@@ -199,16 +199,16 @@ class net_php_pear_HTTP_Request2
     * and converted to auth data. If the URL does not have a path component,
     * that will be set to '/'.
     *
-    * @param    string|Net_URL2 Request URL
+    * @param    string|net_php_pear_Net_URL2 Request URL
     * @return   HTTP_Request2
     * @throws   HTTP_Request2_Exception
     */
     public function setUrl($url)
     {
         if (is_string($url)) {
-            $url = new Net_URL2($url);
+            $url = new net_php_pear_Net_URL2($url);
         }
-        if (!$url instanceof Net_URL2) {
+        if (!$url instanceof net_php_pear_Net_URL2) {
             throw new net_php_pear_HTTP_Request2_Exception('Parameter is not a valid HTTP URL');
         }
         // URL contains username / password?
@@ -229,7 +229,7 @@ class net_php_pear_HTTP_Request2
    /**
     * Returns the request URL
     *
-    * @return   Net_URL2
+    * @return   net_php_pear_Net_URL2
     */
     public function getUrl()
     {
@@ -675,7 +675,7 @@ class net_php_pear_HTTP_Request2
     public function send()
     {
         // Sanity check for URL
-        if (!$this->url instanceof Net_URL2) {
+        if (!$this->url instanceof net_php_pear_Net_URL2) {
             throw new net_php_pear_HTTP_Request2_Exception('No URL given');
         } elseif (!$this->url->isAbsolute()) {
             throw new net_php_pear_HTTP_Request2_Exception('Absolute URL required');
