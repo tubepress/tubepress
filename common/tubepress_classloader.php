@@ -21,21 +21,6 @@
 
 function tubepress_classloader($className)
 {
-    tubepress_ns_classloader($className);
-    
-    if (class_exists($className, false) || interface_exists($className, false)) {
-        return;
-    }
-    
-    $folder = tp_classFolder($className);
-    
-    if ($folder !== false) {
-        include_once($folder . $className . ".class.php");
-    }
-}
-
-function tubepress_ns_classloader($className)
-{
     if (class_exists($className, false) || interface_exists($className, false)) {
         return;
     }
@@ -46,34 +31,6 @@ function tubepress_ns_classloader($className)
     if (file_exists($absPath)) {
         include $currentDir . $fileName;    
     }
-}
-
-function tp_classFolder($className, $sub = DIRECTORY_SEPARATOR) {
-    
-    $currentDir = dirname(__FILE__) . "/../";
-
-    $dir = dir($currentDir . $sub);
-
-    if (file_exists($currentDir.$sub.$className.".class.php")) {
-        return $currentDir.$sub;
-    }
-    
-    while (false !== ($folder = $dir->read())) {
-            
-        if (strpos($folder, ".") === 0) {
-            continue;
-        }
-            
-        if (is_dir($currentDir.$sub.$folder)) {
-            $subFolder = tp_classFolder($className, $sub.$folder.DIRECTORY_SEPARATOR);
-                    
-            if ($subFolder) {
-                return $subFolder;
-            }
-        }     
-    }
-    $dir->close();
-    return false;
 }
 
 if (version_compare(PHP_VERSION, '5.1.2', '>=')) {
