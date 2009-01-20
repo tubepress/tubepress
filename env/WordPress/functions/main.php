@@ -106,7 +106,7 @@ GBS;
 function _tubepress_dependency_inject(org_tubepress_gallery_Gallery $gallery, 
     TubePressOptionsManager $tpom)
 {
-	$cacheService          = new SimpleTubePressCacheService();
+	$cacheService          = new org_tubepress_cache_SimpleCacheService();
 	$embedService          = new SimpleTubePressEmbeddedPlayerService();
 	$feedInspectionService = new SimpleTubePressFeedInspectionService();
 	$feedRetrievalService  = new TubePressFeedRetrievalService_HTTP_Request2();

@@ -22,7 +22,7 @@
 /**
  * General purpose cache for TubePress
  */
-class SimpleTubePressCacheService implements TubePressCacheService
+class org_tubepress_cache_SimpleCacheService implements org_tubepress_cache_CacheService
 {
 	private $_cache;
 	
@@ -37,13 +37,13 @@ class SimpleTubePressCacheService implements TubePressCacheService
 		 * http://code.google.com/p/tubepress/issues/detail?id=27
 		*/
 		function_exists("sys_get_temp_dir")
-    		|| require dirname(__FILE__) . "/../../../lib/sys_get_temp_dir.php";
+    		|| require dirname(__FILE__) . "/../../../../lib/sys_get_temp_dir.php";
 		
 		$this->_cache = new Cache_Lite(array("cacheDir" => sys_get_temp_dir()));
 	}
 	
 	/**
-	 * @see TubePressCacheService::get($key)
+	 * @see org_tubepress_cache_CacheService::get($key)
 	 */
 	public function get($key)
 	{
@@ -51,7 +51,7 @@ class SimpleTubePressCacheService implements TubePressCacheService
 	}
 	
 	/**
-	 * @see TubePressCacheService::has($key)
+	 * @see org_tubepress_cache_CacheService::has($key)
 	 */
 	public function has($key)
 	{
@@ -59,7 +59,7 @@ class SimpleTubePressCacheService implements TubePressCacheService
 	}
 	
 	/**
-	 * @see TubePressCacheService::save($key, $data)
+	 * @see org_tubepress_cache_CacheService::save($key, $data)
 	 */
 	public function save($key, $data)
 	{

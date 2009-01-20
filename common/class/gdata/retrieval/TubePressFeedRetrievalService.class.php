@@ -32,5 +32,5 @@ interface TubePressFeedRetrievalService
      */
     public function fetch($url, $useCache);
     
-    public function setCacheService(TubePressCacheService $cache);
+    public function setCacheService(org_tubepress_cache_CacheService $cache);
 }

@@ -22,7 +22,7 @@
 /**
  * String cache for TubePress
  */
-interface TubePressCacheService
+interface org_tubepress_cache_CacheService
 {
 	/**
 	 * Get a value from the cache

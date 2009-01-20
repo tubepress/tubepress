@@ -31,7 +31,7 @@ class TubePressGalleryTest extends PHPUnit_Framework_TestCase {
         $paginationService->setOptionsManager($tpom);
         $paginationService->setQueryStringService($queryStringService);
         
-        $this->_sut->setCacheService(             new SimpleTubePressCacheService());
+        $this->_sut->setCacheService(             new org_tubepress_cache_SimpleCacheService());
         $this->_sut->setFeedInspectionService( new SimpleTubePressFeedInspectionService());
         $this->_sut->setFeedRetrievalService(     new TubePressFeedRetrievalService_HTTP_Request2());
         $this->_sut->setOptionsManager(         $tpom);

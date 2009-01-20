@@ -1,11 +1,11 @@
 <?php
-class SimpleTubePressCacheServiceTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_cache_SimpleCacheServiceTest extends PHPUnit_Framework_TestCase {
 
 	private $_sut;
 
 	function setUp()
 	{
-		$this->_sut = new SimpleTubePressCacheService();
+		$this->_sut = new org_tubepress_cache_SimpleCacheService();
 	}
 
 	function testSetGet()

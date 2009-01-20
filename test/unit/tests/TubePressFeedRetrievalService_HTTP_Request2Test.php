@@ -6,7 +6,7 @@ class TubePressFeedRetrievalService_HTTP_Request2Test extends PHPUnit_Framework_
 	
 	function setUp()
 	{
-		$this->_mockCache = $this->getMock("TubePressCacheService");
+		$this->_mockCache = $this->getMock("org_tubepress_cache_CacheService");
 		$this->_sut = new TubePressFeedRetrievalService_HTTP_Request2();
 	}
 	

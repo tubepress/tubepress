@@ -4,7 +4,7 @@ require_once '/Applications/MAMP/bin/php5/lib/php/PHPUnit/Framework.php';
 require_once dirname(__FILE__) . "/../../common/tubepress_classloader.php";
 
 $testNames = array(
-	"SimpleTubePressCacheService",
+	"org_tubepress_cache_SimpleCacheService",
 	"SimpleTubePressFeedInspectionService",
 	"SimpleTubePressOptionsManager",
 	"SimpleTubePressQueryStringService",

@@ -71,7 +71,7 @@ abstract class AbstractTubePressFeedRetrievalService implements TubePressFeedRet
     
     protected abstract function _fetchFromNetwork($request);
     
-    public function setCacheService(TubePressCacheService $cache)
+    public function setCacheService(org_tubepress_cache_CacheService $cache)
     {
     	$this->_cache = $cache;
     }
