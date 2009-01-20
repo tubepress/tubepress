@@ -57,7 +57,7 @@
  * @author     Alexey Borzov <avb@php.net>
  * @version    Release: 0.1.0
  */
-abstract class HTTP_Request2_Adapter
+abstract class net_php_pear_HTTP_Request2_Adapter
 {
    /**
     * A list of methods that MUST NOT have a request body, per RFC 2616
@@ -85,7 +85,7 @@ abstract class HTTP_Request2_Adapter
 
    /**
     * Request body
-    * @var  string|resource|HTTP_Request2_MultipartBody
+    * @var  string|resource|net_php_pear_HTTP_Request2_MultipartBody
     * @see  HTTP_Request2::getBody()
     */
     protected $requestBody;
@@ -100,10 +100,10 @@ abstract class HTTP_Request2_Adapter
     * Sends request to the remote server and returns its response
     *
     * @param    HTTP_Request2
-    * @return   HTTP_Request2_Response
-    * @throws   HTTP_Request2_Exception
+    * @return   net_php_pear_HTTP_Request2_Response
+    * @throws   net_php_pear_HTTP_Request2_Exception
     */
-    abstract public function sendRequest(HTTP_Request2 $request);
+    abstract public function sendRequest(net_php_pear_HTTP_Request2 $request);
 
    /**
     * Calculates length of the request body, adds proper headers

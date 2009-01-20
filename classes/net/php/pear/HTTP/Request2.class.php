@@ -51,7 +51,7 @@
  * @version    Release: 0.1.0
  * @link       http://tools.ietf.org/html/rfc2616#section-5
  */
-class HTTP_Request2
+class net_php_pear_HTTP_Request2
 {
    /**#@+
     * Constants for HTTP request methods
@@ -121,7 +121,7 @@ class HTTP_Request2
     * @see  setConfig()
     */
     protected $config = array(
-        'adapter'           => 'HTTP_Request2_Adapter_Socket',
+        'adapter'           => 'net_php_pear_HTTP_Request2_Adapter_Socket',
         'connect_timeout'   => 10,
         'use_brackets'      => true,
         'protocol_version'  => '1.1',
@@ -209,7 +209,7 @@ class HTTP_Request2
             $url = new Net_URL2($url);
         }
         if (!$url instanceof Net_URL2) {
-            throw new HTTP_Request2_Exception('Parameter is not a valid HTTP URL');
+            throw new net_php_pear_HTTP_Request2_Exception('Parameter is not a valid HTTP URL');
         }
         // URL contains username / password?
         if ($url->getUserinfo()) {
@@ -247,7 +247,7 @@ class HTTP_Request2
     {
         // Method name should be a token: http://tools.ietf.org/html/rfc2616#section-5.1.1
         if (preg_match('![\x00-\x1f\x7f-\xff()<>@,;:\\\\"/\[\]?={}\s]!', $method)) {
-            throw new HTTP_Request2_Exception("Invalid request method '{$method}'");
+            throw new net_php_pear_HTTP_Request2_Exception("Invalid request method '{$method}'");
         }
         $this->method = $method;
 
@@ -289,7 +289,7 @@ class HTTP_Request2
     {
         foreach ($config as $k => $v) {
             if (!array_key_exists($k, $this->config)) {
-                throw new HTTP_Request2_Exception("Unknown configuration parameter '{$k}'");
+                throw new net_php_pear_HTTP_Request2_Exception("Unknown configuration parameter '{$k}'");
             }
             $this->config[$k] = $v;
         }
@@ -306,7 +306,7 @@ class HTTP_Request2
     public function getConfigValue($name)
     {
         if (!array_key_exists($name, $this->config)) {
-            throw new HTTP_Request2_Exception("Unknown configuration parameter '{$name}'");
+            throw new net_php_pear_HTTP_Request2_Exception("Unknown configuration parameter '{$name}'");
         }
         return $this->config[$name];
     }
@@ -369,7 +369,7 @@ class HTTP_Request2
     *                           or an array of headers
     * @param    string|null     header value, header will be removed if null
     * @return   HTTP_Request2
-    * @throws   HTTP_Request2_Exception
+    * @throws   net_php_pear_HTTP_Request2_Exception
     */
     public function setHeader($name, $value = null)
     {
@@ -387,7 +387,7 @@ class HTTP_Request2
             }
             // Header name should be a token: http://tools.ietf.org/html/rfc2616#section-4.2
             if (preg_match('![\x00-\x1f\x7f-\xff()<>@,;:\\\\"/\[\]?={}\s]!', $name)) {
-                throw new HTTP_Request2_Exception("Invalid header name '{$name}'");
+                throw new net_php_pear_HTTP_Request2_Exception("Invalid header name '{$name}'");
             }
             // Header names are case insensitive anyway
             $name = strtolower($name);
@@ -420,14 +420,14 @@ class HTTP_Request2
     * @param    string  cookie name
     * @param    string  cookie value
     * @return   HTTP_Request2
-    * @throws   HTTP_Request2_Exception
+    * @throws   net_php_pear_HTTP_Request2_Exception
     */
     public function addCookie($name, $value)
     {
         $cookie = $name . '=' . $value;
         // Disallowed characters: http://cgi.netscape.com/newsref/std/cookie_spec.html
         if (preg_match('/[\s,;]/', $cookie)) {
-            throw new HTTP_Request2_Exception("Invalid cookie: '{$cookie}'");
+            throw new net_php_pear_HTTP_Request2_Exception("Invalid cookie: '{$cookie}'");
         }
         $cookies = empty($this->headers['cookie'])? '': $this->headers['cookie'] . '; ';
         $this->setHeader('cookie', $cookies . $cookie);
@@ -441,7 +441,7 @@ class HTTP_Request2
     * @param    string  Either a string with the body or filename containing body
     * @param    bool    Whether first parameter is a filename
     * @return   HTTP_Request2
-    * @throws   HTTP_Request2_Exception
+    * @throws   net_php_pear_HTTP_Request2_Exception
     */
     public function setBody($body, $isFilename = false)
     {
@@ -449,7 +449,7 @@ class HTTP_Request2
             $this->body = (string)$body;
         } else {
             if (!($fp = @fopen($body, 'rb'))) {
-                throw new HTTP_Request2_Exception("Cannot open file {$body}");
+                throw new net_php_pear_HTTP_Request2_Exception("Cannot open file {$body}");
             }
             $this->body = $fp;
             if (empty($this->headers['content-type'])) {
@@ -463,7 +463,7 @@ class HTTP_Request2
    /**
     * Returns the request body
     *
-    * @return   string|resource|HTTP_Request2_MultipartBody
+    * @return   string|resource|net_php_pear_HTTP_Request2_MultipartBody
     */
     public function getBody()
     {
@@ -479,7 +479,7 @@ class HTTP_Request2
 
             } elseif ('multipart/form-data' == $this->headers['content-type']) {
                 require_once 'HTTP/Request2/MultipartBody.php';
-                return new HTTP_Request2_MultipartBody(
+                return new net_php_pear_HTTP_Request2_MultipartBody(
                     $this->postParams, $this->uploads, $this->getConfigValue('use_brackets')
                 );
             }
@@ -501,14 +501,14 @@ class HTTP_Request2
     * @param    string  filename to send in the request 
     * @param    string  content-type of file being uploaded
     * @return   HTTP_Request2
-    * @throws   HTTP_Request2_Exception
+    * @throws   net_php_pear_HTTP_Request2_Exception
     */
     public function addUpload($fieldName, $filename, $sendFilename = null,
                               $contentType = null)
     {
         if (!is_array($filename)) {
             if (!($fp = @fopen($filename, 'rb'))) {
-                throw new HTTP_Request2_Exception("Cannot open file {$filename}");
+                throw new net_php_pear_HTTP_Request2_Exception("Cannot open file {$filename}");
             }
             $this->uploads[$fieldName] = array(
                 'fp'        => $fp,
@@ -523,7 +523,7 @@ class HTTP_Request2
                     $f = array($f);
                 }
                 if (!($fp = @fopen($f[0], 'rb'))) {
-                    throw new HTTP_Request2_Exception("Cannot open file {$f[0]}");
+                    throw new net_php_pear_HTTP_Request2_Exception("Cannot open file {$f[0]}");
                 }
                 $fps[]   = $fp;
                 $names[] = empty($f[1])? basename($f[0]): $f[1];
@@ -640,26 +640,26 @@ class HTTP_Request2
     *
     * @param    string|HTTP_Request2_Adapter
     * @return   HTTP_Request2
-    * @throws   HTTP_Request2_Exception
+    * @throws   net_php_pear_HTTP_Request2_Exception
     */
     public function setAdapter($adapter)
     {
         if (is_string($adapter)) {
             if (!class_exists($adapter, false)) {
                 if (false === strpos($adapter, '_')) {
-                    $adapter = 'HTTP_Request2_Adapter_' . ucfirst($adapter);
+                    $adapter = 'net_php_pear_HTTP_Request2_Adapter_' . ucfirst($adapter);
                 }
-                if (preg_match('/^HTTP_Request2_Adapter_([a-zA-Z0-9]+)$/', $adapter)) {
+                if (preg_match('/^net_php_pear_HTTP_Request2_Adapter_([a-zA-Z0-9]+)$/', $adapter)) {
                     
                 }
                 if (!class_exists($adapter, false)) {
-                    throw new HTTP_Request2_Exception("Class {$adapter} not found");
+                    throw new net_php_pear_HTTP_Request2_Exception("Class {$adapter} not found");
                 }
             }
             $adapter = new $adapter;
         }
-        if (!$adapter instanceof HTTP_Request2_Adapter) {
-            throw new HTTP_Request2_Exception('Parameter is not a HTTP request adapter');
+        if (!$adapter instanceof net_php_pear_HTTP_Request2_Adapter) {
+            throw new net_php_pear_HTTP_Request2_Exception('Parameter is not a HTTP request adapter');
         }
         $this->adapter = $adapter;
 
@@ -669,18 +669,18 @@ class HTTP_Request2
    /**
     * Sends the request and returns the response
     *
-    * @throws   HTTP_Request2_Exception
-    * @return   HTTP_Request2_Response
+    * @throws   net_php_pear_HTTP_Request2_Exception
+    * @return   net_php_pear_HTTP_Request2_Response
     */
     public function send()
     {
         // Sanity check for URL
         if (!$this->url instanceof Net_URL2) {
-            throw new HTTP_Request2_Exception('No URL given');
+            throw new net_php_pear_HTTP_Request2_Exception('No URL given');
         } elseif (!$this->url->isAbsolute()) {
-            throw new HTTP_Request2_Exception('Absolute URL required');
+            throw new net_php_pear_HTTP_Request2_Exception('Absolute URL required');
         } elseif (!in_array(strtolower($this->url->getScheme()), array('https', 'http'))) {
-            throw new HTTP_Request2_Exception('Not a HTTP URL');
+            throw new net_php_pear_HTTP_Request2_Exception('Not a HTTP URL');
         }
         if (empty($this->adapter)) {
             $this->setAdapter($this->getConfigValue('adapter'));

@@ -60,7 +60,7 @@
  * @todo       Proper read timeout handling
  * @todo        Support various SSL options
  */
-class HTTP_Request2_Adapter_Socket extends HTTP_Request2_Adapter
+class net_php_pear_HTTP_Request2_Adapter_Socket extends net_php_pear_HTTP_Request2_Adapter
 {
    /**
     * Connected sockets, needed for Keep-Alive support
@@ -87,10 +87,10 @@ class HTTP_Request2_Adapter_Socket extends HTTP_Request2_Adapter
     * Sends request to the remote server and returns its response
     *
     * @param    HTTP_Request2
-    * @return   HTTP_Request2_Response
-    * @throws   HTTP_Request2_Exception
+    * @return   net_php_pear_HTTP_Request2_Response
+    * @throws   net_php_pear_HTTP_Request2_Exception
     */
-    public function sendRequest(HTTP_Request2 $request)
+    public function sendRequest(net_php_pear_HTTP_Request2 $request)
     {
         $this->request = $request;
         $keepAlive     = $this->connect();
@@ -98,7 +98,7 @@ class HTTP_Request2_Adapter_Socket extends HTTP_Request2_Adapter
 
         try {
             if (false === @fwrite($this->socket, $headers, strlen($headers))) {
-                throw new HTTP_Request2_Exception('Error writing request');
+                throw new net_php_pear_HTTP_Request2_Exception('Error writing request');
             }
             // provide request headers to the observer, see request #7633
             $this->request->setLastEvent('sentHeaders', $headers);
@@ -126,13 +126,13 @@ class HTTP_Request2_Adapter_Socket extends HTTP_Request2_Adapter
     * Connects to the remote server
     *
     * @return   bool    whether the connection can be persistent
-    * @throws   HTTP_Request2_Exception
+    * @throws   net_php_pear_HTTP_Request2_Exception
     */
     protected function connect()
     {
         if ($host = $this->request->getConfigValue('proxy_host')) {
             if (!($port = $this->request->getConfigValue('proxy_port'))) {
-                throw new HTTP_Request2_Exception('Proxy port not provided');
+                throw new net_php_pear_HTTP_Request2_Exception('Proxy port not provided');
             }
             $proxy = true;
         } else {
@@ -147,9 +147,9 @@ class HTTP_Request2_Adapter_Socket extends HTTP_Request2_Adapter
 
         if (0 == strcasecmp($this->request->getUrl()->getScheme(), 'https')) {
             if ($proxy) {
-                throw new HTTP_Request2_Exception('HTTPS proxy support not yet implemented');
+                throw new net_php_pear_HTTP_Request2_Exception('HTTPS proxy support not yet implemented');
             } elseif (!in_array('ssl', stream_get_transports())) {
-                throw new HTTP_Request2_Exception('Need OpenSSL support for https:// requests');
+                throw new net_php_pear_HTTP_Request2_Exception('Need OpenSSL support for https:// requests');
             }
             $host = 'ssl://' . $host;
         } else {
@@ -182,7 +182,7 @@ class HTTP_Request2_Adapter_Socket extends HTTP_Request2_Adapter
                 STREAM_CLIENT_CONNECT
             );
             if (!$this->socket) {
-                throw new HTTP_Request2_Exception(
+                throw new net_php_pear_HTTP_Request2_Exception(
                     'Unable to connect to ' . $socketKey . '. Error #' . $errno .
                     ': ' . $errstr
                 );
@@ -212,19 +212,19 @@ class HTTP_Request2_Adapter_Socket extends HTTP_Request2_Adapter
     * @param    string  password
     * @param    string  authentication scheme, one of the HTTP_Request2::AUTH_* constants
     * @return   string  header value
-    * @throws   HTTP_Request2_Exception
+    * @throws   net_php_pear_HTTP_Request2_Exception
     */
     protected function createAuthHeader($user, $pass, $scheme)
     {
         switch ($scheme) {
-            case HTTP_Request2::AUTH_BASIC:
+            case net_php_pear_HTTP_Request2::AUTH_BASIC:
                 return 'Basic ' . base64_encode($user . ':' . $pass);
 
-            case HTTP_Request2::AUTH_DIGEST:
-                throw new HTTP_Request2_Exception('Digest authentication is not implemented yet.');
+            case net_php_pear_HTTP_Request2::AUTH_DIGEST:
+                throw new net_php_pear_HTTP_Request2_Exception('Digest authentication is not implemented yet.');
 
             default:
-                throw new HTTP_Request2_Exception("Unknown HTTP authentication scheme '{$scheme}'");
+                throw new net_php_pear_HTTP_Request2_Exception("Unknown HTTP authentication scheme '{$scheme}'");
         }
     }
 
@@ -232,7 +232,7 @@ class HTTP_Request2_Adapter_Socket extends HTTP_Request2_Adapter
     * Creates the string with the Request-Line and request headers
     *
     * @return   string
-    * @throws   HTTP_Request2_Exception
+    * @throws   net_php_pear_HTTP_Request2_Exception
     */
     protected function prepareHeaders()
     {
@@ -290,7 +290,7 @@ class HTTP_Request2_Adapter_Socket extends HTTP_Request2_Adapter
    /**
     * Sends the request body
     *
-    * @throws   HTTP_Request2_Exception
+    * @throws   net_php_pear_HTTP_Request2_Exception
     */
     protected function writeBody()
     {
@@ -311,7 +311,7 @@ class HTTP_Request2_Adapter_Socket extends HTTP_Request2_Adapter
                 $str = $this->requestBody->read($bufferSize);
             }
             if (false === @fwrite($this->socket, $str, strlen($str))) {
-                throw new HTTP_Request2_Exception('Error writing request');
+                throw new net_php_pear_HTTP_Request2_Exception('Error writing request');
             }
             // Provide the length of written string to the observer, request #7630
             $this->request->setLastEvent('sentBodyPart', strlen($str));
@@ -322,15 +322,15 @@ class HTTP_Request2_Adapter_Socket extends HTTP_Request2_Adapter
    /**
     * Reads the remote server's response
     *
-    * @return   HTTP_Request2_Response
-    * @throws   HTTP_Request2_Exception
+    * @return   net_php_pear_HTTP_Request2_Response
+    * @throws   net_php_pear_HTTP_Request2_Exception
     */
     protected function readResponse()
     {
         $bufferSize = $this->request->getConfigValue('buffer_size');
 
         do {
-            $response = new HTTP_Request2_Response($this->readLine($bufferSize), true);
+            $response = new net_php_pear_HTTP_Request2_Response($this->readLine($bufferSize), true);
             do {
                 $headerLine = $this->readLine($bufferSize);
                 $response->parseHeaderLine($headerLine);
@@ -340,7 +340,7 @@ class HTTP_Request2_Adapter_Socket extends HTTP_Request2_Adapter
         $this->request->setLastEvent('receivedHeaders', $response);
 
         // No body possible in such responses
-        if (HTTP_Request2::METHOD_HEAD == $this->request->getMethod() ||
+        if (net_php_pear_HTTP_Request2::METHOD_HEAD == $this->request->getMethod() ||
             in_array($response->getStatus(), array(204, 304))
         ) {
             return $response;
@@ -412,7 +412,7 @@ class HTTP_Request2_Adapter_Socket extends HTTP_Request2_Adapter
     *
     * @param    int     buffer size to use for reading
     * @return   string
-    * @throws   HTTP_Request2_Exception
+    * @throws   net_php_pear_HTTP_Request2_Exception
     */
     protected function readChunked($bufferSize)
     {
@@ -420,7 +420,7 @@ class HTTP_Request2_Adapter_Socket extends HTTP_Request2_Adapter
         if (0 == $this->chunkLength) {
             $line = $this->readLine($bufferSize);
             if (!preg_match('/^([0-9a-f]+)/i', $line, $matches)) {
-                throw new HTTP_Request2_Exception(
+                throw new net_php_pear_HTTP_Request2_Exception(
                     "Cannot decode chunked response, invalid chunk length '{$line}'"
                 );
             } else {

@@ -53,7 +53,7 @@ v<?php
  * @version    Release: 0.1.0
  * @link       http://tools.ietf.org/html/rfc1867
  */
-class HTTP_Request2_MultipartBody
+class net_php_pear_HTTP_Request2_MultipartBody
 {
    /**
     * MIME boundary
