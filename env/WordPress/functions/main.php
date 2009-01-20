@@ -36,7 +36,7 @@ function _tubepress_content_filter($content) {
 
 	$wpsm             = new WordPressStorageManager();
     $trigger          = $wpsm->get(TubePressAdvancedOptions::KEYWORD);
-	$shortcodeService = new SimpleTubePressShortcodeService();
+	$shortcodeService = new org_tubepress_shortcode_SimpleShortcodeService();
     
 	/* no shortcode? get out */
     if (!$shortcodeService->somethingToParse($content, $trigger)) {

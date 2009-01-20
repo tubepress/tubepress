@@ -64,7 +64,7 @@ function tubepress_widget($opts)
 	);
 	
 	/* now apply the user's shortcode */
-	$shortcodeService = new SimpleTubePressShortcodeService();
+	$shortcodeService = new org_tubepress_shortcode_SimpleShortcodeService();
 	$shortcodeService->parse($wpsm->get(TubePressWidgetOptions::TAGSTRING), $tpom);
 	
 	$gallery = new org_tubepress_gallery_WidgetGallery();

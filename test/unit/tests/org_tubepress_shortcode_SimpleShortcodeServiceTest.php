@@ -1,5 +1,5 @@
 <?php
-class SimpleTubePressShortcodeServiceTest extends PHPUnit_Framework_TestCase
+class org_tubepress_shortcode_SimpleShortcodeServiceTest extends PHPUnit_Framework_TestCase
 {
 	private $_sut;
 	private $_tpom;
@@ -7,7 +7,7 @@ class SimpleTubePressShortcodeServiceTest extends PHPUnit_Framework_TestCase
 	function setUp()
 	{
 		$this->_tpom = $this->getMock("TubePressOptionsManager");
-		$this->_sut = new SimpleTubePressShortcodeService();
+		$this->_sut = new org_tubepress_shortcode_SimpleShortcodeService();
 	}
 	
 	function testParse()

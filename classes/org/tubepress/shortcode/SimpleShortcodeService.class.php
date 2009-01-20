@@ -22,7 +22,7 @@
 /**
  * Handles some tasks related to the query string
  */
-class SimpleTubePressShortcodeService implements TubePressShortcodeService
+class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_shortcode_ShortcodeService
 {
    /**
      * This function is used to parse a shortcode into options that TubePress can use.
@@ -60,8 +60,8 @@ class SimpleTubePressShortcodeService implements TubePressShortcodeService
         $optionsArray = array();
         foreach ($pairs as $pair) {
             $pieces                    = explode("=", $pair);
-            $pieces[0]                 = SimpleTubePressShortcodeService::_cleanupTagValue($pieces[0]);
-            $pieces[1]                 = SimpleTubePressShortcodeService::_cleanupTagValue($pieces[1]);
+            $pieces[0]                 = org_tubepress_shortcode_SimpleShortcodeService::_cleanupTagValue($pieces[0]);
+            $pieces[1]                 = org_tubepress_shortcode_SimpleShortcodeService::_cleanupTagValue($pieces[1]);
             $customOptions[$pieces[0]] = $pieces[1];
         }
 

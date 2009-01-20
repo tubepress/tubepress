@@ -22,7 +22,7 @@
 /**
  * Handles some tasks related to the query string
  */
-interface TubePressShortcodeService
+interface org_tubepress_shortcode_ShortcodeService
 {
    /**
      * This function is used to parse a shortcode into options that TubePress can use.

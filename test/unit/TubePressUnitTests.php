@@ -8,7 +8,7 @@ $testNames = array(
 	"SimpleTubePressFeedInspectionService",
 	"SimpleTubePressOptionsManager",
 	"org_tubepress_querystring_SimpleQueryStringService",
-	"SimpleTubePressShortcodeService",
+	"org_tubepress_shortcode_SimpleShortcodeService",
 	"org_tubepress_thumbnail_SimpleThumbnailService",
 	"org_tubepress_url_SimpleUrlBuilder",
 	"SimpleTubePressInputValidationService",
