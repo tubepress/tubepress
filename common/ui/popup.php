@@ -32,7 +32,7 @@ require dirname(__FILE__) . "/../../common/tubepress_classloader.php";
 $urlBuilder = new org_tubepress_url_SimpleUrlBuilder();
 $url = $urlBuilder->buildSingleVideoUrl($_GET["id"]);
 
-$frs = new TubePressFeedRetrievalService_HTTP_Request2();
+$frs = new org_tubepress_gdata_retrieval_HTTPRequest2();
 $xml = $frs->fetch($url, false);
 
 $factory = new org_tubepress_video_factory_SimpleVideoFactory();

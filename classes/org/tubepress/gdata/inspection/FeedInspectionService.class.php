@@ -23,7 +23,7 @@
  * Examines the feed results
  *
  */
-interface TubePressFeedInspectionService
+interface org_tubepress_gdata_inspection_FeedInspectionService
 {   
     public function getTotalResultCount(DOMDocument $dom);
     

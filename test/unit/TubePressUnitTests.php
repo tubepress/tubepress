@@ -5,7 +5,7 @@ require_once dirname(__FILE__) . "/../../common/tubepress_classloader.php";
 
 $testNames = array(
 	"org_tubepress_cache_SimpleCacheService",
-	"SimpleTubePressFeedInspectionService",
+	"org_tubepress_gdata_inspection_SimpleFeedInspectionService",
 	"SimpleTubePressOptionsManager",
 	"org_tubepress_querystring_SimpleQueryStringService",
 	"org_tubepress_shortcode_SimpleShortcodeService",
@@ -22,7 +22,7 @@ $testNames = array(
 	"TubePressDisplayOptions",
 	"TubePressEmbeddedOptions",
 	"org_tubepress_video_embed_SimpleEmbeddedPlayerService",
-	"TubePressFeedRetrievalService_HTTP_Request2",
+	"org_tubepress_gdata_retrieval_HTTPRequest2",
 	"TubePressGalleryOptions",
 	"org_tubepress_gallery_Gallery",
 	"TubePressMetaOptions",

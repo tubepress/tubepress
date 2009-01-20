@@ -23,13 +23,13 @@
  * Examines the feed from YouTube
  *
  */
-class SimpleTubePressFeedInspectionService implements TubePressFeedInspectionService
+class org_tubepress_gdata_inspection_SimpleFeedInspectionService implements org_tubepress_gdata_inspection_FeedInspectionService
 {   
 	const NS_OPENSEARCH = 'http://a9.com/-/spec/opensearchrss/1.0/';
 	
     public function getTotalResultCount(DOMDocument $dom)
     {
-    	$result = $dom->getElementsByTagNameNS(SimpleTubePressFeedInspectionService::NS_OPENSEARCH,
+    	$result = $dom->getElementsByTagNameNS(org_tubepress_gdata_inspection_SimpleFeedInspectionService::NS_OPENSEARCH,
     		'totalResults')->item(0)->nodeValue;
     	
     	$this->_makeSureNumeric($result);

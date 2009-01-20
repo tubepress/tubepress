@@ -141,12 +141,12 @@ abstract class org_tubepress_gallery_AbstractGallery
     	$this->_galleryTemplate = $templateFile; 
     }
     
-    public function setFeedInspectionService(TubePressFeedInspectionService $feedInspector) 
+    public function setFeedInspectionService(org_tubepress_gdata_inspection_FeedInspectionService $feedInspector) 
     { 
     	$this->_feedInspectionService = $feedInspector; 
     }
     
-    public function setFeedRetrievalService(TubePressFeedRetrievalService $feedRetriever) 
+    public function setFeedRetrievalService(org_tubepress_gdata_retrieval_FeedRetrievalService $feedRetriever) 
     {   
     	$this->_feedRetrievalService = $feedRetriever; 
     }

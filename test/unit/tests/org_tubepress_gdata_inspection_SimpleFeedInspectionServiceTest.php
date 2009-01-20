@@ -1,11 +1,11 @@
 <?php
-class SimpleTubePressFeedInspectionServiceTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_gdata_inspection_SimpleFeedInspectionServiceTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;
 	
 	function setUp()
 	{
-		$this->_sut = new SimpleTubePressFeedInspectionService();
+		$this->_sut = new org_tubepress_gdata_inspection_SimpleFeedInspectionService();
 	}
 	
 	function testGetTotalResultCount()

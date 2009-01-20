@@ -22,7 +22,7 @@
 /**
  *
  */
-class TubePressFeedRetrievalService_HTTP_Request2 extends AbstractTubePressFeedRetrievalService
+class org_tubepress_gdata_retrieval_HTTPRequest2 extends org_tubepress_gdata_retrieval_AbstractFeedRetrievalService
 {
     protected function _fetchFromNetwork($request) {
     	$data = "";

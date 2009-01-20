@@ -23,7 +23,7 @@
  * TubePress's network interface
  *
  */
-interface TubePressFeedRetrievalService
+interface org_tubepress_gdata_retrieval_FeedRetrievalService
 {
     /**
      * Fetches the RSS from YouTube

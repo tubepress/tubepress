@@ -23,7 +23,7 @@
  * Base functionality for TubePressFeedRetrieval services
  *
  */
-abstract class AbstractTubePressFeedRetrievalService implements TubePressFeedRetrievalService
+abstract class org_tubepress_gdata_retrieval_AbstractFeedRetrievalService implements org_tubepress_gdata_retrieval_FeedRetrievalService
 {
 	private $_cache;
 	

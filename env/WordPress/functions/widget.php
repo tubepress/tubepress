@@ -125,8 +125,8 @@ function tubepress_widget_inject_deps(org_tubepress_gallery_AbstractGallery $gal
 {
 	$cacheService          = new org_tubepress_cache_SimpleCacheService();
 	$embedService          = new org_tubepress_video_embed_SimpleEmbeddedPlayerService();
-	$feedInsepctionService = new SimpleTubePressFeedInspectionService();
-	$feedRetrievalService  = new TubePressFeedRetrievalService_HTTP_Request2();
+	$feedInsepctionService = new org_tubepress_gdata_inspection_SimpleFeedInspectionService();
+	$feedRetrievalService  = new org_tubepress_gdata_retrieval_HTTPRequest2();
 	$messageService        = new org_tubepress_message_WordPressMessageService();
 	$paginationService     = new org_tubepress_pagination_DiggStylePaginationService();
 	$playerFactory         = new org_tubepress_player_factory_SimplePlayerFactory();
