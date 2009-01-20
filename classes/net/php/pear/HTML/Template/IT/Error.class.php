@@ -22,7 +22,7 @@
 * 
 * @package HTML_Template_IT
 */
-class IT_Error extends PEAR_Error {
+class net_php_pear_HTML_Template_IT_Error extends PEAR_Error {
 
 
   /**
@@ -39,7 +39,7 @@ class IT_Error extends PEAR_Error {
   * @param  string  file where the error occured
   * @param  string  linenumber where the error occured
   */
-  function IT_Error($msg, $file = __FILE__, $line = __LINE__) {
+  function net_php_pear_HTML_Template_IT_Error($msg, $file = __FILE__, $line = __LINE__) {
     
     $this->PEAR_Error(sprintf("%s [%s on line %d].", $msg, $file, $line));
     

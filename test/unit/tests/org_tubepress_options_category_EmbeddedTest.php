@@ -17,7 +17,7 @@ class org_tubepress_options_category_EmbeddedTest extends PHPUnit_Framework_Test
     	$class = new ReflectionClass("org_tubepress_options_category_Embedded");    
         $this->_actualNames = $class->getConstants();
         $this->_tpsm = $this->getMock("org_tubepress_options_storage_StorageManager");
-        $this->_template = $this->getMock("HTML_Template_IT");
+        $this->_template = $this->getMock("net_php_pear_HTML_Template_IT");
         $this->_sut = new org_tubepress_options_category_Embedded();
         $this->_msgService = $this->getMock("org_tubepress_message_MessageService");
 	}

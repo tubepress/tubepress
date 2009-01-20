@@ -36,7 +36,7 @@
 * @version  $Id: ITX.php,v 1.16 2006/08/17 15:47:22 dsp Exp $
 * @package  HTML_Template_IT
 */
-class HTML_Template_ITX extends HTML_Template_IT
+class net_php_pear_HTML_Template_ITX extends net_php_pear_HTML_Template_IT
 {
     /**
     * Array with all warnings.
@@ -113,14 +113,14 @@ class HTML_Template_ITX extends HTML_Template_IT
     *
     * @see    HTML_Template_IT()
     */
-    function HTML_Template_ITX($root = '')
+    function net_php_pear_HTML_Template_ITX($root = '')
     {
 
         $this->checkblocknameRegExp = '@' . $this->blocknameRegExp . '@';
         $this->functionRegExp = '@' . $this->functionPrefix . '(' .
                                 $this->functionnameRegExp . ')\s*\(@sm';
 
-        $this->HTML_Template_IT($root);
+        $this->net_php_pear_HTML_Template_IT($root);
     } // end func constructor
 
     function init()
@@ -162,7 +162,7 @@ class HTML_Template_ITX extends HTML_Template_IT
     function replaceBlock($block, $template, $keep_content = false)
     {
         if (!isset($this->blocklist[$block])) {
-            return new IT_Error(
+            return new net_php_pear_HTML_Template_IT_Error(
             "The block "."'$block'".
             " does not exist in the template and thus it can't be replaced.",
             __FILE__, __LINE__
@@ -170,7 +170,7 @@ class HTML_Template_ITX extends HTML_Template_IT
         }
 
         if ($template == '') {
-            return new IT_Error('No block content given.', __FILE__, __LINE__);
+            return new net_php_pear_HTML_Template_IT_Error('No block content given.', __FILE__, __LINE__);
         }
 
         if ($keep_content) {
@@ -247,19 +247,19 @@ class HTML_Template_ITX extends HTML_Template_IT
     {
         // Don't trust any user even if it's a programmer or yourself...
         if ($placeholder == '') {
-            return new IT_Error('No variable placeholder given.',
+            return new net_php_pear_HTML_Template_IT_Error('No variable placeholder given.',
                                 __FILE__, __LINE__
                                 );
         } elseif ($blockname == '' ||
                     !preg_match($this->checkblocknameRegExp, $blockname)
         ) {
-            return new IT_Error("No or invalid blockname '$blockname' given.",
+            return new net_php_pear_HTML_Template_IT_Error("No or invalid blockname '$blockname' given.",
                     __FILE__, __LINE__
                     );
         } elseif ($template == '') {
-            return new IT_Error('No block content given.', __FILE__, __LINE__);
+            return new net_php_pear_HTML_Template_IT_Error('No block content given.', __FILE__, __LINE__);
         } elseif (isset($this->blocklist[$blockname])) {
-            return new IT_Error('The block already exists.',
+            return new net_php_pear_HTML_Template_IT_Error('The block already exists.',
                                 __FILE__, __LINE__
                             );
         }
@@ -268,7 +268,7 @@ class HTML_Template_ITX extends HTML_Template_IT
         $parents = $this->findPlaceholderBlocks($placeholder);
         if (count($parents) == 0) {
 
-            return new IT_Error(
+            return new net_php_pear_HTML_Template_IT_Error(
                 "The variable placeholder".
                 " '$placeholder' was not found in the template.",
                 __FILE__, __LINE__
@@ -282,7 +282,7 @@ class HTML_Template_ITX extends HTML_Template_IT
             }
             $msg = substr($parent, -2);
 
-            return new IT_Error("The variable placeholder "."'$placeholder'".
+            return new net_php_pear_HTML_Template_IT_Error("The variable placeholder "."'$placeholder'".
                                 " must be unique, found in multiple blocks '$msg'.",
                                 __FILE__, __LINE__
                                 );
@@ -342,12 +342,12 @@ class HTML_Template_ITX extends HTML_Template_IT
     function placeholderExists($placeholder, $block = '')
     {
         if ($placeholder == '') {
-            new IT_Error('No placeholder name given.', __FILE__, __LINE__);
+            new net_php_pear_HTML_Template_IT_Error('No placeholder name given.', __FILE__, __LINE__);
             return '';
         }
 
         if ($block != '' && !isset($this->blocklist[$block])) {
-            new IT_Error("Unknown block '$block'.", __FILE__, __LINE__);
+            new net_php_pear_HTML_Template_IT_Error("Unknown block '$block'.", __FILE__, __LINE__);
             return '';
         }
 
@@ -494,7 +494,7 @@ class HTML_Template_ITX extends HTML_Template_IT
     setCallbackFunction($tplfunction, $callbackfunction, $callbackobject = '', $expandCallbackParameters=false)
     {
         if ($tplfunction == '' || $callbackfunction == '') {
-            return new IT_Error(
+            return new net_php_pear_HTML_Template_IT_Error(
                 "No template function "."('$tplfunction')".
                 " and/or no callback function ('$callback') given.",
                     __FILE__, __LINE__

@@ -119,7 +119,7 @@ define('IT_UNKNOWN_OPTION',            -6);
  * @access   public
  * @package  HTML_Template_IT
  */
-class HTML_Template_IT
+class net_php_pear_HTML_Template_IT
 {
     /**
      * Contains the error objects
@@ -365,7 +365,7 @@ class HTML_Template_IT
      *                     given to the object.
      * @see      setRoot()
      */
-    function HTML_Template_IT($root = '', $options = null)
+    function net_php_pear_HTML_Template_IT($root = '', $options = null)
     {
         if (!is_null($options)) {
             $this->setOptions($options);

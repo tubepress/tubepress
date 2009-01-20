@@ -52,12 +52,12 @@ class org_tubepress_options_category_Embedded implements org_tubepress_options_c
     /**
      * Displays the embedded options for the options form
      *
-     * @param HTML_Template_IT        $tpl  The template to write to
+     * @param net_php_pear_HTML_Template_IT        $tpl  The template to write to
      * @param org_tubepress_options_storage_StorageManager $tpsm The TubePress storage manager
      * 
      * @return void
      */
-    public function printForOptionsForm(HTML_Template_IT $tpl, 
+    public function printForOptionsForm(net_php_pear_HTML_Template_IT $tpl, 
         org_tubepress_options_storage_StorageManager $tpsm)
     {
         $title = "embedded";

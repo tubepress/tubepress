@@ -37,7 +37,7 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
 	
     public function getHtml($templateFile, org_tubepress_video_Video $vid, org_tubepress_player_Player $player)
     {
-    	$this->_tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../../../common/ui");
+    	$this->_tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../common/ui");
         if (!$this->_tpl->loadTemplatefile($templateFile, true, true)) {
             throw new Exception("Couldn't load thumbnail template");
         }

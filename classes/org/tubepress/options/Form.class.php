@@ -37,7 +37,7 @@ class org_tubepress_options_Form
     public final function display(org_tubepress_options_storage_StorageManager $tpsm)
     {
         /* load up the template */
-        $tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../../../common/ui");
+        $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../common/ui");
         if (!$tpl->loadTemplatefile("options_page.tpl.html", true, true)) {
             throw new Exception("Could not load options page template");
         }
@@ -57,14 +57,14 @@ class org_tubepress_options_Form
     /**
      * Displays a drop-down menu
      *
-     * @param HTML_Template_IT &$tpl   The template to write to
+     * @param net_php_pear_HTML_Template_IT &$tpl   The template to write to
      * @param string           $name   The name of the select input
      * @param array            $values The possible values for the drop-down
      * @param string           $value  The current value
      * 
      * @return void
      */
-    public function displayMenuInput(HTML_Template_IT &$tpl, 
+    public function displayMenuInput(net_php_pear_HTML_Template_IT &$tpl, 
         $name, $values, $value)
     {   
         $tpl->setVariable("OPTION_NAME", $name);
@@ -83,13 +83,13 @@ class org_tubepress_options_Form
     /**
      * Displays a text input
      *
-     * @param HTML_Template_IT &$tpl  The template to write to
+     * @param net_php_pear_HTML_Template_IT &$tpl  The template to write to
      * @param string           $name  The name of the input
      * @param string           $value The current value
      * 
      * @return void
      */
-    public function displayTextInput(HTML_Template_IT &$tpl, 
+    public function displayTextInput(net_php_pear_HTML_Template_IT &$tpl, 
         $name, $value)
     {    
         $tpl->setVariable("OPTION_VALUE", $value);
@@ -100,13 +100,13 @@ class org_tubepress_options_Form
     /**
      * Displays a checkbox input
      *
-     * @param HTML_Template_IT &$tpl  The template to write to
+     * @param net_php_pear_HTML_Template_IT &$tpl  The template to write to
      * @param string           $name  The name of the checkbox input
      * @param boolean          $value The current value
      * 
      * @return void
      */
-    public function displayBooleanInput(HTML_Template_IT &$tpl, 
+    public function displayBooleanInput(net_php_pear_HTML_Template_IT &$tpl, 
         $name, $value)
     {    
         if ($value) {
@@ -118,13 +118,13 @@ class org_tubepress_options_Form
     /**
      * Displays a radio button and then an optional additional input
      *
-     * @param HTML_Template_IT &$tpl  The template to write to
+     * @param net_php_pear_HTML_Template_IT &$tpl  The template to write to
      * @param string           $name  The name of the input
      * @param string           $value The current value
      * 
      * @return void
      */
-    public function displayGalleryInput(HTML_Template_IT &$tpl, 
+    public function displayGalleryInput(net_php_pear_HTML_Template_IT &$tpl, 
         $name, $value)
     {    
         if ($name === $value) {

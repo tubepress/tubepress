@@ -47,7 +47,7 @@ EOT
     
     public function getPreGalleryHtml(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom)
     {
-    	$tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../../../../common/ui");
+    	$tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../common/ui");
         if (!$tpl->loadTemplatefile("normal_mode_pre_gallery.tpl.html", true, true)) {
             throw new Exception("Couldn't load pre gallery template");
         }

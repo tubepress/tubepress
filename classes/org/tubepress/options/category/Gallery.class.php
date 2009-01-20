@@ -44,12 +44,12 @@ class org_tubepress_options_category_Gallery implements org_tubepress_options_ca
     /**
      * Displays the gallery options for the options form
      *
-     * @param HTML_Template_IT        &$tpl The template to write to
+     * @param net_php_pear_HTML_Template_IT        &$tpl The template to write to
      * @param org_tubepress_options_storage_StorageManager $tpsm The TubePress storage manager
      * 
      * @return void
      */
-    public function printForOptionsForm(HTML_Template_IT &$tpl, 
+    public function printForOptionsForm(net_php_pear_HTML_Template_IT &$tpl, 
         org_tubepress_options_storage_StorageManager $tpsm)
     {
 

@@ -46,7 +46,7 @@ abstract class org_tubepress_gallery_AbstractGallery
     public final function generateThumbs()
     {
         /* load up the gallery template */
-        $tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../../../common/ui");
+        $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../common/ui");
         if (!$tpl->loadTemplatefile($this->_galleryTemplate, true, true)) {
             throw new Exception("Couldn't load gallery template");
         }
@@ -124,12 +124,12 @@ abstract class org_tubepress_gallery_AbstractGallery
      * Handles the parsing of pagination links ("next" and "prev")
      * 
      * @param int                     $vidCount The grand total video count
-     * @param HTML_Template_IT        $tpl      The HTML template to write to
+     * @param net_php_pear_HTML_Template_IT        $tpl      The HTML template to write to
      * 
      * @return void
      */
     private function _parsePaginationHTML($vidCount, 
-        HTML_Template_IT $tpl)
+        net_php_pear_HTML_Template_IT $tpl)
     {
          $pagination = $this->_paginationService->getHtml($vidCount);
         $tpl->setVariable('TOPPAGINATION', $pagination);
