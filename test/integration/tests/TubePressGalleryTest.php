@@ -20,7 +20,7 @@ class TubePressGalleryTest extends PHPUnit_Framework_TestCase {
         $thumbService->setOptionsManager($tpom);
         $thumbService->setMessageService($messageService);
         
-        $queryStringService = new SimpleTubePressQueryStringService();
+        $queryStringService = new org_tubepress_querystring_SimpleQueryStringService();
         
         $urlBuilderService = new org_tubepress_url_SimpleUrlBuilder();
         $urlBuilderService->setOptionsManager($tpom);

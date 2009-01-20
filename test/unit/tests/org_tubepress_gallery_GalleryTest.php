@@ -119,7 +119,7 @@ EOT;
 		$this->_messageService 			= $this->getMock("org_tubepress_message_MessageService");
 		$this->_optionsManager 			= $this->getMock("TubePressOptionsManager");
 		$this->_playerFactory			= $this->getMock("org_tubepress_player_factory_PlayerFactory");
-		$this->_qss						= $this->getMock("TubePressQueryStringService");
+		$this->_qss						= $this->getMock("org_tubepress_querystring_QueryStringService");
 		$this->_thumbService 			= $this->getMock("org_tubepress_thumbnail_ThumbnailService");
 		$this->_urlBuilderService 		= $this->getMock("org_tubepress_url_UrlBuilder");
 		$this->_videoFactory 			= $this->getMock("org_tubepress_video_factory_VideoFactory");

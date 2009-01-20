@@ -47,7 +47,7 @@ class TubePressDebug
 
         $builder = new org_tubepress_url_SimpleUrlBuilder();
         $builder->setOptionsManager($tpom);
-        $builder->setQueryStringService(new SimpleTubePressQueryStringService());
+        $builder->setQueryStringService(new org_tubepress_querystring_SimpleQueryStringService());
         $debugStuff = array("tubepress_base_url" => $tubepress_base_url,
             "Gallery" => print_r($gallery, true),
             "YouTube connection test" => "Click <a href=\"" . $tubepress_base_url . 

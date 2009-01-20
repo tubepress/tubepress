@@ -112,7 +112,7 @@ function _tubepress_dependency_inject(org_tubepress_gallery_Gallery $gallery,
 	$feedRetrievalService  = new TubePressFeedRetrievalService_HTTP_Request2();
 	$messageService        = new org_tubepress_message_WordPressMessageService();
 	$playerFactory         = new org_tubepress_player_factory_SimplePlayerFactory();
-	$queryStringService    = new SimpleTubePressQueryStringService();
+	$queryStringService    = new org_tubepress_querystring_SimpleQueryStringService();
 	$paginationService     = new org_tubepress_pagination_DiggStylePaginationService();
 	$thumbService          = new org_tubepress_thumbnail_SimpleThumbnailService();
 	$urlBuilderService     = new org_tubepress_url_SimpleUrlBuilder();

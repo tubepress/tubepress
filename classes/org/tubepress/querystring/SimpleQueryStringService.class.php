@@ -20,9 +20,9 @@
  */
 
 /**
- * Simple implementation of TubePressQueryStringService
+ * Simple implementation of org_tubepress_querystring_QueryStringService
  */
-class SimpleTubePressQueryStringService implements TubePressQueryStringService
+class org_tubepress_querystring_SimpleQueryStringService implements org_tubepress_querystring_QueryStringService
 {
     /**
      * Returns what's in the address bar

@@ -30,5 +30,5 @@ interface org_tubepress_pagination_PaginationService
 	
 	public function setOptionsManager(TubePressOptionsManager $tpom);
 	
-	public function setQueryStringService(TubePressQueryStringService $queryStringService);
+	public function setQueryStringService(org_tubepress_querystring_QueryStringService $queryStringService);
 }

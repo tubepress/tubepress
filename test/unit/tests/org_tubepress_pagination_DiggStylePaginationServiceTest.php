@@ -3,7 +3,7 @@ class org_tubepress_pagination_DiggStylePaginationServiceTest extends PHPUnit_Fr
     
 	public function testGetHtml100Videos()
 	{
-		$queryStringService = $this->getMock("TubePressQueryStringService");
+		$queryStringService = $this->getMock("org_tubepress_querystring_QueryStringService");
 		
 		$queryStringService->expects($this->once())
 			 ->method("getPageNum")

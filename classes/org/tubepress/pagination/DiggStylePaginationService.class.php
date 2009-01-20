@@ -47,6 +47,6 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
 	}
 	
 	public function setMessageService(org_tubepress_message_MessageService $messageService) { $this->_messageService = $messageService; }
-	public function setQueryStringService(TubePressQueryStringService $queryStringService) { $this->_queryStringService = $queryStringService; }
+	public function setQueryStringService(org_tubepress_querystring_QueryStringService $queryStringService) { $this->_queryStringService = $queryStringService; }
 	public function setOptionsManager(TubePressOptionsManager $tpom) { $this->_tpom = $tpom; }
 }

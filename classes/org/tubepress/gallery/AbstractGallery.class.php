@@ -171,7 +171,7 @@ abstract class org_tubepress_gallery_AbstractGallery
     	$this->_playerFactory = $playerFactory; 
     }
 
-    public function setQueryStringService(TubePressQueryStringService $qss) 
+    public function setQueryStringService(org_tubepress_querystring_QueryStringService $qss) 
     {             
     	$this->_queryStringService = $qss; 
     }

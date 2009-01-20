@@ -1,11 +1,11 @@
 <?php
-class SimpleTubePressQueryStringServiceTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_querystring_SimpleQueryStringServiceTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;
 	
 	public function setUp()
 	{
-		$this->_sut = new SimpleTubePressQueryStringService();
+		$this->_sut = new org_tubepress_querystring_SimpleQueryStringService();
 	}
 	
 	public function testGetPageNumNothingSet()

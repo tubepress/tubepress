@@ -130,7 +130,7 @@ function tubepress_widget_inject_deps(org_tubepress_gallery_AbstractGallery $gal
 	$messageService        = new org_tubepress_message_WordPressMessageService();
 	$paginationService     = new org_tubepress_pagination_DiggStylePaginationService();
 	$playerFactory         = new org_tubepress_player_factory_SimplePlayerFactory();
-	$queryStringService    = new SimpleTubePressQueryStringService();
+	$queryStringService    = new org_tubepress_querystring_SimpleQueryStringService();
 	$thumbService          = new org_tubepress_thumbnail_SimpleThumbnailService();
     $urlBuilderService     = new org_tubepress_url_SimpleUrlBuilder();
     $videoFactory          = new org_tubepress_video_factory_SimpleVideoFactory();
