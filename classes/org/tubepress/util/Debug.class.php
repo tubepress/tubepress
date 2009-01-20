@@ -23,7 +23,7 @@
  * Performs various debugging functions
  *
  */
-class TubePressDebug
+class org_tubepress_util_Debug
 {
     /**
      * Executes the debugging. Amazing!

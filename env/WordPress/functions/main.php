@@ -54,12 +54,12 @@ function _tubepress_content_filter($content) {
 
 	    $gallery = new org_tubepress_gallery_Gallery();
 	    _tubepress_dependency_inject($gallery, $tpom);
-    	if (TubePressDebug::areWeDebugging($tpom)) {
-	        TubePressDebug::execute($gallery, $tpom);
+    	if (org_tubepress_util_Debug::areWeDebugging($tpom)) {
+	        org_tubepress_util_Debug::execute($gallery, $tpom);
 	    }
 
 	    /* replace the tag with our new content */
-	    $newcontent = TubePressStringUtils::replaceFirst($tpom->getShortcode(), 
+	    $newcontent = org_tubepress_util_StringUtils::replaceFirst($tpom->getShortcode(), 
 	        $gallery->generate(), $newcontent);
     }
     
