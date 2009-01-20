@@ -21,12 +21,12 @@
 
 /* we need this function for pagination */
 function_exists("diggstyle_getPaginationString")
-    || require dirname(__FILE__) . "/../../../lib/diggstyle_function.php";
+    || require dirname(__FILE__) . "/../../../../lib/diggstyle_function.php";
 
 /**
  * General purpose cache for TubePress
  */
-class TubePressPaginationService_DiggStyle implements TubePressPaginationService
+class org_tubepress_pagination_DiggStylePaginationService implements org_tubepress_pagination_PaginationService
 {
 	private $_messageService;
 	private $_tpom;

@@ -27,7 +27,7 @@ $testNames = array(
 	"org_tubepress_gallery_Gallery",
 	"TubePressMetaOptions",
 	"TubePressOptionsForm",
-	"TubePressPaginationService_DiggStyle",
+	"org_tubepress_pagination_DiggStylePaginationService",
 	"TubePressStringUtils",
 	"TubePressVideo",
 	"org_tubepress_gallery_WidgetGallery",

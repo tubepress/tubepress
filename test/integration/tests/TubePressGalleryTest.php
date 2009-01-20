@@ -26,7 +26,7 @@ class TubePressGalleryTest extends PHPUnit_Framework_TestCase {
         $urlBuilderService->setOptionsManager($tpom);
         $urlBuilderService->setQueryStringService($queryStringService);
         
-        $paginationService = new TubePressPaginationService_DiggStyle();
+        $paginationService = new org_tubepress_pagination_DiggStylePaginationService();
         $paginationService->setMessageService($messageService);
         $paginationService->setOptionsManager($tpom);
         $paginationService->setQueryStringService($queryStringService);

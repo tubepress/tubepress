@@ -161,7 +161,7 @@ abstract class org_tubepress_gallery_AbstractGallery
     	$this->_optionsManager = $tpom; 
     }
     
-    public function setPaginationService(TubePressPaginationService $paginator) 
+    public function setPaginationService(org_tubepress_pagination_PaginationService $paginator) 
     {             
     	$this->_paginationService = $paginator; 
     }

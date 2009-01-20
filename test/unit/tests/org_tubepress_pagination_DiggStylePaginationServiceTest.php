@@ -1,5 +1,5 @@
 <?php
-class TubePressPaginationService_DiggStyleTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_pagination_DiggStylePaginationServiceTest extends PHPUnit_Framework_TestCase {
     
 	public function testGetHtml100Videos()
 	{
@@ -25,7 +25,7 @@ class TubePressPaginationService_DiggStyleTest extends PHPUnit_Framework_TestCas
 				   ->method("_")
 				   ->will($this->returnCallback("msgCallback"));	
 			
-		$sut = new TubePressPaginationService_DiggStyle();
+		$sut = new org_tubepress_pagination_DiggStylePaginationService();
 		$sut->setOptionsManager($tpom);
 		$sut->setQueryStringService($queryStringService);
 		$sut->setMessageService($msgService);

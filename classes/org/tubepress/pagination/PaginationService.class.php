@@ -22,7 +22,7 @@
 /**
  * General purpose cache for TubePress
  */
-interface TubePressPaginationService
+interface org_tubepress_pagination_PaginationService
 {
 	public function getHtml($totalResults);
 	
