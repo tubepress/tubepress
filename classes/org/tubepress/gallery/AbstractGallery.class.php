@@ -22,7 +22,7 @@
 /**
  * Parent class of all TubePress galleries
  */
-abstract class AbstractTubePressGallery
+abstract class org_tubepress_gallery_AbstractGallery
 {
     private $_feedInspectionService;
     private $_feedRetrievalService;
@@ -33,7 +33,7 @@ abstract class AbstractTubePressGallery
     private $_playerFactory;
     private $_queryStringService;
     private $_thumbnailService;
-    private $_thumbnailTemplate;
+    private $_thumbnailTemplate;    
     private $_tpeps;
     private $_urlBuilder;
     private $_videoFactory;
@@ -46,7 +46,7 @@ abstract class AbstractTubePressGallery
     public final function generateThumbs()
     {
         /* load up the gallery template */
-        $tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../ui");
+        $tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../../../common/ui");
         if (!$tpl->loadTemplatefile($this->_galleryTemplate, true, true)) {
             throw new Exception("Couldn't load gallery template");
         }

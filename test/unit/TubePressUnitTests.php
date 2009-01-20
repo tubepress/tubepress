@@ -24,13 +24,13 @@ $testNames = array(
 	"SimpleTubePressEmbeddedPlayerService",
 	"TubePressFeedRetrievalService_HTTP_Request2",
 	"TubePressGalleryOptions",
-	"TubePressGalleryUnit",
+	"org_tubepress_gallery_Gallery",
 	"TubePressMetaOptions",
 	"TubePressOptionsForm",
 	"TubePressPaginationService_DiggStyle",
 	"TubePressStringUtils",
 	"TubePressVideo",
-	"TubePressWidgetGallery",
+	"org_tubepress_gallery_WidgetGallery",
 	"TubePressWidgetOptions",
 	"WordPressStorageManager"
 );

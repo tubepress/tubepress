@@ -33,7 +33,7 @@ class TubePressDebug
      * 
      * @return void
      */
-    public static final function execute(TubePressGallery $gallery, 
+    public static final function execute(org_tubepress_gallery_Gallery $gallery, 
         TubePressOptionsManager $tpom)
     {
         global $tubepress_base_url;

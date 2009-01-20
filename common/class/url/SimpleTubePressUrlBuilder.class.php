@@ -38,52 +38,52 @@ class SimpleTubePressUrlBuilder implements TubePressUrlBuilder
         
         switch ($this->_tpom->get(TubePressGalleryOptions::MODE)) {
             
-        case TubePressGallery::USER:
+        case org_tubepress_gallery_Gallery::USER:
             $url = "users/" . $this->_tpom->get(TubePressGalleryOptions::USER_VALUE) .
                 "/uploads";
             break;
             
-        case TubePressGallery::TOP_RATED:
+        case org_tubepress_gallery_Gallery::TOP_RATED:
             $url = "standardfeeds/top_rated?time=" . 
                 $this->_tpom->get(TubePressGalleryOptions::TOP_RATED_VALUE);
             break;
             
-        case TubePressGallery::POPULAR:
+        case org_tubepress_gallery_Gallery::POPULAR:
             $url = "standardfeeds/most_viewed?time=" . 
                 $this->_tpom->get(TubePressGalleryOptions::MOST_VIEWED_VALUE);
             break;
             
-        case TubePressGallery::PLAYLIST:
+        case org_tubepress_gallery_Gallery::PLAYLIST:
             $url = "playlists/" . 
                 $this->_tpom->get(TubePressGalleryOptions::PLAYLIST_VALUE);
             break;
                 
-        case TubePressGallery::MOST_RESPONDED:
+        case org_tubepress_gallery_Gallery::MOST_RESPONDED:
             $url = "standardfeeds/most_responded";
             break;
               
-        case TubePressGallery::MOST_RECENT:
+        case org_tubepress_gallery_Gallery::MOST_RECENT:
             $url = "standardfeeds/most_recent";
             break;
                 
-        case TubePressGallery::MOST_LINKED:
+        case org_tubepress_gallery_Gallery::MOST_LINKED:
             $url = "standardfeeds/most_linked";
             break;
                 
-        case TubePressGallery::MOST_DISCUSSESD:
+        case org_tubepress_gallery_Gallery::MOST_DISCUSSESD:
             $url = "standardfeeds/most_discussed";
             break;
                 
-        case TubePressGallery::MOBILE:
+        case org_tubepress_gallery_Gallery::MOBILE:
             $url = "standardfeeds/watch_on_mobile";
             break;
                
-        case TubePressGallery::FAVORITES:
+        case org_tubepress_gallery_Gallery::FAVORITES:
             $url = "users/" . $this->_tpom->get(TubePressGalleryOptions::FAVORITES_VALUE) .
                 "/favorites";
             break;
                 
-        case TubePressGallery::TAG:
+        case org_tubepress_gallery_Gallery::TAG:
             $tags = $this->_tpom->get(TubePressGalleryOptions::TAG_VALUE);
             $tags = explode(" ", $tags);
             $url  = "videos?q=" . implode("+", $tags);

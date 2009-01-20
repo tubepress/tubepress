@@ -1,5 +1,5 @@
 <?php
-class TubePressGalleryUnitTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_gallery_GalleryTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;
 	
@@ -17,7 +17,7 @@ class TubePressGalleryUnitTest extends PHPUnit_Framework_TestCase {
 	
 	function setUp()
 	{
-		$this->_sut = new TubePressGallery();
+		$this->_sut = new org_tubepress_gallery_Gallery();
 		$this->_createMocks();
 		$this->_setupMocks();
 		$this->_applyMocks();

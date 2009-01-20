@@ -22,7 +22,7 @@
 /**
  * Regular TubePress gallery
  */
-class TubePressGallery extends AbstractTubePressGallery
+class org_tubepress_gallery_Gallery extends org_tubepress_gallery_AbstractGallery
 {
     const FAVORITES       = "favorites";
     const FEATURED        = "recently_featured";

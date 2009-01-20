@@ -67,7 +67,7 @@ function tubepress_widget($opts)
 	$shortcodeService = new SimpleTubePressShortcodeService();
 	$shortcodeService->parse($wpsm->get(TubePressWidgetOptions::TAGSTRING), $tpom);
 	
-	$gallery = new TubePressWidgetGallery();
+	$gallery = new org_tubepress_gallery_WidgetGallery();
 	tubepress_widget_inject_deps($gallery, $tpom);
 		
 	/* get the output */
@@ -120,7 +120,7 @@ function tubepress_widget_control() {
     restore_exception_handler();
 }
 
-function tubepress_widget_inject_deps(AbstractTubePressGallery $gallery, 
+function tubepress_widget_inject_deps(org_tubepress_gallery_AbstractGallery $gallery, 
     TubePressOptionsManager $tpom)
 {
 	$cacheService          = new SimpleTubePressCacheService();

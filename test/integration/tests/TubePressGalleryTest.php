@@ -5,7 +5,7 @@ class TubePressGalleryTest extends PHPUnit_Framework_TestCase {
 	
 	function setUp()
 	{
-		$this->_sut = new TubePressGallery();
+		$this->_sut = new org_tubepress_gallery_Gallery();
 		
 		$tpom = $this->getMock("TubePressOptionsManager");
 		$tpom->expects($this->any())

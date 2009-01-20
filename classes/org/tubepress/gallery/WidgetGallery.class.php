@@ -22,7 +22,7 @@
 /**
  * Widget gallery
  */
-class TubePressWidgetGallery extends AbstractTubePressGallery
+class org_tubepress_gallery_WidgetGallery extends org_tubepress_gallery_AbstractGallery
 {
     /**
      * Generates the content of this gallery

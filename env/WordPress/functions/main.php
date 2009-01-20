@@ -52,7 +52,7 @@ function _tubepress_content_filter($content) {
 	    $tpom->setStorageManager($wpsm);
 	    $shortcodeService->parse($newcontent, $tpom);
 
-	    $gallery = new TubePressGallery();
+	    $gallery = new org_tubepress_gallery_Gallery();
 	    _tubepress_dependency_inject($gallery, $tpom);
     	if (TubePressDebug::areWeDebugging($tpom)) {
 	        TubePressDebug::execute($gallery, $tpom);
@@ -103,7 +103,7 @@ GBS;
     print $player->getHeadContents();
 }
 
-function _tubepress_dependency_inject(TubePressGallery $gallery, 
+function _tubepress_dependency_inject(org_tubepress_gallery_Gallery $gallery, 
     TubePressOptionsManager $tpom)
 {
 	$cacheService          = new SimpleTubePressCacheService();

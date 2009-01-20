@@ -58,7 +58,7 @@ class TubePressGalleryOptions implements TubePressOptionsCategory
         $tpl->setVariable("OPTION_CATEGORY_TITLE",
             $this->_messageService->_("options-category-title-" . $title));
 
-        $class = new ReflectionClass("TubePressGallery");    
+        $class = new ReflectionClass("org_tubepress_gallery_Gallery");    
 
         /* go through each option in the category */
         foreach ($class->getConstants() as $constant) {
@@ -73,32 +73,32 @@ class TubePressGalleryOptions implements TubePressOptionsCategory
 
             switch ($constant) {
                 
-            case TubePressGallery::FAVORITES:
+            case org_tubepress_gallery_Gallery::FAVORITES:
                 TubePressOptionsForm::displayTextInput($tpl, 
                     TubePressGalleryOptions::FAVORITES_VALUE,
                     $tpsm->get(TubePressGalleryOptions::FAVORITES_VALUE));
                 break;
 
-            case TubePressGallery::PLAYLIST:
+            case org_tubepress_gallery_Gallery::PLAYLIST:
                 TubePressOptionsForm::displayTextInput($tpl, 
                     TubePressGalleryOptions::PLAYLIST_VALUE,
                     $tpsm->get(TubePressGalleryOptions::PLAYLIST_VALUE));
                 break;
             
-            case TubePressGallery::TAG:
+            case org_tubepress_gallery_Gallery::TAG:
                 TubePressOptionsForm::displayTextInput($tpl, 
                     TubePressGalleryOptions::TAG_VALUE,
                     $tpsm->get(TubePressGalleryOptions::TAG_VALUE));
                 break;
             
-            case TubePressGallery::USER:
+            case org_tubepress_gallery_Gallery::USER:
                 TubePressOptionsForm::displayTextInput($tpl, 
                     TubePressGalleryOptions::USER_VALUE,
                     $tpsm->get(TubePressGalleryOptions::USER_VALUE));
                 break;
             
-            case TubePressGallery::POPULAR:
-            case TubePressGallery::TOP_RATED:
+            case org_tubepress_gallery_Gallery::POPULAR:
+            case org_tubepress_gallery_Gallery::TOP_RATED:
                 $values = array(
                     $this->_messageService->_("timeframe-today")   => "today",
                     $this->_messageService->_("timeframe-week")    => "this_week",
