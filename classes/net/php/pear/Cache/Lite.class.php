@@ -26,7 +26,7 @@
 define('CACHE_LITE_ERROR_RETURN', 1);
 define('CACHE_LITE_ERROR_DIE', 8);
 
-class Cache_Lite
+class net_php_pear_Cache_Lite
 {
 
     // --- Private properties ---
@@ -277,7 +277,7 @@ class Cache_Lite
     * @param array $options options
     * @access public
     */
-    function Cache_Lite($options = array(NULL))
+    function net_php_pear_Cache_Lite($options = array(NULL))
     {
         foreach($options as $key => $value) {
             $this->setOption($key, $value);

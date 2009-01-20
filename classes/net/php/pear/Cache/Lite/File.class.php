@@ -15,7 +15,7 @@
 * @author Fabien MARTY <fab@php.net>
 */
  
-class Cache_Lite_File extends Cache_Lite
+class net_php_pear_Cache_Lite_File extends net_php_pear_Cache_Lite
 {
 
     // --- Private properties ---
@@ -51,10 +51,10 @@ class Cache_Lite_File extends Cache_Lite
     * @param array $options options
     * @access public
     */
-    function Cache_Lite_File($options = array(NULL))
+    function net_php_pear_Cache_Lite_File($options = array(NULL))
     {   
         $options['lifetime'] = 0;
-        $this->Cache_Lite($options);
+        $this->net_php_pear_Cache_Lite($options);
         if (isset($options['masterFile'])) {
             $this->_masterFile = $options['masterFile'];
         } else {

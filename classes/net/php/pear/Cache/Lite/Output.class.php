@@ -11,7 +11,7 @@
 * @author Fabien MARTY <fab@php.net>
 */
 
-class Cache_Lite_Output extends Cache_Lite
+class net_php_pear_Cache_Lite_Output extends net_php_pear_Cache_Lite
 {
 
     // --- Public methods ---
@@ -25,9 +25,9 @@ class Cache_Lite_Output extends Cache_Lite
     * @param array $options options
     * @access public
     */
-    function Cache_Lite_Output($options)
+    function net_php_pear_Cache_Lite_Output($options)
     {
-        $this->Cache_Lite($options);
+        $this->net_php_pear_Cache_Lite($options);
     }
 
     /**

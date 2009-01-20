@@ -39,7 +39,7 @@ class org_tubepress_cache_SimpleCacheService implements org_tubepress_cache_Cach
 		function_exists("sys_get_temp_dir")
     		|| require dirname(__FILE__) . "/../../../../lib/sys_get_temp_dir.php";
 		
-		$this->_cache = new Cache_Lite(array("cacheDir" => sys_get_temp_dir()));
+		$this->_cache = new net_php_pear_Cache_Lite(array("cacheDir" => sys_get_temp_dir()));
 	}
 	
 	/**

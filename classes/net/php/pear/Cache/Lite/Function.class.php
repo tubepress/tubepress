@@ -16,7 +16,7 @@
 * @author Fabien MARTY <fab@php.net>
 */
 
-class Cache_Lite_Function extends Cache_Lite
+class net_php_pear_Cache_Lite_Function extends net_php_pear_Cache_Lite
 {
 
     // --- Private properties ---
@@ -80,7 +80,7 @@ class Cache_Lite_Function extends Cache_Lite
     * @param array $options options
     * @access public
     */
-    function Cache_Lite_Function($options = array(NULL))
+    function net_php_pear_Cache_Lite_Function($options = array(NULL))
     {
         $availableOptions = array('debugCacheLiteFunction', 'defaultGroup', 'dontCacheWhenTheOutputContainsNOCACHE', 'dontCacheWhenTheResultIsFalse', 'dontCacheWhenTheResultIsNull');
         while (list($name, $value) = each($options)) {
@@ -90,7 +90,7 @@ class Cache_Lite_Function extends Cache_Lite
             }
         }
         reset($options);
-        $this->Cache_Lite($options);
+        $this->net_php_pear_Cache_Lite($options);
     }
 
     /**
