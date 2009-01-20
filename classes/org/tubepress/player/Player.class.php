@@ -22,7 +22,7 @@
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
-interface TubePressPlayer
+interface org_tubepress_player_Player
 {
     const GREYBOX     = "greybox";
     const LIGHTWINDOW = "lightwindow";

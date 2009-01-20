@@ -1,5 +1,5 @@
 <?php
-class TPShadowBoxPlayerTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_player_impl_ShadowBoxPlayerTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;
 	private $_tpom;
@@ -9,7 +9,7 @@ class TPShadowBoxPlayerTest extends PHPUnit_Framework_TestCase {
 	{
 		global $tubepress_base_url;
 		$tubepress_base_url = "fakeurl";
-		$this->_sut = new TPShadowBoxPlayer();
+		$this->_sut = new org_tubepress_player_impl_ShadowBoxPlayer();
 		$this->_tpeps = $this->getMock("TubePressEmbeddedPlayerService");
 		$this->_tpom = $this->getMock("TubePressOptionsManager");
 	}

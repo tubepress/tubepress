@@ -19,33 +19,33 @@
  *
  */
 
-class SimpleTubePressPlayerFactory implements TubePressPlayerFactory {
+class org_tubepress_player_factory_SimplePlayerFactory implements org_tubepress_player_factory_PlayerFactory {
 	
 	public function getInstance($playerName)
 	{
 		switch ($playerName) {
             
-	        case TubePressPlayer::NORMAL:
-	            return new TPNormalPlayer();
+	        case org_tubepress_player_Player::NORMAL:
+	            return new org_tubepress_player_impl_NormalPlayer();
 	            break;
 	
-	        case TubePressPlayer::GREYBOX:
-	            return new TPGreyBoxPlayer();
+	        case org_tubepress_player_Player::GREYBOX:
+	            return new org_tubepress_player_impl_GreyBoxPlayer();
 	            break;
 	
-	        case TubePressPlayer::POPUP:
-	            return new TPPopupPlayer();
+	        case org_tubepress_player_Player::POPUP:
+	            return new org_tubepress_player_impl_PopupPlayer();
 	            break;
 	
-	        case TubePressPlayer::YOUTUBE:
-	            return new TPYouTubePlayer();
+	        case org_tubepress_player_Player::YOUTUBE:
+	            return new org_tubepress_player_impl_YouTubePlayer();
 	            break;
 	
-	        case TubePressPlayer::LIGHTWINDOW:
-	            return new TPlightWindowPlayer();
+	        case org_tubepress_player_Player::LIGHTWINDOW:
+	            return new org_tubepress_player_impl_LightWindowPlayer();
 	
-	        case TubePressPlayer::SHADOWBOX:
-	            return new TPShadowBoxPlayer();
+	        case org_tubepress_player_Player::SHADOWBOX:
+	            return new org_tubepress_player_impl_ShadowBoxPlayer();
 	
 	        default:
 	            throw new Exception("No such player with name '$playerName'");

@@ -78,18 +78,18 @@ class TubePressDisplayOptions implements TubePressOptionsCategory
             
             case TubePressDisplayOptions::CURRENT_PLAYER_NAME:
                 $values = array(
-                    $this->_messageService->_("player-" . TubePressPlayer::NORMAL . "-desc") 
-                        => TubePressPlayer::NORMAL,
-                    $this->_messageService->_("player-" . TubePressPlayer::POPUP . "-desc")        
-                        => TubePressPlayer::POPUP,
-                    $this->_messageService->_("player-" . TubePressPlayer::YOUTUBE . "-desc")        
-                        => TubePressPlayer::YOUTUBE,
-                    $this->_messageService->_("player-" . TubePressPlayer::LIGHTWINDOW . "-desc")     
-                        => TubePressPlayer::LIGHTWINDOW,
-                    $this->_messageService->_("player-" . TubePressPlayer::GREYBOX . "-desc")        
-                        => TubePressPlayer::GREYBOX,
-                    $this->_messageService->_("player-" . TubePressPlayer::SHADOWBOX . "-desc")     
-                        => TubePressPlayer::SHADOWBOX);
+                    $this->_messageService->_("player-" . org_tubepress_player_Player::NORMAL . "-desc") 
+                        => org_tubepress_player_Player::NORMAL,
+                    $this->_messageService->_("player-" . org_tubepress_player_Player::POPUP . "-desc")        
+                        => org_tubepress_player_Player::POPUP,
+                    $this->_messageService->_("player-" . org_tubepress_player_Player::YOUTUBE . "-desc")        
+                        => org_tubepress_player_Player::YOUTUBE,
+                    $this->_messageService->_("player-" . org_tubepress_player_Player::LIGHTWINDOW . "-desc")     
+                        => org_tubepress_player_Player::LIGHTWINDOW,
+                    $this->_messageService->_("player-" . org_tubepress_player_Player::GREYBOX . "-desc")        
+                        => org_tubepress_player_Player::GREYBOX,
+                    $this->_messageService->_("player-" . org_tubepress_player_Player::SHADOWBOX . "-desc")     
+                        => org_tubepress_player_Player::SHADOWBOX);
 
                 TubePressOptionsForm::displayMenuInput($tpl, $constant, 
                     $values, $tpsm->get($constant));

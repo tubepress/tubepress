@@ -1,12 +1,12 @@
 <?php
 
-class TPYouTubePlayerTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_player_impl_YouTubePlayerTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;
 	
 	function setUp()
 	{
-		$this->_sut = new TPYouTubePlayer();
+		$this->_sut = new org_tubepress_player_impl_YouTubePlayer();
 	}
 	
 	function testGetPlayLink()

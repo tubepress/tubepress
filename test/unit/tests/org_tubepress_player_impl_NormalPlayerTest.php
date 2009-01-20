@@ -1,5 +1,5 @@
 <?php
-class TPNormalPlayerTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_player_impl_NormalPlayerTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;
 	private $_tpeps;
@@ -8,7 +8,7 @@ class TPNormalPlayerTest extends PHPUnit_Framework_TestCase {
 	
 	function setUp()
 	{
-		$this->_sut = new TPNormalPlayer();
+		$this->_sut = new org_tubepress_player_impl_NormalPlayer();
 		$this->_tpeps = $this->getMock("TubePressEmbeddedPlayerService");
 		$this->_tpom = $this->getMock("TubePressOptionsManager");
 		$this->_video = new TubePressVideo();

@@ -20,36 +20,33 @@
  */
 
 /**
- * Plays videos from the original YouTube page
+ * Plays videos in an HTML popup window
  */
-class TPYouTubePlayer extends AbstractTubePressPlayer
+class org_tubepress_player_impl_PopupPlayer extends org_tubepress_player_AbstractPlayer
 {
     /**
-     * Tells the gallery how to play videos on YouTube
+     * Tells the gallery how to play videos in a popup window
      *
      * @param TubePressVideo          $vid  The video to be played
      * @param TubePressOptionsManager $tpom The TubePress options manager
      * 
      * @return string The play link attributes
      */
-    function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
-    {   
-        $link = new Net_URL2(sprintf('href="http://youtube.com/watch?v=%s"',
-            $vid->getId()));
+    public function getPlayLink(TubePressVideo $vid, TubePressOptionsManager $tpom)
+    {
+        global $tubepress_base_url;
+
+        $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
+        $width  = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
         
-        switch ($tpom->get(TubePressEmbeddedOptions::QUALITY)) {
-            case "high":
-                $link->setQueryVariable("fmt", "6");
-                break;
-            case "higher":
-                $link->setQueryVariable("fmt", "18");
-                break;
-            case "highest":
-                $link->setQueryVariable("fmt", "22");
-                break;      
-        }
+        $url = new Net_URL2($tubepress_base_url . "/common/ui/popup.php");
+        $url->setQueryVariable("id", $vid->getId());
+        $url->setQueryVariable("opts", $this->getEmbeddedPlayerService()->packOptionsToString($vid, $tpom));
         
-        return $link->getURL();
+        return sprintf(<<<EOT
+href="#" onclick="tubePress_popup('%s', %d, %d);"
+EOT
+            , $url->getURL(true), $height, $width);
     }
 }
 ?>

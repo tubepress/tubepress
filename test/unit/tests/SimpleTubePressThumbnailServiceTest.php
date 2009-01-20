@@ -10,7 +10,7 @@ class SimpleTubePressThumbnailServiceTest extends PHPUnit_Framework_TestCase {
 	{
 		$this->_tpom = $this->getMock("TubePressOptionsManager");
 		$this->_messageService = $this->getMock("org_tubepress_message_MessageService");
-		$this->_player = $this->getMock("TubePressPlayer");
+		$this->_player = $this->getMock("org_tubepress_player_Player");
 		$this->_sut = new SimpleTubePressThumbnailService();
 	}
 	

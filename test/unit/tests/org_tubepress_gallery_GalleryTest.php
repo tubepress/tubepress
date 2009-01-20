@@ -67,7 +67,7 @@ EOT;
 							  ->will($this->returnCallback("_tpomCallbackGalleryUnitTest"));
 		$this->_playerFactory->expects($this->once())
 							 ->method("getInstance")
-							 ->will($this->returnValue(new TPNormalPlayer()));
+							 ->will($this->returnValue(new org_tubepress_player_impl_NormalPlayer()));
 		$this->_feedRetrievalService->expects($this->once())
 									->method("fetch")
 									->will($this->returnValue($fakeXml));
@@ -118,7 +118,7 @@ EOT;
 		$this->_feedRetrievalService 	= $this->getMock("TubePressFeedRetrievalService");
 		$this->_messageService 			= $this->getMock("org_tubepress_message_MessageService");
 		$this->_optionsManager 			= $this->getMock("TubePressOptionsManager");
-		$this->_playerFactory			= $this->getMock("TubePressPlayerFactory");
+		$this->_playerFactory			= $this->getMock("org_tubepress_player_factory_PlayerFactory");
 		$this->_qss						= $this->getMock("TubePressQueryStringService");
 		$this->_thumbService 			= $this->getMock("TubePressThumbnailService");
 		$this->_urlBuilderService 		= $this->getMock("TubePressUrlBuilder");

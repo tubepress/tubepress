@@ -22,7 +22,7 @@
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
-abstract class AbstractTubePressPlayer implements TubePressPlayer
+abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_player_Player
 {   
 	private $_tpeps;
 	

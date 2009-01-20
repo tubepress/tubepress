@@ -22,7 +22,7 @@
 /**
  * Plays videos at the top of a gallery
  */
-class TPNormalPlayer extends AbstractTubePressPlayer
+class org_tubepress_player_impl_NormalPlayer extends org_tubepress_player_AbstractPlayer
 {
     /**
      * Tells the gallery how to play videos with the normal player
@@ -47,7 +47,7 @@ EOT
     
     public function getPreGalleryHtml(TubePressVideo $vid, TubePressOptionsManager $tpom)
     {
-    	$tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../../ui");
+    	$tpl = new HTML_Template_IT(dirname(__FILE__) . "/../../../../../common/ui");
         if (!$tpl->loadTemplatefile("normal_mode_pre_gallery.tpl.html", true, true)) {
             throw new Exception("Couldn't load pre gallery template");
         }

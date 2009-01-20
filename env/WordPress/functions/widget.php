@@ -57,7 +57,7 @@ function tubepress_widget($opts)
 	        TubePressMetaOptions::VIEWS => false,
 	        TubePressMetaOptions::DESCRIPTION => true,
 	        TubePressDisplayOptions::DESC_LIMIT => 50,
-	        TubePressDisplayOptions::CURRENT_PLAYER_NAME => TubePressPlayer::POPUP,
+	        TubePressDisplayOptions::CURRENT_PLAYER_NAME => org_tubepress_player_Player::POPUP,
 	        TubePressDisplayOptions::THUMB_HEIGHT => 105,
 	        TubePressDisplayOptions::THUMB_WIDTH => 135
 	        )
@@ -129,7 +129,7 @@ function tubepress_widget_inject_deps(org_tubepress_gallery_AbstractGallery $gal
 	$feedRetrievalService  = new TubePressFeedRetrievalService_HTTP_Request2();
 	$messageService        = new org_tubepress_message_WordPressMessageService();
 	$paginationService     = new org_tubepress_pagination_DiggStylePaginationService();
-	$playerFactory         = new SimpleTubePressPlayerFactory();
+	$playerFactory         = new org_tubepress_player_factory_SimplePlayerFactory();
 	$queryStringService    = new SimpleTubePressQueryStringService();
 	$thumbService          = new SimpleTubePressThumbnailService();
     $urlBuilderService     = new SimpleTubePressUrlBuilder();

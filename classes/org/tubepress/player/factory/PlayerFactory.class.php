@@ -19,7 +19,7 @@
  *
  */
 
-interface TubePressPlayerFactory
+interface org_tubepress_player_factory_PlayerFactory
 {
 	public function getInstance($playerName);
 }

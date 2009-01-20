@@ -22,7 +22,7 @@
 /**
  * Plays videos with GreyBox
  */
-class TPShadowBoxPlayer extends AbstractTubePressPlayer
+class org_tubepress_player_impl_ShadowBoxPlayer extends org_tubepress_player_AbstractPlayer
 {    
     /**
      * Sets JS to be executed after the document has loaded

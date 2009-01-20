@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Copyright 2006, 2007, 2008, 2009 Eric D. Hough (http://ehough.com)
  * 
@@ -20,49 +20,30 @@
  */
 
 /**
- * Plays videos with lightWindow
+ * Plays videos with GreyBox
  */
-class TPlightWindowPlayer extends AbstractTubePressPlayer
+class org_tubepress_player_impl_GreyBoxPlayer extends org_tubepress_player_AbstractPlayer
 {
-    /**
-     * Enter description here...
-     *
-     * @param unknown_type $extraJS The text of the JS to run
-     * 
-     * @return void
-     */
     protected function getPreLoadJs()
     {
-    	return "var tubepressLWPath = \"" . $this->_getBaseUrl() . "\"";
+    	return "var GB_ROOT_DIR = \"" . $this->_getGbBaseUrl() . "\"";
     }
     
-    /**
-     * Sets the JS libraries to include
-     *
-     * @return void
-     */
     protected function getJSLibs()
     {
-    	$lwURL = $this->_getBaseUrl();
-    	return array($lwURL . "javascript/prototype.js",
-            $lwURL . "javascript/scriptaculous.js?load=effects",
-            $lwURL . "javascript/lightWindow.js");
+    	$gbURL = $this->_getGbBaseUrl();
+    	return array($gbURL . "AJS.js",
+            $gbURL . "AJS_fx.js",
+            $gbURL . "gb_scripts.js");
     }
     
-    /**
-     * Sets the CSS libraries to include
-     *
-     * @param array $cssLibs An array of CSS libs to include
-     * 
-     * @return void
-     */
     protected function getCSSLibs()
     {
-		return array($this->_getBaseUrl() . "css/lightWindow.css");
+    	return array($this->_getGbBaseUrl() . "gb_styles.css");
     }
     
     /**
-     * Tells the gallery how to play videos in lightWindow
+     * Tells the gallery how to play videos in GreyBox
      *
      * @param TubePressVideo          $vid  The video to be played
      * @param TubePressOptionsManager $tpom The TubePress options manager
@@ -76,22 +57,21 @@ class TPlightWindowPlayer extends AbstractTubePressPlayer
         $title  = $vid->getTitle();
         $height = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_HEIGHT);
         $width  = $tpom->get(TubePressEmbeddedOptions::EMBEDDED_WIDTH);
-        
         $url = new Net_URL2($tubepress_base_url . "/common/ui/popup.php");
         $url->setQueryVariable("id", $vid->getId());
         $url->setQueryVariable("opts", $this->getEmbeddedPlayerService()->packOptionsToString($vid, $tpom));
-        
+       
         return sprintf(<<<EOT
-href="%s" class="lightwindow" title="%s" params="lightwindow_width=%s,lightwindow_height=%s"
+href="%s" title="%s" rel="gb_page_center[%s, %s]"
 EOT
-            ,$url->getURL(true), $title, $width, $height);
+			, $url->getURL(true), $title, $width, $height);
     }
     
-    private function _getBaseUrl()
+    private function _getGbBaseUrl()
     {
     	global $tubepress_base_url;
 
-        return $tubepress_base_url . "/lib/lightWindow/";
+        return $tubepress_base_url . "/lib/greybox/";
     }
 }
 ?>

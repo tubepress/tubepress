@@ -166,7 +166,7 @@ abstract class org_tubepress_gallery_AbstractGallery
     	$this->_paginationService = $paginator; 
     }
     
-    public function setPlayerFactory(TubePressPlayerFactory $playerFactory) 
+    public function setPlayerFactory(org_tubepress_player_factory_PlayerFactory $playerFactory) 
     {             
     	$this->_playerFactory = $playerFactory; 
     }

@@ -26,7 +26,7 @@
  */
 interface TubePressThumbnailService
 {
-    public function getHtml($templateFile, TubePressVideo $vid, TubePressPlayer $player);
+    public function getHtml($templateFile, TubePressVideo $vid, org_tubepress_player_Player $player);
     
     public function setOptionsManager(TubePressOptionsManager $tpom);
     

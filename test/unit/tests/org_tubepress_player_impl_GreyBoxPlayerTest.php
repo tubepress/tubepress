@@ -1,6 +1,6 @@
 <?php
 
-class TPGreyBoxPlayerTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_player_impl_GreyBoxPlayerTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;
 	private $_tpom;
@@ -10,7 +10,7 @@ class TPGreyBoxPlayerTest extends PHPUnit_Framework_TestCase {
 	{
 		global $tubepress_base_url;
 		$tubepress_base_url = "fakeurl";
-		$this->_sut = new TPGreyBoxPlayer();
+		$this->_sut = new org_tubepress_player_impl_GreyBoxPlayer();
 		$this->_tpom = $this->getMock("TubePressOptionsManager");
 		$this->_tpeps = $this->getMock("TubePressEmbeddedPlayerService");
 	}

@@ -98,7 +98,7 @@ GBS;
     }
     
     $playerName = $wpsm->get(TubePressDisplayOptions::CURRENT_PLAYER_NAME);
-    $factory    = new SimpleTubePressPlayerFactory();
+    $factory    = new org_tubepress_player_factory_SimplePlayerFactory();
     $player     = $factory->getInstance($playerName);
     print $player->getHeadContents();
 }
@@ -111,7 +111,7 @@ function _tubepress_dependency_inject(org_tubepress_gallery_Gallery $gallery,
 	$feedInspectionService = new SimpleTubePressFeedInspectionService();
 	$feedRetrievalService  = new TubePressFeedRetrievalService_HTTP_Request2();
 	$messageService        = new org_tubepress_message_WordPressMessageService();
-	$playerFactory         = new SimpleTubePressPlayerFactory();
+	$playerFactory         = new org_tubepress_player_factory_SimplePlayerFactory();
 	$queryStringService    = new SimpleTubePressQueryStringService();
 	$paginationService     = new org_tubepress_pagination_DiggStylePaginationService();
 	$thumbService          = new SimpleTubePressThumbnailService();
