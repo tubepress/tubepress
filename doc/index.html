@@ -82,7 +82,7 @@
                 </li>
             </ol>
             <p>
-                Both packages are released under the <a href="http://www.gnu.org/copyleft/gpl.html">GPLv3</a>. TubePress was created, is developed and maintained by <a href="http://ehough.com/">Eric Hough</a>
+                Both packages are released under the <a href="http://www.gnu.org/copyleft/gpl.html">GPLv3</a>. TubePress was created, is developed and maintained by <a href="http://ehough.com/">Eric D. Hough</a>
             </p>
           <h1>2. Download</h1>
           <h2> 2.1 Latest stable release</h2>
@@ -101,7 +101,7 @@ If you have command line access to your server, and have an svn client in your p
 <li>Execute <pre>svn checkout http://tubepress.googlecode.com/svn/trunk/ tubepress</pre></li>
 </ol>
 
-That's it! You'll now be using the very latest build of the plugin. You can now upgrade by doing the following
+That's it! You'll now be using the very latest build of the plugin. You can now upgrade at any time like this:
 
 <ol><li>Change directories to <tt>wp-content/plugins/tubepress</tt></li>
 <li>Execute <pre>svn update</pre></li></ol>
@@ -113,8 +113,10 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
 <ol><li>Use any SVN client to browse to <tt>http://tubepress.googlecode.com/svn/trunk/</tt></li>
 <li>Checkout the trunk directory to a local directory called <tt>tubepress</tt></li>
 <li>Upload the tubepress directory you just created to your WordPress installation at <tt>wp-content/plugins</tt></li></ol>
-     <h3>Nightly Builds</h3>
-     You can download a nightly build of the WordPress plugin package from <a href="http://tubepress.org/builds/tubepress_nightly.zip">http://tubepress.org/builds/tubepress_nightly.zip</a>
+
+
+<h2>2.3 Nightly Builds</h2>
+   You can download a nightly build of the WordPress plugin package from <a href="http://tubepress.org/builds/tubepress_nightly.zip">http://tubepress.org/builds/tubepress_nightly.zip</a>
 
             <h1>
                 3. WordPress Plugin
@@ -124,8 +126,8 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
                 3.1 Quick Start
             </h2>
             <p>
-                TubePress can be managed just like any other WordPress plugin. See the <a rel="nofollow" href=
-                "http://codex.wordpress.org/Managing_Plugins">WordPress docs</a> for more information.
+                TubePress can be installed and activated just like any other WordPress plugin. See the <a rel="nofollow" href=
+                "http://codex.wordpress.org/Managing_Plugins">WordPress docs on plugin management</a> for more information.
             </p>
 
             <ol>
@@ -236,18 +238,24 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
             <h2>3.5 Initialize your options</h2>
             If you'd like to reset your TubePress options to their default values, you can do so by using a special page nested inside the plugin. If your
             blog URL is <pre>http://myblog.com</pre> you'd need to navigate to <pre>http://myblog.com/wp-content/plugins/tubepress/env/WordPress/functions/db_nuke.php</pre> with your web browser. Once there, you
-            can just click the "Reset TubePress Options" button. Of course, you'll need to be a WordPress administrator (access level 9) for your blog to do this.
+            can just click the <tt>Reset TubePress Options</tt> button. Of course, you'll need to be a WordPress administrator (access level 9) for your blog to do this.
            <h1><a name="pro">4. TubePress Pro</a></h1>
            TubePress Pro allows you to run TubePress anywhere that supports PHP5. This means that you can easily insert video galleries
-           in your PHP-enabled site! 
+           in your PHP-enabled site! A very basic understanding of PHP programming is helpful.
            <h2>4.1 Plain PHP</h2>
            Here are step-by-step instructions for using TubePress Pro on your site.
 <ol>
-<li><strong>Download</strong><br />After you purchase TubePress Pro, check your email that you've registered with PayPal. You'll find an email, from tubepress.org, that contains your download link. When you click on this link, your web browser will prompt you to download (or open) a zip file containing TubePress Pro. Click "Save file" and download the zip file to somewhere easy to find, like your desktop. As of this writing, the name of the zip file is <tt>tubepress_pro_1_6_9.zip</tt>.<br /><br /></li>
-<li><strong>Unzip</strong><br />You'll want to unzip the file you just downloaded (<tt>tubepress_pro_1_6_9.zip</tt>). It will expand into a directory named <tt>tubepress_pro_1_6_9</tt>.<br /><br /></li>
-<li><strong>Upload</strong><br />This entire directory that you unzipped must be uploaded to your web server in a place that's web accessible. In this example, my webserver has a URL of <tt>http://myblog.com</tt> and a document root of <tt>/var/www/html</tt>, so I'll need to upload the entire <tt>tubepress_pro_1_6_9</tt> directory to anywhere inside <tt>/var/www/html</tt> on <tt>myblog.com</tt>. For this example, I'll just upload the directory to the <tt>/var/www/html</tt> directory. Now my TubePress installation is web accessible at <tt>http://myblog.com/tubepress_pro_1_6_9</tt> and on the server's filesystem at <tt>/var/www/html/tubepress_pro_1_6_9</tt>.<br /><br /></li>
-<li><strong>Verify upload</strong><br /> It's a good idea to make sure that the directory you just uploaded is actually readable by your web server. Try navigating to <tt>http://myblog.com/tubepress_pro_1_6_9/tubepress-standalone.php</tt>. You should get a blank white screen with no errors.<br /><br /></li>
-<li><strong>Create gallery page</strong><br /> I want to create a gallery in <tt>/var/www/html/index.php</tt>. Below are the contents of <tt>index.php</tt>. It's an extremely simple PHP file with four steps added to include a TubePress gallery. We'll go the steps one-by-one.
+<li><strong>Download</strong><br />After you purchase TubePress Pro, check your email that you've registered with PayPal. You'll find an email, from tubepress.org, that contains your download link. When you click on this link, your web browser will prompt you to download (or open) a zip file containing TubePress Pro. Click "Save file" and download the zip file to somewhere easy to find, like your desktop. As of this writing, the name of the zip file is <tt>tubepress_pro_1_7_0.zip</tt>.<br /><br /></li>
+<li><strong>Unzip</strong><br />Unzip the file you just downloaded (<tt>tubepress_pro_1_7_0.zip</tt>). It will expand into a directory named <tt>tubepress_pro_1_7_0</tt>.<br /><br /></li>
+<li><strong>Upload</strong><br />This entire directory that you unzipped must be uploaded to your web server in a place that's web accessible. In this example, 
+my webserver has a URL of <tt>http://myblog.com</tt> and a document root of <tt>/var/www/html</tt>, so I'll need to upload the 
+entire <tt>tubepress_pro_1_7_0</tt> directory to anywhere inside <tt>/var/www/html</tt> on <tt>myblog.com</tt>. For this example, I'll just upload 
+the directory to the <tt>/var/www/html</tt> directory. <br /><br />Now my TubePress installation is web accessible at <tt>http://myblog.com/tubepress_pro_1_7_0</tt> and on the server's filesystem at <tt>/var/www/html/tubepress_pro_1_7_0</tt>.<br /><br /></li>
+<li><strong>Verify upload</strong><br /> It's a good idea to make sure that the directory you just uploaded is actually readable by your web
+ server. Try navigating to <tt>http://myblog.com/tubepress_pro_1_7_0/env/standalone/tubepress-standalone.php</tt>. You should get a blank white screen with no errors.<br /><br /></li>
+<li><strong>Create gallery page</strong><br /> I want to create a gallery
+ in <tt>/var/www/html/index.php</tt>. Below are the contents of <tt>index.php</tt>. It's an extremely simple PHP file with 
+four steps added to include a TubePress gallery. We'll go the steps one-by-one.
 
 <pre>
 &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -255,10 +263,10 @@ You'll need to check out the latest build locally (i.e. to your desktop machine)
 &lt;?php 
 
 <strong>/* STEP 1: Enter the web-accessible URL of your TubePress installation */
-$tubepress_base_url = "http://myblog.com/tubepress_pro_1_6_9";</strong>
+$tubepress_base_url = "http://myblog.com/tubepress_pro_1_7_0";</strong>
 
 <strong>/* STEP 2: Include the TubePress stand-alone library file (tubepress-standalone.php) */
-require_once "tubepress_pro_1_6_9/tubepress-standalone.php";</strong>
+require_once "tubepress_pro_1_7_0/env/standalone/tubepress-standalone.php";</strong>
 ?&gt;
 
 &lt;html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"&gt;
@@ -280,8 +288,10 @@ require_once "tubepress_pro_1_6_9/tubepress-standalone.php";</strong>
 &lt;/html&gt;
 </pre>
 
-<strong>Step 1:</strong><br /> Set the <tt>tubepress_base_url</tt> variable to the web URL of your TubePress Pro installation. In this example, it's <tt>http://myblog.com/tubepress_pro_1_6_9</tt>.<br /><br />
-<strong>Step 2:</strong><br /> Include the TubePress Pro library file, <tt>tubepress-standalone.php</tt>. This file is located right inside your TubePress Pro installation directory, so in this example it's found at <tt>tubepress_pro_1_6_9/tubepress-standalone.php</tt><br /><br />
+<strong>Step 1:</strong><br /> Set the <tt>tubepress_base_url</tt> variable to the web URL of your TubePress Pro installation. In this example,
+ it's <tt>http://myblog.com/tubepress_pro_1_7_0</tt>.<br /><br />
+<strong>Step 2:</strong><br /> Include the TubePress Pro library file, <tt>tubepress-standalone.php</tt>. This file is located right inside your 
+TubePress Pro installation directory, so in this example it's found at <tt>tubepress_pro_1_7_0/env/standalone/tubepress-standalone.php</tt><br /><br />
 <strong>Step 3:</strong><br /> In the head of your PHP file, execute <tt>print tubepressHeadElements();</tt> one time. This will include TubePress's CSS and JavaScript files.<br /><br />
 <strong>Step 4:</strong><br /> Anywhere you want a gallery, just execute <tt>print tubepressGallery("resultsPerPage='3'");</tt> Note that you can put any <a href="#shortcodes">TubePress shortcode syntax</a> as a parameter to this function call. Note that you can leave out the opening and closing brackets of the shortcode (along with the "tubepress" word) if you like.<br /><br />
 </li>
@@ -299,7 +309,7 @@ steps, which are in <strong>bold</strong> in the code snippet below. This exampl
 <pre>
 &lt;?php
 
-	<strong>require_once "tubepress/tubepress-standalone.php";</strong>
+	<strong>require_once "tubepress/env/standalone/tubepress-standalone.php";</strong>
 
 	get_header();
 
@@ -356,7 +366,7 @@ steps, which are in <strong>bold</strong> in the code snippet below. This exampl
 
             <table>
                 <thead>
-                    <tr>
+                    <tr class="alt">
                         <th>Setting</th>
                         <th>Description</th>
                         <th>Valid Values</th>
@@ -364,7 +374,7 @@ steps, which are in <strong>bold</strong> in the code snippet below. This exampl
                     </tr>
 				</thead>
 				<tbody>
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>mode</tt>
                         </td>
@@ -399,20 +409,20 @@ steps, which are in <strong>bold</strong> in the code snippet below. This exampl
             <table>
             	<thead><tr><th>Mode name</th><th>Description</th></tr></thead>
             	<tbody>
-            	<tr><td><tt>favorites</tt></td><td>"Favorite" videos of the given YouTube user. Accompany this mode setting with a <tt>favoritesValue</tt>
+            	<tr class="alt"><td><tt>favorites</tt></td><td>"Favorite" videos of the given YouTube user. Accompany this mode setting with a <tt>favoritesValue</tt>
                     attribute to define the YouTube user name. For instance<pre>[tubepress mode='favorites', favoritesValue='3hough']</pre>. YouTube limits the number of videos in this type of gallery to 50.
 
                 </td></tr>
-                <tr><td><tt>recently_featured</tt></td><td>The lastest "featured" videos on YouTube's homepage</td></tr>
-                <tr><td><tt>most_discussed</tt></td><td>The most-commented videos on YouTube</td></tr>
-                <tr><td><tt>most_linked</tt></td><td>Videos with the most links</td></tr>
-                <tr><td><tt>most_recent</tt></td><td>Videos recently uploaded to YouTube</td></tr>
-                <tr><td><tt>most_responded</tt></td><td>Videos with the most video responses</td></tr>
-                <tr><td><tt>playlist</tt></td><td>Videos from the given playlist. Accompany this mode setting with a <tt>playlistValue</tt> attribute to define
+                <tr class="alt"><td><tt>recently_featured</tt></td><td>The lastest "featured" videos on YouTube's homepage</td></tr>
+                <tr class="alt"><td><tt>most_discussed</tt></td><td>The most-commented videos on YouTube</td></tr>
+                <tr class="alt"><td><tt>most_linked</tt></td><td>Videos with the most links</td></tr>
+                <tr class="alt"><td><tt>most_recent</tt></td><td>Videos recently uploaded to YouTube</td></tr>
+                <tr class="alt"><td><tt>most_responded</tt></td><td>Videos with the most video responses</td></tr>
+                <tr class="alt"><td><tt>playlist</tt></td><td>Videos from the given playlist. Accompany this mode setting with a <tt>playlistValue</tt> attribute to define
                     which YouTube playlist to retrieve. For instance<pre>[tubepress mode='playlist', playlistValue='6813408AE8D50E6F']</pre>. YouTube limits the number of videos in a playlist to 200. Only public playlists can be shown with TubePress.</td></tr>
-<tr><td><tt>mobile</tt></td><td>Videos suitable for mobile devices</td></tr>
-				<tr><td><tt>tag</tt></td><td>Show videos matching a search term. Accompany this mode setting with a <tt>tagValue</tt> attribute to define your search term. For instance <pre>[tubepress mode='tag', tagValue='barack obama john mccain']</pre></td></tr>
-               <tr><td><tt>user</tt></td><td>Videos uploaded by a specific user. Accompany this mode setting with a <tt>userValue</tt> attribute to define the
+<tr class="alt"><td><tt>mobile</tt></td><td>Videos suitable for mobile devices</td></tr>
+				<tr class="alt"><td><tt>tag</tt></td><td>Show videos matching a search term. Accompany this mode setting with a <tt>tagValue</tt> attribute to define your search term. For instance <pre>[tubepress mode='tag', tagValue='barack obama john mccain']</pre></td></tr>
+               <tr class="alt"><td><tt>user</tt></td><td>Videos uploaded by a specific user. Accompany this mode setting with a <tt>userValue</tt> attribute to define the
                     YouTube user name. For instance<pre>[tubepress mode='user', userValue='3hough']</pre></td></tr>
 </tbody></table>
                
@@ -424,7 +434,7 @@ steps, which are in <strong>bold</strong> in the code snippet below. This exampl
             </p>
             <table>
                  <thead>
-                    <tr>
+                    <tr class="alt">
                         <th>Setting</th>
                         <th>Description</th>
                         <th>Valid Values</th>
@@ -432,7 +442,7 @@ steps, which are in <strong>bold</strong> in the code snippet below. This exampl
                     </tr>
 				</thead>
 				<tbody>
-                    <tr>
+                    <tr class="alt">
                         <td>
 
                             <tt>playerLocation</tt>
@@ -448,7 +458,7 @@ steps, which are in <strong>bold</strong> in the code snippet below. This exampl
                             <tt>[tubepress playerLocation='shadowbox']</tt>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>orderBy</tt>
                         </td>
@@ -464,7 +474,7 @@ steps, which are in <strong>bold</strong> in the code snippet below. This exampl
 
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>resultsPerPage</tt>
                         </td>
@@ -480,7 +490,7 @@ steps, which are in <strong>bold</strong> in the code snippet below. This exampl
 
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>thumbHeight</tt>
                         </td>
@@ -496,7 +506,7 @@ steps, which are in <strong>bold</strong> in the code snippet below. This exampl
 
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>thumbWidth</tt>
                         </td>
@@ -518,29 +528,32 @@ steps, which are in <strong>bold</strong> in the code snippet below. This exampl
              <table>
             	<thead><tr><th>Player name</th><th>Description</th></tr></thead>
             	<tbody>
-            	<tr><td><tt>normal</tt></td><td>Plays videos in an embedded Flash player above the video thumbnails. If you'd like the page to load with a specific video at the top of the gallery, just add the video's ID to the address of you gallery as the <tt>tubepress_video</tt> argument. For instance, if my gallery has a URL of <tt>http://mygallery.com</tt>, I would use <tt>http://mygallery.com?tubepress_video=CNo7Hm0IOag</tt> to start the gallery with the video with ID <tt>CNo7Hm0IOag</tt> in the embedded player. You can use any YouTube video ID you like for this argument.
+            	<tr class="alt"><td><tt>normal</tt></td><td>Plays videos in an embedded Flash player above the video thumbnails. If you'd like the page to load with a specific video at the top of the gallery, just add the video's ID to the address of you gallery as the <tt>tubepress_video</tt> argument. For instance, if my gallery has a URL of <tt>http://mygallery.com</tt>, I would use <tt>http://mygallery.com?tubepress_video=CNo7Hm0IOag</tt> to start the gallery with the video with ID <tt>CNo7Hm0IOag</tt> in the embedded player. You can use any YouTube video ID you like for this argument.
 
                 </td></tr>
-                <tr><td><tt>popup</tt></td><td>Plays videos in an HTML popup window</td></tr>
-                <tr><td><tt>youtube</tt></td><td>Sends user to the video's original YouTube page to view the video</td></tr>
+                <tr class="alt"><td><tt>popup</tt></td><td>Plays videos in an HTML popup window</td></tr>
+                <tr class="alt"><td><tt>youtube</tt></td><td>Sends user to the video's original YouTube page to view the video</td></tr>
                
 </tbody></table>
 <h3>5.2.2 Video sort order</h3>
+
+             <table>
+            	<thead><tr><th>orderBy value</th><th>Description</th></tr></thead>
+            	<tbody>
+            	<tr class="alt"><td><tt>published</tt></td><td>
+Show videos in the order they were published to YouTube, with the more-recent videos first.
+                </td></tr>
+                <tr class="alt"><td><tt>viewCount</tt></td><td>Shows videos in order of how many times they've been viewed, with the more-viewed videos first.</td></tr>
+                <tr class="alt"><td><tt>rating</tt></td><td>Shows videos in order of their rating, with the higher-rated videos first.</td></tr>
+                <tr class="alt"><td><tt>relevance</tt></td><td>Shows videos in order of relevance. This sort order really only applies to "tag" mode galleries</td></tr>
+</tbody></table>
+               
+<br />
 Please note that these galleries can't be sorted
 <ul><li><strong>Favorites</strong><br/>A gallery of a user's favorite videos will always be sorted in the order that the videos were favorited.<br /><br /></li>
 <li><strong>Playlist</strong><br/>A playlist gallery will always be sorted in the order that the videos appear in the playlist<br /><br /></li>
 </ul>
-             <table>
-            	<thead><tr><th>orderBy value</th><th>Description</th></tr></thead>
-            	<tbody>
-            	<tr><td><tt>published</tt></td><td>
-Show videos in the order they were published to YouTube, with the more-recent videos first.
-                </td></tr>
-                <tr><td><tt>viewCount</tt></td><td>Shows videos in order of how many times they've been viewed, with the more-viewed videos first.</td></tr>
-                <tr><td><tt>rating</tt></td><td>Shows videos in order of their rating, with the higher-rated videos first.</td></tr>
-                <tr><td><tt>relevance</tt></td><td>Shows videos in order of relevance. This sort order really only applies to "tag" mode galleries</td></tr>
-</tbody></table>
-               
+
             <h2>
                5.3 Embedded Player Options
             </h2>
@@ -559,7 +572,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
 				</thead>
                 <tbody>
                     
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>autoPlay</tt>
                         </td>
@@ -574,7 +587,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
                             <tt>[tubepress autoPlay='true']</tt>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>border</tt>
 
@@ -590,7 +603,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
 
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>embeddedHeight</tt>
                         </td>
@@ -605,7 +618,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
                             <tt>[tubepress embeddedHeight='true']</tt>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
 
                             <tt>embeddedWidth</tt>
@@ -621,7 +634,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
                             <tt>[tubepress embeddedWidth='true']</tt>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>genie</tt>
                         </td>
@@ -637,7 +650,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
                         </td>
 
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>loop</tt>
                         </td>
@@ -652,7 +665,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
                             <tt>[tubepress loop='true']</tt>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
 
                             <tt>playerColor</tt>
@@ -668,7 +681,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
                             <tt>[tubepress playerColor='0xffaabb/0xaa2233']</tt>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
 
                             <tt>quality</tt>
@@ -684,7 +697,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
                             <tt>[tubepress quality='higher']</tt>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>showRelated</tt>
                         </td>
@@ -719,7 +732,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
 				</thead>
                 <tbody>
                    
-                    <tr>
+                    <tr class="alt">
 
                         <td>
                             <tt>author</tt>
@@ -735,7 +748,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
                             <tt>[tubepress author='true']</tt>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>category</tt>
 
@@ -751,7 +764,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
 
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>description</tt>
                         </td>
@@ -766,7 +779,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
                             <tt>[tubepress description='false']</tt>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
 
                         <td>
                             <tt>id</tt>
@@ -782,7 +795,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
                             <tt>[tubepress id='true']</tt>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>length</tt>
 
@@ -798,7 +811,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
 
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>rating</tt>
                         </td>
@@ -813,7 +826,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
                             <tt>[tubepress rating='true']</tt>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
 
                         <td>
                             <tt>ratings</tt>
@@ -829,7 +842,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
                             <tt>[tubepress ratings='true']</tt>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>tags</tt>
 
@@ -845,7 +858,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
 
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>title</tt>
                         </td>
@@ -860,7 +873,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
                             <tt>[tubepress title='true']</tt>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
 
                         <td>
                             <tt>uploaded</tt>
@@ -876,7 +889,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
                             <tt>[tubepress uploaded='false']</tt>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>url</tt>
 
@@ -892,7 +905,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
                             <tt>[tubepress url='false']</tt>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>views</tt>
                         </td>
@@ -929,7 +942,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
                 <tbody>
                 
 
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>dateFormat</tt>
                         </td>
@@ -946,7 +959,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
                         </td>
                     </tr>
 
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>debugging_enabled</tt>
                         </td>
@@ -961,7 +974,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
                             <tt>[tubepress debugging_enabled='false']</tt>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>randomize_thumbnails</tt>
 
@@ -977,7 +990,7 @@ Show videos in the order they were published to YouTube, with the more-recent vi
 
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="alt">
                         <td>
                             <tt>filter_racy</tt>
                         </td>
