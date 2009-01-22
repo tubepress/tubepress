@@ -203,7 +203,7 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
         
         $link = $link->getURL(true);
         
-        return sprintf(<<<EOT
+        $embedSrc = sprintf(<<<EOT
 <object type="application/x-shockwave-flash" 
     style="width: %spx; height: %spx" data="%s">
     <param name="wmode" value="transparent" />
@@ -211,6 +211,7 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
 </object>
 EOT
         , $this->_width, $this->_height, $link, $link);
+	return str_replace("?", "&amp;", $embedSrc);
     }
 }
 
