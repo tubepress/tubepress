@@ -98,7 +98,7 @@ function tubepress_widget_control() {
 	}
 
     /* load up the gallery template */
-    $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../common/ui/widget");
+    $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../ui/widget/html_templates");
     if (!$tpl->loadTemplatefile("controls.tpl.html", true, true)) {
         throw new Exception("Couldn't load widget control template");
     }
