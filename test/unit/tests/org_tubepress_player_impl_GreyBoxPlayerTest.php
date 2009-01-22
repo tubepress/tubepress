@@ -40,7 +40,7 @@ EOX
 					->will($this->returnCallback("greyboxCallback"));
 		
 		$this->assertEquals(<<<EOT
-href="$tubepress_base_url/common/ui/popup.php?id=&amp;opts=fakeopts" title="fake title" rel="gb_page_center[222, 111]"
+href="$tubepress_base_url/ui/players/popup.php?id=&amp;opts=fakeopts" title="fake title" rel="gb_page_center[222, 111]"
 EOT
 			, $this->_sut->getPlayLink($fakeVideo, $this->_tpom));
 	}

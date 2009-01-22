@@ -37,11 +37,7 @@ class org_tubepress_thumbnail_SimpleThumbnailServiceTest extends PHPUnit_Framewo
 		$vid->setYouTubeUrl("youtube url");
 		$vid->setRating("4.5");
 		$vid->setRatings("1000");
-		
-	    $thumbTemplate = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../ui/gallery/html_templates");
-        if (!$thumbTemplate->loadTemplatefile("thumbnail.tpl.html", true, true)) {
-            throw new Exception("Couldn't load thumbnail template");
-        }
+	
 		
 		$this->assertEquals(<<<EOT
 <div class="tubepress_thumb">
@@ -93,7 +89,7 @@ class org_tubepress_thumbnail_SimpleThumbnailServiceTest extends PHPUnit_Framewo
 </div><!-- tubepress_thumb -->
 
 EOT
-		, $this->_sut->getHtml($thumbTemplate, $vid, $this->_player));
+		, $this->_sut->getHtml(dirname(__FILE__) . "/../../../ui/gallery/html_templates", $vid, $this->_player));
 	}
 }
 

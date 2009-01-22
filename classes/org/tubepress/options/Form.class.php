@@ -37,7 +37,7 @@ class org_tubepress_options_Form
     public final function display(org_tubepress_options_storage_StorageManager $tpsm)
     {
         /* load up the template */
-        $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../common/ui");
+        $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../ui/options_page");
         if (!$tpl->loadTemplatefile("options_page.tpl.html", true, true)) {
             throw new Exception("Could not load options page template");
         }

@@ -38,7 +38,7 @@ EOX
 		$this->_sut->setEmbeddedPlayerService($this->_tpeps);
 					
 		$this->assertEquals(<<<EOT
-href="fakeurl/common/ui/popup.php?id=&amp;opts=fakeopts" class="lightwindow" title="fake title" params="lightwindow_width=222,lightwindow_height=111"
+href="fakeurl/ui/players/popup.php?id=&amp;opts=fakeopts" class="lightwindow" title="fake title" params="lightwindow_width=222,lightwindow_height=111"
 EOT
 			, $this->_sut->getPlayLink($fakeVideo, $this->_tpom));
 	}
