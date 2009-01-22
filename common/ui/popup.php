@@ -22,8 +22,6 @@
 /*
  * If someone can explain to me why I need to modify the header here,
  * and the XHTML meta tag doesn't work, I would be very grateful :)
- * 
- * Thanks to Numline1 for reporting the XSS hole on this page!
  */
 header('Content-Type: text/html;charset=utf-8');
 
