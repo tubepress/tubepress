@@ -19,9 +19,6 @@
  *
  */
 
-if (!function_exists("TubePressRelativeTime")) {
-	include dirname(__FILE__) . "/../../../../lib/relative_time.php";
-}
 
 /**
  * Handles the parsing of the meta info below each video thumbnail
@@ -166,7 +163,7 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
                     if ($niceDate != "N/A") {
                     	if ($this->_tpom->get(org_tubepress_options_category_Display::RELATIVE_DATES)) {
                     		$niceDate = 
-                    		    TubePressRelativeTime($vid->getUploadTime());
+                    		    $this->_relativeTime($vid->getUploadTime());
                     	} else {
                             $niceDate = date($this->_tpom->
                                 get(org_tubepress_options_category_Advanced::DATEFORMAT), 
@@ -187,5 +184,25 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
     public function setMessageService(org_tubepress_message_MessageService $messageService)
     { 
     	$this->_msg = $messageService; 
+    }
+    
+    //Grabbed from http://www.weberdev.com/get_example-4769.html
+    
+    private function _relativeTime($timestamp){
+        $difference = time() - $timestamp;
+        $periods = array("sec", "min", "hour", "day", "week", "month", "year", "decade");
+        $lengths = array("60","60","24","7","4.35","12","10");
+    
+        if ($difference > 0) { // this was in the past
+            $ending = "ago";
+        } else { // this was in the future
+            $difference = -$difference;
+            $ending = "to go";
+        }       
+        for($j = 0; $difference >= $lengths[$j]; $j++) $difference /= $lengths[$j];
+        $difference = round($difference);
+        if($difference != 1) $periods[$j].= "s";
+        $text = "$difference $periods[$j] $ending";
+        return $text;
     }
 }

@@ -17,10 +17,10 @@ class org_tubepress_player_impl_ShadowBoxPlayerTest extends PHPUnit_Framework_Te
 	function testGetHeadContents()                                                
     {                          
     	$this->assertEquals(<<<EOX
-<script type="text/javascript" src="fakeurl/lib/shadowbox/src/js/lib/yui-utilities.js"></script><script type="text/javascript" src="fakeurl/lib/shadowbox/src/js/adapter/shadowbox-yui.js"></script><script type="text/javascript" src="fakeurl/lib/shadowbox/src/js/shadowbox.js"></script><script type="text/javascript">YAHOO.util.Event.onDOMReady(function() { 
-    var options = { assetURL: "fakeurl/lib/shadowbox/" };
+<script type="text/javascript" src="fakeurl/ui/players/shadowbox/src/js/lib/yui-utilities.js"></script><script type="text/javascript" src="fakeurl/ui/players/shadowbox/src/js/adapter/shadowbox-yui.js"></script><script type="text/javascript" src="fakeurl/ui/players/shadowbox/src/js/shadowbox.js"></script><script type="text/javascript">YAHOO.util.Event.onDOMReady(function() { 
+    var options = { assetURL: "fakeurl/ui/players/shadowbox/" };
     Shadowbox.init(options);
-});</script><link rel="stylesheet" href="fakeurl/lib/shadowbox/src/css/shadowbox.css" type="text/css" />
+});</script><link rel="stylesheet" href="fakeurl/ui/players/shadowbox/src/css/shadowbox.css" type="text/css" />
 EOX
 		, $this->_sut->getHeadContents());        
     }  

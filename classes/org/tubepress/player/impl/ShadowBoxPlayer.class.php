@@ -94,7 +94,7 @@ EOT
    {
    		global $tubepress_base_url;
 
-        return $tubepress_base_url . "/lib/shadowbox/";
+        return $tubepress_base_url . "/ui/players/shadowbox/";
    }
 }
 ?>

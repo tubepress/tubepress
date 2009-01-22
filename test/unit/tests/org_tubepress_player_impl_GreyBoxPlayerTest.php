@@ -18,7 +18,7 @@ class org_tubepress_player_impl_GreyBoxPlayerTest extends PHPUnit_Framework_Test
 	function testGetHeadContents()                                                
     {                          
     	$this->assertEquals(<<<EOX
-<script type="text/javascript">var GB_ROOT_DIR = "fakeurl/lib/greybox/"</script><script type="text/javascript" src="fakeurl/lib/greybox/AJS.js"></script><script type="text/javascript" src="fakeurl/lib/greybox/AJS_fx.js"></script><script type="text/javascript" src="fakeurl/lib/greybox/gb_scripts.js"></script><link rel="stylesheet" href="fakeurl/lib/greybox/gb_styles.css" type="text/css" />
+<script type="text/javascript">var GB_ROOT_DIR = "fakeurl/ui/players/greybox/"</script><script type="text/javascript" src="fakeurl/ui/players/greybox/AJS.js"></script><script type="text/javascript" src="fakeurl/ui/players/greybox/AJS_fx.js"></script><script type="text/javascript" src="fakeurl/ui/players/greybox/gb_scripts.js"></script><link rel="stylesheet" href="fakeurl/ui/players/greybox/gb_styles.css" type="text/css" />
 EOX
 		, $this->_sut->getHeadContents());        
     }  

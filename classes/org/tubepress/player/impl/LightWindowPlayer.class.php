@@ -91,7 +91,7 @@ EOT
     {
     	global $tubepress_base_url;
 
-        return $tubepress_base_url . "/lib/lightWindow/";
+        return $tubepress_base_url . "/ui/players/lightWindow/";
     }
 }
 ?>

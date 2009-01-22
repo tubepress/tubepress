@@ -71,7 +71,7 @@ EOT
     {
     	global $tubepress_base_url;
 
-        return $tubepress_base_url . "/lib/greybox/";
+        return $tubepress_base_url . "/ui/players/greybox/";
     }
 }
 ?>
