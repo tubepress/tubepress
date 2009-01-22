@@ -1,0 +1,377 @@
+# Copyright 2006, 2007, 2008, 2009 Eric D. Hough (http://ehough.com)
+#
+# This file is part of TubePress (http://tubepress.org)
+#
+# TubePress is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# TubePress is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+msgid ""
+msgstr ""
+"Project-Id-Version: TubePress in italiano\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Gianni Diurno (aka gidibao) <gidibao@gmail.com>\n"
+"Language-Team: Gianni Diurno | http://gidibao.net/ <gidibao@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Italian\n"
+"X-Poedit-Country: ITALY\n"
+
+msgid "TubePress Options"
+msgstr "Opzioni TubePress"
+
+msgid "Save"
+msgstr "Salva"
+
+msgid "Set default options for the plugin. Each option here can be overridden on a per page/post basis. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
+msgstr "Qui puoi impostare le opzioni predefinite per il plugin. Tutte le modifiche apportate alle opzioni verranno applicate alla pagina/articolo di base. Consulta la <a href=\"http://tubepress.org/documentation\">documentazione</a> per ulteriori informazioni."
+
+msgid "TubePress is free. But if you enjoy the plugin, and appreciate the hundreds of hours I've spent developing and supporting it, please consider a donation. No amount is too small. Thanks!"
+msgstr "TubePress è gratuito. Qualora gradissi il plugin ed apprezzassi le centinaia di ore di lavoro che ho dedicato allo sviluppo ed al supporto di questo plugin, ti invito cordialmente ad effettuare una donazione. Nesuna cifra sarà considerata piccola. Grazie!"
+
+msgid "Which videos?"
+msgstr "Quali video?"
+
+msgid "Top rated videos from..."
+msgstr "i video più popolari di..."
+
+msgid "This YouTube user's \"favorites\""
+msgstr "i \"favoriti\" di questo utente di YouTube"
+
+msgid "The latest \"featured\" videos on YouTube's homepage"
+msgstr "i video in  \"primo piano\" nella home di YouTube"
+
+msgid "Videos for mobile phones"
+msgstr "i video per cellulari"
+
+msgid "This playlist"
+msgstr "da questa playlist"
+
+msgid "Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the 'p='. For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35"
+msgstr "Limite di 200 video per ogni playlist. Assomiglia ad una sequenza tipo questa: D2B04665B213AE35. Copia la id della playlist che trovi posizionata in coda all'URL nella barra degli indirizzi del tuo browser (durante la visualizzazione di una playlist su YouTube). La troverai giusto dopo 'p='. Ad esempio: http://youtube.com/my_playlists?p=D2B04665B213AE35"
+
+msgid "Most-viewed videos from"
+msgstr "i video più visti di"
+
+msgid "Most-linked videos"
+msgstr "i video più linkati"
+
+msgid "Most-recently added videos"
+msgstr "i video più recenti"
+
+msgid "Most-discussed videos"
+msgstr "i video più commentati"
+
+msgid "Most-responded to videos"
+msgstr "i video con più risposte"
+
+msgid "Views"
+msgstr "Visualizzazioni"
+
+msgid "YouTube search for..."
+msgstr "Cerca con YouTube..."
+
+msgid "Videos from this YouTube user"
+msgstr "i video provenienti da questo utente di YouTube"
+
+msgid "YouTube limits this mode to 1,000 results"
+msgstr "YouTube limita questa modalità a 1.000 risultati"
+
+msgid "Display Options"
+msgstr "Opzioni visualizzazzione"
+
+msgid "Play each video"
+msgstr "Riproduci ogni video"
+
+msgid "Maximum description length"
+msgstr "Lunghezza massima per la descrizione"
+
+msgid "Maximum number of characters to display in video descriptions. Set to 0 for no limit."
+msgstr "Numero massimo di caratteri da mostrare nella descrizione del video. Imposta a 0 per non fissare alcun limite."
+
+msgid "Height (px) of thumbs"
+msgstr "Altezza (px) delle miniature"
+
+msgid "Default (and maximum) is 90"
+msgstr "Predefinito (e massimo) a 90"
+
+msgid "Width (px) of thumbs"
+msgstr "Larghezza (px) delle miniature"
+
+msgid "Default (and maximum) is 120"
+msgstr "Predefinito (e massimo) a 120"
+
+msgid "Use relative dates"
+msgstr "Usa data relativa"
+
+msgid "e.g. \"yesterday\" instead of \"November 3, 1980\""
+msgstr "ad es. \"ieri\" al posto di \"12 Gennaio 2009\""
+
+msgid "Videos per Page"
+msgstr "Video per pagina"
+
+msgid "Default is 20. Maximum is 50"
+msgstr "Predefinito a 20. Massimo a 50"
+
+msgid "Order videos by"
+msgstr "Disponi i video"
+
+msgid "Embedded Player"
+msgstr "Lettore incorporato"
+
+msgid "Auto-play videos"
+msgstr "Avvio automatico"
+
+msgid "Show border"
+msgstr "Mostra bordo"
+
+msgid "Max height (px)"
+msgstr "dimensioni (px)"
+
+msgid "Default is 355"
+msgstr "Predefinita a 355"
+
+msgid "Default is 425"
+msgstr "Predefinita a 425"
+
+msgid "Enhanced genie menu"
+msgstr "Enhanced genie menu"
+
+msgid "Show the genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button"
+msgstr "Mostra se presente il genie menu quando il mouse entra nell'area del video (come alternativa per l'utente di premere il tasto del \"menu\")"
+
+msgid "Loop"
+msgstr "Loop"
+
+msgid "Continue playing the video until the user stops it"
+msgstr "Riproduzione continua del video sino ad interruzione da parte del'utente"
+
+msgid "Color"
+msgstr "Colore"
+
+msgid "Show related videos"
+msgstr "Mostra video correlati"
+
+msgid "Toggles the display of related videos after a video finishes"
+msgstr "Commuta alla presentazione dei video correlati una volta terminato il video"
+
+msgid "Video quality"
+msgstr "Qualità video"
+
+msgid "Normal"
+msgstr "Normale"
+
+msgid "High"
+msgstr "Alta"
+
+msgid "Higher"
+msgstr "Superiore"
+
+msgid "Highest"
+msgstr "Ottima"
+
+msgid "Meta Display"
+msgstr "Mostra meta-dati"
+
+msgid "Author"
+msgstr "Autore"
+
+msgid "Category"
+msgstr "Categoria"
+
+msgid "Description"
+msgstr "Descrizione"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Length"
+msgstr "Lunghezza"
+
+msgid "Rating"
+msgstr "Valutazione"
+
+msgid "Ratings"
+msgstr "Valutazioni"
+
+msgid "Tags"
+msgstr "Tags"
+
+msgid "Title"
+msgstr "Titolo"
+
+msgid "Posted"
+msgstr "Pubblicato"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Advanced"
+msgstr "Funzioni varie avanzate"
+
+msgid "Date format"
+msgstr "Formato data"
+
+msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\">date</a> for examples."
+msgstr "Imposta la formattazione del testo per le informazioni sulla data del video. Vai <a href=\"http://us.php.net/date\">qui</a> per maggiori informazioni."
+
+msgid "Enable debugging"
+msgstr "Attiva debugging"
+
+msgid "If checked, anyone will be able to view your debugging information. This is a rather small privacy risk. If you're not having problems with TubePress, or you're worried about revealing any details of your TubePress pages, feel free to disable the feature."
+msgstr "Se attivato, chiunque potrà vedere le tue informazioni di debugging. Questo comporta un piccolo rischio alla tua privacy. Qualora tu non avessi riscontrato alcun problema con TubePress oppure non desiderassi mostrae nessun dettaglio circa le tue pagine di TubePress, disattiva tranquillamente questa funzione."
+
+msgid "Filter \"racy\" content"
+msgstr "Filtro contenuti \"per adulti\""
+
+msgid "Don't show videos that may not be suitable for minors."
+msgstr "Non verranno mostrati i video non adatti per un pubblico di minori."
+
+msgid "Trigger keyword"
+msgstr "Trigger keyword"
+
+msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
+msgstr "La parola che inserirai (come testo racchiuso tra le parentesi quadre) nei tuoi articoli/pagine per poter mostrare una galleria."
+
+msgid "Randomize thumbnails"
+msgstr "Casualizza le miniature"
+
+msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized"
+msgstr "La maggior parte dei video viene proposta con diverse miniature. Selezionando questa opzione, ogni volta che qualcuno accederà alla tua galleria potrà vedere i video presenti associati alle loro varie miniature mostrate casualmente "
+
+msgid "YouTube API Client ID"
+msgstr "YouTube API Client ID"
+
+msgid "YouTube will use this client ID for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing."
+msgstr "YouTube utilizzerà questa client ID principalmente per la analisi delle segnalazioni di errore riscontrate e per il debugging. Puoi registrare una client ID <a href=\"http://code.google.com/apis/youtube/dashboard/\">qui</a>. Non modificare la presente se non fossi sicuro di cosa stessi facendo."
+
+msgid "YouTube API Developer Key"
+msgstr "YouTube API Developer Key"
+
+msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing."
+msgstr "YouTube utilizzerà questa developer key principalmente per la analisi delle segnalazioni di errore riscontrate e per il debugging. Puoi registrare una nuova client ID ed una developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\">qui</a>. Non modificare la presente se non fossi sicuro di cosa stessi facendo."
+
+msgid "Enable request cache"
+msgstr "Attiva cache"
+
+msgid "Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
+msgstr "Conserva per 1 ora le richieste per YouTube. Ogni richiesta comporta l'utilizzo di alcune centinai di KB quindi, lasciando attiva la cache verrà ridotto significamente il tempo di caricamento delle tue gallerie."
+
+msgid "Add rel=nofollow to most YouTube links"
+msgstr "Aggiungi rel=nofollow ai link YouTube"
+
+msgid "Prevents search engines from indexing outbound links to youtube.com. The only exception is the link to a video's original page on YouTube."
+msgstr "Previene l'indicizzazione dei link in uscita verso YouTube da parte dei motori di ricerca. L'unica eccezione sarà il link alla pagina originale del video su YouTube."
+
+msgid "normally (at the top of your gallery)"
+msgstr "normalmente (in cima alla galleria gallery)"
+
+msgid "in a popup window"
+msgstr "in una finestra popup"
+
+msgid "from the original YouTube page"
+msgstr "nella pagina originale di YouTube"
+
+msgid "with lightWindow (experimental)"
+msgstr "con lightWindow (sperimentale)"
+
+msgid "with GreyBox (experimental)"
+msgstr "con GreyBox (sperimentale)"
+
+msgid "with Shadowbox.js (experimental)"
+msgstr "with Shadowbox.js (sperimentale)"
+
+msgid "normal"
+msgstr "predefinito"
+
+msgid "dark gray"
+msgstr "grigio"
+
+msgid "dark blue"
+msgstr "blu"
+
+msgid "light blue"
+msgstr "azzurro"
+
+msgid "green"
+msgstr "verde"
+
+msgid "orange"
+msgstr "arancione"
+
+msgid "pink"
+msgstr "rosa"
+
+msgid "purple"
+msgstr "lilla"
+
+msgid "red"
+msgstr "rosso"
+
+msgid "relevance"
+msgstr "per rilevanza"
+
+msgid "view count"
+msgstr "più visti"
+
+msgid "rating"
+msgstr "più votati"
+
+msgid "date updated"
+msgstr "recenti"
+
+msgid "randomly"
+msgstr "casualmente"
+
+msgid "today"
+msgstr "oggi"
+
+msgid "this week"
+msgstr "questa settimana"
+
+msgid "this month"
+msgstr "questo mese"
+
+msgid "all time"
+msgstr "di sempre"
+
+msgid "next"
+msgstr "successivo"
+
+msgid "prev"
+msgstr "precedente"
+
+msgid "Displays YouTube videos in your sidebar using TubePress"
+msgstr "Mostra con TubePress i video di YouTube nella barra laterale"
+
+msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>."
+msgstr "Shortcode di TubePress per il widget. Consulta la <a href=\"http://tubepress.org/documentation\"> documentazione</a>."
+
+#
+# VALIDATION
+#
+msgid "%s can only take on integer values. You supplied %s."
+msgstr "%s può solo accettare i numeri interi. Tu hai inserito %s."
+
+msgid "%s must be between %d and %d. You supplied %d."
+msgstr "%s deve essere tra %d e %d. Tu hai inserito %d."
+
+msgid "%s must be one of \"today\", \"this_week\", \"this_month\", \"all_time\". You supplied %s."
+msgstr "%s deve essere uno tra \"today\", \"this_week\", \"this_month\", \"all_time\". Tu hai inserito %s."
+
+msgid "%s must be on of \"relevance\", \"viewCount\", \"rating\", \"updated\", \"random\". You supplied %s."
+msgstr "%s deve essere uno tra \"relevance\", \"viewCount\", \"rating\", \"updated\", \"random\". Tu hai inserito %s."
+
+msgid "%s must be a string. You supplied %s."
+msgstr "%s deve essere una stringa. Tu hai inserito %s."
+
