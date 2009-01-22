@@ -1,7 +1,7 @@
 <?php
 
 require_once '/Applications/MAMP/bin/php5/lib/php/PHPUnit/Framework.php';
-require_once dirname(__FILE__) . "/../../common/tubepress_classloader.php";
+require_once dirname(__FILE__) . "/../../classes/tubepress_classloader.php";
 
 $testNames = array(
 	"org_tubepress_cache_SimpleCacheService",

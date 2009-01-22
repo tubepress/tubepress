@@ -11,7 +11,7 @@
 		<exclude name="lib/**/*.php" />
 		<exclude name="**/AbstractMessageService.class.php" />
 		<exclude name="**/popup.php" />
-		<exclude name="/common/tubepress_classloader.php" />
+		<exclude name="/classes/tubepress_classloader.php" />
 	</fileset>
 	
 	<target name="sniff">

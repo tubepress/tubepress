@@ -19,20 +19,40 @@
  *
  */
 
+/**
+ * Attempts to load a class file based on the class name
+ *
+ * @param string $className The name of the class to load
+ * 
+ * @return void
+ */
 function tubepress_classloader($className)
 {
+    /* already have the class or interface? bail */
     if (class_exists($className, false) || interface_exists($className, false)) {
         return;
     }
     
+    /*
+     * replace all underscores with the directory separator and add ".class.php"
+     * e.g. org_tubepress_package_MyClass becomes org/tubepress/package/MyClass.class.php
+     */
     $fileName = str_replace('_', DIRECTORY_SEPARATOR, $className) . '.class.php';
+    
+    /* piece together the absolute file name */
     $currentDir = dirname(__FILE__) . "/../classes/";
     $absPath = $currentDir . $fileName;
+    
+    /* include the file if it exists */
     if (file_exists($absPath)) {
-        include $currentDir . $fileName;    
+        include $absPath;    
     }
 }
 
+/*
+ * register it as a class loader if PHP >= 5.1.2, otherwise
+ * we just have to register it as *the* classloader (bad!)
+ */
 if (version_compare(PHP_VERSION, '5.1.2', '>=')) {
 	spl_autoload_register("tubepress_classloader");
 } else {
