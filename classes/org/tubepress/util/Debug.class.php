@@ -39,7 +39,7 @@ class org_tubepress_util_Debug
         global $tubepress_base_url;
     
         /* load up the debug template */
-        $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../ui");
+        $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../ui/gallery/html_templates");
         if (!$tpl->loadTemplatefile("debug_blurb.tpl.html", true, true)) {
            print "Could not load debug template!";
            return;

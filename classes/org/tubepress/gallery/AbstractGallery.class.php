@@ -26,7 +26,7 @@ abstract class org_tubepress_gallery_AbstractGallery
 {
     private $_feedInspectionService;
     private $_feedRetrievalService;
-    private $_galleryTemplate;
+    private $_templateDirectory;
     private $_messageService;
     private $_optionsManager;
     private $_paginationService;
@@ -46,8 +46,8 @@ abstract class org_tubepress_gallery_AbstractGallery
     public final function generateThumbs()
     {
         /* load up the gallery template */
-        $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../common/ui");
-        if (!$tpl->loadTemplatefile($this->_galleryTemplate, true, true)) {
+        $tpl = new net_php_pear_HTML_Template_IT($this->_templateDirectory);
+        if (!$tpl->loadTemplatefile("gallery.tpl.html", true, true)) {
             throw new Exception("Couldn't load gallery template");
         }
 
@@ -94,7 +94,7 @@ abstract class org_tubepress_gallery_AbstractGallery
 	            
 	        /* Here's where each thumbnail gets printed */
 	        $thumbsHtml .= $this->_thumbnailService->getHtml(
-	            $this->_thumbnailTemplate, $videos[$x], $player);     
+	            $this->_templateDirectory, $videos[$x], $player);     
 	    }
 	    
 	    $tpl->setVariable("THUMBS", $thumbsHtml);
@@ -136,9 +136,9 @@ abstract class org_tubepress_gallery_AbstractGallery
         $tpl->setVariable('BOTPAGINATION', $pagination);
     }
     
-    public function setGalleryTemplate($templateFile) 
+    public function setTemplateDirectory($directory) 
     {										  
-    	$this->_galleryTemplate = $templateFile; 
+    	$this->_templateDirectory = $directory; 
     }
     
     public function setFeedInspectionService(org_tubepress_gdata_inspection_FeedInspectionService $feedInspector) 
@@ -179,11 +179,6 @@ abstract class org_tubepress_gallery_AbstractGallery
     public function setThumbnailService(org_tubepress_thumbnail_ThumbnailService $thumbService) 
     {            
     	$this->_thumbnailService = $thumbService; 
-    }
-    
-    public function setThumbnailTemplate($templateFile) 
-    {									  
-    	$this->_thumbnailTemplate = $templateFile; 
     }
     
     public function setEmbeddedPlayerService(org_tubepress_video_embed_EmbeddedPlayerService $tpeps)

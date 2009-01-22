@@ -45,8 +45,7 @@ class org_tubepress_gallery_Gallery extends org_tubepress_gallery_AbstractGaller
     public final function generate()
     {
     	try {
-    		$this->setThumbnailTemplate("thumbnail.tpl.html");
-    		$this->setGalleryTemplate("gallery.tpl.html");
+    		$this->setTemplateDirectory(dirname(__FILE__) . "/../../../../ui/gallery/html_templates");
      	    return $this->generateThumbs();
     	} catch (Exception $e) {
     		return $e->getMessage();
