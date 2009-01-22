@@ -22,9 +22,8 @@
 if (version_compare(PHP_VERSION, '5.0.0', '>=')
         && !function_exists("tubepress_content_filter")) {
         	
-    $tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";
-	load_plugin_textdomain("tubepress", 'wp-content/plugins/tubepress/common/messages');
-    include dirname(__FILE__) . "/../functions/main.php";
+	load_plugin_textdomain('tubepress', 'wp-content/plugins/tubepress/i18n');
+    include dirname(__FILE__) . '/../functions/main.php';
 
 	add_filter('the_content', 'tubepress_content_filter');
 	add_action('wp_head',     'tubepress_head_filter');
