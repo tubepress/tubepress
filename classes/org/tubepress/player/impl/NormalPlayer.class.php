@@ -42,7 +42,7 @@ class org_tubepress_player_impl_NormalPlayer extends org_tubepress_player_Abstra
         return sprintf(<<<EOT
 href="#" onclick="tubePress_normalPlayer('%s', '%d', '%s')"
 EOT
-			, rawurlencode($this->getEmbeddedPlayerService()->toString()), $height, $title);
+			, rawurlencode($this->getEmbeddedPlayerService()->toString()), $height, rawurlencode($title));
     }
     
     public function getPreGalleryHtml(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom)

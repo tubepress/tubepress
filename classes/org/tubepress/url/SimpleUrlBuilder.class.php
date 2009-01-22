@@ -132,6 +132,8 @@ class org_tubepress_url_SimpleUrlBuilder implements org_tubepress_url_UrlBuilder
         /* YouTube API client ID and developer keys */
         $requestURL->setQueryVariable("client", $this->_tpom->get(org_tubepress_options_category_Advanced::CLIENT_KEY));
         $requestURL->setQueryVariable("key", $this->_tpom->get(org_tubepress_options_category_Advanced::DEV_KEY));
+
+	$requestURL->setQueryVariable("format", "5");
         
         $request = $requestURL->getURL();
     }
