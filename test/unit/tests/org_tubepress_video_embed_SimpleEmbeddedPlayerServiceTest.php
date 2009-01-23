@@ -21,7 +21,7 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerServiceTest extends PHPUnit_
 			 
 		$this->_sut->applyOptions($vid, $this->_tpom);
 		
-		$link = "http://www.youtube.com/v/FAKEID?color1=0x111111&amp;color2=0x777777&amp;rel=1&amp;autoplay=0&amp;loop=1&amp;egm=0&amp;border=1";
+		$link = "http://www.youtube.com/v/FAKEID&amp;color1=0x111111&amp;color2=0x777777&amp;rel=1&amp;autoplay=0&amp;loop=1&amp;egm=0&amp;border=1";
 		
 		$this->assertEquals(<<<EOT
 <object type="application/x-shockwave-flash" 

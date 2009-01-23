@@ -30,7 +30,7 @@ class org_tubepress_player_impl_NormalPlayerTest extends PHPUnit_Framework_TestC
 		$this->assertEquals(sprintf(<<<EOT
 href="#" onclick="tubePress_normalPlayer('%s', '%d', '%s')"
 EOT
-			, "fakeembedcode", 10, "Fake Video"),
+			, "fakeembedcode", 10, "Fake%20Video"),
 			$this->_sut->getPlayLink($this->_video, $this->_tpom));
 		
 	}
