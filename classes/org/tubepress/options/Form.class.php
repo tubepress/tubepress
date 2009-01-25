@@ -164,6 +164,7 @@ class org_tubepress_options_Form
             org_tubepress_options_category_Embedded::GENIE,
             org_tubepress_options_category_Embedded::LOOP,
             org_tubepress_options_category_Embedded::SHOW_RELATED,
+            org_tubepress_options_category_Embedded::FULLSCREEN
         ));
         
         foreach ($bools as $bool) {

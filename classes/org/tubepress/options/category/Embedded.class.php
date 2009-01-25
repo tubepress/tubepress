@@ -29,6 +29,7 @@ class org_tubepress_options_category_Embedded implements org_tubepress_options_c
     const BORDER          = "border";
     const EMBEDDED_HEIGHT = "embeddedHeight";
     const EMBEDDED_WIDTH  = "embeddedWidth";
+    const FULLSCREEN      = "fullscreen";
     const GENIE           = "genie";
     const LOOP            = "loop";
     const PLAYER_COLOR    = "playerColor";
@@ -81,6 +82,7 @@ class org_tubepress_options_category_Embedded implements org_tubepress_options_c
                 
             case org_tubepress_options_category_Embedded::AUTOPLAY:
             case org_tubepress_options_category_Embedded::BORDER:
+            case org_tubepress_options_category_Embedded::FULLSCREEN:
             case org_tubepress_options_category_Embedded::GENIE:
             case org_tubepress_options_category_Embedded::LOOP:
             case org_tubepress_options_category_Embedded::SHOW_RELATED:

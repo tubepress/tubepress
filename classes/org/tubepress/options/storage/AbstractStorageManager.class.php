@@ -109,6 +109,7 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
     		org_tubepress_options_category_Embedded::PLAYER_COLOR 		 => "/",
     		org_tubepress_options_category_Embedded::SHOW_RELATED 		 => true,
     		org_tubepress_options_category_Embedded::QUALITY            => "normal",
+    		org_tubepress_options_category_Embedded::FULLSCREEN          => true,
     		org_tubepress_options_category_Gallery::MODE 				 => "recently_featured",
     		org_tubepress_options_category_Gallery::FAVORITES_VALUE 	 => "mrdeathgod",
     		org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE 	 => "today",

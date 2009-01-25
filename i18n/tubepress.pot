@@ -134,6 +134,9 @@ msgstr ""
 msgid "Show border"
 msgstr ""
 
+msgid "Allow fullscreen playback"
+msgstr ""
+
 msgid "Max height (px)"
 msgstr ""
 

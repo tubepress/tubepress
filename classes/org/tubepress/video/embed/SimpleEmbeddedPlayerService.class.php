@@ -29,6 +29,7 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
     private $_color2      = "";
     private $_showRelated = false;
     private $_autoPlay    = false;
+    private $_fullscreen  = true;
     private $_loop        = false;
     private $_genie       = false;
     private $_border      = false;
@@ -64,6 +65,7 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
         $this->_width       = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
         $this->_height      = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT);
         $this->_quality     = $tpom->get(org_tubepress_options_category_Embedded::QUALITY);
+        $this->_fullscreen  = $tpom->get(org_tubepress_options_category_Embedded::FULLSCREEN);
     }    
     
     /**
@@ -120,6 +122,9 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
             case "q":
                 $this->_quality = $value;
                 break;
+            case "f":
+                $this->_fullscreen = $value;
+                break;
             }
         }
     }    
@@ -146,7 +151,8 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
             "id" => $vid->getId(),
             "w" => $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH),
             "h" => $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT),
-            "q" => $tpom->get(org_tubepress_options_category_Embedded::QUALITY)
+            "q" => $tpom->get(org_tubepress_options_category_Embedded::QUALITY),
+            "f" => $tpom->get(org_tubepress_options_category_Embedded::FULLSCREEN)
         );
         
         $color = $tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR);
@@ -180,11 +186,12 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
             $link->setQueryVariable("color2", $this->_color2);
         }
         
-        $link->setQueryVariable("rel", $this->_showRelated ? "1" : "0");
-        $link->setQueryVariable("autoplay", $this->_autoPlay    ? "1" : "0");
-        $link->setQueryVariable("loop", $this->_loop        ? "1" : "0");
-        $link->setQueryVariable("egm", $this->_genie       ? "1" : "0");
-        $link->setQueryVariable("border", $this->_border      ? "1" : "0");
+        $link->setQueryVariable("rel", $this->_showRelated   ? "1" : "0");
+        $link->setQueryVariable("autoplay", $this->_autoPlay ? "1" : "0");
+        $link->setQueryVariable("loop", $this->_loop         ? "1" : "0");
+        $link->setQueryVariable("egm", $this->_genie         ? "1" : "0");
+        $link->setQueryVariable("border", $this->_border     ? "1" : "0");
+        $link->setQueryVariable("fs", $this->_fullscreen     ? "1" : "0");
         
         switch ($this->_quality) {
         case "high":

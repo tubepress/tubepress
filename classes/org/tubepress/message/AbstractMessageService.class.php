@@ -73,6 +73,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         "options-embedded-desc-embeddedHeight"  => "Default is 355", 
         "options-embedded-title-embeddedWidth"  => "Max height (px)", 
         "options-embedded-desc-embeddedWidth"   => "Default is 425", 
+        "options-embedded-title-fullscreen"		=> "Allow fullscreen playback",
         "options-embedded-title-genie"          => "Enhanced genie menu", 
         "options-embedded-desc-genie"           => "Show the genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button", 
         "options-embedded-title-loop"           => "Loop", 
