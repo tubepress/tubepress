@@ -21,7 +21,7 @@ class org_tubepress_options_manager_SimpleOptionsManagerTest extends PHPUnit_Fra
     		"top_ratedValue", "userValue", "widget-title",
     	 	"widget-tagstring", "author", "category", "description",
     	 	"id", "length", "rating", "ratings", "tags", "title",
-    	 	"uploaded", "url", "views", "quality"
+    	 	"uploaded", "url", "views", "quality", "fullscreen"
     	);
 	}
 	
