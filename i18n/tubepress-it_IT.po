@@ -237,8 +237,8 @@ msgstr "Filtro contenuti \"per adulti\""
 msgid "Don't show videos that may not be suitable for minors."
 msgstr "Non verranno mostrati i video non adatti per un pubblico di minori."
 
-msgid "Trigger keyword"
-msgstr "Trigger keyword"
+msgid "Shortcode keyword"
+msgstr "Shortcode keyword"
 
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "La parola che inserirai (come testo racchiuso tra le parentesi quadre) nei tuoi articoli/pagine per poter mostrare una galleria."

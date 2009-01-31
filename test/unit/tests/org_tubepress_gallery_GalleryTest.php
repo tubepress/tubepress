@@ -132,7 +132,7 @@ function _tpomCallbackGalleryUnitTest()
 {
 	$args = func_get_args();
 	$vals = array(
-		org_tubepress_options_category_Advanced::CACHE_ENABLED => true,
+		org_tubepress_options_category_YouTubeFeed::CACHE_ENABLED => true,
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
 		org_tubepress_options_category_Display::ORDER_BY => "relevance",
 		org_tubepress_options_category_Display::CURRENT_PLAYER_NAME => "normal",

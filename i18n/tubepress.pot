@@ -239,7 +239,7 @@ msgstr ""
 msgid "Don't show videos that may not be suitable for minors."
 msgstr ""
 
-msgid "Trigger keyword"
+msgid "Shortcode keyword"
 msgstr ""
 
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
@@ -264,6 +264,12 @@ msgid "YouTube will use this developer key for logging and debugging purposes if
 msgstr ""
 
 msgid "Enable request cache"
+msgstr ""
+
+msgid "Only retrieve embeddable videos"
+msgstr ""
+
+msgid "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries."
 msgstr ""
 
 msgid "Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."

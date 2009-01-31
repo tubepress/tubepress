@@ -154,9 +154,10 @@ class org_tubepress_options_Form
         $bools = $class->getConstants();
         $bools = array_merge($bools, array(
             org_tubepress_options_category_Advanced::DEBUG_ON,
-            org_tubepress_options_category_Advanced::FILTER,
+            org_tubepress_options_category_YouTubeFeed::FILTER,
             org_tubepress_options_category_Advanced::RANDOM_THUMBS,
-            org_tubepress_options_category_Advanced::CACHE_ENABLED,
+            org_tubepress_options_category_YouTubeFeed::CACHE_ENABLED,
+            org_tubepress_options_category_YouTubeFeed::EMBEDDABLE_ONLY,
             org_tubepress_options_category_Advanced::NOFOLLOW_LINKS,
             org_tubepress_options_category_Display::RELATIVE_DATES,
             org_tubepress_options_category_Embedded::AUTOPLAY,
@@ -186,7 +187,7 @@ class org_tubepress_options_Form
         $cats = array();
            
         $categories = array(
-            'Gallery', 'Display', 'Embedded', 'Meta', 'Advanced');
+            'Gallery', 'Display', 'Embedded', 'Meta', 'YouTubeFeed', 'Advanced');
         
         foreach ($categories as $category) {
             $ref    = new ReflectionClass("org_tubepress_options_category_" . $category);

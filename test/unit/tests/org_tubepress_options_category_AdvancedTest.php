@@ -12,8 +12,8 @@ class org_tubepress_options_category_AdvancedTest extends PHPUnit_Framework_Test
 	{
 		$this->_expectedNames = array(
 			"dateFormat", "debugging_enabled", 
-			"filter_racy", "keyword", "randomize_thumbnails", 
-			"clientKey", "developerKey", "cacheEnabled", "nofollowLinks"
+			"keyword", "randomize_thumbnails", 
+			"nofollowLinks"
     	);
     	$class = new ReflectionClass("org_tubepress_options_category_Advanced");    
         $this->_actualNames = $class->getConstants();

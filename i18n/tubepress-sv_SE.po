@@ -198,7 +198,7 @@ msgstr "Filtrera innehåll"
 msgid "Don't show videos that may not be suitable for minors."
 msgstr "Visa videos som kan vara olämpliga för barn."
 
-msgid "Trigger keyword"
+msgid "Shortcode keyword"
 msgstr "Nyckelord"
 
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."

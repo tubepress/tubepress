@@ -30,7 +30,8 @@ abstract class org_tubepress_options_manager_AbstractOptionsManager implements o
     	
     	$allCategories = array("org_tubepress_options_category_Advanced", "org_tubepress_options_category_Display",
     	    "org_tubepress_options_category_Embedded", "org_tubepress_options_category_Gallery",
-    	    "org_tubepress_options_category_Meta", "org_tubepress_options_category_Widget");
+    	    "org_tubepress_options_category_Meta", "org_tubepress_options_category_Widget",
+    	    "org_tubepress_options_category_YouTubeFeed");
     	
     	$allOpts = array();
     	foreach ($allCategories as $category) {

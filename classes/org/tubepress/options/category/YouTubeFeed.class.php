@@ -20,16 +20,16 @@
  */
 
 /**
- * Advanced options for the plugin
+ * YouTube feed options
  *
  */
-class org_tubepress_options_category_Advanced implements org_tubepress_options_category_Category
+class org_tubepress_options_category_YouTubeFeed implements org_tubepress_options_category_Category
 {
-    const DATEFORMAT    	= "dateFormat";
-    const DEBUG_ON      	= "debugging_enabled";
-    const KEYWORD       	= "keyword";
-    const RANDOM_THUMBS 	= "randomize_thumbnails";
-    const NOFOLLOW_LINKS	= "nofollowLinks";
+    const FILTER        	= "filter_racy";
+    const CLIENT_KEY    	= "clientKey";
+    const DEV_KEY       	= "developerKey";
+    const CACHE_ENABLED		= "cacheEnabled";
+    const EMBEDDABLE_ONLY   = "embeddableOnly";
     
 	private $_messageService;
     
@@ -39,7 +39,7 @@ class org_tubepress_options_category_Advanced implements org_tubepress_options_c
     }
     
     /**
-     * Displays advanced options for the options form
+     * Displays YouTube feed options for the options form
      *
      * @param net_php_pear_HTML_Template_IT        &$tpl The template to write to
      * @param org_tubepress_options_storage_StorageManager $tpsm The TubePress storage manager
@@ -49,12 +49,12 @@ class org_tubepress_options_category_Advanced implements org_tubepress_options_c
     public function printForOptionsForm(net_php_pear_HTML_Template_IT $tpl, 
         org_tubepress_options_storage_StorageManager $tpsm)
     {
-        $title = "advanced";
+        $title = "feed";
         
         $tpl->setVariable("OPTION_CATEGORY_TITLE",
             $this->_messageService->_("options-category-title-" . $title));
 
-        $class = new ReflectionClass("org_tubepress_options_category_Advanced");    
+        $class = new ReflectionClass("org_tubepress_options_category_YouTubeFeed");    
 
         /* go through each option in the category */
         foreach ($class->getConstants() as $constant) {
@@ -66,15 +66,15 @@ class org_tubepress_options_category_Advanced implements org_tubepress_options_c
             
             switch ($constant) {
                 
-            case org_tubepress_options_category_Advanced::DATEFORMAT:
-            case org_tubepress_options_category_Advanced::KEYWORD:
+            case org_tubepress_options_category_YouTubeFeed::CLIENT_KEY:
+            case org_tubepress_options_category_YouTubeFeed::DEV_KEY:
                 org_tubepress_options_Form::displayTextInput($tpl, 
                     $constant, $tpsm->get($constant));
                 break;
               
-            case org_tubepress_options_category_Advanced::DEBUG_ON:
-            case org_tubepress_options_category_Advanced::RANDOM_THUMBS:
-            case org_tubepress_options_category_Advanced::NOFOLLOW_LINKS:
+            case org_tubepress_options_category_YouTubeFeed::FILTER:
+            case org_tubepress_options_category_YouTubeFeed::CACHE_ENABLED:
+            case org_tubepress_options_category_YouTubeFeed::EMBEDDABLE_ONLY:
                 org_tubepress_options_Form::displayBooleanInput($tpl, 
                     $constant, $tpsm->get($constant));
                 break;

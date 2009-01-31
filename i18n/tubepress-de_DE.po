@@ -220,11 +220,11 @@ msgstr "Jugendschutzfilter"
 msgid "Don't show videos that may not be suitable for minors."
 msgstr "Videos welche f&uuml;r Minderj&auml;hrige ungeeignet sind ausblenden"
 
-msgid "Trigger keyword"
+msgid "Shortcode keyword"
 msgstr "Schl&uuml;sselwort"
 
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
-msgstr "Das Wort welches sie in ihre Seiten und Beitr&auml;ge einfügen (im Klartext, zwischen eckigen Klammern) um eine Videogallerie anzuzeigen."
+msgstr "Das Wort welches sie in ihre Seiten und Beitr&auml;ge einfï¿½gen (im Klartext, zwischen eckigen Klammern) um eine Videogallerie anzuzeigen."
 
 msgid "Randomize thumbnails"
 msgstr "Zuf&auml;llige Vorschaubilder"
@@ -248,7 +248,7 @@ msgid "Enable request cache"
 msgstr "Anfragen Zwischenspeicher"
 
 msgid "Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
-msgstr "Speichert Antworten von YouTube lokal f&uuml;r 1 Stunde. Jede Anfrage ist im Bereich von ein paar hundert KB, daher reduziert das aktivieren des Zwischenspeichers die Ladezeiten für die Videogallerien merklich auf geringe Kosten der Aktualit&auml;t."
+msgstr "Speichert Antworten von YouTube lokal f&uuml;r 1 Stunde. Jede Anfrage ist im Bereich von ein paar hundert KB, daher reduziert das aktivieren des Zwischenspeichers die Ladezeiten fï¿½r die Videogallerien merklich auf geringe Kosten der Aktualit&auml;t."
 
 msgid "Add rel=nofollow to most YouTube links"
 msgstr "F&uuml;gt rel=nofollow zu den meisten YouTube Links hinzu"
