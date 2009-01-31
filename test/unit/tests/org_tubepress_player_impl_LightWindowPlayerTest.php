@@ -17,7 +17,7 @@ class org_tubepress_player_impl_LightWindowPlayerTest extends PHPUnit_Framework_
 	function testGetHeadContents()                                                
     {                          
     	$this->assertEquals(<<<EOX
-<script type="text/javascript">var tubepressLWPath = "fakeurl/ui/players/lightWindow/"</script><script type="text/javascript" src="fakeurl/ui/players/lightWindow/javascript/prototype.js"></script><script type="text/javascript" src="fakeurl/ui/players/lightWindow/javascript/scriptaculous.js?load=effects"></script><script type="text/javascript" src="fakeurl/ui/players/lightWindow/javascript/lightWindow.js"></script><link rel="stylesheet" href="fakeurl/ui/players/lightWindow/css/lightWindow.css" type="text/css" />
+<script type="text/javascript" src="fakeurl/ui/players/lightWindow/javascript/prototype.js"></script><script type="text/javascript" src="fakeurl/ui/players/lightWindow/javascript/scriptaculous.js?load=effects"></script><script type="text/javascript" src="fakeurl/ui/players/lightWindow/javascript/lightWindow.js"></script><script type="text/javascript">var tubepressLWPath = "fakeurl/ui/players/lightWindow/"</script><link rel="stylesheet" href="fakeurl/ui/players/lightWindow/css/lightWindow.css" type="text/css" />
 EOX
 		, $this->_sut->getHeadContents());        
     }  

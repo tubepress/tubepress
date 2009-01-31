@@ -34,15 +34,15 @@ abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_play
     public final function getHeadContents()
     {
         $content = "";
-        if ($this->getPreLoadJs() != "") {
-            $content .= "<script type=\"text/javascript\">" . 
-                $this->getPreLoadJS() . "</script>";
-        }
-        
         $jsLibs = $this->getJSLibs();
         foreach ($jsLibs as $jsLib) {
             $content .= "<script type=\"text/javascript\" src=\"" . 
                 $jsLib . "\"></script>";
+        }
+        
+        if ($this->getPreLoadJs() != "") {
+            $content .= "<script type=\"text/javascript\">" . 
+                $this->getPreLoadJS() . "</script>";
         }
         
         if ($this->getPostLoadJS() != "") {
