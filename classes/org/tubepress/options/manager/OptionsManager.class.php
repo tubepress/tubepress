@@ -61,7 +61,7 @@ interface org_tubepress_options_manager_OptionsManager
      */
     public function getShortcode();
     
-    public static function getAllOptionNames();
+    public function getAllOptionNames();
     
     public function setStorageManager(org_tubepress_options_storage_StorageManager $tpsm);
 }
