@@ -20,22 +20,15 @@
  */
 
 /**
- * Holds the current options for TubePress. This is the default options,
- * usually in persistent storage somewhere, and custom options parsed
- * from a shortcode
+ * Default implementation of org_tubepress_options_validation_InputValidationService
  */
 class org_tubepress_options_validation_SimpleInputValidationService implements org_tubepress_options_validation_InputValidationService
 {
 	private $_messageService;
 	
     /**
-     * Validates options before they get stored
-     *
-     * @param string       $optionName The name of the option being updated
-     * @param unknown_type $candidate  The new value for this option
-     *      
-     * @return void
-     */
+     * @see org_tubepress_options_validation_InputValidationService::validate($optionName, $candidate)
+    */
     public function validate($optionName, $candidate)
     {
         switch ($optionName) {
@@ -135,7 +128,10 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
                 $name, $min, $max, $candidate));
         }
     }
-    
+   
+    /**
+     * @see org_tubepress_options_validation_InputValidationService::setMessageService($messageService)
+     */
     public function setMessageService(org_tubepress_message_MessageService $messageService)
     {
     	$this->_messageService = $messageService;

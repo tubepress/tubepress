@@ -20,13 +20,23 @@
  */
 
 /**
- * Holds the current options for TubePress. This is the default options,
- * usually in persistent storage somewhere, and custom options parsed
- * from a shortcode
+ * Performs validation on option values
  */
 interface org_tubepress_options_validation_InputValidationService
 {
+    /**
+     * Validates an option value. Will throw an Exception if validation
+     * fails.
+     *
+     * @param string       $name      The option name
+     * @param unknown_type $candidate The candidate option value
+     *
+     * @return void
+    */
 	public function validate($name, $candidate);
 	
+    /**
+     * @param org_tubepress_message_MessageService $messageService The i18n service
+    */
 	public function setMessageService(org_tubepress_message_MessageService $messageService);
 }
