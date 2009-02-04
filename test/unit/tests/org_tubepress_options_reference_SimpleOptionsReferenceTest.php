@@ -167,5 +167,11 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
             }            
         }    
     }
+    
+    function testGetOptionCategoryNames()
+    {
+        $expected = array("gallery", "display", "embedded", "feed", "meta", "widget");
+        $this->assertTrue($expected == $this->_sut->getOptionCategoryNames());
+    }
 }
 ?>

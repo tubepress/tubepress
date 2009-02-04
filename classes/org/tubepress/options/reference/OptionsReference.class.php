@@ -39,6 +39,8 @@ interface org_tubepress_options_reference_OptionsReference
     
     function getGalleryOptionNames();
     
+    function getOptionCategoryNames();
+    
     function getMetaOptionNames();
     
     function getType($optionName);

@@ -134,6 +134,11 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
         return $this->_getConstantsForClass("org_tubepress_options_category_Meta");
     }
 
+    function getOptionCategoryNames()
+    {
+        return array("gallery", "display", "embedded", "feed", "meta", "widget");
+    }
+    
     function getValidEnumValues($optionName)
     {
         switch ($optionName) {
