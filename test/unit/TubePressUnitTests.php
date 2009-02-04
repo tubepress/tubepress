@@ -4,6 +4,7 @@ require_once '/Applications/MAMP/bin/php5/lib/php/PHPUnit/Framework.php';
 require_once dirname(__FILE__) . "/../../classes/tubepress_classloader.php";
 
 $testNames = array(
+    "org_tubepress_options_reference_SimpleOptionsReference",
 	"org_tubepress_cache_SimpleCacheService",
 	"org_tubepress_gdata_inspection_SimpleFeedInspectionService",
 	"org_tubepress_options_manager_SimpleOptionsManager",
@@ -22,7 +23,7 @@ $testNames = array(
 	"org_tubepress_options_category_Display",
 	"org_tubepress_options_category_Embedded",
 	"org_tubepress_video_embed_SimpleEmbeddedPlayerService",
-	"org_tubepress_gdata_retrieval_HTTPRequest2",
+//	"org_tubepress_gdata_retrieval_HTTPRequest2",
 	"org_tubepress_options_category_Gallery",
 	"org_tubepress_gallery_Gallery",
 	"org_tubepress_options_category_Meta",

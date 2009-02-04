@@ -8,7 +8,6 @@
 	<fileset dir="${project.basedir}" id="source.code">
 		<include name="**/*.class.php" />
 		<exclude name="**/*Test.php" />
-		<exclude name="lib/**/*.php" />
 		<exclude name="**/AbstractMessageService.class.php" />
 		<exclude name="**/popup.php" />
 		<exclude name="/classes/tubepress_classloader.php" />
