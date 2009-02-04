@@ -35,7 +35,7 @@ function tubepress_classloader($className)
     
     /*
      * replace all underscores with the directory separator and add ".class.php"
-     * e.g. org_tubepress_package_MyClass becomes org/tubepress/package/MyClass.class.php
+     * e.g. "org_tubepress_package_MyClass" becomes "org/tubepress/package/MyClass.class.php"
      */
     $fileName = str_replace('_', DIRECTORY_SEPARATOR, $className) . '.class.php';
     

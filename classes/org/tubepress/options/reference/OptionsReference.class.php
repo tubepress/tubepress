@@ -20,7 +20,8 @@
  */
 
 /**
- * Handles persistent storage of TubePress options
+ * The master reference for TubePress options - their names, deprecated
+ * names, default values, types, etc.
  *
  */
 interface org_tubepress_options_reference_OptionsReference

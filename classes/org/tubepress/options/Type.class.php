@@ -25,11 +25,24 @@
  */
 class org_tubepress_options_Type
 {
+    /* Yes/No options */
     const BOOL     = "boolean";
-	const COLOR    = "color";	
+
+    /* An HTML color (6 hex digits) */
+    const COLOR    = "color";	
+
+    /* Discrete list of possible values */
 	const ENUM     = "enum";	
+
+    /* A number */
 	const INTEGRAL = "integral";
-	const PLAYLIST = "playlist";	
+
+    /* A YouTube playlist ID */
+	const PLAYLIST = "playlist";
+
+    /* Free form text */	
 	const TEXT     = "text";
+
+    /* A YouTube username */
 	const YT_USER  = "youtubeUser";
 }
