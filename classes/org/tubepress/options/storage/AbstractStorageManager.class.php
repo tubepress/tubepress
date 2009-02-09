@@ -46,7 +46,7 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
      */
     public final function debug()
     {
-    	$allOpts = org_tubepress_options_manager_AbstractOptionsManager::getAllOptionNames();
+    	$allOpts = $this->_optionsReference->getAllOptionNames();
         
         $result = "Should have " . sizeof($allOpts) . " options total";
         
@@ -135,6 +135,11 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
     	$this->_validationService = $validationService;
     }
     
+    /**
+     * Set the org_tubepress_options_reference_OptionsReference
+     *
+     * @param org_tubepress_options_reference_OptionsReference $reference The options reference
+     */
     public function setOptionsReference(org_tubepress_options_reference_OptionsReference $reference)
     {
         $this->_optionsReference = $reference;
