@@ -20,16 +20,16 @@
  */
 
 /**
- * Displays a generic options form for TubePress
+ * The valid options categories and their names
  *
  */
 class org_tubepress_options_Category
 {
     const ADVANCED = "advanced";
-    const DISPLAY = "display";
+    const DISPLAY  = "display";
     const EMBEDDED = "embedded";
-    const FEED = "feed";
-    const GALLERY = "gallery";
-    const META = "meta";
-    const WIDGET = "widget";
+    const FEED     = "feed";
+    const GALLERY  = "gallery";
+    const META     = "meta";
+    const WIDGET   = "widget";
 }
