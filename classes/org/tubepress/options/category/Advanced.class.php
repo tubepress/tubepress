@@ -23,65 +23,11 @@
  * Advanced options for the plugin
  *
  */
-class org_tubepress_options_category_Advanced implements org_tubepress_options_category_Category
+class org_tubepress_options_category_Advanced
 {
     const DATEFORMAT    	= "dateFormat";
     const DEBUG_ON      	= "debugging_enabled";
     const KEYWORD       	= "keyword";
     const RANDOM_THUMBS 	= "randomize_thumbnails";
     const NOFOLLOW_LINKS	= "nofollowLinks";
-    
-	private $_messageService;
-    
-    public function setMessageService(org_tubepress_message_MessageService $messageService)
-    {
-    	$this->_messageService = $messageService;
-    }
-    
-    /**
-     * Displays advanced options for the options form
-     *
-     * @param net_php_pear_HTML_Template_IT        &$tpl The template to write to
-     * @param org_tubepress_options_storage_StorageManager $tpsm The TubePress storage manager
-     * 
-     * @return void
-     */
-    public function printForOptionsForm(net_php_pear_HTML_Template_IT $tpl, 
-        org_tubepress_options_storage_StorageManager $tpsm)
-    {
-        $title = "advanced";
-        
-        $tpl->setVariable("OPTION_CATEGORY_TITLE",
-            $this->_messageService->_("options-category-title-" . $title));
-
-        $class = new ReflectionClass("org_tubepress_options_category_Advanced");    
-
-        /* go through each option in the category */
-        foreach ($class->getConstants() as $constant) {
-            $tpl->setVariable("OPTION_TITLE", 
-                $this->_messageService->_(sprintf("options-%s-title-%s", $title, $constant)));
-            $tpl->setVariable("OPTION_DESC", 
-                $this->_messageService->_(sprintf("options-%s-desc-%s", $title, $constant)));
-            $tpl->setVariable("OPTION_NAME", $constant);
-            
-            switch ($constant) {
-                
-            case org_tubepress_options_category_Advanced::DATEFORMAT:
-            case org_tubepress_options_category_Advanced::KEYWORD:
-                org_tubepress_options_Form::displayTextInput($tpl, 
-                    $constant, $tpsm->get($constant));
-                break;
-              
-            case org_tubepress_options_category_Advanced::DEBUG_ON:
-            case org_tubepress_options_category_Advanced::RANDOM_THUMBS:
-            case org_tubepress_options_category_Advanced::NOFOLLOW_LINKS:
-                org_tubepress_options_Form::displayBooleanInput($tpl, 
-                    $constant, $tpsm->get($constant));
-                break;
-            }
-            
-            $tpl->parse("optionRow");
-        }
-        $tpl->parse("optionCategory");
-    }
 } 

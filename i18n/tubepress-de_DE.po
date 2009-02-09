@@ -154,7 +154,7 @@ msgstr "Wiederholung"
 msgid "Continue playing the video until the user stops it"
 msgstr "Wiederholt das Video bis der Benutzer die Wiedergabe unterbricht."
 
-msgid "Color"
+msgid "Main color"
 msgstr "Farbe"
 
 msgid "Show related videos"

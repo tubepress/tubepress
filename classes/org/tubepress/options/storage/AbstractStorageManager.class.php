@@ -26,6 +26,7 @@
 abstract class org_tubepress_options_storage_AbstractStorageManager implements org_tubepress_options_storage_StorageManager
 {   
 	private $_validationService;
+	private $_optionsReference;
 	
     /**
      * Creates an option in storage
@@ -81,56 +82,11 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
      */
     public final function init()
     {
-    	$vals = array(
-    		org_tubepress_options_category_Advanced::DATEFORMAT 		 => "M j, Y",
-    		org_tubepress_options_category_Advanced::DEBUG_ON 			 => true,
-    		org_tubepress_options_category_YouTubeFeed::FILTER 			 => false,
-    		org_tubepress_options_category_YouTubeFeed::CACHE_ENABLED 	 => true,
-    		org_tubepress_options_category_Advanced::NOFOLLOW_LINKS 	 => true,
-    		org_tubepress_options_category_Advanced::KEYWORD 			 => "tubepress",
-    		org_tubepress_options_category_Advanced::RANDOM_THUMBS 	 => true,
-    		org_tubepress_options_category_YouTubeFeed::EMBEDDABLE_ONLY  => true,
-    		org_tubepress_options_category_YouTubeFeed::CLIENT_KEY 		 => "ytapi-EricHough-TubePress-ki6oq9tc-0",
-    		org_tubepress_options_category_YouTubeFeed::DEV_KEY 			 => "AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg",
-    		org_tubepress_options_category_Display::CURRENT_PLAYER_NAME => "normal",
-    		org_tubepress_options_category_Display::DESC_LIMIT 		 => 80,
-    		org_tubepress_options_category_Display::ORDER_BY 			 => "viewCount",
-    		org_tubepress_options_category_Display::RELATIVE_DATES 	 => false,
-    		org_tubepress_options_category_Display::RESULTS_PER_PAGE 	 => 20,
-    		org_tubepress_options_category_Display::THUMB_HEIGHT 		 => 90,
-    		org_tubepress_options_category_Display::THUMB_WIDTH 		 => 120,
-    		org_tubepress_options_category_Embedded::AUTOPLAY 			 => false,
-    		org_tubepress_options_category_Embedded::BORDER 			 => false,
-    		org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT 	 => 355,
-    		org_tubepress_options_category_Embedded::EMBEDDED_WIDTH 	 => 425,
-    		org_tubepress_options_category_Embedded::GENIE 			 => false,
-    		org_tubepress_options_category_Embedded::LOOP 				 => false,
-    		org_tubepress_options_category_Embedded::PLAYER_COLOR 		 => "/",
-    		org_tubepress_options_category_Embedded::SHOW_RELATED 		 => true,
-    		org_tubepress_options_category_Embedded::QUALITY            => "normal",
-    		org_tubepress_options_category_Embedded::FULLSCREEN          => true,
-    		org_tubepress_options_category_Gallery::MODE 				 => "recently_featured",
-    		org_tubepress_options_category_Gallery::FAVORITES_VALUE 	 => "mrdeathgod",
-    		org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE 	 => "today",
-    		org_tubepress_options_category_Gallery::PLAYLIST_VALUE 	 => "D2B04665B213AE35",
-    		org_tubepress_options_category_Gallery::TAG_VALUE 			 => "stewart daily show",
-    		org_tubepress_options_category_Gallery::TOP_RATED_VALUE 	 => "today",
-    		org_tubepress_options_category_Gallery::USER_VALUE 		 => "3hough",
-    		org_tubepress_options_category_Meta::AUTHOR 				 => false,
-    		org_tubepress_options_category_Meta::CATEGORY 				 => false,
-    		org_tubepress_options_category_Meta::DESCRIPTION 			 => false,
-    		org_tubepress_options_category_Meta::ID 					 => false,
-    		org_tubepress_options_category_Meta::LENGTH 				 => true,
-    		org_tubepress_options_category_Meta::RATING 				 => false,
-    		org_tubepress_options_category_Meta::RATINGS 				 => false,
-    		org_tubepress_options_category_Meta::TAGS 					 => false,
-    		org_tubepress_options_category_Meta::TITLE 				 => true,
-    		org_tubepress_options_category_Meta::UPLOADED 				 => false,
-    		org_tubepress_options_category_Meta::URL 					 => false,
-    		org_tubepress_options_category_Meta::VIEWS 				 => true,
-    		org_tubepress_options_category_Widget::TITLE 				 => "TubePress",
-    		org_tubepress_options_category_Widget::TAGSTRING 			 => "[tubepress thumbHeight='105', thumbWidth='135']"
-    	);
+    	$allOptionNames = $this->_optionsReference->getAllOptionNames();
+    	$vals = array();
+    	foreach ($allOptionNames as $optionName) {
+    	    $vals[$optionName] = $this->_optionsReference->getDefaultValue($optionName);
+    	}
     	
     	foreach($vals as $val => $key) {
     		$this->_init($val, $key);
@@ -177,5 +133,10 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
     public function setValidationService(org_tubepress_options_validation_InputValidationService $validationService)
     {
     	$this->_validationService = $validationService;
+    }
+    
+    public function setOptionsReference(org_tubepress_options_reference_OptionsReference $reference)
+    {
+        $this->_optionsReference = $reference;
     }
 }

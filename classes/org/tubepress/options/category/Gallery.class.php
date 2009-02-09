@@ -23,7 +23,7 @@
  * Options that let you choose which videos to show
  *
  */
-class org_tubepress_options_category_Gallery implements org_tubepress_options_category_Category
+class org_tubepress_options_category_Gallery
 {
     const MODE = "mode";
     
@@ -33,13 +33,6 @@ class org_tubepress_options_category_Gallery implements org_tubepress_options_ca
     const TAG_VALUE         = "tagValue";
     const TOP_RATED_VALUE   = "top_ratedValue";
     const USER_VALUE        = "userValue";
-    
-	private $_messageService;
-    
-    public function setMessageService(org_tubepress_message_MessageService $messageService)
-    {
-    	$this->_messageService = $messageService;
-    }
     
     /**
      * Displays the gallery options for the options form

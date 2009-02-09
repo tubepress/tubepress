@@ -27,17 +27,22 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
 {
 
     private $_options = array(
+        org_tubepress_options_Type::COLOR => array(
+            org_tubepress_options_category_Embedded::PLAYER_COLOR   => "",
+            org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT => ""
+        ),
+        org_tubepress_options_Type::MODE => array(
+            org_tubepress_options_category_Gallery::MODE => "recently_featured"
+        ),
         org_tubepress_options_Type::TEXT => array(
             org_tubepress_options_category_Advanced::DATEFORMAT     => "M j, Y",
             org_tubepress_options_category_Advanced::KEYWORD        => "tubepress",
-            org_tubepress_options_category_Embedded::PLAYER_COLOR   => "/",
-            org_tubepress_options_category_Gallery::MODE            => "recently_featured",
             org_tubepress_options_category_Gallery::FAVORITES_VALUE => "mrdeathgod",
             org_tubepress_options_category_Gallery::PLAYLIST_VALUE  => "D2B04665B213AE35",
             org_tubepress_options_category_Gallery::TAG_VALUE       => "stewart daily show",
             org_tubepress_options_category_Gallery::USER_VALUE      => "3hough",
-            org_tubepress_options_category_YouTubeFeed::CLIENT_KEY  => "ytapi-EricHough-TubePress-ki6oq9tc-0",
-            org_tubepress_options_category_YouTubeFeed::DEV_KEY     => "AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg",
+            org_tubepress_options_category_Feed::CLIENT_KEY         => "ytapi-EricHough-TubePress-ki6oq9tc-0",
+            org_tubepress_options_category_Feed::DEV_KEY            => "AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg",
             org_tubepress_options_category_Widget::TITLE            => "TubePress",
             org_tubepress_options_category_Widget::TAGSTRING        => "[tubepress thumbHeight='105', thumbWidth='135']"
         ),
@@ -64,9 +69,9 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Meta::UPLOADED               => false,
             org_tubepress_options_category_Meta::URL                    => false,
             org_tubepress_options_category_Meta::VIEWS                  => true,
-            org_tubepress_options_category_YouTubeFeed::FILTER          => false,
-            org_tubepress_options_category_YouTubeFeed::CACHE_ENABLED   => true,
-            org_tubepress_options_category_YouTubeFeed::EMBEDDABLE_ONLY => true
+            org_tubepress_options_category_Feed::FILTER                 => false,
+            org_tubepress_options_category_Feed::CACHE_ENABLED          => true,
+            org_tubepress_options_category_Feed::EMBEDDABLE_ONLY        => true
         ),
         org_tubepress_options_Type::INTEGRAL => array(
             org_tubepress_options_category_Display::DESC_LIMIT          => 80,
@@ -76,29 +81,39 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT    => 355,
             org_tubepress_options_category_Embedded::EMBEDDED_WIDTH     => 425
         ),
-        org_tubepress_options_Type::ENUM => array(
-            org_tubepress_options_category_Display::CURRENT_PLAYER_NAME => "normal",
-            org_tubepress_options_category_Display::ORDER_BY            => "viewCount",
-            org_tubepress_options_category_Embedded::QUALITY            => "normal",
+        org_tubepress_options_Type::TIME_FRAME => array(
             org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE   => "today",
             org_tubepress_options_category_Gallery::TOP_RATED_VALUE     => "today"
+        ),
+        org_tubepress_options_Type::ORDER => array(
+            org_tubepress_options_category_Display::ORDER_BY            => "viewCount",
+        ),
+        org_tubepress_options_Type::PLAYER => array(
+            org_tubepress_options_category_Display::CURRENT_PLAYER_NAME => "normal",
+        ),
+        org_tubepress_options_Type::QUALITY => array(
+            org_tubepress_options_category_Embedded::QUALITY            => "normal"
         )
     );
-     
-    function getAdvancedOptionNames()
-    {
-        return $this->_getConstantsForClass("org_tubepress_options_category_Advanced");
-    }
 
     function getAllOptionNames()
     {
         $results = array();
         foreach ($this->_options as $optionGroup) {
-            array_push($results, array_keys($optionGroup));
+            $results = array_merge($results, array_keys($optionGroup));
         }
         return $results;
     }
 
+    function getCategory($optionName)
+    {
+        foreach ($this->getOptionCategoryNames() as $optionCategoryName) {
+            if (in_array($optionName, $this->getOptionNamesForCategory($optionCategoryName))) {
+                return $optionCategoryName;
+            }
+        }
+    }
+    
     function getDefaultValue($optionName)
     {
         foreach ($this->_options as $optionType) {
@@ -109,52 +124,32 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
         return NULL;
     }
 
-    function getDisplayOptionNames()
-    {
-        return $this->_getConstantsForClass("org_tubepress_options_category_Display");
-    }
-
-    function getEmbeddedOptionNames()
-    {
-        return $this->_getConstantsForClass("org_tubepress_options_category_Embedded");
-    }
-
-    function getFeedOptionNames()
-    {
-        return $this->_getConstantsForClass("org_tubepress_options_category_YouTubeFeed");
-    }
-
-    function getGalleryOptionNames()
-    {
-        return $this->_getConstantsForClass("org_tubepress_options_category_Gallery");
-    }
-
-    function getMetaOptionNames()
-    {
-        return $this->_getConstantsForClass("org_tubepress_options_category_Meta");
-    }
-
     function getOptionCategoryNames()
     {
-        return array("gallery", "display", "embedded", "feed", "meta", "widget");
+        return array("gallery", "display", "embedded", "meta", "feed", "advanced", "widget");
     }
     
-    function getValidEnumValues($optionName)
+    function getOptionNamesForCategory($category)
     {
-        switch ($optionName) {
-            case org_tubepress_options_category_Display::CURRENT_PLAYER_NAME:
+        $className = "org_tubepress_options_category_" . ucwords($category);
+        return $this->_getConstantsForClass($className);
+    }
+    
+    function getValidEnumValues($optionType)
+    {
+        switch ($optionType) {
+            case org_tubepress_options_Type::PLAYER:
                 return array("greybox", "lightwindow", "normal", "popup", "shadowbox", "youtube");
-            case org_tubepress_options_category_Display::ORDER_BY:
+            case org_tubepress_options_Type::ORDER:
                 return array("relevance", "viewCount", "rating", "updated", "random");
-            case org_tubepress_options_category_Embedded::QUALITY:
+            case org_tubepress_options_Type::QUALITY:
                 return array("normal", "high", "higher", "highest");
+            case org_tubepress_options_Type::MODE:
+                return array("favorites", "recently_featured", "mobile", "most_discussed",
+                    "most_linked", "most_recent", "most_responded", "playlist", "most_viewed",
+                    "tag", "top_rated", "user");
         }
         return array("today", "this_week", "this_month", "all_time");
-    }
-
-    function getWidgetOptionNames()
-    {
-        return $this->_getConstantsForClass("org_tubepress_options_category_Widget");
     }
 
     function isOptionName($candidateOptionName)
@@ -170,7 +165,7 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
     function getType($optionName)
     {
         foreach ($this->_options as $optionType => $values) {
-            if (array_key_exists($optionName, $this->_options[$optionType])) {
+            if (array_key_exists($optionName, $values)) {
                 return $optionType;
             }
         }

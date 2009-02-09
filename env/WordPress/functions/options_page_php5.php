@@ -25,17 +25,22 @@
 function __tp_executeOptionsPage()
 {
 	try {
+	    $reference = new org_tubepress_options_reference_SimpleOptionsReference();
+	    
 		$msgService = new org_tubepress_message_WordPressMessageService();
 		$validationService = new org_tubepress_options_validation_SimpleInputValidationService();
 		$validationService->setMessageService($msgService);
 		
 	    /* initialize the database if we need to */
 	    $wpsm = new org_tubepress_options_storage_WordPressStorageManager();
+	    $ref = new org_tubepress_options_reference_SimpleOptionsReference();
 	    $wpsm->setValidationService($validationService);
+	    $wpsm->setOptionsReference($ref);
 	    $wpsm->init();
 	    
-	    $optionsForm = new org_tubepress_options_Form();
+	    $optionsForm = new org_tubepress_options_form_FormHandler();
 	    $optionsForm->setMessageService($msgService);
+	    $optionsForm->setOptionsReference($reference);
 	        
 	    /* are we updating? */
 	    if (isset($_POST['tubepress_save'])) {

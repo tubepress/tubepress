@@ -158,7 +158,10 @@ msgstr ""
 msgid "Continue playing the video until the user stops it"
 msgstr ""
 
-msgid "Color"
+msgid "Main color"
+msgstr ""
+
+msgid "Highlight color"
 msgstr ""
 
 msgid "Show related videos"
@@ -297,33 +300,6 @@ msgid "with GreyBox (experimental)"
 msgstr ""
 
 msgid "with Shadowbox.js (experimental)"
-msgstr ""
-
-msgid "normal"
-msgstr ""
-
-msgid "dark gray"
-msgstr ""
-
-msgid "dark blue"
-msgstr ""
-
-msgid "light blue"
-msgstr ""
-
-msgid "green"
-msgstr ""
-
-msgid "orange"
-msgstr ""
-
-msgid "pink"
-msgstr ""
-
-msgid "purple"
-msgstr ""
-
-msgid "red"
 msgstr ""
 
 msgid "relevance"

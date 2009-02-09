@@ -49,13 +49,8 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
      */
     public function applyOptions(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom)
     {
-        $color = $tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR);
-        if ($color != "/") {
-            $colors        = split("/", $color);
-            $this->_color1 = $colors[0];
-            $this->_color2 = $colors[1];
-        }
-        
+        $this->_color1 =     $this->_safeColorValue($tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR), "999999");
+        $this->_color2 =     $this->_safeColorValue($tpom->get(org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT), "FFFFFF");
         $this->_showRelated = $tpom->get(org_tubepress_options_category_Embedded::SHOW_RELATED);
         $this->_autoPlay    = $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY);
         $this->_loop        = $tpom->get(org_tubepress_options_category_Embedded::LOOP);
@@ -90,10 +85,10 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
             switch($keyValue[0]) {
                 
             case "c1":
-                $this->_color1 = $value;
+                $this->_color1 = $this->_safeColorValue($value, "999999");
                 break;
             case "c2":
-                $this->_color2 = $value;
+                $this->_color2 = $this->_safeColorValue($value, "FFFFFF");
                 break;
             case "r":
                 $this->_showRelated = $value;
@@ -152,18 +147,10 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
             "w" => $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH),
             "h" => $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT),
             "q" => $tpom->get(org_tubepress_options_category_Embedded::QUALITY),
-            "f" => $tpom->get(org_tubepress_options_category_Embedded::FULLSCREEN)
+            "f" => $tpom->get(org_tubepress_options_category_Embedded::FULLSCREEN),
+            "c1" => $this->_safeColorValue($tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR), "999999"),
+            "c2" => $this->_safeColorValue($tpom->get(org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT), "FFFFFF")
         );
-        
-        $color = $tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR);
-        if ($color != "/") {
-            $colors  = split("/", $color);
-            $toMerge = array(
-                "c1" => $colors[0],
-                "c2" => $colors[1]
-            );
-            $opts    = array_merge($opts, $toMerge);
-        }
         
         $result = array();
         foreach ($opts as $key => $value) {
@@ -181,11 +168,8 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
     {
         $link = new net_php_pear_Net_URL2(sprintf("http://www.youtube.com/v/%s", $this->_id));
         
-        if ($this->_color1 != "" && $this->_color2 != "") {
-            $link->setQueryVariable("color1", $this->_color1);
-            $link->setQueryVariable("color2", $this->_color2);
-        }
-        
+        $link->setQueryVariable("color2", "0x" . $this->_color1);
+        $link->setQueryVariable("color1", "0x" . $this->_color2);
         $link->setQueryVariable("rel", $this->_showRelated   ? "1" : "0");
         $link->setQueryVariable("autoplay", $this->_autoPlay ? "1" : "0");
         $link->setQueryVariable("loop", $this->_loop         ? "1" : "0");
@@ -219,6 +203,15 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
 EOT
         , $this->_width, $this->_height, $link, $link);
 	return str_replace("?", "&amp;", $embedSrc);
+    }
+    
+    private function _safeColorValue($candidate, $default)
+    {
+        $pattern = '/^[0-9a-fA-F]{6}$/';
+        if (preg_match($pattern, $candidate) === 1) {
+            return $candidate;
+        }
+        return $default;
     }
 }
 

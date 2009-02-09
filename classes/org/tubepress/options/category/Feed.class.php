@@ -20,11 +20,14 @@
  */
 
 /**
- * Widget options for the plugin
+ * YouTube feed options
  *
  */
-class org_tubepress_options_category_Widget
+class org_tubepress_options_category_Feed
 {
-    const TITLE     = "widget-title";
-    const TAGSTRING = "widget-tagstring";
+    const FILTER        	= "filter_racy";
+    const CLIENT_KEY    	= "clientKey";
+    const DEV_KEY       	= "developerKey";
+    const CACHE_ENABLED		= "cacheEnabled";
+    const EMBEDDABLE_ONLY   = "embeddableOnly";
 } 

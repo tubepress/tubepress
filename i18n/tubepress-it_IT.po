@@ -156,8 +156,8 @@ msgstr "Loop"
 msgid "Continue playing the video until the user stops it"
 msgstr "Riproduzione continua del video sino ad interruzione da parte del'utente"
 
-msgid "Color"
-msgstr "Colore"
+msgid "Main color"
+msgstr "Main colore"
 
 msgid "Show related videos"
 msgstr "Mostra video correlati"

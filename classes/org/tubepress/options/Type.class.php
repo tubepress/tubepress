@@ -30,19 +30,31 @@ class org_tubepress_options_Type
 
     /* An HTML color (6 hex digits) */
     const COLOR    = "color";	
-
-    /* Discrete list of possible values */
-	const ENUM     = "enum";	
-
+	
     /* A number */
 	const INTEGRAL = "integral";
+	
+	/* A gallery mode */
+	const MODE = "mode";
+	
+	/* Video sort order */
+	const ORDER     = "order";
 
+	/* Shadowbox, popup, etc */
+	const PLAYER    = "player";
+	
     /* A YouTube playlist ID */
 	const PLAYLIST = "playlist";
+	
+	/* Video quality */
+	const QUALITY = "quality";
 
     /* Free form text */	
 	const TEXT     = "text";
 
+	/* Today, last week, etc */
+	const TIME_FRAME = "timeFrame";
+	
     /* A YouTube username */
 	const YT_USER  = "youtubeUser";
 }

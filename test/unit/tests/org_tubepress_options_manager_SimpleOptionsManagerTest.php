@@ -8,37 +8,9 @@ class org_tubepress_options_manager_SimpleOptionsManagerTest extends PHPUnit_Fra
 	public function setup()
 	{
 		$this->_stpom = new org_tubepress_options_manager_SimpleOptionsManager();
-		$this->_expectedNames = array(
-			"dateFormat", "debugging_enabled", 
-			"filter_racy", "keyword", "randomize_thumbnails", 
-			"clientKey", "developerKey", "cacheEnabled", "nofollowLinks",
-			"playerLocation", "descriptionLimit", "orderBy",
-			"relativeDates", "resultsPerPage", "thumbHeight",
-			"thumbWidth", "autoplay", "border",
-    	    "embeddedHeight", "embeddedWidth", "genie", "loop",
-    		"playerColor", "showRelated", "mode", "favoritesValue",
-    		"most_viewedValue", "playlistValue", "tagValue", 
-    		"top_ratedValue", "userValue", "widget-title",
-    	 	"widget-tagstring", "author", "category", "description",
-    	 	"id", "length", "rating", "ratings", "tags", "title",
-    	 	"uploaded", "url", "views", "quality", "fullscreen", "embeddableOnly"
-    	);
+		
 	}
 	
-    public function testGetAllOptionNamesRightNumberOfOptions()
-    {
-    	$this->assertEquals(sizeof($this->_expectedNames), sizeof($this->_stpom->getAllOptionNames()));
-    }
-    
-    public function testGetAllOptionsHasRightOptions()
-    {
-    	$returnedOptions = $this->_stpom->getAllOptionNames();
-    	foreach ($this->_expectedNames as $expectedName) {
-    		if (!in_array($expectedName, $returnedOptions)) {
-    			$this->fail($expectedName . " is missing");
-    		}
-    	}
-    }
     
     public function testGetSetShortcode()
     {

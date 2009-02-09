@@ -112,10 +112,10 @@ class org_tubepress_url_SimpleUrlBuilder implements org_tubepress_url_UrlBuilder
     {
         
         $perPage = $this->_tpom->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
-        $filter  = $this->_tpom->get(org_tubepress_options_category_YouTubeFeed::FILTER);
+        $filter  = $this->_tpom->get(org_tubepress_options_category_Feed::FILTER);
         $order   = $this->_tpom->get(org_tubepress_options_category_Display::ORDER_BY);
         $mode    = $this->_tpom->get(org_tubepress_options_category_Gallery::MODE);
-        $embedOnly = $this->_tpom->get(org_tubepress_options_category_YouTubeFeed::EMBEDDABLE_ONLY);
+        $embedOnly = $this->_tpom->get(org_tubepress_options_category_Feed::EMBEDDABLE_ONLY);
         
         /* start index of the videos */
         $start = ($currentPage * $perPage) - $perPage + 1;
@@ -131,8 +131,8 @@ class org_tubepress_url_SimpleUrlBuilder implements org_tubepress_url_UrlBuilder
         }
         
         /* YouTube API client ID and developer keys */
-        $requestURL->setQueryVariable("client", $this->_tpom->get(org_tubepress_options_category_YouTubeFeed::CLIENT_KEY));
-        $requestURL->setQueryVariable("key", $this->_tpom->get(org_tubepress_options_category_YouTubeFeed::DEV_KEY));
+        $requestURL->setQueryVariable("client", $this->_tpom->get(org_tubepress_options_category_Feed::CLIENT_KEY));
+        $requestURL->setQueryVariable("key", $this->_tpom->get(org_tubepress_options_category_Feed::DEV_KEY));
 
         if ($embedOnly) {
 	        $requestURL->setQueryVariable("format", "5");

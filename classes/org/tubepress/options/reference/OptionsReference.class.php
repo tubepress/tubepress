@@ -26,29 +26,19 @@
  */
 interface org_tubepress_options_reference_OptionsReference
 {   
-    function getAdvancedOptionNames();
-    
     function getAllOptionNames();
+
+    function getCategory($optionName);
     
     function getDefaultValue($optionName);
-    
-    function getDisplayOptionNames();
-    
-    function getEmbeddedOptionNames();
-    
-    function getFeedOptionNames();
-    
-    function getGalleryOptionNames();
-    
+
     function getOptionCategoryNames();
     
-    function getMetaOptionNames();
+    function getOptionNamesForCategory($category);
     
     function getType($optionName);
     
     function getValidEnumValues($optionName);
-    
-    function getWidgetOptionNames();
     
     function isOptionName($candidateOptionName);
 }

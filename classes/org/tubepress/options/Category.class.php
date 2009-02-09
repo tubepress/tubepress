@@ -20,10 +20,16 @@
  */
 
 /**
- * Advanced options for the plugin
+ * Displays a generic options form for TubePress
  *
  */
-interface org_tubepress_options_category_Category
+class org_tubepress_options_Category
 {
-	public function setMessageService(org_tubepress_message_MessageService $messageService);
-} 
+    const ADVANCED = "advanced";
+    const DISPLAY = "display";
+    const EMBEDDED = "embedded";
+    const FEED = "feed";
+    const GALLERY = "gallery";
+    const META = "meta";
+    const WIDGET = "widget";
+}

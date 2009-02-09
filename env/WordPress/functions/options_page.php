@@ -49,3 +49,9 @@ EOT
     ;
     }
 }
+function tubepress_admin_head_hook()
+{
+    global $tubepress_base_url;
+    $jsColorFile = $tubepress_base_url . "/ui/options_page/js/jscolor/jscolor.js";
+    echo '<script type="text/javascript" src="' . $jsColorFile . '"></script>';
+}

@@ -54,7 +54,7 @@ abstract class org_tubepress_gallery_AbstractGallery
         $currentPage  = $this->_queryStringService->getPageNum($_GET);
         $url          = $this->_urlBuilder->buildGalleryUrl($currentPage);
         $useCache     = $this->_optionsManager->get(
-            org_tubepress_options_category_YouTubeFeed::CACHE_ENABLED);
+            org_tubepress_options_category_Feed::CACHE_ENABLED);
         $xml          = $this->_feedRetrievalService->fetch($url, $useCache);
         $totalResults = $this->_feedInspectionService->getTotalResultCount($xml);
         $queryResult  = $this->_feedInspectionService->getQueryResultCount($xml);
@@ -113,7 +113,7 @@ abstract class org_tubepress_gallery_AbstractGallery
         if ($customVideoId != "") {
             $videoUrl = $this->_urlBuilder->buildSingleVideoUrl($customVideoId);
             $results = $this->_feedRetrievalService->fetch($videoUrl,
-                $this->_optionsManager->get(org_tubepress_options_category_YouTubeFeed::CACHE_ENABLED));
+                $this->_optionsManager->get(org_tubepress_options_category_Feed::CACHE_ENABLED));
             $videoArray = $this->_videoFactory->dom2TubePressVideoArray($results, 1);
             return $videoArray[0];
         }

@@ -12,7 +12,7 @@ class org_tubepress_options_category_EmbeddedTest extends PHPUnit_Framework_Test
 	{
 		$this->_expectedNames = array(
 			"autoplay", "border", "embeddedHeight", "embeddedWidth", 
-			"genie", "loop", "playerColor", "showRelated", "quality",
+			"genie", "loop", "playerColor", "playerHighlight", "showRelated", "quality",
 		    "fullscreen"
     	);
     	$class = new ReflectionClass("org_tubepress_options_category_Embedded");    
@@ -23,11 +23,6 @@ class org_tubepress_options_category_EmbeddedTest extends PHPUnit_Framework_Test
         $this->_msgService = $this->getMock("org_tubepress_message_MessageService");
 	}
 
-	public function testPrintForOptionsPage()
-	{
-		$this->_sut->setMessageService($this->_msgService);
-		$this->_sut->printForOptionsForm($this->_template, $this->_tpsm);
-	}
 	
 	public function testHasRightOptionNames()
 	{

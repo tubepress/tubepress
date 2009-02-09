@@ -22,11 +22,7 @@ class org_tubepress_options_category_GalleryTest extends PHPUnit_Framework_TestC
         $this->_msgService = $this->getMock("org_tubepress_message_MessageService");
 	}
 
-	public function testPrintForOptionsPage()
-	{
-		$this->_sut->setMessageService($this->_msgService);
-		$this->_sut->printForOptionsForm($this->_template, $this->_tpsm);
-	}
+
 	
 	public function testHasRightOptionNames()
 	{

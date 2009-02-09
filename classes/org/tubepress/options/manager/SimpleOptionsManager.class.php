@@ -24,7 +24,7 @@
  * usually in persistent storage somewhere, and custom options parsed
  * from a shortcode
  */
-class org_tubepress_options_manager_SimpleOptionsManager extends org_tubepress_options_manager_AbstractOptionsManager
+class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepress_options_manager_OptionsManager
 {
     /**
      * Enter description here...

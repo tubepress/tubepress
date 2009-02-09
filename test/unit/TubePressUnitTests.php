@@ -27,7 +27,6 @@ $testNames = array(
 	"org_tubepress_options_category_Gallery",
 	"org_tubepress_gallery_Gallery",
 	"org_tubepress_options_category_Meta",
-	"org_tubepress_options_Form",
 	"org_tubepress_pagination_DiggStylePaginationService",
 	"org_tubepress_util_StringUtils",
 	"org_tubepress_video_Video",
