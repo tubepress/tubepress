@@ -74,7 +74,7 @@ abstract class org_tubepress_gallery_AbstractGallery
         $videos = $this->_videoFactory->dom2TubePressVideoArray($xml, $vidLimit);
         
     	if ($this->_optionsManager->get(org_tubepress_options_category_Display::ORDER_BY) == "random") {
-            $videos = shuffle($videos);
+            shuffle($videos);
         }
         
         $thumbsHtml = "";
