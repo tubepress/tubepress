@@ -13,7 +13,7 @@ class org_tubepress_options_category_EmbeddedTest extends PHPUnit_Framework_Test
 		$this->_expectedNames = array(
 			"autoplay", "border", "embeddedHeight", "embeddedWidth", 
 			"genie", "loop", "playerColor", "playerHighlight", "showRelated", "quality",
-		    "fullscreen"
+		    "fullscreen", "showInfo"
     	);
     	$class = new ReflectionClass("org_tubepress_options_category_Embedded");    
         $this->_actualNames = $class->getConstants();

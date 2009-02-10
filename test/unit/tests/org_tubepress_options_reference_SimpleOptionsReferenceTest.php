@@ -8,10 +8,12 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
             org_tubepress_options_category_Embedded::PLAYER_COLOR   => "",
             org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT => ""
         ),
+        org_tubepress_options_Type::MODE => array(
+            org_tubepress_options_category_Gallery::MODE => "recently_featured"
+        ),
         org_tubepress_options_Type::TEXT => array(
             org_tubepress_options_category_Advanced::DATEFORMAT     => "M j, Y",
             org_tubepress_options_category_Advanced::KEYWORD        => "tubepress",
-            org_tubepress_options_category_Gallery::MODE            => "recently_featured",
             org_tubepress_options_category_Gallery::FAVORITES_VALUE => "mrdeathgod",
             org_tubepress_options_category_Gallery::PLAYLIST_VALUE  => "D2B04665B213AE35",
             org_tubepress_options_category_Gallery::TAG_VALUE       => "stewart daily show",
@@ -30,6 +32,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
             org_tubepress_options_category_Embedded::BORDER             => false,
             org_tubepress_options_category_Embedded::GENIE              => false,
             org_tubepress_options_category_Embedded::LOOP               => false,
+            org_tubepress_options_category_Embedded::SHOW_INFO          => false,
             org_tubepress_options_category_Embedded::SHOW_RELATED       => true,
             org_tubepress_options_category_Embedded::FULLSCREEN         => true,
             org_tubepress_options_category_Meta::AUTHOR                 => false,
@@ -70,6 +73,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
             org_tubepress_options_category_Embedded::QUALITY            => "normal"
         )
     );
+	
 	function setUp()
 	{
 		$this->_sut = new org_tubepress_options_reference_SimpleOptionsReference();
@@ -88,7 +92,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     {
         $expected = array();
         foreach ($this->_options as $optionType) {
-            array_push($expected, array_keys($optionType));    
+            $expected = array_merge($expected, array_keys($optionType));    
         }
         $this->assertTrue($expected == $this->_sut->getAllOptionNames());   
     }
@@ -115,7 +119,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
         $expectedNames = array(
             "autoplay", "border", "embeddedHeight",
             "embeddedWidth", "fullscreen", "genie",
-            "loop", "playerColor", "playerHighlight", "quality", "showRelated"
+            "loop", "playerColor", "playerHighlight", "quality", "showInfo", "showRelated"
         );
         $this->assertTrue($expectedNames == $this->_sut->getOptionNamesForCategory(org_tubepress_options_Category::EMBEDDED));  
     }
