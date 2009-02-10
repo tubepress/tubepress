@@ -228,33 +228,6 @@ msgstr "med GreyBox (experimentellt)"
 msgid "with Shadowbox.js (experimental)"
 msgstr "med Shadowbox.js (experimentellt)"
 
-msgid "normal"
-msgstr "standard"
-
-msgid "dark gray"
-msgstr "mörkgrå"
-
-msgid "dark blue"
-msgstr "mörkblå"
-
-msgid "light blue"
-msgstr "ljusblå"
-
-msgid "green"
-msgstr "grön"
-
-msgid "orange"
-msgstr "orange"
-
-msgid "pink"
-msgstr "rosa"
-
-msgid "purple"
-msgstr "lila"
-
-msgid "red"
-msgstr "röd"
-
 msgid "relevance"
 msgstr "relevans"
 

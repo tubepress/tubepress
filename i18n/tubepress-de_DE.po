@@ -274,33 +274,6 @@ msgstr "Mit GreyBox (Experimentell)"
 msgid "with Shadowbox.js (experimental)"
 msgstr "Mit Shadowbox (Experimentell)"
 
-msgid "normal"
-msgstr "Normal"
-
-msgid "dark gray"
-msgstr "Dunkelgrau"
-
-msgid "dark blue"
-msgstr "Dunkelblau"
-
-msgid "light blue"
-msgstr "Hellblau"
-
-msgid "green"
-msgstr "Gr&uuml;n"
-
-msgid "orange"
-msgstr "Orange"
-
-msgid "pink"
-msgstr "Pink"
-
-msgid "purple"
-msgstr "Violett"
-
-msgid "red"
-msgstr "Rot"
-
 msgid "relevance"
 msgstr "relevanz"
 
