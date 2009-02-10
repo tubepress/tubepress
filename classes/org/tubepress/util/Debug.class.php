@@ -47,13 +47,14 @@ class org_tubepress_util_Debug
 
         $builder = new org_tubepress_url_SimpleUrlBuilder();
         $builder->setOptionsManager($tpom);
-        $builder->setQueryStringService(new org_tubepress_querystring_SimpleQueryStringService());
+        $qss = new org_tubepress_querystring_SimpleQueryStringService();
+        $currentPage  = $qss->getPageNum($_GET);
         $debugStuff = array("tubepress_base_url" => $tubepress_base_url,
             "Gallery" => print_r($gallery, true),
             "YouTube connection test" => "Click <a href=\"" . $tubepress_base_url . 
                 "/common/class/gdata/retrieval/TubePressConnectionTest.php\">" . 
                 "here</a> to view results",
-            "Request URL" => $builder->buildGalleryUrl());
+            "Request URL" => $builder->buildGalleryUrl($currentPage));
         
         foreach ($debugStuff as $key => $val) {
             $tpl->setVariable("ELEMENT_TITLE", $key);
