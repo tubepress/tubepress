@@ -158,6 +158,9 @@ msgstr ""
 msgid "Continue playing the video until the user stops it"
 msgstr ""
 
+msgid "Show title and rating before video starts"
+msgstr ""
+
 msgid "Main color"
 msgstr ""
 

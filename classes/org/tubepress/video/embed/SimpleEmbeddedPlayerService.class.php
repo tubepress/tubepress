@@ -28,6 +28,7 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
     private $_color1      = "";
     private $_color2      = "";
     private $_showRelated = false;
+    private $_showInfo    = false;
     private $_autoPlay    = false;
     private $_fullscreen  = true;
     private $_loop        = false;
@@ -61,6 +62,7 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
         $this->_height      = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT);
         $this->_quality     = $tpom->get(org_tubepress_options_category_Embedded::QUALITY);
         $this->_fullscreen  = $tpom->get(org_tubepress_options_category_Embedded::FULLSCREEN);
+        $this->_showInfo    = $tpom->get(org_tubepress_options_category_Embedded::SHOW_INFO);
     }    
     
     /**
@@ -120,6 +122,9 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
             case "f":
                 $this->_fullscreen = $value;
                 break;
+            case "si":
+                $this->_showInfo = $value;
+                break;
             }
         }
     }    
@@ -149,7 +154,8 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
             "q" => $tpom->get(org_tubepress_options_category_Embedded::QUALITY),
             "f" => $tpom->get(org_tubepress_options_category_Embedded::FULLSCREEN),
             "c1" => $this->_safeColorValue($tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR), "999999"),
-            "c2" => $this->_safeColorValue($tpom->get(org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT), "FFFFFF")
+            "c2" => $this->_safeColorValue($tpom->get(org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT), "FFFFFF"),
+            "si" => $tpom->get(org_tubepress_options_category_Embedded::SHOW_INFO)
         );
         
         $result = array();
@@ -178,6 +184,8 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
         $link->setQueryVariable("egm", $this->_genie         ? "1" : "0");
         $link->setQueryVariable("border", $this->_border     ? "1" : "0");
         $link->setQueryVariable("fs", $this->_fullscreen     ? "1" : "0");
+        
+        $link->setQueryVariable("showinfo", $this->_showInfo ? "1" : "0");
         
         switch ($this->_quality) {
         case "high":

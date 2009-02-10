@@ -35,5 +35,6 @@ class org_tubepress_options_category_Embedded
     const PLAYER_COLOR     = "playerColor";
     const PLAYER_HIGHLIGHT = "playerHighlight";
     const QUALITY          = "quality";
+    const SHOW_INFO        = "showInfo";
     const SHOW_RELATED     = "showRelated";
 }

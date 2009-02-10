@@ -85,6 +85,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         "options-desc-playerHighlight" => "Default is FFFFFF",
         "options-title-showRelated"    => "Show related videos", 
         "options-desc-showRelated"     => "Toggles the display of related videos after a video finishes",
+        "options-title-showInfo"       => "Show title and rating before video starts",
         "options-title-quality"		=> "Video quality",
         
         "options-title-author"      => "Author", 
