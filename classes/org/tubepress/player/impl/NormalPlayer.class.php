@@ -35,14 +35,14 @@ class org_tubepress_player_impl_NormalPlayer extends org_tubepress_player_Abstra
     public function getPlayLink(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom)
     {
         $title  = $vid->getTitle();
-        $height  = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT);
+        $width  = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
 
         $this->getEmbeddedPlayerService()->applyOptions($vid, $tpom);
         
         return sprintf(<<<EOT
 href="#" onclick="tubePress_normalPlayer('%s', '%d', '%s')"
 EOT
-			, rawurlencode($this->getEmbeddedPlayerService()->toString()), $height, rawurlencode($title));
+			, rawurlencode($this->getEmbeddedPlayerService()->toString()), $width, rawurlencode($title));
     }
     
     public function getPreGalleryHtml(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom)
