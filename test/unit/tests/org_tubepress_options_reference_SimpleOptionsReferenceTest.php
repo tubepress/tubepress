@@ -216,5 +216,13 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
         $expected = array("normal", "high", "higher", "highest");
         $this->assertEquals($expected, $this->_sut->getValidEnumValues(org_tubepress_options_Type::QUALITY));
     }
+    
+    function testGalleryEnumValues()
+    {
+        $expected = array("favorites", "recently_featured", "mobile", "most_discussed",                                                                                  
+     		"most_linked", "most_recent", "most_responded", "playlist", "most_viewed",                                                                              
+     		"tag", "top_rated", "user");
+        $this->assertEquals($expected, $this->_sut->getValidEnumValues(org_tubepress_options_Type::MODE));
+    }
 }
 ?>
