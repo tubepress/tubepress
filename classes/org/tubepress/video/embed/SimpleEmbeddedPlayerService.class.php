@@ -168,8 +168,10 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
     {
         $link = new net_php_pear_Net_URL2(sprintf("http://www.youtube.com/v/%s", $this->_id));
         
-        $link->setQueryVariable("color2", "0x" . $this->_color1);
-        $link->setQueryVariable("color1", "0x" . $this->_color2);
+        if (!($this->_color1 == "999999" && $this->_color2 == "FFFFFF")) {
+            $link->setQueryVariable("color2", "0x" . $this->_color1);
+            $link->setQueryVariable("color1", "0x" . $this->_color2);
+        }
         $link->setQueryVariable("rel", $this->_showRelated   ? "1" : "0");
         $link->setQueryVariable("autoplay", $this->_autoPlay ? "1" : "0");
         $link->setQueryVariable("loop", $this->_loop         ? "1" : "0");
