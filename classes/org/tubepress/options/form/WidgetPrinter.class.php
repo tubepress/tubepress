@@ -28,51 +28,58 @@ class org_tubepress_options_form_WidgetPrinter
     private $_optionsReference;
 	private $_messageService;
 	private $_tpl;
+    private $_tpsm;
 	
-    public function getHtml($optionName, $tpsm)
+    public org_tubepress_options_form_WidgetPrinter($tpsm, $ms, $ref)
+    {
+        $this->_optionsReference = $ref;
+        $this->_messageService   = $ms;
+        $this->_tpsm             = $tpsm;
+    }
+
+    public function getHtml($optionName)
     {
         $this->_tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/options_page/html_templates");
         if (!$this->_tpl->loadTemplatefile("options_widgets.tpl.html", true, true)) {
             throw new Exception("Could not load template for $optionName option");
         }
 
-	    $this->_processSingleWidget($optionName, $tpsm);
+	    $this->_processSingleWidget($optionName);
         
         return $this->_tpl->get();
     }
     
-    public function getHtmlForRadio($optionName, $tpsm)
+    public function getHtmlForRadio($optionName)
     {
         $this->_tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/options_page/html_templates");
         if (!$this->_tpl->loadTemplatefile("options_widgets.tpl.html", true, true)) {
             throw new Exception("Could not load template for $optionName option");
         }
         
-        $this->_displayGalleryInput($optionName, $tpsm->get(org_tubepress_options_category_Gallery::MODE));
+        $this->_displayGalleryInput($optionName, $this->_tpsm->get(org_tubepress_options_category_Gallery::MODE));
         
         return $this->_tpl->get();
     }
     
-    private function _processSingleWidget($optionName, $tpsm)
+    private function _processSingleWidget($optionName)
     {
         $type = $this->_optionsReference->getType($optionName);
         switch ($type) {
             case org_tubepress_options_Type::BOOL:
-                $this->_displayBooleanInput($optionName, $tpsm->get($optionName));
+                $this->_displayBooleanInput($optionName);
                 break;
             case org_tubepress_options_Type::TEXT:
             case org_tubepress_options_Type::INTEGRAL:
-                $this->_displayTextInput($optionName, $tpsm->get($optionName));
+                $this->_displayTextInput($optionName);
                 break;
             case org_tubepress_options_Type::COLOR:
-                $this->_displayColorInput($optionName, $tpsm->get($optionName));
+                $this->_displayColorInput($optionName);
                 break;
             case org_tubepress_options_Type::ORDER:
             case org_tubepress_options_Type::PLAYER:
             case org_tubepress_options_Type::QUALITY:
             case org_tubepress_options_Type::TIME_FRAME:
-                $this->_displayMenuInput($optionName, $this->_createMenuItemsArray($type),
-                    $tpsm->get($optionName));
+                $this->_displayMenuInput($optionName, $this->_createMenuItemsArray($type));
         }
     }
     
@@ -95,8 +102,9 @@ class org_tubepress_options_form_WidgetPrinter
      * 
      * @return void
      */
-    private function _displayMenuInput($name, $values, $value)
+    private function _displayMenuInput($name, $values)
     {   
+        $value = $this->_tpsm->get($name);
         $this->_tpl->setVariable("OPTION_NAME", $name);
         foreach ($values as $validValueTitle => $validValue) {
             
@@ -119,8 +127,9 @@ class org_tubepress_options_form_WidgetPrinter
      * 
      * @return void
      */
-    private function _displayTextInput($name, $value)
+    private function _displayTextInput($name)
     {    
+        $value = $this->_tpsm->get($name);
         $this->_tpl->setVariable("OPTION_VALUE", $value);
         $this->_tpl->setVariable("OPTION_NAME", $name);
         $this->_tpl->parse("text");
@@ -135,8 +144,9 @@ class org_tubepress_options_form_WidgetPrinter
      * 
      * @return void
      */
-    private function _displayColorInput($name, $value)
+    private function _displayColorInput($name)
     {    
+        $value = $this->_tpsm->get($name);
         $this->_tpl->setVariable("OPTION_VALUE", $value);
         $this->_tpl->setVariable("OPTION_NAME", $name);
         $this->_tpl->parse("color");
@@ -151,8 +161,9 @@ class org_tubepress_options_form_WidgetPrinter
      * 
      * @return void
      */
-    private function _displayBooleanInput($name, $value)
+    private function _displayBooleanInput($name)
     {   
+        $value = $this->_tpsm->get($name);
         $this->_tpl->setVariable("OPTION_NAME", $name);
         
         if ($value) {
@@ -170,15 +181,13 @@ class org_tubepress_options_form_WidgetPrinter
      * 
      * @return void
      */
-    private function _displayGalleryInput($name, $value)
-    {    
+    private function _displayGalleryInput($name)
+    {   
+        $value = $this->_tpsm->get($name);
         $this->_tpl->setVariable("OPTION_NAME", $name);
         if ($name === $value) {
             $this->_tpl->setVariable("OPTION_SELECTED", "CHECKED");
         }
         $this->_tpl->parse("galleryType");
     }
-    
-    public function setMessageService(org_tubepress_message_MessageService $messageService) { $this->_messageService = $messageService; }
-    public function setOptionsReference(org_tubepress_options_reference_OptionsReference $reference) { $this->_optionsReference = $reference; }
 }

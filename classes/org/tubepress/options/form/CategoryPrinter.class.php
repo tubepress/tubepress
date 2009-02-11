@@ -20,7 +20,7 @@
  */
 
 /**
- * Displays a generic options form for TubePress
+ * Gets the HTML for an option category
  *
  */
 class org_tubepress_options_form_CategoryPrinter
@@ -31,13 +31,20 @@ class org_tubepress_options_form_CategoryPrinter
     private $_tpsm;
     private $_wp;
     
-    public function getHtml($optionCategoryName, 
+    public function org_tubepress_options_form_CategoryPrinter(
         org_tubepress_options_storage_StorageManager $tpsm,
         org_tubepress_message_MessageService $ms,
         org_tubepress_options_reference_OptionsReference $ref) {
+       
+        $this->_wp               = 
+            new org_tubepress_options_form_WidgetPrinter($tpsm, $ms, $ref);
+        $this->_optionsReference = $ref;
+        $this->_tpsm             = $tpsm;
+        $this->_messageService   = $ms;
+    }
 
-        $this->_init($ref, $tpsm, $ms);
-        
+    public function getHtml($optionCategoryName) {
+
         $this->_loadTemplateFile($optionCategoryName);
 
         $this->_tpl->setVariable("OPTION_CATEGORY_TITLE", 
@@ -48,17 +55,6 @@ class org_tubepress_options_form_CategoryPrinter
         return $this->_tpl->get();
     }
 
-    private function _init($ref, $tpsm, $ms)
-    {
-        $this->_wp = new org_tubepress_options_form_WidgetPrinter();
-        $this->_wp->setMessageService($ms);
-        $this->_wp->setOptionsReference($ref);
-        
-        $this->_optionsReference = $ref;
-        $this->_tpsm = $tpsm;
-        $this->_messageService = $ms;
-    }
-    
     private function _parseOptionCategory($optionCategoryName)
     {
         switch ($optionCategoryName) {
@@ -83,14 +79,13 @@ class org_tubepress_options_form_CategoryPrinter
 	        $this->_tpl->setVariable("OPTION_DESC",
 	            $this->_messageService->_("options-desc-$modeName"));
 	            
-	        $html = $this->_wp->getHtmlForRadio($modeName, $this->_tpsm);
+	        $html = $this->_wp->getHtmlForRadio($modeName);
 	        
 	        if ($this->_optionsReference->isOptionName($modeName . "Value")) {
 	            $newName = $modeName . "Value";
-	            $html .= $this->_wp->getHtml($newName, $this->_tpsm);
+	            $html .= $this->_wp->getHtml($newName);
 	        }
-		    $this->_tpl->setVariable("OPTION_WIDGET",
-		        $html);
+		    $this->_tpl->setVariable("OPTION_WIDGET", $html);
 		    $this->_tpl->parse('optionRow');
         }        
     }
@@ -131,20 +126,14 @@ class org_tubepress_options_form_CategoryPrinter
 	    $this->_tpl->setVariable("OPTION_DESC",
 	            $this->_messageService->_("options-desc-$optionName"));
 		$this->_tpl->setVariable("OPTION_WIDGET",
-		        $this->_wp->getHtml($optionName, $this->_tpsm));
+		        $this->_wp->getHtml($optionName));
     }
     
     private function _loadTemplateFile($optionCategoryName)
     {
         $this->_tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/options_page/html_templates");
         
-        $name = "options_group_regular";
-        
-        switch ($optionCategoryName) {
-            case org_tubepress_options_Category::META:
-               $name = "options_group_meta";
-               break;
-        }
+        $name = $optionCategoryName == org_tubepress_options_Category::META ? "options_group_meta" : "options_group_regular";
         
         if (!$this->_tpl->loadTemplatefile("$name.tpl.html", true, true)) {
             throw new Exception("Could not load template for $optionCategoryName category");

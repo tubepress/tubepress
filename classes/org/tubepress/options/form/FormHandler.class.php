@@ -51,16 +51,19 @@ class org_tubepress_options_form_FormHandler
 
         /* now parse each option category */
         $optionCategoryNames = $this->_optionsReference->getOptionCategoryNames();
-        $categoryPrinter = new org_tubepress_options_form_CategoryPrinter();
+
+        $categoryPrinter = new org_tubepress_options_form_CategoryPrinter(
+            $tpsm, $this->_messageService, $this->_optionsReference
+        );
         
         foreach ($optionCategoryNames as $optionCategoryName) {
             
+            /* don't display the widget options on this page */
             if ($optionCategoryName == org_tubepress_options_Category::WIDGET) {
                 continue;
             }
             
-            $categoryHtml = $categoryPrinter->getHtml($optionCategoryName, 
-                $tpsm, $this->_messageService, $this->_optionsReference);
+            $categoryHtml = $categoryPrinter->getHtml($optionCategoryName);
             
 	        $tpl->setVariable("OPTION_CATEGORY", $categoryHtml);
 	        $tpl->parse("optionCategory");
@@ -73,29 +76,31 @@ class org_tubepress_options_form_FormHandler
      * Updates options from a keyed array
      *
      * @param org_tubepress_options_storage_StorageManager $tpsm     The TubePress storage manager
-     * @param array                   $postVars The POST variables
+     * @param array                                        $postVars The POST variables
      * 
      * @return void
      */
     public final function collect(org_tubepress_options_storage_StorageManager $tpsm, 
         $postVars)
-    {    
+    {   
+        /* this loop will collect everything except checkboxes */ 
         foreach ($postVars as $name => $value) {
             if ($tpsm->exists($name)) {
                 $tpsm->set($name, $value);
             }
         }
 
+        /* this loop will handle the checkboxes */
         $names = $this->_optionsReference->getAllOptionNames();
         foreach ($names as $name) {
+
+            /* ignore non-bools */
             if ($this->_optionsReference->getType($name) != org_tubepress_options_Type::BOOL) {
                 continue;
             }
-            if (array_key_exists($name, $postVars)) {
-                $tpsm->set($name, true);
-            } else {
-                $tpsm->set($name, false);
-            }   
+
+            /* if the user checked the box, the option name will appear in the POST vars */
+            $tpsm->set($name, array_key_exists($name, $postVars))            
         }
     }
     
