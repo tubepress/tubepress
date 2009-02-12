@@ -30,7 +30,7 @@ class org_tubepress_options_form_WidgetPrinter
 	private $_tpl;
     private $_tpsm;
 	
-    public org_tubepress_options_form_WidgetPrinter($tpsm, $ms, $ref)
+    public function org_tubepress_options_form_WidgetPrinter($tpsm, $ms, $ref)
     {
         $this->_optionsReference = $ref;
         $this->_messageService   = $ms;

@@ -100,7 +100,7 @@ class org_tubepress_options_form_FormHandler
             }
 
             /* if the user checked the box, the option name will appear in the POST vars */
-            $tpsm->set($name, array_key_exists($name, $postVars))            
+            $tpsm->set($name, array_key_exists($name, $postVars));            
         }
     }
     
