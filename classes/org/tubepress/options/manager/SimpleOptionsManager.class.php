@@ -98,6 +98,6 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
     
     public function setStorageManager(org_tubepress_options_storage_StorageManager $tpsm)
     {
-    	$this->_tpsm = $tpsm;
+        $this->_tpsm = $tpsm;
     }
 }

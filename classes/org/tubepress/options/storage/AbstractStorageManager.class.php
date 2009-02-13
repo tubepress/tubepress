@@ -25,9 +25,9 @@
  */
 abstract class org_tubepress_options_storage_AbstractStorageManager implements org_tubepress_options_storage_StorageManager
 {   
-	private $_validationService;
-	private $_optionsReference;
-	
+    private $_validationService;
+    private $_optionsReference;
+    
     /**
      * Creates an option in storage
      *
@@ -46,7 +46,7 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
      */
     public final function debug()
     {
-    	$allOpts = $this->_optionsReference->getAllOptionNames();
+        $allOpts = $this->_optionsReference->getAllOptionNames();
         
         $result = "Should have " . sizeof($allOpts) . " options total";
         
@@ -82,23 +82,23 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
      */
     public final function init()
     {
-    	$allOptionNames = $this->_optionsReference->getAllOptionNames();
-    	$vals = array();
-    	foreach ($allOptionNames as $optionName) {
-    	    $vals[$optionName] = $this->_optionsReference->getDefaultValue($optionName);
-    	}
-    	
-    	foreach($vals as $val => $key) {
-    		$this->_init($val, $key);
-    	}
+        $allOptionNames = $this->_optionsReference->getAllOptionNames();
+        $vals = array();
+        foreach ($allOptionNames as $optionName) {
+            $vals[$optionName] = $this->_optionsReference->getDefaultValue($optionName);
+        }
+        
+        foreach($vals as $val => $key) {
+            $this->_init($val, $key);
+        }
     }    
 
     private function _init($name, $value)
     {
-    	if (!$this->exists($name)) {
-    		$this->delete($name);
-    		$this->create($name, $value);
-    	}
+        if (!$this->exists($name)) {
+            $this->delete($name);
+            $this->create($name, $value);
+        }
     }
     
     /**
@@ -132,7 +132,7 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
      */
     public function setValidationService(org_tubepress_options_validation_InputValidationService $validationService)
     {
-    	$this->_validationService = $validationService;
+        $this->_validationService = $validationService;
     }
     
     /**

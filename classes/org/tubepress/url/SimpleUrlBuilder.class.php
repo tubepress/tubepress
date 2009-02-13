@@ -25,8 +25,8 @@
  */
 class org_tubepress_url_SimpleUrlBuilder implements org_tubepress_url_UrlBuilder
 {
-	private $_tpom;
-	
+    private $_tpom;
+    
     /**
      * Builds a gdata request url for a list of videos
      *
@@ -135,7 +135,7 @@ class org_tubepress_url_SimpleUrlBuilder implements org_tubepress_url_UrlBuilder
         $requestURL->setQueryVariable("key", $this->_tpom->get(org_tubepress_options_category_Feed::DEV_KEY));
 
         if ($embedOnly) {
-	        $requestURL->setQueryVariable("format", "5");
+            $requestURL->setQueryVariable("format", "5");
         }
         
         $request = $requestURL->getURL();
@@ -143,15 +143,15 @@ class org_tubepress_url_SimpleUrlBuilder implements org_tubepress_url_UrlBuilder
     
     public function buildSingleVideoUrl($id)
     {
-    	$requestURL = new net_php_pear_Net_URL2("http://gdata.youtube.com/feeds/api/videos");
-    	$requestURL->setQueryVariable("q", $id);
-    	$requestURL->setQueryVariable("max-results", 1);
+        $requestURL = new net_php_pear_Net_URL2("http://gdata.youtube.com/feeds/api/videos");
+        $requestURL->setQueryVariable("q", $id);
+        $requestURL->setQueryVariable("max-results", 1);
         
-       	return $requestURL->getURL();
+           return $requestURL->getURL();
     }
     
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom)
     { 
-    	$this->_tpom = $tpom; 
+        $this->_tpom = $tpom; 
     }
 }

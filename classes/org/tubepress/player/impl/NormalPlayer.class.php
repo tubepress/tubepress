@@ -42,23 +42,23 @@ class org_tubepress_player_impl_NormalPlayer extends org_tubepress_player_Abstra
         return sprintf(<<<EOT
 href="#" onclick="tubePress_normalPlayer('%s', '%d', '%s')"
 EOT
-			, rawurlencode($this->getEmbeddedPlayerService()->toString()), $width, rawurlencode($title));
+            , rawurlencode($this->getEmbeddedPlayerService()->toString()), $width, rawurlencode($title));
     }
     
     public function getPreGalleryHtml(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom)
     {
-    	$tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/players/normal/html_templates");
+        $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/players/normal/html_templates");
         if (!$tpl->loadTemplatefile("pre_gallery.tpl.html", true, true)) {
             throw new Exception("Couldn't load pre gallery template");
         }
-    	
-    	$this->getEmbeddedPlayerService()->applyOptions($vid, $tpom);
-    	
+        
+        $this->getEmbeddedPlayerService()->applyOptions($vid, $tpom);
+        
         $tpl->setVariable("EMBEDSRC", $this->getEmbeddedPlayerService()->toString());
         $tpl->setVariable("TITLE", $vid->getTitle());
         $tpl->setVariable("WIDTH", 
             $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
-        return $tpl->get();	
+        return $tpl->get();    
     }
 }
 ?>

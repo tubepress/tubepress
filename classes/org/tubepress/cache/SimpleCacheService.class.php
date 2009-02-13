@@ -24,20 +24,20 @@
  */
 class org_tubepress_cache_SimpleCacheService implements org_tubepress_cache_CacheService
 {
-	private $_cache;
-	
-	/**
-	 * Simple constructor
-	 *
-	 */
-	public function __construct()
-	{
-		/* 
-		 * thanks to shickm for this...
-		 * http://code.google.com/p/tubepress/issues/detail?id=27
-		*/
-		if (!function_exists("sys_get_temp_dir")) {
-		    
+    private $_cache;
+    
+    /**
+     * Simple constructor
+     *
+     */
+    public function __construct()
+    {
+        /* 
+         * thanks to shickm for this...
+         * http://code.google.com/p/tubepress/issues/detail?id=27
+        */
+        if (!function_exists("sys_get_temp_dir")) {
+            
             // Based on http://www.phpit.net/
             // article/creating-zip-tar-archives-dynamically-php/2/
             function sys_get_temp_dir()
@@ -73,38 +73,38 @@ class org_tubepress_cache_SimpleCacheService implements org_tubepress_cache_Cach
                         return FALSE;
                     }
                 }
-		    }
-		}
-		
-		$this->_cache = new net_php_pear_Cache_Lite(array("cacheDir" => sys_get_temp_dir()));
-	}
-	
-	/**
-	 * @see org_tubepress_cache_CacheService::get($key)
-	 */
-	public function get($key)
-	{
-		return $this->_cache->get($key);
-	}
-	
-	/**
-	 * @see org_tubepress_cache_CacheService::has($key)
-	 */
-	public function has($key)
-	{
-		return $this->_cache->get($key) !== false;
-	}
-	
-	/**
-	 * @see org_tubepress_cache_CacheService::save($key, $data)
-	 */
-	public function save($key, $data)
-	{
-		if (!is_string($data)) {
-			throw new Exception("Cache can only save string data");
-		}
-		$this->_cache->save($data, $key);
-	}
-	
-	
+            }
+        }
+        
+        $this->_cache = new net_php_pear_Cache_Lite(array("cacheDir" => sys_get_temp_dir()));
+    }
+    
+    /**
+     * @see org_tubepress_cache_CacheService::get($key)
+     */
+    public function get($key)
+    {
+        return $this->_cache->get($key);
+    }
+    
+    /**
+     * @see org_tubepress_cache_CacheService::has($key)
+     */
+    public function has($key)
+    {
+        return $this->_cache->get($key) !== false;
+    }
+    
+    /**
+     * @see org_tubepress_cache_CacheService::save($key, $data)
+     */
+    public function save($key, $data)
+    {
+        if (!is_string($data)) {
+            throw new Exception("Cache can only save string data");
+        }
+        $this->_cache->save($data, $key);
+    }
+    
+    
 }

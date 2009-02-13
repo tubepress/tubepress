@@ -24,13 +24,13 @@
  */
 class org_tubepress_pagination_DiggStylePaginationService implements org_tubepress_pagination_PaginationService
 {
-	private $_messageService;
-	private $_tpom;
-	private $_queryStringService;
-	
-	public function getHtml($vidCount)
-	{
-		$currentPage = $this->_queryStringService->getPageNum($_GET);
+    private $_messageService;
+    private $_tpom;
+    private $_queryStringService;
+    
+    public function getHtml($vidCount)
+    {
+        $currentPage = $this->_queryStringService->getPageNum($_GET);
         $vidsPerPage = $this->_tpom->
             get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
     
@@ -40,13 +40,13 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
         return $this->_diggStyle($this->_messageService, $currentPage, $vidCount,
             $vidsPerPage, 1, $newurl->getURL(), 
                 "tubepress_page");
-	}
-	
-	public function setMessageService(org_tubepress_message_MessageService $messageService) { $this->_messageService = $messageService; }
-	public function setQueryStringService(org_tubepress_querystring_QueryStringService $queryStringService) { $this->_queryStringService = $queryStringService; }
-	public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }
-	
-	//function to return the pagination string
+    }
+    
+    public function setMessageService(org_tubepress_message_MessageService $messageService) { $this->_messageService = $messageService; }
+    public function setQueryStringService(org_tubepress_querystring_QueryStringService $queryStringService) { $this->_queryStringService = $queryStringService; }
+    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }
+    
+    //function to return the pagination string
     private function _diggStyle(org_tubepress_message_MessageService $messageService, $page = 1, $totalitems, $limit = 15, $adjacents = 1, $targetpage = "/", $pagestring = "?page=")
     {   
         //defaults

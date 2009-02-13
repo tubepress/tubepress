@@ -73,36 +73,36 @@ abstract class org_tubepress_gallery_AbstractGallery
         
         $videos = $this->_videoFactory->dom2TubePressVideoArray($xml, $vidLimit);
         
-    	if ($this->_optionsManager->get(org_tubepress_options_category_Display::ORDER_BY) == "random") {
+        if ($this->_optionsManager->get(org_tubepress_options_category_Display::ORDER_BY) == "random") {
             shuffle($videos);
         }
         
         $thumbsHtml = "";
         $playerName =
-        	$this->_optionsManager->
-            	get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
+            $this->_optionsManager->
+                get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
         $player     = $this->_playerFactory->getInstance($playerName);
         $player->setEmbeddedPlayerService($this->_tpeps);
         
         for ($x = 0; $x < sizeof($videos); $x++) {
-        	
+            
             /* Top of the gallery is special */
-	        if ($x == 0) {
-	            $tpl->setVariable("PRE_GALLERY_PLAYER_HTML", 
-	                $player->getPreGalleryHtml($this->_getPreGalleryVideo($videos), $this->_optionsManager));
-	        }
-	            
-	        /* Here's where each thumbnail gets printed */
-	        $thumbsHtml .= $this->_thumbnailService->getHtml(
-	            $this->_templateDirectory, $videos[$x], $player);     
-	    }
-	    
-	    $tpl->setVariable("THUMBS", $thumbsHtml);
-	        
-	    /* Spit out the top/bottom pagination if we have any videos */
-	    if ($vidLimit > 0) {
-	           $this->_parsePaginationHTML($totalResults, $tpl);
-	    }
+            if ($x == 0) {
+                $tpl->setVariable("PRE_GALLERY_PLAYER_HTML", 
+                    $player->getPreGalleryHtml($this->_getPreGalleryVideo($videos), $this->_optionsManager));
+            }
+                
+            /* Here's where each thumbnail gets printed */
+            $thumbsHtml .= $this->_thumbnailService->getHtml(
+                $this->_templateDirectory, $videos[$x], $player);     
+        }
+        
+        $tpl->setVariable("THUMBS", $thumbsHtml);
+            
+        /* Spit out the top/bottom pagination if we have any videos */
+        if ($vidLimit > 0) {
+               $this->_parsePaginationHTML($totalResults, $tpl);
+        }
         
         return $tpl->get();
     }
@@ -137,63 +137,63 @@ abstract class org_tubepress_gallery_AbstractGallery
     }
     
     public function setTemplateDirectory($directory) 
-    {										  
-    	$this->_templateDirectory = $directory; 
+    {                                          
+        $this->_templateDirectory = $directory; 
     }
     
     public function setFeedInspectionService(org_tubepress_gdata_inspection_FeedInspectionService $feedInspector) 
     { 
-    	$this->_feedInspectionService = $feedInspector; 
+        $this->_feedInspectionService = $feedInspector; 
     }
     
     public function setFeedRetrievalService(org_tubepress_gdata_retrieval_FeedRetrievalService $feedRetriever) 
     {   
-    	$this->_feedRetrievalService = $feedRetriever; 
+        $this->_feedRetrievalService = $feedRetriever; 
     }
     
     public function setMessageService(org_tubepress_message_MessageService $messageService) 
     {              
-    	$this->_messageService = $messageService; 
+        $this->_messageService = $messageService; 
     }
     
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) 
     {                        
-    	$this->_optionsManager = $tpom; 
+        $this->_optionsManager = $tpom; 
     }
     
     public function setPaginationService(org_tubepress_pagination_PaginationService $paginator) 
     {             
-    	$this->_paginationService = $paginator; 
+        $this->_paginationService = $paginator; 
     }
     
     public function setPlayerFactory(org_tubepress_player_factory_PlayerFactory $playerFactory) 
     {             
-    	$this->_playerFactory = $playerFactory; 
+        $this->_playerFactory = $playerFactory; 
     }
 
     public function setQueryStringService(org_tubepress_querystring_QueryStringService $qss) 
     {             
-    	$this->_queryStringService = $qss; 
+        $this->_queryStringService = $qss; 
     }
     
     public function setThumbnailService(org_tubepress_thumbnail_ThumbnailService $thumbService) 
     {            
-    	$this->_thumbnailService = $thumbService; 
+        $this->_thumbnailService = $thumbService; 
     }
     
     public function setEmbeddedPlayerService(org_tubepress_video_embed_EmbeddedPlayerService $tpeps)
     {
-    	$this->_tpeps = $tpeps;
+        $this->_tpeps = $tpeps;
     }
     
     public function setUrlBuilderService(org_tubepress_url_UrlBuilder $urlBuilder) 
     {                   
-    	$this->_urlBuilder = $urlBuilder; 
+        $this->_urlBuilder = $urlBuilder; 
     }
     
     public function setVideoFactory(org_tubepress_video_factory_VideoFactory $factory) 
     {
-    	$this->_videoFactory = $factory; 
+        $this->_videoFactory = $factory; 
     }
-	
+    
 }

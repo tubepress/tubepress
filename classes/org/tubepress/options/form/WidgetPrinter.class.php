@@ -26,10 +26,10 @@
 class org_tubepress_options_form_WidgetPrinter
 {
     private $_optionsReference;
-	private $_messageService;
-	private $_tpl;
+    private $_messageService;
+    private $_tpl;
     private $_tpsm;
-	
+    
     public function org_tubepress_options_form_WidgetPrinter($tpsm, $ms, $ref)
     {
         $this->_optionsReference = $ref;
@@ -44,7 +44,7 @@ class org_tubepress_options_form_WidgetPrinter
             throw new Exception("Could not load template for $optionName option");
         }
 
-	    $this->_processSingleWidget($optionName);
+        $this->_processSingleWidget($optionName);
         
         return $this->_tpl->get();
     }

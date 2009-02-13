@@ -26,8 +26,8 @@
 class org_tubepress_options_form_FormHandler
 {
     private $_optionsReference;
-	private $_messageService;
-	
+    private $_messageService;
+    
     /**
      * Displays all the TubePress options in HTML
      *
@@ -65,8 +65,8 @@ class org_tubepress_options_form_FormHandler
             
             $categoryHtml = $categoryPrinter->getHtml($optionCategoryName);
             
-	        $tpl->setVariable("OPTION_CATEGORY", $categoryHtml);
-	        $tpl->parse("optionCategory");
+            $tpl->setVariable("OPTION_CATEGORY", $categoryHtml);
+            $tpl->parse("optionCategory");
         }
   
         print $tpl->get();

@@ -25,39 +25,16 @@
  */
 class org_tubepress_options_Type
 {
-    /* Yes/No options */
-    const BOOL     = "boolean";
-
-    /* An HTML color (6 hex digits) */
-    const COLOR    = "color";	
-	
-    /* A number */
-	const INTEGRAL = "integral";
-	
-	/* A gallery mode */
-	const MODE = "mode";
-	
-	/* Video sort order */
-	const ORDER     = "order";
-
-	/* Shadowbox, popup, etc */
-	const PLAYER    = "player";
-	
-    /* A YouTube playlist ID */
-	const PLAYLIST = "playlist";
-	
-	/* Video quality */
-	const QUALITY = "quality";
-
-    /* a SafeSearch level */
-    const SAFE_SEARCH = "safeSearch";
-
-    /* Free form text */	
-	const TEXT     = "text";
-
-	/* Today, last week, etc */
-	const TIME_FRAME = "timeFrame";
-	
-    /* A YouTube username */
-	const YT_USER  = "youtubeUser";
+    const BOOL        = "boolean";     // Yes/No options
+    const COLOR       = "color";       // An HTML color (6 hex digits)      
+    const INTEGRAL    = "integral";    // A number
+    const MODE        = "mode";        // A gallery mode
+    const ORDER       = "order";       // Video sort order
+    const PLAYER      = "player";      // Shadowbox, popup, etc
+    const PLAYLIST    = "playlist";    // A YouTube playlist ID
+    const QUALITY     = "quality";     // Video quality
+    const SAFE_SEARCH = "safeSearch";  // a SafeSearch level
+    const TEXT        = "text";        // Free form text
+    const TIME_FRAME  = "timeFrame";   // Today, last week, etc
+    const YT_USER     = "youtubeUser"; // A YouTube username    
 }

@@ -47,7 +47,7 @@ interface org_tubepress_options_storage_StorageManager
      * 
      * @return void
      */
-	
+    
     /**
      * Initializes the storage
      *

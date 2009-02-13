@@ -24,11 +24,11 @@
  */
 interface org_tubepress_pagination_PaginationService
 {
-	public function getHtml($totalResults);
-	
-	public function setMessageService(org_tubepress_message_MessageService $messageService);
-	
-	public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom);
-	
-	public function setQueryStringService(org_tubepress_querystring_QueryStringService $queryStringService);
+    public function getHtml($totalResults);
+    
+    public function setMessageService(org_tubepress_message_MessageService $messageService);
+    
+    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom);
+    
+    public function setQueryStringService(org_tubepress_querystring_QueryStringService $queryStringService);
 }

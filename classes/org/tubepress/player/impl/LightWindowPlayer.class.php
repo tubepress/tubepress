@@ -33,7 +33,7 @@ class org_tubepress_player_impl_LightWindowPlayer extends org_tubepress_player_A
      */
     protected function getPreLoadJs()
     {
-    	return "var tubepressLWPath = \"" . $this->_getBaseUrl() . "\"";
+        return "var tubepressLWPath = \"" . $this->_getBaseUrl() . "\"";
     }
     
     /**
@@ -43,8 +43,8 @@ class org_tubepress_player_impl_LightWindowPlayer extends org_tubepress_player_A
      */
     protected function getJSLibs()
     {
-    	$lwURL = $this->_getBaseUrl();
-    	return array($lwURL . "javascript/prototype.js",
+        $lwURL = $this->_getBaseUrl();
+        return array($lwURL . "javascript/prototype.js",
             $lwURL . "javascript/scriptaculous.js?load=effects",
             $lwURL . "javascript/lightWindow.js");
     }
@@ -58,7 +58,7 @@ class org_tubepress_player_impl_LightWindowPlayer extends org_tubepress_player_A
      */
     protected function getCSSLibs()
     {
-		return array($this->_getBaseUrl() . "css/lightWindow.css");
+        return array($this->_getBaseUrl() . "css/lightWindow.css");
     }
     
     /**
@@ -89,7 +89,7 @@ EOT
     
     private function _getBaseUrl()
     {
-    	global $tubepress_base_url;
+        global $tubepress_base_url;
 
         return $tubepress_base_url . "/ui/players/lightWindow/";
     }

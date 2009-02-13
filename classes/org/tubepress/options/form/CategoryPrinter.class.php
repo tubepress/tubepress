@@ -75,58 +75,58 @@ class org_tubepress_options_form_CategoryPrinter
         foreach ($modeNames as $modeName) {
             
             $this->_tpl->setVariable("OPTION_TITLE",
-	            $this->_messageService->_("options-title-$modeName"));
-	        $this->_tpl->setVariable("OPTION_DESC",
-	            $this->_messageService->_("options-desc-$modeName"));
-	            
-	        $html = $this->_wp->getHtmlForRadio($modeName);
-	        
-	        if ($this->_optionsReference->isOptionName($modeName . "Value")) {
-	            $newName = $modeName . "Value";
-	            $html .= $this->_wp->getHtml($newName);
-	        }
-		    $this->_tpl->setVariable("OPTION_WIDGET", $html);
-		    $this->_tpl->parse('optionRow');
+                $this->_messageService->_("options-title-$modeName"));
+            $this->_tpl->setVariable("OPTION_DESC",
+                $this->_messageService->_("options-desc-$modeName"));
+                
+            $html = $this->_wp->getHtmlForRadio($modeName);
+            
+            if ($this->_optionsReference->isOptionName($modeName . "Value")) {
+                $newName = $modeName . "Value";
+                $html .= $this->_wp->getHtml($newName);
+            }
+            $this->_tpl->setVariable("OPTION_WIDGET", $html);
+            $this->_tpl->parse('optionRow');
         }        
     }
     
     private function _parseMetaOptionsCategory()
     {
-	    $optionNames = $this->_optionsReference->getOptionNamesForCategory(org_tubepress_options_Category::META);
-	    
-	    $index = 1;
-	    foreach ($optionNames as $optionName) {
-	        
-	        $this->_parseCommonOptionInfo($optionName);
-		        
-		    if ($index % 4 == 0) {
-		        $this->_tpl->parse('optionRow');
-		    } else {
-		        $this->_tpl->parse('option');
-		    }
-		    $index++;
-	    }
+        $optionNames = $this->_optionsReference->getOptionNamesForCategory(org_tubepress_options_Category::META);
+        
+        $index = 1;
+        foreach ($optionNames as $optionName) {
+            
+            $this->_parseCommonOptionInfo($optionName);
+                
+            if ($index % 4 == 0) {
+                $this->_tpl->parse('optionRow');
+            } else {
+                $this->_tpl->parse('option');
+            }
+            $index++;
+        }
     }  
     
     private function _parseRegularOptionsCategory($optionCategoryName)
     {
-	    $optionNames = $this->_optionsReference->getOptionNamesForCategory($optionCategoryName);
-	    
-	    foreach ($optionNames as $optionName) {
-	        
-	        $this->_parseCommonOptionInfo($optionName);
-		    $this->_tpl->parse('optionRow');
-	    }
+        $optionNames = $this->_optionsReference->getOptionNamesForCategory($optionCategoryName);
+        
+        foreach ($optionNames as $optionName) {
+            
+            $this->_parseCommonOptionInfo($optionName);
+            $this->_tpl->parse('optionRow');
+        }
     }    
     
     private function _parseCommonOptionInfo($optionName)
     {
         $this->_tpl->setVariable("OPTION_TITLE",
-	            $this->_messageService->_("options-title-$optionName"));
-	    $this->_tpl->setVariable("OPTION_DESC",
-	            $this->_messageService->_("options-desc-$optionName"));
-		$this->_tpl->setVariable("OPTION_WIDGET",
-		        $this->_wp->getHtml($optionName));
+                $this->_messageService->_("options-title-$optionName"));
+        $this->_tpl->setVariable("OPTION_DESC",
+                $this->_messageService->_("options-desc-$optionName"));
+        $this->_tpl->setVariable("OPTION_WIDGET",
+                $this->_wp->getHtml($optionName));
     }
     
     private function _loadTemplateFile($optionCategoryName)

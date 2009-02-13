@@ -31,11 +31,11 @@ class org_tubepress_gallery_WidgetGallery extends org_tubepress_gallery_Abstract
      */
     public final function generate()
     {
-    	try {
-	    	$this->setTemplateDirectory(dirname(__FILE__) . "/../../../../ui/widget/html_templates");
-	        return $this->generateThumbs();   
-	    } catch (Exception $e) {
-    		return $e->getMessage();
-    	}
+        try {
+            $this->setTemplateDirectory(dirname(__FILE__) . "/../../../../ui/widget/html_templates");
+            return $this->generateThumbs();   
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

@@ -20,37 +20,37 @@
  */
 
 class org_tubepress_player_factory_SimplePlayerFactory implements org_tubepress_player_factory_PlayerFactory {
-	
-	public function getInstance($playerName)
-	{
-		switch ($playerName) {
+    
+    public function getInstance($playerName)
+    {
+        switch ($playerName) {
             
-	        case org_tubepress_player_Player::NORMAL:
-	            return new org_tubepress_player_impl_NormalPlayer();
-	            break;
-	
-	        case org_tubepress_player_Player::GREYBOX:
-	            return new org_tubepress_player_impl_GreyBoxPlayer();
-	            break;
-	
-	        case org_tubepress_player_Player::POPUP:
-	            return new org_tubepress_player_impl_PopupPlayer();
-	            break;
-	
-	        case org_tubepress_player_Player::YOUTUBE:
-	            return new org_tubepress_player_impl_YouTubePlayer();
-	            break;
-	
-	        case org_tubepress_player_Player::LIGHTWINDOW:
-	            return new org_tubepress_player_impl_LightWindowPlayer();
-	
-	        case org_tubepress_player_Player::SHADOWBOX:
-	            return new org_tubepress_player_impl_ShadowBoxPlayer();
-	
-	        default:
-	            throw new Exception("No such player with name '$playerName'");
+            case org_tubepress_player_Player::NORMAL:
+                return new org_tubepress_player_impl_NormalPlayer();
+                break;
+    
+            case org_tubepress_player_Player::GREYBOX:
+                return new org_tubepress_player_impl_GreyBoxPlayer();
+                break;
+    
+            case org_tubepress_player_Player::POPUP:
+                return new org_tubepress_player_impl_PopupPlayer();
+                break;
+    
+            case org_tubepress_player_Player::YOUTUBE:
+                return new org_tubepress_player_impl_YouTubePlayer();
+                break;
+    
+            case org_tubepress_player_Player::LIGHTWINDOW:
+                return new org_tubepress_player_impl_LightWindowPlayer();
+    
+            case org_tubepress_player_Player::SHADOWBOX:
+                return new org_tubepress_player_impl_ShadowBoxPlayer();
+    
+            default:
+                throw new Exception("No such player with name '$playerName'");
         }
-		
-	}
+        
+    }
 }
 ?>

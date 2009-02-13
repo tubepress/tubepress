@@ -33,14 +33,14 @@ tubepress_run_connection_test("http://gdata.youtube.com/feeds/api/standardfeeds/
 
 function tubepress_run_connection_test($url, $escape = false) {
     
-	$request = new net_php_pear_Net_URL2($url);
+    $request = new net_php_pear_Net_URL2($url);
     $req = new net_php_pear_HTTP_Request2($request);
     $req->setAdapter(new net_php_pear_HTTP_Request2_Adapter_Socket());
 
     $response = $req->send();
     $data = $response->getBody();
-	
-	if ($escape) {
+    
+    if ($escape) {
         $data = htmlentities($data);
     }
     print_r($data);

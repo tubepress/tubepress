@@ -28,6 +28,7 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerServiceTest extends PHPUnit_
     style="width: 450px; height: 350px" data="$link">
     <param name="wmode" value="transparent" />
     <param name="movie" value="$link" />
+    <param name="allowfullscreen" value="true" />
 </object>
 EOT
 			,  $this->_sut->toString());

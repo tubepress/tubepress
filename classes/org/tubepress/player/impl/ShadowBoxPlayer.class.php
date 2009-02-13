@@ -31,13 +31,13 @@ class org_tubepress_player_impl_ShadowBoxPlayer extends org_tubepress_player_Abs
      */
     protected function getPostLoadJS()
     {
-    	return sprintf(<<<EOT
+        return sprintf(<<<EOT
 YAHOO.util.Event.onDOMReady(function() { 
     var options = { assetURL: "%s" };
     Shadowbox.init(options);
 });
 EOT
-		, $this->_getBaseUrl());
+        , $this->_getBaseUrl());
     }
     
     /**
@@ -47,8 +47,8 @@ EOT
      */
     protected function getJSLibs()
     {
-    	$sbUrl = $this->_getBaseUrl();
-    	return array(
+        $sbUrl = $this->_getBaseUrl();
+        return array(
             $sbUrl . "src/js/lib/yui-utilities.js",
             $sbUrl . "src/js/adapter/shadowbox-yui.js",
             $sbUrl . "src/js/shadowbox.js");
@@ -63,7 +63,7 @@ EOT
      */
     protected function getCSSLibs()
     {
-    	return array($this->_getBaseUrl() . "src/css/shadowbox.css");
+        return array($this->_getBaseUrl() . "src/css/shadowbox.css");
     }
     
     /**
@@ -87,12 +87,12 @@ EOT
         
         return sprintf('href="%s" title="%s" ' .
             'rel="shadowbox;height=%s;width=%s"',
-		$url->getURL(true), $title, $height, $width); 
+        $url->getURL(true), $title, $height, $width); 
    }
    
    private function _getBaseUrl()
    {
-   		global $tubepress_base_url;
+           global $tubepress_base_url;
 
         return $tubepress_base_url . "/ui/players/shadowbox/";
    }

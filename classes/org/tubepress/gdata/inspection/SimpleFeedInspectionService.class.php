@@ -25,28 +25,28 @@
  */
 class org_tubepress_gdata_inspection_SimpleFeedInspectionService implements org_tubepress_gdata_inspection_FeedInspectionService
 {   
-	const NS_OPENSEARCH = 'http://a9.com/-/spec/opensearchrss/1.0/';
-	
+    const NS_OPENSEARCH = 'http://a9.com/-/spec/opensearchrss/1.0/';
+    
     public function getTotalResultCount(DOMDocument $dom)
     {
-    	$result = $dom->getElementsByTagNameNS(org_tubepress_gdata_inspection_SimpleFeedInspectionService::NS_OPENSEARCH,
-    		'totalResults')->item(0)->nodeValue;
-    	
-    	$this->_makeSureNumeric($result);
-    	return $result;
+        $result = $dom->getElementsByTagNameNS(org_tubepress_gdata_inspection_SimpleFeedInspectionService::NS_OPENSEARCH,
+            'totalResults')->item(0)->nodeValue;
+        
+        $this->_makeSureNumeric($result);
+        return $result;
     }
     
     public function getQueryResultCount(DOMDocument $dom)
     {
-    	$result = $dom->getElementsByTagName('entry')->length;
-    	$this->_makeSureNumeric($result);
-    	return $result;
+        $result = $dom->getElementsByTagName('entry')->length;
+        $this->_makeSureNumeric($result);
+        return $result;
     }
     
     private function _makeSureNumeric($result)
     {
-    	if (is_numeric($result) === FALSE) {
-    		throw new Exception("YouTube returned a non-numeric total result count: $result");
-    	}	
+        if (is_numeric($result) === FALSE) {
+            throw new Exception("YouTube returned a non-numeric total result count: $result");
+        }    
     }
 }

@@ -213,7 +213,7 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
 </object>
 EOT
         , $this->_width, $this->_height, $link, $link, $this->_fullscreen ? "true" : "false");
-	return str_replace("?", "&amp;", $embedSrc);
+    return str_replace("?", "&amp;", $embedSrc);
     }
     
     private function _safeColorValue($candidate, $default)

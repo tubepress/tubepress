@@ -38,7 +38,7 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
         $keyword = $tpom->get(org_tubepress_options_category_Advanced::KEYWORD);
         
         if (!$this->somethingToParse($content, $keyword)) {
-        	return;
+            return;
         }
         
         $customOptions = array();  
@@ -70,7 +70,7 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
 
     public function somethingToParse($content, $trigger = "tubepress")
     {
-    	return strpos($content, '[' . $trigger) !== false;
+        return strpos($content, '[' . $trigger) !== false;
     }
     
     /**
@@ -97,6 +97,6 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
         }
         return $nameOrValue;
     }
-	
+    
 }
 ?>

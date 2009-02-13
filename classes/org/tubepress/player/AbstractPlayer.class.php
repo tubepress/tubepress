@@ -24,8 +24,8 @@
  */
 abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_player_Player
 {   
-	private $_tpeps;
-	
+    private $_tpeps;
+    
     /**
      * Puts JS and CSS libraries in the head
      *
@@ -65,7 +65,7 @@ abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_play
      */
     protected function getPostLoadJS()
     {
-    	return "";
+        return "";
     }
     
     /**
@@ -77,7 +77,7 @@ abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_play
      */
     protected function getPreLoadJs()
     {
-    	return "";
+        return "";
     }
     
     /**
@@ -87,7 +87,7 @@ abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_play
      */
     protected function getJSLibs()
     {
-    	return array();
+        return array();
     }
     
     /**
@@ -99,22 +99,22 @@ abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_play
      */
     protected function getCSSLibs()
     {
-    	return array();
+        return array();
     }
     
     public final function setEmbeddedPlayerService(org_tubepress_video_embed_EmbeddedPlayerService $tpeps)
     {
-    	$this->_tpeps = $tpeps;	
+        $this->_tpeps = $tpeps;    
     }
     
     protected function getEmbeddedPlayerService()
     {
-    	return $this->_tpeps;
+        return $this->_tpeps;
     }
     
     public function getPreGalleryHtml(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom)
     {
-    	return "";
+        return "";
     }
 }
 ?>

@@ -26,20 +26,20 @@ class org_tubepress_player_impl_GreyBoxPlayer extends org_tubepress_player_Abstr
 {
     protected function getPreLoadJs()
     {
-    	return "var GB_ROOT_DIR = \"" . $this->_getGbBaseUrl() . "\"";
+        return "var GB_ROOT_DIR = \"" . $this->_getGbBaseUrl() . "\"";
     }
     
     protected function getJSLibs()
     {
-    	$gbURL = $this->_getGbBaseUrl();
-    	return array($gbURL . "AJS.js",
+        $gbURL = $this->_getGbBaseUrl();
+        return array($gbURL . "AJS.js",
             $gbURL . "AJS_fx.js",
             $gbURL . "gb_scripts.js");
     }
     
     protected function getCSSLibs()
     {
-    	return array($this->_getGbBaseUrl() . "gb_styles.css");
+        return array($this->_getGbBaseUrl() . "gb_styles.css");
     }
     
     /**
@@ -64,12 +64,12 @@ class org_tubepress_player_impl_GreyBoxPlayer extends org_tubepress_player_Abstr
         return sprintf(<<<EOT
 href="%s" title="%s" rel="gb_page_center[%s, %s]"
 EOT
-			, $url->getURL(true), $title, $width, $height);
+            , $url->getURL(true), $title, $width, $height);
     }
     
     private function _getGbBaseUrl()
     {
-    	global $tubepress_base_url;
+        global $tubepress_base_url;
 
         return $tubepress_base_url . "/ui/players/greybox/";
     }

@@ -26,12 +26,12 @@
  */
 class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_thumbnail_ThumbnailService
 {
-	private $_tpl;
-	private $_tpom;
-	private $_msg;
-	private $_tppf;
-	private $_tpeps;
-	
+    private $_tpl;
+    private $_tpom;
+    private $_msg;
+    private $_tppf;
+    private $_tpeps;
+    
     public function getHtml($template, org_tubepress_video_Video $vid, org_tubepress_player_Player $player)
     {
         $this->_tpl = new net_php_pear_HTML_Template_IT($template);
@@ -45,7 +45,7 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
     
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom)
     {
-    	$this->_tpom = $tpom;
+        $this->_tpom = $tpom;
     }
     
     private function _getCommonStuff(org_tubepress_video_Video $vid, org_tubepress_player_Player $player)
@@ -106,11 +106,11 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
                 break;
                     
             case org_tubepress_options_category_Meta::DESCRIPTION:
-            	$limit = $this->_tpom->get(org_tubepress_options_category_Display::DESC_LIMIT);
-            	$desc = $vid->getDescription();
-            	if ($limit > 0 && strlen($desc) > $limit) {
-            		$desc = substr($desc, 0, $limit) . "...";
-            	}
+                $limit = $this->_tpom->get(org_tubepress_options_category_Display::DESC_LIMIT);
+                $desc = $vid->getDescription();
+                if ($limit > 0 && strlen($desc) > $limit) {
+                    $desc = substr($desc, 0, $limit) . "...";
+                }
                 $this->_tpl->setVariable('DESCRIPTION', $desc);
                 $this->_tpl->parse('description');
                 break;
@@ -127,7 +127,7 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
                 $this->_tpl->setVariable('METANAME', $this->_msg->_("video-" . $constant));
                 $this->_tpl->setVariable('SEARCHSTRING', $tags);
                 $this->_tpl->setVariable('TAGS', implode(" ", $vid->getTags()));
-             	if ($nofollow) { $this->_tpl->setVariable("NOFOLLOW", "rel=\"external nofollow\""); }
+                 if ($nofollow) { $this->_tpl->setVariable("NOFOLLOW", "rel=\"external nofollow\""); }
                 $this->_tpl->parse('tags');
                 break;
                     
@@ -161,14 +161,14 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
                 case org_tubepress_options_category_Meta::UPLOADED:
                     $niceDate = $vid->getUploadTime();
                     if ($niceDate != "N/A") {
-                    	if ($this->_tpom->get(org_tubepress_options_category_Display::RELATIVE_DATES)) {
-                    		$niceDate = 
-                    		    $this->_relativeTime($vid->getUploadTime());
-                    	} else {
+                        if ($this->_tpom->get(org_tubepress_options_category_Display::RELATIVE_DATES)) {
+                            $niceDate = 
+                                $this->_relativeTime($vid->getUploadTime());
+                        } else {
                             $niceDate = date($this->_tpom->
                                 get(org_tubepress_options_category_Advanced::DATEFORMAT), 
                                 $vid->getUploadTime());
-                    	}
+                        }
                     }
                     $this->_tpl->setVariable('METAVALUE', $niceDate);
                     break;
@@ -183,7 +183,7 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
     
     public function setMessageService(org_tubepress_message_MessageService $messageService)
     { 
-    	$this->_msg = $messageService; 
+        $this->_msg = $messageService; 
     }
     
     //Grabbed from http://www.weberdev.com/get_example-4769.html

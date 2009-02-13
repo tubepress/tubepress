@@ -24,5 +24,5 @@
  */
 interface org_tubepress_message_MessageService
 {
-	public function _($messageKey);
+    public function _($messageKey);
 }

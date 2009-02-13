@@ -25,8 +25,8 @@
  */
 abstract class org_tubepress_gdata_retrieval_AbstractFeedRetrievalService implements org_tubepress_gdata_retrieval_FeedRetrievalService
 {
-	private $_cache;
-	
+    private $_cache;
+    
     /**
      * Fetches the RSS from YouTube
      * 
@@ -36,7 +36,7 @@ abstract class org_tubepress_gdata_retrieval_AbstractFeedRetrievalService implem
      */
     public function fetch($url, $useCache)
     {   
-    	$xml = new DOMDocument();
+        $xml = new DOMDocument();
         if ($useCache) {
             if ($this->_cache->has($url)) {
                 $cached = $this->_cache->get($url);
@@ -53,17 +53,17 @@ abstract class org_tubepress_gdata_retrieval_AbstractFeedRetrievalService implem
     
     private function _getFromNetwork($url)
     {
-    	$data = $this->_fetchFromNetwork($url);
+        $data = $this->_fetchFromNetwork($url);
 
         $data = trim($data);
         
         $doc = new DOMDocument();
 
        if (substr($data,0,1) != "<") {
-        	throw new Exception("YouTube returned non-xml: " . $data);
+            throw new Exception("YouTube returned non-xml: " . $data);
         }
         if ($doc->loadXML($data) === FALSE) {
-        	throw new Exception("YouTube returned invalid XML: " . $data);
+            throw new Exception("YouTube returned invalid XML: " . $data);
         }
         
         return $doc;
@@ -73,6 +73,6 @@ abstract class org_tubepress_gdata_retrieval_AbstractFeedRetrievalService implem
     
     public function setCacheService(org_tubepress_cache_CacheService $cache)
     {
-    	$this->_cache = $cache;
+        $this->_cache = $cache;
     }
 }

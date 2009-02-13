@@ -27,33 +27,33 @@
 abstract class org_tubepress_message_AbstractMessageService implements org_tubepress_message_MessageService
 {
     private $_msgs = array(
-    	"options-page-title"       => "TubePress Options",
-    	"options-page-save-button" => "Save", 
-    	"options-page-intro-text"  => "Set default options for the plugin. Each option here can be overridden on a per page/post basis. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info.", 
-    	"options-page-donation"    => "TubePress is free. But if you enjoy the plugin, and appreciate the hundreds of hours I've spent developing and supporting it, please consider a donation. No amount is too small. Thanks!", 
-    	
-    	"options-category-title-gallery"  => "Which videos?", 
-    	"options-category-title-display"  => "Appearance",
-    	"options-category-title-embedded" => "Embedded Player", 
-    	"options-category-title-meta"     => "Meta Display",
-        "options-category-title-feed"	  => "YouTube Feed", 
-    	"options-category-title-advanced" => "Advanced", 
+        "options-page-title"       => "TubePress Options",
+        "options-page-save-button" => "Save", 
+        "options-page-intro-text"  => "Set default options for the plugin. Each option here can be overridden on a per page/post basis. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info.", 
+        "options-page-donation"    => "TubePress is free. But if you enjoy the plugin, and appreciate the hundreds of hours I've spent developing and supporting it, please consider a donation. No amount is too small. Thanks!", 
+        
+        "options-category-title-gallery"  => "Which videos?", 
+        "options-category-title-display"  => "Appearance",
+        "options-category-title-embedded" => "Embedded Player", 
+        "options-category-title-meta"     => "Meta Display",
+        "options-category-title-feed"      => "YouTube Feed", 
+        "options-category-title-advanced" => "Advanced", 
     
-    	"options-title-top_rated"         => "Top rated videos from...", 
-    	"options-title-favorites"         => "This YouTube user's \"favorites\"", 
-    	"options-title-recently_featured" => "The latest \"featured\" videos on YouTube's homepage", 
-    	"options-title-mobile"            => "Videos for mobile phones", 
-    	"options-title-playlist"          => "This playlist", 
-    	"options-desc-playlist"           => "Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the 'p='. For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35", 
-    	"options-title-most_viewed"       => "Most-viewed videos from", 
-    	"options-title-most_linked"       => "Most-linked videos", 
-    	"options-title-most_recent"       => "Most-recently added videos", 
-    	"options-title-most_discussed"    => "Most-discussed videos", 
-    	"options-title-most_responded"    => "Most-responded to videos", 
-    	"options-title-views"             => "Views", 
-    	"options-title-tag"               => "YouTube search for...", 
-    	"options-title-user"              => "Videos from this YouTube user", 
-    	"options-desc-tag"                => "YouTube limits this mode to 1,000 results",
+        "options-title-top_rated"         => "Top rated videos from...", 
+        "options-title-favorites"         => "This YouTube user's \"favorites\"", 
+        "options-title-recently_featured" => "The latest \"featured\" videos on YouTube's homepage", 
+        "options-title-mobile"            => "Videos for mobile phones", 
+        "options-title-playlist"          => "This playlist", 
+        "options-desc-playlist"           => "Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the 'p='. For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35", 
+        "options-title-most_viewed"       => "Most-viewed videos from", 
+        "options-title-most_linked"       => "Most-linked videos", 
+        "options-title-most_recent"       => "Most-recently added videos", 
+        "options-title-most_discussed"    => "Most-discussed videos", 
+        "options-title-most_responded"    => "Most-responded to videos", 
+        "options-title-views"             => "Views", 
+        "options-title-tag"               => "YouTube search for...", 
+        "options-title-user"              => "Videos from this YouTube user", 
+        "options-desc-tag"                => "YouTube limits this mode to 1,000 results",
         
         "options-title-playerLocation"   => "Play each video", 
         "options-title-descriptionLimit" => "Maximum description length", 
@@ -74,7 +74,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         "options-desc-embeddedHeight"  => "Default is 355", 
         "options-title-embeddedWidth"  => "Max height (px)", 
         "options-desc-embeddedWidth"   => "Default is 425", 
-        "options-title-fullscreen"		=> "Allow fullscreen playback",
+        "options-title-fullscreen"        => "Allow fullscreen playback",
         "options-title-genie"          => "Enhanced genie menu", 
         "options-desc-genie"           => "Show the genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button", 
         "options-title-loop"           => "Loop", 
@@ -86,7 +86,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         "options-title-showRelated"    => "Show related videos", 
         "options-desc-showRelated"     => "Toggles the display of related videos after a video finishes",
         "options-title-showInfo"       => "Show title and rating before video starts",
-        "options-title-quality"		=> "Video quality",
+        "options-title-quality"        => "Video quality",
         
         "options-title-author"      => "Author", 
         "options-title-category"    => "Category", 
@@ -121,7 +121,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         "options-title-cacheEnabled"         => "Enable request cache", 
         "options-desc-cacheEnabled"          => "Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness.",
         "options-title-embeddableOnly"       => "Only retrieve embeddable videos",
-        "options-desc-embeddableOnly"	      => "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries.",
+        "options-desc-embeddableOnly"          => "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries.",
     
         "player-normal"      => "normally (at the top of your gallery)", 
         "player-popup"       => "in a popup window",
@@ -163,7 +163,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         "next" => "next", 
         "prev" => "prev", 
 
-    	"widget-description"           => "Displays YouTube videos in your sidebar using TubePress", 
+        "widget-description"           => "Displays YouTube videos in your sidebar using TubePress", 
         "widget-tagstring-description" => "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>.",
         
         "quality-normal"  => "Normal",
@@ -172,18 +172,18 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         "quality-highest" => "Highest"
     );
     
-	/**
-	 * Takes a message key and provides the actual message to translate
-	 *
-	 * @param string $msgId The message id
-	 *
-	 * @return string The message translation key for gettext
-	 */
-	protected function _keyToMessage($msgId)
-	{
-	    if (array_key_exists($msgId, $this->_msgs)) {
-	        return $this->_msgs[$msgId];	 
-	    }
-	    return "";
-	}
+    /**
+     * Takes a message key and provides the actual message to translate
+     *
+     * @param string $msgId The message id
+     *
+     * @return string The message translation key for gettext
+     */
+    protected function _keyToMessage($msgId)
+    {
+        if (array_key_exists($msgId, $this->_msgs)) {
+            return $this->_msgs[$msgId];     
+        }
+        return "";
+    }
 }

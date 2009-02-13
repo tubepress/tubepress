@@ -24,8 +24,8 @@
  */
 class org_tubepress_options_validation_SimpleInputValidationService implements org_tubepress_options_validation_InputValidationService
 {
-	private $_messageService;
-	
+    private $_messageService;
+    
     /**
      * @see org_tubepress_options_validation_InputValidationService::validate($optionName, $candidate)
     */
@@ -134,6 +134,6 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
      */
     public function setMessageService(org_tubepress_message_MessageService $messageService)
     {
-    	$this->_messageService = $messageService;
+        $this->_messageService = $messageService;
     }
 }
