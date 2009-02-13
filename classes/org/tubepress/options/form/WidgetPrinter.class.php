@@ -95,10 +95,8 @@ class org_tubepress_options_form_WidgetPrinter
     /**
      * Displays a drop-down menu
      *
-     * @param net_php_pear_HTML_Template_IT &$tpl   The template to write to
      * @param string           $name   The name of the select input
      * @param array            $values The possible values for the drop-down
-     * @param string           $value  The current value
      * 
      * @return void
      */
@@ -121,9 +119,7 @@ class org_tubepress_options_form_WidgetPrinter
     /**
      * Displays a text input
      *
-     * @param net_php_pear_HTML_Template_IT &$tpl  The template to write to
      * @param string           $name  The name of the input
-     * @param string           $value The current value
      * 
      * @return void
      */
@@ -138,9 +134,7 @@ class org_tubepress_options_form_WidgetPrinter
     /**
      * Displays a text input
      *
-     * @param net_php_pear_HTML_Template_IT &$tpl  The template to write to
      * @param string           $name  The name of the input
-     * @param string           $value The current value
      * 
      * @return void
      */
@@ -155,9 +149,7 @@ class org_tubepress_options_form_WidgetPrinter
     /**
      * Displays a checkbox input
      *
-     * @param net_php_pear_HTML_Template_IT &$tpl  The template to write to
      * @param string           $name  The name of the checkbox input
-     * @param boolean          $value The current value
      * 
      * @return void
      */
@@ -175,15 +167,13 @@ class org_tubepress_options_form_WidgetPrinter
     /**
      * Displays a radio button and then an optional additional input
      *
-     * @param net_php_pear_HTML_Template_IT &$tpl  The template to write to
      * @param string           $name  The name of the input
      * @param string           $value The current value
      * 
      * @return void
      */
-    private function _displayGalleryInput($name)
+    private function _displayGalleryInput($name, $value)
     {   
-        $value = $this->_tpsm->get($name);
         $this->_tpl->setVariable("OPTION_NAME", $name);
         if ($name === $value) {
             $this->_tpl->setVariable("OPTION_SELECTED", "CHECKED");

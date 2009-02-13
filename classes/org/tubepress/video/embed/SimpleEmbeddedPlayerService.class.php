@@ -209,9 +209,10 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
     style="width: %spx; height: %spx" data="%s">
     <param name="wmode" value="transparent" />
     <param name="movie" value="%s" />
+    <param name="allowfullscreen" value="%s" />
 </object>
 EOT
-        , $this->_width, $this->_height, $link, $link);
+        , $this->_width, $this->_height, $link, $link, $this->_fullscreen ? "true" : "false");
 	return str_replace("?", "&amp;", $embedSrc);
     }
     

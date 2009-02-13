@@ -21,7 +21,7 @@
 
 if (!function_exists("tubepress_admin_menu_hook")) {
 	require dirname(__FILE__) . "/../functions/options_page.php";
-	add_action('admin_menu',  'tubepress_admin_menu_hook');
+	add_action('admin_menu', 'tubepress_admin_menu_hook');
 	add_action('admin_head',  'tubepress_admin_head_hook');
 }
 

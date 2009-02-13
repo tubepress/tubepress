@@ -49,6 +49,9 @@ class org_tubepress_options_Type
 	/* Video quality */
 	const QUALITY = "quality";
 
+    /* a SafeSearch level */
+    const SAFE_SEARCH = "safeSearch";
+
     /* Free form text */	
 	const TEXT     = "text";
 
