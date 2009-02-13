@@ -25,9 +25,9 @@
  */
 class org_tubepress_options_category_Feed
 {
-    const FILTER            = "filter_racy";
-    const CLIENT_KEY        = "clientKey";
-    const DEV_KEY           = "developerKey";
-    const CACHE_ENABLED        = "cacheEnabled";
-    const EMBEDDABLE_ONLY   = "embeddableOnly";
+    const CACHE_ENABLED   = "cacheEnabled";
+    const CLIENT_KEY      = "clientKey";
+    const DEV_KEY         = "developerKey";
+    const EMBEDDABLE_ONLY = "embeddableOnly";
+    const FILTER          = "filter_racy";
 } 

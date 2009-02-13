@@ -20,7 +20,7 @@
  */
 
 /**
- * Options that control which meta info is displayed below video
+ * Option names that control which meta info is displayed below video
  * thumbnails
  */
 class org_tubepress_options_category_Meta

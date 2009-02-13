@@ -20,7 +20,7 @@
  */
 
 /**
- * Advanced options for the plugin
+ * Advanced option names for the plugin
  *
  */
 class org_tubepress_options_category_Advanced

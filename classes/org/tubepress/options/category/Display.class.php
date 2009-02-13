@@ -20,7 +20,7 @@
  */
 
 /**
- * Display options for the plugin
+ * Display option names for the plugin
  *
  */
 class org_tubepress_options_category_Display

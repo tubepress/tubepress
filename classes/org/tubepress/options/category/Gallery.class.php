@@ -20,7 +20,7 @@
  */
 
 /**
- * Options that let you choose which videos to show
+ * Option names defining which videos to show in the gallery
  *
  */
 class org_tubepress_options_category_Gallery
@@ -33,78 +33,4 @@ class org_tubepress_options_category_Gallery
     const TAG_VALUE         = "tagValue";
     const TOP_RATED_VALUE   = "top_ratedValue";
     const USER_VALUE        = "userValue";
-    
-    /**
-     * Displays the gallery options for the options form
-     *
-     * @param net_php_pear_HTML_Template_IT        &$tpl The template to write to
-     * @param org_tubepress_options_storage_StorageManager $tpsm The TubePress storage manager
-     * 
-     * @return void
-     */
-    public function printForOptionsForm(net_php_pear_HTML_Template_IT &$tpl, 
-        org_tubepress_options_storage_StorageManager $tpsm)
-    {
-
-        $title = "gallery";
-        
-        $tpl->setVariable("OPTION_CATEGORY_TITLE",
-            $this->_messageService->_("options-category-title-" . $title));
-
-        $class = new ReflectionClass("org_tubepress_gallery_Gallery");    
-
-        /* go through each option in the category */
-        foreach ($class->getConstants() as $constant) {
-            $tpl->setVariable("OPTION_TITLE", 
-                $this->_messageService->_(sprintf("options-%s-title-%s", $title, $constant)));
-            $tpl->setVariable("OPTION_DESC", 
-                $this->_messageService->_(sprintf("options-%s-desc-%s", $title, $constant)));
-            $tpl->setVariable("OPTION_NAME", $constant);
-            
-            org_tubepress_options_Form::displayGalleryInput($tpl, $constant, 
-                $tpsm->get(org_tubepress_options_category_Gallery::MODE));
-
-            switch ($constant) {
-                
-            case org_tubepress_gallery_Gallery::FAVORITES:
-                org_tubepress_options_Form::displayTextInput($tpl, 
-                    org_tubepress_options_category_Gallery::FAVORITES_VALUE,
-                    $tpsm->get(org_tubepress_options_category_Gallery::FAVORITES_VALUE));
-                break;
-
-            case org_tubepress_gallery_Gallery::PLAYLIST:
-                org_tubepress_options_Form::displayTextInput($tpl, 
-                    org_tubepress_options_category_Gallery::PLAYLIST_VALUE,
-                    $tpsm->get(org_tubepress_options_category_Gallery::PLAYLIST_VALUE));
-                break;
-            
-            case org_tubepress_gallery_Gallery::TAG:
-                org_tubepress_options_Form::displayTextInput($tpl, 
-                    org_tubepress_options_category_Gallery::TAG_VALUE,
-                    $tpsm->get(org_tubepress_options_category_Gallery::TAG_VALUE));
-                break;
-            
-            case org_tubepress_gallery_Gallery::USER:
-                org_tubepress_options_Form::displayTextInput($tpl, 
-                    org_tubepress_options_category_Gallery::USER_VALUE,
-                    $tpsm->get(org_tubepress_options_category_Gallery::USER_VALUE));
-                break;
-            
-            case org_tubepress_gallery_Gallery::POPULAR:
-            case org_tubepress_gallery_Gallery::TOP_RATED:
-                $values = array(
-                    $this->_messageService->_("timeframe-today")   => "today",
-                    $this->_messageService->_("timeframe-week")    => "this_week",
-                    $this->_messageService->_("timeframe-month")   => "this_month",
-                    $this->_messageService->_("timeframe-alltime") => "all_time"
-                );
-                $tpl->setVariable("OPTION_NAME", $constant);
-                org_tubepress_options_Form::displayMenuInput($tpl, 
-                    $constant . "Value",
-                    $values, $tpsm->get($constant . "Value"));
-            }
-            $tpl->parse("optionRow");
-        }
-        $tpl->parse("optionCategory");
-    }
 }

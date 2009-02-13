@@ -20,11 +20,11 @@
  */
 
 /**
- * Widget options for the plugin
+ * Widget option names for the plugin
  *
  */
 class org_tubepress_options_category_Widget
 {
-    const TITLE     = "widget-title";
     const TAGSTRING = "widget-tagstring";
+    const TITLE     = "widget-title";
 } 

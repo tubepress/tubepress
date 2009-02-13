@@ -20,7 +20,7 @@
  */
 
 /**
- * Options for the embedded player
+ * Option names for the embedded player
  *
  */
 class org_tubepress_options_category_Embedded
