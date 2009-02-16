@@ -51,7 +51,13 @@ function tubepress_widget($opts)
 	/* set up the options manager with some sensible defaults */
 	$wpsm = new org_tubepress_options_storage_WordPressStorageManager();
 	$tpom = new org_tubepress_options_manager_SimpleOptionsManager();
+	$ref = new org_tubepress_options_reference_SimpleOptionsReference();
+	$ms = new org_tubepress_message_WordPressMessageService();
+	$val = new org_tubepress_options_validation_SimpleInputValidationService();
+	$val->setMessageService($ms);
 	$tpom->setStorageManager($wpsm);
+	$tpom->setValidationService($val);
+	$tpom->setOptionsReference($ref);
 	$tpom->setCustomOptions(
 	    array(org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
 	        org_tubepress_options_category_Meta::VIEWS => false,

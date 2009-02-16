@@ -8,7 +8,10 @@ class org_tubepress_options_manager_SimpleOptionsManagerTest extends PHPUnit_Fra
 	public function setup()
 	{
 		$this->_stpom = new org_tubepress_options_manager_SimpleOptionsManager();
-		
+		$ref = $this->getMock("org_tubepress_options_reference_OptionsReference");
+		$this->_stpom->setOptionsReference($ref);
+		$val = $this->getMock("org_tubepress_options_validation_SimpleInputValidationService");
+		$this->_stpom->setValidationService($val);
 	}
 	
     

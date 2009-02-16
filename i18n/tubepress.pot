@@ -344,6 +344,15 @@ msgstr ""
 msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>."
 msgstr ""
 
+msgid "none"
+msgstr ""
+
+msgid "moderate"
+msgstr ""
+
+msgid "strict"
+msgstr ""
+
 #
 # VALIDATION
 #

@@ -51,7 +51,7 @@ class org_tubepress_gdata_inspection_SimpleFeedInspectionServiceTest extends PHP
 		return <<<EOT
 <xml version='1.0' encoding='UTF-8'>
 	<feed xmlns='http://www.w3.org/2005/Atom'
-		xmlns:openSearch='http://a9.com/-/spec/opensearchrss/1.0/'>
+		xmlns:openSearch='http://a9.com/-/spec/opensearch/1.1/'>
 		<openSearch:totalResults>100</openSearch:totalResults>
 	</feed>
 </xml>

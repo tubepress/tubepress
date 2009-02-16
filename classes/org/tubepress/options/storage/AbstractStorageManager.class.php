@@ -99,6 +99,10 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
             $this->delete($name);
             $this->create($name, $value);
         }
+        if ($this->_optionsReference->getType($name) != org_tubepress_options_Type::BOOL
+            && $this->get($name) == "") {
+            $this->setOption($name, $value);        
+        }
     }
     
     /**

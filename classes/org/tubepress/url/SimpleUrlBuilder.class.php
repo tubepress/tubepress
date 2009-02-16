@@ -111,20 +111,21 @@ class org_tubepress_url_SimpleUrlBuilder implements org_tubepress_url_UrlBuilder
     private function _urlPostProcessing(&$request, $currentPage)
     {
         
-        $perPage = $this->_tpom->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
-        $filter  = $this->_tpom->get(org_tubepress_options_category_Feed::FILTER);
-        $order   = $this->_tpom->get(org_tubepress_options_category_Display::ORDER_BY);
-        $mode    = $this->_tpom->get(org_tubepress_options_category_Gallery::MODE);
+        $perPage   = $this->_tpom->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
+        $filter    = $this->_tpom->get(org_tubepress_options_category_Feed::FILTER);
+        $order     = $this->_tpom->get(org_tubepress_options_category_Display::ORDER_BY);
+        $mode      = $this->_tpom->get(org_tubepress_options_category_Gallery::MODE);
         $embedOnly = $this->_tpom->get(org_tubepress_options_category_Feed::EMBEDDABLE_ONLY);
         
         /* start index of the videos */
         $start = ($currentPage * $perPage) - $perPage + 1;
         
         $requestURL = new net_php_pear_Net_URL2($request);
+        $requestURL->setQueryVariable("v", 2);
         $requestURL->setQueryVariable("start-index", $start);
         $requestURL->setQueryVariable("max-results", $perPage);
         
-        $requestURL->setQueryVariable("racy", $filter ? "exclude" : "include");
+        $requestURL->setQueryVariable("safeSearch", $filter);
       
         if ($order != "random") {
             $requestURL->setQueryVariable("orderby", $order);

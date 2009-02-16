@@ -5,8 +5,8 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
 	
     private $_options = array(
         org_tubepress_options_Type::COLOR => array(
-            org_tubepress_options_category_Embedded::PLAYER_COLOR   => "",
-            org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT => ""
+            org_tubepress_options_category_Embedded::PLAYER_COLOR   => "999999",
+            org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT => "FFFFFF"
         ),
         org_tubepress_options_Type::MODE => array(
             org_tubepress_options_category_Gallery::MODE => "recently_featured"
@@ -47,7 +47,6 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
             org_tubepress_options_category_Meta::UPLOADED               => false,
             org_tubepress_options_category_Meta::URL                    => false,
             org_tubepress_options_category_Meta::VIEWS                  => true,
-            org_tubepress_options_category_Feed::FILTER                 => false,
             org_tubepress_options_category_Feed::CACHE_ENABLED          => true,
             org_tubepress_options_category_Feed::EMBEDDABLE_ONLY        => true
         ),
@@ -71,6 +70,9 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
         ),
         org_tubepress_options_Type::QUALITY => array(
             org_tubepress_options_category_Embedded::QUALITY            => "normal"
+        ),
+        org_tubepress_options_Type::SAFE_SEARCH => array(
+            org_tubepress_options_category_Feed::FILTER                 => "moderate"    
         )
     );
 	
@@ -127,8 +129,8 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     function testGetFeedOptionNames()
     {
          $expectedNames = array(
-             "filter_racy", "clientKey", "developerKey",
-             "cacheEnabled", "embeddableOnly"
+             "cacheEnabled", "clientKey", "developerKey",
+              "embeddableOnly","filter_racy"
          );   
          $this->assertTrue($expectedNames == $this->_sut->getOptionNamesForCategory(org_tubepress_options_Category::FEED));
     }
@@ -166,7 +168,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     function testGetWidgetOptionNames()
     {
         $expectedNames = array(
-            "widget-title", "widget-tagstring"
+            "widget-tagstring", "widget-title"
         );
         $this->assertTrue($expectedNames == $this->_sut->getOptionNamesForCategory(org_tubepress_options_Category::WIDGET));
     }

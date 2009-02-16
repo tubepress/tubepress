@@ -28,8 +28,8 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
 
     private $_options = array(
         org_tubepress_options_Type::COLOR => array(
-            org_tubepress_options_category_Embedded::PLAYER_COLOR   => "",
-            org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT => ""
+            org_tubepress_options_category_Embedded::PLAYER_COLOR   => "999999",
+            org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT => "FFFFFF"
         ),
         org_tubepress_options_Type::MODE => array(
             org_tubepress_options_category_Gallery::MODE => "recently_featured"
@@ -70,7 +70,6 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Meta::UPLOADED               => false,
             org_tubepress_options_category_Meta::URL                    => false,
             org_tubepress_options_category_Meta::VIEWS                  => true,
-            org_tubepress_options_category_Feed::FILTER                 => false,
             org_tubepress_options_category_Feed::CACHE_ENABLED          => true,
             org_tubepress_options_category_Feed::EMBEDDABLE_ONLY        => true
         ),
@@ -94,6 +93,9 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
         ),
         org_tubepress_options_Type::QUALITY => array(
             org_tubepress_options_category_Embedded::QUALITY            => "normal"
+        ),
+        org_tubepress_options_Type::SAFE_SEARCH => array(
+            org_tubepress_options_category_Feed::FILTER                 => "moderate"    
         )
     );
 
@@ -149,6 +151,8 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
                 return array("favorites", "recently_featured", "mobile", "most_discussed",
                     "most_linked", "most_recent", "most_responded", "playlist", "most_viewed",
                     "tag", "top_rated", "user");
+            case org_tubepress_options_Type::SAFE_SEARCH:
+                return array("none", "moderate", "strict");
         }
         return array("today", "this_week", "this_month", "all_time");
     }

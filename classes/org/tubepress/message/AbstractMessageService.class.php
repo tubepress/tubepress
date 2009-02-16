@@ -169,7 +169,11 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         "quality-normal"  => "Normal",
         "quality-high"    => "High",
         "quality-higher"  => "Higher",
-        "quality-highest" => "Highest"
+        "quality-highest" => "Highest",
+    
+        "safeSearch-none"     => "none",
+        "safeSearch-moderate" => "moderate",
+        "safeSearch-strict"   => "strict"
     );
     
     /**

@@ -30,7 +30,7 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
      * @see org_tubepress_options_validation_InputValidationService::validate($optionName, $candidate)
     */
     public function validate($optionName, $candidate)
-    {
+    {   
         switch ($optionName) {
         
         case org_tubepress_options_category_Display::THUMB_HEIGHT:
@@ -52,23 +52,6 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
             break;
         }
     }
-
-    /**
-     * Validates order values
-     *
-     * @param string $name      The name of the option being updated
-     * @param string $candidate The new value for this option
-     * 
-     * @return void
-     */
-    private function _orderValidation($name, $candidate)
-    {
-        if (!in_array($candidate, 
-            array("relevance", "viewCount", "rating", "updated", "random"))) {
-                throw new Exception(sprintf($this->_messageService->_("validation-order"), 
-                    $name, $candidate));
-        }
-    }
     
     /**
      * Validates text values
@@ -83,23 +66,6 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
         if (!is_string($candidate)) {
             throw new Exception(sprintf($this->_messageService->_("validation-text"), 
                 $name, $candidate));
-        }
-    }
-    
-    /**
-     * Validates timeframe values
-     *
-     * @param string       $name      The name of the option being updated
-     * @param unknown_type $candidate The new value for this option
-     * 
-     * @return void
-     */
-    private function _timeFrameValidation($name, $candidate)
-    {
-        if (!in_array($candidate, 
-            array("today", "this_week", "this_month", "all_time"))) {
-                throw new Exception(sprintf($this->_messageService->_("validation-time"), 
-                    $name, $candidate));
         }
     }
     

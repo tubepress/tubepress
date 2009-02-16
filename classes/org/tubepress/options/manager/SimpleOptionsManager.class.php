@@ -40,6 +40,10 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
      */
     private $_tpsm;
     
+    private $_optionsReference;
+    
+    private $_validationService;
+    
     /**
      * The shortcode currently in use
      *
@@ -56,10 +60,17 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
      */
     public function get($optionName)
     {
-        if (array_key_exists($optionName, $this->_customOptions)) {
-            return $this->_customOptions[$optionName];
+        /* get the value, either from the shortcode or the db */
+        $value = array_key_exists($optionName, $this->_customOptions) ?
+            $this->_customOptions[$optionName] : $this->_tpsm->get($optionName);
+        
+        /* get a valid value for this option */    
+        try {
+            $this->_validationService->validate($optionName, $value);
+        } catch (Exception $e) {
+            $value = $this->_optionsReference->getDefaultValue($optionName);
         }
-        return $this->_tpsm->get($optionName);
+        return $value;
     }
     
     /**
@@ -99,5 +110,15 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
     public function setStorageManager(org_tubepress_options_storage_StorageManager $tpsm)
     {
         $this->_tpsm = $tpsm;
+    }
+    
+    public function setOptionsReference(org_tubepress_options_reference_OptionsReference $ref)
+    {
+        $this->_optionsReference = $ref;
+    }
+    
+    public function setValidationService(org_tubepress_options_validation_InputValidationService $valService)
+    {
+        $this->_validationService = $valService;
     }
 }

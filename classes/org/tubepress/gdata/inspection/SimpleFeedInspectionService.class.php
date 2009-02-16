@@ -25,7 +25,7 @@
  */
 class org_tubepress_gdata_inspection_SimpleFeedInspectionService implements org_tubepress_gdata_inspection_FeedInspectionService
 {   
-    const NS_OPENSEARCH = 'http://a9.com/-/spec/opensearchrss/1.0/';
+    const NS_OPENSEARCH = 'http://a9.com/-/spec/opensearch/1.1/';
     
     public function getTotalResultCount(DOMDocument $dom)
     {

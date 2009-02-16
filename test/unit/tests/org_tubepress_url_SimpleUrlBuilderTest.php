@@ -49,7 +49,7 @@ class org_tubepress_url_SimpleUrlBuilderTest extends PHPUnit_Framework_TestCase 
 			 ->will($this->returnCallback("playlistModeCallback"));
 		$this->_sut->setOptionsManager($tpom);
 
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/fakeplaylist?start-index=1&max-results=3&racy=exclude&orderby=relevance&client=clientkey&key=devkey&format=5", $this->_sut->buildGalleryUrl(1));
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/fakeplaylist?v=2&start-index=1&max-results=3&safeSearch=moderate&orderby=relevance&client=clientkey&key=devkey&format=5", $this->_sut->buildGalleryUrl(1));
 	}
 	
 	function testBuildGalleryUrlMostResponded()
@@ -142,7 +142,7 @@ class org_tubepress_url_SimpleUrlBuilderTest extends PHPUnit_Framework_TestCase 
 	
 	private function _standardPostProcessingStuff()
 	{
-		return "start-index=1&max-results=3&racy=exclude&orderby=relevance&client=clientkey&key=devkey&format=5";
+		return "v=2&start-index=1&max-results=3&safeSearch=moderate&orderby=relevance&client=clientkey&key=devkey&format=5";
 	}
 }
 
@@ -152,7 +152,7 @@ function mostRecentCallback()
    	$vals = array(
 		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_RECENT,
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
-        org_tubepress_options_category_Feed::FILTER => true,
+        org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_RECENT,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
@@ -168,7 +168,7 @@ function mostRespondedModeCallback()
    	$vals = array(
 		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_RESPONDED,
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
-        org_tubepress_options_category_Feed::FILTER => true,
+        org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_RESPONDED,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
@@ -185,7 +185,7 @@ function playlistModeCallback()
 		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::PLAYLIST,
 		org_tubepress_options_category_Gallery::PLAYLIST_VALUE => "fakeplaylist",
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
-        org_tubepress_options_category_Feed::FILTER => true,
+        org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::PLAYLIST,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
@@ -202,7 +202,7 @@ function popularModeCallback()
 		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::POPULAR,
 		org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE => "today",
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
-        org_tubepress_options_category_Feed::FILTER => true,
+        org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::POPULAR,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
@@ -219,7 +219,7 @@ function topRatedModeCallback()
 		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::TOP_RATED,
 		org_tubepress_options_category_Gallery::TOP_RATED_VALUE => "today",
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
-        org_tubepress_options_category_Feed::FILTER => true,
+        org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::TOP_RATED,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
@@ -236,7 +236,7 @@ function userModeCallback()
 		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
 		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
-        org_tubepress_options_category_Feed::FILTER => true,
+        org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
@@ -253,7 +253,7 @@ function mostLinkedCallback()
 		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
 		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
-        org_tubepress_options_category_Feed::FILTER => true,
+        org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_LINKED,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
@@ -270,7 +270,7 @@ function mostDiscussedCallback()
 		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
 		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
-        org_tubepress_options_category_Feed::FILTER => true,
+        org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_DISCUSSESD,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
@@ -287,7 +287,7 @@ function mobileCallback()
 		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
 		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
-        org_tubepress_options_category_Feed::FILTER => true,
+        org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOBILE,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
@@ -304,7 +304,7 @@ function favoritesCallback()
 		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
 		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
-        org_tubepress_options_category_Feed::FILTER => true,
+        org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::FAVORITES,
         org_tubepress_options_category_Gallery::FAVORITES_VALUE => "3hough",
@@ -322,7 +322,7 @@ function tagCallback()
 		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
 		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
-        org_tubepress_options_category_Feed::FILTER => true,
+        org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::TAG,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
@@ -340,7 +340,7 @@ function featuredCallback()
 		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
 		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
-        org_tubepress_options_category_Feed::FILTER => true,
+        org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::FEATURED,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",

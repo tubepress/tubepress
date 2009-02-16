@@ -49,6 +49,12 @@ function _tubepress_content_filter($content) {
     while ($shortcodeService->somethingToParse($newcontent, $trigger)) {
  
 	    $tpom = new org_tubepress_options_manager_SimpleOptionsManager();
+	    $ms = new org_tubepress_message_WordPressMessageService();
+	    $val = new org_tubepress_options_validation_SimpleInputValidationService();
+	    $val->setMessageService($ms);
+	    $ref = new org_tubepress_options_reference_SimpleOptionsReference();
+	    $tpom->setOptionsReference($ref);
+	    $tpom->setValidationService($val);
 	    $tpom->setStorageManager($wpsm);
 	    $shortcodeService->parse($newcontent, $tpom);
 
