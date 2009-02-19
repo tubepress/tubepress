@@ -33,6 +33,38 @@ class org_tubepress_options_storage_WordPressStorageManager extends org_tubepres
     const OPTION_PREFIX = "tubepress-";
     
     /**
+     * Constructor. Until I can come up with a better way to validate options, this is gonna be how we
+     * check to make sure that the db is initialized.
+     * 
+     * @return unknown_type
+     */
+    public function __construct()
+	{
+	    $needToInit = false;
+	    
+	    if ($this->exists("version")) {
+	        $version = $this->get("version");
+	        if (!is_numeric($version) || $version < 172) {
+	           $needToInit = true;
+	        }
+	    } else {
+	        $this->create("version", 172);
+	        $needToInit = true;
+	    }
+	    
+	    if ($needToInit) {
+	        $reference = new org_tubepress_options_reference_SimpleOptionsReference();
+		    $msgService = new org_tubepress_message_WordPressMessageService();
+		    $validationService = new org_tubepress_options_validation_SimpleInputValidationService();
+		    $validationService->setMessageService($msgService);
+    	    $ref = new org_tubepress_options_reference_SimpleOptionsReference();
+	        $this->setValidationService($validationService);
+	        $this->setOptionsReference($ref);
+	        $this->init();
+	    }
+	}
+    
+    /**
      * Creates an option in storage
      *
      * @param unknown_type $optionName  The name of the option to create
