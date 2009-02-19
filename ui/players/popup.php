@@ -36,7 +36,7 @@ $xml = $frs->fetch($url, false);
 $factory = new org_tubepress_video_factory_SimpleVideoFactory();
 $vid = $factory->dom2TubePressVideoArray($xml, 1);
 
-$embed = new org_tubepress_video_embed_SimpleEmbeddedPlayerService();
+$embed = new org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService();
 $embed->applyOptionsFromPackedString($_GET["opts"]);
 
 ?>

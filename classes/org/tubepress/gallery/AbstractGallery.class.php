@@ -181,7 +181,7 @@ abstract class org_tubepress_gallery_AbstractGallery
         $this->_thumbnailService = $thumbService; 
     }
     
-    public function setEmbeddedPlayerService(org_tubepress_video_embed_EmbeddedPlayerService $tpeps)
+    public function setEmbeddedPlayerService(org_tubepress_embedded_impl_EmbeddedPlayerService $tpeps)
     {
         $this->_tpeps = $tpeps;
     }

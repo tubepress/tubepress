@@ -102,7 +102,7 @@ abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_play
         return array();
     }
     
-    public final function setEmbeddedPlayerService(org_tubepress_video_embed_EmbeddedPlayerService $tpeps)
+    public final function setEmbeddedPlayerService(org_tubepress_embedded_impl_EmbeddedPlayerService $tpeps)
     {
         $this->_tpeps = $tpeps;    
     }

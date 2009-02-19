@@ -113,7 +113,7 @@ function _tubepress_dependency_inject(org_tubepress_gallery_Gallery $gallery,
     org_tubepress_options_manager_OptionsManager $tpom)
 {
 	$cacheService          = new org_tubepress_cache_SimpleCacheService();
-	$embedService          = new org_tubepress_video_embed_SimpleEmbeddedPlayerService();
+	$embedService          = new org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService();
 	$feedInspectionService = new org_tubepress_gdata_inspection_SimpleFeedInspectionService();
 	$feedRetrievalService  = new org_tubepress_gdata_retrieval_HTTPRequest2();
 	$messageService        = new org_tubepress_message_WordPressMessageService();
