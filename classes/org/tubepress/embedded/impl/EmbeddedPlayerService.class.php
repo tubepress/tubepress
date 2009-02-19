@@ -23,7 +23,7 @@
  * Represents an HTML-embeddable YouTube player
  *
  */
-interface org_tubepress_video_embed_EmbeddedPlayerService
+interface org_tubepress_embedded_impl_EmbeddedPlayerService
 {
     /**
      * Applies options from a org_tubepress_options_manager_OptionsManager

@@ -23,7 +23,7 @@
  * Represents an HTML-embeddable YouTube player
  *
  */
-class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubepress_video_embed_EmbeddedPlayerService
+abstract class org_tubepress_embedded_impl_AbstractEmbeddedPlayerService implements org_tubepress_embedded_impl_EmbeddedPlayerService
 {
     private $_color1      = "";
     private $_color2      = "";
@@ -165,58 +165,7 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerService implements org_tubep
         return implode(";", $result);
     }
     
-    /**
-     * Spits back the text for this embedded player
-     *
-     * @return string The text for this embedded player
-     */
-    public function toString()
-    {
-        $link = new net_php_pear_Net_URL2(sprintf("http://www.youtube.com/v/%s", $this->_id));
-        
-        if (!($this->_color1 == "999999" && $this->_color2 == "FFFFFF")) {
-            $link->setQueryVariable("color2", "0x" . $this->_color1);
-            $link->setQueryVariable("color1", "0x" . $this->_color2);
-        }
-        $link->setQueryVariable("rel", $this->_showRelated   ? "1" : "0");
-        $link->setQueryVariable("autoplay", $this->_autoPlay ? "1" : "0");
-        $link->setQueryVariable("loop", $this->_loop         ? "1" : "0");
-        $link->setQueryVariable("egm", $this->_genie         ? "1" : "0");
-        $link->setQueryVariable("border", $this->_border     ? "1" : "0");
-        $link->setQueryVariable("fs", $this->_fullscreen     ? "1" : "0");
-        
-        $link->setQueryVariable("showinfo", $this->_showInfo ? "1" : "0");
-        
-        switch ($this->_quality) {
-        case "high":
-            $link->setQueryVariable("ap", "%26");
-            $link->setQueryVariable("fmt", "6");
-            break;
-        case "higher":
-            $link->setQueryVariable("ap", "%26");
-            $link->setQueryVariable("fmt", "18");
-            break;
-        case "highest":
-            $link->setQueryVariable("ap", "%26");
-            $link->setQueryVariable("fmt", "22");
-            break;      
-        }
-        
-        $link = $link->getURL(true);
-        
-        $embedSrc = sprintf(<<<EOT
-<object type="application/x-shockwave-flash" 
-    style="width: %spx; height: %spx" data="%s">
-    <param name="wmode" value="transparent" />
-    <param name="movie" value="%s" />
-    <param name="allowfullscreen" value="%s" />
-</object>
-EOT
-        , $this->_width, $this->_height, $link, $link, $this->_fullscreen ? "true" : "false");
-    return str_replace("?", "&amp;", $embedSrc);
-    }
-    
-    private function _safeColorValue($candidate, $default)
+    protected function _safeColorValue($candidate, $default)
     {
         $pattern = '/^[0-9a-fA-F]{6}$/';
         if (preg_match($pattern, $candidate) === 1) {
