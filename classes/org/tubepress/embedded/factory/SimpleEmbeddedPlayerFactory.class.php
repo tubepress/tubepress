@@ -20,22 +20,17 @@
  */
 
 /**
- * Builds URLs to send out to YouTube for gdata
- *
+ * Returns an embedded player service factory based on name
  */
-interface org_tubepress_url_UrlBuilder
+class org_tubepress_embedded_factory_SimpleEmbeddedPlayerServiceFactory
 {
-    /**
-     * Builds a gdata request url for a list of videos
-     *
-     * @return string The gdata request URL for this gallery
-     */
-    public function buildGalleryUrl($currentPage);
-
-    /**
-     * Builds a gdata request url for a single video
-     *
-     * @param string $id The YouTube video ID to search for
-     */
-    public function buildSingleVideoUrl($id);
+    public function getInstance($name)
+    {
+        switch ($name) {
+            case "longtail":
+                return new org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService();
+            default:
+                return new org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService();
+        }
+    }
 }

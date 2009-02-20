@@ -34,6 +34,7 @@ function tubepress_content_filter($content = '')
 
 function _tubepress_content_filter($content) {
 
+    /* do as little work as possible here 'cause we might not even run */
 	$wpsm             = new org_tubepress_options_storage_WordPressStorageManager();
     $trigger          = $wpsm->get(org_tubepress_options_category_Advanced::KEYWORD);
 	$shortcodeService = new org_tubepress_shortcode_SimpleShortcodeService();
@@ -42,24 +43,23 @@ function _tubepress_content_filter($content) {
     if (!$shortcodeService->somethingToParse($content, $trigger)) {
 	    return $content;
 	}
-
-	/* Store everything we generate in the following string */
-    $newcontent = $content;
     
+    /* Whip up the IOC service */
+    $iocContainer = new org_tubepress_ioc_DefaultIocService();
+
+    /* Get a handle to our options manager */
+    $tpom = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MGR);
+
+ 	/* Get a copy of the content that we'll edit */
+    $newcontent = $content;
+
+    /* And finally, the gallery itself */
+    $gallery = $iocContainer->get(org_tubepress_ioc_IocService::GALLERY);
+
     while ($shortcodeService->somethingToParse($newcontent, $trigger)) {
- 
-	    $tpom = new org_tubepress_options_manager_SimpleOptionsManager();
-	    $ms = new org_tubepress_message_WordPressMessageService();
-	    $val = new org_tubepress_options_validation_SimpleInputValidationService();
-	    $val->setMessageService($ms);
-	    $ref = new org_tubepress_options_reference_SimpleOptionsReference();
-	    $tpom->setOptionsReference($ref);
-	    $tpom->setValidationService($val);
-	    $tpom->setStorageManager($wpsm);
+
 	    $shortcodeService->parse($newcontent, $tpom);
 
-	    $gallery = new org_tubepress_gallery_Gallery();
-	    _tubepress_dependency_inject($gallery, $tpom);
     	if (org_tubepress_util_Debug::areWeDebugging($tpom)) {
 	        org_tubepress_util_Debug::execute($gallery, $tpom);
 	    }
@@ -108,39 +108,4 @@ GBS;
     $player     = $factory->getInstance($playerName);
     print $player->getHeadContents();
 }
-
-function _tubepress_dependency_inject(org_tubepress_gallery_Gallery $gallery, 
-    org_tubepress_options_manager_OptionsManager $tpom)
-{
-	$cacheService          = new org_tubepress_cache_SimpleCacheService();
-	$embedService          = new org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService();
-	$feedInspectionService = new org_tubepress_gdata_inspection_SimpleFeedInspectionService();
-	$feedRetrievalService  = new org_tubepress_gdata_retrieval_HTTPRequest2();
-	$messageService        = new org_tubepress_message_WordPressMessageService();
-	$playerFactory         = new org_tubepress_player_factory_SimplePlayerFactory();
-	$queryStringService    = new org_tubepress_querystring_SimpleQueryStringService();
-	$paginationService     = new org_tubepress_pagination_DiggStylePaginationService();
-	$thumbService          = new org_tubepress_thumbnail_SimpleThumbnailService();
-	$urlBuilderService     = new org_tubepress_url_SimpleUrlBuilder();
-    $videoFactory          = new org_tubepress_video_factory_SimpleVideoFactory();
-	
-	$thumbService->setOptionsManager($tpom);
-    $thumbService->setMessageService($messageService);
-    $urlBuilderService->setOptionsManager($tpom);
-    $paginationService->setMessageService($messageService);
-    $paginationService->setOptionsManager($tpom);
-    $paginationService->setQueryStringService($queryStringService);
-    $feedRetrievalService->setCacheService($cacheService);
-	$gallery->setFeedInspectionService($feedInspectionService);
-	$gallery->setFeedRetrievalService($feedRetrievalService);
-	$gallery->setOptionsManager($tpom);
-	$gallery->setPaginationService($paginationService);
-	$gallery->setPlayerFactory($playerFactory);
-	$gallery->setQueryStringService($queryStringService);
-	$gallery->setEmbeddedPlayerService($embedService);
-	$gallery->setThumbnailService($thumbService);
-	$gallery->setUrlBuilderService($urlBuilderService);
-	$gallery->setVideoFactory($videoFactory);
-}
-
 ?>

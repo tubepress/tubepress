@@ -20,22 +20,13 @@
  */
 
 /**
- * Builds URLs to send out to YouTube for gdata
- *
+ * Dependency injector for TubePress that uses phpcrafty
  */
-interface org_tubepress_url_UrlBuilder
+abstract class org_tubepress_ioc_PhpCraftyIocService extends net_sourceforge_phpcrafty_ComponentFactory
 {
-    /**
-     * Builds a gdata request url for a list of videos
-     *
-     * @return string The gdata request URL for this gallery
-     */
-    public function buildGalleryUrl($currentPage);
-
-    /**
-     * Builds a gdata request url for a single video
-     *
-     * @param string $id The YouTube video ID to search for
-     */
-    public function buildSingleVideoUrl($id);
+    public function get($className)
+    {
+        return $this->create($className);
+    }
 }
+?>

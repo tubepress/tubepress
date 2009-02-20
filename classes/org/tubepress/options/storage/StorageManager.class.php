@@ -73,11 +73,4 @@ interface org_tubepress_options_storage_StorageManager
      * @return void
      */
     public function set($optionName, $optionValue);
-    
-    /**
-     * Set the org_tubepress_options_validation_InputValidationService
-     *
-     * @param org_tubepress_options_validation_InputValidationService $validationService The validation service
-     */
-    public function setValidationService(org_tubepress_options_validation_InputValidationService $validationService);
 }

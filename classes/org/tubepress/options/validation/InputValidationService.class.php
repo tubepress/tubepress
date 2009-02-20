@@ -34,9 +34,4 @@ interface org_tubepress_options_validation_InputValidationService
      * @return void
     */
     public function validate($name, $candidate);
-    
-    /**
-     * @param org_tubepress_message_MessageService $messageService The i18n service
-    */
-    public function setMessageService(org_tubepress_message_MessageService $messageService);
 }

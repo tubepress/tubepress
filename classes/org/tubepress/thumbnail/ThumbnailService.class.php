@@ -27,8 +27,4 @@
 interface org_tubepress_thumbnail_ThumbnailService
 {
     public function getHtml($template, org_tubepress_video_Video $vid, org_tubepress_player_Player $player);
-    
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom);
-    
-    public function setMessageService(org_tubepress_message_MessageService $messageService);
 }
