@@ -25,19 +25,19 @@
  */
 abstract class org_tubepress_embedded_impl_AbstractEmbeddedPlayerService implements org_tubepress_embedded_impl_EmbeddedPlayerService
 {
-    private $_color1      = "";
-    private $_color2      = "";
-    private $_showRelated = false;
-    private $_showInfo    = false;
-    private $_autoPlay    = false;
-    private $_fullscreen  = true;
-    private $_loop        = false;
-    private $_genie       = false;
-    private $_border      = false;
-    private $_id          = "";
-    private $_width       = 425;
-    private $_height      = 355;
-    private $_quality     = "normal";
+    protected $_color1      = "";
+    protected $_color2      = "";
+    protected $_showRelated = false;
+    protected $_showInfo    = false;
+    protected $_autoPlay    = false;
+    protected $_fullscreen  = true;
+    protected $_loop        = false;
+    protected $_genie       = false;
+    protected $_border      = false;
+    protected $_id          = "";
+    protected $_width       = 425;
+    protected $_height      = 355;
+    protected $_quality     = "normal";
     
     /**
      * Applies options from a org_tubepress_options_manager_OptionsManager

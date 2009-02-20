@@ -9,7 +9,7 @@ class org_tubepress_player_impl_NormalPlayerTest extends PHPUnit_Framework_TestC
 	function setUp()
 	{
 		$this->_sut = new org_tubepress_player_impl_NormalPlayer();
-		$this->_tpeps = $this->getMock("org_tubepress_video_embed_EmbeddedPlayerService");
+		$this->_tpeps = $this->getMock("org_tubepress_embedded_impl_EmbeddedPlayerService");
 		$this->_tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$this->_video = new org_tubepress_video_Video();
 		$this->_video->setTitle("Fake Video");

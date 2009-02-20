@@ -5,7 +5,7 @@ class org_tubepress_video_embed_SimpleEmbeddedPlayerServiceTest extends PHPUnit_
 	
 	function setUp()
 	{
-		$this->_sut = new org_tubepress_video_embed_SimpleEmbeddedPlayerService();
+		$this->_sut = new org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService();
 	}
 	
 	function testToString()

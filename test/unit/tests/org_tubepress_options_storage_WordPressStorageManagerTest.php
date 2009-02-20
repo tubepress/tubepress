@@ -3,6 +3,10 @@ function get_option($optionName) {
     return "";
 }
 
+function update_option($optionName) {
+    return "";
+}
+
 class org_tubepress_options_storage_WordPressStorageManagerTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;

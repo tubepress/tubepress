@@ -10,7 +10,7 @@ class org_tubepress_player_impl_ShadowBoxPlayerTest extends PHPUnit_Framework_Te
 		global $tubepress_base_url;
 		$tubepress_base_url = "fakeurl";
 		$this->_sut = new org_tubepress_player_impl_ShadowBoxPlayer();
-		$this->_tpeps = $this->getMock("org_tubepress_video_embed_EmbeddedPlayerService");
+		$this->_tpeps = $this->getMock("org_tubepress_embedded_impl_EmbeddedPlayerService");
 		$this->_tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 	}
 	
