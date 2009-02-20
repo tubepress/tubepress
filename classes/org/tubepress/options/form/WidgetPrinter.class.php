@@ -80,6 +80,7 @@ class org_tubepress_options_form_WidgetPrinter
             case org_tubepress_options_Type::QUALITY:
             case org_tubepress_options_Type::TIME_FRAME:
             case org_tubepress_options_Type::SAFE_SEARCH:
+            case org_tubepress_options_Type::PLAYER_IMPL:
                 $this->_displayMenuInput($optionName, $this->_createMenuItemsArray($type));
         }
     }

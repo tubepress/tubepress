@@ -25,6 +25,7 @@
  */
 class org_tubepress_options_category_Embedded
 {
+    const PLAYER_IMPL      = "playerImplementation";
     const AUTOPLAY         = "autoplay";
     const BORDER           = "border";
     const EMBEDDED_HEIGHT  = "embeddedHeight";
@@ -33,7 +34,6 @@ class org_tubepress_options_category_Embedded
     const GENIE            = "genie";
     const LOOP             = "loop";
     const PLAYER_COLOR     = "playerColor";
-    const PLAYER_IMPL      = "playerImplementation";
     const PLAYER_HIGHLIGHT = "playerHighlight";
     const QUALITY          = "quality";
     const SHOW_INFO        = "showInfo";

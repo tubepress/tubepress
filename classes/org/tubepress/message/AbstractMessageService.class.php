@@ -88,7 +88,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         "options-title-showInfo"             => "Show title and rating before video starts",
         "options-title-quality"              => "Video quality",
         "options-title-playerImplementation" => "Implementation",
-        "options-desc-playerImplementation"  => "The brand of the embedded player. Default is \"YouTube\""
+        "options-desc-playerImplementation"  => "The brand of the embedded player. Default is \"YouTube\"",
         
         "options-title-author"      => "Author", 
         "options-title-category"    => "Category", 
