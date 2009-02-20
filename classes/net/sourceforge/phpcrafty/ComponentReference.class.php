@@ -5,7 +5,7 @@
  * @author Chris Corbyn
  * @package Crafty
  */
-class Crafty_ComponentReference
+class net_sourceforge_phpcrafty_ComponentReference
 {
   
   /**

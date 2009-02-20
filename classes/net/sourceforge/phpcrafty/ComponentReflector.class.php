@@ -5,7 +5,7 @@
  * @package Crafty
  * @author Chris Corbyn
  */
-class Crafty_ComponentReflector extends ReflectionClass
+class net_sourceforge_phpcrafty_ComponentReflector extends ReflectionClass
 {
   
   /**

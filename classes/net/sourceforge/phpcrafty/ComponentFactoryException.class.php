@@ -5,7 +5,7 @@
  * @author Chris Corbyn
  * @package Crafty
  */
-class Crafty_ComponentFactoryException extends Exception
+class net_sourceforge_phpcrafty_ComponentFactoryException extends Exception
 {
   
   /**
