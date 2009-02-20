@@ -1,11 +1,5 @@
 <?php
 
-require_once dirname(__FILE__) . '/ClassLocator.php';
-require_once dirname(__FILE__) . '/ComponentReference.php';
-require_once dirname(__FILE__) . '/ComponentSpec.php';
-require_once dirname(__FILE__) . '/ComponentSpecFinder.php';
-require_once dirname(__FILE__) . '/ComponentFactoryException.php';
-
 /**
  * A factory class for the dependency injection container.
  * Reads from specifications for components and creates configured instances
@@ -13,24 +7,24 @@ require_once dirname(__FILE__) . '/ComponentFactoryException.php';
  * @author Chris Corbyn
  * @package Crafty
  */
-class Crafty_ComponentFactory
+class net_sourceforge_phpcrafty_ComponenyFactory
 {
   
   /**
    * ComponentSpec collection.
-   * @var Crafty_ComponentSpec[]
+   * @var net_sourceforge_phpcrafty_ComponentSpec[]
    */
   private $_specs = array();
   
   /**
    * ClassLocator collection.
-   * @var Crafty_ClassLocator[]
+   * @var net_sourceforge_phpcrafty_ClassLocator[]
    */
   private $_classLocators = array();
   
   /**
    * ComponentSpecFinder collection.
-   * @var Crafty_ComponentSpecFinder[]
+   * @var net_sourceforge_phpcrafty_ComponentSpecFinder[]
    */
   private $_specFinders = array();
   
@@ -42,23 +36,23 @@ class Crafty_ComponentFactory
   
   /**
    * Creates a new instance of the ComponentSpec class.
-   * @return Crafty_ComponentSpec
+   * @return net_sourceforge_phpcrafty_ComponentSpec
    */
   public function newComponentSpec($className = null, $constructorArgs = array(),
     $properties = array(), $shared = false)
   {
-    return new Crafty_ComponentSpec($className, $constructorArgs, $properties,
+    return new net_sourceforge_phpcrafty_ComponentSpec($className, $constructorArgs, $properties,
       $shared);
   }
   
   /**
    * Creates a new ComponentReference for the given $componentName.
    * @param string $componentName
-   * @return Crafty_ComponentReference
+   * @return net_sourceforge_phpcrafty_ComponentReference
    */
   public function referenceFor($componentName)
   {
-    return new Crafty_ComponentReference($componentName);
+    return new net_sourceforge_phpcrafty_ComponentReference($componentName);
   }
   
   /**
@@ -66,20 +60,20 @@ class Crafty_ComponentFactory
    * properties.
    * @param string $className
    * @param mixed[] $properties
-   * @return Crafty_ComponentReflector
+   * @return net_sourceforge_phpcrafty_ComponentReflector
    * @access private
    */
-  private function _newComponentReflector($className, array $properties)
+  private function _newComponentReflector($className, $properties)
   {
-    return new Crafty_ComponentReflector($className, $properties);
+    return new net_sourceforge_phpcrafty_ComponentReflector($className, $properties);
   }
   
   /**
    * Sets the specification for the given $componentName.
    * @param string $componentName
-   * @param Crafty_ComponentSpec The specification for $componentName
+   * @param net_sourceforge_phpcrafty_ComponentSpec The specification for $componentName
    */
-  public function setComponentSpec($componentName, Crafty_ComponentSpec $spec)
+  public function setComponentSpec($componentName, net_sourceforge_phpcrafty_ComponentSpec $spec)
   {
     $this->_specs[$componentName] = $spec;
   }
@@ -87,8 +81,8 @@ class Crafty_ComponentFactory
   /**
    * Gets the specification for the given $componentName.
    * @param string $componentName
-   * @return Crafty_ComponentSpec
-   * @throws Crafty_ComponentFactoryException If spec is not found
+   * @return net_sourceforge_phpcrafty_ComponentSpec
+   * @throws net_sourceforge_phpcrafty_ComponenyFactoryException If spec is not found
    */
   public function getComponentSpec($componentName)
   {
@@ -107,7 +101,7 @@ class Crafty_ComponentFactory
       
       if (!$spec)
       {
-        throw new Crafty_ComponentFactoryException(
+        throw new net_sourceforge_phpcrafty_ComponenyFactoryException(
           $componentName . ' does not exist');
       }
     }
@@ -118,9 +112,9 @@ class Crafty_ComponentFactory
   /**
    * Register a new ClassLocator for finding and loading class files.
    * @param string $key
-   * @param Crafty_ClassLocator The ClassLocator to register
+   * @param net_sourceforge_phpcrafty_ClassLocator The ClassLocator to register
    */
-  public function registerClassLocator($key, Crafty_ClassLocator $locator)
+  public function registerClassLocator($key, net_sourceforge_phpcrafty_ClassLocator $locator)
   {
     $this->_classLocators[$key] = $locator;
   }
@@ -128,9 +122,9 @@ class Crafty_ComponentFactory
   /**
    * Registers a new ComponentSpec finder in this factory.
    * @param string $key
-   * @param Crafty_ComponentSpecFinder The spec finder instance
+   * @param net_sourceforge_phpcrafty_ComponentSpecFinder The spec finder instance
    */
-  public function registerSpecFinder($key, Crafty_ComponentSpecFinder $finder)
+  public function registerSpecFinder($key, net_sourceforge_phpcrafty_ComponentSpecFinder $finder)
   {
     $this->_specFinders[$key] = $finder;
   }
@@ -143,7 +137,7 @@ class Crafty_ComponentFactory
    */
   private function _isDependency($input)
   {
-    return ($input instanceof Crafty_ComponentReference);
+    return ($input instanceof net_sourceforge_phpcrafty_ComponentReference);
   }
   
   /**
@@ -182,7 +176,7 @@ class Crafty_ComponentFactory
    * Get a ReflectionClass decorated to provide setter-based injection
    * components during instantiation.
    * @param string $componentName
-   * @return Crafty_ComponentReflector
+   * @return net_sourceforge_phpcrafty_ComponentReflector
    */
   public function classOf($componentName)
   {
