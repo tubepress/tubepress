@@ -96,6 +96,9 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
         ),
         org_tubepress_options_Type::SAFE_SEARCH => array(
             org_tubepress_options_category_Feed::FILTER                 => "moderate"    
+        ),
+        org_tubepress_options_Type::PLAYER_IMPL => array(
+            org_tubepress_options_category_Embedded::PLAYER_IMPL        => "youtube"
         )
     );
 
@@ -153,6 +156,8 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
                     "tag", "top_rated", "user");
             case org_tubepress_options_Type::SAFE_SEARCH:
                 return array("none", "moderate", "strict");
+            case org_tubepress_options_Type::PLAYER_IMPL:
+                return array("youtube", "longtail");
         }
         return array("today", "this_week", "this_month", "all_time");
     }

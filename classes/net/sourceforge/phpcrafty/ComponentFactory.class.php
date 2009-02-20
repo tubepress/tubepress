@@ -17,18 +17,6 @@ class net_sourceforge_phpcrafty_ComponenyFactory
   private $_specs = array();
   
   /**
-   * ClassLocator collection.
-   * @var net_sourceforge_phpcrafty_ClassLocator[]
-   */
-  private $_classLocators = array();
-  
-  /**
-   * ComponentSpecFinder collection.
-   * @var net_sourceforge_phpcrafty_ComponentSpecFinder[]
-   */
-  private $_specFinders = array();
-  
-  /**
    * Shared component instances
    * @var mixed[]
    */
@@ -85,50 +73,11 @@ class net_sourceforge_phpcrafty_ComponenyFactory
    * @throws net_sourceforge_phpcrafty_ComponenyFactoryException If spec is not found
    */
   public function getComponentSpec($componentName)
-  {
-    if (!isset($this->_specs[$componentName]))
-    {
-      $spec = null;
-      
-      foreach ($this->_specFinders as $finder)
-      {
-        if ($spec = $finder->findSpecFor($componentName, $this))
-        {
-          $this->_specs[$componentName] = $spec;
-          break;
-        }
-      }
-      
-      if (!$spec)
-      {
-        throw new net_sourceforge_phpcrafty_ComponenyFactoryException(
-          $componentName . ' does not exist');
-      }
-    }
-    
+  { 
     return $this->_specs[$componentName];
   }
   
-  /**
-   * Register a new ClassLocator for finding and loading class files.
-   * @param string $key
-   * @param net_sourceforge_phpcrafty_ClassLocator The ClassLocator to register
-   */
-  public function registerClassLocator($key, net_sourceforge_phpcrafty_ClassLocator $locator)
-  {
-    $this->_classLocators[$key] = $locator;
-  }
-  
-  /**
-   * Registers a new ComponentSpec finder in this factory.
-   * @param string $key
-   * @param net_sourceforge_phpcrafty_ComponentSpecFinder The spec finder instance
-   */
-  public function registerSpecFinder($key, net_sourceforge_phpcrafty_ComponentSpecFinder $finder)
-  {
-    $this->_specFinders[$key] = $finder;
-  }
-  
+
   /**
    * Test if the given parameter is a dependency to be resolved.
    * @param mixed $input
@@ -184,16 +133,7 @@ class net_sourceforge_phpcrafty_ComponenyFactory
     
     $className = $spec->getClassName();
     
-    //Load the class file
-    foreach ($this->_classLocators as $locator)
-    {
-      if ($locator->classExists($className))
-      {
-        $locator->includeClass($className);
-        break;
-      }
-    }
-    
+
     //Apply properties
     $properties = array();
     

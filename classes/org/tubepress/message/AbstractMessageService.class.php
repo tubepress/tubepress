@@ -68,25 +68,27 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         "options-desc-resultsPerPage"    => "Default is 20. Maximum is 50", 
         "options-title-orderBy"          => "Order videos by",
      
-        "options-title-autoplay"       => "Auto-play videos", 
-        "options-title-border"         => "Show border", 
-        "options-title-embeddedHeight" => "Max height (px)", 
-        "options-desc-embeddedHeight"  => "Default is 355", 
-        "options-title-embeddedWidth"  => "Max height (px)", 
-        "options-desc-embeddedWidth"   => "Default is 425", 
-        "options-title-fullscreen"        => "Allow fullscreen playback",
-        "options-title-genie"          => "Enhanced genie menu", 
-        "options-desc-genie"           => "Show the genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button", 
-        "options-title-loop"           => "Loop", 
-        "options-desc-loop"            => "Continue playing the video until the user stops it", 
-        "options-title-playerColor"    => "Main color",
-        "options-desc-playerColor"    => "Default is 999999",
-        "options-title-playerHighlight" => "Highlight color",
-        "options-desc-playerHighlight" => "Default is FFFFFF",
-        "options-title-showRelated"    => "Show related videos", 
-        "options-desc-showRelated"     => "Toggles the display of related videos after a video finishes",
-        "options-title-showInfo"       => "Show title and rating before video starts",
-        "options-title-quality"        => "Video quality",
+        "options-title-autoplay"             => "Auto-play videos", 
+        "options-title-border"               => "Show border", 
+        "options-title-embeddedHeight"       => "Max height (px)", 
+        "options-desc-embeddedHeight"        => "Default is 355", 
+        "options-title-embeddedWidth"        => "Max height (px)", 
+        "options-desc-embeddedWidth"         => "Default is 425", 
+        "options-title-fullscreen"           => "Allow fullscreen playback",
+        "options-title-genie"                => "Enhanced genie menu", 
+        "options-desc-genie"                 => "Show the genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button", 
+        "options-title-loop"                 => "Loop", 
+        "options-desc-loop"                  => "Continue playing the video until the user stops it", 
+        "options-title-playerColor"          => "Main color",
+        "options-desc-playerColor"           => "Default is 999999",
+        "options-title-playerHighlight"      => "Highlight color",
+        "options-desc-playerHighlight"       => "Default is FFFFFF",
+        "options-title-showRelated"          => "Show related videos", 
+        "options-desc-showRelated"           => "Toggles the display of related videos after a video finishes",
+        "options-title-showInfo"             => "Show title and rating before video starts",
+        "options-title-quality"              => "Video quality",
+        "options-title-playerImplementation" => "Implementation",
+        "options-desc-playerImplementation"  => "The brand of the embedded player. Default is \"YouTube\""
         
         "options-title-author"      => "Author", 
         "options-title-category"    => "Category", 
@@ -173,7 +175,10 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
     
         "safeSearch-none"     => "none",
         "safeSearch-moderate" => "moderate",
-        "safeSearch-strict"   => "strict"
+        "safeSearch-strict"   => "strict",
+
+        "playerImplementation-youtube"    => "YouTube",
+        "playerImplementation-longtail"   => "JW FLV Media Player (by Longtail Video)"
     );
     
     /**

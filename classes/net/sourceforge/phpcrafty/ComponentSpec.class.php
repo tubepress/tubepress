@@ -70,7 +70,7 @@ class net_sourceforge_phpcrafty_ComponentSpec
    * Set the arguments to be passed into the constructor.
    * @param mixed[] Constructor arguments
    */
-  public function setConstructorArgs(array $constructorArgs)
+  public function setConstructorArgs($constructorArgs)
   {
     $this->_constructorArgs = $constructorArgs;
   }

@@ -353,6 +353,18 @@ msgstr ""
 msgid "strict"
 msgstr ""
 
+msgid "YouTube"
+msgstr
+
+msgid "JW FLV Media Player (by Longtail Video)"
+msgstr ""
+
+msgid "Implementation"
+msgstr ""
+
+msgid "The brand of the embedded player. Default is \"YouTube\""
+msgstr ""
+
 #
 # VALIDATION
 #
