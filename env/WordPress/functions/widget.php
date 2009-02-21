@@ -34,10 +34,6 @@ function tubepress_init_widget()
 	    'tubepress_widget_control');
 }
 
-function tubepress_widget_exception_handler($e) {
-	print $e->getMessage();
-}
-
 /**
  * Executes the main widget functionality
  *
@@ -45,19 +41,11 @@ function tubepress_widget_exception_handler($e) {
  */
 function tubepress_widget($opts)
 {
-	set_exception_handler("tubepress_widget_exception_handler");
 	extract($opts);
 	
-	/* set up the options manager with some sensible defaults */
-	$wpsm = new org_tubepress_options_storage_WordPressStorageManager();
-	$tpom = new org_tubepress_options_manager_SimpleOptionsManager();
-	$ref = new org_tubepress_options_reference_SimpleOptionsReference();
-	$ms = new org_tubepress_message_WordPressMessageService();
-	$val = new org_tubepress_options_validation_SimpleInputValidationService();
-	$val->setMessageService($ms);
-	$tpom->setStorageManager($wpsm);
-	$tpom->setValidationService($val);
-	$tpom->setOptionsReference($ref);
+	$iocContainer = new org_tubepress_ioc_DefaultIocService();
+	$tpom = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MGR);
+	
 	$tpom->setCustomOptions(
 	    array(org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
 	        org_tubepress_options_category_Meta::VIEWS => false,
@@ -69,12 +57,13 @@ function tubepress_widget($opts)
 	        )
 	);
 	
+	$shortcodeService = $iocContainer->get(org_tubepress_ioc_IocService::SHORTCODE);
+	$wpsm = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE);
+	
 	/* now apply the user's shortcode */
-	$shortcodeService = new org_tubepress_shortcode_SimpleShortcodeService();
 	$shortcodeService->parse($wpsm->get(org_tubepress_options_category_Widget::TAGSTRING), $tpom);
 	
-	$gallery = new org_tubepress_gallery_WidgetGallery();
-	tubepress_widget_inject_deps($gallery, $tpom);
+	$gallery = $iocContainer->get(org_tubepress_ioc_IocService::WIDGET_GALL);
 		
 	/* get the output */
 	$out = $gallery->generate($tpom);
@@ -83,20 +72,19 @@ function tubepress_widget($opts)
 	echo $before_widget . $before_title . 
 	    $wpsm->get(org_tubepress_options_category_Widget::TITLE) .
 	    $after_title . $out . $after_widget;
-    restore_exception_handler();
 }
 
 /**
  * Handles the widget configuration panel
  *
  */
-function tubepress_widget_control() {
-
-	set_exception_handler("tubepress_widget_exception_handler");
-	
+function tubepress_widget_control()
+{
+    $iocContainer = new org_tubepress_ioc_DefaultIocService();
+    $wpsm         = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE);
+    $msg          = $iocContainer->get(org_tubepress_ioc_IocService::MESSAGE);
+    
 	if ( $_POST["tubepress-widget-submit"] ) {
-		$wpsm = new org_tubepress_options_storage_WordPressStorageManager();
-		$wpsm->setValidationService(new org_tubepress_options_validation_SimpleInputValidationService());
 		$wpsm->set(org_tubepress_options_category_Widget::TAGSTRING, 
 		    strip_tags(stripslashes($_POST["tubepress-widget-tagstring"])));
 		$wpsm->set(org_tubepress_options_category_Widget::TITLE, 
@@ -109,10 +97,6 @@ function tubepress_widget_control() {
         throw new Exception("Couldn't load widget control template");
     }
     
-    $wpsm = new org_tubepress_options_storage_WordPressStorageManager();
-
-    $msg = new org_tubepress_message_WordPressMessageService();
-    
     $tpl->setVariable("WIDGET-TITLE", 
         $msg->_("options-meta-title-title"));
     $tpl->setVariable("WIDGET-TITLE-VALUE", 
@@ -122,42 +106,6 @@ function tubepress_widget_control() {
     $tpl->setVariable("WIDGET-TAGSTRING-VALUE", 
         $wpsm->get(org_tubepress_options_category_Widget::TAGSTRING));
     echo $tpl->get();
-    
-    restore_exception_handler();
-}
-
-function tubepress_widget_inject_deps(org_tubepress_gallery_AbstractGallery $gallery, 
-    org_tubepress_options_manager_OptionsManager $tpom)
-{
-	$cacheService          = new org_tubepress_cache_SimpleCacheService();
-	$embedService          = new org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService();
-	$feedInsepctionService = new org_tubepress_gdata_inspection_SimpleFeedInspectionService();
-	$feedRetrievalService  = new org_tubepress_gdata_retrieval_HTTPRequest2();
-	$messageService        = new org_tubepress_message_WordPressMessageService();
-	$paginationService     = new org_tubepress_pagination_DiggStylePaginationService();
-	$playerFactory         = new org_tubepress_player_factory_SimplePlayerFactory();
-	$queryStringService    = new org_tubepress_querystring_SimpleQueryStringService();
-	$thumbService          = new org_tubepress_thumbnail_SimpleThumbnailService();
-    $urlBuilderService     = new org_tubepress_url_SimpleUrlBuilder();
-    $videoFactory          = new org_tubepress_video_factory_SimpleVideoFactory();
-    
-	$thumbService->setOptionsManager($tpom);
-    $thumbService->setMessageService($messageService);
-    $urlBuilderService->setOptionsManager($tpom);
-    $feedRetrievalService->setCacheService($cacheService);
-    $paginationService->setMessageService($messageService);
-    $paginationService->setOptionsManager($tpom);
-    $paginationService->setQueryStringService($queryStringService);
-	$gallery->setFeedInspectionService($feedInsepctionService);
-	$gallery->setFeedRetrievalService($feedRetrievalService );
-	$gallery->setOptionsManager($tpom);
-	$gallery->setQueryStringService($queryStringService);
-	$gallery->setEmbeddedPlayerService($embedService);
-	$gallery->setPaginationService($paginationService);
-	$gallery->setPlayerFactory($playerFactory);
-	$gallery->setThumbnailService($thumbService);
-	$gallery->setUrlBuilderService($urlBuilderService);
-	$gallery->setVideoFactory($videoFactory);
 }
 
 ?>

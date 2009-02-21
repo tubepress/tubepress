@@ -41,6 +41,7 @@ interface org_tubepress_ioc_IocService
     const URL_BUILDER = 'ulrBuilderService';
     const VALIDATION  = 'validationService';
     const VID_FACT    = 'videoFactory';
+    const WIDGET_GALL = 'widgetGallery';
 
     public function get($className);
 }

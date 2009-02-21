@@ -119,6 +119,24 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
                 )
             )
         );
+        /* the other big guy */
+        $this->def(org_tubepress_ioc_IocService::WIDGET_GALL,
+            $this->impl('org_tubepress_gallery_WidgetGallery', 
+                array(
+                    'feedInspectionService' => $this->ref(org_tubepress_ioc_IocService::FEED_INSP),
+                    'feedRetrievalService'  => $this->ref(org_tubepress_ioc_IocService::FEED_RET),
+                    'messageService'        => $this->ref(org_tubepress_ioc_IocService::MESSAGE),
+                    'optionsManager'        => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR),
+                    'paginationService'     => $this->ref(org_tubepress_ioc_IocService::PAGINATION),
+                    'playerFactory'         => $this->ref(org_tubepress_ioc_IocService::PLAYER_FACT),
+                    'queryStringService'    => $this->ref(org_tubepress_ioc_IocService::QUERY_STR),
+                    'thumbnailService'      => $this->ref(org_tubepress_ioc_IocService::THUMB),
+                    'embeddedPlayerService' => $this->ref(org_tubepress_ioc_IocService::EMBED),
+                    'urlBuilderService'     => $this->ref(org_tubepress_ioc_IocService::URL_BUILDER),
+                    'videoFactory'          => $this->ref(org_tubepress_ioc_IocService::VID_FACT),
+                )
+            )
+        );
     }
 }
 ?>
