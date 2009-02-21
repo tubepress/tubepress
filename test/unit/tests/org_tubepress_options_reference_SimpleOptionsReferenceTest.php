@@ -73,6 +73,9 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
         ),
         org_tubepress_options_Type::SAFE_SEARCH => array(
             org_tubepress_options_category_Feed::FILTER                 => "moderate"    
+        ),
+        org_tubepress_options_Type::PLAYER_IMPL => array(
+            org_tubepress_options_category_Embedded::PLAYER_IMPL        => "youtube"
         )
     );
 	
@@ -119,7 +122,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     function testGetEmbeddedOptionNames()
     {
         $expectedNames = array(
-            "autoplay", "border", "embeddedHeight",
+            "playerImplementation", "autoplay", "border", "embeddedHeight",
             "embeddedWidth", "fullscreen", "genie",
             "loop", "playerColor", "playerHighlight", "quality", "showInfo", "showRelated"
         );
