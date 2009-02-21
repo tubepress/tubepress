@@ -135,6 +135,9 @@ msgstr "Avvio automatico"
 msgid "Show border"
 msgstr "Mostra bordo"
 
+msgid "Allow fullscreen playback"
+msgstr "Permetti la riproduzione a chermo intero"
+
 msgid "Max height (px)"
 msgstr "dimensioni (px)"
 
@@ -156,8 +159,14 @@ msgstr "Loop"
 msgid "Continue playing the video until the user stops it"
 msgstr "Riproduzione continua del video sino ad interruzione da parte del'utente"
 
+msgid "Show title and rating before video starts"
+msgstr "Mostra titolo e votazione prima dell'avvio del video"
+
 msgid "Main color"
 msgstr "Main colore"
+
+msgid "Highlight color"
+msgstr "Colore evidenziatore"
 
 msgid "Show related videos"
 msgstr "Mostra video correlati"
@@ -264,6 +273,12 @@ msgstr "YouTube utilizzerà questa developer key principalmente per la analisi d
 msgid "Enable request cache"
 msgstr "Attiva cache"
 
+msgid "Only retrieve embeddable videos"
+msgstr "Recupera i soli video incorporabili"
+
+msgid "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries."
+msgstr "Alcuni video non permettono di essere incorporati. Metti il segno di spunta a questa opzione per escludere questi video dalle tue gallerie."
+
 msgid "Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
 msgstr "Conserva per 1 ora le richieste per YouTube. Ogni richiesta comporta l'utilizzo di alcune centinai di KB quindi, lasciando attiva la cache verrà ridotto significamente il tempo di caricamento delle tue gallerie."
 
@@ -329,6 +344,15 @@ msgstr "Mostra con TubePress i video di YouTube nella barra laterale"
 
 msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>."
 msgstr "Shortcode di TubePress per il widget. Consulta la <a href=\"http://tubepress.org/documentation\"> documentazione</a>."
+
+msgid "none"
+msgstr "nessuno"
+
+msgid "moderate"
+msgstr "modera"
+
+msgid "strict"
+msgstr "Rispetto rigoroso della norma"
 
 #
 # VALIDATION
