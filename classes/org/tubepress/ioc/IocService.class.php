@@ -34,7 +34,6 @@ interface org_tubepress_ioc_IocService
     const MESSAGE     = 'messageService';
     const OPTIONS_MGR = 'optionsManager';
     const PAGINATION  = 'paginationService';
-    const PLAYER_FACT = 'playerFactory';
     const QUERY_STR   = 'queryStringService';
     const REFERENCE   = 'optionsReference';
     const SHORTCODE   = 'shortcodeService';

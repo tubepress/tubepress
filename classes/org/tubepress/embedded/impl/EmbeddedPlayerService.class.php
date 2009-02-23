@@ -25,6 +25,9 @@
  */
 interface org_tubepress_embedded_impl_EmbeddedPlayerService
 {
+    const YOUTUBE = "youtube";
+    const LONGTAIL = "longtail";
+
     /**
      * Applies options from a org_tubepress_options_manager_OptionsManager
      *

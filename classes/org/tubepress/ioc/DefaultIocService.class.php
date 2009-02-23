@@ -43,8 +43,6 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
             $this->impl('org_tubepress_querystring_SimpleQueryStringService'));
         $this->def(org_tubepress_ioc_IocService::EMBED,
             $this->impl('org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService'));
-        $this->def(org_tubepress_ioc_IocService::PLAYER_FACT,
-            $this->impl('org_tubepress_player_factory_SimplePlayerFactory'));
 
         /* These guys have 1 setter */
         $this->def(org_tubepress_ioc_IocService::VALIDATION,
@@ -60,6 +58,36 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
         $this->def(org_tubepress_ioc_IocService::URL_BUILDER,
             $this->impl('org_tubepress_url_SimpleUrlBuilder', 
                 array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
+            )
+        );
+        $this->def(org_tubepress_player_Player::NORMAL . "-player",
+            $this->impl('org_tubepress_player_impl_NormalPlayer',
+                array('embeddedPlayerService' => $this->ref(org_tubepress_ioc_IocService::EMBED))
+            )
+        );
+        $this->def(org_tubepress_player_Player::GREYBOX . "-player",
+            $this->impl('org_tubepress_player_impl_GreyBoxPlayer',
+                array('embeddedPlayerService' => $this->ref(org_tubepress_ioc_IocService::EMBED))
+            )
+        );
+        $this->def(org_tubepress_player_Player::LIGHTWINDOW . "-player",
+            $this->impl('org_tubepress_player_impl_LightWindowPlayer',
+                array('embeddedPlayerService' => $this->ref(org_tubepress_ioc_IocService::EMBED))
+            )
+        );
+        $this->def(org_tubepress_player_Player::SHADOWBOX . "-player",
+            $this->impl('org_tubepress_player_impl_ShadowBoxPlayer',
+                array('embeddedPlayerService' => $this->ref(org_tubepress_ioc_IocService::EMBED))
+            )
+        );
+        $this->def(org_tubepress_player_Player::POPUP . "-player",
+            $this->impl('org_tubepress_player_impl_PopupPlayer',
+                array('embeddedPlayerService' => $this->ref(org_tubepress_ioc_IocService::EMBED))
+            )
+        );
+        $this->def(org_tubepress_player_Player::YOUTUBE . "-player",
+            $this->impl('org_tubepress_player_impl_YouTubePlayer',
+                array('embeddedPlayerService' => $this->ref(org_tubepress_ioc_IocService::EMBED))
             )
         );
 
@@ -141,7 +169,6 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
                     'messageService'        => $this->ref(org_tubepress_ioc_IocService::MESSAGE),
                     'optionsManager'        => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR),
                     'paginationService'     => $this->ref(org_tubepress_ioc_IocService::PAGINATION),
-                    'playerFactory'         => $this->ref(org_tubepress_ioc_IocService::PLAYER_FACT),
                     'queryStringService'    => $this->ref(org_tubepress_ioc_IocService::QUERY_STR),
                     'thumbnailService'      => $this->ref(org_tubepress_ioc_IocService::THUMB),
                     'embeddedPlayerService' => $this->ref(org_tubepress_ioc_IocService::EMBED),
@@ -159,7 +186,6 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
                     'messageService'        => $this->ref(org_tubepress_ioc_IocService::MESSAGE),
                     'optionsManager'        => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR),
                     'paginationService'     => $this->ref(org_tubepress_ioc_IocService::PAGINATION),
-                    'playerFactory'         => $this->ref(org_tubepress_ioc_IocService::PLAYER_FACT),
                     'queryStringService'    => $this->ref(org_tubepress_ioc_IocService::QUERY_STR),
                     'thumbnailService'      => $this->ref(org_tubepress_ioc_IocService::THUMB),
                     'embeddedPlayerService' => $this->ref(org_tubepress_ioc_IocService::EMBED),

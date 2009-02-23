@@ -104,8 +104,8 @@ GBS;
     }
     
     $playerName = $wpsm->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
-    $factory    = new org_tubepress_player_factory_SimplePlayerFactory();
-    $player     = $factory->getInstance($playerName);
+    $iocContainer = new org_tubepress_ioc_DefaultIocService();
+    $player = $iocContainer->safeGet($playerName . "-player", org_tubepress_player_Player::NORMAL . "-player");
     print $player->getHeadContents();
 }
 ?>

@@ -30,7 +30,6 @@ abstract class org_tubepress_gallery_AbstractGallery
     private $_messageService;
     private $_optionsManager;
     private $_paginationService;
-    private $_playerFactory;
     private $_queryStringService;
     private $_thumbnailService;
     private $_thumbnailTemplate;    
@@ -81,8 +80,8 @@ abstract class org_tubepress_gallery_AbstractGallery
         $playerName =
             $this->_optionsManager->
                 get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
-        $player     = $this->_playerFactory->getInstance($playerName);
-        $player->setEmbeddedPlayerService($this->_tpeps);
+        $playerIoc = new org_tubepress_ioc_DefaultIocService();
+        $player     = $playerIoc->safeGet($playerName . "-player", org_tubepress_player_Player::NORMAL . "-player");
         
         for ($x = 0; $x < sizeof($videos); $x++) {
             
@@ -164,11 +163,6 @@ abstract class org_tubepress_gallery_AbstractGallery
     public function setPaginationService(org_tubepress_pagination_PaginationService $paginator) 
     {             
         $this->_paginationService = $paginator; 
-    }
-    
-    public function setPlayerFactory(org_tubepress_player_factory_PlayerFactory $playerFactory) 
-    {             
-        $this->_playerFactory = $playerFactory; 
     }
 
     public function setQueryStringService(org_tubepress_querystring_QueryStringService $qss) 

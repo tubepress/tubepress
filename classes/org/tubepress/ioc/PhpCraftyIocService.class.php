@@ -51,5 +51,13 @@ abstract class org_tubepress_ioc_PhpCraftyIocService extends net_sourceforge_php
     {
         return $this->newComponentSpec($className, array(), $properties, true);
     }
+
+    public function safeGet($firstChoice, $safeChoice)
+    {
+        if ($this->getComponentSpec($firstChoice) != null) {
+            return $this->get($firstChoice);
+        }
+        return $this->get($safeChoice);
+    }
 }
 ?>
