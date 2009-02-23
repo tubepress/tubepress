@@ -30,18 +30,6 @@ class org_tubepress_options_form_CategoryPrinter
     private $_messageService;
     private $_tpsm;
     private $_wp;
-    
-    public function org_tubepress_options_form_CategoryPrinter(
-        org_tubepress_options_storage_StorageManager $tpsm,
-        org_tubepress_message_MessageService $ms,
-        org_tubepress_options_reference_OptionsReference $ref) {
-       
-        $this->_wp               = 
-            new org_tubepress_options_form_WidgetPrinter($tpsm, $ms, $ref);
-        $this->_optionsReference = $ref;
-        $this->_tpsm             = $tpsm;
-        $this->_messageService   = $ms;
-    }
 
     public function getHtml($optionCategoryName) {
 
@@ -139,4 +127,9 @@ class org_tubepress_options_form_CategoryPrinter
             throw new Exception("Could not load template for $optionCategoryName category");
         }
     }
+    
+    public function setMessageService(org_tubepress_message_MessageService $messageService) { $this->_messageService = $messageService; }
+    public function setOptionsReference(org_tubepress_options_reference_OptionsReference $reference) { $this->_optionsReference = $reference; }
+    public function setStorageManager(org_tubepress_options_storage_StorageManager $storageManager) { $this->_tpsm = $storageManager; }
+    public function setWidgetPrinter(org_tubepress_options_form_WidgetPrinter $widgetPrinter) { $this->_wp = $widgetPrinter; }
 }

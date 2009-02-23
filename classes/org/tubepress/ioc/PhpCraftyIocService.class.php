@@ -39,6 +39,14 @@ abstract class org_tubepress_ioc_PhpCraftyIocService extends net_sourceforge_php
         $this->setComponentSpec($referenceName, $spec);
     }
 
+    /**
+     * Define an implementation for a class. We'll never use constructor
+     * injection, and we'll only use singletons, so this is just a convenience class.
+     * 
+     * @param $className
+     * @param $properties
+     * @return unknown_type
+     */
     public function impl($className, $properties = array())
     {
         return $this->newComponentSpec($className, array(), $properties, true);

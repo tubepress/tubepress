@@ -27,6 +27,8 @@ class org_tubepress_options_form_FormHandler
 {
     private $_optionsReference;
     private $_messageService;
+    private $_storageManager;
+    private $_categoryPrinter;
     
     /**
      * Displays all the TubePress options in HTML
@@ -35,7 +37,7 @@ class org_tubepress_options_form_FormHandler
      * 
      * @return void
      */
-    public final function display(org_tubepress_options_storage_StorageManager $tpsm)
+    public final function display()
     {
         /* load up the template */
         $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/options_page/html_templates");
@@ -52,10 +54,6 @@ class org_tubepress_options_form_FormHandler
         /* now parse each option category */
         $optionCategoryNames = $this->_optionsReference->getOptionCategoryNames();
 
-        $categoryPrinter = new org_tubepress_options_form_CategoryPrinter(
-            $tpsm, $this->_messageService, $this->_optionsReference
-        );
-        
         foreach ($optionCategoryNames as $optionCategoryName) {
             
             /* don't display the widget options on this page */
@@ -63,7 +61,7 @@ class org_tubepress_options_form_FormHandler
                 continue;
             }
             
-            $categoryHtml = $categoryPrinter->getHtml($optionCategoryName);
+            $categoryHtml = $this->_categoryPrinter->getHtml($optionCategoryName);
             
             $tpl->setVariable("OPTION_CATEGORY", $categoryHtml);
             $tpl->parse("optionCategory");
@@ -80,13 +78,12 @@ class org_tubepress_options_form_FormHandler
      * 
      * @return void
      */
-    public final function collect(org_tubepress_options_storage_StorageManager $tpsm, 
-        $postVars)
+    public final function collect($postVars)
     {   
         /* this loop will collect everything except checkboxes */ 
         foreach ($postVars as $name => $value) {
-            if ($tpsm->exists($name)) {
-                $tpsm->set($name, $value);
+            if ($this->_storageManager->exists($name)) {
+                $this->_storageManager->set($name, $value);
             }
         }
 
@@ -100,10 +97,12 @@ class org_tubepress_options_form_FormHandler
             }
 
             /* if the user checked the box, the option name will appear in the POST vars */
-            $tpsm->set($name, array_key_exists($name, $postVars));            
+            $this->_storageManager->set($name, array_key_exists($name, $postVars));            
         }
     }
     
     public function setMessageService(org_tubepress_message_MessageService $messageService) { $this->_messageService = $messageService; }
     public function setOptionsReference(org_tubepress_options_reference_OptionsReference $reference) { $this->_optionsReference = $reference; }
+    public function setStorageManager(org_tubepress_options_storage_StorageManager $storageManager) { $this->_storageManager = $storageManager; }
+    public function setCategoryPrinter(org_tubepress_options_form_CategoryPrinter $printer) { $this->_categoryPrinter = $printer; }
 }

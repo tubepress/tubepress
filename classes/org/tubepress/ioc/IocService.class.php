@@ -25,9 +25,11 @@
 interface org_tubepress_ioc_IocService
 {
     const CACHE       = 'cacheService';
+    const CAT_PRINTER = 'categoryPrinter';
     const EMBED       = 'embeddedPlayerService';
     const FEED_INSP   = 'feedInspectionService';
     const FEED_RET    = 'feedRetrievalService';
+    const FORM_HNDLER = 'formHandler';
     const GALLERY     = 'gallery';
     const MESSAGE     = 'messageService';
     const OPTIONS_MGR = 'optionsManager';
@@ -42,6 +44,7 @@ interface org_tubepress_ioc_IocService
     const VALIDATION  = 'validationService';
     const VID_FACT    = 'videoFactory';
     const WIDGET_GALL = 'widgetGallery';
+    const W_PRINTER   = 'widgetPrinter';
 
     public function get($className);
 }

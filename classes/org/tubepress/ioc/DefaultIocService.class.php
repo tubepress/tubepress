@@ -100,7 +100,38 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
                 )
             )
         );
+        $this->def(org_tubepress_ioc_IocService::W_PRINTER,
+            $this->impl('org_tubepress_options_form_WidgetPrinter',
+                array(
+                    'messageService'   => $this->ref(org_tubepress_ioc_IocService::MESSAGE),
+                    'optionsReference' => $this->ref(org_tubepress_ioc_IocService::REFERENCE),
+                    'storageManager'   => $this->ref(org_tubepress_ioc_IocService::STORAGE),
+                )
+            )
+        );
 
+        /* 4 setters, gyea */
+        $this->def(org_tubepress_ioc_IocService::FORM_HNDLER,
+            $this->impl('org_tubepress_options_form_FormHandler',
+                array(
+                    'messageService'   => $this->ref(org_tubepress_ioc_IocService::MESSAGE),
+                    'optionsReference' => $this->ref(org_tubepress_ioc_IocService::REFERENCE),
+                    'storageManager'   => $this->ref(org_tubepress_ioc_IocService::STORAGE),
+                    'categoryPrinter'  => $this->ref(org_tubepress_ioc_IocService::CAT_PRINTER)
+                )
+            )
+        );
+        $this->def(org_tubepress_ioc_IocService::CAT_PRINTER,
+            $this->impl('org_tubepress_options_form_CategoryPrinter',
+                array(
+                    'messageService'   => $this->ref(org_tubepress_ioc_IocService::MESSAGE),
+                    'optionsReference' => $this->ref(org_tubepress_ioc_IocService::REFERENCE),
+                    'storageManager'   => $this->ref(org_tubepress_ioc_IocService::STORAGE),
+                    'widgetPrinter'    => $this->ref(org_tubepress_ioc_IocService::W_PRINTER)
+                )
+            )
+        );
+        
         /* the big guy */
         $this->def(org_tubepress_ioc_IocService::GALLERY,
             $this->impl('org_tubepress_gallery_Gallery', 

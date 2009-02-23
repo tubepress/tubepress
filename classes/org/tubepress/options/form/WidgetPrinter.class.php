@@ -29,13 +29,6 @@ class org_tubepress_options_form_WidgetPrinter
     private $_messageService;
     private $_tpl;
     private $_tpsm;
-    
-    public function org_tubepress_options_form_WidgetPrinter($tpsm, $ms, $ref)
-    {
-        $this->_optionsReference = $ref;
-        $this->_messageService   = $ms;
-        $this->_tpsm             = $tpsm;
-    }
 
     public function getHtml($optionName)
     {
@@ -182,4 +175,9 @@ class org_tubepress_options_form_WidgetPrinter
         }
         $this->_tpl->parse("galleryType");
     }
+    
+    public function setMessageService(org_tubepress_message_MessageService $messageService) { $this->_messageService = $messageService; }
+    public function setOptionsReference(org_tubepress_options_reference_OptionsReference $reference) { $this->_optionsReference = $reference; }
+    public function setStorageManager(org_tubepress_options_storage_StorageManager $storageManager) { $this->_tpsm = $storageManager; }
+ 
 }
