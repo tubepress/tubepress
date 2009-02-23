@@ -24,8 +24,6 @@
  */
 abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_player_Player
 {   
-    private $_tpeps;
-    
     /**
      * Puts JS and CSS libraries in the head
      *
@@ -100,16 +98,6 @@ abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_play
     protected function getCSSLibs()
     {
         return array();
-    }
-    
-    public final function setEmbeddedPlayerService(org_tubepress_embedded_impl_EmbeddedPlayerService $tpeps)
-    {
-        $this->_tpeps = $tpeps;    
-    }
-    
-    protected function getEmbeddedPlayerService()
-    {
-        return $this->_tpeps;
     }
     
     public function getPreGalleryHtml(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom)

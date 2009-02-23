@@ -37,12 +37,15 @@ class org_tubepress_player_impl_NormalPlayer extends org_tubepress_player_Abstra
         $title  = $vid->getTitle();
         $width  = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
 
-        $this->getEmbeddedPlayerService()->applyOptions($vid, $tpom);
+	$ioc = new org_tubepress_ioc_DefaultIocService();
+	$eps = $ioc->safeGet($tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . "-embedded");
+
+        $eps->applyOptions($vid, $tpom);
         
         return sprintf(<<<EOT
 href="#" onclick="tubePress_normalPlayer('%s', '%d', '%s')"
 EOT
-            , rawurlencode($this->getEmbeddedPlayerService()->toString()), $width, rawurlencode($title));
+            , rawurlencode($eps->toString()), $width, rawurlencode($title));
     }
     
     public function getPreGalleryHtml(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom)
@@ -51,10 +54,13 @@ EOT
         if (!$tpl->loadTemplatefile("pre_gallery.tpl.html", true, true)) {
             throw new Exception("Couldn't load pre gallery template");
         }
+       
+        $ioc = new org_tubepress_ioc_DefaultIocService();
+        $eps = $ioc->safeGet($tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . "-embedded");
+
+        $eps->applyOptions($vid, $tpom);
         
-        $this->getEmbeddedPlayerService()->applyOptions($vid, $tpom);
-        
-        $tpl->setVariable("EMBEDSRC", $this->getEmbeddedPlayerService()->toString());
+        $tpl->setVariable("EMBEDSRC", $eps->toString());
         $tpl->setVariable("TITLE", $vid->getTitle());
         $tpl->setVariable("WIDTH", 
             $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));

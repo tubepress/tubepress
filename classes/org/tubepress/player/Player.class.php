@@ -49,7 +49,5 @@ interface org_tubepress_player_Player
     public function getPlayLink(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom);
         
     public function getPreGalleryHtml(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom);
-    
-    public function setEmbeddedPlayerService(org_tubepress_embedded_impl_EmbeddedPlayerService $tpeps);
 }
 ?>

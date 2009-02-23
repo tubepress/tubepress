@@ -39,9 +39,12 @@ class org_tubepress_player_impl_PopupPlayer extends org_tubepress_player_Abstrac
         $height = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT);
         $width  = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
         
+	    $ioc = new org_tubepress_ioc_DefaultIocService();
+	    $eps = $ioc->safeGet($tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . "-embedded");
+
         $url = new net_php_pear_Net_URL2($tubepress_base_url . "/ui/players/popup.php");
         $url->setQueryVariable("id", $vid->getId());
-        $url->setQueryVariable("opts", $this->getEmbeddedPlayerService()->packOptionsToString($vid, $tpom));
+        $url->setQueryVariable("opts", $eps->packOptionsToString($vid, $tpom));
         
         return sprintf(<<<EOT
 href="#" onclick="tubePress_popup('%s', %d, %d);"

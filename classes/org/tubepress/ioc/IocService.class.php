@@ -26,7 +26,6 @@ interface org_tubepress_ioc_IocService
 {
     const CACHE       = 'cacheService';
     const CAT_PRINTER = 'categoryPrinter';
-    const EMBED       = 'embeddedPlayerService';
     const FEED_INSP   = 'feedInspectionService';
     const FEED_RET    = 'feedRetrievalService';
     const FORM_HNDLER = 'formHandler';

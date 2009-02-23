@@ -23,7 +23,7 @@
  * Represents an HTML-embeddable YouTube player
  *
  */
-abstract class org_tubepress_embedded_impl_AbstractEmbeddedPlayerService implements org_tubepress_embedded_impl_EmbeddedPlayerService
+abstract class org_tubepress_embedded_impl_AbstractEmbeddedPlayerService implements org_tubepress_embedded_EmbeddedPlayerService
 {
     protected $_color1      = "";
     protected $_color2      = "";

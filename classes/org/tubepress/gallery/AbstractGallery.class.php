@@ -33,7 +33,6 @@ abstract class org_tubepress_gallery_AbstractGallery
     private $_queryStringService;
     private $_thumbnailService;
     private $_thumbnailTemplate;    
-    private $_tpeps;
     private $_urlBuilder;
     private $_videoFactory;
     
@@ -173,11 +172,6 @@ abstract class org_tubepress_gallery_AbstractGallery
     public function setThumbnailService(org_tubepress_thumbnail_ThumbnailService $thumbService) 
     {            
         $this->_thumbnailService = $thumbService; 
-    }
-    
-    public function setEmbeddedPlayerService(org_tubepress_embedded_impl_EmbeddedPlayerService $tpeps)
-    {
-        $this->_tpeps = $tpeps;
     }
     
     public function setUrlBuilderService(org_tubepress_url_UrlBuilder $urlBuilder) 
