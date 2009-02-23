@@ -22,8 +22,10 @@
 /**
  * Plays videos at the top of a gallery
  */
-class org_tubepress_player_impl_NormalPlayer extends org_tubepress_player_AbstractPlayer
+class org_tubepress_player_impl_NormalPlayer extends org_tubepress_player_AbstractPlayer implements org_tubepress_ioc_ContainerAware
 {
+    private $_iocContainer;
+
     /**
      * Tells the gallery how to play videos with the normal player
      *
@@ -37,8 +39,7 @@ class org_tubepress_player_impl_NormalPlayer extends org_tubepress_player_Abstra
         $title  = $vid->getTitle();
         $width  = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
 
-	$ioc = new org_tubepress_ioc_DefaultIocService();
-	$eps = $ioc->safeGet($tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . "-embedded");
+	    $eps = $this->_iocContainer->safeGet($tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . "-embedded");
 
         $eps->applyOptions($vid, $tpom);
         
@@ -55,8 +56,7 @@ EOT
             throw new Exception("Couldn't load pre gallery template");
         }
        
-        $ioc = new org_tubepress_ioc_DefaultIocService();
-        $eps = $ioc->safeGet($tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . "-embedded");
+        $eps = $this->_iocContainer->safeGet($tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . "-embedded");
 
         $eps->applyOptions($vid, $tpom);
         
@@ -65,6 +65,11 @@ EOT
         $tpl->setVariable("WIDTH", 
             $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
         return $tpl->get();    
+    }
+
+    public function setContainer(org_tubepress_ioc_IocService $container)
+    {
+        $this->_iocContainer = $container;
     }
 }
 ?>

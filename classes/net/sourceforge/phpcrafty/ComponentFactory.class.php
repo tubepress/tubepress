@@ -187,7 +187,11 @@ class net_sourceforge_phpcrafty_ComponentFactory
     }
      
     $o = $class->newInstanceArgs($injectedArgs);
-    
+
+    if ($o instanceof org_tubepress_ioc_ContainerAware) {
+        $o->setContainer($this);
+    }
+
     return $o;
   }
   

@@ -23,7 +23,7 @@
  * Represents an HTML-embeddable YouTube player
  *
  */
-interface org_tubepress_embedded_impl_EmbeddedPlayerService
+interface org_tubepress_embedded_EmbeddedPlayerService
 {
     const YOUTUBE = "youtube";
     const LONGTAIL = "longtail";

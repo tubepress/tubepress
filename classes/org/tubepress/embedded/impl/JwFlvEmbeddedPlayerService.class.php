@@ -48,6 +48,7 @@ class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService extends org_tubepre
     <param name="movie" value="%s/ui/embedded/longtail/mediaplayer/player.swf" />
     <param name="allowscriptacess" value="sameDomain" />
     <param name="bgcolor" value="#000000" />
+    <param name="quality" value="high" />
     <param name="flashvars" value="file=%s" />
 </object>
 EOT

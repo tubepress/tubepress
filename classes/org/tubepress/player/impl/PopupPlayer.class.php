@@ -22,8 +22,10 @@
 /**
  * Plays videos in an HTML popup window
  */
-class org_tubepress_player_impl_PopupPlayer extends org_tubepress_player_AbstractPlayer
+class org_tubepress_player_impl_PopupPlayer extends org_tubepress_player_AbstractPlayer implements org_tubepress_ioc_ContainerAware
 {
+    private $_iocContainer;
+
     /**
      * Tells the gallery how to play videos in a popup window
      *
@@ -50,6 +52,11 @@ class org_tubepress_player_impl_PopupPlayer extends org_tubepress_player_Abstrac
 href="#" onclick="tubePress_popup('%s', %d, %d);"
 EOT
             , $url->getURL(true), $height, $width);
+    }
+
+    public function setContainer(org_tubepress_ioc_IocService $container)
+    {
+        $this->_iocContainer = $container;
     }
 }
 ?>

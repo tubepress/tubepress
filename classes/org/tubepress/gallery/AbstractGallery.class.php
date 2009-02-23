@@ -22,10 +22,11 @@
 /**
  * Parent class of all TubePress galleries
  */
-abstract class org_tubepress_gallery_AbstractGallery
+abstract class org_tubepress_gallery_AbstractGallery implements org_tubepress_ioc_ContainerAware
 {
     private $_feedInspectionService;
     private $_feedRetrievalService;
+    private $_iocContainer;
     private $_templateDirectory;
     private $_messageService;
     private $_optionsManager;
@@ -79,8 +80,7 @@ abstract class org_tubepress_gallery_AbstractGallery
         $playerName =
             $this->_optionsManager->
                 get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
-        $playerIoc = new org_tubepress_ioc_DefaultIocService();
-        $player     = $playerIoc->safeGet($playerName . "-player", org_tubepress_player_Player::NORMAL . "-player");
+        $player     = $this->_iocContainer->safeGet($playerName . "-player", org_tubepress_player_Player::NORMAL . "-player");
         
         for ($x = 0; $x < sizeof($videos); $x++) {
             
@@ -134,6 +134,11 @@ abstract class org_tubepress_gallery_AbstractGallery
         $tpl->setVariable('BOTPAGINATION', $pagination);
     }
     
+    public function setContainer(org_tubepress_ioc_IocService $container)
+    {
+        $this->_iocContainer = $container;
+    }
+
     public function setTemplateDirectory($directory) 
     {                                          
         $this->_templateDirectory = $directory; 
@@ -148,7 +153,7 @@ abstract class org_tubepress_gallery_AbstractGallery
     {   
         $this->_feedRetrievalService = $feedRetriever; 
     }
-    
+
     public function setMessageService(org_tubepress_message_MessageService $messageService) 
     {              
         $this->_messageService = $messageService; 
