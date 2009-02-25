@@ -22,8 +22,10 @@
 /**
  * Plays videos with GreyBox
  */
-class org_tubepress_player_impl_ShadowBoxPlayer extends org_tubepress_player_AbstractPlayer
-{    
+class org_tubepress_player_impl_ShadowBoxPlayer extends org_tubepress_player_AbstractPlayer implements org_tubepress_ioc_ContainerAware
+{
+    private $_iocContainer;
+
     /**
      * Sets JS to be executed after the document has loaded
      *
@@ -83,7 +85,10 @@ EOT
         $width  = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
         $url = new net_php_pear_Net_URL2($tubepress_base_url . "/ui/players/popup.php");
         $url->setQueryVariable("id", $vid->getId());
-        $url->setQueryVariable("opts", $this->getEmbeddedPlayerService()->packOptionsToString($vid, $tpom));
+        
+        $eps = $this->_iocContainer->safeGet($tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . "-embedded");
+        
+        $url->setQueryVariable("opts", $eps->packOptionsToString($vid, $tpom));
         
         return sprintf('href="%s" title="%s" ' .
             'rel="shadowbox;height=%s;width=%s"',
@@ -96,5 +101,9 @@ EOT
 
         return $tubepress_base_url . "/ui/players/shadowbox/";
    }
+public function setContainer(org_tubepress_ioc_IocService $container)
+    {
+        $this->_iocContainer = $container;
+    }
 }
 ?>

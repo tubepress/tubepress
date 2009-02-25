@@ -45,5 +45,7 @@ interface org_tubepress_ioc_IocService
     const W_PRINTER   = 'widgetPrinter';
 
     public function get($className);
+    
+    public function safeGet($firstChoice, $safeChoice);
 }
 ?>

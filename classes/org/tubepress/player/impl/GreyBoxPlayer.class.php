@@ -22,8 +22,10 @@
 /**
  * Plays videos with GreyBox
  */
-class org_tubepress_player_impl_GreyBoxPlayer extends org_tubepress_player_AbstractPlayer
+class org_tubepress_player_impl_GreyBoxPlayer extends org_tubepress_player_AbstractPlayer implements org_tubepress_ioc_ContainerAware
 {
+    private $_iocContainer;
+    
     protected function getPreLoadJs()
     {
         return "var GB_ROOT_DIR = \"" . $this->_getGbBaseUrl() . "\"";
@@ -59,7 +61,8 @@ class org_tubepress_player_impl_GreyBoxPlayer extends org_tubepress_player_Abstr
         $width  = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
         $url = new net_php_pear_Net_URL2($tubepress_base_url . "/ui/players/popup.php");
         $url->setQueryVariable("id", $vid->getId());
-        $url->setQueryVariable("opts", $this->getEmbeddedPlayerService()->packOptionsToString($vid, $tpom));
+        $eps = $this->_iocContainer->safeGet($tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . "-embedded");
+        $url->setQueryVariable("opts", $eps->packOptionsToString($vid, $tpom));
        
         return sprintf(<<<EOT
 href="%s" title="%s" rel="gb_page_center[%s, %s]"
@@ -72,6 +75,11 @@ EOT
         global $tubepress_base_url;
 
         return $tubepress_base_url . "/ui/players/greybox/";
+    }
+    
+    public function setContainer(org_tubepress_ioc_IocService $container)
+    {
+        $this->_iocContainer = $container;
     }
 }
 ?>

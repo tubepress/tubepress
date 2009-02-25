@@ -22,8 +22,10 @@
 /**
  * Plays videos with lightWindow
  */
-class org_tubepress_player_impl_LightWindowPlayer extends org_tubepress_player_AbstractPlayer
+class org_tubepress_player_impl_LightWindowPlayer extends org_tubepress_player_AbstractPlayer  implements org_tubepress_ioc_ContainerAware
 {
+    private $_iocContainer;
+    
     /**
      * Enter description here...
      *
@@ -79,7 +81,10 @@ class org_tubepress_player_impl_LightWindowPlayer extends org_tubepress_player_A
         
         $url = new net_php_pear_Net_URL2($tubepress_base_url . "/ui/players/popup.php");
         $url->setQueryVariable("id", $vid->getId());
-        $url->setQueryVariable("opts", $this->getEmbeddedPlayerService()->packOptionsToString($vid, $tpom));
+        
+        $eps = $this->_iocContainer->safeGet($tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . "-embedded");
+        
+        $url->setQueryVariable("opts", $eps->packOptionsToString($vid, $tpom));
         
         return sprintf(<<<EOT
 href="%s" class="lightwindow" title="%s" params="lightwindow_width=%s,lightwindow_height=%s"
@@ -92,6 +97,11 @@ EOT
         global $tubepress_base_url;
 
         return $tubepress_base_url . "/ui/players/lightWindow/";
+    }
+    
+    public function setContainer(org_tubepress_ioc_IocService $container)
+    {
+        $this->_iocContainer = $container;
     }
 }
 ?>
