@@ -4,14 +4,17 @@ class org_tubepress_player_impl_ShadowBoxPlayerTest extends PHPUnit_Framework_Te
 	private $_sut;
 	private $_tpom;
 	private $_tpeps;
+	private $_ioc;
 	
 	function setUp()
 	{
 		global $tubepress_base_url;
 		$tubepress_base_url = "fakeurl";
 		$this->_sut = new org_tubepress_player_impl_ShadowBoxPlayer();
-		$this->_tpeps = $this->getMock("org_tubepress_embedded_impl_EmbeddedPlayerService");
+		$this->_tpeps = $this->getMock("org_tubepress_embedded_EmbeddedPlayerService");
 		$this->_tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
+		$this->_ioc = $this->getMock('org_tubepress_ioc_IocService');
+		$this->_sut->setContainer($this->_ioc);
 	}
 	
 	function testGetHeadContents()                                                
@@ -30,16 +33,18 @@ EOX
 		global $tubepress_base_url;
 		$fakeVideo = new org_tubepress_video_Video();
 		$fakeVideo->setTitle("fake title");
-		$this->_tpom->expects($this->exactly(2))
+		$this->_tpom->expects($this->exactly(3))
 					->method("get")
 					->will($this->returnCallback("sbCallback"));
 		
+		$this->_ioc->expects($this->once())
+		           ->method('safeGet')
+		           ->will($this->returnValue($this->_tpeps));			
+					
 		$this->_tpeps->expects($this->once())
 					 ->method("packOptionsToString")
 					 ->will($this->returnValue("fakeopts"));
 		
-		$this->_sut->setEmbeddedPlayerService($this->_tpeps);
-					
 		$this->assertEquals(<<<EOT
 href="fakeurl/ui/players/popup.php?id=&amp;opts=fakeopts" title="fake title" rel="shadowbox;height=111;width=222"
 EOT
@@ -53,6 +58,7 @@ function sbCallback()
    	$vals = array(
 		org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT => 111,
 		org_tubepress_options_category_Embedded::EMBEDDED_WIDTH => 222,
+		org_tubepress_options_category_Embedded::PLAYER_IMPL => org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE
 	);
 	return $vals[$args[0]]; 
 }

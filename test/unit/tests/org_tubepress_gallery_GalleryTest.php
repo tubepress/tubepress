@@ -6,12 +6,11 @@ class org_tubepress_gallery_GalleryTest extends PHPUnit_Framework_TestCase {
 	private $_paginationService;
 	private $_feedInspectionService;
 	private $_feedRetrievalService;
+	private $_ioc;
 	private $_messageService;
 	private $_optionsManager;
-	private $_playerFactory;
 	private $_qss;
 	private $_thumbService;
-	private $_tpeps;
 	private $_urlBuilderService;
 	private $_videoFactory;
 	
@@ -28,12 +27,7 @@ class org_tubepress_gallery_GalleryTest extends PHPUnit_Framework_TestCase {
 		$fakeHtmlResult = <<<EOT
 <div class="tubepress_container">
     
-	<div id="tubepress_mainvideo">
-	<div id="tubepress_inner" style="width: 500px">
-    	<div id="tubepress_btitle"></div>
-            embeddedstuffgoeshere
-    </div><!-- tubepress_inner -->
-</div> <!--tubepress_mainvideo--> <br />
+	pregallerystuff
 	
 	<div class="pagination">
 	    Fakepagination
@@ -65,9 +59,6 @@ EOT;
 		$this->_optionsManager->expects($this->any())
 							  ->method("get")
 							  ->will($this->returnCallback("_tpomCallbackGalleryUnitTest"));
-		$this->_playerFactory->expects($this->once())
-							 ->method("getInstance")
-							 ->will($this->returnValue(new org_tubepress_player_impl_NormalPlayer()));
 		$this->_feedRetrievalService->expects($this->once())
 									->method("fetch")
 									->will($this->returnValue($fakeXml));
@@ -79,9 +70,6 @@ EOT;
 									 ->method("getQueryResultCount")
 									 ->with($fakeXml)
 									 ->will($this->returnValue(4));
-		$this->_tpeps->expects($this->once())
-					 ->method("toString")
-					 ->will($this->returnValue("embeddedstuffgoeshere"));
 		$this->_qss->expects($this->once())
 				   ->method("getPageNum")
 				   ->will($this->returnValue(1));
@@ -94,6 +82,13 @@ EOT;
 		$this->_paginationService->expects($this->once())
 								 ->method("getHtml")
 								 ->will($this->returnValue("Fakepagination"));
+	    $fakePlayer = $this->getMock('org_tubepress_player_Player');
+	    $fakePlayer->expects($this->once())
+	               ->method('getPreGalleryHtml')
+	               ->will($this->returnValue('pregallerystuff'));
+        $this->_ioc->expects($this->once())
+                   ->method('safeGet')
+                   ->will($this->returnValue($fakePlayer));
 	}
 	
 	private function _applyMocks()
@@ -103,12 +98,11 @@ EOT;
 		$this->_sut->setFeedRetrievalService($this->_feedRetrievalService);
 		$this->_sut->setMessageService($this->_messageService);
 		$this->_sut->setOptionsManager($this->_optionsManager);
-		$this->_sut->setPlayerFactory($this->_playerFactory);
 		$this->_sut->setQueryStringService($this->_qss);
 		$this->_sut->setThumbnailService($this->_thumbService);
 		$this->_sut->setUrlBuilderService($this->_urlBuilderService);
 		$this->_sut->setVideoFactory($this->_videoFactory);
-		$this->_sut->setEmbeddedPlayerService($this->_tpeps);
+		$this->_sut->setContainer($this->_ioc);
 	}
 	
 	private function _createMocks()
@@ -118,12 +112,12 @@ EOT;
 		$this->_feedRetrievalService 	= $this->getMock("org_tubepress_gdata_retrieval_FeedRetrievalService");
 		$this->_messageService 			= $this->getMock("org_tubepress_message_MessageService");
 		$this->_optionsManager 			= $this->getMock("org_tubepress_options_manager_OptionsManager");
-		$this->_playerFactory			= $this->getMock("org_tubepress_player_factory_PlayerFactory");
 		$this->_qss						= $this->getMock("org_tubepress_querystring_QueryStringService");
 		$this->_thumbService 			= $this->getMock("org_tubepress_thumbnail_ThumbnailService");
 		$this->_urlBuilderService 		= $this->getMock("org_tubepress_url_UrlBuilder");
 		$this->_videoFactory 			= $this->getMock("org_tubepress_video_factory_VideoFactory");
-		$this->_tpeps					= $this->getMock("org_tubepress_embedded_impl_EmbeddedPlayerService");
+		$this->_tpeps					= $this->getMock("org_tubepress_embedded_EmbeddedPlayerService");
+		$this->_ioc                     = $this->getMock('org_tubepress_ioc_IocService');
 	}
 	
 }

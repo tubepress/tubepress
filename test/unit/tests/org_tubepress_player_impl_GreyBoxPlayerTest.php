@@ -5,6 +5,7 @@ class org_tubepress_player_impl_GreyBoxPlayerTest extends PHPUnit_Framework_Test
 	private $_sut;
 	private $_tpom;
 	private $_tpeps;
+	private $_ioc;
 	
 	function setUp()
 	{
@@ -12,7 +13,9 @@ class org_tubepress_player_impl_GreyBoxPlayerTest extends PHPUnit_Framework_Test
 		$tubepress_base_url = "fakeurl";
 		$this->_sut = new org_tubepress_player_impl_GreyBoxPlayer();
 		$this->_tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
-		$this->_tpeps = $this->getMock("org_tubepress_embedded_impl_EmbeddedPlayerService");
+		$this->_tpeps = $this->getMock("org_tubepress_embedded_EmbeddedPlayerService");
+		$this->_ioc = $this->getMock('org_tubepress_ioc_IocService');
+		$this->_sut->setContainer($this->_ioc);
 	}
 	
 	function testGetHeadContents()                                                
@@ -33,9 +36,11 @@ EOX
 					 ->method("packOptionsToString")
 					 ->will($this->returnValue("fakeopts"));
 		
-		$this->_sut->setEmbeddedPlayerService($this->_tpeps);
-		
-		$this->_tpom->expects($this->exactly(2))
+		$this->_ioc->expects($this->once())
+		           ->method('safeGet')
+		           ->will($this->returnValue($this->_tpeps)); 			 
+					 
+		$this->_tpom->expects($this->exactly(3))
 					->method("get")
 					->will($this->returnCallback("greyboxCallback"));
 		
@@ -51,7 +56,8 @@ function greyboxCallback()
 	$args = func_get_args();
    	$vals = array(
 		org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT => 111,
-		org_tubepress_options_category_Embedded::EMBEDDED_WIDTH => 222
+		org_tubepress_options_category_Embedded::EMBEDDED_WIDTH => 222,
+		org_tubepress_options_category_Embedded::PLAYER_IMPL => org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE
 	);
 	return $vals[$args[0]]; 
 }
