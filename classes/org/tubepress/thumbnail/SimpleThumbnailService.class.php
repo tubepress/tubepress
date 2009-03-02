@@ -64,7 +64,7 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
         $encodedTitle = rawurlencode($vid->getTitle());
         $playerName = $this->_tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
         $esName = $this->_tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL);
-        $this->_tpl->setVariable('VIDEO_IMG_ANCHOR_ID', 'tubepress_img_' . $vid->getId() . '_' . $galleryId);
+        $this->_tpl->setVariable('VIDEO_IMG_ANCHOR_ID', 'tubepress_image_' . $vid->getId() . '_' . $galleryId);
         $this->_tpl->setVariable('VIDEO_IMG_ANCHOR_REL', 'tubepress_' . $esName . '_' . $playerName . '_' . $galleryId);
         $this->_tpl->setVariable('VIDEO_IMG_ALT', $vid->getTitle());
         $this->_tpl->setVariable('VIDEO_TITLE_ANCHOR_ID', 'tubepress_title_' . $vid->getId() . '_' . $galleryId);

@@ -87,21 +87,16 @@ function tubepress_head_filter()
 
 function _tubepress_head_filter() {
     global $tubepress_base_url;
+
     print<<<GBS
 <script type="text/javascript" src="$tubepress_base_url/ui/players/tubepress.js"></script>
-<script type="text/javascript" src="$tubepress_base_url/ui/players/popup.js"></script>
 <link rel="stylesheet" href="$tubepress_base_url/ui/gallery/css/tubepress.css" type="text/css" />
 <link rel="stylesheet" href="$tubepress_base_url/ui/widget/css/tubepress_widget.css" type="text/css" />
 <link rel="stylesheet" href="$tubepress_base_url/ui/gallery/css/pagination.css" type="text/css" />
+
 GBS;
 
     $iocContainer = new org_tubepress_ioc_DefaultIocService();
-    
-    /* print out the embedded player swap methods */
-    $embeddedNames = array('youtube', 'longtail');
-    foreach ($embeddedNames as $embeddedName) {
-        tubepress_printEmbeddedSwapMethod($iocContainer, $embeddedName);
-    }
     
     /* print out whatever the player needs */
     $wpsm = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE);
@@ -113,6 +108,8 @@ GBS;
     print<<<EOT
 <script type="text/javascript">
     jQuery(document).ready(function() {
+        tubepress_load_embedded_js("$tubepress_base_url");
+        tubepress_load_player_js("$tubepress_base_url");
         tubepress_attach_listeners();
     });
 </script>
@@ -120,16 +117,6 @@ GBS;
 EOT;
 }
 
-function tubepress_printEmbeddedSwapMethod($iocContainer, $embeddedName)
-{
-    $es = $iocContainer->get($embeddedName . '-embedded');
-    $matcher = $es->getJavaScriptVideoIdMatcher();
-    echo "\n<script type=\"text/javascript\">\n";
-	echo '    function tubepress_' . $embeddedName . "_matcher() {\n";
-    echo '        return "' . $matcher . "\";\n";
-	echo "}\n";
-    echo "</script>\n";
-}
 
 /**
  * Tells WordPress to load jQuery for us

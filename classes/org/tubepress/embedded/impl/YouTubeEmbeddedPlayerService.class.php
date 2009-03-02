@@ -25,6 +25,16 @@
  */
 class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService extends org_tubepress_embedded_impl_AbstractEmbeddedPlayerService
 {
+    private $_tpl;
+
+    public function __construct()
+    {
+        $this->_tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/embedded/youtube/html_templates");
+        if (!$this->_tpl->loadTemplatefile("object.tpl.html", true, true)) {
+            throw new Exception("Couldn't load embedded template");
+        }
+    }
+
     /**
      * Spits back the text for this embedded player
      *
@@ -78,22 +88,15 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService extends org_tubep
         }
         
         $link = $link->getURL(true);
+
+        $this->_tpl->setVariable('URL', $link);
+        $this->_tpl->setVariable('WIDTH', $width);
+        $this->_tpl->setVariable('HEIGHT', $height);
+        $this->_tpl->setVariable('FULLSCREEN', $fullscreen ? "true" : "false");
         
-        $embedSrc = sprintf(<<<EOT
-<object type="application/x-shockwave-flash" 
-    style="width: %spx; height: %spx" data="%s">
-    <param name="wmode" value="transparent" />
-    <param name="movie" value="%s" />
-    <param name="allowfullscreen" value="%s" />
-</object>
-EOT
-        , $width, $height, $link, $link, $fullscreen ? "true" : "false");
-    return str_replace("?", "&amp;", $embedSrc);
-    }
-    
-    public function getJavaScriptVideoIdMatcher()
-    {
-        return "/youtube\.com\/v\/(.{11}).*/";
+        $embedSrc = $this->_tpl->get();
+     
+        return str_replace("?", "&amp;", $embedSrc);
     }
 }
 

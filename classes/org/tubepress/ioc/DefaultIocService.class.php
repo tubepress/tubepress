@@ -47,8 +47,6 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
             $this->impl('org_tubepress_player_impl_LightWindowPlayer'));
         $this->def(org_tubepress_player_Player::SHADOWBOX . "-player",
             $this->impl('org_tubepress_player_impl_ShadowBoxPlayer'));
-        $this->def(org_tubepress_player_Player::POPUP . "-player",
-            $this->impl('org_tubepress_player_impl_PopupPlayer'));
         $this->def(org_tubepress_player_Player::YOUTUBE . "-player",
             $this->impl('org_tubepress_player_impl_YouTubePlayer'));
 
@@ -80,6 +78,11 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
         );
         $this->def(org_tubepress_player_Player::NORMAL . "-player",
             $this->impl('org_tubepress_player_impl_NormalPlayer',
+                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
+            )
+        );
+        $this->def(org_tubepress_player_Player::POPUP . "-player",
+            $this->impl('org_tubepress_player_impl_PopupPlayer',
                 array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
             )
         );

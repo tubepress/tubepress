@@ -70,17 +70,17 @@ function tp_getAnchorPosition(anchorname) {
 	else if (document.layers) { use_layers=true; }
 	// Logic to find position
  	if (use_gebi && document.all) {
-		x=AnchorPosition_getPageOffsetLeft(document.all[anchorname]);
-		y=AnchorPosition_getPageOffsetTop(document.all[anchorname]);
+		x=tp_AnchorPosition_getPageOffsetLeft(document.all[anchorname]);
+		y=tp_AnchorPosition_getPageOffsetTop(document.all[anchorname]);
 		}
 	else if (use_gebi) {
 		var o=document.getElementById(anchorname);
-		x=AnchorPosition_getPageOffsetLeft(o);
-		y=AnchorPosition_getPageOffsetTop(o);
+		x=tp_AnchorPosition_getPageOffsetLeft(o);
+		y=tp_AnchorPosition_getPageOffsetTop(o);
 		}
  	else if (use_css) {
-		x=AnchorPosition_getPageOffsetLeft(document.all[anchorname]);
-		y=AnchorPosition_getPageOffsetTop(document.all[anchorname]);
+		x=tp_AnchorPosition_getPageOffsetLeft(document.all[anchorname]);
+		y=tp_AnchorPosition_getPageOffsetTop(document.all[anchorname]);
 		}
 	else if (use_layers) {
 		var found=0;
@@ -138,7 +138,7 @@ function tp_AnchorPosition_getPageOffsetLeft (el) {
 	return ol;
 	}
 function tp_AnchorPosition_getWindowOffsetLeft (el) {
-	return AnchorPosition_getPageOffsetLeft(el)-document.body.scrollLeft;
+	return tp_AnchorPosition_getPageOffsetLeft(el)-document.body.scrollLeft;
 	}
 function tp_AnchorPosition_getPageOffsetTop (el) {
 	var ot=el.offsetTop;
@@ -146,7 +146,7 @@ function tp_AnchorPosition_getPageOffsetTop (el) {
 	return ot;
 	}
 function tp_AnchorPosition_getWindowOffsetTop (el) {
-	return AnchorPosition_getPageOffsetTop(el)-document.body.scrollTop;
+	return tp_AnchorPosition_getPageOffsetTop(el)-document.body.scrollTop;
 	}
 
 /* SOURCE FILE: PopupWindow.js */

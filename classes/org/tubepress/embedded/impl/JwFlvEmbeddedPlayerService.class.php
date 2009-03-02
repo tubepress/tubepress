@@ -25,6 +25,16 @@
  */
 class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService extends org_tubepress_embedded_impl_AbstractEmbeddedPlayerService
 {
+    private $_tpl;
+
+    public function __construct()
+    {
+        $this->_tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/embedded/longtail/html_templates");
+        if (!$this->_tpl->loadTemplatefile("object.tpl.html", true, true)) {
+            throw new Exception("Couldn't load embedded template");
+        }
+    }
+
     /**
      * Spits back the text for this embedded player
      *
@@ -38,27 +48,11 @@ class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService extends org_tubepre
         
         $link = $link->getURL(true);
         
-        return sprintf(<<<EOT
-<object 
-    type="application/x-shockwave-flash" 
-    data="%s/ui/embedded/longtail/mediaplayer/player.swf"
-    width="425" 
-    height="355" 
-    id="VideoPlayback">
-    <param name="movie" value="%s/ui/embedded/longtail/mediaplayer/player.swf" />
-    <param name="allowscriptacess" value="sameDomain" />
-    <param name="bgcolor" value="#000000" />
-    <param name="quality" value="high" />
-    <param name="flashvars" value="file=%s" />
-</object>
-EOT
-        , $tubepress_base_url, $tubepress_base_url, $link);
-    }
-    
-    public function getJavaScriptVideoIdMatcher()
-    {
-        return "/youtube\.com\/watch\?v=(.{11}).*/";
-    }    
+        $this->_tpl->setVariable("TUBEPRESS_BASE", $tubepress_base_url);
+        $this->_tpl->setVariable("YOUTUBE_LINK", $link);
+
+        return $this->_tpl->get();
+    }  
 }
 
 ?>
