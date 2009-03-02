@@ -30,11 +30,11 @@ class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService extends org_tubepre
      *
      * @return string The text for this embedded player
      */
-    public function toString()
+    public function toString($videoId)
     {
         global $tubepress_base_url;
 
-        $link = new net_php_pear_Net_URL2(sprintf("http://www.youtube.com/watch?v=%s", $this->_id));
+        $link = new net_php_pear_Net_URL2(sprintf("http://www.youtube.com/watch?v=%s", $videoId));
         
         $link = $link->getURL(true);
         
@@ -54,6 +54,11 @@ class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService extends org_tubepre
 EOT
         , $tubepress_base_url, $tubepress_base_url, $link);
     }
+    
+    public function getJavaScriptVideoIdMatcher()
+    {
+        return "/youtube\.com\/watch\?v=(.{11}).*/";
+    }    
 }
 
 ?>

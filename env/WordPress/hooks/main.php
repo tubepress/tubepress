@@ -36,6 +36,8 @@ if (version_compare(PHP_VERSION, '5.0.0', '>=')
 	
 	/* add a filter so we can add our CSS/JS to the head */
 	add_action('wp_head',     'tubepress_head_filter');
+	
+	add_action('init', 'tubepress_load_jquery');
 }
 
 ?>

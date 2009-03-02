@@ -24,6 +24,8 @@
  */
 abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_player_Player
 {   
+    private $_optionsManager;
+    
     /**
      * Puts JS and CSS libraries in the head
      *
@@ -100,9 +102,19 @@ abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_play
         return array();
     }
     
-    public function getPreGalleryHtml(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom)
+    public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId)
     {
         return "";
+    }
+    
+    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $optionsManager)
+    {
+        $this->_optionsManager = $optionsManager;
+    }
+    
+    protected function getOptionsManager()
+    {
+        return $this->_optionsManager;
     }
 }
 ?>

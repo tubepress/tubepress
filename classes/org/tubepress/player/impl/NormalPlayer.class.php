@@ -25,45 +25,23 @@
 class org_tubepress_player_impl_NormalPlayer extends org_tubepress_player_AbstractPlayer implements org_tubepress_ioc_ContainerAware
 {
     private $_iocContainer;
-
-    /**
-     * Tells the gallery how to play videos with the normal player
-     *
-     * @param org_tubepress_video_Video          $vid  The video to be played
-     * @param org_tubepress_options_manager_OptionsManager $tpom The TubePress options manager
-     * 
-     * @return string The play link attributes
-     */
-    public function getPlayLink(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom)
-    {
-        $title  = $vid->getTitle();
-        $width  = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
-
-	    $eps = $this->_iocContainer->safeGet($tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . "-embedded");
-
-        $eps->applyOptions($vid, $tpom);
-        
-        return sprintf(<<<EOT
-href="#" onclick="tubePress_normalPlayer('%s', '%d', '%s')"
-EOT
-            , rawurlencode($eps->toString()), $width, rawurlencode($title));
-    }
     
-    public function getPreGalleryHtml(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom)
+    public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId)
     {
         $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/players/normal/html_templates");
         if (!$tpl->loadTemplatefile("pre_gallery.tpl.html", true, true)) {
             throw new Exception("Couldn't load pre gallery template");
         }
-       
+
+        $tpom = $this->getOptionsManager();
+        
         $eps = $this->_iocContainer->safeGet($tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . "-embedded");
 
-        $eps->applyOptions($vid, $tpom);
-        
-        $tpl->setVariable("EMBEDSRC", $eps->toString());
+        $tpl->setVariable("EMBEDSRC", $eps->toString($vid->getId()));
         $tpl->setVariable("TITLE", $vid->getTitle());
         $tpl->setVariable("WIDTH", 
             $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
+        $tpl->setVariable('GALLERYID', $galleryId);
         return $tpl->get();    
     }
 

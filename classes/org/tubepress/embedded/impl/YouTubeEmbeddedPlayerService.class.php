@@ -30,24 +30,39 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService extends org_tubep
      *
      * @return string The text for this embedded player
      */
-    public function toString()
+    public function toString($videoId)
     {
-        $link = new net_php_pear_Net_URL2(sprintf("http://www.youtube.com/v/%s", $this->_id));
+        $link = new net_php_pear_Net_URL2(sprintf("http://www.youtube.com/v/%s", $videoId));
         
-        if (!($this->_color1 == "999999" && $this->_color2 == "FFFFFF")) {
-            $link->setQueryVariable("color2", "0x" . $this->_color1);
-            $link->setQueryVariable("color1", "0x" . $this->_color2);
+        $tpom = $this->getOptionsManager();
+        
+        $color1      = $this->_safeColorValue($tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR), "999999");
+        $color2      = $this->_safeColorValue($tpom->get(org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT), "FFFFFF");
+        $showRelated = $tpom->get(org_tubepress_options_category_Embedded::SHOW_RELATED);
+        $autoPlay    = $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY);
+        $loop        = $tpom->get(org_tubepress_options_category_Embedded::LOOP);
+        $genie       = $tpom->get(org_tubepress_options_category_Embedded::GENIE);
+        $border      = $tpom->get(org_tubepress_options_category_Embedded::BORDER);
+        $width       = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
+        $height      = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT);
+        $quality     = $tpom->get(org_tubepress_options_category_Embedded::QUALITY);
+        $fullscreen  = $tpom->get(org_tubepress_options_category_Embedded::FULLSCREEN);
+        $showInfo    = $tpom->get(org_tubepress_options_category_Embedded::SHOW_INFO);
+   
+        if (!($color1 == "999999" && $color2 == "FFFFFF")) {
+            $link->setQueryVariable("color2", "0x" . $color1);
+            $link->setQueryVariable("color1", "0x" . $color2);
         }
-        $link->setQueryVariable("rel", $this->_showRelated   ? "1" : "0");
-        $link->setQueryVariable("autoplay", $this->_autoPlay ? "1" : "0");
-        $link->setQueryVariable("loop", $this->_loop         ? "1" : "0");
-        $link->setQueryVariable("egm", $this->_genie         ? "1" : "0");
-        $link->setQueryVariable("border", $this->_border     ? "1" : "0");
-        $link->setQueryVariable("fs", $this->_fullscreen     ? "1" : "0");
+        $link->setQueryVariable("rel", $showRelated   ? "1" : "0");
+        $link->setQueryVariable("autoplay", $autoPlay ? "1" : "0");
+        $link->setQueryVariable("loop", $loop         ? "1" : "0");
+        $link->setQueryVariable("egm", $genie         ? "1" : "0");
+        $link->setQueryVariable("border", $border     ? "1" : "0");
+        $link->setQueryVariable("fs", $fullscreen     ? "1" : "0");
         
-        $link->setQueryVariable("showinfo", $this->_showInfo ? "1" : "0");
+        $link->setQueryVariable("showinfo", $showInfo ? "1" : "0");
         
-        switch ($this->_quality) {
+        switch ($quality) {
         case "high":
             $link->setQueryVariable("ap", "%26");
             $link->setQueryVariable("fmt", "6");
@@ -72,8 +87,13 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService extends org_tubep
     <param name="allowfullscreen" value="%s" />
 </object>
 EOT
-        , $this->_width, $this->_height, $link, $link, $this->_fullscreen ? "true" : "false");
+        , $width, $height, $link, $link, $fullscreen ? "true" : "false");
     return str_replace("?", "&amp;", $embedSrc);
+    }
+    
+    public function getJavaScriptVideoIdMatcher()
+    {
+        return "/youtube\.com\/v\/(.{11}).*/";
     }
 }
 

@@ -41,12 +41,6 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
             $this->impl('org_tubepress_video_factory_SimpleVideoFactory'));
         $this->def(org_tubepress_ioc_IocService::QUERY_STR,
             $this->impl('org_tubepress_querystring_SimpleQueryStringService'));
-        $this->def(org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE - '-embedded',
-            $this->impl('org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService'));
-        $this->def(org_tubepress_embedded_EmbeddedPlayerService::LONGTAIL . '-embedded',
-            $this->impl('org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService'));
-        $this->def(org_tubepress_player_Player::NORMAL . "-player",
-            $this->impl('org_tubepress_player_impl_NormalPlayer'));
         $this->def(org_tubepress_player_Player::GREYBOX . "-player",
             $this->impl('org_tubepress_player_impl_GreyBoxPlayer'));
         $this->def(org_tubepress_player_Player::LIGHTWINDOW . "-player",
@@ -74,7 +68,22 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
                 array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
             )
         );
-
+        $this->def(org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . '-embedded',
+            $this->impl('org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService',
+                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
+            )
+        );
+        $this->def(org_tubepress_embedded_EmbeddedPlayerService::LONGTAIL . '-embedded',
+            $this->impl('org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService',
+                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
+            )
+        );
+        $this->def(org_tubepress_player_Player::NORMAL . "-player",
+            $this->impl('org_tubepress_player_impl_NormalPlayer',
+                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
+            )
+        );
+        
         /* this guy has 2 setters */
         $this->def(org_tubepress_ioc_IocService::STORAGE,
             $this->impl('org_tubepress_options_storage_WordPressStorageManager', 

@@ -26,5 +26,5 @@
  */
 interface org_tubepress_thumbnail_ThumbnailService
 {
-    public function getHtml($template, org_tubepress_video_Video $vid, org_tubepress_player_Player $player);
+    public function getHtml($template, org_tubepress_video_Video $vid, $galleryId);
 }

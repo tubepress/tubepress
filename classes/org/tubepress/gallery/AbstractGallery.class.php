@@ -82,17 +82,20 @@ abstract class org_tubepress_gallery_AbstractGallery implements org_tubepress_io
                 get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
         $player     = $this->_iocContainer->safeGet($playerName . "-player", org_tubepress_player_Player::NORMAL . "-player");
         
+        $galleryId = mt_rand();
+        $tpl->setVariable('GALLERYID', $galleryId);
+        
         for ($x = 0; $x < sizeof($videos); $x++) {
             
             /* Top of the gallery is special */
             if ($x == 0) {
                 $tpl->setVariable("PRE_GALLERY_PLAYER_HTML", 
-                    $player->getPreGalleryHtml($this->_getPreGalleryVideo($videos), $this->_optionsManager));
+                    $player->getPreGalleryHtml($this->_getPreGalleryVideo($videos), $galleryId));
             }
                 
             /* Here's where each thumbnail gets printed */
             $thumbsHtml .= $this->_thumbnailService->getHtml(
-                $this->_templateDirectory, $videos[$x], $player);     
+                $this->_templateDirectory, $videos[$x], $galleryId);     
         }
         
         $tpl->setVariable("THUMBS", $thumbsHtml);

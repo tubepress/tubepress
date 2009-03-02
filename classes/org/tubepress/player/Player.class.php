@@ -37,17 +37,7 @@ interface org_tubepress_player_Player
      * @return void
      */
     public function getHeadContents();
-    
-    /**
-     * Tells the gallery how to play the videos
-     *
-     * @param org_tubepress_video_Video          $vid  The video to play
-     * @param org_tubepress_options_manager_OptionsManager $tpom The TubePress options manager
-     * 
-     * @return string The play link attributes
-     */
-    public function getPlayLink(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom);
         
-    public function getPreGalleryHtml(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom);
+    public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId);
 }
 ?>

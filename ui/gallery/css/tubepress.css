@@ -1,13 +1,13 @@
-#tubepress_mainvideo {
+.tubepress_normal_embedded_wrapper {
     text-align:center;
 }
 
-#tubepress_mainvideo #tubepress_inner {
+.tubepress_normal_embedded_wrapper .tubepress_normal_embedded_inner {
     text-align: left;
     margin: auto;
 }
 
-#tubepress_mainvideo #tubepress_inner #tubepress_btitle {
+.tubepress_normal_embedded_wrapper .tubepress_normal_embedded_inner .tubepress_embedded_title {
     font-weight: bold;
     font-size: larger;
     margin-bottom: .3em;
@@ -22,7 +22,7 @@
     text-align: left;
 }
 
-.tubepress_runtime {
+.tubepress_meta_runtime {
     font-size: 11px;
     color: #000;
     font-weight: bold;
@@ -38,16 +38,20 @@
     overflow: hidden;
 }
 
-.tubepress_stitle, .tubepress_stitle a, .tubepress_stitle a:hover {
+.tubepress_thumb a {
+	cursor: pointer;	
+}
+
+.tubepress_meta_title, .tubepress_meta_title a, .tubepress_meta_title a:hover {
     font-size: 12px;
     font-weight: bold;
 }
 
-.tubepress_video_thumb_inner {
+.tubepress_thumb_inner {
     margin: auto;
 }
 
-.tubepress_video_thumbs {
+.tubepress_thumbs {
     clear:both;
     padding: 0 0 0 5px;
     padding-top: 1em;

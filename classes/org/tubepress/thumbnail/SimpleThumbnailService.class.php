@@ -32,14 +32,14 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
     private $_tppf;
     private $_tpeps;
     
-    public function getHtml($template, org_tubepress_video_Video $vid, org_tubepress_player_Player $player)
+    public function getHtml($template, org_tubepress_video_Video $vid, $galleryId)
     {
         $this->_tpl = new net_php_pear_HTML_Template_IT($template);
         if (!$this->_tpl->loadTemplatefile("thumbnail.tpl.html", true, true)) {
             throw new Exception("Couldn't load thumbnail template");
         }
-        $this->_getCommonStuff($vid, $player);
-        $this->_getMetaStuff($vid, $player);
+        $this->_getCommonStuff($vid, $galleryId);
+        $this->_getMetaStuff($vid);
         return $this->_tpl->get();
     }
     
@@ -48,7 +48,7 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
         $this->_tpom = $tpom;
     }
     
-    private function _getCommonStuff(org_tubepress_video_Video $vid, org_tubepress_player_Player $player)
+    private function _getCommonStuff(org_tubepress_video_Video $vid, $galleryId)
     {
         $randomizeOpt = $this->_tpom->
             get(org_tubepress_options_category_Advanced::RANDOM_THUMBS);
@@ -61,11 +61,15 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
         $width        = $this->_tpom->
             get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
         
-        $playLink = $player->getPlayLink($vid, $this->_tpom);
-
-        $this->_tpl->setVariable('IMAGEPLAYLINK', $playLink);
-        $this->_tpl->setVariable('IMAGETITLE', $vid->getTitle());
-
+        $encodedTitle = rawurlencode($vid->getTitle());
+        $playerName = $this->_tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
+        $esName = $this->_tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL);
+        $this->_tpl->setVariable('VIDEO_IMG_ANCHOR_ID', 'tubepress_img_' . $vid->getId() . '_' . $galleryId);
+        $this->_tpl->setVariable('VIDEO_IMG_ANCHOR_REL', 'tubepress_' . $esName . '_' . $playerName . '_' . $galleryId);
+        $this->_tpl->setVariable('VIDEO_IMG_ALT', $vid->getTitle());
+        $this->_tpl->setVariable('VIDEO_TITLE_ANCHOR_ID', 'tubepress_title_' . $vid->getId() . '_' . $galleryId);
+        $this->_tpl->setVariable('VIDEO_TITLE_ANCHOR_REL', 'tubepress_' . $esName . '_' . $playerName . '_' . $galleryId);
+        
         if ($randomizeOpt) {
             $this->_tpl->setVariable('THUMBURL', $vid->getRandomThumbURL());
         } else {
@@ -76,12 +80,10 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
         $this->_tpl->setVariable('THUMBHEIGHT', $thumbHeight);
     }
     
-    private function _getMetaStuff(org_tubepress_video_Video $vid, org_tubepress_player_Player $player)
+    private function _getMetaStuff(org_tubepress_video_Video $vid)
     {
         $class = new ReflectionClass("org_tubepress_options_category_Meta");    
 
-        $link = $playLink = $player->getPlayLink($vid, $this->_tpom);
-        
         /* go through each option in the category */
         foreach ($class->getConstants() as $constant) {
 
@@ -95,7 +97,6 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
             switch ($constant) {
                 
             case org_tubepress_options_category_Meta::TITLE:
-                $this->_tpl->setVariable('PLAYLINK', $link);
                 $this->_tpl->setVariable('TITLE', $vid->getTitle());
                 $this->_tpl->parse('title');
                 break;
@@ -123,10 +124,10 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
                 break;
                     
             case org_tubepress_options_category_Meta::TAGS:
-                $tags = implode("%20", $vid->getTags());
+                $tags = implode(" ", $vid->getTags());
                 $this->_tpl->setVariable('METANAME', $this->_msg->_("video-" . $constant));
-                $this->_tpl->setVariable('SEARCHSTRING', $tags);
-                $this->_tpl->setVariable('TAGS', implode(" ", $vid->getTags()));
+                $this->_tpl->setVariable('SEARCHSTRING', rawurlencode($tags));
+                $this->_tpl->setVariable('TAGS', $tags);
                  if ($nofollow) { $this->_tpl->setVariable("NOFOLLOW", "rel=\"external nofollow\""); }
                 $this->_tpl->parse('tags');
                 break;
