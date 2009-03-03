@@ -25,83 +25,27 @@
 class org_tubepress_player_impl_ShadowBoxPlayer extends org_tubepress_player_AbstractPlayer implements org_tubepress_ioc_ContainerAware
 {
     private $_iocContainer;
+    
+    public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId)
+    {
+        $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/players/shadowbox/html_templates");
+        if (!$tpl->loadTemplatefile("pre_gallery.tpl.html", true, true)) {
+            throw new Exception("Couldn't load pre gallery template");
+        }
 
-    /**
-     * Sets JS to be executed after the document has loaded
-     *
-     * @return void
-     */
-    protected function getPostLoadJS()
-    {
-        return sprintf(<<<EOT
-YAHOO.util.Event.onDOMReady(function() { 
-    var options = { assetURL: "%s" };
-    Shadowbox.init(options);
-});
-EOT
-        , $this->_getBaseUrl());
-    }
-    
-    /**
-     * Sets the JS libraries to include
-     *
-     * @return void
-     */
-    protected function getJSLibs()
-    {
-        $sbUrl = $this->_getBaseUrl();
-        return array(
-            $sbUrl . "src/js/lib/yui-utilities.js",
-            $sbUrl . "src/js/adapter/shadowbox-yui.js",
-            $sbUrl . "src/js/shadowbox.js");
-    }
-    
-    /**
-     * Sets the CSS libraries to include
-     *
-     * @param array $cssLibs An array of CSS libs to include
-     * 
-     * @return void
-     */
-    protected function getCSSLibs()
-    {
-        return array($this->_getBaseUrl() . "src/css/shadowbox.css");
-    }
-    
-    /**
-     * Tells the gallery how to play videos in ShadowBox.js
-     *
-     * @param org_tubepress_video_Video          $vid  The video to be played
-     * @param org_tubepress_options_manager_OptionsManager $tpom The TubePress options manager
-     * 
-     * @return string The play link attributes
-     */
-    public function getPlayLink(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom)
-    {
-        global $tubepress_base_url;
-        
-        $title  = $vid->getTitle();
-        $height = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT);
-        $width  = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
-        $url = new net_php_pear_Net_URL2($tubepress_base_url . "/ui/players/popup.php");
-        $url->setQueryVariable("id", $vid->getId());
+        $tpom = $this->getOptionsManager();
         
         $eps = $this->_iocContainer->safeGet($tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . "-embedded");
-        
-        $url->setQueryVariable("opts", $eps->packOptionsToString($vid, $tpom));
-        
-        return sprintf('href="%s" title="%s" ' .
-            'rel="shadowbox;height=%s;width=%s"',
-        $url->getURL(true), $title, $height, $width); 
-   }
-   
-   private function _getBaseUrl()
-   {
-           global $tubepress_base_url;
 
-        return $tubepress_base_url . "/ui/players/shadowbox/";
-   }
-public function setContainer(org_tubepress_ioc_IocService $container)
+        $tpl->setVariable("EMBEDSRC", $eps->toString($vid->getId()));
+        $tpl->setVariable("TITLE", $vid->getTitle());
+        $tpl->setVariable("WIDTH", 
+            $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
+        $tpl->setVariable('GALLERYID', $galleryId);
+        return $tpl->get();    
+    }
+
+    public function setContainer(org_tubepress_ioc_IocService $container)
     {
         $this->_iocContainer = $container;
     }

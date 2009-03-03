@@ -27,9 +27,14 @@ function tubepress_load_player_js(baseUrl)
         var playerName = playerNames[i];
         jQuery.getScript(baseUrl + "/ui/players/" + playerName + "/" + playerName + ".js", function() {
             var playerName = this.url.match(/players\/([^\/]+)\/.*/)[1];
-            window["tubepress_" + playerName + "_init"](baseUrl);
+            window["tubepress_" + playerName + "_preload"](baseUrl);
         });
     }
+    jQuery(document).ready(function() {
+        for (var x = 0; x < playerNames.length; x++) {
+            window["tubepress_" + playerNames[x] + "_postload"](baseUrl);
+        }        
+    });
 }
 
 function tubepress_rel_parser(index) {

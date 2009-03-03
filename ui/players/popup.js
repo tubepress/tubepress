@@ -265,19 +265,7 @@ function tp_PopupWindow_refresh() {
 			d.document.close();
 			}
 		}
-	else {
-		if (this.popupWindow != null && !this.popupWindow.closed) {
-			if (this.url!="") {
-				this.popupWindow.location.href=this.url;
-				}
-			else {
-				this.popupWindow.document.open();
-				this.popupWindow.document.writeln(this.contents);
-				this.popupWindow.document.close();
-			}
-			this.popupWindow.focus();
-			}
-		}
+	
 	}
 // Position and show the popup, relative to an anchor object
 function tp_PopupWindow_showPopup(anchorname) {
@@ -291,40 +279,23 @@ function tp_PopupWindow_showPopup(anchorname) {
 	if (this.divName != null) {
 		// Show the DIV object
 		if (this.use_gebi) {
-			document.getElementById(this.divName).style.left = this.x + "px";
+            document.getElementById(this.divName).style.position = "absolute";			
+            document.getElementById(this.divName).style.left = this.x + "px";
 			document.getElementById(this.divName).style.top = this.y;
-			document.getElementById(this.divName).style.visibility = "visible";
+			document.getElementById(this.divName).style.display = "inline";
 			}
 		else if (this.use_css) {
+            document.getElementById(this.divName).style.position = "absolute";
 			document.all[this.divName].style.left = this.x;
 			document.all[this.divName].style.top = this.y;
-			document.all[this.divName].style.visibility = "visible";
+			document.all[this.divName].style.display = "inline";
 			}
 		else if (this.use_layers) {
+            document.getElementById(this.divName).style.position = "absolute";
 			document.layers[this.divName].left = this.x;
 			document.layers[this.divName].top = this.y;
-			document.layers[this.divName].visibility = "visible";
+			document.layers[this.divName].display = "inline";
 			}
-		}
-	else {
-		if (this.popupWindow == null || this.popupWindow.closed) {
-			// If the popup window will go off-screen, move it so it doesn't
-			if (this.x<0) { this.x=0; }
-			if (this.y<0) { this.y=0; }
-			if (screen && screen.availHeight) {
-				if ((this.y + this.height) > screen.availHeight) {
-					this.y = screen.availHeight - this.height;
-					}
-				}
-			if (screen && screen.availWidth) {
-				if ((this.x + this.width) > screen.availWidth) {
-					this.x = screen.availWidth - this.width;
-					}
-				}
-			var avoidAboutBlank = window.opera || ( document.layers && !navigator.mimeTypes['*'] ) || navigator.vendor == 'KDE' || ( document.childNodes && !document.all && !navigator.taintEnabled );
-			this.popupWindow = window.open(avoidAboutBlank?"":"about:blank","window_"+anchorname,this.windowProperties+",width="+this.width+",height="+this.height+",screenX="+this.x+",left="+this.x+",screenY="+this.y+",top="+this.y+"");
-			}
-		this.refresh();
 		}
 	}
 // Hide the popup
@@ -338,12 +309,6 @@ function tp_PopupWindow_hidePopup() {
 			}
 		else if (this.use_layers) {
 			document.layers[this.divName].visibility = "hidden";
-			}
-		}
-	else {
-		if (this.popupWindow && !this.popupWindow.closed) {
-			this.popupWindow.close();
-			this.popupWindow = null;
 			}
 		}
 	}
