@@ -827,6 +827,8 @@ function _PEAR_call_destructors()
  * @see        PEAR::raiseError(), PEAR::throwError()
  * @since      Class available since PHP 4.0.2
  */
+
+if (!class_exists("PEAR_Error")) {
 class PEAR_Error
 {
     // {{{ properties
@@ -1110,6 +1112,7 @@ class PEAR_Error
     }
 
     // }}}
+}
 }
 
 /*
