@@ -31,13 +31,6 @@ interface org_tubepress_player_Player
     const SHADOWBOX   = "shadowbox";
     const YOUTUBE     = "youtube";
     
-    /**
-     * Puts JS and CSS libraries in the head
-     *
-     * @return void
-     */
-    public function getHeadContents();
-        
     public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId);
 }
 ?>

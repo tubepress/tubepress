@@ -1,4 +1,3 @@
-<?php
 /**
  * Copyright 2006, 2007, 2008, 2009 Eric D. Hough (http://ehough.com)
  * 
@@ -18,12 +17,21 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
-/**
- * Plays videos with GreyBox
- */
-class org_tubepress_player_impl_ShadowBoxPlayer extends org_tubepress_player_AbstractModalPlayer
-{
-    /* nothing to see here! */
+function tubepress_lightwindow_player_init(baseUrl) {
+	var shadowboxBase = baseUrl + '/ui/players/lightwindow/';
+	jQuery.include([shadowboxBase + 'lib/javascript/prototype.js'], function() {
+		jQuery.include([shadowboxBase + 'lib/javascript/scriptaculous.js?load=effects', function() {
+			jQuery.include([shadowboxBase + 'lib/javascript/lightwindow.js', shadowboxBase + "lib/css/lightwindow.css"]);
+		});
+	});
 }
-?>
+
+function tubepress_shadowbox_player(galleryId, videoId) {
+	myLightWindow.activateWindow({
+		href: 'http://stickmanlabs.com/images/kevin_vegas.jpg', 
+		title: 'Waiting for the show to start in Las Vegas', 
+		author: 'Jazzmatt', 
+		caption: 'Mmmmmm Margaritas! And yes, this is me...', 
+		left: 300
+	});
+}

@@ -22,90 +22,10 @@
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
-abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_player_Player
+abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_player_Player, org_tubepress_ioc_ContainerAware
 {   
     private $_optionsManager;
-    
-    /**
-     * Puts JS and CSS libraries in the head
-     *
-     * @return void
-     */
-    public final function getHeadContents()
-    {
-        $content = "";
-        $jsLibs = $this->getJSLibs();
-        foreach ($jsLibs as $jsLib) {
-            $content .= "<script type=\"text/javascript\" src=\"" . 
-                $jsLib . "\"></script>";
-        }
-        
-        if ($this->getPreLoadJs() != "") {
-            $content .= "<script type=\"text/javascript\">" . 
-                $this->getPreLoadJS() . "</script>";
-        }
-        
-        if ($this->getPostLoadJS() != "") {
-            $content .= "<script type=\"text/javascript\">" . 
-                $this->getPostLoadJS() . "</script>";
-        }
-        
-        $cssLibs = $this->getCSSLibs();
-        foreach ($cssLibs as $cssLib) {
-            $content .= "<link rel=\"stylesheet\" href=\"" . $cssLib . "\"" .
-                " type=\"text/css\" />";
-        }
-        return $content;
-    }
-    
-    /**
-     * Sets JS to be executed after the document has loaded
-     *
-     * @return void
-     */
-    protected function getPostLoadJS()
-    {
-        return "";
-    }
-    
-    /**
-     * Enter description here...
-     *
-     * @param unknown_type $extraJS The text of the JS to run
-     * 
-     * @return void
-     */
-    protected function getPreLoadJs()
-    {
-        return "";
-    }
-    
-    /**
-     * Sets the JS libraries to include
-     *
-     * @return void
-     */
-    protected function getJSLibs()
-    {
-        return array();
-    }
-    
-    /**
-     * Sets the CSS libraries to include
-     *
-     * @param array $cssLibs An array of CSS libs to include
-     * 
-     * @return void
-     */
-    protected function getCSSLibs()
-    {
-        return array();
-    }
-    
-    public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId)
-    {
-        return "";
-    }
+    private $_iocContainer;
     
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $optionsManager)
     {
@@ -115,6 +35,16 @@ abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_play
     protected function getOptionsManager()
     {
         return $this->_optionsManager;
+    }
+    
+    public function setContainer(org_tubepress_ioc_IocService $container)
+    {
+        $this->_iocContainer = $container;
+    }
+    
+    protected function getContainer()
+    {
+        return $this->_iocContainer;
     }
 }
 ?>
