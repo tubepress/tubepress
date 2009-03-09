@@ -27,7 +27,8 @@ if (!current_user_can(9)) {
 }
 
 if (isset($_POST["tubepress_init_db"])) {
-	$wpsm = new org_tubepress_options_storage_WordPressStorageManager();
+    $ioc = new org_tubepress_ioc_DefaultIocService();
+	$wpsm = $ioc->get(org_tubepress_ioc_IocService::STORAGE);
 	$wpsm->nuclear();
 	echo "OPTIONS INITIALIZED!<BR /><BR />";
 }

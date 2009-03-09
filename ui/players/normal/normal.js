@@ -5,6 +5,4 @@ function tubepress_normal_player(galleryId, videoId) {
     jQuery("#tubepress_gallery_" + galleryId)[0].scrollIntoView(true);
 }
 
-function tubepress_normal_preload(baseUrl) { }
-
-function tubepress_normal_postload(baseUrl) { }
+function tubepress_normal_player_init(baseUrl) { }

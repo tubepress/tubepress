@@ -89,7 +89,8 @@ function _tubepress_head_filter() {
     global $tubepress_base_url;
 
     print<<<GBS
-<script type="text/javascript" src="$tubepress_base_url/ui/players/tubepress.js"></script>
+<script type="text/javascript" src="$tubepress_base_url/ui/tubepress.js"></script>
+<script type="text/javascript" src="$tubepress_base_url/ui/lib/jquery.includeMany-1.1.0.js"></script>
 <link rel="stylesheet" href="$tubepress_base_url/ui/gallery/css/tubepress.css" type="text/css" />
 <link rel="stylesheet" href="$tubepress_base_url/ui/widget/css/tubepress_widget.css" type="text/css" />
 <link rel="stylesheet" href="$tubepress_base_url/ui/gallery/css/pagination.css" type="text/css" />
@@ -107,9 +108,9 @@ GBS;
     /* add the listener */
     print<<<EOT
 <script type="text/javascript">
-    jQuery(document).ready(function() {
+	jQuery(document).ready(function() {
         tubepress_load_embedded_js("$tubepress_base_url");
-        tubepress_load_player_js("$tubepress_base_url");
+        tubepress_load_players("$tubepress_base_url");
         tubepress_attach_listeners();
     });
 </script>
