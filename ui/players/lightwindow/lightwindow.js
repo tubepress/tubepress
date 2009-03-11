@@ -18,16 +18,35 @@
  *
  */
 function tubepress_lightwindow_player_init(baseUrl) {
-	var shadowboxBase = baseUrl + '/ui/players/lightwindow/';
-	jQuery.include([shadowboxBase + 'lib/javascript/prototype.js'], function() {
-		jQuery.include([shadowboxBase + 'lib/javascript/scriptaculous.js?load=effects', function() {
-			jQuery.include([shadowboxBase + 'lib/javascript/lightwindow.js', shadowboxBase + "lib/css/lightwindow.css"]);
-		});
+	if (typeof Prototype == 'undefined') {
+		_tubepress_lightwindow_load_prototype(baseUrl);
+	} else {
+		_tubepress_lightwindow_load_scriptaculous(baseUrl);
+	}
+}
+
+function _tubepress_lightwindow_load_prototype(baseUrl) {
+	jQuery.include([baseUrl + '/ui/players/lightwindow/lib/javascript/prototype.js'], function() {
+		_tubepress_lightwindow_load_scriptaculous(baseUrl);
 	});
 }
 
-function tubepress_shadowbox_player(galleryId, videoId) {
-	myLightWindow.activateWindow({
+function _tubepress_lightwindow_load_scriptaculous(baseUrl) {
+	jQuery.include([baseUrl + '/ui/players/lightwindow/lib/javascript/effects.js'], function() {
+		_tubepress_lightwindow_load_lightwindow(baseUrl);
+	});
+}
+
+function _tubepress_lightwindow_load_lightwindow(baseUrl) {
+	console.info("Loading");
+	var base = baseUrl + '/ui/players/lightwindow/lib/';
+	jQuery.include([base + 'javascript/lightWindow.js', base + 'css/lightWindow.css'], function() {
+		console.info("Loaded");
+	});
+}
+
+function tubepress_lightwindow_player(galleryId, videoId) {
+	window.tubepressLightWindow.activateWindow({
 		href: 'http://stickmanlabs.com/images/kevin_vegas.jpg', 
 		title: 'Waiting for the show to start in Las Vegas', 
 		author: 'Jazzmatt', 
