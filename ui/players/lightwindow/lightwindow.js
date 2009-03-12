@@ -38,19 +38,26 @@ function _tubepress_lightwindow_load_scriptaculous(baseUrl) {
 }
 
 function _tubepress_lightwindow_load_lightwindow(baseUrl) {
-	console.info("Loading");
 	var base = baseUrl + '/ui/players/lightwindow/lib/';
 	jQuery.include([base + 'javascript/lightWindow.js', base + 'css/lightWindow.css'], function() {
-		console.info("Loaded");
+        var options = {
+            overlay : {
+	    		image : baseUrl + '/ui/players/lightwindow/lib/css/images/black.png',
+	    		presetImage : baseUrl + '/ui/players/lightwindow/lib/css/images/black-70.png' 
+            }	
+    	}
+        lightwindowInit(options);
+        myLightWindow.options.skin.loading = myLightWindow.options.skin.loading.replace('images', baseUrl + '/ui/players/lightwindow/lib/css/images');
 	});
 }
 
 function tubepress_lightwindow_player(galleryId, videoId) {
-	window.tubepressLightWindow.activateWindow({
-		href: 'http://stickmanlabs.com/images/kevin_vegas.jpg', 
-		title: 'Waiting for the show to start in Las Vegas', 
-		author: 'Jazzmatt', 
-		caption: 'Mmmmmm Margaritas! And yes, this is me...', 
-		left: 300
+    var embeddedId = '#tubepress_embedded_object_' + galleryId;
+	myLightWindow.activateWindow({
+		href: embeddedId,
+		title: jQuery("#tubepress_image_" + videoId + "_" + galleryId + " > img").attr("alt"),
+        type: 'inline',
+        height: jQuery(embeddedId + " > object").css("height"),
+        width: jQuery(embeddedId + " > object").css("width")
 	});
 }
