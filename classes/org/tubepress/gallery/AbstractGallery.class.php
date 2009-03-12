@@ -105,7 +105,7 @@ abstract class org_tubepress_gallery_AbstractGallery implements org_tubepress_io
                $this->_parsePaginationHTML($totalResults, $tpl);
         }
         
-        return $tpl->get();
+        return org_tubepress_util_StringUtils::removeEmptyLines($tpl->get());
     }
     
     private function _getPreGalleryVideo($videos)

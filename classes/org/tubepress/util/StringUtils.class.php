@@ -43,4 +43,10 @@ class org_tubepress_util_StringUtils
         $temp = substr($str, 0, $a) . $replace . substr($str, $b, ($l-$b));
         return $temp;
     }
+
+    //http://programming-oneliners.blogspot.com/2006/03/remove-blank-empty-lines-php-29.html
+    public function removeEmptyLines($string)
+    {
+        return preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $string);
+    }
 }
