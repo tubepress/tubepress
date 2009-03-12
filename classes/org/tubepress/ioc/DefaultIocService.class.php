@@ -41,8 +41,6 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
             $this->impl('org_tubepress_video_factory_SimpleVideoFactory'));
         $this->def(org_tubepress_ioc_IocService::QUERY_STR,
             $this->impl('org_tubepress_querystring_SimpleQueryStringService'));
-        $this->def(org_tubepress_player_Player::GREYBOX . "-player",
-            $this->impl('org_tubepress_player_impl_GreyBoxPlayer'));
         $this->def(org_tubepress_player_Player::YOUTUBE . "-player",
             $this->impl('org_tubepress_player_impl_YouTubePlayer'));
 

@@ -47,7 +47,7 @@ function _tubepress_lightwindow_load_lightwindow(baseUrl) {
             }	
     	}
         lightwindowInit(options);
-        myLightWindow.options.skin.loading = myLightWindow.options.skin.loading.replace('images', base + 'lib/css/images');
+        myLightWindow.options.skin.loading = myLightWindow.options.skin.loading.replace('images', base + 'css/images');
 	});
 }
 

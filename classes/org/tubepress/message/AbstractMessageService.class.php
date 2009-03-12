@@ -128,9 +128,8 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         "player-normal"      => "normally (at the top of your gallery)", 
         "player-popup"       => "in a popup window",
         "player-youtube"     => "from the original YouTube page", 
-        "player-lightwindow" => "with lightWindow (experimental)", 
-        "player-greybox"     => "with GreyBox (experimental)", 
-        "player-shadowbox"   => "with Shadowbox.js (experimental)", 
+        "player-lightwindow" => "with LightWindow", 
+        "player-shadowbox"   => "with Shadowbox", 
     
         "order-relevance"  => "relevance", 
         "order-viewCount"      => "view count", 

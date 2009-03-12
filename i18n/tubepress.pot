@@ -296,13 +296,10 @@ msgstr ""
 msgid "from the original YouTube page"
 msgstr ""
 
-msgid "with lightWindow (experimental)"
+msgid "with LightWindow"
 msgstr ""
 
-msgid "with GreyBox (experimental)"
-msgstr ""
-
-msgid "with Shadowbox.js (experimental)"
+msgid "with Shadowbox"
 msgstr ""
 
 msgid "relevance"

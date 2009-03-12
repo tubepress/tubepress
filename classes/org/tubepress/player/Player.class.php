@@ -24,7 +24,6 @@
  */
 interface org_tubepress_player_Player
 {
-    const GREYBOX     = "greybox";
     const LIGHTWINDOW = "lightwindow";
     const NORMAL      = "normal";
     const POPUP       = "popup";

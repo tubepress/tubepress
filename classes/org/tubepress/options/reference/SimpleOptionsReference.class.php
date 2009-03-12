@@ -145,7 +145,7 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
     {
         switch ($optionType) {
             case org_tubepress_options_Type::PLAYER:
-                return array("greybox", "lightwindow", "normal", "popup", "shadowbox", "youtube");
+                return array("lightwindow", "normal", "popup", "shadowbox", "youtube");
             case org_tubepress_options_Type::ORDER:
                 return array("relevance", "viewCount", "rating", "updated", "random");
             case org_tubepress_options_Type::QUALITY:

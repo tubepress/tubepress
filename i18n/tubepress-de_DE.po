@@ -265,14 +265,11 @@ msgstr "In einem Popup Fenster"
 msgid "from the original YouTube page"
 msgstr "Von der Original YouTube Seite"
 
-msgid "with lightWindow (experimental)"
-msgstr "Mit lightWindow (Experimentell)"
+msgid "with LightWindow"
+msgstr "Mit LightWindow"
 
-msgid "with GreyBox (experimental)"
-msgstr "Mit GreyBox (Experimentell)"
-
-msgid "with Shadowbox.js (experimental)"
-msgstr "Mit Shadowbox (Experimentell)"
+msgid "with Shadowbox"
+msgstr "Mit Shadowbox"
 
 msgid "relevance"
 msgstr "relevanz"
