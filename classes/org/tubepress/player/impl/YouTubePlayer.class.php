@@ -24,32 +24,9 @@
  */
 class org_tubepress_player_impl_YouTubePlayer extends org_tubepress_player_AbstractPlayer
 {
-    /**
-     * Tells the gallery how to play videos on YouTube
-     *
-     * @param org_tubepress_video_Video          $vid  The video to be played
-     * @param org_tubepress_options_manager_OptionsManager $tpom The TubePress options manager
-     * 
-     * @return string The play link attributes
-     */
-    function getPlayLink(org_tubepress_video_Video $vid, org_tubepress_options_manager_OptionsManager $tpom)
-    {   
-        $link = new net_php_pear_Net_URL2(sprintf('href="http://youtube.com/watch?v=%s"',
-            $vid->getId()));
-        
-        switch ($tpom->get(org_tubepress_options_category_Embedded::QUALITY)) {
-            case "high":
-                $link->setQueryVariable("fmt", "6");
-                break;
-            case "higher":
-                $link->setQueryVariable("fmt", "18");
-                break;
-            case "highest":
-                $link->setQueryVariable("fmt", "22");
-                break;      
-        }
-        
-        return $link->getURL();
+    public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId)
+    {
+        return '';
     }
 }
 ?>

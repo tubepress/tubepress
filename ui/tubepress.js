@@ -15,8 +15,10 @@ function tubepress_attach_listeners()
 function _tubepress_swap_embedded(galleryId, videoId, embeddedName) {
     var matcher = window["tubepress_" + embeddedName + "_matcher"]();
     var wrapper = jQuery("#tubepress_embedded_object_" + galleryId);
-    var oldVideoId = wrapper.html().match(matcher)[1];
-    wrapper.html(wrapper.html().replace(oldVideoId, videoId));
+    if (wrapper.html() != null) {
+        var oldVideoId = wrapper.html().match(matcher)[1];
+        wrapper.html(wrapper.html().replace(oldVideoId, videoId));
+    }
 }
 
 function _tubepress_call_player_js(galleryId, videoId, embeddedName, playerName) {
