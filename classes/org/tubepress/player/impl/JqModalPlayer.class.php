@@ -20,17 +20,10 @@
  */
 
 /**
- * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
+ * Plays videos in an HTML popup window
  */
-interface org_tubepress_player_Player
+class org_tubepress_player_impl_JqModalPlayer extends org_tubepress_player_AbstractModalPlayer
 {
-    const JQMODAL     = 'jqmodal';
-    const LIGHTWINDOW = "lightwindow";
-    const NORMAL      = "normal";
-    const POPUP       = "popup";
-    const SHADOWBOX   = "shadowbox";
-    const YOUTUBE     = "youtube";
-    
-    public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId);
+    /* nothing to see here */
 }
 ?>

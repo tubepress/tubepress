@@ -1,27 +1,20 @@
 <!-- BEGIN thumb -->
 <div class="tubepress_thumb_widget">
-	<div class="tubepress_video_thumb_inner">
-		<a {IMAGEPLAYLINK}>
-			<img alt="{IMAGETITLE}" src="{THUMBURL}" width="{THUMBWIDTH}" height="{THUMBHEIGHT}" />
-		</a>
+	<div class="tubepress_thumb_inner">
+		<a id="{VIDEO_IMG_ANCHOR_ID}" rel="{VIDEO_IMG_ANCHOR_REL}"> <img alt="{VIDEO_IMG_ALT}" src="{THUMBURL}" width="{THUMBWIDTH}" height="{THUMBHEIGHT}" /></a>
+
 		<div class="tubepress_meta_group">
 			
 			<!-- BEGIN title -->
-			<div class="tubepress_stitle">
-                      <a {PLAYLINK}>{TITLE}</a><br/>
-                  </div>
+			<div class="tubepress_meta_title"><a id="{VIDEO_TITLE_ANCHOR_ID}" rel="{VIDEO_TITLE_ANCHOR_REL}">{TITLE}</a><br /></div>
 			<!-- END title -->
 			
 			<!-- BEGIN runtime -->
-			<span class="tubepress_runtime">
-			    {RUNTIME}
-			</span>
+			<span class="tubepress_meta_runtime">{RUNTIME}</span>
 			<!-- END runtime -->
 			
 			<!--  BEGIN author -->
-			<span class="tubepress_meta">
-                      {METANAME}: 
-                  </span><a {NOFOLLOW} href="http://www.youtube.com/profile?user={AUTHOR}">{AUTHOR}</a>
+			<span class="tubepress_meta"> {METANAME}: </span><a {NOFOLLOW} href="http://www.youtube.com/profile?user={AUTHOR}">{AUTHOR}</a>
 			<!--  END author -->
 			
 			<!-- BEGIN comments -->
@@ -50,7 +43,7 @@
 			<br />{DESCRIPTION}
 			<!--  END description -->
 
-		</div><!-- tubepress_meta_group -->
-	</div><!-- tubepress_video_thumb_inner -->
-</div><!-- tubepress_thumb -->
+		</div>
+	</div>
+</div>
 <!-- END thumb -->

@@ -129,7 +129,8 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         "player-popup"       => "in a popup window",
         "player-youtube"     => "from the original YouTube page", 
         "player-lightwindow" => "with LightWindow", 
-        "player-shadowbox"   => "with Shadowbox", 
+        "player-shadowbox"   => "with Shadowbox",
+        "player-jqmodal"     => 'with jqModal',
     
         "order-relevance"  => "relevance", 
         "order-viewCount"      => "view count", 

@@ -6,6 +6,6 @@ function tubepress_popup_player(galleryId, videoId) {
     win.document.close() ;
 }
 
-function tubepress_popup_player_init(baseUrl) { 
-    //nada
+function tubepress_popup_player_init(baseUrl) {
+    alert("sup");
 }

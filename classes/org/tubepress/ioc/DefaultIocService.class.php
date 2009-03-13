@@ -30,7 +30,7 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
         $this->def(org_tubepress_ioc_IocService::MESSAGE,
             $this->impl('org_tubepress_message_WordPressMessageService'));
         $this->def(org_tubepress_ioc_IocService::SHORTCODE,
-            $this->impl('org_tubepress_shortcode_SimpleShortCodeService'));
+            $this->impl('org_tubepress_shortcode_SimpleShortcodeService'));
         $this->def(org_tubepress_ioc_IocService::REFERENCE,
             $this->impl('org_tubepress_options_reference_SimpleOptionsReference'));
         $this->def(org_tubepress_ioc_IocService::FEED_INSP,
@@ -87,6 +87,11 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
         );
         $this->def(org_tubepress_player_Player::LIGHTWINDOW . "-player",
             $this->impl('org_tubepress_player_impl_LightWindowPlayer',
+                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
+            )
+        );
+        $this->def(org_tubepress_player_Player::JQMODAL . "-player",
+            $this->impl('org_tubepress_player_impl_JqModalPlayer',
                 array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
             )
         );
