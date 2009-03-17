@@ -43,14 +43,18 @@ class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService extends org_tubepre
     public function toString($videoId)
     {
         global $tubepress_base_url;
-
+        $tpom = $this->getOptionsManager();
+        
         $link = new net_php_pear_Net_URL2(sprintf("http://www.youtube.com/watch?v=%s", $videoId));
         
         $link = $link->getURL(true);
         
         $this->_tpl->setVariable("TUBEPRESS_BASE", $tubepress_base_url);
         $this->_tpl->setVariable("YOUTUBE_LINK", $link);
-
+        $this->_tpl->setVariable('AUTOSTART', $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY) ? 'true' : 'false');
+        $this->_tpl->setVariable('WIDTH', $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
+        $this->_tpl->setVariable('HEIGHT', $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT));
+        
         return $this->_tpl->get();
     }  
 }

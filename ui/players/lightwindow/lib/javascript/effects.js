@@ -11,71 +11,1084 @@
 
 // converts rgb() and #xxx to #xxxxxx format,  
 // returns self (or first argument) if not convertable  
-String.prototype.parseColor=function(){var a="#";if(this.slice(0,4)=="rgb("){var c=this.slice(4,this.length-1).split(",");var b=0;do{a+=parseInt(c[b]).toColorPart();}while(++b<3);}else{if(this.slice(0,1)=="#"){if(this.length==4){for(var b=1;b<4;b++){a+=(this.charAt(b)+this.charAt(b)).toLowerCase();}}if(this.length==7){a=this.toLowerCase();
-}}}return(a.length==7?a:(arguments[0]||this));};Element.collectTextNodes=function(a){return $A($(a).childNodes).collect(function(b){return(b.nodeType==3?b.nodeValue:(b.hasChildNodes()?Element.collectTextNodes(b):""));}).flatten().join("");};Element.collectTextNodesIgnoreClass=function(a,b){return $A($(a).childNodes).collect(function(c){return(c.nodeType==3?c.nodeValue:((c.hasChildNodes()&&!Element.hasClassName(c,b))?Element.collectTextNodesIgnoreClass(c,b):""));
-}).flatten().join("");};Element.setContentZoom=function(a,b){a=$(a);a.setStyle({fontSize:(b/100)+"em"});if(Prototype.Browser.WebKit){window.scrollBy(0,0);}return a;};Element.getInlineOpacity=function(a){return $(a).style.opacity||"";};Element.forceRerendering=function(a){try{a=$(a);var c=document.createTextNode(" ");
-a.appendChild(c);a.removeChild(c);}catch(b){}};Array.prototype.call=function(){var a=arguments;this.each(function(b){b.apply(this,a);});};var Effect={_elementDoesNotExistError:{name:"ElementDoesNotExistError",message:"The specified DOM element does not exist, but is required for this effect to operate"},tagifyText:function(a){if(typeof Builder=="undefined"){throw ("Effect.tagifyText requires including script.aculo.us' builder.js library");
-}var b="position:relative";if(Prototype.Browser.IE){b+=";zoom:1";}a=$(a);$A(a.childNodes).each(function(c){if(c.nodeType==3){c.nodeValue.toArray().each(function(d){a.insertBefore(Builder.node("span",{style:b},d==" "?String.fromCharCode(160):d),c);});Element.remove(c);}});},multiple:function(b,c){var e;
-if(((typeof b=="object")||(typeof b=="function"))&&(b.length)){e=b;}else{e=$(b).childNodes;}var a=Object.extend({speed:0.1,delay:0},arguments[2]||{});var d=a.delay;$A(e).each(function(g,f){new c(g,Object.extend(a,{delay:f*a.speed+d}));});},PAIRS:{slide:["SlideDown","SlideUp"],blind:["BlindDown","BlindUp"],appear:["Appear","Fade"]},toggle:function(b,c){b=$(b);
-c=(c||"appear").toLowerCase();var a=Object.extend({queue:{position:"end",scope:(b.id||"global"),limit:1}},arguments[2]||{});Effect[b.visible()?Effect.PAIRS[c][1]:Effect.PAIRS[c][0]](b,a);}};var Effect2=Effect;Effect.Transitions={linear:Prototype.K,sinoidal:function(a){return(-Math.cos(a*Math.PI)/2)+0.5;
-},reverse:function(a){return 1-a;},flicker:function(a){var a=((-Math.cos(a*Math.PI)/4)+0.75)+Math.random()/4;return(a>1?1:a);},wobble:function(a){return(-Math.cos(a*Math.PI*(9*a))/2)+0.5;},pulse:function(b,a){a=a||5;return(Math.round((b%(1/a))*a)==0?((b*a*2)-Math.floor(b*a*2)):1-((b*a*2)-Math.floor(b*a*2)));
-},none:function(a){return 0;},full:function(a){return 1;}};Effect.ScopedQueue=Class.create();Object.extend(Object.extend(Effect.ScopedQueue.prototype,Enumerable),{initialize:function(){this.effects=[];this.interval=null;},_each:function(a){this.effects._each(a);},add:function(b){var c=new Date().getTime();
-var a=(typeof b.options.queue=="string")?b.options.queue:b.options.queue.position;switch(a){case"front":this.effects.findAll(function(d){return d.state=="idle";}).each(function(d){d.startOn+=b.finishOn;d.finishOn+=b.finishOn;});break;case"with-last":c=this.effects.pluck("startOn").max()||c;break;case"end":c=this.effects.pluck("finishOn").max()||c;
-break;}b.startOn+=c;b.finishOn+=c;if(!b.options.queue.limit||(this.effects.length<b.options.queue.limit)){this.effects.push(b);}if(!this.interval){this.interval=setInterval(this.loop.bind(this),15);}},remove:function(a){this.effects=this.effects.reject(function(b){return b==a;});if(this.effects.length==0){clearInterval(this.interval);
-this.interval=null;}},loop:function(){var c=new Date().getTime();for(var b=0,a=this.effects.length;b<a;b++){this.effects[b]&&this.effects[b].loop(c);}}});Effect.Queues={instances:$H(),get:function(a){if(typeof a!="string"){return a;}if(!this.instances[a]){this.instances[a]=new Effect.ScopedQueue();}return this.instances[a];
-}};Effect.Queue=Effect.Queues.get("global");Effect.DefaultOptions={transition:Effect.Transitions.sinoidal,duration:1,fps:100,sync:false,from:0,to:1,delay:0,queue:"parallel"};Effect.Base=function(){};Effect.Base.prototype={position:null,start:function(options){function codeForEvent(options,eventName){return((options[eventName+"Internal"]?"this.options."+eventName+"Internal(this);":"")+(options[eventName]?"this.options."+eventName+"(this);":""));
-}if(options.transition===false){options.transition=Effect.Transitions.linear;}this.options=Object.extend(Object.extend({},Effect.DefaultOptions),options||{});this.currentFrame=0;this.state="idle";this.startOn=this.options.delay*1000;this.finishOn=this.startOn+(this.options.duration*1000);this.fromToDelta=this.options.to-this.options.from;
-this.totalTime=this.finishOn-this.startOn;this.totalFrames=this.options.fps*this.options.duration;eval('this.render = function(pos){ if(this.state=="idle"){this.state="running";'+codeForEvent(options,"beforeSetup")+(this.setup?"this.setup();":"")+codeForEvent(options,"afterSetup")+'};if(this.state=="running"){pos=this.options.transition(pos)*'+this.fromToDelta+"+"+this.options.from+";this.position=pos;"+codeForEvent(options,"beforeUpdate")+(this.update?"this.update(pos);":"")+codeForEvent(options,"afterUpdate")+"}}");
-this.event("beforeStart");if(!this.options.sync){Effect.Queues.get(typeof this.options.queue=="string"?"global":this.options.queue.scope).add(this);}},loop:function(c){if(c>=this.startOn){if(c>=this.finishOn){this.render(1);this.cancel();this.event("beforeFinish");if(this.finish){this.finish();}this.event("afterFinish");
-return;}var b=(c-this.startOn)/this.totalTime,a=Math.round(b*this.totalFrames);if(a>this.currentFrame){this.render(b);this.currentFrame=a;}}},cancel:function(){if(!this.options.sync){Effect.Queues.get(typeof this.options.queue=="string"?"global":this.options.queue.scope).remove(this);}this.state="finished";
-},event:function(a){if(this.options[a+"Internal"]){this.options[a+"Internal"](this);}if(this.options[a]){this.options[a](this);}},inspect:function(){var a=$H();for(property in this){if(typeof this[property]!="function"){a[property]=this[property];}}return"#<Effect:"+a.inspect()+",options:"+$H(this.options).inspect()+">";
-}};Effect.Parallel=Class.create();Object.extend(Object.extend(Effect.Parallel.prototype,Effect.Base.prototype),{initialize:function(a){this.effects=a||[];this.start(arguments[1]);},update:function(a){this.effects.invoke("render",a);},finish:function(a){this.effects.each(function(b){b.render(1);b.cancel();
-b.event("beforeFinish");if(b.finish){b.finish(a);}b.event("afterFinish");});}});Effect.Event=Class.create();Object.extend(Object.extend(Effect.Event.prototype,Effect.Base.prototype),{initialize:function(){var a=Object.extend({duration:0},arguments[0]||{});this.start(a);},update:Prototype.emptyFunction});
-Effect.Opacity=Class.create();Object.extend(Object.extend(Effect.Opacity.prototype,Effect.Base.prototype),{initialize:function(b){this.element=$(b);if(!this.element){throw (Effect._elementDoesNotExistError);}if(Prototype.Browser.IE&&(!this.element.currentStyle.hasLayout)){this.element.setStyle({zoom:1});
-}var a=Object.extend({from:this.element.getOpacity()||0,to:1},arguments[1]||{});this.start(a);},update:function(a){this.element.setOpacity(a);}});Effect.Move=Class.create();Object.extend(Object.extend(Effect.Move.prototype,Effect.Base.prototype),{initialize:function(b){this.element=$(b);if(!this.element){throw (Effect._elementDoesNotExistError);
-}var a=Object.extend({x:0,y:0,mode:"relative"},arguments[1]||{});this.start(a);},setup:function(){this.element.makePositioned();this.originalLeft=parseFloat(this.element.getStyle("left")||"0");this.originalTop=parseFloat(this.element.getStyle("top")||"0");if(this.options.mode=="absolute"){this.options.x=this.options.x-this.originalLeft;
-this.options.y=this.options.y-this.originalTop;}},update:function(a){this.element.setStyle({left:Math.round(this.options.x*a+this.originalLeft)+"px",top:Math.round(this.options.y*a+this.originalTop)+"px"});}});Effect.MoveBy=function(b,a,c){return new Effect.Move(b,Object.extend({x:c,y:a},arguments[3]||{}));
-};Effect.Scale=Class.create();Object.extend(Object.extend(Effect.Scale.prototype,Effect.Base.prototype),{initialize:function(b,c){this.element=$(b);if(!this.element){throw (Effect._elementDoesNotExistError);}var a=Object.extend({scaleX:true,scaleY:true,scaleContent:true,scaleFromCenter:false,scaleMode:"box",scaleFrom:100,scaleTo:c},arguments[2]||{});
-this.start(a);},setup:function(){this.restoreAfterFinish=this.options.restoreAfterFinish||false;this.elementPositioning=this.element.getStyle("position");this.originalStyle={};["top","left","width","height","fontSize"].each(function(b){this.originalStyle[b]=this.element.style[b];}.bind(this));this.originalTop=this.element.offsetTop;
-this.originalLeft=this.element.offsetLeft;var a=this.element.getStyle("font-size")||"100%";["em","px","%","pt"].each(function(b){if(a.indexOf(b)>0){this.fontSize=parseFloat(a);this.fontSizeType=b;}}.bind(this));this.factor=(this.options.scaleTo-this.options.scaleFrom)/100;this.dims=null;if(this.options.scaleMode=="box"){this.dims=[this.element.offsetHeight,this.element.offsetWidth];
-}if(/^content/.test(this.options.scaleMode)){this.dims=[this.element.scrollHeight,this.element.scrollWidth];}if(!this.dims){this.dims=[this.options.scaleMode.originalHeight,this.options.scaleMode.originalWidth];}},update:function(a){var b=(this.options.scaleFrom/100)+(this.factor*a);if(this.options.scaleContent&&this.fontSize){this.element.setStyle({fontSize:this.fontSize*b+this.fontSizeType});
-}this.setDimensions(this.dims[0]*b,this.dims[1]*b);},finish:function(a){if(this.restoreAfterFinish){this.element.setStyle(this.originalStyle);}},setDimensions:function(a,e){var f={};if(this.options.scaleX){f.width=Math.round(e)+"px";}if(this.options.scaleY){f.height=Math.round(a)+"px";}if(this.options.scaleFromCenter){var c=(a-this.dims[0])/2;
-var b=(e-this.dims[1])/2;if(this.elementPositioning=="absolute"){if(this.options.scaleY){f.top=this.originalTop-c+"px";}if(this.options.scaleX){f.left=this.originalLeft-b+"px";}}else{if(this.options.scaleY){f.top=-c+"px";}if(this.options.scaleX){f.left=-b+"px";}}}this.element.setStyle(f);}});Effect.Highlight=Class.create();
-Object.extend(Object.extend(Effect.Highlight.prototype,Effect.Base.prototype),{initialize:function(b){this.element=$(b);if(!this.element){throw (Effect._elementDoesNotExistError);}var a=Object.extend({startcolor:"#ffff99"},arguments[1]||{});this.start(a);},setup:function(){if(this.element.getStyle("display")=="none"){this.cancel();
-return;}this.oldStyle={};if(!this.options.keepBackgroundImage){this.oldStyle.backgroundImage=this.element.getStyle("background-image");this.element.setStyle({backgroundImage:"none"});}if(!this.options.endcolor){this.options.endcolor=this.element.getStyle("background-color").parseColor("#ffffff");}if(!this.options.restorecolor){this.options.restorecolor=this.element.getStyle("background-color");
-}this._base=$R(0,2).map(function(a){return parseInt(this.options.startcolor.slice(a*2+1,a*2+3),16);}.bind(this));this._delta=$R(0,2).map(function(a){return parseInt(this.options.endcolor.slice(a*2+1,a*2+3),16)-this._base[a];}.bind(this));},update:function(a){this.element.setStyle({backgroundColor:$R(0,2).inject("#",function(b,c,d){return b+(Math.round(this._base[d]+(this._delta[d]*a)).toColorPart());
-}.bind(this))});},finish:function(){this.element.setStyle(Object.extend(this.oldStyle,{backgroundColor:this.options.restorecolor}));}});Effect.ScrollTo=Class.create();Object.extend(Object.extend(Effect.ScrollTo.prototype,Effect.Base.prototype),{initialize:function(a){this.element=$(a);this.start(arguments[1]||{});
-},setup:function(){Position.prepare();var b=Position.cumulativeOffset(this.element);if(this.options.offset){b[1]+=this.options.offset;}var a=window.innerHeight?window.height-window.innerHeight:document.body.scrollHeight-(document.documentElement.clientHeight?document.documentElement.clientHeight:document.body.clientHeight);
-this.scrollStart=Position.deltaY;this.delta=(b[1]>a?a:b[1])-this.scrollStart;},update:function(a){Position.prepare();window.scrollTo(Position.deltaX,this.scrollStart+(a*this.delta));}});Effect.Fade=function(c){c=$(c);var a=c.getInlineOpacity();var b=Object.extend({from:c.getOpacity()||1,to:0,afterFinishInternal:function(d){if(d.options.to!=0){return;
-}d.element.hide().setStyle({opacity:a});}},arguments[1]||{});return new Effect.Opacity(c,b);};Effect.Appear=function(b){b=$(b);var a=Object.extend({from:(b.getStyle("display")=="none"?0:b.getOpacity()||0),to:1,afterFinishInternal:function(c){c.element.forceRerendering();},beforeSetup:function(c){c.element.setOpacity(c.options.from).show();
-}},arguments[1]||{});return new Effect.Opacity(b,a);};Effect.Puff=function(b){b=$(b);var a={opacity:b.getInlineOpacity(),position:b.getStyle("position"),top:b.style.top,left:b.style.left,width:b.style.width,height:b.style.height};return new Effect.Parallel([new Effect.Scale(b,200,{sync:true,scaleFromCenter:true,scaleContent:true,restoreAfterFinish:true}),new Effect.Opacity(b,{sync:true,to:0})],Object.extend({duration:1,beforeSetupInternal:function(c){Position.absolutize(c.effects[0].element);
-},afterFinishInternal:function(c){c.effects[0].element.hide().setStyle(a);}},arguments[1]||{}));};Effect.BlindUp=function(a){a=$(a);a.makeClipping();return new Effect.Scale(a,0,Object.extend({scaleContent:false,scaleX:false,restoreAfterFinish:true,afterFinishInternal:function(b){b.element.hide().undoClipping();
-}},arguments[1]||{}));};Effect.BlindDown=function(b){b=$(b);var a=b.getDimensions();return new Effect.Scale(b,100,Object.extend({scaleContent:false,scaleX:false,scaleFrom:0,scaleMode:{originalHeight:a.height,originalWidth:a.width},restoreAfterFinish:true,afterSetup:function(c){c.element.makeClipping().setStyle({height:"0px"}).show();
-},afterFinishInternal:function(c){c.element.undoClipping();}},arguments[1]||{}));};Effect.SwitchOff=function(b){b=$(b);var a=b.getInlineOpacity();return new Effect.Appear(b,Object.extend({duration:0.4,from:0,transition:Effect.Transitions.flicker,afterFinishInternal:function(c){new Effect.Scale(c.element,1,{duration:0.3,scaleFromCenter:true,scaleX:false,scaleContent:false,restoreAfterFinish:true,beforeSetup:function(d){d.element.makePositioned().makeClipping();
-},afterFinishInternal:function(d){d.element.hide().undoClipping().undoPositioned().setStyle({opacity:a});}});}},arguments[1]||{}));};Effect.DropOut=function(b){b=$(b);var a={top:b.getStyle("top"),left:b.getStyle("left"),opacity:b.getInlineOpacity()};return new Effect.Parallel([new Effect.Move(b,{x:0,y:100,sync:true}),new Effect.Opacity(b,{sync:true,to:0})],Object.extend({duration:0.5,beforeSetup:function(c){c.effects[0].element.makePositioned();
-},afterFinishInternal:function(c){c.effects[0].element.hide().undoPositioned().setStyle(a);}},arguments[1]||{}));};Effect.Shake=function(b){b=$(b);var a={top:b.getStyle("top"),left:b.getStyle("left")};return new Effect.Move(b,{x:20,y:0,duration:0.05,afterFinishInternal:function(c){new Effect.Move(c.element,{x:-40,y:0,duration:0.1,afterFinishInternal:function(d){new Effect.Move(d.element,{x:40,y:0,duration:0.1,afterFinishInternal:function(e){new Effect.Move(e.element,{x:-40,y:0,duration:0.1,afterFinishInternal:function(f){new Effect.Move(f.element,{x:40,y:0,duration:0.1,afterFinishInternal:function(g){new Effect.Move(g.element,{x:-20,y:0,duration:0.05,afterFinishInternal:function(h){h.element.undoPositioned().setStyle(a);
-}});}});}});}});}});}});};Effect.SlideDown=function(c){c=$(c).cleanWhitespace();var a=c.down().getStyle("bottom");var b=c.getDimensions();return new Effect.Scale(c,100,Object.extend({scaleContent:false,scaleX:false,scaleFrom:window.opera?0:1,scaleMode:{originalHeight:b.height,originalWidth:b.width},restoreAfterFinish:true,afterSetup:function(d){d.element.makePositioned();
-d.element.down().makePositioned();if(window.opera){d.element.setStyle({top:""});}d.element.makeClipping().setStyle({height:"0px"}).show();},afterUpdateInternal:function(d){d.element.down().setStyle({bottom:(d.dims[0]-d.element.clientHeight)+"px"});},afterFinishInternal:function(d){d.element.undoClipping().undoPositioned();
-d.element.down().undoPositioned().setStyle({bottom:a});}},arguments[1]||{}));};Effect.SlideUp=function(b){b=$(b).cleanWhitespace();var a=b.down().getStyle("bottom");return new Effect.Scale(b,window.opera?0:1,Object.extend({scaleContent:false,scaleX:false,scaleMode:"box",scaleFrom:100,restoreAfterFinish:true,beforeStartInternal:function(c){c.element.makePositioned();
-c.element.down().makePositioned();if(window.opera){c.element.setStyle({top:""});}c.element.makeClipping().show();},afterUpdateInternal:function(c){c.element.down().setStyle({bottom:(c.dims[0]-c.element.clientHeight)+"px"});},afterFinishInternal:function(c){c.element.hide().undoClipping().undoPositioned().setStyle({bottom:a});
-c.element.down().undoPositioned();}},arguments[1]||{}));};Effect.Squish=function(a){return new Effect.Scale(a,window.opera?1:0,{restoreAfterFinish:true,beforeSetup:function(b){b.element.makeClipping();},afterFinishInternal:function(b){b.element.hide().undoClipping();}});};Effect.Grow=function(c){c=$(c);
-var b=Object.extend({direction:"center",moveTransition:Effect.Transitions.sinoidal,scaleTransition:Effect.Transitions.sinoidal,opacityTransition:Effect.Transitions.full},arguments[1]||{});var a={top:c.style.top,left:c.style.left,height:c.style.height,width:c.style.width,opacity:c.getInlineOpacity()};
-var g=c.getDimensions();var h,f;var e,d;switch(b.direction){case"top-left":h=f=e=d=0;break;case"top-right":h=g.width;f=d=0;e=-g.width;break;case"bottom-left":h=e=0;f=g.height;d=-g.height;break;case"bottom-right":h=g.width;f=g.height;e=-g.width;d=-g.height;break;case"center":h=g.width/2;f=g.height/2;e=-g.width/2;
-d=-g.height/2;break;}return new Effect.Move(c,{x:h,y:f,duration:0.01,beforeSetup:function(i){i.element.hide().makeClipping().makePositioned();},afterFinishInternal:function(i){new Effect.Parallel([new Effect.Opacity(i.element,{sync:true,to:1,from:0,transition:b.opacityTransition}),new Effect.Move(i.element,{x:e,y:d,sync:true,transition:b.moveTransition}),new Effect.Scale(i.element,100,{scaleMode:{originalHeight:g.height,originalWidth:g.width},sync:true,scaleFrom:window.opera?1:0,transition:b.scaleTransition,restoreAfterFinish:true})],Object.extend({beforeSetup:function(j){j.effects[0].element.setStyle({height:"0px"}).show();
-},afterFinishInternal:function(j){j.effects[0].element.undoClipping().undoPositioned().setStyle(a);}},b));}});};Effect.Shrink=function(c){c=$(c);var b=Object.extend({direction:"center",moveTransition:Effect.Transitions.sinoidal,scaleTransition:Effect.Transitions.sinoidal,opacityTransition:Effect.Transitions.none},arguments[1]||{});
-var a={top:c.style.top,left:c.style.left,height:c.style.height,width:c.style.width,opacity:c.getInlineOpacity()};var f=c.getDimensions();var e,d;switch(b.direction){case"top-left":e=d=0;break;case"top-right":e=f.width;d=0;break;case"bottom-left":e=0;d=f.height;break;case"bottom-right":e=f.width;d=f.height;
-break;case"center":e=f.width/2;d=f.height/2;break;}return new Effect.Parallel([new Effect.Opacity(c,{sync:true,to:0,from:1,transition:b.opacityTransition}),new Effect.Scale(c,window.opera?1:0,{sync:true,transition:b.scaleTransition,restoreAfterFinish:true}),new Effect.Move(c,{x:e,y:d,sync:true,transition:b.moveTransition})],Object.extend({beforeStartInternal:function(g){g.effects[0].element.makePositioned().makeClipping();
-},afterFinishInternal:function(g){g.effects[0].element.hide().undoClipping().undoPositioned().setStyle(a);}},b));};Effect.Pulsate=function(c){c=$(c);var b=arguments[1]||{};var a=c.getInlineOpacity();var e=b.transition||Effect.Transitions.sinoidal;var d=function(f){return e(1-Effect.Transitions.pulse(f,b.pulses));
-};d.bind(e);return new Effect.Opacity(c,Object.extend(Object.extend({duration:2,from:0,afterFinishInternal:function(f){f.element.setStyle({opacity:a});}},b),{transition:d}));};Effect.Fold=function(b){b=$(b);var a={top:b.style.top,left:b.style.left,width:b.style.width,height:b.style.height};b.makeClipping();
-return new Effect.Scale(b,5,Object.extend({scaleContent:false,scaleX:false,afterFinishInternal:function(c){new Effect.Scale(b,1,{scaleContent:false,scaleY:false,afterFinishInternal:function(d){d.element.hide().undoClipping().setStyle(a);}});}},arguments[1]||{}));};Effect.Morph=Class.create();Object.extend(Object.extend(Effect.Morph.prototype,Effect.Base.prototype),{initialize:function(c){this.element=$(c);
-if(!this.element){throw (Effect._elementDoesNotExistError);}var b=Object.extend({style:{}},arguments[1]||{});if(typeof b.style=="string"){if(b.style.indexOf(":")==-1){var d="",a="."+b.style;$A(document.styleSheets).reverse().each(function(e){if(e.cssRules){cssRules=e.cssRules;}else{if(e.rules){cssRules=e.rules;
-}}$A(cssRules).reverse().each(function(f){if(a==f.selectorText){d=f.style.cssText;throw $break;}});if(d){throw $break;}});this.style=d.parseStyle();b.afterFinishInternal=function(e){e.element.addClassName(e.options.style);e.transforms.each(function(f){if(f.style!="opacity"){e.element.style[f.style]="";
-}});};}else{this.style=b.style.parseStyle();}}else{this.style=$H(b.style);}this.start(b);},setup:function(){function a(b){if(!b||["rgba(0, 0, 0, 0)","transparent"].include(b)){b="#ffffff";}b=b.parseColor();return $R(0,2).map(function(c){return parseInt(b.slice(c*2+1,c*2+3),16);});}this.transforms=this.style.map(function(g){var f=g[0],e=g[1],d=null;
-if(e.parseColor("#zzzzzz")!="#zzzzzz"){e=e.parseColor();d="color";}else{if(f=="opacity"){e=parseFloat(e);if(Prototype.Browser.IE&&(!this.element.currentStyle.hasLayout)){this.element.setStyle({zoom:1});}}else{if(Element.CSS_LENGTH.test(e)){var c=e.match(/^([\+\-]?[0-9\.]+)(.*)$/);e=parseFloat(c[1]);d=(c.length==3)?c[2]:null;
-}}}var b=this.element.getStyle(f);return{style:f.camelize(),originalValue:d=="color"?a(b):parseFloat(b||0),targetValue:d=="color"?a(e):e,unit:d};}.bind(this)).reject(function(b){return((b.originalValue==b.targetValue)||(b.unit!="color"&&(isNaN(b.originalValue)||isNaN(b.targetValue))));});},update:function(a){var d={},b,c=this.transforms.length;
-while(c--){d[(b=this.transforms[c]).style]=b.unit=="color"?"#"+(Math.round(b.originalValue[0]+(b.targetValue[0]-b.originalValue[0])*a)).toColorPart()+(Math.round(b.originalValue[1]+(b.targetValue[1]-b.originalValue[1])*a)).toColorPart()+(Math.round(b.originalValue[2]+(b.targetValue[2]-b.originalValue[2])*a)).toColorPart():b.originalValue+Math.round(((b.targetValue-b.originalValue)*a)*1000)/1000+b.unit;
-}this.element.setStyle(d,true);}});Effect.Transform=Class.create();Object.extend(Effect.Transform.prototype,{initialize:function(a){this.tracks=[];this.options=arguments[1]||{};this.addTracks(a);},addTracks:function(a){a.each(function(b){var c=$H(b).values().first();this.tracks.push($H({ids:$H(b).keys().first(),effect:Effect.Morph,options:{style:c}}));
-}.bind(this));return this;},play:function(){return new Effect.Parallel(this.tracks.map(function(a){var b=[$(a.ids)||$$(a.ids)].flatten();return b.map(function(c){return new a.effect(c,Object.extend({sync:true},a.options));});}).flatten(),this.options);}});Element.CSS_PROPERTIES=$w("backgroundColor backgroundPosition borderBottomColor borderBottomStyle borderBottomWidth borderLeftColor borderLeftStyle borderLeftWidth borderRightColor borderRightStyle borderRightWidth borderSpacing borderTopColor borderTopStyle borderTopWidth bottom clip color fontSize fontWeight height left letterSpacing lineHeight marginBottom marginLeft marginRight marginTop markerOffset maxHeight maxWidth minHeight minWidth opacity outlineColor outlineOffset outlineWidth paddingBottom paddingLeft paddingRight paddingTop right textIndent top width wordSpacing zIndex");
-Element.CSS_LENGTH=/^(([\+\-]?[0-9\.]+)(em|ex|px|in|cm|mm|pt|pc|\%))|0$/;String.prototype.parseStyle=function(){var b=document.createElement("div");b.innerHTML='<div style="'+this+'"></div>';var c=b.childNodes[0].style,a=$H();Element.CSS_PROPERTIES.each(function(d){if(c[d]){a[d]=c[d];}});if(Prototype.Browser.IE&&this.indexOf("opacity")>-1){a.opacity=this.match(/opacity:\s*((?:0|1)?(?:\.\d*)?)/)[1];
-}return a;};Element.morph=function(a,b){new Effect.Morph(a,Object.extend({style:b},arguments[2]||{}));return a;};["getInlineOpacity","forceRerendering","setContentZoom","collectTextNodes","collectTextNodesIgnoreClass","morph"].each(function(a){Element.Methods[a]=Element[a];});Element.Methods.visualEffect=function(b,c,a){s=c.dasherize().camelize();
-effect_class=s.charAt(0).toUpperCase()+s.substring(1);new Effect[effect_class](b,a);return $(b);};Element.addMethods();
+String.prototype.parseColor = function() {  
+  var color = '#';
+  if(this.slice(0,4) == 'rgb(') {  
+    var cols = this.slice(4,this.length-1).split(',');  
+    var i=0; do { color += parseInt(cols[i]).toColorPart() } while (++i<3);  
+  } else {  
+    if(this.slice(0,1) == '#') {  
+      if(this.length==4) for(var i=1;i<4;i++) color += (this.charAt(i) + this.charAt(i)).toLowerCase();  
+      if(this.length==7) color = this.toLowerCase();  
+    }  
+  }  
+  return(color.length==7 ? color : (arguments[0] || this));  
+}
+
+/*--------------------------------------------------------------------------*/
+
+Element.collectTextNodes = function(element) {  
+  return $A($(element).childNodes).collect( function(node) {
+    return (node.nodeType==3 ? node.nodeValue : 
+      (node.hasChildNodes() ? Element.collectTextNodes(node) : ''));
+  }).flatten().join('');
+}
+
+Element.collectTextNodesIgnoreClass = function(element, className) {  
+  return $A($(element).childNodes).collect( function(node) {
+    return (node.nodeType==3 ? node.nodeValue : 
+      ((node.hasChildNodes() && !Element.hasClassName(node,className)) ? 
+        Element.collectTextNodesIgnoreClass(node, className) : ''));
+  }).flatten().join('');
+}
+
+Element.setContentZoom = function(element, percent) {
+  element = $(element);  
+  element.setStyle({fontSize: (percent/100) + 'em'});   
+  if(Prototype.Browser.WebKit) window.scrollBy(0,0);
+  return element;
+}
+
+Element.getInlineOpacity = function(element){
+  return $(element).style.opacity || '';
+}
+
+Element.forceRerendering = function(element) {
+  try {
+    element = $(element);
+    var n = document.createTextNode(' ');
+    element.appendChild(n);
+    element.removeChild(n);
+  } catch(e) { }
+};
+
+/*--------------------------------------------------------------------------*/
+
+Array.prototype.call = function() {
+  var args = arguments;
+  this.each(function(f){ f.apply(this, args) });
+}
+
+/*--------------------------------------------------------------------------*/
+
+var Effect = {
+  _elementDoesNotExistError: {
+    name: 'ElementDoesNotExistError',
+    message: 'The specified DOM element does not exist, but is required for this effect to operate'
+  },
+  tagifyText: function(element) {
+    if(typeof Builder == 'undefined')
+      throw("Effect.tagifyText requires including script.aculo.us' builder.js library");
+      
+    var tagifyStyle = 'position:relative';
+    if(Prototype.Browser.IE) tagifyStyle += ';zoom:1';
+    
+    element = $(element);
+    $A(element.childNodes).each( function(child) {
+      if(child.nodeType==3) {
+        child.nodeValue.toArray().each( function(character) {
+          element.insertBefore(
+            Builder.node('span',{style: tagifyStyle},
+              character == ' ' ? String.fromCharCode(160) : character), 
+              child);
+        });
+        Element.remove(child);
+      }
+    });
+  },
+  multiple: function(element, effect) {
+    var elements;
+    if(((typeof element == 'object') || 
+        (typeof element == 'function')) && 
+       (element.length))
+      elements = element;
+    else
+      elements = $(element).childNodes;
+      
+    var options = Object.extend({
+      speed: 0.1,
+      delay: 0.0
+    }, arguments[2] || {});
+    var masterDelay = options.delay;
+
+    $A(elements).each( function(element, index) {
+      new effect(element, Object.extend(options, { delay: index * options.speed + masterDelay }));
+    });
+  },
+  PAIRS: {
+    'slide':  ['SlideDown','SlideUp'],
+    'blind':  ['BlindDown','BlindUp'],
+    'appear': ['Appear','Fade']
+  },
+  toggle: function(element, effect) {
+    element = $(element);
+    effect = (effect || 'appear').toLowerCase();
+    var options = Object.extend({
+      queue: { position:'end', scope:(element.id || 'global'), limit: 1 }
+    }, arguments[2] || {});
+    Effect[element.visible() ? 
+      Effect.PAIRS[effect][1] : Effect.PAIRS[effect][0]](element, options);
+  }
+};
+
+var Effect2 = Effect; // deprecated
+
+/* ------------- transitions ------------- */
+
+Effect.Transitions = {
+  linear: Prototype.K,
+  sinoidal: function(pos) {
+    return (-Math.cos(pos*Math.PI)/2) + 0.5;
+  },
+  reverse: function(pos) {
+    return 1-pos;
+  },
+  flicker: function(pos) {
+    var pos = ((-Math.cos(pos*Math.PI)/4) + 0.75) + Math.random()/4;
+    return (pos > 1 ? 1 : pos);
+  },
+  wobble: function(pos) {
+    return (-Math.cos(pos*Math.PI*(9*pos))/2) + 0.5;
+  },
+  pulse: function(pos, pulses) { 
+    pulses = pulses || 5; 
+    return (
+      Math.round((pos % (1/pulses)) * pulses) == 0 ? 
+            ((pos * pulses * 2) - Math.floor(pos * pulses * 2)) : 
+        1 - ((pos * pulses * 2) - Math.floor(pos * pulses * 2))
+      );
+  },
+  none: function(pos) {
+    return 0;
+  },
+  full: function(pos) {
+    return 1;
+  }
+};
+
+/* ------------- core effects ------------- */
+
+Effect.ScopedQueue = Class.create();
+Object.extend(Object.extend(Effect.ScopedQueue.prototype, Enumerable), {
+  initialize: function() {
+    this.effects  = [];
+    this.interval = null;    
+  },
+  _each: function(iterator) {
+    this.effects._each(iterator);
+  },
+  add: function(effect) {
+    var timestamp = new Date().getTime();
+    
+    var position = (typeof effect.options.queue == 'string') ? 
+      effect.options.queue : effect.options.queue.position;
+    
+    switch(position) {
+      case 'front':
+        // move unstarted effects after this effect  
+        this.effects.findAll(function(e){ return e.state=='idle' }).each( function(e) {
+            e.startOn  += effect.finishOn;
+            e.finishOn += effect.finishOn;
+          });
+        break;
+      case 'with-last':
+        timestamp = this.effects.pluck('startOn').max() || timestamp;
+        break;
+      case 'end':
+        // start effect after last queued effect has finished
+        timestamp = this.effects.pluck('finishOn').max() || timestamp;
+        break;
+    }
+    
+    effect.startOn  += timestamp;
+    effect.finishOn += timestamp;
+
+    if(!effect.options.queue.limit || (this.effects.length < effect.options.queue.limit))
+      this.effects.push(effect);
+    
+    if(!this.interval)
+      this.interval = setInterval(this.loop.bind(this), 15);
+  },
+  remove: function(effect) {
+    this.effects = this.effects.reject(function(e) { return e==effect });
+    if(this.effects.length == 0) {
+      clearInterval(this.interval);
+      this.interval = null;
+    }
+  },
+  loop: function() {
+    var timePos = new Date().getTime();
+    for(var i=0, len=this.effects.length;i<len;i++) 
+      this.effects[i] && this.effects[i].loop(timePos);
+  }
+});
+
+Effect.Queues = {
+  instances: $H(),
+  get: function(queueName) {
+    if(typeof queueName != 'string') return queueName;
+    
+    if(!this.instances[queueName])
+      this.instances[queueName] = new Effect.ScopedQueue();
+      
+    return this.instances[queueName];
+  }
+}
+Effect.Queue = Effect.Queues.get('global');
+
+Effect.DefaultOptions = {
+  transition: Effect.Transitions.sinoidal,
+  duration:   1.0,   // seconds
+  fps:        100,   // 100= assume 66fps max.
+  sync:       false, // true for combining
+  from:       0.0,
+  to:         1.0,
+  delay:      0.0,
+  queue:      'parallel'
+}
+
+Effect.Base = function() {};
+Effect.Base.prototype = {
+  position: null,
+  start: function(options) {
+    function codeForEvent(options,eventName){
+      return (
+        (options[eventName+'Internal'] ? 'this.options.'+eventName+'Internal(this);' : '') +
+        (options[eventName] ? 'this.options.'+eventName+'(this);' : '')
+      );
+    }
+    if(options.transition === false) options.transition = Effect.Transitions.linear;
+    this.options      = Object.extend(Object.extend({},Effect.DefaultOptions), options || {});
+    this.currentFrame = 0;
+    this.state        = 'idle';
+    this.startOn      = this.options.delay*1000;
+    this.finishOn     = this.startOn+(this.options.duration*1000);
+    this.fromToDelta  = this.options.to-this.options.from;
+    this.totalTime    = this.finishOn-this.startOn;
+    this.totalFrames  = this.options.fps*this.options.duration;
+    
+    eval('this.render = function(pos){ '+
+      'if(this.state=="idle"){this.state="running";'+
+      codeForEvent(options,'beforeSetup')+
+      (this.setup ? 'this.setup();':'')+ 
+      codeForEvent(options,'afterSetup')+
+      '};if(this.state=="running"){'+
+      'pos=this.options.transition(pos)*'+this.fromToDelta+'+'+this.options.from+';'+
+      'this.position=pos;'+
+      codeForEvent(options,'beforeUpdate')+
+      (this.update ? 'this.update(pos);':'')+
+      codeForEvent(options,'afterUpdate')+
+      '}}');
+    
+    this.event('beforeStart');
+    if(!this.options.sync)
+      Effect.Queues.get(typeof this.options.queue == 'string' ? 
+        'global' : this.options.queue.scope).add(this);
+  },
+  loop: function(timePos) {
+    if(timePos >= this.startOn) {
+      if(timePos >= this.finishOn) {
+        this.render(1.0);
+        this.cancel();
+        this.event('beforeFinish');
+        if(this.finish) this.finish(); 
+        this.event('afterFinish');
+        return;  
+      }
+      var pos   = (timePos - this.startOn) / this.totalTime,
+          frame = Math.round(pos * this.totalFrames);
+      if(frame > this.currentFrame) {
+        this.render(pos);
+        this.currentFrame = frame;
+      }
+    }
+  },
+  cancel: function() {
+    if(!this.options.sync)
+      Effect.Queues.get(typeof this.options.queue == 'string' ? 
+        'global' : this.options.queue.scope).remove(this);
+    this.state = 'finished';
+  },
+  event: function(eventName) {
+    if(this.options[eventName + 'Internal']) this.options[eventName + 'Internal'](this);
+    if(this.options[eventName]) this.options[eventName](this);
+  },
+  inspect: function() {
+    var data = $H();
+    for(property in this)
+      if(typeof this[property] != 'function') data[property] = this[property];
+    return '#<Effect:' + data.inspect() + ',options:' + $H(this.options).inspect() + '>';
+  }
+}
+
+Effect.Parallel = Class.create();
+Object.extend(Object.extend(Effect.Parallel.prototype, Effect.Base.prototype), {
+  initialize: function(effects) {
+    this.effects = effects || [];
+    this.start(arguments[1]);
+  },
+  update: function(position) {
+    this.effects.invoke('render', position);
+  },
+  finish: function(position) {
+    this.effects.each( function(effect) {
+      effect.render(1.0);
+      effect.cancel();
+      effect.event('beforeFinish');
+      if(effect.finish) effect.finish(position);
+      effect.event('afterFinish');
+    });
+  }
+});
+
+Effect.Event = Class.create();
+Object.extend(Object.extend(Effect.Event.prototype, Effect.Base.prototype), {
+  initialize: function() {
+    var options = Object.extend({
+      duration: 0
+    }, arguments[0] || {});
+    this.start(options);
+  },
+  update: Prototype.emptyFunction
+});
+
+Effect.Opacity = Class.create();
+Object.extend(Object.extend(Effect.Opacity.prototype, Effect.Base.prototype), {
+  initialize: function(element) {
+    this.element = $(element);
+    if(!this.element) throw(Effect._elementDoesNotExistError);
+    // make this work on IE on elements without 'layout'
+    if(Prototype.Browser.IE && (!this.element.currentStyle.hasLayout))
+      this.element.setStyle({zoom: 1});
+    var options = Object.extend({
+      from: this.element.getOpacity() || 0.0,
+      to:   1.0
+    }, arguments[1] || {});
+    this.start(options);
+  },
+  update: function(position) {
+    this.element.setOpacity(position);
+  }
+});
+
+Effect.Move = Class.create();
+Object.extend(Object.extend(Effect.Move.prototype, Effect.Base.prototype), {
+  initialize: function(element) {
+    this.element = $(element);
+    if(!this.element) throw(Effect._elementDoesNotExistError);
+    var options = Object.extend({
+      x:    0,
+      y:    0,
+      mode: 'relative'
+    }, arguments[1] || {});
+    this.start(options);
+  },
+  setup: function() {
+    // Bug in Opera: Opera returns the "real" position of a static element or
+    // relative element that does not have top/left explicitly set.
+    // ==> Always set top and left for position relative elements in your stylesheets 
+    // (to 0 if you do not need them) 
+    this.element.makePositioned();
+    this.originalLeft = parseFloat(this.element.getStyle('left') || '0');
+    this.originalTop  = parseFloat(this.element.getStyle('top')  || '0');
+    if(this.options.mode == 'absolute') {
+      // absolute movement, so we need to calc deltaX and deltaY
+      this.options.x = this.options.x - this.originalLeft;
+      this.options.y = this.options.y - this.originalTop;
+    }
+  },
+  update: function(position) {
+    this.element.setStyle({
+      left: Math.round(this.options.x  * position + this.originalLeft) + 'px',
+      top:  Math.round(this.options.y  * position + this.originalTop)  + 'px'
+    });
+  }
+});
+
+// for backwards compatibility
+Effect.MoveBy = function(element, toTop, toLeft) {
+  return new Effect.Move(element, 
+    Object.extend({ x: toLeft, y: toTop }, arguments[3] || {}));
+};
+
+Effect.Scale = Class.create();
+Object.extend(Object.extend(Effect.Scale.prototype, Effect.Base.prototype), {
+  initialize: function(element, percent) {
+    this.element = $(element);
+    if(!this.element) throw(Effect._elementDoesNotExistError);
+    var options = Object.extend({
+      scaleX: true,
+      scaleY: true,
+      scaleContent: true,
+      scaleFromCenter: false,
+      scaleMode: 'box',        // 'box' or 'contents' or {} with provided values
+      scaleFrom: 100.0,
+      scaleTo:   percent
+    }, arguments[2] || {});
+    this.start(options);
+  },
+  setup: function() {
+    this.restoreAfterFinish = this.options.restoreAfterFinish || false;
+    this.elementPositioning = this.element.getStyle('position');
+    
+    this.originalStyle = {};
+    ['top','left','width','height','fontSize'].each( function(k) {
+      this.originalStyle[k] = this.element.style[k];
+    }.bind(this));
+      
+    this.originalTop  = this.element.offsetTop;
+    this.originalLeft = this.element.offsetLeft;
+    
+    var fontSize = this.element.getStyle('font-size') || '100%';
+    ['em','px','%','pt'].each( function(fontSizeType) {
+      if(fontSize.indexOf(fontSizeType)>0) {
+        this.fontSize     = parseFloat(fontSize);
+        this.fontSizeType = fontSizeType;
+      }
+    }.bind(this));
+    
+    this.factor = (this.options.scaleTo - this.options.scaleFrom)/100;
+    
+    this.dims = null;
+    if(this.options.scaleMode=='box')
+      this.dims = [this.element.offsetHeight, this.element.offsetWidth];
+    if(/^content/.test(this.options.scaleMode))
+      this.dims = [this.element.scrollHeight, this.element.scrollWidth];
+    if(!this.dims)
+      this.dims = [this.options.scaleMode.originalHeight,
+                   this.options.scaleMode.originalWidth];
+  },
+  update: function(position) {
+    var currentScale = (this.options.scaleFrom/100.0) + (this.factor * position);
+    if(this.options.scaleContent && this.fontSize)
+      this.element.setStyle({fontSize: this.fontSize * currentScale + this.fontSizeType });
+    this.setDimensions(this.dims[0] * currentScale, this.dims[1] * currentScale);
+  },
+  finish: function(position) {
+    if(this.restoreAfterFinish) this.element.setStyle(this.originalStyle);
+  },
+  setDimensions: function(height, width) {
+    var d = {};
+    if(this.options.scaleX) d.width = Math.round(width) + 'px';
+    if(this.options.scaleY) d.height = Math.round(height) + 'px';
+    if(this.options.scaleFromCenter) {
+      var topd  = (height - this.dims[0])/2;
+      var leftd = (width  - this.dims[1])/2;
+      if(this.elementPositioning == 'absolute') {
+        if(this.options.scaleY) d.top = this.originalTop-topd + 'px';
+        if(this.options.scaleX) d.left = this.originalLeft-leftd + 'px';
+      } else {
+        if(this.options.scaleY) d.top = -topd + 'px';
+        if(this.options.scaleX) d.left = -leftd + 'px';
+      }
+    }
+    this.element.setStyle(d);
+  }
+});
+
+Effect.Highlight = Class.create();
+Object.extend(Object.extend(Effect.Highlight.prototype, Effect.Base.prototype), {
+  initialize: function(element) {
+    this.element = $(element);
+    if(!this.element) throw(Effect._elementDoesNotExistError);
+    var options = Object.extend({ startcolor: '#ffff99' }, arguments[1] || {});
+    this.start(options);
+  },
+  setup: function() {
+    // Prevent executing on elements not in the layout flow
+    if(this.element.getStyle('display')=='none') { this.cancel(); return; }
+    // Disable background image during the effect
+    this.oldStyle = {};
+    if (!this.options.keepBackgroundImage) {
+      this.oldStyle.backgroundImage = this.element.getStyle('background-image');
+      this.element.setStyle({backgroundImage: 'none'});
+    }
+    if(!this.options.endcolor)
+      this.options.endcolor = this.element.getStyle('background-color').parseColor('#ffffff');
+    if(!this.options.restorecolor)
+      this.options.restorecolor = this.element.getStyle('background-color');
+    // init color calculations
+    this._base  = $R(0,2).map(function(i){ return parseInt(this.options.startcolor.slice(i*2+1,i*2+3),16) }.bind(this));
+    this._delta = $R(0,2).map(function(i){ return parseInt(this.options.endcolor.slice(i*2+1,i*2+3),16)-this._base[i] }.bind(this));
+  },
+  update: function(position) {
+    this.element.setStyle({backgroundColor: $R(0,2).inject('#',function(m,v,i){
+      return m+(Math.round(this._base[i]+(this._delta[i]*position)).toColorPart()); }.bind(this)) });
+  },
+  finish: function() {
+    this.element.setStyle(Object.extend(this.oldStyle, {
+      backgroundColor: this.options.restorecolor
+    }));
+  }
+});
+
+Effect.ScrollTo = Class.create();
+Object.extend(Object.extend(Effect.ScrollTo.prototype, Effect.Base.prototype), {
+  initialize: function(element) {
+    this.element = $(element);
+    this.start(arguments[1] || {});
+  },
+  setup: function() {
+    Position.prepare();
+    var offsets = Position.cumulativeOffset(this.element);
+    if(this.options.offset) offsets[1] += this.options.offset;
+    var max = window.innerHeight ? 
+      window.height - window.innerHeight :
+      document.body.scrollHeight - 
+        (document.documentElement.clientHeight ? 
+          document.documentElement.clientHeight : document.body.clientHeight);
+    this.scrollStart = Position.deltaY;
+    this.delta = (offsets[1] > max ? max : offsets[1]) - this.scrollStart;
+  },
+  update: function(position) {
+    Position.prepare();
+    window.scrollTo(Position.deltaX, 
+      this.scrollStart + (position*this.delta));
+  }
+});
+
+/* ------------- combination effects ------------- */
+
+Effect.Fade = function(element) {
+  element = $(element);
+  var oldOpacity = element.getInlineOpacity();
+  var options = Object.extend({
+  from: element.getOpacity() || 1.0,
+  to:   0.0,
+  afterFinishInternal: function(effect) { 
+    if(effect.options.to!=0) return;
+    effect.element.hide().setStyle({opacity: oldOpacity}); 
+  }}, arguments[1] || {});
+  return new Effect.Opacity(element,options);
+}
+
+Effect.Appear = function(element) {
+  element = $(element);
+  var options = Object.extend({
+  from: (element.getStyle('display') == 'none' ? 0.0 : element.getOpacity() || 0.0),
+  to:   1.0,
+  // force Safari to render floated elements properly
+  afterFinishInternal: function(effect) {
+    effect.element.forceRerendering();
+  },
+  beforeSetup: function(effect) {
+    effect.element.setOpacity(effect.options.from).show(); 
+  }}, arguments[1] || {});
+  return new Effect.Opacity(element,options);
+}
+
+Effect.Puff = function(element) {
+  element = $(element);
+  var oldStyle = { 
+    opacity: element.getInlineOpacity(), 
+    position: element.getStyle('position'),
+    top:  element.style.top,
+    left: element.style.left,
+    width: element.style.width,
+    height: element.style.height
+  };
+  return new Effect.Parallel(
+   [ new Effect.Scale(element, 200, 
+      { sync: true, scaleFromCenter: true, scaleContent: true, restoreAfterFinish: true }), 
+     new Effect.Opacity(element, { sync: true, to: 0.0 } ) ], 
+     Object.extend({ duration: 1.0, 
+      beforeSetupInternal: function(effect) {
+        Position.absolutize(effect.effects[0].element)
+      },
+      afterFinishInternal: function(effect) {
+         effect.effects[0].element.hide().setStyle(oldStyle); }
+     }, arguments[1] || {})
+   );
+}
+
+Effect.BlindUp = function(element) {
+  element = $(element);
+  element.makeClipping();
+  return new Effect.Scale(element, 0,
+    Object.extend({ scaleContent: false, 
+      scaleX: false, 
+      restoreAfterFinish: true,
+      afterFinishInternal: function(effect) {
+        effect.element.hide().undoClipping();
+      } 
+    }, arguments[1] || {})
+  );
+}
+
+Effect.BlindDown = function(element) {
+  element = $(element);
+  var elementDimensions = element.getDimensions();
+  return new Effect.Scale(element, 100, Object.extend({ 
+    scaleContent: false, 
+    scaleX: false,
+    scaleFrom: 0,
+    scaleMode: {originalHeight: elementDimensions.height, originalWidth: elementDimensions.width},
+    restoreAfterFinish: true,
+    afterSetup: function(effect) {
+      effect.element.makeClipping().setStyle({height: '0px'}).show(); 
+    },  
+    afterFinishInternal: function(effect) {
+      effect.element.undoClipping();
+    }
+  }, arguments[1] || {}));
+}
+
+Effect.SwitchOff = function(element) {
+  element = $(element);
+  var oldOpacity = element.getInlineOpacity();
+  return new Effect.Appear(element, Object.extend({
+    duration: 0.4,
+    from: 0,
+    transition: Effect.Transitions.flicker,
+    afterFinishInternal: function(effect) {
+      new Effect.Scale(effect.element, 1, { 
+        duration: 0.3, scaleFromCenter: true,
+        scaleX: false, scaleContent: false, restoreAfterFinish: true,
+        beforeSetup: function(effect) { 
+          effect.element.makePositioned().makeClipping();
+        },
+        afterFinishInternal: function(effect) {
+          effect.element.hide().undoClipping().undoPositioned().setStyle({opacity: oldOpacity});
+        }
+      })
+    }
+  }, arguments[1] || {}));
+}
+
+Effect.DropOut = function(element) {
+  element = $(element);
+  var oldStyle = {
+    top: element.getStyle('top'),
+    left: element.getStyle('left'),
+    opacity: element.getInlineOpacity() };
+  return new Effect.Parallel(
+    [ new Effect.Move(element, {x: 0, y: 100, sync: true }), 
+      new Effect.Opacity(element, { sync: true, to: 0.0 }) ],
+    Object.extend(
+      { duration: 0.5,
+        beforeSetup: function(effect) {
+          effect.effects[0].element.makePositioned(); 
+        },
+        afterFinishInternal: function(effect) {
+          effect.effects[0].element.hide().undoPositioned().setStyle(oldStyle);
+        } 
+      }, arguments[1] || {}));
+}
+
+Effect.Shake = function(element) {
+  element = $(element);
+  var oldStyle = {
+    top: element.getStyle('top'),
+    left: element.getStyle('left') };
+    return new Effect.Move(element, 
+      { x:  20, y: 0, duration: 0.05, afterFinishInternal: function(effect) {
+    new Effect.Move(effect.element,
+      { x: -40, y: 0, duration: 0.1,  afterFinishInternal: function(effect) {
+    new Effect.Move(effect.element,
+      { x:  40, y: 0, duration: 0.1,  afterFinishInternal: function(effect) {
+    new Effect.Move(effect.element,
+      { x: -40, y: 0, duration: 0.1,  afterFinishInternal: function(effect) {
+    new Effect.Move(effect.element,
+      { x:  40, y: 0, duration: 0.1,  afterFinishInternal: function(effect) {
+    new Effect.Move(effect.element,
+      { x: -20, y: 0, duration: 0.05, afterFinishInternal: function(effect) {
+        effect.element.undoPositioned().setStyle(oldStyle);
+  }}) }}) }}) }}) }}) }});
+}
+
+Effect.SlideDown = function(element) {
+  element = $(element).cleanWhitespace();
+  // SlideDown need to have the content of the element wrapped in a container element with fixed height!
+  var oldInnerBottom = element.down().getStyle('bottom');
+  var elementDimensions = element.getDimensions();
+  return new Effect.Scale(element, 100, Object.extend({ 
+    scaleContent: false, 
+    scaleX: false, 
+    scaleFrom: window.opera ? 0 : 1,
+    scaleMode: {originalHeight: elementDimensions.height, originalWidth: elementDimensions.width},
+    restoreAfterFinish: true,
+    afterSetup: function(effect) {
+      effect.element.makePositioned();
+      effect.element.down().makePositioned();
+      if(window.opera) effect.element.setStyle({top: ''});
+      effect.element.makeClipping().setStyle({height: '0px'}).show(); 
+    },
+    afterUpdateInternal: function(effect) {
+      effect.element.down().setStyle({bottom:
+        (effect.dims[0] - effect.element.clientHeight) + 'px' }); 
+    },
+    afterFinishInternal: function(effect) {
+      effect.element.undoClipping().undoPositioned();
+      effect.element.down().undoPositioned().setStyle({bottom: oldInnerBottom}); }
+    }, arguments[1] || {})
+  );
+}
+
+Effect.SlideUp = function(element) {
+  element = $(element).cleanWhitespace();
+  var oldInnerBottom = element.down().getStyle('bottom');
+  return new Effect.Scale(element, window.opera ? 0 : 1,
+   Object.extend({ scaleContent: false, 
+    scaleX: false, 
+    scaleMode: 'box',
+    scaleFrom: 100,
+    restoreAfterFinish: true,
+    beforeStartInternal: function(effect) {
+      effect.element.makePositioned();
+      effect.element.down().makePositioned();
+      if(window.opera) effect.element.setStyle({top: ''});
+      effect.element.makeClipping().show();
+    },  
+    afterUpdateInternal: function(effect) {
+      effect.element.down().setStyle({bottom:
+        (effect.dims[0] - effect.element.clientHeight) + 'px' });
+    },
+    afterFinishInternal: function(effect) {
+      effect.element.hide().undoClipping().undoPositioned().setStyle({bottom: oldInnerBottom});
+      effect.element.down().undoPositioned();
+    }
+   }, arguments[1] || {})
+  );
+}
+
+// Bug in opera makes the TD containing this element expand for a instance after finish 
+Effect.Squish = function(element) {
+  return new Effect.Scale(element, window.opera ? 1 : 0, { 
+    restoreAfterFinish: true,
+    beforeSetup: function(effect) {
+      effect.element.makeClipping(); 
+    },  
+    afterFinishInternal: function(effect) {
+      effect.element.hide().undoClipping(); 
+    }
+  });
+}
+
+Effect.Grow = function(element) {
+  element = $(element);
+  var options = Object.extend({
+    direction: 'center',
+    moveTransition: Effect.Transitions.sinoidal,
+    scaleTransition: Effect.Transitions.sinoidal,
+    opacityTransition: Effect.Transitions.full
+  }, arguments[1] || {});
+  var oldStyle = {
+    top: element.style.top,
+    left: element.style.left,
+    height: element.style.height,
+    width: element.style.width,
+    opacity: element.getInlineOpacity() };
+
+  var dims = element.getDimensions();    
+  var initialMoveX, initialMoveY;
+  var moveX, moveY;
+  
+  switch (options.direction) {
+    case 'top-left':
+      initialMoveX = initialMoveY = moveX = moveY = 0; 
+      break;
+    case 'top-right':
+      initialMoveX = dims.width;
+      initialMoveY = moveY = 0;
+      moveX = -dims.width;
+      break;
+    case 'bottom-left':
+      initialMoveX = moveX = 0;
+      initialMoveY = dims.height;
+      moveY = -dims.height;
+      break;
+    case 'bottom-right':
+      initialMoveX = dims.width;
+      initialMoveY = dims.height;
+      moveX = -dims.width;
+      moveY = -dims.height;
+      break;
+    case 'center':
+      initialMoveX = dims.width / 2;
+      initialMoveY = dims.height / 2;
+      moveX = -dims.width / 2;
+      moveY = -dims.height / 2;
+      break;
+  }
+  
+  return new Effect.Move(element, {
+    x: initialMoveX,
+    y: initialMoveY,
+    duration: 0.01, 
+    beforeSetup: function(effect) {
+      effect.element.hide().makeClipping().makePositioned();
+    },
+    afterFinishInternal: function(effect) {
+      new Effect.Parallel(
+        [ new Effect.Opacity(effect.element, { sync: true, to: 1.0, from: 0.0, transition: options.opacityTransition }),
+          new Effect.Move(effect.element, { x: moveX, y: moveY, sync: true, transition: options.moveTransition }),
+          new Effect.Scale(effect.element, 100, {
+            scaleMode: { originalHeight: dims.height, originalWidth: dims.width }, 
+            sync: true, scaleFrom: window.opera ? 1 : 0, transition: options.scaleTransition, restoreAfterFinish: true})
+        ], Object.extend({
+             beforeSetup: function(effect) {
+               effect.effects[0].element.setStyle({height: '0px'}).show(); 
+             },
+             afterFinishInternal: function(effect) {
+               effect.effects[0].element.undoClipping().undoPositioned().setStyle(oldStyle); 
+             }
+           }, options)
+      )
+    }
+  });
+}
+
+Effect.Shrink = function(element) {
+  element = $(element);
+  var options = Object.extend({
+    direction: 'center',
+    moveTransition: Effect.Transitions.sinoidal,
+    scaleTransition: Effect.Transitions.sinoidal,
+    opacityTransition: Effect.Transitions.none
+  }, arguments[1] || {});
+  var oldStyle = {
+    top: element.style.top,
+    left: element.style.left,
+    height: element.style.height,
+    width: element.style.width,
+    opacity: element.getInlineOpacity() };
+
+  var dims = element.getDimensions();
+  var moveX, moveY;
+  
+  switch (options.direction) {
+    case 'top-left':
+      moveX = moveY = 0;
+      break;
+    case 'top-right':
+      moveX = dims.width;
+      moveY = 0;
+      break;
+    case 'bottom-left':
+      moveX = 0;
+      moveY = dims.height;
+      break;
+    case 'bottom-right':
+      moveX = dims.width;
+      moveY = dims.height;
+      break;
+    case 'center':  
+      moveX = dims.width / 2;
+      moveY = dims.height / 2;
+      break;
+  }
+  
+  return new Effect.Parallel(
+    [ new Effect.Opacity(element, { sync: true, to: 0.0, from: 1.0, transition: options.opacityTransition }),
+      new Effect.Scale(element, window.opera ? 1 : 0, { sync: true, transition: options.scaleTransition, restoreAfterFinish: true}),
+      new Effect.Move(element, { x: moveX, y: moveY, sync: true, transition: options.moveTransition })
+    ], Object.extend({            
+         beforeStartInternal: function(effect) {
+           effect.effects[0].element.makePositioned().makeClipping(); 
+         },
+         afterFinishInternal: function(effect) {
+           effect.effects[0].element.hide().undoClipping().undoPositioned().setStyle(oldStyle); }
+       }, options)
+  );
+}
+
+Effect.Pulsate = function(element) {
+  element = $(element);
+  var options    = arguments[1] || {};
+  var oldOpacity = element.getInlineOpacity();
+  var transition = options.transition || Effect.Transitions.sinoidal;
+  var reverser   = function(pos){ return transition(1-Effect.Transitions.pulse(pos, options.pulses)) };
+  reverser.bind(transition);
+  return new Effect.Opacity(element, 
+    Object.extend(Object.extend({  duration: 2.0, from: 0,
+      afterFinishInternal: function(effect) { effect.element.setStyle({opacity: oldOpacity}); }
+    }, options), {transition: reverser}));
+}
+
+Effect.Fold = function(element) {
+  element = $(element);
+  var oldStyle = {
+    top: element.style.top,
+    left: element.style.left,
+    width: element.style.width,
+    height: element.style.height };
+  element.makeClipping();
+  return new Effect.Scale(element, 5, Object.extend({   
+    scaleContent: false,
+    scaleX: false,
+    afterFinishInternal: function(effect) {
+    new Effect.Scale(element, 1, { 
+      scaleContent: false, 
+      scaleY: false,
+      afterFinishInternal: function(effect) {
+        effect.element.hide().undoClipping().setStyle(oldStyle);
+      } });
+  }}, arguments[1] || {}));
+};
+
+Effect.Morph = Class.create();
+Object.extend(Object.extend(Effect.Morph.prototype, Effect.Base.prototype), {
+  initialize: function(element) {
+    this.element = $(element);
+    if(!this.element) throw(Effect._elementDoesNotExistError);
+    var options = Object.extend({
+      style: {}
+    }, arguments[1] || {});
+    if (typeof options.style == 'string') {
+      if(options.style.indexOf(':') == -1) {
+        var cssText = '', selector = '.' + options.style;
+        $A(document.styleSheets).reverse().each(function(styleSheet) {
+          if (styleSheet.cssRules) cssRules = styleSheet.cssRules;
+          else if (styleSheet.rules) cssRules = styleSheet.rules;
+          $A(cssRules).reverse().each(function(rule) {
+            if (selector == rule.selectorText) {
+              cssText = rule.style.cssText;
+              throw $break;
+            }
+          });
+          if (cssText) throw $break;
+        });
+        this.style = cssText.parseStyle();
+        options.afterFinishInternal = function(effect){
+          effect.element.addClassName(effect.options.style);
+          effect.transforms.each(function(transform) {
+            if(transform.style != 'opacity')
+              effect.element.style[transform.style] = '';
+          });
+        }
+      } else this.style = options.style.parseStyle();
+    } else this.style = $H(options.style)
+    this.start(options);
+  },
+  setup: function(){
+    function parseColor(color){
+      if(!color || ['rgba(0, 0, 0, 0)','transparent'].include(color)) color = '#ffffff';
+      color = color.parseColor();
+      return $R(0,2).map(function(i){
+        return parseInt( color.slice(i*2+1,i*2+3), 16 ) 
+      });
+    }
+    this.transforms = this.style.map(function(pair){
+      var property = pair[0], value = pair[1], unit = null;
+
+      if(value.parseColor('#zzzzzz') != '#zzzzzz') {
+        value = value.parseColor();
+        unit  = 'color';
+      } else if(property == 'opacity') {
+        value = parseFloat(value);
+        if(Prototype.Browser.IE && (!this.element.currentStyle.hasLayout))
+          this.element.setStyle({zoom: 1});
+      } else if(Element.CSS_LENGTH.test(value)) {
+          var components = value.match(/^([\+\-]?[0-9\.]+)(.*)$/);
+          value = parseFloat(components[1]);
+          unit = (components.length == 3) ? components[2] : null;
+      }
+
+      var originalValue = this.element.getStyle(property);
+      return { 
+        style: property.camelize(), 
+        originalValue: unit=='color' ? parseColor(originalValue) : parseFloat(originalValue || 0), 
+        targetValue: unit=='color' ? parseColor(value) : value,
+        unit: unit
+      };
+    }.bind(this)).reject(function(transform){
+      return (
+        (transform.originalValue == transform.targetValue) ||
+        (
+          transform.unit != 'color' &&
+          (isNaN(transform.originalValue) || isNaN(transform.targetValue))
+        )
+      )
+    });
+  },
+  update: function(position) {
+    var style = {}, transform, i = this.transforms.length;
+    while(i--)
+      style[(transform = this.transforms[i]).style] = 
+        transform.unit=='color' ? '#'+
+          (Math.round(transform.originalValue[0]+
+            (transform.targetValue[0]-transform.originalValue[0])*position)).toColorPart() +
+          (Math.round(transform.originalValue[1]+
+            (transform.targetValue[1]-transform.originalValue[1])*position)).toColorPart() +
+          (Math.round(transform.originalValue[2]+
+            (transform.targetValue[2]-transform.originalValue[2])*position)).toColorPart() :
+        transform.originalValue + Math.round(
+          ((transform.targetValue - transform.originalValue) * position) * 1000)/1000 + transform.unit;
+    this.element.setStyle(style, true);
+  }
+});
+
+Effect.Transform = Class.create();
+Object.extend(Effect.Transform.prototype, {
+  initialize: function(tracks){
+    this.tracks  = [];
+    this.options = arguments[1] || {};
+    this.addTracks(tracks);
+  },
+  addTracks: function(tracks){
+    tracks.each(function(track){
+      var data = $H(track).values().first();
+      this.tracks.push($H({
+        ids:     $H(track).keys().first(),
+        effect:  Effect.Morph,
+        options: { style: data }
+      }));
+    }.bind(this));
+    return this;
+  },
+  play: function(){
+    return new Effect.Parallel(
+      this.tracks.map(function(track){
+        var elements = [$(track.ids) || $$(track.ids)].flatten();
+        return elements.map(function(e){ return new track.effect(e, Object.extend({ sync:true }, track.options)) });
+      }).flatten(),
+      this.options
+    );
+  }
+});
+
+Element.CSS_PROPERTIES = $w(
+  'backgroundColor backgroundPosition borderBottomColor borderBottomStyle ' + 
+  'borderBottomWidth borderLeftColor borderLeftStyle borderLeftWidth ' +
+  'borderRightColor borderRightStyle borderRightWidth borderSpacing ' +
+  'borderTopColor borderTopStyle borderTopWidth bottom clip color ' +
+  'fontSize fontWeight height left letterSpacing lineHeight ' +
+  'marginBottom marginLeft marginRight marginTop markerOffset maxHeight '+
+  'maxWidth minHeight minWidth opacity outlineColor outlineOffset ' +
+  'outlineWidth paddingBottom paddingLeft paddingRight paddingTop ' +
+  'right textIndent top width wordSpacing zIndex');
+  
+Element.CSS_LENGTH = /^(([\+\-]?[0-9\.]+)(em|ex|px|in|cm|mm|pt|pc|\%))|0$/;
+
+String.prototype.parseStyle = function(){
+  var element = document.createElement('div');
+  element.innerHTML = '<div style="' + this + '"></div>';
+  var style = element.childNodes[0].style, styleRules = $H();
+  
+  Element.CSS_PROPERTIES.each(function(property){
+    if(style[property]) styleRules[property] = style[property]; 
+  });
+  if(Prototype.Browser.IE && this.indexOf('opacity') > -1) {
+    styleRules.opacity = this.match(/opacity:\s*((?:0|1)?(?:\.\d*)?)/)[1];
+  }
+  return styleRules;
+};
+
+Element.morph = function(element, style) {
+  new Effect.Morph(element, Object.extend({ style: style }, arguments[2] || {}));
+  return element;
+};
+
+['getInlineOpacity','forceRerendering','setContentZoom',
+ 'collectTextNodes','collectTextNodesIgnoreClass','morph'].each( 
+  function(f) { Element.Methods[f] = Element[f]; }
+);
+
+Element.Methods.visualEffect = function(element, effect, options) {
+  s = effect.dasherize().camelize();
+  effect_class = s.charAt(0).toUpperCase() + s.substring(1);
+  new Effect[effect_class](element, options);
+  return $(element);
+};
+
+Element.addMethods();

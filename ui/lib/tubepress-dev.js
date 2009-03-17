@@ -66,11 +66,9 @@ function _tubepress_rel_parser(index) {
 
 function _tubepress_call_when_true(test, callback) {
 	if (!test()) {
-		console.warn("Waiting 400ms for " + test);
 		setTimeout(function() {_tubepress_call_when_true(test, callback);}, 400);
 		return;
 	}
-	console.info("Ready!");
 	callback();
 }
 

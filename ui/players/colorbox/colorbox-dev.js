@@ -26,9 +26,9 @@ function _tubepress_colorbox_add_listeners() {
 			contentInline	:"#tubepress_embedded_object_" + galleryId,
 			preloading		: false,
 			contentWidth	: width,
-			contentHeight	: height,
-			initialWidth	: width / 2,
-			initialHeight	: height / 2
+			contentHeight	: height
+			initialWidth	: ceil(width / 2),
+			initialHeight	: ceil(height / 2)
 		});
     });
 }

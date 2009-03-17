@@ -89,7 +89,7 @@ function _tubepress_head_filter() {
     global $tubepress_base_url;
 
     print<<<GBS
-<script type="text/javascript" src="$tubepress_base_url/ui/tubepress.js"></script>
+<script type="text/javascript" src="$tubepress_base_url/ui/lib/tubepress.js"></script>
 <script type="text/javascript" src="$tubepress_base_url/ui/lib/jquery.includeMany-1.1.0.js"></script>
 <link rel="stylesheet" href="$tubepress_base_url/ui/gallery/css/tubepress.css" type="text/css" />
 <link rel="stylesheet" href="$tubepress_base_url/ui/widget/css/tubepress_widget.css" type="text/css" />
