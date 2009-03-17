@@ -7,7 +7,7 @@ function tubepress_attach_listeners()
 	jQuery("a[id^='tubepress_']").click(function () {
 		var rel_split    = jQuery(this).attr("rel").split("_");
 		var galleryId    = rel_split[3];
-		var playerName   = rel_split[2]
+		var playerName   = rel_split[2];
 		var embeddedName = rel_split[1];
 		var videoId = jQuery(this).attr("id").substring(16, 27);
 
@@ -27,26 +27,29 @@ function _tubepress_swap_embedded(galleryId, videoId, embeddedName) {
 
 function _tubepress_call_player_js(galleryId, videoId, embeddedName, playerName) {
     var playerFunctionName = "tubepress_" + playerName + "_player";
-    //window[playerFunctionName](galleryId, videoId);
+    window[playerFunctionName](galleryId, videoId);
 }
 
+
 function tubepress_load_players(baseUrl) {
-    var playerNames = _tubepress_rel_parser(2);
-    alert(playerNames);
+	var playerNames = _tubepress_rel_parser(2);
     for(var i = 0; i < playerNames.length; i++) {
-        alert(playerNames[i]);
-        jQuery.getScript(baseUrl + "/ui/players/" + playerNames[i] + "/" + playerNames[i] + ".js", _tubepress_player_loaded(playerNames[i], baseUrl), true);
+    	var name = playerNames[i];
+        jQuery.getScript(baseUrl + "/ui/players/" + name + "/" + name + ".js", 
+        	_tubepress_player_loaded(name, baseUrl) , true);
     }
 }
 
 function _tubepress_player_loaded(playerName, baseUrl) {
-    //window['tubepress_' + playerName + '_player_init'](baseUrl);
+	var funcName = 'tubepress_' + playerName + '_player_init';
+	var f = function() { window[funcName](baseUrl); }
+	_tubepress_call_when_true(function() { return typeof window[funcName] == 'function'; }, f);
 }
 
 function tubepress_load_embedded_js(baseUrl) {
     var embeddedNames = _tubepress_rel_parser(1);
     for(var i = 0; i < embeddedNames.length; i++) {
-        jQuery.getScript(baseUrl + "/ui/embedded/" + embeddedNames[i] + "/" + embeddedNames[i] + ".js");
+        jQuery.getScript(baseUrl + "/ui/embedded/" + embeddedNames[i] + "/" + embeddedNames[i] + ".js", function() {}, true);
     }
 }
 
@@ -61,3 +64,18 @@ function _tubepress_rel_parser(index) {
     return returnValue;
 }
 
+function _tubepress_call_when_true(test, callback) {
+	if (!test()) {
+		console.warn("Waiting 400ms for " + test);
+		setTimeout(function() {_tubepress_call_when_true(test, callback);}, 400);
+		return;
+	}
+	console.info("Ready!");
+	callback();
+}
+
+function _tubepress_get_wait_call(scriptPath, test, callback) {
+	jQuery.getScript(scriptPath, function() {
+		_tubepress_call_when_true(test, callback);
+    }, true);
+}

@@ -1,0 +1,3 @@
+function tubepress_colorbox_player(a,b){}function tubepress_colorbox_player_init(a){var b=a+"/ui/players/colorbox/lib/";jQuery.include([b+"colorbox.css",b+"colorbox-custom.css"]);_tubepress_get_wait_call(b+"jquery.colorbox.js",function(){return typeof jQuery.fn.colorbox!="undefined"},function(){_tubepress_colorbox_add_listeners()
+})}function _tubepress_colorbox_add_listeners(){jQuery("a[id^='tubepress_']").each(function(){var b=jQuery(this).attr("rel").split("_");var e=b[2];if(e!="colorbox"){return}var f=b[3];var c=jQuery("#tubepress_embedded_object_"+f+" > object");var a=c.css("height");var d=c.css("width");jQuery(this).colorbox({contentInline:"#tubepress_embedded_object_"+f,preloading:false,contentWidth:d,contentHeight:a,initialWidth:d/2,initialHeight:a/2})
+})};

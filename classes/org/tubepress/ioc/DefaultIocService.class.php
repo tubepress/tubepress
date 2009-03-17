@@ -71,27 +71,32 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
             )
         );
         $this->def(org_tubepress_player_Player::NORMAL . "-player",
-            $this->impl('org_tubepress_player_impl_NormalPlayer',
+            $this->impl('org_tubepress_player_impl_ModalPlayer',
                 array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
             )
         );
         $this->def(org_tubepress_player_Player::POPUP . "-player",
-            $this->impl('org_tubepress_player_impl_PopupPlayer',
+            $this->impl('org_tubepress_player_impl_ModalPlayer',
                 array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
             )
         );
         $this->def(org_tubepress_player_Player::SHADOWBOX . "-player",
-            $this->impl('org_tubepress_player_impl_ShadowBoxPlayer',
+            $this->impl('org_tubepress_player_impl_ModalPlayer',
                 array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
             )
         );
         $this->def(org_tubepress_player_Player::LIGHTWINDOW . "-player",
-            $this->impl('org_tubepress_player_impl_LightWindowPlayer',
+            $this->impl('org_tubepress_player_impl_ModalPlayer',
                 array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
             )
         );
         $this->def(org_tubepress_player_Player::JQMODAL . "-player",
-            $this->impl('org_tubepress_player_impl_JqModalPlayer',
+            $this->impl('org_tubepress_player_impl_ModalPlayer',
+                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
+            )
+        );
+        $this->def(org_tubepress_player_Player::COLORBOX . "-player",
+            $this->impl('org_tubepress_player_impl_ModalPlayer',
                 array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
             )
         );

@@ -131,6 +131,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         "player-lightwindow" => "with LightWindow", 
         "player-shadowbox"   => "with Shadowbox",
         "player-jqmodal"     => 'with jqModal',
+        'player-colorbox'    => 'with Colorbox',
     
         "order-relevance"  => "relevance", 
         "order-viewCount"      => "view count", 

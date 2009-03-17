@@ -24,6 +24,7 @@
  */
 interface org_tubepress_player_Player
 {
+    const COLORBOX    = 'colorbox'; 
     const JQMODAL     = 'jqmodal';
     const LIGHTWINDOW = "lightwindow";
     const NORMAL      = "normal";

@@ -296,6 +296,9 @@ msgstr ""
 msgid "from the original YouTube page"
 msgstr ""
 
+msgid "with ColorBox"
+msgstr ""
+
 msgid "with LightWindow"
 msgstr ""
 
