@@ -19,6 +19,11 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_cache_CacheService',
+    'net_php_pear_Cache_Lite'));
+
 /**
  * General purpose cache for TubePress
  */

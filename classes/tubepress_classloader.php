@@ -19,6 +19,12 @@
  *
  */
 
+function tubepress_load_classes($classesToLoad) {
+    foreach ($classesToLoad as $class) {
+        tubepress_classloader($class);
+    }
+}
+
 /**
  * Attempts to load a class file based on the class name
  *
