@@ -23,7 +23,8 @@ function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('net_php_pear_HTML_Template_IT',
     'org_tubepress_embedded_impl_AbstractEmbeddedPlayerService',
-    'net_php_pear_Net_URL2'));
+    'net_php_pear_Net_URL2',
+    'org_tubepress_options_category_Embedded'));
 
 /**
  * Represents an HTML-embeddable YouTube player

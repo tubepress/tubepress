@@ -21,7 +21,8 @@
 
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_embedded_EmbeddedPlayerService'));
+tubepress_load_classes(array('org_tubepress_embedded_EmbeddedPlayerService',
+    'org_tubepress_options_manager_OptionsManager'));
 
 /**
  * Represents an HTML-embeddable YouTube player
