@@ -1,10 +1,5 @@
 <?php
-
-function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager'));
-
-class org_tubepress_embedded_impl_AbstractEmbeddedPlayerServiceTest extends PHPUnit_Framework_TestCase {
+abstract class org_tubepress_embedded_impl_AbstractEmbeddedPlayerServiceTest extends PHPUnit_Framework_TestCase {
     
 	protected $_sut;
 	

@@ -1,9 +1,6 @@
 <?php
 
-function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService'));
-
+require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/embedded/impl/YouTubeEmbeddedPlayerService.class.php';
 require_once 'AbstractEmbeddedPlayerServiceTest.php';
 
 class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerServiceTest extends org_tubepress_embedded_impl_AbstractEmbeddedPlayerServiceTest {
