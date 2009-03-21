@@ -1,4 +1,6 @@
 <?php
+require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/cache/SimpleCacheService.class.php';
+
 class org_tubepress_cache_SimpleCacheServiceTest extends PHPUnit_Framework_TestCase {
 
 	private $_sut;
