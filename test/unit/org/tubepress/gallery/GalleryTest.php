@@ -1,4 +1,21 @@
 <?php
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_gallery_Gallery',
+    'org_tubepress_pagination_PaginationService',
+    'org_tubepress_gdata_inspection_FeedInspectionService',
+    'org_tubepress_gdata_retrieval_FeedRetrievalService',
+    'org_tubepress_message_MessageService',
+    'org_tubepress_options_manager_OptionsManager',
+    'org_tubepress_querystring_QueryStringService',
+    'org_tubepress_thumbnail_ThumbnailService',
+    'org_tubepress_url_UrlBuilder',
+    'org_tubepress_video_factory_VideoFactory',
+    'org_tubepress_embedded_EmbeddedPlayerService',
+    'org_tubepress_ioc_IocService'));
+
+require_once dirname(__FILE__) . '/../video/org_tubepress_video_VideoTest.php';
+
 class org_tubepress_gallery_GalleryTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;
@@ -49,7 +66,7 @@ EOT;
 	private function _setupMocks()
 	{
 		$fakeUrl = "http://fakeurl";
-		$fakeXml = DOMDocument::load(dirname(__FILE__) . "/../sample_feed.xml");
+		$fakeXml = DOMDocument::load(dirname(__FILE__) . "/../../../sample_feed.xml");
 		$fakeVideo = org_tubepress_video_VideoTest::getFakeInstance(false);
 		$fakeHtml = "stuff";
 		

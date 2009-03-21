@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/embedded/impl/YouTubeEmbeddedPlayerService.class.php';
+require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/embedded/impl/JwFlvEmbeddedPlayerService.class.php';
 require_once 'AbstractEmbeddedPlayerServiceTest.php';
 
 class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerServiceTest extends org_tubepress_embedded_impl_AbstractEmbeddedPlayerServiceTest {

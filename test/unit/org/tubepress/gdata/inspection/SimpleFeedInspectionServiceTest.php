@@ -1,4 +1,7 @@
 <?php
+
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/gdata/inspection/SimpleFeedInspectionService.class.php';
+
 class org_tubepress_gdata_inspection_SimpleFeedInspectionServiceTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;
