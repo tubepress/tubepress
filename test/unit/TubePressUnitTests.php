@@ -8,6 +8,7 @@ require_once 'org/tubepress/gdata/inspection/InspectionTests.php';
 require_once 'org/tubepress/pagination/PaginationTests.php';
 require_once 'org/tubepress/player/PlayerTests.php';
 require_once 'org/tubepress/querystring/QueryStringTests.php';
+require_once 'org/tubepress/shortcode/ShortcodeTests.php';
 
 class TubePressUnitTests
 {
@@ -21,6 +22,7 @@ class TubePressUnitTests
 		$suite->addTest(PaginationTests::suite());
 		$suite->addTest(PlayerTests::suite());
 		$suite->addTest(QueryStringTests::suite());
+		$suite->addTest(ShortcodeTests::suite());
 		return $suite;
 	}
 }

@@ -19,6 +19,12 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_shortcode_ShortcodeService',
+    'org_tubepress_options_category_Advanced',
+    'org_tubepress_options_manager_OptionsManager'));
+
 /**
  * Handles some tasks related to the query string
  */

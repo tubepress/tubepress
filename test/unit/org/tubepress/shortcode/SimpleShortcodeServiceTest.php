@@ -1,4 +1,7 @@
 <?php
+
+require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/shortcode/SimpleShortcodeService.class.php';
+
 class org_tubepress_shortcode_SimpleShortcodeServiceTest extends PHPUnit_Framework_TestCase
 {
 	private $_sut;
