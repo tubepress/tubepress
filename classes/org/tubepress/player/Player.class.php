@@ -19,6 +19,10 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_video_Video'));
+
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */

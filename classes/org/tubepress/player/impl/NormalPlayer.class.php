@@ -19,13 +19,20 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_player_AbstractPlayer',
+    'org_tubepress_ioc_ContainerAware',
+    'org_tubepress_video_Video',
+    'net_php_pear_HTML_Template_IT',
+    'org_tubepress_options_category_Embedded',
+    'org_tubepress_embedded_EmbeddedPlayerService'));
+
 /**
  * Plays videos at the top of a gallery
  */
 class org_tubepress_player_impl_NormalPlayer extends org_tubepress_player_AbstractPlayer implements org_tubepress_ioc_ContainerAware
 {
-    private $_iocContainer;
-    
     public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId)
     {
         $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/players/normal/html_templates");
@@ -35,7 +42,7 @@ class org_tubepress_player_impl_NormalPlayer extends org_tubepress_player_Abstra
 
         $tpom = $this->getOptionsManager();
         
-        $eps = $this->_iocContainer->safeGet($tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . "-embedded");
+        $eps = $this->getContainer()->safeGet($tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . "-embedded");
 
         $tpl->setVariable("EMBEDSRC", $eps->toString($vid->getId()));
         $tpl->setVariable("TITLE", $vid->getTitle());
@@ -43,11 +50,6 @@ class org_tubepress_player_impl_NormalPlayer extends org_tubepress_player_Abstra
             $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
         $tpl->setVariable('GALLERYID', $galleryId);
         return $tpl->get();    
-    }
-
-    public function setContainer(org_tubepress_ioc_IocService $container)
-    {
-        $this->_iocContainer = $container;
     }
 }
 ?>

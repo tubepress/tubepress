@@ -19,6 +19,15 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_pagination_PaginationService',
+    'org_tubepress_options_category_Display',
+    'net_php_pear_Net_URL2',
+    'org_tubepress_message_MessageService',
+    'org_tubepress_querystring_QueryStringService',
+    'org_tubepress_options_manager_OptionsManager'));
+
 /**
  * General purpose cache for TubePress
  */

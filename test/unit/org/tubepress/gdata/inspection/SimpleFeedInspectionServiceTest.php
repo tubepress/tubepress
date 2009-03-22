@@ -39,7 +39,7 @@ class org_tubepress_gdata_inspection_SimpleFeedInspectionServiceTest extends PHP
 	
 	function testGetQueryResult()
 	{
-		$dom = DOMDocument::load(dirname(__FILE__) . "/../sample_feed.xml");
+		$dom = DOMDocument::load(dirname(__FILE__) . "/../../../../sample_feed.xml");
 		$this->assertEquals(25, $this->_sut->getQueryResultCount($dom));
 	}
 	

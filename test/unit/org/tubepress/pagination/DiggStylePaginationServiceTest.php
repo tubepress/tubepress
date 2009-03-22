@@ -1,4 +1,7 @@
 <?php
+
+require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/pagination/DiggStylePaginationService.class.php';
+
 class org_tubepress_pagination_DiggStylePaginationServiceTest extends PHPUnit_Framework_TestCase {
     
 	public function testGetHtml100Videos()

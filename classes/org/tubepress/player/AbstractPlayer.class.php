@@ -19,6 +19,13 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_player_Player',
+    'org_tubepress_ioc_ContainerAware',
+    'org_tubepress_options_manager_OptionsManager',
+    'org_tubepress_ioc_IocService'));
+
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */

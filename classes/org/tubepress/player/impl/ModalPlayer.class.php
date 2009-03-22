@@ -19,8 +19,15 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_player_AbstractPlayer',
+    'org_tubepress_video_Video',
+    'net_php_pear_HTML_Template_IT',
+    'org_tubepress_options_category_Embedded'));
+
 /**
- * Plays videos with GreyBox
+ * Plays videos in a modal window
  */
 class org_tubepress_player_impl_ModalPlayer extends org_tubepress_player_AbstractPlayer
 {
