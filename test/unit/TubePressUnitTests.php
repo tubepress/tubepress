@@ -5,6 +5,9 @@ require_once 'org/tubepress/embedded/EmbeddedTests.php';
 //require_once 'org/tubepress/gallery/GalleryTests.php';
 //require_once 'org/tubepress/gdata/feed/retrieval/RetrievalTests.php';
 require_once 'org/tubepress/gdata/inspection/InspectionTests.php';
+require_once 'org/tubepress/pagination/PaginationTests.php';
+require_once 'org/tubepress/player/PlayerTests.php';
+require_once 'org/tubepress/querystring/QueryStringTests.php';
 
 class TubePressUnitTests
 {
@@ -15,6 +18,9 @@ class TubePressUnitTests
 		$suite->addTest(EmbeddedTests::suite());
 		//$suite->addTest(GalleryTests::suite());
 		$suite->addTest(InspectionTests::suite());
+		$suite->addTest(PaginationTests::suite());
+		$suite->addTest(PlayerTests::suite());
+		$suite->addTest(QueryStringTests::suite());
 		return $suite;
 	}
 }

@@ -1,4 +1,7 @@
 <?php
+
+require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/querystring/SimpleQueryStringService.class.php';
+
 class org_tubepress_querystring_SimpleQueryStringServiceTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;
