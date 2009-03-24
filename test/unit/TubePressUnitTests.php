@@ -10,6 +10,8 @@ require_once 'org/tubepress/player/PlayerTests.php';
 require_once 'org/tubepress/querystring/QueryStringTests.php';
 require_once 'org/tubepress/shortcode/ShortcodeTests.php';
 require_once 'org/tubepress/thumbnail/ThumbnailTests.php';
+require_once 'org/tubepress/url/UrlTests.php';
+require_once 'org/tubepress/util/UtilsTests.php';
 
 class TubePressUnitTests
 {
@@ -25,6 +27,8 @@ class TubePressUnitTests
 		$suite->addTest(QueryStringTests::suite());
 		$suite->addTest(ShortcodeTests::suite());
 		$suite->addTest(ThumbnailTests::suite());
+		$suite->addTest(UrlTests::suite());
+		$suite->addTest(UtilsTests::suite());
 		return $suite;
 	}
 }
