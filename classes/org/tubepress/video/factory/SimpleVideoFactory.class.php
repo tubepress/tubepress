@@ -19,6 +19,11 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory',
+    'org_tubepress_video_Video'));
+
 /**
  * Simple implementation of org_tubepress_video_factory_VideoFactory
  */

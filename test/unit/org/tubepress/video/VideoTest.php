@@ -1,4 +1,7 @@
 <?php
+
+require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/video/Video.class.php';
+
 class org_tubepress_video_VideoTest extends PHPUnit_Framework_TestCase {
     
 	private $_vid;
