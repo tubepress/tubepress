@@ -19,6 +19,19 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_url_UrlBuilder',
+    'org_tubepress_options_category_Gallery',
+    'org_tubepress_gallery_Gallery',
+    'org_tubepress_options_manager_OptionsManager',
+    'org_tubepress_options_category_Advanced',
+    'org_tubepress_options_category_Display',
+    'org_tubepress_options_category_Embedded',
+    'org_tubepress_options_category_Meta',
+    'net_php_pear_Net_URL2',
+    'org_tubepress_options_category_Feed'));
+
 /**
  * Builds URLs to send out to YouTube for gdata
  *

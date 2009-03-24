@@ -41,9 +41,9 @@ class org_tubepress_thumbnail_SimpleThumbnailServiceTest extends PHPUnit_Framewo
 		$this->assertEquals(<<<EOT
 <div class="tubepress_thumb">
 	<div class="tubepress_thumb_inner" style="width: 40px">
-		<a id="tubepress_image_fakeid_Object id #209" rel="tubepress_youtube_normal_Object id #209"> <img alt="Fake title" src="http://img.youtube.com/vi/fakeid/default.jpg" width="40" height="100" /></a>
+		<a id="tubepress_image_fakeid_fakegalleryid" rel="tubepress_youtube_normal_fakegalleryid"> <img alt="Fake title" src="http://img.youtube.com/vi/fakeid/default.jpg" width="40" height="100" /></a>
 		<div class="tubepress_meta_group">
-			<div class="tubepress_meta_title"><a id="tubepress_title_fakeid_Object id #209" rel="tubepress_youtube_normal_Object id #209">Fake title</a><br /></div>
+			<div class="tubepress_meta_title"><a id="tubepress_title_fakeid_fakegalleryid" rel="tubepress_youtube_normal_fakegalleryid">Fake title</a><br /></div>
 			<span class="tubepress_meta_runtime"> 1:50 </span><br />
 			<span class="tubepress_meta">: </span>
 			<a  href="http://www.youtube.com/profile?user=3hough">3hough</a><br />
@@ -60,7 +60,7 @@ class org_tubepress_thumbnail_SimpleThumbnailServiceTest extends PHPUnit_Framewo
 </div>
 
 EOT
-		, $this->_sut->getHtml(dirname(__FILE__) . "/../../../../../ui/gallery/html_templates", $vid, $this->_player));
+		, $this->_sut->getHtml(dirname(__FILE__) . "/../../../../../ui/gallery/html_templates", $vid, "fakegalleryid"));
 	}
 }
 
