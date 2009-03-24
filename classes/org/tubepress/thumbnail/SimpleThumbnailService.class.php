@@ -19,6 +19,18 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_thumbnail_ThumbnailService',
+    'org_tubepress_video_Video',
+    'net_php_pear_HTML_Template_IT',
+    'org_tubepress_options_manager_OptionsManager',
+    'org_tubepress_options_category_Advanced',
+    'org_tubepress_options_category_Display',
+    'org_tubepress_options_category_Embedded',
+    'org_tubepress_options_category_Meta',
+    'org_tubepress_message_MessageService',
+    'org_tubepress_util_StringUtils'));
 
 /**
  * Handles the parsing of the meta info below each video thumbnail
@@ -40,7 +52,7 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
         }
         $this->_getCommonStuff($vid, $galleryId);
         $this->_getMetaStuff($vid);
-        return $this->_tpl->get();
+        return org_tubepress_util_StringUtils::removeEmptyLines($this->_tpl->get());
     }
     
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom)
