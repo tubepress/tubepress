@@ -1,4 +1,6 @@
 <?php
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/options/category/Advanced.class.php';
+
 class org_tubepress_options_category_AdvancedTest extends PHPUnit_Framework_TestCase {
 	
 	private $_expectedNames;

@@ -13,6 +13,7 @@ require_once 'org/tubepress/thumbnail/ThumbnailTests.php';
 require_once 'org/tubepress/url/UrlTests.php';
 require_once 'org/tubepress/util/UtilsTests.php';
 require_once 'org/tubepress/video/VideoTests.php';
+require_once 'org/tubepress/options/OptionsTests.php';
 
 class TubePressUnitTests
 {
@@ -31,6 +32,7 @@ class TubePressUnitTests
 		$suite->addTest(UrlTests::suite());
 		$suite->addTest(UtilsTests::suite());
 		$suite->addTest(VideoTests::suite());
+		$suite->addTest(OptionsTests::suite());
 		return $suite;
 	}
 }

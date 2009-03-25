@@ -1,4 +1,7 @@
 <?php
+
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/options/manager/SimpleOptionsManager.class.php';
+
 class org_tubepress_options_manager_SimpleOptionsManagerTest extends PHPUnit_Framework_TestCase {
     
 	private $_stpom;
@@ -10,7 +13,7 @@ class org_tubepress_options_manager_SimpleOptionsManagerTest extends PHPUnit_Fra
 		$this->_stpom = new org_tubepress_options_manager_SimpleOptionsManager();
 		$ref = $this->getMock("org_tubepress_options_reference_OptionsReference");
 		$this->_stpom->setOptionsReference($ref);
-		$val = $this->getMock("org_tubepress_options_validation_SimpleInputValidationService");
+		$val = $this->getMock("org_tubepress_options_validation_InputValidationService");
 		$this->_stpom->setValidationService($val);
 	}
 	

@@ -1,4 +1,7 @@
 <?php
+
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/options/validation/SimpleInputValidationService.class.php';
+
 class org_tubepress_options_validation_SimpleInputValidationServiceTest extends PHPUnit_Framework_TestCase {
 	
 	private $_sut;

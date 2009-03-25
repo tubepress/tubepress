@@ -1,4 +1,8 @@
 <?php
+
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/options/reference/SimpleOptionsReference.class.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/options/Category.class.php';
+
 class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;
@@ -202,7 +206,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     }
     function testPlayerEnumValues()
     {
-        $expected = array("greybox", "lightwindow", "normal", "popup", "shadowbox", "youtube");
+        $expected = array("colorbox", "lightwindow", "normal", "popup", "shadowbox", "youtube", "jqmodal");
         $this->assertEquals($expected, $this->_sut->getValidEnumValues(org_tubepress_options_Type::PLAYER));
     }
     function testMostViewedEnumValues()
