@@ -19,6 +19,13 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
+    'org_tubepress_options_storage_StorageManager',
+    'org_tubepress_options_reference_OptionsReference',
+    'org_tubepress_options_validation_InputValidationService'));
+
 /**
  * Holds the current options for TubePress. This is the default options,
  * usually in persistent storage somewhere, and custom options parsed

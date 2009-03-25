@@ -19,6 +19,18 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_options_reference_OptionsReference',
+    'org_tubepress_options_Type',
+    'org_tubepress_options_category_Embedded',
+    'org_tubepress_options_category_Gallery',
+    'org_tubepress_options_category_Advanced',
+    'org_tubepress_options_category_Feed',
+    'org_tubepress_options_category_Widget',
+    'org_tubepress_options_category_Display',
+    'org_tubepress_options_category_Meta'));
+
 /**
  * Simple implementation of options reference
  *
