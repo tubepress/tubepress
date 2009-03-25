@@ -1,20 +1,6 @@
 <?php
-function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_gallery_Gallery',
-    'org_tubepress_pagination_PaginationService',
-    'org_tubepress_gdata_inspection_FeedInspectionService',
-    'org_tubepress_gdata_retrieval_FeedRetrievalService',
-    'org_tubepress_message_MessageService',
-    'org_tubepress_options_manager_OptionsManager',
-    'org_tubepress_querystring_QueryStringService',
-    'org_tubepress_thumbnail_ThumbnailService',
-    'org_tubepress_url_UrlBuilder',
-    'org_tubepress_video_factory_VideoFactory',
-    'org_tubepress_embedded_EmbeddedPlayerService',
-    'org_tubepress_ioc_IocService'));
+require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/gallery/Gallery.class.php';
 
-require_once dirname(__FILE__) . '/../video/org_tubepress_video_VideoTest.php';
 
 class org_tubepress_gallery_GalleryTest extends PHPUnit_Framework_TestCase {
     
@@ -43,24 +29,21 @@ class org_tubepress_gallery_GalleryTest extends PHPUnit_Framework_TestCase {
 	{	
 		$fakeHtmlResult = <<<EOT
 <div class="tubepress_container">
-    
+    <a name="tubepress_gallery_911090766" id="tubepress_gallery_911090766" style="visibility:hidden"> </a>
 	pregallerystuff
-	
 	<div class="pagination">
 	    Fakepagination
 	</div>
-	
-	<div class="tubepress_video_thumbs">
+	<div class="tubepress_thumbs">
 		stuffstuffstuff
-	</div><!-- tubepress_video_thumbs -->
-	
+	</div>
 	<div class="pagination">
 	    Fakepagination
 	</div>
+</div>
 
-</div><!-- tubepress_container -->
 EOT;
-		$this->assertEquals($fakeHtmlResult, $this->_sut->generate());
+		$this->assertEquals($fakeHtmlResult, $this->_sut->generate('911090766'));
 	}
 	
 	private function _setupMocks()

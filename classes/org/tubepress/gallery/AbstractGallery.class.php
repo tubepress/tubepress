@@ -19,6 +19,24 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_ioc_ContainerAware',
+    'net_php_pear_HTML_Template_IT',
+    'org_tubepress_options_category_Feed',
+    'org_tubepress_options_category_Display',
+    'org_tubepress_player_Player',
+    'org_tubepress_util_StringUtils',
+    'org_tubepress_gdata_inspection_FeedInspectionService',
+    'org_tubepress_gdata_retrieval_FeedRetrievalService',
+    'org_tubepress_message_MessageService',
+    'org_tubepress_options_manager_OptionsManager',
+    'org_tubepress_pagination_PaginationService',
+    'org_tubepress_querystring_QueryStringService',
+    'org_tubepress_thumbnail_ThumbnailService',
+    'org_tubepress_url_UrlBuilder',
+    'org_tubepress_video_factory_VideoFactory'));
+
 /**
  * Parent class of all TubePress galleries
  */
@@ -42,7 +60,7 @@ abstract class org_tubepress_gallery_AbstractGallery implements org_tubepress_io
      * 
      * @return The HTML content for this gallery
      */
-    public final function generateThumbs()
+    public final function generateThumbs($galleryId = 1)
     {
         /* load up the gallery template */
         $tpl = new net_php_pear_HTML_Template_IT($this->_templateDirectory);
@@ -82,7 +100,6 @@ abstract class org_tubepress_gallery_AbstractGallery implements org_tubepress_io
                 get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
         $player     = $this->_iocContainer->safeGet($playerName . "-player", org_tubepress_player_Player::NORMAL . "-player");
         
-        $galleryId = mt_rand();
         $tpl->setVariable('GALLERYID', $galleryId);
         
         for ($x = 0; $x < sizeof($videos); $x++) {

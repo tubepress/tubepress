@@ -46,11 +46,11 @@ class org_tubepress_gallery_Gallery extends org_tubepress_gallery_AbstractGaller
      * 
      * @return The HTML content for this gallery
      */
-    public final function generate()
+    public final function generate($galleryId)
     {
         try {
             $this->setTemplateDirectory(dirname(__FILE__) . "/../../../../ui/gallery/html_templates");
-             return $this->generateThumbs();
+             return $this->generateThumbs($galleryId);
         } catch (Exception $e) {
             return $e->getMessage();
         }
