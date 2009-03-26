@@ -66,7 +66,7 @@ function tubepress_widget($opts)
 	$gallery = $iocContainer->get(org_tubepress_ioc_IocService::WIDGET_GALL);
 		
 	/* get the output */
-	$out = $gallery->generate($tpom);
+	$out = $gallery->generate(mt_rand());
 
 	/* do the standard WordPress widget dance */
 	echo $before_widget . $before_title . 

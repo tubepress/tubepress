@@ -66,7 +66,7 @@ function _tubepress_content_filter($content) {
 
 	    /* replace the tag with our new content */
 	    $newcontent = org_tubepress_util_StringUtils::replaceFirst($tpom->getShortcode(), 
-	        $gallery->generate(), $newcontent);
+	        $gallery->generate(mt_rand()), $newcontent);
     }
     
     return $newcontent;
@@ -94,14 +94,7 @@ function _tubepress_head_filter() {
 <link rel="stylesheet" href="$tubepress_base_url/ui/gallery/css/tubepress.css" type="text/css" />
 <link rel="stylesheet" href="$tubepress_base_url/ui/widget/css/tubepress_widget.css" type="text/css" />
 <link rel="stylesheet" href="$tubepress_base_url/ui/gallery/css/pagination.css" type="text/css" />
-
-<script type="text/javascript">
-	jQuery(document).ready(function() {
-        tubepress_load_embedded_js("$tubepress_base_url");
-        tubepress_load_players("$tubepress_base_url");
-        tubepress_attach_listeners();
-    });
-</script>
+<script type="text/javascript">jQuery(document).ready(function() {tubepress_init("$tubepress_base_url");});</script>
 
 GBS;
 }
