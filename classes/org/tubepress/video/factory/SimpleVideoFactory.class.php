@@ -32,6 +32,7 @@ class org_tubepress_video_factory_SimpleVideoFactory implements org_tubepress_vi
     private $_mediaGroup;
 
     /* shorthands for the namespaces */
+    const NS_APP   = 'http://www.w3.org/2007/app';
     const NS_MEDIA = 'http://search.yahoo.com/mrss/';
     const NS_YT    = 'http://gdata.youtube.com/schemas/2007';
     const NS_GD    = 'http://schemas.google.com/g/2005';
@@ -336,6 +337,23 @@ class org_tubepress_video_factory_SimpleVideoFactory implements org_tubepress_vi
         }
         $length .= ":" . $leftOverSeconds;
         return $length;
+    }
+    
+    private function _videoNotAvailable(DOMNode $entry)
+    {
+        $control = $entry->getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_APP, 'control');
+        if ($control->length > 0) {
+            $state = $control->item(0)->getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_YT, 'state');
+            if ($state->length > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private function _getReasonUnavailable($entry)
+    {
+        return $entry->getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_APP, 'control')->item(0)->getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_YT, 'state')->item(0)->textContent;
     }
 }
 ?>
