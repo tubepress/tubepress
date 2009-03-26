@@ -41,6 +41,10 @@
  * @link       http://pear.php.net/package/HTTP_Request2
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../../../tubepress_classloader.php');
+tubepress_load_classes(array('net_php_pear_PEAR_Exception'));
+
 /**
  * Base class for exceptions in PEAR
  */

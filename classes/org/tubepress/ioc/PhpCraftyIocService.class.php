@@ -19,6 +19,10 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+tubepress_load_classes(array('net_sourceforge_phpcrafty_ComponentFactory'));
+
 /**
  * Dependency injector for TubePress that uses phpcrafty
  */

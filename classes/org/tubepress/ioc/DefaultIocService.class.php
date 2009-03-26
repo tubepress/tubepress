@@ -19,6 +19,41 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_ioc_PhpCraftyIocService',
+    'org_tubepress_ioc_IocService',
+    'org_tubepress_player_Player',
+    'org_tubepress_embedded_EmbeddedPlayerService',
+    'org_tubepress_message_WordPressMessageService',
+	'org_tubepress_shortcode_SimpleShortcodeService',
+    'org_tubepress_options_reference_SimpleOptionsReference',
+    'org_tubepress_gdata_inspection_SimpleFeedInspectionService',
+	'org_tubepress_cache_SimpleCacheService',
+	'org_tubepress_video_factory_SimpleVideoFactory',
+	'org_tubepress_querystring_SimpleQueryStringService',
+	'org_tubepress_player_impl_YouTubePlayer',
+	'org_tubepress_options_validation_SimpleInputValidationService',
+	'org_tubepress_gdata_retrieval_HTTPRequest2',
+	'org_tubepress_url_SimpleUrlBuilder',
+	'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService',
+	'org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService',
+	'org_tubepress_player_impl_ModalPlayer',
+	'org_tubepress_player_impl_ModalPlayer',
+	'org_tubepress_player_impl_ModalPlayer',
+	'org_tubepress_player_impl_ModalPlayer',
+	'org_tubepress_player_impl_ModalPlayer',
+	'org_tubepress_player_impl_ModalPlayer',
+	'org_tubepress_options_storage_WordPressStorageManager',
+	'org_tubepress_thumbnail_SimpleThumbnailService',
+	'org_tubepress_options_manager_SimpleOptionsManager',
+	'org_tubepress_pagination_DiggStylePaginationService',
+	'org_tubepress_options_form_WidgetPrinter',
+	'org_tubepress_options_form_FormHandler',
+	'org_tubepress_options_form_CategoryPrinter',
+	'org_tubepress_gallery_Gallery',
+	'org_tubepress_gallery_WidgetGallery'));
+
 /**
  * Dependency injector for TubePress in a WordPress environment
  */

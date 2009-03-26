@@ -19,6 +19,13 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_options_storage_StorageManager',
+    'org_tubepress_options_Type',
+    'org_tubepress_options_validation_InputValidationService',
+    'org_tubepress_options_reference_OptionsReference'));
+
 /**
  * Handles persistent storage of TubePress options
  *

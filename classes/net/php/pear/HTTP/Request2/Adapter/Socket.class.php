@@ -45,6 +45,13 @@
  * Base class for HTTP_Request2 adapters
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../../../../tubepress_classloader.php');
+tubepress_load_classes(array('net_php_pear_HTTP_Request2_Adapter',
+    'net_php_pear_HTTP_Request2',
+    'net_php_pear_HTTP_Request2_Exception',
+    'net_php_pear_HTTP_Request2_Response'));
+
 /**
  * Socket-based adapter for HTTP_Request2
  *

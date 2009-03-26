@@ -1,5 +1,12 @@
 <?php
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+tubepress_load_classes(array('net_sourceforge_phpcrafty_ComponentSpec',
+    'net_sourceforge_phpcrafty_ComponentReference',
+    'net_sourceforge_phpcrafty_ComponentReflector',
+    ));
+
 /**
  * A factory class for the dependency injection container.
  * Reads from specifications for components and creates configured instances

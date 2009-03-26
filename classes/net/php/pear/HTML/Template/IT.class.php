@@ -18,6 +18,10 @@
 // $Id: IT.php,v 1.20 2006/08/17 15:47:22 dsp Exp $
 //
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../../../tubepress_classloader.php');
+tubepress_load_classes(array('net_php_pear_PEAR'));
+
 define('IT_OK',                         1);
 define('IT_ERROR',                     -1);
 define('IT_TPL_NOT_FOUND',             -2);
