@@ -10,6 +10,9 @@ require_once 'manager/SimpleOptionsManagerTest.php';
 require_once 'reference/SimpleOptionsReferenceTest.php';
 require_once 'storage/WordPressStorageManagerTest.php';
 require_once 'validation/SimpleInputValidationServiceTest.php';
+require_once 'form/CategoryPrinterTest.php';
+require_once 'form/FormHandlerTest.php';
+require_once 'form/WidgetPrinterTest.php';
 
 class OptionsTests
 {
@@ -26,6 +29,9 @@ class OptionsTests
 		$suite->addTestSuite('org_tubepress_options_reference_SimpleOptionsReferenceTest');
 		$suite->addTestSuite('org_tubepress_options_storage_WordPressStorageManagerTest');
 		$suite->addTestSuite('org_tubepress_options_validation_SimpleInputValidationServiceTest');
+		$suite->addTestSuite('org_tubepress_options_form_FormHandlerTest');
+		$suite->addTestSuite('org_tubepress_options_form_WidgetPrinterTest');
+		$suite->addTestSuite('org_tubepress_options_form_CategoryPrinterTest');
 		return $suite;
 	}
 }
