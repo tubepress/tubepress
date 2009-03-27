@@ -69,12 +69,20 @@ EOT
 	    $this->optRef->expects($this->once())
 	                 ->method('getType')
 	                 ->will($this->returnValue(org_tubepress_options_Type::ORDER));
+	    $this->optRef->expects($this->once())
+	                 ->method('getValidEnumValues')
+	                 ->will($this->returnValue(array('bla', 'rre', 'stuff')));
+	    $this->_msg->expects($this->any())
+	               ->method('_')
+	               ->will($this->returnCallback('messageCallback'));
 	    $this->sm->expects($this->once())
 	                 ->method('get')
 	                 ->will($this->returnValue('ss'));
 	    $this->assertEquals(<<<EOT
 
-<input type="checkbox" name="test" value="test" CHECKED />
+<select name="test">
+	<option value="bla" >Message order-bla</option><option value="rre" >Message order-rre</option><option value="stuff" >Message order-stuff</option>
+</select> 
 
 EOT
 	    , $this->_stpom->getHtml('test'));	    
@@ -103,5 +111,9 @@ EOT
         $this->optRef = $this->getMock('org_tubepress_options_reference_OptionsReference');
         $this->sm = $this->getMock('org_tubepress_options_storage_StorageManager');
     }
+}
+
+function messageCallback($arg) {
+    return "Message $arg";
 }
 ?>
