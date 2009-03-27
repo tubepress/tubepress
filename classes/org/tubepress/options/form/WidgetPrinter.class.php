@@ -39,7 +39,7 @@ class org_tubepress_options_form_WidgetPrinter
 
         $this->_processSingleWidget($optionName);
         
-        return $this->_tpl->get();
+        return org_tubepress_util_StringUtils::removeEmptyLines($this->_tpl->get());
     }
     
     public function getHtmlForRadio($optionName)
@@ -51,7 +51,7 @@ class org_tubepress_options_form_WidgetPrinter
         
         $this->_displayGalleryInput($optionName, $this->_tpsm->get(org_tubepress_options_category_Gallery::MODE));
         
-        return $this->_tpl->get();
+        return org_tubepress_util_StringUtils::removeEmptyLines($this->_tpl->get());
     }
     
     private function _processSingleWidget($optionName)
