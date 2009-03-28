@@ -64,5 +64,3 @@ class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService extends org_tubepre
         return $this->_tpl->get();
     }  
 }
-
-?>

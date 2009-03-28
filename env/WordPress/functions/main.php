@@ -19,6 +19,16 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../classes/tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_options_storage_WordPressStorageManager',
+    'org_tubepress_options_category_Advanced',
+    'org_tubepress_shortcode_SimpleShortcodeService',
+    'org_tubepress_ioc_DefaultIocService',
+    'org_tubepress_ioc_IocService',
+    'org_tubepress_util_Debug',
+    'org_tubepress_util_StringUtils'));
+
 /**
  * Main filter hook. Looks for a tubepress tag
  * and, if found, replaces it with a gallery

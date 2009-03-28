@@ -34,4 +34,3 @@ class org_tubepress_player_impl_YouTubePlayer extends org_tubepress_player_Abstr
         return '';
     }
 }
-?>

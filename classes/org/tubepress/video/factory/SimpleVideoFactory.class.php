@@ -356,4 +356,3 @@ class org_tubepress_video_factory_SimpleVideoFactory implements org_tubepress_vi
         return $entry->getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_APP, 'control')->item(0)->getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_YT, 'state')->item(0)->textContent;
     }
 }
-?>

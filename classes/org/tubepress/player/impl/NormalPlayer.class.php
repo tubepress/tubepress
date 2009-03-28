@@ -52,4 +52,3 @@ class org_tubepress_player_impl_NormalPlayer extends org_tubepress_player_Abstra
         return $tpl->get();    
     }
 }
-?>

@@ -19,6 +19,10 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_querystring_QueryStringService'));
+
 /**
  * Simple implementation of org_tubepress_querystring_QueryStringService
  */
@@ -68,4 +72,3 @@ class org_tubepress_querystring_SimpleQueryStringService implements org_tubepres
             $getVars["tubepress_video"] : "";
     }
 }
-?>

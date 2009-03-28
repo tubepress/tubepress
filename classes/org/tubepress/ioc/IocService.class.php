@@ -48,4 +48,3 @@ interface org_tubepress_ioc_IocService
     
     public function safeGet($firstChoice, $safeChoice);
 }
-?>

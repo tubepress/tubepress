@@ -30,4 +30,3 @@ interface org_tubepress_ioc_ContainerAware
 {
     public function setContainer(org_tubepress_ioc_IocService $container);
 }
-?>

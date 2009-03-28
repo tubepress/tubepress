@@ -39,11 +39,6 @@ tubepress_load_classes(array('org_tubepress_ioc_PhpCraftyIocService',
 	'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService',
 	'org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService',
 	'org_tubepress_player_impl_ModalPlayer',
-	'org_tubepress_player_impl_ModalPlayer',
-	'org_tubepress_player_impl_ModalPlayer',
-	'org_tubepress_player_impl_ModalPlayer',
-	'org_tubepress_player_impl_ModalPlayer',
-	'org_tubepress_player_impl_ModalPlayer',
 	'org_tubepress_options_storage_WordPressStorageManager',
 	'org_tubepress_thumbnail_SimpleThumbnailService',
 	'org_tubepress_options_manager_SimpleOptionsManager',
@@ -239,4 +234,3 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
         );
     }
 }
-?>

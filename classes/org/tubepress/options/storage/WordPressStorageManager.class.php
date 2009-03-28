@@ -152,4 +152,3 @@ class org_tubepress_options_storage_WordPressStorageManager extends org_tubepres
             $optionValue);
     }
 }
-?>

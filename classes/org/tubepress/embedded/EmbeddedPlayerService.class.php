@@ -35,4 +35,3 @@ interface org_tubepress_embedded_EmbeddedPlayerService
      */
     public function toString($videoId);
 }
-?>

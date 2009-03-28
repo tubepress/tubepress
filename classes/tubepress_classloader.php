@@ -55,15 +55,15 @@ function tubepress_classloader($className)
     }
 }
 
-/*
- * register it as a class loader if PHP >= 5.1.2, otherwise
- * we just have to register it as *the* classloader (bad!)
- */
-if (version_compare(PHP_VERSION, '5.1.2', '>=')) {
-	spl_autoload_register("tubepress_classloader");
-} else {
-	function __autoload($className) {
-		return tubepress_classloader($className);
-	}
-}
+///*
+// * register it as a class loader if PHP >= 5.1.2, otherwise
+// * we just have to register it as *the* classloader (bad!)
+// */
+//if (version_compare(PHP_VERSION, '5.1.2', '>=')) {
+//	spl_autoload_register("tubepress_classloader");
+//} else {
+//	function __autoload($className) {
+//		return tubepress_classloader($className);
+//	}
+//}
 ?>

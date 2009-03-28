@@ -64,4 +64,3 @@ abstract class org_tubepress_ioc_PhpCraftyIocService extends net_sourceforge_php
         return $this->get($safeChoice);
     }
 }
-?>

@@ -19,6 +19,16 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+tubepress_load_classes(array('net_php_pear_HTML_Template_IT',
+    'org_tubepress_options_Category',
+    'org_tubepress_options_Type',
+    'org_tubepress_message_MessageService',
+    'org_tubepress_options_reference_OptionsReference',
+    'org_tubepress_options_storage_StorageManager',
+    'org_tubepress_options_form_CategoryPrinter'));
+
 /**
  * Displays a generic options form for TubePress
  *

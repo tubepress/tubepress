@@ -40,4 +40,4 @@ interface org_tubepress_shortcode_ShortcodeService
 
     public function somethingToParse($content, $trigger = "tubepress");
 }
-?>
+

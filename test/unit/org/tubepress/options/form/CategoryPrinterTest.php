@@ -1,7 +1,5 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/options/form/CategoryPrinter.class.php';
-
 class org_tubepress_options_form_CategoryPrinterTest extends PHPUnit_Framework_TestCase {
     
 	private $_stpom;
@@ -12,6 +10,7 @@ class org_tubepress_options_form_CategoryPrinterTest extends PHPUnit_Framework_T
 	
 	public function setup()
 	{
+	    require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/options/form/CategoryPrinter.class.php';
 		$this->_stpom = new org_tubepress_options_form_CategoryPrinter();
         $this->defineMocks();
         $this->applyMocks();

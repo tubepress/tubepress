@@ -106,5 +106,3 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService extends org_tubep
         return str_replace("?", "&amp;", $embedSrc);
     }
 }
-
-?>

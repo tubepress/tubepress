@@ -372,4 +372,3 @@ class org_tubepress_video_Video
         $this->_youTubeUrl = $youTubeUrl; 
     }    
 }
-?>

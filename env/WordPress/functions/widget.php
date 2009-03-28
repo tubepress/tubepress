@@ -19,6 +19,10 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../classes/tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_message_WordPressMessageService'));
+
 /**
  * Registers TubePress as a widget
  *
@@ -44,21 +48,21 @@ function tubepress_widget($opts)
 	extract($opts);
 	
 	$iocContainer = new org_tubepress_ioc_DefaultIocService();
-	$tpom = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MGR);
+	$tpom         = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MGR);
 	
 	$tpom->setCustomOptions(
-	    array(org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
-	        org_tubepress_options_category_Meta::VIEWS => false,
-	        org_tubepress_options_category_Meta::DESCRIPTION => true,
-	        org_tubepress_options_category_Display::DESC_LIMIT => 50,
+	    array(org_tubepress_options_category_Display::RESULTS_PER_PAGE  => 3,
+	        org_tubepress_options_category_Meta::VIEWS                  => false,
+	        org_tubepress_options_category_Meta::DESCRIPTION            => true,
+	        org_tubepress_options_category_Display::DESC_LIMIT          => 50,
 	        org_tubepress_options_category_Display::CURRENT_PLAYER_NAME => org_tubepress_player_Player::POPUP,
-	        org_tubepress_options_category_Display::THUMB_HEIGHT => 105,
-	        org_tubepress_options_category_Display::THUMB_WIDTH => 135
-	        )
+	        org_tubepress_options_category_Display::THUMB_HEIGHT        => 105,
+	        org_tubepress_options_category_Display::THUMB_WIDTH         => 135
+	    )
 	);
 	
 	$shortcodeService = $iocContainer->get(org_tubepress_ioc_IocService::SHORTCODE);
-	$wpsm = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE);
+	$wpsm             = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE);
 	
 	/* now apply the user's shortcode */
 	$shortcodeService->parse($wpsm->get(org_tubepress_options_category_Widget::TAGSTRING), $tpom);

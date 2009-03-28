@@ -34,4 +34,3 @@ interface org_tubepress_video_factory_VideoFactory
      */
     public function dom2TubePressVideoArray(DOMDocument $rss, $limit);
 }
-?>

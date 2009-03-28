@@ -19,6 +19,10 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../classes/tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_ioc_DefaultIocService'));
+
 /**
  * This is where the fun stuff happens
  */

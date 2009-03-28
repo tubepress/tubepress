@@ -51,5 +51,3 @@ abstract class org_tubepress_embedded_impl_AbstractEmbeddedPlayerService impleme
         return $this->_optionsManager;
     }
 }
-
-?>

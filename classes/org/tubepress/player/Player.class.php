@@ -38,4 +38,4 @@ interface org_tubepress_player_Player
     
     public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId);
 }
-?>
+

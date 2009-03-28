@@ -46,4 +46,3 @@ class org_tubepress_player_impl_ModalPlayer extends org_tubepress_player_Abstrac
         return $tpl->get();    
     }
 }
-?>

@@ -41,4 +41,3 @@ interface org_tubepress_querystring_QueryStringService
     
     public function getCustomVideo($getVars);
 }
-?>

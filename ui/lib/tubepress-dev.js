@@ -2,6 +2,12 @@ jQuery.getScript = function(url, callback, cache) {
     jQuery.ajax({ type: "GET", url: url, success: callback, dataType: "script", cache: cache }); 
 }; 
 
+function tubepress_init(baseUrl) {
+	tubepress_load_embedded_js(baseUrl);
+    tubepress_load_players(baseUrl);
+    tubepress_attach_listeners();
+}
+
 function tubepress_attach_listeners()
 {
 	jQuery("a[id^='tubepress_']").click(function () {

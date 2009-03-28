@@ -54,4 +54,4 @@ abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_play
         return $this->_iocContainer;
     }
 }
-?>
+
