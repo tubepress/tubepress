@@ -24,7 +24,8 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_player_AbstractPlayer',
     'org_tubepress_video_Video',
     'net_php_pear_HTML_Template_IT',
-    'org_tubepress_options_category_Embedded'));
+    'org_tubepress_options_category_Embedded',
+    'org_tubepress_embedded_EmbeddedPlayerService'));
 
 /**
  * Plays videos in a modal window
