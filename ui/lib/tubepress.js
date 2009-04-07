@@ -1,6 +1,85 @@
-jQuery.getScript=function(b,c,a){jQuery.ajax({type:"GET",url:b,success:c,dataType:"script",cache:a})};function tubepress_attach_listeners(){jQuery("a[id^='tubepress_']").click(function(){var a=jQuery(this).attr("rel").split("_");var d=a[3];var b=a[2];var c=a[1];var e=jQuery(this).attr("id").substring(16,27);
-_tubepress_swap_embedded(d,e,c);_tubepress_call_player_js(d,e,c,b)})}function _tubepress_swap_embedded(b,e,a){var d=window["tubepress_"+a+"_matcher"]();var f=jQuery("#tubepress_embedded_object_"+b);if(f.html()!=null){var c=f.html().match(d)[1];f.html(f.html().replace(c,e))}}function _tubepress_call_player_js(d,e,c,b){var a="tubepress_"+b+"_player";
-window[a](d,e)}function tubepress_load_players(c){var d=_tubepress_rel_parser(2);for(var b=0;b<d.length;b++){var a=d[b];jQuery.getScript(c+"/ui/players/"+a+"/"+a+".js",_tubepress_player_loaded(a,c),true)}}function _tubepress_player_loaded(a,b){var d="tubepress_"+a+"_player_init";var c=function(){window[d](b)
-};_tubepress_call_when_true(function(){return typeof window[d]=="function"},c)}function tubepress_load_embedded_js(c){var b=_tubepress_rel_parser(1);for(var a=0;a<b.length;a++){jQuery.getScript(c+"/ui/embedded/"+b[a]+"/"+b[a]+".js",function(){},true)}}function _tubepress_rel_parser(a){var b=[];jQuery("a[rel^='tubepress_']").each(function(){var c=jQuery(this).attr("rel").split("_")[a];
-if(b.indexOf(c)==-1){b.push(c)}});return b}function _tubepress_call_when_true(b,a){if(!b()){setTimeout(function(){_tubepress_call_when_true(b,a)},400);return}a()}function _tubepress_get_wait_call(a,c,b){jQuery.getScript(a,function(){_tubepress_call_when_true(c,b)},true)}jQuery.fn.isChildOf=function(a){return(this.parents(a).length>0)
-};
+jQuery.getScript = function(url, callback, cache) {
+    jQuery.ajax({ type: "GET", url: url, success: callback, dataType: "script", cache: cache }); 
+}; 
+
+function tubepress_init(baseUrl) {
+	tubepress_load_embedded_js(baseUrl);
+    tubepress_load_players(baseUrl);
+    tubepress_attach_listeners();
+}
+
+function tubepress_attach_listeners()
+{
+	jQuery("a[id^='tubepress_']").click(function () {
+		var rel_split    = jQuery(this).attr("rel").split("_");
+		var galleryId    = rel_split[3];
+		var playerName   = rel_split[2];
+		var embeddedName = rel_split[1];
+		var videoId = jQuery(this).attr("id").substring(16, 27);
+
+        _tubepress_swap_embedded(galleryId, videoId, embeddedName);
+        _tubepress_call_player_js(galleryId, videoId, embeddedName, playerName);
+    });
+}
+
+function _tubepress_swap_embedded(galleryId, videoId, embeddedName) {
+    var matcher = window["tubepress_" + embeddedName + "_matcher"]();
+    var wrapper = jQuery("#tubepress_embedded_object_" + galleryId);
+    if (wrapper.html() != null) {
+        var oldVideoId = wrapper.html().match(matcher)[1];
+        wrapper.html(wrapper.html().replace(oldVideoId, videoId));
+    }
+}
+
+function _tubepress_call_player_js(galleryId, videoId, embeddedName, playerName) {
+    var playerFunctionName = "tubepress_" + playerName + "_player";
+    window[playerFunctionName](galleryId, videoId);
+}
+
+
+function tubepress_load_players(baseUrl) {
+	var playerNames = _tubepress_rel_parser(2);
+    for(var i = 0; i < playerNames.length; i++) {
+    	var name = playerNames[i];
+        jQuery.getScript(baseUrl + "/ui/players/" + name + "/" + name + ".js", 
+        	_tubepress_player_loaded(name, baseUrl) , true);
+    }
+}
+
+function _tubepress_player_loaded(playerName, baseUrl) {
+	var funcName = 'tubepress_' + playerName + '_player_init';
+	var f = function() { window[funcName](baseUrl); }
+	_tubepress_call_when_true(function() { return typeof window[funcName] == 'function'; }, f);
+}
+
+function tubepress_load_embedded_js(baseUrl) {
+    var embeddedNames = _tubepress_rel_parser(1);
+    for(var i = 0; i < embeddedNames.length; i++) {
+        jQuery.getScript(baseUrl + "/ui/embedded/" + embeddedNames[i] + "/" + embeddedNames[i] + ".js", function() {}, true);
+    }
+}
+
+function _tubepress_rel_parser(index) {
+    var returnValue = [];
+    jQuery("a[rel^='tubepress_']").each( function() {
+        var thisName = jQuery(this).attr("rel").split("_")[index];
+        if (returnValue.indexOf(thisName) == -1) {
+            returnValue.push(thisName);
+        }
+    });
+    return returnValue;
+}
+
+function _tubepress_call_when_true(test, callback) {
+	if (!test()) {
+		setTimeout(function() {_tubepress_call_when_true(test, callback);}, 400);
+		return;
+	}
+	callback();
+}
+
+function _tubepress_get_wait_call(scriptPath, test, callback) {
+	jQuery.getScript(scriptPath, function() {
+		_tubepress_call_when_true(test, callback);
+    }, true);
+}
