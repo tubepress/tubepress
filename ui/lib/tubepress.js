@@ -63,7 +63,7 @@ function _tubepress_rel_parser(index) {
     var returnValue = [];
     jQuery("a[rel^='tubepress_']").each( function() {
         var thisName = jQuery(this).attr("rel").split("_")[index];
-        if (returnValue.indexOf(thisName) == -1) {
+        if (jQuery.inArray(thisName, returnValue) == -1) {
             returnValue.push(thisName);
         }
     });
