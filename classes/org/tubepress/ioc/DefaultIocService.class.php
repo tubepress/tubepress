@@ -33,6 +33,7 @@ tubepress_load_classes(array('org_tubepress_ioc_PhpCraftyIocService',
 	'org_tubepress_video_factory_SimpleVideoFactory',
 	'org_tubepress_querystring_SimpleQueryStringService',
 	'org_tubepress_player_impl_YouTubePlayer',
+    'org_tubepress_player_impl_NormalPlayer',
 	'org_tubepress_options_validation_SimpleInputValidationService',
 	'org_tubepress_gdata_retrieval_HTTPRequest2',
 	'org_tubepress_url_SimpleUrlBuilder',
@@ -101,7 +102,7 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
             )
         );
         $this->def(org_tubepress_player_Player::NORMAL . "-player",
-            $this->impl('org_tubepress_player_impl_ModalPlayer',
+            $this->impl('org_tubepress_player_impl_NormalPlayer',
                 array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
             )
         );
