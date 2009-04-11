@@ -22,12 +22,46 @@ function tubepress_attach_listeners()
     });
 }
 
+/**
+ * This function is very carefully constructed to work with both IE and FF.
+ * Modify at your own risk!!
+ * 
+ * @param galleryId    The unique gallery ID containing the embedded object
+ *                      to swap
+ * @param videoId      The "new" YouTube video ID
+ * @param embeddedName Longtail, YouTube, etc
+ * @return void
+ */
 function _tubepress_swap_embedded(galleryId, videoId, embeddedName) {
-    var matcher = window["tubepress_" + embeddedName + "_matcher"]();
-    var wrapper = jQuery("#tubepress_embedded_object_" + galleryId);
-    if (wrapper.html() != null) {
-        var oldVideoId = wrapper.html().match(matcher)[1];
-        wrapper.html(wrapper.html().replace(oldVideoId, videoId));
+	
+	var wrapperId = "#tubepress_embedded_object_" + galleryId;
+    var wrapper = jQuery(wrapperId);
+    if (wrapper.html() != "") {
+    	
+    	/* grab the matcher for the embedded player */
+    	var matcher = window["tubepress_" + embeddedName + "_matcher"]();
+    	var oldVideoId = wrapper.html().match(matcher)[1];
+
+    	/* save the params but remove them from the DOM for now */
+    	var params = jQuery(wrapperId + " > object > param");
+    	params.remove();
+    	
+    	/* replace the video ID inside the object tag */
+    	var newHtml = wrapper.html().replace(oldVideoId, videoId);
+    	
+    	/* chop off the closing </object> */
+    	newHtml = newHtml.substring(0, newHtml.length - 9);
+    	
+    	/* now add back the params, but this time with the new video ID */
+    	params.each(function() {
+        	newHtml += '<param name="' + this.name + '" value="' + this.value.replace(oldVideoId, videoId) + '" />';
+        });
+    	
+    	/* re-close the object */
+    	newHtml += '</object>';
+    	
+    	/* add it back in */
+    	wrapper.html(newHtml);
     }
 }
 
