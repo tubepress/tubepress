@@ -40,7 +40,8 @@ function _tubepress_swap_embedded(galleryId, videoId, embeddedName) {
     	
     	/* grab the matcher for the embedded player */
     	var matcher = window["tubepress_" + embeddedName + "_matcher"]();
-    	var oldVideoId = wrapper.html().match(matcher)[1];
+    	var paramName = window["tubepress_" + embeddedName + "_param"]();
+    	var oldVideoId = jQuery(wrapperId + " > object > param[name=" + paramName + "]").attr("value").match(matcher)[1];
 
     	/* save the params but remove them from the DOM for now */
     	var params = jQuery(wrapperId + " > object > param");
