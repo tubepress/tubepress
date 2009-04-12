@@ -23,7 +23,7 @@ function tubepress_attach_listeners()
 }
 
 /**
- * This function is very carefully constructed to work with both IE and FF.
+ * This function is very carefully constructed to work with both IE 7-8 and FF.
  * Modify at your own risk!!
  * 
  * @param galleryId    The unique gallery ID containing the embedded object
@@ -41,10 +41,11 @@ function _tubepress_swap_embedded(galleryId, videoId, embeddedName) {
     	/* grab the matcher for the embedded player */
     	var matcher = window["tubepress_" + embeddedName + "_matcher"]();
     	var paramName = window["tubepress_" + embeddedName + "_param"]();
-    	var oldVideoId = jQuery(wrapperId + " > object > param[name=" + paramName + "]").attr("value").match(matcher)[1];
+    	var obj = jQuery(wrapperId + " > object");
+    	var oldVideoId = obj.children("param[name='" + paramName + "']").attr("value").match(matcher)[1];
 
     	/* save the params but remove them from the DOM for now */
-    	var params = jQuery(wrapperId + " > object > param");
+    	var params = obj.children("param");
     	params.remove();
     	
     	/* replace the video ID inside the object tag */
@@ -94,6 +95,11 @@ function tubepress_load_embedded_js(baseUrl) {
     }
 }
 
+/**
+ * Utility function to do some DOM parsing for other functions here
+ * @param index
+ * @return
+ */
 function _tubepress_rel_parser(index) {
     var returnValue = [];
     jQuery("a[rel^='tubepress_']").each( function() {
@@ -105,6 +111,13 @@ function _tubepress_rel_parser(index) {
     return returnValue;
 }
 
+/**
+ * Waits until the given test is true (tests every .4 seconds),
+ * and then executes the given callback.
+ * @param test
+ * @param callback
+ * @return
+ */
 function _tubepress_call_when_true(test, callback) {
 	if (!test()) {
 		setTimeout(function() {_tubepress_call_when_true(test, callback);}, 400);
@@ -113,6 +126,14 @@ function _tubepress_call_when_true(test, callback) {
 	callback();
 }
 
+/**
+ * Convenience method to wait for a script to load, then call some function
+ * from that script.
+ * @param scriptPath
+ * @param test
+ * @param callback
+ * @return
+ */
 function _tubepress_get_wait_call(scriptPath, test, callback) {
 	jQuery.getScript(scriptPath, function() {
 		_tubepress_call_when_true(test, callback);
