@@ -71,7 +71,7 @@ function _tubepress_content_filter($content) {
 	    $shortcodeService->parse($newcontent, $tpom);
 
     	if (org_tubepress_util_Debug::areWeDebugging($tpom)) {
-	        org_tubepress_util_Debug::execute($gallery, $tpom);
+	        org_tubepress_util_Debug::execute($iocContainer);
 	    }
 
 	    /* replace the tag with our new content */

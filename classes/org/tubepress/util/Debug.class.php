@@ -33,8 +33,7 @@ class org_tubepress_util_Debug
      * 
      * @return void
      */
-    public static final function execute(org_tubepress_gallery_Gallery $gallery, 
-        org_tubepress_options_manager_OptionsManager $tpom)
+    public static final function execute(org_tubepress_ioc_IocService $iocContainer)
     {
         global $tubepress_base_url;
     
@@ -45,12 +44,11 @@ class org_tubepress_util_Debug
            return;
         }
 
-        $builder = new org_tubepress_url_SimpleUrlBuilder();
-        $builder->setOptionsManager($tpom);
-        $qss = new org_tubepress_querystring_SimpleQueryStringService();
+        $builder = $iocContainer->get(org_tubepress_ioc_IocService::URL_BUILDER);
+        $qss =  $iocContainer->get(org_tubepress_ioc_IocService::QUERY_STR);
         $currentPage  = $qss->getPageNum($_GET);
         $debugStuff = array("tubepress_base_url" => $tubepress_base_url,
-            "Gallery" => print_r($gallery, true),
+            "IOC" => print_r($iocContainer, true),
             "YouTube connection test" => "Click <a href=\"" . $tubepress_base_url . 
                 "/common/class/gdata/retrieval/TubePressConnectionTest.php\">" . 
                 "here</a> to view results",
