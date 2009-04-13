@@ -28,12 +28,12 @@ tubepress_load_classes(array('org_tubepress_video_Video'));
  */
 interface org_tubepress_player_Player
 {
-    const COLORBOX    = 'colorbox'; 
-    const JQMODAL     = 'jqmodal';
-    const LIGHTWINDOW = "lightwindow";
     const NORMAL      = "normal";
     const POPUP       = "popup";
     const SHADOWBOX   = "shadowbox";
+    const COLORBOX    = 'colorbox'; 
+    const JQMODAL     = 'jqmodal';
+    const LIGHTWINDOW = "lightwindow";
     const YOUTUBE     = "youtube";
     
     public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId);

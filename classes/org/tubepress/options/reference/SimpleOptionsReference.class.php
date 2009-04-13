@@ -157,15 +157,15 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
     {
         switch ($optionType) {
             case org_tubepress_options_Type::PLAYER:
-                return array('colorbox', "lightwindow", "normal", "popup", "shadowbox", "youtube", 'jqmodal');
+                return array("normal", "popup","shadowbox",'colorbox', 'jqmodal', "lightwindow",  "youtube");
             case org_tubepress_options_Type::ORDER:
                 return array("relevance", "viewCount", "rating", "updated", "random");
             case org_tubepress_options_Type::QUALITY:
                 return array("normal", "high", "higher", "highest");
             case org_tubepress_options_Type::MODE:
-                return array("favorites", "recently_featured", "mobile", "most_discussed",
-                    "most_linked", "most_recent", "most_responded", "playlist", "most_viewed",
-                    "tag", "top_rated", "user");
+                return array('favorites', 'playlist', 'tag', 'user', "recently_featured", "mobile", "most_discussed",
+                    "most_linked", "most_recent", "most_responded", "most_viewed",
+                    "top_rated");
             case org_tubepress_options_Type::SAFE_SEARCH:
                 return array("none", "moderate", "strict");
             case org_tubepress_options_Type::PLAYER_IMPL:
