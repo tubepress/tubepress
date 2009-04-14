@@ -15,8 +15,7 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerServiceTest extends org_t
 		$link = "http://www.youtube.com/v/FAKEID&amp;color2=0x777777&amp;color1=0x111111&amp;rel=1&amp;autoplay=0&amp;loop=1&amp;egm=0&amp;border=1&amp;fs=1&amp;showinfo=0";
 		
 		$this->assertEquals(<<<EOT
-<object type="application/x-shockwave-flash" 
-    style="width: 450px; height: 350px" data="$link">
+<object type="application/x-shockwave-flash" data="$link" style="width: 450px; height: 350px">
     <param name="wmode" value="transparent" />
     <param name="movie" value="$link" />
     <param name="allowfullscreen" value="true" />

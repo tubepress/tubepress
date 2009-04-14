@@ -15,17 +15,13 @@ class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerServiceTest extends org_tub
 		$link = "http://www.youtube.com/v/FAKEID&amp;color2=0x777777&amp;color1=0x111111&amp;rel=1&amp;autoplay=0&amp;loop=1&amp;egm=0&amp;border=1&amp;fs=1&amp;showinfo=0";
 		
 		$this->assertEquals(<<<EOT
-<object 
-    type="application/x-shockwave-flash" 
-    data="/ui/embedded/longtail/lib/player.swf"
-    width="425" 
-    height="355" 
-    id="VideoPlayback">
+<object type="application/x-shockwave-flash" data="/ui/embedded/longtail/lib/player.swf" style="width: 450px; height: 350px" >
+    <param name="AllowScriptAccess" value="never" />
+    <param name="wmode" value="transparent" />
     <param name="movie" value="/ui/embedded/longtail/lib/player.swf" />
-    <param name="allowscriptacess" value="sameDomain" />
     <param name="bgcolor" value="#000000" />
     <param name="quality" value="high" />
-    <param name="flashvars" value="file=http://www.youtube.com/watch?v=FAKEID&autostart=false&height=350&width=450" />
+    <param name="flashvars" value="file=http://www.youtube.com/watch?v=FAKEID&amp;autostart=false&amp;height=350&amp;width=450" />
 </object>
 EOT
 			,  $this->_sut->toString('FAKEID'));
