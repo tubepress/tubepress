@@ -89,7 +89,7 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
      */
     public function setCustomOptions($customOpts)
     {
-        $this->_customOptions = array_merge($this->_customOptions, $customOpts);
+        $this->_customOptions = $customOpts;
     }
     
     /**

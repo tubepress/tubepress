@@ -54,9 +54,10 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
         preg_match("/$regexp/", $content, $matches);
         
         $tpom->setShortcode($matches[0]);
-        
+
         /* Anything matched? */
         if (!isset($matches[1]) || $matches[1] == "") {
+            $tpom->setCustomOptions($customOptions);
             return;
         }
         
