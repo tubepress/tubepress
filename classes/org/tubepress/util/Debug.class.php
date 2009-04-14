@@ -50,7 +50,7 @@ class org_tubepress_util_Debug
         $debugStuff = array("tubepress_base_url" => $tubepress_base_url,
             "IOC" => print_r($iocContainer, true),
             "YouTube connection test" => "Click <a href=\"" . $tubepress_base_url . 
-                "/common/class/gdata/retrieval/TubePressConnectionTest.php\">" . 
+                "/classes/org/tubepress/gdata/retrieval/ConnectionTest.php\">" . 
                 "here</a> to view results",
             "Request URL" => $builder->buildGalleryUrl($currentPage));
         

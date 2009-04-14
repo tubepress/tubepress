@@ -91,7 +91,12 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
     {
         $this->_customOptions = $customOpts;
     }
-    
+
+    public function mergeCustomOptions($customOpts)
+    {
+        $this->_customOptions = array_merge($this->_customOptions, $customOpts);
+    }    
+
     /**
      * Enter description here...
      *

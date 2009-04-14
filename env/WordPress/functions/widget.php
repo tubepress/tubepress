@@ -65,7 +65,7 @@ function tubepress_widget($opts)
 	$wpsm             = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE);
 	
 	/* now apply the user's shortcode */
-	$shortcodeService->parse($wpsm->get(org_tubepress_options_category_Widget::TAGSTRING), $tpom);
+	$shortcodeService->parse($wpsm->get(org_tubepress_options_category_Widget::TAGSTRING), $tpom, true);
 	
 	$gallery = $iocContainer->get(org_tubepress_ioc_IocService::WIDGET_GALL);
 		

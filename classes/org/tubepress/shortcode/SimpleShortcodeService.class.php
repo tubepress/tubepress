@@ -38,7 +38,7 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
      * 
      * @return void
      */
-    public function parse($content, org_tubepress_options_manager_OptionsManager $tpom)
+    public function parse($content, org_tubepress_options_manager_OptionsManager $tpom, $mergeWithExistingOptions = false)
     {    
         /* what trigger word are we using? */
         $keyword = $tpom->get(org_tubepress_options_category_Advanced::KEYWORD);
@@ -57,7 +57,7 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
 
         /* Anything matched? */
         if (!isset($matches[1]) || $matches[1] == "") {
-            $tpom->setCustomOptions($customOptions);
+            $this->_applyOptions($tpom, $customOptions, $mergeWithExistingOptions);
             return;
         }
         
@@ -72,7 +72,7 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
             $customOptions[$pieces[0]] = $pieces[1];
         }
 
-        $tpom->setCustomOptions($customOptions);
+        $this->_applyOptions($tpom, $customOptions, $mergeWithExistingOptions);
     }
 
     public function somethingToParse($content, $trigger = "tubepress")
@@ -80,6 +80,15 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
         return strpos($content, '[' . $trigger) !== false;
     }
     
+    private function _applyOptions($tpom, $opts, $merge)
+    {
+        if ($merge) {
+            $tpom->mergeCustomOptions($opts);
+        } else {
+            $tpom->setCustomOptions($opts);
+        }
+    }
+
     /**
      * Tries to strip out any quotes from a tag option name or option value. This
      * is ugly, ugly, ugly, and it still doesn't work as well as I'd like it to
