@@ -96,59 +96,13 @@ lightwindow.prototype = {
 				action : 'lightwindow_action'
 			},
 			fileTypes : {
-				page : ['asp', 'aspx', 'cgi', 'cfm', 'htm', 'html', 'pl', 'php4', 'php3', 'php', 'php5', 'phtml', 'rhtml', 'shtml', 'txt', 'vbs', 'rb'],
-				media : ['aif', 'aiff', 'asf', 'avi', 'divx', 'm1v', 'm2a', 'm2v', 'm3u', 'mid', 'midi', 'mov', 'moov', 'movie', 'mp2', 'mp3', 'mpa', 'mpa', 'mpe', 'mpeg', 'mpg', 'mpg', 'mpga', 'pps', 'qt', 'rm', 'ram', 'swf', 'viv', 'vivo', 'wav'],
-				image : ['bmp', 'gif', 'jpg', 'png', 'tiff']
+				page : [],
+				media : [],
+				image : []
 			},
-			mimeTypes : {
-				avi : 'video/avi',
-				aif : 'audio/aiff',
-				aiff : 'audio/aiff',
-				gif : 'image/gif',
-				bmp : 'image/bmp',
-				jpeg : 'image/jpeg',
-				m1v : 'video/mpeg',
-				m2a : 'audio/mpeg',
-				m2v : 'video/mpeg',
-				m3u : 'audio/x-mpequrl',
-				mid : 'audio/x-midi',
-				midi : 'audio/x-midi',
-				mjpg : 'video/x-motion-jpeg',
-				moov : 'video/quicktime',
-				mov : 'video/quicktime',
-				movie : 'video/x-sgi-movie',
-				mp2 : 'audio/mpeg',
-				mp3 : 'audio/mpeg3',
-				mpa : 'audio/mpeg',
-				mpa : 'video/mpeg',
-				mpe : 'video/mpeg',
-				mpeg : 'video/mpeg',
-				mpg : 'audio/mpeg',
-				mpg : 'video/mpeg',
-				mpga : 'audio/mpeg',
-				pdf : 'application/pdf',
-				png : 'image/png',
-				pps : 'application/mspowerpoint',
-				qt : 'video/quicktime',
-				ram : 'audio/x-pn-realaudio-plugin',
-				rm : 'application/vnd.rn-realmedia',
-				swf	: 'application/x-shockwave-flash',
-				tiff : 'image/tiff',
-				viv : 'video/vivo',
-				vivo : 'video/vivo',
-				wav : 'audio/wav',
-				wmv : 'application/x-mplayer2'			
-			},	
-			classids : {
-				mov : 'clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B',
-				swf : 'clsid:D27CDB6E-AE6D-11cf-96B8-444553540000',
-				wmv : 'clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6'
-			},
-			codebases : {
-				mov : 'http://www.apple.com/qtactivex/qtplugin.cab#version=6,0,2,0',
-				swf : 'http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0',
-				wmv : 'http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,5,715'
-			},	
+			mimeTypes : {},	
+			classids : { },
+			codebases : { },	
 			viewportPadding : 10,
 			EOLASFix : 'swf,wmv,fla,flv',
 			overlay : {
@@ -439,17 +393,6 @@ lightwindow.prototype = {
 	//  Process a Link
 	//
 	_processLink : function(link) {
-		if ((this._fileType(link.getAttribute('href')) == 'image' || this._fileType(link.getAttribute('href')) == 'media')) {
-			if (gallery = this._getGalleryInfo(link.rel)) {
-				if (!this.galleries[gallery[0]]) {
-					this.galleries[gallery[0]] = new Array();
-				}
-				if (!this.galleries[gallery[0]][gallery[1]]) {
-					this.galleries[gallery[0]][gallery[1]] = new Array();
-				}
-				this.galleries[gallery[0]][gallery[1]].push(link);
-			}
-		}
 		
 		// Take care of our inline content
 		var url = link.getAttribute('href');
@@ -790,38 +733,12 @@ lightwindow.prototype = {
 	_setupDimensions : function() {
 
 		var originalHeight, originalWidth;
-		switch (this.windowType) {
-			case 'page' :
-				originalHeight = this.options.dimensions.page.height;
-				originalWidth = this.options.dimensions.page.width;
-				break;
 
-			case 'image' :
-				originalHeight = this.options.dimensions.image.height;
-				originalWidth = this.options.dimensions.image.width;
-				break;
-				
-			case 'media' :
-				originalHeight = this.options.dimensions.media.height;
-				originalWidth = this.options.dimensions.media.width;
-				break;
+			originalHeight = this.options.dimensions.inline.height;
+		originalWidth = this.options.dimensions.inline.width;
 			
-			case 'external' : 
-				originalHeight = this.options.dimensions.external.height;
-				originalWidth = this.options.dimensions.external.width;
-				break;
 				
-			case 'inline' :
-				originalHeight = this.options.dimensions.inline.height;
-				originalWidth = this.options.dimensions.inline.width;
-				break;
-				
-			default :
-				originalHeight = this.options.dimensions.page.height;
-				originalWidth = this.options.dimensions.page.width;
-				break;
-				
-		}
+		
 
 		var offsetHeight = this._getParameter('lightwindow_top') ? parseFloat(this._getParameter('lightwindow_top'))+this.pagePosition.y : this.dimensions.viewport.height/2+this.pagePosition.y;
 		var offsetWidth = this._getParameter('lightwindow_left') ? parseFloat(this._getParameter('lightwindow_left'))+this.pagePosition.x : this.dimensions.viewport.width/2+this.pagePosition.x;
@@ -1144,204 +1061,6 @@ lightwindow.prototype = {
 	//  
 	_loadWindow : function() {
 		switch (this.windowType) {
-			case 'image' :
-
-				var current = 0;
-				var images = [];
-				this.checkImage = [];
-				this.resizeTo.height = this.resizeTo.width = 0;
-				this.imageCount = this._getParameter('lightwindow_show_images') ? parseInt(this._getParameter('lightwindow_show_images')) : 1;
-
-				// If there is a gallery get it
-				if (gallery = this._getGalleryInfo(this.element.rel)) {	
-					for (current = 0; current < this.galleries[gallery[0]][gallery[1]].length; current++) {
-						if (this.contentToFetch.indexOf(this.galleries[gallery[0]][gallery[1]][current].href) > -1) {
-							break;
-						}
-					}
-					if (this.galleries[gallery[0]][gallery[1]][current-this.imageCount]) {
-						this.navigationObservers.previous = this.galleries[gallery[0]][gallery[1]][current-this.imageCount];
-					} else {
-						this.navigationObservers.previous = false;
-					}
-					if (this.galleries[gallery[0]][gallery[1]][current+this.imageCount]) {
-						this.navigationObservers.next = this.galleries[gallery[0]][gallery[1]][current+this.imageCount];
-					} else {
-						this.navigationObservers.next = false;
-					}
-					
-					this.activeGallery = true;
-				} else {
-					this.navigationObservers.previous = false;
-					this.navigationObservers.next = false;					
-
-					this.activeGallery = false;
-				}
-				
-				for (var i = current; i < (current+this.imageCount); i++) {
-		
-					if (gallery && this.galleries[gallery[0]][gallery[1]][i]) {
-						this.contentToFetch = this.galleries[gallery[0]][gallery[1]][i].href;
-						
-						this.galleryLocation = {current: (i+1)/this.imageCount, total: (this.galleries[gallery[0]][gallery[1]].length)/this.imageCount};
-											
-						if (!this.galleries[gallery[0]][gallery[1]][i+this.imageCount]) {
-							$('lightwindow_next').setStyle({
-								display: 'none'
-							});
-						} else {
-							$('lightwindow_next').setStyle({
-								display: 'block'
-							});
-							$('lightwindow_next_title').innerHTML = this.galleries[gallery[0]][gallery[1]][i+this.imageCount].title;
-						}
-						
-						if (!this.galleries[gallery[0]][gallery[1]][i-this.imageCount]) {
-							$('lightwindow_previous').setStyle({
-								display: 'none'
-							});
-						} else {
-							$('lightwindow_previous').setStyle({
-								display: 'block'
-							});
-							$('lightwindow_previous_title').innerHTML = this.galleries[gallery[0]][gallery[1]][i-this.imageCount].title;
-						}
-					}
-
-					images[i] = document.createElement('img');
-					images[i].setAttribute('id', 'lightwindow_image_'+i);
-					images[i].setAttribute('border', '0');
-					images[i].setAttribute('src', this.contentToFetch);
-					$('lightwindow_contents').appendChild(images[i]);
-
-					// We have to do this instead of .onload 
-					this.checkImage[i] = new PeriodicalExecuter(function(i) {
-						if (!(typeof $('lightwindow_image_'+i).naturalWidth != "undefined" && $('lightwindow_image_'+i).naturalWidth == 0)) {
-	
-							this.checkImage[i].stop();
-	
-							var imageHeight = $('lightwindow_image_'+i).getHeight();
-							if (imageHeight > this.resizeTo.height) {
-								this.resizeTo.height = imageHeight;
-							}
-							this.resizeTo.width += $('lightwindow_image_'+i).getWidth();
-							this.imageCount--;
-	
-							$('lightwindow_image_'+i).setStyle({
-								height: '100%'
-							});
-	
-						 	if (this.imageCount == 0) {
-								this._processWindow();
-						 	}
-						}
-					
-					}.bind(this, i), 1);			
-				}
-
-
-			break;
-		
-		case 'media' :			
-		
-			var current = 0;
-			this.resizeTo.height = this.resizeTo.width = 0;
-
-			// If there is a gallery get it
-			if (gallery = this._getGalleryInfo(this.element.rel)) {	
-				for (current = 0; current < this.galleries[gallery[0]][gallery[1]].length; current++) {
-					if (this.contentToFetch.indexOf(this.galleries[gallery[0]][gallery[1]][current].href) > -1) {
-						break;
-					}
-				}
-				
-				if (this.galleries[gallery[0]][gallery[1]][current-1]) {
-					this.navigationObservers.previous = this.galleries[gallery[0]][gallery[1]][current-1];
-				} else {
-					this.navigationObservers.previous = false;
-				}
-				if (this.galleries[gallery[0]][gallery[1]][current+1]) {
-					this.navigationObservers.next = this.galleries[gallery[0]][gallery[1]][current+1];
-				} else {
-					this.navigationObservers.next = false;
-				}
-		
-				this.activeGallery = true;
-			} else {
-				this.navigationObservers.previous = false;
-				this.navigationObservers.next = false;
-				
-				this.activeGallery = false;
-			}
-		
-
-			if (gallery && this.galleries[gallery[0]][gallery[1]][current]) {
-				this.contentToFetch = this.galleries[gallery[0]][gallery[1]][current].href;
-
-				this.galleryLocation = {current: current+1, total: this.galleries[gallery[0]][gallery[1]].length};
-				
-				if (!this.galleries[gallery[0]][gallery[1]][current+1]) {
-					$('lightwindow_next').setStyle({
-						display: 'none'
-					});
-				} else {
-					$('lightwindow_next').setStyle({
-						display: 'block'
-					});
-					$('lightwindow_next_title').innerHTML = this.galleries[gallery[0]][gallery[1]][current+1].title;
-				}
-				
-				if (!this.galleries[gallery[0]][gallery[1]][current-1]) {
-					$('lightwindow_previous').setStyle({
-						display: 'none'
-					});
-				} else {
-					$('lightwindow_previous').setStyle({
-						display: 'block'
-					});
-					$('lightwindow_previous_title').innerHTML = this.galleries[gallery[0]][gallery[1]][current-1].title;
-				}
-			}
-			
-			if (this._getParameter('lightwindow_iframe_embed')) {
-				this.resizeTo.height = this.dimensions.viewport.height;
-				this.resizeTo.width = this.dimensions.viewport.width;	
-			} else {
-				this.resizeTo.height = this._getParameter('lightwindow_height');
-				this.resizeTo.width = this._getParameter('lightwindow_width');				
-			}
-			
-			this._processWindow();
-			
-			break;
-
-		case 'external' :		
-
-			this._appendIframe('auto');
-
-			this.resizeTo.height = this.dimensions.viewport.height;
-			this.resizeTo.width = this.dimensions.viewport.width;
-						
-			this._processWindow();
-
-			break;
-				
-		case 'page' :	
-			
-			var newAJAX = new Ajax.Request(
-				this.contentToFetch, {
-					method: 'get', 
-					parameters: '', 
-					onComplete: function(response) {
-						$('lightwindow_contents').innerHTML += response.responseText;
-						this.resizeTo.height = $('lightwindow_contents').scrollHeight+(this.options.contentOffset.height);
-						this.resizeTo.width = $('lightwindow_contents').scrollWidth+(this.options.contentOffset.width);
-						this._processWindow();
-					}.bind(this)
-				}
-			);
-			
-			break;
 			
 		case 'inline' : 
 		
@@ -1855,53 +1574,9 @@ lightwindow.prototype = {
 	//  Wrap everything up
 	//
 	_finishWindow : function() {
-		if (this.windowType == 'external') {
-			// We set the externals source here because it allows for a much smoother animation
-			$('lightwindow_iframe').setAttribute('src', this.element.href);
-			this._handleFinalWindowAnimation(1);	
-		} else if (this.windowType == 'media') {
-
-			var outerObject = document.createElement('object');
-			outerObject.setAttribute('classid', this.options.classids[this._fileExtension(this.contentToFetch)]);
-			outerObject.setAttribute('codebase', this.options.codebases[this._fileExtension(this.contentToFetch)]);
-			outerObject.setAttribute('id', 'lightwindow_media_primary');
-			outerObject.setAttribute('name', 'lightwindow_media_primary');
-			outerObject.setAttribute('width', this.resizeTo.width);
-			outerObject.setAttribute('height', this.resizeTo.height);
-			outerObject = this._addParamToObject('movie', this.contentToFetch, outerObject);
-			outerObject = this._addParamToObject('src', this.contentToFetch, outerObject);
-			outerObject = this._addParamToObject('controller', 'true', outerObject);
-			outerObject = this._addParamToObject('wmode', 'transparent', outerObject);
-			outerObject = this._addParamToObject('cache', 'false', outerObject);
-			outerObject = this._addParamToObject('quality', 'high', outerObject);
-
-			if (!Prototype.Browser.IE) {
-				var innerObject = document.createElement('object');
-				innerObject.setAttribute('type', this.options.mimeTypes[this._fileExtension(this.contentToFetch)]);
-				innerObject.setAttribute('data', this.contentToFetch);
-				innerObject.setAttribute('id', 'lightwindow_media_secondary');
-				innerObject.setAttribute('name', 'lightwindow_media_secondary');
-				innerObject.setAttribute('width', this.resizeTo.width);
-				innerObject.setAttribute('height', this.resizeTo.height);
-				innerObject = this._addParamToObject('controller', 'true', innerObject);
-				innerObject = this._addParamToObject('wmode', 'transparent', innerObject);
-				innerObject = this._addParamToObject('cache', 'false', innerObject);
-				innerObject = this._addParamToObject('quality', 'high', innerObject);
-			
-				outerObject.appendChild(innerObject);
-			}	
-			
-			if (this._getParameter('lightwindow_iframe_embed')) {
-				this._appendIframe('no');
-				this._writeToIframe(this._convertToMarkup(outerObject, 'object'));
-			} else {
-				this._appendObject(outerObject, 'object', $('lightwindow_contents'));
-			}
 
 			this._handleFinalWindowAnimation(0);
-		} else {
-			this._handleFinalWindowAnimation(0);
-		}
+		
 
 		// Initialize any actions
 		this._setupActions();
@@ -1910,7 +1585,7 @@ lightwindow.prototype = {
 
 /*-----------------------------------------------------------------------------------------------*/
 
-Event.observe(window, 'load', lightwindowInit, false);
+//Event.observe(window, 'load', lightwindowInit, false);
 
 //
 //	Set up all of our links

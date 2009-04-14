@@ -34,14 +34,10 @@ function _tubepress_lightwindow_load_lightwindow(baseUrl) {
 }
 
 function _tubepress_lightwindow_init_lightwindow(base) {
-	var options = {
-        overlay : {
-	        image : base + 'css/images/black.png',
-	    	presetImage : base + 'css/images/black-70.png' 
-        }	
-    }
-	console.info(options.overlay.presetImage);
-    lightwindowInit(options);
+
+    lightwindowInit();
+
+    /* allows the "loading" image to work */
     myLightWindow.options.skin.loading = myLightWindow.options.skin.loading.replace('images', base + 'css/images');
 }
 
