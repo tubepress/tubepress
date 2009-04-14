@@ -122,6 +122,15 @@ msgstr ""
 msgid "Default is 20. Maximum is 50"
 msgstr ""
 
+msgid "Show pagination above thumbnails"
+msgstr ""
+
+msgid "Show pagination below thumbnails"
+msgstr ""
+
+msgid "Only applies to galleries that span multiple pages"
+msgstr ""
+
 msgid "Order videos by"
 msgstr ""
 

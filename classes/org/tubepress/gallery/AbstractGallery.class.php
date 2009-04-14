@@ -149,9 +149,14 @@ abstract class org_tubepress_gallery_AbstractGallery implements org_tubepress_io
     private function _parsePaginationHTML($vidCount, 
         net_php_pear_HTML_Template_IT $tpl)
     {
-         $pagination = $this->_paginationService->getHtml($vidCount);
-        $tpl->setVariable('TOPPAGINATION', $pagination);
-        $tpl->setVariable('BOTPAGINATION', $pagination);
+        $pagination = $this->_paginationService->getHtml($vidCount);
+        
+        if ($this->_optionsManager->get(org_tubepress_options_category_Display::PAGINATE_ABOVE)) {
+            $tpl->setVariable('TOPPAGINATION', $pagination);
+        }
+        if ($this->_optionsManager->get(org_tubepress_options_category_Display::PAGINATE_BELOW)) {
+            $tpl->setVariable('BOTPAGINATION', $pagination);
+        }
     }
     
     public function setContainer(org_tubepress_ioc_IocService $container)

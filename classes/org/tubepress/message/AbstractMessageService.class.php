@@ -71,6 +71,10 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         "options-title-resultsPerPage"   => "Videos per Page", 
         "options-desc-resultsPerPage"    => "Default is 20. Maximum is 50", 
         "options-title-orderBy"          => "Order videos by",
+        'options-title-paginationAbove'  => 'Show pagination above thumbnails',
+        'options-title-paginationBelow'  => 'Show pagination below thumbnails',
+        'options-desc-paginationAbove'   => 'Only applies to galleries that span multiple pages',
+        'options-desc-paginationBelow'   => 'Only applies to galleries that span multiple pages',
      
         "options-title-autoplay"             => "Auto-play videos", 
         "options-title-border"               => "Show border", 
