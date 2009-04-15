@@ -10,14 +10,18 @@ function tubepress_init(baseUrl) {
 
 function tubepress_attach_listeners()
 {
+    /* any link with an id that starts with "tubepress_" */
 	jQuery("a[id^='tubepress_']").click(function () {
-		var rel_split    = jQuery(this).attr("rel").split("_");
-		var galleryId    = rel_split[3];
-		var playerName   = rel_split[2];
-		var embeddedName = rel_split[1];
-		var videoId = jQuery(this).attr("id").substring(16, 27);
+		var rel_split    = jQuery(this).attr("rel").split("_"),
+            galleryId    = rel_split[3],
+		    playerName   = rel_split[2],
+		    embeddedName = rel_split[1],
+            videoId = jQuery(this).attr("id").substring(16, 27);
 
+        /* swap the gallery's embedded object */
         _tubepress_swap_embedded(galleryId, videoId, embeddedName);
+
+        /* then call the player to load up / play the video */
         _tubepress_call_player_js(galleryId, videoId, embeddedName, playerName);
     });
 }
@@ -34,37 +38,42 @@ function tubepress_attach_listeners()
  */
 function _tubepress_swap_embedded(galleryId, videoId, embeddedName) {
 	
-	var wrapperId = "#tubepress_embedded_object_" + galleryId;
-    var wrapper = jQuery(wrapperId);
-    if (wrapper.html() != "") {
-    	
-    	/* grab the matcher for the embedded player */
-    	var matcher = window["tubepress_" + embeddedName + "_matcher"]();
-    	var paramName = window["tubepress_" + embeddedName + "_param"]();
-    	var obj = jQuery(wrapperId + " > object");
-    	var oldVideoId = obj.children("param[name='" + paramName + "']").attr("value").match(matcher)[1];
+	var wrapperId = "#tubepress_embedded_object_" + galleryId,
+        wrapper = jQuery(wrapperId);
 
-    	/* save the params but remove them from the DOM for now */
-    	var params = obj.children("param");
-    	params.remove();
-    	
-    	/* replace the video ID inside the object tag */
-    	var newHtml = wrapper.html().replace(oldVideoId, videoId);
-    	
-    	/* chop off the closing </object> */
-    	newHtml = newHtml.substring(0, newHtml.length - 9);
-    	
-    	/* now add back the params, but this time with the new video ID */
-    	params.each(function() {
-        	newHtml += '<param name="' + this.name + '" value="' + this.value.replace(oldVideoId, videoId) + '" />';
-        });
-    	
-    	/* re-close the object */
-    	newHtml += '</object>';
-    	
-    	/* add it back in */
-    	wrapper.html(newHtml);
+    /* if we can't find the embedded object, just bail */
+    if (wrapper.length == 0) {
+        return;
     }
+    	
+    /* grab the matcher for the embedded player */
+    var matcher    = window["tubepress_" + embeddedName + "_matcher"](),
+        paramName  = window["tubepress_" + embeddedName + "_param"](),
+        obj        = jQuery(wrapperId + " > object"),
+        oldVideoId = obj.children("param[name='" + paramName + "']").attr("value").match(matcher)[1];
+    
+    /* save the params but remove them from the DOM for now */
+   	var params = obj.children("param");
+   	params.remove();
+   	
+   	/* replace the video ID inside the object tag */
+   	var newHtml = wrapper.html().replace(oldVideoId, videoId);
+   	
+   	/* chop off the closing </object> */
+   	newHtml = newHtml.substring(0, newHtml.length - 9);
+   	
+   	/* now add back the params, but this time with the new video ID */
+   	params.each(function() {
+       	newHtml += '<param name="' + this.name + '" value="' + this.value.replace(oldVideoId, videoId) + '" />';
+    });
+   	
+   	/* re-close the object */
+   	newHtml += '</object>';
+   	
+   	/* add it back in */
+   	wrapper.html(newHtml);
+
+    /* now pat yourself on the back */    
 }
 
 function _tubepress_call_player_js(galleryId, videoId, embeddedName, playerName) {
@@ -74,8 +83,8 @@ function _tubepress_call_player_js(galleryId, videoId, embeddedName, playerName)
 
 
 function tubepress_load_players(baseUrl) {
-	var playerNames = _tubepress_rel_parser(2);
-    for(var i = 0; i < playerNames.length; i++) {
+	var playerNames = _tubepress_rel_parser(2), i;
+    for(i = 0; i < playerNames.length; i++) {
     	var name = playerNames[i];
         jQuery.getScript(baseUrl + "/ui/players/" + name + "/" + name + ".js", 
         	_tubepress_player_loaded(name, baseUrl) , true);
@@ -83,14 +92,14 @@ function tubepress_load_players(baseUrl) {
 }
 
 function _tubepress_player_loaded(playerName, baseUrl) {
-	var funcName = 'tubepress_' + playerName + '_player_init';
-	var f = function() { window[funcName](baseUrl); }
+	var funcName = 'tubepress_' + playerName + '_player_init',
+        f = function() { window[funcName](baseUrl); }
 	_tubepress_call_when_true(function() { return typeof window[funcName] == 'function'; }, f);
 }
 
 function tubepress_load_embedded_js(baseUrl) {
-    var embeddedNames = _tubepress_rel_parser(1);
-    for(var i = 0; i < embeddedNames.length; i++) {
+    var embeddedNames = _tubepress_rel_parser(1), i;
+    for(i = 0; i < embeddedNames.length; i++) {
         jQuery.getScript(baseUrl + "/ui/embedded/" + embeddedNames[i] + "/" + embeddedNames[i] + ".js", function() {}, true);
     }
 }
@@ -119,10 +128,12 @@ function _tubepress_rel_parser(index) {
  * @return
  */
 function _tubepress_call_when_true(test, callback) {
-	if (!test()) {
+    /* if the test doesn't pass, try again in .4 seconds */	
+    if (!test()) {
 		setTimeout(function() {_tubepress_call_when_true(test, callback);}, 400);
 		return;
 	}
+    /* the test passed, so call the callback */
 	callback();
 }
 
