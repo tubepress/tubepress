@@ -32,6 +32,8 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
             org_tubepress_options_category_Advanced::NOFOLLOW_LINKS     => true,
             org_tubepress_options_category_Advanced::RANDOM_THUMBS      => true,
             org_tubepress_options_category_Display::RELATIVE_DATES      => false,
+            org_tubepress_options_category_Display::PAGINATE_ABOVE      => true,
+            org_tubepress_options_category_Display::PAGINATE_BELOW      => true,
             org_tubepress_options_category_Embedded::AUTOPLAY           => false,
             org_tubepress_options_category_Embedded::BORDER             => false,
             org_tubepress_options_category_Embedded::GENIE              => false,
@@ -119,7 +121,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     {
          $expectedNames = array(
          "playerLocation", "resultsPerPage", "thumbHeight", "thumbWidth",
-         "orderBy", "relativeDates" ,"descriptionLimit"  
+         "orderBy", 'paginationAbove', 'paginationBelow', "relativeDates" ,"descriptionLimit"  
          );
          $this->assertTrue($expectedNames == $this->_sut->getOptionNamesForCategory(org_tubepress_options_Category::DISPLAY));
     }
