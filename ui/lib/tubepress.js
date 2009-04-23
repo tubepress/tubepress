@@ -39,43 +39,53 @@ function tubepress_attach_listeners()
 function _tubepress_swap_embedded(galleryId, videoId, embeddedName) {
 	
 	var wrapperId = "#tubepress_embedded_object_" + galleryId,
-        wrapper = jQuery(wrapperId);
+	    wrapper = jQuery(wrapperId);
 
-    /* if we can't find the embedded object, just bail */
-    if (wrapper.length == 0) {
-        return;
-    }
+	/* if we can't find the embedded object, just bail */
+	if (wrapper.length == 0) {
+	    return;
+	}
     	
-    /* grab the matcher for the embedded player */
-    var matcher    = window["tubepress_" + embeddedName + "_matcher"](),
-        paramName  = window["tubepress_" + embeddedName + "_param"](),
-        obj        = jQuery(wrapperId + " > object"),
-        oldVideoId = obj.children("param[name='" + paramName + "']").attr("value").match(matcher)[1];
-    
-    /* save the params but remove them from the DOM for now */
-   	var params = obj.children("param");
-   	params.remove();
-   	
-   	/* replace the video ID inside the object tag */
-   	var newHtml = wrapper.html().replace(oldVideoId, videoId);
-   	
-   	/* chop off the closing </object> */
-   	newHtml = newHtml.substring(0, newHtml.length - 9);
-   	
-   	/* now add back the params, but this time with the new video ID */
-   	params.each(function() {
-       	newHtml += '<param name="' + this.name + '" value="' + this.value.replace(oldVideoId, videoId) + '" />';
-    });
-   	
-   	/* re-close the object */
-   	newHtml += '</object>';
-   	
-   	/* add it back in */
-   	wrapper.html(newHtml);
+	var matcher = window["tubepress_" + embeddedName + "_matcher"](),
+	    paramName = window["tubepress_" + embeddedName + "_param"](),
+	    obj = jQuery(wrapperId + " > object"),
+	    oldVideoId = obj.children("param[name='" + paramName + "']").attr("value").match(matcher)[1];
+
+	/* save the params but remove them from the DOM for now */
+	var params = obj.children("param");
+	params.remove();
+
+	/* make the replacements */
+	wrapper.html(wrapper.html().replace(oldVideoId, videoId));
+	params.each(function() {
+		this.value = this.value.replace(oldVideoId, videoId);
+	});
+	
+	var newHtml = tubepress_deep_construct_object(wrapper, params);
+	
+	/* add it back in */
+	wrapper.html(newHtml);
 
     /* now pat yourself on the back */    
 }
 
+function tubepress_deep_construct_object(wrapper, params) {
+
+	var newHtml = wrapper.html();
+	
+	/* chop off the closing </object> */
+	var newHtml = newHtml.substring(0, newHtml.length - 9);
+	
+	/* now add back the params, but this time with the new video ID */
+	params.each(function() {
+    	newHtml += '<param name="' + this.name + '" value="' + this.value + '" />';
+    });
+	
+	/* re-close the object */
+	newHtml += '</object>';
+	return newHtml;
+}
+ 
 function _tubepress_call_player_js(galleryId, videoId, embeddedName, playerName) {
     var playerFunctionName = "tubepress_" + playerName + "_player";
     window[playerFunctionName](galleryId, videoId);
@@ -93,7 +103,7 @@ function tubepress_load_players(baseUrl) {
 
 function _tubepress_player_loaded(playerName, baseUrl) {
 	var funcName = 'tubepress_' + playerName + '_player_init',
-        f = function() { window[funcName](baseUrl); }
+	    f = function() { window[funcName](baseUrl); }
 	_tubepress_call_when_true(function() { return typeof window[funcName] == 'function'; }, f);
 }
 
