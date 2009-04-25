@@ -55,18 +55,13 @@ function _tubepress_swap_embedded(galleryId, videoId, embeddedName) {
 	var params = obj.children("param");
 	params.remove();
 
-	/* make the replacements */
-	wrapper.html(wrapper.html().replace(oldVideoId, videoId));
-	params.each(function() {
-		this.value = this.value.replace(oldVideoId, videoId);
-	});
-	
-	var newHtml = tubepress_deep_construct_object(wrapper, params);
+	/* create the new embedded object */
+	newHtml = tubepress_deep_construct_object(wrapper, params).replace(new RegExp(oldVideoId, 'g'), videoId);
 	
 	/* add it back in */
 	wrapper.html(newHtml);
 
-    /* now pat yourself on the back */    
+	/* now pat yourself on the back */    
 }
 
 function tubepress_deep_construct_object(wrapper, params) {
