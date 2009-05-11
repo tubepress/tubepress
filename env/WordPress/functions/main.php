@@ -105,6 +105,7 @@ function _tubepress_head_filter() {
 <link rel="stylesheet" href="$tubepress_base_url/ui/widget/css/tubepress_widget.css" type="text/css" />
 <link rel="stylesheet" href="$tubepress_base_url/ui/gallery/css/pagination.css" type="text/css" />
 <link rel="stylesheet" href="$tubepress_base_url/ui/players/shadowbox/lib/shadowbox.css" type="text/css" />
+<link rel="stylesheet" href="$tubepress_base_url/ui/players/jqmodal/lib/jqModal.css" type="text/css" />
 <script type="text/javascript">jQuery(document).ready(function() {tubepress_init("$tubepress_base_url");});</script>
 
 GBS;
