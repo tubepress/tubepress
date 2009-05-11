@@ -116,11 +116,6 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
                 array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
             )
         );
-        $this->def(org_tubepress_player_Player::LIGHTWINDOW . "-player",
-            $this->impl('org_tubepress_player_impl_ModalPlayer',
-                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
-            )
-        );
         $this->def(org_tubepress_player_Player::JQMODAL . "-player",
             $this->impl('org_tubepress_player_impl_ModalPlayer',
                 array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))

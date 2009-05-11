@@ -103,7 +103,6 @@ $msgs = array(
         "player-normal"      => "normally (at the top of your gallery)", 
         "player-popup"       => "in a popup window",
         "player-youtube"     => "from the original YouTube page", 
-        "player-lightwindow" => "with LightWindow", 
         "player-shadowbox"   => "with Shadowbox",
         "player-jqmodal"     => 'with jqModal',
         'player-colorbox'    => 'with Colorbox',

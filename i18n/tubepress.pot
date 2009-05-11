@@ -308,9 +308,6 @@ msgstr ""
 msgid "with ColorBox"
 msgstr ""
 
-msgid "with LightWindow"
-msgstr ""
-
 msgid "with Shadowbox"
 msgstr ""
 

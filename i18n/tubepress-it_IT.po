@@ -297,9 +297,6 @@ msgstr "in una finestra popup"
 msgid "from the original YouTube page"
 msgstr "nella pagina originale di YouTube"
 
-msgid "with LightWindow"
-msgstr "con LightWindow"
-
 msgid "with Shadowbox"
 msgstr "with Shadowbox"
 

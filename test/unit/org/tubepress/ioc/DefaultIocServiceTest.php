@@ -26,7 +26,6 @@ class org_tubepress_ioc_DefaultIocServiceTest extends PHPUnit_Framework_TestCase
             org_tubepress_player_Player::NORMAL . "-player" => 'org_tubepress_player_impl_NormalPlayer',
             org_tubepress_player_Player::POPUP . "-player" => 'org_tubepress_player_impl_ModalPlayer',
             org_tubepress_player_Player::SHADOWBOX . "-player" => 'org_tubepress_player_impl_ModalPlayer',
-            org_tubepress_player_Player::LIGHTWINDOW . "-player" => 'org_tubepress_player_impl_ModalPlayer',
             org_tubepress_player_Player::JQMODAL . "-player" => 'org_tubepress_player_impl_ModalPlayer',
             org_tubepress_player_Player::COLORBOX . "-player" => 'org_tubepress_player_impl_ModalPlayer',
             org_tubepress_ioc_IocService::STORAGE => 'org_tubepress_options_storage_WordPressStorageManager', 

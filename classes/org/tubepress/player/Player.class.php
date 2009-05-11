@@ -33,7 +33,6 @@ interface org_tubepress_player_Player
     const SHADOWBOX   = "shadowbox";
     const COLORBOX    = 'colorbox'; 
     const JQMODAL     = 'jqmodal';
-    const LIGHTWINDOW = "lightwindow";
     const YOUTUBE     = "youtube";
     
     public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId);
