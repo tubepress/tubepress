@@ -66,12 +66,19 @@ class org_tubepress_video_factory_SimpleVideoFactory implements org_tubepress_vi
      */
     private function _createVideo(DOMNode $entry)
     {
+        $vid = new org_tubepress_video_Video();
+        
+        /* see if the video is actually available, not just a stub */
+        if ($this->_videoNotAvailable($entry)) {
+            $this->_createUnavailableVideoStub($entry, $vid);
+            return $vid;
+        }
+        
         $this->_mediaGroup = 
             $entry->getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_MEDIA, 
                 'group')->item(0);
-            
+
         /* everyone loves the builder pattern */
-        $vid = new org_tubepress_video_Video();
         $vid->setAuthor($this->_getAuthor($entry));
         $vid->setCategory($this->_getCategory($entry));
         $vid->setDescription($this->_getDescription($entry));
@@ -351,8 +358,12 @@ class org_tubepress_video_factory_SimpleVideoFactory implements org_tubepress_vi
         return false;
     }
     
-    private function _getReasonUnavailable($entry)
+    private function _createUnavailableVideoStub(DOMNode $entry, org_tubepress_video_Video $vid)
     {
-        return $entry->getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_APP, 'control')->item(0)->getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_YT, 'state')->item(0)->textContent;
+        $reason = $entry->getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_APP, 'control')->item(0)->getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_YT, 'state')->item(0)->textContent;
+        $vid->setThumbUrls(array(""));
+        $vid->setTags(array(""));
+        $vid->setTitle($reason);
+        return $vid;
     }
 }
