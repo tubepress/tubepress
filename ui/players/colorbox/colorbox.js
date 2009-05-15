@@ -1,10 +1,11 @@
 function tubepress_colorbox_player(galleryId, videoId) {
+	return;
 	//colorbox({contentInline:"#tubepress_embedded_object_" + galleryId});
 }
 
 function tubepress_colorbox_player_init(baseUrl) {
 	var base = baseUrl + '/ui/players/colorbox/lib/';
-	jQuery.include([base + 'colorbox.css', base + 'colorbox-custom.css']);
+	//jQuery.include([base + 'colorbox.css', base + 'colorbox-custom.css']);
 	_tubepress_get_wait_call(base + 'jquery.colorbox.js',
 		function() { return typeof jQuery.fn.colorbox != 'undefined'; },
 		function() { _tubepress_colorbox_add_listeners(); }
@@ -23,10 +24,12 @@ function _tubepress_colorbox_add_listeners() {
 		var height = embeddedObject.css('height');
 		var width = embeddedObject.css('width');
 		jQuery(this).colorbox({
-			contentInline	:"#tubepress_embedded_object_" + galleryId,
-			preloading		: false,
-			contentWidth	: width,
-			contentHeight	: height
+			title			: 'poo',
+			preloading		: false,	
+			inline			:true, 
+			href			:"#tubepress_embedded_object_" + galleryId,
+			fixedWidth		: width,
+			fixedHeight		: height
 		});
     });
 }

@@ -149,7 +149,6 @@ jQuery.fn.colorbox = function(settings) {
 		} else {
 			index < related.length-1 ? index++ : index = 0;
 		}
-		console.info(related);
 		buildGallery(related[index]);
 		return false;	
 	}
@@ -187,7 +186,6 @@ jQuery.fn.colorbox = function(settings) {
 				related = jQuery(this);
 				index = 0;
 			}
-			console.info(related);
 			buildGallery(related[index]);
 						jQuery(document).bind('keydown', keypressEvents);
 			if (jQuery.browser.msie && jQuery.browser.version < 7) {

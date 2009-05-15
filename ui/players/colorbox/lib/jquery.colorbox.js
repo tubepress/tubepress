@@ -1,18 +1,568 @@
 /*
-	ColorBox v1.05 - a full featured, light-weight, customizable lightbox based on jQuery 1.3
+
+	ColorBox v1.1.6 - a full featured, light-weight, customizable lightbox based on jQuery 1.3
+
 	(c) 2009 Jack Moore - www.colorpowered.com - jack@colorpowered.com
+
 	Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+
 */
-(function(n){var i,u,s,r,l,p,h,q,f,t,m,a,c,o,g,k,e;n(function(){n("body").append(n([l=n('<div id="modalBackgroundOverlay" />')[0],r=n('<div id="colorbox" />')[0]]).hide());n(r).append(n([t=n('<div id="borderTopLeft" />')[0],m=n('<div id="borderTopCenter" />')[0],a=n('<div id="borderTopRight" />')[0],c=n('<div id="borderMiddleLeft" />')[0],o=n('<div id="borderMiddleRight" />')[0],g=n('<div id="borderBottomLeft" />')[0],k=n('<div id="borderBottomCenter" />')[0],e=n('<div id="borderBottomRight" />')[0],h=n('<div id="modalContent" />')[0]]));
-n(h).append(n([q=n('<div id="modalLoadedContent"><a id="contentPrevious" href="#"></a><a id="contentNext" href="#"></a><span id="contentCurrent"></span><br id="modalInfoBr"/><span id="contentTitle"></span><div id="preloadPrevious"></div><div id="preloadNext"></div><div id="preloadClose"></div></div>')[0],modalLoadingOverlay=n('<div id="modalLoadingOverlay" />')[0],f=n('<a id="modalClose" href="#"></a>')[0]]));
-n(f).click(function(){j();return false})});function b(){n([l]).css({position:"absolute",width:n(window).width(),height:n(window).height(),top:n(window).scrollTop(),left:n(window).scrollLeft()})}function d(v){if(v.keyCode==27){j();return false}else{if(v.keyCode==37){n("a#contentPrevious").click();return false
-}else{if(v.keyCode==39){n("a#contentNext").click();return false}}}}function j(){n(r).removeData("open");n([l,r]).fadeOut("fast",function(){n(q).empty();n([l,r]).hide()});if(s){n(s).remove()}n(document).unbind("keydown",d);n(window).unbind("resize scroll",b)}n.fn.colorbox=function(A){A=n.extend({},n.fn.colorbox.settings,A);
-function v(J,I,G,K){var C;(typeof(window.innerHeight)=="number")?C=window.innerHeight:C=document.documentElement.clientHeight;var F=I+n(t).height()+n(g).height();var D=J+n(t).width()+n(g).width();var H=C/2-F/2+n(window).scrollTop();var E=n(window).width()/2-D/2+n(window).scrollLeft();if(F>C){H-=(F-C)
-}if(H<0){H=0}if(E<0){E=0}n(r).animate({height:F,top:H,left:E,width:D},G);n(c).animate({top:n(t).height(),left:0,height:I},G);n(o).animate({top:n(a).height(),left:D-n(o).width(),height:I},G);n(t).animate({top:0,left:0},G);n(m).animate({top:0,left:n(t).width(),width:J},G);n(a).animate({top:0,left:D-n(a).width()},G);
-n(g).animate({top:F-n(g).height(),left:0},G);n(k).animate({top:F-n(g).height(),left:n(g).width(),width:J},G);n(e).animate({top:F-n(g).height(),left:D-n(e).width()},G);n(h).animate({height:I,width:J,top:n(t).height(),left:n(t).width()},G,function(){if(K){K()}if(n.browser.msie&&n.browser.version<7){b()
-}})}var z=[];function w(){}function y(E,C){n(q).hide().html(E).append(C);if(A.contentWidth){n(q).css({width:A.contentWidth})}if(A.contentHeight){n(q).css({height:A.contentHeight})}if(A.transition=="elastic"){v(n(q).outerWidth(true),n(q).outerHeight(true),A.transitionSpeed,function(){n(q).show();n(modalLoadingOverlay).hide()
-})}else{n(r).animate({opacity:0},A.transitionSpeed,function(){v(n(q).outerWidth(true),n(q).outerHeight(true),0,function(){n(q).show();n(modalLoadingOverlay).hide();n(r).animate({opacity:1},A.transitionSpeed)})})}var D=w()}function x(){n(modalLoadingOverlay).show();if(n(this).attr("id")=="contentPrevious"){i>0?i--:i=u.length-1
-}else{i<u.length-1?i++:i=0}console.info(u);B(u[i]);return false}function B(D){var C="<br id='modalInfoBr'/><span id='contentTitle'></span>";if(A.contentInline){y(n(A.contentInline).html(),C)}}n(this).bind("click.colorbox",function(){if(n(r).data("open")!=true){n(r).data("open",true);n(q).empty().css({height:"auto",width:"auto"});
-n(f).html(A.modalClose);n(l).css({opacity:A.bgOpacity});n([l,r,modalLoadingOverlay]).show();n(h).css({width:A.initialWidth,height:A.initialHeight});v(n(h).width(),n(h).height(),0);if(this.rel){u=n("a[rel='"+this.rel+"']");i=n(u).index(this)}else{u=n(this);i=0}console.info(u);B(u[i]);n(document).bind("keydown",d);
-if(n.browser.msie&&n.browser.version<7){n(window).bind("resize scroll",b)}}return false});if(A.open==true&&n(r).data("open")!=true){n(this).triggerHandler("click.colorbox")}return this.each(function(){})};n.fn.colorbox.settings={transition:"elastic",transitionSpeed:350,initialWidth:300,initialHeight:100,contentWidth:false,contentHeight:false,contentAjax:false,contentInline:false,contentIframe:false,bgOpacity:0.85,preloading:true,contentCurrent:"{current} of {total}",contentPrevious:"previous",contentNext:"next",modalClose:"close",open:false}
+
+
+
+(function(jQuery){
+
+var settings, loadedWidth, loadedHeight, interfaceHeight, interfaceWidth, index, related, loadingElement, $modal, modalWrap, $loadingOverlay, $overlay, $modalContent, $loaded, $close, $borderTopCenter, $borderMiddleLeft, $borderMiddleRight, $borderBottomCenter;
+
+function setModalOverlay(){
+
+	$overlay.css({"position":"absolute", width:jQuery(window).width(), height:jQuery(window).height(), top:jQuery(window).scrollTop(), left:jQuery(window).scrollLeft()});
+
+}
+
+function keypressEvents(e){
+
+	if(e.keyCode == 37){
+
+		e.preventDefault();
+
+		jQuery(document).unbind('keydown', keypressEvents);
+
+		jQuery("a#contentPrevious").click();
+
+	} else if(e.keyCode == 39){
+
+		e.preventDefault();
+
+		jQuery(document).unbind('keydown', keypressEvents);
+
+		jQuery("a#contentNext").click();
+
+	}
+
+}
+
+function clearLoading(){
+
+	if(jQuery("#colorboxInlineTemp").length > 0){
+
+		$loaded.children().insertAfter("#colorboxInlineTemp");
+
+	}
+
+	if(loadingElement){jQuery(loadingElement).remove();}
+
+}
+
+
+
+// Convert % values to pixels
+
+function setSize(size, dimension){
+
+	return (typeof size == 'string') ? (size.match(/%/) ? (dimension/100)*parseInt(size, 10) : parseInt(size, 10)) : size;
+
+}
+
+
+
+/*
+
+  Initialize the modal: store common calculations, preload the interface graphics, append the html.
+
+  This preps colorbox for a speedy open when clicked, and lightens the burdon on the browser by only
+
+  having to run once, instead of each time colorbox is opened.
+
+*/
+
+jQuery(function(){//jQuery shortcut for jQuery(document).ready(function(){});
+
+	jQuery("body").append(
+
+		$overlay = jQuery('<div id="modalBackgroundOverlay" />').hide(), 
+
+		$modal = jQuery('<div id="colorbox" />').css("opacity", 0)
+
+	);
+
+
+
+	jQuery('<div id="modalWrap" />').appendTo($modal).append(
+
+		jQuery('<div><div id="borderTopLeft" /><div id="borderTopCenter" /><div id="borderTopRight" /></div>'),
+
+		$borderMiddleLeft = jQuery('<div id="borderMiddleLeft" />'),
+
+		$modalContent = jQuery('<div id="modalContent" />'),
+
+		$borderMiddleRight = jQuery('<div id="borderMiddleRight" />'),
+
+		jQuery('<div><div id="borderBottomLeft" /><div id="borderBottomCenter" /><div id="borderBottomRight" /></div>')
+
+	);
+
+	$modalContent.append(
+
+		//loaded is filled with temporary HTML to allow the CSS backgrounds for those elements to load before ColorBox is actually called.
+
+		$loaded = jQuery('<div id="modalLoadedContent"><span id="contentTitle"></span></div>'), 
+
+		$loadingOverlay = jQuery('<div id="modalLoadingOverlay" />'),
+
+		$close = jQuery('<a id="modalClose" href="#"></a>')
+
+	);
+
+
+
+	jQuery(document).bind("keydown.colorClose", function(e){
+
+		if (e.keyCode == 27) {
+
+			e.preventDefault();
+
+			jQuery.fn.colorbox.close();
+
+		}
+
+	});
+
+
+
+	$close.click(function(event){
+
+		event.preventDefault();
+
+		jQuery.fn.colorbox.close();
+
+	});
+
+
+
+	$borderTopCenter = jQuery("#borderTopCenter");
+
+	$borderBottomCenter = jQuery("#borderBottomCenter");
+
+
+
+	interfaceHeight = $borderTopCenter.height()+$borderBottomCenter.height()+$modalContent.outerHeight(true) - $modalContent.height();//Subtraction needed for IE6
+
+	interfaceWidth = $borderMiddleLeft.width()+$borderMiddleRight.width()+$modalContent.outerWidth(true) - $modalContent.width();
+
+
+
+	loadedHeight = $loaded.outerHeight(true);
+
+	loadedWidth = $loaded.outerWidth(true);
+
+
+
+	$loaded.empty();
+
+	$modal.css({"padding-bottom":interfaceHeight,"padding-right":interfaceWidth}).hide();//the padding removes the need to do size conversions during the animation step.
+
+
+
+	//Archaic rollover code because IE8 is a piece of shit.  Hopefully they'll fix their css-rollover bug so the following code can be removed.
+
+	jQuery("#contentPrevious, #contentNext, #modalClose").live('mouseover', function(){jQuery(this).addClass("hover");});
+
+	jQuery("#contentPrevious, #contentNext, #modalClose").live('mouseout', function(){jQuery(this).removeClass("hover");});
+
+});
+
+
+
+jQuery.fn.colorbox = function(settings, callback) {
+
+
+
+	function modalPosition(mWidth, mHeight, speed, loadedCallback){
+
+	
+
+		var winHeight = document.documentElement.clientHeight;
+
+		var posTop = winHeight/2 - mHeight/2;
+
+		var posLeft = document.documentElement.clientWidth/2 - mWidth/2;
+
+		//keeps the box from expanding to an inaccessible area offscreen.
+
+		if(mHeight > winHeight){posTop -=(mHeight - winHeight);}
+
+		if(posTop < 0){posTop = 0;} 
+
+		if(posLeft < 0){posLeft = 0;}
+
+	
+
+		posTop+=jQuery(window).scrollTop();
+
+		posLeft+=jQuery(window).scrollLeft();
+
+	
+
+		mWidth = mWidth - interfaceWidth;
+
+		mHeight = mHeight - interfaceHeight;
+
+
+
+		function modalDimensions(that){
+
+			$modalContent[0].style.width = $borderTopCenter[0].style.width = $borderBottomCenter[0].style.width = that.style.width;
+
+			$modalContent[0].style.height = $borderMiddleLeft[0].style.height = $borderMiddleRight[0].style.height = that.style.height;
+
+		}
+
+
+
+		$modal.animate({height:mHeight, width:mWidth, top:posTop, left:posLeft}, {duration: speed,
+
+			complete: function(){
+
+				if (loadedCallback) {loadedCallback();}
+
+				modalDimensions(this);
+
+				if (jQuery.browser.msie && jQuery.browser.version < 7) {setModalOverlay();}
+
+			},
+
+			step: function(){
+
+				modalDimensions(this);		
+
+			}
+
+		});
+
+	}
+
+	var preloads = [];
+
+	function preload(){
+
+
+
+		return false;
+
+	}
+
+	
+
+	function contentNav(){
+
+		$loadingOverlay.show();
+
+		if(jQuery(this).attr("id") == "contentPrevious"){
+
+			index = index > 0 ? index-1 : related.length-1;
+
+		} else {
+
+			index = index < related.length-1 ? index+1 : 0;
+
+		}
+
+		loadModal(related[index].href, related[index].title);
+
+		return false;
+
+	}
+
+	
+
+	function centerModal (object, contentInfo){
+
+		if($modal.data("open")!==true){ return false; }
+
+
+
+		var speed = settings.transition=="none" ? 0 : settings.transitionSpeed;
+
+		$loaded.remove();
+
+		$loaded = jQuery(object);
+
+	
+
+		$loaded.hide()
+
+		.appendTo('body')
+
+		.css({width:(settings.fixedWidth)?settings.fixedWidth - loadedWidth - interfaceWidth:$loaded.width()}).css({height:(settings.fixedHeight)?settings.fixedHeight - loadedHeight - interfaceHeight:$loaded.height()})
+
+		.attr({id:"modalLoadedContent"})
+
+		.append(contentInfo)
+
+		.prependTo($modalContent);
+
+
+
+		if(jQuery("#modalPhoto").length > 0 && settings.fixedHeight){
+
+			var topMargin = (parseInt($loaded[0].style.height, 10) - parseInt(jQuery("#modalPhoto")[0].style.height, 10))/2;
+
+			jQuery("#modalPhoto").css({marginTop:(topMargin > 0?topMargin:0)});
+
+		}
+
+	
+
+		function setPosition(s){
+
+			modalPosition(parseInt($loaded[0].style.width, 10)+loadedWidth+interfaceWidth, parseInt($loaded[0].style.height, 10)+loadedHeight+interfaceHeight, s, function(){
+
+				if($modal.data("open")!==true){
+
+					return false;
+
+				}
+
+				$loaded.show();
+
+				$loadingOverlay.hide();
+
+				jQuery(document).bind('keydown', keypressEvents);
+
+				if (callback) {
+
+					callback();
+
+				}
+
+				if (settings.transition === "fade"){
+
+					$modal.animate({"opacity":1}, speed);
+
+				}
+
+				return true;
+
+			});
+
+		}
+
+		if (settings.transition == "fade") {
+
+			$modal.animate({"opacity":0}, speed, function(){setPosition(0);});
+
+		} else {
+
+			setPosition(speed);
+
+		}
+
+		var preloads = preload();
+
+		return true;
+
+	}
+
+	
+
+	function loadModal(href, title){
+
+		clearLoading();
+
+		var contentInfo = "<p id='contentTitle'>"+title+"</p>";
+
+
+		if (settings.inline) {
+
+			loadingElement = jQuery('<div id="colorboxInlineTemp" />').hide().insertBefore(jQuery(href)[0]);
+
+			centerModal(jQuery(href).wrapAll("<div />").parent(), contentInfo);
+
+		
+		}
+
+	}
+
+
+
+	settings = jQuery.extend({}, jQuery.fn.colorbox.settings, settings);
+
+	
+
+	jQuery(this).unbind("click.colorbox").bind("click.colorbox", function () {
+
+		if(settings.fixedWidth){ settings.fixedWidth = setSize(settings.fixedWidth, document.documentElement.clientWidth);}
+
+		if(settings.fixedHeight){ settings.fixedHeight = setSize(settings.fixedHeight, document.documentElement.clientHeight);}
+
+		if (this.rel && 'nofollow' != this.rel) {
+
+			related = jQuery("a[rel='" + this.rel + "']");
+
+			index = jQuery(related).index(this);
+
+		}
+
+		else {
+
+			related = jQuery(this);
+
+			index = 0;
+
+		}
+
+
+
+		if ($modal.data("open") !== true) {
+
+			jQuery(document).bind('keydown', keypressEvents);
+
+			$close.html(settings.modalClose);
+
+			$overlay.css({"opacity": settings.bgOpacity}).show();
+
+			$modal.data("open", true).css({"opacity":1});
+
+
+
+			modalPosition(setSize(settings.initialWidth, document.documentElement.clientWidth), setSize(settings.initialHeight, document.documentElement.clientHeight), 0);
+
+
+
+			if (jQuery.browser.msie && jQuery.browser.version < 7) {
+
+				jQuery(window).bind("resize scroll", setModalOverlay);
+
+			}
+
+		}
+
+
+
+		loadModal(settings.href ? settings.href : related[index].href, settings.title ? settings.title : related[index].title);
+
+		jQuery("a#contentPrevious, a#contentNext").die().live("click", contentNav);
+
+
+
+		if(settings.overlayClose!==false){
+
+			$overlay.css({"cursor":"pointer"}).click(function(){jQuery.fn.colorbox.close();});
+
+		}
+
+		return false;
+
+	});
+
+
+
+	if(settings.open!==false && $modal.data("open")!==true){
+
+		jQuery(this).triggerHandler('click.colorbox');
+
+	}
+
+
+
+	return this.each(function() { 
+
+	});
+
+};
+
+
+
+//public function for closing colorbox.  To use this within an iframe use the following format: parent.jQuery.fn.colorbox.close();
+
+jQuery.fn.colorbox.close = function(){
+
+
+
+	jQuery('#contentTitle').remove();
+
+	clearLoading();
+
+	$overlay.css({cursor:"auto"}).fadeOut("fast");
+
+	$modal.stop(true, false).removeData("open").fadeOut("fast", function(){
+
+		$loaded.remove();
+
+	});
+
+	jQuery(document).unbind('keydown', keypressEvents);
+
+	jQuery(window).unbind('resize scroll', setModalOverlay);
+
+	return false;
+
+};
+
+
+
+/*
+
+	ColorBox Default Settings.
+
+	
+
+	The colorbox() function takes one argument, an object of key/value pairs, that are used to initialize the modal.
+
+	
+
+	Please do not change these settings here, instead overwrite these settings when attaching the colorbox() event to your anchors.
+
+	Example (Global)	: jQuery.fn.colorbox.settings.transition = "fade"; //changes the transition to fade for all colorBox() events proceeding it's declaration.
+
+	Example (Specific)	: jQuery("a[href='http://www.google.com']").colorbox({fixedWidth:"90%", fixedHeight:"450px", iframe:true});
+
+*/
+
+jQuery.fn.colorbox.settings = {
+
+	transition : "elastic", // Transition types: "elastic", "fade", or "none".
+
+	transitionSpeed : 350, // Sets the speed of the fade and elastic transitions, in milliseconds.
+
+	initialWidth : "400", // Set the initial width of the modal, prior to any content being loaded.
+
+	initialHeight : "400", // Set the initial height of the modal, prior to any content being loaded.
+
+	fixedWidth : false, // Set a fixed width for div#loaded.  Example: "500px"
+
+	fixedHeight : false, // Set a fixed height for div#modalLoadedContent.  Example: "500px"
+
+	inline : false, // Set this to the selector of inline content to be displayed.  Example "#myHiddenDiv" or "body p".
+
+	iframe : false, // If 'true' specifies that content should be displayed in an iFrame.
+
+	href : false, // This can be used as an alternate anchor URL for ColorBox to use, or can be used to assign a URL for non-anchor elments such as images or form buttons.
+
+	title : false, // This can be used as an alternate anchor title.
+
+	bgOpacity : 0.85, // The modalBackgroundOverlay opacity level. Range: 0 to 1.
+
+	preloading : true, // Allows for preloading of 'Next' and 'Previous' content in a shared relation group (same values for the 'rel' attribute), after the current content has finished loading.  Set to 'false' to disable.
+
+	contentCurrent : "image {current} of {total}", // the format of the contentCurrent information
+
+	contentPrevious : "previous", // the anchor text for the previous link in a shared relation group (same values for 'rel').
+
+	contentNext : "next", // the anchor text for the next link in a shared relation group (same 'rel' attribute').
+
+	modalClose : "close", // the anchor text for the close link.  Esc will also close the modal.
+
+	open : false, //Automatically opens ColorBox. (fires the click.colorbox event without waiting for user input).
+
+	overlayClose : true  //If true, enables closing ColorBox by clicking on the background overlay.
+
+};
+
+
+
 })(jQuery);
+
+
+
