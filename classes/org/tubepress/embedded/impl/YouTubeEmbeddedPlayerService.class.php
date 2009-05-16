@@ -32,16 +32,6 @@ tubepress_load_classes(array('net_php_pear_HTML_Template_IT',
  */
 class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService extends org_tubepress_embedded_impl_AbstractEmbeddedPlayerService
 {
-    private $_tpl;
-
-    public function __construct()
-    {
-        $this->_tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/embedded/youtube/html_templates");
-        if (!$this->_tpl->loadTemplatefile("object.tpl.html", true, true)) {
-            throw new Exception("Couldn't load embedded template");
-        }
-    }
-
     /**
      * Spits back the text for this embedded player
      *
@@ -49,6 +39,11 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService extends org_tubep
      */
     public function toString($videoId)
     {
+        $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/embedded/youtube/html_templates");
+        if (!$tpl->loadTemplatefile("object.tpl.html", true, true)) {
+            throw new Exception("Couldn't load embedded template");
+        }    
+        
         $link = new net_php_pear_Net_URL2(sprintf("http://www.youtube.com/v/%s", $videoId));
         
         $tpom = $this->getOptionsManager();
@@ -96,12 +91,12 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService extends org_tubep
         
         $link = $link->getURL(true);
 
-        $this->_tpl->setVariable('URL', $link);
-        $this->_tpl->setVariable('WIDTH', $width);
-        $this->_tpl->setVariable('HEIGHT', $height);
-        $this->_tpl->setVariable('FULLSCREEN', $fullscreen ? "true" : "false");
+        $tpl->setVariable('URL', $link);
+        $tpl->setVariable('WIDTH', $width);
+        $tpl->setVariable('HEIGHT', $height);
+        $tpl->setVariable('FULLSCREEN', $fullscreen ? "true" : "false");
         
-        $embedSrc = $this->_tpl->get();
+        $embedSrc = $tpl->get();
      
         return str_replace("?", "&amp;", $embedSrc);
     }
