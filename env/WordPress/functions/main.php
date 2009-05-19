@@ -100,12 +100,7 @@ function _tubepress_head_filter() {
 
     print<<<GBS
 <script type="text/javascript" src="$tubepress_base_url/ui/lib/tubepress.js"></script>
-<script type="text/javascript" src="$tubepress_base_url/ui/lib/jquery.includeMany-1.1.0.js"></script>
-<link rel="stylesheet" href="$tubepress_base_url/ui/gallery/css/tubepress.css" type="text/css" />
-<link rel="stylesheet" href="$tubepress_base_url/ui/widget/css/tubepress_widget.css" type="text/css" />
-<link rel="stylesheet" href="$tubepress_base_url/ui/gallery/css/pagination.css" type="text/css" />
-<link rel="stylesheet" href="$tubepress_base_url/ui/players/shadowbox/lib/shadowbox.css" type="text/css" />
-<link rel="stylesheet" href="$tubepress_base_url/ui/players/jqmodal/lib/jqModal.css" type="text/css" />
+<link rel="stylesheet" href="$tubepress_base_url/ui/lib/tubepress.css" type="text/css" />
 <script type="text/javascript">jQuery(document).ready(function() {tubepress_init("$tubepress_base_url");});</script>
 
 GBS;

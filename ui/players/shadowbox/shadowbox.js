@@ -1,8 +1,5 @@
 function tubepress_shadowbox_player_init(baseUrl) {
-	var base = baseUrl + '/ui/players/shadowbox/';
-	//jQuery.include(base + 'lib/shadowbox.css', function(){
-		_tubepress_shadowbox_player_shadowboxjs(base);
-	//});
+	_tubepress_shadowbox_player_shadowboxjs(baseUrl + '/ui/players/shadowbox/');
 }
 
 function _tubepress_shadowbox_player_shadowboxjs(base)  {
