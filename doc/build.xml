@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<project name="docbook-src" default="html-single">
+    
+    <description>
+            TubePress Documentation
+    </description>
+
+    <property name="doc.dir" value="doc" />
+    <property name="xalan.lib.dir" value="/opt/local/share/java" />
+
+    <path id="xalan.classpath">
+        <fileset dir="${xalan.lib.dir}" id="xalan.fileset">
+        	<include name="saxon.jar" />
+        	
+        </fileset>
+    </path>
+	
+	<path id="xalan.extensions.classpath">
+		<fileset dir="/opt/local/share/xsl/docbook-xsl/extensions" id="xalan.extensions.fileset">
+			<include name="saxon65.jar" />
+		</fileset>
+	</path>
+
+    <target name="clean" description="Cleans up generated files.">
+        <delete dir="${doc.dir}" />
+    </target>
+
+    <target name="depends">
+        <mkdir dir="${doc.dir}" />
+    </target>
+
+    <target name="html-single" depends="depends" description="Generates HTML files from DocBook XML">
+        <xslt style="styles/html-style.xsl" extension=".html" basedir="src" destdir="${doc.dir}">
+            <classpath refid="xalan.classpath" />
+        	<classpath refid="xalan.extensions.classpath" />
+        </xslt>
+    </target>
+    
+</project>
