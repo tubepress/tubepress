@@ -3,295 +3,362 @@
  "/opt/local/share/xml/docbook/4.5/docbookx.dtd">
 
 <book>
-	<title>TubePress</title>
-	<bookinfo>
-		<author>
-			<personname>
-				<firstname>Eric</firstname>
-				<surname>Hough</surname>
-			</personname>
-		</author>
-		<releaseinfo revision="1.8.0"></releaseinfo>
-	</bookinfo>
-	<preface>
-		<title>Introduction</title>
-		<para>
-			<application>TubePress</application>
-			is a PHP library that displays beautiful YouTube video galleries in
-			your web site. It's highly configurable and easy to use. Check out a
-			demo gallery
-			<ulink url="http://tubepress.org/demo">here</ulink>.
-		</para>
-		<para>
-			There are two different
-			<application>TubePress</application>
-			packages available, both of which
-			are
-			open-sourced under the
-			<ulink url="http://www.gnu.org/copyleft/gpl.html">GPLv3</ulink>.
-			<orderedlist>
-				<listitem>
-					<para>
-						A
-						<application>WordPress</application>
-						plugin (free!)
-					</para>
-				</listitem>
-				<listitem>
-					<para>
-						<application>TubePress Pro</application>. A stand-alone library for use
-						anywhere that
-						supports PHP (only
-						$10)
-					</para>
-				</listitem>
-			</orderedlist>
-		</para>
-	</preface>
-	<chapter id="download">
-		<title>Download</title>
+    <title>TubePress</title>
+    <subtitle>Beautiful YouTube Video Galleries in PHP</subtitle>
+    <bookinfo>
+        <author>
+            <personname>
+                <firstname>Eric</firstname>
+                <surname>Hough</surname>
+            </personname>
+        </author>
+        <releaseinfo revision="1.8.0"></releaseinfo>
+        <productname>TubePress</productname>
+        <copyright>
+            <year>2006-2009</year>
+            <holder>Eric Hough</holder>
+        </copyright>
+        <legalnotice>
+            <para>
+                Permission is granted to copy, distribute and/or modify this document
+                under the terms of the GNU Free Documentation License, Version 1.3
+                or any later version published by the Free Software Foundation;
+                    with the Invariant Sections being all sections.
+                A copy of the license is included in the section entitled "GNU
+                Free Documentation License".
+            </para>
+        </legalnotice>
+    </bookinfo>
+    <preface>
+        <title>Introduction</title>
+        <para>
+            <application>TubePress</application>
+            is a PHP library that displays beautiful YouTube video galleries in
+            your web site. It's highly configurable and easy to use. Check out a
+            demo gallery
+            <ulink url="http://tubepress.org/demo">here</ulink>.
+        </para>
+        <para>
+            There are two different <application>TubePress</application>
+            packages available, both of which are open-sourced under the
+            <ulink url="http://www.gnu.org/copyleft/gpl.html">GPLv3</ulink>.
+            <orderedlist>
+                <listitem>
+                    <para>
+                        A <application>WordPress</application> plugin (free!)
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <application>TubePress Pro</application>. A stand-alone 
+                        library for use anywhere that supports PHP (only $10)
+                    </para>
+                </listitem>
+            </orderedlist>
+        </para>
+    </preface>
+    <chapter id="download">
+        <title>Download</title>
+        <section id="latest-stable-release">
+            <title>Latest stable release</title>
+            <para>
+                The latest packages of <application>TubePress</application>
+                can always be downloaded as zip files from
+                <ulink url="http://tubepress.org/download">
+                    http://tubepress.org/download
+                </ulink>
+            </para>
+        </section>
+        <section id="subversion">
+            <title>Subversion</title>
+            <para>
+                Interested in testing the bleeding-edge version of
+                <application>TubePress</application>? You can use
+                <ulink url="http://en.wikipedia.org/wiki/Comparison_of_Subversion_clients">
+                    any Subversion client
+                </ulink> to check out the latest developmental build of the
+                <application>WordPress</application> plugin.
+            </para>
+            <section id="subversion-command-line">
+                <title>Command line</title>
+                <para>If you have command line access to your server,
+                    and have a subversion client in your path, this method is the easiest.</para>
+                <orderedlist>
+                    <listitem>
+                        <para>
+                            Change directories to
+                            <filename class="directory">wp-content/plugins</filename>
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            Make sure you've removed any existing installs of
+                            <application>TubePress</application>
+                            from this directory
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            Execute
+                            <command>
+                                svn checkout http://tubepress.googlecode.com/svn/trunk/ tubepress
+                            </command>
+                        </para>
+                        </listitem>
+                </orderedlist>
+                <para>That's it! You'll now be using the very latest build of
+                    the plugin. You can now upgrade at any time with the following
+                    commands:</para>
+                <orderedlist>
+                    <listitem>
+                        <para>
+                            Change directories to
+                            <filename class="directory">wp-content/plugins/tubepress</filename>
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            Execute
+                            <command>svn update</command>
+                        </para>
+                        </listitem>
+                </orderedlist>
+            </section>
+            <section id="subversion-ftp">
+                <title>FTP</title>
+                <para>You'll need to check out the latest build locally (i.e. to your desktop 
+                machine) and then upload it to your server using FTP.</para>
+                <orderedlist>
+                    <listitem>
+                        <para>Use any SVN client to browse to 
+                            <ulink url="http://tubepress.googlecode.com/svn/trunk/">
+                                http://tubepress.googlecode.com/svn/trunk/
+                            </ulink>
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>Checkout the <filename class="directory">trunk</filename> 
+                            directory to a local directory called 
+                            <filename class="directory">tubepress</filename>
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>Upload the <filename class="directory">tubepress</filename> 
+                            directory you just created to your <application>WordPress</application> 
+                            installation at <filename class="directory">wp-content/plugins</filename>
+                        </para>
+                    </listitem>
+                </orderedlist>
+            </section>
+        </section>
+        <section id="nightly-builds">
+            <title>Nightly Builds</title>
+                <para>You can download a nightly build of the <application>WordPress</application>
+                    plugin package from <ulink url="http://tubepress.org/builds/tubepress_nightly.zip">
+                    http://tubepress.org/builds/tubepress_nightly.zip</ulink>
+                </para> 
+        </section>
+    </chapter>
+    <chapter id="wordpress-plugin">
+        <title>WordPress Plugin</title>
+        <para>
+            As a <application>WordPress</application> plugin, <application>TubePress</application> 
+            lets you easily insert custom video galleries throughout your 
+            <application>WordPress</application>-powered blog.
+        </para>
 
-		<section id="latest-stable-release">
-			<title>Latest stable release</title>
-			<para>
-				The latest packages of
-				<application>TubePress</application>
-				can always be
-				downloaded as zip files from
-				<ulink url="http://tubepress.org/download">http://tubepress.org/download
-				</ulink>
-			</para>
-		</section>
-		<section id="subversion">
-			<title>Subversion</title>
-			<para>
-				Interested in testing the bleeding-edge version of
-				<application>TubePress</application>?
-				You can use
-				<ulink
-					url="http://en.wikipedia.org/wiki/Comparison_of_Subversion_clients">any Subversion client</ulink>
-				to check out the latest
-				developmental build of the
-				<application>WordPress</application>
-				plugin.
-			</para>
-			<section id="subversion-command-line">
-				<title>Command line</title>
-				<para>If you have command line access to your server,
-					and have a subversion client in your path, this method is the easiest.</para>
-				<orderedlist>
-					<listitem>
-						<para>
-							Change directories to
-							<filename class="directory">wp-content/plugins</filename>
-						</para>
-					</listitem>
-					<listitem>
-						<para>
-							Make sure you've removed any existing installs of
-							<application>TubePress</application>
-							from this directory
-						</para>
-					</listitem>
-					<listitem>
-						<para>
-							Execute
-							<command>svn checkout
-								http://tubepress.googlecode.com/svn/trunk/ tubepress</command>
-						</para>
-						</listitem>
-				</orderedlist>
-				<para>That's it! You'll now be using the very latest build of
-					the plugin. You can now upgrade at any time with the following
-					commands:</para>
-				<orderedlist>
-					<listitem>
-						<para>
-							Change directories to
-							<filename class="directory">wp-content/plugins/tubepress</filename>
-						</para>
-					</listitem>
-					<listitem>
-						<para>
-							Execute
-							<command>svn update</command>
-						</para>
-						</listitem>
-				</orderedlist>
-			</section>
+        <section id="wordpress-plugin-quick-start">
+            <title>Quick Start</title>
+            <para>
+                <application>TubePress</application>
+                can be installed and activated just like any other <application>WordPress</application>
+                plugin. See the <ulink url="http://codex.wordpress.org/Managing_Plugins">WordPress docs 
+                on plugin management</ulink> for more information. Here are the basic steps...
+            </para>
 
-		
-		<section id="subversion-ftp">
-			<title>FTP</title>
-			<para>You'll need to check out the latest build locally (i.e. to your desktop machine) and then upload it to your server using FTP.</para>
-			<orderedlist>
-					<listitem>
-						<para>Use any SVN client to browse to <ulink url="http://tubepress.googlecode.com/svn/trunk/">http://tubepress.googlecode.com/svn/trunk/</ulink></para></listitem>
-					<listitem><para>Checkout the <filename class="directory">trunk</filename> directory to a local directory called <filename class="directory">tubepress</filename></para></listitem>
-					<listitem><para>Upload the <filename class="directory">tubepress</filename> directory you just created to your <application>WordPress</application> installation at <filename class="directory">wp-content/plugins</filename></para></listitem></orderedlist>
-		</section>
-		</section>
-		<section id="nightly-builds">
-			<title>Nightly Builds</title>
-			<para>You can download a nightly build of the <application>WordPress</application> plugin package from <ulink url="http://tubepress.org/builds/tubepress_nightly.zip">http://tubepress.org/builds/tubepress_nightly.zip</ulink></para>
-		</section>
-	</chapter>
-	<chapter id="wordpress-plugin">
-		<title>WordPress Plugin</title>
-		<para>As a <application>WordPress</application> plugin, <application>TubePress</application> lets you easily insert custom video galleries throughout your <application>WordPress</application>-powered blog.</para>
+            <orderedlist>
+                <listitem>
+                    <para>
+                        Download the plugin from
+                        <ulink url="http://tubepress.org/download">
+                            http://tubepress.org/download
+                        </ulink>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        Unzip into your plugins directory at (<filename class="directory">
+                        wp-content/plugins</filename>)
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>Activate TubePress from <code>Site Admin > Plugins</code></para>
+                </listitem>
+                <listitem>
+                    <para>Configure from <code>Site Admin > Settings > TubePress</code>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>Type <code>[tubepress]</code>
+                        in a post or a page where you'd like to insert your gallery (this is
+                        actually the simplest form of a TubePress shortcode). See the image
+                        below for an example.
+                    </para>
+                </listitem>
+            </orderedlist>
+        </section>
+        <section id="multiple-galleries">
+            <title>Multiple Galleries</title>
+            <para>
+                The options in <code>Settings > TubePress</code> are the global options for TubePress.
+                The real power of the plugin lies in the ability to put multiple galleries on multiple pages. 
+                This is done with TubePress shortcodes. 
+            </para>
+            <para>
+                For example, say on one page I want to display a gallery of videos that are tagged 
+                with "<code>football</code>". On this page, I would type <code>[tubepress mode='tag', 
+                tagValue='football']</code> on the page where I want the gallery to show up. And say 
+                on another page I want to display a gallery with the default (global) options that were set 
+                in <code>Settings > TubePress</code>. On this page I would type <code>[tubepress]</code> where I 
+                wanted the gallery to show up. You can follow this procedure for unlimited galleries on 
+                unlimited posts/pages.  Just use any TubePress shortcode to control the gallery content. Get creative! 
+            </para>
+        </section>
+        <section id="upgrading">
+            <title>Upgrading</title>
+            <para>
+                Upgrading is usually just a matter of copying the latest version of TubePress over your 
+                existing installation. However, if you want to be sure there are no problems, follow these 
+                directions in order.
+            </para>
+            <orderedlist>
+                <listitem>
+                    <para>
+                        Remove your existing TubePress install directory (<code>wp-content/plugins/tubepress</code>)
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>Unzip the latest version of TubePress into (wp-content/plugins)</para>
+                </listitem>
+                <listitem>
+                    <para>
+                        Visit <code>Site Admin > Settings > TubePress</code> once initialize your options
+                    </para>
+                </listitem>
+            </orderedlist>
+        </section>
+        <section id="sidebar-widget">
+            <title>Sidebar Widget</title>
+            <para>
+                The TubePress plugin comes with widget functionality, which allows you to 
+                place a customizable list of videos in your blog's sidebar. Here's an example of 
+                the widget's output:
+            </para>
+            <para>
+                There are no separate installation instructions; if you've installed and enabled the TubePress plugin 
+                then you're done. Please see the WordPress widget documentation for general info on how to enable 
+                and disable widgets.
+            </para>
+            <para>
+                This is what the TubePress widget control looks like:
+            </para>
+            <para>
+                In the "Title" section of the widget control, enter the text you'd like for the sidebar's header. 
+                To customize which videos show up in your sidebar, just use a TubePress shortcode. Please note that 
+                by default, the TubePress widget will use the following shortcode: <code>[tubepress resultsPerPage='3',
+                views='false', description='true', descriptionLimit='50', playerLocation='popup', thumbHeight='105', 
+                thumbWidth='135']</code>
+            </para>
+            <para>
+                Of course, like any TubePress shortcode, you can override any setting you like.
+            </para>
+        </section>
+        <section id="init-options">
+            <title>Initialize Options</title>
+            <para>
+                If you'd like to reset your TubePress options to their default values, 
+                you can do so by using a special page nested inside the plugin.
+            </para>
+            <para>
+                If your blog URL is <code>http://myblog.com</code> you'd need to navigate to
+                <code>http://myblog.com/wp-content/plugins/tubepress/env/WordPress/functions/db_nuke.php</code>
+                with your web browser. Once there, you can just click the <code>Reset TubePress Options</code> 
+                button. Of course, you'll need to be a WordPress administrator (access level 9) for your blog to 
+                do this.
+            </para>
+        </section>
+    </chapter>
+    <chapter id="tubepress-pro">
+        <title>TubePress Pro</title>
+        <para>
+            TubePress Pro allows you to run TubePress anywhere that supports PHP5. 
+            This means that you can easily insert video galleries in your PHP-enabled site! 
+            A very basic understanding of PHP programming is helpful.
+        </para>
 
-	<section id="wordpress-plugin-quick-start">
-		<title>Quick Start</title>
-		<para>
-			<application>TubePress</application>
-			can be installed and activated just like any other
-			<application>WordPress</application>
-			plugin. See the
-			<ulink url="http://codex.wordpress.org/Managing_Plugins">WordPress docs on plugin management</ulink>
-			for more information.
-			Here are the basic steps...
-		</para>
-
-		<orderedlist>
-			<listitem>
-				<para>
-					Download the plugin from
-					<ulink url="http://tubepress.org/download">http://tubepress.org/download
-					</ulink>
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					Unzip into your plugins directory at (
-					<filename class="directory">wp-content/plugins
-					</filename>
-					)
-				</para>
-			</listitem>
-			<listitem>
-				<para>Activate TubePress from <code>Site Admin > Plugins</code></para>
-			</listitem>
-			<listitem>
-				<para>Configure from <code>Site Admin > Settings > TubePress</code>
-				</para>
-			</listitem>
-			<listitem>
-				<para>Type <code>[tubepress]</code>
-
-					in a post or a page where you'd like to insert your gallery (this is
-					actually the simplest form of a TubePress shortcode). See the image
-					below for an example.</para>
-			</listitem>
-
-		</orderedlist>
-
-	</section>
-	<section id="multiple-galleries">
-		<title>Multiple Galleries</title>
-		<para>
-			The options in <code>Settings > TubePress</code> are the global options for TubePress.
-			The real power of the plugin lies in the ability to put multiple galleries on multiple pages. 
-			This is done with TubePress shortcodes. 
-		</para>
-		<para>
-			 For example, say on one page I want to display a gallery of videos that are tagged with "<code>football</code>". On this page, I would type
-
-<code>[tubepress mode='tag', tagValue='football']</code>
-
-on the page where I want the gallery to show up. And say on another page I want to display a gallery with the default (global) options 
-that were set in <code>Settings > TubePress</code>. On this page I would type
-
-<code>[tubepress]</code>
-
-where I wanted the gallery to show up. You can follow this procedure for unlimited galleries on unlimited posts/pages. 
-Just use any TubePress shortcode to control the gallery content. Get creative! 
-		</para>
-	</section>
-	<section id="upgrading">
-		<title>Upgrading</title>
-		<para> Upgrading is usually just a matter of copying the latest version of TubePress over your existing installation. However, if you want to be sure there are no problems, follow these directions in order.
-</para>
-   <orderedlist>
-   	<listitem><para>Remove your existing TubePress install directory (<code>wp-content/plugins/tubepress</code>)</para></listitem>
-   <listitem><para>Unzip the latest version of TubePress into (wp-content/plugins)</para></listitem>
-   <listitem><para>Visit <code>Site Admin > Settings > TubePress</code> once initialize your options</para></listitem>
-   </orderedlist>
-		
-	</section>
-	<section id="sidebar-widget">
-		<title>Sidebar Widget</title>
-		<para>The TubePress plugin comes with widget functionality, which allows you to 
-		place a customizable list of videos in your blog's sidebar. Here's an example of the widget's output:</para>
-		<para>
-		 There are no separate installation instructions; if you've installed and enabled the TubePress plugin then you're done. 
-		 Please see the WordPress widget documentation for general info on how to enable and disable widgets.</para>
-		<para>This is what the TubePress widget control looks like:</para>
-		<para> In the "Title" section of the widget control, enter the text you'd like for the sidebar's header. To customize which videos 
-		show up in your sidebar, just use a TubePress shortcode. Please note that by default, the TubePress widget will use the following shortcode:
-
-		<code>[tubepress resultsPerPage='3', views='false', description='true', descriptionLimit='50', playerLocation='popup', thumbHeight='105', thumbWidth='135']</code></para>
-
-<para>Of course, like any TubePress shortcode, you can override any setting you like.</para>
-	</section>
-	<section id="init-options">
-		<title>Initialize Options</title>
-		<para>If you'd like to reset your TubePress options to their default values, 
-		you can do so by using a special page nested inside the plugin.</para>
-		<para>If your blog URL is <code>http://myblog.com</code> you'd need to navigate to
-		<code>http://myblog.com/wp-content/plugins/tubepress/env/WordPress/functions/db_nuke.php</code>
-with your web browser. Once there, you can just click the <code>Reset TubePress Options</code> button. Of course, you'll 
-need to be a WordPress administrator (access level 9) for your blog to do this.</para>
-	</section>
-	</chapter>
-	<chapter id="tubepress-pro">
-		<title>TubePress Pro</title>
-		<para>
-		TubePress Pro allows you to run TubePress anywhere that supports PHP5. 
-		This means that you can easily insert video galleries in your PHP-enabled site! 
-		A very basic understanding of PHP programming is helpful.</para>
-		
-		<section id="plain-php">
-			<title>Plain PHP</title>
-			<para>Here are step-by-step instructions for using TubePress Pro on your site.</para>
-			<orderedlist>
-				
-
-   <listitem><para><emphasis>Download</emphasis>
-      After you purchase TubePress Pro, check your email that you've registered with PayPal. You'll find an email, 
-      from tubepress.org, that contains your download link. When you click on this link, your web browser will 
-      prompt you to download (or open) a zip file containing TubePress Pro. Click "Save file" and download the 
-      zip file to somewhere easy to find, like your desktop. As of this writing, the name of the zip file is tubepress_pro_1_7_0.zip.
-      </para></listitem>
-   <listitem><para><emphasis>Unzip</emphasis>
-      Unzip the file you just downloaded (tubepress_pro_1_7_0.zip). It will expand into a directory named tubepress_pro_1_7_0.
-</para></listitem>
-   <listitem><para><emphasis>Upload</emphasis>
-      This entire directory that you unzipped must be uploaded to your web server in a place that's web accessible. 
-      In this example, my webserver has a URL of http://myblog.com and a document root of /var/www/html, so I'll need to 
-      upload the entire tubepress_pro_1_7_0 directory to anywhere inside /var/www/html on myblog.com. For this example,
-       I'll just upload the directory to the /var/www/html directory.</para>
-       <para>
-      Now my TubePress installation is web accessible at http://myblog.com/tubepress_pro_1_7_0 and on the server's 
-      filesystem at /var/www/html/tubepress_pro_1_7_0.</para></listitem>
-
-   <listitem><para><emphasis>Verify upload</emphasis>
-      It's a good idea to make sure that the directory you just uploaded is actually readable by your web server. 
-      Try navigating to http://myblog.com/tubepress_pro_1_7_0/env/standalone/tubepress-standalone.php. 
-      You should get a blank white screen with no errors.</para></listitem>
-
-   <listitem><para><emphasis>Create gallery page</emphasis>
-      I want to create a gallery in /var/www/html/index.php. Below are the contents of index.php. It's an extremely 
-      simple PHP file with four steps added to include a TubePress gallery. We'll go the steps one-by-one. 
-		</para>
-		
-		<programlistingco>
-		<areaspec>
-          <area coords="5" id="tubepress-pro-set-base-url" />
-          <area coords="7" id="tubepress-pro-include-library" />
-          <area coords="15" id="tubepress-pro-print-head" />
-          <area coords="20" id="tubepress-pro-print-gallery" />
-        </areaspec>
-		<programlisting>
+        <section id="plain-php">
+            <title>Plain PHP</title>
+            <para>
+                Here are step-by-step instructions for using TubePress Pro on your site.
+            </para>
+            <orderedlist>
+                <listitem>
+                    <para>
+                        <emphasis>Download</emphasis>
+                        After you purchase TubePress Pro, check your email that you've registered with 
+                        PayPal. You'll find an email, from tubepress.org, that contains your download 
+                        link. When you click on this link, your web browser will prompt you to download 
+                        (or open) a zip file containing TubePress Pro. Click "Save file" and download the 
+                        zip file to somewhere easy to find, like your desktop. As of this writing, the 
+                        name of the zip file is tubepress_pro_1_7_0.zip.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis>Unzip</emphasis>
+                        Unzip the file you just downloaded (tubepress_pro_1_7_0.zip). It will expand 
+                        into a directory named tubepress_pro_1_7_0.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis>Upload</emphasis>
+                            This entire directory that you unzipped must be uploaded to your web server 
+                            in a place that's web accessible. In this example, my webserver has a URL of
+                            http://myblog.com and a document root of /var/www/html, so I'll need to 
+                            upload the entire tubepress_pro_1_7_0 directory to anywhere inside /var/www/html
+                            on myblog.com. For this example, I'll just upload the directory to the /var/www/html 
+                            directory.
+                    </para>
+                    <para>
+                        Now my TubePress installation is web accessible at http://myblog.com/tubepress_pro_1_7_0 
+                        and on the server's filesystem at /var/www/html/tubepress_pro_1_7_0.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis>Verify upload</emphasis>
+                            It's a good idea to make sure that the directory you just uploaded is actually 
+                            readable by your web server. Try navigating to 
+                            http://myblog.com/tubepress_pro_1_7_0/env/standalone/tubepress-standalone.php. 
+                            You should get a blank white screen with no errors.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis>Create gallery page</emphasis>
+                         I want to create a gallery in /var/www/html/index.php. Below are the contents of 
+                         index.php. It's an extremely simple PHP file with four steps added to include a 
+                         TubePress gallery. We'll go the steps one-by-one. 
+                    </para>
+                    <programlistingco>
+                        <areaspec>
+                            <area coords="5" id="tubepress-pro-set-base-url" />
+                            <area coords="7" id="tubepress-pro-include-library" />
+                            <area coords="15" id="tubepress-pro-print-head" />
+                            <area coords="20" id="tubepress-pro-print-gallery" />
+                        </areaspec>
+                        <programlisting>
 &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 &lt;?php 
 
@@ -301,236 +368,1260 @@ require_once "tubepress_pro_1_7_0/env/standalone/tubepress-standalone.php";
 ?>
 
 &lt;html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-	&lt;head>
-		&lt;title>TubePress Standalone Example&lt;/title>
-		&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    &lt;head>
+        &lt;title>TubePress Standalone Example&lt;/title>
+        &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-		&lt;?php print tubepressHeadElements(); ?>
+        &lt;?php print tubepressHeadElements(); ?>
     &lt;/head>
     &lt;body>
-		&lt;div style="width:500px">
+        &lt;div style="width:500px">
 
-			&lt;?php print tubepressGallery("resultsPerPage='3'"); ?>
+            &lt;?php print tubepressGallery("resultsPerPage='3'"); ?>
 
-		&lt;/div>
-	&lt;/body>
+        &lt;/div>
+    &lt;/body>
 &lt;/html>
-		</programlisting>
-		<calloutlist>
-          <callout arearefs="tubepress-pro-set-base-url">
-            <para>Set the <code>tubepress_base_url</code> variable to the web URL of your <application>TubePress Pro</application> installation. In this example, it's <code>http://myblog.com/tubepress_pro_1_7_0</code>.</para>
-          </callout>
-		<callout arearefs="tubepress-pro-include-library">
-			<para>Include the TubePress stand-alone library file (tubepress-standalone.php)</para>
-		</callout>
-        <callout arearefs="tubepress-pro-print-head">
-        	<para>Include this statement inside the HEAD of your HTML document</para>
-        </callout>
-        <callout arearefs="tubepress-pro-print-gallery">
-        	<para>Call "tubepressGallery" anywhere you like</para>
-        </callout>
-        </calloutlist>
-		
-			</programlistingco></listitem>
-		<listitem>
-		<para>Result
-Here's the resulting output of the example: http://tubepress.org/pro_demo</para>
-		</listitem>
-		</orderedlist>
-		</section>
-	<section id="outside-wordpress-loop">
-		<para>You can also use TubePress Pro to insert video galleries
-			outside the
-			WordPress loop (outside the content of a post or page). It's even easier to
-			use than in standalone PHP. There are just two steps, which are in
-			bold in the
-			code snippet below. This example shows how you can use TubePress Pro in a
-			regular
-			WordPress template. The steps are</para>
+                        </programlisting>
+                        <calloutlist>
+                            <callout arearefs="tubepress-pro-set-base-url">
+                                <para>
+                                    Set the <code>tubepress_base_url</code> variable to the web URL of your
+                                    <application>TubePress Pro</application> installation. In this example, 
+                                    it's <code>http://myblog.com/tubepress_pro_1_7_0</code>.
+                                </para>
+                            </callout>
+                            <callout arearefs="tubepress-pro-include-library">
+                                <para>
+                                    Include the TubePress stand-alone library file (tubepress-standalone.php)
+                                </para>
+                            </callout>
+                            <callout arearefs="tubepress-pro-print-head">
+                                <para>
+                                    Include this statement inside the HEAD of your HTML document
+                                </para>
+                            </callout>
+                            <callout arearefs="tubepress-pro-print-gallery">
+                                <para>
+                                    Call "tubepressGallery" anywhere you like
+                                </para>
+                            </callout>
+                        </calloutlist>
+                    </programlistingco>
+                </listitem>
+                <listitem>
+                    <para>
+                        Result Here's the resulting output of the example: http://tubepress.org/pro_demo
+                    </para>
+                </listitem>
+            </orderedlist>
+        </section>
+        <section id="outside-wordpress-loop">
+            <title>Outside the WordPress Loop</title>
+            <para>
+                You can also use TubePress Pro to insert video galleries outside the
+                WordPress loop (outside the content of a post or page). It's even easier to
+                use than in standalone PHP. There are just two steps, which are in
+                bold in the code snippet below. This example shows how you can use TubePress 
+                Pro in a regular WordPress template. The steps are
+            </para>
 
-		<programlistingco>
-			<areaspec>
-				<area coords="4" id="tubepress-pro-wordpress-include" />
-				<area coords="10" id="tubepress-pro-wordpress-print" />
-			</areaspec>
-			<programlisting>
+            <programlistingco>
+                <areaspec>
+                    <area coords="4" id="tubepress-pro-wordpress-include" />
+                    <area coords="10" id="tubepress-pro-wordpress-print" />
+                </areaspec>
+                <programlisting>
 &lt;?php
 
-	require_once "tubepress/env/standalone/tubepress-standalone.php";
+    require_once "tubepress/env/standalone/tubepress-standalone.php";
 
-	get_header();
+    get_header();
 
-	print tubepressGallery("resultsPerPage='3'");
-	
-	if (have_posts()) :
-	   while (have_posts()) :
-	      the_post();
-	      the_content();
-	   endwhile;
-	endif;
-	get_sidebar();
-	get_footer(); 
+    print tubepressGallery("resultsPerPage='3'");
+    
+    if (have_posts()) :
+       while (have_posts()) :
+          the_post();
+          the_content();
+       endwhile;
+    endif;
+    get_sidebar();
+    get_footer(); 
 ?&gt;
-		</programlisting>
-		<calloutlist>
-	        <callout arearefs="tubepress-pro-wordpress-include">
-	            <para>Include the tubepress-standalone.php file to load up the TubePress Pro libraries</para>
-	        </callout>
-	        <callout arearefs="tubepress-pro-wordpress-print">
-	        	<para>Anywhere you'd like a video gallery, type
+                </programlisting>
+                <calloutlist>
+                    <callout arearefs="tubepress-pro-wordpress-include">
+                        <para>
+                            Include the tubepress-standalone.php file to load up the TubePress Pro 
+                            libraries
+                        </para>
+                    </callout>
+                    <callout arearefs="tubepress-pro-wordpress-print">
+                        <para>
+                            Anywhere you'd like a video gallery, type print tubepressGallery("resultsPerPage='3'");
+                        </para>
+                    </callout>
+                </calloutlist>
+            </programlistingco>
+        </section>
+    </chapter>
+    <chapter id="shortcodes">
+        <title>TubePress Shortcodes</title>
+        <para>
+            TubePress shortcodes are small snippets of text that allow you to easily control 
+            the content, style, and behavior of TubePress galleries. There are very similar 
+            to WordPress shortcodes, with some minor syntax differences.
+        </para>
+        <para>
+            TubePress will replace any TubePress shortcodes with a video gallery. Each gallery 
+            can be configured completely independently from the others, based on the content 
+            of the shortcode.
+        </para>
+        <para>
+            The simplest shortcode is <code>[tubepress]</code>. TubePress will replace this 
+            shortcode with a video gallery with the default settings. You can override each 
+            TubePress setting by providing shortcode attributes, which are comma-separated 
+            name-value pairs that you insert between the square brackets. They all follow 
+            the pattern<code>name='value'</code>. Please note the single quotes around the value!
+        </para>
+        <para>
+            So for instance, say I wanted a gallery with
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>my favorite videos</para>
+            </listitem>
+            <listitem>
+                <para>10 videos per page</para>
+            </listitem>
+            <listitem>
+                <para>the description included under each thumbnail</para>
+            </listitem>
+            <listitem>
+                <para>that plays videos using lightWindow</para>
+            </listitem>
+        </itemizedlist>
+        <para>
+            My shortcode for this gallery would be: [tubepress mode='favorites', favoritesValue='3hough', 
+            resultsPerPage='10', description='true', playerLocat
+        </para>
+        <section id="gallery-options">
+            <title>Display Options</title>
+            <para>
+                These settings control which group of videos the gallery will display.
+            </para>
+            <table frame="all">
+                <title>Display Options</title>
+                <tgroup cols='4' align='left' colsep='1' rowsep='1'>
+                    <thead>
+                        <row>
+                            <entry>Setting</entry>
+                            <entry>Description</entry>
+                            <entry>Valid Values</entry>
+                            <entry>Example</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry>mode</entry>
+                            <entry>Which set of videos will be displayed</entry>
+                            <entry>favorites
+                                recently_featured
+                                mobile
+                                most_discussed
+                                most_linked
+                                most_recent
+                                most_responded
+                                playlist
+                                most_viewed
+                                top_rated
+                                tag
+                                user
+                            </entry>
+                            <entry>[tubepress mode='featured']</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+        </section>
+        <section id="gallery-content">
+            <title>Gallery Content</title>
+            <table frame="all">
+                <title>Display Options</title>
+                <tgroup cols='2' align='left' colsep='1' rowsep='1'>
+                    <thead>
+                        <row>
+                            <entry>Mode Name</entry>
+                            <entry>Description</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry>favorites</entry>
+                            <entry>"Favorite" videos of the given YouTube user.
+                                Accompany this mode setting with a favoritesValue attribute to
+                                define the YouTube user name. For instance [tubepress mode='favorites', 
+                                favoritesValue='3hough']. YouTube limits the number of videos in this type 
+                                of gallery to 50.
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>recently_featured</entry>
+                            <entry> The lastest "featured" videos on YouTube's homepage</entry>
+                        </row>
+                        <row>
+                            <entry>most_discussed</entry>
+                            <entry> The most-commented videos on YouTube</entry>
+                        </row>
+                        <row>
+                            <entry>most_linked</entry>
+                            <entry> Videos with the most links</entry>
+                        </row>
+                        <row>
+                            <entry>most_recent</entry>
+                            <entry> Videos recently uploaded to YouTube</entry>
+                        </row>
+                        <row>
+                            <entry>most_responded</entry>
+                            <entry> Videos with the most video responses</entry>
+                        </row>
+                        <row>
+                            <entry>playlist</entry>
+                            <entry> Videos from the given playlist. Accompany this mode setting
+                                with a playlistValue attribute to define which YouTube playlist to
+                                retrieve. For instance
+                                [tubepress mode='playlist', playlistValue='6813408AE8D50E6F']
+                                . YouTube limits the number of videos in a playlist to 200. Only
+                                public playlists can be shown with TubePress.</entry>
+                        </row>
+                        <row>
+                            <entry>mobile</entry>
+                            <entry>Videos suitable for mobile devices</entry>
+                        </row>
+                        <row>
+                            <entry>tag</entry>
+                            <entry> Show videos matching a search term. Accompany this mode
+                                setting with a tagValue attribute to define your search term. For
+                                instance
+                                [tubepress mode='tag', tagValue='barack obama john mccain']
+                                user Videos uploaded by a specific user. Accompany this mode setting
+                                with a userValue attribute to define the YouTube user name. For
+                                instance
+                                [tubepress mode='user', userValue='3hough']</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+        </section>
+        <section id="display-options">
+            <title>Display Options</title>
+            <para>
+                These settings control the overall viewing experience for the user
+            </para>
+            <table frame="all">
+               <title>Display Options</title>
+               <tgroup cols='4' align='left' colsep='1' rowsep='1'>
+                   <thead>
+                       <row>
+                           <entry>Setting</entry>
+                           <entry>Description</entry>
+                           <entry>Valid Values</entry>
+                           <entry>Example</entry>
+                       </row>
+                   </thead>
+                   <tbody>
+                       <row>
+                           <entry>playerLocation</entry>
+                           <entry>How the user will view each video. See secion 5.2.1 for descriptions of 
+                               these values.</entry>
+                           <entry>normal
+                                popup
+                               youtube
+                           </entry>
+                           <entry>[tubepress playerLocation='shadowbox']</entry>
+                       </row>
+                       <row>
+                           <entry>orderBy</entry>
+                           <entry>The sort order of the video thumbnails published</entry>
+                           <entry>
+                               viewCount
+                               rating
+                               relevance
+                            </entry>
+                            <entry>[tubepress orderBy='viewCount']</entry>
+                        </row>
+                        <row>
+                            <entry>resultsPerPage</entry>
+                            <entry>How many video thumbnails to display on a single page</entry>
+                            <entry>Any integer x such that 0 &lt; x &lt;= 50</entry>
+                            <entry>[tubepress resultsPerPage='30']</entry>
+                        </row>
+                        <row>
+                            <entry>thumbHeight</entry>
+                            <entry>Vertical size (in px) of thumbnails</entry>
+                            <entry>Any integer x such that 0 &lt; x &lt;= 90</entry>
+                            <entry>[tubepress thumbHeight='45']</entry>
+                        </row>
+                        <row>
+                            <entry>thumbWidth</entry>
+                            <entry>Horizontal size (in px) of thumbnails</entry>
+                            <entry>Any integer x such that 0 &lt; x &lt;= 120</entry>
+                            <entry>[tubepress thumbWidth='60']</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+            <section id="player-location-shortcodes">
+                <title>Player Locations</title>
+                <table frame="all">
+                    <title>Player Locations</title>
+                    <tgroup cols='2' align='left' colsep='1' rowsep='1'>
+                        <thead>
+                            <row>
+                                <entry>Player Location</entry>
+                                <entry>Description</entry>
+                            </row>
+                        </thead>
+                        <tbody>
+                            <row>
+                                <entry>normal</entry>
+                                <entry>
+                                    Plays videos in an embedded Flash player above the video 
+                                    thumbnails. If you'd like the page to load with a specific 
+                                    video at the top of the gallery, just add the video's ID to 
+                                    the address of you gallery as the tubepress_video argument. 
+                                    For instance, if my gallery has a URL of http://mygallery.com, 
+                                    I would use http://mygallery.com?tubepress_video=CNo7Hm0IOag to 
+                                    start the gallery with the video with ID CNo7Hm0IOag in the 
+                                    embedded player. You can use any YouTube video ID you like for 
+                                    this argument.
+                                </entry>
+                            </row>
+                            <row>
+                                <entry>popup</entry>
+                                <entry>Plays videos in an HTML popup window</entry>
+                            </row>
+                            <row>
+                                <entry>youtube</entry>
+                                <entry>
+                                    Sends user to the video's original YouTube page to view the video
+                                </entry>
+                            </row>
+                        </tbody>
+                    </tgroup>
+                </table>
+            </section>
+            <section id="video-sort-order">
+                <title>Video Sort Order</title>
+                <table frame="all">
+                    <title>Video Sort Order</title>
+                    <tgroup cols='2' align='left' colsep='1' rowsep='1'>
+                        <thead>
+                            <row>
+                                <entry><code>orderBy</code> Value</entry>
+                                <entry>Description</entry>
+                            </row>
+                        </thead>
+                        <tbody>
+                            <row>
+                                <entry>published</entry>
+                                <entry>
+                                    Show videos in the order they were published to YouTube, with the 
+                                    more-recent videos first.
+                                </entry>
+                                <entry>viewCount</entry>
+                                <entry>
+                                    Shows videos in order of how many times they've been viewed, with 
+                                    the more-viewed videos first.
+                                </entry>
+                                <entry>rating</entry>
+                                <entry>
+                                    Shows videos in order of their rating, with the higher-rated videos 
+                                    first.
+                                </entry>
+                                <entry>relevance</entry>
+                                <entry>
+                                    Shows videos in order of relevance. This sort order really only 
+                                    applies to "tag" mode galleries
+                                </entry>
+                            </row>
+                        </tbody>
+                    </tgroup>
+                </table>
+                <para>
+                    Please note that these galleries can't be sorted
+                </para>
+                <itemizedlist>
+                    <listitem>
+                        <para>
+                            Favorites A gallery of a user's favorite videos will always be sorted in the 
+                            order that the videos were favorited.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            Playlist A playlist gallery will always be sorted in the order that the videos
+                             appear in the playlist
+                        </para>
+                    </listitem>
+                </itemizedlist>
+            </section>
+        </section>
+        <section id="embedded-player-options">
+            <title>Embedded Player Options</title>
+            <para>
+                These settings apply to the embedded Flash player from YouTube
+            </para>
+            <table frame="all">
+                <title>Embedded Player Options</title>
+                <tgroup cols='4' align='left' colsep='1' rowsep='1'>
+                    <thead>
+                        <row>
+                            <entry>Setting</entry>
+                            <entry>Description</entry>
+                            <entry>Valid Values</entry>
+                            <entry>Example</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry>autoPlay</entry>
+                            <entry>Toggles start of video playback without user intervention</entry>
+                            <entry>true false</entry>
+                            <entry>[tubepress autoPlay='true']</entry>
+                        </row>
+                        <row>
+                            <entry>border</entry>
+                            <entry>Toggles frame around embedded player</entry>
+                            <entry>true false</entry>
+                            <entry>[tubepress border='true']</entry>
+                        </row>
+                        <row>
+                            <entry>embeddedHeight</entry>
+                            <entry>Vertical size (in px) of embedded player</entry>
+                            <entry>Any positive integer</entry>
+                            <entry>[tubepress embeddedHeight='true']</entry>
+                        </row>
+                        <row>
+                            <entry>embeddedWidth</entry>
+                            <entry>Horizontal size (in px) of embedded player</entry>
+                            <entry>Any positive integer</entry>
+                            <entry>[tubepress embeddedWidth='true']</entry>
+                        </row>
+                        <row>
+                            <entry>genie</entry>
+                            <entry>Toggles display of "genie" menu during video playback</entry>
+                            <entry>true false</entry>
+                            <entry>[tubepress genie='true']</entry>
+                        </row>
+                        <row>
+                            <entry>loop</entry>
+                            <entry>Toggles repeat of videos without user intervention</entry>
+                            <entry>true false</entry>
+                            <entry>[tubepress loop='true']</entry>
+                        </row>
+                        <row>
+                            <entry>playerColor</entry>
+                            <entry>Primary and secondary colors of embedded player</entry>
+                            <entry>Two HTML color values in hex, combined with a single forward slash</entry>
+                            <entry>[tubepress playerColor='0xffaabb/0xaa2233']</entry>
+                        </row>
+                        <row>
+                            <entry>quality</entry>
+                            <entry>Quality of video and audio</entry>
+                            <entry>normal
+                                high
+                                higher
+                                highest
+                            </entry>
+                            <entry>[tubepress quality='higher']</entry>
+                        </row>
+                        <row>
+                            <entry>showRelated</entry>
+                            <entry>Toggles display of related videos after playback</entry>
+                            <entry>true false</entry>
+                            <entry>[tubepress showRelated='true']</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+        </section>
+        <section id="meta-display-shortcodes">
+            <title>Video Meta Display </title>
+            <para>
+                These settings control what information gets printed out below each video thumbnail
+            </para>
+            <table frame="all">
+                <title>Video Meta Display </title>
+                <tgroup cols='4' align='left' colsep='1' rowsep='1'>
+                    <thead>
+                        <row>
+                            <entry>Setting</entry>
+                            <entry>Description</entry>
+                            <entry>Valid Values</entry>
+                            <entry>Example</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry>author</entry>
+                            <entry>Toggles display of video author below thumbnails</entry>
+                            <entry>true false</entry>
+                            <entry>[tubepress author='true']</entry>
+                        </row>
+                        <row>
+                            <entry>category</entry>
+                            <entry>Toggles display of video category below thumbnails</entry>
+                            <entry>true false</entry>
+                            <entry>[tubepress category='false']</entry>
+                        </row>
+                        <row>
+                            <entry>description</entry>
+                            <entry>Toggles display of video description below thumbnails</entry>
+                            <entry>true false</entry>
+                            <entry>[tubepress description='false']</entry>
+                        </row>
+                        <row>
+                            <entry>id</entry>
+                            <entry>Toggles display of video ID below thumbnails</entry>
+                            <entry>true false</entry>
+                            <entry>[tubepress id='true']</entry>
+                        </row>
+                        <row>
+                            <entry>length</entry>
+                            <entry>Toggles display of video run time below thumbnails</entry>
+                            <entry>true false</entry>
+                            <entry>[tubepress length='false']</entry>
+                        </row>
+                        <row>
+                            <entry>rating</entry>
+                            <entry>Toggles display of average video rating below thumbnails</entry>
+                            <entry>true false</entry>
+                            <entry>[tubepress rating='true']</entry>
+                        </row>
+                        <row>
+                            <entry>ratings</entry>
+                            <entry>Toggles display of video rating count below thumbnails</entry>
+                            <entry>true false</entry>
+                            <entry>[tubepress ratings='true']</entry>
+                        </row>
+                        <row>
+                            <entry>tags</entry>
+                            <entry>Toggles display of video tags below thumbnails</entry>
+                            <entry>true false</entry>
+                            <entry>[tubepress tags='false']</entry>
+                        </row>
+                        <row>
+                            <entry>title</entry>
+                            <entry>Toggles display of video title below thumbnails</entry>
+                            <entry>true false</entry>
+                            <entry>[tubepress title='true']</entry>
+                        </row>
+                        <row>
+                            <entry>uploaded</entry>
+                            <entry>Toggles display of video upload time below thumbnails</entry>
+                            <entry>true false</entry>
+                            <entry>[tubepress uploaded='false']</entry>
+                        </row>
+                        <row>
+                            <entry>url</entry>
+                            <entry>Toggles display of video URL on YouTube below thumbnails</entry>
+                            <entry>true false</entry>
+                            <entry>[tubepress url='false']</entry>
+                        </row>
+                        <row>
+                            <entry>views</entry>
+                            <entry>Toggles display of video view count below thumbnails</entry>
+                            <entry>true false</entry>
+                            <entry>[tubepress views='true']</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+        </section> 
+        <section id="advanced-shortcodes">
+            <title>Advanced</title>
+            <para>
+                Various features that casual users will not likely need/want to adjust 
+            </para>
+            <table frame="all">
+                <title>Advanced</title>
+                <tgroup cols='4' align='left' colsep='1' rowsep='1'>
+                    <thead>
+                        <row>
+                            <entry>Setting</entry>
+                            <entry>Description</entry>
+                            <entry>Valid Values</entry>
+                            <entry>Example</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry>dateFormat</entry>
+                            <entry>Formatting of date information for videos. See http://us.php.net/date  for examples</entry>
+                            <entry>Any valid string as defined by http://php.net/date</entry>
+                            <entry>[tubepress dateFormat='l jS \of F Y h:i:s A']</entry>
+                        </row>
+                        <row>
+                            <entry>debugging_enabled</entry>
+                            <entry>Toggles ability to perform remote debugging</entry>
+                            <entry>true false</entry>
+                            <entry>[tubepress debugging_enabled='false']</entry>
+                        </row>
+                        <row>
+                            <entry>randomize_thumbnails</entry>
+                            <entry>Toggles random thumbnail selection for each video (each video comes with several thumbnails)</entry>
+                            <entry>true false</entry>
+                            <entry>[tubepress randomize_thumbnails='false']</entry>
+                        </row>
+                        <row>
+                            <entry>filter_racy</entry>
+                            <entry>Toggles filtering of "racy" videos</entry>
+                            <entry>true false</entry>
+                            <entry>[tubepress filter_racy='true']</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+        </section>  
+    </chapter>
+    <chapter id="troubleshooting">
+        <title>Troubleshooting</title>
+        <section id="debugging">
+            <title>Debugging</title>
+            <para>
+                This mode will print out tons of debugging information. To use it, you just need to add tubepress_debug=true 
+                to the URL string (in your browser's address bar). For instance, if the TubePress page you're trying to debug 
+                has an address of http://ehough.com/?page_id=19 then you should add tubepress_debug=true to the URL to enable 
+                debugging http://ehough.com/?page_id=19&amp;tubepress_debug=true. You should see the debugging information displayed 
+                above any galleries you have. The following image shows generally what you can expect to see
+            </para>
+        </section>
+        <section id="youtube-connection-test">
+            <title>YouTube Connection Test</title>
+            <para>
+                Some web servers place restrictions on what PHP scripts are allowed to execute. TubePress needs the ability 
+                to open network connections to remote servers. One way to verify that TubePress has this ability is to run 
+                the YouTube connection test. You can find a link to the test in the debug output (see section 6.1). The test 
+                will attempt to retrieve the HTML content of YouTube's homepage, and then it will execute a sample video query 
+                against YouTube's API. The result of the latter will be printed to the screen as plain XML.
+            </para>
+        </section>
+        <section id="discussion-forum">
+            <title>Discussion Forum</title>
+            <para>
+                Still can't solve your issue? Try searching or posting in the TubePress discussion forum, hosted by Google Groups. 
+                You'll need a Google account to post. 
+            </para>
+        </section>
+        <section id="trouble-tickets">
+            <title>Open a Trouble Ticket</title>
+            <para>
+                If you can't find a solution to your problem in the discussion forum, someone may have already submitted a trouble 
+                ticket. The current list of tickets can be found at http://code.google.com/p/tubepress/issues/list. Please feel 
+                free to submit a trouble ticket. Note that you'll need a Google account. 
+            </para>
+        </section>
+    </chapter>
+    <chapter id="contributing">
+        <title>Contributing</title>
+        <section id="submitting-patches">
+            <title>Submitting Patches</title>
+            <para>
+                Patches are always welcome! You'll receive full credit for your contribution, of course. Here's how to submit
+            </para>
+            <orderedlist>
+                <listitem>
+                    <para>Checkout the trunk version of TubePress</para>
+                </listitem>
+                <listitem>
+                    <para>Generate your patch against it</para>
+                </listitem>
+                <listitem>
+                    <para>Submit your patch as an attachment to a new issue report 
+                    at http://code.google.com/p/tubepress/issues/list
+                    </para>
+                </listitem>
+            </orderedlist>
+        </section>
+        <section id="i18n">
+            <title>I18N</title>
+            <para>
+                As of version 1.6.5, TubePress can be translated into any language using the gettext framework. To submit a translation...
+            </para>
+            <orderedlist>
+                <listitem>
+                    <para>Translate the words/phrases in this file from English to your native language</para>
+                </listitem>
+                <listitem>
+                    <para>Attach the translated file as an attachment to a new issue. Please be sure to note your 
+                    two-digit country code and your two-digit language code.</para>
+                </listitem>
+            </orderedlist>
+            <para>
+                You will, of course, receive full credit for your contribution to an open source project! If you're interested in the 
+                gory details of how it works, I highly recommend reading WordPress's excellent i18n documentation. </para>
+        </section>
+    </chapter>
+    <appendix id="fdl">
+  <title>GNU Free Documentation License</title>
+  <simpara>Version 1.3, 3 November 2008</simpara>
+  <simpara>
+    Copyright &#169; 2000, 2001, 2002, 2007, 2008
+    <ulink url="http://www.fsf.org/">Free Software Foundation, Inc.</ulink>
+  </simpara>
+  <simpara>
+    Everyone is permitted to copy and distribute verbatim copies of this
+    license document, but changing it is not allowed.
+  </simpara>
+  <bridgehead id="section0" renderas="sect2">
+    0. PREAMBLE
+  </bridgehead>
+  <simpara>
+    The purpose of this License is to make a manual, textbook, or other
+    functional and useful document &#8220;free&#8221; in the sense of freedom:
+    to assure everyone the effective freedom to copy and redistribute it, with
+    or without modifying it, either commercially or
+    noncommercially. Secondarily, this License preserves for the author and
+    publisher a way to get credit for their work, while not being considered
+    responsible for modifications made by others.
+  </simpara>
+  <simpara>
+    This License is a kind of &#8220;copyleft&#8221;, which means that
+    derivative works of the document must themselves be free in the same
+    sense. It complements the GNU General Public License, which is a copyleft
+    license designed for free software.
+  </simpara>
+  <simpara>
+    We have designed this License in order to use it for manuals for free
+    software, because free software needs free documentation: a free program
+    should come with manuals providing the same freedoms that the software
+    does. But this License is not limited to software manuals; it can be used
+    for any textual work, regardless of subject matter or whether it is
+    published as a printed book. We recommend this License principally for
+    works whose purpose is instruction or reference.
+  </simpara>
+  <bridgehead id="section1" renderas="sect2">
+    1. APPLICABILITY AND DEFINITIONS
+  </bridgehead>
+  <simpara>
+    This License applies to any manual or other work, in any medium, that
+    contains a notice placed by the copyright holder saying it can be
+    distributed under the terms of this License. Such a notice grants a
+    world-wide, royalty-free license, unlimited in duration, to use that work
+    under the conditions stated herein. The &#8220;Document&#8221;, below,
+    refers to any such manual or work. Any member of the public is a licensee,
+    and is addressed as &#8220;you&#8221;. You accept the license if you copy,
+    modify or distribute the work in a way requiring permission under
+    copyright law.
+  </simpara>
+  <simpara>
+    A &#8220;Modified Version&#8221; of the Document means any work containing
+    the Document or a portion of it, either copied verbatim, or with
+    modifications and/or translated into another language.
+  </simpara>
+  <simpara>
+    A &#8220;Secondary Section&#8221; is a named appendix or a front-matter
+    section of the Document that deals exclusively with the relationship of
+    the publishers or authors of the Document to the Document&#x2019;s overall
+    subject (or to related matters) and contains nothing that could fall
+    directly within that overall subject. (Thus, if the Document is in part a
+    textbook of mathematics, a Secondary Section may not explain any
+    mathematics.) The relationship could be a matter of historical connection
+    with the subject or with related matters, or of legal, commercial,
+    philosophical, ethical or political position regarding them.
+  </simpara>
+  <simpara>
+    The &#8220;Invariant Sections&#8221; are certain Secondary Sections whose
+    titles are designated, as being those of Invariant Sections, in the notice
+    that says that the Document is released under this License. If a section
+    does not fit the above definition of Secondary then it is not allowed to
+    be designated as Invariant. The Document may contain zero Invariant
+    Sections. If the Document does not identify any Invariant Sections then
+    there are none.
+  </simpara>
+  <simpara>
+    The &#8220;Cover Texts&#8221; are certain short passages of text that are
+    listed, as Front-Cover Texts or Back-Cover Texts, in the notice that says
+    that the Document is released under this License. A Front-Cover Text may
+    be at most 5 words, and a Back-Cover Text may be at most 25 words.
+  </simpara>
+  <simpara>
+    A &#8220;Transparent&#8221; copy of the Document means a machine-readable
+    copy, represented in a format whose specification is available to the
+    general public, that is suitable for revising the document
+    straightforwardly with generic text editors or (for images composed of
+    pixels) generic paint programs or (for drawings) some widely available
+    drawing editor, and that is suitable for input to text formatters or for
+    automatic translation to a variety of formats suitable for input to text
+    formatters. A copy made in an otherwise Transparent file format whose
+    markup, or absence of markup, has been arranged to thwart or discourage
+    subsequent modification by readers is not Transparent. An image format is
+    not Transparent if used for any substantial amount of text. A copy that is
+    not &#8220;Transparent&#8221; is called &#8220;Opaque&#8221;.
+  </simpara>
+  <simpara>
+    Examples of suitable formats for Transparent copies include plain ASCII
+    without markup, Texinfo input format, LaTeX input format, SGML or XML
+    using a publicly available DTD, and standard-conforming simple HTML,
+    PostScript or PDF designed for human modification. Examples of transparent
+    image formats include PNG, XCF and JPG. Opaque formats include proprietary
+    formats that can be read and edited only by proprietary word processors,
+    SGML or XML for which the DTD and/or processing tools are not generally
+    available, and the machine-generated HTML, PostScript or PDF produced by
+    some word processors for output purposes only.
+  </simpara>
+  <simpara>
+    The &#8220;Title Page&#8221; means, for a printed book, the title page
+    itself, plus such following pages as are needed to hold, legibly, the
+    material this License requires to appear in the title page. For works in
+    formats which do not have any title page as such, &#8220;Title Page&#8221;
+    means the text near the most prominent appearance of the work&#x2019;s
+    title, preceding the beginning of the body of the text.
+  </simpara>
+  <simpara>
+    The &#8220;publisher&#8221; means any person or entity that distributes
+    copies of the Document to the public.
+  </simpara>
+  <simpara>
+    A section &#8220;Entitled XYZ&#8221; means a named subunit of the Document
+    whose title either is precisely XYZ or contains XYZ in parentheses
+    following text that translates XYZ in another language. (Here XYZ stands
+    for a specific section name mentioned below, such as
+    &#8220;Acknowledgements&#8221;, &#8220;Dedications&#8221;,
+    &#8220;Endorsements&#8221;, or &#8220;History&#8221;.) To &#8220;Preserve
+    the Title&#8221; of such a section when you modify the Document means that
+    it remains a section &#8220;Entitled XYZ&#8221; according to this
+    definition.
+  </simpara>
+  <simpara>
+    The Document may include Warranty Disclaimers next to the notice which
+    states that this License applies to the Document. These Warranty
+    Disclaimers are considered to be included by reference in this License,
+    but only as regards disclaiming warranties: any other implication that
+    these Warranty Disclaimers may have is void and has no effect on the
+    meaning of this License.
+  </simpara>
+  <bridgehead id="section2" renderas="sect2">
+    2. VERBATIM COPYING
+  </bridgehead>
+  <simpara>
+    You may copy and distribute the Document in any medium, either
+    commercially or noncommercially, provided that this License, the copyright
+    notices, and the license notice saying this License applies to the
+    Document are reproduced in all copies, and that you add no other
+    conditions whatsoever to those of this License. You may not use technical
+    measures to obstruct or control the reading or further copying of the
+    copies you make or distribute. However, you may accept compensation in
+    exchange for copies. If you distribute a large enough number of copies you
+    must also follow the conditions in section 3.
+  </simpara>
+  <simpara>
+    You may also lend copies, under the same conditions stated above, and you
+    may publicly display copies.
+  </simpara>
+  <bridgehead id="section3" renderas="sect2">
+    3. COPYING IN QUANTITY
+  </bridgehead>
+  <simpara>
+    If you publish printed copies (or copies in media that commonly have
+    printed covers) of the Document, numbering more than 100, and the
+    Document&#x2019;s license notice requires Cover Texts, you must enclose
+    the copies in covers that carry, clearly and legibly, all these Cover
+    Texts: Front-Cover Texts on the front cover, and Back-Cover Texts on the
+    back cover. Both covers must also clearly and legibly identify you as the
+    publisher of these copies. The front cover must present the full title
+    with all words of the title equally prominent and visible. You may add
+    other material on the covers in addition. Copying with changes limited to
+    the covers, as long as they preserve the title of the Document and satisfy
+    these conditions, can be treated as verbatim copying in other respects.
+  </simpara>
+  <simpara>
+    If the required texts for either cover are too voluminous to fit legibly,
+    you should put the first ones listed (as many as fit reasonably) on the
+    actual cover, and continue the rest onto adjacent pages.
+  </simpara>
+  <simpara>
+    If you publish or distribute Opaque copies of the Document numbering more
+    than 100, you must either include a machine-readable Transparent copy
+    along with each Opaque copy, or state in or with each Opaque copy a
+    computer-network location from which the general network-using public has
+    access to download using public-standard network protocols a complete
+    Transparent copy of the Document, free of added material. If you use the
+    latter option, you must take reasonably prudent steps, when you begin
+    distribution of Opaque copies in quantity, to ensure that this Transparent
+    copy will remain thus accessible at the stated location until at least one
+    year after the last time you distribute an Opaque copy (directly or
+    through your agents or retailers) of that edition to the public.
+  </simpara>
+  <simpara>
+    It is requested, but not required, that you contact the authors of the
+    Document well before redistributing any large number of copies, to give
+    them a chance to provide you with an updated version of the Document.
+  </simpara>
+  <bridgehead id="section4" renderas="sect2">
+    4. MODIFICATIONS
+  </bridgehead>
+  <simpara>
+    You may copy and distribute a Modified Version of the Document under the
+    conditions of sections 2 and 3 above, provided that you release the
+    Modified Version under precisely this License, with the Modified Version
+    filling the role of the Document, thus licensing distribution and
+    modification of the Modified Version to whoever possesses a copy of it. In
+    addition, you must do these things in the Modified Version:
+  </simpara>
+  <orderedlist numeration="upperalpha">
+    <listitem>
+      <simpara>
+        Use in the Title Page (and on the covers, if any) a title distinct
+        from that of the Document, and from those of previous versions (which
+        should, if there were any, be listed in the History section of the
+        Document). You may use the same title as a previous version if the
+        original publisher of that version gives permission.
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        List on the Title Page, as authors, one or more persons or entities
+        responsible for authorship of the modifications in the Modified
+        Version, together with at least five of the principal authors of the
+        Document (all of its principal authors, if it has fewer than five),
+        unless they release you from this requirement.
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        State on the Title page the name of the publisher of the Modified
+        Version, as the publisher.
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        Preserve all the copyright notices of the Document.
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        Add an appropriate copyright notice for your modifications adjacent to
+        the other copyright notices.
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        Include, immediately after the copyright notices, a license notice
+        giving the public permission to use the Modified Version under the
+        terms of this License, in the form shown in the Addendum below.
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        Preserve in that license notice the full lists of Invariant Sections
+        and required Cover Texts given in the Document&#x2019;s license
+        notice.
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        Include an unaltered copy of this License.
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        Preserve the section Entitled &#8220;History&#8221;, Preserve its
+        Title, and add to it an item stating at least the title, year, new
+        authors, and publisher of the Modified Version as given on the Title
+        Page. If there is no section Entitled &#8220;History&#8221; in the
+        Document, create one stating the title, year, authors, and publisher
+        of the Document as given on its Title Page, then add an item
+        describing the Modified Version as stated in the previous sentence.
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        Preserve the network location, if any, given in the Document for
+        public access to a Transparent copy of the Document, and likewise the
+        network locations given in the Document for previous versions it was
+        based on.  These may be placed in the &#8220;History&#8221;
+        section. You may omit a network location for a work that was published
+        at least four years before the Document itself, or if the original
+        publisher of the version it refers to gives permission.
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        For any section Entitled &#8220;Acknowledgements&#8221; or
+        &#8220;Dedications&#8221;, Preserve the Title of the section, and
+        preserve in the section all the substance and tone of each of the
+        contributor acknowledgements and/or dedications given therein.
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        Preserve all the Invariant Sections of the Document, unaltered in
+        their text and in their titles. Section numbers or the equivalent are
+        not considered part of the section titles.
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        Delete any section Entitled &#8220;Endorsements&#8221;. Such a section
+        may not be included in the Modified Version.
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        Do not retitle any existing section to be Entitled
+        &#8220;Endorsements&#8221; or to conflict in title with any Invariant
+        Section.
+      </simpara>
+    </listitem>
+    <listitem>
+      <simpara>
+        Preserve any Warranty Disclaimers.
+      </simpara>
+    </listitem>
+  </orderedlist>
+  <simpara>
+    If the Modified Version includes new front-matter sections or appendices
+    that qualify as Secondary Sections and contain no material copied from the
+    Document, you may at your option designate some or all of these sections
+    as invariant. To do this, add their titles to the list of Invariant
+    Sections in the Modified Version&#x2019;s license notice. These titles
+    must be distinct from any other section titles.
+  </simpara>
+  <simpara>
+    You may add a section Entitled &#8220;Endorsements&#8221;, provided it
+    contains nothing but endorsements of your Modified Version by various
+    parties &#8212; for example, statements of peer review or that the text
+    has been approved by an organization as the authoritative definition of a
+    standard.
+  </simpara>
+  <simpara>
+    You may add a passage of up to five words as a Front-Cover Text, and a
+    passage of up to 25 words as a Back-Cover Text, to the end of the list of
+    Cover Texts in the Modified Version. Only one passage of Front-Cover Text
+    and one of Back-Cover Text may be added by (or through arrangements made
+    by) any one entity. If the Document already includes a cover text for the
+    same cover, previously added by you or by arrangement made by the same
+    entity you are acting on behalf of, you may not add another; but you may
+    replace the old one, on explicit permission from the previous publisher
+    that added the old one.
+  </simpara>
+  <simpara>
+    The author(s) and publisher(s) of the Document do not by this License give
+    permission to use their names for publicity for or to assert or imply
+    endorsement of any Modified Version.
+  </simpara>
+  <bridgehead id="section5" renderas="sect2">
+    5. COMBINING DOCUMENTS
+  </bridgehead>
+  <simpara>
+    You may combine the Document with other documents released under this
+    License, under the terms defined in section 4 above for modified versions,
+    provided that you include in the combination all of the Invariant Sections
+    of all of the original documents, unmodified, and list them all as
+    Invariant Sections of your combined work in its license notice, and that
+    you preserve all their Warranty Disclaimers.
+  </simpara>
+  <simpara>
+    The combined work need only contain one copy of this License, and multiple
+    identical Invariant Sections may be replaced with a single copy. If there
+    are multiple Invariant Sections with the same name but different contents,
+    make the title of each such section unique by adding at the end of it, in
+    parentheses, the name of the original author or publisher of that section
+    if known, or else a unique number. Make the same adjustment to the section
+    titles in the list of Invariant Sections in the license notice of the
+    combined work.
+  </simpara>
+  <simpara>
+    In the combination, you must combine any sections Entitled
+    &#8220;History&#8221; in the various original documents, forming one
+    section Entitled &#8220;History&#8221;; likewise combine any sections
+    Entitled &#8220;Acknowledgements&#8221;, and any sections Entitled
+    &#8220;Dedications&#8221;. You must delete all sections Entitled
+    &#8220;Endorsements&#8221;.
+  </simpara>
+  <bridgehead id="section6" renderas="sect2">
+    6. COLLECTIONS OF DOCUMENTS
+  </bridgehead>
+  <simpara>
+    You may make a collection consisting of the Document and other documents
+    released under this License, and replace the individual copies of this
+    License in the various documents with a single copy that is included in
+    the collection, provided that you follow the rules of this License for
+    verbatim copying of each of the documents in all other respects.
+  </simpara>
+  <simpara>
+    You may extract a single document from such a collection, and distribute
+    it individually under this License, provided you insert a copy of this
+    License into the extracted document, and follow this License in all other
+    respects regarding verbatim copying of that document.
+  </simpara>
+  <bridgehead id="section7" renderas="sect2">
+    7. AGGREGATION WITH INDEPENDENT WORKS
+  </bridgehead>
+  <simpara>
+    A compilation of the Document or its derivatives with other separate and
+    independent documents or works, in or on a volume of a storage or
+    distribution medium, is called an &#8220;aggregate&#8221; if the copyright
+    resulting from the compilation is not used to limit the legal rights of
+    the compilation&#x2019;s users beyond what the individual works
+    permit. When the Document is included in an aggregate, this License does
+    not apply to the other works in the aggregate which are not themselves
+    derivative works of the Document.
+  </simpara>
+  <simpara>
+    If the Cover Text requirement of section 3 is applicable to these copies
+    of the Document, then if the Document is less than one half of the entire
+    aggregate, the Document&#x2019;s Cover Texts may be placed on covers that
+    bracket the Document within the aggregate, or the electronic equivalent of
+    covers if the Document is in electronic form. Otherwise they must appear
+    on printed covers that bracket the whole aggregate.
+  </simpara>
+  <bridgehead id="section8" renderas="sect2">
+    8. TRANSLATION
+  </bridgehead>
+  <simpara>
+    Translation is considered a kind of modification, so you may distribute
+    translations of the Document under the terms of section 4. Replacing
+    Invariant Sections with translations requires special permission from
+    their copyright holders, but you may include translations of some or all
+    Invariant Sections in addition to the original versions of these Invariant
+    Sections. You may include a translation of this License, and all the
+    license notices in the Document, and any Warranty Disclaimers, provided
+    that you also include the original English version of this License and the
+    original versions of those notices and disclaimers. In case of a
+    disagreement between the translation and the original version of this
+    License or a notice or disclaimer, the original version will prevail.
+  </simpara>
+  <simpara>
+    If a section in the Document is Entitled &#8220;Acknowledgements&#8221;,
+    &#8220;Dedications&#8221;, or &#8220;History&#8221;, the requirement
+    (section 4) to Preserve its Title (section 1) will typically require
+    changing the actual title.
+  </simpara>
+  <bridgehead id="section9" renderas="sect2">
+    9. TERMINATION
+  </bridgehead>
+  <simpara>
+    You may not copy, modify, sublicense, or distribute the Document except as
+    expressly provided under this License. Any attempt otherwise to copy,
+    modify, sublicense, or distribute it is void, and will automatically
+    terminate your rights under this License.
+  </simpara>
+  <simpara>
+    However, if you cease all violation of this License, then your license
+    from a particular copyright holder is reinstated (a) provisionally, unless
+    and until the copyright holder explicitly and finally terminates your
+    license, and (b) permanently, if the copyright holder fails to notify you
+    of the violation by some reasonable means prior to 60 days after the
+    cessation.
+  </simpara>
+  <simpara>
+    Moreover, your license from a particular copyright holder is reinstated
+    permanently if the copyright holder notifies you of the violation by some
+    reasonable means, this is the first time you have received notice of
+    violation of this License (for any work) from that copyright holder, and
+    you cure the violation prior to 30 days after your receipt of the notice.
+  </simpara>
+  <simpara>
+    Termination of your rights under this section does not terminate the
+    licenses of parties who have received copies or rights from you under this
+    License. If your rights have been terminated and not permanently
+    reinstated, receipt of a copy of some or all of the same material does not
+    give you any rights to use it.
+  </simpara>
+  <bridgehead id="section10" renderas="sect2">
+    10. FUTURE REVISIONS OF THIS LICENSE
+  </bridgehead>
+  <simpara>
+    The Free Software Foundation may publish new, revised versions of the GNU
+    Free Documentation License from time to time. Such new versions will be
+    similar in spirit to the present version, but may differ in detail to
+    address new problems or concerns. See
+    <ulink url="http://www.gnu.org/copyleft/">Copyleft</ulink>.
+  </simpara>
+  <simpara>
+    Each version of the License is given a distinguishing version number. If
+    the Document specifies that a particular numbered version of this License
+    &#8220;or any later version&#8221; applies to it, you have the option of
+    following the terms and conditions either of that specified version or of
+    any later version that has been published (not as a draft) by the Free
+    Software Foundation. If the Document does not specify a version number of
+    this License, you may choose any version ever published (not as a draft)
+    by the Free Software Foundation. If the Document specifies that a proxy
+    can decide which future versions of this License can be used, that
+    proxy&#x2019;s public statement of acceptance of a version permanently
+    authorizes you to choose that version for the Document.
+  </simpara>
+  <bridgehead id="section11" renderas="sect2">
+    11. RELICENSING
+  </bridgehead>
+  <simpara>
+    &#8220;Massive Multiauthor Collaboration Site&#8221; (or &#8220;MMC
+    Site&#8221;) means any World Wide Web server that publishes copyrightable
+    works and also provides prominent facilities for anybody to edit those
+    works. A public wiki that anybody can edit is an example of such a
+    server. A &#8220;Massive Multiauthor Collaboration&#8221; (or
+    &#8220;MMC&#8221;) contained in the site means any set of copyrightable
+    works thus published on the MMC site.
+  </simpara>
+  <simpara>
+    &#8220;CC-BY-SA&#8221; means the Creative Commons Attribution-Share Alike
+    3.0 license published by Creative Commons Corporation, a not-for-profit
+    corporation with a principal place of business in San Francisco,
+    California, as well as future copyleft versions of that license published
+    by that same organization.
+  </simpara>
+  <simpara>
+    &#8220;Incorporate&#8221; means to publish or republish a Document, in
+    whole or in part, as part of another Document.
+  </simpara>
+  <simpara>
+    An MMC is &#8220;eligible for relicensing&#8221; if it is licensed under
+    this License, and if all works that were first published under this
+    License somewhere other than this MMC, and subsequently incorporated in
+    whole or in part into the MMC, (1) had no cover texts or invariant
+    sections, and (2) were thus incorporated prior to November 1, 2008.
+  </simpara>
+  <simpara>
+    The operator of an MMC Site may republish an MMC contained in the site
+    under CC-BY-SA on the same site at any time before August 1, 2009,
+    provided the MMC is eligible for relicensing.
+  </simpara>
+  <bridgehead id="addendum" renderas="sect2">
+    ADDENDUM: How to use this License for your documents
+  </bridgehead>
+  <simpara>
+    To use this License in a document you have written, include a copy of the
+    License in the document and put the following copyright and license
+    notices just after the title page:
+  </simpara>
+  <screen>Copyright &#169; YEAR YOUR NAME
 
-print tubepressGallery("resultsPerPage='3'");</para>
-	        </callout>
-			
-        </calloutlist>
-		
-	</programlistingco>
-			
-		</section>
-	</chapter>
-	<chapter id="shortcodes">
-		<title>TubePress Shortcodes</title>
-		<para>TubePress shortcodes are small snippets of text that allow you to easily control the content, 
-		style, and behavior of TubePress galleries. There are very similar to WordPress shortcodes, 
-		with some minor syntax differences.</para>
-
-		<para>TubePress will replace any TubePress shortcodes with a video gallery. Each gallery can be 
-		configured completely independently from the others, based on the content of the shortcode.</para>
-
-		<para>The simplest shortcode is <code>[tubepress]</code>. TubePress will replace this shortcode with 
-		a video gallery with the default settings. You can override each TubePress setting by providing 
-		shortcode attributes, which are comma-separated name-value pairs that you insert between the 
-		square brackets. They all follow the pattern<code>name='value'</code>. Please note the single 
-		quotes around the value!</para>
-		
-		<para>
-		 So for instance, say I wanted a gallery with</para>
-
-    	<itemizedlist><listitem><para>my favorite videos</para></listitem>
-    		<listitem><para>10 videos per page</para></listitem>
-    <listitem><para>the description included under each thumbnail</para></listitem>
-    <listitem><para>that plays videos using lightWindow</para></listitem>
-    </itemizedlist>
-<para>
-My shortcode for this gallery would be:
-
-[tubepress mode='favorites', favoritesValue='3hough', resultsPerPage='10', description='true', playerLocat
-		</para>
-		<section id="gallery-options">
-			<title>Display Options</title>
-			<para>These settings control which group of videos the gallery will display.</para>
-			<table frame="all">
-				<title>Display Options</title>
-				<tgroup cols='4' align='left' colsep='1' rowsep='1'>
-					<thead>
-						<row>
-							<entry>Setting</entry>
-							<entry>Description</entry>
-							<entry>Valid Values</entry>
-							<entry>Example</entry>
-						</row>
-					</thead>
-					<tbody>
-						<row>
-							<entry>mode</entry>
-							<entry>Which set of videos will be displayed</entry>
-							<entry>favorites
-recently_featured
-mobile
-most_discussed
-most_linked
-most_recent
-most_responded
-playlist
-most_viewed
-top_rated
-tag
-user</entry>
-<entry>[tubepress mode='featured']</entry>
-</row>
-					</tbody>
-				</tgroup>
-			</table>
-		</section>
-		<section id="gallery-content">
-			<title>Gallery Content</title>
-			<table frame="all">
-	<title>Display Options</title>
-	<tgroup cols='2' align='left' colsep='1' rowsep='1'>
-		<thead>
-			<row>
-				<entry>Mode Name</entry>
-				<entry>Description</entry>
-			</row>
-		</thead>
-		<tbody>
-			<row>
-				<entry>favorites</entry>
-				<entry>"Favorite" videos of the given YouTube user.
-					Accompany this mode setting with a favoritesValue attribute to
-					define the YouTube user name. For instance
-
-					[tubepress
-					mode='favorites', favoritesValue='3hough']
-
-					. YouTube limits the
-					number of videos in this type of gallery to 50.
-				</entry>
-			</row>
-			<row>
-				<entry>
-					recently_featured</entry>
-				<entry> The lastest "featured" videos on YouTube's homepage</entry>
-			</row>
-			<row>
-				<entry>most_discussed</entry>
-				<entry> The most-commented videos on YouTube</entry>
-			</row>
-			<row>
-				<entry>most_linked</entry>
-				<entry> Videos with the most links</entry>
-			</row>
-			<row>
-				<entry>most_recent</entry>
-				<entry> Videos recently uploaded to YouTube</entry>
-			</row>
-			<row>
-				<entry>most_responded</entry>
-				<entry> Videos with the most video responses</entry>
-			</row>
-			<row>
-				<entry>playlist</entry>
-				<entry> Videos from the given playlist. Accompany this mode setting
-					with
-					a playlistValue attribute to define which YouTube playlist to
-					retrieve. For instance
-
-					[tubepress mode='playlist', playlistValue='6813408AE8D50E6F']
-
-					. YouTube limits the number of videos in a playlist to 200. Only
-					public playlists can be shown with TubePress.</entry>
-			</row>
-			<row>
-				<entry>mobile</entry>
-				<entry>Videos suitable for mobile devices</entry>
-			</row>
-			<row>
-				<entry>tag</entry>
-				<entry> Show videos matching a search term. Accompany this mode
-					setting with a tagValue attribute to define your search term. For
-					instance
-
-					[tubepress mode='tag', tagValue='barack obama john mccain']
-
-					user Videos uploaded by a specific user. Accompany this mode setting
-					with a userValue attribute to define the YouTube user name. For
-					instance
-
-					[tubepress mode='user', userValue='3hough']</entry>
-			</row>
-		</tbody>
-	</tgroup>
-</table>
-		</section>
-	</chapter>
+Permission is granted to copy, distribute and/or modify this document under the
+terms of the GNU Free Documentation License, Version 1.3 or any later version
+published by the Free Software Foundation; with no Invariant Sections, no
+Front-Cover Texts, and no Back-Cover Texts. A copy of the license is included in
+the section entitled &#8220;GNU Free Documentation License&#8221;.</screen>
+  <simpara>
+    If you have Invariant Sections, Front-Cover Texts and Back-Cover Texts,
+    replace the &#8220;with&#8230; Texts.&#8221; line with this:
+  </simpara>
+  <screen>with the Invariant Sections being LIST THEIR TITLES, with the Front-Cover Texts
+being LIST, and with the Back-Cover Texts being LIST.</screen>
+  <simpara>
+    If you have Invariant Sections without Cover Texts, or some other
+    combination of the three, merge those two alternatives to suit the
+    situation.
+  </simpara>
+  <simpara>
+    If your document contains nontrivial examples of program code, we
+    recommend releasing these examples in parallel under your choice of free
+    software license, such as the GNU General Public License, to permit their
+    use in free software.
+  </simpara>
+</appendix>
+    
 </book>

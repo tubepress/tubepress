@@ -35,6 +35,9 @@
             <classpath refid="xalan.classpath" />
         	<classpath refid="xalan.extensions.classpath" />
         </xslt>
+    	<copy todir="${doc.dir}/css">
+    		<fileset dir="css"/>
+    	</copy>
     </target>
     
 </project>
