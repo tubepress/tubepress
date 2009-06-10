@@ -92,7 +92,7 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Display::RESULTS_PER_PAGE    => 20,
             org_tubepress_options_category_Display::THUMB_HEIGHT        => 90,
             org_tubepress_options_category_Display::THUMB_WIDTH         => 120,
-            org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT    => 355,
+            org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT    => 350,
             org_tubepress_options_category_Embedded::EMBEDDED_WIDTH     => 425
         ),
         org_tubepress_options_Type::TIME_FRAME => array(

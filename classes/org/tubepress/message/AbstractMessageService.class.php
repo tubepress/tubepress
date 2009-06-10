@@ -79,7 +79,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         "options-title-autoplay"             => "Auto-play videos", 
         "options-title-border"               => "Show border", 
         "options-title-embeddedHeight"       => "Max height (px)", 
-        "options-desc-embeddedHeight"        => "Default is 355", 
+        "options-desc-embeddedHeight"        => "Default is 350", 
         "options-title-embeddedWidth"        => "Max width (px)", 
         "options-desc-embeddedWidth"         => "Default is 425", 
         "options-title-fullscreen"           => "Allow fullscreen playback",
