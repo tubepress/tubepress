@@ -187,8 +187,7 @@
                 </listitem>
                 <listitem>
                     <para>
-                        Unzip into your plugins directory at (<filename class="directory">
-                        wp-content/plugins</filename>)
+                        Unzip into your plugins directory at (<filename class="directory">wp-content/plugins</filename>)
                     </para>
                 </listitem>
                 <listitem>
@@ -199,7 +198,7 @@
                     </para>
                 </listitem>
                 <listitem>
-                    <para>Type <code>[tubepress]</code>
+                    <para>Type <programlisting>[tubepress]</programlisting>
                         in a post or a page where you'd like to insert your gallery (this is
                         actually the simplest form of a TubePress shortcode). See the image
                         below for an example.
@@ -216,10 +215,10 @@
             </para>
             <para>
                 For example, say on one page I want to display a gallery of videos that are tagged 
-                with "<code>football</code>". On this page, I would type <code>[tubepress mode='tag', 
-                tagValue='football']</code> on the page where I want the gallery to show up. And say 
+                with "<code>football</code>". On this page, I would type <programlisting>[tubepress mode='tag', 
+                tagValue='football']</programlisting> on the page where I want the gallery to show up. And say 
                 on another page I want to display a gallery with the default (global) options that were set 
-                in <code>Settings > TubePress</code>. On this page I would type <code>[tubepress]</code> where I 
+                in <code>Settings > TubePress</code>. On this page I would type <programlisting>[tubepress]</programlisting> where I 
                 wanted the gallery to show up. You can follow this procedure for unlimited galleries on 
                 unlimited posts/pages.  Just use any TubePress shortcode to control the gallery content. Get creative! 
             </para>
@@ -265,9 +264,9 @@
             <para>
                 In the "Title" section of the widget control, enter the text you'd like for the sidebar's header. 
                 To customize which videos show up in your sidebar, just use a TubePress shortcode. Please note that 
-                by default, the TubePress widget will use the following shortcode: <code>[tubepress resultsPerPage='3',
+                by default, the TubePress widget will use the following shortcode: <programlisting>[tubepress resultsPerPage='3',
                 views='false', description='true', descriptionLimit='50', playerLocation='popup', thumbHeight='105', 
-                thumbWidth='135']</code>
+                thumbWidth='135']</programlisting>
             </para>
             <para>
                 Of course, like any TubePress shortcode, you can override any setting you like.
@@ -358,31 +357,32 @@
                             <area coords="15" id="tubepress-pro-print-head" />
                             <area coords="20" id="tubepress-pro-print-gallery" />
                         </areaspec>
-                        <programlisting>
-&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-&lt;?php 
+                        <programlisting language="php"><![CDATA[
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?php 
 
 $tubepress_base_url = "http://myblog.com/tubepress_pro_1_7_0";
 
 require_once "tubepress_pro_1_7_0/env/standalone/tubepress-standalone.php";
 ?>
 
-&lt;html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-    &lt;head>
-        &lt;title>TubePress Standalone Example&lt;/title>
-        &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>TubePress Standalone Example</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-        &lt;?php print tubepressHeadElements(); ?>
-    &lt;/head>
-    &lt;body>
-        &lt;div style="width:500px">
+        <?php print tubepressHeadElements(); ?>
+    </head>
+    <body>
+        <div style="width:500px">
 
-            &lt;?php print tubepressGallery("resultsPerPage='3'"); ?>
+            <?php print tubepressGallery("resultsPerPage='3'"); ?>
 
-        &lt;/div>
-    &lt;/body>
-&lt;/html>
-                        </programlisting>
+        </div>
+    </body>
+</html>
+
+                        ]]></programlisting>
                         <calloutlist>
                             <callout arearefs="tubepress-pro-set-base-url">
                                 <para>
@@ -431,8 +431,8 @@ require_once "tubepress_pro_1_7_0/env/standalone/tubepress-standalone.php";
                     <area coords="4" id="tubepress-pro-wordpress-include" />
                     <area coords="10" id="tubepress-pro-wordpress-print" />
                 </areaspec>
-                <programlisting>
-&lt;?php
+                <programlisting language="php"><![CDATA[
+<?php
 
     require_once "tubepress/env/standalone/tubepress-standalone.php";
 
@@ -448,8 +448,8 @@ require_once "tubepress_pro_1_7_0/env/standalone/tubepress-standalone.php";
     endif;
     get_sidebar();
     get_footer(); 
-?&gt;
-                </programlisting>
+?>
+                ]]></programlisting>
                 <calloutlist>
                     <callout arearefs="tubepress-pro-wordpress-include">
                         <para>
@@ -524,7 +524,7 @@ require_once "tubepress_pro_1_7_0/env/standalone/tubepress-standalone.php";
                     </thead>
                     <tbody>
                         <row>
-                            <entry>mode</entry>
+                            <entry><code>mode</code></entry>
                             <entry>Which set of videos will be displayed</entry>
                             <entry>favorites
                                 recently_featured

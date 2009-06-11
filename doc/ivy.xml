@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ivy-module version="2.0">
+    <info organisation="apache" module="hello-ivy"/>
+    <dependencies>
+        <dependency org="org.docbook" name="docbook-xsl" rev="1.74.0"/>
+        <dependency org="net.sf.docbook" name="docbook-xsl-saxon" rev="1.0.0"/>
+        <dependency org="docbook" name="docbook-xml" rev="4.4"/>
+        <dependency org="saxon" name="saxon" rev="6.5.3" />
+        <dependency org="xerces" name="xercesImpl" rev="2.9.1" />
+    </dependencies>
+</ivy-module>
