@@ -352,10 +352,10 @@
                     </para>
                     <programlistingco>
                         <areaspec>
-                            <area coords="5" id="tubepress-pro-set-base-url" />
-                            <area coords="7" id="tubepress-pro-include-library" />
-                            <area coords="15" id="tubepress-pro-print-head" />
-                            <area coords="20" id="tubepress-pro-print-gallery" />
+                            <area coords="5 80" id="tubepress-pro-set-base-url" />
+                            <area coords="7 80" id="tubepress-pro-include-library" />
+                            <area coords="15 80" id="tubepress-pro-print-head" />
+                            <area coords="20 80" id="tubepress-pro-print-gallery" />
                         </areaspec>
                         <programlisting language="php"><![CDATA[
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -363,12 +363,12 @@
 
 $tubepress_base_url = "http://myblog.com/tubepress_pro_1_7_0";
 
-require_once "tubepress_pro_1_7_0/env/standalone/tubepress-standalone.php";
+require_once "tubepress_pro_1_7_0/env/pro/tubepress-pro.php";
 ?>
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
     <head>
-        <title>TubePress Standalone Example</title>
+        <title>TubePress Pro</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
         <?php print tubepressHeadElements(); ?>
@@ -393,7 +393,7 @@ require_once "tubepress_pro_1_7_0/env/standalone/tubepress-standalone.php";
                             </callout>
                             <callout arearefs="tubepress-pro-include-library">
                                 <para>
-                                    Include the TubePress stand-alone library file (tubepress-standalone.php)
+                                    Include the TubePress Pro library (<code>tubepress-pro.php</code>)
                                 </para>
                             </callout>
                             <callout arearefs="tubepress-pro-print-head">
@@ -730,16 +730,22 @@ require_once "tubepress_pro_1_7_0/env/standalone/tubepress-standalone.php";
                                     Show videos in the order they were published to YouTube, with the 
                                     more-recent videos first.
                                 </entry>
+                            </row>
+                            <row>
                                 <entry>viewCount</entry>
                                 <entry>
                                     Shows videos in order of how many times they've been viewed, with 
                                     the more-viewed videos first.
                                 </entry>
+                            </row>
+                            <row>
                                 <entry>rating</entry>
                                 <entry>
                                     Shows videos in order of their rating, with the higher-rated videos 
                                     first.
                                 </entry>
+                            </row>
+                            <row>
                                 <entry>relevance</entry>
                                 <entry>
                                     Shows videos in order of relevance. This sort order really only 
@@ -749,23 +755,25 @@ require_once "tubepress_pro_1_7_0/env/standalone/tubepress-standalone.php";
                         </tbody>
                     </tgroup>
                 </table>
-                <para>
-                    Please note that these galleries can't be sorted
-                </para>
-                <itemizedlist>
-                    <listitem>
-                        <para>
-                            Favorites A gallery of a user's favorite videos will always be sorted in the 
-                            order that the videos were favorited.
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            Playlist A playlist gallery will always be sorted in the order that the videos
-                             appear in the playlist
-                        </para>
-                    </listitem>
-                </itemizedlist>
+                <note>
+                    <para>
+                        Please note that these galleries can't be sorted
+                    </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                Favorites A gallery of a user's favorite videos will always be sorted in the 
+                                order that the videos were favorited.
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Playlist A playlist gallery will always be sorted in the order that the videos
+                                 appear in the playlist
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </note>
             </section>
         </section>
         <section id="embedded-player-options">
