@@ -19,31 +19,56 @@
 
     <target name="depends">
         <mkdir dir="${output.dir}" />
+    	<mkdir dir="${output.dir}/html" />
+    	<mkdir dir="${output.dir}/htmlsingle" />
     	<ivy:retrieve />
     </target>
 
+	<target name="html" depends="depends" description="Generates HTML files from DocBook XML">
+	     
+	    	<java classname="com.icl.saxon.StyleSheet" fork="true" failonerror="true"
+	    	            dir="${basedir}" classpathref="lib.path">
+	    		
+	    		<arg line="-o ${output.dir}/html" />
+	    		<arg value="${basedir}/src" />
+	    		<arg value="${basedir}/styles/html-style.xsl" />
+	    	        <jvmarg line="-Dxslthl.config=file://${xslthl.config.location}" />
+	    	        <jvmarg line="-Djavax.xml.parsers.DocumentBuilderFactory=org.apache.xerces.jaxp.DocumentBuilderFactoryImpl" />
+	    	        <jvmarg line="-Djavax.xml.parsers.SAXParserFactory=org.apache.xerces.jaxp.SAXParserFactoryImpl" />
+	    	        <jvmarg line="-Dorg.apache.xerces.xni.parser.XMLParserConfiguration=org.apache.xerces.parsers.XIncludeParserConfiguration" />
+	    	</java>
+
+	    	<copy todir="${output.dir}/html/css">
+	    		<fileset dir="css"/>
+	    	</copy>
+	    	<copy todir="${output.dir}/html/images">
+	    	    <fileset dir="images"/>
+	    	 </copy>
+	    	
+	    </target>
+	
     <target name="html-single" depends="depends" description="Generates HTML files from DocBook XML">
      
     	<java classname="com.icl.saxon.StyleSheet" fork="true" failonerror="true"
     	            dir="${basedir}" classpathref="lib.path">
     		
-    		<arg line="-o ${output.dir}" />
+    		<arg line="-o ${output.dir}/htmlsingle" />
     		<arg value="${basedir}/src" />
-    		<arg value="${basedir}/styles/html-style.xsl" />
+    		<arg value="${basedir}/styles/htmlsingle-style.xsl" />
     	        <jvmarg line="-Dxslthl.config=file://${xslthl.config.location}" />
     	        <jvmarg line="-Djavax.xml.parsers.DocumentBuilderFactory=org.apache.xerces.jaxp.DocumentBuilderFactoryImpl" />
     	        <jvmarg line="-Djavax.xml.parsers.SAXParserFactory=org.apache.xerces.jaxp.SAXParserFactoryImpl" />
     	        <jvmarg line="-Dorg.apache.xerces.xni.parser.XMLParserConfiguration=org.apache.xerces.parsers.XIncludeParserConfiguration" />
     	</java>
 
-    	<copy todir="${output.dir}/css">
+    	<copy todir="${output.dir}/htmlsingle/css">
     		<fileset dir="css"/>
     	</copy>
-    	<copy todir="${output.dir}/images">
+    	<copy todir="${output.dir}/htmlsingle/images">
     	    <fileset dir="images"/>
     	 </copy>
     	
-    	<move file="${output.dir}/tubepress.xml" toFile="${output.dir}/tubepress.html" />
+    	<move file="${output.dir}/htmlsingle/tubepress.xml" toFile="${output.dir}/htmlsingle/tubepress.html" />
     </target>
     
 </project>
