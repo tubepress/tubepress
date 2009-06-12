@@ -3,7 +3,7 @@
  "/opt/local/share/xml/docbook/4.5/docbookx.dtd">
 
 <book>
-    <title>TubePress</title>
+    <title>TubePress Reference Documentation</title>
     <subtitle>Beautiful YouTube Video Galleries in PHP</subtitle>
     <bookinfo>
         <author>
@@ -173,7 +173,7 @@
                 <application>TubePress</application>
                 can be installed and activated just like any other <application>WordPress</application>
                 plugin. See the <ulink url="http://codex.wordpress.org/Managing_Plugins">WordPress docs 
-                on plugin management</ulink> for more information. Here are the basic steps...
+                on plugin management</ulink> for more information. For the impatient, here are the steps...
             </para>
 
             <orderedlist>
@@ -200,8 +200,18 @@
                 <listitem>
                     <para>Type <programlisting>[tubepress]</programlisting>
                         in a post or a page where you'd like to insert your gallery (this is
-                        actually the simplest form of a TubePress shortcode). See the image
+                        actually the simplest form of a <link linkend="shortcodes">TubePress shortcode</link>). See the image
                         below for an example.
+                    </para>
+                    <para>
+                        <mediaobject>
+                            <imageobject role="fo">
+                                <imagedata fileref="images/quick_start.png" format="PNG" align="center" />
+                            </imageobject>
+                            <imageobject role="html">
+                                <imagedata fileref="images/quick_start.png" format="PNG" align="center" />
+                            </imageobject>
+                        </mediaobject>
                     </para>
                 </listitem>
             </orderedlist>
@@ -211,16 +221,17 @@
             <para>
                 The options in <code>Settings > TubePress</code> are the global options for TubePress.
                 The real power of the plugin lies in the ability to put multiple galleries on multiple pages. 
-                This is done with TubePress shortcodes. 
+                This is done with <link linkend="shortcodes">TubePress shortcodes</link>. 
             </para>
             <para>
                 For example, say on one page I want to display a gallery of videos that are tagged 
-                with "<code>football</code>". On this page, I would type <programlisting>[tubepress mode='tag', 
-                tagValue='football']</programlisting> on the page where I want the gallery to show up. And say 
+                with "<code>football</code>". On this page, I would type 
+                <programlisting>[tubepress mode='tag', tagValue='football']</programlisting>
+                on the page where I want the gallery to show up. And say 
                 on another page I want to display a gallery with the default (global) options that were set 
                 in <code>Settings > TubePress</code>. On this page I would type <programlisting>[tubepress]</programlisting> where I 
                 wanted the gallery to show up. You can follow this procedure for unlimited galleries on 
-                unlimited posts/pages.  Just use any TubePress shortcode to control the gallery content. Get creative! 
+                unlimited posts/pages.  Just use <link linkend="shortcode-reference">any TubePress shortcode</link> to control the gallery content. Get creative! 
             </para>
         </section>
         <section id="upgrading">
@@ -237,7 +248,7 @@
                     </para>
                 </listitem>
                 <listitem>
-                    <para>Unzip the latest version of TubePress into (wp-content/plugins)</para>
+                    <para>Unzip the latest version of TubePress into (<code>wp-content/plugins</code>)</para>
                 </listitem>
                 <listitem>
                     <para>
@@ -251,22 +262,42 @@
             <para>
                 The TubePress plugin comes with widget functionality, which allows you to 
                 place a customizable list of videos in your blog's sidebar. Here's an example of 
-                the widget's output:
+                the widget's output...
             </para>
             <para>
-                There are no separate installation instructions; if you've installed and enabled the TubePress plugin 
-                then you're done. Please see the WordPress widget documentation for general info on how to enable 
+                <mediaobject>
+                            <imageobject role="fo">
+                                <imagedata fileref="images/sidebar.png" format="PNG" align="center" />
+                            </imageobject>
+                            <imageobject role="html">
+                                <imagedata fileref="images/sidebar.png" format="PNG" align="center" />
+                            </imageobject>
+                        </mediaobject>
+                    </para>
+            <para>
+                There are no separate installation instructions; if you've <link linkend="wordpress-plugin-quick-start">installed and enabled the TubePress plugin</link>, 
+                then you're done. Please see the <ulink url="http://codex.wordpress.org/Widgets_SubPanel">WordPress widget documentation</ulink> for general info on how to enable 
                 and disable widgets.
             </para>
             <para>
-                This is what the TubePress widget control looks like:
+                This is what the TubePress widget control looks like...
             </para>
             <para>
+                        <mediaobject>
+                            <imageobject role="fo">
+                                <imagedata fileref="images/widget.png" format="PNG" align="center" />
+                            </imageobject>
+                            <imageobject role="html">
+                                <imagedata fileref="images/widget.png" format="PNG" align="center" />
+                            </imageobject>
+                        </mediaobject>
+                    </para>
+            <para>
                 In the "Title" section of the widget control, enter the text you'd like for the sidebar's header. 
-                To customize which videos show up in your sidebar, just use a TubePress shortcode. Please note that 
-                by default, the TubePress widget will use the following shortcode: <programlisting>[tubepress resultsPerPage='3',
-                views='false', description='true', descriptionLimit='50', playerLocation='popup', thumbHeight='105', 
-                thumbWidth='135']</programlisting>
+                To customize which videos show up in your sidebar, just use a <link linkend="shortcodes">TubePress shortcode</link>. Please note that 
+                by default, the TubePress widget will use the following shortcode: 
+                <programlisting>[tubepress resultsPerPage='3', views='false', description='true', descriptionLimit='50', 
+    playerLocation='popup', thumbHeight='105', thumbWidth='135']</programlisting>
             </para>
             <para>
                 Of course, like any TubePress shortcode, you can override any setting you like.
@@ -295,75 +326,67 @@
             A very basic understanding of PHP programming is helpful.
         </para>
 
-        <section id="plain-php">
-            <title>Plain PHP</title>
-            <para>
-                Here are step-by-step instructions for using TubePress Pro on your site.
-            </para>
+        <section id="pro-installation">
+            <title>Installation</title>
+            <para>Installing TubePress Pro is easy...</para>
             <orderedlist>
                 <listitem>
                     <para>
-                        <emphasis>Download</emphasis>
                         After you purchase TubePress Pro, check your email that you've registered with 
-                        PayPal. You'll find an email, from tubepress.org, that contains your download 
+                        PayPal. You'll find an email that contains your download 
                         link. When you click on this link, your web browser will prompt you to download 
                         (or open) a zip file containing TubePress Pro. Click "Save file" and download the 
-                        zip file to somewhere easy to find, like your desktop. As of this writing, the 
-                        name of the zip file is tubepress_pro_1_7_0.zip.
+                        zip file to somewhere easy to find, like your desktop.
+                    </para>
+                    <para>As of this writing, the  name of the zip file is <code>tubepress_pro_1_8_0.zip</code>.
                     </para>
                 </listitem>
                 <listitem>
                     <para>
-                        <emphasis>Unzip</emphasis>
-                        Unzip the file you just downloaded (tubepress_pro_1_7_0.zip). It will expand 
-                        into a directory named tubepress_pro_1_7_0.
+                        Unzip the file you just downloaded (<code>tubepress_pro_1_8_0.zip</code>). It will expand 
+                        into a directory named <code>tubepress_pro_1_8_0</code>.
                     </para>
                 </listitem>
                 <listitem>
                     <para>
-                        <emphasis>Upload</emphasis>
-                            This entire directory that you unzipped must be uploaded to your web server 
-                            in a place that's web accessible. In this example, my webserver has a URL of
-                            http://myblog.com and a document root of /var/www/html, so I'll need to 
-                            upload the entire tubepress_pro_1_7_0 directory to anywhere inside /var/www/html
-                            on myblog.com. For this example, I'll just upload the directory to the /var/www/html 
-                            directory.
+                       Upload this entire directory to your web server 
+                            in a place that's <emphasis>web accessible</emphasis>. Make a note of
                     </para>
-                    <para>
-                        Now my TubePress installation is web accessible at http://myblog.com/tubepress_pro_1_7_0 
-                        and on the server's filesystem at /var/www/html/tubepress_pro_1_7_0.
-                    </para>
+                    <itemizedlist>
+                        <listitem><para>the full path of this directory on your web server's filesystem (e.g. <code>/var/www/html/myblog.com/lib/tubepress_pro_1_8_0</code>)</para></listitem>
+                        <listitem><para>the web-accessible URL to reach this directory (e.g. <code>http://myblog.com/lib/tubepress_pro_1_8_0</code>)</para></listitem>
+                    </itemizedlist>
                 </listitem>
                 <listitem>
                     <para>
-                        <emphasis>Verify upload</emphasis>
-                            It's a good idea to make sure that the directory you just uploaded is actually 
-                            readable by your web server. Try navigating to 
-                            http://myblog.com/tubepress_pro_1_7_0/env/standalone/tubepress-standalone.php. 
-                            You should get a blank white screen with no errors.
+                        <emphasis>Optional</emphasis>. Install ShadowBox and JW FLV Media Player support. Installation instructions for these libraries can be found in
+                        <xref linkend="optional-pro-installations" />.
                     </para>
                 </listitem>
-                <listitem>
-                    <para>
-                        <emphasis>Create gallery page</emphasis>
-                         I want to create a gallery in /var/www/html/index.php. Below are the contents of 
-                         index.php. It's an extremely simple PHP file with four steps added to include a 
-                         TubePress gallery. We'll go the steps one-by-one. 
-                    </para>
-                    <programlistingco>
-                        <areaspec>
-                            <area coords="5 80" id="tubepress-pro-set-base-url" />
-                            <area coords="7 80" id="tubepress-pro-include-library" />
-                            <area coords="15 80" id="tubepress-pro-print-head" />
-                            <area coords="20 80" id="tubepress-pro-print-gallery" />
-                        </areaspec>
-                        <programlisting language="php"><![CDATA[
+            </orderedlist>
+        </section>
+
+        <section id="plain-php">
+            <title>Usage in plain PHP</title>
+            <para>
+                The following is a very simple PHP file that generates a gallery with TubePress Pro. As you can see,
+                there are only four steps involved.
+            </para>
+
+            <programlistingco>
+                <areaspec>
+                    <area coords="5 110" id="tubepress-pro-set-base-url" />
+                    <area coords="7 110" id="tubepress-pro-include-library" />
+                    <area coords="15 110" id="tubepress-pro-print-head" />
+                    <area coords="20 110" id="tubepress-pro-print-gallery" />
+                </areaspec>
+                <programlisting language="php"><![CDATA[
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <?php 
 
-$tubepress_base_url = "http://myblog.com/tubepress_pro_1_7_0";
+    $tubepress_base_url = "http://myblog.com/lib/tubepress_pro_1_8_0";
 
-require_once "tubepress_pro_1_7_0/env/pro/tubepress-pro.php";
+    require_once "/var/www/html/myblog.com/lib/tubepress_pro_1_8_0/env/pro/tubepress-pro.php";
 ?>
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
@@ -371,74 +394,82 @@ require_once "tubepress_pro_1_7_0/env/pro/tubepress-pro.php";
         <title>TubePress Pro</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-        <?php print tubepressHeadElements(); ?>
+        <?php print tubepressHeadElements(true); ?>
     </head>
     <body>
         <div style="width:500px">
 
-            <?php print tubepressGallery("resultsPerPage='3'"); ?>
+            <?php print tubepressGallery("mode='tag', tagValue='barack obama', resultsPerPage='3'"); ?>
 
         </div>
     </body>
 </html>
-
-                        ]]></programlisting>
-                        <calloutlist>
-                            <callout arearefs="tubepress-pro-set-base-url">
-                                <para>
-                                    Set the <code>tubepress_base_url</code> variable to the web URL of your
-                                    <application>TubePress Pro</application> installation. In this example, 
-                                    it's <code>http://myblog.com/tubepress_pro_1_7_0</code>.
-                                </para>
-                            </callout>
-                            <callout arearefs="tubepress-pro-include-library">
-                                <para>
-                                    Include the TubePress Pro library (<code>tubepress-pro.php</code>)
-                                </para>
-                            </callout>
-                            <callout arearefs="tubepress-pro-print-head">
-                                <para>
-                                    Include this statement inside the HEAD of your HTML document
-                                </para>
-                            </callout>
-                            <callout arearefs="tubepress-pro-print-gallery">
-                                <para>
-                                    Call "tubepressGallery" anywhere you like
-                                </para>
-                            </callout>
-                        </calloutlist>
-                    </programlistingco>
-                </listitem>
-                <listitem>
-                    <para>
-                        Result Here's the resulting output of the example: http://tubepress.org/pro_demo
-                    </para>
-                </listitem>
-            </orderedlist>
+                ]]></programlisting>
+                <calloutlist>
+                   <callout arearefs="tubepress-pro-set-base-url">
+                        <para>
+                            Set <code>tubepress_base_url</code> to the <emphasis>web-accessible</emphasis> URL of your
+                            <application>TubePress Pro</application> installation.
+                        </para>
+                    </callout>
+                    <callout arearefs="tubepress-pro-include-library">
+                        <para>
+                               Include the TubePress Pro library file (<code>tubepress-pro.php</code>). You can use an absolute or
+                                relative path to the file.
+                        </para>
+                    </callout>
+                    <callout arearefs="tubepress-pro-print-head">
+                        <para>
+                            Include this statement in the <code>HEAD</code> of your document to print out the required TubePress
+                            CSS and JavaScript libraries. It takes a single parameter which indicates whether or not to include jQuery. If you
+                            are already including jQuery in your document, use <code>false</code> for this parameter.
+                         </para>
+                    </callout>
+                    <callout arearefs="tubepress-pro-print-gallery">
+                        <para>
+                            This statement prints out the TubePress gallery contents. It takes a single string parameter which is
+                            <link linkend="shortcode-reference">any valid TubePress shortcode</link>, with or without the enclosing <code>[tubepress</code> wrapper. You
+                            repeat this function call as many times as you like to insert multiple galleries on a single page.
+                        </para>
+                    </callout>
+                </calloutlist>
+            </programlistingco>
+               
         </section>
-        <section id="outside-wordpress-loop">
-            <title>Outside the WordPress Loop</title>
-            <para>
-                You can also use TubePress Pro to insert video galleries outside the
-                WordPress loop (outside the content of a post or page). It's even easier to
-                use than in standalone PHP. There are just two steps, which are in
-                bold in the code snippet below. This example shows how you can use TubePress 
-                Pro in a regular WordPress template. The steps are
-            </para>
+        <section id="pro-in-wordpress">
+            <title>Usage in WordPress</title>
+            <section id="pro-wordpress-plugin">
+                <title>Posts and Pages</title>
+                <para>With TubePress Pro, you still get the full power of the WordPress plugin of TubePress. Just install the TubePress Pro directory into
+                    <code>wp-content/plugins</code> as you would any other WordPress Plugin. Then follow the <link linkend="wordpress-plugin">WordPress plugin documentation</link> to start inserting
+                    galleries into your posts and pages.
+                </para>
+            </section>
+            <section id="pro-outside-wordpress-loop">
+                <title>Outside "The Loop"</title>
+                <para>
+                    You can also use TubePress Pro to insert video galleries outside the
+                    <ulink url="http://codex.wordpress.org/The_Loop">WordPress Loop</ulink> (i.e. in your WordPress templates). It's even easier to
+                    use than in plain PHP.
+                </para>
+                <para>
+                    The code snippet below shows the <ulink url="http://codex.wordpress.org/The_Loop_in_Action#The_World.27s_Simplest_Index_Page">world's simplest
+                    index page</ulink> with TubePress Pro added. As you can see, there are only 2 steps. 
+                </para>
 
-            <programlistingco>
-                <areaspec>
-                    <area coords="4" id="tubepress-pro-wordpress-include" />
-                    <area coords="10" id="tubepress-pro-wordpress-print" />
-                </areaspec>
-                <programlisting language="php"><![CDATA[
+                <programlistingco>
+                    <areaspec>
+                        <area coords="4 103" id="tubepress-pro-wordpress-include" />
+                        <area coords="8 103" id="tubepress-pro-wordpress-print" />
+                    </areaspec>
+                    <programlisting language="php"><![CDATA[
 <?php
 
-    require_once "tubepress/env/standalone/tubepress-standalone.php";
+    require_once "/var/www/html/myblog.com/lib/tubepress_pro_1_8_0/env/pro/tubepress-pro.php";
 
     get_header();
 
-    print tubepressGallery("resultsPerPage='3'");
+    print tubepressGallery("mode='tag', tagValue='barack obama', resultsPerPage='3'");
     
     if (have_posts()) :
        while (have_posts()) :
@@ -450,20 +481,23 @@ require_once "tubepress_pro_1_7_0/env/pro/tubepress-pro.php";
     get_footer(); 
 ?>
                 ]]></programlisting>
-                <calloutlist>
-                    <callout arearefs="tubepress-pro-wordpress-include">
-                        <para>
-                            Include the tubepress-standalone.php file to load up the TubePress Pro 
-                            libraries
+                    <calloutlist>
+                        <callout arearefs="tubepress-pro-wordpress-include">
+                            <para>
+                               Include the TubePress Pro library file (<code>tubepress-pro.php</code>). You can use an absolute or
+                                relative path to the file.
                         </para>
-                    </callout>
-                    <callout arearefs="tubepress-pro-wordpress-print">
-                        <para>
-                            Anywhere you'd like a video gallery, type print tubepressGallery("resultsPerPage='3'");
+                        </callout>
+                        <callout arearefs="tubepress-pro-wordpress-print">
+                             <para>
+                            This statement prints out the TubePress gallery contents. It takes a single string parameter which is
+                            <link linkend="shortcode-reference">any valid TubePress shortcode</link>, with or without the enclosing <code>[tubepress</code> wrapper. You
+                            repeat this function call as many times as you like to insert multiple galleries on a single page.
                         </para>
-                    </callout>
-                </calloutlist>
-            </programlistingco>
+                        </callout>
+                    </calloutlist>
+                </programlistingco>
+            </section>
         </section>
     </chapter>
     <chapter id="shortcodes">
@@ -471,144 +505,198 @@ require_once "tubepress_pro_1_7_0/env/pro/tubepress-pro.php";
         <para>
             TubePress shortcodes are small snippets of text that allow you to easily control 
             the content, style, and behavior of TubePress galleries. There are very similar 
-            to WordPress shortcodes, with some minor syntax differences.
+            to <ulink url="http://xavisys.com/2008/04/wordpress-25-shortcodes/">WordPress shortcodes</ulink>, with minor syntax differences.
         </para>
         <para>
-            TubePress will replace any TubePress shortcodes with a video gallery. Each gallery 
+            TubePress will replace any TubePress shortcode with a video gallery. Each gallery 
             can be configured completely independently from the others, based on the content 
             of the shortcode.
         </para>
         <para>
-            The simplest shortcode is <code>[tubepress]</code>. TubePress will replace this 
+            The simplest shortcode is <programlisting>[tubepress]</programlisting>
+            TubePress will replace this 
             shortcode with a video gallery with the default settings. You can override each 
-            TubePress setting by providing shortcode attributes, which are comma-separated 
+            TubePress setting by providing shortcode attributes, which are <emphasis>comma-separated</emphasis> 
             name-value pairs that you insert between the square brackets. They all follow 
-            the pattern<code>name='value'</code>. Please note the single quotes around the value!
+            the pattern <code>name='value'</code>. Please note the single quotes around the value! Every TubePress shortcode is
+            defined in <xref linkend="shortcode-reference" />.
         </para>
-        <para>
-            So for instance, say I wanted a gallery with
-        </para>
-        <itemizedlist>
-            <listitem>
-                <para>my favorite videos</para>
-            </listitem>
-            <listitem>
-                <para>10 videos per page</para>
-            </listitem>
-            <listitem>
-                <para>the description included under each thumbnail</para>
-            </listitem>
-            <listitem>
-                <para>that plays videos using lightWindow</para>
-            </listitem>
-        </itemizedlist>
-        <para>
-            My shortcode for this gallery would be: [tubepress mode='favorites', favoritesValue='3hough', 
-            resultsPerPage='10', description='true', playerLocat
-        </para>
-        <section id="gallery-options">
-            <title>Display Options</title>
+    </chapter>
+    <chapter id="troubleshooting">
+        <title>Troubleshooting</title>
+        <section id="debugging">
+            <title>Debugging</title>
             <para>
-                These settings control which group of videos the gallery will display.
+                This mode will print out tons of debugging information. To use it, you just need to add <code>tubepress_debug=true</code> 
+                to the URL string (in your browser's address bar). For instance, if the TubePress page you're trying to debug 
+                has an address of <code>http://ehough.com/?page_id=19</code> then you should add <code>tubepress_debug=true</code> to the URL to enable 
+                debugging: <code>http://ehough.com/?page_id=19&amp;tubepress_debug=true</code>. The debugging information is displayed 
+                above every TubePress gallery on the page.
             </para>
-            <table frame="all">
-                <title>Display Options</title>
-                <tgroup cols='4' align='left' colsep='1' rowsep='1'>
-                    <thead>
-                        <row>
-                            <entry>Setting</entry>
-                            <entry>Description</entry>
-                            <entry>Valid Values</entry>
-                            <entry>Example</entry>
-                        </row>
-                    </thead>
-                    <tbody>
-                        <row>
-                            <entry><code>mode</code></entry>
-                            <entry>Which set of videos will be displayed</entry>
-                            <entry>favorites
-                                recently_featured
-                                mobile
-                                most_discussed
-                                most_linked
-                                most_recent
-                                most_responded
-                                playlist
-                                most_viewed
-                                top_rated
-                                tag
-                                user
-                            </entry>
-                            <entry>[tubepress mode='featured']</entry>
-                        </row>
-                    </tbody>
-                </tgroup>
-            </table>
         </section>
-        <section id="gallery-content">
+        <section id="youtube-connection-test">
+            <title>YouTube Connection Test</title>
+            <para>
+                Some web servers place restrictions on what PHP scripts are allowed to execute. TubePress needs the ability 
+                to open network connections to remote servers. One way to verify that TubePress has this ability is to run 
+                the YouTube connection test. You can find a link to the test in the <link linkend="debugging">debug output</link>. The test 
+                will attempt to retrieve the HTML content of YouTube's homepage, and then it will execute a sample video query 
+                against YouTube's API. The result of the latter will be printed to the screen as plain XML.
+            </para>
+        </section>
+        <section id="discussion-forum">
+            <title>Discussion Forum</title>
+            <para>
+                Still can't solve your issue? Try searching or posting in the <ulink url="http://groups.google.com/group/tubepress-users">
+                TubePress discussion forum</ulink>, hosted by Google Groups. 
+            </para>
+            <note><para>The forum is open to the public for reading, but you'll need a Google Account to post</para></note>
+        </section>
+        <section id="open-an-issue">
+            <title>Open an Issue</title>
+            <para>
+                If you can't find a solution to your problem in the <link linkend="discussion-forum">discussion forum</link>, someone may have already submitted a trouble 
+                ticket. The current list of issues can be found at <ulink url="http://code.google.com/p/tubepress/issues/list">http://code.google.com/p/tubepress/issues/list</ulink>. Please feel 
+                free to submit a trouble ticket or feature request.
+            </para>
+            <note><para>The issues list is open to the public for reading, but you'll need a Google Account to post a new issue or comment on an existing issue</para></note>
+        </section>
+    </chapter>
+    <chapter id="contributing">
+        <title>Contributing</title>
+        <section id="submitting-patches">
+            <title>Submitting Patches</title>
+            <para>
+                Patches are always welcome! You'll receive full credit for your contribution, of course. Here's how to submit
+            </para>
+            <orderedlist>
+                <listitem>
+                    <para><link linkend="subversion">Checkout the trunk version of TubePress</link></para>
+                </listitem>
+                <listitem>
+                    <para>Generate your patch against it</para>
+                </listitem>
+                <listitem>
+                    <para>Submit your patch as an attachment to a new issue report 
+                    to <ulink url="http://code.google.com/p/tubepress/issues/list">http://code.google.com/p/tubepress/issues/list</ulink>
+                    </para>
+                </listitem>
+            </orderedlist>
+        </section>
+        <section id="i18n">
+            <title>I18N</title>
+            <para>
+                TubePress can be translated into any language using the <ulink url="http://www.gnu.org/software/gettext/">gettext framework</ulink>. To submit a translation...
+            </para>
+            <orderedlist>
+                <listitem>
+                    <para>Translate the words/phrases in <ulink url="http://tubepress.googlecode.com/svn/trunk/i18n/tubepress.pot">this file</ulink> from English to your native language</para>
+                </listitem>
+                <listitem>
+                    <para>Attach the translated file as an attachment to a <link linkend="open-an-issue">new issue</link>. Please be sure to note your 
+                    <ulink url="http://www.iso.org/iso/country_codes/iso_3166_code_lists/english_country_names_and_code_elements.htm">two-digit country code</ulink>
+ and your <ulink url="http://www.loc.gov/standards/iso639-2/php/code_list.php">two-digit language code</ulink>.</para>
+                </listitem>
+            </orderedlist>
+            <para>
+                You will, of course, receive full credit for your contribution to an open source project! If you're interested in the 
+                gory details of how it works, I highly recommend reading <ulink url="http://codex.wordpress.org/Translating_WordPress">WordPress's excellent i18n documentation</ulink>. </para>
+        </section>
+        <section id="donate">
+            <title>Donate</title>
+            <para>TubePress is an open source project. I've spent many long 
+nights working on this project. If you enjoy the software, please consider a donation. No amount is too small. Thank you!</para>
+        </section>
+    </chapter>
+<appendix id="shortcode-reference">
+    <title>TubePress Shortcode Reference</title>
+     <section id="gallery-content">
             <title>Gallery Content</title>
+            <para>These shortcodes determine which videos will populate the gallery</para>
             <table frame="all">
-                <title>Display Options</title>
+                <title>Gallery Content Shortcodes</title>
                 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
                     <thead>
                         <row>
                             <entry>Mode Name</entry>
                             <entry>Description</entry>
+                            <entry>Notes</entry>
+                            <entry>Example</entry>
                         </row>
                     </thead>
                     <tbody>
                         <row>
-                            <entry>favorites</entry>
-                            <entry>"Favorite" videos of the given YouTube user.
-                                Accompany this mode setting with a favoritesValue attribute to
-                                define the YouTube user name. For instance [tubepress mode='favorites', 
-                                favoritesValue='3hough']. YouTube limits the number of videos in this type 
-                                of gallery to 50.
+                            <entry><code>favorites</code> and <code>favoritesValue</code></entry>
+                            <entry>"Favorite" videos of a YouTube user. The YouTube user is defined by the
+                                value you supply to the <code>favoritesValue</code> attribute.</entry>
+                            <entry>Limited to 50 videos</entry>
+                            <entry><code>[tubepress mode='favorites', favoritesValue='3hough']</code></entry>
+                        </row>
+                        <row>
+                            <entry><code>recently_featured</code></entry>
+                            <entry> The lastest "featured" videos on YouTube's homepage</entry>
+                            <entry></entry>
+                            <entry><code>[tubepress mode='recently_featured']</code></entry>
+                        </row>
+                        <row>
+                            <entry><code>most_discussed</code></entry>
+                            <entry>The most-commented videos on YouTube</entry>
+                            <entry></entry>
+                            <entry><code>[tubepress mode='most_discussed']</code></entry>
+                        </row>
+                        <row>
+                            <entry><code>most_linked</code></entry>
+                            <entry>YouTube videos with the most links</entry>
+                            <entry></entry>
+                            <entry><code>[tubepress mode='most_linked']</code></entry>
+                        </row>
+                        <row>
+                            <entry><code>most_recent</code></entry>
+                            <entry>YouTube videos most recently uploaded to YouTube</entry>
+                            <entry></entry>
+                            <entry><code>[tubepress mode='most_recent']</code></entry>
+                        </row>
+                        <row>
+                            <entry><code>most_responded</code></entry>
+                            <entry>YouTube videos with the most video responses</entry>
+                            <entry></entry>
+                            <entry><code>[tubepress mode='most_responded']</code></entry>
+                        </row>
+                        <row>
+                            <entry><code>playlist</code> and <code>playlistValue</code></entry>
+                            <entry>Videos from a YouTube playlist. The playlist is defined by the value you supply to the
+                                <code>playlistValue</code> attribute.
+                            </entry>
+                            <entry>
+                                <itemizedlist>
+                                    <listitem>
+                                        <para>Limited to 200 videos</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>Only public playlists can be shown with TubePress.</para>
+                                    </listitem>
+                                    <listitem>
+                                        <para>Videos will appear in the order in which they were added to the playlist.</para>
+                                    </listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry>
+                                <code>[tubepress mode='playlist', playlistValue='6813408AE8D50E6F']</code>
                             </entry>
                         </row>
                         <row>
-                            <entry>recently_featured</entry>
-                            <entry> The lastest "featured" videos on YouTube's homepage</entry>
+                            <entry><code>mobile</code></entry>
+                            <entry>YouTube videos suitable for mobile devices</entry>
+                            <entry></entry>
+                            <entry><code>[tubepress mode='mobile']</code></entry>
                         </row>
                         <row>
-                            <entry>most_discussed</entry>
-                            <entry> The most-commented videos on YouTube</entry>
-                        </row>
-                        <row>
-                            <entry>most_linked</entry>
-                            <entry> Videos with the most links</entry>
-                        </row>
-                        <row>
-                            <entry>most_recent</entry>
-                            <entry> Videos recently uploaded to YouTube</entry>
-                        </row>
-                        <row>
-                            <entry>most_responded</entry>
-                            <entry> Videos with the most video responses</entry>
-                        </row>
-                        <row>
-                            <entry>playlist</entry>
-                            <entry> Videos from the given playlist. Accompany this mode setting
-                                with a playlistValue attribute to define which YouTube playlist to
-                                retrieve. For instance
-                                [tubepress mode='playlist', playlistValue='6813408AE8D50E6F']
-                                . YouTube limits the number of videos in a playlist to 200. Only
-                                public playlists can be shown with TubePress.</entry>
-                        </row>
-                        <row>
-                            <entry>mobile</entry>
-                            <entry>Videos suitable for mobile devices</entry>
-                        </row>
-                        <row>
-                            <entry>tag</entry>
-                            <entry> Show videos matching a search term. Accompany this mode
-                                setting with a tagValue attribute to define your search term. For
-                                instance
-                                [tubepress mode='tag', tagValue='barack obama john mccain']
-                                user Videos uploaded by a specific user. Accompany this mode setting
-                                with a userValue attribute to define the YouTube user name. For
-                                instance
-                                [tubepress mode='user', userValue='3hough']</entry>
+                            <entry><code>tag</code> and <code>tagValue</code></entry>
+                            <entry>YouTube videos matching a search term. The search term is defined by
+                                the value you supply to the <code>tagValue</code> attribute.
+                            </entry>
+                            <entry>Limited to approximately 1000 videos</entry>
+                            <entry><code>[tubepress mode='tag', tagValue='barack obama john mccain']</code></entry>
                         </row>
                     </tbody>
                 </tgroup>
@@ -617,7 +705,7 @@ require_once "tubepress_pro_1_7_0/env/pro/tubepress-pro.php";
         <section id="display-options">
             <title>Display Options</title>
             <para>
-                These settings control the overall viewing experience for the user
+                These settings control the overall appearance of the gallery
             </para>
             <table frame="all">
                <title>Display Options</title>
@@ -626,87 +714,128 @@ require_once "tubepress_pro_1_7_0/env/pro/tubepress-pro.php";
                        <row>
                            <entry>Setting</entry>
                            <entry>Description</entry>
-                           <entry>Valid Values</entry>
+                           <entry>Valid Value(s)</entry>
                            <entry>Example</entry>
                        </row>
                    </thead>
                    <tbody>
-                       <row>
-                           <entry>playerLocation</entry>
-                           <entry>How the user will view each video. See secion 5.2.1 for descriptions of 
-                               these values.</entry>
-                           <entry>normal
-                                popup
-                               youtube
+                        <row>
+                           <entry><code>descriptionLimit</code></entry>
+                           <entry>Limit the length of video descriptions to a certain number of characters. This can help prevent video descriptions from overflowing onto other thumbnails.
                            </entry>
-                           <entry>[tubepress playerLocation='shadowbox']</entry>
-                       </row>
-                       <row>
-                           <entry>orderBy</entry>
-                           <entry>The sort order of the video thumbnails published</entry>
+                           <entry>Any positive integer</entry>
+                            <entry><code>[tubepress descriptionLimit='50']</code></entry>
+                        </row>
+                        <row>
+                           <entry><code>paginationAbove</code></entry>
+                           <entry>If <code>resultsPerPage</code> is less than the total number of videos in the gallery, setting this value to <code>true</code>
+                                will display pagination links above the gallery thumbnails 
+                           </entry>
                            <entry>
-                               viewCount
-                               rating
-                               relevance
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
                             </entry>
-                            <entry>[tubepress orderBy='viewCount']</entry>
+                            <entry><code>[tubepress paginationAbove='true']</code></entry>
                         </row>
                         <row>
-                            <entry>resultsPerPage</entry>
+                           <entry><code>paginationBelow</code></entry>
+                           <entry>If <code>resultsPerPage</code> is less than the total number of videos in the gallery, setting this value to <code>true</code>
+                                will display pagination links below the gallery thumbnails 
+                           </entry>
+                           <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress paginationBelow='true']</code></entry>
+                        </row>
+                        <row>
+                           <entry><code>relativeDates</code></entry>
+                           <entry>Display <code>yesterday</code> instead of <code>November 3, 2009</code>, for instance.
+                           </entry>
+                           <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress relativeDates='true']</code></entry>
+                        </row>
+                        <row>
+                            <entry><code>resultsPerPage</code></entry>
                             <entry>How many video thumbnails to display on a single page</entry>
-                            <entry>Any integer x such that 0 &lt; x &lt;= 50</entry>
-                            <entry>[tubepress resultsPerPage='30']</entry>
+                            <entry>Any integer <code>x</code> such that <code>0 &lt; x &lt;= 50</code></entry>
+                            <entry><code>[tubepress resultsPerPage='30']</code></entry>
                         </row>
                         <row>
-                            <entry>thumbHeight</entry>
+                            <entry><code>thumbHeight</code></entry>
                             <entry>Vertical size (in px) of thumbnails</entry>
-                            <entry>Any integer x such that 0 &lt; x &lt;= 90</entry>
-                            <entry>[tubepress thumbHeight='45']</entry>
+                            <entry>Any integer <code>x</code> such that <code>0 &lt; x &lt;= 90</code></entry>
+                            <entry><code>[tubepress thumbHeight='45']</code></entry>
                         </row>
                         <row>
-                            <entry>thumbWidth</entry>
+                            <entry><code>thumbWidth</code></entry>
                             <entry>Horizontal size (in px) of thumbnails</entry>
-                            <entry>Any integer x such that 0 &lt; x &lt;= 120</entry>
-                            <entry>[tubepress thumbWidth='60']</entry>
+                            <entry>Any integer <code>x</code> such that <code>0 &lt; x &lt;= 120</code></entry>
+                            <entry><code>[tubepress thumbWidth='60']</code></entry>
                         </row>
                     </tbody>
                 </tgroup>
             </table>
             <section id="player-location-shortcodes">
                 <title>Player Locations</title>
+                In TubePress terminology, a "player location" defines where the embedded video player will appear after
+                the user clicks a thumbnail to play a video. TubePress offers several different options, each of which can
+                be activated by supplying the desired value to the <code>playerLocation</code> shortcode attribute.
                 <table frame="all">
                     <title>Player Locations</title>
                     <tgroup cols='2' align='left' colsep='1' rowsep='1'>
                         <thead>
                             <row>
-                                <entry>Player Location</entry>
+                                <entry><code>playerLocation</code> Value</entry>
                                 <entry>Description</entry>
+                                <entry>Example</entry>
                             </row>
                         </thead>
                         <tbody>
                             <row>
-                                <entry>normal</entry>
+                                <entry><code>jqmodal</code></entry>
+                                <entry>Plays videos using <ulink url="http://dev.iceburg.net/jquery/jqModal/">jqModal</ulink></entry>
+                                <entry><code>[tubepress playerLocation='jqModal']</code></entry>
+                            </row>
+                            <row>
+                                <entry><code>normal</code></entry>
                                 <entry>
-                                    Plays videos in an embedded Flash player above the video 
+                                    <para>Plays videos in an embedded Flash player above the video 
                                     thumbnails. If you'd like the page to load with a specific 
                                     video at the top of the gallery, just add the video's ID to 
-                                    the address of you gallery as the tubepress_video argument. 
-                                    For instance, if my gallery has a URL of http://mygallery.com, 
-                                    I would use http://mygallery.com?tubepress_video=CNo7Hm0IOag to 
-                                    start the gallery with the video with ID CNo7Hm0IOag in the 
-                                    embedded player. You can use any YouTube video ID you like for 
-                                    this argument.
+                                    the address of you gallery as the <code>tubepress_video</code> parameter.</para>
+                                    <para>For instance, given a gallery with a URL of <code>http://mygallery.com</code>, 
+                                    navigating to <code>http://mygallery.com?tubepress_video=CNo7Hm0IOag</code> would 
+                                    start the gallery with the video with ID <code>CNo7Hm0IOag</code> in the 
+                                    embedded player.</para>
                                 </entry>
+                                <entry><code>[tubepress playerLocation='normal']</code></entry>
                             </row>
                             <row>
-                                <entry>popup</entry>
+                                <entry><code>popup</code></entry>
                                 <entry>Plays videos in an HTML popup window</entry>
+                                <entry><code>[tubepress playerLocation='popup']</code></entry>
+                            </row>  
+                            <row>
+                                <entry><code>shadowbox</code></entry>
+                                <entry>Plays videos using <ulink url="http://www.shadowbox-js.com/">ShadowBox</ulink></entry>
+                                <entry><code>[tubepress playerLocation='shadowbox']</code></entry>
                             </row>
                             <row>
-                                <entry>youtube</entry>
+                                <entry><code>youtube</code></entry>
                                 <entry>
-                                    Sends user to the video's original YouTube page to view the video
+                                    Redirects to the video's original YouTube page
                                 </entry>
+                                <entry><code>[tubepress playerLocation='youtube']</code></entry>
                             </row>
                         </tbody>
                     </tgroup>
@@ -714,6 +843,9 @@ require_once "tubepress_pro_1_7_0/env/pro/tubepress-pro.php";
             </section>
             <section id="video-sort-order">
                 <title>Video Sort Order</title>
+                <para>The sorting capabilities of TubePress are limited by the providers of the videos (e.g. YouTube). Sorting functionality
+                    can be quirky, and there are some limitations. Below are the shortcodes, all based on the <code>orderBy</code> attribute,
+                    that control the video sort order.</para>
                 <table frame="all">
                     <title>Video Sort Order</title>
                     <tgroup cols='2' align='left' colsep='1' rowsep='1'>
@@ -721,36 +853,42 @@ require_once "tubepress_pro_1_7_0/env/pro/tubepress-pro.php";
                             <row>
                                 <entry><code>orderBy</code> Value</entry>
                                 <entry>Description</entry>
+                                <entry>Notes</entry>
+                                <entry>Example</entry>
                             </row>
                         </thead>
                         <tbody>
                             <row>
-                                <entry>published</entry>
+                                <entry><code>published</code></entry>
                                 <entry>
-                                    Show videos in the order they were published to YouTube, with the 
-                                    more-recent videos first.
+                                    Show videos in the order they were published
                                 </entry>
+                                <entry>YouTube galleries will show more-recent videos first</entry>
+                                <entry><code>[tubepress orderBy='published']</code></entry>
                             </row>
                             <row>
-                                <entry>viewCount</entry>
+                                <entry><code>viewCount</code></entry>
                                 <entry>
-                                    Shows videos in order of how many times they've been viewed, with 
-                                    the more-viewed videos first.
+                                    Shows videos in order of how many times they've been viewed
                                 </entry>
+                                 <entry>YouTube galleries will show more-viewed videos first</entry>
+                                <entry><code>[tubepress orderBy='viewCount']</code></entry>
                             </row>
                             <row>
-                                <entry>rating</entry>
+                                <entry><code>rating</code></entry>
                                 <entry>
-                                    Shows videos in order of their rating, with the higher-rated videos 
-                                    first.
+                                    Shows videos in order of their rating
                                 </entry>
+                                <entry>YouTube galleries will show higher-rated videos first</entry>
+                                <entry><code>[tubepress orderBy='rating']</code></entry>
                             </row>
                             <row>
-                                <entry>relevance</entry>
+                                <entry><code>relevance</code></entry>
                                 <entry>
-                                    Shows videos in order of relevance. This sort order really only 
-                                    applies to "tag" mode galleries
+                                    Shows videos in order of relevance
                                 </entry>
+                                <entry>Only applies to YouTube <code>tag</code> galleries</entry>
+                                <entry><code>[tubepress orderBy='relevance']</code></entry>
                             </row>
                         </tbody>
                     </tgroup>
@@ -762,13 +900,13 @@ require_once "tubepress_pro_1_7_0/env/pro/tubepress-pro.php";
                     <itemizedlist>
                         <listitem>
                             <para>
-                                Favorites A gallery of a user's favorite videos will always be sorted in the 
+                                A gallery of a user's favorite videos (<code>mode='favorites'</code>) will always be sorted in the 
                                 order that the videos were favorited.
                             </para>
                         </listitem>
                         <listitem>
                             <para>
-                                Playlist A playlist gallery will always be sorted in the order that the videos
+                                A playlist gallery (<code>mode='playlist'</code>) will always be sorted in the order that the videos
                                  appear in the playlist
                             </para>
                         </listitem>
@@ -777,12 +915,12 @@ require_once "tubepress_pro_1_7_0/env/pro/tubepress-pro.php";
             </section>
         </section>
         <section id="embedded-player-options">
-            <title>Embedded Player Options</title>
+            <title>Embedded Player</title>
             <para>
-                These settings apply to the embedded Flash player from YouTube
+                These shortcodes control the appearance and behavior the embedded Flash player.
             </para>
             <table frame="all">
-                <title>Embedded Player Options</title>
+                <title>Embedded Player Shortcodes</title>
                 <tgroup cols='4' align='left' colsep='1' rowsep='1'>
                     <thead>
                         <row>
@@ -794,62 +932,125 @@ require_once "tubepress_pro_1_7_0/env/pro/tubepress-pro.php";
                     </thead>
                     <tbody>
                         <row>
-                            <entry>autoPlay</entry>
+                            <entry><code>autoPlay</code></entry>
                             <entry>Toggles start of video playback without user intervention</entry>
-                            <entry>true false</entry>
-                            <entry>[tubepress autoPlay='true']</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress autoPlay='true']</code></entry>
                         </row>
                         <row>
-                            <entry>border</entry>
+                            <entry><code>border</code></entry>
                             <entry>Toggles frame around embedded player</entry>
-                            <entry>true false</entry>
-                            <entry>[tubepress border='true']</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress border='true']</code></entry>
                         </row>
                         <row>
-                            <entry>embeddedHeight</entry>
+                            <entry><code>embeddedHeight</code></entry>
                             <entry>Vertical size (in px) of embedded player</entry>
                             <entry>Any positive integer</entry>
-                            <entry>[tubepress embeddedHeight='true']</entry>
+                            <entry><code>[tubepress embeddedHeight='true']</code></entry>
                         </row>
                         <row>
-                            <entry>embeddedWidth</entry>
+                            <entry><code>embeddedWidth</code></entry>
                             <entry>Horizontal size (in px) of embedded player</entry>
                             <entry>Any positive integer</entry>
-                            <entry>[tubepress embeddedWidth='true']</entry>
+                            <entry><code>[tubepress embeddedWidth='true']</code></entry>
                         </row>
                         <row>
-                            <entry>genie</entry>
+                            <entry><code>fullscreen</code></entry>
+                            <entry>Allow fullscreen playback</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress fullscreen='true']</code></entry>
+                        </row>
+                        <row>
+                            <entry><code>genie</code></entry>
                             <entry>Toggles display of "genie" menu during video playback</entry>
-                            <entry>true false</entry>
-                            <entry>[tubepress genie='true']</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress genie='true']</code></entry>
                         </row>
                         <row>
-                            <entry>loop</entry>
+                            <entry><code>loop</code></entry>
                             <entry>Toggles repeat of videos without user intervention</entry>
-                            <entry>true false</entry>
-                            <entry>[tubepress loop='true']</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress loop='true']</code></entry>
                         </row>
                         <row>
-                            <entry>playerColor</entry>
+                            <entry><code>playerColor</code></entry>
                             <entry>Primary and secondary colors of embedded player</entry>
                             <entry>Two HTML color values in hex, combined with a single forward slash</entry>
-                            <entry>[tubepress playerColor='0xffaabb/0xaa2233']</entry>
+                            <entry><code>[tubepress playerColor='0xffaabb/0xaa2233']</code></entry>
                         </row>
                         <row>
-                            <entry>quality</entry>
-                            <entry>Quality of video and audio</entry>
-                            <entry>normal
-                                high
-                                higher
-                                highest
+                            <entry><code>playerImplementation</code></entry>
+                            <entry>Choose vendor of embedded Flash player. Current choices are the standard YouTube player, or the
+                                <ulink url="http://www.longtailvideo.com/players/jw-flv-player/">JW FLV Media Player</ulink> from LongTail.                        
                             </entry>
-                            <entry>[tubepress quality='higher']</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>youtube</code></listitem>
+                                  <listitem><code>longtail</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress playerImplementation='longtail']</code></entry>
                         </row>
                         <row>
-                            <entry>showRelated</entry>
+                            <entry><code>quality</code></entry>
+                            <entry>Quality of video and audio</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>normal</code></listitem>
+                                  <listitem><code>high</code></listitem>
+                                  <listitem><code>higher</code></listitem>
+                                  <listitem><code>highest</code></listitem>  
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress quality='higher']</code></entry>
+                        </row>
+                        <row>
+                            <entry><code>showInfo</code></entry>
+                            <entry>Toggles display of title and rating before playback</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress showInfo='true']</code></entry>
+                        </row>
+                        <row>
+                            <entry><code>showRelated</code></entry>
                             <entry>Toggles display of related videos after playback</entry>
-                            <entry>true false</entry>
-                            <entry>[tubepress showRelated='true']</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress showRelated='true']</code></entry>
                         </row>
                     </tbody>
                 </tgroup>
@@ -858,7 +1059,7 @@ require_once "tubepress_pro_1_7_0/env/pro/tubepress-pro.php";
         <section id="meta-display-shortcodes">
             <title>Video Meta Display </title>
             <para>
-                These settings control what information gets printed out below each video thumbnail
+                These shortcodes control what information is displayed below each video thumbnail.
             </para>
             <table frame="all">
                 <title>Video Meta Display </title>
@@ -873,88 +1074,221 @@ require_once "tubepress_pro_1_7_0/env/pro/tubepress-pro.php";
                     </thead>
                     <tbody>
                         <row>
-                            <entry>author</entry>
+                            <entry><code>author</code></entry>
                             <entry>Toggles display of video author below thumbnails</entry>
-                            <entry>true false</entry>
-                            <entry>[tubepress author='true']</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress author='true']</code></entry>
                         </row>
                         <row>
-                            <entry>category</entry>
+                            <entry><code>category</code></entry>
                             <entry>Toggles display of video category below thumbnails</entry>
-                            <entry>true false</entry>
-                            <entry>[tubepress category='false']</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress category='false']</code></entry>
                         </row>
                         <row>
-                            <entry>description</entry>
+                            <entry><code>description</code></entry>
                             <entry>Toggles display of video description below thumbnails</entry>
-                            <entry>true false</entry>
-                            <entry>[tubepress description='false']</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress description='false']</code></entry>
                         </row>
                         <row>
-                            <entry>id</entry>
+                            <entry><code>id</code></entry>
                             <entry>Toggles display of video ID below thumbnails</entry>
-                            <entry>true false</entry>
-                            <entry>[tubepress id='true']</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress id='true']</code></entry>
                         </row>
                         <row>
-                            <entry>length</entry>
+                            <entry><code>length</code></entry>
                             <entry>Toggles display of video run time below thumbnails</entry>
-                            <entry>true false</entry>
-                            <entry>[tubepress length='false']</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress length='false']</code></entry>
                         </row>
                         <row>
-                            <entry>rating</entry>
+                            <entry><code>rating</code></entry>
                             <entry>Toggles display of average video rating below thumbnails</entry>
-                            <entry>true false</entry>
-                            <entry>[tubepress rating='true']</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress rating='true']</code></entry>
                         </row>
                         <row>
-                            <entry>ratings</entry>
+                            <entry><code>ratings</code></entry>
                             <entry>Toggles display of video rating count below thumbnails</entry>
-                            <entry>true false</entry>
-                            <entry>[tubepress ratings='true']</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress ratings='true']</code></entry>
                         </row>
                         <row>
-                            <entry>tags</entry>
+                            <entry><code>tags</code></entry>
                             <entry>Toggles display of video tags below thumbnails</entry>
-                            <entry>true false</entry>
-                            <entry>[tubepress tags='false']</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress tags='false']</code></entry>
                         </row>
                         <row>
-                            <entry>title</entry>
+                            <entry><code>title</code></entry>
                             <entry>Toggles display of video title below thumbnails</entry>
-                            <entry>true false</entry>
-                            <entry>[tubepress title='true']</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress title='true']</code></entry>
                         </row>
                         <row>
-                            <entry>uploaded</entry>
+                            <entry><code>uploaded</code></entry>
                             <entry>Toggles display of video upload time below thumbnails</entry>
-                            <entry>true false</entry>
-                            <entry>[tubepress uploaded='false']</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress uploaded='false']</code></entry>
                         </row>
                         <row>
-                            <entry>url</entry>
+                            <entry><code>url</code></entry>
                             <entry>Toggles display of video URL on YouTube below thumbnails</entry>
-                            <entry>true false</entry>
-                            <entry>[tubepress url='false']</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress url='false']</code></entry>
                         </row>
                         <row>
-                            <entry>views</entry>
+                            <entry><code>views</code></entry>
                             <entry>Toggles display of video view count below thumbnails</entry>
-                            <entry>true false</entry>
-                            <entry>[tubepress views='true']</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress views='true']</code></entry>
                         </row>
                     </tbody>
                 </tgroup>
             </table>
-        </section> 
+        </section>
+        <section id="feed-shortcodes">
+                <title>Video Feed</title>
+                <para>These shortcodes control how TubePress interacts with content providers (e.g. YouTube)</para>
+                <table frame="all">
+                    <title>Video Feed Shortcodes</title>
+                    <tgroup cols='2' align='left' colsep='1' rowsep='1'>
+                        <thead>
+                            <row>
+                                <entry>Setting</entry>
+                                <entry>Description</entry>
+                                <entry>Valid Values</entry>
+                                <entry>Example</entry>
+                            </row>
+                        </thead>
+                        <tbody>
+                            <row>
+                                <entry><code>cacheEnabled</code></entry>
+                                <entry>
+                                    Toggles the use of a file-based cache to store responses from provider
+                                </entry>
+                                <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                                <entry><code>[tubepress cacheEnabled='false']</code></entry>
+                            </row>
+                            <row>
+                                <entry><code>clientKey</code></entry>
+                                <entry>
+                                    Set the YouTube Client Key when interacting with YouTube
+                                </entry>
+                                 <entry>Any valid YouTube Client Key</entry>
+                                <entry><code>[tubepress clientKey='33AEF33BBC344']</code></entry>
+                            </row>
+                            <row>
+                                <entry><code>developerKey</code></entry>
+                                <entry>
+                                    Set the YouTube Developer Key when interacting with YouTube
+                                </entry>
+                                <entry>Any valid YouTube Developer Key</entry>
+                                <entry><code>[tubepress developerKey='33AEF33BBC344']</code></entry>
+                            </row>
+                            <row>
+                                <entry><code>embeddableOnly</code></entry>
+                                <entry>
+                                    Only retrieve videos that can be embedded in other sites
+                                </entry>
+                                <entry>
+                                <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist></entry>
+                                <entry><code>[tubepress embeddableOnly='true']</code></entry>
+                            </row>
+                            <row>
+                                <entry><code>filter_racy</code></entry>
+                                <entry>
+                                    Retrieve videos that may be unsuitable for minors
+                                </entry>
+                                <entry>
+                                    <itemizedlist>
+                                        <listitem><code>true</code></listitem>
+                                        <listitem><code>false</code></listitem>
+                                    </itemizedlist>
+                                </entry>
+                                <entry><code>[tubepress filter_racy='true']</code></entry>
+                            </row>
+                        </tbody>
+                    </tgroup>
+                </table>
+        </section>
         <section id="advanced-shortcodes">
             <title>Advanced</title>
             <para>
-                Various features that casual users will not likely need/want to adjust 
+                Various features that casual users will not likely need or want to adjust 
             </para>
             <table frame="all">
-                <title>Advanced</title>
+                <title>Advanced Shortcodes</title>
                 <tgroup cols='4' align='left' colsep='1' rowsep='1'>
                     <thead>
                         <row>
@@ -966,112 +1300,79 @@ require_once "tubepress_pro_1_7_0/env/pro/tubepress-pro.php";
                     </thead>
                     <tbody>
                         <row>
-                            <entry>dateFormat</entry>
-                            <entry>Formatting of date information for videos. See http://us.php.net/date  for examples</entry>
-                            <entry>Any valid string as defined by http://php.net/date</entry>
-                            <entry>[tubepress dateFormat='l jS \of F Y h:i:s A']</entry>
+                            <entry><code>dateFormat</code></entry>
+                            <entry>Formatting of date information for videos. See <ulink url="http://us.php.net/date">http://us.php.net/date</ulink> for examples</entry>
+                            <entry>Any valid string as defined by <ulink url="http://us.php.net/date">http://php.net/date</ulink></entry>
+                            <entry><code>[tubepress dateFormat='l jS \of F Y h:i:s A']</code></entry>
                         </row>
                         <row>
-                            <entry>debugging_enabled</entry>
+                            <entry><code>debugging_enabled</code></entry>
                             <entry>Toggles ability to perform remote debugging</entry>
-                            <entry>true false</entry>
-                            <entry>[tubepress debugging_enabled='false']</entry>
+                            <entry>
+                                    <itemizedlist>
+                                        <listitem><code>true</code></listitem>
+                                        <listitem><code>false</code></listitem>
+                                    </itemizedlist>
+                                </entry>
+                            <entry><code>[tubepress debugging_enabled='false']</code></entry>
                         </row>
                         <row>
-                            <entry>randomize_thumbnails</entry>
+                            <entry><code>nofollowLinks</code></entry>
+                            <entry>Add <code>rel=nofollow</code> to most YouTube links </entry>
+                            <entry>
+                                    <itemizedlist>
+                                        <listitem><code>true</code></listitem>
+                                        <listitem><code>false</code></listitem>
+                                    </itemizedlist>
+                                </entry>
+                            <entry><code>[tubepress nofollowLinks='false']</code></entry>
+                        </row>
+                        <row>
+                            <entry><code>randomize_thumbnails</code></entry>
                             <entry>Toggles random thumbnail selection for each video (each video comes with several thumbnails)</entry>
-                            <entry>true false</entry>
-                            <entry>[tubepress randomize_thumbnails='false']</entry>
+                            <entry>
+                                    <itemizedlist>
+                                        <listitem><code>true</code></listitem>
+                                        <listitem><code>false</code></listitem>
+                                    </itemizedlist>
+                                </entry>
+                            <entry><code>[tubepress randomize_thumbnails='false']</code></entry>
                         </row>
-                        <row>
-                            <entry>filter_racy</entry>
-                            <entry>Toggles filtering of "racy" videos</entry>
-                            <entry>true false</entry>
-                            <entry>[tubepress filter_racy='true']</entry>
-                        </row>
+                       
                     </tbody>
                 </tgroup>
             </table>
         </section>  
-    </chapter>
-    <chapter id="troubleshooting">
-        <title>Troubleshooting</title>
-        <section id="debugging">
-            <title>Debugging</title>
-            <para>
-                This mode will print out tons of debugging information. To use it, you just need to add tubepress_debug=true 
-                to the URL string (in your browser's address bar). For instance, if the TubePress page you're trying to debug 
-                has an address of http://ehough.com/?page_id=19 then you should add tubepress_debug=true to the URL to enable 
-                debugging http://ehough.com/?page_id=19&amp;tubepress_debug=true. You should see the debugging information displayed 
-                above any galleries you have. The following image shows generally what you can expect to see
-            </para>
-        </section>
-        <section id="youtube-connection-test">
-            <title>YouTube Connection Test</title>
-            <para>
-                Some web servers place restrictions on what PHP scripts are allowed to execute. TubePress needs the ability 
-                to open network connections to remote servers. One way to verify that TubePress has this ability is to run 
-                the YouTube connection test. You can find a link to the test in the debug output (see section 6.1). The test 
-                will attempt to retrieve the HTML content of YouTube's homepage, and then it will execute a sample video query 
-                against YouTube's API. The result of the latter will be printed to the screen as plain XML.
-            </para>
-        </section>
-        <section id="discussion-forum">
-            <title>Discussion Forum</title>
-            <para>
-                Still can't solve your issue? Try searching or posting in the TubePress discussion forum, hosted by Google Groups. 
-                You'll need a Google account to post. 
-            </para>
-        </section>
-        <section id="trouble-tickets">
-            <title>Open a Trouble Ticket</title>
-            <para>
-                If you can't find a solution to your problem in the discussion forum, someone may have already submitted a trouble 
-                ticket. The current list of tickets can be found at http://code.google.com/p/tubepress/issues/list. Please feel 
-                free to submit a trouble ticket. Note that you'll need a Google account. 
-            </para>
-        </section>
-    </chapter>
-    <chapter id="contributing">
-        <title>Contributing</title>
-        <section id="submitting-patches">
-            <title>Submitting Patches</title>
-            <para>
-                Patches are always welcome! You'll receive full credit for your contribution, of course. Here's how to submit
-            </para>
-            <orderedlist>
-                <listitem>
-                    <para>Checkout the trunk version of TubePress</para>
-                </listitem>
-                <listitem>
-                    <para>Generate your patch against it</para>
-                </listitem>
-                <listitem>
-                    <para>Submit your patch as an attachment to a new issue report 
-                    at http://code.google.com/p/tubepress/issues/list
-                    </para>
-                </listitem>
-            </orderedlist>
-        </section>
-        <section id="i18n">
-            <title>I18N</title>
-            <para>
-                As of version 1.6.5, TubePress can be translated into any language using the gettext framework. To submit a translation...
-            </para>
-            <orderedlist>
-                <listitem>
-                    <para>Translate the words/phrases in this file from English to your native language</para>
-                </listitem>
-                <listitem>
-                    <para>Attach the translated file as an attachment to a new issue. Please be sure to note your 
-                    two-digit country code and your two-digit language code.</para>
-                </listitem>
-            </orderedlist>
-            <para>
-                You will, of course, receive full credit for your contribution to an open source project! If you're interested in the 
-                gory details of how it works, I highly recommend reading WordPress's excellent i18n documentation. </para>
-        </section>
-    </chapter>
+</appendix>
+<appendix id="optional-pro-installations">
+    <title>Optional TubePress Pro Installations</title>
+    <para>Due to licensing restrictions, TubePress Pro does not ship with every library that the free WordPress plugin includes. However, it's very
+        easy to install these optional libraries manually. This section provides installation instructions.</para>
+    <section id="shadowbox-pro-installation">
+        <title>ShadowBox</title>
+        <orderedlist>
+            <listitem><para>Download ShadowBox from <ulink url="http://www.shadowbox-js.com/download.html">here</ulink>. It will save to a file
+                named something like <code>shadowbox-build-3.0b.zip</code>.</para></listitem>
+            <listitem><para>Unzip this file. It will expand into a directory named <code>shadowbox-build-3.0b</code>.</para></listitem>
+            <listitem><para>Copy the <emphasis>contents</emphasis> of this directory (not the directory itself) to your TubePress Pro installation.
+            Assuming your TubePress Pro directory is located at <code>/var/www/myblog.com/html/lib/tubepress_pro_1_8_0</code>, you should copy the files to
+            <code>/var/www/myblog.com/html/lib/tubepress_pro_1_8_0/ui/players/shadowbox/lib/</code>.     
+            </para></listitem>
+        </orderedlist>
+    </section>
+    <section id="flv-media-player-pro-installation">
+        <title>JW FLV Media Player</title>
+        <orderedlist>
+            <listitem><para>Download the JW FLV Media Player from <ulink url="http://www.longtailvideo.com/players/jw-flv-player/">here</ulink>.  It will
+            save to a file named something like <code>mediaplayer.zip</code>.</para></listitem>
+            <listitem><para>Unzip this file. It will expand into a directory named <code>mediaplayer</code>.</para></listitem>
+            <listitem><para>Copy the <emphasis>contents</emphasis> of this directory (not the directory itself) to your TubePress Pro installation.
+            Assuming your TubePress Pro directory is located at <code>/var/www/myblog.com/html/lib/tubepress_pro_1_8_0</code>, you should copy the files to
+            <code>/var/www/myblog.com/html/lib/tubepress_pro_1_8_0/ui/embedded/longtail/lib/</code>.     
+            </para></listitem>
+        </orderedlist>
+    </section>
+</appendix>
     <appendix id="fdl">
   <title>GNU Free Documentation License</title>
   <simpara>Version 1.3, 3 November 2008</simpara>

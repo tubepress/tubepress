@@ -39,6 +39,9 @@
     	<copy todir="${output.dir}/css">
     		<fileset dir="css"/>
     	</copy>
+    	<copy todir="${output.dir}/images">
+    	    <fileset dir="images"/>
+    	 </copy>
     	
     	<move file="${output.dir}/tubepress.xml" toFile="${output.dir}/tubepress.html" />
     </target>
