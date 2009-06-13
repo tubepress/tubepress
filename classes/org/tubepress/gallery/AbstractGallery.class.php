@@ -104,6 +104,11 @@ abstract class org_tubepress_gallery_AbstractGallery implements org_tubepress_io
         
         for ($x = 0; $x < sizeof($videos); $x++) {
             
+            /* ignore videos we can't display */
+            if (!$videos[$x]->isDisplayable()) {
+                continue;
+            }
+            
             /* Top of the gallery is special */
             if ($x == 0) {
                 $tpl->setVariable("PRE_GALLERY_PLAYER_HTML", 
@@ -123,6 +128,17 @@ abstract class org_tubepress_gallery_AbstractGallery implements org_tubepress_io
         }
         
         return org_tubepress_util_StringUtils::removeEmptyLines($tpl->get());
+    }
+    
+    private function _countUnavailableVideos($videos)
+    {
+        $result = 0;
+        foreach ($videos as $video) {
+            if (!$video->isDisplayable()) {
+                $result++;
+            }
+        }
+        return $result;
     }
     
     private function _getPreGalleryVideo($videos)

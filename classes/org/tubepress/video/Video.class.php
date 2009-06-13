@@ -27,6 +27,7 @@ class org_tubepress_video_Video
     private $_author;
     private $_category;
     private $_description;
+    private $_displayable;
     private $_id;
     private $_rating;
     private $_ratings;
@@ -83,6 +84,16 @@ class org_tubepress_video_Video
     public function getDescription() 
     { 
         return $this->_description; 
+    }
+    
+    /**
+     * Returns true if this video can be displayed. False otherwise.
+     * 
+     * @return boolean Can the video be displayed.
+     */
+    public function isDisplayable()
+    {
+        return $this->_displayable;
     }
     
     /**
@@ -250,6 +261,18 @@ class org_tubepress_video_Video
     public function setDescription($description) 
     {   
         $this->_description = $description; 
+    }
+    
+    /**
+     * Set whether or not this video can be displayed.
+     * 
+     * @param boolean If this video can be displayed
+     * 
+     * @return void
+     */
+    public function setDisplayable($displayable)
+    {
+        $this->_displayable = $displayable;
     }
     
     /**

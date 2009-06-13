@@ -70,9 +70,10 @@ class org_tubepress_video_factory_SimpleVideoFactory implements org_tubepress_vi
         
         /* see if the video is actually available, not just a stub */
         if ($this->_videoNotAvailable($entry)) {
-            $this->_createUnavailableVideoStub($entry, $vid);
+            $vid->setDisplayable(false);
             return $vid;
         }
+        $vid->setDisplayable(true);
         
         $this->_mediaGroup = 
             $entry->getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_MEDIA, 
@@ -356,14 +357,5 @@ class org_tubepress_video_factory_SimpleVideoFactory implements org_tubepress_vi
             }
         }
         return false;
-    }
-    
-    private function _createUnavailableVideoStub(DOMNode $entry, org_tubepress_video_Video $vid)
-    {
-        $reason = $entry->getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_APP, 'control')->item(0)->getElementsByTagNameNS(org_tubepress_video_factory_SimpleVideoFactory::NS_YT, 'state')->item(0)->textContent;
-        $vid->setThumbUrls(array(""));
-        $vid->setTags(array(""));
-        $vid->setTitle($reason);
-        return $vid;
     }
 }
