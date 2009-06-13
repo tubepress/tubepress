@@ -108,6 +108,7 @@ class org_tubepress_video_VideoTest extends PHPUnit_Framework_TestCase {
 	{
 		$vid = new org_tubepress_video_Video();
 		$vid->setAuthor("3hough");
+		$vid->setDisplayable(true);
 		return $vid;
 	}
 }
