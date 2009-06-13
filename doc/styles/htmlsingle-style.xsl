@@ -10,7 +10,7 @@
 
 >
 
-	<xsl:import href="file:///opt/local/share/xsl/docbook-xsl/html/chunk.xsl" />
+	<xsl:import href="file:///opt/local/share/xsl/docbook-xsl/html/docbook.xsl" />
 
     <xsl:param name="base.dir">/Users/ehough/Documents/workspace/tubepress/doc/doc/html/</xsl:param>
 
@@ -87,6 +87,5 @@
         <span class="hl-string"><xsl:value-of select='.'/></span>
     </xsl:template>
     
-    <xsl:include href="/Users/ehough/Documents/workspace/tubepress/doc/styles/titlepage.xml" />
 
 </xsl:stylesheet>
