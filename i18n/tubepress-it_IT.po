@@ -123,6 +123,15 @@ msgstr "Video per pagina"
 msgid "Default is 20. Maximum is 50"
 msgstr "Predefinito a 20. Massimo a 50"
 
+msgid "Show pagination above thumbnails"
+msgstr "Mostra l'impaginazione sopra le miniature"
+
+msgid "Show pagination below thumbnails"
+msgstr "Mostra l'impaginazione sotto le miniature"
+
+msgid "Only applies to galleries that span multiple pages"
+msgstr "Applica solo per le gallerie con più pagine"
+
 msgid "Order videos by"
 msgstr "Disponi i video"
 
@@ -297,6 +306,9 @@ msgstr "in una finestra popup"
 msgid "from the original YouTube page"
 msgstr "nella pagina originale di YouTube"
 
+msgid "with ColorBox"
+msgstr "con ColorBox"
+
 msgid "with Shadowbox"
 msgstr "with Shadowbox"
 
@@ -347,6 +359,15 @@ msgstr "modera"
 
 msgid "strict"
 msgstr "Rispetto rigoroso della norma"
+
+msgid "JW FLV Media Player (by Longtail Video)"
+msgstr "JW FLV Media Player (by Longtail Video)"
+
+msgid "Implementation"
+msgstr "Implementazione"
+
+msgid "The brand of the embedded player. Default is \"YouTube\""
+msgstr "Il marchio del player video. Predefinito a \"YouTube\""
 
 #
 # VALIDATION
