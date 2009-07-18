@@ -94,33 +94,13 @@ abstract class org_tubepress_gallery_AbstractGallery implements org_tubepress_io
             shuffle($videos);
         }
         
-        $thumbsHtml = "";
         $playerName =
             $this->_optionsManager->
                 get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
         $player     = $this->_iocContainer->safeGet($playerName . "-player", org_tubepress_player_Player::NORMAL . "-player");
         
         $tpl->setVariable('GALLERYID', $galleryId);
-        
-        for ($x = 0; $x < sizeof($videos); $x++) {
-            
-            /* ignore videos we can't display */
-            if (!$videos[$x]->isDisplayable()) {
-                continue;
-            }
-            
-            /* Top of the gallery is special */
-            if ($x == 0) {
-                $tpl->setVariable("PRE_GALLERY_PLAYER_HTML", 
-                    $player->getPreGalleryHtml($this->_getPreGalleryVideo($videos), $galleryId));
-            }
-                
-            /* Here's where each thumbnail gets printed */
-            $thumbsHtml .= $this->_thumbnailService->getHtml(
-                $this->_templateDirectory, $videos[$x], $galleryId);     
-        }
-        
-        $tpl->setVariable("THUMBS", $thumbsHtml);
+        $tpl->setVariable("THUMBS", $this->_loopOverThumbs($videos, $tpl, $player, $galleryId));
             
         /* Spit out the top/bottom pagination if we have any videos */
         if ($vidLimit > 0) {
@@ -128,6 +108,34 @@ abstract class org_tubepress_gallery_AbstractGallery implements org_tubepress_io
         }
         
         return org_tubepress_util_StringUtils::removeEmptyLines($tpl->get());
+    }
+    
+    private function _loopOverThumbs($videos, $tpl, $player, $galleryId)
+    {
+        $thumbsHtml = "";
+        $numVideos = sizeof($videos);
+        $printedCount = 0;
+        
+        for ($x = 0; $x < $numVideos; $x++) {
+            
+            /* ignore videos we can't display */
+            if (!$videos[$x]->isDisplayable()) {
+                continue;
+            }
+                
+            /* Top of the gallery is special */
+            if ($printedCount == 0) {
+                $tpl->setVariable("PRE_GALLERY_PLAYER_HTML", 
+                    $player->getPreGalleryHtml($this->_getPreGalleryVideo($videos, $x), $galleryId));
+            }
+                    
+            /* Here's where each thumbnail gets printed */
+            $thumbsHtml .= $this->_thumbnailService->getHtml(
+                $this->_templateDirectory, $videos[$x], $galleryId);
+            
+            $printedCount++;
+        }
+        return $thumbsHtml;
     }
     
     private function _countUnavailableVideos($videos)
@@ -141,7 +149,7 @@ abstract class org_tubepress_gallery_AbstractGallery implements org_tubepress_io
         return $result;
     }
     
-    private function _getPreGalleryVideo($videos)
+    private function _getPreGalleryVideo($videos, $index)
     {
         $customVideoId = $this->_queryStringService->getCustomVideo($_GET);
         if ($customVideoId != "") {
@@ -151,7 +159,7 @@ abstract class org_tubepress_gallery_AbstractGallery implements org_tubepress_io
             $videoArray = $this->_videoFactory->dom2TubePressVideoArray($results, 1);
             return $videoArray[0];
         }
-        return $videos[0];
+        return $videos[$index];
     }
     
     /**
