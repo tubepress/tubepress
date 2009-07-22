@@ -51,6 +51,9 @@ function _tubepress_swap_embedded(galleryId, videoId, embeddedName) {
 	    obj = jQuery(wrapperId + " > object"),
 	    oldVideoId = obj.children("param[name='" + paramName + "']").attr("value").match(matcher)[1];
 
+	/* remove anything AdBlock plus sticks in there */
+	obj.siblings().remove();
+	
 	/* save the params but remove them from the DOM for now */
 	var params = obj.children("param");
 	params.remove();
