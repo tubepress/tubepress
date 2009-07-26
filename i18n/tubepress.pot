@@ -290,6 +290,12 @@ msgstr ""
 msgid "Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
 msgstr ""
 
+msgid "Maximum total videos to retrieve"
+msgstr ""
+
+msgid "This can help to reduce the number of pages in your gallery. Set to \"0\" to remove any limit."
+msgstr ""
+
 msgid "Add rel=nofollow to most YouTube links"
 msgstr ""
 

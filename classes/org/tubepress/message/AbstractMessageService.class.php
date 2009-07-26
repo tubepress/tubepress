@@ -131,7 +131,10 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         "options-title-cacheEnabled"         => "Enable request cache", 
         "options-desc-cacheEnabled"          => "Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness.",
         "options-title-embeddableOnly"       => "Only retrieve embeddable videos",
-        "options-desc-embeddableOnly"          => "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries.",
+        "options-desc-embeddableOnly"        => "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries.",
+    
+        "options-title-resultCountCap"	     => "Maximum total videos to retrieve",
+        "options-desc-resultCountCap"		 => "This can help to reduce the number of pages in your gallery. Set to \"0\" to remove any limit.",
     
         "player-normal"      => "normally (at the top of your gallery)", 
         "player-popup"       => "in a popup window",

@@ -62,7 +62,8 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
             org_tubepress_options_category_Display::THUMB_HEIGHT        => 90,
             org_tubepress_options_category_Display::THUMB_WIDTH         => 120,
             org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT    => 350,
-            org_tubepress_options_category_Embedded::EMBEDDED_WIDTH     => 425
+            org_tubepress_options_category_Embedded::EMBEDDED_WIDTH     => 425,
+            org_tubepress_options_category_Feed::RESULT_COUNT_CAP       => 300
         ),
         org_tubepress_options_Type::TIME_FRAME => array(
             org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE   => "today",
@@ -139,7 +140,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     function testGetFeedOptionNames()
     {
          $expectedNames = array(
-             "cacheEnabled", "embeddableOnly", "filter_racy", "clientKey", "developerKey"
+             "cacheEnabled", "embeddableOnly", "filter_racy", "clientKey", "developerKey", "resultCountCap"
          );   
          $this->assertTrue($expectedNames == $this->_sut->getOptionNamesForCategory(org_tubepress_options_Category::FEED));
     }

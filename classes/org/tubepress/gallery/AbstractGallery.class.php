@@ -75,11 +75,14 @@ abstract class org_tubepress_gallery_AbstractGallery implements org_tubepress_io
         $xml          = $this->_feedRetrievalService->fetch($url, $useCache);
         $totalResults = $this->_feedInspectionService->getTotalResultCount($xml);
         $queryResult  = $this->_feedInspectionService->getQueryResultCount($xml);
-
+        
         /* see if we got any */
         if ($totalResults == 0) {
             throw new Exception("YouTube returned no videos for your query!");
         }
+        
+        /* limit the result count if requested */
+        $totalResults = $this->_capTotalResultsIfNeeded($totalResults);
         
         /* Figure out how many videos we're going to show */
         $vidLimit =
@@ -88,8 +91,10 @@ abstract class org_tubepress_gallery_AbstractGallery implements org_tubepress_io
             $vidLimit = $queryResult;
         }   
         
+        /* convert the XML to objects */
         $videos = $this->_videoFactory->dom2TubePressVideoArray($xml, $vidLimit);
         
+        /* shuffle if we need to */
         if ($this->_optionsManager->get(org_tubepress_options_category_Display::ORDER_BY) == "random") {
             shuffle($videos);
         }
@@ -108,6 +113,13 @@ abstract class org_tubepress_gallery_AbstractGallery implements org_tubepress_io
         }
         
         return org_tubepress_util_StringUtils::removeEmptyLines($tpl->get());
+    }
+    
+    private function _capTotalResultsIfNeeded($totalResults)
+    {
+        $limit = $this->_optionsManager->
+                get(org_tubepress_options_category_Feed::RESULT_COUNT_CAP);
+        return $limit == 0 ? $totalResults : $limit;
     }
     
     private function _loopOverThumbs($videos, $tpl, $player, $galleryId)

@@ -122,7 +122,8 @@ function _tpomCallbackGalleryUnitTest()
         org_tubepress_options_category_Embedded::GENIE => false,
         org_tubepress_options_category_Embedded::BORDER => true,
         org_tubepress_options_category_Display::PAGINATE_ABOVE => true,
-        org_tubepress_options_category_Display::PAGINATE_BELOW => true
+        org_tubepress_options_category_Display::PAGINATE_BELOW => true,
+        org_tubepress_options_category_Feed::RESULT_COUNT_CAP => 300
 	);
 	return $vals[$args[0]];
 }
