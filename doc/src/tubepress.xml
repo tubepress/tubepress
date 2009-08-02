@@ -698,6 +698,14 @@ nights working on this project. If you enjoy the software, please consider a don
                             <entry>Limited to approximately 1000 videos</entry>
                             <entry><code>[tubepress mode='tag', tagValue='barack obama john mccain']</code></entry>
                         </row>
+                        <row>
+                            <entry><code>user</code> and <code>userValue</code></entry>
+                            <entry>YouTube videos uploaded by a specific YouTube user. 
+                            The YouTube user is defined by the value you supply to the <code>userValue</code> attribute. 
+                            </entry>
+                            <entry>Limited to approximately 1000 videos</entry>
+                            <entry><code>[tubepress mode='tag', tagValue='barack obama john mccain']</code></entry>
+                        </row>
                     </tbody>
                 </tgroup>
             </table>
