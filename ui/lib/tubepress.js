@@ -85,6 +85,11 @@ function tubepress_deep_construct_object(wrapper, params) {
 }
  
 function _tubepress_call_player_js(galleryId, videoId, embeddedName, playerName) {
+	/* always use the YouTube player for iPhone/iPod */
+    if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
+    	window.location = "http://www.youtube.com/watch?v=" + videoId;
+    	return;
+    }
     var playerFunctionName = "tubepress_" + playerName + "_player";
     window[playerFunctionName](galleryId, videoId);
 }

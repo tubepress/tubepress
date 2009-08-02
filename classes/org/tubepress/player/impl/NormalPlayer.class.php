@@ -33,7 +33,7 @@ tubepress_load_classes(array('org_tubepress_player_AbstractPlayer',
  */
 class org_tubepress_player_impl_NormalPlayer extends org_tubepress_player_AbstractPlayer implements org_tubepress_ioc_ContainerAware
 {
-    public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId)
+    public function doGetPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId)
     {
         $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/players/normal/html_templates");
         if (!$tpl->loadTemplatefile("pre_gallery.tpl.html", true, true)) {

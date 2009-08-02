@@ -32,7 +32,7 @@ tubepress_load_classes(array('org_tubepress_player_AbstractPlayer',
  */
 class org_tubepress_player_impl_ModalPlayer extends org_tubepress_player_AbstractPlayer
 {
-    public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId)
+    public function doGetPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId)
     {
         $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/players/shared/html_templates");
         if (!$tpl->loadTemplatefile("pre_gallery_modal.tpl.html", true, true)) {

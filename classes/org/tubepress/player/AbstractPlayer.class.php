@@ -34,6 +34,14 @@ abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_play
     private $_optionsManager;
     private $_iocContainer;
     
+    public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId)
+    {
+        if ($this->_isIphoneOrIpod()) {
+            return "";
+        }
+        return $this->doGetPreGalleryHtml($vid, $galleryId);
+    }
+    
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $optionsManager)
     {
         $this->_optionsManager = $optionsManager;
@@ -52,6 +60,13 @@ abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_play
     protected function getContainer()
     {
         return $this->_iocContainer;
+    }
+    
+    protected abstract function doGetPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId);
+
+    private function _isIphoneOrIpod()
+    {
+        return strstr($_SERVER['HTTP_USER_AGENT'],'iPhone') || strstr($_SERVER['HTTP_USER_AGENT'],'iPod');
     }
 }
 
