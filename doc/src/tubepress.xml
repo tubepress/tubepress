@@ -1286,6 +1286,12 @@ nights working on this project. If you enjoy the software, please consider a don
                                 </entry>
                                 <entry><code>[tubepress filter_racy='true']</code></entry>
                             </row>
+                            <row>
+                                <entry><code>resultCountCap</code></entry>
+                                <entry>Maximum total videos to retrieve</entry>
+                                <entry>Any integer <code>x</code> such that <code>x &gt;= 0</code></entry>
+                                <entry>This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit.</entry>
+                                
                         </tbody>
                     </tgroup>
                 </table>
