@@ -940,7 +940,7 @@ nights working on this project. If you enjoy the software, please consider a don
                     </thead>
                     <tbody>
                         <row>
-                            <entry><code>autoPlay</code></entry>
+                            <entry><code>autoplay</code></entry>
                             <entry>Toggles start of video playback without user intervention</entry>
                             <entry>
                                <itemizedlist>
@@ -948,7 +948,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress autoPlay='true']</code></entry>
+                            <entry><code>[tubepress autoplay='true']</code></entry>
                         </row>
                         <row>
                             <entry><code>border</code></entry>
