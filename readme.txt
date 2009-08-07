@@ -15,13 +15,6 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 
 == Changelog ==
 
-= 1.0 =
-* A change since the previous version.
-* Another change.
-
-= 0.5 =
-* List versions from most recent at top to oldest at bottom.
-
 = 1.8.1 =
 * Updated Italian translation thanks to Gianni Diurno
 * Shadowbox CSS no longer tries to load non-existent images. (closes Ticket #112)

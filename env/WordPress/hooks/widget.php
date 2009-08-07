@@ -21,7 +21,11 @@
 
 if (version_compare(PHP_VERSION, '5.0.0', '>=')
     && !function_exists("tubepress_init_widget")) {
+        
+        /* load up the widget functions */
         include dirname(__FILE__) . "/../functions/widget.php";
+        
+        /* registers TubePress as a widget */
         add_action('widgets_init', 'tubepress_init_widget');
 }
 
