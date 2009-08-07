@@ -25,29 +25,30 @@ tubepress_load_classes(array('org_tubepress_ioc_DefaultIocService'));
 
 /**
  * This is where the fun stuff happens
+ * 
+ * @return void
  */
 function __tp_executeOptionsPage()
 {
-	try {
-	    $iocContainer = new org_tubepress_ioc_DefaultIocService();
-	    $wpsm = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE);
-	    $wpsm->init();
-	    
-	    $optionsForm = $iocContainer->get(org_tubepress_ioc_IocService::FORM_HNDLER);
-	        
-	    /* are we updating? */
-	    if (isset($_POST['tubepress_save'])) {
-	        try {
-	            $optionsForm->collect($_POST);
-	            echo '<div id="message" class="updated fade"><p><strong>Options updated</strong></p></div>';
-	        } catch (Exception $error) {
-	            echo '<div id="message" class="error fade"><p><strong>' . 
-	                $error->getMessage() . '</strong></p></div>';
-	        }
-	    }
-	    $optionsForm->display();
-	} catch (Exception $e) {
-		print $e->getMessage();
-	}
+    /* grab the storage manager */
+    $iocContainer = new org_tubepress_ioc_DefaultIocService();
+    $wpsm = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE);
+    
+    /* initialize our options in case we need to */
+    $wpsm->init();
+    
+    /* get the form handler */
+    $optionsForm = $iocContainer->get(org_tubepress_ioc_IocService::FORM_HNDLER);
+        
+    /* are we updating? */
+    if (isset($_POST['tubepress_save'])) {
+        try {
+            $optionsForm->collect($_POST);
+            echo '<div id="message" class="updated fade"><p><strong>Options updated</strong></p></div>';
+        } catch (Exception $error) {
+            echo '<div id="message" class="error fade"><p><strong>' . $error->getMessage() . '</strong></p></div>';
+        }
+    }
+    $optionsForm->display();
 }
 ?>

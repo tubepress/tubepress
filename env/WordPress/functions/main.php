@@ -42,7 +42,15 @@ function tubepress_content_filter($content = '')
 	}
 }
 
-function _tubepress_content_filter($content) {
+/**
+ * Enter description here...
+ * 
+ * @param $content
+ * 
+ * @return unknown_type
+ */
+function _tubepress_content_filter($content)
+{
 
     /* do as little work as possible here 'cause we might not even run */
 	$wpsm             = new org_tubepress_options_storage_WordPressStorageManager();
@@ -54,9 +62,24 @@ function _tubepress_content_filter($content) {
 	    return $content;
 	}
     
+    return _tubepress_get_gallery_content($content, $trigger, $shortcodeService);
+}
+
+/**
+ * Enter description here...
+ * 
+ * @param $content
+ * @param $trigger
+ * @param org_tubepress_shortcode_ShortcodeService $shortcodeService
+ * 
+ * @return unknown_type
+ */
+function _tubepress_get_gallery_content($content, $trigger,
+    org_tubepress_shortcode_ShortcodeService $shortcodeService)
+{
     /* Whip up the IOC service */
     $iocContainer = new org_tubepress_ioc_DefaultIocService();
-
+    
     /* Get a handle to our options manager */
     $tpom = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MGR);
 
@@ -83,7 +106,9 @@ function _tubepress_content_filter($content) {
 }
 
 /**
- * Spits out the CSS and JS files that we always need for TubePress
+ * Spits out the CSS and JS files that we need for
+ * 
+ * @return void
  */
 function tubepress_head_filter()
 {
@@ -95,6 +120,11 @@ function tubepress_head_filter()
 	}
 }
 
+/**
+ * Enter description here...
+ * 
+ * @return unknown_type
+ */
 function _tubepress_head_filter() {
     global $tubepress_base_url;
 
@@ -105,7 +135,6 @@ function _tubepress_head_filter() {
 
 GBS;
 }
-
 
 /**
  * Tells WordPress to load jQuery for us

@@ -19,6 +19,11 @@
  *
  */
 
+/**
+ * Adds TubePress to the admin menu
+ * 
+ * @return void
+ */
 function tubepress_admin_menu_hook()
 {
     if (function_exists('add_options_page')) {
@@ -27,6 +32,11 @@ function tubepress_admin_menu_hook()
     }
 }
 
+/**
+ * Enter description here...
+ * 
+ * @return void
+ */
 function _tubepress_admin_menu_hook()
 {
 	if (version_compare(PHP_VERSION, '5.0.0', '>=')) {
@@ -49,9 +59,15 @@ EOT
     ;
     }
 }
+
+/**
+ * Enter description here...
+ * 
+ * @return void
+ */
 function tubepress_admin_head_hook()
 {
     global $tubepress_base_url;
-    $jsColorFile = $tubepress_base_url . "/ui/options_page/js/jscolor/jscolor.js";
-    echo '<script type="text/javascript" src="' . $jsColorFile . '"></script>';
+    $jsColorFile = "$tubepress_base_url/ui/options_page/js/jscolor/jscolor.js";
+    echo "<script type=\"text/javascript\" src=\"$jsColorFile\"></script>";
 }

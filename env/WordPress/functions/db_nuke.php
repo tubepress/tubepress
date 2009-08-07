@@ -19,8 +19,10 @@
  *
  */
 
+/* keep this to do security checks */
 require dirname(__FILE__) . "/../../../../../../wp-blog-header.php";
 
+/* make sure they're allowed to do this at all */
 if (!current_user_can(9)) {
 		echo "NOT AUTHORIZED";
 		exit();
@@ -30,9 +32,10 @@ if (isset($_POST["tubepress_init_db"])) {
     $ioc = new org_tubepress_ioc_DefaultIocService();
 	$wpsm = $ioc->get(org_tubepress_ioc_IocService::STORAGE);
 	$wpsm->nuclear();
-	echo "OPTIONS INITIALIZED!<BR /><BR />";
+	echo "TubePress options initialized<br /><br />";
 }
 ?>
+
 This will clear out your TubePress options and reset them to default values. Your 
 other WordPress options will be safe.<br /><br />
 
@@ -40,7 +43,4 @@ other WordPress options will be safe.<br /><br />
 	<input type="hidden" name="tubepress_init_db" />
 	<input type="submit" name="tubepress_nuke_button" value="Reset TubePress Options" />
 </form>
-	
-<?php
 
-?>
