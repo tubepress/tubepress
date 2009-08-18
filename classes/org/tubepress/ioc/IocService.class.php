@@ -30,6 +30,8 @@ interface org_tubepress_ioc_IocService
     const FEED_RET    = 'feedRetrievalService';
     const FORM_HNDLER = 'formHandler';
     const GALLERY     = 'gallery';
+    const G_TEMPLATE  = 'galleryTemplate';
+    const LOG         = 'log';
     const MESSAGE     = 'messageService';
     const OPTIONS_MGR = 'optionsManager';
     const PAGINATION  = 'paginationService';
@@ -38,11 +40,15 @@ interface org_tubepress_ioc_IocService
     const SHORTCODE   = 'shortcodeService';
     const STORAGE     = 'storageManager';
     const THUMB       = 'thumbnailService';
+    const THUMB_TEMPLATE = 'thumbTemplate';
     const URL_BUILDER = 'ulrBuilderService';
     const VALIDATION  = 'validationService';
     const VID_FACT    = 'videoFactory';
     const WIDGET_GALL = 'widgetGallery';
     const W_PRINTER   = 'widgetPrinter';
+    const W_TEMPLATE  = 'widgetTemplate';
+    const W_THUMB_TEMPLATE = 'widgetThumbTemplate';
+    const W_THUMB_SERVICE = 'widgetThumbService';
 
     public function get($className);
     

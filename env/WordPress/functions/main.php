@@ -26,7 +26,6 @@ tubepress_load_classes(array('org_tubepress_options_storage_WordPressStorageMana
     'org_tubepress_shortcode_SimpleShortcodeService',
     'org_tubepress_ioc_DefaultIocService',
     'org_tubepress_ioc_IocService',
-    'org_tubepress_util_Debug',
     'org_tubepress_util_StringUtils'));
 
 /**
@@ -36,33 +35,20 @@ tubepress_load_classes(array('org_tubepress_options_storage_WordPressStorageMana
 function tubepress_content_filter($content = '')
 {
 	try {
-		return _tubepress_content_filter($content);
+		/* do as little work as possible here 'cause we might not even run */
+    	$wpsm             = new org_tubepress_options_storage_WordPressStorageManager();
+        $trigger          = $wpsm->get(org_tubepress_options_category_Advanced::KEYWORD);
+    	$shortcodeService = new org_tubepress_shortcode_SimpleShortcodeService();
+    
+    	/* no shortcode? get out */
+        if (!$shortcodeService->somethingToParse($content, $trigger)) {
+    	    return $content;
+    	}
+        
+        return _tubepress_get_gallery_content($content, $trigger);
 	} catch (Exception $e) {
 		return $e->getMessage() . $content;
 	}
-}
-
-/**
- * Enter description here...
- * 
- * @param $content
- * 
- * @return unknown_type
- */
-function _tubepress_content_filter($content)
-{
-
-    /* do as little work as possible here 'cause we might not even run */
-	$wpsm             = new org_tubepress_options_storage_WordPressStorageManager();
-    $trigger          = $wpsm->get(org_tubepress_options_category_Advanced::KEYWORD);
-	$shortcodeService = new org_tubepress_shortcode_SimpleShortcodeService();
-    
-	/* no shortcode? get out */
-    if (!$shortcodeService->somethingToParse($content, $trigger)) {
-	    return $content;
-	}
-    
-    return _tubepress_get_gallery_content($content, $trigger, $shortcodeService);
 }
 
 /**
@@ -74,32 +60,38 @@ function _tubepress_content_filter($content)
  * 
  * @return unknown_type
  */
-function _tubepress_get_gallery_content($content, $trigger,
-    org_tubepress_shortcode_ShortcodeService $shortcodeService)
+function _tubepress_get_gallery_content($content, $trigger)
 {
     /* Whip up the IOC service */
     $iocContainer = new org_tubepress_ioc_DefaultIocService();
     
     /* Get a handle to our options manager */
     $tpom = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MGR);
+    
+    /* Turn on logging if we need to */
+    $log = $iocContainer->get(org_tubepress_ioc_IocService::LOG);
+    $log->setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON));
+    
+    /* Get a handle to the shortcode service */
+    $shortcodeService = $iocContainer->get(org_tubepress_ioc_IocService::SHORTCODE);
 
- 	/* Get a copy of the content that we'll edit */
+ 	/* Make a copy of the content that we'll edit */
     $newcontent = $content;
 
     /* And finally, the gallery itself */
     $gallery = $iocContainer->get(org_tubepress_ioc_IocService::GALLERY);
 
+    /* Parse each shortcode one at a time */
     while ($shortcodeService->somethingToParse($newcontent, $trigger)) {
 
+        $rand = mt_rand();
+        $log->log("WordPress Main", sprintf("Starting to build gallery %s", $rand));
+        
 	    $shortcodeService->parse($newcontent, $tpom);
 
-    	if (org_tubepress_util_Debug::areWeDebugging($tpom)) {
-	        org_tubepress_util_Debug::execute($iocContainer);
-	    }
-
-	    /* replace the tag with our new content */
+	    /* replace the shortcode with our new content */
 	    $newcontent = org_tubepress_util_StringUtils::replaceFirst($tpom->getShortcode(), 
-	        $gallery->generate(mt_rand()), $newcontent);
+	        $gallery->getHtml($rand), $newcontent);
     }
     
     return $newcontent;
@@ -112,28 +104,19 @@ function _tubepress_get_gallery_content($content, $trigger,
  */
 function tubepress_head_filter()
 {
-	try {
-	    _tubepress_head_filter();
-	} catch (Exception $e) {
-		/* this is in the head, so just print an HTML comment and proceed */
-        print "<!-- " . $e->getMessage() . " -->";
-	}
-}
-
-/**
- * Enter description here...
- * 
- * @return unknown_type
- */
-function _tubepress_head_filter() {
     global $tubepress_base_url;
-
-    print<<<GBS
+    
+	try {
+	        print<<<GBS
 <script type="text/javascript" src="$tubepress_base_url/ui/lib/tubepress.js"></script>
 <link rel="stylesheet" href="$tubepress_base_url/ui/lib/tubepress.css" type="text/css" />
 <script type="text/javascript">jQuery(document).ready(function() {tubepress_init("$tubepress_base_url");});</script>
 
 GBS;
+	} catch (Exception $e) {
+		/* this is in the head, so just print an HTML comment and proceed */
+        print "<!-- " . $e->getMessage() . " -->";
+	}
 }
 
 /**

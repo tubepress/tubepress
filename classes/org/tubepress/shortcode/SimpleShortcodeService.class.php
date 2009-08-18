@@ -30,6 +30,14 @@ tubepress_load_classes(array('org_tubepress_shortcode_ShortcodeService',
  */
 class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_shortcode_ShortcodeService
 {
+    private $_log;
+    private $_logPrefix;
+    
+    public function __construct()
+    {
+        $this->_logPrefix = "Simple Shortcode Service";
+    }
+    
    /**
      * This function is used to parse a shortcode into options that TubePress can use.
      *
@@ -51,25 +59,35 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
           
         /* Match everything in square brackets after the trigger */
         $regexp = "\[$keyword(.*)\]";
+        
+        $this->_log->log($this->_logPrefix, "Regular expression for content is $regexp");
+        
         preg_match("/$regexp/", $content, $matches);
+
+        $this->_log->log($this->_logPrefix, sprintf("Found a shortcode: %s", $matches[0]));
         
         $tpom->setShortcode($matches[0]);
 
         /* Anything matched? */
-        if (!isset($matches[1]) || $matches[1] == "") {
-            $this->_applyOptions($tpom, $customOptions, $mergeWithExistingOptions);
-            return;
-        }
+        if (isset($matches[1]) && $matches[1] != "") {
         
-        /* Break up the options by comma */
-        $pairs = explode(",", $matches[1]);
-        
-        $optionsArray = array();
-        foreach ($pairs as $pair) {
-            $pieces                    = explode("=", $pair);
-            $pieces[0]                 = org_tubepress_shortcode_SimpleShortcodeService::_cleanupTagValue($pieces[0]);
-            $pieces[1]                 = org_tubepress_shortcode_SimpleShortcodeService::_cleanupTagValue($pieces[1]);
-            $customOptions[$pieces[0]] = $pieces[1];
+            $this->_log->log($this->_logPrefix, sprintf("Custom options detected in shortcode: %s", $matches[0]));
+                        
+            /* Break up the options by comma */
+            $pairs = explode(",", $matches[1]);
+            
+            $optionsArray = array();
+            foreach ($pairs as $pair) {
+                $pieces                    = explode("=", $pair);
+                $pieces[0]                 = org_tubepress_shortcode_SimpleShortcodeService::_cleanupTagValue($pieces[0]);
+                $pieces[1]                 = org_tubepress_shortcode_SimpleShortcodeService::_cleanupTagValue($pieces[1]);
+                
+                $this->_log->log($this->_logPrefix, sprintf("Shortcode-defined option: \"%s\" = \"%s\"", $pieces[0], $pieces[1]));
+                
+                $customOptions[$pieces[0]] = $pieces[1];
+            }
+        } else {
+            $this->_log->log($this->_logPrefix, sprintf("No custom options detected in shortcode: %s", $matches[0]));
         }
 
         $this->_applyOptions($tpom, $customOptions, $mergeWithExistingOptions);
@@ -78,6 +96,11 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
     public function somethingToParse($content, $trigger = "tubepress")
     {
         return strpos($content, '[' . $trigger) !== false;
+    }
+    
+    public function setLog(org_tubepress_log_Log $log)
+    {
+        $this->_log = $log;
     }
     
     private function _applyOptions($tpom, $opts, $merge)

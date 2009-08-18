@@ -19,27 +19,24 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_gallery_AbstractGallery'));
-
 /**
- * Widget gallery
+ * TubePress gallery
  */
-class org_tubepress_gallery_WidgetGallery extends org_tubepress_gallery_AbstractGallery
+interface org_tubepress_gallery_TubePressGallery
 {
-    /**
-     * Generates the content of this gallery
-     * 
-     * @return The HTML content for this gallery
-     */
-    public final function generate($galleryId)
-    {
-        try {
-            $this->setTemplateDirectory(dirname(__FILE__) . "/../../../../ui/widget/html_templates");
-            return $this->generateThumbs($galleryId);   
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
+    const FAVORITES       = "favorites";
+    const FEATURED        = "recently_featured";
+    const MOBILE          = "mobile";
+    const MOST_DISCUSSESD = "most_discussed";
+    const MOST_LINKED     = "most_linked";
+    const MOST_RECENT     = "most_recent";
+    const MOST_RESPONDED  = "most_responded";
+    const PLAYLIST        = "playlist";
+    const POPULAR         = "most_viewed";
+    const TAG             = "tag";
+    const TEMPLATE        = "template";
+    const TOP_RATED       = "top_rated";
+    const USER            = "user";
+    
+    public function getHtml($galleryId);
 }

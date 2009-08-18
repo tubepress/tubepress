@@ -19,16 +19,12 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_video_Video',
-    'org_tubepress_template_Template'));
-
 /**
- * Handles the parsing of the meta info below each video thumbnail
- *
+ * Logger
  */
-interface org_tubepress_thumbnail_ThumbnailService
+interface org_tubepress_log_Log
 {
-    public function getHtml(org_tubepress_video_Video $vid, $galleryId);
+    public function log($prefix, $message);
+    
+    public function setEnabled($enabled);
 }

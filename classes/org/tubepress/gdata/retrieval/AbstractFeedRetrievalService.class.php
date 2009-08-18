@@ -22,7 +22,8 @@
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_gdata_retrieval_FeedRetrievalService',
-    'org_tubepress_cache_CacheService'));
+    'org_tubepress_cache_CacheService',
+    'org_tubepress_log_Log'));
 
 /**
  * Base functionality for TubePressFeedRetrieval services
@@ -31,6 +32,8 @@ tubepress_load_classes(array('org_tubepress_gdata_retrieval_FeedRetrievalService
 abstract class org_tubepress_gdata_retrieval_AbstractFeedRetrievalService implements org_tubepress_gdata_retrieval_FeedRetrievalService
 {
     private $_cache;
+    protected $_log;
+    protected $_logPrefix;
     
     /**
      * Fetches the RSS from YouTube
@@ -43,41 +46,55 @@ abstract class org_tubepress_gdata_retrieval_AbstractFeedRetrievalService implem
     {   
         $xml = new DOMDocument();
         if ($useCache) {
+            
+            $this->_log->log($this->_logPrefix, sprintf("First asking cache for %s", $url));
+            
             if ($this->_cache->has($url)) {
+                
+                $this->_log->log($this->_logPrefix, sprintf("Cache has %s. Sweet.", $url));
+                
                 $cached = $this->_cache->get($url);
                 $xml->loadXML($cached);
             } else {
+                
+                $this->_log->log($this->_logPrefix, sprintf("Cache does not have %s. We'll have to"
+                	. " get it from the network.", $url));
+                
                 $xml = $this->_getFromNetwork($url);
                 $this->_cache->save($url, $xml->saveXML());
             }
         } else {
+            $this->_log->log($this->_logPrefix, sprintf("Skip cache check for %s", $url));
             $xml = $this->_getFromNetwork($url);
         }
         return $xml;
+    }
+    
+    public function setCacheService(org_tubepress_cache_CacheService $cache)
+    {
+        $this->_cache = $cache;
+    }
+    
+    public function setLog(org_tubepress_log_Log $log)
+    {
+        $this->_log = $log;
     }
     
     private function _getFromNetwork($url)
     {
         $data = $this->_fetchFromNetwork($url);
 
+        /* trim it just in case */
         $data = trim($data);
         
         $doc = new DOMDocument();
 
-       if (substr($data,0,1) != "<") {
-            throw new Exception("YouTube returned non-xml: " . $data);
-        }
         if ($doc->loadXML($data) === FALSE) {
-            throw new Exception("YouTube returned invalid XML: " . $data);
+            throw new Exception($data);
         }
         
         return $doc;
     }
     
     protected abstract function _fetchFromNetwork($request);
-    
-    public function setCacheService(org_tubepress_cache_CacheService $cache)
-    {
-        $this->_cache = $cache;
-    }
 }

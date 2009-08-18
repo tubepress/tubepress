@@ -30,6 +30,9 @@ tubepress_load_classes(array('org_tubepress_cache_CacheService',
 class org_tubepress_cache_SimpleCacheService implements org_tubepress_cache_CacheService
 {
     private $_cache;
+    private $_cachePath;
+    private $_log;
+    private $_logPrefix;
     
     /**
      * Simple constructor
@@ -37,6 +40,8 @@ class org_tubepress_cache_SimpleCacheService implements org_tubepress_cache_Cach
      */
     public function __construct()
     {
+        $this->_logPrefix = "Cache Service";
+        
         /* 
          * thanks to shickm for this...
          * http://code.google.com/p/tubepress/issues/detail?id=27
@@ -82,6 +87,7 @@ class org_tubepress_cache_SimpleCacheService implements org_tubepress_cache_Cach
         }
         
         $this->_cache = new net_php_pear_Cache_Lite(array("cacheDir" => sys_get_temp_dir()));
+        $this->_cachePath = $this->_cache->_cacheDir;
     }
     
     /**
@@ -97,7 +103,15 @@ class org_tubepress_cache_SimpleCacheService implements org_tubepress_cache_Cach
      */
     public function has($key)
     {
-        return $this->_cache->get($key) !== false;
+        $has = $this->_cache->get($key) !== false;
+        
+        if ($has) {
+            $this->_log->log($this->_logPrefix, sprintf("Cache hit for %s in directory %s", $key, $this->_cachePath));
+        } else {
+            $this->_log->log($this->_logPrefix, sprintf("Cache miss for %s in directory %s", $key, $this->_cachePath));
+        }
+        
+        return $has;
     }
     
     /**
@@ -108,8 +122,12 @@ class org_tubepress_cache_SimpleCacheService implements org_tubepress_cache_Cach
         if (!is_string($data)) {
             throw new Exception("Cache can only save string data");
         }
+        $this->_log->log($this->_logPrefix, "Saving data to key at $key");
         $this->_cache->save($data, $key);
     }
     
-    
+    public function setLog(org_tubepress_log_Log $log)
+    {
+        $this->_log = $log;
+    }
 }

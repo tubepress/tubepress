@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_url_UrlBuilder',
     'org_tubepress_options_category_Gallery',
-    'org_tubepress_gallery_Gallery',
+    'org_tubepress_gallery_TubePressGallery',
     'org_tubepress_options_manager_OptionsManager',
     'org_tubepress_options_category_Advanced',
     'org_tubepress_options_category_Display',
@@ -51,52 +51,52 @@ class org_tubepress_url_SimpleUrlBuilder implements org_tubepress_url_UrlBuilder
         
         switch ($this->_tpom->get(org_tubepress_options_category_Gallery::MODE)) {
             
-        case org_tubepress_gallery_Gallery::USER:
+        case org_tubepress_gallery_TubePressGallery::USER:
             $url = "users/" . $this->_tpom->get(org_tubepress_options_category_Gallery::USER_VALUE) .
                 "/uploads";
             break;
             
-        case org_tubepress_gallery_Gallery::TOP_RATED:
+        case org_tubepress_gallery_TubePressGallery::TOP_RATED:
             $url = "standardfeeds/top_rated?time=" . 
                 $this->_tpom->get(org_tubepress_options_category_Gallery::TOP_RATED_VALUE);
             break;
             
-        case org_tubepress_gallery_Gallery::POPULAR:
+        case org_tubepress_gallery_TubePressGallery::POPULAR:
             $url = "standardfeeds/most_viewed?time=" . 
                 $this->_tpom->get(org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE);
             break;
             
-        case org_tubepress_gallery_Gallery::PLAYLIST:
+        case org_tubepress_gallery_TubePressGallery::PLAYLIST:
             $url = "playlists/" . 
                 $this->_tpom->get(org_tubepress_options_category_Gallery::PLAYLIST_VALUE);
             break;
                 
-        case org_tubepress_gallery_Gallery::MOST_RESPONDED:
+        case org_tubepress_gallery_TubePressGallery::MOST_RESPONDED:
             $url = "standardfeeds/most_responded";
             break;
               
-        case org_tubepress_gallery_Gallery::MOST_RECENT:
+        case org_tubepress_gallery_TubePressGallery::MOST_RECENT:
             $url = "standardfeeds/most_recent";
             break;
                 
-        case org_tubepress_gallery_Gallery::MOST_LINKED:
+        case org_tubepress_gallery_TubePressGallery::MOST_LINKED:
             $url = "standardfeeds/most_linked";
             break;
                 
-        case org_tubepress_gallery_Gallery::MOST_DISCUSSESD:
+        case org_tubepress_gallery_TubePressGallery::MOST_DISCUSSESD:
             $url = "standardfeeds/most_discussed";
             break;
                 
-        case org_tubepress_gallery_Gallery::MOBILE:
+        case org_tubepress_gallery_TubePressGallery::MOBILE:
             $url = "standardfeeds/watch_on_mobile";
             break;
                
-        case org_tubepress_gallery_Gallery::FAVORITES:
+        case org_tubepress_gallery_TubePressGallery::FAVORITES:
             $url = "users/" . $this->_tpom->get(org_tubepress_options_category_Gallery::FAVORITES_VALUE) .
                 "/favorites";
             break;
                 
-        case org_tubepress_gallery_Gallery::TAG:
+        case org_tubepress_gallery_TubePressGallery::TAG:
             $tags = $this->_tpom->get(org_tubepress_options_category_Gallery::TAG_VALUE);
             $tags = explode(" ", $tags);
             $url  = "videos?q=" . implode("+", $tags);
@@ -110,10 +110,9 @@ class org_tubepress_url_SimpleUrlBuilder implements org_tubepress_url_UrlBuilder
         $request = "http://gdata.youtube.com/feeds/api/$url";
         $this->_urlPostProcessing($request, $currentPage);
         return $request;
-        //return str_replace("&", "&amp;", $request);
     }
     
-/**
+    /**
      * Appends some global query parameters on the request
      * before we fire it off to YouTube
      *
@@ -161,7 +160,7 @@ class org_tubepress_url_SimpleUrlBuilder implements org_tubepress_url_UrlBuilder
         $requestURL->setQueryVariable("q", $id);
         $requestURL->setQueryVariable("max-results", 1);
         
-           return $requestURL->getURL();
+        return $requestURL->getURL();
     }
     
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom)

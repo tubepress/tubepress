@@ -56,6 +56,10 @@ function tubepress_widget($opts)
 	$iocContainer = new org_tubepress_ioc_DefaultIocService();
 	$tpom         = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MGR);
 	
+	/* Turn on logging if we need to */
+    $log = $iocContainer->get(org_tubepress_ioc_IocService::LOG);
+    $log->setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON));
+	
 	/* default widget options */
 	$tpom->setCustomOptions(
 	    array(org_tubepress_options_category_Display::RESULTS_PER_PAGE  => 3,
@@ -77,7 +81,7 @@ function tubepress_widget($opts)
 	$gallery = $iocContainer->get(org_tubepress_ioc_IocService::WIDGET_GALL);
 		
 	/* get the output */
-	$out = $gallery->generate(mt_rand());
+	$out = $gallery->getHtml(mt_rand());
 
 	/* do the standard WordPress widget dance */
 	echo $before_widget . $before_title . 

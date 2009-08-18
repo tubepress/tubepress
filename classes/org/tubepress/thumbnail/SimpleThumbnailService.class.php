@@ -30,7 +30,8 @@ tubepress_load_classes(array('org_tubepress_thumbnail_ThumbnailService',
     'org_tubepress_options_category_Embedded',
     'org_tubepress_options_category_Meta',
     'org_tubepress_message_MessageService',
-    'org_tubepress_util_StringUtils'));
+    'org_tubepress_util_StringUtils',
+    'org_tubepress_template_Template'));
 
 /**
  * Handles the parsing of the meta info below each video thumbnail
@@ -44,15 +45,11 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
     private $_tppf;
     private $_tpeps;
     
-    public function getHtml($template, org_tubepress_video_Video $vid, $galleryId)
+    public function getHtml(org_tubepress_video_Video $vid, $galleryId)
     {
-        $this->_tpl = new net_php_pear_HTML_Template_IT($template);
-        if (!$this->_tpl->loadTemplatefile("thumbnail.tpl.html", true, true)) {
-            throw new Exception("Couldn't load thumbnail template");
-        }
         $this->_getCommonStuff($vid, $galleryId);
         $this->_getMetaStuff($vid);
-        return org_tubepress_util_StringUtils::removeEmptyLines($this->_tpl->get());
+        return org_tubepress_util_StringUtils::removeEmptyLines($this->_tpl->getHtml());
     }
     
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom)
@@ -192,6 +189,11 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
                 $this->_tpl->parse('meta');
             }
         }
+    }
+    
+    public function setTemplate(org_tubepress_template_Template $template)
+    {
+        $this->_tpl = $template;
     }
     
     public function setMessageService(org_tubepress_message_MessageService $messageService)

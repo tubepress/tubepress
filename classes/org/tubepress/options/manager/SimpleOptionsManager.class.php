@@ -33,29 +33,10 @@ tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
  */
 class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepress_options_manager_OptionsManager
 {
-    /**
-     * Enter description here...
-     *
-     * @var array
-     */
     private $_customOptions = array();
-    
-    /**
-     * Enter description here...
-     *
-     * @var org_tubepress_options_storage_StorageManager
-     */
     private $_tpsm;
-    
     private $_optionsReference;
-    
     private $_validationService;
-    
-    /**
-     * The shortcode currently in use
-     *
-     * @var string
-     */
     private $_shortcode;
     
     /**
