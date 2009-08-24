@@ -89,11 +89,18 @@ function _tubepress_get_gallery_content($content, $trigger)
         
 	    $shortcodeService->parse($newcontent, $tpom);
 
+            $currentShortcode = $tpom->getShortcode();
+	    $galleryHtml = $gallery->getHtml($rand);
+
+            /* remove any leading/trailing <p> tags from the shortcode */
+            $pattern = '/(<[P|p]>\s*)(' . preg_quote($currentShortcode, '/') . ')(\s*<\/[P|p]>)/';
+	    $newcontent = preg_replace($pattern, '${2}', $newcontent); 
+
 	    /* replace the shortcode with our new content */
-	    $newcontent = org_tubepress_util_StringUtils::replaceFirst($tpom->getShortcode(), 
-	        $gallery->getHtml($rand), $newcontent);
+	    $newcontent = org_tubepress_util_StringUtils::replaceFirst($currentShortcode, 
+	        $galleryHtml, $newcontent);
+	    
     }
-    
     return $newcontent;
 }
 
