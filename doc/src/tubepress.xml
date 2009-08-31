@@ -226,7 +226,7 @@
             <para>
                 For example, say on one page I want to display a gallery of videos that are tagged 
                 with "<code>football</code>". On this page, I would type 
-                <programlisting>[tubepress mode='tag', tagValue='football']</programlisting>
+                <programlisting>[tubepress mode="tag" tagValue="football"]</programlisting>
                 on the page where I want the gallery to show up. And say 
                 on another page I want to display a gallery with the default (global) options that were set 
                 in <code>Settings > TubePress</code>. On this page I would type <programlisting>[tubepress]</programlisting> where I 
@@ -296,8 +296,7 @@
                 In the "Title" section of the widget control, enter the text you'd like for the sidebar's header. 
                 To customize which videos show up in your sidebar, just use a <link linkend="shortcodes">TubePress shortcode</link>. Please note that 
                 by default, the TubePress widget will use the following shortcode: 
-                <programlisting>[tubepress resultsPerPage='3', views='false', description='true', descriptionLimit='50', 
-    playerLocation='popup', thumbHeight='105', thumbWidth='135']</programlisting>
+                <programlisting>[tubepress resultsPerPage="3" views="false" description="true" descriptionLimit="50" playerLocation="popup" thumbHeight="105" thumbWidth="135"]</programlisting>
             </para>
             <para>
                 Of course, like any TubePress shortcode, you can override any setting you like.
@@ -399,7 +398,7 @@
     <body>
         <div style="width:500px">
 
-            <?php print tubepressGallery("mode='tag', tagValue='barack obama', resultsPerPage='3'"); ?>
+            <?php print tubepressGallery('mode="tag" tagValue="barack obama" resultsPerPage="3"'); ?>
 
         </div>
     </body>
@@ -469,7 +468,7 @@
 
     get_header();
 
-    print tubepressGallery("mode='tag', tagValue='barack obama', resultsPerPage='3'");
+    print tubepressGallery('mode="tag" tagValue="barack obama" resultsPerPage="3"');
     
     if (have_posts()) :
        while (have_posts()) :
@@ -516,9 +515,9 @@
             The simplest shortcode is <programlisting>[tubepress]</programlisting>
             TubePress will replace this 
             shortcode with a video gallery with the default settings. You can override each 
-            TubePress setting by providing shortcode attributes, which are <emphasis>comma-separated</emphasis> 
+            TubePress setting by providing shortcode attributes, which are 
             name-value pairs that you insert between the square brackets. They all follow 
-            the pattern <code>name='value'</code>. Please note the single quotes around the value! Every TubePress shortcode is
+            the pattern <code>name=value</code>, where <code>value</code> is wrapped with single or double quotes (e.g. <code>foo="bar"</code>). Every TubePress shortcode is
             defined in <xref linkend="shortcode-reference" />.
         </para>
     </chapter>
@@ -630,37 +629,37 @@ nights working on this project. If you enjoy the software, please consider a don
                             <entry>"Favorite" videos of a YouTube user. The YouTube user is defined by the
                                 value you supply to the <code>favoritesValue</code> attribute.</entry>
                             <entry>Limited to 50 videos</entry>
-                            <entry><code>[tubepress mode='favorites', favoritesValue='3hough']</code></entry>
+                            <entry><code>[tubepress mode="favorites" favoritesValue="3hough"]</code></entry>
                         </row>
                         <row>
                             <entry><code>recently_featured</code></entry>
                             <entry> The lastest "featured" videos on YouTube's homepage</entry>
                             <entry></entry>
-                            <entry><code>[tubepress mode='recently_featured']</code></entry>
+                            <entry><code>[tubepress mode="recently_featured"]</code></entry>
                         </row>
                         <row>
                             <entry><code>most_discussed</code></entry>
                             <entry>The most-commented videos on YouTube</entry>
                             <entry></entry>
-                            <entry><code>[tubepress mode='most_discussed']</code></entry>
+                            <entry><code>[tubepress mode="most_discussed"]</code></entry>
                         </row>
                         <row>
                             <entry><code>most_linked</code></entry>
                             <entry>YouTube videos with the most links</entry>
                             <entry></entry>
-                            <entry><code>[tubepress mode='most_linked']</code></entry>
+                            <entry><code>[tubepress mode="most_linked"]</code></entry>
                         </row>
                         <row>
                             <entry><code>most_recent</code></entry>
                             <entry>YouTube videos most recently uploaded to YouTube</entry>
                             <entry></entry>
-                            <entry><code>[tubepress mode='most_recent']</code></entry>
+                            <entry><code>[tubepress mode="most_recent"]</code></entry>
                         </row>
                         <row>
                             <entry><code>most_responded</code></entry>
                             <entry>YouTube videos with the most video responses</entry>
                             <entry></entry>
-                            <entry><code>[tubepress mode='most_responded']</code></entry>
+                            <entry><code>[tubepress mode="most_responded"]</code></entry>
                         </row>
                         <row>
                             <entry><code>playlist</code> and <code>playlistValue</code></entry>
@@ -681,14 +680,14 @@ nights working on this project. If you enjoy the software, please consider a don
                                 </itemizedlist>
                             </entry>
                             <entry>
-                                <code>[tubepress mode='playlist', playlistValue='6813408AE8D50E6F']</code>
+                                <code>[tubepress mode="playlist" playlistValue="6813408AE8D50E6F"]</code>
                             </entry>
                         </row>
                         <row>
                             <entry><code>mobile</code></entry>
                             <entry>YouTube videos suitable for mobile devices</entry>
                             <entry></entry>
-                            <entry><code>[tubepress mode='mobile']</code></entry>
+                            <entry><code>[tubepress mode="mobile"]</code></entry>
                         </row>
                         <row>
                             <entry><code>tag</code> and <code>tagValue</code></entry>
@@ -696,7 +695,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                 the value you supply to the <code>tagValue</code> attribute.
                             </entry>
                             <entry>Limited to approximately 1000 videos</entry>
-                            <entry><code>[tubepress mode='tag', tagValue='barack obama john mccain']</code></entry>
+                            <entry><code>[tubepress mode="tag" tagValue="barack obama john mccain"]</code></entry>
                         </row>
                         <row>
                             <entry><code>user</code> and <code>userValue</code></entry>
@@ -704,7 +703,7 @@ nights working on this project. If you enjoy the software, please consider a don
                             The YouTube user is defined by the value you supply to the <code>userValue</code> attribute. 
                             </entry>
                             <entry>Limited to approximately 1000 videos</entry>
-                            <entry><code>[tubepress mode='tag', tagValue='barack obama john mccain']</code></entry>
+                            <entry><code>[tubepress mode="user" userValue="3hough"]</code></entry>
                         </row>
                     </tbody>
                 </tgroup>
@@ -732,7 +731,7 @@ nights working on this project. If you enjoy the software, please consider a don
                            <entry>Limit the length of video descriptions to a certain number of characters. This can help prevent video descriptions from overflowing onto other thumbnails.
                            </entry>
                            <entry>Any positive integer</entry>
-                            <entry><code>[tubepress descriptionLimit='50']</code></entry>
+                            <entry><code>[tubepress descriptionLimit="50"]</code></entry>
                         </row>
                         <row>
                            <entry><code>paginationAbove</code></entry>
@@ -745,7 +744,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress paginationAbove='true']</code></entry>
+                            <entry><code>[tubepress paginationAbove="true"]</code></entry>
                         </row>
                         <row>
                            <entry><code>paginationBelow</code></entry>
@@ -758,7 +757,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress paginationBelow='true']</code></entry>
+                            <entry><code>[tubepress paginationBelow="true"]</code></entry>
                         </row>
                         <row>
                            <entry><code>relativeDates</code></entry>
@@ -770,25 +769,25 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress relativeDates='true']</code></entry>
+                            <entry><code>[tubepress relativeDates="true"]</code></entry>
                         </row>
                         <row>
                             <entry><code>resultsPerPage</code></entry>
                             <entry>How many video thumbnails to display on a single page</entry>
                             <entry>Any integer <code>x</code> such that <code>0 &lt; x &lt;= 50</code></entry>
-                            <entry><code>[tubepress resultsPerPage='30']</code></entry>
+                            <entry><code>[tubepress resultsPerPage="30"]</code></entry>
                         </row>
                         <row>
                             <entry><code>thumbHeight</code></entry>
                             <entry>Vertical size (in px) of thumbnails</entry>
                             <entry>Any integer <code>x</code> such that <code>0 &lt; x &lt;= 90</code></entry>
-                            <entry><code>[tubepress thumbHeight='45']</code></entry>
+                            <entry><code>[tubepress thumbHeight="45"]</code></entry>
                         </row>
                         <row>
                             <entry><code>thumbWidth</code></entry>
                             <entry>Horizontal size (in px) of thumbnails</entry>
                             <entry>Any integer <code>x</code> such that <code>0 &lt; x &lt;= 120</code></entry>
-                            <entry><code>[tubepress thumbWidth='60']</code></entry>
+                            <entry><code>[tubepress thumbWidth="60"]</code></entry>
                         </row>
                     </tbody>
                 </tgroup>
@@ -812,7 +811,7 @@ nights working on this project. If you enjoy the software, please consider a don
                             <row>
                                 <entry><code>jqmodal</code></entry>
                                 <entry>Plays videos using <ulink url="http://dev.iceburg.net/jquery/jqModal/">jqModal</ulink></entry>
-                                <entry><code>[tubepress playerLocation='jqModal']</code></entry>
+                                <entry><code>[tubepress playerLocation="jqModal"]</code></entry>
                             </row>
                             <row>
                                 <entry><code>normal</code></entry>
@@ -826,24 +825,24 @@ nights working on this project. If you enjoy the software, please consider a don
                                     start the gallery with the video with ID <code>CNo7Hm0IOag</code> in the 
                                     embedded player.</para>
                                 </entry>
-                                <entry><code>[tubepress playerLocation='normal']</code></entry>
+                                <entry><code>[tubepress playerLocation="normal"]</code></entry>
                             </row>
                             <row>
                                 <entry><code>popup</code></entry>
                                 <entry>Plays videos in an HTML popup window</entry>
-                                <entry><code>[tubepress playerLocation='popup']</code></entry>
+                                <entry><code>[tubepress playerLocation="popup"]</code></entry>
                             </row>  
                             <row>
                                 <entry><code>shadowbox</code></entry>
                                 <entry>Plays videos using <ulink url="http://www.shadowbox-js.com/">ShadowBox</ulink></entry>
-                                <entry><code>[tubepress playerLocation='shadowbox']</code></entry>
+                                <entry><code>[tubepress playerLocation="shadowbox"]</code></entry>
                             </row>
                             <row>
                                 <entry><code>youtube</code></entry>
                                 <entry>
                                     Redirects to the video's original YouTube page
                                 </entry>
-                                <entry><code>[tubepress playerLocation='youtube']</code></entry>
+                                <entry><code>[tubepress playerLocation="youtube"]</code></entry>
                             </row>
                         </tbody>
                     </tgroup>
@@ -872,7 +871,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                     Show videos in the order they were published
                                 </entry>
                                 <entry>YouTube galleries will show more-recent videos first</entry>
-                                <entry><code>[tubepress orderBy='published']</code></entry>
+                                <entry><code>[tubepress orderBy="published"]</code></entry>
                             </row>
                             <row>
                                 <entry><code>viewCount</code></entry>
@@ -880,7 +879,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                     Shows videos in order of how many times they've been viewed
                                 </entry>
                                  <entry>YouTube galleries will show more-viewed videos first</entry>
-                                <entry><code>[tubepress orderBy='viewCount']</code></entry>
+                                <entry><code>[tubepress orderBy="viewCount"]</code></entry>
                             </row>
                             <row>
                                 <entry><code>rating</code></entry>
@@ -888,7 +887,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                     Shows videos in order of their rating
                                 </entry>
                                 <entry>YouTube galleries will show higher-rated videos first</entry>
-                                <entry><code>[tubepress orderBy='rating']</code></entry>
+                                <entry><code>[tubepress orderBy="rating"]</code></entry>
                             </row>
                             <row>
                                 <entry><code>relevance</code></entry>
@@ -896,7 +895,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                     Shows videos in order of relevance
                                 </entry>
                                 <entry>Only applies to YouTube <code>tag</code> galleries</entry>
-                                <entry><code>[tubepress orderBy='relevance']</code></entry>
+                                <entry><code>[tubepress orderBy="relevance"]</code></entry>
                             </row>
                         </tbody>
                     </tgroup>
@@ -908,13 +907,13 @@ nights working on this project. If you enjoy the software, please consider a don
                     <itemizedlist>
                         <listitem>
                             <para>
-                                A gallery of a user's favorite videos (<code>mode='favorites'</code>) will always be sorted in the 
+                                A gallery of a user's favorite videos (<code>mode="favorites"</code>) will always be sorted in the 
                                 order that the videos were favorited.
                             </para>
                         </listitem>
                         <listitem>
                             <para>
-                                A playlist gallery (<code>mode='playlist'</code>) will always be sorted in the order that the videos
+                                A playlist gallery (<code>mode="playlist"</code>) will always be sorted in the order that the videos
                                  appear in the playlist
                             </para>
                         </listitem>
@@ -948,7 +947,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress autoplay='true']</code></entry>
+                            <entry><code>[tubepress autoplay="true"]</code></entry>
                         </row>
                         <row>
                             <entry><code>border</code></entry>
@@ -959,19 +958,19 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress border='true']</code></entry>
+                            <entry><code>[tubepress border="true"]</code></entry>
                         </row>
                         <row>
                             <entry><code>embeddedHeight</code></entry>
                             <entry>Vertical size (in px) of embedded player</entry>
                             <entry>Any positive integer</entry>
-                            <entry><code>[tubepress embeddedHeight='true']</code></entry>
+                            <entry><code>[tubepress embeddedHeight="true"]</code></entry>
                         </row>
                         <row>
                             <entry><code>embeddedWidth</code></entry>
                             <entry>Horizontal size (in px) of embedded player</entry>
                             <entry>Any positive integer</entry>
-                            <entry><code>[tubepress embeddedWidth='true']</code></entry>
+                            <entry><code>[tubepress embeddedWidth="true"]</code></entry>
                         </row>
                         <row>
                             <entry><code>fullscreen</code></entry>
@@ -982,7 +981,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress fullscreen='true']</code></entry>
+                            <entry><code>[tubepress fullscreen="true"]</code></entry>
                         </row>
                         <row>
                             <entry><code>genie</code></entry>
@@ -993,7 +992,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress genie='true']</code></entry>
+                            <entry><code>[tubepress genie="true"]</code></entry>
                         </row>
                         <row>
                             <entry><code>loop</code></entry>
@@ -1004,13 +1003,13 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress loop='true']</code></entry>
+                            <entry><code>[tubepress loop="true"]</code></entry>
                         </row>
                         <row>
                             <entry><code>playerColor</code></entry>
                             <entry>Primary and secondary colors of embedded player</entry>
                             <entry>Two HTML color values in hex, combined with a single forward slash</entry>
-                            <entry><code>[tubepress playerColor='0xffaabb/0xaa2233']</code></entry>
+                            <entry><code>[tubepress playerColor="0xffaabb/0xaa2233"]</code></entry>
                         </row>
                         <row>
                             <entry><code>playerImplementation</code></entry>
@@ -1023,7 +1022,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>longtail</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress playerImplementation='longtail']</code></entry>
+                            <entry><code>[tubepress playerImplementation="longtail"]</code></entry>
                         </row>
                         <row>
                             <entry><code>quality</code></entry>
@@ -1036,7 +1035,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>highest</code></listitem>  
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress quality='higher']</code></entry>
+                            <entry><code>[tubepress quality="higher"]</code></entry>
                         </row>
                         <row>
                             <entry><code>showInfo</code></entry>
@@ -1047,7 +1046,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress showInfo='true']</code></entry>
+                            <entry><code>[tubepress showInfo="true"]</code></entry>
                         </row>
                         <row>
                             <entry><code>showRelated</code></entry>
@@ -1058,7 +1057,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress showRelated='true']</code></entry>
+                            <entry><code>[tubepress showRelated="true"]</code></entry>
                         </row>
                     </tbody>
                 </tgroup>
@@ -1090,7 +1089,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress author='true']</code></entry>
+                            <entry><code>[tubepress author="true"]</code></entry>
                         </row>
                         <row>
                             <entry><code>category</code></entry>
@@ -1101,7 +1100,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress category='false']</code></entry>
+                            <entry><code>[tubepress category="false"]</code></entry>
                         </row>
                         <row>
                             <entry><code>description</code></entry>
@@ -1112,7 +1111,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress description='false']</code></entry>
+                            <entry><code>[tubepress description="false"]</code></entry>
                         </row>
                         <row>
                             <entry><code>id</code></entry>
@@ -1123,7 +1122,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress id='true']</code></entry>
+                            <entry><code>[tubepress id="true"]</code></entry>
                         </row>
                         <row>
                             <entry><code>length</code></entry>
@@ -1134,7 +1133,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress length='false']</code></entry>
+                            <entry><code>[tubepress length="false"]</code></entry>
                         </row>
                         <row>
                             <entry><code>rating</code></entry>
@@ -1145,7 +1144,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress rating='true']</code></entry>
+                            <entry><code>[tubepress rating="true"]</code></entry>
                         </row>
                         <row>
                             <entry><code>ratings</code></entry>
@@ -1156,7 +1155,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress ratings='true']</code></entry>
+                            <entry><code>[tubepress ratings="true"]</code></entry>
                         </row>
                         <row>
                             <entry><code>tags</code></entry>
@@ -1167,7 +1166,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress tags='false']</code></entry>
+                            <entry><code>[tubepress tags="false"]</code></entry>
                         </row>
                         <row>
                             <entry><code>title</code></entry>
@@ -1178,7 +1177,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress title='true']</code></entry>
+                            <entry><code>[tubepress title="true"]</code></entry>
                         </row>
                         <row>
                             <entry><code>uploaded</code></entry>
@@ -1189,7 +1188,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress uploaded='false']</code></entry>
+                            <entry><code>[tubepress uploaded="false"]</code></entry>
                         </row>
                         <row>
                             <entry><code>url</code></entry>
@@ -1200,7 +1199,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress url='false']</code></entry>
+                            <entry><code>[tubepress url="false"]</code></entry>
                         </row>
                         <row>
                             <entry><code>views</code></entry>
@@ -1211,7 +1210,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                            <entry><code>[tubepress views='true']</code></entry>
+                            <entry><code>[tubepress views="true"]</code></entry>
                         </row>
                     </tbody>
                 </tgroup>
@@ -1243,7 +1242,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist>
                             </entry>
-                                <entry><code>[tubepress cacheEnabled='false']</code></entry>
+                                <entry><code>[tubepress cacheEnabled="false"]</code></entry>
                             </row>
                             <row>
                                 <entry><code>clientKey</code></entry>
@@ -1251,7 +1250,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                     Set the YouTube Client Key when interacting with YouTube
                                 </entry>
                                  <entry>Any valid YouTube Client Key</entry>
-                                <entry><code>[tubepress clientKey='33AEF33BBC344']</code></entry>
+                                <entry><code>[tubepress clientKey="33AEF33BBC344"]</code></entry>
                             </row>
                             <row>
                                 <entry><code>developerKey</code></entry>
@@ -1259,7 +1258,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                     Set the YouTube Developer Key when interacting with YouTube
                                 </entry>
                                 <entry>Any valid YouTube Developer Key</entry>
-                                <entry><code>[tubepress developerKey='33AEF33BBC344']</code></entry>
+                                <entry><code>[tubepress developerKey="33AEF33BBC344"]</code></entry>
                             </row>
                             <row>
                                 <entry><code>embeddableOnly</code></entry>
@@ -1271,7 +1270,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                   <listitem><code>true</code></listitem>
                                   <listitem><code>false</code></listitem>
                                 </itemizedlist></entry>
-                                <entry><code>[tubepress embeddableOnly='true']</code></entry>
+                                <entry><code>[tubepress embeddableOnly="true"]</code></entry>
                             </row>
                             <row>
                                 <entry><code>filter_racy</code></entry>
@@ -1284,7 +1283,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                         <listitem><code>false</code></listitem>
                                     </itemizedlist>
                                 </entry>
-                                <entry><code>[tubepress filter_racy='true']</code></entry>
+                                <entry><code>[tubepress filter_racy="true"]</code></entry>
                             </row>
                             <row>
                                 <entry><code>resultCountCap</code></entry>
@@ -1317,7 +1316,7 @@ nights working on this project. If you enjoy the software, please consider a don
                             <entry><code>dateFormat</code></entry>
                             <entry>Formatting of date information for videos. See <ulink url="http://us.php.net/date">http://us.php.net/date</ulink> for examples</entry>
                             <entry>Any valid string as defined by <ulink url="http://us.php.net/date">http://php.net/date</ulink></entry>
-                            <entry><code>[tubepress dateFormat='l jS \of F Y h:i:s A']</code></entry>
+                            <entry><code>[tubepress dateFormat="l jS \of F Y h:i:s A"]</code></entry>
                         </row>
                         <row>
                             <entry><code>debugging_enabled</code></entry>
@@ -1328,7 +1327,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                         <listitem><code>false</code></listitem>
                                     </itemizedlist>
                                 </entry>
-                            <entry><code>[tubepress debugging_enabled='false']</code></entry>
+                            <entry><code>[tubepress debugging_enabled="false"]</code></entry>
                         </row>
                         <row>
                             <entry><code>nofollowLinks</code></entry>
@@ -1339,7 +1338,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                         <listitem><code>false</code></listitem>
                                     </itemizedlist>
                                 </entry>
-                            <entry><code>[tubepress nofollowLinks='false']</code></entry>
+                            <entry><code>[tubepress nofollowLinks="false"]</code></entry>
                         </row>
                         <row>
                             <entry><code>randomize_thumbnails</code></entry>
@@ -1350,7 +1349,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                         <listitem><code>false</code></listitem>
                                     </itemizedlist>
                                 </entry>
-                            <entry><code>[tubepress randomize_thumbnails='false']</code></entry>
+                            <entry><code>[tubepress randomize_thumbnails="false"]</code></entry>
                         </row>
                        
                     </tbody>
