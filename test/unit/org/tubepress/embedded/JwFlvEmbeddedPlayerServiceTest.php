@@ -7,7 +7,8 @@ class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerServiceTest extends org_tub
     
 	function setUp()
 	{
-	    parent::parentSetUp(new org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService(), 3);
+	    $template = dirname(__FILE__) . '/../../../../../ui/embedded/longtail/html_templates/object.tpl.html';
+	    parent::parentSetUp(new org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService(), 3, $template);
 	}
 	
 	function testToString()

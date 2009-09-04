@@ -5,7 +5,7 @@ class TubePressGalleryTest extends PHPUnit_Framework_TestCase {
 	
 	function setUp()
 	{
-		$this->_sut = new org_tubepress_gallery_Gallery();
+		$this->_sut = new org_tubepress_gallery_TubePressGallery();
 		
 		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$tpom->expects($this->any())
@@ -32,8 +32,8 @@ class TubePressGalleryTest extends PHPUnit_Framework_TestCase {
         $paginationService->setQueryStringService($queryStringService);
         
         $this->_sut->setCacheService(             new org_tubepress_cache_SimpleCacheService());
-        $this->_sut->setFeedInspectionService( new org_tubepress_gdata_inspection_SimpleFeedInspectionService());
-        $this->_sut->setFeedRetrievalService(     new org_tubepress_gdata_retrieval_HTTPRequest2());
+        $this->_sut->setFeedInspectionService( new org_tubepress_video_feed_inspection_SimpleFeedInspectionService());
+        $this->_sut->setFeedRetrievalService(     new org_tubepress_video_feed_retrieval_HTTPRequest2());
         $this->_sut->setOptionsManager(         $tpom);
         $this->_sut->setPaginationService(     $paginationService);
         $this->_sut->setThumbnailService(         $thumbService);
@@ -100,7 +100,8 @@ function _tpomCallback()
     		org_tubepress_options_category_Meta::URL 					 => false,
     		org_tubepress_options_category_Meta::VIEWS 				 => true,
     		org_tubepress_options_category_Widget::TITLE 				 => "TubePress",
-    		org_tubepress_options_category_Widget::TAGSTRING 			 => "[tubepress thumbHeight='105', thumbWidth='135']"
+    		org_tubepress_options_category_Widget::TAGSTRING 			 => "[tubepress thumbHeight='105', thumbWidth='135']",
+    		org_tubepress_options_category_Gallery::TEMPLATE    => 'foo'
     	);
 	return $vals[$args[0]];
 }

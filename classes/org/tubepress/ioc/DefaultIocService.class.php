@@ -28,14 +28,14 @@ tubepress_load_classes(array('org_tubepress_ioc_PhpCraftyIocService',
     'org_tubepress_message_WordPressMessageService',
 	'org_tubepress_shortcode_SimpleShortcodeService',
     'org_tubepress_options_reference_SimpleOptionsReference',
-    'org_tubepress_gdata_inspection_SimpleFeedInspectionService',
+    'org_tubepress_video_feed_inspection_SimpleFeedInspectionService',
 	'org_tubepress_cache_SimpleCacheService',
 	'org_tubepress_video_factory_SimpleVideoFactory',
 	'org_tubepress_querystring_SimpleQueryStringService',
 	'org_tubepress_player_impl_YouTubePlayer',
     'org_tubepress_player_impl_NormalPlayer',
 	'org_tubepress_options_validation_SimpleInputValidationService',
-	'org_tubepress_gdata_retrieval_HTTPRequest2',
+	'org_tubepress_video_feed_retrieval_HTTPRequest2',
 	'org_tubepress_url_SimpleUrlBuilder',
 	'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService',
 	'org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService',
@@ -49,7 +49,8 @@ tubepress_load_classes(array('org_tubepress_ioc_PhpCraftyIocService',
 	'org_tubepress_options_form_CategoryPrinter',
 	'org_tubepress_gallery_TubePressGalleryImpl',
     'org_tubepress_template_TemplateImpl',
-    'org_tubepress_log_LogImpl'));
+    'org_tubepress_log_LogImpl',
+    'org_tubepress_video_feed_provider_ProviderImpl'));
 
 /**
  * Dependency injector for TubePress in a WordPress environment
@@ -61,68 +62,66 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
         $uiBase = dirname(__FILE__) . "/../../../../ui";
         
         /* these guys have no setters that we care about */
-        $this->def(org_tubepress_ioc_IocService::MESSAGE,
+        $this->def(org_tubepress_ioc_IocService::MESSAGE_SERVICE,
             $this->impl('org_tubepress_message_WordPressMessageService'));
-        $this->def(org_tubepress_ioc_IocService::REFERENCE,
+        $this->def(org_tubepress_ioc_IocService::OPTIONS_REFERENCE,
             $this->impl('org_tubepress_options_reference_SimpleOptionsReference'));
-        $this->def(org_tubepress_ioc_IocService::FEED_INSP,
-            $this->impl('org_tubepress_gdata_inspection_SimpleFeedInspectionService'));
-        $this->def(org_tubepress_ioc_IocService::VID_FACT,
+        $this->def(org_tubepress_ioc_IocService::FEED_INSPECTION_SERVICE,
+            $this->impl('org_tubepress_video_feed_inspection_SimpleFeedInspectionService'));
+        $this->def(org_tubepress_ioc_IocService::VIDEO_FACTORY,
             $this->impl('org_tubepress_video_factory_SimpleVideoFactory'));
-        $this->def(org_tubepress_ioc_IocService::QUERY_STR,
+        $this->def(org_tubepress_ioc_IocService::QUERY_STRING_SERVICE,
             $this->impl('org_tubepress_querystring_SimpleQueryStringService'));
-        $this->def(org_tubepress_player_Player::YOUTUBE . "-player",
-            $this->impl('org_tubepress_player_impl_YouTubePlayer'));
         $this->def(org_tubepress_ioc_IocService::LOG,
             $this->impl('org_tubepress_log_LogImpl'));
 
         /* These guys have 1 setter */
-        $this->def(org_tubepress_ioc_IocService::VALIDATION,
+        $this->def(org_tubepress_ioc_IocService::VALIDATION_SERVICE,
             $this->impl('org_tubepress_options_validation_SimpleInputValidationService',
-                array('messageService' => $this->ref(org_tubepress_ioc_IocService::MESSAGE))
+                array('messageService' => $this->ref(org_tubepress_ioc_IocService::MESSAGE_SERVICE))
             )
         );
         $this->def(org_tubepress_ioc_IocService::URL_BUILDER,
             $this->impl('org_tubepress_url_SimpleUrlBuilder', 
-                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
+                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER))
             )
         );
         $this->def(org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . '-embedded',
             $this->impl('org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService',
-                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
-            )
-        );
-        $this->def(org_tubepress_embedded_EmbeddedPlayerService::LONGTAIL . '-embedded',
-            $this->impl('org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService',
-                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
+                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER))
             )
         );
         $this->def(org_tubepress_player_Player::NORMAL . "-player",
             $this->impl('org_tubepress_player_impl_NormalPlayer',
-                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
+                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER))
             )
         );
         $this->def(org_tubepress_player_Player::POPUP . "-player",
             $this->impl('org_tubepress_player_impl_ModalPlayer',
-                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
+                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER))
             )
         );
         $this->def(org_tubepress_player_Player::SHADOWBOX . "-player",
             $this->impl('org_tubepress_player_impl_ModalPlayer',
-                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
+                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER))
             )
         );
         $this->def(org_tubepress_player_Player::JQMODAL . "-player",
             $this->impl('org_tubepress_player_impl_ModalPlayer',
-                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
+                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER))
             )
         );
         $this->def(org_tubepress_player_Player::COLORBOX . "-player",
             $this->impl('org_tubepress_player_impl_ModalPlayer',
-                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR))
+                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER))
             )
         );
-        $this->def(org_tubepress_ioc_IocService::G_TEMPLATE,
+        $this->def(org_tubepress_player_Player::YOUTUBE . "-player",
+            $this->impl('org_tubepress_player_impl_YouTubePlayer',
+                array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER))
+            )
+        );
+        $this->def(org_tubepress_ioc_IocService::GALLERY_TEMPLATE,
             $this->impl('org_tubepress_template_TemplateImpl',
                 array('file' => $uiBase . "/gallery/html_templates/gallery.tpl.html")
             )
@@ -142,119 +141,156 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
                 array('file' => $uiBase . "/widget/html_templates/thumbnail.tpl.html")
             )
         );
-        $this->def(org_tubepress_ioc_IocService::CACHE,
+        $this->def(org_tubepress_ioc_IocService::YOUTUBE_EMBEDDED_TEMPLATE,
+            $this->impl('org_tubepress_template_TemplateImpl',
+                array('file' => $uiBase . "/embedded/youtube/html_templates/object.tpl.html")
+            )
+        );
+        $this->def(org_tubepress_ioc_IocService::LONGTAIL_EMBEDDED_TEMPLATE,
+            $this->impl('org_tubepress_template_TemplateImpl',
+                array('file' => $uiBase . "/embedded/longtail/html_templates/object.tpl.html")
+            )
+        );
+        $this->def(org_tubepress_ioc_IocService::CACHE_SERVICE,
             $this->impl('org_tubepress_cache_SimpleCacheService',
                 array('log' => $this->ref(org_tubepress_ioc_IocService::LOG))
             )
         );
-        $this->def(org_tubepress_ioc_IocService::SHORTCODE,
+        $this->def(org_tubepress_ioc_IocService::SHORTCODE_SERVICE,
             $this->impl('org_tubepress_shortcode_SimpleShortcodeService',
                 array('log' => $this->ref(org_tubepress_ioc_IocService::LOG))
             )
         );
 
         /* this guy has 2 setters */
-        $this->def(org_tubepress_ioc_IocService::STORAGE,
+        $this->def(org_tubepress_ioc_IocService::STORAGE_MANAGER,
             $this->impl('org_tubepress_options_storage_WordPressStorageManager', 
                 array(
-                    'optionsReference'  => $this->ref(org_tubepress_ioc_IocService::REFERENCE),
-                    'validationService' => $this->ref(org_tubepress_ioc_IocService::VALIDATION)
+                    'optionsReference'  => $this->ref(org_tubepress_ioc_IocService::OPTIONS_REFERENCE),
+                    'validationService' => $this->ref(org_tubepress_ioc_IocService::VALIDATION_SERVICE)
                 )
             )
         );
         $this->def(org_tubepress_ioc_IocService::THUMB,
             $this->impl('org_tubepress_thumbnail_SimpleThumbnailService', 
                 array(
-                    'optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR),
-                    'messageService' => $this->ref(org_tubepress_ioc_IocService::MESSAGE),
+                    'optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER),
+                    'messageService' => $this->ref(org_tubepress_ioc_IocService::MESSAGE_SERVICE),
                     'template'       => $this->ref(org_tubepress_ioc_IocService::THUMB_TEMPLATE)
                 )
             )
         );
-        $this->def(org_tubepress_ioc_IocService::W_THUMB_SERVICE,
+        $this->def(org_tubepress_ioc_IocService::WIDGET_THUMBNAIL_SERVICE,
             $this->impl('org_tubepress_thumbnail_SimpleThumbnailService', 
                 array(
-                    'optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR),
-                    'messageService' => $this->ref(org_tubepress_ioc_IocService::MESSAGE),
+                    'optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER),
+                    'messageService' => $this->ref(org_tubepress_ioc_IocService::MESSAGE_SERVICE),
                     'template'       => $this->ref(org_tubepress_ioc_IocService::W_THUMB_TEMPLATE)
                 )
             )
         );
-        $this->def(org_tubepress_ioc_IocService::FEED_RET,
-            $this->impl('org_tubepress_gdata_retrieval_HTTPRequest2', 
+        $this->def(org_tubepress_ioc_IocService::FEED_RETRIEVAL_SERVICE,
+            $this->impl('org_tubepress_video_feed_retrieval_HTTPRequest2', 
                 array(
-                	'cacheService' => $this->ref(org_tubepress_ioc_IocService::CACHE),
+                	'cacheService' => $this->ref(org_tubepress_ioc_IocService::CACHE_SERVICE),
                     'log' => $this->ref(org_tubepress_ioc_IocService::LOG)
+                )
+            )
+        );
+        $this->def(org_tubepress_embedded_EmbeddedPlayerService::LONGTAIL . '-embedded',
+            $this->impl('org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService',
+                array(
+                    'optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER),
+                    'template' => $this->ref(org_tubepress_ioc_IocService::LONGTAIL_EMBEDDED_TEMPLATE)
+                )
+            )
+        );
+        $this->def(org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . '-embedded',
+            $this->impl('org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService',
+                array(
+                    'optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER),
+                    'template' => $this->ref(org_tubepress_ioc_IocService::YOUTUBE_EMBEDDED_TEMPLATE)
                 )
             )
         );
 
         /* these guys have 3 setters */
-        $this->def(org_tubepress_ioc_IocService::OPTIONS_MGR,
+        $this->def(org_tubepress_ioc_IocService::OPTIONS_MANAGER,
             $this->impl('org_tubepress_options_manager_SimpleOptionsManager', 
                 array(
-                    'validationService' => $this->ref(org_tubepress_ioc_IocService::VALIDATION),
-                    'optionsReference'  => $this->ref(org_tubepress_ioc_IocService::REFERENCE),
-                    'storageManager'    => $this->ref(org_tubepress_ioc_IocService::STORAGE)
+                    'validationService' => $this->ref(org_tubepress_ioc_IocService::VALIDATION_SERVICE),
+                    'optionsReference'  => $this->ref(org_tubepress_ioc_IocService::OPTIONS_REFERENCE),
+                    'storageManager'    => $this->ref(org_tubepress_ioc_IocService::STORAGE_MANAGER)
                 )
             )
         );
-        $this->def(org_tubepress_ioc_IocService::PAGINATION,
+        $this->def(org_tubepress_ioc_IocService::PAGINATION_SERVICE,
             $this->impl('org_tubepress_pagination_DiggStylePaginationService', 
                 array(
-                    'messageService'     => $this->ref(org_tubepress_ioc_IocService::MESSAGE),
-                    'queryStringService' => $this->ref(org_tubepress_ioc_IocService::QUERY_STR),
-                    'optionsManager'     => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR)
+                    'messageService'     => $this->ref(org_tubepress_ioc_IocService::MESSAGE_SERVICE),
+                    'queryStringService' => $this->ref(org_tubepress_ioc_IocService::QUERY_STRING_SERVICE),
+                    'optionsManager'     => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER)
                 )
             )
         );
-        $this->def(org_tubepress_ioc_IocService::W_PRINTER,
+        $this->def(org_tubepress_ioc_IocService::OPTIONS_FORM_WIDGET_PRINTER,
             $this->impl('org_tubepress_options_form_WidgetPrinter',
                 array(
-                    'messageService'   => $this->ref(org_tubepress_ioc_IocService::MESSAGE),
-                    'optionsReference' => $this->ref(org_tubepress_ioc_IocService::REFERENCE),
-                    'storageManager'   => $this->ref(org_tubepress_ioc_IocService::STORAGE),
+                    'messageService'   => $this->ref(org_tubepress_ioc_IocService::MESSAGE_SERVICE),
+                    'optionsReference' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_REFERENCE),
+                    'storageManager'   => $this->ref(org_tubepress_ioc_IocService::STORAGE_MANAGER),
                 )
             )
         );
 
         /* 4 setters, gyea */
-        $this->def(org_tubepress_ioc_IocService::FORM_HNDLER,
+        $this->def(org_tubepress_ioc_IocService::OPTIONS_FORM_HANDLER,
             $this->impl('org_tubepress_options_form_FormHandler',
                 array(
-                    'messageService'   => $this->ref(org_tubepress_ioc_IocService::MESSAGE),
-                    'optionsReference' => $this->ref(org_tubepress_ioc_IocService::REFERENCE),
-                    'storageManager'   => $this->ref(org_tubepress_ioc_IocService::STORAGE),
-                    'categoryPrinter'  => $this->ref(org_tubepress_ioc_IocService::CAT_PRINTER)
+                    'messageService'   => $this->ref(org_tubepress_ioc_IocService::MESSAGE_SERVICE),
+                    'optionsReference' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_REFERENCE),
+                    'storageManager'   => $this->ref(org_tubepress_ioc_IocService::STORAGE_MANAGER),
+                    'categoryPrinter'  => $this->ref(org_tubepress_ioc_IocService::OPTIONS_FORM_CATEGORY_PRINTER)
                 )
             )
         );
-        $this->def(org_tubepress_ioc_IocService::CAT_PRINTER,
+        $this->def(org_tubepress_ioc_IocService::OPTIONS_FORM_CATEGORY_PRINTER,
             $this->impl('org_tubepress_options_form_CategoryPrinter',
                 array(
-                    'messageService'   => $this->ref(org_tubepress_ioc_IocService::MESSAGE),
-                    'optionsReference' => $this->ref(org_tubepress_ioc_IocService::REFERENCE),
-                    'storageManager'   => $this->ref(org_tubepress_ioc_IocService::STORAGE),
-                    'widgetPrinter'    => $this->ref(org_tubepress_ioc_IocService::W_PRINTER)
+                    'messageService'   => $this->ref(org_tubepress_ioc_IocService::MESSAGE_SERVICE),
+                    'optionsReference' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_REFERENCE),
+                    'storageManager'   => $this->ref(org_tubepress_ioc_IocService::STORAGE_MANAGER),
+                    'widgetPrinter'    => $this->ref(org_tubepress_ioc_IocService::OPTIONS_FORM_WIDGET_PRINTER)
+                )
+            )
+        );
+        
+        $this->def(org_tubepress_ioc_IocService::VIDEO_PROVIDER,
+            $this->impl('org_tubepress_video_feed_provider_ProviderImpl',
+                array(
+                    'feedInspectionService' => $this->ref(org_tubepress_ioc_IocService::FEED_INSPECTION_SERVICE),
+                    'feedRetrievalService' => $this->ref(org_tubepress_ioc_IocService::FEED_RETRIEVAL_SERVICE),
+                    'log'                   => $this->ref(org_tubepress_ioc_IocService::LOG),
+                    'optionsManager'        => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER),
+                    'queryStringService'    => $this->ref(org_tubepress_ioc_IocService::QUERY_STRING_SERVICE),
+                    'urlBuilder'            => $this->ref(org_tubepress_ioc_IocService::URL_BUILDER),
+                    'videoFactory'          => $this->ref(org_tubepress_ioc_IocService::VIDEO_FACTORY)
                 )
             )
         );
         
         $commonGalleryIngredients = array(
-            'feedInspectionService' => $this->ref(org_tubepress_ioc_IocService::FEED_INSP),
-            'feedRetrievalService'  => $this->ref(org_tubepress_ioc_IocService::FEED_RET),
-            'messageService'        => $this->ref(org_tubepress_ioc_IocService::MESSAGE),
-            'optionsManager'        => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MGR),
-            'paginationService'     => $this->ref(org_tubepress_ioc_IocService::PAGINATION),
-            'queryStringService'    => $this->ref(org_tubepress_ioc_IocService::QUERY_STR),
-            'urlBuilderService'     => $this->ref(org_tubepress_ioc_IocService::URL_BUILDER),
-            'videoFactory'          => $this->ref(org_tubepress_ioc_IocService::VID_FACT),
-            'log'                   => $this->ref(org_tubepress_ioc_IocService::LOG)
+            'messageService'        => $this->ref(org_tubepress_ioc_IocService::MESSAGE_SERVICE),
+            'optionsManager'        => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER),
+            'paginationService'     => $this->ref(org_tubepress_ioc_IocService::PAGINATION_SERVICE),
+            'queryStringService'    => $this->ref(org_tubepress_ioc_IocService::QUERY_STRING_SERVICE),
+            'videoProvider'         => $this->ref(org_tubepress_ioc_IocService::VIDEO_PROVIDER),
+            'log'                   => $this->ref(org_tubepress_ioc_IocService::LOG),
         );
         
         /* the big guy */
-        $commonGalleryIngredients[org_tubepress_gallery_TubePressGallery::TEMPLATE] =
-            $this->ref(org_tubepress_ioc_IocService::G_TEMPLATE);
+        $commonGalleryIngredients[org_tubepress_options_category_Template::TEMPLATE] =
+            $this->ref(org_tubepress_ioc_IocService::GALLERY_TEMPLATE);
         $commonGalleryIngredients['thumbnailService'] = $this->ref(org_tubepress_ioc_IocService::THUMB);
         $this->def(org_tubepress_ioc_IocService::GALLERY,
             $this->impl('org_tubepress_gallery_TubePressGalleryImpl', 
@@ -263,10 +299,10 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
         );
         
         /* the other big guy */
-        $commonGalleryIngredients[org_tubepress_gallery_TubePressGallery::TEMPLATE] =
+        $commonGalleryIngredients[org_tubepress_options_category_Template::TEMPLATE] =
             $this->ref(org_tubepress_ioc_IocService::W_TEMPLATE);
-        $commonGalleryIngredients['thumbnailService'] = $this->ref(org_tubepress_ioc_IocService::W_THUMB_SERVICE);
-        $this->def(org_tubepress_ioc_IocService::WIDGET_GALL,
+        $commonGalleryIngredients['thumbnailService'] = $this->ref(org_tubepress_ioc_IocService::WIDGET_THUMBNAIL_SERVICE);
+        $this->def(org_tubepress_ioc_IocService::WIDGET_GALLERY,
             $this->impl('org_tubepress_gallery_TubePressGalleryImpl', 
                 $commonGalleryIngredients
             )

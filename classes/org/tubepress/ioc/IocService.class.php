@@ -24,31 +24,35 @@
  */
 interface org_tubepress_ioc_IocService
 {
-    const CACHE       = 'cacheService';
-    const CAT_PRINTER = 'categoryPrinter';
-    const FEED_INSP   = 'feedInspectionService';
-    const FEED_RET    = 'feedRetrievalService';
-    const FORM_HNDLER = 'formHandler';
-    const GALLERY     = 'gallery';
-    const G_TEMPLATE  = 'galleryTemplate';
-    const LOG         = 'log';
-    const MESSAGE     = 'messageService';
-    const OPTIONS_MGR = 'optionsManager';
-    const PAGINATION  = 'paginationService';
-    const QUERY_STR   = 'queryStringService';
-    const REFERENCE   = 'optionsReference';
-    const SHORTCODE   = 'shortcodeService';
-    const STORAGE     = 'storageManager';
-    const THUMB       = 'thumbnailService';
-    const THUMB_TEMPLATE = 'thumbTemplate';
-    const URL_BUILDER = 'ulrBuilderService';
-    const VALIDATION  = 'validationService';
-    const VID_FACT    = 'videoFactory';
-    const WIDGET_GALL = 'widgetGallery';
-    const W_PRINTER   = 'widgetPrinter';
-    const W_TEMPLATE  = 'widgetTemplate';
-    const W_THUMB_TEMPLATE = 'widgetThumbTemplate';
-    const W_THUMB_SERVICE = 'widgetThumbService';
+    const CACHE_SERVICE                 = 'cacheService';
+    const FEED_INSPECTION_SERVICE       = 'feedInspectionService';
+    const FEED_RETRIEVAL_SERVICE        = 'feedRetrievalService';
+    const GALLERY                       = 'gallery';
+    const GALLERY_TEMPLATE              = 'galleryTemplate';
+    const LOG                           = 'log';
+    const LONGTAIL_EMBEDDED_TEMPLATE    = 'longtailEmbeddedTemplate';
+    const MESSAGE_SERVICE               = 'messageService';
+    const OPTIONS_MANAGER               = 'optionsManager';
+    const OPTIONS_FORM_CATEGORY_PRINTER = 'categoryPrinter';
+    const OPTIONS_FORM_HANDLER          = 'formHandler';
+    const OPTIONS_FORM_WIDGET_PRINTER   = 'widgetPrinter';
+    const OPTIONS_REFERENCE             = 'optionsReference';
+    const PAGINATION_SERVICE            = 'paginationService';
+    const QUERY_STRING_SERVICE          = 'queryStringService';
+    const SHORTCODE_SERVICE             = 'shortcodeService';
+    const STORAGE_MANAGER               = 'storageManager';
+    const THUMB                         = 'thumbnailService';
+    const THUMB_TEMPLATE                = 'thumbTemplate';
+    const URL_BUILDER                   = 'ulrBuilderService';
+    const VALIDATION_SERVICE            = 'validationService';
+    const VIDEO_FACTORY                 = 'videoFactory';
+    const VIDEO_PROVIDER                = 'videoProvider';
+    const WIDGET_GALLERY                = 'widgetGallery';
+    const WIDGET_THUMBNAIL_SERVICE      = 'widgetThumbService';
+    const W_TEMPLATE                    = 'widgetTemplate';
+    const W_THUMB_TEMPLATE              = 'widgetThumbTemplate';
+    const YOUTUBE_EMBEDDED_TEMPLATE     = 'youtubeEmbeddedTemplate';
+    
 
     public function get($className);
     

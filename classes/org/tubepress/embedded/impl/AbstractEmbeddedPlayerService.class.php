@@ -22,7 +22,8 @@
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_embedded_EmbeddedPlayerService',
-    'org_tubepress_options_manager_OptionsManager'));
+    'org_tubepress_options_manager_OptionsManager',
+    'org_tubepress_template_Template'));
 
 /**
  * Represents an HTML-embeddable YouTube player
@@ -31,6 +32,7 @@ tubepress_load_classes(array('org_tubepress_embedded_EmbeddedPlayerService',
 abstract class org_tubepress_embedded_impl_AbstractEmbeddedPlayerService implements org_tubepress_embedded_EmbeddedPlayerService
 {   
     private $_optionsManager;
+    protected $_template;
     
     protected function _safeColorValue($candidate, $default)
     {
@@ -44,6 +46,11 @@ abstract class org_tubepress_embedded_impl_AbstractEmbeddedPlayerService impleme
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $optionsManager)
     {
         $this->_optionsManager = $optionsManager;
+    }
+    
+    public function setTemplate(org_tubepress_template_Template $template)
+    {
+        $this->_template = $template;
     }
     
     protected function getOptionsManager()

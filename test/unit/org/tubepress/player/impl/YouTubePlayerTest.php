@@ -2,6 +2,8 @@
 
 require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/player/impl/YouTubePlayer.class.php';
 
+$_SERVER = array('HTTP_USER_AGENT' => 'Mozilla');
+
 class org_tubepress_player_impl_YouTubePlayerTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;

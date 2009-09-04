@@ -13,7 +13,7 @@ class org_tubepress_options_category_GalleryTest extends PHPUnit_Framework_TestC
 	public function setup()
 	{
 		$this->_expectedNames = array(
-			"mode", "favoritesValue", "most_viewedValue", "playlistValue", 
+			"mode", 'template', "favoritesValue", "most_viewedValue", "playlistValue", 
 			"tagValue", "top_ratedValue", "userValue"
     	);
     	$class = new ReflectionClass("org_tubepress_options_category_Gallery");    

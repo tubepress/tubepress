@@ -153,11 +153,11 @@ function mostRecentCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_RECENT,
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::MOST_RECENT,
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
-        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_RECENT,
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::MOST_RECENT,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
@@ -169,11 +169,11 @@ function mostRespondedModeCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_RESPONDED,
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::MOST_RESPONDED,
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
-        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_RESPONDED,
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::MOST_RESPONDED,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
@@ -185,12 +185,12 @@ function playlistModeCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::PLAYLIST,
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::PLAYLIST,
 		org_tubepress_options_category_Gallery::PLAYLIST_VALUE => "fakeplaylist",
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
-        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::PLAYLIST,
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::PLAYLIST,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
@@ -202,12 +202,12 @@ function popularModeCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::POPULAR,
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::POPULAR,
 		org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE => "today",
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
-        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::POPULAR,
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::POPULAR,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
@@ -219,12 +219,12 @@ function topRatedModeCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::TOP_RATED,
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::TOP_RATED,
 		org_tubepress_options_category_Gallery::TOP_RATED_VALUE => "today",
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
-        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::TOP_RATED,
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::TOP_RATED,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
@@ -236,12 +236,12 @@ function userModeCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::USER,
 		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
-        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::USER,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
@@ -253,12 +253,12 @@ function mostLinkedCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::USER,
 		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
-        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_LINKED,
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::MOST_LINKED,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
@@ -270,12 +270,12 @@ function mostDiscussedCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::USER,
 		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
-        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_DISCUSSESD,
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::MOST_DISCUSSESD,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
@@ -287,12 +287,12 @@ function mobileCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::USER,
 		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
-        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOBILE,
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::MOBILE,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
@@ -304,12 +304,12 @@ function favoritesCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::USER,
 		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
-        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::FAVORITES,
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::FAVORITES,
         org_tubepress_options_category_Gallery::FAVORITES_VALUE => "3hough",
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
@@ -322,12 +322,12 @@ function tagCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::USER,
 		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
-        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::TAG,
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::TAG,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Gallery::TAG_VALUE => "foo bar",
@@ -340,12 +340,12 @@ function featuredCallback()
 {
 	$args = func_get_args();
    	$vals = array(
-		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER,
+		org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::USER,
 		org_tubepress_options_category_Gallery::USER_VALUE => "3hough",
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
-        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::FEATURED,
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::FEATURED,
         org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Gallery::TAG_VALUE => "foo bar",

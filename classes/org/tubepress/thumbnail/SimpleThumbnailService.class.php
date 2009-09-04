@@ -30,7 +30,6 @@ tubepress_load_classes(array('org_tubepress_thumbnail_ThumbnailService',
     'org_tubepress_options_category_Embedded',
     'org_tubepress_options_category_Meta',
     'org_tubepress_message_MessageService',
-    'org_tubepress_util_StringUtils',
     'org_tubepress_template_Template'));
 
 /**
@@ -49,7 +48,17 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
     {
         $this->_getCommonStuff($vid, $galleryId);
         $this->_getMetaStuff($vid);
-        return org_tubepress_util_StringUtils::removeEmptyLines($this->_tpl->getHtml());
+        return $this->_tpl->getHtml();
+    }
+    
+    public function setTemplate(org_tubepress_template_Template $template)
+    {
+        $this->_tpl = $template;
+    }
+    
+    public function setMessageService(org_tubepress_message_MessageService $messageService)
+    { 
+        $this->_msg = $messageService; 
     }
     
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom)
@@ -191,18 +200,7 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
         }
     }
     
-    public function setTemplate(org_tubepress_template_Template $template)
-    {
-        $this->_tpl = $template;
-    }
-    
-    public function setMessageService(org_tubepress_message_MessageService $messageService)
-    { 
-        $this->_msg = $messageService; 
-    }
-    
     //Grabbed from http://www.weberdev.com/get_example-4769.html
-    
     private function _relativeTime($timestamp){
         $difference = time() - $timestamp;
         $periods = array("sec", "min", "hour", "day", "week", "month", "year", "decade");

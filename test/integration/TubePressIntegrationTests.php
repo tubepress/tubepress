@@ -4,7 +4,7 @@ require_once '/Applications/MAMP/bin/php5/lib/php/PHPUnit/Framework.php';
 include dirname(__FILE__) . "/../../classes/tubepress_classloader.php";
 
 $testNames = array(
-	"org_tubepress_gallery_Gallery"
+	"org_tubepress_gallery_TubePressGallery"
 );
 
 foreach ($testNames as $test) {

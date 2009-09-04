@@ -21,8 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
-tubepress_load_classes(array('net_php_pear_HTML_Template_IT',
-    'org_tubepress_embedded_impl_AbstractEmbeddedPlayerService',
+tubepress_load_classes(array('org_tubepress_embedded_impl_AbstractEmbeddedPlayerService',
     'net_php_pear_Net_URL2'));
 
 /**
@@ -39,22 +38,19 @@ class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService extends org_tubepre
     public function toString($videoId)
     {
         global $tubepress_base_url;
-        $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/embedded/longtail/html_templates");
-        if (!$tpl->loadTemplatefile("object.tpl.html", true, true)) {
-            throw new Exception("Couldn't load embedded template");
-        }    
+   
         $tpom = $this->getOptionsManager();
         
         $link = new net_php_pear_Net_URL2(sprintf("http://www.youtube.com/watch?v=%s", $videoId));
         
         $link = $link->getURL(true);
         
-        $tpl->setVariable("TUBEPRESS_BASE", $tubepress_base_url);
-        $tpl->setVariable("YOUTUBE_LINK", $link);
-        $tpl->setVariable('AUTOSTART', $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY) ? 'true' : 'false');
-        $tpl->setVariable('WIDTH', $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
-        $tpl->setVariable('HEIGHT', $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT));
+        $this->_template->setVariable("TUBEPRESS_BASE", $tubepress_base_url);
+        $this->_template->setVariable("YOUTUBE_LINK", $link);
+        $this->_template->setVariable('AUTOSTART', $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY) ? 'true' : 'false');
+        $this->_template->setVariable('WIDTH', $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
+        $this->_template->setVariable('HEIGHT', $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT));
         
-        return $tpl->get();
+        return $this->_template->getHtml();
     }  
 }

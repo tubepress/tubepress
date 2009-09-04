@@ -58,11 +58,16 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
         $customOptions = array();  
           
         /* Match everything in square brackets after the trigger */
-        $regexp = "\[$keyword(.*)\]";
+        $regexp = "\[$keyword\b(.*)\]";
         
         $this->_log->log($this->_logPrefix, "Regular expression for content is $regexp");
         
         preg_match("/$regexp/", $content, $matches);
+        
+        if (sizeof($matches) === 0) {
+            $this->_log->log($this->_logPrefix, 'No shortcodes detected in content');
+            return;
+        }
 
         $this->_log->log($this->_logPrefix, sprintf("Found a shortcode: %s", $matches[0]));
         
@@ -70,29 +75,45 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
 
         /* Anything matched? */
         if (isset($matches[1]) && $matches[1] != "") {
-        
-            $this->_log->log($this->_logPrefix, sprintf("Custom options detected in shortcode: %s", $matches[0]));
-                        
-            /* Break up the options by comma */
-            $pairs = explode(",", $matches[1]);
             
-            $optionsArray = array();
-            foreach ($pairs as $pair) {
-                $pieces                    = explode("=", $pair);
-                $pieces[0]                 = org_tubepress_shortcode_SimpleShortcodeService::_cleanupTagValue($pieces[0]);
-                $pieces[1]                 = org_tubepress_shortcode_SimpleShortcodeService::_cleanupTagValue($pieces[1]);
+            $text = preg_replace("/[\x{00a0}\x{200b}]+/u", " ", $matches[1]);
+            $text = $this->_convertQuotes($text);
+            $pattern = '/(\w+)\s*=\s*"([^"]*)"(?:\s*,)?(?:\s|$)|(\w+)\s*=\s*\'([^\']*)\'(?:\s*,)?(?:\s|$)|(\w+)\s*=\s*([^\s\'"]+)(?:\s*,)?(?:\s|$)/';    
+        
+            if ( preg_match_all($pattern, $text, $match, PREG_SET_ORDER) ) {
                 
-                $this->_log->log($this->_logPrefix, sprintf("Shortcode-defined option: \"%s\" = \"%s\"", $pieces[0], $pieces[1]));
+                $this->_log->log($this->_logPrefix, sprintf("Custom options detected in shortcode: %s", $matches[0]));    
+            
+                $customOptions = $this->_parseCustomOption($customOptions, $match);
                 
-                $customOptions[$pieces[0]] = $pieces[1];
+                $this->_applyOptions($tpom, $customOptions, $mergeWithExistingOptions);
             }
         } else {
             $this->_log->log($this->_logPrefix, sprintf("No custom options detected in shortcode: %s", $matches[0]));
         }
-
-        $this->_applyOptions($tpom, $customOptions, $mergeWithExistingOptions);
     }
 
+    private function _parseCustomOption($customOptions, $match)
+    {
+        foreach ($match as $m) {
+
+            if (!empty($m[1])) {
+                $name = $m[1];
+                $value = $this->_normalizeValue($m[2]);
+            } elseif (!empty($m[3])) {
+                $name = $m[3];
+                $value = $this->_normalizeValue($m[4]);
+            } elseif (!empty($m[5])) {
+                $name = $m[5];
+                $value = $this->_normalizeValue($m[6]);
+            }
+            
+            $this->_log->log($this->_logPrefix, sprintf("Custom shortcode detected: %s = %s", $name, (string)$value));
+            $customOptions[$name] = $value;
+        }
+        return $customOptions;
+    }
+    
     public function somethingToParse($content, $trigger = "tubepress")
     {
         return strpos($content, '[' . $trigger) !== false;
@@ -113,28 +134,31 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
     }
 
     /**
-     * Tries to strip out any quotes from a tag option name or option value. This
-     * is ugly, ugly, ugly, and it still doesn't work as well as I'd like it to
+     * Replaces weird quotes with normal ones. Fun.
+     */
+    private function _convertQuotes($text)
+    {
+        $converted = str_replace(array("&#8216", "&#8217", "&#8242;"), "'", $text);
+        return str_replace(array("&#34", "&#8220;", "&#8221;", "&#8243;"), "\"", $converted);
+    }
+    
+    /**
+     * Strips out ugly slashes and converts boolean
      *
-     * @param string &$nameOrValue The raw option name or value
+     * @param string $nameOrValue The raw option name or value
      * 
      * @return string The cleaned up option name or value
      */
-    private static function _cleanupTagValue(&$nameOrValue)
+    private function _normalizeValue($value)
     {
-        $nameOrValue = 
-            trim(str_replace(array("&#8220;", 
-                "&#8221;", "&#8217;", "&#8216;",
-                "&#8242;", "&#8243;", "&#34", "'", "\""),"", 
-                trim($nameOrValue)));
-        
-        if ($nameOrValue == "true") {
+        $cleanValue = trim(stripcslashes($value));   
+        if ($cleanValue == "true") {
             return true;
         }
-        if ($nameOrValue == "false") {
+        if ($cleanValue == "false") {
             return false;
         }
-        return $nameOrValue;
+        return $cleanValue;
     }
     
 }

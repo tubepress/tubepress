@@ -7,12 +7,13 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerServiceTest extends org_t
     
 	function setUp()
 	{
-	    parent::parentSetUp(new org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService(), 12);
+	    $template = dirname(__FILE__) . '/../../../../../ui/embedded/youtube/html_templates/object.tpl.html';
+	    parent::parentSetUp(new org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService(), 12, $template);
 	}
 	
 	function testToString()
 	{
-		$link = "http://www.youtube.com/v/FAKEID&amp;color2=0x777777&amp;color1=0x111111&amp;rel=1&amp;autoplay=0&amp;loop=1&amp;egm=0&amp;border=1&amp;fs=1&amp;showinfo=0";
+		$link = "http://www.youtube.com/v/FAKEID&amp;color2=0x777777&amp;color1=0x111111&amp;rel=1&amp;autoplay=0&amp;loop=1&amp;egm=0&amp;border=1&amp;fs=1&amp;showinfo=0&amp;ap=%2526&amp;fmt=6";
 		
 		$this->assertEquals(<<<EOT
 <object type="application/x-shockwave-flash" data="$link" style="width: 450px; height: 350px">

@@ -32,13 +32,13 @@ function __tp_executeOptionsPage()
 {
     /* grab the storage manager */
     $iocContainer = new org_tubepress_ioc_DefaultIocService();
-    $wpsm = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE);
+    $wpsm = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE_MANAGER);
     
     /* initialize our options in case we need to */
     $wpsm->init();
     
     /* get the form handler */
-    $optionsForm = $iocContainer->get(org_tubepress_ioc_IocService::FORM_HNDLER);
+    $optionsForm = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_FORM_HANDLER);
         
     /* are we updating? */
     if (isset($_POST['tubepress_save'])) {

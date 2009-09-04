@@ -21,13 +21,13 @@
 
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
-tubepress_load_classes(array('net_php_pear_HTML_Template_IT',
+tubepress_load_classes(array(
     'org_tubepress_embedded_impl_AbstractEmbeddedPlayerService',
     'net_php_pear_Net_URL2',
     'org_tubepress_options_category_Embedded'));
 
 /**
- * Represents an HTML-embeddable YouTube player
+ * An HTML-embeddable YouTube player
  *
  */
 class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService extends org_tubepress_embedded_impl_AbstractEmbeddedPlayerService
@@ -35,15 +35,12 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService extends org_tubep
     /**
      * Spits back the text for this embedded player
      *
+     * @param $videoId The video ID to display
+     *
      * @return string The text for this embedded player
      */
     public function toString($videoId)
-    {
-        $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/embedded/youtube/html_templates");
-        if (!$tpl->loadTemplatefile("object.tpl.html", true, true)) {
-            throw new Exception("Couldn't load embedded template");
-        }    
-        
+    {   
         $link = new net_php_pear_Net_URL2(sprintf("http://www.youtube.com/v/%s", $videoId));
         
         $tpom = $this->getOptionsManager();
@@ -91,12 +88,12 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService extends org_tubep
         
         $link = $link->getURL(true);
 
-        $tpl->setVariable('URL', $link);
-        $tpl->setVariable('WIDTH', $width);
-        $tpl->setVariable('HEIGHT', $height);
-        $tpl->setVariable('FULLSCREEN', $fullscreen ? "true" : "false");
+        $this->_template->setVariable('URL', $link);
+        $this->_template->setVariable('WIDTH', $width);
+        $this->_template->setVariable('HEIGHT', $height);
+        $this->_template->setVariable('FULLSCREEN', $fullscreen ? "true" : "false");
         
-        $embedSrc = $tpl->get();
+        $embedSrc = $this->_template->getHtml();
      
         return str_replace("?", "&amp;", $embedSrc);
     }

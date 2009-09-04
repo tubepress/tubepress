@@ -8,6 +8,7 @@ class org_tubepress_cache_SimpleCacheServiceTest extends PHPUnit_Framework_TestC
 	function setUp()
 	{
 		$this->_sut = new org_tubepress_cache_SimpleCacheService();
+		$this->_sut->setLog($this->getMock('org_tubepress_log_Log'));
 	}
 
 	function testSetGet()
@@ -16,6 +17,7 @@ class org_tubepress_cache_SimpleCacheServiceTest extends PHPUnit_Framework_TestC
 		$data = $this->_randomString();
 		$this->_sut->save($key, $data);
 		$this->assertTrue($this->_sut->has($key));
+		$this->assertFalse($this->_sut->has('fakekey'));
 		$this->assertEquals($data, $this->_sut->get($key));
 	}
 

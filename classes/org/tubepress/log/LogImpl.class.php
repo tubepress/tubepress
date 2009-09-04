@@ -30,12 +30,14 @@ class org_tubepress_log_LogImpl implements org_tubepress_log_Log
 {
     private $_birthDate;
     private $_enabled;
+    private $_buffer;
     
     public function __construct()
     {
         /* record when this guy was born so we have a reference */
         $this->_birthDate = microtime(true);
         $this->_enabled = false;
+        $this->_buffer = array();
     }
     
     public function log($prefix, $message)
@@ -50,10 +52,10 @@ class org_tubepress_log_LogImpl implements org_tubepress_log_Log
         }
     }
 
-    public function setEnabled($enabled)
+    public function setEnabled($enabled, $getVars)
     {
         $this->_enabled = $enabled
-            && isset($_GET['tubepress_debug'])
-            && ($_GET['tubepress_debug'] == 'true');
+            && isset($getVars['tubepress_debug'])
+            && $getVars['tubepress_debug'] == 'true';
     }
 }

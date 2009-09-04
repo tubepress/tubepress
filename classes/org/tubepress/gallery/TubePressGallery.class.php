@@ -34,7 +34,6 @@ interface org_tubepress_gallery_TubePressGallery
     const PLAYLIST        = "playlist";
     const POPULAR         = "most_viewed";
     const TAG             = "tag";
-    const TEMPLATE        = "template";
     const TOP_RATED       = "top_rated";
     const USER            = "user";
     

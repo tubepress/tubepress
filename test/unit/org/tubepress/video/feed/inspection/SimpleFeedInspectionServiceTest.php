@@ -1,14 +1,14 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/gdata/inspection/SimpleFeedInspectionService.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/video/feed/inspection/SimpleFeedInspectionService.class.php';
 
-class org_tubepress_gdata_inspection_SimpleFeedInspectionServiceTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_video_feed_inspection_SimpleFeedInspectionServiceTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;
 	
 	function setUp()
 	{
-		$this->_sut = new org_tubepress_gdata_inspection_SimpleFeedInspectionService();
+		$this->_sut = new org_tubepress_video_feed_inspection_SimpleFeedInspectionService();
 	}
 	
 	function testGetTotalResultCount()

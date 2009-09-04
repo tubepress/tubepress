@@ -7,13 +7,13 @@ class org_tubepress_thumbnail_SimpleThumbnailServiceTest extends PHPUnit_Framewo
 	private $_sut;
 	private $_tpom;
 	private $_messageService;
-	private $_player;
+	private $_template;
 	
 	function setUp()
 	{
 		$this->_tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$this->_messageService = $this->getMock("org_tubepress_message_MessageService");
-		$this->_player = $this->getMock("org_tubepress_player_Player");
+		$this->_template = $this->getMock('org_tubepress_template_Template');
 		$this->_sut = new org_tubepress_thumbnail_SimpleThumbnailService();
 	}
 	
@@ -23,9 +23,15 @@ class org_tubepress_thumbnail_SimpleThumbnailServiceTest extends PHPUnit_Framewo
 		$this->_tpom->expects($this->any())
 					->method("get")
 					->will($this->returnCallback("stptsCallback"));			  
-					  
+
+		$this->_template->expects($this->once())
+		                ->method('getHtml')
+		                ->will($this->returnValue('stuff'));			
+					
 		$this->_sut->setMessageService($this->_messageService);
 		$this->_sut->setOptionsManager($this->_tpom);
+		$this->_sut->setTemplate($this->_template);
+		
 		$vid = new org_tubepress_video_Video();
 		$vid->setId("fakeid");
 		$vid->setTitle("Fake title");
@@ -36,31 +42,8 @@ class org_tubepress_thumbnail_SimpleThumbnailServiceTest extends PHPUnit_Framewo
 		$vid->setYouTubeUrl("youtube url");
 		$vid->setRating("4.5");
 		$vid->setRatings("1000");
-	
 		
-		$this->assertEquals(<<<EOT
-<div class="tubepress_thumb">
-	<div class="tubepress_thumb_inner" style="width: 40px">
-		<a id="tubepress_image_fakeid_fakegalleryid" rel="tubepress_youtube_normal_fakegalleryid"> <img alt="Fake title" src="http://img.youtube.com/vi/fakeid/default.jpg" width="40" height="100" /></a>
-		<div class="tubepress_meta_group">
-			<div class="tubepress_meta_title"><a id="tubepress_title_fakeid_fakegalleryid" rel="tubepress_youtube_normal_fakegalleryid">Fake title</a><br /></div>
-			<span class="tubepress_meta_runtime"> 1:50 </span><br />
-			<span class="tubepress_meta">: </span>
-			<a  href="http://www.youtube.com/profile?user=3hough">3hough</a><br />
-			<span class="tubepress_meta">: </span>
-			<a  href="http://youtube.com/results?search_query=foo%20bar&amp;search=Search">foo bar</a><br />
-			<a  href="youtube url"></a><br />
-			<span class="tubepress_meta">: </span>fakeid<br />
-			<span class="tubepress_meta">: </span>4.5<br />
-			<span class="tubepress_meta">: </span>1000<br />
-			<span class="tubepress_meta">: </span>12, 31<br />
-			Fake description. 
-		</div>
-	</div>
-</div>
-
-EOT
-		, $this->_sut->getHtml(dirname(__FILE__) . "/../../../../../ui/gallery/html_templates", $vid, "fakegalleryid"));
+        $this->assertEquals('stuff', $this->_sut->getHtml($vid, 500));		
 	}
 }
 

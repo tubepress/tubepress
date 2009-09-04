@@ -21,7 +21,8 @@
 
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
-tubepress_load_classes(array('net_php_pear_HTML_Template_IT'));
+tubepress_load_classes(array('net_php_pear_HTML_Template_IT',
+    'org_tubepress_util_StringUtils'));
 
 /**
  * TubePress template implementation. Just wraps net_php_pear_HTML_Template_IT()
@@ -33,13 +34,17 @@ class org_tubepress_template_TemplateImpl implements org_tubepress_template_Temp
     
     public function getHtml()
     {
+        $this->_preFlightChecks();
         $html = $this->_tpl->get();
+        
+        /* do some housecleaning for the next guy */
         $this->_initTemplate();
-        return $html;
+        return org_tubepress_util_StringUtils::removeEmptyLines($html);
     }
     
     public function parse($block)
     {
+        $this->_preFlightChecks();
         $this->_tpl->parse($block);
     }
     
@@ -51,6 +56,7 @@ class org_tubepress_template_TemplateImpl implements org_tubepress_template_Temp
     
     public function setVariable($name, $value)
     {
+        $this->_preFlightChecks();
         $this->_tpl->setVariable($name, $value);
     }
     
@@ -59,6 +65,13 @@ class org_tubepress_template_TemplateImpl implements org_tubepress_template_Temp
         $this->_tpl = new net_php_pear_HTML_Template_IT(dirname($this->_file));
         if (!$this->_tpl->loadTemplatefile(basename($this->_file), true, true)) {
             throw new Exception("Couldn't load template at " . $this->_file);
+        }
+    }
+    
+    private function _preFlightChecks()
+    {
+        if (!isset($this->_file)) {
+            throw new Exception('No template file has been set');
         }
     }
 }

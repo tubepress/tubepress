@@ -54,11 +54,11 @@ function tubepress_widget($opts)
 	extract($opts);
 	
 	$iocContainer = new org_tubepress_ioc_DefaultIocService();
-	$tpom         = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MGR);
+	$tpom         = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
 	
 	/* Turn on logging if we need to */
     $log = $iocContainer->get(org_tubepress_ioc_IocService::LOG);
-    $log->setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON));
+    $log->setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON), $_GET);
 	
 	/* default widget options */
 	$tpom->setCustomOptions(
@@ -73,12 +73,12 @@ function tubepress_widget($opts)
 	);
 	
 	/* now apply the user's shortcode */
-	$shortcodeService = $iocContainer->get(org_tubepress_ioc_IocService::SHORTCODE);
-	$wpsm             = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE);
+	$shortcodeService = $iocContainer->get(org_tubepress_ioc_IocService::SHORTCODE_SERVICE);
+	$wpsm             = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE_MANAGER);
 	$shortcodeService->parse($wpsm->get(org_tubepress_options_category_Widget::TAGSTRING), $tpom, true);
 
 	/* grab a widget gallery to build */
-	$gallery = $iocContainer->get(org_tubepress_ioc_IocService::WIDGET_GALL);
+	$gallery = $iocContainer->get(org_tubepress_ioc_IocService::WIDGET_GALLERY);
 		
 	/* get the output */
 	$out = $gallery->getHtml(mt_rand());
@@ -96,8 +96,8 @@ function tubepress_widget($opts)
 function tubepress_widget_control()
 {
     $iocContainer = new org_tubepress_ioc_DefaultIocService();
-    $wpsm         = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE);
-    $msg          = $iocContainer->get(org_tubepress_ioc_IocService::MESSAGE);
+    $wpsm         = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE_MANAGER);
+    $msg          = $iocContainer->get(org_tubepress_ioc_IocService::MESSAGE_SERVICE);
     
     /* are we saving? */
 	if ( $_POST["tubepress-widget-submit"] ) {

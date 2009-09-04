@@ -19,18 +19,8 @@
  *
  */
 
-/**
- * TubePress's network interface
- *
- */
-interface org_tubepress_gdata_retrieval_FeedRetrievalService
-{
-    /**
-     * Fetches the RSS from YouTube
-     * 
-     * @return DOMDocument The raw RSS from YouTube
-     */
-    public function fetch($url, $useCache);
+interface org_tubepress_video_feed_provider_Provider {
     
-    public function setCacheService(org_tubepress_cache_CacheService $cache);
+    public function getFeedResult();
+    
 }

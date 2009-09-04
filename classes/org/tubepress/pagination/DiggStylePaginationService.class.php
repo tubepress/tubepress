@@ -40,15 +40,12 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
     public function getHtml($vidCount)
     {
         $currentPage = $this->_queryStringService->getPageNum($_GET);
-        $vidsPerPage = $this->_tpom->
-            get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
+        $vidsPerPage = $this->_tpom->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
     
         $newurl = new net_php_pear_Net_URL2($this->_queryStringService->getFullUrl($_SERVER));
         $newurl->unsetQueryVariable("tubepress_page");
 
-        return $this->_diggStyle($this->_messageService, $currentPage, $vidCount,
-            $vidsPerPage, 1, $newurl->getURL(), 
-                "tubepress_page");
+        return $this->_diggStyle($this->_messageService, $currentPage, $vidCount, $vidsPerPage, 1, $newurl->getURL(), "tubepress_page");
     }
     
     public function setMessageService(org_tubepress_message_MessageService $messageService) { $this->_messageService = $messageService; }

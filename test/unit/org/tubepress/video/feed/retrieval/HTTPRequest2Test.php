@@ -1,5 +1,5 @@
 <?php
-class org_tubepress_gdata_retrieval_HTTPRequest2Test extends PHPUnit_Framework_TestCase {
+class org_tubepress_video_feed_retrieval_HTTPRequest2Test extends PHPUnit_Framework_TestCase {
     
 	private $_mockCache;
 	private $_sut;
@@ -7,7 +7,7 @@ class org_tubepress_gdata_retrieval_HTTPRequest2Test extends PHPUnit_Framework_T
 	function setUp()
 	{
 		$this->_mockCache = $this->getMock("org_tubepress_cache_CacheService");
-		$this->_sut = new org_tubepress_gdata_retrieval_HTTPRequest2();
+		$this->_sut = new org_tubepress_video_feed_retrieval_HTTPRequest2();
 	}
 	
     /**

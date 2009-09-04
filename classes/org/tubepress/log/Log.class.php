@@ -26,5 +26,6 @@ interface org_tubepress_log_Log
 {
     public function log($prefix, $message);
     
-    public function setEnabled($enabled);
+    public function setEnabled($enabled, $getVars);
+    
 }

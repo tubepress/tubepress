@@ -5,6 +5,7 @@ class org_tubepress_options_form_WidgetPrinterTest extends PHPUnit_Framework_Tes
     private $_msg;
     private $optRef;
     private $sm;
+    private $_tpl;
 	private $_stpom;
 	
 	public function setup()
@@ -23,12 +24,10 @@ class org_tubepress_options_form_WidgetPrinterTest extends PHPUnit_Framework_Tes
 	    $this->sm->expects($this->once())
 	                 ->method('get')
 	                 ->will($this->returnValue('bla'));
-	    $this->assertEquals(<<<EOT
-
-<input type="text" name="test" size="20" value="bla" />
-
-EOT
-	    , $this->_stpom->getHtml('test'));		    
+	    $this->_tpl->expects($this->once())
+	               ->method('getHtml')
+	               ->will($this->returnValue('fake html'));
+	    $this->assertEquals('fake html' , $this->_stpom->getHtml('test'));		    
 	}
 
 	public function testGetHtmlColor()
@@ -102,6 +101,7 @@ EOT
         $this->_stpom->setMessageService($this->_msg);
         $this->_stpom->setOptionsReference($this->optRef);
         $this->_stpom->setStorageManager($this->sm);
+        $this->_stpom->setTemplate($this->_tpl);
     }
     
     private function defineMocks()
@@ -109,6 +109,7 @@ EOT
         $this->_msg = $this->getMock('org_tubepress_message_MessageService');
         $this->optRef = $this->getMock('org_tubepress_options_reference_OptionsReference');
         $this->sm = $this->getMock('org_tubepress_options_storage_StorageManager');
+        $this->_tpl = $this->getMock('org_tubepress_template_Template');
     }
 }
 

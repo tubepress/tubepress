@@ -20,16 +20,18 @@
  */
 
 /**
- * Represents an HTML-embeddable YouTube player
+ * Represents an HTML-embeddable Flash video player
  *
  */
 interface org_tubepress_embedded_EmbeddedPlayerService
 {
-    const YOUTUBE = "youtube";
-    const LONGTAIL = "longtail";
+    const LONGTAIL = 'longtail';
+    const YOUTUBE =  'youtube';
     
     /**
      * Spits back the text for this embedded player
+     *
+     * @param $videoId The video ID to display
      *
      * @return string The text for this embedded player
      */

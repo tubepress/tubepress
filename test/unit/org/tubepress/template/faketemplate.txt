@@ -1,0 +1,8 @@
+<!-- BEGIN title -->
+
+
+stuff-{MYVAR}--stuff
+
+
+<!-- END title -->
+

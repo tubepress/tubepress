@@ -21,13 +21,12 @@
 
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
-tubepress_load_classes(array('net_php_pear_HTML_Template_IT',
-    'org_tubepress_options_category_Gallery',
+tubepress_load_classes(array('org_tubepress_options_category_Gallery',
     'org_tubepress_options_Type',
     'org_tubepress_message_MessageService',
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_options_storage_StorageManager',
-    'org_tubepress_util_StringUtils'));
+    'org_tubepress_template_Template'));
 
 /**
  * Prints widgets for the options form
@@ -42,26 +41,16 @@ class org_tubepress_options_form_WidgetPrinter
 
     public function getHtml($optionName)
     {
-        $this->_tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/options_page/html_templates");
-        if (!$this->_tpl->loadTemplatefile("options_widgets.tpl.html", true, true)) {
-            throw new Exception("Could not load template for $optionName option");
-        }
-
         $this->_processSingleWidget($optionName);
         
-        return org_tubepress_util_StringUtils::removeEmptyLines($this->_tpl->get());
+        return $this->_tpl->getHtml();
     }
     
     public function getHtmlForRadio($optionName)
     {
-        $this->_tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/options_page/html_templates");
-        if (!$this->_tpl->loadTemplatefile("options_widgets.tpl.html", true, true)) {
-            throw new Exception("Could not load template for $optionName option");
-        }
-        
         $this->_displayGalleryInput($optionName, $this->_tpsm->get(org_tubepress_options_category_Gallery::MODE));
         
-        return org_tubepress_util_StringUtils::removeEmptyLines($this->_tpl->get());
+        return $this->_tpl->getHtml();
     }
     
     private function _processSingleWidget($optionName)
@@ -189,5 +178,6 @@ class org_tubepress_options_form_WidgetPrinter
     public function setMessageService(org_tubepress_message_MessageService $messageService) { $this->_messageService = $messageService; }
     public function setOptionsReference(org_tubepress_options_reference_OptionsReference $reference) { $this->_optionsReference = $reference; }
     public function setStorageManager(org_tubepress_options_storage_StorageManager $storageManager) { $this->_tpsm = $storageManager; }
+    public function setTemplate(org_tubepress_template_Template $template) { $this->_tpl = $template; }
  
 }

@@ -66,14 +66,14 @@ function _tubepress_get_gallery_content($content, $trigger)
     $iocContainer = new org_tubepress_ioc_DefaultIocService();
     
     /* Get a handle to our options manager */
-    $tpom = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MGR);
+    $tpom = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
     
     /* Turn on logging if we need to */
     $log = $iocContainer->get(org_tubepress_ioc_IocService::LOG);
-    $log->setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON));
+    $log->setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON),$_GET);
     
     /* Get a handle to the shortcode service */
-    $shortcodeService = $iocContainer->get(org_tubepress_ioc_IocService::SHORTCODE);
+    $shortcodeService = $iocContainer->get(org_tubepress_ioc_IocService::SHORTCODE_SERVICE);
 
  	/* Make a copy of the content that we'll edit */
     $newcontent = $content;
@@ -89,17 +89,16 @@ function _tubepress_get_gallery_content($content, $trigger)
         
 	    $shortcodeService->parse($newcontent, $tpom);
 
-            $currentShortcode = $tpom->getShortcode();
+        $currentShortcode = $tpom->getShortcode();
 	    $galleryHtml = $gallery->getHtml($rand);
 
-            /* remove any leading/trailing <p> tags from the shortcode */
-            $pattern = '/(<[P|p]>\s*)(' . preg_quote($currentShortcode, '/') . ')(\s*<\/[P|p]>)/';
+        /* remove any leading/trailing <p> tags from the shortcode */
+        $pattern = '/(<[P|p]>\s*)(' . preg_quote($currentShortcode, '/') . ')(\s*<\/[P|p]>)/';
 	    $newcontent = preg_replace($pattern, '${2}', $newcontent); 
 
 	    /* replace the shortcode with our new content */
 	    $newcontent = org_tubepress_util_StringUtils::replaceFirst($currentShortcode, 
 	        $galleryHtml, $newcontent);
-	    
     }
     return $newcontent;
 }

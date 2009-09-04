@@ -148,7 +148,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     function testGetGalleryOptionNames()
     {
         $expectedNames = array(
-            "mode", "favoritesValue", "most_viewedValue", "playlistValue",
+            "mode", 'template', "favoritesValue", "most_viewedValue", "playlistValue",
             "tagValue", "top_ratedValue", "userValue"
         );
         $this->assertTrue($expectedNames == $this->_sut->getOptionNamesForCategory(org_tubepress_options_Category::GALLERY));

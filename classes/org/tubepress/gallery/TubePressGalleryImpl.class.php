@@ -22,28 +22,24 @@
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_ioc_ContainerAware',
-    'org_tubepress_options_category_Feed',
     'org_tubepress_options_category_Display',
     'org_tubepress_player_Player',
     'org_tubepress_util_StringUtils',
-    'org_tubepress_gdata_inspection_FeedInspectionService',
-    'org_tubepress_gdata_retrieval_FeedRetrievalService',
     'org_tubepress_message_MessageService',
     'org_tubepress_options_manager_OptionsManager',
     'org_tubepress_pagination_PaginationService',
-    'org_tubepress_querystring_QueryStringService',
     'org_tubepress_thumbnail_ThumbnailService',
-    'org_tubepress_url_UrlBuilder',
-    'org_tubepress_video_factory_VideoFactory',
-    'org_tubepress_template_Template'));
+    'org_tubepress_template_Template',
+    'org_tubepress_gallery_TubePressGallery',
+    'org_tubepress_options_category_Template',
+    'org_tubepress_video_feed_provider_Provider',
+    'org_tubepress_video_feed_FeedResult'));
 
 /**
  * TubePress gallery
  */
 class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_gallery_TubePressGallery, org_tubepress_ioc_ContainerAware
 {
-    private $_feedInspectionService;
-    private $_feedRetrievalService;
     private $_iocContainer;
     private $_template;
     private $_log;
@@ -54,8 +50,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
     private $_queryStringService;
     private $_thumbnailService;
     private $_thumbnailTemplate;    
-    private $_urlBuilder;
-    private $_videoFactory;
+    private $_videoProvider;
     
     public function __construct()
     {
@@ -65,15 +60,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
     public function getHtml($galleryId) 
     {
         try {
-            $customTemplate = $this->_optionsManager->
-                get(org_tubepress_gallery_TubePressGallery::TEMPLATE);
-                
-            if ($customTemplate != "") {
-                $this->_log($this->_logPrefix, sprintf("Using custom template at %s", $customTemplate));
-                $this->_template->setFile($customTemplate);
-            }
-            
-            return $this->generateThumbs($galleryId);
+            return $this->_getHtml($galleryId);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -84,83 +71,43 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
      * 
      * @return The HTML content for this gallery
      */
-    public final function generateThumbs($galleryId = 1)
+    private final function _getHtml($galleryId = 1)
     {
-        $currentPage  = $this->_queryStringService->getPageNum($_GET);
-        $this->_log->log($this->_logPrefix, sprintf("Current page number is %d", $currentPage));
+        /* first grab the videos */
+        $feedResult = $this->_videoProvider->getFeedResult();
         
-        $url          = $this->_urlBuilder->buildGalleryUrl($currentPage);
-        $this->_log->log($this->_logPrefix, sprintf("URL to fetch is %s", $url));
+        /* build the player */
+        $playerName = $this->_optionsManager->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
+        $player     = $this->_iocContainer->safeGet($playerName . "-player", org_tubepress_player_Player::NORMAL . "-player");
+
+        /* apply the custom template if we need to */
+        $this->_applyCustomTemplateIfNeeded();
         
-        $useCache     = $this->_optionsManager->get(
-            org_tubepress_options_category_Feed::CACHE_ENABLED);
-        $xml          = $this->_feedRetrievalService->fetch($url, $useCache);
+        /* generate HTML */
+        $galleryHtml = $this->_loopOverThumbs($feedResult, $player, $galleryId);
         
-        $reportedTotalResultCount = $this->_feedInspectionService->getTotalResultCount($xml);
-        $this->_log->log($this->_logPrefix, sprintf("Reported total result count is %d videos", $reportedTotalResultCount));
-        
-        $queryResult  = $this->_feedInspectionService->getQueryResultCount($xml);
-        $this->_log->log($this->_logPrefix, sprintf("Query result count is %d videos", $queryResult));
-        
-        /* see if we got any */
-        if ($queryResult == 0) {
-            throw new Exception("No videos to populate this TubePress gallery.");
-        }
-        
-        /* limit the result count if requested */
-        $effectiveTotalResultCount = $this->_capTotalResultsIfNeeded($reportedTotalResultCount);
-        $this->_log->log($this->_logPrefix, 
-            sprintf("Effective total result count (taking into account user-defined limit) is %d videos", 
-                $effectiveTotalResultCount));
-        
-        /* Figure out how many videos we're going to show */
-        $perPageLimit =
-            $this->_optionsManager->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
-        $this->_log->log($this->_logPrefix, 
-            sprintf("Results-per-page limit is %d", 
-                $perPageLimit));
-        $effectiveDisplayCount = min($queryResult, $perPageLimit);
-        $this->_log->log($this->_logPrefix, 
-            sprintf("Effective display count (taking into account user-defined limit) is %d videos", 
-                $effectiveDisplayCount));
-        
-        /* convert the XML to objects */
-        $videos = $this->_videoFactory->dom2TubePressVideoArray($xml, $effectiveDisplayCount);
-        
-        /* shuffle if we need to */
-        if ($this->_optionsManager->get(org_tubepress_options_category_Display::ORDER_BY) == "random") {
-            $this->_log->log($this->_logPrefix, "Shuffling videos");
-            shuffle($videos);
-        }
-        
-        $playerName =
-            $this->_optionsManager->
-                get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
-        $player     = $this->_iocContainer->safeGet($playerName . "-player", 
-            org_tubepress_player_Player::NORMAL . "-player");
-        
+        /* apply vars to the template */
         $this->_template->setVariable('GALLERYID', $galleryId);
-        $this->_template->setVariable("THUMBS", $this->_loopOverThumbs($videos, $player, $galleryId));
+        $this->_template->setVariable("THUMBS", $galleryHtml);
             
-        /* Spit out the top/bottom pagination if we have any videos */
-        if ($effectiveDisplayCount > 0) {
-            $this->_parsePaginationHTML($effectiveTotalResultCount);
-        }
-        
-        $output = $this->_template->getHtml();
-        return org_tubepress_util_StringUtils::removeEmptyLines($output);
+        /* we're done. tie up */
+        return $this->_template->getHtml();
     }
     
-    private function _capTotalResultsIfNeeded($totalResults)
+    private function _applyCustomTemplateIfNeeded()
     {
-        $limit = $this->_optionsManager->
-                get(org_tubepress_options_category_Feed::RESULT_COUNT_CAP);
-        return $limit == 0 ? $totalResults : $limit;
+        $customTemplate = $this->_optionsManager->get(org_tubepress_options_category_Template::TEMPLATE);
+            
+        if ($customTemplate != "") {
+            $this->_log->log($this->_logPrefix, sprintf("Using custom template at %s", $customTemplate));
+            $this->_template->setFile($customTemplate);
+        }
     }
     
-    private function _loopOverThumbs($videos, $player, $galleryId)
+    private function _loopOverThumbs(org_tubepress_video_feed_FeedResult $feedResult, $player, $galleryId)
     {
         $thumbsHtml = "";
+        $videos = $feedResult->getVideoArray();
         $numVideos = sizeof($videos);
         $printedCount = 0;
         
@@ -174,16 +121,20 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
                 
             /* Top of the gallery is special */
             if ($printedCount == 0) {
-                $this->_template->setVariable("PRE_GALLERY_PLAYER_HTML", 
-                    $player->getPreGalleryHtml($this->_getPreGalleryVideo($videos, $x), $galleryId));
+                $this->_template->setVariable("PRE_GALLERY_PLAYER_HTML", $player->getPreGalleryHtml($this->_getPreGalleryVideo($videos, $x), $galleryId));
             }
                     
-            /* Here's where each thumbnail gets printed */
-            $thumbsHtml .= $this->_thumbnailService->getHtml(
-                $videos[$x], $galleryId);
+            /* get the HTML for this thumbnail */
+            $thumbsHtml .= $this->_thumbnailService->getHtml($videos[$x], $galleryId);
             
             $printedCount++;
         }
+        
+        /* Spit out the top/bottom pagination if we have any videos */
+        if ($printedCount > 0) {
+            $this->_parsePaginationHTML($feedResult->getEffectiveTotalResultCount());
+        }
+        
         return $thumbsHtml;
     }
     
@@ -191,11 +142,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
     {
         $customVideoId = $this->_queryStringService->getCustomVideo($_GET);
         if ($customVideoId != "") {
-            $videoUrl = $this->_urlBuilder->buildSingleVideoUrl($customVideoId);
-            $results = $this->_feedRetrievalService->fetch($videoUrl,
-                $this->_optionsManager->get(org_tubepress_options_category_Feed::CACHE_ENABLED));
-            $videoArray = $this->_videoFactory->dom2TubePressVideoArray($results, 1);
-            return $videoArray[0];
+            return $this->_videoProvider->getSingleVideo($customVideoId);
         }
         return $videos[$index];
     }
@@ -228,16 +175,6 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
     {                                          
         $this->_template = $template; 
     }
-    
-    public function setFeedInspectionService(org_tubepress_gdata_inspection_FeedInspectionService $feedInspector) 
-    { 
-        $this->_feedInspectionService = $feedInspector; 
-    }
-    
-    public function setFeedRetrievalService(org_tubepress_gdata_retrieval_FeedRetrievalService $feedRetriever) 
-    {   
-        $this->_feedRetrievalService = $feedRetriever; 
-    }
 
     public function setMessageService(org_tubepress_message_MessageService $messageService) 
     {              
@@ -269,13 +206,9 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
         $this->_thumbnailService = $thumbService; 
     }
     
-    public function setUrlBuilderService(org_tubepress_url_UrlBuilder $urlBuilder) 
-    {                   
-        $this->_urlBuilder = $urlBuilder; 
-    }
-    
-    public function setVideoFactory(org_tubepress_video_factory_VideoFactory $factory) 
+    public function setVideoProvider(org_tubepress_video_feed_provider_Provider $provider)
     {
-        $this->_videoFactory = $factory; 
+        $this->_videoProvider = $provider;
     }
+
 }
