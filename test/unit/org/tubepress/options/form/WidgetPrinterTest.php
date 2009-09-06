@@ -38,12 +38,10 @@ class org_tubepress_options_form_WidgetPrinterTest extends PHPUnit_Framework_Tes
 	    $this->sm->expects($this->once())
 	                 ->method('get')
 	                 ->will($this->returnValue('stuff'));
-	    $this->assertEquals(<<<EOT
-
-<input type="text" name="test" size="6" class="color" value="stuff" />
-
-EOT
-	    , $this->_stpom->getHtml('test'));	    
+	    $this->_tpl->expects($this->once())
+	               ->method('getHtml')
+	               ->will($this->returnValue('foobar'));
+	    $this->assertEquals('foobar', $this->_stpom->getHtml('test'));	    
 	}	
 	
 	public function testGetHtmlCheckbox()
@@ -54,12 +52,10 @@ EOT
 	    $this->sm->expects($this->once())
 	                 ->method('get')
 	                 ->will($this->returnValue(true));
-	    $this->assertEquals(<<<EOT
-
-<input type="checkbox" name="test" value="test" CHECKED />
-
-EOT
-	    , $this->_stpom->getHtml('test'));	    
+        $this->_tpl->expects($this->once())
+                   ->method('getHtml')
+                   ->will($this->returnValue('foobar'));
+	    $this->assertEquals('foobar', $this->_stpom->getHtml('test'));	    
 	}
 	
     public function testGetHtmlMenu()
@@ -76,24 +72,18 @@ EOT
 	    $this->sm->expects($this->once())
 	                 ->method('get')
 	                 ->will($this->returnValue('ss'));
-	    $this->assertEquals(<<<EOT
-
-<select name="test">
-	<option value="bla" >Message order-bla</option><option value="rre" >Message order-rre</option><option value="stuff" >Message order-stuff</option>
-</select> 
-
-EOT
-	    , $this->_stpom->getHtml('test'));	    
+        $this->_tpl->expects($this->once())
+                   ->method('getHtml')
+                   ->will($this->returnValue('foobar'));
+	    $this->assertEquals('foobar', $this->_stpom->getHtml('test'));	    
 	}
 	
 	public function testGetHtmlForRadio()
 	{
-	    $this->assertEquals(<<<EOT
-
-<input type="radio" name="mode" id="test" value="test"  />
-
-EOT
-	    , $this->_stpom->getHtmlForRadio('test'));
+        $this->_tpl->expects($this->once())
+                   ->method('getHtml')
+                   ->will($this->returnValue('foobar')); 
+	    $this->assertEquals('foobar', $this->_stpom->getHtmlForRadio('test'));
 	}
 	
     private function applyMocks()
