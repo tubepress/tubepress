@@ -24,7 +24,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+    || require(dirname(__FILE__) . '/../../../../../tubepress_classloader.php');
 tubepress_load_classes(array('net_php_pear_Net_URL2',
     'net_php_pear_HTTP_Request2',
     'net_php_pear_HTTP_Request2_Adapter_Socket'));

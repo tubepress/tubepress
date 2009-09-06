@@ -1,14 +1,14 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/video/feed/inspection/SimpleFeedInspectionService.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/video/feed/inspection/YouTubeFeedInspectionService.class.php';
 
-class org_tubepress_video_feed_inspection_SimpleFeedInspectionServiceTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_video_feed_inspection_YouTubeFeedInspectionServiceTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;
 	
 	function setUp()
 	{
-		$this->_sut = new org_tubepress_video_feed_inspection_SimpleFeedInspectionService();
+		$this->_sut = new org_tubepress_video_feed_inspection_YouTubeFeedInspectionService();
 	}
 	
 	function testGetTotalResultCount()
@@ -39,7 +39,7 @@ class org_tubepress_video_feed_inspection_SimpleFeedInspectionServiceTest extend
 	
 	function testGetQueryResult()
 	{
-		$dom = DOMDocument::load(dirname(__FILE__) . "/../../../../sample_feed.xml");
+		$dom = DOMDocument::load(dirname(__FILE__) . "/../../../../../sample_feed.xml");
 		$this->assertEquals(25, $this->_sut->getQueryResultCount($dom));
 	}
 	

@@ -31,9 +31,8 @@ tubepress_load_classes(array('org_tubepress_video_feed_provider_Provider',
     'org_tubepress_video_factory_VideoFactory'));
 
 /**
- * 
+ * Somewhat generic class that pulls vidoes from a remote provider
  * @author ehough
- *
  */
 class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_video_feed_provider_Provider {
 
@@ -41,6 +40,7 @@ class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_vi
     private $_feedRetrievalService;
     private $_log;
     private $_logPrefix;
+    private $_optionsManager;
     private $_queryStringService;
     private $_urlBuilder;
     private $_videoFactory;

@@ -8,6 +8,7 @@ class org_tubepress_video_feed_retrieval_HTTPRequest2Test extends PHPUnit_Framew
 	{
 		$this->_mockCache = $this->getMock("org_tubepress_cache_CacheService");
 		$this->_sut = new org_tubepress_video_feed_retrieval_HTTPRequest2();
+		$this->_sut->setLog($this->getMock('org_tubepress_log_Log'));
 	}
 	
     /**

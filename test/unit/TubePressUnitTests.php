@@ -4,8 +4,9 @@ require_once 'org/tubepress/cache/CacheTests.php';
 require_once 'org/tubepress/embedded/EmbeddedTests.php';
 require_once 'org/tubepress/gallery/TubePressGalleryTests.php';
 require_once 'org/tubepress/log/LogTests.php';
-//require_once 'org/tubepress/gdata/feed/retrieval/RetrievalTests.php';
 require_once 'org/tubepress/video/feed/inspection/InspectionTests.php';
+require_once 'org/tubepress/video/feed/retrieval/RetrievalTests.php';
+require_once 'org/tubepress/video/feed/provider/ProviderTests.php';
 require_once 'org/tubepress/ioc/IocTests.php';
 require_once 'org/tubepress/message/MessageTests.php';
 require_once 'org/tubepress/pagination/PaginationTests.php';
@@ -40,6 +41,9 @@ class TubePressUnitTests
 		$suite->addTest(UtilsTests::suite());
 		$suite->addTest(VideoTests::suite());
 		$suite->addTest(OptionsTests::suite());
+		$suite->addTest(InspectionTests::suite());
+		$suite->addTest(RetrievalTests::suite());
+		$suite->addTest(ProviderTests::suite());
 		return $suite;
 	}
 }

@@ -32,5 +32,5 @@ interface org_tubepress_video_factory_VideoFactory
      * 
      * @return org_tubepress_video_Video A org_tubepress_video_Video representing this video
      */
-    public function dom2TubePressVideoArray(DOMDocument $rss, $limit);
+    public function dom2TubePressVideoArray($feed, $limit);
 }

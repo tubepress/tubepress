@@ -13,7 +13,7 @@ class org_tubepress_ioc_DefaultIocServiceTest extends PHPUnit_Framework_TestCase
 		    org_tubepress_ioc_IocService::MESSAGE_SERVICE   => 'org_tubepress_message_WordPressMessageService',
 		    org_tubepress_ioc_IocService::SHORTCODE_SERVICE => 'org_tubepress_shortcode_SimpleShortcodeService',
             org_tubepress_ioc_IocService::OPTIONS_REFERENCE => 'org_tubepress_options_reference_SimpleOptionsReference',
-            org_tubepress_ioc_IocService::FEED_INSPECTION_SERVICE =>  'org_tubepress_video_feed_inspection_SimpleFeedInspectionService',
+            org_tubepress_ioc_IocService::FEED_INSPECTION_SERVICE =>  'org_tubepress_video_feed_inspection_YouTubeFeedInspectionService',
             org_tubepress_ioc_IocService::CACHE_SERVICE => 'org_tubepress_cache_SimpleCacheService',
             org_tubepress_ioc_IocService::VIDEO_FACTORY => 'org_tubepress_video_factory_SimpleVideoFactory',
             org_tubepress_ioc_IocService::QUERY_STRING_SERVICE => 'org_tubepress_querystring_SimpleQueryStringService',

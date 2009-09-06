@@ -44,6 +44,12 @@ abstract class org_tubepress_video_feed_retrieval_AbstractFeedRetrievalService i
      */
     public function fetch($url, $useCache)
     {   
+        global $tubepress_base_url;
+        
+        $testUrl = "$tubepress_base_url/classes/org/tubepress/video/feed/retrieval/ConnectionTest.php";
+        $this->_log->log($this->_logPrefix, sprintf("Connection test can be run at <a href=\"%s\">%s</a>",
+            $testUrl, $testUrl));
+        
         $xml = new DOMDocument();
         if ($useCache) {
             

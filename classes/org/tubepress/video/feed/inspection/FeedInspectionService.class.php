@@ -25,7 +25,7 @@
  */
 interface org_tubepress_video_feed_inspection_FeedInspectionService
 {   
-    public function getTotalResultCount(DOMDocument $dom);
+    public function getTotalResultCount($rawFeed);
     
-    public function getQueryResultCount(DOMDocument $dom);
+    public function getQueryResultCount($rawFeed);
 }

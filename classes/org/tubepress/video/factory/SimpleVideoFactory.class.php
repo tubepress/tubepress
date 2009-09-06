@@ -45,7 +45,7 @@ class org_tubepress_video_factory_SimpleVideoFactory implements org_tubepress_vi
      * 
      * @return array An array of TubePressVideos (may be empty)
      */
-    public function dom2TubePressVideoArray(DOMDocument $rss, $limit)
+    public function dom2TubePressVideoArray($rss, $limit)
     {   
         $results = array();
         $entries = $rss->getElementsByTagName('entry');
