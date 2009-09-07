@@ -3,6 +3,7 @@ Contributors: k2eric
 Donate link: http://tubepress.org
 Tags: video, youtube, gallery, videos
 Requires at least: 2.2
+Stable tag: trunk
 
 Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please visit http://tubepress.org for more info!
 
@@ -15,13 +16,17 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 
 == Changelog ==
 
-= 1.8.1 =
-* Updated Italian translation thanks to Gianni Diurno
-* Shadowbox CSS no longer tries to load non-existent images. (closes Ticket #112)
+= 1.8.5 =
+* Videos now play correctly on iPhone and iPod Touch (closes Ticket #101)
+* Flexible shortcodes! No need to include commas between attribute/value pairs. Can use single, double, or no quotes around attribute values.
+* Greatly improved debugging mode
 * Fixed bug that prevents all videos in gallery from playing if first video in gallery is unavailable (closes Ticket #115)
 * Fixed bug that could prevent video playback, and JavaScript error, on Firefox with AdBlock Plus enabled (closes Ticket #124)
 * Added ability to cap the total number of videos in a gallery (closes Ticket #65)
-* Videos now play correctly on iPhone and iPod Touch (closes Ticket #101) 
+* Updated Italian translation thanks to Gianni Diurno
+* Shadowbox CSS no longer tries to load non-existent images. (closes Ticket #112)
+* WordPress galleries are no longer wrapped with HTML paragraph tags (closes Ticket #79)
+* WordPress.org compliant readme.txt changelog (closes Ticket #123)
 
 = 1.8.0 =
 * Includes all the changes listed in 1.8.0.RC1
@@ -32,12 +37,11 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 * New embedded player option: JW Flv Media Player
 * New player location: jqModal
 * All classes use dependency injection via Crafty
-* Refactored JavaScript functionality with jQuery
-** jQuery 1.2.6 or higher is now required (built-in for WordPress users)
-** Multiple galleries on a single page now behave correctly with "normal" player
-** Dynamically load JavaScript libraries as needed (Prototype, Shadowbox, etc) (closes Ticket #56)
-** All JavaScript is now unobtrusive
-** Can now use modal players (e.g. Shadowbox) in a TubePress shortcode 
+* jQuery 1.2.6 or higher is now required (built-in for WordPress users)
+* Multiple galleries on a single page now behave correctly with "normal" player
+* Dynamically load JavaScript libraries as needed (Prototype, Shadowbox, etc) (closes Ticket #56)
+* All JavaScript is now unobtrusive
+* Can now use modal players (e.g. Shadowbox) in a TubePress shortcode 
 * Removed extra HTML comments and whitespace. Galleries now use about 16% less bandwidth.
 * CSS will stay valid for multiple galleries on a single page
 * CSS classes now have sensible names (renamed some classes)
@@ -45,7 +49,7 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 * Fixed bug that affected some PHP installations with PEAR installed (closes Ticket #84)
 * Fixed bug that blocked WordPress plugin's "database nuke" functionality
 * Removed GreyBox as a player location due to its inability to display inline content
-* = bump for ShadowBox (closes Ticket #77)
+* Version bump for ShadowBox (closes Ticket #77)
 * popup.php has been removed and replaced with JavaScript functionality (closes Ticket #76)
 * Better control over pagination visibility for multi-page galleries (closes Ticket #93)
 * Removed GreyBox and LightWindow as players
@@ -60,7 +64,7 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 * Fixed bug where debugging mode threw a fatal error (closes Ticket #80)
 * Fixed bug where random video sort order would throw a fatal error
 * Added ability to toggle display of title/rating before video starts playing
-* Now using = 2.0 of YouTube gdata API (closes Ticket #68) 
+* Now using version 2.0 of YouTube gdata API (closes Ticket #68) 
 
 = 1.7.1 =
 
@@ -82,13 +86,11 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 * TubePress Pro is now available! Use TubePress anywhere that runs PHP
 * Default thumbmail URL now uses "default.jpg" (closes Ticket #47)
 * Fixed bug that resulted in inability to paginate past the first page of a multi-page gallery.
-* = bumps
-          o Net_URL to Net_URL2
-          o HTTP_Request to HTTP_Request2
-          o Cache_Lite 
-* Under the hood
-          o Huge amounts of unit/integration tests
-          o Major refactoring of classes (now using dependency injection) 
+* Version bump for Net_URL to Net_URL2
+* Version bump for HTTP_Request to HTTP_Request2
+* Version bump for Cache_Lite 
+* Huge amounts of unit/integration tests
+* Major refactoring of classes (now using dependency injection) 
 
 = 1.6.8 =
 * Fixed overly large gap between thumbnail rows 
@@ -113,7 +115,7 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 
 = 1.6.5 =
 * Full internationalization capability (closes Ticket #21)
-* Upgrades, from this = on, will no longer destroy your old TubePress default settings (closes Ticket #28)
+* Upgrades, from this version on, will no longer destroy your old TubePress default settings (closes Ticket #28)
 * Multiple galleries on a single post/page now possible (closes Ticket #20)
 * Fixes broken YouTube link (closes Ticket #30)
 * Video playback now functions correctly in IE7
@@ -125,32 +127,13 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 = 1.6.0 =
 * PHP5 only. This includes an overall rewrite of the code base to take advantage of PHP5-only stuff
 * Responses from YouTube are now cached
-* New galleries
-          o Top favorites
-          o Most recently added
-          o Most discussed
-          o Most linked
-          o Most responded
-          o Responses to a video 
+* New galleries: Top favorites, Most recently added, Most discussed, Most linked, Most responded, Responses to a video 
 * New way to watch: Shadowbox.js
 * Removed "New Window" player
 * Customize textual formatting of dates
-* Much more control over embedded player
-          o Toggle "related videos" feature after a video finishes
-          o Choose from several colors
-          o Toggle auto-play
-          o Toggle "enhanced genie menu" when mouse enters video area (instead of user clicking the "menu" button)
-          o Toggle video loop 
-* Interface improvements
-          o Removed border and scroll bars from gallery
-          o Removed time of day from date uploaded
-          o Changed upload label from "Uploaded date" to "Uploaded"
-          o Pagination now supports HTTP/HTTPS and non-standard ports
-          o Simplified templating (easier to customize the look of your galleries) 
-* Issues/enhancements closed
-          o # 20
-          o # 25
-          o # 7 
+* Much more control over embedded player: Toggle "related videos" feature after a video finishes, Choose from several colors, Toggle auto-play, Toggle "enhanced genie menu" when mouse enters video area (instead of user clicking the "menu" button), Toggle video loop 
+* Interface improvements: Removed border and scroll bars from gallery, Removed time of day from date uploaded, Changed upload label from "Uploaded date" to "Uploaded", Pagination now supports HTTP/HTTPS and non-standard ports, Simplified templating (easier to customize the look of your galleries) 
+* Issues/enhancements closed: #20, #25, #7 
 * Upgrade source to GPLv3 
 
 = 1.5.7 =
@@ -168,19 +151,15 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 * Changes default thumb width from 33% to 32% (helps with IE) 
 
 = 1.5.5 RC1 =
-* New features
-          o “Favorites” mode now displays up to 500 videos
-          o “Search” mode now can return up to 1,000 videos
-          o New mode: videos for mobile phones
-          o New mode: most-viewed videos from today, this week, this month, or all time
-          o Customize the order of galleries by view-count, rating, relevance, or date-updated
-          o Randomize thumbnails (most videos come with 4 thumbnails, this option will mix it up for each pageload)
-          o Filter “racy” videos from galleries
-          o Option to show a video’s category in its metadata 
-
-* Under the hood
-          o All access to TubePressVideo member variables is now done through getters
-          o All HTML is generated via PEAR's HTML_Template_IT package 
+* "Favorites" mode now displays up to 500 videos
+* "Search" mode now can return up to 1,000 videos
+* New mode: most-viewed videos from today, this week, this month, or all time
+* Customize the order of galleries by view-count, rating, relevance, or date-updated
+* Randomize thumbnails (most videos come with 4 thumbnails, this option will mix it up for each pageload)
+* Filter "racy" videos from galleries
+* Option to show a video’s category in its metadata 
+* All access to TubePressVideo member variables is now done through getters
+* All HTML is generated via PEAR's HTML_Template_IT package 
 
 = 1.5.2 =
 * Fixes a fatal error upon plugin activation in some PHP installations 
@@ -189,28 +168,22 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 * Fixes a minor bug with "search" mode due to YouTube changing the format of the XML results 
 
 = 1.5.0 =
-* New features
-          o "All tags" and "Any tags" modes now merged into "YouTube search" mode
-          o Play videos with GreyBox (this replaces ThickBox)
-          o Play videos with lightWindow
-          o Pagination now uses modified Digg Style pagination
-          o Max player size is now 424px x 336px (removes thin white border from player)
-          o Input validation on options page
-          o All error messages are extremely detailed
-          o Debug mode is more comprehensive
-          o Option to disable debugging mode completely 
-
-* Bug Fixes
-          o Embedded video is XHTML compliant
-          o "Playlist" mode pages correctly (thanks, YouTube!)
-          o "Normal" mode displays title and runtime correctly after user click 
-
-* Under the Hood
-          o Much better code documentation
-          o Code style is PEAR compliant
-          o XML parsing uses PEAR's XML_Unserializer instead of XMLIster
-          o Almost all functions moved to classes (helps namespace management) 
-
+* "All tags" and "Any tags" modes now merged into "YouTube search" mode
+* Play videos with GreyBox (this replaces ThickBox)
+* Play videos with lightWindow
+* Pagination now uses modified Digg Style pagination
+* Max player size is now 424px x 336px (removes thin white border from player)
+* Input validation on options page
+* All error messages are extremely detailed
+* Debug mode is more comprehensive
+* Option to disable debugging mode completely 
+* Embedded video is XHTML compliant
+* "Playlist" mode pages correctly (thanks, YouTube!)
+* "Normal" mode displays title and runtime correctly after user click 
+* Much better code documentation
+* Code style is PEAR compliant
+* XML parsing uses PEAR's XML_Unserializer instead of XMLIster
+* Almost all functions moved to classes (helps namespace management) 
 * WordPress-specific code is cleanly isolated
 * Improved message-resources handling
 * Revamped directory structure
@@ -235,28 +208,16 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 * Disabled Thickbox by default due to incompatibilities with themes and other jquery-enabled features 
 
 = 1.0 =
-* Now with seven modes of operation:
-         1. videos by playlists (with paging)
-         2. featured (the latest 25 featured videos from YouTube's homepage)
-         3. popular (the most-viewed videos from the past day, week, or month)
-         4. related (videos that match any tag that you specify)
-         5. tag (videos that match all the tags you specify)
-         6. favorite videos of any user
-         7. videos uploaded by any user 
+* Now with seven modes of operation: videos by playlists (with paging), featured (the latest 25 featured videos from YouTube's homepage), popular (the most-viewed videos from the past day, week, or month), related (videos that match any tag that you specify), tag (videos that match all the tags you specify), favorite videos of any user, videos uploaded by any user 
 * You no longer need to supply your own developer ID and YouTube username! This means that anyone can use TubePress, even if you don't have a YouTube account!
 * Pagination. You control how many videos per page show up (supported modes only)
-* Leaner and meaner. The speedups in this = are ridiculous. Makes literally dozens less of the expensive database calls per page that existed in previous versions. Reduces database space in your wordpress options table from about 40 rows to only one.
+* Leaner and meaner. The speedups in this version are ridiculous. Makes literally dozens less of the expensive database calls per page that existed in previous versions. Reduces database space in your wordpress options table from about 40 rows to only one.
 * Options page is more concise and XHTML compliant
 * Improved documentation
 * Bug fixes. Too many to list! 
 
 = 0.9 =
-* Now with five options on where to play the main video
-         1. Normally (at the top of your gallery)
-         2. In a popup window
-         3. In a new window all by itself
-         4. In its original YouTube page
-         5. Using Thickbox (experimental, but very cool!) 
+* Now with five options on where to play the main video: Normally (at the top of your gallery), In a popup window, In a new window all by itself, In its original YouTube page, Using Thickbox (experimental, but very cool!) 
 * Bug fix regarding HTML special characters in video titles 
 
 = 0.8 =
@@ -271,18 +232,13 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 * Now works with PHP4
 * CSS revisions
 * Uses snoopy class instead of cURL libraries 
-
 * Added configurable timeout parameter for contacting YouTube 
 
 = 0.5 =
 * Fixed small bug in time display 
 
 = 0.4 =
-* Takes full advantage of the YouTube API
-         1. List videos from "your favorites"
-         2. List your videos (that you've uploaded)
-         3. List videos that match some tag
-         4. List videos of another user 
+* Takes full advantage of the YouTube API: List videos from "your favorites", List your videos (that you've uploaded), List videos that match some tag, List videos of another user 
 * XHTML compliant 
 
 = 0.3 =
