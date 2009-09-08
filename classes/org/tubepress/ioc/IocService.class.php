@@ -29,6 +29,7 @@ interface org_tubepress_ioc_IocService
     const FEED_RETRIEVAL_SERVICE        = 'feedRetrievalService';
     const GALLERY                       = 'gallery';
     const GALLERY_TEMPLATE              = 'galleryTemplate';
+    const HTML_WIDGET_TEMPLATE          = 'htmlWidgetTemplate';
     const LOG                           = 'log';
     const LONGTAIL_EMBEDDED_TEMPLATE    = 'longtailEmbeddedTemplate';
     const MESSAGE_SERVICE               = 'messageService';

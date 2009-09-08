@@ -151,6 +151,11 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
                 array('file' => $uiBase . "/embedded/longtail/html_templates/object.tpl.html")
             )
         );
+        $this->def(org_tubepress_ioc_IocService::HTML_WIDGET_TEMPLATE,
+            $this->impl('org_tubepress_template_TemplateImpl',
+                array('file' => $uiBase . "/options_page/html_templates/options_widgets.tpl.html")
+            )
+        );
         $this->def(org_tubepress_ioc_IocService::CACHE_SERVICE,
             $this->impl('org_tubepress_cache_SimpleCacheService',
                 array('log' => $this->ref(org_tubepress_ioc_IocService::LOG))
@@ -239,6 +244,7 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
                     'messageService'   => $this->ref(org_tubepress_ioc_IocService::MESSAGE_SERVICE),
                     'optionsReference' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_REFERENCE),
                     'storageManager'   => $this->ref(org_tubepress_ioc_IocService::STORAGE_MANAGER),
+                    'template'         => $this->ref(org_tubepress_ioc_IocService::HTML_WIDGET_TEMPLATE)
                 )
             )
         );
