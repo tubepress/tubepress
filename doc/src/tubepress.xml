@@ -778,6 +778,14 @@ nights working on this project. If you enjoy the software, please consider a don
                             <entry><code>[tubepress resultsPerPage="30"]</code></entry>
                         </row>
                         <row>
+                            <entry><code>template</code></entry>
+                            <entry>Path to custom HTML template for the gallery</entry>
+                            <entry>An absolute path of a template on the local filesystem that can be parsed by
+                            <ulink url="http://pear.php.net/manual/en/package.html.html-template-it.intro.php">HTML_Template_IT</ulink>
+                            </entry>
+                            <entry><code>[tubepress template="/home/hough/tubepress/custom_template.tpl.html"]</code></entry>
+                        </row>
+                        <row>
                             <entry><code>thumbHeight</code></entry>
                             <entry>Vertical size (in px) of thumbnails</entry>
                             <entry>Any integer <code>x</code> such that <code>0 &lt; x &lt;= 90</code></entry>
@@ -896,6 +904,15 @@ nights working on this project. If you enjoy the software, please consider a don
                                 </entry>
                                 <entry>Only applies to YouTube <code>tag</code> galleries</entry>
                                 <entry><code>[tubepress orderBy="relevance"]</code></entry>
+                            </row>
+                            <row>
+                                <entry><code>random</code></entry>
+                                <entry>
+                                    Shuffles videos for a given gallery page
+                                </entry>
+                                <entry>Will only randomize the order for a single gallery page. e.g. If you have a gallery with a total of 500 videos, 
+                                with 20 videos per page, only 20 videos at a time will be shuffled. This is a restriction on YouTube's end.</entry>
+                                <entry><code>[tubepress orderBy="random"]</code></entry>
                             </row>
                         </tbody>
                     </tgroup>
@@ -1290,7 +1307,7 @@ nights working on this project. If you enjoy the software, please consider a don
                                 <entry>Maximum total videos to retrieve</entry>
                                 <entry>Any integer <code>x</code> such that <code>x &gt;= 0</code></entry>
                                 <entry>This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit.</entry>
-                                
+                            </row>
                         </tbody>
                     </tgroup>
                 </table>

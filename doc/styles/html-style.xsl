@@ -11,8 +11,7 @@
 >
 
 	<xsl:import href="file:///opt/local/share/xsl/docbook-xsl/html/chunk.xsl" />
-    <xsl:import href="file:///Users/ehough/Documents/workspace/tubepress/doc/styles/html-titlepage.xsl" />
-
+  
     <xsl:param name="base.dir">/Users/ehough/Documents/workspace/tubepress/doc/doc/html/</xsl:param>
 
     <!--  Extensions -->
