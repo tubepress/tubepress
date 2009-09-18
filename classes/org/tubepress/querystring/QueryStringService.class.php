@@ -25,6 +25,13 @@
 interface org_tubepress_querystring_QueryStringService
 {
     /**
+     * Try to get the custom video ID from the query string
+     *
+     * @return string The custom video ID, or "" if not set
+    */
+    public function getCustomVideo($getVars);
+
+    /**
      * Returns what's in the address bar
      * 
      * @return string What's in the address bar
@@ -39,5 +46,10 @@ interface org_tubepress_querystring_QueryStringService
      */
     public function getPageNum($getVars);
     
-    public function getCustomVideo($getVars);
+    /**
+     * Try to get the shortcode from the query string
+     *
+     * @return string The shortcode, or "" if not set
+    */
+    public function getShortcode($getVars);
 }

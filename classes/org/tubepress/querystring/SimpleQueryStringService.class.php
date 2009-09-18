@@ -24,10 +24,25 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_querystring_QueryStringService'));
 
 /**
- * Simple implementation of org_tubepress_querystring_QueryStringService
+ * Simple implementation of org_tubepress_querystring_QueryStringService. Mostly just
+ * reads variables from the query string and does some basic analysis on them.
  */
 class org_tubepress_querystring_SimpleQueryStringService implements org_tubepress_querystring_QueryStringService
 {
+    const TUBEPRESS_PAGE      = "tubepress_page";
+    const TUBEPRESS_SHORTCODE = "tubepress_shortcode";
+    const TUBEPRESS_VIDEO     = "tubepress_video";
+
+    /**
+     * Try to get the custom video ID from the query string
+     *
+     * @return string The custom video ID, or "" if not set
+    */
+    public function getCustomVideo($getVars)
+    {
+	return $this->_getQueryVar($getVars, org_tubepress_querystring_SimpleQueryStringService::TUBEPRESS_VIDEO);
+    }
+
     /**
      * Returns what's in the address bar
      * 
@@ -57,18 +72,28 @@ class org_tubepress_querystring_SimpleQueryStringService implements org_tubepres
      */
     public function getPageNum($getVars)
     {
-        $pageNum = ((isset($getVars["tubepress_page"])) ?
-            $getVars["tubepress_page"] : 1);
+	$key = org_tubepress_querystring_SimpleQueryStringService::TUBEPRESS_PAGE;
+        $pageNum = ((isset($getVars[$key])) ?
+            $getVars[$key] : 1);
         
         if (!is_numeric($pageNum) || ($pageNum < 1)) {
             $pageNum = 1;
         }
         return $pageNum;
     }
-    
-    public function getCustomVideo($getVars)
+
+    /**
+     * Try to get the shortcode from the query string
+     *
+     * @return string The shortcode, or "" if not set
+    */
+    public function getShortcode($getVars)
     {
-        return isset($getVars["tubepress_video"]) ?
-            $getVars["tubepress_video"] : "";
+        return $this->_getQueryVar($getVars, org_tubepress_querystring_SimpleQueryStringService::TUBEPRESS_SHORTCODE);
+    }
+
+    private function _getQueryVar($getVars, $key)
+    {
+        return isset($getVars[$key]) ? $getVars[$key] : "";
     }
 }
