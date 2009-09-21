@@ -26,19 +26,81 @@
  */
 interface org_tubepress_options_reference_OptionsReference
 {   
+    /**
+     * Get all possible option names
+     *
+     * @return array An array of all TubePress option names
+     */
     function getAllOptionNames();
 
+    /**
+     * Determine the TubePress category of a given option. The
+     *  valid option category names are defined as the class names in
+     *  the org_tubepress_options_category package. Each option must
+     *  fall into exactly one category
+     *
+     * @param string $optionName The name of the option to look up
+     *
+     * @return string The category name for the given option
+     */
     function getCategory($optionName);
     
+    /**
+     * Determine the default value of a given option. Each option must
+     *  have exactly one default value.
+     *
+     * @param string $optionName The name of the option to look up
+     *
+     * @return string The default value for the given option
+     */
     function getDefaultValue($optionName);
 
+    /**
+     * Get all option category names. The
+     *  valid option category names are defined as the class names in
+     *  the org_tubepress_options_category package.
+     *
+     * @return array The category option names
+     */
     function getOptionCategoryNames();
     
+    /**
+     * Get all option names in a given category
+     *
+     * @param string $category The name of the category to look up
+     *
+     * @return array The option names of the options in the given category
+     */
     function getOptionNamesForCategory($category);
     
+    /**
+     * Determine the type of the given option. Valid ption types are
+     *  defined by the constants of the org_tubepress_options_Type class.
+     *  Each option must map to exactly one type.
+     *
+     * @param string $optionName The name of the option to look up
+     *
+     * @return string The type name of the given option
+     */
     function getType($optionName);
     
+    /**
+     * Given the name of an "enum" type option, return
+     *  the valid values that this option may take on.
+     *
+     * @param $optionName The name of the option to look up
+     *
+     * @return array The valid option values for the given option
+     */
     function getValidEnumValues($optionName);
     
+    /**
+     * Given a name, determine if there is an option that has that
+     * name.
+     *
+     * @param $candidateOptionName The name of the option to look up
+     *
+     * @return boolean True if an option with the given name exists, false otherwise.
+     */
     function isOptionName($candidateOptionName);
 }

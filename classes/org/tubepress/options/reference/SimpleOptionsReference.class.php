@@ -32,7 +32,8 @@ tubepress_load_classes(array('org_tubepress_options_reference_OptionsReference',
     'org_tubepress_options_category_Meta'));
 
 /**
- * Simple implementation of options reference
+ * The master reference for TubePress options - their names, deprecated
+ * names, default values, types, etc.
  *
  */
 class org_tubepress_options_reference_SimpleOptionsReference implements org_tubepress_options_reference_OptionsReference
@@ -40,23 +41,23 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
 
     private $_options = array(
         org_tubepress_options_Type::COLOR => array(
-            org_tubepress_options_category_Embedded::PLAYER_COLOR   => "999999",
-            org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT => "FFFFFF"
+            org_tubepress_options_category_Embedded::PLAYER_COLOR   => '999999',
+            org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT => 'FFFFFF'
         ),
         org_tubepress_options_Type::MODE => array(
-            org_tubepress_options_category_Gallery::MODE => "recently_featured"
+            org_tubepress_options_category_Gallery::MODE => 'recently_featured'
         ),
         org_tubepress_options_Type::TEXT => array(
-            org_tubepress_options_category_Advanced::DATEFORMAT     => "M j, Y",
-            org_tubepress_options_category_Advanced::KEYWORD        => "tubepress",
-            org_tubepress_options_category_Gallery::FAVORITES_VALUE => "mrdeathgod",
-            org_tubepress_options_category_Gallery::PLAYLIST_VALUE  => "D2B04665B213AE35",
-            org_tubepress_options_category_Gallery::TAG_VALUE       => "stewart daily show",
-            org_tubepress_options_category_Gallery::USER_VALUE      => "3hough",
-            org_tubepress_options_category_Feed::CLIENT_KEY         => "ytapi-EricHough-TubePress-ki6oq9tc-0",
-            org_tubepress_options_category_Feed::DEV_KEY            => "AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg",
-            org_tubepress_options_category_Widget::TITLE            => "TubePress",
-            org_tubepress_options_category_Widget::TAGSTRING        => "[tubepress thumbHeight='105', thumbWidth='135']"
+            org_tubepress_options_category_Advanced::DATEFORMAT     => 'M j, Y',
+            org_tubepress_options_category_Advanced::KEYWORD        => 'tubepress',
+            org_tubepress_options_category_Gallery::FAVORITES_VALUE => 'mrdeathgod',
+            org_tubepress_options_category_Gallery::PLAYLIST_VALUE  => 'D2B04665B213AE35',
+            org_tubepress_options_category_Gallery::TAG_VALUE       => 'stewart daily show',
+            org_tubepress_options_category_Gallery::USER_VALUE      => '3hough',
+            org_tubepress_options_category_Feed::CLIENT_KEY         => 'ytapi-EricHough-TubePress-ki6oq9tc-0',
+            org_tubepress_options_category_Feed::DEV_KEY            => 'AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg',
+            org_tubepress_options_category_Widget::TITLE            => 'TubePress',
+            org_tubepress_options_category_Widget::TAGSTRING        => '[tubepress thumbHeight='105' thumbWidth='135']'
         ),
         org_tubepress_options_Type::BOOL => array(
             org_tubepress_options_category_Advanced::DEBUG_ON           => true,
@@ -97,26 +98,31 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Feed::RESULT_COUNT_CAP       => 300
         ),
         org_tubepress_options_Type::TIME_FRAME => array(
-            org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE   => "today",
-            org_tubepress_options_category_Gallery::TOP_RATED_VALUE     => "today"
+            org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE   => 'today',
+            org_tubepress_options_category_Gallery::TOP_RATED_VALUE     => 'today'
         ),
         org_tubepress_options_Type::ORDER => array(
-            org_tubepress_options_category_Display::ORDER_BY            => "viewCount",
+            org_tubepress_options_category_Display::ORDER_BY            => 'viewCount',
         ),
         org_tubepress_options_Type::PLAYER => array(
-            org_tubepress_options_category_Display::CURRENT_PLAYER_NAME => "normal",
+            org_tubepress_options_category_Display::CURRENT_PLAYER_NAME => 'normal',
         ),
         org_tubepress_options_Type::QUALITY => array(
-            org_tubepress_options_category_Embedded::QUALITY            => "normal"
+            org_tubepress_options_category_Embedded::QUALITY            => 'normal'
         ),
         org_tubepress_options_Type::SAFE_SEARCH => array(
-            org_tubepress_options_category_Feed::FILTER                 => "moderate"    
+            org_tubepress_options_category_Feed::FILTER                 => 'moderate'    
         ),
         org_tubepress_options_Type::PLAYER_IMPL => array(
-            org_tubepress_options_category_Embedded::PLAYER_IMPL        => "youtube"
+            org_tubepress_options_category_Embedded::PLAYER_IMPL        => 'youtube'
         )
     );
 
+    /**
+     * Get all possible option names
+     *
+     * @return An array of all TubePress option names
+     */
     function getAllOptionNames()
     {
         $results = array();
@@ -126,6 +132,16 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
         return $results;
     }
 
+    /**
+     * Determine the TubePress category of a given option. The
+     *  valid option category names are defined as the class names in
+     *  the org_tubepress_options_category package. Each option must
+     *  fall into exactly one category
+     *
+     * @param string $optionName The name of the option to look up
+     *
+     * @return string The category name for the given option
+     */
     function getCategory($optionName)
     {
         foreach ($this->getOptionCategoryNames() as $optionCategoryName) {
@@ -135,6 +151,14 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
         }
     }
     
+    /**
+     * Determine the default value of a given option. Each option must
+     *  have exactly one default value.
+     *
+     * @param string $optionName The name of the option to look up
+     *
+     * @return string The default value for the given option
+     */
     function getDefaultValue($optionName)
     {
         foreach ($this->_options as $optionType) {
@@ -145,38 +169,68 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
         return NULL;
     }
 
+    /**
+     * Get all option category names. The
+     *  valid option category names are defined as the class names in
+     *  the org_tubepress_options_category package.
+     *
+     * @return array The category option names
+     */
     function getOptionCategoryNames()
     {
-        return array("gallery", "display", "embedded", "meta", "feed", "advanced", "widget");
+        return array('gallery', 'display', 'embedded', 'meta', 'feed', 'advanced', 'widget');
     }
     
+    /**
+     * Get all option names in a given category
+     *
+     * @param string $category The name of the category to look up
+     *
+     * @return array The option names of the options in the given category
+     */
     function getOptionNamesForCategory($category)
     {
-        $className = "org_tubepress_options_category_" . ucwords($category);
+        $className = 'org_tubepress_options_category_' . ucwords($category);
         return $this->_getConstantsForClass($className);
     }
     
+    /**
+     * Given the name of an "enum" type option, return
+     *  the valid values that this option may take on.
+     *
+     * @param $optionName The name of the option to look up
+     *
+     * @return array The valid option values for the given option
+     */
     function getValidEnumValues($optionType)
     {
         switch ($optionType) {
             case org_tubepress_options_Type::PLAYER:
-                return array("normal", "popup","shadowbox",'jqmodal', "youtube");
+                return array('normal', 'popup','shadowbox','jqmodal', 'youtube');
             case org_tubepress_options_Type::ORDER:
-                return array("relevance", "viewCount", "rating", "updated", "random");
+                return array('relevance', 'viewCount', 'rating', 'updated', 'random');
             case org_tubepress_options_Type::QUALITY:
-                return array("normal", "high", "higher", "highest");
+                return array('normal', 'high', 'higher', 'highest');
             case org_tubepress_options_Type::MODE:
-                return array('favorites', 'playlist', 'tag', 'user', "recently_featured", "mobile", "most_discussed",
-                    "most_linked", "most_recent", "most_responded", "most_viewed",
-                    "top_rated");
+                return array('favorites', 'playlist', 'tag', 'user', 'recently_featured', 'mobile', 'most_discussed',
+                    'most_linked', 'most_recent', 'most_responded', 'most_viewed',
+                    'top_rated');
             case org_tubepress_options_Type::SAFE_SEARCH:
-                return array("none", "moderate", "strict");
+                return array('none', 'moderate', 'strict');
             case org_tubepress_options_Type::PLAYER_IMPL:
-                return array("youtube", "longtail");
+                return array('youtube', 'longtail');
         }
-        return array("today", "this_week", "this_month", "all_time");
+        return array('today', 'this_week', 'this_month', 'all_time');
     }
 
+    /**
+     * Given a name, determine if there is an option that has that
+     * name.
+     *
+     * @param $candidateOptionName The name of the option to look up
+     *
+     * @return boolean True if an option with the given name exists, false otherwise.
+     */
     function isOptionName($candidateOptionName)
     {
         foreach ($this->_options as $optionType) {
@@ -187,6 +241,15 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
         return false;
     }
 
+    /**
+     * Determine the type of the given option. Valid ption types are
+     *  defined by the constants of the org_tubepress_options_Type class.
+     *  Each option must map to exactly one type.
+     *
+     * @param string $optionName The name of the option to look up
+     *
+     * @return string The type name of the given option
+     */
     function getType($optionName)
     {
         foreach ($this->_options as $optionType => $values) {
