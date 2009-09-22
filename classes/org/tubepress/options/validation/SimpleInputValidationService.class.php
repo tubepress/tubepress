@@ -32,10 +32,10 @@ tubepress_load_classes(array('org_tubepress_options_validation_InputValidationSe
  */
 class org_tubepress_options_validation_SimpleInputValidationService implements org_tubepress_options_validation_InputValidationService
 {
-    private $_messageService;
-    private $_optionsReference;
     private $_log;
     private $_logPrefix;
+    private $_messageService;
+    private $_optionsReference;
     
     public function __construct()
     {
@@ -47,39 +47,67 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
     */
     public function validate($optionName, $candidate)
     {
+        /* does this option name even exist? */
         $this->_checkExistence($optionName);
+
+        /* is the value given of the right type? */
         $this->_checkType($optionName, $candidate);
         
+        /* perform any custom validation */
+        $this->_customValidation($optionName, $candidate);
+    }
+
+    /**
+     * Performs "one off" validation for options
+     *
+     * @param $optionName string The name of the option to validate
+     * @param $candidate unknown The value of the option to validate
+     *
+     * @return void
+     */
+    private function _customValidation($optionName, $candidate)
+    {
         switch ($optionName) {
         
-        case org_tubepress_options_category_Display::THUMB_HEIGHT:
-            $this->
-                _integerValidation(org_tubepress_options_category_Display::THUMB_HEIGHT, 
-                $candidate, 1, 90);
-            break;
+            /* thumbnail heights currently can't be more than 90px */
+            case org_tubepress_options_category_Display::THUMB_HEIGHT:
+                $this->_checkIntegerRange(org_tubepress_options_category_Display::THUMB_HEIGHT, $candidate, 1, 90);
+                break;
 
-        case org_tubepress_options_category_Display::THUMB_WIDTH:
-            $this->
-                _integerValidation(org_tubepress_options_category_Display::THUMB_WIDTH, 
-                $candidate, 1, 120);
-            break;
+            /* thumbnail widths currently can't be more than 120px */
+            case org_tubepress_options_category_Display::THUMB_WIDTH:
+                $this->_checkIntegerRange(org_tubepress_options_category_Display::THUMB_WIDTH, $candidate, 1, 120);
+                break;
 
-        case org_tubepress_options_category_Display::RESULTS_PER_PAGE:
-            $this->
-                _integerValidation(org_tubepress_options_category_Display::RESULTS_PER_PAGE, 
-                $candidate, 1, 50);
-            break;
-        }
+            /* YouTube limits us to 50 per page */
+            case org_tubepress_options_category_Display::RESULTS_PER_PAGE:
+                $this->_checkIntegerRange(org_tubepress_options_category_Display::RESULTS_PER_PAGE, $candidate, 1, 50);
+                break;
+            }
     }
     
+    /**
+     * Verifies if the given option name exists
+     *
+     * @param $optionName string The option name to check
+     *
+     * @return void
+     */
     private function _checkExistence($optionName)
     {
-        $exists = $this->_optionsReference->isOptionName($optionName);
-        if ($exists === FALSE) {
+        if ($$this->_optionsReference->isOptionName($optionName) === FALSE) {
             throw new Exception(sprintf($this->_messageService->_("validation-no-such-option"), $optionName));
         }
     }
     
+    /**
+     * Checks if the option value has the right type
+     *
+     * @param $optionName string The name of the option to validate
+     * @param $candidate unknown The value of the option to validate
+     *
+     * @return void
+     */
     private function _checkType($optionName, $candidate)
     {
         $type = $this->_optionsReference->getType($optionName);
@@ -87,6 +115,7 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
         switch ($type) {
             case org_tubepress_options_Type::TEXT:
             case org_tubepress_options_Type::YT_USER:
+            case org_tubepress_options_Type::PLAYLIST:
                 if (!is_string($candidate)) {
                     throw new Exception(sprintf($this->_messageService->_("validation-text"), 
                         $optionName, $candidate));
@@ -117,13 +146,17 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
                         $optionName, implode(", ", $validValues), $candidate
                     ));
                 }
+                break;
+            case org_tubepress_options_Type::COLOR:
+                //implement me please
+                break;
         }
     }
     
     /**
-     * Validates integral values
+     * Checks the range of integral values
      *
-     * @param string       $name      The name of the option being updated
+     * @param string       $name      The name of the option being validated
      * @param unknown_type $candidate The new value for this option
      * @param int          $min       The minimum (inclusive) value this option 
      *                                 can take
@@ -132,7 +165,7 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
      *      
      * @return void
      */
-    private function _integerValidation($name, $candidate, $min, $max)
+    private function _checkIntegerRange($name, $candidate, $min, $max)
     {
         if ($candidate < $min || $candidate > $max) {
             throw new Exception(sprintf($this->_messageService->_("validation-int-range"), 
@@ -140,21 +173,7 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
         }
     }
    
-    /**
-     * @see org_tubepress_options_validation_InputValidationService::setMessageService($messageService)
-     */
-    public function setMessageService(org_tubepress_message_MessageService $messageService)
-    {
-        $this->_messageService = $messageService;
-    }
-    
-    public function setOptionsReference(org_tubepress_options_reference_OptionsReference $reference)
-    {
-        $this->_optionsReference = $reference;
-    }
-    
-    public function setLog(org_tubepress_log_Log $log)
-    {
-        $this->_log = $log;
-    }
+    public function setMessageService(org_tubepress_message_MessageService $messageService) { $this->_messageService = $messageService; }
+    public function setOptionsReference(org_tubepress_options_reference_OptionsReference $reference) { $this->_optionsReference = $reference; }
+    public function setLog(org_tubepress_log_Log $log) { $this->_log = $log; }
 }
