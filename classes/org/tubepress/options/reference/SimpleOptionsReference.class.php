@@ -95,7 +95,8 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Display::THUMB_WIDTH         => 120,
             org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT    => 350,
             org_tubepress_options_category_Embedded::EMBEDDED_WIDTH     => 425,
-            org_tubepress_options_category_Feed::RESULT_COUNT_CAP       => 300
+            org_tubepress_options_category_Feed::RESULT_COUNT_CAP       => 300,
+            org_tubepress_options_category_Advanced::GALLERY_ID         => 0
         ),
         org_tubepress_options_Type::TIME_FRAME => array(
             org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE   => 'today',
@@ -281,7 +282,7 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
      */
     function isOptionApplicableToOptionsForm($optionName)
     {
-        return true;
+        return !in_array($optionName, array(org_tubepress_options_category_Advanced::GALLERY_ID));
     }
 
     /**
@@ -306,7 +307,7 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
      */
     function shouldBePersisted($optionName)
     {
-        return true;
+        return !in_array($optionName, array(org_tubepress_options_category_Advanced::GALLERY_ID));
     }
 
     private function _getConstantsForClass($className)

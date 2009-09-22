@@ -102,6 +102,10 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
 
     private function _init($name, $value)
     {
+        if (!$this->_optionsReference->shouldBePersisted($name)) {
+            return;
+        }
+
         if (!$this->exists($name)) {
             $this->delete($name);
             $this->create($name, $value);
@@ -122,6 +126,9 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
      */
     public final function set($optionName, $optionValue)
     {
+        if (!$this->_optionsReference->shouldBePersisted($optionName)) {
+            return;
+        }
         $this->_validationService->validate($optionName, $optionValue);
         $this->setOption($optionName, $optionValue);
     }    

@@ -25,9 +25,10 @@
  */
 class org_tubepress_options_category_Advanced
 {
-    const DATEFORMAT     = "dateFormat";
-    const DEBUG_ON       = "debugging_enabled";
-    const KEYWORD        = "keyword";
-    const RANDOM_THUMBS  = "randomize_thumbnails";
-    const NOFOLLOW_LINKS = "nofollowLinks";
+    const DATEFORMAT     = 'dateFormat';
+    const DEBUG_ON       = 'debugging_enabled';
+    const GALLERY_ID     = 'galleryId';
+    const KEYWORD        = 'keyword';
+    const RANDOM_THUMBS  = 'randomize_thumbnails';
+    const NOFOLLOW_LINKS = 'nofollowLinks';
 } 
