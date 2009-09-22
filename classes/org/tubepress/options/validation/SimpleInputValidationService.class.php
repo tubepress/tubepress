@@ -23,7 +23,9 @@ function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_options_validation_InputValidationService',
     'org_tubepress_options_category_Display',
-    'org_tubepress_message_MessageService'));
+    'org_tubepress_message_MessageService',
+    'org_tubepress_options_reference_OptionsReference',
+    'org_tubepress_log_Log'));
 
 /**
  * Default implementation of org_tubepress_options_validation_InputValidationService
@@ -31,12 +33,23 @@ tubepress_load_classes(array('org_tubepress_options_validation_InputValidationSe
 class org_tubepress_options_validation_SimpleInputValidationService implements org_tubepress_options_validation_InputValidationService
 {
     private $_messageService;
+    private $_optionsReference;
+    private $_log;
+    private $_logPrefix;
+    
+    public function __construct()
+    {
+        $this->_logPrefix = "Input Validation Service";
+    }
     
     /**
      * @see org_tubepress_options_validation_InputValidationService::validate($optionName, $candidate)
     */
     public function validate($optionName, $candidate)
-    {   
+    {
+        $this->_checkExistence($optionName);
+        $this->_checkType($optionName, $candidate);
+        
         switch ($optionName) {
         
         case org_tubepress_options_category_Display::THUMB_HEIGHT:
@@ -59,19 +72,51 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
         }
     }
     
-    /**
-     * Validates text values
-     *
-     * @param string       $name      The name of the option being updated
-     * @param unknown_type $candidate The new value for this option
-     *      
-     * @return void
-     */
-    private function _textValidation($name, $candidate)
+    private function _checkExistence($optionName)
     {
-        if (!is_string($candidate)) {
-            throw new Exception(sprintf($this->_messageService->_("validation-text"), 
-                $name, $candidate));
+        $exists = $this->_optionsReference->isOptionName($optionName);
+        if ($exists === FALSE) {
+            throw new Exception(sprintf($this->_messageService->_("validation-no-such-option"), $optionName));
+        }
+    }
+    
+    private function _checkType($optionName, $candidate)
+    {
+        $type = $this->_optionsReference->getType($optionName);
+        
+        switch ($type) {
+            case org_tubepress_options_Type::TEXT:
+            case org_tubepress_options_Type::YT_USER:
+                if (!is_string($candidate)) {
+                    throw new Exception(sprintf($this->_messageService->_("validation-text"), 
+                        $optionName, $candidate));
+                }
+                break;
+            case org_tubepress_options_Type::BOOL:
+                if (strcasecmp($candidate, 'true') !== 0 && strcasecmp($candidate, 'false') !== 0) {
+                    throw new Exception(sprintf($this->_messageService->_("validation-bool"), 
+                        $optionName, $candidate));
+                }
+                break;
+            case org_tubepress_options_Type::INTEGRAL:
+                if (intval($candidate) == 0) {
+                    throw new Exception(sprintf($this->_messageService->_("validation-int-type"), 
+                        $optionName, $candidate));
+                }
+                break;
+            case org_tubepress_options_Type::MODE:
+            case org_tubepress_options_Type::ORDER:
+            case org_tubepress_options_Type::PLAYER:
+            case org_tubepress_options_Type::PLAYER_IMPL:
+            case org_tubepress_options_Type::QUALITY:
+            case org_tubepress_options_Type::SAFE_SEARCH:
+            case org_tubepress_options_Type::TIME_FRAME:
+                $validValues = $this->_optionsReference->getValidEnumValues($type);
+                if (in_array((string)$candidate, $validValues) !== TRUE) {
+                    throw new Exception(sprintf($this->_messageService->_("validation-enum"),
+                        $optionName, implode(", ", $validValues), $candidate
+                    ));
+                }
         }
     }
     
@@ -89,12 +134,6 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
      */
     private function _integerValidation($name, $candidate, $min, $max)
     {
-        
-        if (intval($candidate) == 0) {
-            throw new Exception(sprintf($this->_messageService->_("validation-int-type"), 
-                $name, $candidate));
-        }
-        
         if ($candidate < $min || $candidate > $max) {
             throw new Exception(sprintf($this->_messageService->_("validation-int-range"), 
                 $name, $min, $max, $candidate));
@@ -107,5 +146,15 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
     public function setMessageService(org_tubepress_message_MessageService $messageService)
     {
         $this->_messageService = $messageService;
+    }
+    
+    public function setOptionsReference(org_tubepress_options_reference_OptionsReference $reference)
+    {
+        $this->_optionsReference = $reference;
+    }
+    
+    public function setLog(org_tubepress_log_Log $log)
+    {
+        $this->_log = $log;
     }
 }

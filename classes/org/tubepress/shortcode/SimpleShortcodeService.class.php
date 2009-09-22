@@ -23,7 +23,8 @@ function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_shortcode_ShortcodeService',
     'org_tubepress_options_category_Advanced',
-    'org_tubepress_options_manager_OptionsManager'));
+    'org_tubepress_options_manager_OptionsManager',
+    'org_tubepress_options_validation_InputValidationService'));
 
 /**
  * Handles some tasks related to the query string
@@ -32,6 +33,7 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
 {
     private $_log;
     private $_logPrefix;
+    private $_inputValidationService;
     
     public function __construct()
     {
@@ -108,8 +110,13 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
                 $value = $this->_normalizeValue($m[6]);
             }
             
-            $this->_log->log($this->_logPrefix, sprintf("Custom shortcode detected: %s = %s", $name, (string)$value));
-            $customOptions[$name] = $value;
+            try {
+                $this->_inputValidationService->validate($name, $value);
+                $this->_log->log($this->_logPrefix, sprintf("Custom shortcode detected: %s = %s", $name, (string)$value));
+                $customOptions[$name] = $value;
+            } catch (Exception $e) {
+                $this->_log->log($this->_logPrefix, sprintf("Ignoring invalid value for \"%s\" option: %s", $name, $e->getMessage()));
+            }
         }
         return $customOptions;
     }
@@ -122,6 +129,11 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
     public function setLog(org_tubepress_log_Log $log)
     {
         $this->_log = $log;
+    }
+    
+    public function setInputValidationService(org_tubepress_options_validation_InputValidationService $service)
+    {
+        $this->_inputValidationService = $service;
     }
     
     private function _applyOptions($tpom, $opts, $merge)

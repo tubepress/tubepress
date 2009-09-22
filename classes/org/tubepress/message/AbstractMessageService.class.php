@@ -167,11 +167,12 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         "video-url"         => "URL", 
         "video-views"       => "Views", 
     
-        "validation-int-type"  => "%s can only take on integer values. You supplied %s.", 
-        "validation-int-range" => "%s must be between %d and %d. You supplied %d.", 
-        "validation-time"      => "%s must be one of \"today\", \"this_week\", \"this_month\", \"all_time\". You supplied %s.", 
-        "validation-order"     => "%s must be on of \"relevance\", \"viewCount\", \"rating\", \"updated\", \"random\". You supplied %s.", 
-        "validation-text"      => "%s must be a string. You supplied %s.", 
+        "validation-int-type"       => "%s can only take on integer values. You supplied %s.",
+        "validation-int-range"      => '"%s" must be between "%d" and "%d". You supplied "%d".',
+        "validation-text"           => "%s must be a string. You supplied %s.",
+        "validation-no-such-option" => '"%s" is not a valid option name.',
+        "validation-bool"           => '"%s" must be either true or false. You supplied "%s".',
+        "validation-enum"           => '"%s" must be one of "%s". You supplied "%s".',
     
         "next" => "next", 
         "prev" => "prev", 

@@ -57,7 +57,7 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Feed::CLIENT_KEY         => 'ytapi-EricHough-TubePress-ki6oq9tc-0',
             org_tubepress_options_category_Feed::DEV_KEY            => 'AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg',
             org_tubepress_options_category_Widget::TITLE            => 'TubePress',
-            org_tubepress_options_category_Widget::TAGSTRING        => '[tubepress thumbHeight='105' thumbWidth='135']'
+            org_tubepress_options_category_Widget::TAGSTRING        => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']'
         ),
         org_tubepress_options_Type::BOOL => array(
             org_tubepress_options_category_Advanced::DEBUG_ON           => true,
