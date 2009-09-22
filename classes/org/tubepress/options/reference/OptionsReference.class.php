@@ -103,4 +103,25 @@ interface org_tubepress_options_reference_OptionsReference
      * @return boolean True if an option with the given name exists, false otherwise.
      */
     function isOptionName($candidateOptionName);
+
+    /**
+     * Given an option name, determine if the option should be displayed on the
+     *  TubePress options form (UI)
+     *
+     * @param $candidateOptionName The name of the option to look up
+     *
+     * @return boolean True if the option should be displayed on the options form, false otherwise
+     */
+    function isOptionApplicableToOptionsForm($optionName);
+
+    /**
+     * Given an option category name, determine if the category should be displayed on the
+     *  TubePress options form (UI)
+     *
+     * @param $candidateOptionName The name of the option category to look up
+     *
+     * @return boolean True if the category should be displayed on the options form, false otherwise
+     */
+    function isOptionCategoryApplicableToOptionsForm($optionCategoryName);
+
 }

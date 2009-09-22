@@ -259,6 +259,32 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
         }
     }
 
+    /**
+     * Given an option name, determine if the option should be displayed on the
+     *  TubePress options form (UI)
+     *
+     * @param $candidateOptionName The name of the option to look up
+     *
+     * @return boolean True if the option should be displayed on the options form, false otherwise
+     */
+    function isOptionApplicableToOptionsForm($optionName)
+    {
+        return true;
+    }
+
+    /**
+     * Given an option category name, determine if the category should be displayed on the
+     *  TubePress options form (UI)
+     *
+     * @param $candidateOptionName The name of the option category to look up
+     *
+     * @return boolean True if the category should be displayed on the options form, false otherwise
+     */
+    function isOptionCategoryApplicableToOptionsForm($optionCategoryName)
+    {
+        return !in_array($optionCategoryName, array(org_tubepress_options_Category::WIDGET));
+    }
+
     private function _getConstantsForClass($className)
     {
         $ref = new ReflectionClass($className);
