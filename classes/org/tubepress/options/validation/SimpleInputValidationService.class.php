@@ -95,7 +95,7 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
      */
     private function _checkExistence($optionName)
     {
-        if ($$this->_optionsReference->isOptionName($optionName) === FALSE) {
+        if ($this->_optionsReference->isOptionName($optionName) === FALSE) {
             throw new Exception(sprintf($this->_messageService->_("validation-no-such-option"), $optionName));
         }
     }
@@ -122,7 +122,7 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
                 }
                 break;
             case org_tubepress_options_Type::BOOL:
-                if (strcasecmp($candidate, 'true') !== 0 && strcasecmp($candidate, 'false') !== 0) {
+                if (strcasecmp((string)$candidate, '1') !== 0 && strcasecmp((string)$candidate, '') !== 0) {
                     throw new Exception(sprintf($this->_messageService->_("validation-bool"), 
                         $optionName, $candidate));
                 }

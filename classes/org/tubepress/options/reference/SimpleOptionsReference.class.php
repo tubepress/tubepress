@@ -119,6 +119,18 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
     );
 
     /**
+     * Given an option name, determine if the option can be set via a shortcode
+     *
+     * @param $candidateOptionName The name of the option to look up
+     *
+     * @return boolean True if the option can be set via a shortcode, false otherwise
+     */
+    function canOptionBeSetViaShortcode($optionName)
+    {
+        return !in_array($optionCategoryName, array(org_tubepress_options_category_Advanced::KEYWORD));
+    }
+
+    /**
      * Get all possible option names
      *
      * @return An array of all TubePress option names
@@ -283,6 +295,18 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
     function isOptionCategoryApplicableToOptionsForm($optionCategoryName)
     {
         return !in_array($optionCategoryName, array(org_tubepress_options_Category::WIDGET));
+    }
+
+    /**
+     * Given an option name, determine if the option should be stored in persistent storage
+     *
+     * @param $candidateOptionName The name of the option to look up
+     *
+     * @return boolean True if the option should be stored in persistent storage, false otherwise
+     */
+    function shouldBePersisted($optionName)
+    {
+        return true;
     }
 
     private function _getConstantsForClass($className)

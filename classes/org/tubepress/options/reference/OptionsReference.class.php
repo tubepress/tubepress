@@ -27,6 +27,15 @@
 interface org_tubepress_options_reference_OptionsReference
 {   
     /**
+     * Given an option name, determine if the option can be set via a shortcode
+     *
+     * @param $candidateOptionName The name of the option to look up
+     *
+     * @return boolean True if the option can be set via a shortcode, false otherwise
+     */
+    function canOptionBeSetViaShortcode($optionName);
+
+    /**
      * Get all possible option names
      *
      * @return array An array of all TubePress option names
@@ -123,5 +132,14 @@ interface org_tubepress_options_reference_OptionsReference
      * @return boolean True if the category should be displayed on the options form, false otherwise
      */
     function isOptionCategoryApplicableToOptionsForm($optionCategoryName);
+
+    /**
+     * Given an option name, determine if the option should be stored in persistent storage
+     *
+     * @param $candidateOptionName The name of the option to look up
+     *
+     * @return boolean True if the option should be stored in persistent storage, false otherwise
+     */
+    function shouldBePersisted($optionName);
 
 }

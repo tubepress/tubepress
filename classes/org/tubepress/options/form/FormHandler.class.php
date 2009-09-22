@@ -67,7 +67,7 @@ class org_tubepress_options_form_FormHandler
         foreach ($optionCategoryNames as $optionCategoryName) {
             
             /* don't display the widget options on this page */
-            if ($optionCategoryName == org_tubepress_options_Category::WIDGET) {
+            if (!$this->_optionsReference->isOptionCategoryApplicableToOptionsForm($optionCategoryName)) {
                 continue;
             }
             
@@ -90,8 +90,12 @@ class org_tubepress_options_form_FormHandler
      */
     public final function collect($postVars)
     {   
-        /* this loop will collect everything except checkboxes */ 
+        /* this loop will collect everything except checkboxes */
         foreach ($postVars as $name => $value) {
+            if ($this->_optionsReference->getType($name) === org_tubepress_options_Type::BOOL) {
+                continue;
+            }
+
             if ($this->_storageManager->exists($name)) {
                 $this->_storageManager->set($name, $value);
             }
@@ -107,7 +111,7 @@ class org_tubepress_options_form_FormHandler
             }
 
             /* if the user checked the box, the option name will appear in the POST vars */
-            $this->_storageManager->set($name, array_key_exists($name, $postVars));            
+            $this->_storageManager->set($name, array_key_exists($name, $postVars));         
         }
     }
     
