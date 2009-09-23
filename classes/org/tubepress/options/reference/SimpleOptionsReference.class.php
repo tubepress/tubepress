@@ -66,6 +66,7 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Display::RELATIVE_DATES      => false,
             org_tubepress_options_category_Display::PAGINATE_ABOVE      => true,
             org_tubepress_options_category_Display::PAGINATE_BELOW      => true,
+            org_tubepress_options_category_Display::AJAX_PAGINATION      => true,
             org_tubepress_options_category_Embedded::AUTOPLAY           => false,
             org_tubepress_options_category_Embedded::BORDER             => false,
             org_tubepress_options_category_Embedded::GENIE              => false,

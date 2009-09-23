@@ -27,13 +27,14 @@ class org_tubepress_options_category_Display
 {
     /* The order in which these constants are declared dictates the
        order in which they'll be presented on the options page */
-    const CURRENT_PLAYER_NAME = "playerLocation";
-    const RESULTS_PER_PAGE    = "resultsPerPage";
-    const THUMB_HEIGHT        = "thumbHeight";
-    const THUMB_WIDTH         = "thumbWidth";
-    const ORDER_BY            = "orderBy";
+    const AJAX_PAGINATION     = 'ajaxPagination';
+    const CURRENT_PLAYER_NAME = 'playerLocation';
+    const RESULTS_PER_PAGE    = 'resultsPerPage';
+    const THUMB_HEIGHT        = 'thumbHeight';
+    const THUMB_WIDTH         = 'thumbWidth';
+    const ORDER_BY            = 'orderBy';
     const PAGINATE_ABOVE      = 'paginationAbove';
     const PAGINATE_BELOW      = 'paginationBelow';
-    const RELATIVE_DATES      = "relativeDates";
-    const DESC_LIMIT          = "descriptionLimit";
+    const RELATIVE_DATES      = 'relativeDates';
+    const DESC_LIMIT          = 'descriptionLimit';
 }
