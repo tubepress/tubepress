@@ -92,6 +92,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
             
 	/* Ajax pagination? */
 	if ($this->_optionsManager->get(org_tubepress_options_category_Display::AJAX_PAGINATION)) {
+		$this->_template->setVariable('URL_ENCODED_SHORTCODE', urlencode($this->_optionsManager->getShortcode()));		
 		$this->_template->parse('ajaxPagination');
 	}
 

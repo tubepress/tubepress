@@ -49,7 +49,7 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
 
         /* if we're using Ajax for pagination, remove all the hrefs */
 	if ($this->_tpom->get(org_tubepress_options_category_Display::AJAX_PAGINATION)) {
-		$result = preg_replace('/href="[^"]*"/', '', $result);
+		$result = preg_replace('/href="[^"]*tubepress_page=([0-9]+)[^"]*"/', 'rel="tubepress_page=${1}"', $result);
 	}
 
 	return $result;
