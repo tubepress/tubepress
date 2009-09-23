@@ -86,15 +86,16 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
         /* generate HTML */
         $galleryHtml = $this->_loopOverThumbs($feedResult, $player, $galleryId);
         
-        /* apply vars to the template */
-        $this->_template->setVariable('GALLERYID', $galleryId);
-        $this->_template->setVariable("THUMBS", $galleryHtml);
-            
 	/* Ajax pagination? */
 	if ($this->_optionsManager->get(org_tubepress_options_category_Display::AJAX_PAGINATION)) {
+		$this->_template->setVariable('GALLERYID', $galleryId);
 		$this->_template->setVariable('URL_ENCODED_SHORTCODE', urlencode($this->_optionsManager->getShortcode()));		
 		$this->_template->parse('ajaxPagination');
 	}
+
+        /* apply vars to the template */
+        $this->_template->setVariable('GALLERY_ID', $galleryId);
+        $this->_template->setVariable("THUMBS", $galleryHtml);
 
         /* we're done. tie up */
         return $this->_template->getHtml();

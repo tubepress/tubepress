@@ -114,9 +114,9 @@ function tubepress_head_filter()
     
 	try {
 	        print<<<GBS
+<script type="text/javascript">function getTubePressBaseUrl(){return "$tubepress_base_url";}</script>
 <script type="text/javascript" src="$tubepress_base_url/ui/lib/tubepress.js"></script>
 <link rel="stylesheet" href="$tubepress_base_url/ui/lib/tubepress.css" type="text/css" />
-<script type="text/javascript">jQuery(document).ready(function() {tubepress_init("$tubepress_base_url");});</script>
 
 GBS;
 	} catch (Exception $e) {
