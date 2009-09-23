@@ -125,6 +125,10 @@ class org_tubepress_options_form_CategoryPrinter
                 $this->_messageService->_("options-desc-$optionName"));
         $this->_tpl->setVariable("OPTION_WIDGET",
                 $this->_wp->getHtml($optionName));
+	
+	if ($this->_optionsReference->isOptionProOnly($optionName)) {
+		$this->_tpl->setVariable("OPTION_PRO_ONLY", "*");
+	}
     }
     
     private function _loadTemplateFile($optionCategoryName)

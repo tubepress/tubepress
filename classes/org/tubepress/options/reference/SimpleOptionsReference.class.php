@@ -300,6 +300,18 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
     }
 
     /**
+     * Given an option name, determine if the option is only applicable to TubePress Pro
+     *
+     * @param $optionName The name of the option to look up
+     *
+     * @return boolean True if the option is TubePress Pro only, false otherwise
+     */
+    function isOptionProOnly($optionName)
+    {
+        return in_array($optionName, array(org_tubepress_options_category_Display::AJAX_PAGINATION));
+    }
+
+    /**
      * Given an option name, determine if the option should be stored in persistent storage
      *
      * @param $candidateOptionName The name of the option to look up

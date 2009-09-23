@@ -134,6 +134,15 @@ interface org_tubepress_options_reference_OptionsReference
     function isOptionCategoryApplicableToOptionsForm($optionCategoryName);
 
     /**
+     * Given an option name, determine if the option is only applicable to TubePress Pro
+     *
+     * @param $optionName The name of the option to look up
+     *
+     * @return boolean True if the option is TubePress Pro only, false otherwise
+     */
+    function isOptionProOnly($optionName);
+
+    /**
      * Given an option name, determine if the option should be stored in persistent storage
      *
      * @param $candidateOptionName The name of the option to look up
