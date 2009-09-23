@@ -69,7 +69,8 @@ div.pagination a {
     padding:2px 6px;
     background-position:bottom;
     text-decoration: none;
-    color: #0061de;        
+    color: #0061de;
+    cursor: pointer;        
 }
 div.pagination a:hover, div.meneame a:active {
     border: 1px solid #000;
