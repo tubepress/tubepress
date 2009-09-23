@@ -163,6 +163,10 @@ function _tubepress_get_wait_call(scriptPath, test, callback) {
 		_tubepress_call_when_true(test, callback);
     }, true);
 }
+
+function tubepressAjaxifyPagination(galleryId) {
+	//implement me
+}
  
  /*
   * includeMany 1.1.0
