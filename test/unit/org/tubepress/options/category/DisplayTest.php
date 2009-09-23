@@ -13,7 +13,7 @@ class org_tubepress_options_category_DisplayTest extends PHPUnit_Framework_TestC
 	public function setup()
 	{
 		$this->_expectedNames = array(
-			"playerLocation", "descriptionLimit", "orderBy", "relativeDates", 
+			'ajaxPagination', "playerLocation", "descriptionLimit", "orderBy", "relativeDates", 
 			"resultsPerPage", "thumbHeight", "thumbWidth", 'paginationAbove', 'paginationBelow'
     	);
     	$class = new ReflectionClass("org_tubepress_options_category_Display");    

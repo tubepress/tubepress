@@ -128,7 +128,7 @@ msgstr ""
 msgid "Show pagination below thumbnails"
 msgstr ""
 
-msgid "Use Ajax-enabled pagination"
+msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-enabled pagination"
 msgstr ""
 
 msgid "Only applies to galleries that span multiple pages"

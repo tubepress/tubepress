@@ -12,10 +12,11 @@ class org_tubepress_shortcode_SimpleShortcodeServiceTest extends PHPUnit_Framewo
 		$this->_tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
 		$this->_sut = new org_tubepress_shortcode_SimpleShortcodeService();
 		$this->_sut->setLog($this->getMock('org_tubepress_log_Log'));
-		      $this->_tpom->expects($this->once())
-                    ->method('get')
-                    ->with(org_tubepress_options_category_Advanced::KEYWORD)
-                    ->will($this->returnValue('butters'));
+	    $this->_sut->setInputValidationService($this->getMock('org_tubepress_options_validation_InputValidationService'));
+		$this->_tpom->expects($this->once())
+               ->method('get')
+               ->with(org_tubepress_options_category_Advanced::KEYWORD)
+               ->will($this->returnValue('butters'));
 	}
 
    function testMixedCommasWithAllSortsOfQuotes()

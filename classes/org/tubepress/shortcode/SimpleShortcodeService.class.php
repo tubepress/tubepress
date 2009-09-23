@@ -110,9 +110,10 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
                 $value = $this->_normalizeValue($m[6]);
             }
             
+            $this->_log->log($this->_logPrefix, sprintf("Custom shortcode detected: %s = %s", $name, (string)$value));
+            
             try {
                 $this->_inputValidationService->validate($name, $value);
-                $this->_log->log($this->_logPrefix, sprintf("Custom shortcode detected: %s = %s", $name, (string)$value));
                 $customOptions[$name] = $value;
             } catch (Exception $e) {
                 $this->_log->log($this->_logPrefix, sprintf("Ignoring invalid value for \"%s\" option: %s", $name, $e->getMessage()));

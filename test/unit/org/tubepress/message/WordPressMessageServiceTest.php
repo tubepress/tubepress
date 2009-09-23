@@ -4,7 +4,7 @@ require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/message/
 $msgs = array(
         "options-page-title"       => "TubePress Options",
         "options-page-save-button" => "Save", 
-        "options-page-intro-text"  => "Set default options for the plugin. Each option here can be overridden on a per page/post basis. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info.", 
+        "options-page-intro-text"  => "Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info. An asterisk (*) next to an option indicates it's only available with <a href=\"http://tubepress.org/features\">TubePress Pro</a>.", 
         "options-page-donation"    => "TubePress is free. But if you enjoy the plugin, and appreciate the hundreds of hours I've spent developing and supporting it, please consider a donation. No amount is too small. Thanks!", 
         
         "options-category-title-gallery"  => "Which videos?", 
@@ -42,6 +42,11 @@ $msgs = array(
         "options-title-resultsPerPage"   => "Videos per Page", 
         "options-desc-resultsPerPage"    => "Default is 20. Maximum is 50", 
         "options-title-orderBy"          => "Order videos by",
+        'options-title-paginationAbove'  => 'Show pagination above thumbnails',
+        'options-title-paginationBelow'  => 'Show pagination below thumbnails',
+        'options-desc-paginationAbove'   => 'Only applies to galleries that span multiple pages',
+        'options-desc-paginationBelow'   => 'Only applies to galleries that span multiple pages',
+        'options-title-ajaxPagination'   => '<a href="http://wikipedia.org/wiki/Ajax_(programming)">Ajax</a>-enabled pagination',
      
         "options-title-autoplay"             => "Auto-play videos", 
         "options-title-border"               => "Show border", 
@@ -98,7 +103,10 @@ $msgs = array(
         "options-title-cacheEnabled"         => "Enable request cache", 
         "options-desc-cacheEnabled"          => "Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness.",
         "options-title-embeddableOnly"       => "Only retrieve embeddable videos",
-        "options-desc-embeddableOnly"          => "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries.",
+        "options-desc-embeddableOnly"        => "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries.",
+    
+        "options-title-resultCountCap"       => "Maximum total videos to retrieve",
+        "options-desc-resultCountCap"        => "This can help to reduce the number of pages in your gallery. Set to \"0\" to remove any limit.",
     
         "player-normal"      => "normally (at the top of your gallery)", 
         "player-popup"       => "in a popup window",
@@ -131,11 +139,12 @@ $msgs = array(
         "video-url"         => "URL", 
         "video-views"       => "Views", 
     
-        "validation-int-type"  => "%s can only take on integer values. You supplied %s.", 
-        "validation-int-range" => "%s must be between %d and %d. You supplied %d.", 
-        "validation-time"      => "%s must be one of \"today\", \"this_week\", \"this_month\", \"all_time\". You supplied %s.", 
-        "validation-order"     => "%s must be on of \"relevance\", \"viewCount\", \"rating\", \"updated\", \"random\". You supplied %s.", 
-        "validation-text"      => "%s must be a string. You supplied %s.", 
+        "validation-int-type"       => "%s can only take on integer values. You supplied %s.",
+        "validation-int-range"      => '"%s" must be between "%d" and "%d". You supplied "%d".',
+        "validation-text"           => "%s must be a string. You supplied %s.",
+        "validation-no-such-option" => '"%s" is not a valid option name.',
+        "validation-bool"           => '"%s" must be either true or false. You supplied "%s".',
+        "validation-enum"           => '"%s" must be one of "%s". You supplied "%s".',
     
         "next" => "next", 
         "prev" => "prev", 
