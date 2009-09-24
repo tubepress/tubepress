@@ -166,10 +166,23 @@ function _tubepress_get_wait_call(scriptPath, test, callback) {
     }, true);
 }
 
-function tubepressAjaxifyPagination(galleryId) {
-	//implement me
+function ajaxifyPaginationForTubePressGallery(galleryId) {
+	var baseUrl = getTubePressBaseUrl();
+	jQuery("#tubepress_gallery_" + galleryId + " div.pagination a").click(function() {
+		var shortcode = window["getUrlEncodedShortcodeForTubePressGallery" + galleryId](),
+			page = jQuery(this).attr("rel"),
+			thumbnailArea = "#tubepress_gallery_" + galleryId + "_thumbnail_area";
+		jQuery(thumbnailArea).fadeOut();
+		jQuery(thumbnailArea).load(baseUrl + "/env/pro/examples/fun.php?shortcode=" + shortcode + "&tubepress_" + page + " " + thumbnailArea + " > *"
+			,function() {
+				tubepress_attach_listeners();
+				ajaxifyPaginationForTubePressGallery(galleryId);
+				jQuery(thumbnailArea).fadeIn();
+			}
+		);
+		}
+	);
 }
- 
  /*
   * includeMany 1.1.0
   *
