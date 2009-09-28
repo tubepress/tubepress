@@ -172,16 +172,15 @@ function ajaxifyPaginationForTubePressGallery(galleryId) {
 		var shortcode = window["getUrlEncodedShortcodeForTubePressGallery" + galleryId](),
 			page = jQuery(this).attr("rel"),
 			thumbnailArea = "#tubepress_gallery_" + galleryId + "_thumbnail_area";
-		jQuery(thumbnailArea).fadeOut();
-		jQuery(thumbnailArea).load(baseUrl + "/env/pro/examples/fun.php?shortcode=" + shortcode + "&tubepress_" + page + " " + thumbnailArea + " > *"
-			,function() {
+		jQuery(thumbnailArea).fadeTo('fast', .01);
+		setTimeout(function() {
+			jQuery(thumbnailArea).load(baseUrl + "/env/pro/lib/ajax/responder.php?shortcode=" + shortcode + "&tubepress_" + page + " " + thumbnailArea + " > *", function() {
 				tubepress_attach_listeners();
 				ajaxifyPaginationForTubePressGallery(galleryId);
-				jQuery(thumbnailArea).fadeIn();
-			}
-		);
-		}
-	);
+				jQuery(thumbnailArea).fadeTo('fast', 1);
+			});
+		}, 100);
+	});
 }
  /*
   * includeMany 1.1.0
