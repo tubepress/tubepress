@@ -145,11 +145,12 @@ function _tubepress_rel_parser(index) {
 function _tubepress_call_when_true(test, callback) {
     /* if the test doesn't pass, try again in .4 seconds */	
     if (!test()) {
-		setTimeout(function() {_tubepress_call_when_true(test, callback);}, 400);
-		return;
-	}
+        var futureTest = function() {_tubepress_call_when_true(test, callback);}
+        setTimeout(futureTest, 400);
+	return;
+    }
     /* the test passed, so call the callback */
-	callback();
+    callback();
 }
 
 /**
@@ -161,9 +162,8 @@ function _tubepress_call_when_true(test, callback) {
  * @return
  */
 function _tubepress_get_wait_call(scriptPath, test, callback) {
-	jQuery.getScript(scriptPath, function() {
-		_tubepress_call_when_true(test, callback);
-    }, true);
+    var futureCallback = function() { _tubepress_call_when_true(test, callback); }
+    jQuery.getScript(scriptPath, futureCallback, true);
 }
 
 /**
@@ -171,22 +171,33 @@ function _tubepress_get_wait_call(scriptPath, test, callback) {
  *
  */
 function ajaxifyPaginationForTubePressGallery(galleryId) {
-	var baseUrl = getTubePressBaseUrl();
-	jQuery("#tubepress_gallery_" + galleryId + " div.pagination a").click(function() {
-		var shortcode = window["getUrlEncodedShortcodeForTubePressGallery" + galleryId](),
-			page = jQuery(this).attr("rel"),
-			thumbnailArea = "#tubepress_gallery_" + galleryId + "_thumbnail_area";
-		jQuery(thumbnailArea).fadeTo('fast', .01);
-                /* use a tiny delay here to prevent the new content from showing up before we're done fading */
-		setTimeout(function() {
-			jQuery(thumbnailArea).load(baseUrl + "/env/pro/lib/ajax/responder.php?shortcode=" + shortcode + "&tubepress_" + page + "?tubepress_galleryId= " + galleryId + " " + thumbnailArea + " > *", 				function() {
-				tubepress_attach_listeners();
-				ajaxifyPaginationForTubePressGallery(galleryId);
-				jQuery(thumbnailArea).fadeTo('fast', 1);
-			});
-		}, 100);
-	});
+    var clickCallback = function() { processAjaxRequest(jQuery(this), galleryId); };
+    jQuery("#tubepress_gallery_" + galleryId + " div.pagination a").click(clickCallback);
 }
+
+function processAjaxRequest(anchor, galleryId) {
+    var baseUrl = getTubePressBaseUrl(), 
+        shortcode = window["getUrlEncodedShortcodeForTubePressGallery" + galleryId](),
+        page = anchor.attr("rel"),
+        thumbnailArea = "#tubepress_gallery_" + galleryId + "_thumbnail_area",
+        postLoadCallback = function() { postAjaxGallerySetup(thumbnailArea, galleryId) },
+        pageToLoad = baseUrl + "/env/pro/lib/ajax/responder.php?shortcode=" + shortcode + "&tubepress_" + page + "&tubepress_galleryId=" + galleryId,
+        remotePageSelector = thumbnailArea + " > *",
+        loadFunction= function() { jQuery(thumbnailArea).load(pageToLoad + " " + remotePageSelector, postLoadCallback); };
+
+    /* fade out the old stuff */
+    jQuery(thumbnailArea).fadeTo('fast', .01);
+    
+    /* use a tiny delay here to prevent the new content from showing up before we're done fading */
+    setTimeout(loadFunction, 100);
+}
+
+function postAjaxGallerySetup(thumbnailArea, galleryId) {
+    tubepress_attach_listeners();
+    ajaxifyPaginationForTubePressGallery(galleryId);
+    jQuery(thumbnailArea).fadeTo('fast', 1);
+}
+
  /*
   * includeMany 1.1.0
   *
