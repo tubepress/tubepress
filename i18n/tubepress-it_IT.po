@@ -291,6 +291,12 @@ msgstr "Alcuni video non permettono di essere incorporati. Metti il segno di spu
 msgid "Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
 msgstr "Conserva per 1 ora le richieste per YouTube. Ogni richiesta comporta l'utilizzo di alcune centinai di KB quindi, lasciando attiva la cache verrà ridotto significamente il tempo di caricamento delle tue gallerie."
 
+msgid "Maximum total videos to retrieve"
+msgstr "Numero massimo di video da estrarre"
+
+msgid "This can help to reduce the number of pages in your gallery. Set to \"0\" to remove any limit."
+msgstr "Questo potrà esserti utile per ridurre il numero di pagine nella galleria. Imposta a \"0\" pre nessun limite."
+
 msgid "Add rel=nofollow to most YouTube links"
 msgstr "Aggiungi rel=nofollow ai link YouTube"
 
