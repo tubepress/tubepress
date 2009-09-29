@@ -73,11 +73,6 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
      */
     private final function _getHtml($galleryId)
     {
-	$requestedGalleryId = $this->_optionsManager->get(org_tubepress_options_category_Advanced::GALLERY_ID);
-	if (isset($requestedGalleryId)) {
-		$galleryId = $requestedGalleryId;
-	}
-
         /* first grab the videos */
         $feedResult = $this->_videoProvider->getFeedResult();
         

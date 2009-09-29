@@ -166,6 +166,10 @@ function _tubepress_get_wait_call(scriptPath, test, callback) {
     }, true);
 }
 
+/**
+ * Adds Ajax functionality to pagination links
+ *
+ */
 function ajaxifyPaginationForTubePressGallery(galleryId) {
 	var baseUrl = getTubePressBaseUrl();
 	jQuery("#tubepress_gallery_" + galleryId + " div.pagination a").click(function() {
@@ -173,8 +177,9 @@ function ajaxifyPaginationForTubePressGallery(galleryId) {
 			page = jQuery(this).attr("rel"),
 			thumbnailArea = "#tubepress_gallery_" + galleryId + "_thumbnail_area";
 		jQuery(thumbnailArea).fadeTo('fast', .01);
+                /* use a tiny delay here to prevent the new content from showing up before we're done fading */
 		setTimeout(function() {
-			jQuery(thumbnailArea).load(baseUrl + "/env/pro/lib/ajax/responder.php?shortcode=" + shortcode + "&tubepress_" + page + " " + thumbnailArea + " > *", function() {
+			jQuery(thumbnailArea).load(baseUrl + "/env/pro/lib/ajax/responder.php?shortcode=" + shortcode + "&tubepress_" + page + "?tubepress_galleryId= " + galleryId + " " + thumbnailArea + " > *", 				function() {
 				tubepress_attach_listeners();
 				ajaxifyPaginationForTubePressGallery(galleryId);
 				jQuery(thumbnailArea).fadeTo('fast', 1);

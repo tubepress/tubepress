@@ -29,18 +29,29 @@ tubepress_load_classes(array('org_tubepress_querystring_QueryStringService'));
  */
 class org_tubepress_querystring_SimpleQueryStringService implements org_tubepress_querystring_QueryStringService
 {
-    const TUBEPRESS_PAGE      = "tubepress_page";
-    const TUBEPRESS_SHORTCODE = "tubepress_shortcode";
-    const TUBEPRESS_VIDEO     = "tubepress_video";
+    const TUBEPRESS_GALLERY_ID = 'tubepress_galleryId';
+    const TUBEPRESS_PAGE       = 'tubepress_page';
+    const TUBEPRESS_SHORTCODE  = 'tubepress_shortcode';
+    const TUBEPRESS_VIDEO      = 'tubepress_video';
 
     /**
      * Try to get the custom video ID from the query string
      *
-     * @return string The custom video ID, or "" if not set
+     * @return string The custom video ID, or '' if not set
     */
     public function getCustomVideo($getVars)
     {
 	return $this->_getQueryVar($getVars, org_tubepress_querystring_SimpleQueryStringService::TUBEPRESS_VIDEO);
+    }
+
+    /**
+     * Try to get the gallery ID from the query string
+     *
+     * @return string The gallery ID, or '' if not set
+    */
+    public function getGalleryId($getVars)
+    {
+        return $this->_getQueryVar($getVars, org_tubepress_querystring_SimpleQueryStringService::TUBEPRESS_GALLERY_ID);
     }
 
     /**
@@ -51,15 +62,15 @@ class org_tubepress_querystring_SimpleQueryStringService implements org_tubepres
     public function getFullUrl($serverVars)
     {
         $pageURL = 'http';
-        if ($serverVars["HTTPS"] == "on") {
-            $pageURL .= "s";
+        if ($serverVars['HTTPS'] == 'on') {
+            $pageURL .= 's';
         }
-        $pageURL .= "://";
-        if ($serverVars["SERVER_PORT"] != "80") {
-             $pageURL .= $serverVars["SERVER_NAME"].":".
-                 $serverVars["SERVER_PORT"].$serverVars["REQUEST_URI"];
+        $pageURL .= '://';
+        if ($serverVars['SERVER_PORT'] != '80') {
+             $pageURL .= $serverVars['SERVER_NAME'].':'.
+                 $serverVars['SERVER_PORT'].$serverVars['REQUEST_URI'];
         } else {
-             $pageURL .= $serverVars["SERVER_NAME"].$serverVars["REQUEST_URI"];
+             $pageURL .= $serverVars['SERVER_NAME'].$serverVars['REQUEST_URI'];
         }
         return $pageURL;
     }
@@ -85,7 +96,7 @@ class org_tubepress_querystring_SimpleQueryStringService implements org_tubepres
     /**
      * Try to get the shortcode from the query string
      *
-     * @return string The shortcode, or "" if not set
+     * @return string The shortcode, or '' if not set
     */
     public function getShortcode($getVars)
     {
@@ -94,6 +105,6 @@ class org_tubepress_querystring_SimpleQueryStringService implements org_tubepres
 
     private function _getQueryVar($getVars, $key)
     {
-        return isset($getVars[$key]) ? $getVars[$key] : "";
+        return isset($getVars[$key]) ? $getVars[$key] : '';
     }
 }

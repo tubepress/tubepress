@@ -39,6 +39,13 @@ interface org_tubepress_querystring_QueryStringService
     public function getFullUrl($serverVars);
     
     /**
+     * Try to get the gallery ID from the query string
+     *
+     * @return string The gallery ID, or "" if not set
+    */
+    public function getGalleryId($getVars);
+
+    /**
      * Try to figure out what page we're on by looking at the query string
      * Defaults to '1' if there's any doubt
      * 
