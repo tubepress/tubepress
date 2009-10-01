@@ -71,3 +71,9 @@ function tubepress_admin_head_hook()
     $jsColorFile = "$tubepress_base_url/ui/options_page/js/jscolor/jscolor.js";
     echo "<script type=\"text/javascript\" src=\"$jsColorFile\"></script>";
 }
+
+function tubepress_admin_init_hook()
+{
+	wp_enqueue_style('jquery-ui-flick', WP_PLUGIN_URL . '/tubepress/ui/options_page/css/flick/jquery-ui-1.7.2.custom.css');
+	wp_enqueue_script('jquery-ui-tabs');
+}

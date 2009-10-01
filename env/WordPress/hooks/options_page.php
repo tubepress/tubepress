@@ -27,6 +27,9 @@ if (!function_exists("tubepress_admin_menu_hook")) {
 	
 	/* loads up some color choosing JS */
 	add_action('admin_head',  'tubepress_admin_head_hook');
+
+	/* loads up jQuery UI */
+	add_action('admin_init', 'tubepress_admin_init_hook');
 }
 
 ?>

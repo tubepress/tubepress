@@ -64,6 +64,18 @@ class org_tubepress_options_form_FormHandler
         /* now parse each option category */
         $optionCategoryNames = $this->_optionsReference->getOptionCategoryNames();
 
+	foreach ($optionCategoryNames as $optionCategoryName) {
+
+		      /* don't display the widget options on this page */
+            if (!$this->_optionsReference->isOptionCategoryApplicableToOptionsForm($optionCategoryName)) {
+                continue;
+            }
+
+		$tpl->setVariable('CATEGORY_NAME', $this->_messageService->_("options-category-title-$optionCategoryName"));
+                $tpl->setVariable('CATEGORYID', md5($optionCategoryName));
+		$tpl->parse('optionCategoryHeader');
+	}
+
         foreach ($optionCategoryNames as $optionCategoryName) {
             
             /* don't display the widget options on this page */

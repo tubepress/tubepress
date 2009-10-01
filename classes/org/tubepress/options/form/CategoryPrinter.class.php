@@ -45,8 +45,7 @@ class org_tubepress_options_form_CategoryPrinter
 
         $this->_loadTemplateFile($optionCategoryName);
 
-        $this->_tpl->setVariable("OPTION_CATEGORY_TITLE", 
-                $this->_messageService->_("options-category-title-$optionCategoryName"));
+        $this->_tpl->setVariable("CATEGORY_ID", md5($optionCategoryName));
 
         $this->_parseOptionCategory($optionCategoryName);        
                 
