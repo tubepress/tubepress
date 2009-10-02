@@ -43,7 +43,7 @@ class org_tubepress_video_feed_provider_ProviderImplTest extends PHPUnit_Framewo
                                      ->with('xml')
                                      ->will($this->returnValue(1));
         $this->_videoFactory->expects($this->once())
-                            ->method('dom2TubePressVideoArray')
+                            ->method('feedToVideoArray')
                             ->will($this->returnValue($fakeVideoArray));
         $result = $this->_sut->getFeedResult();
         $this->assertTrue(is_a($result, 'org_tubepress_video_feed_FeedResult'));

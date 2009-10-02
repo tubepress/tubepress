@@ -26,9 +26,9 @@
 interface org_tubepress_video_feed_retrieval_FeedRetrievalService
 {
     /**
-     * Fetches the RSS from YouTube
+     * Fetches the feed from the remote provider
      * 
-     * @return DOMDocument The raw RSS from YouTube
+     * @return unknown The raw feed from the provider
      */
     public function fetch($url, $useCache);
     

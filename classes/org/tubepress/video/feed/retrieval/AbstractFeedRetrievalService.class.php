@@ -36,11 +36,9 @@ abstract class org_tubepress_video_feed_retrieval_AbstractFeedRetrievalService i
     protected $_logPrefix;
     
     /**
-     * Fetches the RSS from YouTube
+     * Fetches the feed from the remote provider
      * 
-     * @param org_tubepress_options_manager_OptionsManager $tpom The TubePress options manager
-     * 
-     * @return DOMDocument The raw RSS from YouTube
+     * @return unknown The raw feed from the provider
      */
     public function fetch($url, $useCache)
     {   
@@ -50,30 +48,24 @@ abstract class org_tubepress_video_feed_retrieval_AbstractFeedRetrievalService i
         $this->_log->log($this->_logPrefix, sprintf("Connection test can be run at <a href=\"%s\">%s</a>",
             $testUrl, $testUrl));
         
-        $xml = new DOMDocument();
+        $result = "";
         if ($useCache) {
             
             $this->_log->log($this->_logPrefix, sprintf("First asking cache for %s", $url));
             
             if ($this->_cache->has($url)) {
-                
                 $this->_log->log($this->_logPrefix, sprintf("Cache has %s. Sweet.", $url));
-                
-                $cached = $this->_cache->get($url);
-                $xml->loadXML($cached);
+                $result = $this->_cache->get($url);
             } else {
-                
-                $this->_log->log($this->_logPrefix, sprintf("Cache does not have %s. We'll have to"
-                	. " get it from the network.", $url));
-                
-                $xml = $this->_getFromNetwork($url);
-                $this->_cache->save($url, $xml->saveXML());
+                $this->_log->log($this->_logPrefix, sprintf("Cache does not have %s. We'll have to get it from the network.", $url));
+                $result = $this->_getFromNetwork($url);
+                $this->_cache->save($url, $result);
             }
         } else {
             $this->_log->log($this->_logPrefix, sprintf("Skip cache check for %s", $url));
-            $xml = $this->_getFromNetwork($url);
+            $result = $this->_getFromNetwork($url);
         }
-        return $xml;
+        return $result;
     }
     
     public function setCacheService(org_tubepress_cache_CacheService $cache)
@@ -93,13 +85,7 @@ abstract class org_tubepress_video_feed_retrieval_AbstractFeedRetrievalService i
         /* trim it just in case */
         $data = trim($data);
         
-        $doc = new DOMDocument();
-
-        if ($doc->loadXML($data) === FALSE) {
-            throw new Exception($data);
-        }
-        
-        return $doc;
+	return $data;
     }
     
     protected abstract function _fetchFromNetwork($request);

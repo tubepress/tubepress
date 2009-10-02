@@ -20,17 +20,17 @@
  */
 
 /**
- * Takes a DOMDocument from YouTube and spits back a org_tubepress_video_Video
+ * Converts raw video feeds to TubePress videos
  */
 interface org_tubepress_video_factory_VideoFactory
 {
     /**
-     * Main method
+     * Converts raw video feeds to TubePress videos
      *
-     * @param DOMElement $rss   The raw XML of what we got from YouTube
+     * @param unknown    $rss   The raw feed result from the video provider
      * @param int        $limit The max number of videos to return
      * 
-     * @return org_tubepress_video_Video A org_tubepress_video_Video representing this video
+     * @return array an array of TubePress videos generated from the feed
      */
-    public function dom2TubePressVideoArray($feed, $limit);
+    public function feedToVideoArray($feed, $limit);
 }

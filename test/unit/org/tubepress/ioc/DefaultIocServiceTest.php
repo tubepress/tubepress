@@ -15,7 +15,7 @@ class org_tubepress_ioc_DefaultIocServiceTest extends PHPUnit_Framework_TestCase
             org_tubepress_ioc_IocService::OPTIONS_REFERENCE => 'org_tubepress_options_reference_SimpleOptionsReference',
             org_tubepress_ioc_IocService::FEED_INSPECTION_SERVICE =>  'org_tubepress_video_feed_inspection_YouTubeFeedInspectionService',
             org_tubepress_ioc_IocService::CACHE_SERVICE => 'org_tubepress_cache_SimpleCacheService',
-            org_tubepress_ioc_IocService::VIDEO_FACTORY => 'org_tubepress_video_factory_SimpleVideoFactory',
+            org_tubepress_ioc_IocService::VIDEO_FACTORY => 'org_tubepress_video_factory_YouTubeVideoFactory',
             org_tubepress_ioc_IocService::QUERY_STRING_SERVICE => 'org_tubepress_querystring_SimpleQueryStringService',
             org_tubepress_player_Player::YOUTUBE . "-player" => 'org_tubepress_player_impl_YouTubePlayer',
             org_tubepress_ioc_IocService::VALIDATION_SERVICE => 'org_tubepress_options_validation_SimpleInputValidationService',

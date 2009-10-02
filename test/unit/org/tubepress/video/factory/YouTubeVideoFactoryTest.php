@@ -1,8 +1,8 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/video/factory/SimpleVideoFactory.class.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/video/factory/YouTubeVideoFactory.class.php';
 
-class org_tubepress_video_factory_SimpleVideoFactoryTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_video_factory_YouTubeVideoFactoryTest extends PHPUnit_Framework_TestCase {
     
     private $_vids;
     
@@ -14,8 +14,8 @@ class org_tubepress_video_factory_SimpleVideoFactoryTest extends PHPUnit_Framewo
     function setUp() {
         $doc = new DOMDocument();
         $doc->load(dirname(__FILE__) . "/../../../../sample_feed.xml");
-        $factory = new org_tubepress_video_factory_SimpleVideoFactory();
-        $this->_vids = $factory->dom2TubePressVideoArray($doc, 1);
+        $factory = new org_tubepress_video_factory_YouTubeVideoFactory();
+        $this->_vids = $factory->feedToVideoArray($doc, 1);
     }
     
     function testRetrievesAuthorFromDomElement()

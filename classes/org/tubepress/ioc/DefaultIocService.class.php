@@ -30,7 +30,7 @@ tubepress_load_classes(array('org_tubepress_ioc_PhpCraftyIocService',
     'org_tubepress_options_reference_SimpleOptionsReference',
     'org_tubepress_video_feed_inspection_YouTubeFeedInspectionService',
 	'org_tubepress_cache_SimpleCacheService',
-	'org_tubepress_video_factory_SimpleVideoFactory',
+	'org_tubepress_video_factory_YouTubeVideoFactory',
 	'org_tubepress_querystring_SimpleQueryStringService',
 	'org_tubepress_player_impl_YouTubePlayer',
     'org_tubepress_player_impl_NormalPlayer',
@@ -69,7 +69,7 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
         $this->def(org_tubepress_ioc_IocService::FEED_INSPECTION_SERVICE,
             $this->impl('org_tubepress_video_feed_inspection_YouTubeFeedInspectionService'));
         $this->def(org_tubepress_ioc_IocService::VIDEO_FACTORY,
-            $this->impl('org_tubepress_video_factory_SimpleVideoFactory'));
+            $this->impl('org_tubepress_video_factory_YouTubeVideoFactory'));
         $this->def(org_tubepress_ioc_IocService::QUERY_STRING_SERVICE,
             $this->impl('org_tubepress_querystring_SimpleQueryStringService'));
         $this->def(org_tubepress_ioc_IocService::LOG,

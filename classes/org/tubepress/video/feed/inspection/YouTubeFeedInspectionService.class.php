@@ -31,8 +31,9 @@ class org_tubepress_video_feed_inspection_YouTubeFeedInspectionService implement
 {   
     const NS_OPENSEARCH = 'http://a9.com/-/spec/opensearch/1.1/';
     
-    public function getTotalResultCount($dom)
+    public function getTotalResultCount($rawFeed)
     {
+	$dom = $this->_getDom($rawFeed);
         $result = $dom->getElementsByTagNameNS(org_tubepress_video_feed_inspection_YouTubeFeedInspectionService::NS_OPENSEARCH,
             'totalResults')->item(0)->nodeValue;
         
@@ -40,13 +41,22 @@ class org_tubepress_video_feed_inspection_YouTubeFeedInspectionService implement
         return $result;
     }
     
-    public function getQueryResultCount($dom)
+    public function getQueryResultCount($rawFeed)
     {
+	$dom = $this->_getDom($rawFeed);
         $result = $dom->getElementsByTagName('entry')->length;
         $this->_makeSureNumeric($result);
         return $result;
     }
     
+    private function _getDom($rawFeed) {
+	$dom = new DOMDocument();
+	if ($dom->loadXML($rawFeed) === FALSE) {
+            throw new Exception('Problem parsing XML from YouTube');
+	}
+	return $dom;
+    }
+
     private function _makeSureNumeric($result)
     {
         if (is_numeric($result) === FALSE) {

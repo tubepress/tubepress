@@ -90,7 +90,7 @@ class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_vi
         $this->_log->log($this->_logPrefix, sprintf("Effective display count (taking into account user-defined limit) is %d videos", $effectiveDisplayCount));
         
         /* convert the XML to objects */
-        $videos = $this->_videoFactory->dom2TubePressVideoArray($xml, $effectiveDisplayCount);
+        $videos = $this->_videoFactory->feedToVideoArray($xml, $effectiveDisplayCount);
         
         /* shuffle if we need to */
         if ($this->_optionsManager->get(org_tubepress_options_category_Display::ORDER_BY) == "random") {
@@ -109,7 +109,7 @@ class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_vi
     {
         $videoUrl = $this->_urlBuilder->buildSingleVideoUrl($customVideoId);
         $results = $this->_feedRetrievalService->fetch($videoUrl, $this->_optionsManager->get(org_tubepress_options_category_Feed::CACHE_ENABLED));
-        $videoArray = $this->_videoFactory->dom2TubePressVideoArray($results, 1);
+        $videoArray = $this->_videoFactory->feedToVideoArray($results, 1);
         return $videoArray[0];
     }
     
