@@ -1,14 +1,14 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/url/SimpleUrlBuilder.class.php';
+require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/url/YouTubeUrlBuilder.class.php';
 
-class org_tubepress_url_SimpleUrlBuilderTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_url_YouTubeUrlBuilderTest extends PHPUnit_Framework_TestCase {
     
 	private $_sut;
 	
 	function setUp()
 	{
-		$this->_sut = new org_tubepress_url_SimpleUrlBuilder();
+		$this->_sut = new org_tubepress_url_YouTubeUrlBuilder();
 	}
 	
 	function testBuildGalleryUrlUserMode()

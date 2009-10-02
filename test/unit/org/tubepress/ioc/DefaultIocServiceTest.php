@@ -20,7 +20,7 @@ class org_tubepress_ioc_DefaultIocServiceTest extends PHPUnit_Framework_TestCase
             org_tubepress_player_Player::YOUTUBE . "-player" => 'org_tubepress_player_impl_YouTubePlayer',
             org_tubepress_ioc_IocService::VALIDATION_SERVICE => 'org_tubepress_options_validation_SimpleInputValidationService',
             org_tubepress_ioc_IocService::FEED_RETRIEVAL_SERVICE => 'org_tubepress_video_feed_retrieval_HTTPRequest2', 
-            org_tubepress_ioc_IocService::URL_BUILDER => 'org_tubepress_url_SimpleUrlBuilder', 
+            org_tubepress_ioc_IocService::URL_BUILDER => 'org_tubepress_url_YouTubeUrlBuilder', 
             org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . '-embedded' => 'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService',
             org_tubepress_embedded_EmbeddedPlayerService::LONGTAIL . '-embedded' => 'org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService',
             org_tubepress_player_Player::NORMAL . "-player" => 'org_tubepress_player_impl_NormalPlayer',

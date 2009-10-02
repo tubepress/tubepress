@@ -20,22 +20,22 @@
  */
 
 /**
- * Builds URLs to send out to YouTube for gdata
+ * Builds URLs to send out to a remote provider
  *
  */
 interface org_tubepress_url_UrlBuilder
 {
     /**
-     * Builds a gdata request url for a list of videos
+     * Builds a URL for a list of videos
      *
-     * @return string The gdata request URL for this gallery
+     * @return string The request URL for this gallery
      */
     public function buildGalleryUrl($currentPage);
 
     /**
-     * Builds a gdata request url for a single video
+     * Builds a request url for a single video
      *
-     * @param string $id The YouTube video ID to search for
+     * @param string $id The video ID to search for
      */
     public function buildSingleVideoUrl($id);
 }
