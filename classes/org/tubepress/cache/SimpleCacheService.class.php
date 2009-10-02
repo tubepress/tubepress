@@ -87,7 +87,7 @@ class org_tubepress_cache_SimpleCacheService implements org_tubepress_cache_Cach
             }
         }
         
-        $this->_cache = new net_php_pear_Cache_Lite(array("cacheDir" => sys_get_temp_dir()));
+        $this->_cache = new net_php_pear_Cache_Lite(array("cacheDir" => sys_get_temp_dir() . '/'));
         $this->_cachePath = $this->_cache->_cacheDir;
     }
     
