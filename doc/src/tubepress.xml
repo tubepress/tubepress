@@ -734,6 +734,17 @@ nights working on this project. If you enjoy the software, please consider a don
                    </thead>
                    <tbody>
                         <row>
+                           <entry><code>ajaxPagination</code></entry>
+                           <entry>Use AJAX to paginate galleries asynchronously. <emphasis>NOTE: </emphasis>This feature is only available with TubePress Pro.</entry>
+                           <entry>
+                           <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                           </entry>
+                            <entry><code>[tubepress ajaxPagination="true"]</code></entry>
+                        </row>
+                        <row>
                            <entry><code>descriptionLimit</code></entry>
                            <entry>Limit the length of video descriptions to a certain number of characters. This can help prevent video descriptions from overflowing onto other thumbnails.
                            </entry>
