@@ -29,10 +29,9 @@ tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory',
  */
 class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_video_factory_VideoFactory
 {
-    private $_mediaGroup;
-
     /* shorthands for the namespaces */
     const NS_APP   = 'http://www.w3.org/2007/app';
+    const NS_ATOM  = 'http://www.w3.org/2005/Atom';
     const NS_MEDIA = 'http://search.yahoo.com/mrss/';
     const NS_YT    = 'http://gdata.youtube.com/schemas/2007';
     const NS_GD    = 'http://schemas.google.com/g/2005';
@@ -48,15 +47,17 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
     public function feedToVideoArray($feed, $limit)
     {   
         $results = array();
-	$rss = new DOMDocument();
-	if ($rss->loadXML($feed) === FALSE) {
-		throw new Exception("Could not load XML from YouTube");
+	$doc = new DOMDocument();
+	if ($doc->loadXML($feed) === FALSE) {
+            throw new Exception("Could not parse XML from YouTube");
 	}
-        $entries = $rss->getElementsByTagName('entry');
-        
+
+        $xpath = $this->_buildXPath($doc);
+        $entries = $xpath->query('/atom:feed/atom:entry');
+
         /* create a org_tubepress_video_Video out of each "entry" node */
         for ($j = 0; $j < min($limit, $entries->length); $j++) {
-            $results[] = $this->_createVideo($entries->item($j));
+            $results[] = $this->_createVideo($xpath, $entries->item($j));
         }
         return $results;
     }
@@ -68,35 +69,31 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
      * 
      * @return org_tubepress_video_Video The org_tubepress_video_Video representation of this node
      */
-    private function _createVideo(DOMNode $entry)
+    private function _createVideo(DOMXPath $doc, DOMNode $entry)
     {
         $vid = new org_tubepress_video_Video();
         
         /* see if the video is actually available, not just a stub */
-        if ($this->_videoNotAvailable($entry)) {
+        if ($this->_videoNotAvailable($doc, $entry)) {
             $vid->setDisplayable(false);
             return $vid;
         }
         $vid->setDisplayable(true);
-        
-        $this->_mediaGroup = 
-            $entry->getElementsByTagNameNS(org_tubepress_video_factory_YouTubeVideoFactory::NS_MEDIA, 
-                'group')->item(0);
 
         /* everyone loves the builder pattern */
-        $vid->setAuthor($this->_getAuthor($entry));
-        $vid->setCategory($this->_getCategory($entry));
-        $vid->setDescription($this->_getDescription($entry));
-        $vid->setId($this->_getId($entry));
-        $vid->setLength($this->_getRuntime($entry));
-        $vid->setRating($this->_getRatingAverage($entry));
-        $vid->setRatings($this->_getRatingCount($entry));
-        $vid->setTags($this->_getTags($entry));
-        $vid->setThumbUrls($this->_getThumbUrls($entry));
-        $vid->setTitle($this->_getTitle($entry));
-        $vid->setUploadTime($this->_getUploadTime($entry));
-        $vid->setViews($this->_getViewCount($entry));
-        $vid->setYouTubeUrl($this->_getURL($entry));
+        $vid->setAuthor($this->_getAuthor($doc, $entry));
+        $vid->setCategory($this->_getCategory($doc, $entry));
+        $vid->setDescription($this->_getDescription($doc, $entry));
+        $vid->setId($this->_getId($doc, $entry));
+        $vid->setLength($this->_getRuntime($doc, $entry));
+        $vid->setRating($this->_getRatingAverage($doc, $entry));
+        $vid->setRatings($this->_getRatingCount($doc, $entry));
+        $vid->setTags($this->_getTags($doc, $entry));
+        $vid->setThumbUrls($this->_getThumbUrls($doc, $entry));
+        $vid->setTitle($this->_getTitle($doc, $entry));
+        $vid->setUploadTime($this->_getUploadTime($doc, $entry));
+        $vid->setViews($this->_getViewCount($doc, $entry));
+        $vid->setYouTubeUrl($this->_getURL($doc, $entry));
         return $vid;
     }
 
@@ -107,10 +104,9 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
      * 
      * @return string The YouTube author from the XML
      */
-    private function _getAuthor(DOMElement $rss)
+    private function _getAuthor(DOMXPath $doc, DOMNode $entry)
     {
-        $authorNode = $rss->getElementsByTagName('author')->item(0);
-        return $authorNode->getElementsByTagName('name')->item(0)->nodeValue;
+        return $doc->query('atom:author/atom:name', $entry)->item(0)->nodeValue;
     }
     
     /**
@@ -120,11 +116,9 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
      *
      * @return string The YouTube category from the XML
      */
-    private function _getCategory(DOMElement $rss)
+    private function _getCategory(DOMXPath $doc, DOMNode $entry)
     {
-        return trim($rss->
-            getElementsByTagNameNS(org_tubepress_video_factory_YouTubeVideoFactory::NS_MEDIA,
-                'category')->item(0)->nodeValue);
+        return trim($doc->query('media:group/media:category', $entry)->item(0)->getAttribute('label'));
     }
     
     /**
@@ -134,11 +128,9 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
      *
      * @return string The video's description
      */
-    private function _getDescription(DOMElement $rss)
+    private function _getDescription(DOMXPath $doc, DOMNode $entry)
     {
-        return trim($this->_mediaGroup->
-            getElementsByTagNameNS(org_tubepress_video_factory_YouTubeVideoFactory::NS_MEDIA,
-                'description')->item(0)->nodeValue);
+        return trim($doc->query('media:group/media:description', $entry)->item(0)->nodeValue);
     }
     
     /**
@@ -148,15 +140,9 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
      *
      * @return string The video's ID from XML
      */
-    private function _getId(DOMElement $rss)
+    private function _getId(DOMXPath $doc, DOMNode $entry)
     { 
-        $thumb = 
-             $rss->getElementsByTagNameNS(org_tubepress_video_factory_YouTubeVideoFactory::NS_MEDIA,
-                 "thumbnail")->item(0);
-        $id    = $thumb->getAttribute("url");
-        $id    = substr($id, 0, strrpos($id, "/"));
-        $id    = substr($id, strrpos($id, "/") + 1);
-        return $id;
+        return $doc->query('media:group/yt:videoid', $entry)->item(0)->nodeValue;
     }
     
     /**
@@ -166,10 +152,9 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
      *
      * @return string The average rating of the video
      */
-    private function _getRatingAverage(DOMElement $rss)
+    private function _getRatingAverage(DOMXPath $doc, DOMNode $entry)
     { 
-        $count = $rss->getElementsByTagNameNS(org_tubepress_video_factory_YouTubeVideoFactory::NS_GD,
-            'rating')->item(0);
+        $count = $doc->query('gd:rating', $entry)->item(0);
         if ($count != null) {
             return $count->getAttribute('average');
         }
@@ -183,10 +168,9 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
      *
      * @return string The number of times this video has been rated
      */
-    private function _getRatingCount(DOMElement $rss)
+    private function _getRatingCount(DOMXPath $doc, DOMNode $entry)
     { 
-        $count = $rss->getElementsByTagNameNS(org_tubepress_video_factory_YouTubeVideoFactory::NS_GD,
-            'rating')->item(0);
+        $count = $doc->query('gd:rating', $entry)->item(0);
         if ($count != null) {
             return number_format($count->getAttribute('numRaters'));
         }
@@ -200,15 +184,10 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
      *
      * @return string The runtime of this video
      */
-    private function _getRuntime(DOMElement $rss)
-    { 
-        $duration = 
-            $this->_mediaGroup->
-                getElementsByTagNameNS(org_tubepress_video_factory_YouTubeVideoFactory::NS_YT,
-                    'duration')->item(0);
-        return 
-            org_tubepress_video_factory_YouTubeVideoFactory::
-                _seconds2HumanTime($duration->getAttribute('seconds'));
+    private function _getRuntime(DOMXPath $doc, DOMNode $entry)
+    {
+        $duration = $doc->query('media:group/yt:duration', $entry)->item(0);
+        return org_tubepress_video_factory_YouTubeVideoFactory::_seconds2HumanTime($duration->getAttribute('seconds'));
     }
     
     /**
@@ -218,12 +197,9 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
      * 
      * @return string The tags of this video (space separated)
      */
-    private function _getTags(DOMElement $rss)
+    private function _getTags(DOMXPath $doc, DOMNode $entry)
     { 
-        $rawKeywords = 
-            $this->_mediaGroup->
-                getElementsByTagNameNS(org_tubepress_video_factory_YouTubeVideoFactory::NS_MEDIA,
-                    'keywords')->item(0);
+        $rawKeywords = $doc->query('media:group/media:keywords')->item(0);
         return split(", ", trim($rawKeywords->nodeValue));
     }
     
@@ -234,15 +210,15 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
      * 
      * @return array An array of this video's thumbnail URLs
      */
-    private function _getThumbUrls(DOMElement $rss)
+    private function _getThumbUrls(DOMXPath $doc, DOMNode $entry)
     {
         $results = array();
-        $thumbs  = 
-            $this->_mediaGroup->
-                getElementsByTagNameNS(org_tubepress_video_factory_YouTubeVideoFactory::NS_MEDIA, 
-                    'thumbnail');
+        $thumbs  = $doc->query('media:group/media:thumbnail', $entry);
         for ($x = 0; $x < $thumbs->length; $x++) {
-            array_push($results, $thumbs->item($x)->getAttribute('url'));
+            $url = $thumbs->item($x)->getAttribute('url');
+            if (strpos($url, 'hqdefault') === FALSE) {
+               array_push($results, $url);
+            }
         }
         return $results;
     }
@@ -254,10 +230,9 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
      *
      * @return string Get this video's title
      */
-    private function _getTitle(DOMElement $rss)
+    private function _getTitle(DOMXPath $doc, DOMNode $entry)
     { 
-                $title = 
-            $rss->getElementsByTagName('title')->item(0)->nodeValue;
+        $title = $doc->query('atom:title', $entry)->item(0)->nodeValue;
         return htmlspecialchars($title, ENT_QUOTES);
     }
     
@@ -268,9 +243,9 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
      *
      * @return string This video's upload timestamp
      */
-    private function _getUploadTime(DOMElement $rss)
+    private function _getUploadTime(DOMXPath $doc, DOMNode $entry)
     { 
-                $publishedNode = $rss->getElementsByTagName('published');
+        $publishedNode = $doc->query('atom:published', $entry);
         if ($publishedNode->length == 0) {
             return "N/A";
         }
@@ -285,16 +260,9 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
      *
      * @return string This video's YouTube URL
      */
-    private function _getURL(DOMElement $rss)
+    private function _getURL(DOMXPath $doc, DOMNode $entry)
     { 
-            $links = $rss->getElementsByTagName('link');
-        for ($x = 0; $x < $links->length; $x++) {
-            $link = $links->item($x);
-            if ($link->getAttribute('rel') != 'alternate') {
-                continue;
-            }
-            return $link->getAttribute('href');
-        }
+        return $doc->query("atom:link[@rel='alternate']", $entry)->item(0)->getAttribute('href');
     }
     
     /**
@@ -304,10 +272,9 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
      *
      * @return string The number of times this video has been viewed
      */
-    private function _getViewCount(DOMElement $rss) 
+    private function _getViewCount(DOMXPath $doc, DOMNode $entry) 
     { 
-        $stats = $rss->getElementsByTagNameNS(org_tubepress_video_factory_YouTubeVideoFactory::NS_YT,
-            'statistics')->item(0);
+        $stats = $doc->query('yt:statistics', $entry)->item(0);
         if ($stats != null) {
             return number_format($stats->getAttribute('viewCount'));
         } else {
@@ -351,15 +318,28 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
         return $length;
     }
     
-    private function _videoNotAvailable(DOMNode $entry)
+    private function _videoNotAvailable(DOMXPath $doc, DOMNode $entry)
     {
-        $control = $entry->getElementsByTagNameNS(org_tubepress_video_factory_YouTubeVideoFactory::NS_APP, 'control');
-        if ($control->length > 0) {
-            $state = $control->item(0)->getElementsByTagNameNS(org_tubepress_video_factory_YouTubeVideoFactory::NS_YT, 'state');
-            if ($state->length > 0) {
-                return true;
-            }
-        }
-        return false;
+        $states = $doc->query("app:control/yt:state", $entry);
+
+        /* no state applied? we're good to go */
+        if ($states->length == 0) {
+            return false;
+        }	
+
+        /* if state is other than limitedSyndication, it's not available */
+        return $doc->query("app:control/yt:state[@reasonCode='limitedSyndication']", $entry)->length == 0;
     }
+
+    private function _buildXPath(DOMDocument $doc)
+    {
+        $xpath = new DOMXPath($doc);
+        $xpath->registerNamespace('atom',  org_tubepress_video_factory_YouTubeVideoFactory::NS_ATOM);
+        $xpath->registerNamespace('yt',    org_tubepress_video_factory_YouTubeVideoFactory::NS_YT);
+        $xpath->registerNamespace('gd',    org_tubepress_video_factory_YouTubeVideoFactory::NS_GD);
+        $xpath->registerNamespace('media', org_tubepress_video_factory_YouTubeVideoFactory::NS_MEDIA);
+        $xpath->registerNamespace('app',   org_tubepress_video_factory_YouTubeVideoFactory::NS_APP);
+        return $xpath;
+    }
+
 }

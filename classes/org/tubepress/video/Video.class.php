@@ -28,6 +28,7 @@ class org_tubepress_video_Video
     private $_category;
     private $_description;
     private $_displayable;
+    private $_embeddedObjectDataUrl;
     private $_id;
     private $_rating;
     private $_ratings;
@@ -71,7 +72,7 @@ class org_tubepress_video_Video
      */
     public function getDefaultThumbURL()
     {
-        return "http://img.youtube.com/vi/" . $this->getId() . "/default.jpg";
+        return 'http://img.youtube.com/vi/' . $this->getId() . '/default.jpg';
     }    
     
     /**
@@ -96,6 +97,11 @@ class org_tubepress_video_Video
         return $this->_displayable;
     }
     
+    public function getEmbeddedObjectDataUrl()
+    {
+        return $this->_embeddedObjectDataUrl;
+    }
+
     /**
      * Get the video's ID
      * 
@@ -275,6 +281,11 @@ class org_tubepress_video_Video
         $this->_displayable = $displayable;
     }
     
+    public function setEmbeddedObjectDataUrl($url)
+    {
+        $this->_embeddedObjectDataUrl = $url;
+    }
+
     /**
      * Set the YouTube video ID of this video
      *
