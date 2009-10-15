@@ -74,6 +74,7 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Embedded::SHOW_INFO          => false,
             org_tubepress_options_category_Embedded::SHOW_RELATED       => true,
             org_tubepress_options_category_Embedded::FULLSCREEN         => true,
+	    org_tubepress_options_category_Embedded::HIGH_QUALITY       => false,
             org_tubepress_options_category_Meta::AUTHOR                 => false,
             org_tubepress_options_category_Meta::CATEGORY               => false,
             org_tubepress_options_category_Meta::DESCRIPTION            => false,
@@ -107,9 +108,6 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
         ),
         org_tubepress_options_Type::PLAYER => array(
             org_tubepress_options_category_Display::CURRENT_PLAYER_NAME => 'normal',
-        ),
-        org_tubepress_options_Type::QUALITY => array(
-            org_tubepress_options_category_Embedded::QUALITY            => 'normal'
         ),
         org_tubepress_options_Type::SAFE_SEARCH => array(
             org_tubepress_options_category_Feed::FILTER                 => 'moderate'    
@@ -222,8 +220,6 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
                 return array('normal', 'popup','shadowbox','jqmodal', 'youtube');
             case org_tubepress_options_Type::ORDER:
                 return array('relevance', 'viewCount', 'rating', 'updated', 'random');
-            case org_tubepress_options_Type::QUALITY:
-                return array('normal', 'high', 'higher', 'highest');
             case org_tubepress_options_Type::MODE:
                 return array('favorites', 'playlist', 'tag', 'user', 'recently_featured', 'mobile', 'most_discussed',
                     'most_linked', 'most_recent', 'most_responded', 'most_viewed',

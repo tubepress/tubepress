@@ -183,20 +183,8 @@ msgstr "Mostra video correlati"
 msgid "Toggles the display of related videos after a video finishes"
 msgstr "Commuta alla presentazione dei video correlati una volta terminato il video"
 
-msgid "Video quality"
+msgid "Show videos in high definition when available"
 msgstr "Qualità video"
-
-msgid "Normal"
-msgstr "Normale"
-
-msgid "High"
-msgstr "Alta"
-
-msgid "Higher"
-msgstr "Superiore"
-
-msgid "Highest"
-msgstr "Ottima"
 
 msgid "Meta Display"
 msgstr "Mostra meta-dati"

@@ -33,11 +33,11 @@ class org_tubepress_options_category_Embedded
     const AUTOPLAY         = "autoplay";
     const BORDER           = "border";
     const FULLSCREEN       = "fullscreen";
+    const HIGH_QUALITY     = "hd";
     const GENIE            = "genie";
     const LOOP             = "loop";
     const PLAYER_COLOR     = "playerColor";
     const PLAYER_HIGHLIGHT = "playerHighlight";
-    const QUALITY          = "quality";
     const SHOW_INFO        = "showInfo";
     const SHOW_RELATED     = "showRelated";
 }

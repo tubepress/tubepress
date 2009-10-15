@@ -33,7 +33,6 @@ class org_tubepress_options_Type
     const PLAYER      = "player";               // Shadowbox, popup, etc
     const PLAYER_IMPL = "playerImplementation"; //YouTube, Longtail, etc
     const PLAYLIST    = "playlist";             // A YouTube playlist ID
-    const QUALITY     = "quality";              // Video quality
     const SAFE_SEARCH = "safeSearch";           // a SafeSearch level
     const TEXT        = "text";                 // Free form text
     const TIME_FRAME  = "timeFrame";            // Today, last week, etc

@@ -1030,6 +1030,17 @@ nights working on this project. If you enjoy the software, please consider a don
                             <entry><code>[tubepress genie="true"]</code></entry>
                         </row>
                         <row>
+                            <entry><code>hd</code></entry>
+                            <entry>Toggles display of high definition videos</entry>
+                            <entry>
+                               <itemizedlist>
+                                  <listitem><code>true</code></listitem>
+                                  <listitem><code>false</code></listitem>
+                                </itemizedlist>
+                            </entry>
+                            <entry><code>[tubepress hd="true"]</code></entry>
+                        </row>
+                        <row>
                             <entry><code>loop</code></entry>
                             <entry>Toggles repeat of videos without user intervention</entry>
                             <entry>
@@ -1058,19 +1069,6 @@ nights working on this project. If you enjoy the software, please consider a don
                                 </itemizedlist>
                             </entry>
                             <entry><code>[tubepress playerImplementation="longtail"]</code></entry>
-                        </row>
-                        <row>
-                            <entry><code>quality</code></entry>
-                            <entry>Quality of video and audio</entry>
-                            <entry>
-                               <itemizedlist>
-                                  <listitem><code>normal</code></listitem>
-                                  <listitem><code>high</code></listitem>
-                                  <listitem><code>higher</code></listitem>
-                                  <listitem><code>highest</code></listitem>  
-                                </itemizedlist>
-                            </entry>
-                            <entry><code>[tubepress quality="higher"]</code></entry>
                         </row>
                         <row>
                             <entry><code>showInfo</code></entry>

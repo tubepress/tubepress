@@ -95,7 +95,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         "options-title-showRelated"          => "Show related videos", 
         "options-desc-showRelated"           => "Toggles the display of related videos after a video finishes",
         "options-title-showInfo"             => "Show title and rating before video starts",
-        "options-title-quality"              => "Video quality",
+        "options-title-hd"                   => "Show videos in high definition when available",
         "options-title-playerImplementation" => "Implementation",
         "options-desc-playerImplementation"  => "The brand of the embedded player. Default is \"YouTube\"",
         
@@ -181,11 +181,6 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         "widget-description"           => "Displays YouTube videos in your sidebar using TubePress", 
         "widget-tagstring-description" => "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>.",
         
-        "quality-normal"  => "Normal",
-        "quality-high"    => "High",
-        "quality-higher"  => "Higher",
-        "quality-highest" => "Highest",
-    
         "safeSearch-none"     => "none",
         "safeSearch-moderate" => "moderate",
         "safeSearch-strict"   => "strict",

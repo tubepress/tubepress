@@ -54,7 +54,7 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService extends org_tubep
         $border      = $tpom->get(org_tubepress_options_category_Embedded::BORDER);
         $width       = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
         $height      = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT);
-        $quality     = $tpom->get(org_tubepress_options_category_Embedded::QUALITY);
+        $hq     = $tpom->get(org_tubepress_options_category_Embedded::HIGH_QUALITY);
         $fullscreen  = $tpom->get(org_tubepress_options_category_Embedded::FULLSCREEN);
         $showInfo    = $tpom->get(org_tubepress_options_category_Embedded::SHOW_INFO);
    
@@ -71,19 +71,8 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService extends org_tubep
         
         $link->setQueryVariable("showinfo", $showInfo ? "1" : "0");
         
-        switch ($quality) {
-        case "high":
-            $link->setQueryVariable("ap", "%26");
-            $link->setQueryVariable("fmt", "6");
-            break;
-        case "higher":
-            $link->setQueryVariable("ap", "%26");
-            $link->setQueryVariable("fmt", "18");
-            break;
-        case "highest":
-            $link->setQueryVariable("ap", "%26");
-            $link->setQueryVariable("fmt", "22");
-            break;      
+        if ($hq) {
+            $link->setQueryVariable("hd", "1");
         }
         
         $link = $link->getURL(true);
