@@ -89,7 +89,8 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
         $this->_tpl->setVariable('VIDEO_TITLE_ANCHOR_REL', 'tubepress_' . $esName . '_' . $playerName . '_' . $galleryId);
         
         if ($randomizeOpt) {
-            $this->_tpl->setVariable('THUMBURL', $vid->getRandomThumbURL());
+		$thumbs = $vid->getRegularQualityThumbnailUrls();
+            $this->_tpl->setVariable('THUMBURL', $thumbs[array_rand($thumbs)]);
         } else {
              $this->_tpl->setVariable('THUMBURL', $vid->getDefaultThumbnailUrl());
         }    

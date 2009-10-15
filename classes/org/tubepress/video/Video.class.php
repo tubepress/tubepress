@@ -43,7 +43,7 @@ class org_tubepress_video_Video
     private $_timePublished;
     private $_title;
     private $_viewCount;
-    
+
     public function getAuthor() { return $this->_author; }
     public function setAuthor($author) { $this->_author = $author; }
 
@@ -63,7 +63,7 @@ class org_tubepress_video_Video
     public function setDisplayable($displayable) { $this->_displayable = $displayable; }
     
     public function getDuration() { return $this->_duration; }
-    public function setLength($length) { $this->_duration = $length; }
+    public function setDuration($duration) { $this->_duration = $duration; }
 
     public function getEmbeddedObjectDataUrl() { return $this->_embeddedObjectDataUrl; }
     public function setEmbeddedObjectDataUrl($url) { $this->_embeddedObjectDataUrl = $url; }

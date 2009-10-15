@@ -117,9 +117,8 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
         $videos = $feedResult->getVideoArray();
         $numVideos = sizeof($videos);
         $printedCount = 0;
-        
-        for ($x = 0; $x < $numVideos; $x++) {
-            
+       
+        for ($x = 0; $x < $numVideos; $x++) {  
             /* ignore videos we can't display */
             if (!$videos[$x]->isDisplayable()) {
                 $this->_log->log($this->_logPrefix, sprintf("Video %d/%d can't be displayed. Skipping it.", $x + 1, $numVideos));
