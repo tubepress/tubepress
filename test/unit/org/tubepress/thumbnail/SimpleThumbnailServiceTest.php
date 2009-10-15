@@ -38,10 +38,10 @@ class org_tubepress_thumbnail_SimpleThumbnailServiceTest extends PHPUnit_Framewo
 		$vid->setLength("1:50");
 		$vid->setAuthor("3hough");
 		$vid->setDescription("Fake description.");
-		$vid->setTags(array("foo", "bar"));
-		$vid->setYouTubeUrl("youtube url");
-		$vid->setRating("4.5");
-		$vid->setRatings("1000");
+		$vid->setKeywords(array("foo", "bar"));
+		$vid->setHomeUrl("youtube url");
+		$vid->setRatingAverage("4.5");
+		$vid->setRatingCount("1000");
 		
         $this->assertEquals('stuff', $this->_sut->getHtml($vid, 500));		
 	}

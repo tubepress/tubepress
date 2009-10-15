@@ -187,8 +187,8 @@ msgstr "Bewertung"
 msgid "Ratings"
 msgstr "Bewertungen"
 
-msgid "Tags"
-msgstr "Tags"
+msgid "Keywords"
+msgstr "Keywords"
 
 msgid "Title"
 msgstr "Titel"

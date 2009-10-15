@@ -26,8 +26,8 @@ class org_tubepress_video_VideoTest extends PHPUnit_Framework_TestCase {
 	function testSetGetThumbUrls()
 	{
 		$thumbs = array("1.jpg", "2.jpg", "3.jpg");
-		$this->_vid->setThumbUrls($thumbs);
-		$this->assertTrue($this->_vid->getThumbUrls() === $thumbs);
+		$this->_vid->setRegularQualityThumbnailUrls($thumbs);
+		$this->assertTrue($this->_vid->getRegularQualityThumbnailUrls() === $thumbs);
 	}
 	
 	function testSetGetDescription()
@@ -42,29 +42,29 @@ class org_tubepress_video_VideoTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($this->_vid->getId(), "ERERKJKFF");
 	}
 	
-	function testSetGetRating() 
+	function testSetGetRatingAverage() 
 	{
-		$this->_vid->setRating("4.5");
-		$this->assertEquals($this->_vid->getRating(), "4.5");
+		$this->_vid->setRatingAverage("4.5");
+		$this->assertEquals($this->_vid->getRatingAverage(), "4.5");
 	}
 	
-	function testSetGetRatings() 
+	function testSetGetRatingCount() 
 	{
-		$this->_vid->setRatings("33000");
-		$this->assertEquals($this->_vid->getRatings(), "33000");
+		$this->_vid->setRatingCount("33000");
+		$this->assertEquals($this->_vid->getRatingCount(), "33000");
 	}
 	
-	function testSetGetLength() 
+	function testSetgetDuration() 
 	{
 		$this->_vid->setLength("3:12");
-		$this->assertEquals($this->_vid->getLength(), "3:12");
+		$this->assertEquals($this->_vid->getDuration(), "3:12");
 	}
 	
-	function testSetGetTags() 
+	function testSetGetKeywords() 
 	{
 		$tags = array("one", "two", "three");
-		$this->_vid->setTags($tags);
-		$this->assertTrue($this->_vid->getTags() === $tags);
+		$this->_vid->setKeywords($tags);
+		$this->assertTrue($this->_vid->getKeywords() === $tags);
 	}
 	
 	function testSetGetTitle() 
@@ -73,34 +73,34 @@ class org_tubepress_video_VideoTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($this->_vid->getTitle(), "Mr. Title");
 	}
 	
-	function testSetGetUploadTime() 
+	function testSetGetTimePublished() 
 	{
-		$this->_vid->setUploadTime("112233");
-		$this->assertEquals($this->_vid->getUploadTime(), "112233");
+		$this->_vid->setTimePublished("112233");
+		$this->assertEquals($this->_vid->getTimePublished(), "112233");
 	}
 	
-	function testSetGetYouTubeUrl() 
+	function testSetgetHomeUrl() 
 	{ 	
-		$this->_vid->setYouTubeUrl("http://youtube.com");
-		$this->assertEquals($this->_vid->getYouTubeUrl(), "http://youtube.com");
+		$this->_vid->setHomeUrl("http://youtube.com");
+		$this->assertEquals($this->_vid->getHomeUrl(), "http://youtube.com");
 	}
 	
-	function testSetGetViews() 
+	function testSetGetViewCount() 
 	{
-		$this->_vid->setViews("12000");
-		$this->assertEquals($this->_vid->getViews(), "12000");
+		$this->_vid->setViewCount("12000");
+		$this->assertEquals($this->_vid->getViewCount(), "12000");
 	}
 	
-	function testGetDefaultThumbUrl()
+	function testgetDefaultThumbnailUrl()
 	{
 		$this->_vid->setId("34");
-		$this->assertEquals($this->_vid->getDefaultThumbUrl(), "http://img.youtube.com/vi/34/default.jpg");
+		$this->assertEquals($this->_vid->getDefaultThumbnailUrl(), "http://img.youtube.com/vi/34/default.jpg");
 	}
 	
 	function testGetRandomThumbUrl()
 	{
 		$thumbs = array("1.jpg", "2.jpg", "3.jpg");
-		$this->_vid->setThumbUrls($thumbs);
+		$this->_vid->setRegularQualityThumbnailUrls($thumbs);
         $this->assertTrue(in_array($this->_vid->getRandomThumbUrl(), $thumbs));
 	}
 	

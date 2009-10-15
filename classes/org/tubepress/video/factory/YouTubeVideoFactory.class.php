@@ -47,18 +47,22 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
     public function feedToVideoArray($feed, $limit)
     {   
         $results = array();
-	$doc = new DOMDocument();
-	if ($doc->loadXML($feed) === FALSE) {
+        
+        /* init the DOMDocument */
+        $doc = new DOMDocument();
+        if ($doc->loadXML($feed) === FALSE) {
             throw new Exception("Could not parse XML from YouTube");
-	}
-
-        $xpath = $this->_buildXPath($doc);
-        $entries = $xpath->query('/atom:feed/atom:entry');
-
-        /* create a org_tubepress_video_Video out of each "entry" node */
-        for ($j = 0; $j < min($limit, $entries->length); $j++) {
-            $results[] = $this->_createVideo($xpath, $entries->item($j));
         }
+
+        /* oh we love xpath */
+        $xpath = $this->_buildXPath($doc);
+        
+        /* create a org_tubepress_video_Video out of each "entry" node */   
+        $entries = $xpath->query('/atom:feed/atom:entry');     
+        foreach ($entries as $entry) {
+            $results[] = $this->_createVideo($xpath, $entry);
+        }
+        
         return $results;
     }
 
@@ -74,75 +78,26 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
         $vid = new org_tubepress_video_Video();
         
         /* see if the video is actually available, not just a stub */
-        if ($this->_videoNotAvailable($doc, $entry)) {
-            $vid->setDisplayable(false);
-            return $vid;
+        $vid->setDisplayable($this->_videoNotAvailable($doc, $entry));
+        if (!$vid->isDisplayable()) {
+            return;
         }
-        $vid->setDisplayable(true);
 
         /* everyone loves the builder pattern */
-        $vid->setAuthor($this->_getAuthor($doc, $entry));
-        $vid->setCategory($this->_getCategory($doc, $entry));
-        $vid->setDescription($this->_getDescription($doc, $entry));
-        $vid->setId($this->_getId($doc, $entry));
+        $vid->setAuthor($doc->query('atom:author/atom:name', $entry)->item(0)->nodeValue);
+        $vid->setCategory(trim($doc->query('media:group/media:category', $entry)->item(0)->getAttribute('label')));
+        $vid->setDescription(trim($doc->query('media:group/media:description', $entry)->item(0)->nodeValue));
+        $vid->setId($doc->query('media:group/yt:videoid', $entry)->item(0)->nodeValue);
         $vid->setLength($this->_getRuntime($doc, $entry));
-        $vid->setRating($this->_getRatingAverage($doc, $entry));
-        $vid->setRatings($this->_getRatingCount($doc, $entry));
-        $vid->setTags($this->_getTags($doc, $entry));
-        $vid->setThumbUrls($this->_getThumbUrls($doc, $entry));
+        $vid->setRatingAverage($this->_getRatingAverage($doc, $entry));
+        $vid->setRatingCount($this->_getRatingCount($doc, $entry));
+        $vid->setKeywords($this->_getKeywords($doc, $entry));
+        $vid->setRegularQualityThumbnailUrls($this->_getRegularQualityThumbnailUrls($doc, $entry));
         $vid->setTitle($this->_getTitle($doc, $entry));
-        $vid->setUploadTime($this->_getUploadTime($doc, $entry));
-        $vid->setViews($this->_getViewCount($doc, $entry));
-        $vid->setYouTubeUrl($this->_getURL($doc, $entry));
+        $vid->setTimePublished($this->_getTimePublished($doc, $entry));
+        $vid->setViewCount($this->_getViewCount($doc, $entry));
+        $vid->setHomeUrl($doc->query("atom:link[@rel='alternate']", $entry)->item(0)->getAttribute('href'));
         return $vid;
-    }
-
-    /**
-     * Gets the YouTube author from the XML
-     *
-     * @param DOMElement $rss The "entry" XML element
-     * 
-     * @return string The YouTube author from the XML
-     */
-    private function _getAuthor(DOMXPath $doc, DOMNode $entry)
-    {
-        return $doc->query('atom:author/atom:name', $entry)->item(0)->nodeValue;
-    }
-    
-    /**
-     * Gets the YouTube category from the XML
-     * 
-     * @param DOMElement $rss The "entry" XML element
-     *
-     * @return string The YouTube category from the XML
-     */
-    private function _getCategory(DOMXPath $doc, DOMNode $entry)
-    {
-        return trim($doc->query('media:group/media:category', $entry)->item(0)->getAttribute('label'));
-    }
-    
-    /**
-     * Gets the video's description
-     * 
-     * @param DOMElement $rss The "entry" XML element
-     *
-     * @return string The video's description
-     */
-    private function _getDescription(DOMXPath $doc, DOMNode $entry)
-    {
-        return trim($doc->query('media:group/media:description', $entry)->item(0)->nodeValue);
-    }
-    
-    /**
-     * Gets the video's ID from XML
-     * 
-     * @param DOMElement $rss The "entry" XML element
-     *
-     * @return string The video's ID from XML
-     */
-    private function _getId(DOMXPath $doc, DOMNode $entry)
-    { 
-        return $doc->query('media:group/yt:videoid', $entry)->item(0)->nodeValue;
     }
     
     /**
@@ -197,7 +152,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
      * 
      * @return string The tags of this video (space separated)
      */
-    private function _getTags(DOMXPath $doc, DOMNode $entry)
+    private function _getKeywords(DOMXPath $doc, DOMNode $entry)
     { 
         $rawKeywords = $doc->query('media:group/media:keywords')->item(0);
         return split(", ", trim($rawKeywords->nodeValue));
@@ -210,7 +165,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
      * 
      * @return array An array of this video's thumbnail URLs
      */
-    private function _getThumbUrls(DOMXPath $doc, DOMNode $entry)
+    private function _getRegularQualityThumbnailUrls(DOMXPath $doc, DOMNode $entry)
     {
         $results = array();
         $thumbs  = $doc->query('media:group/media:thumbnail', $entry);
@@ -243,7 +198,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
      *
      * @return string This video's upload timestamp
      */
-    private function _getUploadTime(DOMXPath $doc, DOMNode $entry)
+    private function _getTimePublished(DOMXPath $doc, DOMNode $entry)
     { 
         $publishedNode = $doc->query('atom:published', $entry);
         if ($publishedNode->length == 0) {
@@ -251,18 +206,6 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
         }
         $views = $publishedNode->item(0);
         return org_tubepress_video_factory_YouTubeVideoFactory::_rfc3339toHumanTime($views->nodeValue);
-    }
-    
-    /**
-     * Get this video's YouTube URL
-     * 
-     * @param DOMElement $rss The "entry" XML element
-     *
-     * @return string This video's YouTube URL
-     */
-    private function _getURL(DOMXPath $doc, DOMNode $entry)
-    { 
-        return $doc->query("atom:link[@rel='alternate']", $entry)->item(0)->getAttribute('href');
     }
     
     /**
@@ -325,7 +268,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
         /* no state applied? we're good to go */
         if ($states->length == 0) {
             return false;
-        }	
+        }    
 
         /* if state is other than limitedSyndication, it's not available */
         return $doc->query("app:control/yt:state[@reasonCode='limitedSyndication']", $entry)->length == 0;

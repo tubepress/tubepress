@@ -165,7 +165,7 @@ msgstr "Betyg"
 msgid "Ratings"
 msgstr "Betyg"
 
-msgid "Tags"
+msgid "Keywords"
 msgstr "Taggar"
 
 msgid "Title"

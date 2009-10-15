@@ -26,383 +26,78 @@ class org_tubepress_video_Video
 {
     private $_author;
     private $_category;
+    private $_commentCount;
+    private $_defaultThumbnailUrl;
     private $_description;
     private $_displayable;
+    private $_duration;
     private $_embeddedObjectDataUrl;
+    private $_highQualityThumbnailUrls;
+    private $_homeUrl;
     private $_id;
-    private $_rating;
-    private $_ratings;
-    private $_length;
-    private $_tags;
-    private $_thumbUrls;
+    private $_keywords;
+    private $_ratingAverage;
+    private $_ratingCount;
+    private $_regularQualityThumbnailUrls;
+    private $_timeLastUpdated;
+    private $_timePublished;
     private $_title;
-    private $_uploadTime;
-    private $_youTubeUrl;
-    private $_views;
+    private $_viewCount;
     
-    /**
-     * Get the video's author
-     * 
-     * @return string The YouTube username of the person that uploaded
-     *                 the video.
-     * 
-     * Example: "3hough"
-     */
-    public function getAuthor()
-    {
-        return $this->_author; 
-    }
-    
-    /**
-     * Get the video's category
-     * 
-     * @return string The YouTube-defined category of the video
-     * 
-     * Example: "Sports"
-     */
-    public function getCategory()
-    {    
-        return $this->_category; 
-    }
-    
-    /**
-     * Returns the "default" YouTube thumbnail URL for this video
-     *
-     * @return string the "default" thumbnail URL for this video
-     */
-    public function getDefaultThumbURL()
-    {
-        return 'http://img.youtube.com/vi/' . $this->getId() . '/default.jpg';
-    }    
-    
-    /**
-     * Get the video's description
-     * 
-     * @return string The description field of the video.
-     * 
-     * Example: "This is a great video."
-     */
-    public function getDescription() 
-    { 
-        return $this->_description; 
-    }
-    
-    /**
-     * Returns true if this video can be displayed. False otherwise.
-     * 
-     * @return boolean Can the video be displayed.
-     */
-    public function isDisplayable()
-    {
-        return $this->_displayable;
-    }
-    
-    public function getEmbeddedObjectDataUrl()
-    {
-        return $this->_embeddedObjectDataUrl;
-    }
+    public function getAuthor() { return $this->_author; }
+    public function setAuthor($author) { $this->_author = $author; }
 
-    /**
-     * Get the video's ID
-     * 
-     * @return string The YouTube video ID
-     * 
-     * Example: "3EVVD77X2FD"
-     */
-    public function getId()
-    {
-        return $this->_id; 
-    }
-    
-    /**
-     * Get the video's length
-     * 
-     * @return string The runtime of the video
-     * 
-     * Example: "3:25"
-     */
-    public function getLength() 
-    {      
-        return $this->_length; 
-    }    
-    
-    /**
-     * Get a random thumbnail URL for this video
-     *
-     * @return string A random thumbnail URL for this video
-     */
-    public function getRandomThumbURL()
-    {
-        $thumbs = $this->getThumbUrls();
-        return $thumbs[array_rand($this->getThumbUrls())];
-    }    
-    
-    /**
-     * Get the video's average rating
-     * 
-     * @return string The average rating of the video
-     * 
-     * Example: "4.3"
-     */
-    public function getRating() 
-    {
-        return $this->_rating; 
-    }
-    
-    /**
-     * Get the number of ratings
-     * 
-     * @return string The number of times this video has been rated.
-     * 
-     * Example: "3hough"
-     */
-    public function getRatings() 
-    {
-        return $this->_ratings; 
-    }
-    
-    /**
-     * Get the video's tags
-     * 
-     * @return array The tags of this video
-     * 
-     * Example: "beer sports women awesome"
-     */
-    public function getTags() 
-    {        
-        return $this->_tags; 
-    }
-    
-    /**
-     * Get the video's thumbnail URLs
-     * 
-     * @return string All of the video's thumbnail URLs
-     * 
-     * Example: "http://img.youtube.com/355VDRRJK8/default.jpg"
-     */
-    public function getThumbUrls() 
-    {   
-        return $this->_thumbUrls; 
-    }
-    
-    /**
-     * Get the video's title
-     * 
-     * @return string The title of the video
-     * 
-     * Example: "My Awesome Video"
-     */
-    public function getTitle() 
-    {       
-        return $this->_title; 
-    }
-    
-    /**
-     * Get the video's upload time
-     * 
-     * @return string The timestamp of when this video was uploaded
-     * 
-     * Example: "3hough"
-     */
-    public function getUploadTime() 
-    {  
-        return $this->_uploadTime; 
-    }
-    
-    /**
-     * Get the video's view count
-     * 
-     * @return string The number of times this video has been viewed
-     * 
-     * Example: "3hough"
-     */
-    public function getViews() 
-    {       
-        return $this->_views; 
-    }    
-    
-    /**
-     * Get the video's URL on YouTube
-     * 
-     * @return string The absolute URL of this video's home on YouTube
-     * 
-     * Example: "http://www.youtube.com/v/355VDRRJK8"
-     */
-    public function getYouTubeUrl() 
-    {  
-        return $this->_youTubeUrl; 
-    }
-    
-    /**
-     * Set this video's author
-     *
-     * @param string $author The YouTube author of this video
-     * 
-     * @return void
-     */
-    public function setAuthor($author) 
-    {
-        $this->_author = $author; 
-    }
-    
-    /**
-     * Set this video's category
-     *
-     * @param string $category The YouTube category of this video
-     * 
-     * @return void
-     */
-    public function setCategory($category) 
-    {         
-        $this->_category = $category; 
-    }
-    
-    /**
-     * Set the description for this video
-     *
-     * @param string $description The description for this video
-     * 
-     * @return void
-     */
-    public function setDescription($description) 
-    {   
-        $this->_description = $description; 
-    }
-    
-    /**
-     * Set whether or not this video can be displayed.
-     * 
-     * @param boolean If this video can be displayed
-     * 
-     * @return void
-     */
-    public function setDisplayable($displayable)
-    {
-        $this->_displayable = $displayable;
-    }
-    
-    public function setEmbeddedObjectDataUrl($url)
-    {
-        $this->_embeddedObjectDataUrl = $url;
-    }
+    public function getCategory() { return $this->_category; }
+    public function setCategory($category) { $this->_category = $category; }
 
-    /**
-     * Set the YouTube video ID of this video
-     *
-     * @param string $id The YouTube video ID of this video
-     * 
-     * @return void
-     */
-    public function setId($id) 
-    {          
-        $this->_id = $id; 
-    }
+    public function getCommentCount() { return $this->_commentCount; }
+    public function setCommentCount($count) { $this->_commentCount = $count; }
     
-    /**
-     * Set the length of this video
-     *
-     * @param string $length The runtime of this video
-     * 
-     * @return void
-     */
-    public function setLength($length) 
-    {
-        $this->_length = $length; 
-    }    
+    public function getDefaultThumbnailUrl() { return 'http://img.youtube.com/vi/' . $this->getId() . '/default.jpg'; }
+    public function setDefaultThumbnailUrl($url) { $this->_defaultThumbnailUrl = $url; }
     
-    /**
-     * Set the average rating of this video
-     *
-     * @param string $rating The average rating of this video
-     * 
-     * @return void
-     */
-    public function setRating($rating)
-    {      
-        $this->_rating = $rating; 
-    }
+    public function getDescription() { return $this->_description; }
+    public function setDescription($description) { $this->_description = $description; }
     
-    /**
-     * Set the number of ratings of this video
-     *
-     * @param string $ratings The bumber of times this video has been rated
-     * 
-     * @return void
-     */
-    public function setRatings($ratings)
-    { 
-        $this->_ratings = $ratings;  
-    }
+    public function isDisplayable() { return $this->_displayable; }
+    public function setDisplayable($displayable) { $this->_displayable = $displayable; }
+    
+    public function getDuration() { return $this->_duration; }
+    public function setLength($length) { $this->_duration = $length; }
 
-    /**
-     * Set the tags of this video
-     *
-     * @param array $tags The tags of this video
-     * 
-     * @return void
-     */
-    public function setTags($tags)
-    {
-        $this->_tags = $tags; 
-    }
+    public function getEmbeddedObjectDataUrl() { return $this->_embeddedObjectDataUrl; }
+    public function setEmbeddedObjectDataUrl($url) { $this->_embeddedObjectDataUrl = $url; }
     
-    /**
-     * Set the thumbnail URLs of this video
-     *
-     * @param array $thumbUrls The thumbnail URLs of this video
-     * 
-     * @return void
-     */
-    public function setThumbUrls($thumbUrls) 
-    {
-        $this->_thumbUrls = $thumbUrls; 
-    }
+    public function getHighQualityThumbnailUrls() { return $this->_highQualityThumbnailUrls; }
+    public function setHighQualityThumbnailUrls($urls) { $this->_highQualityThumbnailUrls = $urls; }
+    
+    public function getHomeUrl() { return $this->_homeUrl; }
+    public function setHomeUrl($url) { $this->_homeUrl = $url; }
+    
+    public function getId() { return $this->_id; }
+    public function setId($id) { $this->_id = $id; }
+    
+    public function getKeywords() { return $this->_keywords; }
+    public function setKeywords($keywords) { $this->_keywords = $keywords; }
 
-    /**
-     * Set the title of this video
-     *
-     * @param string $title The title of this video
-     * 
-     * @return void
-     */
-    public function setTitle($title) 
-    {               
-        $this->_title = $title; 
-    }
+    public function getRatingAverage() { return $this->_ratingAverage; }
+    public function setRatingAverage($average) { $this->_ratingAverage = $average; }
     
-    /**
-     * Set the upload time of this video
-     *
-     * @param string $uploadTime The upload time of this video
-     * 
-     * @return void
-     */
-    public function setUploadTime($uploadTime) 
-    {     
-        $this->_uploadTime = $uploadTime; 
-    }
+    public function getRatingCount() { return $this->_ratingCount; }
+    public function setRatingCount($count) { $this->_ratingCount = $count; }
+
+    public function getRegularQualityThumbnailUrls() { return $this->_regularQualityThumbnailUrls; }
+    public function setRegularQualityThumbnailUrls($urls) { $this->_regularQualityThumbnailUrls = $urls; }
+
+    public function getTimeLastUpdated() { return $this->_timeLastUpdated; }
+    public function setTimeLastUpdated($time) { $this->_timeLastUpdated = $time; }
+
+    public function getTimePublished() { return $this->_uploadTime; }
+    public function setTimePublished($time) { $this->_uploadTime = $time; }
+
+    public function getTitle() { return $this->_title; }
+    public function setTitle($title) { $this->_title = $title; }
     
-    /**
-     * Set the number of views of this video
-     *
-     * @param string $views The number of views for this video
-     * 
-     * @return void
-     */
-    public function setViews($views) 
-    {
-        $this->_views = $views; 
-    }    
-    
-    /**
-     * Set the YouTube URL of this video
-     *
-     * @param string $youTubeUrl The YouTube URL of this video
-     * 
-     * @return void
-     */
-    public function setYouTubeUrl($youTubeUrl) 
-    {
-        $this->_youTubeUrl = $youTubeUrl; 
-    }    
+    public function getViewCount() { return $this->_viewCount; }
+    public function setViewCount($count) { $this->_viewCount = $count; }
 }

@@ -40,23 +40,23 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends PHPUnit_Framew
     
     function testRetrievesRatingAverageFromDomElement()
     {
-        $this->assertEquals($this->_vids[0]->getRating(), "4.92");
+        $this->assertEquals($this->_vids[0]->getRatingAverage(), "4.92");
     }
     
     function testRetrievesRatingCountFromDomElement()
     {
-        $this->assertEquals($this->_vids[0]->getRatings(), "29,065");
+        $this->assertEquals($this->_vids[0]->getRatingCount(), "29,065");
     }
     
     function testRetrievesRuntimeFromDomElement()
     {
-        $this->assertEquals($this->_vids[0]->getLength(), "2:30");
+        $this->assertEquals($this->_vids[0]->getDuration(), "2:30");
     }
 
-    function testRetrievesTagsFromDomElement()
+    function testRetrievesKeywordsFromDomElement()
     {
-    	$expectedTags = array("balboa", "feet", "guitar", "park");
-        $this->assertTrue($this->_vids[0]->getTags() === $expectedTags);
+    	$expectedKeywords = array("balboa", "feet", "guitar", "park");
+        $this->assertTrue($this->_vids[0]->getKeywords() === $expectedKeywords);
     }
     
     function testRetrievesTitleFromDomElement()
@@ -66,17 +66,17 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends PHPUnit_Framew
 
     function testRetrievesUploadTimeFromDomElement()
     {
-        $this->assertEquals($this->_vids[0]->getUploadTime(), 1161748355);
+        $this->assertEquals($this->_vids[0]->getTimePublished(), 1161748355);
     }
     
     function testRetrievesUrlFromDomElement()
     {
-        $this->assertEquals($this->_vids[0]->getYouTubeUrl(), "http://www.youtube.com/watch?v=m3gMgK7h-BA");
+        $this->assertEquals($this->_vids[0]->getHomeUrl(), "http://www.youtube.com/watch?v=m3gMgK7h-BA");
     }
     
     function testRetrievesViewCountFromDomElement()
     {
-        $this->assertEquals($this->_vids[0]->getViews(), "5,286,665");
+        $this->assertEquals($this->_vids[0]->getViewCount(), "5,286,665");
     }
 }
 ?>

@@ -224,7 +224,7 @@ msgstr ""
 msgid "Ratings"
 msgstr ""
 
-msgid "Tags"
+msgid "Keywords"
 msgstr ""
 
 msgid "Title"

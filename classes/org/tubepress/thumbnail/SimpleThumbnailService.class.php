@@ -91,7 +91,7 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
         if ($randomizeOpt) {
             $this->_tpl->setVariable('THUMBURL', $vid->getRandomThumbURL());
         } else {
-             $this->_tpl->setVariable('THUMBURL', $vid->getDefaultThumbURL());
+             $this->_tpl->setVariable('THUMBURL', $vid->getDefaultThumbnailUrl());
         }    
         
         $this->_tpl->setVariable('THUMBWIDTH', $thumbWidth);
@@ -120,7 +120,7 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
                 break;
                     
             case org_tubepress_options_category_Meta::LENGTH:
-                $this->_tpl->setVariable('RUNTIME', $vid->getLength());
+                $this->_tpl->setVariable('RUNTIME', $vid->getDuration());
                 $this->_tpl->parse('runtime');
                 break;
                     
@@ -142,7 +142,7 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
                 break;
                     
             case org_tubepress_options_category_Meta::TAGS:
-                $tags = implode(" ", $vid->getTags());
+                $tags = implode(" ", $vid->getKeywords());
                 $this->_tpl->setVariable('METANAME', $this->_msg->_("video-" . $constant));
                 $this->_tpl->setVariable('SEARCHSTRING', rawurlencode($tags));
                 $this->_tpl->setVariable('TAGS', $tags);
@@ -151,7 +151,7 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
                 break;
                     
             case org_tubepress_options_category_Meta::URL:
-                $this->_tpl->setVariable('LINKVALUE', $vid->getYouTubeUrl());
+                $this->_tpl->setVariable('LINKVALUE', $vid->getHomeUrl());
                 $this->_tpl->setVariable('LINKTEXT', $this->_msg->_("video-" . $constant));
                 $this->_tpl->parse('url');
                 break;
@@ -162,7 +162,7 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
                 switch ($constant) {
 
                 case org_tubepress_options_category_Meta::VIEWS:
-                    $this->_tpl->setVariable('METAVALUE', $vid->getViews());
+                    $this->_tpl->setVariable('METAVALUE', $vid->getViewCount());
                     break;
                            
                 case org_tubepress_options_category_Meta::ID:            
@@ -170,23 +170,23 @@ class org_tubepress_thumbnail_SimpleThumbnailService implements org_tubepress_th
                     break;
 
                 case org_tubepress_options_category_Meta::RATING:
-                    $this->_tpl->setVariable('METAVALUE', $vid->getRating());
+                    $this->_tpl->setVariable('METAVALUE', $vid->getRatingAverage());
                     break;
                            
                 case org_tubepress_options_category_Meta::RATINGS:
-                    $this->_tpl->setVariable('METAVALUE', $vid->getRatings());
+                    $this->_tpl->setVariable('METAVALUE', $vid->getRatingCount());
                     break;
                            
                 case org_tubepress_options_category_Meta::UPLOADED:
-                    $niceDate = $vid->getUploadTime();
+                    $niceDate = $vid->getTimePublished();
                     if ($niceDate != "N/A") {
                         if ($this->_tpom->get(org_tubepress_options_category_Display::RELATIVE_DATES)) {
                             $niceDate = 
-                                $this->_relativeTime($vid->getUploadTime());
+                                $this->_relativeTime($vid->getTimePublished());
                         } else {
                             $niceDate = date($this->_tpom->
                                 get(org_tubepress_options_category_Advanced::DATEFORMAT), 
-                                $vid->getUploadTime());
+                                $vid->getTimePublished());
                         }
                     }
                     $this->_tpl->setVariable('METAVALUE', $niceDate);

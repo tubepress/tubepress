@@ -222,8 +222,8 @@ msgstr "Valutazione"
 msgid "Ratings"
 msgstr "Valutazioni"
 
-msgid "Tags"
-msgstr "Tags"
+msgid "Keywords"
+msgstr "Keywords"
 
 msgid "Title"
 msgstr "Titolo"
