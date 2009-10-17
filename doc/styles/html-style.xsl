@@ -29,6 +29,9 @@
     <xsl:param name="html.stylesheet">css/stylesheet.css</xsl:param>
     <xsl:param name="html.stylesheet.type">text/css</xsl:param>
     <xsl:param name="generate.toc">book toc,title</xsl:param>
+    <xsl:param name="chunk.first.sections" select="0"></xsl:param>
+    <xsl:param name="chunk.section.depth" select="0" />
+    <xsl:param name="suppress.header.navigation" select="1" />
 
     <!-- Label Chapters and Sections (numbering) -->
     <xsl:param name="chapter.autolabel" select="1"/>
