@@ -62,7 +62,7 @@ class org_tubepress_querystring_SimpleQueryStringService implements org_tubepres
     public function getFullUrl($serverVars)
     {
         $pageURL = 'http';
-        if ($serverVars['HTTPS'] == 'on') {
+        if (isset($serverVars['HTTPS']) && $serverVars['HTTPS'] == 'on') {
             $pageURL .= 's';
         }
         $pageURL .= '://';
