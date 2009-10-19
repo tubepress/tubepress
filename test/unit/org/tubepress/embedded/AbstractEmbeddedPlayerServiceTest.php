@@ -32,11 +32,10 @@ function embedded_test_callback() {
 		org_tubepress_options_category_Embedded::LOOP => true,
 		org_tubepress_options_category_Embedded::GENIE => false,
 		org_tubepress_options_category_Embedded::BORDER => true,
-		org_tubepress_options_category_Embedded::QUALITY => 'normal',
+		org_tubepress_options_category_Embedded::HIGH_QUALITY => true,
 		org_tubepress_options_category_Embedded::FULLSCREEN => true,
 		org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT => '111111',
-		org_tubepress_options_category_Embedded::SHOW_INFO => false,
-		org_tubepress_options_category_Embedded::QUALITY => 'high'
+		org_tubepress_options_category_Embedded::SHOW_INFO => false
 	);
 	return $vals[$args[0]]; 
 }

@@ -177,6 +177,7 @@ function _tpomCallbackGalleryUnitTest()
         org_tubepress_options_category_Embedded::BORDER => true,
         org_tubepress_options_category_Display::PAGINATE_ABOVE => true,
         org_tubepress_options_category_Display::PAGINATE_BELOW => true,
+        org_tubepress_options_category_Display::AJAX_PAGINATION => false,
         org_tubepress_options_category_Feed::RESULT_COUNT_CAP => 300,
         org_tubepress_options_category_Template::TEMPLATE => ''
 	);
@@ -201,6 +202,7 @@ function _tpomCallbackGalleryUnitTestCustomTemplate()
         org_tubepress_options_category_Embedded::BORDER => true,
         org_tubepress_options_category_Display::PAGINATE_ABOVE => true,
         org_tubepress_options_category_Display::PAGINATE_BELOW => true,
+        org_tubepress_options_category_Display::AJAX_PAGINATION => false,
         org_tubepress_options_category_Feed::RESULT_COUNT_CAP => 300,
         org_tubepress_options_category_Template::TEMPLATE => 'foobar'
     );

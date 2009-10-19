@@ -35,7 +35,7 @@ class org_tubepress_thumbnail_SimpleThumbnailServiceTest extends PHPUnit_Framewo
 		$vid = new org_tubepress_video_Video();
 		$vid->setId("fakeid");
 		$vid->setTitle("Fake title");
-		$vid->setLength("1:50");
+		$vid->setDuration("1:50");
 		$vid->setAuthor("3hough");
 		$vid->setDescription("Fake description.");
 		$vid->setKeywords(array("foo", "bar"));

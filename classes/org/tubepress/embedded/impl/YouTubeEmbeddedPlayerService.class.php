@@ -84,6 +84,6 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService extends org_tubep
         
         $embedSrc = $this->_template->getHtml();
      
-        return str_replace("?", "&amp;", $embedSrc);
+        return $embedSrc;
     }
 }

@@ -13,7 +13,7 @@ class org_tubepress_video_feed_inspection_YouTubeFeedInspectionServiceTest exten
 	
 	function testGetTotalResultCount()
 	{
-		$dom = DOMDocument::loadXML($this->getSampleXmlTotal());
+		$dom = $this->getSampleXmlTotal();
 		$this->assertEquals(100, $this->_sut->getTotalResultCount($dom));
 	}
 	
@@ -23,8 +23,7 @@ class org_tubepress_video_feed_inspection_YouTubeFeedInspectionServiceTest exten
 	function testGetTotalResultNonNumeric()
 	{
 		$badxml = str_replace("100", "fake", $this->getSampleXmlTotal());
-		$dom = DOMDocument::loadXML($badxml);
-		$this->_sut->getTotalResultCount($dom);
+		$this->_sut->getTotalResultCount($badxml);
 	}
 	
 	/**
@@ -33,19 +32,18 @@ class org_tubepress_video_feed_inspection_YouTubeFeedInspectionServiceTest exten
 	function testGetTotalResultMissing()
 	{
 		$badxml = str_replace("<openSearch:totalResults>100</openSearch:totalResults>", "", $this->getSampleXmlTotal());
-		$dom = DOMDocument::loadXML($badxml);
-		$this->_sut->getTotalResultCount($dom);
+		$this->_sut->getTotalResultCount($badxml);
 	}
 	
 	function testGetQueryResult()
 	{
-		$dom = DOMDocument::load(dirname(__FILE__) . "/../../../../../sample_feed.xml");
-		$this->assertEquals(25, $this->_sut->getQueryResultCount($dom));
+		$dom = file_get_contents(dirname(__FILE__) . "/../../../../../sample_feed.xml");
+		$this->assertEquals(21, $this->_sut->getQueryResultCount($dom));
 	}
 	
 	function testGetQueryResultNoEntries()
 	{
-		$dom = DOMDocument::loadXML($this->getSampleXmlTotal());
+		$dom = $this->getSampleXmlTotal();
 		$this->assertEquals(0, $this->_sut->getQueryResultCount($dom));
 	}
 	

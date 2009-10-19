@@ -11,22 +11,6 @@ class org_tubepress_video_feed_retrieval_HTTPRequest2Test extends PHPUnit_Framew
 		$this->_sut->setLog($this->getMock('org_tubepress_log_Log'));
 	}
 	
-    /**
-     * @expectedException Exception
-     */
-	function testFetchNonXml()
-	{
-		$this->_sut->fetch("http://www.gnu.org/licenses/gpl-3.0.txt", false);
-	}
-	
-    /**
-     * @expectedException Exception
-     */	
-	function testFetchBadXml()
-	{
-		$this->_sut->fetch("http://tubepress.org/badxml.test", false);
-	}
-	
 	function testFetchGoodXmlCacheDisabled()
 	{
 		$this->_sut->fetch("http://tubepress.org/goodxml.test", false);

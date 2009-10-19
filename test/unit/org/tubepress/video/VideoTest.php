@@ -56,7 +56,7 @@ class org_tubepress_video_VideoTest extends PHPUnit_Framework_TestCase {
 	
 	function testSetgetDuration() 
 	{
-		$this->_vid->setLength("3:12");
+		$this->_vid->setDuration("3:12");
 		$this->assertEquals($this->_vid->getDuration(), "3:12");
 	}
 	
@@ -95,13 +95,6 @@ class org_tubepress_video_VideoTest extends PHPUnit_Framework_TestCase {
 	{
 		$this->_vid->setId("34");
 		$this->assertEquals($this->_vid->getDefaultThumbnailUrl(), "http://img.youtube.com/vi/34/default.jpg");
-	}
-	
-	function testGetRandomThumbUrl()
-	{
-		$thumbs = array("1.jpg", "2.jpg", "3.jpg");
-		$this->_vid->setRegularQualityThumbnailUrls($thumbs);
-        $this->assertTrue(in_array($this->_vid->getRandomThumbUrl(), $thumbs));
 	}
 	
 	public static function getFakeInstance($random)

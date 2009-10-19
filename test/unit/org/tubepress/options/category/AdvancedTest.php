@@ -13,7 +13,7 @@ class org_tubepress_options_category_AdvancedTest extends PHPUnit_Framework_Test
 	public function setup()
 	{
 		$this->_expectedNames = array(
-			"dateFormat", "debugging_enabled", 'galleryId',
+			"dateFormat", "debugging_enabled",
 			"keyword", "randomize_thumbnails", 
 			"nofollowLinks"
     	);

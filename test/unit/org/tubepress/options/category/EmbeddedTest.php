@@ -15,8 +15,8 @@ class org_tubepress_options_category_EmbeddedTest extends PHPUnit_Framework_Test
 	public function setup()
 	{
 		$this->_expectedNames = array(
-			"playerImplementation", "autoplay", "border", "embeddedHeight", "embeddedWidth", 
-			"genie", "loop", "playerColor", "playerHighlight", "showRelated", "quality",
+			"playerImplementation", "autoplay", "border", "embeddedHeight", "embeddedWidth", "hd",
+			"genie", "loop", "playerColor", "playerHighlight", "showRelated",
 		    "fullscreen", "showInfo"
     	);
     	$class = new ReflectionClass("org_tubepress_options_category_Embedded");    

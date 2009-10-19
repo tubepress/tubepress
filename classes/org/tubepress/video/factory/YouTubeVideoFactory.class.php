@@ -58,7 +58,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
         $xpath = $this->_buildXPath($doc);
         
         /* create a org_tubepress_video_Video out of each "entry" node */   
-        $entries = $xpath->query('/atom:feed/atom:entry');     
+        $entries = $xpath->query('/atom:feed/atom:entry');  
         foreach ($entries as $entry) {
             $results[] = $this->_createVideo($xpath, $entry);
         }

@@ -12,15 +12,14 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends PHPUnit_Framew
                     "http://img.youtube.com/vi/m3gMgK7h-BA/0.jpg");
     
     function setUp() {
-        $doc = new DOMDocument();
-        $doc->load(dirname(__FILE__) . "/../../../../sample_feed.xml");
+        $doc = file_get_contents(dirname(__FILE__) . "/../../../../sample_feed.xml");
         $factory = new org_tubepress_video_factory_YouTubeVideoFactory();
         $this->_vids = $factory->feedToVideoArray($doc, 1);
     }
     
     function testRetrievesAuthorFromDomElement()
     {
-        $this->assertEquals($this->_vids[0]->getAuthor(), "dhyrenz");
+        $this->assertEquals($this->_vids[0]->getAuthor(), "u4ever12344");
     }
     
     function testRetrievesCategoryFromDomElement()
@@ -30,53 +29,55 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends PHPUnit_Framew
     
     function testRetrievesDescriptionFromDomElement()
     {
-        $this->assertEquals($this->_vids[0]->getDescription(), "....one of those that will make you say...holy %$#^");
+        $this->assertEquals($this->_vids[0]->getDescription(), "Music video for the third single, You Belong With Me, from Taylor Swift's upcoming 2nd album, Fearless, out 11/11. You're on the phone with your girlfriend, She's upset She's going off about something that you said She doesnt get your humour like I do I'm in the room, its a typical Tuesday night I'm listening to the kind of music she doesnt like And she'll never know your story like I do But she wears short skirts, I wear t-shirts She's cheer captain and I'm on the bleachers Dreaming bout ...");
     }
     
     function testRetrievesIdFromDomElement()
     {
-        $this->assertEquals($this->_vids[0]->getId(), "m3gMgK7h-BA");
+        $this->assertEquals($this->_vids[0]->getId(), "5AHzIq_n-DQ");
     }
     
     function testRetrievesRatingAverageFromDomElement()
     {
-        $this->assertEquals($this->_vids[0]->getRatingAverage(), "4.92");
+        $this->assertEquals($this->_vids[0]->getRatingAverage(), "4.840202");
     }
     
     function testRetrievesRatingCountFromDomElement()
     {
-        $this->assertEquals($this->_vids[0]->getRatingCount(), "29,065");
+        $this->assertEquals($this->_vids[0]->getRatingCount(), "17,422");
     }
     
     function testRetrievesRuntimeFromDomElement()
     {
-        $this->assertEquals($this->_vids[0]->getDuration(), "2:30");
+        $this->assertEquals($this->_vids[0]->getDuration(), "3:49");
     }
 
     function testRetrievesKeywordsFromDomElement()
     {
-    	$expectedKeywords = array("balboa", "feet", "guitar", "park");
+    	$expectedKeywords = array("country", "taylor", "swift", "you", 
+    	   "belong", "with", "me", "official", "music", "video", 
+    	       "new", "single", "fearless", "lyrics");
         $this->assertTrue($this->_vids[0]->getKeywords() === $expectedKeywords);
     }
     
     function testRetrievesTitleFromDomElement()
     {
-        $this->assertEquals($this->_vids[0]->getTitle(), "amazing guitar player");
+        $this->assertEquals($this->_vids[0]->getTitle(), "Taylor Swift - You Belong With Me - Official Music Video");
     }
 
     function testRetrievesUploadTimeFromDomElement()
     {
-        $this->assertEquals($this->_vids[0]->getTimePublished(), 1161748355);
+        $this->assertEquals($this->_vids[0]->getTimePublished(), 1242100279);
     }
     
     function testRetrievesUrlFromDomElement()
     {
-        $this->assertEquals($this->_vids[0]->getHomeUrl(), "http://www.youtube.com/watch?v=m3gMgK7h-BA");
+        $this->assertEquals($this->_vids[0]->getHomeUrl(), "http://www.youtube.com/watch?v=5AHzIq_n-DQ&feature=youtube_gdata");
     }
     
     function testRetrievesViewCountFromDomElement()
     {
-        $this->assertEquals($this->_vids[0]->getViewCount(), "5,286,665");
+        $this->assertEquals($this->_vids[0]->getViewCount(), "6,816,621");
     }
 }
 ?>

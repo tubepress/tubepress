@@ -92,8 +92,8 @@ class org_tubepress_video_Video
     public function getTimeLastUpdated() { return $this->_timeLastUpdated; }
     public function setTimeLastUpdated($time) { $this->_timeLastUpdated = $time; }
 
-    public function getTimePublished() { return $this->_uploadTime; }
-    public function setTimePublished($time) { $this->_uploadTime = $time; }
+    public function getTimePublished() { return $this->_timePublished; }
+    public function setTimePublished($time) { $this->_timePublished = $time; }
 
     public function getTitle() { return $this->_title; }
     public function setTitle($title) { $this->_title = $title; }

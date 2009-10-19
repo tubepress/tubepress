@@ -42,6 +42,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
             org_tubepress_options_category_Embedded::SHOW_INFO          => false,
             org_tubepress_options_category_Embedded::SHOW_RELATED       => true,
             org_tubepress_options_category_Embedded::FULLSCREEN         => true,
+        org_tubepress_options_category_Embedded::HIGH_QUALITY       => false,
             org_tubepress_options_category_Meta::AUTHOR                 => false,
             org_tubepress_options_category_Meta::CATEGORY               => false,
             org_tubepress_options_category_Meta::DESCRIPTION            => false,
@@ -64,8 +65,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
             org_tubepress_options_category_Display::THUMB_WIDTH         => 120,
             org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT    => 350,
             org_tubepress_options_category_Embedded::EMBEDDED_WIDTH     => 425,
-            org_tubepress_options_category_Feed::RESULT_COUNT_CAP       => 300,
-            org_tubepress_options_category_Advanced::GALLERY_ID         => 0
+            org_tubepress_options_category_Feed::RESULT_COUNT_CAP       => 300
         ),
         org_tubepress_options_Type::TIME_FRAME => array(
             org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE   => 'today',
@@ -77,9 +77,6 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
         org_tubepress_options_Type::PLAYER => array(
             org_tubepress_options_category_Display::CURRENT_PLAYER_NAME => 'normal',
         ),
-        org_tubepress_options_Type::QUALITY => array(
-            org_tubepress_options_category_Embedded::QUALITY            => 'normal'
-        ),
         org_tubepress_options_Type::SAFE_SEARCH => array(
             org_tubepress_options_category_Feed::FILTER                 => 'moderate'    
         ),
@@ -87,6 +84,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
             org_tubepress_options_category_Embedded::PLAYER_IMPL        => 'youtube'
         )
     );
+	
 	
 	function setUp()
 	{
@@ -96,7 +94,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
 	function testGetAdvancedOptionNames()
 	{
 	    $expectedNames = array(
-	    	"dateFormat", "debugging_enabled", 'galleryId', "keyword",
+	    	"dateFormat", "debugging_enabled", "keyword",
 	    	"randomize_thumbnails", "nofollowLinks"
 	    );
 	    $this->assertTrue($expectedNames == $this->_sut->getOptionNamesForCategory(org_tubepress_options_Category::ADVANCED));
@@ -132,8 +130,8 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     {
         $expectedNames = array(
             "playerImplementation", "embeddedHeight", "embeddedWidth", 
-            "autoplay", "border", "fullscreen", "genie", "loop", "playerColor",
-            "playerHighlight", "quality", "showInfo", "showRelated"
+            "autoplay", "border", "fullscreen", "hd", "genie", "loop", "playerColor",
+            "playerHighlight", "showInfo", "showRelated"
         );
         $this->assertTrue($expectedNames == $this->_sut->getOptionNamesForCategory(org_tubepress_options_Category::EMBEDDED));  
     }
@@ -222,12 +220,6 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     {
         $expected = array("relevance", "viewCount", "rating", "updated", "random");
         $this->assertEquals($expected, $this->_sut->getValidEnumValues(org_tubepress_options_Type::ORDER));
-    }
-    
-    function testQualityEnumValues()
-    {
-        $expected = array("normal", "high", "higher", "highest");
-        $this->assertEquals($expected, $this->_sut->getValidEnumValues(org_tubepress_options_Type::QUALITY));
     }
     
     function testGalleryEnumValues()

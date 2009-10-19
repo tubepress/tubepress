@@ -13,14 +13,11 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerServiceTest extends org_t
 	
 	function testToString()
 	{
-		$link = "http://www.youtube.com/v/FAKEID&amp;color2=0x777777&amp;color1=0x111111&amp;rel=1&amp;autoplay=0&amp;loop=1&amp;egm=0&amp;border=1&amp;fs=1&amp;showinfo=0&amp;ap=%2526&amp;fmt=6";
+		$link = "http://www.youtube.com/v/FAKEID?color2=0x777777&amp;color1=0x111111&amp;rel=1&amp;autoplay=0&amp;loop=1&amp;egm=0&amp;border=1&amp;fs=1&amp;showinfo=0&amp;hd=1";
 		
 		$this->assertEquals(<<<EOT
-<object type="application/x-shockwave-flash" data="$link" style="width: 450px; height: 350px">
-    <param name="wmode" value="transparent" />
-    <param name="movie" value="$link" />
-    <param name="allowfullscreen" value="true" />
-</object>
+<object type="application/x-shockwave-flash" data="$link" style="width: 450px; height: 350px"><param name="wmode" value="transparent" /><param name="movie" value="$link" /><param name="allowfullscreen" value="true" /></object>
+
 EOT
 			,  $this->_sut->toString('FAKEID'));
 	}
