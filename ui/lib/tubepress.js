@@ -166,6 +166,14 @@ function _tubepress_get_wait_call(scriptPath, test, callback) {
     jQuery.getScript(scriptPath, futureCallback, true);
 }
 
+function _tubepress_load_css(path) {
+    var fileref=document.createElement("link")
+    fileref.setAttribute("rel", "stylesheet")
+    fileref.setAttribute("type", "text/css")
+    fileref.setAttribute("href", path)
+    document.getElementsByTagName("head")[0].appendChild(fileref)
+}
+
 /**
  * Adds Ajax functionality to pagination links
  *
