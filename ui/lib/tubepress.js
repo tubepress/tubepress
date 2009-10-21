@@ -71,8 +71,11 @@ function _tubepress_swap_embedded(galleryId, videoId, embeddedName) {
 
 function tubepress_deep_construct_object(wrapper, params) {
 
-	var newHtml = wrapper.html().replace("</object>", "").replace("\n", "");
-	
+	var newHtml = wrapper.html();
+		
+	/* chop off the closing </object>. Don't change this unless you want to break IE */
+	var newHtml = newHtml.substring(0, newHtml.length - 9);
+
 	/* now add back the params, but this time with the new video ID */
 	params.each(function() {
     	newHtml += '<param name="' + this.name + '" value="' + this.value + '" />';
