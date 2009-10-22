@@ -16,6 +16,22 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 
 == Changelog ==
 
+= 1.8.6 =
+* WordPress options page now uses jQuery tabs
+* Fixed bug that could prevent request cache from working in some PHP installations
+* (TubePress Pro only) Ajax pagination (closes Ticket #45 and Ticket #111)
+* (TubePress Pro only) Version bump for jQuery (1.2.6 -> 1.3.2)
+* (TubePress Pro only) Removed potential "Invalid locale category name" warning that shows up on some PHP installations
+* Version bump for JW FLV Media Player (to 4.6)
+* Fixed bug that prevented display of videos with "limited syndication" restriction
+* Shortcode and input validation is much more comprehensive (closes Ticket #129)
+* Fixed bug that prevented videos from playing in high definition upon request (closes Ticket #137)
+* Added rel="nofollow" to pagination links (closes Ticket #133)
+* Minor refactoring of tubepress.js functions
+* Updated WordPress plugins page blurb
+* Updated Italian translation thanks to Gianni Diurno
+* Various trivial improvements to HTML templates 
+
 = 1.8.5 =
 * Videos now play correctly on iPhone and iPod Touch (closes Ticket #101)
 * Flexible shortcodes! No need to include commas between attribute/value pairs. Can use single, double, or no quotes around attribute values.
