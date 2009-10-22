@@ -2,15 +2,15 @@ jQuery.getScript = function(url, callback, cache) {
     jQuery.ajax({ type: "GET", url: url, success: callback, dataType: "script", cache: cache }); 
 }; 
 
-jQuery(document).ready(function() {tubepress_init(getTubePressBaseUrl());})
+jQuery(document).ready(function() {_tubepress_init(getTubePressBaseUrl());})
 
-function tubepress_init(baseUrl) {
-    tubepress_load_embedded_js(baseUrl);
-    tubepress_load_players(baseUrl);
-    tubepress_attach_listeners();
+function _tubepress_init(baseUrl) {
+    _tubepress_load_embedded_js(baseUrl);
+    _tubepress_load_players(baseUrl);
+    _tubepress_attach_listeners();
 }
 
-function tubepress_attach_listeners()
+function _tubepress_attach_listeners()
 {
     /* any link with an id that starts with "tubepress_" */
 	jQuery("a[id^='tubepress_']").click(function () {
@@ -97,7 +97,7 @@ function _tubepress_call_player_js(galleryId, videoId, embeddedName, playerName)
 }
 
 
-function tubepress_load_players(baseUrl) {
+function _tubepress_load_players(baseUrl) {
 	var playerNames = _tubepress_rel_parser(2), i;
     for(i = 0; i < playerNames.length; i++) {
     	var name = playerNames[i];
@@ -112,7 +112,7 @@ function _tubepress_player_loaded(playerName, baseUrl) {
 	_tubepress_call_when_true(function() { return typeof window[funcName] == 'function'; }, f);
 }
 
-function tubepress_load_embedded_js(baseUrl) {
+function _tubepress_load_embedded_js(baseUrl) {
     var embeddedNames = _tubepress_rel_parser(1), i;
     for(i = 0; i < embeddedNames.length; i++) {
         jQuery.getScript(baseUrl + "/ui/embedded/" + embeddedNames[i] + "/" + embeddedNames[i] + ".js", function() {}, true);
@@ -161,12 +161,12 @@ function _tubepress_call_when_true(test, callback) {
  * @param callback
  * @return
  */
-function _tubepress_get_wait_call(scriptPath, test, callback) {
+function tubepress_get_wait_call(scriptPath, test, callback) {
     var futureCallback = function() { _tubepress_call_when_true(test, callback); }
     jQuery.getScript(scriptPath, futureCallback, true);
 }
 
-function _tubepress_load_css(path) {
+function tubepress_load_css(path) {
     var fileref=document.createElement("link")
     fileref.setAttribute("rel", "stylesheet")
     fileref.setAttribute("type", "text/css")
@@ -178,17 +178,17 @@ function _tubepress_load_css(path) {
  * Adds Ajax functionality to pagination links
  *
  */
-function ajaxifyPaginationForTubePressGallery(galleryId) {
-    var clickCallback = function() { processAjaxRequest(jQuery(this), galleryId); };
+function tubepress_ajaxifyPaginationForGallery(galleryId) {
+    var clickCallback = function() { _tubepress_processAjaxRequest(jQuery(this), galleryId); };
     jQuery("#tubepress_gallery_" + galleryId + " div.pagination a").click(clickCallback);
 }
 
-function processAjaxRequest(anchor, galleryId) {
+function _tubepress_processAjaxRequest(anchor, galleryId) {
     var baseUrl = getTubePressBaseUrl(), 
         shortcode = window["getUrlEncodedShortcodeForTubePressGallery" + galleryId](),
         page = anchor.attr("rel"),
         thumbnailArea = "#tubepress_gallery_" + galleryId + "_thumbnail_area",
-        postLoadCallback = function() { postAjaxGallerySetup(thumbnailArea, galleryId) },
+        postLoadCallback = function() { _tubepress_postAjaxGallerySetup(thumbnailArea, galleryId) },
         pageToLoad = baseUrl + "/env/pro/lib/ajax/responder.php?shortcode=" + shortcode + "&tubepress_" + page + "&tubepress_galleryId=" + galleryId,
         remotePageSelector = thumbnailArea + " > *",
         loadFunction= function() { jQuery(thumbnailArea).load(pageToLoad + " " + remotePageSelector, postLoadCallback); };
@@ -200,23 +200,8 @@ function processAjaxRequest(anchor, galleryId) {
     setTimeout(loadFunction, 100);
 }
 
-function postAjaxGallerySetup(thumbnailArea, galleryId) {
+function _tubepress_postAjaxGallerySetup(thumbnailArea, galleryId) {
     tubepress_attach_listeners();
-    ajaxifyPaginationForTubePressGallery(galleryId);
+    tubepress_ajaxifyPaginationForGallery(galleryId);
     jQuery(thumbnailArea).fadeTo('fast', 1);
 }
-
- /*
-  * includeMany 1.1.0
-  *
-  * Copyright (c) 2009 Arash Karimzadeh (arashkarimzadeh.com)
-  * Licensed under the MIT (MIT-LICENSE.txt)
-  * http://www.opensource.org/licenses/mit-license.php
-  *
-  * Date: Feb 28 2009
-  */
- (function(a){a.include=function(e,b){var f=a.include.luid++;var d=function(h,g){if(a.isFunction(h)){h(g);}if(--a.include.counter[f]==0&&a.isFunction(b)){b();}};if(typeof e=="object"&&typeof e.length=="undefined"){a.include.counter[f]=0;for(var c in e){a.include.counter[f]++;}return a.each(e,function(g,h){a.include.load(g,d,h);
- });}e=a.makeArray(e);a.include.counter[f]=e.length;a.each(e,function(){a.include.load(this,d,null);});};a.extend(a.include,{luid:0,counter:[],load:function(b,c,d){if(a.include.exist(b)){return c(d);}if(/.css$/.test(b)){a.include.loadCSS(b,c,d);}else{if(/.js$/.test(b)){a.include.loadJS(b,c,d);}else{a.get(b,function(e){c(d,e);
- });}}},loadCSS:function(b,d,e){var c=document.createElement("link");c.setAttribute("type","text/css");c.setAttribute("rel","stylesheet");c.setAttribute("href",b);a("head").get(0).appendChild(c);a.browser.msie?a.include.IEonload(c,d,e):d(e);},loadJS:function(b,d,e){var c=document.createElement("script");
- c.setAttribute("type","text/javascript");c.setAttribute("src",b);a.browser.msie?a.include.IEonload(c,d,e):c.onload=function(){d(e);};a("head").get(0).appendChild(c);},IEonload:function(d,b,c){d.onreadystatechange=function(){if(this.readyState=="loaded"||this.readyState=="complete"){b(c);}};},exist:function(c){var b=false;
- a("head script").each(function(){if(/.css$/.test(c)&&this.href==c){return b=true;}else{if(/.js$/.test(c)&&this.src==c){return b=true;}}});return b;}});})(jQuery);

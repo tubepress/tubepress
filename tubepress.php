@@ -2,7 +2,7 @@
 /**
 Plugin Name: TubePress
 Plugin URI: http://tubepress.org
-Description: Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Configure from <a href="options-general.php?page=home/hough/Desktop/tubepress/env/WordPress/functions/options_page.php">Settings > TubePress</a>. Upgrade to <a href="http://tubepress.org/features/">TubePress Pro</a> for more features!
+Description: Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Upgrade to <a href="http://tubepress.org/features/">TubePress Pro</a> for more features!
 Author: Eric D. Hough
 Version: 1.8.6-svn
 Author URI: http://ehough.com

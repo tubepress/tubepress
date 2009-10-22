@@ -48,9 +48,9 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
         $result = $this->_diggStyle($this->_messageService, $currentPage, $vidCount, $vidsPerPage, 1, $newurl->getURL(), "tubepress_page");
 
         /* if we're using Ajax for pagination, remove all the hrefs */
-	if ($this->_tpom->get(org_tubepress_options_category_Display::AJAX_PAGINATION)) {
-		$result = preg_replace('/rel="nofollow" href="[^"]*tubepress_page=([0-9]+)[^"]*"/', 'rel="page=${1}"', $result);
-	}
+    	if ($this->_tpom->get(org_tubepress_options_category_Display::AJAX_PAGINATION)) {
+    		$result = preg_replace('/rel="nofollow" href="[^"]*tubepress_page=([0-9]+)[^"]*"/', 'rel="page=${1}"', $result);
+    	}
 
 	return $result;
     }

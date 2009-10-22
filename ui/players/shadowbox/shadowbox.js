@@ -1,30 +1,32 @@
 function tubepress_shadowbox_player_init(baseUrl) {
-	_tubepress_shadowbox_player_shadowboxjs(baseUrl + '/ui/players/shadowbox/');
+	var url = baseUrl + '/ui/players/shadowbox/';
+	tubepress_load_css(url + 'lib/shadowbox.css');
+	_tubepress_shadowbox_player_shadowboxjs(url);
 }
 
 function _tubepress_shadowbox_player_shadowboxjs(base)  {
-	_tubepress_get_wait_call(base + 'lib/shadowbox.js',
+	tubepress_get_wait_call(base + 'lib/shadowbox.js',
 			function() { return typeof Shadowbox != 'undefined'; },
 			function() { _tubepress_shadowbox_player_shadowboxlang(base); }
 		);
 }
 
 function _tubepress_shadowbox_player_shadowboxlang(base) {
-	_tubepress_get_wait_call(base + 'lib/languages/shadowbox-en.js',
+	tubepress_get_wait_call(base + 'lib/languages/shadowbox-en.js',
 			function() { return typeof Shadowbox.lang != 'undefined'; },
 			function() { _tubepress_shadowbox_player_shadowboxplayer(base); }
 		);
 }
 
 function _tubepress_shadowbox_player_shadowboxplayer(base) {
-	_tubepress_get_wait_call(base + 'lib/players/shadowbox-html.js',
+	tubepress_get_wait_call(base + 'lib/players/shadowbox-html.js',
 			function() { return typeof Shadowbox.html != 'undefined'; },
 			function() { _tubepress_shadowbox_player_shadowboxadapter(base); }
 		);
 }
 
 function _tubepress_shadowbox_player_shadowboxadapter(base) {
-	_tubepress_get_wait_call(base + 'lib/adapters/shadowbox-jquery.js',
+	tubepress_get_wait_call(base + 'lib/adapters/shadowbox-jquery.js',
 			function() { return typeof Shadowbox.lib != 'undefined'; },
 			function() { _tubepress_init_shadowbox(base); }
 		);
