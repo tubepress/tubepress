@@ -201,7 +201,7 @@ function _tubepress_processAjaxRequest(anchor, galleryId) {
 }
 
 function _tubepress_postAjaxGallerySetup(thumbnailArea, galleryId) {
-    tubepress_attach_listeners();
+    _tubepress_attach_listeners();
     tubepress_ajaxifyPaginationForGallery(galleryId);
     jQuery(thumbnailArea).fadeTo('fast', 1);
 }
