@@ -34,21 +34,21 @@ tubepress_load_classes(array('org_tubepress_options_storage_WordPressStorageMana
 */
 function tubepress_content_filter($content = '')
 {
-	try {
-		/* do as little work as possible here 'cause we might not even run */
-    	$wpsm             = new org_tubepress_options_storage_WordPressStorageManager();
+    try {
+        /* do as little work as possible here 'cause we might not even run */
+        $wpsm             = new org_tubepress_options_storage_WordPressStorageManager();
         $trigger          = $wpsm->get(org_tubepress_options_category_Advanced::KEYWORD);
-    	$shortcodeService = new org_tubepress_shortcode_SimpleShortcodeService();
+        $shortcodeService = new org_tubepress_shortcode_SimpleShortcodeService();
     
-    	/* no shortcode? get out */
+        /* no shortcode? get out */
         if (!$shortcodeService->somethingToParse($content, $trigger)) {
-    	    return $content;
-    	}
+            return $content;
+        }
         
         return _tubepress_get_gallery_content($content, $trigger);
-	} catch (Exception $e) {
-		return $e->getMessage() . $content;
-	}
+    } catch (Exception $e) {
+        return $e->getMessage() . $content;
+    }
 }
 
 /**
@@ -75,7 +75,7 @@ function _tubepress_get_gallery_content($content, $trigger)
     /* Get a handle to the shortcode service */
     $shortcodeService = $iocContainer->get(org_tubepress_ioc_IocService::SHORTCODE_SERVICE);
 
- 	/* Make a copy of the content that we'll edit */
+     /* Make a copy of the content that we'll edit */
     $newcontent = $content;
 
     /* And finally, the gallery itself */
@@ -87,18 +87,18 @@ function _tubepress_get_gallery_content($content, $trigger)
         $rand = mt_rand();
         $log->log("WordPress Main", sprintf("Starting to build gallery %s", $rand));
         
-	    $shortcodeService->parse($newcontent, $tpom);
+        $shortcodeService->parse($newcontent, $tpom);
 
         $currentShortcode = $tpom->getShortcode();
-	    $galleryHtml = $gallery->getHtml($rand);
+        $galleryHtml = $gallery->getHtml($rand);
 
         /* remove any leading/trailing <p> tags from the shortcode */
         $pattern = '/(<[P|p]>\s*)(' . preg_quote($currentShortcode, '/') . ')(\s*<\/[P|p]>)/';
-	    $newcontent = preg_replace($pattern, '${2}', $newcontent); 
+        $newcontent = preg_replace($pattern, '${2}', $newcontent); 
 
-	    /* replace the shortcode with our new content */
-	    $newcontent = org_tubepress_util_StringUtils::replaceFirst($currentShortcode, 
-	        $galleryHtml, $newcontent);
+        /* replace the shortcode with our new content */
+        $newcontent = org_tubepress_util_StringUtils::replaceFirst($currentShortcode, 
+            $galleryHtml, $newcontent);
     }
     return $newcontent;
 }
@@ -112,17 +112,21 @@ function tubepress_head_filter()
 {
     global $tubepress_base_url;
     
-	try {
-	        print<<<GBS
+    try {
+        print<<<GBS
 <script type="text/javascript">function getTubePressBaseUrl(){return "$tubepress_base_url";}</script>
 <script type="text/javascript" src="$tubepress_base_url/ui/lib/tubepress.js"></script>
 <link rel="stylesheet" href="$tubepress_base_url/ui/lib/tubepress.css" type="text/css" />
 
 GBS;
-	} catch (Exception $e) {
-		/* this is in the head, so just print an HTML comment and proceed */
+        if (isset($_GET['tubepress_page']) && $_GET['tubepress_page'] > 1) {
+            print ('<meta name="robots" content="noindex, follow" />
+');
+        }
+    } catch (Exception $e) {
+        /* this is in the head, so just print an HTML comment and proceed */
         print "<!-- " . $e->getMessage() . " -->";
-	}
+    }
 }
 
 /**
