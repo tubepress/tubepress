@@ -19,26 +19,28 @@
  *
  */
 
-if (version_compare(PHP_VERSION, '5.0.0', '>=')
-        && !function_exists("tubepress_content_filter")) {
-    
+if (version_compare(PHP_VERSION, '5.0.0', '>=') && !function_exists("tubepress_content_filter")) {
+
+    /* have to consider that sometimes people may name the "tubepress" directory differently */
+    $dirName = basename(realpath(dirname(__FILE__) . '/../../..'));
+
     /* set the tubepress_base_url global */
-    $tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/tubepress";        
-            
+    $tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/$dirName";        
+
     /* register the plugin's message bundles */
-	load_plugin_textdomain('tubepress', 'wp-content/plugins/tubepress/i18n');
-	
-	/* load up the rest of the WordPress specific code */
+    load_plugin_textdomain('tubepress', "wp-content/plugins/$dirName/i18n");
+
+    /* load up the rest of the WordPress specific code */
     include dirname(__FILE__) . '/../functions/main.php';
 
     /* add a filter for all post/page content */
-	add_filter('the_content', 'tubepress_content_filter');
-	
-	/* add a filter so we can add our CSS/JS to the head */
-	add_action('wp_head',     'tubepress_head_filter');
-	
-	/* load up jQuery */
-	add_action('init', 'tubepress_load_jquery');
+    add_filter('the_content', 'tubepress_content_filter');
+
+    /* add a filter so we can add our CSS/JS to the head */
+    add_action('wp_head',     'tubepress_head_filter');
+
+    /* load up jQuery */
+    add_action('init', 'tubepress_load_jquery');
 }
 
 ?>
