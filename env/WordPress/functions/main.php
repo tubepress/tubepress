@@ -120,7 +120,7 @@ function tubepress_head_filter()
 
 GBS;
         if (isset($_GET['tubepress_page']) && $_GET['tubepress_page'] > 1) {
-            print ('<meta name="robots" content="noindex, follow" />
+            print ('<meta name="robots" content="noindex, nofollow" />
 ');
         }
     } catch (Exception $e) {

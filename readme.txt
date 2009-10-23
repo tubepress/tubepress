@@ -26,7 +26,7 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 * Fixed bug that prevented display of videos with "limited syndication" restriction
 * Shortcode and input validation is much more comprehensive (closes Ticket #129)
 * Fixed bug that prevented videos from playing in high definition upon request (closes Ticket #137)
-* Added rel="nofollow" to pagination links (closes Ticket #133)
+* Additional gallery pages are no longer indexed by search engines (closes Ticket #133)
 * Minor refactoring of tubepress.js functions
 * Updated WordPress plugins page blurb
 * Updated Italian translation thanks to Gianni Diurno

@@ -22,7 +22,8 @@
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory',
-    'org_tubepress_video_Video'));
+    'org_tubepress_video_Video',
+    'net_php_pear_Net_URL2'));
 
 /**
  * Video factory for YouTube
@@ -84,13 +85,13 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
 
         /* everyone loves the builder pattern */
         $vid->setAuthor($doc->query('atom:author/atom:name', $entry)->item(0)->nodeValue);
-        $vid->setCategory(trim($doc->query('media:group/media:category', $entry)->item(0)->getAttribute('label')));
+        $vid->setCategory($this->_getCategory($doc, $entry));
 	$vid->setDefaultThumbnailUrl($this->_getDefaultThumbnailUrl($doc, $entry));
-        $vid->setDescription(trim($doc->query('media:group/media:description', $entry)->item(0)->nodeValue));
+        $vid->setDescription($this->_getDescription($doc, $entry));
 	$vid->setDuration($this->_getDuration($doc, $entry));
 	$vid->setEmbeddedObjectDataUrl($this->_getEmbeddedObjectDataUrl($doc, $entry));
 	$vid->setHighQualityThumbnailUrls($this->_getHighQualityThumbnailUrls($doc, $entry));
-        $vid->setHomeUrl($doc->query("atom:link[@rel='alternate']", $entry)->item(0)->getAttribute('href'));
+        $vid->setHomeUrl($this->_getHomeUrl($doc, $entry));
         $vid->setId($doc->query('media:group/yt:videoid', $entry)->item(0)->nodeValue);
 	$vid->setKeywords($this->_getKeywords($doc, $entry));
         $vid->setRatingAverage($this->_getRatingAverage($doc, $entry));
@@ -100,6 +101,22 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
         $vid->setTimePublished($this->_getTimePublished($doc, $entry));
         $vid->setViewCount($this->_getViewCount($doc, $entry));
         return $vid;
+    }
+    
+    private function _getCategory(DOMXPath $doc, DOMNode $entry) {
+        $raw = trim($doc->query('media:group/media:category', $entry)->item(0)->getAttribute('label'));
+        return htmlspecialchars($raw, ENT_QUOTES, "UTF-8");
+    }
+    
+    private function _getDescription(DOMXPath $doc, DOMNode $entry) {
+        $raw = trim($doc->query('media:group/media:description', $entry)->item(0)->nodeValue);
+        return htmlspecialchars($raw, ENT_QUOTES, "UTF-8");
+    }
+    
+    private function _getHomeUrl(DOMXPath $doc, DOMNode $entry) {
+        $rawUrl = $doc->query("atom:link[@rel='alternate']", $entry)->item(0)->getAttribute('href');
+        $url = new net_php_pear_Net_URL2($rawUrl);
+        return $url->getURL(true);
     }
     
     private function _getEmbeddedObjectDataUrl(DOMXPath $doc, DOMNode $entry)
@@ -175,7 +192,9 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
     private function _getKeywords(DOMXPath $doc, DOMNode $entry)
     { 
         $rawKeywords = $doc->query('media:group/media:keywords', $entry)->item(0);
-        return split(", ", trim($rawKeywords->nodeValue));
+        $raw = trim($rawKeywords->nodeValue);
+        $raw = htmlspecialchars($raw, ENT_QUOTES, "UTF-8");
+        return split(", ", $raw);
     }
 
     /**

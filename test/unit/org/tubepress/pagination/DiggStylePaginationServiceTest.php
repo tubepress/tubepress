@@ -8,7 +8,7 @@ class org_tubepress_pagination_DiggStylePaginationServiceTest extends PHPUnit_Fr
     {
         
         $this->_tester('digg_test_callback_with_ajax',<<<EOT
-<div class="pagination"><span class="disabled">prev</span><span class="current">1</span><a rel="nofollow" rel="page=2">2</a><a rel="nofollow" rel="page=3">3</a><a rel="nofollow" rel="page=4">4</a><a rel="nofollow" rel="page=5">5</a>... <a rel="nofollow" rel="page=24">24</a><a rel="nofollow" rel="page=25">25</a><a rel="nofollow" rel="page=2">next</a></div>
+<div class="pagination"><span class="disabled">prev</span><span class="current">1</span><a rel="page=2">2</a><a rel="page=3">3</a><a rel="page=4">4</a><a rel="page=5">5</a>... <a rel="page=24">24</a><a rel="page=25">25</a><a rel="page=2">next</a></div>
 
 EOT
 );

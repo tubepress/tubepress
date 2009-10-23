@@ -29,7 +29,7 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends PHPUnit_Framew
     
     function testRetrievesDescriptionFromDomElement()
     {
-        $this->assertEquals($this->_vids[0]->getDescription(), "Music video for the third single, You Belong With Me, from Taylor Swift's upcoming 2nd album, Fearless, out 11/11. You're on the phone with your girlfriend, She's upset She's going off about something that you said She doesnt get your humour like I do I'm in the room, its a typical Tuesday night I'm listening to the kind of music she doesnt like And she'll never know your story like I do But she wears short skirts, I wear t-shirts She's cheer captain and I'm on the bleachers Dreaming bout ...");
+        $this->assertEquals($this->_vids[0]->getDescription(), "Music video for the third single, You Belong With Me, from Taylor Swift&#039;s upcoming 2nd album, Fearless, out 11/11. You&#039;re on the phone with your girlfriend, She&#039;s upset She&#039;s going off about something that you said She doesnt get your humour like I do I&#039;m in the room, its a typical Tuesday night I&#039;m listening to the kind of music she doesnt like And she&#039;ll never know your story like I do But she wears short skirts, I wear t-shirts She&#039;s cheer captain and I&#039;m on the bleachers Dreaming bout ...");
     }
     
     function testRetrievesIdFromDomElement()
@@ -72,7 +72,7 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends PHPUnit_Framew
     
     function testRetrievesUrlFromDomElement()
     {
-        $this->assertEquals($this->_vids[0]->getHomeUrl(), "http://www.youtube.com/watch?v=5AHzIq_n-DQ&feature=youtube_gdata");
+        $this->assertEquals($this->_vids[0]->getHomeUrl(), "http://www.youtube.com/watch?v=5AHzIq_n-DQ&amp;feature=youtube_gdata");
     }
     
     function testRetrievesViewCountFromDomElement()
