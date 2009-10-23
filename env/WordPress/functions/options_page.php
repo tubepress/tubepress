@@ -74,6 +74,7 @@ function tubepress_admin_head_hook()
 
 function tubepress_admin_init_hook()
 {
-	wp_enqueue_style('jquery-ui-flick', WP_PLUGIN_URL . '/tubepress/ui/options_page/css/flick/jquery-ui-1.7.2.custom.css');
+    $dirName = basename(realpath(dirname(__FILE__) . '/../../..'));
+	wp_enqueue_style('jquery-ui-flick', WP_PLUGIN_URL . "/$dirName/ui/options_page/css/flick/jquery-ui-1.7.2.custom.css");
 	wp_enqueue_script('jquery-ui-tabs');
 }
