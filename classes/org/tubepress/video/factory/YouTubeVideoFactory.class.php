@@ -37,6 +37,14 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
     const NS_YT    = 'http://gdata.youtube.com/schemas/2007';
     const NS_GD    = 'http://schemas.google.com/g/2005';
     
+    private $_log;
+    private $_logPrefix;
+    
+    public function __construct()
+    {
+        $this->_logPrefix = "YouTube Video Factory";
+    }
+    
     /**
      * Converts raw video feeds to TubePress videos
      *
@@ -46,16 +54,19 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
      * @return array an array of TubePress videos generated from the feed
      */
     public function feedToVideoArray($feed, $limit)
-    {   
+    {
         $results = array();
         
         /* init the DOMDocument */
         $doc = new DOMDocument();
+        
+        $this->_log->log($this->_logPrefix, "Attempting to load XML from YouTube");
         if ($doc->loadXML($feed) === FALSE) {
             throw new Exception("Could not parse XML from YouTube");
         }
 
         /* oh we love xpath */
+        $this->_log->log($this->_logPrefix, "Building xpath to parse XML");
         $xpath = $this->_buildXPath($doc);
         
         /* create a org_tubepress_video_Video out of each "entry" node */   
@@ -63,6 +74,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
         foreach ($entries as $entry) {
             $results[] = $this->_createVideo($xpath, $entry);
         }
+        $this->_log->log($this->_logPrefix, sprintf("Built %d video(s) from YouTube's XML", sizeof($results)));
         return $results;
     }
 
@@ -86,14 +98,14 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
         /* everyone loves the builder pattern */
         $vid->setAuthor($doc->query('atom:author/atom:name', $entry)->item(0)->nodeValue);
         $vid->setCategory($this->_getCategory($doc, $entry));
-	$vid->setDefaultThumbnailUrl($this->_getDefaultThumbnailUrl($doc, $entry));
+        $vid->setDefaultThumbnailUrl($this->_getDefaultThumbnailUrl($doc, $entry));
         $vid->setDescription($this->_getDescription($doc, $entry));
-	$vid->setDuration($this->_getDuration($doc, $entry));
-	$vid->setEmbeddedObjectDataUrl($this->_getEmbeddedObjectDataUrl($doc, $entry));
-	$vid->setHighQualityThumbnailUrls($this->_getHighQualityThumbnailUrls($doc, $entry));
+        $vid->setDuration($this->_getDuration($doc, $entry));
+        $vid->setEmbeddedObjectDataUrl($this->_getEmbeddedObjectDataUrl($doc, $entry));
+        $vid->setHighQualityThumbnailUrls($this->_getHighQualityThumbnailUrls($doc, $entry));
         $vid->setHomeUrl($this->_getHomeUrl($doc, $entry));
-        $vid->setId($doc->query('media:group/yt:videoid', $entry)->item(0)->nodeValue);
-	$vid->setKeywords($this->_getKeywords($doc, $entry));
+        $vid->setId($this->_getId($doc, $entry));
+        $vid->setKeywords($this->_getKeywords($doc, $entry));
         $vid->setRatingAverage($this->_getRatingAverage($doc, $entry));
         $vid->setRatingCount($this->_getRatingCount($doc, $entry));
         $vid->setRegularQualityThumbnailUrls($this->_getRegularQualityThumbnailUrls($doc, $entry));
@@ -103,17 +115,28 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
         return $vid;
     }
     
-    private function _getCategory(DOMXPath $doc, DOMNode $entry) {
+    private function _getId(DOMXPath $doc, DOMNode $entry)
+    {
+        $link = $doc->query("atom:link[@type='text/html']", $entry)->item(0);
+        $matches = array();
+        preg_match('/.*v=(.{12}).*/', $link->getAttribute('href'), $matches);
+        return $matches[1];
+    }
+    
+    private function _getCategory(DOMXPath $doc, DOMNode $entry)
+    {
         $raw = trim($doc->query('media:group/media:category', $entry)->item(0)->getAttribute('label'));
         return htmlspecialchars($raw, ENT_QUOTES, "UTF-8");
     }
     
-    private function _getDescription(DOMXPath $doc, DOMNode $entry) {
+    private function _getDescription(DOMXPath $doc, DOMNode $entry)
+    {
         $raw = trim($doc->query('media:group/media:description', $entry)->item(0)->nodeValue);
         return htmlspecialchars($raw, ENT_QUOTES, "UTF-8");
     }
     
-    private function _getHomeUrl(DOMXPath $doc, DOMNode $entry) {
+    private function _getHomeUrl(DOMXPath $doc, DOMNode $entry)
+    {
         $rawUrl = $doc->query("atom:link[@rel='alternate']", $entry)->item(0)->getAttribute('href');
         $url = new net_php_pear_Net_URL2($rawUrl);
         return $url->getURL(true);
@@ -122,7 +145,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
     private function _getEmbeddedObjectDataUrl(DOMXPath $doc, DOMNode $entry)
     {
         $mediaContent = $doc->query("media:group/media:content[@type='application/x-shockwave-flash']", $entry)->item(0);
-	return $mediaContent->getAttribute('url');
+        return $mediaContent->getAttribute('url');
     }
 
     private function _getDefaultThumbnailUrl(DOMXPath $doc, DOMNode $entry)
@@ -343,5 +366,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
         $xpath->registerNamespace('app',   org_tubepress_video_factory_YouTubeVideoFactory::NS_APP);
         return $xpath;
     }
+    
+    public function setLog(org_tubepress_log_Log $log) { $this->_log = $log; }
 
 }

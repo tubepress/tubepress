@@ -68,8 +68,6 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
             $this->impl('org_tubepress_options_reference_SimpleOptionsReference'));
         $this->def(org_tubepress_ioc_IocService::FEED_INSPECTION_SERVICE,
             $this->impl('org_tubepress_video_feed_inspection_YouTubeFeedInspectionService'));
-        $this->def(org_tubepress_ioc_IocService::VIDEO_FACTORY,
-            $this->impl('org_tubepress_video_factory_YouTubeVideoFactory'));
         $this->def(org_tubepress_ioc_IocService::QUERY_STRING_SERVICE,
             $this->impl('org_tubepress_querystring_SimpleQueryStringService'));
         $this->def(org_tubepress_ioc_IocService::LOG,
@@ -153,6 +151,11 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
         );
         $this->def(org_tubepress_ioc_IocService::CACHE_SERVICE,
             $this->impl('org_tubepress_cache_SimpleCacheService',
+                array('log' => $this->ref(org_tubepress_ioc_IocService::LOG))
+            )
+        );
+        $this->def(org_tubepress_ioc_IocService::VIDEO_FACTORY,
+            $this->impl('org_tubepress_video_factory_YouTubeVideoFactory',
                 array('log' => $this->ref(org_tubepress_ioc_IocService::LOG))
             )
         );
