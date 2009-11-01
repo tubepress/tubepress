@@ -34,6 +34,8 @@ interface org_tubepress_player_Player
     const COLORBOX    = 'colorbox'; 
     const JQMODAL     = 'jqmodal';
     const YOUTUBE     = "youtube";
+    const TINYBOX     = 'tinybox';
+    const FANCYBOX    = 'fancybox';
     
     public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId);
 }
