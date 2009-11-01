@@ -74,11 +74,13 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
     private final function _getHtml($galleryId)
     {
         /* first grab the videos */
+        $this->_log->log($this->_logPrefix, "Asking provider for videos");
         $feedResult = $this->_videoProvider->getFeedResult();
         
         /* build the player */
         $playerName = $this->_optionsManager->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
         $player     = $this->_iocContainer->safeGet($playerName . "-player", org_tubepress_player_Player::NORMAL . "-player");
+        $this->_log->log($this->_logPrefix, sprintf("This gallery will use %s as the player", get_class($player)));
 
         /* apply the custom template if we need to */
         $this->_applyCustomTemplateIfNeeded();
@@ -86,18 +88,20 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
         /* generate HTML */
         $galleryHtml = $this->_loopOverThumbs($feedResult, $player, $galleryId);
         
-	/* Ajax pagination? */
-	if ($this->_optionsManager->get(org_tubepress_options_category_Display::AJAX_PAGINATION)) {
-		$this->_template->setVariable('GALLERYID', $galleryId);
-		$this->_template->setVariable('URL_ENCODED_SHORTCODE', urlencode($this->_optionsManager->getShortcode()));		
-		$this->_template->parse('ajaxPagination');
-	}
+        /* Ajax pagination? */
+        if ($this->_optionsManager->get(org_tubepress_options_category_Display::AJAX_PAGINATION)) {
+            $this->_log->log($this->_logPrefix, "Using Ajax pagination");
+            $this->_template->setVariable('GALLERYID', $galleryId);
+            $this->_template->setVariable('URL_ENCODED_SHORTCODE', urlencode($this->_optionsManager->getShortcode()));        
+            $this->_template->parse('ajaxPagination');
+        }
 
         /* apply vars to the template */
         $this->_template->setVariable('GALLERY_ID', $galleryId);
         $this->_template->setVariable("THUMBS", $galleryHtml);
 
         /* we're done. tie up */
+        $this->_log->log($this->_logPrefix, sprintf("Done assembling gallery %d", $galleryId));
         return $this->_template->getHtml();
     }
     
