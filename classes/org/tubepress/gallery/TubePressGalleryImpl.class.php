@@ -172,49 +172,13 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
         }
     }
     
-    public function setContainer(org_tubepress_ioc_IocService $container)
-    {
-        $this->_iocContainer = $container;
-    }
-
-    public function setTemplate(org_tubepress_template_Template $template) 
-    {                                          
-        $this->_template = $template; 
-    }
-
-    public function setMessageService(org_tubepress_message_MessageService $messageService) 
-    {              
-        $this->_messageService = $messageService; 
-    }
-    
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) 
-    {                        
-        $this->_optionsManager = $tpom; 
-    }
-    
-    public function setLog(org_tubepress_log_Log $log)
-    {
-        $this->_log = $log;
-    }
-    
-    public function setPaginationService(org_tubepress_pagination_PaginationService $paginator) 
-    {             
-        $this->_paginationService = $paginator; 
-    }
-
-    public function setQueryStringService(org_tubepress_querystring_QueryStringService $qss) 
-    {             
-        $this->_queryStringService = $qss; 
-    }
-    
-    public function setThumbnailService(org_tubepress_thumbnail_ThumbnailService $thumbService) 
-    {            
-        $this->_thumbnailService = $thumbService; 
-    }
-    
-    public function setVideoProvider(org_tubepress_video_feed_provider_Provider $provider)
-    {
-        $this->_videoProvider = $provider;
-    }
-
+    public function setContainer(org_tubepress_ioc_IocService $container) {                       $this->_iocContainer       = $container; }
+    public function setTemplate(org_tubepress_template_Template $template) {                      $this->_template           =   $template; }
+    public function setMessageService(org_tubepress_message_MessageService $messageService) {     $this->_messageService     = $messageService; }
+    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) {       $this->_optionsManager     = $tpom; }
+    public function setLog(org_tubepress_log_Log $log) {                                          $this->_log                = $log; }
+    public function setPaginationService(org_tubepress_pagination_PaginationService $paginator) { $this->_paginationService  = $paginator; }
+    public function setQueryStringService(org_tubepress_querystring_QueryStringService $qss) {    $this->_queryStringService = $qss; }
+    public function setThumbnailService(org_tubepress_thumbnail_ThumbnailService $thumbService) { $this->_thumbnailService   = $thumbService; }
+    public function setVideoProvider(org_tubepress_video_feed_provider_Provider $provider) {      $this->_videoProvider      = $provider; }
 }
