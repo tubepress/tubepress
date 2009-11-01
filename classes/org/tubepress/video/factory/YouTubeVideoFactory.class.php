@@ -119,7 +119,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
     {
         $link = $doc->query("atom:link[@type='text/html']", $entry)->item(0);
         $matches = array();
-        preg_match('/.*v=(.{12}).*/', $link->getAttribute('href'), $matches);
+        preg_match('/.*v=(.{11}).*/', $link->getAttribute('href'), $matches);
         return $matches[1];
     }
     
