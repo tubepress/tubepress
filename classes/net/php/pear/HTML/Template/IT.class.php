@@ -914,11 +914,7 @@ class net_php_pear_HTML_Template_IT
         $filename = $this->fileRoot . $filename;
 
         if (!($fh = @fopen($filename, 'r'))) {
-            $this->err[] = net_php_pear_PEAR::raiseError(
-                        $this->errorMessage(IT_TPL_NOT_FOUND) .
-                        ': "' .$filename .'"',
-                        IT_TPL_NOT_FOUND
-                    );
+            
             return "";
         }
 

@@ -889,6 +889,13 @@ nights working on this project. If you enjoy the software, please consider a don
                                 <entry><code>[tubepress playerLocation="shadowbox"]</code></entry>
                             </row>
                             <row>
+                                <entry><code>static</code></entry>
+                                <entry>Behaves exactly the same as the <code>normal</code> player, but each thumbnail click will
+                                trigger a page refresh. This can be useful if you want to increase page loads for advertising purposes. It
+                                also makes it clearer to your users on how they can share links to individual videos.</entry>
+                                <entry><code>[tubepress playerLocation="static"]</code></entry>
+                            </row>
+                            <row>
                                 <entry><code>tinybox</code></entry>
                                 <entry><emphasis>TubePress Pro only.</emphasis> Plays videos using <ulink url="http://www.leigeber.com/2009/05/javascript-popup-box/">TinyBox</ulink></entry>
                                 <entry><code>[tubepress playerLocation="tinybox"]</code></entry>

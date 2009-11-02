@@ -34,7 +34,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
             org_tubepress_options_category_Display::RELATIVE_DATES      => false,
             org_tubepress_options_category_Display::PAGINATE_ABOVE      => true,
             org_tubepress_options_category_Display::PAGINATE_BELOW      => true,
-            org_tubepress_options_category_Display::AJAX_PAGINATION      => false,
+            org_tubepress_options_category_Display::AJAX_PAGINATION     => false,
             org_tubepress_options_category_Embedded::AUTOPLAY           => false,
             org_tubepress_options_category_Embedded::BORDER             => false,
             org_tubepress_options_category_Embedded::GENIE              => false,
@@ -42,7 +42,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
             org_tubepress_options_category_Embedded::SHOW_INFO          => false,
             org_tubepress_options_category_Embedded::SHOW_RELATED       => true,
             org_tubepress_options_category_Embedded::FULLSCREEN         => true,
-        org_tubepress_options_category_Embedded::HIGH_QUALITY       => false,
+            org_tubepress_options_category_Embedded::HIGH_QUALITY       => false,
             org_tubepress_options_category_Meta::AUTHOR                 => false,
             org_tubepress_options_category_Meta::CATEGORY               => false,
             org_tubepress_options_category_Meta::DESCRIPTION            => false,
@@ -94,8 +94,8 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
 	function testGetAdvancedOptionNames()
 	{
 	    $expectedNames = array(
-	    	"dateFormat", "debugging_enabled", "keyword",
-	    	"randomize_thumbnails", "nofollowLinks"
+	    	'dateFormat', 'debugging_enabled', 'keyword',
+	    	'randomize_thumbnails', 'nofollowLinks'
 	    );
 	    $this->assertTrue($expectedNames == $this->_sut->getOptionNamesForCategory(org_tubepress_options_Category::ADVANCED));
 	}
@@ -120,8 +120,8 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     
     function testGetDisplayOptionNames()
     {
-         $expectedNames = array('ajaxPagination', "playerLocation", "resultsPerPage", "thumbHeight", "thumbWidth",
-         "orderBy", 'paginationAbove', 'paginationBelow', "relativeDates" ,"descriptionLimit"  
+         $expectedNames = array('ajaxPagination', 'playerLocation', 'resultsPerPage', 'thumbHeight', 'thumbWidth',
+         'orderBy', 'paginationAbove', 'paginationBelow', 'relativeDates' ,'descriptionLimit'  
          );
          $this->assertTrue($expectedNames == $this->_sut->getOptionNamesForCategory(org_tubepress_options_Category::DISPLAY));
     }
@@ -129,9 +129,9 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     function testGetEmbeddedOptionNames()
     {
         $expectedNames = array(
-            "playerImplementation", "embeddedHeight", "embeddedWidth", 
-            "autoplay", "border", "fullscreen", "hd", "genie", "loop", "playerColor",
-            "playerHighlight", "showInfo", "showRelated"
+            'playerImplementation', 'embeddedHeight', 'embeddedWidth', 
+            'autoplay', 'border', 'fullscreen', 'hd', 'genie', 'loop', 'playerColor',
+            'playerHighlight', 'showInfo', 'showRelated'
         );
         $this->assertTrue($expectedNames == $this->_sut->getOptionNamesForCategory(org_tubepress_options_Category::EMBEDDED));  
     }
@@ -139,7 +139,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     function testGetFeedOptionNames()
     {
          $expectedNames = array(
-             "cacheEnabled", "embeddableOnly", "filter_racy", "clientKey", "developerKey", "resultCountCap"
+             'cacheEnabled', 'embeddableOnly', 'filter_racy', 'clientKey', 'developerKey', 'resultCountCap'
          );   
          $this->assertTrue($expectedNames == $this->_sut->getOptionNamesForCategory(org_tubepress_options_Category::FEED));
     }
@@ -147,8 +147,8 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     function testGetGalleryOptionNames()
     {
         $expectedNames = array(
-            "mode", 'template', "favoritesValue", "most_viewedValue", "playlistValue",
-            "tagValue", "top_ratedValue", "userValue"
+            'mode', 'template', 'favoritesValue', 'most_viewedValue', 'playlistValue',
+            'tagValue', 'top_ratedValue', 'userValue'
         );
         $this->assertTrue($expectedNames == $this->_sut->getOptionNamesForCategory(org_tubepress_options_Category::GALLERY));
     }
@@ -156,9 +156,9 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     function testGetMetaOptionNames()
     {
         $expectedNames = array(
-            "author", "category", "description", "id",
-            "length", "rating", "ratings", "tags",
-            "title", "uploaded", "url", "views"
+            'author', 'category', 'description', 'id',
+            'length', 'rating', 'ratings', 'tags',
+            'title', 'uploaded', 'url', 'views'
         );
         $this->assertTrue($expectedNames == $this->_sut->getOptionNamesForCategory(org_tubepress_options_Category::META));
     }
@@ -171,13 +171,13 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
                 $this->assertTrue($this->_sut->isOptionName($optionName));
             }    
         }
-        $this->assertFalse($this->_sut->isOptionName("obviously fake option name"));
+        $this->assertFalse($this->_sut->isOptionName('obviously fake option name'));
     }
     
     function testGetWidgetOptionNames()
     {
         $expectedNames = array(
-            "widget-tagstring", "widget-title"
+            'widget-tagstring', 'widget-title'
         );
         $this->assertTrue($expectedNames == $this->_sut->getOptionNamesForCategory(org_tubepress_options_Category::WIDGET));
     }
@@ -192,14 +192,14 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     }
     function testGetOptionCategoryNames()
     {
-        $expected = array("gallery", "display", "embedded", "meta", "feed", "advanced", "widget");
+        $expected = array('gallery', 'display', 'embedded', 'meta', 'feed', 'advanced', 'widget');
         $this->assertTrue($expected == $this->_sut->getOptionCategoryNames());
     }
     function testGetCategory()
     {
-        $categories = array("gallery", "display", "embedded", "feed", "meta", "widget");
+        $categories = array('gallery', 'display', 'embedded', 'feed', 'meta', 'widget');
         foreach ($categories as $category) {
-            $classname = "org_tubepress_options_category_" . ucwords($category);
+            $classname = 'org_tubepress_options_category_' . ucwords($category);
             $ref = new ReflectionClass($classname);
             foreach ($ref->getConstants() as $constant) {
                 $this->assertEquals($category, $this->_sut->getCategory($constant));
@@ -208,25 +208,25 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     }
     function testPlayerEnumValues()
     {
-        $expected = array("normal", "popup","shadowbox",'jqmodal',  "youtube");
+        $expected = array('normal', 'popup','shadowbox', 'jqmodal', 'youtube', 'static');
         $this->assertEquals($expected, $this->_sut->getValidEnumValues(org_tubepress_options_Type::PLAYER));
     }
     function testMostViewedEnumValues()
     {
-        $expected = array("today", "this_week", "this_month", "all_time");
+        $expected = array('today', 'this_week', 'this_month', 'all_time');
         $this->assertEquals($expected, $this->_sut->getValidEnumValues(org_tubepress_options_Type::TIME_FRAME));
     }
     function testOrderEnumValues()
     {
-        $expected = array("relevance", "viewCount", "rating", "updated", "random");
+        $expected = array('relevance', 'viewCount', 'rating', 'updated', 'random');
         $this->assertEquals($expected, $this->_sut->getValidEnumValues(org_tubepress_options_Type::ORDER));
     }
     
     function testGalleryEnumValues()
     {
-        $expected = array('favorites', 'playlist', 'tag', 'user', "recently_featured", "mobile", "most_discussed",
-                    "most_linked", "most_recent", "most_responded", "most_viewed",
-                    "top_rated");
+        $expected = array('favorites', 'playlist', 'tag', 'user', 'recently_featured', 'mobile', 'most_discussed',
+                    'most_linked', 'most_recent', 'most_responded', 'most_viewed',
+                    'top_rated');
         $this->assertEquals($expected, $this->_sut->getValidEnumValues(org_tubepress_options_Type::MODE));
     }
 }

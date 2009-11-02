@@ -14,6 +14,7 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends PHPUnit_Framew
     function setUp() {
         $doc = file_get_contents(dirname(__FILE__) . "/../../../../sample_feed.xml");
         $factory = new org_tubepress_video_factory_YouTubeVideoFactory();
+        $factory->setLog($this->getMock('org_tubepress_log_Log'));
         $this->_vids = $factory->feedToVideoArray($doc, 1);
     }
     
