@@ -104,8 +104,8 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
                 array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER))
             )
         );
-        $this->def(org_tubepress_player_Player::COLORBOX . "-player",
-            $this->impl('org_tubepress_player_impl_ModalPlayer',
+        $this->def(org_tubepress_player_Player::STATICC . "-player",
+            $this->impl('org_tubepress_player_impl_NormalPlayer',
                 array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER))
             )
         );

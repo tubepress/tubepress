@@ -36,6 +36,7 @@ interface org_tubepress_player_Player
     const YOUTUBE     = "youtube";
     const TINYBOX     = 'tinybox';
     const FANCYBOX    = 'fancybox';
+    const STATICC     = 'static';
     
     public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId);
 }
