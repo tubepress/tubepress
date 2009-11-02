@@ -302,10 +302,19 @@ msgstr ""
 msgid "from the original YouTube page"
 msgstr ""
 
+msgid "with FancyBox"
+msgstr ""
+
+msgid "with TinyBox"
+msgstr ""
+
 msgid "with ColorBox"
 msgstr ""
 
 msgid "with Shadowbox"
+msgstr ""
+
+msgid "statically (page refreshes on each thumbnail click)"
 msgstr ""
 
 msgid "relevance"
