@@ -7,25 +7,21 @@ jQuery(document).ready(function() {_tubepress_init(getTubePressBaseUrl());})
 function _tubepress_init(baseUrl) {
     _tubepress_load_embedded_js(baseUrl);
     _tubepress_load_players(baseUrl);
-    _tubepress_attach_listeners();
+    jQuery("a[id^='tubepress_']").click(tubepress_click_listener);
 }
 
-function _tubepress_attach_listeners()
-{
-    /* any link with an id that starts with "tubepress_" */
-	jQuery("a[id^='tubepress_']").click(function () {
-		var rel_split    = jQuery(this).attr("rel").split("_"),
-            galleryId    = rel_split[3],
-		    playerName   = rel_split[2],
-		    embeddedName = rel_split[1],
-            videoId = jQuery(this).attr("id").substring(16, 27);
+function tubepress_click_listener() {
+	var rel_split    = jQuery(this).attr("rel").split("_"),
+    galleryId    = rel_split[3],
+    playerName   = rel_split[2],
+    embeddedName = rel_split[1],
+    videoId = jQuery(this).attr("id").substring(16, 27);
 
-        /* swap the gallery's embedded object */
-        _tubepress_swap_embedded(galleryId, videoId, embeddedName);
-
-        /* then call the player to load up / play the video */
-        _tubepress_call_player_js(galleryId, videoId, embeddedName, playerName);
-    });
+	/* swap the gallery's embedded object */
+	_tubepress_swap_embedded(galleryId, videoId, embeddedName);
+	
+	/* then call the player to load up / play the video */
+	_tubepress_call_player_js(galleryId, videoId, embeddedName, playerName);
 }
 
 /**
