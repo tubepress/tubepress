@@ -212,28 +212,6 @@ class net_php_pear_HTTP_Request2_Adapter_Socket extends net_php_pear_HTTP_Reques
         }
     }
 
-   /**
-    * Creates the value for '[Proxy-]Authorization:' header
-    *
-    * @param    string  user name
-    * @param    string  password
-    * @param    string  authentication scheme, one of the HTTP_Request2::AUTH_* constants
-    * @return   string  header value
-    * @throws   net_php_pear_HTTP_Request2_Exception
-    */
-    protected function createAuthHeader($user, $pass, $scheme)
-    {
-        switch ($scheme) {
-            case net_php_pear_HTTP_Request2::AUTH_BASIC:
-                return 'Basic ' . base64_encode($user . ':' . $pass);
-
-            case net_php_pear_HTTP_Request2::AUTH_DIGEST:
-                throw new net_php_pear_HTTP_Request2_Exception('Digest authentication is not implemented yet.');
-
-            default:
-                throw new net_php_pear_HTTP_Request2_Exception("Unknown HTTP authentication scheme '{$scheme}'");
-        }
-    }
 
    /**
     * Creates the string with the Request-Line and request headers
@@ -260,23 +238,13 @@ class net_php_pear_HTTP_Request2_Adapter_Socket extends net_php_pear_HTTP_Reques
         if (!$this->request->getConfigValue('proxy_host')) {
             $requestUrl = '';
         } else {
-            if ($user = $this->request->getConfigValue('proxy_user')) {
-                $headers['proxy-authorization'] = $this->createAuthHeader(
-                    $user, $this->request->getConfigValue('proxy_password'),
-                    $this->request->getConfigValue('proxy_auth_scheme')
-                );
-            }
+           
             $requestUrl = $url->getScheme() . '://' . $host;
         }
         $path        = $url->getPath();
         $query       = $url->getQuery();
         $requestUrl .= (empty($path)? '/': $path) . (empty($query)? '': '?' . $query);
 
-        if ($auth = $this->request->getAuth()) {
-            $headers['authorization'] = $this->createAuthHeader(
-                $auth['user'], $auth['password'], $auth['scheme']
-            );
-        }
         if ('1.1' == $this->request->getConfigValue('protocol_version') &&
             extension_loaded('zlib') && !isset($headers['accept-encoding'])
         ) {

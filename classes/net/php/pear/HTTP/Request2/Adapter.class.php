@@ -85,7 +85,7 @@ abstract class net_php_pear_HTTP_Request2_Adapter
 
    /**
     * Request body
-    * @var  string|resource|net_php_pear_HTTP_Request2_MultipartBody
+    * @var  string|resource
     * @see  HTTP_Request2::getBody()
     */
     protected $requestBody;

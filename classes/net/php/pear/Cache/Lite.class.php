@@ -144,44 +144,6 @@ class net_php_pear_Cache_Lite
     var $_group;
 
     /**
-    * Enable / Disable "Memory Caching"
-    *
-    * NB : There is no lifetime for memory caching ! 
-    *
-    * @var boolean $_memoryCaching
-    */
-    var $_memoryCaching = false;
-
-    /**
-    * Enable / Disable "Only Memory Caching"
-    * (be carefull, memory caching is "beta quality")
-    *
-    * @var boolean $_onlyMemoryCaching
-    */
-    var $_onlyMemoryCaching = false;
-
-    /**
-    * Memory caching array
-    *
-    * @var array $_memoryCachingArray
-    */
-    var $_memoryCachingArray = array();
-
-    /**
-    * Memory caching counter
-    *
-    * @var int $memoryCachingCounter
-    */
-    var $_memoryCachingCounter = 0;
-
-    /**
-    * Memory caching limit
-    *
-    * @var int $memoryCachingLimit
-    */
-    var $_memoryCachingLimit = 1000;
-    
-    /**
     * File Name protection
     *
     * if set to true, you can use any cache id or group name
@@ -263,9 +225,6 @@ class net_php_pear_Cache_Lite
     *     'readControl' => enable / disable read control (boolean),
     *     'readControlType' => type of read control 'crc32', 'md5', 'strlen' (string),
     *     'pearErrorMode' => pear error mode (when raiseError is called) (cf PEAR doc) (int),
-    *     'memoryCaching' => enable / disable memory caching (boolean),
-    *     'onlyMemoryCaching' => enable / disable only memory caching (boolean),
-    *     'memoryCachingLimit' => max nbr of records to store into memory caching (int),
     *     'fileNameProtection' => enable / disable automatic file name protection (boolean),
     *     'automaticSerialization' => enable / disable automatic serialization (boolean),
     *     'automaticCleaningFactor' => distable / tune automatic cleaning process (int),
@@ -295,7 +254,7 @@ class net_php_pear_Cache_Lite
     */
     function setOption($name, $value) 
     {
-        $availableOptions = array('errorHandlingAPIBreak', 'hashedDirectoryUmask', 'hashedDirectoryLevel', 'automaticCleaningFactor', 'automaticSerialization', 'fileNameProtection', 'memoryCaching', 'onlyMemoryCaching', 'memoryCachingLimit', 'cacheDir', 'caching', 'lifeTime', 'fileLocking', 'writeControl', 'readControl', 'readControlType', 'pearErrorMode');
+        $availableOptions = array('errorHandlingAPIBreak', 'hashedDirectoryUmask', 'hashedDirectoryLevel', 'automaticCleaningFactor', 'automaticSerialization', 'fileNameProtection', 'cacheDir', 'caching', 'lifeTime', 'fileLocking', 'writeControl', 'readControl', 'readControlType', 'pearErrorMode');
         if (in_array($name, $availableOptions)) {
             $property = '_'.$name;
             $this->$property = $value;
@@ -320,17 +279,6 @@ class net_php_pear_Cache_Lite
             $this->_setRefreshTime();
             $this->_setFileName($id, $group);
             clearstatcache();
-            if ($this->_memoryCaching) {
-                if (isset($this->_memoryCachingArray[$this->_file])) {
-                    if ($this->_automaticSerialization) {
-                        return unserialize($this->_memoryCachingArray[$this->_file]);
-                    }
-                    return $this->_memoryCachingArray[$this->_file];
-                }
-                if ($this->_onlyMemoryCaching) {
-                    return false;
-                }                
-            }
             if (($doNotTestCacheValidity) || (is_null($this->_refreshTime))) {
                 if (file_exists($this->_file)) {
                     $data = $this->_read();
@@ -339,9 +287,6 @@ class net_php_pear_Cache_Lite
                 if ((file_exists($this->_file)) && (@filemtime($this->_file) > $this->_refreshTime)) {
                     $data = $this->_read();
                 }
-            }
-            if (($data) and ($this->_memoryCaching)) {
-                $this->_memoryCacheAdd($data);
             }
             if (($this->_automaticSerialization) and (is_string($data))) {
                 $data = unserialize($data);
@@ -368,12 +313,6 @@ class net_php_pear_Cache_Lite
             }
             if (isset($id)) {
                 $this->_setFileName($id, $group);
-            }
-            if ($this->_memoryCaching) {
-                $this->_memoryCacheAdd($data);
-                if ($this->_onlyMemoryCaching) {
-                    return true;
-                }
             }
             if ($this->_automaticCleaningFactor>0) {
                 $rand = rand(1, $this->_automaticCleaningFactor);
@@ -416,15 +355,6 @@ class net_php_pear_Cache_Lite
     function remove($id, $group = 'default')
     {
         $this->_setFileName($id, $group);
-        if ($this->_memoryCaching) {
-            if (isset($this->_memoryCachingArray[$this->_file])) {
-                unset($this->_memoryCachingArray[$this->_file]);
-                $this->_memoryCachingCounter = $this->_memoryCachingCounter - 1;
-            }
-            if ($this->_onlyMemoryCaching) {
-                return true;
-            }
-        }
         return $this->_unlink($this->_file);
     }
 
@@ -470,44 +400,6 @@ class net_php_pear_Cache_Lite
         $this->_setRefreshTime();
     }
 
-    /**
-    * Save the state of the caching memory array into a cache file cache
-    *
-    * @param string $id cache id
-    * @param string $group name of the cache group
-    * @access public
-    */
-    function saveMemoryCachingState($id, $group = 'default')
-    {
-        if ($this->_caching) {
-            $array = array(
-                'counter' => $this->_memoryCachingCounter,
-                'array' => $this->_memoryCachingArray
-            );
-            $data = serialize($array);
-            $this->save($data, $id, $group);
-        }
-    }
-
-    /**
-    * Load the state of the caching memory array from a given cache file cache
-    *
-    * @param string $id cache id
-    * @param string $group name of the cache group
-    * @param boolean $doNotTestCacheValidity if set to true, the cache validity won't be tested
-    * @access public
-    */
-    function getMemoryCachingState($id, $group = 'default', $doNotTestCacheValidity = false)
-    {
-        if ($this->_caching) {
-            if ($data = $this->get($id, $group, $doNotTestCacheValidity)) {
-                $array = unserialize($data);
-                $this->_memoryCachingCounter = $array['counter'];
-                $this->_memoryCachingArray = $array['array'];
-            }
-        }
-    }
-    
     /**
     * Return the cache last modification time
     *
@@ -596,17 +488,6 @@ class net_php_pear_Cache_Lite
         } else {
             $motif = ($group) ? 'cache_'.$group.'_' : 'cache_';
         }
-        if ($this->_memoryCaching) {
-	    foreach($this->_memoryCachingArray as $key => $v) {
-                if (strpos($key, $motif) !== false) {
-                    unset($this->_memoryCachingArray[$key]);
-                    $this->_memoryCachingCounter = $this->_memoryCachingCounter - 1;
-                }
-            }
-            if ($this->_onlyMemoryCaching) {
-                return true;
-            }
-        }
         if (!($dh = opendir($dir))) {
             return $this->raiseError('Cache_Lite : Unable to open cache directory !', -4);
         }
@@ -653,23 +534,6 @@ class net_php_pear_Cache_Lite
         return $result;
     }
       
-    /**
-    * Add some date in the memory caching array
-    *
-    * @param string $data data to cache
-    * @access private
-    */
-    function _memoryCacheAdd($data)
-    {
-        $this->_memoryCachingArray[$this->_file] = $data;
-        if ($this->_memoryCachingCounter >= $this->_memoryCachingLimit) {
-            list($key, ) = each($this->_memoryCachingArray);
-            unset($this->_memoryCachingArray[$key]);
-        } else {
-            $this->_memoryCachingCounter = $this->_memoryCachingCounter + 1;
-        }
-    }
-
     /**
     * Make a file name (with path)
     *

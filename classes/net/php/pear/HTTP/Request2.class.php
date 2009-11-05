@@ -463,27 +463,10 @@ class net_php_pear_HTTP_Request2
    /**
     * Returns the request body
     *
-    * @return   string|resource|net_php_pear_HTTP_Request2_MultipartBody
+    * @return   string
     */
     public function getBody()
     {
-        if (self::METHOD_POST == $this->method && 
-            (!empty($this->postParams) || !empty($this->uploads))
-        ) {
-            if ('application/x-www-form-urlencoded' == $this->headers['content-type']) {
-                $body = http_build_query($this->postParams, '', '&');
-                if (!$this->getConfigValue('use_brackets')) {
-                    $body = preg_replace('/%5B\d+%5D=/', '=', $body);
-                }
-                return $body;
-
-            } elseif ('multipart/form-data' == $this->headers['content-type']) {
-                require_once 'HTTP/Request2/MultipartBody.php';
-                return new net_php_pear_HTTP_Request2_MultipartBody(
-                    $this->postParams, $this->uploads, $this->getConfigValue('use_brackets')
-                );
-            }
-        }
         return $this->body;
     }
 
