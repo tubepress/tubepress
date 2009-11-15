@@ -21,14 +21,36 @@
 
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_video_Video',
+tubepress_load_classes(array('org_tubepress_util_StringUtils',
     'org_tubepress_template_Template'));
 
-/**
- * Handles the parsing of the meta info below each video thumbnail
- *
- */
-interface org_tubepress_thumbnail_ThumbnailService
+class org_tubepress_template_SimpleTemplate implements org_tubepress_template_Template
 {
-    public function getHtml(org_tubepress_video_Video $vid, $galleryId);
+	private $_source;
+	private $_path;
+	
+	public function __construct()
+	{
+	    $this->_source = array();
+	}
+	
+	public function setPath($path)
+	{
+		$this->_path = $path;
+	}
+	
+	public function setVariable($name, $value)
+	{
+		$this->_source[$name] = $value;
+	}
+	
+	public function toString()
+	{
+		ob_start();
+		extract($this->_source);
+        include $this->_path;
+        $result = ob_get_contents();
+        ob_end_clean();
+        return org_tubepress_util_StringUtils::removeEmptyLines($result);
+	}
 }

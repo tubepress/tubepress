@@ -24,11 +24,38 @@
  */
 interface org_tubepress_template_Template
 {
-    public function getHtml();
+    const AUTOSTART = 'autostart';
+    const GALLERY_ID = 'galleryId';
+    const EMBEDDED_IMPL_NAME = 'embeddedImplementationName';
+    const EMBEDDED_SOURCE = 'embeddedSource';
+    const EMBEDDED_WIDTH = 'embeddedWidth';
+    const EMBEDDED_HEIGHT = 'embeddedHeight';
+    const HOME_URL = 'homeURL';
+    const META_SHOULD_SHOW = 'shouldShow';
+    const META_LABELS = 'metaLabels';
+    const OPTIONS_PAGE_TITLE = 'optionsPageTitle';
+    const OPTIONS_PAGE_INTRO = 'optionsPageIntro';
+    const OPTIONS_PAGE_DONATION = 'optionsPageDonation';
+    const OPTIONS_PAGE_SAVE = 'optionsPageSave';
+    const OPTIONS_PAGE_CATEGORIES = 'optionsPageCategories';
+    const PRE_GALLERY = 'preGallery';
+    const PAGINATION_BOTTOM = 'bottomPagination';
+    const PAGINATION_TOP = 'topPagination';
+    const PLAYER_NAME = 'playerName';
+    const SHORTCODE = 'shortcode';
+    const THUMBNAIL_WIDTH = 'thumbWidth';
+    const THUMBNAIL_HEIGHT = 'thumbHeight';
+    const TUBEPRESS_BASE_URL = 'tubepressBaseUrl';
+    const VIDEO = 'video';
+    const VIDEO_ARRAY = 'videoArray';
+    const WIDGET_CONTROL_TITLE = 'widgetControlTitle';
+    const WIDGET_TITLE = 'widgetTitle';
+    const WIDGET_CONTROL_SHORTCODE = 'widgetControlShortcode';
+    const WIDGET_SHORTCODE = 'widgetShortcode';
     
-    public function parse($block);
+    public function toString();
     
-    public function setFile($file);
+    public function setPath($path);
     
     public function setVariable($name, $value);
 }

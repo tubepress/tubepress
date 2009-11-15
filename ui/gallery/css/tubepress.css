@@ -1,0 +1,141 @@
+.tubepress_normal_embedded_wrapper {
+    text-align: left;
+    margin: auto;
+}
+
+.tubepress_embedded_title {
+    font-weight: bold;
+    font-size: larger;
+    margin-bottom: .3em;
+}
+
+.tubepress_thumbs {
+    padding: 0 0 0 5px;
+    padding-top: 1em;
+}
+
+.tubepress_thumb {
+    float: left;
+    width: 32%;
+    line-height: 1.1em;
+    font-size: 11px;
+    height: 175px;
+    overflow: hidden;
+}
+
+.tubepress_thumb a {
+    cursor: pointer;    
+}
+
+.tubepress_meta_group {
+    margin-top: 0;
+    text-align: left;
+}
+
+.tubepress_meta_group dd {
+    margin: 0;
+}
+
+.tubepress_meta_group dt {
+    clear: left;
+}
+
+.tubepress_meta {
+	float: left;
+}
+
+dt.tubepress_meta_title, 
+dt.tubepress_meta_runtime, 
+dt.tubepress_meta_url,
+dt.tubepress_meta_description {
+    display: none;	
+}
+
+dd.tubepress_meta_title, dd.tubepress_meta_title a, dd.tubepress_meta_title a:hover {
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 0;
+}
+
+dd.tubepress_meta_runtime {
+    font-size: 11px;
+    margin-left: 0;
+    font-weight: bold;	
+}
+
+dt.tubepress_meta_author, 
+dt.tubepress_meta_keywords, 
+dt.tubepress_meta_category, 
+dt.tubepress_meta_rating, 
+dt.tubepress_meta_ratings,
+dt.tubepress_meta_id,
+dt.tubepress_meta_views,
+dt.tubepress_meta_uploaddate {
+    font-style: italic;
+    color: #666666;
+}
+
+dt.tubepress_meta_author:after, 
+dt.tubepress_meta_keywords:after, 
+dt.tubepress_meta_category:after, 
+dt.tubepress_meta_rating:after, 
+dt.tubepress_meta_ratings:after,
+dt.tubepress_meta_id:after,
+dt.tubepress_meta_views:after,
+dt.tubepress_meta_uploaddate:after {
+    content: ":";	
+}
+
+dd.tubepress_meta_author, 
+dd.tubepress_meta_keywords,
+dd.tubepress_meta_category, 
+dd.tubepress_meta_rating, 
+dd.tubepress_meta_ratings,
+dd.tubepress_meta_id,
+dd.tubepress_meta_views,
+dd.tubepress_meta_uploaddate {
+    margin-left: .5em;	
+}
+
+#sidebar .tubepress_thumb {
+    width: 100%;	
+    height: auto;
+    margin-top: 1em;
+}
+
+.tubepress_container div.pagination {
+    padding: 3px;
+    margin: 3px;
+    text-align:center;
+    clear: both;
+}
+
+.tubepress_container div.pagination a {
+    border: 1px solid #dedfde;
+    margin-right:3px;
+    padding:2px 6px;
+    background-position:bottom;
+    text-decoration: none;
+    color: #0061de;
+    cursor: pointer;        
+}
+
+.tubepress_container div.pagination a:hover, div.meneame a:active {
+    border: 1px solid #000;
+    background-image:none;
+    background-color:#0061de;
+    color: #fff;
+}
+
+.tubepress_container div.pagination span.current {
+    margin-right:3px;
+    padding:2px 6px;    
+    font-weight: bold;
+    color: #ff0084;
+}
+div.pagination span.disabled {
+    margin-right:3px;
+    padding:2px 6px;
+    color: #adaaad;
+}
+

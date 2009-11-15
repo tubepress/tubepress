@@ -96,7 +96,7 @@ class org_tubepress_gallery_TubePressGalleryImplTest extends PHPUnit_Framework_T
 
         /* make sure the template returns a value */
         $this->_template->expects($this->once())
-                                 ->method('getHtml')
+                                 ->method('toString')
                                  ->will($this->returnValue('gallery html'));
 	}
 	

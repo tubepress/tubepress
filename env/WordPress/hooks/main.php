@@ -25,7 +25,7 @@ if (version_compare(PHP_VERSION, '5.0.0', '>=') && !function_exists("tubepress_c
     $dirName = basename(realpath(dirname(__FILE__) . '/../../..'));
 
     /* set the tubepress_base_url global */
-    $tubepress_base_url = get_settings('siteurl') . "/wp-content/plugins/$dirName";        
+    $tubepress_base_url = get_option('siteurl') . "/wp-content/plugins/$dirName";        
 
     /* register the plugin's message bundles */
     load_plugin_textdomain('tubepress', "wp-content/plugins/$dirName/i18n");

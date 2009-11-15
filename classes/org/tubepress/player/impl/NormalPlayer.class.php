@@ -24,31 +24,24 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_player_AbstractPlayer',
     'org_tubepress_ioc_ContainerAware',
     'org_tubepress_video_Video',
-    'net_php_pear_HTML_Template_IT',
     'org_tubepress_options_category_Embedded',
     'org_tubepress_embedded_EmbeddedPlayerService'));
 
 /**
  * Plays videos at the top of a gallery
  */
-class org_tubepress_player_impl_NormalPlayer extends org_tubepress_player_AbstractPlayer implements org_tubepress_ioc_ContainerAware
+class org_tubepress_player_impl_NormalPlayer extends org_tubepress_player_AbstractPlayer
 {
     public function doGetPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId)
     {
-        $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/players/normal/html_templates");
-        if (!$tpl->loadTemplatefile("pre_gallery.tpl.html", true, true)) {
-            throw new Exception("Couldn't load pre gallery template");
-        }
-
         $tpom = $this->getOptionsManager();
         
         $eps = $this->getContainer()->safeGet($tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . "-embedded");
 
-        $tpl->setVariable("EMBEDSRC", $eps->toString($vid->getId()));
-        $tpl->setVariable("TITLE", $vid->getTitle());
-        $tpl->setVariable("WIDTH", 
-            $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
-        $tpl->setVariable('GALLERYID', $galleryId);
-        return $tpl->get();    
+        $this->getTemplate()->setVariable(org_tubepress_template_Template::GALLERY_ID,      $galleryId); 
+        $this->getTemplate()->setVariable(org_tubepress_template_Template::EMBEDDED_SOURCE, $eps->toString($vid->getId()));
+        $this->getTemplate()->setVariable(org_tubepress_template_Template::VIDEO,           $vid);
+        $this->getTemplate()->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH,  $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
+        return $this->getTemplate()->toString();    
     }
 }

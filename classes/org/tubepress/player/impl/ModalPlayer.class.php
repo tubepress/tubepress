@@ -23,7 +23,6 @@ function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_player_AbstractPlayer',
     'org_tubepress_video_Video',
-    'net_php_pear_HTML_Template_IT',
     'org_tubepress_options_category_Embedded',
     'org_tubepress_embedded_EmbeddedPlayerService'));
 
@@ -34,16 +33,11 @@ class org_tubepress_player_impl_ModalPlayer extends org_tubepress_player_Abstrac
 {
     public function doGetPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId)
     {
-        $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../../../ui/players/shared/html_templates");
-        if (!$tpl->loadTemplatefile("pre_gallery_modal.tpl.html", true, true)) {
-            throw new Exception("Couldn't load pre gallery template");
-        }
-
         $tpom = $this->getOptionsManager();
         $eps = $this->getContainer()->safeGet($tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", 
             org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . "-embedded");
-        $tpl->setVariable("EMBEDSRC", $eps->toString($vid->getId()));
-        $tpl->setVariable('GALLERYID', $galleryId);
-        return $tpl->get();    
+        $this->getTemplate()->setVariable(org_tubepress_template_Template::EMBEDDED_SOURCE, $eps->toString($vid->getId()));
+        $this->getTemplate()->setVariable(org_tubepress_template_Template::GALLERY_ID, $galleryId);
+        return $this->getTemplate()->toString();    
     }
 }

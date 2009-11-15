@@ -25,7 +25,7 @@ class org_tubepress_thumbnail_SimpleThumbnailServiceTest extends PHPUnit_Framewo
 					->will($this->returnCallback("stptsCallback"));			  
 
 		$this->_template->expects($this->once())
-		                ->method('getHtml')
+		                ->method('toString')
 		                ->will($this->returnValue('stuff'));			
 					
 		$this->_sut->setMessageService($this->_messageService);

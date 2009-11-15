@@ -24,6 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_player_Player',
     'org_tubepress_ioc_ContainerAware',
     'org_tubepress_options_manager_OptionsManager',
+    'org_tubepress_template_Template',
     'org_tubepress_ioc_IocService'));
 
 /**
@@ -33,6 +34,7 @@ abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_play
 {   
     private $_optionsManager;
     private $_iocContainer;
+    private $_template;
     
     public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId)
     {
@@ -42,25 +44,13 @@ abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_play
         return $this->doGetPreGalleryHtml($vid, $galleryId);
     }
     
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $optionsManager)
-    {
-        $this->_optionsManager = $optionsManager;
-    }
+    public function setContainer(org_tubepress_ioc_IocService $container) { $this->_iocContainer = $container; }
+    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $optionsManager) { $this->_optionsManager = $optionsManager; }
+    public function setTemplate(org_tubepress_template_Template $template) { $this->_template = $template; }
     
-    protected function getOptionsManager()
-    {
-        return $this->_optionsManager;
-    }
-    
-    public function setContainer(org_tubepress_ioc_IocService $container)
-    {
-        $this->_iocContainer = $container;
-    }
-    
-    protected function getContainer()
-    {
-        return $this->_iocContainer;
-    }
+    protected function getContainer() { return $this->_iocContainer; }
+    protected function getOptionsManager() { return $this->_optionsManager; }
+    protected function getTemplate() { return $this->_template; }
     
     protected abstract function doGetPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId);
 

@@ -25,7 +25,7 @@ class org_tubepress_options_form_WidgetPrinterTest extends PHPUnit_Framework_Tes
 	                 ->method('get')
 	                 ->will($this->returnValue('bla'));
 	    $this->_tpl->expects($this->once())
-	               ->method('getHtml')
+	               ->method('toString')
 	               ->will($this->returnValue('fake html'));
 	    $this->assertEquals('fake html' , $this->_stpom->getHtml('test'));		    
 	}
@@ -39,7 +39,7 @@ class org_tubepress_options_form_WidgetPrinterTest extends PHPUnit_Framework_Tes
 	                 ->method('get')
 	                 ->will($this->returnValue('stuff'));
 	    $this->_tpl->expects($this->once())
-	               ->method('getHtml')
+	               ->method('toString')
 	               ->will($this->returnValue('foobar'));
 	    $this->assertEquals('foobar', $this->_stpom->getHtml('test'));	    
 	}	
@@ -53,7 +53,7 @@ class org_tubepress_options_form_WidgetPrinterTest extends PHPUnit_Framework_Tes
 	                 ->method('get')
 	                 ->will($this->returnValue(true));
         $this->_tpl->expects($this->once())
-                   ->method('getHtml')
+                   ->method('toString')
                    ->will($this->returnValue('foobar'));
 	    $this->assertEquals('foobar', $this->_stpom->getHtml('test'));	    
 	}
@@ -73,7 +73,7 @@ class org_tubepress_options_form_WidgetPrinterTest extends PHPUnit_Framework_Tes
 	                 ->method('get')
 	                 ->will($this->returnValue('ss'));
         $this->_tpl->expects($this->once())
-                   ->method('getHtml')
+                   ->method('toString')
                    ->will($this->returnValue('foobar'));
 	    $this->assertEquals('foobar', $this->_stpom->getHtml('test'));	    
 	}
@@ -81,7 +81,7 @@ class org_tubepress_options_form_WidgetPrinterTest extends PHPUnit_Framework_Tes
 	public function testGetHtmlForRadio()
 	{
         $this->_tpl->expects($this->once())
-                   ->method('getHtml')
+                   ->method('toString')
                    ->will($this->returnValue('foobar')); 
 	    $this->assertEquals('foobar', $this->_stpom->getHtmlForRadio('test'));
 	}

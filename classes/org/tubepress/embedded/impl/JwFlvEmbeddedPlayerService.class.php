@@ -22,7 +22,8 @@
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_embedded_impl_AbstractEmbeddedPlayerService',
-    'net_php_pear_Net_URL2'));
+    'net_php_pear_Net_URL2',
+    'org_tubepress_template_Template'));
 
 /**
  * Represents an HTML-embeddable JW FLV Player
@@ -41,16 +42,16 @@ class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService extends org_tubepre
    
         $tpom = $this->getOptionsManager();
         
-        $link = new net_php_pear_Net_URL2(sprintf("http://www.youtube.com/watch?v=%s", $videoId));
+        $link = new net_php_pear_Net_URL2(sprintf('http://www.youtube.com/watch?v=%s', $videoId));
         
         $link = $link->getURL(true);
         
-        $this->_template->setVariable("TUBEPRESS_BASE", $tubepress_base_url);
-        $this->_template->setVariable("YOUTUBE_LINK", $link);
-        $this->_template->setVariable('AUTOSTART', $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY) ? 'true' : 'false');
-        $this->_template->setVariable('WIDTH', $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
-        $this->_template->setVariable('HEIGHT', $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT));
+        $this->_template->setVariable(org_tubepress_template_Template::TUBEPRESS_BASE_URL, $tubepress_base_url);
+        $this->_template->setVariable(org_tubepress_template_Template::HOME_URL, $link);
+        $this->_template->setVariable(org_tubepress_template_Template::AUTOSTART, $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY) ? 'true' : 'false');
+        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
+        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT));
         
-        return $this->_template->getHtml();
+        return $this->_template->toString();
     }  
 }

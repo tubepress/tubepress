@@ -77,12 +77,12 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService extends org_tubep
         
         $link = $link->getURL(true);
 
-        $this->_template->setVariable('URL', $link);
-        $this->_template->setVariable('WIDTH', $width);
-        $this->_template->setVariable('HEIGHT', $height);
-        $this->_template->setVariable('FULLSCREEN', $fullscreen ? "true" : "false");
+        $this->_template->setVariable('url', $link);
+        $this->_template->setVariable('width', $width);
+        $this->_template->setVariable('height', $height);
+        $this->_template->setVariable('fullscreen', $fullscreen ? "true" : "false");
         
-        $embedSrc = $this->_template->getHtml();
+        $embedSrc = $this->_template->toString();
      
         return $embedSrc;
     }

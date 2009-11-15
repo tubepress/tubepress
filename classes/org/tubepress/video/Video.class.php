@@ -27,18 +27,14 @@ class org_tubepress_video_Video
     private $_author;
     private $_category;
     private $_commentCount;
-    private $_defaultThumbnailUrl;
     private $_description;
-    private $_displayable;
     private $_duration;
-    private $_embeddedObjectDataUrl;
-    private $_highQualityThumbnailUrls;
     private $_homeUrl;
     private $_id;
     private $_keywords;
     private $_ratingAverage;
     private $_ratingCount;
-    private $_regularQualityThumbnailUrls;
+    private $_thumbnailUrl;
     private $_timeLastUpdated;
     private $_timePublished;
     private $_title;
@@ -53,24 +49,12 @@ class org_tubepress_video_Video
     public function getCommentCount() { return $this->_commentCount; }
     public function setCommentCount($count) { $this->_commentCount = $count; }
     
-    public function getDefaultThumbnailUrl() { return 'http://img.youtube.com/vi/' . $this->getId() . '/default.jpg'; }
-    public function setDefaultThumbnailUrl($url) { $this->_defaultThumbnailUrl = $url; }
-    
     public function getDescription() { return $this->_description; }
     public function setDescription($description) { $this->_description = $description; }
-    
-    public function isDisplayable() { return $this->_displayable; }
-    public function setDisplayable($displayable) { $this->_displayable = $displayable; }
     
     public function getDuration() { return $this->_duration; }
     public function setDuration($duration) { $this->_duration = $duration; }
 
-    public function getEmbeddedObjectDataUrl() { return $this->_embeddedObjectDataUrl; }
-    public function setEmbeddedObjectDataUrl($url) { $this->_embeddedObjectDataUrl = $url; }
-    
-    public function getHighQualityThumbnailUrls() { return $this->_highQualityThumbnailUrls; }
-    public function setHighQualityThumbnailUrls($urls) { $this->_highQualityThumbnailUrls = $urls; }
-    
     public function getHomeUrl() { return $this->_homeUrl; }
     public function setHomeUrl($url) { $this->_homeUrl = $url; }
     
@@ -86,8 +70,8 @@ class org_tubepress_video_Video
     public function getRatingCount() { return $this->_ratingCount; }
     public function setRatingCount($count) { $this->_ratingCount = $count; }
 
-    public function getRegularQualityThumbnailUrls() { return $this->_regularQualityThumbnailUrls; }
-    public function setRegularQualityThumbnailUrls($urls) { $this->_regularQualityThumbnailUrls = $urls; }
+    public function getThumbnailUrl() { return $this->_thumbnailUrl; }
+    public function setThumbnailUrl($url) { $this->_thumbnailUrl = $url; }
 
     public function getTimeLastUpdated() { return $this->_timeLastUpdated; }
     public function setTimeLastUpdated($time) { $this->_timeLastUpdated = $time; }

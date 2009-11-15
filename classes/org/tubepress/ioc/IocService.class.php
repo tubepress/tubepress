@@ -29,29 +29,25 @@ interface org_tubepress_ioc_IocService
     const FEED_RETRIEVAL_SERVICE        = 'feedRetrievalService';
     const GALLERY                       = 'gallery';
     const GALLERY_TEMPLATE              = 'galleryTemplate';
-    const HTML_WIDGET_TEMPLATE          = 'htmlWidgetTemplate';
     const LOG                           = 'log';
     const LONGTAIL_EMBEDDED_TEMPLATE    = 'longtailEmbeddedTemplate';
     const MESSAGE_SERVICE               = 'messageService';
+    const MODAL_PLAYER_TEMPLATE         = 'modalPlayerTemplate';
+    const NORMAL_PLAYER_TEMPLATE        = 'normalPlayerTemplate';
     const OPTIONS_MANAGER               = 'optionsManager';
     const OPTIONS_FORM_CATEGORY_PRINTER = 'categoryPrinter';
     const OPTIONS_FORM_HANDLER          = 'formHandler';
-    const OPTIONS_FORM_WIDGET_PRINTER   = 'widgetPrinter';
     const OPTIONS_REFERENCE             = 'optionsReference';
+    const OPTIONS_FORM_TEMPLATE         = 'optionsFormTemplate';
     const PAGINATION_SERVICE            = 'paginationService';
     const QUERY_STRING_SERVICE          = 'queryStringService';
     const SHORTCODE_SERVICE             = 'shortcodeService';
     const STORAGE_MANAGER               = 'storageManager';
-    const THUMB                         = 'thumbnailService';
     const THUMB_TEMPLATE                = 'thumbTemplate';
     const URL_BUILDER                   = 'ulrBuilderService';
     const VALIDATION_SERVICE            = 'validationService';
     const VIDEO_FACTORY                 = 'videoFactory';
     const VIDEO_PROVIDER                = 'videoProvider';
-    const WIDGET_GALLERY                = 'widgetGallery';
-    const WIDGET_THUMBNAIL_SERVICE      = 'widgetThumbService';
-    const W_TEMPLATE                    = 'widgetTemplate';
-    const W_THUMB_TEMPLATE              = 'widgetThumbTemplate';
     const YOUTUBE_EMBEDDED_TEMPLATE     = 'youtubeEmbeddedTemplate';
     
 

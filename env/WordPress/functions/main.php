@@ -116,7 +116,7 @@ function tubepress_head_filter()
         print<<<GBS
 <script type="text/javascript">function getTubePressBaseUrl(){return "$tubepress_base_url";}</script>
 <script type="text/javascript" src="$tubepress_base_url/ui/lib/tubepress.js"></script>
-<link rel="stylesheet" href="$tubepress_base_url/ui/lib/tubepress.css" type="text/css" />
+<link rel="stylesheet" href="$tubepress_base_url/ui/gallery/css/tubepress.css" type="text/css" />
 
 GBS;
         if (isset($_GET['tubepress_page']) && $_GET['tubepress_page'] > 1) {

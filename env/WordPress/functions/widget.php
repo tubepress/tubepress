@@ -26,7 +26,7 @@ tubepress_load_classes(array('org_tubepress_message_WordPressMessageService',
     'org_tubepress_options_category_Display',
     'org_tubepress_options_category_Meta',
     'org_tubepress_options_category_Widget',
-    'net_php_pear_HTML_Template_IT'));
+    'org_tubepress_template_SimpleTemplate'));
 
 /**
  * Registers TubePress as a widget
@@ -68,7 +68,9 @@ function tubepress_widget($opts)
 	        org_tubepress_options_category_Display::DESC_LIMIT          => 50,
 	        org_tubepress_options_category_Display::CURRENT_PLAYER_NAME => org_tubepress_player_Player::POPUP,
 	        org_tubepress_options_category_Display::THUMB_HEIGHT        => 105,
-	        org_tubepress_options_category_Display::THUMB_WIDTH         => 135
+	        org_tubepress_options_category_Display::THUMB_WIDTH         => 135,
+	        org_tubepress_options_category_Display::PAGINATE_ABOVE      => false,
+	        org_tubepress_options_category_Display::PAGINATE_BELOW      => false
 	    )
 	);
 	
@@ -78,7 +80,7 @@ function tubepress_widget($opts)
 	$shortcodeService->parse($wpsm->get(org_tubepress_options_category_Widget::TAGSTRING), $tpom, true);
 
 	/* grab a widget gallery to build */
-	$gallery = $iocContainer->get(org_tubepress_ioc_IocService::WIDGET_GALLERY);
+	$gallery = $iocContainer->get(org_tubepress_ioc_IocService::GALLERY);
 		
 	/* get the output */
 	$out = $gallery->getHtml(mt_rand());
@@ -100,7 +102,7 @@ function tubepress_widget_control()
     $msg          = $iocContainer->get(org_tubepress_ioc_IocService::MESSAGE_SERVICE);
     
     /* are we saving? */
-	if ( $_POST["tubepress-widget-submit"] ) {
+	if (isset($_POST["tubepress-widget-submit"])) {
 		$wpsm->set(org_tubepress_options_category_Widget::TAGSTRING, 
 		    strip_tags(stripslashes($_POST["tubepress-widget-tagstring"])));
 		$wpsm->set(org_tubepress_options_category_Widget::TITLE, 
@@ -108,23 +110,17 @@ function tubepress_widget_control()
 	}
 
     /* load up the gallery template */
-    $tpl = new net_php_pear_HTML_Template_IT(dirname(__FILE__) . "/../../../ui/widget/html_templates");
-    if (!$tpl->loadTemplatefile("controls.tpl.html", true, true)) {
-        throw new Exception("Couldn't load widget control template");
-    }
+    $tpl = new org_tubepress_template_SimpleTemplate();
+    $tpl->setPath(dirname(__FILE__) . '/../ui/widget/html_templates/controls.tpl.php');
     
     /* set up the template */
-    $tpl->setVariable("WIDGET-TITLE", 
-        $msg->_("options-meta-title-title"));
-    $tpl->setVariable("WIDGET-TITLE-VALUE", 
-        $wpsm->get(org_tubepress_options_category_Widget::TITLE));
-    $tpl->setVariable("WIDGET-TAGSTRING", 
-        $msg->_("widget-tagstring-description"));
-    $tpl->setVariable("WIDGET-TAGSTRING-VALUE", 
-        $wpsm->get(org_tubepress_options_category_Widget::TAGSTRING));
+    $tpl->setVariable(org_tubepress_template_Template::WIDGET_CONTROL_TITLE, $msg->_('options-meta-title-title'));
+    $tpl->setVariable(org_tubepress_template_Template::WIDGET_TITLE, $wpsm->get(org_tubepress_options_category_Widget::TITLE));
+    $tpl->setVariable(org_tubepress_template_Template::WIDGET_CONTROL_SHORTCODE, $msg->_('widget-tagstring-description'));
+    $tpl->setVariable(org_tubepress_template_Template::WIDGET_SHORTCODE, $wpsm->get(org_tubepress_options_category_Widget::TAGSTRING));
         
     /* get the template's output */
-    echo $tpl->get();
+    echo $tpl->toString();
 }
 
 ?>

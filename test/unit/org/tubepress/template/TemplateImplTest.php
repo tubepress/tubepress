@@ -17,13 +17,13 @@ class org_tubepress_template_TemplateImplTest extends PHPUnit_Framework_TestCase
         $this->_sut->setVariable('MYVAR', 'value');
         $this->assertEquals('
 stuff-value--stuff
-', $this->_sut->getHtml());
+', $this->_sut->toString());
     }
     
     public function testGetHtmlNothingSet()
     {
         $this->_sut->setFile(dirname(__FILE__) . '/faketemplate.txt');
-        $this->assertEquals('', $this->_sut->getHtml());
+        $this->assertEquals('', $this->_sut->toString());
     }
     
     /**
@@ -74,9 +74,9 @@ stuff-value--stuff
     /**
      * @expectedException Exception
      */
-    public function testgetHtmlNoFile()
+    public function testtoStringNoFile()
     {
-        $this->_sut->getHtml();
+        $this->_sut->toString();
     }
     
 }
