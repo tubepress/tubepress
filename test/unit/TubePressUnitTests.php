@@ -14,7 +14,6 @@ require_once 'org/tubepress/player/PlayerTests.php';
 require_once 'org/tubepress/querystring/QueryStringTests.php';
 require_once 'org/tubepress/shortcode/ShortcodeTests.php';
 require_once 'org/tubepress/template/TemplateTests.php';
-require_once 'org/tubepress/thumbnail/ThumbnailTests.php';
 require_once 'org/tubepress/url/UrlTests.php';
 require_once 'org/tubepress/util/UtilsTests.php';
 require_once 'org/tubepress/video/VideoTests.php';
@@ -26,17 +25,16 @@ class TubePressUnitTests
 	{
 		$suite = new PHPUnit_Framework_TestSuite("TubePress Unit Tests");
 		$suite->addTest(CacheTests::suite());
-		$suite->addTest(EmbeddedTests::suite());
-		$suite->addTest(TubePressGalleryTests::suite());
+		//$suite->addTest(EmbeddedTests::suite());
+		//$suite->addTest(TubePressGalleryTests::suite());
 		$suite->addTest(LogTests::suite());
 		$suite->addTest(IocTests::suite());
 		$suite->addTest(MessageTests::suite());
 		$suite->addTest(PaginationTests::suite());
-		$suite->addTest(PlayerTests::suite());
+		//$suite->addTest(PlayerTests::suite());
 		$suite->addTest(QueryStringTests::suite());
 		$suite->addTest(ShortcodeTests::suite());
 		$suite->addTest(TemplateTests::suite());
-		$suite->addTest(ThumbnailTests::suite());
 		$suite->addTest(UrlTests::suite());
 		$suite->addTest(UtilsTests::suite());
 		$suite->addTest(VideoTests::suite());

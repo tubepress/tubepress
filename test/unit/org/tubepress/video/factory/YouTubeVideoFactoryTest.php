@@ -4,81 +4,98 @@ require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/video
 
 class org_tubepress_video_factory_YouTubeVideoFactoryTest extends PHPUnit_Framework_TestCase {
     
-    private $_vids;
-    
-    private $thumbUrls = array("http://img.youtube.com/vi/m3gMgK7h-BA/2.jpg",
-					"http://img.youtube.com/vi/m3gMgK7h-BA/1.jpg",
-                    "http://img.youtube.com/vi/m3gMgK7h-BA/3.jpg",
-                    "http://img.youtube.com/vi/m3gMgK7h-BA/0.jpg");
+    private $_sut;
+    private $_playlistFeed;
+    private $_tpom;
     
     function setUp() {
-        $doc = file_get_contents(dirname(__FILE__) . "/../../../../sample_feed.xml");
-        $factory = new org_tubepress_video_factory_YouTubeVideoFactory();
-        $factory->setLog($this->getMock('org_tubepress_log_Log'));
-        $this->_vids = $factory->feedToVideoArray($doc, 1);
-    }
-    
-    function testRetrievesAuthorFromDomElement()
-    {
-        $this->assertEquals($this->_vids[0]->getAuthor(), "u4ever12344");
-    }
-    
-    function testRetrievesCategoryFromDomElement()
-    {
-        $this->assertEquals($this->_vids[0]->getCategory(), "Music");
-    }
-    
-    function testRetrievesDescriptionFromDomElement()
-    {
-        $this->assertEquals($this->_vids[0]->getDescription(), "Music video for the third single, You Belong With Me, from Taylor Swift&#039;s upcoming 2nd album, Fearless, out 11/11. You&#039;re on the phone with your girlfriend, She&#039;s upset She&#039;s going off about something that you said She doesnt get your humour like I do I&#039;m in the room, its a typical Tuesday night I&#039;m listening to the kind of music she doesnt like And she&#039;ll never know your story like I do But she wears short skirts, I wear t-shirts She&#039;s cheer captain and I&#039;m on the bleachers Dreaming bout ...");
-    }
-    
-    function testRetrievesIdFromDomElement()
-    {
-        $this->assertEquals($this->_vids[0]->getId(), "5AHzIq_n-DQ");
-    }
-    
-    function testRetrievesRatingAverageFromDomElement()
-    {
-        $this->assertEquals($this->_vids[0]->getRatingAverage(), "4.840202");
-    }
-    
-    function testRetrievesRatingCountFromDomElement()
-    {
-        $this->assertEquals($this->_vids[0]->getRatingCount(), "17,422");
-    }
-    
-    function testRetrievesRuntimeFromDomElement()
-    {
-        $this->assertEquals($this->_vids[0]->getDuration(), "3:49");
+        $this->_sampleFeedOne = file_get_contents(dirname(__FILE__) . '/playlist.xml');
+        $this->_sut = new org_tubepress_video_factory_YouTubeVideoFactory();
+        $this->_sut->setLog($this->getMock('org_tubepress_log_Log'));
+        $this->_tpom = $this->getMock('org_tubepress_options_manager_OptionsManager');
+        $this->_sut->setOptionsManager($this->_tpom);
     }
 
-    function testRetrievesKeywordsFromDomElement()
+    function testAuthor()
     {
-    	$expectedKeywords = array("country", "taylor", "swift", "you", 
-    	   "belong", "with", "me", "official", "music", "video", 
-    	       "new", "single", "fearless", "lyrics");
-        $this->assertTrue($this->_vids[0]->getKeywords() === $expectedKeywords);
+        $this->_tpom->expects($this->any())
+                    ->method('get')
+                    ->will($this->returnCallback('org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_AuthorOnly'));
+        $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
+        $vid = $results[0];
+        $this->assertEquals('TheAkcitycouncil', $vid->getAuthor());
     }
     
-    function testRetrievesTitleFromDomElement()
+    function testRandomThumbnailUrl()
     {
-        $this->assertEquals($this->_vids[0]->getTitle(), "Taylor Swift - You Belong With Me - Official Music Video");
+        $this->_tpom->expects($this->any())
+                    ->method('get')
+                    ->will($this->returnCallback('org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_RandomizeThumbsOnly'));
+        $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
+        $vid = $results[0];
+        $ok = $vid->getThumbnailUrl() === 'http://i.ytimg.com/vi/BRKWi5beywQ/2.jpg'
+            || $vid->getThumbnailUrl() === 'http://i.ytimg.com/vi/BRKWi5beywQ/3.jpg'
+            || $vid->getThumbnailUrl() === 'http://i.ytimg.com/vi/BRKWi5beywQ/1.jpg';
+        if (!$ok) {
+            print "Got " . $vid->getThumbnailUrl() . " as thumb URL";
+        }
+        $this->assertTrue($ok);
     }
+    
+    function testDefaultThumbnailUrl()
+    {
+        $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
+        $vid = $results[0];
+        $this->assertEquals('http://i.ytimg.com/vi/BRKWi5beywQ/2.jpg', $vid->getThumbnailUrl());
+    }
+    
+    function testId()
+    {
+        $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
+        $vid = $results[0];
+        $this->assertEquals('BRKWi5beywQ', $vid->getId());
+    }
+    
+    function testTitle()
+    {
+        $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
+        $vid = $results[0];
+        $this->assertEquals('Auckland City Council shared space proposals', $vid->getTitle());
+    }
+    
+    /**
+     * @expectedException Exception
+     */
+    function testBadXml()
+    {
+        $this->_sut->feedToVideoArray('fake feed', 20);
+    }
+    
+    function testEmptyDocument()
+    {
+        $results = $this->_sut->feedToVideoArray('<?xml version="1.0" encoding="ISO-8859-1"?><nothing/>', 20);
+        $this->assertTrue(is_array($results));
+        $this->assertEquals(0, count($results));
+    }
+    
+    function testFirstVideoNotAvailable()
+    {
+        $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
+        $this->assertEquals(1, count($results));
+    }
+    
+    
+}
 
-    function testRetrievesUploadTimeFromDomElement()
-    {
-        $this->assertEquals($this->_vids[0]->getTimePublished(), 1242100279);
-    }
-    
-    function testRetrievesUrlFromDomElement()
-    {
-        $this->assertEquals($this->_vids[0]->getHomeUrl(), "http://www.youtube.com/watch?v=5AHzIq_n-DQ&amp;feature=youtube_gdata");
-    }
-    
-    function testRetrievesViewCountFromDomElement()
-    {
-        $this->assertEquals($this->_vids[0]->getViewCount(), "6,816,621");
-    }
+function org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_AuthorOnly() {
+    $args = func_get_args();
+    $val = $args[0];
+    return $val == org_tubepress_options_category_Meta::AUTHOR;
+}
+
+function org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_RandomizeThumbsOnly() {
+    $args = func_get_args();
+    $val = $args[0];
+    return $val == org_tubepress_options_category_Advanced::RANDOM_THUMBS;
 }
 ?>

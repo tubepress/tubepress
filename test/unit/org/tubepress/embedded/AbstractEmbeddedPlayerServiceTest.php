@@ -15,8 +15,8 @@ abstract class org_tubepress_embedded_impl_AbstractEmbeddedPlayerServiceTest ext
 	    $this->_sut->setOptionsManager($tpom);
 	    
 	    /* Set up template */
-	    $template = new org_tubepress_template_TemplateImpl();
-	    $template->setFile($templateFile);
+	    $template = new org_tubepress_template_SimpleTemplate();
+	    $template->setPath($templateFile);
 	    $this->_sut->setTemplate($template);
 	}
 }

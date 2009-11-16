@@ -36,6 +36,9 @@ class org_tubepress_template_SimpleTemplate implements org_tubepress_template_Te
 	
 	public function setPath($path)
 	{
+	    if (!is_readable($path)) {
+	        throw new Exception("Cannot read template at $path");
+	    }
 		$this->_path = $path;
 	}
 	
@@ -46,6 +49,10 @@ class org_tubepress_template_SimpleTemplate implements org_tubepress_template_Te
 	
 	public function toString()
 	{
+	    if (!isset($this->_path)) {
+	        throw new Exception('Can\'t build template when no file is set');
+	    }
+	    
 		ob_start();
 		extract($this->_source);
         include $this->_path;

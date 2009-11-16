@@ -59,19 +59,24 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
     {
         $uiBase = dirname(__FILE__) . "/../../../../ui";
         
-        /* these guys have no setters that we care about */
-        $this->def(org_tubepress_ioc_IocService::MESSAGE_SERVICE,
+        /*******************************************************************************************
+         *                                      0 SETTERS                                          *
+         *******************************************************************************************/
+        $this->def(org_tubepress_ioc_IocService::MESSAGE_SERVICE, 
             $this->impl('org_tubepress_message_WordPressMessageService'));
-        $this->def(org_tubepress_ioc_IocService::OPTIONS_REFERENCE,
+        $this->def(org_tubepress_ioc_IocService::OPTIONS_REFERENCE, 
             $this->impl('org_tubepress_options_reference_SimpleOptionsReference'));
-        $this->def(org_tubepress_ioc_IocService::FEED_INSPECTION_SERVICE,
+        $this->def(org_tubepress_ioc_IocService::FEED_INSPECTION_SERVICE, 
             $this->impl('org_tubepress_video_feed_inspection_YouTubeFeedInspectionService'));
-        $this->def(org_tubepress_ioc_IocService::QUERY_STRING_SERVICE,
+        $this->def(org_tubepress_ioc_IocService::QUERY_STRING_SERVICE, 
             $this->impl('org_tubepress_querystring_SimpleQueryStringService'));
-        $this->def(org_tubepress_ioc_IocService::LOG,
+        $this->def(org_tubepress_ioc_IocService::LOG, 
             $this->impl('org_tubepress_log_LogImpl'));
 
-        /* These guys have 1 setter */
+        
+        /*******************************************************************************************
+         *                                      1 SETTER                                          *
+         *******************************************************************************************/
         $this->def(org_tubepress_ioc_IocService::URL_BUILDER,
             $this->impl('org_tubepress_url_YouTubeUrlBuilder', 
                 array('optionsManager' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER))
@@ -123,7 +128,9 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
             )
         );
 
-        /* this guy has 2 setters */
+        /*******************************************************************************************
+         *                                      2 SETTERS                                          *
+         *******************************************************************************************/
         $this->def(org_tubepress_ioc_IocService::STORAGE_MANAGER,
             $this->impl('org_tubepress_options_storage_WordPressStorageManager', 
                 array(
@@ -213,7 +220,9 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
             )
         );
         
-        /* these guys have 3 setters */
+        /*******************************************************************************************
+         *                                      3 SETTERS                                          *
+         *******************************************************************************************/
         $this->def(org_tubepress_ioc_IocService::OPTIONS_MANAGER,
             $this->impl('org_tubepress_options_manager_SimpleOptionsManager', 
                 array(
@@ -241,8 +250,10 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
                 )
             )
         );
-
-        /* 4 setters, gyea */
+        
+        /*******************************************************************************************
+         *                                      4+ SETTERS                                          *
+         *******************************************************************************************/
         $this->def(org_tubepress_ioc_IocService::OPTIONS_FORM_HANDLER,
             $this->impl('org_tubepress_options_form_FormHandler',
                 array(
@@ -250,15 +261,6 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
                     'optionsReference' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_REFERENCE),
                     'storageManager'   => $this->ref(org_tubepress_ioc_IocService::STORAGE_MANAGER),
                     'template'         => $this->ref(org_tubepress_ioc_IocService::OPTIONS_FORM_TEMPLATE)
-                )
-            )
-        );
-        $this->def(org_tubepress_ioc_IocService::OPTIONS_FORM_CATEGORY_PRINTER,
-            $this->impl('org_tubepress_options_form_CategoryPrinter',
-                array(
-                    'messageService'   => $this->ref(org_tubepress_ioc_IocService::MESSAGE_SERVICE),
-                    'optionsReference' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_REFERENCE),
-                    'storageManager'   => $this->ref(org_tubepress_ioc_IocService::STORAGE_MANAGER)
                 )
             )
         );
@@ -277,23 +279,19 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
             )
         );
         
-        $commonGalleryIngredients = array(
-            'messageService'        => $this->ref(org_tubepress_ioc_IocService::MESSAGE_SERVICE),
-            'optionsManager'        => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER),
-            'paginationService'     => $this->ref(org_tubepress_ioc_IocService::PAGINATION_SERVICE),
-            'queryStringService'    => $this->ref(org_tubepress_ioc_IocService::QUERY_STRING_SERVICE),
-            'videoProvider'         => $this->ref(org_tubepress_ioc_IocService::VIDEO_PROVIDER),
-            'log'                   => $this->ref(org_tubepress_ioc_IocService::LOG),
-            'optionsReference'      => $this->ref(org_tubepress_ioc_IocService::OPTIONS_REFERENCE)
-        );
-        
-        /* the big guy */
-        $commonGalleryIngredients[org_tubepress_options_category_Template::TEMPLATE] =
-            $this->ref(org_tubepress_ioc_IocService::GALLERY_TEMPLATE);
         $this->def(org_tubepress_ioc_IocService::GALLERY,
-            $this->impl('org_tubepress_gallery_TubePressGalleryImpl', 
-                $commonGalleryIngredients
-            )
+            $this->impl('org_tubepress_gallery_TubePressGalleryImpl',
+                array(
+                    'messageService'        => $this->ref(org_tubepress_ioc_IocService::MESSAGE_SERVICE),
+                    'optionsManager'        => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER),
+                    'paginationService'     => $this->ref(org_tubepress_ioc_IocService::PAGINATION_SERVICE),
+                    'queryStringService'    => $this->ref(org_tubepress_ioc_IocService::QUERY_STRING_SERVICE),
+                    'videoProvider'         => $this->ref(org_tubepress_ioc_IocService::VIDEO_PROVIDER),
+                    'log'                   => $this->ref(org_tubepress_ioc_IocService::LOG),
+                    'optionsReference'      => $this->ref(org_tubepress_ioc_IocService::OPTIONS_REFERENCE),
+                    'template'              => $this->ref(org_tubepress_ioc_IocService::GALLERY_TEMPLATE)
+                )                
+            )        
         );
     }
 }

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:app="http://purl.org/atom/app#" xmlns:media="http://search.yahoo.com/mrss/" xmlns:openSearch="http://a9.com/-/spec/opensearchrss/1.0/" xmlns:gd="http://schemas.google.com/g/2005" xmlns:gml="http://www.opengis.net/gml" xmlns:yt="http://gdata.youtube.com/schemas/2007" xmlns:georss="http://www.georss.org/georss">
+  <id>http://gdata.youtube.com/feeds/api/users/streetfilmsvlog/favorites</id>
+  <updated>2009-11-16T03:39:38.408Z</updated>
+  <category scheme="http://schemas.google.com/g/2005#kind" term="http://gdata.youtube.com/schemas/2007#video"/>
+  <title type="text">Favorites of streetfilmsvlog</title>
+  <logo>http://www.youtube.com/img/pic_youtubelogo_123x63.gif</logo>
+  <link rel="related" type="application/atom+xml" href="http://gdata.youtube.com/feeds/api/users/streetfilmsvlog"/>
+  <link rel="alternate" type="text/html" href="http://www.youtube.com/profile_favorites?user=streetfilmsvlog"/>
+  <link rel="http://schemas.google.com/g/2005#feed" type="application/atom+xml" href="http://gdata.youtube.com/feeds/api/users/streetfilmsvlog/favorites"/>
+  <link rel="http://schemas.google.com/g/2005#batch" type="application/atom+xml" href="http://gdata.youtube.com/feeds/api/users/streetfilmsvlog/favorites/batch"/>
+  <link rel="self" type="application/atom+xml" href="http://gdata.youtube.com/feeds/api/users/streetfilmsvlog/favorites?start-index=1&amp;max-results=25"/>
+  <author>
+    <name>streetfilmsvlog</name>
+    <uri>http://gdata.youtube.com/feeds/api/users/streetfilmsvlog</uri>
+  </author>
+  <generator version="2.0" uri="http://gdata.youtube.com/">YouTube data API</generator>
+  <openSearch:totalResults>2</openSearch:totalResults>
+  <openSearch:startIndex>1</openSearch:startIndex>
+  <openSearch:itemsPerPage>25</openSearch:itemsPerPage>
+  <entry>
+    <id>http://gdata.youtube.com/feeds/api/videos/dRL16jRxLGw</id>
+    <published>2009-11-08T21:59:51.000Z</published>
+    <updated>2009-11-15T22:41:48.000Z</updated>
+    <category scheme="http://gdata.youtube.com/schemas/2007/categories.cat" term="News" label="News &amp; Politics"/>
+    <category scheme="http://gdata.youtube.com/schemas/2007/keywords.cat" term="streetfilms"/>
+    <category scheme="http://gdata.youtube.com/schemas/2007/keywords.cat" term="street"/>
+    <category scheme="http://gdata.youtube.com/schemas/2007/keywords.cat" term="film"/>
+    <category scheme="http://gdata.youtube.com/schemas/2007/keywords.cat" term="veronica"/>
+    <category scheme="http://gdata.youtube.com/schemas/2007/keywords.cat" term="moss"/>
+    <category scheme="http://gdata.youtube.com/schemas/2007/keywords.cat" term="auto"/>
+    <category scheme="http://gdata.youtube.com/schemas/2007/keywords.cat" term="automobile"/>
+    <category scheme="http://gdata.youtube.com/schemas/2007/keywords.cat" term="lobby"/>
+    <category scheme="http://gdata.youtube.com/schemas/2007/keywords.cat" term="lobbyist"/>
+    <category scheme="http://gdata.youtube.com/schemas/2007/keywords.cat" term="times"/>
+    <category scheme="http://gdata.youtube.com/schemas/2007/keywords.cat" term="square"/>
+    <category scheme="http://gdata.youtube.com/schemas/2007/keywords.cat" term="pedestrians"/>
+    <category scheme="http://gdata.youtube.com/schemas/2007/keywords.cat" term="new"/>
+    <category scheme="http://gdata.youtube.com/schemas/2007/keywords.cat" term="york"/>
+    <category scheme="http://gdata.youtube.com/schemas/2007/keywords.cat" term="city"/>
+    <category scheme="http://schemas.google.com/g/2005#kind" term="http://gdata.youtube.com/schemas/2007#video"/>
+    <title type="text">Streetfilms Shortie-Veronica Moss Teaser (Times Square)</title>
+    <content type="text">Here's a wonderfully hip teaser for the ever wonderful Veronica Moss (of A.U.T.O.) visiting Times Square.
+
+TO see her past adventures:  http://www.streetfilms.org/meet-veronica-moss-auto-lobbyist/</content>
+    <link rel="alternate" type="text/html" href="http://www.youtube.com/watch?v=dRL16jRxLGw&amp;feature=youtube_gdata"/>
+    <link rel="http://gdata.youtube.com/schemas/2007#video.responses" type="application/atom+xml" href="http://gdata.youtube.com/feeds/api/videos/dRL16jRxLGw/responses"/>
+    <link rel="http://gdata.youtube.com/schemas/2007#video.related" type="application/atom+xml" href="http://gdata.youtube.com/feeds/api/videos/dRL16jRxLGw/related"/>
+    <link rel="http://gdata.youtube.com/schemas/2007#mobile" type="text/html" href="http://m.youtube.com/details?v=dRL16jRxLGw"/>
+    <link rel="related" type="application/atom+xml" href="http://gdata.youtube.com/feeds/api/videos/dRL16jRxLGw"/>
+    <link rel="self" type="application/atom+xml" href="http://gdata.youtube.com/feeds/api/users/streetfilmsvlog/favorites/dRL16jRxLGw"/>
+    <author>
+      <name>StreetfilmsVlog</name>
+      <uri>http://gdata.youtube.com/feeds/api/users/streetfilmsvlog</uri>
+    </author>
+    <gd:comments>
+      <gd:feedLink href="http://gdata.youtube.com/feeds/api/videos/dRL16jRxLGw/comments" countHint="2"/>
+    </gd:comments>
+    <media:group>
+      <media:category label="News &amp; Politics" scheme="http://gdata.youtube.com/schemas/2007/categories.cat">News</media:category>
+      <media:content url="http://www.youtube.com/v/dRL16jRxLGw?f=user_favorites&amp;app=youtube_gdata" type="application/x-shockwave-flash" medium="video" isDefault="true" expression="full" duration="49" yt:format="5"/>
+      <media:content url="rtsp://rtsp2.youtube.com/CioLENy73wIaIQlsLHE06vUSdRMYDSANFEgGUg51c2VyX2Zhdm9yaXRlcww=/0/0/0/video.3gp" type="video/3gpp" medium="video" expression="full" duration="49" yt:format="1"/>
+      <media:content url="rtsp://rtsp2.youtube.com/CioLENy73wIaIQlsLHE06vUSdRMYESARFEgGUg51c2VyX2Zhdm9yaXRlcww=/0/0/0/video.3gp" type="video/3gpp" medium="video" expression="full" duration="49" yt:format="6"/>
+      <media:description type="plain">Here's a wonderfully hip teaser for the ever wonderful Veronica Moss (of A.U.T.O.) visiting Times Square.
+
+TO see her past adventures:  http://www.streetfilms.org/meet-veronica-moss-auto-lobbyist/</media:description>
+      <media:keywords>streetfilms, street, film, veronica, moss, auto, automobile, lobby, lobbyist, times, square, pedestrians, new, york, city</media:keywords>
+      <media:player url="http://www.youtube.com/watch?v=dRL16jRxLGw&amp;feature=youtube_gdata"/>
+      <media:thumbnail url="http://i.ytimg.com/vi/dRL16jRxLGw/2.jpg" height="90" width="120" time="00:00:24.500"/>
+      <media:thumbnail url="http://i.ytimg.com/vi/dRL16jRxLGw/1.jpg" height="90" width="120" time="00:00:12.250"/>
+      <media:thumbnail url="http://i.ytimg.com/vi/dRL16jRxLGw/3.jpg" height="90" width="120" time="00:00:36.750"/>
+      <media:thumbnail url="http://i.ytimg.com/vi/dRL16jRxLGw/0.jpg" height="240" width="320" time="00:00:24.500"/>
+      <media:title type="plain">Streetfilms Shortie-Veronica Moss Teaser (Times Square)</media:title>
+      <yt:duration seconds="49"/>
+    </media:group>
+    <gd:rating average="5.0" max="5" min="1" numRaters="1" rel="http://schemas.google.com/g/2005#overall"/>
+    <yt:statistics favoriteCount="2" viewCount="171"/>
+    <app:control>
+        <yt:state reasonCode="something" />
+    </app:control>
+  </entry>
+  <entry>
+    <id>http://gdata.youtube.com/feeds/api/videos/BRKWi5beywQ</id>
+    <published>2009-08-17T23:36:21.000Z</published>
+    <updated>2009-11-16T01:47:38.000Z</updated>
+    <category scheme="http://gdata.youtube.com/schemas/2007/categories.cat" term="People" label="People &amp; Blogs"/>
+    <category scheme="http://gdata.youtube.com/schemas/2007/keywords.cat" term="Shared"/>
+    <category scheme="http://gdata.youtube.com/schemas/2007/keywords.cat" term="Spaces"/>
+    <category scheme="http://gdata.youtube.com/schemas/2007/keywords.cat" term="Upload"/>
+    <category scheme="http://schemas.google.com/g/2005#kind" term="http://gdata.youtube.com/schemas/2007#video"/>
+    <title type="text">Auckland City Council shared space proposals</title>
+    <content type="text">Information about shared spaces proposals in the Auckland CBD area.</content>
+    <link rel="alternate" type="text/html" href="http://www.youtube.com/watch?v=BRKWi5beywQ&amp;feature=youtube_gdata"/>
+    <link rel="http://gdata.youtube.com/schemas/2007#video.responses" type="application/atom+xml" href="http://gdata.youtube.com/feeds/api/videos/BRKWi5beywQ/responses"/>
+    <link rel="http://gdata.youtube.com/schemas/2007#video.related" type="application/atom+xml" href="http://gdata.youtube.com/feeds/api/videos/BRKWi5beywQ/related"/>
+    <link rel="http://gdata.youtube.com/schemas/2007#mobile" type="text/html" href="http://m.youtube.com/details?v=BRKWi5beywQ"/>
+    <link rel="related" type="application/atom+xml" href="http://gdata.youtube.com/feeds/api/videos/BRKWi5beywQ"/>
+    <link rel="self" type="application/atom+xml" href="http://gdata.youtube.com/feeds/api/users/streetfilmsvlog/favorites/BRKWi5beywQ"/>
+    <author>
+      <name>TheAkcitycouncil</name>
+      <uri>http://gdata.youtube.com/feeds/api/users/theakcitycouncil</uri>
+    </author>
+    <gd:comments>
+      <gd:feedLink href="http://gdata.youtube.com/feeds/api/videos/BRKWi5beywQ/comments" countHint="10"/>
+    </gd:comments>
+    <media:group>
+      <media:category label="People &amp; Blogs" scheme="http://gdata.youtube.com/schemas/2007/categories.cat">People</media:category>
+      <media:content url="http://www.youtube.com/v/BRKWi5beywQ?f=user_favorites&amp;app=youtube_gdata" type="application/x-shockwave-flash" medium="video" isDefault="true" expression="full" duration="244" yt:format="5"/>
+      <media:content url="rtsp://rtsp2.youtube.com/CioLENy73wIaIQkEy96Wi5YSBRMYDSANFEgGUg51c2VyX2Zhdm9yaXRlcww=/0/0/0/video.3gp" type="video/3gpp" medium="video" expression="full" duration="244" yt:format="1"/>
+      <media:content url="rtsp://rtsp2.youtube.com/CioLENy73wIaIQkEy96Wi5YSBRMYESARFEgGUg51c2VyX2Zhdm9yaXRlcww=/0/0/0/video.3gp" type="video/3gpp" medium="video" expression="full" duration="244" yt:format="6"/>
+      <media:description type="plain">Information about shared spaces proposals in the Auckland CBD area.</media:description>
+      <media:keywords>Shared, Spaces, Upload</media:keywords>
+      <media:player url="http://www.youtube.com/watch?v=BRKWi5beywQ&amp;feature=youtube_gdata"/>
+      <media:thumbnail url="http://i.ytimg.com/vi/BRKWi5beywQ/2.jpg" height="90" width="120" time="00:02:02"/>
+      <media:thumbnail url="http://i.ytimg.com/vi/BRKWi5beywQ/1.jpg" height="90" width="120" time="00:01:01"/>
+      <media:thumbnail url="http://i.ytimg.com/vi/BRKWi5beywQ/3.jpg" height="90" width="120" time="00:03:03"/>
+      <media:thumbnail url="http://i.ytimg.com/vi/BRKWi5beywQ/0.jpg" height="240" width="320" time="00:02:02"/>
+      <media:title type="plain">Auckland City Council shared space proposals</media:title>
+      <yt:duration seconds="244"/>
+    </media:group>
+    <gd:rating average="3.8333333" max="5" min="1" numRaters="6" rel="http://schemas.google.com/g/2005#overall"/>
+    <yt:statistics favoriteCount="8" viewCount="1775"/>
+  </entry>
+</feed>

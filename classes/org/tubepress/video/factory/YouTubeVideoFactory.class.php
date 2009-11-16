@@ -67,6 +67,10 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
     {
         $this->_log->log($this->_logPrefix, 'Building xpath to parse XML');
         
+        if (!class_exists('DOMXPath')) {
+            throw new Exception('Class DOMXPath not found');
+        }
+        
         $xpath = new DOMXPath($doc);
         $xpath->registerNamespace('atom',  org_tubepress_video_factory_YouTubeVideoFactory::NS_ATOM);
         $xpath->registerNamespace('yt',    org_tubepress_video_factory_YouTubeVideoFactory::NS_YT);
@@ -79,9 +83,14 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
     private function _createDomDocument($feed)
     {
         $this->_log->log($this->_logPrefix, 'Attempting to load XML from YouTube');
+        
+        if (!class_exists('DOMDocument')) {
+            throw new Exception('DOMDocument class not found');
+        }
+        
         $doc = new DOMDocument();
         if ($doc->loadXML($feed) === FALSE) {
-            throw new Exception("Could not parse XML from YouTube");
+            throw new Exception('Could not parse XML from YouTube');
         }
         $this->_log->log($this->_logPrefix, 'Successfully loaded XML from YouTube');
         return $doc;
@@ -104,7 +113,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
                 continue;
             }
             
-            if ($index++ >= $limit) {
+            if ($index > 0 && $index++ >= $limit) {
                 $this->_log->log($this->_logPrefix, 'Reached limit of %d videos', $limit);
                 break;
             }
@@ -283,9 +292,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
             } while (strpos($node->getAttribute('url'), 'hqdefault') !== FALSE);
             return $node->getAttribute('url');
         }
-        do {
-            $node = $thumbs->item(rand(0, $thumbs->length - 1));
-        } while (strpos($node->getAttribute('url'), '/default') !== FALSE);
+        $node = $thumbs->item(0);
         return $node->getAttribute('url');
     }
     

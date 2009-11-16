@@ -5,8 +5,8 @@ class org_tubepress_options_form_FormHandlerTest extends PHPUnit_Framework_TestC
     private $_msg;
     private $optRef;
     private $sm;
-    private $cp;
-	private $_stpom;
+    private $_stpom;
+    private $_template;
 	
 	public function setup()
 	{
@@ -38,7 +38,7 @@ class org_tubepress_options_form_FormHandlerTest extends PHPUnit_Framework_TestC
         $this->_stpom->setMessageService($this->_msg);
         $this->_stpom->setOptionsReference($this->optRef);
         $this->_stpom->setStorageManager($this->sm);
-        $this->_stpom->setCategoryPrinter($this->cp);
+        $this->_stpom->setTemplate($this->_template);
     }
     
     private function defineMocks()
@@ -46,7 +46,7 @@ class org_tubepress_options_form_FormHandlerTest extends PHPUnit_Framework_TestC
         $this->_msg = $this->getMock('org_tubepress_message_MessageService');
         $this->optRef = $this->getMock('org_tubepress_options_reference_OptionsReference');
         $this->sm = $this->getMock('org_tubepress_options_storage_StorageManager');
-        $this->cp = $this->getMock('org_tubepress_options_form_CategoryPrinter');
+        $this->_template = $this->getMock('org_tubepress_template_Template');
     }
 }
 ?>
