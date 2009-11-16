@@ -5,5 +5,5 @@
         <param name="movie" value="<?php echo ${org_tubepress_template_Template::TUBEPRESS_BASE_URL}; ?>/ui/embedded/longtail/lib/player.swf" />
         <param name="bgcolor" value="#000000" />
         <param name="quality" value="high" />
-        <param name="flashvars" value="file=<?php echo ${org_tubepress_template_Template::HOME_URL}; ?>&amp;autostart=<?php echo ${org_tubepress_template_Template::AUTOSTART}; ?>&amp;height=<?php echo ${org_tubepress_template_Template::EMBEDDED_HEIGHT}; ?>&amp;width=<?php echo ${org_tubepress_template_Template::EMBEDDED_WIDTH}; ?>" />
+        <param name="flashvars" value="file=<?php echo ${org_tubepress_template_Template::EMBEDDED_DATA_URL}; ?>&amp;autostart=<?php echo ${org_tubepress_template_Template::EMBEDDED_AUTOSTART}; ?>&amp;height=<?php echo ${org_tubepress_template_Template::EMBEDDED_HEIGHT}; ?>&amp;width=<?php echo ${org_tubepress_template_Template::EMBEDDED_WIDTH}; ?>" />
       </object>

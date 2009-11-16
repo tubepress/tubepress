@@ -6,7 +6,7 @@
     <div id="tubepress_tabs">
       <ul>
         <?php foreach (${org_tubepress_template_Template::OPTIONS_PAGE_CATEGORIES} as $optionCategoryName => $optionCategoryMetaArray): ?>
-<li><a href="#<?php echo 'tubepress_' . md5($optionCategoryName); ?>"><span><?php echo $optionCategoryMetaArray[0]; ?></span></a></li>
+<li><a href="#<?php echo 'tubepress_' . md5($optionCategoryName); ?>"><span><?php echo $optionCategoryMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_CATEGORY_TITLE]; ?></span></a></li>
         <?php endforeach; ?>
 
       </ul>
@@ -18,21 +18,21 @@
         
           <?php if ($optionCategoryName != org_tubepress_options_Category::META): ?>
         
-            <?php foreach ($optionCategoryMetaArray[1] as $optionArray): ?>
+            <?php foreach ($optionCategoryMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_CATEGORY_OPTIONS] as $optionArray): ?>
               
           <tr valign="top">
-            <th style="border-bottom-style: none; font-size: 13px}" valign="top"><?php echo $optionArray[0]; ?><?php echo $optionArray[1]; ?></th>
-            <td style="vertical-align: top; border-bottom-style: none"><?php echo $optionArray[2]; ?><br /><?php echo $optionArray[3]; ?></td>
+            <th style="border-bottom-style: none; font-size: 13px}" valign="top"><?php echo $optionArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_TITLE]; ?><?php echo $optionArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_PRO_ONLY]; ?></th>
+            <td style="vertical-align: top; border-bottom-style: none"><?php echo $optionArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_WIDGET]; ?><br /><?php echo $optionArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC]; ?></td>
           </tr>
             <?php endforeach; ?>
           
           <?php else: $index = 0; ?>
-            <?php foreach ($optionCategoryMetaArray[1] as $optionArray): ?>
+            <?php foreach ($optionCategoryMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_CATEGORY_OPTIONS] as $optionArray): ?>
               <?php if ($index % 4 == 0): ?>
               
           <tr valign="top"><?php endif; ?>
                 
-            <td style="border-bottom-style: none; font-size: 13px}" valign="top"><?php echo $optionArray[2]; ?> <?php echo $optionArray[0]; ?></td>
+            <td style="border-bottom-style: none; font-size: 13px}" valign="top"><?php echo $optionArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_WIDGET]; ?> <?php echo $optionArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_TITLE]; ?></td>
               <?php if (++$index % 4 == 0): ?>
               
           </tr><?php endif; ?>

@@ -52,8 +52,8 @@ class org_tubepress_options_form_FormHandler
         /* set the surrounding text */
         $this->_template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_TITLE,      $this->_messageService->_('options-page-title'));
         $this->_template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_INTRO,      $this->_messageService->_('options-page-intro-text'));
-        $this->_template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_DONATION,   $this->_messageService->_("options-page-donation"));
-        $this->_template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_SAVE,       $this->_messageService->_("options-page-save-button"));
+        $this->_template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_DONATION,   $this->_messageService->_('options-page-donation'));
+        $this->_template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_SAVE,       $this->_messageService->_('options-page-save-button'));
 
         $categories = array();
         
@@ -110,8 +110,8 @@ class org_tubepress_options_form_FormHandler
     private function _createCategoryMetaArray($optionCategoryName)
     {
         $results = array();
-        $results[0] = $this->_messageService->_("options-category-title-$optionCategoryName");
-        $results[1] = $optionCategoryName == org_tubepress_options_Category::GALLERY ?
+        $results[org_tubepress_template_Template::OPTIONS_PAGE_CATEGORY_TITLE] = $this->_messageService->_("options-category-title-$optionCategoryName");
+        $results[org_tubepress_template_Template::OPTIONS_PAGE_CATEGORY_OPTIONS] = $optionCategoryName == org_tubepress_options_Category::GALLERY ?
             $this->_createCategoryMetaArrayForGalleryOptions() : $this->_createCategoryOptionsMetaArray($optionCategoryName);
         return $results;
     }
@@ -122,10 +122,10 @@ class org_tubepress_options_form_FormHandler
         $optionsMetaArray = array();
         foreach ($optionNames as $optionName) {
             $metaArray = array();
-            $metaArray[0] = $this->_messageService->_("options-title-$optionName");
-            $metaArray[1] = $this->_optionsReference->isOptionProOnly($optionName) ? "*" : "";
-            $metaArray[2] = $this->_getWidgetHtml($optionName);
-            $metaArray[3] = $this->_messageService->_("options-desc-$optionName");
+            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_TITLE] = $this->_messageService->_("options-title-$optionName");
+            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_PRO_ONLY] = $this->_optionsReference->isOptionProOnly($optionName) ? '*' : '';
+            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_WIDGET] = $this->_getWidgetHtml($optionName);
+            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC] = $this->_messageService->_("options-desc-$optionName");
             
             $optionsMetaArray[] = $metaArray;
         }
@@ -138,15 +138,15 @@ class org_tubepress_options_form_FormHandler
         $modesMetaArray = array();
         foreach ($modeNames as $modeName) {
             $modeMetaArray = array();
-            $modeMetaArray[0] = $this->_messageService->_("options-title-$modeName");
-            $modeMetaArray[1] = "";
+            $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_TITLE] = $this->_messageService->_("options-title-$modeName");
+            $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_PRO_ONLY] = "";
             $html = $this->_getHtmlForRadio($modeName);
             if ($this->_optionsReference->isOptionName($modeName . 'Value')) {
                 $newName = $modeName . 'Value';
                 $html .= $this->_getWidgetHtml($newName);
             }
-            $modeMetaArray[2] = $html;
-            $modeMetaArray[3] = $this->_messageService->_("options-desc-$modeName");
+            $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_WIDGET] = $html;
+            $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC] = $this->_messageService->_("options-desc-$modeName");
             
             $modesMetaArray[] = $modeMetaArray;
         }

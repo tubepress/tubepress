@@ -24,7 +24,8 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array(
     'org_tubepress_embedded_impl_AbstractEmbeddedPlayerService',
     'net_php_pear_Net_URL2',
-    'org_tubepress_options_category_Embedded'));
+    'org_tubepress_options_category_Embedded',
+    'org_tubepress_template_Template'));
 
 /**
  * An HTML-embeddable YouTube player
@@ -41,12 +42,12 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService extends org_tubep
      */
     public function toString($videoId)
     {   
-        $link = new net_php_pear_Net_URL2(sprintf("http://www.youtube.com/v/%s", $videoId));
+        $link = new net_php_pear_Net_URL2(sprintf('http://www.youtube.com/v/%s', $videoId));
         
         $tpom = $this->getOptionsManager();
         
-        $color1      = $this->_safeColorValue($tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR), "999999");
-        $color2      = $this->_safeColorValue($tpom->get(org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT), "FFFFFF");
+        $color1      = $this->_safeColorValue($tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR), '999999');
+        $color2      = $this->_safeColorValue($tpom->get(org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT), 'FFFFFF');
         $showRelated = $tpom->get(org_tubepress_options_category_Embedded::SHOW_RELATED);
         $autoPlay    = $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY);
         $loop        = $tpom->get(org_tubepress_options_category_Embedded::LOOP);
@@ -58,29 +59,29 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService extends org_tubep
         $fullscreen  = $tpom->get(org_tubepress_options_category_Embedded::FULLSCREEN);
         $showInfo    = $tpom->get(org_tubepress_options_category_Embedded::SHOW_INFO);
    
-        if (!($color1 == "999999" && $color2 == "FFFFFF")) {
-            $link->setQueryVariable("color2", "0x" . $color1);
-            $link->setQueryVariable("color1", "0x" . $color2);
+        if (!($color1 == '999999' && $color2 == 'FFFFFF')) {
+            $link->setQueryVariable('color2', '0x' . $color1);
+            $link->setQueryVariable('color1', '0x' . $color2);
         }
-        $link->setQueryVariable("rel", $showRelated   ? "1" : "0");
-        $link->setQueryVariable("autoplay", $autoPlay ? "1" : "0");
-        $link->setQueryVariable("loop", $loop         ? "1" : "0");
-        $link->setQueryVariable("egm", $genie         ? "1" : "0");
-        $link->setQueryVariable("border", $border     ? "1" : "0");
-        $link->setQueryVariable("fs", $fullscreen     ? "1" : "0");
+        $link->setQueryVariable('rel', $showRelated   ? '1' : '0');
+        $link->setQueryVariable('autoplay', $autoPlay ? '1' : '0');
+        $link->setQueryVariable('loop', $loop         ? '1' : '0');
+        $link->setQueryVariable('egm', $genie         ? '1' : '0');
+        $link->setQueryVariable('border', $border     ? '1' : '0');
+        $link->setQueryVariable('fs', $fullscreen     ? '1' : '0');
         
-        $link->setQueryVariable("showinfo", $showInfo ? "1" : "0");
+        $link->setQueryVariable('showinfo', $showInfo ? '1' : '0');
         
         if ($hq) {
-            $link->setQueryVariable("hd", "1");
+            $link->setQueryVariable('hd', '1');
         }
         
         $link = $link->getURL(true);
 
-        $this->_template->setVariable('url', $link);
-        $this->_template->setVariable('width', $width);
-        $this->_template->setVariable('height', $height);
-        $this->_template->setVariable('fullscreen', $fullscreen ? "true" : "false");
+        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_DATA_URL, $link);
+        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $width);
+        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT, $height);
+        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_FULLSCREEN, $fullscreen ? 'true' : 'false');
         
         $embedSrc = $this->_template->toString();
      
