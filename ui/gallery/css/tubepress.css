@@ -55,12 +55,14 @@ dd.tubepress_meta_title, dd.tubepress_meta_title a, dd.tubepress_meta_title a:ho
     font-size: 12px;
     font-weight: bold;
     margin-left: 0;
+    clear: left;
 }
 
 dd.tubepress_meta_runtime {
     font-size: 11px;
     margin-left: 0;
     font-weight: bold;	
+    clear: left;
 }
 
 dt.tubepress_meta_author, 
