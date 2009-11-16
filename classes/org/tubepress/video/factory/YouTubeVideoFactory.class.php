@@ -199,7 +199,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
         $limit = $this->_tpom->get(org_tubepress_options_category_Display::DESC_LIMIT);
         $desc = trim($this->_xpath->query('media:group/media:description', $this->_currentNode)->item(0)->nodeValue);
         if ($limit > 0 && strlen($desc) > $limit) {
-            $desc = substr($desc, 0, $limit) . "...";
+            $desc = substr($desc, 0, $limit) . '...';
         }
         return $desc;
     }

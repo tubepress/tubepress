@@ -16,6 +16,68 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends PHPUnit_Framew
         $this->_sut->setOptionsManager($this->_tpom);
     }
 
+    function testKeywords()
+    {
+        $this->_tpom->expects($this->any())
+                    ->method('get')
+                    ->will($this->returnCallback('org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_KeywordsOnly'));
+        $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
+        $vid = $results[0];
+        $keys = $vid->getKeywords();
+        $this->assertTrue(is_array($keys));
+        $this->assertTrue($keys === array('Shared', 'Spaces', 'Upload'));
+    }
+    
+    function testHomeUrl()
+    {
+        $this->_tpom->expects($this->any())
+                    ->method('get')
+                    ->will($this->returnCallback('org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_HomeUrlOnly'));
+        $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
+        $vid = $results[0];
+        $this->assertEquals('http://www.youtube.com/watch?v=BRKWi5beywQ&amp;feature=youtube_gdata', $vid->getHomeUrl());
+    }
+    
+    function testDuration()
+    {
+        $this->_tpom->expects($this->any())
+                    ->method('get')
+                    ->will($this->returnCallback('org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_DurationOnly'));
+        $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
+        $vid = $results[0];
+        $this->assertEquals('4:04', $vid->getDuration());
+    }
+    
+    function testDescriptionLimit()
+    {
+        $this->_tpom->expects($this->any())
+                    ->method('get')
+                    ->will($this->returnCallback('org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_DescriptionLimit'));
+        $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
+        $vid = $results[0];
+        $this->assertEquals('Informatio...', $vid->getDescription());
+    }
+    
+    function testDescriptionNoLimit()
+    {
+        $this->_tpom->expects($this->any())
+                     ->method('get')
+                     ->will($this->returnCallback('org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_DescriptionNoLimit'));
+        $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
+        $vid = $results[0];
+        $this->assertEquals('Information about shared spaces proposals in the Auckland CBD area.', $vid->getDescription());
+    }
+    
+    function testCategory()
+    {
+        $this->_tpom->expects($this->any())
+                    ->method('get')
+                    ->will($this->returnCallback('org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_CategoryOnly'));
+        $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
+        $vid = $results[0];
+        $this->assertEquals('People & Blogs', $vid->getCategory());
+    }
+    
     function testAuthor()
     {
         $this->_tpom->expects($this->any())
@@ -35,10 +97,8 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends PHPUnit_Framew
         $vid = $results[0];
         $ok = $vid->getThumbnailUrl() === 'http://i.ytimg.com/vi/BRKWi5beywQ/2.jpg'
             || $vid->getThumbnailUrl() === 'http://i.ytimg.com/vi/BRKWi5beywQ/3.jpg'
-            || $vid->getThumbnailUrl() === 'http://i.ytimg.com/vi/BRKWi5beywQ/1.jpg';
-        if (!$ok) {
-            print "Got " . $vid->getThumbnailUrl() . " as thumb URL";
-        }
+            || $vid->getThumbnailUrl() === 'http://i.ytimg.com/vi/BRKWi5beywQ/1.jpg'
+            || $vid->getThumbnailUrl() === 'http://i.ytimg.com/vi/BRKWi5beywQ/0.jpg';
         $this->assertTrue($ok);
     }
     
@@ -83,17 +143,62 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends PHPUnit_Framew
         $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
         $this->assertEquals(1, count($results));
     }
-    
-    
 }
 
-function org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_AuthorOnly() {
+function org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_KeywordsOnly()
+{
+    $args = func_get_args();
+    $val = $args[0];
+    return $val == org_tubepress_options_category_Meta::TAGS;   
+}
+
+function org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_HomeUrlOnly()
+{
+    $args = func_get_args();
+    $val = $args[0];
+    return $val == org_tubepress_options_category_Meta::URL;   
+}
+
+function org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_DurationOnly()
+{
+    $args = func_get_args();
+    $val = $args[0];
+    return $val == org_tubepress_options_category_Meta::LENGTH;
+}
+
+function org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_DescriptionNoLimit()
+{
+    $args = func_get_args();
+    $val = $args[0];
+    return $val == org_tubepress_options_category_Meta::DESCRIPTION;
+}
+
+function org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_DescriptionLimit()
+{
+    $args = func_get_args();
+    $val = $args[0];
+    if ($val == org_tubepress_options_category_Display::DESC_LIMIT) {
+        return 10;
+    }
+    return $val == org_tubepress_options_category_Meta::DESCRIPTION;
+}
+
+function org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_CategoryOnly()
+{
+    $args = func_get_args();
+    $val = $args[0];
+    return $val == org_tubepress_options_category_Meta::CATEGORY;
+}
+
+function org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_AuthorOnly()
+{
     $args = func_get_args();
     $val = $args[0];
     return $val == org_tubepress_options_category_Meta::AUTHOR;
 }
 
-function org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_RandomizeThumbsOnly() {
+function org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_RandomizeThumbsOnly()
+{
     $args = func_get_args();
     $val = $args[0];
     return $val == org_tubepress_options_category_Advanced::RANDOM_THUMBS;
