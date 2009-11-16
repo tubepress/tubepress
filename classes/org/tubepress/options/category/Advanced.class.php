@@ -29,5 +29,4 @@ class org_tubepress_options_category_Advanced
     const DEBUG_ON       = 'debugging_enabled';
     const KEYWORD        = 'keyword';
     const RANDOM_THUMBS  = 'randomize_thumbnails';
-    const NOFOLLOW_LINKS = 'nofollowLinks';
 } 

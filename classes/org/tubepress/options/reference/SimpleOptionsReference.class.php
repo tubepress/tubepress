@@ -63,7 +63,6 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
         ),
         org_tubepress_options_Type::BOOL => array(
             org_tubepress_options_category_Advanced::DEBUG_ON           => true,
-            org_tubepress_options_category_Advanced::NOFOLLOW_LINKS     => true,
             org_tubepress_options_category_Advanced::RANDOM_THUMBS      => true,
             org_tubepress_options_category_Display::RELATIVE_DATES      => false,
             org_tubepress_options_category_Display::PAGINATE_ABOVE      => true,
