@@ -105,14 +105,14 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
             }
             
             if ($index++ >= $limit) {
-                $this->_log->log($this->_logPrefix, sprintf('Reached limit of %d videos', $limit));
+                $this->_log->log($this->_logPrefix, 'Reached limit of %d videos', $limit);
                 break;
             }
             
             $results[] = $this->_createVideo();
         }
         
-        $this->_log->log($this->_logPrefix, sprintf('Built %d video(s) from YouTube\'s XML', sizeof($results)));
+        $this->_log->log($this->_logPrefix, 'Built %d video(s) from YouTube\'s XML', sizeof($results));
         return $results;
     }
     

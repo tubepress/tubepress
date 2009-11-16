@@ -54,11 +54,11 @@ class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_vi
     {
         /* figure out which page we're on */
         $currentPage = $this->_queryStringService->getPageNum($_GET);
-        $this->_log->log($this->_logPrefix, sprintf("Current page number is %d", $currentPage));
+        $this->_log->log($this->_logPrefix, 'Current page number is %d', $currentPage);
         
         /* build the request URL */
         $url = $this->_urlBuilder->buildGalleryUrl($currentPage);
-        $this->_log->log($this->_logPrefix, sprintf("URL to fetch is %s", $url));
+        $this->_log->log($this->_logPrefix, 'URL to fetch is %s', $url);
         
         /* make the request */
         $useCache = $this->_optionsManager->get(org_tubepress_options_category_Feed::CACHE_ENABLED);
@@ -66,11 +66,11 @@ class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_vi
         
         /* get reported total result count */
         $reportedTotalResultCount = $this->_feedInspectionService->getTotalResultCount($xml);
-        $this->_log->log($this->_logPrefix, sprintf("Reported total result count is %d videos", $reportedTotalResultCount));
+        $this->_log->log($this->_logPrefix, 'Reported total result count is %d videos', $reportedTotalResultCount);
         
         /* count the results in this particular response */
         $queryResult = $this->_feedInspectionService->getQueryResultCount($xml);
-        $this->_log->log($this->_logPrefix, sprintf("Query result count is %d videos", $queryResult));
+        $this->_log->log($this->_logPrefix, 'Query result count is %d videos', $queryResult);
         
         /* no videos? bail. */
         if ($queryResult == 0) {
@@ -79,22 +79,22 @@ class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_vi
         
         /* limit the result count if requested */
         $effectiveTotalResultCount = $this->_capTotalResultsIfNeeded($reportedTotalResultCount);
-        $this->_log->log($this->_logPrefix, sprintf("Effective total result count (taking into account user-defined limit) is %d videos", $effectiveTotalResultCount));
+        $this->_log->log($this->_logPrefix, 'Effective total result count (taking into account user-defined limit) is %d videos', $effectiveTotalResultCount);
         
         /* find out how many videos per page the user wants to show */
         $perPageLimit = $this->_optionsManager->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
-        $this->_log->log($this->_logPrefix, sprintf("Results-per-page limit is %d", $perPageLimit));
+        $this->_log->log($this->_logPrefix, 'Results-per-page limit is %d', $perPageLimit);
         
         /* find out how many videos this gallery will actually show (could be less than user limit) */
         $effectiveDisplayCount = min($queryResult, $perPageLimit);
-        $this->_log->log($this->_logPrefix, sprintf("Effective display count (taking into account user-defined limit) is %d videos", $effectiveDisplayCount));
+        $this->_log->log($this->_logPrefix, 'Effective display count (taking into account user-defined limit) is %d videos', $effectiveDisplayCount);
         
         /* convert the XML to objects */
         $videos = $this->_videoFactory->feedToVideoArray($xml, $effectiveDisplayCount);
         
         /* shuffle if we need to */
-        if ($this->_optionsManager->get(org_tubepress_options_category_Display::ORDER_BY) == "random") {
-            $this->_log->log($this->_logPrefix, "Shuffling videos");
+        if ($this->_optionsManager->get(org_tubepress_options_category_Display::ORDER_BY) == 'random') {
+            $this->_log->log($this->_logPrefix, 'Shuffling videos');
             shuffle($videos);
         }
         
@@ -113,40 +113,13 @@ class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_vi
         return $videoArray[0];
     }
     
-    public function setLog(org_tubepress_log_Log $log)
-    {
-        $this->_log = $log;
-    }
-    
-    public function setQueryStringService(org_tubepress_querystring_QueryStringService $qss) 
-    {             
-        $this->_queryStringService = $qss; 
-    }
-    
-    public function setUrlBuilder(org_tubepress_url_UrlBuilder $urlBuilder) 
-    {                   
-        $this->_urlBuilder = $urlBuilder; 
-    }
-    
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) 
-    {                        
-        $this->_optionsManager = $tpom; 
-    }
-    
-    public function setFeedInspectionService(org_tubepress_video_feed_inspection_FeedInspectionService $feedInspector) 
-    { 
-        $this->_feedInspectionService = $feedInspector; 
-    }
-    
-    public function setFeedRetrievalService(org_tubepress_video_feed_retrieval_FeedRetrievalService $feedRetriever) 
-    {   
-        $this->_feedRetrievalService = $feedRetriever; 
-    }
-    
-    public function setVideoFactory(org_tubepress_video_factory_VideoFactory $factory) 
-    {
-        $this->_videoFactory = $factory; 
-    }
+    public function setLog(org_tubepress_log_Log $log) { $this->_log = $log; }
+    public function setQueryStringService(org_tubepress_querystring_QueryStringService $qss) { $this->_queryStringService = $qss; }
+    public function setUrlBuilder(org_tubepress_url_UrlBuilder $urlBuilder) { $this->_urlBuilder = $urlBuilder; }
+    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_optionsManager = $tpom; }
+    public function setFeedInspectionService(org_tubepress_video_feed_inspection_FeedInspectionService $feedInspector) { $this->_feedInspectionService = $feedInspector; }
+    public function setFeedRetrievalService(org_tubepress_video_feed_retrieval_FeedRetrievalService $feedRetriever) { $this->_feedRetrievalService = $feedRetriever; }
+    public function setVideoFactory(org_tubepress_video_factory_VideoFactory $factory) { $this->_videoFactory = $factory; }
     
     private function _capTotalResultsIfNeeded($totalResults)
     {

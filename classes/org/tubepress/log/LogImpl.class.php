@@ -40,15 +40,23 @@ class org_tubepress_log_LogImpl implements org_tubepress_log_Log
         $this->_buffer = array();
     }
     
-    public function log($prefix, $message)
+    public function log()
     {
         if ($this->_enabled) {
+            $numArgs = func_num_args();
+            $prefix = func_get_arg(0);
+            $message = func_get_arg(1);
+            
             /* how many milliseconds have elapsed? */
             $time = (microtime(true) - $this->_birthDate) * 1000;
             
+            if ($numArgs > 2) {
+                $args = func_get_args();
+                $message = vsprintf($message, array_slice($args, 2, count($args)));
+            }
+            
             /* print it! */
-            printf("%s ms > (%s) > %s<br /><br />", 
-                $time, $prefix, $message);
+            printf("%s ms > (%s) > %s<br /><br />", $time, $prefix, $message);
         }
     }
 

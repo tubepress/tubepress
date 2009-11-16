@@ -85,7 +85,7 @@ function _tubepress_get_gallery_content($content, $trigger)
     while ($shortcodeService->somethingToParse($newcontent, $trigger)) {
 
         $rand = mt_rand();
-        $log->log("WordPress Main", sprintf("Starting to build gallery %s", $rand));
+        $log->log('WordPress Main', 'Starting to build gallery %s', $rand);
         
         $shortcodeService->parse($newcontent, $tpom);
 

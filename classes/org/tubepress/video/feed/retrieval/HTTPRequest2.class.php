@@ -43,8 +43,8 @@ class org_tubepress_video_feed_retrieval_HTTPRequest2 extends org_tubepress_vide
 
         $response = $req->send();
         
-        $this->_log->log($this->_logPrefix, sprintf("Request for %s returned status %d: %s", $request->getURL(true), 
-            $response->getStatus(), $response->getReasonPhrase()));
+        $this->_log->log($this->_logPrefix, 'Request for %s returned status %d: %s', $request->getURL(true), 
+            $response->getStatus(), $response->getReasonPhrase());
             
         if ($response->getStatus() != 200) {
             throw new Exception(sprintf("Problem retrieving videos from provider: %s", $response->getReasonPhrase()));

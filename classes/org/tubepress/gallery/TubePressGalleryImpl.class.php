@@ -74,7 +74,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
     private final function _getHtml($galleryId)
     {
         /* first grab the videos */
-        $this->_log->log($this->_logPrefix, "Asking provider for videos");
+        $this->_log->log($this->_logPrefix, 'Asking provider for videos');
         $feedResult = $this->_videoProvider->getFeedResult();
         
         /* prep template */
@@ -82,7 +82,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
         $this->_prepTemplate($feedResult, $galleryId);
         
         /* we're done. tie up */
-        $this->_log->log($this->_logPrefix, sprintf("Done assembling gallery %d", $galleryId));
+        $this->_log->log($this->_logPrefix, 'Done assembling gallery %d', $galleryId);
         return $this->_template->toString();
     }
     
@@ -91,7 +91,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
         $customTemplate = $this->_optionsManager->get(org_tubepress_options_category_Template::TEMPLATE);
             
         if ($customTemplate != "") {
-            $this->_log->log($this->_logPrefix, sprintf("Using custom template at %s", $customTemplate));
+            $this->_log->log($this->_logPrefix, 'Using custom template at %s', $customTemplate);
             $this->_template->setPath($customTemplate);
         }
     }
@@ -101,7 +101,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
         /* build the player */
         $playerName = $this->_optionsManager->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
         $player     = $this->_iocContainer->safeGet($playerName . "-player", org_tubepress_player_Player::NORMAL . "-player");
-        $this->_log->log($this->_logPrefix, sprintf("This gallery will use %s as the player", get_class($player)));
+        $this->_log->log($this->_logPrefix, 'This gallery will use %s as the player', get_class($player));
         
         $videos = $feedResult->getVideoArray();
        
@@ -123,7 +123,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
         
         /* Ajax pagination? */
         if ($this->_optionsManager->get(org_tubepress_options_category_Display::AJAX_PAGINATION)) {
-            $this->_log->log($this->_logPrefix, "Using Ajax pagination");
+            $this->_log->log($this->_logPrefix, 'Using Ajax pagination');
             $this->_template->setVariable(org_tubepress_template_Template::SHORTCODE, urlencode($this->_optionsManager->getShortcode()));        
         }
     }

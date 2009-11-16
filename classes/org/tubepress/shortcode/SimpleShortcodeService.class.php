@@ -62,7 +62,7 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
         /* Match everything in square brackets after the trigger */
         $regexp = "\[$keyword\b(.*)\]";
         
-        $this->_log->log($this->_logPrefix, "Regular expression for content is $regexp");
+        $this->_log->log($this->_logPrefix, 'Regular expression for content is %s', $regexp);
         
         preg_match("/$regexp/", $content, $matches);
         
@@ -71,7 +71,7 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
             return;
         }
 
-        $this->_log->log($this->_logPrefix, sprintf("Found a shortcode: %s", $matches[0]));
+        $this->_log->log($this->_logPrefix, 'Found a shortcode: %s', $matches[0]);
         
         $tpom->setShortcode($matches[0]);
 
@@ -84,14 +84,14 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
         
             if ( preg_match_all($pattern, $text, $match, PREG_SET_ORDER) ) {
                 
-                $this->_log->log($this->_logPrefix, sprintf("Custom options detected in shortcode: %s", $matches[0]));    
+                $this->_log->log($this->_logPrefix, 'Custom options detected in shortcode: %s', $matches[0]);    
             
                 $customOptions = $this->_parseCustomOption($customOptions, $match);
                 
                 $this->_applyOptions($tpom, $customOptions, $mergeWithExistingOptions);
             }
         } else {
-            $this->_log->log($this->_logPrefix, sprintf("No custom options detected in shortcode: %s", $matches[0]));
+            $this->_log->log($this->_logPrefix, 'No custom options detected in shortcode: %s', $matches[0]);
         }
     }
 
@@ -110,13 +110,13 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
                 $value = $this->_normalizeValue($m[6]);
             }
             
-            $this->_log->log($this->_logPrefix, sprintf("Custom shortcode detected: %s = %s", $name, (string)$value));
+            $this->_log->log($this->_logPrefix, 'Custom shortcode detected: %s = %s', $name, (string)$value);
             
             try {
                 $this->_inputValidationService->validate($name, $value);
                 $customOptions[$name] = $value;
             } catch (Exception $e) {
-                $this->_log->log($this->_logPrefix, sprintf("Ignoring invalid value for \"%s\" option: %s", $name, $e->getMessage()));
+                $this->_log->log($this->_logPrefix, 'Ignoring invalid value for "%s" option: %s', $name, $e->getMessage());
             }
         }
         return $customOptions;
