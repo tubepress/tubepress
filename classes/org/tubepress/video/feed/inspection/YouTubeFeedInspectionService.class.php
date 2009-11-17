@@ -33,7 +33,7 @@ class org_tubepress_video_feed_inspection_YouTubeFeedInspectionService implement
     
     public function getTotalResultCount($rawFeed)
     {
-	$dom = $this->_getDom($rawFeed);
+	   $dom = $this->_getDom($rawFeed);
         $result = $dom->getElementsByTagNameNS(org_tubepress_video_feed_inspection_YouTubeFeedInspectionService::NS_OPENSEARCH,
             'totalResults')->item(0)->nodeValue;
         
@@ -43,18 +43,21 @@ class org_tubepress_video_feed_inspection_YouTubeFeedInspectionService implement
     
     public function getQueryResultCount($rawFeed)
     {
-	$dom = $this->_getDom($rawFeed);
+	    $dom = $this->_getDom($rawFeed);
         $result = $dom->getElementsByTagName('entry')->length;
         $this->_makeSureNumeric($result);
         return $result;
     }
     
     private function _getDom($rawFeed) {
-	$dom = new DOMDocument();
-	if ($dom->loadXML($rawFeed) === FALSE) {
-            throw new Exception('Problem parsing XML from YouTube');
-	}
-	return $dom;
+        if (!class_exists('DOMDocument')) {
+            throw new Exception('DOMDocument class not found');
+        }
+    	$dom = new DOMDocument();
+    	if ($dom->loadXML($rawFeed) === FALSE) {
+                throw new Exception('Problem parsing XML from YouTube');
+    	}
+    	return $dom;
     }
 
     private function _makeSureNumeric($result)

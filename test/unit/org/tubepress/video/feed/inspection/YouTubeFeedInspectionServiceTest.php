@@ -37,8 +37,9 @@ class org_tubepress_video_feed_inspection_YouTubeFeedInspectionServiceTest exten
 	
 	function testGetQueryResult()
 	{
-		$dom = file_get_contents(dirname(__FILE__) . "/../../../../../sample_feed.xml");
-		$this->assertEquals(21, $this->_sut->getQueryResultCount($dom));
+		$dom = $this->getSampleXmlQuery();
+		$this->assertEquals(3
+		, $this->_sut->getQueryResultCount($dom));
 	}
 	
 	function testGetQueryResultNoEntries()
@@ -46,6 +47,18 @@ class org_tubepress_video_feed_inspection_YouTubeFeedInspectionServiceTest exten
 		$dom = $this->getSampleXmlTotal();
 		$this->assertEquals(0, $this->_sut->getQueryResultCount($dom));
 	}
+
+   function getSampleXmlQuery()
+    {
+        return <<<EOT
+<xml version='1.0' encoding='UTF-8'>
+    <feed xmlns='http://www.w3.org/2005/Atom'
+        xmlns:openSearch='http://a9.com/-/spec/opensearch/1.1/'>
+        <entry /><entry /><entry />
+    </feed>
+</xml>
+EOT;
+    }
 	
 	function getSampleXmlTotal()
 	{
