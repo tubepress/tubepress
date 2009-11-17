@@ -1400,17 +1400,6 @@ nights working on this project. If you enjoy the software, please consider a don
                             <entry><code>[tubepress debugging_enabled="false"]</code></entry>
                         </row>
                         <row>
-                            <entry><code>nofollowLinks</code></entry>
-                            <entry>Add <code>rel=nofollow</code> to most YouTube links </entry>
-                            <entry>
-                                    <itemizedlist>
-                                        <listitem><code>true</code></listitem>
-                                        <listitem><code>false</code></listitem>
-                                    </itemizedlist>
-                                </entry>
-                            <entry><code>[tubepress nofollowLinks="false"]</code></entry>
-                        </row>
-                        <row>
                             <entry><code>randomize_thumbnails</code></entry>
                             <entry>Toggles random thumbnail selection for each video (each video comes with several thumbnails)</entry>
                             <entry>
