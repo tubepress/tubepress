@@ -262,7 +262,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
     { 
         $count = $this->_xpath->query('gd:rating', $this->_currentNode)->item(0);
         if ($count != null) {
-            return $count->getAttribute('average');
+            return number_format($count->getAttribute('average'), 2);
         }
         return "N/A";
     }

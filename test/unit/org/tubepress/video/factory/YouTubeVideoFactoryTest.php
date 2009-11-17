@@ -16,6 +16,56 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends PHPUnit_Framew
         $this->_sut->setOptionsManager($this->_tpom);
     }
 
+    function testViews()
+    {
+        $this->_tpom->expects($this->any())
+                    ->method('get')
+                    ->will($this->returnCallback('org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_ViewsOnly'));
+        $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
+        $vid = $results[0];
+        $this->assertEquals('1,775', $vid->getViewCount());
+    }
+    
+    function testTimeUploadedRelative()
+    {
+        $this->_tpom->expects($this->any())
+                    ->method('get')
+                    ->will($this->returnCallback('org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_UploadTimeRelativeOnly'));
+        $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
+        $vid = $results[0];
+        $this->assertEquals('3 months ago', $vid->getTimePublished());
+    }
+    
+    function testTimeUploadedAbsolute()
+    {
+        $this->_tpom->expects($this->any())
+                    ->method('get')
+                    ->will($this->returnCallback('org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_UploadTimeOnly'));
+        $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
+        $vid = $results[0];
+        $this->assertEquals('Monday 17th of August 2009 04:36:21 PM', $vid->getTimePublished());
+    }
+    
+    function testRating()
+    {
+        $this->_tpom->expects($this->any())
+                    ->method('get')
+                    ->will($this->returnCallback('org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_RatingOnly'));
+        $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
+        $vid = $results[0];
+        $this->assertEquals('3.83', $vid->getRatingAverage());
+    }
+    
+    function testRatings()
+    {
+        $this->_tpom->expects($this->any())
+                    ->method('get')
+                    ->will($this->returnCallback('org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_RatingsOnly'));
+        $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
+        $vid = $results[0];
+        $this->assertEquals(6, $vid->getRatingCount());
+    }
+    
     function testKeywords()
     {
         $this->_tpom->expects($this->any())
@@ -143,6 +193,44 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends PHPUnit_Framew
         $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
         $this->assertEquals(1, count($results));
     }
+}
+
+function org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_ViewsOnly()
+{
+    $args = func_get_args();
+    $val = $args[0];
+    return $val == org_tubepress_options_category_Meta::VIEWS;   
+}
+
+function org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_UploadTimeRelativeOnly()
+{
+    $args = func_get_args();
+    $val = $args[0];
+    return $val == org_tubepress_options_category_Meta::UPLOADED || $val == org_tubepress_options_category_Display::RELATIVE_DATES; 
+}
+
+function org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_UploadTimeOnly()
+{
+    $args = func_get_args();
+    $val = $args[0];
+    if ($val == org_tubepress_options_category_Advanced::DATEFORMAT) {
+        return 'l jS \of F Y h:i:s A';
+    }
+    return $val == org_tubepress_options_category_Meta::UPLOADED; 
+}
+
+function org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_RatingsOnly()
+{
+    $args = func_get_args();
+    $val = $args[0];
+    return $val == org_tubepress_options_category_Meta::RATINGS;   
+}
+
+function org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_RatingOnly()
+{
+    $args = func_get_args();
+    $val = $args[0];
+    return $val == org_tubepress_options_category_Meta::RATING;   
 }
 
 function org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_KeywordsOnly()
