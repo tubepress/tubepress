@@ -2,8 +2,9 @@
 abstract class org_tubepress_embedded_impl_AbstractEmbeddedPlayerServiceTest extends PHPUnit_Framework_TestCase {
     
 	protected $_sut;
+	private $_template;
 	
-	function parentSetUp($out, $times, $templateFile)
+	function parentSetUp($out, $times)
 	{
 		$this->_sut = $out;
 		
@@ -15,10 +16,17 @@ abstract class org_tubepress_embedded_impl_AbstractEmbeddedPlayerServiceTest ext
 	    $this->_sut->setOptionsManager($tpom);
 	    
 	    /* Set up template */
-	    $template = new org_tubepress_template_SimpleTemplate();
-	    $template->setPath($templateFile);
-	    $this->_sut->setTemplate($template);
+	    $this->_template = $this->getMock('org_tubepress_template_Template');
+	    $this->_template->setPath(__FILE__);
+	    $this->_sut->setTemplate($this->_template);
 	}
+	
+    function testToString()
+    {
+        $this->_template->expects($this->once())
+                        ->method('toString');
+        $this->_sut->toString('FAKEID');
+    }
 }
 
 function embedded_test_callback() {
