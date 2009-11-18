@@ -39,7 +39,7 @@ abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_play
     public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId)
     {
         if ($this->_isIphoneOrIpod()) {
-            return "";
+            return '';
         }
         return $this->doGetPreGalleryHtml($vid, $galleryId);
     }

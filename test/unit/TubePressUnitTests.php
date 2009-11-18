@@ -31,7 +31,7 @@ class TubePressUnitTests
 		$suite->addTest(IocTests::suite());
 		$suite->addTest(MessageTests::suite());
 		$suite->addTest(PaginationTests::suite());
-		//$suite->addTest(PlayerTests::suite());
+		$suite->addTest(PlayerTests::suite());
 		$suite->addTest(QueryStringTests::suite());
 		$suite->addTest(ShortcodeTests::suite());
 		$suite->addTest(TemplateTests::suite());
