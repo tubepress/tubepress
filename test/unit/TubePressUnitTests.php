@@ -26,7 +26,7 @@ class TubePressUnitTests
 		$suite = new PHPUnit_Framework_TestSuite("TubePress Unit Tests");
 		$suite->addTest(CacheTests::suite());
 		$suite->addTest(EmbeddedTests::suite());
-		//$suite->addTest(TubePressGalleryTests::suite());
+		$suite->addTest(TubePressGalleryTests::suite());
 		$suite->addTest(LogTests::suite());
 		$suite->addTest(IocTests::suite());
 		$suite->addTest(MessageTests::suite());

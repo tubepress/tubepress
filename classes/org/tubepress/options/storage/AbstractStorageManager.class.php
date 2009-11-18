@@ -46,34 +46,6 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
     protected abstract function create($optionName, $optionValue);    
     
     /**
-     * Print out debugging info for this
-     * storage manager
-     *
-     * @return void
-     */
-    public final function debug()
-    {
-        $allOpts = $this->_optionsReference->getAllOptionNames();
-        
-        $result = "Should have " . sizeof($allOpts) . " options total";
-        
-        $result .= "<ol>";
-        foreach ($allOpts as $opt) {
-            if ($this->exists($opt)) {
-                $result .= "<li><font color=\"green\">" .
-                    "$opt exists and its value is \"" . $this->get($opt) .
-                    "\"</font></li>";
-            } else {
-                $result .= "<li><font color=\"red\">" .
-                    "$opt does not exist!</font></li>";
-            }
-            
-        }
-        $result .= "</ol>";
-        return $result;
-    }    
-    
-    /**
      * Deletes an option from storage
      *
      * @param unknown_type $optionName The name of the option to delete

@@ -11,10 +11,10 @@ class org_tubepress_gallery_TubePressGalleryImplTest extends PHPUnit_Framework_T
     private $_log;
     private $_messageService;
     private $_optionsManager;
+    private $_optionsReference;
     private $_paginationService;
     private $_player;
     private $_queryStringService;
-    private $_thumbnailService;
     private $_videoProvider;
 	
 	function setUp()
@@ -35,8 +35,8 @@ class org_tubepress_gallery_TubePressGalleryImplTest extends PHPUnit_Framework_T
         $this->_paginationService  = $this->getMock('org_tubepress_pagination_PaginationService');
         $this->_player             = $this->getMock('org_tubepress_player_Player');
         $this->_queryStringService = $this->getMock('org_tubepress_querystring_QueryStringService');
-        $this->_thumbnailService   = $this->getMock('org_tubepress_thumbnail_ThumbnailService');
         $this->_videoProvider      = $this->getMock('org_tubepress_video_feed_provider_Provider');
+        $this->_optionsReference   = $this->getMock('org_tubepress_options_reference_OptionsReference');
     }
 	
     private function _applyMocks()
@@ -48,15 +48,15 @@ class org_tubepress_gallery_TubePressGalleryImplTest extends PHPUnit_Framework_T
         $this->_sut->setOptionsManager($this->_optionsManager);    
         $this->_sut->setPaginationService($this->_paginationService); 
         $this->_sut->setQueryStringService($this->_queryStringService); 
-        $this->_sut->setThumbnailService($this->_thumbnailService);   
         $this->_sut->setVideoProvider($this->_videoProvider);      
+        $this->_sut->setOptionsReference($this->_optionsReference);
     }
     
 	private function _setupMocks()
 	{
 	    $fakeVideos = array(
-	       org_tubepress_video_VideoTest::getFakeInstance(true),
-	       org_tubepress_video_VideoTest::getFakeInstance(true)
+	       $this->getMock('org_tubepress_video_Video'),
+	       $this->getMock('org_tubepress_video_Video')
 	    );
 	    
 	    $feedResult = new org_tubepress_video_feed_FeedResult();
@@ -83,11 +83,6 @@ class org_tubepress_gallery_TubePressGalleryImplTest extends PHPUnit_Framework_T
         $this->_queryStringService->expects($this->once())
                                   ->method('getCustomVideo')
                                   ->will($this->returnValue(''));
-                                  
-        /* make sure each thumb gets printed */
-        $this->_thumbnailService->expects($this->exactly(sizeof($fakeVideos)))
-                                ->method('getHtml')
-                                ->will($this->returnValue('fake thumbnail html'));
 
         /* make sure pagination gets printed */
         $this->_paginationService->expects($this->once())
@@ -98,6 +93,10 @@ class org_tubepress_gallery_TubePressGalleryImplTest extends PHPUnit_Framework_T
         $this->_template->expects($this->once())
                                  ->method('toString')
                                  ->will($this->returnValue('gallery html'));
+                                 
+        $this->_optionsReference->expects($this->once())
+                                ->method('getOptionNamesForCategory')
+                                ->will($this->returnValue(array()));
 	}
 	
     public function testRegularGalleryHtml()
@@ -120,43 +119,6 @@ class org_tubepress_gallery_TubePressGalleryImplTest extends PHPUnit_Framework_T
         $this->assertEquals('gallery html', $this->_sut->getHtml(22));    
     }   
                                  
-//		$fakeUrl = 'http://fakeurl';
-//		$fakeXml = DOMDocument::load(dirname(__FILE__) . '/../../../sample_feed.xml');
-//		$fakeVideo = org_tubepress_video_VideoTest::getFakeInstance(false);
-//		$fakeHtml = 'stuff';
-//		
-//		$this->_urlBuilderService->expects($this->once())
-//								 ->method('buildGalleryUrl')
-//								 ->will($this->returnValue($fakeUrl));
-//		
-//		$this->_feedRetrievalService->expects($this->once())
-//									->method('fetch')
-//									->will($this->returnValue($fakeXml));
-//		$this->_feedInspectionService->expects($this->once())
-//									 ->method('getTotalResultCount')
-//									 ->with($fakeXml)
-//									 ->will($this->returnValue(4));
-//		$this->_feedInspectionService->expects($this->once())
-//									 ->method('getQueryResultCount')
-//									 ->with($fakeXml)
-//									 ->will($this->returnValue(4));
-//		$this->_qss->expects($this->once())
-//				   ->method('getPageNum')
-//				   ->will($this->returnValue(1));
-//		$this->_videoFactory->expects($this->once())
-//							->method('dom2TubePressVideoArray')
-//							->will($this->returnValue(array($fakeVideo, $fakeVideo, $fakeVideo)));
-//		$this->_thumbService->expects($this->exactly(3))
-//							->method('getHtml')
-//							->will($this->returnValue($fakeHtml));
-//	    $fakePlayer = $this->getMock('org_tubepress_player_Player');
-//	    $fakePlayer->expects($this->once())
-//	               ->method('getPreGalleryHtml')
-//	               ->will($this->returnValue('pregallerystuff'));
-//        $this->_ioc->expects($this->once())
-//                   ->method('safeGet')
-//                   ->will($this->returnValue($fakePlayer));
-	
 }
 
 function _tpomCallbackGalleryUnitTest()
@@ -179,7 +141,10 @@ function _tpomCallbackGalleryUnitTest()
         org_tubepress_options_category_Display::PAGINATE_BELOW => true,
         org_tubepress_options_category_Display::AJAX_PAGINATION => false,
         org_tubepress_options_category_Feed::RESULT_COUNT_CAP => 300,
-        org_tubepress_options_category_Template::TEMPLATE => ''
+        org_tubepress_options_category_Template::TEMPLATE => '',
+        org_tubepress_options_category_Embedded::PLAYER_IMPL => 'youtube',
+        org_tubepress_options_category_Display::THUMB_HEIGHT => 40,
+        org_tubepress_options_category_Display::THUMB_WIDTH => 50
 	);
 	return $vals[$args[0]];
 }
@@ -204,7 +169,10 @@ function _tpomCallbackGalleryUnitTestCustomTemplate()
         org_tubepress_options_category_Display::PAGINATE_BELOW => true,
         org_tubepress_options_category_Display::AJAX_PAGINATION => false,
         org_tubepress_options_category_Feed::RESULT_COUNT_CAP => 300,
-        org_tubepress_options_category_Template::TEMPLATE => 'foobar'
+        org_tubepress_options_category_Template::TEMPLATE => 'foobar',
+        org_tubepress_options_category_Embedded::PLAYER_IMPL => 'youtube',
+        org_tubepress_options_category_Display::THUMB_HEIGHT => 40,
+        org_tubepress_options_category_Display::THUMB_WIDTH => 50
     );
     return $vals[$args[0]];
 }

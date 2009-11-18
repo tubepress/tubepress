@@ -26,14 +26,6 @@
 interface org_tubepress_options_storage_StorageManager
 {   
     /**
-     * Print out debugging info for this
-     * storage manager
-     *
-     * @return void
-     */
-    public function debug();    
-    
-    /**
      * Determines if an option exists
      *
      * @param string $optionName The name of the option in question
