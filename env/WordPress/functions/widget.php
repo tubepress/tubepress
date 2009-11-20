@@ -70,7 +70,8 @@ function tubepress_widget($opts)
 	        org_tubepress_options_category_Display::THUMB_HEIGHT        => 105,
 	        org_tubepress_options_category_Display::THUMB_WIDTH         => 135,
 	        org_tubepress_options_category_Display::PAGINATE_ABOVE      => false,
-	        org_tubepress_options_category_Display::PAGINATE_BELOW      => false
+	        org_tubepress_options_category_Display::PAGINATE_BELOW      => false,
+	        org_tubepress_options_category_Gallery::TEMPLATE            => 'sidebar.tpl.php'
 	    )
 	);
 	

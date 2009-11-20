@@ -34,9 +34,11 @@
         <?php foreach (${org_tubepress_template_Template::VIDEO_ARRAY} as $video): ?>
      
       <div class="tubepress_thumb">
-        <a id="tubepress_image_<?php echo $video->getId(); ?>_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>" rel="tubepress_<?php echo ${org_tubepress_template_Template::EMBEDDED_IMPL_NAME}; ?>_<?php echo ${org_tubepress_template_Template::PLAYER_NAME}; ?>_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>"> 
-          <img alt="<?php echo htmlspecialchars($video->getTitle(), ENT_QUOTES, "UTF-8"); ?>" src="<?php echo $video->getThumbnailUrl(); ?>" width="<?php echo ${org_tubepress_template_Template::THUMBNAIL_WIDTH}; ?>" height="<?php echo ${org_tubepress_template_Template::THUMBNAIL_HEIGHT}; ?>" />
-        </a>
+        <object width="<?php echo ${org_tubepress_template_Template::THUMBNAIL_WIDTH}; ?>" height="<?php echo ${org_tubepress_template_Template::THUMBNAIL_HEIGHT}; ?>">
+            <param name="movie" value="http://www.youtube.com/v/<?php echo $video->getId(); ?>"></param>
+            <param name="wmode" value="transparent"></param>
+            <embed src="http://www.youtube.com/v/<?php echo $video->getId(); ?>" type="application/x-shockwave-flash" wmode="transparent" width="<?php echo ${org_tubepress_template_Template::THUMBNAIL_WIDTH}; ?>" height="<?php echo ${org_tubepress_template_Template::THUMBNAIL_HEIGHT}; ?>"></embed>
+        </object>
         <dl class="tubepress_meta_group" style="width: <?php echo ${org_tubepress_template_Template::THUMBNAIL_WIDTH}; ?>px">
           
           <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::TITLE]): ?>      

@@ -83,7 +83,13 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
             case org_tubepress_options_category_Display::RESULTS_PER_PAGE:
                 $this->_checkIntegerRange(org_tubepress_options_category_Display::RESULTS_PER_PAGE, $candidate, 1, 50);
                 break;
-            }
+            
+            case org_tubepress_options_category_Gallery::TEMPLATE:
+                if (strpos($candidate, '..') !== FALSE) {
+                    throw new Exception($this->_messageService->_("validation-no-dots-in-template"));
+                }
+                break;
+        }
     }
     
     /**

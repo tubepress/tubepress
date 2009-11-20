@@ -175,6 +175,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'validation-no-such-option' => '\'%s\' is not a valid option name.',
         'validation-bool'           => '\'%s\' must be either true or false. You supplied \'%s\'.',
         'validation-enum'           => '\'%s\' must be one of \'%s\'. You supplied \'%s\'.',
+        'validation-no-dots-in-template' => 'Template names cannot contain two consecutive periods',
     
         'next' => 'next', 
         'prev' => 'prev', 

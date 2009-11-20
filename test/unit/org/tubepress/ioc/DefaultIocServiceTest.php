@@ -17,6 +17,7 @@ class org_tubepress_ioc_DefaultIocServiceTest extends PHPUnit_Framework_TestCase
             org_tubepress_ioc_IocService::FEED_INSPECTION_SERVICE       => 'org_tubepress_video_feed_inspection_YouTubeFeedInspectionService',
             org_tubepress_ioc_IocService::QUERY_STRING_SERVICE          => 'org_tubepress_querystring_SimpleQueryStringService',
             org_tubepress_ioc_IocService::LOG                           => 'org_tubepress_log_LogImpl',
+            org_tubepress_ioc_IocService::BROWSER_DETECTOR              => 'org_tubepress_browser_BrowserDetectorImpl',
             
             // 1 SETTER
             org_tubepress_ioc_IocService::URL_BUILDER                           => 'org_tubepress_url_YouTubeUrlBuilder', 

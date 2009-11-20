@@ -40,6 +40,8 @@ tubepress_load_classes(array('org_tubepress_ioc_ContainerAware',
  */
 class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_gallery_TubePressGallery, org_tubepress_ioc_ContainerAware
 {
+    private $_templateDir;
+    
     private $_iocContainer;
     private $_template;
     private $_log;
@@ -54,6 +56,8 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
     
     public function __construct()
     {
+        /* SET THE TEMPLATE DIRECTORY HERE. DON'T FORGET THE TRAILING SLASH ;)  */
+        $this->_templateDir = dirname(__FILE__) . '/../../../../ui/gallery/html_templates/';
         $this->_logPrefix = "Gallery";
     }
     
@@ -90,9 +94,10 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
     {
         $customTemplate = $this->_optionsManager->get(org_tubepress_options_category_Template::TEMPLATE);
             
-        if ($customTemplate != "") {
-            $this->_log->log($this->_logPrefix, 'Using custom template at %s', $customTemplate);
-            $this->_template->setPath($customTemplate);
+        if ($customTemplate != '') {
+            $template = realpath($this->_templateDir . $customTemplate);
+            $this->_log->log($this->_logPrefix, 'Using custom template at %s', $template);
+            $this->_template->setPath($template);
         }
     }
     

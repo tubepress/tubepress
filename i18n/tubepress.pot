@@ -397,3 +397,6 @@ msgstr ""
 
 msgid "\"%s\" must be between \"%d\" and \"%d\". You supplied \"%d\"."
 msgstr ""
+
+msgid "Template names cannot contain two consecutive periods"
+msgstr ""
