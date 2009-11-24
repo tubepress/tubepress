@@ -170,6 +170,17 @@ function tubepress_load_css(path) {
     document.getElementsByTagName("head")[0].appendChild(fileref)
 }
 
+function tubepress_center_thumbs(gallerySelector) {
+	jQuery(document).ready(function() {
+		jQuery(gallerySelector + " div.tubepress_thumb").children().each(function() {
+			var myWidth = jQuery(this).width(),
+				parentWidth = jQuery(this).parent().width(),
+				offset = (parentWidth - myWidth) / 2;
+				jQuery(this).css("margin-left", offset);
+		;})
+	;});
+}
+
 /**
  * Adds Ajax functionality to pagination links
  *
@@ -197,7 +208,8 @@ function _tubepress_processAjaxRequest(anchor, galleryId) {
 }
 
 function _tubepress_postAjaxGallerySetup(thumbnailArea, galleryId) {
-    _tubepress_attach_listeners();
+	tubepress_center_thumbs("#tubepress_gallery_" + galleryId);
+	jQuery("a[id^='tubepress_']").click(tubepress_click_listener);
     tubepress_ajaxifyPaginationForGallery(galleryId);
     jQuery(thumbnailArea).fadeTo('fast', 1);
 }

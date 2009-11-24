@@ -139,7 +139,7 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
                 {
                     $url->setQueryVariable($pagestring, 1);
                     $newurl = $url->getURL();
-                    $pagination .= "<a href=\"$newurl\">1</a>";
+                    $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">1</a>";
                     $url->setQueryVariable($pagestring, 2);
                     $newurl = $url->getURL();
                     $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">2</a>";
@@ -168,7 +168,7 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
                 {
                     $url->setQueryVariable($pagestring, 1);
                     $newurl = $url->getURL();
-                    $pagination .= "<a href=\"$newurl\">1</a>";
+                    $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">1</a>";
                     $url->setQueryVariable($pagestring, 2);
                     $newurl = $url->getURL();
                     $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">2</a>";

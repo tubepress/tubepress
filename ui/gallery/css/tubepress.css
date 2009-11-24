@@ -1,6 +1,7 @@
 .tubepress_container {
 	float: left;
 	margin-bottom: 2em;
+	width: 100%;
 }
 
 .tubepress_normal_embedded_wrapper {
@@ -21,6 +22,7 @@
 .tubepress_thumbs {
 	padding: 1em 5px 0 5px;
 	float: left;
+	width: 100%;
 }
 
 .tubepress_thumb {
