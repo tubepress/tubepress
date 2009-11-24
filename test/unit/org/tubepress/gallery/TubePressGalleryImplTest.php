@@ -7,6 +7,7 @@ class org_tubepress_gallery_TubePressGalleryImplTest extends PHPUnit_Framework_T
 	private $_sut;
 	
     private $_iocContainer;
+    private $_bd;
     private $_template;
     private $_log;
     private $_messageService;
@@ -37,6 +38,7 @@ class org_tubepress_gallery_TubePressGalleryImplTest extends PHPUnit_Framework_T
         $this->_queryStringService = $this->getMock('org_tubepress_querystring_QueryStringService');
         $this->_videoProvider      = $this->getMock('org_tubepress_video_feed_provider_Provider');
         $this->_optionsReference   = $this->getMock('org_tubepress_options_reference_OptionsReference');
+        $this->_bd                 = $this->getMock('org_tubepress_browser_BrowserDetector');
     }
 	
     private function _applyMocks()
@@ -50,6 +52,7 @@ class org_tubepress_gallery_TubePressGalleryImplTest extends PHPUnit_Framework_T
         $this->_sut->setQueryStringService($this->_queryStringService); 
         $this->_sut->setVideoProvider($this->_videoProvider);      
         $this->_sut->setOptionsReference($this->_optionsReference);
+        $this->_sut->setBrowserDetector($this->_bd);
     }
     
 	private function _setupMocks()
@@ -93,6 +96,10 @@ class org_tubepress_gallery_TubePressGalleryImplTest extends PHPUnit_Framework_T
         $this->_template->expects($this->once())
                                  ->method('toString')
                                  ->will($this->returnValue('gallery html'));
+                                 
+        $this->_bd->expects($this->once())
+                  ->method('detectBrowser')
+                  ->will($this->returnValue(org_tubepress_browser_BrowserDetector::UNKNOWN));
                                  
         $this->_optionsReference->expects($this->once())
                                 ->method('getOptionNamesForCategory')

@@ -33,7 +33,8 @@ tubepress_load_classes(array('org_tubepress_ioc_ContainerAware',
     'org_tubepress_gallery_TubePressGallery',
     'org_tubepress_options_category_Template',
     'org_tubepress_video_feed_provider_Provider',
-    'org_tubepress_video_feed_FeedResult'));
+    'org_tubepress_video_feed_FeedResult',
+    'org_tubepress_browser_BrowserDetector'));
 
 /**
  * TubePress gallery
@@ -43,6 +44,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
     private $_templateDir;
     
     private $_iocContainer;
+    private $_browserDetector;
     private $_template;
     private $_log;
     private $_logPrefix;
@@ -58,6 +60,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
     {
         /* SET THE TEMPLATE DIRECTORY HERE. DON'T FORGET THE TRAILING SLASH ;)  */
         $this->_templateDir = dirname(__FILE__) . '/../../../../ui/gallery/html_templates/';
+        
         $this->_logPrefix = "Gallery";
     }
     
@@ -92,6 +95,13 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
     
     private function _applyCustomTemplateIfNeeded()
     {
+        $browser = $this->_browserDetector->detectBrowser($_SERVER);
+        if ($browser === org_tubepress_browser_BrowserDetector::IPHONE || $browser === org_tubepress_browser_BrowserDetector::IPOD) {
+            $template = realpath($this->_templateDir . 'iphone-ipod.tpl.php');
+            $this->_log->log($this->_logPrefix, 'iPhone/iPod detected. Setting template to ', $template);
+            $this->_template->setPath($template);
+        }
+        
         $customTemplate = $this->_optionsManager->get(org_tubepress_options_category_Template::TEMPLATE);
             
         if ($customTemplate != '') {
@@ -197,6 +207,7 @@ GBS;
         return $result;
     }
     
+    public function setBrowserDetector(org_tubepress_browser_BrowserDetector $bd) {               $this->_browserDetector    = $bd; }
     public function setContainer(org_tubepress_ioc_IocService $container) {                       $this->_iocContainer       = $container; }
     public function setTemplate(org_tubepress_template_Template $template) {                      $this->_template           =   $template; }
     public function setMessageService(org_tubepress_message_MessageService $messageService) {     $this->_messageService     = $messageService; }

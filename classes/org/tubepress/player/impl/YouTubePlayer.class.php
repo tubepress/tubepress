@@ -29,7 +29,7 @@ tubepress_load_classes(array('org_tubepress_player_AbstractPlayer',
  */
 class org_tubepress_player_impl_YouTubePlayer extends org_tubepress_player_AbstractPlayer
 {
-    public function doGetPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId)
+    public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId)
     {
         return '';
     }

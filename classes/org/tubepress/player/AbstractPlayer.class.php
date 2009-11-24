@@ -25,8 +25,7 @@ tubepress_load_classes(array('org_tubepress_player_Player',
     'org_tubepress_ioc_ContainerAware',
     'org_tubepress_options_manager_OptionsManager',
     'org_tubepress_template_Template',
-    'org_tubepress_ioc_IocService',
-    'org_tubepress_browser_BrowserDetector'));
+    'org_tubepress_ioc_IocService'));
 
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
@@ -36,26 +35,13 @@ abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_play
     private $_optionsManager;
     private $_iocContainer;
     private $_template;
-    private $_browserDetector;
-    
-    public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId)
-    {
-        $browser = $this->_browserDetector->detectBrowser($_SERVER);
-        if ($browser === org_tubepress_browser_BrowserDetector::IPHONE || $browser === org_tubepress_browser_BrowserDetector::IPOD) {
-            return '';
-        }
-        return $this->doGetPreGalleryHtml($vid, $galleryId);
-    }
     
     public function setContainer(org_tubepress_ioc_IocService $container) { $this->_iocContainer = $container; }
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $optionsManager) { $this->_optionsManager = $optionsManager; }
     public function setTemplate(org_tubepress_template_Template $template) { $this->_template = $template; }
-    public function setBrowserDetector(org_tubepress_browser_BrowserDetector $detector) { $this->_browserDetector = $detector; }
     
     protected function getContainer() { return $this->_iocContainer; }
     protected function getOptionsManager() { return $this->_optionsManager; }
     protected function getTemplate() { return $this->_template; }
-    
-    protected abstract function doGetPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId);
 }
 
