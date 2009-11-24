@@ -26,7 +26,8 @@ tubepress_load_classes(array('org_tubepress_options_storage_WordPressStorageMana
     'org_tubepress_shortcode_SimpleShortcodeService',
     'org_tubepress_ioc_DefaultIocService',
     'org_tubepress_ioc_IocService',
-    'org_tubepress_util_StringUtils'));
+    'org_tubepress_util_StringUtils',
+    'org_tubepress_gallery_TubePressGalleryImpl'));
 
 /**
  * Main filter hook. Looks for a tubepress tag
@@ -110,23 +111,7 @@ function _tubepress_get_gallery_content($content, $trigger)
  */
 function tubepress_head_filter()
 {
-    global $tubepress_base_url;
-    
-    try {
-        print<<<GBS
-<script type="text/javascript">function getTubePressBaseUrl(){return "$tubepress_base_url";}</script>
-<script type="text/javascript" src="$tubepress_base_url/ui/lib/tubepress.js"></script>
-<link rel="stylesheet" href="$tubepress_base_url/ui/gallery/css/tubepress.css" type="text/css" />
-
-GBS;
-        if (isset($_GET['tubepress_page']) && $_GET['tubepress_page'] > 1) {
-            print ('<meta name="robots" content="noindex, nofollow" />
-');
-        }
-    } catch (Exception $e) {
-        /* this is in the head, so just print an HTML comment and proceed */
-        print "<!-- " . $e->getMessage() . " -->";
-    }
+    print org_tubepress_gallery_TubePressGalleryImpl::printHeadElements(false, $_GET);
 }
 
 /**
