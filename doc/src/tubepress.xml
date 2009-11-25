@@ -850,11 +850,6 @@ nights working on this project. If you enjoy the software, please consider a don
                         </thead>
                         <tbody>
                             <row>
-                                <entry><code>colorbox</code></entry>
-                                <entry><emphasis>TubePress Pro only.</emphasis> Plays videos using <ulink url="http://colorpowered.com/colorbox/">ColorBox</ulink></entry>
-                                <entry><code>[tubepress playerLocation="colorbox"]</code></entry>
-                            </row>
-                            <row>
                                 <entry><code>fancybox</code></entry>
                                 <entry><emphasis>TubePress Pro only.</emphasis> Plays videos using <ulink url="http://fancybox.net/">FancyBox</ulink></entry>
                                 <entry><code>[tubepress playerLocation="fancybox"]</code></entry>

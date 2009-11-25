@@ -31,7 +31,6 @@ interface org_tubepress_player_Player
     const NORMAL      = "normal";
     const POPUP       = "popup";
     const SHADOWBOX   = "shadowbox";
-    const COLORBOX    = 'colorbox'; 
     const JQMODAL     = 'jqmodal';
     const YOUTUBE     = "youtube";
     const TINYBOX     = 'tinybox';
