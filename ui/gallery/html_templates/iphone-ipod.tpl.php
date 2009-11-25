@@ -42,7 +42,7 @@
         <dl class="tubepress_meta_group" style="width: <?php echo ${org_tubepress_template_Template::THUMBNAIL_WIDTH}; ?>px">
           
           <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::TITLE]): ?>      
-          <dt class="tubepress_meta tubepress_meta_title"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::TITLE]; ?></dt><dd class="tubepress_meta tubepress_meta_title"><a id="tubepress_title_<?php echo $video->getId(); ?>_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>" rel="tubepress_<?php echo ${org_tubepress_template_Template::EMBEDDED_IMPL_NAME}; ?>_<?php echo ${org_tubepress_template_Template::PLAYER_NAME}; ?>_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>"><?php echo $video->getTitle(); ?></a></dd>
+          <dt class="tubepress_meta tubepress_meta_title"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::TITLE]; ?></dt><dd class="tubepress_meta tubepress_meta_title"><a id="tubepress_title_<?php echo $video->getId(); ?>_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>" rel="tubepress_<?php echo ${org_tubepress_template_Template::EMBEDDED_IMPL_NAME}; ?>_<?php echo ${org_tubepress_template_Template::PLAYER_NAME}; ?>_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>"><?php echo htmlspecialchars($video->getTitle(), ENT_QUOTES, "UTF-8"); ?></a></dd>
           <?php endif; ?>
       
           <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::LENGTH]): ?>
