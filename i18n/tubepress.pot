@@ -308,7 +308,7 @@ msgstr ""
 msgid "with TinyBox"
 msgstr ""
 
-msgid "with ColorBox"
+msgid "with TopUp"
 msgstr ""
 
 msgid "with Shadowbox"
