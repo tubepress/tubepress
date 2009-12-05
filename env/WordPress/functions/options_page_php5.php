@@ -21,7 +21,10 @@
 
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../classes/tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_ioc_DefaultIocService'));
+tubepress_load_classes(array(
+    'org_tubepress_ioc_DefaultIocService',
+    'org_tubepress_ioc_ProInWordPressIocService'
+));
 
 /**
  * This is where the fun stuff happens
@@ -31,7 +34,11 @@ tubepress_load_classes(array('org_tubepress_ioc_DefaultIocService'));
 function __tp_executeOptionsPage()
 {
     /* grab the storage manager */
-    $iocContainer = new org_tubepress_ioc_DefaultIocService();
+    if (class_exists('org_tubepress_ioc_ProInWordPressIocService')) {
+        $iocContainer = new org_tubepress_ioc_ProInWordPressIocService();
+    } else {
+        $iocContainer = new org_tubepress_ioc_DefaultIocService();
+    }
     $wpsm = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE_MANAGER);
     
     /* initialize our options in case we need to */

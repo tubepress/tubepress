@@ -26,7 +26,8 @@ tubepress_load_classes(array('org_tubepress_message_WordPressMessageService',
     'org_tubepress_options_category_Display',
     'org_tubepress_options_category_Meta',
     'org_tubepress_options_category_Widget',
-    'org_tubepress_template_SimpleTemplate'));
+    'org_tubepress_template_SimpleTemplate',
+    'org_tubepress_ioc_ProInWordPressIocService'));
 
 /**
  * Registers TubePress as a widget
@@ -53,7 +54,11 @@ function tubepress_widget($opts)
 {
 	extract($opts);
 	
-	$iocContainer = new org_tubepress_ioc_DefaultIocService();
+    if (class_exists('org_tubepress_ioc_ProInWordPressIocService')) {
+        $iocContainer = new org_tubepress_ioc_ProInWordPressIocService();
+    } else {
+        $iocContainer = new org_tubepress_ioc_DefaultIocService();
+    }
 	$tpom         = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
 	
 	/* Turn on logging if we need to */
