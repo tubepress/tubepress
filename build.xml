@@ -19,7 +19,7 @@
 		</phpcodesniffer>
 	</target>
 	
-	<target name="assemble-wordpress">
+	<target name="assemble">
 		<copy todir="${wordpress-development-directory}">
 			<fileset dir="${project.basedir}">
 				<include name="**/*" />
@@ -30,13 +30,13 @@
 		</copy>
 	</target>
 	
-	<target name="clean-then-assemble-wordpress">
+	<target name="clean-then-assemble">
 		<delete dir="${wordpress-development-directory}" includeemptydirs="true" verbose="true" failonerror="true" />
 		<mkdir dir="${wordpress-development-directory}" />
-		<phingcall target="assemble-wordpress" />
+		<phingcall target="assemble" />
 	</target>
 	
-	<target name="package-wordpress" depends="clean-then-assemble-wordpress">
+	<target name="package-wordpress" depends="clean-then-assemble">
 		<zip destfile="${packaging-directory}/tubepress.zip" basedir="${wordpress-development-directory}" />
 	</target>
 

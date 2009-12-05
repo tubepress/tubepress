@@ -25,6 +25,7 @@ tubepress_load_classes(array('org_tubepress_options_storage_WordPressStorageMana
     'org_tubepress_options_category_Advanced',
     'org_tubepress_shortcode_SimpleShortcodeService',
     'org_tubepress_ioc_DefaultIocService',
+    'org_tubepress_ioc_ProInWordPressIocService',
     'org_tubepress_ioc_IocService',
     'org_tubepress_util_StringUtils',
     'org_tubepress_gallery_TubePressGalleryImpl'));
@@ -64,7 +65,11 @@ function tubepress_content_filter($content = '')
 function _tubepress_get_gallery_content($content, $trigger)
 {
     /* Whip up the IOC service */
-    $iocContainer = new org_tubepress_ioc_DefaultIocService();
+    if (class_exists('org_tubepress_ioc_ProInWordPressIocService')) {
+        $iocContainer = new org_tubepress_ioc_ProInWordPressIocService();
+    } else {
+        $iocContainer = new org_tubepress_ioc_DefaultIocService();
+    }
     
     /* Get a handle to our options manager */
     $tpom = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
