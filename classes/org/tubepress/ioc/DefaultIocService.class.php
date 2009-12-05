@@ -92,17 +92,17 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
         );
         $this->def(org_tubepress_ioc_IocService::GALLERY_TEMPLATE,
             $this->impl('org_tubepress_template_SimpleTemplate',
-                array('path' => $uiBase . "/gallery/html_templates/gallery.tpl.php")
+                array('path' => $uiBase . "/gallery/html_templates/default.tpl.php")
             )
         );
         $this->def(org_tubepress_ioc_IocService::YOUTUBE_EMBEDDED_TEMPLATE,
             $this->impl('org_tubepress_template_SimpleTemplate',
-                array('path' => $uiBase . "/embedded/youtube/html_templates/object.tpl.php")
+                array('path' => $uiBase . "/embedded_flash/youtube/html_templates/object.tpl.php")
             )
         );
         $this->def(org_tubepress_ioc_IocService::LONGTAIL_EMBEDDED_TEMPLATE,
             $this->impl('org_tubepress_template_SimpleTemplate',
-                array('path' => $uiBase . "/embedded/longtail/html_templates/object.tpl.php")
+                array('path' => $uiBase . "/embedded_flash/longtail/html_templates/object.tpl.php")
             )
         );
         $this->def(org_tubepress_ioc_IocService::NORMAL_PLAYER_TEMPLATE,

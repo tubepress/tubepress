@@ -1528,7 +1528,7 @@ nights working on this project. If you enjoy the software, please consider a don
             <listitem><para>Unzip this file. It will expand into a directory named <code>mediaplayer</code>.</para></listitem>
             <listitem><para>Copy the <emphasis>contents</emphasis> of this directory (not the directory itself) to your TubePress Pro installation.
             Assuming your TubePress Pro directory is located at <code>/var/www/myblog.com/html/lib/tubepress_pro_1_8_7</code>, you should copy the files to
-            <code>/var/www/myblog.com/html/lib/tubepress_pro_1_8_7/ui/embedded/longtail/lib/</code>.     
+            <code>/var/www/myblog.com/html/lib/tubepress_pro_1_8_7/ui/embedded_flash/longtail/lib/</code>.     
             </para></listitem>
         </orderedlist>
     </section>

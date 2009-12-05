@@ -16,6 +16,20 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 
 == Changelog ==
 
+= 1.8.7 =
+* Improved compatibility with PEAR (closes Ticket #140)
+* Fixed bug that affected determining video ID in some YouTube feeds
+* New static player option. Produces page refresh on each thumbnail click.
+* Gallery HTML is now semantically correct and more structured (closes Ticket #125 and Ticket #117)
+* TubePress Pro: New player: TinyBox (closes Ticket #110)
+* TubePress Pro: New player: FancyBox (closes Ticket #118)
+* TubePress Pro: Greatly improved WordPress integration
+* TubePress Pro: Fixed bug that produced open_basedir warning message in some installations
+* Fixed bug that prevented use of custom templates
+* Overhaul and simplification of templating system
+* Improved performance of logging system
+* Improved iPhone/iPod playback (keeps user on site instead of redirecting to YouTube player) (closes Ticket #143)
+
 = 1.8.6 =
 * WordPress options page now uses jQuery tabs
 * Fixed bug that could prevent request cache from working in some PHP installations

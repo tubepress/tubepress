@@ -111,7 +111,7 @@ function _tubepress_player_loaded(playerName, baseUrl) {
 function _tubepress_load_embedded_js(baseUrl) {
     var embeddedNames = _tubepress_rel_parser(1), i;
     for(i = 0; i < embeddedNames.length; i++) {
-        jQuery.getScript(baseUrl + "/ui/embedded/" + embeddedNames[i] + "/" + embeddedNames[i] + ".js", function() {}, true);
+        jQuery.getScript(baseUrl + "/ui/embedded_flash/" + embeddedNames[i] + "/" + embeddedNames[i] + ".js", function() {}, true);
     }
 }
 
