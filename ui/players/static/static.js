@@ -1,5 +1,5 @@
 function tubepress_static_player_init(baseUrl) {
-	tubepress_get_wait_call(baseUrl + '/ui/players/static/lib/jQuery.query.js',
+	TubePress.getWaitCall(baseUrl + '/ui/players/static/lib/jQuery.query.js',
 			_tubepress_static_player_readyTest,
 			_tubepress_static_player_init);
 }
@@ -18,6 +18,6 @@ function _tubepress_static_player_init() {
 		var newId = dis.attr('id').split('_')[2],
 		    newUrl = jQuery.query.set('tubepress_video', newId).toString();
 		dis.attr('href', newUrl);
-		dis.unbind('click', tubepress_click_listener);
+		dis.unbind('click', TubePress.clickListener);
 	});
 }
