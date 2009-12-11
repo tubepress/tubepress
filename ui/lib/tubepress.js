@@ -1,14 +1,26 @@
+/**
+ * Copyright 2006, 2007, 2008, 2009 Eric D. Hough (http://ehough.com)
+ * This file is part of TubePress (http://tubepress.org) and is released under the General Public License (GPL) version 3
+ *
+ * Shrink your JS: http://developer.yahoo.com/yui/compressor/
+ */
+
+/* caching script loader */
 jQuery.getScript = function (url, callback, cache) {
 	jQuery.ajax({ type: "GET", url: url, success: callback, dataType: "script", cache: cache }); 
 }; 
 
-/* append our init method to after all the other (potentially full or errors) ready blocks have run */
+/* append our init method to after all the other (potentially full or errors) ready blocks have run http://stackoverflow.com/questions/1890512/handling-errors-in-jquerydocument-ready */
 var oldReady = jQuery.ready, TubePress;
 jQuery.ready = function () {
 	try {
 		return oldReady.apply(this, arguments);
 	} catch (e) { }
-	TubePress.init(getTubePressBaseUrl());
+	try {
+		TubePress.init(getTubePressBaseUrl());
+	} catch (f) {
+		alert("TubePress failed to initialize: " + f.message);
+	}
 };
 
 TubePress = (function () {
@@ -29,6 +41,7 @@ TubePress = (function () {
 		jQuery("a[id^='tubepress_']").click(clickListener);
 	};
 
+	/* loads up JS necessary for dealing with embedded Flash implementations that we find on the page */
 	loadEmbeddedJs = function (baseUrl) {
 		var embeddedNames = parseRels(1), i, emptyFunc = function () {};
 		for (i = 0; i < embeddedNames.length; i = i + 1) {
@@ -47,6 +60,7 @@ TubePress = (function () {
 		return returnValue;
 	};
 
+	/* loads up JS necessary for dealing with TubePress players that we find on the page */
 	loadPlayerJs = function (baseUrl) {
 		var playerNames = parseRels(2), i;
 		for (i = 0; i < playerNames.length; i = i + 1) {
@@ -56,6 +70,7 @@ TubePress = (function () {
 		}
 	};
 
+	/* thumbnail click listener */
 	clickListener = function () {
 		var rel_split	= jQuery(this).attr("rel").split("_"),
 		galleryId	= rel_split[3],
