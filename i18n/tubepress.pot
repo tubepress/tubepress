@@ -56,7 +56,7 @@ msgstr ""
 msgid "This playlist"
 msgstr ""
 
-msgid "Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the 'p='. For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35"
+msgid "Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35"
 msgstr ""
 
 msgid "Most-viewed videos from"
@@ -86,13 +86,13 @@ msgstr ""
 msgid "YouTube limits this mode to 1,000 results"
 msgstr ""
 
-msgid "Display Options"
-msgstr ""
-
 msgid "Play each video"
 msgstr ""
 
 msgid "Maximum description length"
+msgstr ""
+
+msgid "Max width (px)"
 msgstr ""
 
 msgid "Maximum number of characters to display in video descriptions. Set to 0 for no limit."
@@ -152,16 +152,22 @@ msgstr ""
 msgid "Max height (px)"
 msgstr ""
 
-msgid "Default is 355"
+msgid "Default is 350"
 msgstr ""
 
 msgid "Default is 425"
 msgstr ""
 
+msgid "Default is 999999"
+msgstr ""
+
+msgid "Default is FFFFFF"
+msgstr ""
+
 msgid "Enhanced genie menu"
 msgstr ""
 
-msgid "Show the genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button"
+msgid "Show the genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
 msgstr ""
 
 msgid "Loop"
@@ -186,6 +192,9 @@ msgid "Toggles the display of related videos after a video finishes"
 msgstr ""
 
 msgid "Show videos in high definition when available"
+msgstr ""
+
+msgid "YouTube Feed"
 msgstr ""
 
 msgid "Meta Display"
@@ -219,6 +228,9 @@ msgid "Title"
 msgstr ""
 
 msgid "Posted"
+msgstr ""
+
+msgid "Runtime"
 msgstr ""
 
 msgid "URL"
@@ -287,10 +299,7 @@ msgstr ""
 msgid "This can help to reduce the number of pages in your gallery. Set to \"0\" to remove any limit."
 msgstr ""
 
-msgid "Add rel=nofollow to most YouTube links"
-msgstr ""
-
-msgid "Prevents search engines from indexing outbound links to youtube.com. The only exception is the link to a video's original page on YouTube."
+msgid "Appearance"
 msgstr ""
 
 msgid "normally (at the top of your gallery)"
@@ -308,7 +317,7 @@ msgstr ""
 msgid "with TinyBox"
 msgstr ""
 
-msgid "with TopUp"
+msgid "with jqModal"
 msgstr ""
 
 msgid "with Shadowbox"
@@ -326,7 +335,7 @@ msgstr ""
 msgid "rating"
 msgstr ""
 
-msgid "date updated"
+msgid "date published"
 msgstr ""
 
 msgid "randomly"
