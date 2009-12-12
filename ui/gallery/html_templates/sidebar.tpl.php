@@ -23,7 +23,7 @@
  */
 ?>
 
-<div class="tubepress_container" id="tubepress_gallery_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>">
+<div class="tubepress_container tubepress_sidebar" id="tubepress_gallery_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>">
   <?php echo ${org_tubepress_template_Template::PRE_GALLERY}; ?>
   
   <div id="tubepress_gallery_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>_thumbnail_area" class="tubepress_thumbnail_area">

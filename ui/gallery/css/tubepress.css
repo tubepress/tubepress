@@ -114,7 +114,7 @@ dd.tubepress_meta_url {
 	clear: left;
 }
 
-#sidebar .tubepress_thumb {
+.tubepress_sidebar .tubepress_thumb {
     width: 100%;	
     height: auto;
     margin-top: 1em;
