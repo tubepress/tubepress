@@ -1,6 +1,8 @@
 /**
  * Copyright 2006, 2007, 2008, 2009 Eric D. Hough (http://ehough.com)
- * This file is part of TubePress (http://tubepress.org) and is released under the General Public License (GPL) version 3
+ * 
+ * This file is part of TubePress (http://tubepress.org) and is released 
+ * under the General Public License (GPL) version 3
  *
  * Shrink your JS: http://developer.yahoo.com/yui/compressor/
  */
@@ -10,7 +12,8 @@ jQuery.getScript = function (url, callback, cache) {
 	jQuery.ajax({ type: "GET", url: url, success: callback, dataType: "script", cache: cache }); 
 }; 
 
-/* append our init method to after all the other (potentially full or errors) ready blocks have run http://stackoverflow.com/questions/1890512/handling-errors-in-jquerydocument-ready */
+/* append our init method to after all the other (potentially full of errors) ready blocks have 
+ * run. http://stackoverflow.com/questions/1890512/handling-errors-in-jquerydocument-ready */
 var oldReady = jQuery.ready, TubePress;
 jQuery.ready = function () {
 	try {
@@ -120,9 +123,7 @@ TubePress = (function () {
 	};
 
 	callPlayerJs = function (galleryId, videoId, embeddedName, playerName) {
-		/* always use the YouTube player for iPhone/iPod */
 		if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
-			window.location = "http://www.youtube.com/watch?v=" + videoId;
 			return;
 		}
 		var playerFunctionName = "tubepress_" + playerName + "_player";
