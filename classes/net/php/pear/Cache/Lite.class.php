@@ -26,6 +26,8 @@
 define('CACHE_LITE_ERROR_RETURN', 1);
 define('CACHE_LITE_ERROR_DIE', 8);
 
+class_exists('net_php_pear_PEAR') || require dirname(__FILE__) . '/../PEAR.class.php';
+
 class net_php_pear_Cache_Lite
 {
 
