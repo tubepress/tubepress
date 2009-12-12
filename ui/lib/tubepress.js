@@ -28,6 +28,10 @@ jQuery.ready = function () {
 
 TubePress = (function () {
 
+	var init, loadEmbeddedJs, parseRels, loadPlayerJs, triggerPlayerLoadedEvent, clickListener,
+			swapEmbedded, deepConstructObject, callPlayerJs, callWhenTrue, getWaitCall, loadCss, 
+			centerThumbs, ajaxifyPaginationForGallery, processAjaxRequest, postAjaxGallerySetup;
+	
 	init = function (baseUrl) {
 		jQuery().bind('tubepressPlayerLoaded', function (x, playerName, baseUrl) {
 			var funcName = 'tubepress_' + playerName + '_player_init',
@@ -69,8 +73,12 @@ TubePress = (function () {
 		for (i = 0; i < playerNames.length; i = i + 1) {
 			var name = playerNames[i];
 			jQuery.getScript(baseUrl + "/ui/players/" + name + "/" + name + ".js", 
-				jQuery().trigger('tubepressPlayerLoaded', [name, baseUrl]), true);
+				triggerPlayerLoadedEvent(name, baseUrl), true);
 		}
+	};
+	
+	triggerPlayerLoadedEvent = function (name, baseUrl) {
+		jQuery().trigger('tubepressPlayerLoaded', [name, baseUrl]);
 	};
 
 	/* thumbnail click listener */
@@ -227,12 +235,10 @@ TubePress = (function () {
 
 	/* return only public functions */
 	return {
-		init : init,
-		deepConstructObject : deepConstructObject,
-		getWaitCall : getWaitCall,
-		clickListener : clickListener,
-		loadCss : loadCss
+		init : 					init,
+		deepConstructObject : 	deepConstructObject,
+		getWaitCall : 			getWaitCall,
+		clickListener : 		clickListener,
+		loadCss : 				loadCss
 	};
 }());
-
-
