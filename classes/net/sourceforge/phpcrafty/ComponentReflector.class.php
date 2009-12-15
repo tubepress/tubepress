@@ -32,7 +32,7 @@ class net_sourceforge_phpcrafty_ComponentReflector extends ReflectionClass
    * @param mixed $param2...
    * @return object
    */
-  public function newInstance()
+  public function newInstance($args)
   {
     return $this->newInstanceArgs(func_get_args());
   }
@@ -42,7 +42,7 @@ class net_sourceforge_phpcrafty_ComponentReflector extends ReflectionClass
    * @param mixed[] $args
    * @return object
    */
-  public function newInstanceArgs($args)
+  public function newInstanceArgs(array $args = array())
   {
     if ($this->getConstructor())
     {

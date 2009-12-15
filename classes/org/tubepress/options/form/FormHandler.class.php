@@ -26,7 +26,6 @@ tubepress_load_classes(array('org_tubepress_options_Category',
     'org_tubepress_message_MessageService',
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_options_storage_StorageManager',
-    'org_tubepress_options_form_CategoryPrinter',
     'org_tubepress_template_Template'));
 
 /**
