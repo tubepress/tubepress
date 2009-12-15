@@ -108,7 +108,7 @@
 
   <?php if (isset(${org_tubepress_template_Template::SHORTCODE})): ?>
      <script type="text/javascript">function getUrlEncodedShortcodeForTubePressGallery<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>(){return "<?php echo ${org_tubepress_template_Template::SHORTCODE}; ?>";}jQuery(document).ready(function(){tubepress_ajaxifyPaginationForGallery(<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>);})</script>
-  <? endif; ?>
+  <?php endif; ?>
 
   <script type="text/javascript">
     jQuery(document).ready(function(){
