@@ -11,7 +11,7 @@
                 <surname>Hough</surname>
             </personname>
         </author>
-        <releaseinfo revision="1.8.7"></releaseinfo>
+        <releaseinfo revision="1.8.8"></releaseinfo>
         <productname>TubePress</productname>
         <copyright>
             <year>2006-2009</year>
@@ -339,13 +339,13 @@
                         (or open) a zip file containing TubePress Pro. Click "Save file" and download the 
                         zip file to somewhere easy to find, like your desktop.
                     </para>
-                    <para>As of this writing, the  name of the zip file is <code>tubepress_pro_1_8_7.zip</code>.
+                    <para>As of this writing, the  name of the zip file is <code>tubepress_pro_1_8_8.zip</code>.
                     </para>
                 </listitem>
                 <listitem>
                     <para>
-                        Unzip the file you just downloaded (<code>tubepress_pro_1_8_7.zip</code>). It will expand 
-                        into a directory named <code>tubepress_pro_1_8_7</code>.
+                        Unzip the file you just downloaded (<code>tubepress_pro_1_8_8.zip</code>). It will expand 
+                        into a directory named <code>tubepress_pro_1_8_8</code>.
                     </para>
                 </listitem>
                 <listitem>
@@ -354,8 +354,8 @@
                             in a place that's <emphasis>web accessible</emphasis>. Make a note of
                     </para>
                     <itemizedlist>
-                        <listitem><para>the full path of this directory on your web server's filesystem (e.g. <code>/var/www/html/myblog.com/lib/tubepress_pro_1_8_7</code>)</para></listitem>
-                        <listitem><para>the web-accessible URL to reach this directory (e.g. <code>http://myblog.com/lib/tubepress_pro_1_8_7</code>)</para></listitem>
+                        <listitem><para>the full path of this directory on your web server's filesystem (e.g. <code>/var/www/html/myblog.com/lib/tubepress_pro_1_8_8</code>)</para></listitem>
+                        <listitem><para>the web-accessible URL to reach this directory (e.g. <code>http://myblog.com/lib/tubepress_pro_1_8_8</code>)</para></listitem>
                     </itemizedlist>
                 </listitem>
                 <listitem>
@@ -385,9 +385,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <?php 
 
-    $tubepress_base_url = "http://myblog.com/lib/tubepress_pro_1_8_7";
+    $tubepress_base_url = "http://myblog.com/lib/tubepress_pro_1_8_8";
 
-    require_once "/var/www/html/myblog.com/lib/tubepress_pro_1_8_7/env/pro/tubepress-pro.php";
+    require_once "/var/www/html/myblog.com/lib/tubepress_pro_1_8_8/env/pro/tubepress-pro.php";
 ?>
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
@@ -465,7 +465,7 @@
                     <programlisting language="php"><![CDATA[
 <?php
 
-    require_once "/var/www/html/myblog.com/lib/tubepress_pro_1_8_7/env/pro/tubepress-pro.php";
+    require_once "/var/www/html/myblog.com/lib/tubepress_pro_1_8_8/env/pro/tubepress-pro.php";
 
     get_header();
 
@@ -1515,8 +1515,8 @@ nights working on this project. If you enjoy the software, please consider a don
                 named something like <code>shadowbox-build-3.0b.zip</code>.</para></listitem>
             <listitem><para>Unzip this file. It will expand into a directory named <code>shadowbox-build-3.0b</code>.</para></listitem>
             <listitem><para>Copy the <emphasis>contents</emphasis> of this directory (not the directory itself) to your TubePress Pro installation.
-            Assuming your TubePress Pro directory is located at <code>/var/www/myblog.com/html/lib/tubepress_pro_1_8_7</code>, you should copy the files to
-            <code>/var/www/myblog.com/html/lib/tubepress_pro_1_8_7/ui/players/shadowbox/lib/</code>.     
+            Assuming your TubePress Pro directory is located at <code>/var/www/myblog.com/html/lib/tubepress_pro_1_8_8</code>, you should copy the files to
+            <code>/var/www/myblog.com/html/lib/tubepress_pro_1_8_8/ui/players/shadowbox/lib/</code>.     
             </para></listitem>
         </orderedlist>
     </section>
@@ -1527,8 +1527,8 @@ nights working on this project. If you enjoy the software, please consider a don
             save to a file named something like <code>mediaplayer.zip</code>.</para></listitem>
             <listitem><para>Unzip this file. It will expand into a directory named <code>mediaplayer</code>.</para></listitem>
             <listitem><para>Copy the <emphasis>contents</emphasis> of this directory (not the directory itself) to your TubePress Pro installation.
-            Assuming your TubePress Pro directory is located at <code>/var/www/myblog.com/html/lib/tubepress_pro_1_8_7</code>, you should copy the files to
-            <code>/var/www/myblog.com/html/lib/tubepress_pro_1_8_7/ui/embedded_flash/longtail/lib/</code>.     
+            Assuming your TubePress Pro directory is located at <code>/var/www/myblog.com/html/lib/tubepress_pro_1_8_8</code>, you should copy the files to
+            <code>/var/www/myblog.com/html/lib/tubepress_pro_1_8_8/ui/embedded_flash/longtail/lib/</code>.     
             </para></listitem>
         </orderedlist>
     </section>
