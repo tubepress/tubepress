@@ -17,7 +17,7 @@ jQuery.getScript = function (url, callback, cache) {
 var oldReady = jQuery.ready, TubePress;
 jQuery.ready = function () {
 	try {
-		return oldReady.apply(this, arguments);
+		oldReady.apply(this, arguments);
 	} catch (e) { }
 	try {
 		TubePress.init(getTubePressBaseUrl());
