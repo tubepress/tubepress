@@ -235,10 +235,12 @@ TubePress = (function () {
 
 	/* return only public functions */
 	return {
-		init : 					init,
-		deepConstructObject : 	deepConstructObject,
-		getWaitCall : 			getWaitCall,
-		clickListener : 		clickListener,
-		loadCss : 				loadCss
+		init : 							init,
+		deepConstructObject : 			deepConstructObject,
+		getWaitCall : 					getWaitCall,
+		clickListener : 				clickListener,
+		loadCss : 						loadCss,
+		ajaxifyPaginationForGallery :   ajaxifyPaginationForGallery,
+        centerThumbs :  				centerThumbs
 	};
 }());
