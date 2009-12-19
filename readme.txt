@@ -16,6 +16,15 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 
 == Changelog ==
 
+= 1.8.8 =
+* JavaScript initialization is much more robust. Reduces chances of un-clickable video thumbnails.
+* Fixed potentially fatal error in cache mechanism
+* Improved sidebar's CSS
+* Fixed bug in video sort order (closes Ticket #146)
+* Fixed bug that could cause fatal error in templates
+* Version bump for JW FLV Media Player (to 5.0)
+* Updated Italian translation thanks to Gianni Diurno
+
 = 1.8.7 =
 * Improved compatibility with PEAR (closes Ticket #140)
 * Fixed bug that affected determining video ID in some YouTube feeds
