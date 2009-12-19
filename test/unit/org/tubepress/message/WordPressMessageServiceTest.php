@@ -4,7 +4,7 @@ require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/message/
 $msgs = array(
         'options-page-title'       => 'TubePress Options',
         'options-page-save-button' => 'Save', 
-        'options-page-intro-text'  => 'Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\'http://tubepress.org/documentation\'>documentation</a> for more info. An asterisk (*) next to an option indicates it\'s only available with <a href=\'http://tubepress.org/features\'>TubePress Pro</a>.', 
+        'options-page-intro-text'  => 'Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="http://tubepress.org/documentation">documentation</a> for more info. An asterisk (*) next to an option indicates it\'s only available with <a href="http://tubepress.org/features">TubePress Pro</a>.', 
         'options-page-donation'    => 'TubePress is free. But if you enjoy the plugin, and appreciate the hundreds of hours I\'ve spent developing and supporting it, please consider a donation. No amount is too small. Thanks!', 
         
         'options-category-title-gallery'  => 'Which videos?', 
@@ -15,11 +15,11 @@ $msgs = array(
         'options-category-title-advanced' => 'Advanced', 
     
         'options-title-top_rated'         => 'Top rated videos from...', 
-        'options-title-favorites'         => 'This YouTube user\'s \'favorites\'', 
-        'options-title-recently_featured' => 'The latest \'featured\' videos on YouTube\'s homepage', 
+        'options-title-favorites'         => 'This YouTube user\'s "favorites"', 
+        'options-title-recently_featured' => 'The latest "featured" videos on YouTube\'s homepage', 
         'options-title-mobile'            => 'Videos for mobile phones', 
         'options-title-playlist'          => 'This playlist', 
-        'options-desc-playlist'           => 'Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser\'s address bar (while looking at a YouTube playlist). It comes right after the \'p=\'. For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35', 
+        'options-desc-playlist'           => 'Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser\'s address bar (while looking at a YouTube playlist). It comes right after the "p=". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35', 
         'options-title-most_viewed'       => 'Most-viewed videos from', 
         'options-title-most_linked'       => 'Most-linked videos', 
         'options-title-most_recent'       => 'Most-recently added videos', 
@@ -38,7 +38,7 @@ $msgs = array(
         'options-title-thumbWidth'       => 'Width (px) of thumbs', 
         'options-desc-thumbWidth'        => 'Default (and maximum) is 120', 
         'options-title-relativeDates'    => 'Use relative dates', 
-        'options-desc-relativeDates'     => 'e.g. \'yesterday\' instead of \'November 3, 1980\'', 
+        'options-desc-relativeDates'     => 'e.g. "yesterday" instead of "November 3, 1980"', 
         'options-title-resultsPerPage'   => 'Videos per Page', 
         'options-desc-resultsPerPage'    => 'Default is 20. Maximum is 50', 
         'options-title-orderBy'          => 'Order videos by',
@@ -46,7 +46,7 @@ $msgs = array(
         'options-title-paginationBelow'  => 'Show pagination below thumbnails',
         'options-desc-paginationAbove'   => 'Only applies to galleries that span multiple pages',
         'options-desc-paginationBelow'   => 'Only applies to galleries that span multiple pages',
-        'options-title-ajaxPagination'   => '<a href=\'http://wikipedia.org/wiki/Ajax_(programming)\'>Ajax</a>-enabled pagination',
+        'options-title-ajaxPagination'   => '<a href="http://wikipedia.org/wiki/Ajax_(programming)">Ajax</a>-enabled pagination',
      
         'options-title-autoplay'             => 'Auto-play videos', 
         'options-title-border'               => 'Show border', 
@@ -56,7 +56,7 @@ $msgs = array(
         'options-desc-embeddedWidth'         => 'Default is 425', 
         'options-title-fullscreen'           => 'Allow fullscreen playback',
         'options-title-genie'                => 'Enhanced genie menu', 
-        'options-desc-genie'                 => 'Show the genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \'menu\' button', 
+        'options-desc-genie'                 => 'Show the genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the "menu" button)', 
         'options-title-loop'                 => 'Loop', 
         'options-desc-loop'                  => 'Continue playing the video until the user stops it', 
         'options-title-playerColor'          => 'Main color',
@@ -68,7 +68,7 @@ $msgs = array(
         'options-title-showInfo'             => 'Show title and rating before video starts',
         'options-title-hd'                   => 'Show videos in high definition when available',
         'options-title-playerImplementation' => 'Implementation',
-        'options-desc-playerImplementation'  => 'The brand of the embedded player. Default is \'YouTube\'',
+        'options-desc-playerImplementation'  => 'The brand of the embedded player. Default is "YouTube"',
         
         'options-title-author'      => 'Author', 
         'options-title-category'    => 'Category', 
@@ -84,7 +84,7 @@ $msgs = array(
         'options-title-views'       => 'Views', 
         
         'options-title-dateFormat'           => 'Date format', 
-        'options-desc-dateFormat'            => 'Set the textual formatting of date information for videos. See <a href=\'http://us.php.net/date\'>date</a> for examples.', 
+        'options-desc-dateFormat'            => 'Set the textual formatting of date information for videos. See <a href="http://us.php.net/date">date</a> for examples.', 
         'options-title-debugging_enabled'    => 'Enable debugging', 
         'options-desc-debugging_enabled'     => 'If checked, anyone will be able to view your debugging information. This is a rather small privacy risk. If you\'re not having problems with TubePress, or you\'re worried about revealing any details of your TubePress pages, feel free to disable the feature.',
         'options-title-keyword'              => 'Shortcode keyword', 
@@ -92,19 +92,19 @@ $msgs = array(
         'options-title-randomize_thumbnails' => 'Randomize thumbnails', 
         'options-desc-randomize_thumbnails'  => 'Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized', 
         
-        'options-title-filter_racy'          => 'Filter \'racy\' content', 
+        'options-title-filter_racy'          => 'Filter "racy" content', 
         'options-desc-filter_racy'           => 'Don\'t show videos that may not be suitable for minors.', 
         'options-title-clientKey'            => 'YouTube API Client ID', 
-        'options-desc-clientKey'             => 'YouTube will use this client ID for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID <a href=\'http://code.google.com/apis/youtube/dashboard/\'>here</a>. Don\'t change this unless you know what you\'re doing.', 
+        'options-desc-clientKey'             => 'YouTube will use this client ID for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID <a href="http://code.google.com/apis/youtube/dashboard/">here</a>. Don\'t change this unless you know what you\'re doing.', 
         'options-title-developerKey'         => 'YouTube API Developer Key', 
-        'options-desc-developerKey'          => 'YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\'http://code.google.com/apis/youtube/dashboard/\'>here</a>. Don\'t change this unless you know what you\'re doing.', 
+        'options-desc-developerKey'          => 'YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href="http://code.google.com/apis/youtube/dashboard/">here</a>. Don\'t change this unless you know what you\'re doing.', 
         'options-title-cacheEnabled'         => 'Enable request cache', 
         'options-desc-cacheEnabled'          => 'Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness.',
         'options-title-embeddableOnly'       => 'Only retrieve embeddable videos',
         'options-desc-embeddableOnly'        => 'Some videos have embedding disabled. Checking this option will exclude these videos from your galleries.',
     
         'options-title-resultCountCap'       => 'Maximum total videos to retrieve',
-        'options-desc-resultCountCap'        => 'This can help to reduce the number of pages in your gallery. Set to \'0\' to remove any limit.',
+        'options-desc-resultCountCap'        => 'This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit.',
     
         'player-normal'      => 'normally (at the top of your gallery)', 
         'player-popup'       => 'in a popup window',
@@ -140,17 +140,17 @@ $msgs = array(
         'video-views'       => 'Views', 
     
         'validation-int-type'       => '%s can only take on integer values. You supplied %s.',
-        'validation-int-range'      => '\'%s\' must be between \'%d\' and \'%d\'. You supplied \'%d\'.',
+        'validation-int-range'      => '"%s" must be between "%d" and "%d". You supplied "%d".',
         'validation-text'           => '%s must be a string. You supplied %s.',
-        'validation-no-such-option' => '\'%s\' is not a valid option name.',
-        'validation-bool'           => '\'%s\' must be either true or false. You supplied \'%s\'.',
-        'validation-enum'           => '\'%s\' must be one of \'%s\'. You supplied \'%s\'.',
+        'validation-no-such-option' => '"%s" is not a valid option name.',
+        'validation-bool'           => '"%s" must be either true or false. You supplied "%s".',
+        'validation-enum'           => '"%s" must be one of "%s". You supplied "%s".',
     
         'next' => 'next', 
         'prev' => 'prev', 
 
         'widget-description'           => 'Displays YouTube videos in your sidebar using TubePress', 
-        'widget-tagstring-description' => 'TubePress shortcode for the widget. See the <a href=\'http://tubepress.org/documentation\'> documentation</a>.',
+        'widget-tagstring-description' => 'TubePress shortcode for the widget. See the <a href="http://tubepress.org/documentation"> documentation</a>.',
         
         'safeSearch-none'     => 'none',
         'safeSearch-moderate' => 'moderate',
@@ -177,7 +177,11 @@ class org_tubepress_message_WordPressMessageServiceTest extends PHPUnit_Framewor
 	{
 	    global $msgs;
 	    foreach ($msgs as $key => $value) {
-	        $this->assertTrue($this->_sut->_($key) === $value);
+	        $result = $this->_sut->_($key) === $value;
+	        if (!$result) {
+	            print "$key did not resolve to $value";
+	        }
+	        $this->assertTrue($result);
 	    }
 	}
 }

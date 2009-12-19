@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006, 2007, 2008, 2009 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2010 Eric D. Hough (http://ehough.com)
  * 
  * This file is part of TubePress (http://tubepress.org)
  * 
@@ -51,11 +51,11 @@ class org_tubepress_options_storage_WordPressStorageManager extends org_tubepres
 	    
 	    if ($this->exists("version")) {
 	        $version = $this->get("version");
-	        if (!is_numeric($version) || $version < 187) {
+	        if (!is_numeric($version) || $version < 188) {
 	           $needToInit = true;
 	        }
 	    } else {
-	        $this->create("version", 187);
+	        $this->create("version", 188);
 	        $needToInit = true;
 	    }
 	    
