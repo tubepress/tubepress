@@ -100,5 +100,10 @@ class org_tubepress_options_validation_SimpleInputValidationServiceTest extends 
 	{
 	    $this->_sut->validate(org_tubepress_options_category_Display::RESULTS_PER_PAGE, -1);
 	}
+	
+	public function testDescLimitZero()
+	{
+	    $this->_sut->validate(org_tubepress_options_category_Display::DESC_LIMIT, 0);
+	}
 }
 ?>
