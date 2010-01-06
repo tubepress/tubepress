@@ -277,7 +277,7 @@ msgstr "Aufrufe"
 msgid "rating"
 msgstr "Bewertung"
 
-msgid "date updated"
+msgid "date published"
 msgstr "Hochgeladen am"
 
 msgid "randomly"
@@ -319,8 +319,8 @@ msgstr "%s muss zwischen %d und %d liegen. Sie haben %s eingegeben."
 msgid "%s must be one of \"today\", \"this_week\", \"this_month\", \"all_time\". You supplied %s."
 msgstr "%s muss einer der folgenden Werte sein: \"today\", \"this_week\", \"this_month\", \"all_time\". Sie haben %s eingegeben."
 
-msgid "%s must be on of \"relevance\", \"viewCount\", \"rating\", \"updated\", \"random\". You supplied %s."
-msgstr "%s muss einer der folgenden Werte sein: \"relevance\", \"viewCount\", \"rating\", \"updated\", \"random\". Sie haben %s eingegeben."
+msgid "%s must be on of \"relevance\", \"viewCount\", \"rating\", \"published\", \"random\". You supplied %s."
+msgstr "%s muss einer der folgenden Werte sein: \"relevance\", \"viewCount\", \"rating\", \"published\", \"random\". Sie haben %s eingegeben."
 
 msgid "%s must be a string. You supplied %s."
 msgstr "%s muss eine Zeichenkette sein. Sie haben %s eingegeben."

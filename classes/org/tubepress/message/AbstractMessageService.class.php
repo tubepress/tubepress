@@ -147,7 +147,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'order-relevance'  => 'relevance', 
         'order-viewCount'      => 'view count', 
         'order-rating'     => 'rating', 
-        'order-updated'  => 'date published', 
+        'order-published'  => 'date published', 
         'order-random'     => 'randomly', 
     
         'timeFrame-today'   => 'today', 

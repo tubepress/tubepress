@@ -2,7 +2,7 @@
 
 <project name="TubePress" default="sniff">
 	
-	<property name="wordpress-development-directory" value="/Applications/MAMP/htdocs/tp/wp-content/plugins/tubepress" />
+	<property name="wordpress-development-directory" value="/opt/local/www/htdocs/wordpress/wp-content/plugins/tubepress" />
 	<property name="packaging-directory"             value="/Users/ehough/Desktop" />
 		
 	<fileset dir="${project.basedir}" id="source.code">
