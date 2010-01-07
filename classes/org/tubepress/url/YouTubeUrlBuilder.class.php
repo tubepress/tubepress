@@ -102,16 +102,16 @@ class org_tubepress_url_YouTubeUrlBuilder implements org_tubepress_url_UrlBuilde
             break;
         }
 
-        $request = "http://gdata.youtube.com/feeds/api/$url";
-        $this->_urlPostProcessing($request, $currentPage);
-        return $request;
+        $request = new net_php_pear_Net_URL2("http://gdata.youtube.com/feeds/api/$url");
+        $this->_commonUrlPostProcessing($request);
+        $this->_galleryUrlPostProcessing($request, $currentPage);
+        return $request->getURL();
     }
     
     public function buildSingleVideoUrl($id)
     {
-        $requestURL = new net_php_pear_Net_URL2('http://gdata.youtube.com/feeds/api/videos');
-        $requestURL->setQueryVariable('q', $id);
-        $requestURL->setQueryVariable('max-results', 1);
+        $requestURL = new net_php_pear_Net_URL2("http://gdata.youtube.com/feeds/api/videos/$id");
+        $this->_commonUrlPostProcessing($requestURL);
         
         return $requestURL->getURL();
     }
@@ -119,6 +119,14 @@ class org_tubepress_url_YouTubeUrlBuilder implements org_tubepress_url_UrlBuilde
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom)
     { 
         $this->_tpom = $tpom; 
+    }
+
+    private function _commonUrlPostProcessing(net_php_pear_Net_URL2 $url)
+    {
+        $url->setQueryVariable('v', 2);
+        /* YouTube API client ID and developer keys */
+        $url->setQueryVariable('client', $this->_tpom->get(org_tubepress_options_category_Feed::CLIENT_KEY));
+        $url->setQueryVariable('key', $this->_tpom->get(org_tubepress_options_category_Feed::DEV_KEY));
     }
 
     /**
@@ -129,37 +137,25 @@ class org_tubepress_url_YouTubeUrlBuilder implements org_tubepress_url_UrlBuilde
      * 
      * @return void
      */
-    private function _urlPostProcessing(&$request, $currentPage)
+    private function _galleryUrlPostProcessing(net_php_pear_Net_URL2 $url, $currentPage)
     {
-        
         $perPage   = $this->_tpom->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
-        $filter    = $this->_tpom->get(org_tubepress_options_category_Feed::FILTER);
         $order     = $this->_tpom->get(org_tubepress_options_category_Display::ORDER_BY);
-        $mode      = $this->_tpom->get(org_tubepress_options_category_Gallery::MODE);
-        $embedOnly = $this->_tpom->get(org_tubepress_options_category_Feed::EMBEDDABLE_ONLY);
         
         /* start index of the videos */
         $start = ($currentPage * $perPage) - $perPage + 1;
         
-        $requestURL = new net_php_pear_Net_URL2($request);
-        $requestURL->setQueryVariable('v', 2);
-        $requestURL->setQueryVariable('start-index', $start);
-        $requestURL->setQueryVariable('max-results', $perPage);
+        $url->setQueryVariable('start-index', $start);
+        $url->setQueryVariable('max-results', $perPage);
         
-        $requestURL->setQueryVariable('safeSearch', $filter);
-      
         if ($order != 'random') {
-            $requestURL->setQueryVariable('orderby', $order);
+            $url->setQueryVariable('orderby', $order);
         }
         
-        /* YouTube API client ID and developer keys */
-        $requestURL->setQueryVariable('client', $this->_tpom->get(org_tubepress_options_category_Feed::CLIENT_KEY));
-        $requestURL->setQueryVariable('key', $this->_tpom->get(org_tubepress_options_category_Feed::DEV_KEY));
+        $url->setQueryVariable('safeSearch', $this->_tpom->get(org_tubepress_options_category_Feed::FILTER));
 
-        if ($embedOnly) {
-            $requestURL->setQueryVariable('format', '5');
+        if ($this->_tpom->get(org_tubepress_options_category_Feed::EMBEDDABLE_ONLY)) {
+            $url->setQueryVariable('format', '5');
         }
-        
-        $request = $requestURL->getURL();
     }
 }

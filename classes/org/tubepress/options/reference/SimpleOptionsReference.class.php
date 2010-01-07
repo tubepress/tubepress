@@ -59,7 +59,8 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Feed::DEV_KEY            => 'AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg',
             org_tubepress_options_category_Widget::TITLE            => 'TubePress',
             org_tubepress_options_category_Widget::TAGSTRING        => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']',
-            org_tubepress_options_category_Template::TEMPLATE       => ''
+            org_tubepress_options_category_Template::TEMPLATE       => '',
+            org_tubepress_options_category_Gallery::VIDEO           => ''
         ),
         org_tubepress_options_Type::BOOL => array(
             org_tubepress_options_category_Advanced::DEBUG_ON           => true,
@@ -75,7 +76,7 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Embedded::SHOW_INFO          => false,
             org_tubepress_options_category_Embedded::SHOW_RELATED       => true,
             org_tubepress_options_category_Embedded::FULLSCREEN         => true,
-	        org_tubepress_options_category_Embedded::HIGH_QUALITY       => false,
+	    org_tubepress_options_category_Embedded::HIGH_QUALITY       => false,
             org_tubepress_options_category_Meta::AUTHOR                 => false,
             org_tubepress_options_category_Meta::CATEGORY               => false,
             org_tubepress_options_category_Meta::DESCRIPTION            => false,
@@ -279,7 +280,10 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
      */
     function isOptionApplicableToOptionsForm($optionName)
     {
-        return !in_array($optionName, array(org_tubepress_options_category_Template::TEMPLATE));
+        return !in_array($optionName, array(
+            org_tubepress_options_category_Template::TEMPLATE,
+            org_tubepress_options_category_Gallery::VIDEO
+        ));
     }
 
     /**
@@ -316,7 +320,10 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
      */
     function shouldBePersisted($optionName)
     {
-        return !in_array($optionName, array(org_tubepress_options_category_Template::TEMPLATE));
+        return !in_array($optionName, array(
+            org_tubepress_options_category_Template::TEMPLATE,
+            org_tubepress_options_category_Gallery::VIDEO
+        ));
     }
 
     private function _getConstantsForClass($className)
