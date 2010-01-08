@@ -28,9 +28,9 @@ class org_tubepress_util_StringUtils
     /**
      * Replaces the first occurence of a string by another string
      *
-     * @param string $search  The haystack
+     * @param string $search  The needle
      * @param string $replace The replacement string
-     * @param string $str     The needle
+     * @param string $str     The haystack
      * 
      * @return string The haystack with the first needle replaced
      *     by the replacement string

@@ -84,27 +84,33 @@ function _tubepress_get_gallery_content($content, $trigger)
      /* Make a copy of the content that we'll edit */
     $newcontent = $content;
 
-    /* And finally, the gallery itself */
-    $gallery = $iocContainer->get(org_tubepress_ioc_IocService::GALLERY);
-
     /* Parse each shortcode one at a time */
     while ($shortcodeService->somethingToParse($newcontent, $trigger)) {
 
-        $rand = mt_rand();
-        $log->log('WordPress Main', 'Starting to build gallery %s', $rand);
-        
         $shortcodeService->parse($newcontent, $tpom);
-
         $currentShortcode = $tpom->getShortcode();
-        $galleryHtml = $gallery->getHtml($rand);
+
+        if ($tpom->get(org_tubepress_options_category_Gallery::VIDEO) != '') {
+            $videoId = $tpom->get(org_tubepress_options_category_Gallery::VIDEO);
+            $log->log('WordPress Main', 'Building single video with ID %s', $videoId);
+            //$generatedHtml = //get single video html
+        } else {
+            $rand = mt_rand();
+            $log->log('WordPress Main', 'Starting to build gallery %s', $rand);
+
+            if (!isset($gallery)) {
+                $gallery = $iocContainer->get(org_tubepress_ioc_IocService::GALLERY);
+            }
+
+            $generatedHtml = $gallery->getHtml($rand);
+        }
 
         /* remove any leading/trailing <p> tags from the shortcode */
         $pattern = '/(<[P|p]>\s*)(' . preg_quote($currentShortcode, '/') . ')(\s*<\/[P|p]>)/';
         $newcontent = preg_replace($pattern, '${2}', $newcontent); 
 
         /* replace the shortcode with our new content */
-        $newcontent = org_tubepress_util_StringUtils::replaceFirst($currentShortcode, 
-            $galleryHtml, $newcontent);
+        $newcontent = org_tubepress_util_StringUtils::replaceFirst($currentShortcode, $generatedHtml, $newcontent);
     }
     return $newcontent;
 }
