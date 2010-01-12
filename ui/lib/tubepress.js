@@ -139,7 +139,9 @@ TubePress = (function () {
 	};
 
 	deepConstructObject = function (wrapper, params) {
-		var newHtml = wrapper.html();
+		
+		//http://blog.stevenlevithan.com/archives/faster-trim-javascript
+		var newHtml = wrapper.html().replace(/\s\s*$/, '');
 		
 		/* chop off the closing </object>. Don't change this unless you want to break IE */
 		newHtml = newHtml.substring(0, newHtml.length - 9);
