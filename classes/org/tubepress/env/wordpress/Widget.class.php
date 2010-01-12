@@ -43,7 +43,7 @@ class org_tubepress_env_wordpress_Widget
         wp_register_widget_control('tubepress', "TubePress", array('org_tubepress_env_wordpress_Widget', 'printControlPanel'));
     }
 
-    public static function printWidget()
+    public static function printWidget($opts)
     {
         extract($opts);
     
