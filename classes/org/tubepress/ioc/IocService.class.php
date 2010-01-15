@@ -42,6 +42,8 @@ interface org_tubepress_ioc_IocService
     const PAGINATION_SERVICE            = 'paginationService';
     const QUERY_STRING_SERVICE          = 'queryStringService';
     const SHORTCODE_SERVICE             = 'shortcodeService';
+    const SINGLE_VIDEO                  = 'singleVideo';
+    const SINGLE_VIDEO_TEMPLATE         = 'singleVideoTemplate';
     const STORAGE_MANAGER               = 'storageManager';
     const THUMB_TEMPLATE                = 'thumbTemplate';
     const URL_BUILDER                   = 'ulrBuilderService';

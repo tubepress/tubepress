@@ -23,4 +23,6 @@ interface org_tubepress_video_feed_provider_Provider {
     
     public function getFeedResult();
     
+    public function getSingleVideo($customVideoId);
+    
 }

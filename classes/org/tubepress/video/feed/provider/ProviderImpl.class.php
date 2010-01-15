@@ -109,7 +109,7 @@ class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_vi
     {
         $videoUrl = $this->_urlBuilder->buildSingleVideoUrl($customVideoId);
         $results = $this->_feedRetrievalService->fetch($videoUrl, $this->_optionsManager->get(org_tubepress_options_category_Feed::CACHE_ENABLED));
-        $videoArray = $this->_videoFactory->feedToVideoArray($results, 1);
+        $videoArray = $this->_videoFactory->convertSingleVideo($results, 1);
         return $videoArray[0];
     }
     

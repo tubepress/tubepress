@@ -60,7 +60,13 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
     public function feedToVideoArray($feed, $limit)
     {
         $this->_xpath = $this->_createXPath($this->_createDomDocument($feed));
-        return $this->_buildVideos($limit);
+        return $this->_buildVideos($limit, '/atom:feed/atom:entry');
+    }
+    
+    public function convertSingleVideo($feed)
+    {
+        $this->_xpath = $this->_createXPath($this->_createDomDocument($feed));
+        return $this->_buildVideos(1, '/atom:entry');
     }
 
     private function _createXPath(DOMDocument $doc)
@@ -96,12 +102,12 @@ class org_tubepress_video_factory_YouTubeVideoFactory implements org_tubepress_v
         return $doc;
     }
     
-    private function _buildVideos($limit)
+    private function _buildVideos($limit, $entryXpath)
     {
         $results = array();
         
-        $this->_log->log($this->_logPrefix, 'Now parsing videos');
-        $entries = $this->_xpath->query('/atom:feed/atom:entry');  
+        $this->_log->log($this->_logPrefix, 'Now parsing video(s)');
+        $entries = $this->_xpath->query($entryXpath);  
 
         $index = 0;
         foreach ($entries as $entry) {

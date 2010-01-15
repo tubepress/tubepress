@@ -48,7 +48,8 @@ tubepress_load_classes(array('org_tubepress_ioc_PhpCraftyIocService',
     'org_tubepress_template_SimpleTemplate',
     'org_tubepress_log_LogImpl',
     'org_tubepress_video_feed_provider_ProviderImpl',
-    'org_tubepress_browser_BrowserDetectorImpl'));
+    'org_tubepress_browser_BrowserDetectorImpl',
+    'org_tubepress_single_VideoImpl'));
 
 /**
  * Dependency injector for TubePress in a WordPress environment
@@ -122,6 +123,11 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
         $this->def(org_tubepress_ioc_IocService::OPTIONS_FORM_TEMPLATE,
             $this->impl('org_tubepress_template_SimpleTemplate',
                 array('path' => $uiBase . '/options_page/html_templates/options_page.tpl.php')
+            )
+        );
+        $this->def(org_tubepress_ioc_IocService::SINGLE_VIDEO_TEMPLATE,
+            $this->impl('org_tubepress_template_SimpleTemplate',
+                array('path' => $uiBase . '/single_video/html_templates/default.tpl.php')
             )
         );
         $this->def(org_tubepress_player_Player::YOUTUBE . "-player",
@@ -259,6 +265,17 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
         /*******************************************************************************************
          *                                      4+ SETTERS                                          *
          *******************************************************************************************/
+        $this->def(org_tubepress_ioc_IocService::SINGLE_VIDEO,
+            $this->impl('org_tubepress_single_VideoImpl',
+                array(
+                    'provider'         => $this->ref(org_tubepress_ioc_IocService::VIDEO_PROVIDER),
+                    'template'         => $this->ref(org_tubepress_ioc_IocService::SINGLE_VIDEO_TEMPLATE),
+                    'optionsManager'   => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER),
+                    'optionsReference' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_REFERENCE),
+                    'messageService'   => $this->ref(org_tubepress_ioc_IocService::MESSAGE_SERVICE)
+                )
+            )
+        );
         $this->def(org_tubepress_ioc_IocService::OPTIONS_FORM_HANDLER,
             $this->impl('org_tubepress_options_form_FormHandler',
                 array(
