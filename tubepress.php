@@ -25,8 +25,10 @@ You should have received a copy of the GNU General Public License
 along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-if (version_compare(PHP_VERSION, '5.0.0', '>=') && !class_exists('org_tubepress_env_wordpress_Main')) {
+if (version_compare(PHP_VERSION, '5.0.2', '>=') && !class_exists('org_tubepress_env_wordpress_Main')) {
 
+    global $tubepress_base_url;
+    
     /* have to consider that sometimes people may name the "tubepress" directory differently */
     $dirName = dirname(__FILE__);
     $baseName = basename(realpath($dirName));
@@ -39,7 +41,7 @@ if (version_compare(PHP_VERSION, '5.0.0', '>=') && !class_exists('org_tubepress_
     $tubepress_base_url = get_option('siteurl') . "/wp-content/plugins/$baseName";        
 
     /* register the plugin's message bundles */
-    load_plugin_textdomain('tubepress', "wp-content/plugins/$baseName/i18n");
+    load_plugin_textdomain('tubepress', false, "wp-content/plugins/$baseName/i18n");
 
     add_filter('the_content',  array('org_tubepress_env_wordpress_Main',   'contentFilter'));
     add_action('wp_head',      array('org_tubepress_env_wordpress_Main',   'headAction'));

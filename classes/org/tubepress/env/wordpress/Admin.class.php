@@ -54,14 +54,14 @@ class org_tubepress_env_wordpress_Admin
 
     public static function conditionalExecuteOptionsPage()
     {
-        if (version_compare(PHP_VERSION, '5.0.0', '>=')) {
+        if (version_compare(PHP_VERSION, '5.0.2', '>=')) {
             org_tubepress_env_wordpress_Admin::_executeOptionsPage();
         } else {
         print <<<EOT
 <div id="message" class="error fade">
     <p>
         <strong>
-            This version of TubePress requires PHP5 or higher. 
+            This version of TubePress requires PHP 5.0.2 or higher. 
             Please <a href="http://php.net">upgrade your PHP installation</a> 
             or visit <a href="http://tubepress.org">tubepress.org</a> to obtain 
             a different version of the plugin.
