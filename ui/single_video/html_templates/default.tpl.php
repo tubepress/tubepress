@@ -26,7 +26,7 @@
 <div class="tubepress_single_video">
     
     <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::TITLE]): ?>     
-        <span class="tubepress_single_video_title"><?php echo htmlspecialchars($video->getTitle(), ENT_QUOTES, "UTF-8"); ?></span>
+        <span class="tubepress_embedded_title"><?php echo htmlspecialchars($video->getTitle(), ENT_QUOTES, "UTF-8"); ?></span>
     <?php endif; ?>
     
     <?php echo ${org_tubepress_template_Template::EMBEDDED_SOURCE}; ?>

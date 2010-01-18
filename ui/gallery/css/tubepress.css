@@ -156,3 +156,40 @@ dd.tubepress_meta_url {
     color: #adaaad;
 }
 
+div.tubepress_single_video {
+    float: left;	
+    width: 100%;
+}
+
+div.tubepress_single_video 
+    dt.tubepress_meta_runtime,
+    dt.tubepress_meta_url,
+    dt.tubepress_meta_author, 
+    dt.tubepress_meta_keywords,
+    dt.tubepress_meta_category, 
+    dt.tubepress_meta_rating, 
+    dt.tubepress_meta_ratings,
+    dt.tubepress_meta_id,
+    dt.tubepress_meta_views,
+    dt.tubepress_meta_uploaddate {
+    display: none;
+}
+
+div.tubepress_single_video 
+    dd.tubepress_meta_runtime,
+    dd.tubepress_meta_url,
+    dd.tubepress_meta_author, 
+	dd.tubepress_meta_keywords,
+	dd.tubepress_meta_category, 
+	dd.tubepress_meta_rating, 
+	dd.tubepress_meta_ratings,
+	dd.tubepress_meta_id,
+	dd.tubepress_meta_views,
+	dd.tubepress_meta_uploaddate {
+	display: none;
+}
+
+div.tubepress_single_video dd.tubepress_meta_description {
+    margin-top: .3em;
+    margin-bottom: .8em;
+}

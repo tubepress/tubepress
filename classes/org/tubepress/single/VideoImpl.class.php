@@ -29,7 +29,8 @@ tubepress_load_classes(array('org_tubepress_single_Video',
     'org_tubepress_template_Template',
     'org_tubepress_ioc_IocService',
     'org_tubepress_options_reference_OptionsReference',
-    'org_tubepress_message_MessageService'));
+    'org_tubepress_message_MessageService',
+    'org_tubepress_log_Log'));
 
 /**
  * Handles requests for a single video (for embedding)
@@ -42,6 +43,7 @@ class org_tubepress_single_VideoImpl implements org_tubepress_single_Video, org_
     private $_tpom;
     private $_optionsReference;
     private $_messageService;
+    private $_log;
     
     public function getSingleVideoHtml($videoId)
     {
@@ -65,6 +67,7 @@ class org_tubepress_single_VideoImpl implements org_tubepress_single_Video, org_
         $this->_template->setVariable(org_tubepress_template_Template::VIDEO, $video);
         $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $this->_tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
         
+        
         /* staples - that was easy */
         return $this->_template->toString();    
     }
@@ -75,5 +78,6 @@ class org_tubepress_single_VideoImpl implements org_tubepress_single_Video, org_
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $mgr) { $this->_tpom = $mgr; }
     public function setOptionsReference(org_tubepress_options_reference_OptionsReference $ref) { $this->_optionsReference = $ref; }
     public function setMessageService(org_tubepress_message_MessageService $messageService) {     $this->_messageService     = $messageService; }
+    public function setLog(org_tubepress_log_Log $log) { $this->_log = $log; }
 }
 
