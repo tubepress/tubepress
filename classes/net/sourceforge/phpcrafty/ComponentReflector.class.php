@@ -42,16 +42,9 @@ class net_sourceforge_phpcrafty_ComponentReflector extends ReflectionClass
    * @param mixed[] $args
    * @return object
    */
-  public function newInstanceArgs(array $args = array())
+  public function newInstanceArgs($args = array())
   {
-    if ($this->getConstructor())
-    {
-      $o = parent::newInstanceArgs($args);
-    }
-    else
-    {
       $o = parent::newInstance();
-    }
     
     foreach ($this->_properties as $k => $v)
     {

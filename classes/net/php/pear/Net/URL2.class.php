@@ -76,11 +76,11 @@ class net_php_pear_Net_URL2
      * Default options corresponds to how PHP handles $_GET.
      */
     private $options = array(
-        self::OPTION_STRICT           => true,
-        self::OPTION_USE_BRACKETS     => true,
-        self::OPTION_ENCODE_KEYS      => true,
-        self::OPTION_SEPARATOR_INPUT  => 'x&',
-        self::OPTION_SEPARATOR_OUTPUT => 'x&',
+        net_php_pear_Net_URL2::OPTION_STRICT           => true,
+        net_php_pear_Net_URL2::OPTION_USE_BRACKETS     => true,
+        net_php_pear_Net_URL2::OPTION_ENCODE_KEYS      => true,
+        net_php_pear_Net_URL2::OPTION_SEPARATOR_INPUT  => 'x&',
+        net_php_pear_Net_URL2::OPTION_SEPARATOR_OUTPUT => 'x&',
         );
 
     /**
@@ -124,9 +124,9 @@ class net_php_pear_Net_URL2
      */
     public function __construct($url, $options = null)
     {
-        $this->setOption(self::OPTION_SEPARATOR_INPUT,
+        $this->setOption(net_php_pear_Net_URL2::OPTION_SEPARATOR_INPUT,
                          "&");
-        $this->setOption(self::OPTION_SEPARATOR_OUTPUT,
+        $this->setOption(net_php_pear_Net_URL2::OPTION_SEPARATOR_OUTPUT,
                          "&");
         if (is_array($options)) {
             foreach ($options as $optionName => $value) {
@@ -349,7 +349,7 @@ class net_php_pear_Net_URL2
      * isn't present in the URL.
      *
      * @return  string|bool
-     * @see     self::getQueryVariables()
+     * @see     net_php_pear_Net_URL2::getQueryVariables()
      */
     public function getQuery()
     {
@@ -360,7 +360,7 @@ class net_php_pear_Net_URL2
      * @param string|bool $query
      *
      * @return void
-     * @see   self::setQueryVariables()
+     * @see   net_php_pear_Net_URL2::setQueryVariables()
      */
     public function setQuery($query)
     {
@@ -396,7 +396,7 @@ class net_php_pear_Net_URL2
     public function getQueryVariables()
     {
         $pattern = '/[' .
-                   preg_quote($this->getOption(self::OPTION_SEPARATOR_INPUT), '/') .
+                   preg_quote($this->getOption(net_php_pear_Net_URL2::OPTION_SEPARATOR_INPUT), '/') .
                    ']/';
         $parts   = preg_split($pattern, $this->query, -1, PREG_SPLIT_NO_EMPTY);
         $return  = array();
@@ -409,12 +409,12 @@ class net_php_pear_Net_URL2
                 $value = null;
             }
 
-            if ($this->getOption(self::OPTION_ENCODE_KEYS)) {
+            if ($this->getOption(net_php_pear_Net_URL2::OPTION_ENCODE_KEYS)) {
                 $key = rawurldecode($key);
             }
             $value = rawurldecode($value);
 
-            if ($this->getOption(self::OPTION_USE_BRACKETS) &&
+            if ($this->getOption(net_php_pear_Net_URL2::OPTION_USE_BRACKETS) &&
                 preg_match('#^(.*)\[([0-9a-z_-]*)\]#i', $key, $matches)) {
 
                 $key = $matches[1];
@@ -431,7 +431,7 @@ class net_php_pear_Net_URL2
                 } else {
                     $return[$key][$idx] = $value;
                 }
-            } elseif (!$this->getOption(self::OPTION_USE_BRACKETS)
+            } elseif (!$this->getOption(net_php_pear_Net_URL2::OPTION_USE_BRACKETS)
                       && !empty($return[$key])
             ) {
                 $return[$key]   = (array) $return[$key];
@@ -455,13 +455,13 @@ class net_php_pear_Net_URL2
             $this->query = false;
         } else {
             foreach ($array as $name => $value) {
-                if ($this->getOption(self::OPTION_ENCODE_KEYS)) {
+                if ($this->getOption(net_php_pear_Net_URL2::OPTION_ENCODE_KEYS)) {
                     $name = rawurlencode($name);
                 }
 
                 if (is_array($value)) {
                     foreach ($value as $k => $v) {
-                        $parts[] = $this->getOption(self::OPTION_USE_BRACKETS)
+                        $parts[] = $this->getOption(net_php_pear_Net_URL2::OPTION_USE_BRACKETS)
                             ? sprintf('%s[%s]=%s', $name, $k, $v)
                             : ($name . '=' . $v);
                     }
@@ -471,7 +471,7 @@ class net_php_pear_Net_URL2
                     $parts[] = $name;
                 }
             }
-            $this->query = implode($this->getOption(self::OPTION_SEPARATOR_OUTPUT),
+            $this->query = implode($this->getOption(net_php_pear_Net_URL2::OPTION_SEPARATOR_OUTPUT),
                                    $parts);
         }
     }
@@ -583,7 +583,7 @@ class net_php_pear_Net_URL2
         }
 
         // Path segment normalization (RFC 3986, section 6.2.2.3)
-        $this->path = self::removeDotSegments($this->path);
+        $this->path = net_php_pear_Net_URL2::removeDotSegments($this->path);
 
         // Scheme based normalization (RFC 3986, section 6.2.3)
         if ($this->host && !$this->path) {
@@ -620,7 +620,7 @@ class net_php_pear_Net_URL2
 
         // A non-strict parser may ignore a scheme in the reference if it is
         // identical to the base URI's scheme.
-        if (!$this->getOption(self::OPTION_STRICT) && $reference->scheme == $this->scheme) {
+        if (!$this->getOption(net_php_pear_Net_URL2::OPTION_STRICT) && $reference->scheme == $this->scheme) {
             $reference->scheme = false;
         }
 
@@ -628,13 +628,13 @@ class net_php_pear_Net_URL2
         if ($reference->scheme !== false) {
             $target->scheme = $reference->scheme;
             $target->setAuthority($reference->getAuthority());
-            $target->path  = self::removeDotSegments($reference->path);
+            $target->path  = net_php_pear_Net_URL2::removeDotSegments($reference->path);
             $target->query = $reference->query;
         } else {
             $authority = $reference->getAuthority();
             if ($authority !== false) {
                 $target->setAuthority($authority);
-                $target->path  = self::removeDotSegments($reference->path);
+                $target->path  = net_php_pear_Net_URL2::removeDotSegments($reference->path);
                 $target->query = $reference->query;
             } else {
                 if ($reference->path == '') {
@@ -646,7 +646,7 @@ class net_php_pear_Net_URL2
                     }
                 } else {
                     if (substr($reference->path, 0, 1) == '/') {
-                        $target->path = self::removeDotSegments($reference->path);
+                        $target->path = net_php_pear_Net_URL2::removeDotSegments($reference->path);
                     } else {
                         // Merge paths (RFC 3986, section 5.2.3)
                         if ($this->host !== false && $this->path == '') {
@@ -658,7 +658,7 @@ class net_php_pear_Net_URL2
                             }
                             $target->path .= $reference->path;
                         }
-                        $target->path = self::removeDotSegments($target->path);
+                        $target->path = net_php_pear_Net_URL2::removeDotSegments($target->path);
                     }
                     $target->query = $reference->query;
                 }
@@ -758,7 +758,7 @@ class net_php_pear_Net_URL2
      */
     public static function getRequestedURL()
     {
-        return self::getRequested()->getUrl();
+        return net_php_pear_Net_URL2::getRequested()->getUrl();
     }
 
     /**
@@ -785,13 +785,13 @@ class net_php_pear_Net_URL2
     /**
      * Sets the specified option.
      *
-     * @param string $optionName a self::OPTION_ constant
+     * @param string $optionName a net_php_pear_Net_URL2::OPTION_ constant
      * @param mixed  $value      option value  
      *
      * @return void
-     * @see  self::OPTION_STRICT
-     * @see  self::OPTION_USE_BRACKETS
-     * @see  self::OPTION_ENCODE_KEYS
+     * @see  net_php_pear_Net_URL2::OPTION_STRICT
+     * @see  net_php_pear_Net_URL2::OPTION_USE_BRACKETS
+     * @see  net_php_pear_Net_URL2::OPTION_ENCODE_KEYS
      */
     function setOption($optionName, $value)
     {
