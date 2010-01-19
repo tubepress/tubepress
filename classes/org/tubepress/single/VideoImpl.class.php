@@ -44,11 +44,47 @@ class org_tubepress_single_VideoImpl implements org_tubepress_single_Video, org_
     private $_optionsReference;
     private $_messageService;
     private $_log;
+    private $_logPrefix;
+    private $_templateDir;
+    
+    public function __construct()
+    {
+        $this->_logPrefix = 'Single Video';
+        
+        /* SET THE TEMPLATE DIRECTORY HERE. DON'T FORGET THE TRAILING SLASH ;)  */
+        $this->_templateDir = dirname(__FILE__) . '/../../../../ui/single_video/html_templates/';
+    }
     
     public function getSingleVideoHtml($videoId)
     {
+        try {
+            return $this->_getSingleVideoHtml($videoId);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+    
+    public function _getSingleVideoHtml($videoId)
+    {
         /* grab the video from the provider */
+        $this->_log->log($this->_logPrefix, 'Asking provider for video with ID %s', $videoId);
         $video = $this->_provider->getSingleVideo($videoId);
+        
+        $this->_prepTemplate($video);
+        
+        /* staples - that was easy */
+        return $this->_template->toString();
+    }
+    
+    private function _prepTemplate($video)
+    {
+        $customTemplate = $this->_tpom->get(org_tubepress_options_category_Template::TEMPLATE);
+            
+        if ($customTemplate != '') {
+            $template = realpath($this->_templateDir . $customTemplate);
+            $this->_log->log($this->_logPrefix, 'Using custom template at %s', $template);
+            $this->_template->setPath($template);
+        }
         
         $metaNames = $this->_optionsReference->getOptionNamesForCategory(org_tubepress_options_Category::META);
         $shouldShow = array();
@@ -66,10 +102,6 @@ class org_tubepress_single_VideoImpl implements org_tubepress_single_Video, org_
         $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_SOURCE, $eps->toString($video->getId()));
         $this->_template->setVariable(org_tubepress_template_Template::VIDEO, $video);
         $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $this->_tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
-        
-        
-        /* staples - that was easy */
-        return $this->_template->toString();    
     }
     
     public function setProvider(org_tubepress_video_feed_provider_Provider $provider) { $this->_provider = $provider; }

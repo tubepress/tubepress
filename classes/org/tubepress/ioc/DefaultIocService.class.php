@@ -272,7 +272,8 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
                     'template'         => $this->ref(org_tubepress_ioc_IocService::SINGLE_VIDEO_TEMPLATE),
                     'optionsManager'   => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER),
                     'optionsReference' => $this->ref(org_tubepress_ioc_IocService::OPTIONS_REFERENCE),
-                    'messageService'   => $this->ref(org_tubepress_ioc_IocService::MESSAGE_SERVICE)
+                    'messageService'   => $this->ref(org_tubepress_ioc_IocService::MESSAGE_SERVICE),
+                    'log'              => $this->ref(org_tubepress_ioc_IocService::LOG),
                 )
             )
         );
