@@ -7,27 +7,6 @@ function tubepress_shadowbox_player_init(baseUrl) {
 function _tubepress_shadowbox_player_shadowboxjs(base)  {
 	TubePress.getWaitCall(base + 'lib/shadowbox.js',
 			function() { return typeof Shadowbox != 'undefined'; },
-			function() { _tubepress_shadowbox_player_shadowboxlang(base); }
-		);
-}
-
-function _tubepress_shadowbox_player_shadowboxlang(base) {
-	TubePress.getWaitCall(base + 'lib/languages/shadowbox-en.js',
-			function() { return typeof Shadowbox.lang != 'undefined'; },
-			function() { _tubepress_shadowbox_player_shadowboxplayer(base); }
-		);
-}
-
-function _tubepress_shadowbox_player_shadowboxplayer(base) {
-	TubePress.getWaitCall(base + 'lib/players/shadowbox-html.js',
-			function() { return typeof Shadowbox.html != 'undefined'; },
-			function() { _tubepress_shadowbox_player_shadowboxadapter(base); }
-		);
-}
-
-function _tubepress_shadowbox_player_shadowboxadapter(base) {
-	TubePress.getWaitCall(base + 'lib/adapters/shadowbox-jquery.js',
-			function() { return typeof Shadowbox.lib != 'undefined'; },
 			function() { _tubepress_init_shadowbox(base); }
 		);
 }
