@@ -12,19 +12,30 @@ jQuery.getScript = function (url, callback, cache) {
 	jQuery.ajax({ type: "GET", url: url, success: callback, dataType: "script", cache: cache }); 
 }; 
 
+var safeTubePressInit = function () {
+	try {
+        TubePress.init(getTubePressBaseUrl());
+  	} catch (f) {
+        alert("TubePress failed to initialize: " + f.message);
+  	}
+}
+
 /* append our init method to after all the other (potentially full of errors) ready blocks have 
  * run. http://stackoverflow.com/questions/1890512/handling-errors-in-jquerydocument-ready */
-var oldReady = jQuery.ready, TubePress;
-jQuery.ready = function () {
-	try {
-		oldReady.apply(this, arguments);
-	} catch (e) { }
-	try {
-		TubePress.init(getTubePressBaseUrl());
-	} catch (f) {
-		alert("TubePress failed to initialize: " + f.message);
-	}
-};
+if (!jQuery.browser.msie) {
+	var oldReady = jQuery.ready, TubePress;
+	jQuery.ready = function () {
+	        try {
+	            oldReady.apply(this, arguments);
+	        } catch (e) { }
+	        safeTubePressInit();
+	};
+} else {
+    jQuery().ready(function () {
+    	safeTubePressInit();
+    });
+}
+
 
 TubePress = (function () {
 
