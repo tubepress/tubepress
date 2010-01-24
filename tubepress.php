@@ -41,7 +41,7 @@ if (version_compare(PHP_VERSION, '5.0.2', '>=') && !class_exists('org_tubepress_
     $tubepress_base_url = get_option('siteurl') . "/wp-content/plugins/$baseName";        
 
     /* register the plugin's message bundles */
-    load_plugin_textdomain('tubepress', false, "wp-content/plugins/$baseName/i18n");
+    load_plugin_textdomain('tubepress', false, "$baseName/i18n");
 
     add_filter('the_content',  array('org_tubepress_env_wordpress_Main',   'contentFilter'));
     add_action('wp_head',      array('org_tubepress_env_wordpress_Main',   'headAction'));
