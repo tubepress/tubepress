@@ -161,32 +161,6 @@ div.tubepress_single_video {
     width: 100%;
 }
 
-div.tubepress_single_video dt.tubepress_meta_runtime,
-div.tubepress_single_video dt.tubepress_meta_url,
-div.tubepress_single_video dt.tubepress_meta_author, 
-div.tubepress_single_video dt.tubepress_meta_keywords,
-div.tubepress_single_video dt.tubepress_meta_category, 
-div.tubepress_single_video dt.tubepress_meta_rating, 
-div.tubepress_single_video dt.tubepress_meta_ratings,
-div.tubepress_single_video dt.tubepress_meta_id,
-div.tubepress_single_video dt.tubepress_meta_views,
-div.tubepress_single_video dt.tubepress_meta_uploaddate {
-    display: none;
-}
-
-div.tubepress_single_video dd.tubepress_meta_runtime,
-div.tubepress_single_video dd.tubepress_meta_url,
-div.tubepress_single_video dd.tubepress_meta_author, 
-div.tubepress_single_video dd.tubepress_meta_keywords,
-div.tubepress_single_video dd.tubepress_meta_category, 
-div.tubepress_single_video dd.tubepress_meta_rating, 
-div.tubepress_single_video dd.tubepress_meta_ratings,
-div.tubepress_single_video dd.tubepress_meta_id,
-div.tubepress_single_video dd.tubepress_meta_views,
-div.tubepress_single_video dd.tubepress_meta_uploaddate {
-	display: none;
-}
-
 div.tubepress_single_video dd.tubepress_meta_description {
     margin-top: .3em;
     margin-bottom: .8em;
