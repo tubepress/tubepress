@@ -42,7 +42,7 @@
     <xsl:param name="table.footnote.number.format" select="'1'"/>
     
     <!-- Show only Sections up to level 3 in the TOCs -->
-    <xsl:param name="toc.section.depth">3</xsl:param>
+    <xsl:param name="toc.section.depth">1</xsl:param>
     
     <!-- Remove "Chapter" from the Chapter titles... -->
     <xsl:param name="local.l10n.xml" select="document('')"/>

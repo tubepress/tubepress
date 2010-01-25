@@ -3,7 +3,7 @@
 
 <book>
     <title>TubePress Reference Documentation</title>
-    <subtitle>Beautiful YouTube Video Galleries in PHP</subtitle>
+    <subtitle>Beautiful YouTube Videos and Galleries in PHP</subtitle>
     <bookinfo>
         <author>
             <personname>
@@ -72,113 +72,117 @@
     </preface>
     <chapter id="download">
         <title>Download</title>
-        <section id="latest-stable-release">
-            <title>Latest stable release</title>
-            <para>
-                The latest packages of <application>TubePress</application>
-                can always be downloaded as zip files from
-                <ulink url="http://tubepress.org/download">
-                    http://tubepress.org/download
-                </ulink>
-            </para>
-        </section>
-        <section id="subversion">
-            <title>Subversion</title>
-            <para>
-                <application>TubePress</application> uses <ulink url="http://subversion.tigris.org/">Subversion</ulink> for version control. You can use
-                <ulink url="http://en.wikipedia.org/wiki/Comparison_of_Subversion_clients">
-                    any Subversion client
-                </ulink> to check out the latest developmental build of the
-                <application>WordPress</application> plugin. The source for TubePress Pro is not publicly available. But as TubePress is <ulink url="http://www.gnu.org/copyleft/gpl.html">GPL</ulink>'d, TubePress Pro users will get all of the source code with their downloads.
-            </para>
-            <section id="subversion-command-line">
-                <title>Command line</title>
-                <para>If you have command line access to your server,
-                    and have a subversion client in your path, this method is the easiest.</para>
-                <orderedlist>
-                    <listitem>
-                        <para>
-                            Change directories to
-                            <filename class="directory">wp-content/plugins</filename>
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            Make sure you've removed any existing installs of
-                            <application>TubePress</application>
-                            from this directory
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            Execute
-                            <command>
-                                svn checkout http://tubepress.googlecode.com/svn/trunk/ tubepress
-                            </command>
-                        </para>
-                        </listitem>
-                </orderedlist>
-                <para>That's it! You'll now be using the very latest build of
-                    the plugin. You can now upgrade at any time with the following
-                    commands:</para>
-                <orderedlist>
-                    <listitem>
-                        <para>
-                            Change directories to <filename class="directory">wp-content/plugins/tubepress</filename>
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            Execute <command>svn update</command>
-                        </para>
-                        </listitem>
-                </orderedlist>
+        <section id="download-free">
+            <title>Free WordPress Plugin</title>
+            <section id="latest-stable-release">
+                <title>Latest stable release</title>
+                <para>
+                    The latest packages of <application>TubePress</application>
+                    can always be downloaded as zip files from
+                    <ulink url="http://tubepress.org/download">
+                        http://tubepress.org/download
+                    </ulink>
+                </para>
             </section>
-            <section id="subversion-ftp">
-                <title>FTP</title>
-                <para>You'll need to check out the latest build locally (i.e. to your desktop 
-                machine) and then upload it to your server using FTP.</para>
-                <orderedlist>
-                    <listitem>
-                        <para>Use any SVN client to browse to 
-                            <ulink url="http://tubepress.googlecode.com/svn/trunk/">
-                                http://tubepress.googlecode.com/svn/trunk/
-                            </ulink>
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>Checkout the <filename class="directory">trunk</filename> 
-                            directory to a local directory called 
-                            <filename class="directory">tubepress</filename>
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>Upload the <filename class="directory">tubepress</filename> 
-                            directory you just created to your <application>WordPress</application> 
-                            installation at <filename class="directory">wp-content/plugins</filename>
-                        </para>
-                    </listitem>
-                </orderedlist>
+            <section id="subversion">
+                <title>Subversion</title>
+                <para>
+                    <application>TubePress</application> uses <ulink url="http://subversion.tigris.org/">Subversion</ulink> for version control. You can use
+                    <ulink url="http://en.wikipedia.org/wiki/Comparison_of_Subversion_clients">
+                        any Subversion client
+                    </ulink> to check out the latest developmental build of the
+                    <application>WordPress</application> plugin. The source for TubePress Pro is not publicly available. But as TubePress is <ulink url="http://www.gnu.org/copyleft/gpl.html">GPL</ulink>'d, TubePress Pro users will get all of the source code with their downloads.
+                </para>
+                <section id="subversion-command-line">
+                    <title>Command line</title>
+                    <para>If you have command line access to your server,
+                        and have a subversion client in your path, this method is the easiest.</para>
+                    <orderedlist>
+                        <listitem>
+                            <para>
+                                Change directories to
+                                <filename class="directory">wp-content/plugins</filename>
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Make sure you've removed any existing installs of
+                                <application>TubePress</application>
+                                from this directory
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Execute
+                                <command>
+                                    svn checkout http://tubepress.googlecode.com/svn/trunk/ tubepress
+                                </command>
+                            </para>
+                            </listitem>
+                    </orderedlist>
+                    <para>That's it! You'll now be using the very latest build of
+                        the plugin. You can now upgrade at any time with the following
+                        commands:</para>
+                    <orderedlist>
+                        <listitem>
+                            <para>
+                                Change directories to <filename class="directory">wp-content/plugins/tubepress</filename>
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Execute <command>svn update</command>
+                            </para>
+                            </listitem>
+                    </orderedlist>
+                </section>
+                <section id="subversion-ftp">
+                    <title>FTP</title>
+                    <para>You'll need to check out the latest build locally (i.e. to your desktop 
+                    machine) and then upload it to your server using FTP.</para>
+                    <orderedlist>
+                        <listitem>
+                            <para>Use any SVN client to browse to 
+                                <ulink url="http://tubepress.googlecode.com/svn/trunk/">
+                                    http://tubepress.googlecode.com/svn/trunk/
+                                </ulink>
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>Checkout the <filename class="directory">trunk</filename> 
+                                directory to a local directory called 
+                                <filename class="directory">tubepress</filename>
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>Upload the <filename class="directory">tubepress</filename> 
+                                directory you just created to your <application>WordPress</application> 
+                                installation at <filename class="directory">wp-content/plugins</filename>
+                            </para>
+                        </listitem>
+                    </orderedlist>
+                </section>
             </section>
-        </section>
-        <section id="nightly-builds">
+             <section id="nightly-builds">
             <title>Nightly Builds</title>
                 <para>You can download a nightly build of the <application>WordPress</application>
                     plugin package from <ulink url="http://tubepress.org/nightly/tubepress_nightly.zip">
                     http://tubepress.org/nightly/tubepress_nightly.zip</ulink>
                 </para> 
         </section>
+        </section>
+         <section id="download-pro">
+            <title>TubePress Pro</title>
+            <para>You can purchase your copy of TubePress Pro by visiting <ulink url="http://tubepress.org/download">http://tubepress.org/download</ulink>
+                and clicking on the "Buy Now" link. After payment, please following the <link linkend="pro-installation">TubePress Pro installation instructions.</link>
+            </para>
+        </section>
+       
     </chapter>
-    <chapter id="wordpress-plugin">
-        <title>WordPress Plugin</title>
-        <para>
-            As a <application>WordPress</application> plugin, <application>TubePress</application> 
-            lets you easily insert custom video galleries throughout your 
-            <application>WordPress</application>-powered blog.
-        </para>
-
-        <section id="wordpress-plugin-quick-start">
-            <title>Quick Start</title>
+    <chapter id="installation">
+        <title>Installation</title>
+        <section id="install-wordpress">
+            <title>Free WordPress Plugin</title>
             <para>
                 <application>TubePress</application>
                 can be installed and activated just like any other <application>WordPress</application>
@@ -226,121 +230,8 @@
                 </listitem>
             </orderedlist>
         </section>
-        <section id="multiple-galleries">
-            <title>Multiple Galleries</title>
-            <para>
-                The options in <code>Settings > TubePress</code> are the global options for TubePress.
-                The real power of the plugin lies in the ability to put multiple galleries on multiple pages. 
-                This is done with <link linkend="shortcodes">TubePress shortcodes</link>. 
-            </para>
-            <para>
-                For example, say on one page I want to display a gallery of videos that are tagged 
-                with "<code>football</code>". On this page, I would type 
-                <programlisting>[tubepress mode="tag" tagValue="football"]</programlisting>
-                on the page where I want the gallery to show up. And say 
-                on another page I want to display a gallery with the default (global) options that were set 
-                in <code>Settings > TubePress</code>. On this page I would type <programlisting>[tubepress]</programlisting> where I 
-                wanted the gallery to show up. You can follow this procedure for unlimited galleries on 
-                unlimited posts/pages.  Just use <link linkend="shortcode-reference">any TubePress shortcode</link> to control the gallery content. Get creative! 
-            </para>
-        </section>
-        <section id="upgrading">
-            <title>Upgrading</title>
-            <para>
-                Upgrading is usually just a matter of copying the latest version of TubePress over your 
-                existing installation. However, if you want to be sure there are no problems, follow these 
-                directions in order.
-            </para>
-            <orderedlist>
-                <listitem>
-                    <para>
-                        Remove your existing TubePress install directory (<code>wp-content/plugins/tubepress</code>)
-                    </para>
-                </listitem>
-                <listitem>
-                    <para>Unzip the latest version of TubePress into (<code>wp-content/plugins</code>)</para>
-                </listitem>
-                <listitem>
-                    <para>
-                        Visit <code>Site Admin > Settings > TubePress</code> once initialize your options
-                    </para>
-                </listitem>
-            </orderedlist>
-        </section>
-        <section id="sidebar-widget">
-            <title>Sidebar Widget</title>
-            <para>
-                The TubePress plugin comes with widget functionality, which allows you to 
-                place a customizable list of videos in your blog's sidebar. Here's an example of 
-                the widget's output...
-            </para>
-            <para>
-                <mediaobject>
-                            <imageobject role="fo">
-                                <imagedata fileref="images/sidebar.png" format="PNG" align="center" />
-                            </imageobject>
-                            <imageobject role="html">
-                                <imagedata fileref="images/sidebar.png" format="PNG" align="center" />
-                            </imageobject>
-                        </mediaobject>
-                    </para>
-            <para>
-                There are no separate installation instructions; if you've <link linkend="wordpress-plugin-quick-start">installed and enabled the TubePress plugin</link>, 
-                then you're done. Please see the <ulink url="http://codex.wordpress.org/Widgets_SubPanel">WordPress widget documentation</ulink> for general info on how to enable 
-                and disable widgets.
-            </para>
-            <para>
-                This is what the TubePress widget control looks like...
-            </para>
-            <para>
-                        <mediaobject>
-                            <imageobject role="fo">
-                                <imagedata fileref="images/widget.png" format="PNG" align="center" />
-                            </imageobject>
-                            <imageobject role="html">
-                                <imagedata fileref="images/widget.png" format="PNG" align="center" />
-                            </imageobject>
-                        </mediaobject>
-                    </para>
-            <para>
-                In the "Title" section of the widget control, enter the text you'd like for the sidebar's header. 
-                To customize which videos show up in your sidebar, just use a <link linkend="shortcodes">TubePress shortcode</link>. Please note that 
-                by default, the TubePress widget will use the following shortcode: 
-                <programlisting>[tubepress resultsPerPage="3" views="false" description="true" descriptionLimit="50" playerLocation="popup" thumbHeight="105" thumbWidth="135" template="sidebar.tpl.php"]</programlisting>
-            </para>
-            <para>
-                Of course, like any TubePress shortcode, you can override any setting you like.
-            </para>
-        </section>
-        <section id="init-options">
-            <title>Initialize Options</title>
-            <para>
-                If you'd like to reset your TubePress options to their default values, 
-                you can do so by using a special page nested inside the plugin.
-            </para>
-            <para>
-                If your blog URL is <code>http://myblog.com</code> you'd need to navigate to
-                <code>http://myblog.com/wp-content/plugins/tubepress/env/WordPress/functions/db_nuke.php</code>
-                with your web browser. Once there, you can just click the <code>Reset TubePress Options</code> 
-                button. Of course, you'll need to be a WordPress administrator (access level 9) for your blog to 
-                do this.
-            </para>
-        </section>
-    </chapter>
-    <chapter id="tubepress-pro">
-        <title>TubePress Pro</title>
-        <para>
-            TubePress Pro includes all the functionality of the WordPress plugin package, but it also allows you to run TubePress anywhere that supports PHP5. 
-            This means that you can easily insert video galleries in your PHP-enabled site - no WordPress required! 
-            A very basic understanding of PHP programming is helpful.
-        </para>
-        <note><para>Non-WordPress users - don't be alarmed if you see references to WordPress code in your download. There are WordPress-specific files
-        that allow TubePress Pro users to use the software in a WordPress environment if they choose to. This extra code will have absolutely no impact
-        on the functionality or performance of TubePress Pro.
-        </para></note>
-
         <section id="pro-installation">
-            <title>Installation</title>
+            <title>TubePress Pro</title>
             <para>Installing TubePress Pro is easy...</para>
             <orderedlist>
                 <listitem>
@@ -361,26 +252,165 @@
                     </para>
                 </listitem>
                 <listitem>
+                        <para>
+                            <emphasis>Optional</emphasis>. Install ShadowBox and JW FLV Media Player support. Installation instructions for these libraries can be found in
+                            <xref linkend="optional-pro-installations" />.
+                        </para>
+                </listitem>
+            </orderedlist>
+             <note><para>Non-WordPress users - don't be alarmed if you see references to WordPress code in your download. There are WordPress-specific files
+        that allow TubePress Pro users to use the software in a WordPress environment if they choose to. This extra code will have absolutely no impact
+        on the functionality or performance of TubePress Pro.
+        </para></note>
+            <para>
+                The last step in the installation, found below, depend on whether you're using TubePress Pro in WordPress or not.
+            </para>
+            <section id="pro-installation-standalone">
+                <title>Standalone PHP</title>
+                <para>If you will be using TubePress Pro <emphasis>outside</emphasis> of a WordPress environment, upload the entire 
+                    <code>tubepress_pro_1_8_9</code> directory to your web server in a place that's <emphasis>web accessible</emphasis>. Make a note of:
+                </para>
+                <itemizedlist>
+                    <listitem><para>the full path of this directory on your web server's filesystem (e.g. <code>/var/www/html/myblog.com/lib/tubepress_pro_1_8_9</code>)</para></listitem>
+                    <listitem><para>the web-accessible URL to reach this directory (e.g. <code>http://myblog.com/lib/tubepress_pro_1_8_9</code>)</para></listitem>
+                </itemizedlist>
+                <para>Now you're ready to start <link linkend="plain-php">integrating TubePress Pro into your site</link>.</para>
+            </section>
+            <section id="pro-installation-wordpress">
+                <title>WordPress</title>
+                <para>If you will be using TubePress Pro <emphasis>inside</emphasis> a WordPress environment, just install the TubePress Pro directory into
+                    <code>wp-content/plugins</code> as you would any other WordPress Plugin. Then start adding galleries to your
+                    <link linkend="wordpress-posts-pages-galleries">posts and pages</link> and/or <link linkend="pro-in-wordpress">templates</link>.
+                </para>
+            </section>
+        </section>
+    </chapter>
+    <chapter id="upgrading">
+        <title>Upgrading</title>
+        <para>Users of the free WordPress plugin can always grab the latest version of TubePress by following the instructions 
+            in the <link linkend="download">download section</link>. TubePress Pro users have free lifetime upgrades. To get the latest version
+            of TubePress Pro, just use the download link that was sent to your after your purchase. If you lost the link, please just email me
+             and I'll resend it to you.
+        </para>
+        <section id="upgrading-wordpress">
+            <title>WordPress (Free and Pro versions)</title>
+            <orderedlist>
+                <listitem>
                     <para>
-                       Upload this entire directory to your web server 
-                            in a place that's <emphasis>web accessible</emphasis>. Make a note of
+                        Remove your existing TubePress install directory (<code>wp-content/plugins/tubepress</code> or <code>wp-content/plugins/tubepress_pro_1_8_9</code>)
                     </para>
-                    <itemizedlist>
-                        <listitem><para>the full path of this directory on your web server's filesystem (e.g. <code>/var/www/html/myblog.com/lib/tubepress_pro_1_8_9</code>)</para></listitem>
-                        <listitem><para>the web-accessible URL to reach this directory (e.g. <code>http://myblog.com/lib/tubepress_pro_1_8_9</code>)</para></listitem>
-                    </itemizedlist>
+                </listitem>
+                <listitem>
+                    <para>Unzip the latest version of TubePress into (<code>wp-content/plugins</code>)</para>
                 </listitem>
                 <listitem>
                     <para>
-                        <emphasis>Optional</emphasis>. Install ShadowBox and JW FLV Media Player support. Installation instructions for these libraries can be found in
-                        <xref linkend="optional-pro-installations" />.
+                        Visit <code>Site Admin > Settings > TubePress</code> once initialize your options
                     </para>
                 </listitem>
             </orderedlist>
+            <section id="init-options">
+                <title>Initialize Options</title>
+                <para>
+                    If you'd like to reset your TubePress options to their default values, 
+                    you can do so by using a special page nested inside the plugin.
+                </para>
+                <para>
+                    If your blog URL is <code>http://myblog.com</code> you'd need to navigate to
+                    <code>http://myblog.com/wp-content/plugins/tubepress/env/WordPress/functions/db_nuke.php</code>
+                    with your web browser. Once there, you can just click the <code>Reset TubePress Options</code> 
+                    button. Of course, you'll need to be a WordPress administrator (access level 9) for your blog to 
+                    do this.
+                </para>
+            </section>
         </section>
+        <section id="pro-upgrade">
+            <title>Standalone PHP (Pro version only)</title>
+            <para>
+                To upgrade TubePress Pro in a stadalone PHP environment, simply repeat the <link linkend="pro-installation">TubePress Pro installation</link>
+                procedure with the latest copy of TubePress Pro. Then you'll simply need to change your <code>tubepress_base_url</code> and the inclusion 
+                 of <code>tubepress-pro.php</code> to point to the new install location. 
+            </para>
+        </section>
+    </chapter>
+    <chapter id="galleries">
+        <title>TubePress Video Galleries</title>
+    
+        <section id="wordpress-posts-pages-galleries">
+            <title>WordPress Posts and Pages (Free and Pro versions)</title>
+            <para>
+                As a <application>WordPress</application> plugin, <application>TubePress</application> 
+                lets you easily insert custom video galleries throughout your 
+                <application>WordPress</application>-powered blog. Just configure from <code>Settings > TubePress</code>, then type
+                 <programlisting>[tubepress]</programlisting> in
+                a post or page where you'd like your gallery to appear.
+            </para>
+            <para>
+                The options in <code>Settings > TubePress</code> are the global options for TubePress.
+                The real power of the plugin lies in the ability to put multiple galleries on multiple pages. 
+                This is done with <link linkend="shortcodes">TubePress shortcodes</link>. 
+            </para>
+            <para>
+                For example, say on one page I want to display a gallery of videos that are tagged 
+                with "<code>football</code>". On this page, I would type 
+                <programlisting>[tubepress mode="tag" tagValue="football"]</programlisting>
+                on the page where I want the gallery to show up. And say 
+                on another page I want to display a gallery with the default (global) options that were set 
+                in <code>Settings > TubePress</code>. On this page I would type <programlisting>[tubepress]</programlisting> where I 
+                wanted the gallery to show up. You can follow this procedure for unlimited galleries on 
+                unlimited posts/pages.  Just use <link linkend="shortcode-reference">any TubePress shortcode</link> to control the gallery content. Get creative! 
+            </para>
+        </section>
+        <section id="pro-in-wordpress">
+            <title>WordPress Templates (Pro only)</title>
+            <para>
+                You can also use TubePress Pro to insert video galleries outside the
+                <ulink url="http://codex.wordpress.org/The_Loop">WordPress Loop</ulink> (i.e. in your WordPress templates).
+                The code snippet below shows the <ulink url="http://codex.wordpress.org/The_Loop_in_Action#The_World.27s_Simplest_Index_Page">world's simplest
+                index page</ulink> with TubePress Pro added. As you can see, there are only 2 steps. 
+            </para>
+            <programlistingco>
+                <areaspec>
+                    <area coords="4 115" id="tubepress-pro-wordpress-include" />
+                    <area coords="8 115" id="tubepress-pro-wordpress-print" />
+                </areaspec>
+                <programlisting language="php"><![CDATA[
+<?php
 
+    require_once "/var/www/html/myblog.com/wp-content/plugins/tubepress_pro_1_8_9/env/pro/tubepress-pro.php";
+
+    get_header();
+
+    print tubepressGallery('mode="tag" tagValue="barack obama" resultsPerPage="3"');
+    
+    if (have_posts()) :
+       while (have_posts()) :
+          the_post();
+          the_content();
+       endwhile;
+    endif;
+    get_sidebar();
+    get_footer(); 
+?>
+             ]]></programlisting>
+                <calloutlist>
+                    <callout arearefs="tubepress-pro-wordpress-include">
+                        <para>
+                           Include the TubePress Pro library file (<code>tubepress-pro.php</code>). An absolute path works best.
+                    </para>
+                    </callout>
+                    <callout arearefs="tubepress-pro-wordpress-print">
+                         <para>
+                            This statement prints out the TubePress gallery contents. It takes a single string parameter which is
+                            <link linkend="shortcode-reference">any valid TubePress shortcode</link>, with or without the enclosing <code>[tubepress</code> wrapper. You
+                            repeat this function call as many times as you like.
+                        </para>
+                    </callout>
+                </calloutlist>
+            </programlistingco>
+        </section>
         <section id="plain-php">
-            <title>Usage in plain PHP</title>
+            <title>Standalone PHP (Pro version only)</title>
             <para>
                 The following is a very simple PHP file that generates a gallery with TubePress Pro. As you can see,
                 there are only four steps involved.
@@ -388,10 +418,10 @@
 
             <programlistingco>
                 <areaspec>
-                    <area coords="5 110" id="tubepress-pro-set-base-url" />
-                    <area coords="7 110" id="tubepress-pro-include-library" />
-                    <area coords="15 110" id="tubepress-pro-print-head" />
-                    <area coords="20 110" id="tubepress-pro-print-gallery" />
+                    <area coords="5 105" id="tubepress-pro-set-base-url" />
+                    <area coords="7 105" id="tubepress-pro-include-library" />
+                    <area coords="15 105" id="tubepress-pro-print-head" />
+                    <area coords="20 105" id="tubepress-pro-print-gallery" />
                 </areaspec>
                 <programlisting language="php"><![CDATA[
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -446,88 +476,92 @@
                     </callout>
                 </calloutlist>
             </programlistingco>
-               
         </section>
-        <section id="pro-in-wordpress">
-            <title>Usage in WordPress</title>
-            <section id="pro-wordpress-plugin">
-                <title>Posts and Pages</title>
-                <para>With TubePress Pro, you still get the full power of the WordPress plugin of TubePress. Just install the TubePress Pro directory into
-                    <code>wp-content/plugins</code> as you would any other WordPress Plugin. Then follow the <link linkend="wordpress-plugin">WordPress plugin documentation</link> to start inserting
-                    galleries into your posts and pages.
-                </para>
-            </section>
-            <section id="pro-outside-wordpress-loop">
-                <title>Outside "The Loop"</title>
-                <para>
-                    You can also use TubePress Pro to insert video galleries outside the
-                    <ulink url="http://codex.wordpress.org/The_Loop">WordPress Loop</ulink> (i.e. in your WordPress templates). It's even easier to
-                    use than in plain PHP.
-                </para>
-                <para>
-                    The code snippet below shows the <ulink url="http://codex.wordpress.org/The_Loop_in_Action#The_World.27s_Simplest_Index_Page">world's simplest
-                    index page</ulink> with TubePress Pro added. As you can see, there are only 2 steps. 
-                </para>
-
-                <programlistingco>
-                    <areaspec>
-                        <area coords="4 103" id="tubepress-pro-wordpress-include" />
-                        <area coords="8 103" id="tubepress-pro-wordpress-print" />
-                    </areaspec>
-                    <programlisting language="php"><![CDATA[
-<?php
-
-    require_once "/var/www/html/myblog.com/lib/tubepress_pro_1_8_9/env/pro/tubepress-pro.php";
-
-    get_header();
-
-    print tubepressGallery('mode="tag" tagValue="barack obama" resultsPerPage="3"');
-    
-    if (have_posts()) :
-       while (have_posts()) :
-          the_post();
-          the_content();
-       endwhile;
-    endif;
-    get_sidebar();
-    get_footer(); 
-?>
-                ]]></programlisting>
-                    <calloutlist>
-                        <callout arearefs="tubepress-pro-wordpress-include">
-                            <para>
-                               Include the TubePress Pro library file (<code>tubepress-pro.php</code>). You can use an absolute or
-                                relative path to the file.
-                        </para>
-                        </callout>
-                        <callout arearefs="tubepress-pro-wordpress-print">
-                             <para>
-                            This statement prints out the TubePress gallery contents. It takes a single string parameter which is
-                            <link linkend="shortcode-reference">any valid TubePress shortcode</link>, with or without the enclosing <code>[tubepress</code> wrapper. You
-                            repeat this function call as many times as you like to insert multiple galleries on a single page.
-                        </para>
-                        </callout>
-                    </calloutlist>
-                </programlistingco>
-            </section>
-        </section>
-        <section id="pro-upgrade">
-            <title>Upgrading</title>
-            <para>
-            You have free lifetime upgrades for TubePress Pro. To get the latest version, just use the download link
-            that was sent to your after your purchase. If you lost the link, please just email me and I'll resend it to you.
+        <section id="sidebar">
+            <title>Sidebar/Widget Galleries</title>
+            <para>All versions of TubePress come with the ability to integrate a vertical gallery of videos in the sidebar of your site. You can fully
+            customize the content and appearance of this sidebar as you would a regular TubePress gallery. Here's a sample of what the sidebar gallery can
+            look like...
+                <mediaobject>
+                    <imageobject role="fo">
+                        <imagedata fileref="images/sidebar.png" format="PNG" align="center" />
+                    </imageobject>
+                    <imageobject role="html">
+                        <imagedata fileref="images/sidebar.png" format="PNG" align="center" />
+                    </imageobject>
+                </mediaobject>
             </para>
+            <section id="sidebar-wordpress">
+                <title>WordPress (Free and Pro versions)</title>
+                <para>
+                    Please see the <ulink url="http://codex.wordpress.org/Widgets_SubPanel">WordPress widget documentation</ulink> for general info on how to enable 
+                    and disable widgets. This is what the TubePress widget control looks like at <code>WP Admin > Appearance > Widgets</code>...
+                    <mediaobject>
+                        <imageobject role="fo">
+                            <imagedata fileref="images/widget.png" format="PNG" align="center" />
+                        </imageobject>
+                        <imageobject role="html">
+                            <imagedata fileref="images/widget.png" format="PNG" align="center" />
+                        </imageobject>
+                    </mediaobject>
+                </para>
+                <para>
+                    In the "Title" section of the widget control, enter the text you'd like for the sidebar's header. 
+                    To customize which videos show up in your sidebar, just use a <link linkend="shortcodes">TubePress shortcode</link>. Please note that 
+                    by default, the TubePress widget will use the following shortcode: 
+                    <programlisting>[tubepress resultsPerPage="3" views="false" description="true" descriptionLimit="50" playerLocation="popup" thumbHeight="105" thumbWidth="135" template="sidebar.tpl.php"]</programlisting>
+                </para>
+                <para>
+                    Of course, like any TubePress shortcode, you can override any setting you like.
+                </para>
+            </section>
+            <section id="sidebar-pro">
+                <title>Standalone PHP (Pro version only)</title>
+                <para>Creating a sidebar gallery with TubePress Pro in standalone PHP is nearly identical to the <link linkend="plain-php">procedure for creating video
+                galleries in standalone PHP</link>. The only difference is that you use the <code>template</code> shortcode attribute to tell your gallery to use
+                the sidebar HTML template (<code>sidebar.tpl.php</code>). So your gallery generation statement would look like this...</para>
+                <programlisting><![CDATA[<?php print tubepressGallery('mode="tag" tagValue="barack obama" resultsPerPage="3" template="sidebar.tpl.php"'); ?>]]></programlisting>
+            </section>
         </section>
+    </chapter>
+    <chapter id="single-videos">
+        <title>Embedding a Single Video</title>
+        <para>There are dozens of software programs that allow you to embed an individual video in your web site (e.g. <ulink url="http://www.oembed.com/">oEmbed</ulink>,
+        <ulink url="http://www.prelovac.com/vladimir/wordpress-plugins/smart-youtube">Smart Youtube</ulink>, <ulink url="http://en.support.wordpress.com/videos/youtube/">WordPress shortcuts</ulink>).
+        TubePress distinguishes itself from the competition in that it lets you easily embed a video <emphasis>plus</emphasis> all of the video's meta
+        information (length, description, author, keywords, etc). You can even have fine-grained control over how the meta information is presented with the
+        video via TubePress's <link linkend="customizing">customization abilities</link>. Here's an example of a TubePress embedded video vs. the competition...
+            <mediaobject>
+                <imageobject role="fo">
+                    <imagedata fileref="images/single_video_example.png" format="PNG" align="center" />
+                </imageobject>
+                <imageobject role="html">
+                    <imagedata fileref="images/single_video_example.png" format="PNG" align="center" />
+                </imageobject>
+                <caption><para>TubePress's single video embedding (left) vs. the competition (right)</para></caption>
+            </mediaobject>
+        </para>
+        <para>
+            To embed a single video with TubePress, you simply use the <code>video</code> shortcode attribute to indicate the ID of the video you'd like
+            to embed. For instance, if you want to embed the video with ID <code>J51kfduN5aA</code>, you would use use the following shortcode
+            <programlisting>[tubepress video="J51kfduN5aA"]</programlisting>
+        </para>
+        <para>
+            When embedding a single video, TubePress will use the templates located at <code>ui/single_video/html_templates</code>. You can adjust which
+            meta information is displayed by using the regular <link linkend="meta-display-shortcodes">meta display shortcodes</link>. By default single
+            video embeds will use <code>ui/single_video/html_templates/default.tpl.php</code> for a template, but you can follow the 
+            <link linkend="customizing">customization instructions</link> to further adjust the appearance of the embedded video and its meta information.
+        </para>
     </chapter>
     <chapter id="customizing">
 	<title>Customizing</title>
-        <para>TubePress is designed to be easily customized. The appearance and structure of the galleries it generates can be changed with 
+        <para>TubePress is designed to be easily customized. The appearance and structure of the galleries and videos it generates can be changed with 
         some simple CSS and/or HTML modifications.</para>
         <section id="tubepress-css">
             <title>CSS</title>
             <para>
                 By adding a few snippets of CSS to your site, you can completely
-                change the appearance of your video galleries. This includes (but is not limited to)
+                change the appearance of your video galleries and videos. This includes (but is not limited to)
             </para>
             <itemizedlist>
                 <listitem>
@@ -544,24 +578,23 @@
                 </listitem>
             </itemizedlist>
             <para>
-                You can, of course, manually edit <code>ui/gallery/css/tubepress.css</code> and see your changes, but a <emphasis>far</emphasis> more
-                easier way to experiment with CSS changes is by using <ulink url="http://getfirebug.com">FireBug</ulink>. Here's an introductory video
-                to FireBug will help you get started quickly
-            </para>
-            <para>
-                <?dbhtml-include href="firebug_embed_video.html"?>
-            </para>
-            <para>
                 By default, TubePress will use the CSS stylesheet found at <code>ui/gallery/css/tubepress.css</code>. It is <emphasis>strongly</emphasis>
                 recommended that you do not edit this file directly, as it will be regularly overwritten on upgrades to TubePress. Instead, simply override/add any
                 TubePress-specific CSS properties via your site's existing CSS files.
+            </para>
+            <para>
+                A very easy way to experiment with CSS changes is by using <ulink url="http://getfirebug.com">FireBug</ulink>. Here's a short introductory video
+                about FireBug that will help you get started quickly
+            </para>
+            <para>
+                <?dbhtml-include href="firebug_embed_video.html"?>
             </para>
         </section>
         <section id="tubepress-templates">
             <title>HTML Templates</title>
             <para>
                 Sometimes you need to change not just the style of the galleries, but the entire HTML structure. TubePress also makes this easy via customizable
-                templates that require no special knowledge to edit. By default, TubePress ships with the following three templates:
+                templates that require no special knowledge to edit. By default, TubePress ships with the following four templates:
                 <itemizedlist>
                     <listitem>
                         <para>
@@ -587,22 +620,30 @@
                             an iPod/iPhone. It will allow the user to play your videos using Apple's YouTube player while remaining on your site.
                         </para>
                     </listitem>
+                    <listitem>
+                        <para>
+                            <code>ui/single_video/html_templates/default.tpl.php</code>
+                        </para>
+                        <para>
+                            TubePress's default template for <link linkend="single-videos">embedding a single video</link> along with its meta information
+                        </para>
+                    </listitem>
                 </itemizedlist>
             </para>
             <para>
-                The procedure for customizing your templates is as follows
+                The procedure for customizing templates is as follows
             </para>
             <orderedlist>
                 <listitem>
                     <para>
                         <emphasis>Make a copy of the template you'd like to modify</emphasis>. This will protect your changes from future upgrades to
-                        TubePress. Make sure you store the copy in the templates directory located at <code>ui/gallery/html_templates</code> as this is
-                        the only permissible location for templates.
+                        TubePress. Make sure you store the copy alongside the other templates, either in <code>ui/gallery/html_templates</code> or 
+                        <code>ui/single_video/html_templates</code>, as these are the only permissible locations for templates.
                     </para>
                 </listitem>
                 <listitem>
                     <para>
-                        Edit your copied template to suit your needs. Generally, the template variables available in the default templates are the only ones
+                        Edit your copied template to suit your needs. Generally, the variables found in the default templates are the only ones
                         available to the template.
                     </para>
                 </listitem>
@@ -610,7 +651,10 @@
                     <para>
                         Tell TubePress to use your new template via the <code><link linkend="display-options">template</link></code> shortcode. For instance
                         <programlisting>[tubepress template="my_custom_template.tpl.php"]</programlisting>
-                        would indicate to TubePress that I'd like to use the template located at <code>ui/gallery/html_templates/my_custom_template.tpl.php</code>.
+                        would tell TubePress to use the template located at <code>ui/gallery/html_templates/my_custom_template.tpl.php</code>. Or if you're
+                        <link linkend="single-videos">embedding a single video</link>
+                        <programlisting>[tubepress video="J51kfduN5aA" template="my_custom_template.tpl.php"]</programlisting> would tell TubePress to
+                        use the template located at <code>ui/single_video/html_templates/my_custom_template.tpl.php</code>
                     </para>
                 </listitem>
             </orderedlist>
@@ -635,7 +679,8 @@
               can be configured completely independently from the others, based on the content of the shortcode.
             </para>
             <para>
-                The simplest shortcode is <programlisting>[tubepress]</programlisting>. In a post or a page, TubePress will replace this shortcode with a video 
+                The simplest shortcode is <programlisting>[tubepress]</programlisting>
+                In a post or a page, TubePress will replace this shortcode with a video 
                 gallery defined by the default settings. You can override each TubePress setting by providing any of the shortcode attributes found in <xref linkend="shortcode-reference" />.
             </para>
         </section>
@@ -749,6 +794,30 @@
                     </tgroup>
                 </table>
             </section>
+            <section id="single-video-shortcodes">
+                <title>Single video embedding</title>
+                <table pgwide="1" frame="none">
+                    <title>Single video shortcodes</title>
+                    <tgroup cols='4' align='left' colsep='0' rowsep='0'>
+                        <thead>
+                            <row>
+                                <entry>Setting</entry>
+                                <entry>Description</entry>
+                                <entry>Notes</entry>
+                                <entry>Example</entry>
+                            </row>
+                        </thead>
+                        <tbody>
+                            <row>
+                                <entry><code>video</code></entry>
+                                <entry>The ID of the video to embed</entry>
+                                <entry></entry>
+                                <entry><code>[tubepress video="J51kfduN5aA"]</code></entry>
+                            </row>
+                        </tbody>
+                    </tgroup>
+                </table>
+            </section>
             <section id="display-options">
                 <title>Display Options</title>
                 <para>
@@ -831,8 +900,9 @@
                             <row>
                                 <entry><code>template</code></entry>
                                 <entry>Custom template</entry>
-                                <entry>Name of a readable file located in <code>ui/gallery/html_templates</code>. This is the only permissible
-                                location for custom templates.</entry>
+                                <entry>Name of a readable file located in <code>ui/gallery/html_templates</code> (for galleries) or
+                                <code>ui/single_video/html_templates</code> (for single videos). These are the only permissible
+                                locations for custom templates.</entry>
                                 <entry><code>[tubepress template="custom_template.tpl.html"]</code></entry>
                             </row>
                             <row>
@@ -850,6 +920,7 @@
                         </tbody>
                     </tgroup>
                 </table>
+                </section>
                 <section id="player-location-shortcodes">
                     <title>Player Locations</title>
                     <para>
@@ -1025,7 +1096,7 @@
                         <tbody>
                             <row>
                                 <entry><code>autoplay</code></entry>
-                                <entry>Toggles start of video playback without user intervention</entry>
+                                <entry>Start video playback without user intervention</entry>
                                 <entry>
                                    <itemizedlist>
                                       <listitem><para><code>true</code></para></listitem>
@@ -1036,7 +1107,7 @@
                             </row>
                             <row>
                                 <entry><code>border</code></entry>
-                                <entry>Toggles frame around embedded player</entry>
+                                <entry>Frame embedded player</entry>
                                 <entry>
                                    <itemizedlist>
                                       <listitem><para><code>true</code></para></listitem>
@@ -1070,7 +1141,7 @@
                             </row>
                             <row>
                                 <entry><code>genie</code></entry>
-                                <entry>Toggles display of "genie" menu during video playback</entry>
+                                <entry>Display "genie" menu during video playback</entry>
                                 <entry>
                                    <itemizedlist>
                                       <listitem><para><code>true</code></para></listitem>
@@ -1081,7 +1152,7 @@
                             </row>
                             <row>
                                 <entry><code>hd</code></entry>
-                                <entry>Toggles display of high definition videos</entry>
+                                <entry>Display high definition videos</entry>
                                 <entry>
                                    <itemizedlist>
                                       <listitem><para><code>true</code></para></listitem>
@@ -1092,7 +1163,7 @@
                             </row>
                             <row>
                                 <entry><code>loop</code></entry>
-                                <entry>Toggles repeat of videos without user intervention</entry>
+                                <entry>Repeat videos without user intervention</entry>
                                 <entry>
                                    <itemizedlist>
                                       <listitem><para><code>true</code></para></listitem>
@@ -1122,7 +1193,7 @@
                             </row>
                             <row>
                                 <entry><code>showInfo</code></entry>
-                                <entry>Toggles display of title and rating before playback</entry>
+                                <entry>Display title and rating before playback</entry>
                                 <entry>
                                    <itemizedlist>
                                       <listitem><para><code>true</code></para></listitem>
@@ -1133,7 +1204,7 @@
                             </row>
                             <row>
                                 <entry><code>showRelated</code></entry>
-                                <entry>Toggles display of related videos after playback</entry>
+                                <entry>Display related videos after playback</entry>
                                 <entry>
                                    <itemizedlist>
                                       <listitem><para><code>true</code></para></listitem>
@@ -1165,7 +1236,7 @@
                         <tbody>
                             <row>
                                 <entry><code>author</code></entry>
-                                <entry>Toggles display of video author below thumbnails</entry>
+                                <entry>Display video author</entry>
                                 <entry>
                                    <itemizedlist>
                                       <listitem><para><code>true</code></para></listitem>
@@ -1176,7 +1247,7 @@
                             </row>
                             <row>
                                 <entry><code>category</code></entry>
-                                <entry>Toggles display of video category below thumbnails</entry>
+                                <entry>Display video category</entry>
                                 <entry>
                                    <itemizedlist>
                                       <listitem><para><code>true</code></para></listitem>
@@ -1187,7 +1258,7 @@
                             </row>
                             <row>
                                 <entry><code>description</code></entry>
-                                <entry>Toggles display of video description below thumbnails</entry>
+                                <entry>Display video description</entry>
                                 <entry>
                                    <itemizedlist>
                                       <listitem><para><code>true</code></para></listitem>
@@ -1198,7 +1269,7 @@
                             </row>
                             <row>
                                 <entry><code>id</code></entry>
-                                <entry>Toggles display of video ID below thumbnails</entry>
+                                <entry>Display video ID</entry>
                                 <entry>
                                    <itemizedlist>
                                       <listitem><para><code>true</code></para></listitem>
@@ -1209,7 +1280,7 @@
                             </row>
                             <row>
                                 <entry><code>length</code></entry>
-                                <entry>Toggles display of video run time below thumbnails</entry>
+                                <entry>Display video run time</entry>
                                 <entry>
                                    <itemizedlist>
                                       <listitem><para><code>true</code></para></listitem>
@@ -1220,7 +1291,7 @@
                             </row>
                             <row>
                                 <entry><code>rating</code></entry>
-                                <entry>Toggles display of average video rating below thumbnails</entry>
+                                <entry>Display average video rating</entry>
                                 <entry>
                                    <itemizedlist>
                                       <listitem><para><code>true</code></para></listitem>
@@ -1231,7 +1302,7 @@
                             </row>
                             <row>
                                 <entry><code>ratings</code></entry>
-                                <entry>Toggles display of video rating count below thumbnails</entry>
+                                <entry>Display video rating count</entry>
                                 <entry>
                                    <itemizedlist>
                                       <listitem><para><code>true</code></para></listitem>
@@ -1242,7 +1313,7 @@
                             </row>
                             <row>
                                 <entry><code>tags</code></entry>
-                                <entry>Toggles display of video tags below thumbnails</entry>
+                                <entry>Display video keywords</entry>
                                 <entry>
                                    <itemizedlist>
                                       <listitem><para><code>true</code></para></listitem>
@@ -1253,7 +1324,7 @@
                             </row>
                             <row>
                                 <entry><code>title</code></entry>
-                                <entry>Toggles display of video title below thumbnails</entry>
+                                <entry>Display video title</entry>
                                 <entry>
                                    <itemizedlist>
                                       <listitem><para><code>true</code></para></listitem>
@@ -1264,7 +1335,7 @@
                             </row>
                             <row>
                                 <entry><code>uploaded</code></entry>
-                                <entry>Toggles display of video upload time below thumbnails</entry>
+                                <entry>Display video upload timestamp</entry>
                                 <entry>
                                    <itemizedlist>
                                       <listitem><para><code>true</code></para></listitem>
@@ -1275,7 +1346,7 @@
                             </row>
                             <row>
                                 <entry><code>url</code></entry>
-                                <entry>Toggles display of video URL on YouTube below thumbnails</entry>
+                                <entry>Display video URL on YouTube</entry>
                                 <entry>
                                    <itemizedlist>
                                       <listitem><para><code>true</code></para></listitem>
@@ -1286,7 +1357,7 @@
                             </row>
                             <row>
                                 <entry><code>views</code></entry>
-                                <entry>Toggles display of video view count below thumbnails</entry>
+                                <entry>Display video view count</entry>
                                 <entry>
                                    <itemizedlist>
                                       <listitem><para><code>true</code></para></listitem>
@@ -1317,7 +1388,7 @@
                                 <row>
                                     <entry><code>cacheEnabled</code></entry>
                                     <entry>
-                                        Toggles the use of a file-based cache to store responses from provider
+                                        Use a file-based cache to store responses from provider
                                     </entry>
                                     <entry>
                                    <itemizedlist>
@@ -1330,7 +1401,7 @@
                                 <row>
                                     <entry><code>clientKey</code></entry>
                                     <entry>
-                                        Set the YouTube Client Key when interacting with YouTube
+                                        The YouTube Client Key when interacting with YouTube
                                     </entry>
                                      <entry>Any valid YouTube Client Key</entry>
                                     <entry><code>[tubepress clientKey="33AEF33BBC344"]</code></entry>
@@ -1338,7 +1409,7 @@
                                 <row>
                                     <entry><code>developerKey</code></entry>
                                     <entry>
-                                        Set the YouTube Developer Key when interacting with YouTube
+                                        The YouTube Developer Key when interacting with YouTube
                                     </entry>
                                     <entry>Any valid YouTube Developer Key</entry>
                                     <entry><code>[tubepress developerKey="33AEF33BBC344"]</code></entry>
@@ -1403,7 +1474,7 @@
                             </row>
                             <row>
                                 <entry><code>debugging_enabled</code></entry>
-                                <entry>Toggles ability to perform remote debugging</entry>
+                                <entry>Enable ability to perform remote debugging</entry>
                                 <entry>
                                         <itemizedlist>
                                             <listitem><para><code>true</code></para></listitem>
@@ -1414,7 +1485,7 @@
                             </row>
                             <row>
                                 <entry><code>randomize_thumbnails</code></entry>
-                                <entry>Toggles random thumbnail selection for each video (each video comes with several thumbnails)</entry>
+                                <entry>Randomize thumbnail selection for each video (each video comes with several thumbnails)</entry>
                                 <entry>
                                         <itemizedlist>
                                             <listitem><para><code>true</code></para></listitem>
@@ -1428,7 +1499,6 @@
                     </tgroup>
                 </table>
             </section>  
-        </section>
     </chapter>
     <chapter id="i18n_instructions">
         <title>TubePress in Your Language</title>
@@ -1464,7 +1534,7 @@
             </para>
                         <programlistingco>
                 <areaspec>
-                    <area coords="3 110" id="tubepress-pro-i18n-lang" />
+                    <area coords="4 32" id="tubepress-pro-i18n-lang" />
                 </areaspec>
                 <programlisting language="php"><![CDATA[
     ...
@@ -1602,11 +1672,10 @@ nights working on this project. If you enjoy the software, please consider a don
         <title>ShadowBox</title>
         <orderedlist>
             <listitem><para>Download ShadowBox from <ulink url="http://www.shadowbox-js.com/download.html">here</ulink>. It will save to a file
-                named something like <code>shadowbox-build-3.0b.zip</code>.</para></listitem>
-            <listitem><para>Unzip this file. It will expand into a directory named <code>shadowbox-build-3.0b</code>.</para></listitem>
-            <listitem><para>Copy the <emphasis>contents</emphasis> of this directory (not the directory itself) to your TubePress Pro installation.
-            Assuming your TubePress Pro directory is located at <code>/var/www/myblog.com/html/lib/tubepress_pro_1_8_9</code>, you should copy the files to
-            <code>/var/www/myblog.com/html/lib/tubepress_pro_1_8_9/ui/players/shadowbox/lib/</code>.     
+                named something like <code>shadowbox-build-3.0rc1.zip</code>.</para></listitem>
+            <listitem><para>Unzip this file. It will expand into a directory named <code>shadowbox-build-3.0rc1</code>.</para></listitem>
+            <listitem><para>Copy the <emphasis>contents</emphasis> of this directory (not the directory itself) to your TubePress Pro installation at
+             <code>tubepress_pro_1_8_9/ui/players/shadowbox/lib/</code>.     
             </para></listitem>
         </orderedlist>
     </section>
@@ -1616,9 +1685,8 @@ nights working on this project. If you enjoy the software, please consider a don
             <listitem><para>Download the JW FLV Media Player from <ulink url="http://www.longtailvideo.com/players/jw-flv-player/">here</ulink>.  It will
             save to a file named something like <code>mediaplayer.zip</code>.</para></listitem>
             <listitem><para>Unzip this file. It will expand into a directory named <code>mediaplayer</code>.</para></listitem>
-            <listitem><para>Copy the <emphasis>contents</emphasis> of this directory (not the directory itself) to your TubePress Pro installation.
-            Assuming your TubePress Pro directory is located at <code>/var/www/myblog.com/html/lib/tubepress_pro_1_8_9</code>, you should copy the files to
-            <code>/var/www/myblog.com/html/lib/tubepress_pro_1_8_9/ui/embedded_flash/longtail/lib/</code>.     
+            <listitem><para>Copy the <emphasis>contents</emphasis> of this directory (not the directory itself) to your TubePress Pro installation at
+            <code>tubepress_pro_1_8_9/ui/embedded_flash/longtail/lib/</code>.     
             </para></listitem>
         </orderedlist>
     </section>

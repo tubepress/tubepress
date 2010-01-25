@@ -15,10 +15,6 @@ div {
   margin:        0pt;
 }
 
-p {
-  text-align:    justify;
-}
-
 hr {
   border:        1px solid gray;
   background:    gray;
@@ -34,8 +30,8 @@ pre {
   color:         black;
 }
 
-span.command {
-        
+div.toc dt, div.toc dd {
+    font-size: small;	
 }
 
 pre.programlisting {
