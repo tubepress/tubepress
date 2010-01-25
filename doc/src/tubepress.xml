@@ -32,7 +32,7 @@
         <title>Introduction</title>
         <para>
             <application>TubePress</application>
-            is a PHP library that displays beautiful YouTube video galleries in
+            is a PHP library that displays beautiful YouTube videos and galleries in
             your web site. It's highly configurable and easy to use. Check out a
             demo gallery
             <ulink url="http://tubepress.org/demo">here</ulink>.

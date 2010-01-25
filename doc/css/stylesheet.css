@@ -30,8 +30,10 @@ pre {
   color:         black;
 }
 
-div.toc dt, div.toc dd {
-    font-size: small;	
+div.toc dt, div.toc dd, div.toc dl {
+    font-size: small;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 pre.programlisting {
