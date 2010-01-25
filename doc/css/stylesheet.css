@@ -36,6 +36,11 @@ div.toc dt, div.toc dd, div.toc dl {
     margin-bottom: 0;
 }
 
+div.toc span.chapter {
+    margin-top: 0;
+    margin-bottom: 0;	
+}
+
 pre.programlisting {
   font-size:     10pt;
   padding:       7pt 3pt;
@@ -78,8 +83,10 @@ h1,h2,h3,h4 {
 
 div.caption p {
     text-align: center;
-    font-style: italic;
-    font-size: small;   
+    font-size: small;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
 }
 
 .sidebar {
