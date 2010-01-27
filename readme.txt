@@ -16,6 +16,20 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 
 == Changelog ==
 
+= 1.8.9 =
+
+* Now includes ability to embed individual videos along with all of their meta info (title, author, description, etc)!
+* Request cache is now disabled by default
+* Fixed blank item on video sort order dropdown of WordPress options page (closes  issue 155)
+* descLimit shortcode can now be set to zero (closes  issue 153)
+* Improved compatibility with older versions of PHP (closes  issue 163)
+* Added Russian translation (thanks to an anonymous supporter)
+* ShadowBox version bump to 3.0rc1
+* Improved documentation
+* (TubePress Pro) Improved i18n support
+* (TubePress Pro) FancyBox version bump to 1.2.6
+* (TubePress Pro) Fixed bug that prevented FancyBox from operating correctly in IE (closes  issue 165)
+
 = 1.8.8 =
 * JavaScript initialization is much more robust. Reduces chances of un-clickable video thumbnails.
 * Fixed potentially fatal error in cache mechanism
