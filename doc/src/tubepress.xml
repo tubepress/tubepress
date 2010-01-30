@@ -1025,7 +1025,8 @@
                                     <entry>
                                         Shows videos in order of how many times they've been viewed
                                     </entry>
-                                     <entry>YouTube galleries will show more-viewed videos first</entry>
+                                     <entry>YouTube galleries will show more-viewed videos first. Does not apply to
+                                     YouTube playlists.</entry>
                                     <entry><code>[tubepress orderBy="viewCount"]</code></entry>
                                 </row>
                                 <row>
@@ -1033,7 +1034,8 @@
                                     <entry>
                                         Shows videos in order of their rating
                                     </entry>
-                                    <entry>YouTube galleries will show higher-rated videos first</entry>
+                                    <entry>YouTube galleries will show higher-rated videos first. Does not apply to
+                                    YouTube playlists.</entry>
                                     <entry><code>[tubepress orderBy="rating"]</code></entry>
                                 </row>
                                 <row>
@@ -1052,6 +1054,40 @@
                                     <entry>Will only randomize the order for a single gallery page. e.g. If you have a gallery with a total of 500 videos, 
                                     with 20 videos per page, only 20 videos at a time will be shuffled. This is a restriction on YouTube's end.</entry>
                                     <entry><code>[tubepress orderBy="random"]</code></entry>
+                                </row>
+                                <row>
+                                    <entry><code>position</code></entry>
+                                    <entry>
+                                        Shows videos in the order they were added to a playlist
+                                    </entry>
+                                    <entry>Only applies to YouTube <code>playlist</code> galleries</entry>
+                                    <entry><code>[tubepress orderBy="position"]</code></entry>
+                                </row>
+                                <row>
+                                    <entry><code>commentCount</code></entry>
+                                    <entry>
+                                        Shows videos in order of comment count
+                                    </entry>
+                                    <entry>Only applies to YouTube <code>playlist</code> galleries. Shows most-commented
+                                    to least-commented.</entry>
+                                    <entry><code>[tubepress orderBy="commentCount"]</code></entry>
+                                </row>
+                                <row>
+                                    <entry><code>duration</code></entry>
+                                    <entry>
+                                        Shows videos in order of length
+                                    </entry>
+                                    <entry>Only applies to YouTube <code>playlist</code> galleries. Shows longest
+                                    videos first.</entry>
+                                    <entry><code>[tubepress orderBy="duration"]</code></entry>
+                                </row>
+                                <row>
+                                    <entry><code>title</code></entry>
+                                    <entry>
+                                        Shows videos in alphabetical order by title
+                                    </entry>
+                                    <entry>Only applies to YouTube <code>playlist</code> galleries.</entry>
+                                    <entry><code>[tubepress orderBy="title"]</code></entry>
                                 </row>
                             </tbody>
                         </tgroup>
