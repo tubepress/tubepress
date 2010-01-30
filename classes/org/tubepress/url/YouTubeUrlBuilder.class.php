@@ -140,7 +140,6 @@ class org_tubepress_url_YouTubeUrlBuilder implements org_tubepress_url_UrlBuilde
     private function _galleryUrlPostProcessing(net_php_pear_Net_URL2 $url, $currentPage)
     {
         $perPage   = $this->_tpom->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
-        $order     = $this->_tpom->get(org_tubepress_options_category_Display::ORDER_BY);
         
         /* start index of the videos */
         $start = ($currentPage * $perPage) - $perPage + 1;
@@ -148,14 +147,40 @@ class org_tubepress_url_YouTubeUrlBuilder implements org_tubepress_url_UrlBuilde
         $url->setQueryVariable('start-index', $start);
         $url->setQueryVariable('max-results', $perPage);
         
-        if ($order != 'random') {
-            $url->setQueryVariable('orderby', $order);
-        }
+        $this->_setOrderBy($url);
         
         $url->setQueryVariable('safeSearch', $this->_tpom->get(org_tubepress_options_category_Feed::FILTER));
 
         if ($this->_tpom->get(org_tubepress_options_category_Feed::EMBEDDABLE_ONLY)) {
             $url->setQueryVariable('format', '5');
+        }
+    }
+    
+    private function _setOrderBy(net_php_pear_Net_URL2 $url) 
+    {
+        $order = $this->_tpom->get(org_tubepress_options_category_Display::ORDER_BY);
+        $mode  = $this->_tpom->get(org_tubepress_options_category_Gallery::MODE);
+        
+        if ($order == 'random') {
+            return;
+        }
+        
+        /* any feed can take these */
+        if ($order == 'viewCount' || $order =='published') {
+            $url->setQueryVariable('orderby', $order);
+            return;
+        }
+        
+        /* playlist specific stuff */
+        if ($mode == org_tubepress_gallery_TubePressGallery::PLAYLIST) {
+            if (in_array($order, array('position', 'commentCount', 'duration', 'title'))) {
+                $url->setQueryVariable('orderby', $order);
+            }
+            return;
+        }
+        
+        if (in_array($order, array('relevance', 'rating'))) {
+            $url->setQueryVariable('orderby', $order);
         }
     }
 }

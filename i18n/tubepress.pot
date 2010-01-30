@@ -341,6 +341,18 @@ msgstr ""
 msgid "randomly"
 msgstr ""
 
+msgid "position in a playlist"
+msgstr ""
+
+msgid "comment count"
+msgstr ""
+
+msgid "length"
+msgstr ""
+
+msgid "title"
+msgstr ""
+
 msgid "today"
 msgstr ""
 
