@@ -56,7 +56,7 @@ msgstr ""
 msgid "This playlist"
 msgstr ""
 
-msgid "Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35"
+msgid "Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35"
 msgstr ""
 
 msgid "Most-viewed videos from"
@@ -387,7 +387,7 @@ msgid "strict"
 msgstr ""
 
 msgid "YouTube"
-msgstr
+msgstr ""
 
 msgid "JW FLV Media Player (by Longtail Video)"
 msgstr ""
