@@ -55,7 +55,7 @@ class org_tubepress_template_SimpleTemplate implements org_tubepress_template_Te
 	    
 		ob_start();
 		extract($this->_source);
-        include $this->_path;
+        include realpath($this->_path);
         $result = ob_get_contents();
         ob_end_clean();
         return org_tubepress_util_StringUtils::removeEmptyLines($result);
