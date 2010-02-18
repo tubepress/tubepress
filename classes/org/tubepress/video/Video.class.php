@@ -20,7 +20,7 @@
  */
 
 /**
- * A YouTube video that TubePress can pass around easily
+ * A video object that TubePress processes
  */
 class org_tubepress_video_Video
 {

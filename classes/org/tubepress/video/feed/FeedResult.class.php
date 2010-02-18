@@ -19,40 +19,20 @@
  *
  */
 
+/**
+ * Simple class to abstract the response from a video provider
+ */
 class org_tubepress_video_feed_FeedResult {
     
     private $_effectiveDisplayCount;
     private $_effectiveTotalResultCount;
     private $_videoArray;
     
-    public function setVideoArray($videos)
-    {
-        $this->_videoArray = $videos;
-    }
+    public function setVideoArray($videos)  { $this->_videoArray = $videos; }
+    public function setEffectiveTotalResultCount($count) { $this->_effectiveTotalResultCount = $count; }
+    public function setEffectiveDisplayCount($count) { $this->_effectiveDisplayCount = $count; }
     
-    public function setEffectiveTotalResultCount($count)
-    {
-        $this->_effectiveTotalResultCount = $count;
-    }
-    
-    public function setEffectiveDisplayCount($count)
-    {
-        $this->_effectiveDisplayCount = $count;
-    }
-    
-    public function getVideoArray()
-    {
-        return $this->_videoArray;
-    }
-    
-    public function getEffectiveTotalResultCount()
-    {
-        return $this->_effectiveTotalResultCount;
-    }
-    
-    public function getEffectiveDisplayCount()
-    {
-        return $this->_effectiveDisplayCount;
-    }
-    
+    public function getVideoArray() { return $this->_videoArray; }
+    public function getEffectiveTotalResultCount() { return $this->_effectiveTotalResultCount; }
+    public function getEffectiveDisplayCount() { return $this->_effectiveDisplayCount; }
 }

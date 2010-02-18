@@ -45,8 +45,8 @@ class org_tubepress_env_wordpress_Widget
 
     public static function printWidget($opts)
     {
-        extract($opts);
-    
+	extract($opts);
+
         if (class_exists('org_tubepress_ioc_ProInWordPressIocService')) {
             $iocContainer = new org_tubepress_ioc_ProInWordPressIocService();
         } else {

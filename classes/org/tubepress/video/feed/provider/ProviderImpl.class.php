@@ -32,7 +32,6 @@ tubepress_load_classes(array('org_tubepress_video_feed_provider_Provider',
 
 /**
  * Somewhat generic class that pulls vidoes from a remote provider
- * @author ehough
  */
 class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_video_feed_provider_Provider {
 
@@ -107,7 +106,11 @@ class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_vi
     
     public function getSingleVideo($customVideoId)
     {
+        $this->_log->log($this->_logPrefix, 'Fetching video with ID %s', $customVideoId);
+
         $videoUrl = $this->_urlBuilder->buildSingleVideoUrl($customVideoId);
+        $this->_log->log($this->_logPrefix, 'URL to fetch is %s', $videoUrl);
+
         $results = $this->_feedRetrievalService->fetch($videoUrl, $this->_optionsManager->get(org_tubepress_options_category_Feed::CACHE_ENABLED));
         $videoArray = $this->_videoFactory->convertSingleVideo($results, 1);
         return $videoArray[0];

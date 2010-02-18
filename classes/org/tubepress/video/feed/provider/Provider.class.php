@@ -19,6 +19,9 @@
  *
  */
 
+/**
+ * Interface to a remove video provider
+ */
 interface org_tubepress_video_feed_provider_Provider {
     
     public function getFeedResult();

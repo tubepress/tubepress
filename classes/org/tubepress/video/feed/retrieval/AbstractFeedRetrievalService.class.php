@@ -26,7 +26,7 @@ tubepress_load_classes(array('org_tubepress_video_feed_retrieval_FeedRetrievalSe
     'org_tubepress_log_Log'));
 
 /**
- * Base functionality for TubePressFeedRetrieval services
+ * Base functionality for feed retrieval services
  *
  */
 abstract class org_tubepress_video_feed_retrieval_AbstractFeedRetrievalService implements org_tubepress_video_feed_retrieval_FeedRetrievalService
