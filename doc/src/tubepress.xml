@@ -11,7 +11,7 @@
                 <surname>Hough</surname>
             </personname>
         </author>
-        <releaseinfo revision="1.8.9"></releaseinfo>
+        <releaseinfo revision="1.9.0"></releaseinfo>
         <productname>TubePress</productname>
         <copyright>
             <year>2006-2010</year>
@@ -63,6 +63,7 @@
             <title>Acknowledgements</title>
             <para>The following individuals have contributed code or other resources to this project. Thank you for your efforts!</para>
             <itemizedlist>
+                <listitem><para><ulink url="http://www.lochgelly.org.uk/">James G</ulink> for improving the reliability of the WordPress widget control panel</para></listitem>
                 <listitem><para><ulink url="http://gidibao.net/">Gianni Diurno</ulink> for Italian translations</para></listitem>
                 <listitem><para>Pascal Berger for German translations</para></listitem>
                 <listitem><para><ulink url="http://www.mishkin.se/">Mikael Jorhult</ulink> for Swedish translations</para></listitem>
@@ -243,13 +244,13 @@
                         (or open) a zip file containing TubePress Pro. Click "Save file" and download the 
                         zip file to somewhere easy to find, like your desktop.
                     </para>
-                    <para>As of this writing, the  name of the zip file is <code>tubepress_pro_1_8_9.zip</code>.
+                    <para>As of this writing, the  name of the zip file is <code>tubepress_pro_1_9_0.zip</code>.
                     </para>
                 </listitem>
                 <listitem>
                     <para>
-                        Unzip the file you just downloaded (<code>tubepress_pro_1_8_9.zip</code>). It will expand 
-                        into a directory named <code>tubepress_pro_1_8_9</code>.
+                        Unzip the file you just downloaded (<code>tubepress_pro_1_9_0.zip</code>). It will expand 
+                        into a directory named <code>tubepress_pro_1_9_0</code>.
                     </para>
                 </listitem>
                 <listitem>
@@ -269,11 +270,11 @@
             <section id="pro-installation-standalone">
                 <title>Standalone PHP</title>
                 <para>If you will be using TubePress Pro <emphasis>outside</emphasis> of a WordPress environment, upload the entire 
-                    <code>tubepress_pro_1_8_9</code> directory to your web server in a place that's <emphasis>web accessible</emphasis>. Make a note of:
+                    <code>tubepress_pro_1_9_0</code> directory to your web server in a place that's <emphasis>web accessible</emphasis>. Make a note of:
                 </para>
                 <itemizedlist>
-                    <listitem><para>the full path of this directory on your web server's filesystem (e.g. <code>/var/www/html/myblog.com/lib/tubepress_pro_1_8_9</code>)</para></listitem>
-                    <listitem><para>the web-accessible URL to reach this directory (e.g. <code>http://myblog.com/lib/tubepress_pro_1_8_9</code>)</para></listitem>
+                    <listitem><para>the full path of this directory on your web server's filesystem (e.g. <code>/var/www/html/myblog.com/lib/tubepress_pro_1_9_0</code>)</para></listitem>
+                    <listitem><para>the web-accessible URL to reach this directory (e.g. <code>http://myblog.com/lib/tubepress_pro_1_9_0</code>)</para></listitem>
                 </itemizedlist>
                 <para>Now you're ready to start <link linkend="plain-php">integrating TubePress Pro into your site</link>.</para>
             </section>
@@ -298,7 +299,7 @@
             <orderedlist>
                 <listitem>
                     <para>
-                        Remove your existing TubePress install directory (<code>wp-content/plugins/tubepress</code> or <code>wp-content/plugins/tubepress_pro_1_8_9</code>)
+                        Remove your existing TubePress install directory (<code>wp-content/plugins/tubepress</code> or <code>wp-content/plugins/tubepress_pro_1_9_0</code>)
                     </para>
                 </listitem>
                 <listitem>
@@ -378,7 +379,7 @@
                 <programlisting language="php"><![CDATA[
 <?php
 
-    require_once "/var/www/html/myblog.com/wp-content/plugins/tubepress_pro_1_8_9/env/pro/tubepress-pro.php";
+    require_once "/var/www/html/myblog.com/wp-content/plugins/tubepress_pro_1_9_0/env/pro/tubepress-pro.php";
 
     get_header();
 
@@ -428,9 +429,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <?php 
 
-    $tubepress_base_url = "http://myblog.com/lib/tubepress_pro_1_8_9";
+    $tubepress_base_url = "http://myblog.com/lib/tubepress_pro_1_9_0";
 
-    require_once "/var/www/html/myblog.com/lib/tubepress_pro_1_8_9/env/pro/tubepress-pro.php";
+    require_once "/var/www/html/myblog.com/lib/tubepress_pro_1_9_0/env/pro/tubepress-pro.php";
 ?>
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
@@ -1577,7 +1578,7 @@
     ...
     
     define('LANG', 'it_IT');
-    require_once "/var/www/html/myblog.com/lib/tubepress_pro_1_8_9/env/pro/tubepress-pro.php";
+    require_once "/var/www/html/myblog.com/lib/tubepress_pro_1_9_0/env/pro/tubepress-pro.php";
 
     ...
                 ]]></programlisting>
@@ -1712,7 +1713,7 @@ nights working on this project. If you enjoy the software, please consider a don
                 named something like <code>shadowbox-build-3.0rc1.zip</code>.</para></listitem>
             <listitem><para>Unzip this file. It will expand into a directory named <code>shadowbox-build-3.0rc1</code>.</para></listitem>
             <listitem><para>Copy the <emphasis>contents</emphasis> of this directory (not the directory itself) to your TubePress Pro installation at
-             <code>tubepress_pro_1_8_9/ui/players/shadowbox/lib/</code>.     
+             <code>tubepress_pro_1_9_0/ui/players/shadowbox/lib/</code>.     
             </para></listitem>
         </orderedlist>
     </section>
@@ -1723,7 +1724,7 @@ nights working on this project. If you enjoy the software, please consider a don
             save to a file named something like <code>mediaplayer.zip</code>.</para></listitem>
             <listitem><para>Unzip this file. It will expand into a directory named <code>mediaplayer</code>.</para></listitem>
             <listitem><para>Copy the <emphasis>contents</emphasis> of this directory (not the directory itself) to your TubePress Pro installation at
-            <code>tubepress_pro_1_8_9/ui/embedded_flash/longtail/lib/</code>.     
+            <code>tubepress_pro_1_9_0/ui/embedded_flash/longtail/lib/</code>.     
             </para></listitem>
         </orderedlist>
     </section>
