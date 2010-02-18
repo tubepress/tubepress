@@ -20,12 +20,12 @@
  */
 
 /**
- * TubePress template
+ * HTTP client detection service
  */
 interface org_tubepress_browser_BrowserDetector
 {
-    const IPHONE = 'iphone';
-    const IPOD = 'ipod';
+    const IPHONE  = 'iphone';
+    const IPOD    = 'ipod';
     const UNKNOWN = 'unknown';
     
     public function detectBrowser($serverVars);

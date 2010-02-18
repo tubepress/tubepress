@@ -24,19 +24,22 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_browser_BrowserDetector'));
 
 /**
- * TubePress template
+ * HTTP client detection implementation.
  */
 class org_tubepress_browser_BrowserDetectorImpl implements org_tubepress_browser_BrowserDetector
 {
     public function detectBrowser($serverVars)
     {
-        if (!is_array($serverVars) || !isset($serverVars['HTTP_USER_AGENT'])) {
+        if (!is_array($serverVars)) { 
             return org_tubepress_browser_BrowserDetector::UNKNOWN;
         }
-        if (strstr($serverVars['HTTP_USER_AGENT'],'iPhone')) {
+
+	$agent = $serverVars['HTTP_USER_AGENT'];
+
+        if (strstr($agent,'iPhone')) {
             return org_tubepress_browser_BrowserDetector::IPHONE;
         }
-        if (strstr($serverVars['HTTP_USER_AGENT'],'iPod')) {
+        if (strstr($agent,'iPod')) {
             return org_tubepress_browser_BrowserDetector::IPOD;
         }
         return org_tubepress_browser_BrowserDetector::UNKNOWN; 
