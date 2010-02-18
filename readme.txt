@@ -16,11 +16,15 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 
 == Changelog ==
 
+= 1.9.0 =
+* Fixed a bug that breaks the WordPress widget administration page in some PHP installations
+* Added Portugese translation thanks to Miriam de Pauala
+
 = 1.8.9 =
 
 * Now includes ability to embed individual videos along with all of their meta info (title, author, description, etc)!
 * Request cache is now disabled by default
-* Updated sorting functionality. Fixes possible "bad request" response from YouTube.
+* Updated sorting functionality. Fixes possible "bad request" response from YouTube. Fixes sorting of playlist galleries.
 * Fixed blank item on video sort order dropdown of WordPress options page (closes  issue 155)
 * descLimit shortcode can now be set to zero (closes  issue 153)
 * Improved compatibility with older versions of PHP (closes  issue 163)
