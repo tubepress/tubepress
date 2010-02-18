@@ -52,7 +52,7 @@ class org_tubepress_url_YouTubeUrlBuilderTest extends PHPUnit_Framework_TestCase
 			 ->will($this->returnCallback("playlistModeCallback"));
 		$this->_sut->setOptionsManager($tpom);
 
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/fakeplaylist?v=2&start-index=1&max-results=3&safeSearch=moderate&orderby=relevance&client=clientkey&key=devkey&format=5", $this->_sut->buildGalleryUrl(1));
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/fakeplaylist?v=2&client=clientkey&key=devkey&start-index=1&max-results=3&safeSearch=moderate&format=5", $this->_sut->buildGalleryUrl(1));
 	}
 	
 	function testBuildGalleryUrlMostResponded()
@@ -145,7 +145,7 @@ class org_tubepress_url_YouTubeUrlBuilderTest extends PHPUnit_Framework_TestCase
 	
 	private function _standardPostProcessingStuff()
 	{
-		return "v=2&start-index=1&max-results=3&safeSearch=moderate&orderby=relevance&client=clientkey&key=devkey&format=5";
+		return "v=2&client=clientkey&key=devkey&start-index=1&max-results=3&orderby=relevance&safeSearch=moderate&format=5";
 	}
 }
 

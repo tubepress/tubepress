@@ -115,11 +115,15 @@ $msgs = array(
         'player-fancybox'    => 'with FancyBox',
         'player-static'      => 'statically (page refreshes on each thumbnail click)',
     
-        'order-relevance'  => 'relevance', 
-        'order-viewCount'      => 'view count', 
-        'order-rating'     => 'rating', 
-        'order-updated'  => 'date published', 
-        'order-random'     => 'randomly', 
+        'order-relevance'    => 'relevance', 
+        'order-viewCount'    => 'view count', 
+        'order-rating'       => 'rating', 
+        'order-published'    => 'date published', 
+        'order-random'       => 'randomly',
+        'order-position'     => 'position in a playlist',
+        'order-commentCount' => 'comment count',
+        'order-duration'     => 'length',
+        'order-title'        => 'title',
     
         'timeFrame-today'   => 'today', 
         'timeFrame-this_week'    => 'this week', 
@@ -145,6 +149,7 @@ $msgs = array(
         'validation-no-such-option' => '"%s" is not a valid option name.',
         'validation-bool'           => '"%s" must be either true or false. You supplied "%s".',
         'validation-enum'           => '"%s" must be one of "%s". You supplied "%s".',
+        'validation-no-dots-in-template' => 'Template names cannot contain two consecutive periods',
     
         'next' => 'next', 
         'prev' => 'prev', 
