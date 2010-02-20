@@ -48,10 +48,13 @@ interface org_tubepress_ioc_IocService
     const THUMB_TEMPLATE                = 'thumbTemplate';
     const URL_BUILDER                   = 'ulrBuilderService';
     const VALIDATION_SERVICE            = 'validationService';
+    const VIMEO_FEED_INSPECTION         = 'vimeoFeedInspection';
+    const VIMEO_URL_BUILDER             = 'vimeoUrlBuilder';
     const VIDEO_FACTORY                 = 'videoFactory';
     const VIDEO_PROVIDER                = 'videoProvider';
     const YOUTUBE_EMBEDDED_TEMPLATE     = 'youtubeEmbeddedTemplate';
-    
+    const YOUTUBE_FEED_INSPECTION       = 'youtubeFeedInspectionService';
+    const YOUTUBE_URL_BUILDER           = 'youtubeUrlBuilder';
 
     public function get($className);
     

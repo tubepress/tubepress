@@ -24,7 +24,8 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
     'org_tubepress_options_storage_StorageManager',
     'org_tubepress_options_reference_OptionsReference',
-    'org_tubepress_options_validation_InputValidationService'));
+    'org_tubepress_options_validation_InputValidationService',
+    'org_tubepress_video_feed_provider_Provider'));
 
 /**
  * Holds the current options for TubePress. This is the default options,
@@ -98,6 +99,15 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
     public function getShortcode()
     {
         return $this->_shortcode;
+    }
+    
+    public function calculateCurrentVideoProvider()
+    {
+        $currentMode = $this->get(org_tubepress_options_category_Gallery::MODE);
+        if (strpos($currentMode, 'vimeo') === 0) {
+            return org_tubepress_video_feed_provider_Provider::VIMEO;
+        }
+        return org_tubepress_video_feed_provider_Provider::YOUTUBE;
     }
     
     public function setStorageManager(org_tubepress_options_storage_StorageManager $tpsm)

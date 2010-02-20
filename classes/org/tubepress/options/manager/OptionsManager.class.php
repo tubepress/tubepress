@@ -69,4 +69,6 @@ interface org_tubepress_options_manager_OptionsManager
      * @return string The full shortcode
      */
     public function getShortcode();
+    
+    public function calculateCurrentVideoProvider();
 }

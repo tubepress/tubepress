@@ -19,16 +19,25 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_video_feed_inspection_FeedInspectionService'));
+
 /**
- * Interface to a remove video provider
+ * Examines the feed from Vimeo
+ *
  */
-interface org_tubepress_video_feed_provider_Provider {
+class org_tubepress_video_feed_inspection_VimeoFeedInspectionService implements org_tubepress_video_feed_inspection_FeedInspectionService
+{   
+    public function getTotalResultCount($rawFeed)
+    {
+	   $raw = unserialize($rawFeed);
+    }
     
-    const YOUTUBE = 'youtube';
-    const VIMEO   = 'vimeo';
+    public function getQueryResultCount($rawFeed)
+    {
+	  var_dump(unserialize($rawFeed));
+    }
     
-    public function getFeedResult();
-    
-    public function getSingleVideo($customVideoId);
-    
+   
 }
