@@ -25,9 +25,9 @@ tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory',
     'org_tubepress_options_manager_OptionsManager'));
 
 /**
- * Video factory
+ * Video factory that sends the feed to the right video factory based on the provider
  */
-class org_tubepress_video_factory_FlexibleVideoFactory implements org_tubepress_video_factory_VideoFactory
+class org_tubepress_video_factory_DelegatingVideoFactory implements org_tubepress_video_factory_VideoFactory
 {
     
     private $_ytFactory;
@@ -48,12 +48,16 @@ class org_tubepress_video_factory_FlexibleVideoFactory implements org_tubepress_
         if ($provider === org_tubepress_video_feed_provider_Provider::VIMEO) {
             return $this->_vimeoFactory->feedToVideoArray($feed, $limit);
         }
-        return $this->_ytBuilder->feedToVideoArray($feed, $limit);
+        return $this->_ytFactory->feedToVideoArray($feed, $limit);
     }
     
     public function convertSingleVideo($feed)
     {
-        
+        $provider = $this->_tpom->calculateCurrentVideoProvider();
+        if ($provider === org_tubepress_video_feed_provider_Provider::VIMEO) {
+            return $this->_vimeoFactory->convertSingleVideo($feed);
+        }
+        return $this->_ytFactory->convertSingleVideo($feed);
     }
     
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }

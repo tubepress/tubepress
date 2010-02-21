@@ -21,18 +21,16 @@
 
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory',
+tubepress_load_classes(array('org_tubepress_video_factory_AbstractVideoFactory',
     'org_tubepress_video_Video',
     'net_php_pear_Net_URL2'));
 
 /**
  * Video factory for Vimeo
  */
-class org_tubepress_video_factory_VimeoVideoFactory implements org_tubepress_video_factory_VideoFactory
+class org_tubepress_video_factory_VimeoVideoFactory extends org_tubepress_video_factory_AbstractVideoFactory
 {
-    private $_log;
     private $_logPrefix;
-    private $_tpom;
     
     public function __construct()
     {
@@ -44,7 +42,7 @@ class org_tubepress_video_factory_VimeoVideoFactory implements org_tubepress_vid
         $results = array();
         $feed = unserialize($rawFeed);
         
-        $this->_log->log($this->_logPrefix, 'Now parsing video(s)');
+        $this->getLog()->log($this->_logPrefix, 'Now parsing video(s)');
 
         $entries = $feed->videos->video;
         
@@ -52,14 +50,14 @@ class org_tubepress_video_factory_VimeoVideoFactory implements org_tubepress_vid
         foreach ($entries as $entry) {
             
             if ($index > 0 && $index++ >= $limit) {
-                $this->_log->log($this->_logPrefix, 'Reached limit of %d videos', $limit);
+                $this->getLog()->log($this->_logPrefix, 'Reached limit of %d videos', $limit);
                 break;
             }
             
             $results[] = $this->_createVideo($entry);
         }
         
-        $this->_log->log($this->_logPrefix, 'Built %d video(s) from Vimeo\'s feed', sizeof($results));
+        $this->getLog()->log($this->_logPrefix, 'Built %d video(s) from Vimeo\'s feed', sizeof($results));
         return $results;
     }
     
@@ -82,7 +80,7 @@ class org_tubepress_video_factory_VimeoVideoFactory implements org_tubepress_vid
         $vid->setDescription($entry->description);
         $vid->setTimePublished($entry->upload_date);
         $vid->setViewCount($entry->number_of_plays);
-        $vid->setDuration(org_tubepress_video_factory_VimeoVideoFactory::_seconds2HumanTime($entry->duration));
+        $vid->setDuration(self::_seconds2HumanTime($entry->duration));
         $vid->setAuthor($entry->owner->display_name);
         $vid->setThumbnailUrl($entry->thumbnails->thumbnail[0]->_content);
 
@@ -97,20 +95,4 @@ class org_tubepress_video_factory_VimeoVideoFactory implements org_tubepress_vid
         }
         return $vid;
     }
-    
-    public function setLog(org_tubepress_log_Log $log) { $this->_log = $log; }
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }
-
-    private static function _seconds2HumanTime($length_seconds)
-    {
-        $seconds         = $length_seconds;
-        $length          = intval($seconds / 60);
-        $leftOverSeconds = $seconds % 60;
-        if ($leftOverSeconds < 10) {
-            $leftOverSeconds = "0" . $leftOverSeconds;
-        }
-        $length .= ":" . $leftOverSeconds;
-        return $length;
-    }
-    
 }

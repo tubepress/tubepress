@@ -46,7 +46,7 @@ class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_vi
     
     public function __construct()
     {
-        $this->_logPrefix = "Video Provider";
+        $this->_logPrefix = 'Video Provider';
     }
     
     public function getFeedResult()

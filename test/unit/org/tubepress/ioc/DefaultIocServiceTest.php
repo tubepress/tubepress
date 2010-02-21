@@ -14,30 +14,35 @@ class org_tubepress_ioc_DefaultIocServiceTest extends PHPUnit_Framework_TestCase
 		    // 0 SETTERS
 		    org_tubepress_ioc_IocService::MESSAGE_SERVICE               => 'org_tubepress_message_WordPressMessageService',
             org_tubepress_ioc_IocService::OPTIONS_REFERENCE             => 'org_tubepress_options_reference_SimpleOptionsReference',
-            org_tubepress_ioc_IocService::FEED_INSPECTION_SERVICE       => 'org_tubepress_video_feed_inspection_YouTubeFeedInspectionService',
+            org_tubepress_ioc_IocService::YOUTUBE_FEED_INSPECTION       => 'org_tubepress_video_feed_inspection_YouTubeFeedInspectionService',
+            org_tubepress_ioc_IocService::VIMEO_FEED_INSPECTION         => 'org_tubepress_video_feed_inspection_VimeoFeedInspectionService',
             org_tubepress_ioc_IocService::QUERY_STRING_SERVICE          => 'org_tubepress_querystring_SimpleQueryStringService',
             org_tubepress_ioc_IocService::LOG                           => 'org_tubepress_log_LogImpl',
             org_tubepress_ioc_IocService::BROWSER_DETECTOR              => 'org_tubepress_browser_BrowserDetectorImpl',
             
             // 1 SETTER
-            org_tubepress_ioc_IocService::URL_BUILDER                           => 'org_tubepress_url_YouTubeUrlBuilder', 
-            org_tubepress_embedded_EmbeddedPlayerService::DDEFAULT . '-embedded' => 'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService',
-            org_tubepress_player_Player::YOUTUBE . "-player"                    => 'org_tubepress_player_impl_YouTubePlayer',
+            org_tubepress_ioc_IocService::YOUTUBE_URL_BUILDER                    => 'org_tubepress_url_YouTubeUrlBuilder', 
+            org_tubepress_ioc_IocService::VIMEO_URL_BUILDER                      => 'org_tubepress_url_VimeoUrlBuilder',
             org_tubepress_ioc_IocService::GALLERY_TEMPLATE                      => 'org_tubepress_template_SimpleTemplate',
             org_tubepress_ioc_IocService::YOUTUBE_EMBEDDED_TEMPLATE             => 'org_tubepress_template_SimpleTemplate',
+            org_tubepress_ioc_IocService::VIMEO_EMBEDDED_TEMPLATE               => 'org_tubepress_template_SimpleTemplate',
             org_tubepress_ioc_IocService::LONGTAIL_EMBEDDED_TEMPLATE            => 'org_tubepress_template_SimpleTemplate',
             org_tubepress_ioc_IocService::NORMAL_PLAYER_TEMPLATE                => 'org_tubepress_template_SimpleTemplate',
             org_tubepress_ioc_IocService::MODAL_PLAYER_TEMPLATE                 => 'org_tubepress_template_SimpleTemplate',
             org_tubepress_ioc_IocService::CACHE_SERVICE                         => 'org_tubepress_cache_SimpleCacheService',
             org_tubepress_ioc_IocService::OPTIONS_FORM_TEMPLATE                 => 'org_tubepress_template_SimpleTemplate',
+            org_tubepress_ioc_IocService::SINGLE_VIDEO_TEMPLATE                 => 'org_tubepress_template_SimpleTemplate',
+            org_tubepress_player_Player::YOUTUBE . '-player'                     => 'org_tubepress_player_impl_YouTubePlayer',
             
             // 2 SETTERS
             org_tubepress_ioc_IocService::STORAGE_MANAGER                        => 'org_tubepress_options_storage_WordPressStorageManager', 
             org_tubepress_ioc_IocService::FEED_RETRIEVAL_SERVICE                 => 'org_tubepress_video_feed_retrieval_HTTPRequest2', 
             org_tubepress_embedded_EmbeddedPlayerService::LONGTAIL . '-embedded' => 'org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService',
-            org_tubepress_embedded_EmbeddedPlayerService::DDEFAULT . '-embedded'  => 'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService',
+            org_tubepress_ioc_IocService::YOUTUBE_EMBEDDED_PLAYER                => 'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService',
+            org_tubepress_ioc_IocService::VIMEO_EMBEDDED_PLAYER                  => 'org_tubepress_embedded_impl_VimeoEmbeddedPlayerService',
             org_tubepress_ioc_IocService::SHORTCODE_SERVICE                      => 'org_tubepress_shortcode_SimpleShortcodeService',
-            org_tubepress_ioc_IocService::VIDEO_FACTORY                          => 'org_tubepress_video_factory_YouTubeVideoFactory',
+            org_tubepress_ioc_IocService::YOUTUBE_VIDEO_FACTORY                  => 'org_tubepress_video_factory_YouTubeVideoFactory',
+            org_tubepress_ioc_IocService::VIMEO_VIDEO_FACTORY                    => 'org_tubepress_video_factory_VimeoVideoFactory',
             org_tubepress_player_Player::NORMAL . "-player"                      => 'org_tubepress_player_impl_NormalPlayer',
             org_tubepress_player_Player::STATICC . "-player"                     => 'org_tubepress_player_impl_NormalPlayer',
             org_tubepress_player_Player::POPUP . "-player"                       => 'org_tubepress_player_impl_ModalPlayer',
@@ -46,10 +51,15 @@ class org_tubepress_ioc_DefaultIocServiceTest extends PHPUnit_Framework_TestCase
             
             // 3 SETTERS
             org_tubepress_ioc_IocService::OPTIONS_MANAGER               => 'org_tubepress_options_manager_SimpleOptionsManager',
+            org_tubepress_embedded_EmbeddedPlayerService::DDEFAULT . '-embedded' => 'org_tubepress_embedded_impl_DefaultEmbeddedPlayerService',
             org_tubepress_ioc_IocService::PAGINATION_SERVICE            => 'org_tubepress_pagination_DiggStylePaginationService', 
             org_tubepress_ioc_IocService::VALIDATION_SERVICE            => 'org_tubepress_options_validation_SimpleInputValidationService',
+            org_tubepress_ioc_IocService::URL_BUILDER                   => 'org_tubepress_url_FlexibleUrlBuilder',
+            org_tubepress_ioc_IocService::FEED_INSPECTION_SERVICE       => 'org_tubepress_video_feed_inspection_FlexibleFeedInspectionService',
+            org_tubepress_ioc_IocService::VIDEO_FACTORY                 => 'org_tubepress_video_factory_DelegatingVideoFactory',
             
             // 4+ SETTERS            
+            org_tubepress_ioc_IocService::SINGLE_VIDEO                  => 'org_tubepress_single_VideoImpl',
             org_tubepress_ioc_IocService::OPTIONS_FORM_HANDLER          => 'org_tubepress_options_form_FormHandler',
             org_tubepress_ioc_IocService::VIDEO_PROVIDER                => 'org_tubepress_video_feed_provider_ProviderImpl',
             org_tubepress_ioc_IocService::GALLERY                       => 'org_tubepress_gallery_TubePressGalleryImpl'
