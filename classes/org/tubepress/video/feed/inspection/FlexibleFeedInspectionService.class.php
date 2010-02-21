@@ -25,7 +25,7 @@ tubepress_load_classes(array('org_tubepress_video_feed_inspection_FeedInspection
     'org_tubepress_options_manager_OptionsManager'));
 
 /**
- * Examines the feed from YouTube
+ * Sends the feed to the right inspection service based on the provider
  *
  */
 class org_tubepress_video_feed_inspection_FlexibleFeedInspectionService implements org_tubepress_video_feed_inspection_FeedInspectionService
@@ -36,11 +36,11 @@ class org_tubepress_video_feed_inspection_FlexibleFeedInspectionService implemen
     
     public function getTotalResultCount($rawFeed)
     {
-	   $provider = $this->_tpom->calculateCurrentVideoProvider();
-	   if ($provider === org_tubepress_video_feed_provider_Provider::VIMEO) {
-	       return $this->_vimeoInspectionService->getTotalResultCount($rawFeed);
-	   }
-	   return $this->_youtubeInspectionService->getTotalResultCount($rawFeed);
+	    $provider = $this->_tpom->calculateCurrentVideoProvider();
+	    if ($provider === org_tubepress_video_feed_provider_Provider::VIMEO) {
+	        return $this->_vimeoInspectionService->getTotalResultCount($rawFeed);
+	    }
+	    return $this->_youtubeInspectionService->getTotalResultCount($rawFeed);
     }
     
     public function getQueryResultCount($rawFeed)

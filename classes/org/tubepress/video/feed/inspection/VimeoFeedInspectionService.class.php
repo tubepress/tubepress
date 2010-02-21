@@ -42,6 +42,4 @@ class org_tubepress_video_feed_inspection_VimeoFeedInspectionService implements 
 	    $videos = $feed->videos;
 	    return $videos->on_this_page;
     }
-    
-   
 }
