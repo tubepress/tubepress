@@ -26,7 +26,7 @@
 interface org_tubepress_embedded_EmbeddedPlayerService
 {
     const LONGTAIL = 'longtail';
-    const YOUTUBE =  'youtube';
+    const DDEFAULT = 'default';
     
     /**
      * Spits back the text for this embedded player

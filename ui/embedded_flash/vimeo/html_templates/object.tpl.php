@@ -1,4 +1,4 @@
-<?php
+<?php 
 /**
  * Copyright 2006 - 2010 Eric D. Hough (http://ehough.com)
  * 
@@ -18,30 +18,11 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
-function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_video_feed_inspection_FeedInspectionService'));
-
-/**
- * Examines the feed from Vimeo
- *
- */
-class org_tubepress_video_feed_inspection_VimeoFeedInspectionService implements org_tubepress_video_feed_inspection_FeedInspectionService
-{   
-    public function getTotalResultCount($rawFeed)
-    {
-	    $feed = unserialize($rawFeed);
-        $videos = $feed->videos;
-        return $videos->total;
-    }
-    
-    public function getQueryResultCount($rawFeed)
-    {
-	    $feed = unserialize($rawFeed);
-	    $videos = $feed->videos;
-	    return $videos->on_this_page;
-    }
-    
-   
-}
+?>
+<object style="width: <?php echo ${org_tubepress_template_Template::EMBEDDED_WIDTH}; ?>px; height:<?php echo ${org_tubepress_template_Template::EMBEDDED_HEIGHT}; ?>px"
+    data="<?php echo ${org_tubepress_template_Template::EMBEDDED_DATA_URL}; ?>"
+    type="application/x-shockwave-flash">
+  <param name="allowfullscreen" value="<?php echo ${org_tubepress_template_Template::EMBEDDED_FULLSCREEN}; ?>" />
+  <param name="allowscriptaccess" value="always" />
+  <param name="movie" value="<?php echo ${org_tubepress_template_Template::EMBEDDED_DATA_URL}; ?>" />
+</object>

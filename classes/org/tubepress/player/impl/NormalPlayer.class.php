@@ -36,7 +36,7 @@ class org_tubepress_player_impl_NormalPlayer extends org_tubepress_player_Abstra
     {
         $tpom = $this->getOptionsManager();
         
-        $eps = $this->getContainer()->safeGet($tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . "-embedded");
+        $eps = $this->getContainer()->safeGet($tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", org_tubepress_embedded_EmbeddedPlayerService::DDEFAULT . "-embedded");
 
         $this->getTemplate()->setVariable(org_tubepress_template_Template::GALLERY_ID,      $galleryId); 
         $this->getTemplate()->setVariable(org_tubepress_template_Template::EMBEDDED_SOURCE, $eps->toString($vid->getId()));

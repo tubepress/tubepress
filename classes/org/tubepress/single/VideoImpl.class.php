@@ -98,7 +98,7 @@ class org_tubepress_single_VideoImpl implements org_tubepress_single_Video, org_
         
         /* apply it to the template */
         $eps = $this->_container->safeGet($this->_tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", 
-            org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . "-embedded");
+            org_tubepress_embedded_EmbeddedPlayerService::DDEFAULT . "-embedded");
         $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_SOURCE, $eps->toString($video->getId()));
         $this->_template->setVariable(org_tubepress_template_Template::VIDEO, $video);
         $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $this->_tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));

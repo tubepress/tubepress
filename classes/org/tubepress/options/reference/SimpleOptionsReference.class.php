@@ -230,7 +230,7 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             case org_tubepress_options_Type::SAFE_SEARCH:
                 return array('none', 'moderate', 'strict');
             case org_tubepress_options_Type::PLAYER_IMPL:
-                return array('youtube', 'longtail');
+                return array('default', 'longtail');
         }
         return array('today', 'this_week', 'this_month', 'all_time');
     }

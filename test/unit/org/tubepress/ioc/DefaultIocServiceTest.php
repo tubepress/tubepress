@@ -21,7 +21,7 @@ class org_tubepress_ioc_DefaultIocServiceTest extends PHPUnit_Framework_TestCase
             
             // 1 SETTER
             org_tubepress_ioc_IocService::URL_BUILDER                           => 'org_tubepress_url_YouTubeUrlBuilder', 
-            org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . '-embedded' => 'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService',
+            org_tubepress_embedded_EmbeddedPlayerService::DDEFAULT . '-embedded' => 'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService',
             org_tubepress_player_Player::YOUTUBE . "-player"                    => 'org_tubepress_player_impl_YouTubePlayer',
             org_tubepress_ioc_IocService::GALLERY_TEMPLATE                      => 'org_tubepress_template_SimpleTemplate',
             org_tubepress_ioc_IocService::YOUTUBE_EMBEDDED_TEMPLATE             => 'org_tubepress_template_SimpleTemplate',
@@ -35,7 +35,7 @@ class org_tubepress_ioc_DefaultIocServiceTest extends PHPUnit_Framework_TestCase
             org_tubepress_ioc_IocService::STORAGE_MANAGER                        => 'org_tubepress_options_storage_WordPressStorageManager', 
             org_tubepress_ioc_IocService::FEED_RETRIEVAL_SERVICE                 => 'org_tubepress_video_feed_retrieval_HTTPRequest2', 
             org_tubepress_embedded_EmbeddedPlayerService::LONGTAIL . '-embedded' => 'org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService',
-            org_tubepress_embedded_EmbeddedPlayerService::YOUTUBE . '-embedded'  => 'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService',
+            org_tubepress_embedded_EmbeddedPlayerService::DDEFAULT . '-embedded'  => 'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService',
             org_tubepress_ioc_IocService::SHORTCODE_SERVICE                      => 'org_tubepress_shortcode_SimpleShortcodeService',
             org_tubepress_ioc_IocService::VIDEO_FACTORY                          => 'org_tubepress_video_factory_YouTubeVideoFactory',
             org_tubepress_player_Player::NORMAL . "-player"                      => 'org_tubepress_player_impl_NormalPlayer',

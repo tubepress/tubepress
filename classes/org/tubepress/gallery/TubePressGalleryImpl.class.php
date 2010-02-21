@@ -127,7 +127,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
             $this->_parsePaginationHTML($feedResult->getEffectiveTotalResultCount());
         }
         
-        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_IMPL_NAME,  $this->_optionsManager->get(org_tubepress_options_category_Embedded::PLAYER_IMPL));
+        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_IMPL_NAME,  $this->_determineEmbeddedImplName());
         $this->_template->setVariable(org_tubepress_template_Template::GALLERY_ID,          $galleryId);
         $this->_template->setVariable(org_tubepress_template_Template::PLAYER_NAME,         $playerName);
         $this->_template->setVariable(org_tubepress_template_Template::THUMBNAIL_WIDTH,     $this->_optionsManager->get(org_tubepress_options_category_Display::THUMB_WIDTH));
@@ -141,6 +141,15 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
             $this->_log->log($this->_logPrefix, 'Using Ajax pagination');
             $this->_template->setVariable(org_tubepress_template_Template::SHORTCODE, urlencode($this->_optionsManager->getShortcode()));        
         }
+    }
+    
+    private function _determineEmbeddedImplName()
+    {
+        $stored = $this->_optionsManager->get(org_tubepress_options_category_Embedded::PLAYER_IMPL);
+        if ($stored === org_tubepress_embedded_EmbeddedPlayerService::LONGTAIL) {
+            return $stored;
+        }
+        return $this->_optionsManager->calculateCurrentVideoProvider();
     }
     
     private function _prepTemplateMetaElements()

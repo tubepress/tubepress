@@ -53,11 +53,14 @@ class org_tubepress_url_VimeoUrlBuilder implements org_tubepress_url_UrlBuilder
         switch ($this->_tpom->get(org_tubepress_options_category_Gallery::MODE)) {
             
         case org_tubepress_gallery_TubePressGallery::VIMEO_UPLOADEDBY:
-            $params['method'] = 'vimeo.videos.getUploaded';
-            $params['user_id'] = $this->_tpom->get(org_tubepress_options_category_Gallery::VIMEO_UPLOADEDBY_VALUE);
+            $params['method']        = 'vimeo.videos.getUploaded';
+            $params['user_id']       = $this->_tpom->get(org_tubepress_options_category_Gallery::VIMEO_UPLOADEDBY_VALUE);
+            $params['full_response'] = 'true';
             break;
         }
         
+        $params['page']                   = $currentPage;
+        $params['per_page']               = $this->_tpom->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
         $params['format']                 = 'php';
         $params['oauth_consumer_key']     = '86a1a3af34044829c435b2e0b03a8e6e';
         $params['oauth_nonce']            = md5(uniqid(microtime()));

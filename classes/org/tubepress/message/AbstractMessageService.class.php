@@ -58,7 +58,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'options-title-tag'               => 'YouTube search for...', 
         'options-title-user'              => 'Videos from this YouTube user', 
         'options-desc-tag'                => 'YouTube limits this mode to 1,000 results',
-        'options-title-vimeoCreated'      => 'Videos created by this Vimeo user',
+        'options-title-vimeoUploadedBy'   => 'Videos uploaded by this Vimeo user',
         
         'options-title-playerLocation'   => 'Play each video', 
         'options-title-descriptionLimit' => 'Maximum description length', 

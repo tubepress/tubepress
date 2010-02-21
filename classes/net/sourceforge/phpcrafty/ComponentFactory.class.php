@@ -81,7 +81,10 @@ class net_sourceforge_phpcrafty_ComponentFactory
    */
   public function getComponentSpec($componentName)
   { 
-    return $this->_specs[$componentName];
+      if (!isset($this->_specs[$componentName])) {
+          return NULL;
+      }
+      return $this->_specs[$componentName];
   }
   
 

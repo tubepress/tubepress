@@ -110,18 +110,7 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
         return org_tubepress_video_feed_provider_Provider::YOUTUBE;
     }
     
-    public function setStorageManager(org_tubepress_options_storage_StorageManager $tpsm)
-    {
-        $this->_tpsm = $tpsm;
-    }
-    
-    public function setOptionsReference(org_tubepress_options_reference_OptionsReference $ref)
-    {
-        $this->_optionsReference = $ref;
-    }
-    
-    public function setValidationService(org_tubepress_options_validation_InputValidationService $valService)
-    {
-        $this->_validationService = $valService;
-    }
+    public function setStorageManager(org_tubepress_options_storage_StorageManager $tpsm) { $this->_tpsm = $tpsm; }
+    public function setOptionsReference(org_tubepress_options_reference_OptionsReference $ref) { $this->_optionsReference = $ref; }
+    public function setValidationService(org_tubepress_options_validation_InputValidationService $valService) { $this->_validationService = $valService; }
 }
