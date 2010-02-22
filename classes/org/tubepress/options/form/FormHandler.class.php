@@ -48,11 +48,14 @@ class org_tubepress_options_form_FormHandler
      */
     public final function display()
     {   
+        global $tubepress_base_url;
+        
         /* set the surrounding text */
         $this->_template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_TITLE,      $this->_messageService->_('options-page-title'));
         $this->_template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_INTRO,      $this->_messageService->_('options-page-intro-text'));
         $this->_template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_DONATION,   $this->_messageService->_('options-page-donation'));
         $this->_template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_SAVE,       $this->_messageService->_('options-page-save-button'));
+        $this->_template->setVariable(org_tubepress_template_Template::TUBEPRESS_BASE_URL,      $tubepress_base_url);
 
         $categories = array();
         
@@ -121,10 +124,12 @@ class org_tubepress_options_form_FormHandler
         $optionsMetaArray = array();
         foreach ($optionNames as $optionName) {
             $metaArray = array();
-            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_TITLE] = $this->_messageService->_("options-title-$optionName");
-            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_PRO_ONLY] = $this->_optionsReference->isOptionProOnly($optionName) ? '*' : '';
-            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_WIDGET] = $this->_getWidgetHtml($optionName);
-            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC] = $this->_messageService->_("options-desc-$optionName");
+            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_TITLE]     = $this->_messageService->_("options-title-$optionName");
+            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_PRO_ONLY]  = $this->_optionsReference->isOptionProOnly($optionName) ? '*' : '';
+            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_WIDGET]    = $this->_getWidgetHtml($optionName);
+            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC]      = $this->_messageService->_("options-desc-$optionName");
+            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_YOUTUBE_OPTION]    = $this->_optionsReference->appliesToYouTube($optionName);
+            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_VIMEO_OPTION]      = $this->_optionsReference->appliesToVimeo($optionName);
             
             $optionsMetaArray[] = $metaArray;
         }
@@ -146,6 +151,8 @@ class org_tubepress_options_form_FormHandler
             }
             $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_WIDGET] = $html;
             $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC] = $this->_messageService->_("options-desc-$modeName");
+            $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_YOUTUBE_OPTION]    = $this->_optionsReference->appliesToYouTube($modeName);
+            $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_VIMEO_OPTION]      = $this->_optionsReference->appliesToVimeo($modeName);
             
             $modesMetaArray[] = $modeMetaArray;
         }

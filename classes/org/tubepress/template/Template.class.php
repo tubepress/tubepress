@@ -45,6 +45,8 @@ interface org_tubepress_template_Template
     const OPTIONS_PAGE_OPTIONS_WIDGET =     'optionsPageOptionsWidget';
     const OPTIONS_PAGE_SAVE =               'optionsPageSave';
     const OPTIONS_PAGE_TITLE =              'optionsPageTitle';
+    const OPTIONS_PAGE_VIMEO_OPTION =       'optionsPageVimeoOption';
+    const OPTIONS_PAGE_YOUTUBE_OPTION =     'optionsPageYouTubeOption';
     const PAGINATION_BOTTOM =               'bottomPagination';
     const PAGINATION_TOP =                  'topPagination';
     const PLAYER_NAME =                     'playerName';

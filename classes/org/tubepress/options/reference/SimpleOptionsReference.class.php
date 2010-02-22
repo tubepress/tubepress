@@ -119,7 +119,38 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Embedded::PLAYER_IMPL        => 'youtube'
         )
     );
+    
+    private $_vimeoOnly = array(
+        'vimeoUploadedBy'
+    );
+    
+    private $_youtubeOnly = array(
+        'favorites', 'playlist', 'tag', 'user', 'recently_featured', 'mobile', 'most_discussed',
+        'most_linked', 'most_recent', 'most_responded', 'most_viewed', 'top_rated',
+        org_tubepress_options_category_Embedded::GENIE,
+        org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT,
+        org_tubepress_options_category_Embedded::SHOW_INFO,
+        org_tubepress_options_category_Embedded::SHOW_RELATED,
+        org_tubepress_options_category_Embedded::BORDER,
+        org_tubepress_options_category_Meta::RATING,
+        org_tubepress_options_category_Meta::RATINGS,
+        org_tubepress_options_category_Feed::CLIENT_KEY,
+        org_tubepress_options_category_Feed::DEV_KEY,
+        org_tubepress_options_category_Feed::FILTER,
+        org_tubepress_options_category_Advanced::RANDOM_THUMBS,
+        org_tubepress_options_category_Feed::EMBEDDABLE_ONLY
+    );
 
+    function appliesToYouTube($optionName)
+    {
+        return !in_array($optionName, $this->_vimeoOnly);
+    }
+    
+    function appliesToVimeo($optionName)
+    {
+        return !in_array($optionName, $this->_youtubeOnly);
+    }
+    
     /**
      * Given an option name, determine if the option can be set via a shortcode
      *

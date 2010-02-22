@@ -44,18 +44,37 @@
           <tr valign="top">
             <th style="border-bottom-style: none; font-size: 13px}" valign="top"><?php echo $optionArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_TITLE]; ?><?php echo $optionArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_PRO_ONLY]; ?></th>
             <td style="vertical-align: top; border-bottom-style: none"><?php echo $optionArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_WIDGET]; ?><br /><?php echo $optionArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC]; ?></td>
+            <td style="padding: 3px 0 0; vertical-align: top">
+            <?php if ($optionArray[org_tubepress_template_Template::OPTIONS_PAGE_YOUTUBE_OPTION]): ?>
+                <img src="<?php echo ${org_tubepress_template_Template::TUBEPRESS_BASE_URL}; ?>/ui/options_page/images/youtube.png" />
+            <?php endif; ?>
+            </td>
+            <td style="padding: 2px; vertical-align: top">
+            <?php if ($optionArray[org_tubepress_template_Template::OPTIONS_PAGE_VIMEO_OPTION]): ?>
+                <img src="<?php echo ${org_tubepress_template_Template::TUBEPRESS_BASE_URL}; ?>/ui/options_page/images/vimeo.png" />
+            <?php endif; ?>
+            </td>  
           </tr>
             <?php endforeach; ?>
           
           <?php else: $index = 0; ?>
             <?php foreach ($optionCategoryMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_CATEGORY_OPTIONS] as $optionArray): ?>
-              <?php if ($index % 4 == 0): ?>
+              <?php if ($index % 2 == 0): ?>
               
           <tr valign="top"><?php endif; ?>
                 
+            <td style="padding: 2px; vertical-align: middle; width: 45px">
+            <?php if ($optionArray[org_tubepress_template_Template::OPTIONS_PAGE_YOUTUBE_OPTION]): ?>
+                <img src="<?php echo ${org_tubepress_template_Template::TUBEPRESS_BASE_URL}; ?>/ui/options_page/images/youtube.png" />
+            <?php endif; ?>
+            </td>
+            <td style="padding: 2px; vertical-align: middle; width: 25px">
+            <?php if ($optionArray[org_tubepress_template_Template::OPTIONS_PAGE_VIMEO_OPTION]): ?>
+                <img src="<?php echo ${org_tubepress_template_Template::TUBEPRESS_BASE_URL}; ?>/ui/options_page/images/vimeo.png" />
+            <?php endif; ?>
+            </td>  
             <td style="border-bottom-style: none; font-size: 13px}" valign="top"><?php echo $optionArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_WIDGET]; ?> <?php echo $optionArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_TITLE]; ?></td>
-              <?php if (++$index % 4 == 0): ?>
-              
+              <?php if (++$index % 2 == 0): ?>
           </tr><?php endif; ?>
             <?php endforeach; ?>
           <?php endif; ?>

@@ -26,6 +26,11 @@
  */
 interface org_tubepress_options_reference_OptionsReference
 {   
+    function appliesToYouTube($optionName);
+    
+    function appliesToVimeo($optionName);
+    
+    
     /**
      * Given an option name, determine if the option can be set via a shortcode
      *
