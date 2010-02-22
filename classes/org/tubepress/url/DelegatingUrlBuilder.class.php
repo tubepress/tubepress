@@ -28,7 +28,7 @@ tubepress_load_classes(array('org_tubepress_url_UrlBuilder',
  * Builds URLs to send out to a remote provider
  *
  */
-class org_tubepress_url_FlexibleUrlBuilder implements org_tubepress_url_UrlBuilder
+class org_tubepress_url_DelegatingUrlBuilder implements org_tubepress_url_UrlBuilder
 {
     private $_tpom;
     private $_youtubeBuilder;
@@ -45,7 +45,7 @@ class org_tubepress_url_FlexibleUrlBuilder implements org_tubepress_url_UrlBuild
         if ($provider === org_tubepress_video_feed_provider_Provider::VIMEO) {
             return $this->_vimeoBuilder->buildGalleryUrl($currentPage);
         }
-        return $this->_youtubeBuilder->buildGalleryYouTube($currentPage);
+        return $this->_youtubeBuilder->buildGalleryUrl($currentPage);
     }
 
     /**
@@ -57,9 +57,9 @@ class org_tubepress_url_FlexibleUrlBuilder implements org_tubepress_url_UrlBuild
     {
         $provider = $this->_tpom->calculateCurrentVideoProvider();
         if ($provider === org_tubepress_video_feed_provider_Provider::VIMEO) {
-            return $this->_vimeoBuilder->buildSingleVideoUrl($currentPage);
+            return $this->_vimeoBuilder->buildSingleVideoUrl($id);
         }
-        return $this->_youtubeBuilder->buildSingleVideoUrl($currentPage);
+        return $this->_youtubeBuilder->buildSingleVideoUrl($id);
     }
     
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }

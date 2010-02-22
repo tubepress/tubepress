@@ -41,7 +41,7 @@ tubepress_load_classes(array('org_tubepress_ioc_PhpCraftyIocService',
 	'org_tubepress_options_validation_SimpleInputValidationService',
 	'org_tubepress_video_feed_retrieval_HTTPRequest2',
 	'org_tubepress_url_YouTubeUrlBuilder',
-    'org_tubepress_url_FlexibleUrlBuilder',
+    'org_tubepress_url_DelegatingUrlBuilder',
     'org_tubepress_url_VimeoUrlBuilder',
 	'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService',
     'org_tubepress_embedded_impl_VimeoEmbeddedPlayerService',
@@ -302,7 +302,7 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
             )
         );
         $this->def(org_tubepress_ioc_IocService::URL_BUILDER,
-            $this->impl('org_tubepress_url_FlexibleUrlBuilder',
+            $this->impl('org_tubepress_url_DelegatingUrlBuilder',
                 array(
                     'optionsManager'     => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER),
                     'youtubeUrlBuilder'  => $this->ref(org_tubepress_ioc_IocService::YOUTUBE_URL_BUILDER),

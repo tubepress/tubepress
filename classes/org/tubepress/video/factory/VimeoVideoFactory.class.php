@@ -39,13 +39,24 @@ class org_tubepress_video_factory_VimeoVideoFactory extends org_tubepress_video_
     
     public function feedToVideoArray($rawFeed, $limit)
     {
-        $results = array();
         $feed = unserialize($rawFeed);
         
         $this->getLog()->log($this->_logPrefix, 'Now parsing video(s)');
 
         $entries = $feed->videos->video;
         
+        return $this->_buildVideos($entries);
+    }
+    
+    public function convertSingleVideo($rawFeed)
+    {
+        $feed = unserialize($rawFeed);
+        return $this->_buildVideos($feed->video);
+    }
+
+    private function _buildVideos($entries)
+    {
+        $results = array();
         $index = 0;
         foreach ($entries as $entry) {
             
@@ -61,11 +72,6 @@ class org_tubepress_video_factory_VimeoVideoFactory extends org_tubepress_video_
         return $results;
     }
     
-    public function convertSingleVideo($feed)
-    {
-       
-    }
-
     /**
      * Creates a video from a single "entry" XML node
      *

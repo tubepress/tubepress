@@ -103,6 +103,11 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
     
     public function calculateCurrentVideoProvider()
     {
+        $video = $this->get(org_tubepress_options_category_Gallery::VIDEO);
+        if (is_numeric($video) === TRUE) {
+            return org_tubepress_video_feed_provider_Provider::VIMEO;
+        }
+        
         $currentMode = $this->get(org_tubepress_options_category_Gallery::MODE);
         if (strpos($currentMode, 'vimeo') === 0) {
             return org_tubepress_video_feed_provider_Provider::VIMEO;

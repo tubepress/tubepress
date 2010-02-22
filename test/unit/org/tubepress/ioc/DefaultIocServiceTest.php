@@ -54,7 +54,7 @@ class org_tubepress_ioc_DefaultIocServiceTest extends PHPUnit_Framework_TestCase
             org_tubepress_embedded_EmbeddedPlayerService::DDEFAULT . '-embedded' => 'org_tubepress_embedded_impl_DefaultEmbeddedPlayerService',
             org_tubepress_ioc_IocService::PAGINATION_SERVICE            => 'org_tubepress_pagination_DiggStylePaginationService', 
             org_tubepress_ioc_IocService::VALIDATION_SERVICE            => 'org_tubepress_options_validation_SimpleInputValidationService',
-            org_tubepress_ioc_IocService::URL_BUILDER                   => 'org_tubepress_url_FlexibleUrlBuilder',
+            org_tubepress_ioc_IocService::URL_BUILDER                   => 'org_tubepress_url_DelegatingUrlBuilder',
             org_tubepress_ioc_IocService::FEED_INSPECTION_SERVICE       => 'org_tubepress_video_feed_inspection_FlexibleFeedInspectionService',
             org_tubepress_ioc_IocService::VIDEO_FACTORY                 => 'org_tubepress_video_factory_DelegatingVideoFactory',
             

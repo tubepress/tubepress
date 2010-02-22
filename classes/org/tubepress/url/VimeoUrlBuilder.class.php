@@ -47,7 +47,6 @@ class org_tubepress_url_VimeoUrlBuilder implements org_tubepress_url_UrlBuilder
      */
     public function buildGalleryUrl($currentPage)
     {
-        $base = 'http://vimeo.com/api/rest/v2';
         $params = array();
         
         switch ($this->_tpom->get(org_tubepress_options_category_Gallery::MODE)) {
@@ -61,6 +60,23 @@ class org_tubepress_url_VimeoUrlBuilder implements org_tubepress_url_UrlBuilder
         
         $params['page']                   = $currentPage;
         $params['per_page']               = $this->_tpom->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
+        return $this->_buildUrl($params);
+    }
+    
+    public function buildSingleVideoUrl($id)
+    {
+        $params = array();
+        $params['method'] = 'vimeo.videos.getInfo';
+        $params['video_id'] = $id;
+        return $this->_buildUrl($params);
+    }
+    
+    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }
+    
+    private function _buildUrl($params)
+    {
+        $base = 'http://vimeo.com/api/rest/v2';
+        
         $params['format']                 = 'php';
         $params['oauth_consumer_key']     = '86a1a3af34044829c435b2e0b03a8e6e';
         $params['oauth_nonce']            = md5(uniqid(microtime()));
@@ -70,13 +86,6 @@ class org_tubepress_url_VimeoUrlBuilder implements org_tubepress_url_UrlBuilder
         $params['oauth_signature']        = $this->_generateSignature($params, $base);
         return $base . '?' . http_build_query($params);
     }
-    
-    public function buildSingleVideoUrl($id)
-    {
-        return "foo";
-    }
-    
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }
     
     private function _generateSignature($params, $base)
     {
