@@ -38,4 +38,5 @@ class org_tubepress_options_category_Gallery
     const TOP_RATED_VALUE        = "top_ratedValue";
     const USER_VALUE             = "userValue";
     const VIMEO_UPLOADEDBY_VALUE = 'vimeoUploadedByValue';
+    const VIMEO_LIKES_VALUE      = 'vimeoLikesValue';
 }

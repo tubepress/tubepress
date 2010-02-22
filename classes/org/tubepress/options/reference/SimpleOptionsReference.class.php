@@ -62,6 +62,7 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Template::TEMPLATE           => '',
             org_tubepress_options_category_Gallery::VIDEO               => '',
             org_tubepress_options_category_Gallery::VIMEO_UPLOADEDBY_VALUE => 'mattkaar',
+            org_tubepress_options_category_Gallery::VIMEO_LIKES_VALUE   => 'k2eric'
         ),
         org_tubepress_options_Type::BOOL => array(
             org_tubepress_options_category_Advanced::DEBUG_ON           => true,
@@ -121,7 +122,8 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
     );
     
     private $_vimeoOnly = array(
-        'vimeoUploadedBy'
+        org_tubepress_gallery_TubePressGallery::VIMEO_UPLOADEDBY,
+        org_tubepress_gallery_TubePressGallery::VIMEO_LIKES
     );
     
     private $_youtubeOnly = array(
@@ -257,7 +259,9 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             case org_tubepress_options_Type::MODE:
                 return array('favorites', 'playlist', 'tag', 'user', 'recently_featured', 'mobile', 'most_discussed',
                     'most_linked', 'most_recent', 'most_responded', 'most_viewed',
-                    'top_rated', 'vimeoUploadedBy');
+                    org_tubepress_gallery_TubePressGallery::TOP_RATED, 
+                    org_tubepress_gallery_TubePressGallery::VIMEO_UPLOADEDBY,
+                    org_tubepress_gallery_TubePressGallery::VIMEO_LIKES);
             case org_tubepress_options_Type::SAFE_SEARCH:
                 return array('none', 'moderate', 'strict');
             case org_tubepress_options_Type::PLAYER_IMPL:

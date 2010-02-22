@@ -56,6 +56,11 @@ class org_tubepress_url_VimeoUrlBuilder implements org_tubepress_url_UrlBuilder
             $params['user_id']       = $this->_tpom->get(org_tubepress_options_category_Gallery::VIMEO_UPLOADEDBY_VALUE);
             $params['full_response'] = 'true';
             break;
+        case org_tubepress_gallery_TubePressGallery::VIMEO_LIKES:
+            $params['method']        = 'vimeo.videos.getLikes';
+            $params['user_id']       = $this->_tpom->get(org_tubepress_options_category_Gallery::VIMEO_LIKES_VALUE);
+            $params['full_response'] = 'true';
+            break;
         }
         
         $params['page']                   = $currentPage;
