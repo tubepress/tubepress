@@ -25,7 +25,7 @@ tubepress_load_classes(array('org_tubepress_url_UrlBuilder',
     'org_tubepress_video_feed_provider_Provider'));
 
 /**
- * Builds URLs to send out to a remote provider
+ * Builds URLs based on the current provider
  *
  */
 class org_tubepress_url_DelegatingUrlBuilder implements org_tubepress_url_UrlBuilder

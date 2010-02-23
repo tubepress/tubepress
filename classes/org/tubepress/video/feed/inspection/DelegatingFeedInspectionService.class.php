@@ -28,7 +28,7 @@ tubepress_load_classes(array('org_tubepress_video_feed_inspection_FeedInspection
  * Sends the feed to the right inspection service based on the provider
  *
  */
-class org_tubepress_video_feed_inspection_FlexibleFeedInspectionService implements org_tubepress_video_feed_inspection_FeedInspectionService
+class org_tubepress_video_feed_inspection_DelegatingFeedInspectionService implements org_tubepress_video_feed_inspection_FeedInspectionService
 {   
     private $_tpom;
     private $_youtubeInspectionService;
