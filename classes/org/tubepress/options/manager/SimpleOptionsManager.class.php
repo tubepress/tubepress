@@ -117,5 +117,5 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
     
     public function setStorageManager(org_tubepress_options_storage_StorageManager $tpsm) { $this->_tpsm = $tpsm; }
     public function setOptionsReference(org_tubepress_options_reference_OptionsReference $ref) { $this->_optionsReference = $ref; }
-    public function setValidationService(org_tubepress_options_validation_InputValidationService $valService) { $this->_validationService = $valService; }
+    public function setInputValidationService(org_tubepress_options_validation_InputValidationService $valService) { $this->_validationService = $valService; }
 }

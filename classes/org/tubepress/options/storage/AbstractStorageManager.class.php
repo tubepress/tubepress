@@ -120,7 +120,7 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
      *
      * @param org_tubepress_options_validation_InputValidationService $validationService The validation service
      */
-    public function setValidationService(org_tubepress_options_validation_InputValidationService $validationService)
+    public function setInputValidationService(org_tubepress_options_validation_InputValidationService $validationService)
     {
         $this->_validationService = $validationService;
     }

@@ -30,7 +30,6 @@ tubepress_load_classes(array(
  */
 class org_tubepress_embedded_impl_DefaultEmbeddedPlayerService extends org_tubepress_embedded_impl_AbstractEmbeddedPlayerService
 {
-    private $_tpom;
     private $_youtubeService;
     private $_vimeoService;
     
@@ -43,14 +42,13 @@ class org_tubepress_embedded_impl_DefaultEmbeddedPlayerService extends org_tubep
      */
     public function toString($videoId)
     {   
-        $provider = $this->_tpom->calculateCurrentVideoProvider();
+        $provider = $this->getOptionsManager()->calculateCurrentVideoProvider();
         if ($provider === org_tubepress_video_feed_provider_Provider::VIMEO) {
             return $this->_vimeoService->toString($videoId);
         }
         return $this->_youtubeService->toString($videoId);
     }
     
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }
     public function setYouTubeEmbeddedPlayerService(org_tubepress_embedded_EmbeddedPlayerService $s) { $this->_youtubeService = $s; }
     public function setVimeoEmbeddedPlayerService(org_tubepress_embedded_EmbeddedPlayerService $s) { $this->_vimeoService = $s; }
 }

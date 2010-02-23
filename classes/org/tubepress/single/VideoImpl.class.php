@@ -104,7 +104,7 @@ class org_tubepress_single_VideoImpl implements org_tubepress_single_Video, org_
         $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $this->_tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
     }
     
-    public function setProvider(org_tubepress_video_feed_provider_Provider $provider) { $this->_provider = $provider; }
+    public function setVideoProvider(org_tubepress_video_feed_provider_Provider $provider) { $this->_provider = $provider; }
     public function setTemplate(org_tubepress_template_Template $template) { $this->_template = $template; }
     public function setContainer(org_tubepress_ioc_IocService $container) { $this->_container = $container; }
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $mgr) { $this->_tpom = $mgr; }
