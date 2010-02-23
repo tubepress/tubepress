@@ -47,10 +47,10 @@ class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService extends org_tubepre
         $link = $link->getURL(true);
         
         $this->_template->setVariable(org_tubepress_template_Template::TUBEPRESS_BASE_URL, $tubepress_base_url);
-        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_DATA_URL, $link);
+        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_DATA_URL,  $link);
         $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_AUTOSTART, $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY) ? 'true' : 'false');
-        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
-        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT));
+        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH,     $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
+        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT,    $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT));
         
         return $this->_template->toString();
     }  

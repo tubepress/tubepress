@@ -42,16 +42,19 @@ abstract class org_tubepress_embedded_impl_AbstractEmbeddedPlayerService impleme
         }
         return $default;
     }
-    
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $optionsManager)
+
+    protected function booleanToOneOrZero($bool)
     {
-        $this->_optionsManager = $optionsManager;
+        return $bool ? '1' : '0';
+    }
+
+    protected function booleanToString($bool)
+    {
+        return $bool ? 'true' : 'false';
     }
     
-    public function setTemplate(org_tubepress_template_Template $template)
-    {
-        $this->_template = $template;
-    }
+    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $optionsManager) { $this->_optionsManager = $optionsManager; }
+    public function setTemplate(org_tubepress_template_Template $template) { $this->_template = $template; }
     
     protected function getOptionsManager()
     {

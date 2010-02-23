@@ -25,11 +25,19 @@ tubepress_load_classes(array(
     'org_tubepress_embedded_impl_AbstractEmbeddedPlayerService'));
 
 /**
- * An HTML-embeddable player
+ * An HTML-embeddable player for Vimeo
  *
  */
 class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService extends org_tubepress_embedded_impl_AbstractEmbeddedPlayerService
 {
+    const VIMEO_EMBEDDED_PLAYER_URL = 'http://vimeo.com/moogaloop.swf';
+    const VIMEO_QUERYPARAM_CLIPID   = 'clip_id';
+    const VIMEO_QUERYPARAM_FS       = 'fullscreen';
+    const VIMEO_QUERYPARAM_AUTOPLAY = 'autoplay';
+    const VIMEO_QUERYPARAM_TITLE    = 'show_title';
+    const VIMEO_QUERYPARAM_BYLINE   = 'show_byline';
+    const VIMEO_QUERYPARAM_COLOR    = 'color';
+
     /**
      * Spits back the text for this embedded player
      *
@@ -39,35 +47,32 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService extends org_tubepre
      */
     public function toString($videoId)
     {   
-        $link = new net_php_pear_Net_URL2('http://vimeo.com/moogaloop.swf');
-        
+        /* collect the embedded options we're interested in */
         $tpom = $this->getOptionsManager();
-        
         $width       = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
         $height      = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT);
         $fullscreen  = $tpom->get(org_tubepress_options_category_Embedded::FULLSCREEN);
         $autoPlay    = $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY);
         $color       = $tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR);
-        $showTitle   = $tpom->get(org_tubepress_options_category_Embedded::SHOW_INFO);
+        $showInfo    = $tpom->get(org_tubepress_options_category_Embedded::SHOW_INFO);
 
-        $link->setQueryVariable('clip_id', $videoId);
-        $link->setQueryVariable('fullscreen', $fullscreen     ? '1' : '0');
-        $link->setQueryVariable('autoplay', $autoPlay ? '1' : '0');
-        $link->setQueryVariable('color', $color);
+        /* build the data URL based on these options */
+        $link = new net_php_pear_Net_URL2(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_EMBEDDED_PLAYER_URL);
+        $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_CLIPID,   $videoId);
+        $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_FS,       $this->booleanToOneOrZero($fullscreen));
+        $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_AUTOPLAY, $this->booleanToOneOrZero($autoPlay));
+        $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_COLOR,    $color);
         if ($showInfo) {
-            $link->setQueryVariable('show_title', '1');
-            $link->setQueryVariable('show_byline', '1');
+            $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_TITLE,  '1');
+            $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_BYLINE, '1');
         }
-        
         $link = $link->getURL(true);
 
-        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_DATA_URL, $link);
-        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $width);
-        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT, $height);
-        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_FULLSCREEN, $fullscreen ? 'true' : 'false');
-        
-        $embedSrc = $this->_template->toString();
-     
-        return $embedSrc;
+        /* prep the template and we're done */
+        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_DATA_URL,   $link);
+        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH,      $width);
+        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT,     $height);
+        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_FULLSCREEN, $this->booleanToString($fullscreen));
+        return $this->_template->toString();
     }
 }

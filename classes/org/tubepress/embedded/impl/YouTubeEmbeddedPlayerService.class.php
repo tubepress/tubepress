@@ -55,7 +55,7 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService extends org_tubep
         $border      = $tpom->get(org_tubepress_options_category_Embedded::BORDER);
         $width       = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
         $height      = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT);
-        $hq     = $tpom->get(org_tubepress_options_category_Embedded::HIGH_QUALITY);
+        $hq          = $tpom->get(org_tubepress_options_category_Embedded::HIGH_QUALITY);
         $fullscreen  = $tpom->get(org_tubepress_options_category_Embedded::FULLSCREEN);
         $showInfo    = $tpom->get(org_tubepress_options_category_Embedded::SHOW_INFO);
    
@@ -63,14 +63,13 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService extends org_tubep
             $link->setQueryVariable('color2', '0x' . $color1);
             $link->setQueryVariable('color1', '0x' . $color2);
         }
-        $link->setQueryVariable('rel', $showRelated   ? '1' : '0');
-        $link->setQueryVariable('autoplay', $autoPlay ? '1' : '0');
-        $link->setQueryVariable('loop', $loop         ? '1' : '0');
-        $link->setQueryVariable('egm', $genie         ? '1' : '0');
-        $link->setQueryVariable('border', $border     ? '1' : '0');
-        $link->setQueryVariable('fs', $fullscreen     ? '1' : '0');
-        
-        $link->setQueryVariable('showinfo', $showInfo ? '1' : '0');
+        $link->setQueryVariable('rel',      $this->booleanToOneOrZero($showRelated));
+        $link->setQueryVariable('autoplay', $this->booleanToOneOrZero($autoPlay));
+        $link->setQueryVariable('loop',     $this->booleanToOneOrZero($loop));
+        $link->setQueryVariable('egm',      $this->booleanToOneOrZero($genie));
+        $link->setQueryVariable('border',   $this->booleanToOneOrZero($border));
+        $link->setQueryVariable('fs',       $this->booleanToOneOrZero($fullscreen));
+        $link->setQueryVariable('showinfo', $this->booleanToOneOrZero($showInfo));
         
         if ($hq) {
             $link->setQueryVariable('hd', '1');
@@ -78,10 +77,10 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService extends org_tubep
         
         $link = $link->getURL(true);
 
-        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_DATA_URL, $link);
-        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $width);
-        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT, $height);
-        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_FULLSCREEN, $fullscreen ? 'true' : 'false');
+        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_DATA_URL,   $link);
+        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH,      $width);
+        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT,     $height);
+        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_FULLSCREEN, $this->booleanToString($fullscreen));
         
         $embedSrc = $this->_template->toString();
      
