@@ -137,7 +137,6 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
         'most_linked', 'most_recent', 'most_responded', 'most_viewed', 'top_rated',
         org_tubepress_options_category_Embedded::GENIE,
         org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT,
-        org_tubepress_options_category_Embedded::SHOW_INFO,
         org_tubepress_options_category_Embedded::SHOW_RELATED,
         org_tubepress_options_category_Embedded::BORDER,
         org_tubepress_options_category_Meta::RATING,
@@ -146,7 +145,9 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
         org_tubepress_options_category_Feed::DEV_KEY,
         org_tubepress_options_category_Feed::FILTER,
         org_tubepress_options_category_Advanced::RANDOM_THUMBS,
-        org_tubepress_options_category_Feed::EMBEDDABLE_ONLY
+        org_tubepress_options_category_Feed::EMBEDDABLE_ONLY,
+        org_tubepress_options_category_Embedded::LOOP,
+        org_tubepress_options_category_Embedded::HIGH_QUALITY
     );
 
     function appliesToYouTube($optionName)

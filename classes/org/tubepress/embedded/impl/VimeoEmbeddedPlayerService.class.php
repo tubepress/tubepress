@@ -46,9 +46,18 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService extends org_tubepre
         $width       = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
         $height      = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT);
         $fullscreen  = $tpom->get(org_tubepress_options_category_Embedded::FULLSCREEN);
+        $autoPlay    = $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY);
+        $color       = $tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR);
+        $showTitle   = $tpom->get(org_tubepress_options_category_Embedded::SHOW_INFO);
 
         $link->setQueryVariable('clip_id', $videoId);
         $link->setQueryVariable('fullscreen', $fullscreen     ? '1' : '0');
+        $link->setQueryVariable('autoplay', $autoPlay ? '1' : '0');
+        $link->setQueryVariable('color', $color);
+        if ($showInfo) {
+            $link->setQueryVariable('show_title', '1');
+            $link->setQueryVariable('show_byline', '1');
+        }
         
         $link = $link->getURL(true);
 
