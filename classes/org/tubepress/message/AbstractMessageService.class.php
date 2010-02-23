@@ -40,7 +40,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'options-category-title-display'  => 'Appearance',
         'options-category-title-embedded' => 'Embedded Player', 
         'options-category-title-meta'     => 'Meta Display',
-        'options-category-title-feed'      => 'YouTube Feed', 
+        'options-category-title-feed'     => 'Provider Feed', 
         'options-category-title-advanced' => 'Advanced', 
     
         'options-title-top_rated'         => 'Top rated videos from...', 
@@ -60,6 +60,9 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'options-desc-tag'                => 'YouTube limits this mode to 1,000 results',
         'options-title-vimeoUploadedBy'   => 'Videos uploaded by this Vimeo user',
         'options-title-vimeoLikes'        => 'Videos this Vimeo user likes',
+        'options-title-vimeoAppearsIn'    => 'Videos this Vimeo user appears in',
+        'options-title-vimeoSearch'       => 'Vimeo search for...',
+        'options-title-vimeoCreditedTo'   => 'Videos credited to this Vimeo user (either appears in or uploaded by)',
         
         'options-title-playerLocation'   => 'Play each video', 
         'options-title-descriptionLimit' => 'Maximum description length', 
@@ -87,7 +90,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'options-desc-embeddedWidth'         => 'Default is 425', 
         'options-title-fullscreen'           => 'Allow fullscreen playback',
         'options-title-genie'                => 'Enhanced genie menu', 
-        'options-desc-genie'                 => 'Show the genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the "menu" button)', 
+        'options-desc-genie'                 => 'Show the YouTube genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the "menu" button)', 
         'options-title-loop'                 => 'Loop', 
         'options-desc-loop'                  => 'Continue playing the video until the user stops it', 
         'options-title-playerColor'          => 'Main color',
@@ -99,7 +102,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'options-title-showInfo'             => 'Show title and rating before video starts',
         'options-title-hd'                   => 'Show videos in high definition when available',
         'options-title-playerImplementation' => 'Implementation',
-        'options-desc-playerImplementation'  => 'The brand of the embedded player. Default is "YouTube"',
+        'options-desc-playerImplementation'  => 'The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc)',
         
         'options-title-author'      => 'Author', 
         'options-title-category'    => 'Category', 
@@ -121,7 +124,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'options-title-keyword'              => 'Shortcode keyword', 
         'options-desc-keyword'               => 'The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.', 
         'options-title-randomize_thumbnails' => 'Randomize thumbnails', 
-        'options-desc-randomize_thumbnails'  => 'Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized', 
+        'options-desc-randomize_thumbnails'  => 'Most YouTube videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized', 
         
         'options-title-filter_racy'          => 'Filter "racy" content', 
         'options-desc-filter_racy'           => 'Don\'t show videos that may not be suitable for minors.', 
@@ -156,10 +159,10 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'order-duration'     => 'length',
         'order-title'        => 'title',
     
-        'timeFrame-today'   => 'today', 
-        'timeFrame-this_week'    => 'this week', 
-        'timeFrame-this_month'   => 'this month', 
-        'timeFrame-all_time' => 'all time', 
+        'timeFrame-today'      => 'today', 
+        'timeFrame-this_week'  => 'this week', 
+        'timeFrame-this_month' => 'this month', 
+        'timeFrame-all_time'   => 'all time', 
     
         'video-author'      => 'Author', 
         'video-category'    => 'Category', 
@@ -174,12 +177,12 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'video-url'         => 'URL', 
         'video-views'       => 'Views', 
     
-        'validation-int-type'       => '%s can only take on integer values. You supplied %s.',
-        'validation-int-range'      => '"%s" must be between "%d" and "%d". You supplied "%d".',
-        'validation-text'           => '%s must be a string. You supplied %s.',
-        'validation-no-such-option' => '"%s" is not a valid option name.',
-        'validation-bool'           => '"%s" must be either true or false. You supplied "%s".',
-        'validation-enum'           => '"%s" must be one of "%s". You supplied "%s".',
+        'validation-int-type'            => '%s can only take on integer values. You supplied %s.',
+        'validation-int-range'           => '"%s" must be between "%d" and "%d". You supplied "%d".',
+        'validation-text'                => '%s must be a string. You supplied %s.',
+        'validation-no-such-option'      => '"%s" is not a valid option name.',
+        'validation-bool'                => '"%s" must be either true or false. You supplied "%s".',
+        'validation-enum'                => '"%s" must be one of "%s". You supplied "%s".',
         'validation-no-dots-in-template' => 'Template names cannot contain two consecutive periods',
     
         'next' => 'next', 
@@ -192,7 +195,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'safeSearch-moderate' => 'moderate',
         'safeSearch-strict'   => 'strict',
 
-        'playerImplementation-youtube'    => 'YouTube',
+        'playerImplementation-default'    => 'Provider default',
         'playerImplementation-longtail'   => 'JW FLV Media Player (by Longtail Video)'
     );
     

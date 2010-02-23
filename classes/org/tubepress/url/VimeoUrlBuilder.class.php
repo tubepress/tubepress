@@ -61,6 +61,21 @@ class org_tubepress_url_VimeoUrlBuilder implements org_tubepress_url_UrlBuilder
             $params['user_id']       = $this->_tpom->get(org_tubepress_options_category_Gallery::VIMEO_LIKES_VALUE);
             $params['full_response'] = 'true';
             break;
+        case org_tubepress_gallery_TubePressGallery::VIMEO_APPEARS_IN:
+            $params['method']        = 'vimeo.videos.getAppearsIn';
+            $params['user_id']       = $this->_tpom->get(org_tubepress_options_category_Gallery::VIMEO_APPEARS_IN_VALUE);
+            $params['full_response'] = 'true';
+            break;
+        case org_tubepress_gallery_TubePressGallery::VIMEO_SEARCH:
+            $params['method']        = 'vimeo.videos.search';
+            $params['query']       = $this->_tpom->get(org_tubepress_options_category_Gallery::VIMEO_SEARCH_VALUE);
+            $params['full_response'] = 'true';
+            break;
+        case org_tubepress_gallery_TubePressGallery::VIMEO_CREDITED:
+            $params['method']        = 'vimeo.videos.getAll';
+            $params['user_id']       = $this->_tpom->get(org_tubepress_options_category_Gallery::VIMEO_CREDITED_VALUE);
+            $params['full_response'] = 'true';
+            break;
         }
         
         $params['page']                   = $currentPage;

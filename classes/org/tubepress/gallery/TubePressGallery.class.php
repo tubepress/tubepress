@@ -38,6 +38,9 @@ interface org_tubepress_gallery_TubePressGallery
     const USER             = 'user';
     const VIMEO_UPLOADEDBY = 'vimeoUploadedBy';
     const VIMEO_LIKES      = 'vimeoLikes';
+    const VIMEO_APPEARS_IN = 'vimeoAppearsIn';
+    const VIMEO_SEARCH     = 'vimeoSearch';
+    const VIMEO_CREDITED   = 'vimeoCreditedTo';
     
     public function getHtml($galleryId);
 }

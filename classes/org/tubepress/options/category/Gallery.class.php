@@ -39,4 +39,7 @@ class org_tubepress_options_category_Gallery
     const USER_VALUE             = "userValue";
     const VIMEO_UPLOADEDBY_VALUE = 'vimeoUploadedByValue';
     const VIMEO_LIKES_VALUE      = 'vimeoLikesValue';
+    const VIMEO_APPEARS_IN_VALUE = 'vimeoAppearsInValue';
+    const VIMEO_SEARCH_VALUE     = 'vimeoSearchValue';
+    const VIMEO_CREDITED_VALUE   = 'vimeoCreditedToValue';
 }
