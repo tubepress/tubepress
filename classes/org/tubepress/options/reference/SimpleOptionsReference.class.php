@@ -69,7 +69,7 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
         ),
         org_tubepress_options_Type::BOOL => array(
             org_tubepress_options_category_Advanced::DEBUG_ON           => true,
-            org_tubepress_options_category_Advanced::RANDOM_THUMBS      => true,
+            org_tubepress_options_category_Display::RANDOM_THUMBS       => true,
             org_tubepress_options_category_Display::RELATIVE_DATES      => false,
             org_tubepress_options_category_Display::PAGINATE_ABOVE      => true,
             org_tubepress_options_category_Display::PAGINATE_BELOW      => true,
@@ -144,7 +144,7 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
         org_tubepress_options_category_Feed::CLIENT_KEY,
         org_tubepress_options_category_Feed::DEV_KEY,
         org_tubepress_options_category_Feed::FILTER,
-        org_tubepress_options_category_Advanced::RANDOM_THUMBS,
+        org_tubepress_options_category_Display::RANDOM_THUMBS,
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY,
         org_tubepress_options_category_Embedded::LOOP,
         org_tubepress_options_category_Embedded::HIGH_QUALITY

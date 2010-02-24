@@ -28,5 +28,4 @@ class org_tubepress_options_category_Advanced
     const DATEFORMAT     = 'dateFormat';
     const DEBUG_ON       = 'debugging_enabled';
     const KEYWORD        = 'keyword';
-    const RANDOM_THUMBS  = 'randomize_thumbnails';
 } 

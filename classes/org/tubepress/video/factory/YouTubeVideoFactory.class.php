@@ -290,7 +290,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory extends org_tubepress_vide
     private function _getThumbnailUrl()
     {
         $thumbs  = $this->_xpath->query('media:group/media:thumbnail', $this->_currentNode);
-        if ($this->getOptionsManager()->get(org_tubepress_options_category_Advanced::RANDOM_THUMBS)) {
+        if ($this->getOptionsManager()->get(org_tubepress_options_category_Display::RANDOM_THUMBS)) {
             do {
                 $node = $thumbs->item(rand(0, $thumbs->length - 1));
             } while (strpos($node->getAttribute('url'), 'hqdefault') !== FALSE);

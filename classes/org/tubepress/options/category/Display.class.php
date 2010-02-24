@@ -35,6 +35,7 @@ class org_tubepress_options_category_Display
     const ORDER_BY            = 'orderBy';
     const PAGINATE_ABOVE      = 'paginationAbove';
     const PAGINATE_BELOW      = 'paginationBelow';
+    const RANDOM_THUMBS       = 'randomize_thumbnails';
     const RELATIVE_DATES      = 'relativeDates';
     const DESC_LIMIT          = 'descriptionLimit';
 }
