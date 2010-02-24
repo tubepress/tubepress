@@ -142,7 +142,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
     
         'player-normal'      => 'normally (at the top of your gallery)', 
         'player-popup'       => 'in a popup window',
-        'player-youtube'     => 'from the original YouTube page', 
+        'player-youtube'     => 'from the video\'s original page', 
         'player-shadowbox'   => 'with Shadowbox',
         'player-jqmodal'     => 'with jqModal',
         'player-tinybox'     => 'with TinyBox',
