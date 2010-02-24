@@ -161,15 +161,15 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
         $this->def(org_tubepress_ioc_IocService::STORAGE_MANAGER,
             $this->impl('org_tubepress_options_storage_WordPressStorageManager', 
                 array(
-                    org_tubepress_ioc_Setters::OPTIONS_REFERENCE        => $this->ref(org_tubepress_ioc_IocService::OPTIONS_REFERENCE),
-                    org_tubepress_ioc_Setters::INPUT_VALIDATION_SERVICE => $this->ref(org_tubepress_ioc_IocService::VALIDATION_SERVICE)
+                    org_tubepress_ioc_Setters::OPTIONS_REFERENCE => $this->ref(org_tubepress_ioc_IocService::OPTIONS_REFERENCE),
+                    org_tubepress_ioc_Setters::INPUT_VALIDATION  => $this->ref(org_tubepress_ioc_IocService::VALIDATION_SERVICE)
                 )
             )
         );
         $this->def(org_tubepress_ioc_IocService::FEED_RETRIEVAL_SERVICE,
             $this->impl('org_tubepress_video_feed_retrieval_HTTPRequest2', 
                 array(
-                    org_tubepress_ioc_Setter::CACHE => $this->ref(org_tubepress_ioc_IocService::CACHE_SERVICE),
+                    org_tubepress_ioc_Setters::CACHE => $this->ref(org_tubepress_ioc_IocService::CACHE_SERVICE),
                     org_tubepress_ioc_Setters::LOG  => $this->ref(org_tubepress_ioc_IocService::LOG)
                 )
             )
@@ -201,8 +201,8 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
         $this->def(org_tubepress_ioc_IocService::SHORTCODE_SERVICE,
             $this->impl('org_tubepress_shortcode_SimpleShortcodeService',
                 array(
-                    org_tubepress_ioc_Setters::LOG                      => $this->ref(org_tubepress_ioc_IocService::LOG),
-                    org_tubepress_ioc_Setters::INPUT_VALIDATION_SERVICE => $this->ref(org_tubepress_ioc_IocService::VALIDATION_SERVICE)
+                    org_tubepress_ioc_Setters::LOG              => $this->ref(org_tubepress_ioc_IocService::LOG),
+                    org_tubepress_ioc_Setters::INPUT_VALIDATION => $this->ref(org_tubepress_ioc_IocService::VALIDATION_SERVICE)
                 )
             )
         );
@@ -269,9 +269,9 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
         $this->def(org_tubepress_ioc_IocService::OPTIONS_MANAGER,
             $this->impl('org_tubepress_options_manager_SimpleOptionsManager', 
                 array(
-                    org_tubepress_ioc_Setters::INPUT_VALIDATION_SERVICE => $this->ref(org_tubepress_ioc_IocService::VALIDATION_SERVICE),
-                    org_tubepress_ioc_Setters::OPTIONS_REFERENCE        => $this->ref(org_tubepress_ioc_IocService::OPTIONS_REFERENCE),
-                    org_tubepress_ioc_Setters::STORAGE_MANAGER          => $this->ref(org_tubepress_ioc_IocService::STORAGE_MANAGER)
+                    org_tubepress_ioc_Setters::INPUT_VALIDATION  => $this->ref(org_tubepress_ioc_IocService::VALIDATION_SERVICE),
+                    org_tubepress_ioc_Setters::OPTIONS_REFERENCE => $this->ref(org_tubepress_ioc_IocService::OPTIONS_REFERENCE),
+                    org_tubepress_ioc_Setters::STORAGE_MANAGER   => $this->ref(org_tubepress_ioc_IocService::STORAGE_MANAGER)
                 )
             )
         );

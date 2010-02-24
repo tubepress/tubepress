@@ -65,7 +65,7 @@ class org_tubepress_options_storage_WordPressStorageManager extends org_tubepres
 		    $validationService = new org_tubepress_options_validation_SimpleInputValidationService();
 		    $validationService->setMessageService($msgService);
     	    $ref = new org_tubepress_options_reference_SimpleOptionsReference();
-	        $this->setValidationService($validationService);
+	        $this->setInputValidationService($validationService);
 	        $this->setOptionsReference($ref);
 	        $this->init();
 	    }
