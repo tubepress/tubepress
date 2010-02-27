@@ -13,8 +13,8 @@ class org_tubepress_video_VideoTest extends PHPUnit_Framework_TestCase {
 	
 	function testSetGetAuthor()
 	{
-		$this->_vid->setAuthor('hough');
-		$this->assertEquals($this->_vid->getAuthor(), 'hough');
+		$this->_vid->setAuthorUid('hough');
+		$this->assertEquals($this->_vid->getAuthorUid(), 'hough');
 	}
 	
 	function testSetGetCategory()

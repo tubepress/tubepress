@@ -52,12 +52,12 @@
               
           <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::AUTHOR]): ?>
           
-          <dt class="tubepress_meta tubepress_meta_author"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::AUTHOR]; ?></dt><dd class="tubepress_meta tubepress_meta_author"><a rel="external nofollow" href="http://www.youtube.com/profile?user=<?php echo $video->getAuthor(); ?>"><?php echo $video->getAuthor(); ?></a></dd>
+          <dt class="tubepress_meta tubepress_meta_author"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::AUTHOR]; ?></dt><dd class="tubepress_meta tubepress_meta_author"><a rel="external nofollow" href="<?php echo ${org_tubepress_template_Template::AUTHOR_URL_PREFIX}; ?><?php echo $video->getAuthorUid(); ?>"><?php echo $video->getAuthorDisplayName(); ?></a></dd>
           <?php endif; ?>
     
           <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::TAGS]): ?>
           
-          <dt class="tubepress_meta tubepress_meta_keywords"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::TAGS]; ?></dt><dd class="tubepress_meta tubepress_meta_keywords"><a rel="external nofollow" href="http://youtube.com/results?search_query=<?php echo rawurlencode(implode(" ", $video->getKeywords())); ?>&amp;search=Search"><?php echo $raw = htmlspecialchars(implode(" ", $video->getKeywords()), ENT_QUOTES, "UTF-8"); ?></a></dd>
+          <dt class="tubepress_meta tubepress_meta_keywords"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::TAGS]; ?></dt><dd class="tubepress_meta tubepress_meta_keywords"><a rel="external nofollow" href="<?php echo ${org_tubepress_template_Template::VIDEO_SEARCH_PREFIX}; ?><?php echo rawurlencode(implode(" ", $video->getKeywords())); ?>"><?php echo $raw = htmlspecialchars(implode(" ", $video->getKeywords()), ENT_QUOTES, "UTF-8"); ?></a></dd>
           <?php endif; ?>
           
           <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::URL]): ?>
@@ -65,17 +65,23 @@
           <dt class="tubepress_meta tubepress_meta_url"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::URL]; ?></dt><dd class="tubepress_meta tubepress_meta_url"><a rel="external nofollow" href="<?php echo $video->getHomeUrl(); ?>"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::URL]; ?></a></dd>
           <?php endif; ?>
           
-          <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::CATEGORY]): ?>
+          <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::CATEGORY] &&
+              $video->getCategory() != ""):
+          ?>
           
           <dt class="tubepress_meta tubepress_meta_category"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::CATEGORY]; ?></dt><dd class="tubepress_meta tubepress_meta_category"><?php echo htmlspecialchars($video->getCategory(), ENT_QUOTES, "UTF-8"); ?></dd>
           <?php endif; ?>
         
-          <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::RATINGS]): ?>
+          <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::RATINGS] &&
+              $video->getRatingCount() != ""):
+          ?>
            
           <dt class="tubepress_meta tubepress_meta_ratings"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::RATINGS]; ?></dt><dd class="tubepress_meta tubepress_meta_ratings"><?php echo $video->getRatingCount(); ?></dd>
           <?php endif; ?>
         
-          <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::RATING]): ?>
+          <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::RATING] &&
+              $video->getRatingAverage() != ""):
+          ?>
           
           <dt class="tubepress_meta tubepress_meta_rating"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::RATING]; ?></dt><dd class="tubepress_meta tubepress_meta_rating"><?php echo $video->getRatingAverage(); ?></dd>
           <?php endif; ?>

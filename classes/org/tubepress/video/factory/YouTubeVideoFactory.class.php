@@ -146,7 +146,10 @@ class org_tubepress_video_factory_YouTubeVideoFactory extends org_tubepress_vide
         /* the rest of these are optional */
         
         if ($this->getOptionsManager()->get(org_tubepress_options_category_Meta::AUTHOR)) {
-            $vid->setAuthor($this->_getAuthor());
+            $uid = $this->_getAuthorUid();
+            $vid->setAuthorUid($uid);
+            $vid->setAuthorDisplayName($uid);
+            
         }
         
         if ($this->getOptionsManager()->get(org_tubepress_options_category_Meta::CATEGORY)) {
@@ -188,7 +191,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory extends org_tubepress_vide
         return $vid;
     }
     
-    private function _getAuthor()
+    private function _getAuthorUid()
     {
         return $this->_xpath->query('atom:author/atom:name', $this->_currentNode)->item(0)->nodeValue;
     }

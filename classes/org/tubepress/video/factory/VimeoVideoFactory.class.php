@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_video_factory_AbstractVideoFactory',
     'org_tubepress_video_Video',
-    'net_php_pear_Net_URL2'));
+    'org_tubepress_options_category_Display'));
 
 /**
  * Video factory for Vimeo
@@ -81,15 +81,16 @@ class org_tubepress_video_factory_VimeoVideoFactory extends org_tubepress_video_
     {
         $vid = new org_tubepress_video_Video();
 
-        $vid->setTitle($entry->title);
-        $vid->setId($entry->id);
-        $vid->setDescription($entry->description);
-        $vid->setTimePublished($entry->upload_date);
-        $vid->setViewCount($entry->number_of_plays);
+        $vid->setAuthorDisplayName($entry->owner->display_name);
+        $vid->setAuthorUid($entry->owner->username);
+        $vid->setDescription($this->_getDescription($entry));
         $vid->setDuration(self::_seconds2HumanTime($entry->duration));
-        $vid->setAuthor($entry->owner->display_name);
+        $vid->setHomeUrl('http://vimeo.com/' . $entry->id);
+        $vid->setId($entry->id); 
         $vid->setThumbnailUrl($entry->thumbnails->thumbnail[0]->_content);
-
+        $vid->setTimePublished($this->_getTimePublished($entry));
+        $vid->setTitle($entry->title);
+        $vid->setViewCount($this->_getViewCount($entry));
         
         if (isset($entry->tags) && is_array($entry->tags->tag)) {
             $tags = array();
@@ -98,7 +99,35 @@ class org_tubepress_video_factory_VimeoVideoFactory extends org_tubepress_video_
                 $tags[] = $tag->_content;
             }
             $vid->setKeywords($tags);
+        } else {
+            $vid->setKeywords(array());
         }
         return $vid;
+    }
+    
+    protected function _getDescription($entry)
+    {
+        $limit = $this->getOptionsManager()->get(org_tubepress_options_category_Display::DESC_LIMIT);
+        $desc = $entry->description;
+        if ($limit > 0 && strlen($desc) > $limit) {
+            $desc = substr($desc, 0, $limit) . '...';
+        }
+        return $desc;
+    }
+    
+    private function _getTimePublished($entry)
+    { 
+        $date = $entry->upload_date;
+        $seconds = strtotime($date);
+        
+        if ($this->getOptionsManager()->get(org_tubepress_options_category_Display::RELATIVE_DATES)) {
+            return $this->_relativeTime($seconds);
+        }
+        return date($this->getOptionsManager()->get(org_tubepress_options_category_Advanced::DATEFORMAT), $seconds);
+    }
+    
+    private function _getViewCount($entry)
+    {
+        return number_format($entry->number_of_plays);
     }
 }

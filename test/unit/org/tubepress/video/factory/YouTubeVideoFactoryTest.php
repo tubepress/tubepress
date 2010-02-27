@@ -135,7 +135,7 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends PHPUnit_Framew
                     ->will($this->returnCallback('org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_AuthorOnly'));
         $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
         $vid = $results[0];
-        $this->assertEquals('TheAkcitycouncil', $vid->getAuthor());
+        $this->assertEquals('TheAkcitycouncil', $vid->getAuthorUid());
     }
     
     function testRandomThumbnailUrl()

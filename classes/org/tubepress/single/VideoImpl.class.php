@@ -102,6 +102,20 @@ class org_tubepress_single_VideoImpl implements org_tubepress_single_Video, org_
         $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_SOURCE, $eps->toString($video->getId()));
         $this->_template->setVariable(org_tubepress_template_Template::VIDEO, $video);
         $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $this->_tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
+        
+        $this->_prepUrlPrefixes();
+    }
+    
+    private function _prepUrlPrefixes()
+    {
+        $provider = $this->_tpom->calculateCurrentVideoProvider();
+        if ($provider === org_tubepress_video_feed_provider_Provider::YOUTUBE) {
+            $this->_template->setVariable(org_tubepress_template_Template::AUTHOR_URL_PREFIX, 'http://www.youtube.com/profile?user=');
+            $this->_template->setVariable(org_tubepress_template_Template::VIDEO_SEARCH_PREFIX, 'http://www.youtube.com/results?search_query=');            
+        } else {
+            $this->_template->setVariable(org_tubepress_template_Template::AUTHOR_URL_PREFIX, 'http://vimeo.com/');
+            $this->_template->setVariable(org_tubepress_template_Template::VIDEO_SEARCH_PREFIX, 'http://vimeo.com/videos/search:'); 
+        }        
     }
     
     public function setVideoProvider(org_tubepress_video_feed_provider_Provider $provider) { $this->_provider = $provider; }

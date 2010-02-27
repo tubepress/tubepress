@@ -133,14 +133,27 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
         $this->_template->setVariable(org_tubepress_template_Template::THUMBNAIL_WIDTH,     $this->_optionsManager->get(org_tubepress_options_category_Display::THUMB_WIDTH));
         $this->_template->setVariable(org_tubepress_template_Template::THUMBNAIL_HEIGHT,    $this->_optionsManager->get(org_tubepress_options_category_Display::THUMB_HEIGHT));
         $this->_template->setVariable(org_tubepress_template_Template::VIDEO_ARRAY,         $videos);
-
+        
         $this->_prepTemplateMetaElements();
+        $this->_prepUrlPrefixes();
         
         /* Ajax pagination? */
         if ($this->_optionsManager->get(org_tubepress_options_category_Display::AJAX_PAGINATION)) {
             $this->_log->log($this->_logPrefix, 'Using Ajax pagination');
             $this->_template->setVariable(org_tubepress_template_Template::SHORTCODE, urlencode($this->_optionsManager->getShortcode()));        
         }
+    }
+    
+    private function _prepUrlPrefixes()
+    {
+        $provider = $this->_optionsManager->calculateCurrentVideoProvider();
+        if ($provider === org_tubepress_video_feed_provider_Provider::YOUTUBE) {
+            $this->_template->setVariable(org_tubepress_template_Template::AUTHOR_URL_PREFIX, 'http://www.youtube.com/profile?user=');
+            $this->_template->setVariable(org_tubepress_template_Template::VIDEO_SEARCH_PREFIX, 'http://www.youtube.com/results?search_query=');            
+        } else {
+            $this->_template->setVariable(org_tubepress_template_Template::AUTHOR_URL_PREFIX, 'http://vimeo.com/');
+            $this->_template->setVariable(org_tubepress_template_Template::VIDEO_SEARCH_PREFIX, 'http://vimeo.com/videos/search:'); 
+        }        
     }
     
     private function _determineEmbeddedImplName()

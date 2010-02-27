@@ -24,6 +24,7 @@
  */
 interface org_tubepress_template_Template
 {
+    const AUTHOR_URL_PREFIX =               'authorUrlPrefix';
     const EMBEDDED_AUTOSTART =              'autostart';
     const EMBEDDED_DATA_URL =               'homeURL';
     const EMBEDDED_FULLSCREEN =             'embeddedFullscreen';
@@ -57,6 +58,7 @@ interface org_tubepress_template_Template
     const TUBEPRESS_BASE_URL =              'tubepressBaseUrl';
     const VIDEO =                           'video';
     const VIDEO_ARRAY =                     'videoArray';
+    const VIDEO_SEARCH_PREFIX =             'videoSearchPrefix';
     const WIDGET_CONTROL_SHORTCODE =        'widgetControlShortcode';
     const WIDGET_CONTROL_TITLE =            'widgetControlTitle';
     const WIDGET_SHORTCODE =                'widgetShortcode';

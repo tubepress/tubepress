@@ -24,7 +24,8 @@
  */
 class org_tubepress_video_Video
 {
-    private $_author;
+    private $_authorDisplayName;
+    private $_authorUid;
     private $_category;
     private $_commentCount;
     private $_description;
@@ -40,8 +41,11 @@ class org_tubepress_video_Video
     private $_title;
     private $_viewCount;
 
-    public function getAuthor() { return $this->_author; }
-    public function setAuthor($author) { $this->_author = $author; }
+    public function getAuthorDisplayName() { return $this->_authorDisplayName; }
+    public function setAuthorDisplayName($author) { $this->_authorDisplayName = $author; }
+    
+    public function getAuthorUid() { return $this->_authorUid; }
+    public function setAuthorUid($author) { $this->_authorUid = $author; }
 
     public function getCategory() { return $this->_category; }
     public function setCategory($category) { $this->_category = $category; }
