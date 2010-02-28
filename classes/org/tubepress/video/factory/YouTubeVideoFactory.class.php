@@ -47,6 +47,9 @@ class org_tubepress_video_factory_YouTubeVideoFactory extends org_tubepress_vide
         $this->_logPrefix = 'YouTube Video Factory';
     }
     
+    protected function getXpath() { return $this->_xpath; }
+    protected function getCurrentNode() { return $this->_currentNode; }
+    
     /**
      * Converts raw video feeds to TubePress videos
      *
@@ -290,7 +293,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory extends org_tubepress_vide
         return "0";
     }
     
-    private function _getThumbnailUrl()
+    protected function _getThumbnailUrl()
     {
         $thumbs  = $this->_xpath->query('media:group/media:thumbnail', $this->_currentNode);
         if ($this->getOptionsManager()->get(org_tubepress_options_category_Display::RANDOM_THUMBS)) {

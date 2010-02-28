@@ -87,7 +87,7 @@ class org_tubepress_video_factory_VimeoVideoFactory extends org_tubepress_video_
         $vid->setDuration(self::_seconds2HumanTime($entry->duration));
         $vid->setHomeUrl('http://vimeo.com/' . $entry->id);
         $vid->setId($entry->id); 
-        $vid->setThumbnailUrl($entry->thumbnails->thumbnail[0]->_content);
+        $vid->setThumbnailUrl($this->_getThumbnailUrl($entry));
         $vid->setTimePublished($this->_getTimePublished($entry));
         $vid->setTitle($entry->title);
         $vid->setViewCount($this->_getViewCount($entry));
@@ -113,6 +113,11 @@ class org_tubepress_video_factory_VimeoVideoFactory extends org_tubepress_video_
             $desc = substr($desc, 0, $limit) . '...';
         }
         return $desc;
+    }
+    
+    protected function _getThumbnailUrl($entry)
+    {
+        return $entry->thumbnails->thumbnail[0]->_content;
     }
     
     private function _getTimePublished($entry)
