@@ -30,6 +30,7 @@ class org_tubepress_options_category_Display
     const AJAX_PAGINATION     = 'ajaxPagination';
     const CURRENT_PLAYER_NAME = 'playerLocation';
     const RESULTS_PER_PAGE    = 'resultsPerPage';
+    const HQ_THUMBS           = 'hqThumbs';
     const THUMB_HEIGHT        = 'thumbHeight';
     const THUMB_WIDTH         = 'thumbWidth';
     const ORDER_BY            = 'orderBy';

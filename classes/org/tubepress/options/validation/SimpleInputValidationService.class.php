@@ -69,16 +69,6 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
     {
         switch ($optionName) {
         
-            /* thumbnail heights currently can't be more than 90px */
-            case org_tubepress_options_category_Display::THUMB_HEIGHT:
-                $this->_checkIntegerRange(org_tubepress_options_category_Display::THUMB_HEIGHT, $candidate, 1, 90);
-                break;
-
-            /* thumbnail widths currently can't be more than 120px */
-            case org_tubepress_options_category_Display::THUMB_WIDTH:
-                $this->_checkIntegerRange(org_tubepress_options_category_Display::THUMB_WIDTH, $candidate, 1, 120);
-                break;
-
             /* YouTube limits us to 50 per page */
             case org_tubepress_options_category_Display::RESULTS_PER_PAGE:
                 $this->_checkIntegerRange(org_tubepress_options_category_Display::RESULTS_PER_PAGE, $candidate, 1, 50);
