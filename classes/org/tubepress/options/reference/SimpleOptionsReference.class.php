@@ -359,7 +359,8 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
      */
     function isOptionProOnly($optionName)
     {
-        return in_array($optionName, array(org_tubepress_options_category_Display::AJAX_PAGINATION));
+        return in_array($optionName, array(org_tubepress_options_category_Display::AJAX_PAGINATION,
+            org_tubepress_options_category_Display::HQ_THUMBS));
     }
 
     /**
