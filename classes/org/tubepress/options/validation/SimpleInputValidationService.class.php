@@ -134,7 +134,7 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
                 }
                 break;
             case org_tubepress_options_Type::INTEGRAL:
-                if (intval($candidate) == 0 && $candidate != org_tubepress_options_category_Display::DESC_LIMIT) {
+                if (intval($candidate) == 0 && $optionName != org_tubepress_options_category_Display::DESC_LIMIT) {
                     throw new Exception(sprintf($this->_messageService->_("validation-int-type"), 
                         $optionName, $candidate));
                 }
