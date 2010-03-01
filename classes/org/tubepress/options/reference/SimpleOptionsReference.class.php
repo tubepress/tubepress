@@ -57,16 +57,19 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Gallery::USER_VALUE          => '3hough',
             org_tubepress_options_category_Feed::CLIENT_KEY             => 'ytapi-EricHough-TubePress-ki6oq9tc-0',
             org_tubepress_options_category_Feed::DEV_KEY                => 'AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg',
-            org_tubepress_options_category_Widget::TITLE                => 'TubePress',
-            org_tubepress_options_category_Widget::TAGSTRING            => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']',
-            org_tubepress_options_category_Template::TEMPLATE           => '',
-            org_tubepress_options_category_Gallery::VIDEO               => '',
+            org_tubepress_options_category_Widget::TITLE                   => 'TubePress',
+            org_tubepress_options_category_Widget::TAGSTRING               => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']',
+            org_tubepress_options_category_Template::TEMPLATE              => '',
+            org_tubepress_options_category_Gallery::VIDEO                  => '',
             org_tubepress_options_category_Gallery::VIMEO_UPLOADEDBY_VALUE => 'mattkaar',
-            org_tubepress_options_category_Gallery::VIMEO_LIKES_VALUE   => 'k2eric',
+            org_tubepress_options_category_Gallery::VIMEO_LIKES_VALUE      => 'k2eric',
             org_tubepress_options_category_Gallery::VIMEO_APPEARS_IN_VALUE => 'mattkaar',
-            org_tubepress_options_category_Gallery::VIMEO_SEARCH_VALUE  => 'cats playing piano',
-            org_tubepress_options_category_Gallery::VIMEO_CREDITED_VALUE => 'k2eric',
-            org_tubepress_options_category_Gallery::VIMEO_CHANNEL_VALUE = '1341',
+            org_tubepress_options_category_Gallery::VIMEO_SEARCH_VALUE     => 'cats playing piano',
+            org_tubepress_options_category_Gallery::VIMEO_CREDITED_VALUE   => 'k2eric',
+            org_tubepress_options_category_Gallery::VIMEO_CHANNEL_VALUE    => '1341',
+            org_tubepress_options_category_Gallery::VIMEO_GROUP_VALUE      => 'beyondthestill',
+            org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE      => '40992'
+         
         ),
         org_tubepress_options_Type::BOOL => array(
             org_tubepress_options_category_Advanced::DEBUG_ON           => true,
@@ -131,7 +134,10 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
         org_tubepress_gallery_TubePressGallery::VIMEO_LIKES,
         org_tubepress_gallery_TubePressGallery::VIMEO_APPEARS_IN,
         org_tubepress_gallery_TubePressGallery::VIMEO_SEARCH,
-        org_tubepress_gallery_TubePressGallery::VIMEO_CREDITED
+        org_tubepress_gallery_TubePressGallery::VIMEO_CREDITED,
+        org_tubepress_gallery_TubePressGallery::VIMEO_ALBUM,
+        org_tubepress_gallery_TubePressGallery::VIMEO_GROUP,
+        org_tubepress_gallery_TubePressGallery::VIMEO_CHANNEL
     );
     
     private $_youtubeOnly = array(
@@ -275,7 +281,9 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
                     org_tubepress_gallery_TubePressGallery::VIMEO_APPEARS_IN,
                     org_tubepress_gallery_TubePressGallery::VIMEO_SEARCH,
                     org_tubepress_gallery_TubePressGallery::VIMEO_CREDITED,
-                    org_tubepress_gallery_TubePressGallery::VIMEO_CHANNEL);
+                    org_tubepress_gallery_TubePressGallery::VIMEO_CHANNEL,
+                    org_tubepress_gallery_TubePressGallery::VIMEO_ALBUM,
+                    org_tubepress_gallery_TubePressGallery::VIMEO_GROUP);
             case org_tubepress_options_Type::SAFE_SEARCH:
                 return array('none', 'moderate', 'strict');
             case org_tubepress_options_Type::PLAYER_IMPL:

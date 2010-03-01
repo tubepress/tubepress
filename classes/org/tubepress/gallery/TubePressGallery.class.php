@@ -42,6 +42,8 @@ interface org_tubepress_gallery_TubePressGallery
     const VIMEO_SEARCH     = 'vimeoSearch';
     const VIMEO_CREDITED   = 'vimeoCreditedTo';
     const VIMEO_CHANNEL    = 'vimeoChannel';
+    const VIMEO_ALBUM      = 'vimeoAlbum';
+    const VIMEO_GROUP      = 'vimeoGroup';
     
     public function getHtml($galleryId);
 }

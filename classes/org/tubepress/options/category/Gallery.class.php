@@ -43,4 +43,6 @@ class org_tubepress_options_category_Gallery
     const VIMEO_SEARCH_VALUE     = 'vimeoSearchValue';
     const VIMEO_CREDITED_VALUE   = 'vimeoCreditedToValue';
     const VIMEO_CHANNEL_VALUE    = 'vimeoChannelValue';
+    const VIMEO_ALBUM_VALUE      = 'vimeoAlbumValue';
+    const VIMEO_GROUP_VALUE      = 'vimeoGroupValue';
 }

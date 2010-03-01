@@ -64,7 +64,8 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'options-title-vimeoSearch'       => 'Vimeo search for...',
         'options-title-vimeoCreditedTo'   => 'Videos credited to this Vimeo user (either appears in or uploaded by)',
         'options-title-vimeoChannel'      => 'Videos in this Vimeo channel',
-        'options-desc-vimeoChannel'       => 'Use the channel\'s numeric identifier',
+        'options-title-vimeoAlbum'        => 'Videos from this Vimeo album',
+        'options-title-vimeoGroup'        => 'Videos from this Vimeo group',
         
         'options-title-playerLocation'   => 'Play each video', 
         'options-title-descriptionLimit' => 'Maximum description length', 
