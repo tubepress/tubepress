@@ -42,4 +42,5 @@ class org_tubepress_options_category_Gallery
     const VIMEO_APPEARS_IN_VALUE = 'vimeoAppearsInValue';
     const VIMEO_SEARCH_VALUE     = 'vimeoSearchValue';
     const VIMEO_CREDITED_VALUE   = 'vimeoCreditedToValue';
+    const VIMEO_CHANNEL_VALUE    = 'vimeoChannelValue';
 }

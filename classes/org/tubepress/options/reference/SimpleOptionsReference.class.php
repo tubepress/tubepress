@@ -65,7 +65,8 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Gallery::VIMEO_LIKES_VALUE   => 'k2eric',
             org_tubepress_options_category_Gallery::VIMEO_APPEARS_IN_VALUE => 'mattkaar',
             org_tubepress_options_category_Gallery::VIMEO_SEARCH_VALUE  => 'cats playing piano',
-            org_tubepress_options_category_Gallery::VIMEO_CREDITED_VALUE => 'k2eric'
+            org_tubepress_options_category_Gallery::VIMEO_CREDITED_VALUE => 'k2eric',
+            org_tubepress_options_category_Gallery::VIMEO_CHANNEL_VALUE = '1341',
         ),
         org_tubepress_options_Type::BOOL => array(
             org_tubepress_options_category_Advanced::DEBUG_ON           => true,
@@ -273,7 +274,8 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
                     org_tubepress_gallery_TubePressGallery::VIMEO_LIKES,
                     org_tubepress_gallery_TubePressGallery::VIMEO_APPEARS_IN,
                     org_tubepress_gallery_TubePressGallery::VIMEO_SEARCH,
-                    org_tubepress_gallery_TubePressGallery::VIMEO_CREDITED);
+                    org_tubepress_gallery_TubePressGallery::VIMEO_CREDITED,
+                    org_tubepress_gallery_TubePressGallery::VIMEO_CHANNEL);
             case org_tubepress_options_Type::SAFE_SEARCH:
                 return array('none', 'moderate', 'strict');
             case org_tubepress_options_Type::PLAYER_IMPL:
