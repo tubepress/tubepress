@@ -84,6 +84,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'options-desc-paginationAbove'   => 'Only applies to galleries that span multiple pages',
         'options-desc-paginationBelow'   => 'Only applies to galleries that span multiple pages',
         'options-title-ajaxPagination'   => '<a href="http://wikipedia.org/wiki/Ajax_(programming)">Ajax</a>-enabled pagination',
+        'options-title-hqThumbs'         => 'Use high-quality thumbnails',
      
         'options-title-autoplay'             => 'Auto-play videos', 
         'options-title-border'               => 'Show border', 
