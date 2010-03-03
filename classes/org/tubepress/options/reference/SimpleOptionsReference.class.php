@@ -99,6 +99,7 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Meta::UPLOADED               => false,
             org_tubepress_options_category_Meta::URL                    => false,
             org_tubepress_options_category_Meta::VIEWS                  => true,
+            org_tubepress_options_category_Meta::LIKES                  => false,
             org_tubepress_options_category_Feed::CACHE_ENABLED          => false,
             org_tubepress_options_category_Feed::EMBEDDABLE_ONLY        => true
         ),
@@ -137,7 +138,8 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
         org_tubepress_gallery_TubePressGallery::VIMEO_CREDITED,
         org_tubepress_gallery_TubePressGallery::VIMEO_ALBUM,
         org_tubepress_gallery_TubePressGallery::VIMEO_GROUP,
-        org_tubepress_gallery_TubePressGallery::VIMEO_CHANNEL
+        org_tubepress_gallery_TubePressGallery::VIMEO_CHANNEL,
+        org_tubepress_options_category_Meta::LIKES
     );
     
     private $_youtubeOnly = array(

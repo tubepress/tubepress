@@ -30,6 +30,7 @@ class org_tubepress_options_category_Meta
     const DESCRIPTION = "description";
     const ID          = "id";
     const LENGTH      = "length";
+    const LIKES       = 'likes';
     const RATING      = "rating";
     const RATINGS     = "ratings";
     const TAGS        = "tags";

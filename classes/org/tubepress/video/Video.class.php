@@ -33,6 +33,7 @@ class org_tubepress_video_Video
     private $_homeUrl;
     private $_id;
     private $_keywords;
+    private $_likesCount;
     private $_ratingAverage;
     private $_ratingCount;
     private $_thumbnailUrl;
@@ -67,6 +68,9 @@ class org_tubepress_video_Video
     
     public function getKeywords() { return $this->_keywords; }
     public function setKeywords($keywords) { $this->_keywords = $keywords; }
+    
+    public function getLikesCount() { return $this->_likesCount; }
+    public function setLikesCount($c) { $this->_likesCount = $c; }
 
     public function getRatingAverage() { return $this->_ratingAverage; }
     public function setRatingAverage($average) { $this->_ratingAverage = $average; }

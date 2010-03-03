@@ -76,6 +76,13 @@
            
           <dt class="tubepress_meta tubepress_meta_ratings"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::RATINGS]; ?></dt><dd class="tubepress_meta tubepress_meta_ratings"><?php echo $video->getRatingCount(); ?></dd>
           <?php endif; ?>
+          
+          <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::LIKES] &&
+              $video->getLikesCount() != ""):
+          ?>
+           
+          <dt class="tubepress_meta tubepress_meta_likes"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::LIKES]; ?></dt><dd class="tubepress_meta tubepress_meta_likes"><?php echo $video->getLikesCount(); ?></dd>
+          <?php endif; ?>
         
           <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::RATING] &&
               $video->getRatingAverage() != ""):

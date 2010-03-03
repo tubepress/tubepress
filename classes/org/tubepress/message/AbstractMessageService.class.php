@@ -120,6 +120,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'options-title-uploaded'    => 'Posted', 
         'options-title-url'         => 'URL', 
         'options-title-views'       => 'Views', 
+        'options-title-likes'       => 'Likes',
         
         'options-title-dateFormat'           => 'Date format', 
         'options-desc-dateFormat'            => 'Set the textual formatting of date information for videos. See <a href="http://us.php.net/date">date</a> for examples.', 
@@ -179,7 +180,8 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'video-title'       => 'Title', 
         'video-uploaded'    => 'Posted', 
         'video-url'         => 'URL', 
-        'video-views'       => 'Views', 
+        'video-views'       => 'Views',
+        'video-likes'       => 'Likes',
     
         'validation-int-type'            => '%s can only take on integer values. You supplied %s.',
         'validation-int-range'           => '"%s" must be between "%d" and "%d". You supplied "%d".',

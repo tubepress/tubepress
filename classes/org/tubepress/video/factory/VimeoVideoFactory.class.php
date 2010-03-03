@@ -91,6 +91,7 @@ class org_tubepress_video_factory_VimeoVideoFactory extends org_tubepress_video_
         $vid->setTimePublished($this->_getTimePublished($entry));
         $vid->setTitle($entry->title);
         $vid->setViewCount($this->_getViewCount($entry));
+        $vid->setLikesCount($entry->number_of_likes);
         
         if (isset($entry->tags) && is_array($entry->tags->tag)) {
             $tags = array();
