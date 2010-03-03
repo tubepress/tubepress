@@ -155,7 +155,8 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
         org_tubepress_options_category_Display::RANDOM_THUMBS,
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY,
         org_tubepress_options_category_Embedded::LOOP,
-        org_tubepress_options_category_Embedded::HIGH_QUALITY
+        org_tubepress_options_category_Embedded::HIGH_QUALITY,
+        org_tubepress_options_category_Embedded::PLAYER_IMPL
     );
 
     function appliesToYouTube($optionName)
