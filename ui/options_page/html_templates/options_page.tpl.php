@@ -47,9 +47,7 @@
         
             <?php foreach ($optionCategoryMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_CATEGORY_OPTIONS] as $optionArray): ?>
               
-          <tr valign="top" class="<?php if ($optionArray[org_tubepress_template_Template::OPTIONS_PAGE_YOUTUBE_OPTION]) { echo "tubepress-youtube-option"; } ?>
-		<?php if ($optionArray[org_tubepress_template_Template::OPTIONS_PAGE_VIMEO_OPTION]) { echo "tubepress-vimeo-option"; } ?>
-		">
+          <tr valign="top" class="<?php $classes = array(); if ($optionArray[org_tubepress_template_Template::OPTIONS_PAGE_YOUTUBE_OPTION]) { $classes[] = 'tubepress-youtube-option'; } if ($optionArray[org_tubepress_template_Template::OPTIONS_PAGE_VIMEO_OPTION]) { $classes[] = "tubepress-vimeo-option"; } echo join(" ", $classes); ?>">
             <th style="border-bottom-style: none; font-size: 13px}" valign="top"><?php echo $optionArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_TITLE]; ?><?php echo $optionArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_PRO_ONLY]; ?></th>
             <td style="vertical-align: top; border-bottom-style: none"><?php echo $optionArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_WIDGET]; ?><br /><?php echo $optionArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC]; ?></td>
             <td style="padding: 3px 0 0; vertical-align: top">
@@ -71,23 +69,17 @@
               
           <tr valign="top"><?php endif; ?>
                 
-            <td style="padding: 2px; vertical-align: middle; width: 45px" class="<?php if ($optionArray[org_tubepress_template_Template::OPTIONS_PAGE_YOUTUBE_OPTION]) { echo "tubepress-youtube-option"; } ?>
-		<?php if ($optionArray[org_tubepress_template_Template::OPTIONS_PAGE_VIMEO_OPTION]) { echo "tubepress-vimeo-option"; } ?>
-		">
+            <td style="padding: 2px; vertical-align: middle; width: 45px">
             <?php if ($optionArray[org_tubepress_template_Template::OPTIONS_PAGE_YOUTUBE_OPTION]): ?>
-                <img src="<?php echo ${org_tubepress_template_Template::TUBEPRESS_BASE_URL}; ?>/ui/options_page/images/youtube.png" alt="YouTube"/>
+                <img class="tubepress-youtube-option" src="<?php echo ${org_tubepress_template_Template::TUBEPRESS_BASE_URL}; ?>/ui/options_page/images/youtube.png" alt="YouTube"/>
             <?php endif; ?>
             </td>
-            <td style="padding: 2px; vertical-align: middle; width: 25px" class="<?php if ($optionArray[org_tubepress_template_Template::OPTIONS_PAGE_YOUTUBE_OPTION]) { echo "tubepress-youtube-option"; } ?>
-		<?php if ($optionArray[org_tubepress_template_Template::OPTIONS_PAGE_VIMEO_OPTION]) { echo "tubepress-vimeo-option"; } ?>
-		">
+            <td style="padding: 2px; vertical-align: middle; width: 25px">
             <?php if ($optionArray[org_tubepress_template_Template::OPTIONS_PAGE_VIMEO_OPTION]): ?>
-                <img src="<?php echo ${org_tubepress_template_Template::TUBEPRESS_BASE_URL}; ?>/ui/options_page/images/vimeo.png" alt="Vimeo"/>
+                <img class="tubepress-vimeo-option" src="<?php echo ${org_tubepress_template_Template::TUBEPRESS_BASE_URL}; ?>/ui/options_page/images/vimeo.png" alt="Vimeo"/>
             <?php endif; ?>
-            </td>  
-            <td style="border-bottom-style: none; font-size: 13px}" valign="top" class="<?php if ($optionArray[org_tubepress_template_Template::OPTIONS_PAGE_YOUTUBE_OPTION]) { echo "tubepress-youtube-option"; } ?>
-		<?php if ($optionArray[org_tubepress_template_Template::OPTIONS_PAGE_VIMEO_OPTION]) { echo "tubepress-vimeo-option"; } ?>
-		"><?php echo $optionArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_WIDGET]; ?> <?php echo $optionArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_TITLE]; ?></td>
+            </td>
+            <td style="border-bottom-style: none; font-size: 13px}" valign="top"><span class="<?php $classes = array(); if ($optionArray[org_tubepress_template_Template::OPTIONS_PAGE_YOUTUBE_OPTION]) { $classes[] = 'tubepress-youtube-option'; } if ($optionArray[org_tubepress_template_Template::OPTIONS_PAGE_VIMEO_OPTION]) { $classes[] = "tubepress-vimeo-option"; } echo join(" ", $classes); ?>"><?php echo $optionArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_WIDGET]; ?> <?php echo $optionArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_TITLE]; ?></span></td>
               <?php if (++$index % 2 == 0): ?>
           </tr><?php endif; ?>
             <?php endforeach; ?>
