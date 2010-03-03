@@ -53,7 +53,7 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService extends org_tubepre
         $height      = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT);
         $fullscreen  = $tpom->get(org_tubepress_options_category_Embedded::FULLSCREEN);
         $autoPlay    = $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY);
-        $color       = $tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR);
+        $color       = $tpom->get(org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT);
         $showInfo    = $tpom->get(org_tubepress_options_category_Embedded::SHOW_INFO);
 
         /* build the data URL based on these options */

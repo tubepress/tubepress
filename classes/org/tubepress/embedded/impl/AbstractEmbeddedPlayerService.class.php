@@ -45,6 +45,12 @@ abstract class org_tubepress_embedded_impl_AbstractEmbeddedPlayerService impleme
 
     protected function booleanToOneOrZero($bool)
     {
+        if ($bool === '1') {
+            return '1';
+        }
+        if ($bool === '0') {
+            return '0';
+        }
         return $bool ? '1' : '0';
     }
 
