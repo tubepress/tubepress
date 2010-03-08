@@ -38,7 +38,7 @@ class org_tubepress_message_WordPressMessageService extends org_tubepress_messag
     public function _($msgId)
     {
         $message = $this->_keyToMessage($msgId);
-        return $message == "" ? "" : 
-            __($message, "tubepress");
+        return $message == '' ? '' : 
+            __($message, 'tubepress');
     }
 }

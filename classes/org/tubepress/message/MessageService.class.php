@@ -20,7 +20,7 @@
  */
 
 /**
- * General purpose cache for TubePress
+ * General purpose message abstraction for TubePress
  */
 interface org_tubepress_message_MessageService
 {
