@@ -63,6 +63,8 @@
             <title>Acknowledgements</title>
             <para>The following individuals have contributed code or other resources to this project. Thank you for your efforts!</para>
             <itemizedlist>
+                <listitem><para><ulink url="http://gadgetguru.co.il">Yaron Ofer</ulink> for Hebrew translations</listitem>
+		<listitem><para><ulink url="http://luisfok.com">Luis Fok</ulink> for Spanish translations</listitem>
                 <listitem><para><ulink url="http://www.lochgelly.org.uk/">James G</ulink> for improving the reliability of the WordPress widget control panel</para></listitem>
                 <listitem><para><ulink url="http://gidibao.net/">Gianni Diurno</ulink> for Italian translations</para></listitem>
                 <listitem><para>Pascal Berger for German translations</para></listitem>
