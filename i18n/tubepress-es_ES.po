@@ -45,10 +45,10 @@ msgid "Top rated videos from..."
 msgstr "Videos con mayor índice de audiencia de..."
 
 msgid "This YouTube user's \"favorites\""
-msgstr "\"favorites\" de este usuario YouTube"
+msgstr "\"favoritos\" de este usuario YouTube"
 
 msgid "The latest \"featured\" videos on YouTube's homepage"
-msgstr "Los últimos videos \"featured\" en la página inicial de YouTube"
+msgstr "Los últimos videos \"destacados\" en la página inicial de YouTube"
 
 msgid "Videos for mobile phones"
 msgstr "Videos para teléfonos móviles"
@@ -57,13 +57,13 @@ msgid "This playlist"
 msgstr "Esta Lista de Reproducción"
 
 msgid "Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35"
-msgstr "Limitado a 200 videos por lista de reproducción. Generalmente se asemeja a lo siguiente: D2B04665B213AE35. Copie el número de identificación al final del enlace (URL) en la barra de direcciones de su navegador (al estar viendo la lista en YouTube). Aparece inmediatamente después de \"p=\". Por ejemplo: http://youtube.com/my_playlists?p=D2B04665B213AE35"
+msgstr "Limitado a 200 videos por lista de reproducción. Generalmente se asemeja a lo siguiente: D2B04665B213AE35. Copie el ID al final del enlace (URL) en la barra de direcciones de su navegador (al estar viendo la lista en YouTube). Aparece inmediatamente después de \"p=\". Por ejemplo: http://youtube.com/my_playlists?p=D2B04665B213AE35"
 
 msgid "Most-viewed videos from"
 msgstr "Videos más vistos de"
 
 msgid "Most-linked videos"
-msgstr "Videos más enlazados"
+msgstr "Videos más vinculados"
 
 msgid "Most-recently added videos"
 msgstr "Videos más recientes"
@@ -72,7 +72,7 @@ msgid "Most-discussed videos"
 msgstr "Videos más discutidos"
 
 msgid "Most-responded to videos"
-msgstr "Videos más respondidos"
+msgstr "Videos con más respuestas"
 
 msgid "Views"
 msgstr "Vistas"
@@ -129,7 +129,7 @@ msgid "Show pagination below thumbnails"
 msgstr "Mostrar páginación abajo de miniaturas"
 
 msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-enabled pagination"
-msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\"></a> Paginación habilitada con Ajax"
+msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\"></a>Paginación habilitada con Ajax"
 
 msgid "Only applies to galleries that span multiple pages"
 msgstr "Solo aplica a galerías que ocupan mas de 1 página"
@@ -138,7 +138,7 @@ msgid "Order videos by"
 msgstr "Ordenar videos por"
 
 msgid "Embedded Player"
-msgstr "Reproductor de video incrustado"
+msgstr "Reproductor de video"
 
 msgid "Auto-play videos"
 msgstr "Videos con inicio automático"
@@ -195,10 +195,10 @@ msgid "Show videos in high definition when available"
 msgstr "Mostrar videos en alta definición cuando se encuentren disponibles"
 
 msgid "YouTube Feed"
-msgstr "Feed de YouTube"
+msgstr "Feeds de YouTube"
 
 msgid "Meta Display"
-msgstr "Desplegado de Meta-información"
+msgstr "Desplegar Meta-datos"
 
 msgid "Author"
 msgstr "Autor"
@@ -213,22 +213,22 @@ msgid "ID"
 msgstr "ID"
 
 msgid "Length"
-msgstr "Longitud"
+msgstr "Duración"
 
 msgid "Rating"
 msgstr "Índice de audiencia"
 
 msgid "Ratings"
-msgstr "Índices de audiencia"
+msgstr "no. de votos"
 
 msgid "Keywords"
-msgstr "Palabra clave"
+msgstr "Palabras claves"
 
 msgid "Title"
 msgstr "Titulo"
 
 msgid "Posted"
-msgstr "Posteado"
+msgstr "Fecha de inclusión"
 
 msgid "Runtime"
 msgstr "Tiempo de Ejecucion"
@@ -252,7 +252,7 @@ msgid "If checked, anyone will be able to view your debugging information. This 
 msgstr "Si se habilita, cualquiera podrá ver la información de depurado. Esto es cuestión de privacidad. Si tiene problemas con TubePress o está preocupado acerca de revelar detalles de sus páginas, deshabilite esta opción."
 
 msgid "Filter \"racy\" content"
-msgstr "Filtrar contenido \"racy\""
+msgstr "Filtrar contenido \"explícito\""
 
 msgid "Don't show videos that may not be suitable for minors."
 msgstr "No desplegar videos no apto para menores."
@@ -267,34 +267,34 @@ msgid "Randomize thumbnails"
 msgstr "Mostrar miniaturas al azar"
 
 msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized"
-msgstr "La mayoría de los videos contienen varias miniaturas. Al seleccionar esta opción, cada vez que alguien ve sus galerías, verán los mismos videos con cada miniatura presentándose al azar."
+msgstr "La mayoría de los videos contienen varias miniaturas. Al seleccionar esta opción, cada vez que alguien visite sus galerías, verá los mismos videos con cada miniatura presentándose al azar."
 
 msgid "YouTube API Client ID"
-msgstr "ID del Cliente API de YouTube"
+msgstr "ID del API para cliente de YouTube"
 
 msgid "YouTube will use this client ID for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing."
-msgstr ""
+msgstr "YouTube usa este ID de cliente para propósitos de acceso y depuración si se presenta un problema. Ud. Puede registrar un nuevo ID de cliente <a href=\"http://code.google.com/apis/youtube/dashboard/\">aqui</a>. No lo cambie a menos que sepa lo que hace."
 
 msgid "YouTube API Developer Key"
-msgstr "ID del API para desarrollador e YouTube"
+msgstr "ID del API para desarrollador de YouTube"
 
 msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing."
-msgstr "YouTube usa esta llave para desarrolladores para propósitos de acceso y depuración si se presenta un problema. Ud. Puede registrar un nuevo ID de cliente y desarrollador <a href=\"http://code.google.com/apis/youtube/dashboard/\">aqui</a>. No lo cambie a menos que sepa lo que hace."
+msgstr "YouTube usa este ID de desarrolladores para propósitos de acceso y depuración si se presenta un problema. Ud. Puede registrar un nuevo ID de cliente y desarrollador <a href=\"http://code.google.com/apis/youtube/dashboard/\">aqui</a>. No lo cambie a menos que sepa lo que hace."
 
 msgid "Enable request cache"
 msgstr "Habilitar cache de solicitud"
 
 msgid "Only retrieve embeddable videos"
-msgstr "Solo recuperar videos que se puedan embeber"
+msgstr "Solo recuperar videos que se puedan insertar"
 
 msgid "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries."
-msgstr "Algunos videos tienen el embebido deshabilitado. Al activar esta opción se excluirá a dichos videos de las galerías."
+msgstr "Algunos videos tienen deshabilitado el insertado. Al activar esta opción se excluirá dichos videos de las galerías."
 
 msgid "Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
 msgstr "Almacena localmente la respuesta de YouTube por 1 hora. Cada respuesta es del orden de varios cientos de KB, de tal manera que dejándolos en el cache reducirá significativamente los tiempos de carga."
 
 msgid "Maximum total videos to retrieve"
-msgstr "Máximo total de vidos a recuperar"
+msgstr "Máximo de videos a recuperar"
 
 msgid "This can help to reduce the number of pages in your gallery. Set to \"0\" to remove any limit."
 msgstr "Esto puede ayudar a reducir el número de páginas en su galería. Indique \"0\" para remover cualquier limite."
@@ -366,10 +366,10 @@ msgid "all time"
 msgstr "todo el tiempo"
 
 msgid "next"
-msgstr "siguiente"
+msgstr "sig"
 
 msgid "prev"
-msgstr "previo"
+msgstr "prev"
 
 msgid "Displays YouTube videos in your sidebar using TubePress"
 msgstr "Despliega videos YouTube en su barra lateral con TubePress"
@@ -396,7 +396,7 @@ msgid "Implementation"
 msgstr "Implementación"
 
 msgid "The brand of the embedded player. Default is \"YouTube\""
-msgstr "La marca del video embebido. Por omisión es \"YouTube\""
+msgstr "La marca del video insertado. Por omisión es \"YouTube\""
 
 #
 # VALIDATION
