@@ -15,7 +15,7 @@ function _tubepress_static_player_init() {
 		if (rel_split[2] != 'static') {
 			return;
 		}
-		var newId = dis.attr('id').split('_')[2],
+		var newId = dis.attr("id").substring(16, 27),
 		    newUrl = jQuery.query.set('tubepress_video', newId).toString();
 		dis.attr('href', newUrl);
 		dis.unbind('click', TubePress.clickListener);
