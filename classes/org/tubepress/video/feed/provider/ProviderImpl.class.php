@@ -85,8 +85,8 @@ class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_vi
         $this->_log->log($this->_logPrefix, 'Results-per-page limit is %d', $perPageLimit);
         
         /* find out how many videos this gallery will actually show (could be less than user limit) */
-        $effectiveDisplayCount = min($queryResult, $perPageLimit);
-        $this->_log->log($this->_logPrefix, 'Effective display count (taking into account user-defined limit) is %d videos', $effectiveDisplayCount);
+        $effectiveDisplayCount = min($effectiveTotalResultCount, min($queryResult, $perPageLimit));
+        $this->_log->log($this->_logPrefix, 'Effective display count for this page is %d videos', $effectiveDisplayCount);
         
         /* convert the XML to objects */
         $videos = $this->_videoFactory->feedToVideoArray($xml, $effectiveDisplayCount);

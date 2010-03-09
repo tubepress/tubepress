@@ -107,7 +107,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory extends org_tubepress_vide
     {
         $results = array();
         
-        $this->getLog()->log($this->_logPrefix, 'Now parsing video(s)');
+        $this->getLog()->log($this->_logPrefix, 'Now parsing video(s). Limit is %d.', $limit);
         $entries = $this->_xpath->query($entryXpath);  
 
         $index = 0;
@@ -120,10 +120,11 @@ class org_tubepress_video_factory_YouTubeVideoFactory extends org_tubepress_vide
                 continue;
             }
             
-            if ($index > 0 && $index++ >= $limit) {
+            if ($index > 0 && $index >= $limit) {
                 $this->getLog()->log($this->_logPrefix, 'Reached limit of %d videos', $limit);
                 break;
             }
+            $index++;
             
             $results[] = $this->_createVideo();
         }
