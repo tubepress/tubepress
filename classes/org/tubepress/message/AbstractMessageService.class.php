@@ -133,6 +133,8 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         
         'options-title-filter_racy'          => 'Filter "racy" content', 
         'options-desc-filter_racy'           => 'Don\'t show videos that may not be suitable for minors.', 
+        'options-title-videoBlacklist'       => 'Videos blacklist',
+        'options-desc-videoBlacklist'        => 'List of video IDs that should never be displayed',
         'options-title-clientKey'            => 'YouTube API Client ID', 
         'options-desc-clientKey'             => 'YouTube will use this client ID for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID <a href="http://code.google.com/apis/youtube/dashboard/">here</a>. Don\'t change this unless you know what you\'re doing.', 
         'options-title-developerKey'         => 'YouTube API Developer Key', 

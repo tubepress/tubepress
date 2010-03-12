@@ -245,6 +245,12 @@ msgstr ""
 msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\">date</a> for examples."
 msgstr ""
 
+msgid "Videos blacklist"
+msgstr ""
+
+msgid "List of video IDs that should never be displayed"
+msgstr ""
+
 msgid "Enable debugging"
 msgstr ""
 

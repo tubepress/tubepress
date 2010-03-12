@@ -51,6 +51,7 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
         org_tubepress_options_Type::TEXT => array(
             org_tubepress_options_category_Advanced::DATEFORMAT         => 'M j, Y',
             org_tubepress_options_category_Advanced::KEYWORD            => 'tubepress',
+            org_tubepress_options_category_Advanced::VIDEO_BLACKLIST    => '',
             org_tubepress_options_category_Gallery::FAVORITES_VALUE     => 'mrdeathgod',
             org_tubepress_options_category_Gallery::PLAYLIST_VALUE      => 'D2B04665B213AE35',
             org_tubepress_options_category_Gallery::TAG_VALUE           => 'stewart daily show',

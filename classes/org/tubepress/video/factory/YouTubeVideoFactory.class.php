@@ -120,6 +120,11 @@ class org_tubepress_video_factory_YouTubeVideoFactory extends org_tubepress_vide
                 continue;
             }
             
+            if ($this->isVideoBlackListed($this->_getId())) {
+                $this->getLog()->log($this->_logPrefix, 'Video with ID %s is blacklisted. Skipping it.', $this->_getId());
+                continue;
+            }
+            
             if ($index > 0 && $index >= $limit) {
                 $this->getLog()->log($this->_logPrefix, 'Reached limit of %d videos', $limit);
                 break;

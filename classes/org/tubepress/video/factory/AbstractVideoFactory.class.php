@@ -37,6 +37,12 @@ abstract class org_tubepress_video_factory_AbstractVideoFactory implements org_t
     protected function getLog() { return $this->_log; }
     protected function getOptionsManager() { return $this->_tpom; }
     
+    protected function isVideoBlackListed($id)
+    {
+        $blacklist = $this->_tpom->get(org_tubepress_options_category_Advanced::VIDEO_BLACKLIST);
+        return strpos($blacklist, $id) !== FALSE;
+    }
+    
     //Grabbed from http://www.weberdev.com/get_example-4769.html
     protected static function _relativeTime($timestamp){
         $difference = time() - $timestamp;
