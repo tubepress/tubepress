@@ -216,7 +216,7 @@ msgid "Length"
 msgstr "Duración"
 
 msgid "Rating"
-msgstr "Índice de audiencia"
+msgstr "Rating"
 
 msgid "Ratings"
 msgstr "no. de votos"
@@ -333,7 +333,7 @@ msgid "view count"
 msgstr "conteo de vistas"
 
 msgid "rating"
-msgstr "índice de audiencia"
+msgstr "rating"
 
 msgid "date published"
 msgstr "fecha publicado"
