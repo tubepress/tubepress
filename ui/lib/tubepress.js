@@ -18,7 +18,7 @@ var safeTubePressInit = function () {
   	} catch (f) {
         alert("TubePress failed to initialize: " + f.message);
   	}
-}
+};
 
 /* append our init method to after all the other (potentially full of errors) ready blocks have 
  * run. http://stackoverflow.com/questions/1890512/handling-errors-in-jquerydocument-ready */
@@ -40,8 +40,7 @@ if (!jQuery.browser.msie) {
 TubePress = (function () {
 
 	var init, loadEmbeddedJs, parseRels, loadPlayerJs, triggerPlayerLoadedEvent, clickListener,
-			swapEmbedded, deepConstructObject, callPlayerJs, callWhenTrue, getWaitCall, loadCss, 
-			centerThumbs, ajaxifyPaginationForGallery, processAjaxRequest, postAjaxGallerySetup;
+			swapEmbedded, deepConstructObject, callPlayerJs, centerThumbs;
 	
 	init = function (baseUrl) {
 		jQuery().bind('tubepressPlayerLoaded', function (x, playerName, baseUrl) {
@@ -49,7 +48,7 @@ TubePress = (function () {
 				f = function () {
 					window[funcName](baseUrl);
 				};
-			callWhenTrue(function () {
+			TubePressUtils.callWhenTrue(function () {
 				return typeof window[funcName] === 'function'; 
 			}, f);
 		});
@@ -67,17 +66,6 @@ TubePress = (function () {
 		}
 	};
 
-	parseRels = function (index) {
-		var returnValue = [];
-		jQuery("a[rel^='tubepress_']").each(function () {
-			var thisName = jQuery(this).attr("rel").split("_")[index];
-			if (jQuery.inArray(thisName, returnValue) === -1) {
-				returnValue.push(thisName);
-			}
-		});
-		return returnValue;
-	};
-
 	/* loads up JS necessary for dealing with TubePress players that we find on the page */
 	loadPlayerJs = function (baseUrl) {
 		var playerNames = parseRels(2), i;
@@ -88,6 +76,17 @@ TubePress = (function () {
 		}
 	};
 	
+	parseRels = function (index) {
+		var returnValue = [];
+		jQuery("a[rel^='tubepress_']").each(function () {
+			var thisName = jQuery(this).attr("rel").split("_")[index];
+			if (jQuery.inArray(thisName, returnValue) === -1) {
+				returnValue.push(thisName);
+			}
+		});
+		return returnValue;
+	};
+	
 	triggerPlayerLoadedEvent = function (name, baseUrl) {
 		jQuery().trigger('tubepressPlayerLoaded', [name, baseUrl]);
 	};
@@ -95,9 +94,9 @@ TubePress = (function () {
 	/* thumbnail click listener */
 	clickListener = function () {
 		var rel_split	= jQuery(this).attr("rel").split("_"),
-		galleryId	= rel_split[3],
-		playerName   = rel_split[2],
-		embeddedName = rel_split[1],
+		galleryId	= getGalleryIdFromRelSplit(rel_split),
+		playerName   = getPlayerNameFromRelSplit(rel_split),
+		embeddedName = getEmbeddedNameFromRelSplit(rel_split),
 		videoId = jQuery(this).attr("id").substring(16, 27);
 
 		/* swap the gallery's embedded object */
@@ -167,6 +166,49 @@ TubePress = (function () {
 		return newHtml;
 	};
 
+	centerThumbs = function (gallerySelector) {
+		jQuery(document).ready(function () {
+			jQuery(gallerySelector + " div.tubepress_thumb").children().each(function () {
+				var myWidth = jQuery(this).width(),
+					parentWidth = jQuery(this).parent().width(),
+					offset = (parentWidth - myWidth) / 2;
+				jQuery(this).css("margin-left", offset);
+			});
+		});
+	};
+	
+	getEmbeddedNameFromRelSplit = function (relSplit) {
+		return relSplit[1];
+	};
+	
+	getPlayerNameFromRelSplit = function (relSplit) {
+		return relSplit[2];
+	};
+	
+	getGalleryIdFromRelSplit = function (relSplit) {
+		return relSplit[3];
+	};
+	
+	getVideoIdFromIdAttr = function (id) {
+	    var end = id.lastIndexOf("_");
+	    return id.substring(16, end);
+	}
+
+	/* return only public functions */
+	return {
+		init						: init,
+		deepConstructObject 		: deepConstructObject,
+		clickListener 				: clickListener,
+        centerThumbs 				: centerThumbs,
+        getEmbeddedNameFromRelSplit : getEmbeddedNameFromRelSplit,
+        getPlayerNameFromRelSplit 	: getPlayerNameFromRelSplit,
+        getGalleryIdFromRelSplit 	: getGalleryIdFromRelSplit,
+        getVideoIdFromIdAttr 		: getVideoIdFromIdAttr
+	};
+}());
+
+TubePressUtils = (function () {
+	
 	/**
 	 * Waits until the given test is true (tests every .4 seconds),
 	 * and then executes the given callback.
@@ -184,7 +226,7 @@ TubePress = (function () {
 		/* the test passed, so call the callback */
 		callback();
 	};
-
+	
 	getWaitCall = function (scriptPath, test, callback) {
 		var futureCallback = function () {
 			callWhenTrue(test, callback);
@@ -199,26 +241,26 @@ TubePress = (function () {
 		fileref.setAttribute("href", path);
 		document.getElementsByTagName("head")[0].appendChild(fileref);
 	};
-
-	centerThumbs = function (gallerySelector) {
-		jQuery(document).ready(function () {
-			jQuery(gallerySelector + " div.tubepress_thumb").children().each(function () {
-				var myWidth = jQuery(this).width(),
-					parentWidth = jQuery(this).parent().width(),
-					offset = (parentWidth - myWidth) / 2;
-				jQuery(this).css("margin-left", offset);
-			});
-		});
+	
+	/* return only public functions */
+	return { 
+		callWhenTrue : callWhenTrue,
+		getWaitCall : getWaitCall,
+		loadCss : loadCss
 	};
+}());
 
-	ajaxifyPaginationForGallery = function (galleryId) {
+
+TubePressAjax = (function () {
+	
+	initPagination = function (galleryId) {
 		var clickCallback = function () {
-			processAjaxRequest(jQuery(this), galleryId);
+			processRequest(jQuery(this), galleryId);
 		};
 		jQuery("#tubepress_gallery_" + galleryId + " div.pagination a").click(clickCallback);
 	};
 
-	processAjaxRequest = function (anchor, galleryId) {
+	processRequest = function (anchor, galleryId) {
 		var baseUrl = getTubePressBaseUrl(), 
 			shortcode = window["getUrlEncodedShortcodeForTubePressGallery" + galleryId](),
 			page = anchor.attr("rel"),
@@ -242,18 +284,10 @@ TubePress = (function () {
 	postAjaxGallerySetup = function (thumbnailArea, galleryId) {
 		centerThumbs("#tubepress_gallery_" + galleryId);
 		jQuery("a[id^='tubepress_']").click(clickListener);
-		ajaxifyPaginationForGallery(galleryId);
+		initPagination(galleryId);
 		jQuery(thumbnailArea).fadeTo('fast', 1);
 	};
-
+	
 	/* return only public functions */
-	return {
-		init : 							init,
-		deepConstructObject : 			deepConstructObject,
-		getWaitCall : 					getWaitCall,
-		clickListener : 				clickListener,
-		loadCss : 						loadCss,
-		ajaxifyPaginationForGallery :   ajaxifyPaginationForGallery,
-        centerThumbs :  				centerThumbs
-	};
+	return { initPagination :   initPagination };
 }());

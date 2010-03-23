@@ -1,11 +1,11 @@
 function tubepress_shadowbox_player_init(baseUrl) {
 	var url = baseUrl + '/ui/players/shadowbox/';
-	TubePress.loadCss(url + 'lib/shadowbox.css');
+	TubePressUtils.loadCss(url + 'lib/shadowbox.css');
 	_tubepress_shadowbox_player_shadowboxjs(url);
 }
 
 function _tubepress_shadowbox_player_shadowboxjs(base)  {
-	TubePress.getWaitCall(base + 'lib/shadowbox.js',
+	TubePressUtils.getWaitCall(base + 'lib/shadowbox.js',
 			function() { return typeof Shadowbox != 'undefined'; },
 			function() { _tubepress_init_shadowbox(base); }
 		);
