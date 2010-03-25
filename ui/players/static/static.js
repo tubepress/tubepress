@@ -1,7 +1,18 @@
+/**
+ * Copyright 2006 - 2010 Eric D. Hough (http://ehough.com)
+ * 
+ * This file is part of TubePress (http://tubepress.org) and is released 
+ * under the General Public License (GPL) version 3
+ *
+ * Shrink your JS: http://developer.yahoo.com/yui/compressor/
+ */
 function tubepress_static_player_init(baseUrl) {
 	TubePressUtils.getWaitCall(baseUrl + '/ui/players/static/lib/jQuery.query.js',
 			_tubepress_static_player_readyTest,
 			_tubepress_static_player_init);
+	jQuery().bind('tubepressNewThumbnailsLoaded', function (x) {
+		_tubepress_static_player_init();
+	};
 }
 
 function _tubepress_static_player_readyTest() {
@@ -10,13 +21,15 @@ function _tubepress_static_player_readyTest() {
 
 function _tubepress_static_player_init() {
 	jQuery("a[id^='tubepress_']").each(function() {
-		var dis = jQuery(this),
-		    rel_split = dis.attr('rel').split('_');
+		var dis 		= jQuery(this),
+		    rel_split 	= dis.attr('rel').split('_');
+		
 		if (TubePress.getPlayerNameFromRelSplit(rel_split) != 'static') {
 			return;
 		}
-		var newId = TubePress.getVideoIdFromIdAttr(dis.attr("id")),
-		    newUrl = jQuery.query.set('tubepress_video', newId).toString();
+		var newId 	= TubePress.getVideoIdFromIdAttr(dis.attr("id")),
+		    newUrl 	= jQuery.query.set('tubepress_video', newId).toString();
+		
 		dis.attr('href', newUrl);
 		dis.unbind('click', TubePress.clickListener);
 	});
