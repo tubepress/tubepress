@@ -12,7 +12,7 @@ function tubepress_static_player_init(baseUrl) {
 			_tubepress_static_player_init);
 	jQuery().bind('tubepressNewThumbnailsLoaded', function (x) {
 		_tubepress_static_player_init();
-	};
+	});
 }
 
 function _tubepress_static_player_readyTest() {
@@ -28,9 +28,13 @@ function _tubepress_static_player_init() {
 			return;
 		}
 		var newId 	= TubePress.getVideoIdFromIdAttr(dis.attr("id")),
-		    newUrl 	= jQuery.query.set('tubepress_video', newId).toString();
-		
+			page	= jQuery(dis).parents("div.tubepress_thumbnail_area:first > div.pagination:first > span.current").html(),
+		    newUrl 	= jQuery.query.set('tubepress_video', newId).set('tubepress_page', page).toString();
 		dis.attr('href', newUrl);
 		dis.unbind('click', TubePress.clickListener);
 	});
+}
+
+function tubepress_static_player(galleryId, videoId) {
+   //do nothing
 }

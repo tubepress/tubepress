@@ -297,8 +297,8 @@ TubePressAjax = (function () {
 
 	postAjaxGallerySetup = function (thumbnailArea, galleryId) {
 		jQuery().trigger('tubepressNewThumbnailsLoaded');
-		centerThumbs("#tubepress_gallery_" + galleryId);
-		jQuery("a[id^='tubepress_']").click(clickListener);
+		TubePress.centerThumbs("#tubepress_gallery_" + galleryId);
+		jQuery("a[id^='tubepress_']").click(TubePress.clickListener);
 		initPagination(galleryId);
 		jQuery(thumbnailArea).fadeTo('fast', 1);
 	};
