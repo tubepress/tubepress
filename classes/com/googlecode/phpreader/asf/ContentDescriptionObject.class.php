@@ -36,9 +36,6 @@
  * @version    $Id: ContentDescriptionObject.php 39 2008-03-26 17:27:22Z svollbehr $
  */
 
-/**#@+ @ignore */
-require_once("Object.php");
-/**#@-*/
 
 /**
  * The <i>ASF_Content_Description_Object</i> object implementation. This object
@@ -52,7 +49,7 @@ require_once("Object.php");
  * @license    http://code.google.com/p/php-reader/wiki/License New BSD License
  * @version    $Rev: 39 $
  */
-final class ASF_ContentDescriptionObject extends ASF_Object
+final class com_googlecode_phpreader_asf_ContentDescriptionObject extends com_googlecode_phpreader_asf_Object
 {
   /** @var string */
   private $_title;
