@@ -8,8 +8,8 @@
  */
 function tubepress_static_player_init(baseUrl) {
 	TubePressUtils.getWaitCall(baseUrl + '/ui/players/static/lib/jQuery.query.js',
-			_tubepress_static_player_readyTest,
-			_tubepress_static_player_init);
+		_tubepress_static_player_readyTest,
+		_tubepress_static_player_init);
 	jQuery().bind('tubepressNewThumbnailsLoaded', function (x) {
 		_tubepress_static_player_init();
 	});
@@ -21,7 +21,7 @@ function _tubepress_static_player_readyTest() {
 
 function _tubepress_static_player_init() {
 	jQuery("a[id^='tubepress_']").each(function() {
-		var dis 		= jQuery(this),
+		var dis 	= jQuery(this),
 		    rel_split 	= dis.attr('rel').split('_');
 		
 		if (TubePress.getPlayerNameFromRelSplit(rel_split) != 'static') {
@@ -29,7 +29,7 @@ function _tubepress_static_player_init() {
 		}
 		var newId 	= TubePress.getVideoIdFromIdAttr(dis.attr("id")),
 			page	= jQuery(dis).parents("div.tubepress_thumbnail_area:first > div.pagination:first > span.current").html(),
-		    newUrl 	= jQuery.query.set('tubepress_video', newId).set('tubepress_page', page).toString();
+		    	newUrl 	= jQuery.query.set('tubepress_video', newId).set('tubepress_page', page).toString();
 		dis.attr('href', newUrl);
 		dis.unbind('click', TubePress.clickListener);
 	});
