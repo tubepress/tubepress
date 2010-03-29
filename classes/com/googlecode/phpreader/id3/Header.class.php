@@ -35,10 +35,6 @@
  * @version    $Id: Header.php 75 2008-04-14 23:57:21Z svollbehr $
  */
 
-/**#@+ @ignore */
-require_once("ID3/Object.php");
-/**#@-*/
-
 /**
  * The first part of the ID3v2 tag is the 10 byte tag header. The header
  * contains information about the tag version and options.
@@ -50,7 +46,7 @@ require_once("ID3/Object.php");
  * @license    http://code.google.com/p/php-reader/wiki/License New BSD License
  * @version    $Rev: 75 $
  */
-final class ID3_Header extends ID3_Object
+final class com_googlecode_phpreader_id3_Header extends com_googlecode_phpreader_id3_Object
 {
   /** A flag to denote whether or not unsynchronisation is applied on all
       frames */
@@ -167,9 +163,9 @@ final class ID3_Header extends ID3_Object
    */
   public function __toString()
   {
-    return Transform::toInt8(floor($this->_version)) .
-      Transform::toInt8(($this->_version - floor($this->_version)) * 10) .
-      Transform::toInt8($this->_flags) .
-      Transform::toUInt32BE($this->encodeSynchsafe32($this->_size));
+    return com_googlecode_phpreader_Transform::toInt8(floor($this->_version)) .
+      com_googlecode_phpreader_Transform::toInt8(($this->_version - floor($this->_version)) * 10) .
+      com_googlecode_phpreader_Transform::toInt8($this->_flags) .
+      com_googlecode_phpreader_Transform::toUInt32BE($this->encodeSynchsafe32($this->_size));
   }
 }

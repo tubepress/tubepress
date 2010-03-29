@@ -35,10 +35,6 @@
  * @version    $Id: ExtendedHeader.php 75 2008-04-14 23:57:21Z svollbehr $
  */
 
-/**#@+ @ignore */
-require_once("ID3/Object.php");
-/**#@-*/
-
 /**
  * The extended header contains information that can provide further insight in
  * the structure of the tag, but is not vital to the correct parsing of the tag
@@ -51,7 +47,7 @@ require_once("ID3/Object.php");
  * @license    http://code.google.com/p/php-reader/wiki/License New BSD License
  * @version    $Rev: 75 $
  */
-final class ID3_ExtendedHeader extends ID3_Object
+final class com_googlecode_phpreader_id3_ExtendedHeader extends Icom_googlecode_phpreader_id3_Object
 {
   /**
    * A flag to denote that the present tag is an update of a tag found earlier
@@ -134,7 +130,7 @@ final class ID3_ExtendedHeader extends ID3_Object
       if ($this->hasFlag(self::CRC32)) {
         $this->_reader->skip(1);
         $this->_crc =
-          Transform::fromInt8($this->_reader->read(1)) * (0xfffffff + 1) +
+          com_googlecode_phpreader_Transform::fromInt8($this->_reader->read(1)) * (0xfffffff + 1) +
           decodeSynchsafe32(Transform::fromUInt32BE($this->_reader->read(4)));
       }
       if ($this->hasFlag(self::RESTRICTED)) {
@@ -300,22 +296,22 @@ final class ID3_ExtendedHeader extends ID3_Object
   {
     /* ID3v2.3.0 ExtendedHeader */
     if (isset($this->_options["version"]) && $this->_options["version"] < 4) {
-      return Transform::toUInt32BE($this->_size) .
-        Transform::toUInt16BE($this->hasFlag(self::CRC32) ? 0x8000 : 0) .
-        Transform::toUInt32BE($this->_padding) .
-        ($this->hasFlag(self::CRC32) ? Transform::toUInt32BE($this->_crc) : "");
+      return com_googlecode_phpreader_Transform::toUInt32BE($this->_size) .
+        com_googlecode_phpreader_Transform::toUInt16BE($this->hasFlag(self::CRC32) ? 0x8000 : 0) .
+        com_googlecode_phpreader_Transform::toUInt32BE($this->_padding) .
+        ($this->hasFlag(self::CRC32) ? com_googlecode_phpreader_Transform::toUInt32BE($this->_crc) : "");
     }
     
     /* ID3v2.4.0 ExtendedHeader */
     else {
-      return Transform::toUInt32BE($this->encodeSynchsafe32($this->_size)) .
-        Transform::toInt8(1) . Transform::toInt8($this->_flags) .
+      return com_googlecode_phpreader_Transform::toUInt32BE($this->encodeSynchsafe32($this->_size)) .
+        com_googlecode_phpreader_Transform::toInt8(1) . com_googlecode_phpreader_Transform::toInt8($this->_flags) .
         ($this->hasFlag(self::UPDATE) ? "\0" : "") .
-        ($this->hasFlag(self::CRC32) ? Transform::toInt8(5) .
-         Transform::toInt8($this->_crc & 0xf0000000 >> 28 & 0xf /*eq >>> 28*/) .
-         Transform::toUInt32BE(encodeSynchsafe32($this->_crc)) : "") .
+        ($this->hasFlag(self::CRC32) ? com_googlecode_phpreader_Transform::toInt8(5) .
+         com_googlecode_phpreader_Transform::toInt8($this->_crc & 0xf0000000 >> 28 & 0xf /*eq >>> 28*/) .
+         com_googlecode_phpreader_Transform::toUInt32BE(encodeSynchsafe32($this->_crc)) : "") .
         ($this->hasFlag(self::RESTRICTED) ? 
-           Transform::toInt8(1) . Transform::toInt8($this->_restrictions) : "");
+           com_googlecode_phpreader_Transform::toInt8(1) . com_googlecode_phpreader_Transform::toInt8($this->_restrictions) : "");
     }
   }
 }

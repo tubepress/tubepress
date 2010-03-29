@@ -45,7 +45,7 @@
  * @license    http://code.google.com/p/php-reader/wiki/License New BSD License
  * @version    $Rev: 75 $
  */
-abstract class ID3_Object
+abstract class com_googlecode_phpreader_id3_Object
 {
   /**
    * The reader object.
@@ -98,7 +98,7 @@ abstract class ID3_Object
   {
     if (method_exists($this, "get" . ucfirst($name)))
       return call_user_func(array($this, "get" . ucfirst($name)));
-    else throw new Reader_Exception("Unknown field: " . $name);
+    else throw new com_googlecode_phpreader_Exception("Unknown field: " . $name);
   }
   
   /**
@@ -113,7 +113,7 @@ abstract class ID3_Object
     if (method_exists($this, "set" . ucfirst($name)))
       call_user_func
         (array($this, "set" . ucfirst($name)), $value);
-    else throw new Reader_Exception("Unknown field: " . $name);
+    else throw new com_googlecode_phpreader_Exception("Unknown field: " . $name);
   }
   
   /**

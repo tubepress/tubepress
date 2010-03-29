@@ -35,10 +35,6 @@
  * @version    $Id: Frame.php 75 2008-04-14 23:57:21Z svollbehr $
  */
 
-/**#@+ @ignore */
-require_once("ID3/Object.php");
-/**#@-*/
-
 /**
  * A base class for all ID3v2 frames as described in the
  * {@link http://www.id3.org/id3v2.4.0-frames ID3v2 frames document}.
@@ -51,7 +47,7 @@ require_once("ID3/Object.php");
  * @license    http://code.google.com/p/php-reader/wiki/License New BSD License
  * @version    $Rev: 75 $
  */
-class ID3_Frame extends ID3_Object
+class com_googlecode_phpreader_id3_Frame extends com_googlecode_phpreader_id3_Object
 {
   /**
    * This flag tells the tag parser what to do with this frame if it is unknown
@@ -263,8 +259,8 @@ class ID3_Frame extends ID3_Object
     else
       $flags = $this->_flags;
     
-    return Transform::toString8(substr($this->_identifier, 0, 4), 4) .
-      Transform::toUInt32BE($this->encodeSynchsafe32($this->_size)) .
-      Transform::toUInt16BE($flags) . $this->_data;
+    return com_googlecode_phpreader_Transform::toString8(substr($this->_identifier, 0, 4), 4) .
+      com_googlecode_phpreader_Transform::toUInt32BE($this->encodeSynchsafe32($this->_size)) .
+      com_googlecode_phpreader_Transform::toUInt16BE($flags) . $this->_data;
   }
 }

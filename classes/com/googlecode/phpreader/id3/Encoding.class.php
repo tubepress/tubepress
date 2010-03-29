@@ -46,7 +46,7 @@
  * @license    http://code.google.com/p/php-reader/wiki/License New BSD License
  * @version    $Rev: 64 $
  */
-interface ID3_Encoding
+interface com_googlecode_phpreader_id3_Encoding
 {
   /** The ISO-8859-1 encoding. */
   const ISO88591 = 0;

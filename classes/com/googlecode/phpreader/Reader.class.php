@@ -199,9 +199,9 @@ class com_googlecode_phpreader_Reader
     $chunks = array();
     if (preg_match
           ('/read([a-z]{3,6})?(\d{1,2})?(?:LE|BE)?/i', $method, $chunks) &&
-        method_exists('Transform', preg_replace('/^read/', 'from', $method))) {
+        method_exists('com_googlecode_phpreader_Transform', preg_replace('/^read/', 'from', $method))) {
       return call_user_func
-        (array('Transform', preg_replace('/^read/', 'from', $method)),
+        (array('com_googlecode_phpreader_Transform', preg_replace('/^read/', 'from', $method)),
          $this->read(preg_match('/String|(?:H|L)Hex/', $chunks[1]) ?
                      (isset($params[0]) ? $params[0] : 1) :
                      ($chunks[1] == 'GUID' ? 16 : $chunks[2] / 8)));

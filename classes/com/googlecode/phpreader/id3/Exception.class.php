@@ -32,38 +32,20 @@
  * @subpackage ID3
  * @copyright  Copyright (c) 2008 The PHP Reader Project Workgroup
  * @license    http://code.google.com/p/php-reader/wiki/License New BSD License
- * @version    $Id: Language.php 64 2008-04-01 10:38:12Z svollbehr $
+ * @version    $Id: Exception.php 39 2008-03-26 17:27:22Z svollbehr $
  */
 
 /**
- * The <var>Language</var> interface implies that the ID3v2 frame supports
- * its content to be given in multiple languages.
- *
- * The three byte language code is used to describe the language of the frame's
- * content, according to {@link http://www.loc.gov/standards/iso639-2/
- * ISO-639-2}. The language should be represented in lower case. If the language
- * is not known the string "xxx" should be used.
+ * The ID3_Exception is thrown whenever an error occurs within the {@link ID3v1}
+ * or the {@link ID3v2} classes.
  * 
  * @package    php-reader
  * @subpackage ID3
  * @author     Sven Vollbehr <svollbehr@gmail.com>
  * @copyright  Copyright (c) 2008 The PHP Reader Project Workgroup
  * @license    http://code.google.com/p/php-reader/wiki/License New BSD License
- * @version    $Rev: 64 $
+ * @version    $Rev: 39 $
  */
-interface ID3_Language
+class com_googlecode_phpreader_id3_Exception extends Exception
 {
-  /**
-   * Returns the text language code.
-   * 
-   * @return string
-   */
-  public function getLanguage();
-  
-  /**
-   * Sets the text language code.
-   * 
-   * @param string $language The text language code.
-   */
-  public function setLanguage($language);
 }

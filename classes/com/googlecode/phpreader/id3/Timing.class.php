@@ -32,20 +32,42 @@
  * @subpackage ID3
  * @copyright  Copyright (c) 2008 The PHP Reader Project Workgroup
  * @license    http://code.google.com/p/php-reader/wiki/License New BSD License
- * @version    $Id: Exception.php 39 2008-03-26 17:27:22Z svollbehr $
+ * @version    $Id: Timing.php 64 2008-04-01 10:38:12Z svollbehr $
  */
 
 /**
- * The ID3_Exception is thrown whenever an error occurs within the {@link ID3v1}
- * or the {@link ID3v2} classes.
+ * The <var>Timing</var> interface implies that the ID3v2 frame contains
+ * one or more 32-bit timestamps.
+ *
+ * The timestamps are absolute times, meaning that every stamp contains the time
+ * from the beginning of the file.
  * 
  * @package    php-reader
  * @subpackage ID3
  * @author     Sven Vollbehr <svollbehr@gmail.com>
  * @copyright  Copyright (c) 2008 The PHP Reader Project Workgroup
  * @license    http://code.google.com/p/php-reader/wiki/License New BSD License
- * @version    $Rev: 39 $
+ * @version    $Rev: 64 $
  */
-class ID3_Exception extends Exception
+interface com_googlecode_phpreader_id3_Timing
 {
+  /** The timestamp is an absolute time, using MPEG frames as unit. */
+  const MPEG_FRAMES   = 1;
+  
+  /** The timestamp is an absolute time, using milliseconds as unit. */
+  const MILLISECONDS  = 2;
+  
+  /**
+   * Returns the timing format.
+   * 
+   * @return integer
+   */
+  public function getFormat();
+  
+  /**
+   * Sets the timing format.
+   * 
+   * @param integer $format The timing format.
+   */
+  public function setFormat($format);
 }

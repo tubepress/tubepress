@@ -32,15 +32,17 @@
  * @subpackage ID3
  * @copyright  Copyright (c) 2008 The PHP Reader Project Workgroup
  * @license    http://code.google.com/p/php-reader/wiki/License New BSD License
- * @version    $Id: Timing.php 64 2008-04-01 10:38:12Z svollbehr $
+ * @version    $Id: Language.php 64 2008-04-01 10:38:12Z svollbehr $
  */
 
 /**
- * The <var>Timing</var> interface implies that the ID3v2 frame contains
- * one or more 32-bit timestamps.
+ * The <var>Language</var> interface implies that the ID3v2 frame supports
+ * its content to be given in multiple languages.
  *
- * The timestamps are absolute times, meaning that every stamp contains the time
- * from the beginning of the file.
+ * The three byte language code is used to describe the language of the frame's
+ * content, according to {@link http://www.loc.gov/standards/iso639-2/
+ * ISO-639-2}. The language should be represented in lower case. If the language
+ * is not known the string "xxx" should be used.
  * 
  * @package    php-reader
  * @subpackage ID3
@@ -49,25 +51,19 @@
  * @license    http://code.google.com/p/php-reader/wiki/License New BSD License
  * @version    $Rev: 64 $
  */
-interface ID3_Timing
+interface com_googlecode_phpreader_id3_Language
 {
-  /** The timestamp is an absolute time, using MPEG frames as unit. */
-  const MPEG_FRAMES   = 1;
-  
-  /** The timestamp is an absolute time, using milliseconds as unit. */
-  const MILLISECONDS  = 2;
+  /**
+   * Returns the text language code.
+   * 
+   * @return string
+   */
+  public function getLanguage();
   
   /**
-   * Returns the timing format.
+   * Sets the text language code.
    * 
-   * @return integer
+   * @param string $language The text language code.
    */
-  public function getFormat();
-  
-  /**
-   * Sets the timing format.
-   * 
-   * @param integer $format The timing format.
-   */
-  public function setFormat($format);
+  public function setLanguage($language);
 }
