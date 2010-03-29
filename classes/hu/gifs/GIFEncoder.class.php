@@ -15,10 +15,10 @@ class hu_gifs_GIFEncoder {
 	private $_col = -1;
 	private $_img = -1;
 	private $_err = array(
-		ERR00 => 'Does not supported function for only one image!',
-		ERR01 => 'Source is not a GIF image!',
-		ERR02 => 'Unintelligible flag ',
-		ERR03 => 'Does not make animation from animated GIF source',
+		'ERR00' => 'Does not supported function for only one image!',
+		'ERR01' => 'Source is not a GIF image!',
+		'ERR02' => 'Unintelligible flag ',
+		'ERR03' => 'Does not make animation from animated GIF source',
 	);
 
 	public function encode($GIF_src, $GIF_dly, $GIF_lop, $GIF_dis,$GIF_red, $GIF_grn, $GIF_blu, $GIF_ofs,$GIF_mod)
@@ -31,7 +31,7 @@ class hu_gifs_GIFEncoder {
 			$this->_sig = 1;
 			$this->_ofs = $GIF_ofs;
 		}
-		$this->_lop =($GIF_lop > -1) ? $GIF_lop : 0;
+		$this->_lop = $GIF_lop === false ? false : (( $GIF_lop > -1 ) ? $GIF_lop : 0);
 		$this->_dis =($GIF_dis > -1) ? (($GIF_dis < 3) ? $GIF_dis : 3) : 2;
 		$this->_col =($GIF_red > -1 && $GIF_grn > -1 && $GIF_blu > -1) ?
 					($GIF_red | ($GIF_grn << 8) | ($GIF_blu << 16)) : -1;
@@ -80,7 +80,9 @@ class hu_gifs_GIFEncoder {
 
 			$this->_gif .= substr($this->_buf[0], 6, 7);
 			$this->_gif .= substr($this->_buf[0], 13, $cmap);
-			$this->_gif .= '!\377\13NETSCAPE2.0\3\1' . hu_gifs_GIFEncoder::_word($this->_lop) . '\0';
+			if ($this->_lop !== false) {
+				$this->_gif .= '!\377\13NETSCAPE2.0\3\1' . hu_gifs_GIFEncoder::_word($this->_lop) . '\0';
+			}
 		}
 	}
 
