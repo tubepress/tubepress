@@ -35,11 +35,6 @@
  * @version   $Id: Reader.php 39 2008-03-26 17:27:22Z svollbehr $
  */
 
-/**#@+ @ignore */
-require_once("Reader/Exception.php");
-require_once("Transform.php");
-/**#@-*/
-
 /**
  * The Reader class encapsulates a file. It is hence responsible of upkeeping
  * the connection to the file, keeping track of the cursor position and reading
@@ -51,7 +46,7 @@ require_once("Transform.php");
  * @license   http://code.google.com/p/php-reader/wiki/License New BSD License
  * @version   $Rev: 39 $
  */
-class Reader
+class com_googlecode_phpreader_Reader
 {
   /** @var resource */
   private $_fd;
@@ -60,16 +55,16 @@ class Reader
   private $_size;
   
   /**
-   * Constructs the Reader class with given file.
+   * Constructs the com_googlecode_phpreader_Reader class with given file.
    * 
    * @param string $filename The path to the file.
    * @param string $mode     The type of access.
-   * @throws Reader_Exception if the file cannot be read.
+   * @throws com_googlecode_phpreader_Exception if the file cannot be read.
    */
-  public function __construct($filename, $mode = "rb")
+  public function __construct($filename, $mode = 'rb')
   {
     if (($this->_fd = fopen($filename, $mode)) === false)
-      throw new Reader_Exception("Unable to open file:" . $filename);
+      throw new com_googlecode_phpreader_Exception('Unable to open file:' . $filename);
     
     fseek($this->_fd, 0, SEEK_END);
     $this->_size = ftell($this->_fd);
@@ -101,12 +96,12 @@ class Reader
    * 
    * @param integer $size The amount of bytes.
    * @return void
-   * @throws Reader_Exception if <var>size</var> attribute is negative.
+   * @throws com_googlecode_phpreader_Exception if <var>size</var> attribute is negative.
    */
   public function skip($size)
   {
     if ($size < 0)
-      throw new Reader_Exception("Invalid argument");
+      throw new com_googlecode_phpreader_Exception('Invalid argument');
     if ($size == 0)
       return;
     fseek($this->_fd, $size, SEEK_CUR);
@@ -117,14 +112,14 @@ class Reader
    * 
    * @param integer $length The amount of bytes.
    * @return string
-   * @throws Reader_Exception if <var>length</var> attribute is negative.
+   * @throws com_googlecode_phpreader_Exception if <var>length</var> attribute is negative.
    */
   public function read($length)
   {
     if ($length < 0)
-      throw new Reader_Exception("Invalid argument");
+      throw new com_googlecode_phpreader_Exception('Invalid argument');
     if ($length == 0)
-      return "";
+      return '';
     return fread($this->_fd, $length);
   }
   
@@ -168,9 +163,9 @@ class Reader
    * @return mixed
    */
   public function __get($name) {
-    if (method_exists($this, "get" . ucfirst(strtolower($name))))
-      return call_user_func(array($this, "get" . ucfirst(strtolower($name))));
-    else throw new Reader_Exception("Unknown field: " . $name);
+    if (method_exists($this, 'get' . ucfirst(strtolower($name))))
+      return call_user_func(array($this, 'get' . ucfirst(strtolower($name))));
+    else throw new com_googlecode_phpreader_Exception('Unknown field: ' . $name);
   }
   
   /**
@@ -181,10 +176,10 @@ class Reader
    * @return mixed
    */
   public function __set($name, $value) {
-    if (method_exists($this, "set" . ucfirst(strtolower($name))))
+    if (method_exists($this, 'set' . ucfirst(strtolower($name))))
       call_user_func
-        (array($this, "set" . ucfirst(strtolower($name))), $value);
-    else throw new Reader_Exception("Unknown field: " . $name);
+        (array($this, 'set' . ucfirst(strtolower($name))), $value);
+    else throw new com_googlecode_phpreader_Exception('Unknown field: ' . $name);
   }
   
   /**
@@ -203,13 +198,13 @@ class Reader
   public function __call($method, $params) {
     $chunks = array();
     if (preg_match
-          ("/read([a-z]{3,6})?(\d{1,2})?(?:LE|BE)?/i", $method, $chunks) &&
-        method_exists("Transform", preg_replace("/^read/", "from", $method))) {
+          ('/read([a-z]{3,6})?(\d{1,2})?(?:LE|BE)?/i', $method, $chunks) &&
+        method_exists('Transform', preg_replace('/^read/', 'from', $method))) {
       return call_user_func
-        (array("Transform", preg_replace("/^read/", "from", $method)),
-         $this->read(preg_match("/String|(?:H|L)Hex/", $chunks[1]) ?
+        (array('Transform', preg_replace('/^read/', 'from', $method)),
+         $this->read(preg_match('/String|(?:H|L)Hex/', $chunks[1]) ?
                      (isset($params[0]) ? $params[0] : 1) :
-                     ($chunks[1] == "GUID" ? 16 : $chunks[2] / 8)));
-    } else throw new Reader_Exception("Unknown method: " . $method);
+                     ($chunks[1] == 'GUID' ? 16 : $chunks[2] / 8)));
+    } else throw new com_googlecode_phpreader_Exception('Unknown method: ' . $method);
   }
 }

@@ -44,6 +44,6 @@
  * @license   http://code.google.com/p/php-reader/wiki/License New BSD License
  * @version   $Rev: 39 $
  */
-class Reader_Exception extends Exception
+class com_googlecode_phpreader_Exception extends Exception
 {
 }

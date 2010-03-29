@@ -45,7 +45,7 @@
  * @version   $Rev: 65 $
  * @static
  */
-final class Transform
+final class com_googlecode_phpreader_Transform
 {
   const MACHINE_ENDIAN_ORDER = 0;
   const LITTLE_ENDIAN_ORDER  = 1;
@@ -64,7 +64,7 @@ final class Transform
    */
   public static function toInt64LE($value)
   {
-    return pack("V*", $value & 0xffffffff, $value / (0xffffffff+1));
+    return pack('V*', $value & 0xffffffff, $value / (0xffffffff+1));
   }
   
   /**
@@ -78,7 +78,7 @@ final class Transform
    */
   public static function fromInt64LE($value)
   {
-    list(, $lolo, $lohi, $hilo, $hihi) = unpack("v*", $value);
+    list(, $lolo, $lohi, $hilo, $hihi) = unpack('v*', $value);
     return ($hihi * (0xffff+1) + $hilo) * (0xffffffff+1) +
       ($lohi * (0xffff+1) + $lolo);
   }
@@ -91,7 +91,7 @@ final class Transform
    */
   public static function toInt64BE($value)
   {
-    return pack("N*", $value / (0xffffffff+1), $value & 0xffffffff);
+    return pack('N*', $value / (0xffffffff+1), $value & 0xffffffff);
   }
   
   /**
@@ -105,7 +105,7 @@ final class Transform
    */
   public static function fromInt64BE($value)
   {
-    list(, $hihi, $hilo, $lohi, $lolo) = unpack("n*", $value);
+    list(, $hihi, $hilo, $lohi, $lolo) = unpack('n*', $value);
     return ($hihi * (0xffff+1) + $hilo) * (0xffffffff+1) +
       ($lohi * (0xffff+1) + $lolo);
   }
@@ -118,7 +118,7 @@ final class Transform
    */
   public static function toInt32($value)
   {
-    return pack("l*", $value);
+    return pack('l*', $value);
   }
   
   /**
@@ -129,7 +129,7 @@ final class Transform
    */
   public static function fromInt32($value)
   {
-    list(, $int) = unpack("l*", $value);
+    list(, $int) = unpack('l*', $value);
     return $int;
   }
   
@@ -141,7 +141,7 @@ final class Transform
    */
   public static function toUInt32LE($value)
   {
-    return pack("V*", $value);
+    return pack('V*', $value);
   }
   
   /**
@@ -152,7 +152,7 @@ final class Transform
    */
   public static function fromUInt32LE($value)
   {
-    list(, $lo, $hi) = unpack("v*", $value);
+    list(, $lo, $hi) = unpack('v*', $value);
     return $hi * (0xffff+1) + $lo; // eq $hi << 16 | $lo
   }
   
@@ -164,7 +164,7 @@ final class Transform
    */
   public static function toUInt32BE($value)
   {
-    return pack("N*", $value);
+    return pack('N*', $value);
   }
   
   /**
@@ -175,7 +175,7 @@ final class Transform
    */
   public static function fromUInt32BE($value)
   {
-    list(, $hi, $lo) = unpack("n*", $value);
+    list(, $hi, $lo) = unpack('n*', $value);
     return $hi * (0xffff+1) + $lo; // eq $hi << 16 | $lo
   }
   
@@ -187,7 +187,7 @@ final class Transform
    */
   public static function toInt16($value)
   {
-    return pack("s*", $value);
+    return pack('s*', $value);
   }
   
   /**
@@ -198,7 +198,7 @@ final class Transform
    */
   public static function fromInt16($value)
   {
-    list(, $int) = unpack("s*", $value);
+    list(, $int) = unpack('s*', $value);
     return $int;
   }
   
@@ -211,8 +211,8 @@ final class Transform
    */
   private static function fromUInt16($value, $order = self::MACHINE_ENDIAN_ORDER)
   {
-    list(, $int) = unpack(($order == 2 ? "n" :
-                           ($order == 1 ? "v" : "S")) . "*", $value);
+    list(, $int) = unpack(($order == 2 ? 'n' :
+                           ($order == 1 ? 'v' : 'S')) . '*', $value);
     return $int;
   }
   
@@ -224,7 +224,7 @@ final class Transform
    */
   public static function toUInt16LE($value)
   {
-    return pack("v*", $value);
+    return pack('v*', $value);
   }
   
   /**
@@ -246,7 +246,7 @@ final class Transform
    */
   public static function toUInt16BE($value)
   {
-    return pack("n*", $value);
+    return pack('n*', $value);
   }
   
   /**
@@ -288,7 +288,7 @@ final class Transform
    * @param string $value The input value.
    * @return string
    */
-  public static function toString8($value, $length, $padding = "\0")
+  public static function toString8($value, $length, $padding = '\0')
   {
     return str_pad($value, $length, $padding);
   }
@@ -301,7 +301,7 @@ final class Transform
    */
   public static function fromString8($value)
   {
-    return rtrim($value, "\0");
+    return rtrim($value, '\0');
   }
   
   /**
@@ -314,10 +314,10 @@ final class Transform
    */
   public static function toString16($value, $order = self::MACHINE_ENDIAN_ORDER)
   {
-    $string = "";
-    foreach (unpack("S*", $value) as $char)
+    $string = '';
+    foreach (unpack('S*', $value) as $char)
       $string .=
-        pack(($order == 2 ? "n" : ($order == 1 ? "v" : "S")), $char);
+        pack(($order == 2 ? 'n' : ($order == 1 ? 'v' : 'S')), $char);
     return $string;
   }
 
@@ -358,9 +358,9 @@ final class Transform
    */
   public static function fromString16LE($value)
   {
-    $string = "";
-    foreach (unpack("v*", $value) as $char)
-      $string .= pack("S", $char);
+    $string = '';
+    foreach (unpack('v*', $value) as $char)
+      $string .= pack('S', $char);
     return $string;
   }
   
@@ -383,9 +383,9 @@ final class Transform
    */
   public static function fromString16BE($value)
   {
-    $string = "";
-    foreach (unpack("n*", $value) as $char)
-      $string .= pack("S", $char);
+    $string = '';
+    foreach (unpack('n*', $value) as $char)
+      $string .= pack('S', $char);
     return $string;
   }
   
@@ -397,7 +397,7 @@ final class Transform
    */
   public static function toHHex($value)
   {
-    return pack("H*", $value);
+    return pack('H*', $value);
   }
   
   /**
@@ -408,7 +408,7 @@ final class Transform
    */
   public static function fromHHex($value)
   {
-    list($hex) = unpack("H*0", $value);
+    list($hex) = unpack('H*0', $value);
     return $hex; 
   }
   
@@ -420,7 +420,7 @@ final class Transform
    */
   public static function toLHex($value)
   {
-    return pack("h*", $value);
+    return pack('h*', $value);
   }
   
   /**
@@ -431,7 +431,7 @@ final class Transform
    */
   public static function fromLHex($value)
   {
-    list($hex) = unpack("h*0", $value);
+    list($hex) = unpack('h*0', $value);
     return $hex; 
   }
   
@@ -444,9 +444,9 @@ final class Transform
    */
   public static function toGUID($value)
   {
-    $string = ""; $C = preg_split("/-/", $value);
+    $string = ''; $C = preg_split('/-/', $value);
     return pack
-      ("V1v2N2", hexdec($C[0]), hexdec($C[1]), hexdec($C[2]),
+      ('V1v2N2', hexdec($C[0]), hexdec($C[1]), hexdec($C[2]),
        hexdec($C[3] . substr($C[4], 0, 4)), hexdec(substr($C[4], 4)));
   }
   
@@ -459,15 +459,15 @@ final class Transform
    */
   public static function fromGUID($value)
   {
-    $C = @unpack("V1V/v2v/N2N", $value);
-    list($hex) = @unpack("H*0", pack
-      ("NnnNN", $C["V"], $C["v1"], $C["v2"], $C["N1"], $C["N2"]));
+    $C = @unpack('V1V/v2v/N2N', $value);
+    list($hex) = @unpack('H*0', pack
+      ('NnnNN', $C['V'], $C['v1'], $C['v2'], $C['N1'], $C['N2']));
     
     /* Fixes a bug in PHP versions earlier than Jan 25 2006 */
-    if (implode("", unpack("H*", pack("H*", "a"))) == "a00")
+    if (implode('', unpack('H*', pack('H*', 'a'))) == 'a00')
       $hex = substr($hex, 0, -1);
       
     return preg_replace
-      ("/^(.{8})(.{4})(.{4})(.{4})/", "\\1-\\2-\\3-\\4-", $hex);
+      ('/^(.{8})(.{4})(.{4})(.{4})/', '\\1-\\2-\\3-\\4-', $hex);
   }
 }

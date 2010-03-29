@@ -35,10 +35,6 @@
  * @version   $Id: Magic.php 73 2008-04-12 19:07:31Z svollbehr $
  */
 
-/**#@+ @ignore */
-require_once("Reader.php");
-/**#@-*/
-
 /**
  * This class is used to classify the given file using some magic bytes
  * characteristic to a particular file type. The classification information can
@@ -76,7 +72,7 @@ require_once("Reader.php");
  * @license   http://code.google.com/p/php-reader/wiki/License New BSD License
  * @version   $Rev: 73 $
  */
-final class Magic
+final class com_googlecode_phpreader_Magic
 {
   /** @var string */
   private $_magic;
@@ -88,7 +84,7 @@ final class Magic
    */
   public function __construct($filename)
   {
-    $reader = new Reader($filename);
+    $reader = new com_googlecode_phpreader_Reader($filename);
     $this->_magic = $reader->read($reader->getSize());
   }
   
@@ -106,58 +102,58 @@ final class Magic
    */
   public function getType($filename, $default = false)
   {
-    $reader = new Reader($filename);
+    $reader = new com_googlecode_phpreader_Reader($filename);
 
     $parentOffset = 0;
-    foreach (preg_split("/^/m", $this->_magic) as $line) {
+    foreach (preg_split('/^/m', $this->_magic) as $line) {
       $chunks = array();
-      if (!preg_match("/^(?P<Dependant>>?)(?P<Byte>\d+)\s+(?P<MatchType>\S+)" .
-                      "\s+(?P<MatchData>\S+)(?:\s+(?P<MIMEType>[a-z]+\/[a-z-" .
-                      "0-9]+)?(?:\s+(?P<Description>.+))?)?$/", $line, $chunks))
+      if (!preg_match('/^(?P<Dependant>>?)(?P<Byte>\d+)\s+(?P<MatchType>\S+)' .
+                      '\s+(?P<MatchData>\S+)(?:\s+(?P<MIMEType>[a-z]+\/[a-z-' .
+                      '0-9]+)?(?:\s+(?P<Description>.+))?)?$/', $line, $chunks))
         continue;
       
-      if ($chunks["Dependant"]) {
+      if ($chunks['Dependant']) {
         $reader->setOffset($parentOffset);
-        $reader->skip($chunks["Byte"]);
+        $reader->skip($chunks['Byte']);
       } else
-        $reader->setOffset($parentOffset = $chunks["Byte"]);
+        $reader->setOffset($parentOffset = $chunks['Byte']);
 
-      $matchType = strtolower($chunks["MatchType"]);
+      $matchType = strtolower($chunks['MatchType']);
       $matchData = preg_replace
-        (array("/\\\\ /", "/\\\\\\\\/", "/\\\\([0-7]{1,3})/e",
-               "/\\\\x([0-9A-Fa-f]{1,2})/e", "/0x([0-9A-Fa-f]+)/e"),
-         array(" ", "\\\\", "pack(\"H*\", base_convert(\"$1\", 8, 16));",
+        (array('/\\\\ /', '/\\\\\\\\/', '/\\\\([0-7]{1,3})/e',
+               '/\\\\x([0-9A-Fa-f]{1,2})/e', '/0x([0-9A-Fa-f]+)/e'),
+         array(' ', '\\\\', "pack(\"H*\", base_convert(\"$1\", 8, 16));",
                "pack(\"H*\", \"$1\");", "hexdec(\"$1\");"),
-         $chunks["MatchData"]);
+         $chunks['MatchData']);
 
       switch ($matchType) {
-      case "byte":    // single character
+      case 'byte':    // single character
         $data = $reader->readInt8();
         break;
-      case "short":   // machine-order 16-bit integer
+      case 'short':   // machine-order 16-bit integer
         $data = $reader->readInt16();
         break;
-      case "long":    // machine-order 32-bit integer
+      case 'long':    // machine-order 32-bit integer
         $data = $reader->readInt32();
         break;
-      case "string":  // arbitrary-length string
+      case 'string':  // arbitrary-length string
         $data = $reader->readString8(strlen($matchData));
         break;
-      case "date":    // long integer date (seconds since Unix epoch/1970)
+      case 'date':    // long integer date (seconds since Unix epoch/1970)
         $data = $reader->readInt64BE();
         break;
-      case "beshort": // big-endian 16-bit integer
+      case 'beshort': // big-endian 16-bit integer
         $data = $reader->readUInt16BE();
         break;
-      case "belong":  // big-endian 32-bit integer
-      case "bedate":  // big-endian 32-bit integer date
+      case 'belong':  // big-endian 32-bit integer
+      case 'bedate':  // big-endian 32-bit integer date
         $data = $reader->readUInt32BE();
         break;
-      case "leshort": // little-endian 16-bit integer
+      case 'leshort': // little-endian 16-bit integer
         $data = $reader->readUInt16LE();
         break;
-      case "lelong":  // little-endian 32-bit integer
-      case "ledate":  // little-endian 32-bit integer date
+      case 'lelong':  // little-endian 32-bit integer
+      case 'ledate':  // little-endian 32-bit integer date
         $data = $reader->readUInt32LE();
         break;
       default:
@@ -166,10 +162,10 @@ final class Magic
       }
 
       if (strcmp($data, $matchData) == 0) {
-        if (!empty($chunks["MIMEType"]))
-          return $chunks["MIMEType"];
-        if (!empty($chunks["Description"]))
-          return $chunks["Description"];
+        if (!empty($chunks['MIMEType']))
+          return $chunks['MIMEType'];
+        if (!empty($chunks['Description']))
+          return $chunks['Description'];
       }
     }
     return $default;
