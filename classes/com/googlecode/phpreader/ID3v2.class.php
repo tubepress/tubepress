@@ -32,16 +32,8 @@
  * @subpackage ID3
  * @copyright  Copyright (c) 2008 The PHP Reader Project Workgroup
  * @license    http://code.google.com/p/php-reader/wiki/License New BSD License
- * @version    $Id: ID3v2.php 75 2008-04-14 23:57:21Z svollbehr $
+ * @version    $Id: com_googlecode_phpreader_ID3v2.php 75 2008-04-14 23:57:21Z svollbehr $
  */
-
-/**#@+ @ignore */
-require_once("Reader.php");
-require_once("ID3/Exception.php");
-require_once("ID3/Header.php");
-require_once("ID3/ExtendedHeader.php");
-require_once("ID3/Frame.php");
-/**#@-*/
 
 /**
  * This class represents a file containing ID3v2 headers as described in
@@ -60,45 +52,27 @@ require_once("ID3/Frame.php");
  * unique and predefined identifier which allows software to skip unknown
  * frames.
  *
- * Overall tag structure:
- *
- * <pre>
- *   +-----------------------------+
- *   |      Header (10 bytes)      |
- *   +-----------------------------+
- *   |       Extended Header       |
- *   | (variable length, OPTIONAL) |
- *   +-----------------------------+
- *   |   Frames (variable length)  |
- *   +-----------------------------+
- *   |           Padding           |
- *   | (variable length, OPTIONAL) |
- *   +-----------------------------+
- *   | Footer (10 bytes, OPTIONAL) |
- *   +-----------------------------+
- * </pre>
- * 
  * In general, padding and footer are mutually exclusive.
  * 
  * @package    php-reader
  * @subpackage ID3
  * @author     Sven Vollbehr <svollbehr@gmail.com>
- * @copyright  Copyright (c) 2008 The PHP Reader Project Workgroup
+ * @copyright  Copyright (c) 2008 The PHP com_googlecode_phpreader_Reader Project Workgroup
  * @license    http://code.google.com/p/php-reader/wiki/License New BSD License
  * @version    $Rev: 75 $
  */
-final class ID3v2
+final class com_googlecode_phpreader_ID3v2
 {
-  /** @var Reader */
+  /** @var com_googlecode_phpreader_Reader */
   private $_reader;
 
-  /** @var ID3_Header */
+  /** @var com_googlecode_phpreader_id3_Header */
   private $_header;
 
-  /** @var ID3_ExtendedHeader */
+  /** @var com_googlecode_phpreader_id3_ExtendedHeader */
   private $_extendedHeader;
   
-  /** @var ID3_Header */
+  /** @var com_googlecode_phpreader_id3_Header */
   private $_footer;
   
   /** @var Array */
@@ -111,11 +85,11 @@ final class ID3v2
   private $_options;
   
   /**
-   * Constructs the ID3v2 class with given file and options. The options array
+   * Constructs the com_googlecode_phpreader_ID3v2 class with given file and options. The options array
    * may also be given as the only parameter.
    *
    * The following options are currently recognized:
-   *   o version -- The ID3v2 tag version to use in write operation. This option
+   *   o version -- The com_googlecode_phpreader_ID3v2 tag version to use in write operation. This option
    *     is automatically set when a tag is read from a file and defaults to 
    *     version 4.0 for tag write.
    *
@@ -135,21 +109,21 @@ final class ID3v2
     $this->_options = &$options;
     if (($this->_filename = $filename) === false ||
         file_exists($filename) === false) {
-      $this->_header = new ID3_Header(null, $options);
+      $this->_header = new com_googlecode_phpreader_id3_Header(null, $options);
     } else {
-      $this->_reader = new Reader($filename);
-      if ($this->_reader->readString8(3) != "ID3")
-        throw new ID3_Exception
-          ("File does not contain ID3v2 tag: " . $filename);
+      $this->_reader = new com_googlecode_phpreader_Reader($filename);
+      if ($this->_reader->readString8(3) != 'ID3')
+        throw new com_googlecode_phpreader_id3_Exception
+          ('File does not contain ID3v2 tag: ' . $filename);
       
-      $this->_header = new ID3_Header($this->_reader, $options);
+      $this->_header = new com_googlecode_phpreader_id3_Header($this->_reader, $options);
       if ($this->_header->getVersion() < 3 || $this->_header->getVersion() > 4)
-        throw new ID3_Exception
-          ("File does not contain ID3v2 tag of supported version: " . $filename);
-      if ($this->_header->hasFlag(ID3_Header::EXTENDEDHEADER))
+        throw new com_googlecode_phpreader_id3_Exception
+          ('File does not contain ID3v2 tag of supported version: ' . $filename);
+      if ($this->_header->hasFlag(com_googlecode_phpreader_id3_Header::EXTENDEDHEADER))
         $this->_extendedHeader =
-          new ID3_ExtendedHeader($this->_reader, $options);
-      if ($this->_header->hasFlag(ID3_Header::FOOTER))
+          new com_googlecode_phpreader_id3_ExtendedHeader($this->_reader, $options);
+      if ($this->_header->hasFlag(com_googlecode_phpreader_id3_Header::FOOTER))
         $this->_footer = &$this->_header; // skip footer, and rather copy header
       
       while (true) {
@@ -166,13 +140,11 @@ final class ID3v2
           break;
         $this->_reader->setOffset($offset);
         
-        if (@fopen($filename = "ID3/Frame/" .
-                   strtoupper($identifier) . ".php", "r", true) !== false)
           require_once($filename);
-        if (class_exists($classname = "ID3_Frame_" . $identifier))
+        if (class_exists($classname = 'com_googlecode_phpreader_id3_Frame_' . $identifier))
           $frame = new $classname($this->_reader, $options);
         else
-          $frame = new ID3_Frame($this->_reader, $options);
+          $frame = new com_googlecode_phpreader_id3_Frame($this->_reader, $options);
         
         if (!isset($this->_frames[$frame->getIdentifier()]))
           $this->_frames[$frame->getIdentifier()] = array();
@@ -184,7 +156,7 @@ final class ID3v2
   /**
    * Returns the header object.
    * 
-   * @return ID3_Header
+   * @return com_googlecode_phpreader_id3_Header
    */
   public function getHeader() { return $this->_header; }
   
@@ -197,14 +169,14 @@ final class ID3v2
   public function hasExtendedHeader()
   {
     if ($this->_header)
-      return $this->_header->hasFlag(ID3_Header::EXTENDEDHEADER);
+      return $this->_header->hasFlag(com_googlecode_phpreader_id3_Header::EXTENDEDHEADER);
   }
   
   /**
    * Returns the extended header object if present, or <var>false</var>
    * otherwise.
    * 
-   * @return ID3_ExtendedHeader|false
+   * @return com_googlecode_phpreader_id3_ExtendedHeader|false
    */
   public function getExtendedHeader()
   {
@@ -216,16 +188,16 @@ final class ID3v2
   /**
    * Sets the extended header object.
    *
-   * @param ID3_ExtendedHeader $extendedHeader The header object
+   * @param ExtendedHeader $extendedHeader The header object
    */
   public function setExtendedHeader($extendedHeader)
   {
-    if (is_subclass_of($extendedHeader, "ID3_ExtendedHeader")) {
+    if (is_subclass_of($extendedHeader, 'com_googlecode_phpreader_id3_ExtendedHeader')) {
       $this->_header->flags =
-        $this->_header->flags | ID3_Header::EXTENDEDHEADER;
+        $this->_header->flags | com_googlecode_phpreader_id3_Header::EXTENDEDHEADER;
       $this->_extendedHeader->setOptions($this->_options);
       $this->_extendedHeader = $extendedHeader;
-    } else throw new ID3_Exception("Invalid argument");
+    } else throw new com_googlecode_phpreader_id3_Exception('Invalid argument');
   }
   
   /**
@@ -255,7 +227,7 @@ final class ID3v2
    * Returns an array of frames matching the given identifier or an empty array
    * if no frames matched the identifier.
    *
-   * The identifier may contain wildcard characters "*" and "?". The asterisk
+   * The identifier may contain wildcard characters '*' and '?'. The asterisk
    * matches against zero or more characters, and the question mark matches any
    * single character.
    *
@@ -268,8 +240,8 @@ final class ID3v2
   public function getFramesByIdentifier($identifier)
   {
     $matches = array();
-    $searchPattern = "/^" .
-      str_replace(array("*", "?"), array(".*", "."), $identifier) . "$/i";
+    $searchPattern = '/^' .
+      str_replace(array('*', '?'), array('.*', '.'), $identifier) . "$/i";
     foreach ($this->_frames as $identifier => $frames)
       if (preg_match($searchPattern, $identifier))
         foreach ($frames as $frame)
@@ -280,8 +252,8 @@ final class ID3v2
   /**
    * Adds a new frame to the tag and returns it.
    *
-   * @param ID3_Frame $frame The frame to add.
-   * @return ID3_Frame
+   * @param com_googlecode_phpreader_id3_Frame $frame The frame to add.
+   * @return com_googlecode_phpreader_id3_Frame
    */
   public function addFrame($frame)
   {
@@ -299,13 +271,13 @@ final class ID3v2
    */
   public function hasFooter()
   {
-    return $this->_header->hasFlag(ID3_Header::FOOTER);
+    return $this->_header->hasFlag(com_googlecode_phpreader_id3_Header::FOOTER);
   }
   
   /**
    * Returns the footer object if present, or <var>false</var> otherwise.
    *
-   * @return ID3_Header|false
+   * @return com_googlecode_phpreader_id3_Header|false
    */
   public function getFooter()
   {
@@ -323,7 +295,7 @@ final class ID3v2
   {
     if ($useFooter) {
       $this->_header->setFlags
-        ($this->_header->getFlags() | ID3_Header::FOOTER);
+        ($this->_header->getFlags() | com_googlecode_phpreader_id3_Header::FOOTER);
       $this->_footer = &$this->_header;
     } else {
       /* Count footer bytes towards the tag size, so it gets removed or
@@ -332,13 +304,13 @@ final class ID3v2
         $this->_header->setSize($this->_header->getSize() + 10);
       
       $this->_header->setFlags
-        ($this->_header->getFlags() & ~ID3_Header::FOOTER);
+        ($this->_header->getFlags() & ~com_googlecode_phpreader_id3_Header::FOOTER);
       $this->_footer = null;
     }
   }
   
   /**
-   * Writes the possibly altered ID3v2 tag back to the file where it was read.
+   * Writes the possibly altered com_googlecode_phpreader_ID3v2 tag back to the file where it was read.
    * If the class was constructed without a file name, one can be provided here
    * as an argument. Regardless, the write operation will override previous
    * tag information, if found.
@@ -351,17 +323,17 @@ final class ID3v2
   public function write($filename = false)
   {
     if (empty($this->_frames))
-      throw new ID3_Exception("Tag must contain at least one frame");
+      throw new com_googlecode_phpreader_id3_Exception('Tag must contain at least one frame');
     
     if ($filename === false && ($filename = $this->_filename) === false)
-      throw new ID3_Exception("No file given to write the tag to");
+      throw new com_googlecode_phpreader_id3_Exception('No file given to write the tag to');
     
     if (($fd = fopen
-         ($filename, file_exists($filename) ? "r+b" : "wb")) === false)
-      throw new ID3_Exception("Unable to open file for writing: " . $filename);
+         ($filename, file_exists($filename) ? 'r+b' : 'wb')) === false)
+      throw new com_googlecode_phpreader_id3_Exception('Unable to open file for writing: ' . $filename);
     
     $oldTagSize = $this->_header->getSize();
-    $tag = "" . $this;
+    $tag = '' . $this;
     $tagSize = strlen($tag);
 
     if ($this->_reader === null || $tagSize - 10 > $oldTagSize) {
@@ -396,14 +368,11 @@ final class ID3v2
   public function __get($name) {
     if (isset($this->_frames[strtoupper($name)]))
       return $this->_frames[strtoupper($name)][0];
-    if (method_exists($this, "get" . ucfirst($name)))
-      return call_user_func(array($this, "get" . ucfirst($name)));
-    if (@fopen($filename =
-               "ID3/Frame/" . strtoupper($name) . ".php", "r", true) !== false)
-      require_once($filename);
-    if (class_exists($classname = "ID3_Frame_" . strtoupper($name)))
+    if (method_exists($this, 'get' . ucfirst($name)))
+      return call_user_func(array($this, 'get' . ucfirst($name)));
+    if (class_exists($classname = 'com_googlecode_phpreader_id3_Frame_' . strtoupper($name)))
       return $this->addFrame(new $classname());
-    throw new ID3_Exception("Unknown frame/field: " . $name);
+    throw new com_googlecode_phpreader_id3_Exception('Unknown frame/field: ' . $name);
   }
   
   /**
@@ -413,7 +382,7 @@ final class ID3v2
    */
   public function __toString()
   {
-    $data = "";
+    $data = '';
     foreach ($this->_frames as $frames)
       foreach ($frames as $frame)
         $data .= $frame;
@@ -434,13 +403,13 @@ final class ID3v2
         $padlen = ceil(log(0.2 * ($datalen / 1024 + 10), 10) * 1024);
     }
     
-    /* ID3v2.4.0 CRC calculated w/ padding */
-    if (!isset($this->_options["version"]) || $this->_options["version"] >= 4)
-      $data = str_pad($data, $datalen + $padlen, "\0");
+    /* com_googlecode_phpreader_ID3v2.4.0 CRC calculated w/ padding */
+    if (!isset($this->_options['version']) || $this->_options['version'] >= 4)
+      $data = str_pad($data, $datalen + $padlen, '\0');
     
     if ($this->hasExtendedHeader()) {
       $this->_extendedHeader->setPadding($padlen);
-      if ($this->_extendedHeader->hasFlag(ID3_ExtendedHeader::CRC32)) {
+      if ($this->_extendedHeader->hasFlag(com_googlecode_phpreader_id3_ExtendedHeader::CRC32)) {
         $crc = crc32($data);
         if ($crc & 0x80000000)
           $crc = -(($crc ^ 0xffffffff) + 1);
@@ -449,13 +418,13 @@ final class ID3v2
       $data = $this->getExtendedHeader() . $data;
     }
     
-    /* ID3v2.3.0 CRC calculated w/o padding */
-    if (isset($this->_options["version"]) && $this->_options["version"] < 4)
-      $data = str_pad($data, $datalen + $padlen, "\0");
+    /* com_googlecode_phpreader_ID3v2.3.0 CRC calculated w/o padding */
+    if (isset($this->_options['version']) && $this->_options['version'] < 4)
+      $data = str_pad($data, $datalen + $padlen, '\0');
     
     $this->_header->setSize(strlen($data));
     
-    return "ID3" . $this->_header . $data .
-      ($this->hasFooter() ? "3DI" . $this->getFooter() : "");
+    return 'ID3' . $this->_header . $data .
+      ($this->hasFooter() ? '3DI' . $this->getFooter() : '');
   }
 }

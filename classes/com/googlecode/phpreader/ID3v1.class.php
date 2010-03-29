@@ -16,7 +16,7 @@
  *    contributors may be used to endorse or promote products derived from this
  *    software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS'
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
@@ -35,11 +35,6 @@
  * @version    $Id: ID3v1.php 64 2008-04-01 10:38:12Z svollbehr $
  */
 
-/**#@+ @ignore */
-require_once("Reader.php");
-require_once("ID3/Exception.php");
-/**#@-*/
-
 /**
  * This class represents a file containing ID3v1 headers as described in
  * {@link http://www.id3.org/id3v2-00 The ID3-Tag Specification Appendix}.
@@ -51,7 +46,7 @@ require_once("ID3/Exception.php");
  * @license    http://code.google.com/p/php-reader/wiki/License New BSD License
  * @version    $Rev: 64 $
  */
-final class ID3v1
+final class com_googlecode_phpreader_ID3v1
 {
   /** @var string */
   private $_title;
@@ -80,28 +75,28 @@ final class ID3v1
    * @var Array
    */
   public static $genres = array
-    ("Blues", "Classic Rock", "Country", "Dance", "Disco", "Funk", "Grunge",
-     "Hip-Hop", "Jazz", "Metal", "New Age", "Oldies", "Other", "Pop", "R&B",
-     "Rap", "Reggae", "Rock", "Techno", "Industrial", "Alternative", "Ska",
-     "Death Metal", "Pranks", "Soundtrack", "Euro-Techno", "Ambient",
-     "Trip-Hop", "Vocal", "Jazz+Funk", "Fusion", "Trance", "Classical",
-     "Instrumental", "Acid", "House", "Game", "Sound Clip", "Gospel", "Noise",
-     "AlternRock", "Bass", "Soul", "Punk", "Space", "Meditative",
-     "Instrumental Pop", "Instrumental Rock", "Ethnic", "Gothic", "Darkwave",
-     "Techno-Industrial", "Electronic", "Pop-Folk", "Eurodance", "Dream",
-     "Southern Rock", "Comedy", "Cult", "Gangsta", "Top 40", "Christian Rap",
-     "Pop/Funk", "Jungle", "Native American", "Cabaret", "New Wave",
-     "Psychadelic", "Rave", "Showtunes", "Trailer", "Lo-Fi", "Tribal",
-     "Acid Punk", "Acid Jazz", "Polka", "Retro", "Musical", "Rock & Roll",
-     "Hard Rock", "Folk", "Folk-Rock", "National Folk", "Swing", "Fast Fusion",
-     "Bebob", "Latin", "Revival", "Celtic", "Bluegrass", "Avantgarde",
-     "Gothic Rock", "Progressive Rock", "Psychedelic Rock", "Symphonic Rock",
-     "Slow Rock", "Big Band", "Chorus", "Easy Listening", "Acoustic", "Humour",
-     "Speech", "Chanson", "Opera", "Chamber Music", "Sonata", "Symphony",
-     "Booty Bass", "Primus", "Porn Groove", "Satire", "Slow Jam", "Club",
-     "Tango", "Samba", "Folklore", "Ballad", "Power Ballad", "Rhythmic Soul",
-     "Freestyle", "Duet", "Punk Rock", "Drum Solo", "A capella", "Euro-House",
-     "Dance Hall", 255 => "Unknown");
+    ('Blues', 'Classic Rock', 'Country', 'Dance', 'Disco', 'Funk', 'Grunge',
+     'Hip-Hop', 'Jazz', 'Metal', 'New Age', 'Oldies', 'Other', 'Pop', 'R&B',
+     'Rap', 'Reggae', 'Rock', 'Techno', 'Industrial', 'Alternative', 'Ska',
+     'Death Metal', 'Pranks', 'Soundtrack', 'Euro-Techno', 'Ambient',
+     'Trip-Hop', 'Vocal', 'Jazz+Funk', 'Fusion', 'Trance', 'Classical',
+     'Instrumental', 'Acid', 'House', 'Game', 'Sound Clip', 'Gospel', 'Noise',
+     'AlternRock', 'Bass', 'Soul', 'Punk', 'Space', 'Meditative',
+     'Instrumental Pop', 'Instrumental Rock', 'Ethnic', 'Gothic', 'Darkwave',
+     'Techno-Industrial', 'Electronic', 'Pop-Folk', 'Eurodance', 'Dream',
+     'Southern Rock', 'Comedy', 'Cult', 'Gangsta', 'Top 40', 'Christian Rap',
+     'Pop/Funk', 'Jungle', 'Native American', 'Cabaret', 'New Wave',
+     'Psychadelic', 'Rave', 'Showtunes', 'Trailer', 'Lo-Fi', 'Tribal',
+     'Acid Punk', 'Acid Jazz', 'Polka', 'Retro', 'Musical', 'Rock & Roll',
+     'Hard Rock', 'Folk', 'Folk-Rock', 'National Folk', 'Swing', 'Fast Fusion',
+     'Bebob', 'Latin', 'Revival', 'Celtic', 'Bluegrass', 'Avantgarde',
+     'Gothic Rock', 'Progressive Rock', 'Psychedelic Rock', 'Symphonic Rock',
+     'Slow Rock', 'Big Band', 'Chorus', 'Easy Listening', 'Acoustic', 'Humour',
+     'Speech', 'Chanson', 'Opera', 'Chamber Music', 'Sonata', 'Symphony',
+     'Booty Bass', 'Primus', 'Porn Groove', 'Satire', 'Slow Jam', 'Club',
+     'Tango', 'Samba', 'Folklore', 'Ballad', 'Power Ballad', 'Rhythmic Soul',
+     'Freestyle', 'Duet', 'Punk Rock', 'Drum Solo', 'A capella', 'Euro-House',
+     'Dance Hall', 255 => 'Unknown');
   
   /** @var Reader */
   private $_reader;
@@ -122,20 +117,20 @@ final class ID3v1
         file_exists($filename) === false)
       return;
     
-    $this->_reader = new Reader($filename);
+    $this->_reader = new com_googlecode_phpreader_Reader($filename);
     if ($this->_reader->getSize() < 128)
       return;
     $this->_reader->setOffset(-128);
-    if ($this->_reader->read(3) != "TAG") {
+    if ($this->_reader->read(3) != 'TAG') {
       $this->_reader = false; // reset reader, see write
       return;
     }
     
-    $this->_title = rtrim($this->_reader->readString8(30), " \0");
-    $this->_artist = rtrim($this->_reader->readString8(30), " \0");
-    $this->_album = rtrim($this->_reader->readString8(30), " \0");
+    $this->_title = rtrim($this->_reader->readString8(30), ' \0');
+    $this->_artist = rtrim($this->_reader->readString8(30), ' \0');
+    $this->_album = rtrim($this->_reader->readString8(30), ' \0');
     $this->_year = $this->_reader->readString8(4);
-    $this->_comment = rtrim($this->_reader->readString8(28), " \0");
+    $this->_comment = rtrim($this->_reader->readString8(28), ' \0');
 
     /* ID3v1.1 support for tracks */
     $v11_null = $this->_reader->read(1);
@@ -143,7 +138,7 @@ final class ID3v1
     if (ord($v11_null) == 0 && ord($v11_track) != 0)
       $this->_track = ord($v11_track);
     else
-      $this->_comment = rtrim($this->_comment . $v11_null . $v11_track, " \0");
+      $this->_comment = rtrim($this->_comment . $v11_null . $v11_track, ' \0');
     
     $this->_genre = $this->_reader->readInt8();
   }
@@ -282,11 +277,11 @@ final class ID3v1
   public function write($filename = false)
   {
     if ($filename === false && ($filename = $this->_filename) === false)
-      throw new ID3_Exception("No file given to write the tag to");
+      throw new com_googlecode_phpreader_id3_Exception('No file given to write the tag to');
     
     if (($fd = fopen
-         ($filename, file_exists($filename) ? "r+b" : "wb")) === false)
-      throw new ID3_Exception("Unable to open file for writing: " . $filename);
+         ($filename, file_exists($filename) ? 'r+b' : 'wb')) === false)
+      throw new com_googlecode_phpreader_id3_Exception('Unable to open file for writing: ' . $filename);
     
     fseek($fd, $this->_reader !== false ? -128 : 0, SEEK_END);
     fwrite($fd, $this, 128);
@@ -302,9 +297,9 @@ final class ID3v1
    */
   public function __get($name)
   {
-    if (method_exists($this, "get" . ucfirst(strtolower($name))))
-      return call_user_func(array($this, "get" . ucfirst(strtolower($name))));
-    else throw new ID3_Exception("Unknown field: " . $name);
+    if (method_exists($this, 'get' . ucfirst(strtolower($name))))
+      return call_user_func(array($this, 'get' . ucfirst(strtolower($name))));
+    else throw new com_googlecode_phpreader_id3_Exception('Unknown field: ' . $name);
   }
   
   /**
@@ -316,10 +311,10 @@ final class ID3v1
    */
   public function __set($name, $value)
   {
-    if (method_exists($this, "set" . ucfirst(strtolower($name))))
+    if (method_exists($this, 'set' . ucfirst(strtolower($name))))
       call_user_func
-        (array($this, "set" . ucfirst(strtolower($name))), $value);
-    else throw new ID3_Exception("Unknown field: " . $name);
+        (array($this, 'set' . ucfirst(strtolower($name))), $value);
+    else throw new com_googlecode_phpreader_id3_Exception('Unknown field: ' . $name);
   }
   
   /**
@@ -329,15 +324,15 @@ final class ID3v1
    */
   private function __toString()
   {
-    return "TAG" .
-      Transform::toString8(substr($this->_title,  0, 30), 30) .
-      Transform::toString8(substr($this->_artist, 0, 30), 30) .
-      Transform::toString8(substr($this->_album,  0, 30), 30) .
-      Transform::toString8(substr($this->_year,   0,  4),  4) .
+    return 'TAG' .
+      com_googlecode_phpreader_Transform::toString8(substr($this->_title,  0, 30), 30) .
+      com_googlecode_phpreader_Transform::toString8(substr($this->_artist, 0, 30), 30) .
+      com_googlecode_phpreader_Transform::toString8(substr($this->_album,  0, 30), 30) .
+      com_googlecode_phpreader_Transform::toString8(substr($this->_year,   0,  4),  4) .
       ($this->_track ?
-       Transform::toString8(substr($this->_comment, 0, 28), 28) .
-       "\0" . Transform::toInt8($this->_track) :
-       Transform::toString8(substr($this->_comment, 0, 30), 30)) .
-      Transform::toInt8($this->_genre);
+       com_googlecode_phpreader_Transform::toString8(substr($this->_comment, 0, 28), 28) .
+       '\0' . com_googlecode_phpreader_Transform::toInt8($this->_track) :
+       com_googlecode_phpreader_Transform::toString8(substr($this->_comment, 0, 30), 30)) .
+      com_googlecode_phpreader_Transform::toInt8($this->_genre);
   }
 }

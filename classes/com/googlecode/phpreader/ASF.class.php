@@ -36,15 +36,6 @@
  * @version    $Id: ASF.php 39 2008-03-26 17:27:22Z svollbehr $
  */
 
-/**#@+ @ignore */
-require_once("Reader.php");
-require_once("ASF/Object.php");
-require_once("ASF/HeaderObject.php");
-require_once("ASF/ContentDescriptionObject.php");
-require_once("ASF/ExtendedContentDescriptionObject.php");
-require_once("ASF/FilePropertiesObject.php");
-/**#@-*/
-
 /**
  * This class represents a file in Advanced Systems Format (ASF) as described in
  * {@link http://go.microsoft.com/fwlink/?LinkId=31334 The Advanced Systems
@@ -67,13 +58,13 @@ require_once("ASF/FilePropertiesObject.php");
  * @license    http://code.google.com/p/php-reader/wiki/License New BSD License
  * @version    $Rev: 39 $
  */
-class ASF
+class com_googlecode_phpreader_ASF
 {
   /** @var Reader */
   private $_reader;
   
   /**
-   * Constructs the ASF class with given file.
+   * Constructs the com_googlecode_phpreader_ASF class with given file.
    *
    * @param string $filename The path to the file.
    */
@@ -95,8 +86,8 @@ class ASF
   }
   
   /**
-   * Returns the next ASF object or <var>false</var> if end of stream has been
-   * reached. Returned objects are of the type ASF_Object or of any of its child
+   * Returns the next com_googlecode_phpreader_ASF object or <var>false</var> if end of stream has been
+   * reached. Returned objects are of the type com_googlecode_phpreader_ASF_Object or of any of its child
    * types.
    * 
    * @todo   Only the ASF_Header_Object top level object is regognized. 
@@ -112,10 +103,10 @@ class ASF
 
       switch ($guid) {
       case "75b22630-668e-11cf-a6d9-00aa0062ce6c": /* ASF_Header_Object */
-        $object = new ASF_HeaderObject($this->_reader, $guid, $size);
+        $object = new com_googlecode_phpreader_asf_HeaderObject($this->_reader, $guid, $size);
         break;
       default:
-        $object = new ASF_Object($this->_reader, $guid, $size);
+        $object = new com_googlecode_phpreader_asf_Object($this->_reader, $guid, $size);
       }
       $this->_reader->setOffset($offset - 24 + $size);
     }
