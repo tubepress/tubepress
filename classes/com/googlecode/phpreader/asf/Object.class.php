@@ -33,18 +33,12 @@
  * @subpackage ASF
  * @copyright  Copyright (c) 2006-2008 The PHP Reader Project Workgroup
  * @license    http://code.google.com/p/php-reader/wiki/License New BSD License
- * @version    $Id: ExtendedContentDescriptionObject.php 39 2008-03-26 17:27:22Z svollbehr $
+ * @version    $Id: Object.php 39 2008-03-26 17:27:22Z svollbehr $
  */
 
-/**#@+ @ignore */
-require_once("Object.php");
-/**#@-*/
-
 /**
- * The <i>ASF_Extended_Content_Description_Object</i> object implementation.
- * This object contains unlimited number of attribute fields giving more
- * information about the file.
- * 
+ * The base class for all ASF objects.
+ *
  * @package    php-reader
  * @subpackage ASF
  * @author     Sven Vollbehr <svollbehr@gmail.com>
@@ -52,14 +46,27 @@ require_once("Object.php");
  * @license    http://code.google.com/p/php-reader/wiki/License New BSD License
  * @version    $Rev: 39 $
  */
-final class ASF_ExtendedContentDescriptionObject extends ASF_Object
+class com_googlecode_phpreader_asf_Object
 {
-  /** @var Array */
-  private $_contentDescriptors = array();
-
   /**
-   * Constructs the class with given parameters and reads object related data
-   * from the ASF file.
+   * The reader object.
+   *
+   * @var Reader
+   */
+  protected $_reader;
+  
+  /** @var string */
+  private $_id;
+  
+  /**
+   * The object size in bytes.
+   *
+   * @var integer
+   */
+  protected $_size;
+  
+  /**
+   * Constructs the class with given parameters.
    *
    * @param Reader  $reader The reader object.
    * @param string  $id     The object GUID identifier.
@@ -67,46 +74,15 @@ final class ASF_ExtendedContentDescriptionObject extends ASF_Object
    */
   public function __construct($reader, $id, $size)
   {
-    parent::__construct($reader, $id, $size);
-
-    $contentDescriptorsCount = $this->_reader->readUInt16LE();
-    for ($i = 0; $i < $contentDescriptorsCount; $i++) {
-      $nameLen = $this->_reader->readUInt16LE();
-      $name = $this->_reader->readString16LE($nameLen);
-      $valueDataType = $this->_reader->readUInt16LE();
-      $valueLen = $this->_reader->readUInt16LE();
-      switch ($valueDataType) {
-      case 0:
-      case 1: // string
-        $this->_contentDescriptors[$name] =
-          $this->_reader->readString16LE($valueLen);
-        break;
-      case 2: // bool
-      case 3: // 32-bit integer
-        $this->_contentDescriptors[$name] = $this->_reader->readUInt32LE();
-        break;
-      case 4: // 64-bit integer
-        $this->_contentDescriptors[$name] = $this->_reader->readInt64LE();
-        break;
-      case 5: // 16-bit integer
-        $this->_contentDescriptors[$name] = $this->_reader->readUInt16LE();
-        break;
-      default:
-      }
-    }
+    $this->_reader = $reader;
+    $this->_id = $id;
+    $this->_size = $size;
   }
-
+  
   /**
-   * Returns the value of the specified descriptor or <var>false</var> if there
-   * is no such descriptor defined.
-   *
-   * @param  string $name The name of the descriptor (ie the name of the field).
-   * @return string|false
+   * Returns the GUID of the ASF object.
+   * 
+   * @return string
    */
-  public function getDescriptor($name)
-  {
-    if (isset($this->_contentDescriptors[$name]))
-      return $this->_contentDescriptors[$name];
-    return false;
-  }
+  public function getIdentifier() { return $this->_id; }
 }

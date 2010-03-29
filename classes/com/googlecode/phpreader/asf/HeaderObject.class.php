@@ -36,10 +36,6 @@
  * @version    $Id: HeaderObject.php 39 2008-03-26 17:27:22Z svollbehr $
  */
 
-/**#@+ @ignore */
-require_once("Object.php");
-/**#@-*/
-
 /**
  * The <i>ASF_Header_Object</i> object implementation. This object contains
  * objects that give information about the file. See corresponding object
@@ -52,7 +48,7 @@ require_once("Object.php");
  * @license    http://code.google.com/p/php-reader/wiki/License New BSD License
  * @version    $Rev: 39 $
  */
-final class ASF_HeaderObject extends ASF_Object
+final class com_googlecode_phpreader_asf_HeaderObject extends com_googlecode_phpreader_asf_Object
 {
   /** @var     integer */
   private $_objectCount;
@@ -127,7 +123,7 @@ final class ASF_HeaderObject extends ASF_Object
       /* ASF_Content_Description_Object */
       case "75b22633-668e-11cf-a6d9-00aa0062ce6c":
         $object =
-          new ASF_ContentDescriptionObject($this->_reader, $guid, $size);
+          new com_googlecode_phpreader_asf_ContentDescriptionObject($this->_reader, $guid, $size);
         break;
       /* ASF_Header_Extension_Object */
       case "5fbf03b5-a92e-11cf-8ee3-00c00c205365":
@@ -137,15 +133,15 @@ final class ASF_HeaderObject extends ASF_Object
         break;
       /* ASF_Extended_Content_Description_Object */
       case "d2d0a440-e307-11d2-97f0-00a0c95ea850":
-        $object = new ASF_ExtendedContentDescriptionObject
+        $object = new com_googlecode_phpreader_asf_ExtendedContentDescriptionObject
           ($this->_reader, $guid, $size);
         break;
       /* ASF_File_Properties_Object */
       case "8cabdca1-a947-11cf-8ee4-00c00c205365":
-        $object = new ASF_FilePropertiesObject($this->_reader, $guid, $size);
+        $object = new com_googlecode_phpreader_asf_FilePropertiesObject($this->_reader, $guid, $size);
         break;
       default:  // not implemented
-        $object = new ASF_Object($this->_reader, $guid, $size);
+        $object = new com_googlecode_phpreader_asf_Object($this->_reader, $guid, $size);
       }
       $this->_reader->setOffset(($this->_readerCOffset = $offset - 24 + $size));
     }

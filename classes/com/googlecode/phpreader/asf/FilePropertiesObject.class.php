@@ -36,10 +36,6 @@
  * @version    $Id: FilePropertiesObject.php 39 2008-03-26 17:27:22Z svollbehr $
  */
 
-/**#@+ @ignore */
-require_once("Object.php");
-/**#@-*/
-
 /**
  * The <i>ASF_File_Properties_Object</i> object implementation. This object
  * contains various information about the ASF file.
@@ -51,7 +47,7 @@ require_once("Object.php");
  * @license    http://code.google.com/p/php-reader/wiki/License New BSD License
  * @version    $Rev: 39 $
  */
-final class ASF_FilePropertiesObject extends ASF_Object
+final class com_googlecode_phpreader_asf_FilePropertiesObject extends com_googlecode_phpreader_asf_Object
 {
   /** @var string */
   private $_fileId;
