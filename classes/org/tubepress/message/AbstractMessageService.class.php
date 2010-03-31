@@ -155,6 +155,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'player-tinybox'     => 'with TinyBox',
         'player-fancybox'    => 'with FancyBox',
         'player-static'      => 'statically (page refreshes on each thumbnail click)',
+        'player-solo'        => 'in a new window on its own',
     
         'order-relevance'    => 'relevance', 
         'order-viewCount'    => 'view count', 

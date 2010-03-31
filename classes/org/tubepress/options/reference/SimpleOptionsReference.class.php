@@ -49,15 +49,15 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Gallery::MODE => 'recently_featured'
         ),
         org_tubepress_options_Type::TEXT => array(
-            org_tubepress_options_category_Advanced::DATEFORMAT         => 'M j, Y',
-            org_tubepress_options_category_Advanced::KEYWORD            => 'tubepress',
-            org_tubepress_options_category_Advanced::VIDEO_BLACKLIST    => '',
-            org_tubepress_options_category_Gallery::FAVORITES_VALUE     => 'mrdeathgod',
-            org_tubepress_options_category_Gallery::PLAYLIST_VALUE      => 'D2B04665B213AE35',
-            org_tubepress_options_category_Gallery::TAG_VALUE           => 'stewart daily show',
-            org_tubepress_options_category_Gallery::USER_VALUE          => '3hough',
-            org_tubepress_options_category_Feed::CLIENT_KEY             => 'ytapi-EricHough-TubePress-ki6oq9tc-0',
-            org_tubepress_options_category_Feed::DEV_KEY                => 'AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg',
+            org_tubepress_options_category_Advanced::DATEFORMAT            => 'M j, Y',
+            org_tubepress_options_category_Advanced::KEYWORD               => 'tubepress',
+            org_tubepress_options_category_Advanced::VIDEO_BLACKLIST       => '',
+            org_tubepress_options_category_Gallery::FAVORITES_VALUE        => 'mrdeathgod',
+            org_tubepress_options_category_Gallery::PLAYLIST_VALUE         => 'D2B04665B213AE35',
+            org_tubepress_options_category_Gallery::TAG_VALUE              => 'stewart daily show',
+            org_tubepress_options_category_Gallery::USER_VALUE             => '3hough',
+            org_tubepress_options_category_Feed::CLIENT_KEY                => 'ytapi-EricHough-TubePress-ki6oq9tc-0',
+            org_tubepress_options_category_Feed::DEV_KEY                   => 'AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg',
             org_tubepress_options_category_Widget::TITLE                   => 'TubePress',
             org_tubepress_options_category_Widget::TAGSTRING               => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']',
             org_tubepress_options_category_Template::TEMPLATE              => '',
@@ -272,7 +272,7 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
     {
         switch ($optionType) {
             case org_tubepress_options_Type::PLAYER:
-                return array('normal', 'popup','shadowbox','jqmodal', 'youtube', 'static');
+                return array('normal', 'popup','shadowbox','jqmodal', 'youtube', 'static', 'solo');
             case org_tubepress_options_Type::ORDER:
                 return array('relevance', 'viewCount', 'rating', 'published', 'random', 'position', 'commentCount', 'duration', 'title');
             case org_tubepress_options_Type::MODE:

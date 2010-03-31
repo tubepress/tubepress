@@ -28,14 +28,15 @@ tubepress_load_classes(array('org_tubepress_video_Video'));
  */
 interface org_tubepress_player_Player
 {
-    const NORMAL      = "normal";
-    const POPUP       = "popup";
-    const SHADOWBOX   = "shadowbox";
+    const NORMAL      = 'normal';
+    const POPUP       = 'popup';
+    const SHADOWBOX   = 'shadowbox';
     const JQMODAL     = 'jqmodal';
-    const YOUTUBE     = "youtube";
+    const YOUTUBE     = 'youtube';
     const TINYBOX     = 'tinybox';
     const FANCYBOX    = 'fancybox';
     const STATICC     = 'static';
+    const SOLO        = 'solo';
     
     public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId);
 }

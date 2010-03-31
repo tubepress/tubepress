@@ -332,6 +332,9 @@ msgstr ""
 msgid "statically (page refreshes on each thumbnail click)"
 msgstr ""
 
+msgid "in a new window on its own"
+msgstr ""
+
 msgid "relevance"
 msgstr ""
 
