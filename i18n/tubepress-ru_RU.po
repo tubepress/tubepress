@@ -257,12 +257,6 @@ msgstr "Перемешать миниатюры"
 msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized"
 msgstr "Большинство видео сопровождаются несколькими эскизами. При выборе этой опции, при каждом новом просмотре галереи, миниатюры для таких видео будут выбираться случайным образом из списка."
 
-msgid "YouTube API Client ID"
-msgstr "ID клиента YouTube API"
-
-msgid "YouTube will use this client ID for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing."
-msgstr "YouTube будет использовать этот идентификатор клиента для протоколирования и отладки, если вы столкнетесь с проблемой, связанной с их сервисом. Вы можете зарегистрировать новый идентификатор клиента <a href=\"http://code.google.com/apis/youtube/dashboard/\"> здесь </a>. Не изменяйте его, если вы не знаете, зачем это нужно."
-
 msgid "YouTube API Developer Key"
 msgstr "Ключ разработчика YouTube API"
 

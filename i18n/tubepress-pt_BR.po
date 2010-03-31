@@ -263,12 +263,6 @@ msgstr "Mostrar miniaturas aleatoriamente"
 msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized"
 msgstr "A maioria dos vídeos vêm com várias miniaturas. Ao selecionar esta opção, cada vez que alguém vir sua galeria verá os mesmos vídeos com cada miniatura aleatória"
 
-msgid "YouTube API Client ID"
-msgstr "ID do cliente da API do YouTube  "
-
-msgid "YouTube will use this client ID for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing."
-msgstr "O YouTube usará essa ID de cliente para login e depuração se você tiver algum problema com o serviço deles. Você pode registrar uma nova ID de cliente <a href=\"http://code.google.com/apis/youtube/dashboard/\"> aqui</a>. Não mude isto a menos que você saiba o que está fazendo."
-
 msgid "YouTube API Developer Key"
 msgstr "Chave de desenvolvedor de API do YouTube"
 

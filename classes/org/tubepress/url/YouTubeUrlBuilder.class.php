@@ -124,8 +124,6 @@ class org_tubepress_url_YouTubeUrlBuilder implements org_tubepress_url_UrlBuilde
     private function _commonUrlPostProcessing(net_php_pear_Net_URL2 $url)
     {
         $url->setQueryVariable('v', 2);
-        /* YouTube API client ID and developer keys */
-        $url->setQueryVariable('client', $this->_tpom->get(org_tubepress_options_category_Feed::CLIENT_KEY));
         $url->setQueryVariable('key', $this->_tpom->get(org_tubepress_options_category_Feed::DEV_KEY));
     }
 

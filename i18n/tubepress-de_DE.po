@@ -232,12 +232,6 @@ msgstr "Zuf&auml;llige Vorschaubilder"
 msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized"
 msgstr "Die meisten Videos besitzen mehrere Vorschaubilder. Durch Setzen dieser Option wird bei jedem Anzeigen ein zuf&auml;lliges Vorschaubild f&uuml;r ein Video angezeigt."
 
-msgid "YouTube API Client ID"
-msgstr "YouTube API Client ID"
-
-msgid "YouTube will use this client ID for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing."
-msgstr "YouTube benutzt diese ID bei einem Problem f&uuml;r Protokoll und Debug Zwecke. Sie k&ouml;nnen sich <a href=\"http://code.google.com/apis/youtube/dashboard/\">hier</a> registrieren und eine neue Client ID und einen neuen Developer Key beantragen. &Auml;ndern sie diese Einstellung nicht ausser Sie wissen was Sie tun."
-
 msgid "YouTube API Developer Key"
 msgstr "YouTube API Developer Key"
 

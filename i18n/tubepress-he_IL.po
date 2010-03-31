@@ -257,12 +257,6 @@ msgstr "תצוגת תמונות ממוזערות באקראי"
 msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized"
 msgstr "רוב קטעי הוידאו מגיעים עם כמה תמונות ממוזערות. ידי בחירה באפשרות זו, בכל פעם שמישהו צופה גלריית הם יראו את אותו קטעי וידאו עם כל התמונות שלך באקראי"
 
-msgid "YouTube API Client ID"
-msgstr "מזהה לקוח API למפתחים ב YouTube "
-
-msgid "YouTube will use this client ID for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing."
-msgstr "YouTube ישתמשו במזהה הלקוח לרישום באגים אם אתה נתקל בבעיה. אתה יכול להרשם כמזהה לקוח חדש <a href=\"http://code.google.com/apis/youtube/dashboard/\">כאן</ a>. אל תשנה את זה אלא אם כן אתה יודע מה אתה עושה."
-
 msgid "YouTube API Developer Key"
 msgstr "מפתח API למפתחים ב YouTube "
 
