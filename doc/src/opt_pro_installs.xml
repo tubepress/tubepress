@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appendix id="optional-pro-installations">
+    <title>Optional TubePress Pro Installations</title>
+    <para>Due to licensing restrictions, TubePress Pro does not ship with every
+        library that the free WordPress plugin includes. However, it's very
+        easy
+        to install these optional libraries manually. This section provides
+        installation instructions.</para>
+    <section id="shadowbox-pro-installation">
+        <title>ShadowBox</title>
+        <orderedlist>
+            <listitem>
+                <para>
+                    Download ShadowBox from
+                    <ulink url="http://www.shadowbox-js.com/download.html">here</ulink>
+                    . It will save to a file
+                    named something like
+                    <code>shadowbox-build-3.0rc1.zip</code>
+                    .
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Unzip this file. It will expand into a directory named
+                    <code>shadowbox-build-3.0rc1</code>
+                    .
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Copy the
+                    <emphasis>contents</emphasis>
+                    of this directory (not the directory itself) to your
+                    TubePress Pro installation at
+                    <code>tubepress_pro_1_9_0/ui/players/shadowbox/lib/</code>
+                    .
+                </para>
+            </listitem>
+        </orderedlist>
+    </section>
+    <section id="flv-media-player-pro-installation">
+        <title>JW FLV Media Player</title>
+        <orderedlist>
+            <listitem>
+                <para>
+                    Download the JW FLV Media Player from
+                    <ulink url="http://www.longtailvideo.com/players/jw-flv-player/">here</ulink>
+                    . It will
+                    save to a file named something like
+                    <code>mediaplayer.zip</code>
+                    .
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Unzip this file. It will expand into a directory named
+                    <code>mediaplayer</code>
+                    .
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Copy the
+                    <emphasis>contents</emphasis>
+                    of this directory (not the directory itself) to your
+                    TubePress Pro installation at
+                    <code>tubepress_pro_1_9_0/ui/embedded_flash/longtail/lib/</code>
+                    .
+                </para>
+            </listitem>
+        </orderedlist>
+    </section>
+</appendix>

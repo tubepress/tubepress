@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="upgrading">
+    <title>Upgrading</title>
+    <para>
+        Users of the free WordPress plugin can always grab the latest version of
+        TubePress by following the instructions in the <link linkend="download">download section</link>
+        . TubePress Pro users have free lifetime upgrades. To get the latest
+        version of TubePress Pro, just use the download link that was sent to your after your
+        purchase. If you lost the link, please just email me and I'll resend it to you.
+    </para>
+    <section id="upgrading-wordpress">
+        <title>WordPress (Free and Pro versions)</title>
+        <orderedlist>
+            <listitem>
+                <para>
+                    Remove your existing TubePress install directory (<code>wp-content/plugins/tubepress</code>
+                    or <code>wp-content/plugins/tubepress_pro_1_9_0</code>)
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Unzip the latest version of TubePress into (<code>wp-content/plugins</code>)
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Visit <code>Site Admin > Settings > TubePress</code> once initialize your options
+                </para>
+            </listitem>
+        </orderedlist>
+        <section id="init-options">
+            <title>Initialize Options</title>
+            <simpara>
+                If you'd like to reset your TubePress options to their default values,
+                you can do so by using a special page nested inside the plugin.
+            </simpara>
+            <para>
+                If your blog URL is <code>http://myblog.com</code> you'd need to navigate to
+                <code>http://myblog.com/wp-content/plugins/tubepress/env/WordPress/functions/db_nuke.php</code>
+                with your web browser. Once there, you can just click the <code>Reset TubePress Options</code>
+                button. Of course, you'll need to be a WordPress administrator (access level 9) for your blog to
+                do this.
+            </para>
+        </section>
+    </section>
+    <section id="pro-upgrade">
+        <title>Standalone PHP (Pro version only)</title>
+        <para>
+            To upgrade TubePress Pro in a stadalone PHP environment, simply
+            repeat the <link linkend="pro-installation">TubePress Pro installation</link>
+            procedure with the latest copy of TubePress Pro. Then you'll simply
+            need to change your <code>tubepress_base_url</code> and the inclusion
+            of <code>tubepress-pro.php</code> to point to the new install location.
+        </para>
+    </section>
+</chapter>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preface>
+    <title>Introduction</title>
+    <para>
+        <application>TubePress</application>
+        is a PHP library that displays beautiful videos and galleries in
+        your web site. It's highly configurable and easy to use. Check out a
+        demo gallery <ulink url="http://tubepress.org/demo">here</ulink>.
+    </para>
+    <para>
+        There are two different <application>TubePress</application>
+        packages available, both of which are open-sourced under the
+        <ulink url="http://www.gnu.org/copyleft/gpl.html">GPLv3</ulink>.
+        <orderedlist>
+            <listitem>
+                <para>
+                    A <application>WordPress</application> plugin (free!)
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <application>TubePress Pro (only $10)</application>
+                    <itemizedlist>
+                        <listitem>
+                            <simpara>All the features of the WordPress plugin</simpara>
+                        </listitem>
+                        <listitem>
+                            <simpara>A stand-alone PHP5 library</simpara>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                A bunch of very cool <ulink url="http://tubepress.org/features">extra features</ulink>!
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+        </orderedlist>
+    </para>
+    <section id="acknowledgements">
+        <title>Acknowledgments</title>
+        <simpara>
+            The following individuals have contributed code or other resources
+            to this project. Thank you for your efforts!
+        </simpara>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <ulink url="http://gadgetguru.co.il">Yaron Ofer</ulink> for Hebrew translations
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <ulink url="http://luisfok.com">Luis Fok</ulink> for Spanish translations
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <ulink url="http://www.lochgelly.org.uk/">James G</ulink>
+                    for improving the reliability of the WordPress widget
+                    control panel
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <ulink url="http://gidibao.net/">Gianni Diurno</ulink> for Italian translations
+                </para>
+            </listitem>
+            <listitem>
+                <simpara>Pascal Berger for German translations</simpara>
+            </listitem>
+            <listitem>
+                <para>
+                    <ulink url="http://www.mishkin.se/">Mikael Jorhult</ulink> for Swedish translations
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <ulink url="http://eightbits.org">Matt Doyle</ulink> for work on parsing TubePress shortcodes
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <ulink url="http://www.tecsite.com.br/">Miriam de Paula</ulink> for Portugese translations
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+</preface>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="contributing">
+    <title>Contributing</title>
+    <section id="submitting-patches">
+        <title>Submitting Patches</title>
+        <para>
+            Patches are always welcome! You'll receive full credit for your contribution, of
+            course. Here's how to submit
+            </para>
+        <orderedlist>
+            <listitem>
+                <para>
+                    <link linkend="subversion">Checkout the trunk version of TubePress
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>Generate your patch against it</para>
+            </listitem>
+            <listitem>
+                <para>
+                    Submit your patch as an attachment to a new issue
+                    at
+                    <ulink url="http://code.google.com/p/tubepress/issues/list">http://code.google.com/p/tubepress/issues/list
+                    </ulink>
+                </para>
+            </listitem>
+        </orderedlist>
+    </section>
+    <section id="i18n">
+        <title>I18N</title>
+        <para>
+            TubePress can be translated into any language using the
+            <ulink url="http://www.gnu.org/software/gettext/">gettext framework</ulink>
+            . To submit a translation...
+        </para>
+        <orderedlist>
+            <listitem>
+                <para>
+                    Translate the words/phrases in
+                    <ulink
+                        url="http://tubepress.googlecode.com/svn/trunk/i18n/tubepress.pot">this file</ulink>
+                    from English to your native language
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Attach the translated file as an attachment to a
+                    <link linkend="open-an-issue">new issue</link>
+                    . Please be sure to note your
+                    <ulink
+                        url="http://www.iso.org/iso/country_codes/iso_3166_code_lists/english_country_names_and_code_elements.htm">two-digit country code</ulink>
+                    and your
+                    <ulink
+                        url="http://www.loc.gov/standards/iso639-2/php/code_list.php">two-digit language code</ulink>
+                    .
+                </para>
+            </listitem>
+        </orderedlist>
+        <para>
+            You will, of course, receive full credit for your contribution to an
+            open source project! If you're interested in the
+            gory details of how it works, I highly recommend reading
+            <ulink url="http://codex.wordpress.org/Translating_WordPress">WordPress's excellent i18n documentation</ulink>
+            .
+        </para>
+    </section>
+    <section id="donate">
+        <title>Donate</title>
+        <para>TubePress is an open source project. I've spent many long
+            nights working on this project. If you enjoy the software, please consider a
+            donation. No amount is too small. Thank you!</para>
+    </section>
+</chapter>
