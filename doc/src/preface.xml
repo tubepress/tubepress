@@ -19,13 +19,13 @@
             </listitem>
             <listitem>
                 <para>
-                    <application>TubePress Pro (only $10)</application>
+                    <para><application>TubePress Pro (only $10)</application></para>
                     <itemizedlist>
                         <listitem>
-                            <simpara>All the features of the WordPress plugin</simpara>
+                            <para>All the features of the WordPress plugin</para>
                         </listitem>
                         <listitem>
-                            <simpara>A stand-alone PHP5 library</simpara>
+                            <para>A stand-alone PHP5 library</para>
                         </listitem>
                         <listitem>
                             <para>
@@ -39,10 +39,10 @@
     </para>
     <section id="acknowledgements">
         <title>Acknowledgments</title>
-        <simpara>
+        <para>
             The following individuals have contributed code or other resources
             to this project. Thank you for your efforts!
-        </simpara>
+        </para>
         <itemizedlist>
             <listitem>
                 <para>
@@ -67,7 +67,7 @@
                 </para>
             </listitem>
             <listitem>
-                <simpara>Pascal Berger for German translations</simpara>
+                <para>Pascal Berger for German translations</para>
             </listitem>
             <listitem>
                 <para>
@@ -82,6 +82,11 @@
             <listitem>
                 <para>
                     <ulink url="http://www.tecsite.com.br/">Miriam de Paula</ulink> for Portugese translations
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <ulink url="http://wolforg.eu/">Wolforg</ulink> for French translations
                 </para>
             </listitem>
         </itemizedlist>
