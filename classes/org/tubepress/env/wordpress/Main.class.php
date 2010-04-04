@@ -70,41 +70,21 @@ class org_tubepress_env_wordpress_Main
         /* Get a handle to the shortcode service */
         $shortcodeService = $iocContainer->get(org_tubepress_ioc_IocService::SHORTCODE_SERVICE);
 
-         /* Make a copy of the content that we'll edit */
-        $newcontent = $content;
-
         /* Parse each shortcode one at a time */
-        while ($shortcodeService->somethingToParse($newcontent, $trigger)) {
+        while ($shortcodeService->somethingToParse($content, $trigger) && $x < 10) {
 
-            $shortcodeService->parse($newcontent, $tpom);
-            $currentShortcode = $tpom->getShortcode();
-
-            if ($tpom->get(org_tubepress_options_category_Gallery::VIDEO) != '') {
-                $videoId = $tpom->get(org_tubepress_options_category_Gallery::VIDEO);
-                $log->log('WordPress Main', 'Building single video with ID %s', $videoId);
-                if (!isset($singleVideoGenerator)) {
-                    $singleVideoGenerator = $iocContainer->get(org_tubepress_ioc_IocService::SINGLE_VIDEO);
-                }
-                $generatedHtml = $singleVideoGenerator->getSingleVideoHtml($videoId);
-            } else {
-                $rand = mt_rand();
-                $log->log('WordPress Main', 'Starting to build gallery %s', $rand);
-
-                if (!isset($gallery)) {
-                    $gallery = $iocContainer->get(org_tubepress_ioc_IocService::GALLERY);
-                }
-
-                $generatedHtml = $gallery->getHtml($rand);
-            }
-
-            /* remove any leading/trailing <p> tags from the shortcode */
-            $pattern = '/(<[P|p]>\s*)(' . preg_quote($currentShortcode, '/') . ')(\s*<\/[P|p]>)/';
-            $newcontent = preg_replace($pattern, '${2}', $newcontent); 
+            /* Get the HTML for this particular shortcode. Could be a single video or a gallery. */
+            $generatedHtml = $shortcodeService->getHtml($content, $iocContainer);
+            
+            /* remove any leading/trailing <p> tags from the content */
+            $pattern = '/(<[P|p]>\s*)(' . preg_quote($tpom->getShortcode(), '/') . ')(\s*<\/[P|p]>)/';
+            $content = preg_replace($pattern, '${2}', $content); 
 
             /* replace the shortcode with our new content */
-            $newcontent = org_tubepress_util_StringUtils::replaceFirst($currentShortcode, $generatedHtml, $newcontent);
+            $currentShortcode = $tpom->getShortcode();
+            $content = org_tubepress_util_StringUtils::replaceFirst($currentShortcode, $generatedHtml, $content);
         }
-        return $newcontent;
+        return $content;
     }
 
     public static function headAction()

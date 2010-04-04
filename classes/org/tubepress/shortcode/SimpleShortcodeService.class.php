@@ -127,15 +127,28 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
         return strpos($content, '[' . $trigger) !== false;
     }
     
-    public function setLog(org_tubepress_log_Log $log)
+    public function getHtml($shortCodeContent, org_tubepress_ioc_IocService $iocService)
     {
-        $this->_log = $log;
+    	$tpom = $iocService->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+    	$log  = $iocService->get(org_tubepress_ioc_IocService::LOG);
+    	
+    	$this->parse($shortCodeContent, $tpom);
+
+        if ($tpom->get(org_tubepress_options_category_Gallery::VIDEO) != '') {
+            $videoId = $tpom->get(org_tubepress_options_category_Gallery::VIDEO);
+            $log->log('WordPress Main', 'Building single video with ID %s', $videoId);
+            $singleVideoGenerator = $iocContainer->get(org_tubepress_ioc_IocService::SINGLE_VIDEO);
+            return $singleVideoGenerator->getSingleVideoHtml($videoId);
+        } else {
+            $rand = mt_rand();
+            $log->log('WordPress Main', 'Starting to build gallery %s', $rand);
+            $gallery = $iocService->get(org_tubepress_ioc_IocService::GALLERY);
+            return $gallery->getHtml($rand);
+        }
     }
     
-    public function setInputValidationService(org_tubepress_options_validation_InputValidationService $service)
-    {
-        $this->_inputValidationService = $service;
-    }
+    public function setLog(org_tubepress_log_Log $log) { $this->_log = $log; }
+    public function setInputValidationService(org_tubepress_options_validation_InputValidationService $service) { $this->_inputValidationService = $service; }
     
     private function _applyOptions($tpom, $opts, $merge)
     {

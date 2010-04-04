@@ -21,7 +21,8 @@
 
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager'));
+tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
+	'org_tubepress_ioc_IocService'));
 
 /**
  * Handles some tasks related to TubePress shortcodes
@@ -39,5 +40,7 @@ interface org_tubepress_shortcode_ShortcodeService
     public function parse($content, org_tubepress_options_manager_OptionsManager $tpom);
 
     public function somethingToParse($content, $trigger = "tubepress");
+    
+    public function getHtml($shortCodeContent, org_tubepress_ioc_IocService $iocService);
 }
 
