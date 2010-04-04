@@ -162,6 +162,7 @@ dd.tubepress_meta_url {
 div.tubepress_single_video {
     float: left;	
     width: 100%;
+    text-align: left;
 }
 
 div.tubepress_single_video dd.tubepress_meta_description {
