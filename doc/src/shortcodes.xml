@@ -459,6 +459,20 @@
                                 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                             </entry>
                         </row>
+                         <row>
+                            <entry>
+                                <code>randomize_thumbnails</code>
+                            </entry>
+                            <entry>Randomize thumbnail selection for each video
+                                (each video comes with several thumbnails)</entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
+                            <entry>
+                                <code>[tubepress randomize_thumbnails="false"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            </entry>
+                        </row>
                         <row>
                             <entry>
                                 <code>relativeDates</code>
@@ -550,14 +564,13 @@
             </para>
             <table pgwide="1" frame="none">
                 <title>Player Locations</title>
-                <tgroup cols='3' align='left' colsep='0' rowsep='0'>
+                <tgroup cols='4' align='left' colsep='0' rowsep='0'>
                     <thead>
                         <row>
-                            <entry>
-                                <code>playerLocation</code> Value
-                            </entry>
+                            <entry><code>playerLocation</code> Value</entry>
                             <entry>Description</entry>
                             <entry>Example</entry>
+                            <entry>Applies to...</entry>
                         </row>
                     </thead>
                     <tbody>
@@ -573,6 +586,10 @@
                                 <code>[tubepress playerLocation="fancybox"]
                                 </code>
                             </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                            </entry>
                         </row>
                         <row>
                             <entry>
@@ -585,6 +602,10 @@
                                 <code>[tubepress playerLocation="jqModal"]
                                 </code>
                             </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                            </entry>
                         </row>
                         <row>
                             <entry>
@@ -592,14 +613,12 @@
                             </entry>
                             <entry>
                                 <para>
-                                    Plays videos in an embedded Flash player
-                                    above the video thumbnails. If you'd like the page to load with a specific
-                                    video at the top of the gallery, just add the video's ID to
+                                    Plays videos in an embedded Flash player above the video thumbnails. If you'd 
+                                    like the page to load with a specific video at the top of the gallery, just add the video's ID to
                                     the address of you gallery as the <code>tubepress_video</code> parameter.
                                 </para>
                                 <para>
-                                    For instance, given a gallery with a URL of
-                                    <code>http://mygallery.com</code>,
+                                    For instance, given a gallery with a URL of <code>http://mygallery.com</code>,
                                     navigating to <code>http://mygallery.com?tubepress_video=CNo7Hm0IOag</code>
                                     would start the gallery with the video with ID <code>CNo7Hm0IOag</code>
                                     in the embedded player.
@@ -607,6 +626,10 @@
                             </entry>
                             <entry>
                                 <code>[tubepress playerLocation="normal"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                             </entry>
                         </row>
                         <row>
@@ -616,6 +639,10 @@
                             <entry>Plays videos in an HTML popup window</entry>
                             <entry>
                                 <code>[tubepress playerLocation="popup"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                             </entry>
                         </row>
                         <row>
@@ -627,6 +654,10 @@
                             </entry>
                             <entry>
                                 <code>[tubepress playerLocation="shadowbox"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                             </entry>
                         </row>
                         <row>
@@ -642,6 +673,10 @@
                             <entry>
                                 <code>[tubepress playerLocation="static"]</code>
                             </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                            </entry>
                         </row>
                         <row>
                             <entry>
@@ -654,15 +689,32 @@
                             <entry>
                                 <code>[tubepress playerLocation="tinybox"]</code>
                             </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <code>vimeo</code>
+                            </entry>
+                            <entry>Redirects to the video's original Vimeo page.</entry>
+                            <entry>
+                                <code>[tubepress playerLocation="vimeo"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                            </entry>
                         </row>
                         <row>
                             <entry>
                                 <code>youtube</code>
                             </entry>
-                            <entry>Redirects to the video's original YouTube page</entry>
+                            <entry>Redirects to the video's original YouTube page.</entry>
                             <entry>
                                 <code>[tubepress playerLocation="youtube"]</code>
                             </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" /></entry>
                         </row>
                     </tbody>
                 </tgroup>
@@ -672,14 +724,14 @@
             <title>Video Sort Order</title>
             <para>
                 The sorting capabilities of TubePress are limited by the
-                providers of the videos (e.g. YouTube). Sorting functionality
+                providers of the videos (e.g. YouTube or Vimeo). Sorting functionality
                 can be quirky, and there are some limitations. Below are the
                 shortcodes, all based on the <code>orderBy</code> attribute,
                 that control the video sort order.
             </para>
             <table pgwide="1" frame="none">
                 <title>Video Sort Order</title>
-                <tgroup cols='4' align='left' colsep='0' rowsep='0'>
+                <tgroup cols='5' align='left' colsep='0' rowsep='0'>
                     <thead>
                         <row>
                             <entry>
@@ -688,6 +740,7 @@
                             <entry>Description</entry>
                             <entry>Notes</entry>
                             <entry>Example</entry>
+                            <entry>Applies to...</entry>
                         </row>
                     </thead>
                     <tbody>
@@ -696,10 +749,11 @@
                                 <code>published</code>
                             </entry>
                             <entry>Show videos in the order they were published</entry>
-                            <entry>YouTube galleries will show more-recentvideos first</entry>
+                            <entry>Will show more-recent videos first</entry>
                             <entry>
                                 <code>[tubepress orderBy="published"]</code>
                             </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" /></entry>
                         </row>
                         <row>
                             <entry>
@@ -711,16 +765,23 @@
                             <entry>
                                 <code>[tubepress orderBy="viewCount"]</code>
                             </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                            </entry>
                         </row>
                         <row>
                             <entry>
                                 <code>rating</code>
                             </entry>
                             <entry>Shows videos in order of their rating</entry>
-                            <entry>YouTube galleries will show higher-rated
-                                videos first. Does not apply to YouTube playlists.</entry>
+                            <entry>YouTube galleries will show higher-rated videos first. Does not apply to YouTube playlists.</entry>
                             <entry>
                                 <code>[tubepress orderBy="rating"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                             </entry>
                         </row>
                         <row>
@@ -729,24 +790,30 @@
                             </entry>
                             <entry>Shows videos in order of relevance</entry>
                             <entry>
-                                Only applies to YouTube <code>tag</code> galleries
+                                Only applies to YouTube <code>tag</code> and Vimeo <code>search</code> galleries
                             </entry>
                             <entry>
                                 <code>[tubepress orderBy="relevance"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                             </entry>
                         </row>
                         <row>
                             <entry>
                                 <code>random</code>
                             </entry>
-                            <entry>Shuffles videos for a given gallery page</entry>
-                            <entry>Will only randomize the order for a single
-                                gallery page. e.g. If you have a gallery with a
-                                total of 500 videos,
-                                with 20 videos per page, only 20 videos at a time will be shuffled. This is
-                                a restriction on YouTube's end.</entry>
+                            <entry>Shuffles videos</entry>
+                            <entry>Will only randomize the order for a single gallery page. e.g. If you have a gallery with a
+                                total of 500 videos, with 20 videos per page, only 20 videos at a time will be shuffled. This is
+                                a restriction on YouTube's end. For Vimeo, only applies to <code>vimeoGroup</code> galleries.</entry>
                             <entry>
                                 <code>[tubepress orderBy="random"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                             </entry>
                         </row>
                         <row>
@@ -760,6 +827,9 @@
                             <entry>
                                 <code>[tubepress orderBy="position"]</code>
                             </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            </entry>
                         </row>
                         <row>
                             <entry>
@@ -767,11 +837,15 @@
                             </entry>
                             <entry>Shows videos in order of comment count</entry>
                             <entry>
-                                Only applies to YouTube <code>playlist</code>
+                                For YouTube, only applies to <code>playlist</code>
                                 galleries. Shows most-commented to least-commented.
                             </entry>
                             <entry>
                                 <code>[tubepress orderBy="commentCount"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                             </entry>
                         </row>
                         <row>
@@ -786,6 +860,9 @@
                             <entry>
                                 <code>[tubepress orderBy="duration"]</code>
                             </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            </entry>
                         </row>
                         <row>
                             <entry>
@@ -798,6 +875,35 @@
                             <entry>
                                 <code>[tubepress orderBy="title"]</code>
                             </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <code>newest</code>
+                            </entry>
+                            <entry>Shows video in they order they were published. Newest first.</entry>
+                            <entry></entry>
+                            <entry>
+                                <code>[tubepress orderBy="newest"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <code>newest</code>
+                            </entry>
+                            <entry>Shows video in they order they were published. Oldest first.</entry>
+                            <entry></entry>
+                            <entry>
+                                <code>[tubepress orderBy="oldest"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                            </entry>
                         </row>
                     </tbody>
                 </tgroup>
@@ -807,15 +913,21 @@
                 <itemizedlist>
                     <listitem>
                         <para>
-                            A gallery of a user's favorite videos (<code>mode="favorites"</code>) 
+                            A YouTube gallery of a user's favorite videos (<code>mode="favorites"</code>) 
                             will always be sorted in the order that the videos were favorited.
                         </para>
                     </listitem>
                     <listitem>
                         <para>
-                            A playlist gallery (<code>mode="playlist"</code>) 
+                            A YouTube playlist gallery (<code>mode="playlist"</code>) 
                             will always be sorted in the order that the videos appear in the playlist
                         </para>
+                    </listitem>
+                    <listitem>
+                        <para>Vimeo album galleries (<code>mode="vimeoAlbum"</code>)</para>
+                    </listitem>
+                    <listitem>
+                        <para>Vimeo channel galleries (<code>mode="vimeoChannel"</code>)</para>
                     </listitem>
                 </itemizedlist>
             </note>
@@ -828,13 +940,14 @@
         </para>
         <table pgwide="1" frame="none">
             <title>Embedded Player Shortcodes</title>
-            <tgroup cols='4' align='left' colsep='0' rowsep='0'>
+            <tgroup cols='5' align='left' colsep='0' rowsep='0'>
                 <thead>
                     <row>
                         <entry>Setting</entry>
                         <entry>Description</entry>
                         <entry>Valid Values</entry>
                         <entry>Example</entry>
+                        <entry>Applies to...</entry>
                     </row>
                 </thead>
                 <tbody>
@@ -847,6 +960,10 @@
                         <entry>
                             <code>[tubepress autoplay="true"]</code>
                         </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                        </entry>
                     </row>
                     <row>
                         <entry>
@@ -857,6 +974,9 @@
                         <entry>
                             <code>[tubepress border="true"]</code>
                         </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                        </entry>
                     </row>
                     <row>
                         <entry>
@@ -866,6 +986,10 @@
                         <entry>Any positive integer</entry>
                         <entry>
                             <code>[tubepress embeddedHeight="true"]</code>
+                        </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                         </entry>
                     </row>
                     <row>
@@ -878,6 +1002,10 @@
                         <entry>
                             <code>[tubepress embeddedWidth="true"]</code>
                         </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                        </entry>
                     </row>
                     <row>
                         <entry>
@@ -887,6 +1015,10 @@
                         <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress fullscreen="true"]</code>
+                        </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                         </entry>
                     </row>
                     <row>
@@ -899,6 +1031,9 @@
                         <entry>
                             <code>[tubepress genie="true"]</code>
                         </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                        </entry>
                     </row>
                     <row>
                         <entry>
@@ -909,6 +1044,9 @@
                         <entry>
                             <code>[tubepress hd="true"]</code>
                         </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                        </entry>
                     </row>
                     <row>
                         <entry>
@@ -918,6 +1056,9 @@
                         <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress loop="true"]</code>
+                        </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
                         </entry>
                     </row>
                     <row>
@@ -932,17 +1073,19 @@
                             <code>[tubepress playerColor="0xffaabb/0xaa2233"]
                             </code>
                         </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                        </entry>
                     </row>
                     <row>
                         <entry>
                             <code>playerImplementation</code>
                         </entry>
                         <entry>
-                            Choose vendor of embedded Flash player. Current
-                            choices are the standard YouTube player, or the
-                            <ulink
-                                url="http://www.longtailvideo.com/players/jw-flv-player/">JW FLV Media Player</ulink>
-                            from LongTail.
+                            Choose vendor of embedded Flash player. Choose from the provider implementation (YouTube, Vimeo, etc), or the
+                            <ulink url="http://www.longtailvideo.com/players/jw-flv-player/">JW FLV Media Player</ulink>
+                            from LongTail (for YouTube only).
                         </entry>
                         <entry>
                             <itemizedlist>
@@ -962,6 +1105,10 @@
                             <code>[tubepress playerImplementation="longtail"]
                             </code>
                         </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                        </entry>
                     </row>
                     <row>
                         <entry>
@@ -972,6 +1119,10 @@
                         <entry>
                             <code>[tubepress showInfo="true"]</code>
                         </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                        </entry>
                     </row>
                     <row>
                         <entry>
@@ -981,6 +1132,9 @@
                         <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress showRelated="true"]</code>
+                        </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
                         </entry>
                     </row>
                 </tbody>
@@ -994,13 +1148,14 @@
         </para>
         <table pgwide="1" frame="none">
             <title>Video Meta Display </title>
-            <tgroup cols='4' align='left' colsep='0' rowsep='0'>
+            <tgroup cols='5' align='left' colsep='0' rowsep='0'>
                 <thead>
                     <row>
                         <entry>Setting</entry>
                         <entry>Description</entry>
                         <entry>Valid Values</entry>
                         <entry>Example</entry>
+                        <entry>Applies to...</entry>
                     </row>
                 </thead>
                 <tbody>
@@ -1013,6 +1168,10 @@
                         <entry>
                             <code>[tubepress author="true"]</code>
                         </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                        </entry>
                     </row>
                     <row>
                         <entry>
@@ -1022,6 +1181,10 @@
                         <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress category="false"]</code>
+                        </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                         </entry>
                     </row>
                     <row>
@@ -1033,6 +1196,10 @@
                         <entry>
                             <code>[tubepress description="false"]</code>
                         </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                        </entry>
                     </row>
                     <row>
                         <entry>
@@ -1042,6 +1209,10 @@
                         <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress id="true"]</code>
+                        </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                         </entry>
                     </row>
                     <row>
@@ -1053,6 +1224,23 @@
                         <entry>
                             <code>[tubepress length="false"]</code>
                         </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                        </entry>
+                    </row>
+                    <row>
+                        <entry>
+                            <code>likes</code>
+                        </entry>
+                        <entry>Display Vimeo "likes" count</entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
+                        <entry>
+                            <code>[tubepress likes="true"]</code>
+                        </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                        </entry>
                     </row>
                     <row>
                         <entry>
@@ -1062,6 +1250,9 @@
                         <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress rating="true"]</code>
+                        </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
                         </entry>
                     </row>
                     <row>
@@ -1073,6 +1264,9 @@
                         <entry>
                             <code>[tubepress ratings="true"]</code>
                         </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                        </entry>
                     </row>
                     <row>
                         <entry>
@@ -1082,6 +1276,10 @@
                         <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress tags="false"]</code>
+                        </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                         </entry>
                     </row>
                     <row>
@@ -1093,6 +1291,10 @@
                         <entry>
                             <code>[tubepress title="true"]</code>
                         </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                        </entry>
                     </row>
                     <row>
                         <entry>
@@ -1102,6 +1304,10 @@
                         <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress uploaded="false"]</code>
+                        </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                         </entry>
                     </row>
                     <row>
@@ -1113,6 +1319,10 @@
                         <entry>
                             <code>[tubepress url="false"]</code>
                         </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                        </entry>
                     </row>
                     <row>
                         <entry>
@@ -1123,6 +1333,10 @@
                         <entry>
                             <code>[tubepress views="true"]</code>
                         </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                        </entry>
                     </row>
                 </tbody>
             </tgroup>
@@ -1130,16 +1344,17 @@
     </section>
     <section id="feed-shortcodes">
         <title>Video Feed</title>
-        <para>These shortcodes control how TubePress interacts with content providers (e.g. YouTube)</para>
+        <para>These shortcodes control how TubePress interacts with content providers (e.g. YouTube, Vimeo)</para>
         <table pgwide="1" frame="none">
             <title>Video Feed Shortcodes</title>
-            <tgroup cols='4' align='left' colsep='0' rowsep='0'>
+            <tgroup cols='5' align='left' colsep='0' rowsep='0'>
                 <thead>
                     <row>
                         <entry>Setting</entry>
                         <entry>Description</entry>
                         <entry>Valid Values</entry>
                         <entry>Example</entry>
+                        <entry>Applies to...</entry>
                     </row>
                 </thead>
                 <tbody>
@@ -1152,6 +1367,10 @@
                         <entry>
                             <code>[tubepress cacheEnabled="false"]</code>
                         </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                        </entry>
                     </row>
                     <row>
                         <entry>
@@ -1161,6 +1380,9 @@
                         <entry>Any valid YouTube Developer Key</entry>
                         <entry>
                             <code>[tubepress developerKey="33AEF33BBC344"]</code>
+                        </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
                         </entry>
                     </row>
                     <row>
@@ -1172,6 +1394,9 @@
                         <entry>
                             <code>[tubepress embeddableOnly="true"]</code>
                         </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                        </entry>
                     </row>
                     <row>
                         <entry>
@@ -1181,6 +1406,9 @@
                         <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress filter_racy="true"]</code>
+                        </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
                         </entry>
                     </row>
                     <row>
@@ -1192,6 +1420,10 @@
                             Any integer <code>x</code> such that <code>x &gt;= 0</code>
                         </entry>
                         <entry>This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit.</entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                        </entry>
                     </row>
                 </tbody>
             </tgroup>
@@ -1202,13 +1434,14 @@
         <para>Various features that casual users will not likely need or want to adjust</para>
         <table pgwide="1" frame="none">
             <title>Advanced Shortcodes</title>
-            <tgroup cols='4' align='left' colsep='0' rowsep='0'>
+            <tgroup cols='5' align='left' colsep='0' rowsep='0'>
                 <thead>
                     <row>
                         <entry>Setting</entry>
                         <entry>Description</entry>
                         <entry>Valid Values</entry>
                         <entry>Example</entry>
+                        <entry>Applies to...</entry>
                     </row>
                 </thead>
                 <tbody>
@@ -1226,6 +1459,10 @@
                         <entry>
                             <code>[tubepress dateFormat="l jS \of F Y h:i:s A"]</code>
                         </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                        </entry>
                     </row>
                     <row>
                         <entry>
@@ -1236,17 +1473,23 @@
                         <entry>
                             <code>[tubepress debugging_enabled="false"]</code>
                         </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                        </entry>
                     </row>
                     <row>
                         <entry>
-                            <code>randomize_thumbnails</code>
+                            <code>videoBlacklist</code>
                         </entry>
-                        <entry>Randomize thumbnail selection for each video
-                            (each video comes with several thumbnails)</entry>
+                        <entry>List of video IDs that should never be displayed. Comma-separated works fine.</entry>
                         <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
-                            <code>[tubepress randomize_thumbnails="false"]
-                            </code>
+                            <code>[tubepress videoBlacklist="17jymDn0W6U"]</code>
+                        </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                         </entry>
                     </row>
                 </tbody>
