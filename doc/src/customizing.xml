@@ -125,15 +125,13 @@
                         <link linkend="display-options">template</link>
                     </code>
                     shortcode. For instance
-                    <programlisting>[tubepress
-                        template="my_custom_template.tpl.php"]</programlisting>
+                    <programlisting>[tubepress template="my_custom_template.tpl.php"]</programlisting>
                     would tell TubePress to use the template located at
                     <code>ui/gallery/html_templates/my_custom_template.tpl.php
                     </code>
                     . Or if you're
                     <link linkend="single-videos">embedding a single video</link>
-                    <programlisting>[tubepress video="J51kfduN5aA"
-                        template="my_custom_template.tpl.php"]</programlisting>
+                    <programlisting>[tubepress video="J51kfduN5aA" template="my_custom_template.tpl.php"]</programlisting>
                     would tell TubePress to
                     use the template located at
                     <code>ui/single_video/html_templates/my_custom_template.tpl.php

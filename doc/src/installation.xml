@@ -66,13 +66,13 @@
                 </simpara>
                 <para>
                     As of this writing, the name of the zip file is
-                    <code>tubepress_pro_1_9_0.zip</code>.
+                    <code>tubepress_pro_2_0_0.zip</code>.
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    Unzip the file you just downloaded (<code>tubepress_pro_1_9_0.zip</code>). It will expand
-                    into a directory named <code>tubepress_pro_1_9_0</code>.
+                    Unzip the file you just downloaded (<code>tubepress_pro_2_0_0.zip</code>). It will expand
+                    into a directory named <code>tubepress_pro_2_0_0</code>.
                 </para>
             </listitem>
             <listitem>
@@ -100,19 +100,19 @@
             <title>Standalone PHP</title>
             <para>
                 If you will be using TubePress Pro <emphasis>outside</emphasis>
-                of a WordPress environment, upload the entire <code>tubepress_pro_1_9_0</code>
+                of a WordPress environment, upload the entire <code>tubepress_pro_2_0_0</code>
                 directory to your web server in a place that's <emphasis>web accessible</emphasis>. Make a note of:
             </para>
             <itemizedlist>
                 <listitem>
                     <para>
                         the full path of this directory on your web server's
-                        filesystem (e.g. <code>/var/www/html/myblog.com/lib/tubepress_pro_1_9_0</code>)
+                        filesystem (e.g. <code>/var/www/html/myblog.com/lib/tubepress_pro_2_0_0</code>)
                     </para>
                 </listitem>
                 <listitem>
                     <para>
-                        the web-accessible URL to reach this directory (e.g. <code>http://myblog.com/lib/tubepress_pro_1_9_0</code>)
+                        the web-accessible URL to reach this directory (e.g. <code>http://myblog.com/lib/tubepress_pro_2_0_0</code>)
                     </para>
                 </listitem>
             </itemizedlist>

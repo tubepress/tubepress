@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mediaobject>
+    <imageobject role="fo">
+        <imagedata fileref="images/youtube.png" format="PNG" align="center" />
+    </imageobject>
+    <imageobject role="html">
+        <imagedata fileref="images/youtube.png" format="PNG" align="center" />
+    </imageobject>
+</mediaobject>

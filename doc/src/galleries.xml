@@ -195,9 +195,7 @@
                 <link linkend="shortcodes">TubePress shortcode</link>
                 . Please note that
                 by default, the TubePress widget will use the following shortcode:
-                <programlisting>[tubepress resultsPerPage="3" views="false" description="true" descriptionLimit="50"
-                    playerLocation="popup" thumbHeight="105" thumbWidth="135"
-                    template="sidebar.tpl.php"]</programlisting>
+                <programlisting>[tubepress resultsPerPage="3" views="false" description="true" descriptionLimit="50" playerLocation="popup" thumbHeight="105" thumbWidth="135" template="sidebar.tpl.php"]</programlisting>
             </para>
             <simpara>
                 Of course, like any TubePress shortcode, you can override any setting you like.

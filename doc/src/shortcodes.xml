@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <chapter id="shortcodes">
     <title>TubePress Shortcodes</title>
     <simpara>
@@ -37,9 +38,7 @@
             In TubePress Pro, you can provide shortcode attributes found in
             <xref linkend="shortcode-reference" /> to the <code>tubepressGallery</code>
             function to completely control the behavior of your galleries. e.g.
-            <programlisting language="php">print
-                tubepressGallery("ajaxPagination='true' author='false'");
-            </programlisting>
+            <programlisting language="php">print tubepressGallery("ajaxPagination='true' author='false'");</programlisting>
             Each gallery can be configured completely independently from the
             others, based on the content of the shortcode.
         </para>
@@ -51,13 +50,14 @@
             <para>These shortcodes determine which videos will populate the gallery</para>
             <table pgwide="1" frame="none">
                 <title>Gallery Content Shortcodes</title>
-                <tgroup cols='4' align='left' colsep='0' rowsep='0'>
+                <tgroup cols='5' align='left' colsep='0' rowsep='0'>
                     <thead>
                         <row>
                             <entry>Mode Name</entry>
                             <entry>Description</entry>
                             <entry>Notes</entry>
                             <entry>Example</entry>
+                            <entry>Provider</entry>
                         </row>
                     </thead>
                     <tbody>
@@ -74,6 +74,7 @@
                             <entry>
                                 <code>[tubepress mode="favorites" favoritesValue="3hough"]</code>
                             </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" /> </entry>
                         </row>
                         <row>
                             <entry>
@@ -84,6 +85,7 @@
                             <entry>
                                 <code>[tubepress mode="recently_featured"]</code>
                             </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" /> </entry>
                         </row>
                         <row>
                             <entry>
@@ -94,6 +96,7 @@
                             <entry>
                                 <code>[tubepress mode="most_discussed"]</code>
                             </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" /> </entry>
                         </row>
                         <row>
                             <entry>
@@ -104,40 +107,38 @@
                             <entry>
                                 <code>[tubepress mode="most_linked"]</code>
                             </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" /> </entry>
                         </row>
                         <row>
                             <entry>
                                 <code>most_recent</code>
                             </entry>
-                            <entry>YouTube videos most recently uploaded to
-                                YouTube</entry>
-                            <entry></entry>
+                            <entry> </entry>
+                            <entry> </entry>
                             <entry>
                                 <code>[tubepress mode="most_recent"]</code>
                             </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" /> </entry>
                         </row>
                         <row>
                             <entry>
                                 <code>most_responded</code>
                             </entry>
-                            <entry>YouTube videos with the most video responses
-                            </entry>
+                            <entry>YouTube videos with the most video responses</entry>
                             <entry></entry>
                             <entry>
                                 <code>[tubepress mode="most_responded"]</code>
                             </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" /> </entry>
                         </row>
                         <row>
                             <entry>
-                                <code>playlist</code>
-                                and
-                                <code>playlistValue</code>
+                                <code>playlist</code> and <code>playlistValue</code>
                             </entry>
                             <entry>
                                 Videos from a YouTube playlist. The playlist is
                                 defined by the value you supply to the
-                                <code>playlistValue</code>
-                                attribute.
+                                <code>playlistValue</code> attribute.
                             </entry>
                             <entry>
                                 <itemizedlist>
@@ -145,20 +146,17 @@
                                         <para>Limited to 200 videos</para>
                                     </listitem>
                                     <listitem>
-                                        <para>Only public playlists can be shown
-                                            with TubePress.</para>
+                                        <para>Only public playlists can be shown with TubePress.</para>
                                     </listitem>
                                     <listitem>
-                                        <para>Videos will appear in the order in
-                                            which they were added to the
-                                            playlist.</para>
+                                        <para>Videos will appear in the order in which they were added to the playlist.</para>
                                     </listitem>
                                 </itemizedlist>
                             </entry>
                             <entry>
-                                <code>[tubepress mode="playlist"
-                                    playlistValue="6813408AE8D50E6F"]</code>
+                                <code>[tubepress mode="playlist" playlistValue="6813408AE8D50E6F"]</code>
                             </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" /> </entry>
                         </row>
                         <row>
                             <entry>
@@ -170,44 +168,159 @@
                             <entry>
                                 <code>[tubepress mode="mobile"]</code>
                             </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" /> </entry>
                         </row>
                         <row>
                             <entry>
-                                <code>tag</code>
-                                and
-                                <code>tagValue</code>
+                                <code>tag</code> and <code>tagValue</code>
                             </entry>
                             <entry>
                                 YouTube videos matching a search term. The
-                                search term is defined by
-                                the value you supply to the
-                                <code>tagValue</code>
-                                attribute.
+                                search term is defined by the value you supply to the
+                                <code>tagValue</code> attribute.
                             </entry>
                             <entry>Limited to approximately 1000 videos</entry>
                             <entry>
-                                <code>[tubepress mode="tag" tagValue="barack
-                                    obama john mccain"]</code>
+                                <code>[tubepress mode="tag" tagValue="barack obama john mccain"]</code>
                             </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" /> </entry>
                         </row>
                         <row>
                             <entry>
-                                <code>user</code>
-                                and
-                                <code>userValue</code>
+                                <code>user</code> and <code>userValue</code>
                             </entry>
                             <entry>
                                 YouTube videos uploaded by a specific YouTube
-                                user.
-                                The YouTube user is defined by the value you supply to the
-                                <code>userValue</code>
-                                attribute.
+                                user. The YouTube user is defined by the value you supply to the
+                                <code>userValue</code> attribute.
                             </entry>
                             <entry>Limited to approximately 1000 videos</entry>
                             <entry>
                                 <code>[tubepress mode="user" userValue="3hough"]
                                 </code>
                             </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" /> </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <code>vimeoUploadedBy</code> and <code>vimeoUploadedByValue</code>
+                            </entry>
+                            <entry>
+                                Videos uploaded by the given Vimeo user.
+                                The Vimeo user is defined by the value you supply to the
+                                <code>vimeoUploadedByValue</code> attribute.
+                            </entry>
+                            <entry></entry>
+                            <entry>
+                                <code>[tubepress mode="vimeoUploadedBy" vimeoUploadedByValue="mattkaar"]
+                                </code>
+                            </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" /> </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <code>vimeoLikes</code> and <code>vimeoLikesValue</code>
+                            </entry>
+                            <entry>
+                                Videos "liked" by the given Vimeo user.
+                                The Vimeo user is defined by the value you supply to the
+                                <code>vimeoLikesValue</code> attribute.
+                            </entry>
+                            <entry></entry>
+                            <entry>
+                                <code>[tubepress mode="vimeoLikes" vimeoLikesValue="coiffier"]
+                                </code>
+                            </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" /> </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <code>vimeoAppearsIn</code> and <code>vimeoAppearsInValue</code>
+                            </entry>
+                            <entry>
+                                Videos in which the given Vimeo user appears.
+                                The Vimeo user is defined by the value you supply to the
+                                <code>vimeoAppearsInValue</code> attribute.
+                            </entry>
+                            <entry></entry>
+                            <entry>
+                                <code>[tubepress mode="vimeoAppearsIn" vimeoAppearsInValue="royksopp"]
+                                </code>
+                            </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" /> </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <code>vimeoSearch</code> and <code>vimeoSearchValue</code>
+                            </entry>
+                            <entry>
+                                Vimeo videos matching a search term.
+                                The search term is defined by the value you supply to the <code>vimeoSearchValue</code> attribute.
+                            </entry>
+                            <entry></entry>
+                            <entry>
+                                <code>[tubepress mode="vimeoSearch" vimeoSearchValue="cats playing piano"]
+                                </code>
+                            </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" /> </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <code>vimeoCreditedTo</code> and <code>vimeoCreditedToValue</code>
+                            </entry>
+                            <entry>
+                                Vimeo videos in which the given user uploaded and/or appears.
+                                The Vimeo user is defined by the value you supply to the <code>vimeoCreditedToValue</code> attribute.
+                            </entry>
+                            <entry></entry>
+                            <entry>
+                                <code>[tubepress mode="vimeoCreditedTo" vimeoCreditedToValue="patricklawler"]
+                                </code>
+                            </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" /> </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <code>vimeoChannel</code> and <code>vimeoChannelValue</code>
+                            </entry>
+                            <entry>
+                                Vimeo videos in the given channel.
+                                The channel is defined by the value you supply to the <code>vimeoChannelValue</code> attribute.
+                            </entry>
+                            <entry></entry>
+                            <entry>
+                                <code>[tubepress mode="vimeoChannel" vimeoChannelValue="splitscreenstuff"]
+                                </code>
+                            </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" /> </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <code>vimeoAlbum</code> and <code>vimeoAlbumValue</code>
+                            </entry>
+                            <entry>
+                                Vimeo videos in the given album.
+                                The album is defined by the value you supply to the <code>vimeoAlbumValue</code> attribute.
+                            </entry>
+                            <entry></entry>
+                            <entry>
+                                <code>[tubepress mode="vimeoAlbum" vimeoAlbumValue="140484"]</code>
+                            </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" /> </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <code>vimeoGroup</code> and <code>vimeoGroupValue</code>
+                            </entry>
+                            <entry>
+                                Vimeo videos in the given group.
+                                The group is defined by the value you supply to the <code>vimeoGroupValue</code> attribute.
+                            </entry>
+                            <entry></entry>
+                            <entry>
+                                <code>[tubepress mode="vimeoGroup" vimeoGroupValue="hdxs"]</code>
+                            </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" /> </entry>
                         </row>
                     </tbody>
                 </tgroup>
@@ -217,13 +330,14 @@
             <title>Single video embedding</title>
             <table pgwide="1" frame="none">
                 <title>Single video shortcodes</title>
-                <tgroup cols='4' align='left' colsep='0' rowsep='0'>
+                <tgroup cols='5' align='left' colsep='0' rowsep='0'>
                     <thead>
                         <row>
                             <entry>Setting</entry>
                             <entry>Description</entry>
                             <entry>Notes</entry>
                             <entry>Example</entry>
+                            <entry>Applies to...</entry>
                         </row>
                     </thead>
                     <tbody>
@@ -236,6 +350,10 @@
                             <entry>
                                 <code>[tubepress video="J51kfduN5aA"]</code>
                             </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                            </entry>
                         </row>
                     </tbody>
                 </tgroup>
@@ -243,18 +361,17 @@
         </section>
         <section id="display-options">
             <title>Display Options</title>
-            <para>
-                These settings control the overall appearance of the gallery
-                </para>
+            <para>These settings control the overall appearance of the gallery</para>
             <table pgwide="1" frame="none">
                 <title>Display Options</title>
-                <tgroup cols='4' align='left' colsep='0' rowsep='0'>
+                <tgroup cols='5' align='left' colsep='0' rowsep='0'>
                     <thead>
                         <row>
                             <entry>Setting</entry>
                             <entry>Description</entry>
                             <entry>Valid Value(s)</entry>
                             <entry>Example</entry>
+                            <entry>Applies to...</entry>
                         </row>
                     </thead>
                     <tbody>
@@ -263,39 +380,47 @@
                                 <code>ajaxPagination</code>
                             </entry>
                             <entry>
-                                <emphasis>TubePress Pro only.</emphasis>
-                                Use AJAX to paginate galleries asynchronously.
+                                <emphasis>TubePress Pro only.</emphasis> Use AJAX to paginate galleries asynchronously.
                             </entry>
-                            <entry>
-                                <itemizedlist>
-                                    <listitem>
-                                        <para>
-                                            <code>true</code>
-                                        </para>
-                                    </listitem>
-                                    <listitem>
-                                        <para>
-                                            <code>false</code>
-                                        </para>
-                                    </listitem>
-                                </itemizedlist>
-                            </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                             <entry>
                                 <code>[tubepress ajaxPagination="true"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                             </entry>
                         </row>
                         <row>
                             <entry>
                                 <code>descriptionLimit</code>
                             </entry>
-                            <entry>Limit the length of video descriptions to a
-                                certain number of characters. This can help
-                                prevent video descriptions from overflowing onto
-                                other thumbnails.
-                               </entry>
+                            <entry>Limit the length of video descriptions to a certain number of characters. This can help
+                                prevent video descriptions from overflowing onto other thumbnails.
+                            </entry>
                             <entry>Any positive integer</entry>
                             <entry>
                                 <code>[tubepress descriptionLimit="50"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <code>hqThumbs</code>
+                            </entry>
+                            <entry>
+                                <emphasis>TubePress Pro only.</emphasis> High quality thumbnails.
+                            </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
+                            <entry>
+                                <code>[tubepress hqThumbs="true"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                             </entry>
                         </row>
                         <row>
@@ -303,30 +428,17 @@
                                 <code>paginationAbove</code>
                             </entry>
                             <entry>
-                                If
-                                <code>resultsPerPage</code>
-                                is less than the total number of videos in the
-                                gallery, setting this value to
-                                <code>true</code>
-                                will display pagination links above the gallery
-                                thumbnails
+                                If <code>resultsPerPage</code>
+                                is less than the total number of videos in the gallery, setting this value to
+                                <code>true</code> will display pagination links above the gallery thumbnails
                             </entry>
-                            <entry>
-                                <itemizedlist>
-                                    <listitem>
-                                        <para>
-                                            <code>true</code>
-                                        </para>
-                                    </listitem>
-                                    <listitem>
-                                        <para>
-                                            <code>false</code>
-                                        </para>
-                                    </listitem>
-                                </itemizedlist>
-                            </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                             <entry>
                                 <code>[tubepress paginationAbove="true"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                             </entry>
                         </row>
                         <row>
@@ -334,30 +446,17 @@
                                 <code>paginationBelow</code>
                             </entry>
                             <entry>
-                                If
-                                <code>resultsPerPage</code>
-                                is less than the total number of videos in the
-                                gallery, setting this value to
-                                <code>true</code>
-                                will display pagination links below the gallery
-                                thumbnails
+                                If <code>resultsPerPage</code>
+                                is less than the total number of videos in the gallery, setting this value to
+                                <code>true</code> will display pagination links below the gallery thumbnails
                             </entry>
-                            <entry>
-                                <itemizedlist>
-                                    <listitem>
-                                        <para>
-                                            <code>true</code>
-                                        </para>
-                                    </listitem>
-                                    <listitem>
-                                        <para>
-                                            <code>false</code>
-                                        </para>
-                                    </listitem>
-                                </itemizedlist>
-                            </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                             <entry>
                                 <code>[tubepress paginationBelow="true"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                             </entry>
                         </row>
                         <row>
@@ -365,44 +464,29 @@
                                 <code>relativeDates</code>
                             </entry>
                             <entry>
-                                Display
-                                <code>yesterday</code>
-                                instead of
-                                <code>November 3, 2009</code>
-                                , for instance.
+                                Display <code>yesterday</code> instead of <code>November 3, 2009</code>, for instance.
                             </entry>
-                            <entry>
-                                <itemizedlist>
-                                    <listitem>
-                                        <para>
-                                            <code>true</code>
-                                        </para>
-                                    </listitem>
-                                    <listitem>
-                                        <para>
-                                            <code>false</code>
-                                        </para>
-                                    </listitem>
-                                </itemizedlist>
-                            </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                             <entry>
                                 <code>[tubepress relativeDates="true"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                             </entry>
                         </row>
                         <row>
                             <entry>
                                 <code>resultsPerPage</code>
                             </entry>
-                            <entry>How many video thumbnails to display on a
-                                single page</entry>
-                            <entry>
-                                Any integer
-                                <code>x</code>
-                                such that
-                                <code>0 &lt; x &lt;= 50</code>
-                            </entry>
+                            <entry>How many video thumbnails to display on a single page</entry>
+                            <entry>Any positive integer less than 50</entry>
                             <entry>
                                 <code>[tubepress resultsPerPage="30"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                             </entry>
                         </row>
                         <row>
@@ -411,17 +495,17 @@
                             </entry>
                             <entry>Custom template</entry>
                             <entry>
-                                Name of a readable file located in
-                                <code>ui/gallery/html_templates</code>
-                                (for galleries) or
-                                <code>ui/single_video/html_templates</code>
-                                (for single videos). These are the only
-                                permissible
+                                Name of a readable file located in <code>ui/gallery/html_templates</code>
+                                (for galleries) or <code>ui/single_video/html_templates</code>
+                                (for single videos). These are the only permissible
                                 locations for custom templates.
                             </entry>
                             <entry>
-                                <code>[tubepress
-                                    template="custom_template.tpl.html"]</code>
+                                <code>[tubepress template="custom_template.tpl.html"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                             </entry>
                         </row>
                         <row>
@@ -429,14 +513,13 @@
                                 <code>thumbHeight</code>
                             </entry>
                             <entry>Vertical size (in px) of thumbnails</entry>
-                            <entry>
-                                Any integer
-                                <code>x</code>
-                                such that
-                                <code>0 &lt; x &lt;= 90</code>
-                            </entry>
+                            <entry></entry>
                             <entry>
                                 <code>[tubepress thumbHeight="45"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                             </entry>
                         </row>
                         <row>
@@ -444,14 +527,13 @@
                                 <code>thumbWidth</code>
                             </entry>
                             <entry>Horizontal size (in px) of thumbnails</entry>
-                            <entry>
-                                Any integer
-                                <code>x</code>
-                                such that
-                                <code>0 &lt; x &lt;= 120</code>
-                            </entry>
+                            <entry></entry>
                             <entry>
                                 <code>[tubepress thumbWidth="60"]</code>
+                            </entry>
+                            <entry>
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                                <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
                             </entry>
                         </row>
                     </tbody>
@@ -462,12 +544,9 @@
             <title>Player Locations</title>
             <para>
                 In TubePress terminology, a "player location" defines where the
-                embedded video player will appear after
-                the user clicks a thumbnail to play a video. TubePress offers several different
-                options, each of which can
-                be activated by supplying the desired value to the
-                <code>playerLocation</code>
-                shortcode attribute.
+                embedded video player will appear after the user clicks a thumbnail to play a video. 
+                TubePress offers several different options, each of which can be activated by supplying 
+                the desired value to the <code>playerLocation</code> shortcode attribute.
             </para>
             <table pgwide="1" frame="none">
                 <title>Player Locations</title>
@@ -475,8 +554,7 @@
                     <thead>
                         <row>
                             <entry>
-                                <code>playerLocation</code>
-                                Value
+                                <code>playerLocation</code> Value
                             </entry>
                             <entry>Description</entry>
                             <entry>Example</entry>
@@ -488,8 +566,7 @@
                                 <code>fancybox</code>
                             </entry>
                             <entry>
-                                <emphasis>TubePress Pro only.</emphasis>
-                                Plays videos using
+                                <emphasis>TubePress Pro only.</emphasis> Plays videos using
                                 <ulink url="http://fancybox.net/">FancyBox</ulink>
                             </entry>
                             <entry>
@@ -502,8 +579,7 @@
                                 <code>jqmodal</code>
                             </entry>
                             <entry>
-                                Plays videos using
-                                <ulink url="http://dev.iceburg.net/jquery/jqModal/">jqModal</ulink>
+                                Plays videos using <ulink url="http://dev.iceburg.net/jquery/jqModal/">jqModal</ulink>
                             </entry>
                             <entry>
                                 <code>[tubepress playerLocation="jqModal"]
@@ -517,25 +593,16 @@
                             <entry>
                                 <para>
                                     Plays videos in an embedded Flash player
-                                    above the video
-                                    thumbnails. If you'd like the page to load with a specific
+                                    above the video thumbnails. If you'd like the page to load with a specific
                                     video at the top of the gallery, just add the video's ID to
-                                    the address of you gallery as the
-                                    <code>tubepress_video</code>
-                                    parameter.
+                                    the address of you gallery as the <code>tubepress_video</code> parameter.
                                 </para>
                                 <para>
                                     For instance, given a gallery with a URL of
-                                    <code>http://mygallery.com</code>
-                                    ,
-                                    navigating to
-                                    <code>http://mygallery.com?tubepress_video=CNo7Hm0IOag
-                                    </code>
-                                    would
-                                    start the gallery with the video with ID
-                                    <code>CNo7Hm0IOag</code>
-                                    in the
-                                    embedded player.
+                                    <code>http://mygallery.com</code>,
+                                    navigating to <code>http://mygallery.com?tubepress_video=CNo7Hm0IOag</code>
+                                    would start the gallery with the video with ID <code>CNo7Hm0IOag</code>
+                                    in the embedded player.
                                 </para>
                             </entry>
                             <entry>
@@ -556,12 +623,10 @@
                                 <code>shadowbox</code>
                             </entry>
                             <entry>
-                                Plays videos using
-                                <ulink url="http://www.shadowbox-js.com/">ShadowBox</ulink>
+                                Plays videos using <ulink url="http://www.shadowbox-js.com/">ShadowBox</ulink>
                             </entry>
                             <entry>
-                                <code>[tubepress playerLocation="shadowbox"]
-                                </code>
+                                <code>[tubepress playerLocation="shadowbox"]</code>
                             </entry>
                         </row>
                         <row>
@@ -569,13 +634,10 @@
                                 <code>static</code>
                             </entry>
                             <entry>
-                                Behaves exactly the same as the
-                                <code>normal</code>
-                                player, but each thumbnail click will
-                                trigger a page refresh. This can be useful if you want to increase page loads
-                                for advertising purposes. It
-                                also makes it clearer to your users on how they can share links to
-                                individual videos.
+                                Behaves exactly the same as the <code>normal</code>
+                                player, but each thumbnail click will trigger a page refresh. This can be useful 
+                                if you want to increase page loads for advertising purposes. It also makes it clearer to 
+                                your users on how they can share links to individual videos.
                             </entry>
                             <entry>
                                 <code>[tubepress playerLocation="static"]</code>
@@ -586,26 +648,20 @@
                                 <code>tinybox</code>
                             </entry>
                             <entry>
-                                <emphasis>TubePress Pro only.</emphasis>
-                                Plays videos using
-                                <ulink
-                                    url="http://www.leigeber.com/2009/05/javascript-popup-box/">TinyBox</ulink>
+                                <emphasis>TubePress Pro only.</emphasis> Plays videos using
+                                <ulink url="http://www.leigeber.com/2009/05/javascript-popup-box/">TinyBox</ulink>
                             </entry>
                             <entry>
-                                <code>[tubepress playerLocation="tinybox"]
-                                </code>
+                                <code>[tubepress playerLocation="tinybox"]</code>
                             </entry>
                         </row>
                         <row>
                             <entry>
                                 <code>youtube</code>
                             </entry>
+                            <entry>Redirects to the video's original YouTube page</entry>
                             <entry>
-                                Redirects to the video's original YouTube page
-                                    </entry>
-                            <entry>
-                                <code>[tubepress playerLocation="youtube"]
-                                </code>
+                                <code>[tubepress playerLocation="youtube"]</code>
                             </entry>
                         </row>
                     </tbody>
@@ -618,9 +674,7 @@
                 The sorting capabilities of TubePress are limited by the
                 providers of the videos (e.g. YouTube). Sorting functionality
                 can be quirky, and there are some limitations. Below are the
-                shortcodes, all based on the
-                <code>orderBy</code>
-                attribute,
+                shortcodes, all based on the <code>orderBy</code> attribute,
                 that control the video sort order.
             </para>
             <table pgwide="1" frame="none">
@@ -629,8 +683,7 @@
                     <thead>
                         <row>
                             <entry>
-                                <code>orderBy</code>
-                                Value
+                                <code>orderBy</code> Value
                             </entry>
                             <entry>Description</entry>
                             <entry>Notes</entry>
@@ -642,11 +695,8 @@
                             <entry>
                                 <code>published</code>
                             </entry>
-                            <entry>
-                                Show videos in the order they were published
-                                    </entry>
-                            <entry>YouTube galleries will show more-recent
-                                videos first</entry>
+                            <entry>Show videos in the order they were published</entry>
+                            <entry>YouTube galleries will show more-recentvideos first</entry>
                             <entry>
                                 <code>[tubepress orderBy="published"]</code>
                             </entry>
@@ -655,12 +705,9 @@
                             <entry>
                                 <code>viewCount</code>
                             </entry>
-                            <entry>
-                                Shows videos in order of how many times they've been viewed
-                                    </entry>
+                            <entry>Shows videos in order of how many times they've been viewed</entry>
                             <entry>YouTube galleries will show more-viewed
-                                videos first. Does not apply to
-                                YouTube playlists.</entry>
+                                videos first. Does not apply to YouTube playlists.</entry>
                             <entry>
                                 <code>[tubepress orderBy="viewCount"]</code>
                             </entry>
@@ -669,12 +716,9 @@
                             <entry>
                                 <code>rating</code>
                             </entry>
-                            <entry>
-                                Shows videos in order of their rating
-                                    </entry>
+                            <entry>Shows videos in order of their rating</entry>
                             <entry>YouTube galleries will show higher-rated
-                                videos first. Does not apply to
-                                YouTube playlists.</entry>
+                                videos first. Does not apply to YouTube playlists.</entry>
                             <entry>
                                 <code>[tubepress orderBy="rating"]</code>
                             </entry>
@@ -683,13 +727,9 @@
                             <entry>
                                 <code>relevance</code>
                             </entry>
+                            <entry>Shows videos in order of relevance</entry>
                             <entry>
-                                Shows videos in order of relevance
-                                    </entry>
-                            <entry>
-                                Only applies to YouTube
-                                <code>tag</code>
-                                galleries
+                                Only applies to YouTube <code>tag</code> galleries
                             </entry>
                             <entry>
                                 <code>[tubepress orderBy="relevance"]</code>
@@ -699,9 +739,7 @@
                             <entry>
                                 <code>random</code>
                             </entry>
-                            <entry>
-                                Shuffles videos for a given gallery page
-                                    </entry>
+                            <entry>Shuffles videos for a given gallery page</entry>
                             <entry>Will only randomize the order for a single
                                 gallery page. e.g. If you have a gallery with a
                                 total of 500 videos,
@@ -715,13 +753,9 @@
                             <entry>
                                 <code>position</code>
                             </entry>
+                            <entry>Shows videos in the order they were added to a playlist</entry>
                             <entry>
-                                Shows videos in the order they were added to a playlist
-                                    </entry>
-                            <entry>
-                                Only applies to YouTube
-                                <code>playlist</code>
-                                galleries
+                                Only applies to YouTube <code>playlist</code> galleries
                             </entry>
                             <entry>
                                 <code>[tubepress orderBy="position"]</code>
@@ -731,14 +765,10 @@
                             <entry>
                                 <code>commentCount</code>
                             </entry>
+                            <entry>Shows videos in order of comment count</entry>
                             <entry>
-                                Shows videos in order of comment count
-                                    </entry>
-                            <entry>
-                                Only applies to YouTube
-                                <code>playlist</code>
-                                galleries. Shows most-commented
-                                to least-commented.
+                                Only applies to YouTube <code>playlist</code>
+                                galleries. Shows most-commented to least-commented.
                             </entry>
                             <entry>
                                 <code>[tubepress orderBy="commentCount"]</code>
@@ -748,14 +778,10 @@
                             <entry>
                                 <code>duration</code>
                             </entry>
+                            <entry>Shows videos in order of length</entry>
                             <entry>
-                                Shows videos in order of length
-                                    </entry>
-                            <entry>
-                                Only applies to YouTube
-                                <code>playlist</code>
-                                galleries. Shows longest
-                                videos first.
+                                Only applies to YouTube <code>playlist</code>
+                                galleries. Shows longest videos first.
                             </entry>
                             <entry>
                                 <code>[tubepress orderBy="duration"]</code>
@@ -765,13 +791,9 @@
                             <entry>
                                 <code>title</code>
                             </entry>
+                            <entry>Shows videos in alphabetical order by title</entry>
                             <entry>
-                                Shows videos in alphabetical order by title
-                                    </entry>
-                            <entry>
-                                Only applies to YouTube
-                                <code>playlist</code>
-                                galleries.
+                                Only applies to YouTube <code>playlist</code> galleries.
                             </entry>
                             <entry>
                                 <code>[tubepress orderBy="title"]</code>
@@ -781,24 +803,18 @@
                 </tgroup>
             </table>
             <note>
-                <para>
-                    Please note that these galleries can't be sorted
-                        </para>
+                <para>Please note that these galleries can't be sorted</para>
                 <itemizedlist>
                     <listitem>
                         <para>
-                            A gallery of a user's favorite videos (
-                            <code>mode="favorites"</code>
-                            ) will always be sorted in the
-                            order that the videos were favorited.
+                            A gallery of a user's favorite videos (<code>mode="favorites"</code>) 
+                            will always be sorted in the order that the videos were favorited.
                         </para>
                     </listitem>
                     <listitem>
                         <para>
-                            A playlist gallery (
-                            <code>mode="playlist"</code>
-                            ) will always be sorted in the order that the videos
-                            appear in the playlist
+                            A playlist gallery (<code>mode="playlist"</code>) 
+                            will always be sorted in the order that the videos appear in the playlist
                         </para>
                     </listitem>
                 </itemizedlist>
@@ -826,22 +842,8 @@
                         <entry>
                             <code>autoplay</code>
                         </entry>
-                        <entry>Start video playback without user intervention
-                        </entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry>Start video playback without user intervention</entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress autoplay="true"]</code>
                         </entry>
@@ -851,20 +853,7 @@
                             <code>border</code>
                         </entry>
                         <entry>Frame embedded player</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress border="true"]</code>
                         </entry>
@@ -895,20 +884,7 @@
                             <code>fullscreen</code>
                         </entry>
                         <entry>Allow fullscreen playback</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress fullscreen="true"]</code>
                         </entry>
@@ -919,20 +895,7 @@
                         </entry>
                         <entry>Display "genie" menu during video playback
                         </entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress genie="true"]</code>
                         </entry>
@@ -942,20 +905,7 @@
                             <code>hd</code>
                         </entry>
                         <entry>Display high definition videos</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress hd="true"]</code>
                         </entry>
@@ -965,20 +915,7 @@
                             <code>loop</code>
                         </entry>
                         <entry>Repeat videos without user intervention</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress loop="true"]</code>
                         </entry>
@@ -1031,20 +968,7 @@
                             <code>showInfo</code>
                         </entry>
                         <entry>Display title and rating before playback</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress showInfo="true"]</code>
                         </entry>
@@ -1054,20 +978,7 @@
                             <code>showRelated</code>
                         </entry>
                         <entry>Display related videos after playback</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress showRelated="true"]</code>
                         </entry>
@@ -1098,20 +1009,7 @@
                             <code>author</code>
                         </entry>
                         <entry>Display video author</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress author="true"]</code>
                         </entry>
@@ -1121,20 +1019,7 @@
                             <code>category</code>
                         </entry>
                         <entry>Display video category</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress category="false"]</code>
                         </entry>
@@ -1144,20 +1029,7 @@
                             <code>description</code>
                         </entry>
                         <entry>Display video description</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress description="false"]</code>
                         </entry>
@@ -1167,20 +1039,7 @@
                             <code>id</code>
                         </entry>
                         <entry>Display video ID</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress id="true"]</code>
                         </entry>
@@ -1190,20 +1049,7 @@
                             <code>length</code>
                         </entry>
                         <entry>Display video run time</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress length="false"]</code>
                         </entry>
@@ -1213,20 +1059,7 @@
                             <code>rating</code>
                         </entry>
                         <entry>Display average video rating</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress rating="true"]</code>
                         </entry>
@@ -1236,20 +1069,7 @@
                             <code>ratings</code>
                         </entry>
                         <entry>Display video rating count</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress ratings="true"]</code>
                         </entry>
@@ -1259,20 +1079,7 @@
                             <code>tags</code>
                         </entry>
                         <entry>Display video keywords</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress tags="false"]</code>
                         </entry>
@@ -1282,20 +1089,7 @@
                             <code>title</code>
                         </entry>
                         <entry>Display video title</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress title="true"]</code>
                         </entry>
@@ -1305,20 +1099,7 @@
                             <code>uploaded</code>
                         </entry>
                         <entry>Display video upload timestamp</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress uploaded="false"]</code>
                         </entry>
@@ -1328,20 +1109,7 @@
                             <code>url</code>
                         </entry>
                         <entry>Display video URL on YouTube</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress url="false"]</code>
                         </entry>
@@ -1351,20 +1119,7 @@
                             <code>views</code>
                         </entry>
                         <entry>Display video view count</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress views="true"]</code>
                         </entry>
@@ -1393,32 +1148,9 @@
                             <code>cacheEnabled</code>
                         </entry>
                         <entry>Use a file-based cache to store responses from provider</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress cacheEnabled="false"]</code>
-                        </entry>
-                    </row>
-                    <row>
-                        <entry>
-                            <code>clientKey</code>
-                        </entry>
-                        <entry>The YouTube Client Key when interacting with YouTube</entry>
-                        <entry>Any valid YouTube Client Key</entry>
-                        <entry>
-                            <code>[tubepress clientKey="33AEF33BBC344"]</code>
                         </entry>
                     </row>
                     <row>
@@ -1436,20 +1168,7 @@
                             <code>embeddableOnly</code>
                         </entry>
                         <entry>Only retrieve videos that can be embedded in other sites</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress embeddableOnly="true"]</code>
                         </entry>
@@ -1459,20 +1178,7 @@
                             <code>filter_racy</code>
                         </entry>
                         <entry>Retrieve videos that may be unsuitable for minors</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress filter_racy="true"]</code>
                         </entry>
@@ -1526,20 +1232,7 @@
                             <code>debugging_enabled</code>
                         </entry>
                         <entry>Enable ability to perform remote debugging</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress debugging_enabled="false"]</code>
                         </entry>
@@ -1550,20 +1243,7 @@
                         </entry>
                         <entry>Randomize thumbnail selection for each video
                             (each video comes with several thumbnails)</entry>
-                        <entry>
-                            <itemizedlist>
-                                <listitem>
-                                    <para>
-                                        <code>true</code>
-                                    </para>
-                                </listitem>
-                                <listitem>
-                                    <para>
-                                        <code>false</code>
-                                    </para>
-                                </listitem>
-                            </itemizedlist>
-                        </entry>
+                        <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="trueorfalse.xml" /></entry>
                         <entry>
                             <code>[tubepress randomize_thumbnails="false"]
                             </code>

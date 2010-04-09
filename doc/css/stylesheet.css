@@ -55,7 +55,12 @@ div.table table {
     border-collapse: collapse;
     border: 0;
     border-bottom: 2px solid #d2ecdd;
-    font-size: 95%;
+    font-size: 80%;
+}
+
+div.table .mediaobject {
+    padding: 0;
+    display: inline;	
 }
 
 div.table td {
