@@ -37,6 +37,7 @@ interface org_tubepress_player_Player
     const FANCYBOX    = 'fancybox';
     const STATICC     = 'static';
     const SOLO        = 'solo';
+    const VIMEO       = 'vimeo';
     
     public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId);
 }

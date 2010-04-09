@@ -270,7 +270,7 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
     {
         switch ($optionType) {
             case org_tubepress_options_Type::PLAYER:
-                return array('normal', 'popup','shadowbox','jqmodal', 'youtube', 'static', 'solo');
+                return array('normal', 'popup','shadowbox','jqmodal', 'youtube', 'static', 'solo', 'vimeo');
             case org_tubepress_options_Type::ORDER:
                 return array('relevance', 'viewCount', 'rating', 'published', 'random', 'position', 'commentCount', 'duration', 'title');
             case org_tubepress_options_Type::MODE:
