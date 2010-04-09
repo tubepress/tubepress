@@ -62,13 +62,13 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Template::TEMPLATE              => '',
             org_tubepress_options_category_Gallery::VIDEO                  => '',
             org_tubepress_options_category_Gallery::VIMEO_UPLOADEDBY_VALUE => 'mattkaar',
-            org_tubepress_options_category_Gallery::VIMEO_LIKES_VALUE      => 'k2eric',
-            org_tubepress_options_category_Gallery::VIMEO_APPEARS_IN_VALUE => 'mattkaar',
+            org_tubepress_options_category_Gallery::VIMEO_LIKES_VALUE      => 'coiffier',
+            org_tubepress_options_category_Gallery::VIMEO_APPEARS_IN_VALUE => 'royksopp',
             org_tubepress_options_category_Gallery::VIMEO_SEARCH_VALUE     => 'cats playing piano',
-            org_tubepress_options_category_Gallery::VIMEO_CREDITED_VALUE   => 'k2eric',
-            org_tubepress_options_category_Gallery::VIMEO_CHANNEL_VALUE    => '1341',
-            org_tubepress_options_category_Gallery::VIMEO_GROUP_VALUE      => 'beyondthestill',
-            org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE      => '40992'
+            org_tubepress_options_category_Gallery::VIMEO_CREDITED_VALUE   => 'patricklawler',
+            org_tubepress_options_category_Gallery::VIMEO_CHANNEL_VALUE    => 'splitscreenstuff',
+            org_tubepress_options_category_Gallery::VIMEO_GROUP_VALUE      => 'hdxs',
+            org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE      => '140484'
          
         ),
         org_tubepress_options_Type::BOOL => array(
