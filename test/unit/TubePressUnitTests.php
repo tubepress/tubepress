@@ -18,6 +18,7 @@ require_once 'org/tubepress/url/UrlTests.php';
 require_once 'org/tubepress/util/UtilsTests.php';
 require_once 'org/tubepress/video/VideoTests.php';
 require_once 'org/tubepress/options/OptionsTests.php';
+require_once 'org/tubepress/browser/BrowserDetectorTests.php';
 
 class TubePressUnitTests
 {
@@ -42,6 +43,7 @@ class TubePressUnitTests
 		$suite->addTest(InspectionTests::suite());
 		$suite->addTest(RetrievalTests::suite());
 		$suite->addTest(ProviderTests::suite());
+		$suite->addTest(BrowserDetectorTests::suite());
 		return $suite;
 	}
 }

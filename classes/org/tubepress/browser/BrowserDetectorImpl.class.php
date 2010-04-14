@@ -34,7 +34,7 @@ class org_tubepress_browser_BrowserDetectorImpl implements org_tubepress_browser
             return org_tubepress_browser_BrowserDetector::UNKNOWN;
         }
 
-	$agent = $serverVars['HTTP_USER_AGENT'];
+	    $agent = $serverVars['HTTP_USER_AGENT'];
 
         if (strstr($agent,'iPhone')) {
             return org_tubepress_browser_BrowserDetector::IPHONE;
