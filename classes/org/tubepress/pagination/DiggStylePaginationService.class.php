@@ -60,20 +60,7 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }
     
     private function _diggStyle($page = 1, $totalitems, $limit = 15, $adjacents = 1, $targetpage = '/', $pagestring = '?page=')
-    {
-        if (!$adjacents) {
-            $adjacents = 1;
-        }
-        if (!$limit) {
-            $limit = 15;
-        }
-        if (!$page) {
-            $page = 1;
-        }
-        if (!$targetpage) {
-            $targetpage = '/';
-        }
-        
+    {   
         $prev = $page - 1;                                    
         $next = $page + 1; 
         $lastpage = ceil($totalitems / $limit);
