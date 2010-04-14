@@ -48,8 +48,9 @@ class org_tubepress_url_VimeoUrlBuilder implements org_tubepress_url_UrlBuilder
     public function buildGalleryUrl($currentPage)
     {
         $params = array();
+        $mode   = $this->_tpom->get(org_tubepress_options_category_Gallery::MODE);
         
-        switch ($this->_tpom->get(org_tubepress_options_category_Gallery::MODE)) {
+        switch ($mode) {
             
         case org_tubepress_gallery_TubePressGallery::VIMEO_UPLOADEDBY:
             $params['method']        = 'vimeo.videos.getUploaded';
@@ -87,6 +88,7 @@ class org_tubepress_url_VimeoUrlBuilder implements org_tubepress_url_UrlBuilder
         $params['full_response'] = 'true';
         $params['page']          = $currentPage;
         $params['per_page']      = $this->_tpom->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
+        $this->_addSort($params, $mode);
         
         return $this->_buildUrl($params);
     }
@@ -100,6 +102,48 @@ class org_tubepress_url_VimeoUrlBuilder implements org_tubepress_url_UrlBuilder
     }
     
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }
+    
+    private function _addSort($params, $mode)
+    {
+    	/* these two modes can't be sorted */
+    	if ($mode == org_tubepress_gallery_TubePressGallery::VIMEO_CHANNEL
+    		|| $mode ==org_tubepress_gallery_TubePressGallery::VIMEO_ALBUM) {
+    		return;		
+    	}
+    	
+    	$order = $this->_tpom->get(org_tubepress_options_category_Display::ORDER_BY);
+    	
+    	if ($mode == org_tubepress_gallery_TubePressGallery::VIMEO_SEARCH
+    		&& $order == 'relevance') {
+    		$params['sort'] = 'relevant';
+    		return;
+    	}
+    	
+    	if ($mode == org_tubepress_gallery_TubePressGallery::VIMEO_GROUP
+    		&& $order == 'random') {
+    		$params['sort'] = $order;
+    		return;
+    	}
+    	
+    	if ($order == 'viewCount') {
+    		$params['sort'] = 'most_played';
+    		return;
+    	}
+    	
+    	if ($order == 'commentCount') {
+    		$params['sort'] = 'most_commented';
+    		return;
+    	}
+    	
+    	if ($order == 'rating') {
+    		$params['sort'] = 'most_liked';
+    		return;
+    	}
+    	
+    	if ($order == 'newest' || $order == 'oldest') {
+    		$params['sort'] = $order;	
+    	}
+    }
     
     private function _buildUrl($params)
     {
