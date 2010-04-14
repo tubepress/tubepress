@@ -60,4 +60,9 @@ class org_tubepress_template_SimpleTemplate implements org_tubepress_template_Te
         ob_end_clean();
         return org_tubepress_util_StringUtils::removeEmptyLines($result);
 	}
+	
+	public function reset()
+	{
+		$this->_source = array();	
+	}
 }

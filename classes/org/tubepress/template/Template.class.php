@@ -69,4 +69,6 @@ interface org_tubepress_template_Template
     public function setPath($path);
     
     public function setVariable($name, $value);
+    
+    public function reset();
 }

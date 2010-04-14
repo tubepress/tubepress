@@ -86,6 +86,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
         
         /* prep template */
         $this->_applyCustomTemplateIfNeeded();
+        $this->_template->reset();
         $this->_prepTemplate($feedResult, $galleryId);
         
         /* we're done. tie up */
