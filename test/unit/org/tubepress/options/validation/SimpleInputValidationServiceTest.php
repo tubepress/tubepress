@@ -35,14 +35,6 @@ class org_tubepress_options_validation_SimpleInputValidationServiceTest extends 
 	    $this->_sut->validate(org_tubepress_options_category_Display::THUMB_HEIGHT, -100);
 	}
 	
-    /**
-     * @expectedException Exception
-     */
-	public function testThumbHeightTooBig()
-	{
-	    $this->_sut->validate(org_tubepress_options_category_Display::THUMB_HEIGHT, 91);
-	}
-	
     public function testThumbWidthOk()
 	{
 	    $this->_sut->validate(org_tubepress_options_category_Display::THUMB_WIDTH, 120);	
@@ -62,14 +54,6 @@ class org_tubepress_options_validation_SimpleInputValidationServiceTest extends 
 	public function testThumbWidthBelowZero()
 	{
 	    $this->_sut->validate(org_tubepress_options_category_Display::THUMB_WIDTH, -100);
-	}
-	
-    /**
-     * @expectedException Exception
-     */
-	public function testThumbWidthTooBig()
-	{
-	    $this->_sut->validate(org_tubepress_options_category_Display::THUMB_WIDTH, 121);
 	}
 	
 	public function testResultsPerPageOk()

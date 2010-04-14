@@ -33,7 +33,7 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends PHPUnit_Framew
                     ->will($this->returnCallback('org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_UploadTimeRelativeOnly'));
         $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
         $vid = $results[0];
-        $this->assertEquals('6 months ago', $vid->getTimePublished());
+        $this->assertEquals('8 months ago', $vid->getTimePublished());
     }
     
     function testTimeUploadedAbsolute()
@@ -290,6 +290,6 @@ function org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_RandomizeT
 {
     $args = func_get_args();
     $val = $args[0];
-    return $val == org_tubepress_options_category_Advanced::RANDOM_THUMBS;
+    return $val == org_tubepress_options_category_Display::RANDOM_THUMBS;
 }
 ?>

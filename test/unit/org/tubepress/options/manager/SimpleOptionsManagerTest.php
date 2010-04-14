@@ -14,7 +14,7 @@ class org_tubepress_options_manager_SimpleOptionsManagerTest extends PHPUnit_Fra
 		$ref = $this->getMock("org_tubepress_options_reference_OptionsReference");
 		$this->_stpom->setOptionsReference($ref);
 		$val = $this->getMock("org_tubepress_options_validation_InputValidationService");
-		$this->_stpom->setValidationService($val);
+		$this->_stpom->setInputValidationService($val);
 	}
 	
     

@@ -14,7 +14,7 @@ class org_tubepress_url_YouTubeUrlBuilderTest extends PHPUnit_Framework_TestCase
 	function testBuildGalleryUrlUserMode()
 	{
 		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
-		$tpom->expects($this->exactly(9))
+		$tpom->expects($this->exactly(8))
 			 ->method("get")
 			 ->will($this->returnCallback("userModeCallback"));
 		$this->_sut->setOptionsManager($tpom);
@@ -25,7 +25,7 @@ class org_tubepress_url_YouTubeUrlBuilderTest extends PHPUnit_Framework_TestCase
 	function testBuildGalleryUrlTopRated()
 	{
 		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
-		$tpom->expects($this->exactly(9))
+		$tpom->expects($this->exactly(8))
 			 ->method("get")
 			 ->will($this->returnCallback("topRatedModeCallback"));
 		$this->_sut->setOptionsManager($tpom);
@@ -36,7 +36,7 @@ class org_tubepress_url_YouTubeUrlBuilderTest extends PHPUnit_Framework_TestCase
 	function testBuildGalleryUrlPopular()
 	{
 		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
-		$tpom->expects($this->exactly(9))
+		$tpom->expects($this->exactly(8))
 			 ->method("get")
 			 ->will($this->returnCallback("popularModeCallback"));
 		$this->_sut->setOptionsManager($tpom);
@@ -47,18 +47,18 @@ class org_tubepress_url_YouTubeUrlBuilderTest extends PHPUnit_Framework_TestCase
 	function testBuildGalleryUrlPlaylist()
 	{
 		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
-		$tpom->expects($this->exactly(9))
+		$tpom->expects($this->exactly(8))
 			 ->method("get")
 			 ->will($this->returnCallback("playlistModeCallback"));
 		$this->_sut->setOptionsManager($tpom);
 
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/fakeplaylist?v=2&client=clientkey&key=devkey&start-index=1&max-results=3&safeSearch=moderate&format=5", $this->_sut->buildGalleryUrl(1));
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/fakeplaylist?v=2&key=devkey&start-index=1&max-results=3&safeSearch=moderate&format=5", $this->_sut->buildGalleryUrl(1));
 	}
 	
 	function testBuildGalleryUrlMostResponded()
 	{
 		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
-		$tpom->expects($this->exactly(8))
+		$tpom->expects($this->exactly(7))
 			 ->method("get")
 			 ->will($this->returnCallback("mostRespondedModeCallback"));
 		$this->_sut->setOptionsManager($tpom);
@@ -69,7 +69,7 @@ class org_tubepress_url_YouTubeUrlBuilderTest extends PHPUnit_Framework_TestCase
 	function testBuildGalleryUrlMostRecent()
 	{
 		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
-		$tpom->expects($this->exactly(8))
+		$tpom->expects($this->exactly(7))
 			 ->method("get")
 			 ->will($this->returnCallback("mostRecentCallback"));
 		$this->_sut->setOptionsManager($tpom);
@@ -80,7 +80,7 @@ class org_tubepress_url_YouTubeUrlBuilderTest extends PHPUnit_Framework_TestCase
 	function testBuildGalleryUrlMostLinked()
 	{
 		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
-		$tpom->expects($this->exactly(8))
+		$tpom->expects($this->exactly(7))
 			 ->method("get")
 			 ->will($this->returnCallback("mostLinkedCallback"));
 		$this->_sut->setOptionsManager($tpom);
@@ -91,7 +91,7 @@ class org_tubepress_url_YouTubeUrlBuilderTest extends PHPUnit_Framework_TestCase
 	function testBuildGalleryUrlMostDiscussed()
 	{
 		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
-		$tpom->expects($this->exactly(8))
+		$tpom->expects($this->exactly(7))
 			 ->method("get")
 			 ->will($this->returnCallback("mostDiscussedCallback"));
 		$this->_sut->setOptionsManager($tpom);
@@ -102,7 +102,7 @@ class org_tubepress_url_YouTubeUrlBuilderTest extends PHPUnit_Framework_TestCase
 	function testBuildGalleryUrlMobile()
 	{
 		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
-		$tpom->expects($this->exactly(8))
+		$tpom->expects($this->exactly(7))
 			 ->method("get")
 			 ->will($this->returnCallback("mobileCallback"));
 		$this->_sut->setOptionsManager($tpom);
@@ -113,7 +113,7 @@ class org_tubepress_url_YouTubeUrlBuilderTest extends PHPUnit_Framework_TestCase
 	function testBuildGalleryUrlFavorites()
 	{
 		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
-		$tpom->expects($this->exactly(9))
+		$tpom->expects($this->exactly(8))
 			 ->method("get")
 			 ->will($this->returnCallback("favoritesCallback"));
 		$this->_sut->setOptionsManager($tpom);
@@ -124,7 +124,7 @@ class org_tubepress_url_YouTubeUrlBuilderTest extends PHPUnit_Framework_TestCase
 	function testBuildGalleryUrlTag()
 	{
 		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
-		$tpom->expects($this->exactly(9))
+		$tpom->expects($this->exactly(8))
 			 ->method("get")
 			 ->will($this->returnCallback("tagCallback"));
 		$this->_sut->setOptionsManager($tpom);
@@ -135,7 +135,7 @@ class org_tubepress_url_YouTubeUrlBuilderTest extends PHPUnit_Framework_TestCase
 	function testBuildGalleryUrlFeatured()
 	{
 		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
-		$tpom->expects($this->exactly(8))
+		$tpom->expects($this->exactly(7))
 			 ->method("get")
 			 ->will($this->returnCallback("featuredCallback"));
 		$this->_sut->setOptionsManager($tpom);
@@ -145,7 +145,7 @@ class org_tubepress_url_YouTubeUrlBuilderTest extends PHPUnit_Framework_TestCase
 	
 	private function _standardPostProcessingStuff()
 	{
-		return "v=2&client=clientkey&key=devkey&start-index=1&max-results=3&orderby=relevance&safeSearch=moderate&format=5";
+		return "v=2&key=devkey&start-index=1&max-results=3&orderby=relevance&safeSearch=moderate&format=5";
 	}
 }
 
@@ -158,7 +158,6 @@ function mostRecentCallback()
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::MOST_RECENT,
-        org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
 	);
@@ -174,7 +173,6 @@ function mostRespondedModeCallback()
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::MOST_RESPONDED,
-        org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
 	);
@@ -191,7 +189,6 @@ function playlistModeCallback()
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::PLAYLIST,
-        org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
 	);
@@ -208,7 +205,6 @@ function popularModeCallback()
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::POPULAR,
-        org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
 	);
@@ -225,7 +221,6 @@ function topRatedModeCallback()
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::TOP_RATED,
-        org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
 	);
@@ -242,7 +237,6 @@ function userModeCallback()
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::USER,
-        org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
 	);
@@ -259,7 +253,6 @@ function mostLinkedCallback()
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::MOST_LINKED,
-        org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
 	);
@@ -276,7 +269,6 @@ function mostDiscussedCallback()
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::MOST_DISCUSSESD,
-        org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
 	);
@@ -293,7 +285,6 @@ function mobileCallback()
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::MOBILE,
-        org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
 	);
@@ -311,7 +302,6 @@ function favoritesCallback()
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::FAVORITES,
         org_tubepress_options_category_Gallery::FAVORITES_VALUE => "3hough",
-        org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
 	);
@@ -328,7 +318,6 @@ function tagCallback()
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::TAG,
-        org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Gallery::TAG_VALUE => "foo bar",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
@@ -346,7 +335,6 @@ function featuredCallback()
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
         org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::FEATURED,
-        org_tubepress_options_category_Feed::CLIENT_KEY => "clientkey",
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Gallery::TAG_VALUE => "foo bar",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true

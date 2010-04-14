@@ -13,7 +13,7 @@ class org_tubepress_options_category_MetaTest extends PHPUnit_Framework_TestCase
 	{
 		$this->_expectedNames = array(
 			"author", "category", "description", "id", "length", "rating", 
-			"ratings", "tags", "title", "uploaded", "url", "views"
+			"ratings", "tags", "title", "uploaded", "url", "views", "likes"
     	);
     	$class = new ReflectionClass("org_tubepress_options_category_Meta");    
         $this->_actualNames = $class->getConstants();

@@ -14,7 +14,9 @@ class org_tubepress_options_category_GalleryTest extends PHPUnit_Framework_TestC
 	{
 		$this->_expectedNames = array(
 			"mode", 'template', "favoritesValue", "most_viewedValue", "playlistValue", 
-			"tagValue", "top_ratedValue", "userValue", 'video', 'vimeoUploadedByValue'
+			"tagValue", "top_ratedValue", "userValue", 'video', 'vimeoUploadedByValue',
+			'vimeoLikesValue', 'vimeoAppearsInValue', 'vimeoSearchValue', 'vimeoCreditedToValue',
+			'vimeoChannelValue', 'vimeoAlbumValue', 'vimeoGroupValue'
     	);
     	$class = new ReflectionClass("org_tubepress_options_category_Gallery");    
         $this->_actualNames = $class->getConstants();
