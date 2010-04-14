@@ -2,6 +2,8 @@
 require_once '/Applications/MAMP/bin/php5/lib/php/PHPUnit/Framework.php';
 require_once 'JwFlvEmbeddedPlayerServiceTest.php';
 require_once 'YouTubeEmbeddedPlayerServiceTest.php';
+require_once 'VimeoEmbeddedPlayerServiceTest.php';
+require_once 'DefaultEmbeddedPlayerServiceTest.php';
 
 class EmbeddedTests
 {
@@ -10,6 +12,8 @@ class EmbeddedTests
 		$suite = new PHPUnit_Framework_TestSuite("TubePress Embedded Player Tests");
 		$suite->addTestSuite('org_tubepress_embedded_impl_YouTubeEmbeddedPlayerServiceTest');
 		$suite->addTestSuite('org_tubepress_embedded_impl_JwFlvEmbeddedPlayerServiceTest');
+		$suite->addTestSuite('org_tubepress_embedded_impl_VimeoEmbeddedPlayerServiceTest');
+		$suite->addTestSuite('org_tubepress_embedded_impl_DefaultEmbeddedPlayerServiceTest');
 		return $suite;
 	}
 }
