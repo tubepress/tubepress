@@ -10,6 +10,17 @@ class org_tubepress_url_YouTubeUrlBuilderTest extends PHPUnit_Framework_TestCase
 	{
 		$this->_sut = new org_tubepress_url_YouTubeUrlBuilder();
 	}
+
+	function testSingleVideoUrl()
+	{
+		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
+		$tpom->expects($this->exactly(1))
+			 ->method("get")
+			 ->will($this->returnValue("devkey"));
+		$this->_sut->setOptionsManager($tpom);
+		
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/videos/1?v=2&key=devkey", $this->_sut->buildSingleVideoUrl(1));
+	}
 	
 	function testBuildGalleryUrlUserMode()
 	{
