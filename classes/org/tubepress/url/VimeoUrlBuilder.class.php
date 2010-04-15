@@ -88,7 +88,10 @@ class org_tubepress_url_VimeoUrlBuilder implements org_tubepress_url_UrlBuilder
         $params['full_response'] = 'true';
         $params['page']          = $currentPage;
         $params['per_page']      = $this->_tpom->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
-        $this->_addSort($params, $mode);
+        $sort = $this->_getSort($mode);
+        if ($sort != '') {
+        	$params['sort'] = $sort;
+        }
         
         return $this->_buildUrl($params);
     }
@@ -103,46 +106,42 @@ class org_tubepress_url_VimeoUrlBuilder implements org_tubepress_url_UrlBuilder
     
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }
     
-    private function _addSort($params, $mode)
+    private function _getSort($mode)
     {
     	/* these two modes can't be sorted */
     	if ($mode == org_tubepress_gallery_TubePressGallery::VIMEO_CHANNEL
     		|| $mode ==org_tubepress_gallery_TubePressGallery::VIMEO_ALBUM) {
-    		return;		
+    		return '';		
     	}
     	
     	$order = $this->_tpom->get(org_tubepress_options_category_Display::ORDER_BY);
     	
     	if ($mode == org_tubepress_gallery_TubePressGallery::VIMEO_SEARCH
     		&& $order == 'relevance') {
-    		$params['sort'] = 'relevant';
-    		return;
+       		return 'relevant';
     	}
     	
     	if ($mode == org_tubepress_gallery_TubePressGallery::VIMEO_GROUP
     		&& $order == 'random') {
-    		$params['sort'] = $order;
-    		return;
+    		return $order;
     	}
     	
     	if ($order == 'viewCount') {
-    		$params['sort'] = 'most_played';
-    		return;
+    		return 'most_played';
     	}
     	
     	if ($order == 'commentCount') {
-    		$params['sort'] = 'most_commented';
-    		return;
+    		return 'most_commented';
     	}
     	
     	if ($order == 'rating') {
-    		$params['sort'] = 'most_liked';
-    		return;
+    		return 'most_liked';
     	}
     	
     	if ($order == 'newest' || $order == 'oldest') {
-    		$params['sort'] = $order;	
+    		return $order;	
     	}
+    	return '';
     }
     
     private function _buildUrl($params)
