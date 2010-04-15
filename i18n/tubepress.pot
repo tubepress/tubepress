@@ -434,9 +434,6 @@ msgstr ""
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)"
 msgstr ""
 
-#
-# VALIDATION
-#
 msgid "%s can only take on integer values. You supplied %s."
 msgstr ""
 
@@ -456,4 +453,13 @@ msgid "\"%s\" must be between \"%d\" and \"%d\". You supplied \"%d\"."
 msgstr ""
 
 msgid "Template names cannot contain two consecutive periods"
+msgstr ""
+
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
+msgstr ""
+
+msgid "newest"
+msgstr ""
+
+msgid "oldest"
 msgstr ""

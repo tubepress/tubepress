@@ -421,9 +421,6 @@ msgstr ""
 msgid "Likes"
 msgstr ""
 
-#
-# VALIDATION
-#
 msgid "%s can only take on integer values. You supplied %s."
 msgstr "%s peut seulement être compris entre ces valeurs. Vous avez saisi %s."
 
@@ -445,3 +442,11 @@ msgstr "\"%s\" doit être entre \"%d\" et \"%d\". Vous avez choisi \"%d\"."
 msgid "Template names cannot contain two consecutive periods"
 msgstr "Les noms d'interfaces ne peuvent contenir 2 périodes consécutives"
 
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
+msgstr ""
+
+msgid "newest"
+msgstr ""
+
+msgid "oldest"
+msgstr ""

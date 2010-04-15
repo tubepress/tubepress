@@ -422,10 +422,6 @@ msgstr ""
 msgid "Provider default"
 msgstr ""
 
-
-#
-# VALIDATION
-#
 msgid "%s can only take on integer values. You supplied %s."
 msgstr "%s может принимать только целые значения. Вы ввели %s."
 
@@ -447,3 +443,11 @@ msgstr "\"%s\" должно быть между \"%d\" и \"%d\". Вы ввел�
 msgid "Template names cannot contain two consecutive periods"
 msgstr "Имена шаблонов не могут содержать два последовательных периода"
 
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
+msgstr ""
+
+msgid "newest"
+msgstr ""
+
+msgid "oldest"
+msgstr ""

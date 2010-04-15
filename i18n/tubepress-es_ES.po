@@ -434,9 +434,6 @@ msgstr ""
 msgid "Likes"
 msgstr ""
 
-#
-# VALIDATION
-#
 msgid "%s can only take on integer values. You supplied %s."
 msgstr "%s solo puede tener valore enteros. Usted indicó %s"
 
@@ -457,3 +454,12 @@ msgstr "\"%s\" debe ser entre \"%d\" y \"%d\". Usted indicó \"%d\"."
 
 msgid "Template names cannot contain two consecutive periods"
 msgstr "Los nombres de plantillas no pueden contener 2 puntos consecutivos."
+
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
+msgstr ""
+
+msgid "newest"
+msgstr ""
+
+msgid "oldest"
+msgstr ""

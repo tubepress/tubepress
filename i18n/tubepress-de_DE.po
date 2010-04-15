@@ -443,10 +443,6 @@ msgstr ""
 msgid "Template names cannot contain two consecutive periods"
 msgstr ""
 
-
-#
-# VALIDATION
-#
 msgid "%s can only take on integer values. You supplied %s."
 msgstr "%s muss ein Ganzzahlenwert sein. Sie haben %s eingegeben."
 
@@ -459,3 +455,11 @@ msgstr ""
 msgid "%s must be a string. You supplied %s."
 msgstr "%s muss eine Zeichenkette sein. Sie haben %s eingegeben."
 
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
+msgstr ""
+
+msgid "newest"
+msgstr ""
+
+msgid "oldest"
+msgstr ""

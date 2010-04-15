@@ -50,6 +50,7 @@ $msgs = array(
         'options-title-resultsPerPage'   => 'Videos per Page', 
         'options-desc-resultsPerPage'    => 'Default is 20. Maximum is 50', 
         'options-title-orderBy'          => 'Order videos by',
+        'options-desc-orderBy'			 => 'Not all sort orders can be applied to all gallery types. See the <a href="http://tubepress.org/documentation">documentation</a> for more info.',
         'options-title-paginationAbove'  => 'Show pagination above thumbnails',
         'options-title-paginationBelow'  => 'Show pagination below thumbnails',
         'options-desc-paginationAbove'   => 'Only applies to galleries that span multiple pages',
@@ -136,6 +137,8 @@ $msgs = array(
         'order-commentCount' => 'comment count',
         'order-duration'     => 'length',
         'order-title'        => 'title',
+        'order-newest'		 => 'newest',
+        'order-oldest'		 => 'oldest',
     
         'timeFrame-today'      => 'today', 
         'timeFrame-this_week'  => 'this week', 
@@ -177,7 +180,6 @@ $msgs = array(
         'playerImplementation-default'    => 'Provider default',
         'playerImplementation-longtail'   => 'JW FLV Media Player (by Longtail Video)'
     );
-
     
 function __($key) {
     return $key;

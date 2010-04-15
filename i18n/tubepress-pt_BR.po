@@ -437,9 +437,6 @@ msgstr ""
 msgid "Provider default"
 msgstr ""
 
-#
-# VALIDATION
-#
 msgid "%s can only take on integer values. You supplied %s."
 msgstr "%s só pode assumir valores inteiros. Você forneceu %s."
 
@@ -461,16 +458,11 @@ msgstr "\"%s\" deve estar entre \"%d\" e \"%d\". Você forneceu \"%d\"."
 msgid "Template names cannot contain two consecutive periods"
 msgstr "Nomes de template não podem conter dois pontos consecutivos"
 
-#~ msgid ""
-#~ "%s must be one of \"today\", \"this_week\", \"this_month\", \"all_time\". "
-#~ "You supplied %s."
-#~ msgstr ""
-#~ "%s deve essere uno tra \"today\", \"this_week\", \"this_month\", "
-#~ "\"all_time\". Tu hai inserito %s."
-#~ msgid ""
-#~ "%s must be on of \"relevance\", \"viewCount\", \"rating\", \"published\", "
-#~ "\"random\". You supplied %s."
-#~ msgstr ""
-#~ "%s deve essere uno tra \"relevance\", \"viewCount\", \"rating\", \"published"
-#~ "\", \"random\". Tu hai inserito %s."
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
+msgstr ""
 
+msgid "newest"
+msgstr ""
+
+msgid "oldest"
+msgstr ""

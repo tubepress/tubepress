@@ -432,9 +432,6 @@ msgstr ""
 msgid "JW FLV Media Player (by Longtail Video)"
 msgstr ""
 
-#
-# VALIDATION
-#
 msgid "%s can only take on integer values. You supplied %s."
 msgstr "%s kan bara ta emot heltal. Du skickade %s."
 
@@ -444,3 +441,11 @@ msgstr "%s måste vara mellan %d och %d. Du skickade %d."
 msgid "%s must be a string. You supplied %s."
 msgstr "%s måste vara en textsträng. Du skickade %s."
 
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
+msgstr ""
+
+msgid "newest"
+msgstr ""
+
+msgid "oldest"
+msgstr ""

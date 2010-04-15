@@ -446,3 +446,11 @@ msgstr "\"%s\" חייב להיות בין \"%d\" and \"%d\". הזנת \"%d\"."
 msgid "Template names cannot contain two consecutive periods"
 msgstr "שמות תבניות אינו יכול להכיל שתי תקופות רצופות"
 
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
+msgstr ""
+
+msgid "newest"
+msgstr ""
+
+msgid "oldest"
+msgstr ""
