@@ -102,14 +102,14 @@ msgstr "Numero massimo di caratteri da mostrare nella descrizione del video. Imp
 msgid "Height (px) of thumbs"
 msgstr "Altezza (px) delle miniature"
 
-msgid "Default (and maximum) is 90"
-msgstr "Predefinito (e massimo) a 90"
+msgid "Default is 90"
+msgstr "Predefinito a 90"
 
 msgid "Width (px) of thumbs"
 msgstr "Larghezza (px) delle miniature"
 
-msgid "Default (and maximum) is 120"
-msgstr "Predefinito (e massimo) a 120"
+msgid "Default is 120"
+msgstr "Predefinito a 120"
 
 msgid "Use relative dates"
 msgstr "Usa data relativa"
@@ -168,7 +168,7 @@ msgstr "Predefinita a FFFFFF"
 msgid "Enhanced genie menu"
 msgstr "Enhanced genie menu"
 
-msgid "Show the genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
+msgid "Show the YouTube genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
 msgstr "Mostra se presente il genie menu quando il mouse entra nell'area del video (come alternativa per l'utente di premere il tasto del \"menu\")"
 
 msgid "Loop"
@@ -195,8 +195,8 @@ msgstr "Commuta alla presentazione dei video correlati una volta terminato il vi
 msgid "Show videos in high definition when available"
 msgstr "Qualità video"
 
-msgid "YouTube Feed"
-msgstr "Feed YouTube"
+msgid "Provider Feed"
+msgstr ""
 
 msgid "Meta Display"
 msgstr "Mostra meta-dati"
@@ -303,7 +303,7 @@ msgstr "normalmente (in cima alla galleria gallery)"
 msgid "in a popup window"
 msgstr "in una finestra popup"
 
-msgid "from the original YouTube page"
+msgid "from the video's original YouTube page"
 msgstr "nella pagina originale di YouTube"
 
 msgid "with FancyBox"
@@ -381,8 +381,8 @@ msgstr "modera"
 msgid "strict"
 msgstr "rispetto rigoroso della norma"
 
-msgid "YouTube"
-msgstr "YouTube"
+msgid "Provider default"
+msgstr ""
 
 msgid "JW FLV Media Player (by Longtail Video)"
 msgstr "JW FLV Media Player (by Longtail Video)"
@@ -390,8 +390,50 @@ msgstr "JW FLV Media Player (by Longtail Video)"
 msgid "Implementation"
 msgstr "Implementazione"
 
-msgid "The brand of the embedded player. Default is \"YouTube\""
-msgstr "Il marchio del player video. Predefinito a \"YouTube\""
+msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)"
+msgstr ""
+
+msgid "Videos uploaded by this Vimeo user"
+msgstr ""
+
+msgid "Videos this Vimeo user likes"
+msgstr ""
+
+msgid "Videos this Vimeo user appears in"
+msgstr ""
+
+msgid "Vimeo search for..."
+msgstr ""
+
+msgid "Videos credited to this Vimeo user (either appears in or uploaded by)"
+msgstr ""
+
+msgid "Videos in this Vimeo channel"
+msgstr ""
+
+msgid "Videos from this Vimeo album"
+msgstr ""
+
+msgid "Videos from this Vimeo group"
+msgstr ""
+
+msgid "Use high-quality thumbnails"
+msgstr ""
+
+msgid "Videos blacklist"
+msgstr ""
+
+msgid "List of video IDs that should never be displayed"
+msgstr ""
+
+msgid "in a new window on its own"
+msgstr ""
+
+msgid "from the video's original Vimeo page"
+msgstr ""
+
+msgid "Likes"
+msgstr ""
 
 #
 # VALIDATION

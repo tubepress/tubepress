@@ -18,8 +18,8 @@ msgstr "TubePress Inställningar"
 msgid "Save"
 msgstr "Spara"
 
-msgid "Set default options for the plugin. Each option here can be overridden on a per page/post basis. See the <a href=\"http://code.google.com/p/tubepress/wiki/Documentation\">documentation</a> for more info."
-msgstr "Grundinställningar för tillägget görs här. Dessa inställningar kan åsidosättas på varje inlägg eller sida. Läs mer i <a href=\"http://code.google.com/p/tubepress/wiki/Documentation\">dokumentationen</a>."
+msgid "Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info. An asterisk (*) next to an option indicates it's only available with <a href=\"http://tubepress.org/features\">TubePress Pro</a>."
+msgstr ""
 
 msgid "Which videos?"
 msgstr "Vilka videos?"
@@ -39,7 +39,7 @@ msgstr "Videos för mobila enheter"
 msgid "This playlist"
 msgstr "Denna spellista"
 
-msgid "Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the 'p='. For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35"
+msgid "Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35"
 msgstr "Begränsad till 200 videos per spellista. Denna ser vanligtvis ut ungefär: D2B04665B213AE35. Kopiera spellistans ID från slutet av dess webbadress (syns när du bläddrar i spellistan). Syns direkt efter 'p=', till exempel http://youtube.com/my_playlists?p=D2B04665B213AE35"
 
 msgid "Most-viewed videos from"
@@ -69,7 +69,7 @@ msgstr "Videos från denna YouTube-användare"
 msgid "YouTube limits this mode to 1,000 results"
 msgstr "YouTube begränsar detta till 1000 resultat"
 
-msgid "Display Options"
+msgid "Appearance"
 msgstr "Visningsalternativ"
 
 msgid "Play each video"
@@ -84,14 +84,14 @@ msgstr "Det maximala antalet tecken som visas i en videobeskrivning. Sätt detta
 msgid "Height (px) of thumbs"
 msgstr "Höjd (px) på tumnagel"
 
-msgid "Default (and maximum) is 90"
-msgstr "Standard (och maximum) är 90"
+msgid "Default is 90"
+msgstr "Standard är 90"
 
 msgid "Width (px) of thumbs"
 msgstr "Bredd (px) på tumnagel"
 
-msgid "Default (and maximum) is 120"
-msgstr "Standard (och maximum) är 120"
+msgid "Default is 120"
+msgstr "Standard är 120"
 
 msgid "Videos per Page"
 msgstr "Videos per sida"
@@ -114,8 +114,8 @@ msgstr "Visa kantlinje"
 msgid "Max height (px)"
 msgstr "Maximal höjd (px)"
 
-msgid "Default is 355"
-msgstr "Standard är 355"
+msgid "Default is 350"
+msgstr "Standard är 350"
 
 msgid "Default is 425"
 msgstr "Standard är 425"
@@ -123,7 +123,7 @@ msgstr "Standard är 425"
 msgid "Enhanced genie menu"
 msgstr "Enhanced Genie Menu"
 
-msgid "Show the genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button"
+msgid "Show the YouTube genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
 msgstr "Använder om möjligt s.k. Genie Menu, som visas så fort muspekaren förs över videon (istället för bara när användaren trycker på \"meny\"-knappen"
 
 msgid "Loop"
@@ -216,7 +216,7 @@ msgstr "standard (ovanför galleriet)"
 msgid "in a popup window"
 msgstr "i ett pop-up-fönster"
 
-msgid "from the original YouTube page"
+msgid "from the video's original YouTube page"
 msgstr "på den ursprungliga YouTube-sidan"
 
 msgid "with Shadowbox"
@@ -255,20 +255,191 @@ msgstr "föregående"
 msgid "Displays YouTube videos in your sidebar using TubePress"
 msgstr "Visa YouTube-videos i din sidospalt med TubePress."
 
+msgid "Videos uploaded by this Vimeo user"
+msgstr ""
+
+msgid "Videos this Vimeo user likes"
+msgstr ""
+
+msgid "Videos this Vimeo user appears in"
+msgstr ""
+
+msgid "Vimeo search for..."
+msgstr ""
+
+msgid "Videos credited to this Vimeo user (either appears in or uploaded by)"
+msgstr ""
+
+msgid "Videos in this Vimeo channel"
+msgstr ""
+
+msgid "Videos from this Vimeo album"
+msgstr ""
+
+msgid "Videos from this Vimeo group"
+msgstr ""
+
+msgid "Use high-quality thumbnails"
+msgstr ""
+
+msgid "Videos blacklist"
+msgstr ""
+
+msgid "List of video IDs that should never be displayed"
+msgstr ""
+
+msgid "in a new window on its own"
+msgstr ""
+
+msgid "from the video's original Vimeo page"
+msgstr ""
+
+msgid "Likes"
+msgstr ""
+
+msgid "TubePress is free. But if you enjoy the plugin, and appreciate the hundreds of hours I've spent developing and supporting it, please consider a donation. No amount is too small. Thanks!"
+msgstr ""
+
+msgid "Provider Feed"
+msgstr ""
+
+msgid "Use relative dates"
+msgstr ""
+
+msgid "e.g. \"yesterday\" instead of \"November 3, 1980\""
+msgstr ""
+
+msgid "Show pagination above thumbnails"
+msgstr ""
+
+msgid "Show pagination below thumbnails"
+msgstr ""
+
+msgid "Only applies to galleries that span multiple pages"
+msgstr ""
+
+msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-enabled pagination"
+msgstr ""
+
+msgid "Max width (px)"
+msgstr ""
+
+msgid "Allow fullscreen playback"
+msgstr ""
+
+msgid "Default is 999999"
+msgstr ""
+
+msgid "Highlight color"
+msgstr ""
+
+msgid "Default is FFFFFF"
+msgstr ""
+
+msgid "Show title and rating before video starts"
+msgstr ""
+
+msgid "Show videos in high definition when available"
+msgstr ""
+
+msgid "Implementation"
+msgstr ""
+
+msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)"
+msgstr ""
+
+msgid "YouTube API Developer Key"
+msgstr ""
+
+msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing."
+msgstr ""
+
+msgid "Enable request cache"
+msgstr ""
+
+msgid "Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
+msgstr ""
+
+msgid "Only retrieve embeddable videos"
+msgstr ""
+
+msgid "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries."
+msgstr ""
+
+msgid "Maximum total videos to retrieve"
+msgstr ""
+
+msgid "This can help to reduce the number of pages in your gallery. Set to \"0\" to remove any limit."
+msgstr ""
+
+msgid "with jqModal"
+msgstr ""
+
+msgid "with TinyBox"
+msgstr ""
+
+msgid "with FancyBox"
+msgstr ""
+
+msgid "statically (page refreshes on each thumbnail click)"
+msgstr ""
+
+msgid "randomly"
+msgstr ""
+
+msgid "position in a playlist"
+msgstr ""
+
+msgid "comment count"
+msgstr ""
+
+msgid "length"
+msgstr ""
+
+msgid "title"
+msgstr ""
+
+msgid "Runtime"
+msgstr ""
+
+msgid "\"%s\" is not a valid option name."
+msgstr ""
+
+msgid "\"%s\" must be either true or false. You supplied \"%s\"."
+msgstr ""
+
+msgid "\"%s\" must be one of \"%s\". You supplied \"%s\"."
+msgstr ""
+
+msgid "Template names cannot contain two consecutive periods"
+msgstr ""
+
+msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>."
+msgstr ""
+
+msgid "none"
+msgstr ""
+
+msgid "moderate"
+msgstr ""
+
+msgid "strict"
+msgstr ""
+
+msgid "Provider default"
+msgstr ""
+
+msgid "JW FLV Media Player (by Longtail Video)"
+msgstr ""
+
 #
 # VALIDATION
 #
 msgid "%s can only take on integer values. You supplied %s."
 msgstr "%s kan bara ta emot heltal. Du skickade %s."
 
-msgid "%s must be between %d and %d. You supplied %d."
+msgid "\"%s\" must be between \"%d\" and \"%d\". You supplied \"%d\"."
 msgstr "%s måste vara mellan %d och %d. Du skickade %d."
-
-msgid "%s must be one of \"today\", \"this_week\", \"this_month\", \"all_time\". You supplied %s."
-msgstr "%s måste vara \"today\", \"this_week\", \"this_month\" eller \"all_time\". Du skickade %s."
-
-msgid "%s must be on of \"relevance\", \"viewCount\", \"rating\", \"published\". You supplied %s."
-msgstr "%s måste vara \"relevance\", \"viewCount\", \"rating\" eller \"published\". Du skickade %s."
 
 msgid "%s must be a string. You supplied %s."
 msgstr "%s måste vara en textsträng. Du skickade %s."

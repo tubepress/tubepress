@@ -74,7 +74,7 @@ msgstr ""
 msgid "Most-responded to videos"
 msgstr ""
 
-msgid "Videos uploaded by this Vimeo user:
+msgid "Videos uploaded by this Vimeo user"
 msgstr ""
 
 msgid "Videos this Vimeo user likes"

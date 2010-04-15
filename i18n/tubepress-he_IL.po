@@ -89,14 +89,14 @@ msgstr "מספר התווים המרבי להציג בתיאור וידאו.הג
 msgid "Height (px) of thumbs"
 msgstr "גובה (px פיקסלים) של תמונות תצוגה מקדימה"
 
-msgid "Default (and maximum) is 90"
-msgstr "ברירת המחדל (הגודל המרבי) הוא 90"
+msgid "Default is 90"
+msgstr "ברירת המחדל הוא 90"
 
 msgid "Width (px) of thumbs"
 msgstr "רוחב (px פיקסלים) של תמונות תצוגה מקדימה"
 
-msgid "Default (and maximum) is 120"
-msgstr "ברירת המחדל (הגודל המרבי) הוא 120"
+msgid "Default is 120"
+msgstr "ברירת המחדל הוא 120"
 
 msgid "Use relative dates"
 msgstr "שימוש בתאריך יחסי"
@@ -155,7 +155,7 @@ msgstr "ברירת המחדל היא FFFFFF"
 msgid "Enhanced genie menu"
 msgstr "תפריט genie משופר"
 
-msgid "Show the genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
+msgid "Show the YouTube genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
 msgstr "(הצג תפריט genie  , אם קיים כאשר העכבר נכנס לאזור וידאו (בניגוד רק כאשר המשתמש פותח את  כפתור \"menu\")"
 
 msgid "Loop"
@@ -182,8 +182,8 @@ msgstr "תצוגה של קטעי וידאו בנושא אחרי סיום הוי�
 msgid "Show videos in high definition when available"
 msgstr "הצג קטעי וידאו ב-HD כשזמין"
 
-msgid "YouTube Feed"
-msgstr "YouTube Feed"
+msgid "Provider Feed"
+msgstr ""
 
 msgid "Meta Display"
 msgstr "תצוגה של תגי מטא"
@@ -290,7 +290,7 @@ msgstr "בדרך רגילה (בחלק העליון של הגלריה שלך)"
 msgid "in a popup window"
 msgstr "בחלון קופץ"
 
-msgid "from the original YouTube page"
+msgid "from the video's original YouTube page"
 msgstr "מדף YouTube המקורי"
 
 msgid "with FancyBox"
@@ -362,8 +362,65 @@ msgstr "JW FLV Media Player (by Longtail Video)"
 msgid "Implementation"
 msgstr "יישום "
 
-msgid "The brand of the embedded player. Default is \"YouTube\""
-msgstr "המיתוג של הנגן המוטבע. ברירת המחדל היא  \"YouTube\""
+msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)"
+msgstr ""
+
+msgid "Videos uploaded by this Vimeo user"
+msgstr ""
+
+msgid "Videos this Vimeo user likes"
+msgstr ""
+
+msgid "Videos this Vimeo user appears in"
+msgstr ""
+
+msgid "Vimeo search for..."
+msgstr ""
+
+msgid "Videos credited to this Vimeo user (either appears in or uploaded by)"
+msgstr ""
+
+msgid "Videos in this Vimeo channel"
+msgstr ""
+
+msgid "Videos from this Vimeo album"
+msgstr ""
+
+msgid "Videos from this Vimeo group"
+msgstr ""
+
+msgid "Use high-quality thumbnails"
+msgstr ""
+
+msgid "Videos blacklist"
+msgstr ""
+
+msgid "List of video IDs that should never be displayed"
+msgstr ""
+
+msgid "in a new window on its own"
+msgstr ""
+
+msgid "from the video's original Vimeo page"
+msgstr ""
+
+msgid "position in a playlist"
+msgstr ""
+
+msgid "comment count"
+msgstr ""
+
+msgid "length"
+msgstr ""
+
+msgid "title"
+msgstr ""
+
+msgid "Likes"
+msgstr ""
+
+msgid "Provider default"
+msgstr ""
 
 #
 # VALIDATION

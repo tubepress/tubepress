@@ -192,18 +192,23 @@ class org_tubepress_message_WordPressMessageServiceTest extends PHPUnit_Framewor
 		$this->_sut = new org_tubepress_message_WordPressMessageService();
 	}
 
+	function testPoCompiles()
+	{
+		$files = $this->getPoFiles();
+		foreach ($files as $file) {
+			$realPath = dirname(__FILE__) . '/../../../../../i18n/' . $file;
+			exec("/opt/local/bin/msgfmt	$realPath", $results, $return);
+			$this->assertTrue($return === 0);
+		}
+		
+	}
+
 	function testPotFileHasRightEntries()
 	{
-		$handle = opendir(dirname(__FILE__) . '/../../../../../i18n/');
-	    while (false !== ($file = readdir($handle))) {
-	        if ($file == "." || $file == "..") {
-				continue;
-	    	}
-	    	if (1 == preg_match('/.*\.po.*/', $file)) {
-				$this->performSyncCheck($file);
-	    	}
-		}
-		closedir($handle);
+		$files = $this->getPoFiles();
+		foreach ($files as $file) {
+			$this->performSyncCheck($file);
+	    }
 	}
 	
 	function performSyncCheck($file)
@@ -216,7 +221,7 @@ class org_tubepress_message_WordPressMessageServiceTest extends PHPUnit_Framewor
 		foreach ($rawMatches as $rawMatch) {
 			$r = $rawMatch[0];
 			$r = str_replace("msgid \"", "", $r);
-			$r = substr($r, 0, strlen($r) - 1);
+			$r = substr($r, 0, $this->rstrpos($r, "\""));
 			if ($r == '') {
 				continue;	
 			}
@@ -237,6 +242,22 @@ class org_tubepress_message_WordPressMessageServiceTest extends PHPUnit_Framewor
 		$this->assertTrue($ok);
 	}
 
+	function getPoFiles()
+	{
+		$files = array();
+		$handle = opendir(dirname(__FILE__) . '/../../../../../i18n/');
+	    while (false !== ($file = readdir($handle))) {
+	        if ($file == "." || $file == "..") {
+				continue;
+	    	}
+	    	if (1 == preg_match('/.*\.po.*/', $file)) {
+				$files[] = $file;
+	    	}
+		}
+		closedir($handle);
+		return $files;
+	}
+
 	function testGetKey()
 	{
 	    global $msgs;
@@ -248,6 +269,12 @@ class org_tubepress_message_WordPressMessageServiceTest extends PHPUnit_Framewor
 	        $this->assertTrue($result);
 	    }
 	}
+	
+	function rstrpos ($haystack, $needle){
+    	$index        = strpos(strrev($haystack), strrev($needle));
+        $index        = strlen($haystack) - strlen($index) - $index;
+        return $index;
+   	}
 }
 
 

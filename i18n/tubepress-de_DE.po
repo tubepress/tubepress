@@ -14,6 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+
 msgid ""
 msgstr ""
 "Project-Id-Version: TubePress 1.6.5\n"
@@ -349,9 +350,6 @@ msgstr ""
 msgid "Only applies to galleries that span multiple pages"
 msgstr ""
 
-msgid "Only applies to galleries that span multiple pages"
-msgstr ""
-
 msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-enabled pagination"
 msgstr ""
 
@@ -400,7 +398,7 @@ msgstr ""
 msgid "Maximum total videos to retrieve"
 msgstr ""
 
-msgid "This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit."
+msgid "This can help to reduce the number of pages in your gallery. Set to \"0\" to remove any limit."
 msgstr ""
 
 msgid "with jqModal"

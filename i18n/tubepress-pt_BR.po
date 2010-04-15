@@ -101,14 +101,14 @@ msgstr "Número máximo de caracteres a serem mostrados nas descrições do víd
 msgid "Height (px) of thumbs"
 msgstr "Altura (px) das miniaturas"
 
-msgid "Default (and maximum) is 90"
-msgstr "O padrão (e máximo) é 90"
+msgid "Default is 90"
+msgstr "O padrão é 90"
 
 msgid "Width (px) of thumbs"
 msgstr "Largura (px) das miniaturas"
 
-msgid "Default (and maximum) is 120"
-msgstr "O padrão (e máximo) é 120"
+msgid "Default is 120"
+msgstr "O padrão é 120"
 
 msgid "Use relative dates"
 msgstr "Usar datas relativas"
@@ -167,7 +167,7 @@ msgstr "O padrão é FFFFFF"
 msgid "Enhanced genie menu"
 msgstr "Genie menu melhorado"
 
-msgid "Show the genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
+msgid "Show the YouTube genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
 msgstr "Mostrar o genie menu, se presente, quando o mouse entra na área do vídeo (em oposição a apenas quando o usuário aperta o \"botão\" menu)"
 
 msgid "Loop"
@@ -293,7 +293,7 @@ msgstr "normalmente (no topo da sua galeria)"
 msgid "in a popup window"
 msgstr "em uma janela popup"
 
-msgid "from the original YouTube page"
+msgid "from the video's original YouTube page"
 msgstr "da página original do Youtube"
 
 msgid "with FancyBox"
@@ -365,8 +365,77 @@ msgstr "JW FLV Media Player (by Longtail Video)"
 msgid "Implementation"
 msgstr "Implementação"
 
-msgid "The brand of the embedded player. Default is \"YouTube\""
-msgstr "A marca do player incorporado. O padrão é  \"YouTube \""
+msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)"
+msgstr ""
+
+msgid "Videos uploaded by this Vimeo user"
+msgstr ""
+
+msgid "Videos this Vimeo user likes"
+msgstr ""
+
+msgid "Videos this Vimeo user appears in"
+msgstr ""
+
+msgid "Vimeo search for..."
+msgstr ""
+
+msgid "Videos credited to this Vimeo user (either appears in or uploaded by)"
+msgstr ""
+
+msgid "Videos in this Vimeo channel"
+msgstr ""
+
+msgid "Videos from this Vimeo album"
+msgstr ""
+
+msgid "Videos from this Vimeo group"
+msgstr ""
+
+msgid "Use high-quality thumbnails"
+msgstr ""
+
+msgid "Videos blacklist"
+msgstr ""
+
+msgid "List of video IDs that should never be displayed"
+msgstr ""
+
+msgid "in a new window on its own"
+msgstr ""
+
+msgid "from the video's original Vimeo page"
+msgstr ""
+
+msgid "Likes"
+msgstr ""
+
+msgid "Appearance"
+msgstr ""
+
+msgid "Provider Feed"
+msgstr ""
+
+msgid "Max width (px)"
+msgstr ""
+
+msgid "position in a playlist"
+msgstr ""
+
+msgid "comment count"
+msgstr ""
+
+msgid "length"
+msgstr ""
+
+msgid "title"
+msgstr ""
+
+msgid "Runtime"
+msgstr ""
+
+msgid "Provider default"
+msgstr ""
 
 #
 # VALIDATION

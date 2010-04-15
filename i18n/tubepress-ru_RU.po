@@ -89,14 +89,14 @@ msgstr "Максимальное количество символов для о
 msgid "Height (px) of thumbs"
 msgstr "Высота эскиза (в пикселях)"
 
-msgid "Default (and maximum) is 90"
-msgstr "По умолчанию 90  (максимальный размер)"
+msgid "Default is 90"
+msgstr "По умолчанию 90"
 
 msgid "Width (px) of thumbs"
 msgstr "Ширина эскиза (в пикселях)"
 
-msgid "Default (and maximum) is 120"
-msgstr "По умолчанию 120  (максимальный размер)"
+msgid "Default is 120"
+msgstr "По умолчанию 120"
 
 msgid "Use relative dates"
 msgstr "Использовать относительные даты"
@@ -155,7 +155,7 @@ msgstr "По умолчанию: FFFFFF"
 msgid "Enhanced genie menu"
 msgstr "Всплывающее расширенное меню"
 
-msgid "Show the genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
+msgid "Show the YouTube genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
 msgstr "Всплывающее меню (если оно есть) появляется, когда пользователь наводит курсор мыши на область воспроизведения видео, а не только при нажатии кнопки \"меню\")"
 
 msgid "Loop"
@@ -182,8 +182,8 @@ msgstr "Показывать похожие видео после окончан
 msgid "Show videos in high definition when available"
 msgstr "Показать видео в высоком качестве, когда оно доступно"
 
-msgid "YouTube Feed"
-msgstr "Канал YouTube"
+msgid "Provider Feed"
+msgstr ""
 
 msgid "Meta Display"
 msgstr "Показ метаданных"
@@ -290,7 +290,7 @@ msgstr "стандартно (в верхней части галереи)"
 msgid "in a popup window"
 msgstr "во всплывающем окне"
 
-msgid "from the original YouTube page"
+msgid "from the video's original YouTube page"
 msgstr "с исходной страницы YouTube"
 
 msgid "with FancyBox"
@@ -362,8 +362,66 @@ msgstr "JW FLV Media Player (от Longtail Video)"
 msgid "Implementation"
 msgstr "Реализация"
 
-msgid "The brand of the embedded player. Default is \"YouTube\""
-msgstr "Тип встраемого проигрывателя. По умолчанию \"YouTube\""
+msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)"
+msgstr ""
+
+msgid "Videos uploaded by this Vimeo user"
+msgstr ""
+
+msgid "Videos this Vimeo user likes"
+msgstr ""
+
+msgid "Videos this Vimeo user appears in"
+msgstr ""
+
+msgid "Vimeo search for..."
+msgstr ""
+
+msgid "Videos credited to this Vimeo user (either appears in or uploaded by)"
+msgstr ""
+
+msgid "Videos in this Vimeo channel"
+msgstr ""
+
+msgid "Videos from this Vimeo album"
+msgstr ""
+
+msgid "Videos from this Vimeo group"
+msgstr ""
+
+msgid "Use high-quality thumbnails"
+msgstr ""
+
+msgid "Videos blacklist"
+msgstr ""
+
+msgid "List of video IDs that should never be displayed"
+msgstr ""
+
+msgid "in a new window on its own"
+msgstr ""
+
+msgid "from the video's original Vimeo page"
+msgstr ""
+
+msgid "Likes"
+msgstr ""
+
+msgid "position in a playlist"
+msgstr ""
+
+msgid "comment count"
+msgstr ""
+
+msgid "length"
+msgstr ""
+
+msgid "title"
+msgstr ""
+
+msgid "Provider default"
+msgstr ""
+
 
 #
 # VALIDATION
