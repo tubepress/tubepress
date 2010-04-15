@@ -31,8 +31,8 @@ msgstr "TubePress Optionen"
 msgid "Save"
 msgstr "Speichern"
 
-msgid "Set default options for the plugin. Each option here can be overridden on a per page/post basis. See the <a href=\"http://code.google.com/p/tubepress/wiki/Documentation\">documentation</a> for more info."
-msgstr "Setzt die Standardoptionen f&uuml;r das Plugin. Jede dieser Optionen hier kann pro Seite oder Beitrag &uuml;berschrieben werden. Siehe in der <a href=\"http://code.google.com/p/tubepress/wiki/Documentation\">Dokumentation</a> f&uuml;r weitere Informationen."
+msgid "Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info. An asterisk (*) next to an option indicates it's only available with <a href=\"http://tubepress.org/features\">TubePress Pro</a>."
+msgstr ""
 
 msgid "TubePress is free. But if you enjoy the plugin, and appreciate the hundreds of hours I've spent developing and supporting it, please consider a donation. No amount is too small. Thanks!"
 msgstr "TubePress ist gratis. Aber falls das Plugin f&uuml;r Sie von Nutzen ist, und Sie die hunderten von Stunden welche f&uuml;r die Entwicklung und den Support dieses Plugins aufgewendet wurden unterst&uuml;tzen mouml;chten k&ouml;nnen Sie eine Spende machen. Kein Betrag ist zu klein! Danke!"
@@ -55,7 +55,7 @@ msgstr "Videos f&uuml;r Mobiltelefone"
 msgid "This playlist"
 msgstr "Diese Wiedergabeliste"
 
-msgid "Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the 'p='. For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35"
+msgid "Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35"
 msgstr "Limitert auf 200 Videos pro Wiedergabeliste. Ist normalerweise in diesem Format: D2B04665B213AE35. Kopieren Sie die ID der Wiedergabeliste vom Ende der URL aus der Adressleiste ihres Browsers w&auml;hrend Sie eine YouTube Wiedergabeliste betrachten. Die ID folgt gleich nach dem 'p='. Zum Beispiel: http://youtube.com/my_playlists?p=D2B04665B213AE35"
 
 msgid "Most-viewed videos from"
@@ -85,8 +85,8 @@ msgstr "Videos von diesem YouTube Benutzer"
 msgid "YouTube limits this mode to 1,000 results"
 msgstr "YouTube beschr&auml;nkt diesen Modus auf 1'000 Resultate"
 
-msgid "Display Options"
-msgstr "Anzeige Optionen"
+msgid "Appearance"
+msgstr ""
 
 msgid "Play each video"
 msgstr "Anzeigemodus"
@@ -100,14 +100,14 @@ msgstr "Maximale Anzahl Zeichen welche von der Beschreibung des Videos angezeigt
 msgid "Height (px) of thumbs"
 msgstr "H&ouml;he (Pixel) der Vorschaubilder"
 
-msgid "Default (and maximum) is 90"
-msgstr "Standardwert (und Maximum) ist 90"
+msgid "Default is 90"
+msgstr "Standardwert ist 90"
 
 msgid "Width (px) of thumbs"
 msgstr "Breite (Pixel) der Vorschaubilder"
 
-msgid "Default (and maximum) is 120"
-msgstr "Standardwert (und Maximum) ist 120"
+msgid "Default is 120"
+msgstr "Standardwert ist 120"
 
 msgid "Use relative dates"
 msgstr "Relative Datumsangaben"
@@ -136,8 +136,8 @@ msgstr "Rahmen anzeigen"
 msgid "Max height (px)"
 msgstr "Max. H&ouml;he (Pixel)"
 
-msgid "Default is 355"
-msgstr "Standardwert ist 355"
+msgid "Default is 350"
+msgstr "Standardwert ist 350"
 
 msgid "Default is 425"
 msgstr "Standardwert ist 425"
@@ -145,7 +145,7 @@ msgstr "Standardwert ist 425"
 msgid "Enhanced genie menu"
 msgstr "Erweitertes Genie Men&uuml;"
 
-msgid "Show the genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button"
+msgid "Show the YouTube genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
 msgstr "Zeigt, falls vorhanden, das Genie Men&uuml; wenn die Maus &uuml;ber dem Videobereich ist (Ansonsten wird das Men&uuml; nur angezeigt falls der Benutzer den \"Men&uuml;\" Knopf dr&uuml;ckt)."
 
 msgid "Loop"
@@ -157,11 +157,20 @@ msgstr "Wiederholt das Video bis der Benutzer die Wiedergabe unterbricht."
 msgid "Main color"
 msgstr "Farbe"
 
+msgid "Provider default"
+msgstr ""
+
+msgid "JW FLV Media Player (by Longtail Video)"
+msgstr ""
+
 msgid "Show related videos"
 msgstr "&Auml;hnliche Videos anzeigen"
 
 msgid "Toggles the display of related videos after a video finishes"
 msgstr "Schaltet das Anzeigen von &auml;hnlichen Videos nach dem Ende des Videos ein oder aus."
+
+msgid "Provider Feed"
+msgstr ""
 
 msgid "Meta Display"
 msgstr "Meta Anzeige"
@@ -177,6 +186,9 @@ msgstr "Beschreibung"
 
 msgid "ID"
 msgstr "ID"
+
+msgid "Likes"
+msgstr ""
 
 msgid "Length"
 msgstr "Dauer"
@@ -217,6 +229,15 @@ msgstr "Falls diese Option gew&auml;hlt ist kann jedermann die Debug Information
 msgid "Filter \"racy\" content"
 msgstr "Jugendschutzfilter"
 
+msgid "none"
+msgstr ""
+
+msgid "moderate"
+msgstr ""
+
+msgid "strict"
+msgstr ""
+
 msgid "Don't show videos that may not be suitable for minors."
 msgstr "Videos welche f&uuml;r Minderj&auml;hrige ungeeignet sind ausblenden"
 
@@ -244,19 +265,13 @@ msgstr "Anfragen Zwischenspeicher"
 msgid "Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
 msgstr "Speichert Antworten von YouTube lokal f&uuml;r 1 Stunde. Jede Anfrage ist im Bereich von ein paar hundert KB, daher reduziert das aktivieren des Zwischenspeichers die Ladezeiten f�r die Videogallerien merklich auf geringe Kosten der Aktualit&auml;t."
 
-msgid "Add rel=nofollow to most YouTube links"
-msgstr "F&uuml;gt rel=nofollow zu den meisten YouTube Links hinzu"
-
-msgid "Prevents search engines from indexing outbound links to youtube.com. The only exception is the link to a video's original page on YouTube."
-msgstr "Verhindert dass Suchmaschinen ausgehende Links zu youtube.com indexieren. Die einzige Ausnahme ist der Link zur Originalseite eines YouTube Videos."
-
 msgid "normally (at the top of your gallery)"
 msgstr "Normal (oberhalb der Videogallerie)"
 
 msgid "in a popup window"
 msgstr "In einem Popup Fenster"
 
-msgid "from the original YouTube page"
+msgid "from the video's original YouTube page"
 msgstr "Von der Original YouTube Seite"
 
 msgid "with Shadowbox"
@@ -301,20 +316,147 @@ msgstr "Zeigt YouTube Videos mittels TubePress in der Sidebar an"
 msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>."
 msgstr "TubePress Kurzcode f&uuml;r das Widget. Siehe <a href=\"http://tubepress.org/documentation\"> Dokumentation</a>."
 
+msgid "Videos uploaded by this Vimeo user"
+msgstr ""
+
+msgid "Videos this Vimeo user likes"
+msgstr ""
+
+msgid "Videos this Vimeo user appears in"
+msgstr ""
+
+msgid "Vimeo search for..."
+msgstr ""
+
+msgid "Videos credited to this Vimeo user (either appears in or uploaded by)"
+msgstr ""
+
+msgid "Videos in this Vimeo channel"
+msgstr ""
+
+msgid "Videos from this Vimeo album"
+msgstr ""
+
+msgid "Videos from this Vimeo group"
+msgstr ""
+
+msgid "Show pagination above thumbnails"
+msgstr ""
+
+msgid "Show pagination below thumbnails"
+msgstr ""
+
+msgid "Only applies to galleries that span multiple pages"
+msgstr ""
+
+msgid "Only applies to galleries that span multiple pages"
+msgstr ""
+
+msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-enabled pagination"
+msgstr ""
+
+msgid "Use high-quality thumbnails"
+msgstr ""
+
+msgid "Max width (px)"
+msgstr ""
+
+msgid "Allow fullscreen playback"
+msgstr ""
+
+msgid "Default is 999999"
+msgstr ""
+
+msgid "Highlight color"
+msgstr ""
+
+msgid "Default is FFFFFF"
+msgstr ""
+
+msgid "Show title and rating before video starts"
+msgstr ""
+
+msgid "Show videos in high definition when available"
+msgstr ""
+
+msgid "Implementation"
+msgstr ""
+
+msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)"
+msgstr ""
+
+msgid "Videos blacklist"
+msgstr ""
+
+msgid "List of video IDs that should never be displayed"
+msgstr ""
+
+msgid "Only retrieve embeddable videos"
+msgstr ""
+
+msgid "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries."
+msgstr ""
+
+msgid "Maximum total videos to retrieve"
+msgstr ""
+
+msgid "This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit."
+msgstr ""
+
+msgid "with jqModal"
+msgstr ""
+
+msgid "with TinyBox"
+msgstr ""
+
+msgid "with FancyBox"
+msgstr ""
+
+msgid "statically (page refreshes on each thumbnail click)"
+msgstr ""
+
+msgid "in a new window on its own"
+msgstr ""
+
+msgid "from the video's original Vimeo page"
+msgstr ""
+
+msgid "position in a playlist"
+msgstr ""
+
+msgid "comment count"
+msgstr ""
+
+msgid "length"
+msgstr ""
+
+msgid "title"
+msgstr ""
+
+msgid "Runtime"
+msgstr ""
+
+msgid "\"%s\" is not a valid option name."
+msgstr ""
+
+msgid "\"%s\" must be either true or false. You supplied \"%s\"."
+msgstr ""
+
+msgid "Template names cannot contain two consecutive periods"
+msgstr ""
+
+
 #
 # VALIDATION
 #
 msgid "%s can only take on integer values. You supplied %s."
 msgstr "%s muss ein Ganzzahlenwert sein. Sie haben %s eingegeben."
 
-msgid "%s must be between %d and %d. You supplied %d."
+msgid "\"%s\" must be between \"%d\" and \"%d\". You supplied \"%d\"."
 msgstr "%s muss zwischen %d und %d liegen. Sie haben %s eingegeben."
 
-msgid "%s must be one of \"today\", \"this_week\", \"this_month\", \"all_time\". You supplied %s."
-msgstr "%s muss einer der folgenden Werte sein: \"today\", \"this_week\", \"this_month\", \"all_time\". Sie haben %s eingegeben."
-
-msgid "%s must be on of \"relevance\", \"viewCount\", \"rating\", \"published\", \"random\". You supplied %s."
-msgstr "%s muss einer der folgenden Werte sein: \"relevance\", \"viewCount\", \"rating\", \"published\", \"random\". Sie haben %s eingegeben."
+msgid "\"%s\" must be one of \"%s\". You supplied \"%s\"."
+msgstr ""
 
 msgid "%s must be a string. You supplied %s."
 msgstr "%s muss eine Zeichenkette sein. Sie haben %s eingegeben."

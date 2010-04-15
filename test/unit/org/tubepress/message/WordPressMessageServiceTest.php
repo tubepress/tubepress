@@ -100,7 +100,7 @@ $msgs = array(
         'options-title-keyword'              => 'Shortcode keyword', 
         'options-desc-keyword'               => 'The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.', 
         'options-title-randomize_thumbnails' => 'Randomize thumbnails', 
-        'options-desc-randomize_thumbnails'  => 'Most YouTube videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized', 
+        'options-desc-randomize_thumbnails'  => 'Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized', 
         
         'options-title-filter_racy'          => 'Filter "racy" content', 
         'options-desc-filter_racy'           => 'Don\'t show videos that may not be suitable for minors.', 
@@ -125,7 +125,7 @@ $msgs = array(
         'player-fancybox'    => 'with FancyBox',
         'player-static'      => 'statically (page refreshes on each thumbnail click)',
         'player-solo'        => 'in a new window on its own',
-        'player-vimeo'       => 'from the video\s original Vimeo page',
+        'player-vimeo'       => 'from the video\'s original Vimeo page',
     
         'order-relevance'    => 'relevance', 
         'order-viewCount'    => 'view count', 
@@ -190,6 +190,51 @@ class org_tubepress_message_WordPressMessageServiceTest extends PHPUnit_Framewor
 	function setUp()
 	{
 		$this->_sut = new org_tubepress_message_WordPressMessageService();
+	}
+
+	function testPotFileHasRightEntries()
+	{
+		$handle = opendir(dirname(__FILE__) . '/../../../../../i18n/');
+	    while (false !== ($file = readdir($handle))) {
+	        if ($file == "." || $file == "..") {
+				continue;
+	    	}
+	    	if (1 == preg_match('/.*\.po.*/', $file)) {
+				$this->performSyncCheck($file);
+	    	}
+		}
+		closedir($handle);
+	}
+	
+	function performSyncCheck($file)
+	{
+		global $msgs;
+		$rawMatches = array();
+		$potContents = file_get_contents(dirname(__FILE__) . '/../../../../../i18n/' . $file);
+		preg_match_all("/msgid\b.*/", $potContents, $rawMatches, PREG_SET_ORDER);
+		$matches = array();
+		foreach ($rawMatches as $rawMatch) {
+			$r = $rawMatch[0];
+			$r = str_replace("msgid \"", "", $r);
+			$r = substr($r, 0, strlen($r) - 1);
+			if ($r == '') {
+				continue;	
+			}
+			$r = str_replace("\\\"", "\"", $r);
+			$matches[] = $r;
+		}
+		$vals = array_values($msgs);
+		$diff1 = array_diff($vals, $matches);
+		$diff2 = array_diff($matches, $vals);
+		$ok = empty($diff1) && empty($diff2);
+		if (!$ok) {
+			echo "\n\nThe following items are missing from $file\n\n";
+			print_r(array_diff($vals, $matches));
+			
+			echo "\n\nThe following items should be removed from $file\n\n";
+			print_r(array_diff($matches, $vals));
+		}
+		$this->assertTrue($ok);
 	}
 
 	function testGetKey()

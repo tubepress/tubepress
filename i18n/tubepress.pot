@@ -74,6 +74,30 @@ msgstr ""
 msgid "Most-responded to videos"
 msgstr ""
 
+msgid "Videos uploaded by this Vimeo user:
+msgstr ""
+
+msgid "Videos this Vimeo user likes"
+msgstr ""
+
+msgid "Videos this Vimeo user appears in"
+msgstr ""
+
+msgid "Vimeo search for..."
+msgstr ""
+
+msgid "Videos credited to this Vimeo user (either appears in or uploaded by)"
+msgstr ""
+
+msgid "Videos in this Vimeo channel"
+msgstr ""
+
+msgid "Videos from this Vimeo album"
+msgstr ""
+
+msgid "Videos from this Vimeo group"
+msgstr ""
+
 msgid "Views"
 msgstr ""
 
@@ -101,13 +125,13 @@ msgstr ""
 msgid "Height (px) of thumbs"
 msgstr ""
 
-msgid "Default (and maximum) is 90"
+msgid "Default is 90"
 msgstr ""
 
 msgid "Width (px) of thumbs"
 msgstr ""
 
-msgid "Default (and maximum) is 120"
+msgid "Default is 120"
 msgstr ""
 
 msgid "Use relative dates"
@@ -126,6 +150,9 @@ msgid "Show pagination above thumbnails"
 msgstr ""
 
 msgid "Show pagination below thumbnails"
+msgstr ""
+
+msgid "Use high-quality thumbnails"
 msgstr ""
 
 msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-enabled pagination"
@@ -167,7 +194,7 @@ msgstr ""
 msgid "Enhanced genie menu"
 msgstr ""
 
-msgid "Show the genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
+msgid "Show the YouTube genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
 msgstr ""
 
 msgid "Loop"
@@ -194,7 +221,7 @@ msgstr ""
 msgid "Show videos in high definition when available"
 msgstr ""
 
-msgid "YouTube Feed"
+msgid "Provider Feed"
 msgstr ""
 
 msgid "Meta Display"
@@ -213,6 +240,9 @@ msgid "ID"
 msgstr ""
 
 msgid "Length"
+msgstr ""
+
+msgid "Likes"
 msgstr ""
 
 msgid "Rating"
@@ -308,7 +338,10 @@ msgstr ""
 msgid "in a popup window"
 msgstr ""
 
-msgid "from the original YouTube page"
+msgid "from the video's original YouTube page"
+msgstr ""
+
+msgid "from the video's original Vimeo page"
 msgstr ""
 
 msgid "with FancyBox"
@@ -389,7 +422,7 @@ msgstr ""
 msgid "strict"
 msgstr ""
 
-msgid "YouTube"
+msgid "Provider default"
 msgstr ""
 
 msgid "JW FLV Media Player (by Longtail Video)"
@@ -398,7 +431,7 @@ msgstr ""
 msgid "Implementation"
 msgstr ""
 
-msgid "The brand of the embedded player. Default is \"YouTube\""
+msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)"
 msgstr ""
 
 #
