@@ -1,11 +1,11 @@
 === TubePress ===
 Contributors: k2eric
 Donate link: http://tubepress.org
-Tags: video, youtube, gallery, videos
+Tags: video, youtube, gallery, videos, vimeo
 Requires at least: 2.2
 Stable tag: trunk
 
-Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please visit http://tubepress.org for more info!
+Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and/or sidebar. Please visit http://tubepress.org for more info!
 
 == Installation ==
 
@@ -16,6 +16,24 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 
 == Changelog ==
 
+= 2.0.0 =
+* Vimeo support! Choose from 8 different types of Vimeo galleries. (closes issue 108)
+* Brought back ability to play each video from a gallery in a new window by itself (closes issue 94)
+* Now detects and parses HTML links found in video descriptions
+* Updated Italian translation thanks to Gianni Diurno
+* Added Spanish translation thanks to Luis Fok
+* Added Hebrew translation thanks to Yaron Ofer
+* Ability to blacklist individual videos (closes issue 162)
+* Option to use high-quality thumbnails (closes issue 96) (TubePress Pro only)
+* HTML popups are now centered on screen (closes issue 160)
+* Fixed regression bug for description limit (closes issue 153)
+* Incorrect video could load into embedded player after thumbnail click in certain configurations (closes issue 175)
+* resultCountCap now works on a single gallery page
+* Fixes single video mode in TubePress Pro
+* Static player now works with Ajax pagination (closes issue 177)
+* Version bump for FancyBox (to 1.3.1)
+* FancyBox now operates correctly in all browsers (closes issue 172)
+
 = 1.9.0 =
 * Fixed a bug that breaks the WordPress widget administration page in some PHP installations
 * Added Portugese translation thanks to Miriam de Pauala
@@ -25,66 +43,66 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 * Now includes ability to embed individual videos along with all of their meta info (title, author, description, etc)!
 * Request cache is now disabled by default
 * Updated sorting functionality. Fixes possible "bad request" response from YouTube. Fixes sorting of playlist galleries.
-* Fixed blank item on video sort order dropdown of WordPress options page (closes  issue 155)
-* descLimit shortcode can now be set to zero (closes  issue 153)
-* Improved compatibility with older versions of PHP (closes  issue 163)
+* Fixed blank item on video sort order dropdown of WordPress options page (closes issue 155)
+* descLimit shortcode can now be set to zero (closes issue 153)
+* Improved compatibility with older versions of PHP (closes issue 163)
 * Added Russian translation (thanks to an anonymous supporter)
 * ShadowBox version bump to 3.0rc1
 * Improved documentation
 * (TubePress Pro) Improved i18n support
 * (TubePress Pro) FancyBox version bump to 1.2.6
-* (TubePress Pro) Fixed bug that prevented FancyBox from operating correctly in IE (closes  issue 165)
+* (TubePress Pro) Fixed bug that prevented FancyBox from operating correctly in IE (closes issue 165)
 
 = 1.8.8 =
 * JavaScript initialization is much more robust. Reduces chances of un-clickable video thumbnails.
 * Fixed potentially fatal error in cache mechanism
 * Improved sidebar's CSS
-* Fixed bug in video sort order (closes Ticket #146)
+* Fixed bug in video sort order (closes issue 146)
 * Fixed bug that could cause fatal error in templates
 * Version bump for JW FLV Media Player (to 5.0)
 * Updated Italian translation thanks to Gianni Diurno
 
 = 1.8.7 =
-* Improved compatibility with PEAR (closes Ticket #140)
+* Improved compatibility with PEAR (closes issue 140)
 * Fixed bug that affected determining video ID in some YouTube feeds
 * New static player option. Produces page refresh on each thumbnail click.
-* Gallery HTML is now semantically correct and more structured (closes Ticket #125 and Ticket #117)
-* TubePress Pro: New player: TinyBox (closes Ticket #110)
-* TubePress Pro: New player: FancyBox (closes Ticket #118)
+* Gallery HTML is now semantically correct and more structured (closes issue 125 and issue 117)
+* TubePress Pro: New player: TinyBox (closes issue 110)
+* TubePress Pro: New player: FancyBox (closes issue 118)
 * TubePress Pro: Greatly improved WordPress integration
 * TubePress Pro: Fixed bug that produced open_basedir warning message in some installations
 * Fixed bug that prevented use of custom templates
 * Overhaul and simplification of templating system
 * Improved performance of logging system
-* Improved iPhone/iPod playback (keeps user on site instead of redirecting to YouTube player) (closes Ticket #143)
+* Improved iPhone/iPod playback (keeps user on site instead of redirecting to YouTube player) (closes issue 143)
 
 = 1.8.6 =
 * WordPress options page now uses jQuery tabs
 * Fixed bug that could prevent request cache from working in some PHP installations
-* (TubePress Pro only) Ajax pagination (closes Ticket #45 and Ticket #111)
+* (TubePress Pro only) Ajax pagination (closes issue 45 and issue 111)
 * (TubePress Pro only) Version bump for jQuery (1.2.6 -> 1.3.2)
 * (TubePress Pro only) Removed potential "Invalid locale category name" warning that shows up on some PHP installations
 * Version bump for JW FLV Media Player (to 4.6)
 * Fixed bug that prevented display of videos with "limited syndication" restriction
-* Shortcode and input validation is much more comprehensive (closes Ticket #129)
-* Fixed bug that prevented videos from playing in high definition upon request (closes Ticket #137)
-* Additional gallery pages are no longer indexed by search engines (closes Ticket #133)
+* Shortcode and input validation is much more comprehensive (closes issue 129)
+* Fixed bug that prevented videos from playing in high definition upon request (closes issue 137)
+* Additional gallery pages are no longer indexed by search engines (closes issue 133)
 * Minor refactoring of tubepress.js functions
 * Updated WordPress plugins page blurb
 * Updated Italian translation thanks to Gianni Diurno
 * Various trivial improvements to HTML templates 
 
 = 1.8.5 =
-* Videos now play correctly on iPhone and iPod Touch (closes Ticket #101)
+* Videos now play correctly on iPhone and iPod Touch (closes issue 101)
 * Flexible shortcodes! No need to include commas between attribute/value pairs. Can use single, double, or no quotes around attribute values.
 * Greatly improved debugging mode
-* Fixed bug that prevents all videos in gallery from playing if first video in gallery is unavailable (closes Ticket #115)
-* Fixed bug that could prevent video playback, and JavaScript error, on Firefox with AdBlock Plus enabled (closes Ticket #124)
-* Added ability to cap the total number of videos in a gallery (closes Ticket #65)
+* Fixed bug that prevents all videos in gallery from playing if first video in gallery is unavailable (closes issue 115)
+* Fixed bug that could prevent video playback, and JavaScript error, on Firefox with AdBlock Plus enabled (closes issue 124)
+* Added ability to cap the total number of videos in a gallery (closes issue 65)
 * Updated Italian translation thanks to Gianni Diurno
-* Shadowbox CSS no longer tries to load non-existent images. (closes Ticket #112)
-* WordPress galleries are no longer wrapped with HTML paragraph tags (closes Ticket #79)
-* WordPress.org compliant readme.txt changelog (closes Ticket #123)
+* Shadowbox CSS no longer tries to load non-existent images. (closes issue 112)
+* WordPress galleries are no longer wrapped with HTML paragraph tags (closes issue 79)
+* WordPress.org compliant readme.txt changelog (closes issue 123)
 
 = 1.8.0 =
 * Includes all the changes listed in 1.8.0.RC1
@@ -97,52 +115,52 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 * All classes use dependency injection via Crafty
 * jQuery 1.2.6 or higher is now required (built-in for WordPress users)
 * Multiple galleries on a single page now behave correctly with "normal" player
-* Dynamically load JavaScript libraries as needed (Prototype, Shadowbox, etc) (closes Ticket #56)
+* Dynamically load JavaScript libraries as needed (Prototype, Shadowbox, etc) (closes issue 56)
 * All JavaScript is now unobtrusive
 * Can now use modal players (e.g. Shadowbox) in a TubePress shortcode 
 * Removed extra HTML comments and whitespace. Galleries now use about 16% less bandwidth.
 * CSS will stay valid for multiple galleries on a single page
 * CSS classes now have sensible names (renamed some classes)
-* Updated Italian translation thanks to Gianni Diurno (closes Ticket #83)
-* Fixed bug that affected some PHP installations with PEAR installed (closes Ticket #84)
+* Updated Italian translation thanks to Gianni Diurno (closes issue 83)
+* Fixed bug that affected some PHP installations with PEAR installed (closes issue 84)
 * Fixed bug that blocked WordPress plugin's "database nuke" functionality
 * Removed GreyBox as a player location due to its inability to display inline content
-* Version bump for ShadowBox (closes Ticket #77)
-* popup.php has been removed and replaced with JavaScript functionality (closes Ticket #76)
-* Better control over pagination visibility for multi-page galleries (closes Ticket #93)
+* Version bump for ShadowBox (closes issue 77)
+* popup.php has been removed and replaced with JavaScript functionality (closes issue 76)
+* Better control over pagination visibility for multi-page galleries (closes issue 93)
 * Removed GreyBox and LightWindow as players
 * Graceful failure for videos that are unavailable 
 
 = 1.7.2 =
 
-* Fullscreen playback now available in embedded player (closes Ticket #64)
+* Fullscreen playback now available in embedded player (closes issue 64)
 * Created "YouTube Feed" options category. Moved some of the advanced options into this category.
-* Added ability to exclude non-embeddable videos (closes Ticket #69)
+* Added ability to exclude non-embeddable videos (closes issue 69)
 * Added jscolor HTML color picker for embedded player colors
-* Fixed bug where debugging mode threw a fatal error (closes Ticket #80)
+* Fixed bug where debugging mode threw a fatal error (closes issue 80)
 * Fixed bug where random video sort order would throw a fatal error
 * Added ability to toggle display of title/rating before video starts playing
-* Now using version 2.0 of YouTube gdata API (closes Ticket #68) 
+* Now using version 2.0 of YouTube gdata API (closes issue 68) 
 
 = 1.7.1 =
 
 * Drastically improved class loading mechanism (uses several thousand less system calls)
-* Added Italian translation thanks to Gianni Diurno (closes Ticket #75)
+* Added Italian translation thanks to Gianni Diurno (closes issue 75)
 * Minified Shadowbox JS source using YUI Compressor
-* Fixed critical bug that broke embedded YouTube player on IE7 (closes Ticket #73)
+* Fixed critical bug that broke embedded YouTube player on IE7 (closes issue 73)
 * Fixed minor bug in normal player where embedded player would shift by a few pixels after user clicked a thumbnail 
 
 = 1.7.0 =
-* Option to initialize TubePress options in WordPress (closes Ticket #52)
-* Now works with PHP <= 5.1.0 again (closes Ticket #59 and Ticket #67)
-* Links to popup.php are drastically shorter, which avoids a 404 on some webservers (closes Ticket #55)
-* Added German translation thanks to Pascal Berger (closes Ticket #58)
-* Option to play videos in HD (closes Ticket #33)
-* Option to show custom video in embedded player on page load while using "normal" player (closes Ticket #26) 
+* Option to initialize TubePress options in WordPress (closes issue 52)
+* Now works with PHP <= 5.1.0 again (closes issue 59 and issue 67)
+* Links to popup.php are drastically shorter, which avoids a 404 on some webservers (closes issue 55)
+* Added German translation thanks to Pascal Berger (closes issue 58)
+* Option to play videos in HD (closes issue 33)
+* Option to show custom video in embedded player on page load while using "normal" player (closes issue 26) 
 
 = 1.6.9 =
 * TubePress Pro is now available! Use TubePress anywhere that runs PHP
-* Default thumbmail URL now uses "default.jpg" (closes Ticket #47)
+* Default thumbmail URL now uses "default.jpg" (closes issue 47)
 * Fixed bug that resulted in inability to paginate past the first page of a multi-page gallery.
 * Version bump for Net_URL to Net_URL2
 * Version bump for HTTP_Request to HTTP_Request2
@@ -157,14 +175,14 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 * Added YouTube connection test to debug output
 * Added YouTube API client ID and developer key to aide in debugging
 * Fixed bug where TubePress would remove all post/page content if no videos were found for your request
-* Toggle request cache on/off (closes Ticket #43)
-* Ampersands in query strings are now properly escaped (closes Ticket #38)
-* Galleries can now sort videos randomly (closes Ticket #23)
-* Toggle "nofollow" attributes to YouTube links (closes Ticket #35) 
+* Toggle request cache on/off (closes issue 43)
+* Ampersands in query strings are now properly escaped (closes issue 38)
+* Galleries can now sort videos randomly (closes issue 23)
+* Toggle "nofollow" attributes to YouTube links (closes issue 35) 
 
 = 1.6.6 =
-* Widget-enabled! Put TubePress in your sidebar. (closes Ticket #12)
-* Removed pass-by-reference warnings (closes Ticket #34)
+* Widget-enabled! Put TubePress in your sidebar. (closes issue 12)
+* Removed pass-by-reference warnings (closes issue 34)
 * Ability to limit length of video descriptions
 * Option to toggle relative dates/times for video upload timestamps
 * Swedish translation. Thanks to Mikael Jorhult
@@ -172,10 +190,10 @@ Displays gorgeous YouTube galleries in your posts, pages, and/or sidebar. Please
 * Removed several small bugs that affected users of PHP < 5.2.1 
 
 = 1.6.5 =
-* Full internationalization capability (closes Ticket #21)
-* Upgrades, from this version on, will no longer destroy your old TubePress default settings (closes Ticket #28)
-* Multiple galleries on a single post/page now possible (closes Ticket #20)
-* Fixes broken YouTube link (closes Ticket #30)
+* Full internationalization capability (closes issue 21)
+* Upgrades, from this version on, will no longer destroy your old TubePress default settings (closes issue 28)
+* Multiple galleries on a single post/page now possible (closes issue 20)
+* Fixes broken YouTube link (closes issue 30)
 * Video playback now functions correctly in IE7
 * Cross site scripting vulnerability fixed (thanks Numline1 for reporting)
 * Fixed debug output
