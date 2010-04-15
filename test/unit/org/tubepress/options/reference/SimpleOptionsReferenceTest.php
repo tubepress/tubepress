@@ -233,7 +233,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     }
     function testOrderEnumValues()
     {
-        $expected = array('relevance', 'viewCount', 'rating', 'published', 'random', 'position', 'commentCount', 'duration', 'title');
+        $expected = array('relevance', 'viewCount', 'rating', 'published', 'random', 'position', 'commentCount', 'duration', 'title', 'newest', 'oldest');
         $this->assertEquals($expected, $this->_sut->getValidEnumValues(org_tubepress_options_Type::ORDER));
     }
     
