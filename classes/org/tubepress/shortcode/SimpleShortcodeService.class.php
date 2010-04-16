@@ -146,11 +146,12 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
         }
         $log->log($this->_logPrefix, 'No video ID set in shortcode.');
         
+        $qss = $iocService->get(org_tubepress_ioc_IocService::QUERY_STRING_SERVICE);
+        
         /* see if the users wants to display just the video in the query string */
         $playerName = $tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
         if ($playerName == org_tubepress_player_Player::SOLO) {
         	$log->log($this->_logPrefix, 'Solo player detected. Checking query string for video ID');
-        	$qss = $iocService->get(org_tubepress_ioc_IocService::QUERY_STRING_SERVICE);
         	$videoId = $qss->getCustomVideo($_GET);
         	if ($videoId != '') {
         		$log->log($this->_logPrefix, 'Building single video with ID %s', $videoId);
@@ -160,11 +161,15 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
         	$log->log($this->_logPrefix, 'Solo player in use, but no video ID set in URL. Will display a gallery instead.', $videoId);
         }
         
+        $galleryId = $qss->getGalleryId($_GET);
+		if ($galleryId == '') {
+			$galleryId = mt_rand();	
+		}
+        
         /* normal gallery */
-        $rand = mt_rand();
-        $log->log($this->_logPrefix, 'Starting to build gallery %s', $rand);
+        $log->log($this->_logPrefix, 'Starting to build gallery %s', $galleryId);
         $gallery = $iocService->get(org_tubepress_ioc_IocService::GALLERY);
-        return $gallery->getHtml($rand); 
+        return $gallery->getHtml($galleryId); 
     }
     
     public function setLog(org_tubepress_log_Log $log) { $this->_log = $log; }

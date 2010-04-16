@@ -73,7 +73,7 @@ class org_tubepress_shortcode_SimpleShortcodeServiceTest extends PHPUnit_Framewo
 
 	function testGetHtmlNormalGallery()
 	{
-    	$this->_ioc->expects($this->exactly(3))
+    	$this->_ioc->expects($this->exactly(4))
     	     ->method('get')
     	     ->will($this->returnCallback(array($this, '_iocCallback')));
     	$this->_tpom->expects($this->exactly(3))
