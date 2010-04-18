@@ -35,3 +35,6 @@ function _tubepress_solo_player_init() {
 	});
 }
 
+function tubepress_solo_player(galleryId, videoId) {
+	//do nothing
+}
