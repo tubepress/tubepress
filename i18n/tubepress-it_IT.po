@@ -267,7 +267,7 @@ msgstr "La parola che inserirai (come testo racchiuso tra le parentesi quadre) n
 msgid "Randomize thumbnails"
 msgstr "Casualizza le miniature"
 
-msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized"
+msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized. Note: this option cannot be used with the \"high quality thumbnails\" feature"
 msgstr "La maggior parte dei video viene proposta con diverse miniature. Selezionando questa opzione, ogni volta che qualcuno accederà alla tua galleria potrà vedere i video presenti associati alle loro varie miniature mostrate casualmente "
 
 msgid "YouTube API Developer Key"
@@ -466,4 +466,7 @@ msgid "newest"
 msgstr ""
 
 msgid "oldest"
+msgstr ""
+
+msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature"
 msgstr ""

@@ -207,7 +207,7 @@ msgstr "Ordet som du använder (i vanlig text eller inom klammer) där du vill v
 msgid "Randomize thumbnails"
 msgstr "Slumpmässiga tumnaglar"
 
-msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized"
+msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized. Note: this option cannot be used with the \"high quality thumbnails\" feature"
 msgstr "De flesta videos har flera tumnaglar. Genom att välja detta väljs tumnaglarna för dina videos slumpmässigt då ett galleri visas"
 
 msgid "normally (at the top of your gallery)"
@@ -448,4 +448,7 @@ msgid "newest"
 msgstr ""
 
 msgid "oldest"
+msgstr ""
+
+msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature"
 msgstr ""

@@ -254,7 +254,7 @@ msgstr "Ключевое слово (в квадратных скобках) д�
 msgid "Randomize thumbnails"
 msgstr "Перемешать миниатюры"
 
-msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized"
+msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized. Note: this option cannot be used with the \"high quality thumbnails\" feature"
 msgstr "Большинство видео сопровождаются несколькими эскизами. При выборе этой опции, при каждом новом просмотре галереи, миниатюры для таких видео будут выбираться случайным образом из списка."
 
 msgid "YouTube API Developer Key"
@@ -450,4 +450,7 @@ msgid "newest"
 msgstr ""
 
 msgid "oldest"
+msgstr ""
+
+msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature"
 msgstr ""

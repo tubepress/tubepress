@@ -251,7 +251,7 @@ msgstr "Das Wort welches sie in ihre Seiten und Beitr&auml;ge einf�gen (im Kla
 msgid "Randomize thumbnails"
 msgstr "Zuf&auml;llige Vorschaubilder"
 
-msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized"
+msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized. Note: this option cannot be used with the \"high quality thumbnails\" feature"
 msgstr "Die meisten Videos besitzen mehrere Vorschaubilder. Durch Setzen dieser Option wird bei jedem Anzeigen ein zuf&auml;lliges Vorschaubild f&uuml;r ein Video angezeigt."
 
 msgid "YouTube API Developer Key"
@@ -462,4 +462,7 @@ msgid "newest"
 msgstr ""
 
 msgid "oldest"
+msgstr ""
+
+msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature"
 msgstr ""

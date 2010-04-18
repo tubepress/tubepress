@@ -86,6 +86,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'options-desc-paginationBelow'   => 'Only applies to galleries that span multiple pages',
         'options-title-ajaxPagination'   => '<a href="http://wikipedia.org/wiki/Ajax_(programming)">Ajax</a>-enabled pagination',
         'options-title-hqThumbs'         => 'Use high-quality thumbnails',
+        'options-desc-hqThumbs'			 => 'Note: this option cannot be used with the "randomize thumbnails" feature',
      
         'options-title-autoplay'             => 'Auto-play videos', 
         'options-title-border'               => 'Show border', 
@@ -130,7 +131,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'options-title-keyword'              => 'Shortcode keyword', 
         'options-desc-keyword'               => 'The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.', 
         'options-title-randomize_thumbnails' => 'Randomize thumbnails', 
-        'options-desc-randomize_thumbnails'  => 'Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized', 
+        'options-desc-randomize_thumbnails'  => 'Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature', 
         
         'options-title-filter_racy'          => 'Filter "racy" content', 
         'options-desc-filter_racy'           => 'Don\'t show videos that may not be suitable for minors.', 
