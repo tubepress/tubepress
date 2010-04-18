@@ -51,11 +51,11 @@ class org_tubepress_options_storage_WordPressStorageManager extends org_tubepres
 	    
 	    if ($this->exists("version")) {
 	        $version = $this->get("version");
-	        if (!is_numeric($version) || $version < 188) {
+	        if (!is_numeric($version) || $version < 200) {
 	           $needToInit = true;
 	        }
 	    } else {
-	        $this->create("version", 188);
+	        $this->create("version", 200);
 	        $needToInit = true;
 	    }
 	    
