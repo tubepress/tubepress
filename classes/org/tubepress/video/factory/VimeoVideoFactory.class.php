@@ -58,19 +58,22 @@ class org_tubepress_video_factory_VimeoVideoFactory extends org_tubepress_video_
     {
         $results = array();
         $index = 0;
-        foreach ($entries as $entry) {
+        
+        if (is_array($entries) && sizeof($entries) > 0) {
+	        foreach ($entries as $entry) {
+	            
+	            if ($this->isVideoBlackListed($entry->id)) {
+	                $this->getLog()->log($this->_logPrefix, 'Video with ID %s is blacklisted. Skipping it.', $entry->id);
+	                continue;
+	            }
+	            
+	            if ($index > 0 && $index++ >= $limit) {
+	                $this->getLog()->log($this->_logPrefix, 'Reached limit of %d videos', $limit);
+	                break;
+	            }
             
-            if ($this->isVideoBlackListed($entry->id)) {
-                $this->getLog()->log($this->_logPrefix, 'Video with ID %s is blacklisted. Skipping it.', $entry->id);
-                continue;
-            }
-            
-            if ($index > 0 && $index++ >= $limit) {
-                $this->getLog()->log($this->_logPrefix, 'Reached limit of %d videos', $limit);
-                break;
-            }
-            
-            $results[] = $this->_createVideo($entry);
+            	$results[] = $this->_createVideo($entry);
+        	}
         }
         
         $this->getLog()->log($this->_logPrefix, 'Built %d video(s) from Vimeo\'s feed', sizeof($results));
