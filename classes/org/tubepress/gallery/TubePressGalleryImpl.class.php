@@ -120,11 +120,13 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
         $this->_log->log($this->_logPrefix, 'This gallery will use %s as the player', get_class($player));
         
         $videos = $feedResult->getVideoArray();
-       
-        $this->_template->setVariable(org_tubepress_template_Template::PRE_GALLERY, $player->getPreGalleryHtml($this->_getPreGalleryVideo($videos[0]), $galleryId));
         
-        /* Spit out the top/bottom pagination if we have any videos */
-        if (sizeof($videos) > 0) {
+        if (is_array($videos) && sizeof($videos) > 0) {
+        	$preGalleryVideo = $this->_getPreGalleryVideo($videos[0]);
+        	if (!is_null($preGalleryVideo)) {
+        	    $this->_template->setVariable(org_tubepress_template_Template::PRE_GALLERY, $player->getPreGalleryHtml($preGalleryVideo, $galleryId));
+        	}
+        	$this->_template->setVariable(org_tubepress_template_Template::VIDEO_ARRAY, $videos);
             $this->_parsePaginationHTML($feedResult->getEffectiveTotalResultCount());
         }
         
@@ -133,7 +135,6 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
         $this->_template->setVariable(org_tubepress_template_Template::PLAYER_NAME,         $playerName);
         $this->_template->setVariable(org_tubepress_template_Template::THUMBNAIL_WIDTH,     $this->_optionsManager->get(org_tubepress_options_category_Display::THUMB_WIDTH));
         $this->_template->setVariable(org_tubepress_template_Template::THUMBNAIL_HEIGHT,    $this->_optionsManager->get(org_tubepress_options_category_Display::THUMB_HEIGHT));
-        $this->_template->setVariable(org_tubepress_template_Template::VIDEO_ARRAY,         $videos);
         
         $this->_prepTemplateMetaElements();
         $this->_prepUrlPrefixes();
