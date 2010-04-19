@@ -49,7 +49,7 @@ TubePress = (function () {
 	init = function (baseUrl) {
 		
 		/* Call tubepress_<playername>_init() when the player JS is loaded */
-		jQuery().bind('tubepressPlayerLoaded', function (x, playerName, baseUrl) {
+		jQuery(document).bind('tubepressPlayerLoaded', function (x, playerName, baseUrl) {
 			var funcName = 'tubepress_' + playerName + '_player_init',
 				f = function () {
 					window[funcName](baseUrl);
@@ -94,7 +94,7 @@ TubePress = (function () {
 	};
 	
 	triggerPlayerLoadedEvent = function (name, baseUrl) {
-		jQuery().trigger('tubepressPlayerLoaded', [name, baseUrl]);
+		jQuery(document).trigger('tubepressPlayerLoaded', [name, baseUrl]);
 	};
 
 	/* thumbnail click listener */
@@ -296,7 +296,7 @@ TubePressAjax = (function () {
 	};
 
 	postAjaxGallerySetup = function (thumbnailArea, galleryId) {
-		jQuery().trigger('tubepressNewThumbnailsLoaded');
+		jQuery(document).trigger('tubepressNewThumbnailsLoaded');
 		TubePress.centerThumbs("#tubepress_gallery_" + galleryId);
 		jQuery("a[id^='tubepress_']").click(TubePress.clickListener);
 		initPagination(galleryId);

@@ -10,7 +10,7 @@ function tubepress_static_player_init(baseUrl) {
 	TubePressUtils.getWaitCall(baseUrl + '/ui/players/static/lib/jQuery.query.js',
 		_tubepress_static_player_readyTest,
 		_tubepress_static_player_init);
-	jQuery().bind('tubepressNewThumbnailsLoaded', function (x) {
+	jQuery(document).bind('tubepressNewThumbnailsLoaded', function (x) {
 		_tubepress_static_player_init();
 	});
 }

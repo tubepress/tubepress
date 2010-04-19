@@ -10,7 +10,7 @@ function tubepress_solo_player_init(baseUrl) {
 	TubePressUtils.getWaitCall(baseUrl + '/ui/players/solo/lib/jQuery.query.js',
 			_tubepress_solo_player_readyTest,
 			_tubepress_solo_player_init);
-		jQuery().bind('tubepressNewThumbnailsLoaded', function (x) {
+		jQuery(document).bind('tubepressNewThumbnailsLoaded', function (x) {
 			_tubepress_solo_player_init();
 		});
 }
