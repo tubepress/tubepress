@@ -32,7 +32,7 @@
                     <emphasis>contents</emphasis>
                     of this directory (not the directory itself) to your
                     TubePress Pro installation at
-                    <code>tubepress_pro_1_9_0/ui/players/shadowbox/lib/</code>
+                    <code>tubepress_pro_2_0_0/ui/players/shadowbox/lib/</code>
                     .
                 </para>
             </listitem>
@@ -64,7 +64,7 @@
                     <emphasis>contents</emphasis>
                     of this directory (not the directory itself) to your
                     TubePress Pro installation at
-                    <code>tubepress_pro_1_9_0/ui/embedded_flash/longtail/lib/</code>
+                    <code>tubepress_pro_2_0_0/ui/embedded_flash/longtail/lib/</code>
                     .
                 </para>
             </listitem>

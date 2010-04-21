@@ -46,7 +46,7 @@
             <programlisting language="php"><![CDATA[
 <?php
 
-    require_once "/var/www/html/myblog.com/wp-content/plugins/tubepress_pro_1_9_0/env/pro/tubepress-pro.php";
+    require_once "/var/www/html/myblog.com/wp-content/plugins/tubepress_pro_2_0_0/env/pro/tubepress-pro.php";
 
     get_header();
 
@@ -97,9 +97,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <?php 
 
-    $tubepress_base_url = "http://myblog.com/lib/tubepress_pro_1_9_0";
+    $tubepress_base_url = "http://myblog.com/lib/tubepress_pro_2_0_0";
 
-    require_once "/var/www/html/myblog.com/lib/tubepress_pro_1_9_0/env/pro/tubepress-pro.php";
+    require_once "/var/www/html/myblog.com/lib/tubepress_pro_2_0_0/env/pro/tubepress-pro.php";
 ?>
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">

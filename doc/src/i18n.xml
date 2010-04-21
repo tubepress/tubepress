@@ -65,7 +65,7 @@
     ...
     
     define('LANG', 'it_IT');
-    require_once "/var/www/html/myblog.com/lib/tubepress_pro_1_9_0/env/pro/tubepress-pro.php";
+    require_once "/var/www/html/myblog.com/lib/tubepress_pro_2_0_0/env/pro/tubepress-pro.php";
 
     ...
                 ]]></programlisting>
