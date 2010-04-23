@@ -25,4 +25,5 @@
   <param name="allowfullscreen" value="<?php echo ${org_tubepress_template_Template::EMBEDDED_FULLSCREEN}; ?>" />
   <param name="allowscriptaccess" value="always" />
   <param name="movie" value="<?php echo ${org_tubepress_template_Template::EMBEDDED_DATA_URL}; ?>" />
+  <param name="wmode" value="transparent" />
 </object>
