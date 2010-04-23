@@ -43,7 +43,7 @@ height:100%;
 }
 #sb-content.html{
 height:100%;
-overflow:auto; 
+overflow:hidden; 
 }
 #sb-loading{
 position:absolute;
