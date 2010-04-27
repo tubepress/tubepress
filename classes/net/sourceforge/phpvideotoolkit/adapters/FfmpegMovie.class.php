@@ -123,7 +123,7 @@ class net_sourceforge_phpvideotoolkit_adapters_FfmpegMovie
 	private function _getPHPReaderElement($element)
 	{
 		if ($this->hasAudio()) {
-			if ($this->_getPHPReader() && isset($this->_php_reader->{$element}) {
+			if ($this->_getPHPReader() && isset($this->_php_reader->{$element})) {
 				return $this->_php_reader->{$element};
 			}
 		}

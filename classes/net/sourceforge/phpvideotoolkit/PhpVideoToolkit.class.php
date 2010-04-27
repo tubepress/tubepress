@@ -50,7 +50,7 @@ if (!defined('PHPVIDEOTOOLKIT_TEMP_DIRECTORY'))
  */
 if (!defined('PHPVIDEOTOOLKIT_FFMPEG_BINARY'))
 {
-    define('PHPVIDEOTOOLKIT_FFMPEG_BINARY', '/usr/local/bin/ffmpeg');
+    define('PHPVIDEOTOOLKIT_FFMPEG_BINARY', '/opt/local/bin/ffmpeg');
 }
 /**
  * Set the flvtool2 binary path
@@ -76,7 +76,6 @@ class net_sourceforge_phpvideotoolkit_PhpVideoToolkit
     /**
      * Error strings
      */
-
     private $_messages = array(
 		
 		'generic_temp_404' 								=> 'The temporary directory does not exist.',
@@ -547,19 +546,20 @@ class net_sourceforge_phpvideotoolkit_PhpVideoToolkit
         /* execute the ffmpeg lookup */
         exec(PHPVIDEOTOOLKIT_FFMPEG_BINARY.' -formats 2>&1', $buffer);
         $buffer = implode("\r\n", $buffer);
+
         $data = array();
         $data['compiler'] = array();
         $look_ups = array(
-            'configuration' =>'configuration: ',
-            'formats'       =>'File formats:', 
-            'codecs'        =>'Codecs:', 
-            'filters'       =>'Bitstream filters:', 
-            'protocols'     =>'Supported file protocols:', 
-            'abbreviations' =>'Frame size, frame rate abbreviations:', 'Note:');
+            'configuration' => 'configuration: ',
+            'formats'       => 'File formats:', 
+            'codecs'        => 'Codecs:', 
+            'filters'       => 'Bitstream filters:', 
+            'protocols'     => 'Supported file protocols:', 
+            'abbreviations' => 'Frame size, frame rate abbreviations:', 'Note:');
         $total_lookups = count($look_ups);
         $pregs = array();
         $indexs = array();
-        foreach($look_ups as $key=>$reg) {
+        foreach ($look_ups as $key => $reg) {
             if (strpos($buffer, $reg) !== false) {
                 $index = array_push($pregs, $reg);
                 $indexs[$key] = $index;
@@ -623,11 +623,11 @@ class net_sourceforge_phpvideotoolkit_PhpVideoToolkit
         $data['abbreviations'] = array();
         if (isset($indexs['abbreviations']) && isset($matches[$indexs['abbreviations']])) {
             $abbreviations = trim($matches[$indexs['abbreviations']]);
+        
+        	if (empty($abbreviations)) {
+        	    $data['abbreviations'] = explode(' ', $abbreviations);
+        	}
         }
-        if (empty($abbreviations)) {
-            $data['abbreviations'] = explode(' ', $abbreviations);
-        }
-    
         net_sourceforge_phpvideotoolkit_PhpVideoToolkit::$ffmpeg_info = $data;
         $data['ffmpeg-php-support'] = $this->hasFFmpegPHPSupport();
         return $data;
@@ -658,7 +658,7 @@ class net_sourceforge_phpvideotoolkit_PhpVideoToolkit
      */
     public function hasFFmpegPHPSupport()
     {
-        return extension_loaded('ffmpeg') ? 'module' : (is_file(dirname(__FILE__).DIRECTORY_SEPARATOR.'adapters'.DIRECTORY_SEPARATOR.'ffmpeg-php'.DIRECTORY_SEPARATOR.'ffmpeg_movie.php') && is_file(dirname(__FILE__).DIRECTORY_SEPARATOR.'adapters'.DIRECTORY_SEPARATOR.'ffmpeg-php'.DIRECTORY_SEPARATOR.'ffmpeg_frame.php') && is_file(dirname(__FILE__).DIRECTORY_SEPARATOR.'adapters'.DIRECTORY_SEPARATOR.'ffmpeg-php'.DIRECTORY_SEPARATOR.'ffmpeg_animated_gif.php') ? 'emulated' : false);
+    	return extension_loaded('ffmpeg') ? 'module' : 'emulated';
     }
         
     /**
@@ -718,6 +718,7 @@ class net_sourceforge_phpvideotoolkit_PhpVideoToolkit
         $data = array();
 
         preg_match_all('/Duration: (.*)/', $buffer, $matches);
+        var_dump($buffer);
         if (count($matches) > 0) {
             $parts                             = explode(', ', trim($matches[1][0]));
             $data['duration']                    = array();
