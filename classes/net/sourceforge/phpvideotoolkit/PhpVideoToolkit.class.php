@@ -155,7 +155,7 @@ class net_sourceforge_phpvideotoolkit_PhpVideoToolkit
     const OVERWRITE_FAIL        = 'fail';
     const OVERWRITE_PRESERVE    = 'preserve';
     const OVERWRITE_EXISTING    = 'existing';
-    const OVERWRITE_UNIQUE        = 'unique';
+    const OVERWRITE_UNIQUE      = 'unique';
     
     /**
      * Formats supported
@@ -185,72 +185,72 @@ class net_sourceforge_phpvideotoolkit_PhpVideoToolkit
      * jpeg            mjpeg format
      * yuv4mpegpipe    yuv4mpegpipe format
      */
-    const FORMAT_3GP2     = '3g2';
-    const FORMAT_3GP     = '3gp';
-    const FORMAT_AAC    = 'aac';
-    const FORMAT_AIFF     = 'aiff';
-    const FORMAT_AMR     = 'amr';
-    const FORMAT_ASF     = 'asf';
-    const FORMAT_AVI    = 'avi';
-    const FORMAT_FLV     = 'flv';
-    const FORMAT_GIF     = 'gif';
-    const FORMAT_MJ2     = 'mj2';
-    const FORMAT_MP2     = 'mp2';
-    const FORMAT_MP3     = 'mp3';
-    const FORMAT_MP4     = 'mp4';
+    const FORMAT_3GP2      = '3g2';
+    const FORMAT_3GP       = '3gp';
+    const FORMAT_AAC       = 'aac';
+    const FORMAT_AIFF      = 'aiff';
+    const FORMAT_AMR       = 'amr';
+    const FORMAT_ASF       = 'asf';
+    const FORMAT_AVI       = 'avi';
+    const FORMAT_FLV       = 'flv';
+    const FORMAT_GIF       = 'gif';
+    const FORMAT_MJ2       = 'mj2';
+    const FORMAT_MP2       = 'mp2';
+    const FORMAT_MP3       = 'mp3';
+    const FORMAT_MP4       = 'mp4';
     const FORMAT_MPEG4     = 'mpeg4';
-    const FORMAT_M4A     = 'm4a';
-    const FORMAT_MPEG     = 'mpeg';
+    const FORMAT_M4A       = 'm4a';
+    const FORMAT_MPEG      = 'mpeg';
     const FORMAT_MPEG1     = 'mpeg1video';
     const FORMAT_MPEG2     = 'mpeg2video';
-    const FORMAT_MPEGVIDEO     = 'mpegvideo';
-    const FORMAT_PSP     = 'psp';
-    const FORMAT_RM     = 'rm';
-    const FORMAT_SWF     = 'swf';
-    const FORMAT_VOB     = 'vob';
-    const FORMAT_WAV     = 'wav';
-    const FORMAT_JPG     = 'mjpeg';
-    const FORMAT_Y4MP     = 'yuv4mpegpipe';
+    const FORMAT_MPEGVIDEO = 'mpegvideo';
+    const FORMAT_PSP       = 'psp';
+    const FORMAT_RM        = 'rm';
+    const FORMAT_SWF       = 'swf';
+    const FORMAT_VOB       = 'vob';
+    const FORMAT_WAV       = 'wav';
+    const FORMAT_JPG       = 'mjpeg';
+    const FORMAT_Y4MP      = 'yuv4mpegpipe';
     
     /**
      * Size Presets
      */
-    const SIZE_SAS         = 'SameAsSource';
-    const SIZE_SQCIF     = '128x96';
-    const SIZE_QCIF     = '176x144';
-    const SIZE_CIF         = '352x288';
-    const SIZE_4CIF     = '704x576';
-    const SIZE_QQVGA     = '160x120';
-    const SIZE_QVGA     = '320x240';
-    const SIZE_VGA         = '640x480';
-    const SIZE_SVGA     = '800x600';
-    const SIZE_XGA         = '1024x768';
-    const SIZE_UXGA     = '1600x1200';
-    const SIZE_QXGA     = '2048x1536';
-    const SIZE_SXGA     = '1280x1024';
-    const SIZE_QSXGA     = '2560x2048';
-    const SIZE_HSXGA     = '5120x4096';
-    const SIZE_WVGA     = '852x480';
-    const SIZE_WXGA     = '1366x768';
-    const SIZE_WSXGA     = '1600x1024';
-    const SIZE_WUXGA     = '1920x1200';
-    const SIZE_WOXGA     = '2560x1600';
-    const SIZE_WQSXGA     = '3200x2048';
-    const SIZE_WQUXGA     = '3840x2400';
-    const SIZE_WHSXGA     = '6400x4096';
-    const SIZE_WHUXGA     = '7680x4800';
-    const SIZE_CGA         = '320x200';
-    const SIZE_EGA        = '640x350';
-    const SIZE_HD480     = '852x480';
-    const SIZE_HD720     = '1280x720';
-    const SIZE_HD1080    = '1920x1080';
+    const SIZE_SAS    = 'SameAsSource';
+    const SIZE_SQCIF  = '128x96';
+    const SIZE_QCIF   = '176x144';
+    const SIZE_CIF    = '352x288';
+    const SIZE_4CIF   = '704x576';
+    const SIZE_QQVGA  = '160x120';
+    const SIZE_QVGA   = '320x240';
+    const SIZE_VGA    = '640x480';
+    const SIZE_SVGA   = '800x600';
+    const SIZE_XGA    = '1024x768';
+    const SIZE_UXGA   = '1600x1200';
+    const SIZE_QXGA   = '2048x1536';
+    const SIZE_SXGA   = '1280x1024';
+    const SIZE_QSXGA  = '2560x2048';
+    const SIZE_HSXGA  = '5120x4096';
+    const SIZE_WVGA   = '852x480';
+    const SIZE_WXGA   = '1366x768';
+    const SIZE_WSXGA  = '1600x1024';
+    const SIZE_WUXGA  = '1920x1200';
+    const SIZE_WOXGA  = '2560x1600';
+    const SIZE_WQSXGA = '3200x2048';
+    const SIZE_WQUXGA = '3840x2400';
+    const SIZE_WHSXGA = '6400x4096';
+    const SIZE_WHUXGA = '7680x4800';
+    const SIZE_CGA    = '320x200';
+    const SIZE_EGA    = '640x350';
+    const SIZE_HD480  = '852x480';
+    const SIZE_HD720  = '1280x720';
+    const SIZE_HD1080 = '1920x1080';
     
     /**
      * Ratio Presets
      */
-    const RATIO_STANDARD    = '4:3';
-    const RATIO_WIDE    = '16:9';
-    const RATIO_CINEMATIC    = '1.85';
+    const RATIO_STANDARD  = '4:3';
+    const RATIO_WIDE      = '16:9';
+    const RATIO_CINEMATIC = '1.85';
     
     /**
      * A public var that is to the information available about
@@ -550,12 +550,12 @@ class net_sourceforge_phpvideotoolkit_PhpVideoToolkit
         $data = array();
         $data['compiler'] = array();
         $look_ups = array(
-            'configuration'    =>'configuration: ',
-            'formats'    =>'File formats:', 
-            'codecs'    =>'Codecs:', 
-            'filters'    =>'Bitstream filters:', 
-            'protocols'    =>'Supported file protocols:', 
-            'abbreviations'    =>'Frame size, frame rate abbreviations:', 'Note:');
+            'configuration' =>'configuration: ',
+            'formats'       =>'File formats:', 
+            'codecs'        =>'Codecs:', 
+            'filters'       =>'Bitstream filters:', 
+            'protocols'     =>'Supported file protocols:', 
+            'abbreviations' =>'Frame size, frame rate abbreviations:', 'Note:');
         $total_lookups = count($look_ups);
         $pregs = array();
         $indexs = array();
@@ -622,7 +622,8 @@ class net_sourceforge_phpvideotoolkit_PhpVideoToolkit
         /* grab the abbreviations available to ffmpeg */
         $data['abbreviations'] = array();
         if (isset($indexs['abbreviations']) && isset($matches[$indexs['abbreviations']])) {
-        $abbreviations = trim($matches[$indexs['abbreviations']]);
+            $abbreviations = trim($matches[$indexs['abbreviations']]);
+        }
         if (empty($abbreviations)) {
             $data['abbreviations'] = explode(' ', $abbreviations);
         }
@@ -724,11 +725,11 @@ class net_sourceforge_phpvideotoolkit_PhpVideoToolkit
             $data['duration']['seconds']                 = $this->timecodeToSeconds($timecode);
             $data['bitrate']                      = intval(ltrim($parts[2], 'bitrate: '));
             $data['duration']['start']                  = ltrim($parts[1], 'start: ');
-            $data['duration']['timecode']                = array();
-            $data['duration']['timecode']['rounded']         = substr($timecode, 0, 8);
-            $data['duration']['timecode']['seconds']         = array();
-            $data['duration']['timecode']['seconds']['exact']    = $timecode;
-            $data['duration']['timecode']['seconds']['excess']      = intval(substr($timecode, 9));
+            $data['duration']['timecode']                      = array();
+            $data['duration']['timecode']['rounded']           = substr($timecode, 0, 8);
+            $data['duration']['timecode']['seconds']           = array();
+            $data['duration']['timecode']['seconds']['exact']  = $timecode;
+            $data['duration']['timecode']['seconds']['excess'] = intval(substr($timecode, 9));
         }
                 
         /* match the video stream info */
@@ -1415,10 +1416,11 @@ class net_sourceforge_phpvideotoolkit_PhpVideoToolkit
                     $seconds = $value/$frames_per_second;
                     break 1;
                     break;
-                key += 1;
+                $key += 1;
             }
             return $this->formatSeconds($seconds, $return_format, $frames_per_second);
         }
+    }
 
     /**
      * Commits all the commands and executes the ffmpeg procedure. This will also attempt to validate any outputted files in order to provide
@@ -1536,7 +1538,7 @@ class net_sourceforge_phpvideotoolkit_PhpVideoToolkit
         /* track the processed command by adding it to the class */
         array_unshift($this->_processed, $exec_string);
             
-        create the multiple pass encode
+        /* create the multiple pass encode */
         if ($multi_pass_encode) {
             $pass2_exc_string = str_replace('-pass '.escapeshellarg(1), '-pass '.escapeshellarg(2), $exec_string);
             exec($pass2_exc_string);
