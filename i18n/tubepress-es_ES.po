@@ -195,7 +195,7 @@ msgid "Show videos in high definition when available"
 msgstr "Mostrar videos en alta definición cuando se encuentren disponibles"
 
 msgid "Provider Feed"
-msgstr ""
+msgstr "Contenido original"
 
 msgid "Meta Display"
 msgstr "Desplegar Meta-datos"
@@ -261,16 +261,16 @@ msgid "Shortcode keyword"
 msgstr "Palabra clave para shortcode"
 
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
-msgstr "Esta palabra se agregará (en texto delimitado por corchetes) en sus páginas/artículos para desplegar una galería"
+msgstr "Ésta palabra se agregará (en texto delimitado por corchetes) en sus páginas/artículos para desplegar una galería"
 
 msgid "Randomize thumbnails"
-msgstr "Mostrar miniaturas al azar"
+msgstr "Miniaturas al azar"
 
 msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized. Note: this option cannot be used with the \"high quality thumbnails\" feature"
 msgstr "La mayoría de los videos contienen varias miniaturas. Al seleccionar esta opción, cada vez que alguien visite sus galerías, verá los mismos videos con cada miniatura presentándose al azar."
 
 msgid "YouTube API Developer Key"
-msgstr "ID del API para desarrollador de YouTube"
+msgstr "ID del API para desarrollador YouTube"
 
 msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing."
 msgstr "YouTube usa este ID de desarrolladores para propósitos de acceso y depuración si se presenta un problema. Ud. Puede registrar un nuevo ID de cliente y desarrollador <a href=\"http://code.google.com/apis/youtube/dashboard/\">aqui</a>. No lo cambie a menos que sepa lo que hace."
@@ -351,10 +351,10 @@ msgid "today"
 msgstr "hoy"
 
 msgid "this week"
-msgstr "esta semana"
+msgstr "ésta semana"
 
 msgid "this month"
-msgstr "este mes"
+msgstr "éste mes"
 
 msgid "all time"
 msgstr "todo el tiempo"
@@ -381,7 +381,7 @@ msgid "strict"
 msgstr "estricto"
 
 msgid "Provider default"
-msgstr ""
+msgstr "Proveedor por omisión"
 
 msgid "JW FLV Media Player (by Longtail Video)"
 msgstr "JW FLV Media Player (por Longtail Video)"
@@ -390,49 +390,49 @@ msgid "Implementation"
 msgstr "Implementación"
 
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)"
-msgstr ""
+msgstr "La mara del reproductor de video. Por omisión es el del proveedor (YouTube, Vimeo, etc)"
 
 msgid "Videos uploaded by this Vimeo user"
-msgstr ""
+msgstr "Videos subidos por éste usuario Vimeo"
 
 msgid "Videos this Vimeo user likes"
-msgstr ""
+msgstr "Videos que a éste usuario le agradan"
 
 msgid "Videos this Vimeo user appears in"
-msgstr ""
+msgstr "Videos en donde éste usuario aparece"
 
 msgid "Vimeo search for..."
-msgstr ""
+msgstr "Búsqueda Vimeo para..."
 
 msgid "Videos credited to this Vimeo user (either appears in or uploaded by)"
-msgstr ""
+msgstr "Videos acreditados a éste usuario en Vimeo (ya sea que aparece en o fue subido por)"
 
 msgid "Videos in this Vimeo channel"
-msgstr ""
+msgstr "Videos de éste canal en Vimeo"
 
 msgid "Videos from this Vimeo album"
-msgstr ""
+msgstr "Videos de éste album en Vimeo"
 
 msgid "Videos from this Vimeo group"
-msgstr ""
+msgstr "Videos de éste grupo en Vimeo"
 
 msgid "Use high-quality thumbnails"
-msgstr ""
+msgstr "Usar miniaturas de alta calidad"
 
 msgid "Videos blacklist"
-msgstr ""
+msgstr "Videos censurados"
 
 msgid "List of video IDs that should never be displayed"
-msgstr ""
+msgstr "La lista de IDs para videos que no debieron ser desplegados"
 
 msgid "in a new window on its own"
-msgstr ""
+msgstr "en una ventana por si misma"
 
 msgid "from the video's original Vimeo page"
-msgstr ""
+msgstr "de la pagina del video original en Vimeo"
 
 msgid "Likes"
-msgstr ""
+msgstr "Le gusta"
 
 msgid "%s can only take on integer values. You supplied %s."
 msgstr "%s solo puede tener valore enteros. Usted indicó %s"
@@ -456,13 +456,13 @@ msgid "Template names cannot contain two consecutive periods"
 msgstr "Los nombres de plantillas no pueden contener 2 puntos consecutivos."
 
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
-msgstr ""
+msgstr "No todas las formas de ordenamiento se pueden aplicar a todos los tipos de galerías. Para mas detalles, revise la <a href=\"http://tubepress.org/documentation\">documentación </a>"
 
 msgid "newest"
-msgstr ""
+msgstr "más recientes"
 
 msgid "oldest"
-msgstr ""
+msgstr "más antiguos"
 
 msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature"
-msgstr ""
+msgstr "Nota: Ésta opción no puede ser usada con la propiedad \"miniaturas al azar\""
