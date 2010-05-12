@@ -196,7 +196,7 @@ msgid "Show videos in high definition when available"
 msgstr "Qualità video"
 
 msgid "Provider Feed"
-msgstr ""
+msgstr "Feed provider"
 
 msgid "Meta Display"
 msgstr "Mostra meta-dati"
@@ -382,7 +382,7 @@ msgid "strict"
 msgstr "rispetto rigoroso della norma"
 
 msgid "Provider default"
-msgstr ""
+msgstr "Provider predefinito"
 
 msgid "JW FLV Media Player (by Longtail Video)"
 msgstr "JW FLV Media Player (by Longtail Video)"
@@ -391,49 +391,49 @@ msgid "Implementation"
 msgstr "Implementazione"
 
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)"
-msgstr ""
+msgstr "Il marchio del player. Predefinito al player del provider (YouTube, Vimeo, etc)"
 
 msgid "Videos uploaded by this Vimeo user"
-msgstr ""
+msgstr "Video caricati da questo utente Vimeo"
 
 msgid "Videos this Vimeo user likes"
-msgstr ""
+msgstr "I video che piacciono questo utente Vimeo"
 
 msgid "Videos this Vimeo user appears in"
-msgstr ""
+msgstr "Video nei quali appare questo utente Vimeo"
 
 msgid "Vimeo search for..."
-msgstr ""
+msgstr "Ricerca Vimeo per..."
 
 msgid "Videos credited to this Vimeo user (either appears in or uploaded by)"
-msgstr ""
+msgstr "Video accreditati a questo utente Vimeo (presenti o caricati da)"
 
 msgid "Videos in this Vimeo channel"
-msgstr ""
+msgstr "Video in questo canale Vimeo"
 
 msgid "Videos from this Vimeo album"
-msgstr ""
+msgstr "Video da questo album Vimeo"
 
 msgid "Videos from this Vimeo group"
-msgstr ""
+msgstr "Video da questo gruppo Vimeo"
 
 msgid "Use high-quality thumbnails"
-msgstr ""
+msgstr "Usa miniature di alta qualità"
 
 msgid "Videos blacklist"
-msgstr ""
+msgstr "Blacklist video"
 
 msgid "List of video IDs that should never be displayed"
-msgstr ""
+msgstr "Lista ID video da non mostrare mai "
 
 msgid "in a new window on its own"
-msgstr ""
+msgstr "in una nuova finestra"
 
 msgid "from the video's original Vimeo page"
-msgstr ""
+msgstr "dalla pagina originale Vimeo del video"
 
 msgid "Likes"
-msgstr ""
+msgstr "Piace"
 
 #
 # VALIDATION
@@ -460,13 +460,14 @@ msgid "Template names cannot contain two consecutive periods"
 msgstr "I nomi del template non possono contenere due periodi consegutivi"
 
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
-msgstr ""
+msgstr "Non tutti gli ordini di disposizione possono essere applicati a tutti i tipi di gallerie. Leggi la <a href=\"http://tubepress.org/documentation\">documentazione</a> per ulteriori informazioni."
 
 msgid "newest"
-msgstr ""
+msgstr "recente"
 
 msgid "oldest"
-msgstr ""
+msgstr "precedente"
 
 msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature"
-msgstr ""
+msgstr "Nota: questa opzione non può essere utilizzata con la funzione \"casualizza le miniature\""
+
