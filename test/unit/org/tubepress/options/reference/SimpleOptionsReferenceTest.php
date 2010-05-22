@@ -35,7 +35,8 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
             org_tubepress_options_category_Gallery::VIMEO_CREDITED_VALUE   => 'patricklawler',
             org_tubepress_options_category_Gallery::VIMEO_CHANNEL_VALUE    => 'splitscreenstuff',
             org_tubepress_options_category_Gallery::VIMEO_GROUP_VALUE      => 'hdxs',
-            org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE      => '140484'
+            org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE      => '140484',
+            org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION => '/usr/bin/ffmpeg',
          
         ),
         org_tubepress_options_Type::BOOL => array(
@@ -53,7 +54,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
             org_tubepress_options_category_Embedded::SHOW_INFO          => false,
             org_tubepress_options_category_Embedded::SHOW_RELATED       => true,
             org_tubepress_options_category_Embedded::FULLSCREEN         => true,
-	        org_tubepress_options_category_Embedded::HIGH_QUALITY       => false,
+            org_tubepress_options_category_Embedded::HIGH_QUALITY       => false,
             org_tubepress_options_category_Meta::AUTHOR                 => false,
             org_tubepress_options_category_Meta::CATEGORY               => false,
             org_tubepress_options_category_Meta::DESCRIPTION            => false,
@@ -97,8 +98,6 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
         )
     );
     
-
-	
 	function setUp()
 	{
 		$this->_sut = new org_tubepress_options_reference_SimpleOptionsReference();
@@ -207,7 +206,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     }
     function testGetOptionCategoryNames()
     {
-        $expected = array('gallery', 'display', 'embedded', 'meta', 'feed', 'advanced', 'widget');
+        $expected = array('gallery', 'display', 'embedded', 'meta', 'feed', 'uploads', 'advanced', 'widget');
         $this->assertTrue($expected == $this->_sut->getOptionCategoryNames());
     }
     function testGetCategory()

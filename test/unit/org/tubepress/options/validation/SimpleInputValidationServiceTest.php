@@ -18,8 +18,22 @@ class org_tubepress_options_validation_SimpleInputValidationServiceTest extends 
 	{
 	    $this->_sut->validate(org_tubepress_options_category_Display::THUMB_HEIGHT, 90);	
 	}
-	
 
+    public function testExecutableFfmpeg()
+    {
+        $candidate = tempnam("/tmp", "ffmpeg");
+        chmod($candidate, 0755);
+        $this->_sut->validate(org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION, $candidate);
+    }
+	
+	/**
+     * @expectedException Exception
+     */
+    public function testNonExecutableFfmpeg()
+    {
+        $candidate = tempnam("/tmp", "ffmpeg");
+        $this->_sut->validate(org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION, $candidate);
+    }
 	
     public function testThumbWidthOk()
 	{
