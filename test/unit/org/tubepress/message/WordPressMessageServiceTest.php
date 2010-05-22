@@ -12,6 +12,7 @@ $msgs = array(
         'options-category-title-embedded' => 'Embedded Player', 
         'options-category-title-meta'     => 'Meta Display',
         'options-category-title-feed'     => 'Provider Feed', 
+        'options-category-title-uploads'  => 'Uploads',
         'options-category-title-advanced' => 'Advanced', 
     
         'options-title-top_rated'         => 'Top rated videos from...', 
@@ -50,14 +51,14 @@ $msgs = array(
         'options-title-resultsPerPage'   => 'Videos per Page', 
         'options-desc-resultsPerPage'    => 'Default is 20. Maximum is 50', 
         'options-title-orderBy'          => 'Order videos by',
-        'options-desc-orderBy'			 => 'Not all sort orders can be applied to all gallery types. See the <a href="http://tubepress.org/documentation">documentation</a> for more info.',
+        'options-desc-orderBy'           => 'Not all sort orders can be applied to all gallery types. See the <a href="http://tubepress.org/documentation">documentation</a> for more info.',
         'options-title-paginationAbove'  => 'Show pagination above thumbnails',
         'options-title-paginationBelow'  => 'Show pagination below thumbnails',
         'options-desc-paginationAbove'   => 'Only applies to galleries that span multiple pages',
         'options-desc-paginationBelow'   => 'Only applies to galleries that span multiple pages',
         'options-title-ajaxPagination'   => '<a href="http://wikipedia.org/wiki/Ajax_(programming)">Ajax</a>-enabled pagination',
         'options-title-hqThumbs'         => 'Use high-quality thumbnails',
-        'options-desc-hqThumbs'			 => 'Note: this option cannot be used with the "randomize thumbnails" feature',
+        'options-desc-hqThumbs'          => 'Note: this option cannot be used with the "randomize thumbnails" feature',
      
         'options-title-autoplay'             => 'Auto-play videos', 
         'options-title-border'               => 'Show border', 
@@ -104,6 +105,9 @@ $msgs = array(
         'options-title-randomize_thumbnails' => 'Randomize thumbnails', 
         'options-desc-randomize_thumbnails'  => 'Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature', 
         
+        'options-title-ffmpegBinary' => 'FFmpeg binary location',
+        'options-desc-ffmpegBinary'  => 'To generate thumbnails for your locally uploaded videos, TubePress requires a modern version of <a href="http://www.ffmpeg.org/">FFmpeg</a>. Set this value to the absolute path of your server\'s FFmpeg installation.',
+        
         'options-title-filter_racy'          => 'Filter "racy" content', 
         'options-desc-filter_racy'           => 'Don\'t show videos that may not be suitable for minors.', 
         'options-title-videoBlacklist'       => 'Videos blacklist',
@@ -115,8 +119,8 @@ $msgs = array(
         'options-title-embeddableOnly'       => 'Only retrieve embeddable videos',
         'options-desc-embeddableOnly'        => 'Some videos have embedding disabled. Checking this option will exclude these videos from your galleries.',
     
-        'options-title-resultCountCap'	     => 'Maximum total videos to retrieve',
-        'options-desc-resultCountCap'		 => 'This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit.',
+        'options-title-resultCountCap'       => 'Maximum total videos to retrieve',
+        'options-desc-resultCountCap'        => 'This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit.',
     
         'player-normal'      => 'normally (at the top of your gallery)', 
         'player-popup'       => 'in a popup window',
@@ -138,8 +142,8 @@ $msgs = array(
         'order-commentCount' => 'comment count',
         'order-duration'     => 'length',
         'order-title'        => 'title',
-        'order-newest'		 => 'newest',
-        'order-oldest'		 => 'oldest',
+        'order-newest'       => 'newest',
+        'order-oldest'       => 'oldest',
     
         'timeFrame-today'      => 'today', 
         'timeFrame-this_week'  => 'this week', 
@@ -160,13 +164,14 @@ $msgs = array(
         'video-views'       => 'Views',
         'video-likes'       => 'Likes',
     
-        'validation-int-type'            => '%s can only take on integer values. You supplied %s.',
-        'validation-int-range'           => '"%s" must be between "%d" and "%d". You supplied "%d".',
-        'validation-text'                => '%s must be a string. You supplied %s.',
-        'validation-no-such-option'      => '"%s" is not a valid option name.',
-        'validation-bool'                => '"%s" must be either true or false. You supplied "%s".',
-        'validation-enum'                => '"%s" must be one of "%s". You supplied "%s".',
-        'validation-no-dots-in-template' => 'Template names cannot contain two consecutive periods',
+        'validation-int-type'              => '%s can only take on integer values. You supplied %s.',
+        'validation-int-range'             => '"%s" must be between "%d" and "%d". You supplied "%d".',
+        'validation-text'                  => '%s must be a string. You supplied %s.',
+        'validation-no-such-option'        => '"%s" is not a valid option name.',
+        'validation-bool'                  => '"%s" must be either true or false. You supplied "%s".',
+        'validation-enum'                  => '"%s" must be one of "%s". You supplied "%s".',
+        'validation-no-dots-in-template'   => 'Template names cannot contain two consecutive periods',
+        'validation-ffmpeg-not-executable' => '%s is not executable or does not exist.',
     
         'next' => 'next', 
         'prev' => 'prev', 
@@ -200,10 +205,11 @@ class org_tubepress_message_WordPressMessageServiceTest extends PHPUnit_Framewor
 		$files = $this->getPoFiles();
 		foreach ($files as $file) {
 			$realPath = dirname(__FILE__) . '/../../../../../i18n/' . $file;
-			exec("/opt/local/bin/msgfmt	$realPath", $results, $return);
+			$outputfile = str_replace(array('.pot', '.po'), '.mo', $realPath);
+			exec("/opt/local/bin/msgfmt	-o $outputfile $realPath", $results, $return);
 			$this->assertTrue($return === 0);
 		}
-		
+		dirname(__FILE__) . '/../../../../../i18n/tubepress.mo';
 	}
 
 	function testPotFileHasRightEntries()
@@ -279,7 +285,5 @@ class org_tubepress_message_WordPressMessageServiceTest extends PHPUnit_Framewor
         return $index;
    	}
 }
-
-
 
 ?>

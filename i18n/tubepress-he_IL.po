@@ -457,3 +457,15 @@ msgstr ""
 
 msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature"
 msgstr ""
+
+msgid "%s is not executable or does not exist."
+msgstr ""
+
+msgid "Uploads"
+msgstr ""
+
+msgid "FFmpeg binary location"
+msgstr ""
+
+msgid "To generate thumbnails for your locally uploaded videos, TubePress requires a modern version of <a href=\"http://www.ffmpeg.org/\">FFmpeg</a>. Set this value to the absolute path of your server's FFmpeg installation."
+msgstr ""

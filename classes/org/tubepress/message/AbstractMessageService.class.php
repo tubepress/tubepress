@@ -41,6 +41,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'options-category-title-embedded' => 'Embedded Player', 
         'options-category-title-meta'     => 'Meta Display',
         'options-category-title-feed'     => 'Provider Feed', 
+        'options-category-title-uploads'  => 'Uploads',
         'options-category-title-advanced' => 'Advanced', 
     
         'options-title-top_rated'         => 'Top rated videos from...', 
@@ -133,6 +134,9 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'options-title-randomize_thumbnails' => 'Randomize thumbnails', 
         'options-desc-randomize_thumbnails'  => 'Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature', 
         
+        'options-title-ffmpegBinary' => 'FFmpeg binary location',
+        'options-desc-ffmpegBinary'  => 'To generate thumbnails for your locally uploaded videos, TubePress requires a modern version of <a href="http://www.ffmpeg.org/">FFmpeg</a>. Set this value to the absolute path of your server\'s FFmpeg installation.',
+        
         'options-title-filter_racy'          => 'Filter "racy" content', 
         'options-desc-filter_racy'           => 'Don\'t show videos that may not be suitable for minors.', 
         'options-title-videoBlacklist'       => 'Videos blacklist',
@@ -189,13 +193,14 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'video-views'       => 'Views',
         'video-likes'       => 'Likes',
     
-        'validation-int-type'            => '%s can only take on integer values. You supplied %s.',
-        'validation-int-range'           => '"%s" must be between "%d" and "%d". You supplied "%d".',
-        'validation-text'                => '%s must be a string. You supplied %s.',
-        'validation-no-such-option'      => '"%s" is not a valid option name.',
-        'validation-bool'                => '"%s" must be either true or false. You supplied "%s".',
-        'validation-enum'                => '"%s" must be one of "%s". You supplied "%s".',
-        'validation-no-dots-in-template' => 'Template names cannot contain two consecutive periods',
+        'validation-int-type'              => '%s can only take on integer values. You supplied %s.',
+        'validation-int-range'             => '"%s" must be between "%d" and "%d". You supplied "%d".',
+        'validation-text'                  => '%s must be a string. You supplied %s.',
+        'validation-no-such-option'        => '"%s" is not a valid option name.',
+        'validation-bool'                  => '"%s" must be either true or false. You supplied "%s".',
+        'validation-enum'                  => '"%s" must be one of "%s". You supplied "%s".',
+        'validation-no-dots-in-template'   => 'Template names cannot contain two consecutive periods',
+        'validation-ffmpeg-not-executable' => '%s is not executable or does not exist.',
     
         'next' => 'next', 
         'prev' => 'prev', 
