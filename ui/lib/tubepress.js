@@ -12,6 +12,16 @@ jQuery.getScript = function (url, callback, cache) {
 	jQuery.ajax({ type: "GET", url: url, success: callback, dataType: "script", cache: cache }); 
 }; 
 
+/* http://jquery.malsup.com/fadetest.html */
+jQuery.fn.fadeTo = function(speed, to, callback) { 
+	return this.animate({opacity: to}, speed, function() { 
+        	if (to == 1 && jQuery.browser.msie)  
+        	    this.style.removeAttribute('filter');  
+        	if (jQuery.isFunction(callback)) 
+        	    callback();  
+    	}); 
+};
+
 /* this is meant to be called from the user's HTML page */
 var safeTubePressInit = function () {
 	try {
@@ -296,7 +306,7 @@ TubePressAjax = (function () {
 	};
 
 	postAjaxGallerySetup = function (thumbnailArea, galleryId) {
-		jQuery(document).trigger('tubepressNewThumbnailsLoaded');
+		jQuery().trigger('tubepressNewThumbnailsLoaded');
 		TubePress.centerThumbs("#tubepress_gallery_" + galleryId);
 		jQuery("a[id^='tubepress_']").click(TubePress.clickListener);
 		initPagination(galleryId);
