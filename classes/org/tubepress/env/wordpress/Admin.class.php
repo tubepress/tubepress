@@ -49,7 +49,7 @@ class org_tubepress_env_wordpress_Admin
 
     public static function menuAction()
     {
-        add_options_page('TubePress Options', 'TubePress', 'administrator', __FILE__, array('org_tubepress_env_wordpress_Admin', 'conditionalExecuteOptionsPage'));
+        add_options_page('TubePress Options', 'TubePress', 'manage_options', __FILE__, array('org_tubepress_env_wordpress_Admin', 'conditionalExecuteOptionsPage'));
     }
 
     public static function conditionalExecuteOptionsPage()
