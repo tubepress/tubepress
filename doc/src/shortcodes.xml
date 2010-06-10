@@ -133,6 +133,17 @@
                         </row>
                         <row>
                             <entry>
+                                <code>most_viewed</code>
+                            </entry>
+                            <entry>YouTube videos with the most views</entry>
+                            <entry></entry>
+                            <entry>
+                                <code>[tubepress mode="most_viewed"]</code>
+                            </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" /> </entry>
+                        </row>
+                        <row>
+                            <entry>
                                 <code>playlist</code> and <code>playlistValue</code>
                             </entry>
                             <entry>
