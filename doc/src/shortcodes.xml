@@ -74,7 +74,7 @@
                             <entry>
                                 <code>[tubepress mode="favorites" favoritesValue="3hough"]</code>
                             </entry>
-                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" /> </entry>
+                            <entry><xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" /></entry>
                         </row>
                         <row>
                             <entry>
@@ -1065,12 +1065,27 @@
                         <entry>
                             <code>playerColor</code>
                         </entry>
-                        <entry>Primary and secondary colors of embedded player
+                        <entry>Primary color of embedded player
                         </entry>
-                        <entry>Two HTML color values in hex, combined with a
-                            single forward slash</entry>
+                        <entry>Six hexadecimal digits, representing a valid HTML color code</entry>
                         <entry>
-                            <code>[tubepress playerColor="0xffaabb/0xaa2233"]
+                            <code>[tubepress playerColor="ffaabb"]
+                            </code>
+                        </entry>
+                        <entry>
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="youtube_image.xml" />
+                            <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"  href="vimeo_image.xml" />
+                        </entry>
+                    </row>
+                    <row>
+                        <entry>
+                            <code>playerHighlight</code>
+                        </entry>
+                        <entry>Highlight color of embedded player
+                        </entry>
+                        <entry>Six hexadecimal digits, representing a valid HTML color code</entry>
+                        <entry>
+                            <code>[tubepress playerColor="aa2233"]
                             </code>
                         </entry>
                         <entry>

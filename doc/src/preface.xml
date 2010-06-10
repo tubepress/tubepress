@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<preface>
+<preface xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude">
     <title>Introduction</title>
     <para>
         <application>TubePress</application>
@@ -18,22 +18,20 @@
                 </para>
             </listitem>
             <listitem>
-                <para>
-                    <para><application>TubePress Pro (only $10)</application></para>
-                    <itemizedlist>
-                        <listitem>
-                            <para>All the features of the WordPress plugin</para>
-                        </listitem>
-                        <listitem>
-                            <para>A stand-alone PHP5 library</para>
-                        </listitem>
-                        <listitem>
-                            <para>
-                                A bunch of very cool <ulink url="http://tubepress.org/features">extra features</ulink>!
-                            </para>
-                        </listitem>
-                    </itemizedlist>
-                </para>
+                <para>TubePress Pro (only $10)</para>
+                <itemizedlist>
+                    <listitem>
+                        <para>All the features of the WordPress plugin</para>
+                    </listitem>
+                    <listitem>
+                        <para>A stand-alone PHP5 library</para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            A bunch of very cool <ulink url="http://tubepress.org/features">extra features</ulink>!
+                        </para>
+                    </listitem>
+                </itemizedlist>
             </listitem>
         </orderedlist>
     </para>

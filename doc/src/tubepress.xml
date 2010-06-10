@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "/opt/local/share/xml/docbook/4.5/docbookx.dtd"
-  [ <!ENTITY preface          SYSTEM "preface.xml">
-    <!ENTITY download         SYSTEM "download.xml">
-    <!ENTITY installation     SYSTEM "installation.xml">
-    <!ENTITY upgrading        SYSTEM "upgrading.xml">
-    <!ENTITY galleries        SYSTEM "galleries.xml">
-    <!ENTITY single_videos    SYSTEM "single_videos.xml">
-    <!ENTITY customizing      SYSTEM "customizing.xml">
-    <!ENTITY shortcodes       SYSTEM "shortcodes.xml">
-    <!ENTITY i18n             SYSTEM "i18n.xml">
-    <!ENTITY troubleshoot     SYSTEM "troubleshooting.xml">
-    <!ENTITY contributing     SYSTEM "contributing.xml">
-    <!ENTITY opt_pro_installs SYSTEM "opt_pro_installs.xml">
-    <!ENTITY license          SYSTEM "license.xml">
-  ]
->
-<book>
+<book xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude">
     <title>TubePress Reference Documentation</title>
     <subtitle>Beautiful Videos and Galleries in PHP</subtitle>
     <bookinfo>
@@ -41,17 +25,17 @@
             </simpara>
         </legalnotice>
     </bookinfo>
-    &preface;
-    &download;
-    &installation;
-    &upgrading;
-    &galleries;
-    &single_videos;
-    &customizing;
-    &shortcodes;
-    &i18n;
-    &troubleshoot;
-    &contributing;
-    &opt_pro_installs;
-    &license;
+    <xi:include href="preface.xml" />
+    <xi:include href="download.xml" />
+    <xi:include href="installation.xml" />
+    <xi:include href="upgrading.xml" />
+    <xi:include href="galleries.xml" />
+    <xi:include href="single_videos.xml" />
+    <xi:include href="customizing.xml" />
+    <xi:include href="shortcodes.xml" />
+    <xi:include href="i18n.xml" />
+    <xi:include href="troubleshooting.xml" />
+    <xi:include href="constributing.xml" />
+    <xi:include href="opt_pro_installs.xml" />
+    <xi:include href="license.xml" />
 </book>
