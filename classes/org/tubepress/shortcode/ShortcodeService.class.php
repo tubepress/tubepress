@@ -41,6 +41,6 @@ interface org_tubepress_shortcode_ShortcodeService
 
     public function somethingToParse($content, $trigger = "tubepress");
     
-    public function getHtml($shortCodeContent, org_tubepress_ioc_IocService $iocService);
+    public function getHtml(org_tubepress_ioc_IocService $iocService);
 }
 

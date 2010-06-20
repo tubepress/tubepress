@@ -78,6 +78,11 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
     {
         $this->_customOptions = $customOpts;
     }
+    
+    public function getCustomOptions()
+    {
+        return $this->_customOptions;
+    }
 
     /**
      * Enter description here...

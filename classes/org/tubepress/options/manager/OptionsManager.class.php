@@ -47,6 +47,8 @@ interface org_tubepress_options_manager_OptionsManager
      */
     public function setCustomOptions($customOpts);
     
+    public function getCustomOptions();
+    
     /**
      * Enter description here...
      *

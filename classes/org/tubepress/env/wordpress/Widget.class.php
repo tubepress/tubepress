@@ -45,45 +45,45 @@ class org_tubepress_env_wordpress_Widget
 
     public static function printWidget($opts)
     {
-	extract($opts);
+	    extract($opts);
 
         if (class_exists('org_tubepress_ioc_ProInWordPressIocService')) {
             $iocContainer = new org_tubepress_ioc_ProInWordPressIocService();
         } else {
             $iocContainer = new org_tubepress_ioc_DefaultIocService();
         }
-        $tpom         = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $tpom = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
     
         /* Turn on logging if we need to */
         $log = $iocContainer->get(org_tubepress_ioc_IocService::LOG);
         $log->setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON), $_GET);
-    
+        
         /* default widget options */
-        $tpom->setCustomOptions(
-            array(org_tubepress_options_category_Display::RESULTS_PER_PAGE  => 3,
-                org_tubepress_options_category_Meta::VIEWS                  => false,
-                org_tubepress_options_category_Meta::DESCRIPTION            => true,
-                org_tubepress_options_category_Display::DESC_LIMIT          => 50,
-                org_tubepress_options_category_Display::CURRENT_PLAYER_NAME => org_tubepress_player_Player::POPUP,
-                org_tubepress_options_category_Display::THUMB_HEIGHT        => 105,
-                org_tubepress_options_category_Display::THUMB_WIDTH         => 135,
-                org_tubepress_options_category_Display::PAGINATE_ABOVE      => false,
-                org_tubepress_options_category_Display::PAGINATE_BELOW      => false,
-                org_tubepress_options_category_Gallery::TEMPLATE            => 'sidebar.tpl.php'
-            )
+        $defaultWidgetOptions = array(org_tubepress_options_category_Display::RESULTS_PER_PAGE  => 3,
+            org_tubepress_options_category_Meta::VIEWS                  => false,
+            org_tubepress_options_category_Meta::DESCRIPTION            => true,
+            org_tubepress_options_category_Display::DESC_LIMIT          => 50,
+            org_tubepress_options_category_Display::CURRENT_PLAYER_NAME => org_tubepress_player_Player::POPUP,
+            org_tubepress_options_category_Display::THUMB_HEIGHT        => 105,
+            org_tubepress_options_category_Display::THUMB_WIDTH         => 135,
+            org_tubepress_options_category_Display::PAGINATE_ABOVE      => false,
+            org_tubepress_options_category_Display::PAGINATE_BELOW      => false
         );
     
-        /* now apply the user's shortcode */
+        /* now apply the user's options */
         $shortcodeService = $iocContainer->get(org_tubepress_ioc_IocService::SHORTCODE_SERVICE);
         $wpsm             = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE_MANAGER);
-        $shortcodeService->parse($wpsm->get(org_tubepress_options_category_Widget::TAGSTRING), $tpom, true);
-
-        /* grab a widget gallery to build */
-        $gallery = $iocContainer->get(org_tubepress_ioc_IocService::GALLERY);
+        $shortcodeService->parse($wpsm->get(org_tubepress_options_category_Widget::TAGSTRING), $tpom);
         
-        /* get the output */
-        $out = $gallery->getHtml(mt_rand());
-
+        /* calculate the final options */
+        $finalOptions = array_merge($defaultWidgetOptions, $tpom->getCustomOptions());
+        if ($finalOptions[org_tubepress_options_category_Gallery::TEMPLATE] != '') {
+            $finalOptions[org_tubepress_options_category_Gallery::TEMPLATE] = 'sidebar.tpl.php';
+        }
+        $tpom->setCustomOptions($finalOptions);
+        
+        $out = $shortcodeService->getHtml($iocContainer);
+        
         /* do the standard WordPress widget dance */
         echo $before_widget . $before_title . 
             $wpsm->get(org_tubepress_options_category_Widget::TITLE) .

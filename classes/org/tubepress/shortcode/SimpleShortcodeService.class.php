@@ -50,7 +50,7 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
      * 
      * @return void
      */
-    public function parse($content, org_tubepress_options_manager_OptionsManager $tpom, $mergeWithExistingOptions = false)
+    public function parse($content, org_tubepress_options_manager_OptionsManager $tpom)
     {    
         /* what trigger word are we using? */
         $keyword = $tpom->get(org_tubepress_options_category_Advanced::KEYWORD);
@@ -59,7 +59,7 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
             return;
         }
         
-        $customOptions = array();  
+        $customOptions = array(); 
           
         /* Match everything in square brackets after the trigger */
         $regexp = "\[$keyword\b(.*)\]";
@@ -90,7 +90,7 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
             
                 $customOptions = $this->_parseCustomOption($customOptions, $match);
                 
-                $this->_applyOptions($tpom, $customOptions, $mergeWithExistingOptions);
+                $tpom->setCustomOptions($customOptions);
             }
         } else {
             $this->_log->log($this->_logPrefix, 'No custom options detected in shortcode: %s', $matches[0]);
@@ -129,13 +129,15 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
         return strpos($content, '[' . $trigger) !== false;
     }
     
-    public function getHtml($shortCodeContent, org_tubepress_ioc_IocService $iocService)
+    public function getHtml(org_tubepress_ioc_IocService $iocService, $shortCodeContent = '')
     {
+        $log  = $iocService->get(org_tubepress_ioc_IocService::LOG);
     	$tpom = $iocService->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
-    	$log  = $iocService->get(org_tubepress_ioc_IocService::LOG);
     	
-    	/* parse the first shortcode we find */
-    	$this->parse($shortCodeContent, $tpom);
+    	/* parse the shortcode if we need to */
+    	if ($shortCodeContent != '') {
+    	   $this->parse($shortCodeContent, $tpom);
+    	}
 
         /* user wants to display a single video with meta info */
         if ($tpom->get(org_tubepress_options_category_Gallery::VIDEO) != '') {
@@ -174,15 +176,6 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
     
     public function setLog(org_tubepress_log_Log $log) { $this->_log = $log; }
     public function setInputValidationService(org_tubepress_options_validation_InputValidationService $service) { $this->_inputValidationService = $service; }
-    
-    private function _applyOptions($tpom, $opts, $merge)
-    {
-        if ($merge) {
-            $tpom->mergeCustomOptions($opts);
-        } else {
-            $tpom->setCustomOptions($opts);
-        }
-    }
 
     /**
      * Replaces weird quotes with normal ones. Fun.

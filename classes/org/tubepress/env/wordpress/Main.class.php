@@ -74,7 +74,7 @@ class org_tubepress_env_wordpress_Main
         while ($shortcodeService->somethingToParse($content, $trigger) && $x < 10) {
 
             /* Get the HTML for this particular shortcode. Could be a single video or a gallery. */
-            $generatedHtml = $shortcodeService->getHtml($content, $iocContainer);
+            $generatedHtml = $shortcodeService->getHtml($iocContainer, $content);
             
             /* remove any leading/trailing <p> tags from the content */
             $pattern = '/(<[P|p]>\s*)(' . preg_quote($tpom->getShortcode(), '/') . ')(\s*<\/[P|p]>)/';
