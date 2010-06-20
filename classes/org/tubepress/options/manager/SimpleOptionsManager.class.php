@@ -62,6 +62,11 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
         return $value;
     }
     
+    public function set($optionName, $optionValue)
+    {
+        $this->_customOptions[$optionName] = $optionValue;
+    }
+    
     /**
      * Enter description here...
      *
@@ -73,11 +78,6 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
     {
         $this->_customOptions = $customOpts;
     }
-
-    public function mergeCustomOptions($customOpts)
-    {
-        $this->_customOptions = array_merge($this->_customOptions, $customOpts);
-    }    
 
     /**
      * Enter description here...

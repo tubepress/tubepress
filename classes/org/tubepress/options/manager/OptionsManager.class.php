@@ -36,6 +36,8 @@ interface org_tubepress_options_manager_OptionsManager
      */
     public function get($optionName);
     
+    public function set($optionName, $optionValue);
+    
     /**
      * Enter description here...
      *
@@ -44,15 +46,6 @@ interface org_tubepress_options_manager_OptionsManager
      * @return void
      */
     public function setCustomOptions($customOpts);
-
-    /**
-     * Enter description here...
-     *
-     * @param array $customOpts Custom options
-     * 
-     * @return void
-     */
-    public function mergeCustomOptions($customOpts);
     
     /**
      * Enter description here...
