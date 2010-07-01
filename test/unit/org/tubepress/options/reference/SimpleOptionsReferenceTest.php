@@ -19,6 +19,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
             org_tubepress_options_category_Advanced::DATEFORMAT            => 'M j, Y',
             org_tubepress_options_category_Advanced::KEYWORD               => 'tubepress',
             org_tubepress_options_category_Advanced::VIDEO_BLACKLIST       => '',
+            org_tubepress_options_category_Gallery::DIRECTORY_VALUE        => '',
             org_tubepress_options_category_Gallery::FAVORITES_VALUE        => 'mrdeathgod',
             org_tubepress_options_category_Gallery::PLAYLIST_VALUE         => 'D2B04665B213AE35',
             org_tubepress_options_category_Gallery::TAG_VALUE              => 'stewart daily show',
@@ -54,7 +55,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
             org_tubepress_options_category_Embedded::SHOW_INFO          => false,
             org_tubepress_options_category_Embedded::SHOW_RELATED       => true,
             org_tubepress_options_category_Embedded::FULLSCREEN         => true,
-            org_tubepress_options_category_Embedded::HIGH_QUALITY       => false,
+	        org_tubepress_options_category_Embedded::HIGH_QUALITY       => false,
             org_tubepress_options_category_Meta::AUTHOR                 => false,
             org_tubepress_options_category_Meta::CATEGORY               => false,
             org_tubepress_options_category_Meta::DESCRIPTION            => false,
@@ -97,7 +98,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
             org_tubepress_options_category_Embedded::PLAYER_IMPL        => 'youtube'
         )
     );
-    
+        
 	function setUp()
 	{
 		$this->_sut = new org_tubepress_options_reference_SimpleOptionsReference();
@@ -159,7 +160,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     function testGetGalleryOptionNames()
     {
         $expectedNames = array(
-            'mode', 'template', 'video', 'favoritesValue', 'most_viewedValue', 'playlistValue',
+            'mode', 'template', 'video', 'directoryValue', 'favoritesValue', 'most_viewedValue', 'playlistValue',
             'tagValue', 'top_ratedValue', 'userValue', 'vimeoUploadedByValue','vimeoLikesValue',
             'vimeoAppearsInValue', 'vimeoSearchValue', 'vimeoCreditedToValue', 'vimeoChannelValue',
             'vimeoAlbumValue', 'vimeoGroupValue'
@@ -238,7 +239,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
     
     function testGalleryEnumValues()
     {
-        $expected = array('favorites', 'playlist', 'tag', 'user', 'recently_featured', 'mobile', 'most_discussed',
+        $expected = array('directory', 'favorites', 'playlist', 'tag', 'user', 'recently_featured', 'mobile', 'most_discussed',
                     'most_linked', 'most_recent', 'most_responded', 'most_viewed',
                     'top_rated', 'vimeoUploadedBy', 'vimeoLikes', 'vimeoAppearsIn', 'vimeoSearch', 'vimeoCreditedTo',
                     'vimeoChannel', 'vimeoAlbum', 'vimeoGroup');

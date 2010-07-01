@@ -12,7 +12,10 @@ class net_sourceforge_phpvideotoolkit_PhpVideoToolkitTest extends PHPUnit_Framew
 
 	function testGetFileInfo()
 	{
-		$this->_sut->getFileInfo(dirname(__FILE__) . '/CIMG0873.AVI');	
+		$result = $this->_sut->getFileInfo(dirname(__FILE__) . '/CIMG0873.AVI');	
+		$this->assertTrue(is_array($result));
+		$this->assertTrue(is_array($result['duration']));
+		$this->assertEquals(1519, $result['bitrate']);
 	}
 
 	function testHasVhookSupport()

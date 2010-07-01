@@ -24,8 +24,9 @@
  */
 interface org_tubepress_video_feed_provider_Provider {
     
-    const YOUTUBE = 'youtube';
-    const VIMEO   = 'vimeo';
+    const DIRECTORY = 'directory';
+    const YOUTUBE   = 'youtube';
+    const VIMEO     = 'vimeo';
     
     public function getFeedResult();
     

@@ -24,10 +24,11 @@
  */
 interface org_tubepress_gallery_TubePressGallery
 {
+	const DIRECTORY        = 'directory';
     const FAVORITES        = 'favorites';
     const FEATURED         = 'recently_featured';
     const MOBILE           = 'mobile';
-    const MOST_DISCUSSESD  = 'most_discussed';
+    const MOST_DISCUSSED   = 'most_discussed';
     const MOST_LINKED      = 'most_linked';
     const MOST_RECENT      = 'most_recent';
     const MOST_RESPONDED   = 'most_responded';

@@ -79,7 +79,7 @@ class org_tubepress_url_YouTubeUrlBuilder implements org_tubepress_url_UrlBuilde
             $url = 'standardfeeds/most_linked';
             break;
                 
-        case org_tubepress_gallery_TubePressGallery::MOST_DISCUSSESD:
+        case org_tubepress_gallery_TubePressGallery::MOST_DISCUSSED:
             $url = 'standardfeeds/most_discussed';
             break;
                 
@@ -105,6 +105,7 @@ class org_tubepress_url_YouTubeUrlBuilder implements org_tubepress_url_UrlBuilde
         $request = new net_php_pear_Net_URL2("http://gdata.youtube.com/feeds/api/$url");
         $this->_commonUrlPostProcessing($request);
         $this->_galleryUrlPostProcessing($request, $currentPage);
+        $this->_fieldsPostProcessing($request);
         return $request->getURL();
     }
     
@@ -125,6 +126,11 @@ class org_tubepress_url_YouTubeUrlBuilder implements org_tubepress_url_UrlBuilde
     {
         $url->setQueryVariable('v', 2);
         $url->setQueryVariable('key', $this->_tpom->get(org_tubepress_options_category_Feed::DEV_KEY));
+    }
+
+	private function _fieldsPostProcessing(net_php_pear_Net_URL2 $url)
+    {
+    	
     }
 
     /**

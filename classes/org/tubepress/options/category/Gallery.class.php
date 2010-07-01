@@ -25,18 +25,19 @@
  */
 class org_tubepress_options_category_Gallery
 {
-    const MODE = "mode";
+    const MODE = 'mode';
     
-    const TEMPLATE = "template";
+    const TEMPLATE = 'template';
 
-    const VIDEO = "video";
+    const VIDEO = 'video';
     
-    const FAVORITES_VALUE        = "favoritesValue";
-    const MOST_VIEWED_VALUE      = "most_viewedValue";
-    const PLAYLIST_VALUE         = "playlistValue";
-    const TAG_VALUE              = "tagValue";
-    const TOP_RATED_VALUE        = "top_ratedValue";
-    const USER_VALUE             = "userValue";
+    const DIRECTORY_VALUE        = 'directoryValue';
+    const FAVORITES_VALUE        = 'favoritesValue';
+    const MOST_VIEWED_VALUE      = 'most_viewedValue';
+    const PLAYLIST_VALUE         = 'playlistValue';
+    const TAG_VALUE              = 'tagValue';
+    const TOP_RATED_VALUE        = 'top_ratedValue';
+    const USER_VALUE             = 'userValue';
     const VIMEO_UPLOADEDBY_VALUE = 'vimeoUploadedByValue';
     const VIMEO_LIKES_VALUE      = 'vimeoLikesValue';
     const VIMEO_APPEARS_IN_VALUE = 'vimeoAppearsInValue';

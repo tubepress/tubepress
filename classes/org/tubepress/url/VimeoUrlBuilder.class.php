@@ -150,7 +150,7 @@ class org_tubepress_url_VimeoUrlBuilder implements org_tubepress_url_UrlBuilder
         
         $params['format']                 = 'php';
         $params['oauth_consumer_key']     = '86a1a3af34044829c435b2e0b03a8e6e';
-        $params['oauth_nonce']            = md5(uniqid(microtime()));
+        $params['oauth_nonce']            = md5(uniqid(mt_rand(), TRUE));
         $params['oauth_signature_method'] = 'HMAC-SHA1';
         $params['oauth_timestamp']        = time();
         $params['oauth_version']          ='1.0';

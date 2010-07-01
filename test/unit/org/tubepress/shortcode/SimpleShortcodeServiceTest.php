@@ -28,7 +28,7 @@ class org_tubepress_shortcode_SimpleShortcodeServiceTest extends PHPUnit_Framewo
     	$this->_ioc->expects($this->exactly(4))
     	     ->method('get')
     	     ->will($this->returnCallback(array($this, '_iocCallback')));
-    	$this->_tpom->expects($this->exactly(3))
+    	$this->_tpom->expects($this->exactly(2))
     	     ->method('get')
     	     ->will($this->returnCallback(array($this, '_tpomCallbackSoloPlayer')));
     	$this->_singleVideo->expects($this->once())
@@ -37,7 +37,7 @@ class org_tubepress_shortcode_SimpleShortcodeServiceTest extends PHPUnit_Framewo
     	$this->_qss->expects($this->once())
     	     ->method('getCustomVideo')
     	     ->will($this->returnValue('someid'));
-  		$result = $this->_sut->getHtml('id', $this->_ioc);
+  		$result = $this->_sut->getHtml($this->_ioc);
   		$this->assertEquals('foofoo', $result);
 	}
 
@@ -46,13 +46,13 @@ class org_tubepress_shortcode_SimpleShortcodeServiceTest extends PHPUnit_Framewo
     	$this->_ioc->expects($this->exactly(4))
     	     ->method('get')
     	     ->will($this->returnCallback(array($this, '_iocCallback')));
-    	$this->_tpom->expects($this->exactly(3))
+    	$this->_tpom->expects($this->exactly(2))
     	     ->method('get')
     	     ->will($this->returnCallback(array($this, '_tpomCallbackSoloPlayer')));
     	$this->_gallery->expects($this->once())
     	     ->method('getHtml')
     	     ->will($this->returnValue('foofoo'));
-  		$result = $this->_sut->getHtml('id', $this->_ioc);
+  		$result = $this->_sut->getHtml($this->_ioc);
   		$this->assertEquals('foofoo', $result);
 	}
 
@@ -61,13 +61,13 @@ class org_tubepress_shortcode_SimpleShortcodeServiceTest extends PHPUnit_Framewo
     	$this->_ioc->expects($this->exactly(3))
     	     ->method('get')
     	     ->will($this->returnCallback(array($this, '_iocCallback')));
-    	$this->_tpom->expects($this->exactly(3))
+    	$this->_tpom->expects($this->exactly(2))
     	     ->method('get')
     	     ->will($this->returnCallback(array($this, '_tpomCallbackSingleVideo')));
     	$this->_singleVideo->expects($this->once())
     	     ->method('getSingleVideoHtml')
     	     ->will($this->returnValue('foofoo'));
-  		$result = $this->_sut->getHtml('id', $this->_ioc);
+  		$result = $this->_sut->getHtml($this->_ioc);
   		$this->assertEquals('foofoo', $result);
 	}
 
@@ -76,13 +76,13 @@ class org_tubepress_shortcode_SimpleShortcodeServiceTest extends PHPUnit_Framewo
     	$this->_ioc->expects($this->exactly(4))
     	     ->method('get')
     	     ->will($this->returnCallback(array($this, '_iocCallback')));
-    	$this->_tpom->expects($this->exactly(3))
+    	$this->_tpom->expects($this->exactly(2))
     	     ->method('get')
     	     ->will($this->returnCallback(array($this, '_tpomCallbackNonSoloPlayer')));
     	$this->_gallery->expects($this->once())
     	     ->method('getHtml')
     	     ->will($this->returnValue('foofoo'));
-  		$result = $this->_sut->getHtml('id', $this->_ioc);
+  		$result = $this->_sut->getHtml($this->_ioc);
   		$this->assertEquals('foofoo', $result);
 	}
 

@@ -36,8 +36,8 @@ class org_tubepress_video_feed_retrieval_HTTPRequest2 extends org_tubepress_vide
         $this->_logPrefix = "HTTP Request 2";   
     }
     
-    protected function _fetchFromNetwork($request) {
-        $request = new net_php_pear_Net_URL2($request);
+    protected function _fetchFromNetwork($urlAsString) {
+        $request = new net_php_pear_Net_URL2($urlAsString);
         $req = new net_php_pear_HTTP_Request2($request);
         $req->setAdapter(new net_php_pear_HTTP_Request2_Adapter_Socket());
 

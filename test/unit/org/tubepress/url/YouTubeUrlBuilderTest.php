@@ -279,7 +279,7 @@ function mostDiscussedCallback()
 		org_tubepress_options_category_Display::RESULTS_PER_PAGE => 3,
         org_tubepress_options_category_Feed::FILTER => "moderate",
         org_tubepress_options_category_Display::ORDER_BY => "relevance",
-        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::MOST_DISCUSSESD,
+        org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::MOST_DISCUSSED,
         org_tubepress_options_category_Feed::DEV_KEY => "devkey",
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY => true
 	);

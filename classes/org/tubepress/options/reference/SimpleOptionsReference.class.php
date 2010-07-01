@@ -30,7 +30,8 @@ tubepress_load_classes(array('org_tubepress_options_reference_OptionsReference',
     'org_tubepress_options_category_Widget',
     'org_tubepress_options_category_Display',
     'org_tubepress_options_category_Meta',
-    'org_tubepress_options_category_Template'));
+    'org_tubepress_options_category_Template',
+    'org_tubepress_options_category_Uploads'));
 
 /**
  * The master reference for TubePress options - their names, deprecated
@@ -52,6 +53,7 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Advanced::DATEFORMAT            => 'M j, Y',
             org_tubepress_options_category_Advanced::KEYWORD               => 'tubepress',
             org_tubepress_options_category_Advanced::VIDEO_BLACKLIST       => '',
+            org_tubepress_options_category_Gallery::DIRECTORY_VALUE        => '',
             org_tubepress_options_category_Gallery::FAVORITES_VALUE        => 'mrdeathgod',
             org_tubepress_options_category_Gallery::PLAYLIST_VALUE         => 'D2B04665B213AE35',
             org_tubepress_options_category_Gallery::TAG_VALUE              => 'stewart daily show',
@@ -68,7 +70,8 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Gallery::VIMEO_CREDITED_VALUE   => 'patricklawler',
             org_tubepress_options_category_Gallery::VIMEO_CHANNEL_VALUE    => 'splitscreenstuff',
             org_tubepress_options_category_Gallery::VIMEO_GROUP_VALUE      => 'hdxs',
-            org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE      => '140484'
+            org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE      => '140484',
+            org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION => '/usr/bin/ffmpeg',
          
         ),
         org_tubepress_options_Type::BOOL => array(
@@ -242,7 +245,7 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
      */
     function getOptionCategoryNames()
     {
-        return array('gallery', 'display', 'embedded', 'meta', 'feed', 'advanced', 'widget');
+        return array('gallery', 'display', 'embedded', 'meta', 'feed', 'uploads', 'advanced', 'widget');
     }
     
     /**
@@ -274,8 +277,18 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             case org_tubepress_options_Type::ORDER:
                 return array('relevance', 'viewCount', 'rating', 'published', 'random', 'position', 'commentCount', 'duration', 'title', 'newest', 'oldest');
             case org_tubepress_options_Type::MODE:
-                return array('favorites', 'playlist', 'tag', 'user', 'recently_featured', 'mobile', 'most_discussed',
-                    'most_linked', 'most_recent', 'most_responded',
+                return array(
+                    org_tubepress_gallery_TubePressGallery::DIRECTORY,
+                    org_tubepress_gallery_TubePressGallery::FAVORITES,
+                    org_tubepress_gallery_TubePressGallery::PLAYLIST,
+                    org_tubepress_gallery_TubePressGallery::TAG,
+                    org_tubepress_gallery_TubePressGallery::USER,
+                    org_tubepress_gallery_TubePressGallery::FEATURED,
+                    org_tubepress_gallery_TubePressGallery::MOBILE,
+                    org_tubepress_gallery_TubePressGallery::MOST_DISCUSSED,
+                    org_tubepress_gallery_TubePressGallery::MOST_LINKED,
+                    org_tubepress_gallery_TubePressGallery::MOST_RECENT,
+                    org_tubepress_gallery_TubePressGallery::MOST_RESPONDED,
                     org_tubepress_gallery_TubePressGallery::POPULAR,
                     org_tubepress_gallery_TubePressGallery::TOP_RATED, 
                     org_tubepress_gallery_TubePressGallery::VIMEO_UPLOADEDBY,
