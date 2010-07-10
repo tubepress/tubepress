@@ -33,12 +33,16 @@ class org_tubepress_video_feed_inspection_DelegatingFeedInspectionService implem
     private $_tpom;
     private $_youtubeInspectionService;
     private $_vimeoInspectionService;
+    private $_localInspectionService;
     
     public function getTotalResultCount($rawFeed)
     {
 	    $provider = $this->_tpom->calculateCurrentVideoProvider();
 	    if ($provider === org_tubepress_video_feed_provider_Provider::VIMEO) {
 	        return $this->_vimeoInspectionService->getTotalResultCount($rawFeed);
+	    }
+	    if ($provider === org_tubepress_video_feed_provider_Provider::DIRECTORY) {
+	        return $this->_localInspectionService->getTotalResultCount($rawFeed);
 	    }
 	    return $this->_youtubeInspectionService->getTotalResultCount($rawFeed);
     }
@@ -49,10 +53,14 @@ class org_tubepress_video_feed_inspection_DelegatingFeedInspectionService implem
         if ($provider === org_tubepress_video_feed_provider_Provider::VIMEO) {
             return $this->_vimeoInspectionService->getQueryResultCount($rawFeed);
         }
+        if ($provider === org_tubepress_video_feed_provider_Provider::DIRECTORY) {
+	        return $this->_localInspectionService->getQueryResultCount($rawFeed);
+	    }
         return $this->_youtubeInspectionService->getQueryResultCount($rawFeed);
     }
     
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $om) { $this->_tpom = $om; }
     public function setYouTubeInspectionService(org_tubepress_video_feed_inspection_FeedInspectionService $yfis) { $this->_youtubeInspectionService = $yfis; }
-    public function setVimeoInspectionService(org_tubepress_video_feed_inspection_FeedInspectionService $yfis) { $this->_vimeoInspectionService = $yfis; }    
+    public function setVimeoInspectionService(org_tubepress_video_feed_inspection_FeedInspectionService $yfis) { $this->_vimeoInspectionService = $yfis; } 
+    public function setLocalFeedInspectionService(org_tubepress_video_feed_inspection_FeedInspectionService $yfis) { $this->_localInspectionService = $yfis; }
 }

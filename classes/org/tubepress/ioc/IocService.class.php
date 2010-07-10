@@ -60,6 +60,7 @@ interface org_tubepress_ioc_IocService
     const YOUTUBE_FEED_INSPECTION       = 'youtubeFeedInspectionService';
     const YOUTUBE_URL_BUILDER           = 'youtubeUrlBuilder';
     const YOUTUBE_VIDEO_FACTORY         = 'youtubeVideoFactory';
+    const LOCAL_FEED_INSPECTION         = 'localFeedInspection';
 
     public function get($className);
     

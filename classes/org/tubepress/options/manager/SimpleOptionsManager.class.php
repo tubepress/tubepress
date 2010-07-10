@@ -115,8 +115,12 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
             return org_tubepress_video_feed_provider_Provider::VIMEO;
         }
         
-        /* requested a single video, and it's not vimeo, so must be youtube */
-        if ($video != "") {
+        if (preg_match_all('/^.*\.[A-Za-z]{3}$/', $video, $arr, PREG_PATTERN_ORDER) === 1) {
+        	return org_tubepress_video_feed_provider_Provider::DIRECTORY;
+        }
+        
+        /* requested a single video, and it's not vimeo or directory, so must be youtube */
+        if ($video != '') {
         	return org_tubepress_video_feed_provider_Provider::YOUTUBE;
         }
         
@@ -124,6 +128,9 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
         $currentMode = $this->get(org_tubepress_options_category_Gallery::MODE);
         if (strpos($currentMode, 'vimeo') === 0) {
             return org_tubepress_video_feed_provider_Provider::VIMEO;
+        }
+        if (strpos($currentMode, 'directory') === 0) {
+            return org_tubepress_video_feed_provider_Provider::DIRECTORY;	
         }
         return org_tubepress_video_feed_provider_Provider::YOUTUBE;
     }

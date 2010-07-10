@@ -86,10 +86,10 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
                 }
                 break;
             case org_tubepress_options_category_Uploads::VIDEO_UPLOADS_BASE_DIRECTORY:
-                if (!is_dir($candidate)) {
+                if ($candidate != '' && !is_dir($candidate)) {
                 	throw new Exception(sprintf($this->_messageService->_('validation-directory-not-directory'), $candidate));	
                 }
-                if (!is_readable($candidate)) {
+                if ($candidate != '' && !is_readable($candidate)) {
                 	throw new Exception(sprintf($this->_messageService->_('validation-directory-not-readable'), $candidate));	
                 }
                 break;

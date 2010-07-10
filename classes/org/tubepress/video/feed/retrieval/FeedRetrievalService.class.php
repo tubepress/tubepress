@@ -20,7 +20,7 @@
  */
 
 /**
- * TubePress's network interface
+ * TubePress's feed retrieval mechanism
  *
  */
 interface org_tubepress_video_feed_retrieval_FeedRetrievalService
@@ -31,6 +31,4 @@ interface org_tubepress_video_feed_retrieval_FeedRetrievalService
      * @return unknown The raw feed from the provider
      */
     public function fetch($url, $useCache);
-    
-    public function setCacheService(org_tubepress_cache_CacheService $cache);
 }
