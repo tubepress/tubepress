@@ -76,7 +76,7 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
             
             case org_tubepress_options_category_Gallery::TEMPLATE:
                 if (strpos($candidate, '..') !== FALSE) {
-                    throw new Exception($this->_messageService->_('validation-no-dots-in-template'));
+                    throw new Exception($this->_messageService->_('validation-no-dots-in-path'));
                 }
                 break;
             
@@ -84,6 +84,20 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
                 if (!is_executable($candidate)) {
                     throw new Exception(sprintf($this->_messageService->_('validation-ffmpeg-not-executable'), $candidate));
                 }
+                break;
+            case org_tubepress_options_category_Uploads::VIDEO_UPLOADS_BASE_DIRECTORY:
+                if (!is_dir($candidate)) {
+                	throw new Exception(sprintf($this->_messageService->_('validation-directory-not-directory'), $candidate));	
+                }
+                if (!is_readable($candidate)) {
+                	throw new Exception(sprintf($this->_messageService->_('validation-directory-not-readable'), $candidate));	
+                }
+                break;
+            case org_tubepress_options_category_Gallery::DIRECTORY_VALUE:
+                if (strpos($candidate, '..') !== FALSE) {
+                    throw new Exception($this->_messageService->_('validation-no-dots-in-path'));
+                }
+                break;
         }
     }
     

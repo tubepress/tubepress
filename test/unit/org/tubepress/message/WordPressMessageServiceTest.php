@@ -38,6 +38,8 @@ $msgs = array(
         'options-title-vimeoChannel'      => 'Videos in this Vimeo channel',
         'options-title-vimeoAlbum'        => 'Videos from this Vimeo album',
         'options-title-vimeoGroup'        => 'Videos from this Vimeo group',
+        'options-title-directory'         => 'Video from this directory',
+        'options-desc-directory'          => 'Enter the path, relative to the video uploads base directory (see the "Uploads" tab), of a directory holding uploaded videos and related .nfo files. TubePress will populate this gallery with any videos it finds here.',
         
         'options-title-playerLocation'   => 'Play each video', 
         'options-title-descriptionLimit' => 'Maximum description length', 
@@ -109,10 +111,10 @@ $msgs = array(
         'options-desc-ffmpegBinary'  => 'To generate thumbnails for your locally uploaded videos, TubePress requires a modern version of <a href="http://www.ffmpeg.org/">FFmpeg</a>. Set this value to the absolute path of your server\'s FFmpeg installation.',
         
         'options-title-videoUploadsBaseDirectory' => 'Video uploads base directory',
-        'options-desc-videoUploadsBaseDirectory'  => 'Enter the absolute path of a directory holding any uploaded video galleries. Leave blank to use TubePress\'s base installation path, but it\'s best to enter another directory to make updates easier. This option cannot be set via shortcode.',
+        'options-desc-videoUploadsBaseDirectory'  => 'Enter the absolute path of a directory holding your uploaded video gallery directories. Leave blank to use TubePress\'s base installation path, but it\'s best to enter another directory to make updates easier. This option cannot be set via shortcode.',
         
-        'options-title-videoUploadsSubDirectory' => 'Video gallery directory',
-        'options-desc-videoUploadsSubDirectory'  => 'Enter the path, relative to the video uploads base directory, of a directory holding uploaded videos and related .nfo files. TubePress will populate this gallery with any videos it finds here.',
+        'options-title-thumbsPerVideo' => 'Thumbs per video',
+        'options-desc-thumbsPerVideo'  => 'How many thumbnails to generate for each video. TubePress can randomly display the thumbs each time someone visits the gallery. See the "Randomize thumbnails" option under the "Appearance" tab.',
         
         'options-title-filter_racy'          => 'Filter "racy" content', 
         'options-desc-filter_racy'           => 'Don\'t show videos that may not be suitable for minors.', 
@@ -176,8 +178,10 @@ $msgs = array(
         'validation-no-such-option'        => '"%s" is not a valid option name.',
         'validation-bool'                  => '"%s" must be either true or false. You supplied "%s".',
         'validation-enum'                  => '"%s" must be one of "%s". You supplied "%s".',
-        'validation-no-dots-in-template'   => 'Template names cannot contain two consecutive periods',
+        'validation-no-dots-in-path '      => 'This option cannot contain two consecutive periods',
         'validation-ffmpeg-not-executable' => '%s is not executable or does not exist.',
+        'validation-directory-not-directory' => '%s is not a directory',
+        'validation-directory-not-readable' => '%s is not readable',
     
         'next' => 'next', 
         'prev' => 'prev', 

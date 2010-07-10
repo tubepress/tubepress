@@ -411,9 +411,6 @@ msgstr ""
 msgid "\"%s\" must be one of \"%s\". You supplied \"%s\"."
 msgstr ""
 
-msgid "Template names cannot contain two consecutive periods"
-msgstr ""
-
 msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>."
 msgstr ""
 
@@ -468,11 +465,26 @@ msgstr ""
 msgid "Video uploads base directory"
 msgstr ""
 
-msgid "Enter the absolute path of a directory holding any uploaded video galleries. Leave blank to use TubePress's base installation path, but it's best to enter another directory to make updates easier. This option cannot be set via shortcode."
-msgstr ""
-        
-msgid "Video gallery directory"
+msgid "Video from this directory"
 msgstr ""
 
-msgid "Enter the path, relative to the video uploads base directory, of a directory holding uploaded videos and related .nfo files. TubePress will populate this gallery with any videos it finds here."
+msgid "Enter the path, relative to the video uploads base directory (see the \"Uploads\" tab), of a directory holding uploaded videos and related .nfo files. TubePress will populate this gallery with any videos it finds here."
+msgstr ""
+
+msgid "Enter the absolute path of a directory holding your uploaded video gallery directories. Leave blank to use TubePress's base installation path, but it's best to enter another directory to make updates easier. This option cannot be set via shortcode."
+msgstr ""
+
+msgid "Thumbs per video"
+msgstr ""
+
+msgid "How many thumbnails to generate for each video. TubePress can randomly display the thumbs each time someone visits the gallery. See the \"Randomize thumbnails\" option under the \"Appearance\" tab."
+msgstr ""
+
+msgid "This option cannot contain two consecutive periods"
+msgstr ""
+
+msgid "%s is not a directory"
+msgstr ""
+
+msgid "%s is not readable"
 msgstr ""

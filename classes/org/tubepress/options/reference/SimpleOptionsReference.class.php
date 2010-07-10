@@ -53,7 +53,6 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Advanced::DATEFORMAT            => 'M j, Y',
             org_tubepress_options_category_Advanced::KEYWORD               => 'tubepress',
             org_tubepress_options_category_Advanced::VIDEO_BLACKLIST       => '',
-            org_tubepress_options_category_Gallery::DIRECTORY_VALUE        => '',
             org_tubepress_options_category_Gallery::FAVORITES_VALUE        => 'mrdeathgod',
             org_tubepress_options_category_Gallery::PLAYLIST_VALUE         => 'D2B04665B213AE35',
             org_tubepress_options_category_Gallery::TAG_VALUE              => 'stewart daily show',
@@ -71,9 +70,9 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Gallery::VIMEO_CHANNEL_VALUE    => 'splitscreenstuff',
             org_tubepress_options_category_Gallery::VIMEO_GROUP_VALUE      => 'hdxs',
             org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE      => '140484',
+            org_tubepress_options_category_Gallery::DIRECTORY_VALUE        => 'sample_videos',
             org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION => '/usr/bin/ffmpeg',
-            org_tubepress_options_category_Uploads::VIDEO_UPLOADS_BASE_DIRECTORY => '',
-            org_tubepress_options_category_Uploads::VIDEO_UPLOADS_SUB_DIRECTORY => 'sample_videos',
+            org_tubepress_options_category_Uploads::VIDEO_UPLOADS_BASE_DIRECTORY => ''
          
         ),
         org_tubepress_options_Type::BOOL => array(
@@ -115,7 +114,8 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Display::THUMB_WIDTH         => 120,
             org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT    => 350,
             org_tubepress_options_category_Embedded::EMBEDDED_WIDTH     => 425,
-            org_tubepress_options_category_Feed::RESULT_COUNT_CAP       => 300
+            org_tubepress_options_category_Feed::RESULT_COUNT_CAP       => 300,
+            org_tubepress_options_category_Uploads::THUMBS_PER_VIDEO    => 3,
         ),
         org_tubepress_options_Type::TIME_FRAME => array(
             org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE   => 'today',
@@ -168,7 +168,8 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
     private $_uploadsOnly = array(
     	org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION,
         org_tubepress_options_category_Uploads::VIDEO_UPLOADS_BASE_DIRECTORY,
-        org_tubepress_options_category_Uploads::VIDEO_UPLOADS_SUB_DIRECTORY
+        org_tubepress_options_category_Uploads::THUMBS_PER_VIDEO,
+        'directory'
     );
 
     function appliesToYouTube($optionName)
