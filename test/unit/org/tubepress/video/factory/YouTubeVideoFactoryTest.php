@@ -33,7 +33,7 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends PHPUnit_Framew
                     ->will($this->returnCallback('org_tubepress_video_factory_YouTubeVideoFactoryTest_callBack_UploadTimeRelativeOnly'));
         $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
         $vid = $results[0];
-        $this->assertEquals('10 months ago', $vid->getTimePublished());
+        $this->assertEquals('11 months ago', $vid->getTimePublished());
     }
     
     function testTimeUploadedAbsolute()

@@ -51,14 +51,14 @@ $msgs = array(
         'options-title-resultsPerPage'   => 'Videos per Page', 
         'options-desc-resultsPerPage'    => 'Default is 20. Maximum is 50', 
         'options-title-orderBy'          => 'Order videos by',
-        'options-desc-orderBy'           => 'Not all sort orders can be applied to all gallery types. See the <a href="http://tubepress.org/documentation">documentation</a> for more info.',
+        'options-desc-orderBy'			 => 'Not all sort orders can be applied to all gallery types. See the <a href="http://tubepress.org/documentation">documentation</a> for more info.',
         'options-title-paginationAbove'  => 'Show pagination above thumbnails',
         'options-title-paginationBelow'  => 'Show pagination below thumbnails',
         'options-desc-paginationAbove'   => 'Only applies to galleries that span multiple pages',
         'options-desc-paginationBelow'   => 'Only applies to galleries that span multiple pages',
         'options-title-ajaxPagination'   => '<a href="http://wikipedia.org/wiki/Ajax_(programming)">Ajax</a>-enabled pagination',
         'options-title-hqThumbs'         => 'Use high-quality thumbnails',
-        'options-desc-hqThumbs'          => 'Note: this option cannot be used with the "randomize thumbnails" feature',
+        'options-desc-hqThumbs'			 => 'Note: this option cannot be used with the "randomize thumbnails" feature',
      
         'options-title-autoplay'             => 'Auto-play videos', 
         'options-title-border'               => 'Show border', 
@@ -108,6 +108,12 @@ $msgs = array(
         'options-title-ffmpegBinary' => 'FFmpeg binary location',
         'options-desc-ffmpegBinary'  => 'To generate thumbnails for your locally uploaded videos, TubePress requires a modern version of <a href="http://www.ffmpeg.org/">FFmpeg</a>. Set this value to the absolute path of your server\'s FFmpeg installation.',
         
+        'options-title-videoUploadsBaseDirectory' => 'Video uploads base directory',
+        'options-desc-videoUploadsBaseDirectory'  => 'Enter the absolute path of a directory holding any uploaded video galleries. Leave blank to use TubePress\'s base installation path, but it\'s best to enter another directory to make updates easier. This option cannot be set via shortcode.',
+        
+        'options-title-videoUploadsSubDirectory' => 'Video gallery directory',
+        'options-desc-videoUploadsSubDirectory'  => 'Enter the path, relative to the video uploads base directory, of a directory holding uploaded videos and related .nfo files. TubePress will populate this gallery with any videos it finds here.',
+        
         'options-title-filter_racy'          => 'Filter "racy" content', 
         'options-desc-filter_racy'           => 'Don\'t show videos that may not be suitable for minors.', 
         'options-title-videoBlacklist'       => 'Videos blacklist',
@@ -119,8 +125,8 @@ $msgs = array(
         'options-title-embeddableOnly'       => 'Only retrieve embeddable videos',
         'options-desc-embeddableOnly'        => 'Some videos have embedding disabled. Checking this option will exclude these videos from your galleries.',
     
-        'options-title-resultCountCap'       => 'Maximum total videos to retrieve',
-        'options-desc-resultCountCap'        => 'This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit.',
+        'options-title-resultCountCap'	     => 'Maximum total videos to retrieve',
+        'options-desc-resultCountCap'		 => 'This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit.',
     
         'player-normal'      => 'normally (at the top of your gallery)', 
         'player-popup'       => 'in a popup window',
@@ -142,8 +148,8 @@ $msgs = array(
         'order-commentCount' => 'comment count',
         'order-duration'     => 'length',
         'order-title'        => 'title',
-        'order-newest'       => 'newest',
-        'order-oldest'       => 'oldest',
+        'order-newest'		 => 'newest',
+        'order-oldest'		 => 'oldest',
     
         'timeFrame-today'      => 'today', 
         'timeFrame-this_week'  => 'this week', 
@@ -186,7 +192,7 @@ $msgs = array(
         'playerImplementation-default'    => 'Provider default',
         'playerImplementation-longtail'   => 'JW FLV Media Player (by Longtail Video)'
     );
-    
+        
 function __($key) {
     return $key;
 }    

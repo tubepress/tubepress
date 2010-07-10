@@ -24,6 +24,7 @@
  */
 class org_tubepress_options_category_Uploads
 {
-    const FFMPEG_BINARY_LOCATION = 'ffmpegBinary';
-    const VIDEOS_DIRECTORY       = 'videosDirectory';
+    const FFMPEG_BINARY_LOCATION        = 'ffmpegBinary';
+    const VIDEO_UPLOADS_BASE_DIRECTORY  = 'videoUploadsBaseDirectory';
+    const VIDEO_UPLOADS_SUB_DIRECTORY   = 'videoUploadsSubDirectory';
 }

@@ -464,3 +464,15 @@ msgstr ""
 
 msgid "To generate thumbnails for your locally uploaded videos, TubePress requires a modern version of <a href=\"http://www.ffmpeg.org/\">FFmpeg</a>. Set this value to the absolute path of your server's FFmpeg installation."
 msgstr ""
+
+msgid "Video uploads base directory"
+msgstr ""
+
+msgid "Enter the absolute path of a directory holding any uploaded video galleries. Leave blank to use TubePress's base installation path, but it's best to enter another directory to make updates easier. This option cannot be set via shortcode."
+msgstr ""
+        
+msgid "Video gallery directory"
+msgstr ""
+
+msgid "Enter the path, relative to the video uploads base directory, of a directory holding uploaded videos and related .nfo files. TubePress will populate this gallery with any videos it finds here."
+msgstr ""

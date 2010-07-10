@@ -2,7 +2,7 @@
 <phpunit>
     <filter>
         <blacklist>
-            <directory suffix=".php">../../classes/net</directory>
+            
         </blacklist>
     </filter>
 </phpunit>

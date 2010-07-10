@@ -38,6 +38,8 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
             org_tubepress_options_category_Gallery::VIMEO_GROUP_VALUE      => 'hdxs',
             org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE      => '140484',
             org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION => '/usr/bin/ffmpeg',
+            org_tubepress_options_category_Uploads::VIDEO_UPLOADS_BASE_DIRECTORY => '',
+            org_tubepress_options_category_Uploads::VIDEO_UPLOADS_SUB_DIRECTORY => 'sample_videos'
          
         ),
         org_tubepress_options_Type::BOOL => array(
@@ -98,7 +100,7 @@ class org_tubepress_options_reference_SimpleOptionsReferenceTest extends PHPUnit
             org_tubepress_options_category_Embedded::PLAYER_IMPL        => 'youtube'
         )
     );
-        
+            
 	function setUp()
 	{
 		$this->_sut = new org_tubepress_options_reference_SimpleOptionsReference();

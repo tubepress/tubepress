@@ -72,6 +72,8 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
             org_tubepress_options_category_Gallery::VIMEO_GROUP_VALUE      => 'hdxs',
             org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE      => '140484',
             org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION => '/usr/bin/ffmpeg',
+            org_tubepress_options_category_Uploads::VIDEO_UPLOADS_BASE_DIRECTORY => '',
+            org_tubepress_options_category_Uploads::VIDEO_UPLOADS_SUB_DIRECTORY => 'sample_videos',
          
         ),
         org_tubepress_options_Type::BOOL => array(
@@ -162,15 +164,23 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
         org_tubepress_options_category_Embedded::HIGH_QUALITY,
         org_tubepress_options_category_Embedded::PLAYER_IMPL
     );
+    
+    private $_uploadsOnly = array(
+    	org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION,
+        org_tubepress_options_category_Uploads::VIDEO_UPLOADS_BASE_DIRECTORY,
+        org_tubepress_options_category_Uploads::VIDEO_UPLOADS_SUB_DIRECTORY
+    );
 
     function appliesToYouTube($optionName)
     {
-        return !in_array($optionName, $this->_vimeoOnly);
+        return !in_array($optionName, $this->_vimeoOnly) &&
+        	!in_array($optionName, $this->_uploadsOnly);
     }
     
     function appliesToVimeo($optionName)
     {
-        return !in_array($optionName, $this->_youtubeOnly);
+        return !in_array($optionName, $this->_youtubeOnly) &&
+        	!in_array($optionName, $this->_uploadsOnly);
     }
     
     /**
@@ -182,7 +192,11 @@ class org_tubepress_options_reference_SimpleOptionsReference implements org_tube
      */
     function canOptionBeSetViaShortcode($optionName)
     {
-        return !in_array($optionName, array(org_tubepress_options_category_Advanced::KEYWORD));
+        return !in_array($optionName, array(
+        	org_tubepress_options_category_Advanced::KEYWORD,
+        	org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION,
+            org_tubepress_options_category_Uploads::VIDEOS_DIRECTORY
+        ));
     }
 
     /**

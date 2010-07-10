@@ -137,6 +137,12 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'options-title-ffmpegBinary' => 'FFmpeg binary location',
         'options-desc-ffmpegBinary'  => 'To generate thumbnails for your locally uploaded videos, TubePress requires a modern version of <a href="http://www.ffmpeg.org/">FFmpeg</a>. Set this value to the absolute path of your server\'s FFmpeg installation.',
         
+        'options-title-videoUploadsBaseDirectory' => 'Video uploads base directory',
+        'options-desc-videoUploadsBaseDirectory'  => 'Enter the absolute path of a directory holding any uploaded video galleries. Leave blank to use TubePress\'s base installation path, but it\'s best to enter another directory to make updates easier. This option cannot be set via shortcode.',
+        
+        'options-title-videoUploadsSubDirectory' => 'Video gallery directory',
+        'options-desc-videoUploadsSubDirectory'  => 'Enter the path, relative to the video uploads base directory, of a directory holding uploaded videos and related .nfo files. TubePress will populate this gallery with any videos it finds here.',
+        
         'options-title-filter_racy'          => 'Filter "racy" content', 
         'options-desc-filter_racy'           => 'Don\'t show videos that may not be suitable for minors.', 
         'options-title-videoBlacklist'       => 'Videos blacklist',
