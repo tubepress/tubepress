@@ -56,7 +56,7 @@ class org_tubepress_log_LogImpl implements org_tubepress_log_Log
             }
             
             /* print it! */
-            printf("%s ms > (%s) > %s<br /><br />", $time, $prefix, $message);
+            printf("%s ms > (%s) > %s (memory used: %s)<br /><br />", $time, $prefix, $message, number_format(memory_get_usage()));
         }
     }
 

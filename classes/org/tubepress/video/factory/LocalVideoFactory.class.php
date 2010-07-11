@@ -23,7 +23,10 @@ function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_video_factory_AbstractVideoFactory',
     'org_tubepress_video_Video',
-    'org_tubepress_options_category_Display'));
+    'org_tubepress_options_category_Display',
+    'org_tubepress_util_LocalVideoUtils',
+    'org_tubepress_util_FilesystemUtils',
+    'com_googlecode_spyc_Spyc'));
 
 /**
  * Video factory for uploads
@@ -39,8 +42,8 @@ class org_tubepress_video_factory_LocalVideoFactory extends org_tubepress_video_
     
     public function feedToVideoArray($dir, $limit)
     {
-        $videoNames = org_tubepress_util_FilesystemUtils::findVideos($this->_assembleBaseDir() . '/' . $dir,
-        	$this->getLog(), $this->_logPrefix);
+    	$baseDir = org_tubepress_util_LocalVideoUtils::getBaseVideoDirectory($this->getOptionsManager(), $this->getLog(), $this->_logPrefix);
+        $videoNames = org_tubepress_util_LocalVideoUtils::findVideos("$baseDir/$dir", $this->getLog(), $this->_logPrefix);
 
         $toReturn = array();
 		$index = 0;
@@ -78,7 +81,37 @@ class org_tubepress_video_factory_LocalVideoFactory extends org_tubepress_video_
     	$video->setId(md5($filename));
     	$video->setThumbnailUrl($this->_getThumbnailUrl($filename));
     	
+    	$infoArray = $this->_getInfoArray($filename);
+    	$video->setTitle($infoArray['title']);
+    	$video->setDescription($infoArray['description']);
+    	$video->setTimePublished($infoArray['uploaded']);
+    	$video->setAuthorDisplayName($infoArray['author']);
+    	
+    	$keywords = $infoArray['tags'];
+    	$tags = explode(',', $keywords);
+        $video->setKeywords($tags);
     	return $video;	
+    }
+    
+    private function _getInfoArray($filename)
+    {
+    	$yamlFile = basename(substr($filename, 0, strlen($filename) - 4)) . '.yml';
+    	$basePath = dirname(__FILE__) . '/../../../../../';
+    	$galleryName = org_tubepress_util_LocalVideoUtils::getGalleryName($filename, 
+    	    $this->getOptionsManager(), $this->getLog(), $this->_logPrefix);
+    	$yamlFile = "$basePath/uploads/$galleryName/$yamlFile";
+    	
+    	$realYamlPath = realpath($yamlFile);
+    	if (!is_readable($yamlFile)) {
+    		$this->getLog()->log($this->_logPrefix, '%s does not exist.', $realYamlPath);
+    	    return array();
+    	}
+    	$this->getLog()->log($this->_logPrefix, 'Loading YML file at %s.', $realYamlPath);
+    	$contents = file_get_contents($yamlFile);
+    	$this->getLog()->log($this->_logPrefix, 'YML file at %s has the following contents: %s', $realYamlPath, $contents);
+    	$result = com_googlecode_spyc_Spyc::YAMLLoadString($contents);
+    	$this->getLog()->log($this->_logPrefix, 'YML file at %s was parsed to %s.', $realYamlPath, var_export($result, TRUE));
+    	return $result;
     }
     
     private function _getThumbnailUrl($filename)
@@ -91,27 +124,43 @@ class org_tubepress_video_factory_LocalVideoFactory extends org_tubepress_video_
     	$height = $this->getOptionsManager()->get(org_tubepress_options_category_Display::THUMB_HEIGHT);
     	$width = $this->getOptionsManager()->get(org_tubepress_options_category_Display::THUMB_WIDTH);
     	
-    	$postfix = "uploads/generated_thumbnails/$thumbname" . "_thumb_$height" . 'x' . "$width.jpg";
+    	$galleryName = org_tubepress_util_LocalVideoUtils::getGalleryName($filename, 
+    	    $this->getOptionsManager(), $this->getLog(), $this->_logPrefix);
     	
+    	$postfix = $thumbname . "_thumb_$height" . 'x' . "$width_";
     	$basePath = dirname(__FILE__) . '/../../../../../';
-    	if (!is_readable($basePath . $postfix)) {
+    	
+    	$thumbs = $this->_getExistingThumbs($basePath, "uploads/$galleryName/generated_thumbnails/", $postfix);
+    	
+    	if (sizeof($thumbs) === 0) {
+    		$this->getLog()->log($this->_logPrefix, 'No potential thumbs for %s. Using filler thumbnail.', $filename);
     		return "$tubepress_base_url/ui/gallery/missing_thumb.png";
     	}
     	
-    	return "$tubepress_base_url/$postfix";
+    	$prefix = "$tubepress_base_url/uploads/$galleryName/generated_thumbnails/";
+    	
+    	if ($this->getOptionsManager()->get(org_tubepress_options_category_Display::RANDOM_THUMBS)) {
+    		$this->getLog()->log($this->_logPrefix, 'Using a random thumbnail for %s.', $filename);
+    	    return $prefix . $thumbs[array_rand($thumbs)];
+    	}
+    	
+    	return $prefix . $thumbs[0];
     }
     
-    private function _assembleBaseDir()
+    private function _getExistingThumbs($basePath, $relativePart, $postfix)
     {
-    	$raw = $this->getOptionsManager()->get(org_tubepress_options_category_Uploads::VIDEO_UPLOADS_BASE_DIRECTORY);
-    	$this->getLog()->log($this->_logPrefix, 'Raw base directory value is %s', $raw);
-        if ($baseDir == '') {
-        	$baseDir = realpath(dirname(__FILE__) . '/../../../../../');
-        	$this->getLog()->log($this->_logPrefix, 'No base directory specified, so using %s', $baseDir);
-        } else {
-            $baseDir = realpath($raw);	
-            $this->getLog()->log($this->_logPrefix, 'Real path of base directory is %s', $baseDir);	
+        $toReturn = array();
+        
+        $files = org_tubepress_util_FilesystemUtils::getFilenamesInDirectory($basePath . '/' . $relativePart, 
+            $this->getLog(), $this->_logPrefix);
+            
+        foreach ($files as $file) {
+        	if (strpos($file, $postfix) !== FALSE) {
+        		$this->getLog()->log($this->_logPrefix, 'Found a thumbnail we can use at %s', realpath($file));
+        	    array_push($toReturn, basename($file));	
+        	}
         }
-        return $baseDir;
+        
+        return $toReturn;	
     }
 }

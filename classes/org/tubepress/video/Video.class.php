@@ -42,6 +42,11 @@ class org_tubepress_video_Video
     private $_title;
     private $_viewCount;
 
+    public function __construct()
+    {
+        $this->_keywords = array();	
+    }
+
     public function getAuthorDisplayName() { return $this->_authorDisplayName; }
     public function setAuthorDisplayName($author) { $this->_authorDisplayName = $author; }
     

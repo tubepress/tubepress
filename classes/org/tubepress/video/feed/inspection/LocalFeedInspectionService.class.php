@@ -23,7 +23,9 @@ function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array(
     'org_tubepress_video_feed_inspection_FeedInspectionService',
-    'org_tubepress_util_FilesystemUtils'
+    'org_tubepress_util_FilesystemUtils',
+    'org_tubepress_util_LocalVideoUtils',
+    'org_tubepress_options_manager_OptionsManager'
 ));
 
 /**
@@ -43,29 +45,15 @@ class org_tubepress_video_feed_inspection_LocalFeedInspectionService implements 
 	
     public function getTotalResultCount($dir)
     {
-    	return sizeof(org_tubepress_util_FilesystemUtils::findVideos($this->_assembleBaseDir() . '/' . $dir,
-    	    $this->_log, $this->_logPrefix));
+    	$baseDir = org_tubepress_util_LocalVideoUtils::getBaseVideoDirectory($this->_tpom, $this->_log, $this->_logPrefix);
+    	return sizeof(org_tubepress_util_LocalVideoUtils::findVideos($baseDir . '/' . $dir, $this->_log, $this->_logPrefix));
     }
     
     public function getQueryResultCount($dir)
     {
 	    return $this->getTotalResultCount($dir);
     }
-    
-    private function _assembleBaseDir()
-    {
-    	$raw = $this->_tpom->get(org_tubepress_options_category_Uploads::VIDEO_UPLOADS_BASE_DIRECTORY);
-    	$this->_log->log($this->_logPrefix, 'Raw base directory value is %s', $raw);
-        if ($baseDir == '') {
-        	$baseDir = realpath(dirname(__FILE__) . '/../../../../../../');
-        	$this->_log->log($this->_logPrefix, 'No base directory specified, so using %s', $baseDir);
-        } else {
-            $baseDir = realpath($raw);	
-            $this->_log->log($this->_logPrefix, 'Real path of base directory is %s', $baseDir);	
-        }
-        return $baseDir;
-    }
-    
+
     public function setLog(org_tubepress_log_Log $log) { $this->_log = $log; }
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }
 }
