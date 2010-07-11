@@ -61,6 +61,7 @@ interface org_tubepress_ioc_IocService
     const YOUTUBE_URL_BUILDER           = 'youtubeUrlBuilder';
     const YOUTUBE_VIDEO_FACTORY         = 'youtubeVideoFactory';
     const LOCAL_FEED_INSPECTION         = 'localFeedInspection';
+    const LOCAL_VIDEO_FACTORY           = 'localVideoFactory';
 
     public function get($className);
     

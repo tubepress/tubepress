@@ -54,6 +54,7 @@ tubepress_load_classes(array('org_tubepress_ioc_PhpCraftyIocService',
     'org_tubepress_video_factory_DelegatingVideoFactory',
     'org_tubepress_video_factory_VimeoVideoFactory',
     'org_tubepress_video_factory_YouTubeVideoFactory',
+    'org_tubepress_video_factory_LocalVideoFactory',
     'org_tubepress_video_feed_inspection_DelegatingFeedInspectionService',
     'org_tubepress_video_feed_inspection_VimeoFeedInspectionService',
     'org_tubepress_video_feed_inspection_YouTubeFeedInspectionService',
@@ -212,6 +213,14 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
                 )
             )
         );
+        $this->def(org_tubepress_ioc_IocService::LOCAL_VIDEO_FACTORY,
+            $this->impl('org_tubepress_video_factory_LocalVideoFactory',
+                array(
+                    org_tubepress_ioc_Setters::LOG             => $this->ref(org_tubepress_ioc_IocService::LOG),
+                    org_tubepress_ioc_Setters::OPTIONS_MANAGER => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER)
+                )
+            )
+        );
         $this->def(org_tubepress_player_Player::NORMAL . "-player",
             $this->impl('org_tubepress_player_impl_NormalPlayer',
                 array(
@@ -317,19 +326,20 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
                 )
             )
         );
+        
+        /*******************************************************************************************
+         *                                      4+ SETTERS                                          *
+         *******************************************************************************************/
         $this->def(org_tubepress_ioc_IocService::VIDEO_FACTORY,
             $this->impl('org_tubepress_video_factory_DelegatingVideoFactory',
                 array(
                     org_tubepress_ioc_Setters::OPTIONS_MANAGER => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER),
                     org_tubepress_ioc_Setters::YT_FACTORY      => $this->ref(org_tubepress_ioc_IocService::YOUTUBE_VIDEO_FACTORY),
-                    org_tubepress_ioc_Setters::VIMEO_FACTORY   => $this->ref(org_tubepress_ioc_IocService::VIMEO_VIDEO_FACTORY)
+                    org_tubepress_ioc_Setters::VIMEO_FACTORY   => $this->ref(org_tubepress_ioc_IocService::VIMEO_VIDEO_FACTORY),
+                    org_tubepress_ioc_Setters::LOCAL_FACTORY   => $this->ref(org_tubepress_ioc_IocService::LOCAL_VIDEO_FACTORY),
                 )
             )
         );
-        
-        /*******************************************************************************************
-         *                                      4+ SETTERS                                          *
-         *******************************************************************************************/
         $this->def(org_tubepress_ioc_IocService::FEED_INSPECTION_SERVICE,
             $this->impl('org_tubepress_video_feed_inspection_DelegatingFeedInspectionService',
                 array(

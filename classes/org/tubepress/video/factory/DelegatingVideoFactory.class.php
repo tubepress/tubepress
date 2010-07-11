@@ -32,6 +32,7 @@ class org_tubepress_video_factory_DelegatingVideoFactory implements org_tubepres
     
     private $_ytFactory;
     private $_vimeoFactory;
+    private $_localFactory;
     private $_tpom;
     
     /**
@@ -48,6 +49,9 @@ class org_tubepress_video_factory_DelegatingVideoFactory implements org_tubepres
         if ($provider === org_tubepress_video_feed_provider_Provider::VIMEO) {
             return $this->_vimeoFactory->feedToVideoArray($feed, $limit);
         }
+        if ($provider === org_tubepress_video_feed_provider_Provider::DIRECTORY) {
+            return $this->_localFactory->feedToVideoArray($feed, $limit);
+        }
         return $this->_ytFactory->feedToVideoArray($feed, $limit);
     }
     
@@ -57,10 +61,14 @@ class org_tubepress_video_factory_DelegatingVideoFactory implements org_tubepres
         if ($provider === org_tubepress_video_feed_provider_Provider::VIMEO) {
             return $this->_vimeoFactory->convertSingleVideo($feed);
         }
+        if ($provider === org_tubepress_video_feed_provider_Provider::DIRECTORY) {
+            return $this->_localFactory->convertSingleVideo($feed);
+        }
         return $this->_ytFactory->convertSingleVideo($feed);
     }
     
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }
     public function setYouTubeVideoFactory(org_tubepress_video_factory_VideoFactory $f) { $this->_ytFactory = $f; }
     public function setVimeoVideoFactory(org_tubepress_video_factory_VideoFactory $f) { $this->_vimeoFactory = $f; }
+    public function setLocalVideoFactory(org_tubepress_video_factory_VideoFactory $f) { $this->_localFactory = $f; }
 }

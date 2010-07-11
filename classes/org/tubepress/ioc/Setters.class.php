@@ -51,4 +51,5 @@ class org_tubepress_ioc_Setters
     const YT_URL_BUILDER    = 'youtubeUrlBuilder';
     const NETWORK_RETRIEVAL_SERVICE     = 'networkFeedRetrievalService';
     const LOCAL_INSPECTION  = 'localFeedInspectionService';
+    const LOCAL_FACTORY     = 'localVideoFactory';
 }
