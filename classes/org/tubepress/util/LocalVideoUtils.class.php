@@ -27,64 +27,103 @@ tubepress_load_classes(array(
 ));
 
 /**
- * Some filesystem utilities
+ * Utilities for dealing with local/uploaded video galleries.
  *
  */
 class org_tubepress_util_LocalVideoUtils
 {
-	public static function findVideos($dir, org_tubepress_log_Log $log, $prefix)
-	{	
-		$filenames = org_tubepress_util_FilesystemUtils::getFilenamesInDirectory($dir, $log, $prefix);
-    	$result = org_tubepress_util_LocalVideoUtils::_findVideos($filenames, $log, $prefix);
-    	$log->log($prefix, 'Found %d potential video(s) in %s.', sizeof($result), $dir);
-    	return $result;
-	}
-	
-	public static function isPossibleVideo($absPathToFile, $log, $prefix)
+    /**
+     * Finds potential videos in the given directory.
+     *
+     * @param dir    string                An absolute path to the directory to search
+     * @param log    org_tubepress_log_Log A log to write to
+     * @param prefix string                Logging prefix
+     * 
+     * @return array An array of absolute paths to potential videos in this directory.
+     */
+    public static function findVideos($dir, org_tubepress_log_Log $log, $prefix)
+    {    
+        $filenames = org_tubepress_util_FilesystemUtils::getFilenamesInDirectory($dir, $log, $prefix);
+
+        $result = org_tubepress_util_LocalVideoUtils::_findVideos($filenames, $log, $prefix);
+
+        $log->log($prefix, 'Found %d potential video(s) in %s.', sizeof($result), $dir);
+
+        return $result;
+    }
+    
+    /**
+     * Determines if the given file could potentially be a video.
+     *
+     * @param absPathToFile string                The absolute path of the file to check.
+     * @param log           org_tubepress_log_Log A log to write to
+     * @param prefix        string                Logging prefix
+     *
+     * @return boolean TRUE if the file could be a video, FALSE otherwise.
+     */     
+    public static function isPossibleVideo($absPathToFile, $log, $prefix)
     {
-    	if (!is_file($absPathToFile)) {
-    	    return FALSE;	
-    	}
-    	$lstat = lstat($absPathToFile);
-    	$size = $lstat['size'];	
-    	if ($size < 10240) {
-    		$this->_log->log($this->_logPrefix, '%s is smaller than 10K', $absPathToFile);
-    		return FALSE;	
-    	}
-    	$log->log($prefix, '%s is %d bytes in size', $absPathToFile, $size);
-        return TRUE;	
+        /* if it's not a file, it's definitely not a video */
+        if (!is_file($absPathToFile)) {
+            return FALSE;    
+        }
+
+        /* get the file size */
+        $lstat = lstat($absPathToFile);
+        $size = $lstat['size'];    
+
+        /* somewhat safe assumption that if a file is under 10K than it's not a video */
+        if ($size < 10240) {
+            $this->_log->log($this->_logPrefix, '%s is smaller than 10K', $absPathToFile);
+            return FALSE;    
+        }
+
+        $log->log($prefix, '%s is %d bytes in size', $absPathToFile, $size);
+
+        return TRUE;    
     }
     
     public static function getGalleryName($filename, org_tubepress_options_manager_OptionsManager $tpom, org_tubepress_log_Log $log, $prefix)
     {
+        /* chop off the filename bit */
         $topDir = dirname($filename);
+
+        /* calculate video uploads base directory */
         $baseDir = org_tubepress_util_LocalVideoUtils::getBaseVideoDirectory($tpom, $log, $prefix);
-        return org_tubepress_util_StringUtils::replaceFirst('/', '', str_replace($baseDir, '', $topDir));
+
+        /* now remove the base directory from the full path */
+        $topDir = str_replace($baseDir, '', $topDir);
+
+        /* finally, chop off the leading '/' */
+        return org_tubepress_util_StringUtils::replaceFirst('/', '', );
     }
     
     public static function getBaseVideoDirectory(org_tubepress_options_manager_OptionsManager $tpom, org_tubepress_log_Log $log, $prefix)
     {
-    	$raw = $tpom->get(org_tubepress_options_category_Uploads::VIDEO_UPLOADS_BASE_DIRECTORY);
-    	$log->log($prefix, 'Raw base directory value is %s', $raw);
+        /* first see what the user has set as their uploads base directory */
+        $raw = $tpom->get(org_tubepress_options_category_Uploads::VIDEO_UPLOADS_BASE_DIRECTORY);
+        $log->log($prefix, 'User-defined base upload directory value is "%s"', $raw);
+
+        /* if they don't specify one, just use TubePress's base path + /uploads */
         if ($baseDir == '') {
-        	$baseDir = realpath(dirname(__FILE__) . '/../../../../');
-        	$log->log($prefix, 'No base directory specified, so using %s', $baseDir);
+            $baseDir = realpath(dirname(__FILE__) . '/../../../../uploads');
+            $log->log($prefix, 'No user-defined base upload directory specified, so using "%s"', $baseDir);
         } else {
-            $baseDir = realpath($raw);	
-            $log->log($prefix, 'Real path of base directory is %s', $baseDir);	
+            $baseDir = realpath($raw);    
+            $log->log($prefix, 'Sanitized path of user-defined base upload directory is "%s"', $baseDir);    
         }
         return $baseDir;
     }
-	
+    
     private static function _findVideos($files, $log, $prefix)
     {
-    	$toReturn = array();
+        $toReturn = array();
         
         foreach ($files as $file) {
-	        if (org_tubepress_util_LocalVideoUtils::isPossibleVideo($file, $log, $prefix)) {
-	            $log->log($prefix, '%s looks like it could be a video.', $file);	
-        		array_push($toReturn, $file);
-	        }
+            if (org_tubepress_util_LocalVideoUtils::isPossibleVideo($file, $log, $prefix)) {
+                $log->log($prefix, '%s looks like it could be a video.', $file);    
+                array_push($toReturn, $file);
+            }
         }
         return $toReturn;
     }    
