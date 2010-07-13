@@ -80,7 +80,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
     private final function _getHtml($galleryId)
     {
         /* first grab the videos */
-        $this->_log->log($this->_logPrefix, 'Asking provider for videos');
+        org_tubepress_log_Log::log($this->_logPrefix, 'Asking provider for videos');
         $feedResult = $this->_videoProvider->getFeedResult();
         
         /* prep template */
@@ -89,7 +89,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
         $this->_prepTemplate($feedResult, $galleryId);
         
         /* we're done. tie up */
-        $this->_log->log($this->_logPrefix, 'Done assembling gallery %d', $galleryId);
+        org_tubepress_log_Log::log($this->_logPrefix, 'Done assembling gallery %d', $galleryId);
         return $this->_template->toString();
     }
     
@@ -98,7 +98,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
         $browser = org_tubepress_browser_BrowserDetector::detectBrowser($_SERVER);
         if ($browser === org_tubepress_browser_BrowserDetector::IPHONE || $browser === org_tubepress_browser_BrowserDetector::IPOD) {
             $template = realpath($this->_templateDir . 'iphone-ipod.tpl.php');
-            $this->_log->log($this->_logPrefix, 'iPhone/iPod detected. Setting template to ', $template);
+            org_tubepress_log_Log::log($this->_logPrefix, 'iPhone/iPod detected. Setting template to ', $template);
             $this->_template->setPath($template);
         }
         
@@ -106,7 +106,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
             
         if ($customTemplate != '') {
             $template = realpath($this->_templateDir . $customTemplate);
-            $this->_log->log($this->_logPrefix, 'Using custom template at %s', $template);
+            org_tubepress_log_Log::log($this->_logPrefix, 'Using custom template at %s', $template);
             $this->_template->setPath($template);
         }
     }
@@ -116,7 +116,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
         /* build the player */
         $playerName = $this->_optionsManager->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
         $player     = $this->_iocContainer->safeGet($playerName . "-player", org_tubepress_player_Player::NORMAL . "-player");
-        $this->_log->log($this->_logPrefix, 'This gallery will use %s as the player', get_class($player));
+        org_tubepress_log_Log::log($this->_logPrefix, 'This gallery will use %s as the player', get_class($player));
         
         $videos = $feedResult->getVideoArray();
         
@@ -140,7 +140,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
         
         /* Ajax pagination? */
         if ($this->_optionsManager->get(org_tubepress_options_category_Display::AJAX_PAGINATION)) {
-            $this->_log->log($this->_logPrefix, 'Using Ajax pagination');
+            org_tubepress_log_Log::log($this->_logPrefix, 'Using Ajax pagination');
             $this->_template->setVariable(org_tubepress_template_Template::SHORTCODE, urlencode($this->_optionsManager->getShortcode()));        
         }
     }
@@ -235,7 +235,6 @@ GBS;
     public function setMessageService(org_tubepress_message_MessageService $messageService) {     $this->_messageService     = $messageService; }
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) {       $this->_optionsManager     = $tpom; }
     public function setOptionsReference(org_tubepress_options_reference_OptionsReference $ref) {  $this->_optionsReference   = $ref; }
-    public function setLog(org_tubepress_log_Log $log) {                                          $this->_log                = $log; }
     public function setPaginationService(org_tubepress_pagination_PaginationService $paginator) { $this->_paginationService  = $paginator; }
     public function setQueryStringService(org_tubepress_querystring_QueryStringService $qss) {    $this->_queryStringService = $qss; }
     public function setVideoProvider(org_tubepress_video_feed_provider_Provider $provider) {      $this->_videoProvider      = $provider; }

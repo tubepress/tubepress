@@ -53,7 +53,7 @@ class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_vi
     {
         /* figure out which page we're on */
         $currentPage = $this->_queryStringService->getPageNum($_GET);
-        $this->_log->log($this->_logPrefix, 'Current page number is %d', $currentPage);
+        org_tubepress_log_Log::log($this->_logPrefix, 'Current page number is %d', $currentPage);
         
         $provider = $this->_optionsManager->calculateCurrentVideoProvider();
         
@@ -63,7 +63,7 @@ class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_vi
         	
 	        /* build the request URL */
 	        $url = $this->_urlBuilder->buildGalleryUrl($currentPage);
-	        $this->_log->log($this->_logPrefix, 'URL to fetch is %s', $url);
+	        org_tubepress_log_Log::log($this->_logPrefix, 'URL to fetch is %s', $url);
 	        
 	        /* make the request */
 	        $useCache = $this->_optionsManager->get(org_tubepress_options_category_Feed::CACHE_ENABLED);
@@ -72,11 +72,11 @@ class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_vi
         
         /* get reported total result count */
         $reportedTotalResultCount = $this->_feedInspectionService->getTotalResultCount($rawFeed);
-        $this->_log->log($this->_logPrefix, 'Reported total result count is %d video(s)', $reportedTotalResultCount);
+        org_tubepress_log_Log::log($this->_logPrefix, 'Reported total result count is %d video(s)', $reportedTotalResultCount);
         
         /* count the results in this particular response */
         $queryResult = $this->_feedInspectionService->getQueryResultCount($rawFeed);
-        $this->_log->log($this->_logPrefix, 'Query result count is %d video(s)', $queryResult);
+        org_tubepress_log_Log::log($this->_logPrefix, 'Query result count is %d video(s)', $queryResult);
         
         /* no videos? bail. */
         if ($queryResult == 0) {
@@ -85,22 +85,22 @@ class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_vi
         
         /* limit the result count if requested */
         $effectiveTotalResultCount = $this->_capTotalResultsIfNeeded($reportedTotalResultCount);
-        $this->_log->log($this->_logPrefix, 'Effective total result count (taking into account user-defined limit) is %d video(s)', $effectiveTotalResultCount);
+        org_tubepress_log_Log::log($this->_logPrefix, 'Effective total result count (taking into account user-defined limit) is %d video(s)', $effectiveTotalResultCount);
         
         /* find out how many videos per page the user wants to show */
         $perPageLimit = $this->_optionsManager->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
-        $this->_log->log($this->_logPrefix, 'Results-per-page limit is %d', $perPageLimit);
+        org_tubepress_log_Log::log($this->_logPrefix, 'Results-per-page limit is %d', $perPageLimit);
         
         /* find out how many videos this gallery will actually show (could be less than user limit) */
         $effectiveDisplayCount = min($effectiveTotalResultCount, min($queryResult, $perPageLimit));
-        $this->_log->log($this->_logPrefix, 'Effective display count for this page is %d video(s)', $effectiveDisplayCount);
+        org_tubepress_log_Log::log($this->_logPrefix, 'Effective display count for this page is %d video(s)', $effectiveDisplayCount);
         
         /* convert the XML to objects */
         $videos = $this->_videoFactory->feedToVideoArray($rawFeed, $effectiveDisplayCount);
         
         /* shuffle if we need to */
         if ($this->_optionsManager->get(org_tubepress_options_category_Display::ORDER_BY) == 'random') {
-            $this->_log->log($this->_logPrefix, 'Shuffling videos');
+            org_tubepress_log_Log::log($this->_logPrefix, 'Shuffling videos');
             shuffle($videos);
         }
         
@@ -113,17 +113,16 @@ class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_vi
     
     public function getSingleVideo($customVideoId)
     {
-        $this->_log->log($this->_logPrefix, 'Fetching video with ID %s', $customVideoId);
+        org_tubepress_log_Log::log($this->_logPrefix, 'Fetching video with ID %s', $customVideoId);
 
         $videoUrl = $this->_urlBuilder->buildSingleVideoUrl($customVideoId);
-        $this->_log->log($this->_logPrefix, 'URL to fetch is %s', $videoUrl);
+        org_tubepress_log_Log::log($this->_logPrefix, 'URL to fetch is %s', $videoUrl);
 
         $results = $this->_feedRetrievalService->fetch($videoUrl, $this->_optionsManager->get(org_tubepress_options_category_Feed::CACHE_ENABLED));
         $videoArray = $this->_videoFactory->convertSingleVideo($results, 1);
         return $videoArray[0];
     }
     
-    public function setLog(org_tubepress_log_Log $log) { $this->_log = $log; }
     public function setQueryStringService(org_tubepress_querystring_QueryStringService $qss) { $this->_queryStringService = $qss; }
     public function setUrlBuilder(org_tubepress_url_UrlBuilder $urlBuilder) { $this->_urlBuilder = $urlBuilder; }
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_optionsManager = $tpom; }

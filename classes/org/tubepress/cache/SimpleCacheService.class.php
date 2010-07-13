@@ -76,7 +76,6 @@ class org_tubepress_cache_SimpleCacheService implements org_tubepress_cache_Cach
 {
     private $_cache;
     private $_cachePath;
-    private $_log;
     private $_logPrefix;
 
     /**
@@ -107,9 +106,9 @@ class org_tubepress_cache_SimpleCacheService implements org_tubepress_cache_Cach
         $has = $this->_cache->get($key) !== false;
 
         if ($has) {
-            $this->_log->log($this->_logPrefix, 'Cache hit for %s in directory %s', $key, $this->_cachePath);
+            org_tubepress_log_Log::log($this->_logPrefix, 'Cache hit for %s in directory %s', $key, $this->_cachePath);
         } else {
-            $this->_log->log($this->_logPrefix, 'Cache miss for %s in directory %s', $key, $this->_cachePath);
+            org_tubepress_log_Log::log($this->_logPrefix, 'Cache miss for %s in directory %s', $key, $this->_cachePath);
         }
 
         return $has;
@@ -123,12 +122,7 @@ class org_tubepress_cache_SimpleCacheService implements org_tubepress_cache_Cach
         if (!is_string($data)) {
             throw new Exception("Cache can only save string data");
         }
-        $this->_log->log($this->_logPrefix, 'Saving data to key at %s', $key);
+        org_tubepress_log_Log::log($this->_logPrefix, 'Saving data to key at %s', $key);
         $this->_cache->save($data, $key);
-    }
-
-    public function setLog(org_tubepress_log_Log $log)
-    {
-        $this->_log = $log;
     }
 }

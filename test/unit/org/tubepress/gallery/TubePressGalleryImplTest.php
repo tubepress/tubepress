@@ -43,7 +43,6 @@ class org_tubepress_gallery_TubePressGalleryImplTest extends PHPUnit_Framework_T
     {
         $this->_sut->setContainer($this->_iocContainer);
         $this->_sut->setTemplate($this->_template);         
-        $this->_sut->setLog($this->_log);              
         $this->_sut->setMessageService($this->_messageService);     
         $this->_sut->setOptionsManager($this->_optionsManager);    
         $this->_sut->setPaginationService($this->_paginationService); 

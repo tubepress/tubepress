@@ -65,7 +65,6 @@ class org_tubepress_video_feed_provider_ProviderImplTest extends PHPUnit_Framewo
     {
         $this->_sut->setFeedInspectionService($this->_feedInspectionService);    
         $this->_sut->setFeedRetrievalService($this->_feedRetrievalService);
-        $this->_sut->setLog($this->_log);
         $this->_sut->setUrlBuilder($this->_urlBuilder);
         $this->_sut->setVideoFactory($this->_videoFactory);
         $this->_sut->setQueryStringService($this->_queryStringService);

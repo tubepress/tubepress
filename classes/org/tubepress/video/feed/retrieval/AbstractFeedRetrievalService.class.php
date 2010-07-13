@@ -45,31 +45,30 @@ abstract class org_tubepress_video_feed_retrieval_AbstractFeedRetrievalService i
         global $tubepress_base_url;
         
         $testUrl = "$tubepress_base_url/classes/org/tubepress/video/feed/retrieval/ConnectionTest.php";
-        $this->_log->log($this->_logPrefix, 'Connection test can be run at <a href="%s">%s</a>',
+        org_tubepress_log_Log::log($this->_logPrefix, 'Connection test can be run at <a href="%s">%s</a>',
             $testUrl, $testUrl);
         
         $result = "";
         if ($useCache) {
             
-            $this->_log->log($this->_logPrefix, 'First asking cache for %s', $url);
+            org_tubepress_log_Log::log($this->_logPrefix, 'First asking cache for %s', $url);
             
             if ($this->_cache->has($url)) {
-                $this->_log->log($this->_logPrefix, 'Cache has %s. Sweet.', $url);
+                org_tubepress_log_Log::log($this->_logPrefix, 'Cache has %s. Sweet.', $url);
                 $result = $this->_cache->get($url);
             } else {
-                $this->_log->log($this->_logPrefix, 'Cache does not have %s. We\'ll have to get it from the network.', $url);
+                org_tubepress_log_Log::log($this->_logPrefix, 'Cache does not have %s. We\'ll have to get it from the network.', $url);
                 $result = $this->_getFromNetwork($url);
                 $this->_cache->save($url, $result);
             }
         } else {
-            $this->_log->log($this->_logPrefix, 'Skip cache check for %s', $url);
+            org_tubepress_log_Log::log($this->_logPrefix, 'Skip cache check for %s', $url);
             $result = $this->_getFromNetwork($url);
         }
         return $result;
     }
     
     public function setCacheService(org_tubepress_cache_CacheService $cache) { $this->_cache = $cache; }
-    public function setLog(org_tubepress_log_Log $log) { $this->_log = $log; }
     
     private function _getFromNetwork($url)
     {

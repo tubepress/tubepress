@@ -31,7 +31,6 @@ abstract class org_tubepress_video_factory_AbstractVideoFactory implements org_t
     private $_log;
     private $_tpom;
     
-    public function setLog(org_tubepress_log_Log $log) { $this->_log = $log; }
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }
 
     protected function getLog() { return $this->_log; }

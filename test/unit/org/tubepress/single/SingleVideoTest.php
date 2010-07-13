@@ -58,7 +58,6 @@ class org_tubepress_single_VideoTest extends PHPUnit_Framework_TestCase
 		$this->_sut->setOptionsManager($this->_tpom);
 		$this->_sut->setOptionsReference($this->_optionsReference);
 		$this->_sut->setMessageService($this->_messageService);
-		$this->_sut->setLog($this->_log);
 	}
 	
 	private function createMocks()

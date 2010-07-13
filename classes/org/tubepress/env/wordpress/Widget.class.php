@@ -55,8 +55,7 @@ class org_tubepress_env_wordpress_Widget
         $tpom = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
     
         /* Turn on logging if we need to */
-        $log = $iocContainer->get(org_tubepress_ioc_IocService::LOG);
-        $log->setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON), $_GET);
+        org_tubepress_log_Log::setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON), $_GET);
         
         /* default widget options */
         $defaultWidgetOptions = array(org_tubepress_options_category_Display::RESULTS_PER_PAGE  => 3,

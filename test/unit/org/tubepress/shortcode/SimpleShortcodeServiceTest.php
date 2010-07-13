@@ -19,7 +19,6 @@ class org_tubepress_shortcode_SimpleShortcodeServiceTest extends PHPUnit_Framewo
 		$this->_singleVideo = $this->getMock('org_tubepress_single_Video');
 		$this->_qss = $this->getMock('org_tubepress_querystring_QueryStringService');
 		$this->_sut = new org_tubepress_shortcode_SimpleShortcodeService();
-		$this->_sut->setLog($this->getMock('org_tubepress_log_Log'));
 	    $this->_sut->setInputValidationService($this->getMock('org_tubepress_options_validation_InputValidationService'));
 	}
 
@@ -313,7 +312,6 @@ class org_tubepress_shortcode_SimpleShortcodeServiceTest extends PHPUnit_Framewo
 	    $args = func_get_args();
 	    $vals = array(
 	        org_tubepress_ioc_IocService::OPTIONS_MANAGER => $this->_tpom,
-	        org_tubepress_ioc_IocService::LOG => $this->getMock('org_tubepress_log_Log'),
 	        org_tubepress_ioc_IocService::GALLERY => $this->_gallery,
 	        org_tubepress_ioc_IocService::SINGLE_VIDEO => $this->_singleVideo,
 	        org_tubepress_ioc_IocService::QUERY_STRING_SERVICE => $this->_qss

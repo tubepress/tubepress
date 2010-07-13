@@ -33,7 +33,6 @@ tubepress_load_classes(array('org_tubepress_shortcode_ShortcodeService',
  */
 class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_shortcode_ShortcodeService
 {
-    private $_log;
     private $_logPrefix;
     private $_inputValidationService;
     
@@ -64,16 +63,16 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
         /* Match everything in square brackets after the trigger */
         $regexp = "\[$keyword\b(.*)\]";
         
-        $this->_log->log($this->_logPrefix, 'Regular expression for content is %s', $regexp);
+        org_tubepress_log_Log::log($this->_logPrefix, 'Regular expression for content is %s', $regexp);
         
         preg_match("/$regexp/", $content, $matches);
         
         if (sizeof($matches) === 0) {
-            $this->_log->log($this->_logPrefix, 'No shortcodes detected in content');
+            org_tubepress_log_Log::log($this->_logPrefix, 'No shortcodes detected in content');
             return;
         }
 
-        $this->_log->log($this->_logPrefix, 'Found a shortcode: %s', $matches[0]);
+        org_tubepress_log_Log::log($this->_logPrefix, 'Found a shortcode: %s', $matches[0]);
         
         $tpom->setShortcode($matches[0]);
 
@@ -86,14 +85,14 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
         
             if ( preg_match_all($pattern, $text, $match, PREG_SET_ORDER) ) {
                 
-                $this->_log->log($this->_logPrefix, 'Custom options detected in shortcode: %s', $matches[0]);    
+                org_tubepress_log_Log::log($this->_logPrefix, 'Custom options detected in shortcode: %s', $matches[0]);    
             
                 $customOptions = $this->_parseCustomOption($customOptions, $match);
                 
                 $tpom->setCustomOptions($customOptions);
             }
         } else {
-            $this->_log->log($this->_logPrefix, 'No custom options detected in shortcode: %s', $matches[0]);
+            org_tubepress_log_Log::log($this->_logPrefix, 'No custom options detected in shortcode: %s', $matches[0]);
         }
     }
 
@@ -112,13 +111,13 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
                 $value = $this->_normalizeValue($m[6]);
             }
             
-            $this->_log->log($this->_logPrefix, 'Custom shortcode detected: %s = %s', $name, (string)$value);
+            org_tubepress_log_Log::log($this->_logPrefix, 'Custom shortcode detected: %s = %s', $name, (string)$value);
             
             try {
                 $this->_inputValidationService->validate($name, $value);
                 $customOptions[$name] = $value;
             } catch (Exception $e) {
-                $this->_log->log($this->_logPrefix, 'Ignoring invalid value for "%s" option: %s', $name, $e->getMessage());
+                org_tubepress_log_Log::log($this->_logPrefix, 'Ignoring invalid value for "%s" option: %s', $name, $e->getMessage());
             }
         }
         return $customOptions;
@@ -131,7 +130,6 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
     
     public function getHtml(org_tubepress_ioc_IocService $iocService, $shortCodeContent = '')
     {
-        $log  = $iocService->get(org_tubepress_ioc_IocService::LOG);
     	$tpom = $iocService->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
     	
     	/* parse the shortcode if we need to */
@@ -142,25 +140,25 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
         /* user wants to display a single video with meta info */
         if ($tpom->get(org_tubepress_options_category_Gallery::VIDEO) != '') {
             $videoId = $tpom->get(org_tubepress_options_category_Gallery::VIDEO);
-            $log->log($this->_logPrefix, 'Building single video with ID %s', $videoId);
+            org_tubepress_log_Log::log($this->_logPrefix, 'Building single video with ID %s', $videoId);
             $singleVideoGenerator = $iocService->get(org_tubepress_ioc_IocService::SINGLE_VIDEO);
             return $singleVideoGenerator->getSingleVideoHtml($videoId);
         }
-        $log->log($this->_logPrefix, 'No video ID set in shortcode.');
+        org_tubepress_log_Log::log($this->_logPrefix, 'No video ID set in shortcode.');
         
         $qss = $iocService->get(org_tubepress_ioc_IocService::QUERY_STRING_SERVICE);
         
         /* see if the users wants to display just the video in the query string */
         $playerName = $tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
         if ($playerName == org_tubepress_player_Player::SOLO) {
-        	$log->log($this->_logPrefix, 'Solo player detected. Checking query string for video ID');
+        	org_tubepress_log_Log::log($this->_logPrefix, 'Solo player detected. Checking query string for video ID');
         	$videoId = $qss->getCustomVideo($_GET);
         	if ($videoId != '') {
-        		$log->log($this->_logPrefix, 'Building single video with ID %s', $videoId);
+        		org_tubepress_log_Log::log($this->_logPrefix, 'Building single video with ID %s', $videoId);
         		$singleVideoGenerator = $iocService->get(org_tubepress_ioc_IocService::SINGLE_VIDEO);
                 return $singleVideoGenerator->getSingleVideoHtml($videoId);
         	}
-        	$log->log($this->_logPrefix, 'Solo player in use, but no video ID set in URL. Will display a gallery instead.', $videoId);
+        	org_tubepress_log_Log::log($this->_logPrefix, 'Solo player in use, but no video ID set in URL. Will display a gallery instead.', $videoId);
         }
         
         $galleryId = $qss->getGalleryId($_GET);
@@ -169,12 +167,11 @@ class org_tubepress_shortcode_SimpleShortcodeService implements org_tubepress_sh
 		}
         
         /* normal gallery */
-        $log->log($this->_logPrefix, 'Starting to build gallery %s', $galleryId);
+        org_tubepress_log_Log::log($this->_logPrefix, 'Starting to build gallery %s', $galleryId);
         $gallery = $iocService->get(org_tubepress_ioc_IocService::GALLERY);
         return $gallery->getHtml($galleryId); 
     }
     
-    public function setLog(org_tubepress_log_Log $log) { $this->_log = $log; }
     public function setInputValidationService(org_tubepress_options_validation_InputValidationService $service) { $this->_inputValidationService = $service; }
 
     /**

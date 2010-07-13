@@ -54,6 +54,5 @@ class org_tubepress_video_feed_inspection_LocalFeedInspectionService implements 
 	    return $this->getTotalResultCount($dir);
     }
 
-    public function setLog(org_tubepress_log_Log $log) { $this->_log = $log; }
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }
 }

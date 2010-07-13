@@ -64,8 +64,7 @@ class org_tubepress_env_wordpress_Main
         $tpom = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
         
         /* Turn on logging if we need to */
-        $log = $iocContainer->get(org_tubepress_ioc_IocService::LOG);
-        $log->setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON),$_GET);
+        org_tubepress_log_Log::setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON),$_GET);
         
         /* Get a handle to the shortcode service */
         $shortcodeService = $iocContainer->get(org_tubepress_ioc_IocService::SHORTCODE_SERVICE);

@@ -32,29 +32,29 @@ tubepress_load_classes(array(
 class org_tubepress_util_FilesystemUtils
 {
 	
-	public static function getFilenamesInDirectory($dir, org_tubepress_log_Log $log, $prefix)
+	public static function getFilenamesInDirectory($dir, $prefix)
 	{
 		$realDir = realpath($dir);
-		$log->log($prefix, 'Getting ready to examine directory at %s', $realDir);
+		org_tubepress_log_Log::log($prefix, 'Getting ready to examine directory at %s', $realDir);
     	    	
     	if (!is_dir($dir)) {
-    		$log->log($prefix, '%s is not a directory', $realDir);
+    		org_tubepress_log_Log::log($prefix, '%s is not a directory', $realDir);
     		return array();	
     	}
     	if (!is_readable($dir)) {
-    		$log->log($prefix, '%s is not a readable directory', $realDir);
+    		org_tubepress_log_Log::log($prefix, '%s is not a readable directory', $realDir);
     		return array();	
     	}
     	
     	$toReturn = array();
         if ($handle = opendir($dir)) {
-        	$log->log($prefix, 'Successfully opened %s to read contents.', $realDir);	
+        	org_tubepress_log_Log::log($prefix, 'Successfully opened %s to read contents.', $realDir);	
 	        while (($file = readdir($handle)) !== false) {
 	            array_push($toReturn, $dir . '/' . $file);	      
 	        }
 	        closedir($handle);
 	    } else {
-	        $log->log($prefix, 'Could not open %s', $realDir);	
+	        org_tubepress_log_Log::log($prefix, 'Could not open %s', $realDir);	
 	    }
 	    return $toReturn;
 	}    

@@ -11,7 +11,6 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends PHPUnit_Framew
     function setUp() {
         $this->_sampleFeedOne = file_get_contents(dirname(__FILE__) . '/playlist.xml');
         $this->_sut = new org_tubepress_video_factory_YouTubeVideoFactory();
-        $this->_sut->setLog($this->getMock('org_tubepress_log_Log'));
         $this->_tpom = $this->getMock('org_tubepress_options_manager_OptionsManager');
         $this->_sut->setOptionsManager($this->_tpom);
     }

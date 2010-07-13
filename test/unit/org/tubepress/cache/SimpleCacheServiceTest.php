@@ -8,7 +8,6 @@ class org_tubepress_cache_SimpleCacheServiceTest extends PHPUnit_Framework_TestC
 	function setUp()
 	{
 		$this->_sut = new org_tubepress_cache_SimpleCacheService();
-		$this->_sut->setLog($this->getMock('org_tubepress_log_Log'));
 	}
 
 	function testSetGet()

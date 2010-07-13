@@ -31,7 +31,6 @@ interface org_tubepress_ioc_IocService
     const GALLERY_TEMPLATE              = 'galleryTemplate';
     const LOCAL_FEED_INSPECTION         = 'localFeedInspection';
     const LOCAL_VIDEO_FACTORY           = 'localVideoFactory';
-    const LOG                           = 'log';
     const LONGTAIL_EMBEDDED_TEMPLATE    = 'longtailEmbeddedTemplate';
     const MESSAGE_SERVICE               = 'messageService';
     const MODAL_PLAYER_TEMPLATE         = 'modalPlayerTemplate';

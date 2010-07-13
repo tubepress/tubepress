@@ -22,10 +22,40 @@
 /**
  * Logger
  */
-interface org_tubepress_log_Log
+class org_tubepress_log_Log
 {
-    public function log();
+    private static $_birthDate;
+    private static $_enabled = false;
     
-    public function setEnabled($enabled, $getVars);
+    public static function log()
+    {
+        if (org_tubepress_log_Log::$_enabled) {
+            $numArgs = func_num_args();
+            $prefix = func_get_arg(0);
+            $message = func_get_arg(1);
+            
+            /* how many milliseconds have elapsed? */
+            $time = (microtime(true) - org_tubepress_log_Log::$_birthDate) * 1000;
+            
+            if ($numArgs > 2) {
+                $args = func_get_args();
+                $message = vsprintf($message, array_slice($args, 2, count($args)));
+            }
+            
+            /* print it! */
+            printf("%s ms > (%s) > %s (memory used: %s)<br /><br />", $time, $prefix, $message, number_format(memory_get_usage()));
+        }
+    }
+
+    public static function setEnabled($enabled, $getVars)
+    {
+        org_tubepress_log_Log::$_enabled = $enabled
+            && isset($getVars['tubepress_debug'])
+            && $getVars['tubepress_debug'] == 'true';
+        
+        if (org_tubepress_log_Log::$_enabled) {
+            org_tubepress_log_Log::$_birthDate = microtime(true);
+        }
+    }
     
 }

@@ -189,5 +189,4 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
    
     public function setMessageService(org_tubepress_message_MessageService $messageService) { $this->_messageService = $messageService; }
     public function setOptionsReference(org_tubepress_options_reference_OptionsReference $reference) { $this->_optionsReference = $reference; }
-    public function setLog(org_tubepress_log_Log $log) { $this->_log = $log; }
 }

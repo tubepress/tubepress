@@ -67,7 +67,7 @@ class org_tubepress_single_VideoImpl implements org_tubepress_single_Video, org_
     public function _getSingleVideoHtml($videoId)
     {
         /* grab the video from the provider */
-        $this->_log->log($this->_logPrefix, 'Asking provider for video with ID %s', $videoId);
+        org_tubepress_log_Log::log($this->_logPrefix, 'Asking provider for video with ID %s', $videoId);
         $video = $this->_provider->getSingleVideo($videoId);
         
         $this->_prepTemplate($video);
@@ -82,7 +82,7 @@ class org_tubepress_single_VideoImpl implements org_tubepress_single_Video, org_
             
         if ($customTemplate != '') {
             $template = realpath($this->_templateDir . $customTemplate);
-            $this->_log->log($this->_logPrefix, 'Using custom template at %s', $template);
+            org_tubepress_log_Log::log($this->_logPrefix, 'Using custom template at %s', $template);
             $this->_template->setPath($template);
         }
         
@@ -124,6 +124,5 @@ class org_tubepress_single_VideoImpl implements org_tubepress_single_Video, org_
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $mgr) { $this->_tpom = $mgr; }
     public function setOptionsReference(org_tubepress_options_reference_OptionsReference $ref) { $this->_optionsReference = $ref; }
     public function setMessageService(org_tubepress_message_MessageService $messageService) {     $this->_messageService     = $messageService; }
-    public function setLog(org_tubepress_log_Log $log) { $this->_log = $log; }
 }
 

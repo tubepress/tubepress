@@ -43,7 +43,7 @@ class org_tubepress_video_feed_retrieval_HTTPRequest2 extends org_tubepress_vide
 
         $response = $req->send();
         
-        $this->_log->log($this->_logPrefix, 'Request for %s returned status %d: %s', $request->getURL(true), 
+        org_tubepress_log_Log::log($this->_logPrefix, 'Request for %s returned status %d: %s', $request->getURL(true), 
             $response->getStatus(), $response->getReasonPhrase());
             
         if ($response->getStatus() != 200) {

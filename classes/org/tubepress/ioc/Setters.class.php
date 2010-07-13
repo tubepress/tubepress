@@ -30,7 +30,6 @@ class org_tubepress_ioc_Setters
     const INPUT_VALIDATION              = 'inputValidationService';
     const LOCAL_INSPECTION              = 'localFeedInspectionService';
     const LOCAL_FACTORY                 = 'localVideoFactory';
-    const LOG                           = 'log';
     const MESSAGE_SERVICE               = 'messageService';
     const NETWORK_RETRIEVAL_SERVICE     = 'networkFeedRetrievalService';
     const OPTIONS_MANAGER               = 'optionsManager';

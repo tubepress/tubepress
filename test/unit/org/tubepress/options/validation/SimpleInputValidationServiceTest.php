@@ -10,7 +10,6 @@ class org_tubepress_options_validation_SimpleInputValidationServiceTest extends 
 	{
 		$this->_sut = new org_tubepress_options_validation_SimpleInputValidationService();
 		$this->_sut->setMessageService($this->getMock("org_tubepress_message_MessageService"));
-		$this->_sut->setLog($this->getMock('org_tubepress_log_Log'));
 		$this->_sut->setOptionsReference($this->getMock('org_tubepress_options_reference_OptionsReference'));
 	}
 	
