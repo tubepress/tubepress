@@ -21,8 +21,6 @@ require_once 'org/tubepress/options/OptionsTests.php';
 require_once 'org/tubepress/browser/BrowserDetectorTests.php';
 require_once 'org/tubepress/single/SingleVideoTests.php';
 
-require_once 'net/sourceforge/phpvideotoolkit/PhpVideoToolkitTests.php';
-
 class TubePressUnitTests
 {
 	public static function suite()
@@ -48,8 +46,7 @@ class TubePressUnitTests
 		$suite->addTest(ProviderTests::suite());
 		$suite->addTest(BrowserDetectorTests::suite());
 		$suite->addTest(SingleVideoTests::suite());
-		
-		$suite->addTest(PhpVideoToolkitTests::suite());
+
 		return $suite;
 	}
 }

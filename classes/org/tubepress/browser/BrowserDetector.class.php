@@ -22,11 +22,34 @@
 /**
  * HTTP client detection service
  */
-interface org_tubepress_browser_BrowserDetector
+class org_tubepress_browser_BrowserDetector
 {
     const IPHONE  = 'iphone';
     const IPOD    = 'ipod';
     const UNKNOWN = 'unknown';
     
-    public function detectBrowser($serverVars);
+    const HTTP_USER_AGENT = 'HTTP_USER_AGENT';
+    
+    /**
+     * Determines which HTTP client is in use.
+     * 
+     * @param array $serverVars
+     */
+    public static function detectBrowser($serverVars)
+    {
+        if (!is_array($serverVars) 
+            || !array_key_exists(org_tubepress_browser_BrowserDetector::HTTP_USER_AGENT, $serverVars)) { 
+            return org_tubepress_browser_BrowserDetector::UNKNOWN;
+        }
+        
+        $agent = $serverVars['HTTP_USER_AGENT'];
+
+        if (strstr($agent,'iPhone')) {
+            return org_tubepress_browser_BrowserDetector::IPHONE;
+        }
+        if (strstr($agent,'iPod')) {
+            return org_tubepress_browser_BrowserDetector::IPOD;
+        }
+        return org_tubepress_browser_BrowserDetector::UNKNOWN; 
+    }
 }

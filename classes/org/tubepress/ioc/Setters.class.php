@@ -24,7 +24,6 @@
  */
 class org_tubepress_ioc_Setters
 {
-    const BROWSER_DETECTOR              = 'browserDetector';
     const CACHE                         = 'cacheService';
     const FEED_INSPECTION               = 'feedInspectionService';
     const FEED_RETRIEVAL                = 'feedRetrievalService';

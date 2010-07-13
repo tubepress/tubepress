@@ -24,7 +24,6 @@
  */
 interface org_tubepress_ioc_IocService
 {
-    const BROWSER_DETECTOR              = 'browserDetector';
     const CACHE_SERVICE                 = 'cacheService';
     const FEED_INSPECTION_SERVICE       = 'feedInspectionService';
     const FEED_RETRIEVAL_SERVICE        = 'feedRetrievalService';

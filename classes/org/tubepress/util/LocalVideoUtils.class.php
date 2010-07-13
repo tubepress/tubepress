@@ -95,7 +95,7 @@ class org_tubepress_util_LocalVideoUtils
         $topDir = str_replace($baseDir, '', $topDir);
 
         /* finally, chop off the leading '/' */
-        return org_tubepress_util_StringUtils::replaceFirst('/', '', );
+        return org_tubepress_util_StringUtils::replaceFirst('/', '', $topDir);
     }
     
     public static function getBaseVideoDirectory(org_tubepress_options_manager_OptionsManager $tpom, org_tubepress_log_Log $log, $prefix)

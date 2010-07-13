@@ -44,7 +44,6 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
     private $_templateDir;
     
     private $_iocContainer;
-    private $_browserDetector;
     private $_template;
     private $_log;
     private $_logPrefix;
@@ -96,7 +95,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
     
     private function _applyCustomTemplateIfNeeded()
     {
-        $browser = $this->_browserDetector->detectBrowser($_SERVER);
+        $browser = org_tubepress_browser_BrowserDetector::detectBrowser($_SERVER);
         if ($browser === org_tubepress_browser_BrowserDetector::IPHONE || $browser === org_tubepress_browser_BrowserDetector::IPOD) {
             $template = realpath($this->_templateDir . 'iphone-ipod.tpl.php');
             $this->_log->log($this->_logPrefix, 'iPhone/iPod detected. Setting template to ', $template);
@@ -231,7 +230,6 @@ GBS;
         return $result;
     }
     
-    public function setBrowserDetector(org_tubepress_browser_BrowserDetector $bd) {               $this->_browserDetector    = $bd; }
     public function setContainer(org_tubepress_ioc_IocService $container) {                       $this->_iocContainer       = $container; }
     public function setTemplate(org_tubepress_template_Template $template) {                      $this->_template           =   $template; }
     public function setMessageService(org_tubepress_message_MessageService $messageService) {     $this->_messageService     = $messageService; }

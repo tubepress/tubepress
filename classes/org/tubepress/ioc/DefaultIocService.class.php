@@ -22,7 +22,6 @@
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_ioc_PhpCraftyIocService',
-    'org_tubepress_browser_BrowserDetectorImpl',
     'org_tubepress_cache_SimpleCacheService',
     'org_tubepress_embedded_impl_DefaultEmbeddedPlayerService',
     'org_tubepress_embedded_EmbeddedPlayerService',    
@@ -86,8 +85,6 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
             $this->impl('org_tubepress_querystring_SimpleQueryStringService'));
         $this->def(org_tubepress_ioc_IocService::LOG, 
             $this->impl('org_tubepress_log_LogImpl'));
-        $this->def(org_tubepress_ioc_IocService::BROWSER_DETECTOR,
-            $this->impl('org_tubepress_browser_BrowserDetectorImpl'));
             
         /*******************************************************************************************
          *                                      1 SETTER                                          *
@@ -398,7 +395,6 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
                     org_tubepress_ioc_Setters::LOG               => $this->ref(org_tubepress_ioc_IocService::LOG),
                     org_tubepress_ioc_Setters::OPTIONS_REFERENCE => $this->ref(org_tubepress_ioc_IocService::OPTIONS_REFERENCE),
                     org_tubepress_ioc_Setters::TEMPLATE          => $this->ref(org_tubepress_ioc_IocService::GALLERY_TEMPLATE),
-                    org_tubepress_ioc_Setters::BROWSER_DETECTOR  => $this->ref(org_tubepress_ioc_IocService::BROWSER_DETECTOR)
                 )                
             )        
         );
