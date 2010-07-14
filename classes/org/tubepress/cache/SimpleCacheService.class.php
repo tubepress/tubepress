@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-|| require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+|| require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_cache_CacheService',
     'net_php_pear_Cache_Lite',
     'org_tubepress_log_Log'));
@@ -31,39 +31,31 @@ tubepress_load_classes(array('org_tubepress_cache_CacheService',
  */
 if (!function_exists("sys_get_temp_dir")) {
 
-    // Based on http://www.phpit.net/
-    // article/creating-zip-tar-archives-dynamically-php/2/
+    /**
+     * Based on http://www.phpit.net/article/creating-zip-tar-archives-dynamically-php/2/
+     *
+     * @return The system's temp directory, or false if it can't find one.
+     */
     function sys_get_temp_dir()
     {
         // Try to get from environment variable
-        if ( !empty($_ENV['TMP']) )
-        {
-            return realpath( $_ENV['TMP'] );
-        }
-        else if ( !empty($_ENV['TMPDIR']) )
-        {
-            return realpath( $_ENV['TMPDIR'] );
-        }
-        else if ( !empty($_ENV['TEMP']) )
-        {
-            return realpath( $_ENV['TEMP'] );
-        }
-
-        // Detect by creating a temporary file
-        else
-        {
+        if (!empty($_ENV['TMP'])) {
+            return realpath($_ENV['TMP']);
+        } else if (!empty($_ENV['TMPDIR'])) {
+            return realpath($_ENV['TMPDIR']);
+        } else if (!empty($_ENV['TEMP'])) {	
+            return realpath($_ENV['TEMP']);
+        } else {
+            // Detect by creating a temporary file
             // Try to use system's temporary directory
             // as random name shouldn't exist
-            $temp_file = tempnam( md5(uniqid(rand(), TRUE)), '' );
-            if ( $temp_file )
-            {
-                $temp_dir = realpath( dirname($temp_file) );
-                unlink( $temp_file );
-                return $temp_dir;
-            }
-            else
-            {
-                return FALSE;
+            $tempfile = tempnam(md5(uniqid(rand(), true)), '');
+            if ( $tempfile ) {
+                $tempdir = realpath(dirname($tempfile));
+                unlink($tempfile);
+                return $tempdir;
+            } else {
+                return false;
             }
         }
     }
@@ -80,18 +72,20 @@ class org_tubepress_cache_SimpleCacheService implements org_tubepress_cache_Cach
 
     /**
      * Simple constructor
-     *
      */
     public function __construct()
     {
         $this->_logPrefix = "Cache Service";
-
-        $this->_cache = new net_php_pear_Cache_Lite(array("cacheDir" => sys_get_temp_dir() . '/'));
+        $this->_cache     = new net_php_pear_Cache_Lite(array("cacheDir" => sys_get_temp_dir() . '/'));
         $this->_cachePath = $this->_cache->_cacheDir;
     }
 
     /**
-     * @see org_tubepress_cache_CacheService::get($key)
+     * Get a value from the cache
+     *
+     * @param string $key The key of the data to retrieve
+     * 
+     * @return string The data at the given key, or null if not there
      */
     public function get($key)
     {
@@ -99,23 +93,30 @@ class org_tubepress_cache_SimpleCacheService implements org_tubepress_cache_Cach
     }
 
     /**
-     * @see org_tubepress_cache_CacheService::has($key)
+     * Determine if the cache has data for a certain key
+     *
+     * @param string $key The key for which to look
+     * 
+     * @return boolean True if the cache has the data, false otherwise
      */
     public function has($key)
     {
         $has = $this->_cache->get($key) !== false;
-
         if ($has) {
             org_tubepress_log_Log::log($this->_logPrefix, 'Cache hit for %s in directory %s', $key, $this->_cachePath);
         } else {
             org_tubepress_log_Log::log($this->_logPrefix, 'Cache miss for %s in directory %s', $key, $this->_cachePath);
         }
-
         return $has;
     }
 
     /**
-     * @see org_tubepress_cache_CacheService::save($key, $data)
+     * Save the given data with the given key
+     *
+     * @param string $key  The key at which to save the data
+     * @param string $data The data to save at the key
+     * 
+     * @return void
      */
     public function save($key, $data)
     {
