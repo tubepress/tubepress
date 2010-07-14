@@ -19,7 +19,7 @@ along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_message_WordPressMessageService',
     'org_tubepress_ioc_DefaultIocService',
     'org_tubepress_ioc_IocService',
@@ -34,18 +34,30 @@ tubepress_load_classes(array('org_tubepress_message_WordPressMessageService',
 
 class org_tubepress_env_wordpress_Widget
 {
+    /**
+     * Registers the TubePress widget with WordPress.
+     *
+     * @return void
+     */
     public static function initAction()
     {
-        $msg = new org_tubepress_message_WordPressMessageService();
-        $widget_ops = array('classname' => 'widget_tubepress', 'description' => $msg->_("widget-description"));
+        $msg       = new org_tubepress_message_WordPressMessageService();
+        $widgetOps = array('classname' => 'widget_tubepress', 'description' => $msg->_("widget-description"));
 
-        wp_register_sidebar_widget('tubepress', "TubePress", array('org_tubepress_env_wordpress_Widget', 'printWidget'), $widget_ops);
+        wp_register_sidebar_widget('tubepress', "TubePress", array('org_tubepress_env_wordpress_Widget', 'printWidget'), $widgetOps);
         wp_register_widget_control('tubepress', "TubePress", array('org_tubepress_env_wordpress_Widget', 'printControlPanel'));
     }
 
+    /**
+     * Prints the output of the TubePress widget.
+     *
+     * @param array $opts The array of widget options.
+     *
+     * @return void
+     */
     public static function printWidget($opts)
     {
-	    extract($opts);
+        extract($opts);
 
         if (class_exists('org_tubepress_ioc_ProInWordPressIocService')) {
             $iocContainer = new org_tubepress_ioc_ProInWordPressIocService();
@@ -89,6 +101,11 @@ class org_tubepress_env_wordpress_Widget
             $after_title . $out . $after_widget;
     }
 
+    /**
+     * Prints the TubePress widget control panel.
+     *
+     * @return void
+     */
     public static function printControlPanel()
     {
         $iocContainer = new org_tubepress_ioc_DefaultIocService();
@@ -115,4 +132,4 @@ class org_tubepress_env_wordpress_Widget
         echo $tpl->toString();
     }
 }
-?>
+

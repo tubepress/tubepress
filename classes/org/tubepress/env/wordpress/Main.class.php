@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_options_storage_WordPressStorageManager',
     'org_tubepress_options_category_Advanced',
     'org_tubepress_shortcode_SimpleShortcodeService',
@@ -32,6 +32,13 @@ tubepress_load_classes(array('org_tubepress_options_storage_WordPressStorageMana
 
 class org_tubepress_env_wordpress_Main
 {
+    /**
+     * Filters the WordPress content, looking for TubePress shortcodes and replacing them with galleries/videos.
+     * 
+     * @param string $content The WordPress content.
+     *
+     * @return string The modified content.
+     */
     public static function contentFilter($content = '')
     {
         try {
@@ -51,6 +58,14 @@ class org_tubepress_env_wordpress_Main
         }
     }
 
+    /**
+     * Does the heavy lifting of generating videos/galleries from content.
+     * 
+     * @param string $content The WordPress content.
+     * @param string $trigger The shortcode keyword
+     *
+     * @return string The modified content.
+     */
     private static function _getGalleryHtml($content, $trigger)
     {
         /* Whip up the IOC service */
@@ -64,7 +79,7 @@ class org_tubepress_env_wordpress_Main
         $tpom = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
         
         /* Turn on logging if we need to */
-        org_tubepress_log_Log::setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON),$_GET);
+        org_tubepress_log_Log::setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON), $_GET);
         
         /* Get a handle to the shortcode service */
         $shortcodeService = $iocContainer->get(org_tubepress_ioc_IocService::SHORTCODE_SERVICE);
@@ -81,20 +96,29 @@ class org_tubepress_env_wordpress_Main
 
             /* replace the shortcode with our new content */
             $currentShortcode = $tpom->getShortcode();
-            $content = org_tubepress_util_StringUtils::replaceFirst($currentShortcode, $generatedHtml, $content);
+            $content          = org_tubepress_util_StringUtils::replaceFirst($currentShortcode, $generatedHtml, $content);
         }
         return $content;
     }
 
+    /**
+     * WordPress head action hook.
+     *
+     * @return void
+     */
     public static function headAction()
     {
         print org_tubepress_gallery_TubePressGalleryImpl::printHeadElements(false, $_GET);
     }
 
+    /**
+     * WordPress init action hook.
+     *
+     * @return void
+     */
     public static function initAction()
     {
         wp_enqueue_script('jquery');
     }
 }
 
-?>
