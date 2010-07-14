@@ -43,10 +43,10 @@ class org_tubepress_video_factory_LocalVideoFactory extends org_tubepress_video_
     public function feedToVideoArray($galleryDir, $limit)
     {
         /* get the base uploads directory */
-        $baseDir = org_tubepress_util_LocalVideoUtils::getBaseVideoDirectory($this->getOptionsManager(), $this->getLog(), $this->_logPrefix);
+        $baseDir = org_tubepress_util_LocalVideoUtils::getBaseVideoDirectory($this->getOptionsManager(), $this->_logPrefix);
 
         /** get a list of videos in the relative directory */
-        $videoNames = org_tubepress_util_LocalVideoUtils::findVideos("$baseDir/$dir", $this->getLog(), $this->_logPrefix);
+        $videoNames = org_tubepress_util_LocalVideoUtils::findVideos("$baseDir/$dir", $this->_logPrefix);
 
         $toReturn = array();
         $index = 0;
@@ -59,12 +59,12 @@ class org_tubepress_video_factory_LocalVideoFactory extends org_tubepress_video_
         
             /* check blacklist status */
             if ($this->isVideoBlackListed($basename)) {
-                $this->getLog()->log($this->_logPrefix, 'Video with ID %s is blacklisted. Skipping it.', $entry->id);
+                org_tubepress_log_Log::log($this->_logPrefix, 'Video with ID %s is blacklisted. Skipping it.', $entry->id);
                 continue;
             }
                 
             if ($index > 0 && $index++ >= $limit) {
-                $this->getLog()->log($this->_logPrefix, 'Reached limit of %d videos', $limit);
+                org_tubepress_log_Log::log($this->_logPrefix, 'Reached limit of %d videos', $limit);
                 break;
             }
             
@@ -82,7 +82,7 @@ class org_tubepress_video_factory_LocalVideoFactory extends org_tubepress_video_
     
     private function _createVideo($filename, $baseDir, $galleryDir)
     {
-        $this->getLog()->log($this->_logPrefix, 'Assembling video for %s', $filename);
+        org_tubepress_log_Log::log($this->_logPrefix, 'Assembling video for %s', $filename);
 
         $video = new org_tubepress_video_Video();
 
@@ -112,18 +112,18 @@ class org_tubepress_video_factory_LocalVideoFactory extends org_tubepress_video_
 
         /* make sure we can read the file */
         if (!is_readable($yamlFile)) {
-            $this->getLog()->log($this->_logPrefix, '%s does not exist or is not readable.', $yamlFile);
+            org_tubepress_log_Log::log($this->_logPrefix, '%s does not exist or is not readable.', $yamlFile);
             return array();
         }
 
         /* load up the file contents */
-        $this->getLog()->log($this->_logPrefix, 'Loading YML file at %s.', $yamlFile);
+        org_tubepress_log_Log::log($this->_logPrefix, 'Loading YML file at %s.', $yamlFile);
         $contents = file_get_contents($yamlFile);
-        $this->getLog()->log($this->_logPrefix, 'YML file at %s has the following contents: %s', $yamlFile, $contents);
+        org_tubepress_log_Log::log($this->_logPrefix, 'YML file at %s has the following contents: %s', $yamlFile, $contents);
 
         /* load the contents into spyc */
         $result = com_googlecode_spyc_Spyc::YAMLLoadString($contents);
-        $this->getLog()->log($this->_logPrefix, 'YML file at %s was parsed to %s.', $yamlFile, var_export($result, TRUE));
+        org_tubepress_log_Log::log($this->_logPrefix, 'YML file at %s was parsed to %s.', $yamlFile, var_export($result, TRUE));
 
         return $result;
     }
@@ -143,14 +143,14 @@ class org_tubepress_video_factory_LocalVideoFactory extends org_tubepress_video_
         $thumbs = $this->_getExistingThumbs("$baseDir/$galleryDir/generated_thumbnails/", $thumbname);
         
         if (sizeof($thumbs) === 0) {
-            $this->getLog()->log($this->_logPrefix, 'No potential thumbs for %s. Using filler thumbnail.', $filename);
+            org_tubepress_log_Log::log($this->_logPrefix, 'No potential thumbs for %s. Using filler thumbnail.', $filename);
             return "$tubepress_base_url/ui/gallery/missing_thumb.png";
         }
         
         $prefix = "$tubepress_base_url/uploads/$galleryName/generated_thumbnails/";
         
         if ($this->getOptionsManager()->get(org_tubepress_options_category_Display::RANDOM_THUMBS)) {
-            $this->getLog()->log($this->_logPrefix, 'Using a random thumbnail for %s.', $filename);
+            org_tubepress_log_Log::log($this->_logPrefix, 'Using a random thumbnail for %s.', $filename);
             return $prefix . $thumbs[array_rand($thumbs)];
         }
         
@@ -162,11 +162,11 @@ class org_tubepress_video_factory_LocalVideoFactory extends org_tubepress_video_
         $toReturn = array();
         
         $files = org_tubepress_util_FilesystemUtils::getFilenamesInDirectory($basePath . '/' . $relativePart, 
-            $this->getLog(), $this->_logPrefix);
+            $this->_logPrefix);
             
         foreach ($files as $file) {
             if (strpos($file, $postfix) !== FALSE) {
-                $this->getLog()->log($this->_logPrefix, 'Found a thumbnail we can use at %s', realpath($file));
+                org_tubepress_log_Log::log($this->_logPrefix, 'Found a thumbnail we can use at %s', realpath($file));
                 array_push($toReturn, basename($file));    
             }
         }

@@ -38,7 +38,6 @@ class org_tubepress_ioc_Setters
     const PAGINATION                    = 'paginationService';
     const PATH                          = 'path';
     const PROVIDER                      = 'videoProvider';
-    const QUERYSTRING                   = 'queryStringService';
     const STORAGE_MANAGER               = 'storageManager';
     const URL_BUILDER                   = 'urlBuilder';
     const VIDEO_FACTORY                 = 'videoFactory';

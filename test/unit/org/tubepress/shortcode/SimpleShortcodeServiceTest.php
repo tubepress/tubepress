@@ -9,7 +9,6 @@ class org_tubepress_shortcode_SimpleShortcodeServiceTest extends PHPUnit_Framewo
 	private $_ioc;
 	private $_gallery;
 	private $_singleVideo;
-	private $_qss;
 	
 	function setUp()
 	{
@@ -17,14 +16,13 @@ class org_tubepress_shortcode_SimpleShortcodeServiceTest extends PHPUnit_Framewo
 		$this->_ioc = $this->getMock('org_tubepress_ioc_IocService');
 		$this->_gallery = $this->getMock('org_tubepress_gallery_TubePressGallery');
 		$this->_singleVideo = $this->getMock('org_tubepress_single_Video');
-		$this->_qss = $this->getMock('org_tubepress_querystring_QueryStringService');
 		$this->_sut = new org_tubepress_shortcode_SimpleShortcodeService();
 	    $this->_sut->setInputValidationService($this->getMock('org_tubepress_options_validation_InputValidationService'));
 	}
 
 	function testSoloVideoIdSet()
 	{
-    	$this->_ioc->expects($this->exactly(4))
+    	$this->_ioc->expects($this->exactly(2))
     	     ->method('get')
     	     ->will($this->returnCallback(array($this, '_iocCallback')));
     	$this->_tpom->expects($this->exactly(2))
@@ -33,16 +31,16 @@ class org_tubepress_shortcode_SimpleShortcodeServiceTest extends PHPUnit_Framewo
     	$this->_singleVideo->expects($this->once())
     	     ->method('getSingleVideoHtml')
     	     ->will($this->returnValue('foofoo'));
-    	$this->_qss->expects($this->once())
-    	     ->method('getCustomVideo')
-    	     ->will($this->returnValue('someid'));
+    	
+    	global $_GET;
+    	$_GET['tubepress_video'] = 'someid';
   		$result = $this->_sut->getHtml($this->_ioc);
   		$this->assertEquals('foofoo', $result);
 	}
 
 	function testSoloNoVideoIdSet()
 	{
-    	$this->_ioc->expects($this->exactly(4))
+    	$this->_ioc->expects($this->exactly(2))
     	     ->method('get')
     	     ->will($this->returnCallback(array($this, '_iocCallback')));
     	$this->_tpom->expects($this->exactly(2))
@@ -57,7 +55,7 @@ class org_tubepress_shortcode_SimpleShortcodeServiceTest extends PHPUnit_Framewo
 
 	function testGetHtmlSingleVideo()
 	{
-    	$this->_ioc->expects($this->exactly(3))
+    	$this->_ioc->expects($this->exactly(2))
     	     ->method('get')
     	     ->will($this->returnCallback(array($this, '_iocCallback')));
     	$this->_tpom->expects($this->exactly(2))
@@ -72,7 +70,7 @@ class org_tubepress_shortcode_SimpleShortcodeServiceTest extends PHPUnit_Framewo
 
 	function testGetHtmlNormalGallery()
 	{
-    	$this->_ioc->expects($this->exactly(4))
+    	$this->_ioc->expects($this->exactly(2))
     	     ->method('get')
     	     ->will($this->returnCallback(array($this, '_iocCallback')));
     	$this->_tpom->expects($this->exactly(2))
@@ -313,8 +311,7 @@ class org_tubepress_shortcode_SimpleShortcodeServiceTest extends PHPUnit_Framewo
 	    $vals = array(
 	        org_tubepress_ioc_IocService::OPTIONS_MANAGER => $this->_tpom,
 	        org_tubepress_ioc_IocService::GALLERY => $this->_gallery,
-	        org_tubepress_ioc_IocService::SINGLE_VIDEO => $this->_singleVideo,
-	        org_tubepress_ioc_IocService::QUERY_STRING_SERVICE => $this->_qss
+	        org_tubepress_ioc_IocService::SINGLE_VIDEO => $this->_singleVideo
 	    );
 	    return $vals[$args[0]];
 	}

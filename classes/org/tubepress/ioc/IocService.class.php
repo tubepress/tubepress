@@ -40,7 +40,6 @@ interface org_tubepress_ioc_IocService
     const OPTIONS_REFERENCE             = 'optionsReference';
     const OPTIONS_FORM_TEMPLATE         = 'optionsFormTemplate';
     const PAGINATION_SERVICE            = 'paginationService';
-    const QUERY_STRING_SERVICE          = 'queryStringService';
     const SHORTCODE_SERVICE             = 'shortcodeService';
     const SINGLE_VIDEO                  = 'singleVideo';
     const SINGLE_VIDEO_TEMPLATE         = 'singleVideoTemplate';

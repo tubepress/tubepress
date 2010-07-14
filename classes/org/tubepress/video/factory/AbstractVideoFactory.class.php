@@ -28,12 +28,10 @@ tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory'));
  */
 abstract class org_tubepress_video_factory_AbstractVideoFactory implements org_tubepress_video_factory_VideoFactory
 {
-    private $_log;
     private $_tpom;
     
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }
 
-    protected function getLog() { return $this->_log; }
     protected function getOptionsManager() { return $this->_tpom; }
     
     protected function isVideoBlackListed($id)

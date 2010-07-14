@@ -40,7 +40,6 @@ class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_vi
     private $_log;
     private $_logPrefix;
     private $_optionsManager;
-    private $_queryStringService;
     private $_urlBuilder;
     private $_videoFactory;
     
@@ -52,7 +51,7 @@ class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_vi
     public function getFeedResult()
     {
         /* figure out which page we're on */
-        $currentPage = $this->_queryStringService->getPageNum($_GET);
+        $currentPage = org_tubepress_querystring_QueryStringService::getPageNum($_GET);
         org_tubepress_log_Log::log($this->_logPrefix, 'Current page number is %d', $currentPage);
         
         $provider = $this->_optionsManager->calculateCurrentVideoProvider();
@@ -123,7 +122,6 @@ class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_vi
         return $videoArray[0];
     }
     
-    public function setQueryStringService(org_tubepress_querystring_QueryStringService $qss) { $this->_queryStringService = $qss; }
     public function setUrlBuilder(org_tubepress_url_UrlBuilder $urlBuilder) { $this->_urlBuilder = $urlBuilder; }
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_optionsManager = $tpom; }
     public function setFeedInspectionService(org_tubepress_video_feed_inspection_FeedInspectionService $feedInspector) { $this->_feedInspectionService = $feedInspector; }

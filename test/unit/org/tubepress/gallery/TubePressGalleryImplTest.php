@@ -14,7 +14,6 @@ class org_tubepress_gallery_TubePressGalleryImplTest extends PHPUnit_Framework_T
     private $_optionsReference;
     private $_paginationService;
     private $_player;
-    private $_queryStringService;
     private $_videoProvider;
 	
 	function setUp()
@@ -34,7 +33,6 @@ class org_tubepress_gallery_TubePressGalleryImplTest extends PHPUnit_Framework_T
         $this->_optionsManager     = $this->getMock('org_tubepress_options_manager_OptionsManager');
         $this->_paginationService  = $this->getMock('org_tubepress_pagination_PaginationService');
         $this->_player             = $this->getMock('org_tubepress_player_Player');
-        $this->_queryStringService = $this->getMock('org_tubepress_querystring_QueryStringService');
         $this->_videoProvider      = $this->getMock('org_tubepress_video_feed_provider_Provider');
         $this->_optionsReference   = $this->getMock('org_tubepress_options_reference_OptionsReference');
     }
@@ -46,7 +44,6 @@ class org_tubepress_gallery_TubePressGalleryImplTest extends PHPUnit_Framework_T
         $this->_sut->setMessageService($this->_messageService);     
         $this->_sut->setOptionsManager($this->_optionsManager);    
         $this->_sut->setPaginationService($this->_paginationService); 
-        $this->_sut->setQueryStringService($this->_queryStringService); 
         $this->_sut->setVideoProvider($this->_videoProvider);      
         $this->_sut->setOptionsReference($this->_optionsReference);
     }
@@ -77,11 +74,6 @@ class org_tubepress_gallery_TubePressGalleryImplTest extends PHPUnit_Framework_T
         $this->_player->expects($this->once())
                       ->method('getPreGalleryHtml')
                       ->will($this->returnValue('pre gallery html'));
-
-        /* no custom video this time */
-        $this->_queryStringService->expects($this->once())
-                                  ->method('getCustomVideo')
-                                  ->will($this->returnValue(''));
 
         /* make sure pagination gets printed */
         $this->_paginationService->expects($this->once())

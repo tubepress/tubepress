@@ -22,41 +22,87 @@
 /**
  * Handles some tasks related to the query string
  */
-interface org_tubepress_querystring_QueryStringService
+class org_tubepress_querystring_QueryStringService
 {
+    const TUBEPRESS_GALLERY_ID = 'tubepress_galleryId';
+    const TUBEPRESS_PAGE       = 'tubepress_page';
+    const TUBEPRESS_SHORTCODE  = 'tubepress_shortcode';
+    const TUBEPRESS_VIDEO      = 'tubepress_video';
+
     /**
      * Try to get the custom video ID from the query string
      *
-     * @return string The custom video ID, or "" if not set
+     * @return string The custom video ID, or '' if not set
     */
-    public function getCustomVideo($getVars);
+    public static function getCustomVideo($getVars)
+    {
+    return org_tubepress_querystring_QueryStringService::_getQueryVar($getVars, 
+        org_tubepress_querystring_QueryStringService::TUBEPRESS_VIDEO);
+    }
+
+    /**
+     * Try to get the gallery ID from the query string
+     *
+     * @return string The gallery ID, or '' if not set
+    */
+    public static function getGalleryId($getVars)
+    {
+        return org_tubepress_querystring_QueryStringService::_getQueryVar($getVars, 
+            org_tubepress_querystring_QueryStringService::TUBEPRESS_GALLERY_ID);
+    }
 
     /**
      * Returns what's in the address bar
      * 
      * @return string What's in the address bar
      */
-    public function getFullUrl($serverVars);
+    public static function getFullUrl($serverVars)
+    {
+        $pageURL = 'http';
+        if (isset($serverVars['HTTPS']) && $serverVars['HTTPS'] == 'on') {
+            $pageURL .= 's';
+        }
+        $pageURL .= '://';
+        if ($serverVars['SERVER_PORT'] != '80') {
+             $pageURL .= $serverVars['SERVER_NAME'].':'.
+                 $serverVars['SERVER_PORT'].$serverVars['REQUEST_URI'];
+        } else {
+             $pageURL .= $serverVars['SERVER_NAME'].$serverVars['REQUEST_URI'];
+        }
+        return $pageURL;
+    }
     
-    /**
-     * Try to get the gallery ID from the query string
-     *
-     * @return string The gallery ID, or "" if not set
-    */
-    public function getGalleryId($getVars);
-
     /**
      * Try to figure out what page we're on by looking at the query string
      * Defaults to '1' if there's any doubt
      * 
      * @return int The page number
      */
-    public function getPageNum($getVars);
-    
+    public static function getPageNum($getVars)
+    {
+    $key = org_tubepress_querystring_QueryStringService::TUBEPRESS_PAGE;
+        $pageNum = ((isset($getVars[$key])) ?
+            $getVars[$key] : 1);
+        
+        if (!is_numeric($pageNum) || ($pageNum < 1)) {
+            $pageNum = 1;
+        }
+        return $pageNum;
+    }
+
     /**
      * Try to get the shortcode from the query string
      *
-     * @return string The shortcode, or "" if not set
+     * @return string The shortcode, or '' if not set
     */
-    public function getShortcode($getVars);
+    public static function getShortcode($getVars)
+    {
+        return org_tubepress_querystring_QueryStringService::_getQueryVar($getVars, 
+            org_tubepress_querystring_QueryStringService::TUBEPRESS_SHORTCODE);
+    }
+
+    private static function _getQueryVar($getVars, $key)
+    {
+        return isset($getVars[$key]) ? $getVars[$key] : '';
+    }
 }

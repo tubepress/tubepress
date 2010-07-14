@@ -5,7 +5,6 @@ class org_tubepress_video_feed_provider_ProviderImplTest extends PHPUnit_Framewo
     private $_feedRetrievalService;
     private $_log;
     private $_optionsManager;
-    private $_queryStringService;
     private $_urlBuilder;
     private $_videoFactory;
     
@@ -21,9 +20,6 @@ class org_tubepress_video_feed_provider_ProviderImplTest extends PHPUnit_Framewo
     function testGetFeedResult()
     {
         $fakeVideoArray = array($this->getMock('org_tubepress_video_Video'));
-        $this->_queryStringService->expects($this->once())
-                                  ->method('getPageNum')
-                                  ->will($this->returnValue('1'));
         $this->_urlBuilder->expects($this->once())
                           ->method('buildGalleryUrl')
                           ->with(1)
@@ -57,7 +53,6 @@ class org_tubepress_video_feed_provider_ProviderImplTest extends PHPUnit_Framewo
         $this->_log = $this->getMock('org_tubepress_log_Log');
         $this->_urlBuilder = $this->getMock('org_tubepress_url_UrlBuilder');
         $this->_videoFactory = $this->getMock('org_tubepress_video_factory_VideoFactory');
-        $this->_queryStringService = $this->getMock('org_tubepress_querystring_QueryStringService');
         $this->_optionsManager = $this->getMock('org_tubepress_options_manager_OptionsManager');
     }
     
@@ -67,7 +62,6 @@ class org_tubepress_video_feed_provider_ProviderImplTest extends PHPUnit_Framewo
         $this->_sut->setFeedRetrievalService($this->_feedRetrievalService);
         $this->_sut->setUrlBuilder($this->_urlBuilder);
         $this->_sut->setVideoFactory($this->_videoFactory);
-        $this->_sut->setQueryStringService($this->_queryStringService);
         $this->_sut->setOptionsManager($this->_optionsManager);
     }
     

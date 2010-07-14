@@ -41,7 +41,7 @@ class org_tubepress_video_factory_VimeoVideoFactory extends org_tubepress_video_
     {
         $feed = unserialize($rawFeed);
         
-        $this->getLog()->log($this->_logPrefix, 'Now parsing video(s)');
+        org_tubepress_log_Log::log($this->_logPrefix, 'Now parsing video(s)');
 
         $entries = $feed->videos->video;
         
@@ -63,12 +63,12 @@ class org_tubepress_video_factory_VimeoVideoFactory extends org_tubepress_video_
 	        foreach ($entries as $entry) {
 	            
 	            if ($this->isVideoBlackListed($entry->id)) {
-	                $this->getLog()->log($this->_logPrefix, 'Video with ID %s is blacklisted. Skipping it.', $entry->id);
+	                org_tubepress_log_Log::log($this->_logPrefix, 'Video with ID %s is blacklisted. Skipping it.', $entry->id);
 	                continue;
 	            }
 	            
 	            if ($index > 0 && $index++ >= $limit) {
-	                $this->getLog()->log($this->_logPrefix, 'Reached limit of %d videos', $limit);
+	                org_tubepress_log_Log::log($this->_logPrefix, 'Reached limit of %d videos', $limit);
 	                break;
 	            }
             
@@ -76,7 +76,7 @@ class org_tubepress_video_factory_VimeoVideoFactory extends org_tubepress_video_
         	}
         }
         
-        $this->getLog()->log($this->_logPrefix, 'Built %d video(s) from Vimeo\'s feed', sizeof($results));
+        org_tubepress_log_Log::log($this->_logPrefix, 'Built %d video(s) from Vimeo\'s feed', sizeof($results));
         return $results;
     }
     

@@ -51,7 +51,6 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
     private $_optionsManager;
     private $_optionsReference;
     private $_paginationService;
-    private $_queryStringService;
     private $_thumbnailTemplate;    
     private $_videoProvider;
     
@@ -181,7 +180,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
     
     private function _getPreGalleryVideo($video)
     {
-        $customVideoId = $this->_queryStringService->getCustomVideo($_GET);
+        $customVideoId = org_tubepress_querystring_QueryStringService::getCustomVideo($_GET);
         if ($customVideoId != "") {
             return $this->_videoProvider->getSingleVideo($customVideoId);
         }
@@ -236,6 +235,5 @@ GBS;
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) {       $this->_optionsManager     = $tpom; }
     public function setOptionsReference(org_tubepress_options_reference_OptionsReference $ref) {  $this->_optionsReference   = $ref; }
     public function setPaginationService(org_tubepress_pagination_PaginationService $paginator) { $this->_paginationService  = $paginator; }
-    public function setQueryStringService(org_tubepress_querystring_QueryStringService $qss) {    $this->_queryStringService = $qss; }
     public function setVideoProvider(org_tubepress_video_feed_provider_Provider $provider) {      $this->_videoProvider      = $provider; }
 }

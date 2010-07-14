@@ -6,7 +6,10 @@ class org_tubepress_pagination_DiggStylePaginationServiceTest extends PHPUnit_Fr
 
     public function testAjax()
     {
-        
+        global $_SERVER;
+        $_SERVER['SERVER_PORT'] = 80;
+        $_SERVER['SERVER_NAME'] = 'ehough.com';
+        $_SERVER['REQUEST_URI'] = '';
         $this->_tester('digg_test_callback_with_ajax',<<<EOT
 <div class="pagination"><span class="disabled">prev</span><span class="current">1</span><a rel="page=2">2</a><a rel="page=3">3</a><a rel="page=4">4</a><a rel="page=5">5</a>... <a rel="page=24">24</a><a rel="page=25">25</a><a rel="page=2">next</a></div>
 
@@ -16,7 +19,10 @@ EOT
     
     public function testNoAjax()
     {
-        
+        global $_SERVER;
+        $_SERVER['SERVER_PORT'] = 80;
+        $_SERVER['SERVER_NAME'] = 'ehough.com';
+        $_SERVER['REQUEST_URI'] = '';
         $this->_tester('digg_test_callback_without_ajax',<<<EOT
 <div class="pagination"><span class="disabled">prev</span><span class="current">1</span><a rel="nofollow" href="http://ehough.com?tubepress_page=2">2</a><a rel="nofollow" href="http://ehough.com?tubepress_page=3">3</a><a rel="nofollow" href="http://ehough.com?tubepress_page=4">4</a><a rel="nofollow" href="http://ehough.com?tubepress_page=5">5</a>... <a rel="nofollow" href="http://ehough.com?tubepress_page=24">24</a><a rel="nofollow" href="http://ehough.com?tubepress_page=25">25</a><a rel="nofollow" href="http://ehough.com?tubepress_page=2">next</a></div>
 
@@ -26,16 +32,6 @@ EOT
     
 	private function _tester($callback, $expected)
 	{
-		$queryStringService = $this->getMock("org_tubepress_querystring_QueryStringService");
-		
-		$queryStringService->expects($this->once())
-			 ->method("getPageNum")
-			 ->will($this->returnValue(1));
-		
-		$queryStringService->expects($this->once())
-			 ->method("getFullUrl")
-			 ->will($this->returnValue("http://ehough.com"));
-		
 		$tpom = $this->getMock("org_tubepress_options_manager_OptionsManager");
         $tpom->expects($this->exactly(2))
              ->method('get')
@@ -48,7 +44,6 @@ EOT
 			
 		$sut = new org_tubepress_pagination_DiggStylePaginationService();
 		$sut->setOptionsManager($tpom);
-		$sut->setQueryStringService($queryStringService);
 		$sut->setMessageService($msgService);
 		
 		$this->assertEquals($expected, $sut->getHtml(100));
