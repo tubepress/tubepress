@@ -31,7 +31,7 @@ interface org_tubepress_embedded_EmbeddedPlayerService
     /**
      * Spits back the text for this embedded player
      *
-     * @param $videoId The video ID to display
+     * @param string $videoId The video ID to display
      *
      * @return string The text for this embedded player
      */

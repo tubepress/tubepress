@@ -20,9 +20,10 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array(
-    'org_tubepress_embedded_impl_AbstractEmbeddedPlayerService'));
+    'org_tubepress_embedded_impl_AbstractEmbeddedPlayerService',
+    'org_tubepress_video_feed_provider_Provider'));
 
 /**
  * An HTML-embeddable player
@@ -36,7 +37,7 @@ class org_tubepress_embedded_impl_DefaultEmbeddedPlayerService extends org_tubep
     /**
      * Spits back the text for this embedded player
      *
-     * @param $videoId The video ID to display
+     * @param string $videoId The video ID to display
      *
      * @return string The text for this embedded player
      */
@@ -49,6 +50,27 @@ class org_tubepress_embedded_impl_DefaultEmbeddedPlayerService extends org_tubep
         return $this->_youtubeService->toString($videoId);
     }
     
-    public function setYouTubeEmbeddedPlayerService(org_tubepress_embedded_EmbeddedPlayerService $s) { $this->_youtubeService = $s; }
-    public function setVimeoEmbeddedPlayerService(org_tubepress_embedded_EmbeddedPlayerService $s) { $this->_vimeoService = $s; }
+    /**
+     * Set the YouTube embedded player service.
+     *
+     * @param org_tubepress_embedded_EmbeddedPlayerService $service The YouTube embedded player service.
+     *
+     * @return void
+     */
+    public function setYouTubeEmbeddedPlayerService(org_tubepress_embedded_EmbeddedPlayerService $service)
+    { 
+        $this->_youtubeService = $service;
+    }
+
+    /**
+     * Set the Vimeo embedded player service.
+     *
+     * @param org_tubepress_embedded_EmbeddedPlayerService $service The Vimeo embedded player service.
+     *
+     * @return void
+     */
+    public function setVimeoEmbeddedPlayerService(org_tubepress_embedded_EmbeddedPlayerService $service)
+    { 
+        $this->_vimeoService = $service; 
+    }
 }

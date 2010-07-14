@@ -20,13 +20,12 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array(
     'org_tubepress_embedded_impl_AbstractEmbeddedPlayerService'));
 
 /**
- * An HTML-embeddable player for Vimeo
- *
+ * An HTML-embeddable player for Vimeo.
  */
 class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService extends org_tubepress_embedded_impl_AbstractEmbeddedPlayerService
 {
@@ -39,40 +38,43 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService extends org_tubepre
     const VIMEO_QUERYPARAM_COLOR    = 'color';
 
     /**
-     * Spits back the text for this embedded player
+     * Spits back the text for this embedded player.
      *
-     * @param $videoId The video ID to display
+     * @param string $videoId The ID of the video to display.
      *
-     * @return string The text for this embedded player
+     * @return string The text for this embedded player.
      */
     public function toString($videoId)
     {   
         /* collect the embedded options we're interested in */
-        $tpom = $this->getOptionsManager();
-        $width       = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
-        $height      = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT);
-        $fullscreen  = $tpom->get(org_tubepress_options_category_Embedded::FULLSCREEN);
-        $autoPlay    = $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY);
-        $color       = $tpom->get(org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT);
-        $showInfo    = $tpom->get(org_tubepress_options_category_Embedded::SHOW_INFO);
+        $tpom       = $this->getOptionsManager();
+        $width      = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
+        $height     = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT);
+        $fullscreen = $tpom->get(org_tubepress_options_category_Embedded::FULLSCREEN);
+        $autoPlay   = $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY);
+        $color      = $tpom->get(org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT);
+        $showInfo   = $tpom->get(org_tubepress_options_category_Embedded::SHOW_INFO);
 
         /* build the data URL based on these options */
         $link = new net_php_pear_Net_URL2(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_EMBEDDED_PLAYER_URL);
-        $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_CLIPID,   $videoId);
-        $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_FS,       $this->booleanToOneOrZero($fullscreen));
+        $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_CLIPID, $videoId);
+        $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_FS, $this->booleanToOneOrZero($fullscreen));
         $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_AUTOPLAY, $this->booleanToOneOrZero($autoPlay));
-        $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_COLOR,    $color);
+        $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_COLOR, $color);
+
         if ($showInfo) {
-            $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_TITLE,  '1');
+            $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_TITLE, '1');
             $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_BYLINE, '1');
         }
+
         $link = $link->getURL(true);
 
         /* prep the template and we're done */
-        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_DATA_URL,   $link);
-        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH,      $width);
-        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT,     $height);
-        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_FULLSCREEN, $this->booleanToString($fullscreen));
-        return $this->_template->toString();
+        $template = $this->getTemplate();
+        $template->setVariable(org_tubepress_template_Template::EMBEDDED_DATA_URL, $link);
+        $template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $width);
+        $template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT, $height);
+        $template->setVariable(org_tubepress_template_Template::EMBEDDED_FULLSCREEN, $this->booleanToString($fullscreen));
+        return $template->toString();
     }
 }

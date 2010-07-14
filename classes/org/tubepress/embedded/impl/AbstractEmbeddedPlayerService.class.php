@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_embedded_EmbeddedPlayerService',
     'org_tubepress_options_manager_OptionsManager',
     'org_tubepress_template_Template'));
@@ -30,11 +30,19 @@ tubepress_load_classes(array('org_tubepress_embedded_EmbeddedPlayerService',
  *
  */
 abstract class org_tubepress_embedded_impl_AbstractEmbeddedPlayerService implements org_tubepress_embedded_EmbeddedPlayerService
-{   
+{
     private $_optionsManager;
-    protected $_template;
+    private $_template;
     
-    protected function _safeColorValue($candidate, $default)
+    /**
+     * Returns a valid HTML color.
+     *
+     * @param string $candidate The first-choice HTML color. May be invalid.
+     * @param string $default   The fallback HTML color. Must be be invalid.
+     *
+     * @return string $candidate if it's a valid HTML color. $default otherwise.
+     */
+    protected function getSafeColorValue($candidate, $default)
     {
         $pattern = '/^[0-9a-fA-F]{6}$/';
         if (preg_match($pattern, $candidate) === 1) {
@@ -43,6 +51,13 @@ abstract class org_tubepress_embedded_impl_AbstractEmbeddedPlayerService impleme
         return $default;
     }
 
+    /**
+     * Converts a boolean value to a string 1 or 0.
+     *
+     * @param boolean $bool The boolean value to convert.
+     *
+     * @return string '1' or '0'
+     */
     protected function booleanToOneOrZero($bool)
     {
         if ($bool === '1') {
@@ -54,16 +69,59 @@ abstract class org_tubepress_embedded_impl_AbstractEmbeddedPlayerService impleme
         return $bool ? '1' : '0';
     }
 
+    /**
+     * Converts a boolean value to string.
+     *
+     * @param boolean $bool The boolean value to convert.
+     *
+     * @return string 'true' or 'false'
+     */
     protected function booleanToString($bool)
     {
         return $bool ? 'true' : 'false';
     }
     
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $optionsManager) { $this->_optionsManager = $optionsManager; }
-    public function setTemplate(org_tubepress_template_Template $template) { $this->_template = $template; }
+    /**
+     * Set the options manager.
+     *
+     * @param org_tubepress_options_manager_OptionsManager $optionsManager The options manager.
+     *
+     * @return void
+     */
+    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $optionsManager)
+    {
+        $this->_optionsManager = $optionsManager;
+    }
+
+    /**
+     * Set the template.
+     *
+     * @param org_tubepress_template_Template $template The template for the embedded player.
+     *
+     * @return void
+     */
+    public function setTemplate(org_tubepress_template_Template $template)
+    {
+        $this->_template = $template;
+    }
     
+    /**
+     * Get the options manager.
+     *
+     * @return org_tubepress_options_manager_OptionsManager The options manager.
+     */
     protected function getOptionsManager()
     {
         return $this->_optionsManager;
+    }
+
+    /**
+     * Get the template.
+     *
+     * @return org_tubepress_template_Template The template in use.
+     */
+    protected function getTemplate()
+    {
+        return $this->_template;
     }
 }

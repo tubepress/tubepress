@@ -20,19 +20,20 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_embedded_impl_AbstractEmbeddedPlayerService',
     'net_php_pear_Net_URL2',
     'org_tubepress_template_Template'));
 
 /**
- * Represents an HTML-embeddable JW FLV Player
- *
+ * Represents an HTML-embeddable JW FLV Player.
  */
 class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService extends org_tubepress_embedded_impl_AbstractEmbeddedPlayerService
 {
     /**
-     * Spits back the text for this embedded player
+     * Spits back the text for this embedded player.
+     *
+     * @param string $videoId The ID of the video to display.
      *
      * @return string The text for this embedded player
      */
@@ -40,18 +41,19 @@ class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService extends org_tubepre
     {
         global $tubepress_base_url;
    
-        $tpom = $this->getOptionsManager();
+        $tpom     = $this->getOptionsManager();
+        $template = $this->getTemplate();
         
         $link = new net_php_pear_Net_URL2(sprintf('http://www.youtube.com/watch?v=%s', $videoId));
         
         $link = $link->getURL(true);
         
-        $this->_template->setVariable(org_tubepress_template_Template::TUBEPRESS_BASE_URL, $tubepress_base_url);
-        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_DATA_URL,  $link);
-        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_AUTOSTART, $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY) ? 'true' : 'false');
-        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH,     $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
-        $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT,    $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT));
+        $template->setVariable(org_tubepress_template_Template::TUBEPRESS_BASE_URL, $tubepress_base_url);
+        $template->setVariable(org_tubepress_template_Template::EMBEDDED_DATA_URL, $link);
+        $template->setVariable(org_tubepress_template_Template::EMBEDDED_AUTOSTART, $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY) ? 'true' : 'false');
+        $template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
+        $template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT));
         
-        return $this->_template->toString();
+        return $template->toString();
     }  
 }
