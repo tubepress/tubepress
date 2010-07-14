@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('net_sourceforge_phpcrafty_ComponentFactory'));
 
 /**
@@ -47,8 +47,9 @@ abstract class org_tubepress_ioc_PhpCraftyIocService extends net_sourceforge_php
      * Define an implementation for a class. We'll never use constructor
      * injection, and we'll only use singletons, so this is just a convenience class.
      * 
-     * @param $className
-     * @param $properties
+     * @param string $className  The class to build.
+     * @param array  $properties The array of properties. We ignore it.
+     * 
      * @return unknown_type
      */
     public function impl($className, $properties = array())

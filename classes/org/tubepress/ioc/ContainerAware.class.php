@@ -20,13 +20,20 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_ioc_IocService'));
 
 /**
- * Dependency injector for TubePress
+ * Dependency injector for TubePress.
  */
 interface org_tubepress_ioc_ContainerAware
 {
+    /**
+     * Set the IOC container.
+     *
+     * @param org_tubepress_ioc_IocService $container The IOC container.
+     *
+     * @return void
+     */
     public function setContainer(org_tubepress_ioc_IocService $container);
 }

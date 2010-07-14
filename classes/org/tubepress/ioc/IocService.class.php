@@ -24,43 +24,59 @@
  */
 interface org_tubepress_ioc_IocService
 {
-    const CACHE_SERVICE                 = 'cacheService';
-    const FEED_INSPECTION_SERVICE       = 'feedInspectionService';
-    const FEED_RETRIEVAL_SERVICE        = 'feedRetrievalService';
-    const GALLERY                       = 'gallery';
-    const GALLERY_TEMPLATE              = 'galleryTemplate';
-    const LOCAL_FEED_INSPECTION         = 'localFeedInspection';
-    const LOCAL_VIDEO_FACTORY           = 'localVideoFactory';
-    const LONGTAIL_EMBEDDED_TEMPLATE    = 'longtailEmbeddedTemplate';
-    const MESSAGE_SERVICE               = 'messageService';
-    const MODAL_PLAYER_TEMPLATE         = 'modalPlayerTemplate';
-    const NORMAL_PLAYER_TEMPLATE        = 'normalPlayerTemplate';
-    const OPTIONS_MANAGER               = 'optionsManager';
-    const OPTIONS_FORM_HANDLER          = 'formHandler';
-    const OPTIONS_REFERENCE             = 'optionsReference';
-    const OPTIONS_FORM_TEMPLATE         = 'optionsFormTemplate';
-    const PAGINATION_SERVICE            = 'paginationService';
-    const SHORTCODE_SERVICE             = 'shortcodeService';
-    const SINGLE_VIDEO                  = 'singleVideo';
-    const SINGLE_VIDEO_TEMPLATE         = 'singleVideoTemplate';
-    const STORAGE_MANAGER               = 'storageManager';
-    const THUMB_TEMPLATE                = 'thumbTemplate';
-    const URL_BUILDER                   = 'ulrBuilderService';
-    const VALIDATION_SERVICE            = 'validationService';
-    const VIMEO_VIDEO_FACTORY           = 'vimeoVideoFactory';
-    const VIMEO_EMBEDDED_TEMPLATE       = 'vimeoEmbeddedTemplate';
-    const VIMEO_EMBEDDED_PLAYER         = 'vimeoEmbeddedPlayer';
-    const VIMEO_FEED_INSPECTION         = 'vimeoFeedInspection';
-    const VIMEO_URL_BUILDER             = 'vimeoUrlBuilder';
-    const VIDEO_FACTORY                 = 'videoFactory';
-    const VIDEO_PROVIDER                = 'videoProvider';
-    const YOUTUBE_EMBEDDED_TEMPLATE     = 'youtubeEmbeddedTemplate';
-    const YOUTUBE_EMBEDDED_PLAYER       = 'youtubeEmbeddedPlayerService';
-    const YOUTUBE_FEED_INSPECTION       = 'youtubeFeedInspectionService';
-    const YOUTUBE_URL_BUILDER           = 'youtubeUrlBuilder';
-    const YOUTUBE_VIDEO_FACTORY         = 'youtubeVideoFactory';
+    const CACHE_SERVICE              = 'cacheService';
+    const FEED_INSPECTION_SERVICE    = 'feedInspectionService';
+    const FEED_RETRIEVAL_SERVICE     = 'feedRetrievalService';
+    const GALLERY                    = 'gallery';
+    const GALLERY_TEMPLATE           = 'galleryTemplate';
+    const LOCAL_FEED_INSPECTION      = 'localFeedInspection';
+    const LOCAL_VIDEO_FACTORY        = 'localVideoFactory';
+    const LONGTAIL_EMBEDDED_TEMPLATE = 'longtailEmbeddedTemplate';
+    const MESSAGE_SERVICE            = 'messageService';
+    const MODAL_PLAYER_TEMPLATE      = 'modalPlayerTemplate';
+    const NORMAL_PLAYER_TEMPLATE     = 'normalPlayerTemplate';
+    const OPTIONS_MANAGER            = 'optionsManager';
+    const OPTIONS_FORM_HANDLER       = 'formHandler';
+    const OPTIONS_REFERENCE          = 'optionsReference';
+    const OPTIONS_FORM_TEMPLATE      = 'optionsFormTemplate';
+    const PAGINATION_SERVICE         = 'paginationService';
+    const SHORTCODE_SERVICE          = 'shortcodeService';
+    const SINGLE_VIDEO               = 'singleVideo';
+    const SINGLE_VIDEO_TEMPLATE      = 'singleVideoTemplate';
+    const STORAGE_MANAGER            = 'storageManager';
+    const THUMB_TEMPLATE             = 'thumbTemplate';
+    const URL_BUILDER                = 'ulrBuilderService';
+    const VALIDATION_SERVICE         = 'validationService';
+    const VIMEO_VIDEO_FACTORY        = 'vimeoVideoFactory';
+    const VIMEO_EMBEDDED_TEMPLATE    = 'vimeoEmbeddedTemplate';
+    const VIMEO_EMBEDDED_PLAYER      = 'vimeoEmbeddedPlayer';
+    const VIMEO_FEED_INSPECTION      = 'vimeoFeedInspection';
+    const VIMEO_URL_BUILDER          = 'vimeoUrlBuilder';
+    const VIDEO_FACTORY              = 'videoFactory';
+    const VIDEO_PROVIDER             = 'videoProvider';
+    const YOUTUBE_EMBEDDED_TEMPLATE  = 'youtubeEmbeddedTemplate';
+    const YOUTUBE_EMBEDDED_PLAYER    = 'youtubeEmbeddedPlayerService';
+    const YOUTUBE_FEED_INSPECTION    = 'youtubeFeedInspectionService';
+    const YOUTUBE_URL_BUILDER        = 'youtubeUrlBuilder';
+    const YOUTUBE_VIDEO_FACTORY      = 'youtubeVideoFactory';
 
+    /**
+     * Get an object from the container by name.
+     *
+     * @param string $className The name of the object to retrieve.
+     *
+     * @return object The object with the given name.
+     */
     public function get($className);
     
+    /**
+     * Get an object from the container by name. If it doesn't exist
+     *  get the object denoted by the second parameter.
+     *
+     * @param string $firstChoice The name of the object to retrieve. May not exist.
+     * @param string $safeChoice  The fallback object. Must exist.
+     *
+     * @return object The object with the given name, of the fallback object.
+     */
     public function safeGet($firstChoice, $safeChoice);
 }

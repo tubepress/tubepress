@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_ioc_PhpCraftyIocService',
     'org_tubepress_cache_SimpleCacheService',
     'org_tubepress_embedded_impl_DefaultEmbeddedPlayerService',
@@ -64,6 +64,9 @@ tubepress_load_classes(array('org_tubepress_ioc_PhpCraftyIocService',
  */
 class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIocService implements org_tubepress_ioc_IocService
 {
+    /**
+     * Default constructor.
+     */
     function __construct()
     {
         $uiBase = dirname(__FILE__) . "/../../../../ui";
