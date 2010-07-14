@@ -20,11 +20,11 @@
  */
 
 /**
- * TubePress gallery
+ * TubePress gallery.
  */
 interface org_tubepress_gallery_TubePressGallery
 {
-	const DIRECTORY        = 'directory';
+    const DIRECTORY        = 'directory';
     const FAVORITES        = 'favorites';
     const FEATURED         = 'recently_featured';
     const MOBILE           = 'mobile';
@@ -46,5 +46,12 @@ interface org_tubepress_gallery_TubePressGallery
     const VIMEO_ALBUM      = 'vimeoAlbum';
     const VIMEO_GROUP      = 'vimeoGroup';
     
+    /**
+     * Generates the HTML for a gallery with the given ID.
+     *
+     * @param integer $galleryId The unique identifier of the gallery.
+     *
+     * @return string The HTML contents of the gallery/video.
+     */
     public function getHtml($galleryId);
 }
