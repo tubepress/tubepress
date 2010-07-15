@@ -20,8 +20,7 @@
  */
 
 /**
- * Advanced option names for the plugin
- *
+ * Advanced option names for the plugin.
  */
 class org_tubepress_options_category_Advanced
 {
@@ -29,4 +28,4 @@ class org_tubepress_options_category_Advanced
     const DEBUG_ON        = 'debugging_enabled';
     const KEYWORD         = 'keyword';
     const VIDEO_BLACKLIST = 'videoBlacklist';
-} 
+}

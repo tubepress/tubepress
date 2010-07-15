@@ -21,7 +21,6 @@
 
 /**
  * YouTube feed options
- *
  */
 class org_tubepress_options_category_Feed
 {
@@ -32,4 +31,4 @@ class org_tubepress_options_category_Feed
     const FILTER           = "filter_racy";
     const DEV_KEY          = "developerKey";
     const RESULT_COUNT_CAP = "resultCountCap";
-} 
+}

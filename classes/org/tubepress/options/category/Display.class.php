@@ -25,8 +25,8 @@
  */
 class org_tubepress_options_category_Display
 {
-    /* The order in which these constants are declared dictates the
-       order in which they'll be presented on the options page */
+    //The order in which these constants are declared dictates the
+    //order in which they'll be presented on the options page */
     const AJAX_PAGINATION     = 'ajaxPagination';
     const CURRENT_PLAYER_NAME = 'playerLocation';
     const RESULTS_PER_PAGE    = 'resultsPerPage';
