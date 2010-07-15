@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_single_Video',
     'org_tubepress_video_feed_provider_Provider',
     'org_tubepress_options_category_Embedded',
@@ -46,15 +46,25 @@ class org_tubepress_single_VideoImpl implements org_tubepress_single_Video, org_
     private $_log;
     private $_logPrefix;
     private $_templateDir;
-    
+
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->_logPrefix = 'Single Video';
-        
+
         /* SET THE TEMPLATE DIRECTORY HERE. DON'T FORGET THE TRAILING SLASH ;)  */
         $this->_templateDir = dirname(__FILE__) . '/../../../../ui/single_video/html_templates/';
     }
-    
+
+    /**
+     * Get the HTML for a single video display.
+     *
+     * @param string $videoId The ID of the video to display.
+     *
+     * @return string The HTML for the single video display.
+     */
     public function getSingleVideoHtml($videoId)
     {
         try {
@@ -63,66 +73,103 @@ class org_tubepress_single_VideoImpl implements org_tubepress_single_Video, org_
             return $e->getMessage();
         }
     }
-    
-    public function _getSingleVideoHtml($videoId)
+
+    /**
+     * Get the HTML for a single video display.
+     *
+     * @param string $videoId The ID of the video to display.
+     *
+     * @return string The HTML for the single video display.
+     */
+    private function _getSingleVideoHtml($videoId)
     {
         /* grab the video from the provider */
         org_tubepress_log_Log::log($this->_logPrefix, 'Asking provider for video with ID %s', $videoId);
         $video = $this->_provider->getSingleVideo($videoId);
-        
+
         $this->_prepTemplate($video);
-        
+
         /* staples - that was easy */
         return $this->_template->toString();
     }
-    
+
+    /**
+     * Prep the template for display.
+     *
+     * @param org_tubepress_video_Video $video The video to display.
+     *
+     * @return void
+     */
     private function _prepTemplate($video)
     {
         $customTemplate = $this->_tpom->get(org_tubepress_options_category_Template::TEMPLATE);
-            
+
         if ($customTemplate != '') {
             $template = realpath($this->_templateDir . $customTemplate);
             org_tubepress_log_Log::log($this->_logPrefix, 'Using custom template at %s', $template);
             $this->_template->setPath($template);
         }
-        
-        $metaNames = $this->_optionsReference->getOptionNamesForCategory(org_tubepress_options_Category::META);
+
+        $metaNames  = $this->_optionsReference->getOptionNamesForCategory(org_tubepress_options_Category::META);
         $shouldShow = array();
-        $labels = array();
+        $labels     = array();
         foreach ($metaNames as $metaName) {
             $shouldShow[$metaName] = $this->_tpom->get($metaName);
-            $labels[$metaName] = $this->_messageService->_('video-' . $metaName);            
+            $labels[$metaName]     = $this->_messageService->_('video-' . $metaName);
         }
         $this->_template->setVariable(org_tubepress_template_Template::META_SHOULD_SHOW, $shouldShow);
         $this->_template->setVariable(org_tubepress_template_Template::META_LABELS, $labels);
-        
+
         /* apply it to the template */
-        $eps = $this->_container->safeGet($this->_tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", 
+        $eps = $this->_container->safeGet($this->_tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded",
             org_tubepress_embedded_EmbeddedPlayerService::DDEFAULT . "-embedded");
         $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_SOURCE, $eps->toString($video->getId()));
         $this->_template->setVariable(org_tubepress_template_Template::VIDEO, $video);
         $this->_template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $this->_tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
-        
+
         $this->_prepUrlPrefixes();
     }
-    
+
     private function _prepUrlPrefixes()
     {
         $provider = $this->_tpom->calculateCurrentVideoProvider();
         if ($provider === org_tubepress_video_feed_provider_Provider::YOUTUBE) {
             $this->_template->setVariable(org_tubepress_template_Template::AUTHOR_URL_PREFIX, 'http://www.youtube.com/profile?user=');
-            $this->_template->setVariable(org_tubepress_template_Template::VIDEO_SEARCH_PREFIX, 'http://www.youtube.com/results?search_query=');            
+            $this->_template->setVariable(org_tubepress_template_Template::VIDEO_SEARCH_PREFIX, 'http://www.youtube.com/results?search_query=');
         } else {
             $this->_template->setVariable(org_tubepress_template_Template::AUTHOR_URL_PREFIX, 'http://vimeo.com/');
-            $this->_template->setVariable(org_tubepress_template_Template::VIDEO_SEARCH_PREFIX, 'http://vimeo.com/videos/search:'); 
-        }        
+            $this->_template->setVariable(org_tubepress_template_Template::VIDEO_SEARCH_PREFIX, 'http://vimeo.com/videos/search:');
+        }
     }
-    
-    public function setVideoProvider(org_tubepress_video_feed_provider_Provider $provider) { $this->_provider = $provider; }
-    public function setTemplate(org_tubepress_template_Template $template) { $this->_template = $template; }
-    public function setContainer(org_tubepress_ioc_IocService $container) { $this->_container = $container; }
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $mgr) { $this->_tpom = $mgr; }
-    public function setOptionsReference(org_tubepress_options_reference_OptionsReference $ref) { $this->_optionsReference = $ref; }
-    public function setMessageService(org_tubepress_message_MessageService $messageService) {     $this->_messageService     = $messageService; }
+
+    public function setVideoProvider(org_tubepress_video_feed_provider_Provider $provider)
+    {
+        $this->_provider = $provider;
+    }
+
+    public function setTemplate(org_tubepress_template_Template $template)
+    {
+        $this->_template = $template;
+    }
+
+    public function setContainer(org_tubepress_ioc_IocService $container)
+    {
+        $this->_container = $container;
+    }
+
+    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $mgr)
+    {
+        $this->_tpom = $mgr;
+    }
+
+    public function setOptionsReference(org_tubepress_options_reference_OptionsReference $ref)
+    {
+        $this->_optionsReference = $ref;
+    }
+
+    public function setMessageService(org_tubepress_message_MessageService $messageService)
+    {
+        $this->_messageService = $messageService;
+    }
 }
 

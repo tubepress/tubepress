@@ -24,6 +24,13 @@
  */
 interface org_tubepress_single_Video
 {
-    public function getSingleVideoHtml($videoId);    
+    /**
+     * Get the HTML for a single video display.
+     *
+     * @param string $videoId The ID of the video to display.
+     *
+     * @return string The HTML for the single video display.
+     */
+    public function getSingleVideoHtml($videoId);
 }
 
