@@ -20,16 +20,16 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_options_storage_AbstractStorageManager',
     'org_tubepress_options_reference_SimpleOptionsReference',
     'org_tubepress_message_WordPressMessageService',
-    'org_tubepress_options_validation_SimpleInputValidationService'));
+    'org_tubepress_options_validation_SimpleInputValidationService',
+    'org_tubepress_gallery_TubePressGallery'));
 
 /**
  * Implementation of org_tubepress_options_storage_StorageManager that uses the
  * regular WordPress options API
- *
  */
 class org_tubepress_options_storage_WordPressStorageManager extends org_tubepress_options_storage_AbstractStorageManager
 {
@@ -38,7 +38,7 @@ class org_tubepress_options_storage_WordPressStorageManager extends org_tubepres
      * with this value. Helps avoid naming conflicts.
      */
     const OPTION_PREFIX = "tubepress-";
-    
+
     /**
      * Constructor. Until I can come up with a better way to validate options, this is gonna be how we
      * check to make sure that the db is initialized.
@@ -46,31 +46,31 @@ class org_tubepress_options_storage_WordPressStorageManager extends org_tubepres
      * @return unknown_type
      */
     public function __construct()
-	{
-	    $needToInit = false;
-	    
-	    if ($this->exists("version")) {
-	        $version = $this->get("version");
-	        if (!is_numeric($version) || $version < 200) {
-	           $needToInit = true;
-	        }
-	    } else {
-	        $this->create("version", 200);
-	        $needToInit = true;
-	    }
-	    
-	    if ($needToInit) {
-	        $reference = new org_tubepress_options_reference_SimpleOptionsReference();
-		    $msgService = new org_tubepress_message_WordPressMessageService();
-		    $validationService = new org_tubepress_options_validation_SimpleInputValidationService();
-		    $validationService->setMessageService($msgService);
-    	    $ref = new org_tubepress_options_reference_SimpleOptionsReference();
-	        $this->setInputValidationService($validationService);
-	        $this->setOptionsReference($ref);
-	        $this->init();
-	    }
-	}
-    
+    {
+        $needToInit = false;
+
+        if ($this->exists("version")) {
+            $version = $this->get("version");
+            if (!is_numeric($version) || $version < 200) {
+                $needToInit = true;
+            }
+        } else {
+            $this->create("version", 200);
+            $needToInit = true;
+        }
+
+        if ($needToInit) {
+            $reference         = new org_tubepress_options_reference_SimpleOptionsReference();
+            $msgService        = new org_tubepress_message_WordPressMessageService();
+            $validationService = new org_tubepress_options_validation_SimpleInputValidationService();
+            $validationService->setMessageService($msgService);
+            $ref = new org_tubepress_options_reference_SimpleOptionsReference();
+            $this->setInputValidationService($validationService);
+            $this->setOptionsReference($ref);
+            $this->init();
+        }
+    }
+
     /**
      * Creates an option in storage
      *
@@ -81,10 +81,9 @@ class org_tubepress_options_storage_WordPressStorageManager extends org_tubepres
      */
     protected function create($optionName, $optionValue)
     {
-        add_option(org_tubepress_options_storage_WordPressStorageManager::OPTION_PREFIX . $optionName,
-            $optionValue);
-    }    
-    
+        add_option(self::OPTION_PREFIX . $optionName, $optionValue);
+    }
+
     /**
      * Deletes an option from storage
      *
@@ -94,9 +93,9 @@ class org_tubepress_options_storage_WordPressStorageManager extends org_tubepres
      */
     protected function delete($optionName)
     {
-        delete_option(org_tubepress_options_storage_WordPressStorageManager::OPTION_PREFIX . $optionName);
-    }    
-    
+        delete_option(self::OPTION_PREFIX . $optionName);
+    }
+
     /**
      * Determines if an option exists
      *
@@ -106,10 +105,9 @@ class org_tubepress_options_storage_WordPressStorageManager extends org_tubepres
      */
     public function exists($optionName)
     {
-        return get_option(org_tubepress_options_storage_WordPressStorageManager::OPTION_PREFIX . $optionName)
-           !== false;
-    }    
-    
+        return get_option(self::OPTION_PREFIX . $optionName) !== false;
+    }
+
     /**
      * Retrieve the current value of an option
      *
@@ -119,9 +117,9 @@ class org_tubepress_options_storage_WordPressStorageManager extends org_tubepres
      */
     public function get($optionName)
     {
-        return get_option(org_tubepress_options_storage_WordPressStorageManager::OPTION_PREFIX . $optionName);
+        return get_option(self::OPTION_PREFIX . $optionName);
     }
-    
+
     /**
      * Wipes out all TubePress options and replaces them with their defaults
      * 
@@ -136,8 +134,8 @@ class org_tubepress_options_storage_WordPressStorageManager extends org_tubepres
             }
         }
         $this->init();
-    }    
-    
+    }
+
     /**
      * Sets an option to a new value, without validation
      *
@@ -148,7 +146,6 @@ class org_tubepress_options_storage_WordPressStorageManager extends org_tubepres
      */
     protected function setOption($optionName, $optionValue)
     {
-        update_option(org_tubepress_options_storage_WordPressStorageManager::OPTION_PREFIX . $optionName,
-            $optionValue);
+        update_option(self::OPTION_PREFIX . $optionName, $optionValue);
     }
 }

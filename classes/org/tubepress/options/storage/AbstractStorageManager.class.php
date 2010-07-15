@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_options_storage_StorageManager',
     'org_tubepress_options_Type',
     'org_tubepress_options_validation_InputValidationService',
@@ -28,13 +28,12 @@ tubepress_load_classes(array('org_tubepress_options_storage_StorageManager',
 
 /**
  * Handles persistent storage of TubePress options
- *
  */
 abstract class org_tubepress_options_storage_AbstractStorageManager implements org_tubepress_options_storage_StorageManager
-{   
+{
     private $_validationService;
     private $_optionsReference;
-    
+
     /**
      * Creates an option in storage
      *
@@ -43,8 +42,8 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
      * 
      * @return void
      */
-    protected abstract function create($optionName, $optionValue);    
-    
+    protected abstract function create($optionName, $optionValue);
+
     /**
      * Deletes an option from storage
      *
@@ -52,8 +51,8 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
      * 
      * @return void
      */
-    protected abstract function delete($optionName);    
-     
+    protected abstract function delete($optionName);
+
     /**
      * Initialize the persistent storage
      * 
@@ -62,16 +61,24 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
     public final function init()
     {
         $allOptionNames = $this->_optionsReference->getAllOptionNames();
-        $vals = array();
+        $vals           = array();
         foreach ($allOptionNames as $optionName) {
             $vals[$optionName] = $this->_optionsReference->getDefaultValue($optionName);
         }
-        
-        foreach($vals as $val => $key) {
+
+        foreach ($vals as $val => $key) {
             $this->_init($val, $key);
         }
-    }    
+    }
 
+    /**
+     * Initializes a single option.
+     *
+     * @param string $name  The option name.
+     * @param string $value The option value.
+     *
+     * @return void
+     */
     private function _init($name, $value)
     {
         if (!$this->_optionsReference->shouldBePersisted($name)) {
@@ -84,10 +91,10 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
         }
         if ($this->_optionsReference->getType($name) != org_tubepress_options_Type::BOOL
             && $this->get($name) == "") {
-            $this->setOption($name, $value);        
+            $this->setOption($name, $value);
         }
     }
-    
+
     /**
      * Sets an option value
      *
@@ -103,8 +110,8 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
         }
         $this->_validationService->validate($optionName, $optionValue);
         $this->setOption($optionName, $optionValue);
-    }    
-    
+    }
+
     /**
      * Sets an option to a new value, without validation
      *
@@ -114,21 +121,25 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
      * @return void
      */
     protected abstract function setOption($optionName, $optionValue);
-    
+
     /**
      * Set the org_tubepress_options_validation_InputValidationService
      *
      * @param org_tubepress_options_validation_InputValidationService $validationService The validation service
+     *
+     * @return void
      */
     public function setInputValidationService(org_tubepress_options_validation_InputValidationService $validationService)
     {
         $this->_validationService = $validationService;
     }
-    
+
     /**
-     * Set the org_tubepress_options_reference_OptionsReference
+     * Set the options reference.
      *
      * @param org_tubepress_options_reference_OptionsReference $reference The options reference
+     *
+     * @return void
      */
     public function setOptionsReference(org_tubepress_options_reference_OptionsReference $reference)
     {
