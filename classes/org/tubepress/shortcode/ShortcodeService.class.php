@@ -20,27 +20,35 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
-	'org_tubepress_ioc_IocService'));
+    'org_tubepress_ioc_IocService'));
 
 /**
  * Handles some tasks related to TubePress shortcodes
  */
 interface org_tubepress_shortcode_ShortcodeService
 {
-   /**
+    /**
      * This function is used to parse a shortcode into options that TubePress can use.
      *
-     * @param string                  $content The haystack in which to search
-     * @param org_tubepress_options_manager_OptionsManager &$tpom   The TubePress options manager
+     * @param string                                       $content The haystack in which to search
+     * @param org_tubepress_options_manager_OptionsManager $tpom    The TubePress options manager
      * 
      * @return void
      */
     public function parse($content, org_tubepress_options_manager_OptionsManager $tpom);
 
+    /**
+     * Determines if the given content contains a shortcode.
+     *
+     * @param string $content The content to search through
+     * @param string $trigger The shortcode trigger word
+     *
+     * @return boolean True if there's a shortcode in the content, false otherwise.
+     */
     public function somethingToParse($content, $trigger = "tubepress");
-    
+
     public function getHtml(org_tubepress_ioc_IocService $iocService);
 }
 
