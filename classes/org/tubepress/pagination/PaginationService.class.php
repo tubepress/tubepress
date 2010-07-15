@@ -20,9 +20,16 @@
  */
 
 /**
- * General purpose cache for TubePress
+ * TubePress gallery pagination service.
  */
 interface org_tubepress_pagination_PaginationService
 {
+    /**
+     * Get the HTML for pagination.
+     *
+     * @param int $totalResults The total number of results in this gallery
+     *
+     * @return string The HTML for the pagination.
+     */
     public function getHtml($totalResults);
 }

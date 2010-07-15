@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_pagination_PaginationService',
     'org_tubepress_options_category_Display',
     'net_php_pear_Net_URL2',
@@ -35,7 +35,14 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
 {
     private $_messageService;
     private $_tpom;
-    
+
+    /**
+     * Get the HTML for pagination.
+     *
+     * @param int $vidCount The total number of results in this gallery
+     *
+     * @return string The HTML for the pagination.
+     */
     public function getHtml($vidCount)
     {
         $currentPage = org_tubepress_querystring_QueryStringService::getPageNum($_GET);
@@ -44,7 +51,7 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
         $newurl = new net_php_pear_Net_URL2(org_tubepress_querystring_QueryStringService::getFullUrl($_SERVER));
         $newurl->unsetQueryVariable('tubepress_page');
 
-        $result = $this->_diggStyle($currentPage, $vidCount, $vidsPerPage, 1, $newurl->getURL(), 'tubepress_page');
+        $result = $this->_diggStyle($vidCount, $currentPage, $vidsPerPage, 1, $newurl->getURL(), 'tubepress_page');
 
         /* if we're using Ajax for pagination, remove all the hrefs */
         if ($this->_tpom->get(org_tubepress_options_category_Display::AJAX_PAGINATION)) {
@@ -53,87 +60,95 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
 
         return $result;
     }
-    
-    public function setMessageService(org_tubepress_message_MessageService $messageService) { $this->_messageService = $messageService; }
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }
-    
-    private function _diggStyle($page = 1, $totalitems, $limit = 15, $adjacents = 1, $targetpage = '/', $pagestring = '?page=')
-    {   
-        $prev = $page - 1;                                    
-        $next = $page + 1; 
-        $lastpage = ceil($totalitems / $limit);
-        $lpm1 = $lastpage - 1;        
+
+    /**
+     * Does the heavy lifting of generating pagination.
+     *
+     * @param int    $totalitems The total items in this gallery.
+     * @param int    $page       The current page number.
+     * @param int    $limit      How many videos per page.
+     * @param int    $adjacents  How many adjacents.
+     * @param string $targetpage The target page
+     * @param string $pagestring The query parameter controlling the page number.
+     *
+     * @return The HTML for the pagination
+     */
+    private function _diggStyle($totalitems, $page = 1, $limit = 15, $adjacents = 1, $targetpage = '/', $pagestring = '?page=')
+    {
+        $prev       = $page - 1;
+        $next       = $page + 1;
+        $lastpage   = ceil($totalitems / $limit);
+        $lpm1       = $lastpage - 1;
         $pagination = '';
-        
+
         $url = new net_php_pear_Net_URL2($targetpage);
-    
-        if($lastpage > 1)
-        {    
+
+        if ($lastpage > 1) {
             $pagination .= '<div class="pagination">';
             if ($page > 1) {
                 $url->setQueryVariable($pagestring, $prev);
-                $newurl = $url->getURL();
+                $newurl      = $url->getURL();
                 $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">" . $this->_messageService->_("prev") . '</a>';
             } else {
-                $pagination .= '<span class="disabled">' . $this->_messageService->_("prev") . '</span>';    
-            }    
-    
-            if ($lastpage < 7 + ($adjacents * 2)) {    
+                $pagination .= '<span class="disabled">' . $this->_messageService->_("prev") . '</span>';
+            }
+
+            if ($lastpage < 7 + ($adjacents * 2)) {
                 for ($counter = 1; $counter <= $lastpage; $counter++) {
                     if ($counter == $page) {
                         $pagination .= "<span class=\"current\">$counter</span>";
                     } else {
                         $url->setQueryVariable($pagestring, $counter);
-                        $newurl = $url->getURL();
+                        $newurl      = $url->getURL();
                         $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">$counter</a>";
-                    }            
+                    }
                 }
             } elseif ($lastpage >= 7 + ($adjacents * 2)) {
-                
+
                 if ($page < 1 + ($adjacents * 3)) {
                     for ($counter = 1; $counter < 4 + ($adjacents * 2); $counter++) {
                         if ($counter == $page) {
                             $pagination .= "<span class=\"current\">$counter</span>";
                         } else {
                             $url->setQueryVariable($pagestring, $counter);
-                            $newurl = $url->getURL();
+                            $newurl      = $url->getURL();
                             $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">$counter</a>";
-                        }                
+                        }
                     }
                     $pagination .= '...';
                     $url->setQueryVariable($pagestring, $lpm1);
-                    $newurl = $url->getURL();
+                    $newurl      = $url->getURL();
                     $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$lpm1</a>";
                     $url->setQueryVariable($pagestring, $lastpage);
-                    $newurl = $url->getURL();
-                    $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">$lastpage</a>";   
+                    $newurl      = $url->getURL();
+                    $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">$lastpage</a>";
                 } elseif ($lastpage - ($adjacents * 2) > $page && $page > ($adjacents * 2)) {
                     $url->setQueryVariable($pagestring, 1);
-                    $newurl = $url->getURL();
+                    $newurl      = $url->getURL();
                     $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">1</a>";
                     $url->setQueryVariable($pagestring, 2);
-                    $newurl = $url->getURL();
+                    $newurl      = $url->getURL();
                     $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">2</a>";
                     $pagination .= '...';
-        
+
                     for ($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++) {
                         if ($counter == $page) {
                             $pagination .= "<span class=\"current\">$counter</span>";
                         } else {
-                        $url->setQueryVariable($pagestring, $counter);
-                        $newurl = $url->getURL();
-                        $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$counter</a>";
-                    }            
-                }
-                $pagination .= '...';
-                    
-                $url->setQueryVariable($pagestring, $lpm1);
-                $newurl = $url->getURL();
-                $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$lpm1</a>";
-                $url->setQueryVariable($pagestring, $lastpage);
-                $newurl = $url->getURL();
-                $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$lastpage</a>";   
-   
+                            $url->setQueryVariable($pagestring, $counter);
+                            $newurl      = $url->getURL();
+                            $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$counter</a>";
+                        }
+                    }
+                    $pagination .= '...';
+
+                    $url->setQueryVariable($pagestring, $lpm1);
+                    $newurl      = $url->getURL();
+                    $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$lpm1</a>";
+                    $url->setQueryVariable($pagestring, $lastpage);
+                    $newurl      = $url->getURL();
+                    $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$lastpage</a>";
+
                 } else {
                     $url->setQueryVariable($pagestring, 1);
                     $newurl = $url->getURL();
@@ -142,28 +157,51 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
                     $newurl = $url->getURL();
                     $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">2</a>";
                     $pagination .= '...';
-        
+
                     for ($counter = $lastpage - (1 + ($adjacents * 3)); $counter <= $lastpage; $counter++) {
                         if ($counter == $page) {
                             $pagination .= "<span class=\"current\">$counter</span>";
                         } else {
                             $url->setQueryVariable($pagestring, $counter);
                             $newurl = $url->getURL();
-                            $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$counter</a>";    
+                            $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$counter</a>";
                         }
                     }
                 }
             }
             if ($page < $counter - 1) {
                 $url->setQueryVariable($pagestring, $next);
-                $newurl = $url->getURL();
+                $newurl      = $url->getURL();
                 $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">" . $this->_messageService->_('next') . '</a>';
             } else {
                 $pagination .= '<span class="disabled">' . $this->_messageService->_('next') . '</span>';
-            } 
+            }
             $pagination .= "</div>\n";
         }
-        
         return $pagination;
+    }
+
+    /**
+     * Set the message service.
+     *
+     * @param org_tubepress_message_MessageService $messageService The message service.
+     *
+     * @return void
+     */
+    public function setMessageService(org_tubepress_message_MessageService $messageService)
+    {
+        $this->_messageService = $messageService;
+    }
+
+    /**
+     * Set the options manager.
+     *
+     * @param org_tubepress_options_manager_OptionsManager $tpom The options manager.
+     *
+     * @return void
+     */
+    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom)
+    {
+        $this->_tpom = $tpom;
     }
 }
