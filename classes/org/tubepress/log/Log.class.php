@@ -26,36 +26,46 @@ class org_tubepress_log_Log
 {
     private static $_birthDate;
     private static $_enabled = false;
-    
+
+    /**
+     * Print a logging statement.
+     *
+     * @return void
+     */
     public static function log()
     {
-        if (org_tubepress_log_Log::$_enabled) {
+        if (self::$_enabled) {
             $numArgs = func_num_args();
-            $prefix = func_get_arg(0);
+            $prefix  = func_get_arg(0);
             $message = func_get_arg(1);
-            
+
             /* how many milliseconds have elapsed? */
-            $time = (microtime(true) - org_tubepress_log_Log::$_birthDate) * 1000;
-            
+            $time = (microtime(true) - self::$_birthDate) * 1000;
+
             if ($numArgs > 2) {
-                $args = func_get_args();
+                $args    = func_get_args();
                 $message = vsprintf($message, array_slice($args, 2, count($args)));
             }
-            
+
             /* print it! */
             printf("%s ms > (%s) > %s (memory used: %s)<br /><br />", $time, $prefix, $message, number_format(memory_get_usage()));
         }
     }
 
+    /**
+     * Conditionally enables the log.
+     *
+     * @param boolean $enabled Whether or not to enable the log.
+     * @param array   $getVars The PHP $_GET array.
+     *
+     * @return void
+     */
     public static function setEnabled($enabled, $getVars)
     {
-        org_tubepress_log_Log::$_enabled = $enabled
-            && isset($getVars['tubepress_debug'])
-            && $getVars['tubepress_debug'] == 'true';
-        
-        if (org_tubepress_log_Log::$_enabled) {
-            org_tubepress_log_Log::$_birthDate = microtime(true);
+        self::$_enabled = $enabled && isset($getVars['tubepress_debug']) && $getVars['tubepress_debug'] == 'true';
+
+        if (self::$_enabled) {
+            self::$_birthDate = microtime(true);
         }
     }
-    
 }
