@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_player_Player',
     'org_tubepress_ioc_ContainerAware',
     'org_tubepress_options_manager_OptionsManager',
@@ -31,17 +31,75 @@ tubepress_load_classes(array('org_tubepress_player_Player',
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
 abstract class org_tubepress_player_AbstractPlayer implements org_tubepress_player_Player, org_tubepress_ioc_ContainerAware
-{   
+{
     private $_optionsManager;
     private $_iocContainer;
     private $_template;
-    
-    public function setContainer(org_tubepress_ioc_IocService $container) { $this->_iocContainer = $container; }
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $optionsManager) { $this->_optionsManager = $optionsManager; }
-    public function setTemplate(org_tubepress_template_Template $template) { $this->_template = $template; }
-    
-    protected function getContainer() { return $this->_iocContainer; }
-    protected function getOptionsManager() { return $this->_optionsManager; }
-    protected function getTemplate() { return $this->_template; }
+
+    /**
+     * Set the IOC container.
+     *
+     * @param org_tubepress_ioc_IocService $container The IOC container.
+     *
+     * @return void
+     */
+    public function setContainer(org_tubepress_ioc_IocService $container)
+    {
+        $this->_iocContainer = $container;
+    }
+
+    /**
+     * Set the options manager.
+     *
+     * @param org_tubepress_options_manager_OptionsManager $optionsManager The options manager.
+     *
+     * @return void
+     */
+    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $optionsManager)
+    {
+        $this->_optionsManager = $optionsManager;
+    }
+
+    /**
+     * Set the template.
+     *
+     * @param org_tubepress_template_Template $template The template for the embedded player.
+     *
+     * @return void
+     */
+    public function setTemplate(org_tubepress_template_Template $template)
+    {
+        $this->_template = $template;
+    }
+
+    /**
+     * Get the IOC container.
+     * 
+     * @return org_tubepress_ioc_IocService The IOC service
+     */
+    protected function getContainer()
+    {
+        return $this->_iocContainer;
+    }
+
+    /**
+     * Get the options manager.
+     *
+     * @return org_tubepress_options_manager_OptionsManager The options manager.
+     */
+    protected function getOptionsManager()
+    {
+        return $this->_optionsManager;
+    }
+
+    /**
+     * Get the template.
+     *
+     * @return org_tubepress_template_Template The template in use.
+     */
+    protected function getTemplate()
+    {
+        return $this->_template;
+    }
 }
 

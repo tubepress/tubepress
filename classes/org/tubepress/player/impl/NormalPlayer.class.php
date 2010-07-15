@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_player_AbstractPlayer',
     'org_tubepress_ioc_ContainerAware',
     'org_tubepress_video_Video',
@@ -32,16 +32,24 @@ tubepress_load_classes(array('org_tubepress_player_AbstractPlayer',
  */
 class org_tubepress_player_impl_NormalPlayer extends org_tubepress_player_AbstractPlayer
 {
+    /**
+     * Get the HTML to display above the thumbnail gallery.
+     *
+     * @param org_tubepress_video_Video $vid       The first video in the gallery.
+     * @param string                    $galleryId The gallery uniq identifier.
+     *
+     * @return The HTML to display above the thumbnail gallery.
+     */
     public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId)
     {
         $tpom = $this->getOptionsManager();
-        
+
         $eps = $this->getContainer()->safeGet($tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) . "-embedded", org_tubepress_embedded_EmbeddedPlayerService::DDEFAULT . "-embedded");
 
-        $this->getTemplate()->setVariable(org_tubepress_template_Template::GALLERY_ID,      $galleryId); 
+        $this->getTemplate()->setVariable(org_tubepress_template_Template::GALLERY_ID, $galleryId);
         $this->getTemplate()->setVariable(org_tubepress_template_Template::EMBEDDED_SOURCE, $eps->toString($vid->getId()));
-        $this->getTemplate()->setVariable(org_tubepress_template_Template::VIDEO,           $vid);
-        $this->getTemplate()->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH,  $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
-        return $this->getTemplate()->toString();    
+        $this->getTemplate()->setVariable(org_tubepress_template_Template::VIDEO, $vid);
+        $this->getTemplate()->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
+        return $this->getTemplate()->toString();
     }
 }
