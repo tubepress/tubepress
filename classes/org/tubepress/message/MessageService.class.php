@@ -24,5 +24,12 @@
  */
 interface org_tubepress_message_MessageService
 {
+    /**
+     * Get the message corresponding to the given key.
+     *
+     * @param string $messageKey The message key.
+     *
+     * @return string The corresponding message.
+     */
     public function _($messageKey);
 }

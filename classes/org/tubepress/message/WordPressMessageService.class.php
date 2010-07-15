@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_message_AbstractMessageService'));
 
 /**
@@ -38,7 +38,7 @@ class org_tubepress_message_WordPressMessageService extends org_tubepress_messag
     public function _($msgId)
     {
         $message = $this->_keyToMessage($msgId);
-        return $message == '' ? '' : 
+        return $message == '' ? '' :
             __($message, 'tubepress');
     }
 }
