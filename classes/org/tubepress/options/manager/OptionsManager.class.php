@@ -26,7 +26,6 @@
  */
 interface org_tubepress_options_manager_OptionsManager
 {
-   
     /**
      * Gets the value of an option
      *
@@ -35,35 +34,53 @@ interface org_tubepress_options_manager_OptionsManager
      * @return unknown The option value
      */
     public function get($optionName);
-    
-    public function set($optionName, $optionValue);
-    
+
     /**
-     * Enter description here...
+     * Sets the value of an option
      *
-     * @param array $customOpts Custom options
+     * @param string  $optionName  The name of the option
+     * @param unknown $optionValue The option value
+     * 
+     * @return void
+     */
+    public function set($optionName, $optionValue);
+
+    /**
+     * Sets the options that differ from the default options.
+     *
+     * @param array $customOpts The custom options.
      * 
      * @return void
      */
     public function setCustomOptions($customOpts);
-    
-    public function getCustomOptions();
-    
+
     /**
-     * Enter description here...
+     * Gets the options that differ from the default options.
+     * 
+     * @return array The options that differ from the default options.
+     */
+    public function getCustomOptions();
+
+    /**
+     * Set the current shortcode.
      *
-     * @param string $newTagString The new shortcode
+     * @param string $newTagString The current shortcode
      * 
      * @return void
      */
     public function setShortcode($newTagString);
-    
+
     /**
-     * Enter description here...
+     * Get the current shortcode
      *
-     * @return string The full shortcode
+     * @return string The current shortcode
      */
     public function getShortcode();
-    
+
+    /**
+     * Figures out which provider (YouTube, Vimeo, or Local) that's in use.
+     *
+     * @return string The provider name.
+     */
     public function calculateCurrentVideoProvider();
 }
