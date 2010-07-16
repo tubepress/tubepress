@@ -41,7 +41,6 @@ tubepress_load_classes(array('org_tubepress_ioc_PhpCraftyIocService',
     'org_tubepress_player_impl_NormalPlayer',
     'org_tubepress_player_impl_YouTubePlayer',
     'org_tubepress_player_Player',
-    'org_tubepress_shortcode_SimpleShortcodeService',
     'org_tubepress_single_VideoImpl',
     'org_tubepress_template_SimpleTemplate',
     'org_tubepress_url_DelegatingUrlBuilder',
@@ -138,12 +137,6 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
         $this->def(org_tubepress_player_Player::YOUTUBE . "-player",
             $this->impl('org_tubepress_player_impl_YouTubePlayer',
                 array(org_tubepress_ioc_Setters::OPTIONS_MANAGER => $this->ref(org_tubepress_ioc_IocService::OPTIONS_MANAGER))
-            )
-        );
-        $this->def(org_tubepress_ioc_IocService::SHORTCODE_SERVICE,
-            $this->impl('org_tubepress_shortcode_SimpleShortcodeService',
-                array(
-                    org_tubepress_ioc_Setters::INPUT_VALIDATION => $this->ref(org_tubepress_ioc_IocService::VALIDATION_SERVICE))
             )
         );
         $this->def(org_tubepress_ioc_IocService::YOUTUBE_VIDEO_FACTORY,

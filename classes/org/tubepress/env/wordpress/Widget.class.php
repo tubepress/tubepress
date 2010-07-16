@@ -82,9 +82,8 @@ class org_tubepress_env_wordpress_Widget
         );
     
         /* now apply the user's options */
-        $shortcodeService = $iocContainer->get(org_tubepress_ioc_IocService::SHORTCODE_SERVICE);
         $wpsm             = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE_MANAGER);
-        $shortcodeService->parse($wpsm->get(org_tubepress_options_category_Widget::TAGSTRING), $tpom);
+        org_tubepress_shortcode_ShortcodeParser::parse($wpsm->get(org_tubepress_options_category_Widget::TAGSTRING), $iocContainer);
         
         /* calculate the final options */
         $finalOptions = array_merge($defaultWidgetOptions, $tpom->getCustomOptions());
@@ -93,7 +92,7 @@ class org_tubepress_env_wordpress_Widget
         }
         $tpom->setCustomOptions($finalOptions);
         
-        $out = $shortcodeService->getHtml($iocContainer);
+        $out = org_tubepress_gallery_GalleryUtils::getHtml($iocContainer);
         
         /* do the standard WordPress widget dance */
         echo $before_widget . $before_title . 

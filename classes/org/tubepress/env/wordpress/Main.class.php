@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_options_storage_WordPressStorageManager',
     'org_tubepress_options_category_Advanced',
-    'org_tubepress_shortcode_SimpleShortcodeService',
+    'org_tubepress_shortcode_ShortcodeParser',
     'org_tubepress_ioc_DefaultIocService',
     'org_tubepress_ioc_ProInWordPressIocService',
     'org_tubepress_ioc_IocService',
@@ -45,14 +45,13 @@ class org_tubepress_env_wordpress_Main
             /* do as little work as possible here 'cause we might not even run */
             $wpsm             = new org_tubepress_options_storage_WordPressStorageManager();
             $trigger          = $wpsm->get(org_tubepress_options_category_Advanced::KEYWORD);
-            $shortcodeService = new org_tubepress_shortcode_SimpleShortcodeService();
         
             /* no shortcode? get out */
-            if (!$shortcodeService->somethingToParse($content, $trigger)) {
+            if (!org_tubepress_shortcode_ShortcodeParser::somethingToParse($content, $trigger)) {
                 return $content;
             }
         
-            return org_tubepress_env_wordpress_Main::_getGalleryHtml($content, $trigger);
+            return self::_getGalleryHtml($content, $trigger);
         } catch (Exception $e) {
             return $e->getMessage() . $content;
         }
@@ -81,14 +80,11 @@ class org_tubepress_env_wordpress_Main
         /* Turn on logging if we need to */
         org_tubepress_log_Log::setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON), $_GET);
         
-        /* Get a handle to the shortcode service */
-        $shortcodeService = $iocContainer->get(org_tubepress_ioc_IocService::SHORTCODE_SERVICE);
-
         /* Parse each shortcode one at a time */
-        while ($shortcodeService->somethingToParse($content, $trigger) && $x < 10) {
+        while (org_tubepress_shortcode_ShortcodeParser::somethingToParse($content, $trigger) && $x < 10) {
 
             /* Get the HTML for this particular shortcode. Could be a single video or a gallery. */
-            $generatedHtml = $shortcodeService->getHtml($iocContainer, $content);
+            $generatedHtml = org_tubepress_gallery_GalleryUtils::getHtml($iocContainer, $content);
             
             /* remove any leading/trailing <p> tags from the content */
             $pattern = '/(<[P|p]>\s*)(' . preg_quote($tpom->getShortcode(), '/') . ')(\s*<\/[P|p]>)/';
@@ -108,7 +104,7 @@ class org_tubepress_env_wordpress_Main
      */
     public static function headAction()
     {
-        print org_tubepress_gallery_TubePressGalleryImpl::printHeadElements(false, $_GET);
+        print org_tubepress_html_HtmlUtils::printHeadElements(false, $_GET);
     }
 
     /**

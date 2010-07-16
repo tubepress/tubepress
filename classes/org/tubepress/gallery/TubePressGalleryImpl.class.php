@@ -204,29 +204,6 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
         }
     }
     
-    public static function printHeadElements($include_jQuery = false, $getVars)
-    {
-        global $tubepress_base_url;
-
-        $jqueryInclude = '';
-        if ($include_jQuery) {
-            $jqueryInclude = "<script type=\"text/javascript\" src=\"$tubepress_base_url/ui/lib/jquery-1.3.2.min.js\"></script>";
-        }
-        
-        $result = <<<GBS
-    $jqueryInclude
-    <script type="text/javascript">function getTubePressBaseUrl(){return "$tubepress_base_url";}</script>
-    <script type="text/javascript" src="$tubepress_base_url/ui/lib/tubepress.js"></script>
-    <link rel="stylesheet" href="$tubepress_base_url/ui/gallery/css/tubepress.css" type="text/css" />
-GBS;
-    
-        if (isset($getVars['tubepress_page']) && $getVars['tubepress_page'] > 1) {
-            $result .= '<meta name="robots" content="noindex, nofollow" />
-    ';
-        }
-        return $result;
-    }
-    
     public function setContainer(org_tubepress_ioc_IocService $container) {                       $this->_iocContainer       = $container; }
     public function setTemplate(org_tubepress_template_Template $template) {                      $this->_template           =   $template; }
     public function setMessageService(org_tubepress_message_MessageService $messageService) {     $this->_messageService     = $messageService; }
