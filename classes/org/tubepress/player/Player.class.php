@@ -26,7 +26,7 @@ tubepress_load_classes(array('org_tubepress_video_Video'));
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
-interface org_tubepress_player_Player
+class org_tubepress_player_Player
 {
     const NORMAL    = 'normal';
     const POPUP     = 'popup';
@@ -38,15 +38,5 @@ interface org_tubepress_player_Player
     const STATICC   = 'static';
     const SOLO      = 'solo';
     const VIMEO     = 'vimeo';
-
-    /**
-     * Get the HTML to display above the thumbnail gallery.
-     *
-     * @param org_tubepress_video_Video $vid       The first video in the gallery.
-     * @param string                    $galleryId The gallery uniq identifier.
-     *
-     * @return The HTML to display above the thumbnail gallery.
-     */
-    public function getPreGalleryHtml(org_tubepress_video_Video $vid, $galleryId);
 }
 
