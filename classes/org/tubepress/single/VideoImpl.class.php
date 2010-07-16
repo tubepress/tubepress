@@ -41,9 +41,7 @@ class org_tubepress_single_VideoImpl implements org_tubepress_single_Video, org_
     private $_template;
     private $_container;
     private $_tpom;
-    private $_optionsReference;
     private $_messageService;
-    private $_log;
     private $_logPrefix;
     private $_templateDir;
 
@@ -109,8 +107,9 @@ class org_tubepress_single_VideoImpl implements org_tubepress_single_Video, org_
             org_tubepress_log_Log::log($this->_logPrefix, 'Using custom template at %s', $template);
             $this->_template->setPath($template);
         }
+        
+        $metaNames = org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_options_Category::META);
 
-        $metaNames  = $this->_optionsReference->getOptionNamesForCategory(org_tubepress_options_Category::META);
         $shouldShow = array();
         $labels     = array();
         foreach ($metaNames as $metaName) {

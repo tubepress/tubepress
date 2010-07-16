@@ -32,7 +32,6 @@ tubepress_load_classes(array('org_tubepress_video_feed_retrieval_FeedRetrievalSe
 abstract class org_tubepress_video_feed_retrieval_AbstractFeedRetrievalService implements org_tubepress_video_feed_retrieval_FeedRetrievalService
 {
     private $_cache;
-    protected $_log;
     protected $_logPrefix;
     
     /**

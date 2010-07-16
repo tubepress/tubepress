@@ -45,11 +45,9 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
     
     private $_iocContainer;
     private $_template;
-    private $_log;
     private $_logPrefix;
     private $_messageService;
     private $_optionsManager;
-    private $_optionsReference;
     private $_paginationService;
     private $_thumbnailTemplate;    
     private $_videoProvider;
@@ -64,11 +62,11 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
     
     public function getHtml($galleryId) 
     {
-        try {
+        //try {
             return $this->_getHtml($galleryId);
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
+        //} catch (Exception $e) {
+        //    return $e->getMessage();
+        //}
     }
     
     /**
@@ -167,7 +165,7 @@ class org_tubepress_gallery_TubePressGalleryImpl implements org_tubepress_galler
     
     private function _prepTemplateMetaElements()
     {
-        $metaNames = $this->_optionsReference->getOptionNamesForCategory(org_tubepress_options_Category::META);
+        $metaNames = org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_options_Category::META);
         $shouldShow = array();
         $labels = array();
         foreach ($metaNames as $metaName) {
@@ -233,7 +231,6 @@ GBS;
     public function setTemplate(org_tubepress_template_Template $template) {                      $this->_template           =   $template; }
     public function setMessageService(org_tubepress_message_MessageService $messageService) {     $this->_messageService     = $messageService; }
     public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) {       $this->_optionsManager     = $tpom; }
-    public function setOptionsReference(org_tubepress_options_reference_OptionsReference $ref) {  $this->_optionsReference   = $ref; }
     public function setPaginationService(org_tubepress_pagination_PaginationService $paginator) { $this->_paginationService  = $paginator; }
     public function setVideoProvider(org_tubepress_video_feed_provider_Provider $provider) {      $this->_videoProvider      = $provider; }
 }

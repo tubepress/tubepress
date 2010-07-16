@@ -37,7 +37,6 @@ interface org_tubepress_ioc_IocService
     const NORMAL_PLAYER_TEMPLATE     = 'normalPlayerTemplate';
     const OPTIONS_MANAGER            = 'optionsManager';
     const OPTIONS_FORM_HANDLER       = 'formHandler';
-    const OPTIONS_REFERENCE          = 'optionsReference';
     const OPTIONS_FORM_TEMPLATE      = 'optionsFormTemplate';
     const PAGINATION_SERVICE         = 'paginationService';
     const SHORTCODE_SERVICE          = 'shortcodeService';

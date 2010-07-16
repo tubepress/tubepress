@@ -35,10 +35,8 @@ tubepress_load_classes(array('org_tubepress_options_validation_InputValidationSe
  */
 class org_tubepress_options_validation_SimpleInputValidationService implements org_tubepress_options_validation_InputValidationService
 {
-    private $_log;
     private $_logPrefix;
     private $_messageService;
-    private $_optionsReference;
 
     /**
      * Constructor.
@@ -139,7 +137,7 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
      */
     private function _checkType($optionName, $candidate)
     {
-        $type = $this->_optionsReference->getType($optionName);
+        $type = org_tubepress_options_reference_OptionsReference::getType($optionName);
 
         switch ($type) {
         case org_tubepress_options_Type::TEXT:
@@ -210,5 +208,4 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
     {
         $this->_messageService = $messageService;
     }
-    public function setOptionsReference(org_tubepress_options_reference_OptionsReference $reference) { $this->_optionsReference = $reference; }
 }

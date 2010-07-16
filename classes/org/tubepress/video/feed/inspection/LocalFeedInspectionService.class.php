@@ -34,7 +34,6 @@ tubepress_load_classes(array(
  */
 class org_tubepress_video_feed_inspection_LocalFeedInspectionService implements org_tubepress_video_feed_inspection_FeedInspectionService
 {   
-	private $_log;
     private $_logPrefix;
     private $_tpom;
 	

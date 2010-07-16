@@ -36,7 +36,6 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
 {
     private $_customOptions = array();
     private $_tpsm;
-    private $_optionsReference;
     private $_validationService;
     private $_shortcode;
 
@@ -57,7 +56,7 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
         try {
             $this->_validationService->validate($optionName, $value);
         } catch (Exception $e) {
-            $value = $this->_optionsReference->getDefaultValue($optionName);
+            $value = org_tubepress_options_reference_OptionsReference::getDefaultValue($optionName);
         }
         return $value;
     }
@@ -163,18 +162,6 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
     public function setStorageManager(org_tubepress_options_storage_StorageManager $tpsm)
     {
         $this->_tpsm = $tpsm;
-    }
-
-    /**
-     * Set the options reference.
-     *
-     * @param org_tubepress_options_reference_OptionsReference $ref The options reference.
-     *
-     * @return void
-     */
-    public function setOptionsReference(org_tubepress_options_reference_OptionsReference $ref)
-    {
-        $this->_optionsReference = $ref;
     }
 
     /**

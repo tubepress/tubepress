@@ -32,7 +32,6 @@ tubepress_load_classes(array('org_tubepress_options_storage_StorageManager',
 abstract class org_tubepress_options_storage_AbstractStorageManager implements org_tubepress_options_storage_StorageManager
 {
     private $_validationService;
-    private $_optionsReference;
 
     /**
      * Creates an option in storage
@@ -60,10 +59,10 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
      */
     public final function init()
     {
-        $allOptionNames = $this->_optionsReference->getAllOptionNames();
+        $allOptionNames = org_tubepress_options_reference_OptionsReference::getAllOptionNames();
         $vals           = array();
         foreach ($allOptionNames as $optionName) {
-            $vals[$optionName] = $this->_optionsReference->getDefaultValue($optionName);
+            $vals[$optionName] = org_tubepress_options_reference_OptionsReference::getDefaultValue($optionName);
         }
 
         foreach ($vals as $val => $key) {
@@ -81,7 +80,7 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
      */
     private function _init($name, $value)
     {
-        if (!$this->_optionsReference->shouldBePersisted($name)) {
+        if (!org_tubepress_options_reference_OptionsReference::shouldBePersisted($name)) {
             return;
         }
 
@@ -89,7 +88,7 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
             $this->delete($name);
             $this->create($name, $value);
         }
-        if ($this->_optionsReference->getType($name) != org_tubepress_options_Type::BOOL
+        if (org_tubepress_options_reference_OptionsReference::getType($name) != org_tubepress_options_Type::BOOL
             && $this->get($name) == "") {
             $this->setOption($name, $value);
         }
@@ -105,7 +104,7 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
      */
     public final function set($optionName, $optionValue)
     {
-        if (!$this->_optionsReference->shouldBePersisted($optionName)) {
+        if (!org_tubepress_options_reference_OptionsReference::shouldBePersisted($optionName)) {
             return;
         }
         $this->_validationService->validate($optionName, $optionValue);

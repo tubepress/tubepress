@@ -33,7 +33,6 @@ class org_tubepress_ioc_Setters
     const MESSAGE_SERVICE               = 'messageService';
     const NETWORK_RETRIEVAL_SERVICE     = 'networkFeedRetrievalService';
     const OPTIONS_MANAGER               = 'optionsManager';
-    const OPTIONS_REFERENCE             = 'optionsReference';
     const TEMPLATE                      = 'template';
     const PAGINATION                    = 'paginationService';
     const PATH                          = 'path';

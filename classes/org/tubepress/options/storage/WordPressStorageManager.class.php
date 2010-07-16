@@ -42,8 +42,6 @@ class org_tubepress_options_storage_WordPressStorageManager extends org_tubepres
     /**
      * Constructor. Until I can come up with a better way to validate options, this is gonna be how we
      * check to make sure that the db is initialized.
-     * 
-     * @return unknown_type
      */
     public function __construct()
     {

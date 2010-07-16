@@ -37,7 +37,6 @@ class org_tubepress_video_feed_provider_ProviderImpl implements org_tubepress_vi
 
     private $_feedInspectionService;
     private $_feedRetrievalService;
-    private $_log;
     private $_logPrefix;
     private $_optionsManager;
     private $_urlBuilder;
