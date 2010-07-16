@@ -122,7 +122,7 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
      */
     private function _checkExistence($optionName)
     {
-        if ($this->_optionsReference->isOptionName($optionName) === false) {
+        if (org_tubepress_options_reference_OptionsReference::isOptionName($optionName) === false) {
             throw new Exception(sprintf($this->_messageService->_('validation-no-such-option'), $optionName));
         }
     }
@@ -166,7 +166,7 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
         case org_tubepress_options_Type::PLAYER_IMPL:
         case org_tubepress_options_Type::SAFE_SEARCH:
         case org_tubepress_options_Type::TIME_FRAME:
-            $validValues = $this->_optionsReference->getValidEnumValues($type);
+            $validValues = org_tubepress_options_reference_OptionsReference::getValidEnumValues($type);
             if (in_array((string)$candidate, $validValues) !== true) {
                 throw new Exception(sprintf($this->_messageService->_('validation-enum'), $optionName, implode(', ', $validValues), $candidate));
             }

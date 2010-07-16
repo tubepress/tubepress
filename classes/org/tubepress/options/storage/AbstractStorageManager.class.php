@@ -132,16 +132,4 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
     {
         $this->_validationService = $validationService;
     }
-
-    /**
-     * Set the options reference.
-     *
-     * @param org_tubepress_options_reference_OptionsReference $reference The options reference
-     *
-     * @return void
-     */
-    public function setOptionsReference(org_tubepress_options_reference_OptionsReference $reference)
-    {
-        $this->_optionsReference = $reference;
-    }
 }

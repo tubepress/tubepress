@@ -161,11 +161,6 @@ class org_tubepress_single_VideoImpl implements org_tubepress_single_Video, org_
         $this->_tpom = $mgr;
     }
 
-    public function setOptionsReference(org_tubepress_options_reference_OptionsReference $ref)
-    {
-        $this->_optionsReference = $ref;
-    }
-
     public function setMessageService(org_tubepress_message_MessageService $messageService)
     {
         $this->_messageService = $messageService;
