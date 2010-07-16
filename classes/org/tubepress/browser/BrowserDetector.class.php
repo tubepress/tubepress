@@ -44,7 +44,7 @@ class org_tubepress_browser_BrowserDetector
             return self::UNKNOWN;
         }
 
-        $agent = $serverVars[sefl::HTTP_USER_AGENT];
+        $agent = $serverVars[self::HTTP_USER_AGENT];
 
         if (strstr($agent, 'iPhone')) {
             return self::IPHONE;
