@@ -25,16 +25,16 @@
  */
 class org_tubepress_options_Type
 {
-    const BOOL        = "boolean";              // Yes/No options
-    const COLOR       = "color";                // An HTML color (6 hex digits)      
-    const INTEGRAL    = "integral";             // A number
-    const MODE        = "mode";                 // A gallery mode
-    const ORDER       = "order";                // Video sort order
-    const PLAYER      = "player";               // Shadowbox, popup, etc
-    const PLAYER_IMPL = "playerImplementation"; //YouTube, Longtail, etc
-    const PLAYLIST    = "playlist";             // A YouTube playlist ID
-    const SAFE_SEARCH = "safeSearch";           // a SafeSearch level
-    const TEXT        = "text";                 // Free form text
-    const TIME_FRAME  = "timeFrame";            // Today, last week, etc
-    const YT_USER     = "youtubeUser";          // A YouTube username    
+    const BOOL        = 'boolean';              // Yes/No options
+    const COLOR       = 'color';                // An HTML color (6 hex digits)      
+    const INTEGRAL    = 'integral';             // A number
+    const MODE        = 'mode';                 // A gallery mode
+    const ORDER       = 'order';                // Video sort order
+    const PLAYER      = 'player';               // Shadowbox, popup, etc
+    const PLAYER_IMPL = 'playerImplementation'; //YouTube, Longtail, etc
+    const PLAYLIST    = 'playlist';             // A YouTube playlist ID
+    const SAFE_SEARCH = 'safeSearch';           // a SafeSearch level
+    const TEXT        = 'text';                 // Free form text
+    const TIME_FRAME  = 'timeFrame';            // Today, last week, etc
+    const YT_USER     = 'youtubeUser';          // A YouTube username    
 }

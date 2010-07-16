@@ -25,11 +25,11 @@
  */
 class org_tubepress_options_Category
 {
-    const ADVANCED = "advanced";
-    const DISPLAY  = "display";
-    const EMBEDDED = "embedded";
-    const FEED     = "feed";
-    const GALLERY  = "gallery";
-    const META     = "meta";
-    const WIDGET   = "widget";
+    const ADVANCED = 'advanced';
+    const DISPLAY  = 'display';
+    const EMBEDDED = 'embedded';
+    const FEED     = 'feed';
+    const GALLERY  = 'gallery';
+    const META     = 'meta';
+    const WIDGET   = 'widget';
 }
