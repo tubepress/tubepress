@@ -62,6 +62,10 @@ dt.tubepress_meta_description {
     display: none;	
 }
 
+dd.tubepress_meta {
+    margin-bottom: auto ! important;	
+}
+
 dd.tubepress_meta_title, dd.tubepress_meta_title a, dd.tubepress_meta_title a:hover {
     font-size: 12px;
     font-weight: bold;
