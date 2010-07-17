@@ -39,4 +39,5 @@ class org_tubepress_options_category_Display
     const RANDOM_THUMBS       = 'randomize_thumbnails';
     const RELATIVE_DATES      = 'relativeDates';
     const DESC_LIMIT          = 'descriptionLimit';
+    const THEME               = 'theme';
 }
