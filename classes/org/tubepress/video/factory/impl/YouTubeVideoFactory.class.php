@@ -21,14 +21,14 @@
 
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_video_factory_AbstractVideoFactory',
+tubepress_load_classes(array('org_tubepress_video_factory_impl_AbstractVideoFactory',
     'org_tubepress_video_Video',
     'net_php_pear_Net_URL2'));
 
 /**
  * Video factory for YouTube
  */
-class org_tubepress_video_factory_YouTubeVideoFactory extends org_tubepress_video_factory_AbstractVideoFactory
+class org_tubepress_video_factory_impl_YouTubeVideoFactory extends org_tubepress_video_factory_impl_AbstractVideoFactory
 {
     /* shorthands for the namespaces */
     const NS_APP   = 'http://www.w3.org/2007/app';
@@ -58,16 +58,16 @@ class org_tubepress_video_factory_YouTubeVideoFactory extends org_tubepress_vide
      * 
      * @return array an array of TubePress videos generated from the feed
      */
-    public function feedToVideoArray($feed, $limit)
+    public function feedToVideoArray(org_tubepress_ioc_IocService $ioc, $feed, $limit)
     {
         $this->_xpath = $this->_createXPath($this->_createDomDocument($feed));
-        return $this->_buildVideos($limit, '/atom:feed/atom:entry');
+        return $this->_buildVideos($limit, '/atom:feed/atom:entry', $ioc);
     }
     
-    public function convertSingleVideo($feed)
+    public function convertSingleVideo(org_tubepress_ioc_IocService $ioc, $feed)
     {
         $this->_xpath = $this->_createXPath($this->_createDomDocument($feed));
-        return $this->_buildVideos(1, '/atom:entry');
+        return $this->_buildVideos(1, '/atom:entry', $ioc);
     }
 
     private function _createXPath(DOMDocument $doc)
@@ -79,11 +79,11 @@ class org_tubepress_video_factory_YouTubeVideoFactory extends org_tubepress_vide
         }
         
         $xpath = new DOMXPath($doc);
-        $xpath->registerNamespace('atom',  org_tubepress_video_factory_YouTubeVideoFactory::NS_ATOM);
-        $xpath->registerNamespace('yt',    org_tubepress_video_factory_YouTubeVideoFactory::NS_YT);
-        $xpath->registerNamespace('gd',    org_tubepress_video_factory_YouTubeVideoFactory::NS_GD);
-        $xpath->registerNamespace('media', org_tubepress_video_factory_YouTubeVideoFactory::NS_MEDIA);
-        $xpath->registerNamespace('app',   org_tubepress_video_factory_YouTubeVideoFactory::NS_APP);
+        $xpath->registerNamespace('atom',  self::NS_ATOM);
+        $xpath->registerNamespace('yt',    self::NS_YT);
+        $xpath->registerNamespace('gd',    self::NS_GD);
+        $xpath->registerNamespace('media', self::NS_MEDIA);
+        $xpath->registerNamespace('app',   self::NS_APP);
         return $xpath;
     }
     
@@ -103,7 +103,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory extends org_tubepress_vide
         return $doc;
     }
     
-    private function _buildVideos($limit, $entryXpath)
+    private function _buildVideos($limit, $entryXpath, org_tubepress_ioc_IocService $ioc)
     {
         $results = array();
         
@@ -111,6 +111,8 @@ class org_tubepress_video_factory_YouTubeVideoFactory extends org_tubepress_vide
         $entries = $this->_xpath->query($entryXpath);  
 
         $index = 0;
+        $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        
         foreach ($entries as $entry) {
             
             $this->_currentNode = $entry;
@@ -120,7 +122,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory extends org_tubepress_vide
                 continue;
             }
             
-            if ($this->isVideoBlackListed($this->_getId())) {
+            if ($this->isVideoBlackListed($this->_getId(), $tpom)) {
                 org_tubepress_log_Log::log($this->_logPrefix, 'Video with ID %s is blacklisted. Skipping it.', $this->_getId());
                 continue;
             }
@@ -131,7 +133,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory extends org_tubepress_vide
             }
             $index++;
             
-            $results[] = $this->_createVideo();
+            $results[] = $this->_createVideo($tpom);
         }
         
         org_tubepress_log_Log::log($this->_logPrefix, 'Built %d video(s) from YouTube\'s XML', sizeof($results));
@@ -143,57 +145,57 @@ class org_tubepress_video_factory_YouTubeVideoFactory extends org_tubepress_vide
      *
      * @return org_tubepress_video_Video The org_tubepress_video_Video representation of this node
      */
-    private function _createVideo()
+    private function _createVideo(org_tubepress_options_manager_OptionsManager $tpom)
     {
         $vid = new org_tubepress_video_Video();
 
         /* these three properties must always be present */
         $vid->setId($this->_getId());
         $vid->setTitle($this->_getTitle());
-        $vid->setThumbnailUrl($this->_getThumbnailUrl());
+        $vid->setThumbnailUrl($this->_getThumbnailUrl($tpom));
         
         /* the rest of these are optional */
         
-        if ($this->getOptionsManager()->get(org_tubepress_options_category_Meta::AUTHOR)) {
+        if ($tpom->get(org_tubepress_options_category_Meta::AUTHOR)) {
             $uid = $this->_getAuthorUid();
             $vid->setAuthorUid($uid);
             $vid->setAuthorDisplayName($uid);
             
         }
         
-        if ($this->getOptionsManager()->get(org_tubepress_options_category_Meta::CATEGORY)) {
+        if ($tpom->get(org_tubepress_options_category_Meta::CATEGORY)) {
             $vid->setCategory($this->_getCategory());
         }
         
-        if ($this->getOptionsManager()->get(org_tubepress_options_category_Meta::DESCRIPTION)) {
-            $vid->setDescription($this->_getDescription());
+        if ($tpom->get(org_tubepress_options_category_Meta::DESCRIPTION)) {
+            $vid->setDescription($this->_getDescription($tpom));
         }
         
-        if ($this->getOptionsManager()->get(org_tubepress_options_category_Meta::LENGTH)) {
+        if ($tpom->get(org_tubepress_options_category_Meta::LENGTH)) {
             $vid->setDuration($this->_getDuration());
         }
         
-        if ($this->getOptionsManager()->get(org_tubepress_options_category_Meta::URL)) {
+        if ($tpom->get(org_tubepress_options_category_Meta::URL)) {
             $vid->setHomeUrl($this->_getHomeUrl());
         }
         
-        if ($this->getOptionsManager()->get(org_tubepress_options_category_Meta::TAGS)) {
+        if ($tpom->get(org_tubepress_options_category_Meta::TAGS)) {
             $vid->setKeywords($this->_getKeywords());
         }
         
-        if ($this->getOptionsManager()->get(org_tubepress_options_category_Meta::RATING)) {
+        if ($tpom->get(org_tubepress_options_category_Meta::RATING)) {
             $vid->setRatingAverage($this->_getRatingAverage());
         }
         
-        if ($this->getOptionsManager()->get(org_tubepress_options_category_Meta::RATINGS)) {
+        if ($tpom->get(org_tubepress_options_category_Meta::RATINGS)) {
             $vid->setRatingCount($this->_getRatingCount());
         }
         
-        if ($this->getOptionsManager()->get(org_tubepress_options_category_Meta::UPLOADED)) {
-            $vid->setTimePublished($this->_getTimePublished());
+        if ($tpom->get(org_tubepress_options_category_Meta::UPLOADED)) {
+            $vid->setTimePublished($this->_getTimePublished($tpom));
         }
         
-        if ($this->getOptionsManager()->get(org_tubepress_options_category_Meta::VIEWS)) {
+        if ($tpom->get(org_tubepress_options_category_Meta::VIEWS)) {
             $vid->setViewCount($this->_getViewCount());
         }
         
@@ -210,9 +212,9 @@ class org_tubepress_video_factory_YouTubeVideoFactory extends org_tubepress_vide
         return trim($this->_xpath->query('media:group/media:category', $this->_currentNode)->item(0)->getAttribute('label'));
     }
     
-    private function _getDescription()
+    private function _getDescription(org_tubepress_options_manager_OptionsManager $tpom)
     {
-        $limit = $this->getOptionsManager()->get(org_tubepress_options_category_Display::DESC_LIMIT);
+        $limit = $tpom->get(org_tubepress_options_category_Display::DESC_LIMIT);
         $desc = trim($this->_xpath->query('media:group/media:description', $this->_currentNode)->item(0)->nodeValue);
         if ($limit > 0 && strlen($desc) > $limit) {
             $desc = substr($desc, 0, $limit) . '...';
@@ -231,7 +233,7 @@ class org_tubepress_video_factory_YouTubeVideoFactory extends org_tubepress_vide
     private function _getDuration()
     {
         $duration = $this->_xpath->query('media:group/yt:duration', $this->_currentNode)->item(0);
-        return org_tubepress_video_factory_YouTubeVideoFactory::_seconds2HumanTime($duration->getAttribute('seconds'));
+        return self::_seconds2HumanTime($duration->getAttribute('seconds'));
     }
     
     private function _getHomeUrl()
@@ -299,10 +301,10 @@ class org_tubepress_video_factory_YouTubeVideoFactory extends org_tubepress_vide
         return "0";
     }
     
-    protected function _getThumbnailUrl()
+    protected function _getThumbnailUrl(org_tubepress_options_manager_OptionsManager $tpom)
     {
         $thumbs  = $this->_xpath->query('media:group/media:thumbnail', $this->_currentNode);
-        if ($this->getOptionsManager()->get(org_tubepress_options_category_Display::RANDOM_THUMBS)) {
+        if ($tpom->get(org_tubepress_options_category_Display::RANDOM_THUMBS)) {
             do {
                 $node = $thumbs->item(rand(0, $thumbs->length - 1));
             } while (strpos($node->getAttribute('url'), 'hqdefault') !== FALSE);
@@ -319,19 +321,19 @@ class org_tubepress_video_factory_YouTubeVideoFactory extends org_tubepress_vide
      *
      * @return string This video's upload timestamp
      */
-    private function _getTimePublished()
+    private function _getTimePublished(org_tubepress_options_manager_OptionsManager $tpom)
     { 
         $publishedNode = $this->_xpath->query('atom:published', $this->_currentNode);
         if ($publishedNode->length == 0) {
             return "N/A";
         }
         $rawTime = $publishedNode->item(0)->nodeValue;
-        $seconds = org_tubepress_video_factory_YouTubeVideoFactory::_rfc3339toHumanTime($rawTime);
+        $seconds = self::_rfc3339toHumanTime($rawTime);
         
-        if ($this->getOptionsManager()->get(org_tubepress_options_category_Display::RELATIVE_DATES)) {
+        if ($tpom->get(org_tubepress_options_category_Display::RELATIVE_DATES)) {
             return $this->_relativeTime($seconds);
         }
-        return date($this->getOptionsManager()->get(org_tubepress_options_category_Advanced::DATEFORMAT), $seconds);
+        return date($tpom->get(org_tubepress_options_category_Advanced::DATEFORMAT), $seconds);
     }
     
     /**

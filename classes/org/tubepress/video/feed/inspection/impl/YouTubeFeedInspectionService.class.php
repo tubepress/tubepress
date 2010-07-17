@@ -20,22 +20,21 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+    || require(dirname(__FILE__) . '/../../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_video_feed_inspection_FeedInspectionService'));
 
 /**
  * Examines the feed from YouTube
  *
  */
-class org_tubepress_video_feed_inspection_YouTubeFeedInspectionService implements org_tubepress_video_feed_inspection_FeedInspectionService
+class org_tubepress_video_feed_inspection_impl_YouTubeFeedInspectionService implements org_tubepress_video_feed_inspection_FeedInspectionService
 {   
     const NS_OPENSEARCH = 'http://a9.com/-/spec/opensearch/1.1/';
     
     public function getTotalResultCount($rawFeed)
     {
 	   $dom = $this->_getDom($rawFeed);
-        $result = $dom->getElementsByTagNameNS(org_tubepress_video_feed_inspection_YouTubeFeedInspectionService::NS_OPENSEARCH,
-            'totalResults')->item(0)->nodeValue;
+        $result = $dom->getElementsByTagNameNS(self::NS_OPENSEARCH, 'totalResults')->item(0)->nodeValue;
         
         $this->_makeSureNumeric($result);
         return $result;

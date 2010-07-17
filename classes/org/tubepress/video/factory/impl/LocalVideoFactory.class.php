@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+    || require(dirname(__FILE__) . '/../../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_video_factory_AbstractVideoFactory',
     'org_tubepress_video_Video',
     'org_tubepress_options_category_Display',
@@ -31,7 +31,7 @@ tubepress_load_classes(array('org_tubepress_video_factory_AbstractVideoFactory',
 /**
  * Video factory for uploads
  */
-class org_tubepress_video_factory_LocalVideoFactory extends org_tubepress_video_factory_AbstractVideoFactory
+class org_tubepress_video_factory_impl_LocalVideoFactory extends org_tubepress_video_factory_impl_AbstractVideoFactory
 {
     private $_logPrefix;
     
@@ -40,7 +40,7 @@ class org_tubepress_video_factory_LocalVideoFactory extends org_tubepress_video_
         $this->_logPrefix = 'Local Video Factory';
     }    
     
-    public function feedToVideoArray($galleryDir, $limit)
+    public function feedToVideoArray(org_tubepress_ioc_IocService $ioc, $galleryDir, $limit)
     {
         /* get the base uploads directory */
         $baseDir = org_tubepress_util_LocalVideoUtils::getBaseVideoDirectory($this->getOptionsManager(), $this->_logPrefix);
@@ -75,7 +75,7 @@ class org_tubepress_video_factory_LocalVideoFactory extends org_tubepress_video_
         return $toReturn;
     }
     
-    public function convertSingleVideo($rawFeed)
+    public function convertSingleVideo(org_tubepress_ioc_IocService $ioc, $rawFeed)
     {
     
     }

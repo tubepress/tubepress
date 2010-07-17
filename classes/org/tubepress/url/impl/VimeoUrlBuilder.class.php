@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_url_UrlBuilder',
     'org_tubepress_options_category_Gallery',
     'org_tubepress_gallery_TubePressGallery',
@@ -36,7 +36,7 @@ tubepress_load_classes(array('org_tubepress_url_UrlBuilder',
  * Builds URLs to send out to Vimeo
  *
  */
-class org_tubepress_url_VimeoUrlBuilder implements org_tubepress_url_UrlBuilder
+class org_tubepress_url_impl_VimeoUrlBuilder implements org_tubepress_url_UrlBuilder
 {
     private $_tpom;
     
@@ -45,7 +45,7 @@ class org_tubepress_url_VimeoUrlBuilder implements org_tubepress_url_UrlBuilder
      *
      * @return string The gdata request URL for this gallery
      */
-    public function buildGalleryUrl($currentPage)
+    public function buildGalleryUrl(org_tubepress_ioc_IocService $ioc, $currentPage)
     {
         $params = array();
         $mode   = $this->_tpom->get(org_tubepress_options_category_Gallery::MODE);
@@ -96,7 +96,7 @@ class org_tubepress_url_VimeoUrlBuilder implements org_tubepress_url_UrlBuilder
         return $this->_buildUrl($params);
     }
     
-    public function buildSingleVideoUrl($id)
+    public function buildSingleVideoUrl(org_tubepress_ioc_IocService $ioc, $id)
     {
         $params = array();
         $params['method'] = 'vimeo.videos.getInfo';

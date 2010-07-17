@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+    || require(dirname(__FILE__) . '/../../../../../tubepress_classloader.php');
 tubepress_load_classes(array(
     'org_tubepress_video_feed_inspection_FeedInspectionService',
     'org_tubepress_util_FilesystemUtils',
@@ -32,7 +32,7 @@ tubepress_load_classes(array(
  * Examines the feed a directory
  *
  */
-class org_tubepress_video_feed_inspection_LocalFeedInspectionService implements org_tubepress_video_feed_inspection_FeedInspectionService
+class org_tubepress_video_feed_inspection_impl_LocalFeedInspectionService implements org_tubepress_video_feed_inspection_FeedInspectionService
 {   
     private $_logPrefix;
     private $_tpom;

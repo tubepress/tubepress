@@ -27,13 +27,14 @@ tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory',
 /**
  * Video factory that sends the feed to the right video factory based on the provider
  */
-class org_tubepress_video_factory_DelegatingVideoFactory implements org_tubepress_video_factory_VideoFactory
+class org_tubepress_video_factory_DelegatingVideoFactory
 {
+    private static $_providerToBeanNameMap = array(
+        org_tubepress_video_feed_provider_Provider::VIMEO     => org_tubepress_ioc_IocService::VIMEO_VIDEO_FACTORY,
+        org_tubepress_video_feed_provider_Provider::DIRECTORY => org_tubepress_ioc_IocService::LOCAL_VIDEO_FACTORY
+    );
     
-    private $_ytFactory;
-    private $_vimeoFactory;
-    private $_localFactory;
-    private $_tpom;
+    private static $_defaultDelegateName = org_tubepress_ioc_IocService::YOUTUBE_VIDEO_FACTORY;
     
     /**
      * Converts raw video feeds to TubePress videos
@@ -43,32 +44,19 @@ class org_tubepress_video_factory_DelegatingVideoFactory implements org_tubepres
      * 
      * @return array an array of TubePress videos generated from the feed
      */
-    public function feedToVideoArray($feed, $limit)
+    public function feedToVideoArray(org_tubepress_ioc_IocService $ioc, $feed, $limit)
     {
-        $provider = $this->_tpom->calculateCurrentVideoProvider();
-        if ($provider === org_tubepress_video_feed_provider_Provider::VIMEO) {
-            return $this->_vimeoFactory->feedToVideoArray($feed, $limit);
-        }
-        if ($provider === org_tubepress_video_feed_provider_Provider::DIRECTORY) {
-            return $this->_localFactory->feedToVideoArray($feed, $limit);
-        }
-        return $this->_ytFactory->feedToVideoArray($feed, $limit);
+        return org_tubepress_ioc_DelegateUtils::getDelegate($ioc, 
+            self::$_providerToBeanNameMap, 
+            self::$_defaultDelegateName)->feedToVideoArray($ioc, $feed, $limit);
     }
     
-    public function convertSingleVideo($feed)
+    public function convertSingleVideo(org_tubepress_ioc_IocService $ioc, $feed)
     {
-        $provider = $this->_tpom->calculateCurrentVideoProvider();
-        if ($provider === org_tubepress_video_feed_provider_Provider::VIMEO) {
-            return $this->_vimeoFactory->convertSingleVideo($feed);
-        }
-        if ($provider === org_tubepress_video_feed_provider_Provider::DIRECTORY) {
-            return $this->_localFactory->convertSingleVideo($feed);
-        }
-        return $this->_ytFactory->convertSingleVideo($feed);
+        return self::getDelegate($ioc, 
+            self::$_providerToBeanNameMap, 
+            self::$_defaultDelegateName)->convertSingleVideo($ioc, $feed);
     }
     
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }
-    public function setYouTubeVideoFactory(org_tubepress_video_factory_VideoFactory $f) { $this->_ytFactory = $f; }
-    public function setVimeoVideoFactory(org_tubepress_video_factory_VideoFactory $f) { $this->_vimeoFactory = $f; }
-    public function setLocalVideoFactory(org_tubepress_video_factory_VideoFactory $f) { $this->_localFactory = $f; }
+
 }

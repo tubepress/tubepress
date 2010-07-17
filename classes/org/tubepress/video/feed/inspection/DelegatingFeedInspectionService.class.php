@@ -28,39 +28,27 @@ tubepress_load_classes(array('org_tubepress_video_feed_inspection_FeedInspection
  * Sends the feed to the right inspection service based on the provider
  *
  */
-class org_tubepress_video_feed_inspection_DelegatingFeedInspectionService implements org_tubepress_video_feed_inspection_FeedInspectionService
-{   
-    private $_tpom;
-    private $_youtubeInspectionService;
-    private $_vimeoInspectionService;
-    private $_localInspectionService;
+class org_tubepress_video_feed_inspection_DelegatingFeedInspectionService
+{
+    private static $_providerToBeanNameMap = array(
+        org_tubepress_video_feed_provider_Provider::VIMEO     => org_tubepress_ioc_IocService::VIMEO_FEED_INSPECTION,
+        org_tubepress_video_feed_provider_Provider::DIRECTORY => org_tubepress_ioc_IocService::LOCAL_FEED_INSPECTION
+    );
     
-    public function getTotalResultCount($rawFeed)
+    private static $_defaultDelegateBeanName = org_tubepress_ioc_IocService::YOUTUBE_FEED_INSPECTION;
+    
+    
+    public static function getTotalResultCount(org_tubepress_ioc_IocService $ioc, $rawFeed)
     {
-	    $provider = $this->_tpom->calculateCurrentVideoProvider();
-	    if ($provider === org_tubepress_video_feed_provider_Provider::VIMEO) {
-	        return $this->_vimeoInspectionService->getTotalResultCount($rawFeed);
-	    }
-	    if ($provider === org_tubepress_video_feed_provider_Provider::DIRECTORY) {
-	        return $this->_localInspectionService->getTotalResultCount($rawFeed);
-	    }
-	    return $this->_youtubeInspectionService->getTotalResultCount($rawFeed);
+	    return org_tubepress_ioc_DelegateUtils::getDelegate($ioc,
+	       self::$_providerToBeanNameMap,
+	       self::$_defaultDelegateBeanName)->getTotalResultCount($rawFeed);
     }
     
-    public function getQueryResultCount($rawFeed)
+    public static function getQueryResultCount(org_tubepress_ioc_IocService $ioc, $rawFeed)
     {
-	    $provider = $this->_tpom->calculateCurrentVideoProvider();
-        if ($provider === org_tubepress_video_feed_provider_Provider::VIMEO) {
-            return $this->_vimeoInspectionService->getQueryResultCount($rawFeed);
-        }
-        if ($provider === org_tubepress_video_feed_provider_Provider::DIRECTORY) {
-	        return $this->_localInspectionService->getQueryResultCount($rawFeed);
-	    }
-        return $this->_youtubeInspectionService->getQueryResultCount($rawFeed);
+        return org_tubepress_ioc_DelegateUtils::getDelegate($ioc,
+            self::$_providerToBeanNameMap,
+            self::$_defaultDelegateBeanName)->getQueryResultCount($rawFeed);
     }
-    
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $om) { $this->_tpom = $om; }
-    public function setYouTubeInspectionService(org_tubepress_video_feed_inspection_FeedInspectionService $yfis) { $this->_youtubeInspectionService = $yfis; }
-    public function setVimeoInspectionService(org_tubepress_video_feed_inspection_FeedInspectionService $yfis) { $this->_vimeoInspectionService = $yfis; } 
-    public function setLocalFeedInspectionService(org_tubepress_video_feed_inspection_FeedInspectionService $yfis) { $this->_localInspectionService = $yfis; }
 }

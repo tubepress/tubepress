@@ -20,23 +20,17 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
+    || require(dirname(__FILE__) . '/../../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory'));
 
 /**
  * Video factory for Vimeo
  */
-abstract class org_tubepress_video_factory_AbstractVideoFactory implements org_tubepress_video_factory_VideoFactory
-{
-    private $_tpom;
-    
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }
-
-    protected function getOptionsManager() { return $this->_tpom; }
-    
-    protected function isVideoBlackListed($id)
+abstract class org_tubepress_video_factory_impl_AbstractVideoFactory implements org_tubepress_video_factory_VideoFactory
+{   
+    protected function isVideoBlackListed($id, org_tubepress_options_manager_OptionsManager $tpom)
     {
-        $blacklist = $this->_tpom->get(org_tubepress_options_category_Advanced::VIDEO_BLACKLIST);
+        $blacklist = $tpom->get(org_tubepress_options_category_Advanced::VIDEO_BLACKLIST);
         return strpos($blacklist, $id) !== FALSE;
     }
     

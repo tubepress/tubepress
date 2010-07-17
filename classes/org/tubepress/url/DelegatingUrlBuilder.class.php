@@ -22,30 +22,31 @@
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_url_UrlBuilder',
-    'org_tubepress_video_feed_provider_Provider'));
+    'org_tubepress_video_feed_provider_Provider',
+    'org_tubepress_ioc_DelegateUtils'));
 
 /**
  * Builds URLs based on the current provider
  *
  */
-class org_tubepress_url_DelegatingUrlBuilder implements org_tubepress_url_UrlBuilder
+class org_tubepress_url_DelegatingUrlBuilder
 {
-    private $_tpom;
-    private $_youtubeBuilder;
-    private $_vimeoBuilder;
+    private static $_providerToBeanNameMap = array(
+        org_tubepress_video_feed_provider_Provider::VIMEO     => org_tubepress_ioc_IocService::VIMEO_URL_BUILDER,
+    );
+    
+    private static $_defaultDelegateName = org_tubepress_ioc_IocService::YOUTUBE_URL_BUILDER;
     
     /**
      * Builds a URL for a list of videos
      *
      * @return string The request URL for this gallery
      */
-    public function buildGalleryUrl($currentPage)
+    public static function buildGalleryUrl(org_tubepress_ioc_IocService $ioc, $currentPage)
     {
-        $provider = $this->_tpom->calculateCurrentVideoProvider();
-        if ($provider === org_tubepress_video_feed_provider_Provider::VIMEO) {
-            return $this->_vimeoBuilder->buildGalleryUrl($currentPage);
-        }
-        return $this->_youtubeBuilder->buildGalleryUrl($currentPage);
+        return org_tubepress_ioc_DelegateUtils::getDelegate($ioc, 
+            self::$_providerToBeanNameMap, 
+            self::$_defaultDelegateName)->buildGalleryUrl($ioc, $currentPage);
     }
 
     /**
@@ -53,16 +54,10 @@ class org_tubepress_url_DelegatingUrlBuilder implements org_tubepress_url_UrlBui
      *
      * @param string $id The video ID to search for
      */
-    public function buildSingleVideoUrl($id)
-    {
-        $provider = $this->_tpom->calculateCurrentVideoProvider();
-        if ($provider === org_tubepress_video_feed_provider_Provider::VIMEO) {
-            return $this->_vimeoBuilder->buildSingleVideoUrl($id);
-        }
-        return $this->_youtubeBuilder->buildSingleVideoUrl($id);
+    public static function buildSingleVideoUrl(org_tubepress_ioc_IocService $ioc, $id)
+    {   
+        return org_tubepress_ioc_DelegateUtils::getDelegate($ioc,
+            self::$_providerToBeanNameMap,
+            self::$_defaultDelegateName)->buildSingleVideoUrl($ioc, $id);
     }
-    
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }
-    public function setYouTubeUrlBuilder(org_tubepress_url_UrlBuilder $ytb) { $this->_youtubeBuilder = $ytb; }
-    public function setVimeoUrlBuilder(org_tubepress_url_UrlBuilder $vb) { $this->_vimeoBuilder = $vb; }
 }

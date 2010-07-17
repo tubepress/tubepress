@@ -20,15 +20,15 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_video_factory_AbstractVideoFactory',
+    || require(dirname(__FILE__) . '/../../../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_video_factory_impl_AbstractVideoFactory',
     'org_tubepress_video_Video',
     'org_tubepress_options_category_Display'));
 
 /**
  * Video factory for Vimeo
  */
-class org_tubepress_video_factory_VimeoVideoFactory extends org_tubepress_video_factory_AbstractVideoFactory
+class org_tubepress_video_factory_impl_VimeoVideoFactory extends org_tubepress_video_factory_impl_AbstractVideoFactory
 {
     private $_logPrefix;
     
@@ -37,7 +37,7 @@ class org_tubepress_video_factory_VimeoVideoFactory extends org_tubepress_video_
         $this->_logPrefix = 'Vimeo Video Factory';
     }
     
-    public function feedToVideoArray($rawFeed, $limit)
+    public function feedToVideoArray(org_tubepress_ioc_IocService $ioc, $rawFeed, $limit)
     {
         $feed = unserialize($rawFeed);
         
@@ -45,24 +45,26 @@ class org_tubepress_video_factory_VimeoVideoFactory extends org_tubepress_video_
 
         $entries = $feed->videos->video;
         
-        return $this->_buildVideos($entries);
+        return $this->_buildVideos($entries, $ioc);
     }
     
-    public function convertSingleVideo($rawFeed)
+    public function convertSingleVideo(org_tubepress_ioc_IocService $ioc, $rawFeed)
     {
         $feed = unserialize($rawFeed);
-        return $this->_buildVideos($feed->video);
+        return $this->_buildVideos($feed->video, $ioc);
     }
 
-    private function _buildVideos($entries)
+    private function _buildVideos($entries, org_tubepress_ioc_IocService $ioc)
     {
         $results = array();
         $index = 0;
         
+        $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        
         if (is_array($entries) && sizeof($entries) > 0) {
 	        foreach ($entries as $entry) {
 	            
-	            if ($this->isVideoBlackListed($entry->id)) {
+	            if ($this->isVideoBlackListed($entry->id, $tpom)) {
 	                org_tubepress_log_Log::log($this->_logPrefix, 'Video with ID %s is blacklisted. Skipping it.', $entry->id);
 	                continue;
 	            }
@@ -72,7 +74,7 @@ class org_tubepress_video_factory_VimeoVideoFactory extends org_tubepress_video_
 	                break;
 	            }
             
-            	$results[] = $this->_createVideo($entry);
+            	$results[] = $this->_createVideo($entry, $tpom);
         	}
         }
         
@@ -85,18 +87,18 @@ class org_tubepress_video_factory_VimeoVideoFactory extends org_tubepress_video_
      *
      * @return org_tubepress_video_Video The org_tubepress_video_Video representation of this node
      */
-    private function _createVideo($entry)
+    private function _createVideo($entry, org_tubepress_options_manager_OptionsManager $tpom)
     {
         $vid = new org_tubepress_video_Video();
 
         $vid->setAuthorDisplayName($entry->owner->display_name);
         $vid->setAuthorUid($entry->owner->username);
-        $vid->setDescription($this->_getDescription($entry));
+        $vid->setDescription($this->_getDescription($entry, $tpom));
         $vid->setDuration(self::_seconds2HumanTime($entry->duration));
         $vid->setHomeUrl('http://vimeo.com/' . $entry->id);
         $vid->setId($entry->id); 
         $vid->setThumbnailUrl($this->_getThumbnailUrl($entry));
-        $vid->setTimePublished($this->_getTimePublished($entry));
+        $vid->setTimePublished($this->_getTimePublished($entry, $tpom));
         $vid->setTitle($entry->title);
         $vid->setViewCount($this->_getViewCount($entry));
         $vid->setLikesCount($entry->number_of_likes);
@@ -114,9 +116,9 @@ class org_tubepress_video_factory_VimeoVideoFactory extends org_tubepress_video_
         return $vid;
     }
     
-    protected function _getDescription($entry)
+    protected function _getDescription($entry, org_tubepress_options_manager_OptionsManager $tpom)
     {
-        $limit = $this->getOptionsManager()->get(org_tubepress_options_category_Display::DESC_LIMIT);
+        $limit = $tpom->get(org_tubepress_options_category_Display::DESC_LIMIT);
         $desc = $entry->description;
         if ($limit > 0 && strlen($desc) > $limit) {
             $desc = substr($desc, 0, $limit) . '...';
@@ -129,15 +131,15 @@ class org_tubepress_video_factory_VimeoVideoFactory extends org_tubepress_video_
         return $entry->thumbnails->thumbnail[0]->_content;
     }
     
-    private function _getTimePublished($entry)
+    private function _getTimePublished($entry, org_tubepress_options_manager_OptionsManager $tpom)
     { 
         $date = $entry->upload_date;
         $seconds = strtotime($date);
         
-        if ($this->getOptionsManager()->get(org_tubepress_options_category_Display::RELATIVE_DATES)) {
+        if ($tpom->get(org_tubepress_options_category_Display::RELATIVE_DATES)) {
             return $this->_relativeTime($seconds);
         }
-        return date($this->getOptionsManager()->get(org_tubepress_options_category_Advanced::DATEFORMAT), $seconds);
+        return date($tpom->get(org_tubepress_options_category_Advanced::DATEFORMAT), $seconds);
     }
     
     private function _getViewCount($entry)

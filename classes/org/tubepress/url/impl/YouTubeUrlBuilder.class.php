@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_url_UrlBuilder',
     'org_tubepress_options_category_Gallery',
     'org_tubepress_gallery_TubePressGallery',
@@ -36,35 +36,34 @@ tubepress_load_classes(array('org_tubepress_url_UrlBuilder',
  * Builds URLs to send out to YouTube for gdata
  *
  */
-class org_tubepress_url_YouTubeUrlBuilder implements org_tubepress_url_UrlBuilder
+class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_url_UrlBuilder
 {
-    private $_tpom;
-    
     /**
      * Builds a gdata request url for a list of videos
      *
      * @return string The gdata request URL for this gallery
      */
-    public function buildGalleryUrl($currentPage)
+    public function buildGalleryUrl(org_tubepress_ioc_IocService $ioc, $currentPage)
     {
         $url = '';
         
-        switch ($this->_tpom->get(org_tubepress_options_category_Gallery::MODE)) {
+        $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        switch ($tpom->get(org_tubepress_options_category_Gallery::MODE)) {
             
         case org_tubepress_gallery_TubePressGallery::USER:
-            $url = 'users/' . $this->_tpom->get(org_tubepress_options_category_Gallery::USER_VALUE) . '/uploads';
+            $url = 'users/' . $tpom->get(org_tubepress_options_category_Gallery::USER_VALUE) . '/uploads';
             break;
             
         case org_tubepress_gallery_TubePressGallery::TOP_RATED:
-            $url = 'standardfeeds/top_rated?time=' . $this->_tpom->get(org_tubepress_options_category_Gallery::TOP_RATED_VALUE);
+            $url = 'standardfeeds/top_rated?time=' . $tpom->get(org_tubepress_options_category_Gallery::TOP_RATED_VALUE);
             break;
             
         case org_tubepress_gallery_TubePressGallery::POPULAR:
-            $url = 'standardfeeds/most_viewed?time=' . $this->_tpom->get(org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE);
+            $url = 'standardfeeds/most_viewed?time=' . $tpom->get(org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE);
             break;
             
         case org_tubepress_gallery_TubePressGallery::PLAYLIST:
-            $url = 'playlists/' . $this->_tpom->get(org_tubepress_options_category_Gallery::PLAYLIST_VALUE);
+            $url = 'playlists/' . $tpom->get(org_tubepress_options_category_Gallery::PLAYLIST_VALUE);
             break;
                 
         case org_tubepress_gallery_TubePressGallery::MOST_RESPONDED:
@@ -88,11 +87,11 @@ class org_tubepress_url_YouTubeUrlBuilder implements org_tubepress_url_UrlBuilde
             break;
                
         case org_tubepress_gallery_TubePressGallery::FAVORITES:
-            $url = 'users/' . $this->_tpom->get(org_tubepress_options_category_Gallery::FAVORITES_VALUE) . '/favorites';
+            $url = 'users/' . $tpom->get(org_tubepress_options_category_Gallery::FAVORITES_VALUE) . '/favorites';
             break;
                 
         case org_tubepress_gallery_TubePressGallery::TAG:
-            $tags = $this->_tpom->get(org_tubepress_options_category_Gallery::TAG_VALUE);
+            $tags = $tpom->get(org_tubepress_options_category_Gallery::TAG_VALUE);
             $tags = explode(' ', $tags);
             $url  = 'videos?q=' . implode('+', $tags);
             break;
@@ -103,29 +102,24 @@ class org_tubepress_url_YouTubeUrlBuilder implements org_tubepress_url_UrlBuilde
         }
 
         $request = new net_php_pear_Net_URL2("http://gdata.youtube.com/feeds/api/$url");
-        $this->_commonUrlPostProcessing($request);
-        $this->_galleryUrlPostProcessing($request, $currentPage);
+        $this->_commonUrlPostProcessing($tpom, $request);
+        $this->_galleryUrlPostProcessing($tpom, $request, $currentPage);
         $this->_fieldsPostProcessing($request);
         return $request->getURL();
     }
     
-    public function buildSingleVideoUrl($id)
+    public function buildSingleVideoUrl(org_tubepress_ioc_IocService $ioc, $id)
     {
         $requestURL = new net_php_pear_Net_URL2("http://gdata.youtube.com/feeds/api/videos/$id");
-        $this->_commonUrlPostProcessing($requestURL);
+        $this->_commonUrlPostProcessing($ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER), $requestURL);
         
         return $requestURL->getURL();
     }
-    
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom)
-    { 
-        $this->_tpom = $tpom; 
-    }
 
-    private function _commonUrlPostProcessing(net_php_pear_Net_URL2 $url)
+    private function _commonUrlPostProcessing(org_tubepress_options_manager_OptionsManager $tpom, net_php_pear_Net_URL2 $url)
     {
         $url->setQueryVariable('v', 2);
-        $url->setQueryVariable('key', $this->_tpom->get(org_tubepress_options_category_Feed::DEV_KEY));
+        $url->setQueryVariable('key', $tpom->get(org_tubepress_options_category_Feed::DEV_KEY));
     }
 
 	private function _fieldsPostProcessing(net_php_pear_Net_URL2 $url)
@@ -141,9 +135,9 @@ class org_tubepress_url_YouTubeUrlBuilder implements org_tubepress_url_UrlBuilde
      * 
      * @return void
      */
-    private function _galleryUrlPostProcessing(net_php_pear_Net_URL2 $url, $currentPage)
+    private function _galleryUrlPostProcessing(org_tubepress_options_manager_OptionsManager $tpom, net_php_pear_Net_URL2 $url, $currentPage)
     {
-        $perPage   = $this->_tpom->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
+        $perPage   = $tpom->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
         
         /* start index of the videos */
         $start = ($currentPage * $perPage) - $perPage + 1;
@@ -151,19 +145,19 @@ class org_tubepress_url_YouTubeUrlBuilder implements org_tubepress_url_UrlBuilde
         $url->setQueryVariable('start-index', $start);
         $url->setQueryVariable('max-results', $perPage);
         
-        $this->_setOrderBy($url);
+        $this->_setOrderBy($tpom, $url);
         
-        $url->setQueryVariable('safeSearch', $this->_tpom->get(org_tubepress_options_category_Feed::FILTER));
+        $url->setQueryVariable('safeSearch', $tpom->get(org_tubepress_options_category_Feed::FILTER));
 
-        if ($this->_tpom->get(org_tubepress_options_category_Feed::EMBEDDABLE_ONLY)) {
+        if ($tpom->get(org_tubepress_options_category_Feed::EMBEDDABLE_ONLY)) {
             $url->setQueryVariable('format', '5');
         }
     }
     
-    private function _setOrderBy(net_php_pear_Net_URL2 $url) 
+    private function _setOrderBy(org_tubepress_options_manager_OptionsManager $tpom, net_php_pear_Net_URL2 $url) 
     {
-        $order = $this->_tpom->get(org_tubepress_options_category_Display::ORDER_BY);
-        $mode  = $this->_tpom->get(org_tubepress_options_category_Gallery::MODE);
+        $order = $tpom->get(org_tubepress_options_category_Display::ORDER_BY);
+        $mode  = $tpom->get(org_tubepress_options_category_Gallery::MODE);
         
         if ($order == 'random') {
             return;
