@@ -29,10 +29,14 @@ tubepress_load_classes(array(
  * An HTML-embeddable player
  *
  */
-class org_tubepress_embedded_impl_DefaultEmbeddedPlayerService extends org_tubepress_embedded_impl_AbstractEmbeddedPlayerService
+class org_tubepress_embedded_DelegatingEmbeddedPlayerService
 {
-    private $_youtubeService;
-    private $_vimeoService;
+    private static $_providerToBeanNameMap = array(
+        org_tubepress_video_feed_provider_Provider::VIMEO => org_tubepress_ioc_IocService::VIMEO_EMBEDDED_PLAYER,
+        org_tubepress_video_feed_provider_Provider::DIRECTORY => org_tubepress_ioc_IocService::LONGTAIL_EMBEDDED_PLAYER
+    );
+    
+    private static $_defaultDelegateBeanName = org_tubepress_ioc_IocService::YOUTUBE_EMBEDDED_PLAYER;
     
     /**
      * Spits back the text for this embedded player
@@ -41,36 +45,10 @@ class org_tubepress_embedded_impl_DefaultEmbeddedPlayerService extends org_tubep
      *
      * @return string The text for this embedded player
      */
-    public function toString($videoId)
-    {   
-        $provider = $this->getOptionsManager()->calculateCurrentVideoProvider();
-        if ($provider === org_tubepress_video_feed_provider_Provider::VIMEO) {
-            return $this->_vimeoService->toString($videoId);
-        }
-        return $this->_youtubeService->toString($videoId);
-    }
-    
-    /**
-     * Set the YouTube embedded player service.
-     *
-     * @param org_tubepress_embedded_EmbeddedPlayerService $service The YouTube embedded player service.
-     *
-     * @return void
-     */
-    public function setYouTubeEmbeddedPlayerService(org_tubepress_embedded_EmbeddedPlayerService $service)
-    { 
-        $this->_youtubeService = $service;
-    }
-
-    /**
-     * Set the Vimeo embedded player service.
-     *
-     * @param org_tubepress_embedded_EmbeddedPlayerService $service The Vimeo embedded player service.
-     *
-     * @return void
-     */
-    public function setVimeoEmbeddedPlayerService(org_tubepress_embedded_EmbeddedPlayerService $service)
-    { 
-        $this->_vimeoService = $service; 
+    public static function toString(org_tubepress_ioc_IocService $ioc, $videoId)
+    {
+        return org_tubepress_ioc_DelegateUtils::getDelegate($ioc,
+           self::$_providerToBeanNameMap,
+           self::$_defaultDelegateBeanName)->toString($ioc, $videoId);
     }
 }

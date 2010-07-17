@@ -25,8 +25,8 @@
  */
 interface org_tubepress_embedded_EmbeddedPlayerService
 {
-    const LONGTAIL = 'longtail';
-    const DDEFAULT = 'default';
+    const LONGTAIL       = 'longtail';
+    const PROVIDER_BASED = 'provider_based';
     
     /**
      * Spits back the text for this embedded player
@@ -35,5 +35,5 @@ interface org_tubepress_embedded_EmbeddedPlayerService
      *
      * @return string The text for this embedded player
      */
-    public function toString($videoId);
+    public function toString(org_tubepress_ioc_IocService $ioc, $videoId);
 }

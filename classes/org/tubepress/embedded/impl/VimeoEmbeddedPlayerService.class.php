@@ -22,12 +22,12 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array(
-    'org_tubepress_embedded_impl_AbstractEmbeddedPlayerService'));
+    'org_tubepress_embedded_EmbeddedPlayerService'));
 
 /**
  * An HTML-embeddable player for Vimeo.
  */
-class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService extends org_tubepress_embedded_impl_AbstractEmbeddedPlayerService
+class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService implements org_tubepress_embedded_EmbeddedPlayerService
 {
     const VIMEO_EMBEDDED_PLAYER_URL = 'http://vimeo.com/moogaloop.swf';
     const VIMEO_QUERYPARAM_CLIPID   = 'clip_id';
@@ -44,10 +44,10 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService extends org_tubepre
      *
      * @return string The text for this embedded player.
      */
-    public function toString($videoId)
+    public function toString(org_tubepress_ioc_IocService $ioc, $videoId)
     {   
         /* collect the embedded options we're interested in */
-        $tpom       = $this->getOptionsManager();
+        $tpom       = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
         $width      = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
         $height     = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT);
         $fullscreen = $tpom->get(org_tubepress_options_category_Embedded::FULLSCREEN);
@@ -58,8 +58,8 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService extends org_tubepre
         /* build the data URL based on these options */
         $link = new net_php_pear_Net_URL2(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_EMBEDDED_PLAYER_URL);
         $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_CLIPID, $videoId);
-        $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_FS, $this->booleanToOneOrZero($fullscreen));
-        $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_AUTOPLAY, $this->booleanToOneOrZero($autoPlay));
+        $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_FS, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($fullscreen));
+        $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_AUTOPLAY, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));
         $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_COLOR, $color);
 
         if ($showInfo) {
@@ -70,11 +70,11 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService extends org_tubepre
         $link = $link->getURL(true);
 
         /* prep the template and we're done */
-        $template = $this->getTemplate();
+        $template = org_tubepress_theme_Theme::getTemplateInstance($ioc, 'embedded_flash/vimeo.tpl.php');
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_DATA_URL, $link);
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $width);
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT, $height);
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_FULLSCREEN, $this->booleanToString($fullscreen));
+        $template->setVariable(org_tubepress_template_Template::EMBEDDED_FULLSCREEN, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($fullscreen));
         return $template->toString();
     }
 }

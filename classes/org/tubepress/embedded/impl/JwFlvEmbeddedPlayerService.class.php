@@ -21,14 +21,14 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_embedded_impl_AbstractEmbeddedPlayerService',
+tubepress_load_classes(array('org_tubepress_embedded_EmbeddedPlayerService',
     'net_php_pear_Net_URL2',
     'org_tubepress_template_Template'));
 
 /**
  * Represents an HTML-embeddable JW FLV Player.
  */
-class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService extends org_tubepress_embedded_impl_AbstractEmbeddedPlayerService
+class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService implements org_tubepress_embedded_EmbeddedPlayerService
 {
     /**
      * Spits back the text for this embedded player.
@@ -37,12 +37,12 @@ class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService extends org_tubepre
      *
      * @return string The text for this embedded player
      */
-    public function toString($videoId)
+    public function toString(org_tubepress_ioc_IocService $ioc, $videoId)
     {
         global $tubepress_base_url;
    
-        $tpom     = $this->getOptionsManager();
-        $template = $this->getTemplate();
+        $tpom     = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $template = org_tubepress_theme_Theme::getTemplateInstance($ioc, 'embedded_flash/longtail.tpl.php');
         
         $link = new net_php_pear_Net_URL2(sprintf('http://www.youtube.com/watch?v=%s', $videoId));
         

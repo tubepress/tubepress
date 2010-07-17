@@ -21,19 +21,14 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_embedded_EmbeddedPlayerService',
-    'org_tubepress_options_manager_OptionsManager',
-    'org_tubepress_template_Template'));
+tubepress_load_classes(array());
 
 /**
- * Represents an HTML-embeddable YouTube player
+ * Embedded player utilities
  *
  */
-abstract class org_tubepress_embedded_impl_AbstractEmbeddedPlayerService implements org_tubepress_embedded_EmbeddedPlayerService
+class org_tubepress_embedded_impl_EmbeddedPlayerUtils
 {
-    private $_optionsManager;
-    private $_template;
-    
     /**
      * Returns a valid HTML color.
      *
@@ -42,7 +37,7 @@ abstract class org_tubepress_embedded_impl_AbstractEmbeddedPlayerService impleme
      *
      * @return string $candidate if it's a valid HTML color. $default otherwise.
      */
-    protected function getSafeColorValue($candidate, $default)
+    public static function getSafeColorValue($candidate, $default)
     {
         $pattern = '/^[0-9a-fA-F]{6}$/';
         if (preg_match($pattern, $candidate) === 1) {
@@ -58,7 +53,7 @@ abstract class org_tubepress_embedded_impl_AbstractEmbeddedPlayerService impleme
      *
      * @return string '1' or '0'
      */
-    protected function booleanToOneOrZero($bool)
+    public static function booleanToOneOrZero($bool)
     {
         if ($bool === '1') {
             return '1';
@@ -76,52 +71,8 @@ abstract class org_tubepress_embedded_impl_AbstractEmbeddedPlayerService impleme
      *
      * @return string 'true' or 'false'
      */
-    protected function booleanToString($bool)
+    public static function booleanToString($bool)
     {
         return $bool ? 'true' : 'false';
-    }
-    
-    /**
-     * Set the options manager.
-     *
-     * @param org_tubepress_options_manager_OptionsManager $optionsManager The options manager.
-     *
-     * @return void
-     */
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $optionsManager)
-    {
-        $this->_optionsManager = $optionsManager;
-    }
-
-    /**
-     * Set the template.
-     *
-     * @param org_tubepress_template_Template $template The template for the embedded player.
-     *
-     * @return void
-     */
-    public function setTemplate(org_tubepress_template_Template $template)
-    {
-        $this->_template = $template;
-    }
-    
-    /**
-     * Get the options manager.
-     *
-     * @return org_tubepress_options_manager_OptionsManager The options manager.
-     */
-    protected function getOptionsManager()
-    {
-        return $this->_optionsManager;
-    }
-
-    /**
-     * Get the template.
-     *
-     * @return org_tubepress_template_Template The template in use.
-     */
-    protected function getTemplate()
-    {
-        return $this->_template;
     }
 }
