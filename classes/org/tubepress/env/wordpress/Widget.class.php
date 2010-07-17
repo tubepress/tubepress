@@ -42,10 +42,10 @@ class org_tubepress_env_wordpress_Widget
     public static function initAction()
     {
         $msg       = new org_tubepress_message_WordPressMessageService();
-        $widgetOps = array('classname' => 'widget_tubepress', 'description' => $msg->_("widget-description"));
+        $widgetOps = array('classname' => 'widget_tubepress', 'description' => $msg->_('widget-description'));
 
-        wp_register_sidebar_widget('tubepress', "TubePress", array('org_tubepress_env_wordpress_Widget', 'printWidget'), $widgetOps);
-        wp_register_widget_control('tubepress', "TubePress", array('org_tubepress_env_wordpress_Widget', 'printControlPanel'));
+        wp_register_sidebar_widget('tubepress', 'TubePress', array('org_tubepress_env_wordpress_Widget', 'printWidget'), $widgetOps);
+        wp_register_widget_control('tubepress', 'TubePress', array('org_tubepress_env_wordpress_Widget', 'printControlPanel'));
     }
 
     /**
@@ -82,7 +82,7 @@ class org_tubepress_env_wordpress_Widget
         );
     
         /* now apply the user's options */
-        $wpsm             = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE_MANAGER);
+        $wpsm = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE_MANAGER);
         org_tubepress_shortcode_ShortcodeParser::parse($wpsm->get(org_tubepress_options_category_Widget::TAGSTRING), $iocContainer);
         
         /* calculate the final options */
@@ -92,7 +92,7 @@ class org_tubepress_env_wordpress_Widget
         }
         $tpom->setCustomOptions($finalOptions);
         
-        $out = org_tubepress_gallery_GalleryUtils::getHtml($iocContainer);
+        $out = org_tubepress_gallery_TubePressGallery::getHtml($iocContainer);
         
         /* do the standard WordPress widget dance */
         echo $before_widget . $before_title . 
@@ -112,9 +112,9 @@ class org_tubepress_env_wordpress_Widget
         $msg          = $iocContainer->get(org_tubepress_ioc_IocService::MESSAGE_SERVICE);
     
         /* are we saving? */
-        if (isset($_POST["tubepress-widget-submit"])) {
-            $wpsm->set(org_tubepress_options_category_Widget::TAGSTRING, strip_tags(stripslashes($_POST["tubepress-widget-tagstring"])));
-            $wpsm->set(org_tubepress_options_category_Widget::TITLE, strip_tags(stripslashes($_POST["tubepress-widget-title"])));
+        if (isset($_POST['tubepress-widget-submit'])) {
+            $wpsm->set(org_tubepress_options_category_Widget::TAGSTRING, strip_tags(stripslashes($_POST['tubepress-widget-tagstring'])));
+            $wpsm->set(org_tubepress_options_category_Widget::TITLE, strip_tags(stripslashes($_POST['tubepress-widget-title'])));
         }
 
         /* load up the gallery template */

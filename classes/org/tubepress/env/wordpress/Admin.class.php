@@ -95,7 +95,7 @@ EOT
     private static function _executeOptionsPage()
     {
         /* grab the storage manager */
-        if (class_exists('org_tubepress_ioc_ProInWordPressIocService')) {
+        if (org_tubepress_env_EnvironmentDetector::isPro()) {
             $iocContainer = new org_tubepress_ioc_ProInWordPressIocService();
         } else {
             $iocContainer = new org_tubepress_ioc_DefaultIocService();
