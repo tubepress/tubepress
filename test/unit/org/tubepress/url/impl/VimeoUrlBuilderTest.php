@@ -1,0 +1,128 @@
+<?php
+
+require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/url/impl/VimeoUrlBuilder.class.php';
+
+class org_tubepress_url_impl_VimeoUrlBuilderTest extends TubePressUnitTest {
+    
+    const PRE = "/http:\/\/vimeo.com\/api\/rest\/v2\?";
+    const POST = "&format=php&oauth_consumer_key=86a1a3af34044829c435b2e0b03a8e6e&oauth_nonce=[a-zA-Z0-9]+&oauth_signature_method=HMAC-SHA1&oauth_timestamp=[0-9]+&oauth_version=1.0&oauth_signature=[a-zA-Z0-9%]+/";
+    
+	private $_sut;
+	
+	function setUp()
+	{
+		$this->_sut = new org_tubepress_url_impl_VimeoUrlBuilder();
+	}
+
+	function testSingleVideoUrl()
+	{
+		$this->assertTrue($this->urlMatches('method=vimeo.videos.getInfo&video_id=videoid', 
+		    $this->_sut->buildSingleVideoUrl($this->getIoc(), 'videoid')));
+	}
+	
+	function testBuildGalleryUrlGroup()
+	{
+	    $this->setOptions(array(
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::VIMEO_GROUP,
+           org_tubepress_options_category_Gallery::VIMEO_GROUP_VALUE => 'eric',
+           org_tubepress_options_category_Display::ORDER_BY => 'random'
+        ));
+             
+		$this->assertTrue($this->urlMatches('method=vimeo.groups.getVideos&group_id=eric&full_response=true&page=1&per_page=20&sort=random', 
+		    $this->_sut->buildGalleryUrl($this->getIoc(), 1)));
+	}
+	
+	function testBuildGalleryUrlAlbum()
+	{
+        $this->setOptions(array(
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::VIMEO_ALBUM,
+           org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE => 'eric'
+        ));
+        
+		$this->assertTrue($this->urlMatches('method=vimeo.albums.getVideos&album_id=eric&full_response=true&page=1&per_page=20', 
+		   $this->_sut->buildGalleryUrl($this->getIoc(), 1)));
+	}
+	
+	function testBuildGalleryUrlChannel()
+	{
+        $this->setOptions(array(
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::VIMEO_CHANNEL,
+           org_tubepress_options_category_Gallery::VIMEO_CHANNEL_VALUE => 'eric'
+        ));
+             
+		$this->assertTrue($this->urlMatches('method=vimeo.channels.getVideos&channel_id=eric&full_response=true&page=1&per_page=20', 
+		    $this->_sut->buildGalleryUrl($this->getIoc(), 1)));
+	}
+	
+	function testBuildGalleryUrlCreditedTo()
+	{
+        $this->setOptions(array(
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::VIMEO_CREDITED,
+           org_tubepress_options_category_Gallery::VIMEO_CREDITED_VALUE => 'eric'
+        ));
+        
+		$this->assertTrue($this->urlMatches('method=vimeo.videos.getAll&user_id=eric&full_response=true&page=1&per_page=20&sort=most_played', 
+		    $this->_sut->buildGalleryUrl($this->getIoc(), 1)));
+	}
+	
+	function testBuildGalleryUrlSearch()
+	{
+        $this->setOptions(array(
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::VIMEO_SEARCH,
+           org_tubepress_options_category_Gallery::VIMEO_SEARCH_VALUE => 'eric',
+           org_tubepress_options_category_Display::ORDER_BY => 'relevance'
+        ));
+        
+		$this->assertTrue($this->urlMatches('method=vimeo.videos.search&query=eric&full_response=true&page=1&per_page=20&sort=relevant', 
+		    $this->_sut->buildGalleryUrl($this->getIoc(), 1)));
+	}
+	
+	function testBuildGalleryUrlAppearsIn()
+	{
+        $this->setOptions(array(
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::VIMEO_APPEARS_IN,
+           org_tubepress_options_category_Gallery::VIMEO_APPEARS_IN_VALUE => 'eric',
+           org_tubepress_options_category_Display::ORDER_BY => 'oldest'
+        ));
+        
+		$this->assertTrue($this->urlMatches('method=vimeo.videos.getAppearsIn&user_id=eric&full_response=true&page=1&per_page=20&sort=oldest', 
+		    $this->_sut->buildGalleryUrl($this->getIoc(), 1)));
+	}
+	
+	function testBuildGalleryUrlLikes()
+	{
+        $this->setOptions(array(
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::VIMEO_LIKES,
+           org_tubepress_options_category_Gallery::VIMEO_LIKES_VALUE => 'eric',
+           org_tubepress_options_category_Display::ORDER_BY => 'rating'
+        ));
+        
+		$this->assertTrue($this->urlMatches('method=vimeo.videos.getLikes&user_id=eric&full_response=true&page=1&per_page=20&sort=most_liked', 
+		    $this->_sut->buildGalleryUrl($this->getIoc(), 1)));
+	}
+	
+	function testBuildGalleryUrlUploadedBy()
+	{
+        $this->setOptions(array(
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::VIMEO_UPLOADEDBY,
+           org_tubepress_options_category_Gallery::VIMEO_UPLOADEDBY_VALUE => 'eric',
+           org_tubepress_options_category_Display::ORDER_BY => 'commentCount'
+        ));
+	    
+		$this->assertTrue($this->urlMatches('method=vimeo.videos.getUploaded&user_id=eric&full_response=true&page=1&per_page=20&sort=most_commented', 
+		    $this->_sut->buildGalleryUrl($this->getIoc(), 1)));
+	}
+		
+	private function urlMatches($url, $full)
+	{
+		$pattern = org_tubepress_url_impl_VimeoUrlBuilderTest::PRE . $url . org_tubepress_url_impl_VimeoUrlBuilderTest::POST;
+		$result = 1 === preg_match($pattern, $full);
+		if (!$result) {
+			echo "\n\n$full\n    does not match\n$pattern\n\n";
+		}
+		return $result;
+	}
+}
+
+?>
