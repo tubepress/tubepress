@@ -30,8 +30,8 @@ tubepress_load_classes(array('org_tubepress_options_reference_OptionsReference',
     'org_tubepress_options_category_Widget',
     'org_tubepress_options_category_Display',
     'org_tubepress_options_category_Meta',
-    'org_tubepress_options_category_Template',
-    'org_tubepress_options_category_Uploads'));
+    'org_tubepress_options_category_Uploads',
+    'org_tubepress_gallery_TubePressGallery'));
 
 /**
  * The master reference for TubePress options - their names, deprecated
@@ -59,7 +59,6 @@ class org_tubepress_options_reference_OptionsReference
             org_tubepress_options_category_Feed::DEV_KEY                   => 'AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg',
             org_tubepress_options_category_Widget::TITLE                   => 'TubePress',
             org_tubepress_options_category_Widget::TAGSTRING               => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']',
-            org_tubepress_options_category_Template::TEMPLATE              => '',
             org_tubepress_options_category_Gallery::VIDEO                  => '',
             org_tubepress_options_category_Gallery::VIMEO_UPLOADEDBY_VALUE => 'mattkaar',
             org_tubepress_options_category_Gallery::VIMEO_LIKES_VALUE      => 'coiffier',
@@ -71,8 +70,8 @@ class org_tubepress_options_reference_OptionsReference
             org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE      => '140484',
             org_tubepress_options_category_Gallery::DIRECTORY_VALUE        => 'sample_videos',
             org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION => '/usr/bin/ffmpeg',
-            org_tubepress_options_category_Uploads::VIDEO_UPLOADS_BASE_DIRECTORY => ''
-         
+            org_tubepress_options_category_Uploads::VIDEO_UPLOADS_BASE_DIRECTORY => '',
+            org_tubepress_options_category_Display::THEME => ''
         ),
         org_tubepress_options_Type::BOOL => array(
             org_tubepress_options_category_Advanced::DEBUG_ON           => true,
@@ -317,7 +316,7 @@ class org_tubepress_options_reference_OptionsReference
                 return array('none', 'moderate', 'strict');
             case org_tubepress_options_Type::PLAYER_IMPL:
                 return array(
-                    org_tubepress_embedded_EmbeddedPlayerService::DDEFAULT,
+                    org_tubepress_embedded_EmbeddedPlayerService::PROVIDER_BASED,
                     org_tubepress_embedded_EmbeddedPlayerService::LONGTAIL
                 );
         }
@@ -371,7 +370,6 @@ class org_tubepress_options_reference_OptionsReference
     static function isOptionApplicableToOptionsForm($optionName)
     {
         return !in_array($optionName, array(
-            org_tubepress_options_category_Template::TEMPLATE,
             org_tubepress_options_category_Gallery::VIDEO
         ));
     }
@@ -412,7 +410,6 @@ class org_tubepress_options_reference_OptionsReference
     static function shouldBePersisted($optionName)
     {
         return !in_array($optionName, array(
-            org_tubepress_options_category_Template::TEMPLATE,
             org_tubepress_options_category_Gallery::VIDEO
         ));
     }
