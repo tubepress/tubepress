@@ -26,7 +26,10 @@ tubepress_load_classes(array('org_tubepress_options_Category',
     'org_tubepress_message_MessageService',
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_options_storage_StorageManager',
-    'org_tubepress_template_Template'));
+    'org_tubepress_ioc_IocService',
+    'org_tubepress_template_SimpleTemplate',
+    'org_tubepress_template_Template',
+    'org_tubepress_options_category_Gallery'));
 
 /**
  * Displays a generic options form for TubePress
@@ -34,9 +37,7 @@ tubepress_load_classes(array('org_tubepress_options_Category',
  */
 class org_tubepress_options_form_FormHandler
 {
-    private $_messageService;
-    private $_storageManager;
-    private $_template;
+    private $_ioc;
     
     /**
      * Displays all the TubePress options in HTML
@@ -45,16 +46,20 @@ class org_tubepress_options_form_FormHandler
      * 
      * @return void
      */
-    public final function display()
+    public final function getHtml()
     {   
         global $tubepress_base_url;
+        $messageService = $this->_ioc->get(org_tubepress_ioc_IocService::MESSAGE_SERVICE);
+        $template = new org_tubepress_template_SimpleTemplate();
+        $template->setPath(dirname(__FILE__) . '/../../../../../ui/lib/options_page/html_templates/options_page.tpl.php');
+        $storageManager = $this->_ioc->get(org_tubepress_ioc_IocService::STORAGE_MANAGER);
         
         /* set the surrounding text */
-        $this->_template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_TITLE,      $this->_messageService->_('options-page-title'));
-        $this->_template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_INTRO,      $this->_messageService->_('options-page-intro-text'));
-        $this->_template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_DONATION,   $this->_messageService->_('options-page-donation'));
-        $this->_template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_SAVE,       $this->_messageService->_('options-page-save-button'));
-        $this->_template->setVariable(org_tubepress_template_Template::TUBEPRESS_BASE_URL,      $tubepress_base_url);
+        $template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_TITLE, $messageService->_('options-page-title'));
+        $template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_INTRO, $messageService->_('options-page-intro-text'));
+        $template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_DONATION, $messageService->_('options-page-donation'));
+        $template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_SAVE, $messageService->_('options-page-save-button'));
+        $template->setVariable(org_tubepress_template_Template::TUBEPRESS_BASE_URL, $tubepress_base_url);
 
         $categories = array();
         
@@ -66,11 +71,10 @@ class org_tubepress_options_form_FormHandler
             if (!org_tubepress_options_reference_OptionsReference::isOptionCategoryApplicableToOptionsForm($optionCategoryName)) {
                 continue;
             }
-            
-            $categories[$optionCategoryName] = $this->_createCategoryMetaArray($optionCategoryName);
+            $categories[$optionCategoryName] = $this->_createCategoryMetaArray($optionCategoryName, $messageService, $storageManager);
         }
-        $this->_template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_CATEGORIES, $categories);
-        print $this->_template->toString();
+        $template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_CATEGORIES, $categories);
+        return $template->toString();
     }
     
     /**
@@ -83,14 +87,16 @@ class org_tubepress_options_form_FormHandler
      */
     public final function collect($postVars)
     {   
+        $storageManager = $this->_ioc->get(org_tubepress_ioc_IocService::STORAGE_MANAGER);
+        
         /* this loop will collect everything except checkboxes */
         foreach ($postVars as $name => $value) {
             if (org_tubepress_options_reference_OptionsReference::getType($name) === org_tubepress_options_Type::BOOL) {
                 continue;
             }
 
-            if ($this->_storageManager->exists($name)) {
-                $this->_storageManager->set($name, $value);
+            if ($storageManager->exists($name)) {
+                $storageManager->set($name, $value);
             }
         }
 
@@ -104,64 +110,66 @@ class org_tubepress_options_form_FormHandler
             }
 
             /* if the user checked the box, the option name will appear in the POST vars */
-            $this->_storageManager->set($name, array_key_exists($name, $postVars));         
+            $storageManager->set($name, array_key_exists($name, $postVars));         
         }
     }
     
-    private function _createCategoryMetaArray($optionCategoryName)
+    private function _createCategoryMetaArray($optionCategoryName, org_tubepress_message_MessageService $messageService, org_tubepress_options_storage_StorageManager $storageManager)
     {
         $results = array();
-        $results[org_tubepress_template_Template::OPTIONS_PAGE_CATEGORY_TITLE] = $this->_messageService->_("options-category-title-$optionCategoryName");
+        $results[org_tubepress_template_Template::OPTIONS_PAGE_CATEGORY_TITLE] = $messageService->_("options-category-title-$optionCategoryName");
         $results[org_tubepress_template_Template::OPTIONS_PAGE_CATEGORY_OPTIONS] = $optionCategoryName == org_tubepress_options_Category::GALLERY ?
-            $this->_createCategoryMetaArrayForGalleryOptions() : $this->_createCategoryOptionsMetaArray($optionCategoryName);
+            $this->_createCategoryMetaArrayForGalleryOptions($storageManager, $messageService) : $this->_createCategoryOptionsMetaArray($optionCategoryName, $messageService, $storageManager);
         return $results;
     }
     
-    private function _createCategoryOptionsMetaArray($optionCategoryName)
+    private function _createCategoryOptionsMetaArray($optionCategoryName, org_tubepress_message_MessageService $messageService, 
+        org_tubepress_options_storage_StorageManager $storageManager)
     {
         $optionNames = org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory($optionCategoryName);
         $optionsMetaArray = array();
         foreach ($optionNames as $optionName) {
             $metaArray = array();
-            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_TITLE]     = $this->_messageService->_("options-title-$optionName");
-            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_PRO_ONLY]  = org_tubepress_options_reference_OptionsReference::isOptionProOnly($optionName) ? '*' : '';
-            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_WIDGET]    = $this->_getWidgetHtml($optionName);
-            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC]      = $this->_messageService->_("options-desc-$optionName");
-            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_YOUTUBE_OPTION]    = org_tubepress_options_reference_OptionsReference::appliesToYouTube($optionName);
-            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_VIMEO_OPTION]      = org_tubepress_options_reference_OptionsReference::appliesToVimeo($optionName);
+            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_TITLE]    = $messageService->_("options-title-$optionName");
+            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_PRO_ONLY] = org_tubepress_options_reference_OptionsReference::isOptionProOnly($optionName) ? '*' : '';
+            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_WIDGET]   = $this->_getWidgetHtml($optionName, $storageManager, $messageService);
+            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC]     = $messageService->_("options-desc-$optionName");
+            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_YOUTUBE_OPTION]   = org_tubepress_options_reference_OptionsReference::appliesToYouTube($optionName);
+            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_VIMEO_OPTION]     = org_tubepress_options_reference_OptionsReference::appliesToVimeo($optionName);
             
             $optionsMetaArray[] = $metaArray;
         }
         return $optionsMetaArray;
     }
     
-    private function _createCategoryMetaArrayForGalleryOptions()
+    private function _createCategoryMetaArrayForGalleryOptions(org_tubepress_options_storage_StorageManager $storageManager, org_tubepress_message_MessageService $messageService)
     {
         $modeNames = org_tubepress_options_reference_OptionsReference::getValidEnumValues(org_tubepress_options_category_Gallery::MODE);
         $modesMetaArray = array();
         foreach ($modeNames as $modeName) {
             $modeMetaArray = array();
-            $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_TITLE] = $this->_messageService->_("options-title-$modeName");
+            $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_TITLE] = $messageService->_("options-title-$modeName");
             $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_PRO_ONLY] = "";
-            $html = $this->_getHtmlForRadio($modeName);
+            $html = $this->_getHtmlForRadio($modeName, $storageManager);
             if (org_tubepress_options_reference_OptionsReference::isOptionName($modeName . 'Value')) {
                 $newName = $modeName . 'Value';
-                $html .= $this->_getWidgetHtml($newName);
+                $html .= $this->_getWidgetHtml($newName, $storageManager, $messageService);
             }
             $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_WIDGET] = $html;
-            $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC] = $this->_messageService->_("options-desc-$modeName");
-            $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_YOUTUBE_OPTION]    = org_tubepress_options_reference_OptionsReference::appliesToYouTube($modeName);
-            $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_VIMEO_OPTION]      = org_tubepress_options_reference_OptionsReference::appliesToVimeo($modeName);
+            $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC]   = $messageService->_("options-desc-$modeName");
+            $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_YOUTUBE_OPTION] = org_tubepress_options_reference_OptionsReference::appliesToYouTube($modeName);
+            $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_VIMEO_OPTION]   = org_tubepress_options_reference_OptionsReference::appliesToVimeo($modeName);
             
             $modesMetaArray[] = $modeMetaArray;
         }
         return $modesMetaArray;            
     }
     
-    private function _getWidgetHtml($optionName)
+    private function _getWidgetHtml($optionName, org_tubepress_options_storage_StorageManager $storageManager, 
+        org_tubepress_message_MessageService $messageService)
     {
         $type = org_tubepress_options_reference_OptionsReference::getType($optionName);
-        $value = $this->_storageManager->get($optionName);
+        $value = $storageManager->get($optionName);
         
         switch ($type) {
             case org_tubepress_options_Type::BOOL:
@@ -181,7 +189,7 @@ class org_tubepress_options_form_FormHandler
                 $result = "<select name=\"$optionName\">";
                 
                 foreach ($validValues as $validValue) {
-                    $validValueTitle = $this->_messageService->_("$type-$validValue");
+                    $validValueTitle = $messageService->_("$type-$validValue");
                     $selected = $validValue === $value ? 'SELECTED' : '';
                     $result .= "<option value=\"$validValue\" $selected>$validValueTitle</option>";
                 }
@@ -190,14 +198,14 @@ class org_tubepress_options_form_FormHandler
         }
     }
     
-    private function _getHtmlForRadio($optionName)
+    private function _getHtmlForRadio($optionName, org_tubepress_options_storage_StorageManager $storageManager)
     {
-        $value = $this->_storageManager->get(org_tubepress_options_category_Gallery::MODE);
+        $value = $storageManager->get(org_tubepress_options_category_Gallery::MODE);
         $checked = $optionName === $value ? 'CHECKED' : '';
         return "<input type=\"radio\" name=\"mode\" id=\"$optionName\" value=\"$optionName\" $checked />";
     }
     
-    public function setMessageService(org_tubepress_message_MessageService $messageService) { $this->_messageService = $messageService; }
-    public function setStorageManager(org_tubepress_options_storage_StorageManager $storageManager) { $this->_storageManager = $storageManager; }
-    public function setTemplate(org_tubepress_template_Template $template) { $this->_template = $template; }
+    public function setIocService(org_tubepress_ioc_IocService $ioc) {
+        $this->_ioc = $ioc;
+    }
 }

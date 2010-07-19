@@ -117,7 +117,7 @@ EOT
                 echo '<div id="message" class="error fade"><p><strong>' . $error->getMessage() . '</strong></p></div>';
             }
         }
-        $optionsForm->display();
+        print $optionsForm->getHtml();
     }
 }
 
