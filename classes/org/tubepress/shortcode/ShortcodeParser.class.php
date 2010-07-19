@@ -42,7 +42,7 @@ class org_tubepress_shortcode_ShortcodeParser
      */
     public static function parse($content, org_tubepress_ioc_IocService $ioc)
     {
-        $tpom            = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
         
         /* what trigger word are we using? */
         $keyword = $tpom->get(org_tubepress_options_category_Advanced::KEYWORD);
@@ -99,7 +99,7 @@ class org_tubepress_shortcode_ShortcodeParser
      */
     public static function somethingToParse($content, $trigger = "tubepress")
     {
-        return strpos($content, '[' . $trigger) !== false;
+        return preg_match("/\[$trigger\b(.*)\]/", $content) === 1;
     }
     
     /**

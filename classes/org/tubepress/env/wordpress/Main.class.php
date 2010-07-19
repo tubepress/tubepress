@@ -83,7 +83,7 @@ class org_tubepress_env_wordpress_Main
         org_tubepress_log_Log::setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON), $_GET);
 
         /* Parse each shortcode one at a time */
-        while (org_tubepress_shortcode_ShortcodeParser::somethingToParse($content, $trigger) && $x < 10) {
+        while (org_tubepress_shortcode_ShortcodeParser::somethingToParse($content, $trigger)) {
 
             /* Get the HTML for this particular shortcode. Could be a single video or a gallery. */
             $generatedHtml = org_tubepress_gallery_TubePressGallery::getHtml($iocContainer, $content);
