@@ -25,38 +25,32 @@
 interface org_tubepress_ioc_IocService
 {
     const CACHE_SERVICE              = 'cacheService';
-    const FEED_INSPECTION_SERVICE    = 'feedInspectionService';
-    const FEED_RETRIEVAL_SERVICE     = 'feedRetrievalService';
-    const GALLERY                    = 'gallery';
-    const GALLERY_TEMPLATE           = 'galleryTemplate';
-    const LOCAL_FEED_INSPECTION      = 'localFeedInspection';
-    const LOCAL_VIDEO_FACTORY        = 'localVideoFactory';
-    const LONGTAIL_EMBEDDED_TEMPLATE = 'longtailEmbeddedTemplate';
+    
+    const EMBEDDED_IMPL_LONGTAIL     = 'embeddedImplLongtail';
+    const EMBEDDED_IMPL_VIMEO        = 'embeddedImplVimeo';
+    const EMBEDDED_IMPL_YOUTUBE      = 'embeddedImplYouTube';
+    
     const MESSAGE_SERVICE            = 'messageService';
-    const MODAL_PLAYER_TEMPLATE      = 'modalPlayerTemplate';
-    const NORMAL_PLAYER_TEMPLATE     = 'normalPlayerTemplate';
+    
     const OPTIONS_MANAGER            = 'optionsManager';
-    const OPTIONS_FORM_HANDLER       = 'formHandler';
-    const OPTIONS_FORM_TEMPLATE      = 'optionsFormTemplate';
+    const OPTIONS_STORAGE_MANAGER    = 'storageManager';
+    
     const PAGINATION_SERVICE         = 'paginationService';
+    
     const SINGLE_VIDEO               = 'singleVideo';
-    const SINGLE_VIDEO_TEMPLATE      = 'singleVideoTemplate';
-    const STORAGE_MANAGER            = 'storageManager';
-    const THUMB_TEMPLATE             = 'thumbTemplate';
-    const URL_BUILDER                = 'ulrBuilderService';
-    const VALIDATION_SERVICE         = 'validationService';
-    const VIMEO_VIDEO_FACTORY        = 'vimeoVideoFactory';
-    const VIMEO_EMBEDDED_TEMPLATE    = 'vimeoEmbeddedTemplate';
-    const VIMEO_EMBEDDED_PLAYER      = 'vimeoEmbeddedPlayer';
-    const VIMEO_FEED_INSPECTION      = 'vimeoFeedInspection';
-    const VIMEO_URL_BUILDER          = 'vimeoUrlBuilder';
-    const VIDEO_FACTORY              = 'videoFactory';
-    const VIDEO_PROVIDER             = 'videoProvider';
-    const YOUTUBE_EMBEDDED_TEMPLATE  = 'youtubeEmbeddedTemplate';
-    const YOUTUBE_EMBEDDED_PLAYER    = 'youtubeEmbeddedPlayerService';
-    const YOUTUBE_FEED_INSPECTION    = 'youtubeFeedInspectionService';
-    const YOUTUBE_URL_BUILDER        = 'youtubeUrlBuilder';
-    const YOUTUBE_VIDEO_FACTORY      = 'youtubeVideoFactory';
+    
+    const URL_BUILDER_YOUTUBE        = 'youtubeUrlBuilder';
+    const URL_BUILDER_VIMEO          = 'vimeoUrlBuilder';
+    
+    const VIDEO_FACTORY_LOCAL        = 'localVideoFactory';
+    const VIDEO_FACTORY_VIMEO        = 'vimeoVideoFactory';
+    const VIDEO_FACTORY_YOUTUBE      = 'youtubeVideoFactory';
+    
+    const FEED_INSPECTION_LOCAL      = 'localFeedInspection';
+    const FEED_INSPECTION_VIMEO      = 'vimeoFeedInspection';
+    const FEED_INSPECTION_YOUTUBE    = 'youtubeFeedInspectionService';
+    
+    const FEED_RETRIEVAL_SERVICE     = 'feedRetrievalService';
 
     /**
      * Get an object from the container by name.
