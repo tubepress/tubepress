@@ -22,7 +22,14 @@
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_ioc_IocService',
-    'org_tubepress_browser_BrowserDetector'));
+    'org_tubepress_browser_BrowserDetector',
+    'org_tubepress_shortcode_ShortcodeParser',
+    'org_tubepress_options_category_Gallery',
+    'org_tubepress_log_Log',
+    'org_tubepress_player_Player',
+    'org_tubepress_querystring_QueryStringService',
+    'org_tubepress_video_feed_provider_Provider',
+    'org_tubepress_options_Category'));
 
 /**
  * TubePress gallery. This class gets one or more videos from a provider and applies them to the template.
@@ -167,7 +174,7 @@ class org_tubepress_gallery_TubePressGallery
             $template->setVariable(org_tubepress_template_Template::VIDEO_ARRAY, $videos);
             
             $paginationService = $ioc->get(org_tubepress_ioc_IocService::PAGINATION_SERVICE);
-            $pagination        = $paginationService->getHtml($feedResult->getEffectiveTotalResultCount());
+            $pagination        = $paginationService->getHtml($feedResult->getEffectiveTotalResultCount(), $ioc);
             
             if ($tpom->get(org_tubepress_options_category_Display::PAGINATE_ABOVE)) {
                 $template->setVariable(org_tubepress_template_Template::PAGINATION_TOP, $pagination);

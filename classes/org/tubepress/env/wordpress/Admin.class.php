@@ -100,7 +100,7 @@ EOT
         } else {
             $iocContainer = new org_tubepress_ioc_DefaultIocService();
         }
-        $wpsm = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE_MANAGER);
+        $wpsm = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_STORAGE_MANAGER);
         
         /* initialize our options in case we need to */
         $wpsm->init();

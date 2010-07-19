@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_url_UrlBuilder',
     'org_tubepress_video_feed_provider_Provider',
-    'org_tubepress_ioc_DelegateUtils'));
+    'org_tubepress_ioc_IocDelegateUtils'));
 
 /**
  * Builds URLs based on the current provider
@@ -32,10 +32,10 @@ tubepress_load_classes(array('org_tubepress_url_UrlBuilder',
 class org_tubepress_url_DelegatingUrlBuilder
 {
     private static $_providerToBeanNameMap = array(
-        org_tubepress_video_feed_provider_Provider::VIMEO     => org_tubepress_ioc_IocService::VIMEO_URL_BUILDER,
+        org_tubepress_video_feed_provider_Provider::VIMEO     => org_tubepress_ioc_IocService::URL_BUILDER_VIMEO,
     );
     
-    private static $_defaultDelegateName = org_tubepress_ioc_IocService::YOUTUBE_URL_BUILDER;
+    private static $_defaultDelegateName = org_tubepress_ioc_IocService::URL_BUILDER_YOUTUBE;
     
     /**
      * Builds a URL for a list of videos
@@ -44,7 +44,7 @@ class org_tubepress_url_DelegatingUrlBuilder
      */
     public static function buildGalleryUrl(org_tubepress_ioc_IocService $ioc, $currentPage)
     {
-        return org_tubepress_ioc_DelegateUtils::getDelegate($ioc, 
+        return org_tubepress_ioc_IocDelegateUtils::getDelegate($ioc, 
             self::$_providerToBeanNameMap, 
             self::$_defaultDelegateName)->buildGalleryUrl($ioc, $currentPage);
     }
@@ -56,7 +56,7 @@ class org_tubepress_url_DelegatingUrlBuilder
      */
     public static function buildSingleVideoUrl(org_tubepress_ioc_IocService $ioc, $id)
     {   
-        return org_tubepress_ioc_DelegateUtils::getDelegate($ioc,
+        return org_tubepress_ioc_IocDelegateUtils::getDelegate($ioc,
             self::$_providerToBeanNameMap,
             self::$_defaultDelegateName)->buildSingleVideoUrl($ioc, $id);
     }

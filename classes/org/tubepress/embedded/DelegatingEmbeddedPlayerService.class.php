@@ -32,11 +32,11 @@ tubepress_load_classes(array(
 class org_tubepress_embedded_DelegatingEmbeddedPlayerService
 {
     private static $_providerToBeanNameMap = array(
-        org_tubepress_video_feed_provider_Provider::VIMEO => org_tubepress_ioc_IocService::VIMEO_EMBEDDED_PLAYER,
-        org_tubepress_video_feed_provider_Provider::DIRECTORY => org_tubepress_ioc_IocService::LONGTAIL_EMBEDDED_PLAYER
+        org_tubepress_video_feed_provider_Provider::VIMEO => org_tubepress_ioc_IocService::EMBEDDED_IMPL_VIMEO,
+        org_tubepress_video_feed_provider_Provider::DIRECTORY => org_tubepress_ioc_IocService::EMBEDDED_IMPL_LONGTAIL
     );
     
-    private static $_defaultDelegateBeanName = org_tubepress_ioc_IocService::YOUTUBE_EMBEDDED_PLAYER;
+    private static $_defaultDelegateBeanName = org_tubepress_ioc_IocService::EMBEDDED_IMPL_YOUTUBE;
     
     /**
      * Spits back the text for this embedded player
@@ -47,7 +47,7 @@ class org_tubepress_embedded_DelegatingEmbeddedPlayerService
      */
     public static function toString(org_tubepress_ioc_IocService $ioc, $videoId)
     {
-        return org_tubepress_ioc_DelegateUtils::getDelegate($ioc,
+        return org_tubepress_ioc_IocDelegateUtils::getDelegate($ioc,
            self::$_providerToBeanNameMap,
            self::$_defaultDelegateBeanName)->toString($ioc, $videoId);
     }

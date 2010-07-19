@@ -52,7 +52,7 @@ class org_tubepress_options_form_FormHandler
         $messageService = $this->_ioc->get(org_tubepress_ioc_IocService::MESSAGE_SERVICE);
         $template = new org_tubepress_template_SimpleTemplate();
         $template->setPath(dirname(__FILE__) . '/../../../../../ui/lib/options_page/html_templates/options_page.tpl.php');
-        $storageManager = $this->_ioc->get(org_tubepress_ioc_IocService::STORAGE_MANAGER);
+        $storageManager = $this->_ioc->get(org_tubepress_ioc_IocService::OPTIONS_STORAGE_MANAGER);
         
         /* set the surrounding text */
         $template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_TITLE, $messageService->_('options-page-title'));
@@ -87,7 +87,7 @@ class org_tubepress_options_form_FormHandler
      */
     public final function collect($postVars)
     {   
-        $storageManager = $this->_ioc->get(org_tubepress_ioc_IocService::STORAGE_MANAGER);
+        $storageManager = $this->_ioc->get(org_tubepress_ioc_IocService::OPTIONS_STORAGE_MANAGER);
         
         /* this loop will collect everything except checkboxes */
         foreach ($postVars as $name => $value) {

@@ -35,7 +35,7 @@ tubepress_load_classes(array('org_tubepress_single_Video',
 /**
  * Handles requests for a single video (for embedding)
  */
-class org_tubepress_single_VideoImpl implements org_tubepress_single_Video, org_tubepress_ioc_ContainerAware
+class org_tubepress_single_VideoImpl implements org_tubepress_single_Video
 {
     private $_provider;
     private $_template;
@@ -139,31 +139,6 @@ class org_tubepress_single_VideoImpl implements org_tubepress_single_Video, org_
             $this->_template->setVariable(org_tubepress_template_Template::AUTHOR_URL_PREFIX, 'http://vimeo.com/');
             $this->_template->setVariable(org_tubepress_template_Template::VIDEO_SEARCH_PREFIX, 'http://vimeo.com/videos/search:');
         }
-    }
-
-    public function setVideoProvider(org_tubepress_video_feed_provider_Provider $provider)
-    {
-        $this->_provider = $provider;
-    }
-
-    public function setTemplate(org_tubepress_template_Template $template)
-    {
-        $this->_template = $template;
-    }
-
-    public function setContainer(org_tubepress_ioc_IocService $container)
-    {
-        $this->_container = $container;
-    }
-
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $mgr)
-    {
-        $this->_tpom = $mgr;
-    }
-
-    public function setMessageService(org_tubepress_message_MessageService $messageService)
-    {
-        $this->_messageService = $messageService;
     }
 }
 

@@ -22,7 +22,8 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
-    'org_tubepress_ioc_IocService'));
+    'org_tubepress_ioc_IocService',
+    'org_tubepress_options_category_Advanced'));
 
 /**
  * Parses shortcodes.
@@ -42,7 +43,6 @@ class org_tubepress_shortcode_ShortcodeParser
     public static function parse($content, org_tubepress_ioc_IocService $ioc)
     {
         $tpom            = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
-        $inputValidation = $ioc->get(org_tubepress_ioc_IocService::VALIDATION_SERVICE);
         
         /* what trigger word are we using? */
         $keyword = $tpom->get(org_tubepress_options_category_Advanced::KEYWORD);
@@ -80,7 +80,7 @@ class org_tubepress_shortcode_ShortcodeParser
 
                 org_tubepress_log_Log::log(self::LOG_PREFIX, 'Custom options detected in shortcode: %s', $matches[0]);
 
-                $toReturn = self::_parseCustomOption($toReturn, $match, $inputValidation);
+                $toReturn = self::_parseCustomOption($toReturn, $match, $ioc);
 
                 $tpom->setCustomOptions($toReturn);
             }
@@ -110,7 +110,7 @@ class org_tubepress_shortcode_ShortcodeParser
      *
      * @return void
      */
-    private static function _parseCustomOption($customOptions, $match, $inputValidation)
+    private static function _parseCustomOption($customOptions, $match, org_tubepress_ioc_IocService $ioc)
     {
         foreach ($match as $m) {
 
@@ -128,7 +128,7 @@ class org_tubepress_shortcode_ShortcodeParser
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'Custom shortcode detected: %s = %s', $name, (string)$value);
 
             try {
-                $inputValidation->validate($name, $value);
+                org_tubepress_options_validation_InputValidationService::validate($name, $value, $ioc);
                 $customOptions[$name] = $value;
             } catch (Exception $e) {
                 org_tubepress_log_Log::log(self::LOG_PREFIX, 'Ignoring invalid value for "%s" option: %s', $name, $e->getMessage());

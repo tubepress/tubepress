@@ -31,5 +31,5 @@ interface org_tubepress_pagination_PaginationService
      *
      * @return string The HTML for the pagination.
      */
-    public function getHtml($totalResults);
+    public function getHtml($totalResults, org_tubepress_ioc_IocService $ioc);
 }

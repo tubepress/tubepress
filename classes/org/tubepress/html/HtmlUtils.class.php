@@ -24,7 +24,7 @@
  */
 class org_tubepress_html_HtmlUtils
 {
-       public static function printHeadElements($include_jQuery = false, $getVars)
+    public static function getHeadElementsAsString($include_jQuery = false, $getVars)
     {
         global $tubepress_base_url;
 

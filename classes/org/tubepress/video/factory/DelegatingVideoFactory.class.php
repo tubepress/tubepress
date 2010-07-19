@@ -30,11 +30,11 @@ tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory',
 class org_tubepress_video_factory_DelegatingVideoFactory
 {
     private static $_providerToBeanNameMap = array(
-        org_tubepress_video_feed_provider_Provider::VIMEO     => org_tubepress_ioc_IocService::VIMEO_VIDEO_FACTORY,
-        org_tubepress_video_feed_provider_Provider::DIRECTORY => org_tubepress_ioc_IocService::LOCAL_VIDEO_FACTORY
+        org_tubepress_video_feed_provider_Provider::VIMEO     => org_tubepress_ioc_IocService::VIDEO_FACTORY_VIMEO,
+        org_tubepress_video_feed_provider_Provider::DIRECTORY => org_tubepress_ioc_IocService::VIDEO_FACTORY_LOCAL
     );
     
-    private static $_defaultDelegateName = org_tubepress_ioc_IocService::YOUTUBE_VIDEO_FACTORY;
+    private static $_defaultDelegateName = org_tubepress_ioc_IocService::VIDEO_FACTORY_YOUTUBE;
     
     /**
      * Converts raw video feeds to TubePress videos
@@ -46,7 +46,7 @@ class org_tubepress_video_factory_DelegatingVideoFactory
      */
     public function feedToVideoArray(org_tubepress_ioc_IocService $ioc, $feed, $limit)
     {
-        return org_tubepress_ioc_DelegateUtils::getDelegate($ioc, 
+        return org_tubepress_ioc_IocDelegateUtils::getDelegate($ioc, 
             self::$_providerToBeanNameMap, 
             self::$_defaultDelegateName)->feedToVideoArray($ioc, $feed, $limit);
     }

@@ -82,13 +82,13 @@ class org_tubepress_env_wordpress_Widget
         );
     
         /* now apply the user's options */
-        $wpsm = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE_MANAGER);
+        $wpsm = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_STORAGE_MANAGER);
         org_tubepress_shortcode_ShortcodeParser::parse($wpsm->get(org_tubepress_options_category_Widget::TAGSTRING), $iocContainer);
         
         /* calculate the final options */
         $finalOptions = array_merge($defaultWidgetOptions, $tpom->getCustomOptions());
-        if ($finalOptions[org_tubepress_options_category_Gallery::TEMPLATE] != '') {
-            $finalOptions[org_tubepress_options_category_Gallery::TEMPLATE] = 'sidebar.tpl.php';
+        if ($finalOptions[org_tubepress_options_category_Display::THEME] != '') {
+            $finalOptions[org_tubepress_options_category_Display::THEME] = 'sidebar';
         }
         $tpom->setCustomOptions($finalOptions);
         
@@ -108,7 +108,7 @@ class org_tubepress_env_wordpress_Widget
     public static function printControlPanel()
     {
         $iocContainer = new org_tubepress_ioc_DefaultIocService();
-        $wpsm         = $iocContainer->get(org_tubepress_ioc_IocService::STORAGE_MANAGER);
+        $wpsm         = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_STORAGE_MANAGER);
         $msg          = $iocContainer->get(org_tubepress_ioc_IocService::MESSAGE_SERVICE);
     
         /* are we saving? */

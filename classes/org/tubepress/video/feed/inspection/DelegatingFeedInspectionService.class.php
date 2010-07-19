@@ -31,23 +31,23 @@ tubepress_load_classes(array('org_tubepress_video_feed_inspection_FeedInspection
 class org_tubepress_video_feed_inspection_DelegatingFeedInspectionService
 {
     private static $_providerToBeanNameMap = array(
-        org_tubepress_video_feed_provider_Provider::VIMEO     => org_tubepress_ioc_IocService::VIMEO_FEED_INSPECTION,
-        org_tubepress_video_feed_provider_Provider::DIRECTORY => org_tubepress_ioc_IocService::LOCAL_FEED_INSPECTION
+        org_tubepress_video_feed_provider_Provider::VIMEO     => org_tubepress_ioc_IocService::FEED_INSPECTION_VIMEO,
+        org_tubepress_video_feed_provider_Provider::DIRECTORY => org_tubepress_ioc_IocService::FEED_INSPECTION_LOCAL
     );
     
-    private static $_defaultDelegateBeanName = org_tubepress_ioc_IocService::YOUTUBE_FEED_INSPECTION;
+    private static $_defaultDelegateBeanName = org_tubepress_ioc_IocService::FEED_INSPECTION_YOUTUBE;
     
     
     public static function getTotalResultCount(org_tubepress_ioc_IocService $ioc, $rawFeed)
     {
-	    return org_tubepress_ioc_DelegateUtils::getDelegate($ioc,
+	    return org_tubepress_ioc_IocDelegateUtils::getDelegate($ioc,
 	       self::$_providerToBeanNameMap,
 	       self::$_defaultDelegateBeanName)->getTotalResultCount($rawFeed);
     }
     
     public static function getQueryResultCount(org_tubepress_ioc_IocService $ioc, $rawFeed)
     {
-        return org_tubepress_ioc_DelegateUtils::getDelegate($ioc,
+        return org_tubepress_ioc_IocDelegateUtils::getDelegate($ioc,
             self::$_providerToBeanNameMap,
             self::$_defaultDelegateBeanName)->getQueryResultCount($rawFeed);
     }

@@ -26,16 +26,14 @@ tubepress_load_classes(array('org_tubepress_pagination_PaginationService',
     'net_php_pear_Net_URL2',
     'org_tubepress_message_MessageService',
     'org_tubepress_querystring_QueryStringService',
-    'org_tubepress_options_manager_OptionsManager'));
+    'org_tubepress_options_manager_OptionsManager',
+    'org_tubepress_ioc_IocService'));
 
 /**
  * General purpose cache for TubePress
  */
 class org_tubepress_pagination_DiggStylePaginationService implements org_tubepress_pagination_PaginationService
 {
-    private $_messageService;
-    private $_tpom;
-
     /**
      * Get the HTML for pagination.
      *
@@ -43,18 +41,21 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
      *
      * @return string The HTML for the pagination.
      */
-    public function getHtml($vidCount)
+    public function getHtml($vidCount, org_tubepress_ioc_IocService $ioc)
     {
+        $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $messageService = $ioc->get(org_tubepress_ioc_IocService::MESSAGE_SERVICE);
+        
         $currentPage = org_tubepress_querystring_QueryStringService::getPageNum($_GET);
-        $vidsPerPage = $this->_tpom->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
+        $vidsPerPage = $tpom->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
 
         $newurl = new net_php_pear_Net_URL2(org_tubepress_querystring_QueryStringService::getFullUrl($_SERVER));
         $newurl->unsetQueryVariable('tubepress_page');
 
-        $result = $this->_diggStyle($vidCount, $currentPage, $vidsPerPage, 1, $newurl->getURL(), 'tubepress_page');
+        $result = $this->_diggStyle($vidCount, $messageService, $currentPage, $vidsPerPage, 1, $newurl->getURL(), 'tubepress_page');
 
         /* if we're using Ajax for pagination, remove all the hrefs */
-        if ($this->_tpom->get(org_tubepress_options_category_Display::AJAX_PAGINATION)) {
+        if ($tpom->get(org_tubepress_options_category_Display::AJAX_PAGINATION)) {
             $result = preg_replace('/rel="nofollow" href="[^"]*tubepress_page=([0-9]+)[^"]*"/', 'rel="page=${1}"', $result);
         }
 
@@ -73,7 +74,7 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
      *
      * @return The HTML for the pagination
      */
-    private function _diggStyle($totalitems, $page = 1, $limit = 15, $adjacents = 1, $targetpage = '/', $pagestring = '?page=')
+    private function _diggStyle($totalitems, org_tubepress_message_MessageService $messageService, $page = 1, $limit = 15, $adjacents = 1, $targetpage = '/', $pagestring = '?page=')
     {
         $prev       = $page - 1;
         $next       = $page + 1;
@@ -88,9 +89,9 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
             if ($page > 1) {
                 $url->setQueryVariable($pagestring, $prev);
                 $newurl      = $url->getURL();
-                $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">" . $this->_messageService->_("prev") . '</a>';
+                $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">" . $messageService->_("prev") . '</a>';
             } else {
-                $pagination .= '<span class="disabled">' . $this->_messageService->_("prev") . '</span>';
+                $pagination .= '<span class="disabled">' . $messageService->_("prev") . '</span>';
             }
 
             if ($lastpage < 7 + ($adjacents * 2)) {
@@ -172,36 +173,12 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
             if ($page < $counter - 1) {
                 $url->setQueryVariable($pagestring, $next);
                 $newurl      = $url->getURL();
-                $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">" . $this->_messageService->_('next') . '</a>';
+                $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">" . $messageService->_('next') . '</a>';
             } else {
-                $pagination .= '<span class="disabled">' . $this->_messageService->_('next') . '</span>';
+                $pagination .= '<span class="disabled">' . $messageService->_('next') . '</span>';
             }
             $pagination .= "</div>\n";
         }
         return $pagination;
-    }
-
-    /**
-     * Set the message service.
-     *
-     * @param org_tubepress_message_MessageService $messageService The message service.
-     *
-     * @return void
-     */
-    public function setMessageService(org_tubepress_message_MessageService $messageService)
-    {
-        $this->_messageService = $messageService;
-    }
-
-    /**
-     * Set the options manager.
-     *
-     * @param org_tubepress_options_manager_OptionsManager $tpom The options manager.
-     *
-     * @return void
-     */
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom)
-    {
-        $this->_tpom = $tpom;
     }
 }
