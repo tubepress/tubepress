@@ -22,9 +22,9 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_options_storage_AbstractStorageManager',
-    'org_tubepress_options_reference_SimpleOptionsReference',
+    'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_message_WordPressMessageService',
-    'org_tubepress_options_validation_SimpleInputValidationService',
+    'org_tubepress_options_validation_InputValidationService',
     'org_tubepress_gallery_TubePressGallery'));
 
 /**
@@ -58,13 +58,6 @@ class org_tubepress_options_storage_WordPressStorageManager extends org_tubepres
         }
 
         if ($needToInit) {
-            $reference         = new org_tubepress_options_reference_SimpleOptionsReference();
-            $msgService        = new org_tubepress_message_WordPressMessageService();
-            $validationService = new org_tubepress_options_validation_SimpleInputValidationService();
-            $validationService->setMessageService($msgService);
-            $ref = new org_tubepress_options_reference_SimpleOptionsReference();
-            $this->setInputValidationService($validationService);
-            $this->setOptionsReference($ref);
             $this->init();
         }
     }
