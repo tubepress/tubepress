@@ -14,20 +14,20 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerServiceTest extends TubeP
 	
     function testToString()
     {
-        $ioc = $this->getIoc();
-        $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
-        
-        $tpom->expects($this->exactly(13))
-             ->method('get')
-             ->will($this->returnCallback(array('TubePressUnitTest', 'tpomCallback')));
-             
-        $this->assertEquals($this->expected(), $this->_sut->toString($ioc, 'FAKEID'));
+        $this->setOptions(array(
+            org_tubepress_options_category_Embedded::PLAYER_COLOR => '777777',
+            org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT => '111111',
+            org_tubepress_options_category_Embedded::HIGH_QUALITY => true,
+            org_tubepress_options_category_Embedded::LOOP => true,
+            org_tubepress_options_category_Embedded::BORDER => true
+        ));
+        $this->assertEquals($this->expected(), $this->_sut->toString($this->getIoc(), 'FAKEID'));
     }
     
     function expected()
     {
         return <<<EOT
-<object type="application/x-shockwave-flash" data="http://www.youtube.com/v/FAKEID?color2=0x777777&amp;color1=0x111111&amp;rel=1&amp;autoplay=0&amp;loop=1&amp;egm=0&amp;border=1&amp;fs=1&amp;showinfo=0&amp;hd=1" style="width: 450px; height: 350px">
+<object type="application/x-shockwave-flash" data="http://www.youtube.com/v/FAKEID?color2=0x777777&amp;color1=0x111111&amp;rel=1&amp;autoplay=0&amp;loop=1&amp;egm=0&amp;border=1&amp;fs=1&amp;showinfo=0&amp;hd=1" style="width: 425px; height: 350px">
         <param name="wmode" value="transparent" />
         <param name="movie" value="http://www.youtube.com/v/FAKEID?color2=0x777777&amp;color1=0x111111&amp;rel=1&amp;autoplay=0&amp;loop=1&amp;egm=0&amp;border=1&amp;fs=1&amp;showinfo=0&amp;hd=1" />
         <param name="allowfullscreen" value="true" />

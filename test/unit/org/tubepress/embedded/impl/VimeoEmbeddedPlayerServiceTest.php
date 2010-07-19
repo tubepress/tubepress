@@ -14,25 +14,18 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerServiceTest extends TubePre
     
     function testToString()
     {
-        $ioc = $this->getIoc();
-        $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
-        
-        $tpom->expects($this->exactly(7))
-             ->method('get')
-             ->will($this->returnCallback(array('TubePressUnitTest', 'tpomCallback')));
-             
-        $this->assertEquals($this->expected(), $this->_sut->toString($ioc, 'FAKEID'));
+        $this->assertEquals($this->expected(), $this->_sut->toString($this->getIoc(), 'FAKEID'));
     }
     
     function expected()
     {
         return <<<EOT
-<object style="width: 450px; height:350px"
-    data="http://vimeo.com/moogaloop.swf?clip_id=FAKEID&amp;fullscreen=1&amp;autoplay=0&amp;color=111111"
+<object style="width: 425px; height:350px"
+    data="http://vimeo.com/moogaloop.swf?clip_id=FAKEID&amp;fullscreen=1&amp;autoplay=0&amp;color=FFFFFF"
     type="application/x-shockwave-flash">
   <param name="allowfullscreen" value="1" />
   <param name="allowscriptaccess" value="always" />
-  <param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=FAKEID&amp;fullscreen=1&amp;autoplay=0&amp;color=111111" />
+  <param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=FAKEID&amp;fullscreen=1&amp;autoplay=0&amp;color=FFFFFF" />
   <param name="wmode" value="transparent" />
 </object>
 
