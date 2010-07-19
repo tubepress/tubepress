@@ -31,7 +31,8 @@ tubepress_load_classes(array('org_tubepress_options_reference_OptionsReference',
     'org_tubepress_options_category_Display',
     'org_tubepress_options_category_Meta',
     'org_tubepress_options_category_Uploads',
-    'org_tubepress_gallery_TubePressGallery'));
+    'org_tubepress_gallery_TubePressGallery',
+    'org_tubepress_embedded_EmbeddedPlayerService'));
 
 /**
  * The master reference for TubePress options - their names, deprecated
