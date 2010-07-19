@@ -63,7 +63,7 @@ class org_tubepress_video_feed_provider_Provider {
             /* make the request */
             $feedRetrievalService = $ioc->get(org_tubepress_ioc_IocService::FEED_RETRIEVAL_SERVICE);
             $useCache = $tpom->get(org_tubepress_options_category_Feed::CACHE_ENABLED);
-            $rawFeed  = $feedRetrievalService->fetch($url, $useCache);
+            $rawFeed  = $feedRetrievalService->fetch($ioc, $url, $useCache);
         }
         
         /* get reported total result count */

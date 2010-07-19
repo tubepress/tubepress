@@ -23,7 +23,8 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_ioc_DefaultIocService',
     'org_tubepress_ioc_ProInWordPressIocService',
-    'org_tubepress_ioc_IocService'));
+    'org_tubepress_ioc_IocService',
+    'org_tubepress_options_form_FormHandler'));
 
 class org_tubepress_env_wordpress_Admin
 {
@@ -106,7 +107,8 @@ EOT
         $wpsm->init();
 
         /* get the form handler */
-        $optionsForm = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_FORM_HANDLER);
+        $optionsForm = new org_tubepress_options_form_FormHandler();
+        $optionsForm->setIocService($iocContainer);
 
         /* are we updating? */
         if (isset($_POST['tubepress_save'])) {

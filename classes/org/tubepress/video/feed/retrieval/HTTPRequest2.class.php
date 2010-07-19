@@ -31,11 +31,6 @@ tubepress_load_classes(array('org_tubepress_video_feed_retrieval_AbstractFeedRet
  */
 class org_tubepress_video_feed_retrieval_HTTPRequest2 extends org_tubepress_video_feed_retrieval_AbstractFeedRetrievalService
 {
-    public function __construct()
-    {
-        $this->_logPrefix = "HTTP Request 2";   
-    }
-    
     protected function _fetchFromNetwork($urlAsString) {
         $request = new net_php_pear_Net_URL2($urlAsString);
         $req = new net_php_pear_HTTP_Request2($request);
@@ -43,7 +38,7 @@ class org_tubepress_video_feed_retrieval_HTTPRequest2 extends org_tubepress_vide
 
         $response = $req->send();
         
-        org_tubepress_log_Log::log($this->_logPrefix, 'Request for %s returned status %d: %s', $request->getURL(true), 
+        org_tubepress_log_Log::log($this->_getLogPrefix(), 'Request for %s returned status %d: %s', $request->getURL(true), 
             $response->getStatus(), $response->getReasonPhrase());
             
         if ($response->getStatus() != 200) {
@@ -51,5 +46,10 @@ class org_tubepress_video_feed_retrieval_HTTPRequest2 extends org_tubepress_vide
         }
         
         return $response->getBody();
+    }
+
+    protected function _getLogPrefix()
+    {
+        'HTTP Request 2';
     }
 }

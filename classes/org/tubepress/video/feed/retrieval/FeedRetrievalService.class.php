@@ -30,5 +30,5 @@ interface org_tubepress_video_feed_retrieval_FeedRetrievalService
      * 
      * @return unknown The raw feed from the provider
      */
-    public function fetch($url, $useCache);
+    public function fetch(org_tubepress_ioc_IocService $ioc, $url, $useCache);
 }

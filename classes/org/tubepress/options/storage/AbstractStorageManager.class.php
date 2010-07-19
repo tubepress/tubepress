@@ -24,14 +24,15 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_options_storage_StorageManager',
     'org_tubepress_options_Type',
     'org_tubepress_options_validation_InputValidationService',
-    'org_tubepress_options_reference_OptionsReference'));
+    'org_tubepress_options_reference_OptionsReference',
+    'org_tubepress_ioc_ContainerAware'));
 
 /**
  * Handles persistent storage of TubePress options
  */
-abstract class org_tubepress_options_storage_AbstractStorageManager implements org_tubepress_options_storage_StorageManager
+abstract class org_tubepress_options_storage_AbstractStorageManager implements org_tubepress_options_storage_StorageManager, org_tubepress_ioc_ContainerAware
 {
-    private $_validationService;
+    private $_ioc;
 
     /**
      * Creates an option in storage
@@ -107,7 +108,7 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
         if (!org_tubepress_options_reference_OptionsReference::shouldBePersisted($optionName)) {
             return;
         }
-        $this->_validationService->validate($optionName, $optionValue);
+        org_tubepress_options_validation_InputValidationService::validate($optionName, $optionValue, $this->_ioc);
         $this->setOption($optionName, $optionValue);
     }
 
@@ -121,15 +122,9 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
      */
     protected abstract function setOption($optionName, $optionValue);
 
-    /**
-     * Set the org_tubepress_options_validation_InputValidationService
-     *
-     * @param org_tubepress_options_validation_InputValidationService $validationService The validation service
-     *
-     * @return void
-     */
-    public function setInputValidationService(org_tubepress_options_validation_InputValidationService $validationService)
+    public function setContainer(org_tubepress_ioc_IocService $ioc)
     {
-        $this->_validationService = $validationService;
+        $this->_ioc = $ioc;
     }
+
 }
