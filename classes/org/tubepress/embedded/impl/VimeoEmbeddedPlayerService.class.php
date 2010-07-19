@@ -38,14 +38,15 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService implements org_tube
     const VIMEO_QUERYPARAM_COLOR    = 'color';
 
     /**
-     * Spits back the text for this embedded player.
+     * Spits back the text for this embedded player
      *
-     * @param string $videoId The ID of the video to display.
+     * @param org_tubepress_ioc_IocService $ioc     The IOC container
+     * @param string                       $videoId The video ID to display
      *
-     * @return string The text for this embedded player.
+     * @return string The text for this embedded player
      */
     public function toString(org_tubepress_ioc_IocService $ioc, $videoId)
-    {   
+    {
         /* collect the embedded options we're interested in */
         $tpom       = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
         $width      = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
@@ -56,15 +57,15 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService implements org_tube
         $showInfo   = $tpom->get(org_tubepress_options_category_Embedded::SHOW_INFO);
 
         /* build the data URL based on these options */
-        $link = new net_php_pear_Net_URL2(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_EMBEDDED_PLAYER_URL);
-        $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_CLIPID, $videoId);
-        $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_FS, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($fullscreen));
-        $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_AUTOPLAY, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));
-        $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_COLOR, $color);
+        $link = new net_php_pear_Net_URL2(self::VIMEO_EMBEDDED_PLAYER_URL);
+        $link->setQueryVariable(self::VIMEO_QUERYPARAM_CLIPID, $videoId);
+        $link->setQueryVariable(self::VIMEO_QUERYPARAM_FS, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($fullscreen));
+        $link->setQueryVariable(self::VIMEO_QUERYPARAM_AUTOPLAY, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));
+        $link->setQueryVariable(self::VIMEO_QUERYPARAM_COLOR, $color);
 
         if ($showInfo) {
-            $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_TITLE, '1');
-            $link->setQueryVariable(org_tubepress_embedded_impl_VimeoEmbeddedPlayerService::VIMEO_QUERYPARAM_BYLINE, '1');
+            $link->setQueryVariable(self::VIMEO_QUERYPARAM_TITLE, '1');
+            $link->setQueryVariable(self::VIMEO_QUERYPARAM_BYLINE, '1');
         }
 
         $link = $link->getURL(true);

@@ -27,11 +27,12 @@ interface org_tubepress_embedded_EmbeddedPlayerService
 {
     const LONGTAIL       = 'longtail';
     const PROVIDER_BASED = 'provider_based';
-    
+
     /**
      * Spits back the text for this embedded player
      *
-     * @param string $videoId The video ID to display
+     * @param org_tubepress_ioc_IocService $ioc     The IOC container
+     * @param string                       $videoId The video ID to display
      *
      * @return string The text for this embedded player
      */

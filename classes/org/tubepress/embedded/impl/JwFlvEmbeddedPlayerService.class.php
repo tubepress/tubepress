@@ -31,29 +31,30 @@ tubepress_load_classes(array('org_tubepress_embedded_EmbeddedPlayerService',
 class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService implements org_tubepress_embedded_EmbeddedPlayerService
 {
     /**
-     * Spits back the text for this embedded player.
+     * Spits back the text for this embedded player
      *
-     * @param string $videoId The ID of the video to display.
+     * @param org_tubepress_ioc_IocService $ioc     The IOC container
+     * @param string                       $videoId The video ID to display
      *
      * @return string The text for this embedded player
      */
     public function toString(org_tubepress_ioc_IocService $ioc, $videoId)
     {
         global $tubepress_base_url;
-   
+
         $tpom     = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
         $template = org_tubepress_theme_Theme::getTemplateInstance($ioc, 'embedded_flash/longtail.tpl.php');
-        
+
         $link = new net_php_pear_Net_URL2(sprintf('http://www.youtube.com/watch?v=%s', $videoId));
-        
+
         $link = $link->getURL(true);
-        
+
         $template->setVariable(org_tubepress_template_Template::TUBEPRESS_BASE_URL, $tubepress_base_url);
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_DATA_URL, $link);
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_AUTOSTART, $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY) ? 'true' : 'false');
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT));
-        
+
         return $template->toString();
-    }  
+    }
 }

@@ -35,13 +35,14 @@ class org_tubepress_embedded_DelegatingEmbeddedPlayerService
         org_tubepress_video_feed_provider_Provider::VIMEO => org_tubepress_ioc_IocService::EMBEDDED_IMPL_VIMEO,
         org_tubepress_video_feed_provider_Provider::DIRECTORY => org_tubepress_ioc_IocService::EMBEDDED_IMPL_LONGTAIL
     );
-    
+
     private static $_defaultDelegateBeanName = org_tubepress_ioc_IocService::EMBEDDED_IMPL_YOUTUBE;
-    
+
     /**
      * Spits back the text for this embedded player
      *
-     * @param string $videoId The video ID to display
+     * @param org_tubepress_ioc_IocService $ioc     The IOC container
+     * @param string                       $videoId The video ID to display
      *
      * @return string The text for this embedded player
      */
