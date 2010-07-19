@@ -25,7 +25,8 @@ tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
     'org_tubepress_options_storage_StorageManager',
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_options_validation_InputValidationService',
-    'org_tubepress_video_feed_provider_Provider'));
+    'org_tubepress_video_feed_provider_Provider',
+    'org_tubepress_ioc_IocService'));
 
 /**
  * Holds the current options for TubePress. This is the default options,
@@ -35,9 +36,9 @@ tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
 class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepress_options_manager_OptionsManager
 {
     private $_customOptions = array();
-    private $_tpsm;
-    private $_validationService;
+    private $_ioc;
     private $_shortcode;
+    private $_tpsm;
 
     /**
      * Gets the value of an option
@@ -54,7 +55,7 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
 
         /* get a valid value for this option */
         try {
-            $this->_validationService->validate($optionName, $value);
+            org_tubepress_options_validation_InputValidationService::validate($optionName, $value, $this->_ioc);
         } catch (Exception $e) {
             $value = org_tubepress_options_reference_OptionsReference::getDefaultValue($optionName);
         }
@@ -117,62 +118,9 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
     {
         return $this->_shortcode;
     }
-
-    /**
-     * Figures out which provider (YouTube, Vimeo, or Local) that's in use.
-     *
-     * @return string The provider name.
-     */
-    public function calculateCurrentVideoProvider()
-    {
-        $video = $this->get(org_tubepress_options_category_Gallery::VIDEO);
-
-        /* vimeo video IDs are always just numbers */
-        if (is_numeric($video) === true) {
-            return org_tubepress_video_feed_provider_Provider::VIMEO;
-        }
-
-        if (preg_match_all('/^.*\.[A-Za-z]{3}$/', $video, $arr, PREG_PATTERN_ORDER) === 1) {
-            return org_tubepress_video_feed_provider_Provider::DIRECTORY;
-        }
-
-        /* requested a single video, and it's not vimeo or directory, so must be youtube */
-        if ($video != '') {
-            return org_tubepress_video_feed_provider_Provider::YOUTUBE;
-        }
-
-        /* calculate based on gallery content */
-        $currentMode = $this->get(org_tubepress_options_category_Gallery::MODE);
-        if (strpos($currentMode, 'vimeo') === 0) {
-            return org_tubepress_video_feed_provider_Provider::VIMEO;
-        }
-        if (strpos($currentMode, 'directory') === 0) {
-            return org_tubepress_video_feed_provider_Provider::DIRECTORY;
-        }
-        return org_tubepress_video_feed_provider_Provider::YOUTUBE;
-    }
-
-    /**
-     * Set the options storage manager.
-     *
-     * @param org_tubepress_options_storage_StorageManager $tpsm The options storage manager.
-     *
-     * @return void
-     */
-    public function setStorageManager(org_tubepress_options_storage_StorageManager $tpsm)
-    {
-        $this->_tpsm = $tpsm;
-    }
-
-    /**
-     * Set the input validation service.
-     *
-     * @param org_tubepress_options_validation_InputValidationService $valService The input validation service.
-     *
-     * @return void
-     */
-    public function setInputValidationService(org_tubepress_options_validation_InputValidationService $valService)
-    {
-        $this->_validationService = $valService;
+    
+    public function setIocService(org_tubepress_ioc_IocService $ioc) {
+        $this->_ioc = $ioc;
+        $this->_tpsm = $ioc->get(org_tubepress_ioc_IocService::STORAGE_MANAGER);
     }
 }

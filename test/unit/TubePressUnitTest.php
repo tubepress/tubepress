@@ -4,14 +4,18 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../classes/tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
     'org_tubepress_ioc_IocService',
-    'org_tubepress_options_reference_OptionsReference'));
+    'org_tubepress_options_reference_OptionsReference',
+    'org_tubepress_message_MessageService'));
 
 class TubePressUnitTest extends PHPUnit_Framework_TestCase
 {
     private $_needToInit = true;
     
     private $_ioc;
+    
     private $_tpom;
+    private $_msg;
+    private $_tpsm;
     
     private $options = array();
 
@@ -30,8 +34,10 @@ class TubePressUnitTest extends PHPUnit_Framework_TestCase
     
     private function _init()
     {
-        $this->_ioc               = $this->getMock('org_tubepress_ioc_IocService');
-        $this->_tpom              = $this->getMock('org_tubepress_options_manager_OptionsManager');
+        $this->_ioc  = $this->getMock('org_tubepress_ioc_IocService');
+        $this->_tpom = $this->getMock('org_tubepress_options_manager_OptionsManager');
+        $this->_msg  = $this->getMock('org_tubepress_message_MessageService');
+        $this->_tpsm = $this->getMock('org_tubepress_options_storage_StorageManager');
         
         $this->_ioc->expects($this->any())
                    ->method('get')
@@ -39,15 +45,12 @@ class TubePressUnitTest extends PHPUnit_Framework_TestCase
         $this->_tpom->expects($this->any())
                    ->method('get')
                    ->will($this->returnCallback(array($this, 'tpomCallback')));
-    }
-    
-    function iocCallback()
-    {
-        $args = func_get_args();
-        $vals = array(
-           org_tubepress_ioc_IocService::OPTIONS_MANAGER => $this->_tpom
-        );
-        return $vals[$args[0]];
+        $this->_msg->expects($this->any())
+                   ->method('_')
+                   ->will($this->returnCallback(array($this, 'msgCallback')));
+        $this->_tpsm->expects($this->any())
+                    ->method('get')
+                    ->will($this->returnCallback(array($this, 'msgCallback')));
     }
     
     function setOptions($options)
@@ -56,6 +59,23 @@ class TubePressUnitTest extends PHPUnit_Framework_TestCase
         foreach ($options as $key => $value) {
             $this->options[$key] = $value;
         }
+    }
+    
+    function msgCallback()
+    {
+        $args = func_get_args();
+        return $args[0];
+    }
+    
+    function iocCallback()
+    {
+        $args = func_get_args();
+        $vals = array(
+           org_tubepress_ioc_IocService::OPTIONS_MANAGER => $this->_tpom,
+           org_tubepress_ioc_IocService::MESSAGE_SERVICE => $this->_msg,
+           org_tubepress_ioc_IocService::STORAGE_MANAGER => $this->_tpsm
+        );
+        return $vals[$args[0]];
     }
     
     function tpomCallback() {

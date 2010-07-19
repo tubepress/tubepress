@@ -76,11 +76,4 @@ interface org_tubepress_options_manager_OptionsManager
      * @return string The current shortcode
      */
     public function getShortcode();
-
-    /**
-     * Figures out which provider (YouTube, Vimeo, or Local) that's in use.
-     *
-     * @return string The provider name.
-     */
-    public function calculateCurrentVideoProvider();
 }
