@@ -37,7 +37,7 @@ class org_tubepress_env_EnvironmentDetector
     {
         return class_exists('org_tubepress_ioc_ProIocService');
     }
-    
+
     /**
      * Detects if the user is running within WordPress
      *

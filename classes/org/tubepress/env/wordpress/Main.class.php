@@ -47,12 +47,12 @@ class org_tubepress_env_wordpress_Main
             /* do as little work as possible here 'cause we might not even run */
             $wpsm    = new org_tubepress_options_storage_WordPressStorageManager();
             $trigger = $wpsm->get(org_tubepress_options_category_Advanced::KEYWORD);
-        
+
             /* no shortcode? get out */
             if (!org_tubepress_shortcode_ShortcodeParser::somethingToParse($content, $trigger)) {
                 return $content;
             }
-        
+
             return self::_getHtml($content, $trigger);
         } catch (Exception $e) {
             return $e->getMessage() . $content;
@@ -75,22 +75,22 @@ class org_tubepress_env_wordpress_Main
         } else {
             $iocContainer = new org_tubepress_ioc_DefaultIocService();
         }
-        
+
         /* Get a handle to our options manager */
         $tpom = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
-        
+
         /* Turn on logging if we need to */
         org_tubepress_log_Log::setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON), $_GET);
-        
+
         /* Parse each shortcode one at a time */
         while (org_tubepress_shortcode_ShortcodeParser::somethingToParse($content, $trigger) && $x < 10) {
 
             /* Get the HTML for this particular shortcode. Could be a single video or a gallery. */
             $generatedHtml = org_tubepress_gallery_TubePressGallery::getHtml($iocContainer, $content);
-            
+
             /* remove any leading/trailing <p> tags from the content */
             $pattern = '/(<[P|p]>\s*)(' . preg_quote($tpom->getShortcode(), '/') . ')(\s*<\/[P|p]>)/';
-            $content = preg_replace($pattern, '${2}', $content); 
+            $content = preg_replace($pattern, '${2}', $content);
 
             /* replace the shortcode with our new content */
             $currentShortcode = $tpom->getShortcode();

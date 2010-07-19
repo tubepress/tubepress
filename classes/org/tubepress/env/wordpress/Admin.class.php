@@ -69,7 +69,7 @@ class org_tubepress_env_wordpress_Admin
     public static function conditionalExecuteOptionsPage()
     {
         if (version_compare(PHP_VERSION, '5.0.2', '>=')) {
-            org_tubepress_env_wordpress_Admin::_executeOptionsPage();
+            self::_executeOptionsPage();
         } else {
                 print <<<EOT
 <div id="message" class="error fade">
@@ -101,13 +101,13 @@ EOT
             $iocContainer = new org_tubepress_ioc_DefaultIocService();
         }
         $wpsm = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_STORAGE_MANAGER);
-        
+
         /* initialize our options in case we need to */
         $wpsm->init();
-        
+
         /* get the form handler */
         $optionsForm = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_FORM_HANDLER);
-        
+
         /* are we updating? */
         if (isset($_POST['tubepress_save'])) {
             try {

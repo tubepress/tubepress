@@ -65,10 +65,10 @@ class org_tubepress_env_wordpress_Widget
             $iocContainer = new org_tubepress_ioc_DefaultIocService();
         }
         $tpom = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
-    
+
         /* Turn on logging if we need to */
         org_tubepress_log_Log::setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON), $_GET);
-        
+
         /* default widget options */
         $defaultWidgetOptions = array(org_tubepress_options_category_Display::RESULTS_PER_PAGE  => 3,
             org_tubepress_options_category_Meta::VIEWS                  => false,
@@ -80,22 +80,22 @@ class org_tubepress_env_wordpress_Widget
             org_tubepress_options_category_Display::PAGINATE_ABOVE      => false,
             org_tubepress_options_category_Display::PAGINATE_BELOW      => false
         );
-    
+
         /* now apply the user's options */
         $wpsm = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_STORAGE_MANAGER);
         org_tubepress_shortcode_ShortcodeParser::parse($wpsm->get(org_tubepress_options_category_Widget::TAGSTRING), $iocContainer);
-        
+
         /* calculate the final options */
         $finalOptions = array_merge($defaultWidgetOptions, $tpom->getCustomOptions());
         if ($finalOptions[org_tubepress_options_category_Display::THEME] != '') {
             $finalOptions[org_tubepress_options_category_Display::THEME] = 'sidebar';
         }
         $tpom->setCustomOptions($finalOptions);
-        
+
         $out = org_tubepress_gallery_TubePressGallery::getHtml($iocContainer);
-        
+
         /* do the standard WordPress widget dance */
-        echo $before_widget . $before_title . 
+        echo $before_widget . $before_title .
             $wpsm->get(org_tubepress_options_category_Widget::TITLE) .
             $after_title . $out . $after_widget;
     }
@@ -110,7 +110,7 @@ class org_tubepress_env_wordpress_Widget
         $iocContainer = new org_tubepress_ioc_DefaultIocService();
         $wpsm         = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_STORAGE_MANAGER);
         $msg          = $iocContainer->get(org_tubepress_ioc_IocService::MESSAGE_SERVICE);
-    
+
         /* are we saving? */
         if (isset($_POST['tubepress-widget-submit'])) {
             $wpsm->set(org_tubepress_options_category_Widget::TAGSTRING, strip_tags(stripslashes($_POST['tubepress-widget-tagstring'])));
@@ -120,13 +120,13 @@ class org_tubepress_env_wordpress_Widget
         /* load up the gallery template */
         $tpl = new org_tubepress_template_SimpleTemplate();
         $tpl->setPath(dirname(__FILE__) . '/../../../../../env/WordPress/ui/widget/html_templates/controls.tpl.php');
-    
+
         /* set up the template */
         $tpl->setVariable(org_tubepress_template_Template::WIDGET_CONTROL_TITLE, $msg->_('options-meta-title-title'));
         $tpl->setVariable(org_tubepress_template_Template::WIDGET_TITLE, $wpsm->get(org_tubepress_options_category_Widget::TITLE));
         $tpl->setVariable(org_tubepress_template_Template::WIDGET_CONTROL_SHORTCODE, $msg->_('widget-tagstring-description'));
         $tpl->setVariable(org_tubepress_template_Template::WIDGET_SHORTCODE, $wpsm->get(org_tubepress_options_category_Widget::TAGSTRING));
-        
+
         /* get the template's output */
         echo $tpl->toString();
     }
