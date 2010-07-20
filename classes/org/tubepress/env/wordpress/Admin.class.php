@@ -36,7 +36,7 @@ class org_tubepress_env_wordpress_Admin
     public static function headAction()
     {
         global $tubepress_base_url;
-        $jsColorFile = "$tubepress_base_url/ui/options_page/js/jscolor/jscolor.js";
+        $jsColorFile = "$tubepress_base_url/ui/lib/options_page/js/jscolor/jscolor.js";
         echo "<script type=\"text/javascript\" src=\"$jsColorFile\"></script>";
     }
 
@@ -48,7 +48,7 @@ class org_tubepress_env_wordpress_Admin
     public static function initAction()
     {
         $dirName = basename(realpath(dirname(__FILE__) . '/../../../../..'));
-        wp_enqueue_style('jquery-ui-flick', WP_PLUGIN_URL . "/$dirName/ui/options_page/css/flick/jquery-ui-1.7.2.custom.css");
+        wp_enqueue_style('jquery-ui-flick', WP_PLUGIN_URL . "/$dirName/ui/lib/options_page/css/flick/jquery-ui-1.7.2.custom.css");
         wp_enqueue_script('jquery-ui-tabs');
     }
 
