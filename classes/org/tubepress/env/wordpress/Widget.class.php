@@ -87,10 +87,11 @@ class org_tubepress_env_wordpress_Widget
 
         /* calculate the final options */
         $finalOptions = array_merge($defaultWidgetOptions, $tpom->getCustomOptions());
-        if ($finalOptions[org_tubepress_options_category_Display::THEME] != '') {
-            $finalOptions[org_tubepress_options_category_Display::THEME] = 'sidebar';
-        }
         $tpom->setCustomOptions($finalOptions);
+
+        if ($tpom->get(org_tubepress_options_category_Display::THEME) === '') {
+            $tpom->set(org_tubepress_options_category_Display::THEME, 'sidebar');
+        }
 
         $out = org_tubepress_gallery_TubePressGallery::getHtml($iocContainer);
 

@@ -177,7 +177,6 @@ class org_tubepress_gallery_TubePressGallery
     {
         $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
 
-        /* first apply the video array */
         $videos = $feedResult->getVideoArray();
         if (is_array($videos) && sizeof($videos) > 0) {
 
@@ -196,16 +195,44 @@ class org_tubepress_gallery_TubePressGallery
             }
         }
 
+        $currentTheme = org_tubepress_theme_Theme::calculateCurrentThemeName($ioc);
+
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_IMPL_NAME, self::_getEmbeddedServiceName($tpom));
         $template->setVariable(org_tubepress_template_Template::GALLERY_ID, $galleryId);
         $template->setVariable(org_tubepress_template_Template::PLAYER_NAME, $playerName);
+        $template->setVariable(org_tubepress_template_Template::THEME_NAME, $currentTheme);
         $template->setVariable(org_tubepress_template_Template::THUMBNAIL_WIDTH, $tpom->get(org_tubepress_options_category_Display::THUMB_WIDTH));
         $template->setVariable(org_tubepress_template_Template::THUMBNAIL_HEIGHT, $tpom->get(org_tubepress_options_category_Display::THUMB_HEIGHT));
 
         self::_prepMetaInfo($template, $ioc);
         self::_prepUrlPrefixes($tpom, $template);
+        self::_prepAjaxPagination($tpom, $template);
+        self::_prepThemeCss($currentTheme, $template);
+    }
 
-        /* Ajax pagination? */
+    private static function _prepThemeCss($currentTheme, org_tubepress_template_Template $template)
+    {
+        if ($currentTheme != 'default') {
+            global $tubepress_base_url;
+            $cssPath = org_tubepress_theme_Theme::getCssPath($currentTheme);
+            if (is_readable($cssPath)) {
+
+                org_tubepress_log_Log::log(self::LOG_PREFIX, 'Theme CSS found at %s', $cssPath);
+                $cssRelativePath = org_tubepress_theme_Theme::getCssPath($currentTheme, true);
+
+                $cssUrl = "$tubepress_base_url/$cssRelativePath";
+                org_tubepress_log_Log::log(self::LOG_PREFIX, 'Will inject CSS from %s', $cssUrl);
+                $template->setVariable(org_tubepress_template_Template::THEME_CSS, $cssUrl);
+            } else {
+                org_tubepress_log_Log::log(self::LOG_PREFIX, 'No theme CSS found.', $cssPath);
+            }
+        } else {
+            org_tubepress_log_Log::log(self::LOG_PREFIX, 'Default theme is in use. No need to inject extra CSS.', $cssUrl);
+        }
+    }
+
+    private static function _prepAjaxPagination(org_tubepress_options_manager_OptionsManager $tpom, org_tubepress_template_Template $template)
+    {
         if ($tpom->get(org_tubepress_options_category_Display::AJAX_PAGINATION)) {
             org_tubepress_log_Log::log($this->_logPrefix, 'Using Ajax pagination');
             $template->setVariable(org_tubepress_template_Template::SHORTCODE, urlencode($tpom->getShortcode()));

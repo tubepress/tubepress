@@ -53,6 +53,8 @@ interface org_tubepress_template_Template
     const PLAYER_NAME =                     'playerName';
     const PRE_GALLERY =                     'preGallery';
     const SHORTCODE =                       'shortcode';
+    const THEME_CSS =                       'themeCssUrl';
+    const THEME_NAME =                      'themeName';
     const THUMBNAIL_HEIGHT =                'thumbHeight';
     const THUMBNAIL_WIDTH =                 'thumbWidth';
     const TUBEPRESS_BASE_URL =              'tubepressBaseUrl';

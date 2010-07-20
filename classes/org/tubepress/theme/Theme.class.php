@@ -37,6 +37,26 @@ class org_tubepress_theme_Theme
     {
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'Loading template instance at "%s"', $pathToTemplate);
         
+        $currentTheme = self::calculateCurrentThemeName($ioc);
+        $filePath     = self::_getFilePath($currentTheme, $pathToTemplate);
+        
+        if (!is_readable($filePath)) {
+            throw new Exception("Cannot read file at $filePath");
+        }
+
+        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Loading template from %s', $filePath);
+        $template = new org_tubepress_template_SimpleTemplate();
+        $template->setPath($filePath);
+        return $template;
+    }
+
+    public static function getCssPath($currentTheme, $relative = false)
+    {
+        return self::_getFilePath($currentTheme, 'style.css', $relative);
+    }
+
+    public static function calculateCurrentThemeName(org_tubepress_ioc_IocService $ioc)
+    {
         $tpom         = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
         $currentTheme = $tpom->get(org_tubepress_options_category_Display::THEME);
         if ($currentTheme == '') {
@@ -44,23 +64,25 @@ class org_tubepress_theme_Theme
         }
         
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'Current theme is "%s"', $currentTheme);
-        
+        return $currentTheme;
+    }
+
+    private static function _getFilePath($currentTheme, $pathToTemplate, $relative = false)
+    {
         $tubepressInstallationPath = realpath(dirname(__FILE__) . '/../../../..');
         $filePath                  = "$tubepressInstallationPath/content/themes/$currentTheme/$pathToTemplate";
         
         if (!is_readable($filePath)) {
             org_tubepress_log_Log::log(self::LOG_PREFIX, '%s is not readable. Checking ui/themes instead.', $filePath);
             
-            $filePath = "$tubepressInstallationPath/ui/themes/$currentTheme/$pathToTemplate";
-            if (!is_readable($filePath)) {
-                throw new Exception("Cannot read template at $pathToTemplate");
-            }
+            return "$tubepressInstallationPath/ui/themes/$currentTheme/$pathToTemplate";
         }
-        
-        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Loading template from %s', $filePath);
-        $template = new org_tubepress_template_SimpleTemplate();
-        $template->setPath($filePath);
-        return $template;
+
+        if ($relative) {
+            return str_replace("$tubepressInstallationPath/", '', $filePath);
+        }
+
+        return $filePath;
     }
-}
+}  
 

@@ -106,7 +106,7 @@ class org_tubepress_env_wordpress_Main
      */
     public static function headAction()
     {
-        print org_tubepress_html_HtmlUtils::getHeadElementsAsString(false, $_GET);
+        print org_tubepress_html_HtmlUtils::getHeadElementsAsString($_GET, false);
     }
 
     /**
