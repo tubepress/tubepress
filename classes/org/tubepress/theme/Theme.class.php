@@ -75,7 +75,7 @@ class org_tubepress_theme_Theme
         if (!is_readable($filePath)) {
             org_tubepress_log_Log::log(self::LOG_PREFIX, '%s is not readable. Checking ui/themes instead.', $filePath);
             
-            return "$tubepressInstallationPath/ui/themes/$currentTheme/$pathToTemplate";
+            $filePath = "$tubepressInstallationPath/ui/themes/$currentTheme/$pathToTemplate";
         }
 
         if ($relative) {

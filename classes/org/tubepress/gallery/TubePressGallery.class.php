@@ -157,7 +157,10 @@ class org_tubepress_gallery_TubePressGallery
 
         /* we're done. tie up */
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'Done assembling gallery %d', $galleryId);
-        return $template->toString();
+        $result =  $template->toString();
+        $result .= self::_getAjaxPagination($ioc);
+        $result .= self::_getThemeCss($ioc);
+        return $result;
     }
 
     private static function _getTemplate(org_tubepress_ioc_IocService $ioc)
@@ -206,12 +209,12 @@ class org_tubepress_gallery_TubePressGallery
 
         self::_prepMetaInfo($template, $ioc);
         self::_prepUrlPrefixes($tpom, $template);
-        self::_prepAjaxPagination($tpom, $template);
-        self::_prepThemeCss($currentTheme, $template);
     }
 
-    private static function _prepThemeCss($currentTheme, org_tubepress_template_Template $template)
+    private static function _getThemeCss(org_tubepress_ioc_IocService $ioc)
     {
+        $currentTheme = org_tubepress_theme_Theme::calculateCurrentThemeName($ioc);
+
         if ($currentTheme != 'default') {
             global $tubepress_base_url;
             $cssPath = org_tubepress_theme_Theme::getCssPath($currentTheme);
@@ -222,21 +225,31 @@ class org_tubepress_gallery_TubePressGallery
 
                 $cssUrl = "$tubepress_base_url/$cssRelativePath";
                 org_tubepress_log_Log::log(self::LOG_PREFIX, 'Will inject CSS from %s', $cssUrl);
+                $template = new org_tubepress_template_SimpleTemplate();
+                $template->setPath(dirname(__FILE__) . '/../../../../ui/lib/gallery_html_snippets/theme_loader.tpl.php');
                 $template->setVariable(org_tubepress_template_Template::THEME_CSS, $cssUrl);
+                return $template->toString();
             } else {
                 org_tubepress_log_Log::log(self::LOG_PREFIX, 'No theme CSS found.', $cssPath);
             }
         } else {
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'Default theme is in use. No need to inject extra CSS.', $cssUrl);
         }
+        return '';
     }
 
-    private static function _prepAjaxPagination(org_tubepress_options_manager_OptionsManager $tpom, org_tubepress_template_Template $template)
+    private static function _getAjaxPagination(org_tubepress_ioc_IocService $ioc)
     {
+        $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        
         if ($tpom->get(org_tubepress_options_category_Display::AJAX_PAGINATION)) {
             org_tubepress_log_Log::log($this->_logPrefix, 'Using Ajax pagination');
+            $template = new org_tubepress_template_SimpleTemplate();
+            $template->setPath(dirname(__FILE__) . '/../../../../ui/lib/gallery_html_snippets/ajax_pagination.tpl.php');
             $template->setVariable(org_tubepress_template_Template::SHORTCODE, urlencode($tpom->getShortcode()));
+            return $template->toString();
         }
+        return '';
     }
 
     private static function _prepUrlPrefixes(org_tubepress_options_manager_OptionsManager $tpom, org_tubepress_template_Template $template)
