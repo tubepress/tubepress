@@ -24,7 +24,6 @@
 ?>
 
 <div class="tubepress_container" id="tubepress_gallery_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>">
-  <?php echo ${org_tubepress_template_Template::PRE_GALLERY}; ?>
   
   <div id="tubepress_gallery_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>_thumbnail_area" class="tubepress_thumbnail_area">
   
@@ -118,10 +117,6 @@
     </div>
     <?php if (isset(${org_tubepress_template_Template::PAGINATION_BOTTOM})) : echo ${org_tubepress_template_Template::PAGINATION_BOTTOM}; endif; ?>
   </div>
-
-  <?php if (isset(${org_tubepress_template_Template::SHORTCODE})): ?>
-     <script type="text/javascript">function getUrlEncodedShortcodeForTubePressGallery<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>(){return "<?php echo ${org_tubepress_template_Template::SHORTCODE}; ?>";}jQuery(document).ready(function(){TubePressAjax.initPagination(<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>);})</script>
-  <?php endif; ?>
 
   <script type="text/javascript">
     jQuery(document).ready(function(){
