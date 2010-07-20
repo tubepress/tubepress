@@ -22,8 +22,12 @@
  * Sure, maybe your templating system of choice looks prettier but I'll bet it's not faster :)
  */
 ?>
-
-  <?php if (isset(${org_tubepress_template_Template::SHORTCODE})): ?>
-     <script type="text/javascript">function getUrlEncodedShortcodeForTubePressGallery<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>(){return "<?php echo ${org_tubepress_template_Template::SHORTCODE}; ?>";}jQuery(document).ready(function(){TubePressAjax.initPagination(<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>);})</script>
-  <?php endif; ?>
+<script type="text/javascript">
+    function getUrlEncodedShortcodeForTubePressGallery<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>() {
+        return "<?php echo ${org_tubepress_template_Template::SHORTCODE}; ?>";
+    }
+    jQuery(document).ready(function(){
+        TubePressAjax.initPagination(<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>);
+    });
+</script>
 

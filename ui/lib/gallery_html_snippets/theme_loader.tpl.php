@@ -22,11 +22,8 @@
  * Sure, maybe your templating system of choice looks prettier but I'll bet it's not faster :)
  */
 ?>
-
-  <?php if (isset(${org_tubepress_template_Template::THEME_CSS})) : ?>
-    <script type="text/javascript">
-      jQuery(document).ready(function(){
-        TubePressUtils.loadCss("<?php echo ${org_tubepress_template_Template::THEME_CSS}; ?>");
-      });
-    </script>
-  <?php endif; ?>
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+    TubePressUtils.loadCss("<?php echo ${org_tubepress_template_Template::THEME_CSS}; ?>");
+  });
+</script>
