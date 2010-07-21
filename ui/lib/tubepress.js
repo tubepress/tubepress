@@ -78,7 +78,7 @@ TubePress = (function () {
 	loadEmbeddedJs = function (baseUrl) {
 		var embeddedNames = parseRels(1), i, emptyFunc = function () {};
 		for (i = 0; i < embeddedNames.length; i = i + 1) {
-			jQuery.getScript(baseUrl + "/ui/embedded_flash/" + embeddedNames[i] + "/" + embeddedNames[i] + ".js", emptyFunc, true);
+			jQuery.getScript(baseUrl + "/ui/lib/embedded_flash/" + embeddedNames[i] + "/" + embeddedNames[i] + ".js", emptyFunc, true);
 		}
 	};
 
@@ -87,7 +87,7 @@ TubePress = (function () {
 		var playerNames = parseRels(2), i;
 		for (i = 0; i < playerNames.length; i = i + 1) {
 			var name = playerNames[i];
-			jQuery.getScript(baseUrl + "/ui/players/" + name + "/" + name + ".js", 
+			jQuery.getScript(baseUrl + "/ui/lib/players/" + name + "/" + name + ".js", 
 				triggerPlayerLoadedEvent(name, baseUrl), true);
 		}
 	};

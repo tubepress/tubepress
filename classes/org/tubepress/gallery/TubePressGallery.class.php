@@ -29,7 +29,8 @@ tubepress_load_classes(array('org_tubepress_ioc_IocService',
     'org_tubepress_player_Player',
     'org_tubepress_querystring_QueryStringService',
     'org_tubepress_video_feed_provider_Provider',
-    'org_tubepress_options_Category'));
+    'org_tubepress_options_Category',
+    'org_tubepress_embedded_DelegatingEmbeddedPlayerService'));
 
 /**
  * TubePress gallery. This class gets one or more videos from a provider and applies them to the template.
@@ -196,6 +197,9 @@ class org_tubepress_gallery_TubePressGallery
             if ($tpom->get(org_tubepress_options_category_Display::PAGINATE_BELOW)) {
                 $template->setVariable(org_tubepress_template_Template::PAGINATION_BOTTOM, $pagination);
             }
+            
+            $template->setVariable(org_tubepress_template_Template::EMBEDDED_SOURCE,
+                org_tubepress_embedded_DelegatingEmbeddedPlayerService::toString($ioc, $videos[0]->getId()));
         }
 
         $currentTheme = org_tubepress_theme_Theme::calculateCurrentThemeName($ioc);
@@ -210,7 +214,7 @@ class org_tubepress_gallery_TubePressGallery
         self::_prepMetaInfo($template, $ioc);
         self::_prepUrlPrefixes($tpom, $template);
     }
-
+    
     private static function _getThemeCss(org_tubepress_ioc_IocService $ioc)
     {
         $currentTheme = org_tubepress_theme_Theme::calculateCurrentThemeName($ioc);
