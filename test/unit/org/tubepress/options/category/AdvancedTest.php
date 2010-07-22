@@ -5,24 +5,19 @@ class org_tubepress_options_category_AdvancedTest extends PHPUnit_Framework_Test
 	
 	private $_expectedNames;
 	private $_actualNames;
-	private $_tpsm;
-	private $_template;	
-	private $_sut;
 	private $_msgService;
 	
 	public function setup()
 	{
 		$this->_expectedNames = array(
-			"dateFormat", "debugging_enabled",
-			"keyword", "videoBlacklist",
+			'dateFormat', 'debugging_enabled',
+			'keyword', 'videoBlacklist',
     	);
-    	$class = new ReflectionClass("org_tubepress_options_category_Advanced");    
+    	$class = new ReflectionClass('org_tubepress_options_category_Advanced');    
         $this->_actualNames = $class->getConstants();
         
-        $this->_tpsm = $this->getMock("org_tubepress_options_storage_StorageManager");
-        $this->_template = $this->getMock("org_tubepress_template_Template");
         $this->_sut = new org_tubepress_options_category_Advanced();
-        $this->_msgService = $this->getMock("org_tubepress_message_MessageService");
+        $this->_msgService = $this->getMock('org_tubepress_message_MessageService');
 	}
 	
 	public function testHasRightOptionNames()

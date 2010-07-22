@@ -5,24 +5,18 @@ class org_tubepress_options_category_DisplayTest extends PHPUnit_Framework_TestC
     
     private $_expectedNames;
 	private $_actualNames;
-	private $_tpsm;
-	private $_template;	
 	private $_sut;
-	private $_msgService;
 	
 	public function setup()
 	{
 		$this->_expectedNames = array(
-			'ajaxPagination', "playerLocation", "descriptionLimit", "orderBy", "relativeDates", 
-			"resultsPerPage", "thumbHeight", "thumbWidth", 'paginationAbove', 'paginationBelow',
-			'hqThumbs', 'randomize_thumbnails'
+			'ajaxPagination', 'playerLocation', 'descriptionLimit', 'orderBy', 'relativeDates', 
+			'resultsPerPage', 'thumbHeight', 'thumbWidth', 'paginationAbove', 'paginationBelow',
+			'hqThumbs', 'randomize_thumbnails', 'theme'
     	);
-    	$class = new ReflectionClass("org_tubepress_options_category_Display");    
+    	$class = new ReflectionClass('org_tubepress_options_category_Display');    
         $this->_actualNames = $class->getConstants();
-        $this->_tpsm = $this->getMock("org_tubepress_options_storage_StorageManager");
-        $this->_template = $this->getMock("net_php_pear_HTML_Template_IT");
         $this->_sut = new org_tubepress_options_category_Display();
-        $this->_msgService = $this->getMock("org_tubepress_message_MessageService");
 	}
 
 	

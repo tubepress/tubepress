@@ -74,7 +74,7 @@ class org_tubepress_options_validation_InputValidationService
             break;
 
         case org_tubepress_options_category_Display::THEME:
-            if (strpos($candidate, '..') === true) {
+            if (strpos($candidate, '..') !== false) {
                 throw new Exception($messageService->_('validation-no-dots-in-path'));
             }
             break;

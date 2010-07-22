@@ -13,7 +13,7 @@ class org_tubepress_options_manager_SimpleOptionsManagerTest extends TubePressUn
 	{
 	    $ioc = $this->getIoc();
 		$this->_sut = new org_tubepress_options_manager_SimpleOptionsManager();
-		$this->_sut->setIocService($ioc);
+		$this->_sut->setContainer($ioc);
 	}
     
     public function testGetSetShortcode()

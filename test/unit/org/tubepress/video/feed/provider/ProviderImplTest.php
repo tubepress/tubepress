@@ -3,7 +3,6 @@ class org_tubepress_video_feed_provider_ProviderImplTest extends PHPUnit_Framewo
     
     private $_feedInspectionService;
     private $_feedRetrievalService;
-    private $_log;
     private $_optionsManager;
     private $_urlBuilder;
     private $_videoFactory;

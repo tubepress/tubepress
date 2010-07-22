@@ -5,7 +5,8 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
     'org_tubepress_ioc_IocService',
     'org_tubepress_options_reference_OptionsReference',
-    'org_tubepress_message_MessageService'));
+    'org_tubepress_message_MessageService',
+    'org_tubepress_options_storage_StorageManager'));
 
 class TubePressUnitTest extends PHPUnit_Framework_TestCase
 {
@@ -73,7 +74,7 @@ class TubePressUnitTest extends PHPUnit_Framework_TestCase
         $vals = array(
            org_tubepress_ioc_IocService::OPTIONS_MANAGER => $this->_tpom,
            org_tubepress_ioc_IocService::MESSAGE_SERVICE => $this->_msg,
-           org_tubepress_ioc_IocService::STORAGE_MANAGER => $this->_tpsm
+           org_tubepress_ioc_IocService::OPTIONS_STORAGE_MANAGER => $this->_tpsm
         );
         return $vals[$args[0]];
     }
