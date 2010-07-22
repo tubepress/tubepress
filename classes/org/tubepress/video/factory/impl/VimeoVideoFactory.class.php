@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_video_factory_impl_AbstractVideoFactory',
     'org_tubepress_video_Video',
     'org_tubepress_options_category_Display'));
@@ -31,23 +31,43 @@ tubepress_load_classes(array('org_tubepress_video_factory_impl_AbstractVideoFact
 class org_tubepress_video_factory_impl_VimeoVideoFactory extends org_tubepress_video_factory_impl_AbstractVideoFactory
 {
     private $_logPrefix;
-    
+
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         $this->_logPrefix = 'Vimeo Video Factory';
     }
-    
+
+    /**
+     * Converts raw video feeds to TubePress videos
+     *
+     * @param org_tubepress_ioc_IocService $ioc     The IOC container
+     * @param unknown                      $rawFeed The raw feed result from the video provider
+     * @param int                          $limit   The max number of videos to return
+     * 
+     * @return array an array of TubePress videos generated from the feed
+     */
     public function feedToVideoArray(org_tubepress_ioc_IocService $ioc, $rawFeed, $limit)
     {
         $feed = unserialize($rawFeed);
-        
+
         org_tubepress_log_Log::log($this->_logPrefix, 'Now parsing video(s)');
 
         $entries = $feed->videos->video;
-        
+
         return $this->_buildVideos($entries, $ioc);
     }
-    
+
+    /**
+     * Converts a single raw video into a TubePress video
+     *
+     * @param org_tubepress_ioc_IocService $ioc     The IOC container
+     * @param unknown                      $rawFeed The raw feed result from the video provider
+     * 
+     * @return array an array of TubePress videos generated from the feed
+     */
     public function convertSingleVideo(org_tubepress_ioc_IocService $ioc, $rawFeed)
     {
         $feed = unserialize($rawFeed);
@@ -57,31 +77,30 @@ class org_tubepress_video_factory_impl_VimeoVideoFactory extends org_tubepress_v
     private function _buildVideos($entries, org_tubepress_ioc_IocService $ioc)
     {
         $results = array();
-        $index = 0;
-        
-        $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
-        
+        $index   = 0;
+        $tpom    = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+
         if (is_array($entries) && sizeof($entries) > 0) {
-	        foreach ($entries as $entry) {
-	            
-	            if ($this->isVideoBlackListed($entry->id, $tpom)) {
-	                org_tubepress_log_Log::log($this->_logPrefix, 'Video with ID %s is blacklisted. Skipping it.', $entry->id);
-	                continue;
-	            }
-	            
-	            if ($index > 0 && $index++ >= $limit) {
-	                org_tubepress_log_Log::log($this->_logPrefix, 'Reached limit of %d videos', $limit);
-	                break;
-	            }
-            
-            	$results[] = $this->_createVideo($entry, $tpom);
-        	}
+            foreach ($entries as $entry) {
+
+                if ($this->isVideoBlackListed($entry->id, $tpom)) {
+                    org_tubepress_log_Log::log($this->_logPrefix, 'Video with ID %s is blacklisted. Skipping it.', $entry->id);
+                    continue;
+                }
+
+                if ($index > 0 && $index++ >= $limit) {
+                    org_tubepress_log_Log::log($this->_logPrefix, 'Reached limit of %d videos', $limit);
+                    break;
+                }
+
+                $results[] = $this->_createVideo($entry, $tpom);
+            }
         }
-        
+
         org_tubepress_log_Log::log($this->_logPrefix, 'Built %d video(s) from Vimeo\'s feed', sizeof($results));
         return $results;
     }
-    
+
     /**
      * Creates a video from a single "entry" XML node
      *
@@ -96,16 +115,16 @@ class org_tubepress_video_factory_impl_VimeoVideoFactory extends org_tubepress_v
         $vid->setDescription($this->_getDescription($entry, $tpom));
         $vid->setDuration(self::_seconds2HumanTime($entry->duration));
         $vid->setHomeUrl('http://vimeo.com/' . $entry->id);
-        $vid->setId($entry->id); 
+        $vid->setId($entry->id);
         $vid->setThumbnailUrl($this->_getThumbnailUrl($entry));
         $vid->setTimePublished($this->_getTimePublished($entry, $tpom));
         $vid->setTitle($entry->title);
         $vid->setViewCount($this->_getViewCount($entry));
         $vid->setLikesCount($entry->number_of_likes);
-        
+
         if (isset($entry->tags) && is_array($entry->tags->tag)) {
             $tags = array();
-        
+
             foreach ($entry->tags->tag as $tag) {
                 $tags[] = $tag->_content;
             }
@@ -115,33 +134,34 @@ class org_tubepress_video_factory_impl_VimeoVideoFactory extends org_tubepress_v
         }
         return $vid;
     }
-    
+
     protected function _getDescription($entry, org_tubepress_options_manager_OptionsManager $tpom)
     {
         $limit = $tpom->get(org_tubepress_options_category_Display::DESC_LIMIT);
-        $desc = $entry->description;
+        $desc  = $entry->description;
+
         if ($limit > 0 && strlen($desc) > $limit) {
             $desc = substr($desc, 0, $limit) . '...';
         }
         return $desc;
     }
-    
+
     protected function _getThumbnailUrl($entry)
     {
         return $entry->thumbnails->thumbnail[0]->_content;
     }
-    
+
     private function _getTimePublished($entry, org_tubepress_options_manager_OptionsManager $tpom)
-    { 
-        $date = $entry->upload_date;
+    {
+        $date    = $entry->upload_date;
         $seconds = strtotime($date);
-        
+
         if ($tpom->get(org_tubepress_options_category_Display::RELATIVE_DATES)) {
             return $this->_relativeTime($seconds);
         }
         return date($tpom->get(org_tubepress_options_category_Advanced::DATEFORMAT), $seconds);
     }
-    
+
     private function _getViewCount($entry)
     {
         return number_format($entry->number_of_plays);
