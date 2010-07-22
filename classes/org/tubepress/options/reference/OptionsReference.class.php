@@ -70,7 +70,7 @@ class org_tubepress_options_reference_OptionsReference
             org_tubepress_options_category_Gallery::VIMEO_GROUP_VALUE      => 'hdxs',
             org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE      => '140484',
             org_tubepress_options_category_Gallery::DIRECTORY_VALUE        => 'sample_videos',
-            org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION => '/usr/bin/ffmpeg',
+            org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION => '',
             org_tubepress_options_category_Uploads::VIDEO_UPLOADS_BASE_DIRECTORY => '',
             org_tubepress_options_category_Display::THEME => ''
         ),

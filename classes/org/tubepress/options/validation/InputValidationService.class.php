@@ -80,7 +80,7 @@ class org_tubepress_options_validation_InputValidationService
             break;
 
         case org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION:
-            if (!is_executable($candidate)) {
+            if ($executable != '' && !is_executable($candidate)) {
                 throw new Exception(sprintf($messageService->_('validation-ffmpeg-not-executable'), $candidate));
             }
             break;
