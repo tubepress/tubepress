@@ -30,7 +30,8 @@ tubepress_load_classes(array('org_tubepress_ioc_IocService',
     'org_tubepress_querystring_QueryStringService',
     'org_tubepress_video_feed_provider_Provider',
     'org_tubepress_options_Category',
-    'org_tubepress_embedded_DelegatingEmbeddedPlayerService'));
+    'org_tubepress_embedded_DelegatingEmbeddedPlayerService',
+    'org_tubepress_single_Video'));
 
 /**
  * TubePress gallery. This class gets one or more videos from a provider and applies them to the template.
@@ -84,9 +85,7 @@ class org_tubepress_gallery_TubePressGallery
 
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
 
-            $singleVideoGenerator = $iocService->get(org_tubepress_ioc_IocService::SINGLE_VIDEO);
-
-            return $singleVideoGenerator->getSingleVideoHtml($videoId);
+            return org_tubepress_single_Video::getSingleVideoHtml($videoId, $iocService);
         }
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'No video ID set in shortcode.');
 

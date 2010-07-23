@@ -70,7 +70,8 @@ class org_tubepress_env_wordpress_Widget
         org_tubepress_log_Log::setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON), $_GET);
 
         /* default widget options */
-        $defaultWidgetOptions = array(org_tubepress_options_category_Display::RESULTS_PER_PAGE  => 3,
+        $defaultWidgetOptions = array(
+            org_tubepress_options_category_Display::RESULTS_PER_PAGE    => 3,
             org_tubepress_options_category_Meta::VIEWS                  => false,
             org_tubepress_options_category_Meta::DESCRIPTION            => true,
             org_tubepress_options_category_Display::DESC_LIMIT          => 50,
