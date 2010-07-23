@@ -6,7 +6,11 @@ tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
     'org_tubepress_ioc_IocService',
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_message_MessageService',
-    'org_tubepress_options_storage_StorageManager'));
+    'org_tubepress_options_storage_StorageManager',
+    'org_tubepress_url_impl_YouTubeUrlBuilder',
+    'org_tubepress_video_feed_retrieval_HTTPRequest2',
+    'org_tubepress_video_factory_impl_YouTubeVideoFactory',
+    'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService'));
 
 class TubePressUnitTest extends PHPUnit_Framework_TestCase
 {
@@ -17,6 +21,10 @@ class TubePressUnitTest extends PHPUnit_Framework_TestCase
     private $_tpom;
     private $_msg;
     private $_tpsm;
+    private $_urlBuilder;
+    private $_feedRetrievalService;
+    private $_youtubeVideoFactory;
+    private $_youtubeEmbeddedImpl;
     
     private $options = array();
 
@@ -39,6 +47,10 @@ class TubePressUnitTest extends PHPUnit_Framework_TestCase
         $this->_tpom = $this->getMock('org_tubepress_options_manager_OptionsManager');
         $this->_msg  = $this->getMock('org_tubepress_message_MessageService');
         $this->_tpsm = $this->getMock('org_tubepress_options_storage_StorageManager');
+        $this->_urlBuilder = $this->getMock('org_tubepress_url_impl_YouTubeUrlBuilder');
+        $this->_youtubeVideoFactory = $this->getMock('org_tubepress_video_factory_impl_YouTubeVideoFactory');
+        $this->_feedRetrievalService = $this->getMock('org_tubepress_video_feed_retrieval_HTTPRequest2');
+        $this->_youtubeEmbeddedImpl = $this->getMock('org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService');
         
         $this->_ioc->expects($this->any())
                    ->method('get')
@@ -52,6 +64,18 @@ class TubePressUnitTest extends PHPUnit_Framework_TestCase
         $this->_tpsm->expects($this->any())
                     ->method('get')
                     ->will($this->returnCallback(array($this, 'msgCallback')));
+        $this->_urlBuilder->expects($this->once())
+                          ->method('buildSingleVideoUrl')
+                          ->will($this->returnValue('fakeurl'));
+        $this->_feedRetrievalService->expects($this->once())
+                                    ->method('fetch')
+                                    ->will($this->returnValue($this->fakeVideos()));
+        $this->_youtubeVideoFactory->expects($this->once())
+                                   ->method('convertSingleVideo')
+                                   ->will($this->returnValue($this->fakeVideos()));
+        $this->_youtubeEmbeddedImpl->expects($this->once())
+                                   ->method('toString')
+                                   ->will($this->returnValue('embedded html source'));
     }
     
     function setOptions($options)
@@ -74,7 +98,11 @@ class TubePressUnitTest extends PHPUnit_Framework_TestCase
         $vals = array(
            org_tubepress_ioc_IocService::OPTIONS_MANAGER => $this->_tpom,
            org_tubepress_ioc_IocService::MESSAGE_SERVICE => $this->_msg,
-           org_tubepress_ioc_IocService::OPTIONS_STORAGE_MANAGER => $this->_tpsm
+           org_tubepress_ioc_IocService::OPTIONS_STORAGE_MANAGER => $this->_tpsm,
+           org_tubepress_ioc_IocService::URL_BUILDER_YOUTUBE => $this->_urlBuilder,
+           org_tubepress_ioc_IocService::FEED_RETRIEVAL_SERVICE => $this->_feedRetrievalService,
+           org_tubepress_ioc_IocService::VIDEO_FACTORY_YOUTUBE => $this->_youtubeVideoFactory,
+           org_tubepress_ioc_IocService::EMBEDDED_IMPL_YOUTUBE => $this->_youtubeEmbeddedImpl
         );
         return $vals[$args[0]];
     }
@@ -87,6 +115,13 @@ class TubePressUnitTest extends PHPUnit_Framework_TestCase
         }
         
         return org_tubepress_options_reference_OptionsReference::getDefaultValue($args[0]);
+    }
+    
+    function fakeVideos()
+    {
+        return array(
+            new org_tubepress_video_Video()
+        );
     }
 }
 ?>

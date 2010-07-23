@@ -80,9 +80,6 @@ class org_tubepress_ioc_DefaultIocService extends org_tubepress_ioc_PhpCraftyIoc
             $this->impl('org_tubepress_pagination_DiggStylePaginationService'));    
             
 
-        //single video
-
-
         $this->def(org_tubepress_ioc_IocService::URL_BUILDER_YOUTUBE,
             $this->impl('org_tubepress_url_impl_YouTubeUrlBuilder'));
             

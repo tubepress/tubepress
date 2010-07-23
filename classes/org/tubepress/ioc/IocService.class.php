@@ -37,8 +37,6 @@ interface org_tubepress_ioc_IocService
     
     const PAGINATION_SERVICE         = 'paginationService';
     
-    const SINGLE_VIDEO               = 'singleVideo';
-    
     const URL_BUILDER_YOUTUBE        = 'youtubeUrlBuilder';
     const URL_BUILDER_VIMEO          = 'vimeoUrlBuilder';
     

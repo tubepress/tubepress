@@ -111,13 +111,12 @@ class org_tubepress_video_feed_provider_Provider {
     {
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'Fetching video with ID %s', $customVideoId);
 
-        $urlBuilder = $ioc->get(org_tubepress_ioc_IocService::URL_BUILDER);
-        $videoUrl = $urlBuilder->buildSingleVideoUrl($customVideoId);
+        $videoUrl = org_tubepress_url_DelegatingUrlBuilder::buildSingleVideoUrl($ioc, $customVideoId);
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'URL to fetch is %s', $videoUrl);
 
         $feedRetrievalService = $ioc->get(org_tubepress_ioc_IocService::FEED_RETRIEVAL_SERVICE);
         $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
-        $results = $feedRetrievalService->fetch($videoUrl, $tpom->get(org_tubepress_options_category_Feed::CACHE_ENABLED));
+        $results = $feedRetrievalService->fetch($ioc, $videoUrl, $tpom->get(org_tubepress_options_category_Feed::CACHE_ENABLED));
         
         $videoArray = org_tubepress_video_factory_DelegatingVideoFactory::convertSingleVideo($ioc, $results, 1);
         

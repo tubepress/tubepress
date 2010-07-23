@@ -22,7 +22,8 @@
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory',
-    'org_tubepress_options_manager_OptionsManager'));
+    'org_tubepress_options_manager_OptionsManager',
+    'org_tubepress_ioc_IocDelegateUtils'));
 
 /**
  * Video factory that sends the feed to the right video factory based on the provider
@@ -53,7 +54,7 @@ class org_tubepress_video_factory_DelegatingVideoFactory
     
     public function convertSingleVideo(org_tubepress_ioc_IocService $ioc, $feed)
     {
-        return self::getDelegate($ioc, 
+        return org_tubepress_ioc_IocDelegateUtils::getDelegate($ioc, 
             self::$_providerToBeanNameMap, 
             self::$_defaultDelegateName)->convertSingleVideo($ioc, $feed);
     }
