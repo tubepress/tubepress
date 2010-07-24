@@ -1,19 +1,17 @@
 <?php
-
 require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/options/category/Widget.class.php';
+require_once 'AbstractOptionsCategoryTest.php';
 
-class org_tubepress_options_category_WidgetTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_options_category_WidgetTest extends org_tubepress_options_category_AbstractOptionsCategoryTest {
     
-	private $_sut;
-	
-	function setUp()
-	{
-		$this->_sut = new org_tubepress_options_category_Widget();
-	}
-	
-	function testPrintForOptionsForm()
-	{
-		
-	}
+    protected function getClassName()
+    {
+        return 'org_tubepress_options_category_Widget';
+    }
+    
+    protected function getExpectedNames()
+    {
+        return array('widget-tagstring', 'widget-title');
+    }
 }
 ?>

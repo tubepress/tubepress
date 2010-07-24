@@ -6,6 +6,8 @@ require_once 'category/EmbeddedTest.php';
 require_once 'category/GalleryTest.php';
 require_once 'category/MetaTest.php';
 require_once 'category/WidgetTest.php';
+require_once 'category/FeedTest.php';
+require_once 'category/UploadsTest.php';
 require_once 'manager/SimpleOptionsManagerTest.php';
 require_once 'reference/SimpleOptionsReferenceTest.php';
 require_once 'storage/WordPressStorageManagerTest.php';
@@ -23,6 +25,8 @@ class OptionsTests
 		$suite->addTestSuite('org_tubepress_options_category_GalleryTest');
 		$suite->addTestSuite('org_tubepress_options_category_MetaTest');
 		$suite->addTestSuite('org_tubepress_options_category_WidgetTest');
+		$suite->addTestSuite('org_tubepress_options_category_FeedTest');
+        $suite->addTestSuite('org_tubepress_options_category_UploadsTest');
 		$suite->addTestSuite('org_tubepress_options_manager_SimpleOptionsManagerTest');
 		$suite->addTestSuite('org_tubepress_options_reference_SimpleOptionsReferenceTest');
 		$suite->addTestSuite('org_tubepress_options_storage_WordPressStorageManagerTest');
