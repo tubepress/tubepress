@@ -21,7 +21,9 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_video_Video'));
+tubepress_load_classes(array('org_tubepress_video_Video',
+    'org_tubepress_ioc_IocService',
+    'org_tubepress_theme_Theme'));
 
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
@@ -38,5 +40,20 @@ class org_tubepress_player_Player
     const STATICC   = 'static';
     const SOLO      = 'solo';
     const VIMEO     = 'vimeo';
+    
+    public function getHtml(org_tubepress_ioc_IocService $ioc, org_tubepress_video_Video $vid, $galleryId)
+    {
+        $tpom       = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $playerName = $tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
+        $template   = org_tubepress_theme_Theme::getTemplateInstance($ioc, "players/$playerName.tpl.php");
+        
+        $template->setVariable(org_tubepress_template_Template::EMBEDDED_SOURCE, 
+            org_tubepress_embedded_DelegatingEmbeddedPlayerService::toString($ioc, $vid->getId()));
+            
+        $template->setVariable(org_tubepress_template_Template::GALLERY_ID, $galleryId);
+        $template->setVariable(org_tubepress_template_Template::VIDEO, $vid);
+        $template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
+        
+        return $template->toString();
+    }
 }
-
