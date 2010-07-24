@@ -3,7 +3,7 @@
 require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
 require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/options/validation/InputValidationService.class.php';
 
-class org_tubepress_options_validation_SimpleInputValidationServiceTest extends TubePressUnitTest {
+class org_tubepress_options_validation_InputValidationServiceTest extends TubePressUnitTest {
 	
 	public function testThumbHeightOk()
 	{
