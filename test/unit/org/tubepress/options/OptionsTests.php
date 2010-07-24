@@ -9,7 +9,7 @@ require_once 'category/WidgetTest.php';
 require_once 'category/FeedTest.php';
 require_once 'category/UploadsTest.php';
 require_once 'manager/SimpleOptionsManagerTest.php';
-require_once 'reference/SimpleOptionsReferenceTest.php';
+require_once 'reference/OptionsReferenceTest.php';
 require_once 'storage/WordPressStorageManagerTest.php';
 require_once 'validation/SimpleInputValidationServiceTest.php';
 require_once 'form/FormHandlerTest.php';
@@ -28,7 +28,7 @@ class OptionsTests
 		$suite->addTestSuite('org_tubepress_options_category_FeedTest');
         $suite->addTestSuite('org_tubepress_options_category_UploadsTest');
 		$suite->addTestSuite('org_tubepress_options_manager_SimpleOptionsManagerTest');
-		$suite->addTestSuite('org_tubepress_options_reference_SimpleOptionsReferenceTest');
+		$suite->addTestSuite('org_tubepress_options_reference_OptionsReferenceTest');
 		$suite->addTestSuite('org_tubepress_options_storage_WordPressStorageManagerTest');
 		$suite->addTestSuite('org_tubepress_options_validation_SimpleInputValidationServiceTest');
 		$suite->addTestSuite('org_tubepress_options_form_FormHandlerTest');
