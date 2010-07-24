@@ -50,7 +50,15 @@ class org_tubepress_util_FilesystemUtils
         if ($handle = opendir($dir)) {
         	org_tubepress_log_Log::log($prefix, 'Successfully opened %s to read contents.', $realDir);	
 	        while (($file = readdir($handle)) !== false) {
-	            array_push($toReturn, $dir . '/' . $file);	      
+	            
+	            if ($file === '.' || $file === '..') {
+	                continue;
+	            }
+	            if (is_dir($dir . '/' . $file)) {
+	                continue;
+	            }
+	            
+	            array_push($toReturn, realpath($dir . '/' . $file));	      
 	        }
 	        closedir($handle);
 	    } else {
