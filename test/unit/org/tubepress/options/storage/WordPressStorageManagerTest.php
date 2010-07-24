@@ -2,12 +2,16 @@
 
 require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/options/storage/WordPressStorageManager.class.php';
 
-function get_option($optionName) {
-    return "";
+if (!function_exists('get_option')) {
+    function get_option($optionName) {
+        return "";
+    }
 }
 
-function update_option($optionName) {
-    return "";
+if (!function_exists('update_option')) {
+    function update_option($optionName) {
+        return "";
+    }
 }
 
 class org_tubepress_options_storage_WordPressStorageManagerTest extends PHPUnit_Framework_TestCase {

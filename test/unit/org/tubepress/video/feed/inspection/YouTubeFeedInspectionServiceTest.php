@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/video/feed/inspection/YouTubeFeedInspectionService.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/video/feed/inspection/impl/YouTubeFeedInspectionService.class.php';
 
 class org_tubepress_video_feed_inspection_YouTubeFeedInspectionServiceTest extends PHPUnit_Framework_TestCase {
     
@@ -8,7 +8,7 @@ class org_tubepress_video_feed_inspection_YouTubeFeedInspectionServiceTest exten
 	
 	function setUp()
 	{
-		$this->_sut = new org_tubepress_video_feed_inspection_YouTubeFeedInspectionService();
+		$this->_sut = new org_tubepress_video_feed_inspection_impl_YouTubeFeedInspectionService();
 	}
 	
 	function testGetTotalResultCount()
