@@ -95,23 +95,7 @@ class org_tubepress_util_LocalVideoUtils
         /* finally, chop off the leading '/' */
         return org_tubepress_util_StringUtils::replaceFirst('/', '', $topDir);
     }
-    
-    public static function getBaseVideoDirectory(org_tubepress_options_manager_OptionsManager $tpom, $prefix)
-    {
-        /* first see what the user has set as their uploads base directory */
-        $raw = $tpom->get(org_tubepress_options_category_Uploads::VIDEO_UPLOADS_BASE_DIRECTORY);
-        org_tubepress_log_Log::log($prefix, 'User-defined base upload directory value is "%s"', $raw);
-
-        /* if they don't specify one, just use TubePress's base path + /uploads */
-        if ($baseDir == '') {
-            $baseDir = realpath(dirname(__FILE__) . '/../../../../uploads');
-            org_tubepress_log_Log::log($prefix, 'No user-defined base upload directory specified, so using "%s"', $baseDir);
-        } else {
-            $baseDir = realpath($raw);    
-            org_tubepress_log_Log::log($prefix, 'Sanitized path of user-defined base upload directory is "%s"', $baseDir);    
-        }
-        return $baseDir;
-    }
+   
     
     private static function _findVideos($files, $log, $prefix)
     {

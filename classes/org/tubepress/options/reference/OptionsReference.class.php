@@ -71,7 +71,6 @@ class org_tubepress_options_reference_OptionsReference
             org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE      => '140484',
             org_tubepress_options_category_Gallery::DIRECTORY_VALUE        => 'sample_videos',
             org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION => '',
-            org_tubepress_options_category_Uploads::VIDEO_UPLOADS_BASE_DIRECTORY => '',
             org_tubepress_options_category_Display::THEME => ''
         ),
         org_tubepress_options_Type::BOOL => array(
@@ -166,7 +165,6 @@ class org_tubepress_options_reference_OptionsReference
     
     private static $_uploadsOnly = array(
         org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION,
-        org_tubepress_options_category_Uploads::VIDEO_UPLOADS_BASE_DIRECTORY,
         org_tubepress_options_category_Uploads::THUMBS_PER_VIDEO,
         'directory'
     );
@@ -195,7 +193,6 @@ class org_tubepress_options_reference_OptionsReference
         return !in_array($optionName, array(
             org_tubepress_options_category_Advanced::KEYWORD,
             org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION,
-            org_tubepress_options_category_Uploads::VIDEOS_DIRECTORY
         ));
     }
 

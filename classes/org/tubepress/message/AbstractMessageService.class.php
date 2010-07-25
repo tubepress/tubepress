@@ -68,7 +68,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'options-title-vimeoAlbum'        => 'Videos from this Vimeo album',
         'options-title-vimeoGroup'        => 'Videos from this Vimeo group',
         'options-title-directory'         => 'Video from this directory',
-        'options-desc-directory'          => 'Enter the path, relative to the video uploads base directory (see the "Uploads" tab), of a directory holding uploaded videos and related .nfo files. TubePress will populate this gallery with any videos it finds here.',
+        'options-desc-directory'          => 'Enter the path, relative to <tt>%s</tt>, of a directory holding uploaded videos and related .nfo files. TubePress will populate this gallery with any videos it finds here.',
 
         'options-title-playerLocation'   => 'Play each video',
         'options-title-descriptionLimit' => 'Maximum description length',
@@ -138,9 +138,6 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
 
         'options-title-ffmpegBinary' => 'FFmpeg binary location',
         'options-desc-ffmpegBinary'  => 'To generate thumbnails for your locally uploaded videos, TubePress requires a modern version of <a href="http://www.ffmpeg.org/">FFmpeg</a>. Set this value to the absolute path of your server\'s FFmpeg installation.',
-
-        'options-title-videoUploadsBaseDirectory' => 'Video uploads base directory',
-        'options-desc-videoUploadsBaseDirectory'  => 'Enter the absolute path of a directory holding your uploaded video gallery directories. Leave blank to use TubePress\'s base installation path, but it\'s best to enter another directory to make updates easier. This option cannot be set via shortcode.',
 
         'options-title-thumbsPerVideo' => 'Thumbs per video',
         'options-desc-thumbsPerVideo'  => 'How many thumbnails to generate for each video. TubePress can randomly display the thumbs each time someone visits the gallery. See the "Randomize thumbnails" option under the "Appearance" tab.',
@@ -222,7 +219,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'safeSearch-moderate' => 'moderate',
         'safeSearch-strict'   => 'strict',
 
-        'playerImplementation-default'    => 'Provider default',
+        'playerImplementation-provider_based'    => 'Provider default',
         'playerImplementation-longtail'   => 'JW FLV Media Player (by Longtail Video)'
     );
 

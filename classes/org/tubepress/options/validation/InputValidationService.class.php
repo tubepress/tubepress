@@ -85,15 +85,6 @@ class org_tubepress_options_validation_InputValidationService
             }
             break;
 
-        case org_tubepress_options_category_Uploads::VIDEO_UPLOADS_BASE_DIRECTORY:
-            if ($candidate != '' && !is_dir($candidate)) {
-                throw new Exception(sprintf($messageService->_('validation-directory-not-directory'), $candidate));
-            }
-            if ($candidate != '' && !is_readable($candidate)) {
-                throw new Exception(sprintf($messageService->_('validation-directory-not-readable'), $candidate));
-            }
-            break;
-
         case org_tubepress_options_category_Gallery::DIRECTORY_VALUE:
             if (strpos($candidate, '..') !== false) {
                 throw new Exception($messageService->_('validation-no-dots-in-path'));
