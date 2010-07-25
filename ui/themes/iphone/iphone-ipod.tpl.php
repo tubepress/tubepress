@@ -24,7 +24,7 @@
 ?>
 
 <div class="tubepress_container" id="tubepress_gallery_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>">
-  <?php echo ${org_tubepress_template_Template::PRE_GALLERY}; ?>
+  <?php echo ${org_tubepress_template_Template::PLAYER_HTML}; ?>
   
   <div id="tubepress_gallery_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>_thumbnail_area" class="tubepress_thumbnail_area">
   
