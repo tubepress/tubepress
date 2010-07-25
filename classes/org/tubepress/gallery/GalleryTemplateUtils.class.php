@@ -23,15 +23,14 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_ioc_IocService',
     'org_tubepress_browser_BrowserDetector',
-    'org_tubepress_shortcode_ShortcodeParser',
-    'org_tubepress_options_category_Gallery',
-    'org_tubepress_log_Log',
+    'org_tubepress_options_category_Display',
+    'org_tubepress_theme_Theme',
+    'org_tubepress_video_feed_FeedResult',
+    'org_tubepress_template_Template',
     'org_tubepress_player_Player',
+    'org_tubepress_template_SimpleTemplate',
     'org_tubepress_querystring_QueryStringService',
-    'org_tubepress_video_feed_provider_Provider',
-    'org_tubepress_options_Category',
-    'org_tubepress_embedded_DelegatingEmbeddedPlayerService',
-    'org_tubepress_single_Video'));
+    'org_tubepress_video_feed_provider_Provider'));
 
 /**
  * 
@@ -117,7 +116,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
                 org_tubepress_log_Log::log(self::LOG_PREFIX, 'No theme CSS found.', $cssPath);
             }
         } else {
-            org_tubepress_log_Log::log(self::LOG_PREFIX, 'Default theme is in use. No need to inject extra CSS.', $cssUrl);
+            org_tubepress_log_Log::log(self::LOG_PREFIX, 'Default theme is in use. No need to inject extra CSS.');
         }
         return '';
     }
