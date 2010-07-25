@@ -30,7 +30,7 @@ if (!current_user_can(9)) {
 
 if (isset($_POST["tubepress_init_db"])) {
     $ioc = new org_tubepress_ioc_DefaultIocService();
-	$wpsm = $ioc->get(org_tubepress_ioc_IocService::STORAGE_MANAGER);
+	$wpsm = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_STORAGE_MANAGER);
 	$wpsm->nuclear();
 	echo "TubePress options initialized<br /><br />";
 }
