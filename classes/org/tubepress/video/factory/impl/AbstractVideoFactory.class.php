@@ -71,7 +71,7 @@ abstract class org_tubepress_video_factory_impl_AbstractVideoFactory implements 
         if ($difference != 1) {
             $periods[$j] .= 's';
         }
-        $text = '$difference $periods[$j] $ending';
+        $text = "$difference $periods[$j] $ending";
         return $text;
     }
 
