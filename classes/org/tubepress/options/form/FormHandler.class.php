@@ -161,7 +161,7 @@ class org_tubepress_options_form_FormHandler
             
             if ($modeName == org_tubepress_gallery_TubePressGallery::DIRECTORY) {
                 $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC]   = sprintf($messageService->_("options-desc-$modeName"),
-                    realpath(dirname(__FILE__) . '/../../../../../content'));
+                    realpath(dirname(__FILE__) . '/../../../../../content/uploads'));
             } else {
                 $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC]   = $messageService->_("options-desc-$modeName");
             }

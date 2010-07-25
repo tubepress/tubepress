@@ -89,6 +89,14 @@ class org_tubepress_options_validation_InputValidationService
             if (strpos($candidate, '..') !== false) {
                 throw new Exception($messageService->_('validation-no-dots-in-path'));
             }
+            $baseDir = org_tubepress_util_LocalVideoUtils::getBaseVideoDirectory();
+            $dir = $baseDir . '/' . $candidate;
+            if (!is_dir($dir)) {
+                throw new Exception(sprintf($messageService->_('validation-directory-not-directory'), $dir));
+            }
+            if (!is_readable($dir)) {
+                throw new Exception(sprintf($messageService->_('validation-directory-not-readable'), $dir));
+            }
             break;
         }
     }

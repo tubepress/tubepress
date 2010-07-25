@@ -70,8 +70,7 @@ class org_tubepress_util_FilesystemUtils
 	
 	public static function getFilenamesInDirectory($dir, $prefix)
 	{
-		$realDir = realpath($dir);
-		org_tubepress_log_Log::log($prefix, 'Getting ready to examine directory at %s', $realDir);
+		$realDir = $dir;
     	    	
     	if (!is_dir($dir)) {
     		org_tubepress_log_Log::log($prefix, '%s is not a directory', $realDir);

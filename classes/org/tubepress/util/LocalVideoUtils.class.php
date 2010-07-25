@@ -23,7 +23,8 @@ function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
 tubepress_load_classes(array(
     'org_tubepress_log_Log',
-    'org_tubepress_options_manager_OptionsManager'
+    'org_tubepress_options_manager_OptionsManager',
+    'org_tubepress_util_FilesystemUtils'
 ));
 
 /**
@@ -42,13 +43,18 @@ class org_tubepress_util_LocalVideoUtils
      */
     public static function findVideos($dir, $prefix)
     {    
-        $filenames = org_tubepress_util_FilesystemUtils::getFilenamesInDirectory($dir, $log, $prefix);
+        $filenames = org_tubepress_util_FilesystemUtils::getFilenamesInDirectory($dir, $prefix);
 
-        $result = org_tubepress_util_LocalVideoUtils::_findVideos($filenames, $log, $prefix);
+        $result = self::_findVideos($filenames, $prefix);
 
         org_tubepress_log_Log::log($prefix, 'Found %d potential video(s) in %s.', sizeof($result), $dir);
 
         return $result;
+    }
+    
+    public static function getBaseVideoDirectory()
+    {
+        return realpath(dirname(__FILE__) . '/../../../../content/uploads');
     }
     
     /**
@@ -59,7 +65,7 @@ class org_tubepress_util_LocalVideoUtils
      *
      * @return boolean TRUE if the file could be a video, FALSE otherwise.
      */     
-    public static function isPossibleVideo($absPathToFile, $log, $prefix)
+    public static function isPossibleVideo($absPathToFile, $prefix)
     {
         /* if it's not a file, it's definitely not a video */
         if (!is_file($absPathToFile)) {
@@ -87,7 +93,7 @@ class org_tubepress_util_LocalVideoUtils
         $topDir = dirname($filename);
 
         /* calculate video uploads base directory */
-        $baseDir = org_tubepress_util_LocalVideoUtils::getBaseVideoDirectory($tpom, $log, $prefix);
+        $baseDir = self::getBaseVideoDirectory($tpom, $log, $prefix);
 
         /* now remove the base directory from the full path */
         $topDir = str_replace($baseDir, '', $topDir);
@@ -97,12 +103,12 @@ class org_tubepress_util_LocalVideoUtils
     }
    
     
-    private static function _findVideos($files, $log, $prefix)
+    private static function _findVideos($files, $prefix)
     {
         $toReturn = array();
         
         foreach ($files as $file) {
-            if (org_tubepress_util_LocalVideoUtils::isPossibleVideo($file, $log, $prefix)) {
+            if (self::isPossibleVideo($file, $prefix)) {
                 org_tubepress_log_Log::log($prefix, '%s looks like it could be a video.', $file);    
                 array_push($toReturn, $file);
             }

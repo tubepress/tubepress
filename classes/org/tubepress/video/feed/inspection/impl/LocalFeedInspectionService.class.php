@@ -24,8 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array(
     'org_tubepress_video_feed_inspection_FeedInspectionService',
     'org_tubepress_util_FilesystemUtils',
-    'org_tubepress_util_LocalVideoUtils',
-    'org_tubepress_options_manager_OptionsManager'
+    'org_tubepress_util_LocalVideoUtils'
 ));
 
 /**
@@ -35,7 +34,6 @@ tubepress_load_classes(array(
 class org_tubepress_video_feed_inspection_impl_LocalFeedInspectionService implements org_tubepress_video_feed_inspection_FeedInspectionService
 {   
     private $_logPrefix;
-    private $_tpom;
 	
 	public function __construct()
     {
@@ -44,14 +42,12 @@ class org_tubepress_video_feed_inspection_impl_LocalFeedInspectionService implem
 	
     public function getTotalResultCount($dir)
     {
-    	$baseDir = org_tubepress_util_LocalVideoUtils::getBaseVideoDirectory($this->_tpom, $this->_log, $this->_logPrefix);
-    	return sizeof(org_tubepress_util_LocalVideoUtils::findVideos($baseDir . '/' . $dir, $this->_log, $this->_logPrefix));
+        $baseDir = org_tubepress_util_LocalVideoUtils::getBaseVideoDirectory();
+    	return sizeof(org_tubepress_util_LocalVideoUtils::findVideos($baseDir . '/' . $dir, $this->_logPrefix));
     }
     
     public function getQueryResultCount($dir)
     {
 	    return $this->getTotalResultCount($dir);
     }
-
-    public function setOptionsManager(org_tubepress_options_manager_OptionsManager $tpom) { $this->_tpom = $tpom; }
 }
