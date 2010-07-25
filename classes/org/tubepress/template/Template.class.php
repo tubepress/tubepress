@@ -35,6 +35,20 @@ interface org_tubepress_template_Template
     const GALLERY_ID =                      'galleryId';
     const META_LABELS =                     'metaLabels';
     const META_SHOULD_SHOW =                'shouldShow';
+    const PAGINATION_BOTTOM =               'bottomPagination';
+    const PAGINATION_TOP =                  'topPagination';
+    const PLAYER_NAME =                     'playerName';
+    const PLAYER_HTML =                     'preGallery';
+    const SHORTCODE =                       'shortcode';
+    const THEME_CSS =                       'themeCssUrl';
+    const THUMBNAIL_HEIGHT =                'thumbHeight';
+    const THUMBNAIL_WIDTH =                 'thumbWidth';
+    const TUBEPRESS_BASE_URL =              'tubepressBaseUrl';
+    const VIDEO =                           'video';
+    const VIDEO_ARRAY =                     'videoArray';
+    const VIDEO_SEARCH_PREFIX =             'videoSearchPrefix';
+    
+    /* OPTIONS PAGE */
     const OPTIONS_PAGE_CATEGORIES =         'optionsPageCategories';
     const OPTIONS_PAGE_CATEGORY_OPTIONS =   'optionsPageCategoryOptions';
     const OPTIONS_PAGE_CATEGORY_TITLE =     'optionsPageCategoryTitle';
@@ -48,19 +62,8 @@ interface org_tubepress_template_Template
     const OPTIONS_PAGE_TITLE =              'optionsPageTitle';
     const OPTIONS_PAGE_VIMEO_OPTION =       'optionsPageVimeoOption';
     const OPTIONS_PAGE_YOUTUBE_OPTION =     'optionsPageYouTubeOption';
-    const PAGINATION_BOTTOM =               'bottomPagination';
-    const PAGINATION_TOP =                  'topPagination';
-    const PLAYER_NAME =                     'playerName';
-    const PRE_GALLERY =                     'preGallery';
-    const SHORTCODE =                       'shortcode';
-    const THEME_CSS =                       'themeCssUrl';
-    const THEME_NAME =                      'themeName';
-    const THUMBNAIL_HEIGHT =                'thumbHeight';
-    const THUMBNAIL_WIDTH =                 'thumbWidth';
-    const TUBEPRESS_BASE_URL =              'tubepressBaseUrl';
-    const VIDEO =                           'video';
-    const VIDEO_ARRAY =                     'videoArray';
-    const VIDEO_SEARCH_PREFIX =             'videoSearchPrefix';
+    
+    /* WIDGET */
     const WIDGET_CONTROL_SHORTCODE =        'widgetControlShortcode';
     const WIDGET_CONTROL_TITLE =            'widgetControlTitle';
     const WIDGET_SHORTCODE =                'widgetShortcode';
