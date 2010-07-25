@@ -41,11 +41,16 @@ class org_tubepress_player_Player
     const SOLO      = 'solo';
     const VIMEO     = 'vimeo';
     
-    public function getHtml(org_tubepress_ioc_IocService $ioc, org_tubepress_video_Video $vid, $galleryId)
+    public static function getHtml(org_tubepress_ioc_IocService $ioc, org_tubepress_video_Video $vid, $galleryId)
     {
         $tpom       = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
         $playerName = $tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
-        $template   = org_tubepress_theme_Theme::getTemplateInstance($ioc, "players/$playerName.tpl.php");
+        
+        try {
+            $template   = org_tubepress_theme_Theme::getTemplateInstance($ioc, "players/$playerName.tpl.php");
+        } catch (Exception $e) {
+            return '';
+        }
         
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_SOURCE, 
             org_tubepress_embedded_DelegatingEmbeddedPlayerService::toString($ioc, $vid->getId()));
