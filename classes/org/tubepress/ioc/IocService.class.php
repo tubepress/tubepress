@@ -58,15 +58,4 @@ interface org_tubepress_ioc_IocService
      * @return object The object with the given name.
      */
     public function get($className);
-    
-    /**
-     * Get an object from the container by name. If it doesn't exist
-     *  get the object denoted by the second parameter.
-     *
-     * @param string $firstChoice The name of the object to retrieve. May not exist.
-     * @param string $safeChoice  The fallback object. Must exist.
-     *
-     * @return object The object with the given name, of the fallback object.
-     */
-    public function safeGet($firstChoice, $safeChoice);
 }
