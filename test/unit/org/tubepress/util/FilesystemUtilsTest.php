@@ -30,5 +30,13 @@ class org_tubepress_util_FilesystemUtilsTest extends PHPUnit_Framework_TestCase
 		$result = org_tubepress_util_FilesystemUtils::getFilenamesInDirectory($dir, 'log prefix');
 		$this->assertEquals($expected, $result);
 	}
+	
+	/**
+	 * @expected Exception
+	 */
+	function testNoSuchDir()
+	{
+	    org_tubepress_util_FilesystemUtils::getFilenamesInDirectory('fake dir', 'log prefix');
+	}
 }
 ?>
