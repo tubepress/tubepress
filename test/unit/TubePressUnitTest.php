@@ -12,7 +12,8 @@ tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
     'org_tubepress_video_factory_impl_YouTubeVideoFactory',
     'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService',
     'org_tubepress_video_feed_inspection_impl_YouTubeFeedInspectionService',
-    'org_tubepress_cache_CacheService'));
+    'org_tubepress_cache_CacheService',
+    'org_tubepress_pagination_PaginationService'));
 
 class TubePressUnitTest extends PHPUnit_Framework_TestCase
 {
@@ -29,6 +30,7 @@ class TubePressUnitTest extends PHPUnit_Framework_TestCase
     private $_youtubeEmbeddedImpl;
     private $_youtubeFeedInspectionService;
     private $_cacheService;
+    private $_paginationService;
     
     private $options = array();
 
@@ -57,6 +59,7 @@ class TubePressUnitTest extends PHPUnit_Framework_TestCase
         $this->_youtubeEmbeddedImpl = $this->getMock('org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService');
         $this->_youtubeFeedInspectionService = $this->getMock('org_tubepress_video_feed_inspection_impl_YouTubeFeedInspectionService');
         $this->_cacheService = $this->getMock('org_tubepress_cache_CacheService');
+        $this->_paginationService = $this->getMock('org_tubepress_pagination_PaginationService');
         
         $this->_ioc->expects($this->any())
                    ->method('get')
@@ -99,6 +102,7 @@ class TubePressUnitTest extends PHPUnit_Framework_TestCase
            org_tubepress_ioc_IocService::EMBEDDED_IMPL_YOUTUBE => $this->_youtubeEmbeddedImpl,
            org_tubepress_ioc_IocService::FEED_INSPECTION_YOUTUBE => $this->_youtubeFeedInspectionService,
            org_tubepress_ioc_IocService::CACHE_SERVICE => $this->_cacheService,
+           org_tubepress_ioc_IocService::PAGINATION_SERVICE => $this->_paginationService
         );
         return $vals[$args[0]];
     }

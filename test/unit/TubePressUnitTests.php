@@ -20,7 +20,6 @@ require_once 'org/tubepress/video/VideoTests.php';
 require_once 'org/tubepress/options/OptionsTests.php';
 require_once 'org/tubepress/browser/BrowserDetectorTests.php';
 require_once 'org/tubepress/single/SingleVideoTests.php';
-require_once 'org/tubepress/video/factory/FactoryTests.php';
 
 class TubePressUnitTests
 {
@@ -29,7 +28,7 @@ class TubePressUnitTests
 		$suite = new PHPUnit_Framework_TestSuite("TubePress Unit Tests");
 		$suite->addTest(CacheTests::suite());
 		$suite->addTest(EmbeddedTests::suite());
-//		$suite->addTest(TubePressGalleryTests::suite());
+		$suite->addTest(TubePressGalleryTests::suite());
 		$suite->addTest(LogTests::suite());
 		$suite->addTest(IocTests::suite());
 		$suite->addTest(MessageTests::suite());
@@ -47,7 +46,6 @@ class TubePressUnitTests
 		$suite->addTest(ProviderTests::suite());
 		$suite->addTest(BrowserDetectorTests::suite());
 		$suite->addTest(SingleVideoTests::suite());
-		$suite->addTest(FactoryTests::suite());
 
 		return $suite;
 	}
