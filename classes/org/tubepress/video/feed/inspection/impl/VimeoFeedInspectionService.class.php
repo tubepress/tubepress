@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_video_feed_inspection_FeedInspectionService'));
 
 /**
@@ -28,18 +28,32 @@ tubepress_load_classes(array('org_tubepress_video_feed_inspection_FeedInspection
  *
  */
 class org_tubepress_video_feed_inspection_impl_VimeoFeedInspectionService implements org_tubepress_video_feed_inspection_FeedInspectionService
-{   
+{
+    /**
+     * Determine the total number of videos in this gallery.
+     *
+     * @param unknown $rawFeed The raw video feed (varies depending on provider)
+     *
+     * @return integer The total number of videos in this gallery.
+     */
     public function getTotalResultCount($rawFeed)
     {
-	    $feed = unserialize($rawFeed);
+        $feed   = unserialize($rawFeed);
         $videos = $feed->videos;
         return $videos->total;
     }
-    
+
+    /**
+     * Determine the number of videos in this gallery page.
+     *
+     * @param unknown $rawFeed The raw video feed (varies depending on provider) 
+     *
+     * @return integer The number of videos in this gallery page.
+     */
     public function getQueryResultCount($rawFeed)
     {
-	    $feed = unserialize($rawFeed);
-	    $videos = $feed->videos;
-	    return $videos->on_this_page;
+        $feed   = unserialize($rawFeed);
+        $videos = $feed->videos;
+        return $videos->on_this_page;
     }
 }

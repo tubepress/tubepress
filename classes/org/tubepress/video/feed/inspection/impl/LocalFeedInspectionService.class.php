@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array(
     'org_tubepress_video_feed_inspection_FeedInspectionService',
     'org_tubepress_util_FilesystemUtils',
@@ -32,22 +32,39 @@ tubepress_load_classes(array(
  *
  */
 class org_tubepress_video_feed_inspection_impl_LocalFeedInspectionService implements org_tubepress_video_feed_inspection_FeedInspectionService
-{   
+{
     private $_logPrefix;
-	
-	public function __construct()
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
     {
-        $this->_logPrefix = 'Local Feed Inspection';   
+        $this->_logPrefix = 'Local Feed Inspection';
     }
-	
+
+    /**
+     * Determine the total number of videos in this gallery.
+     *
+     * @param unknown $dir The raw video feed (varies depending on provider)
+     *
+     * @return integer The total number of videos in this gallery.
+     */
     public function getTotalResultCount($dir)
     {
         $baseDir = org_tubepress_util_LocalVideoUtils::getBaseVideoDirectory();
-    	return sizeof(org_tubepress_util_LocalVideoUtils::findVideos($baseDir . '/' . $dir, $this->_logPrefix));
+        return sizeof(org_tubepress_util_LocalVideoUtils::findVideos($baseDir . '/' . $dir, $this->_logPrefix));
     }
-    
+
+    /**
+     * Determine the number of videos in this gallery page.
+     *
+     * @param unknown $dir The raw video feed (varies depending on provider)
+     *
+     * @return integer The number of videos in this gallery page.
+     */
     public function getQueryResultCount($dir)
     {
-	    return $this->getTotalResultCount($dir);
+        return $this->getTotalResultCount($dir);
     }
 }
