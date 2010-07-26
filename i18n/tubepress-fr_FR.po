@@ -483,3 +483,9 @@ msgstr ""
 
 msgid "%s is not readable"
 msgstr ""
+
+msgid "Theme"
+msgstr ""
+
+msgid "The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>."
+msgstr ""
