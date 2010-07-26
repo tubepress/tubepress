@@ -21,14 +21,15 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_video_factory_impl_AbstractVideoFactory',
+tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory',
     'org_tubepress_video_Video',
-    'org_tubepress_options_category_Display'));
+    'org_tubepress_options_category_Display',
+    'org_tubepress_util_TimeUtils'));
 
 /**
  * Video factory for Vimeo
  */
-class org_tubepress_video_factory_impl_VimeoVideoFactory extends org_tubepress_video_factory_impl_AbstractVideoFactory
+class org_tubepress_video_factory_impl_VimeoVideoFactory implements org_tubepress_video_factory_VideoFactory
 {
     private $_logPrefix;
 
@@ -76,14 +77,15 @@ class org_tubepress_video_factory_impl_VimeoVideoFactory extends org_tubepress_v
 
     private function _buildVideos($entries, org_tubepress_ioc_IocService $ioc)
     {
-        $results = array();
-        $index   = 0;
-        $tpom    = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $results   = array();
+        $index     = 0;
+        $tpom      = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $blacklist = $tpom->get(org_tubepress_options_category_Advanced::VIDEO_BLACKLIST);
 
         if (is_array($entries) && sizeof($entries) > 0) {
             foreach ($entries as $entry) {
 
-                if ($this->isVideoBlackListed($entry->id, $tpom)) {
+                if (strpos($blacklist, $entry->id) !== false) {
                     org_tubepress_log_Log::log($this->_logPrefix, 'Video with ID %s is blacklisted. Skipping it.', $entry->id);
                     continue;
                 }
@@ -113,7 +115,7 @@ class org_tubepress_video_factory_impl_VimeoVideoFactory extends org_tubepress_v
         $vid->setAuthorDisplayName($entry->owner->display_name);
         $vid->setAuthorUid($entry->owner->username);
         $vid->setDescription($this->_getDescription($entry, $tpom));
-        $vid->setDuration(self::_seconds2HumanTime($entry->duration));
+        $vid->setDuration(org_tubepress_util_TimeUtils::secondsToHumanTime($entry->duration));
         $vid->setHomeUrl('http://vimeo.com/' . $entry->id);
         $vid->setId($entry->id);
         $vid->setThumbnailUrl($this->_getThumbnailUrl($entry));

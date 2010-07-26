@@ -21,14 +21,15 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_video_factory_impl_AbstractVideoFactory',
+tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory',
     'org_tubepress_video_Video',
-    'net_php_pear_Net_URL2'));
+    'net_php_pear_Net_URL2',
+    'org_tubepress_util_TimeUtils'));
 
 /**
  * Video factory for YouTube
  */
-class org_tubepress_video_factory_impl_YouTubeVideoFactory extends org_tubepress_video_factory_impl_AbstractVideoFactory
+class org_tubepress_video_factory_impl_YouTubeVideoFactory implements org_tubepress_video_factory_VideoFactory
 {
     /* shorthands for the namespaces */
     const NS_APP   = 'http://www.w3.org/2007/app';
@@ -129,8 +130,9 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory extends org_tubepress
         org_tubepress_log_Log::log($this->_logPrefix, 'Now parsing video(s). Limit is %d.', $limit);
         $entries = $this->_xpath->query($entryXpath);
 
-        $index = 0;
-        $tpom  = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $index     = 0;
+        $tpom      = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $blacklist = $tpom->get(org_tubepress_options_category_Advanced::VIDEO_BLACKLIST);
 
         foreach ($entries as $entry) {
 
@@ -141,7 +143,7 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory extends org_tubepress
                 continue;
             }
 
-            if ($this->isVideoBlackListed($this->_getId(), $tpom)) {
+            if (strpos($blacklist, $this->_getId()) !== false) {
                 org_tubepress_log_Log::log($this->_logPrefix, 'Video with ID %s is blacklisted. Skipping it.', $this->_getId());
                 continue;
             }
@@ -249,7 +251,7 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory extends org_tubepress
     private function _getDuration()
     {
         $duration = $this->_xpath->query('media:group/yt:duration', $this->_currentNode)->item(0);
-        return self::_seconds2HumanTime($duration->getAttribute('seconds'));
+        return org_tubepress_util_TimeUtils::secondsToHumanTime($duration->getAttribute('seconds'));
     }
 
     private function _getHomeUrl()
@@ -344,10 +346,10 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory extends org_tubepress
             return "N/A";
         }
         $rawTime = $publishedNode->item(0)->nodeValue;
-        $seconds = self::_rfc3339toHumanTime($rawTime);
+        $seconds = org_tubepress_util_TimeUtils::rfc3339toHumanTime($rawTime);
 
         if ($tpom->get(org_tubepress_options_category_Display::RELATIVE_DATES)) {
-            return $this->_relativeTime($seconds);
+            return org_tubepress_util_TimeUtils::getRelativeTime($rawTime);
         }
         return date($tpom->get(org_tubepress_options_category_Advanced::DATEFORMAT), $seconds);
     }
@@ -392,22 +394,5 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory extends org_tubepress
 
         /* if state is other than limitedSyndication, it's not available */
         return $this->_xpath->query("app:control/yt:state[@reasonCode='limitedSyndication']", $this->_currentNode)->length == 0;
-    }
-
-    /**
-     * Converts gdata timestamps to human readable
-     * 
-     * @param string $rfc3339 The RFC 3339 format of time
-     * 
-     * @return string Human time format
-     */
-    private static function _rfc3339toHumanTime($rfc3339)
-    {
-        $tmp      = str_replace("T", " ", $rfc3339);
-        $tmp      = ereg_replace("(\.[0-9]{1,})?", "", $tmp);
-        $datetime = substr($tmp, 0, 19);
-        $timezone = str_replace(":", "", substr($tmp, 19, 6));
-
-        return strtotime($datetime . " " . $timezone);
     }
 }
