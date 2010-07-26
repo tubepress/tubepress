@@ -23,17 +23,14 @@
  * This bit of code simply tests your connection to YouTube
  */
 
-function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../../tubepress_classloader.php');
+function_exists('tubepress_load_classes') || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('net_php_pear_Net_URL2',
     'net_php_pear_HTTP_Request2',
     'net_php_pear_HTTP_Request2_Adapter_Socket'));
 
-print "You should see YouTube's homepage load below...<br /><br />";
-tubepress_run_connection_test("http://www.youtube.com");
-print "Now you should see a bunch of XML below...<br /><br />";
-tubepress_run_connection_test("http://gdata.youtube.com/feeds/api/standardfeeds/top_rated", true);
-
+print 'Now you should see a bunch of XML below...<br /><br /><tt>';
+tubepress_run_connection_test('http://gdata.youtube.com/feeds/api/standardfeeds/top_rated', true);
+print '</tt>';
 
 function tubepress_run_connection_test($url, $escape = false) {
     

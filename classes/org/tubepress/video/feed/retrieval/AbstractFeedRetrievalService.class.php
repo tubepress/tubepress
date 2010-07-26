@@ -19,39 +19,41 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+function_exists('tubepress_load_classes') || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_video_feed_retrieval_FeedRetrievalService',
     'org_tubepress_cache_CacheService',
     'org_tubepress_log_Log',
     'org_tubepress_ioc_IocService'));
 
 /**
- * Base functionality for feed retrieval services
- *
+ * Base functionality for feed retrieval services.
  */
 abstract class org_tubepress_video_feed_retrieval_AbstractFeedRetrievalService implements org_tubepress_video_feed_retrieval_FeedRetrievalService
 {
     /**
      * Fetches the feed from the remote provider
-     * 
+     *
+     * @param org_tubepress_ioc_IocService $ioc      The IOC container.
+     * @param string                       $url      The URL to fetch.
+     * @param boolean                      $useCache Whether or not to use the network cache.
+     *
      * @return unknown The raw feed from the provider
      */
     public function fetch(org_tubepress_ioc_IocService $ioc, $url, $useCache)
-    {   
+    {
         global $tubepress_base_url;
+
         $logPrefix = $this->_getLogPrefix();
-        $cache = $ioc->get(org_tubepress_ioc_IocService::CACHE_SERVICE);
-        
-        $testUrl = "$tubepress_base_url/classes/org/tubepress/video/feed/retrieval/ConnectionTest.php";
-        org_tubepress_log_Log::log($logPrefix, 'Connection test can be run at <a href="%s">%s</a>',
-            $testUrl, $testUrl);
-        
-        $result = "";
+        $cache     = $ioc->get(org_tubepress_ioc_IocService::CACHE_SERVICE);
+        $testUrl   = "$tubepress_base_url/classes/org/tubepress/video/feed/retrieval/ConnectionTest.php";
+
+        org_tubepress_log_Log::log($logPrefix, 'Connection test can be run at <a href="%s">%s</a>', $testUrl, $testUrl);
+
+        $result = '';
         if ($useCache) {
-            
+
             org_tubepress_log_Log::log($logPrefix, 'First asking cache for %s', $url);
-            
+
             if ($cache->has($url)) {
                 org_tubepress_log_Log::log($logPrefix, 'Cache has %s. Sweet.', $url);
                 $result = $cache->get($url);
@@ -66,17 +68,30 @@ abstract class org_tubepress_video_feed_retrieval_AbstractFeedRetrievalService i
         }
         return $result;
     }
-    
+
     private function _getFromNetwork($url)
     {
         $data = $this->_fetchFromNetwork($url);
 
         /* trim it just in case */
         $data = trim($data);
-        
-	return $data;
+
+        return $data;
     }
-    
-    protected abstract function _fetchFromNetwork($request);
-    protected abstract function _getLogPrefix();
+
+    /**
+     * Retrieve the data from the network.
+     *
+     * @param string $url The URL to fetch from.
+     *
+     * @return unknown The network data.
+     */
+    protected abstract function fetchFromNetwork($url);
+
+    /**
+     * Get the logging prefix.
+     *
+     * @return string The logging prefix.
+     */
+    protected abstract function getLogPrefix();
 }
