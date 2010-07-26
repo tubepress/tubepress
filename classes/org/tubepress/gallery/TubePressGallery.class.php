@@ -161,6 +161,7 @@ class org_tubepress_gallery_TubePressGallery
         $result =  $template->toString();
         $result .= org_tubepress_gallery_GalleryTemplateUtils::getAjaxPagination($ioc);
         $result .= org_tubepress_gallery_GalleryTemplateUtils::getThemeCss($ioc);
+        $result .= org_tubepress_gallery_GalleryTemplateUtils::getThumbnailGenerationReminder($result, $ioc);
         return $result;
     }
 }

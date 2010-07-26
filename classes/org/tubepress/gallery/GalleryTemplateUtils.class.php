@@ -81,6 +81,22 @@ class org_tubepress_gallery_GalleryTemplateUtils
         self::_prepUrlPrefixes($tpom, $template);
     }
     
+    public static function getThumbnailGenerationReminder($galleryHtml, org_tubepress_ioc_IocService $ioc)
+    {
+        if (strpos($galleryHtml, 'missing_thumbnail.png') === false) {
+            return '';
+        }
+        
+        global $tubepress_base_url;
+        $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        
+        $template = new org_tubepress_template_SimpleTemplate();
+        $template->setPath(dirname(__FILE__) . '/../../../../ui/lib/gallery_html_snippets/generate_thumbnails.tpl.php');
+        $template->setVariable(org_tubepress_template_Template::TUBEPRESS_BASE_URL, $tubepress_base_url);
+        $template->setVariable('d', rawurlencode($tpom->get(org_tubepress_options_category_Gallery::DIRECTORY_VALUE)));
+        return $template->toString();
+    }
+    
     public static function getThemeCss(org_tubepress_ioc_IocService $ioc)
     {
         $currentTheme = org_tubepress_theme_Theme::calculateCurrentThemeName($ioc);
