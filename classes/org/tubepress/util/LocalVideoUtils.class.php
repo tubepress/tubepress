@@ -47,7 +47,7 @@ class org_tubepress_util_LocalVideoUtils
 
         $result = self::_findVideos($filenames, $prefix);
 
-        org_tubepress_log_Log::log($prefix, 'Found %d potential video(s) in %s.', sizeof($result), $dir);
+        org_tubepress_log_Log::log($prefix, 'Found %d potential video(s) in <tt>%s</tt>.', sizeof($result), $dir);
 
         return $result;
     }
@@ -83,11 +83,11 @@ class org_tubepress_util_LocalVideoUtils
 
         /* somewhat safe assumption that if a file is under 10K than it's not a video */
         if ($size < 10240) {
-            org_tubepress_log_Log::log($prefix, '%s is smaller than 10K', $absPathToFile);
+            org_tubepress_log_Log::log($prefix, '<tt>%s</tt> is smaller than 10K', $absPathToFile);
             return false;
         }
 
-        org_tubepress_log_Log::log($prefix, '%s is %d bytes in size', $absPathToFile, $size);
+        org_tubepress_log_Log::log($prefix, '<tt>%s</tt> is %s bytes in size', $absPathToFile, number_format($size));
 
         return true;
     }
@@ -113,7 +113,7 @@ class org_tubepress_util_LocalVideoUtils
 
         foreach ($files as $file) {
             if (self::isPossibleVideo($file, $prefix)) {
-                org_tubepress_log_Log::log($prefix, '%s looks like it could be a video.', $file);
+                org_tubepress_log_Log::log($prefix, '<tt>%s</tt> looks like it could be a video.', $file);
                 array_push($toReturn, $file);
             }
         }

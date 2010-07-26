@@ -97,7 +97,7 @@ class org_tubepress_video_factory_impl_LocalVideoFactory implements org_tubepres
 
     private function _createVideo($filename, $baseDir, $galleryDir, org_tubepress_ioc_IocService $ioc)
     {
-        org_tubepress_log_Log::log($this->_logPrefix, 'Assembling video for %s', $filename);
+        org_tubepress_log_Log::log($this->_logPrefix, 'Assembling video for <tt>%s</tt>', $filename);
 
         $video = new org_tubepress_video_Video();
 
@@ -122,23 +122,28 @@ class org_tubepress_video_factory_impl_LocalVideoFactory implements org_tubepres
     {
         /* calculate the name of the yaml file we're looking for */
         $fileNameWithoutExtension = substr($filename, 0, strlen($filename) - 4);
-        $yamlFile                 = basename($fileNameWithoutExtension) . '.yml';
-        $yamlFile                 = realpath("$baseDir/$galleryDir/$yamlFile");
+        org_tubepress_log_Log::log($this->_logPrefix, 'Filename without extension is <tt>%s</tt>', $fileNameWithoutExtension);
+
+        $yamlFile = basename($fileNameWithoutExtension) . '.yml';
+        org_tubepress_log_Log::log($this->_logPrefix, 'YML base filename is <tt>%s</tt>', $yamlFile);
+
+        $yamlFile = realpath("$baseDir/$galleryDir") . "/$yamlFile";
+        org_tubepress_log_Log::log($this->_logPrefix, 'Absolute path to YML file is <tt>%s</tt>', $yamlFile);
 
         /* make sure we can read the file */
         if (!is_readable($yamlFile)) {
-            org_tubepress_log_Log::log($this->_logPrefix, '%s does not exist or is not readable.', $yamlFile);
+            org_tubepress_log_Log::log($this->_logPrefix, 'YML file at <tt>%s</tt> does not exist or is not readable.', $yamlFile);
             return array();
         }
 
         /* load up the file contents */
-        org_tubepress_log_Log::log($this->_logPrefix, 'Loading YML file at %s.', $yamlFile);
+        org_tubepress_log_Log::log($this->_logPrefix, 'Loading YML file at <tt>%s</tt>.', $yamlFile);
         $contents = file_get_contents($yamlFile);
-        org_tubepress_log_Log::log($this->_logPrefix, 'YML file at %s has the following contents: %s', $yamlFile, $contents);
+        org_tubepress_log_Log::log($this->_logPrefix, 'YML file at <tt>%s</tt> has the following contents: <tt>%s</tt>', $yamlFile, $contents);
 
         /* load the contents into spyc */
         $result = com_googlecode_spyc_Spyc::YAMLLoadString($contents);
-        org_tubepress_log_Log::log($this->_logPrefix, 'YML file at %s was parsed to %s.', $yamlFile, var_export($result, true));
+        org_tubepress_log_Log::log($this->_logPrefix, 'YML file at <tt>%s</tt> was parsed to <pre>%s</pre>.', $yamlFile, var_export($result, true));
 
         return $result;
     }
@@ -156,19 +161,19 @@ class org_tubepress_video_factory_impl_LocalVideoFactory implements org_tubepres
 
         $thumbname = $thumbname . "_thumb_$height" . 'x' . $width . '_';
 
-        org_tubepress_log_Log::log($this->_logPrefix, 'Thumbnail names will look something like %s', $thumbname);
+        org_tubepress_log_Log::log($this->_logPrefix, 'Thumbnail names will look something like <tt>%s</tt>', $thumbname);
         
         $thumbs = $this->_getExistingThumbs("$baseDir/$galleryDir/generated_thumbnails/", $thumbname);
 
         if (sizeof($thumbs) === 0) {
-            org_tubepress_log_Log::log($this->_logPrefix, 'No potential thumbs for %s. Using filler thumbnail.', $filename);
+            org_tubepress_log_Log::log($this->_logPrefix, 'No potential thumbs for <tt>%s</tt>. Using filler thumbnail.', $filename);
             return "$tubepress_base_url/ui/lib/gallery_html_snippets/missing_thumbnail.png";
         }
 
         $prefix = "$tubepress_base_url/uploads/$galleryName/generated_thumbnails/";
 
         if ($tpom->get(org_tubepress_options_category_Display::RANDOM_THUMBS)) {
-            org_tubepress_log_Log::log($this->_logPrefix, 'Using a random thumbnail for %s.', $filename);
+            org_tubepress_log_Log::log($this->_logPrefix, 'Using a random thumbnail for <tt>%s</tt>.', $filename);
             return $prefix . $thumbs[array_rand($thumbs)];
         }
 
@@ -179,14 +184,14 @@ class org_tubepress_video_factory_impl_LocalVideoFactory implements org_tubepres
     {
         $toReturn = array();
 
-        org_tubepress_log_Log::log($this->_logPrefix, 'Looking for existing thumbnails at %s', $basePath);
+        org_tubepress_log_Log::log($this->_logPrefix, 'Looking for existing thumbnails at <tt>%s</tt>', $basePath);
         
         $files = org_tubepress_util_FilesystemUtils::getFilenamesInDirectory($basePath,
             $this->_logPrefix);
 
         foreach ($files as $file) {
             if (strpos($file, $postfix) !== false) {
-                org_tubepress_log_Log::log($this->_logPrefix, 'Found a thumbnail we can use at %s', realpath($file));
+                org_tubepress_log_Log::log($this->_logPrefix, 'Found a thumbnail we can use at <tt>%s</tt>', realpath($file));
                 array_push($toReturn, basename($file));
             }
         }

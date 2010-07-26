@@ -32,10 +32,10 @@ tubepress_load_classes(array('org_tubepress_ioc_IocService',
 class org_tubepress_theme_Theme
 {
     const LOG_PREFIX = 'Theme';
-    
+
     public static function getTemplateInstance(org_tubepress_ioc_IocService $ioc, $pathToTemplate)
     {
-        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Loading template instance at "%s"', $pathToTemplate);
+        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Attempting to load template instance from <tt>%s</tt>', $pathToTemplate);
         
         $currentTheme = self::calculateCurrentThemeName($ioc);
         $filePath     = self::_getFilePath($currentTheme, $pathToTemplate);
@@ -44,7 +44,7 @@ class org_tubepress_theme_Theme
             throw new Exception("Cannot read file at $filePath");
         }
 
-        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Loading template from %s', $filePath);
+        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Successfully loaded template from <tt>%s</tt>', $filePath);
         $template = new org_tubepress_template_SimpleTemplate();
         $template->setPath($filePath);
         return $template;
@@ -62,18 +62,16 @@ class org_tubepress_theme_Theme
         if ($currentTheme == '') {
             $currentTheme = 'default';
         }
-        
-        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Current theme is "%s"', $currentTheme);
         return $currentTheme;
     }
 
     private static function _getFilePath($currentTheme, $pathToTemplate, $relative = false)
     {
         $tubepressInstallationPath = realpath(dirname(__FILE__) . '/../../../..');
-        $filePath                  = "$tubepressInstallationPath/content/themes/$currentTheme/$pathToTemplate";
+        $filePath = "$tubepressInstallationPath/content/themes/$currentTheme/$pathToTemplate";
         
         if (!is_readable($filePath)) {
-            org_tubepress_log_Log::log(self::LOG_PREFIX, '%s is not readable. Checking ui/themes instead.', $filePath);
+            org_tubepress_log_Log::log(self::LOG_PREFIX, '<tt>%s</tt> is not readable. Falling back to ui/themes.', $filePath);
             
             $filePath = "$tubepressInstallationPath/ui/themes/$currentTheme/$pathToTemplate";
         }

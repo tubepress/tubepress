@@ -72,17 +72,17 @@ class org_tubepress_util_FilesystemUtils
         $realDir = $dir;
 
         if (!is_dir($dir)) {
-            org_tubepress_log_Log::log($prefix, '%s is not a directory', $realDir);
+            org_tubepress_log_Log::log($prefix, '<tt>%s</tt> is not a directory', $realDir);
             return array();
         }
         if (!is_readable($dir)) {
-            org_tubepress_log_Log::log($prefix, '%s is not a readable directory', $realDir);
+            org_tubepress_log_Log::log($prefix, '<tt>%s</tt> is not a readable directory', $realDir);
             return array();
         }
 
         $toReturn = array();
         if ($handle = opendir($dir)) {
-            org_tubepress_log_Log::log($prefix, 'Successfully opened %s to read contents.', $realDir);
+            org_tubepress_log_Log::log($prefix, 'Successfully opened <tt>%s</tt> to read contents.', $realDir);
             while (($file = readdir($handle)) !== false) {
 
                 if ($file === '.' || $file === '..' || strpos($file, ".") === 0) {
@@ -97,7 +97,7 @@ class org_tubepress_util_FilesystemUtils
             }
             closedir($handle);
         } else {
-            org_tubepress_log_Log::log($prefix, 'Could not open %s', $realDir);
+            org_tubepress_log_Log::log($prefix, 'Could not open <tt>%s</tt>', $realDir);
         }
         return $toReturn;
     }
@@ -107,17 +107,17 @@ class org_tubepress_util_FilesystemUtils
         $realDir = $dir;
 
         if (!is_dir($dir)) {
-            org_tubepress_log_Log::log($prefix, '%s is not a directory', $realDir);
+            org_tubepress_log_Log::log($prefix, '<tt>%s</tt> is not a directory', $realDir);
             return array();
         }
         if (!is_readable($dir)) {
-            org_tubepress_log_Log::log($prefix, '%s is not a readable directory', $realDir);
+            org_tubepress_log_Log::log($prefix, '<tt>%s</tt> is not a readable directory', $realDir);
             return array();
         }
 
         $toReturn = array();
         if ($handle = opendir($dir)) {
-            org_tubepress_log_Log::log($prefix, 'Successfully opened %s to read contents.', $realDir);
+            org_tubepress_log_Log::log($prefix, 'Successfully opened <tt>%s</tt> to read contents.', $realDir);
             while (($file = readdir($handle)) !== false) {
 
                 if ($file === '.' || $file === '..') {
@@ -131,7 +131,7 @@ class org_tubepress_util_FilesystemUtils
             }
             closedir($handle);
         } else {
-            org_tubepress_log_Log::log($prefix, 'Could not open %s', $realDir);
+            org_tubepress_log_Log::log($prefix, 'Could not open <tt>%s</tt>', $realDir);
         }
         return $toReturn;
     }
