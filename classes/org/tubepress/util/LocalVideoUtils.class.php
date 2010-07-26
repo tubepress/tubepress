@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array(
     'org_tubepress_log_Log',
     'org_tubepress_options_manager_OptionsManager',
@@ -36,13 +36,13 @@ class org_tubepress_util_LocalVideoUtils
     /**
      * Finds potential videos in the given directory.
      *
-     * @param dir    string                An absolute path to the directory to search
-     * @param prefix string                Logging prefix
+     * @param string $dir    An absolute path to the directory to search
+     * @param string $prefix Logging prefix
      * 
      * @return array An array of absolute paths to potential videos in this directory.
      */
     public static function findVideos($dir, $prefix)
-    {    
+    {
         $filenames = org_tubepress_util_FilesystemUtils::getFilenamesInDirectory($dir, $prefix);
 
         $result = self::_findVideos($filenames, $prefix);
@@ -51,42 +51,47 @@ class org_tubepress_util_LocalVideoUtils
 
         return $result;
     }
-    
+
+    /**
+     * Get the absolute path of the video uploads directory.
+     *
+     * @return string The absolute path of the video uploads directory.
+     */
     public static function getBaseVideoDirectory()
     {
         return realpath(dirname(__FILE__) . '/../../../../content/uploads');
     }
-    
+
     /**
      * Determines if the given file could potentially be a video.
      *
-     * @param absPathToFile string                The absolute path of the file to check.
-     * @param prefix        string                Logging prefix
+     * @param string $absPathToFile The absolute path of the file to check.
+     * @param string $prefix        Logging prefix
      *
      * @return boolean TRUE if the file could be a video, FALSE otherwise.
-     */     
+     */
     public static function isPossibleVideo($absPathToFile, $prefix)
     {
         /* if it's not a file, it's definitely not a video */
         if (!is_file($absPathToFile)) {
-            return FALSE;    
+            return false;
         }
 
         /* get the file size */
         $lstat = lstat($absPathToFile);
-        $size = $lstat['size'];    
+        $size  = $lstat['size'];
 
         /* somewhat safe assumption that if a file is under 10K than it's not a video */
         if ($size < 10240) {
             org_tubepress_log_Log::log($prefix, '%s is smaller than 10K', $absPathToFile);
-            return FALSE;    
+            return false;
         }
 
         org_tubepress_log_Log::log($prefix, '%s is %d bytes in size', $absPathToFile, $size);
 
-        return TRUE;    
+        return true;
     }
-    
+
     public static function getGalleryName($filename, org_tubepress_options_manager_OptionsManager $tpom, $prefix)
     {
         /* chop off the filename bit */
@@ -101,18 +106,17 @@ class org_tubepress_util_LocalVideoUtils
         /* finally, chop off the leading '/' */
         return org_tubepress_util_StringUtils::replaceFirst('/', '', $topDir);
     }
-   
-    
+
     private static function _findVideos($files, $prefix)
     {
         $toReturn = array();
-        
+
         foreach ($files as $file) {
             if (self::isPossibleVideo($file, $prefix)) {
-                org_tubepress_log_Log::log($prefix, '%s looks like it could be a video.', $file);    
+                org_tubepress_log_Log::log($prefix, '%s looks like it could be a video.', $file);
                 array_push($toReturn, $file);
             }
         }
         return $toReturn;
-    }    
+    }
 }

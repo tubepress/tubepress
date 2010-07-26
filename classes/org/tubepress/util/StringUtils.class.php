@@ -36,7 +36,7 @@ class org_tubepress_util_StringUtils
      *     by the replacement string
      */
     public function replaceFirst($search, $replace, $str)
-    {    
+    {
         $l    = strlen($str);
         $a    = strpos($str, $search);
         $b    = $a + strlen($search);
