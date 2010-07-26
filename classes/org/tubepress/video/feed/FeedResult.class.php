@@ -22,17 +22,75 @@
 /**
  * Simple class to abstract the response from a video provider
  */
-class org_tubepress_video_feed_FeedResult {
-    
+class org_tubepress_video_feed_FeedResult
+{
     private $_effectiveDisplayCount;
     private $_effectiveTotalResultCount;
     private $_videoArray;
-    
-    public function setVideoArray($videos)  { $this->_videoArray = $videos; }
-    public function setEffectiveTotalResultCount($count) { $this->_effectiveTotalResultCount = $count; }
-    public function setEffectiveDisplayCount($count) { $this->_effectiveDisplayCount = $count; }
-    
-    public function getVideoArray() { return $this->_videoArray; }
-    public function getEffectiveTotalResultCount() { return $this->_effectiveTotalResultCount; }
-    public function getEffectiveDisplayCount() { return $this->_effectiveDisplayCount; }
+
+    /**
+     * Set the video array
+     *
+     * @param array $videos The video array.
+     *
+     * @return void
+     */
+    public function setVideoArray($videos)
+    {
+        $this->_videoArray = $videos;
+    }
+
+    /**
+     * Set the effective total result count
+     *
+     * @param integer $count The effective total result count.
+     *
+     * @return void
+     */
+    public function setEffectiveTotalResultCount($count)
+    {
+        $this->_effectiveTotalResultCount = $count;
+    }
+
+    /**
+     * Set the effective display count
+     *
+     * @param integer $count The effective display count
+     *
+     * @return void
+     */
+    public function setEffectiveDisplayCount($count)
+    {
+        $this->_effectiveDisplayCount = $count;
+    }
+
+    /**
+     * Get the video array
+     *
+     * @return array The video array.
+     */
+    public function getVideoArray()
+    {
+        return $this->_videoArray;
+    }
+
+    /**
+     * Get the effective total result count
+     *
+     * @return integer The effective total result count.
+     */
+    public function getEffectiveTotalResultCount()
+    {
+        return $this->_effectiveTotalResultCount;
+    }
+
+    /**
+     * Get the effective display count
+     *
+     * @return integer The effective display count
+     */
+    public function getEffectiveDisplayCount()
+    {
+        return $this->_effectiveDisplayCount;
+    }
 }
