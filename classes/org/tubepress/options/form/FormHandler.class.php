@@ -133,9 +133,16 @@ class org_tubepress_options_form_FormHandler
             $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_TITLE]    = $messageService->_("options-title-$optionName");
             $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_PRO_ONLY] = org_tubepress_options_reference_OptionsReference::isOptionProOnly($optionName) ? '*' : '';
             $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_WIDGET]   = $this->_getWidgetHtml($optionName, $storageManager, $messageService);
-            $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC]     = $messageService->_("options-desc-$optionName");
             $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_YOUTUBE_OPTION]   = org_tubepress_options_reference_OptionsReference::appliesToYouTube($optionName);
             $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_VIMEO_OPTION]     = org_tubepress_options_reference_OptionsReference::appliesToVimeo($optionName);
+
+            if ($optionName == org_tubepress_options_category_Display::THEME) {
+                $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC] = sprintf($messageService->_("options-desc-$optionName"),
+                    realpath(dirname(__FILE__) . '/../../../../../content/themes')
+                );
+            } else {
+                $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC] = $messageService->_("options-desc-$optionName");
+            }
             
             $optionsMetaArray[] = $metaArray;
         }
@@ -201,6 +208,17 @@ class org_tubepress_options_form_FormHandler
                 }
                 $result .= '</select>';
                 return $result;    
+            case org_tubepress_options_Type::THEME:
+                $validValues = org_tubepress_options_reference_OptionsReference::getValidEnumValues($type);
+                $result = "<select name=\"$optionName\">";
+                
+                foreach ($validValues as $validValue) {
+                    $default = $validValue == 'default' && $value == '';
+                    $selected = $validValue === $value || $default ? 'SELECTED' : '';
+                    $result .= "<option value=\"$validValue\" $selected>$validValue</option>";
+                }
+                $result .= '</select>';
+                return $result;
         }
     }
     

@@ -3,28 +3,19 @@ require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/browser/
 
 class org_tubepress_browser_BrowserDetectorTest extends PHPUnit_Framework_TestCase {
 
-	function testNonArray()
-	{
-		$result = org_tubepress_browser_BrowserDetector::detectBrowser('fake');	
-		$this->assertEquals(org_tubepress_browser_BrowserDetector::UNKNOWN, $result);
-	}
-	
 	function testIphone()
 	{
-		$result = org_tubepress_browser_BrowserDetector::detectBrowser(array('HTTP_USER_AGENT' => 'iPhone'));	
-		$this->assertEquals(org_tubepress_browser_BrowserDetector::IPHONE, $result);
+		$this->assertTrue(org_tubepress_browser_BrowserDetector::isMobile(array('HTTP_USER_AGENT' => 'iPhone')));
 	}
 	
     function testIpod()
 	{
-		$result = org_tubepress_browser_BrowserDetector::detectBrowser(array('HTTP_USER_AGENT' => 'iPod'));	
-		$this->assertEquals(org_tubepress_browser_BrowserDetector::IPOD, $result);
+		$this->assertTrue(org_tubepress_browser_BrowserDetector::isMobile(array('HTTP_USER_AGENT' => 'iPod')));
 	}
 	
 	function testOther()
 	{
-		$result = org_tubepress_browser_BrowserDetector::detectBrowser(array('HTTP_USER_AGENT' => 'somethingelse'));	
-		$this->assertEquals(org_tubepress_browser_BrowserDetector::UNKNOWN, $result);
+		$this->assertFalse(org_tubepress_browser_BrowserDetector::isMobile(array('HTTP_USER_AGENT' => 'somethingelse')));
 	}
 }
 ?>

@@ -83,6 +83,8 @@ $msgs = array(
         'options-title-hd'                   => 'Show videos in high definition when available',
         'options-title-playerImplementation' => 'Implementation',
         'options-desc-playerImplementation'  => 'The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc)',
+        'options-title-theme'                => 'Theme',
+        'options-desc-theme'                 => 'The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>.',
 
         'options-title-author'      => 'Author',
         'options-title-category'    => 'Category',

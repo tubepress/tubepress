@@ -67,7 +67,41 @@ if (!function_exists("sys_get_temp_dir")) {
  */
 class org_tubepress_util_FilesystemUtils
 {
-	
+    public static function getDirectoriesInDirectory($dir, $prefix)
+    {
+        $realDir = $dir;
+                
+        if (!is_dir($dir)) {
+            org_tubepress_log_Log::log($prefix, '%s is not a directory', $realDir);
+            return array(); 
+        }
+        if (!is_readable($dir)) {
+            org_tubepress_log_Log::log($prefix, '%s is not a readable directory', $realDir);
+            return array(); 
+        }
+        
+        $toReturn = array();
+        if ($handle = opendir($dir)) {
+            org_tubepress_log_Log::log($prefix, 'Successfully opened %s to read contents.', $realDir);  
+            while (($file = readdir($handle)) !== false) {
+                
+                if ($file === '.' || $file === '..' || strpos($file, ".") === 0) {
+                    continue;
+                }
+                
+                if (!is_dir($dir . '/' . $file)) {
+                    continue;
+                }
+                
+                array_push($toReturn, realpath($dir . '/' . $file));          
+            }
+            closedir($handle);
+        } else {
+            org_tubepress_log_Log::log($prefix, 'Could not open %s', $realDir); 
+        }
+        return $toReturn;
+    }    
+    
 	public static function getFilenamesInDirectory($dir, $prefix)
 	{
 		$realDir = $dir;

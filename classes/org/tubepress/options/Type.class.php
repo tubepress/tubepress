@@ -35,6 +35,7 @@ class org_tubepress_options_Type
     const PLAYLIST    = 'playlist';             // A YouTube playlist ID
     const SAFE_SEARCH = 'safeSearch';           // a SafeSearch level
     const TEXT        = 'text';                 // Free form text
+    const THEME       = 'theme';                // TubePress theme to use
     const TIME_FRAME  = 'timeFrame';            // Today, last week, etc
     const YT_USER     = 'youtubeUser';          // A YouTube username    
 }
