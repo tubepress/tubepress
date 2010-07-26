@@ -27,89 +27,74 @@ class org_tubepress_browser_BrowserDetector
 {
     const HTTP_USER_AGENT = 'HTTP_USER_AGENT';
 
-    const ENGINE_WEBKIT = 'webkit';
-    const DEVICE_ANDROID = 'android';
-    const deviceIphone = 'iphone';
-    const deviceIpod = 'ipod';
-    const deviceIpad = 'ipad';
-    const deviceMacPpc = 'macintosh';
+    const ENGINE_WEBKIT    = 'webkit';
+    const ENGINE_PIE       = 'wm5 pie';
+    const ENGINE_BLAZER    = 'blazer';
+    const ENGINE_XIINO     = 'xiino';
+    const ENGINE_OPERA     = 'opera';
+    const ENGINE_NETFRONT  = 'netfront';
+    const ENGINE_UPBROWSER = 'up.browser';
+    const ENGINE_OPENWEB   = 'openweb';
+    const ENGINE_TELECAQ   = 'teleca q';
 
-    const deviceNuvifone = 'nuvifone';
+    const DEVICE_ANDROID     = 'android';
+    const DEVICE_IPHONE      = 'iphone';
+    const DEVICE_IPOD        = 'ipod';
+    const DEVICE_IPAD        = 'ipad';
+    const DEVICE_MAC_PPC     = 'macintosh';
+    const DEVICE_NUVIFONE    = 'nuvifone';
+    const DEVICE_BREW        = 'brew';
+    const DEVICE_DANGER      = 'danger';
+    const DEVICE_HIPTOP      = 'hiptop';
+    const DEVICE_PLAYSTATION = 'playstation';
+    const DEVICE_NINTENDO_DS = 'nitro';
+    const DEVICE_NINTENDO    = 'nintendo';
+    const DEVICE_WII         = 'wii';
+    const DEVICE_XBOX        = 'xbox';
+    const DEVICE_ARCHOS      = 'archos';
+    const DEVICE_MIDP        = 'midp';
+    const DEVICE_PDA         = 'pda';
+    const DEVICE_SYMBIAN     = 'symbian';
+    const DEVICE_S60         = 'series60';
+    const DEVICE_S70         = 'series70';
+    const DEVICE_S80         = 'series80';
+    const DEVICE_S90         = 'series90';
+    const DEVICE_WINPHONE7   = 'windows phone os 7';
+    const DEVICE_WINMOB      = 'windows ce';
+    const DEVICE_WINDOWS     = 'windows';
+    const DEVICE_IEMOBILE    = 'iemobile';
+    const DEVICE_PPC         = 'ppc';
+    const DEVICE_BB          = 'blackberry';
+    const DEVICE_BBSTORM     = 'blackberry95';
+    const DEVICE_BBBOLD      = 'blackberry97';
+    const DEVICE_BBTOUR      = 'blackberry96';
+    const DEVICE_BBCURVE     = 'blackberry89';
+    const DEVICE_PALM        = 'palm';
+    const DEVICE_WEBOS       = 'webos';
+    const DEVICE_KINDLE      = 'kindle';
 
-    const deviceSymbian = 'symbian';
-    const deviceS60 = 'series60';
-    const deviceS70 = 'series70';
-    const deviceS80 = 'series80';
-    const deviceS90 = 'series90';
-   
-    const deviceWinPhone7 = 'windows phone os 7'; 
-    const deviceWinMob = 'windows ce';
-    const deviceWindows = 'windows'; 
-    const deviceIeMob = 'iemobile';
-    const devicePpc = 'ppc';
-    const enginePie = 'wm5 pie';
-   
-    const deviceBB = 'blackberry';   
-    const vndRIM = 'vnd.rim'; 
-    const deviceBBStorm = 'blackberry95';
-    const deviceBBBold = 'blackberry97'; 
-    const deviceBBTour = 'blackberry96'; 
-    const deviceBBCurve = 'blackberry89';
-   
-    const devicePalm = 'palm';
-    const deviceWebOS = 'webos'; 
-    const engineBlazer = 'blazer'; 
-    const engineXiino = 'xiino'; 
-   
-    const deviceKindle = 'kindle'; 
-   
-    //Initialize variables for mobile-specific content.
-    const vndwap = 'vnd.wap';
-    const wml = 'wml';   
-   
-    //Initialize variables for other random devices and mobile browsers.
-    const deviceBrew = 'brew';
-    const deviceDanger = 'danger';
-    const deviceHiptop = 'hiptop';
-    const devicePlaystation = 'playstation';
-    const deviceNintendoDs = 'nitro';
-    const deviceNintendo = 'nintendo';
-    const deviceWii = 'wii';
-    const deviceXbox = 'xbox';
-    const deviceArchos = 'archos';
-   
-    const engineOpera = 'opera'; //Popular browser
-    const engineNetfront = 'netfront'; //Common embedded OS browser
-    const engineUpBrowser = 'up.browser'; //common on some phones
-    const engineOpenWeb = 'openweb'; //Transcoding by OpenWave server
-    const deviceMidp = 'midp'; //a mobile Java technology
-    const uplink = 'up.link';
-    const engineTelecaQ = 'teleca q'; //a modern feature phone browser
-   
-    const devicePda = 'pda'; //some devices report themselves as PDAs
-    const mini = 'mini';  //Some mobile browsers put 'mini' in their names.
-    const mobile = 'mobile'; //Some mobile browsers put 'mobile' in their user agent strings.
-    const mobi = 'mobi'; //Some mobile browsers put 'mobi' in their user agent strings.
-   
-    //Use Maemo, Tablet, and Linux to test for Nokia's Internet Tablets.
-    const maemo = 'maemo';
-    const maemoTablet = 'tablet';
-    const linux = 'linux';
-    const qtembedded = 'qt embedded'; //for Sony Mylo and others
-    const mylocom2 = 'com2'; //for Sony Mylo also
-   
-    //In some UserAgents, the only clue is the manufacturer.
-    const manuSonyEricsson = "sonyericsson";
-    const manuericsson = "ericsson";
-    const manuSamsung1 = "sec-sgh";
-    const manuSony = "sony";
-    const manuHtc = "htc"; //Popular Android and WinMo manufacturer
+    const VNDWAP       = 'vnd.wap';
+    const WML          = 'wml';
+    const VNDRIM       = 'vnd.rim';
+    const UPLINK       = 'up.link';
+    const MINI         = 'mini';
+    const MOBILE       = 'mobile';
+    const MOBI         = 'mobi';
+    const MAEMO        = 'maemo';
+    const MAEMO_TABLET = 'tablet';
+    const LINUX        = 'linux';
+    const QT_EMBEDDED  = 'qt embedded';
+    const MYLOCOM2     = 'com2';
+    const SVC_DOCOMO   = 'docomo';
+    const SVC_KDDI     = 'kddi';
+    const SVC_VODAFONE = 'vodafone';
 
-    //In some UserAgents, the only clue is the operator.
-    const svcDocomo = "docomo";
-    const svcKddi = "kddi";
-    const svcVodafone = "vodafone";
-    
+    const MANU_SONYERICSSON = 'sonyericsson';
+    const MANU_ERICSSON     = 'ericsson';
+    const MANU_SAMSUNG1     = 'sec-sgh';
+    const MANU_SONY         = 'sony';
+    const MANU_HTC          = 'htc';
+
     /**
      * Determines which HTTP client is in use.
      * 
@@ -126,145 +111,144 @@ class org_tubepress_browser_BrowserDetector
 
         $agent = $serverVars[self::HTTP_USER_AGENT];
 
-        return self::detectTierIphone($agent);
+        return self::isTierIphone($agent);
     }
 
-    private static function detectIphone($agent)
+    public static function isIphone($agent)
     {
-        if (stripos($agent, self::deviceIphone) > -1) {
-          
+        if (stripos($agent, self::DEVICE_IPHONE) > -1) {
+
             //The iPad and iPod Touch say they're an iPhone! So let's disambiguate.
-            if (self::detectIpad($agent) || self::detectIpod($agent)) {
+            if (self::isIpad($agent) || self::isIpod($agent)) {
                 return false;
             }
-            return true; 
+            return true;
         }
-        return false; 
+        return false;
     }
 
-    private static function detectIpod($agent)
+    public static function isIpod($agent)
     {
-        return stripos($agent, self::deviceIpod) > -1;
-    }
-   
-    private static function detectIpad($agent)
-    {
-        return stripos($agent, self::deviceIpad) > -1 && self::detectWebkit($agent);
+        return stripos($agent, self::DEVICE_IPOD) > -1;
     }
 
-    private static function detectIphoneOrIpod($agent)
+    public static function isIpad($agent)
     {
-        return stripos($agent, self::deviceIphone) > -1 || stripos($agent, self::deviceIpod) > -1;
+        return stripos($agent, self::DEVICE_IPAD) > -1 && self::isWebkit($agent);
     }
 
-    private static function detectAndroid($agent)
+    public static function isIphoneOrIpod($agent)
+    {
+        return stripos($agent, self::DEVICE_IPHONE) > -1 || stripos($agent, self::DEVICE_IPOD) > -1;
+    }
+
+    public static function isAndroid($agent)
     {
         return stripos($agent, self::DEVICE_ANDROID) > -1;
     }
 
-    private static function detectAndroidWebKit($agent)
+    public static function isAndroidWebKit($agent)
     {
-        if (self::detectAndroid($agent)) {
-            return self::detectWebkit($agent);
+        if (self::isAndroid($agent)) {
+            return self::isWebkit($agent);
         }
-        return false; 
+        return false;
     }
 
-    private static function detectWebkit($agent)
+    public static function isWebkit($agent)
     {
         return stripos($agent, self::ENGINE_WEBKIT) > -1;
     }
 
-    private static function detectS60OssBrowser($agent)
+    public static function isS60OsBrowser($agent)
     {
-        //First, test for WebKit, then make sure it's either Symbian or S60.
-        if (self::detectWebkit($agent)) {
-            return stripos($agent, self::deviceSymbian) > -1 || stripos($agent, self::deviceS60) > -1;
+        if (self::isWebkit($agent)) {
+            return stripos($agent, self::DEVICE_SYMBIAN) > -1 || stripos($agent, self::DEVICE_S60) > -1;
         }
         return false; 
     }
-   
+
     //**************************
     // Detects if the current device is any Symbian OS-based device,
     //   including older S60, Series 70, Series 80, Series 90, and UIQ, 
     //   or other browsers running on these devices.
-    private static function detectSymbianOS($agent)
+    public static function isSymbianOS($agent)
     {
-        return stripos($agent, self::deviceSymbian) > -1 || 
-           stripos($agent, self::deviceS60) > -1 ||
-           stripos($agent, self::deviceS70) > -1 || 
-           stripos($agent, self::deviceS80) > -1 ||
-           stripos($agent, self::deviceS90) > -1;
+        return stripos($agent, self::DEVICE_SYMBIAN) > -1 ||
+           stripos($agent, self::DEVICE_S60) > -1 ||
+           stripos($agent, self::DEVICE_S70) > -1 ||
+           stripos($agent, self::DEVICE_S80) > -1 ||
+           stripos($agent, self::DEVICE_S90) > -1;
     }
 
     //**************************
     // Detects if the current browser is a 
     // Windows Phone 7 device.
-    private static function detectWindowsPhone7($agent)
+    public static function isWindowsPhone7($agent)
     {
-        return stripos($agent, self::deviceWinPhone7) > -1;
+        return stripos($agent, self::DEVICE_WINPHONE7) > -1;
     }
 
     //**************************
     // Detects if the current browser is a Windows Mobile device.
     // Excludes Windows Phone 7 devices. 
     // Focuses on Windows Mobile 6.xx and earlier.
-    private static function detectWindowsMobile($agent)
+    public static function isWindowsMobile($agent)
     {
-        if (self::detectWindowsPhone7($agent)) {
-            return false; 
+        if (self::isWindowsPhone7($agent)) {
+            return false;
         }
-        
-        //Most devices use 'Windows CE', but some report 'iemobile' 
-        //  and some older ones report as 'PIE' for Pocket IE. 
-        if (stripos($agent, self::deviceWinMob) > -1 ||
-            stripos($agent, self::deviceIeMob) > -1 ||
-            stripos($agent, self::enginePie) > -1) {
-            return true; 
+
+        //Most devices use 'Windows CE', but some report 'iemobile'
+        //  and some older ones report as 'PIE' for Pocket IE.
+        if (stripos($agent, self::DEVICE_WINMOB) > -1 ||
+            stripos($agent, self::DEVICE_IEMOBILE) > -1 ||
+            stripos($agent, self::ENGINE_PIE) > -1) {
+            return true;
         }
-        
+
         //Test for Windows Mobile PPC but not old Macintosh PowerPC.
-        if (stripos($agent, self::devicePpc) > -1
-            && !(stripos($agent, self::deviceMacPpc) > 1)) {
-            return true; 
+        if (stripos($agent, self::DEVICE_PPC) > -1
+            && !(stripos($agent, self::DEVICE_MAC_PPC) > 1)) {
+            return true;
         }
-        
+
         //Test for certain Windwos Mobile-based HTC devices.
-        if (stripos($agent, self::manuHtc) > -1 && stripos($agent, self::deviceWindows) > -1) {
-            return true; 
+        if (stripos($agent, self::MANU_HTC) > -1 && stripos($agent, self::DEVICE_WINDOWS) > -1) {
+            return true;
         }
-        return self::detectWapWml($agent) && stripos($agent, self::deviceWindows) > -1;
+        return self::isWapOrWml($agent) && stripos($agent, self::DEVICE_WINDOWS) > -1;
     }
 
     //**************************
     // Detects if the current browser is a BlackBerry of some sort.
-    private static function detectBlackBerry($agent)
+    public static function isBlackBerry($agent)
     {
-        if (stripos($agent, self::deviceBB) > -1) {
+        if (stripos($agent, self::DEVICE_BB) > -1) {
             return true; 
         }
-        return stripos(self::httpaccept, self::vndRIM) > -1;
+        return stripos(self::httpaccept, self::VNDRIM) > -1;
     }
 
     //**************************
     // Detects if the current browser is a BlackBerry Touch
     //    device, such as the Storm.
-    private static function detectBlackBerryTouch($agent)
+    public static function isBlackBerryTouch($agent)
     {
-        return stripos($agent, self::deviceBBStorm) > -1;
+        return stripos($agent, self::DEVICE_BBSTORM) > -1;
     }
    
     //**************************
     // Detects if the current browser is a BlackBerry device AND
     //    has a more capable recent browser. 
     //    Examples, Storm, Bold, Tour, Curve2
-    private static function detectBlackBerryHigh($agent)
+    public static function isBlackBerryHigh($agent)
     {
-        if (self::detectBlackBerry($agent)) {
-            return (self::detectBlackBerryTouch($agent)) ||
-                stripos($agent, self::deviceBBBold) > -1 ||
-                stripos($agent, self::deviceBBTour) > -1 ||
-                stripos($agent, self::deviceBBCurve) > -1;
+        if (self::isBlackBerry($agent)) {
+            return (self::isBlackBerryTouch($agent)) ||
+                stripos($agent, self::DEVICE_BBBOLD) > -1 ||
+                stripos($agent, self::DEVICE_BBTOUR) > -1 ||
+                stripos($agent, self::DEVICE_BBCURVE) > -1;
         }
         return false; 
     }
@@ -273,25 +257,25 @@ class org_tubepress_browser_BrowserDetector
     // Detects if the current browser is a BlackBerry device AND
     //    has an older, less capable browser. 
     //    Examples: Pearl, 8800, Curve1.
-    private static function detectBlackBerryLow($agent)
+    public static function isBlackBerryLow($agent)
     {
-        if (self::detectBlackBerry($agent)) {
+        if (self::isBlackBerry($agent)) {
             //Assume that if it's not in the High tier, then it's Low.
-            return self::detectBlackBerryHigh($agent);
+            return !self::isBlackBerryHigh($agent);
         }
         return false; 
     }
 
     //**************************
     // Detects if the current browser is on a PalmOS device.
-    private static function detectPalmOS($agent)
+    public static function isPalmOS($agent)
     {
         //Most devices nowadays report as 'Palm', but some older ones reported as Blazer or Xiino.
-        if (stripos($agent, self::devicePalm) > -1 ||
-            stripos($agent, self::engineBlazer) > -1 ||
-            stripos($agent, self::engineXiino) > -1)  {
+        if (stripos($agent, self::DEVICE_PALM) > -1 ||
+            stripos($agent, self::ENGINE_BLAZER) > -1 ||
+            stripos($agent, self::ENGINE_XIINO) > -1) {
             //Make sure it's not WebOS first
-            return !self::detectPalmWebOS($agent);
+            return !self::isPalmWebOS($agent);
         }
         return false; 
     }
@@ -299,253 +283,308 @@ class org_tubepress_browser_BrowserDetector
     //**************************
     // Detects if the current browser is on a Palm device
     //   running the new WebOS.
-    private static function detectPalmWebOS($agent)
+    public static function isPalmWebOS($agent)
     {
-        return stripos($agent, self::deviceWebOS) > -1;
+        return stripos($agent, self::DEVICE_WEBOS) > -1;
     }
 
     //**************************
     // Detects if the current browser is a
     //   Garmin Nuvifone.
-    private static function detectGarminNuvifone($agent)
+    public static function isGarminNuvifone($agent)
     {
-        return stripos($agent, self::deviceNuvifone) > -1;
+        return stripos($agent, self::DEVICE_NUVIFONE) > -1;
     }
 
     //**************************
     // Check to see whether the device is any device
     //   in the 'smartphone' category.
-    private static function detectSmartphone($agent)
+    public static function isSmartphone($agent)
     {
-        return self::detectIphoneOrIpod($agent) ||
-            self::detectS60OssBrowser($agent) ||
-            self::detectSymbianOS($agent) ||
-            self::detectAndroid($agent) ||
-            self::detectWindowsMobile($agent) ||
-            self::detectWindowsPhone7($agent) ||
-            self::detectBlackBerry($agent) ||
-            self::detectPalmWebOS($agent) ||
-            self::detectPalmOS($agent) ||
-            self::detectGarminNuvifone($agent);
+        return self::isIphoneOrIpod($agent) ||
+            self::isS60OsBrowser($agent) ||
+            self::isSymbianOS($agent) ||
+            self::isAndroid($agent) ||
+            self::isWindowsMobile($agent) ||
+            self::isWindowsPhone7($agent) ||
+            self::isBlackBerry($agent) ||
+            self::isPalmWebOS($agent) ||
+            self::isPalmOS($agent) ||
+            self::isGarminNuvifone($agent);
     }
 
     //**************************
     // Detects whether the device is a Brew-powered device.
-    private static function detectBrewDevice($agent)
+    public static function isBrewDevice($agent)
     {
-       return stripos($agent, self::deviceBrew) > -1;
+       return stripos($agent, self::DEVICE_BREW) > -1;
     }
 
     //**************************
     // Detects the Danger Hiptop device.
-    private static function detectDangerHiptop($agent)
+    public static function isDangerHiptop($agent)
     {
-        return stripos($agent, self::deviceDanger) > -1 || stripos($agent, self::deviceHiptop) > -1;
+        return stripos($agent, self::DEVICE_DANGER) > -1 || stripos($agent, self::DEVICE_HIPTOP) > -1;
     }
 
     //**************************
     // Detects if the current browser is Opera Mobile or Mini.
-    private static function detectOperaMobile($agent)
+    public static function isOperaMobile($agent)
     {
-        if (stripos($agent, self::engineOpera) > -1) {
-            return stripos($agent, self::mini) > -1 || stripos($agent, self::mobi) > -1;
+        if (stripos($agent, self::ENGINE_OPERA) > -1) {
+            return stripos($agent, self::MINI) > -1 || stripos($agent, self::MOBI) > -1;
         }
         return false; 
     }
 
     //**************************
     // Detects whether the device supports WAP or WML.
-    private static function detectWapWml($agent)
+    public static function isWapOrWml($agent)
     {
-        return stripos(self::httpaccept, self::vndwap) > -1 || stripos(self::httpaccept, self::wml) > -1;
+        return stripos(self::httpaccept, self::VNDWAP) > -1 || stripos(self::httpaccept, self::WML) > -1;
     }
-   
+
     //**************************
     // Detects if the current device is an Amazon Kindle.
-    private static function detectKindle($agent)
+    public static function isKindle($agent)
     {
-        return stripos($agent, self::deviceKindle) > -1;
+        return stripos($agent, self::DEVICE_KINDLE) > -1;
     }
-   
+
     //**************************
-    // The quick way to detect for a mobile device.
+    // The quick way to detect for a MOBILE device.
     //   Will probably detect most recent/current mid-tier Feature Phones
     //   as well as smartphone-class devices. Excludes Apple iPads.
-    private static function detectMobileQuick($agent)
+    public static function isMobileQuick($agent)
     {
-        //Let's say no if it's an iPad, which contains 'mobile' in its user agent.
-        if (self::detectiPad($agent)) {
+        //Let's say no if it's an iPad, which contains 'MOBILE' in its user agent.
+        if (self::isIpad($agent)) {
             return false;
         }
 
-        //Most mobile browsing is done on smartphones
-        if (self::detectSmartphone($agent)) {
+        //Most MOBILE browsing is done on smartphones
+        if (self::isSmartphone($agent)) {
             return true;
         }
 
-        return self::detectWapWml($agent) || 
-            self::detectBrewDevice($agent) || 
-            self::detectOperaMobile($agent) || 
-            stripos($agent, self::engineNetfront) > -1 ||
-            stripos($agent, self::engineUpBrowser) > -1 ||
-            stripos($agent, self::engineOpenWeb) > -1 ||
-            self::detectDangerHiptop($agent) || 
-            self::detectMidpCapable($agent) || 
-            self::detectMaemoTablet($agent) || 
-            self::detectArchos($agent) || 
-            stripos($agent, self::devicePda) > -1 ||
-            stripos($agent, self::mobile) > -1;
+        return self::isWapOrWml($agent) ||
+            self::isBrewDevice($agent) ||
+            self::isOperaMobile($agent) ||
+            stripos($agent, self::ENGINE_NETFRONT) > -1 ||
+            stripos($agent, self::ENGINE_UPBROWSER) > -1 ||
+            stripos($agent, self::ENGINE_OPENWEB) > -1 ||
+            self::isDangerHiptop($agent) ||
+            self::isMidpCapable($agent) ||
+            self::isMaemoTablet($agent) ||
+            self::isArchos($agent) ||
+            stripos($agent, self::DEVICE_PDA) > -1 ||
+            stripos($agent, self::MOBILE) > -1;
     }
-   
+
     //**************************
     // Detects if the current device is a Sony Playstation.
-    private static function detectSonyPlaystation($agent)
+    public static function isSonyPlaystation($agent)
     {
-        return stripos($agent, self::devicePlaystation) > -1;
+        return stripos($agent, self::DEVICE_PLAYSTATION) > -1;
     }
 
-    //**************************
-    // Detects if the current device is a Nintendo game device.
-    private static function detectNintendo($agent)
+    /**
+     * Detects if the current device is a Nintendo game device.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
+     */
+    public static function isNintendo($agent)
     {
-        return stripos($agent, self::deviceNintendo) > -1 || 
-            stripos($agent, self::deviceWii) > -1 ||
-            stripos($agent, self::deviceNintendoDs) > -1;
+        return stripos($agent, self::DEVICE_NINTENDO) > -1 ||
+            stripos($agent, self::DEVICE_WII) > -1 ||
+            stripos($agent, self::DEVICE_NINTENDO_DS) > -1;
     }
 
-    //**************************
-    // Detects if the current device is a Microsoft Xbox.
-    private static function detectXbox($agent)
+    /**
+     * Detects if the current device is a Microsoft Xbox.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
+     */
+    public static function isXbox($agent)
     {
-        return stripos($agent, self::deviceXbox) > -1;
+        return stripos($agent, self::DEVICE_XBOX) > -1;
     }
-   
-    //**************************
-    // Detects if the current device is an Internet-capable game console.
-    private static function detectGameConsole($agent)
+
+    /**
+     * Detects if the current device is an Internet-capable game console.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
+     */
+    public static function isGameConsole($agent)
     {
-        return self::detectSonyPlaystation($agent) ||
-            self::detectNintendo($agent) ||
-            self::detectXbox($agent);
+        return self::isSonyPlaystation($agent) ||
+            self::isNintendo($agent) ||
+            self::isXbox($agent);
     }
-   
-    //**************************
-    // Detects if the current device supports MIDP, a mobile Java technology.
-    private static function detectMidpCapable($agent)
+
+    /**
+     * Detects if the current device supports MIDP, a MOBILE Java technology.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
+     */
+    public static function isMidpCapable($agent)
     {
-        return stripos($agent, self::deviceMidp) > -1 || stripos(self::httpaccept, self::deviceMidp) > -1;
+        return stripos($agent, self::DEVICE_MIDP) > -1 || stripos(self::httpaccept, self::DEVICE_MIDP) > -1;
     }
-   
-    //**************************
-    // Detects if the current device is on one of the Maemo-based Nokia Internet Tablets.
-    private static function detectMaemoTablet($agent)
+
+    /**
+     * Detects if the current device is on one of the Maemo-based Nokia Internet Tablets.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
+     */
+    public static function isMaemoTablet($agent)
     {
-        if (stripos($agent, self::maemo) > -1) {
-            return true; 
+        if (stripos($agent, self::MAEMO) > -1) {
+            return true;
         }
-        //Must be Linux + Tablet, or else it could be something else. 
-        return stripos($agent, self::maemoTablet) > -1 && stripos($agent, self::linux) > -1;
+        //Must be Linux + Tablet, or else it could be something else.
+        return stripos($agent, self::MAEMO_TABLET) > -1 && stripos($agent, self::LINUX) > -1;
     }
 
-    //**************************
-    // Detects if the current device is an Archos media player/Internet tablet.
-    private static function detectArchos($agent)
+    /**
+     * Detects if the current device is an Archos media player/Internet tablet.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
+     */
+    public static function isArchos($agent)
     {
-        return stripos($agent, self::deviceArchos) > -1;
+        return stripos($agent, self::DEVICE_ARCHOS) > -1;
     }
 
-    //**************************
-    // Detects if the current browser is a Sony Mylo device.
-    private static function detectSonyMylo($agent)
+    /**
+     * Detects if the current browser is a Sony Mylo device.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
+     */
+    public static function isSonyMylo($agent)
     {
-        if (stripos($agent, self::manuSony) > -1) {
-            return stripos($agent, self::qtembedded) > -1 || stripos($agent, self::mylocom2) > -1;
+        if (stripos($agent, self::MANU_SONY) > -1) {
+            return stripos($agent, self::QT_EMBEDDED) > -1 || stripos($agent, self::MYLOCOM2) > -1;
         }
-        return false; 
-    }
-  
-    //**************************
-    // The longer and more thorough way to detect for a mobile device.
-    //   Will probably detect most feature phones,
-    //   smartphone-class devices, Internet Tablets, 
-    //   Internet-enabled game consoles, etc.
-    //   This ought to catch a lot of the more obscure and older devices, also --
-    //   but no promises on thoroughness!
-    private static function detectMobileLong($agent)
-    {
-        return self::detectMobileQuick($agent) ||
-            self::detectGameConsole($agent) ||
-            self::detectSonyMylo($agent) ||
-            stripos($agent, self::uplink) > -1 ||
-            stripos($agent, self::manuSonyEricsson) > -1 ||
-            stripos($agent, self::manuericsson) > -1 ||
-            stripos($agent, self::manuSamsung1) > -1 ||
-            stripos($agent, self::svcDocomo) > -1 ||
-            stripos($agent, self::svcKddi) > -1 ||
-            stripos($agent, self::svcVodafone) > -1;
+        return false;
     }
 
-    //**************************
-    // The quick way to detect for a tier of devices.
-    //   This method detects for devices which can 
-    //   display iPhone-optimized web content.
-    //   Includes iPhone, iPod Touch, Android, WebOS, etc.
-    private static function detectTierIphone($agent)
+    /**
+     * The longer and more thorough way to detect for a MOBILE device.
+     *   Will probably detect most feature phones,
+     *   smartphone-class devices, Internet Tablets,
+     *   Internet-enabled game consoles, etc.
+     *   This ought to catch a lot of the more obscure and older devices, also --
+     *   but no promises on thoroughness!
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
+     */
+    public static function isMobileLong($agent)
     {
-        return self::detectIphoneOrIpod($agent) || 
-            self::detectAndroid($agent) || 
-            self::detectAndroidWebKit($agent) || 
-            self::detectWindowsPhone7($agent) ||
-            self::detectPalmWebOS($agent) || 
-            self::detectGarminNuvifone($agent) ||
-            self::detectMaemoTablet($agent);
+        return self::isMobileQuick($agent) ||
+            self::isGameConsole($agent) ||
+            self::isSonyMylo($agent) ||
+            stripos($agent, self::UPLINK) > -1 ||
+            stripos($agent, self::MANU_SONYERICSSON) > -1 ||
+            stripos($agent, self::MANU_ERICSSON) > -1 ||
+            stripos($agent, self::MANU_SAMSUNG1) > -1 ||
+            stripos($agent, self::SVC_DOCOMO) > -1 ||
+            stripos($agent, self::SVC_KDDI) > -1 ||
+            stripos($agent, self::SVC_VODAFONE) > -1;
     }
-   
-    //**************************
-    // The quick way to detect for a tier of devices.
-    //   This method detects for devices which are likely to be capable 
-    //   of viewing CSS content optimized for the iPhone, 
-    //   but may not necessarily support JavaScript.
-    //   Excludes all iPhone Tier devices.
-    private static function detectTierRichCss($agent)
+
+    /**
+     * The quick way to detect for a tier of devices.
+     *   This method detects for devices which can
+     *   display iPhone-optimized web content.
+     *   Includes iPhone, iPod Touch, Android, WebOS, etc.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
+     */
+    public static function isTierIphone($agent)
     {
-        if (self::detectMobileQuick($agent)) {
-            if (self::detectTierIphone($agent)) {
+        return self::isIphoneOrIpod($agent) ||
+            self::isAndroid($agent) ||
+            self::isAndroidWebKit($agent) ||
+            self::isWindowsPhone7($agent) ||
+            self::isPalmWebOS($agent) ||
+            self::isGarminNuvifone($agent) ||
+            self::isMaemoTablet($agent);
+    }
+
+    /**
+     * The quick way to detect for a tier of devices.
+     *   This method detects for devices which are likely to be capable 
+     *   of viewing CSS content optimized for the iPhone, 
+     *   but may not necessarily support JavaScript.
+     *   Excludes all iPhone Tier devices.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
+     */
+    public static function isTierRichCss($agent)
+    {
+        if (self::isMobileQuick($agent)) {
+            if (self::isTierIphone($agent)) {
                 return false;
             }
-           
+
             //The following devices are explicitly ok.
-            if (self::detectWebkit($agent)) {//Any WebKit
+            if (self::isWebkit($agent)) {
                 return true;
             }
-            if (self::detectS60OssBrowser($agent)) {
+            if (self::isS60OsBrowser($agent)) {
                 return true;
             }
-           
+
             //Note: 'High' BlackBerry devices ONLY
-            return self::detectBlackBerryHigh($agent) ||
-                self::detectWindowsMobile($agent) ||
-                stripos($agent, self::engineTelecaQ) > -1;
+            return self::isBlackBerryHigh($agent) ||
+                self::isWindowsMobile($agent) ||
+                stripos($agent, self::ENGINE_TELECAQ) > -1;
         }
-        return false; 
+        return false;
     }
 
-    //**************************
-    // The quick way to detect for a tier of devices.
-    //   This method detects for all other types of phones,
-    //   but excludes the iPhone and RichCSS Tier devices.
-    private static function detectTierOtherPhones($agent)
+    /**
+     * The quick way to detect for a tier of devices.
+     * This method detects for all other types of phones,
+     * but excludes the iPhone and RichCSS Tier devices.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
+     */
+    public static function isTierOtherPhones($agent)
     {
-        if (self::detectMobileLong($agent)) {
-            //Exclude devices in the other 2 categories 
-            if (self::detectTierIphone($agent)) {
+        if (self::isMobileLong($agent)) {
+            //Exclude devices in the other 2 categories
+            if (self::isTierIphone($agent)) {
                 return false;
             }
-            if (self::detectTierRichCss($agent)) {
+            if (self::isTierRichCss($agent)) {
                 return false;
             }
             return true;
         }
-        return false; 
+        return false;
     }
 }
