@@ -272,7 +272,7 @@ msgstr "רק לאחזר קטעי וידאו הניתנים לשיבוץ"
 msgid "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries."
 msgstr "יש כמה קטעי וידאו לא מאופשרים לשיבוץ. סימון אפשרות זו לא תכלול סרטי הווידאו האלה בגלריות שלך."
 
-msgid "Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
+msgid "Store network responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
 msgstr "אכסן תגובות YouTube מקומית במשך שעה. כל תגובה היא בסדר גודל של כמה מאות קילו, כך שתשאיר את המטמון פועל על מנת להקטין באופן משמעותי את עומס זמן עלייה עבור הגלריות שלך על חשבון קל של ריענון."
 
 msgid "Maximum total videos to retrieve"

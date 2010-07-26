@@ -122,7 +122,7 @@ $msgs = array(
        'options-title-developerKey'          => 'YouTube API Developer Key',
         'options-desc-developerKey'          => 'YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href="http://code.google.com/apis/youtube/dashboard/">here</a>. Don\'t change this unless you know what you\'re doing.',
         'options-title-cacheEnabled'         => 'Enable request cache',
-        'options-desc-cacheEnabled'          => 'Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness.',
+        'options-desc-cacheEnabled'          => 'Store network responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness.',
         'options-title-embeddableOnly'       => 'Only retrieve embeddable videos',
         'options-desc-embeddableOnly'        => 'Some videos have embedding disabled. Checking this option will exclude these videos from your galleries.',
 

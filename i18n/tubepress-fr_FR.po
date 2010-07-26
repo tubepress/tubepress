@@ -271,7 +271,7 @@ msgstr "Retrouver uniquement les vidéos exportables"
 msgid "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries."
 msgstr "Quelques vidéos n'ont pas le lecteur embarqué. Cocher cette option exclura ces vidéos de vos galeries."
 
-msgid "Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
+msgid "Store network responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
 msgstr "Conserver les réponses de YouTube localement pendant une heure. Chaque réponse sera stockée, donc laisser le cache activé réduira sensiblement le temps de chargement de vos galeries."
 
 msgid "Maximum total videos to retrieve"

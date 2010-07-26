@@ -357,7 +357,7 @@ msgstr ""
 msgid "Enable request cache"
 msgstr ""
 
-msgid "Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
+msgid "Store network responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
 msgstr ""
 
 msgid "Only retrieve embeddable videos"

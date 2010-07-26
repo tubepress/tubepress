@@ -284,7 +284,7 @@ msgstr "Solo recuperar videos que se puedan insertar"
 msgid "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries."
 msgstr "Algunos videos tienen deshabilitado el insertado. Al activar esta opción se excluirá dichos videos de las galerías."
 
-msgid "Store YouTube responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
+msgid "Store network responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
 msgstr "Almacena localmente la respuesta de YouTube por 1 hora. Cada respuesta es del orden de varios cientos de KB, de tal manera que dejándolos en el cache reducirá significativamente los tiempos de carga."
 
 msgid "Maximum total videos to retrieve"
