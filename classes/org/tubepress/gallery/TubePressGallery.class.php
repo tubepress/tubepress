@@ -31,7 +31,8 @@ tubepress_load_classes(array('org_tubepress_ioc_IocService',
     'org_tubepress_options_Category',
     'org_tubepress_embedded_DelegatingEmbeddedPlayerService',
     'org_tubepress_single_Video',
-    'org_tubepress_gallery_GalleryTemplateUtils'));
+    'org_tubepress_gallery_GalleryTemplateUtils',
+    'org_tubepress_theme_Theme'));
 
 /**
  * TubePress gallery. This class gets one or more videos from a provider and applies them to the template.
@@ -152,7 +153,7 @@ class org_tubepress_gallery_TubePressGallery
         $feedResult = org_tubepress_video_feed_provider_Provider::getFeedResult($ioc);
 
         /* prep template */
-        $template = org_tubepress_gallery_GalleryTemplateUtils::getTemplate($ioc);
+        $template = org_tubepress_theme_Theme::getTemplateInstance($ioc, 'gallery.tpl.php');
         org_tubepress_gallery_GalleryTemplateUtils::prepTemplate($feedResult, $galleryId, $template, $ioc);
 
         /* we're done. tie up */

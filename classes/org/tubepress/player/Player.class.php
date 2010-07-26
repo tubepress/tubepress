@@ -23,13 +23,16 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_video_Video',
     'org_tubepress_ioc_IocService',
-    'org_tubepress_theme_Theme'));
+    'org_tubepress_theme_Theme',
+    'org_tubepress_browser_BrowserDetector'));
 
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
 class org_tubepress_player_Player
 {
+    const LOG_PREFIX = 'Player';
+    
     const NORMAL    = 'normal';
     const POPUP     = 'popup';
     const SHADOWBOX = 'shadowbox';
@@ -43,6 +46,11 @@ class org_tubepress_player_Player
     
     public static function getHtml(org_tubepress_ioc_IocService $ioc, org_tubepress_video_Video $vid, $galleryId)
     {
+        if (org_tubepress_browser_BrowserDetector::isMobile($_SERVER)) {
+            org_tubepress_log_Log::log(self::LOG_PREFIX, 'Mobile browser detected');
+            return '';
+        }
+        
         $tpom       = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
         $playerName = $tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
         

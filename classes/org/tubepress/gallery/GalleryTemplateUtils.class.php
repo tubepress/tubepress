@@ -22,7 +22,6 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_ioc_IocService',
-    'org_tubepress_browser_BrowserDetector',
     'org_tubepress_options_category_Display',
     'org_tubepress_theme_Theme',
     'org_tubepress_video_feed_FeedResult',
@@ -38,18 +37,6 @@ tubepress_load_classes(array('org_tubepress_ioc_IocService',
 class org_tubepress_gallery_GalleryTemplateUtils
 {
     const LOG_PREFIX = 'Gallery Template Utils';
-
-    public static function getTemplate(org_tubepress_ioc_IocService $ioc)
-    {
-        $browser = org_tubepress_browser_BrowserDetector::detectBrowser($_SERVER);
-
-        if ($browser === org_tubepress_browser_BrowserDetector::IPHONE || $browser === org_tubepress_browser_BrowserDetector::IPOD) {
-            org_tubepress_log_Log::log($this->_logPrefix, 'iPhone/iPod detected.');
-            $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
-            $tpom->set(org_tubepress_options_category_Display::THEME, 'iphone');
-        }
-        return org_tubepress_theme_Theme::getTemplateInstance($ioc, 'gallery.tpl.php');
-    }
 
     public static function prepTemplate(org_tubepress_video_feed_FeedResult $feedResult, $galleryId,
         org_tubepress_template_Template $template, org_tubepress_ioc_IocService $ioc)
