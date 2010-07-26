@@ -138,7 +138,7 @@ class org_tubepress_options_form_FormHandler
 
             if ($optionName == org_tubepress_options_category_Display::THEME) {
                 $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC] = sprintf($messageService->_("options-desc-$optionName"),
-                    realpath(dirname(__FILE__) . '/../../../../../content/themes')
+                    realpath(dirname(__FILE__) . '/../../../../../content/') . '/themes'
                 );
             } else {
                 $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC] = $messageService->_("options-desc-$optionName");
@@ -168,7 +168,7 @@ class org_tubepress_options_form_FormHandler
             
             if ($modeName == org_tubepress_gallery_TubePressGallery::DIRECTORY) {
                 $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC]   = sprintf($messageService->_("options-desc-$modeName"),
-                    realpath(dirname(__FILE__) . '/../../../../../content/uploads'));
+                    realpath(dirname(__FILE__) . '/../../../../../content/') . '/uploads');
             } else {
                 $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC]   = $messageService->_("options-desc-$modeName");
             }

@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_video_factory_AbstractVideoFactory',
+tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory',
     'org_tubepress_video_Video',
     'org_tubepress_options_category_Display',
     'org_tubepress_util_LocalVideoUtils',
@@ -31,7 +31,7 @@ tubepress_load_classes(array('org_tubepress_video_factory_AbstractVideoFactory',
 /**
  * Video factory for uploads
  */
-class org_tubepress_video_factory_impl_LocalVideoFactory extends org_tubepress_video_factory_impl_AbstractVideoFactory
+class org_tubepress_video_factory_impl_LocalVideoFactory implements org_tubepress_video_factory_VideoFactory
 {
     private $_logPrefix;
 
