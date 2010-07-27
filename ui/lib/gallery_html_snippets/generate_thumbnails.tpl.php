@@ -22,4 +22,4 @@
  * Sure, maybe your templating system of choice looks prettier but I'll bet it's not faster :)
  */
 ?>
-Looks like TubePress still needs to generate some thumbnails for this gallery. <a href="<?php echo ${org_tubepress_template_Template::TUBEPRESS_BASE_URL}; ?>/ui/lib/thumbnail_generation/generate_thumbs.php?d=<?php echo $d; ?>">Click here</a> to get started.
+Looks like TubePress still needs to generate some thumbnails for this gallery. <a href="<?php echo ${org_tubepress_template_Template::TUBEPRESS_BASE_URL}; ?>/ui/lib/uploads/index.php">Click here</a> to get started.

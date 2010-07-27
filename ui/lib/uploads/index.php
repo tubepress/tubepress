@@ -22,5 +22,5 @@
  * Sure, maybe your templating system of choice looks prettier but I'll bet it's not faster :)
  */
 
- echo "Generate thumbs for " . $_GET['d'];
+
 ?>

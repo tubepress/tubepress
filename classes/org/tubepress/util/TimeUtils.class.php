@@ -47,7 +47,9 @@ class org_tubepress_util_TimeUtils
         }
 
         for ($j = 0; $difference >= $lengths[$j]; $j++) {
-            $difference /= $lengths[$j];
+            if ($lengths[$j] != 0) {
+                $difference /= $lengths[$j];
+            }
         }
 
         $difference = round($difference);

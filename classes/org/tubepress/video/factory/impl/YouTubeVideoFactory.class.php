@@ -349,7 +349,7 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory implements org_tubepr
         $seconds = org_tubepress_util_TimeUtils::rfc3339toHumanTime($rawTime);
 
         if ($tpom->get(org_tubepress_options_category_Display::RELATIVE_DATES)) {
-            return org_tubepress_util_TimeUtils::getRelativeTime($rawTime);
+            return org_tubepress_util_TimeUtils::getRelativeTime($seconds);
         }
         return date($tpom->get(org_tubepress_options_category_Advanced::DATEFORMAT), $seconds);
     }
