@@ -24,7 +24,8 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_ioc_DefaultIocService',
     'org_tubepress_ioc_ProInWordPressIocService',
     'org_tubepress_ioc_IocService',
-    'org_tubepress_options_form_FormHandler'));
+    'org_tubepress_options_form_FormHandler',
+    'org_tubepress_util_FilesystemUtils'));
 
 class org_tubepress_env_wordpress_Admin
 {
@@ -47,7 +48,7 @@ class org_tubepress_env_wordpress_Admin
      */
     public static function initAction()
     {
-        $dirName = basename(realpath(dirname(__FILE__) . '/../../../../..'));
+        $dirName = basename(org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath());
         wp_enqueue_style('jquery-ui-flick', WP_PLUGIN_URL . "/$dirName/ui/lib/options_page/css/flick/jquery-ui-1.7.2.custom.css");
         wp_enqueue_script('jquery-ui-tabs');
     }

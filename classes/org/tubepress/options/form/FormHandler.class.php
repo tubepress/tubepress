@@ -29,7 +29,8 @@ tubepress_load_classes(array('org_tubepress_options_Category',
     'org_tubepress_ioc_IocService',
     'org_tubepress_template_SimpleTemplate',
     'org_tubepress_template_Template',
-    'org_tubepress_options_category_Gallery'));
+    'org_tubepress_options_category_Gallery',
+    'org_tubepress_util_FilesystemUtils'));
 
 /**
  * Displays a generic options form for TubePress
@@ -138,7 +139,7 @@ class org_tubepress_options_form_FormHandler
 
             if ($optionName == org_tubepress_options_category_Display::THEME) {
                 $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC] = sprintf($messageService->_("options-desc-$optionName"),
-                    realpath(dirname(__FILE__) . '/../../../../../content/') . '/themes'
+                    org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath() . '/content/themes'
                 );
             } else {
                 $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC] = $messageService->_("options-desc-$optionName");
@@ -168,7 +169,7 @@ class org_tubepress_options_form_FormHandler
             
             if ($modeName == org_tubepress_gallery_TubePressGallery::DIRECTORY) {
                 $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC]   = sprintf($messageService->_("options-desc-$modeName"),
-                    realpath(dirname(__FILE__) . '/../../../../../content/') . '/uploads');
+                    org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath() . '/content/uploads');
             } else {
                 $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC]   = $messageService->_("options-desc-$modeName");
             }

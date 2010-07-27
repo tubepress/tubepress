@@ -59,7 +59,7 @@ class org_tubepress_util_LocalVideoUtils
      */
     public static function getBaseVideoDirectory()
     {
-        return realpath(dirname(__FILE__) . '/../../../../content/uploads');
+        return org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath() . '/content/uploads';
     }
 
     /**

@@ -67,7 +67,7 @@ class org_tubepress_theme_Theme
 
     private static function _getFilePath($currentTheme, $pathToTemplate, $relative = false)
     {
-        $tubepressInstallationPath = realpath(dirname(__FILE__) . '/../../../..');
+        $tubepressInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
         $filePath = "$tubepressInstallationPath/content/themes/$currentTheme/$pathToTemplate";
         
         if (!is_readable($filePath)) {

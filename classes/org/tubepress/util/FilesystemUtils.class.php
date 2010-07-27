@@ -25,48 +25,17 @@ tubepress_load_classes(array(
     'org_tubepress_log_Log'
 ));
 
-/*
- * thanks to shickm for this...
- * http://code.google.com/p/tubepress/issues/detail?id=27
- */
-if (!function_exists("sys_get_temp_dir")) {
-
-    /**
-     * Based on http://www.phpit.net/article/creating-zip-tar-archives-dynamically-php/2/
-     *
-     * @return The system's temp directory, or false if it can't find one.
-     */
-    function sys_get_temp_dir()
-    {
-        // Try to get from environment variable
-        if (!empty($_ENV['TMP'])) {
-            return realpath($_ENV['TMP']);
-        } else if (!empty($_ENV['TMPDIR'])) {
-            return realpath($_ENV['TMPDIR']);
-        } else if (!empty($_ENV['TEMP'])) {
-            return realpath($_ENV['TEMP']);
-        } else {
-            // Detect by creating a temporary file
-            // Try to use system's temporary directory
-            // as random name shouldn't exist
-            $tempfile = tempnam(md5(uniqid(rand(), true)), '');
-            if ( $tempfile ) {
-                $tempdir = realpath(dirname($tempfile));
-                unlink($tempfile);
-                return $tempdir;
-            } else {
-                return false;
-            }
-        }
-    }
-}
-
 /**
  * Some filesystem utilities
  *
  */
 class org_tubepress_util_FilesystemUtils
 {
+    public static function getTubePressBaseInstallationPath()
+    {
+        return realpath(dirname(__FILE__) . '/../../../../');
+    }
+    
     public static function getDirectoriesInDirectory($dir, $prefix)
     {
         $realDir = $dir;
@@ -134,5 +103,41 @@ class org_tubepress_util_FilesystemUtils
             org_tubepress_log_Log::log($prefix, 'Could not open <tt>%s</tt>', $realDir);
         }
         return $toReturn;
+    }
+}
+
+/*
+ * thanks to shickm for this...
+ * http://code.google.com/p/tubepress/issues/detail?id=27
+ */
+if (!function_exists("sys_get_temp_dir")) {
+
+    /**
+     * Based on http://www.phpit.net/article/creating-zip-tar-archives-dynamically-php/2/
+     *
+     * @return The system's temp directory, or false if it can't find one.
+     */
+    function sys_get_temp_dir()
+    {
+        // Try to get from environment variable
+        if (!empty($_ENV['TMP'])) {
+            return realpath($_ENV['TMP']);
+        } else if (!empty($_ENV['TMPDIR'])) {
+            return realpath($_ENV['TMPDIR']);
+        } else if (!empty($_ENV['TEMP'])) {
+            return realpath($_ENV['TEMP']);
+        } else {
+            // Detect by creating a temporary file
+            // Try to use system's temporary directory
+            // as random name shouldn't exist
+            $tempfile = tempnam(md5(uniqid(rand(), true)), '');
+            if ( $tempfile ) {
+                $tempdir = realpath(dirname($tempfile));
+                unlink($tempfile);
+                return $tempdir;
+            } else {
+                return false;
+            }
+        }
     }
 }
