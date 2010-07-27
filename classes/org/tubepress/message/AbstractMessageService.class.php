@@ -68,7 +68,7 @@ abstract class org_tubepress_message_AbstractMessageService implements org_tubep
         'options-title-vimeoAlbum'        => 'Videos from this Vimeo album',
         'options-title-vimeoGroup'        => 'Videos from this Vimeo group',
         'options-title-directory'         => 'Video from this directory',
-        'options-desc-directory'          => 'Enter the path, relative to <tt>%s</tt>, of a directory holding uploaded videos and related .nfo files. TubePress will populate this gallery with any videos it finds here.',
+        'options-desc-directory'          => 'Enter the path, relative to <tt>%s</tt>, of a directory holding uploaded videos and related .yml files. TubePress will populate this gallery with any videos it finds here.',
 
         'options-title-playerLocation'   => 'Play each video',
         'options-title-descriptionLimit' => 'Maximum description length',

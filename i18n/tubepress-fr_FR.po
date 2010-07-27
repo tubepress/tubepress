@@ -466,7 +466,7 @@ msgstr ""
 msgid "Video from this directory"
 msgstr ""
 
-msgid "Enter the path, relative to <tt>%s</tt>, of a directory holding uploaded videos and related .nfo files. TubePress will populate this gallery with any videos it finds here."
+msgid "Enter the path, relative to <tt>%s</tt>, of a directory holding uploaded videos and related .yml files. TubePress will populate this gallery with any videos it finds here."
 msgstr ""
 
 msgid "Thumbs per video"
