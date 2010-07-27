@@ -43,7 +43,7 @@ abstract class org_tubepress_video_feed_retrieval_AbstractFeedRetrievalService i
     {
         global $tubepress_base_url;
 
-        $logPrefix = $this->_getLogPrefix();
+        $logPrefix = $this->getLogPrefix();
         $cache     = $ioc->get(org_tubepress_ioc_IocService::CACHE_SERVICE);
         $testUrl   = "$tubepress_base_url/classes/org/tubepress/video/feed/retrieval/ConnectionTest.php";
 
@@ -71,7 +71,7 @@ abstract class org_tubepress_video_feed_retrieval_AbstractFeedRetrievalService i
 
     private function _getFromNetwork($url)
     {
-        $data = $this->_fetchFromNetwork($url);
+        $data = $this->fetchFromNetwork($url);
 
         /* trim it just in case */
         $data = trim($data);

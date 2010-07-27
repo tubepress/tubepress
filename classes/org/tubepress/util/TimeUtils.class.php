@@ -33,7 +33,7 @@ class org_tubepress_util_TimeUtils
      *
      * @return string The relative time of this timestamp.
      */
-    protected static function getRelativeTime($timestamp)
+    public static function getRelativeTime($timestamp)
     {
         $difference = time() - $timestamp;
         $periods    = array('sec', 'min', 'hour', 'day', 'week', 'month', 'year', 'decade');
@@ -65,7 +65,7 @@ class org_tubepress_util_TimeUtils
      *
      * @return string The time in minutes:seconds format
      */
-    protected static function secondsToHumanTime($seconds)
+    public static function secondsToHumanTime($seconds)
     {
         $length          = intval($seconds / 60);
         $leftOverSeconds = $seconds % 60;
