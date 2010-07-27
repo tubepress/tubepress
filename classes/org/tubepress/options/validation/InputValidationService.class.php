@@ -26,7 +26,8 @@ tubepress_load_classes(array('org_tubepress_ioc_IocService',
     'org_tubepress_options_category_Gallery',   
     'org_tubepress_options_category_Uploads',
     'org_tubepress_options_reference_OptionsReference',
-    'org_tubepress_options_Type'));
+    'org_tubepress_options_Type',
+    'org_tubepress_uploads_UploadsUtils'));
 
 /**
  * Performs validation on option values
@@ -89,7 +90,7 @@ class org_tubepress_options_validation_InputValidationService
             if (strpos($candidate, '..') !== false) {
                 throw new Exception($messageService->_('validation-no-dots-in-path'));
             }
-            $baseDir = org_tubepress_util_LocalVideoUtils::getBaseVideoDirectory();
+            $baseDir = org_tubepress_uploads_UploadsUtils::getBaseVideoDirectory();
             $dir = $baseDir . '/' . $candidate;
             if (!is_dir($dir)) {
                 throw new Exception(sprintf($messageService->_('validation-directory-not-directory'), $dir));

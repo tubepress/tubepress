@@ -31,7 +31,7 @@ tubepress_load_classes(array(
  * Utilities for dealing with local/uploaded video galleries.
  *
  */
-class org_tubepress_util_LocalVideoUtils
+class org_tubepress_uploads_UploadsUtils
 {
     /**
      * Finds potential videos in the given directory.

@@ -24,7 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory',
     'org_tubepress_video_Video',
     'org_tubepress_options_category_Display',
-    'org_tubepress_util_LocalVideoUtils',
+    'org_tubepress_uploads_UploadsUtils',
     'org_tubepress_util_FilesystemUtils',
     'com_googlecode_spyc_Spyc'));
 
@@ -56,10 +56,10 @@ class org_tubepress_video_factory_impl_LocalVideoFactory implements org_tubepres
     public function feedToVideoArray(org_tubepress_ioc_IocService $ioc, $galleryDir, $limit)
     {
         /* get the base uploads directory */
-        $baseDir = org_tubepress_util_LocalVideoUtils::getBaseVideoDirectory();
+        $baseDir = org_tubepress_uploads_UploadsUtils::getBaseVideoDirectory();
 
         /** get a list of videos in the relative directory */
-        $videoNames = org_tubepress_util_LocalVideoUtils::findVideos("$baseDir/$galleryDir", $this->_logPrefix);
+        $videoNames = org_tubepress_uploads_UploadsUtils::findVideos("$baseDir/$galleryDir", $this->_logPrefix);
 
         $toReturn = array();
         $index    = 0;

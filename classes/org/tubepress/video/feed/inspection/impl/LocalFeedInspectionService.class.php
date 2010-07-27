@@ -24,7 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array(
     'org_tubepress_video_feed_inspection_FeedInspectionService',
     'org_tubepress_util_FilesystemUtils',
-    'org_tubepress_util_LocalVideoUtils'
+    'org_tubepress_uploads_UploadsUtils'
 ));
 
 /**
@@ -52,8 +52,8 @@ class org_tubepress_video_feed_inspection_impl_LocalFeedInspectionService implem
      */
     public function getTotalResultCount($dir)
     {
-        $baseDir = org_tubepress_util_LocalVideoUtils::getBaseVideoDirectory();
-        return sizeof(org_tubepress_util_LocalVideoUtils::findVideos($baseDir . '/' . $dir, $this->_logPrefix));
+        $baseDir = org_tubepress_uploads_UploadsUtils::getBaseVideoDirectory();
+        return sizeof(org_tubepress_uploads_UploadsUtils::findVideos($baseDir . '/' . $dir, $this->_logPrefix));
     }
 
     /**
