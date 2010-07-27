@@ -138,9 +138,9 @@ class org_tubepress_options_form_FormHandler
             $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_VIMEO_OPTION]     = org_tubepress_options_reference_OptionsReference::appliesToVimeo($optionName);
 
             if ($optionName == org_tubepress_options_category_Display::THEME) {
+                $baseInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
                 $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC] = sprintf($messageService->_("options-desc-$optionName"),
-                    org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath() . '/content/themes'
-                );
+                     "$baseInstallationPath/content/themes", "$baseInstallationPath/ui/themes");
             } else {
                 $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC] = $messageService->_("options-desc-$optionName");
             }
