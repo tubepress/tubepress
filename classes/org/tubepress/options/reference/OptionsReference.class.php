@@ -70,7 +70,8 @@ class org_tubepress_options_reference_OptionsReference
             org_tubepress_options_category_Gallery::VIMEO_GROUP_VALUE      => 'hdxs',
             org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE      => '140484',
             org_tubepress_options_category_Gallery::DIRECTORY_VALUE        => 'sample_videos',
-            org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION => ''
+            org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION => '',
+            org_tubepress_options_category_Uploads::ADMIN_PAGE_PASSWORD    => ''
         ),
         org_tubepress_options_Type::BOOL => array(
             org_tubepress_options_category_Advanced::DEBUG_ON           => true,
@@ -168,7 +169,8 @@ class org_tubepress_options_reference_OptionsReference
     private static $_uploadsOnly = array(
         org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION,
         org_tubepress_options_category_Uploads::THUMBS_PER_VIDEO,
-        'directory'
+        org_tubepress_gallery_TubePressGallery::DIRECTORY,
+        org_tubepress_options_category_Uploads::ADMIN_PAGE_PASSWORD
     );
 
     static function appliesToYouTube($optionName)
@@ -195,6 +197,7 @@ class org_tubepress_options_reference_OptionsReference
         return !in_array($optionName, array(
             org_tubepress_options_category_Advanced::KEYWORD,
             org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION,
+            org_tubepress_options_category_Uploads::ADMIN_PAGE_PASSWORD
         ));
     }
 
@@ -320,7 +323,8 @@ class org_tubepress_options_reference_OptionsReference
                     org_tubepress_embedded_EmbeddedPlayerService::LONGTAIL
                 );
             case org_tubepress_options_Type::THEME:
-                $dir = dirname(__FILE__) . '/../../../../../ui/themes';
+                $tubepressBaseInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
+                $dir = "$tubepressBaseInstallationPath/ui/themes";
                 $result = array();
                 $dirs = org_tubepress_util_FilesystemUtils::getDirectoriesInDirectory($dir, 'Options reference');
                 foreach ($dirs as $fullDir) {

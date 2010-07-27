@@ -11,7 +11,7 @@ class org_tubepress_options_category_UploadsTest extends org_tubepress_options_c
     
     protected function getExpectedNames()
     {
-        return array('ffmpegBinary', 'thumbsPerVideo');
+        return array('ffmpegBinary', 'thumbsPerVideo', 'uploadsAdminPagePassword');
     }
 }
 ?>

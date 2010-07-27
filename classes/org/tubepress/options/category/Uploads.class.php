@@ -24,6 +24,7 @@
  */
 class org_tubepress_options_category_Uploads
 {
-    const FFMPEG_BINARY_LOCATION       = 'ffmpegBinary';
-    const THUMBS_PER_VIDEO             = 'thumbsPerVideo';
+    const FFMPEG_BINARY_LOCATION = 'ffmpegBinary';
+    const THUMBS_PER_VIDEO       = 'thumbsPerVideo';
+    const ADMIN_PAGE_PASSWORD    = 'uploadsAdminPagePassword';
 }

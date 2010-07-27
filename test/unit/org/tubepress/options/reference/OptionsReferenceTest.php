@@ -34,7 +34,8 @@ class org_tubepress_options_reference_OptionsReferenceTest extends PHPUnit_Frame
             org_tubepress_options_category_Gallery::VIMEO_GROUP_VALUE      => 'hdxs',
             org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE      => '140484',
             org_tubepress_options_category_Gallery::DIRECTORY_VALUE        => 'sample_videos',
-            org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION => ''
+            org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION => '',
+            org_tubepress_options_category_Uploads::ADMIN_PAGE_PASSWORD    => ''
         ),
         org_tubepress_options_Type::BOOL => array(
             org_tubepress_options_category_Advanced::DEBUG_ON           => true,
@@ -97,7 +98,7 @@ class org_tubepress_options_reference_OptionsReferenceTest extends PHPUnit_Frame
         org_tubepress_options_Type::THEME => array(
             org_tubepress_options_category_Display::THEME => ''
         )
-    );    
+    );
 	
 	function testGetAdvancedOptionNames()
 	{

@@ -493,3 +493,9 @@ msgstr ""
 
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>."
 msgstr ""
+
+msgid "Password for uploads admin page"
+msgstr ""
+
+msgid "The password to access your <a href=\"%s\">video uploads management page</a>."
+msgstr ""
