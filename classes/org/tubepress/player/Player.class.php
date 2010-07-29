@@ -46,8 +46,8 @@ class org_tubepress_player_Player
     
     public static function getHtml(org_tubepress_ioc_IocService $ioc, org_tubepress_video_Video $vid, $galleryId)
     {
-        if (org_tubepress_browser_BrowserDetector::isMobile($_SERVER)) {
-            org_tubepress_log_Log::log(self::LOG_PREFIX, 'Mobile browser detected');
+        if (org_tubepress_browser_BrowserDetector::isMobileQuick($_SERVER)) {
+            org_tubepress_log_Log::log(self::LOG_PREFIX, 'Mobile device detected');
             return '';
         }
         
