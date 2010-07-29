@@ -17,11 +17,20 @@
  * You should have received a copy of the GNU General Public License
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
+ * 
+ * Uber simple/fast template for TubePress. Idea from here: http://seanhess.net/posts/simple_templating_system_in_php
+ * Sure, maybe your templating system of choice looks prettier but I'll bet it's not faster :)
  */
 ?>
-<object type="application/x-shockwave-flash" data="<?php echo ${org_tubepress_template_Template::EMBEDDED_DATA_URL}; ?>" style="width:100px;height:100px">
-  
-        <param name="wmode" value="transparent" />
-        <param name="movie" value="<?php echo ${org_tubepress_template_Template::EMBEDDED_DATA_URL}; ?>" />
-        <param name="allowfullscreen" value="<?php echo ${org_tubepress_template_Template::EMBEDDED_FULLSCREEN}; ?>" />
-      </object>
+<div class="span-24 last">
+	<div class="error">
+		<strong>Access denied</strong>
+	</div>
+	<div>
+		You don't have a password set for the TubePress uploads administration page.
+		<ul>
+			<li>WordPress users: Go to <tt>WP Admin > Settings > TubePress > Uploads</tt> to set a password</li>
+			<li>Standalone PHP users: Do somethign awesome</li>
+		</ul>
+	</div>
+</div>

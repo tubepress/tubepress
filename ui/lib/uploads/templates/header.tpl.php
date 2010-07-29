@@ -21,15 +21,20 @@
  * Uber simple/fast template for TubePress. Idea from here: http://seanhess.net/posts/simple_templating_system_in_php
  * Sure, maybe your templating system of choice looks prettier but I'll bet it's not faster :)
  */
-
-define('WP_USE_THEMES', false);
-include dirname(__FILE__) . '/../../../../../../wp-blog-header.php';
-
-function_exists('tubepress_load_classes')
-   || require(dirname(__FILE__) . '/../../../classes/tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_uploads_AdminPageHandler'));
-
-$handler = new org_tubepress_uploads_AdminPageHandler();
-$handler->handle();
 ?>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"> 
+	<head> 
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
+		<title>TubePress Uploads Administration</title> 
+	 
+		<link href="./blueprint/screen.css" type="text/css" media="all" rel="stylesheet" /> 
+		<link href="./blueprint/print.css" type="text/css" media="all" rel="stylesheet" /> 
+	
+		<!--[if IE]>
+		<link href="./blueprint/ie.css" type="text/css" media="screen" rel="stylesheet" />
+		<![endif]-->
+	</head>
+	<body>
+		<div class="container"> 
+			<h2>TubePress Video Uploads</h2> 
