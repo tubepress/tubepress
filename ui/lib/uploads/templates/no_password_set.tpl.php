@@ -24,13 +24,14 @@
 ?>
 <div class="span-24 last">
 	<div class="error">
-		<strong>Access denied</strong>
+		<strong>Access denied: No password set</strong>
 	</div>
 	<div>
 		You don't have a password set for the TubePress uploads administration page.
 		<ul>
-			<li>WordPress users: Go to <tt>WP Admin > Settings > TubePress > Uploads</tt> to set a password</li>
+			<li>WordPress users: Go to <strong>WP Admin > Settings > TubePress > Uploads</strong> to set a password</li>
 			<li>Standalone PHP users: Do somethign awesome</li>
 		</ul>
+		Sorry for the inconvenience, but the Internet can be a nasty place!
 	</div>
 </div>

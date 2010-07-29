@@ -22,8 +22,9 @@
  * Sure, maybe your templating system of choice looks prettier but I'll bet it's not faster :)
  */
 
+/* include the WordPress libs, but suppress the error if they don't exist */
 define('WP_USE_THEMES', false);
-include dirname(__FILE__) . '/../../../../../../wp-blog-header.php';
+@include dirname(__FILE__) . '/../../../../../../wp-blog-header.php';
 
 function_exists('tubepress_load_classes')
    || require(dirname(__FILE__) . '/../../../classes/tubepress_classloader.php');
