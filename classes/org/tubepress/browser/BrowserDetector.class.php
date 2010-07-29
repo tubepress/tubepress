@@ -26,6 +26,7 @@
 class org_tubepress_browser_BrowserDetector
 {
     const HTTP_USER_AGENT = 'HTTP_USER_AGENT';
+    const HTTP_ACCEPT     = 'HTTP_ACCEPT';
 
     const ENGINE_WEBKIT    = 'webkit';
     const ENGINE_PIE       = 'wm5 pie';
@@ -96,82 +97,118 @@ class org_tubepress_browser_BrowserDetector
     const MANU_HTC          = 'htc';
 
     /**
-     * Determines which HTTP client is in use.
-     * 
-     * @param array $serverVars The PHP $_SERVER variable.
+     * Detects whether the device is an iPhone
      *
-     * @return string iphone, ipod, or unknown.
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is an iPhone, false otherwise.
      */
-    public static function isMobile($serverVars)
-    {
-        if (!is_array($serverVars)
-            || !array_key_exists(self::HTTP_USER_AGENT, $serverVars)) {
-            return false;
-        }
-
-        $agent = $serverVars[self::HTTP_USER_AGENT];
-
-        return self::isTierIphone($agent);
-    }
-
     public static function isIphone($agent)
     {
         if (stripos($agent, self::DEVICE_IPHONE) > -1) {
 
             //The iPad and iPod Touch say they're an iPhone! So let's disambiguate.
-            if (self::isIpad($agent) || self::isIpod($agent)) {
-                return false;
-            }
-            return true;
+            return !(self::isIpad($agent) || self::isIpod($agent));
         }
         return false;
     }
 
+    /**
+     * Detects whether the device is an iPod
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is an iPod, false otherwise.
+     */
     public static function isIpod($agent)
     {
         return stripos($agent, self::DEVICE_IPOD) > -1;
     }
 
+    /**
+     * Detects whether the device is an iPad
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is an iPad, false otherwise.
+     */
     public static function isIpad($agent)
     {
         return stripos($agent, self::DEVICE_IPAD) > -1 && self::isWebkit($agent);
     }
 
+    /**
+     * Detects whether the device is an iPhone or iPad.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is an iPod or iPad, false otherwise.
+     */
     public static function isIphoneOrIpod($agent)
     {
         return stripos($agent, self::DEVICE_IPHONE) > -1 || stripos($agent, self::DEVICE_IPOD) > -1;
     }
 
+    /**
+     * Detects whether the device is an Android phone.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is an Android phone, false otherwise.
+     */
     public static function isAndroid($agent)
     {
         return stripos($agent, self::DEVICE_ANDROID) > -1;
     }
 
+    /**
+     * Detects whether the device is an Android phone running WebKit
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is an Android phone running WebKit, false otherwise.
+     */
     public static function isAndroidWebKit($agent)
     {
-        if (self::isAndroid($agent)) {
-            return self::isWebkit($agent);
-        }
-        return false;
+        return self::isAndroid($agent) && self::isWebkit($agent);
     }
 
+    /**
+     * Detects whether the agent is running WebKit.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is running WebKit, false otherwise.
+     */
     public static function isWebkit($agent)
     {
         return stripos($agent, self::ENGINE_WEBKIT) > -1;
     }
 
+    /**
+     * Detects whether the device is running the S60 platform
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is running the S60 platform, false otherwise.
+     */
     public static function isS60OsBrowser($agent)
     {
         if (self::isWebkit($agent)) {
             return stripos($agent, self::DEVICE_SYMBIAN) > -1 || stripos($agent, self::DEVICE_S60) > -1;
         }
-        return false; 
+        return false;
     }
 
-    //**************************
-    // Detects if the current device is any Symbian OS-based device,
-    //   including older S60, Series 70, Series 80, Series 90, and UIQ, 
-    //   or other browsers running on these devices.
+    /**
+     * Detects if the current device is any Symbian OS-based device,
+     *   including older S60, Series 70, Series 80, Series 90, and UIQ,
+     *   or other browsers running on these devices.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is any Symbian OS-based device, false otherwise.
+     */
     public static function isSymbianOS($agent)
     {
         return stripos($agent, self::DEVICE_SYMBIAN) > -1 ||
@@ -181,18 +218,27 @@ class org_tubepress_browser_BrowserDetector
            stripos($agent, self::DEVICE_S90) > -1;
     }
 
-    //**************************
-    // Detects if the current browser is a 
-    // Windows Phone 7 device.
+    /**
+     * Detects if the current browser is a Windows Phone 7 device.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is a Windows Phone 7 device, false otherwise.
+     */
     public static function isWindowsPhone7($agent)
     {
         return stripos($agent, self::DEVICE_WINPHONE7) > -1;
     }
 
-    //**************************
-    // Detects if the current browser is a Windows Mobile device.
-    // Excludes Windows Phone 7 devices. 
-    // Focuses on Windows Mobile 6.xx and earlier.
+    /**
+     *  Detects if the current browser is a Windows Mobile device.
+     *   Excludes Windows Phone 7 devices.
+     *   Focuses on Windows Mobile 6.xx and earlier.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is a Windows Mobile device, false otherwise.
+     */
     public static function isWindowsMobile($agent)
     {
         if (self::isWindowsPhone7($agent)) {
@@ -220,28 +266,43 @@ class org_tubepress_browser_BrowserDetector
         return self::isWapOrWml($agent) && stripos($agent, self::DEVICE_WINDOWS) > -1;
     }
 
-    //**************************
-    // Detects if the current browser is a BlackBerry of some sort.
+    /**
+     * Detects if the current browser is a BlackBerry of some sort.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is a BlackBerry, false otherwise.
+     */
     public static function isBlackBerry($agent)
     {
         if (stripos($agent, self::DEVICE_BB) > -1) {
-            return true; 
+            return true;
         }
-        return stripos(self::httpaccept, self::VNDRIM) > -1;
+        return stripos(self::_getHttpAccept(), self::VNDRIM) > -1;
     }
 
-    //**************************
-    // Detects if the current browser is a BlackBerry Touch
-    //    device, such as the Storm.
+    /**
+     * Detects if the current browser is a BlackBerry Touch
+     *    device, such as the Storm.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is a BlackBerry touch, false otherwise.
+     */
     public static function isBlackBerryTouch($agent)
     {
         return stripos($agent, self::DEVICE_BBSTORM) > -1;
     }
-   
-    //**************************
-    // Detects if the current browser is a BlackBerry device AND
-    //    has a more capable recent browser. 
-    //    Examples, Storm, Bold, Tour, Curve2
+
+    /**
+     * Detects if the current browser is a BlackBerry device AND
+     *    has a more capable recent browser.
+     *    Examples, Storm, Bold, Tour, Curve2
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is a "high" BlackBerry, false otherwise.
+     */
     public static function isBlackBerryHigh($agent)
     {
         if (self::isBlackBerry($agent)) {
@@ -250,24 +311,34 @@ class org_tubepress_browser_BrowserDetector
                 stripos($agent, self::DEVICE_BBTOUR) > -1 ||
                 stripos($agent, self::DEVICE_BBCURVE) > -1;
         }
-        return false; 
+        return false;
     }
 
-    //**************************
-    // Detects if the current browser is a BlackBerry device AND
-    //    has an older, less capable browser. 
-    //    Examples: Pearl, 8800, Curve1.
+    /**
+     * Detects if the current browser is a BlackBerry device AND
+     *    has an older, less capable browser.
+     *    Examples: Pearl, 8800, Curve1.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is a "low" BlackBerry, false otherwise.
+     */
     public static function isBlackBerryLow($agent)
     {
         if (self::isBlackBerry($agent)) {
             //Assume that if it's not in the High tier, then it's Low.
             return !self::isBlackBerryHigh($agent);
         }
-        return false; 
+        return false;
     }
 
-    //**************************
-    // Detects if the current browser is on a PalmOS device.
+    /**
+     * Detects if the current browser is on a PalmOS device.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is a PalmOS device, false otherwise.
+     */
     public static function isPalmOS($agent)
     {
         //Most devices nowadays report as 'Palm', but some older ones reported as Blazer or Xiino.
@@ -277,28 +348,42 @@ class org_tubepress_browser_BrowserDetector
             //Make sure it's not WebOS first
             return !self::isPalmWebOS($agent);
         }
-        return false; 
+        return false;
     }
 
-    //**************************
-    // Detects if the current browser is on a Palm device
-    //   running the new WebOS.
+    /**
+     * Detects if the current browser is running WebOS.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is running WebOS, false otherwise.
+     */
     public static function isPalmWebOS($agent)
     {
         return stripos($agent, self::DEVICE_WEBOS) > -1;
     }
 
-    //**************************
-    // Detects if the current browser is a
-    //   Garmin Nuvifone.
+    /**
+     * Detects if the current browser is a
+     *   Garmin Nuvifone.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is a Garmin Nuvifone, false otherwise.
+     */
     public static function isGarminNuvifone($agent)
     {
         return stripos($agent, self::DEVICE_NUVIFONE) > -1;
     }
 
-    //**************************
-    // Check to see whether the device is any device
-    //   in the 'smartphone' category.
+    /**
+     * Check to see whether the device is any device
+     *   in the 'smartphone' category.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is a "smartphone", false otherwise.
+     */
     public static function isSmartphone($agent)
     {
         return self::isIphoneOrIpod($agent) ||
@@ -313,48 +398,78 @@ class org_tubepress_browser_BrowserDetector
             self::isGarminNuvifone($agent);
     }
 
-    //**************************
-    // Detects whether the device is a Brew-powered device.
+    /**
+     * Detects whether the device is a Brew-powered device.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is Brew powered, false otherwise.
+     */
     public static function isBrewDevice($agent)
     {
-       return stripos($agent, self::DEVICE_BREW) > -1;
+        return stripos($agent, self::DEVICE_BREW) > -1;
     }
 
-    //**************************
-    // Detects the Danger Hiptop device.
+    /**
+     * Detects the Danger Hiptop device.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is a Danger Hiptop device, false otherwise.
+     */
     public static function isDangerHiptop($agent)
     {
         return stripos($agent, self::DEVICE_DANGER) > -1 || stripos($agent, self::DEVICE_HIPTOP) > -1;
     }
 
-    //**************************
-    // Detects if the current browser is Opera Mobile or Mini.
+    /**
+     * Detects if the current browser is Opera Mobile or Mini.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is running Opera Mobile or Mini, false otherwise.
+     */
     public static function isOperaMobile($agent)
     {
         if (stripos($agent, self::ENGINE_OPERA) > -1) {
             return stripos($agent, self::MINI) > -1 || stripos($agent, self::MOBI) > -1;
         }
-        return false; 
+        return false;
     }
 
-    //**************************
-    // Detects whether the device supports WAP or WML.
+    /**
+     * Detects whether the device supports WAP or WML.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent supports WAP or WML, false otherwise.
+     */
     public static function isWapOrWml($agent)
     {
-        return stripos(self::httpaccept, self::VNDWAP) > -1 || stripos(self::httpaccept, self::WML) > -1;
+        return stripos(self::_getHttpAccept(), self::VNDWAP) > -1 || stripos(self::_getHttpAccept(), self::WML) > -1;
     }
 
-    //**************************
-    // Detects if the current device is an Amazon Kindle.
+    /**
+     * Detects if the current device is an Amazon Kindle.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is an Amazon Kindle, false otherwise.
+     */
     public static function isKindle($agent)
     {
         return stripos($agent, self::DEVICE_KINDLE) > -1;
     }
 
-    //**************************
-    // The quick way to detect for a MOBILE device.
-    //   Will probably detect most recent/current mid-tier Feature Phones
-    //   as well as smartphone-class devices. Excludes Apple iPads.
+    /**
+     * The quick way to detect for a MOBILE device.
+     *   Will probably detect most recent/current mid-tier Feature Phones
+     *   as well as smartphone-class devices. Excludes Apple iPads.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is a mobile device, false otherwise.
+     */
     public static function isMobileQuick($agent)
     {
         //Let's say no if it's an iPad, which contains 'MOBILE' in its user agent.
@@ -381,8 +496,13 @@ class org_tubepress_browser_BrowserDetector
             stripos($agent, self::MOBILE) > -1;
     }
 
-    //**************************
-    // Detects if the current device is a Sony Playstation.
+    /**
+     * Detects if the current device is a Sony Playstation.
+     *
+     * @param string $agent The HTTP user agent.
+     *
+     * @return boolean True if the agent is a Sony Playstation, false otherwise.
+     */
     public static function isSonyPlaystation($agent)
     {
         return stripos($agent, self::DEVICE_PLAYSTATION) > -1;
@@ -393,7 +513,7 @@ class org_tubepress_browser_BrowserDetector
      *
      * @param string $agent The HTTP user agent.
      *
-     * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
+     * @return boolean True if the agent is a Nintendo game device, false otherwise.
      */
     public static function isNintendo($agent)
     {
@@ -407,7 +527,7 @@ class org_tubepress_browser_BrowserDetector
      *
      * @param string $agent The HTTP user agent.
      *
-     * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
+     * @return boolean True if the agent is a Microsoft Xbox, false otherwise.
      */
     public static function isXbox($agent)
     {
@@ -419,7 +539,7 @@ class org_tubepress_browser_BrowserDetector
      *
      * @param string $agent The HTTP user agent.
      *
-     * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
+     * @return boolean True if the agent is an Internet-capable game console, false otherwise.
      */
     public static function isGameConsole($agent)
     {
@@ -433,11 +553,11 @@ class org_tubepress_browser_BrowserDetector
      *
      * @param string $agent The HTTP user agent.
      *
-     * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
+     * @return boolean True if the agent supports MIDP, false otherwise.
      */
     public static function isMidpCapable($agent)
     {
-        return stripos($agent, self::DEVICE_MIDP) > -1 || stripos(self::httpaccept, self::DEVICE_MIDP) > -1;
+        return stripos($agent, self::DEVICE_MIDP) > -1 || stripos(self::_getHttpAccept(), self::DEVICE_MIDP) > -1;
     }
 
     /**
@@ -445,7 +565,7 @@ class org_tubepress_browser_BrowserDetector
      *
      * @param string $agent The HTTP user agent.
      *
-     * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
+     * @return boolean True if the agent is on one of the Maemo-based Nokia Internet Tablets, false otherwise.
      */
     public static function isMaemoTablet($agent)
     {
@@ -571,7 +691,7 @@ class org_tubepress_browser_BrowserDetector
      *
      * @param string $agent The HTTP user agent.
      *
-     * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
+     * @return boolean True if the agent is an "Other" tier phone, false otherwise.
      */
     public static function isTierOtherPhones($agent)
     {
@@ -586,5 +706,35 @@ class org_tubepress_browser_BrowserDetector
             return true;
         }
         return false;
+    }
+
+    /**
+     * Safe-get of the HTTP agent header
+     *
+     * @param array $serverVars The PHP $_SERVER array.
+     *
+     * @return string The value of the HTTP agent header, of '' if not found
+     */
+    public static function getHttpAgent($serverVars)
+    {
+        if (!is_array($serverVars) || !array_key_exists(self::HTTP_USER_AGENT, $serverVars)) {
+            return '';
+        }
+        return $serverVars[self::HTTP_USER_AGENT];
+    }
+
+    /**
+     * Safe-get of the HTTP accept header
+     *
+     * @param array $serverVars The PHP $_SERVER array.
+     *
+     * @return string The value of the HTTP accept header, of '' if not found
+     */
+    private static function _getHttpAccept($serverVars)
+    {
+        if (!is_array($serverVars) || !array_key_exists(self::HTTP_ACCEPT, $serverVars)) {
+            return '';
+        }
+        return $serverVars[self::HTTP_ACCEPT];
     }
 }
