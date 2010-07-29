@@ -23,21 +23,5 @@
  */
 ?>
 <div class="span-24 last">
-	
-	<div class="error">
-		<strong>Access denied: <?php echo ${org_tubepress_uploads_SecurityHandler::AUTH_ATTEMPT}? 'bad password' : 'password required'; ?></strong>
-	</div>
-
-	<form id="authenticate" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-		<fieldset>
-			<p>
-				<label for="<?php echo ${org_tubepress_uploads_SecurityHandler::PASSWORD_PARAM_NAME}; ?>">Please enter the TubePress uploads admin page password</label>
-				<br />
-				<input type="password" id="<?php echo ${org_tubepress_uploads_SecurityHandler::PASSWORD_PARAM_NAME}; ?>" class="title" name="<?php echo ${org_tubepress_uploads_SecurityHandler::PASSWORD_PARAM_NAME}; ?>" /> 
-			</p>
-			<p>
-				<input type="submit" value="Authenticate" />
-			</p>
-		</fieldset>
-	</form>
+	What up dawg.
 </div>
