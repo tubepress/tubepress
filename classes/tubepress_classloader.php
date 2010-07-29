@@ -19,7 +19,8 @@
  *
  */
 
-function tubepress_load_classes($classesToLoad) {
+function tubepress_load_classes($classesToLoad)
+{
     foreach ($classesToLoad as $class) {
         tubepress_classloader($class);
     }
@@ -38,20 +39,33 @@ function tubepress_classloader($className)
     if (class_exists($className, false) || interface_exists($className, false)) {
         return;
     }
-    
+
+    /* see if the class is in the loading queue */
+    global $tubepressClassLoadingQueue;
+    if (!isset($tubepressClassLoadingQueue)) {
+        $tubepressClassLoadingQueue = array();
+    }
+    if (array_key_exists($className, $tubepressClassLoadingQueue)) {
+        return;
+    }
+    $tubepressClassLoadingQueue[$className] = '1';
+
     /*
      * replace all underscores with the directory separator and add ".class.php"
      * e.g. "org_tubepress_package_MyClass" becomes "org/tubepress/package/MyClass.class.php"
      */
     $fileName = str_replace('_', DIRECTORY_SEPARATOR, $className) . '.class.php';
-    
+
     /* piece together the absolute file name */
     $currentDir = dirname(__FILE__) . "/../classes/";
-    $absPath = $currentDir . $fileName;
-    
+    $absPath    = $currentDir . $fileName;
+
     /* include the file if it exists */
     if (file_exists($absPath)) {
-        include $absPath;    
+        include $absPath;
     }
+
+    /* class is done loading, remove it from the queue */
+    unset($tubepressClassLoadingQueue[$className]);
 }
-?>
+
