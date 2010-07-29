@@ -278,7 +278,7 @@ class org_tubepress_browser_BrowserDetector
         if (stripos($agent, self::DEVICE_BB) > -1) {
             return true;
         }
-        return stripos(self::_getHttpAccept(), self::VNDRIM) > -1;
+        return stripos(self::_getHttpAccept($_SERVER), self::VNDRIM) > -1;
     }
 
     /**
@@ -446,7 +446,7 @@ class org_tubepress_browser_BrowserDetector
      */
     public static function isWapOrWml($agent)
     {
-        return stripos(self::_getHttpAccept(), self::VNDWAP) > -1 || stripos(self::_getHttpAccept(), self::WML) > -1;
+        return stripos(self::_getHttpAccept($_SERVER), self::VNDWAP) > -1 || stripos(self::_getHttpAccept($_SERVER), self::WML) > -1;
     }
 
     /**
@@ -470,8 +470,10 @@ class org_tubepress_browser_BrowserDetector
      *
      * @return boolean True if the agent is a mobile device, false otherwise.
      */
-    public static function isMobileQuick($agent)
+    public static function isMobileQuick($serverVars)
     {
+        $agent = self::getHttpAgent($serverVars);
+
         //Let's say no if it's an iPad, which contains 'MOBILE' in its user agent.
         if (self::isIpad($agent)) {
             return false;
@@ -557,7 +559,7 @@ class org_tubepress_browser_BrowserDetector
      */
     public static function isMidpCapable($agent)
     {
-        return stripos($agent, self::DEVICE_MIDP) > -1 || stripos(self::_getHttpAccept(), self::DEVICE_MIDP) > -1;
+        return stripos($agent, self::DEVICE_MIDP) > -1 || stripos(self::_getHttpAccept($_SERVER), self::DEVICE_MIDP) > -1;
     }
 
     /**
