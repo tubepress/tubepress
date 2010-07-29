@@ -110,6 +110,7 @@ class org_tubepress_gallery_TubePressGallery
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'Solo player in use, but no video ID set in URL. Will display a gallery instead.', $videoId);
         }
 
+        org_tubepress_log_Log::log(self::LOG_PREFIX, 'No video ID in shortcode, and solo player not in use. Let\'s build a thumbnail gallery.');
         $galleryId = org_tubepress_querystring_QueryStringService::getGalleryId($_GET);
 
         if ($galleryId == '') {
