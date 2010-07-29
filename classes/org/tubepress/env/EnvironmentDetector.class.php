@@ -33,7 +33,7 @@ class org_tubepress_env_EnvironmentDetector
      *
      * @return boolean True is the user is running TubePress Pro. False otherwise.
      */
-    public function isPro()
+    public static function isPro()
     {
         return class_exists('org_tubepress_ioc_ProIocService');
     }
@@ -43,8 +43,8 @@ class org_tubepress_env_EnvironmentDetector
      *
      * @return boolean True is the user is running within WordPress. False otherwise.
      */
-    public function isWordPress()
+    public static function isWordPress()
     {
-        return strpos(realpath(__FILE__), 'wp-content/plugins') === true;
+        return strpos($_SERVER['PHP_SELF'], 'wp-content/plugins') !== false;
     }
 }
