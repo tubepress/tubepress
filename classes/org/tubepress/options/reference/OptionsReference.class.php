@@ -382,7 +382,8 @@ class org_tubepress_options_reference_OptionsReference
     static function isOptionApplicableToOptionsForm($optionName)
     {
         return !in_array($optionName, array(
-            org_tubepress_options_category_Gallery::VIDEO
+            org_tubepress_options_category_Gallery::VIDEO,
+            org_tubepress_options_category_Uploads::ADMIN_PAGE_PASSWORD
         ));
     }
 

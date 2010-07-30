@@ -14,8 +14,8 @@ class org_tubepress_url_impl_YouTubeUrlBuilderTest extends TubePressUnitTest {
 
 	function testSingleVideoUrl()
 	{
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/videos/1?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg", 
-		    $this->_sut->buildSingleVideoUrl($this->getIoc(), 1));
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/videos/dfsdkjerufd?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg", 
+		    $this->_sut->buildSingleVideoUrl($this->getIoc(), 'dfsdkjerufd'));
 	}
 	
 	function testBuildGalleryUrlUserMode()

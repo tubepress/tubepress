@@ -17,8 +17,8 @@ class org_tubepress_url_impl_VimeoUrlBuilderTest extends TubePressUnitTest {
 
 	function testSingleVideoUrl()
 	{
-		$this->assertTrue($this->urlMatches('method=vimeo.videos.getInfo&video_id=videoid', 
-		    $this->_sut->buildSingleVideoUrl($this->getIoc(), 'videoid')));
+		$this->assertTrue($this->urlMatches('method=vimeo.videos.getInfo&video_id=444333', 
+		    $this->_sut->buildSingleVideoUrl($this->getIoc(), '444333')));
 	}
 	
 	function testBuildGalleryUrlGroup()

@@ -132,6 +132,11 @@ class org_tubepress_options_form_FormHandler
         global $tubepress_base_url;
         
         foreach ($optionNames as $optionName) {
+            
+            if (!org_tubepress_options_reference_OptionsReference::isOptionApplicableToOptionsForm($optionName)) {
+                continue;
+            }
+            
             $metaArray = array();
             $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_TITLE]    = $messageService->_("options-title-$optionName");
             $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_PRO_ONLY] = org_tubepress_options_reference_OptionsReference::isOptionProOnly($optionName) ? '*' : '';
@@ -143,9 +148,6 @@ class org_tubepress_options_form_FormHandler
                 $baseInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
                 $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC] = sprintf($messageService->_("options-desc-$optionName"),
                      "$baseInstallationPath/content/themes", "$baseInstallationPath/ui/themes");
-            } else if ($optionName == org_tubepress_options_category_Uploads::ADMIN_PAGE_PASSWORD) {
-                $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC] = sprintf($messageService->_("options-desc-$optionName"),
-                     "$tubepress_base_url/ui/lib/uploads/index.php");
             } else {
                 $metaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC] = $messageService->_("options-desc-$optionName");
             }

@@ -111,8 +111,6 @@ $msgs = array(
 
         'options-title-ffmpegBinary' => 'FFmpeg binary location',
         'options-desc-ffmpegBinary'  => 'To generate thumbnails for your locally uploaded videos, TubePress requires a modern version of <a href="http://www.ffmpeg.org/">FFmpeg</a>. Set this value to the absolute path of your server\'s FFmpeg installation.',
-        'options-title-uploadsAdminPagePassword' => 'Password for uploads admin page',
-        'options-desc-uploadsAdminPagePassword' => 'The password to access your <a href="%s">video uploads management page</a>.',
 
         'options-title-thumbsPerVideo' => 'Thumbs per video',
         'options-desc-thumbsPerVideo'  => 'How many thumbnails to generate for each video. TubePress can randomly display the thumbs each time someone visits the gallery. See the "Randomize thumbnails" option under the "Appearance" tab.',

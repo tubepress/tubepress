@@ -5,17 +5,17 @@ class org_tubepress_browser_BrowserDetectorTest extends PHPUnit_Framework_TestCa
 
 	function testIphone()
 	{
-		$this->assertTrue(org_tubepress_browser_BrowserDetector::isMobile(array('HTTP_USER_AGENT' => 'iPhone')));
+		$this->assertTrue(org_tubepress_browser_BrowserDetector::isMobileQuick(array('HTTP_USER_AGENT' => 'iPhone')));
 	}
 	
     function testIpod()
 	{
-		$this->assertTrue(org_tubepress_browser_BrowserDetector::isMobile(array('HTTP_USER_AGENT' => 'iPod')));
+		$this->assertTrue(org_tubepress_browser_BrowserDetector::isMobileQuick(array('HTTP_USER_AGENT' => 'iPod')));
 	}
 	
 	function testOther()
 	{
-		$this->assertFalse(org_tubepress_browser_BrowserDetector::isMobile(array('HTTP_USER_AGENT' => 'somethingelse')));
+		$this->assertFalse(org_tubepress_browser_BrowserDetector::isMobileQuick(array('HTTP_USER_AGENT' => 'somethingelse')));
 	}
 }
 ?>
