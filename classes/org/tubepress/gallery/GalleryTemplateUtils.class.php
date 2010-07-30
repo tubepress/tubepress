@@ -107,12 +107,12 @@ class org_tubepress_gallery_GalleryTemplateUtils
             $cssPath = org_tubepress_theme_Theme::getCssPath($currentTheme);
             if (is_readable($cssPath)) {
 
-                org_tubepress_log_Log::log(self::LOG_PREFIX, 'Theme CSS found at %s', $cssPath);
+                org_tubepress_log_Log::log(self::LOG_PREFIX, 'Theme CSS found at <tt>%s</tt>', $cssPath);
                 $cssRelativePath = org_tubepress_theme_Theme::getCssPath($currentTheme, true);
                 $baseInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
                 
                 $cssUrl = "$tubepress_base_url/$cssRelativePath";
-                org_tubepress_log_Log::log(self::LOG_PREFIX, 'Will inject CSS from %s', $cssUrl);
+                org_tubepress_log_Log::log(self::LOG_PREFIX, 'Will inject CSS from <tt>%s</tt>', $cssUrl);
                 $template = new org_tubepress_template_SimpleTemplate();
                 $template->setPath("$baseInstallationPath/ui/lib/gallery_html_snippets/theme_loader.tpl.php");
                 $template->setVariable(org_tubepress_template_Template::THEME_CSS, $cssUrl);
@@ -184,9 +184,13 @@ class org_tubepress_gallery_GalleryTemplateUtils
     {
         $customVideoId = org_tubepress_querystring_QueryStringService::getCustomVideo($_GET);
         if ($customVideoId != '') {
-            org_tubepress_log_Log::log(self::LOG_PREFIX, 'Prepending video %s to the gallery', $customVideoId);
-            $video = org_tubepress_video_feed_provider_Provider::getSingleVideo($customVideoId, $ioc);
-            array_unshift($videos, $video);
+            org_tubepress_log_Log::log(self::LOG_PREFIX, 'Prepending video <tt>%s</tt> to the gallery', $customVideoId);
+            try {
+                $video = org_tubepress_video_feed_provider_Provider::getSingleVideo($customVideoId, $ioc);
+                array_unshift($videos, $video);
+            } catch (Exception $e) {
+                org_tubepress_log_Log::log(self::LOG_PREFIX, 'Could not prepend video <tt>%s</tt> to the gallery: %s', $customVideoId, $e->getMessage());
+            }
         }
         return $videos;
     }

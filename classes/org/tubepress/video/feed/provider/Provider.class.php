@@ -65,7 +65,7 @@ class org_tubepress_video_feed_provider_Provider
 
             /* build the request URL */
             $url = org_tubepress_url_DelegatingUrlBuilder::buildGalleryUrl($ioc, $currentPage);
-            org_tubepress_log_Log::log(self::LOG_PREFIX, 'URL to fetch is %s', $url);
+            org_tubepress_log_Log::log(self::LOG_PREFIX, 'URL to fetch is <tt>%s</tt>', $url);
 
             /* make the request */
             $feedRetrievalService = $ioc->get(org_tubepress_ioc_IocService::FEED_RETRIEVAL_SERVICE);
@@ -124,8 +124,7 @@ class org_tubepress_video_feed_provider_Provider
      */
     public static function getSingleVideo($customVideoId, org_tubepress_ioc_IocService $ioc)
     {
-        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Fetching video with ID %s', $customVideoId);
-
+        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Fetching video with ID <tt>%s</tt>', $customVideoId);
         $videoUrl = org_tubepress_url_DelegatingUrlBuilder::buildSingleVideoUrl($ioc, $customVideoId);
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'URL to fetch is %s', $videoUrl);
 
@@ -148,18 +147,9 @@ class org_tubepress_video_feed_provider_Provider
     {
         $video = $tpom->get(org_tubepress_options_category_Gallery::VIDEO);
 
-        /* vimeo video IDs are always just numbers */
-        if (is_numeric($video) === true) {
-            return self::VIMEO;
-        }
-
-        if (preg_match_all('/^.*\.[A-Za-z]{3}$/', $video, $arr, PREG_PATTERN_ORDER) === 1) {
-            return self::DIRECTORY;
-        }
-
         /* requested a single video, and it's not vimeo or directory, so must be youtube */
         if ($video != '') {
-            return self::YOUTUBE;
+            return self::calculateProviderOfVideoId($video);
         }
 
         /* calculate based on gallery content */
@@ -173,6 +163,17 @@ class org_tubepress_video_feed_provider_Provider
         return self::YOUTUBE;
     }
 
+    public static function calculateProviderOfVideoId($videoId)
+    {
+        if (is_numeric($videoId) === true) {
+            return self::VIMEO;
+        }
+        if (preg_match_all('/^.*\.[A-Za-z]{3}$/', $videoId, $arr, PREG_PATTERN_ORDER) === 1) {
+            return self::DIRECTORY;
+        }
+        return self::YOUTUBE;
+    }
+    
     private static function _capTotalResultsIfNeeded(org_tubepress_options_manager_OptionsManager $tpom, $totalResults)
     {
         $limit = $tpom-> get(org_tubepress_options_category_Feed::RESULT_COUNT_CAP);

@@ -101,10 +101,7 @@ class org_tubepress_gallery_TubePressGallery
 
             if ($videoId != '') {
                 org_tubepress_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
-
-                $singleVideoGenerator = $iocService->get(org_tubepress_ioc_IocService::SINGLE_VIDEO);
-
-                return $singleVideoGenerator->getSingleVideoHtml($videoId);
+                return org_tubepress_single_Video::getSingleVideoHtml($videoId, $iocService);
             }
 
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'Solo player in use, but no video ID set in URL. Will display a gallery instead.', $videoId);
