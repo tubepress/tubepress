@@ -110,6 +110,11 @@ class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_url_UrlB
     
     public function buildSingleVideoUrl(org_tubepress_ioc_IocService $ioc, $id)
     {
+        $provider = org_tubepress_video_feed_provider_Provider::calculateProviderOfVideoId($id);
+        if ($provider !== org_tubepress_video_feed_provider_Provider::YOUTUBE) {
+            throw new Exception("Unable to build YouTube URL for video with ID $id");
+        }
+        
         $requestURL = new net_php_pear_Net_URL2("http://gdata.youtube.com/feeds/api/videos/$id");
         $this->_commonUrlPostProcessing($ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER), $requestURL);
         

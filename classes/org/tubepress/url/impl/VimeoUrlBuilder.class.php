@@ -97,6 +97,11 @@ class org_tubepress_url_impl_VimeoUrlBuilder implements org_tubepress_url_UrlBui
     
     public function buildSingleVideoUrl(org_tubepress_ioc_IocService $ioc, $id)
     {
+        $provider = org_tubepress_video_feed_provider_Provider::calculateProviderOfVideoId($id);
+        if ($provider !== org_tubepress_video_feed_provider_Provider::VIMEO) {
+            throw new Exception("Unable to build Vimeo URL for video with ID $id");
+        }
+        
         $params = array();
         $params['method'] = 'vimeo.videos.getInfo';
         $params['video_id'] = $id;
