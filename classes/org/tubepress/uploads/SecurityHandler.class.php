@@ -24,7 +24,8 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_template_Template',
 	'org_tubepress_template_SimpleTemplate',
 	'org_tubepress_ioc_IocDelegateUtils',
-	'org_tubepress_uploads_AdminPageHandler'));
+	'org_tubepress_uploads_AdminPageHandler',
+    'org_tubepress_env_EnvironmentDetector'));
 
 /**
  * Handles the video uploads admin page
@@ -38,7 +39,11 @@ class org_tubepress_uploads_SecurityHandler
 
 	public static function canContinue()
 	{
-		session_start();
+	    if (org_tubepress_env_EnvironmentDetector::isWordPress()) {
+	        return self::_canContinueWordPress();
+	    }
+
+	    session_start();
 
 		/* user authenticated? continue. */
 		if (self::_authenticated()) {
@@ -70,6 +75,19 @@ class org_tubepress_uploads_SecurityHandler
 		org_tubepress_uploads_AdminPageHandler::printTemplate($contentTemplate);
 	}
 
+	private static function _canContinueWordPress()
+	{
+	    if (current_user_can(9)) {
+	        return true;
+	    }
+	    
+        $baseName = basename(realpath(dirname(__FILE__) . '/../../../../'));
+        $siteUrl = get_option('siteurl');
+        $url =  urlencode("$siteUrl/wp-content/plugins/$baseName");
+	    header("Location: $siteUrl/wp-login.php?redirect_to=$url/ui/lib/uploads/index.php");
+	    exit;
+	}
+	
 	private static function _credentialsValid()
 	{
 		$ioc  = org_tubepress_ioc_IocDelegateUtils::getIocContainerInstance();
