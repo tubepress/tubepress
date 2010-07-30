@@ -107,7 +107,7 @@ class org_tubepress_gallery_TubePressGallery
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'Solo player in use, but no video ID set in URL. Will display a gallery instead.', $videoId);
         }
 
-        org_tubepress_log_Log::log(self::LOG_PREFIX, 'No video ID in shortcode, and solo player not in use. Let\'s build a thumbnail gallery.');
+        org_tubepress_log_Log::log(self::LOG_PREFIX, 'No video ID in shortcode, and <tt>%s</tt> player in use. Let\'s build a thumbnail gallery.', $playerName);
         $galleryId = org_tubepress_querystring_QueryStringService::getGalleryId($_GET);
 
         if ($galleryId == '') {
@@ -115,7 +115,7 @@ class org_tubepress_gallery_TubePressGallery
         }
 
         /* normal gallery */
-        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Starting to build thumbnail gallery %s', $galleryId);
+        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Starting to build thumbnail gallery <tt>%s</tt>', $galleryId);
         return self::_getThumbnailGallery($galleryId, $iocService);
     }
 
@@ -149,13 +149,14 @@ class org_tubepress_gallery_TubePressGallery
         /* first grab the videos */
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'Asking provider for videos');
         $feedResult = org_tubepress_video_feed_provider_Provider::getFeedResult($ioc);
+        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Provider has delivered %d videos', sizeof($feedResult->getVideoArray()));
 
         /* prep template */
         $template = org_tubepress_theme_Theme::getTemplateInstance($ioc, 'gallery.tpl.php');
         org_tubepress_gallery_GalleryTemplateUtils::prepTemplate($feedResult, $galleryId, $template, $ioc);
 
         /* we're done. tie up */
-        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Done assembling gallery %d', $galleryId);
+        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Done assembling gallery <tt>%d</tt>', $galleryId);
         $result =  $template->toString();
         $result .= org_tubepress_gallery_GalleryTemplateUtils::getAjaxPagination($ioc);
         $result .= org_tubepress_gallery_GalleryTemplateUtils::getThemeCss($ioc);

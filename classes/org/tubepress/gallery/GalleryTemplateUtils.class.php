@@ -49,9 +49,10 @@ class org_tubepress_gallery_GalleryTemplateUtils
 
             $videos = self::_prependVideoIfNeeded($videos, $ioc);
             
+            $playerName = $tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
+            org_tubepress_log_Log::log(self::LOG_PREFIX, 'Applying HTML for <tt>%s</tt> player to the template', $playerName);
             $playerHtml = org_tubepress_player_Player::getHtml($ioc, $videos[0], $galleryId);
             $template->setVariable(org_tubepress_template_Template::PLAYER_HTML, $playerHtml);
-            $playerName = $tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
             $template->setVariable(org_tubepress_template_Template::PLAYER_NAME, $playerName);
 
             $template->setVariable(org_tubepress_template_Template::VIDEO_ARRAY, $videos);
@@ -65,9 +66,6 @@ class org_tubepress_gallery_GalleryTemplateUtils
             if ($tpom->get(org_tubepress_options_category_Display::PAGINATE_BELOW)) {
                 $template->setVariable(org_tubepress_template_Template::PAGINATION_BOTTOM, $pagination);
             }
-            
-            $template->setVariable(org_tubepress_template_Template::EMBEDDED_SOURCE,
-                org_tubepress_embedded_DelegatingEmbeddedPlayerService::toString($ioc, $videos[0]->getId()));
         }
 
         $currentTheme = org_tubepress_theme_Theme::calculateCurrentThemeName($ioc);
