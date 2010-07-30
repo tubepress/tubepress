@@ -159,7 +159,7 @@ class org_tubepress_video_factory_impl_VimeoVideoFactory implements org_tubepres
         $seconds = strtotime($date);
 
         if ($tpom->get(org_tubepress_options_category_Display::RELATIVE_DATES)) {
-            return $this->_relativeTime($seconds);
+            return org_tubepress_util_TimeUtils::getRelativeTime($seconds);
         }
         return date($tpom->get(org_tubepress_options_category_Advanced::DATEFORMAT), $seconds);
     }
