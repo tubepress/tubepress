@@ -47,23 +47,23 @@ abstract class org_tubepress_video_feed_retrieval_AbstractFeedRetrievalService i
         $cache     = $ioc->get(org_tubepress_ioc_IocService::CACHE_SERVICE);
         $testUrl   = "$tubepress_base_url/classes/org/tubepress/video/feed/retrieval/ConnectionTest.php";
 
-        org_tubepress_log_Log::log($logPrefix, 'Connection test can be run at <a href="%s">%s</a>', $testUrl, $testUrl);
+        org_tubepress_log_Log::log($logPrefix, 'Connection test can be run at <tt><a href="%s">%s</a></tt>', $testUrl, $testUrl);
 
         $result = '';
         if ($useCache) {
 
-            org_tubepress_log_Log::log($logPrefix, 'First asking cache for %s', $url);
+            org_tubepress_log_Log::log($logPrefix, 'First asking cache for <tt>%s</tt>', $url);
 
             if ($cache->has($url)) {
-                org_tubepress_log_Log::log($logPrefix, 'Cache has %s. Sweet.', $url);
+                org_tubepress_log_Log::log($logPrefix, 'Cache has <tt>%s</tt>. Sweet.', $url);
                 $result = $cache->get($url);
             } else {
-                org_tubepress_log_Log::log($logPrefix, 'Cache does not have %s. We\'ll have to get it from the network.', $url);
+                org_tubepress_log_Log::log($logPrefix, 'Cache does not have <tt>%s</tt>. We\'ll have to get it from the network.', $url);
                 $result = $this->_getFromNetwork($url);
                 $cache->save($url, $result);
             }
         } else {
-            org_tubepress_log_Log::log($logPrefix, 'Skip cache check for %s', $url);
+            org_tubepress_log_Log::log($logPrefix, 'Skip cache check for <tt>%s</tt>', $url);
             $result = $this->_getFromNetwork($url);
         }
         return $result;

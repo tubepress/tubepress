@@ -64,6 +64,6 @@ class org_tubepress_video_feed_retrieval_HTTPRequest2 extends org_tubepress_vide
      */
     protected function getLogPrefix()
     {
-        'HTTP Request 2';
+        return 'HTTP Request 2';
     }
 }
