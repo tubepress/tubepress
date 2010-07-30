@@ -70,9 +70,7 @@ class org_tubepress_theme_Theme
         $tubepressInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
         $filePath = "$tubepressInstallationPath/content/themes/$currentTheme/$pathToTemplate";
         
-        if (!is_readable($filePath)) {
-            org_tubepress_log_Log::log(self::LOG_PREFIX, '<tt>%s</tt> is not readable. Falling back to ui/themes.', $filePath);
-            
+        if ($currentTheme === 'default' || !is_readable($filePath)) {
             $filePath = "$tubepressInstallationPath/ui/themes/$currentTheme/$pathToTemplate";
         }
 
