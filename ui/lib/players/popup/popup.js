@@ -7,7 +7,7 @@
  * Shrink your JS: http://developer.yahoo.com/yui/compressor/
  */
 function tubepress_popup_player(galleryId, videoId) {
-	var wrapperId 		= "#tubepress_embedded_object_" + galleryId,
+	var wrapperId 	= "#tubepress_embedded_object_" + galleryId,
 		wrapper 	= jQuery(wrapperId),
 		obj 		= jQuery(wrapperId + " > object"),
 		params 		= obj.children("param"),
