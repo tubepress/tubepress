@@ -21,7 +21,8 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
-tubepress_load_classes(array('net_sourceforge_phpcrafty_ComponentFactory'));
+tubepress_load_classes(array('net_sourceforge_phpcrafty_ComponentFactory',
+    'org_tubepress_env_EnvironmentDetector'));
 
 /**
  * Dependency injector for TubePress that uses phpcrafty
@@ -35,6 +36,17 @@ class org_tubepress_ioc_IocDelegateUtils
             return $ioc->get($providerToBeanNameArray[$provider]);
         }
         return $ioc->get($defaultDelegateBeanName);
+    }
+    
+    public static function getIocContainerInstance()
+    {
+        if (org_tubepress_env_EnvironmentDetector::isPro()) {
+            if (org_tubepress_env_EnvironmentDetector::isWordPress()) {
+                //TODO: fix me
+            }
+            //TODO: fix me
+        }
+        return new org_tubepress_ioc_DefaultIocService();
     }
     
     private static function getProvider(org_tubepress_ioc_IocService $ioc)
