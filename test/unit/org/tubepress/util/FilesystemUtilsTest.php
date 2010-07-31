@@ -8,6 +8,8 @@ class org_tubepress_util_FilesystemUtilsTest extends PHPUnit_Framework_TestCase
 	{
 	    $dir = realpath(dirname(__FILE__) . '/../../../../../i18n');
 	    $expected = array(
+	        "$dir/tubepress-ar_SA.mo",
+	        "$dir/tubepress-ar_SA.po",
             "$dir/tubepress-de_DE.mo",
             "$dir/tubepress-de_DE.po",
             "$dir/tubepress-es_ES.mo",
