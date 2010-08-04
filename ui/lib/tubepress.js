@@ -53,7 +53,7 @@ if (!jQuery.browser.msie) {
 TubePress = (function () {
 
 	var init, loadEmbeddedJs, parseRels, loadPlayerJs, triggerPlayerLoadedEvent, clickListener,
-			swapEmbedded, deepConstructObject, callPlayerJs, centerThumbs;
+			swapEmbedded, deepConstructObject, callPlayerJs, fluidThumbs;
 	
 	/* Primary setup function for TubePress. Meant to run once on page load. */
 	init = function (baseUrl) {
@@ -183,15 +183,28 @@ TubePress = (function () {
 		return newHtml;
 	};
 
-	centerThumbs = function (gallerySelector) {
-		jQuery(document).ready(function () {
-			jQuery(gallerySelector + " div.tubepress_thumb").children().each(function () {
-				var myWidth = jQuery(this).width(),
-					parentWidth = jQuery(this).parent().width(),
-					offset = (parentWidth - myWidth) / 2;
-				jQuery(this).css("margin-left", offset);
-			});
+	/* http://www.sohtanaka.com/web-design/smart-columns-w-css-jquery/ */
+	/* http://www.cssnewbie.com/equalheights-jquery-plugin/ */
+	fluidThumbs = function (gallerySelector, columnWidth) {
+		var gallery = jQuery(gallerySelector);
+		gallery.css({ 'width' : "100%"});
+		var 	colWrap = gallery.width(), 
+			colNum = Math.floor(colWrap / columnWidth), 
+			colFixed = Math.floor(colWrap / colNum),
+			thumbs = jQuery(gallerySelector + ' div.tubepress_thumb');
+		gallery.css({ 'width' : colWrap });
+		thumbs.css({ 'width' : colFixed});
+
+		tallest = 175;
+		thumbs.each(function() {
+			if(jQuery(this).height() > tallest) {
+				tallest = jQuery(this).height();
+			}
 		});
+		thumbs.each(function() {
+			jQuery(this).height(tallest);
+		});
+
 	};
 	
 	getEmbeddedNameFromRelSplit = function (relSplit) {
@@ -216,7 +229,7 @@ TubePress = (function () {
 		init						: init,
 		deepConstructObject 		: deepConstructObject,
 		clickListener 				: clickListener,
-		centerThumbs 				: centerThumbs,
+		fluidThumbs 				: fluidThumbs,
 		getEmbeddedNameFromRelSplit : getEmbeddedNameFromRelSplit,
 		getPlayerNameFromRelSplit 	: getPlayerNameFromRelSplit,
 		getGalleryIdFromRelSplit 	: getGalleryIdFromRelSplit,
@@ -267,7 +280,7 @@ TubePressUtils = (function () {
 	return { 
 		callWhenTrue 	: callWhenTrue,
 		getWaitCall 	: getWaitCall,
-		loadCss 		: loadCss
+		loadCss 	: loadCss
 	};
 }());
 
@@ -307,7 +320,7 @@ TubePressAjax = (function () {
 
 	postAjaxGallerySetup = function (thumbnailArea, galleryId) {
 		jQuery().trigger('tubepressNewThumbnailsLoaded');
-		TubePress.centerThumbs("#tubepress_gallery_" + galleryId);
+		TubePress.fluidThumbs("#tubepress_gallery_" + galleryId);
 		jQuery("a[id^='tubepress_']").click(TubePress.clickListener);
 		initPagination(galleryId);
 		jQuery(thumbnailArea).fadeTo('fast', 1);

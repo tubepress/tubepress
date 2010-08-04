@@ -5,18 +5,18 @@
 }
 
 .tubepress_normal_embedded_wrapper {
-    text-align: left;
-    margin: auto;
+	text-align: left;
+	margin: auto;
 }
 
 .tubepress_embedded_title {
-    font-weight: bold;
-    font-size: larger;
-    margin-bottom: .3em;
+	font-weight: bold;
+	font-size: larger;
+	margin-bottom: .3em;
 }
 
 .tubepress_thumbnail_area {
-    margin-top: 1em;	
+	margin-top: 1em;	
 }
 
 .tubepress_thumbs {
@@ -26,29 +26,37 @@
 }
 
 .tubepress_thumb {
-    float: left;
-    width: 33%;
-    line-height: 1.1em;
-    font-size: 11px;
-    height: 175px;
-    overflow: hidden;
+	float: left;
+	width: 25%;
+	line-height: 1.1em;
+	font-size: 11px;
+	overflow: hidden;
+}
+
+.tubepress_thumb img {
+	width: 89% ! important;
+	padding: 5% 5% 1% 5%;
+	display: block;
+	margin: 0 auto ! important;
+	-ms-interpolation-mode: bicubic;
 }
 
 .tubepress_thumb a {
-    cursor: pointer;    
+	cursor: pointer;	
 }
 
 .tubepress_meta_group {
-    margin-top: 0;
-    text-align: left;
+	margin-top: 0;
+	text-align: left;
+	padding: 0 5% 0 5%;
 }
 
 .tubepress_meta_group dd {
-    margin: 0;
+	margin: 0;
 }
 
 .tubepress_meta_group dt {
-    clear: left;
+	clear: left;
 }
 
 .tubepress_meta {
@@ -59,25 +67,25 @@ dt.tubepress_meta_title,
 dt.tubepress_meta_runtime, 
 dt.tubepress_meta_url,
 dt.tubepress_meta_description {
-    display: none;	
+	display: none;	
 }
 
 dd.tubepress_meta {
-    margin-bottom: auto ! important;	
+	margin-bottom: auto ! important;	
 }
 
 dd.tubepress_meta_title, dd.tubepress_meta_title a, dd.tubepress_meta_title a:hover {
-    font-size: 12px;
-    font-weight: bold;
-    margin-left: 0;
-    clear: left;
+	font-size: 12px;
+	font-weight: bold;
+	margin-left: 0;
+	clear: left;
 }
 
 dd.tubepress_meta_runtime {
-    font-size: 11px;
-    margin-left: 0;
-    font-weight: bold;	
-    clear: left;
+	font-size: 11px;
+	margin-left: 0;
+	font-weight: bold;	
+	clear: left;
 }
 
 dt.tubepress_meta_author, 
@@ -89,8 +97,8 @@ dt.tubepress_meta_likes,
 dt.tubepress_meta_id,
 dt.tubepress_meta_views,
 dt.tubepress_meta_uploaddate {
-    font-style: italic;
-    color: #666666;
+	font-style: italic;
+	color: #666666;
 }
 
 dt.tubepress_meta_author:after, 
@@ -102,7 +110,7 @@ dt.tubepress_meta_likes:after,
 dt.tubepress_meta_id:after,
 dt.tubepress_meta_views:after,
 dt.tubepress_meta_uploaddate:after {
-    content: ":";	
+	content: ":";	
 }
 
 dd.tubepress_meta_author, 
@@ -114,7 +122,7 @@ dd.tubepress_meta_likes,
 dd.tubepress_meta_id,
 dd.tubepress_meta_views,
 dd.tubepress_meta_uploaddate {
-    margin-left: .5em;	
+	margin-left: .5em;	
 }
 
 dd.tubepress_meta_url {
@@ -122,54 +130,54 @@ dd.tubepress_meta_url {
 }
 
 .tubepress_sidebar .tubepress_thumb {
-    width: 100%;	
-    height: auto;
-    margin-top: 1em;
+	width: 100%;	
+	height: auto;
+	margin-top: 1em;
 }
 
 .tubepress_container div.pagination {
-    padding: 3px;
-    margin: 3px;
-    text-align:center;
-    clear: both;
+	padding: 3px;
+	margin: 3px;
+	text-align:center;
+	clear: both;
 }
 
 .tubepress_container div.pagination a {
-    border: 1px solid #dedfde;
-    margin-right:3px;
-    padding:2px 6px;
-    background-position:bottom;
-    text-decoration: none;
-    color: #0061de;
-    cursor: pointer;        
+	border: 1px solid #dedfde;
+	margin-right:3px;
+	padding:2px 6px;
+	background-position:bottom;
+	text-decoration: none;
+	color: #0061de;
+	cursor: pointer;		
 }
 
 .tubepress_container div.pagination a:hover, div.meneame a:active {
-    border: 1px solid #000;
-    background-image:none;
-    background-color:#0061de;
-    color: #fff;
+	border: 1px solid #000;
+	background-image:none;
+	background-color:#0061de;
+	color: #fff;
 }
 
 .tubepress_container div.pagination span.current {
-    margin-right:3px;
-    padding:2px 6px;    
-    font-weight: bold;
-    color: #ff0084;
+	margin-right:3px;
+	padding:2px 6px;	
+	font-weight: bold;
+	color: #ff0084;
 }
 .tubepress_container div.pagination span.disabled {
-    margin-right:3px;
-    padding:2px 6px;
-    color: #adaaad;
+	margin-right:3px;
+	padding:2px 6px;
+	color: #adaaad;
 }
 
 div.tubepress_single_video {
-    float: left;	
-    width: 100%;
-    text-align: left;
+	float: left;	
+	width: 100%;
+	text-align: left;
 }
 
 div.tubepress_single_video dd.tubepress_meta_description {
-    margin-top: .3em;
-    margin-bottom: .8em;
+	margin-top: .3em;
+	margin-bottom: .8em;
 }
