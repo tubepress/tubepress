@@ -20,19 +20,21 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
+    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_template_Template',
 	'org_tubepress_template_SimpleTemplate',
 	'org_tubepress_ioc_IocDelegateUtils',
-	'org_tubepress_uploads_AdminPageHandler',
+	'org_tubepress_uploads_admin_AdminPageHandler',
     'org_tubepress_env_EnvironmentDetector'));
 
 /**
  * Handles the video uploads admin page
  *
  */
-class org_tubepress_uploads_SecurityHandler
+class org_tubepress_uploads_admin_SecurityHandler
 {
+    const LOG_PREFIX = 'Security handler';
+    
 	const AUTH_ATTEMPT        = 'authAttempt';
 	const PASSWORD_PARAM_NAME = 'password';
 	const SESSION_VAR_NAME    = 'tubepressSessionId';
@@ -40,6 +42,7 @@ class org_tubepress_uploads_SecurityHandler
 	public static function canContinue()
 	{
 	    if (org_tubepress_env_EnvironmentDetector::isWordPress()) {
+	        org_tubepress_log_Log::log(self::LOG_PREFIX, 'WordPress detected');
 	        return self::_canContinueWordPress();
 	    }
 
@@ -57,7 +60,7 @@ class org_tubepress_uploads_SecurityHandler
 
 			$contentTemplate = new org_tubepress_template_SimpleTemplate();
 			$contentTemplate->setPath(org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath() . '/ui/lib/uploads/templates/no_password_set.tpl.php');
-			org_tubepress_uploads_AdminPageHandler::printTemplate($contentTemplate);
+			org_tubepress_uploads_admin_AdminPageHandler::printTemplate($contentTemplate);
 			return false;
 		}
 
@@ -72,14 +75,16 @@ class org_tubepress_uploads_SecurityHandler
 		$contentTemplate->setPath(org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath() . '/ui/lib/uploads/templates/password_prompt.tpl.php');
 		$contentTemplate->setVariable(self::PASSWORD_PARAM_NAME, self::PASSWORD_PARAM_NAME);
 		$contentTemplate->setVariable(self::AUTH_ATTEMPT, self::_attemptingAuthentication());
-		org_tubepress_uploads_AdminPageHandler::printTemplate($contentTemplate);
+		org_tubepress_uploads_admin_AdminPageHandler::printTemplate($contentTemplate);
 	}
 
 	private static function _canContinueWordPress()
 	{
 	    if (current_user_can(9)) {
+	        org_tubepress_log_Log::log(self::LOG_PREFIX, 'User has the right credentials. Allowing access');
 	        return true;
 	    }
+	    org_tubepress_log_Log::log(self::LOG_PREFIX, 'User does not have the right credentials. Redirecting to login page');
 	    
         $baseName = basename(realpath(dirname(__FILE__) . '/../../../../'));
         $siteUrl = get_option('siteurl');

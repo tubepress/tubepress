@@ -92,19 +92,35 @@ class org_tubepress_uploads_UploadsUtils
         return true;
     }
 
-    public static function getGalleryName($filename, org_tubepress_options_manager_OptionsManager $tpom, $prefix)
+    public static function getExistingThumbnails($filename, $galleryDir, org_tubepress_ioc_IocService $ioc, $logPrefix)
     {
-        /* chop off the filename bit */
-        $topDir = dirname($filename);
+        $thumbname = basename(substr($filename, 0, strlen($filename) - 4));
+        $thumbname = preg_replace('/[^a-zA-Z0-9]/', '', $thumbname);
+        $tpom      = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $baseDir   = self::getBaseVideoDirectory();
+        
+        $height = $tpom->get(org_tubepress_options_category_Display::THUMB_HEIGHT);
+        $width  = $tpom->get(org_tubepress_options_category_Display::THUMB_WIDTH);
 
-        /* calculate video uploads base directory */
-        $baseDir = self::getBaseVideoDirectory($tpom, $log, $prefix);
+        $thumbname = $thumbname . "_thumb_$height" . 'x' . $width . '_';
 
-        /* now remove the base directory from the full path */
-        $topDir = str_replace($baseDir, '', $topDir);
+        org_tubepress_log_Log::log($logPrefix, 'Thumbnail names will look something like <tt>%s</tt>', $thumbname);
+        
+        $toReturn = array();
 
-        /* finally, chop off the leading '/' */
-        return org_tubepress_util_StringUtils::replaceFirst('/', '', $topDir);
+        org_tubepress_log_Log::log($logPrefix, 'Looking for existing thumbnails at <tt>%s</tt>', "$baseDir/$galleryDir/generated_thumbnails/");
+        
+        $files = org_tubepress_util_FilesystemUtils::getFilenamesInDirectory("$baseDir/$galleryDir/generated_thumbnails/",
+            $logPrefix);
+
+        foreach ($files as $file) {
+            if (strpos($file, $postfix) !== false) {
+                org_tubepress_log_Log::log($logPrefix, 'Found a thumbnail we can use at <tt>%s</tt>', realpath($file));
+                array_push($toReturn, basename($file));
+            }
+        }
+
+        return $toReturn;
     }
 
     private static function _findVideos($files, $prefix)
