@@ -201,10 +201,10 @@ TubePress = (function () {
 				tallest = jQuery(this).height();
 			}
 		});
+		if (tallest > 375) tallest = 375;
 		thumbs.each(function() {
 			jQuery(this).height(tallest);
 		});
-
 	};
 	
 	getEmbeddedNameFromRelSplit = function (relSplit) {
@@ -226,11 +226,11 @@ TubePress = (function () {
 
 	/* return only public functions */
 	return {
-		init						: init,
+		init				: init,
 		deepConstructObject 		: deepConstructObject,
-		clickListener 				: clickListener,
-		fluidThumbs 				: fluidThumbs,
-		getEmbeddedNameFromRelSplit : getEmbeddedNameFromRelSplit,
+		clickListener 			: clickListener,
+		fluidThumbs 			: fluidThumbs,
+		getEmbeddedNameFromRelSplit 	: getEmbeddedNameFromRelSplit,
 		getPlayerNameFromRelSplit 	: getPlayerNameFromRelSplit,
 		getGalleryIdFromRelSplit 	: getGalleryIdFromRelSplit,
 		getVideoIdFromIdAttr 		: getVideoIdFromIdAttr
@@ -320,7 +320,7 @@ TubePressAjax = (function () {
 
 	postAjaxGallerySetup = function (thumbnailArea, galleryId) {
 		jQuery().trigger('tubepressNewThumbnailsLoaded');
-		TubePress.fluidThumbs("#tubepress_gallery_" + galleryId);
+		TubePress.fluidThumbs("#tubepress_gallery_" + galleryId, 120);
 		jQuery("a[id^='tubepress_']").click(TubePress.clickListener);
 		initPagination(galleryId);
 		jQuery(thumbnailArea).fadeTo('fast', 1);
