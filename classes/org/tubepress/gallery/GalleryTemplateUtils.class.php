@@ -100,10 +100,10 @@ class org_tubepress_gallery_GalleryTemplateUtils
     {
         $currentTheme = org_tubepress_theme_Theme::calculateCurrentThemeName($ioc);
 
-        if ($currentTheme != 'default') {
+        if ($currentTheme !== 'default') {
             global $tubepress_base_url;
             $cssPath = org_tubepress_theme_Theme::getCssPath($currentTheme);
-            if (is_readable($cssPath)) {
+            if (is_readable($cssPath) && strpos($cssPath, 'themes/default') === false) {
 
                 org_tubepress_log_Log::log(self::LOG_PREFIX, 'Theme CSS found at <tt>%s</tt>', $cssPath);
                 $cssRelativePath = org_tubepress_theme_Theme::getCssPath($currentTheme, true);
@@ -116,7 +116,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
                 $template->setVariable(org_tubepress_template_Template::THEME_CSS, $cssUrl);
                 return $template->toString();
             } else {
-                org_tubepress_log_Log::log(self::LOG_PREFIX, 'No theme CSS found.', $cssPath);
+                org_tubepress_log_Log::log(self::LOG_PREFIX, 'No theme CSS found.');
             }
         } else {
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'Default theme is in use. No need to inject extra CSS.');

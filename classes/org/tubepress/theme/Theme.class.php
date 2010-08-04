@@ -68,10 +68,13 @@ class org_tubepress_theme_Theme
     private static function _getFilePath($currentTheme, $pathToTemplate, $relative = false)
     {
         $tubepressInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
-        $filePath = "$tubepressInstallationPath/content/themes/$currentTheme/$pathToTemplate";
-        
+        $filePath = "$tubepressInstallationPath/ui/themes/$currentTheme/$pathToTemplate";
+
         if ($currentTheme === 'default' || !is_readable($filePath)) {
-            $filePath = "$tubepressInstallationPath/ui/themes/$currentTheme/$pathToTemplate";
+            $filePath = "$tubepressInstallationPath/content/themes/$currentTheme/$pathToTemplate";
+        }
+        if ($currentTheme === 'default' || !is_readable($filePath)) {
+            $filePath = "$tubepressInstallationPath/ui/themes/default/$pathToTemplate";
         }
 
         if ($relative) {
