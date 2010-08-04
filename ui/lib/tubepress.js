@@ -184,7 +184,6 @@ TubePress = (function () {
 	};
 
 	/* http://www.sohtanaka.com/web-design/smart-columns-w-css-jquery/ */
-	/* http://www.cssnewbie.com/equalheights-jquery-plugin/ */
 	fluidThumbs = function (gallerySelector, columnWidth) {
 		var gallery = jQuery(gallerySelector);
 		gallery.css({ 'width' : "100%"});
@@ -194,17 +193,6 @@ TubePress = (function () {
 			thumbs = jQuery(gallerySelector + ' div.tubepress_thumb');
 		gallery.css({ 'width' : colWrap });
 		thumbs.css({ 'width' : colFixed});
-
-		tallest = 175;
-		thumbs.each(function() {
-			if(jQuery(this).height() > tallest) {
-				tallest = jQuery(this).height();
-			}
-		});
-		if (tallest > 375) tallest = 375;
-		thumbs.each(function() {
-			jQuery(this).height(tallest);
-		});
 	};
 	
 	getEmbeddedNameFromRelSplit = function (relSplit) {

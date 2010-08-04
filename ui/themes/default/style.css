@@ -31,6 +31,8 @@
 	line-height: 1.1em;
 	font-size: 11px;
 	overflow: hidden;
+	display: inline;
+	height: 175px;
 }
 
 .tubepress_thumb img {
