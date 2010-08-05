@@ -28,9 +28,9 @@ define('WP_USE_THEMES', false);
 
 function_exists('tubepress_load_classes')
    || require(dirname(__FILE__) . '/../../../classes/tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_uploads_AdminPageHandler'));
+tubepress_load_classes(array('org_tubepress_uploads_admin_AdminPageHandler'));
 
-$handler = new org_tubepress_uploads_AdminPageHandler();
+$handler = new org_tubepress_uploads_admin_AdminPageHandler();
 $handler->handle();
 ?>
 

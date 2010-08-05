@@ -28,6 +28,10 @@
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
 		<title>TubePress Uploads Administration</title> 
 	 
+	    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	    <script type="text/javascript" src="./jstree/_lib/jquery.cookie.js"></script>
+	    <script type="text/javascript" src="./jstree/_lib/jquery.hotkeys.js"></script>
+	    <script type="text/javascript" src="./jstree/jquery.jstree.js"></script>
 		<link href="./blueprint/screen.css" type="text/css" media="all" rel="stylesheet" /> 
 		<link href="./blueprint/print.css" type="text/css" media="all" rel="stylesheet" /> 
 	
