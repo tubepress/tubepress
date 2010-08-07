@@ -44,7 +44,17 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    <ulink url="http://gadgetguru.co.il">Yaron Ofer</ulink> for Hebrew translations
+                    <ulink url="http://www.indiesaudi.com/">Abdullah Hamed</ulink> for Arabic translations
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <ulink url="http://gidibao.net/">Gianni Diurno</ulink> for Italian translations
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <ulink url="http://www.lochgelly.org.uk/">James G</ulink> for improving the reliability of the WordPress widget control panel
                 </para>
             </listitem>
             <listitem>
@@ -54,18 +64,8 @@
             </listitem>
             <listitem>
                 <para>
-                    <ulink url="http://www.lochgelly.org.uk/">James G</ulink>
-                    for improving the reliability of the WordPress widget
-                    control panel
+                    <ulink url="http://eightbits.org">Matt Doyle</ulink> for work on parsing TubePress shortcodes
                 </para>
-            </listitem>
-            <listitem>
-                <para>
-                    <ulink url="http://gidibao.net/">Gianni Diurno</ulink> for Italian translations
-                </para>
-            </listitem>
-            <listitem>
-                <para>Pascal Berger for German translations</para>
             </listitem>
             <listitem>
                 <para>
@@ -74,17 +74,20 @@
             </listitem>
             <listitem>
                 <para>
-                    <ulink url="http://eightbits.org">Matt Doyle</ulink> for work on parsing TubePress shortcodes
-                </para>
-            </listitem>
-            <listitem>
-                <para>
                     <ulink url="http://www.tecsite.com.br/">Miriam de Paula</ulink> for Portugese translations
                 </para>
             </listitem>
             <listitem>
+                <para>Pascal Berger for German translations</para>
+            </listitem>
+            <listitem>
                 <para>
                     <ulink url="http://wolforg.eu/">Wolforg</ulink> for French translations
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <ulink url="http://gadgetguru.co.il">Yaron Ofer</ulink> for Hebrew translations
                 </para>
             </listitem>
         </itemizedlist>
