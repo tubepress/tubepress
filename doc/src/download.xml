@@ -5,8 +5,7 @@
         <section id="latest-stable-release">
             <title>Latest stable release</title>
             <para>
-                The latest packages of <application>TubePress</application>
-                can always be downloaded as zip files from
+                The latest packages of <application>TubePress</application> can always be downloaded as zip files from
                 <ulink url="http://tubepress.org/download">http://tubepress.org/download</ulink>
             </para>
         </section>
@@ -33,8 +32,7 @@
                     </listitem>
                     <listitem>
                         <para>
-                            Make sure you've removed any existing installs of <application>TubePress</application>
-                            from this directory
+                            Make sure you've removed any existing installs of <application>TubePress</application> from this directory
                         </para>
                     </listitem>
                     <listitem>
@@ -44,8 +42,7 @@
                     </listitem>
                 </orderedlist>
                 <simpara>
-                    That's it! You'll now be using the very latest build of
-                    the plugin. You can now upgrade at any time with the following commands:
+                    That's it! You'll now be using the very latest build of the plugin. You can now upgrade at any time with the following commands:
                 </simpara>
                 <orderedlist>
                     <listitem>
@@ -63,14 +60,12 @@
             <section id="subversion-ftp">
                 <title>FTP</title>
                 <simpara>
-                    You'll need to check out the latest build locally (i.e. to
-                    your desktop machine) and then upload it to your server using FTP.
+                    You'll need to check out the latest build locally (i.e. to your desktop machine) and then upload it to your server using FTP.
                 </simpara>
                 <orderedlist>
                     <listitem>
                         <para>
-                            Use any SVN client to browse to
-                            <ulink url="http://tubepress.googlecode.com/svn/trunk/">http://tubepress.googlecode.com/svn/trunk/</ulink>
+                            Use any SVN client to browse to <ulink url="http://tubepress.googlecode.com/svn/trunk/">http://tubepress.googlecode.com/svn/trunk/</ulink>
                         </para>
                     </listitem>
                     <listitem>
@@ -92,19 +87,17 @@
         <section id="nightly-builds">
             <title>Nightly Builds</title>
             <para>
-                You can download a nightly build of the <application>WordPress</application>
-                plugin package from 
-                <ulink url="http://tubepress.org/nightly/tubepress_nightly.zip">http://tubepress.org/nightly/tubepress_nightly.zip</ulink>
+                You can download a nightly build of the <application>WordPress</application> plugin package from 
+                <ulink url="http://tubepress.org/nightly/tubepress_nightly.zip">http://tubepress.org/nightly/tubepress_nightly.zip</ulink>. Beware that the nightly build
+                may not be completely stable.
             </para>
         </section>
     </section>
     <section id="download-pro">
         <title>TubePress Pro</title>
         <para>
-            You can purchase your copy of TubePress Pro by visiting
-            <ulink url="http://tubepress.org/download">http://tubepress.org/download</ulink>
-            and clicking the "Buy Now" link. After payment, please following
-            the <link linkend="pro-installation">TubePress Pro installation instructions.</link>
+            You can purchase your copy of TubePress Pro by visiting <ulink url="http://tubepress.org/download">http://tubepress.org/download</ulink>
+            and clicking the "Buy Now" link. After payment, please following the <link linkend="pro-installation">TubePress Pro installation instructions.</link>
         </para>
     </section>
 </chapter>
