@@ -12,13 +12,18 @@
         <orderedlist>
             <listitem>
                 <para>
-                    Remove your existing TubePress install directory (<code>wp-content/plugins/tubepress</code>
-                    or <code>wp-content/plugins/tubepress_pro_2_0_0</code>)
+                    Move your existing TubePress install directory (<code>wp-content/plugins/tubepress</code>
+                    or <code>wp-content/plugins/tubepress_pro_2_0_0</code>) to a temporary place such as <code>/tmp</code> or your home directory.
                 </para>
             </listitem>
             <listitem>
                 <para>
                     Unzip the latest version of TubePress into (<code>wp-content/plugins</code>)
+                </para>
+            </listitem>
+            <listitem>
+                <para>Copy the <code>content</code> directory from your old TubePress installation into the upgraded version. You'll want to overwrite any files
+                if you get prompted to do so. This step ensures that you retain your custom TubePress themes and local video uploads.
                 </para>
             </listitem>
             <listitem>
@@ -30,8 +35,7 @@
         <section id="init-options">
             <title>Initialize Options</title>
             <simpara>
-                If you'd like to reset your TubePress options to their default values,
-                you can do so by using a special page nested inside the plugin.
+                If you'd like to reset your TubePress options to their default values, you can do so by using a special page nested inside the plugin.
             </simpara>
             <para>
                 If your blog URL is <code>http://myblog.com</code> you'd need to navigate to
@@ -44,12 +48,17 @@
     </section>
     <section id="pro-upgrade">
         <title>Standalone PHP (Pro version only)</title>
-        <para>
-            To upgrade TubePress Pro in a stadalone PHP environment, simply
-            repeat the <link linkend="pro-installation">TubePress Pro installation</link>
-            procedure with the latest copy of TubePress Pro. Then you'll simply
-            need to change your <code>tubepress_base_url</code> and the inclusion
-            of <code>tubepress-pro.php</code> to point to the new install location.
-        </para>
+        <orderedlist>
+            <listitem>
+                <para>Repeat the <link linkend="pro-installation">TubePress Pro installation</link> procedure with the latest copy of TubePress Pro.</para>
+            </listitem>
+            <listitem>           
+                <para>Copy the <code>content</code> directory from your old TubePress Pro installation into the upgraded installation.</para>
+            </listitem>
+            <listitem>    
+                <para>In the PHP files where you use TubePress Pro, change your <code>tubepress_base_url</code> and the inclusion
+            of <code>tubepress-pro.php</code> to point to the new install location.</para>
+            </listitem>
+        </orderedlist>
     </section>
 </chapter>

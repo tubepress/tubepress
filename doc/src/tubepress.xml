@@ -35,7 +35,7 @@
     <xi:include href="shortcodes.xml" />
     <xi:include href="i18n.xml" />
     <xi:include href="troubleshooting.xml" />
-    <xi:include href="constributing.xml" />
+    <xi:include href="contributing.xml" />
     <xi:include href="opt_pro_installs.xml" />
     <xi:include href="license.xml" />
 </book>

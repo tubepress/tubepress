@@ -4,11 +4,7 @@
     Most of this stuff was yanked from the springframework build
  -->
 
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version='1.0'
- xmlns:xslthl="http://xslthl.sf.net"
-                exclude-result-prefixes="xslthl"
-
->
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version='1.0'>
 
 	<xsl:import href="file:///opt/local/share/xsl/docbook-xsl/html/docbook.xsl" />
 
@@ -52,39 +48,15 @@
         </l:l10n>
     </l:i18n>
 
-<!-- Use code syntax highlighting -->
-	<xsl:param name="highlight.source" select="1"/>
     
-    <xsl:template match='xslthl:keyword'>
-        <span class="hl-keyword"><xsl:value-of select='.'/></span>
-    </xsl:template>
-
-    <xsl:template match='xslthl:comment'>
-        <span class="hl-comment"><xsl:value-of select='.'/></span>
-    </xsl:template>
-
-    <xsl:template match='xslthl:oneline-comment'>
-        <span class="hl-comment"><xsl:value-of select='.'/></span>
-    </xsl:template>
-
-    <xsl:template match='xslthl:multiline-comment'>
-        <span class="hl-multiline-comment"><xsl:value-of select='.'/></span>
-    </xsl:template>
-
-    <xsl:template match='xslthl:tag'>
-        <span class="hl-tag"><xsl:value-of select='.'/></span>
-    </xsl:template>
-
-    <xsl:template match='xslthl:attribute'>
-        <span class="hl-attribute"><xsl:value-of select='.'/></span>
-    </xsl:template>
-
-    <xsl:template match='xslthl:value'>
-        <span class="hl-value"><xsl:value-of select='.'/></span>
+    <xsl:template name="user.head.content">
+        <xsl:variable name="codefile" select="document('/Users/ehough/Documents/workspace/tubepress/doc/src/embeds/syntaxhighlighter.html',/)"/>
+        <xsl:copy-of select="$codefile/htmlcode/node()"/>
     </xsl:template>
     
-    <xsl:template match='xslthl:string'>
-        <span class="hl-string"><xsl:value-of select='.'/></span>
+    <xsl:template name="user.footer.content">
+        <xsl:variable name="codefile" select="document('/Users/ehough/Documents/workspace/tubepress/doc/src/embeds/syntaxhighlighter-init.html',/)"/>
+        <xsl:copy-of select="$codefile/htmlcode/node()"/>
     </xsl:template>
     
 

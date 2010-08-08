@@ -1,5 +1,3 @@
-@IMPORT url("highlight.css");
-
 html {
   padding:       0pt;
   margin:        0pt;
@@ -94,16 +92,6 @@ div.caption p {
     width: 100%;
 }
 
-.sidebar {
-    float: right;
-    margin: 10px 0 10px 30px;
-    padding: 10px 20px 20px 20px;
-    width: 33%;
-    border: 1px solid black;
-    background-color: #F4F4F4;
-    font-size: 14px;
-}
-
 .mediaobject {
     padding-top: 30px; 
     padding-bottom: 30px; 
@@ -122,14 +110,6 @@ p.releaseinfo {
     padding-top: 10px;
 }
 
-p.pubdate {
-    font-size: 120%;
-    font-weight: bold; 
-    font-family: Verdana, Arial, helvetica, sans-serif;
-}
-
-span.productname {
-    font-size: 200%;
-    font-weight: bold; 
-    font-family: Verdana, Arial, helvetica, sans-serif;
+div.syntaxhighlighter {
+	font-size: 13px ! important;
 }

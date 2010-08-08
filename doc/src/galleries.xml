@@ -35,111 +35,45 @@
             (i.e. in your WordPress templates). The code snippet below shows the
             <ulink
                 url="http://codex.wordpress.org/The_Loop_in_Action#The_World.27s_Simplest_Index_Page">world's simplest
-                index page</ulink> with TubePress Pro added. As you can see, there are only 2 steps.
+                index page</ulink> with TubePress Pro added. As you can see by the highlighted lines below, there are only 2 steps:
         </para>
-        <programlistingco>
-            <areaspec>
-                <area coords="4 115" id="tubepress-pro-wordpress-include" />
-                <area coords="8 115" id="tubepress-pro-wordpress-print" />
-            </areaspec>
-            <programlisting language="php"><![CDATA[
-<?php
-
-    require_once "/var/www/html/myblog.com/wp-content/plugins/tubepress_pro_2_0_0/env/pro/tubepress-pro.php";
-
-    get_header();
-
-    print tubepressGallery('mode="tag" tagValue="barack obama" resultsPerPage="3"');
-    
-    if (have_posts()) :
-       while (have_posts()) :
-          the_post();
-          the_content();
-       endwhile;
-    endif;
-    get_sidebar();
-    get_footer(); 
-?>
-             ]]></programlisting>
-            <calloutlist>
-                <callout arearefs="tubepress-pro-wordpress-include">
-                    <para>
-                        Include the TubePress Pro library file (<code>tubepress-pro.php</code>). An absolute path works best.
-                    </para>
-                </callout>
-                <callout arearefs="tubepress-pro-wordpress-print">
-                    <para>
-                        This statement prints out the TubePress gallery
-                        contents. It takes a single string parameter which is
-                        <link linkend="shortcode-reference">any valid TubePress shortcode</link>
-                        , with or without the enclosing <code>[tubepress</code> wrapper. You
+        <?dbhtml-include href="/Users/ehough/Documents/workspace/tubepress/doc/src/embeds/code/pro_wordpress_templates.html"?>
+        <orderedlist>
+            <listitem>
+                <para>Include the TubePress Pro library file (<code>tubepress-pro.php</code>). An absolute path works best.</para>
+            </listitem>
+            <listitem>
+                <para>Print out the TubePress gallery contents. The <code>tubepressGallery</code> function takes a single string parameter which is
+                   <link linkend="shortcode-reference">any valid TubePress shortcode</link>, with or without the enclosing <code>[tubepress ...]</code> wrapper. You
                         repeat this function call as many times as you like.
                     </para>
-                </callout>
-            </calloutlist>
-        </programlistingco>
+            </listitem>
+        </orderedlist>
     </section>
     <section id="plain-php">
         <title>Standalone PHP (Pro version only)</title>
         <simpara>
             The following is a very simple PHP file that generates a gallery with TubePress
-            Pro. As you can see, there are only four steps involved.
+            Pro. As you can see by the highlighted lines below, there are only four steps involved:
         </simpara>
-        <programlistingco>
-            <areaspec>
-                <area coords="5 105" id="tubepress-pro-set-base-url" />
-                <area coords="7 105" id="tubepress-pro-include-library" />
-                <area coords="15 105" id="tubepress-pro-print-head" />
-                <area coords="20 105" id="tubepress-pro-print-gallery" />
-            </areaspec>
-            <programlisting language="php"><![CDATA[
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<?php 
-
-    $tubepress_base_url = "http://myblog.com/lib/tubepress_pro_2_0_0";
-
-    require_once "/var/www/html/myblog.com/lib/tubepress_pro_2_0_0/env/pro/tubepress-pro.php";
-?>
-
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-    <head>
-        <title>TubePress Pro</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
-        <?php print tubepressHeadElements(true); ?>
-    </head>
-    <body>
-        <div style="width:500px">
-
-            <?php print tubepressGallery('mode="tag" tagValue="barack obama" resultsPerPage="3"'); ?>
-
-        </div>
-    </body>
-</html>
-                ]]></programlisting>
-            <calloutlist>
-                <callout arearefs="tubepress-pro-set-base-url">
-                    <para>
-                        Set <code>tubepress_base_url</code> to the <emphasis>web-accessible</emphasis>
-                        URL of your <application>TubePress Pro</application> installation.
-                    </para>
-                </callout>
-                <callout arearefs="tubepress-pro-include-library">
-                    <para>
-                        Include the TubePress Pro library file (<code>tubepress-pro.php</code>). An absolute path works best.
-                    </para>
-                </callout>
-                <callout arearefs="tubepress-pro-print-head">
-                    <para>
-                        Include this statement in the <code>HEAD</code>
+        <?dbhtml-include href="/Users/ehough/Documents/workspace/tubepress/doc/src/embeds/code/pro_standalone_php.html"?>
+        <orderedlist>
+            <listitem>
+                <para>Set <code>tubepress_base_url</code> to the <emphasis>web-accessible</emphasis> URL of your <application>TubePress Pro</application> installation.</para>
+            </listitem>
+            <listitem>
+                <para>Include the TubePress Pro library file (<code>tubepress-pro.php</code>). An absolute path works best.</para>
+            </listitem>
+            <listitem>
+                <para>Include this statement in the HTML head
                         of your document to print out the required TubePress
                         CSS and JavaScript libraries. It takes a single parameter which indicates
                         whether or not to include jQuery. If you are already including jQuery in your document, use
                         <code>false</code> for this parameter.
                     </para>
-                </callout>
-                <callout arearefs="tubepress-pro-print-gallery">
-                    <para>
+            </listitem>
+            <listitem>
+                <para>
                         This statement prints out the TubePress gallery
                         contents. It takes a single string parameter which is
                         <link linkend="shortcode-reference">any valid TubePress shortcode</link>
@@ -147,9 +81,8 @@
                         repeat this function call as many times as you like to insert multiple galleries
                         on a single page.
                     </para>
-                </callout>
-            </calloutlist>
-        </programlistingco>
+            </listitem>
+        </orderedlist>
     </section>
     <section id="sidebar">
         <title>Sidebar/Widget Galleries</title>
