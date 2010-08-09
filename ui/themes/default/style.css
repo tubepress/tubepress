@@ -20,19 +20,18 @@
 }
 
 .tubepress_thumbs {
-
 	float: left;
 	width: 100%;
 }
 
 .tubepress_thumb {
 	float: left;
-	width: 25%;
+	width: 120px;
+	height: 175px;
 	line-height: 1.1em;
 	font-size: 11px;
-	overflow: hidden;
 	display: inline;
-	height: 175px;
+	overflow: hidden;
 }
 
 .tubepress_thumb img {
