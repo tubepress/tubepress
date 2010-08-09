@@ -113,3 +113,7 @@ p.releaseinfo {
 div.syntaxhighlighter {
 	font-size: 13px ! important;
 }
+
+div.license {
+	font-size: 10px;
+}
