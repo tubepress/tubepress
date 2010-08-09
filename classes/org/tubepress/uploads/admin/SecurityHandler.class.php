@@ -22,9 +22,9 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_template_Template',
-	'org_tubepress_template_SimpleTemplate',
-	'org_tubepress_ioc_IocDelegateUtils',
-	'org_tubepress_uploads_admin_AdminPageHandler',
+    'org_tubepress_template_SimpleTemplate',
+    'org_tubepress_ioc_IocDelegateUtils',
+    'org_tubepress_uploads_AdminPageHandler',
     'org_tubepress_env_EnvironmentDetector'));
 
 /**
@@ -33,99 +33,99 @@ tubepress_load_classes(array('org_tubepress_template_Template',
  */
 class org_tubepress_uploads_admin_SecurityHandler
 {
-    const LOG_PREFIX = 'Security handler';
-    
-	const AUTH_ATTEMPT        = 'authAttempt';
-	const PASSWORD_PARAM_NAME = 'password';
-	const SESSION_VAR_NAME    = 'tubepressSessionId';
+    const AUTH_ATTEMPT        = 'authAttempt';
+    const PASSWORD_PARAM_NAME = 'password';
+    const SESSION_VAR_NAME    = 'tubepressSessionId';
 
-	public static function canContinue()
-	{
-	    if (org_tubepress_env_EnvironmentDetector::isWordPress()) {
-	        org_tubepress_log_Log::log(self::LOG_PREFIX, 'WordPress detected');
-	        return self::_canContinueWordPress();
-	    }
+    /**
+     * Determines if the request can continue.
+     *
+     * @return boolean True if the request can continue, false otherwise
+     */
+    public static function canContinue()
+    {
+        if (org_tubepress_env_EnvironmentDetector::isWordPress()) {
+            return self::_canContinueWordPress();
+        }
 
-	    session_start();
+        session_start();
 
-		/* user authenticated? continue. */
-		if (self::_authenticated()) {
-			return true;
-		}
+        /* user authenticated? continue. */
+        if (self::_authenticated()) {
+            return true;
+        }
 
-		/* anything else in the function is dealing with an unauthenticated user */
+        /* anything else in the function is dealing with an unauthenticated user */
 
-		/* make sure the password is set */
-		if (!self::_passwordSet()) {
+        /* make sure the password is set */
+        if (!self::_passwordSet()) {
 
-			$contentTemplate = new org_tubepress_template_SimpleTemplate();
-			$contentTemplate->setPath(org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath() . '/ui/lib/uploads/templates/no_password_set.tpl.php');
-			org_tubepress_uploads_admin_AdminPageHandler::printTemplate($contentTemplate);
-			return false;
-		}
+            $contentTemplate = new org_tubepress_template_SimpleTemplate();
+            $contentTemplate->setPath(org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath() . '/ui/lib/uploads/templates/no_password_set.tpl.php');
+            org_tubepress_uploads_AdminPageHandler::printTemplate($contentTemplate);
+            return false;
+        }
 
-		/* successful auth attempt? */
-		if (self::_attemptingAuthentication() && self::_credentialsValid()) {
-			self::_setAuthenticated();
-			return true;
-		}
-		
-		/* bad/no auth attempt */
-		$contentTemplate = new org_tubepress_template_SimpleTemplate();
-		$contentTemplate->setPath(org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath() . '/ui/lib/uploads/templates/password_prompt.tpl.php');
-		$contentTemplate->setVariable(self::PASSWORD_PARAM_NAME, self::PASSWORD_PARAM_NAME);
-		$contentTemplate->setVariable(self::AUTH_ATTEMPT, self::_attemptingAuthentication());
-		org_tubepress_uploads_admin_AdminPageHandler::printTemplate($contentTemplate);
-	}
+        /* successful auth attempt? */
+        if (self::_attemptingAuthentication() && self::_credentialsValid()) {
+            self::_setAuthenticated();
+            return true;
+        }
 
-	private static function _canContinueWordPress()
-	{
-	    if (current_user_can(9)) {
-	        org_tubepress_log_Log::log(self::LOG_PREFIX, 'User has the right credentials. Allowing access');
-	        return true;
-	    }
-	    org_tubepress_log_Log::log(self::LOG_PREFIX, 'User does not have the right credentials. Redirecting to login page');
-	    
-        $baseName = basename(realpath(dirname(__FILE__) . '/../../../../'));
-        $siteUrl = get_option('siteurl');
-        $url =  urlencode("$siteUrl/wp-content/plugins/$baseName");
-	    header("Location: $siteUrl/wp-login.php?redirect_to=$url/ui/lib/uploads/index.php");
-	    exit;
-	}
-	
-	private static function _credentialsValid()
-	{
-		$ioc  = org_tubepress_ioc_IocDelegateUtils::getIocContainerInstance();
-		$tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
-		$pass    = $tpom->get(org_tubepress_options_category_Uploads::ADMIN_PAGE_PASSWORD);
-		$correct = $pass === $_POST[self::PASSWORD_PARAM_NAME];
-		if (!$correct) {
-			sleep(4);
-		}
-		return $correct;
-	}
+        /* bad/no auth attempt */
+        $contentTemplate = new org_tubepress_template_SimpleTemplate();
+        $contentTemplate->setPath(org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath() . '/ui/lib/uploads/templates/password_prompt.tpl.php');
+        $contentTemplate->setVariable(self::PASSWORD_PARAM_NAME, self::PASSWORD_PARAM_NAME);
+        $contentTemplate->setVariable(self::AUTH_ATTEMPT, self::_attemptingAuthentication());
+        org_tubepress_uploads_AdminPageHandler::printTemplate($contentTemplate);
+    }
 
-	private static function _setAuthenticated()
-	{
-		$_SESSION[self::SESSION_VAR_NAME] = true;
-	}
+    private static function _canContinueWordPress()
+    {
+        if (current_user_can('manage_options')) {
+            return true;
+        }
 
-	private static function _attemptingAuthentication()
-	{
-		return isset($_POST[self::PASSWORD_PARAM_NAME]);
-	}
+        $baseName = basename(realpath(dirname(__FILE__) . '/../../../../../'));
+        $siteUrl  = get_option('siteurl');
+        $url      =  urlencode("$siteUrl/wp-content/plugins/$baseName");
+        header("Location: $siteUrl/wp-login.php?redirect_to=$url/ui/lib/uploads/index.php");
+        exit;
+    }
 
-	private static function _authenticated()
-	{
-		session_regenerate_id(true);
-		return isset($_SESSION[self::SESSION_VAR_NAME]) && $_SESSION[self::SESSION_VAR_NAME] === true;
-	}
+    private static function _credentialsValid()
+    {
+        $ioc     = org_tubepress_ioc_IocDelegateUtils::getIocContainerInstance();
+        $tpom    = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $pass    = $tpom->get(org_tubepress_options_category_Uploads::ADMIN_PAGE_PASSWORD);
+        $correct = $pass === $_POST[self::PASSWORD_PARAM_NAME];
+        if (!$correct) {
+            sleep(4);
+        }
+        return $correct;
+    }
 
-	private static function _passwordSet()
-	{
-		$ioc  = org_tubepress_ioc_IocDelegateUtils::getIocContainerInstance();
-		$tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
-		$pass = $tpom->get(org_tubepress_options_category_Uploads::ADMIN_PAGE_PASSWORD);
-		return $pass !== '';
-	}
+    private static function _setAuthenticated()
+    {
+        $_SESSION[self::SESSION_VAR_NAME] = true;
+    }
+
+    private static function _attemptingAuthentication()
+    {
+        return isset($_POST[self::PASSWORD_PARAM_NAME]);
+    }
+
+    private static function _authenticated()
+    {
+        session_regenerate_id(true);
+        return isset($_SESSION[self::SESSION_VAR_NAME]) && $_SESSION[self::SESSION_VAR_NAME] === true;
+    }
+
+    private static function _passwordSet()
+    {
+        $ioc  = org_tubepress_ioc_IocDelegateUtils::getIocContainerInstance();
+        $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $pass = $tpom->get(org_tubepress_options_category_Uploads::ADMIN_PAGE_PASSWORD);
+        return $pass !== '';
+    }
 }

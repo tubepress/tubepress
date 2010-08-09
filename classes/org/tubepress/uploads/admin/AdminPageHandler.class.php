@@ -53,7 +53,7 @@ class org_tubepress_uploads_admin_AdminPageHandler
 		self::_init();
 
 		if (isset($_GET['video'])) {
-		    print 'foo';
+		    self::_handleSingleVideoRequest($_GET['video']);
 		    return;
 		}
 		
@@ -65,7 +65,19 @@ class org_tubepress_uploads_admin_AdminPageHandler
 		$template->setVariable(self::ADMIN_ALBUM_ARRAY, $albums);
 		self::printTemplate($template);
 	}
-	
+
+	private static function _handleSingleVideoRequest($base64EncodedRelativeVideoPath)
+	{
+		$baseVideoDirectory = org_tubepress_uploads_UploadsUtils::getBaseVideoDirectory();
+		$relativePath = base64_decode($base64EncodedRelativeVideoPath);
+		$absPath = "$baseVideoDirectory/$relativePath";
+		
+		$template = new org_tubepress_template_SimpleTemplate();
+		$template->setPath(self::$_tubepressBaseInstallDir . '/ui/lib/uploads/templates/single_video.tpl.php');
+		$template->setVariable('test', $absPath);
+		print $template->toString();
+	}
+
     private static function _getAdminAlbums(org_tubepress_ioc_IocService $ioc)
     {
         return self::_findAlbumsRecursive(org_tubepress_uploads_UploadsUtils::getBaseVideoDirectory(), $ioc, 0);
