@@ -41,10 +41,10 @@
                 <para>
                     <mediaobject>
                         <imageobject role="fo">
-                            <imagedata fileref="images/quick_start.png" format="PNG" align="center" />
+                            <imagedata fileref="resources/images/quick_start.png" format="PNG" align="center" />
                         </imageobject>
                         <imageobject role="html">
-                            <imagedata fileref="images/quick_start.png" format="PNG" align="center" />
+                            <imagedata fileref="resources/images/quick_start.png" format="PNG" align="center" />
                         </imageobject>
                     </mediaobject>
                 </para>

@@ -16,11 +16,11 @@
     <para>
         <mediaobject>
             <imageobject role="fo">
-                <imagedata fileref="images/i18n_example.png" format="PNG"
+                <imagedata fileref="resources/images/i18n_example.png" format="PNG"
                     align="center" />
             </imageobject>
             <imageobject role="html">
-                <imagedata fileref="images/i18n_example.png" format="PNG"
+                <imagedata fileref="resources/images/i18n_example.png" format="PNG"
                     align="center" />
             </imageobject>
             <caption>

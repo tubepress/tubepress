@@ -15,14 +15,8 @@
     <xsl:param name="tablecolumns.extension">0</xsl:param>
     <xsl:param name="callout.extensions">1</xsl:param>
     
-    <!-- Graphics -->
-    <xsl:param name="callout.graphics" select="1" />
-    <xsl:param name="callout.defaultcolumn">100</xsl:param>
-    <xsl:param name="callout.graphics.path">images/callouts/</xsl:param>
-    <xsl:param name="callout.graphics.extension">.gif</xsl:param>
-    
     <xsl:param name="table.borders.with.css" select="1"/>
-    <xsl:param name="html.stylesheet">css/stylesheet.css</xsl:param>
+    <xsl:param name="html.stylesheet">resources/css/stylesheet.css</xsl:param>
     <xsl:param name="html.stylesheet.type">text/css</xsl:param>
     <xsl:param name="generate.toc">book toc,title</xsl:param>
 

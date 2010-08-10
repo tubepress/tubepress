@@ -95,10 +95,10 @@
             look like...
             <mediaobject>
                 <imageobject role="fo">
-                    <imagedata fileref="images/sidebar.png" format="PNG" align="center" />
+                    <imagedata fileref="resources/images/sidebar.png" format="PNG" align="center" />
                 </imageobject>
                 <imageobject role="html">
-                    <imagedata fileref="images/sidebar.png" format="PNG" align="center" />
+                    <imagedata fileref="resources/images/sidebar.png" format="PNG" align="center" />
                 </imageobject>
             </mediaobject>
         </para>
@@ -113,10 +113,10 @@
                 ...
                 <mediaobject>
                     <imageobject role="fo">
-                        <imagedata fileref="images/widget.png" format="PNG" align="center" />
+                        <imagedata fileref="resources/images/widget.png" format="PNG" align="center" />
                     </imageobject>
                     <imageobject role="html">
-                        <imagedata fileref="images/widget.png" format="PNG" align="center" />
+                        <imagedata fileref="resources/images/widget.png" format="PNG" align="center" />
                     </imageobject>
                 </mediaobject>
             </para>

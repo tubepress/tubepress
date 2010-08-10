@@ -13,10 +13,10 @@
         Here's an example of a TubePress embedded video vs. the competition...
         <mediaobject>
             <imageobject role="fo">
-                <imagedata fileref="images/single_video_example.png" format="PNG" align="center" />
+                <imagedata fileref="resources/images/single_video_example.png" format="PNG" align="center" />
             </imageobject>
             <imageobject role="html">
-                <imagedata fileref="images/single_video_example.png" format="PNG" align="center" />
+                <imagedata fileref="resources/images/single_video_example.png" format="PNG" align="center" />
             </imageobject>
             <caption>
                 <simpara>TubePress's single video embedding (left) vs. the competition (right)</simpara>

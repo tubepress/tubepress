@@ -1,8 +1,8 @@
 <mediaobject>
     <imageobject role="fo">
-        <imagedata fileref="images/vimeo.png" format="PNG" align="center" />
+        <imagedata fileref="resources/images/vimeo.png" format="PNG" align="center" />
     </imageobject>
     <imageobject role="html">
-        <imagedata fileref="images/vimeo.png" format="PNG" align="center" />
+        <imagedata fileref="resources/images/vimeo.png" format="PNG" align="center" />
     </imageobject>
 </mediaobject>
