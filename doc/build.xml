@@ -35,10 +35,10 @@
     	        <jvmarg line="-Dorg.apache.xerces.xni.parser.XMLParserConfiguration=org.apache.xerces.parsers.XIncludeParserConfiguration" />
     	</java>
 
-    	<copy todir="${output.dir}/htmlsingle/css">
+    	<copy todir="${output.dir}/htmlsingle/resources/css">
     		<fileset dir="resources/css"/>
     	</copy>
-    	<copy todir="${output.dir}/htmlsingle/images">
+    	<copy todir="${output.dir}/htmlsingle/resources/images">
     	    <fileset dir="resources/images"/>
     	 </copy>
     	

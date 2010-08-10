@@ -32,7 +32,7 @@
             </listitem>
             <listitem>
                 <para>
-                    Type <programlisting>[tubepress]</programlisting>
+                    Type <?dbhtml-include href="/Users/ehough/Documents/workspace/tubepress/doc/src/embeds/code/wordpress_quickstart.html"?>
                     in a post or a page where you'd like to insert your gallery
                     (this is actually the simplest form of a
                     <link linkend="shortcodes">TubePress shortcode</link>). See the image

@@ -6,7 +6,7 @@
             As a <application>WordPress</application> plugin,
             <application>TubePress</application> lets you easily insert custom video galleries throughout your
             <application>WordPress</application>-powered blog. Just configure from <code>Settings > TubePress</code>
-            , then type <programlisting>[tubepress]</programlisting> in
+            , then type <?dbhtml-include href="/Users/ehough/Documents/workspace/tubepress/doc/src/embeds/code/wordpress_quickstart.html"?> in
             a post or page where you'd like your gallery to appear.
         </para>
         <para>
@@ -17,11 +17,11 @@
         <para>
             For example, say on one page I want to display a gallery of videos
             that are tagged with "<code>football</code>". On this page, I would type
-            <programlisting>[tubepress mode="tag" tagValue="football"]</programlisting>
+            <?dbhtml-include href="/Users/ehough/Documents/workspace/tubepress/doc/src/embeds/code/wordpress_simple_shortcode.html"?>
             on the page where I want the gallery to show up. And say
             on another page I want to display a gallery with the default (global) options
             that were set in <code>Settings > TubePress</code>. On this page I would type
-            <programlisting>[tubepress]</programlisting> where I
+            <?dbhtml-include href="/Users/ehough/Documents/workspace/tubepress/doc/src/embeds/code/wordpress_quickstart.html"?> where I
             wanted the gallery to show up. You can follow this procedure for unlimited
             galleries on unlimited posts/pages. Just use <link linkend="shortcode-reference">any TubePress shortcode</link>
             to control the gallery content. Get creative!
@@ -127,7 +127,7 @@
                 <link linkend="shortcodes">TubePress shortcode</link>
                 . Please note that
                 by default, the TubePress widget will use the following shortcode:
-                <programlisting>[tubepress resultsPerPage="3" views="false" description="true" descriptionLimit="50" playerLocation="popup" thumbHeight="105" thumbWidth="135" template="sidebar.tpl.php"]</programlisting>
+                <?dbhtml-include href="/Users/ehough/Documents/workspace/tubepress/doc/src/embeds/code/wordpress_widget_default.html"?>
             </para>
             <simpara>
                 Of course, like any TubePress shortcode, you can override any setting you like.

@@ -114,6 +114,10 @@ div.syntaxhighlighter {
 	font-size: 13px ! important;
 }
 
+.syntaxhighlighter.nogutter  {
+    padding: 5px ! important;	
+}
+
 div.license {
 	font-size: 10px;
 }
