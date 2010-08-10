@@ -24,4 +24,40 @@
 ?>
 		</div>
 	</body>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script type="text/javascript">
+		TubePressUploadsAdmin = (function () {
+
+			/* add a click listener to each album row */
+			init = function () {
+				jQuery("tr[id^='album_']").click(toggleAlbum);
+			};
+
+			/* toggle the display of an album's videos */
+			toggleAlbum = function () {
+				var album_id = jQuery(this).attr('id'),
+					rowSelector = "[rel=videos_for_" + album_id + ']',
+					img = jQuery("tr[id='" + album_id + "'] > td > img").first();
+
+				if (jQuery(rowSelector).length > 0 && jQuery(rowSelector).first().is(':visible')) {
+					jQuery(img).attr('src', 'famfam/folder_closed.png');
+				} else {
+					jQuery(img).attr('src', 'famfam/folder_open.png');
+				}
+
+				jQuery(rowSelector).each(function () {
+					if (jQuery(this).is(':visible')) {
+						jQuery(this).fadeOut();
+					} else {
+						jQuery(this).fadeIn();
+					}
+				});
+			};
+
+			return {	init	: init	};
+		}());
+		jQuery(window).ready(function () {
+			TubePressUploadsAdmin.init();
+		});
+	</script>
 </html>

@@ -22,65 +22,24 @@
  * Sure, maybe your templating system of choice looks prettier but I'll bet it's not faster :)
  */
 
-$idArray = array();
 ?>
-<p>Your video uploads base directory is <code><?php echo ${org_tubepress_uploads_admin_AdminPageHandler::PATH_TO_VIDEO_UPLOADS}; ?></code>. Click any video to edit its properties or thumbnails.</p>
+<div class="span-8" id="album_list">
+	<table class="album">
+	<?php foreach (${org_tubepress_uploads_admin_AdminPageHandler::ADMIN_ALBUM_ARRAY} as $album) : ?>	
+        	<tr id="album_<?php echo md5($album->getRelativeContainerPath()); ?>">
+			<td><img src="famfam/folder_closed.png" /></td>
+			<td><img src="famfam/folder.png" /> <span><?php echo $album->getRelativeContainerPath(); ?> (<?php echo sizeof($album->getRelativeVideoPaths()); ?>)</span></td>
+		</tr>
+		<?php foreach ($album->getRelativeVideoPaths() as $relativeVideoPath) : ?>
+		<tr rel="videos_for_album_<?php echo md5($album->getRelativeContainerPath()); ?>" class="video">
+			<td>&nbsp;</td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;<img src="famfam/film.png" /> <span><?php echo basename($relativeVideoPath); ?></span></td>
+		</tr>
+		<?php endforeach; ?>
 
-<div class="span-24 last" id="album_list">
-	<ul>
-	<?php foreach (${org_tubepress_uploads_admin_AdminPageHandler::ADMIN_ALBUM_ARRAY} as $album) : ?>
-	
-        	<li id="video_<?php echo md5($album->getRelativeContainerPath()); ?>"><a><?php echo $album->getRelativeContainerPath(); ?></a>
-        	<?php
-            		$idArray[] =  'video_' . md5($album->getRelativeContainerPath());
-        
-            		if (sizeof($album->getRelativeVideoPaths()) === 0) {
-                		echo '</li>';
-                		continue;
-            		}
-            	?>
-            		<ul>
-            			<?php foreach ($album->getRelativeVideoPaths() as $video) : ?>
-                			<li rel="video" title="<?php echo base64_encode($video); ?>"><a><?php echo basename($video); ?></a></li>
-            			<?php endforeach; ?>
-            		</ul>
-	       </li>
 	<?php endforeach; ?>
-	</ul>
+	</table>
 </div>
-
-<script type="text/javascript">
-
-function toggleVideoEditor(base64encoded_relative_path) {
-	alert(base64encoded_relative_path);
-}
-
-jQuery(document).ready(function () {
-	jQuery("li[rel='video']").click(function () { toggleVideoEditor(jQuery(this).attr('title')); });
-});
-
-jQuery.jstree._themes = "jstree/themes/";
-
-jQuery("#album_list").jstree({
-    	"themes" 	: { 
-				"theme" : "classic" 
-			},
-    	"core" 		: {
-				"animation" : 100,
-    	        		"initially_open" : [ "#<?php echo implode('", "#', $idArray); ?>" ]
-      	         	},
-    	"types" 	: {
-            			"types" : {
-                			"video" : {
-                    				"icon" : { 
-                        				"image" : "famfam/film.png" //thank you! http://www.famfamfam.com/lab/icons/silk/
-                    				}
-                			}      
-            			}
-        		},
-        "html_data" 	: {
-             			"data" : $("#album_list").html()
-         		},
-     	"plugins" 	: [ "themes", "html_data", "ui", "cookies", "types" ]
-});
-</script>
+<div class="span-16 last" id="video_editing_pane">
+Hello
+</div>
