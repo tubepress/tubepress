@@ -139,10 +139,10 @@
                 Creating a sidebar gallery with TubePress Pro in standalone PHP
                 is nearly identical to the <link linkend="plain-php">procedure for creating video
                 galleries in standalone PHP</link>. The only difference is that you use the
-                <code>template</code> shortcode attribute to tell your gallery to use
-                the sidebar HTML template (<code>sidebar.tpl.php</code>). So your gallery generation statement would look like this...
+                <code>theme</code> shortcode attribute to force the gallery to use
+                the sidebar theme. So your gallery generation statement would look like this...
             </para>
-            <programlisting><![CDATA[<?php print tubepressGallery('mode="tag" tagValue="barack obama" resultsPerPage="3" template="sidebar.tpl.php"'); ?>]]></programlisting>
+		<?dbhtml-include href="/Users/ehough/Documents/workspace/tubepress/doc/src/embeds/code/pro_sidebar.html"?>
         </section>
     </section>
 </chapter>
