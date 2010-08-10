@@ -79,7 +79,8 @@ class org_tubepress_env_wordpress_Widget
             org_tubepress_options_category_Display::THUMB_HEIGHT        => 105,
             org_tubepress_options_category_Display::THUMB_WIDTH         => 135,
             org_tubepress_options_category_Display::PAGINATE_ABOVE      => false,
-            org_tubepress_options_category_Display::PAGINATE_BELOW      => false
+            org_tubepress_options_category_Display::PAGINATE_BELOW      => false,
+            org_tubepress_options_category_Display::THEME               => 'sidebar'
         );
 
         /* now apply the user's options */

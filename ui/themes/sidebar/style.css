@@ -1,0 +1,19 @@
+.tubepress_sidebar .tubepress_thumb img {
+    width: auto ! important;
+    padding: 5% 5% 1% 2%;
+    margin: 0 auto ! important;
+    -ms-interpolation-mode: bicubic;
+    display: inline;
+}
+
+.tubepress_sidebar .tubepress_thumbnail_area {
+    margin-top: auto;	
+}
+
+.tubepress_sidebar .tubepress_thumb  {
+    margin-top: auto;	
+}
+
+.tubepress_sidebar .tubepress_meta_group {
+    padding: 0 2%;	
+}
