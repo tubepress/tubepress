@@ -46,11 +46,12 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
         $ioc            = org_tubepress_ioc_IocContainer::getInstance();
         $tpom           = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $messageService = $ioc->get('org_tubepress_message_MessageService');
+        $qss            = $ioc->get('org_tubepress_querystring_QueryStringService');
         
-        $currentPage = org_tubepress_querystring_QueryStringService::getPageNum($_GET);
+        $currentPage = $qss->getPageNum($_GET);
         $vidsPerPage = $tpom->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
 
-        $newurl = new net_php_pear_Net_URL2(org_tubepress_querystring_QueryStringService::getFullUrl($_SERVER));
+        $newurl = new net_php_pear_Net_URL2($qss->getFullUrl($_SERVER));
         $newurl->unsetQueryVariable('tubepress_page');
 
         $result = $this->_diggStyle($vidCount, $messageService, $currentPage, $vidsPerPage, 1, $newurl->getURL(), 'tubepress_page');
