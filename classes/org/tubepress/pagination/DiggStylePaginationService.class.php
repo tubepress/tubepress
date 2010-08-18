@@ -27,7 +27,7 @@ tubepress_load_classes(array('org_tubepress_pagination_PaginationService',
     'org_tubepress_message_MessageService',
     'org_tubepress_querystring_QueryStringService',
     'org_tubepress_options_manager_OptionsManager',
-    'org_tubepress_ioc_IocService'));
+    'org_tubepress_ioc_IocContainer'));
 
 /**
  * General purpose cache for TubePress
@@ -41,10 +41,11 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
      *
      * @return string The HTML for the pagination.
      */
-    public function getHtml($vidCount, org_tubepress_ioc_IocService $ioc)
+    public function getHtml($vidCount)
     {
-        $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
-        $messageService = $ioc->get(org_tubepress_ioc_IocService::MESSAGE_SERVICE);
+        $ioc            = org_tubepress_ioc_IocContainer::getInstance();
+        $tpom           = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $messageService = $ioc->get('org_tubepress_message_MessageService');
         
         $currentPage = org_tubepress_querystring_QueryStringService::getPageNum($_GET);
         $vidsPerPage = $tpom->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);

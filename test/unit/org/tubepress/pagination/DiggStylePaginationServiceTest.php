@@ -8,6 +8,11 @@ class org_tubepress_pagination_DiggStylePaginationServiceTest extends TubePressU
 
     private $_prefix = '<div class="pagination"><span class="disabled">prev</span><span class="current">1</span><a rel=';
     
+    public function setup()
+	{
+		$this->initFakeIoc();
+	}
+
     public function testAjax()
     {
         global $_SERVER;
@@ -48,7 +53,7 @@ EOT
 	private function _tester($callback, $expected)
 	{
 		$sut = new org_tubepress_pagination_DiggStylePaginationService();
-		$this->assertEquals($expected, $sut->getHtml(100, $this->getIoc()));
+		$this->assertEquals($expected, $sut->getHtml(100));
 	}
 }
 
