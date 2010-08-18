@@ -38,8 +38,6 @@ tubepress_load_classes(array('org_tubepress_options_Category',
  */
 class org_tubepress_options_form_FormHandler
 {
-    private $_ioc;
-    
     /**
      * Displays all the TubePress options in HTML
      *
@@ -50,10 +48,14 @@ class org_tubepress_options_form_FormHandler
     public final function getHtml()
     {   
         global $tubepress_base_url;
-        $messageService = $this->_ioc->get(org_tubepress_ioc_IocService::MESSAGE_SERVICE);
-        $template = new org_tubepress_template_SimpleTemplate();
+
+	$ioc            = org_tubepress_ioc_IocContainer::getInstance();
+        $messageService = $ioc->get('org_tubepress_message_MessageService');
+        $template       = new org_tubepress_template_SimpleTemplate();
+	$storageManager = $ioc->get('org_tubepress_options_storage_StorageManager');
+
         $template->setPath(dirname(__FILE__) . '/../../../../../ui/lib/options_page/html_templates/options_page.tpl.php');
-        $storageManager = $this->_ioc->get(org_tubepress_ioc_IocService::OPTIONS_STORAGE_MANAGER);
+        
         
         /* set the surrounding text */
         $template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_TITLE, $messageService->_('options-page-title'));
@@ -88,7 +90,8 @@ class org_tubepress_options_form_FormHandler
      */
     public final function collect($postVars)
     {   
-        $storageManager = $this->_ioc->get(org_tubepress_ioc_IocService::OPTIONS_STORAGE_MANAGER);
+	$ioc            = org_tubepress_ioc_IocContainer::getInstance();
+        $storageManager = $ioc->get('org_tubepress_options_storage_StorageManager');
         
         /* this loop will collect everything except checkboxes */
         foreach ($postVars as $name => $value) {
@@ -235,9 +238,5 @@ class org_tubepress_options_form_FormHandler
         $value = $storageManager->get(org_tubepress_options_category_Gallery::MODE);
         $checked = $optionName === $value ? 'CHECKED' : '';
         return "<input type=\"radio\" name=\"mode\" id=\"$optionName\" value=\"$optionName\" $checked />";
-    }
-    
-    public function setIocService(org_tubepress_ioc_IocService $ioc) {
-        $this->_ioc = $ioc;
     }
 }

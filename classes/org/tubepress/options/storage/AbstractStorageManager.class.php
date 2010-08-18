@@ -106,7 +106,10 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
         if (!org_tubepress_options_reference_OptionsReference::shouldBePersisted($optionName)) {
             return;
         }
-        org_tubepress_options_validation_InputValidationService::validate($optionName, $optionValue, $this->_ioc);
+	$ioc = org_tubepress_ioc_IocContainer::getInstance();
+	$validationService = $ioc->get('org_tubepress_options_validation_InputValidationService');
+
+        $validationService->validate($optionName, $optionValue);
         $this->setOption($optionName, $optionValue);
     }
 

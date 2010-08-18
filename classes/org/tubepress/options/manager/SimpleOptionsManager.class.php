@@ -37,6 +37,13 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
 {
     private $_customOptions = array();
     private $_shortcode;
+    private $_tpsm;
+
+    public function __construct()
+    {
+	$ioc         = org_tubepress_ioc_IocContainer::getInstance();
+        $this->_tpsm = $ioc->get('org_tubepress_options_storage_StorageManager');
+    }
 
     /**
      * Gets the value of an option
@@ -48,16 +55,10 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
     public function get($optionName)
     {
         /* get the value, either from the shortcode or the db */
-        $value = array_key_exists($optionName, $this->_customOptions) ?
-            $this->_customOptions[$optionName] : $this->_tpsm->get($optionName);
-
-        /* get a valid value for this option */
-        try {
-            org_tubepress_options_validation_InputValidationService::validate($optionName, $value, $this->_ioc);
-        } catch (Exception $e) {
-            $value = org_tubepress_options_reference_OptionsReference::getDefaultValue($optionName);
-        }
-        return $value;
+        if (array_key_exists($optionName, $this->_customOptions)) {
+		return $this->_customOptions[$optionName];
+	}
+	$this->_tpsm->get($optionName);
     }
 
     /**
