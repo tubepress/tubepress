@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/message/WordPressMessageService.class.php';
+require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/message/impl/WordPressMessageService.class.php';
 
 $msgs = array(
         'options-page-title'       => 'TubePress Options',
@@ -207,7 +207,7 @@ class org_tubepress_message_WordPressMessageServiceTest extends PHPUnit_Framewor
 	
 	function setUp()
 	{
-		$this->_sut = new org_tubepress_message_WordPressMessageService();
+		$this->_sut = new org_tubepress_message_impl_WordPressMessageService();
 	}
 
 	function testPoCompiles()

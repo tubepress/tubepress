@@ -42,7 +42,7 @@ class org_tubepress_ioc_IocDelegateUtils
     
     private static function getProvider(org_tubepress_ioc_IocService $ioc)
     {
-        $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $tpom = $ioc->get('org_tubepress_options_manager_OptionsManager');
         return org_tubepress_video_feed_provider_Provider::calculateCurrentVideoProvider($tpom);
     }
 }

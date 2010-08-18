@@ -16,7 +16,7 @@ class org_tubepress_ioc_FreeWordPressPluginIocServiceTest extends PHPUnit_Framew
             'org_tubepress_browser_BrowserDetector'                     => 'org_tubepress_browser_MobileEspBrowserDetector',
             'org_tubepress_cache_CacheService'                          => 'org_tubepress_cache_PearCacheLiteCacheService',
             'org_tubepress_embedded_EmbeddedPlayerService'              => 'org_tubepress_embedded_impl_DelegatingEmbeddedPlayerService',
-            'org_tubepress_message_MessageService'                      => 'org_tubepress_message_WordPressMessageService',
+            'org_tubepress_message_MessageService'                      => 'org_tubepress_message_impl_WordPressMessageService',
             'org_tubepress_options_manager_OptionsManager'              => 'org_tubepress_options_manager_SimpleOptionsManager',    
             'org_tubepress_options_storage_StorageManager'              => 'org_tubepress_options_storage_WordPressStorageManager',    
             'org_tubepress_pagination_PaginationService'                => 'org_tubepress_pagination_DiggStylePaginationService',    
