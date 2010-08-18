@@ -21,23 +21,24 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_ioc_IocService',
+tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
     'org_tubepress_options_category_Display',
     'org_tubepress_log_Log',
-    'org_tubepress_template_SimpleTemplate'));
+    'org_tubepress_template_SimpleTemplate',
+    'org_tubepress_theme_ThemeHandler'));
 
 /**
- * A TubePress theme
+ * A TubePress theme handler
  */
-class org_tubepress_theme_Theme
+class org_tubepress_theme_SimpleThemeHandler implements org_tubepress_theme_ThemeHandler
 {
-    const LOG_PREFIX = 'Theme';
+    const LOG_PREFIX = 'Theme Handler';
 
-    public static function getTemplateInstance(org_tubepress_ioc_IocService $ioc, $pathToTemplate)
+    public function getTemplateInstance($pathToTemplate)
     {
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'Attempting to load template instance from <tt>%s</tt>', $pathToTemplate);
         
-        $currentTheme = self::calculateCurrentThemeName($ioc);
+        $currentTheme = $this->calculateCurrentThemeName();
         $filePath     = self::_getFilePath($currentTheme, $pathToTemplate);
         
         if (!is_readable($filePath)) {
@@ -50,14 +51,15 @@ class org_tubepress_theme_Theme
         return $template;
     }
 
-    public static function getCssPath($currentTheme, $relative = false)
+    public function getCssPath($currentTheme, $relative = false)
     {
         return self::_getFilePath($currentTheme, 'style.css', $relative);
     }
 
-    public static function calculateCurrentThemeName(org_tubepress_ioc_IocService $ioc)
+    public function calculateCurrentThemeName()
     {
-        $tpom         = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $ioc          = org_tubepress_ioc_IocContainer::getInstance();
+        $tpom         = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $currentTheme = $tpom->get(org_tubepress_options_category_Display::THEME);
         if ($currentTheme == '') {
             $currentTheme = 'default';
