@@ -1,22 +1,52 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/querystring/QueryStringService.class.php';
+require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/querystring/SimpleQueryStringService.class.php';
+require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
 
-class org_tubepress_querystring_SimpleQueryStringServiceTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_querystring_SimpleQueryStringServiceTest extends TubePressUnitTest {
 	
+	private $_sut;
+
+	public function setup()
+	{
+		$this->initFakeIoc();
+		$this->_sut = new org_tubepress_querystring_SimpleQueryStringService();
+	}
+
 	public function testGetPageNumNothingSet()
 	{
-		$this->assertEquals(1, org_tubepress_querystring_QueryStringService::getPageNum(array()));
+		$result = $this->_sut->getPageNum(array());
+		$this->assertEquals(1, $result);
 	}
 	
 	public function testGetPageNumLessThanOne()
 	{
-		$this->assertEquals(1, org_tubepress_querystring_QueryStringService::getPageNum(array("tubepress_page" => -1)));
+		$this->assertEquals(1, $this->_sut->getPageNum(array("tubepress_page" => -1)));
 	}
 	
+	public function testGetGalleryId()
+	{
+		$this->assertEquals('boo', $this->_sut->getGalleryId(array("tubepress_galleryId" => "boo")));
+	}
+
+	public function testGetCustomVideo()
+	{
+		$this->assertEquals('word', $this->_sut->getCustomVideo(array("tubepress_video" => "word")));
+	}
+
+	public function testGetShortcode()
+	{
+		$this->assertEquals('fake', $this->_sut->getShortcode(array("tubepress_shortcode" => "fake")));
+	}
+
+	public function testGetShortcodeNoShortcode()
+	{
+		$this->assertEquals('', $this->_sut->getShortcode(array()));
+	}
+
 	public function testGetPageNumNonNumeric()
 	{
-		$this->assertEquals(1, org_tubepress_querystring_QueryStringService::getPageNum(array("tubepress_page" => "fake")));
+		$this->assertEquals(1, $this->_sut->getPageNum(array("tubepress_page" => "fake")));
 	}
 	
 	public function testGetFullUrlHttpsOn()
@@ -26,7 +56,7 @@ class org_tubepress_querystring_SimpleQueryStringServiceTest extends PHPUnit_Fra
 							"SERVER_NAME" => "fake.com",
 							"REQUEST_URI" => "/index.html");
 		$this->assertEquals("https://fake.com:443/index.html", 
-		    org_tubepress_querystring_QueryStringService::getFullUrl($serverVars));
+		    $this->_sut->getFullUrl($serverVars));
 	}
 	
 	public function testGetFullUrlHttpsOff()
@@ -36,7 +66,7 @@ class org_tubepress_querystring_SimpleQueryStringServiceTest extends PHPUnit_Fra
 							"SERVER_NAME" => "fake.com",
 							"REQUEST_URI" => "/index.html");
 		$this->assertEquals("http://fake.com/index.html", 
-		    org_tubepress_querystring_QueryStringService::getFullUrl($serverVars));
+		    $this->_sut->getFullUrl($serverVars));
 	}
 }
 ?>

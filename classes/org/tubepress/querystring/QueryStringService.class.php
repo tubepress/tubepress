@@ -22,13 +22,8 @@
 /**
  * Handles some tasks related to the query string
  */
-class org_tubepress_querystring_QueryStringService
+interface org_tubepress_querystring_QueryStringService
 {
-    const TUBEPRESS_GALLERY_ID = 'tubepress_galleryId';
-    const TUBEPRESS_PAGE       = 'tubepress_page';
-    const TUBEPRESS_SHORTCODE  = 'tubepress_shortcode';
-    const TUBEPRESS_VIDEO      = 'tubepress_video';
-
     /**
      * Try to get the custom video ID from the query string
      *
@@ -36,10 +31,7 @@ class org_tubepress_querystring_QueryStringService
      *
      * @return string The custom video ID, or '' if not set
     */
-    public static function getCustomVideo($getVars)
-    {
-        return self::_getQueryVar($getVars, self::TUBEPRESS_VIDEO);
-    }
+    public function getCustomVideo($getVars);
 
     /**
      * Try to get the gallery ID from the query string
@@ -48,10 +40,7 @@ class org_tubepress_querystring_QueryStringService
      *
      * @return string The gallery ID, or '' if not set
     */
-    public static function getGalleryId($getVars)
-    {
-        return self::_getQueryVar($getVars, self::TUBEPRESS_GALLERY_ID);
-    }
+    public function getGalleryId($getVars);
 
     /**
      * Returns what's in the address bar
@@ -60,21 +49,7 @@ class org_tubepress_querystring_QueryStringService
      *
      * @return string What's in the address bar
      */
-    public static function getFullUrl($serverVars)
-    {
-        $pageURL = 'http';
-        if (isset($serverVars['HTTPS']) && $serverVars['HTTPS'] == 'on') {
-            $pageURL .= 's';
-        }
-        $pageURL .= '://';
-        if ($serverVars['SERVER_PORT'] != '80') {
-             $pageURL .= $serverVars['SERVER_NAME'].':'.
-                 $serverVars['SERVER_PORT'].$serverVars['REQUEST_URI'];
-        } else {
-             $pageURL .= $serverVars['SERVER_NAME'].$serverVars['REQUEST_URI'];
-        }
-        return $pageURL;
-    }
+    public function getFullUrl($serverVars);
 
     /**
      * Try to figure out what page we're on by looking at the query string
@@ -84,17 +59,7 @@ class org_tubepress_querystring_QueryStringService
      *
      * @return int The page number
      */
-    public static function getPageNum($getVars)
-    {
-        $key     = self::TUBEPRESS_PAGE;
-        $pageNum = ((isset($getVars[$key])) ?
-            $getVars[$key] : 1);
-
-        if (!is_numeric($pageNum) || ($pageNum < 1)) {
-            $pageNum = 1;
-        }
-        return $pageNum;
-    }
+    public function getPageNum($getVars);
 
     /**
      * Try to get the shortcode from the query string
@@ -103,21 +68,5 @@ class org_tubepress_querystring_QueryStringService
      *
      * @return string The shortcode, or '' if not set
      */
-    public static function getShortcode($getVars)
-    {
-        return self::_getQueryVar($getVars, self::TUBEPRESS_SHORTCODE);
-    }
-
-    /**
-     * Do a check for a get variable
-     *
-     * @param array  $getVars The PHP $_GET array
-     * @param string $key     The name of the variable to check for
-     *
-     * @return string The value of the variable, or '' if it doesn't exist
-     */
-    private static function _getQueryVar($getVars, $key)
-    {
-        return isset($getVars[$key]) ? $getVars[$key] : '';
-    }
+    public function getShortcode($getVars);
 }
