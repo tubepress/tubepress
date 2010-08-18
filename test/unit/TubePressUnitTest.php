@@ -16,9 +16,8 @@ tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
     'org_tubepress_pagination_PaginationService',
     'org_tubepress_template_SimpleTemplate',
     'org_tubepress_ioc_IocContainer'));
-//require_once dirname(__FILE__) . '/org/tubepress/template/TestOnlyTemplate.php';
 
-class TubePressUnitTest extends PHPUnit_Framework_TestCase
+abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
 {
     private $options = array();
     
