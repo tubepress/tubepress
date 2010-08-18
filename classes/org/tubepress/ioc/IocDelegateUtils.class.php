@@ -38,16 +38,7 @@ class org_tubepress_ioc_IocDelegateUtils
         return $ioc->get($defaultDelegateBeanName);
     }
     
-    public static function getIocContainerInstance()
-    {
-        if (org_tubepress_env_EnvironmentDetector::isPro()) {
-            if (org_tubepress_env_EnvironmentDetector::isWordPress()) {
-                //TODO: fix me
-            }
-            //TODO: fix me
-        }
-        return new org_tubepress_ioc_DefaultIocService();
-    }
+
     
     private static function getProvider(org_tubepress_ioc_IocService $ioc)
     {

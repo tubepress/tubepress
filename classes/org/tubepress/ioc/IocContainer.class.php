@@ -24,16 +24,33 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_ioc_IocService'));
 
 /**
- * Dependency injector for TubePress.
+ * Class that holds a reference to an IOC container.
  */
-interface org_tubepress_ioc_ContainerAware
+class org_tubepress_ioc_IocContainer
 {
-    /**
-     * Set the IOC container.
-     *
-     * @param org_tubepress_ioc_IocService $container The IOC container.
-     *
-     * @return void
-     */
-    public function setContainer(org_tubepress_ioc_IocService $container);
+    private static $_instance = null;
+
+    public static function getInstance()
+    {
+        /* see if we already built one */
+        if (isset(self::$_instance)) {
+            return self::$_instance;        
+        }
+        
+        if (org_tubepress_env_EnvironmentDetector::isPro()) {
+            if (org_tubepress_env_EnvironmentDetector::isWordPress()) {
+                //TODO: fix me
+            }
+            //TODO: fix me
+        } else {
+            self::$_instance = new org_tubepress_ioc_DefaultIocService();
+        }
+        
+        return self::$_instance;
+    }
+    
+    public static function setInstance(org_tubepress_ioc_IocService $instance)
+    {
+        self::$_instance = $instance;
+    }
 }
