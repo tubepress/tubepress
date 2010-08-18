@@ -26,20 +26,17 @@ tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_options_validation_InputValidationService',
     'org_tubepress_video_feed_provider_Provider',
-    'org_tubepress_ioc_IocService',
-    'org_tubepress_ioc_ContainerAware'));
+    'org_tubepress_ioc_IocContainer'));
 
 /**
  * Holds the current options for TubePress. This is the default options,
  * usually in persistent storage somewhere, and custom options parsed
  * from a shortcode
  */
-class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepress_options_manager_OptionsManager, org_tubepress_ioc_ContainerAware
+class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepress_options_manager_OptionsManager
 {
     private $_customOptions = array();
-    private $_ioc;
     private $_shortcode;
-    private $_tpsm;
 
     /**
      * Gets the value of an option
@@ -118,10 +115,5 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
     public function getShortcode()
     {
         return $this->_shortcode;
-    }
-    
-    public function setContainer(org_tubepress_ioc_IocService $ioc) {
-        $this->_ioc = $ioc;
-        $this->_tpsm = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_STORAGE_MANAGER);
     }
 }

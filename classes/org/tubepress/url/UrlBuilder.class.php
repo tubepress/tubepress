@@ -30,12 +30,12 @@ interface org_tubepress_url_UrlBuilder
      *
      * @return string The request URL for this gallery
      */
-    public function buildGalleryUrl(org_tubepress_ioc_IocService $ioc, $currentPage);
+    public function buildGalleryUrl($currentPage);
 
     /**
      * Builds a request url for a single video
      *
      * @param string $id The video ID to search for
      */
-    public function buildSingleVideoUrl(org_tubepress_ioc_IocService $ioc, $id);
+    public function buildSingleVideoUrl($id);
 }

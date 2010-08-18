@@ -20,31 +20,32 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_url_UrlBuilder',
     'org_tubepress_video_feed_provider_Provider',
-    'org_tubepress_ioc_IocDelegateUtils'));
+    'org_tubepress_ioc_IocDelegateUtils',
+    'org_tubepress_url_UrlBuilder'));
 
 /**
- * Builds URLs based on the current provider
+ * Builds URLs based on the urrent provider
  *
  */
-class org_tubepress_url_DelegatingUrlBuilder
+class org_tubepress_url_impl_DelegatingUrlBuilder implements org_tubepress_url_UrlBuilder
 {
     private static $_providerToBeanNameMap = array(
-        org_tubepress_video_feed_provider_Provider::VIMEO     => org_tubepress_ioc_IocService::URL_BUILDER_VIMEO,
+        org_tubepress_video_feed_provider_Provider::VIMEO => 'org_tubepress_url_impl_VimeoUrlBuilder',
     );
     
-    private static $_defaultDelegateName = org_tubepress_ioc_IocService::URL_BUILDER_YOUTUBE;
+    private static $_defaultDelegateName = 'org_tubepress_url_impl_YouTubeUrlBuilder';
     
     /**
      * Builds a URL for a list of videos
      *
      * @return string The request URL for this gallery
      */
-    public static function buildGalleryUrl(org_tubepress_ioc_IocService $ioc, $currentPage)
+    public function buildGalleryUrl($currentPage)
     {
-        return org_tubepress_ioc_IocDelegateUtils::getDelegate($ioc, 
+        return org_tubepress_ioc_IocDelegateUtils::getDelegate(
             self::$_providerToBeanNameMap, 
             self::$_defaultDelegateName)->buildGalleryUrl($ioc, $currentPage);
     }
@@ -54,9 +55,9 @@ class org_tubepress_url_DelegatingUrlBuilder
      *
      * @param string $id The video ID to search for
      */
-    public static function buildSingleVideoUrl(org_tubepress_ioc_IocService $ioc, $id)
+    public function buildSingleVideoUrl($id)
     {   
-        return org_tubepress_ioc_IocDelegateUtils::getDelegate($ioc,
+        return org_tubepress_ioc_IocDelegateUtils::getDelegate(
             self::$_providerToBeanNameMap,
             self::$_defaultDelegateName)->buildSingleVideoUrl($ioc, $id);
     }

@@ -43,10 +43,11 @@ class org_tubepress_url_impl_VimeoUrlBuilder implements org_tubepress_url_UrlBui
      *
      * @return string The gdata request URL for this gallery
      */
-    public function buildGalleryUrl(org_tubepress_ioc_IocService $ioc, $currentPage)
+    public function buildGalleryUrl($currentPage)
     {
         $params = array();
-        $tpom   = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $ioc    = org_tubepress_ioc_IocContainer::getInstance();
+        $tpom   = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $mode   = $tpom->get(org_tubepress_options_category_Gallery::MODE);
 
         switch ($mode) {
@@ -95,7 +96,7 @@ class org_tubepress_url_impl_VimeoUrlBuilder implements org_tubepress_url_UrlBui
         return $this->_buildUrl($params);
     }
     
-    public function buildSingleVideoUrl(org_tubepress_ioc_IocService $ioc, $id)
+    public function buildSingleVideoUrl($id)
     {
         $provider = org_tubepress_video_feed_provider_Provider::calculateProviderOfVideoId($id);
         if ($provider !== org_tubepress_video_feed_provider_Provider::VIMEO) {

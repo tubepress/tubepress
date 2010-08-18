@@ -43,11 +43,13 @@ class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_url_UrlB
      *
      * @return string The gdata request URL for this gallery
      */
-    public function buildGalleryUrl(org_tubepress_ioc_IocService $ioc, $currentPage)
+    public function buildGalleryUrl($currentPage)
     {
         $url = '';
         
-        $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $ioc    = org_tubepress_ioc_IocContainer::getInstance();
+        $tpom   = $ioc->get('org_tubepress_options_manager_OptionsManager');
+
         switch ($tpom->get(org_tubepress_options_category_Gallery::MODE)) {
             
         case org_tubepress_gallery_TubePressGallery::USER:
@@ -108,15 +110,17 @@ class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_url_UrlB
         return $request->getURL();
     }
     
-    public function buildSingleVideoUrl(org_tubepress_ioc_IocService $ioc, $id)
+    public function buildSingleVideoUrl($id)
     {
+	$ioc      = org_tubepress_ioc_IocContainer::getInstance();
         $provider = org_tubepress_video_feed_provider_Provider::calculateProviderOfVideoId($id);
+
         if ($provider !== org_tubepress_video_feed_provider_Provider::YOUTUBE) {
             throw new Exception("Unable to build YouTube URL for video with ID $id");
         }
         
         $requestURL = new net_php_pear_Net_URL2("http://gdata.youtube.com/feeds/api/videos/$id");
-        $this->_commonUrlPostProcessing($ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER), $requestURL);
+        $this->_commonUrlPostProcessing($ioc->get('org_tubepress_options_manager_OptionsManager'), $requestURL);
         
         return $requestURL->getURL();
     }

@@ -22,7 +22,9 @@ extends PHP_CodeSniffer_Standards_CodingStandard
      */
     public function getIncludedSniffs()
     {
-        return array('PEAR', 'Zend');
+        return array('PEAR', 'Zend',
+		'Squiz/Sniffs/WhiteSpace/SuperfluousWhitespaceSniff.php',
+		'Squiz/Sniffs/Classes/SelfMemberReferenceSniff.php');
 
     }//end getIncludedSniffs()
 

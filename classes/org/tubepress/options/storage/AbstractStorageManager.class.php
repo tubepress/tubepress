@@ -25,15 +25,13 @@ tubepress_load_classes(array('org_tubepress_options_storage_StorageManager',
     'org_tubepress_options_Type',
     'org_tubepress_options_validation_InputValidationService',
     'org_tubepress_options_reference_OptionsReference',
-    'org_tubepress_ioc_ContainerAware'));
+    'org_tubepress_ioc_IocContainer'));
 
 /**
  * Handles persistent storage of TubePress options
  */
-abstract class org_tubepress_options_storage_AbstractStorageManager implements org_tubepress_options_storage_StorageManager, org_tubepress_ioc_ContainerAware
+abstract class org_tubepress_options_storage_AbstractStorageManager implements org_tubepress_options_storage_StorageManager
 {
-    private $_ioc;
-
     /**
      * Creates an option in storage
      *
@@ -121,10 +119,4 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
      * @return void
      */
     protected abstract function setOption($optionName, $optionValue);
-
-    public function setContainer(org_tubepress_ioc_IocService $ioc)
-    {
-        $this->_ioc = $ioc;
-    }
-
 }

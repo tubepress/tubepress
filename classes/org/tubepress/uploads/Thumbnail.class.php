@@ -32,7 +32,8 @@ class org_tubepress_uploads_Thumbnail
     
     public function getHttpUri()
     {
-        //TODO: implement me
+        global $tubepress_base_url;
+
     }
     
     public function getAbsoluteFilesystemPath()
