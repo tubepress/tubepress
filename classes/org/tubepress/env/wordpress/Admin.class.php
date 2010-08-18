@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_ioc_DefaultIocService',
+tubepress_load_classes(array('org_tubepress_ioc_impl_FreeWordPressPluginIocService',
     'org_tubepress_ioc_ProInWordPressIocService',
     'org_tubepress_ioc_IocService',
     'org_tubepress_options_form_FormHandler',
@@ -97,12 +97,8 @@ EOT
     private static function _executeOptionsPage()
     {
         /* grab the storage manager */
-        if (org_tubepress_env_EnvironmentDetector::isPro()) {
-            $iocContainer = new org_tubepress_ioc_ProInWordPressIocService();
-        } else {
-            $iocContainer = new org_tubepress_ioc_DefaultIocService();
-        }
-        $wpsm = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_STORAGE_MANAGER);
+        $iocContainer = org_tubepress_ioc_IocContainer::getInstance();
+        $wpsm = $iocContainer->get('org_tubepress_options_manager_OptionsManager');
 
         /* initialize our options in case we need to */
         $wpsm->init();

@@ -24,13 +24,13 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_options_storage_WordPressStorageManager',
     'org_tubepress_options_category_Advanced',
     'org_tubepress_shortcode_ShortcodeParser',
-    'org_tubepress_ioc_DefaultIocService',
+    'org_tubepress_ioc_impl_FreeWordPressPluginIocService',
     'org_tubepress_ioc_ProInWordPressIocService',
     'org_tubepress_ioc_IocService',
+    'org_tubepress_ioc_IocContainer',
     'org_tubepress_util_StringUtils',
     'org_tubepress_gallery_TubePressGallery',
-    'org_tubepress_html_HtmlUtils',
-    'org_tubepress_env_EnvironmentDetector'));
+    'org_tubepress_html_HtmlUtils'));
 
 class org_tubepress_env_wordpress_Main
 {
@@ -70,14 +70,10 @@ class org_tubepress_env_wordpress_Main
     private static function _getHtml($content, $trigger)
     {
         /* Whip up the IOC service */
-        if (org_tubepress_env_EnvironmentDetector::isPro()) {
-            $iocContainer = new org_tubepress_ioc_ProInWordPressIocService();
-        } else {
-            $iocContainer = new org_tubepress_ioc_DefaultIocService();
-        }
+        $iocContainer = org_tubepress_ioc_IocContainer::getInstance();
 
         /* Get a handle to our options manager */
-        $tpom = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $tpom = $iocContainer->get('org_tubepress_options_manager_OptionsManager');
 
         /* Turn on logging if we need to */
         org_tubepress_log_Log::setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON), $_GET);

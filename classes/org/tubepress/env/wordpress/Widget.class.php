@@ -20,8 +20,8 @@ along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_message_WordPressMessageService',
-    'org_tubepress_ioc_DefaultIocService',
+tubepress_load_classes(array('org_tubepress_message_impl_WordPressMessageService',
+    'org_tubepress_ioc_impl_FreeWordPressPluginIocService',
     'org_tubepress_ioc_IocService',
     'org_tubepress_options_category_Widget',
     'org_tubepress_template_SimpleTemplate',
@@ -41,7 +41,7 @@ class org_tubepress_env_wordpress_Widget
      */
     public static function initAction()
     {
-        $msg       = new org_tubepress_message_WordPressMessageService();
+        $msg       = new org_tubepress_message_impl_WordPressMessageService();
         $widgetOps = array('classname' => 'widget_tubepress', 'description' => $msg->_('widget-description'));
 
         wp_register_sidebar_widget('tubepress', 'TubePress', array('org_tubepress_env_wordpress_Widget', 'printWidget'), $widgetOps);
@@ -59,12 +59,8 @@ class org_tubepress_env_wordpress_Widget
     {
         extract($opts);
 
-        if (class_exists('org_tubepress_ioc_ProInWordPressIocService')) {
-            $iocContainer = new org_tubepress_ioc_ProInWordPressIocService();
-        } else {
-            $iocContainer = new org_tubepress_ioc_DefaultIocService();
-        }
-        $tpom = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $iocContainer = org_tubepress_ioc_IocContainer::getInstance();
+        $tpom = $iocContainer->get('org_tubepress_options_manager_OptionsManager');
 
         /* Turn on logging if we need to */
         org_tubepress_log_Log::setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON), $_GET);
@@ -84,7 +80,7 @@ class org_tubepress_env_wordpress_Widget
         );
 
         /* now apply the user's options */
-        $wpsm = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_STORAGE_MANAGER);
+        $wpsm = $iocContainer->get('org_tubepress_options_manager_OptionsManager');
         org_tubepress_shortcode_ShortcodeParser::parse($wpsm->get(org_tubepress_options_category_Widget::TAGSTRING), $iocContainer);
 
         /* calculate the final options */
@@ -110,8 +106,8 @@ class org_tubepress_env_wordpress_Widget
      */
     public static function printControlPanel()
     {
-        $iocContainer = new org_tubepress_ioc_DefaultIocService();
-        $wpsm         = $iocContainer->get(org_tubepress_ioc_IocService::OPTIONS_STORAGE_MANAGER);
+        $iocContainer = new org_tubepress_ioc_impl_FreeWordPressPluginIocService();
+        $wpsm         = $iocContainer->get('org_tubepress_options_manager_OptionsManager');
         $msg          = $iocContainer->get(org_tubepress_ioc_IocService::MESSAGE_SERVICE);
 
         /* are we saving? */
