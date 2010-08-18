@@ -23,7 +23,7 @@
  * An uploaded video's thumbnail.
  *
  */
-class org_tubepress_uploads_Thumbnail
+class org_tubepress_uploads_thumbnail_Thumbnail
 {
     private $_videoId;
     private $_index;

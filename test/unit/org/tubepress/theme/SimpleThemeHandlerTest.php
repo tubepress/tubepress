@@ -3,7 +3,7 @@
 require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/theme/SimpleThemeHandler.class.php';
 require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
 
-class org_tubepress_template_SimpleTemplateTest extends TubePressUnitTest
+class org_tubepress_theme_SimpleThemeHandlerTest extends TubePressUnitTest
 {
     private $_sut;
     

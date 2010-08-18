@@ -33,6 +33,16 @@ tubepress_load_classes(array(
  */
 class org_tubepress_uploads_UploadsUtils
 {
+    public static function getGalleryNameFromVideoId($videoId)
+    {
+        $lastSlashIndex = strrpos($videoId, '/');
+        if ($lastSlashIndex === false) {
+            return '';
+        }
+        $trailingPortion = substr($videoId, $lastSlashIndex);
+        return str_replace($trailingPortion, '', $videoId);
+    }
+
     /**
      * Finds potential videos in the given directory.
      *
