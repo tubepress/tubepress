@@ -22,7 +22,8 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array(
-    'org_tubepress_embedded_EmbeddedPlayerService'));
+    'org_tubepress_embedded_EmbeddedPlayerService',
+    'org_tubepress_ioc_IocContainer'));
 
 /**
  * An HTML-embeddable player for Vimeo.
@@ -40,15 +41,18 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService implements org_tube
     /**
      * Spits back the text for this embedded player
      *
-     * @param org_tubepress_ioc_IocService $ioc     The IOC container
      * @param string                       $videoId The video ID to display
      *
      * @return string The text for this embedded player
      */
-    public function toString(org_tubepress_ioc_IocService $ioc, $videoId)
+    public function toString($videoId)
     {
         /* collect the embedded options we're interested in */
-        $tpom       = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $ioc   = org_tubepress_ioc_IocContainer::getInstance();
+        $tpom     = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $theme    = $ioc->get('org_tubepress_theme_Theme');
+        $template = $theme->getTemplateInstance('embedded_flash/vimeo.tpl.php');
+        
         $width      = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
         $height     = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT);
         $fullscreen = $tpom->get(org_tubepress_options_category_Embedded::FULLSCREEN);
@@ -71,7 +75,6 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService implements org_tube
         $link = $link->getURL(true);
 
         /* prep the template and we're done */
-        $template = org_tubepress_theme_Theme::getTemplateInstance($ioc, 'embedded_flash/vimeo.tpl.php');
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_DATA_URL, $link);
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $width);
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT, $height);

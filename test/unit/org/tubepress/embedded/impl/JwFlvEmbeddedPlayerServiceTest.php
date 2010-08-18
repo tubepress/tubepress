@@ -9,12 +9,13 @@ class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerServiceTest extends TubePre
     
     function setUp()
     {
+        $this->initFakeIoc();
         $this->_sut = new org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService();
     }
     
     function testToString()
     {
-        $this->assertEquals($this->expected(), $this->_sut->toString($this->getIoc(), 'FAKEID'));
+        $this->assertEquals($this->expected(), $this->_sut->toString('FAKEID'));
     }
     
     function expected()

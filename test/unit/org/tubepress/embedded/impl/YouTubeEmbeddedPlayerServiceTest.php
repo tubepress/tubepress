@@ -9,6 +9,7 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerServiceTest extends TubeP
     
 	function setUp()
 	{
+	    $this->initFakeIoc();
 	    $this->_sut = new org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService();
 	}
 	
@@ -21,7 +22,7 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerServiceTest extends TubeP
             org_tubepress_options_category_Embedded::LOOP => true,
             org_tubepress_options_category_Embedded::BORDER => true
         ));
-        $this->assertEquals($this->expected(), $this->_sut->toString($this->getIoc(), 'FAKEID'));
+        $this->assertEquals($this->expected(), $this->_sut->toString('FAKEID'));
     }
     
     function expected()

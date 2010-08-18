@@ -20,23 +20,22 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array(
-    'org_tubepress_embedded_impl_AbstractEmbeddedPlayerService',
-    'org_tubepress_video_feed_provider_Provider'));
+    || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
+tubepress_load_classes(array('org_tubepress_video_feed_provider_Provider',
+    'org_tubepress_embedded_EmbeddedPlayerService'));
 
 /**
  * An HTML-embeddable player
  *
  */
-class org_tubepress_embedded_DelegatingEmbeddedPlayerService
+class org_tubepress_embedded_impl_DelegatingEmbeddedPlayerService implements org_tubepress_embedded_EmbeddedPlayerService
 {
     private static $_providerToBeanNameMap = array(
-        org_tubepress_video_feed_provider_Provider::VIMEO => org_tubepress_ioc_IocService::EMBEDDED_IMPL_VIMEO,
-        org_tubepress_video_feed_provider_Provider::DIRECTORY => org_tubepress_ioc_IocService::EMBEDDED_IMPL_LONGTAIL
+        org_tubepress_video_feed_provider_Provider::VIMEO => 'org_tubepress_embedded_impl_VimeoEmbeddedPlayerService',
+        org_tubepress_video_feed_provider_Provider::DIRECTORY => 'org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService'
     );
 
-    private static $_defaultDelegateBeanName = org_tubepress_ioc_IocService::EMBEDDED_IMPL_YOUTUBE;
+    private static $_defaultDelegateBeanName = 'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService';
 
     /**
      * Spits back the text for this embedded player
@@ -46,7 +45,7 @@ class org_tubepress_embedded_DelegatingEmbeddedPlayerService
      *
      * @return string The text for this embedded player
      */
-    public static function toString(org_tubepress_ioc_IocService $ioc, $videoId)
+    public function toString($videoId)
     {
         return org_tubepress_ioc_IocDelegateUtils::getDelegate($ioc,
            self::$_providerToBeanNameMap,

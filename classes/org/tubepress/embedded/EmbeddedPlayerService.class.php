@@ -31,10 +31,9 @@ interface org_tubepress_embedded_EmbeddedPlayerService
     /**
      * Spits back the text for this embedded player
      *
-     * @param org_tubepress_ioc_IocService $ioc     The IOC container
-     * @param string                       $videoId The video ID to display
+     * @param string $videoId The video ID to display
      *
      * @return string The text for this embedded player
      */
-    public function toString(org_tubepress_ioc_IocService $ioc, $videoId);
+    public function toString($videoId);
 }

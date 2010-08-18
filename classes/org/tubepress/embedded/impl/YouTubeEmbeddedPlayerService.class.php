@@ -43,11 +43,12 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService implements org_tu
      *
      * @return string The text for this embedded player
      */
-    public function toString(org_tubepress_ioc_IocService $ioc, $videoId)
+    public function toString($videoId)
     {
-        $link = new net_php_pear_Net_URL2(sprintf('http://www.youtube.com/v/%s', $videoId));
-
-        $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $link  = new net_php_pear_Net_URL2(sprintf('http://www.youtube.com/v/%s', $videoId));
+        $ioc   = org_tubepress_ioc_IocContainer::getInstance();
+        $tpom  = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $theme = $ioc->get('org_tubepress_theme_Theme');
 
         $playerColor     = org_tubepress_embedded_impl_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR), '999999');
         $playerHighlight = org_tubepress_embedded_impl_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT), 'FFFFFF');
@@ -79,8 +80,7 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService implements org_tu
         }
 
         $link = $link->getURL(true);
-
-        $template = org_tubepress_theme_Theme::getTemplateInstance($ioc, 'embedded_flash/youtube.tpl.php');
+        $template = $theme->getTemplateInstance('embedded_flash/youtube.tpl.php');
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_DATA_URL, $link);
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $width);
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT, $height);
