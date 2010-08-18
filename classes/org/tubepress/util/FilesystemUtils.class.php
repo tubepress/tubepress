@@ -44,10 +44,6 @@ class org_tubepress_util_FilesystemUtils
             org_tubepress_log_Log::log($prefix, '<tt>%s</tt> is not a directory', $realDir);
             return array();
         }
-        if (!is_readable($dir)) {
-            org_tubepress_log_Log::log($prefix, '<tt>%s</tt> is not a readable directory', $realDir);
-            return array();
-        }
 
         $toReturn = array();
         if ($handle = opendir($dir)) {
@@ -77,10 +73,6 @@ class org_tubepress_util_FilesystemUtils
 
         if (!is_dir($dir)) {
             org_tubepress_log_Log::log($prefix, '<tt>%s</tt> is not a directory', $realDir);
-            return array();
-        }
-        if (!is_readable($dir)) {
-            org_tubepress_log_Log::log($prefix, '<tt>%s</tt> is not a readable directory', $realDir);
             return array();
         }
 
