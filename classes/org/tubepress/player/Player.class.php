@@ -21,18 +21,13 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_video_Video',
-    'org_tubepress_ioc_IocService',
-    'org_tubepress_theme_Theme',
-    'org_tubepress_browser_BrowserDetector'));
+tubepress_load_classes(array('org_tubepress_video_Video'));
 
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
-class org_tubepress_player_Player
+interface org_tubepress_player_Player
 {
-    const LOG_PREFIX = 'Player';
-    
     const NORMAL    = 'normal';
     const POPUP     = 'popup';
     const SHADOWBOX = 'shadowbox';
@@ -44,29 +39,5 @@ class org_tubepress_player_Player
     const SOLO      = 'solo';
     const VIMEO     = 'vimeo';
     
-    public static function getHtml(org_tubepress_ioc_IocService $ioc, org_tubepress_video_Video $vid, $galleryId)
-    {
-        if (org_tubepress_browser_BrowserDetector::isMobileQuick($_SERVER)) {
-            org_tubepress_log_Log::log(self::LOG_PREFIX, 'Mobile device detected');
-            return '';
-        }
-        
-        $tpom       = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
-        $playerName = $tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
-        
-        try {
-            $template   = org_tubepress_theme_Theme::getTemplateInstance($ioc, "players/$playerName.tpl.php");
-        } catch (Exception $e) {
-            return '';
-        }
-        
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_SOURCE, 
-            org_tubepress_embedded_DelegatingEmbeddedPlayerService::toString($ioc, $vid->getId()));
-            
-        $template->setVariable(org_tubepress_template_Template::GALLERY_ID, $galleryId);
-        $template->setVariable(org_tubepress_template_Template::VIDEO, $vid);
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
-        
-        return $template->toString();
-    }
+    public function getHtml(org_tubepress_video_Video $vid, $galleryId);
 }
