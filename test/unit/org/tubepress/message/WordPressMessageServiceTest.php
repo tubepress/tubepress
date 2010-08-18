@@ -1,5 +1,6 @@
 <?php
 require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/message/impl/WordPressMessageService.class.php';
+require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
 
 $msgs = array(
         'options-page-title'       => 'TubePress Options',
@@ -201,7 +202,7 @@ function __($key) {
     return $key;
 }    
     
-class org_tubepress_message_WordPressMessageServiceTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTest {
 
 	private $_sut;
 	
@@ -216,7 +217,7 @@ class org_tubepress_message_WordPressMessageServiceTest extends PHPUnit_Framewor
 		foreach ($files as $file) {
 			$realPath = dirname(__FILE__) . '/../../../../../i18n/' . $file;
 			$outputfile = str_replace(array('.pot', '.po'), '.mo', $realPath);
-			exec("/opt/local/bin/msgfmt	-o $outputfile $realPath", $results, $return);
+			exec("/usr/bin/msgfmt	-o $outputfile $realPath", $results, $return);
 			$this->assertTrue($return === 0);
 		}
 		dirname(__FILE__) . '/../../../../../i18n/tubepress.mo';

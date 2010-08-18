@@ -28,11 +28,10 @@ interface org_tubepress_video_feed_retrieval_FeedRetrievalService
     /**
      * Fetches the feed from the remote provider
      *
-     * @param org_tubepress_ioc_IocService $ioc      The IOC container.
      * @param string                       $url      The URL to fetch.
      * @param boolean                      $useCache Whether or not to use the network cache.
      *
      * @return unknown The raw feed from the provider
      */
-    public function fetch(org_tubepress_ioc_IocService $ioc, $url, $useCache);
+    public function fetch($url, $useCache);
 }

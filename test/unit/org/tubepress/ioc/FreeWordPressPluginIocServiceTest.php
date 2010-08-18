@@ -1,10 +1,11 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/ioc/impl/FreeWordPressPluginIocService.class.php';
+
+require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
 
 function get_option() { }
 function update_option() { }
 
-class org_tubepress_ioc_FreeWordPressPluginIocServiceTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_ioc_FreeWordPressPluginIocServiceTest extends TubePressUnitTest {
 
     private $_sut;
     private $_expectedMapping;

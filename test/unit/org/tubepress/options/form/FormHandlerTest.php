@@ -9,13 +9,13 @@ class org_tubepress_options_form_FormHandlerTest extends TubePressUnitTest {
 	
 	public function setup()
 	{
+		$this->initFakeIoc();
 		$this->_stpom = new org_tubepress_options_form_FormHandler();
-		$this->_stpom->setIocService($this->getIoc());
 	}
 	
 	public function testDisplay()
 	{
-        $this->_stpom->getHtml();
+        	$this->_stpom->getHtml();
 	}
 	
 	public function testCollect()

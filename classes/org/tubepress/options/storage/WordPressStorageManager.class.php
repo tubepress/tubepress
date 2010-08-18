@@ -25,7 +25,7 @@ tubepress_load_classes(array('org_tubepress_options_storage_AbstractStorageManag
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_message_WordPressMessageService',
     'org_tubepress_options_validation_InputValidationService',
-    'org_tubepress_gallery_TubePressGallery'));
+    'org_tubepress_gallery_Gallery'));
 
 /**
  * Implementation of org_tubepress_options_storage_StorageManager that uses the

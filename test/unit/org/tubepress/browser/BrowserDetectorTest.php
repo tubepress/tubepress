@@ -1,8 +1,8 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/browser/BrowserDetector.class.php';
+require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
 require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/browser/MobileEspBrowserDetector.class.php';
 
-class org_tubepress_browser_BrowserDetectorTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_browser_BrowserDetectorTest extends TubePressUnitTest {
 
     private $_sut;
     

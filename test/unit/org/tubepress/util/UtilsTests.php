@@ -1,5 +1,5 @@
 <?php
-require_once 'PHPUnit/Framework.php';
+require dirname(__FILE__) . '/../../../PhpUnitLoader.php';
 require_once 'StringUtilsTest.php';
 require_once 'FilesystemUtilsTest.php';
 require_once 'TimeUtilsTest.php';

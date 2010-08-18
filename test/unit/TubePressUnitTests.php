@@ -1,8 +1,8 @@
 <?php
-require_once '/Applications/MAMP/bin/php5/lib/php/PHPUnit/Framework.php';
+require 'PhpUnitLoader.php';
 require_once 'org/tubepress/cache/CacheTests.php';
 require_once 'org/tubepress/embedded/EmbeddedTests.php';
-require_once 'org/tubepress/gallery/TubePressGalleryTests.php';
+require_once 'org/tubepress/gallery/GalleryTests.php';
 require_once 'org/tubepress/log/LogTests.php';
 require_once 'org/tubepress/video/feed/inspection/InspectionTests.php';
 require_once 'org/tubepress/video/feed/retrieval/RetrievalTests.php';
@@ -28,7 +28,7 @@ class TubePressUnitTests
 		$suite = new PHPUnit_Framework_TestSuite("TubePress Unit Tests");
 		$suite->addTest(CacheTests::suite());
 		$suite->addTest(EmbeddedTests::suite());
-		$suite->addTest(TubePressGalleryTests::suite());
+		$suite->addTest(GalleryTests::suite());
 		$suite->addTest(LogTests::suite());
 		$suite->addTest(IocTests::suite());
 		$suite->addTest(MessageTests::suite());

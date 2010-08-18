@@ -1,29 +1,36 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/single/Video.class.php';
+require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/single/SimpleSingleVideo.class.php';
 
 class org_tubepress_single_VideoTest extends TubePressUnitTest
 {
+	private $_sut;
+
 	function setup()
 	{
+		$this->initFakeIoc();
+		$this->_sut = new org_tubepress_single_SimpleSingleVideo();
 	    org_tubepress_log_Log::setEnabled(false, array());
 	}
     
+	public function getMock($className)
+	{
+		$mock = parent::getMock($className);
+
+		switch ($className) {
+			case 'org_tubepress_video_feed_provider_Provider':
+				$mock->expects($this->any())
+					->method('getSingleVideo')
+					->will($this->returnValue(new org_tubepress_video_Video()));
+		}
+
+		return $mock;
+	}
+
 	function testGetHtml()
 	{
-	   $ioc = $this->getIoc();
-	   $urlBuilder = $ioc->get(org_tubepress_ioc_IocService::URL_BUILDER_YOUTUBE);
-       $urlBuilder->expects($this->once())
-                          ->method('buildSingleVideoUrl')
-                          ->will($this->returnValue('fakeurl'));
-
-       $factory = $ioc->get(org_tubepress_ioc_IocService::VIDEO_FACTORY_YOUTUBE);
-       $factory->expects($this->once())
-                               ->method('convertSingleVideo')
-                               ->will($this->returnValue($this->fakeVideos()));
-
-		$result = org_tubepress_single_Video::getSingleVideoHtml('someid', $ioc);
+		$result = $this->_sut->getSingleVideoHtml('someid');
 		
 		$this->assertEquals($this->expected(), $result);
 	}

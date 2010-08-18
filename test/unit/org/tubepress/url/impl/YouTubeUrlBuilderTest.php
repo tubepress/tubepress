@@ -13,6 +13,20 @@ class org_tubepress_url_impl_YouTubeUrlBuilderTest extends TubePressUnitTest {
 		$this->_sut = new org_tubepress_url_impl_YouTubeUrlBuilder();
 	}
 
+	public function getMock($className)
+	{
+		$mock = parent::getMock($className);
+
+		switch ($className) {
+			case 'org_tubepress_video_feed_provider_Provider':
+				$mock->expects($this->any())
+					->method('calculateProviderOfVideoId')
+					->will($this->returnValue(org_tubepress_video_feed_provider_Provider::YOUTUBE));
+		}
+
+		return $mock;
+	}
+
 	function testSingleVideoUrl()
 	{
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/videos/dfsdkjerufd?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg", 
@@ -22,7 +36,7 @@ class org_tubepress_url_impl_YouTubeUrlBuilderTest extends TubePressUnitTest {
 	function testBuildGalleryUrlUserMode()
 	{
 	    $this->setOptions(array(
-	       org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::USER
+	       org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::USER
 	    ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->buildGalleryUrl(1));
@@ -31,7 +45,7 @@ class org_tubepress_url_impl_YouTubeUrlBuilderTest extends TubePressUnitTest {
 	function testBuildGalleryUrlTopRated()
 	{
 	    $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::TOP_RATED
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::TOP_RATED
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/top_rated?time=today&" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->buildGalleryUrl(1));
@@ -40,7 +54,7 @@ class org_tubepress_url_impl_YouTubeUrlBuilderTest extends TubePressUnitTest {
 	function testBuildGalleryUrlPopular()
 	{
 	    $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::POPULAR
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::POPULAR
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_viewed?time=today&" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->buildGalleryUrl(1));
@@ -49,7 +63,7 @@ class org_tubepress_url_impl_YouTubeUrlBuilderTest extends TubePressUnitTest {
 	function testBuildGalleryUrlPlaylist()
 	{
 	    $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::PLAYLIST,
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::PLAYLIST,
            org_tubepress_options_category_Display::ORDER_BY => 'relevance'
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&safeSearch=moderate&format=5", 
@@ -59,7 +73,7 @@ class org_tubepress_url_impl_YouTubeUrlBuilderTest extends TubePressUnitTest {
 	function testBuildGalleryUrlMostResponded()
 	{
 	    $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::MOST_RESPONDED
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_RESPONDED
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_responded?" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->buildGalleryUrl(1));
@@ -68,7 +82,7 @@ class org_tubepress_url_impl_YouTubeUrlBuilderTest extends TubePressUnitTest {
 	function testBuildGalleryUrlMostRecent()
 	{
 	    $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::MOST_RECENT
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_RECENT
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_recent?" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->buildGalleryUrl(1));
@@ -77,7 +91,7 @@ class org_tubepress_url_impl_YouTubeUrlBuilderTest extends TubePressUnitTest {
 	function testBuildGalleryUrlMostLinked()
 	{
 	    $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::MOST_LINKED
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_LINKED
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_linked?" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->buildGalleryUrl(1));
@@ -86,7 +100,7 @@ class org_tubepress_url_impl_YouTubeUrlBuilderTest extends TubePressUnitTest {
 	function testBuildGalleryUrlMostDiscussed()
 	{
 	    $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::MOST_DISCUSSED
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_DISCUSSED
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_discussed?" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->buildGalleryUrl(1));
@@ -95,7 +109,7 @@ class org_tubepress_url_impl_YouTubeUrlBuilderTest extends TubePressUnitTest {
 	function testBuildGalleryUrlMobile()
 	{
 	    $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::MOBILE
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOBILE
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/watch_on_mobile?" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->buildGalleryUrl(1));
@@ -104,7 +118,7 @@ class org_tubepress_url_impl_YouTubeUrlBuilderTest extends TubePressUnitTest {
 	function testBuildGalleryUrlFavorites()
 	{
 	    $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::FAVORITES
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::FAVORITES
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/users/mrdeathgod/favorites?" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->buildGalleryUrl(1));
@@ -113,7 +127,7 @@ class org_tubepress_url_impl_YouTubeUrlBuilderTest extends TubePressUnitTest {
 	function testBuildGalleryUrlTag()
 	{
 	    $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::TAG
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::TAG
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/videos?q=stewart%2Bdaily%2Bshow&" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->buildGalleryUrl(1));
@@ -122,7 +136,7 @@ class org_tubepress_url_impl_YouTubeUrlBuilderTest extends TubePressUnitTest {
 	function testBuildGalleryUrlFeatured()
 	{
 	    $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_TubePressGallery::FEATURED
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::FEATURED
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/recently_featured?" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->buildGalleryUrl(1));

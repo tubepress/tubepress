@@ -20,26 +20,17 @@
  */
 
 /**
- * Converts raw video feeds to TubePress videos
+ * Handles requests for a single video (for embedding)
  */
-interface org_tubepress_video_factory_VideoFactory
+interface org_tubepress_single_SingleVideo
 {
     /**
-     * Converts raw video feeds to TubePress videos
+     * Get the HTML for a single video display.
      *
-     * @param unknown                      $feed  The raw feed result from the video provider
-     * @param int                          $limit The max number of videos to return
-     * 
-     * @return array an array of TubePress videos generated from the feed
-     */
-    public function feedToVideoArray($feed, $limit);
-
-    /**
-     * Converts a single raw video into a TubePress video
+     * @param string $videoId The ID of the video to display.
      *
-     * @param unknown                      $feed The raw feed result from the video provider
-     * 
-     * @return array an array of TubePress videos generated from the feed
+     * @return string The HTML for the single video display.
      */
-    public function convertSingleVideo($feed);
+    public function getSingleVideoHtml($videoId);
 }
+

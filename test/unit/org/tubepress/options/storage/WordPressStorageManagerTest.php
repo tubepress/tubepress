@@ -26,8 +26,8 @@ class org_tubepress_options_storage_WordPressStorageManagerTest extends TubePres
 	
 	function setUp()
 	{
+		$this->initFakeIoc();
 		$this->_sut = new org_tubepress_options_storage_WordPressStorageManager();
-		$this->_sut->setContainer($this->getIoc());
 	}
 	
 	function testInit()

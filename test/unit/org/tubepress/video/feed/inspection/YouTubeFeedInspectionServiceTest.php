@@ -1,8 +1,9 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/video/feed/inspection/impl/YouTubeFeedInspectionService.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../test/unit/TubePressUnitTest.php';
 
-class org_tubepress_video_feed_inspection_YouTubeFeedInspectionServiceTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_video_feed_inspection_YouTubeFeedInspectionServiceTest extends TubePressUnitTest {
     
 	private $_sut;
 	

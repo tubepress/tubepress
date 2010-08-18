@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes') || require dirname(__FILE__) . '/../..
 tubepress_load_classes(array('org_tubepress_video_feed_retrieval_FeedRetrievalService',
     'org_tubepress_cache_CacheService',
     'org_tubepress_log_Log',
-    'org_tubepress_ioc_IocService'));
+    'org_tubepress_ioc_IocContainer'));
 
 /**
  * Base functionality for feed retrieval services.
@@ -39,12 +39,13 @@ abstract class org_tubepress_video_feed_retrieval_AbstractFeedRetrievalService i
      *
      * @return unknown The raw feed from the provider
      */
-    public function fetch(org_tubepress_ioc_IocService $ioc, $url, $useCache)
+    public function fetch($url, $useCache)
     {
         global $tubepress_base_url;
 
         $logPrefix = $this->getLogPrefix();
-        $cache     = $ioc->get(org_tubepress_ioc_IocService::CACHE_SERVICE);
+        $ioc       = org_tubepress_ioc_IocContainer::getInstance();
+        $cache     = $ioc->get('org_tubepress_cache_CacheService');
         $testUrl   = "$tubepress_base_url/classes/org/tubepress/video/feed/retrieval/ConnectionTest.php";
 
         org_tubepress_log_Log::log($logPrefix, 'Connection test can be run at <tt><a href="%s">%s</a></tt>', $testUrl, $testUrl);

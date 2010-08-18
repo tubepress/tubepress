@@ -1,5 +1,5 @@
 <?php
-require_once '/Applications/MAMP/bin/php5/lib/php/PHPUnit/Framework.php';
+require dirname(__FILE__) . '/../../../PhpUnitLoader.php';
 require_once 'BrowserDetectorTest.php';
 
 class BrowserDetectorTests

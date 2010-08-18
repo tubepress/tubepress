@@ -1,8 +1,9 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/util/FilesystemUtils.class.php';
+require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
 
-class org_tubepress_util_FilesystemUtilsTest extends PHPUnit_Framework_TestCase
+class org_tubepress_util_FilesystemUtilsTest extends TubePressUnitTest
 {
 	function testLsDirs()
 	{

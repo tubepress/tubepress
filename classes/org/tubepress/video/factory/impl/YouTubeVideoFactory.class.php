@@ -70,10 +70,10 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory implements org_tubepr
      * 
      * @return array an array of TubePress videos generated from the feed
      */
-    public function feedToVideoArray(org_tubepress_ioc_IocService $ioc, $feed, $limit)
+    public function feedToVideoArray($feed, $limit)
     {
         $this->_xpath = $this->_createXPath($this->_createDomDocument($feed));
-        return $this->_buildVideos($limit, '/atom:feed/atom:entry', $ioc);
+        return $this->_buildVideos($limit, '/atom:feed/atom:entry');
     }
 
     /**
@@ -84,10 +84,10 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory implements org_tubepr
      * 
      * @return array an array of TubePress videos generated from the feed
      */
-    public function convertSingleVideo(org_tubepress_ioc_IocService $ioc, $feed)
+    public function convertSingleVideo($feed)
     {
         $this->_xpath = $this->_createXPath($this->_createDomDocument($feed));
-        return $this->_buildVideos(1, '/atom:entry', $ioc);
+        return $this->_buildVideos(1, '/atom:entry');
     }
 
     private function _createXPath(DOMDocument $doc)
@@ -123,15 +123,15 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory implements org_tubepr
         return $doc;
     }
 
-    private function _buildVideos($limit, $entryXpath, org_tubepress_ioc_IocService $ioc)
+    private function _buildVideos($limit, $entryXpath)
     {
-        $results = array();
-
         org_tubepress_log_Log::log($this->_logPrefix, 'Now parsing video(s). Limit is %d.', $limit);
-        $entries = $this->_xpath->query($entryXpath);
 
+        $results   = array();
+        $entries   = $this->_xpath->query($entryXpath);
         $index     = 0;
-        $tpom      = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $ioc       = org_tubepress_ioc_IocContainer::getInstance();
+        $tpom      = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $blacklist = $tpom->get(org_tubepress_options_category_Advanced::VIDEO_BLACKLIST);
 
         foreach ($entries as $entry) {
@@ -346,7 +346,7 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory implements org_tubepr
             return "N/A";
         }
         $rawTime = $publishedNode->item(0)->nodeValue;
-        $seconds = org_tubepress_util_TimeUtils::rfc3339toHumanTime($rawTime);
+        $seconds = org_tubepress_util_TimeUtils::rfc3339toUnixTime($rawTime);
 
         if ($tpom->get(org_tubepress_options_category_Display::RELATIVE_DATES)) {
             return org_tubepress_util_TimeUtils::getRelativeTime($seconds);

@@ -21,47 +21,26 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_ioc_IocService',
-    'org_tubepress_shortcode_ShortcodeParser',
+tubepress_load_classes(array('org_tubepress_shortcode_ShortcodeParser',
     'org_tubepress_options_category_Gallery',
     'org_tubepress_log_Log',
     'org_tubepress_player_Player',
     'org_tubepress_querystring_QueryStringService',
     'org_tubepress_video_feed_provider_Provider',
     'org_tubepress_options_Category',
-    'org_tubepress_embedded_DelegatingEmbeddedPlayerService',
     'org_tubepress_single_Video',
     'org_tubepress_gallery_GalleryTemplateUtils',
-    'org_tubepress_theme_Theme'));
+    'org_tubepress_theme_ThemeHandler',
+    'org_tubepress_gallery_Gallery',
+    'org_tubepress_ioc_IocContainer',
+    'org_tubepress_options_manager_OptionsManager'));
 
 /**
  * TubePress gallery. This class gets one or more videos from a provider and applies them to the template.
  */
-class org_tubepress_gallery_TubePressGallery
+class org_tubepress_gallery_SimpleGallery implements org_tubepress_gallery_Gallery
 {
     const LOG_PREFIX = 'Gallery';
-
-    const DIRECTORY        = 'directory';
-    const FAVORITES        = 'favorites';
-    const FEATURED         = 'recently_featured';
-    const MOBILE           = 'mobile';
-    const MOST_DISCUSSED   = 'most_discussed';
-    const MOST_LINKED      = 'most_linked';
-    const MOST_RECENT      = 'most_recent';
-    const MOST_RESPONDED   = 'most_responded';
-    const PLAYLIST         = 'playlist';
-    const POPULAR          = 'most_viewed';
-    const TAG              = 'tag';
-    const TOP_RATED        = 'top_rated';
-    const USER             = 'user';
-    const VIMEO_UPLOADEDBY = 'vimeoUploadedBy';
-    const VIMEO_LIKES      = 'vimeoLikes';
-    const VIMEO_APPEARS_IN = 'vimeoAppearsIn';
-    const VIMEO_SEARCH     = 'vimeoSearch';
-    const VIMEO_CREDITED   = 'vimeoCreditedTo';
-    const VIMEO_CHANNEL    = 'vimeoChannel';
-    const VIMEO_ALBUM      = 'vimeoAlbum';
-    const VIMEO_GROUP      = 'vimeoGroup';
 
     /**
      * Generates the HTML for TubePress. Could be a gallery or single video.
@@ -71,13 +50,16 @@ class org_tubepress_gallery_TubePressGallery
      *
      * @return The HTML for TubePress.
      */
-    public static function getHtml(org_tubepress_ioc_IocService $iocService, $shortCodeContent = '')
+    public function getHtml($shortCodeContent = '')
     {
-        $tpom = $iocService->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $ioc             = org_tubepress_ioc_IocContainer::getInstance();
+        $tpom            = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $shortcodeParser = $ioc->get('org_tubepress_shortcode_ShortcodeParser');
+        $qss             = $ioc->get('org_tubepress_querystring_QueryStringService');
 
         /* parse the shortcode if we need to */
         if ($shortCodeContent != '') {
-            org_tubepress_shortcode_ShortcodeParser::parse($shortCodeContent, $iocService);
+            $shortcodeParser->parse($shortCodeContent);
         }
 
         /* user wants to display a single video with meta info */
@@ -97,7 +79,7 @@ class org_tubepress_gallery_TubePressGallery
 
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'Solo player detected. Checking query string for video ID');
 
-            $videoId = org_tubepress_querystring_QueryStringService::getCustomVideo($_GET);
+            $videoId = $qss->getCustomVideo($_GET);
 
             if ($videoId != '') {
                 org_tubepress_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
@@ -108,7 +90,7 @@ class org_tubepress_gallery_TubePressGallery
         }
 
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'No video ID in shortcode, and <tt>%s</tt> player in use. Let\'s build a thumbnail gallery.', $playerName);
-        $galleryId = org_tubepress_querystring_QueryStringService::getGalleryId($_GET);
+        $galleryId = $qss->getGalleryId($_GET);
 
         if ($galleryId == '') {
             $galleryId = mt_rand();
@@ -116,7 +98,7 @@ class org_tubepress_gallery_TubePressGallery
 
         /* normal gallery */
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'Starting to build thumbnail gallery <tt>%s</tt>', $galleryId);
-        return self::_getThumbnailGallery($galleryId, $iocService);
+        return self::_getThumbnailGallery($galleryId, $ioc);
     }
 
     /**
@@ -148,11 +130,13 @@ class org_tubepress_gallery_TubePressGallery
     {
         /* first grab the videos */
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'Asking provider for videos');
-        $feedResult = org_tubepress_video_feed_provider_Provider::getFeedResult($ioc);
+        $provider = $ioc->get('org_tubepress_video_feed_provider_Provider');
+        $feedResult = $provider->getMultipleVideos();
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'Provider has delivered %d videos', sizeof($feedResult->getVideoArray()));
 
         /* prep template */
-        $template = org_tubepress_theme_Theme::getTemplateInstance($ioc, 'gallery.tpl.php');
+	$themeHandler = $ioc->get('org_tubepress_theme_ThemeHandler');
+        $template     = $themeHandler->getTemplateInstance('gallery.tpl.php');
         org_tubepress_gallery_GalleryTemplateUtils::prepTemplate($feedResult, $galleryId, $template, $ioc);
 
         /* we're done. tie up */

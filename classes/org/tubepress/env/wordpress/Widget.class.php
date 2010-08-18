@@ -91,7 +91,7 @@ class org_tubepress_env_wordpress_Widget
             $tpom->set(org_tubepress_options_category_Display::THEME, 'sidebar');
         }
 
-        $out = org_tubepress_gallery_TubePressGallery::getHtml($iocContainer);
+        $out = org_tubepress_gallery_Gallery::getHtml($iocContainer);
 
         /* do the standard WordPress widget dance */
         echo $before_widget . $before_title .

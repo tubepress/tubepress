@@ -1,5 +1,5 @@
 <?php
-require_once 'PHPUnit/Framework.php';
+require dirname(__FILE__) . '/../../../PhpUnitLoader.php';
 require_once 'SimpleThemeHandlerTest.php';
 
 class ThemeHandlerTests

@@ -68,6 +68,9 @@ interface org_tubepress_template_Template
     const WIDGET_CONTROL_TITLE =            'widgetControlTitle';
     const WIDGET_SHORTCODE =                'widgetShortcode';
     const WIDGET_TITLE =                    'widgetTitle';
+
+    /* DEPRECATED */
+    const PRE_GALLERY = self::PLAYER_HTML;
     
     public function toString();
     

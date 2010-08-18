@@ -29,7 +29,7 @@ tubepress_load_classes(array('org_tubepress_options_storage_WordPressStorageMana
     'org_tubepress_ioc_IocService',
     'org_tubepress_ioc_IocContainer',
     'org_tubepress_util_StringUtils',
-    'org_tubepress_gallery_TubePressGallery',
+    'org_tubepress_gallery_Gallery',
     'org_tubepress_html_HtmlUtils'));
 
 class org_tubepress_env_wordpress_Main
@@ -82,7 +82,7 @@ class org_tubepress_env_wordpress_Main
         while (org_tubepress_shortcode_ShortcodeParser::somethingToParse($content, $trigger)) {
 
             /* Get the HTML for this particular shortcode. Could be a single video or a gallery. */
-            $generatedHtml = org_tubepress_gallery_TubePressGallery::getHtml($iocContainer, $content);
+            $generatedHtml = org_tubepress_gallery_Gallery::getHtml($iocContainer, $content);
 
             /* remove any leading/trailing <p> tags from the content */
             $pattern = '/(<[P|p]>\s*)(' . preg_quote($tpom->getShortcode(), '/') . ')(\s*<\/[P|p]>)/';

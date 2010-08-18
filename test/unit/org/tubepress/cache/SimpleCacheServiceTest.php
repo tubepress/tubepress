@@ -1,7 +1,8 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/cache/SimpleCacheService.class.php';
+require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/cache/PearCacheLiteCacheService.class.php';
+require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
 
-class org_tubepress_cache_PearCacheLiteCacheServiceTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_cache_PearCacheLiteCacheServiceTest extends TubePressUnitTest {
 
 	private $_sut;
 

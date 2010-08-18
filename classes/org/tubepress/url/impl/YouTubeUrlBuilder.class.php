@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_url_UrlBuilder',
     'org_tubepress_options_category_Gallery',
-    'org_tubepress_gallery_TubePressGallery',
+    'org_tubepress_gallery_Gallery',
     'org_tubepress_options_manager_OptionsManager',
     'org_tubepress_options_category_Advanced',
     'org_tubepress_options_category_Display',
@@ -52,47 +52,47 @@ class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_url_UrlB
 
         switch ($tpom->get(org_tubepress_options_category_Gallery::MODE)) {
             
-        case org_tubepress_gallery_TubePressGallery::USER:
+        case org_tubepress_gallery_Gallery::USER:
             $url = 'users/' . $tpom->get(org_tubepress_options_category_Gallery::USER_VALUE) . '/uploads';
             break;
             
-        case org_tubepress_gallery_TubePressGallery::TOP_RATED:
+        case org_tubepress_gallery_Gallery::TOP_RATED:
             $url = 'standardfeeds/top_rated?time=' . $tpom->get(org_tubepress_options_category_Gallery::TOP_RATED_VALUE);
             break;
             
-        case org_tubepress_gallery_TubePressGallery::POPULAR:
+        case org_tubepress_gallery_Gallery::POPULAR:
             $url = 'standardfeeds/most_viewed?time=' . $tpom->get(org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE);
             break;
             
-        case org_tubepress_gallery_TubePressGallery::PLAYLIST:
+        case org_tubepress_gallery_Gallery::PLAYLIST:
             $url = 'playlists/' . $tpom->get(org_tubepress_options_category_Gallery::PLAYLIST_VALUE);
             break;
                 
-        case org_tubepress_gallery_TubePressGallery::MOST_RESPONDED:
+        case org_tubepress_gallery_Gallery::MOST_RESPONDED:
             $url = 'standardfeeds/most_responded';
             break;
               
-        case org_tubepress_gallery_TubePressGallery::MOST_RECENT:
+        case org_tubepress_gallery_Gallery::MOST_RECENT:
             $url = 'standardfeeds/most_recent';
             break;
                 
-        case org_tubepress_gallery_TubePressGallery::MOST_LINKED:
+        case org_tubepress_gallery_Gallery::MOST_LINKED:
             $url = 'standardfeeds/most_linked';
             break;
                 
-        case org_tubepress_gallery_TubePressGallery::MOST_DISCUSSED:
+        case org_tubepress_gallery_Gallery::MOST_DISCUSSED:
             $url = 'standardfeeds/most_discussed';
             break;
                 
-        case org_tubepress_gallery_TubePressGallery::MOBILE:
+        case org_tubepress_gallery_Gallery::MOBILE:
             $url = 'standardfeeds/watch_on_mobile';
             break;
                
-        case org_tubepress_gallery_TubePressGallery::FAVORITES:
+        case org_tubepress_gallery_Gallery::FAVORITES:
             $url = 'users/' . $tpom->get(org_tubepress_options_category_Gallery::FAVORITES_VALUE) . '/favorites';
             break;
                 
-        case org_tubepress_gallery_TubePressGallery::TAG:
+        case org_tubepress_gallery_Gallery::TAG:
             $tags = $tpom->get(org_tubepress_options_category_Gallery::TAG_VALUE);
             $tags = explode(' ', $tags);
             $url  = 'videos?q=' . implode('+', $tags);
@@ -112,10 +112,11 @@ class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_url_UrlB
     
     public function buildSingleVideoUrl($id)
     {
-	$ioc      = org_tubepress_ioc_IocContainer::getInstance();
-        $provider = org_tubepress_video_feed_provider_Provider::calculateProviderOfVideoId($id);
+	$ioc          = org_tubepress_ioc_IocContainer::getInstance();
+        $provider     = $ioc->get('org_tubepress_video_feed_provider_Provider');
+        $providerName = $provider->calculateProviderOfVideoId($id);
 
-        if ($provider !== org_tubepress_video_feed_provider_Provider::YOUTUBE) {
+        if ($providerName !== org_tubepress_video_feed_provider_Provider::YOUTUBE) {
             throw new Exception("Unable to build YouTube URL for video with ID $id");
         }
         
@@ -179,7 +180,7 @@ class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_url_UrlB
         }
         
         /* playlist specific stuff */
-        if ($mode == org_tubepress_gallery_TubePressGallery::PLAYLIST) {
+        if ($mode == org_tubepress_gallery_Gallery::PLAYLIST) {
             if (in_array($order, array('position', 'commentCount', 'duration', 'title'))) {
                 $url->setQueryVariable('orderby', $order);
             }

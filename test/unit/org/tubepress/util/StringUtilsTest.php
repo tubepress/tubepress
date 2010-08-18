@@ -1,8 +1,9 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/util/StringUtils.class.php';
+require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
 
-class org_tubepress_util_StringUtilsTest extends PHPUnit_Framework_TestCase
+class org_tubepress_util_StringUtilsTest extends TubePressUnitTest
 {
 	function testCanReplaceFirstOnlyFirstOccurence()
 	{

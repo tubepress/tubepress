@@ -1,8 +1,9 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/log/Log.class.php';
+require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
 
-class org_tubepress_log_LogImplTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_log_LogImplTest extends TubePressUnitTest {
 
     public function setup()
     {

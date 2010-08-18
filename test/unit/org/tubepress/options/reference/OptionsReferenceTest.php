@@ -2,8 +2,9 @@
 
 require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/options/reference/OptionsReference.class.php';
 require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/options/Category.class.php';
+require_once dirname(__FILE__) . '/../../../../../../test/unit/TubePressUnitTest.php';
 
-class org_tubepress_options_reference_OptionsReferenceTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnitTest {
     
     private $_options = array(
         org_tubepress_options_Type::COLOR => array(

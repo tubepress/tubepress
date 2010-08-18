@@ -21,14 +21,17 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_ioc_IocService',
-    'org_tubepress_theme_Theme',
-    'org_tubepress_options_reference_OptionsReference'));
+tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
+    'org_tubepress_theme_ThemeHandler',
+    'org_tubepress_options_reference_OptionsReference',
+    'org_tubepress_single_SingleVideo',
+    'org_tubepress_options_Category',
+    'org_tubepress_message_MessageService'));
 
 /**
  * Handles requests for a single video (for embedding)
  */
-class org_tubepress_single_Video
+class org_tubepress_single_SimpleSingleVideo implements org_tubepress_single_SingleVideo
 {
     const LOG_PREFIX = 'Single video';
     
@@ -39,8 +42,9 @@ class org_tubepress_single_Video
      *
      * @return string The HTML for the single video display.
      */
-    public static function getSingleVideoHtml($videoId, org_tubepress_ioc_IocService $ioc)
+    public function getSingleVideoHtml($videoId)
     {
+        $ioc = org_tubepress_ioc_IocContainer::getInstance();
         try {
             return self::_getSingleVideoHtml($videoId, $ioc);
         } catch (Exception $e) {
@@ -59,9 +63,10 @@ class org_tubepress_single_Video
     {
         /* grab the video from the provider */
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'Asking provider for video with ID %s', $videoId);
-        $video = org_tubepress_video_feed_provider_Provider::getSingleVideo($videoId, $ioc);
+        $provider = $ioc->get('org_tubepress_video_feed_provider_Provider');
+        $video = $provider->getSingleVideo($videoId);
 
-        $template = self::_prepTemplate($ioc, $video);
+        $template = self::_prepTemplate($ioc, $video, $provider);
 
         /* staples - that was easy */
         return $template->toString();
@@ -74,17 +79,17 @@ class org_tubepress_single_Video
      *
      * @return void
      */
-    private static function _prepTemplate(org_tubepress_ioc_IocService $ioc, $video)
+    private static function _prepTemplate(org_tubepress_ioc_IocService $ioc, $video, org_tubepress_video_feed_provider_Provider $provider)
     {
-        $template = org_tubepress_theme_Theme::getTemplateInstance($ioc, 'single_video.tpl.php');
-        
-        $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
-        $messageService = $ioc->get(org_tubepress_ioc_IocService::MESSAGE_SERVICE);
-        
-        $metaNames = org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_options_Category::META);
+        $themeHandler   = $ioc->get('org_tubepress_theme_ThemeHandler');
+        $template       = $themeHandler->getTemplateInstance('single_video.tpl.php');
+        $tpom           = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $messageService = $ioc->get('org_tubepress_message_MessageService');
+        $metaNames      = org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_options_Category::META);
+        $shouldShow     = array();
+        $labels         = array();
+        $eps            = $ioc->get('org_tubepress_embedded_EmbeddedPlayerService');
 
-        $shouldShow = array();
-        $labels     = array();
         foreach ($metaNames as $metaName) {
             $shouldShow[$metaName] = $tpom->get($metaName);
             $labels[$metaName]     = $messageService->_('video-' . $metaName);
@@ -93,19 +98,18 @@ class org_tubepress_single_Video
         $template->setVariable(org_tubepress_template_Template::META_LABELS, $labels);
 
         /* apply it to the template */
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_SOURCE, 
-            org_tubepress_embedded_DelegatingEmbeddedPlayerService::toString($ioc, $video->getId()));
+        $template->setVariable(org_tubepress_template_Template::EMBEDDED_SOURCE, $eps->toString($video->getId()));
         $template->setVariable(org_tubepress_template_Template::VIDEO, $video);
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
-        self::_prepUrlPrefixes($template, $tpom);
+        self::_prepUrlPrefixes($template, $tpom, $provider);
        
         return $template;
     }
 
-    private static function _prepUrlPrefixes($template, $tpom)
+    private static function _prepUrlPrefixes($template, $tpom, org_tubepress_video_feed_provider_Provider $provider)
     {
-        $provider = org_tubepress_video_feed_provider_Provider::calculateCurrentVideoProvider($tpom);
-        if ($provider === org_tubepress_video_feed_provider_Provider::YOUTUBE) {
+        $providerName = $provider->calculateCurrentVideoProvider($tpom);
+        if ($providerName === org_tubepress_video_feed_provider_Provider::YOUTUBE) {
             $template->setVariable(org_tubepress_template_Template::AUTHOR_URL_PREFIX, 'http://www.youtube.com/profile?user=');
             $template->setVariable(org_tubepress_template_Template::VIDEO_SEARCH_PREFIX, 'http://www.youtube.com/results?search_query=');
         } else {

@@ -1,5 +1,5 @@
 <?php
-require_once 'PHPUnit/Framework.php';
+require dirname(__FILE__) . '/../../../PhpUnitLoader.php';
 require_once 'impl/YouTubeUrlBuilderTest.php';
 require_once 'impl/VimeoUrlBuilderTest.php';
 

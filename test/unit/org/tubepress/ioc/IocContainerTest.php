@@ -1,5 +1,6 @@
 <?php
 require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/ioc/IocContainer.class.php';
+require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
 
 class FakeIocService implements org_tubepress_ioc_IocService
 {
@@ -9,18 +10,17 @@ class FakeIocService implements org_tubepress_ioc_IocService
     }            
 }
 
-class org_tubepress_ioc_IocContainerTest extends PHPUnit_Framework_TestCase {
+class org_tubepress_ioc_IocContainerTest extends TubePressUnitTest {
 
     function testDefaultContainer()
     {
         $result = org_tubepress_ioc_IocContainer::getInstance();
-        $this->assertNotNull($result);
-        $this->assertTrue(is_a($result, 'org_tubepress_ioc_impl_FreeWordPressPluginIocService'));
+        $correct = is_a($result, 'org_tubepress_ioc_IocService');
+        $this->assertTrue($correct);
     }
     
     function testCustomContainer()
     {
-        
         org_tubepress_ioc_IocContainer::setInstance(new FakeIocService());
         $result = org_tubepress_ioc_IocContainer::getInstance();
         $this->assertTrue(is_a($result, 'FakeIocService'));

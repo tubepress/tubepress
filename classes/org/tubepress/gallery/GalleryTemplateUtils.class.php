@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_ioc_IocService',
     'org_tubepress_options_category_Display',
-    'org_tubepress_theme_Theme',
+    'org_tubepress_theme_ThemeHandler',
     'org_tubepress_video_feed_FeedResult',
     'org_tubepress_template_Template',
     'org_tubepress_player_Player',
@@ -39,17 +39,18 @@ class org_tubepress_gallery_GalleryTemplateUtils
 {
     const LOG_PREFIX = 'Gallery Template Utils';
 
-    public static function prepTemplate(org_tubepress_video_feed_FeedResult $feedResult, $galleryId,
-        org_tubepress_template_Template $template, org_tubepress_ioc_IocService $ioc)
+    public static function prepTemplate(org_tubepress_video_feed_FeedResult $feedResult, $galleryId, org_tubepress_template_Template $template, org_tubepress_ioc_IocService $ioc)
     {
-        $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $tpom         = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $themeHandler = $ioc->get('org_tubepress_theme_ThemeHandler');
+        $provider     = $ioc->get('org_tubepress_video_feed_provider_Provider');
+        $playerName   = $tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
+        $videos       = $feedResult->getVideoArray();
 
-        $videos = $feedResult->getVideoArray();
         if (is_array($videos) && sizeof($videos) > 0) {
 
             $videos = self::_prependVideoIfNeeded($videos, $ioc);
             
-            $playerName = $tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'Applying HTML for <tt>%s</tt> player to the template', $playerName);
             $playerHtml = org_tubepress_player_Player::getHtml($ioc, $videos[0], $galleryId);
             $template->setVariable(org_tubepress_template_Template::PLAYER_HTML, $playerHtml);
@@ -66,18 +67,21 @@ class org_tubepress_gallery_GalleryTemplateUtils
             if ($tpom->get(org_tubepress_options_category_Display::PAGINATE_BELOW)) {
                 $template->setVariable(org_tubepress_template_Template::PAGINATION_BOTTOM, $pagination);
             }
-        }
+        } else {
+            $template->setVariable(org_tubepress_template_Template::PLAYER_HTML, '');
+            $template->setVariable(org_tubepress_template_Template::VIDEO_ARRAY, array());
+	}
 
-        $currentTheme = org_tubepress_theme_Theme::calculateCurrentThemeName($ioc);
+        $currentTheme = $themeHandler->calculateCurrentThemeName();
 
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_IMPL_NAME, self::_getEmbeddedServiceName($tpom));
+        $template->setVariable(org_tubepress_template_Template::EMBEDDED_IMPL_NAME, self::_getEmbeddedServiceName($tpom, $provider));
         $template->setVariable(org_tubepress_template_Template::GALLERY_ID, $galleryId);
         $template->setVariable(org_tubepress_template_Template::PLAYER_NAME, $playerName);
         $template->setVariable(org_tubepress_template_Template::THUMBNAIL_WIDTH, $tpom->get(org_tubepress_options_category_Display::THUMB_WIDTH));
         $template->setVariable(org_tubepress_template_Template::THUMBNAIL_HEIGHT, $tpom->get(org_tubepress_options_category_Display::THUMB_HEIGHT));
 
         self::_prepMetaInfo($template, $ioc);
-        self::_prepUrlPrefixes($tpom, $template);
+        self::_prepUrlPrefixes($tpom, $template, $provider);
     }
     
     public static function getThumbnailGenerationReminder($galleryHtml, org_tubepress_ioc_IocService $ioc)
@@ -87,7 +91,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
         }
         
         global $tubepress_base_url;
-        $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $tpom = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $baseInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
         
         $template = new org_tubepress_template_SimpleTemplate();
@@ -98,15 +102,16 @@ class org_tubepress_gallery_GalleryTemplateUtils
     
     public static function getThemeCss(org_tubepress_ioc_IocService $ioc)
     {
-        $currentTheme = org_tubepress_theme_Theme::calculateCurrentThemeName($ioc);
+        $themeHandler = $ioc->get('org_tubepress_theme_ThemeHandler');
+        $currentTheme = $themeHandler->calculateCurrentThemeName($ioc);
 
         if ($currentTheme !== 'default') {
             global $tubepress_base_url;
-            $cssPath = org_tubepress_theme_Theme::getCssPath($currentTheme);
+            $cssPath = $themeHandler->getCssPath($currentTheme);
             if (is_readable($cssPath) && strpos($cssPath, 'themes/default') === false) {
 
                 org_tubepress_log_Log::log(self::LOG_PREFIX, 'Theme CSS found at <tt>%s</tt>', $cssPath);
-                $cssRelativePath = org_tubepress_theme_Theme::getCssPath($currentTheme, true);
+                $cssRelativePath = $themeHandler->getCssPath($currentTheme, true);
                 $baseInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
                 
                 $cssUrl = "$tubepress_base_url/$cssRelativePath";
@@ -126,7 +131,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
 
     public static function getAjaxPagination(org_tubepress_ioc_IocService $ioc)
     {
-        $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $tpom = $ioc->get('org_tubepress_options_manager_OptionsManager');
         
         if ($tpom->get(org_tubepress_options_category_Display::AJAX_PAGINATION)) {
             org_tubepress_log_Log::log($this->_logPrefix, 'Using Ajax pagination');
@@ -140,9 +145,9 @@ class org_tubepress_gallery_GalleryTemplateUtils
         return '';
     }
 
-    private static function _prepUrlPrefixes(org_tubepress_options_manager_OptionsManager $tpom, org_tubepress_template_Template $template)
+    private static function _prepUrlPrefixes(org_tubepress_options_manager_OptionsManager $tpom, org_tubepress_template_Template $template, org_tubepress_video_feed_provider_Provider $provider)
     {
-        $provider = org_tubepress_video_feed_provider_Provider::calculateCurrentVideoProvider($tpom);
+        $provider = $provider->calculateCurrentVideoProvider($tpom);
         if ($provider === org_tubepress_video_feed_provider_Provider::YOUTUBE) {
             $template->setVariable(org_tubepress_template_Template::AUTHOR_URL_PREFIX, 'http://www.youtube.com/profile?user=');
             $template->setVariable(org_tubepress_template_Template::VIDEO_SEARCH_PREFIX, 'http://www.youtube.com/results?search_query=');
@@ -152,19 +157,19 @@ class org_tubepress_gallery_GalleryTemplateUtils
         }
     }
 
-    private static function _getEmbeddedServiceName(org_tubepress_options_manager_OptionsManager $tpom)
+    private static function _getEmbeddedServiceName(org_tubepress_options_manager_OptionsManager $tpom, org_tubepress_video_feed_provider_Provider $provider)
     {
         $stored = $tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL);
         if ($stored === org_tubepress_embedded_EmbeddedPlayerService::LONGTAIL) {
             return $stored;
         }
-        return org_tubepress_video_feed_provider_Provider::calculateCurrentVideoProvider($tpom);
+        return $provider->calculateCurrentVideoProvider($tpom);
     }
 
     private static function _prepMetaInfo(org_tubepress_template_Template $template, org_tubepress_ioc_IocService $ioc)
     {
-        $tpom           = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
-        $messageService = $ioc->get(org_tubepress_ioc_IocService::MESSAGE_SERVICE);
+        $tpom           = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $messageService = $ioc->get('org_tubepress_message_MessageService');
 
         $metaNames  = org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_options_Category::META);
         $shouldShow = array();

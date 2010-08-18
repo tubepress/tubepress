@@ -1,5 +1,5 @@
 <?php
-require_once '/Applications/MAMP/bin/php5/lib/php/PHPUnit/Framework.php';
+require dirname(__FILE__) . '/../../../PhpUnitLoader.php';
 require_once 'category/AdvancedTest.php';
 require_once 'category/DisplayTest.php';
 require_once 'category/EmbeddedTest.php';
@@ -26,7 +26,7 @@ class OptionsTests
 		$suite->addTestSuite('org_tubepress_options_category_MetaTest');
 		$suite->addTestSuite('org_tubepress_options_category_WidgetTest');
 		$suite->addTestSuite('org_tubepress_options_category_FeedTest');
-        $suite->addTestSuite('org_tubepress_options_category_UploadsTest');
+        	$suite->addTestSuite('org_tubepress_options_category_UploadsTest');
 		$suite->addTestSuite('org_tubepress_options_manager_SimpleOptionsManagerTest');
 		$suite->addTestSuite('org_tubepress_options_reference_OptionsReferenceTest');
 		$suite->addTestSuite('org_tubepress_options_storage_WordPressStorageManagerTest');
