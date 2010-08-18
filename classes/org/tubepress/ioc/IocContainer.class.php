@@ -43,7 +43,7 @@ class org_tubepress_ioc_IocContainer
             }
             //TODO: fix me
         } else {
-            self::$_instance = new org_tubepress_ioc_DefaultIocService();
+            self::$_instance = new org_tubepress_ioc_impl_FreeWordPressPluginIocService();
         }
         
         return self::$_instance;
