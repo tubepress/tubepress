@@ -15,7 +15,8 @@ tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
     'org_tubepress_cache_CacheService',
     'org_tubepress_pagination_PaginationService',
     'org_tubepress_template_SimpleTemplate',
-    'org_tubepress_ioc_IocContainer'));
+    'org_tubepress_ioc_IocContainer',
+    'org_tubepress_theme_ThemeHandler'));
 
 abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
 {
@@ -39,6 +40,9 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
                 $mock->expects($this->any())
                    ->method('get')
                    ->will($this->returnCallback(array($this, 'optionsCallback')));
+		$mock->expects($this->any())
+		   ->method('setCustomOptions')
+		   ->will($this->returnCallback(array($this, 'setOptions')));
                 break;
             case 'org_tubepress_message_MessageService':
             case 'org_tubepress_options_storage_StorageManager':
@@ -46,7 +50,7 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
                    ->method('_')
                    ->will($this->returnCallback(array($this, 'echoCallback')));
                 break;
-            case 'org_tubepress_theme_Theme':
+            case 'org_tubepress_theme_ThemeHandler':
                 $mock->expects($this->any())
                      ->method('getTemplateInstance')
                      ->will($this->returnCallback(array($this, 'templateCallback')));
@@ -64,7 +68,7 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
         return $template;
     }
     
-    protected function setOptions($options)
+    public function setOptions($options)
     {
         $this->options = array();
         foreach ($options as $key => $value) {
@@ -77,7 +81,7 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
         $args = func_get_args();
         return $args[0];
     }
-    
+
     public function optionsCallback() {
         $args = func_get_args();
         
