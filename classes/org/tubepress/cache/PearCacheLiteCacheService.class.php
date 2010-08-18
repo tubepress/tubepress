@@ -29,7 +29,7 @@ tubepress_load_classes(array('org_tubepress_cache_CacheService',
 /**
  * General purpose cache for TubePress
  */
-class org_tubepress_cache_SimpleCacheService implements org_tubepress_cache_CacheService
+class org_tubepress_cache_PearCacheLiteCacheService implements org_tubepress_cache_CacheService
 {
     private $_cache;
     private $_cachePath;
