@@ -121,7 +121,7 @@ class org_tubepress_uploads_admin_AdminPageHandler
 	private static function _init()
 	{
 	    self::$_ioc = org_tubepress_ioc_IocDelegateUtils::getIocContainerInstance();
-        $tpom = self::$_ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $tpom = self::$_ioc->get('org_tubepress_options_manager_OptionsManager');
         org_tubepress_log_Log::setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON), $_GET);
         
         self::$_tubepressBaseInstallDir = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();

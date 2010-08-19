@@ -96,7 +96,7 @@ class org_tubepress_uploads_admin_SecurityHandler
     private static function _credentialsValid()
     {
         $ioc     = org_tubepress_ioc_IocDelegateUtils::getIocContainerInstance();
-        $tpom    = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $tpom    = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $pass    = $tpom->get(org_tubepress_options_category_Uploads::ADMIN_PAGE_PASSWORD);
         $correct = $pass === $_POST[self::PASSWORD_PARAM_NAME];
         if (!$correct) {
@@ -124,7 +124,7 @@ class org_tubepress_uploads_admin_SecurityHandler
     private static function _passwordSet()
     {
         $ioc  = org_tubepress_ioc_IocDelegateUtils::getIocContainerInstance();
-        $tpom = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $tpom = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $pass = $tpom->get(org_tubepress_options_category_Uploads::ADMIN_PAGE_PASSWORD);
         return $pass !== '';
     }
