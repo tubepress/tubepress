@@ -152,18 +152,7 @@ class org_tubepress_video_factory_impl_LocalVideoFactory implements org_tubepres
     {
         global $tubepress_base_url;
 
-        $thumbname = basename(substr($filename, 0, strlen($filename) - 4));
-        $thumbname = preg_replace('/[^a-zA-Z0-9]/', '', $thumbname);
-        $tpom      = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
-        
-        $height = $tpom->get(org_tubepress_options_category_Display::THUMB_HEIGHT);
-        $width  = $tpom->get(org_tubepress_options_category_Display::THUMB_WIDTH);
-
-        $thumbname = $thumbname . "_thumb_$height" . 'x' . $width . '_';
-
-        org_tubepress_log_Log::log($this->_logPrefix, 'Thumbnail names will look something like <tt>%s</tt>', $thumbname);
-        
-        $thumbs = $this->_getExistingThumbs("$baseDir/$galleryDir/generated_thumbnails/", $thumbname);
+        $thumbs = org_tubepress_uploads_UploadsUtils::getExistingThumbnails($filename, $galleryDir, $ioc, $this->_logPrefix);
 
         if (sizeof($thumbs) === 0) {
             org_tubepress_log_Log::log($this->_logPrefix, 'No potential thumbs for <tt>%s</tt>. Using filler thumbnail.', $filename);
@@ -178,24 +167,5 @@ class org_tubepress_video_factory_impl_LocalVideoFactory implements org_tubepres
         }
 
         return $prefix . $thumbs[0];
-    }
-
-    private function _getExistingThumbs($basePath, $postfix)
-    {
-        $toReturn = array();
-
-        org_tubepress_log_Log::log($this->_logPrefix, 'Looking for existing thumbnails at <tt>%s</tt>', $basePath);
-        
-        $files = org_tubepress_util_FilesystemUtils::getFilenamesInDirectory($basePath,
-            $this->_logPrefix);
-
-        foreach ($files as $file) {
-            if (strpos($file, $postfix) !== false) {
-                org_tubepress_log_Log::log($this->_logPrefix, 'Found a thumbnail we can use at <tt>%s</tt>', realpath($file));
-                array_push($toReturn, basename($file));
-            }
-        }
-
-        return $toReturn;
     }
 }
