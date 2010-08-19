@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_options_storage_WordPressStorageManager',
     'org_tubepress_options_category_Advanced',
-    'org_tubepress_shortcode_ShortcodeParser',
+    'org_tubepress_shortcode_SimpleShortcodeParser',
     'org_tubepress_ioc_impl_FreeWordPressPluginIocService',
     'org_tubepress_ioc_ProInWordPressIocService',
     'org_tubepress_ioc_IocService',
@@ -47,13 +47,14 @@ class org_tubepress_env_wordpress_Main
             /* do as little work as possible here 'cause we might not even run */
             $wpsm    = new org_tubepress_options_storage_WordPressStorageManager();
             $trigger = $wpsm->get(org_tubepress_options_category_Advanced::KEYWORD);
+            $parser  = new org_tubepress_shortcode_SimpleShortcodeParser();
 
             /* no shortcode? get out */
-            if (!org_tubepress_shortcode_ShortcodeParser::somethingToParse($content, $trigger)) {
+            if (!$parser->somethingToParse($content, $trigger)) {
                 return $content;
             }
 
-            return self::_getHtml($content, $trigger);
+            return self::_getHtml($content, $trigger, $parser);
         } catch (Exception $e) {
             return $e->getMessage() . $content;
         }
@@ -67,7 +68,7 @@ class org_tubepress_env_wordpress_Main
      *
      * @return string The modified content.
      */
-    private static function _getHtml($content, $trigger)
+    private static function _getHtml($content, $trigger, $parser)
     {
         /* Whip up the IOC service */
         $iocContainer = org_tubepress_ioc_IocContainer::getInstance();
@@ -78,11 +79,14 @@ class org_tubepress_env_wordpress_Main
         /* Turn on logging if we need to */
         org_tubepress_log_Log::setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON), $_GET);
 
+        /* Grab the gallery that will do the heavy lifting */
+        $gallery = $iocContainer->get('org_tubepress_gallery_Gallery');
+
         /* Parse each shortcode one at a time */
-        while (org_tubepress_shortcode_ShortcodeParser::somethingToParse($content, $trigger)) {
+        while ($parser->somethingToParse($content, $trigger)) {
 
             /* Get the HTML for this particular shortcode. Could be a single video or a gallery. */
-            $generatedHtml = org_tubepress_gallery_Gallery::getHtml($iocContainer, $content);
+            $generatedHtml = $gallery->getHtml($content);
 
             /* remove any leading/trailing <p> tags from the content */
             $pattern = '/(<[P|p]>\s*)(' . preg_quote($tpom->getShortcode(), '/') . ')(\s*<\/[P|p]>)/';

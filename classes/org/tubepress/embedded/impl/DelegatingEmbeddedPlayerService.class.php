@@ -22,7 +22,8 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_video_feed_provider_Provider',
-    'org_tubepress_embedded_EmbeddedPlayerService'));
+    'org_tubepress_embedded_EmbeddedPlayerService',
+    'org_tubepress_ioc_IocDelegateUtils'));
 
 /**
  * An HTML-embeddable player
@@ -47,8 +48,7 @@ class org_tubepress_embedded_impl_DelegatingEmbeddedPlayerService implements org
      */
     public function toString($videoId)
     {
-        return org_tubepress_ioc_IocDelegateUtils::getDelegate($ioc,
-           self::$_providerToBeanNameMap,
+        return org_tubepress_ioc_IocDelegateUtils::getDelegate(self::$_providerToBeanNameMap,
            self::$_defaultDelegateBeanName)->toString($ioc, $videoId);
     }
 }

@@ -68,7 +68,9 @@ class org_tubepress_gallery_SimpleGallery implements org_tubepress_gallery_Galle
 
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
 
-            return org_tubepress_single_Video::getSingleVideoHtml($videoId, $iocService);
+            $singleVideoGenerator = $ioc->get('org_tubepress_single_SingleVideo');
+
+            return $singleVideoGenerator->getSingleVideoHtml($videoId);
         }
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'No video ID set in shortcode.');
 

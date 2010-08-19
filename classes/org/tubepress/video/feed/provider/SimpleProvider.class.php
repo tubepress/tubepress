@@ -125,12 +125,13 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'Fetching video with ID <tt>%s</tt>', $customVideoId);
 	$ioc = org_tubepress_ioc_IocContainer::getInstance();
 	$urlBuilder = $ioc->get('org_tubepress_url_UrlBuilder');
-        $videoUrl = $urlBuilder->buildSingleVideoUrl($ioc, $customVideoId);
+        $videoUrl = $urlBuilder->buildSingleVideoUrl($customVideoId);
+
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'URL to fetch is %s', $videoUrl);
 
         $feedRetrievalService = $ioc->get('org_tubepress_video_feed_retrieval_FeedRetrievalService');
         $tpom                 = $ioc->get('org_tubepress_options_manager_OptionsManager');
-        $results              = $feedRetrievalService->fetch($ioc, $videoUrl, $tpom->get(org_tubepress_options_category_Feed::CACHE_ENABLED));
+        $results              = $feedRetrievalService->fetch($videoUrl, $tpom->get(org_tubepress_options_category_Feed::CACHE_ENABLED));
         $factory              = $ioc->get('org_tubepress_video_factory_VideoFactory');
         $videoArray           = $factory->convertSingleVideo($results, 1);
 

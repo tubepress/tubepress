@@ -29,8 +29,9 @@ tubepress_load_classes(array('net_sourceforge_phpcrafty_ComponentFactory',
  */
 class org_tubepress_ioc_IocDelegateUtils
 {
-    public static function getDelegate(org_tubepress_ioc_IocService $ioc, $providerToBeanNameArray, $defaultDelegateBeanName)
+    public static function getDelegate($providerToBeanNameArray, $defaultDelegateBeanName)
     {
+        $ioc = org_tubepress_ioc_IocContainer::getInstance();
         $provider = self::getProvider($ioc);
         if (array_key_exists($provider, $providerToBeanNameArray)) {
             return $ioc->get($providerToBeanNameArray[$provider]);
@@ -43,6 +44,7 @@ class org_tubepress_ioc_IocDelegateUtils
     private static function getProvider(org_tubepress_ioc_IocService $ioc)
     {
         $tpom = $ioc->get('org_tubepress_options_manager_OptionsManager');
-        return org_tubepress_video_feed_provider_Provider::calculateCurrentVideoProvider($tpom);
+        $provider = $ioc->get('org_tubepress_video_feed_provider_Provider');
+        return $provider->calculateCurrentVideoProvider($tpom);
     }
 }

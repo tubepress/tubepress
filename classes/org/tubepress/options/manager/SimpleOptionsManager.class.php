@@ -58,7 +58,7 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
         if (array_key_exists($optionName, $this->_customOptions)) {
 		return $this->_customOptions[$optionName];
 	}
-	$this->_tpsm->get($optionName);
+	return $this->_tpsm->get($optionName);
     }
 
     /**
