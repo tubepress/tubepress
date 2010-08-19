@@ -21,11 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_options_storage_AbstractStorageManager',
-    'org_tubepress_options_reference_OptionsReference',
-    'org_tubepress_message_WordPressMessageService',
-    'org_tubepress_options_validation_InputValidationService',
-    'org_tubepress_gallery_Gallery'));
+tubepress_load_classes(array('org_tubepress_options_storage_AbstractStorageManager'));
 
 /**
  * Implementation of org_tubepress_options_storage_StorageManager that uses the
