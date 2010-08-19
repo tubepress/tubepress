@@ -79,7 +79,7 @@ class org_tubepress_video_factory_impl_VimeoVideoFactory implements org_tubepres
     {
         $results   = array();
         $index     = 0;
-        $tpom      = $ioc->get(org_tubepress_ioc_IocService::OPTIONS_MANAGER);
+        $tpom      = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $blacklist = $tpom->get(org_tubepress_options_category_Advanced::VIDEO_BLACKLIST);
 
         if (is_array($entries) && sizeof($entries) > 0) {
