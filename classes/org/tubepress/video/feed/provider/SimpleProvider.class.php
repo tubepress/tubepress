@@ -59,13 +59,13 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
 
             /* build the request URL */
             $urlBuilder = $ioc->get('org_tubepress_url_UrlBuilder');
-            $url = $urlBuilder->buildGalleryUrl($ioc, $currentPage);
+            $url = $urlBuilder->buildGalleryUrl($currentPage);
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'URL to fetch is <tt>%s</tt>', $url);
 
             /* make the request */
             $feedRetrievalService = $ioc->get('org_tubepress_video_feed_retrieval_FeedRetrievalService');
             $useCache             = $tpom->get(org_tubepress_options_category_Feed::CACHE_ENABLED);
-            $rawFeed              = $feedRetrievalService->fetch($ioc, $url, $useCache);
+            $rawFeed              = $feedRetrievalService->fetch($url, $useCache);
         }
 
         $feedInspectionService = $ioc->get('org_tubepress_video_feed_inspection_FeedInspectionService');
@@ -97,7 +97,7 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
 
         /* convert the XML to objects */
         $factory = $ioc->get('org_tubepress_video_factory_VideoFactory');
-        $videos = $factory->feedToVideoArray($ioc, $rawFeed, $effectiveDisplayCount);
+        $videos = $factory->feedToVideoArray($rawFeed, $effectiveDisplayCount);
 
         /* shuffle if we need to */
         if ($tpom->get(org_tubepress_options_category_Display::ORDER_BY) == 'random') {
