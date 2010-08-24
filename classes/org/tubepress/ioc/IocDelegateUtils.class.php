@@ -39,8 +39,6 @@ class org_tubepress_ioc_IocDelegateUtils
         return $ioc->get($defaultDelegateBeanName);
     }
     
-
-    
     private static function getProvider(org_tubepress_ioc_IocService $ioc)
     {
         $tpom = $ioc->get('org_tubepress_options_manager_OptionsManager');

@@ -49,6 +49,6 @@ class org_tubepress_embedded_impl_DelegatingEmbeddedPlayerService implements org
     public function toString($videoId)
     {
         return org_tubepress_ioc_IocDelegateUtils::getDelegate(self::$_providerToBeanNameMap,
-           self::$_defaultDelegateBeanName)->toString($ioc, $videoId);
+           self::$_defaultDelegateBeanName)->toString($videoId);
     }
 }
