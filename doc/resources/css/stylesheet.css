@@ -6,7 +6,7 @@ html {
 body {
   margin-left:   10%;
   margin-right:  10%;
-  font-family:   Arial, Sans-serif;
+  font-family:   Palatino Linotype, Book Antiqua, Palatino, serif;
 }
 
 div {
@@ -20,7 +20,7 @@ hr {
 
 h1,h2,h3,h4 {
   color:         #234623;
-  font-family:   Arial, Sans-serif;
+  font-family:   Palatino Linotype, Book Antiqua, Palatino, serif;
 }
 
 pre {
@@ -37,6 +37,10 @@ div.toc dt, div.toc dd, div.toc dl {
 div.toc span.chapter {
     margin-top: 0;
     margin-bottom: 0;	
+}
+
+div.chapter {
+	margin-top: 3em;
 }
 
 pre.programlisting {
@@ -77,10 +81,10 @@ div.table th {
 }
 
 li.listitem p {
-    margin-bottom: -.5em;   
+    margin: 3px 0 3px 0;
 }
 
-h1,h2,h3,h4 {
+h2,h3,h4 {
     margin-top: .5em;   
 }
 
@@ -98,7 +102,7 @@ div.caption p {
 }
 
 .legalnotice {
-    font-family: Verdana, Arial, helvetica, sans-serif;
+    font-family: Palatino Linotype, Book Antiqua, Palatino, serif;
     font-size: 12px;
     font-style: italic;
 }
@@ -106,7 +110,7 @@ div.caption p {
 p.releaseinfo {
     font-size: 100%;
     font-weight: bold;
-    font-family: Verdana, Arial, helvetica, sans-serif;
+    font-family: Palatino Linotype, Book Antiqua, Palatino, serif;
     padding-top: 10px;
 }
 
