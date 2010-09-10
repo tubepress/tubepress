@@ -1,8 +1,0 @@
-<mediaobject>
-    <imageobject role="fo">
-        <imagedata fileref="resources/images/youtube.png" format="PNG" align="center" />
-    </imageobject>
-    <imageobject role="html">
-        <imagedata fileref="resources/images/youtube.png" format="PNG" align="center" />
-    </imageobject>
-</mediaobject>
