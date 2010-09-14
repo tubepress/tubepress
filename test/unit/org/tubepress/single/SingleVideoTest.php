@@ -37,16 +37,15 @@ class org_tubepress_single_VideoTest extends TubePressUnitTest
 	
 	function expected()
 	{
-	    return <<<EOT
-
+	    return '
 <div class="tubepress_single_video">
-        <span class="tubepress_embedded_title"></span>
+        <div class="tubepress_embedded_title"></div>
     <dl class="tubepress_meta_group" style="width: 425px">
     <dt class="tubepress_meta tubepress_meta_runtime">video-length</dt><dd class="tubepress_meta tubepress_meta_runtime"></dd>
     <dt class="tubepress_meta tubepress_meta_views">video-views</dt><dd class="tubepress_meta tubepress_meta_views"></dd>
 </dl>
 </div>
-EOT;
+';
 	}
 }
 ?>

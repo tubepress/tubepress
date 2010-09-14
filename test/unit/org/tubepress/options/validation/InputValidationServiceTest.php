@@ -18,21 +18,6 @@ class org_tubepress_options_validation_InputValidationServiceTest extends TubePr
 		$this->_sut->validate(org_tubepress_options_category_Display::THUMB_HEIGHT, 90);	
 	}
 
-	public function testExecutableFfmpeg()
-	{
-		$candidate = tempnam("/tmp", "ffmpeg");
-		chmod($candidate, 0755);
-		$this->_sut->validate(org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION, $candidate);
-	}
-	
-	/**
-	 * @expectedException Exception
-	 */
-	public function testNonExecutableFfmpeg()
-	{
-		$candidate = tempnam("/tmp", "ffmpeg");
-		$this->_sut->validate(org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION, $candidate);
-	}
 	
 	public function testThumbWidthOk()
 	{
@@ -73,14 +58,6 @@ class org_tubepress_options_validation_InputValidationServiceTest extends TubePr
 	{
 		$this->_sut->validate('no such option', 51);
 	}
-	
-	/**
-	 * @expectedException Exception
-	 */
-	public function testDotsInLocalDirectory()
-	{
-		$this->_sut->validate(org_tubepress_options_category_Gallery::DIRECTORY_VALUE, 'sdfds/../sdfd');
-	}
 
 	/**
 	 * @expectedException Exception
@@ -101,14 +78,6 @@ class org_tubepress_options_validation_InputValidationServiceTest extends TubePr
 	public function testNonStringForStringOptions()
 	{
 		$this->_sut->validate(org_tubepress_options_category_Advanced::KEYWORD, array());
-	}
-
-	/**
-	 * @expectedException Exception
-	 */
-	public function testNoSuchLocalDirectory()
-	{
-		$this->_sut->validate(org_tubepress_options_category_Gallery::DIRECTORY_VALUE, 'sdfds');
 	}
 
 	/**

@@ -217,7 +217,7 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 		foreach ($files as $file) {
 			$realPath = dirname(__FILE__) . '/../../../../../i18n/' . $file;
 			$outputfile = str_replace(array('.pot', '.po'), '.mo', $realPath);
-			exec("/usr/bin/msgfmt	-o $outputfile $realPath", $results, $return);
+			exec("/opt/local/bin/msgfmt	-o $outputfile $realPath", $results, $return);
 			$this->assertTrue($return === 0);
 		}
 		dirname(__FILE__) . '/../../../../../i18n/tubepress.mo';

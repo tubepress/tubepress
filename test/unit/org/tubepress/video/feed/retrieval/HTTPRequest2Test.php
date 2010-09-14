@@ -16,7 +16,7 @@ class org_tubepress_video_feed_retrieval_HTTPRequest2Test extends TubePressUnitT
 	
 	function testFetchGoodXmlCacheDisabled()
 	{
-		$this->_sut->fetch("http://tubepress.org/goodxml.test", false);
+		$this->_sut->fetch("http://www.ietf.org/css/ietf.css", false);
 	}
 
 	/**

@@ -26,8 +26,7 @@ tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
     'org_tubepress_options_category_Gallery',   
     'org_tubepress_options_category_Uploads',
     'org_tubepress_options_reference_OptionsReference',
-    'org_tubepress_options_Type',
-    'org_tubepress_uploads_UploadsUtils'));
+    'org_tubepress_options_Type'));
 
 /**
  * Performs validation on option values
@@ -78,26 +77,6 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
         case org_tubepress_options_category_Display::THEME:
             if (strpos($candidate, '..') !== false) {
                 throw new Exception($messageService->_('validation-no-dots-in-path'));
-            }
-            break;
-
-        case org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION:
-            if ($candidate != '' && !is_executable($candidate)) {
-                throw new Exception(sprintf($messageService->_('validation-ffmpeg-not-executable'), $candidate));
-            }
-            break;
-
-        case org_tubepress_options_category_Gallery::DIRECTORY_VALUE:
-            if (strpos($candidate, '..') !== false) {
-                throw new Exception($messageService->_('validation-no-dots-in-path'));
-            }
-            $baseDir = org_tubepress_uploads_UploadsUtils::getBaseVideoDirectory();
-            $dir = $baseDir . '/' . $candidate;
-            if (!is_dir($dir)) {
-                throw new Exception(sprintf($messageService->_('validation-directory-not-directory'), $dir));
-            }
-            if (!is_readable($dir)) {
-                throw new Exception(sprintf($messageService->_('validation-directory-not-readable'), $dir));
             }
             break;
         }
