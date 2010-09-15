@@ -34,7 +34,7 @@ abstract class org_tubepress_message_impl_AbstractMessageService implements org_
         'options-page-title'       => 'TubePress Options',
         'options-page-save-button' => 'Save',
         'options-page-intro-text'  => 'Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="http://tubepress.org/documentation">documentation</a> for more info. An asterisk (*) next to an option indicates it\'s only available with <a href="http://tubepress.org/features">TubePress Pro</a>.',
-        'options-page-donation'    => 'TubePress is free. But if you enjoy the plugin, and appreciate the hundreds of hours I\'ve spent developing and supporting it, please consider a donation. No amount is too small. Thanks!',
+        'options-page-donation'    => 'If you appreciate the hundreds of hours I\'ve spent developing and supporting TubePress, please consider a donation. No amount is too small. Thanks!',
 
         'options-category-title-gallery'  => 'Which videos?',
         'options-category-title-display'  => 'Appearance',

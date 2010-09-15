@@ -36,7 +36,7 @@ msgstr "Salva"
 msgid "Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info. An asterisk (*) next to an option indicates it's only available with <a href=\"http://tubepress.org/features\">TubePress Pro</a>."
 msgstr "Impostazioni predefinite per il plugin. Ogni opzione qui presente potrà essere sovrascritta per articoli/pagine grazie agli shortcode di TubePress. Per maggiori informazioni, leggi la <a href=\"http://tubepress.org/documentation\">documentazione</a> in merito. La presenza di un asterisco (*) a lato di una opzione indica che la funzione é disponibile solamente per la versione <a href=\"http://tubepress.org/features\">TubePress Pro</a>."
 
-msgid "TubePress is free. But if you enjoy the plugin, and appreciate the hundreds of hours I've spent developing and supporting it, please consider a donation. No amount is too small. Thanks!"
+msgid "If you appreciate the hundreds of hours I've spent developing and supporting TubePress, please consider a donation. No amount is too small. Thanks!"
 msgstr "TubePress è gratuito. Qualora gradissi il plugin ed apprezzassi le centinaia di ore di lavoro che ho dedicato allo sviluppo ed al supporto di questo plugin, ti invito cordialmente ad effettuare una donazione. Nesuna cifra sarà considerata piccola. Grazie!"
 
 msgid "Which videos?"

@@ -297,7 +297,7 @@ msgstr ""
 msgid "Likes"
 msgstr ""
 
-msgid "TubePress is free. But if you enjoy the plugin, and appreciate the hundreds of hours I've spent developing and supporting it, please consider a donation. No amount is too small. Thanks!"
+msgid "If you appreciate the hundreds of hours I've spent developing and supporting TubePress, please consider a donation. No amount is too small. Thanks!"
 msgstr ""
 
 msgid "Provider Feed"
