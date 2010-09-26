@@ -13,7 +13,6 @@ $msgs = array(
         'options-category-title-embedded' => 'Embedded Player',
         'options-category-title-meta'     => 'Meta Display',
         'options-category-title-feed'     => 'Provider Feed',
-        'options-category-title-uploads'  => 'Uploads',
         'options-category-title-advanced' => 'Advanced',
 
         'options-title-top_rated'         => 'Top rated videos from...',
@@ -39,8 +38,6 @@ $msgs = array(
         'options-title-vimeoChannel'      => 'Videos in this Vimeo channel',
         'options-title-vimeoAlbum'        => 'Videos from this Vimeo album',
         'options-title-vimeoGroup'        => 'Videos from this Vimeo group',
-        'options-title-directory'         => 'Video from this directory',
-        'options-desc-directory'          => 'Enter the path, relative to <tt>%s</tt>, of a directory holding uploaded videos and related .yml files. TubePress will populate this gallery with any videos it finds here.',
 
         'options-title-playerLocation'   => 'Play each video',
         'options-title-descriptionLimit' => 'Maximum description length',
@@ -109,9 +106,6 @@ $msgs = array(
         'options-desc-keyword'               => 'The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.',
         'options-title-randomize_thumbnails' => 'Randomize thumbnails',
         'options-desc-randomize_thumbnails'  => 'Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature',
-
-        'options-title-ffmpegBinary' => 'FFmpeg binary location',
-        'options-desc-ffmpegBinary'  => 'To generate thumbnails for your locally uploaded videos, TubePress requires a modern version of <a href="http://www.ffmpeg.org/">FFmpeg</a>. Set this value to the absolute path of your server\'s FFmpeg installation.',
 
         'options-title-thumbsPerVideo' => 'Thumbs per video',
         'options-desc-thumbsPerVideo'  => 'How many thumbnails to generate for each video. TubePress can randomly display the thumbs each time someone visits the gallery. See the "Randomize thumbnails" option under the "Appearance" tab.',

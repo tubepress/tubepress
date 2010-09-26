@@ -33,10 +33,7 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
             org_tubepress_options_category_Gallery::VIMEO_CREDITED_VALUE   => 'patricklawler',
             org_tubepress_options_category_Gallery::VIMEO_CHANNEL_VALUE    => 'splitscreenstuff',
             org_tubepress_options_category_Gallery::VIMEO_GROUP_VALUE      => 'hdxs',
-            org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE      => '140484',
-            org_tubepress_options_category_Gallery::DIRECTORY_VALUE        => 'sample_videos',
-            org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION => '',
-            org_tubepress_options_category_Uploads::ADMIN_PAGE_PASSWORD    => ''
+            org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE      => '140484'
         ),
         org_tubepress_options_Type::BOOL => array(
             org_tubepress_options_category_Advanced::DEBUG_ON           => true,
@@ -77,8 +74,7 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
             org_tubepress_options_category_Display::THUMB_WIDTH         => 120,
             org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT    => 350,
             org_tubepress_options_category_Embedded::EMBEDDED_WIDTH     => 425,
-            org_tubepress_options_category_Feed::RESULT_COUNT_CAP       => 300,
-            org_tubepress_options_category_Uploads::THUMBS_PER_VIDEO    => 3,
+            org_tubepress_options_category_Feed::RESULT_COUNT_CAP       => 300
         ),
         org_tubepress_options_Type::TIME_FRAME => array(
             org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE   => 'today',
@@ -157,7 +153,7 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
     function testGetGalleryOptionNames()
     {
         $expectedNames = array(
-            'mode', 'video', 'directoryValue', 'favoritesValue', 'most_viewedValue', 'playlistValue',
+            'mode', 'video', 'favoritesValue', 'most_viewedValue', 'playlistValue',
             'tagValue', 'top_ratedValue', 'userValue', 'vimeoUploadedByValue','vimeoLikesValue',
             'vimeoAppearsInValue', 'vimeoSearchValue', 'vimeoCreditedToValue', 'vimeoChannelValue',
             'vimeoAlbumValue', 'vimeoGroupValue'
@@ -204,7 +200,7 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
     }
     function testGetOptionCategoryNames()
     {
-        $expected = array('gallery', 'display', 'embedded', 'meta', 'feed', 'uploads', 'advanced', 'widget');
+        $expected = array('gallery', 'display', 'embedded', 'meta', 'feed', 'advanced', 'widget');
         $this->assertTrue($expected == org_tubepress_options_reference_OptionsReference::getOptionCategoryNames());
     }
     function testGetCategory()
@@ -236,7 +232,7 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
     
     function testGalleryEnumValues()
     {
-        $expected = array('directory', 'favorites', 'playlist', 'tag', 'user', 'recently_featured', 'mobile', 'most_discussed',
+        $expected = array('favorites', 'playlist', 'tag', 'user', 'recently_featured', 'mobile', 'most_discussed',
                     'most_linked', 'most_recent', 'most_responded', 'most_viewed',
                     'top_rated', 'vimeoUploadedBy', 'vimeoLikes', 'vimeoAppearsIn', 'vimeoSearch', 'vimeoCreditedTo',
                     'vimeoChannel', 'vimeoAlbum', 'vimeoGroup');

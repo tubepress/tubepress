@@ -471,21 +471,6 @@ msgstr "Nota: questa opzione non può essere utilizzata con la funzione \"casual
 msgid "%s is not executable or does not exist."
 msgstr ""
 
-msgid "Uploads"
-msgstr ""
-
-msgid "FFmpeg binary location"
-msgstr ""
-
-msgid "To generate thumbnails for your locally uploaded videos, TubePress requires a modern version of <a href=\"http://www.ffmpeg.org/\">FFmpeg</a>. Set this value to the absolute path of your server's FFmpeg installation."
-msgstr ""
-
-msgid "Video from this directory"
-msgstr ""
-
-msgid "Enter the path, relative to <tt>%s</tt>, of a directory holding uploaded videos and related .yml files. TubePress will populate this gallery with any videos it finds here."
-msgstr ""
-
 msgid "Thumbs per video"
 msgstr ""
 

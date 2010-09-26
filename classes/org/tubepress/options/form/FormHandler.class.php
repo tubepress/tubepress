@@ -176,13 +176,7 @@ class org_tubepress_options_form_FormHandler
             $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_WIDGET] = $html;
             $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_YOUTUBE_OPTION] = org_tubepress_options_reference_OptionsReference::appliesToYouTube($modeName);
             $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_VIMEO_OPTION]   = org_tubepress_options_reference_OptionsReference::appliesToVimeo($modeName);
-            
-            if ($modeName == org_tubepress_gallery_Gallery::DIRECTORY) {
-                $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC]   = sprintf($messageService->_("options-desc-$modeName"),
-                    org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath() . '/content/uploads');
-            } else {
-                $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC]   = $messageService->_("options-desc-$modeName");
-            }
+            $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC]   = $messageService->_("options-desc-$modeName");
             
             $modesMetaArray[] = $modeMetaArray;
         }

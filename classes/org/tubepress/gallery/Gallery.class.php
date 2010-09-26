@@ -24,7 +24,6 @@
  */
 interface org_tubepress_gallery_Gallery
 {
-    const DIRECTORY        = 'directory';
     const FAVORITES        = 'favorites';
     const FEATURED         = 'recently_featured';
     const MOBILE           = 'mobile';

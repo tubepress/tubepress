@@ -29,7 +29,6 @@ class org_tubepress_options_category_Gallery
 
     const VIDEO = 'video';
 
-    const DIRECTORY_VALUE        = 'directoryValue';
     const FAVORITES_VALUE        = 'favoritesValue';
     const MOST_VIEWED_VALUE      = 'most_viewedValue';
     const PLAYLIST_VALUE         = 'playlistValue';

@@ -24,7 +24,6 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
     'org_tubepress_options_category_Display',
     'org_tubepress_options_category_Gallery',   
-    'org_tubepress_options_category_Uploads',
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_options_Type'));
 

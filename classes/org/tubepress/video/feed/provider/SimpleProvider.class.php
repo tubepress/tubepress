@@ -53,20 +53,15 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
         
         $provider = $this->calculateCurrentVideoProvider($tpom);
 
-        if ($provider === self::DIRECTORY) {
-            $rawFeed = $tpom->get(org_tubepress_options_category_Gallery::DIRECTORY_VALUE);
-        } else {
+        /* build the request URL */
+        $urlBuilder = $ioc->get('org_tubepress_url_UrlBuilder');
+        $url = $urlBuilder->buildGalleryUrl($currentPage);
+        org_tubepress_log_Log::log(self::LOG_PREFIX, 'URL to fetch is <tt>%s</tt>', $url);
 
-            /* build the request URL */
-            $urlBuilder = $ioc->get('org_tubepress_url_UrlBuilder');
-            $url = $urlBuilder->buildGalleryUrl($currentPage);
-            org_tubepress_log_Log::log(self::LOG_PREFIX, 'URL to fetch is <tt>%s</tt>', $url);
-
-            /* make the request */
-            $feedRetrievalService = $ioc->get('org_tubepress_video_feed_retrieval_FeedRetrievalService');
-            $useCache             = $tpom->get(org_tubepress_options_category_Feed::CACHE_ENABLED);
-            $rawFeed              = $feedRetrievalService->fetch($url, $useCache);
-        }
+        /* make the request */
+        $feedRetrievalService = $ioc->get('org_tubepress_video_feed_retrieval_FeedRetrievalService');
+        $useCache             = $tpom->get(org_tubepress_options_category_Feed::CACHE_ENABLED);
+        $rawFeed              = $feedRetrievalService->fetch($url, $useCache);
 
         $feedInspectionService = $ioc->get('org_tubepress_video_feed_inspection_FeedInspectionService');
 
