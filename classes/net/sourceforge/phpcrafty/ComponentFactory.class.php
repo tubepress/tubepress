@@ -82,7 +82,7 @@ class net_sourceforge_phpcrafty_ComponentFactory
   public function getComponentSpec($componentName)
   { 
       if (!isset($this->_specs[$componentName])) {
-          return NULL;
+          throw new Exception("Could not load $componentName");
       }
       return $this->_specs[$componentName];
   }

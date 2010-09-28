@@ -37,11 +37,18 @@ tubepress_load_classes(array('org_tubepress_ioc_impl_PhpCraftyIocService',
     'org_tubepress_shortcode_ShortcodeParser',                   'org_tubepress_shortcode_SimpleShortcodeParser',
     'org_tubepress_single_SingleVideo',                          'org_tubepress_single_SimpleSingleVideo',
     'org_tubepress_theme_ThemeHandler',                          'org_tubepress_theme_SimpleThemeHandler',
-    'org_tubepress_url_UrlBuilder',                              'org_tubepress_url_impl_YouTubeUrlBuilder',
-    'org_tubepress_video_factory_VideoFactory',                  'org_tubepress_video_factory_impl_YouTubeVideoFactory',
-    'org_tubepress_video_feed_inspection_FeedInspectionService', 'org_tubepress_video_feed_inspection_impl_YouTubeFeedInspectionService',
+    'org_tubepress_url_UrlBuilder',                              'org_tubepress_url_impl_DelegatingUrlBuilder',
+    'org_tubepress_video_factory_VideoFactory',                  'org_tubepress_video_factory_DelegatingVideoFactory',
+    'org_tubepress_video_feed_inspection_FeedInspectionService', 'org_tubepress_video_feed_inspection_DelegatingFeedInspectionService',
     'org_tubepress_video_feed_provider_Provider',                'org_tubepress_video_feed_provider_SimpleProvider',
-    'org_tubepress_video_feed_retrieval_FeedRetrievalService',   'org_tubepress_video_feed_retrieval_HTTPRequest2'
+    'org_tubepress_video_feed_retrieval_FeedRetrievalService',   'org_tubepress_video_feed_retrieval_HTTPRequest2',
+    'org_tubepress_embedded_impl_VimeoEmbeddedPlayerService',
+    'org_tubepress_url_impl_VimeoUrlBuilder',
+    'org_tubepress_video_feed_inspection_impl_VimeoFeedInspectionService',
+    'org_tubepress_video_feed_inspection_impl_YouTubeFeedInspectionService',
+    'org_tubepress_url_impl_YouTubeUrlBuilder',
+    'org_tubepress_video_factory_impl_YouTubeVideoFactory',
+    'org_tubepress_video_factory_impl_VimeoVideoFactory'
 
 ));
 
@@ -71,11 +78,19 @@ class org_tubepress_ioc_impl_FreeWordPressPluginIocService extends org_tubepress
             'org_tubepress_shortcode_ShortcodeParser'                   => 'org_tubepress_shortcode_SimpleShortcodeParser',
             'org_tubepress_single_SingleVideo'                          => 'org_tubepress_single_SimpleSingleVideo',
             'org_tubepress_theme_ThemeHandler'                          => 'org_tubepress_theme_SimpleThemeHandler',
-            'org_tubepress_url_UrlBuilder'                              => 'org_tubepress_url_impl_YouTubeUrlBuilder',
-            'org_tubepress_video_factory_VideoFactory'                  => 'org_tubepress_video_factory_impl_YouTubeVideoFactory',
-            'org_tubepress_video_feed_inspection_FeedInspectionService' => 'org_tubepress_video_feed_inspection_impl_YouTubeFeedInspectionService',
+            'org_tubepress_url_UrlBuilder'                              => 'org_tubepress_url_impl_DelegatingUrlBuilder',
+            'org_tubepress_video_factory_VideoFactory'                  => 'org_tubepress_video_factory_DelegatingVideoFactory',
+            'org_tubepress_video_feed_inspection_FeedInspectionService' => 'org_tubepress_video_feed_inspection_DelegatingFeedInspectionService',
             'org_tubepress_video_feed_provider_Provider'                => 'org_tubepress_video_feed_provider_SimpleProvider',
-            'org_tubepress_video_feed_retrieval_FeedRetrievalService'   => 'org_tubepress_video_feed_retrieval_HTTPRequest2'
+            'org_tubepress_video_feed_retrieval_FeedRetrievalService'   => 'org_tubepress_video_feed_retrieval_HTTPRequest2',
+        
+            'org_tubepress_embedded_impl_VimeoEmbeddedPlayerService'                => 'org_tubepress_embedded_impl_VimeoEmbeddedPlayerService',
+            'org_tubepress_url_impl_VimeoUrlBuilder'                                => 'org_tubepress_url_impl_VimeoUrlBuilder',
+            'org_tubepress_video_feed_inspection_impl_VimeoFeedInspectionService'   => 'org_tubepress_video_feed_inspection_impl_VimeoFeedInspectionService',
+            'org_tubepress_video_feed_inspection_impl_YouTubeFeedInspectionService' => 'org_tubepress_video_feed_inspection_impl_YouTubeFeedInspectionService',
+            'org_tubepress_url_impl_YouTubeUrlBuilder'                              => 'org_tubepress_url_impl_YouTubeUrlBuilder',
+            'org_tubepress_video_factory_impl_YouTubeVideoFactory'                  => 'org_tubepress_video_factory_impl_YouTubeVideoFactory',
+            'org_tubepress_video_factory_impl_VimeoVideoFactory'                    => 'org_tubepress_video_factory_impl_VimeoVideoFactory'
         );
         
         foreach ($implementationMap as $interface => $implementation) {

@@ -44,13 +44,12 @@ class org_tubepress_video_factory_impl_VimeoVideoFactory implements org_tubepres
     /**
      * Converts raw video feeds to TubePress videos
      *
-     * @param org_tubepress_ioc_IocService $ioc     The IOC container
      * @param unknown                      $rawFeed The raw feed result from the video provider
      * @param int                          $limit   The max number of videos to return
      * 
      * @return array an array of TubePress videos generated from the feed
      */
-    public function feedToVideoArray(org_tubepress_ioc_IocService $ioc, $rawFeed, $limit)
+    public function feedToVideoArray($rawFeed, $limit)
     {
         $feed = unserialize($rawFeed);
 
@@ -58,20 +57,21 @@ class org_tubepress_video_factory_impl_VimeoVideoFactory implements org_tubepres
 
         $entries = $feed->videos->video;
 
+        $ioc = org_tubepress_ioc_IocContainer::getInstance();
         return $this->_buildVideos($entries, $ioc);
     }
 
     /**
      * Converts a single raw video into a TubePress video
      *
-     * @param org_tubepress_ioc_IocService $ioc     The IOC container
      * @param unknown                      $rawFeed The raw feed result from the video provider
      * 
      * @return array an array of TubePress videos generated from the feed
      */
-    public function convertSingleVideo(org_tubepress_ioc_IocService $ioc, $rawFeed)
+    public function convertSingleVideo($rawFeed)
     {
         $feed = unserialize($rawFeed);
+        $ioc = org_tubepress_ioc_IocContainer::getInstance();
         return $this->_buildVideos($feed->video, $ioc);
     }
 
