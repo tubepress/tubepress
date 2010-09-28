@@ -62,9 +62,6 @@ msgstr "الحد هو ٢٠٠ لكل قائمة ‫-‬ انسخ الرقم في 
 msgid "Most-viewed videos from"
 msgstr "أكثر الفيديوهات مشاهدة من"
 
-msgid "Most-linked videos"
-msgstr "أكثر الفيديوهات ربطاً لها"
-
 msgid "Most-recently added videos"
 msgstr "أحدث الفيديوهات"
 
@@ -487,4 +484,7 @@ msgid "%s is not a directory"
 msgstr ""
 
 msgid "%s is not readable"
+msgstr ""
+
+msgid "Videos most frequently flagged as favorites"
 msgstr ""

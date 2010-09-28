@@ -50,9 +50,6 @@ msgstr "מוגבל ל -200 קטעי וידאו לכל רשימת השמעה. ב�
 msgid "Most-viewed videos from"
 msgstr "קטעי וידאו הנצפים ביותר מ"
 
-msgid "Most-linked videos"
-msgstr "קטעי וידאו עם הכי הרבה קישורים"
-
 msgid "Most-recently added videos"
 msgstr "קטעי וידאו שנוספו לאחרונה"
 
@@ -477,4 +474,7 @@ msgid "Theme"
 msgstr ""
 
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>."
+msgstr ""
+
+msgid "Videos most frequently flagged as favorites"
 msgstr ""

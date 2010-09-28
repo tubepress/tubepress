@@ -145,7 +145,7 @@ class org_tubepress_options_reference_OptionsReference
     
     private static $_youtubeOnly = array(
         'favorites', 'playlist', 'tag', 'user', 'recently_featured', 'mobile', 'most_discussed',
-        'most_linked', 'most_recent', 'most_responded', 'most_viewed', 'top_rated',
+        'most_recent', 'most_responded', 'most_viewed', 'youtubeTopFavorites', 'top_rated',
         org_tubepress_options_category_Embedded::GENIE,
         org_tubepress_options_category_Embedded::PLAYER_COLOR,
         org_tubepress_options_category_Embedded::SHOW_RELATED,
@@ -285,10 +285,10 @@ class org_tubepress_options_reference_OptionsReference
                     org_tubepress_gallery_Gallery::FEATURED,
                     org_tubepress_gallery_Gallery::MOBILE,
                     org_tubepress_gallery_Gallery::MOST_DISCUSSED,
-                    org_tubepress_gallery_Gallery::MOST_LINKED,
                     org_tubepress_gallery_Gallery::MOST_RECENT,
                     org_tubepress_gallery_Gallery::MOST_RESPONDED,
                     org_tubepress_gallery_Gallery::POPULAR,
+                    org_tubepress_gallery_Gallery::TOP_FAVORITES,
                     org_tubepress_gallery_Gallery::TOP_RATED, 
                     org_tubepress_gallery_Gallery::VIMEO_UPLOADEDBY,
                     org_tubepress_gallery_Gallery::VIMEO_LIKES,

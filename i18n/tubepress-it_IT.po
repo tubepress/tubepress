@@ -63,9 +63,6 @@ msgstr "Limite di 200 video per ogni playlist. Assomiglia ad una sequenza tipo q
 msgid "Most-viewed videos from"
 msgstr "i video più visti di"
 
-msgid "Most-linked videos"
-msgstr "i video più linkati"
-
 msgid "Most-recently added videos"
 msgstr "i video più recenti"
 
@@ -490,4 +487,7 @@ msgid "Theme"
 msgstr ""
 
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>."
+msgstr ""
+
+msgid "Videos most frequently flagged as favorites"
 msgstr ""

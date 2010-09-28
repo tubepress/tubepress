@@ -76,8 +76,8 @@ class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_url_UrlB
             $url = 'standardfeeds/most_recent';
             break;
                 
-        case org_tubepress_gallery_Gallery::MOST_LINKED:
-            $url = 'standardfeeds/most_linked';
+        case org_tubepress_gallery_Gallery::TOP_FAVORITES:
+            $url = 'standardfeeds/top_favorites';
             break;
                 
         case org_tubepress_gallery_Gallery::MOST_DISCUSSED:

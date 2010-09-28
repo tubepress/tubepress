@@ -45,9 +45,6 @@ msgstr "Begränsad till 200 videos per spellista. Denna ser vanligtvis ut ungef�
 msgid "Most-viewed videos from"
 msgstr "MesVideos med flest spelningar från"
 
-msgid "Most-linked videos"
-msgstr "Videos med flest länkningar"
-
 msgid "Most-recently added videos"
 msgstr "Senast tillagda videos"
 
@@ -472,4 +469,7 @@ msgid "Theme"
 msgstr ""
 
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>."
+msgstr ""
+
+msgid "Videos most frequently flagged as favorites"
 msgstr ""

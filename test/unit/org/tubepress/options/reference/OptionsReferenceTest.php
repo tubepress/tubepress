@@ -233,7 +233,7 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
     function testGalleryEnumValues()
     {
         $expected = array('favorites', 'playlist', 'tag', 'user', 'recently_featured', 'mobile', 'most_discussed',
-                    'most_linked', 'most_recent', 'most_responded', 'most_viewed',
+                    'most_recent', 'most_responded', 'most_viewed', 'youtubeTopFavorites',
                     'top_rated', 'vimeoUploadedBy', 'vimeoLikes', 'vimeoAppearsIn', 'vimeoSearch', 'vimeoCreditedTo',
                     'vimeoChannel', 'vimeoAlbum', 'vimeoGroup');
         $this->assertEquals($expected, org_tubepress_options_reference_OptionsReference::getValidEnumValues(org_tubepress_options_Type::MODE));

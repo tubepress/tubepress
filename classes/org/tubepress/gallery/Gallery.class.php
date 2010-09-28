@@ -28,12 +28,12 @@ interface org_tubepress_gallery_Gallery
     const FEATURED         = 'recently_featured';
     const MOBILE           = 'mobile';
     const MOST_DISCUSSED   = 'most_discussed';
-    const MOST_LINKED      = 'most_linked';
     const MOST_RECENT      = 'most_recent';
     const MOST_RESPONDED   = 'most_responded';
     const PLAYLIST         = 'playlist';
     const POPULAR          = 'most_viewed';
     const TAG              = 'tag';
+    const TOP_FAVORITES    = 'youtubeTopFavorites';
     const TOP_RATED        = 'top_rated';
     const USER             = 'user';
     const VIMEO_UPLOADEDBY = 'vimeoUploadedBy';

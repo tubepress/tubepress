@@ -62,9 +62,6 @@ msgstr "Limitado a 200 videos por lista de reproducción. Generalmente se asemej
 msgid "Most-viewed videos from"
 msgstr "Videos más vistos de"
 
-msgid "Most-linked videos"
-msgstr "Videos más vinculados"
-
 msgid "Most-recently added videos"
 msgstr "Videos más recientes"
 
@@ -486,4 +483,7 @@ msgid "Theme"
 msgstr ""
 
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>."
+msgstr ""
+
+msgid "Videos most frequently flagged as favorites"
 msgstr ""

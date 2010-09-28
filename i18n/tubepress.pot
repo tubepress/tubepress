@@ -62,7 +62,7 @@ msgstr ""
 msgid "Most-viewed videos from"
 msgstr ""
 
-msgid "Most-linked videos"
+msgid "Videos most frequently flagged as favorites"
 msgstr ""
 
 msgid "Most-recently added videos"

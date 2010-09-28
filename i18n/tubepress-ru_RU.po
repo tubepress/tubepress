@@ -50,9 +50,6 @@ msgstr "Ограничено 200 клипами для плейлиста. Ка�
 msgid "Most-viewed videos from"
 msgstr "Лидеры просмотров  (Самое просматриваемое видео)"
 
-msgid "Most-linked videos"
-msgstr "Самое цитируемое видео"
-
 msgid "Most-recently added videos"
 msgstr "Недавно добавленные видео"
 
@@ -474,4 +471,7 @@ msgid "Theme"
 msgstr ""
 
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>."
+msgstr ""
+
+msgid "Videos most frequently flagged as favorites"
 msgstr ""

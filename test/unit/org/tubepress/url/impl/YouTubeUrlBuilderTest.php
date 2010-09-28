@@ -88,12 +88,12 @@ class org_tubepress_url_impl_YouTubeUrlBuilderTest extends TubePressUnitTest {
 		    $this->_sut->buildGalleryUrl(1));
 	}
 
-	function testBuildGalleryUrlMostLinked()
+	function testBuildGalleryUrlTopFavorites()
 	{
 	    $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_LINKED
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::TOP_FAVORITES
         ));
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_linked?" . $this->_standardPostProcessingStuff(), 
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/top_favorites?" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->buildGalleryUrl(1));
 	}
 	
