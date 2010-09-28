@@ -476,5 +476,5 @@ msgstr ""
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>."
 msgstr ""
 
-msgid "Videos most frequently flagged as favorites"
+msgid "Videos most frequently flagged as favorites from..."
 msgstr ""

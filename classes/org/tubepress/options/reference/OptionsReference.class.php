@@ -112,7 +112,8 @@ class org_tubepress_options_reference_OptionsReference
         ),
         org_tubepress_options_Type::TIME_FRAME => array(
             org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE   => 'today',
-            org_tubepress_options_category_Gallery::TOP_RATED_VALUE     => 'today'
+            org_tubepress_options_category_Gallery::TOP_RATED_VALUE     => 'today',
+            org_tubepress_options_category_Gallery::TOP_FAVORITES_VALUE => 'today'
         ),
         org_tubepress_options_Type::ORDER => array(
             org_tubepress_options_category_Display::ORDER_BY            => 'viewCount',

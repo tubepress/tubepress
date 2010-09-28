@@ -78,7 +78,8 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
         ),
         org_tubepress_options_Type::TIME_FRAME => array(
             org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE   => 'today',
-            org_tubepress_options_category_Gallery::TOP_RATED_VALUE     => 'today'
+            org_tubepress_options_category_Gallery::TOP_RATED_VALUE     => 'today',
+            org_tubepress_options_category_Gallery::TOP_FAVORITES_VALUE => 'today'
         ),
         org_tubepress_options_Type::ORDER => array(
             org_tubepress_options_category_Display::ORDER_BY            => 'viewCount',
@@ -154,7 +155,7 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
     {
         $expectedNames = array(
             'mode', 'video', 'favoritesValue', 'most_viewedValue', 'playlistValue',
-            'tagValue', 'top_ratedValue', 'userValue', 'vimeoUploadedByValue','vimeoLikesValue',
+            'tagValue', 'youtubeTopFavoritesValue', 'top_ratedValue', 'userValue', 'vimeoUploadedByValue','vimeoLikesValue',
             'vimeoAppearsInValue', 'vimeoSearchValue', 'vimeoCreditedToValue', 'vimeoChannelValue',
             'vimeoAlbumValue', 'vimeoGroupValue'
         );

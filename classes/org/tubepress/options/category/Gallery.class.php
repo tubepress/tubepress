@@ -33,6 +33,7 @@ class org_tubepress_options_category_Gallery
     const MOST_VIEWED_VALUE      = 'most_viewedValue';
     const PLAYLIST_VALUE         = 'playlistValue';
     const TAG_VALUE              = 'tagValue';
+    const TOP_FAVORITES_VALUE    = 'youtubeTopFavoritesValue';
     const TOP_RATED_VALUE        = 'top_ratedValue';
     const USER_VALUE             = 'userValue';
     const VIMEO_UPLOADEDBY_VALUE = 'vimeoUploadedByValue';

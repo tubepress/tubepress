@@ -22,7 +22,7 @@ $msgs = array(
         'options-title-playlist'          => 'This playlist',
         'options-desc-playlist'           => 'Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser\'s address bar (while looking at a YouTube playlist). It comes right after the "p=". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35',
         'options-title-most_viewed'       => 'Most-viewed videos from',
-        'options-title-top_favorites'     => 'Videos most frequently flagged as favorites',
+        'options-title-youtubeTopFavorites'     => 'Videos most frequently flagged as favorites from...',
         'options-title-most_recent'       => 'Most-recently added videos',
         'options-title-most_discussed'    => 'Most-discussed videos',
         'options-title-most_responded'    => 'Most-responded to videos',

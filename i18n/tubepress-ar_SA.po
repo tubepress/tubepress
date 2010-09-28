@@ -486,5 +486,5 @@ msgstr ""
 msgid "%s is not readable"
 msgstr ""
 
-msgid "Videos most frequently flagged as favorites"
+msgid "Videos most frequently flagged as favorites from..."
 msgstr ""

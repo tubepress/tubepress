@@ -49,13 +49,12 @@ class org_tubepress_options_form_FormHandler
     {   
         global $tubepress_base_url;
 
-	$ioc            = org_tubepress_ioc_IocContainer::getInstance();
+	    $ioc            = org_tubepress_ioc_IocContainer::getInstance();
         $messageService = $ioc->get('org_tubepress_message_MessageService');
         $template       = new org_tubepress_template_SimpleTemplate();
-	$storageManager = $ioc->get('org_tubepress_options_storage_StorageManager');
+        $storageManager = $ioc->get('org_tubepress_options_storage_StorageManager');
 
         $template->setPath(dirname(__FILE__) . '/../../../../../ui/lib/options_page/html_templates/options_page.tpl.php');
-        
         
         /* set the surrounding text */
         $template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_TITLE, $messageService->_('options-page-title'));
