@@ -30,6 +30,8 @@ interface org_tubepress_template_Template
     const EMBEDDED_FULLSCREEN =             'embeddedFullscreen';
     const EMBEDDED_HEIGHT =                 'embeddedHeight';
     const EMBEDDED_IMPL_NAME =              'embeddedImplementationName';
+    const EMBEDDED_COLOR_PRIMARY =          'embeddedColorPrimary';
+    const EMBEDDED_COLOR_HIGHLIGHT =        'embeddedColorHightlight';
     const EMBEDDED_SOURCE =                 'embeddedSource';
     const EMBEDDED_WIDTH =                  'embeddedWidth';
     const GALLERY_ID =                      'galleryId';
