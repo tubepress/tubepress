@@ -82,7 +82,11 @@ class net_sourceforge_phpcrafty_ComponentFactory
   public function getComponentSpec($componentName)
   { 
       if (!isset($this->_specs[$componentName])) {
-          throw new Exception("Could not load $componentName");
+	if (class_exists($componentName)) {
+          $this->setComponentSpec($componentName, $this->newComponentSpec($componentName, array(), array(), true));
+	} else {
+		throw new Exception("Could not load $componentName");
+	}
       }
       return $this->_specs[$componentName];
   }
