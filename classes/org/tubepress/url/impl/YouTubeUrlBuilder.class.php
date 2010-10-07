@@ -94,8 +94,9 @@ class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_url_UrlB
                 
         case org_tubepress_gallery_Gallery::TAG:
             $tags = $tpom->get(org_tubepress_options_category_Gallery::TAG_VALUE);
-            $tags = explode(' ', $tags);
-            $url  = 'videos?q=' . implode('+', $tags);
+            $tags = str_replace(' ', '+', self::_replaceQuotes($tags));
+            $tags = rawurlencode($tags);
+            $url  = "videos?q=$tags";
             break;
                                 
         default:
@@ -107,6 +108,11 @@ class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_url_UrlB
         $this->_commonUrlPostProcessing($tpom, $request);
         $this->_galleryUrlPostProcessing($tpom, $request, $currentPage);
         return $request->getURL();
+    }
+    
+    private static function _replaceQuotes($text)
+    {
+        return str_replace(array('&#8216', '&#8217', '&#8242;', '&#34', '&#8220;', '&#8221;', '&#8243;'), '"', $text);
     }
     
     public function buildSingleVideoUrl($id)

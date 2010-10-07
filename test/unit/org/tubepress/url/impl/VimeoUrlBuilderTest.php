@@ -85,11 +85,11 @@ class org_tubepress_url_impl_VimeoUrlBuilderTest extends TubePressUnitTest {
 	{
         $this->setOptions(array(
            org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::VIMEO_SEARCH,
-           org_tubepress_options_category_Gallery::VIMEO_SEARCH_VALUE => 'eric',
+           org_tubepress_options_category_Gallery::VIMEO_SEARCH_VALUE => 'eric hough',
            org_tubepress_options_category_Display::ORDER_BY => 'relevance'
         ));
         
-		$this->assertTrue($this->urlMatches('method=vimeo.videos.search&query=eric&full_response=true&page=1&per_page=20&sort=relevant', 
+		$this->assertTrue($this->urlMatches('method=vimeo.videos.search&query=eric\+hough&full_response=true&page=1&per_page=20&sort=relevant', 
 		    $this->_sut->buildGalleryUrl(1)));
 	}
 	
