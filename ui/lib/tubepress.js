@@ -129,15 +129,24 @@ TubePress = (function () {
 	*/
 	swapEmbedded = function (galleryId, videoId, embeddedName) {
 		var wrapperId = "#tubepress_embedded_object_" + galleryId,
-			wrapper = jQuery(wrapperId), newHtml;
+			wrapper = jQuery(wrapperId), newHtml, oldHtml, oldId;
 
 		/* if we can't find the embedded object, just bail */
 		if (wrapper.length === 0) {
 			return;
 		}
 
-		var matcher 	= window["tubepress_" + embeddedName + "_matcher"](),
-			paramName 	= window["tubepress_" + embeddedName + "_param"](),
+		/* Vimeo is special. */
+		if (embeddedName === 'vimeo') {
+			oldHtml = wrapper.html();
+			wrapper.empty();
+			oldId = oldHtml.match(/\/video\/([0-9]+).*/)[1];
+			wrapper.html(oldHtml.replace(oldId, videoId));
+			return;
+		}
+		
+		var matcher     = window["tubepress_" + embeddedName + "_matcher"](),
+		    paramName 	= window["tubepress_" + embeddedName + "_param"](),
 			obj 		= jQuery(wrapperId + " > object"),
 			oldVideoId 	= obj.children("param[name='" + paramName + "']").attr("value").match(matcher)[1];
 

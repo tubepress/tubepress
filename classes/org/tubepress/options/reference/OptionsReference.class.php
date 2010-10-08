@@ -148,7 +148,7 @@ class org_tubepress_options_reference_OptionsReference
         'favorites', 'playlist', 'tag', 'user', 'recently_featured', 'mobile', 'most_discussed',
         'most_recent', 'most_responded', 'most_viewed', 'youtubeTopFavorites', 'top_rated',
         org_tubepress_options_category_Embedded::GENIE,
-        org_tubepress_options_category_Embedded::PLAYER_COLOR,
+        org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT,
         org_tubepress_options_category_Embedded::SHOW_RELATED,
         org_tubepress_options_category_Embedded::BORDER,
         org_tubepress_options_category_Meta::RATING,
@@ -157,9 +157,9 @@ class org_tubepress_options_reference_OptionsReference
         org_tubepress_options_category_Feed::FILTER,
         org_tubepress_options_category_Display::RANDOM_THUMBS,
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY,
-        org_tubepress_options_category_Embedded::LOOP,
         org_tubepress_options_category_Embedded::HIGH_QUALITY,
-        org_tubepress_options_category_Embedded::PLAYER_IMPL
+        org_tubepress_options_category_Embedded::PLAYER_IMPL,
+        org_tubepress_options_category_Embedded::FULLSCREEN
     );
 
     static function appliesToYouTube($optionName)
