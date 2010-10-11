@@ -26,6 +26,7 @@ function tubepress_static_player_initt() {
 		newUrl		= jQuery.query.set('tubepress_video', newId).set('tubepress_page', page).toString();
 
 		dis.attr('href', newUrl);
+		dis.unbind('click');
 	});
 }
 

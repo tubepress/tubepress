@@ -214,14 +214,14 @@ TubePressEmbedded = (function () {
 		if (dealingWithVimeo(galleryId)) {
 			return parseInt(vimeoIframe(galleryId).attr('width'), 10);
 		}
-		return objCss('width');
+		return objCss(galleryId, 'width');
 	};
 	
 	getHeightOfCurrentEmbed = function (galleryId) {
 		if (dealingWithVimeo(galleryId)) {
 			return parseInt(vimeoIframe(galleryId).attr('height'), 10);
 		}
-		return objCss('height');
+		return objCss(galleryId, 'height');
 	};
 	
 	objCss = function (galleryId, attribute) {
