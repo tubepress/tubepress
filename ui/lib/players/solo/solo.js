@@ -6,32 +6,35 @@
  *
  * Shrink your JS: http://developer.yahoo.com/yui/compressor/
  */
-function tubepress_solo_player_init(baseUrl) {
-	TubePressJS.getWaitCall(baseUrl + '/ui/lib/players/solo/lib/jQuery.query.js',
-			_tubepress_solo_player_readyTest,
-			_tubepress_solo_player_init);
-		jQuery(document).bind('tubepressNewThumbnailsLoaded', function (x) {
-			_tubepress_solo_player_init();
-		});
+function tubepress_solo_player_readyTest() {
+	return typeof jQuery.query !== 'undefined';
 }
 
-function _tubepress_solo_player_readyTest() {
-	return typeof jQuery.query != 'undefined';
-}
-
-function _tubepress_solo_player_init() {
-	jQuery("a[id^='tubepress_']").each(function() {
-		var dis 	= jQuery(this),
-		    rel_split 	= dis.attr('rel').split('_');
+function tubepress_solo_player_initt() {
+	jQuery("a[id^='tubepress_']").each(function () {
 		
-		if (TubePress.getPlayerNameFromRelSplit(rel_split) != 'solo') {
+		var dis = jQuery(this), rel_split = dis.attr('rel').split('_'),
+			newId, page, newUrl, galleryId;
+		
+		if (TubePressAnchors.getPlayerNameFromRelSplit(rel_split) !== 'solo') {
 			return;
 		}
-		var newId 	= TubePress.getVideoIdFromIdAttr(dis.attr("id")),
-			page	= jQuery(dis).parents("div.tubepress_thumbnail_area:first > div.pagination:first > span.current").html(),
-		    	newUrl 	= jQuery.query.set('tubepress_video', newId).set('tubepress_page', page).toString();
+		
+		galleryId	= TubePressAnchors.getGalleryIdFromRelSplit(rel_split);
+		newId		= TubePressAnchors.getVideoIdFromIdAttr(dis.attr('id'));
+		page		= TubePressGallery.getCurrentPageNumber(galleryId);
+		newUrl		= jQuery.query.set('tubepress_video', newId).set('tubepress_page', page).toString();
+		
 		dis.attr('href', newUrl);
-		dis.unbind('click', TubePress.clickListener);
+	});
+}
+
+function tubepress_solo_player_init(baseUrl) {
+	TubePressJS.getWaitCall(baseUrl + '/ui/lib/players/solo/lib/jQuery.query.js',
+			tubepress_solo_player_readyTest,
+			tubepress_solo_player_initt);
+	jQuery(document).bind(TubePressEvents.NEW_THUMBS_LOADED, function (x) {
+		tubepress_solo_player_initt();
 	});
 }
 
