@@ -9,12 +9,12 @@
 function tubepress_shadowbox_player_init(baseUrl) {
 	var url = baseUrl + '/ui/lib/players/shadowbox/';
 	
-	TubePressUtils.loadCss(url + 'lib/shadowbox.css');
+	TubePressJS.loadCss(url + 'lib/shadowbox.css');
 	_tubepress_shadowbox_player_shadowboxjs(url);
 }
 
 function _tubepress_shadowbox_player_shadowboxjs(base)  {
-	TubePressUtils.getWaitCall(base + 'lib/shadowbox.js',
+	TubePressJS.getWaitCall(base + 'lib/shadowbox.js',
 		function () { return typeof Shadowbox != 'undefined'; },
 		function () { _tubepress_init_shadowbox(base); }
 	);

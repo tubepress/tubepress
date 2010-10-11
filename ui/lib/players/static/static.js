@@ -7,7 +7,7 @@
  * Shrink your JS: http://developer.yahoo.com/yui/compressor/
  */
 function tubepress_static_player_init(baseUrl) {
-	TubePressUtils.getWaitCall(baseUrl + '/ui/lib/players/static/lib/jQuery.query.js',
+	TubePressJS.getWaitCall(baseUrl + '/ui/lib/players/static/lib/jQuery.query.js',
 		_tubepress_static_player_readyTest,
 		_tubepress_static_player_init);
 	jQuery(document).bind('tubepressNewThumbnailsLoaded', function (x) {
