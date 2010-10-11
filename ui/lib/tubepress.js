@@ -24,92 +24,61 @@ jQuery.fn.fadeTo = function (speed, to, callback) {
 		});
 };
 
-/* this is meant to be called from the user's HTML page */
-var safeTubePressInit = function () {
-	try {
-		TubePressGallery.init(getTubePressBaseUrl());
-	} catch (f) {
-		alert('TubePress failed to initialize: ' + f.message);
-	}
-};
-
-/* append our init method to after all the other (potentially full of errors) ready blocks have 
- * run. http://stackoverflow.com/questions/1890512/handling-errors-in-jquerydocument-ready */
-if (!jQuery.browser.msie) {
-	var oldReady = jQuery.ready, TubePress;
-	jQuery.ready = function () {
-			try {
-				oldReady.apply(this, arguments);
-			} catch (e) { }
-			safeTubePressInit();
-		};
-} else {
-	jQuery().ready(function () {
-		safeTubePressInit();
-	});
-}
-
 /**
- * Main TubePress gallery module.
+ * Handles some DOM and network related tasks
  */
-TubePressGallery = (function () {
-
-	var init, initClickListeners, fluidThumbs, clickListener, getCurrentPageNumber;
+TubePressJS = (function () {
 	
-	/* Primary setup function for TubePress. Meant to run once on page load. */
-	init = function (baseUrl) {
-		TubePressPlayers.init(baseUrl);
-		TubePressEmbedded.init(baseUrl);
-		TubePressGallery.initClickListeners();
+	var callWhenTrue, getWaitCall, loadCss;
+	
+	/**
+	 * Waits until the given test is true (tests every .4 seconds),
+	 * and then executes the given callback.
+	 */
+	callWhenTrue = function (test, callback) {
+
+		/* if the test doesn't pass, try again in .4 seconds */	
+		if (!test()) {
+			var futureTest = function () {
+				callWhenTrue(test, callback);
+			};
+			setTimeout(futureTest, 400);
+			return;
+		}
+		/* the test passed, so call the callback */
+		callback();
+	};
+	
+	getWaitCall = function (scriptPath, test, callback) {
+		var futureCallback = function () {
+			callWhenTrue(test, callback);
+		};
+		jQuery.getScript(scriptPath, futureCallback, true);
 	};
 
-	initClickListeners = function () {
-		jQuery("a[id^='tubepress_']").click(clickListener);
-	};
-	
-	/* thumbnail click listener */
-	clickListener = function () {
-		var rel_split	= jQuery(this).attr('rel').split('_'),
-		galleryId		= TubePressAnchors.getGalleryIdFromRelSplit(rel_split),
-		playerName		= TubePressAnchors.getPlayerNameFromRelSplit(rel_split),
-		embeddedName	= TubePressAnchors.getEmbeddedNameFromRelSplit(rel_split),
-		videoId			= TubePressAnchors.getVideoIdFromIdAttr(jQuery(this).attr('id'));
-
-		/* swap the gallery's embedded object */
-		TubePressEmbedded.swap(galleryId, videoId, embeddedName);
-	
-		/* then call the player to load up / play the video */
-		TubePressPlayers.invokePlayer(galleryId, videoId, embeddedName, playerName);
-	};
-
-	/* http://www.sohtanaka.com/web-design/smart-columns-w-css-jquery/ */
-	fluidThumbs = function (gallerySelector, columnWidth) {
-		var gallery		= jQuery(gallerySelector),
-			colWrap		= gallery.width(), 
-			colNum		= Math.floor(colWrap / columnWidth), 
-			colFixed	= Math.floor(colWrap / colNum),
-			thumbs		= jQuery(gallerySelector + ' div.tubepress_thumb');
+	loadCss = function (path) {
+		var fileref = document.createElement('link');
 		
-		gallery.css({ 'width' : '100%'});
-		gallery.css({ 'width' : colWrap });
-		thumbs.css({ 'width' : colFixed});
-	};
-	
-	getCurrentPageNumber = function () {
-		//TODO: fix me
-		   paginationSelector = 'div.tubepress_thumbnail_area:first > div.pagination:first > span.current';
-			
-			if (jQuery(dis).parents(paginationSelector).length > 0) {
-				page = jQuery(dis).parents(paginationSelector).html()
-			}
+		fileref.setAttribute('rel', 'stylesheet');
+		fileref.setAttribute('type', 'text/css');
+		fileref.setAttribute('href', path);
+		document.getElementsByTagName('head')[0].appendChild(fileref);
 	};
 	
 	/* return only public functions */
-	return {
-		init						: init,
-		initClickListeners			: initClickListeners,
-		fluidThumbs					: fluidThumbs
+	return { 
+		callWhenTrue	: callWhenTrue,
+		getWaitCall		: getWaitCall,
+		loadCss			: loadCss
 	};
+}());
+
+TubePressEvents = (function () {
+	
+	return {
+		NEW_THUMBS_LOADED : 'tubepressNewThumbnailsLoaded'
+	};
+	
 }());
 
 /* analyzes HTML anchor objects */
@@ -166,11 +135,54 @@ TubePressAnchors = (function () {
 	
 }());
 
+/* handles player-related functionality (popup, Shadowbox, etc) */
+TubePressPlayers = (function () {
+	
+	var init, playerInit, invokePlayer;
+	
+	init = function (baseUrl) {
+		
+		/* loads up JS necessary for dealing with TubePress players that we find on the page */
+		var playerNames = TubePressAnchors.findAllPlayerNames(), i, name;
+		for (i = 0; i < playerNames.length; i = i + 1) {
+			name = playerNames[i];
+			jQuery.getScript(baseUrl + '/ui/lib/players/' + name + '/' + name + '.js', 
+				playerInit(name, baseUrl));
+		}
+	};
+	
+	invokePlayer = function (galleryId, videoId, embeddedName, playerName) {
+		if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
+			return;
+		}
+		var playerFunctionName = 'tubepress_' + playerName + '_player';
+		window[playerFunctionName](galleryId, videoId);
+	};
+	
+	playerInit = function (name, baseUrl) {
+		
+		/* Call tubepress_<playername>_init() when the player JS is loaded */
+		var funcName = 'tubepress_' + name + '_player_init',
+			f = function () {
+				window[funcName](baseUrl);
+			};	
+		TubePressJS.callWhenTrue(function () {
+			return typeof window[funcName] === 'function'; 
+		}, f);	
+	};
+	
+	return {
+		init			: init,
+		invokePlayer	: invokePlayer
+	};
+	
+}());
+
 /* deals with the embedded video player */
 TubePressEmbedded = (function () {
 
-	var init, swap, getEmbeddedObjectClone, getHtmlForCurrentEmbed, getWidthOfCurrentEmbed
-		getHeightOfCurrentEmbed;
+	var init, swap, getEmbeddedObjectClone, getHtmlForCurrentEmbed, getWidthOfCurrentEmbed,
+		getHeightOfCurrentEmbed, dealingWithVimeo, vimeoIframe, objCss;
 	
 	/* loads up JS necessary for dealing with embedded Flash implementations that we find on the page */
 	init = function (baseUrl) {
@@ -186,17 +198,46 @@ TubePressEmbedded = (function () {
 		}
 	};
 	
-	getHtmlForCurrentEmbed = function(galleryId) {
-		//TODO: fix me
-		return galleryId;
+	getHtmlForCurrentEmbed = function (galleryId) {
+		if (dealingWithVimeo(galleryId)) {
+			return jQuery('div#tubepress_embedded_object_' + galleryId).html();
+		}
+		
+		var wrapperId	= '#tubepress_embedded_object_' + galleryId,
+			wrapper		= jQuery(wrapperId),
+			obj			= jQuery(wrapperId + ' > object'),
+			params		= obj.children('param');
+		return getEmbeddedObjectClone(wrapper, params);
 	};
 	
-	getWidthOfCurrentEmbed = function(galleryId) {
-		return 500;
+	getWidthOfCurrentEmbed = function (galleryId) {
+		if (dealingWithVimeo(galleryId)) {
+			return parseInt(vimeoIframe(galleryId).attr('width'), 10);
+		}
+		return objCss('width');
 	};
 	
-	getHeightOfCurrentEmbed = function(galleryId) {
-		return 500;
+	getHeightOfCurrentEmbed = function (galleryId) {
+		if (dealingWithVimeo(galleryId)) {
+			return parseInt(vimeoIframe(galleryId).attr('height'), 10);
+		}
+		return objCss('height');
+	};
+	
+	objCss = function (galleryId, attribute) {
+		var wrapperId	= '#tubepress_embedded_object_' + galleryId,
+			wrapper		= jQuery(wrapperId),
+			obj			= jQuery(wrapperId + ' > object'),
+			params		= obj.children('param');
+		return parseInt(obj.css(attribute), 10);	
+	};
+	
+	vimeoIframe = function (galleryId) {
+		return jQuery('div#tubepress_embedded_object_' + galleryId + ' > iframe:first');
+	};
+	
+	dealingWithVimeo = function (galleryId) {
+		return vimeoIframe(galleryId).length !== 0;
 	};
 	
 	/**
@@ -272,103 +313,71 @@ TubePressEmbedded = (function () {
 	
 }());
 
-/* handles player-related functionality (popup, Shadowbox, etc) */
-TubePressPlayers = (function () {
-	
-	var init, playerInit, invokePlayer;
-	
-	init = function (baseUrl) {
-		
-		/* loads up JS necessary for dealing with TubePress players that we find on the page */
-		var playerNames = TubePressAnchors.findAllPlayerNames(), i, name;
-		for (i = 0; i < playerNames.length; i = i + 1) {
-			name = playerNames[i];
-			jQuery.getScript(baseUrl + '/ui/lib/players/' + name + '/' + name + '.js', 
-				playerInit(name, baseUrl));
-		}
-	};
-	
-	invokePlayer = function (galleryId, videoId, embeddedName, playerName) {
-		if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
-			return;
-		}
-		var playerFunctionName = 'tubepress_' + playerName + '_player';
-		window[playerFunctionName](galleryId, videoId);
-	};
-	
-	playerInit = function (name, baseUrl) {
-		
-		/* Call tubepress_<playername>_init() when the player JS is loaded */
-		var funcName = 'tubepress_' + name + '_player_init',
-			f = function () {
-				window[funcName](baseUrl);
-			};	
-		TubePressJS.callWhenTrue(function () {
-			return typeof window[funcName] === 'function'; 
-		}, f);	
-	};
-	
-	return {
-		init			: init,
-		invokePlayer	: invokePlayer
-	};
-	
-}());
-
-TubePressEvents = (function () {
-	
-	return {
-		NEW_THUMBS_LOADED : 'tubepressNewThumbnailsLoaded'
-	};
-	
-}());
-
 /**
- * Handles some DOM and network related tasks
+ * Main TubePress gallery module.
  */
-TubePressJS = (function () {
-	
-	var callWhenTrue, getWaitCall, loadCss;
-	
-	/**
-	 * Waits until the given test is true (tests every .4 seconds),
-	 * and then executes the given callback.
-	 */
-	callWhenTrue = function (test, callback) {
+TubePressGallery = (function () {
 
-		/* if the test doesn't pass, try again in .4 seconds */	
-		if (!test()) {
-			var futureTest = function () {
-				callWhenTrue(test, callback);
-			};
-			setTimeout(futureTest, 400);
-			return;
-		}
-		/* the test passed, so call the callback */
-		callback();
-	};
+	var init, initClickListeners, fluidThumbs, clickListener, getCurrentPageNumber;
 	
-	getWaitCall = function (scriptPath, test, callback) {
-		var futureCallback = function () {
-			callWhenTrue(test, callback);
-		};
-		jQuery.getScript(scriptPath, futureCallback, true);
+	/* Primary setup function for TubePress. Meant to run once on page load. */
+	init = function (baseUrl) {
+		TubePressPlayers.init(baseUrl);
+		TubePressEmbedded.init(baseUrl);
+		TubePressGallery.initClickListeners();
 	};
 
-	loadCss = function (path) {
-		var fileref = document.createElement('link');
+	initClickListeners = function () {
+		jQuery("a[id^='tubepress_']").click(clickListener);
+	};
+	
+	/* thumbnail click listener */
+	clickListener = function () {
+		var rel_split	= jQuery(this).attr('rel').split('_'),
+		galleryId		= TubePressAnchors.getGalleryIdFromRelSplit(rel_split),
+		playerName		= TubePressAnchors.getPlayerNameFromRelSplit(rel_split),
+		embeddedName	= TubePressAnchors.getEmbeddedNameFromRelSplit(rel_split),
+		videoId			= TubePressAnchors.getVideoIdFromIdAttr(jQuery(this).attr('id'));
+
+		/* swap the gallery's embedded object */
+		TubePressEmbedded.swap(galleryId, videoId, embeddedName);
+	
+		/* then call the player to load up / play the video */
+		TubePressPlayers.invokePlayer(galleryId, videoId, embeddedName, playerName);
+	};
+
+	/* http://www.sohtanaka.com/web-design/smart-columns-w-css-jquery/ */
+	fluidThumbs = function (gallerySelector, columnWidth) {
+		var gallery		= jQuery(gallerySelector),
+			colWrap		= gallery.width(), 
+			colNum		= Math.floor(colWrap / columnWidth), 
+			colFixed	= Math.floor(colWrap / colNum),
+			thumbs		= jQuery(gallerySelector + ' div.tubepress_thumb');
 		
-		fileref.setAttribute('rel', 'stylesheet');
-		fileref.setAttribute('type', 'text/css');
-		fileref.setAttribute('href', path);
-		document.getElementsByTagName('head')[0].appendChild(fileref);
+		gallery.css({ 'width' : '100%'});
+		gallery.css({ 'width' : colWrap });
+		thumbs.css({ 'width' : colFixed});
+	};
+	
+	getCurrentPageNumber = function (galleryId) {
+		var page = 1, 
+			paginationSelector = 'div#tubepress_gallery_' + galleryId
+				+ ' div.tubepress_thumbnail_area:first > div.pagination:first > span.current',
+			current = jQuery(paginationSelector);
+
+		if (current.length > 0) {
+			page = current.html()
+		}
+		
+		return page;
 	};
 	
 	/* return only public functions */
-	return { 
-		callWhenTrue	: callWhenTrue,
-		getWaitCall		: getWaitCall,
-		loadCss			: loadCss
+	return {
+		init						: init,
+		initClickListeners			: initClickListeners,
+		fluidThumbs					: fluidThumbs,
+		getCurrentPageNumber		: getCurrentPageNumber
 	};
 }());
 
@@ -421,3 +430,28 @@ TubePressAjaxPagination = (function () {
 	/* return only public functions */
 	return { init : init };
 }());
+
+/* this is meant to be called from the user's HTML page */
+var safeTubePressInit = function () {
+	try {
+		TubePressGallery.init(getTubePressBaseUrl());
+	} catch (f) {
+		alert('TubePress failed to initialize: ' + f.message);
+	}
+};
+
+/* append our init method to after all the other (potentially full of errors) ready blocks have 
+ * run. http://stackoverflow.com/questions/1890512/handling-errors-in-jquerydocument-ready */
+if (!jQuery.browser.msie) {
+	var oldReady = jQuery.ready;
+	jQuery.ready = function () {
+			try {
+				oldReady.apply(this, arguments);
+			} catch (e) { }
+			safeTubePressInit();
+		};
+} else {
+	jQuery().ready(function () {
+		safeTubePressInit();
+	});
+}

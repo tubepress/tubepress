@@ -122,10 +122,10 @@
 
   <script type="text/javascript">
     jQuery(document).ready(function(){
-        TubePress.fluidThumbs("#tubepress_gallery_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>",  <?php echo ${org_tubepress_template_Template::THUMBNAIL_WIDTH}; ?>);
+        TubePressGallery.fluidThumbs("#tubepress_gallery_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>",  <?php echo ${org_tubepress_template_Template::THUMBNAIL_WIDTH}; ?>);
     });
     jQuery(window).resize(function(){
-	TubePress.fluidThumbs("#tubepress_gallery_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>",  <?php echo ${org_tubepress_template_Template::THUMBNAIL_WIDTH}; ?>);
+	TubePressGallery.fluidThumbs("#tubepress_gallery_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>",  <?php echo ${org_tubepress_template_Template::THUMBNAIL_WIDTH}; ?>);
     });
   </script>
 </div>
