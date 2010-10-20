@@ -82,7 +82,6 @@ class org_tubepress_gallery_GalleryTemplateUtils
         $template->setVariable(org_tubepress_template_Template::THUMBNAIL_HEIGHT, $tpom->get(org_tubepress_options_category_Display::THUMB_HEIGHT));
 
         self::_prepMetaInfo($template, $ioc);
-        self::_prepUrlPrefixes($tpom, $template, $provider);
     }
     
     public static function getThumbnailGenerationReminder($galleryHtml, org_tubepress_ioc_IocService $ioc)
@@ -144,18 +143,6 @@ class org_tubepress_gallery_GalleryTemplateUtils
             return $template->toString();
         }
         return '';
-    }
-
-    private static function _prepUrlPrefixes(org_tubepress_options_manager_OptionsManager $tpom, org_tubepress_template_Template $template, org_tubepress_video_feed_provider_Provider $provider)
-    {
-        $provider = $provider->calculateCurrentVideoProvider($tpom);
-        if ($provider === org_tubepress_video_feed_provider_Provider::YOUTUBE) {
-            $template->setVariable(org_tubepress_template_Template::AUTHOR_URL_PREFIX, 'http://www.youtube.com/profile?user=');
-            $template->setVariable(org_tubepress_template_Template::VIDEO_SEARCH_PREFIX, 'http://www.youtube.com/results?search_query=');
-        } else {
-            $template->setVariable(org_tubepress_template_Template::AUTHOR_URL_PREFIX, 'http://vimeo.com/');
-            $template->setVariable(org_tubepress_template_Template::VIDEO_SEARCH_PREFIX, 'http://vimeo.com/videos/search:');
-        }
     }
 
     private static function _getEmbeddedServiceName(org_tubepress_options_manager_OptionsManager $tpom, org_tubepress_video_feed_provider_Provider $provider)

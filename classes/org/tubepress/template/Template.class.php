@@ -24,7 +24,6 @@
  */
 interface org_tubepress_template_Template
 {
-    const AUTHOR_URL_PREFIX =               'authorUrlPrefix';
     const EMBEDDED_AUTOSTART =              'autostart';
     const EMBEDDED_DATA_URL =               'homeURL';
     const EMBEDDED_FULLSCREEN =             'embeddedFullscreen';
@@ -48,7 +47,6 @@ interface org_tubepress_template_Template
     const TUBEPRESS_BASE_URL =              'tubepressBaseUrl';
     const VIDEO =                           'video';
     const VIDEO_ARRAY =                     'videoArray';
-    const VIDEO_SEARCH_PREFIX =             'videoSearchPrefix';
     
     /* OPTIONS PAGE */
     const OPTIONS_PAGE_CATEGORIES =         'optionsPageCategories';
@@ -73,6 +71,8 @@ interface org_tubepress_template_Template
 
     /* DEPRECATED */
     const PRE_GALLERY = self::PLAYER_HTML;
+    const VIDEO_SEARCH_PREFIX = 'videoSearchPrefix';
+    const AUTHOR_URL_PREFIX   = 'authorUrlPrefix';
     
     public function toString();
     
