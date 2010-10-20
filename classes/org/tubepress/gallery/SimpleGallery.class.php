@@ -138,7 +138,7 @@ class org_tubepress_gallery_SimpleGallery implements org_tubepress_gallery_Galle
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'Provider has delivered %d videos', sizeof($feedResult->getVideoArray()));
 
         /* prep template */
-	$themeHandler = $ioc->get('org_tubepress_theme_ThemeHandler');
+	    $themeHandler = $ioc->get('org_tubepress_theme_ThemeHandler');
         $template     = $themeHandler->getTemplateInstance('gallery.tpl.php');
         org_tubepress_gallery_GalleryTemplateUtils::prepTemplate($feedResult, $galleryId, $template, $ioc);
 

@@ -374,6 +374,7 @@ TubePressGallery = (function () {
 	
 	/* return only public functions */
 	return {
+		clickListener				: clickListener,
 		init						: init,
 		initClickListeners			: initClickListeners,
 		fluidThumbs					: fluidThumbs,
