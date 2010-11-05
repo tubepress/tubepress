@@ -57,6 +57,8 @@ class org_tubepress_options_reference_OptionsReference
             org_tubepress_options_category_Gallery::TAG_VALUE              => 'stewart daily show',
             org_tubepress_options_category_Gallery::USER_VALUE             => '3hough',
             org_tubepress_options_category_Feed::DEV_KEY                   => 'AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg',
+            org_tubepress_options_category_Feed::VIMEO_KEY                 => '',
+            org_tubepress_options_category_Feed::VIMEO_SECRET              => '',
             org_tubepress_options_category_Widget::TITLE                   => 'TubePress',
             org_tubepress_options_category_Widget::TAGSTRING               => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']',
             org_tubepress_options_category_Gallery::VIDEO                  => '',
@@ -141,7 +143,9 @@ class org_tubepress_options_reference_OptionsReference
         org_tubepress_gallery_Gallery::VIMEO_ALBUM,
         org_tubepress_gallery_Gallery::VIMEO_GROUP,
         org_tubepress_gallery_Gallery::VIMEO_CHANNEL,
-        org_tubepress_options_category_Meta::LIKES
+        org_tubepress_options_category_Meta::LIKES,
+        org_tubepress_options_category_Feed::VIMEO_KEY,
+        org_tubepress_options_category_Feed::VIMEO_SECRET
     );
     
     private static $_youtubeOnly = array(

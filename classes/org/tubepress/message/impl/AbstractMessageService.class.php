@@ -151,6 +151,10 @@ abstract class org_tubepress_message_impl_AbstractMessageService implements org_
 
         'options-title-resultCountCap'	     => 'Maximum total videos to retrieve',
         'options-desc-resultCountCap'		 => 'This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit.',
+        'options-title-vimeoKey'             => 'Vimeo API "Consumer Key"',
+        'options-desc-vimeoKey'              => '<a href="http://vimeo.com/api/applications/new">Click here</a> to register for a consumer key and secret.',
+        'options-title-vimeoSecret'         => 'Vimeo API "Consumer Secret"',
+        'options-desc-vimeoSecret'           => '<a href="http://vimeo.com/api/applications/new">Click here</a> to register for a consumer key and secret.',
 
         'player-normal'      => 'normally (at the top of your gallery)',
         'player-popup'       => 'in a popup window',

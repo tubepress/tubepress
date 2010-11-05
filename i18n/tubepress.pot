@@ -487,3 +487,13 @@ msgstr ""
 
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>."
 msgstr ""
+
+msgid "Vimeo API \"Consumer Key\""
+msgstr ""
+
+msgid "<a href=\"http://vimeo.com/api/applications/new\">Click here</a> to register for a consumer key and secret."
+msgstr ""
+
+msgid "Vimeo API \"Consumer Secret\""
+msgstr ""
+

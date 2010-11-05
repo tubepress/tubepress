@@ -50,6 +50,8 @@ class org_tubepress_url_impl_VimeoUrlBuilder implements org_tubepress_url_UrlBui
         $tpom   = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $mode   = $tpom->get(org_tubepress_options_category_Gallery::MODE);
 
+        $this->_verifyKeyAndSecretExists($tpom);
+        
         switch ($mode) {
             
         case org_tubepress_gallery_Gallery::VIMEO_UPLOADEDBY:
@@ -93,22 +95,25 @@ class org_tubepress_url_impl_VimeoUrlBuilder implements org_tubepress_url_UrlBui
         	$params['sort'] = $sort;
         }
         
-        return $this->_buildUrl($params);
+        return $this->_buildUrl($params, $tpom);
     }
     
     public function buildSingleVideoUrl($id)
     {
-        $ioc = org_tubepress_ioc_IocContainer::getInstance();
-        $provider = $ioc->get('org_tubepress_video_feed_provider_Provider');
+        $ioc          = org_tubepress_ioc_IocContainer::getInstance();
+        $provider     = $ioc->get('org_tubepress_video_feed_provider_Provider');
+        $tpom         = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $providerName = $provider->calculateProviderOfVideoId($id);
+        
         if ($providerName !== org_tubepress_video_feed_provider_Provider::VIMEO) {
             throw new Exception("Unable to build Vimeo URL for video with ID $id");
         }
         
-        $params = array();
-        $params['method'] = 'vimeo.videos.getInfo';
+        $params             = array();
+        $params['method']   = 'vimeo.videos.getInfo';
         $params['video_id'] = $id;
-        return $this->_buildUrl($params);
+        
+        return $this->_buildUrl($params, $tpom);
     }
     
     private function _getSort($mode, org_tubepress_options_manager_OptionsManager $tpom)
@@ -149,21 +154,21 @@ class org_tubepress_url_impl_VimeoUrlBuilder implements org_tubepress_url_UrlBui
     	return '';
     }
     
-    private function _buildUrl($params)
+    private function _buildUrl($params, org_tubepress_options_manager_OptionsManager $tpom)
     {
         $base = 'http://vimeo.com/api/rest/v2';
         
         $params['format']                 = 'php';
-        $params['oauth_consumer_key']     = '86a1a3af34044829c435b2e0b03a8e6e';
+        $params['oauth_consumer_key']     = $tpom->get(org_tubepress_options_category_Feed::VIMEO_KEY);
         $params['oauth_nonce']            = md5(uniqid(mt_rand(), TRUE));
         $params['oauth_signature_method'] = 'HMAC-SHA1';
         $params['oauth_timestamp']        = time();
         $params['oauth_version']          ='1.0';
-        $params['oauth_signature']        = $this->_generateSignature($params, $base);
+        $params['oauth_signature']        = $this->_generateSignature($params, $base, $tpom);
         return $base . '?' . http_build_query($params);
     }
     
-    private function _generateSignature($params, $base)
+    private function _generateSignature($params, $base, org_tubepress_options_manager_OptionsManager $tpom)
     {
         uksort($params, 'strcmp');
         $params = $this->_url_encode_rfc3986($params);
@@ -173,12 +178,23 @@ class org_tubepress_url_impl_VimeoUrlBuilder implements org_tubepress_url_UrlBui
         $baseString = implode('&', $baseString);
         
         // Make the key
-        $key_parts = array('55d2247024a79a29', '');
+        $key_parts = array($tpom->get(org_tubepress_options_category_Feed::VIMEO_SECRET), '');
         $key_parts = $this->_url_encode_rfc3986($key_parts);
         $key = implode('&', $key_parts);
         
         // Generate signature
         return base64_encode(hash_hmac('sha1', $baseString, $key, true));
+    }
+    
+    private function _verifyKeyAndSecretExists(org_tubepress_options_manager_OptionsManager $tpom)
+    {
+        if ($tpom->get(org_tubepress_options_category_Feed::VIMEO_KEY) === '') {
+            throw new Exception('Missing Vimeo API Consumer Key.');
+        }
+        if ($tpom->get(org_tubepress_options_category_Feed::VIMEO_SECRET) === '') {
+            throw new Exception('Missing Vimeo API Consumer Secret.');
+        }
+        
     }
     
     /**

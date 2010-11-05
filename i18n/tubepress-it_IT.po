@@ -491,3 +491,13 @@ msgstr ""
 
 msgid "Videos most frequently flagged as favorites from..."
 msgstr ""
+
+msgid "Vimeo API \"Consumer Key\""
+msgstr ""
+
+msgid "<a href=\"http://vimeo.com/api/applications/new\">Click here</a> to register for a consumer key and secret."
+msgstr ""
+
+msgid "Vimeo API \"Consumer Secret\""
+msgstr ""
+
