@@ -23,6 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_ioc_IocService',
     'org_tubepress_ioc_impl_FreeWordPressPluginIocService',
+    'org_tubepress_ioc_impl_ProInWordPressIocService',
     'org_tubepress_env_EnvironmentDetector'));
 
 /**
@@ -41,9 +42,11 @@ class org_tubepress_ioc_IocContainer
         
         if (org_tubepress_env_EnvironmentDetector::isPro()) {
             if (org_tubepress_env_EnvironmentDetector::isWordPress()) {
-                //TODO: fix me
+                self::$_instance = new org_tubepress_ioc_impl_ProInWordPressIocService();
+            } else {
+                self::$_instance = new org_tubepress_ioc_impl_ProIocService();
             }
-            //TODO: fix me
+            
         } else {
             self::$_instance = new org_tubepress_ioc_impl_FreeWordPressPluginIocService();
         }

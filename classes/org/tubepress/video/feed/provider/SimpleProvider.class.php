@@ -25,8 +25,7 @@ tubepress_load_classes(array('org_tubepress_video_feed_provider_Provider',
     'org_tubepress_log_Log',
     'org_tubepress_url_UrlBuilder',
     'org_tubepress_options_category_Feed',
-    'org_tubepress_video_feed_FeedResult',
-    'org_tubepress_url_DelegatingUrlBuilder'));
+    'org_tubepress_video_feed_FeedResult'));
 
 /**
  * Interface to a remove video provider

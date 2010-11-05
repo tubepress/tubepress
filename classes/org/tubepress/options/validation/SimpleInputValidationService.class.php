@@ -128,7 +128,6 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
             }
             break;
 
-        case org_tubepress_options_Type::MODE:
         case org_tubepress_options_Type::ORDER:
         case org_tubepress_options_Type::PLAYER:
         case org_tubepress_options_Type::PLAYER_IMPL:
