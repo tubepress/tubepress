@@ -152,9 +152,6 @@ TubePressPlayers = (function () {
 	};
 	
 	invokePlayer = function (galleryId, videoId, embeddedName, playerName) {
-		if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
-			return;
-		}
 		var playerFunctionName = 'tubepress_' + playerName + '_player';
 		window[playerFunctionName](galleryId, videoId);
 	};

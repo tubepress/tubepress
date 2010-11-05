@@ -35,16 +35,10 @@ class org_tubepress_player_SimplePlayer implements org_tubepress_player_Player
     {
         $ioc             = org_tubepress_ioc_IocContainer::getInstance();
         $browserDetector = $ioc->get('org_tubepress_browser_BrowserDetector');
-
-        if ($browserDetector->isMobileQuick($_SERVER)) {
-            org_tubepress_log_Log::log(self::LOG_PREFIX, 'Mobile device detected');
-            return '';
-        }
-        
-        $tpom         = $ioc->get('org_tubepress_options_manager_OptionsManager');
-        $playerName   = $tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
-        $eps          = $ioc->get('org_tubepress_embedded_EmbeddedPlayerService');
-        $themeHandler = $ioc->get('org_tubepress_theme_ThemeHandler');
+        $tpom            = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $playerName      = $tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
+        $eps             = $ioc->get('org_tubepress_embedded_EmbeddedPlayerService');
+        $themeHandler    = $ioc->get('org_tubepress_theme_ThemeHandler');
         
         try {
             $template   = $themeHandler->getTemplateInstance("players/$playerName.tpl.php");
@@ -53,7 +47,6 @@ class org_tubepress_player_SimplePlayer implements org_tubepress_player_Player
         }
         
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_SOURCE, $eps->toString($vid->getId()));
-            
         $template->setVariable(org_tubepress_template_Template::GALLERY_ID, $galleryId);
         $template->setVariable(org_tubepress_template_Template::VIDEO, $vid);
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));

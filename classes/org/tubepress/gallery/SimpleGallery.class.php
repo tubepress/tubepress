@@ -74,9 +74,9 @@ class org_tubepress_gallery_SimpleGallery implements org_tubepress_gallery_Galle
         }
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'No video ID set in shortcode.');
 
-        /* see if the users wants to display just the video in the query string */
         $playerName = $tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
 
+        /* see if the users wants to display just the video in the query string */
         if ($playerName == org_tubepress_player_Player::SOLO) {
 
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'Solo player detected. Checking query string for video ID');

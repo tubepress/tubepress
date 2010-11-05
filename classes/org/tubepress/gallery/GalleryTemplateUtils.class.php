@@ -52,11 +52,12 @@ class org_tubepress_gallery_GalleryTemplateUtils
             $videos = self::_prependVideoIfNeeded($videos, $ioc);
             
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'Applying HTML for <tt>%s</tt> player to the template', $playerName);
-            $player = $ioc->get('org_tubepress_player_Player');
+            
+            $player     = $ioc->get('org_tubepress_player_Player');
             $playerHtml = $player->getHtml($videos[0], $galleryId);
+
             $template->setVariable(org_tubepress_template_Template::PLAYER_HTML, $playerHtml);
             $template->setVariable(org_tubepress_template_Template::PLAYER_NAME, $playerName);
-
             $template->setVariable(org_tubepress_template_Template::VIDEO_ARRAY, $videos);
 
             $paginationService = $ioc->get('org_tubepress_pagination_PaginationService');
@@ -71,7 +72,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
         } else {
             $template->setVariable(org_tubepress_template_Template::PLAYER_HTML, '');
             $template->setVariable(org_tubepress_template_Template::VIDEO_ARRAY, array());
-	}
+	    }
 
         $currentTheme = $themeHandler->calculateCurrentThemeName();
 
