@@ -19,10 +19,6 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_ioc_IocService'));
-
 /**
  * Detects TubePress's environment
  */
@@ -35,7 +31,7 @@ class org_tubepress_env_EnvironmentDetector
      */
     public static function isPro()
     {
-        return class_exists('org_tubepress_ioc_ProIocService');
+        return is_readable(dirname(__FILE__) . '/../ioc/impl/ProIocService.class.php');
     }
 
     /**
@@ -45,6 +41,6 @@ class org_tubepress_env_EnvironmentDetector
      */
     public static function isWordPress()
     {
-        return strpos($_SERVER['PHP_SELF'], 'wp-content/plugins') !== false;
+        return strpos(realpath(__FILE__), 'wp-content/plugins') !== false;
     }
 }
