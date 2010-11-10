@@ -255,9 +255,9 @@ TubePressEmbedded = (function () {
 		/* Vimeo is special. */
 		if (embeddedName === 'vimeo') {
 			oldHtml = wrapper.html();
-			wrapper.empty();
 			oldId = oldHtml.match(/\/video\/([0-9]+).*/)[1];
-			wrapper.html(oldHtml.replace(oldId, videoId));
+			wrapper.html(oldHtml.replace(oldId, videoId) + ' ');
+			wrapper.children('iframe')[0].src = wrapper.children('iframe')[0].src + Math.random();
 			return;
 		}
 
