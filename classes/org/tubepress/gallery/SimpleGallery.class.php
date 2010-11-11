@@ -57,6 +57,9 @@ class org_tubepress_gallery_SimpleGallery implements org_tubepress_gallery_Galle
         $shortcodeParser = $ioc->get('org_tubepress_shortcode_ShortcodeParser');
         $qss             = $ioc->get('org_tubepress_querystring_QueryStringService');
 
+        /* do a bit of logging */
+        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Type of IOC container is %s', get_class($ioc));
+        
         /* parse the shortcode if we need to */
         if ($shortCodeContent != '') {
             $shortcodeParser->parse($shortCodeContent);

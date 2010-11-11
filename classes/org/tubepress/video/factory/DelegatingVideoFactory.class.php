@@ -29,7 +29,7 @@ tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory',
 /**
  * Video factory that sends the feed to the right video factory based on the provider
  */
-class org_tubepress_video_factory_DelegatingVideoFactory
+class org_tubepress_video_factory_DelegatingVideoFactory implements org_tubepress_video_factory_VideoFactory
 {
     private static $_providerToBeanNameMap = array(
         org_tubepress_video_feed_provider_Provider::VIMEO => 'org_tubepress_video_factory_impl_VimeoVideoFactory'

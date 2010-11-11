@@ -49,12 +49,11 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
         $currentPage = $qss->getPageNum($_GET);
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'Current page number is %d', $currentPage);
 
-        
         $provider = $this->calculateCurrentVideoProvider($tpom);
 
         /* build the request URL */
         $urlBuilder = $ioc->get('org_tubepress_url_UrlBuilder');
-        $url = $urlBuilder->buildGalleryUrl($currentPage);
+        $url        = $urlBuilder->buildGalleryUrl($currentPage);
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'URL to fetch is <tt>%s</tt>', $url);
 
         /* make the request */
