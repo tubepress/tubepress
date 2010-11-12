@@ -130,16 +130,17 @@ class org_tubepress_gallery_GalleryTemplateUtils
         return '';
     }
 
-    public static function getAjaxPagination(org_tubepress_ioc_IocService $ioc)
+    public static function getAjaxPagination(org_tubepress_ioc_IocService $ioc, $galleryId)
     {
         $tpom = $ioc->get('org_tubepress_options_manager_OptionsManager');
         
         if ($tpom->get(org_tubepress_options_category_Display::AJAX_PAGINATION)) {
-            org_tubepress_log_Log::log($this->_logPrefix, 'Using Ajax pagination');
+            org_tubepress_log_Log::log(self::LOG_PREFIX, 'Using Ajax pagination');
             $template = new org_tubepress_template_SimpleTemplate();
             $baseInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
              
             $template->setPath("$baseInstallationPath/ui/lib/gallery_html_snippets/ajax_pagination.tpl.php");
+            $template->setVariable(org_tubepress_template_Template::GALLERY_ID, $galleryId);
             $template->setVariable(org_tubepress_template_Template::SHORTCODE, urlencode($tpom->getShortcode()));
             return $template->toString();
         }

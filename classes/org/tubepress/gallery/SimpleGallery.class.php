@@ -148,7 +148,7 @@ class org_tubepress_gallery_SimpleGallery implements org_tubepress_gallery_Galle
         /* we're done. tie up */
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'Done assembling gallery <tt>%d</tt>', $galleryId);
         $result =  $template->toString();
-        $result .= org_tubepress_gallery_GalleryTemplateUtils::getAjaxPagination($ioc);
+        $result .= org_tubepress_gallery_GalleryTemplateUtils::getAjaxPagination($ioc, $galleryId);
         $result .= org_tubepress_gallery_GalleryTemplateUtils::getThemeCss($ioc);
         $result .= org_tubepress_gallery_GalleryTemplateUtils::getThumbnailGenerationReminder($result, $ioc);
         return $result;
