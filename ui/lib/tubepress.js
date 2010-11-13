@@ -391,7 +391,6 @@ TubePressAjaxPagination = (function () {
 		var clickCallback = function () {
 			processRequest(jQuery(this), galleryId);
 		};
-		
 		jQuery('#tubepress_gallery_' + galleryId + ' div.pagination a').click(clickCallback);
 	};
 
@@ -403,7 +402,7 @@ TubePressAjaxPagination = (function () {
 			postLoadCallback	= function () {
 				postAjaxGallerySetup(thumbnailArea, galleryId);
 			},
-			pageToLoad			= baseUrl + '/env/pro/lib/ajax/responder.php?shortcode=' + shortcode + '&tubepress_' + page + '&tubepress_galleryId=' + galleryId,
+			pageToLoad			= baseUrl + '/env/pro/ajax-pagination.php?shortcode=' + shortcode + '&tubepress_' + page + '&tubepress_galleryId=' + galleryId,
 			remotePageSelector	= thumbnailArea + ' > *',
 			loadFunction		= function () {
 				jQuery(thumbnailArea).load(pageToLoad + ' ' + remotePageSelector, postLoadCallback);
