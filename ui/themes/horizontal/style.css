@@ -1,8 +1,9 @@
 div.tubepress_container {
-	width: 850px;
+	width: 930px;
 }
 .tubepress_thumbnail_area {
 	float: right;
+	width: 400px;
 	height: 400px;
 	overflow: scroll;
 }
@@ -10,9 +11,11 @@ div.tubepress_container {
 	float: left;
 }
 .tubepress_thumb {
-	width: auto;
+	width: 100%;
 	height: auto;
 	clear: left;
+}
+.tubepress_thumb img {
 }
 .tubepress_thumb a {
 	float: left;
@@ -21,4 +24,5 @@ dl.tubepress_meta_group {
 	float: left;
 	width: 235px;
 	padding: 5px 0 0;
+	margin-left: 1em;
 }

@@ -345,6 +345,9 @@ TubePressGallery = (function () {
 
 	/* http://www.sohtanaka.com/web-design/smart-columns-w-css-jquery/ */
 	fluidThumbs = function (gallerySelector, columnWidth) {
+		
+		jQuery(gallerySelector).css({ 'width' : "100%" });
+		
 		var gallery		= jQuery(gallerySelector),
 			colWrap		= gallery.width(), 
 			colNum		= Math.floor(colWrap / columnWidth), 
