@@ -67,6 +67,9 @@ abstract class org_tubepress_video_feed_retrieval_AbstractFeedRetrievalService i
             org_tubepress_log_Log::log($logPrefix, 'Skip cache check for <tt>%s</tt>', $url);
             $result = $this->_getFromNetwork($url);
         }
+        
+        org_tubepress_log_Log::log($logPrefix, 'Raw result for <tt>%s</tt> is in the HTML source for this page. <span style="display:none">%s</span>', $url, htmlspecialchars($result));
+        
         return $result;
     }
 
