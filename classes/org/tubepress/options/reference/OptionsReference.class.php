@@ -278,7 +278,7 @@ class org_tubepress_options_reference_OptionsReference
     {
         switch ($optionType) {
             case org_tubepress_options_Type::PLAYER:
-                return array('normal', 'popup','shadowbox','jqmodal', 'youtube', 'static', 'solo', 'vimeo');
+                return array('normal', 'popup','shadowbox','jqmodal', 'youtube', 'static', 'solo', 'vimeo', 'fancybox', 'tinybox');
             case org_tubepress_options_Type::ORDER:
                 return array('relevance', 'viewCount', 'rating', 'published', 'random', 'position', 'commentCount', 'duration', 'title', 'newest', 'oldest');
             case org_tubepress_options_Type::MODE:
