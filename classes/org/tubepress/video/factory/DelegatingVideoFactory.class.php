@@ -23,19 +23,19 @@ function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory',
     'org_tubepress_options_manager_OptionsManager',
-    'org_tubepress_ioc_IocDelegateUtils'));
+    'org_tubepress_ioc_IocDelegateUtils',
+    'org_tubepress_video_factory_impl_VimeoVideoFactory'));
 
 /**
  * Video factory that sends the feed to the right video factory based on the provider
  */
-class org_tubepress_video_factory_DelegatingVideoFactory
+class org_tubepress_video_factory_DelegatingVideoFactory implements org_tubepress_video_factory_VideoFactory
 {
     private static $_providerToBeanNameMap = array(
-        org_tubepress_video_feed_provider_Provider::VIMEO     => org_tubepress_ioc_IocService::VIDEO_FACTORY_VIMEO,
-        org_tubepress_video_feed_provider_Provider::DIRECTORY => org_tubepress_ioc_IocService::VIDEO_FACTORY_LOCAL
+        org_tubepress_video_feed_provider_Provider::VIMEO => 'org_tubepress_video_factory_impl_VimeoVideoFactory'
     );
     
-    private static $_defaultDelegateName = org_tubepress_ioc_IocService::VIDEO_FACTORY_YOUTUBE;
+    private static $_defaultDelegateName = 'org_tubepress_video_factory_impl_YouTubeVideoFactory';
     
     /**
      * Converts raw video feeds to TubePress videos
@@ -45,18 +45,16 @@ class org_tubepress_video_factory_DelegatingVideoFactory
      * 
      * @return array an array of TubePress videos generated from the feed
      */
-    public function feedToVideoArray(org_tubepress_ioc_IocService $ioc, $feed, $limit)
+    public function feedToVideoArray($feed, $limit)
     {
-        return org_tubepress_ioc_IocDelegateUtils::getDelegate($ioc, 
-            self::$_providerToBeanNameMap, 
-            self::$_defaultDelegateName)->feedToVideoArray($ioc, $feed, $limit);
+        return org_tubepress_ioc_IocDelegateUtils::getDelegate(self::$_providerToBeanNameMap, 
+            self::$_defaultDelegateName)->feedToVideoArray($feed, $limit);
     }
     
-    public function convertSingleVideo(org_tubepress_ioc_IocService $ioc, $feed)
+    public function convertSingleVideo($feed)
     {
-        return org_tubepress_ioc_IocDelegateUtils::getDelegate($ioc, 
-            self::$_providerToBeanNameMap, 
-            self::$_defaultDelegateName)->convertSingleVideo($ioc, $feed);
+        return org_tubepress_ioc_IocDelegateUtils::getDelegate(self::$_providerToBeanNameMap, 
+            self::$_defaultDelegateName)->convertSingleVideo($feed);
     }
     
 

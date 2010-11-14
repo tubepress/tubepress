@@ -49,6 +49,7 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService implements org_tu
         $ioc   = org_tubepress_ioc_IocContainer::getInstance();
         $tpom  = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $theme = $ioc->get('org_tubepress_theme_ThemeHandler');
+        $bd    = $ioc->get('org_tubepress_browser_BrowserDetector');
 
         $playerColor     = org_tubepress_embedded_impl_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR), '999999');
         $playerHighlight = org_tubepress_embedded_impl_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT), 'FFFFFF');
@@ -80,7 +81,13 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService implements org_tu
         }
 
         $link = $link->getURL(true);
-        $template = $theme->getTemplateInstance('embedded_flash/youtube.tpl.php');
+        $themeName = 'youtube';
+        if ($this->isIsomething($bd)) {
+            $themeName = 'youtube-iphone';
+            $link = "http://www.youtube.com/v/$videoId";
+        }
+        
+        $template = $theme->getTemplateInstance("embedded_flash/$themeName.tpl.php");
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_DATA_URL, $link);
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $width);
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT, $height);
@@ -89,5 +96,11 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService implements org_tu
         $embedSrc = $template->toString();
 
         return $embedSrc;
+    }
+    
+    private function isIsomething(org_tubepress_browser_BrowserDetector $bd)
+    {
+        $agent = $_SERVER['HTTP_USER_AGENT'];
+        return $bd->isIphoneOrIpod($agent) || $bd->isIpad($agent);
     }
 }

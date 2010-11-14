@@ -38,7 +38,7 @@ msgstr "Salvar"
 msgid "Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info. An asterisk (*) next to an option indicates it's only available with <a href=\"http://tubepress.org/features\">TubePress Pro</a>."
 msgstr "configurar as opções padrão para o plugin. Cada opção aqui pode ser substituída em uma base por página ou post com sShortcodess do TubePress. Veja a <a href=\"http://tubepress.org/documentation\"> documentação</a> para obter mais informações. Um asterisco (*) ao lado da opção indica que está disponível somente com o <a href=\"http://tubepress.org/features\"> TubePress Pro </ a>"
 
-msgid "TubePress is free. But if you enjoy the plugin, and appreciate the hundreds of hours I've spent developing and supporting it, please consider a donation. No amount is too small. Thanks!"
+msgid "If you appreciate the hundreds of hours I've spent developing and supporting TubePress, please consider a donation. No amount is too small. Thanks!"
 msgstr "O TubePress é gratuito. Mas se você aprecia o plugin, e aprecia as centenas de horas que passei o desenvolvendo e apoiando, considere fazer uma doação. Nenhuma quantidade é pouca. Obrigado!"
 
 msgid "Which videos?"
@@ -64,9 +64,6 @@ msgstr "Limitado a 200 vídeos por lista. Normalmente algo parecido com isto: D2
 
 msgid "Most-viewed videos from"
 msgstr "Os vídeos mais vistos de"
-
-msgid "Most-linked videos"
-msgstr "Os vídeos mais \"linkados\""
 
 msgid "Most-recently added videos"
 msgstr "Os vídeos adicionados mais recentemente"
@@ -470,21 +467,6 @@ msgstr ""
 msgid "%s is not executable or does not exist."
 msgstr ""
 
-msgid "Uploads"
-msgstr ""
-
-msgid "FFmpeg binary location"
-msgstr ""
-
-msgid "To generate thumbnails for your locally uploaded videos, TubePress requires a modern version of <a href=\"http://www.ffmpeg.org/\">FFmpeg</a>. Set this value to the absolute path of your server's FFmpeg installation."
-msgstr ""
-
-msgid "Video from this directory"
-msgstr ""
-
-msgid "Enter the path, relative to <tt>%s</tt>, of a directory holding uploaded videos and related .yml files. TubePress will populate this gallery with any videos it finds here."
-msgstr ""
-
 msgid "Thumbs per video"
 msgstr ""
 
@@ -505,3 +487,16 @@ msgstr ""
 
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>."
 msgstr ""
+
+msgid "Videos most frequently flagged as favorites from..."
+msgstr ""
+
+msgid "Vimeo API \"Consumer Key\""
+msgstr ""
+
+msgid "<a href=\"http://vimeo.com/api/applications/new\">Click here</a> to register for a consumer key and secret."
+msgstr ""
+
+msgid "Vimeo API \"Consumer Secret\""
+msgstr ""
+

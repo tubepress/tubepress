@@ -56,6 +56,8 @@ class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService implements org_tube
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_AUTOSTART, $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY) ? 'true' : 'false');
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT));
+        $template->setVariable(org_tubepress_template_Template::EMBEDDED_COLOR_PRIMARY, $tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR));
+        $template->setVariable(org_tubepress_template_Template::EMBEDDED_COLOR_HIGHLIGHT, $tpom->get(org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT));
 
         return $template->toString();
     }

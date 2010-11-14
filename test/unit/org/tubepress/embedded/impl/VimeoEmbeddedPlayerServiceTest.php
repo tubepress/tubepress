@@ -21,14 +21,7 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerServiceTest extends TubePre
     function expected()
     {
         return <<<EOT
-<object style="width: 425px; height:350px"
-    data="http://vimeo.com/moogaloop.swf?clip_id=FAKEID&amp;fullscreen=1&amp;autoplay=0&amp;color=FFFFFF"
-    type="application/x-shockwave-flash">
-  <param name="allowfullscreen" value="1" />
-  <param name="allowscriptaccess" value="always" />
-  <param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=FAKEID&amp;fullscreen=1&amp;autoplay=0&amp;color=FFFFFF" />
-  <param name="wmode" value="transparent" />
-</object>
+<iframe src="http://player.vimeo.com/video/FAKEID?autoplay=0&amp;color=999999&amp;loop=0&amp;title=0&amp;byline=0&amp;portrait=0" width="425" height="350" frameborder="0"></iframe>
 
 EOT;
     }

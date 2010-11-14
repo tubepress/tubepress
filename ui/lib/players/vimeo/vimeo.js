@@ -7,7 +7,7 @@
  * Shrink your JS: http://developer.yahoo.com/yui/compressor/
  */
 function tubepress_vimeo_player(galleryId, videoId) {
-   window.location = "http://www.vimeo.com/" + videoId;
+   window.location = 'http://www.vimeo.com/' + videoId;
 }
 
 function tubepress_vimeo_player_init(baseUrl) { 

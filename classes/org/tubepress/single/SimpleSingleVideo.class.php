@@ -67,9 +67,11 @@ class org_tubepress_single_SimpleSingleVideo implements org_tubepress_single_Sin
         $video = $provider->getSingleVideo($videoId);
 
         $template = self::_prepTemplate($ioc, $video, $provider);
-
+        $result   = $template->toString();
+        $result .= org_tubepress_gallery_GalleryTemplateUtils::getThemeCss($ioc);
+        
         /* staples - that was easy */
-        return $template->toString();
+        return $result;
     }
 
     /**
@@ -101,21 +103,8 @@ class org_tubepress_single_SimpleSingleVideo implements org_tubepress_single_Sin
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_SOURCE, $eps->toString($video->getId()));
         $template->setVariable(org_tubepress_template_Template::VIDEO, $video);
         $template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
-        self::_prepUrlPrefixes($template, $tpom, $provider);
        
         return $template;
-    }
-
-    private static function _prepUrlPrefixes($template, $tpom, org_tubepress_video_feed_provider_Provider $provider)
-    {
-        $providerName = $provider->calculateCurrentVideoProvider($tpom);
-        if ($providerName === org_tubepress_video_feed_provider_Provider::YOUTUBE) {
-            $template->setVariable(org_tubepress_template_Template::AUTHOR_URL_PREFIX, 'http://www.youtube.com/profile?user=');
-            $template->setVariable(org_tubepress_template_Template::VIDEO_SEARCH_PREFIX, 'http://www.youtube.com/results?search_query=');
-        } else {
-            $template->setVariable(org_tubepress_template_Template::AUTHOR_URL_PREFIX, 'http://vimeo.com/');
-            $template->setVariable(org_tubepress_template_Template::VIDEO_SEARCH_PREFIX, 'http://vimeo.com/videos/search:');
-        }
     }
 }
 

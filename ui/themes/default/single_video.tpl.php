@@ -26,7 +26,7 @@
 <div class="tubepress_single_video">
     
     <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::TITLE]): ?>     
-        <span class="tubepress_embedded_title"><?php echo htmlspecialchars($video->getTitle(), ENT_QUOTES, "UTF-8"); ?></span>
+        <div class="tubepress_embedded_title"><?php echo htmlspecialchars($video->getTitle(), ENT_QUOTES, "UTF-8"); ?></div>
     <?php endif; ?>
     
     <?php echo ${org_tubepress_template_Template::EMBEDDED_SOURCE}; ?>
@@ -40,12 +40,12 @@
         
     <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::AUTHOR]): ?>
     
-    <dt class="tubepress_meta tubepress_meta_author"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::AUTHOR]; ?></dt><dd class="tubepress_meta tubepress_meta_author"><a rel="external nofollow" href="<?php echo ${org_tubepress_template_Template::AUTHOR_URL_PREFIX}; ?><?php echo $video->getAuthorUid(); ?>"><?php echo $video->getAuthorDisplayName(); ?></a></dd>
+    <dt class="tubepress_meta tubepress_meta_author"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::AUTHOR]; ?></dt><dd class="tubepress_meta tubepress_meta_author"><?php echo $video->getAuthorDisplayName(); ?></dd>
     <?php endif; ?>
     
     <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::TAGS]): ?>
     
-    <dt class="tubepress_meta tubepress_meta_keywords"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::TAGS]; ?></dt><dd class="tubepress_meta tubepress_meta_keywords"><a rel="external nofollow" href="<?php echo ${org_tubepress_template_Template::VIDEO_SEARCH_PREFIX}; ?><?php echo rawurlencode(implode(" ", $video->getKeywords())); ?>"><?php echo $raw = htmlspecialchars(implode(" ", $video->getKeywords()), ENT_QUOTES, "UTF-8"); ?></a></dd>
+    <dt class="tubepress_meta tubepress_meta_keywords"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::TAGS]; ?></dt><dd class="tubepress_meta tubepress_meta_keywords"><?php echo $raw = htmlspecialchars(implode(" ", $video->getKeywords()), ENT_QUOTES, "UTF-8"); ?></dd>
     <?php endif; ?>
     
     <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::URL]): ?>

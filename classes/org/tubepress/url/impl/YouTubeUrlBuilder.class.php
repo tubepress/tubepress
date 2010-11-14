@@ -46,7 +46,7 @@ class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_url_UrlB
     public function buildGalleryUrl($currentPage)
     {
         $url = '';
-        
+
         $ioc    = org_tubepress_ioc_IocContainer::getInstance();
         $tpom   = $ioc->get('org_tubepress_options_manager_OptionsManager');
 
@@ -76,8 +76,8 @@ class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_url_UrlB
             $url = 'standardfeeds/most_recent';
             break;
                 
-        case org_tubepress_gallery_Gallery::MOST_LINKED:
-            $url = 'standardfeeds/most_linked';
+        case org_tubepress_gallery_Gallery::TOP_FAVORITES:
+            $url = 'standardfeeds/top_favorites';
             break;
                 
         case org_tubepress_gallery_Gallery::MOST_DISCUSSED:
@@ -94,8 +94,9 @@ class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_url_UrlB
                 
         case org_tubepress_gallery_Gallery::TAG:
             $tags = $tpom->get(org_tubepress_options_category_Gallery::TAG_VALUE);
-            $tags = explode(' ', $tags);
-            $url  = 'videos?q=' . implode('+', $tags);
+            $tags = str_replace(' ', '+', self::_replaceQuotes($tags));
+            $tags = rawurlencode($tags);
+            $url  = "videos?q=$tags";
             break;
                                 
         default:
@@ -106,13 +107,17 @@ class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_url_UrlB
         $request = new net_php_pear_Net_URL2("http://gdata.youtube.com/feeds/api/$url");
         $this->_commonUrlPostProcessing($tpom, $request);
         $this->_galleryUrlPostProcessing($tpom, $request, $currentPage);
-        $this->_fieldsPostProcessing($request);
         return $request->getURL();
+    }
+    
+    private static function _replaceQuotes($text)
+    {
+        return str_replace(array('&#8216', '&#8217', '&#8242;', '&#34', '&#8220;', '&#8221;', '&#8243;'), '"', $text);
     }
     
     public function buildSingleVideoUrl($id)
     {
-	$ioc          = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc          = org_tubepress_ioc_IocContainer::getInstance();
         $provider     = $ioc->get('org_tubepress_video_feed_provider_Provider');
         $providerName = $provider->calculateProviderOfVideoId($id);
 
@@ -132,11 +137,6 @@ class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_url_UrlB
         $url->setQueryVariable('key', $tpom->get(org_tubepress_options_category_Feed::DEV_KEY));
     }
 
-	private function _fieldsPostProcessing(net_php_pear_Net_URL2 $url)
-    {
-    	
-    }
-
     /**
      * Appends some global query parameters on the request
      * before we fire it off to YouTube
@@ -147,11 +147,11 @@ class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_url_UrlB
      */
     private function _galleryUrlPostProcessing(org_tubepress_options_manager_OptionsManager $tpom, net_php_pear_Net_URL2 $url, $currentPage)
     {
-        $perPage   = $tpom->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
-        
+        $perPage = $tpom->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
+
         /* start index of the videos */
         $start = ($currentPage * $perPage) - $perPage + 1;
-        
+
         $url->setQueryVariable('start-index', $start);
         $url->setQueryVariable('max-results', $perPage);
         

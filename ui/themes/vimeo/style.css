@@ -1,0 +1,9 @@
+dd.tubepress_meta_title a {
+	color: #2786C2;
+}
+dd.tubepress_meta_title a:hover {
+	color: #F75342;
+}
+dd.tubepress_meta, dt.tubepress_meta {
+	color: #969696 ! important;
+}

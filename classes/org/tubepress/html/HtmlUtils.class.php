@@ -30,14 +30,15 @@ class org_tubepress_html_HtmlUtils
 
         $jqueryInclude = '';
         if ($include_jQuery) {
-            $jqueryInclude = "<script type=\"text/javascript\" src=\"$tubepress_base_url/ui/lib/jquery-1.3.2.min.js\"></script>";
+            $jqueryInclude = "<script type=\"text/javascript\" src=\"$tubepress_base_url/ui/lib/jquery-1.4.2.min.js\"></script>";
         }
 
         $result = <<<GBS
     $jqueryInclude
-    <script type="text/javascript">function getTubePressBaseUrl(){return "$tubepress_base_url";}</script>
-    <script type="text/javascript" src="$tubepress_base_url/ui/lib/tubepress.js"></script>
-    <link rel="stylesheet" href="$tubepress_base_url/ui/themes/default/style.css" type="text/css" />
+<script type="text/javascript">function getTubePressBaseUrl(){return "$tubepress_base_url";}</script>
+<script type="text/javascript" src="$tubepress_base_url/ui/lib/tubepress.js"></script>
+<link rel="stylesheet" href="$tubepress_base_url/ui/themes/default/style.css" type="text/css" />
+
 GBS;
     
         if (isset($getVars['tubepress_page']) && $getVars['tubepress_page'] > 1) {

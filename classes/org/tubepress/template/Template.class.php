@@ -24,12 +24,13 @@
  */
 interface org_tubepress_template_Template
 {
-    const AUTHOR_URL_PREFIX =               'authorUrlPrefix';
     const EMBEDDED_AUTOSTART =              'autostart';
     const EMBEDDED_DATA_URL =               'homeURL';
     const EMBEDDED_FULLSCREEN =             'embeddedFullscreen';
     const EMBEDDED_HEIGHT =                 'embeddedHeight';
     const EMBEDDED_IMPL_NAME =              'embeddedImplementationName';
+    const EMBEDDED_COLOR_PRIMARY =          'embeddedColorPrimary';
+    const EMBEDDED_COLOR_HIGHLIGHT =        'embeddedColorHightlight';
     const EMBEDDED_SOURCE =                 'embeddedSource';
     const EMBEDDED_WIDTH =                  'embeddedWidth';
     const GALLERY_ID =                      'galleryId';
@@ -46,7 +47,6 @@ interface org_tubepress_template_Template
     const TUBEPRESS_BASE_URL =              'tubepressBaseUrl';
     const VIDEO =                           'video';
     const VIDEO_ARRAY =                     'videoArray';
-    const VIDEO_SEARCH_PREFIX =             'videoSearchPrefix';
     
     /* OPTIONS PAGE */
     const OPTIONS_PAGE_CATEGORIES =         'optionsPageCategories';
@@ -71,6 +71,8 @@ interface org_tubepress_template_Template
 
     /* DEPRECATED */
     const PRE_GALLERY = self::PLAYER_HTML;
+    const VIDEO_SEARCH_PREFIX = 'videoSearchPrefix';
+    const AUTHOR_URL_PREFIX   = 'authorUrlPrefix';
     
     public function toString();
     

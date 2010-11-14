@@ -27,7 +27,7 @@
         return "<?php echo ${org_tubepress_template_Template::SHORTCODE}; ?>";
     }
     jQuery(document).ready(function(){
-        TubePressAjax.initPagination(<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>);
+        TubePressAjaxPagination.init(<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>);
     });
 </script>
 

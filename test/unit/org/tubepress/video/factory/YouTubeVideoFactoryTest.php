@@ -132,9 +132,10 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends TubePressUnitT
     
     function testDefaultThumbnailUrl()
     {
+        $this->setOptions(array(org_tubepress_options_category_Display::RANDOM_THUMBS => false));
         $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
         $vid = $results[0];
-        $this->assertEquals('http://i.ytimg.com/vi/BRKWi5beywQ/0.jpg', $vid->getThumbnailUrl());
+        $this->assertEquals('http://i.ytimg.com/vi/BRKWi5beywQ/2.jpg', $vid->getThumbnailUrl());
     }
     
     function testId()

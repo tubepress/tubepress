@@ -6,41 +6,38 @@ $msgs = array(
         'options-page-title'       => 'TubePress Options',
         'options-page-save-button' => 'Save',
         'options-page-intro-text'  => 'Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="http://tubepress.org/documentation">documentation</a> for more info. An asterisk (*) next to an option indicates it\'s only available with <a href="http://tubepress.org/features">TubePress Pro</a>.',
-        'options-page-donation'    => 'TubePress is free. But if you enjoy the plugin, and appreciate the hundreds of hours I\'ve spent developing and supporting it, please consider a donation. No amount is too small. Thanks!',
+        'options-page-donation'    => 'If you appreciate the hundreds of hours I\'ve spent developing and supporting TubePress, please consider a donation. No amount is too small. Thanks!',
 
         'options-category-title-gallery'  => 'Which videos?',
         'options-category-title-display'  => 'Appearance',
         'options-category-title-embedded' => 'Embedded Player',
         'options-category-title-meta'     => 'Meta Display',
         'options-category-title-feed'     => 'Provider Feed',
-        'options-category-title-uploads'  => 'Uploads',
         'options-category-title-advanced' => 'Advanced',
 
-        'options-title-top_rated'         => 'Top rated videos from...',
-        'options-title-favorites'         => 'This YouTube user\'s "favorites"',
-        'options-title-recently_featured' => 'The latest "featured" videos on YouTube\'s homepage',
-        'options-title-mobile'            => 'Videos for mobile phones',
-        'options-title-playlist'          => 'This playlist',
-        'options-desc-playlist'           => 'Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser\'s address bar (while looking at a YouTube playlist). It comes right after the "p=". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35',
-        'options-title-most_viewed'       => 'Most-viewed videos from',
-        'options-title-most_linked'       => 'Most-linked videos',
-        'options-title-most_recent'       => 'Most-recently added videos',
-        'options-title-most_discussed'    => 'Most-discussed videos',
-        'options-title-most_responded'    => 'Most-responded to videos',
-        'options-title-views'             => 'Views',
-        'options-title-tag'               => 'YouTube search for...',
-        'options-title-user'              => 'Videos from this YouTube user',
-        'options-desc-tag'                => 'YouTube limits this mode to 1,000 results',
-        'options-title-vimeoUploadedBy'   => 'Videos uploaded by this Vimeo user',
-        'options-title-vimeoLikes'        => 'Videos this Vimeo user likes',
-        'options-title-vimeoAppearsIn'    => 'Videos this Vimeo user appears in',
-        'options-title-vimeoSearch'       => 'Vimeo search for...',
-        'options-title-vimeoCreditedTo'   => 'Videos credited to this Vimeo user (either appears in or uploaded by)',
-        'options-title-vimeoChannel'      => 'Videos in this Vimeo channel',
-        'options-title-vimeoAlbum'        => 'Videos from this Vimeo album',
-        'options-title-vimeoGroup'        => 'Videos from this Vimeo group',
-        'options-title-directory'         => 'Video from this directory',
-        'options-desc-directory'          => 'Enter the path, relative to <tt>%s</tt>, of a directory holding uploaded videos and related .yml files. TubePress will populate this gallery with any videos it finds here.',
+        'options-title-top_rated'           => 'Top rated videos from...',
+        'options-title-favorites'           => 'This YouTube user\'s "favorites"',
+        'options-title-recently_featured'   => 'The latest "featured" videos on YouTube\'s homepage',
+        'options-title-mobile'              => 'Videos for mobile phones',
+        'options-title-playlist'            => 'This playlist',
+        'options-desc-playlist'             => 'Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser\'s address bar (while looking at a YouTube playlist). It comes right after the "p=". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35',
+        'options-title-most_viewed'         => 'Most-viewed videos from',
+        'options-title-youtubeTopFavorites' => 'Videos most frequently flagged as favorites from...',
+        'options-title-most_recent'         => 'Most-recently added videos',
+        'options-title-most_discussed'      => 'Most-discussed videos',
+        'options-title-most_responded'      => 'Most-responded to videos',
+        'options-title-views'               => 'Views',
+        'options-title-tag'                 => 'YouTube search for...',
+        'options-title-user'                => 'Videos from this YouTube user',
+        'options-desc-tag'                  => 'YouTube limits this mode to 1,000 results',
+        'options-title-vimeoUploadedBy'     => 'Videos uploaded by this Vimeo user',
+        'options-title-vimeoLikes'          => 'Videos this Vimeo user likes',
+        'options-title-vimeoAppearsIn'      => 'Videos this Vimeo user appears in',
+        'options-title-vimeoSearch'         => 'Vimeo search for...',
+        'options-title-vimeoCreditedTo'     => 'Videos credited to this Vimeo user (either appears in or uploaded by)',
+        'options-title-vimeoChannel'        => 'Videos in this Vimeo channel',
+        'options-title-vimeoAlbum'          => 'Videos from this Vimeo album',
+        'options-title-vimeoGroup'          => 'Videos from this Vimeo group',
 
         'options-title-playerLocation'   => 'Play each video',
         'options-title-descriptionLimit' => 'Maximum description length',
@@ -110,9 +107,6 @@ $msgs = array(
         'options-title-randomize_thumbnails' => 'Randomize thumbnails',
         'options-desc-randomize_thumbnails'  => 'Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature',
 
-        'options-title-ffmpegBinary' => 'FFmpeg binary location',
-        'options-desc-ffmpegBinary'  => 'To generate thumbnails for your locally uploaded videos, TubePress requires a modern version of <a href="http://www.ffmpeg.org/">FFmpeg</a>. Set this value to the absolute path of your server\'s FFmpeg installation.',
-
         'options-title-thumbsPerVideo' => 'Thumbs per video',
         'options-desc-thumbsPerVideo'  => 'How many thumbnails to generate for each video. TubePress can randomly display the thumbs each time someone visits the gallery. See the "Randomize thumbnails" option under the "Appearance" tab.',
 
@@ -129,6 +123,10 @@ $msgs = array(
 
         'options-title-resultCountCap'       => 'Maximum total videos to retrieve',
         'options-desc-resultCountCap'        => 'This can help to reduce the number of pages in your gallery. Set to "0" to remove any limit.',
+        'options-title-vimeoKey'             => 'Vimeo API "Consumer Key"',
+        'options-desc-vimeoKey'              => '<a href="http://vimeo.com/api/applications/new">Click here</a> to register for a consumer key and secret.',
+        'options-title-vimeoSecret'         => 'Vimeo API "Consumer Secret"',
+        'options-desc-vimeoSecret'           => '<a href="http://vimeo.com/api/applications/new">Click here</a> to register for a consumer key and secret.',
 
         'player-normal'      => 'normally (at the top of your gallery)',
         'player-popup'       => 'in a popup window',
@@ -196,7 +194,6 @@ $msgs = array(
         'playerImplementation-provider_based'    => 'Provider default',
         'playerImplementation-longtail'   => 'JW FLV Media Player (by Longtail Video)'
     );
-
         
 function __($key) {
     return $key;
@@ -217,7 +214,7 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 		foreach ($files as $file) {
 			$realPath = dirname(__FILE__) . '/../../../../../i18n/' . $file;
 			$outputfile = str_replace(array('.pot', '.po'), '.mo', $realPath);
-			exec("/usr/bin/msgfmt	-o $outputfile $realPath", $results, $return);
+			exec("/opt/local/bin/msgfmt	-o $outputfile $realPath", $results, $return);
 			$this->assertTrue($return === 0);
 		}
 		dirname(__FILE__) . '/../../../../../i18n/tubepress.mo';

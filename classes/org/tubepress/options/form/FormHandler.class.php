@@ -49,13 +49,12 @@ class org_tubepress_options_form_FormHandler
     {   
         global $tubepress_base_url;
 
-	$ioc            = org_tubepress_ioc_IocContainer::getInstance();
+	    $ioc            = org_tubepress_ioc_IocContainer::getInstance();
         $messageService = $ioc->get('org_tubepress_message_MessageService');
         $template       = new org_tubepress_template_SimpleTemplate();
-	$storageManager = $ioc->get('org_tubepress_options_storage_StorageManager');
+        $storageManager = $ioc->get('org_tubepress_options_storage_StorageManager');
 
         $template->setPath(dirname(__FILE__) . '/../../../../../ui/lib/options_page/html_templates/options_page.tpl.php');
-        
         
         /* set the surrounding text */
         $template->setVariable(org_tubepress_template_Template::OPTIONS_PAGE_TITLE, $messageService->_('options-page-title'));
@@ -176,13 +175,7 @@ class org_tubepress_options_form_FormHandler
             $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_WIDGET] = $html;
             $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_YOUTUBE_OPTION] = org_tubepress_options_reference_OptionsReference::appliesToYouTube($modeName);
             $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_VIMEO_OPTION]   = org_tubepress_options_reference_OptionsReference::appliesToVimeo($modeName);
-            
-            if ($modeName == org_tubepress_gallery_Gallery::DIRECTORY) {
-                $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC]   = sprintf($messageService->_("options-desc-$modeName"),
-                    org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath() . '/content/uploads');
-            } else {
-                $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC]   = $messageService->_("options-desc-$modeName");
-            }
+            $modeMetaArray[org_tubepress_template_Template::OPTIONS_PAGE_OPTIONS_DESC]   = $messageService->_("options-desc-$modeName");
             
             $modesMetaArray[] = $modeMetaArray;
         }

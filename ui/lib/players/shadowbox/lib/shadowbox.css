@@ -5,7 +5,7 @@
 #sb-wrapper-inner{position:relative;border:1px solid #303030;overflow:hidden;height:100px;}
 #sb-body{position:relative;height:100%;}
 #sb-body-inner{position:absolute;height:100%;width:100%;}
-#sb-player.html{height:100%;overflow:auto;}
+#sb-player.html{height:100%}
 #sb-body img{border:none;}
 #sb-loading{position:relative;height:100%;}
 #sb-loading-inner{position:absolute;font-size:14px;line-height:24px;height:24px;top:50%;margin-top:-12px;width:100%;text-align:center;}

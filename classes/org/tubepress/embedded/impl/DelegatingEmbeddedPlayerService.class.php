@@ -23,6 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_video_feed_provider_Provider',
     'org_tubepress_embedded_EmbeddedPlayerService',
+    'org_tubepress_embedded_impl_VimeoEmbeddedPlayerService',
     'org_tubepress_ioc_IocDelegateUtils'));
 
 /**
@@ -48,7 +49,18 @@ class org_tubepress_embedded_impl_DelegatingEmbeddedPlayerService implements org
      */
     public function toString($videoId)
     {
+        $ioc          = org_tubepress_ioc_IocContainer::getInstance();
+        $tpom         = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $provider     = $ioc->get('org_tubepress_video_feed_provider_Provider');
+        $providerName = $provider->calculateProviderOfVideoId($videoId);
+        
+        /** The user wants to use JW FLV Player to show YouTube videos. */
+        if ($providerName === org_tubepress_video_feed_provider_Provider::YOUTUBE
+            && $tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) === org_tubepress_embedded_EmbeddedPlayerService::LONGTAIL) {
+            return $ioc->get('org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService')->toString($videoId);    
+        }
+        
         return org_tubepress_ioc_IocDelegateUtils::getDelegate(self::$_providerToBeanNameMap,
-           self::$_defaultDelegateBeanName)->toString($ioc, $videoId);
+           self::$_defaultDelegateBeanName)->toString($videoId);
     }
 }

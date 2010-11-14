@@ -51,12 +51,12 @@
               
           <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::AUTHOR]): ?>
           
-          <dt class="tubepress_meta tubepress_meta_author"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::AUTHOR]; ?></dt><dd class="tubepress_meta tubepress_meta_author"><a rel="external nofollow" href="<?php echo ${org_tubepress_template_Template::AUTHOR_URL_PREFIX}; ?><?php echo $video->getAuthorUid(); ?>"><?php echo $video->getAuthorDisplayName(); ?></a></dd>
+          <dt class="tubepress_meta tubepress_meta_author"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::AUTHOR]; ?></dt><dd class="tubepress_meta tubepress_meta_author"><?php echo $video->getAuthorDisplayName(); ?></dd>
           <?php endif; ?>
     
           <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::TAGS]): ?>
           
-          <dt class="tubepress_meta tubepress_meta_keywords"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::TAGS]; ?></dt><dd class="tubepress_meta tubepress_meta_keywords"><a rel="external nofollow" href="<?php echo ${org_tubepress_template_Template::VIDEO_SEARCH_PREFIX}; ?><?php echo rawurlencode(implode(" ", $video->getKeywords())); ?>"><?php echo $raw = htmlspecialchars(implode(" ", $video->getKeywords()), ENT_QUOTES, "UTF-8"); ?></a></dd>
+          <dt class="tubepress_meta tubepress_meta_keywords"><?php echo ${org_tubepress_template_Template::META_LABELS}[org_tubepress_options_category_Meta::TAGS]; ?></dt><dd class="tubepress_meta tubepress_meta_keywords"><?php echo $raw = htmlspecialchars(implode(" ", $video->getKeywords()), ENT_QUOTES, "UTF-8"); ?></dd>
           <?php endif; ?>
           
           <?php if (${org_tubepress_template_Template::META_SHOULD_SHOW}[org_tubepress_options_category_Meta::URL]): ?>
@@ -122,10 +122,10 @@
 
   <script type="text/javascript">
     jQuery(document).ready(function(){
-        TubePress.fluidThumbs("#tubepress_gallery_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>",  <?php echo ${org_tubepress_template_Template::THUMBNAIL_WIDTH}; ?>);
+       TubePressGallery.fluidThumbs("#tubepress_gallery_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>",  <?php echo ${org_tubepress_template_Template::THUMBNAIL_WIDTH}; ?>);
     });
     jQuery(window).resize(function(){
-	TubePress.fluidThumbs("#tubepress_gallery_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>",  <?php echo ${org_tubepress_template_Template::THUMBNAIL_WIDTH}; ?>);
+       TubePressGallery.fluidThumbs("#tubepress_gallery_<?php echo ${org_tubepress_template_Template::GALLERY_ID}; ?>",  <?php echo ${org_tubepress_template_Template::THUMBNAIL_WIDTH}; ?>);
     });
   </script>
 </div>

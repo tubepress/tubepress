@@ -21,7 +21,6 @@ require_once 'org/tubepress/options/OptionsTests.php';
 require_once 'org/tubepress/browser/BrowserDetectorTests.php';
 require_once 'org/tubepress/single/SingleVideoTests.php';
 require_once 'org/tubepress/theme/ThemeHandlerTests.php';
-require_once 'org/tubepress/uploads/UploadsTests.php';
 
 class TubePressUnitTests
 {
@@ -49,7 +48,6 @@ class TubePressUnitTests
 		$suite->addTest(BrowserDetectorTests::suite());
 		$suite->addTest(SingleVideoTests::suite());
 		$suite->addTest(ThemeHandlerTests::suite());
-		$suite->addTest(Uploadstests::suite());
 
 		return $suite;
 	}

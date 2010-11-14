@@ -35,7 +35,6 @@
 }
 
 .tubepress_thumb img {
-	width: 89% ! important;
 	padding: 5% 5% 1% 5%;
 	display: block;
 	margin: 0 auto ! important;
@@ -52,16 +51,16 @@
 	padding: 0 5% 0 5%;
 }
 
-.tubepress_meta_group dd {
-	margin: 0;
-}
-
-.tubepress_meta_group dt {
-	clear: left;
+.tubepress_single_video .tubepress_meta_group {
+	padding: 0;
 }
 
 .tubepress_meta {
 	float: left;
+}
+
+dl.tubepress_meta_group {
+	width: 100%;
 }
 
 dt.tubepress_meta_title, 
@@ -79,14 +78,15 @@ dd.tubepress_meta_title, dd.tubepress_meta_title a, dd.tubepress_meta_title a:ho
 	font-size: 12px;
 	font-weight: bold;
 	margin-left: 0;
-	clear: left;
+	float: left;
+	width: auto;
 }
 
 dd.tubepress_meta_runtime {
 	font-size: 11px;
 	margin-left: 0;
-	font-weight: bold;	
-	clear: left;
+	font-weight: bold;
+	clear: both;	
 }
 
 dt.tubepress_meta_author, 
@@ -128,6 +128,19 @@ dd.tubepress_meta_uploaddate {
 
 dd.tubepress_meta_url {
 	clear: left;
+}
+dd.tubepress_meta_description {
+	clear: both;
+	float: left;
+	width: 100%;
+}
+.tubepress_meta_group dd {
+        margin: 0;
+}
+
+.tubepress_meta_group dt {
+        clear: both;
+        float: left;
 }
 
 .tubepress_sidebar .tubepress_thumb {

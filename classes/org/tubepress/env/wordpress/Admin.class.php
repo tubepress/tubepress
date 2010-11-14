@@ -98,14 +98,13 @@ EOT
     {
         /* grab the storage manager */
         $iocContainer = org_tubepress_ioc_IocContainer::getInstance();
-        $wpsm = $iocContainer->get('org_tubepress_options_manager_OptionsManager');
+        $wpsm = $iocContainer->get('org_tubepress_options_storage_StorageManager');
 
         /* initialize our options in case we need to */
         $wpsm->init();
 
         /* get the form handler */
         $optionsForm = new org_tubepress_options_form_FormHandler();
-        $optionsForm->setIocService($iocContainer);
 
         /* are we updating? */
         if (isset($_POST['tubepress_save'])) {

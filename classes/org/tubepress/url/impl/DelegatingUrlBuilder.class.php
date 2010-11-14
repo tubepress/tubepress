@@ -47,7 +47,7 @@ class org_tubepress_url_impl_DelegatingUrlBuilder implements org_tubepress_url_U
     {
         return org_tubepress_ioc_IocDelegateUtils::getDelegate(
             self::$_providerToBeanNameMap, 
-            self::$_defaultDelegateName)->buildGalleryUrl($ioc, $currentPage);
+            self::$_defaultDelegateName)->buildGalleryUrl($currentPage);
     }
 
     /**
@@ -59,6 +59,6 @@ class org_tubepress_url_impl_DelegatingUrlBuilder implements org_tubepress_url_U
     {   
         return org_tubepress_ioc_IocDelegateUtils::getDelegate(
             self::$_providerToBeanNameMap,
-            self::$_defaultDelegateName)->buildSingleVideoUrl($ioc, $id);
+            self::$_defaultDelegateName)->buildSingleVideoUrl($id);
     }
 }

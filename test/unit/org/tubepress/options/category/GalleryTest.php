@@ -12,9 +12,9 @@ class org_tubepress_options_category_GalleryTest extends org_tubepress_options_c
     protected function getExpectedNames()
     {
         return array('mode', 'favoritesValue', 'most_viewedValue', 'playlistValue', 
-            'tagValue', 'top_ratedValue', 'userValue', 'video', 'vimeoUploadedByValue',
+            'tagValue', 'youtubeTopFavoritesValue', 'top_ratedValue', 'userValue', 'video', 'vimeoUploadedByValue',
             'vimeoLikesValue', 'vimeoAppearsInValue', 'vimeoSearchValue', 'vimeoCreditedToValue',
-            'vimeoChannelValue', 'vimeoAlbumValue', 'vimeoGroupValue', 'directoryValue');
+            'vimeoChannelValue', 'vimeoAlbumValue', 'vimeoGroupValue');
     }
 }
 ?>

@@ -30,7 +30,6 @@ tubepress_load_classes(array('org_tubepress_options_reference_OptionsReference',
     'org_tubepress_options_category_Widget',
     'org_tubepress_options_category_Display',
     'org_tubepress_options_category_Meta',
-    'org_tubepress_options_category_Uploads',
     'org_tubepress_gallery_Gallery',
     'org_tubepress_embedded_EmbeddedPlayerService'));
 
@@ -58,6 +57,8 @@ class org_tubepress_options_reference_OptionsReference
             org_tubepress_options_category_Gallery::TAG_VALUE              => 'stewart daily show',
             org_tubepress_options_category_Gallery::USER_VALUE             => '3hough',
             org_tubepress_options_category_Feed::DEV_KEY                   => 'AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg',
+            org_tubepress_options_category_Feed::VIMEO_KEY                 => '',
+            org_tubepress_options_category_Feed::VIMEO_SECRET              => '',
             org_tubepress_options_category_Widget::TITLE                   => 'TubePress',
             org_tubepress_options_category_Widget::TAGSTRING               => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']',
             org_tubepress_options_category_Gallery::VIDEO                  => '',
@@ -69,9 +70,6 @@ class org_tubepress_options_reference_OptionsReference
             org_tubepress_options_category_Gallery::VIMEO_CHANNEL_VALUE    => 'splitscreenstuff',
             org_tubepress_options_category_Gallery::VIMEO_GROUP_VALUE      => 'hdxs',
             org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE      => '140484',
-            org_tubepress_options_category_Gallery::DIRECTORY_VALUE        => 'sample_videos',
-            org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION => '',
-            org_tubepress_options_category_Uploads::ADMIN_PAGE_PASSWORD    => ''
         ),
         org_tubepress_options_Type::BOOL => array(
             org_tubepress_options_category_Advanced::DEBUG_ON           => true,
@@ -113,11 +111,11 @@ class org_tubepress_options_reference_OptionsReference
             org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT    => 350,
             org_tubepress_options_category_Embedded::EMBEDDED_WIDTH     => 425,
             org_tubepress_options_category_Feed::RESULT_COUNT_CAP       => 300,
-            org_tubepress_options_category_Uploads::THUMBS_PER_VIDEO    => 3,
         ),
         org_tubepress_options_Type::TIME_FRAME => array(
             org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE   => 'today',
-            org_tubepress_options_category_Gallery::TOP_RATED_VALUE     => 'today'
+            org_tubepress_options_category_Gallery::TOP_RATED_VALUE     => 'today',
+            org_tubepress_options_category_Gallery::TOP_FAVORITES_VALUE => 'today'
         ),
         org_tubepress_options_Type::ORDER => array(
             org_tubepress_options_category_Display::ORDER_BY            => 'viewCount',
@@ -145,14 +143,16 @@ class org_tubepress_options_reference_OptionsReference
         org_tubepress_gallery_Gallery::VIMEO_ALBUM,
         org_tubepress_gallery_Gallery::VIMEO_GROUP,
         org_tubepress_gallery_Gallery::VIMEO_CHANNEL,
-        org_tubepress_options_category_Meta::LIKES
+        org_tubepress_options_category_Meta::LIKES,
+        org_tubepress_options_category_Feed::VIMEO_KEY,
+        org_tubepress_options_category_Feed::VIMEO_SECRET
     );
     
     private static $_youtubeOnly = array(
         'favorites', 'playlist', 'tag', 'user', 'recently_featured', 'mobile', 'most_discussed',
-        'most_linked', 'most_recent', 'most_responded', 'most_viewed', 'top_rated',
+        'most_recent', 'most_responded', 'most_viewed', 'youtubeTopFavorites', 'top_rated',
         org_tubepress_options_category_Embedded::GENIE,
-        org_tubepress_options_category_Embedded::PLAYER_COLOR,
+        org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT,
         org_tubepress_options_category_Embedded::SHOW_RELATED,
         org_tubepress_options_category_Embedded::BORDER,
         org_tubepress_options_category_Meta::RATING,
@@ -161,28 +161,19 @@ class org_tubepress_options_reference_OptionsReference
         org_tubepress_options_category_Feed::FILTER,
         org_tubepress_options_category_Display::RANDOM_THUMBS,
         org_tubepress_options_category_Feed::EMBEDDABLE_ONLY,
-        org_tubepress_options_category_Embedded::LOOP,
         org_tubepress_options_category_Embedded::HIGH_QUALITY,
-        org_tubepress_options_category_Embedded::PLAYER_IMPL
-    );
-    
-    private static $_uploadsOnly = array(
-        org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION,
-        org_tubepress_options_category_Uploads::THUMBS_PER_VIDEO,
-        org_tubepress_gallery_Gallery::DIRECTORY,
-        org_tubepress_options_category_Uploads::ADMIN_PAGE_PASSWORD
+        org_tubepress_options_category_Embedded::PLAYER_IMPL,
+        org_tubepress_options_category_Embedded::FULLSCREEN
     );
 
     static function appliesToYouTube($optionName)
     {
-        return !in_array($optionName, self::$_vimeoOnly) &&
-            !in_array($optionName, self::$_uploadsOnly);
+        return !in_array($optionName, self::$_vimeoOnly);
     }
     
     static function appliesToVimeo($optionName)
     {
-        return !in_array($optionName, self::$_youtubeOnly) &&
-            !in_array($optionName, self::$_uploadsOnly);
+        return !in_array($optionName, self::$_youtubeOnly);
     }
     
     /**
@@ -195,9 +186,7 @@ class org_tubepress_options_reference_OptionsReference
     static function canOptionBeSetViaShortcode($optionName)
     {
         return !in_array($optionName, array(
-            org_tubepress_options_category_Advanced::KEYWORD,
-            org_tubepress_options_category_Uploads::FFMPEG_BINARY_LOCATION,
-            org_tubepress_options_category_Uploads::ADMIN_PAGE_PASSWORD
+            org_tubepress_options_category_Advanced::KEYWORD
         ));
     }
 
@@ -261,7 +250,7 @@ class org_tubepress_options_reference_OptionsReference
      */
     static function getOptionCategoryNames()
     {
-        return array('gallery', 'display', 'embedded', 'meta', 'feed', 'uploads', 'advanced', 'widget');
+        return array('gallery', 'display', 'embedded', 'meta', 'feed', 'advanced', 'widget');
     }
     
     /**
@@ -289,12 +278,11 @@ class org_tubepress_options_reference_OptionsReference
     {
         switch ($optionType) {
             case org_tubepress_options_Type::PLAYER:
-                return array('normal', 'popup','shadowbox','jqmodal', 'youtube', 'static', 'solo', 'vimeo');
+                return array('normal', 'popup','shadowbox','jqmodal', 'youtube', 'static', 'solo', 'vimeo', 'fancybox', 'tinybox');
             case org_tubepress_options_Type::ORDER:
                 return array('relevance', 'viewCount', 'rating', 'published', 'random', 'position', 'commentCount', 'duration', 'title', 'newest', 'oldest');
             case org_tubepress_options_Type::MODE:
                 return array(
-                    org_tubepress_gallery_Gallery::DIRECTORY,
                     org_tubepress_gallery_Gallery::FAVORITES,
                     org_tubepress_gallery_Gallery::PLAYLIST,
                     org_tubepress_gallery_Gallery::TAG,
@@ -302,10 +290,10 @@ class org_tubepress_options_reference_OptionsReference
                     org_tubepress_gallery_Gallery::FEATURED,
                     org_tubepress_gallery_Gallery::MOBILE,
                     org_tubepress_gallery_Gallery::MOST_DISCUSSED,
-                    org_tubepress_gallery_Gallery::MOST_LINKED,
                     org_tubepress_gallery_Gallery::MOST_RECENT,
                     org_tubepress_gallery_Gallery::MOST_RESPONDED,
                     org_tubepress_gallery_Gallery::POPULAR,
+                    org_tubepress_gallery_Gallery::TOP_FAVORITES,
                     org_tubepress_gallery_Gallery::TOP_RATED, 
                     org_tubepress_gallery_Gallery::VIMEO_UPLOADEDBY,
                     org_tubepress_gallery_Gallery::VIMEO_LIKES,
@@ -382,8 +370,7 @@ class org_tubepress_options_reference_OptionsReference
     static function isOptionApplicableToOptionsForm($optionName)
     {
         return !in_array($optionName, array(
-            org_tubepress_options_category_Gallery::VIDEO,
-            org_tubepress_options_category_Uploads::ADMIN_PAGE_PASSWORD
+            org_tubepress_options_category_Gallery::VIDEO
         ));
     }
 

@@ -31,20 +31,23 @@ class org_tubepress_ioc_IocDelegateUtils
 {
     public static function getDelegate($providerToBeanNameArray, $defaultDelegateBeanName)
     {
-        $ioc = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc      = org_tubepress_ioc_IocContainer::getInstance();
         $provider = self::getProvider($ioc);
+        
         if (array_key_exists($provider, $providerToBeanNameArray)) {
+            org_tubepress_log_Log::log('IOC Delegate Utils', 'Found custom delegate: %s', $providerToBeanNameArray[$provider]);
             return $ioc->get($providerToBeanNameArray[$provider]);
         }
+        
+        org_tubepress_log_Log::log('IOC Delegate Utils', 'Falling back to default delegate: %s', $defaultDelegateBeanName);
         return $ioc->get($defaultDelegateBeanName);
     }
     
-
-    
     private static function getProvider(org_tubepress_ioc_IocService $ioc)
     {
-        $tpom = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $tpom     = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $provider = $ioc->get('org_tubepress_video_feed_provider_Provider');
+        
         return $provider->calculateCurrentVideoProvider($tpom);
     }
 }

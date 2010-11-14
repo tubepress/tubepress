@@ -1,0 +1,28 @@
+div.tubepress_container {
+	width: 930px;
+}
+.tubepress_thumbnail_area {
+	float: right;
+	width: 400px;
+	height: 400px;
+	overflow: scroll;
+}
+.tubepress_normal_embedded_wrapper {
+	float: left;
+}
+.tubepress_thumb {
+	width: 100%;
+	height: auto;
+	clear: left;
+}
+.tubepress_thumb img {
+}
+.tubepress_thumb a {
+	float: left;
+}
+dl.tubepress_meta_group {
+	float: left;
+	width: 235px;
+	padding: 5px 0 0;
+	margin-left: 1em;
+}

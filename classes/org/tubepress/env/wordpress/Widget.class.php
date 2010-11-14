@@ -60,7 +60,9 @@ class org_tubepress_env_wordpress_Widget
         extract($opts);
 
         $iocContainer = org_tubepress_ioc_IocContainer::getInstance();
-        $tpom = $iocContainer->get('org_tubepress_options_manager_OptionsManager');
+        $tpom         = $iocContainer->get('org_tubepress_options_manager_OptionsManager');
+        $parser       = $iocContainer->get('org_tubepress_shortcode_ShortcodeParser');
+        $gallery      = $iocContainer->get('org_tubepress_gallery_Gallery');
 
         /* Turn on logging if we need to */
         org_tubepress_log_Log::setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON), $_GET);
@@ -81,7 +83,7 @@ class org_tubepress_env_wordpress_Widget
 
         /* now apply the user's options */
         $wpsm = $iocContainer->get('org_tubepress_options_manager_OptionsManager');
-        org_tubepress_shortcode_ShortcodeParser::parse($wpsm->get(org_tubepress_options_category_Widget::TAGSTRING), $iocContainer);
+        $parser->parse($wpsm->get(org_tubepress_options_category_Widget::TAGSTRING));
 
         /* calculate the final options */
         $finalOptions = array_merge($defaultWidgetOptions, $tpom->getCustomOptions());
@@ -91,7 +93,7 @@ class org_tubepress_env_wordpress_Widget
             $tpom->set(org_tubepress_options_category_Display::THEME, 'sidebar');
         }
 
-        $out = org_tubepress_gallery_Gallery::getHtml($iocContainer);
+        $out = $gallery->getHtml();
 
         /* do the standard WordPress widget dance */
         echo $before_widget . $before_title .
@@ -108,7 +110,7 @@ class org_tubepress_env_wordpress_Widget
     {
         $iocContainer = new org_tubepress_ioc_impl_FreeWordPressPluginIocService();
         $wpsm         = $iocContainer->get('org_tubepress_options_manager_OptionsManager');
-        $msg          = $iocContainer->get(org_tubepress_ioc_IocService::MESSAGE_SERVICE);
+        $msg          = $iocContainer->get('org_tubepress_message_MessageService');
 
         /* are we saving? */
         if (isset($_POST['tubepress-widget-submit'])) {

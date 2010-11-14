@@ -88,12 +88,12 @@ class org_tubepress_url_impl_YouTubeUrlBuilderTest extends TubePressUnitTest {
 		    $this->_sut->buildGalleryUrl(1));
 	}
 
-	function testBuildGalleryUrlMostLinked()
+	function testBuildGalleryUrlTopFavorites()
 	{
 	    $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::MOST_LINKED
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::TOP_FAVORITES
         ));
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_linked?" . $this->_standardPostProcessingStuff(), 
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/top_favorites?" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->buildGalleryUrl(1));
 	}
 	
@@ -123,6 +123,36 @@ class org_tubepress_url_impl_YouTubeUrlBuilderTest extends TubePressUnitTest {
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/users/mrdeathgod/favorites?" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->buildGalleryUrl(1));
 	}
+	
+    function testBuildGalleryUrlTagWithDoubleQuotes()
+    {
+        $this->setOptions(array(
+           org_tubepress_options_category_Gallery::MODE      => org_tubepress_gallery_Gallery::TAG,
+           org_tubepress_options_category_Gallery::TAG_VALUE => '"stewart daily" -show' 
+        ));
+        $this->assertEquals("http://gdata.youtube.com/feeds/api/videos?q=%22stewart%2Bdaily%22%2B-show&" . $this->_standardPostProcessingStuff(), 
+            $this->_sut->buildGalleryUrl(1));
+    }
+	
+    function testBuildGalleryUrlTagWithExclusion()
+    {
+        $this->setOptions(array(
+           org_tubepress_options_category_Gallery::MODE      => org_tubepress_gallery_Gallery::TAG,
+           org_tubepress_options_category_Gallery::TAG_VALUE => 'stewart daily -show' 
+        ));
+        $this->assertEquals("http://gdata.youtube.com/feeds/api/videos?q=stewart%2Bdaily%2B-show&" . $this->_standardPostProcessingStuff(), 
+            $this->_sut->buildGalleryUrl(1));
+    }
+	
+    function testBuildGalleryUrlTagWithPipes()
+    {
+        $this->setOptions(array(
+           org_tubepress_options_category_Gallery::MODE      => org_tubepress_gallery_Gallery::TAG,
+           org_tubepress_options_category_Gallery::TAG_VALUE => 'stewart|daily|show' 
+        ));
+        $this->assertEquals("http://gdata.youtube.com/feeds/api/videos?q=stewart%7Cdaily%7Cshow&" . $this->_standardPostProcessingStuff(), 
+            $this->_sut->buildGalleryUrl(1));
+    }
 	
 	function testBuildGalleryUrlTag()
 	{
