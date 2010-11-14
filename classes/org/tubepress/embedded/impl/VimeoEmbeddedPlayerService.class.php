@@ -36,6 +36,7 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService implements org_tube
     const VIMEO_QUERYPARAM_BYLINE   = 'byline';
     const VIMEO_QUERYPARAM_COLOR    = 'color';
     const VIMEO_QUERYPARAM_LOOP     = 'loop';
+    const VIMEO_QUERYPARAM_PORTRAIT = 'portrait';
 
     /**
      * Spits back the text for this embedded player
@@ -65,11 +66,9 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService implements org_tube
         $link->setQueryVariable(self::VIMEO_QUERYPARAM_AUTOPLAY, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));
         $link->setQueryVariable(self::VIMEO_QUERYPARAM_COLOR, $color);
         $link->setQueryVariable(self::VIMEO_QUERYPARAM_LOOP, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($loop));
-
-        if ($showInfo) {
-            $link->setQueryVariable(self::VIMEO_QUERYPARAM_TITLE, '1');
-            $link->setQueryVariable(self::VIMEO_QUERYPARAM_BYLINE, '1');
-        }
+        $link->setQueryVariable(self::VIMEO_QUERYPARAM_TITLE, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
+        $link->setQueryVariable(self::VIMEO_QUERYPARAM_BYLINE, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
+        $link->setQueryVariable(self::VIMEO_QUERYPARAM_PORTRAIT, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
 
         $link = $link->getURL(true);
 
