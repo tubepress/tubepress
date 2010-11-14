@@ -24,11 +24,6 @@ class org_tubepress_player_PlayerTest extends TubePressUnitTest {
 				->method('toString')
 				->will($this->returnValue('foobar'));
 		}
-		if ($className == 'org_tubepress_browser_BrowserDetector') {
-			$mock->expects($this->once())
-				->method('isMobileQuick')
-				->will($this->returnValue(self::$_isMobile));
-		}
 		return $mock;
 	}
 
@@ -36,7 +31,16 @@ class org_tubepress_player_PlayerTest extends TubePressUnitTest {
 	{
 		self::$_isMobile = true;
 		$result = $this->_sut->getHtml($this->_video, 12);
-		$this->assertEquals('', $result);
+		$this->assertEquals(<<<EOT
+<div class="tubepress_normal_embedded_wrapper" style="width: 425px">
+    <div id="tubepress_embedded_title_12" class="tubepress_embedded_title">
+    </div>
+    <div id="tubepress_embedded_object_12">
+      foobar    
+    </div>
+  </div>
+EOT
+		, $result);
 	}    
 
     function testGetPreGalleryHtml()
