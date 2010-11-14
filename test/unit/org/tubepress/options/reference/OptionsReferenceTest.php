@@ -219,7 +219,7 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
     }
     function testPlayerEnumValues()
     {
-        $expected = array('normal', 'popup','shadowbox', 'jqmodal', 'youtube', 'static', 'solo', 'vimeo');
+        $expected = array('normal', 'popup','shadowbox', 'jqmodal', 'youtube', 'static', 'solo', 'vimeo', 'fancybox', 'tinybox');
         $this->assertEquals($expected, org_tubepress_options_reference_OptionsReference::getValidEnumValues(org_tubepress_options_Type::PLAYER));
     }
     function testMostViewedEnumValues()

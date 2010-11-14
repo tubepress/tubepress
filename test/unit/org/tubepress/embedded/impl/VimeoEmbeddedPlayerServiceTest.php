@@ -21,7 +21,7 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerServiceTest extends TubePre
     function expected()
     {
         return <<<EOT
-<iframe src="http://player.vimeo.com/video/FAKEID?autoplay=0&amp;color=999999&amp;loop=0" width="425" height="350" frameborder="0"></iframe>
+<iframe src="http://player.vimeo.com/video/FAKEID?autoplay=0&amp;color=999999&amp;loop=0&amp;title=0&amp;byline=0&amp;portrait=0" width="425" height="350" frameborder="0"></iframe>
 
 EOT;
     }

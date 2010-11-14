@@ -16,6 +16,27 @@ Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and/or sideb
 
 == Changelog ==
 
+= 2.1.0 =
+* Ability to create galleries from multiple sources (TubePress Pro only) (closes issue 135)
+* Lightweight theming support
+* Support for "fluid" thumbnails
+* Vimeo universal player (closes issue 215)
+* Improved video search capability (closes issue 81)
+* Improved mobile user experience
+* Single video mode now works in WordPress widget
+* Fixed aliased text with Ajax pagination in Internet Explorer 7
+* Search engines no longer index TubePress's internal directories (closes issue 221)
+* Static player now works with Vimeo (closes issue 217)
+* Fixed color support for JW FLV Player
+* YouTube "most linked" gallery replaced with YouTube "top favorites" gallery due to change in API
+* Version bump for Shadowbox.js to 3.0.3
+* Version bump for JW FLV Media Player to 5.2
+* Version bump for jQuery to 1.4.2
+* Version bump for php-gettext to 1.0.10
+* Added Arabic translation thanks to Abdullah Hamed
+* Updated Italian translation thanks to Gianni Diurno
+* Updated Spanish translation thanks to Luis Fok
+
 = 2.0.0 =
 * Vimeo support! Choose from 8 different types of Vimeo galleries. (closes issue 108)
 * Brought back ability to play each video from a gallery in a new window by itself (closes issue 94)

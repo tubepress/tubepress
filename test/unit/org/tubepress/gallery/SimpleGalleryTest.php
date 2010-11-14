@@ -52,10 +52,10 @@ class org_tubepress_gallery_SimpleGalleryTest extends TubePressUnitTest
       </div>
   <script type="text/javascript">
     jQuery(document).ready(function(){
-        TubePressGallery.fluidThumbs("#tubepress_gallery_FAKEID",  120);
+       TubePressGallery.fluidThumbs("#tubepress_gallery_FAKEID",  120);
     });
     jQuery(window).resize(function(){
-	TubePressGallery.fluidThumbs("#tubepress_gallery_FAKEID",  120);
+       TubePressGallery.fluidThumbs("#tubepress_gallery_FAKEID",  120);
     });
   </script>
 </div>

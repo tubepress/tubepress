@@ -30,7 +30,7 @@ class org_tubepress_html_HtmlUtils
 
         $jqueryInclude = '';
         if ($include_jQuery) {
-            $jqueryInclude = "<script type=\"text/javascript\" src=\"$tubepress_base_url/ui/lib/jquery-1.3.2.min.js\"></script>";
+            $jqueryInclude = "<script type=\"text/javascript\" src=\"$tubepress_base_url/ui/lib/jquery-1.4.2.min.js\"></script>";
         }
 
         $result = <<<GBS
