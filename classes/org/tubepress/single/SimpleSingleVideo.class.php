@@ -69,6 +69,9 @@ class org_tubepress_single_SimpleSingleVideo implements org_tubepress_single_Sin
         $template = self::_prepTemplate($ioc, $video, $provider);
         $result   = $template->toString();
         $result .= org_tubepress_gallery_GalleryTemplateUtils::getThemeCss($ioc);
+
+	$tpom = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $tpom->setCustomOptions(array());
         
         /* staples - that was easy */
         return $result;
