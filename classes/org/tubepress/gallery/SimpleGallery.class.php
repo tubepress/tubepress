@@ -151,6 +151,9 @@ class org_tubepress_gallery_SimpleGallery implements org_tubepress_gallery_Galle
         $result .= org_tubepress_gallery_GalleryTemplateUtils::getAjaxPagination($ioc, $galleryId);
         $result .= org_tubepress_gallery_GalleryTemplateUtils::getThemeCss($ioc);
         $result .= org_tubepress_gallery_GalleryTemplateUtils::getThumbnailGenerationReminder($result, $ioc);
+
+	$tpom = $ioc->get('org_tubepress_options_manager_OptionsManager');
+	$tpom->setCustomOptions(array());
         return $result;
     }
 }
