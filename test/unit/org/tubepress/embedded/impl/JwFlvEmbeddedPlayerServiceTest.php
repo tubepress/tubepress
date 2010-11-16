@@ -30,6 +30,7 @@ class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerServiceTest extends TubePre
         <param name="quality" value="high" />
         <param name="flashvars" value="file=http://www.youtube.com/watch?v=FAKEID&amp;autostart=false&amp;height=350&amp;width=425&amp;frontcolor=FFFFFF" />
       </object>
+
 EOT;
     }
     

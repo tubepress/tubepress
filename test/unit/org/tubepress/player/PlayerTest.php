@@ -39,6 +39,7 @@ class org_tubepress_player_PlayerTest extends TubePressUnitTest {
       foobar    
     </div>
   </div>
+
 EOT
 		, $result);
 	}    
@@ -61,6 +62,7 @@ EOT
       foobar    
     </div>
   </div>
+
 EOT;
         $this->assertEquals($expected, $result);
     }

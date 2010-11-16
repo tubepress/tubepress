@@ -29,7 +29,7 @@ tubepress_load_classes(array('org_tubepress_options_storage_WordPressStorageMana
     'org_tubepress_ioc_IocService',
     'org_tubepress_ioc_IocContainer',
     'org_tubepress_util_StringUtils',
-    'org_tubepress_gallery_Gallery',
+    'org_tubepress_api_gallery_Gallery',
     'org_tubepress_html_HtmlUtils'));
 
 class org_tubepress_env_wordpress_Main
@@ -80,7 +80,7 @@ class org_tubepress_env_wordpress_Main
         org_tubepress_log_Log::setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON), $_GET);
 
         /* Grab the gallery that will do the heavy lifting */
-        $gallery = $iocContainer->get('org_tubepress_gallery_Gallery');
+        $gallery = $iocContainer->get('org_tubepress_api_gallery_Gallery');
 
         /* Parse each shortcode one at a time */
         while ($parser->somethingToParse($content, $trigger)) {

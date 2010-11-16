@@ -30,7 +30,7 @@ tubepress_load_classes(array('org_tubepress_options_reference_OptionsReference',
     'org_tubepress_options_category_Widget',
     'org_tubepress_options_category_Display',
     'org_tubepress_options_category_Meta',
-    'org_tubepress_gallery_Gallery',
+    'org_tubepress_api_gallery_Gallery',
     'org_tubepress_embedded_EmbeddedPlayerService'));
 
 /**
@@ -135,14 +135,14 @@ class org_tubepress_options_reference_OptionsReference
     );
     
     private static $_vimeoOnly = array(
-        org_tubepress_gallery_Gallery::VIMEO_UPLOADEDBY,
-        org_tubepress_gallery_Gallery::VIMEO_LIKES,
-        org_tubepress_gallery_Gallery::VIMEO_APPEARS_IN,
-        org_tubepress_gallery_Gallery::VIMEO_SEARCH,
-        org_tubepress_gallery_Gallery::VIMEO_CREDITED,
-        org_tubepress_gallery_Gallery::VIMEO_ALBUM,
-        org_tubepress_gallery_Gallery::VIMEO_GROUP,
-        org_tubepress_gallery_Gallery::VIMEO_CHANNEL,
+        org_tubepress_api_gallery_Gallery::VIMEO_UPLOADEDBY,
+        org_tubepress_api_gallery_Gallery::VIMEO_LIKES,
+        org_tubepress_api_gallery_Gallery::VIMEO_APPEARS_IN,
+        org_tubepress_api_gallery_Gallery::VIMEO_SEARCH,
+        org_tubepress_api_gallery_Gallery::VIMEO_CREDITED,
+        org_tubepress_api_gallery_Gallery::VIMEO_ALBUM,
+        org_tubepress_api_gallery_Gallery::VIMEO_GROUP,
+        org_tubepress_api_gallery_Gallery::VIMEO_CHANNEL,
         org_tubepress_options_category_Meta::LIKES,
         org_tubepress_options_category_Feed::VIMEO_KEY,
         org_tubepress_options_category_Feed::VIMEO_SECRET
@@ -283,26 +283,26 @@ class org_tubepress_options_reference_OptionsReference
                 return array('relevance', 'viewCount', 'rating', 'published', 'random', 'position', 'commentCount', 'duration', 'title', 'newest', 'oldest');
             case org_tubepress_options_Type::MODE:
                 return array(
-                    org_tubepress_gallery_Gallery::FAVORITES,
-                    org_tubepress_gallery_Gallery::PLAYLIST,
-                    org_tubepress_gallery_Gallery::TAG,
-                    org_tubepress_gallery_Gallery::USER,
-                    org_tubepress_gallery_Gallery::FEATURED,
-                    org_tubepress_gallery_Gallery::MOBILE,
-                    org_tubepress_gallery_Gallery::MOST_DISCUSSED,
-                    org_tubepress_gallery_Gallery::MOST_RECENT,
-                    org_tubepress_gallery_Gallery::MOST_RESPONDED,
-                    org_tubepress_gallery_Gallery::POPULAR,
-                    org_tubepress_gallery_Gallery::TOP_FAVORITES,
-                    org_tubepress_gallery_Gallery::TOP_RATED, 
-                    org_tubepress_gallery_Gallery::VIMEO_UPLOADEDBY,
-                    org_tubepress_gallery_Gallery::VIMEO_LIKES,
-                    org_tubepress_gallery_Gallery::VIMEO_APPEARS_IN,
-                    org_tubepress_gallery_Gallery::VIMEO_SEARCH,
-                    org_tubepress_gallery_Gallery::VIMEO_CREDITED,
-                    org_tubepress_gallery_Gallery::VIMEO_CHANNEL,
-                    org_tubepress_gallery_Gallery::VIMEO_ALBUM,
-                    org_tubepress_gallery_Gallery::VIMEO_GROUP);
+                    org_tubepress_api_gallery_Gallery::FAVORITES,
+                    org_tubepress_api_gallery_Gallery::PLAYLIST,
+                    org_tubepress_api_gallery_Gallery::TAG,
+                    org_tubepress_api_gallery_Gallery::USER,
+                    org_tubepress_api_gallery_Gallery::FEATURED,
+                    org_tubepress_api_gallery_Gallery::MOBILE,
+                    org_tubepress_api_gallery_Gallery::MOST_DISCUSSED,
+                    org_tubepress_api_gallery_Gallery::MOST_RECENT,
+                    org_tubepress_api_gallery_Gallery::MOST_RESPONDED,
+                    org_tubepress_api_gallery_Gallery::POPULAR,
+                    org_tubepress_api_gallery_Gallery::TOP_FAVORITES,
+                    org_tubepress_api_gallery_Gallery::TOP_RATED, 
+                    org_tubepress_api_gallery_Gallery::VIMEO_UPLOADEDBY,
+                    org_tubepress_api_gallery_Gallery::VIMEO_LIKES,
+                    org_tubepress_api_gallery_Gallery::VIMEO_APPEARS_IN,
+                    org_tubepress_api_gallery_Gallery::VIMEO_SEARCH,
+                    org_tubepress_api_gallery_Gallery::VIMEO_CREDITED,
+                    org_tubepress_api_gallery_Gallery::VIMEO_CHANNEL,
+                    org_tubepress_api_gallery_Gallery::VIMEO_ALBUM,
+                    org_tubepress_api_gallery_Gallery::VIMEO_GROUP);
             case org_tubepress_options_Type::SAFE_SEARCH:
                 return array('none', 'moderate', 'strict');
             case org_tubepress_options_Type::PLAYER_IMPL:

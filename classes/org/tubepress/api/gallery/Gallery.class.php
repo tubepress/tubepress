@@ -22,7 +22,7 @@
 /**
  * TubePress gallery. This class gets one or more videos from a provider and applies them to the template.
  */
-interface org_tubepress_gallery_Gallery
+interface org_tubepress_api_gallery_Gallery
 {
     const FAVORITES        = 'favorites';
     const FEATURED         = 'recently_featured';

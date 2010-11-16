@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_url_UrlBuilder',
     'org_tubepress_options_category_Gallery',
-    'org_tubepress_gallery_Gallery',
+    'org_tubepress_api_gallery_Gallery',
     'org_tubepress_options_manager_OptionsManager',
     'org_tubepress_options_category_Advanced',
     'org_tubepress_options_category_Display',
@@ -54,35 +54,35 @@ class org_tubepress_url_impl_VimeoUrlBuilder implements org_tubepress_url_UrlBui
         
         switch ($mode) {
             
-        case org_tubepress_gallery_Gallery::VIMEO_UPLOADEDBY:
+        case org_tubepress_api_gallery_Gallery::VIMEO_UPLOADEDBY:
             $params['method']        = 'vimeo.videos.getUploaded';
             $params['user_id']       = $tpom->get(org_tubepress_options_category_Gallery::VIMEO_UPLOADEDBY_VALUE);
             break;
-        case org_tubepress_gallery_Gallery::VIMEO_LIKES:
+        case org_tubepress_api_gallery_Gallery::VIMEO_LIKES:
             $params['method']        = 'vimeo.videos.getLikes';
             $params['user_id']       = $tpom->get(org_tubepress_options_category_Gallery::VIMEO_LIKES_VALUE);
             break;
-        case org_tubepress_gallery_Gallery::VIMEO_APPEARS_IN:
+        case org_tubepress_api_gallery_Gallery::VIMEO_APPEARS_IN:
             $params['method']        = 'vimeo.videos.getAppearsIn';
             $params['user_id']       = $tpom->get(org_tubepress_options_category_Gallery::VIMEO_APPEARS_IN_VALUE);
             break;
-        case org_tubepress_gallery_Gallery::VIMEO_SEARCH:
+        case org_tubepress_api_gallery_Gallery::VIMEO_SEARCH:
             $params['method']        = 'vimeo.videos.search';
             $params['query']         = $tpom->get(org_tubepress_options_category_Gallery::VIMEO_SEARCH_VALUE);
             break;
-        case org_tubepress_gallery_Gallery::VIMEO_CREDITED:
+        case org_tubepress_api_gallery_Gallery::VIMEO_CREDITED:
             $params['method']        = 'vimeo.videos.getAll';
             $params['user_id']       = $tpom->get(org_tubepress_options_category_Gallery::VIMEO_CREDITED_VALUE);
             break;
-        case org_tubepress_gallery_Gallery::VIMEO_CHANNEL:
+        case org_tubepress_api_gallery_Gallery::VIMEO_CHANNEL:
             $params['method']        = 'vimeo.channels.getVideos';
             $params['channel_id']    = $tpom->get(org_tubepress_options_category_Gallery::VIMEO_CHANNEL_VALUE);
             break;
-        case org_tubepress_gallery_Gallery::VIMEO_ALBUM:
+        case org_tubepress_api_gallery_Gallery::VIMEO_ALBUM:
             $params['method']        = 'vimeo.albums.getVideos';
             $params['album_id']      = $tpom->get(org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE);
             break;
-        case org_tubepress_gallery_Gallery::VIMEO_GROUP:
+        case org_tubepress_api_gallery_Gallery::VIMEO_GROUP:
             $params['method']        = 'vimeo.groups.getVideos';
             $params['group_id']      = $tpom->get(org_tubepress_options_category_Gallery::VIMEO_GROUP_VALUE);
         }
@@ -119,19 +119,19 @@ class org_tubepress_url_impl_VimeoUrlBuilder implements org_tubepress_url_UrlBui
     private function _getSort($mode, org_tubepress_options_manager_OptionsManager $tpom)
     {
     	/* these two modes can't be sorted */
-    	if ($mode == org_tubepress_gallery_Gallery::VIMEO_CHANNEL
-    		|| $mode ==org_tubepress_gallery_Gallery::VIMEO_ALBUM) {
+    	if ($mode == org_tubepress_api_gallery_Gallery::VIMEO_CHANNEL
+    		|| $mode ==org_tubepress_api_gallery_Gallery::VIMEO_ALBUM) {
     		return '';		
     	}
     	
     	$order = $tpom->get(org_tubepress_options_category_Display::ORDER_BY);
     	
-    	if ($mode == org_tubepress_gallery_Gallery::VIMEO_SEARCH
+    	if ($mode == org_tubepress_api_gallery_Gallery::VIMEO_SEARCH
     		&& $order == 'relevance') {
        		return 'relevant';
     	}
     	
-    	if ($mode == org_tubepress_gallery_Gallery::VIMEO_GROUP
+    	if ($mode == org_tubepress_api_gallery_Gallery::VIMEO_GROUP
     		&& $order == 'random') {
     		return $order;
     	}

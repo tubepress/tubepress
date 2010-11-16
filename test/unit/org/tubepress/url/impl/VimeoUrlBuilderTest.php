@@ -43,7 +43,7 @@ class org_tubepress_url_impl_VimeoUrlBuilderTest extends TubePressUnitTest {
 	function testBuildGalleryUrlGroup()
 	{
 	    $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::VIMEO_GROUP,
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_api_gallery_Gallery::VIMEO_GROUP,
            org_tubepress_options_category_Gallery::VIMEO_GROUP_VALUE => 'eric',
            org_tubepress_options_category_Display::ORDER_BY => 'random',
            org_tubepress_options_category_Feed::VIMEO_KEY => 'vimeokey',
@@ -57,7 +57,7 @@ class org_tubepress_url_impl_VimeoUrlBuilderTest extends TubePressUnitTest {
 	function testBuildGalleryUrlAlbum()
 	{
         $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::VIMEO_ALBUM,
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_api_gallery_Gallery::VIMEO_ALBUM,
            org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE => 'eric',
            org_tubepress_options_category_Feed::VIMEO_KEY => 'vimeokey',
            org_tubepress_options_category_Feed::VIMEO_SECRET => 'vimeosecret'
@@ -70,7 +70,7 @@ class org_tubepress_url_impl_VimeoUrlBuilderTest extends TubePressUnitTest {
 	function testBuildGalleryUrlChannel()
 	{
         $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::VIMEO_CHANNEL,
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_api_gallery_Gallery::VIMEO_CHANNEL,
            org_tubepress_options_category_Gallery::VIMEO_CHANNEL_VALUE => 'eric',
            org_tubepress_options_category_Feed::VIMEO_KEY => 'vimeokey',
            org_tubepress_options_category_Feed::VIMEO_SECRET => 'vimeosecret'
@@ -83,7 +83,7 @@ class org_tubepress_url_impl_VimeoUrlBuilderTest extends TubePressUnitTest {
 	function testBuildGalleryUrlCreditedTo()
 	{
         $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::VIMEO_CREDITED,
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_api_gallery_Gallery::VIMEO_CREDITED,
            org_tubepress_options_category_Gallery::VIMEO_CREDITED_VALUE => 'eric',
            org_tubepress_options_category_Feed::VIMEO_KEY => 'vimeokey',
            org_tubepress_options_category_Feed::VIMEO_SECRET => 'vimeosecret'
@@ -96,7 +96,7 @@ class org_tubepress_url_impl_VimeoUrlBuilderTest extends TubePressUnitTest {
 	function testBuildGalleryUrlSearch()
 	{
         $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::VIMEO_SEARCH,
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_api_gallery_Gallery::VIMEO_SEARCH,
            org_tubepress_options_category_Gallery::VIMEO_SEARCH_VALUE => 'eric hough',
            org_tubepress_options_category_Display::ORDER_BY => 'relevance',
            org_tubepress_options_category_Feed::VIMEO_KEY => 'vimeokey',
@@ -110,7 +110,7 @@ class org_tubepress_url_impl_VimeoUrlBuilderTest extends TubePressUnitTest {
 	function testBuildGalleryUrlAppearsIn()
 	{
         $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::VIMEO_APPEARS_IN,
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_api_gallery_Gallery::VIMEO_APPEARS_IN,
            org_tubepress_options_category_Gallery::VIMEO_APPEARS_IN_VALUE => 'eric',
            org_tubepress_options_category_Display::ORDER_BY => 'oldest',
            org_tubepress_options_category_Feed::VIMEO_KEY => 'vimeokey',
@@ -124,7 +124,7 @@ class org_tubepress_url_impl_VimeoUrlBuilderTest extends TubePressUnitTest {
 	function testBuildGalleryUrlLikes()
 	{
         $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::VIMEO_LIKES,
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_api_gallery_Gallery::VIMEO_LIKES,
            org_tubepress_options_category_Gallery::VIMEO_LIKES_VALUE => 'eric',
            org_tubepress_options_category_Display::ORDER_BY => 'rating',
            org_tubepress_options_category_Feed::VIMEO_KEY => 'vimeokey',
@@ -138,7 +138,7 @@ class org_tubepress_url_impl_VimeoUrlBuilderTest extends TubePressUnitTest {
 	function testBuildGalleryUrlUploadedBy()
 	{
         $this->setOptions(array(
-           org_tubepress_options_category_Gallery::MODE => org_tubepress_gallery_Gallery::VIMEO_UPLOADEDBY,
+           org_tubepress_options_category_Gallery::MODE => org_tubepress_api_gallery_Gallery::VIMEO_UPLOADEDBY,
            org_tubepress_options_category_Gallery::VIMEO_UPLOADEDBY_VALUE => 'eric',
            org_tubepress_options_category_Display::ORDER_BY => 'commentCount',
            org_tubepress_options_category_Feed::VIMEO_KEY => 'vimeokey',

@@ -31,14 +31,14 @@ tubepress_load_classes(array('org_tubepress_shortcode_ShortcodeParser',
     'org_tubepress_single_SingleVideo',
     'org_tubepress_gallery_GalleryTemplateUtils',
     'org_tubepress_theme_ThemeHandler',
-    'org_tubepress_gallery_Gallery',
+    'org_tubepress_api_gallery_Gallery',
     'org_tubepress_ioc_IocContainer',
     'org_tubepress_options_manager_OptionsManager'));
 
 /**
  * TubePress gallery. This class gets one or more videos from a provider and applies them to the template.
  */
-class org_tubepress_gallery_SimpleGallery implements org_tubepress_gallery_Gallery
+class org_tubepress_gallery_SimpleGallery implements org_tubepress_api_gallery_Gallery
 {
     const LOG_PREFIX = 'Gallery';
 
