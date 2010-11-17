@@ -110,7 +110,7 @@ class org_tubepress_env_wordpress_Widget
     {
         $iocContainer = new org_tubepress_ioc_impl_FreeWordPressPluginIocService();
         $wpsm         = $iocContainer->get('org_tubepress_options_manager_OptionsManager');
-        $msg          = $iocContainer->get('org_tubepress_message_MessageService');
+        $msg          = $iocContainer->get('org_tubepress_api_message_MessageService');
 
         /* are we saving? */
         if (isset($_POST['tubepress-widget-submit'])) {

@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_options_Category',
     'org_tubepress_options_Type',
-    'org_tubepress_message_MessageService',
+    'org_tubepress_api_message_MessageService',
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_options_storage_StorageManager',
     'org_tubepress_ioc_IocService',
@@ -50,7 +50,7 @@ class org_tubepress_options_form_FormHandler
         global $tubepress_base_url;
 
 	    $ioc            = org_tubepress_ioc_IocContainer::getInstance();
-        $messageService = $ioc->get('org_tubepress_message_MessageService');
+        $messageService = $ioc->get('org_tubepress_api_message_MessageService');
         $template       = new org_tubepress_template_SimpleTemplate();
         $storageManager = $ioc->get('org_tubepress_options_storage_StorageManager');
 
@@ -117,7 +117,7 @@ class org_tubepress_options_form_FormHandler
         }
     }
     
-    private function _createCategoryMetaArray($optionCategoryName, org_tubepress_message_MessageService $messageService, org_tubepress_options_storage_StorageManager $storageManager)
+    private function _createCategoryMetaArray($optionCategoryName, org_tubepress_api_message_MessageService $messageService, org_tubepress_options_storage_StorageManager $storageManager)
     {
         $results = array();
         $results[org_tubepress_template_Template::OPTIONS_PAGE_CATEGORY_TITLE] = $messageService->_("options-category-title-$optionCategoryName");
@@ -126,7 +126,7 @@ class org_tubepress_options_form_FormHandler
         return $results;
     }
     
-    private function _createCategoryOptionsMetaArray($optionCategoryName, org_tubepress_message_MessageService $messageService, 
+    private function _createCategoryOptionsMetaArray($optionCategoryName, org_tubepress_api_message_MessageService $messageService, 
         org_tubepress_options_storage_StorageManager $storageManager)
     {
         $optionNames = org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory($optionCategoryName);
@@ -159,7 +159,7 @@ class org_tubepress_options_form_FormHandler
         return $optionsMetaArray;
     }
     
-    private function _createCategoryMetaArrayForGalleryOptions(org_tubepress_options_storage_StorageManager $storageManager, org_tubepress_message_MessageService $messageService)
+    private function _createCategoryMetaArrayForGalleryOptions(org_tubepress_options_storage_StorageManager $storageManager, org_tubepress_api_message_MessageService $messageService)
     {
         $modeNames = org_tubepress_options_reference_OptionsReference::getValidEnumValues(org_tubepress_options_category_Gallery::MODE);
         $modesMetaArray = array();
@@ -183,7 +183,7 @@ class org_tubepress_options_form_FormHandler
     }
     
     private function _getWidgetHtml($optionName, org_tubepress_options_storage_StorageManager $storageManager, 
-        org_tubepress_message_MessageService $messageService)
+        org_tubepress_api_message_MessageService $messageService)
     {
         $type = org_tubepress_options_reference_OptionsReference::getType($optionName);
         $value = $storageManager->get($optionName);

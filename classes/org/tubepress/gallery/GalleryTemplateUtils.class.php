@@ -159,7 +159,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
     private static function _prepMetaInfo(org_tubepress_template_Template $template, org_tubepress_ioc_IocService $ioc)
     {
         $tpom           = $ioc->get('org_tubepress_options_manager_OptionsManager');
-        $messageService = $ioc->get('org_tubepress_message_MessageService');
+        $messageService = $ioc->get('org_tubepress_api_message_MessageService');
 
         $metaNames  = org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_options_Category::META);
         $shouldShow = array();

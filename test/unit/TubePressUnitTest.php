@@ -5,7 +5,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
     'org_tubepress_ioc_IocService',
     'org_tubepress_options_reference_OptionsReference',
-    'org_tubepress_message_MessageService',
+    'org_tubepress_api_message_MessageService',
     'org_tubepress_options_storage_StorageManager',
     'org_tubepress_url_impl_YouTubeUrlBuilder',
     'org_tubepress_video_feed_retrieval_HTTPRequest2',
@@ -44,7 +44,7 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
 		   ->method('setCustomOptions')
 		   ->will($this->returnCallback(array($this, 'setOptions')));
                 break;
-            case 'org_tubepress_message_MessageService':
+            case 'org_tubepress_api_message_MessageService':
             case 'org_tubepress_options_storage_StorageManager':
                 $mock->expects($this->any())
                    ->method('_')

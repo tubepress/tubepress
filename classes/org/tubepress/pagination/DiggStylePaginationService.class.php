@@ -24,7 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_pagination_PaginationService',
     'org_tubepress_options_category_Display',
     'net_php_pear_Net_URL2',
-    'org_tubepress_message_MessageService',
+    'org_tubepress_api_message_MessageService',
     'org_tubepress_querystring_QueryStringService',
     'org_tubepress_options_manager_OptionsManager',
     'org_tubepress_ioc_IocContainer'));
@@ -45,7 +45,7 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
     {
         $ioc            = org_tubepress_ioc_IocContainer::getInstance();
         $tpom           = $ioc->get('org_tubepress_options_manager_OptionsManager');
-        $messageService = $ioc->get('org_tubepress_message_MessageService');
+        $messageService = $ioc->get('org_tubepress_api_message_MessageService');
         $qss            = $ioc->get('org_tubepress_querystring_QueryStringService');
         
         $currentPage = $qss->getPageNum($_GET);
@@ -76,7 +76,7 @@ class org_tubepress_pagination_DiggStylePaginationService implements org_tubepre
      *
      * @return The HTML for the pagination
      */
-    private function _diggStyle($totalitems, org_tubepress_message_MessageService $messageService, $page = 1, $limit = 15, $adjacents = 1, $targetpage = '/', $pagestring = '?page=')
+    private function _diggStyle($totalitems, org_tubepress_api_message_MessageService $messageService, $page = 1, $limit = 15, $adjacents = 1, $targetpage = '/', $pagestring = '?page=')
     {
         $prev       = $page - 1;
         $next       = $page + 1;

@@ -21,14 +21,14 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php' ;
-tubepress_load_classes(array('org_tubepress_message_MessageService'));
+tubepress_load_classes(array('org_tubepress_api_message_MessageService'));
 
 /**
- * Shared message functionality for org_tubepress_message_MessageService implementations.
+ * Shared message functionality for org_tubepress_api_message_MessageService implementations.
  * This class basically provides one additional layer of abstraction between
  * the code and the actual message in the .pot files.
  */
-abstract class org_tubepress_message_impl_AbstractMessageService implements org_tubepress_message_MessageService
+abstract class org_tubepress_message_impl_AbstractMessageService implements org_tubepress_api_message_MessageService
 {
     private $_msgs = array(
         'options-page-title'       => 'TubePress Options',

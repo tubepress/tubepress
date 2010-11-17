@@ -22,7 +22,7 @@
 /**
  * General purpose message abstraction for TubePress
  */
-interface org_tubepress_message_MessageService
+interface org_tubepress_api_message_MessageService
 {
     /**
      * Get the message corresponding to the given key.

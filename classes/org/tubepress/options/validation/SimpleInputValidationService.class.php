@@ -44,7 +44,7 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
     public function validate($optionName, $candidate)
     {
 	$ioc = org_tubepress_ioc_IocContainer::getInstance();
-        $messageService = $ioc->get('org_tubepress_message_MessageService');
+        $messageService = $ioc->get('org_tubepress_api_message_MessageService');
         
         /* does this option name even exist? */
         self::_checkExistence($optionName, $messageService);
@@ -64,7 +64,7 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
      *
      * @return void
      */
-    private static function _customValidation($optionName, $candidate, org_tubepress_message_MessageService $messageService)
+    private static function _customValidation($optionName, $candidate, org_tubepress_api_message_MessageService $messageService)
     {
         switch ($optionName) {
 
@@ -88,7 +88,7 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
      *
      * @return void
      */
-    private static function _checkExistence($optionName, org_tubepress_message_MessageService $messageService)
+    private static function _checkExistence($optionName, org_tubepress_api_message_MessageService $messageService)
     {
         if (org_tubepress_options_reference_OptionsReference::isOptionName($optionName) === false) {
             throw new Exception(sprintf($messageService->_('validation-no-such-option'), $optionName));
@@ -103,7 +103,7 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
      *
      * @return void
      */
-    private function _checkType($optionName, $candidate, org_tubepress_message_MessageService $messageService)
+    private function _checkType($optionName, $candidate, org_tubepress_api_message_MessageService $messageService)
     {
         $type = org_tubepress_options_reference_OptionsReference::getType($optionName);
 
@@ -157,7 +157,7 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
      *      
      * @return void
      */
-    private function _checkIntegerRange($name, $candidate, $min, $max, org_tubepress_message_MessageService $messageService)
+    private function _checkIntegerRange($name, $candidate, $min, $max, org_tubepress_api_message_MessageService $messageService)
     {
         if ($candidate < $min || $candidate > $max) {
             throw new Exception(sprintf($messageService->_('validation-int-range'), $name, $min, $max, $candidate));
