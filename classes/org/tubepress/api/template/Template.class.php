@@ -22,7 +22,7 @@
 /**
  * TubePress template
  */
-interface org_tubepress_template_Template
+interface org_tubepress_api_template_Template
 {
     const EMBEDDED_AUTOSTART =              'autostart';
     const EMBEDDED_DATA_URL =               'homeURL';

@@ -26,7 +26,7 @@ tubepress_load_classes(array('org_tubepress_api_embedded_EmbeddedPlayer',
     'org_tubepress_embedded_impl_EmbeddedPlayerUtils',
     'org_tubepress_options_category_Embedded',
     'org_tubepress_theme_ThemeHandler',
-    'org_tubepress_template_Template',
+    'org_tubepress_api_template_Template',
     'net_php_pear_Net_URL2'));
 
 /**
@@ -88,10 +88,10 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService implements org_tu
         }
         
         $template = $theme->getTemplateInstance("embedded_flash/$themeName.tpl.php");
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_DATA_URL, $link);
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $width);
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT, $height);
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_FULLSCREEN, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToString($fullscreen));
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_DATA_URL, $link);
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_WIDTH, $width);
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_HEIGHT, $height);
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_FULLSCREEN, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToString($fullscreen));
 
         $embedSrc = $template->toString();
 

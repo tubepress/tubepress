@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_embedded_EmbeddedPlayer',
     'net_php_pear_Net_URL2',
-    'org_tubepress_template_Template',
+    'org_tubepress_api_template_Template',
     'org_tubepress_ioc_IocContainer'));
 
 /**
@@ -51,13 +51,13 @@ class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService implements org_tube
 
         $link = $link->getURL(true);
 
-        $template->setVariable(org_tubepress_template_Template::TUBEPRESS_BASE_URL, $tubepress_base_url);
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_DATA_URL, $link);
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_AUTOSTART, $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY) ? 'true' : 'false');
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT));
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_COLOR_PRIMARY, $tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR));
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_COLOR_HIGHLIGHT, $tpom->get(org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT));
+        $template->setVariable(org_tubepress_api_template_Template::TUBEPRESS_BASE_URL, $tubepress_base_url);
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_DATA_URL, $link);
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_AUTOSTART, $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY) ? 'true' : 'false');
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_HEIGHT, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT));
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_COLOR_PRIMARY, $tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR));
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_COLOR_HIGHLIGHT, $tpom->get(org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT));
 
         return $template->toString();
     }

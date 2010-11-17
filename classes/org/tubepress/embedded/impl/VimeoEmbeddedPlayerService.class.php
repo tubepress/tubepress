@@ -73,10 +73,10 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService implements org_tube
         $link = $link->getURL(true);
 
         /* prep the template and we're done */
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_DATA_URL, $link);
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $width);
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_HEIGHT, $height);
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_FULLSCREEN, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($fullscreen));
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_DATA_URL, $link);
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_WIDTH, $width);
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_HEIGHT, $height);
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_FULLSCREEN, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($fullscreen));
         return $template->toString();
     }
 }

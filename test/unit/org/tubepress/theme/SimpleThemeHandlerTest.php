@@ -48,7 +48,7 @@ class org_tubepress_theme_SimpleThemeHandlerTest extends TubePressUnitTest
     public function testGetTemplateInstance()
     {
 		$result = $this->_sut->getTemplateInstance('gallery.tpl.php');
-		$this->assertTrue(is_a($result, 'org_tubepress_template_Template'));
+		$this->assertTrue(is_a($result, 'org_tubepress_api_template_Template'));
     }
 
     

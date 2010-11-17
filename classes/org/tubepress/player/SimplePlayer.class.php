@@ -46,10 +46,10 @@ class org_tubepress_player_SimplePlayer implements org_tubepress_player_Player
             return '';
         }
         
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_SOURCE, $eps->toString($vid->getId()));
-        $template->setVariable(org_tubepress_template_Template::GALLERY_ID, $galleryId);
-        $template->setVariable(org_tubepress_template_Template::VIDEO, $vid);
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_SOURCE, $eps->toString($vid->getId()));
+        $template->setVariable(org_tubepress_api_template_Template::GALLERY_ID, $galleryId);
+        $template->setVariable(org_tubepress_api_template_Template::VIDEO, $vid);
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
         
         return $template->toString();
     }

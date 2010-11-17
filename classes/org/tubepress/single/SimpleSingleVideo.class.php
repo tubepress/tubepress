@@ -99,13 +99,13 @@ class org_tubepress_single_SimpleSingleVideo implements org_tubepress_single_Sin
             $shouldShow[$metaName] = $tpom->get($metaName);
             $labels[$metaName]     = $messageService->_('video-' . $metaName);
         }
-        $template->setVariable(org_tubepress_template_Template::META_SHOULD_SHOW, $shouldShow);
-        $template->setVariable(org_tubepress_template_Template::META_LABELS, $labels);
+        $template->setVariable(org_tubepress_api_template_Template::META_SHOULD_SHOW, $shouldShow);
+        $template->setVariable(org_tubepress_api_template_Template::META_LABELS, $labels);
 
         /* apply it to the template */
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_SOURCE, $eps->toString($video->getId()));
-        $template->setVariable(org_tubepress_template_Template::VIDEO, $video);
-        $template->setVariable(org_tubepress_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_SOURCE, $eps->toString($video->getId()));
+        $template->setVariable(org_tubepress_api_template_Template::VIDEO, $video);
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
        
         return $template;
     }
