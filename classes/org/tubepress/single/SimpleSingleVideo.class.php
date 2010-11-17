@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
-    'org_tubepress_theme_ThemeHandler',
+    'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_single_SingleVideo',
     'org_tubepress_options_Category',
@@ -86,7 +86,7 @@ class org_tubepress_single_SimpleSingleVideo implements org_tubepress_single_Sin
      */
     private static function _prepTemplate(org_tubepress_ioc_IocService $ioc, $video, org_tubepress_api_provider_Provider $provider)
     {
-        $themeHandler   = $ioc->get('org_tubepress_theme_ThemeHandler');
+        $themeHandler   = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $template       = $themeHandler->getTemplateInstance('single_video.tpl.php');
         $tpom           = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $messageService = $ioc->get('org_tubepress_api_message_MessageService');

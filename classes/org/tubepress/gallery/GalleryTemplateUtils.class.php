@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_ioc_IocService',
     'org_tubepress_options_category_Display',
-    'org_tubepress_theme_ThemeHandler',
+    'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_api_feed_FeedResult',
     'org_tubepress_api_template_Template',
     'org_tubepress_player_Player',
@@ -42,7 +42,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
     public static function prepTemplate(org_tubepress_api_feed_FeedResult $feedResult, $galleryId, org_tubepress_api_template_Template $template, org_tubepress_ioc_IocService $ioc)
     {
         $tpom         = $ioc->get('org_tubepress_options_manager_OptionsManager');
-        $themeHandler = $ioc->get('org_tubepress_theme_ThemeHandler');
+        $themeHandler = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $provider     = $ioc->get('org_tubepress_api_provider_Provider');
         $playerName   = $tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
         $videos       = $feedResult->getVideoArray();
@@ -103,7 +103,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
     
     public static function getThemeCss(org_tubepress_ioc_IocService $ioc)
     {
-        $themeHandler = $ioc->get('org_tubepress_theme_ThemeHandler');
+        $themeHandler = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $currentTheme = $themeHandler->calculateCurrentThemeName($ioc);
 
         if ($currentTheme !== 'default') {

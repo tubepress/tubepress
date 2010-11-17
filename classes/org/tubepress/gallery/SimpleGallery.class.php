@@ -30,7 +30,7 @@ tubepress_load_classes(array('org_tubepress_shortcode_ShortcodeParser',
     'org_tubepress_options_Category',
     'org_tubepress_single_SingleVideo',
     'org_tubepress_gallery_GalleryTemplateUtils',
-    'org_tubepress_theme_ThemeHandler',
+    'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_api_gallery_Gallery',
     'org_tubepress_ioc_IocContainer',
     'org_tubepress_options_manager_OptionsManager'));
@@ -141,7 +141,7 @@ class org_tubepress_gallery_SimpleGallery implements org_tubepress_api_gallery_G
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'Provider has delivered %d videos', sizeof($feedResult->getVideoArray()));
 
         /* prep template */
-	    $themeHandler = $ioc->get('org_tubepress_theme_ThemeHandler');
+	    $themeHandler = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $template     = $themeHandler->getTemplateInstance('gallery.tpl.php');
         org_tubepress_gallery_GalleryTemplateUtils::prepTemplate($feedResult, $galleryId, $template, $ioc);
 

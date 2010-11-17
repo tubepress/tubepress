@@ -22,7 +22,7 @@
 /**
  * TubePress theme handling
  */
-interface org_tubepress_theme_ThemeHandler
+interface org_tubepress_api_theme_ThemeHandler
 {
 
     public function getTemplateInstance($pathToTemplate);

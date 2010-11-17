@@ -25,7 +25,7 @@ tubepress_load_classes(array('org_tubepress_api_embedded_EmbeddedPlayer',
     'org_tubepress_ioc_IocService',
     'org_tubepress_embedded_impl_EmbeddedPlayerUtils',
     'org_tubepress_options_category_Embedded',
-    'org_tubepress_theme_ThemeHandler',
+    'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_api_template_Template',
     'net_php_pear_Net_URL2'));
 
@@ -48,7 +48,7 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService implements org_tu
         $link  = new net_php_pear_Net_URL2(sprintf('http://www.youtube.com/v/%s', $videoId));
         $ioc   = org_tubepress_ioc_IocContainer::getInstance();
         $tpom  = $ioc->get('org_tubepress_options_manager_OptionsManager');
-        $theme = $ioc->get('org_tubepress_theme_ThemeHandler');
+        $theme = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $bd    = $ioc->get('org_tubepress_api_http_AgentDetector');
 
         $playerColor     = org_tubepress_embedded_impl_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR), '999999');

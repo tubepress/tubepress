@@ -16,7 +16,7 @@ tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
     'org_tubepress_api_pagination_Pagination',
     'org_tubepress_template_SimpleTemplate',
     'org_tubepress_ioc_IocContainer',
-    'org_tubepress_theme_ThemeHandler'));
+    'org_tubepress_api_theme_ThemeHandler'));
 
 abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
 {
@@ -50,7 +50,7 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
                    ->method('_')
                    ->will($this->returnCallback(array($this, 'echoCallback')));
                 break;
-            case 'org_tubepress_theme_ThemeHandler':
+            case 'org_tubepress_api_theme_ThemeHandler':
                 $mock->expects($this->any())
                      ->method('getTemplateInstance')
                      ->will($this->returnCallback(array($this, 'templateCallback')));

@@ -25,12 +25,12 @@ tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
     'org_tubepress_options_category_Display',
     'org_tubepress_log_Log',
     'org_tubepress_template_SimpleTemplate',
-    'org_tubepress_theme_ThemeHandler'));
+    'org_tubepress_api_theme_ThemeHandler'));
 
 /**
  * A TubePress theme handler
  */
-class org_tubepress_theme_SimpleThemeHandler implements org_tubepress_theme_ThemeHandler
+class org_tubepress_theme_SimpleThemeHandler implements org_tubepress_api_theme_ThemeHandler
 {
     const LOG_PREFIX = 'Theme Handler';
 
