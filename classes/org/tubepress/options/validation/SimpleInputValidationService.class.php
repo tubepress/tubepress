@@ -30,7 +30,7 @@ tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
 /**
  * Performs validation on option values
  */
-class org_tubepress_options_validation_SimpleInputValidationService implements org_tubepress_options_validation_InputValidationService
+class org_tubepress_options_validation_SimpleInputValidationService implements org_tubepress_api_options_OptionValidator
 {
     /**
      * Validates an option value. Will throw an Exception if validation

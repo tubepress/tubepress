@@ -17,7 +17,7 @@ class org_tubepress_shortcode_ShortcodeParserTest extends TubePressUnitTest
 	public function getMock($className)
 	{
 		$mock = parent::getMock($className);
-		if ($className == 'org_tubepress_options_validation_InputValidationService') {
+		if ($className == 'org_tubepress_api_options_OptionValidator') {
 			$mock->expects($this->any())
 				->method('validate')
 				->will($this->returnValue(true));

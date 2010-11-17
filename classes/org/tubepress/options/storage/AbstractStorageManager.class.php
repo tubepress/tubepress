@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_options_StorageManager',
     'org_tubepress_options_Type',
-    'org_tubepress_options_validation_InputValidationService',
+    'org_tubepress_api_options_OptionValidator',
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_ioc_IocContainer'));
 
@@ -107,7 +107,7 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
             return;
         }
 	$ioc = org_tubepress_ioc_IocContainer::getInstance();
-	$validationService = $ioc->get('org_tubepress_options_validation_InputValidationService');
+	$validationService = $ioc->get('org_tubepress_api_options_OptionValidator');
 
         $validationService->validate($optionName, $optionValue);
         $this->setOption($optionName, $optionValue);

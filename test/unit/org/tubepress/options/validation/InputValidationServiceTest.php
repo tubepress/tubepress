@@ -3,7 +3,7 @@
 require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
 require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/options/validation/SimpleInputValidationService.class.php';
 
-class org_tubepress_options_validation_InputValidationServiceTest extends TubePressUnitTest {
+class org_tubepress_api_options_OptionValidatorTest extends TubePressUnitTest {
 	
 	private $_sut;
 

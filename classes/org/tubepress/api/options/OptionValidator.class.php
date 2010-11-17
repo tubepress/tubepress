@@ -22,7 +22,7 @@
 /**
  * Performs validation on option values
  */
-interface org_tubepress_options_validation_InputValidationService
+interface org_tubepress_api_options_OptionValidator
 {
     /**
      * Validates an option value. Will throw an Exception if validation

@@ -28,7 +28,7 @@ class OptionsTests
 		$suite->addTestSuite('org_tubepress_options_manager_SimpleOptionsManagerTest');
 		$suite->addTestSuite('org_tubepress_options_reference_OptionsReferenceTest');
 		$suite->addTestSuite('org_tubepress_options_storage_WordPressStorageManagerTest');
-		$suite->addTestSuite('org_tubepress_options_validation_InputValidationServiceTest');
+		$suite->addTestSuite('org_tubepress_api_options_OptionValidatorTest');
 		$suite->addTestSuite('org_tubepress_options_form_FormHandlerTest');
 		return $suite;
 	}
