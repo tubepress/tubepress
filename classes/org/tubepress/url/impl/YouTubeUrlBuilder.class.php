@@ -24,7 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_api_feed_UrlBuilder',
     'org_tubepress_options_category_Gallery',
     'org_tubepress_api_gallery_Gallery',
-    'org_tubepress_options_manager_OptionsManager',
+    'org_tubepress_api_options_OptionsManager',
     'org_tubepress_options_category_Advanced',
     'org_tubepress_options_category_Display',
     'org_tubepress_options_category_Embedded',
@@ -48,7 +48,7 @@ class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_api_feed
         $url = '';
 
         $ioc    = org_tubepress_ioc_IocContainer::getInstance();
-        $tpom   = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $tpom   = $ioc->get('org_tubepress_api_options_OptionsManager');
 
         switch ($tpom->get(org_tubepress_options_category_Gallery::MODE)) {
             
@@ -126,12 +126,12 @@ class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_api_feed
         }
         
         $requestURL = new net_php_pear_Net_URL2("http://gdata.youtube.com/feeds/api/videos/$id");
-        $this->_commonUrlPostProcessing($ioc->get('org_tubepress_options_manager_OptionsManager'), $requestURL);
+        $this->_commonUrlPostProcessing($ioc->get('org_tubepress_api_options_OptionsManager'), $requestURL);
         
         return $requestURL->getURL();
     }
 
-    private function _commonUrlPostProcessing(org_tubepress_options_manager_OptionsManager $tpom, net_php_pear_Net_URL2 $url)
+    private function _commonUrlPostProcessing(org_tubepress_api_options_OptionsManager $tpom, net_php_pear_Net_URL2 $url)
     {
         $url->setQueryVariable('v', 2);
         $url->setQueryVariable('key', $tpom->get(org_tubepress_options_category_Feed::DEV_KEY));
@@ -145,7 +145,7 @@ class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_api_feed
      * 
      * @return void
      */
-    private function _galleryUrlPostProcessing(org_tubepress_options_manager_OptionsManager $tpom, net_php_pear_Net_URL2 $url, $currentPage)
+    private function _galleryUrlPostProcessing(org_tubepress_api_options_OptionsManager $tpom, net_php_pear_Net_URL2 $url, $currentPage)
     {
         $perPage = $tpom->get(org_tubepress_options_category_Display::RESULTS_PER_PAGE);
 
@@ -164,7 +164,7 @@ class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_api_feed
         }
     }
     
-    private function _setOrderBy(org_tubepress_options_manager_OptionsManager $tpom, net_php_pear_Net_URL2 $url) 
+    private function _setOrderBy(org_tubepress_api_options_OptionsManager $tpom, net_php_pear_Net_URL2 $url) 
     {
         $order = $tpom->get(org_tubepress_options_category_Display::ORDER_BY);
         $mode  = $tpom->get(org_tubepress_options_category_Gallery::MODE);

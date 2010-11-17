@@ -43,7 +43,7 @@ class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService implements org_tube
         global $tubepress_base_url;
 
         $ioc      = org_tubepress_ioc_IocContainer::getInstance();
-        $tpom     = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $tpom     = $ioc->get('org_tubepress_api_options_OptionsManager');
         $theme    = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $template = $theme->getTemplateInstance('embedded_flash/longtail.tpl.php');
 

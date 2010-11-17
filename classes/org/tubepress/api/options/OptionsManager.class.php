@@ -24,7 +24,7 @@
  * usually in persistent storage somewhere, and custom options parsed
  * from a shortcode
  */
-interface org_tubepress_options_manager_OptionsManager
+interface org_tubepress_api_options_OptionsManager
 {
     /**
      * Gets the value of an option

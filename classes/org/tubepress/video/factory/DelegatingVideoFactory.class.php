@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_api_feed_VideoFactory',
-    'org_tubepress_options_manager_OptionsManager',
+    'org_tubepress_api_options_OptionsManager',
     'org_tubepress_ioc_IocDelegateUtils',
     'org_tubepress_video_factory_impl_VimeoVideoFactory'));
 

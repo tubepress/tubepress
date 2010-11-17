@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager'));
+tubepress_load_classes(array('org_tubepress_api_options_OptionsManager'));
 
 /**
  * Interface to a remove video provider
@@ -51,11 +51,11 @@ interface org_tubepress_api_provider_Provider
     /**
      * Determine the current video provider.
      *
-     * @param org_tubepress_options_manager_OptionsManager $tpom The options manager.
+     * @param org_tubepress_api_options_OptionsManager $tpom The options manager.
      *
      * @return string 'youtube', 'vimeo', or 'directory'
      */
-    public function calculateCurrentVideoProvider(org_tubepress_options_manager_OptionsManager $tpom);
+    public function calculateCurrentVideoProvider(org_tubepress_api_options_OptionsManager $tpom);
 
     public function calculateProviderOfVideoId($videoId);
 

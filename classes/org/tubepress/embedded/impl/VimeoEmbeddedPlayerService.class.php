@@ -49,7 +49,7 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService implements org_tube
     {
         /* collect the embedded options we're interested in */
         $ioc   = org_tubepress_ioc_IocContainer::getInstance();
-        $tpom     = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $tpom     = $ioc->get('org_tubepress_api_options_OptionsManager');
         $theme    = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $template = $theme->getTemplateInstance('embedded_flash/vimeo.tpl.php');
         

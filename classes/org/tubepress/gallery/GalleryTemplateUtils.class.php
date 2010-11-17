@@ -41,7 +41,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
 
     public static function prepTemplate(org_tubepress_api_feed_FeedResult $feedResult, $galleryId, org_tubepress_api_template_Template $template, org_tubepress_api_ioc_IocService $ioc)
     {
-        $tpom         = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $tpom         = $ioc->get('org_tubepress_api_options_OptionsManager');
         $themeHandler = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $provider     = $ioc->get('org_tubepress_api_provider_Provider');
         $playerName   = $tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
@@ -92,7 +92,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
         }
         
         global $tubepress_base_url;
-        $tpom = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
         $baseInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
         
         $template = new org_tubepress_template_SimpleTemplate();
@@ -132,7 +132,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
 
     public static function getAjaxPagination(org_tubepress_api_ioc_IocService $ioc, $galleryId)
     {
-        $tpom = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
         
         if ($tpom->get(org_tubepress_options_category_Display::AJAX_PAGINATION)) {
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'Using Ajax pagination');
@@ -147,7 +147,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
         return '';
     }
 
-    private static function _getEmbeddedServiceName(org_tubepress_options_manager_OptionsManager $tpom, org_tubepress_api_provider_Provider $provider)
+    private static function _getEmbeddedServiceName(org_tubepress_api_options_OptionsManager $tpom, org_tubepress_api_provider_Provider $provider)
     {
         $stored = $tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL);
         if ($stored === org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL) {
@@ -158,7 +158,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
 
     private static function _prepMetaInfo(org_tubepress_api_template_Template $template, org_tubepress_api_ioc_IocService $ioc)
     {
-        $tpom           = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $tpom           = $ioc->get('org_tubepress_api_options_OptionsManager');
         $messageService = $ioc->get('org_tubepress_api_message_MessageService');
 
         $metaNames  = org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_options_Category::META);

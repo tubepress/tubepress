@@ -131,7 +131,7 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory implements org_tubepr
         $entries   = $this->_xpath->query($entryXpath);
         $index     = 0;
         $ioc       = org_tubepress_ioc_IocContainer::getInstance();
-        $tpom      = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $tpom      = $ioc->get('org_tubepress_api_options_OptionsManager');
         $blacklist = $tpom->get(org_tubepress_options_category_Advanced::VIDEO_BLACKLIST);
 
         foreach ($entries as $entry) {
@@ -166,7 +166,7 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory implements org_tubepr
      *
      * @return org_tubepress_api_video_Video The org_tubepress_api_video_Video representation of this node
      */
-    private function _createVideo(org_tubepress_options_manager_OptionsManager $tpom)
+    private function _createVideo(org_tubepress_api_options_OptionsManager $tpom)
     {
         $vid = new org_tubepress_api_video_Video();
 
@@ -232,7 +232,7 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory implements org_tubepr
         return trim($this->_xpath->query('media:group/media:category', $this->_currentNode)->item(0)->getAttribute('label'));
     }
 
-    private function _getDescription(org_tubepress_options_manager_OptionsManager $tpom)
+    private function _getDescription(org_tubepress_api_options_OptionsManager $tpom)
     {
         $limit = $tpom->get(org_tubepress_options_category_Display::DESC_LIMIT);
         $desc  = trim($this->_xpath->query('media:group/media:description', $this->_currentNode)->item(0)->nodeValue);
@@ -318,7 +318,7 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory implements org_tubepr
         return "0";
     }
 
-    protected function _getThumbnailUrl(org_tubepress_options_manager_OptionsManager $tpom)
+    protected function _getThumbnailUrl(org_tubepress_api_options_OptionsManager $tpom)
     {
         $thumbs  = $this->_xpath->query('media:group/media:thumbnail', $this->_currentNode);
 
@@ -339,7 +339,7 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory implements org_tubepr
      *
      * @return string This video's upload timestamp
      */
-    private function _getTimePublished(org_tubepress_options_manager_OptionsManager $tpom)
+    private function _getTimePublished(org_tubepress_api_options_OptionsManager $tpom)
     {
         $publishedNode = $this->_xpath->query('atom:published', $this->_currentNode);
         if ($publishedNode->length == 0) {

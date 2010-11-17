@@ -74,7 +74,7 @@ class org_tubepress_env_wordpress_Main
         $iocContainer = org_tubepress_ioc_IocContainer::getInstance();
 
         /* Get a handle to our options manager */
-        $tpom = $iocContainer->get('org_tubepress_options_manager_OptionsManager');
+        $tpom = $iocContainer->get('org_tubepress_api_options_OptionsManager');
 
         /* Turn on logging if we need to */
         org_tubepress_log_Log::setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON), $_GET);

@@ -43,7 +43,7 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
     {
         $ioc  = org_tubepress_ioc_IocContainer::getInstance();
         $qss  = $ioc->get('org_tubepress_querystring_QueryStringService');
-        $tpom = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
 
         /* figure out which page we're on */        
         $currentPage = $qss->getPageNum($_GET);
@@ -123,7 +123,7 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'URL to fetch is %s', $videoUrl);
 
         $feedRetrievalService = $ioc->get('org_tubepress_api_feed_FeedFetcher');
-        $tpom                 = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $tpom                 = $ioc->get('org_tubepress_api_options_OptionsManager');
         $results              = $feedRetrievalService->fetch($videoUrl, $tpom->get(org_tubepress_options_category_Feed::CACHE_ENABLED));
         $factory              = $ioc->get('org_tubepress_api_feed_VideoFactory');
         $videoArray           = $factory->convertSingleVideo($results, 1);
@@ -134,11 +134,11 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
     /**
      * Determine the current video provider.
      *
-     * @param org_tubepress_options_manager_OptionsManager $tpom The options manager.
+     * @param org_tubepress_api_options_OptionsManager $tpom The options manager.
      *
      * @return string 'youtube', 'vimeo', or 'directory'
      */
-    public function calculateCurrentVideoProvider(org_tubepress_options_manager_OptionsManager $tpom)
+    public function calculateCurrentVideoProvider(org_tubepress_api_options_OptionsManager $tpom)
     {
         $video = $tpom->get(org_tubepress_options_category_Gallery::VIDEO);
 
@@ -169,7 +169,7 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
         return self::YOUTUBE;
     }
     
-    private static function _capTotalResultsIfNeeded(org_tubepress_options_manager_OptionsManager $tpom, $totalResults)
+    private static function _capTotalResultsIfNeeded(org_tubepress_api_options_OptionsManager $tpom, $totalResults)
     {
         $limit = $tpom-> get(org_tubepress_options_category_Feed::RESULT_COUNT_CAP);
         return $limit == 0 ? $totalResults : min($limit, $totalResults);

@@ -59,7 +59,7 @@ class org_tubepress_theme_SimpleThemeHandler implements org_tubepress_api_theme_
     public function calculateCurrentThemeName()
     {
         $ioc          = org_tubepress_ioc_IocContainer::getInstance();
-        $tpom         = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $tpom         = $ioc->get('org_tubepress_api_options_OptionsManager');
         $currentTheme = $tpom->get(org_tubepress_options_category_Display::THEME);
         if ($currentTheme == '') {
             $currentTheme = 'default';

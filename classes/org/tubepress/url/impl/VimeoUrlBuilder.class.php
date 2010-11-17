@@ -24,7 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_api_feed_UrlBuilder',
     'org_tubepress_options_category_Gallery',
     'org_tubepress_api_gallery_Gallery',
-    'org_tubepress_options_manager_OptionsManager',
+    'org_tubepress_api_options_OptionsManager',
     'org_tubepress_options_category_Advanced',
     'org_tubepress_options_category_Display',
     'org_tubepress_options_category_Embedded',
@@ -47,7 +47,7 @@ class org_tubepress_url_impl_VimeoUrlBuilder implements org_tubepress_api_feed_U
     {
         $params = array();
         $ioc    = org_tubepress_ioc_IocContainer::getInstance();
-        $tpom   = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $tpom   = $ioc->get('org_tubepress_api_options_OptionsManager');
         $mode   = $tpom->get(org_tubepress_options_category_Gallery::MODE);
 
         $this->_verifyKeyAndSecretExists($tpom);
@@ -102,7 +102,7 @@ class org_tubepress_url_impl_VimeoUrlBuilder implements org_tubepress_api_feed_U
     {
         $ioc          = org_tubepress_ioc_IocContainer::getInstance();
         $provider     = $ioc->get('org_tubepress_api_provider_Provider');
-        $tpom         = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $tpom         = $ioc->get('org_tubepress_api_options_OptionsManager');
         $providerName = $provider->calculateProviderOfVideoId($id);
         
         if ($providerName !== org_tubepress_api_provider_Provider::VIMEO) {
@@ -116,7 +116,7 @@ class org_tubepress_url_impl_VimeoUrlBuilder implements org_tubepress_api_feed_U
         return $this->_buildUrl($params, $tpom);
     }
     
-    private function _getSort($mode, org_tubepress_options_manager_OptionsManager $tpom)
+    private function _getSort($mode, org_tubepress_api_options_OptionsManager $tpom)
     {
     	/* these two modes can't be sorted */
     	if ($mode == org_tubepress_api_gallery_Gallery::VIMEO_CHANNEL
@@ -154,7 +154,7 @@ class org_tubepress_url_impl_VimeoUrlBuilder implements org_tubepress_api_feed_U
     	return '';
     }
     
-    private function _buildUrl($params, org_tubepress_options_manager_OptionsManager $tpom)
+    private function _buildUrl($params, org_tubepress_api_options_OptionsManager $tpom)
     {
         $base = 'http://vimeo.com/api/rest/v2';
         
@@ -168,7 +168,7 @@ class org_tubepress_url_impl_VimeoUrlBuilder implements org_tubepress_api_feed_U
         return $base . '?' . http_build_query($params);
     }
     
-    private function _generateSignature($params, $base, org_tubepress_options_manager_OptionsManager $tpom)
+    private function _generateSignature($params, $base, org_tubepress_api_options_OptionsManager $tpom)
     {
         uksort($params, 'strcmp');
         $params = $this->_url_encode_rfc3986($params);
@@ -186,7 +186,7 @@ class org_tubepress_url_impl_VimeoUrlBuilder implements org_tubepress_api_feed_U
         return base64_encode(hash_hmac('sha1', $baseString, $key, true));
     }
     
-    private function _verifyKeyAndSecretExists(org_tubepress_options_manager_OptionsManager $tpom)
+    private function _verifyKeyAndSecretExists(org_tubepress_api_options_OptionsManager $tpom)
     {
         if ($tpom->get(org_tubepress_options_category_Feed::VIMEO_KEY) === '') {
             throw new Exception('Missing Vimeo API Consumer Key.');

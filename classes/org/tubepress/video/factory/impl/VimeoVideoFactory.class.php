@@ -79,7 +79,7 @@ class org_tubepress_video_factory_impl_VimeoVideoFactory implements org_tubepres
     {
         $results   = array();
         $index     = 0;
-        $tpom      = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $tpom      = $ioc->get('org_tubepress_api_options_OptionsManager');
         $blacklist = $tpom->get(org_tubepress_options_category_Advanced::VIDEO_BLACKLIST);
 
         if (is_array($entries) && sizeof($entries) > 0) {
@@ -108,7 +108,7 @@ class org_tubepress_video_factory_impl_VimeoVideoFactory implements org_tubepres
      *
      * @return org_tubepress_api_video_Video The org_tubepress_api_video_Video representation of this node
      */
-    private function _createVideo($entry, org_tubepress_options_manager_OptionsManager $tpom)
+    private function _createVideo($entry, org_tubepress_api_options_OptionsManager $tpom)
     {
         $vid = new org_tubepress_api_video_Video();
 
@@ -137,7 +137,7 @@ class org_tubepress_video_factory_impl_VimeoVideoFactory implements org_tubepres
         return $vid;
     }
 
-    protected function _getDescription($entry, org_tubepress_options_manager_OptionsManager $tpom)
+    protected function _getDescription($entry, org_tubepress_api_options_OptionsManager $tpom)
     {
         $limit = $tpom->get(org_tubepress_options_category_Display::DESC_LIMIT);
         $desc  = $entry->description;
@@ -153,7 +153,7 @@ class org_tubepress_video_factory_impl_VimeoVideoFactory implements org_tubepres
         return $entry->thumbnails->thumbnail[0]->_content;
     }
 
-    private function _getTimePublished($entry, org_tubepress_options_manager_OptionsManager $tpom)
+    private function _getTimePublished($entry, org_tubepress_api_options_OptionsManager $tpom)
     {
         $date    = $entry->upload_date;
         $seconds = strtotime($date);

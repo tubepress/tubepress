@@ -60,7 +60,7 @@ class org_tubepress_env_wordpress_Widget
         extract($opts);
 
         $iocContainer = org_tubepress_ioc_IocContainer::getInstance();
-        $tpom         = $iocContainer->get('org_tubepress_options_manager_OptionsManager');
+        $tpom         = $iocContainer->get('org_tubepress_api_options_OptionsManager');
         $parser       = $iocContainer->get('org_tubepress_shortcode_ShortcodeParser');
         $gallery      = $iocContainer->get('org_tubepress_api_gallery_Gallery');
 
@@ -82,7 +82,7 @@ class org_tubepress_env_wordpress_Widget
         );
 
         /* now apply the user's options */
-        $wpsm = $iocContainer->get('org_tubepress_options_manager_OptionsManager');
+        $wpsm = $iocContainer->get('org_tubepress_api_options_OptionsManager');
         $parser->parse($wpsm->get(org_tubepress_options_category_Widget::TAGSTRING));
 
         /* calculate the final options */
@@ -109,7 +109,7 @@ class org_tubepress_env_wordpress_Widget
     public static function printControlPanel()
     {
         $iocContainer = new org_tubepress_ioc_impl_FreeWordPressPluginIocService();
-        $wpsm         = $iocContainer->get('org_tubepress_options_manager_OptionsManager');
+        $wpsm         = $iocContainer->get('org_tubepress_api_options_OptionsManager');
         $msg          = $iocContainer->get('org_tubepress_api_message_MessageService');
 
         /* are we saving? */

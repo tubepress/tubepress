@@ -2,7 +2,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../classes/tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
+tubepress_load_classes(array('org_tubepress_api_options_OptionsManager',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_api_message_MessageService',
@@ -36,7 +36,7 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
         $mock = parent::getMock($className);
         
         switch ($className) {
-            case 'org_tubepress_options_manager_OptionsManager':
+            case 'org_tubepress_api_options_OptionsManager':
                 $mock->expects($this->any())
                    ->method('get')
                    ->will($this->returnCallback(array($this, 'optionsCallback')));

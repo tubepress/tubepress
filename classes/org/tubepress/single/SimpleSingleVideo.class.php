@@ -70,7 +70,7 @@ class org_tubepress_single_SimpleSingleVideo implements org_tubepress_single_Sin
         $result   = $template->toString();
         $result .= org_tubepress_gallery_GalleryTemplateUtils::getThemeCss($ioc);
 
-	$tpom = $ioc->get('org_tubepress_options_manager_OptionsManager');
+	$tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
         $tpom->setCustomOptions(array());
         
         /* staples - that was easy */
@@ -88,7 +88,7 @@ class org_tubepress_single_SimpleSingleVideo implements org_tubepress_single_Sin
     {
         $themeHandler   = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $template       = $themeHandler->getTemplateInstance('single_video.tpl.php');
-        $tpom           = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $tpom           = $ioc->get('org_tubepress_api_options_OptionsManager');
         $messageService = $ioc->get('org_tubepress_api_message_MessageService');
         $metaNames      = org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_options_Category::META);
         $shouldShow     = array();

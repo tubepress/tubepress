@@ -50,7 +50,7 @@ class org_tubepress_embedded_impl_DelegatingEmbeddedPlayerService implements org
     public function toString($videoId)
     {
         $ioc          = org_tubepress_ioc_IocContainer::getInstance();
-        $tpom         = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $tpom         = $ioc->get('org_tubepress_api_options_OptionsManager');
         $provider     = $ioc->get('org_tubepress_api_provider_Provider');
         $providerName = $provider->calculateProviderOfVideoId($videoId);
         

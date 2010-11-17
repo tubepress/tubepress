@@ -33,7 +33,7 @@ tubepress_load_classes(array('org_tubepress_shortcode_ShortcodeParser',
     'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_api_gallery_Gallery',
     'org_tubepress_ioc_IocContainer',
-    'org_tubepress_options_manager_OptionsManager'));
+    'org_tubepress_api_options_OptionsManager'));
 
 /**
  * TubePress gallery. This class gets one or more videos from a provider and applies them to the template.
@@ -53,7 +53,7 @@ class org_tubepress_gallery_SimpleGallery implements org_tubepress_api_gallery_G
     public function getHtml($shortCodeContent = '')
     {
         $ioc             = org_tubepress_ioc_IocContainer::getInstance();
-        $tpom            = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $tpom            = $ioc->get('org_tubepress_api_options_OptionsManager');
         $shortcodeParser = $ioc->get('org_tubepress_shortcode_ShortcodeParser');
         $qss             = $ioc->get('org_tubepress_querystring_QueryStringService');
 
@@ -152,7 +152,7 @@ class org_tubepress_gallery_SimpleGallery implements org_tubepress_api_gallery_G
         $result .= org_tubepress_gallery_GalleryTemplateUtils::getThemeCss($ioc);
         $result .= org_tubepress_gallery_GalleryTemplateUtils::getThumbnailGenerationReminder($result, $ioc);
 
-	$tpom = $ioc->get('org_tubepress_options_manager_OptionsManager');
+	$tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
 	$tpom->setCustomOptions(array());
         return $result;
     }

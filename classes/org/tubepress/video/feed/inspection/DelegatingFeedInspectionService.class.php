@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_feed_FeedInspector',
-    'org_tubepress_options_manager_OptionsManager'));
+    'org_tubepress_api_options_OptionsManager'));
 
 /**
  * Sends the feed to the right inspection service based on the provider.

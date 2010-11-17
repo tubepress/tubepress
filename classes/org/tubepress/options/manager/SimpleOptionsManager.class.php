@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
+tubepress_load_classes(array('org_tubepress_api_options_OptionsManager',
     'org_tubepress_options_storage_StorageManager',
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_options_validation_InputValidationService',
@@ -33,7 +33,7 @@ tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
  * usually in persistent storage somewhere, and custom options parsed
  * from a shortcode
  */
-class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepress_options_manager_OptionsManager
+class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepress_api_options_OptionsManager
 {
     private $_customOptions = array();
     private $_shortcode;
