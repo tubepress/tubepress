@@ -111,7 +111,7 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
      * @param string                       $customVideoId The video ID to fetch.
      * @param org_tubepress_ioc_IocService $ioc           The IOC container.
      *
-     * @return org_tubepress_video_Video The video.
+     * @return org_tubepress_api_video_Video The video.
      */
     public function getSingleVideo($customVideoId)
     {

@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_feed_VideoFactory',
-    'org_tubepress_video_Video',
+    'org_tubepress_api_video_Video',
     'org_tubepress_options_category_Display',
     'org_tubepress_util_TimeUtils'));
 
@@ -106,11 +106,11 @@ class org_tubepress_video_factory_impl_VimeoVideoFactory implements org_tubepres
     /**
      * Creates a video from a single "entry" XML node
      *
-     * @return org_tubepress_video_Video The org_tubepress_video_Video representation of this node
+     * @return org_tubepress_api_video_Video The org_tubepress_api_video_Video representation of this node
      */
     private function _createVideo($entry, org_tubepress_options_manager_OptionsManager $tpom)
     {
-        $vid = new org_tubepress_video_Video();
+        $vid = new org_tubepress_api_video_Video();
 
         $vid->setAuthorDisplayName($entry->owner->display_name);
         $vid->setAuthorUid($entry->owner->username);

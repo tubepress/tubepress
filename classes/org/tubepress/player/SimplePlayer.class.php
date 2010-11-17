@@ -31,7 +31,7 @@ class org_tubepress_player_SimplePlayer implements org_tubepress_player_Player
 {
     const LOG_PREFIX = 'Player';
     
-    public function getHtml(org_tubepress_video_Video $vid, $galleryId)
+    public function getHtml(org_tubepress_api_video_Video $vid, $galleryId)
     {
         $ioc             = org_tubepress_ioc_IocContainer::getInstance();
         $browserDetector = $ioc->get('org_tubepress_api_http_AgentDetector');

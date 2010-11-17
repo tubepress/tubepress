@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_video_Video'));
+tubepress_load_classes(array('org_tubepress_api_video_Video'));
 
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
@@ -39,5 +39,5 @@ interface org_tubepress_player_Player
     const SOLO      = 'solo';
     const VIMEO     = 'vimeo';
     
-    public function getHtml(org_tubepress_video_Video $vid, $galleryId);
+    public function getHtml(org_tubepress_api_video_Video $vid, $galleryId);
 }

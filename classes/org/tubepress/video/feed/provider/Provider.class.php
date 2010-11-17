@@ -44,7 +44,7 @@ interface org_tubepress_video_feed_provider_Provider
      *
      * @param string                       $customVideoId The video ID to fetch.
      *
-     * @return org_tubepress_video_Video The video.
+     * @return org_tubepress_api_video_Video The video.
      */
     public function getSingleVideo($customVideoId);
 

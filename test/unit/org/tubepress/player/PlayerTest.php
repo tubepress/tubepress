@@ -12,7 +12,7 @@ class org_tubepress_player_PlayerTest extends TubePressUnitTest {
     {
 	$this->initFakeIoc();
 	$this->_sut = new org_tubepress_player_SimplePlayer();
-        $this->_video = $this->getMock('org_tubepress_video_Video');
+        $this->_video = $this->getMock('org_tubepress_api_video_Video');
         org_tubepress_log_Log::setEnabled(false, array());
     }
 

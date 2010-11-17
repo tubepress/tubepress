@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_feed_VideoFactory',
-    'org_tubepress_video_Video',
+    'org_tubepress_api_video_Video',
     'net_php_pear_Net_URL2',
     'org_tubepress_util_TimeUtils'));
 
@@ -164,11 +164,11 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory implements org_tubepr
     /**
      * Creates a video from a single "entry" XML node
      *
-     * @return org_tubepress_video_Video The org_tubepress_video_Video representation of this node
+     * @return org_tubepress_api_video_Video The org_tubepress_api_video_Video representation of this node
      */
     private function _createVideo(org_tubepress_options_manager_OptionsManager $tpom)
     {
-        $vid = new org_tubepress_video_Video();
+        $vid = new org_tubepress_api_video_Video();
 
         /* these three properties must always be present */
         $vid->setId($this->_getId());

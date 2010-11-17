@@ -80,7 +80,7 @@ class org_tubepress_single_SimpleSingleVideo implements org_tubepress_single_Sin
     /**
      * Prep the template for display.
      *
-     * @param org_tubepress_video_Video $video The video to display.
+     * @param org_tubepress_api_video_Video $video The video to display.
      *
      * @return void
      */

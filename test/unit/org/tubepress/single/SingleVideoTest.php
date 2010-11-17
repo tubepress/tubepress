@@ -22,7 +22,7 @@ class org_tubepress_single_VideoTest extends TubePressUnitTest
 			case 'org_tubepress_video_feed_provider_Provider':
 				$mock->expects($this->any())
 					->method('getSingleVideo')
-					->will($this->returnValue(new org_tubepress_video_Video()));
+					->will($this->returnValue(new org_tubepress_api_video_Video()));
 		}
 
 		return $mock;
