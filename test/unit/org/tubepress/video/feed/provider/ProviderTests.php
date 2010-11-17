@@ -7,7 +7,7 @@ class ProviderTests
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('TubePress Video Provider Tests');
-        $suite->addTestSuite('org_tubepress_video_feed_provider_ProviderTest');
+        $suite->addTestSuite('org_tubepress_api_provider_ProviderTest');
         return $suite;
     }
 }

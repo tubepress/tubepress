@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_video_feed_provider_Provider',
+tubepress_load_classes(array('org_tubepress_api_provider_Provider',
     'org_tubepress_log_Log',
     'org_tubepress_api_feed_UrlBuilder',
     'org_tubepress_options_category_Feed',
@@ -30,7 +30,7 @@ tubepress_load_classes(array('org_tubepress_video_feed_provider_Provider',
 /**
  * Interface to a remove video provider
  */
-class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_video_feed_provider_Provider
+class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_api_provider_Provider
 {
     const LOG_PREFIX = 'Video Provider';
 

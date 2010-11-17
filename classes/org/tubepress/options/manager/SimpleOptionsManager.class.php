@@ -25,7 +25,7 @@ tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
     'org_tubepress_options_storage_StorageManager',
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_options_validation_InputValidationService',
-    'org_tubepress_video_feed_provider_Provider',
+    'org_tubepress_api_provider_Provider',
     'org_tubepress_ioc_IocContainer'));
 
 /**

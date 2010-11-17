@@ -26,7 +26,7 @@ tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager'));
 /**
  * Interface to a remove video provider
  */
-interface org_tubepress_video_feed_provider_Provider
+interface org_tubepress_api_provider_Provider
 {
     const DIRECTORY = 'directory';
     const YOUTUBE   = 'youtube';

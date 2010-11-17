@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_api_feed_UrlBuilder',
-    'org_tubepress_video_feed_provider_Provider',
+    'org_tubepress_api_provider_Provider',
     'org_tubepress_ioc_IocDelegateUtils',
     'org_tubepress_api_feed_UrlBuilder'));
 
@@ -33,7 +33,7 @@ tubepress_load_classes(array('org_tubepress_api_feed_UrlBuilder',
 class org_tubepress_url_impl_DelegatingUrlBuilder implements org_tubepress_api_feed_UrlBuilder
 {
     private static $_providerToBeanNameMap = array(
-        org_tubepress_video_feed_provider_Provider::VIMEO => 'org_tubepress_url_impl_VimeoUrlBuilder',
+        org_tubepress_api_provider_Provider::VIMEO => 'org_tubepress_url_impl_VimeoUrlBuilder',
     );
     
     private static $_defaultDelegateName = 'org_tubepress_url_impl_YouTubeUrlBuilder';

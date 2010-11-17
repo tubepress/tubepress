@@ -30,7 +30,7 @@ tubepress_load_classes(array('org_tubepress_api_feed_FeedInspector',
 class org_tubepress_video_feed_inspection_DelegatingFeedInspectionService
 {
     private static $_providerToBeanNameMap = array(
-        org_tubepress_video_feed_provider_Provider::VIMEO => 'org_tubepress_video_feed_inspection_impl_VimeoFeedInspectionService'
+        org_tubepress_api_provider_Provider::VIMEO => 'org_tubepress_video_feed_inspection_impl_VimeoFeedInspectionService'
     );
 
     private static $_defaultDelegateBeanName = 'org_tubepress_video_feed_inspection_impl_YouTubeFeedInspectionService';

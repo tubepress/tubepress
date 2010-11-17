@@ -118,10 +118,10 @@ class org_tubepress_url_impl_YouTubeUrlBuilder implements org_tubepress_api_feed
     public function buildSingleVideoUrl($id)
     {
         $ioc          = org_tubepress_ioc_IocContainer::getInstance();
-        $provider     = $ioc->get('org_tubepress_video_feed_provider_Provider');
+        $provider     = $ioc->get('org_tubepress_api_provider_Provider');
         $providerName = $provider->calculateProviderOfVideoId($id);
 
-        if ($providerName !== org_tubepress_video_feed_provider_Provider::YOUTUBE) {
+        if ($providerName !== org_tubepress_api_provider_Provider::YOUTUBE) {
             throw new Exception("Unable to build YouTube URL for video with ID $id");
         }
         

@@ -29,7 +29,7 @@ tubepress_load_classes(array('org_tubepress_ioc_IocService',
     'org_tubepress_player_Player',
     'org_tubepress_template_SimpleTemplate',
     'org_tubepress_querystring_QueryStringService',
-    'org_tubepress_video_feed_provider_Provider',
+    'org_tubepress_api_provider_Provider',
     'org_tubepress_util_FilesystemUtils'));
 
 /**
@@ -43,7 +43,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
     {
         $tpom         = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $themeHandler = $ioc->get('org_tubepress_theme_ThemeHandler');
-        $provider     = $ioc->get('org_tubepress_video_feed_provider_Provider');
+        $provider     = $ioc->get('org_tubepress_api_provider_Provider');
         $playerName   = $tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
         $videos       = $feedResult->getVideoArray();
 
@@ -147,7 +147,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
         return '';
     }
 
-    private static function _getEmbeddedServiceName(org_tubepress_options_manager_OptionsManager $tpom, org_tubepress_video_feed_provider_Provider $provider)
+    private static function _getEmbeddedServiceName(org_tubepress_options_manager_OptionsManager $tpom, org_tubepress_api_provider_Provider $provider)
     {
         $stored = $tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL);
         if ($stored === org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL) {
@@ -179,7 +179,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
         $customVideoId = $qss->getCustomVideo($_GET);
         if ($customVideoId != '') {
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'Prepending video <tt>%s</tt> to the gallery', $customVideoId);
-            $provider = $ioc->get('org_tubepress_video_feed_provider_Provider');
+            $provider = $ioc->get('org_tubepress_api_provider_Provider');
             try {
                 $video = $provider->getSingleVideo($customVideoId);
                 array_unshift($videos, $video);

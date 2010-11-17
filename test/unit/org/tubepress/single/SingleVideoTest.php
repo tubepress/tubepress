@@ -19,7 +19,7 @@ class org_tubepress_single_VideoTest extends TubePressUnitTest
 		$mock = parent::getMock($className);
 
 		switch ($className) {
-			case 'org_tubepress_video_feed_provider_Provider':
+			case 'org_tubepress_api_provider_Provider':
 				$mock->expects($this->any())
 					->method('getSingleVideo')
 					->will($this->returnValue(new org_tubepress_api_video_Video()));

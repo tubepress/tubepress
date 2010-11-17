@@ -32,7 +32,7 @@ tubepress_load_classes(array('org_tubepress_api_feed_VideoFactory',
 class org_tubepress_video_factory_DelegatingVideoFactory implements org_tubepress_api_feed_VideoFactory
 {
     private static $_providerToBeanNameMap = array(
-        org_tubepress_video_feed_provider_Provider::VIMEO => 'org_tubepress_video_factory_impl_VimeoVideoFactory'
+        org_tubepress_api_provider_Provider::VIMEO => 'org_tubepress_video_factory_impl_VimeoVideoFactory'
     );
     
     private static $_defaultDelegateName = 'org_tubepress_video_factory_impl_YouTubeVideoFactory';

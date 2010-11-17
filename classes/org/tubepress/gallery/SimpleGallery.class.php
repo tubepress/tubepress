@@ -26,7 +26,7 @@ tubepress_load_classes(array('org_tubepress_shortcode_ShortcodeParser',
     'org_tubepress_log_Log',
     'org_tubepress_player_Player',
     'org_tubepress_querystring_QueryStringService',
-    'org_tubepress_video_feed_provider_Provider',
+    'org_tubepress_api_provider_Provider',
     'org_tubepress_options_Category',
     'org_tubepress_single_SingleVideo',
     'org_tubepress_gallery_GalleryTemplateUtils',
@@ -136,7 +136,7 @@ class org_tubepress_gallery_SimpleGallery implements org_tubepress_api_gallery_G
     {
         /* first grab the videos */
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'Asking provider for videos');
-        $provider = $ioc->get('org_tubepress_video_feed_provider_Provider');
+        $provider = $ioc->get('org_tubepress_api_provider_Provider');
         $feedResult = $provider->getMultipleVideos();
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'Provider has delivered %d videos', sizeof($feedResult->getVideoArray()));
 

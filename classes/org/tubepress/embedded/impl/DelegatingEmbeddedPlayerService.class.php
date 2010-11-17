@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_video_feed_provider_Provider',
+tubepress_load_classes(array('org_tubepress_api_provider_Provider',
     'org_tubepress_api_embedded_EmbeddedPlayer',
     'org_tubepress_embedded_impl_VimeoEmbeddedPlayerService',
     'org_tubepress_ioc_IocDelegateUtils'));
@@ -33,8 +33,8 @@ tubepress_load_classes(array('org_tubepress_video_feed_provider_Provider',
 class org_tubepress_embedded_impl_DelegatingEmbeddedPlayerService implements org_tubepress_api_embedded_EmbeddedPlayer
 {
     private static $_providerToBeanNameMap = array(
-        org_tubepress_video_feed_provider_Provider::VIMEO => 'org_tubepress_embedded_impl_VimeoEmbeddedPlayerService',
-        org_tubepress_video_feed_provider_Provider::DIRECTORY => 'org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService'
+        org_tubepress_api_provider_Provider::VIMEO => 'org_tubepress_embedded_impl_VimeoEmbeddedPlayerService',
+        org_tubepress_api_provider_Provider::DIRECTORY => 'org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService'
     );
 
     private static $_defaultDelegateBeanName = 'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService';
@@ -51,11 +51,11 @@ class org_tubepress_embedded_impl_DelegatingEmbeddedPlayerService implements org
     {
         $ioc          = org_tubepress_ioc_IocContainer::getInstance();
         $tpom         = $ioc->get('org_tubepress_options_manager_OptionsManager');
-        $provider     = $ioc->get('org_tubepress_video_feed_provider_Provider');
+        $provider     = $ioc->get('org_tubepress_api_provider_Provider');
         $providerName = $provider->calculateProviderOfVideoId($videoId);
         
         /** The user wants to use JW FLV Player to show YouTube videos. */
-        if ($providerName === org_tubepress_video_feed_provider_Provider::YOUTUBE
+        if ($providerName === org_tubepress_api_provider_Provider::YOUTUBE
             && $tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) === org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL) {
             return $ioc->get('org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService')->toString($videoId);    
         }
