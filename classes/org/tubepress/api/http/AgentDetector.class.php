@@ -23,7 +23,7 @@
  * HTTP client detection service. Yanked just about all of this code from
  * http://mobileesp.googlecode.com/.
  */
-interface org_tubepress_browser_BrowserDetector
+interface org_tubepress_api_http_AgentDetector
 {
     /**
      * Detects whether the device is an iPhone

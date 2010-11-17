@@ -23,7 +23,7 @@
  * HTTP client detection service. Yanked just about all of this code from
  * http://mobileesp.googlecode.com/.
  */
-class org_tubepress_browser_MobileEspBrowserDetector implements org_tubepress_browser_BrowserDetector
+class org_tubepress_browser_MobileEspBrowserDetector implements org_tubepress_api_http_AgentDetector
 {
     const HTTP_USER_AGENT = 'HTTP_USER_AGENT';
     const HTTP_ACCEPT     = 'HTTP_ACCEPT';

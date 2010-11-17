@@ -34,7 +34,7 @@ class org_tubepress_player_SimplePlayer implements org_tubepress_player_Player
     public function getHtml(org_tubepress_video_Video $vid, $galleryId)
     {
         $ioc             = org_tubepress_ioc_IocContainer::getInstance();
-        $browserDetector = $ioc->get('org_tubepress_browser_BrowserDetector');
+        $browserDetector = $ioc->get('org_tubepress_api_http_AgentDetector');
         $tpom            = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $playerName      = $tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
         $eps             = $ioc->get('org_tubepress_embedded_EmbeddedPlayerService');

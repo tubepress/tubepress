@@ -2,7 +2,7 @@
 require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
 require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/browser/MobileEspBrowserDetector.class.php';
 
-class org_tubepress_browser_BrowserDetectorTest extends TubePressUnitTest {
+class org_tubepress_api_http_AgentDetectorTest extends TubePressUnitTest {
 
     private $_sut;
     

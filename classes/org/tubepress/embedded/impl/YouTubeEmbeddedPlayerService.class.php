@@ -49,7 +49,7 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService implements org_tu
         $ioc   = org_tubepress_ioc_IocContainer::getInstance();
         $tpom  = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $theme = $ioc->get('org_tubepress_theme_ThemeHandler');
-        $bd    = $ioc->get('org_tubepress_browser_BrowserDetector');
+        $bd    = $ioc->get('org_tubepress_api_http_AgentDetector');
 
         $playerColor     = org_tubepress_embedded_impl_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR), '999999');
         $playerHighlight = org_tubepress_embedded_impl_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT), 'FFFFFF');
@@ -98,7 +98,7 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService implements org_tu
         return $embedSrc;
     }
     
-    private function isIsomething(org_tubepress_browser_BrowserDetector $bd)
+    private function isIsomething(org_tubepress_api_http_AgentDetector $bd)
     {
         $agent = $_SERVER['HTTP_USER_AGENT'];
         return $bd->isIphoneOrIpod($agent) || $bd->isIpad($agent);
