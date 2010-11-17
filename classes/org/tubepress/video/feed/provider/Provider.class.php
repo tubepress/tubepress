@@ -35,7 +35,7 @@ interface org_tubepress_video_feed_provider_Provider
     /**
      * Get the video feed result.
      *
-     * @return org_tubepress_video_feed_FeedResult The feed result.
+     * @return org_tubepress_api_feed_FeedResult The feed result.
      */
     public function getMultipleVideos();
 

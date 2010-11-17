@@ -25,7 +25,7 @@ tubepress_load_classes(array('org_tubepress_video_feed_provider_Provider',
     'org_tubepress_log_Log',
     'org_tubepress_url_UrlBuilder',
     'org_tubepress_options_category_Feed',
-    'org_tubepress_video_feed_FeedResult'));
+    'org_tubepress_api_feed_FeedResult'));
 
 /**
  * Interface to a remove video provider
@@ -37,7 +37,7 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
     /**
      * Get the video feed result.
      *
-     * @return org_tubepress_video_feed_FeedResult The feed result.
+     * @return org_tubepress_api_feed_FeedResult The feed result.
      */
     public function getMultipleVideos()
     {
@@ -98,7 +98,7 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
             shuffle($videos);
         }
 
-        $result = new org_tubepress_video_feed_FeedResult();
+        $result = new org_tubepress_api_feed_FeedResult();
         $result->setEffectiveDisplayCount($effectiveDisplayCount);
         $result->setEffectiveTotalResultCount($effectiveTotalResultCount);
         $result->setVideoArray($videos);

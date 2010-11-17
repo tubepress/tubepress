@@ -92,7 +92,7 @@ class org_tubepress_video_feed_provider_ProviderTest extends TubePressUnitTest
     {
         $this->setOptions(array(org_tubepress_options_category_Display::ORDER_BY => 'random'));
         $result = $this->_sut->getMultipleVideos();
-        $this->assertTrue(is_a($result, 'org_tubepress_video_feed_FeedResult'));
+        $this->assertTrue(is_a($result, 'org_tubepress_api_feed_FeedResult'));
         $this->assertTrue($result->getEffectiveDisplayCount() === 20);
     }
 }

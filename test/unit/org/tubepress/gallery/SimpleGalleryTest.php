@@ -10,7 +10,7 @@ class org_tubepress_gallery_SimpleGalleryTest extends TubePressUnitTest
 
 	function setup()
 	{
-		self::$_feedResult = new org_tubepress_video_feed_FeedResult();
+		self::$_feedResult = new org_tubepress_api_feed_FeedResult();
 		$this->initFakeIoc();
 		$this->_sut = new org_tubepress_gallery_SimpleGallery();
 	}
