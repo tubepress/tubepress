@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_ioc_IocService',
-    'org_tubepress_options_category_Display',
+    'org_tubepress_api_const_options_Display',
     'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_api_feed_FeedResult',
     'org_tubepress_api_template_Template',
@@ -44,7 +44,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
         $tpom         = $ioc->get('org_tubepress_api_options_OptionsManager');
         $themeHandler = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $provider     = $ioc->get('org_tubepress_api_provider_Provider');
-        $playerName   = $tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
+        $playerName   = $tpom->get(org_tubepress_api_const_options_Display::CURRENT_PLAYER_NAME);
         $videos       = $feedResult->getVideoArray();
 
         if (is_array($videos) && sizeof($videos) > 0) {
@@ -63,10 +63,10 @@ class org_tubepress_gallery_GalleryTemplateUtils
             $paginationService = $ioc->get('org_tubepress_api_pagination_Pagination');
             $pagination        = $paginationService->getHtml($feedResult->getEffectiveTotalResultCount(), $ioc);
 
-            if ($tpom->get(org_tubepress_options_category_Display::PAGINATE_ABOVE)) {
+            if ($tpom->get(org_tubepress_api_const_options_Display::PAGINATE_ABOVE)) {
                 $template->setVariable(org_tubepress_api_template_Template::PAGINATION_TOP, $pagination);
             }
-            if ($tpom->get(org_tubepress_options_category_Display::PAGINATE_BELOW)) {
+            if ($tpom->get(org_tubepress_api_const_options_Display::PAGINATE_BELOW)) {
                 $template->setVariable(org_tubepress_api_template_Template::PAGINATION_BOTTOM, $pagination);
             }
         } else {
@@ -79,8 +79,8 @@ class org_tubepress_gallery_GalleryTemplateUtils
         $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_IMPL_NAME, self::_getEmbeddedServiceName($tpom, $provider));
         $template->setVariable(org_tubepress_api_template_Template::GALLERY_ID, $galleryId);
         $template->setVariable(org_tubepress_api_template_Template::PLAYER_NAME, $playerName);
-        $template->setVariable(org_tubepress_api_template_Template::THUMBNAIL_WIDTH, $tpom->get(org_tubepress_options_category_Display::THUMB_WIDTH));
-        $template->setVariable(org_tubepress_api_template_Template::THUMBNAIL_HEIGHT, $tpom->get(org_tubepress_options_category_Display::THUMB_HEIGHT));
+        $template->setVariable(org_tubepress_api_template_Template::THUMBNAIL_WIDTH, $tpom->get(org_tubepress_api_const_options_Display::THUMB_WIDTH));
+        $template->setVariable(org_tubepress_api_template_Template::THUMBNAIL_HEIGHT, $tpom->get(org_tubepress_api_const_options_Display::THUMB_HEIGHT));
 
         self::_prepMetaInfo($template, $ioc);
     }
@@ -134,7 +134,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
     {
         $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
         
-        if ($tpom->get(org_tubepress_options_category_Display::AJAX_PAGINATION)) {
+        if ($tpom->get(org_tubepress_api_const_options_Display::AJAX_PAGINATION)) {
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'Using Ajax pagination');
             $template = new org_tubepress_template_SimpleTemplate();
             $baseInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
@@ -149,7 +149,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
 
     private static function _getEmbeddedServiceName(org_tubepress_api_options_OptionsManager $tpom, org_tubepress_api_provider_Provider $provider)
     {
-        $stored = $tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL);
+        $stored = $tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_IMPL);
         if ($stored === org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL) {
             return $stored;
         }

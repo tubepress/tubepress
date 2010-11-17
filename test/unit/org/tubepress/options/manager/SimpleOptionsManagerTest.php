@@ -17,8 +17,8 @@ class org_tubepress_options_manager_SimpleOptionsManagerTest extends TubePressUn
     
 	public function testSetGet()
 	{
-		$this->_sut->set(org_tubepress_options_category_Display::THEME, 'crazytheme');
-		$this->assertEquals('crazytheme', $this->_sut->get(org_tubepress_options_category_Display::THEME));
+		$this->_sut->set(org_tubepress_api_const_options_Display::THEME, 'crazytheme');
+		$this->assertEquals('crazytheme', $this->_sut->get(org_tubepress_api_const_options_Display::THEME));
 	}
 
     public function testGetSetShortcode()
@@ -29,9 +29,9 @@ class org_tubepress_options_manager_SimpleOptionsManagerTest extends TubePressUn
     
     public function testGetCustomOption()
     {
-	$customOptions = array(org_tubepress_options_category_Display::THEME => 'fakeoptionvalue');
+	$customOptions = array(org_tubepress_api_const_options_Display::THEME => 'fakeoptionvalue');
     	$this->_sut->setCustomOptions($customOptions);
-    	$this->assertEquals('fakeoptionvalue', $this->_sut->get(org_tubepress_options_category_Display::THEME));
+    	$this->assertEquals('fakeoptionvalue', $this->_sut->get(org_tubepress_api_const_options_Display::THEME));
 	$this->assertEquals(1, sizeof(array_intersect($customOptions, $this->_sut->getCustomOptions())));
     }
     

@@ -17,7 +17,7 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends TubePressUnitT
 
     function testViews()
     {
-        $this->setOptions(array(org_tubepress_options_category_Meta::VIEWS => true));
+        $this->setOptions(array(org_tubepress_api_const_options_Meta::VIEWS => true));
         $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
         $vid = $results[0];
         $this->assertEquals('1,775', $vid->getViewCount());
@@ -26,8 +26,8 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends TubePressUnitT
     function testTimeUploadedRelative()
     {
         $this->setOptions(array(
-            org_tubepress_options_category_Meta::UPLOADED => true,
-            org_tubepress_options_category_Display::RELATIVE_DATES => true
+            org_tubepress_api_const_options_Meta::UPLOADED => true,
+            org_tubepress_api_const_options_Display::RELATIVE_DATES => true
         ));
         $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
         $vid = $results[0];
@@ -36,8 +36,8 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends TubePressUnitT
     
     function testTimeUploadedAbsolute()
     {
-       $this->setOptions(array(org_tubepress_options_category_Meta::UPLOADED => true,
-        org_tubepress_options_category_Advanced::DATEFORMAT => 'l jS \of F Y h:i:s A'));
+       $this->setOptions(array(org_tubepress_api_const_options_Meta::UPLOADED => true,
+        org_tubepress_api_const_options_Advanced::DATEFORMAT => 'l jS \of F Y h:i:s A'));
         $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
         $vid = $results[0];
         $this->assertEquals('Monday 17th of August 2009 04:36:21 PM', $vid->getTimePublished());
@@ -45,7 +45,7 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends TubePressUnitT
     
     function testRating()
     {
-        $this->setOptions(array(org_tubepress_options_category_Meta::RATING => true));
+        $this->setOptions(array(org_tubepress_api_const_options_Meta::RATING => true));
         $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
         $vid = $results[0];
         $this->assertEquals('3.83', $vid->getRatingAverage());
@@ -53,7 +53,7 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends TubePressUnitT
     
     function testRatings()
     {
-        $this->setOptions(array(org_tubepress_options_category_Meta::RATINGS => true));
+        $this->setOptions(array(org_tubepress_api_const_options_Meta::RATINGS => true));
         $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
         $vid = $results[0];
         $this->assertEquals(6, $vid->getRatingCount());
@@ -61,7 +61,7 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends TubePressUnitT
     
     function testKeywords()
     {
-        $this->setOptions(array(org_tubepress_options_category_Meta::TAGS => true));
+        $this->setOptions(array(org_tubepress_api_const_options_Meta::TAGS => true));
         $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
         $vid = $results[0];
         $keys = $vid->getKeywords();
@@ -71,7 +71,7 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends TubePressUnitT
     
     function testHomeUrl()
     {
-        $this->setOptions(array(org_tubepress_options_category_Meta::URL => true));
+        $this->setOptions(array(org_tubepress_api_const_options_Meta::URL => true));
         $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
         $vid = $results[0];
         $this->assertEquals('http://www.youtube.com/watch?v=BRKWi5beywQ&amp;feature=youtube_gdata', $vid->getHomeUrl());
@@ -79,7 +79,7 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends TubePressUnitT
     
     function testDuration()
     {
-        $this->setOptions(array(org_tubepress_options_category_Meta::LENGTH => true));
+        $this->setOptions(array(org_tubepress_api_const_options_Meta::LENGTH => true));
         $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
         $vid = $results[0];
         $this->assertEquals('4:04', $vid->getDuration());
@@ -87,8 +87,8 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends TubePressUnitT
     
     function testDescriptionLimit()
     {
-        $this->setOptions(array(org_tubepress_options_category_Meta::DESCRIPTION => true,
-            org_tubepress_options_category_Display::DESC_LIMIT => 10));
+        $this->setOptions(array(org_tubepress_api_const_options_Meta::DESCRIPTION => true,
+            org_tubepress_api_const_options_Display::DESC_LIMIT => 10));
         $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
         $vid = $results[0];
         $this->assertEquals('Informatio...', $vid->getDescription());
@@ -96,7 +96,7 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends TubePressUnitT
     
     function testDescriptionNoLimit()
     {
-        $this->setOptions(array(org_tubepress_options_category_Meta::DESCRIPTION => true));
+        $this->setOptions(array(org_tubepress_api_const_options_Meta::DESCRIPTION => true));
         $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
         $vid = $results[0];
         $this->assertEquals('Information about shared spaces proposals in the Auckland CBD area.', $vid->getDescription());
@@ -104,7 +104,7 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends TubePressUnitT
     
     function testCategory()
     {
-        $this->setOptions(array(org_tubepress_options_category_Meta::CATEGORY => true));
+        $this->setOptions(array(org_tubepress_api_const_options_Meta::CATEGORY => true));
         $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
         $vid = $results[0];
         $this->assertEquals('People & Blogs', $vid->getCategory());
@@ -112,7 +112,7 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends TubePressUnitT
     
     function testAuthor()
     {
-        $this->setOptions(array(org_tubepress_options_category_Meta::AUTHOR => true));
+        $this->setOptions(array(org_tubepress_api_const_options_Meta::AUTHOR => true));
         $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
         $vid = $results[0];
         $this->assertEquals('TheAkcitycouncil', $vid->getAuthorUid());
@@ -120,7 +120,7 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends TubePressUnitT
     
     function testRandomThumbnailUrl()
     {
-        $this->setOptions(array(org_tubepress_options_category_Display::RANDOM_THUMBS => true));
+        $this->setOptions(array(org_tubepress_api_const_options_Display::RANDOM_THUMBS => true));
         $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
         $vid = $results[0];
         $ok = $vid->getThumbnailUrl() === 'http://i.ytimg.com/vi/BRKWi5beywQ/2.jpg'
@@ -132,7 +132,7 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends TubePressUnitT
     
     function testDefaultThumbnailUrl()
     {
-        $this->setOptions(array(org_tubepress_options_category_Display::RANDOM_THUMBS => false));
+        $this->setOptions(array(org_tubepress_api_const_options_Display::RANDOM_THUMBS => false));
         $results = $this->_sut->feedToVideoArray($this->_sampleFeedOne, 1000);
         $vid = $results[0];
         $this->assertEquals('http://i.ytimg.com/vi/BRKWi5beywQ/2.jpg', $vid->getThumbnailUrl());

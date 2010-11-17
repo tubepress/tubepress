@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
-    'org_tubepress_options_category_Display',
+    'org_tubepress_api_const_options_Display',
     'org_tubepress_log_Log',
     'org_tubepress_template_SimpleTemplate',
     'org_tubepress_api_theme_ThemeHandler'));
@@ -60,7 +60,7 @@ class org_tubepress_theme_SimpleThemeHandler implements org_tubepress_api_theme_
     {
         $ioc          = org_tubepress_ioc_IocContainer::getInstance();
         $tpom         = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $currentTheme = $tpom->get(org_tubepress_options_category_Display::THEME);
+        $currentTheme = $tpom->get(org_tubepress_api_const_options_Display::THEME);
         if ($currentTheme == '') {
             $currentTheme = 'default';
         }

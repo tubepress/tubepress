@@ -53,13 +53,13 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService implements org_tube
         $theme    = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $template = $theme->getTemplateInstance('embedded_flash/vimeo.tpl.php');
         
-        $width      = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH);
-        $height     = $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT);
-        $fullscreen = $tpom->get(org_tubepress_options_category_Embedded::FULLSCREEN);
-        $autoPlay   = $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY);
-        $color      = $tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR);
-        $showInfo   = $tpom->get(org_tubepress_options_category_Embedded::SHOW_INFO);
-        $loop       = $tpom->get(org_tubepress_options_category_Embedded::LOOP);
+        $width      = $tpom->get(org_tubepress_api_const_options_Embedded::EMBEDDED_WIDTH);
+        $height     = $tpom->get(org_tubepress_api_const_options_Embedded::EMBEDDED_HEIGHT);
+        $fullscreen = $tpom->get(org_tubepress_api_const_options_Embedded::FULLSCREEN);
+        $autoPlay   = $tpom->get(org_tubepress_api_const_options_Embedded::AUTOPLAY);
+        $color      = $tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_COLOR);
+        $showInfo   = $tpom->get(org_tubepress_api_const_options_Embedded::SHOW_INFO);
+        $loop       = $tpom->get(org_tubepress_api_const_options_Embedded::LOOP);
 
         /* build the data URL based on these options */
         $link = new net_php_pear_Net_URL2(self::VIMEO_EMBEDDED_PLAYER_URL . "video/$videoId");

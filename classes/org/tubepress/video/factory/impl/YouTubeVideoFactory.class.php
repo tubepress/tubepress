@@ -132,7 +132,7 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory implements org_tubepr
         $index     = 0;
         $ioc       = org_tubepress_ioc_IocContainer::getInstance();
         $tpom      = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $blacklist = $tpom->get(org_tubepress_options_category_Advanced::VIDEO_BLACKLIST);
+        $blacklist = $tpom->get(org_tubepress_api_const_options_Advanced::VIDEO_BLACKLIST);
 
         foreach ($entries as $entry) {
 
@@ -177,45 +177,45 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory implements org_tubepr
 
         /* the rest of these are optional */
 
-        if ($tpom->get(org_tubepress_options_category_Meta::AUTHOR)) {
+        if ($tpom->get(org_tubepress_api_const_options_Meta::AUTHOR)) {
             $uid = $this->_getAuthorUid();
             $vid->setAuthorUid($uid);
             $vid->setAuthorDisplayName($uid);
         }
 
-        if ($tpom->get(org_tubepress_options_category_Meta::CATEGORY)) {
+        if ($tpom->get(org_tubepress_api_const_options_Meta::CATEGORY)) {
             $vid->setCategory($this->_getCategory());
         }
 
-        if ($tpom->get(org_tubepress_options_category_Meta::DESCRIPTION)) {
+        if ($tpom->get(org_tubepress_api_const_options_Meta::DESCRIPTION)) {
             $vid->setDescription($this->_getDescription($tpom));
         }
 
-        if ($tpom->get(org_tubepress_options_category_Meta::LENGTH)) {
+        if ($tpom->get(org_tubepress_api_const_options_Meta::LENGTH)) {
             $vid->setDuration($this->_getDuration());
         }
 
-        if ($tpom->get(org_tubepress_options_category_Meta::URL)) {
+        if ($tpom->get(org_tubepress_api_const_options_Meta::URL)) {
             $vid->setHomeUrl($this->_getHomeUrl());
         }
 
-        if ($tpom->get(org_tubepress_options_category_Meta::TAGS)) {
+        if ($tpom->get(org_tubepress_api_const_options_Meta::TAGS)) {
             $vid->setKeywords($this->_getKeywords());
         }
 
-        if ($tpom->get(org_tubepress_options_category_Meta::RATING)) {
+        if ($tpom->get(org_tubepress_api_const_options_Meta::RATING)) {
             $vid->setRatingAverage($this->_getRatingAverage());
         }
 
-        if ($tpom->get(org_tubepress_options_category_Meta::RATINGS)) {
+        if ($tpom->get(org_tubepress_api_const_options_Meta::RATINGS)) {
             $vid->setRatingCount($this->_getRatingCount());
         }
 
-        if ($tpom->get(org_tubepress_options_category_Meta::UPLOADED)) {
+        if ($tpom->get(org_tubepress_api_const_options_Meta::UPLOADED)) {
             $vid->setTimePublished($this->_getTimePublished($tpom));
         }
 
-        if ($tpom->get(org_tubepress_options_category_Meta::VIEWS)) {
+        if ($tpom->get(org_tubepress_api_const_options_Meta::VIEWS)) {
             $vid->setViewCount($this->_getViewCount());
         }
 
@@ -234,7 +234,7 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory implements org_tubepr
 
     private function _getDescription(org_tubepress_api_options_OptionsManager $tpom)
     {
-        $limit = $tpom->get(org_tubepress_options_category_Display::DESC_LIMIT);
+        $limit = $tpom->get(org_tubepress_api_const_options_Display::DESC_LIMIT);
         $desc  = trim($this->_xpath->query('media:group/media:description', $this->_currentNode)->item(0)->nodeValue);
 
         if ($limit > 0 && strlen($desc) > $limit) {
@@ -322,7 +322,7 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory implements org_tubepr
     {
         $thumbs  = $this->_xpath->query('media:group/media:thumbnail', $this->_currentNode);
 
-        if ($tpom->get(org_tubepress_options_category_Display::RANDOM_THUMBS)) {
+        if ($tpom->get(org_tubepress_api_const_options_Display::RANDOM_THUMBS)) {
             do {
                 $node = $thumbs->item(rand(0, $thumbs->length - 1));
             } while (strpos($node->getAttribute('url'), 'hqdefault') !== false);
@@ -348,10 +348,10 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory implements org_tubepr
         $rawTime = $publishedNode->item(0)->nodeValue;
         $seconds = org_tubepress_util_TimeUtils::rfc3339toUnixTime($rawTime);
 
-        if ($tpom->get(org_tubepress_options_category_Display::RELATIVE_DATES)) {
+        if ($tpom->get(org_tubepress_api_const_options_Display::RELATIVE_DATES)) {
             return org_tubepress_util_TimeUtils::getRelativeTime($seconds);
         }
-        return date($tpom->get(org_tubepress_options_category_Advanced::DATEFORMAT), $seconds);
+        return date($tpom->get(org_tubepress_api_const_options_Advanced::DATEFORMAT), $seconds);
     }
 
     /**

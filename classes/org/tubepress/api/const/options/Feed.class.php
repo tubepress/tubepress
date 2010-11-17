@@ -20,12 +20,17 @@
  */
 
 /**
- * Advanced option names for the plugin.
+ * YouTube feed options
  */
-class org_tubepress_options_category_Advanced
+class org_tubepress_api_const_options_Feed
 {
-    const DATEFORMAT      = 'dateFormat';
-    const DEBUG_ON        = 'debugging_enabled';
-    const KEYWORD         = 'keyword';
-    const VIDEO_BLACKLIST = 'videoBlacklist';
+    /* The order in which these constants are declared dictates the
+       order in which they'll be presented on the options page */
+    const CACHE_ENABLED    = 'cacheEnabled';
+    const EMBEDDABLE_ONLY  = 'embeddableOnly';
+    const FILTER           = 'filter_racy';
+    const DEV_KEY          = 'developerKey';
+    const RESULT_COUNT_CAP = 'resultCountCap';
+    const VIMEO_KEY        = 'vimeoKey';
+    const VIMEO_SECRET     = 'vimeoSecret';
 }

@@ -56,7 +56,7 @@ class org_tubepress_embedded_impl_DelegatingEmbeddedPlayerService implements org
         
         /** The user wants to use JW FLV Player to show YouTube videos. */
         if ($providerName === org_tubepress_api_provider_Provider::YOUTUBE
-            && $tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) === org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL) {
+            && $tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_IMPL) === org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL) {
             return $ioc->get('org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService')->toString($videoId);    
         }
         

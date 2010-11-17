@@ -16,11 +16,11 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerServiceTest extends TubeP
     function testToString()
     {
         $this->setOptions(array(
-            org_tubepress_options_category_Embedded::PLAYER_COLOR => '777777',
-            org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT => '111111',
-            org_tubepress_options_category_Embedded::HIGH_QUALITY => true,
-            org_tubepress_options_category_Embedded::LOOP => true,
-            org_tubepress_options_category_Embedded::BORDER => true
+            org_tubepress_api_const_options_Embedded::PLAYER_COLOR => '777777',
+            org_tubepress_api_const_options_Embedded::PLAYER_HIGHLIGHT => '111111',
+            org_tubepress_api_const_options_Embedded::HIGH_QUALITY => true,
+            org_tubepress_api_const_options_Embedded::LOOP => true,
+            org_tubepress_api_const_options_Embedded::BORDER => true
         ));
         $this->assertEquals($this->expected(), $this->_sut->toString('FAKEID'));
     }

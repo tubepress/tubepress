@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_shortcode_ShortcodeParser',
-    'org_tubepress_options_category_Gallery',
+    'org_tubepress_api_const_options_Gallery',
     'org_tubepress_log_Log',
     'org_tubepress_player_Player',
     'org_tubepress_querystring_QueryStringService',
@@ -66,7 +66,7 @@ class org_tubepress_gallery_SimpleGallery implements org_tubepress_api_gallery_G
         }
 
         /* user wants to display a single video with meta info */
-        $videoId = $tpom->get(org_tubepress_options_category_Gallery::VIDEO);
+        $videoId = $tpom->get(org_tubepress_api_const_options_Gallery::VIDEO);
         if ($videoId != '') {
 
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
@@ -77,7 +77,7 @@ class org_tubepress_gallery_SimpleGallery implements org_tubepress_api_gallery_G
         }
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'No video ID set in shortcode.');
 
-        $playerName = $tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
+        $playerName = $tpom->get(org_tubepress_api_const_options_Display::CURRENT_PLAYER_NAME);
 
         /* see if the users wants to display just the video in the query string */
         if ($playerName == org_tubepress_player_Player::SOLO) {

@@ -53,11 +53,11 @@ class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService implements org_tube
 
         $template->setVariable(org_tubepress_api_template_Template::TUBEPRESS_BASE_URL, $tubepress_base_url);
         $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_DATA_URL, $link);
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_AUTOSTART, $tpom->get(org_tubepress_options_category_Embedded::AUTOPLAY) ? 'true' : 'false');
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_HEIGHT, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT));
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_COLOR_PRIMARY, $tpom->get(org_tubepress_options_category_Embedded::PLAYER_COLOR));
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_COLOR_HIGHLIGHT, $tpom->get(org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT));
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_AUTOSTART, $tpom->get(org_tubepress_api_const_options_Embedded::AUTOPLAY) ? 'true' : 'false');
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_api_const_options_Embedded::EMBEDDED_WIDTH));
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_HEIGHT, $tpom->get(org_tubepress_api_const_options_Embedded::EMBEDDED_HEIGHT));
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_COLOR_PRIMARY, $tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_COLOR));
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_COLOR_HIGHLIGHT, $tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_HIGHLIGHT));
 
         return $template->toString();
     }

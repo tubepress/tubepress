@@ -20,23 +20,24 @@
  */
 
 /**
- * Option names that control which meta info is displayed below video
- * thumbnails
+ * Option names for the embedded player
+ *
  */
-class org_tubepress_options_category_Meta
+class org_tubepress_api_const_options_Embedded
 {
-    const AUTHOR      = "author";
-    const CATEGORY    = "category";
-    const DESCRIPTION = "description";
-    const ID          = "id";
-    const LENGTH      = "length";
-    const LIKES       = 'likes';
-    const RATING      = "rating";
-    const RATINGS     = "ratings";
-    const TAGS        = "tags";
-    const TITLE       = "title";
-    const UPLOADED    = "uploaded";
-    const URL         = "url";
-    const VIEWS       = "views";
+    //The order in which these constants are declared dictates the
+    //order in which they'll be presented on the options page */
+    const PLAYER_IMPL      = "playerImplementation";
+    const EMBEDDED_HEIGHT  = "embeddedHeight";
+    const EMBEDDED_WIDTH   = "embeddedWidth";
+    const AUTOPLAY         = "autoplay";
+    const BORDER           = "border";
+    const FULLSCREEN       = "fullscreen";
+    const HIGH_QUALITY     = "hd";
+    const GENIE            = "genie";
+    const LOOP             = "loop";
+    const PLAYER_COLOR     = "playerColor";
+    const PLAYER_HIGHLIGHT = "playerHighlight";
+    const SHOW_INFO        = "showInfo";
+    const SHOW_RELATED     = "showRelated";
 }
-              

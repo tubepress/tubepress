@@ -8,95 +8,95 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
     
     private $_options = array(
         org_tubepress_options_Type::COLOR => array(
-            org_tubepress_options_category_Embedded::PLAYER_COLOR   => '999999',
-            org_tubepress_options_category_Embedded::PLAYER_HIGHLIGHT => 'FFFFFF'
+            org_tubepress_api_const_options_Embedded::PLAYER_COLOR   => '999999',
+            org_tubepress_api_const_options_Embedded::PLAYER_HIGHLIGHT => 'FFFFFF'
         ),
         org_tubepress_options_Type::MODE => array(
-            org_tubepress_options_category_Gallery::MODE => 'recently_featured'
+            org_tubepress_api_const_options_Gallery::MODE => 'recently_featured'
         ),
         org_tubepress_options_Type::TEXT => array(
-            org_tubepress_options_category_Advanced::DATEFORMAT            => 'M j, Y',
-            org_tubepress_options_category_Advanced::KEYWORD               => 'tubepress',
-            org_tubepress_options_category_Advanced::VIDEO_BLACKLIST       => '',
-            org_tubepress_options_category_Gallery::FAVORITES_VALUE        => 'mrdeathgod',
-            org_tubepress_options_category_Gallery::PLAYLIST_VALUE         => 'D2B04665B213AE35',
-            org_tubepress_options_category_Gallery::TAG_VALUE              => 'stewart daily show',
-            org_tubepress_options_category_Gallery::USER_VALUE             => '3hough',
-            org_tubepress_options_category_Feed::DEV_KEY                   => 'AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg',
-            org_tubepress_options_category_Feed::VIMEO_KEY                 => '',
-            org_tubepress_options_category_Feed::VIMEO_SECRET              => '',
-            org_tubepress_options_category_Widget::TITLE                   => 'TubePress',
-            org_tubepress_options_category_Widget::TAGSTRING               => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']',
-            org_tubepress_options_category_Gallery::VIDEO                  => '',
-            org_tubepress_options_category_Gallery::VIMEO_UPLOADEDBY_VALUE => 'mattkaar',
-            org_tubepress_options_category_Gallery::VIMEO_LIKES_VALUE      => 'coiffier',
-            org_tubepress_options_category_Gallery::VIMEO_APPEARS_IN_VALUE => 'royksopp',
-            org_tubepress_options_category_Gallery::VIMEO_SEARCH_VALUE     => 'cats playing piano',
-            org_tubepress_options_category_Gallery::VIMEO_CREDITED_VALUE   => 'patricklawler',
-            org_tubepress_options_category_Gallery::VIMEO_CHANNEL_VALUE    => 'splitscreenstuff',
-            org_tubepress_options_category_Gallery::VIMEO_GROUP_VALUE      => 'hdxs',
-            org_tubepress_options_category_Gallery::VIMEO_ALBUM_VALUE      => '140484'
+            org_tubepress_api_const_options_Advanced::DATEFORMAT            => 'M j, Y',
+            org_tubepress_api_const_options_Advanced::KEYWORD               => 'tubepress',
+            org_tubepress_api_const_options_Advanced::VIDEO_BLACKLIST       => '',
+            org_tubepress_api_const_options_Gallery::FAVORITES_VALUE        => 'mrdeathgod',
+            org_tubepress_api_const_options_Gallery::PLAYLIST_VALUE         => 'D2B04665B213AE35',
+            org_tubepress_api_const_options_Gallery::TAG_VALUE              => 'stewart daily show',
+            org_tubepress_api_const_options_Gallery::USER_VALUE             => '3hough',
+            org_tubepress_api_const_options_Feed::DEV_KEY                   => 'AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg',
+            org_tubepress_api_const_options_Feed::VIMEO_KEY                 => '',
+            org_tubepress_api_const_options_Feed::VIMEO_SECRET              => '',
+            org_tubepress_api_const_options_Widget::TITLE                   => 'TubePress',
+            org_tubepress_api_const_options_Widget::TAGSTRING               => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']',
+            org_tubepress_api_const_options_Gallery::VIDEO                  => '',
+            org_tubepress_api_const_options_Gallery::VIMEO_UPLOADEDBY_VALUE => 'mattkaar',
+            org_tubepress_api_const_options_Gallery::VIMEO_LIKES_VALUE      => 'coiffier',
+            org_tubepress_api_const_options_Gallery::VIMEO_APPEARS_IN_VALUE => 'royksopp',
+            org_tubepress_api_const_options_Gallery::VIMEO_SEARCH_VALUE     => 'cats playing piano',
+            org_tubepress_api_const_options_Gallery::VIMEO_CREDITED_VALUE   => 'patricklawler',
+            org_tubepress_api_const_options_Gallery::VIMEO_CHANNEL_VALUE    => 'splitscreenstuff',
+            org_tubepress_api_const_options_Gallery::VIMEO_GROUP_VALUE      => 'hdxs',
+            org_tubepress_api_const_options_Gallery::VIMEO_ALBUM_VALUE      => '140484'
         ),
         org_tubepress_options_Type::BOOL => array(
-            org_tubepress_options_category_Advanced::DEBUG_ON           => true,
-            org_tubepress_options_category_Display::RANDOM_THUMBS       => true,
-            org_tubepress_options_category_Display::RELATIVE_DATES      => false,
-            org_tubepress_options_category_Display::PAGINATE_ABOVE      => true,
-            org_tubepress_options_category_Display::PAGINATE_BELOW      => true,
-            org_tubepress_options_category_Display::AJAX_PAGINATION     => false,
-            org_tubepress_options_category_Display::HQ_THUMBS           => false,
-            org_tubepress_options_category_Embedded::AUTOPLAY           => false,
-            org_tubepress_options_category_Embedded::BORDER             => false,
-            org_tubepress_options_category_Embedded::GENIE              => false,
-            org_tubepress_options_category_Embedded::LOOP               => false,
-            org_tubepress_options_category_Embedded::SHOW_INFO          => false,
-            org_tubepress_options_category_Embedded::SHOW_RELATED       => true,
-            org_tubepress_options_category_Embedded::FULLSCREEN         => true,
-            org_tubepress_options_category_Embedded::HIGH_QUALITY       => false,
-            org_tubepress_options_category_Meta::AUTHOR                 => false,
-            org_tubepress_options_category_Meta::CATEGORY               => false,
-            org_tubepress_options_category_Meta::DESCRIPTION            => false,
-            org_tubepress_options_category_Meta::ID                     => false,
-            org_tubepress_options_category_Meta::LENGTH                 => true,
-            org_tubepress_options_category_Meta::RATING                 => false,
-            org_tubepress_options_category_Meta::RATINGS                => false,
-            org_tubepress_options_category_Meta::TAGS                   => false,
-            org_tubepress_options_category_Meta::TITLE                  => true,
-            org_tubepress_options_category_Meta::UPLOADED               => false,
-            org_tubepress_options_category_Meta::URL                    => false,
-            org_tubepress_options_category_Meta::VIEWS                  => true,
-            org_tubepress_options_category_Meta::LIKES                  => false,
-            org_tubepress_options_category_Feed::CACHE_ENABLED          => false,
-            org_tubepress_options_category_Feed::EMBEDDABLE_ONLY        => true
+            org_tubepress_api_const_options_Advanced::DEBUG_ON           => true,
+            org_tubepress_api_const_options_Display::RANDOM_THUMBS       => true,
+            org_tubepress_api_const_options_Display::RELATIVE_DATES      => false,
+            org_tubepress_api_const_options_Display::PAGINATE_ABOVE      => true,
+            org_tubepress_api_const_options_Display::PAGINATE_BELOW      => true,
+            org_tubepress_api_const_options_Display::AJAX_PAGINATION     => false,
+            org_tubepress_api_const_options_Display::HQ_THUMBS           => false,
+            org_tubepress_api_const_options_Embedded::AUTOPLAY           => false,
+            org_tubepress_api_const_options_Embedded::BORDER             => false,
+            org_tubepress_api_const_options_Embedded::GENIE              => false,
+            org_tubepress_api_const_options_Embedded::LOOP               => false,
+            org_tubepress_api_const_options_Embedded::SHOW_INFO          => false,
+            org_tubepress_api_const_options_Embedded::SHOW_RELATED       => true,
+            org_tubepress_api_const_options_Embedded::FULLSCREEN         => true,
+            org_tubepress_api_const_options_Embedded::HIGH_QUALITY       => false,
+            org_tubepress_api_const_options_Meta::AUTHOR                 => false,
+            org_tubepress_api_const_options_Meta::CATEGORY               => false,
+            org_tubepress_api_const_options_Meta::DESCRIPTION            => false,
+            org_tubepress_api_const_options_Meta::ID                     => false,
+            org_tubepress_api_const_options_Meta::LENGTH                 => true,
+            org_tubepress_api_const_options_Meta::RATING                 => false,
+            org_tubepress_api_const_options_Meta::RATINGS                => false,
+            org_tubepress_api_const_options_Meta::TAGS                   => false,
+            org_tubepress_api_const_options_Meta::TITLE                  => true,
+            org_tubepress_api_const_options_Meta::UPLOADED               => false,
+            org_tubepress_api_const_options_Meta::URL                    => false,
+            org_tubepress_api_const_options_Meta::VIEWS                  => true,
+            org_tubepress_api_const_options_Meta::LIKES                  => false,
+            org_tubepress_api_const_options_Feed::CACHE_ENABLED          => false,
+            org_tubepress_api_const_options_Feed::EMBEDDABLE_ONLY        => true
         ),
         org_tubepress_options_Type::INTEGRAL => array(
-            org_tubepress_options_category_Display::DESC_LIMIT          => 80,
-            org_tubepress_options_category_Display::RESULTS_PER_PAGE    => 20,
-            org_tubepress_options_category_Display::THUMB_HEIGHT        => 90,
-            org_tubepress_options_category_Display::THUMB_WIDTH         => 120,
-            org_tubepress_options_category_Embedded::EMBEDDED_HEIGHT    => 350,
-            org_tubepress_options_category_Embedded::EMBEDDED_WIDTH     => 425,
-            org_tubepress_options_category_Feed::RESULT_COUNT_CAP       => 300
+            org_tubepress_api_const_options_Display::DESC_LIMIT          => 80,
+            org_tubepress_api_const_options_Display::RESULTS_PER_PAGE    => 20,
+            org_tubepress_api_const_options_Display::THUMB_HEIGHT        => 90,
+            org_tubepress_api_const_options_Display::THUMB_WIDTH         => 120,
+            org_tubepress_api_const_options_Embedded::EMBEDDED_HEIGHT    => 350,
+            org_tubepress_api_const_options_Embedded::EMBEDDED_WIDTH     => 425,
+            org_tubepress_api_const_options_Feed::RESULT_COUNT_CAP       => 300
         ),
         org_tubepress_options_Type::TIME_FRAME => array(
-            org_tubepress_options_category_Gallery::MOST_VIEWED_VALUE   => 'today',
-            org_tubepress_options_category_Gallery::TOP_RATED_VALUE     => 'today',
-            org_tubepress_options_category_Gallery::TOP_FAVORITES_VALUE => 'today'
+            org_tubepress_api_const_options_Gallery::MOST_VIEWED_VALUE   => 'today',
+            org_tubepress_api_const_options_Gallery::TOP_RATED_VALUE     => 'today',
+            org_tubepress_api_const_options_Gallery::TOP_FAVORITES_VALUE => 'today'
         ),
         org_tubepress_options_Type::ORDER => array(
-            org_tubepress_options_category_Display::ORDER_BY            => 'viewCount',
+            org_tubepress_api_const_options_Display::ORDER_BY            => 'viewCount',
         ),
         org_tubepress_options_Type::PLAYER => array(
-            org_tubepress_options_category_Display::CURRENT_PLAYER_NAME => 'normal',
+            org_tubepress_api_const_options_Display::CURRENT_PLAYER_NAME => 'normal',
         ),
         org_tubepress_options_Type::SAFE_SEARCH => array(
-            org_tubepress_options_category_Feed::FILTER                 => 'moderate'    
+            org_tubepress_api_const_options_Feed::FILTER                 => 'moderate'    
         ),
         org_tubepress_options_Type::PLAYER_IMPL => array(
-            org_tubepress_options_category_Embedded::PLAYER_IMPL        => 'youtube'
+            org_tubepress_api_const_options_Embedded::PLAYER_IMPL        => 'youtube'
         ),
         org_tubepress_options_Type::THEME => array(
-            org_tubepress_options_category_Display::THEME => ''
+            org_tubepress_api_const_options_Display::THEME => ''
         )
     );
 	
@@ -210,7 +210,7 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
     {
         $categories = array('gallery', 'display', 'embedded', 'feed', 'meta', 'widget');
         foreach ($categories as $category) {
-            $classname = 'org_tubepress_options_category_' . ucwords($category);
+            $classname = 'org_tubepress_api_const_options_' . ucwords($category);
             $ref = new ReflectionClass($classname);
             foreach ($ref->getConstants() as $constant) {
                 $this->assertEquals($category, org_tubepress_options_reference_OptionsReference::getCategory($constant));

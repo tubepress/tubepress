@@ -20,10 +20,23 @@
  */
 
 /**
- * Widget option names for the plugin
+ * Option names that control which meta info is displayed below video
+ * thumbnails
  */
-class org_tubepress_options_category_Widget
+class org_tubepress_api_const_options_Meta
 {
-    const TAGSTRING = "widget-tagstring";
-    const TITLE     = "widget-title";
+    const AUTHOR      = "author";
+    const CATEGORY    = "category";
+    const DESCRIPTION = "description";
+    const ID          = "id";
+    const LENGTH      = "length";
+    const LIKES       = 'likes';
+    const RATING      = "rating";
+    const RATINGS     = "ratings";
+    const TAGS        = "tags";
+    const TITLE       = "title";
+    const UPLOADED    = "uploaded";
+    const URL         = "url";
+    const VIEWS       = "views";
 }
+              

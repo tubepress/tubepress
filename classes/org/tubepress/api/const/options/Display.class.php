@@ -23,7 +23,7 @@
  * Display option names for the plugin
  *
  */
-class org_tubepress_options_category_Display
+class org_tubepress_api_const_options_Display
 {
     //The order in which these constants are declared dictates the
     //order in which they'll be presented on the options page

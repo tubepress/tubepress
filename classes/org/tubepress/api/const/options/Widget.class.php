@@ -20,24 +20,10 @@
  */
 
 /**
- * Option names for the embedded player
- *
+ * Widget option names for the plugin
  */
-class org_tubepress_options_category_Embedded
+class org_tubepress_api_const_options_Widget
 {
-    //The order in which these constants are declared dictates the
-    //order in which they'll be presented on the options page */
-    const PLAYER_IMPL      = "playerImplementation";
-    const EMBEDDED_HEIGHT  = "embeddedHeight";
-    const EMBEDDED_WIDTH   = "embeddedWidth";
-    const AUTOPLAY         = "autoplay";
-    const BORDER           = "border";
-    const FULLSCREEN       = "fullscreen";
-    const HIGH_QUALITY     = "hd";
-    const GENIE            = "genie";
-    const LOOP             = "loop";
-    const PLAYER_COLOR     = "playerColor";
-    const PLAYER_HIGHLIGHT = "playerHighlight";
-    const SHOW_INFO        = "showInfo";
-    const SHOW_RELATED     = "showRelated";
+    const TAGSTRING = "widget-tagstring";
+    const TITLE     = "widget-title";
 }

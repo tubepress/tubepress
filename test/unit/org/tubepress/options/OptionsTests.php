@@ -18,13 +18,13 @@ class OptionsTests
 	public static function suite()
 	{
 		$suite = new PHPUnit_Framework_TestSuite("TubePress OptionsTests Tests");
-		$suite->addTestSuite('org_tubepress_options_category_AdvancedTest');
-		$suite->addTestSuite('org_tubepress_options_category_DisplayTest');
-		$suite->addTestSuite('org_tubepress_options_category_EmbeddedTest');
-		$suite->addTestSuite('org_tubepress_options_category_GalleryTest');
-		$suite->addTestSuite('org_tubepress_options_category_MetaTest');
-		$suite->addTestSuite('org_tubepress_options_category_WidgetTest');
-		$suite->addTestSuite('org_tubepress_options_category_FeedTest');
+		$suite->addTestSuite('org_tubepress_api_const_options_AdvancedTest');
+		$suite->addTestSuite('org_tubepress_api_const_options_DisplayTest');
+		$suite->addTestSuite('org_tubepress_api_const_options_EmbeddedTest');
+		$suite->addTestSuite('org_tubepress_api_const_options_GalleryTest');
+		$suite->addTestSuite('org_tubepress_api_const_options_MetaTest');
+		$suite->addTestSuite('org_tubepress_api_const_options_WidgetTest');
+		$suite->addTestSuite('org_tubepress_api_const_options_FeedTest');
 		$suite->addTestSuite('org_tubepress_options_manager_SimpleOptionsManagerTest');
 		$suite->addTestSuite('org_tubepress_options_reference_OptionsReferenceTest');
 		$suite->addTestSuite('org_tubepress_options_storage_WordPressStorageManagerTest');

@@ -37,7 +37,7 @@ class org_tubepress_options_storage_WordPressStorageManagerTest extends TubePres
 	
     function testSet()
     {
-        $this->_sut->set(org_tubepress_options_category_Advanced::DEBUG_ON, true);
+        $this->_sut->set(org_tubepress_api_const_options_Advanced::DEBUG_ON, true);
     }
     
     function testNuclear()

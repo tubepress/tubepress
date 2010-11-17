@@ -22,8 +22,8 @@
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
-    'org_tubepress_options_category_Display',
-    'org_tubepress_options_category_Gallery',   
+    'org_tubepress_api_const_options_Display',
+    'org_tubepress_api_const_options_Gallery',   
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_options_Type'));
 
@@ -69,11 +69,11 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
         switch ($optionName) {
 
         /* YouTube limits us to 50 per page */
-        case org_tubepress_options_category_Display::RESULTS_PER_PAGE:
-            self::_checkIntegerRange(org_tubepress_options_category_Display::RESULTS_PER_PAGE, $candidate, 1, 50, $messageService);
+        case org_tubepress_api_const_options_Display::RESULTS_PER_PAGE:
+            self::_checkIntegerRange(org_tubepress_api_const_options_Display::RESULTS_PER_PAGE, $candidate, 1, 50, $messageService);
             break;
 
-        case org_tubepress_options_category_Display::THEME:
+        case org_tubepress_api_const_options_Display::THEME:
             if (strpos($candidate, '..') !== false) {
                 throw new Exception($messageService->_('validation-no-dots-in-path'));
             }
@@ -123,7 +123,7 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
             break;
 
         case org_tubepress_options_Type::INTEGRAL:
-            if (intval($candidate) == 0 && $optionName != org_tubepress_options_category_Display::DESC_LIMIT) {
+            if (intval($candidate) == 0 && $optionName != org_tubepress_api_const_options_Display::DESC_LIMIT) {
                 throw new Exception(sprintf($messageService->_('validation-int-type'), $optionName, $candidate));
             }
             break;

@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_feed_VideoFactory',
     'org_tubepress_api_video_Video',
-    'org_tubepress_options_category_Display',
+    'org_tubepress_api_const_options_Display',
     'org_tubepress_util_TimeUtils'));
 
 /**
@@ -80,7 +80,7 @@ class org_tubepress_video_factory_impl_VimeoVideoFactory implements org_tubepres
         $results   = array();
         $index     = 0;
         $tpom      = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $blacklist = $tpom->get(org_tubepress_options_category_Advanced::VIDEO_BLACKLIST);
+        $blacklist = $tpom->get(org_tubepress_api_const_options_Advanced::VIDEO_BLACKLIST);
 
         if (is_array($entries) && sizeof($entries) > 0) {
             foreach ($entries as $entry) {
@@ -139,7 +139,7 @@ class org_tubepress_video_factory_impl_VimeoVideoFactory implements org_tubepres
 
     protected function _getDescription($entry, org_tubepress_api_options_OptionsManager $tpom)
     {
-        $limit = $tpom->get(org_tubepress_options_category_Display::DESC_LIMIT);
+        $limit = $tpom->get(org_tubepress_api_const_options_Display::DESC_LIMIT);
         $desc  = $entry->description;
 
         if ($limit > 0 && strlen($desc) > $limit) {
@@ -158,10 +158,10 @@ class org_tubepress_video_factory_impl_VimeoVideoFactory implements org_tubepres
         $date    = $entry->upload_date;
         $seconds = strtotime($date);
 
-        if ($tpom->get(org_tubepress_options_category_Display::RELATIVE_DATES)) {
+        if ($tpom->get(org_tubepress_api_const_options_Display::RELATIVE_DATES)) {
             return org_tubepress_util_TimeUtils::getRelativeTime($seconds);
         }
-        return date($tpom->get(org_tubepress_options_category_Advanced::DATEFORMAT), $seconds);
+        return date($tpom->get(org_tubepress_api_const_options_Advanced::DATEFORMAT), $seconds);
     }
 
     private function _getViewCount($entry)

@@ -105,7 +105,7 @@ class org_tubepress_single_SimpleSingleVideo implements org_tubepress_single_Sin
         /* apply it to the template */
         $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_SOURCE, $eps->toString($video->getId()));
         $template->setVariable(org_tubepress_api_template_Template::VIDEO, $video);
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_options_category_Embedded::EMBEDDED_WIDTH));
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_api_const_options_Embedded::EMBEDDED_WIDTH));
        
         return $template;
     }

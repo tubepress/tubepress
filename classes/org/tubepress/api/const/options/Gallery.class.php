@@ -23,7 +23,7 @@
  * Option names defining which videos to show in the gallery
  *
  */
-class org_tubepress_options_category_Gallery
+class org_tubepress_api_const_options_Gallery
 {
     const MODE = 'mode';
 

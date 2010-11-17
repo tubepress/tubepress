@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_options_storage_WordPressStorageManager',
-    'org_tubepress_options_category_Advanced',
+    'org_tubepress_api_const_options_Advanced',
     'org_tubepress_shortcode_SimpleShortcodeParser',
     'org_tubepress_ioc_impl_FreeWordPressPluginIocService',
     'org_tubepress_ioc_ProInWordPressIocService',
@@ -46,7 +46,7 @@ class org_tubepress_env_wordpress_Main
         try {
             /* do as little work as possible here 'cause we might not even run */
             $wpsm    = new org_tubepress_options_storage_WordPressStorageManager();
-            $trigger = $wpsm->get(org_tubepress_options_category_Advanced::KEYWORD);
+            $trigger = $wpsm->get(org_tubepress_api_const_options_Advanced::KEYWORD);
             $parser  = new org_tubepress_shortcode_SimpleShortcodeParser();
 
             /* no shortcode? get out */
@@ -77,7 +77,7 @@ class org_tubepress_env_wordpress_Main
         $tpom = $iocContainer->get('org_tubepress_api_options_OptionsManager');
 
         /* Turn on logging if we need to */
-        org_tubepress_log_Log::setEnabled($tpom->get(org_tubepress_options_category_Advanced::DEBUG_ON), $_GET);
+        org_tubepress_log_Log::setEnabled($tpom->get(org_tubepress_api_const_options_Advanced::DEBUG_ON), $_GET);
 
         /* Grab the gallery that will do the heavy lifting */
         $gallery = $iocContainer->get('org_tubepress_api_gallery_Gallery');

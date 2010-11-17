@@ -29,7 +29,7 @@ tubepress_load_classes(array('org_tubepress_options_Category',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_template_SimpleTemplate',
     'org_tubepress_api_template_Template',
-    'org_tubepress_options_category_Gallery',
+    'org_tubepress_api_const_options_Gallery',
     'org_tubepress_util_FilesystemUtils'));
 
 /**
@@ -146,7 +146,7 @@ class org_tubepress_options_form_FormHandler
             $metaArray[org_tubepress_api_template_Template::OPTIONS_PAGE_YOUTUBE_OPTION]   = org_tubepress_options_reference_OptionsReference::appliesToYouTube($optionName);
             $metaArray[org_tubepress_api_template_Template::OPTIONS_PAGE_VIMEO_OPTION]     = org_tubepress_options_reference_OptionsReference::appliesToVimeo($optionName);
 
-            if ($optionName == org_tubepress_options_category_Display::THEME) {
+            if ($optionName == org_tubepress_api_const_options_Display::THEME) {
                 $baseInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
                 $metaArray[org_tubepress_api_template_Template::OPTIONS_PAGE_OPTIONS_DESC] = sprintf($messageService->_("options-desc-$optionName"),
                      "$baseInstallationPath/content/themes", "$baseInstallationPath/ui/themes");
@@ -161,7 +161,7 @@ class org_tubepress_options_form_FormHandler
     
     private function _createCategoryMetaArrayForGalleryOptions(org_tubepress_api_options_StorageManager $storageManager, org_tubepress_api_message_MessageService $messageService)
     {
-        $modeNames = org_tubepress_options_reference_OptionsReference::getValidEnumValues(org_tubepress_options_category_Gallery::MODE);
+        $modeNames = org_tubepress_options_reference_OptionsReference::getValidEnumValues(org_tubepress_api_const_options_Gallery::MODE);
         $modesMetaArray = array();
         foreach ($modeNames as $modeName) {
             $modeMetaArray = array();
@@ -228,7 +228,7 @@ class org_tubepress_options_form_FormHandler
     
     private function _getHtmlForRadio($optionName, org_tubepress_api_options_StorageManager $storageManager)
     {
-        $value = $storageManager->get(org_tubepress_options_category_Gallery::MODE);
+        $value = $storageManager->get(org_tubepress_api_const_options_Gallery::MODE);
         $checked = $optionName === $value ? 'CHECKED' : '';
         return "<input type=\"radio\" name=\"mode\" id=\"$optionName\" value=\"$optionName\" $checked />";
     }

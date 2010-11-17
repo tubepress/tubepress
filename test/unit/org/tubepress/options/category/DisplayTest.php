@@ -1,12 +1,12 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/options/category/Display.class.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/api/const/options/Display.class.php';
 require_once 'AbstractOptionsCategoryTest.php';
 
-class org_tubepress_options_category_DisplayTest extends org_tubepress_options_category_AbstractOptionsCategoryTest {
+class org_tubepress_api_const_options_DisplayTest extends org_tubepress_api_const_options_AbstractOptionsCategoryTest {
     
     protected function getClassName()
     {
-        return 'org_tubepress_options_category_Display';
+        return 'org_tubepress_api_const_options_Display';
     }
     
     protected function getExpectedNames()
