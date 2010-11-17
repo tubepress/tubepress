@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_url_UrlBuilder',
+tubepress_load_classes(array('org_tubepress_api_feed_UrlBuilder',
     'org_tubepress_options_category_Gallery',
     'org_tubepress_api_gallery_Gallery',
     'org_tubepress_options_manager_OptionsManager',
@@ -36,7 +36,7 @@ tubepress_load_classes(array('org_tubepress_url_UrlBuilder',
  * Builds URLs to send out to Vimeo
  *
  */
-class org_tubepress_url_impl_VimeoUrlBuilder implements org_tubepress_url_UrlBuilder
+class org_tubepress_url_impl_VimeoUrlBuilder implements org_tubepress_api_feed_UrlBuilder
 {
     /**
      * Builds a gdata request url for a list of videos
