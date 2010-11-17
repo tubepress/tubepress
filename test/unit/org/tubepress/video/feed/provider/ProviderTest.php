@@ -29,7 +29,7 @@ class org_tubepress_video_feed_provider_ProviderTest extends TubePressUnitTest
 				->method('getQueryResultCount')
 				->will($this->returnValue(self::$_queryResultCount));
 		}
-		if ($className == 'org_tubepress_video_factory_VideoFactory') {
+		if ($className == 'org_tubepress_api_feed_VideoFactory') {
 			$mock->expects($this->any())
 				->method('feedToVideoArray')
 				->will($this->returnValue(array()));

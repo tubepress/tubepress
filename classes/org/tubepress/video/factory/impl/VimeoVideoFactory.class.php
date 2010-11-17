@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory',
+tubepress_load_classes(array('org_tubepress_api_feed_VideoFactory',
     'org_tubepress_video_Video',
     'org_tubepress_options_category_Display',
     'org_tubepress_util_TimeUtils'));
@@ -29,7 +29,7 @@ tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory',
 /**
  * Video factory for Vimeo
  */
-class org_tubepress_video_factory_impl_VimeoVideoFactory implements org_tubepress_video_factory_VideoFactory
+class org_tubepress_video_factory_impl_VimeoVideoFactory implements org_tubepress_api_feed_VideoFactory
 {
     private $_logPrefix;
 

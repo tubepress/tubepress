@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory',
+tubepress_load_classes(array('org_tubepress_api_feed_VideoFactory',
     'org_tubepress_options_manager_OptionsManager',
     'org_tubepress_ioc_IocDelegateUtils',
     'org_tubepress_video_factory_impl_VimeoVideoFactory'));
@@ -29,7 +29,7 @@ tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory',
 /**
  * Video factory that sends the feed to the right video factory based on the provider
  */
-class org_tubepress_video_factory_DelegatingVideoFactory implements org_tubepress_video_factory_VideoFactory
+class org_tubepress_video_factory_DelegatingVideoFactory implements org_tubepress_api_feed_VideoFactory
 {
     private static $_providerToBeanNameMap = array(
         org_tubepress_video_feed_provider_Provider::VIMEO => 'org_tubepress_video_factory_impl_VimeoVideoFactory'
