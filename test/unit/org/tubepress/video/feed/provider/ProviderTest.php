@@ -21,7 +21,7 @@ class org_tubepress_video_feed_provider_ProviderTest extends TubePressUnitTest
 	public function getMock($className)
 	{
 		$mock = parent::getMock($className);
-		if ($className == 'org_tubepress_video_feed_inspection_FeedInspectionService') {
+		if ($className == 'org_tubepress_api_feed_FeedInspector') {
 			$mock->expects($this->once())
 				->method('getTotalResultCount')
 				->will($this->returnValue(self::$_totalResultCount));

@@ -21,13 +21,13 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_video_feed_inspection_FeedInspectionService'));
+tubepress_load_classes(array('org_tubepress_api_feed_FeedInspector'));
 
 /**
  * Examines the feed from Vimeo
  *
  */
-class org_tubepress_video_feed_inspection_impl_VimeoFeedInspectionService implements org_tubepress_video_feed_inspection_FeedInspectionService
+class org_tubepress_video_feed_inspection_impl_VimeoFeedInspectionService implements org_tubepress_api_feed_FeedInspector
 {
     /**
      * Determine the total number of videos in this gallery.

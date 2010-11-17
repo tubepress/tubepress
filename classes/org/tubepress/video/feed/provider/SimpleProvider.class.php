@@ -61,7 +61,7 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
         $useCache             = $tpom->get(org_tubepress_options_category_Feed::CACHE_ENABLED);
         $rawFeed              = $feedRetrievalService->fetch($url, $useCache);
 
-        $feedInspectionService = $ioc->get('org_tubepress_video_feed_inspection_FeedInspectionService');
+        $feedInspectionService = $ioc->get('org_tubepress_api_feed_FeedInspector');
 
         /* get reported total result count */
         $reportedTotalResultCount = $feedInspectionService->getTotalResultCount($rawFeed);

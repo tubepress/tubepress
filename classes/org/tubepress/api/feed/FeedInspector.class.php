@@ -22,7 +22,7 @@
 /**
  * Examines the feed results.
  */
-interface org_tubepress_video_feed_inspection_FeedInspectionService
+interface org_tubepress_api_feed_FeedInspector
 {
     /**
      * Determine the total number of videos in this gallery.

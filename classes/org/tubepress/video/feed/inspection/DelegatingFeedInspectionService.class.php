@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_video_feed_inspection_FeedInspectionService',
+tubepress_load_classes(array('org_tubepress_api_feed_FeedInspector',
     'org_tubepress_options_manager_OptionsManager'));
 
 /**
