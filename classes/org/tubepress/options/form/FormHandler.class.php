@@ -25,7 +25,7 @@ tubepress_load_classes(array('org_tubepress_options_Category',
     'org_tubepress_options_Type',
     'org_tubepress_api_message_MessageService',
     'org_tubepress_options_reference_OptionsReference',
-    'org_tubepress_options_storage_StorageManager',
+    'org_tubepress_api_options_StorageManager',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_template_SimpleTemplate',
     'org_tubepress_api_template_Template',
@@ -41,7 +41,7 @@ class org_tubepress_options_form_FormHandler
     /**
      * Displays all the TubePress options in HTML
      *
-     * @param org_tubepress_options_storage_StorageManager $tpsm The TubePress storage manager
+     * @param org_tubepress_api_options_StorageManager $tpsm The TubePress storage manager
      * 
      * @return void
      */
@@ -52,7 +52,7 @@ class org_tubepress_options_form_FormHandler
 	    $ioc            = org_tubepress_ioc_IocContainer::getInstance();
         $messageService = $ioc->get('org_tubepress_api_message_MessageService');
         $template       = new org_tubepress_template_SimpleTemplate();
-        $storageManager = $ioc->get('org_tubepress_options_storage_StorageManager');
+        $storageManager = $ioc->get('org_tubepress_api_options_StorageManager');
 
         $template->setPath(dirname(__FILE__) . '/../../../../../ui/lib/options_page/html_templates/options_page.tpl.php');
         
@@ -82,7 +82,7 @@ class org_tubepress_options_form_FormHandler
     /**
      * Updates options from a keyed array
      *
-     * @param org_tubepress_options_storage_StorageManager $tpsm     The TubePress storage manager
+     * @param org_tubepress_api_options_StorageManager $tpsm     The TubePress storage manager
      * @param array                                        $postVars The POST variables
      * 
      * @return void
@@ -90,7 +90,7 @@ class org_tubepress_options_form_FormHandler
     public final function collect($postVars)
     {   
 	$ioc            = org_tubepress_ioc_IocContainer::getInstance();
-        $storageManager = $ioc->get('org_tubepress_options_storage_StorageManager');
+        $storageManager = $ioc->get('org_tubepress_api_options_StorageManager');
         
         /* this loop will collect everything except checkboxes */
         foreach ($postVars as $name => $value) {
@@ -117,7 +117,7 @@ class org_tubepress_options_form_FormHandler
         }
     }
     
-    private function _createCategoryMetaArray($optionCategoryName, org_tubepress_api_message_MessageService $messageService, org_tubepress_options_storage_StorageManager $storageManager)
+    private function _createCategoryMetaArray($optionCategoryName, org_tubepress_api_message_MessageService $messageService, org_tubepress_api_options_StorageManager $storageManager)
     {
         $results = array();
         $results[org_tubepress_api_template_Template::OPTIONS_PAGE_CATEGORY_TITLE] = $messageService->_("options-category-title-$optionCategoryName");
@@ -127,7 +127,7 @@ class org_tubepress_options_form_FormHandler
     }
     
     private function _createCategoryOptionsMetaArray($optionCategoryName, org_tubepress_api_message_MessageService $messageService, 
-        org_tubepress_options_storage_StorageManager $storageManager)
+        org_tubepress_api_options_StorageManager $storageManager)
     {
         $optionNames = org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory($optionCategoryName);
         $optionsMetaArray = array();
@@ -159,7 +159,7 @@ class org_tubepress_options_form_FormHandler
         return $optionsMetaArray;
     }
     
-    private function _createCategoryMetaArrayForGalleryOptions(org_tubepress_options_storage_StorageManager $storageManager, org_tubepress_api_message_MessageService $messageService)
+    private function _createCategoryMetaArrayForGalleryOptions(org_tubepress_api_options_StorageManager $storageManager, org_tubepress_api_message_MessageService $messageService)
     {
         $modeNames = org_tubepress_options_reference_OptionsReference::getValidEnumValues(org_tubepress_options_category_Gallery::MODE);
         $modesMetaArray = array();
@@ -182,7 +182,7 @@ class org_tubepress_options_form_FormHandler
         return $modesMetaArray;            
     }
     
-    private function _getWidgetHtml($optionName, org_tubepress_options_storage_StorageManager $storageManager, 
+    private function _getWidgetHtml($optionName, org_tubepress_api_options_StorageManager $storageManager, 
         org_tubepress_api_message_MessageService $messageService)
     {
         $type = org_tubepress_options_reference_OptionsReference::getType($optionName);
@@ -226,7 +226,7 @@ class org_tubepress_options_form_FormHandler
         }
     }
     
-    private function _getHtmlForRadio($optionName, org_tubepress_options_storage_StorageManager $storageManager)
+    private function _getHtmlForRadio($optionName, org_tubepress_api_options_StorageManager $storageManager)
     {
         $value = $storageManager->get(org_tubepress_options_category_Gallery::MODE);
         $checked = $optionName === $value ? 'CHECKED' : '';

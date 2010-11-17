@@ -6,7 +6,7 @@ tubepress_load_classes(array('org_tubepress_api_options_OptionsManager',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_api_message_MessageService',
-    'org_tubepress_options_storage_StorageManager',
+    'org_tubepress_api_options_StorageManager',
     'org_tubepress_url_impl_YouTubeUrlBuilder',
     'org_tubepress_video_feed_retrieval_HTTPRequest2',
     'org_tubepress_video_factory_impl_YouTubeVideoFactory',
@@ -45,7 +45,7 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
 		   ->will($this->returnCallback(array($this, 'setOptions')));
                 break;
             case 'org_tubepress_api_message_MessageService':
-            case 'org_tubepress_options_storage_StorageManager':
+            case 'org_tubepress_api_options_StorageManager':
                 $mock->expects($this->any())
                    ->method('_')
                    ->will($this->returnCallback(array($this, 'echoCallback')));

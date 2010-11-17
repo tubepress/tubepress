@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_options_storage_StorageManager',
+tubepress_load_classes(array('org_tubepress_api_options_StorageManager',
     'org_tubepress_options_Type',
     'org_tubepress_options_validation_InputValidationService',
     'org_tubepress_options_reference_OptionsReference',
@@ -30,7 +30,7 @@ tubepress_load_classes(array('org_tubepress_options_storage_StorageManager',
 /**
  * Handles persistent storage of TubePress options
  */
-abstract class org_tubepress_options_storage_AbstractStorageManager implements org_tubepress_options_storage_StorageManager
+abstract class org_tubepress_options_storage_AbstractStorageManager implements org_tubepress_api_options_StorageManager
 {
     /**
      * Creates an option in storage

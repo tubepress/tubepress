@@ -23,7 +23,7 @@
  * Handles persistent storage of TubePress options
  *
  */
-interface org_tubepress_options_storage_StorageManager
+interface org_tubepress_api_options_StorageManager
 {
     /**
      * Determines if an option exists

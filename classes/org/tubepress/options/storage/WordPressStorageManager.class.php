@@ -24,7 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_options_storage_AbstractStorageManager'));
 
 /**
- * Implementation of org_tubepress_options_storage_StorageManager that uses the
+ * Implementation of org_tubepress_api_options_StorageManager that uses the
  * regular WordPress options API
  */
 class org_tubepress_options_storage_WordPressStorageManager extends org_tubepress_options_storage_AbstractStorageManager

@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_options_OptionsManager',
-    'org_tubepress_options_storage_StorageManager',
+    'org_tubepress_api_options_StorageManager',
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_options_validation_InputValidationService',
     'org_tubepress_api_provider_Provider',
@@ -42,7 +42,7 @@ class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepres
     public function __construct()
     {
 	$ioc         = org_tubepress_ioc_IocContainer::getInstance();
-        $this->_tpsm = $ioc->get('org_tubepress_options_storage_StorageManager');
+        $this->_tpsm = $ioc->get('org_tubepress_api_options_StorageManager');
     }
 
     /**

@@ -98,7 +98,7 @@ EOT
     {
         /* grab the storage manager */
         $iocContainer = org_tubepress_ioc_IocContainer::getInstance();
-        $wpsm = $iocContainer->get('org_tubepress_options_storage_StorageManager');
+        $wpsm = $iocContainer->get('org_tubepress_api_options_StorageManager');
 
         /* initialize our options in case we need to */
         $wpsm->init();
