@@ -57,7 +57,7 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'URL to fetch is <tt>%s</tt>', $url);
 
         /* make the request */
-        $feedRetrievalService = $ioc->get('org_tubepress_video_feed_retrieval_FeedRetrievalService');
+        $feedRetrievalService = $ioc->get('org_tubepress_api_feed_FeedFetcher');
         $useCache             = $tpom->get(org_tubepress_options_category_Feed::CACHE_ENABLED);
         $rawFeed              = $feedRetrievalService->fetch($url, $useCache);
 
@@ -122,7 +122,7 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
 
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'URL to fetch is %s', $videoUrl);
 
-        $feedRetrievalService = $ioc->get('org_tubepress_video_feed_retrieval_FeedRetrievalService');
+        $feedRetrievalService = $ioc->get('org_tubepress_api_feed_FeedFetcher');
         $tpom                 = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $results              = $feedRetrievalService->fetch($videoUrl, $tpom->get(org_tubepress_options_category_Feed::CACHE_ENABLED));
         $factory              = $ioc->get('org_tubepress_video_factory_VideoFactory');

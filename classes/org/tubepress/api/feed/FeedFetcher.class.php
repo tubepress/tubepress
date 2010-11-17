@@ -23,7 +23,7 @@
  * TubePress's feed retrieval mechanism
  *
  */
-interface org_tubepress_video_feed_retrieval_FeedRetrievalService
+interface org_tubepress_api_feed_FeedFetcher
 {
     /**
      * Fetches the feed from the remote provider

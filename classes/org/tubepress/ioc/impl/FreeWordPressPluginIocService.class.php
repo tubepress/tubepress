@@ -41,7 +41,7 @@ tubepress_load_classes(array('org_tubepress_ioc_impl_PhpCraftyIocService',
     'org_tubepress_video_factory_VideoFactory',                  'org_tubepress_video_factory_DelegatingVideoFactory',
     'org_tubepress_api_feed_FeedInspector', 'org_tubepress_video_feed_inspection_DelegatingFeedInspectionService',
     'org_tubepress_video_feed_provider_Provider',                'org_tubepress_video_feed_provider_SimpleProvider',
-    'org_tubepress_video_feed_retrieval_FeedRetrievalService',   'org_tubepress_video_feed_retrieval_HTTPRequest2',
+    'org_tubepress_api_feed_FeedFetcher',   'org_tubepress_video_feed_retrieval_HTTPRequest2',
     'org_tubepress_embedded_impl_VimeoEmbeddedPlayerService',    'org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService',
     'org_tubepress_url_impl_VimeoUrlBuilder',
     'org_tubepress_video_feed_inspection_impl_VimeoFeedInspectionService',
@@ -82,7 +82,7 @@ class org_tubepress_ioc_impl_FreeWordPressPluginIocService extends org_tubepress
             'org_tubepress_video_factory_VideoFactory'                  => 'org_tubepress_video_factory_DelegatingVideoFactory',
             'org_tubepress_api_feed_FeedInspector' => 'org_tubepress_video_feed_inspection_DelegatingFeedInspectionService',
             'org_tubepress_video_feed_provider_Provider'                => 'org_tubepress_video_feed_provider_SimpleProvider',
-            'org_tubepress_video_feed_retrieval_FeedRetrievalService'   => 'org_tubepress_video_feed_retrieval_HTTPRequest2'
+            'org_tubepress_api_feed_FeedFetcher'   => 'org_tubepress_video_feed_retrieval_HTTPRequest2'
        );
         
         foreach ($implementationMap as $interface => $implementation) {
