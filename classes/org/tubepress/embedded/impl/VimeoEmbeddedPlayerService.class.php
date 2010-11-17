@@ -22,13 +22,13 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array(
-    'org_tubepress_embedded_EmbeddedPlayerService',
+    'org_tubepress_api_embedded_EmbeddedPlayer',
     'org_tubepress_ioc_IocContainer'));
 
 /**
  * An HTML-embeddable player for Vimeo.
  */
-class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService implements org_tubepress_embedded_EmbeddedPlayerService
+class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService implements org_tubepress_api_embedded_EmbeddedPlayer
 {
     const VIMEO_EMBEDDED_PLAYER_URL = 'http://player.vimeo.com/';
     const VIMEO_QUERYPARAM_AUTOPLAY = 'autoplay';

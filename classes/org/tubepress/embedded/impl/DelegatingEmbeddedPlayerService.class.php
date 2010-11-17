@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_video_feed_provider_Provider',
-    'org_tubepress_embedded_EmbeddedPlayerService',
+    'org_tubepress_api_embedded_EmbeddedPlayer',
     'org_tubepress_embedded_impl_VimeoEmbeddedPlayerService',
     'org_tubepress_ioc_IocDelegateUtils'));
 
@@ -30,7 +30,7 @@ tubepress_load_classes(array('org_tubepress_video_feed_provider_Provider',
  * An HTML-embeddable player
  *
  */
-class org_tubepress_embedded_impl_DelegatingEmbeddedPlayerService implements org_tubepress_embedded_EmbeddedPlayerService
+class org_tubepress_embedded_impl_DelegatingEmbeddedPlayerService implements org_tubepress_api_embedded_EmbeddedPlayer
 {
     private static $_providerToBeanNameMap = array(
         org_tubepress_video_feed_provider_Provider::VIMEO => 'org_tubepress_embedded_impl_VimeoEmbeddedPlayerService',
@@ -56,7 +56,7 @@ class org_tubepress_embedded_impl_DelegatingEmbeddedPlayerService implements org
         
         /** The user wants to use JW FLV Player to show YouTube videos. */
         if ($providerName === org_tubepress_video_feed_provider_Provider::YOUTUBE
-            && $tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) === org_tubepress_embedded_EmbeddedPlayerService::LONGTAIL) {
+            && $tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) === org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL) {
             return $ioc->get('org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService')->toString($videoId);    
         }
         

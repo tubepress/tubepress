@@ -23,7 +23,7 @@
  * Represents an HTML-embeddable Flash video player
  *
  */
-interface org_tubepress_embedded_EmbeddedPlayerService
+interface org_tubepress_api_embedded_EmbeddedPlayer
 {
     const LONGTAIL       = 'longtail';
     const PROVIDER_BASED = 'provider_based';

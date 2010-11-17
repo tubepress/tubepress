@@ -93,7 +93,7 @@ class org_tubepress_single_SimpleSingleVideo implements org_tubepress_single_Sin
         $metaNames      = org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_options_Category::META);
         $shouldShow     = array();
         $labels         = array();
-        $eps            = $ioc->get('org_tubepress_embedded_EmbeddedPlayerService');
+        $eps            = $ioc->get('org_tubepress_api_embedded_EmbeddedPlayer');
 
         foreach ($metaNames as $metaName) {
             $shouldShow[$metaName] = $tpom->get($metaName);

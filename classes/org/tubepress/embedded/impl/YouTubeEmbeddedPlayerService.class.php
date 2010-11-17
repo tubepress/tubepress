@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_embedded_EmbeddedPlayerService',
+tubepress_load_classes(array('org_tubepress_api_embedded_EmbeddedPlayer',
     'org_tubepress_ioc_IocService',
     'org_tubepress_embedded_impl_EmbeddedPlayerUtils',
     'org_tubepress_options_category_Embedded',
@@ -33,7 +33,7 @@ tubepress_load_classes(array('org_tubepress_embedded_EmbeddedPlayerService',
  * An HTML-embeddable YouTube player
  *
  */
-class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService implements org_tubepress_embedded_EmbeddedPlayerService
+class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService implements org_tubepress_api_embedded_EmbeddedPlayer
 {
     /**
      * Spits back the text for this embedded player

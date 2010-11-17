@@ -19,7 +19,7 @@ class org_tubepress_player_PlayerTest extends TubePressUnitTest {
 	public function getMock($className)
 	{
 		$mock = parent::getMock($className);
-		if ($className == 'org_tubepress_embedded_EmbeddedPlayerService') {
+		if ($className == 'org_tubepress_api_embedded_EmbeddedPlayer') {
 			$mock->expects($this->once())
 				->method('toString')
 				->will($this->returnValue('foobar'));

@@ -31,7 +31,7 @@ tubepress_load_classes(array('org_tubepress_options_reference_OptionsReference',
     'org_tubepress_options_category_Display',
     'org_tubepress_options_category_Meta',
     'org_tubepress_api_gallery_Gallery',
-    'org_tubepress_embedded_EmbeddedPlayerService'));
+    'org_tubepress_api_embedded_EmbeddedPlayer'));
 
 /**
  * The master reference for TubePress options - their names, deprecated
@@ -307,8 +307,8 @@ class org_tubepress_options_reference_OptionsReference
                 return array('none', 'moderate', 'strict');
             case org_tubepress_options_Type::PLAYER_IMPL:
                 return array(
-                    org_tubepress_embedded_EmbeddedPlayerService::PROVIDER_BASED,
-                    org_tubepress_embedded_EmbeddedPlayerService::LONGTAIL
+                    org_tubepress_api_embedded_EmbeddedPlayer::PROVIDER_BASED,
+                    org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL
                 );
             case org_tubepress_options_Type::THEME:
                 $tubepressBaseInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();

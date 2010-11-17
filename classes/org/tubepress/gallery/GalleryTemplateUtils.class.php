@@ -150,7 +150,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
     private static function _getEmbeddedServiceName(org_tubepress_options_manager_OptionsManager $tpom, org_tubepress_video_feed_provider_Provider $provider)
     {
         $stored = $tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL);
-        if ($stored === org_tubepress_embedded_EmbeddedPlayerService::LONGTAIL) {
+        if ($stored === org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL) {
             return $stored;
         }
         return $provider->calculateCurrentVideoProvider($tpom);

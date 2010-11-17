@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_embedded_EmbeddedPlayerService',
+tubepress_load_classes(array('org_tubepress_api_embedded_EmbeddedPlayer',
     'net_php_pear_Net_URL2',
     'org_tubepress_template_Template',
     'org_tubepress_ioc_IocContainer'));
@@ -29,7 +29,7 @@ tubepress_load_classes(array('org_tubepress_embedded_EmbeddedPlayerService',
 /**
  * Represents an HTML-embeddable JW FLV Player.
  */
-class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService implements org_tubepress_embedded_EmbeddedPlayerService
+class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService implements org_tubepress_api_embedded_EmbeddedPlayer
 {
     /**
      * Spits back the text for this embedded player
