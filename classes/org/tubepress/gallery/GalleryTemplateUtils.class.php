@@ -60,7 +60,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
             $template->setVariable(org_tubepress_template_Template::PLAYER_NAME, $playerName);
             $template->setVariable(org_tubepress_template_Template::VIDEO_ARRAY, $videos);
 
-            $paginationService = $ioc->get('org_tubepress_pagination_PaginationService');
+            $paginationService = $ioc->get('org_tubepress_api_pagination_Pagination');
             $pagination        = $paginationService->getHtml($feedResult->getEffectiveTotalResultCount(), $ioc);
 
             if ($tpom->get(org_tubepress_options_category_Display::PAGINATE_ABOVE)) {

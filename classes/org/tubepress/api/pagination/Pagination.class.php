@@ -22,7 +22,7 @@
 /**
  * TubePress gallery pagination service.
  */
-interface org_tubepress_pagination_PaginationService
+interface org_tubepress_api_pagination_Pagination
 {
     /**
      * Get the HTML for pagination.

@@ -13,7 +13,7 @@ tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
     'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService',
     'org_tubepress_video_feed_inspection_impl_YouTubeFeedInspectionService',
     'org_tubepress_api_cache_Cache',
-    'org_tubepress_pagination_PaginationService',
+    'org_tubepress_api_pagination_Pagination',
     'org_tubepress_template_SimpleTemplate',
     'org_tubepress_ioc_IocContainer',
     'org_tubepress_theme_ThemeHandler'));
