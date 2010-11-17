@@ -22,12 +22,12 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('net_sourceforge_phpcrafty_ComponentFactory',
-    'org_tubepress_ioc_IocService'));
+    'org_tubepress_api_ioc_IocService'));
 
 /**
  * Dependency injector for TubePress that uses phpcrafty
  */
-abstract class org_tubepress_ioc_impl_PhpCraftyIocService extends net_sourceforge_phpcrafty_ComponentFactory implements org_tubepress_ioc_IocService
+abstract class org_tubepress_ioc_impl_PhpCraftyIocService extends net_sourceforge_phpcrafty_ComponentFactory implements org_tubepress_api_ioc_IocService
 {
     public function get($className)
     {

@@ -22,7 +22,7 @@
 /**
  * Dependency injector for TubePress
  */
-interface org_tubepress_ioc_IocService
+interface org_tubepress_api_ioc_IocService
 {
     /**
      * Get an object from the container by name.

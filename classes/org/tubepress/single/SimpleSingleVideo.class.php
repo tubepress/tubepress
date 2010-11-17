@@ -59,7 +59,7 @@ class org_tubepress_single_SimpleSingleVideo implements org_tubepress_single_Sin
      *
      * @return string The HTML for the single video display.
      */
-    private static function _getSingleVideoHtml($videoId, org_tubepress_ioc_IocService $ioc)
+    private static function _getSingleVideoHtml($videoId, org_tubepress_api_ioc_IocService $ioc)
     {
         /* grab the video from the provider */
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'Asking provider for video with ID %s', $videoId);
@@ -84,7 +84,7 @@ class org_tubepress_single_SimpleSingleVideo implements org_tubepress_single_Sin
      *
      * @return void
      */
-    private static function _prepTemplate(org_tubepress_ioc_IocService $ioc, $video, org_tubepress_api_provider_Provider $provider)
+    private static function _prepTemplate(org_tubepress_api_ioc_IocService $ioc, $video, org_tubepress_api_provider_Provider $provider)
     {
         $themeHandler   = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $template       = $themeHandler->getTemplateInstance('single_video.tpl.php');

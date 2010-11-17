@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_ioc_impl_FreeWordPressPluginIocService',
     'org_tubepress_ioc_ProInWordPressIocService',
-    'org_tubepress_ioc_IocService',
+    'org_tubepress_api_ioc_IocService',
     'org_tubepress_options_form_FormHandler',
     'org_tubepress_util_FilesystemUtils'));
 

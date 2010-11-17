@@ -26,7 +26,7 @@ tubepress_load_classes(array('org_tubepress_options_storage_WordPressStorageMana
     'org_tubepress_shortcode_SimpleShortcodeParser',
     'org_tubepress_ioc_impl_FreeWordPressPluginIocService',
     'org_tubepress_ioc_ProInWordPressIocService',
-    'org_tubepress_ioc_IocService',
+    'org_tubepress_api_ioc_IocService',
     'org_tubepress_ioc_IocContainer',
     'org_tubepress_util_StringUtils',
     'org_tubepress_api_gallery_Gallery',

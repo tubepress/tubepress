@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_ioc_IocService',
+tubepress_load_classes(array('org_tubepress_api_ioc_IocService',
     'org_tubepress_options_category_Display',
     'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_api_feed_FeedResult',
@@ -39,7 +39,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
 {
     const LOG_PREFIX = 'Gallery Template Utils';
 
-    public static function prepTemplate(org_tubepress_api_feed_FeedResult $feedResult, $galleryId, org_tubepress_api_template_Template $template, org_tubepress_ioc_IocService $ioc)
+    public static function prepTemplate(org_tubepress_api_feed_FeedResult $feedResult, $galleryId, org_tubepress_api_template_Template $template, org_tubepress_api_ioc_IocService $ioc)
     {
         $tpom         = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $themeHandler = $ioc->get('org_tubepress_api_theme_ThemeHandler');
@@ -85,7 +85,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
         self::_prepMetaInfo($template, $ioc);
     }
     
-    public static function getThumbnailGenerationReminder($galleryHtml, org_tubepress_ioc_IocService $ioc)
+    public static function getThumbnailGenerationReminder($galleryHtml, org_tubepress_api_ioc_IocService $ioc)
     {
         if (strpos($galleryHtml, 'missing_thumbnail.png') === false) {
             return '';
@@ -101,7 +101,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
         return $template->toString();
     }
     
-    public static function getThemeCss(org_tubepress_ioc_IocService $ioc)
+    public static function getThemeCss(org_tubepress_api_ioc_IocService $ioc)
     {
         $themeHandler = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $currentTheme = $themeHandler->calculateCurrentThemeName($ioc);
@@ -130,7 +130,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
         return '';
     }
 
-    public static function getAjaxPagination(org_tubepress_ioc_IocService $ioc, $galleryId)
+    public static function getAjaxPagination(org_tubepress_api_ioc_IocService $ioc, $galleryId)
     {
         $tpom = $ioc->get('org_tubepress_options_manager_OptionsManager');
         
@@ -156,7 +156,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
         return $provider->calculateCurrentVideoProvider($tpom);
     }
 
-    private static function _prepMetaInfo(org_tubepress_api_template_Template $template, org_tubepress_ioc_IocService $ioc)
+    private static function _prepMetaInfo(org_tubepress_api_template_Template $template, org_tubepress_api_ioc_IocService $ioc)
     {
         $tpom           = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $messageService = $ioc->get('org_tubepress_api_message_MessageService');
@@ -173,7 +173,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
         $template->setVariable(org_tubepress_api_template_Template::META_LABELS, $labels);
     }
     
-    private static function _prependVideoIfNeeded($videos, org_tubepress_ioc_IocService $ioc)
+    private static function _prependVideoIfNeeded($videos, org_tubepress_api_ioc_IocService $ioc)
     {
         $qss = $ioc->get('org_tubepress_querystring_QueryStringService');
         $customVideoId = $qss->getCustomVideo($_GET);

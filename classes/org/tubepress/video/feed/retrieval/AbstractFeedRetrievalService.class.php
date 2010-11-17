@@ -33,7 +33,7 @@ abstract class org_tubepress_video_feed_retrieval_AbstractFeedRetrievalService i
     /**
      * Fetches the feed from the remote provider
      *
-     * @param org_tubepress_ioc_IocService $ioc      The IOC container.
+     * @param org_tubepress_api_ioc_IocService $ioc      The IOC container.
      * @param string                       $url      The URL to fetch.
      * @param boolean                      $useCache Whether or not to use the network cache.
      *

@@ -3,7 +3,7 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../classes/tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
-    'org_tubepress_ioc_IocService',
+    'org_tubepress_api_ioc_IocService',
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_api_message_MessageService',
     'org_tubepress_options_storage_StorageManager',
@@ -24,7 +24,7 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
     
     protected function initFakeIoc()
     {
-        $ioc  = $this->getMock('org_tubepress_ioc_IocService');
+        $ioc  = $this->getMock('org_tubepress_api_ioc_IocService');
         $ioc->expects($this->any())
                    ->method('get')
                    ->will($this->returnCallback(array($this, 'getMock')));

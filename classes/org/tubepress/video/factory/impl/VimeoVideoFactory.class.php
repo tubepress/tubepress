@@ -75,7 +75,7 @@ class org_tubepress_video_factory_impl_VimeoVideoFactory implements org_tubepres
         return $this->_buildVideos($feed->video, $ioc);
     }
 
-    private function _buildVideos($entries, org_tubepress_ioc_IocService $ioc)
+    private function _buildVideos($entries, org_tubepress_api_ioc_IocService $ioc)
     {
         $results   = array();
         $index     = 0;

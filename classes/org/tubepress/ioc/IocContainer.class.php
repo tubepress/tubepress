@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_ioc_IocService',
+tubepress_load_classes(array('org_tubepress_api_ioc_IocService',
     'org_tubepress_ioc_impl_FreeWordPressPluginIocService',
     'org_tubepress_ioc_impl_ProInWordPressIocService',
     'org_tubepress_env_EnvironmentDetector'));
@@ -54,7 +54,7 @@ class org_tubepress_ioc_IocContainer
         return self::$_instance;
     }
     
-    public static function setInstance(org_tubepress_ioc_IocService $instance)
+    public static function setInstance(org_tubepress_api_ioc_IocService $instance)
     {
         self::$_instance = $instance;
     }

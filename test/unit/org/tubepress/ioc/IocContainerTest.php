@@ -2,7 +2,7 @@
 require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/ioc/IocContainer.class.php';
 require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
 
-class FakeIocService implements org_tubepress_ioc_IocService
+class FakeIocService implements org_tubepress_api_ioc_IocService
 {
     public function get($className)
     {
@@ -15,7 +15,7 @@ class org_tubepress_ioc_IocContainerTest extends TubePressUnitTest {
     function testDefaultContainer()
     {
         $result = org_tubepress_ioc_IocContainer::getInstance();
-        $correct = is_a($result, 'org_tubepress_ioc_IocService');
+        $correct = is_a($result, 'org_tubepress_api_ioc_IocService');
         $this->assertTrue($correct);
     }
     

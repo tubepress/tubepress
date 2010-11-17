@@ -45,7 +45,7 @@ class org_tubepress_gallery_SimpleGallery implements org_tubepress_api_gallery_G
     /**
      * Generates the HTML for TubePress. Could be a gallery or single video.
      *
-     * @param org_tubepress_ioc_IocService $iocService       The IOC container.
+     * @param org_tubepress_api_ioc_IocService $iocService       The IOC container.
      * @param string                       $shortCodeContent The optional shortcode content
      *
      * @return The HTML for TubePress.
@@ -111,11 +111,11 @@ class org_tubepress_gallery_SimpleGallery implements org_tubepress_api_gallery_G
      * Generates the HTML for a gallery with the given ID.
      *
      * @param integer                      $galleryId The unique identifier of the gallery.
-     * @param org_tubepress_ioc_IocService $ioc       The IOC container
+     * @param org_tubepress_api_ioc_IocService $ioc       The IOC container
      *
      * @return string The HTML contents of the gallery/video.
      */
-    private static function _getThumbnailGallery($galleryId, org_tubepress_ioc_IocService $ioc)
+    private static function _getThumbnailGallery($galleryId, org_tubepress_api_ioc_IocService $ioc)
     {
         try {
             return self::_getHtml($galleryId, $ioc);
@@ -128,11 +128,11 @@ class org_tubepress_gallery_SimpleGallery implements org_tubepress_api_gallery_G
      * Generates the content of this gallery
      * 
      * @param integer                      $galleryId The unique identifier of the gallery.
-     * @param org_tubepress_ioc_IocService $ioc       The IOC container
+     * @param org_tubepress_api_ioc_IocService $ioc       The IOC container
      *
      * @return The HTML content for this gallery
      */
-    private static function _getHtml($galleryId, org_tubepress_ioc_IocService $ioc)
+    private static function _getHtml($galleryId, org_tubepress_api_ioc_IocService $ioc)
     {
         /* first grab the videos */
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'Asking provider for videos');

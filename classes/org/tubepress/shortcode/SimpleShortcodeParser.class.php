@@ -109,7 +109,7 @@ class org_tubepress_shortcode_SimpleShortcodeParser implements org_tubepress_sho
      *
      * @return void
      */
-    private static function _parseCustomOption($customOptions, $match, org_tubepress_ioc_IocService $ioc)
+    private static function _parseCustomOption($customOptions, $match, org_tubepress_api_ioc_IocService $ioc)
     {
         $inputValidationService = $ioc->get('org_tubepress_options_validation_InputValidationService');
 

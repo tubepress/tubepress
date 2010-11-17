@@ -64,7 +64,7 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory implements org_tubepr
     /**
      * Converts raw video feeds to TubePress videos
      *
-     * @param org_tubepress_ioc_IocService $ioc   The IOC container
+     * @param org_tubepress_api_ioc_IocService $ioc   The IOC container
      * @param unknown                      $feed  The raw feed result from the video provider
      * @param int                          $limit The max number of videos to return
      * 
@@ -79,7 +79,7 @@ class org_tubepress_video_factory_impl_YouTubeVideoFactory implements org_tubepr
     /**
      * Converts a single raw video into a TubePress video
      *
-     * @param org_tubepress_ioc_IocService $ioc  The IOC container
+     * @param org_tubepress_api_ioc_IocService $ioc  The IOC container
      * @param unknown                      $feed The raw feed result from the video provider
      * 
      * @return array an array of TubePress videos generated from the feed

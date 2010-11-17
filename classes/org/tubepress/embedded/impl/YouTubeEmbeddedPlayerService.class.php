@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_embedded_EmbeddedPlayer',
-    'org_tubepress_ioc_IocService',
+    'org_tubepress_api_ioc_IocService',
     'org_tubepress_embedded_impl_EmbeddedPlayerUtils',
     'org_tubepress_options_category_Embedded',
     'org_tubepress_api_theme_ThemeHandler',
@@ -38,7 +38,7 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService implements org_tu
     /**
      * Spits back the text for this embedded player
      *
-     * @param org_tubepress_ioc_IocService $ioc     The IOC container
+     * @param org_tubepress_api_ioc_IocService $ioc     The IOC container
      * @param string                       $videoId The video ID to display
      *
      * @return string The text for this embedded player
