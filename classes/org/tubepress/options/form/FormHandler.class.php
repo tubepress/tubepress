@@ -21,8 +21,8 @@
 
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_options_Category',
-    'org_tubepress_options_Type',
+tubepress_load_classes(array('org_tubepress_api_const_options_OptionCategory',
+    'org_tubepress_api_const_options_OptionType',
     'org_tubepress_api_message_MessageService',
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_api_options_StorageManager',
@@ -94,7 +94,7 @@ class org_tubepress_options_form_FormHandler
         
         /* this loop will collect everything except checkboxes */
         foreach ($postVars as $name => $value) {
-            if (org_tubepress_options_reference_OptionsReference::getType($name) === org_tubepress_options_Type::BOOL) {
+            if (org_tubepress_options_reference_OptionsReference::getType($name) === org_tubepress_api_const_options_OptionType::BOOL) {
                 continue;
             }
 
@@ -108,7 +108,7 @@ class org_tubepress_options_form_FormHandler
         foreach ($names as $name) {
 
             /* ignore non-bools */
-            if (org_tubepress_options_reference_OptionsReference::getType($name) != org_tubepress_options_Type::BOOL) {
+            if (org_tubepress_options_reference_OptionsReference::getType($name) != org_tubepress_api_const_options_OptionType::BOOL) {
                 continue;
             }
 
@@ -121,7 +121,7 @@ class org_tubepress_options_form_FormHandler
     {
         $results = array();
         $results[org_tubepress_api_template_Template::OPTIONS_PAGE_CATEGORY_TITLE] = $messageService->_("options-category-title-$optionCategoryName");
-        $results[org_tubepress_api_template_Template::OPTIONS_PAGE_CATEGORY_OPTIONS] = $optionCategoryName == org_tubepress_options_Category::GALLERY ?
+        $results[org_tubepress_api_template_Template::OPTIONS_PAGE_CATEGORY_OPTIONS] = $optionCategoryName == org_tubepress_api_const_options_OptionCategory::GALLERY ?
             $this->_createCategoryMetaArrayForGalleryOptions($storageManager, $messageService) : $this->_createCategoryOptionsMetaArray($optionCategoryName, $messageService, $storageManager);
         return $results;
     }
@@ -189,19 +189,19 @@ class org_tubepress_options_form_FormHandler
         $value = $storageManager->get($optionName);
         
         switch ($type) {
-            case org_tubepress_options_Type::BOOL:
+            case org_tubepress_api_const_options_OptionType::BOOL:
                 $checked = $value ? 'CHECKED' : '';
                 return "<input type=\"checkbox\" name=\"$optionName\" value=\"$optionName\" $checked />";
-            case org_tubepress_options_Type::TEXT:
-            case org_tubepress_options_Type::INTEGRAL:
+            case org_tubepress_api_const_options_OptionType::TEXT:
+            case org_tubepress_api_const_options_OptionType::INTEGRAL:
                 return "<input type=\"text\" name=\"$optionName\" size=\"20\" value=\"$value\" />";
-            case org_tubepress_options_Type::COLOR:
+            case org_tubepress_api_const_options_OptionType::COLOR:
                 return "<input type=\"text\" name=\"$optionName\" size=\"6\" class=\"color\" value=\"$value\" />";
-            case org_tubepress_options_Type::ORDER:
-            case org_tubepress_options_Type::PLAYER:
-            case org_tubepress_options_Type::TIME_FRAME:
-            case org_tubepress_options_Type::SAFE_SEARCH:
-            case org_tubepress_options_Type::PLAYER_IMPL:
+            case org_tubepress_api_const_options_OptionType::ORDER:
+            case org_tubepress_api_const_options_OptionType::PLAYER:
+            case org_tubepress_api_const_options_OptionType::TIME_FRAME:
+            case org_tubepress_api_const_options_OptionType::SAFE_SEARCH:
+            case org_tubepress_api_const_options_OptionType::PLAYER_IMPL:
                 $validValues = org_tubepress_options_reference_OptionsReference::getValidEnumValues($type);
                 $result = "<select name=\"$optionName\">";
                 
@@ -212,7 +212,7 @@ class org_tubepress_options_form_FormHandler
                 }
                 $result .= '</select>';
                 return $result;    
-            case org_tubepress_options_Type::THEME:
+            case org_tubepress_api_const_options_OptionType::THEME:
                 $validValues = org_tubepress_options_reference_OptionsReference::getValidEnumValues($type);
                 $result = "<select name=\"$optionName\">";
                 

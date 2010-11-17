@@ -23,7 +23,7 @@
  * The types of options TubePress can handle
  *
  */
-class org_tubepress_options_Type
+class org_tubepress_api_const_options_OptionType
 {
     const BOOL        = 'boolean';              // Yes/No options
     const COLOR       = 'color';                // An HTML color (6 hex digits)      

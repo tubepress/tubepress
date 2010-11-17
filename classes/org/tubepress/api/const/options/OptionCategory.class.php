@@ -23,7 +23,7 @@
  * The valid options categories and their names
  *
  */
-class org_tubepress_options_Category
+class org_tubepress_api_const_options_OptionCategory
 {
     const ADVANCED = 'advanced';
     const DISPLAY  = 'display';

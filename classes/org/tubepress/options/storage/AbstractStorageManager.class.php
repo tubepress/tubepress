@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_options_StorageManager',
-    'org_tubepress_options_Type',
+    'org_tubepress_api_const_options_OptionType',
     'org_tubepress_api_options_OptionValidator',
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_ioc_IocContainer'));
@@ -87,7 +87,7 @@ abstract class org_tubepress_options_storage_AbstractStorageManager implements o
             $this->delete($name);
             $this->create($name, $value);
         }
-        if (org_tubepress_options_reference_OptionsReference::getType($name) != org_tubepress_options_Type::BOOL
+        if (org_tubepress_options_reference_OptionsReference::getType($name) != org_tubepress_api_const_options_OptionType::BOOL
             && $this->get($name) == "") {
             $this->setOption($name, $value);
         }

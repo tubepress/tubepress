@@ -25,7 +25,7 @@ tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
     'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_options_reference_OptionsReference',
     'org_tubepress_single_SingleVideo',
-    'org_tubepress_options_Category',
+    'org_tubepress_api_const_options_OptionCategory',
     'org_tubepress_api_message_MessageService'));
 
 /**
@@ -90,7 +90,7 @@ class org_tubepress_single_SimpleSingleVideo implements org_tubepress_single_Sin
         $template       = $themeHandler->getTemplateInstance('single_video.tpl.php');
         $tpom           = $ioc->get('org_tubepress_api_options_OptionsManager');
         $messageService = $ioc->get('org_tubepress_api_message_MessageService');
-        $metaNames      = org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_options_Category::META);
+        $metaNames      = org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::META);
         $shouldShow     = array();
         $labels         = array();
         $eps            = $ioc->get('org_tubepress_api_embedded_EmbeddedPlayer');

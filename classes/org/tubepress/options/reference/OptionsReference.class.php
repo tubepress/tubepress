@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_options_reference_OptionsReference',
-    'org_tubepress_options_Type',
+    'org_tubepress_api_const_options_OptionType',
     'org_tubepress_api_const_options_Embedded',
     'org_tubepress_api_const_options_Gallery',
     'org_tubepress_api_const_options_Advanced',
@@ -41,14 +41,14 @@ tubepress_load_classes(array('org_tubepress_options_reference_OptionsReference',
 class org_tubepress_options_reference_OptionsReference
 {
     private static $_options = array(
-        org_tubepress_options_Type::COLOR => array(
+        org_tubepress_api_const_options_OptionType::COLOR => array(
             org_tubepress_api_const_options_Embedded::PLAYER_COLOR   => '999999',
             org_tubepress_api_const_options_Embedded::PLAYER_HIGHLIGHT => 'FFFFFF'
         ),
-        org_tubepress_options_Type::MODE => array(
+        org_tubepress_api_const_options_OptionType::MODE => array(
             org_tubepress_api_const_options_Gallery::MODE => 'recently_featured'
         ),
-        org_tubepress_options_Type::TEXT => array(
+        org_tubepress_api_const_options_OptionType::TEXT => array(
             org_tubepress_api_const_options_Advanced::DATEFORMAT            => 'M j, Y',
             org_tubepress_api_const_options_Advanced::KEYWORD               => 'tubepress',
             org_tubepress_api_const_options_Advanced::VIDEO_BLACKLIST       => '',
@@ -71,7 +71,7 @@ class org_tubepress_options_reference_OptionsReference
             org_tubepress_api_const_options_Gallery::VIMEO_GROUP_VALUE      => 'hdxs',
             org_tubepress_api_const_options_Gallery::VIMEO_ALBUM_VALUE      => '140484',
         ),
-        org_tubepress_options_Type::BOOL => array(
+        org_tubepress_api_const_options_OptionType::BOOL => array(
             org_tubepress_api_const_options_Advanced::DEBUG_ON           => true,
             org_tubepress_api_const_options_Display::RANDOM_THUMBS       => true,
             org_tubepress_api_const_options_Display::RELATIVE_DATES      => false,
@@ -103,7 +103,7 @@ class org_tubepress_options_reference_OptionsReference
             org_tubepress_api_const_options_Feed::CACHE_ENABLED          => false,
             org_tubepress_api_const_options_Feed::EMBEDDABLE_ONLY        => true
         ),
-        org_tubepress_options_Type::INTEGRAL => array(
+        org_tubepress_api_const_options_OptionType::INTEGRAL => array(
             org_tubepress_api_const_options_Display::DESC_LIMIT          => 80,
             org_tubepress_api_const_options_Display::RESULTS_PER_PAGE    => 20,
             org_tubepress_api_const_options_Display::THUMB_HEIGHT        => 90,
@@ -112,24 +112,24 @@ class org_tubepress_options_reference_OptionsReference
             org_tubepress_api_const_options_Embedded::EMBEDDED_WIDTH     => 425,
             org_tubepress_api_const_options_Feed::RESULT_COUNT_CAP       => 300,
         ),
-        org_tubepress_options_Type::TIME_FRAME => array(
+        org_tubepress_api_const_options_OptionType::TIME_FRAME => array(
             org_tubepress_api_const_options_Gallery::MOST_VIEWED_VALUE   => 'today',
             org_tubepress_api_const_options_Gallery::TOP_RATED_VALUE     => 'today',
             org_tubepress_api_const_options_Gallery::TOP_FAVORITES_VALUE => 'today'
         ),
-        org_tubepress_options_Type::ORDER => array(
+        org_tubepress_api_const_options_OptionType::ORDER => array(
             org_tubepress_api_const_options_Display::ORDER_BY            => 'viewCount',
         ),
-        org_tubepress_options_Type::PLAYER => array(
+        org_tubepress_api_const_options_OptionType::PLAYER => array(
             org_tubepress_api_const_options_Display::CURRENT_PLAYER_NAME => 'normal',
         ),
-        org_tubepress_options_Type::SAFE_SEARCH => array(
+        org_tubepress_api_const_options_OptionType::SAFE_SEARCH => array(
             org_tubepress_api_const_options_Feed::FILTER                 => 'moderate'    
         ),
-        org_tubepress_options_Type::PLAYER_IMPL => array(
+        org_tubepress_api_const_options_OptionType::PLAYER_IMPL => array(
             org_tubepress_api_const_options_Embedded::PLAYER_IMPL        => 'youtube'
         ),
-        org_tubepress_options_Type::THEME => array(
+        org_tubepress_api_const_options_OptionType::THEME => array(
             org_tubepress_api_const_options_Display::THEME => ''
         )
     );
@@ -277,11 +277,11 @@ class org_tubepress_options_reference_OptionsReference
     static function getValidEnumValues($optionType)
     {
         switch ($optionType) {
-            case org_tubepress_options_Type::PLAYER:
+            case org_tubepress_api_const_options_OptionType::PLAYER:
                 return array('normal', 'popup','shadowbox','jqmodal', 'youtube', 'static', 'solo', 'vimeo', 'fancybox', 'tinybox');
-            case org_tubepress_options_Type::ORDER:
+            case org_tubepress_api_const_options_OptionType::ORDER:
                 return array('relevance', 'viewCount', 'rating', 'published', 'random', 'position', 'commentCount', 'duration', 'title', 'newest', 'oldest');
-            case org_tubepress_options_Type::MODE:
+            case org_tubepress_api_const_options_OptionType::MODE:
                 return array(
                     org_tubepress_api_gallery_Gallery::FAVORITES,
                     org_tubepress_api_gallery_Gallery::PLAYLIST,
@@ -303,14 +303,14 @@ class org_tubepress_options_reference_OptionsReference
                     org_tubepress_api_gallery_Gallery::VIMEO_CHANNEL,
                     org_tubepress_api_gallery_Gallery::VIMEO_ALBUM,
                     org_tubepress_api_gallery_Gallery::VIMEO_GROUP);
-            case org_tubepress_options_Type::SAFE_SEARCH:
+            case org_tubepress_api_const_options_OptionType::SAFE_SEARCH:
                 return array('none', 'moderate', 'strict');
-            case org_tubepress_options_Type::PLAYER_IMPL:
+            case org_tubepress_api_const_options_OptionType::PLAYER_IMPL:
                 return array(
                     org_tubepress_api_embedded_EmbeddedPlayer::PROVIDER_BASED,
                     org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL
                 );
-            case org_tubepress_options_Type::THEME:
+            case org_tubepress_api_const_options_OptionType::THEME:
                 $tubepressBaseInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
                 $dir = "$tubepressBaseInstallationPath/ui/themes";
                 $result = array();
@@ -343,7 +343,7 @@ class org_tubepress_options_reference_OptionsReference
 
     /**
      * Determine the type of the given option. Valid ption types are
-     *  defined by the constants of the org_tubepress_options_Type class.
+     *  defined by the constants of the org_tubepress_api_const_options_OptionType class.
      *  Each option must map to exactly one type.
      *
      * @param string $optionName The name of the option to look up
@@ -384,7 +384,7 @@ class org_tubepress_options_reference_OptionsReference
      */
     static function isOptionCategoryApplicableToOptionsForm($optionCategoryName)
     {
-        return !in_array($optionCategoryName, array(org_tubepress_options_Category::WIDGET));
+        return !in_array($optionCategoryName, array(org_tubepress_api_const_options_OptionCategory::WIDGET));
     }
 
     /**

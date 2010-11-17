@@ -25,7 +25,7 @@ tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
     'org_tubepress_api_const_options_Display',
     'org_tubepress_api_const_options_Gallery',   
     'org_tubepress_options_reference_OptionsReference',
-    'org_tubepress_options_Type'));
+    'org_tubepress_api_const_options_OptionType'));
 
 /**
  * Performs validation on option values
@@ -108,38 +108,38 @@ class org_tubepress_options_validation_SimpleInputValidationService implements o
         $type = org_tubepress_options_reference_OptionsReference::getType($optionName);
 
         switch ($type) {
-        case org_tubepress_options_Type::TEXT:
-        case org_tubepress_options_Type::YT_USER:
-        case org_tubepress_options_Type::PLAYLIST:
+        case org_tubepress_api_const_options_OptionType::TEXT:
+        case org_tubepress_api_const_options_OptionType::YT_USER:
+        case org_tubepress_api_const_options_OptionType::PLAYLIST:
             if (!is_string($candidate)) {
                 throw new Exception(sprintf($messageService->_('validation-text'), $optionName, $candidate));
             }
             break;
 
-        case org_tubepress_options_Type::BOOL:
+        case org_tubepress_api_const_options_OptionType::BOOL:
             if (strcasecmp((string)$candidate, '1') !== 0 && strcasecmp((string)$candidate, '') !== 0) {
                 throw new Exception(sprintf($messageService->_('validation-bool'), $optionName, $candidate));
             }
             break;
 
-        case org_tubepress_options_Type::INTEGRAL:
+        case org_tubepress_api_const_options_OptionType::INTEGRAL:
             if (intval($candidate) == 0 && $optionName != org_tubepress_api_const_options_Display::DESC_LIMIT) {
                 throw new Exception(sprintf($messageService->_('validation-int-type'), $optionName, $candidate));
             }
             break;
 
-        case org_tubepress_options_Type::ORDER:
-        case org_tubepress_options_Type::PLAYER:
-        case org_tubepress_options_Type::PLAYER_IMPL:
-        case org_tubepress_options_Type::SAFE_SEARCH:
-        case org_tubepress_options_Type::TIME_FRAME:
+        case org_tubepress_api_const_options_OptionType::ORDER:
+        case org_tubepress_api_const_options_OptionType::PLAYER:
+        case org_tubepress_api_const_options_OptionType::PLAYER_IMPL:
+        case org_tubepress_api_const_options_OptionType::SAFE_SEARCH:
+        case org_tubepress_api_const_options_OptionType::TIME_FRAME:
             $validValues = org_tubepress_options_reference_OptionsReference::getValidEnumValues($type);
             if (in_array((string)$candidate, $validValues) !== true) {
                 throw new Exception(sprintf($messageService->_('validation-enum'), $optionName, implode(', ', $validValues), $candidate));
             }
             break;
 
-        case org_tubepress_options_Type::COLOR:
+        case org_tubepress_api_const_options_OptionType::COLOR:
             //implement me please
             break;
         }

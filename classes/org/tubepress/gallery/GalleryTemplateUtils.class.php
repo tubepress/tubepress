@@ -161,7 +161,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
         $tpom           = $ioc->get('org_tubepress_api_options_OptionsManager');
         $messageService = $ioc->get('org_tubepress_api_message_MessageService');
 
-        $metaNames  = org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_options_Category::META);
+        $metaNames  = org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::META);
         $shouldShow = array();
         $labels     = array();
 

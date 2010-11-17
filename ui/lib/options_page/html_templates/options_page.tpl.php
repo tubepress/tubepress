@@ -43,7 +43,7 @@
       <div id="<?php echo 'tubepress_' . md5($optionCategoryName); ?>">
         <table class="form-table" style="margin: 0">
         
-          <?php if ($optionCategoryName != org_tubepress_options_Category::META): ?>
+          <?php if ($optionCategoryName != org_tubepress_api_const_options_OptionCategory::META): ?>
         
             <?php foreach ($optionCategoryMetaArray[org_tubepress_api_template_Template::OPTIONS_PAGE_CATEGORY_OPTIONS] as $optionArray): ?>
               
