@@ -22,7 +22,7 @@
 /**
  * Handles requests for a single video (for embedding)
  */
-interface org_tubepress_single_SingleVideo
+interface org_tubepress_api_single_SingleVideo
 {
     /**
      * Get the HTML for a single video display.

@@ -28,7 +28,7 @@ tubepress_load_classes(array('org_tubepress_api_shortcode_ShortcodeParser',
     'org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_api_provider_Provider',
     'org_tubepress_api_const_options_OptionCategory',
-    'org_tubepress_single_SingleVideo',
+    'org_tubepress_api_single_SingleVideo',
     'org_tubepress_gallery_GalleryTemplateUtils',
     'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_api_gallery_Gallery',
@@ -71,7 +71,7 @@ class org_tubepress_gallery_SimpleGallery implements org_tubepress_api_gallery_G
 
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
 
-            $singleVideoGenerator = $ioc->get('org_tubepress_single_SingleVideo');
+            $singleVideoGenerator = $ioc->get('org_tubepress_api_single_SingleVideo');
 
             return $singleVideoGenerator->getSingleVideoHtml($videoId);
         }
@@ -88,7 +88,7 @@ class org_tubepress_gallery_SimpleGallery implements org_tubepress_api_gallery_G
 
             if ($videoId != '') {
                 org_tubepress_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
-                $single = $ioc->get('org_tubepress_single_SingleVideo');
+                $single = $ioc->get('org_tubepress_api_single_SingleVideo');
                 return $single->getSingleVideoHtml($videoId, $iocService);
             }
 

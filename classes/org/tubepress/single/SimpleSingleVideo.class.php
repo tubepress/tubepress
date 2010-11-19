@@ -24,14 +24,14 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
     'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_options_reference_OptionsReference',
-    'org_tubepress_single_SingleVideo',
+    'org_tubepress_api_single_SingleVideo',
     'org_tubepress_api_const_options_OptionCategory',
     'org_tubepress_api_message_MessageService'));
 
 /**
  * Handles requests for a single video (for embedding)
  */
-class org_tubepress_single_SimpleSingleVideo implements org_tubepress_single_SingleVideo
+class org_tubepress_single_SimpleSingleVideo implements org_tubepress_api_single_SingleVideo
 {
     const LOG_PREFIX = 'Single video';
     
