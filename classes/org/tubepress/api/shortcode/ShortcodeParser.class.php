@@ -22,7 +22,7 @@
 /**
  * Parses shortcodes.
  */
-interface org_tubepress_shortcode_ShortcodeParser
+interface org_tubepress_api_shortcode_ShortcodeParser
 { 
     /**
      * This function is used to parse a shortcode into options that TubePress can use.

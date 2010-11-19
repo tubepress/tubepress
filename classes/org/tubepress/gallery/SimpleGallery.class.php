@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_shortcode_ShortcodeParser',
+tubepress_load_classes(array('org_tubepress_api_shortcode_ShortcodeParser',
     'org_tubepress_api_const_options_Gallery',
     'org_tubepress_log_Log',
     'org_tubepress_api_player_Player',
@@ -54,7 +54,7 @@ class org_tubepress_gallery_SimpleGallery implements org_tubepress_api_gallery_G
     {
         $ioc             = org_tubepress_ioc_IocContainer::getInstance();
         $tpom            = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $shortcodeParser = $ioc->get('org_tubepress_shortcode_ShortcodeParser');
+        $shortcodeParser = $ioc->get('org_tubepress_api_shortcode_ShortcodeParser');
         $qss             = $ioc->get('org_tubepress_api_querystring_QueryStringService');
 
         /* do a bit of logging */

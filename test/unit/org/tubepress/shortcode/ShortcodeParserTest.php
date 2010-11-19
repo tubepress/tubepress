@@ -3,7 +3,7 @@
 require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
 require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/shortcode/SimpleShortcodeParser.class.php';
 
-class org_tubepress_shortcode_ShortcodeParserTest extends TubePressUnitTest
+class org_tubepress_api_shortcode_ShortcodeParserTest extends TubePressUnitTest
 {
 	private $_sut;
 
