@@ -4,7 +4,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../classes/tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_options_OptionsManager',
     'org_tubepress_api_ioc_IocService',
-    'org_tubepress_options_reference_OptionsReference',
+    'org_tubepress_util_OptionsReference',
     'org_tubepress_api_message_MessageService',
     'org_tubepress_api_options_StorageManager',
     'org_tubepress_url_impl_YouTubeUrlBuilder',
@@ -89,7 +89,7 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
             return $this->options[$args[0]];
         }
         
-        return org_tubepress_options_reference_OptionsReference::getDefaultValue($args[0]);
+        return org_tubepress_util_OptionsReference::getDefaultValue($args[0]);
     }
 }
 ?>

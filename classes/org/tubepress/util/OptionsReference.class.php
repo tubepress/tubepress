@@ -20,8 +20,8 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_options_reference_OptionsReference',
+    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_util_OptionsReference',
     'org_tubepress_api_const_options_OptionType',
     'org_tubepress_api_const_options_Embedded',
     'org_tubepress_api_const_options_Gallery',
@@ -38,7 +38,7 @@ tubepress_load_classes(array('org_tubepress_options_reference_OptionsReference',
  * names, default values, types, etc.
  *
  */
-class org_tubepress_options_reference_OptionsReference
+class org_tubepress_util_OptionsReference
 {
     private static $_options = array(
         org_tubepress_api_const_options_OptionType::COLOR => array(

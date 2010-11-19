@@ -1,10 +1,10 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/options/reference/OptionsReference.class.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/util/OptionsReference.class.php';
 require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/api/const/options/OptionCategory.class.php';
 require_once dirname(__FILE__) . '/../../../../../../test/unit/TubePressUnitTest.php';
 
-class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnitTest {
+class org_tubepress_util_OptionsReferenceTest extends TubePressUnitTest {
     
     private $_options = array(
         org_tubepress_api_const_options_OptionType::COLOR => array(
@@ -106,7 +106,7 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
 	    	'dateFormat', 'debugging_enabled', 'keyword',
 	    	'videoBlacklist'
 	    );
-	    $this->assertTrue($expectedNames == org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::ADVANCED));
+	    $this->assertTrue($expectedNames == org_tubepress_util_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::ADVANCED));
 	}
     
     function testGetAllOptionNames()
@@ -115,14 +115,14 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
         foreach ($this->_options as $optionType) {
             $expected = array_merge($expected, array_keys($optionType));    
         }
-        $this->assertTrue($expected == org_tubepress_options_reference_OptionsReference::getAllOptionNames());   
+        $this->assertTrue($expected == org_tubepress_util_OptionsReference::getAllOptionNames());   
     }
     
     function testGetDefaultValue()
     {
         foreach ($this->_options as $optionType) {
             foreach ($optionType as $optionName => $defaultValue) {
-                $this->assertEquals($defaultValue, org_tubepress_options_reference_OptionsReference::getDefaultValue($optionName));
+                $this->assertEquals($defaultValue, org_tubepress_util_OptionsReference::getDefaultValue($optionName));
             }
         }    
     }
@@ -132,7 +132,7 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
          $expectedNames = array('theme', 'ajaxPagination', 'playerLocation', 'resultsPerPage', 'hqThumbs', 'thumbHeight', 'thumbWidth',
          'orderBy', 'paginationAbove', 'paginationBelow', 'randomize_thumbnails', 'relativeDates' ,'descriptionLimit'
          );
-         $this->assertTrue($expectedNames == org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::DISPLAY));
+         $this->assertTrue($expectedNames == org_tubepress_util_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::DISPLAY));
     }
     
     function testGetEmbeddedOptionNames()
@@ -142,7 +142,7 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
             'autoplay', 'border', 'fullscreen', 'hd', 'genie', 'loop', 'playerColor',
             'playerHighlight', 'showInfo', 'showRelated'
         );
-        $this->assertTrue($expectedNames == org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::EMBEDDED));  
+        $this->assertTrue($expectedNames == org_tubepress_util_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::EMBEDDED));  
     }
     
     function testGetFeedOptionNames()
@@ -150,7 +150,7 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
          $expectedNames = array(
              'cacheEnabled', 'embeddableOnly', 'filter_racy', 'developerKey', 'resultCountCap', 'vimeoKey', 'vimeoSecret'
          );   
-         $this->assertTrue($expectedNames == org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::FEED));
+         $this->assertTrue($expectedNames == org_tubepress_util_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::FEED));
     }
     
     function testGetGalleryOptionNames()
@@ -161,7 +161,7 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
             'vimeoAppearsInValue', 'vimeoSearchValue', 'vimeoCreditedToValue', 'vimeoChannelValue',
             'vimeoAlbumValue', 'vimeoGroupValue'
         );
-        $this->assertTrue($expectedNames == org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::GALLERY));
+        $this->assertTrue($expectedNames == org_tubepress_util_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::GALLERY));
     }
     
     function testGetMetaOptionNames()
@@ -171,7 +171,7 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
             'length', 'likes', 'rating', 'ratings', 'tags',
             'title', 'uploaded', 'url', 'views'
         );
-        $this->assertTrue($expectedNames == org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::META));
+        $this->assertTrue($expectedNames == org_tubepress_util_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::META));
     }
     
     function testIsOptionName()
@@ -179,10 +179,10 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
         $expected = array();
         foreach ($this->_options as $optionType) {
             foreach($optionType as $optionName => $value) {
-                $this->assertTrue(org_tubepress_options_reference_OptionsReference::isOptionName($optionName));
+                $this->assertTrue(org_tubepress_util_OptionsReference::isOptionName($optionName));
             }    
         }
-        $this->assertFalse(org_tubepress_options_reference_OptionsReference::isOptionName('obviously fake option name'));
+        $this->assertFalse(org_tubepress_util_OptionsReference::isOptionName('obviously fake option name'));
     }
     
     function testGetWidgetOptionNames()
@@ -190,21 +190,21 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
         $expectedNames = array(
             'widget-tagstring', 'widget-title'
         );
-        $this->assertTrue($expectedNames == org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::WIDGET));
+        $this->assertTrue($expectedNames == org_tubepress_util_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::WIDGET));
     }
     function testGetType()
     {
         $types = array_keys($this->_options);
         for ($x = 0; $x < sizeof($types); $x++) {
             foreach ($this->_options[$types[$x]] as $optionName => $value) {
-                $this->assertEquals($types[$x], org_tubepress_options_reference_OptionsReference::getType($optionName));
+                $this->assertEquals($types[$x], org_tubepress_util_OptionsReference::getType($optionName));
             }            
         }    
     }
     function testGetOptionCategoryNames()
     {
         $expected = array('gallery', 'display', 'embedded', 'meta', 'feed', 'advanced', 'widget');
-        $this->assertTrue($expected == org_tubepress_options_reference_OptionsReference::getOptionCategoryNames());
+        $this->assertTrue($expected == org_tubepress_util_OptionsReference::getOptionCategoryNames());
     }
     function testGetCategory()
     {
@@ -213,24 +213,24 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
             $classname = 'org_tubepress_api_const_options_' . ucwords($category);
             $ref = new ReflectionClass($classname);
             foreach ($ref->getConstants() as $constant) {
-                $this->assertEquals($category, org_tubepress_options_reference_OptionsReference::getCategory($constant));
+                $this->assertEquals($category, org_tubepress_util_OptionsReference::getCategory($constant));
             }
         }
     }
     function testPlayerEnumValues()
     {
         $expected = array('normal', 'popup','shadowbox', 'jqmodal', 'youtube', 'static', 'solo', 'vimeo', 'fancybox', 'tinybox');
-        $this->assertEquals($expected, org_tubepress_options_reference_OptionsReference::getValidEnumValues(org_tubepress_api_const_options_OptionType::PLAYER));
+        $this->assertEquals($expected, org_tubepress_util_OptionsReference::getValidEnumValues(org_tubepress_api_const_options_OptionType::PLAYER));
     }
     function testMostViewedEnumValues()
     {
         $expected = array('today', 'this_week', 'this_month', 'all_time');
-        $this->assertEquals($expected, org_tubepress_options_reference_OptionsReference::getValidEnumValues(org_tubepress_api_const_options_OptionType::TIME_FRAME));
+        $this->assertEquals($expected, org_tubepress_util_OptionsReference::getValidEnumValues(org_tubepress_api_const_options_OptionType::TIME_FRAME));
     }
     function testOrderEnumValues()
     {
         $expected = array('relevance', 'viewCount', 'rating', 'published', 'random', 'position', 'commentCount', 'duration', 'title', 'newest', 'oldest');
-        $this->assertEquals($expected, org_tubepress_options_reference_OptionsReference::getValidEnumValues(org_tubepress_api_const_options_OptionType::ORDER));
+        $this->assertEquals($expected, org_tubepress_util_OptionsReference::getValidEnumValues(org_tubepress_api_const_options_OptionType::ORDER));
     }
     
     function testGalleryEnumValues()
@@ -239,7 +239,7 @@ class org_tubepress_options_reference_OptionsReferenceTest extends TubePressUnit
                     'most_recent', 'most_responded', 'most_viewed', 'youtubeTopFavorites',
                     'top_rated', 'vimeoUploadedBy', 'vimeoLikes', 'vimeoAppearsIn', 'vimeoSearch', 'vimeoCreditedTo',
                     'vimeoChannel', 'vimeoAlbum', 'vimeoGroup');
-        $this->assertEquals($expected, org_tubepress_options_reference_OptionsReference::getValidEnumValues(org_tubepress_api_const_options_OptionType::MODE));
+        $this->assertEquals($expected, org_tubepress_util_OptionsReference::getValidEnumValues(org_tubepress_api_const_options_OptionType::MODE));
     }
 }
 ?>
