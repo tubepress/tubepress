@@ -21,13 +21,13 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_player_Player',
+tubepress_load_classes(array('org_tubepress_api_player_Player',
     'org_tubepress_ioc_IocContainer'));
 
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
-class org_tubepress_player_SimplePlayer implements org_tubepress_player_Player
+class org_tubepress_player_SimplePlayer implements org_tubepress_api_player_Player
 {
     const LOG_PREFIX = 'Player';
     

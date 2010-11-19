@@ -73,7 +73,7 @@ class org_tubepress_env_wordpress_Widget
             org_tubepress_api_const_options_Meta::VIEWS                  => false,
             org_tubepress_api_const_options_Meta::DESCRIPTION            => true,
             org_tubepress_api_const_options_Display::DESC_LIMIT          => 50,
-            org_tubepress_api_const_options_Display::CURRENT_PLAYER_NAME => org_tubepress_player_Player::POPUP,
+            org_tubepress_api_const_options_Display::CURRENT_PLAYER_NAME => org_tubepress_api_player_Player::POPUP,
             org_tubepress_api_const_options_Display::THUMB_HEIGHT        => 105,
             org_tubepress_api_const_options_Display::THUMB_WIDTH         => 135,
             org_tubepress_api_const_options_Display::PAGINATE_ABOVE      => false,

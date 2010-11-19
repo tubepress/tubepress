@@ -24,7 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_shortcode_ShortcodeParser',
     'org_tubepress_api_const_options_Gallery',
     'org_tubepress_log_Log',
-    'org_tubepress_player_Player',
+    'org_tubepress_api_player_Player',
     'org_tubepress_querystring_QueryStringService',
     'org_tubepress_api_provider_Provider',
     'org_tubepress_api_const_options_OptionCategory',
@@ -80,7 +80,7 @@ class org_tubepress_gallery_SimpleGallery implements org_tubepress_api_gallery_G
         $playerName = $tpom->get(org_tubepress_api_const_options_Display::CURRENT_PLAYER_NAME);
 
         /* see if the users wants to display just the video in the query string */
-        if ($playerName == org_tubepress_player_Player::SOLO) {
+        if ($playerName == org_tubepress_api_player_Player::SOLO) {
 
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'Solo player detected. Checking query string for video ID');
 

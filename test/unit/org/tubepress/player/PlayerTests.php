@@ -7,7 +7,7 @@ class PlayerTests
 	public static function suite()
 	{
 		$suite = new PHPUnit_Framework_TestSuite("TubePress Player Tests");
-		$suite->addTestSuite('org_tubepress_player_PlayerTest');
+		$suite->addTestSuite('org_tubepress_api_player_PlayerTest');
 		return $suite;
 	}
 }

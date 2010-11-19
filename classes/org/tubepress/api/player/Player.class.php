@@ -26,7 +26,7 @@ tubepress_load_classes(array('org_tubepress_api_video_Video'));
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
-interface org_tubepress_player_Player
+interface org_tubepress_api_player_Player
 {
     const NORMAL    = 'normal';
     const POPUP     = 'popup';

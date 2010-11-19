@@ -26,7 +26,7 @@ tubepress_load_classes(array('org_tubepress_api_ioc_IocService',
     'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_api_feed_FeedResult',
     'org_tubepress_api_template_Template',
-    'org_tubepress_player_Player',
+    'org_tubepress_api_player_Player',
     'org_tubepress_template_SimpleTemplate',
     'org_tubepress_querystring_QueryStringService',
     'org_tubepress_api_provider_Provider',
@@ -53,7 +53,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
             
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'Applying HTML for <tt>%s</tt> player to the template', $playerName);
             
-            $player     = $ioc->get('org_tubepress_player_Player');
+            $player     = $ioc->get('org_tubepress_api_player_Player');
             $playerHtml = $player->getHtml($videos[0], $galleryId);
 
             $template->setVariable(org_tubepress_api_template_Template::PLAYER_HTML, $playerHtml);
