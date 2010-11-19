@@ -25,7 +25,7 @@ class org_tubepress_gallery_SimpleGalleryTest extends TubePressUnitTest
 					->method('getMultipleVideos')
 					->will($this->returnValue(self::$_feedResult));
 				break;
-			case 'org_tubepress_querystring_QueryStringService':
+			case 'org_tubepress_api_querystring_QueryStringService':
 				$mock->expects($this->any())
 					->method('getGalleryId')
 					->will($this->returnValue('FAKEID'));

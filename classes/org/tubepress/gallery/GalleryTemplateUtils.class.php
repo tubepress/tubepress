@@ -28,7 +28,7 @@ tubepress_load_classes(array('org_tubepress_api_ioc_IocService',
     'org_tubepress_api_template_Template',
     'org_tubepress_api_player_Player',
     'org_tubepress_template_SimpleTemplate',
-    'org_tubepress_querystring_QueryStringService',
+    'org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_api_provider_Provider',
     'org_tubepress_util_FilesystemUtils'));
 
@@ -175,7 +175,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
     
     private static function _prependVideoIfNeeded($videos, org_tubepress_api_ioc_IocService $ioc)
     {
-        $qss = $ioc->get('org_tubepress_querystring_QueryStringService');
+        $qss = $ioc->get('org_tubepress_api_querystring_QueryStringService');
         $customVideoId = $qss->getCustomVideo($_GET);
         if ($customVideoId != '') {
             org_tubepress_log_Log::log(self::LOG_PREFIX, 'Prepending video <tt>%s</tt> to the gallery', $customVideoId);

@@ -42,7 +42,7 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
     public function getMultipleVideos()
     {
         $ioc  = org_tubepress_ioc_IocContainer::getInstance();
-        $qss  = $ioc->get('org_tubepress_querystring_QueryStringService');
+        $qss  = $ioc->get('org_tubepress_api_querystring_QueryStringService');
         $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
 
         /* figure out which page we're on */        

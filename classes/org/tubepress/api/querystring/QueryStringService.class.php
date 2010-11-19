@@ -22,7 +22,7 @@
 /**
  * Handles some tasks related to the query string
  */
-interface org_tubepress_querystring_QueryStringService
+interface org_tubepress_api_querystring_QueryStringService
 {
     /**
      * Try to get the custom video ID from the query string

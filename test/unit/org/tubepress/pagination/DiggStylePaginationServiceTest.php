@@ -19,7 +19,7 @@ class org_tubepress_pagination_DiggStylePaginationServiceTest extends TubePressU
 	{
 		$mock = parent::getMock($className);
 		switch ($className) {
-			case 'org_tubepress_querystring_QueryStringService':
+			case 'org_tubepress_api_querystring_QueryStringService':
 				$mock->expects($this->any())
 				     ->method('getFullUrl')
 				     ->will($this->returnValue('http://ehough.com'));
