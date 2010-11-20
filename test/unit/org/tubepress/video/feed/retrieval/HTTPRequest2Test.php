@@ -11,7 +11,7 @@ class org_tubepress_video_feed_retrieval_HTTPRequest2Test extends TubePressUnitT
 	{
 		$this->initFakeIoc();
 		$this->_sut = new org_tubepress_video_feed_retrieval_HTTPRequest2();
-        org_tubepress_log_Log::setEnabled(false, array());
+        org_tubepress_util_Log::setEnabled(false, array());
 	}
 	
 	function testFetchGoodXmlCacheDisabled()

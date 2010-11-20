@@ -55,16 +55,16 @@ class org_tubepress_shortcode_SimpleShortcodeParser implements org_tubepress_api
         /* Match everything in square brackets after the trigger */
         $regexp = "\[$keyword\b(.*)\]";
 
-        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Regular expression for content is <tt>%s</tt>', $regexp);
+        org_tubepress_util_Log::log(self::LOG_PREFIX, 'Regular expression for content is <tt>%s</tt>', $regexp);
 
         preg_match("/$regexp/", $content, $matches);
 
         if (sizeof($matches) === 0) {
-            org_tubepress_log_Log::log(self::LOG_PREFIX, 'No shortcodes detected in content');
+            org_tubepress_util_Log::log(self::LOG_PREFIX, 'No shortcodes detected in content');
             return;
         }
 
-        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Found a shortcode: <tt>%s</tt>', $matches[0]);
+        org_tubepress_util_Log::log(self::LOG_PREFIX, 'Found a shortcode: <tt>%s</tt>', $matches[0]);
 
         $tpom->setShortcode($matches[0]);
 
@@ -77,14 +77,14 @@ class org_tubepress_shortcode_SimpleShortcodeParser implements org_tubepress_api
 
             if ( preg_match_all($pattern, $text, $match, PREG_SET_ORDER) ) {
 
-                org_tubepress_log_Log::log(self::LOG_PREFIX, 'Custom options detected in shortcode: <tt>%s</tt>', $matches[0]);
+                org_tubepress_util_Log::log(self::LOG_PREFIX, 'Custom options detected in shortcode: <tt>%s</tt>', $matches[0]);
 
                 $toReturn = self::_parseCustomOption($toReturn, $match, $ioc);
 
                 $tpom->setCustomOptions($toReturn);
             }
         } else {
-            org_tubepress_log_Log::log(self::LOG_PREFIX, 'No custom options detected in shortcode: <tt>%s</tt>', $matches[0]);
+            org_tubepress_util_Log::log(self::LOG_PREFIX, 'No custom options detected in shortcode: <tt>%s</tt>', $matches[0]);
         }
     }
 
@@ -126,13 +126,13 @@ class org_tubepress_shortcode_SimpleShortcodeParser implements org_tubepress_api
                 $value = self::_normalizeValue($m[6]);
             }
 
-            org_tubepress_log_Log::log(self::LOG_PREFIX, 'Custom shortcode detected: <tt>%s = %s</tt>', $name, (string)$value);
+            org_tubepress_util_Log::log(self::LOG_PREFIX, 'Custom shortcode detected: <tt>%s = %s</tt>', $name, (string)$value);
 
             try {
                 $inputValidationService->validate($name, $value);
                 $customOptions[$name] = $value;
             } catch (Exception $e) {
-                org_tubepress_log_Log::log(self::LOG_PREFIX, 'Ignoring invalid value for "<tt>%s</tt>" option: <tt>%s</tt>', $name, $e->getMessage());
+                org_tubepress_util_Log::log(self::LOG_PREFIX, 'Ignoring invalid value for "<tt>%s</tt>" option: <tt>%s</tt>', $name, $e->getMessage());
             }
         }
         return $customOptions;

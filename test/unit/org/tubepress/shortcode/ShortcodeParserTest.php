@@ -11,7 +11,7 @@ class org_tubepress_api_shortcode_ShortcodeParserTest extends TubePressUnitTest
 	{
 		$this->initFakeIoc();
 		$this->_sut = new org_tubepress_shortcode_SimpleShortcodeParser();
-		org_tubepress_log_Log::setEnabled(false, array());
+		org_tubepress_util_Log::setEnabled(false, array());
 	}
 
 	public function getMock($className)

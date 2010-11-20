@@ -15,7 +15,7 @@ class org_tubepress_api_provider_ProviderTest extends TubePressUnitTest
 	self::$_queryResultCount = 20;
 	$this->initFakeIoc();
 	$this->_sut = new org_tubepress_video_feed_provider_SimpleProvider();
-        org_tubepress_log_Log::setEnabled(false, array());
+        org_tubepress_util_Log::setEnabled(false, array());
     }
 
 	public function getMock($className)

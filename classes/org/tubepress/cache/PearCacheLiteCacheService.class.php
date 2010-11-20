@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
 || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_cache_Cache',
     'net_php_pear_Cache_Lite',
-    'org_tubepress_log_Log',
+    'org_tubepress_util_Log',
     'org_tubepress_util_FilesystemUtils'));
 
 /**
@@ -68,9 +68,9 @@ class org_tubepress_cache_PearCacheLiteCacheService implements org_tubepress_api
     {
         $has = $this->_cache->get($key) !== false;
         if ($has) {
-            org_tubepress_log_Log::log($this->_logPrefix, 'Cache hit for %s in directory %s', $key, $this->_cachePath);
+            org_tubepress_util_Log::log($this->_logPrefix, 'Cache hit for %s in directory %s', $key, $this->_cachePath);
         } else {
-            org_tubepress_log_Log::log($this->_logPrefix, 'Cache miss for %s in directory %s', $key, $this->_cachePath);
+            org_tubepress_util_Log::log($this->_logPrefix, 'Cache miss for %s in directory %s', $key, $this->_cachePath);
         }
         return $has;
     }
@@ -88,7 +88,7 @@ class org_tubepress_cache_PearCacheLiteCacheService implements org_tubepress_api
         if (!is_string($data)) {
             throw new Exception("Cache can only save string data");
         }
-        org_tubepress_log_Log::log($this->_logPrefix, 'Saving data to key at %s', $key);
+        org_tubepress_util_Log::log($this->_logPrefix, 'Saving data to key at %s', $key);
         $this->_cache->save($data, $key);
     }
 }

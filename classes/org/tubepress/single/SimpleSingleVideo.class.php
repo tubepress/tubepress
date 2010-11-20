@@ -62,7 +62,7 @@ class org_tubepress_single_SimpleSingleVideo implements org_tubepress_api_single
     private static function _getSingleVideoHtml($videoId, org_tubepress_api_ioc_IocService $ioc)
     {
         /* grab the video from the provider */
-        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Asking provider for video with ID %s', $videoId);
+        org_tubepress_util_Log::log(self::LOG_PREFIX, 'Asking provider for video with ID %s', $videoId);
         $provider = $ioc->get('org_tubepress_api_provider_Provider');
         $video = $provider->getSingleVideo($videoId);
 

@@ -35,11 +35,11 @@ class org_tubepress_ioc_IocDelegateUtils
         $provider = self::getProvider($ioc);
         
         if (array_key_exists($provider, $providerToBeanNameArray)) {
-            org_tubepress_log_Log::log('IOC Delegate Utils', 'Found custom delegate: %s', $providerToBeanNameArray[$provider]);
+            org_tubepress_util_Log::log('IOC Delegate Utils', 'Found custom delegate: %s', $providerToBeanNameArray[$provider]);
             return $ioc->get($providerToBeanNameArray[$provider]);
         }
         
-        org_tubepress_log_Log::log('IOC Delegate Utils', 'Falling back to default delegate: %s', $defaultDelegateBeanName);
+        org_tubepress_util_Log::log('IOC Delegate Utils', 'Falling back to default delegate: %s', $defaultDelegateBeanName);
         return $ioc->get($defaultDelegateBeanName);
     }
     

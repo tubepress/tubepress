@@ -77,7 +77,7 @@ class org_tubepress_env_wordpress_Main
         $tpom = $iocContainer->get('org_tubepress_api_options_OptionsManager');
 
         /* Turn on logging if we need to */
-        org_tubepress_log_Log::setEnabled($tpom->get(org_tubepress_api_const_options_Advanced::DEBUG_ON), $_GET);
+        org_tubepress_util_Log::setEnabled($tpom->get(org_tubepress_api_const_options_Advanced::DEBUG_ON), $_GET);
 
         /* Grab the gallery that will do the heavy lifting */
         $gallery = $iocContainer->get('org_tubepress_api_gallery_Gallery');

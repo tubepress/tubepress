@@ -12,7 +12,7 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends TubePressUnitT
 	$this->initFakeIoc();
         $this->_sampleFeedOne = file_get_contents(dirname(__FILE__) . '/playlist.xml');
         $this->_sut = new org_tubepress_video_factory_impl_YouTubeVideoFactory();
-        org_tubepress_log_Log::setEnabled(false, array());
+        org_tubepress_util_Log::setEnabled(false, array());
     }
 
     function testViews()

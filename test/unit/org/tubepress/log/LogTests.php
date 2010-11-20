@@ -7,7 +7,7 @@ class LogTests
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('TubePress Log Tests');
-        $suite->addTestSuite('org_tubepress_log_LogImplTest');
+        $suite->addTestSuite('org_tubepress_util_LogImplTest');
         return $suite;
     }
 }

@@ -22,7 +22,7 @@
 /**
  * Logger
  */
-class org_tubepress_log_Log
+class org_tubepress_util_Log
 {
     private static $_birthDate;
     private static $_enabled = false;

@@ -65,7 +65,7 @@ class org_tubepress_env_wordpress_Widget
         $gallery      = $iocContainer->get('org_tubepress_api_gallery_Gallery');
 
         /* Turn on logging if we need to */
-        org_tubepress_log_Log::setEnabled($tpom->get(org_tubepress_api_const_options_Advanced::DEBUG_ON), $_GET);
+        org_tubepress_util_Log::setEnabled($tpom->get(org_tubepress_api_const_options_Advanced::DEBUG_ON), $_GET);
 
         /* default widget options */
         $defaultWidgetOptions = array(
