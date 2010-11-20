@@ -22,7 +22,7 @@
 /**
  * Detects TubePress's environment
  */
-class org_tubepress_env_EnvironmentDetector
+class org_tubepress_util_EnvironmentDetector
 {
     /**
      * Detects if the user is running TubePress Pro.
