@@ -223,10 +223,10 @@ TubePressEmbedded = (function () {
 	
 	objCss = function (galleryId, attribute) {
 		var wrapperId	= '#tubepress_embedded_object_' + galleryId,
-			wrapper		= jQuery(wrapperId),
-			obj			= jQuery(wrapperId + ' > object'),
-			params		= obj.children('param');
-		return parseInt(obj.css(attribute), 10);	
+			wrapper	= jQuery(wrapperId),
+			obj	= jQuery(wrapperId + ' > object'),
+			regex 	= new RegExp(attribute + '[\\s]*:[\\s]*([\\d]+)');
+		return parseInt(obj.attr('style').match(regex)[1], 10);
 	};
 	
 	vimeoIframe = function (galleryId) {
