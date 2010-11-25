@@ -45,9 +45,10 @@ class org_tubepress_url_impl_DelegatingUrlBuilder implements org_tubepress_url_U
      */
     public function buildGalleryUrl($currentPage)
     {
-        return org_tubepress_ioc_IocDelegateUtils::getDelegate(
-            self::$_providerToBeanNameMap, 
-            self::$_defaultDelegateName)->buildGalleryUrl($currentPage);
+        $ioc     = org_tubepress_ioc_IocContainer::getInstance();
+        $builder = $ioc->get('org_tubepress_url_UrlBuilder', org_tubepress_ioc_IocDelegateUtils::getProvider($ioc));
+        
+        return $builder->buildGalleryUrl($currentPage);
     }
 
     /**

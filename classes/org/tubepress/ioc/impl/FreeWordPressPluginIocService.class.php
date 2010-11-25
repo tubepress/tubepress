@@ -19,74 +19,47 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_ioc_impl_PhpCraftyIocService',
-    'org_tubepress_browser_BrowserDetector',                     'org_tubepress_browser_MobileEspBrowserDetector',
-    'org_tubepress_cache_CacheService',                          'org_tubepress_cache_PearCacheLiteCacheService',
-    'org_tubepress_embedded_EmbeddedPlayerService',              'org_tubepress_embedded_impl_DelegatingEmbeddedPlayerService',
-    'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService',
-    'org_tubepress_gallery_Gallery',                             'org_tubepress_gallery_SimpleGallery',
-    'org_tubepress_message_MessageService',                      'org_tubepress_message_impl_WordPressMessageService',
-    'org_tubepress_options_manager_OptionsManager',              'org_tubepress_options_manager_SimpleOptionsManager',    
-    'org_tubepress_options_storage_StorageManager',              'org_tubepress_options_storage_WordPressStorageManager',
-    'org_tubepress_options_validation_InputValidationService',   'org_tubepress_options_validation_SimpleInputValidationService',
-    'org_tubepress_pagination_PaginationService',                'org_tubepress_pagination_DiggStylePaginationService',
-    'org_tubepress_player_Player',                               'org_tubepress_player_SimplePlayer',
-    'org_tubepress_querystring_QueryStringService',              'org_tubepress_querystring_SimpleQueryStringService',
-    'org_tubepress_shortcode_ShortcodeParser',                   'org_tubepress_shortcode_SimpleShortcodeParser',
-    'org_tubepress_single_SingleVideo',                          'org_tubepress_single_SimpleSingleVideo',
-    'org_tubepress_theme_ThemeHandler',                          'org_tubepress_theme_SimpleThemeHandler',
-    'org_tubepress_url_UrlBuilder',                              'org_tubepress_url_impl_DelegatingUrlBuilder',
-    'org_tubepress_video_factory_VideoFactory',                  'org_tubepress_video_factory_DelegatingVideoFactory',
-    'org_tubepress_video_feed_inspection_FeedInspectionService', 'org_tubepress_video_feed_inspection_DelegatingFeedInspectionService',
-    'org_tubepress_video_feed_provider_Provider',                'org_tubepress_video_feed_provider_SimpleProvider',
-    'org_tubepress_video_feed_retrieval_FeedRetrievalService',   'org_tubepress_video_feed_retrieval_HTTPRequest2',
-    'org_tubepress_embedded_impl_VimeoEmbeddedPlayerService',    'org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService',
-    'org_tubepress_url_impl_VimeoUrlBuilder',
-    'org_tubepress_video_feed_inspection_impl_VimeoFeedInspectionService',
-    'org_tubepress_video_feed_inspection_impl_YouTubeFeedInspectionService',
-    'org_tubepress_url_impl_YouTubeUrlBuilder',
-    'org_tubepress_video_factory_impl_YouTubeVideoFactory',
-    'org_tubepress_video_factory_impl_VimeoVideoFactory'
+function_exists('tubepress_load_classes') || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
+tubepress_load_classes(array(
+    'org_tubepress_ioc_impl_TubePressIocService',
+    'org_tubepress_video_feed_provider_Provider'));
 
-));
 
 /**
  * Dependency injector for TubePress in a WordPress environment
  */
-class org_tubepress_ioc_impl_FreeWordPressPluginIocService extends org_tubepress_ioc_impl_PhpCraftyIocService
+class org_tubepress_ioc_impl_FreeWordPressPluginIocService extends org_tubepress_ioc_impl_TubePressIocService
 {
     /**
      * Default constructor.
      */
     function __construct()
     {
-        $implementationMap = array(
-            'org_tubepress_browser_BrowserDetector'                     => 'org_tubepress_browser_MobileEspBrowserDetector',
-            'org_tubepress_cache_CacheService'                          => 'org_tubepress_cache_PearCacheLiteCacheService',
-            'org_tubepress_embedded_EmbeddedPlayerService'              => 'org_tubepress_embedded_impl_DelegatingEmbeddedPlayerService',
-            'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService'  => 'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService',
-            'org_tubepress_gallery_Gallery'                             => 'org_tubepress_gallery_SimpleGallery',
-            'org_tubepress_message_MessageService'                      => 'org_tubepress_message_impl_WordPressMessageService',
-            'org_tubepress_options_manager_OptionsManager'              => 'org_tubepress_options_manager_SimpleOptionsManager',    
-            'org_tubepress_options_storage_StorageManager'              => 'org_tubepress_options_storage_WordPressStorageManager',
-            'org_tubepress_options_validation_InputValidationService'   => 'org_tubepress_options_validation_SimpleInputValidationService',    
-            'org_tubepress_pagination_PaginationService'                => 'org_tubepress_pagination_DiggStylePaginationService',
-            'org_tubepress_player_Player'                               => 'org_tubepress_player_SimplePlayer',
-            'org_tubepress_querystring_QueryStringService'              => 'org_tubepress_querystring_SimpleQueryStringService',
-            'org_tubepress_shortcode_ShortcodeParser'                   => 'org_tubepress_shortcode_SimpleShortcodeParser',
-            'org_tubepress_single_SingleVideo'                          => 'org_tubepress_single_SimpleSingleVideo',
-            'org_tubepress_theme_ThemeHandler'                          => 'org_tubepress_theme_SimpleThemeHandler',
-            'org_tubepress_url_UrlBuilder'                              => 'org_tubepress_url_impl_DelegatingUrlBuilder',
-            'org_tubepress_video_factory_VideoFactory'                  => 'org_tubepress_video_factory_DelegatingVideoFactory',
-            'org_tubepress_video_feed_inspection_FeedInspectionService' => 'org_tubepress_video_feed_inspection_DelegatingFeedInspectionService',
-            'org_tubepress_video_feed_provider_Provider'                => 'org_tubepress_video_feed_provider_SimpleProvider',
-            'org_tubepress_video_feed_retrieval_FeedRetrievalService'   => 'org_tubepress_video_feed_retrieval_HTTPRequest2'
-       );
+        parent::__construct();
         
-        foreach ($implementationMap as $interface => $implementation) {
-            $this->def($interface, $this->impl($implementation));
-        }
+        $this->bind('org_tubepress_browser_BrowserDetector')                    ->to('org_tubepress_browser_MobileEspBrowserDetector');
+        $this->bind('org_tubepress_cache_CacheService')                         ->to('org_tubepress_cache_PearCacheLiteCacheService');
+        $this->bind('org_tubepress_embedded_EmbeddedPlayerService')             ->to('org_tubepress_embedded_impl_DelegatingEmbeddedPlayerService');
+        $this->bind('org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService') ->to('org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService');
+        $this->bind('org_tubepress_gallery_Gallery')                            ->to('org_tubepress_gallery_SimpleGallery');
+        $this->bind('org_tubepress_message_MessageService')                     ->to('org_tubepress_message_impl_WordPressMessageService');
+        $this->bind('org_tubepress_options_manager_OptionsManager')             ->to('org_tubepress_options_manager_SimpleOptionsManager');    
+        $this->bind('org_tubepress_options_storage_StorageManager')             ->to('org_tubepress_options_storage_WordPressStorageManager');
+        $this->bind('org_tubepress_options_validation_InputValidationService')  ->to('org_tubepress_options_validation_SimpleInputValidationService');    
+        $this->bind('org_tubepress_pagination_PaginationService')               ->to('org_tubepress_pagination_DiggStylePaginationService');
+        $this->bind('org_tubepress_player_Player')                              ->to('org_tubepress_player_SimplePlayer');
+        $this->bind('org_tubepress_querystring_QueryStringService')             ->to('org_tubepress_querystring_SimpleQueryStringService');
+        $this->bind('org_tubepress_shortcode_ShortcodeParser')                  ->to('org_tubepress_shortcode_SimpleShortcodeParser');
+        $this->bind('org_tubepress_single_SingleVideo')                         ->to('org_tubepress_single_SimpleSingleVideo');
+        $this->bind('org_tubepress_theme_ThemeHandler')                         ->to('org_tubepress_theme_SimpleThemeHandler');
+        
+        $this->bind('org_tubepress_url_UrlBuilder')                             ->to('org_tubepress_url_impl_DelegatingUrlBuilder');
+        $this->bind('org_tubepress_url_UrlBuilder')                             ->labeled(org_tubepress_video_feed_provider_Provider::YOUTUBE)
+                                                                                ->to('org_tubepress_url_impl_YouTubeUrlBuilder');
+        
+        $this->bind('org_tubepress_video_factory_VideoFactory')                 ->to('org_tubepress_video_factory_DelegatingVideoFactory');
+        $this->bind('org_tubepress_video_feed_inspection_FeedInspectionService')->to('org_tubepress_video_feed_inspection_DelegatingFeedInspectionService');
+        $this->bind('org_tubepress_video_feed_provider_Provider')               ->to('org_tubepress_video_feed_provider_SimpleProvider');
+        $this->bind('org_tubepress_video_feed_retrieval_FeedRetrievalService')  ->to('org_tubepress_video_feed_retrieval_HTTPRequest2');
     }
 }
