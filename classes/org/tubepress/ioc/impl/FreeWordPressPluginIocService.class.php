@@ -24,7 +24,6 @@ tubepress_load_classes(array(
     'org_tubepress_ioc_impl_TubePressIocService',
     'org_tubepress_video_feed_provider_Provider'));
 
-
 /**
  * Dependency injector for TubePress in a WordPress environment
  */
@@ -39,7 +38,11 @@ class org_tubepress_ioc_impl_FreeWordPressPluginIocService extends org_tubepress
         
         $this->bind('org_tubepress_browser_BrowserDetector')                    ->to('org_tubepress_browser_MobileEspBrowserDetector');
         $this->bind('org_tubepress_cache_CacheService')                         ->to('org_tubepress_cache_PearCacheLiteCacheService');
+        
         $this->bind('org_tubepress_embedded_EmbeddedPlayerService')             ->to('org_tubepress_embedded_impl_DelegatingEmbeddedPlayerService');
+        $this->bind('org_tubepress_embedded_EmbeddedPlayerService')             ->labeled(org_tubepress_video_feed_provider_Provider::YOUTUBE)
+                                                                                ->to('org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService');
+        
         $this->bind('org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService') ->to('org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService');
         $this->bind('org_tubepress_gallery_Gallery')                            ->to('org_tubepress_gallery_SimpleGallery');
         $this->bind('org_tubepress_message_MessageService')                     ->to('org_tubepress_message_impl_WordPressMessageService');
@@ -58,7 +61,13 @@ class org_tubepress_ioc_impl_FreeWordPressPluginIocService extends org_tubepress
                                                                                 ->to('org_tubepress_url_impl_YouTubeUrlBuilder');
         
         $this->bind('org_tubepress_video_factory_VideoFactory')                 ->to('org_tubepress_video_factory_DelegatingVideoFactory');
+        $this->bind('org_tubepress_video_factory_VideoFactory')                 ->labeled(org_tubepress_video_feed_provider_Provider::YOUTUBE)
+                                                                                ->to('org_tubepress_video_factory_impl_YouTubeVideoFactory');
+        
         $this->bind('org_tubepress_video_feed_inspection_FeedInspectionService')->to('org_tubepress_video_feed_inspection_DelegatingFeedInspectionService');
+        $this->bind('org_tubepress_video_feed_inspection_FeedInspectionService')->labeled(org_tubepress_video_feed_provider_Provider::YOUTUBE)
+                                                                                ->to('org_tubepress_video_feed_inspection_impl_YouTubeFeedInspectionService');
+        
         $this->bind('org_tubepress_video_feed_provider_Provider')               ->to('org_tubepress_video_feed_provider_SimpleProvider');
         $this->bind('org_tubepress_video_feed_retrieval_FeedRetrievalService')  ->to('org_tubepress_video_feed_retrieval_HTTPRequest2');
     }

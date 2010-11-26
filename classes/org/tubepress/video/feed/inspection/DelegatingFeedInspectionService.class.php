@@ -22,28 +22,29 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_video_feed_inspection_FeedInspectionService',
-    'org_tubepress_options_manager_OptionsManager'));
+    'org_tubepress_ioc_IocContainer',
+    'org_tubepress_util_ProviderCalculator'));
 
 /**
  * Sends the feed to the right inspection service based on the provider.
  */
-class org_tubepress_video_feed_inspection_DelegatingFeedInspectionService
+class org_tubepress_video_feed_inspection_DelegatingFeedInspectionService implements org_tubepress_video_feed_inspection_FeedInspectionService
 {
-    private static $_providerToBeanNameMap = array(
-        org_tubepress_video_feed_provider_Provider::VIMEO => 'org_tubepress_video_feed_inspection_impl_VimeoFeedInspectionService'
-    );
-
-    private static $_defaultDelegateBeanName = 'org_tubepress_video_feed_inspection_impl_YouTubeFeedInspectionService';
-
-    public static function getTotalResultCount($rawFeed)
+    public function getTotalResultCount($rawFeed)
     {
-        return org_tubepress_ioc_IocDelegateUtils::getDelegate(self::$_providerToBeanNameMap,
-           self::$_defaultDelegateBeanName)->getTotalResultCount($rawFeed);
+        $insp = self::_getDelegate();
+        return $insp->getTotalResultCount($rawFeed);
     }
 
-    public static function getQueryResultCount($rawFeed)
+    public function getQueryResultCount($rawFeed)
     {
-        return org_tubepress_ioc_IocDelegateUtils::getDelegate(self::$_providerToBeanNameMap,
-            self::$_defaultDelegateBeanName)->getQueryResultCount($rawFeed);
+        $insp = self::_getDelegate();
+        return $insp->getQueryResultCount($rawFeed);
+    }
+    
+    private static function _getDelegate()
+    {
+        $ioc  = org_tubepress_ioc_IocContainer::getInstance();
+        return $ioc->get('org_tubepress_video_feed_inspection_FeedInspectionService', org_tubepress_util_ProviderCalculator::calculateCurrentVideoProvider());    
     }
 }

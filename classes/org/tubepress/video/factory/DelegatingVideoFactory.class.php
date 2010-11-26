@@ -22,21 +22,14 @@
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_video_factory_VideoFactory',
-    'org_tubepress_options_manager_OptionsManager',
-    'org_tubepress_ioc_IocDelegateUtils',
-    'org_tubepress_video_factory_impl_VimeoVideoFactory'));
+    'org_tubepress_ioc_IocContainer',
+    'org_tubepress_util_ProviderCalculator'));
 
 /**
  * Video factory that sends the feed to the right video factory based on the provider
  */
 class org_tubepress_video_factory_DelegatingVideoFactory implements org_tubepress_video_factory_VideoFactory
 {
-    private static $_providerToBeanNameMap = array(
-        org_tubepress_video_feed_provider_Provider::VIMEO => 'org_tubepress_video_factory_impl_VimeoVideoFactory'
-    );
-    
-    private static $_defaultDelegateName = 'org_tubepress_video_factory_impl_YouTubeVideoFactory';
-    
     /**
      * Converts raw video feeds to TubePress videos
      *
@@ -47,15 +40,19 @@ class org_tubepress_video_factory_DelegatingVideoFactory implements org_tubepres
      */
     public function feedToVideoArray($feed, $limit)
     {
-        return org_tubepress_ioc_IocDelegateUtils::getDelegate(self::$_providerToBeanNameMap, 
-            self::$_defaultDelegateName)->feedToVideoArray($feed, $limit);
+        $fact = self::_getDelegate();
+        return $fact->feedToVideoArray($feed, $limit);
     }
     
     public function convertSingleVideo($feed)
     {
-        return org_tubepress_ioc_IocDelegateUtils::getDelegate(self::$_providerToBeanNameMap, 
-            self::$_defaultDelegateName)->convertSingleVideo($feed);
+        $fact = self::_getDelegate();
+        return $fact->convertSingleVideo($feed);
     }
     
-
+    private static function _getDelegate()
+    {
+        $ioc  = org_tubepress_ioc_IocContainer::getInstance();
+        return $ioc->get('org_tubepress_video_factory_VideoFactory', org_tubepress_util_ProviderCalculator::calculateCurrentVideoProvider());    
+    }
 }

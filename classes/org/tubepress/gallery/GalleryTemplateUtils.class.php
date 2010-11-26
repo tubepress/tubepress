@@ -30,7 +30,8 @@ tubepress_load_classes(array('org_tubepress_ioc_IocService',
     'org_tubepress_template_SimpleTemplate',
     'org_tubepress_querystring_QueryStringService',
     'org_tubepress_video_feed_provider_Provider',
-    'org_tubepress_util_FilesystemUtils'));
+    'org_tubepress_util_FilesystemUtils',
+    'org_tubepress_util_ProviderCalculator'));
 
 /**
  * 
@@ -153,7 +154,7 @@ class org_tubepress_gallery_GalleryTemplateUtils
         if ($stored === org_tubepress_embedded_EmbeddedPlayerService::LONGTAIL) {
             return $stored;
         }
-        return $provider->calculateCurrentVideoProvider($tpom);
+        return org_tubepress_util_ProviderCalculator::calculateCurrentVideoProvider();
     }
 
     private static function _prepMetaInfo(org_tubepress_template_Template $template, org_tubepress_ioc_IocService $ioc)
