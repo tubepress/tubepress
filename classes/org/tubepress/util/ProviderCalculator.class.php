@@ -23,7 +23,8 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
     'org_tubepress_options_category_Gallery',
-    'org_tubepress_video_feed_provider_Provider'));
+    'org_tubepress_video_feed_provider_Provider',
+    'org_tubepress_util_ProviderCalculator'));
 
 /**
  * Calculates video provider in use.
@@ -43,7 +44,7 @@ class org_tubepress_util_ProviderCalculator
 
         /* requested a single video, and it's not vimeo or directory, so must be youtube */
         if ($video != '') {
-            return org_tubepress_video_feed_provider_Provider::calculateProviderOfVideoId($video);
+            return org_tubepress_util_ProviderCalculator::calculateProviderOfVideoId($video);
         }
 
         /* calculate based on gallery content */
