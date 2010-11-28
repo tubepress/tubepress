@@ -16,6 +16,9 @@ Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and/or sideb
 
 == Changelog ==
 
+= 2.1.1 =
+* Fixed player popup functionality for jQuery 1.4.2
+
 = 2.1.0 =
 * Ability to create galleries from multiple sources (TubePress Pro only) (closes issue 135)
 * Lightweight theming support
