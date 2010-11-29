@@ -55,6 +55,6 @@ class org_tubepress_url_impl_DelegatingUrlBuilder implements org_tubepress_url_U
         $ioc     = org_tubepress_ioc_IocContainer::getInstance();
         $builder = $ioc->get('org_tubepress_url_UrlBuilder', org_tubepress_util_ProviderCalculator::calculateProviderOfVideoId($id));
         
-        return $builder->buildSingleVideoUrl($currentPage);
+        return $builder->buildSingleVideoUrl($id);
     }
 }

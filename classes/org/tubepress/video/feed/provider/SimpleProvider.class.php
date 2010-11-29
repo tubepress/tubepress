@@ -117,9 +117,10 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
     public function getSingleVideo($customVideoId)
     {
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'Fetching video with ID <tt>%s</tt>', $customVideoId);
-	$ioc = org_tubepress_ioc_IocContainer::getInstance();
-	$urlBuilder = $ioc->get('org_tubepress_url_UrlBuilder');
-        $videoUrl = $urlBuilder->buildSingleVideoUrl($customVideoId);
+	    
+        $ioc        = org_tubepress_ioc_IocContainer::getInstance();
+        $urlBuilder = $ioc->get('org_tubepress_url_UrlBuilder');
+        $videoUrl   = $urlBuilder->buildSingleVideoUrl($customVideoId);
 
         org_tubepress_log_Log::log(self::LOG_PREFIX, 'URL to fetch is %s', $videoUrl);
 
