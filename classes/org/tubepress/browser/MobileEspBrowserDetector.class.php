@@ -19,6 +19,10 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
+tubepress_load_classes(array('org_tubepress_browser_BrowserDetector'));
+
 /**
  * HTTP client detection service. Yanked just about all of this code from
  * http://mobileesp.googlecode.com/.
