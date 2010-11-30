@@ -23,7 +23,8 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array(
     'org_tubepress_embedded_EmbeddedPlayerService',
-    'org_tubepress_ioc_IocContainer'));
+    'org_tubepress_ioc_IocContainer',
+    'org_tubepress_embedded_impl_EmbeddedPlayerUtils'));
 
 /**
  * An HTML-embeddable player for Vimeo.
