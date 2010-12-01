@@ -63,6 +63,9 @@ msgstr "Limite di 200 video per ogni playlist. Assomiglia ad una sequenza tipo q
 msgid "Most-viewed videos from"
 msgstr "i video più visti di"
 
+msgid "Videos most frequently flagged as favorites from..."
+msgstr "I video maggiormente segnalati come preferiti..."
+
 msgid "Most-recently added videos"
 msgstr "i video più recenti"
 
@@ -71,6 +74,30 @@ msgstr "i video più commentati"
 
 msgid "Most-responded to videos"
 msgstr "i video con più risposte"
+
+msgid "Videos uploaded by this Vimeo user"
+msgstr "Video caricati da questo utente Vimeo"
+
+msgid "Videos this Vimeo user likes"
+msgstr "I video che piacciono questo utente Vimeo"
+
+msgid "Videos this Vimeo user appears in"
+msgstr "Video nei quali appare questo utente Vimeo"
+
+msgid "Vimeo search for..."
+msgstr "Ricerca Vimeo per..."
+
+msgid "Videos credited to this Vimeo user (either appears in or uploaded by)"
+msgstr "Video accreditati a questo utente Vimeo (presenti o caricati da)"
+
+msgid "Videos in this Vimeo channel"
+msgstr "Video in questo canale Vimeo"
+
+msgid "Videos from this Vimeo album"
+msgstr "Video da questo album Vimeo"
+
+msgid "Videos from this Vimeo group"
+msgstr "Video da questo gruppo Vimeo"
 
 msgid "Views"
 msgstr "Visualizzazioni"
@@ -126,6 +153,9 @@ msgstr "Mostra l'impaginazione sopra le miniature"
 msgid "Show pagination below thumbnails"
 msgstr "Mostra l'impaginazione sotto le miniature"
 
+msgid "Use high-quality thumbnails"
+msgstr "Usa miniature di alta qualità"
+
 msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-enabled pagination"
 msgstr "Attiva impaginazione-<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a> "
 
@@ -145,7 +175,7 @@ msgid "Show border"
 msgstr "Mostra bordo"
 
 msgid "Allow fullscreen playback"
-msgstr "Permetti la riproduzione a chermo intero"
+msgstr "Permetti la riproduzione a schermo intero"
 
 msgid "Max height (px)"
 msgstr "dimensioni (px)"
@@ -213,6 +243,9 @@ msgstr "ID"
 msgid "Length"
 msgstr "Lunghezza"
 
+msgid "Likes"
+msgstr "Piace"
+
 msgid "Rating"
 msgstr "Valutazione"
 
@@ -243,6 +276,12 @@ msgstr "Formato data"
 msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\">date</a> for examples."
 msgstr "Imposta la formattazione del testo per le informazioni sulla data del video. Vai <a href=\"http://us.php.net/date\">qui</a> per maggiori informazioni."
 
+msgid "Videos blacklist"
+msgstr "Blacklist video"
+
+msgid "List of video IDs that should never be displayed"
+msgstr "Lista ID video da non mostrare mai "
+
 msgid "Enable debugging"
 msgstr "Attiva debugging"
 
@@ -256,7 +295,7 @@ msgid "Don't show videos that may not be suitable for minors."
 msgstr "Non verranno mostrati i video non adatti per un pubblico di minori."
 
 msgid "Shortcode keyword"
-msgstr "Shortcode keyword"
+msgstr "Parola chiave shortcode"
 
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "La parola che inserirai (come testo racchiuso tra le parentesi quadre) nei tuoi articoli/pagine per poter mostrare una galleria."
@@ -303,6 +342,9 @@ msgstr "in una finestra popup"
 msgid "from the video's original YouTube page"
 msgstr "nella pagina originale di YouTube"
 
+msgid "from the video's original Vimeo page"
+msgstr "dalla pagina originale Vimeo del video"
+
 msgid "with FancyBox"
 msgstr "con FancyBox"
 
@@ -317,6 +359,9 @@ msgstr "con Shadowbox"
 
 msgid "statically (page refreshes on each thumbnail click)"
 msgstr "staticamente (ricarica pagina ad ogni click/miniatura)"
+
+msgid "in a new window on its own"
+msgstr "in una nuova finestra"
 
 msgid "relevance"
 msgstr "per rilevanza"
@@ -390,48 +435,6 @@ msgstr "Implementazione"
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)"
 msgstr "Il marchio del player. Predefinito al player del provider (YouTube, Vimeo, etc)"
 
-msgid "Videos uploaded by this Vimeo user"
-msgstr "Video caricati da questo utente Vimeo"
-
-msgid "Videos this Vimeo user likes"
-msgstr "I video che piacciono questo utente Vimeo"
-
-msgid "Videos this Vimeo user appears in"
-msgstr "Video nei quali appare questo utente Vimeo"
-
-msgid "Vimeo search for..."
-msgstr "Ricerca Vimeo per..."
-
-msgid "Videos credited to this Vimeo user (either appears in or uploaded by)"
-msgstr "Video accreditati a questo utente Vimeo (presenti o caricati da)"
-
-msgid "Videos in this Vimeo channel"
-msgstr "Video in questo canale Vimeo"
-
-msgid "Videos from this Vimeo album"
-msgstr "Video da questo album Vimeo"
-
-msgid "Videos from this Vimeo group"
-msgstr "Video da questo gruppo Vimeo"
-
-msgid "Use high-quality thumbnails"
-msgstr "Usa miniature di alta qualità"
-
-msgid "Videos blacklist"
-msgstr "Blacklist video"
-
-msgid "List of video IDs that should never be displayed"
-msgstr "Lista ID video da non mostrare mai "
-
-msgid "in a new window on its own"
-msgstr "in una nuova finestra"
-
-msgid "from the video's original Vimeo page"
-msgstr "dalla pagina originale Vimeo del video"
-
-msgid "Likes"
-msgstr "Piace"
-
 #
 # VALIDATION
 #
@@ -466,38 +469,35 @@ msgid "Note: this option cannot be used with the \"randomize thumbnails\" featur
 msgstr "Nota: questa opzione non può essere utilizzata con la funzione \"casualizza le miniature\""
 
 msgid "%s is not executable or does not exist."
-msgstr ""
+msgstr "%s non é eseguibile oppure non esiste."
 
 msgid "Thumbs per video"
-msgstr ""
+msgstr "Miniature video"
 
 msgid "How many thumbnails to generate for each video. TubePress can randomly display the thumbs each time someone visits the gallery. See the \"Randomize thumbnails\" option under the \"Appearance\" tab."
-msgstr ""
+msgstr "Quante miniature da generare per ogni video. TubePress può mostrare casualmente le miniature ogni qualvolta che qualcuno visiti la galleria. Vai alla opzione \"Casualizza le miniature\" sotto il tab \"Aspetto\"."
 
 msgid "This option cannot contain two consecutive periods"
-msgstr ""
+msgstr "Questa opzione non può contenere due periodi consegutivi"
 
 msgid "%s is not a directory"
-msgstr ""
+msgstr "%s non è una directory"
 
 msgid "%s is not readable"
-msgstr ""
+msgstr "%s non é leggibile"
 
 msgid "Theme"
-msgstr ""
+msgstr "Tema"
 
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>."
-msgstr ""
-
-msgid "Videos most frequently flagged as favorites from..."
-msgstr ""
+msgstr "Il tema di TubePress da usare per questa galleria. I tuoi temi sono sotto <tt>%s</tt>, mentre i predefiniti li trovi in <tt>%s</tt>."
 
 msgid "Vimeo API \"Consumer Key\""
-msgstr ""
+msgstr "API Vimeo \"Consumer Key\""
 
 msgid "<a href=\"http://vimeo.com/api/applications/new\">Click here</a> to register for a consumer key and secret."
-msgstr ""
+msgstr "<a href=\"http://vimeo.com/api/applications/new\">Clicca qui</a> per ottenere le chiavi consumer e secret."
 
 msgid "Vimeo API \"Consumer Secret\""
-msgstr ""
+msgstr "API Vimeo \"Consumer Secret\""
 
