@@ -16,6 +16,10 @@ Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and/or sideb
 
 == Changelog ==
 
+= 2.1.1 =
+* Fixed major JavaScript bug in determining embedded player height/width on jQuery 1.4.2
+* Fixed bug with ajax pagination on some PHP installations
+
 = 2.1.0 =
 * Ability to create galleries from multiple sources (TubePress Pro only) (closes issue 135)
 * Lightweight theming support

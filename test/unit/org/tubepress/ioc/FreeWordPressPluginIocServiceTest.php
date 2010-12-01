@@ -35,13 +35,6 @@ class org_tubepress_ioc_FreeWordPressPluginIocServiceTest extends TubePressUnitT
             'org_tubepress_api_provider_Provider'                => 'org_tubepress_video_feed_provider_SimpleProvider',
             'org_tubepress_api_feed_FeedFetcher'   => 'org_tubepress_video_feed_retrieval_HTTPRequest2',
         
-            'org_tubepress_embedded_impl_VimeoEmbeddedPlayerService'                => 'org_tubepress_embedded_impl_VimeoEmbeddedPlayerService',
-            'org_tubepress_url_impl_VimeoUrlBuilder'                                => 'org_tubepress_url_impl_VimeoUrlBuilder',
-            'org_tubepress_video_feed_inspection_impl_VimeoFeedInspectionService'   => 'org_tubepress_video_feed_inspection_impl_VimeoFeedInspectionService',
-            'org_tubepress_video_feed_inspection_impl_YouTubeFeedInspectionService' => 'org_tubepress_video_feed_inspection_impl_YouTubeFeedInspectionService',
-            'org_tubepress_url_impl_YouTubeUrlBuilder'                              => 'org_tubepress_url_impl_YouTubeUrlBuilder',
-            'org_tubepress_video_factory_impl_YouTubeVideoFactory'                  => 'org_tubepress_video_factory_impl_YouTubeVideoFactory',
-            'org_tubepress_video_factory_impl_VimeoVideoFactory'                    => 'org_tubepress_video_factory_impl_VimeoVideoFactory'
         );
     }
 

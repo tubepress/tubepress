@@ -47,16 +47,4 @@ interface org_tubepress_api_provider_Provider
      * @return org_tubepress_api_video_Video The video.
      */
     public function getSingleVideo($customVideoId);
-
-    /**
-     * Determine the current video provider.
-     *
-     * @param org_tubepress_api_options_OptionsManager $tpom The options manager.
-     *
-     * @return string 'youtube', 'vimeo', or 'directory'
-     */
-    public function calculateCurrentVideoProvider(org_tubepress_api_options_OptionsManager $tpom);
-
-    public function calculateProviderOfVideoId($videoId);
-
 }

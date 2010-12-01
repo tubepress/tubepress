@@ -25,7 +25,8 @@ tubepress_load_classes(array('org_tubepress_api_provider_Provider',
     'org_tubepress_util_Log',
     'org_tubepress_api_feed_UrlBuilder',
     'org_tubepress_api_const_options_Feed',
-    'org_tubepress_api_feed_FeedResult'));
+    'org_tubepress_api_feed_FeedResult',
+    'org_tubepress_util_ProviderCalculator'));
 
 /**
  * Interface to a remove video provider
@@ -49,7 +50,7 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
         $currentPage = $qss->getPageNum($_GET);
         org_tubepress_util_Log::log(self::LOG_PREFIX, 'Current page number is %d', $currentPage);
 
-        $provider = $this->calculateCurrentVideoProvider($tpom);
+        $provider = org_tubepress_util_ProviderCalculator::calculateCurrentVideoProvider();
 
         /* build the request URL */
         $urlBuilder = $ioc->get('org_tubepress_api_feed_UrlBuilder');
@@ -116,9 +117,10 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
     public function getSingleVideo($customVideoId)
     {
         org_tubepress_util_Log::log(self::LOG_PREFIX, 'Fetching video with ID <tt>%s</tt>', $customVideoId);
-	$ioc = org_tubepress_ioc_IocContainer::getInstance();
+
+	$ioc        = org_tubepress_ioc_IocContainer::getInstance();
 	$urlBuilder = $ioc->get('org_tubepress_api_feed_UrlBuilder');
-        $videoUrl = $urlBuilder->buildSingleVideoUrl($customVideoId);
+        $videoUrl   = $urlBuilder->buildSingleVideoUrl($customVideoId);
 
         org_tubepress_util_Log::log(self::LOG_PREFIX, 'URL to fetch is %s', $videoUrl);
 
@@ -129,44 +131,6 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
         $videoArray           = $factory->convertSingleVideo($results, 1);
 
         return $videoArray[0];
-    }
-
-    /**
-     * Determine the current video provider.
-     *
-     * @param org_tubepress_api_options_OptionsManager $tpom The options manager.
-     *
-     * @return string 'youtube', 'vimeo', or 'directory'
-     */
-    public function calculateCurrentVideoProvider(org_tubepress_api_options_OptionsManager $tpom)
-    {
-        $video = $tpom->get(org_tubepress_api_const_options_Gallery::VIDEO);
-
-        /* requested a single video, and it's not vimeo or directory, so must be youtube */
-        if ($video != '') {
-            return self::calculateProviderOfVideoId($video);
-        }
-
-        /* calculate based on gallery content */
-        $currentMode = $tpom->get(org_tubepress_api_const_options_Gallery::MODE);
-        if (strpos($currentMode, 'vimeo') === 0) {
-            return self::VIMEO;
-        }
-        if (strpos($currentMode, 'directory') === 0) {
-            return self::DIRECTORY;
-        }
-        return self::YOUTUBE;
-    }
-
-    public function calculateProviderOfVideoId($videoId)
-    {
-        if (is_numeric($videoId) === true) {
-            return self::VIMEO;
-        }
-        if (preg_match_all('/^.*\.[A-Za-z]{3}$/', $videoId, $arr, PREG_PATTERN_ORDER) === 1) {
-            return self::DIRECTORY;
-        }
-        return self::YOUTUBE;
     }
     
     private static function _capTotalResultsIfNeeded(org_tubepress_api_options_OptionsManager $tpom, $totalResults)
