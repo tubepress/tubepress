@@ -355,4 +355,6 @@ Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and/or sideb
 = 0.1 =
 * Initial release 
 
+== Screenshots ==
 
+1. Sample TubePress gallery
