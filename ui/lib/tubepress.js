@@ -225,7 +225,7 @@ TubePressEmbedded = (function () {
 		var wrapperId	= '#tubepress_embedded_object_' + galleryId,
 			wrapper	= jQuery(wrapperId),
 			obj	= jQuery(wrapperId + ' > object'),
-			regex 	= new RegExp(attribute + '[\\s]*:[\\s]*([\\d]+)');
+			regex 	= new RegExp(attribute + '[\\s]*:[\\s]*([\\d]+)', 'i');
 		return parseInt(obj.attr('style').match(regex)[1], 10);
 	};
 	
