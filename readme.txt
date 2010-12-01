@@ -16,6 +16,10 @@ Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and/or sideb
 
 == Changelog ==
 
+= 2.1.2 =
+* Fixing JavaScript error in Internet Explorer
+* Updating Italian translation thanks to Gianni Diurno
+
 = 2.1.1 =
 * Fixed major JavaScript bug in determining embedded player height/width on jQuery 1.4.2
 * Fixed bug with ajax pagination on some PHP installations
