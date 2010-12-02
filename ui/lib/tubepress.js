@@ -225,7 +225,7 @@ TubePressEmbedded = (function () {
 		var wrapperId	= '#tubepress_embedded_object_' + galleryId,
 			wrapper	= jQuery(wrapperId),
 			obj	= jQuery(wrapperId + ' > object'),
-			regex 	= new RegExp(attribute + '[\\s]*:[\\s]*([\\d]+)', 'i');
+			regex   = new RegExp(attribute + '[\\s]*:[\\s]*([\\d]+)', 'i');
 		return parseInt(obj.attr('style').match(regex)[1], 10);
 	};
 	
@@ -408,7 +408,17 @@ TubePressAjaxPagination = (function () {
 			pageToLoad			= baseUrl + '/env/pro/ajax-pagination.php?shortcode=' + shortcode + '&tubepress_' + page + '&tubepress_galleryId=' + galleryId,
 			remotePageSelector	= thumbnailArea + ' > *',
 			loadFunction		= function () {
-				jQuery(thumbnailArea).load(pageToLoad + ' ' + remotePageSelector, postLoadCallback);
+				jQuery.ajax({
+					url: pageToLoad,
+					type: 'GET',
+					dataType: 'html',
+					complete: function (res) {
+						jQuery(thumbnailArea).html(
+							jQuery('<div>').append(res.responseText).find(thumbnailArea + ' > *')
+						);
+						postLoadCallback();
+					}
+				});
 			};
 
 		/* fade out the old stuff */
@@ -455,3 +465,4 @@ if (!jQuery.browser.msie) {
 		safeTubePressInit();
 	});
 }
+
