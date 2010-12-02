@@ -20,12 +20,12 @@
  */
 
 function_exists('tubepress_load_classes') || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_classloader('org_tubepress_ioc_IocService');
+tubepress_classloader('org_tubepress_api_ioc_IocService');
 
 /**
  * Dependency injector for TubePress in a WordPress environment
  */
-class org_tubepress_ioc_impl_TubePressIocService implements org_tubepress_ioc_IocService
+class org_tubepress_ioc_impl_TubePressIocService implements org_tubepress_api_ioc_IocService
 {
     
     private $_interface;
