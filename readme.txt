@@ -17,8 +17,10 @@ Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and/or sideb
 == Changelog ==
 
 = 2.1.2 =
-* Fixing JavaScript error in Internet Explorer
-* Updating Italian translation thanks to Gianni Diurno
+* Fixed JavaScript error in Internet Explorer when determining height/width of embedded video player
+* Fixed ajax pagination appearance when non-default thumbnail sizes are in use
+* Fixed non-functional WordPress widget control
+* Updated Italian translation thanks to Gianni Diurno
 
 = 2.1.1 =
 * Fixed major JavaScript bug in determining embedded player height/width on jQuery 1.4.2
