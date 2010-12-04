@@ -398,14 +398,15 @@ TubePressAjaxPagination = (function () {
 	};
 
 	processRequest = function (anchor, galleryId) {
-		var baseUrl				= getTubePressBaseUrl(), 
-			shortcode			= window['getUrlEncodedShortcodeForTubePressGallery' + galleryId](),
-			page				= anchor.attr('rel'),
+		var baseUrl			= getTubePressBaseUrl(), 
+			shortcode		= window['getUrlEncodedShortcodeForTubePressGallery' + galleryId](),
+			page			= anchor.attr('rel'),
 			thumbnailArea		= '#tubepress_gallery_' + galleryId + '_thumbnail_area',
+			thumbWidth		= jQuery(thumbnailArea).find('img:first').width(),
 			postLoadCallback	= function () {
-				postAjaxGallerySetup(thumbnailArea, galleryId);
+				postAjaxGallerySetup(thumbnailArea, galleryId, thumbWidth);
 			},
-			pageToLoad			= baseUrl + '/env/pro/ajax-pagination.php?shortcode=' + shortcode + '&tubepress_' + page + '&tubepress_galleryId=' + galleryId,
+			pageToLoad		= baseUrl + '/env/pro/ajax-pagination.php?shortcode=' + shortcode + '&tubepress_' + page + '&tubepress_galleryId=' + galleryId,
 			remotePageSelector	= thumbnailArea + ' > *',
 			loadFunction		= function () {
 				jQuery.ajax({
@@ -429,9 +430,9 @@ TubePressAjaxPagination = (function () {
 	};
 
 	/* post thumbnail load setup */
-	postAjaxGallerySetup = function (thumbnailArea, galleryId) {
+	postAjaxGallerySetup = function (thumbnailArea, galleryId, thumbWidth) {
 		jQuery().trigger(TubePressEvents.NEW_THUMBS_LOADED);
-		TubePressGallery.fluidThumbs('#tubepress_gallery_' + galleryId, 120);
+		TubePressGallery.fluidThumbs('#tubepress_gallery_' + galleryId, thumbWidth);
 		TubePressGallery.initClickListeners();
 		init(galleryId);
 		jQuery(thumbnailArea).fadeTo('fast', 1);
