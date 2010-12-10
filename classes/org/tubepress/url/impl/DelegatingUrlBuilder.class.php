@@ -40,7 +40,7 @@ class org_tubepress_url_impl_DelegatingUrlBuilder implements org_tubepress_api_f
     public function buildGalleryUrl($currentPage)
     {
         $ioc     = org_tubepress_ioc_IocContainer::getInstance();
-        $builder = $ioc->get('org_tubepress_url_UrlBuilder', org_tubepress_util_ProviderCalculator::calculateCurrentVideoProvider());
+        $builder = $ioc->get('org_tubepress_api_feed_UrlBuilder', org_tubepress_util_ProviderCalculator::calculateCurrentVideoProvider());
         
         return $builder->buildGalleryUrl($currentPage);
     }
@@ -53,7 +53,7 @@ class org_tubepress_url_impl_DelegatingUrlBuilder implements org_tubepress_api_f
     public function buildSingleVideoUrl($id)
     {   
         $ioc     = org_tubepress_ioc_IocContainer::getInstance();
-        $builder = $ioc->get('org_tubepress_url_UrlBuilder', org_tubepress_util_ProviderCalculator::calculateProviderOfVideoId($id));
+        $builder = $ioc->get('org_tubepress_api_feed_UrlBuilder', org_tubepress_util_ProviderCalculator::calculateProviderOfVideoId($id));
         
         return $builder->buildSingleVideoUrl($id);
     }

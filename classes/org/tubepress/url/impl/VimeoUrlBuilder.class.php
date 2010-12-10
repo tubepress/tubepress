@@ -100,6 +100,8 @@ class org_tubepress_url_impl_VimeoUrlBuilder implements org_tubepress_api_feed_U
     
     public function buildSingleVideoUrl($id)
     {
+        $ioc          = org_tubepress_ioc_IocContainer::getInstance();
+        $tpom         = $ioc->get('org_tubepress_api_options_OptionsManager');
         $providerName = org_tubepress_util_ProviderCalculator::calculateProviderOfVideoId($id);
         
         if ($providerName !== org_tubepress_api_provider_Provider::VIMEO) {

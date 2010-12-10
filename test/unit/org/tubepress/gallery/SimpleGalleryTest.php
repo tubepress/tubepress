@@ -37,7 +37,7 @@ class org_tubepress_gallery_SimpleGalleryTest extends TubePressUnitTest
 
     function testGetHtml()
     {
-	$result = $this->_sut->getHtml();
+	    $result = $this->_sut->getHtml();
         $this->assertEquals($this->expected(), $result);
     }
     

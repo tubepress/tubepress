@@ -54,6 +54,6 @@ class org_tubepress_video_factory_DelegatingVideoFactory implements org_tubepres
     private static function _getDelegate()
     {
         $ioc  = org_tubepress_ioc_IocContainer::getInstance();
-        return $ioc->get('org_tubepress_video_factory_VideoFactory', org_tubepress_util_ProviderCalculator::calculateCurrentVideoProvider());    
+        return $ioc->get('org_tubepress_api_feed_VideoFactory', org_tubepress_util_ProviderCalculator::calculateCurrentVideoProvider());    
     }
 }

@@ -29,7 +29,7 @@ tubepress_load_classes(array('org_tubepress_api_feed_FeedInspector',
 /**
  * Sends the feed to the right inspection service based on the provider.
  */
-class org_tubepress_video_feed_inspection_DelegatingFeedInspectionService implements org_tubepress_video_feed_inspection_FeedInspectionService
+class org_tubepress_video_feed_inspection_DelegatingFeedInspectionService implements org_tubepress_api_feed_FeedInspector
 {
     public function getTotalResultCount($rawFeed)
     {
@@ -46,6 +46,6 @@ class org_tubepress_video_feed_inspection_DelegatingFeedInspectionService implem
     private static function _getDelegate()
     {
         $ioc  = org_tubepress_ioc_IocContainer::getInstance();
-        return $ioc->get('org_tubepress_video_feed_inspection_FeedInspectionService', org_tubepress_util_ProviderCalculator::calculateCurrentVideoProvider());    
+        return $ioc->get('org_tubepress_api_feed_FeedInspector', org_tubepress_util_ProviderCalculator::calculateCurrentVideoProvider());    
     }
 }
