@@ -1,14 +1,14 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/cache/PearCacheLiteCacheService.class.php';
-require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/cache/PearCacheLiteCacheService.class.php';
+require_once dirname(__FILE__) . '/../../../../../../test/unit/TubePressUnitTest.php';
 
-class org_tubepress_cache_PearCacheLiteCacheServiceTest extends TubePressUnitTest {
+class org_tubepress_impl_cache_PearCacheLiteCacheServiceTest extends TubePressUnitTest {
 
 	private $_sut;
 
 	function setUp()
 	{
-		$this->_sut = new org_tubepress_cache_PearCacheLiteCacheService();
+		$this->_sut = new org_tubepress_impl_cache_PearCacheLiteCacheService();
 	}
 
 	function testSetGet()

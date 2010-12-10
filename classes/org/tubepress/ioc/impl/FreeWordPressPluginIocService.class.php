@@ -36,7 +36,7 @@ class org_tubepress_ioc_impl_FreeWordPressPluginIocService extends org_tubepress
     {
         parent::__construct();
         
-        $this->bind('org_tubepress_api_cache_Cache')                         ->to('org_tubepress_cache_PearCacheLiteCacheService');
+        $this->bind('org_tubepress_api_cache_Cache')                         ->to('org_tubepress_impl_cache_PearCacheLiteCacheService');
         
         $this->bind('org_tubepress_api_embedded_EmbeddedPlayer')             ->to('org_tubepress_embedded_impl_DelegatingEmbeddedPlayerService');
         $this->bind('org_tubepress_api_embedded_EmbeddedPlayer')             ->labeled(org_tubepress_api_provider_Provider::YOUTUBE)

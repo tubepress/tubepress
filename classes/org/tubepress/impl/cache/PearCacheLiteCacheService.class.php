@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-|| require dirname(__FILE__) . '/../../../tubepress_classloader.php';
+|| require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_cache_Cache',
     'net_php_pear_Cache_Lite',
     'org_tubepress_util_Log',
@@ -29,7 +29,7 @@ tubepress_load_classes(array('org_tubepress_api_cache_Cache',
 /**
  * General purpose cache for TubePress
  */
-class org_tubepress_cache_PearCacheLiteCacheService implements org_tubepress_api_cache_Cache
+class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepress_api_cache_Cache
 {
     private $_cache;
     private $_cachePath;

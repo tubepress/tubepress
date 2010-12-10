@@ -15,7 +15,7 @@ class org_tubepress_ioc_FreeWordPressPluginIocServiceTest extends TubePressUnitT
         $this->_sut = new org_tubepress_ioc_impl_FreeWordPressPluginIocService();
         $this->_expectedMapping = array(
             'org_tubepress_api_http_AgentDetector'                     => 'org_tubepress_impl_http_MobileEspBrowserDetector',
-            'org_tubepress_api_cache_Cache'                          => 'org_tubepress_cache_PearCacheLiteCacheService',
+            'org_tubepress_api_cache_Cache'                          => 'org_tubepress_impl_cache_PearCacheLiteCacheService',
             'org_tubepress_api_embedded_EmbeddedPlayer'              => 'org_tubepress_embedded_impl_DelegatingEmbeddedPlayerService',
             'org_tubepress_api_gallery_Gallery'                             => 'org_tubepress_gallery_SimpleGallery',
             'org_tubepress_api_message_MessageService'                      => 'org_tubepress_message_impl_WordPressMessageService',
