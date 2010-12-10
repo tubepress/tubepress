@@ -24,7 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array(
     'org_tubepress_api_embedded_EmbeddedPlayer',
     'org_tubepress_ioc_IocContainer',
-    'org_tubepress_embedded_impl_EmbeddedPlayerUtils',
+    'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
     'org_tubepress_api_const_options_Embedded',
     'org_tubepress_api_template_Template',
     'net_php_pear_Net_URL2'));
@@ -32,7 +32,7 @@ tubepress_load_classes(array(
 /**
  * An HTML-embeddable player for Vimeo.
  */
-class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService implements org_tubepress_api_embedded_EmbeddedPlayer
+class org_tubepress_impl_embedded_VimeoEmbeddedPlayer implements org_tubepress_api_embedded_EmbeddedPlayer
 {
     const VIMEO_EMBEDDED_PLAYER_URL = 'http://player.vimeo.com/';
     const VIMEO_QUERYPARAM_AUTOPLAY = 'autoplay';
@@ -67,12 +67,12 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService implements org_tube
 
         /* build the data URL based on these options */
         $link = new net_php_pear_Net_URL2(self::VIMEO_EMBEDDED_PLAYER_URL . "video/$videoId");
-        $link->setQueryVariable(self::VIMEO_QUERYPARAM_AUTOPLAY, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));
+        $link->setQueryVariable(self::VIMEO_QUERYPARAM_AUTOPLAY, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));
         $link->setQueryVariable(self::VIMEO_QUERYPARAM_COLOR, $color);
-        $link->setQueryVariable(self::VIMEO_QUERYPARAM_LOOP, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($loop));
-        $link->setQueryVariable(self::VIMEO_QUERYPARAM_TITLE, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
-        $link->setQueryVariable(self::VIMEO_QUERYPARAM_BYLINE, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
-        $link->setQueryVariable(self::VIMEO_QUERYPARAM_PORTRAIT, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
+        $link->setQueryVariable(self::VIMEO_QUERYPARAM_LOOP, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($loop));
+        $link->setQueryVariable(self::VIMEO_QUERYPARAM_TITLE, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
+        $link->setQueryVariable(self::VIMEO_QUERYPARAM_BYLINE, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
+        $link->setQueryVariable(self::VIMEO_QUERYPARAM_PORTRAIT, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
 
         $link = $link->getURL(true);
 
@@ -80,7 +80,7 @@ class org_tubepress_embedded_impl_VimeoEmbeddedPlayerService implements org_tube
         $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_DATA_URL, $link);
         $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_WIDTH, $width);
         $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_HEIGHT, $height);
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_FULLSCREEN, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($fullscreen));
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_FULLSCREEN, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($fullscreen));
         return $template->toString();
     }
 }

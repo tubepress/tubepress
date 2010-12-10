@@ -1,16 +1,16 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/embedded/impl/VimeoEmbeddedPlayerService.class.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/embedded/VimeoEmbeddedPlayer.class.php';
 require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
 
-class org_tubepress_embedded_impl_VimeoEmbeddedPlayerServiceTest extends TubePressUnitTest {
+class org_tubepress_impl_embedded_VimeoEmbeddedPlayerTest extends TubePressUnitTest {
 
     private $_sut;
     
     function setUp()
     {
         $this->initFakeIoc();
-        $this->_sut = new org_tubepress_embedded_impl_VimeoEmbeddedPlayerService();
+        $this->_sut = new org_tubepress_impl_embedded_VimeoEmbeddedPlayer();
     }
     
     function testToString()

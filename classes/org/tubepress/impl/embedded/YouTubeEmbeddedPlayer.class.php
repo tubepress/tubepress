@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_embedded_EmbeddedPlayer',
     'org_tubepress_api_ioc_IocService',
-    'org_tubepress_embedded_impl_EmbeddedPlayerUtils',
+    'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
     'org_tubepress_api_const_options_Embedded',
     'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_api_template_Template',
@@ -33,7 +33,7 @@ tubepress_load_classes(array('org_tubepress_api_embedded_EmbeddedPlayer',
  * An HTML-embeddable YouTube player
  *
  */
-class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService implements org_tubepress_api_embedded_EmbeddedPlayer
+class org_tubepress_impl_embedded_YouTubeEmbeddedPlayer implements org_tubepress_api_embedded_EmbeddedPlayer
 {
     /**
      * Spits back the text for this embedded player
@@ -51,8 +51,8 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService implements org_tu
         $theme = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $bd    = $ioc->get('org_tubepress_api_http_AgentDetector');
 
-        $playerColor     = org_tubepress_embedded_impl_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_COLOR), '999999');
-        $playerHighlight = org_tubepress_embedded_impl_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_HIGHLIGHT), 'FFFFFF');
+        $playerColor     = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_COLOR), '999999');
+        $playerHighlight = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_HIGHLIGHT), 'FFFFFF');
         $showRelated     = $tpom->get(org_tubepress_api_const_options_Embedded::SHOW_RELATED);
         $autoPlay        = $tpom->get(org_tubepress_api_const_options_Embedded::AUTOPLAY);
         $loop            = $tpom->get(org_tubepress_api_const_options_Embedded::LOOP);
@@ -68,13 +68,13 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService implements org_tu
             $link->setQueryVariable('color2', '0x' . $playerColor);
             $link->setQueryVariable('color1', '0x' . $playerHighlight);
         }
-        $link->setQueryVariable('rel', org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($showRelated));
-        $link->setQueryVariable('autoplay', org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));
-        $link->setQueryVariable('loop', org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($loop));
-        $link->setQueryVariable('egm', org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($genie));
-        $link->setQueryVariable('border', org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($border));
-        $link->setQueryVariable('fs', org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($fullscreen));
-        $link->setQueryVariable('showinfo', org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
+        $link->setQueryVariable('rel', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showRelated));
+        $link->setQueryVariable('autoplay', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));
+        $link->setQueryVariable('loop', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($loop));
+        $link->setQueryVariable('egm', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($genie));
+        $link->setQueryVariable('border', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($border));
+        $link->setQueryVariable('fs', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($fullscreen));
+        $link->setQueryVariable('showinfo', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
 
         if ($hq) {
             $link->setQueryVariable('hd', '1');
@@ -91,7 +91,7 @@ class org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService implements org_tu
         $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_DATA_URL, $link);
         $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_WIDTH, $width);
         $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_HEIGHT, $height);
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_FULLSCREEN, org_tubepress_embedded_impl_EmbeddedPlayerUtils::booleanToString($fullscreen));
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_FULLSCREEN, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToString($fullscreen));
 
         $embedSrc = $template->toString();
 

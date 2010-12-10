@@ -29,7 +29,7 @@ tubepress_load_classes(array('org_tubepress_api_embedded_EmbeddedPlayer',
 /**
  * Represents an HTML-embeddable JW FLV Player.
  */
-class org_tubepress_embedded_impl_JwFlvEmbeddedPlayerService implements org_tubepress_api_embedded_EmbeddedPlayer
+class org_tubepress_impl_embedded_JwFlvEmbeddedPlayer implements org_tubepress_api_embedded_EmbeddedPlayer
 {
     /**
      * Spits back the text for this embedded player
