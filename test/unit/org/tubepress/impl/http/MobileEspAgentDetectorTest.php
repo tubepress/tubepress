@@ -1,14 +1,14 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/browser/MobileEspBrowserDetector.class.php';
+require_once dirname(__FILE__) . '/../../../../../../test/unit/TubePressUnitTest.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/http/MobileEspBrowserDetector.class.php';
 
-class org_tubepress_api_http_AgentDetectorTest extends TubePressUnitTest {
+class org_tubepress_impl_http_MobileEspAgentDetectorTest extends TubePressUnitTest {
 
     private $_sut;
     
     function setup()
     {
-        $this->_sut = new org_tubepress_browser_MobileEspBrowserDetector();
+        $this->_sut = new org_tubepress_impl_http_MobileEspBrowserDetector();
     }
     
 	function testIphone()

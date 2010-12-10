@@ -20,14 +20,14 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
+    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_http_AgentDetector'));
 
 /**
  * HTTP client detection service. Yanked just about all of this code from
  * http://mobileesp.googlecode.com/.
  */
-class org_tubepress_browser_MobileEspBrowserDetector implements org_tubepress_api_http_AgentDetector
+class org_tubepress_impl_http_MobileEspBrowserDetector implements org_tubepress_api_http_AgentDetector
 {
     const HTTP_USER_AGENT = 'HTTP_USER_AGENT';
     const HTTP_ACCEPT     = 'HTTP_ACCEPT';

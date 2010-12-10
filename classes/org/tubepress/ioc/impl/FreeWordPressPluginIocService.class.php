@@ -36,7 +36,6 @@ class org_tubepress_ioc_impl_FreeWordPressPluginIocService extends org_tubepress
     {
         parent::__construct();
         
-        $this->bind('org_tubepress_browser_BrowserDetector')                    ->to('org_tubepress_browser_MobileEspBrowserDetector');
         $this->bind('org_tubepress_api_cache_Cache')                         ->to('org_tubepress_cache_PearCacheLiteCacheService');
         
         $this->bind('org_tubepress_api_embedded_EmbeddedPlayer')             ->to('org_tubepress_embedded_impl_DelegatingEmbeddedPlayerService');
@@ -45,7 +44,7 @@ class org_tubepress_ioc_impl_FreeWordPressPluginIocService extends org_tubepress
         $this->bind('org_tubepress_api_embedded_EmbeddedPlayer')             ->labeled(org_tubepress_api_provider_Provider::VIMEO)
                                                                                 ->to('org_tubepress_embedded_impl_VimeoEmbeddedPlayerService');
         
-        $this->bind('org_tubepress_api_http_AgentDetector')                     ->to('org_tubepress_browser_MobileEspBrowserDetector');
+        $this->bind('org_tubepress_api_http_AgentDetector')                     ->to('org_tubepress_impl_http_MobileEspBrowserDetector');
         $this->bind('org_tubepress_api_gallery_Gallery')                            ->to('org_tubepress_gallery_SimpleGallery');
         $this->bind('org_tubepress_api_message_MessageService')                     ->to('org_tubepress_message_impl_WordPressMessageService');
         $this->bind('org_tubepress_api_options_OptionsManager')             ->to('org_tubepress_options_manager_SimpleOptionsManager');    
