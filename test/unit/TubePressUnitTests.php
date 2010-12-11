@@ -2,7 +2,7 @@
 require 'PhpUnitLoader.php';
 require_once 'org/tubepress/impl/cache/CacheTests.php';
 require_once 'org/tubepress/impl/embedded/EmbeddedPlayerTests.php';
-require_once 'org/tubepress/gallery/GalleryTests.php';
+require_once 'org/tubepress/impl/gallery/GalleryTests.php';
 require_once 'org/tubepress/log/LogTests.php';
 require_once 'org/tubepress/video/feed/inspection/InspectionTests.php';
 require_once 'org/tubepress/video/feed/retrieval/RetrievalTests.php';

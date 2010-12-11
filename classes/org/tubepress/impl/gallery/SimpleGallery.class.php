@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
+    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_shortcode_ShortcodeParser',
     'org_tubepress_api_const_options_Gallery',
     'org_tubepress_util_Log',
@@ -29,7 +29,7 @@ tubepress_load_classes(array('org_tubepress_api_shortcode_ShortcodeParser',
     'org_tubepress_api_provider_Provider',
     'org_tubepress_api_const_options_OptionCategory',
     'org_tubepress_api_single_SingleVideo',
-    'org_tubepress_gallery_GalleryTemplateUtils',
+    'org_tubepress_impl_gallery_GalleryTemplateUtils',
     'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_api_gallery_Gallery',
     'org_tubepress_ioc_IocContainer',
@@ -38,7 +38,7 @@ tubepress_load_classes(array('org_tubepress_api_shortcode_ShortcodeParser',
 /**
  * TubePress gallery. This class gets one or more videos from a provider and applies them to the template.
  */
-class org_tubepress_gallery_SimpleGallery implements org_tubepress_api_gallery_Gallery
+class org_tubepress_impl_gallery_SimpleGallery implements org_tubepress_api_gallery_Gallery
 {
     const LOG_PREFIX = 'Gallery';
 
@@ -143,14 +143,14 @@ class org_tubepress_gallery_SimpleGallery implements org_tubepress_api_gallery_G
         /* prep template */
 	    $themeHandler = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $template     = $themeHandler->getTemplateInstance('gallery.tpl.php');
-        org_tubepress_gallery_GalleryTemplateUtils::prepTemplate($feedResult, $galleryId, $template, $ioc);
+        org_tubepress_impl_gallery_GalleryTemplateUtils::prepTemplate($feedResult, $galleryId, $template, $ioc);
 
         /* we're done. tie up */
         org_tubepress_util_Log::log(self::LOG_PREFIX, 'Done assembling gallery <tt>%d</tt>', $galleryId);
         $result =  $template->toString();
-        $result .= org_tubepress_gallery_GalleryTemplateUtils::getAjaxPagination($ioc, $galleryId);
-        $result .= org_tubepress_gallery_GalleryTemplateUtils::getThemeCss($ioc);
-        $result .= org_tubepress_gallery_GalleryTemplateUtils::getThumbnailGenerationReminder($result, $ioc);
+        $result .= org_tubepress_impl_gallery_GalleryTemplateUtils::getAjaxPagination($ioc, $galleryId);
+        $result .= org_tubepress_impl_gallery_GalleryTemplateUtils::getThemeCss($ioc);
+        $result .= org_tubepress_impl_gallery_GalleryTemplateUtils::getThumbnailGenerationReminder($result, $ioc);
 
 	$tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
 	$tpom->setCustomOptions(array());

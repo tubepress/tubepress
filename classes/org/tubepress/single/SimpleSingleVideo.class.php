@@ -68,7 +68,7 @@ class org_tubepress_single_SimpleSingleVideo implements org_tubepress_api_single
 
         $template = self::_prepTemplate($ioc, $video, $provider);
         $result   = $template->toString();
-        $result .= org_tubepress_gallery_GalleryTemplateUtils::getThemeCss($ioc);
+        $result .= org_tubepress_impl_gallery_GalleryTemplateUtils::getThemeCss($ioc);
 
 	$tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
         $tpom->setCustomOptions(array());

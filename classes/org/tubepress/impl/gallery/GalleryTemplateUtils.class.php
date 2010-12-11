@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
+    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_ioc_IocService',
     'org_tubepress_api_const_options_Display',
     'org_tubepress_api_theme_ThemeHandler',
@@ -36,7 +36,7 @@ tubepress_load_classes(array('org_tubepress_api_ioc_IocService',
 /**
  * 
  */
-class org_tubepress_gallery_GalleryTemplateUtils
+class org_tubepress_impl_gallery_GalleryTemplateUtils
 {
     const LOG_PREFIX = 'Gallery Template Utils';
 

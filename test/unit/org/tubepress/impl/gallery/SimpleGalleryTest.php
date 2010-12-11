@@ -1,9 +1,9 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/gallery/SimpleGallery.class.php';
+require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/gallery/SimpleGallery.class.php';
 
-class org_tubepress_gallery_SimpleGalleryTest extends TubePressUnitTest
+class org_tubepress_impl_gallery_SimpleGalleryTest extends TubePressUnitTest
 {
 	private $_sut;
 	private static $_feedResult;
@@ -12,7 +12,7 @@ class org_tubepress_gallery_SimpleGalleryTest extends TubePressUnitTest
 	{
 		self::$_feedResult = new org_tubepress_api_feed_FeedResult();
 		$this->initFakeIoc();
-		$this->_sut = new org_tubepress_gallery_SimpleGallery();
+		$this->_sut = new org_tubepress_impl_gallery_SimpleGallery();
 	}
 
 	public function getMock($className)
