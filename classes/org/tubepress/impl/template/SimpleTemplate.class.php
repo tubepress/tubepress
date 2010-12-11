@@ -20,11 +20,11 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../tubepress_classloader.php');
+    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_util_StringUtils',
     'org_tubepress_api_template_Template'));
 
-class org_tubepress_template_SimpleTemplate implements org_tubepress_api_template_Template
+class org_tubepress_impl_template_SimpleTemplate implements org_tubepress_api_template_Template
 {
 	private $_source;
 	private $_path;

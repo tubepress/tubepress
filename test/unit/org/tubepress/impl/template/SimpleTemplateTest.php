@@ -1,15 +1,15 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/template/SimpleTemplate.class.php';
-require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/template/SimpleTemplate.class.php';
+require_once dirname(__FILE__) . '/../../../../../../test/unit/TubePressUnitTest.php';
 
-class org_tubepress_template_SimpleTemplateTest extends TubePressUnitTest
+class org_tubepress_impl_template_SimpleTemplateTest extends TubePressUnitTest
 {
     private $_sut;
     
     public function setUp()
     {
-        $this->_sut = new org_tubepress_template_SimpleTemplate();
+        $this->_sut = new org_tubepress_impl_template_SimpleTemplate();
     }
     
     /**

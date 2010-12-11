@@ -13,7 +13,7 @@ require_once 'org/tubepress/pagination/PaginationTests.php';
 require_once 'org/tubepress/player/PlayerTests.php';
 require_once 'org/tubepress/querystring/QueryStringTests.php';
 require_once 'org/tubepress/shortcode/ShortcodeTests.php';
-require_once 'org/tubepress/template/TemplateTests.php';
+require_once 'org/tubepress/impl/template/TemplateTests.php';
 require_once 'org/tubepress/url/UrlTests.php';
 require_once 'org/tubepress/util/UtilsTests.php';
 require_once 'org/tubepress/video/VideoTests.php';

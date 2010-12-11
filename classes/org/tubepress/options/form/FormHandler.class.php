@@ -27,7 +27,7 @@ tubepress_load_classes(array('org_tubepress_api_const_options_OptionCategory',
     'org_tubepress_util_OptionsReference',
     'org_tubepress_api_options_StorageManager',
     'org_tubepress_api_ioc_IocService',
-    'org_tubepress_template_SimpleTemplate',
+    'org_tubepress_impl_template_SimpleTemplate',
     'org_tubepress_api_template_Template',
     'org_tubepress_api_const_options_Gallery',
     'org_tubepress_util_FilesystemUtils'));
@@ -51,7 +51,7 @@ class org_tubepress_options_form_FormHandler
 
 	    $ioc            = org_tubepress_ioc_IocContainer::getInstance();
         $messageService = $ioc->get('org_tubepress_api_message_MessageService');
-        $template       = new org_tubepress_template_SimpleTemplate();
+        $template       = new org_tubepress_impl_template_SimpleTemplate();
         $storageManager = $ioc->get('org_tubepress_api_options_StorageManager');
 
         $template->setPath(dirname(__FILE__) . '/../../../../../ui/lib/options_page/html_templates/options_page.tpl.php');

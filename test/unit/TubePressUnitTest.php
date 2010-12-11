@@ -14,7 +14,7 @@ tubepress_load_classes(array('org_tubepress_api_options_OptionsManager',
     'org_tubepress_video_feed_inspection_impl_YouTubeFeedInspectionService',
     'org_tubepress_api_cache_Cache',
     'org_tubepress_api_pagination_Pagination',
-    'org_tubepress_template_SimpleTemplate',
+    'org_tubepress_impl_template_SimpleTemplate',
     'org_tubepress_ioc_IocContainer',
     'org_tubepress_api_theme_ThemeHandler'));
 
@@ -62,7 +62,7 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
     
     public function templateCallback()
     {
-        $template = new org_tubepress_template_SimpleTemplate();
+        $template = new org_tubepress_impl_template_SimpleTemplate();
         $args = func_get_args();
         $template->setPath(dirname(__FILE__) . '/../../ui/themes/default/' .$args[0]);
         return $template;

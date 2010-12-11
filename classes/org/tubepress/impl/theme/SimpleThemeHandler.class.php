@@ -24,7 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
     'org_tubepress_api_const_options_Display',
     'org_tubepress_util_Log',
-    'org_tubepress_template_SimpleTemplate',
+    'org_tubepress_impl_template_SimpleTemplate',
     'org_tubepress_api_theme_ThemeHandler'));
 
 /**
@@ -46,7 +46,7 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
         }
 
         org_tubepress_util_Log::log(self::LOG_PREFIX, 'Successfully loaded template from <tt>%s</tt>', $filePath);
-        $template = new org_tubepress_template_SimpleTemplate();
+        $template = new org_tubepress_impl_template_SimpleTemplate();
         $template->setPath($filePath);
         return $template;
     }
