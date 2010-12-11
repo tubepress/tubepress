@@ -1,9 +1,9 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/pagination/DiggStylePaginationService.class.php';
+require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/pagination/DiggStylePaginationService.class.php';
 
-class org_tubepress_pagination_DiggStylePaginationServiceTest extends TubePressUnitTest
+class org_tubepress_impl_pagination_DiggStylePaginationServiceTest extends TubePressUnitTest
 {
 
     private $_prefix = '<div class="pagination"><span class="disabled">prev</span><span class="current">1</span><a rel=';
@@ -92,7 +92,7 @@ EOT
     
 	private function _tester($expected)
 	{
-		$sut = new org_tubepress_pagination_DiggStylePaginationService();
+		$sut = new org_tubepress_impl_pagination_DiggStylePaginationService();
 		$this->assertEquals($expected, $sut->getHtml(100));
 	}
 }

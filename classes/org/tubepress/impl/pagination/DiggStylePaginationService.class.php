@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
+    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_pagination_Pagination',
     'org_tubepress_api_const_options_Display',
     'net_php_pear_Net_URL2',
@@ -32,7 +32,7 @@ tubepress_load_classes(array('org_tubepress_api_pagination_Pagination',
 /**
  * General purpose cache for TubePress
  */
-class org_tubepress_pagination_DiggStylePaginationService implements org_tubepress_api_pagination_Pagination
+class org_tubepress_impl_pagination_DiggStylePaginationService implements org_tubepress_api_pagination_Pagination
 {
     /**
      * Get the HTML for pagination.

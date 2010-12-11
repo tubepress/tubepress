@@ -22,7 +22,7 @@ class org_tubepress_ioc_FreeWordPressPluginIocServiceTest extends TubePressUnitT
             'org_tubepress_api_options_OptionsManager'              => 'org_tubepress_options_manager_SimpleOptionsManager',    
             'org_tubepress_api_options_StorageManager'              => 'org_tubepress_options_storage_WordPressStorageManager',
             'org_tubepress_api_options_OptionValidator'   => 'org_tubepress_options_validation_SimpleInputValidationService',    
-            'org_tubepress_api_pagination_Pagination'                => 'org_tubepress_pagination_DiggStylePaginationService',
+            'org_tubepress_api_pagination_Pagination'                => 'org_tubepress_impl_pagination_DiggStylePaginationService',
             'org_tubepress_api_player_Player'                               => 'org_tubepress_player_SimplePlayer',
             'org_tubepress_api_querystring_QueryStringService'              => 'org_tubepress_impl_querystring_SimpleQueryStringService',
             'org_tubepress_api_shortcode_ShortcodeParser'                   => 'org_tubepress_shortcode_SimpleShortcodeParser',
