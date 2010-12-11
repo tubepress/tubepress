@@ -20,13 +20,13 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
+    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_querystring_QueryStringService'));
 
 /**
  * Handles some tasks related to the query string
  */
-class org_tubepress_querystring_SimpleQueryStringService implements org_tubepress_api_querystring_QueryStringService
+class org_tubepress_impl_querystring_SimpleQueryStringService implements org_tubepress_api_querystring_QueryStringService
 {
     const TUBEPRESS_GALLERY_ID = 'tubepress_galleryId';
     const TUBEPRESS_PAGE       = 'tubepress_page';
