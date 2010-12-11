@@ -55,7 +55,7 @@ class org_tubepress_ioc_impl_FreeWordPressPluginIocService extends org_tubepress
         $this->bind('org_tubepress_api_querystring_QueryStringService')             ->to('org_tubepress_querystring_SimpleQueryStringService');
         $this->bind('org_tubepress_api_shortcode_ShortcodeParser')                  ->to('org_tubepress_shortcode_SimpleShortcodeParser');
         $this->bind('org_tubepress_api_single_SingleVideo')                         ->to('org_tubepress_single_SimpleSingleVideo');
-        $this->bind('org_tubepress_api_theme_ThemeHandler')                         ->to('org_tubepress_theme_SimpleThemeHandler');
+        $this->bind('org_tubepress_api_theme_ThemeHandler')                         ->to('org_tubepress_impl_theme_SimpleThemeHandler');
         
         /* URL building */
         $this->bind('org_tubepress_api_feed_UrlBuilder')                             ->to('org_tubepress_url_impl_DelegatingUrlBuilder');

@@ -20,7 +20,7 @@ require_once 'org/tubepress/video/VideoTests.php';
 require_once 'org/tubepress/options/OptionsTests.php';
 require_once 'org/tubepress/impl/http/AgentDetectorTests.php';
 require_once 'org/tubepress/single/SingleVideoTests.php';
-require_once 'org/tubepress/theme/ThemeHandlerTests.php';
+require_once 'org/tubepress/impl/theme/ThemeHandlerTests.php';
 
 class TubePressUnitTests
 {

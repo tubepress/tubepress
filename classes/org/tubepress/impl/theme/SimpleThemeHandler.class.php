@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
+    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
     'org_tubepress_api_const_options_Display',
     'org_tubepress_util_Log',
@@ -30,7 +30,7 @@ tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
 /**
  * A TubePress theme handler
  */
-class org_tubepress_theme_SimpleThemeHandler implements org_tubepress_api_theme_ThemeHandler
+class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_theme_ThemeHandler
 {
     const LOG_PREFIX = 'Theme Handler';
 
