@@ -46,7 +46,7 @@ class org_tubepress_ioc_impl_FreeWordPressPluginIocService extends org_tubepress
         
         $this->bind('org_tubepress_api_http_AgentDetector')                     ->to('org_tubepress_impl_http_MobileEspBrowserDetector');
         $this->bind('org_tubepress_api_gallery_Gallery')                            ->to('org_tubepress_impl_gallery_SimpleGallery');
-        $this->bind('org_tubepress_api_message_MessageService')                     ->to('org_tubepress_message_impl_WordPressMessageService');
+        $this->bind('org_tubepress_api_message_MessageService')                     ->to('org_tubepress_impl_message_WordPressMessageService');
         $this->bind('org_tubepress_api_options_OptionsManager')             ->to('org_tubepress_options_manager_SimpleOptionsManager');    
         $this->bind('org_tubepress_api_options_StorageManager')             ->to('org_tubepress_options_storage_WordPressStorageManager');
         $this->bind('org_tubepress_api_options_OptionValidator')  ->to('org_tubepress_options_validation_SimpleInputValidationService');    

@@ -28,7 +28,7 @@ tubepress_load_classes(array('org_tubepress_api_message_MessageService'));
  * This class basically provides one additional layer of abstraction between
  * the code and the actual message in the .pot files.
  */
-abstract class org_tubepress_message_impl_AbstractMessageService implements org_tubepress_api_message_MessageService
+abstract class org_tubepress_impl_message_AbstractMessageService implements org_tubepress_api_message_MessageService
 {
     private $_msgs = array(
         'options-page-title'       => 'TubePress Options',

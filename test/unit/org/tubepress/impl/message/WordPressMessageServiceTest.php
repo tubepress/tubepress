@@ -1,6 +1,6 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/message/impl/WordPressMessageService.class.php';
-require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/message/WordPressMessageService.class.php';
+require_once dirname(__FILE__) . '/../../../../../../test/unit/TubePressUnitTest.php';
 
 $msgs = array(
         'options-page-title'       => 'TubePress Options',
@@ -205,19 +205,19 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 	
 	function setUp()
 	{
-		$this->_sut = new org_tubepress_message_impl_WordPressMessageService();
+		$this->_sut = new org_tubepress_impl_message_WordPressMessageService();
 	}
 
 	function testPoCompiles()
 	{
 		$files = $this->getPoFiles();
 		foreach ($files as $file) {
-			$realPath = dirname(__FILE__) . '/../../../../../i18n/' . $file;
+			$realPath = dirname(__FILE__) . '/../../../../../../i18n/' . $file;
 			$outputfile = str_replace(array('.pot', '.po'), '.mo', $realPath);
 			exec("/opt/local/bin/msgfmt	-o $outputfile $realPath", $results, $return);
 			$this->assertTrue($return === 0);
 		}
-		dirname(__FILE__) . '/../../../../../i18n/tubepress.mo';
+		dirname(__FILE__) . '/../../../../../../i18n/tubepress.mo';
 	}
 
 	function testPotFileHasRightEntries()
@@ -232,7 +232,7 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 	{
 		global $msgs;
 		$rawMatches = array();
-		$potContents = file_get_contents(dirname(__FILE__) . '/../../../../../i18n/' . $file);
+		$potContents = file_get_contents(dirname(__FILE__) . '/../../../../../../i18n/' . $file);
 		preg_match_all("/msgid\b.*/", $potContents, $rawMatches, PREG_SET_ORDER);
 		$matches = array();
 		foreach ($rawMatches as $rawMatch) {
@@ -262,7 +262,7 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 	function getPoFiles()
 	{
 		$files = array();
-		$handle = opendir(dirname(__FILE__) . '/../../../../../i18n/');
+		$handle = opendir(dirname(__FILE__) . '/../../../../../../i18n/');
 	    while (false !== ($file = readdir($handle))) {
 	        if ($file == "." || $file == "..") {
 				continue;

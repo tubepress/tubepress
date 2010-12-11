@@ -21,12 +21,12 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_message_impl_AbstractMessageService'));
+tubepress_load_classes(array('org_tubepress_impl_message_AbstractMessageService'));
 
 /**
  * Message service that uses gettext (via WordPress)
  */
-class org_tubepress_message_impl_WordPressMessageService extends org_tubepress_message_impl_AbstractMessageService
+class org_tubepress_impl_message_WordPressMessageService extends org_tubepress_impl_message_AbstractMessageService
 {
     /**
      * Retrieves a message for TubePress

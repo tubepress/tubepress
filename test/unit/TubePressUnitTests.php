@@ -8,7 +8,7 @@ require_once 'org/tubepress/video/feed/inspection/InspectionTests.php';
 require_once 'org/tubepress/video/feed/retrieval/RetrievalTests.php';
 require_once 'org/tubepress/video/feed/provider/ProviderTests.php';
 require_once 'org/tubepress/ioc/IocTests.php';
-require_once 'org/tubepress/message/MessageTests.php';
+require_once 'org/tubepress/impl/message/MessageTests.php';
 require_once 'org/tubepress/pagination/PaginationTests.php';
 require_once 'org/tubepress/player/PlayerTests.php';
 require_once 'org/tubepress/querystring/QueryStringTests.php';
