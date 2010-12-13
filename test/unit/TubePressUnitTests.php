@@ -14,7 +14,7 @@ require_once 'org/tubepress/player/PlayerTests.php';
 require_once 'org/tubepress/impl/querystring/QueryStringTests.php';
 require_once 'org/tubepress/impl/shortcode/ShortcodeTests.php';
 require_once 'org/tubepress/impl/template/TemplateTests.php';
-require_once 'org/tubepress/url/UrlTests.php';
+require_once 'org/tubepress/impl/url/UrlTests.php';
 require_once 'org/tubepress/util/UtilsTests.php';
 require_once 'org/tubepress/video/VideoTests.php';
 require_once 'org/tubepress/options/OptionsTests.php';

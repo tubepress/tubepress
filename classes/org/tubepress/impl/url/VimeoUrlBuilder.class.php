@@ -36,7 +36,7 @@ tubepress_load_classes(array('org_tubepress_api_feed_UrlBuilder',
  * Builds URLs to send out to Vimeo
  *
  */
-class org_tubepress_url_impl_VimeoUrlBuilder implements org_tubepress_api_feed_UrlBuilder
+class org_tubepress_impl_url_VimeoUrlBuilder implements org_tubepress_api_feed_UrlBuilder
 {
     /**
      * Builds a gdata request url for a list of videos

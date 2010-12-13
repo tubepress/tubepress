@@ -30,7 +30,7 @@ tubepress_load_classes(array('org_tubepress_api_feed_UrlBuilder',
  * Builds URLs based on the urrent provider
  *
  */
-class org_tubepress_url_impl_DelegatingUrlBuilder implements org_tubepress_api_feed_UrlBuilder
+class org_tubepress_impl_url_DelegatingUrlBuilder implements org_tubepress_api_feed_UrlBuilder
 {
     /**
      * Builds a URL for a list of videos

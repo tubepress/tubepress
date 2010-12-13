@@ -1,9 +1,9 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/url/impl/VimeoUrlBuilder.class.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/url/VimeoUrlBuilder.class.php';
 
-class org_tubepress_url_impl_VimeoUrlBuilderTest extends TubePressUnitTest {
+class org_tubepress_impl_url_VimeoUrlBuilderTest extends TubePressUnitTest {
     
     const PRE = "/http:\/\/vimeo.com\/api\/rest\/v2\?";
     const POST = "&format=php&oauth_consumer_key=vimeokey&oauth_nonce=[a-zA-Z0-9]+&oauth_signature_method=HMAC-SHA1&oauth_timestamp=[0-9]+&oauth_version=1.0&oauth_signature=[a-zA-Z0-9%]+/";
@@ -13,7 +13,7 @@ class org_tubepress_url_impl_VimeoUrlBuilderTest extends TubePressUnitTest {
 	function setUp()
 	{
 		$this->initFakeIoc();
-		$this->_sut = new org_tubepress_url_impl_VimeoUrlBuilder();
+		$this->_sut = new org_tubepress_impl_url_VimeoUrlBuilder();
 	}
 
 	public function getMock($className)
@@ -151,7 +151,7 @@ class org_tubepress_url_impl_VimeoUrlBuilderTest extends TubePressUnitTest {
 		
 	private function urlMatches($url, $full)
 	{
-		$pattern = org_tubepress_url_impl_VimeoUrlBuilderTest::PRE . $url . org_tubepress_url_impl_VimeoUrlBuilderTest::POST;
+		$pattern = org_tubepress_impl_url_VimeoUrlBuilderTest::PRE . $url . org_tubepress_impl_url_VimeoUrlBuilderTest::POST;
 		$result = 1 === preg_match($pattern, $full);
 		if (!$result) {
 			echo "\n\n$full\n    does not match\n$pattern\n\n";
