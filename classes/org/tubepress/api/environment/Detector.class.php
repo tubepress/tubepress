@@ -22,25 +22,19 @@
 /**
  * Detects TubePress's environment
  */
-class org_tubepress_util_EnvironmentDetector
+interface org_tubepress_api_environment_Detector
 {
     /**
      * Detects if the user is running TubePress Pro.
      *
      * @return boolean True is the user is running TubePress Pro. False otherwise.
      */
-    public static function isPro()
-    {
-        return is_readable(dirname(__FILE__) . '/../ioc/impl/ProIocService.class.php');
-    }
+    function isPro();
 
     /**
      * Detects if the user is running within WordPress
      *
      * @return boolean True is the user is running within WordPress. False otherwise.
      */
-    public static function isWordPress()
-    {
-        return strpos(realpath(__FILE__), 'wp-content/plugins') !== false;
-    }
+    function isWordPress();
 }
