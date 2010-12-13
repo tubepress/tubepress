@@ -20,14 +20,14 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
+    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
     'org_tubepress_api_shortcode_ShortcodeParser'));
 
 /**
  * Parses shortcodes.
  */
-class org_tubepress_shortcode_SimpleShortcodeParser implements org_tubepress_api_shortcode_ShortcodeParser
+class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepress_api_shortcode_ShortcodeParser
 {
     const LOG_PREFIX = 'Shortcode parser';
     

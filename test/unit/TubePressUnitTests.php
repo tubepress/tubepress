@@ -12,7 +12,7 @@ require_once 'org/tubepress/impl/message/MessageTests.php';
 require_once 'org/tubepress/impl/pagination/PaginationTests.php';
 require_once 'org/tubepress/player/PlayerTests.php';
 require_once 'org/tubepress/impl/querystring/QueryStringTests.php';
-require_once 'org/tubepress/shortcode/ShortcodeTests.php';
+require_once 'org/tubepress/impl/shortcode/ShortcodeTests.php';
 require_once 'org/tubepress/impl/template/TemplateTests.php';
 require_once 'org/tubepress/url/UrlTests.php';
 require_once 'org/tubepress/util/UtilsTests.php';
