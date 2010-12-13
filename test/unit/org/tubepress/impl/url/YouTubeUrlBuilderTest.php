@@ -18,7 +18,7 @@ class org_tubepress_impl_url_YouTubeUrlBuilderTest extends TubePressUnitTest {
 		$mock = parent::getMock($className);
 
 		switch ($className) {
-			case 'org_tubepress_api_provider_Provider':
+			case 'org_tubepress_api_provider_ProviderCalculator':
 				$mock->expects($this->any())
 					->method('calculateProviderOfVideoId')
 					->will($this->returnValue(org_tubepress_api_provider_Provider::YOUTUBE));

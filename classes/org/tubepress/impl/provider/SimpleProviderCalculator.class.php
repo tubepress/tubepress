@@ -20,17 +20,18 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
+    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_api_const_options_Gallery',
     'org_tubepress_api_provider_Provider',
-    'org_tubepress_util_ProviderCalculator',
-    'org_tubepress_api_options_OptionsManager'));
+    'org_tubepress_api_provider_ProviderCalculator',
+    'org_tubepress_api_options_OptionsManager',
+    'org_tubepress_api_provider_ProviderCalculator'));
 
 /**
  * Calculates video provider in use.
  */
-class org_tubepress_util_ProviderCalculator
+class org_tubepress_impl_provider_SimpleProviderCalculator implements org_tubepress_api_provider_ProviderCalculator
 {
     /**
      * Determine the current video provider.
@@ -42,10 +43,11 @@ class org_tubepress_util_ProviderCalculator
         $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom  = $ioc->get('org_tubepress_api_options_OptionsManager');
         $video = $tpom->get(org_tubepress_api_const_options_Gallery::VIDEO);
+        $pc    = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
 
         /* requested a single video, and it's not vimeo or directory, so must be youtube */
         if ($video != '') {
-            return org_tubepress_util_ProviderCalculator::calculateProviderOfVideoId($video);
+            return $pc->calculateProviderOfVideoId($video);
         }
 
         /* calculate based on gallery content */

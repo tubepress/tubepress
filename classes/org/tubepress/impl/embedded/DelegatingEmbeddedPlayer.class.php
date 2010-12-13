@@ -24,7 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_api_provider_Provider',
     'org_tubepress_api_embedded_EmbeddedPlayer',
     'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_util_ProviderCalculator'));
+    'org_tubepress_api_provider_ProviderCalculator'));
 
 /**
  * An HTML-embeddable player
@@ -42,7 +42,8 @@ class org_tubepress_impl_embedded_DelegatingEmbeddedPlayer implements org_tubepr
     public function toString($videoId)
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-	$providerName = org_tubepress_util_ProviderCalculator::calculateProviderOfVideoId($videoId);
+        $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+	    $providerName = $pc->calculateProviderOfVideoId($videoId);
     
         /** The user wants to use JW FLV Player to show YouTube videos. */   
         if ($providerName === org_tubepress_api_provider_Provider::YOUTUBE 

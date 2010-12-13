@@ -102,7 +102,8 @@ class org_tubepress_impl_url_VimeoUrlBuilder implements org_tubepress_api_url_Ur
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom         = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $providerName = org_tubepress_util_ProviderCalculator::calculateProviderOfVideoId($id);
+        $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $providerName = $pc->calculateProviderOfVideoId($id);
         
         if ($providerName !== org_tubepress_api_provider_Provider::VIMEO) {
             throw new Exception("Unable to build Vimeo URL for video with ID $id");

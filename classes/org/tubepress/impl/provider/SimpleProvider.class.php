@@ -26,7 +26,7 @@ tubepress_load_classes(array('org_tubepress_api_provider_Provider',
     'org_tubepress_api_url_UrlBuilder',
     'org_tubepress_api_const_options_Feed',
     'org_tubepress_api_feed_FeedResult',
-    'org_tubepress_util_ProviderCalculator'));
+    'org_tubepress_api_provider_ProviderCalculator'));
 
 /**
  * Interface to a remove video provider
@@ -45,12 +45,13 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
         $qss  = $ioc->get('org_tubepress_api_querystring_QueryStringService');
         $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $pc   = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
 
         /* figure out which page we're on */        
         $currentPage = $qss->getPageNum($_GET);
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Current page number is %d', $currentPage);
 
-        $provider = org_tubepress_util_ProviderCalculator::calculateCurrentVideoProvider();
+        $provider = $pc->calculateCurrentVideoProvider();
 
         /* build the request URL */
         $urlBuilder = $ioc->get('org_tubepress_api_url_UrlBuilder');

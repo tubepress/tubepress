@@ -24,7 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_api_feed_FeedInspector',
     'org_tubepress_api_options_OptionsManager',
     'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_util_ProviderCalculator'));
+    'org_tubepress_api_provider_ProviderCalculator'));
 
 /**
  * Sends the feed to the right inspection service based on the provider.
@@ -46,6 +46,7 @@ class org_tubepress_impl_feed_DelegatingFeedInspector implements org_tubepress_a
     private static function _getDelegate()
     {
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-        return $ioc->get('org_tubepress_api_feed_FeedInspector', org_tubepress_util_ProviderCalculator::calculateCurrentVideoProvider());    
+        $pc = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        return $ioc->get('org_tubepress_api_feed_FeedInspector', $pc->calculateCurrentVideoProvider());    
     }
 }

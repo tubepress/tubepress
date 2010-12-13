@@ -31,7 +31,7 @@ tubepress_load_classes(array('org_tubepress_api_ioc_IocService',
     'org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_api_provider_Provider',
     'org_tubepress_api_filesystem_Explorer',
-    'org_tubepress_util_ProviderCalculator'));
+    'org_tubepress_api_provider_ProviderCalculator'));
 
 /**
  * 
@@ -77,7 +77,7 @@ class org_tubepress_impl_gallery_GalleryTemplateUtils
 
         $currentTheme = $themeHandler->calculateCurrentThemeName();
 
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_IMPL_NAME, self::_getEmbeddedServiceName($tpom, $provider));
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_IMPL_NAME, self::_getEmbeddedServiceName($tpom, $provider, $ioc));
         $template->setVariable(org_tubepress_api_template_Template::GALLERY_ID, $galleryId);
         $template->setVariable(org_tubepress_api_template_Template::PLAYER_NAME, $playerName);
         $template->setVariable(org_tubepress_api_template_Template::THUMBNAIL_WIDTH, $tpom->get(org_tubepress_api_const_options_Display::THUMB_WIDTH));
@@ -154,13 +154,15 @@ class org_tubepress_impl_gallery_GalleryTemplateUtils
         return '';
     }
 
-    private static function _getEmbeddedServiceName(org_tubepress_api_options_OptionsManager $tpom, org_tubepress_api_provider_Provider $provider)
+    private static function _getEmbeddedServiceName(org_tubepress_api_options_OptionsManager $tpom, org_tubepress_api_provider_Provider $provider,
+         org_tubepress_api_ioc_IocService $ioc)
     {
         $stored = $tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_IMPL);
         if ($stored === org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL) {
             return $stored;
         }
-        return org_tubepress_util_ProviderCalculator::calculateCurrentVideoProvider();
+        $pc = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        return $pc->calculateCurrentVideoProvider();
     }
 
     private static function _prepMetaInfo(org_tubepress_api_template_Template $template, org_tubepress_api_ioc_IocService $ioc)
