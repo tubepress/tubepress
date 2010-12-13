@@ -24,7 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_api_cache_Cache',
     'net_php_pear_Cache_Lite',
     'org_tubepress_util_Log',
-    'org_tubepress_util_FilesystemUtils'));
+    'org_tubepress_impl_filesystem_FsExplorer'));
 
 /**
  * General purpose cache for TubePress

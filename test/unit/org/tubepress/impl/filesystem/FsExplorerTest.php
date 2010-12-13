@@ -1,23 +1,31 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/util/FilesystemUtils.class.php';
-require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/filesystem/FsExplorer.class.php';
+require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
 
-class org_tubepress_util_FilesystemUtilsTest extends TubePressUnitTest
+class org_tubepress_impl_filesystem_FsExplorerTest extends TubePressUnitTest
 {
+    private $_sut;
+    
+    function setUp() {
+        $this->initFakeIoc();
+        $this->_sut = new org_tubepress_impl_filesystem_FsExplorer();
+        org_tubepress_util_Log::setEnabled(false, array());
+    }
+    
 	function testLsDirs()
 	{
-	    $dir = realpath(dirname(__FILE__) . '/../../../../../ui');
+	    $dir = realpath(dirname(__FILE__) . '/../../../../../../ui');
 	    $expected = array("$dir/themes", "$dir/lib");
             
-		$result = org_tubepress_util_FilesystemUtils::getDirectoriesInDirectory($dir, 'log prefix');
+		$result = $this->_sut->getDirectoriesInDirectory($dir, 'log prefix');
 		$difference = array_diff($expected, $result);
 		$this->assertTrue(empty($difference));
 	}
 
 	function testLsFiles()
 	{
-	    $dir = realpath(dirname(__FILE__) . '/../../../../../i18n');
+	    $dir = realpath(dirname(__FILE__) . '/../../../../../../i18n');
 	    $expected = array(
 	        "$dir/tubepress-ar_SA.mo",
 	        "$dir/tubepress-ar_SA.po",
@@ -41,14 +49,14 @@ class org_tubepress_util_FilesystemUtilsTest extends TubePressUnitTest
             "$dir/tubepress.pot"
 	    );
             
-		$result = org_tubepress_util_FilesystemUtils::getFilenamesInDirectory($dir, 'log prefix');
+		$result = $this->_sut->getFilenamesInDirectory($dir, 'log prefix');
 		$difference = array_diff($expected, $result);
 		$this->assertTrue(empty($difference));
 	}
 	
 	function testGetBaseInstallationPath()
 	{
-		$result = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
+		$result = $this->_sut->getTubePressBaseInstallationPath();
 		$dirname = basename($result);
 		$this->assertEquals('tubepress', $dirname);
 	}
@@ -58,7 +66,7 @@ class org_tubepress_util_FilesystemUtilsTest extends TubePressUnitTest
 	 */
 	function testLsDirsNoSuchDir()
 	{
-	    org_tubepress_util_FilesystemUtils::getDirectoriesInDirectory('fake dir', 'log prefix');
+	    $this->_sut->getDirectoriesInDirectory('fake dir', 'log prefix');
 	}
 
 	/**
@@ -66,7 +74,7 @@ class org_tubepress_util_FilesystemUtilsTest extends TubePressUnitTest
 	 */
 	function testLsFilesNoSuchDir()
 	{
-	    org_tubepress_util_FilesystemUtils::getFilenamesInDirectory('fake dir', 'log prefix');
+	    $this->_sut->getFilenamesInDirectory('fake dir', 'log prefix');
 	}
 }
 ?>

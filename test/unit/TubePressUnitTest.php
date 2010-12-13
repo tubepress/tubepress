@@ -54,6 +54,12 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
                 $mock->expects($this->any())
                      ->method('getTemplateInstance')
                      ->will($this->returnCallback(array($this, 'templateCallback')));
+                break;
+            case 'org_tubepress_api_filesystem_Explorer':
+                $mock->expects($this->any())
+                     ->method('getTubePressBaseInstallationPath')
+                     ->will($this->returnValue(realpath(dirname(__FILE__) . '/../../')));
+                break;
             default:
                 break;
         }

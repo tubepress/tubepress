@@ -20,23 +20,24 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
+    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array(
-    'org_tubepress_util_Log'
+    'org_tubepress_util_Log',
+    'org_tubepress_api_filesystem_Explorer'
 ));
 
 /**
  * Some filesystem utilities
  *
  */
-class org_tubepress_util_FilesystemUtils
+class org_tubepress_impl_filesystem_FsExplorer implements org_tubepress_api_filesystem_Explorer
 {
-    public static function getTubePressBaseInstallationPath()
+    public function getTubePressBaseInstallationPath()
     {
-        return realpath(dirname(__FILE__) . '/../../../../');
+        return realpath(dirname(__FILE__) . '/../../../../../');
     }
     
-    public static function getDirectoriesInDirectory($dir, $prefix)
+    public function getDirectoriesInDirectory($dir, $prefix)
     {
         $realDir = $dir;
 
@@ -67,7 +68,7 @@ class org_tubepress_util_FilesystemUtils
         return $toReturn;
     }
 
-    public static function getFilenamesInDirectory($dir, $prefix)
+    public function getFilenamesInDirectory($dir, $prefix)
     {
         $realDir = $dir;
 

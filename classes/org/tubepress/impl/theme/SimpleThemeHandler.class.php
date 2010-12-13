@@ -69,8 +69,10 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
 
     private static function _getFilePath($currentTheme, $pathToTemplate, $relative = false)
     {
-        $tubepressInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
-        $filePath = "$tubepressInstallationPath/ui/themes/$currentTheme/$pathToTemplate";
+        $ioc                       = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $fs                        = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $tubepressInstallationPath = $fs->getTubePressBaseInstallationPath();
+        $filePath                  = "$tubepressInstallationPath/ui/themes/$currentTheme/$pathToTemplate";
 
         if ($currentTheme === 'default' || !is_readable($filePath)) {
             $filePath = "$tubepressInstallationPath/content/themes/$currentTheme/$pathToTemplate";

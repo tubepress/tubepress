@@ -44,6 +44,7 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocService extends org_tubepress
         $this->bind('org_tubepress_api_embedded_EmbeddedPlayer')             ->labeled(org_tubepress_api_provider_Provider::VIMEO)
                                                                                 ->to('org_tubepress_impl_embedded_VimeoEmbeddedPlayer');
         
+        $this->bind('org_tubepress_api_filesystem_Explorer')    ->to('org_tubepress_impl_filesystem_FsExplorer');
         $this->bind('org_tubepress_api_http_AgentDetector')                     ->to('org_tubepress_impl_http_MobileEspBrowserDetector');
         $this->bind('org_tubepress_api_gallery_Gallery')                            ->to('org_tubepress_impl_gallery_SimpleGallery');
         $this->bind('org_tubepress_api_message_MessageService')                     ->to('org_tubepress_impl_message_WordPressMessageService');

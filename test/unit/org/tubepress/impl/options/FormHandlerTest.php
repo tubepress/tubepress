@@ -23,6 +23,21 @@ class org_tubepress_impl_options_FormHandlerTest extends TubePressUnitTest {
 	    $fakePostVars = array('test', 'two', 'poo');
 	    $this->assertNull($this->_stpom->collect($fakePostVars));
 	}
+
+	public function getMock($class)
+	{
+	    $mock = parent::getMock($class);
+	    
+	    switch ($class) {
+	        case ('org_tubepress_api_filesystem_Explorer'):
+	            $mock->expects($this->any())
+	                 ->method('getDirectoriesInDirectory')
+	                 ->will($this->returnValue(array('poo')));
+	            break;
+	    }
+	    
+	    return $mock;
+	}
 	
 	private function expected()
 	{

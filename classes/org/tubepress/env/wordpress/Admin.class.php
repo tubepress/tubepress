@@ -25,7 +25,7 @@ tubepress_load_classes(array('org_tubepress_impl_ioc_FreeWordPressPluginIocServi
     'org_tubepress_ioc_ProInWordPressIocService',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_impl_options_FormHandler',
-    'org_tubepress_util_FilesystemUtils'));
+    'org_tubepress_api_filesystem_Explorer'));
 
 class org_tubepress_env_wordpress_Admin
 {
@@ -48,7 +48,10 @@ class org_tubepress_env_wordpress_Admin
      */
     public static function initAction()
     {
-        $dirName = basename(org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath());
+        $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $fs           = $iocContainer->get('org_tubepress_api_filesystem_Explorer');
+        $dirName      = basename($fs->getTubePressBaseInstallationPath());
+        
         wp_enqueue_style('jquery-ui-flick', WP_PLUGIN_URL . "/$dirName/ui/lib/options_page/css/flick/jquery-ui-1.7.2.custom.css");
         wp_enqueue_script('jquery-ui-tabs');
     }

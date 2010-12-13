@@ -311,10 +311,15 @@ class org_tubepress_util_OptionsReference
                     org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL
                 );
             case org_tubepress_api_const_options_OptionType::THEME:
-                $tubepressBaseInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
-                $dir = "$tubepressBaseInstallationPath/ui/themes";
-                $result = array();
-                $dirs = org_tubepress_util_FilesystemUtils::getDirectoriesInDirectory($dir, 'Options reference');
+                
+                $ioc                           = org_tubepress_impl_ioc_IocContainer::getInstance();
+                echo "FUCK";
+                $fs                            = $ioc->get('org_tubepress_api_filesystem_Explorer');
+                $tubepressBaseInstallationPath = $fs->getTubePressBaseInstallationPath();
+                $dir                           = "$tubepressBaseInstallationPath/ui/themes";
+                $result                        = array();
+                $dirs                          = $fs->getDirectoriesInDirectory($dir, 'Options reference');
+
                 foreach ($dirs as $fullDir) {
                     array_push($result, basename($fullDir));
                 }

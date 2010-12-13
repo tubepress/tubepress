@@ -30,7 +30,7 @@ tubepress_load_classes(array('org_tubepress_api_const_options_OptionCategory',
     'org_tubepress_impl_template_SimpleTemplate',
     'org_tubepress_api_template_Template',
     'org_tubepress_api_const_options_Gallery',
-    'org_tubepress_util_FilesystemUtils'));
+    'org_tubepress_api_filesystem_Explorer'));
 
 /**
  * Displays a generic options form for TubePress
@@ -147,7 +147,11 @@ class org_tubepress_impl_options_FormHandler
             $metaArray[org_tubepress_api_template_Template::OPTIONS_PAGE_VIMEO_OPTION]     = org_tubepress_util_OptionsReference::appliesToVimeo($optionName);
 
             if ($optionName == org_tubepress_api_const_options_Display::THEME) {
-                $baseInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
+                
+                $ioc                  = org_tubepress_impl_ioc_IocContainer::getInstance();
+                $fs                   = $ioc->get('org_tubepress_api_filesystem_Explorer');
+                $baseInstallationPath = $fs->getTubePressBaseInstallationPath();
+                
                 $metaArray[org_tubepress_api_template_Template::OPTIONS_PAGE_OPTIONS_DESC] = sprintf($messageService->_("options-desc-$optionName"),
                      "$baseInstallationPath/content/themes", "$baseInstallationPath/ui/themes");
             } else {

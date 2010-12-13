@@ -30,7 +30,7 @@ tubepress_load_classes(array('org_tubepress_api_ioc_IocService',
     'org_tubepress_impl_template_SimpleTemplate',
     'org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_api_provider_Provider',
-    'org_tubepress_util_FilesystemUtils',
+    'org_tubepress_api_filesystem_Explorer',
     'org_tubepress_util_ProviderCalculator'));
 
 /**
@@ -93,10 +93,12 @@ class org_tubepress_impl_gallery_GalleryTemplateUtils
         }
         
         global $tubepress_base_url;
-        $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $baseInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
         
-        $template = new org_tubepress_impl_template_SimpleTemplate();
+        $tpom                 = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $fs                   = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $baseInstallationPath = $fs->getTubePressBaseInstallationPath();
+        $template             = new org_tubepress_impl_template_SimpleTemplate();
+        
         $template->setPath("$baseInstallationPath/ui/lib/gallery_html_snippets/generate_thumbnails.tpl.php");
         $template->setVariable(org_tubepress_api_template_Template::TUBEPRESS_BASE_URL, $tubepress_base_url);
         return $template->toString();
@@ -113,10 +115,12 @@ class org_tubepress_impl_gallery_GalleryTemplateUtils
             if (is_readable($cssPath) && strpos($cssPath, 'themes/default') === false) {
 
                 org_tubepress_util_Log::log(self::LOG_PREFIX, 'Theme CSS found at <tt>%s</tt>', $cssPath);
-                $cssRelativePath = $themeHandler->getCssPath($currentTheme, true);
-                $baseInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
                 
+                $cssRelativePath      = $themeHandler->getCssPath($currentTheme, true);
+                $fs                   = $ioc->get('org_tubepress_api_filesystem_Explorer');
+                $baseInstallationPath = $fs->getTubePressBaseInstallationPath();
                 $cssUrl = "$tubepress_base_url/$cssRelativePath";
+                
                 org_tubepress_util_Log::log(self::LOG_PREFIX, 'Will inject CSS from <tt>%s</tt>', $cssUrl);
                 $template = new org_tubepress_impl_template_SimpleTemplate();
                 $template->setPath("$baseInstallationPath/ui/lib/gallery_html_snippets/theme_loader.tpl.php");
@@ -137,8 +141,10 @@ class org_tubepress_impl_gallery_GalleryTemplateUtils
         
         if ($tpom->get(org_tubepress_api_const_options_Display::AJAX_PAGINATION)) {
             org_tubepress_util_Log::log(self::LOG_PREFIX, 'Using Ajax pagination');
-            $template = new org_tubepress_impl_template_SimpleTemplate();
-            $baseInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
+            
+            $template             = new org_tubepress_impl_template_SimpleTemplate();
+            $fs                   = $ioc->get('org_tubepress_api_filesystem_Explorer');
+            $baseInstallationPath = $fs->getTubePressBaseInstallationPath();
              
             $template->setPath("$baseInstallationPath/ui/lib/gallery_html_snippets/ajax_pagination.tpl.php");
             $template->setVariable(org_tubepress_api_template_Template::GALLERY_ID, $galleryId);
