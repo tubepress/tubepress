@@ -22,7 +22,7 @@
 /**
  * Converts raw video feeds to TubePress videos
  */
-interface org_tubepress_api_feed_VideoFactory
+interface org_tubepress_api_factory_VideoFactory
 {
     /**
      * Converts raw video feeds to TubePress videos

@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_feed_VideoFactory',
+tubepress_load_classes(array('org_tubepress_api_factory_VideoFactory',
     'org_tubepress_api_video_Video',
     'net_php_pear_Net_URL2',
     'org_tubepress_util_TimeUtils'));
@@ -29,7 +29,7 @@ tubepress_load_classes(array('org_tubepress_api_feed_VideoFactory',
 /**
  * Video factory for YouTube
  */
-class org_tubepress_video_factory_impl_YouTubeVideoFactory implements org_tubepress_api_feed_VideoFactory
+class org_tubepress_impl_factory_YouTubeVideoFactory implements org_tubepress_api_factory_VideoFactory
 {
     /* shorthands for the namespaces */
     const NS_APP   = 'http://www.w3.org/2007/app';

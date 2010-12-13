@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_api_feed_VideoFactory',
+tubepress_load_classes(array('org_tubepress_api_factory_VideoFactory',
     'org_tubepress_api_options_OptionsManager',
     'org_tubepress_ioc_IocContainer',
     'org_tubepress_util_ProviderCalculator'));
@@ -29,7 +29,7 @@ tubepress_load_classes(array('org_tubepress_api_feed_VideoFactory',
 /**
  * Video factory that sends the feed to the right video factory based on the provider
  */
-class org_tubepress_video_factory_DelegatingVideoFactory implements org_tubepress_api_feed_VideoFactory
+class org_tubepress_impl_factory_DelegatingVideoFactory implements org_tubepress_api_factory_VideoFactory
 {
     /**
      * Converts raw video feeds to TubePress videos
@@ -54,6 +54,6 @@ class org_tubepress_video_factory_DelegatingVideoFactory implements org_tubepres
     private static function _getDelegate()
     {
         $ioc  = org_tubepress_ioc_IocContainer::getInstance();
-        return $ioc->get('org_tubepress_api_feed_VideoFactory', org_tubepress_util_ProviderCalculator::calculateCurrentVideoProvider());    
+        return $ioc->get('org_tubepress_api_factory_VideoFactory', org_tubepress_util_ProviderCalculator::calculateCurrentVideoProvider());    
     }
 }

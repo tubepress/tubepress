@@ -1,9 +1,9 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../../test/unit/TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/video/factory/impl/YouTubeVideoFactory.class.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/factory/YouTubeVideoFactory.class.php';
 
-class org_tubepress_video_factory_YouTubeVideoFactoryTest extends TubePressUnitTest {
+class org_tubepress_impl_factory_YouTubeVideoFactoryTest extends TubePressUnitTest {
     
     private $_sut;
     private $_playlistFeed;
@@ -11,7 +11,7 @@ class org_tubepress_video_factory_YouTubeVideoFactoryTest extends TubePressUnitT
     function setUp() {
 	$this->initFakeIoc();
         $this->_sampleFeedOne = file_get_contents(dirname(__FILE__) . '/playlist.xml');
-        $this->_sut = new org_tubepress_video_factory_impl_YouTubeVideoFactory();
+        $this->_sut = new org_tubepress_impl_factory_YouTubeVideoFactory();
         org_tubepress_util_Log::setEnabled(false, array());
     }
 

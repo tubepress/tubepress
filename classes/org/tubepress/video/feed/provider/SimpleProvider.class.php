@@ -90,7 +90,7 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
         org_tubepress_util_Log::log(self::LOG_PREFIX, 'Effective display count for this page is %d video(s)', $effectiveDisplayCount);
 
         /* convert the XML to objects */
-        $factory = $ioc->get('org_tubepress_api_feed_VideoFactory');
+        $factory = $ioc->get('org_tubepress_api_factory_VideoFactory');
         $videos = $factory->feedToVideoArray($rawFeed, $effectiveDisplayCount);
 
         /* shuffle if we need to */
@@ -127,7 +127,7 @@ class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_
         $feedRetrievalService = $ioc->get('org_tubepress_api_feed_FeedFetcher');
         $tpom                 = $ioc->get('org_tubepress_api_options_OptionsManager');
         $results              = $feedRetrievalService->fetch($videoUrl, $tpom->get(org_tubepress_api_const_options_Feed::CACHE_ENABLED));
-        $factory              = $ioc->get('org_tubepress_api_feed_VideoFactory');
+        $factory              = $ioc->get('org_tubepress_api_factory_VideoFactory');
         $videoArray           = $factory->convertSingleVideo($results, 1);
 
         return $videoArray[0];

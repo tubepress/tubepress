@@ -65,11 +65,11 @@ class org_tubepress_ioc_impl_FreeWordPressPluginIocService extends org_tubepress
                                                                                 ->to('org_tubepress_impl_feed_VimeoUrlBuilder');
         
         /* Video factories */
-        $this->bind('org_tubepress_api_feed_VideoFactory')                 ->to('org_tubepress_video_factory_DelegatingVideoFactory');
-        $this->bind('org_tubepress_api_feed_VideoFactory')                 ->labeled(org_tubepress_api_provider_Provider::YOUTUBE)
-                                                                                ->to('org_tubepress_video_factory_impl_YouTubeVideoFactory');
-        $this->bind('org_tubepress_api_feed_VideoFactory')                 ->labeled(org_tubepress_api_provider_Provider::VIMEO)
-                                                                                ->to('org_tubepress_video_factory_impl_VimeoVideoFactory');
+        $this->bind('org_tubepress_api_factory_VideoFactory')                 ->to('org_tubepress_impl_factory_DelegatingVideoFactory');
+        $this->bind('org_tubepress_api_factory_VideoFactory')                 ->labeled(org_tubepress_api_provider_Provider::YOUTUBE)
+                                                                                ->to('org_tubepress_impl_factory_YouTubeVideoFactory');
+        $this->bind('org_tubepress_api_factory_VideoFactory')                 ->labeled(org_tubepress_api_provider_Provider::VIMEO)
+                                                                                ->to('org_tubepress_impl_factory_VimeoVideoFactory');
         
         /* Feed inspection */
         $this->bind('org_tubepress_api_feed_FeedInspector')->to('org_tubepress_video_feed_inspection_DelegatingFeedInspectionService');
