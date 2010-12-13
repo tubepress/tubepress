@@ -19,7 +19,6 @@ require_once 'org/tubepress/impl/template/TemplateTests.php';
 require_once 'org/tubepress/impl/theme/ThemeHandlerTests.php';
 require_once 'org/tubepress/impl/url/UrlTests.php';
 require_once 'org/tubepress/impl/ioc/IocTests.php';
-require_once 'org/tubepress/log/LogTests.php';
 require_once 'org/tubepress/util/UtilsTests.php';
 require_once 'org/tubepress/api/video/VideoTests.php';
 
@@ -32,7 +31,6 @@ class TubePressUnitTests
 		$suite->addTest(CacheTests::suite());
 		$suite->addTest(EmbeddedPlayerTests::suite());
 		$suite->addTest(GalleryTests::suite());
-		$suite->addTest(LogTests::suite());
 		$suite->addTest(IocTests::suite());
 		$suite->addTest(MessageTests::suite());
 		$suite->addTest(PaginationTests::suite());

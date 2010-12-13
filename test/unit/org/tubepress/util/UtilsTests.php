@@ -4,6 +4,7 @@ require_once 'StringUtilsTest.php';
 require_once 'FilesystemUtilsTest.php';
 require_once 'TimeUtilsTest.php';
 require_once 'OptionsReferenceTest.php';
+require_once 'LogImplTest.php';
 
 class UtilsTests
 {
@@ -14,6 +15,7 @@ class UtilsTests
 		$suite->addTestSuite('org_tubepress_util_FilesystemUtilsTest');
 		$suite->addTestSuite('org_tubepress_util_TimeUtilsTest');
 		$suite->addTestSuite('org_tubepress_util_OptionsReferenceTest');
+		$suite->addTestSuite('org_tubepress_util_LogImplTest');
 		return $suite;
 	}
 }
