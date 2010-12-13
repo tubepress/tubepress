@@ -4,6 +4,7 @@ require_once 'SimpleOptionsManagerTest.php';
 require_once 'WordPressStorageManagerTest.php';
 require_once 'SimpleOptionValidatorTest.php';
 require_once 'FormHandlerTest.php';
+require_once 'OptionsReferenceTest.php';
 
 class OptionsTests
 {
@@ -14,6 +15,7 @@ class OptionsTests
 		$suite->addTestSuite('org_tubepress_impl_options_WordPressStorageManagerTest');
 		$suite->addTestSuite('org_tubepress_impl_options_SimpleOptionValidatorTest');
 		$suite->addTestSuite('org_tubepress_impl_options_FormHandlerTest');
+		$suite->addTestSuite('org_tubepress_impl_options_OptionsReferenceTest');
 		return $suite;
 	}
 }

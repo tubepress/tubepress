@@ -24,7 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_api_options_StorageManager',
     'org_tubepress_api_const_options_OptionType',
     'org_tubepress_api_options_OptionValidator',
-    'org_tubepress_util_OptionsReference',
+    'org_tubepress_impl_options_OptionsReference',
     'org_tubepress_impl_ioc_IocContainer'));
 
 /**
@@ -58,10 +58,10 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
      */
     public final function init()
     {
-        $allOptionNames = org_tubepress_util_OptionsReference::getAllOptionNames();
+        $allOptionNames = org_tubepress_impl_options_OptionsReference::getAllOptionNames();
         $vals           = array();
         foreach ($allOptionNames as $optionName) {
-            $vals[$optionName] = org_tubepress_util_OptionsReference::getDefaultValue($optionName);
+            $vals[$optionName] = org_tubepress_impl_options_OptionsReference::getDefaultValue($optionName);
         }
 
         foreach ($vals as $val => $key) {
@@ -79,7 +79,7 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
      */
     private function _init($name, $value)
     {
-        if (!org_tubepress_util_OptionsReference::shouldBePersisted($name)) {
+        if (!org_tubepress_impl_options_OptionsReference::shouldBePersisted($name)) {
             return;
         }
 
@@ -87,7 +87,7 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
             $this->delete($name);
             $this->create($name, $value);
         }
-        if (org_tubepress_util_OptionsReference::getType($name) != org_tubepress_api_const_options_OptionType::BOOL
+        if (org_tubepress_impl_options_OptionsReference::getType($name) != org_tubepress_api_const_options_OptionType::BOOL
             && $this->get($name) == "") {
             $this->setOption($name, $value);
         }
@@ -103,7 +103,7 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
      */
     public final function set($optionName, $optionValue)
     {
-        if (!org_tubepress_util_OptionsReference::shouldBePersisted($optionName)) {
+        if (!org_tubepress_impl_options_OptionsReference::shouldBePersisted($optionName)) {
             return;
         }
 	$ioc = org_tubepress_impl_ioc_IocContainer::getInstance();

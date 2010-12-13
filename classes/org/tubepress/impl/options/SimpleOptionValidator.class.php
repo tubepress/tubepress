@@ -24,7 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_api_const_options_Display',
     'org_tubepress_api_const_options_Gallery',   
-    'org_tubepress_util_OptionsReference',
+    'org_tubepress_impl_options_OptionsReference',
     'org_tubepress_api_const_options_OptionType'));
 
 /**
@@ -90,7 +90,7 @@ class org_tubepress_impl_options_SimpleOptionValidator implements org_tubepress_
      */
     private static function _checkExistence($optionName, org_tubepress_api_message_MessageService $messageService)
     {
-        if (org_tubepress_util_OptionsReference::isOptionName($optionName) === false) {
+        if (org_tubepress_impl_options_OptionsReference::isOptionName($optionName) === false) {
             throw new Exception(sprintf($messageService->_('validation-no-such-option'), $optionName));
         }
     }
@@ -105,7 +105,7 @@ class org_tubepress_impl_options_SimpleOptionValidator implements org_tubepress_
      */
     private function _checkType($optionName, $candidate, org_tubepress_api_message_MessageService $messageService)
     {
-        $type = org_tubepress_util_OptionsReference::getType($optionName);
+        $type = org_tubepress_impl_options_OptionsReference::getType($optionName);
 
         switch ($type) {
         case org_tubepress_api_const_options_OptionType::TEXT:
@@ -133,7 +133,7 @@ class org_tubepress_impl_options_SimpleOptionValidator implements org_tubepress_
         case org_tubepress_api_const_options_OptionType::PLAYER_IMPL:
         case org_tubepress_api_const_options_OptionType::SAFE_SEARCH:
         case org_tubepress_api_const_options_OptionType::TIME_FRAME:
-            $validValues = org_tubepress_util_OptionsReference::getValidEnumValues($type);
+            $validValues = org_tubepress_impl_options_OptionsReference::getValidEnumValues($type);
             if (in_array((string)$candidate, $validValues) !== true) {
                 throw new Exception(sprintf($messageService->_('validation-enum'), $optionName, implode(', ', $validValues), $candidate));
             }

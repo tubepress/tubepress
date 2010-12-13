@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_api_theme_ThemeHandler',
-    'org_tubepress_util_OptionsReference',
+    'org_tubepress_impl_options_OptionsReference',
     'org_tubepress_api_single_SingleVideo',
     'org_tubepress_api_const_options_OptionCategory',
     'org_tubepress_api_message_MessageService'));
@@ -90,7 +90,7 @@ class org_tubepress_impl_single_SimpleSingleVideo implements org_tubepress_api_s
         $template       = $themeHandler->getTemplateInstance('single_video.tpl.php');
         $tpom           = $ioc->get('org_tubepress_api_options_OptionsManager');
         $messageService = $ioc->get('org_tubepress_api_message_MessageService');
-        $metaNames      = org_tubepress_util_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::META);
+        $metaNames      = org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::META);
         $shouldShow     = array();
         $labels         = array();
         $eps            = $ioc->get('org_tubepress_api_embedded_EmbeddedPlayer');
