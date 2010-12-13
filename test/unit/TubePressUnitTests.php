@@ -1,29 +1,29 @@
 <?php
 require 'PhpUnitLoader.php';
+require_once 'org/tubepress/api/const/options/OptionConstantsTests.php';
 require_once 'org/tubepress/impl/cache/CacheTests.php';
 require_once 'org/tubepress/impl/embedded/EmbeddedPlayerTests.php';
+require_once 'org/tubepress/impl/factory/FactoryTests.php';
+require_once 'org/tubepress/impl/feed/FeedTests.php';
 require_once 'org/tubepress/impl/gallery/GalleryTests.php';
-require_once 'org/tubepress/log/LogTests.php';
-require_once 'org/tubepress/video/feed/inspection/InspectionTests.php';
-require_once 'org/tubepress/video/feed/retrieval/RetrievalTests.php';
-require_once 'org/tubepress/impl/provider/ProviderTests.php';
-require_once 'org/tubepress/ioc/IocTests.php';
+require_once 'org/tubepress/impl/http/AgentDetectorTests.php';
 require_once 'org/tubepress/impl/message/MessageTests.php';
+require_once 'org/tubepress/impl/options/OptionsTests.php';
 require_once 'org/tubepress/impl/pagination/PaginationTests.php';
 require_once 'org/tubepress/impl/player/PlayerTests.php';
+require_once 'org/tubepress/impl/provider/ProviderTests.php';
 require_once 'org/tubepress/impl/querystring/QueryStringTests.php';
 require_once 'org/tubepress/impl/shortcode/ShortcodeTests.php';
-require_once 'org/tubepress/impl/template/TemplateTests.php';
-require_once 'org/tubepress/impl/feed/FeedTests.php';
-require_once 'org/tubepress/util/UtilsTests.php';
-require_once 'org/tubepress/video/VideoTests.php';
-require_once 'org/tubepress/impl/options/OptionsTests.php';
-require_once 'org/tubepress/impl/http/AgentDetectorTests.php';
 require_once 'org/tubepress/impl/single/SingleVideoTests.php';
+require_once 'org/tubepress/impl/template/TemplateTests.php';
 require_once 'org/tubepress/impl/theme/ThemeHandlerTests.php';
 require_once 'org/tubepress/impl/url/UrlTests.php';
-require_once 'org/tubepress/api/const/options/OptionConstantsTests.php';
-require_once 'org/tubepress/impl/factory/FactoryTests.php';
+require_once 'org/tubepress/ioc/IocTests.php';
+require_once 'org/tubepress/log/LogTests.php';
+require_once 'org/tubepress/util/UtilsTests.php';
+require_once 'org/tubepress/video/VideoTests.php';
+require_once 'org/tubepress/video/feed/retrieval/RetrievalTests.php';
+
 
 class TubePressUnitTests
 {
@@ -45,7 +45,6 @@ class TubePressUnitTests
 		$suite->addTest(UtilsTests::suite());
 		$suite->addTest(VideoTests::suite());
 		$suite->addTest(OptionsTests::suite());
-		$suite->addTest(InspectionTests::suite());
 		$suite->addTest(RetrievalTests::suite());
 		$suite->addTest(ProviderTests::suite());
 		$suite->addTest(AgentDetectorTests::suite());

@@ -20,15 +20,17 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
+    || require dirname(__FILE__) . '/../../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_feed_FeedInspector'));
 
 /**
- * Examines the feed from Vimeo
+ * Examines the feed from YouTube
  *
  */
-class org_tubepress_video_feed_inspection_impl_VimeoFeedInspectionService implements org_tubepress_api_feed_FeedInspector
+class org_tubepress_impl_feed_YouTubeFeedInspector implements org_tubepress_api_feed_FeedInspector
 {
+    const NS_OPENSEARCH = 'http://a9.com/-/spec/opensearch/1.1/';
+
     /**
      * Determine the total number of videos in this gallery.
      *
@@ -38,9 +40,11 @@ class org_tubepress_video_feed_inspection_impl_VimeoFeedInspectionService implem
      */
     public function getTotalResultCount($rawFeed)
     {
-        $feed   = unserialize($rawFeed);
-        $videos = $feed->videos;
-        return $videos->total;
+        $dom    = $this->_getDom($rawFeed);
+        $result = $dom->getElementsByTagNameNS(self::NS_OPENSEARCH, 'totalResults')->item(0)->nodeValue;
+
+        $this->_makeSureNumeric($result);
+        return $result;
     }
 
     /**
@@ -52,8 +56,28 @@ class org_tubepress_video_feed_inspection_impl_VimeoFeedInspectionService implem
      */
     public function getQueryResultCount($rawFeed)
     {
-        $feed   = unserialize($rawFeed);
-        $videos = $feed->videos;
-        return $videos->on_this_page;
+        $dom    = $this->_getDom($rawFeed);
+        $result = $dom->getElementsByTagName('entry')->length;
+        $this->_makeSureNumeric($result);
+        return $result;
+    }
+
+    private function _getDom($rawFeed)
+    {
+        if (!class_exists('DOMDocument')) {
+            throw new Exception('DOMDocument class not found');
+        }
+        $dom = new DOMDocument();
+        if ($dom->loadXML($rawFeed) === false) {
+                throw new Exception('Problem parsing XML from YouTube');
+        }
+        return $dom;
+    }
+
+    private function _makeSureNumeric($result)
+    {
+        if (is_numeric($result) === false) {
+            throw new Exception("YouTube returned a non-numeric total result count: $result");
+        }
     }
 }

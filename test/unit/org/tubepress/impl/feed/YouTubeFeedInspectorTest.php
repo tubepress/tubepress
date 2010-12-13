@@ -1,15 +1,15 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/video/feed/inspection/impl/YouTubeFeedInspectionService.class.php';
-require_once dirname(__FILE__) . '/../../../../../../../test/unit/TubePressUnitTest.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/feed/YouTubeFeedInspector.class.php';
+require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
 
-class org_tubepress_video_feed_inspection_YouTubeFeedInspectionServiceTest extends TubePressUnitTest {
+class org_tubepress_impl_feed_inspection_YouTubeFeedInspectorTest extends TubePressUnitTest {
     
 	private $_sut;
 	
 	function setUp()
 	{
-		$this->_sut = new org_tubepress_video_feed_inspection_impl_YouTubeFeedInspectionService();
+		$this->_sut = new org_tubepress_impl_feed_YouTubeFeedInspector();
 	}
 	
 	function testGetTotalResultCount()

@@ -29,7 +29,7 @@ tubepress_load_classes(array('org_tubepress_api_feed_FeedInspector',
 /**
  * Sends the feed to the right inspection service based on the provider.
  */
-class org_tubepress_video_feed_inspection_DelegatingFeedInspectionService implements org_tubepress_api_feed_FeedInspector
+class org_tubepress_impl_feed_DelegatingFeedInspector implements org_tubepress_api_feed_FeedInspector
 {
     public function getTotalResultCount($rawFeed)
     {
