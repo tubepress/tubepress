@@ -19,7 +19,7 @@
  *
  */
 
-function_exists('tubepress_load_classes') || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
+function_exists('tubepress_load_classes') || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_feed_FeedFetcher',
     'org_tubepress_api_cache_Cache',
     'org_tubepress_util_Log',
@@ -28,7 +28,7 @@ tubepress_load_classes(array('org_tubepress_api_feed_FeedFetcher',
 /**
  * Base functionality for feed retrieval services.
  */
-abstract class org_tubepress_video_feed_retrieval_AbstractFeedRetrievalService implements org_tubepress_api_feed_FeedFetcher
+abstract class org_tubepress_impl_feed_AbstractFeedFetcher implements org_tubepress_api_feed_FeedFetcher
 {
     /**
      * Fetches the feed from the remote provider

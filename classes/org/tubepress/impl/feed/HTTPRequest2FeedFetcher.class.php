@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_video_feed_retrieval_AbstractFeedRetrievalService',
+tubepress_load_classes(array('org_tubepress_impl_feed_AbstractFeedFetcher',
     'net_php_pear_Net_URL2',
     'net_php_pear_HTTP_Request2',
     'net_php_pear_HTTP_Request2_Adapter_Socket'));
@@ -29,7 +29,7 @@ tubepress_load_classes(array('org_tubepress_video_feed_retrieval_AbstractFeedRet
 /**
  *
  */
-class org_tubepress_video_feed_retrieval_HTTPRequest2 extends org_tubepress_video_feed_retrieval_AbstractFeedRetrievalService
+class org_tubepress_impl_feed_HTTPRequest2FeedFetcher extends org_tubepress_impl_feed_AbstractFeedFetcher
 {
     /**
      * Retrieve the data from the network.

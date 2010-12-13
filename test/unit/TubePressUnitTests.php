@@ -22,7 +22,6 @@ require_once 'org/tubepress/ioc/IocTests.php';
 require_once 'org/tubepress/log/LogTests.php';
 require_once 'org/tubepress/util/UtilsTests.php';
 require_once 'org/tubepress/video/VideoTests.php';
-require_once 'org/tubepress/video/feed/retrieval/RetrievalTests.php';
 
 
 class TubePressUnitTests
@@ -45,7 +44,6 @@ class TubePressUnitTests
 		$suite->addTest(UtilsTests::suite());
 		$suite->addTest(VideoTests::suite());
 		$suite->addTest(OptionsTests::suite());
-		$suite->addTest(RetrievalTests::suite());
 		$suite->addTest(ProviderTests::suite());
 		$suite->addTest(AgentDetectorTests::suite());
 		$suite->addTest(SingleVideoTests::suite());

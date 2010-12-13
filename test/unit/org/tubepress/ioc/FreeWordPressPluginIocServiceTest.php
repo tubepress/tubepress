@@ -2,8 +2,6 @@
 
 require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
 
-function get_option() { }
-function update_option() { }
 
 class org_tubepress_ioc_FreeWordPressPluginIocServiceTest extends TubePressUnitTest {
 
@@ -32,7 +30,7 @@ class org_tubepress_ioc_FreeWordPressPluginIocServiceTest extends TubePressUnitT
             'org_tubepress_api_factory_VideoFactory'                  => 'org_tubepress_impl_factory_DelegatingVideoFactory',
             'org_tubepress_api_feed_FeedInspector' => 'org_tubepress_impl_feed_DelegatingFeedInspector',
             'org_tubepress_api_provider_Provider'                => 'org_tubepress_impl_provider_SimpleProvider',
-            'org_tubepress_api_feed_FeedFetcher'   => 'org_tubepress_video_feed_retrieval_HTTPRequest2',
+            'org_tubepress_api_feed_FeedFetcher'   => 'org_tubepress_impl_feed_HTTPRequest2FeedFetcher',
         
         );
     }

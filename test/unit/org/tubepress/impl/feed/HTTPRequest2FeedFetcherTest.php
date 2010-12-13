@@ -1,16 +1,16 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../../test/unit/TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/video/feed/retrieval/HTTPRequest2.class.php';
+require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/feed/HTTPRequest2FeedFetcher.class.php';
 
-class org_tubepress_video_feed_retrieval_HTTPRequest2Test extends TubePressUnitTest {
+class org_tubepress_impl_feed_HTTPRequest2FeedFetcherTest extends TubePressUnitTest {
     
 	private $_sut;
 	
 	function setUp()
 	{
 		$this->initFakeIoc();
-		$this->_sut = new org_tubepress_video_feed_retrieval_HTTPRequest2();
+		$this->_sut = new org_tubepress_impl_feed_HTTPRequest2FeedFetcher();
         org_tubepress_util_Log::setEnabled(false, array());
 	}
 	
