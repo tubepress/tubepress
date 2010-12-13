@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
+    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
     'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_util_OptionsReference',
@@ -31,7 +31,7 @@ tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
 /**
  * Handles requests for a single video (for embedding)
  */
-class org_tubepress_single_SimpleSingleVideo implements org_tubepress_api_single_SingleVideo
+class org_tubepress_impl_single_SimpleSingleVideo implements org_tubepress_api_single_SingleVideo
 {
     const LOG_PREFIX = 'Single video';
     

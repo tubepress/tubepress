@@ -1,5 +1,5 @@
 <?php
-require dirname(__FILE__) . '/../../../PhpUnitLoader.php';
+require dirname(__FILE__) . '/../../../../PhpUnitLoader.php';
 require_once 'SingleVideoTest.php';
 
 class SingleVideoTests

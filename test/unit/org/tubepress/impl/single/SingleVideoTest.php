@@ -1,7 +1,7 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/single/SimpleSingleVideo.class.php';
+require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/single/SimpleSingleVideo.class.php';
 
 class org_tubepress_single_VideoTest extends TubePressUnitTest
 {
@@ -10,7 +10,7 @@ class org_tubepress_single_VideoTest extends TubePressUnitTest
 	function setup()
 	{
 		$this->initFakeIoc();
-		$this->_sut = new org_tubepress_single_SimpleSingleVideo();
+		$this->_sut = new org_tubepress_impl_single_SimpleSingleVideo();
 	    org_tubepress_util_Log::setEnabled(false, array());
 	}
     
