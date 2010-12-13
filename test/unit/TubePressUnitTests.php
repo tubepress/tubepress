@@ -14,7 +14,7 @@ require_once 'org/tubepress/impl/player/PlayerTests.php';
 require_once 'org/tubepress/impl/querystring/QueryStringTests.php';
 require_once 'org/tubepress/impl/shortcode/ShortcodeTests.php';
 require_once 'org/tubepress/impl/template/TemplateTests.php';
-require_once 'org/tubepress/impl/url/UrlTests.php';
+require_once 'org/tubepress/impl/feed/FeedTests.php';
 require_once 'org/tubepress/util/UtilsTests.php';
 require_once 'org/tubepress/video/VideoTests.php';
 require_once 'org/tubepress/impl/options/OptionsTests.php';
@@ -39,7 +39,7 @@ class TubePressUnitTests
 		$suite->addTest(QueryStringTests::suite());
 		$suite->addTest(ShortcodeTests::suite());
 		$suite->addTest(TemplateTests::suite());
-		$suite->addTest(UrlTests::suite());
+		$suite->addTest(FeedTests::suite());
 		$suite->addTest(UtilsTests::suite());
 		$suite->addTest(VideoTests::suite());
 		$suite->addTest(OptionsTests::suite());

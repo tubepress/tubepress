@@ -36,7 +36,7 @@ tubepress_load_classes(array('org_tubepress_api_feed_UrlBuilder',
  * Builds URLs to send out to YouTube for gdata
  *
  */
-class org_tubepress_impl_url_YouTubeUrlBuilder implements org_tubepress_api_feed_UrlBuilder
+class org_tubepress_impl_feed_YouTubeUrlBuilder implements org_tubepress_api_feed_UrlBuilder
 {
     /**
      * Builds a gdata request url for a list of videos
