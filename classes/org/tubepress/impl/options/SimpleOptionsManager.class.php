@@ -33,7 +33,7 @@ tubepress_load_classes(array('org_tubepress_api_options_OptionsManager',
  * usually in persistent storage somewhere, and custom options parsed
  * from a shortcode
  */
-class org_tubepress_options_manager_SimpleOptionsManager implements org_tubepress_api_options_OptionsManager
+class org_tubepress_impl_options_SimpleOptionsManager implements org_tubepress_api_options_OptionsManager
 {
     private $_customOptions = array();
     private $_shortcode;

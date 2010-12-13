@@ -21,13 +21,13 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_options_storage_AbstractStorageManager'));
+tubepress_load_classes(array('org_tubepress_impl_options_AbstractStorageManager'));
 
 /**
  * Implementation of org_tubepress_api_options_StorageManager that uses the
  * regular WordPress options API
  */
-class org_tubepress_options_storage_WordPressStorageManager extends org_tubepress_options_storage_AbstractStorageManager
+class org_tubepress_impl_options_WordPressStorageManager extends org_tubepress_impl_options_AbstractStorageManager
 {
     /*
      * Prefix all our option names in the WordPress DB

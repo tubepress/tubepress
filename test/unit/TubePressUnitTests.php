@@ -17,10 +17,11 @@ require_once 'org/tubepress/impl/template/TemplateTests.php';
 require_once 'org/tubepress/impl/url/UrlTests.php';
 require_once 'org/tubepress/util/UtilsTests.php';
 require_once 'org/tubepress/video/VideoTests.php';
-require_once 'org/tubepress/options/OptionsTests.php';
+require_once 'org/tubepress/impl/options/OptionsTests.php';
 require_once 'org/tubepress/impl/http/AgentDetectorTests.php';
 require_once 'org/tubepress/impl/single/SingleVideoTests.php';
 require_once 'org/tubepress/impl/theme/ThemeHandlerTests.php';
+require_once 'org/tubepress/api/const/options/OptionConstantsTests.php';
 
 class TubePressUnitTests
 {
@@ -48,6 +49,7 @@ class TubePressUnitTests
 		$suite->addTest(AgentDetectorTests::suite());
 		$suite->addTest(SingleVideoTests::suite());
 		$suite->addTest(ThemeHandlerTests::suite());
+		$suite->addTest(OptionConstantsTests::suite());
 
 		return $suite;
 	}

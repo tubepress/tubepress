@@ -1,16 +1,16 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/options/validation/SimpleInputValidationService.class.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/options/SimpleOptionValidator.class.php';
 
-class org_tubepress_api_options_OptionValidatorTest extends TubePressUnitTest {
+class org_tubepress_impl_options_SimpleOptionValidatorTest extends TubePressUnitTest {
 	
 	private $_sut;
 
 	public function setup()
 	{
 		$this->initFakeIoc();
-		$this->_sut = new org_tubepress_options_validation_SimpleInputValidationService();
+		$this->_sut = new org_tubepress_impl_options_SimpleOptionValidator();
 	}
 
 	public function testThumbHeightOk()

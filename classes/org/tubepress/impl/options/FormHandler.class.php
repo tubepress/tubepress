@@ -36,7 +36,7 @@ tubepress_load_classes(array('org_tubepress_api_const_options_OptionCategory',
  * Displays a generic options form for TubePress
  *
  */
-class org_tubepress_options_form_FormHandler
+class org_tubepress_impl_options_FormHandler
 {
     /**
      * Displays all the TubePress options in HTML

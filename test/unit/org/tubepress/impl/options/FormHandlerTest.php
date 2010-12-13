@@ -1,16 +1,16 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/options/form/FormHandler.class.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/options/FormHandler.class.php';
 
-class org_tubepress_options_form_FormHandlerTest extends TubePressUnitTest {
+class org_tubepress_impl_options_FormHandlerTest extends TubePressUnitTest {
     
     private $_stpom;
 	
 	public function setup()
 	{
 		$this->initFakeIoc();
-		$this->_stpom = new org_tubepress_options_form_FormHandler();
+		$this->_stpom = new org_tubepress_impl_options_FormHandler();
 	}
 	
 	public function testDisplay()

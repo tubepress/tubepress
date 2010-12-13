@@ -30,7 +30,7 @@ tubepress_load_classes(array('org_tubepress_api_options_StorageManager',
 /**
  * Handles persistent storage of TubePress options
  */
-abstract class org_tubepress_options_storage_AbstractStorageManager implements org_tubepress_api_options_StorageManager
+abstract class org_tubepress_impl_options_AbstractStorageManager implements org_tubepress_api_options_StorageManager
 {
     /**
      * Creates an option in storage

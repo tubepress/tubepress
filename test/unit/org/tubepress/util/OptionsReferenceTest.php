@@ -1,8 +1,8 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/util/OptionsReference.class.php';
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/api/const/options/OptionCategory.class.php';
-require_once dirname(__FILE__) . '/../../../../../../test/unit/TubePressUnitTest.php';
+require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/util/OptionsReference.class.php';
+require_once dirname(__FILE__) . '/../../../../../classes/org/tubepress/api/const/options/OptionCategory.class.php';
+require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
 
 class org_tubepress_util_OptionsReferenceTest extends TubePressUnitTest {
     

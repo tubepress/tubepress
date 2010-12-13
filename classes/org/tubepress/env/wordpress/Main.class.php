@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_options_storage_WordPressStorageManager',
+tubepress_load_classes(array('org_tubepress_impl_options_WordPressStorageManager',
     'org_tubepress_api_const_options_Advanced',
     'org_tubepress_impl_shortcode_SimpleShortcodeParser',
     'org_tubepress_ioc_impl_FreeWordPressPluginIocService',
@@ -45,7 +45,7 @@ class org_tubepress_env_wordpress_Main
     {
         try {
             /* do as little work as possible here 'cause we might not even run */
-            $wpsm    = new org_tubepress_options_storage_WordPressStorageManager();
+            $wpsm    = new org_tubepress_impl_options_WordPressStorageManager();
             $trigger = $wpsm->get(org_tubepress_api_const_options_Advanced::KEYWORD);
             $parser  = new org_tubepress_impl_shortcode_SimpleShortcodeParser();
 

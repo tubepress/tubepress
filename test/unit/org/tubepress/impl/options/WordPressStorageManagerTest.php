@@ -1,6 +1,6 @@
 <?php
 require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/options/storage/WordPressStorageManager.class.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/options/WordPressStorageManager.class.php';
 
 if (!function_exists('get_option')) {
     function get_option($optionName) {
@@ -20,14 +20,14 @@ if (!function_exists('get_alloptions')) {
     }
 }
 
-class org_tubepress_options_storage_WordPressStorageManagerTest extends TubePressUnitTest {
+class org_tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTest {
     
 	private $_sut;
 	
 	function setUp()
 	{
 		$this->initFakeIoc();
-		$this->_sut = new org_tubepress_options_storage_WordPressStorageManager();
+		$this->_sut = new org_tubepress_impl_options_WordPressStorageManager();
 	}
 	
 	function testInit()

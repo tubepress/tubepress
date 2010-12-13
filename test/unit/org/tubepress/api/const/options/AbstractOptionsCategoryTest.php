@@ -1,7 +1,7 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../test/unit/TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/api/const/options/Embedded.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../test/unit/TubePressUnitTest.php';
+require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/api/const/options/Embedded.class.php';
 
 
 abstract class org_tubepress_api_const_options_AbstractOptionsCategoryTest extends TubePressUnitTest {
