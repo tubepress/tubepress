@@ -23,7 +23,7 @@
  * Builds URLs to send out to a remote provider
  *
  */
-interface org_tubepress_api_feed_UrlBuilder
+interface org_tubepress_api_url_UrlBuilder
 {
     /**
      * Builds a URL for a list of videos

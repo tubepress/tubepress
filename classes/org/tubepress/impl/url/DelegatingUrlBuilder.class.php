@@ -21,16 +21,16 @@
 
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_api_feed_UrlBuilder',
+tubepress_load_classes(array('org_tubepress_api_url_UrlBuilder',
     'org_tubepress_api_provider_Provider',
     'org_tubepress_ioc_IocDelegateUtils',
-    'org_tubepress_api_feed_UrlBuilder'));
+    'org_tubepress_api_url_UrlBuilder'));
 
 /**
  * Builds URLs based on the urrent provider
  *
  */
-class org_tubepress_impl_feed_DelegatingUrlBuilder implements org_tubepress_api_feed_UrlBuilder
+class org_tubepress_impl_url_DelegatingUrlBuilder implements org_tubepress_api_url_UrlBuilder
 {
     /**
      * Builds a URL for a list of videos
@@ -40,7 +40,7 @@ class org_tubepress_impl_feed_DelegatingUrlBuilder implements org_tubepress_api_
     public function buildGalleryUrl($currentPage)
     {
         $ioc     = org_tubepress_ioc_IocContainer::getInstance();
-        $builder = $ioc->get('org_tubepress_api_feed_UrlBuilder', org_tubepress_util_ProviderCalculator::calculateCurrentVideoProvider());
+        $builder = $ioc->get('org_tubepress_api_url_UrlBuilder', org_tubepress_util_ProviderCalculator::calculateCurrentVideoProvider());
         
         return $builder->buildGalleryUrl($currentPage);
     }
@@ -53,7 +53,7 @@ class org_tubepress_impl_feed_DelegatingUrlBuilder implements org_tubepress_api_
     public function buildSingleVideoUrl($id)
     {   
         $ioc     = org_tubepress_ioc_IocContainer::getInstance();
-        $builder = $ioc->get('org_tubepress_api_feed_UrlBuilder', org_tubepress_util_ProviderCalculator::calculateProviderOfVideoId($id));
+        $builder = $ioc->get('org_tubepress_api_url_UrlBuilder', org_tubepress_util_ProviderCalculator::calculateProviderOfVideoId($id));
         
         return $builder->buildSingleVideoUrl($id);
     }

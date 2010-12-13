@@ -21,6 +21,7 @@ require_once 'org/tubepress/impl/options/OptionsTests.php';
 require_once 'org/tubepress/impl/http/AgentDetectorTests.php';
 require_once 'org/tubepress/impl/single/SingleVideoTests.php';
 require_once 'org/tubepress/impl/theme/ThemeHandlerTests.php';
+require_once 'org/tubepress/impl/url/UrlTests.php';
 require_once 'org/tubepress/api/const/options/OptionConstantsTests.php';
 require_once 'org/tubepress/impl/factory/FactoryTests.php';
 
@@ -52,6 +53,7 @@ class TubePressUnitTests
 		$suite->addTest(ThemeHandlerTests::suite());
 		$suite->addTest(OptionConstantsTests::suite());
 		$suite->addTest(FactoryTests::suite());
+		$suite->addTest(UrlTests::suite());
 
 		return $suite;
 	}
