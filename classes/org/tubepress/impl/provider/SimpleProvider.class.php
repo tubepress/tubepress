@@ -31,7 +31,7 @@ tubepress_load_classes(array('org_tubepress_api_provider_Provider',
 /**
  * Interface to a remove video provider
  */
-class org_tubepress_video_feed_provider_SimpleProvider implements org_tubepress_api_provider_Provider
+class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_provider_Provider
 {
     const LOG_PREFIX = 'Video Provider';
 

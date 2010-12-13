@@ -6,7 +6,7 @@ require_once 'org/tubepress/impl/gallery/GalleryTests.php';
 require_once 'org/tubepress/log/LogTests.php';
 require_once 'org/tubepress/video/feed/inspection/InspectionTests.php';
 require_once 'org/tubepress/video/feed/retrieval/RetrievalTests.php';
-require_once 'org/tubepress/video/feed/provider/ProviderTests.php';
+require_once 'org/tubepress/impl/provider/ProviderTests.php';
 require_once 'org/tubepress/ioc/IocTests.php';
 require_once 'org/tubepress/impl/message/MessageTests.php';
 require_once 'org/tubepress/impl/pagination/PaginationTests.php';

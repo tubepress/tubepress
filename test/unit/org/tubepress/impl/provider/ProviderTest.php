@@ -1,9 +1,9 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../../test/unit/TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/video/feed/provider/SimpleProvider.class.php';
+require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/provider/SimpleProvider.class.php';
 
-class org_tubepress_api_provider_ProviderTest extends TubePressUnitTest
+class org_tubepress_impl_provider_ProviderTest extends TubePressUnitTest
 {
 	private $_sut;
 	private static $_totalResultCount;
@@ -14,7 +14,7 @@ class org_tubepress_api_provider_ProviderTest extends TubePressUnitTest
 	self::$_totalResultCount = 100;
 	self::$_queryResultCount = 20;
 	$this->initFakeIoc();
-	$this->_sut = new org_tubepress_video_feed_provider_SimpleProvider();
+	$this->_sut = new org_tubepress_impl_provider_SimpleProvider();
         org_tubepress_util_Log::setEnabled(false, array());
     }
 
