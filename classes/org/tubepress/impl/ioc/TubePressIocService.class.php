@@ -25,7 +25,7 @@ tubepress_classloader('org_tubepress_api_ioc_IocService');
 /**
  * Dependency injector for TubePress in a WordPress environment
  */
-class org_tubepress_ioc_impl_TubePressIocService implements org_tubepress_api_ioc_IocService
+class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_ioc_IocService
 {
     
     private $_interface;

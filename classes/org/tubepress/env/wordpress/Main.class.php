@@ -24,10 +24,10 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_impl_options_WordPressStorageManager',
     'org_tubepress_api_const_options_Advanced',
     'org_tubepress_impl_shortcode_SimpleShortcodeParser',
-    'org_tubepress_ioc_impl_FreeWordPressPluginIocService',
+    'org_tubepress_impl_ioc_FreeWordPressPluginIocService',
     'org_tubepress_ioc_ProInWordPressIocService',
     'org_tubepress_api_ioc_IocService',
-    'org_tubepress_ioc_IocContainer',
+    'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_util_StringUtils',
     'org_tubepress_api_gallery_Gallery',
     'org_tubepress_html_HtmlUtils'));
@@ -71,7 +71,7 @@ class org_tubepress_env_wordpress_Main
     private static function _getHtml($content, $trigger, $parser)
     {
         /* Whip up the IOC service */
-        $iocContainer = org_tubepress_ioc_IocContainer::getInstance();
+        $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
 
         /* Get a handle to our options manager */
         $tpom = $iocContainer->get('org_tubepress_api_options_OptionsManager');

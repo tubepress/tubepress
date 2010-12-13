@@ -25,7 +25,7 @@ tubepress_load_classes(array('org_tubepress_api_options_StorageManager',
     'org_tubepress_api_const_options_OptionType',
     'org_tubepress_api_options_OptionValidator',
     'org_tubepress_util_OptionsReference',
-    'org_tubepress_ioc_IocContainer'));
+    'org_tubepress_impl_ioc_IocContainer'));
 
 /**
  * Handles persistent storage of TubePress options
@@ -106,7 +106,7 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
         if (!org_tubepress_util_OptionsReference::shouldBePersisted($optionName)) {
             return;
         }
-	$ioc = org_tubepress_ioc_IocContainer::getInstance();
+	$ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 	$validationService = $ioc->get('org_tubepress_api_options_OptionValidator');
 
         $validationService->validate($optionName, $optionValue);

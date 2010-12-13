@@ -21,13 +21,13 @@
 
 function_exists('tubepress_load_classes') || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array(
-    'org_tubepress_ioc_impl_TubePressIocService',
+    'org_tubepress_impl_ioc_TubePressIocService',
     'org_tubepress_api_provider_Provider'));
 
 /**
  * Dependency injector for TubePress in a WordPress environment
  */
-class org_tubepress_ioc_impl_FreeWordPressPluginIocService extends org_tubepress_ioc_impl_TubePressIocService
+class org_tubepress_impl_ioc_FreeWordPressPluginIocService extends org_tubepress_impl_ioc_TubePressIocService
 {
     /**
      * Default constructor.

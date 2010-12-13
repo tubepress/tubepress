@@ -32,7 +32,7 @@ tubepress_load_classes(array('org_tubepress_api_shortcode_ShortcodeParser',
     'org_tubepress_impl_gallery_GalleryTemplateUtils',
     'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_api_gallery_Gallery',
-    'org_tubepress_ioc_IocContainer',
+    'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_api_options_OptionsManager'));
 
 /**
@@ -52,7 +52,7 @@ class org_tubepress_impl_gallery_SimpleGallery implements org_tubepress_api_gall
      */
     public function getHtml($shortCodeContent = '')
     {
-        $ioc             = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc             = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom            = $ioc->get('org_tubepress_api_options_OptionsManager');
         $shortcodeParser = $ioc->get('org_tubepress_api_shortcode_ShortcodeParser');
         $qss             = $ioc->get('org_tubepress_api_querystring_QueryStringService');

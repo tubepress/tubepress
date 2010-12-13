@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
+tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_api_const_options_Display',
     'org_tubepress_api_const_options_Gallery',   
     'org_tubepress_util_OptionsReference',
@@ -43,7 +43,7 @@ class org_tubepress_impl_options_SimpleOptionValidator implements org_tubepress_
     */
     public function validate($optionName, $candidate)
     {
-	$ioc = org_tubepress_ioc_IocContainer::getInstance();
+	$ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
         $messageService = $ioc->get('org_tubepress_api_message_MessageService');
         
         /* does this option name even exist? */

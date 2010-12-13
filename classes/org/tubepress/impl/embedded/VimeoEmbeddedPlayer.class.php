@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array(
     'org_tubepress_api_embedded_EmbeddedPlayer',
-    'org_tubepress_ioc_IocContainer',
+    'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
     'org_tubepress_api_const_options_Embedded',
     'org_tubepress_api_template_Template',
@@ -52,7 +52,7 @@ class org_tubepress_impl_embedded_VimeoEmbeddedPlayer implements org_tubepress_a
     public function toString($videoId)
     {
         /* collect the embedded options we're interested in */
-        $ioc   = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom     = $ioc->get('org_tubepress_api_options_OptionsManager');
         $theme    = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $template = $theme->getTemplateInstance('embedded_flash/vimeo.tpl.php');

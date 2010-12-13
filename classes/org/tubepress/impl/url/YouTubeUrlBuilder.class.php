@@ -47,7 +47,7 @@ class org_tubepress_impl_url_YouTubeUrlBuilder implements org_tubepress_api_url_
     {
         $url = '';
 
-        $ioc    = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom   = $ioc->get('org_tubepress_api_options_OptionsManager');
 
         switch ($tpom->get(org_tubepress_api_const_options_Gallery::MODE)) {
@@ -117,7 +117,7 @@ class org_tubepress_impl_url_YouTubeUrlBuilder implements org_tubepress_api_url_
     
     public function buildSingleVideoUrl($id)
     {
-        $ioc          = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $providerName = org_tubepress_util_ProviderCalculator::calculateProviderOfVideoId($id);
 
         if ($providerName !== org_tubepress_api_provider_Provider::YOUTUBE) {

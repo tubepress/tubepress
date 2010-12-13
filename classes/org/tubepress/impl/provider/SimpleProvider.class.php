@@ -42,7 +42,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
      */
     public function getMultipleVideos()
     {
-        $ioc  = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
         $qss  = $ioc->get('org_tubepress_api_querystring_QueryStringService');
         $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
 
@@ -118,7 +118,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
     {
         org_tubepress_util_Log::log(self::LOG_PREFIX, 'Fetching video with ID <tt>%s</tt>', $customVideoId);
 
-	$ioc        = org_tubepress_ioc_IocContainer::getInstance();
+	$ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
 	$urlBuilder = $ioc->get('org_tubepress_api_url_UrlBuilder');
         $videoUrl   = $urlBuilder->buildSingleVideoUrl($customVideoId);
 

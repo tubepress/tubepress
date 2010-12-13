@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_provider_Provider',
     'org_tubepress_api_embedded_EmbeddedPlayer',
-    'org_tubepress_ioc_IocContainer',
+    'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_util_ProviderCalculator'));
 
 /**
@@ -41,7 +41,7 @@ class org_tubepress_impl_embedded_DelegatingEmbeddedPlayer implements org_tubepr
      */
     public function toString($videoId)
     {
-        $ioc          = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
 	$providerName = org_tubepress_util_ProviderCalculator::calculateProviderOfVideoId($videoId);
     
         /** The user wants to use JW FLV Player to show YouTube videos. */   

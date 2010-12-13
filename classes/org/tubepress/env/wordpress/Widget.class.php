@@ -21,7 +21,7 @@ along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_impl_message_WordPressMessageService',
-    'org_tubepress_ioc_impl_FreeWordPressPluginIocService',
+    'org_tubepress_impl_ioc_FreeWordPressPluginIocService',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_api_const_options_Widget',
     'org_tubepress_impl_template_SimpleTemplate',
@@ -59,7 +59,7 @@ class org_tubepress_env_wordpress_Widget
     {
         extract($opts);
 
-        $iocContainer = org_tubepress_ioc_IocContainer::getInstance();
+        $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom         = $iocContainer->get('org_tubepress_api_options_OptionsManager');
         $parser       = $iocContainer->get('org_tubepress_api_shortcode_ShortcodeParser');
         $gallery      = $iocContainer->get('org_tubepress_api_gallery_Gallery');
@@ -108,7 +108,7 @@ class org_tubepress_env_wordpress_Widget
      */
     public static function printControlPanel()
     {
-        $iocContainer = new org_tubepress_ioc_impl_FreeWordPressPluginIocService();
+        $iocContainer = new org_tubepress_impl_ioc_FreeWordPressPluginIocService();
         $wpsm         = $iocContainer->get('org_tubepress_api_options_OptionsManager');
         $msg          = $iocContainer->get('org_tubepress_api_message_MessageService');
 

@@ -1,16 +1,16 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../test/unit/TubePressUnitTest.php';
+require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
 
 
-class org_tubepress_ioc_FreeWordPressPluginIocServiceTest extends TubePressUnitTest {
+class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePressUnitTest {
 
     private $_sut;
     private $_expectedMapping;
     
     function setUp()
     {
-        $this->_sut = new org_tubepress_ioc_impl_FreeWordPressPluginIocService();
+        $this->_sut = new org_tubepress_impl_ioc_FreeWordPressPluginIocService();
         $this->_expectedMapping = array(
             'org_tubepress_api_http_AgentDetector'                     => 'org_tubepress_impl_http_MobileEspBrowserDetector',
             'org_tubepress_api_cache_Cache'                          => 'org_tubepress_impl_cache_PearCacheLiteCacheService',

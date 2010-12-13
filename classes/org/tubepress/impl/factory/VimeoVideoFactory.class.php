@@ -57,7 +57,7 @@ class org_tubepress_impl_factory_VimeoVideoFactory implements org_tubepress_api_
 
         $entries = $feed->videos->video;
 
-        $ioc = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
         return $this->_buildVideos($entries, $ioc);
     }
 
@@ -71,7 +71,7 @@ class org_tubepress_impl_factory_VimeoVideoFactory implements org_tubepress_api_
     public function convertSingleVideo($rawFeed)
     {
         $feed = unserialize($rawFeed);
-        $ioc = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
         return $this->_buildVideos($feed->video, $ioc);
     }
 

@@ -46,7 +46,7 @@ class org_tubepress_impl_url_VimeoUrlBuilder implements org_tubepress_api_url_Ur
     public function buildGalleryUrl($currentPage)
     {
         $params = array();
-        $ioc    = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom   = $ioc->get('org_tubepress_api_options_OptionsManager');
         $mode   = $tpom->get(org_tubepress_api_const_options_Gallery::MODE);
 
@@ -100,7 +100,7 @@ class org_tubepress_impl_url_VimeoUrlBuilder implements org_tubepress_api_url_Ur
     
     public function buildSingleVideoUrl($id)
     {
-        $ioc          = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom         = $ioc->get('org_tubepress_api_options_OptionsManager');
         $providerName = org_tubepress_util_ProviderCalculator::calculateProviderOfVideoId($id);
         

@@ -18,7 +18,7 @@ require_once 'org/tubepress/impl/single/SingleVideoTests.php';
 require_once 'org/tubepress/impl/template/TemplateTests.php';
 require_once 'org/tubepress/impl/theme/ThemeHandlerTests.php';
 require_once 'org/tubepress/impl/url/UrlTests.php';
-require_once 'org/tubepress/ioc/IocTests.php';
+require_once 'org/tubepress/impl/ioc/IocTests.php';
 require_once 'org/tubepress/log/LogTests.php';
 require_once 'org/tubepress/util/UtilsTests.php';
 require_once 'org/tubepress/api/video/VideoTests.php';

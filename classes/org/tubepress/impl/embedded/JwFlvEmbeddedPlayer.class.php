@@ -24,7 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_api_embedded_EmbeddedPlayer',
     'net_php_pear_Net_URL2',
     'org_tubepress_api_template_Template',
-    'org_tubepress_ioc_IocContainer'));
+    'org_tubepress_impl_ioc_IocContainer'));
 
 /**
  * Represents an HTML-embeddable JW FLV Player.
@@ -42,7 +42,7 @@ class org_tubepress_impl_embedded_JwFlvEmbeddedPlayer implements org_tubepress_a
     {
         global $tubepress_base_url;
 
-        $ioc      = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom     = $ioc->get('org_tubepress_api_options_OptionsManager');
         $theme    = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $template = $theme->getTemplateInstance('embedded_flash/longtail.tpl.php');

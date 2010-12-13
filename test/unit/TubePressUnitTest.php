@@ -15,7 +15,7 @@ tubepress_load_classes(array('org_tubepress_api_options_OptionsManager',
     'org_tubepress_api_cache_Cache',
     'org_tubepress_api_pagination_Pagination',
     'org_tubepress_impl_template_SimpleTemplate',
-    'org_tubepress_ioc_IocContainer',
+    'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_api_theme_ThemeHandler'));
 
 abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
@@ -28,7 +28,7 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
         $ioc->expects($this->any())
                    ->method('get')
                    ->will($this->returnCallback(array($this, 'getMock')));
-        org_tubepress_ioc_IocContainer::setInstance($ioc);
+        org_tubepress_impl_ioc_IocContainer::setInstance($ioc);
     }
     
     public function getMock($className)

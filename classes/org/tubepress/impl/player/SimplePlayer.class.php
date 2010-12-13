@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_player_Player',
-    'org_tubepress_ioc_IocContainer'));
+    'org_tubepress_impl_ioc_IocContainer'));
 
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
@@ -33,7 +33,7 @@ class org_tubepress_player_SimplePlayer implements org_tubepress_api_player_Play
     
     public function getHtml(org_tubepress_api_video_Video $vid, $galleryId)
     {
-        $ioc             = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc             = org_tubepress_impl_ioc_IocContainer::getInstance();
         $browserDetector = $ioc->get('org_tubepress_api_http_AgentDetector');
         $tpom            = $ioc->get('org_tubepress_api_options_OptionsManager');
         $playerName      = $tpom->get(org_tubepress_api_const_options_Display::CURRENT_PLAYER_NAME);

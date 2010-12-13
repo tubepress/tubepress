@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_feed_FeedInspector',
     'org_tubepress_api_options_OptionsManager',
-    'org_tubepress_ioc_IocContainer',
+    'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_util_ProviderCalculator'));
 
 /**
@@ -45,7 +45,7 @@ class org_tubepress_impl_feed_DelegatingFeedInspector implements org_tubepress_a
     
     private static function _getDelegate()
     {
-        $ioc  = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
         return $ioc->get('org_tubepress_api_feed_FeedInspector', org_tubepress_util_ProviderCalculator::calculateCurrentVideoProvider());    
     }
 }

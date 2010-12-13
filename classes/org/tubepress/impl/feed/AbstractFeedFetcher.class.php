@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes') || require dirname(__FILE__) . '/../..
 tubepress_load_classes(array('org_tubepress_api_feed_FeedFetcher',
     'org_tubepress_api_cache_Cache',
     'org_tubepress_util_Log',
-    'org_tubepress_ioc_IocContainer'));
+    'org_tubepress_impl_ioc_IocContainer'));
 
 /**
  * Base functionality for feed retrieval services.
@@ -44,7 +44,7 @@ abstract class org_tubepress_impl_feed_AbstractFeedFetcher implements org_tubepr
         global $tubepress_base_url;
 
         $logPrefix = $this->getLogPrefix();
-        $ioc       = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
         $cache     = $ioc->get('org_tubepress_api_cache_Cache');
         $testUrl   = "$tubepress_base_url/classes/org/tubepress/video/feed/retrieval/ConnectionTest.php";
 

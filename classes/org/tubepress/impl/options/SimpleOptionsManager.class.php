@@ -26,7 +26,7 @@ tubepress_load_classes(array('org_tubepress_api_options_OptionsManager',
     'org_tubepress_util_OptionsReference',
     'org_tubepress_api_options_OptionValidator',
     'org_tubepress_api_provider_Provider',
-    'org_tubepress_ioc_IocContainer'));
+    'org_tubepress_impl_ioc_IocContainer'));
 
 /**
  * Holds the current options for TubePress. This is the default options,
@@ -41,7 +41,7 @@ class org_tubepress_impl_options_SimpleOptionsManager implements org_tubepress_a
 
     public function __construct()
     {
-	$ioc         = org_tubepress_ioc_IocContainer::getInstance();
+	$ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
         $this->_tpsm = $ioc->get('org_tubepress_api_options_StorageManager');
     }
 

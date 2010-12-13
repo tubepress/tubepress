@@ -49,7 +49,7 @@ class org_tubepress_impl_options_FormHandler
     {   
         global $tubepress_base_url;
 
-	    $ioc            = org_tubepress_ioc_IocContainer::getInstance();
+	    $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
         $messageService = $ioc->get('org_tubepress_api_message_MessageService');
         $template       = new org_tubepress_impl_template_SimpleTemplate();
         $storageManager = $ioc->get('org_tubepress_api_options_StorageManager');
@@ -89,7 +89,7 @@ class org_tubepress_impl_options_FormHandler
      */
     public final function collect($postVars)
     {   
-	$ioc            = org_tubepress_ioc_IocContainer::getInstance();
+	$ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
         $storageManager = $ioc->get('org_tubepress_api_options_StorageManager');
         
         /* this loop will collect everything except checkboxes */

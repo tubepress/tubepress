@@ -27,7 +27,7 @@ tubepress_load_classes(array('org_tubepress_api_pagination_Pagination',
     'org_tubepress_api_message_MessageService',
     'org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_api_options_OptionsManager',
-    'org_tubepress_ioc_IocContainer'));
+    'org_tubepress_impl_ioc_IocContainer'));
 
 /**
  * General purpose cache for TubePress
@@ -43,7 +43,7 @@ class org_tubepress_impl_pagination_DiggStylePaginationService implements org_tu
      */
     public function getHtml($vidCount)
     {
-        $ioc            = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom           = $ioc->get('org_tubepress_api_options_OptionsManager');
         $messageService = $ioc->get('org_tubepress_api_message_MessageService');
         $qss            = $ioc->get('org_tubepress_api_querystring_QueryStringService');

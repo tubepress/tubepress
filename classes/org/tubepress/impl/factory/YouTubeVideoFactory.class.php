@@ -130,7 +130,7 @@ class org_tubepress_impl_factory_YouTubeVideoFactory implements org_tubepress_ap
         $results   = array();
         $entries   = $this->_xpath->query($entryXpath);
         $index     = 0;
-        $ioc       = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom      = $ioc->get('org_tubepress_api_options_OptionsManager');
         $blacklist = $tpom->get(org_tubepress_api_const_options_Advanced::VIDEO_BLACKLIST);
 

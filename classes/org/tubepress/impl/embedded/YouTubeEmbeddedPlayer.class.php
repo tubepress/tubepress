@@ -46,7 +46,7 @@ class org_tubepress_impl_embedded_YouTubeEmbeddedPlayer implements org_tubepress
     public function toString($videoId)
     {
         $link  = new net_php_pear_Net_URL2(sprintf('http://www.youtube.com/v/%s', $videoId));
-        $ioc   = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom  = $ioc->get('org_tubepress_api_options_OptionsManager');
         $theme = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $bd    = $ioc->get('org_tubepress_api_http_AgentDetector');

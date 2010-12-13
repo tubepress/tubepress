@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
+tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_api_shortcode_ShortcodeParser'));
 
 /**
@@ -40,7 +40,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
      */
     public function parse($content)
     {
-        $ioc  = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
         
         /* what trigger word are we using? */

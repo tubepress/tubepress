@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_ioc_IocContainer',
+tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_util_OptionsReference',
     'org_tubepress_api_single_SingleVideo',
@@ -44,7 +44,7 @@ class org_tubepress_impl_single_SimpleSingleVideo implements org_tubepress_api_s
      */
     public function getSingleVideoHtml($videoId)
     {
-        $ioc = org_tubepress_ioc_IocContainer::getInstance();
+        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
         try {
             return self::_getSingleVideoHtml($videoId, $ioc);
         } catch (Exception $e) {
