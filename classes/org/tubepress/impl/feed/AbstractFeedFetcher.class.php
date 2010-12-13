@@ -46,7 +46,7 @@ abstract class org_tubepress_impl_feed_AbstractFeedFetcher implements org_tubepr
         $logPrefix = $this->getLogPrefix();
         $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
         $cache     = $ioc->get('org_tubepress_api_cache_Cache');
-        $testUrl   = "$tubepress_base_url/classes/org/tubepress/video/feed/retrieval/ConnectionTest.php";
+        $testUrl   = "$tubepress_base_url/classes/org/tubepress/impl/feed/ConnectionTest.php";
 
         org_tubepress_util_Log::log($logPrefix, 'Connection test can be run at <tt><a href="%s">%s</a></tt>', $testUrl, $testUrl);
 
