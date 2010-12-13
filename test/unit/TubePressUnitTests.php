@@ -21,7 +21,7 @@ require_once 'org/tubepress/impl/url/UrlTests.php';
 require_once 'org/tubepress/ioc/IocTests.php';
 require_once 'org/tubepress/log/LogTests.php';
 require_once 'org/tubepress/util/UtilsTests.php';
-require_once 'org/tubepress/video/VideoTests.php';
+require_once 'org/tubepress/api/video/VideoTests.php';
 
 
 class TubePressUnitTests
