@@ -52,7 +52,7 @@ class org_tubepress_impl_gallery_GalleryTemplateUtils
 
             $videos = self::_prependVideoIfNeeded($videos, $ioc);
             
-            org_tubepress_util_Log::log(self::LOG_PREFIX, 'Applying HTML for <tt>%s</tt> player to the template', $playerName);
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Applying HTML for <tt>%s</tt> player to the template', $playerName);
             
             $player     = $ioc->get('org_tubepress_api_player_Player');
             $playerHtml = $player->getHtml($videos[0], $galleryId);
@@ -114,23 +114,23 @@ class org_tubepress_impl_gallery_GalleryTemplateUtils
             $cssPath = $themeHandler->getCssPath($currentTheme);
             if (is_readable($cssPath) && strpos($cssPath, 'themes/default') === false) {
 
-                org_tubepress_util_Log::log(self::LOG_PREFIX, 'Theme CSS found at <tt>%s</tt>', $cssPath);
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Theme CSS found at <tt>%s</tt>', $cssPath);
                 
                 $cssRelativePath      = $themeHandler->getCssPath($currentTheme, true);
                 $fs                   = $ioc->get('org_tubepress_api_filesystem_Explorer');
                 $baseInstallationPath = $fs->getTubePressBaseInstallationPath();
                 $cssUrl = "$tubepress_base_url/$cssRelativePath";
                 
-                org_tubepress_util_Log::log(self::LOG_PREFIX, 'Will inject CSS from <tt>%s</tt>', $cssUrl);
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Will inject CSS from <tt>%s</tt>', $cssUrl);
                 $template = new org_tubepress_impl_template_SimpleTemplate();
                 $template->setPath("$baseInstallationPath/ui/lib/gallery_html_snippets/theme_loader.tpl.php");
                 $template->setVariable(org_tubepress_api_template_Template::THEME_CSS, $cssUrl);
                 return $template->toString();
             } else {
-                org_tubepress_util_Log::log(self::LOG_PREFIX, 'No theme CSS found.');
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'No theme CSS found.');
             }
         } else {
-            org_tubepress_util_Log::log(self::LOG_PREFIX, 'Default theme is in use. No need to inject extra CSS.');
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Default theme is in use. No need to inject extra CSS.');
         }
         return '';
     }
@@ -140,7 +140,7 @@ class org_tubepress_impl_gallery_GalleryTemplateUtils
         $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
         
         if ($tpom->get(org_tubepress_api_const_options_Display::AJAX_PAGINATION)) {
-            org_tubepress_util_Log::log(self::LOG_PREFIX, 'Using Ajax pagination');
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Using Ajax pagination');
             
             $template             = new org_tubepress_impl_template_SimpleTemplate();
             $fs                   = $ioc->get('org_tubepress_api_filesystem_Explorer');
@@ -185,13 +185,13 @@ class org_tubepress_impl_gallery_GalleryTemplateUtils
         $qss = $ioc->get('org_tubepress_api_querystring_QueryStringService');
         $customVideoId = $qss->getCustomVideo($_GET);
         if ($customVideoId != '') {
-            org_tubepress_util_Log::log(self::LOG_PREFIX, 'Prepending video <tt>%s</tt> to the gallery', $customVideoId);
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Prepending video <tt>%s</tt> to the gallery', $customVideoId);
             $provider = $ioc->get('org_tubepress_api_provider_Provider');
             try {
                 $video = $provider->getSingleVideo($customVideoId);
                 array_unshift($videos, $video);
             } catch (Exception $e) {
-                org_tubepress_util_Log::log(self::LOG_PREFIX, 'Could not prepend video <tt>%s</tt> to the gallery: %s', $customVideoId, $e->getMessage());
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Could not prepend video <tt>%s</tt> to the gallery: %s', $customVideoId, $e->getMessage());
             }
         }
         return $videos;

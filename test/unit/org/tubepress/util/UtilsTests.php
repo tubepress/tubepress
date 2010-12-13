@@ -3,7 +3,6 @@ require dirname(__FILE__) . '/../../../PhpUnitLoader.php';
 require_once 'StringUtilsTest.php';
 require_once 'TimeUtilsTest.php';
 require_once 'OptionsReferenceTest.php';
-require_once 'LogImplTest.php';
 
 class UtilsTests
 {
@@ -13,7 +12,6 @@ class UtilsTests
 		$suite->addTestSuite('org_tubepress_util_StringUtilsTest');
 		$suite->addTestSuite('org_tubepress_util_TimeUtilsTest');
 		$suite->addTestSuite('org_tubepress_util_OptionsReferenceTest');
-		$suite->addTestSuite('org_tubepress_util_LogImplTest');
 		return $suite;
 	}
 }

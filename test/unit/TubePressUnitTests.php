@@ -8,6 +8,7 @@ require_once 'org/tubepress/impl/feed/FeedTests.php';
 require_once 'org/tubepress/impl/filesystem/ExplorerTests.php';
 require_once 'org/tubepress/impl/gallery/GalleryTests.php';
 require_once 'org/tubepress/impl/http/AgentDetectorTests.php';
+require_once 'org/tubepress/impl/log/LogTests.php';
 require_once 'org/tubepress/impl/message/MessageTests.php';
 require_once 'org/tubepress/impl/options/OptionsTests.php';
 require_once 'org/tubepress/impl/pagination/PaginationTests.php';
@@ -51,6 +52,7 @@ class TubePressUnitTests
 		$suite->addTest(FactoryTests::suite());
 		$suite->addTest(UrlTests::suite());
 		$suite->addTest(ExplorerTests::suite());
+		$suite->addTest(LogTests::suite());
 
 		return $suite;
 	}

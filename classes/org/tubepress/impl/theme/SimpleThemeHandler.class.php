@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_api_const_options_Display',
-    'org_tubepress_util_Log',
+    'org_tubepress_impl_log_Log',
     'org_tubepress_impl_template_SimpleTemplate',
     'org_tubepress_api_theme_ThemeHandler'));
 
@@ -36,7 +36,7 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
 
     public function getTemplateInstance($pathToTemplate)
     {
-        org_tubepress_util_Log::log(self::LOG_PREFIX, 'Attempting to load template instance from <tt>%s</tt>', $pathToTemplate);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Attempting to load template instance from <tt>%s</tt>', $pathToTemplate);
         
         $currentTheme = $this->calculateCurrentThemeName();
         $filePath     = self::_getFilePath($currentTheme, $pathToTemplate);
@@ -45,7 +45,7 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
             throw new Exception("Cannot read file at $filePath");
         }
 
-        org_tubepress_util_Log::log(self::LOG_PREFIX, 'Successfully loaded template from <tt>%s</tt>', $filePath);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Successfully loaded template from <tt>%s</tt>', $filePath);
         $template = new org_tubepress_impl_template_SimpleTemplate();
         $template->setPath($filePath);
         return $template;

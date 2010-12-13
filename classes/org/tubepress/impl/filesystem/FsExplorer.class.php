@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array(
-    'org_tubepress_util_Log',
+    'org_tubepress_impl_log_Log',
     'org_tubepress_api_filesystem_Explorer'
 ));
 
@@ -42,13 +42,13 @@ class org_tubepress_impl_filesystem_FsExplorer implements org_tubepress_api_file
         $realDir = $dir;
 
         if (!is_dir($dir)) {
-            org_tubepress_util_Log::log($prefix, '<tt>%s</tt> is not a directory', $realDir);
+            org_tubepress_impl_log_Log::log($prefix, '<tt>%s</tt> is not a directory', $realDir);
             return array();
         }
 
         $toReturn = array();
         if ($handle = opendir($dir)) {
-            org_tubepress_util_Log::log($prefix, 'Successfully opened <tt>%s</tt> to read contents.', $realDir);
+            org_tubepress_impl_log_Log::log($prefix, 'Successfully opened <tt>%s</tt> to read contents.', $realDir);
             while (($file = readdir($handle)) !== false) {
 
                 if ($file === '.' || $file === '..' || strpos($file, ".") === 0) {
@@ -63,7 +63,7 @@ class org_tubepress_impl_filesystem_FsExplorer implements org_tubepress_api_file
             }
             closedir($handle);
         } else {
-            org_tubepress_util_Log::log($prefix, 'Could not open <tt>%s</tt>', $realDir);
+            org_tubepress_impl_log_Log::log($prefix, 'Could not open <tt>%s</tt>', $realDir);
         }
         return $toReturn;
     }
@@ -73,13 +73,13 @@ class org_tubepress_impl_filesystem_FsExplorer implements org_tubepress_api_file
         $realDir = $dir;
 
         if (!is_dir($dir)) {
-            org_tubepress_util_Log::log($prefix, '<tt>%s</tt> is not a directory', $realDir);
+            org_tubepress_impl_log_Log::log($prefix, '<tt>%s</tt> is not a directory', $realDir);
             return array();
         }
 
         $toReturn = array();
         if ($handle = opendir($dir)) {
-            org_tubepress_util_Log::log($prefix, 'Successfully opened <tt>%s</tt> to read contents.', $realDir);
+            org_tubepress_impl_log_Log::log($prefix, 'Successfully opened <tt>%s</tt> to read contents.', $realDir);
             while (($file = readdir($handle)) !== false) {
 
                 if ($file === '.' || $file === '..') {
@@ -93,7 +93,7 @@ class org_tubepress_impl_filesystem_FsExplorer implements org_tubepress_api_file
             }
             closedir($handle);
         } else {
-            org_tubepress_util_Log::log($prefix, 'Could not open <tt>%s</tt>', $realDir);
+            org_tubepress_impl_log_Log::log($prefix, 'Could not open <tt>%s</tt>', $realDir);
         }
         return $toReturn;
     }

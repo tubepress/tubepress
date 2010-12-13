@@ -47,7 +47,7 @@ class org_tubepress_impl_feed_HTTPRequest2FeedFetcher extends org_tubepress_impl
 
         $response = $req->send();
 
-        org_tubepress_util_Log::log($this->getLogPrefix(), 'Request for <tt>%s</tt> returned status <tt>%d: %s</tt>', $request->getURL(true),
+        org_tubepress_impl_log_Log::log($this->getLogPrefix(), 'Request for <tt>%s</tt> returned status <tt>%d: %s</tt>', $request->getURL(true),
             $response->getStatus(), $response->getReasonPhrase());
 
         if ($response->getStatus() != 200) {

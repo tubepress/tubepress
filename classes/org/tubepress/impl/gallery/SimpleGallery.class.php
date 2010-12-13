@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_shortcode_ShortcodeParser',
     'org_tubepress_api_const_options_Gallery',
-    'org_tubepress_util_Log',
+    'org_tubepress_impl_log_Log',
     'org_tubepress_api_player_Player',
     'org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_api_provider_Provider',
@@ -58,7 +58,7 @@ class org_tubepress_impl_gallery_SimpleGallery implements org_tubepress_api_gall
         $qss             = $ioc->get('org_tubepress_api_querystring_QueryStringService');
 
         /* do a bit of logging */
-        org_tubepress_util_Log::log(self::LOG_PREFIX, 'Type of IOC container is %s', get_class($ioc));
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Type of IOC container is %s', get_class($ioc));
         
         /* parse the shortcode if we need to */
         if ($shortCodeContent != '') {
@@ -69,33 +69,33 @@ class org_tubepress_impl_gallery_SimpleGallery implements org_tubepress_api_gall
         $videoId = $tpom->get(org_tubepress_api_const_options_Gallery::VIDEO);
         if ($videoId != '') {
 
-            org_tubepress_util_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
 
             $singleVideoGenerator = $ioc->get('org_tubepress_api_single_SingleVideo');
 
             return $singleVideoGenerator->getSingleVideoHtml($videoId);
         }
-        org_tubepress_util_Log::log(self::LOG_PREFIX, 'No video ID set in shortcode.');
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'No video ID set in shortcode.');
 
         $playerName = $tpom->get(org_tubepress_api_const_options_Display::CURRENT_PLAYER_NAME);
 
         /* see if the users wants to display just the video in the query string */
         if ($playerName == org_tubepress_api_player_Player::SOLO) {
 
-            org_tubepress_util_Log::log(self::LOG_PREFIX, 'Solo player detected. Checking query string for video ID');
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Solo player detected. Checking query string for video ID');
 
             $videoId = $qss->getCustomVideo($_GET);
 
             if ($videoId != '') {
-                org_tubepress_util_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
                 $single = $ioc->get('org_tubepress_api_single_SingleVideo');
                 return $single->getSingleVideoHtml($videoId, $iocService);
             }
 
-            org_tubepress_util_Log::log(self::LOG_PREFIX, 'Solo player in use, but no video ID set in URL. Will display a gallery instead.', $videoId);
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Solo player in use, but no video ID set in URL. Will display a gallery instead.', $videoId);
         }
 
-        org_tubepress_util_Log::log(self::LOG_PREFIX, 'No video ID in shortcode, and <tt>%s</tt> player in use. Let\'s build a thumbnail gallery.', $playerName);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'No video ID in shortcode, and <tt>%s</tt> player in use. Let\'s build a thumbnail gallery.', $playerName);
         $galleryId = $qss->getGalleryId($_GET);
 
         if ($galleryId == '') {
@@ -103,7 +103,7 @@ class org_tubepress_impl_gallery_SimpleGallery implements org_tubepress_api_gall
         }
 
         /* normal gallery */
-        org_tubepress_util_Log::log(self::LOG_PREFIX, 'Starting to build thumbnail gallery <tt>%s</tt>', $galleryId);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Starting to build thumbnail gallery <tt>%s</tt>', $galleryId);
         return self::_getThumbnailGallery($galleryId, $ioc);
     }
 
@@ -135,10 +135,10 @@ class org_tubepress_impl_gallery_SimpleGallery implements org_tubepress_api_gall
     private static function _getHtml($galleryId, org_tubepress_api_ioc_IocService $ioc)
     {
         /* first grab the videos */
-        org_tubepress_util_Log::log(self::LOG_PREFIX, 'Asking provider for videos');
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Asking provider for videos');
         $provider = $ioc->get('org_tubepress_api_provider_Provider');
         $feedResult = $provider->getMultipleVideos();
-        org_tubepress_util_Log::log(self::LOG_PREFIX, 'Provider has delivered %d videos', sizeof($feedResult->getVideoArray()));
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Provider has delivered %d videos', sizeof($feedResult->getVideoArray()));
 
         /* prep template */
 	    $themeHandler = $ioc->get('org_tubepress_api_theme_ThemeHandler');
@@ -146,7 +146,7 @@ class org_tubepress_impl_gallery_SimpleGallery implements org_tubepress_api_gall
         org_tubepress_impl_gallery_GalleryTemplateUtils::prepTemplate($feedResult, $galleryId, $template, $ioc);
 
         /* we're done. tie up */
-        org_tubepress_util_Log::log(self::LOG_PREFIX, 'Done assembling gallery <tt>%d</tt>', $galleryId);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Done assembling gallery <tt>%d</tt>', $galleryId);
         $result =  $template->toString();
         $result .= org_tubepress_impl_gallery_GalleryTemplateUtils::getAjaxPagination($ioc, $galleryId);
         $result .= org_tubepress_impl_gallery_GalleryTemplateUtils::getThemeCss($ioc);

@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_provider_Provider',
-    'org_tubepress_util_Log',
+    'org_tubepress_impl_log_Log',
     'org_tubepress_api_url_UrlBuilder',
     'org_tubepress_api_const_options_Feed',
     'org_tubepress_api_feed_FeedResult',
@@ -48,14 +48,14 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
 
         /* figure out which page we're on */        
         $currentPage = $qss->getPageNum($_GET);
-        org_tubepress_util_Log::log(self::LOG_PREFIX, 'Current page number is %d', $currentPage);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Current page number is %d', $currentPage);
 
         $provider = org_tubepress_util_ProviderCalculator::calculateCurrentVideoProvider();
 
         /* build the request URL */
         $urlBuilder = $ioc->get('org_tubepress_api_url_UrlBuilder');
         $url        = $urlBuilder->buildGalleryUrl($currentPage);
-        org_tubepress_util_Log::log(self::LOG_PREFIX, 'URL to fetch is <tt>%s</tt>', $url);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'URL to fetch is <tt>%s</tt>', $url);
 
         /* make the request */
         $feedRetrievalService = $ioc->get('org_tubepress_api_feed_FeedFetcher');
@@ -66,11 +66,11 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
 
         /* get reported total result count */
         $reportedTotalResultCount = $feedInspectionService->getTotalResultCount($rawFeed);
-        org_tubepress_util_Log::log(self::LOG_PREFIX, 'Reported total result count is %d video(s)', $reportedTotalResultCount);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Reported total result count is %d video(s)', $reportedTotalResultCount);
 
         /* count the results in this particular response */
         $queryResult = $feedInspectionService->getQueryResultCount($rawFeed);
-        org_tubepress_util_Log::log(self::LOG_PREFIX, 'Query result count is %d video(s)', $queryResult);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Query result count is %d video(s)', $queryResult);
 
         /* no videos? bail. */
         if ($queryResult == 0) {
@@ -79,15 +79,15 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
 
         /* limit the result count if requested */
         $effectiveTotalResultCount = self::_capTotalResultsIfNeeded($tpom, $reportedTotalResultCount);
-        org_tubepress_util_Log::log(self::LOG_PREFIX, 'Effective total result count (taking into account user-defined limit) is %d video(s)', $effectiveTotalResultCount);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Effective total result count (taking into account user-defined limit) is %d video(s)', $effectiveTotalResultCount);
 
         /* find out how many videos per page the user wants to show */
         $perPageLimit = $tpom->get(org_tubepress_api_const_options_Display::RESULTS_PER_PAGE);
-        org_tubepress_util_Log::log(self::LOG_PREFIX, 'Results-per-page limit is %d', $perPageLimit);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Results-per-page limit is %d', $perPageLimit);
 
         /* find out how many videos this gallery will actually show (could be less than user limit) */
         $effectiveDisplayCount = min($effectiveTotalResultCount, min($queryResult, $perPageLimit));
-        org_tubepress_util_Log::log(self::LOG_PREFIX, 'Effective display count for this page is %d video(s)', $effectiveDisplayCount);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Effective display count for this page is %d video(s)', $effectiveDisplayCount);
 
         /* convert the XML to objects */
         $factory = $ioc->get('org_tubepress_api_factory_VideoFactory');
@@ -95,7 +95,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
 
         /* shuffle if we need to */
         if ($tpom->get(org_tubepress_api_const_options_Display::ORDER_BY) == 'random') {
-            org_tubepress_util_Log::log(self::LOG_PREFIX, 'Shuffling videos');
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Shuffling videos');
             shuffle($videos);
         }
 
@@ -116,13 +116,13 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
      */
     public function getSingleVideo($customVideoId)
     {
-        org_tubepress_util_Log::log(self::LOG_PREFIX, 'Fetching video with ID <tt>%s</tt>', $customVideoId);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Fetching video with ID <tt>%s</tt>', $customVideoId);
 
 	$ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
 	$urlBuilder = $ioc->get('org_tubepress_api_url_UrlBuilder');
         $videoUrl   = $urlBuilder->buildSingleVideoUrl($customVideoId);
 
-        org_tubepress_util_Log::log(self::LOG_PREFIX, 'URL to fetch is %s', $videoUrl);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'URL to fetch is %s', $videoUrl);
 
         $feedRetrievalService = $ioc->get('org_tubepress_api_feed_FeedFetcher');
         $tpom                 = $ioc->get('org_tubepress_api_options_OptionsManager');

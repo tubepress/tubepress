@@ -10,7 +10,7 @@ class org_tubepress_impl_filesystem_FsExplorerTest extends TubePressUnitTest
     function setUp() {
         $this->initFakeIoc();
         $this->_sut = new org_tubepress_impl_filesystem_FsExplorer();
-        org_tubepress_util_Log::setEnabled(false, array());
+        org_tubepress_impl_log_Log::setEnabled(false, array());
     }
     
 	function testLsDirs()

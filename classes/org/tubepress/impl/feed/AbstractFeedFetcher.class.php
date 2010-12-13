@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes') || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_feed_FeedFetcher',
     'org_tubepress_api_cache_Cache',
-    'org_tubepress_util_Log',
+    'org_tubepress_impl_log_Log',
     'org_tubepress_impl_ioc_IocContainer'));
 
 /**
@@ -48,27 +48,27 @@ abstract class org_tubepress_impl_feed_AbstractFeedFetcher implements org_tubepr
         $cache     = $ioc->get('org_tubepress_api_cache_Cache');
         $testUrl   = "$tubepress_base_url/classes/org/tubepress/impl/feed/ConnectionTest.php";
 
-        org_tubepress_util_Log::log($logPrefix, 'Connection test can be run at <tt><a href="%s">%s</a></tt>', $testUrl, $testUrl);
+        org_tubepress_impl_log_Log::log($logPrefix, 'Connection test can be run at <tt><a href="%s">%s</a></tt>', $testUrl, $testUrl);
 
         $result = '';
         if ($useCache) {
 
-            org_tubepress_util_Log::log($logPrefix, 'First asking cache for <tt>%s</tt>', $url);
+            org_tubepress_impl_log_Log::log($logPrefix, 'First asking cache for <tt>%s</tt>', $url);
 
             if ($cache->has($url)) {
-                org_tubepress_util_Log::log($logPrefix, 'Cache has <tt>%s</tt>. Sweet.', $url);
+                org_tubepress_impl_log_Log::log($logPrefix, 'Cache has <tt>%s</tt>. Sweet.', $url);
                 $result = $cache->get($url);
             } else {
-                org_tubepress_util_Log::log($logPrefix, 'Cache does not have <tt>%s</tt>. We\'ll have to get it from the network.', $url);
+                org_tubepress_impl_log_Log::log($logPrefix, 'Cache does not have <tt>%s</tt>. We\'ll have to get it from the network.', $url);
                 $result = $this->_getFromNetwork($url);
                 $cache->save($url, $result);
             }
         } else {
-            org_tubepress_util_Log::log($logPrefix, 'Skip cache check for <tt>%s</tt>', $url);
+            org_tubepress_impl_log_Log::log($logPrefix, 'Skip cache check for <tt>%s</tt>', $url);
             $result = $this->_getFromNetwork($url);
         }
         
-        org_tubepress_util_Log::log($logPrefix, 'Raw result for <tt>%s</tt> is in the HTML source for this page. <span style="display:none">%s</span>', $url, htmlspecialchars($result));
+        org_tubepress_impl_log_Log::log($logPrefix, 'Raw result for <tt>%s</tt> is in the HTML source for this page. <span style="display:none">%s</span>', $url, htmlspecialchars($result));
         
         return $result;
     }
