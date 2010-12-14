@@ -20,7 +20,7 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
+    || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_impl_options_WordPressStorageManager',
     'org_tubepress_api_const_options_Advanced',
     'org_tubepress_impl_shortcode_SimpleShortcodeParser',
@@ -32,7 +32,7 @@ tubepress_load_classes(array('org_tubepress_impl_options_WordPressStorageManager
     'org_tubepress_api_gallery_Gallery',
     'org_tubepress_html_HtmlUtils'));
 
-class org_tubepress_env_wordpress_Main
+class org_tubepress_impl_env_wordpress_Main
 {
     /**
      * Filters the WordPress content, looking for TubePress shortcodes and replacing them with galleries/videos.

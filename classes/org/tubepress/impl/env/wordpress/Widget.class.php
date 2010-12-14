@@ -19,7 +19,7 @@ along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
+    || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_impl_message_WordPressMessageService',
     'org_tubepress_impl_ioc_FreeWordPressPluginIocService',
     'org_tubepress_api_ioc_IocService',
@@ -32,7 +32,7 @@ tubepress_load_classes(array('org_tubepress_impl_message_WordPressMessageService
     'org_tubepress_api_const_options_Meta',
     'org_tubepress_api_const_options_Gallery'));
 
-class org_tubepress_env_wordpress_Widget
+class org_tubepress_impl_env_wordpress_Widget
 {
     /**
      * Registers the TubePress widget with WordPress.
@@ -44,8 +44,8 @@ class org_tubepress_env_wordpress_Widget
         $msg       = new org_tubepress_impl_message_WordPressMessageService();
         $widgetOps = array('classname' => 'widget_tubepress', 'description' => $msg->_('widget-description'));
 
-        wp_register_sidebar_widget('tubepress', 'TubePress', array('org_tubepress_env_wordpress_Widget', 'printWidget'), $widgetOps);
-        wp_register_widget_control('tubepress', 'TubePress', array('org_tubepress_env_wordpress_Widget', 'printControlPanel'));
+        wp_register_sidebar_widget('tubepress', 'TubePress', array('org_tubepress_impl_env_wordpress_Widget', 'printWidget'), $widgetOps);
+        wp_register_widget_control('tubepress', 'TubePress', array('org_tubepress_impl_env_wordpress_Widget', 'printControlPanel'));
     }
 
     /**
