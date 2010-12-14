@@ -25,7 +25,7 @@ You should have received a copy of the GNU General Public License
 along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-if (version_compare(PHP_VERSION, '5.0.2', '>=') && !class_exists('org_tubepress_env_wordpress_Main')) {
+if (version_compare(PHP_VERSION, '5.0.2', '>=') && !class_exists('org_tubepress_impl_env_wordpress_Main')) {
 
     global $tubepress_base_url;
     
@@ -43,15 +43,15 @@ if (version_compare(PHP_VERSION, '5.0.2', '>=') && !class_exists('org_tubepress_
     /* register the plugin's message bundles */
     load_plugin_textdomain('tubepress', false, "$baseName/i18n");
 
-    add_filter('the_content',  array('org_tubepress_env_wordpress_Main',   'contentFilter'));
-    add_action('wp_head',      array('org_tubepress_env_wordpress_Main',   'headAction'));
-    add_action('init',         array('org_tubepress_env_wordpress_Main',   'initAction'));
+    add_filter('the_content',  array('org_tubepress_impl_env_wordpress_Main',   'contentFilter'));
+    add_action('wp_head',      array('org_tubepress_impl_env_wordpress_Main',   'headAction'));
+    add_action('init',         array('org_tubepress_impl_env_wordpress_Main',   'initAction'));
 
-    add_action('admin_menu',   array('org_tubepress_env_wordpress_Admin',  'menuAction'));
-    add_action('admin_head',   array('org_tubepress_env_wordpress_Admin',  'headAction'));
-    add_action('admin_init',   array('org_tubepress_env_wordpress_Admin',  'initAction'));
+    add_action('admin_menu',   array('org_tubepress_impl_env_wordpress_Admin',  'menuAction'));
+    add_action('admin_head',   array('org_tubepress_impl_env_wordpress_Admin',  'headAction'));
+    add_action('admin_init',   array('org_tubepress_impl_env_wordpress_Admin',  'initAction'));
 
-    add_action('widgets_init', array('org_tubepress_env_wordpress_Widget', 'initAction'));
+    add_action('widgets_init', array('org_tubepress_impl_env_wordpress_Widget', 'initAction'));
 }
 
 ?>

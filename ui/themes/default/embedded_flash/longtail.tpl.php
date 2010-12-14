@@ -19,13 +19,13 @@
  *
  */
 ?>
-<object type="application/x-shockwave-flash" data="<?php echo ${org_tubepress_template_Template::TUBEPRESS_BASE_URL}; ?>/ui/lib/embedded_flash/longtail/lib/player.swf" style="width: <?php echo ${org_tubepress_template_Template::EMBEDDED_WIDTH}; ?>px; height: <?php echo ${org_tubepress_template_Template::EMBEDDED_HEIGHT}; ?>px" >
+<object type="application/x-shockwave-flash" data="<?php echo ${org_tubepress_api_template_Template::TUBEPRESS_BASE_URL}; ?>/ui/lib/embedded_flash/longtail/lib/player.swf" style="width: <?php echo ${org_tubepress_api_template_Template::EMBEDDED_WIDTH}; ?>px; height: <?php echo ${org_tubepress_api_template_Template::EMBEDDED_HEIGHT}; ?>px" >
   
         <param name="AllowScriptAccess" value="never" />
         <param name="wmode" value="opaque" />
-        <param name="movie" value="<?php echo ${org_tubepress_template_Template::TUBEPRESS_BASE_URL}; ?>/ui/lib/embedded_flash/longtail/lib/player.swf" />
-        <param name="bgcolor" value="<?php echo ${org_tubepress_template_Template::EMBEDDED_COLOR_PRIMARY}; ?>" />
-        <param name="frontcolor" value="<?php echo ${org_tubepress_template_Template::EMBEDDED_COLOR_HIGHLIGHT}; ?>" />
+        <param name="movie" value="<?php echo ${org_tubepress_api_template_Template::TUBEPRESS_BASE_URL}; ?>/ui/lib/embedded_flash/longtail/lib/player.swf" />
+        <param name="bgcolor" value="<?php echo ${org_tubepress_api_template_Template::EMBEDDED_COLOR_PRIMARY}; ?>" />
+        <param name="frontcolor" value="<?php echo ${org_tubepress_api_template_Template::EMBEDDED_COLOR_HIGHLIGHT}; ?>" />
         <param name="quality" value="high" />
-        <param name="flashvars" value="file=<?php echo ${org_tubepress_template_Template::EMBEDDED_DATA_URL}; ?>&amp;autostart=<?php echo ${org_tubepress_template_Template::EMBEDDED_AUTOSTART}; ?>&amp;height=<?php echo ${org_tubepress_template_Template::EMBEDDED_HEIGHT}; ?>&amp;width=<?php echo ${org_tubepress_template_Template::EMBEDDED_WIDTH}; ?>&amp;frontcolor=<?php echo ${org_tubepress_template_Template::EMBEDDED_COLOR_HIGHLIGHT}; ?>" />
+        <param name="flashvars" value="file=<?php echo ${org_tubepress_api_template_Template::EMBEDDED_DATA_URL}; ?>&amp;autostart=<?php echo ${org_tubepress_api_template_Template::EMBEDDED_AUTOSTART}; ?>&amp;height=<?php echo ${org_tubepress_api_template_Template::EMBEDDED_HEIGHT}; ?>&amp;width=<?php echo ${org_tubepress_api_template_Template::EMBEDDED_WIDTH}; ?>&amp;frontcolor=<?php echo ${org_tubepress_api_template_Template::EMBEDDED_COLOR_HIGHLIGHT}; ?>" />
       </object>
