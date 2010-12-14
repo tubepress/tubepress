@@ -22,7 +22,7 @@
 /**
  * HTML utiilities for TubePress.
  */
-class org_tubepress_html_HtmlUtils
+class org_tubepress_impl_html_HtmlUtils
 {
     public static function getHeadElementsAsString($getVars, $include_jQuery = false)
     {

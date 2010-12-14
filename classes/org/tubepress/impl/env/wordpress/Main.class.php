@@ -30,7 +30,7 @@ tubepress_load_classes(array('org_tubepress_impl_options_WordPressStorageManager
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_util_StringUtils',
     'org_tubepress_api_gallery_Gallery',
-    'org_tubepress_html_HtmlUtils'));
+    'org_tubepress_impl_html_HtmlUtils'));
 
 class org_tubepress_impl_env_wordpress_Main
 {
@@ -106,7 +106,7 @@ class org_tubepress_impl_env_wordpress_Main
      */
     public static function headAction()
     {
-        print org_tubepress_html_HtmlUtils::getHeadElementsAsString($_GET, false);
+        print org_tubepress_impl_html_HtmlUtils::getHeadElementsAsString($_GET, false);
     }
 
     /**
