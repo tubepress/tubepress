@@ -24,7 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_api_factory_VideoFactory',
     'org_tubepress_api_video_Video',
     'net_php_pear_Net_URL2',
-    'org_tubepress_util_TimeUtils'));
+    'org_tubepress_impl_util_TimeUtils'));
 
 /**
  * Video factory for YouTube
@@ -251,7 +251,7 @@ class org_tubepress_impl_factory_YouTubeVideoFactory implements org_tubepress_ap
     private function _getDuration()
     {
         $duration = $this->_xpath->query('media:group/yt:duration', $this->_currentNode)->item(0);
-        return org_tubepress_util_TimeUtils::secondsToHumanTime($duration->getAttribute('seconds'));
+        return org_tubepress_impl_util_TimeUtils::secondsToHumanTime($duration->getAttribute('seconds'));
     }
 
     private function _getHomeUrl()
@@ -346,10 +346,10 @@ class org_tubepress_impl_factory_YouTubeVideoFactory implements org_tubepress_ap
             return "N/A";
         }
         $rawTime = $publishedNode->item(0)->nodeValue;
-        $seconds = org_tubepress_util_TimeUtils::rfc3339toUnixTime($rawTime);
+        $seconds = org_tubepress_impl_util_TimeUtils::rfc3339toUnixTime($rawTime);
 
         if ($tpom->get(org_tubepress_api_const_options_Display::RELATIVE_DATES)) {
-            return org_tubepress_util_TimeUtils::getRelativeTime($seconds);
+            return org_tubepress_impl_util_TimeUtils::getRelativeTime($seconds);
         }
         return date($tpom->get(org_tubepress_api_const_options_Advanced::DATEFORMAT), $seconds);
     }

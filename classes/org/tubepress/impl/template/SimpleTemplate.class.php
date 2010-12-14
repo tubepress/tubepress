@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_util_StringUtils',
+tubepress_load_classes(array('org_tubepress_impl_util_StringUtils',
     'org_tubepress_api_template_Template'));
 
 class org_tubepress_impl_template_SimpleTemplate implements org_tubepress_api_template_Template
@@ -58,7 +58,7 @@ class org_tubepress_impl_template_SimpleTemplate implements org_tubepress_api_te
         include realpath($this->_path);
         $result = ob_get_contents();
         ob_end_clean();
-        return org_tubepress_util_StringUtils::removeEmptyLines($result);
+        return org_tubepress_impl_util_StringUtils::removeEmptyLines($result);
 	}
 	
 	public function reset()

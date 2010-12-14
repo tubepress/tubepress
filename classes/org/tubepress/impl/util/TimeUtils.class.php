@@ -23,7 +23,7 @@
  * Time conversion utilities.
  *
  */
-class org_tubepress_util_TimeUtils
+class org_tubepress_impl_util_TimeUtils
 {
     //Grabbed from http://www.weberdev.com/get_example-4769.html
     /**

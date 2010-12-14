@@ -28,7 +28,7 @@ tubepress_load_classes(array('org_tubepress_impl_options_WordPressStorageManager
     'org_tubepress_ioc_ProInWordPressIocService',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_util_StringUtils',
+    'org_tubepress_impl_util_StringUtils',
     'org_tubepress_api_gallery_Gallery',
     'org_tubepress_html_HtmlUtils'));
 
@@ -94,7 +94,7 @@ class org_tubepress_env_wordpress_Main
 
             /* replace the shortcode with our new content */
             $currentShortcode = $tpom->getShortcode();
-            $content          = org_tubepress_util_StringUtils::replaceFirst($currentShortcode, $generatedHtml, $content);
+            $content          = org_tubepress_impl_util_StringUtils::replaceFirst($currentShortcode, $generatedHtml, $content);
         }
         return $content;
     }

@@ -23,7 +23,7 @@
  * Some string utilities
  *
  */
-class org_tubepress_util_StringUtils
+class org_tubepress_impl_util_StringUtils
 {
     /**
      * Replaces the first occurence of a string by another string

@@ -24,7 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_api_factory_VideoFactory',
     'org_tubepress_api_video_Video',
     'org_tubepress_api_const_options_Display',
-    'org_tubepress_util_TimeUtils'));
+    'org_tubepress_impl_util_TimeUtils'));
 
 /**
  * Video factory for Vimeo
@@ -115,7 +115,7 @@ class org_tubepress_impl_factory_VimeoVideoFactory implements org_tubepress_api_
         $vid->setAuthorDisplayName($entry->owner->display_name);
         $vid->setAuthorUid($entry->owner->username);
         $vid->setDescription($this->_getDescription($entry, $tpom));
-        $vid->setDuration(org_tubepress_util_TimeUtils::secondsToHumanTime($entry->duration));
+        $vid->setDuration(org_tubepress_impl_util_TimeUtils::secondsToHumanTime($entry->duration));
         $vid->setHomeUrl('http://vimeo.com/' . $entry->id);
         $vid->setId($entry->id);
         $vid->setThumbnailUrl($this->_getThumbnailUrl($entry));
@@ -159,7 +159,7 @@ class org_tubepress_impl_factory_VimeoVideoFactory implements org_tubepress_api_
         $seconds = strtotime($date);
 
         if ($tpom->get(org_tubepress_api_const_options_Display::RELATIVE_DATES)) {
-            return org_tubepress_util_TimeUtils::getRelativeTime($seconds);
+            return org_tubepress_impl_util_TimeUtils::getRelativeTime($seconds);
         }
         return date($tpom->get(org_tubepress_api_const_options_Advanced::DATEFORMAT), $seconds);
     }
