@@ -109,7 +109,7 @@ class org_tubepress_impl_env_wordpress_Widget
     public static function printControlPanel()
     {
         $iocContainer = new org_tubepress_impl_ioc_FreeWordPressPluginIocService();
-        $wpsm         = $iocContainer->get('org_tubepress_api_options_OptionsManager');
+        $wpsm         = $iocContainer->get('org_tubepress_api_options_StorageManager');
         $msg          = $iocContainer->get('org_tubepress_api_message_MessageService');
 
         /* are we saving? */
