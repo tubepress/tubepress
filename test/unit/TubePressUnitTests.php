@@ -23,6 +23,7 @@ require_once 'org/tubepress/impl/url/UrlTests.php';
 require_once 'org/tubepress/impl/ioc/IocTests.php';
 require_once 'org/tubepress/impl/util/UtilsTests.php';
 require_once 'org/tubepress/api/video/VideoTests.php';
+require_once 'org/tubepress/api/feed/FeedApiTests.php';
 
 
 class TubePressUnitTests

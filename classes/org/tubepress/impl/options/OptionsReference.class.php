@@ -313,7 +313,6 @@ class org_tubepress_impl_options_OptionsReference
             case org_tubepress_api_const_options_OptionType::THEME:
                 
                 $ioc                           = org_tubepress_impl_ioc_IocContainer::getInstance();
-                echo "FUCK";
                 $fs                            = $ioc->get('org_tubepress_api_filesystem_Explorer');
                 $tubepressBaseInstallationPath = $fs->getTubePressBaseInstallationPath();
                 $dir                           = "$tubepressBaseInstallationPath/ui/themes";
