@@ -41,6 +41,6 @@ class org_tubepress_env_EnvironmentDetector
      */
     public static function isWordPress()
     {
-        return strpos(realpath(__FILE__), 'wp-content/plugins') !== false;
+        return strpos(realpath(__FILE__), 'wp-content' . DIRECTORY_SEPARATOR . 'plugins') !== false;
     }
 }
