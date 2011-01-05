@@ -23,18 +23,20 @@ function_exists('tubepress_load_classes') || require dirname(__FILE__) . '/../..
 tubepress_classloader('org_tubepress_api_ioc_IocService');
 
 /**
- * Dependency injector for TubePress in a WordPress environment
+ * Simple dependency injector for TubePress.
  */
 class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_ioc_IocService
 {
-    
+    /* a transient variable that holds the interface name during method chaining. */
     private $_interface;
+
+    /* a transient variable that holds the object label (if any) during method chaining. */
     private $_label;
 
-    /* map of labeled interfaces to implementations */
+    /* map of labeled interfaces to implementations. */
     private $_labeledMap;
     
-    /* map of un-labeled interfaces to implementations */
+    /* map of un-labeled interfaces to implementations. */
     private $_map;
 
     public function __construct()
@@ -61,6 +63,7 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
 
     public function to($className)
     {
+        /* prevent people from doing something like $ioc->to('foo') */
         if (!isset($this->_interface)) {
             throw new Exception('Call to "to" without calling "bind" first');
         }
@@ -68,7 +71,7 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
         /* labeled? */
         if (isset($this->_label)) {
 
-            /* first time seeing this interface? */
+            /* first time seeing this interface? create a bucket for it. */
             if (!isset($this->_labeledMap[$this->_interface])) {
                 $this->_labeledMap[$this->_interface] = array();
             }
@@ -78,8 +81,8 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
 
         } else {
 
+            /* unlabled interface to implementation */
             $this->_map[$this->_interface] = $className;
-
         }
 
         /* clear these out for the next round */
@@ -92,7 +95,8 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
 
     public function get($interface, $label = "")
     {
-        if ($label === "") {
+        if ($label === '') {
+
             /* never heard of this interface before? */
             if (!isset($this->_map[$interface])) {
     
@@ -114,6 +118,7 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
             throw new Exception("Can't find implementation of $interface with label $label");
         }
 
+        /* return the labeled implementation */
         return $this->_getInstance($interface, $this->_labeledMap[$interface][$label], $label);
     }
 
@@ -124,6 +129,7 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
             return $implementation;
         }
 
+        /* make sure we've loaded the classes */
         class_exists($interface) || tubepress_classloader($interface);
         class_exists($implementation) || tubepress_classloader($implementation);
 
@@ -143,6 +149,7 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
             $this->_labeledMap[$interface][$label] = $instance;
         }
 
+        /* ... puts on sunglasses */
         return $instance;
     }
 }
