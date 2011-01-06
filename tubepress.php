@@ -7,7 +7,7 @@ Author: Eric D. Hough
 Version: 2.1.2
 Author URI: http://ehough.com
 
-Copyright 2006 - 2010 Eric D. Hough (http://ehough.com)
+Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
 
 This file is part of TubePress (http://tubepress.org)
 
