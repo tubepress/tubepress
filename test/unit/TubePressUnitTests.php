@@ -1,6 +1,7 @@
 <?php
 require 'PhpUnitLoader.php';
 require_once 'org/tubepress/api/const/options/OptionConstantsTests.php';
+require_once 'org/tubepress/impl/bootstrap/BootstrapTests.php';
 require_once 'org/tubepress/impl/cache/CacheTests.php';
 require_once 'org/tubepress/impl/embedded/EmbeddedPlayerTests.php';
 require_once 'org/tubepress/impl/factory/FactoryTests.php';
@@ -12,6 +13,7 @@ require_once 'org/tubepress/impl/log/LogTests.php';
 require_once 'org/tubepress/impl/message/MessageTests.php';
 require_once 'org/tubepress/impl/options/OptionsTests.php';
 require_once 'org/tubepress/impl/pagination/PaginationTests.php';
+require_once 'org/tubepress/impl/patterns/PatternsTests.php';
 require_once 'org/tubepress/impl/player/PlayerTests.php';
 require_once 'org/tubepress/impl/provider/ProviderTests.php';
 require_once 'org/tubepress/impl/querystring/QueryStringTests.php';
@@ -30,6 +32,7 @@ class TubePressUnitTests
 	public static function suite()
 	{
 		$suite = new PHPUnit_Framework_TestSuite("TubePress Unit Tests");
+		$suite->addTest(BootstrapTests::suite());
 		$suite->addTest(CacheTests::suite());
 		$suite->addTest(EmbeddedPlayerTests::suite());
 		$suite->addTest(GalleryTests::suite());
