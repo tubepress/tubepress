@@ -24,7 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_api_ioc_IocService',
     'org_tubepress_impl_ioc_FreeWordPressPluginIocService',
     'org_tubepress_ioc_impl_ProInWordPressIocService',
-    'org_tubepress_util_EnvironmentDetector'));
+    'org_tubepress_impl_environment_SimpleEnvironmentDetector'));
 
 /**
  * Class that holds a reference to an IOC container.
@@ -40,8 +40,10 @@ class org_tubepress_impl_ioc_IocContainer
             return self::$_instance;        
         }
         
-        if (org_tubepress_util_EnvironmentDetector::isPro()) {
-            if (org_tubepress_util_EnvironmentDetector::isWordPress()) {
+        $detector = new org_tubepress_impl_environment_SimpleEnvironmentDetector();
+        
+        if ($detector->isPro()) {
+            if ($detector->isWordPress()) {
                 self::$_instance = new org_tubepress_ioc_impl_ProInWordPressIocService();
             } else {
                 self::$_instance = new org_tubepress_ioc_impl_ProIocService();

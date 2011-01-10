@@ -26,4 +26,11 @@ class org_tubepress_api_const_FilterExecutionPoint
 {
     /* immediately after videos are returned by the provider */
     const VIDEOS_DELIVERY = 'videosDelivery';
+
+    /* immediately after thumbnail gallery template generation */
+    const THUMBGALLERY_TEMPLATE = 'galleryTemplate';
+
+    /* immediately after thumbnail gallery template is converted to HTML */
+    const THUMBGALLERY_HTML = 'galleryHtml';
+
 }

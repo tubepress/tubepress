@@ -36,52 +36,51 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocService extends org_tubepress
     {
         parent::__construct();
         
-        $this->bind('org_tubepress_api_cache_Cache')                         ->to('org_tubepress_impl_cache_PearCacheLiteCacheService');
-        
-        $this->bind('org_tubepress_api_embedded_EmbeddedPlayer')             ->to('org_tubepress_impl_embedded_DelegatingEmbeddedPlayer');
-        $this->bind('org_tubepress_api_embedded_EmbeddedPlayer')             ->labeled(org_tubepress_api_provider_Provider::YOUTUBE)
-                                                                                ->to('org_tubepress_impl_embedded_YouTubeEmbeddedPlayer');
-        $this->bind('org_tubepress_api_embedded_EmbeddedPlayer')             ->labeled(org_tubepress_api_provider_Provider::VIMEO)
-                                                                                ->to('org_tubepress_impl_embedded_VimeoEmbeddedPlayer');
-        
-        $this->bind('org_tubepress_api_filesystem_Explorer')    ->to('org_tubepress_impl_filesystem_FsExplorer');
-        $this->bind('org_tubepress_api_http_AgentDetector')                     ->to('org_tubepress_impl_http_MobileEspBrowserDetector');
-        $this->bind('org_tubepress_api_gallery_Gallery')                            ->to('org_tubepress_impl_gallery_SimpleGallery');
-        $this->bind('org_tubepress_api_message_MessageService')                     ->to('org_tubepress_impl_message_WordPressMessageService');
-        $this->bind('org_tubepress_api_options_OptionsManager')             ->to('org_tubepress_impl_options_SimpleOptionsManager');    
-        $this->bind('org_tubepress_api_options_StorageManager')             ->to('org_tubepress_impl_options_WordPressStorageManager');
-        $this->bind('org_tubepress_api_options_OptionValidator')  ->to('org_tubepress_impl_options_SimpleOptionValidator');    
-        $this->bind('org_tubepress_api_pagination_Pagination')               ->to('org_tubepress_impl_pagination_DiggStylePaginationService');
-        $this->bind('org_tubepress_api_patterns_FilterManager')->to('org_tubepress_impl_patterns_FilterManagerImpl');
-        $this->bind('org_tubepress_api_player_Player')                              ->to('org_tubepress_player_SimplePlayer');
-        $this->bind('org_tubepress_api_provider_ProviderCalculator')       ->to('org_tubepress_impl_provider_SimpleProviderCalculator');
-        $this->bind('org_tubepress_api_querystring_QueryStringService')             ->to('org_tubepress_impl_querystring_SimpleQueryStringService');
-        $this->bind('org_tubepress_api_shortcode_ShortcodeParser')                  ->to('org_tubepress_impl_shortcode_SimpleShortcodeParser');
-        $this->bind('org_tubepress_api_single_SingleVideo')                         ->to('org_tubepress_impl_single_SimpleSingleVideo');
-        $this->bind('org_tubepress_api_theme_ThemeHandler')                         ->to('org_tubepress_impl_theme_SimpleThemeHandler');
+        $this->bind('org_tubepress_api_cache_Cache')                   ->to('org_tubepress_impl_cache_PearCacheLiteCacheService');
+        $this->bind('org_tubepress_api_embedded_EmbeddedPlayer')       ->to('org_tubepress_impl_embedded_DelegatingEmbeddedPlayer');
+        $this->bind('org_tubepress_api_embedded_EmbeddedPlayer')       ->labeled(org_tubepress_api_provider_Provider::YOUTUBE)
+                                                                       ->to('org_tubepress_impl_embedded_YouTubeEmbeddedPlayer');
+        $this->bind('org_tubepress_api_embedded_EmbeddedPlayer')       ->labeled(org_tubepress_api_provider_Provider::VIMEO)
+                                                                       ->to('org_tubepress_impl_embedded_VimeoEmbeddedPlayer');
+        $this->bind('org_tubepress_api_filesystem_Explorer')           ->to('org_tubepress_impl_filesystem_FsExplorer');
+        $this->bind('org_tubepress_api_http_AgentDetector')            ->to('org_tubepress_impl_http_MobileEspBrowserDetector');
+        $this->bind('org_tubepress_api_gallery_Gallery')               ->to('org_tubepress_impl_gallery_SimpleGallery');
+        $this->bind('org_tubepress_api_message_MessageService')        ->to('org_tubepress_impl_message_WordPressMessageService');
+        $this->bind('org_tubepress_api_options_OptionsManager')        ->to('org_tubepress_impl_options_SimpleOptionsManager');    
+        $this->bind('org_tubepress_api_options_StorageManager')        ->to('org_tubepress_impl_options_WordPressStorageManager');
+        $this->bind('org_tubepress_api_options_OptionValidator')       ->to('org_tubepress_impl_options_SimpleOptionValidator');    
+        $this->bind('org_tubepress_api_pagination_Pagination')         ->to('org_tubepress_impl_pagination_DiggStylePaginationService');
+        $this->bind('org_tubepress_api_patterns_FilterManager')        ->to('org_tubepress_impl_patterns_FilterManagerImpl');
+        $this->bind('org_tubepress_api_patterns_StrategyManager')      ->to('org_tubepress_impl_patterns_StrategyManagerImpl');
+        $this->bind('org_tubepress_api_player_Player')                 ->to('org_tubepress_player_SimplePlayer');
+        $this->bind('org_tubepress_api_provider_ProviderCalculator')   ->to('org_tubepress_impl_provider_SimpleProviderCalculator');
+        $this->bind('org_tubepress_api_querystring_QueryStringService')->to('org_tubepress_impl_querystring_SimpleQueryStringService');
+        $this->bind('org_tubepress_api_shortcode_ShortcodeParser')     ->to('org_tubepress_impl_shortcode_SimpleShortcodeParser');
+        $this->bind('org_tubepress_api_single_SingleVideo')            ->to('org_tubepress_impl_single_SimpleSingleVideo');
+        $this->bind('org_tubepress_api_theme_ThemeHandler')            ->to('org_tubepress_impl_theme_SimpleThemeHandler');
         
         /* URL building */
-        $this->bind('org_tubepress_api_url_UrlBuilder')                             ->to('org_tubepress_impl_url_DelegatingUrlBuilder');
-        $this->bind('org_tubepress_api_url_UrlBuilder')                             ->labeled(org_tubepress_api_provider_Provider::YOUTUBE)
-                                                                                ->to('org_tubepress_impl_url_YouTubeUrlBuilder');
-        $this->bind('org_tubepress_api_url_UrlBuilder')                             ->labeled(org_tubepress_api_provider_Provider::VIMEO)
-                                                                                ->to('org_tubepress_impl_url_VimeoUrlBuilder');
+        $this->bind('org_tubepress_api_url_UrlBuilder')                ->to('org_tubepress_impl_url_DelegatingUrlBuilder');
+        $this->bind('org_tubepress_api_url_UrlBuilder')                ->labeled(org_tubepress_api_provider_Provider::YOUTUBE)
+                                                                       ->to('org_tubepress_impl_url_YouTubeUrlBuilder');
+        $this->bind('org_tubepress_api_url_UrlBuilder')                ->labeled(org_tubepress_api_provider_Provider::VIMEO)
+                                                                       ->to('org_tubepress_impl_url_VimeoUrlBuilder');
         
         /* Video factories */
-        $this->bind('org_tubepress_api_factory_VideoFactory')                 ->to('org_tubepress_impl_factory_DelegatingVideoFactory');
-        $this->bind('org_tubepress_api_factory_VideoFactory')                 ->labeled(org_tubepress_api_provider_Provider::YOUTUBE)
-                                                                                ->to('org_tubepress_impl_factory_YouTubeVideoFactory');
-        $this->bind('org_tubepress_api_factory_VideoFactory')                 ->labeled(org_tubepress_api_provider_Provider::VIMEO)
-                                                                                ->to('org_tubepress_impl_factory_VimeoVideoFactory');
+        $this->bind('org_tubepress_api_factory_VideoFactory')          ->to('org_tubepress_impl_factory_DelegatingVideoFactory');
+        $this->bind('org_tubepress_api_factory_VideoFactory')          ->labeled(org_tubepress_api_provider_Provider::YOUTUBE)
+                                                                       ->to('org_tubepress_impl_factory_YouTubeVideoFactory');
+        $this->bind('org_tubepress_api_factory_VideoFactory')          ->labeled(org_tubepress_api_provider_Provider::VIMEO)
+                                                                       ->to('org_tubepress_impl_factory_VimeoVideoFactory');
         
         /* Feed inspection */
-        $this->bind('org_tubepress_api_feed_FeedInspector')->to('org_tubepress_impl_feed_DelegatingFeedInspector');
-        $this->bind('org_tubepress_api_feed_FeedInspector')->labeled(org_tubepress_api_provider_Provider::YOUTUBE)
-                                                                                ->to('org_tubepress_impl_feed_YouTubeFeedInspector');
-        $this->bind('org_tubepress_api_feed_FeedInspector')->labeled(org_tubepress_api_provider_Provider::VIMEO)
-                                                                                ->to('org_tubepress_impl_feed_VimeoFeedInspector');
+        $this->bind('org_tubepress_api_feed_FeedInspector')            ->to('org_tubepress_impl_feed_DelegatingFeedInspector');
+        $this->bind('org_tubepress_api_feed_FeedInspector')            ->labeled(org_tubepress_api_provider_Provider::YOUTUBE)
+                                                                       ->to('org_tubepress_impl_feed_YouTubeFeedInspector');
+        $this->bind('org_tubepress_api_feed_FeedInspector')            ->labeled(org_tubepress_api_provider_Provider::VIMEO)
+                                                                       ->to('org_tubepress_impl_feed_VimeoFeedInspector');
         /* Video provider */
-        $this->bind('org_tubepress_api_provider_Provider')               ->to('org_tubepress_impl_provider_SimpleProvider');
-        $this->bind('org_tubepress_api_feed_FeedFetcher')  ->to('org_tubepress_impl_feed_HTTPRequest2FeedFetcher');
+        $this->bind('org_tubepress_api_provider_Provider')             ->to('org_tubepress_impl_provider_SimpleProvider');
+        $this->bind('org_tubepress_api_feed_FeedFetcher')              ->to('org_tubepress_impl_feed_HTTPRequest2FeedFetcher');
     }
 }
