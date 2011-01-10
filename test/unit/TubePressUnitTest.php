@@ -40,26 +40,30 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
                 $mock->expects($this->any())
                    ->method('get')
                    ->will($this->returnCallback(array($this, 'optionsCallback')));
-		$mock->expects($this->any())
-		   ->method('setCustomOptions')
-		   ->will($this->returnCallback(array($this, 'setOptions')));
+		        $mock->expects($this->any())
+		           ->method('setCustomOptions')
+		           ->will($this->returnCallback(array($this, 'setOptions')));
                 break;
+                
             case 'org_tubepress_api_message_MessageService':
             case 'org_tubepress_api_options_StorageManager':
                 $mock->expects($this->any())
                    ->method('_')
                    ->will($this->returnCallback(array($this, 'echoCallback')));
                 break;
+                
             case 'org_tubepress_api_theme_ThemeHandler':
                 $mock->expects($this->any())
                      ->method('getTemplateInstance')
                      ->will($this->returnCallback(array($this, 'templateCallback')));
                 break;
+                
             case 'org_tubepress_api_filesystem_Explorer':
                 $mock->expects($this->any())
                      ->method('getTubePressBaseInstallationPath')
                      ->will($this->returnValue(realpath(dirname(__FILE__) . '/../../')));
                 break;
+                
             default:
                 break;
         }
