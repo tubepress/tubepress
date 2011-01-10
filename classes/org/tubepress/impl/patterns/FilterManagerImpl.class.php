@@ -29,63 +29,63 @@ class org_tubepress_impl_patterns_FilterManagerImpl implements org_tubepress_api
 {
     const LOG_PREFIX = 'Filter Manager';
     
-	private $_filters;
+    private $_filters;
 
-	public function __construct()
-	{
-		$this->_filters = array();
-	}
+    public function __construct()
+    {
+        $this->_filters = array();
+    }
 
-	public function runFilters($name, $value)
-	{
-		/* no callbacks registered for this filter? */
-		if (!isset($this->_filters[$name])) {
-			org_tubepress_impl_log_Log::log(self::LOG_PREFIX, "No filters registered for $name");
-			return $value;
-		}
+    public function runFilters($name, $value)
+    {
+        /* no callbacks registered for this filter? */
+        if (!isset($this->_filters[$name])) {
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, "No filters registered for $name");
+            return $value;
+        }
 
-		org_tubepress_impl_log_Log::log(self::LOG_PREFIX, "Now running %d filter(s) for \"%s\" execution point", sizeof($this->_filters[$name]), $name);
-		
-		$args = func_get_args();
-		
-		/* run all the callbacks for this filter name */
-		foreach ($this->_filters[$name] as $callback) {
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, "Now running %d filter(s) for \"%s\" execution point", sizeof($this->_filters[$name]), $name);
+        
+        $args = func_get_args();
+        
+        /* run all the callbacks for this filter name */
+        foreach ($this->_filters[$name] as $callback) {
 
-			try {
+            try {
 
-			    $args[1] = $value;
-			    $value = call_user_func_array($callback, array_slice($args, 1));
+                $args[1] = $value;
+                $value = call_user_func_array($callback, array_slice($args, 1));
 
-			} catch (Exception $e) {
-			    org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception running filter: %s', $e->getMessage());
-			}
+            } catch (Exception $e) {
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception running filter: %s', $e->getMessage());
+            }
 
-		}
+        }
 
-		/* return the modified value */
-		return $value;
-	}
+        /* return the modified value */
+        return $value;
+    }
 
-	public function registerFilter($name, $callback) {
+    public function registerFilter($name, $callback) {
 
-		/* sanity check on the callback */
-		if (!is_callable($callback)) {
-			throw new Exception("$callback is not a valid filter callback");
-		}
+        /* sanity check on the callback */
+        if (!is_callable($callback)) {
+            throw new Exception("$callback is not a valid filter callback");
+        }
 
-		/* sanity check on the filter name */
-		if (!is_string($name)) {
-			throw new Exception('Only strings can be used to identify a filter');
-		}
+        /* sanity check on the filter name */
+        if (!is_string($name)) {
+            throw new Exception('Only strings can be used to identify a filter');
+        }
 
-		/* first time we're seeing this filter name? */
-		if (!isset($this->_filters[$name])) {
-			$this->_filters[$name] = array();
-		}
+        /* first time we're seeing this filter name? */
+        if (!isset($this->_filters[$name])) {
+            $this->_filters[$name] = array();
+        }
 
-		/* everything looks good. */
-		array_push($this->_filters[$name], $callback);
-	}
+        /* everything looks good. */
+        array_push($this->_filters[$name], $callback);
+    }
 }
 
 ?>
