@@ -29,35 +29,21 @@ class org_tubepress_impl_patterns_StrategyManagerImpl implements org_tubepress_a
 {
     const LOG_PREFIX = 'Strategy Manager';
     
-    private $_strategies;
-
-    public function __construct()
-    {
-        $this->_strategies = array();
-    }
-
     /**
      * Finds and executes a strategy for the given name.
-     * 
-     * @param string       $tagName The strategy tag name.
      */
-    public function executeStrategy($tagName)
+    public function executeStrategy($strategies)
     {
-        /* no callbacks registered for this strategy? */
-        if (!isset($this->_strategies[$tagName])) {
-            throw new Exception("No strategies defined for $tagName");
-        }
-
         /* run the first strategy that wants to handle this */
-        foreach ($this->_strategies[$tagName] as $strategy) {
+        foreach ($strategies as $strategy) {
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Seeing if "%s" wants to handle "%s"', get_class($strategy), $tagName);
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Seeing if "%s" wants to handle execution', get_class($strategy));
             
             $strategy->start();
 
             if ($strategy->canHandle()) {
                 
-                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Handling "%s" with "%s"', $tagName, get_class($strategy));
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%s will handle execution', get_class($strategy));
                 $returnValue = $strategy->execute();
                 $strategy->stop();
                 return $returnValue;
@@ -66,47 +52,9 @@ class org_tubepress_impl_patterns_StrategyManagerImpl implements org_tubepress_a
             $strategy->stop();
         }
 
-        throw new Exception("No strategies were able to handle $tagName");
+        throw new Exception("None of the supplied strategies were able to handle the execution");
     }
 
-    /**
-     * Register a new strategy for the given tag name.
-     * 
-     * @param string                              $tagName  The strategy tag name.
-     * @param org_tubepress_api_patterns_Strategy $strategy The strategy implementation.
-     */
-    public function registerStrategy($tagName, org_tubepress_api_patterns_Strategy $strategy) {
-
-        /* sanity check on the strategy name */
-        if (!is_string($tagName)) {
-            throw new Exception('Only strings can be used to identify a strategy');
-        }
-
-        /* first time we're seeing this strategy name? */
-        if (!isset($this->_strategies[$tagName])) {
-            $this->_strategies[$tagName] = array();
-        }
-
-        /* everything looks good. */
-        array_push($this->_strategies[$tagName], $strategy);
-    }
-    
-    /**
-     * Register new strategies for the given tag name.
-     * 
-     * @param string $tagName    The strategy tag name.
-     * @param array  $strategies The strategy implementations as an array.
-     */
-    function registerStrategies($tagName, $strategies)
-    {
-        if (!is_array($strategies)) {
-            throw new Exception('Second argument to registerStrategies() must be an array');
-        }
-        
-        foreach ($strategies as $strategy) {
-            $this->registerStrategy($tagName, $strategy);
-        }
-    }
 }
 
 ?>

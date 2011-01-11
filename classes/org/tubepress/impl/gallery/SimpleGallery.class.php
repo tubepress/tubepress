@@ -23,10 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_gallery_Gallery',
     'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_impl_log_Log',
-    'org_tubepress_impl_gallery_strategies_SingleVideoStrategy',
-    'org_tubepress_impl_gallery_strategies_SoloPlayerStrategy',
-    'org_tubepress_impl_gallery_strategies_ThumbGalleryStrategy'));
+    'org_tubepress_impl_log_Log'));
 
 /**
  * TubePress gallery. Generates HTML for TubePress.
@@ -35,8 +32,6 @@ class org_tubepress_impl_gallery_SimpleGallery implements org_tubepress_api_gall
 {
     const LOG_PREFIX = 'Gallery';
     
-    const STRATEGY = 'org_tubepress_impl_gallery_SimpleGallery.Strategy.HtmlGeneration';
-
     /**
      * Generates the HTML for TubePress.
      *
@@ -57,15 +52,11 @@ class org_tubepress_impl_gallery_SimpleGallery implements org_tubepress_api_gall
         }
 
         /* use the strategy manager to get the HTML */
-        $sm = $ioc->get('org_tubepress_api_patterns_StrategyManager');
-        
-        $sm->registerStrategies(self::STRATEGY, array(
-            new org_tubepress_impl_gallery_strategies_SingleVideoStrategy(),
-            new org_tubepress_impl_gallery_strategies_SoloPlayerStrategy(),
-            new org_tubepress_impl_gallery_strategies_ThumbGalleryStrategy()
-        ));
-        
-        return $sm->executeStrategy(self::STRATEGY);
+        $ioc->get('org_tubepress_api_patterns_StrategyManager')->executeStrategy(
+            'org_tubepress_impl_gallery_strategies_SingleVideoStrategy',
+            'org_tubepress_impl_gallery_strategies_SoloPlayerStrategy',
+            'org_tubepress_impl_gallery_strategies_ThumbGalleryStrategy'
+        );
     }
 
 }
