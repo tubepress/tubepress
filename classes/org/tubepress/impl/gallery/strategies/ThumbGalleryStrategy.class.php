@@ -73,7 +73,7 @@ class org_tubepress_impl_gallery_strategies_ThumbGalleryStrategy implements org_
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Provider has delivered %d videos', sizeof($feedResult->getVideoArray()));
 
 	/* send the videos through the filters */
-	$filteredVideos = $filterManager->runFilters(org_tubepress_api_const_FilterExecutionPoint::VIDEOS_DELIVERY, $feedResult->getVideoArray());
+	$filteredVideos = $filterManager->runFilters(org_tubepress_api_const_FilterExecutionPoint::VIDEOS_DELIVERY, $feedResult->getVideoArray(), $galleryId);
 
 	/* add some core template variables */
 	$template->setVariable(org_tubepress_api_template_Template::VIDEO_ARRAY, $filteredVideos);
@@ -82,10 +82,10 @@ class org_tubepress_impl_gallery_strategies_ThumbGalleryStrategy implements org_
         $template->setVariable(org_tubepress_api_template_Template::THUMBNAIL_HEIGHT, $tpom->get(org_tubepress_api_const_options_Display::THUMB_HEIGHT));
 
 	/* send the template through the filters */
-        $filteredTemplate = $filterManager->runFilters(org_tubepress_api_const_FilterExecutionPoint::THUMBGALLERY_TEMPLATE, $template);
+        $filteredTemplate = $filterManager->runFilters(org_tubepress_api_const_FilterExecutionPoint::THUMBGALLERY_TEMPLATE, $template, $galleryId);
 
 	/* send gallery HTML through the filters */
-        $filteredHtml = $filterManager->runFilters(org_tubepress_api_const_FilterExecutionPoint::THUMBGALLERY_HTML, $filteredTemplate->toString());
+        $filteredHtml = $filterManager->runFilters(org_tubepress_api_const_FilterExecutionPoint::THUMBGALLERY_HTML, $filteredTemplate->toString(), $galleryId);
 
         /* we're done. tie up */
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Done assembling gallery <tt>%d</tt>', $galleryId);

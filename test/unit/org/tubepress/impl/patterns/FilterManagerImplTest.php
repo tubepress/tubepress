@@ -7,11 +7,13 @@ class org_tubepress_impl_patterns_FilterManagerImplTest extends TubePressUnitTes
 	private $_sut;
 	private $_adderOneInvocationCount = 0;
 	private $_adderTwoInvocationCount = 0;
+	private $_adderThreeValue = 0;
 
 	function setUp()
 	{
 	    $this->_adderOneInvocationCount = 0;
 	    $this->_adderTwoInvocationCount = 0;
+	    $this->_adderThreeValue = 0;
 		$this->_sut = new org_tubepress_impl_patterns_FilterManagerImpl();
 	}
 	
@@ -20,7 +22,17 @@ class org_tubepress_impl_patterns_FilterManagerImplTest extends TubePressUnitTes
 	    $this->assertEquals('hi', $this->_sut->runFilters('fake', 'hi'));
 	}
 
-   function testFilterBails()
+	function testMultipleArguments()
+	{
+	    $this->_sut->registerFilter('fakepoint', array($this, 'adderThree'));
+	    $result = $this->_sut->runFilters('fakepoint', 1, 500);
+	    $result += $this->_sut->runFilters('fakepoint', 1, 800);
+	    
+	    $this->assertEquals(2, $result);
+	    $this->assertEquals(1300, $this->_adderThreeValue);
+	}
+	
+    function testFilterBails()
     {
         $this->_sut->registerFilter('fakepoint', array($this, 'bailer'));
         $this->_sut->registerFilter('fakepoint', array($this, 'adderTwo'));
@@ -87,6 +99,12 @@ class org_tubepress_impl_patterns_FilterManagerImplTest extends TubePressUnitTes
 	{
 	    $this->_adderTwoInvocationCount++;
 	    return $value + 1;
+	}
+	
+	function adderThree($value1, $value2)
+	{
+	    $this->_adderThreeValue += $value2;
+	    return $value1;
 	}
 	
 }

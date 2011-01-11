@@ -51,13 +51,13 @@ class org_tubepress_impl_patterns_StrategyManagerImpl implements org_tubepress_a
         /* run the first strategy that wants to handle this */
         foreach ($this->_strategies[$tagName] as $strategy) {
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Seeing if "%s" wants to handle "%s"', $strategy->getName(), $tagName);
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Seeing if "%s" wants to handle "%s"', get_class($strategy), $tagName);
             
             $strategy->start();
 
             if ($strategy->canHandle()) {
                 
-                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Handling "%s" with "%s"', $tagName, $strategy->getName()));
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Handling "%s" with "%s"', $tagName, get_class($strategy));
                 $returnValue = $strategy->execute();
                 $strategy->stop();
                 return $returnValue;
