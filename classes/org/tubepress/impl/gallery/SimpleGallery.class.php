@@ -52,11 +52,11 @@ class org_tubepress_impl_gallery_SimpleGallery implements org_tubepress_api_gall
         }
 
         /* use the strategy manager to get the HTML */
-        $ioc->get('org_tubepress_api_patterns_StrategyManager')->executeStrategy(
+        $ioc->get('org_tubepress_api_patterns_StrategyManager')->executeStrategy(array(
             'org_tubepress_impl_gallery_strategies_SingleVideoStrategy',
             'org_tubepress_impl_gallery_strategies_SoloPlayerStrategy',
             'org_tubepress_impl_gallery_strategies_ThumbGalleryStrategy'
-        );
+        ));
     }
 
 }
