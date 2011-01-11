@@ -20,9 +20,9 @@
  */
 
 /**
- * Applies some embedded info to the template.
+ * Applies the embedded service name to the template.
  */
-class org_tubepress_impl_filter_GalleryTemplateEmbedded
+class org_tubepress_impl_gallery_filters_EmbeddedPlayerName
 {
     public function filter($template)
     {

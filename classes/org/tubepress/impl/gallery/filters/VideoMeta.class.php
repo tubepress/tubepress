@@ -22,9 +22,9 @@
 /**
  * Handles applying video meta info to the gallery template.
  */
-class org_tubepress_impl_filter_GalleryTemplateVideoMeta
+class org_tubepress_impl_gallery_filters_VideoMeta
 {
-    protected function filter($template)
+    public function filter($template)
     {
         $tpom           = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $messageService = $ioc->get('org_tubepress_message_MessageService');
@@ -43,6 +43,3 @@ class org_tubepress_impl_filter_GalleryTemplateVideoMeta
         return $template;
     }
 }
-
-$tubepressFilterManager->registerFilter(org_tubepress_api_const_FilterExecutionPoint::GALLERY_TEMPLATE, array(new org_tubepress_impl_filter_GalleryTemplateVideoMeta(), 'filter'));
-$tubepressFilterManager->registerFilter(org_tubepress_api_const_FilterExecutionPoint::SINGLE_VIDEO_TEMPLATE, array(new org_tubepress_impl_filter_GalleryTemplateVideoMeta(), 'filter'));

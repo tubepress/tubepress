@@ -22,8 +22,8 @@
 function_exists('tubepress_load_classes')
 || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_bootstrap_Bootstrapper',
-    'org_tubepress_impl_util_FilesystemUtils',
-    'org_tubepress_impl_log_Log'));
+    'org_tubepress_impl_log_Log',
+    'org_tubepress_api_const_FilterExecutionPoint'));
 
 /**
  * Performs TubePress-wide initialization.
@@ -44,12 +44,13 @@ abstract class org_tubepress_impl_bootstrap_AbstractBootstrapper implements org_
 
         org_tubepress_impl_log_Log::log($this->_getName(), 'Booting!');
 
-        /* load default filters */
-        $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $fs        = $ioc->get('org_tubepress_api_filesystem_Explorer');
-        $baseDir = $fs->getTubePressBaseInstallationPath();
-        
-        $this->_loadFilters($baseDir . '/default_filters', $fs, $ioc);
+        /* register default filters */
+        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $fs      = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $baseDir = $fs->getTubePressBaseInstallationPath() . '/classes/org/tubepress/impl/';
+
+        $this->_loadFilters($baseDir . 'gallery/filters', $fs, $ioc);
+        $this->_loadFilters($baseDir . 'single/filters', $fs, $ioc);
 
         /* continue booting process */
         $this->_doBoot();
@@ -64,7 +65,7 @@ abstract class org_tubepress_impl_bootstrap_AbstractBootstrapper implements org_
 
     private function _loadFilters($directory, $fs, $ioc)
     {
-        org_tubepress_impl_log_Log::log($this->_getName(), 'Loading TubePress plugins from <tt>%s</tt>', $directory);
+        org_tubepress_impl_log_Log::log($this->_getName(), 'Loading TubePress filters from <tt>%s</tt>', $directory);
 
         /* get a list of the files in the directory */
         $pluginPaths = $fs->getFilenamesInDirectory($directory, $this->_getName());

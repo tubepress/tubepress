@@ -20,11 +20,11 @@
  */
 
 /**
- * Handles applying video meta info to the gallery template.
+ * Handles applying the player HTML to the gallery template.
  */
-class org_tubepress_impl_filter_GalleryTemplatePlayer
+class org_tubepress_impl_gallery_filters_Player
 {
-    protected function _doFilter($template)
+    public function filter($template)
     {
         $tpom       = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $playerName = $tpom->get(org_tubepress_api_const_options_Display::CURRENT_PLAYER_NAME);
@@ -38,10 +38,5 @@ class org_tubepress_impl_filter_GalleryTemplatePlayer
         $template->setVariable(org_tubepress_api_template_Template::PLAYER_NAME, $playerName);
         
         return $template;
-    }
-
-    protected function _getName()
-    {
-        return 'Player Gallery Template Filter';
     }
 }

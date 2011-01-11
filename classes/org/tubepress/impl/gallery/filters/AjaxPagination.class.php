@@ -22,7 +22,7 @@
 /**
  * Injects Ajax pagination code into the gallery's HTML, if necessary.
 */
-class org_tubepress_impl_filter_GalleryHtmlAjaxPagination
+class org_tubepress_impl_gallery_filters_AjaxPagination
 {
     const LOG_PREFIX = 'Ajax Pagination Filter';
 
@@ -53,5 +53,3 @@ class org_tubepress_impl_filter_GalleryHtmlAjaxPagination
         return $html . $template->toString();
     }
 }
-
-$tubepressFilterManager->registerFilter(org_tubepress_api_const_FilterExecutionPoint::GALLERY_HTML, new org_tubepress_impl_filter_GalleryHtmlAjaxPagination());

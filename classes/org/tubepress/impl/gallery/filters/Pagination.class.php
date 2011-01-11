@@ -20,11 +20,11 @@
  */
 
 /**
- * Handles applying video meta info to the gallery template.
+ * Handles applying pagination to the gallery template.
  */
-class org_tubepress_impl_filter_GalleryTemplatePagination
+class org_tubepress_impl_gallery_filters_Pagination
 {
-    protected function _doFilter($template)
+    public function filter($template)
     {
         $tpom              = $ioc->get('org_tubepress_options_manager_OptionsManager');
         $paginationService = $ioc->get('org_tubepress_api_pagination_Pagination');
@@ -36,10 +36,7 @@ class org_tubepress_impl_filter_GalleryTemplatePagination
         if ($tpom->get(org_tubepress_api_const_options_Display::PAGINATE_BELOW)) {
             $template->setVariable(org_tubepress_api_template_Template::PAGINATION_BOTTOM, $pagination);
         }
-    }
 
-    protected function _getName()
-    {
-        return 'Pagination Gallery Template Filter';
+        return $template;
     }
 }

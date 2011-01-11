@@ -22,7 +22,7 @@
 /**
  * Injects theme CSS to the gallery's HTML, if necessary.
 */
-class org_tubepress_impl_filter_GalleryHtml_ThemeCss
+class org_tubepress_impl_gallery_filters_ThemeCss
 {
     const LOG_PREFIX = 'Theme CSS Filter';
 
