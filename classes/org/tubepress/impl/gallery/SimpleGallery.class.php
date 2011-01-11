@@ -23,7 +23,10 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_gallery_Gallery',
     'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_impl_log_Log'));
+    'org_tubepress_impl_log_Log',
+    'org_tubepress_impl_gallery_strategies_SingleVideoStrategy',
+    'org_tubepress_impl_gallery_strategies_SoloPlayerStrategy',
+    'org_tubepress_impl_gallery_strategies_ThumbGalleryStrategy'));
 
 /**
  * TubePress gallery. Generates HTML for TubePress.

@@ -19,10 +19,15 @@
  *
  */
 
+tubepress_load_classes(array('org_tubepress_api_patterns_Strategy',
+    'org_tubepress_options_category_Display',
+    'org_tubepress_player_Player',
+    'org_tubepress_impl_log_Log'));
+
 /**
  * HTML-generation strategy that implements the "solo" player strategy.
  */
-class org_tubepress_impl_gallery_strategies_SoloPlayerStrategy implements org_tubepress_api_strategy_Strategy
+class org_tubepress_impl_gallery_strategies_SoloPlayerStrategy implements org_tubepress_api_patterns_Strategy
 {
     private $_ioc;
     private $_videoId;
@@ -47,14 +52,14 @@ class org_tubepress_impl_gallery_strategies_SoloPlayerStrategy implements org_tu
             return false;
         }
 
-        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Solo player detected. Checking query string for video ID.');
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Solo player detected. Checking query string for video ID.');
 
         /* see if we have a custom video ID set */
         $qss     = $this->_ioc->get('org_tubepress_querystring_QueryStringService');
         $videoId = $qss->getCustomVideo($_GET);
 
         if ($videoId == '') {
-            org_tubepress_log_Log::log(self::LOG_PREFIX, 'Solo player in use, but no video ID set in URL.');
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Solo player in use, but no video ID set in URL.');
             return false;
         }
 
@@ -64,16 +69,11 @@ class org_tubepress_impl_gallery_strategies_SoloPlayerStrategy implements org_tu
 
     public function execute()
     {
-        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
 
-        $single = $this->_ioc->get('org_tubepress_single_SingleVideo');
+        $single = $this->_ioc->get('org_tubepress_api_single_SingleVideo');
 
         return $single->getSingleVideoHtml($videoId, $this->_ioc);
-    }
-
-    public function getName()
-    {
-        return 'Solo Player HTML Generation Strategy';
     }
 }
 

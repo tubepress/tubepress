@@ -19,10 +19,13 @@
  *
  */
 
+tubepress_load_classes(array('org_tubepress_api_patterns_Strategy',
+    'org_tubepress_options_category_Gallery'));
+
 /**
  * HTML generation strategy that generates HTML for a single video + meta info.
  */
-class org_tubepress_impl_gallery_strategies_SingleVideoStrategy implements org_tubepress_api_strategy_Strategy
+class org_tubepress_impl_gallery_strategies_SingleVideoStrategy implements org_tubepress_api_patterns_Strategy
 {
     private $_ioc;
     private $_tpom;
@@ -46,17 +49,13 @@ class org_tubepress_impl_gallery_strategies_SingleVideoStrategy implements org_t
 
     public function execute()
     {    
-        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
 
-        $singleVideoGenerator = $this->_ioc->get('org_tubepress_single_SingleVideo');
+        $singleVideoGenerator = $this->_ioc->get('org_tubepress_api_single_SingleVideo');
 
         return $singleVideoGenerator->getSingleVideoHtml($videoId);
     }
 
-    public function getName()
-    {
-        return 'Single Video HTML Generation Strategy';
-    }
 }
 
 ?>
