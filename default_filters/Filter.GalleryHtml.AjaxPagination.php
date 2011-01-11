@@ -54,4 +54,4 @@ class org_tubepress_impl_filter_GalleryHtmlAjaxPagination
     }
 }
 
-$tubepressFilterManager->registerFilter(org_tubepress_api_const_FilterExecutionPoint::THUMBGALLERY_HTML, new org_tubepress_impl_filter_GalleryHtmlAjaxPagination());
+$tubepressFilterManager->registerFilter(org_tubepress_api_const_FilterExecutionPoint::GALLERY_HTML, new org_tubepress_impl_filter_GalleryHtmlAjaxPagination());
