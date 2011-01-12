@@ -25,26 +25,7 @@
 interface org_tubepress_api_patterns_StrategyManager
 {
     /**
-     * Finds and executes a strategy for the given name.
      * 
-     * @param string       $tagName The strategy tag name.
-     * @param unknown_type $value   The arguments to send to the strategy.
      */
-    function executeStrategy($tagName);
-    
-    /**
-     * Register a new strategy for the given tag name.
-     * 
-     * @param string                              $tagName  The strategy tag name.
-     * @param org_tubepress_api_patterns_Strategy $strategy The strategy implementation.
-     */
-    function registerStrategy($tagName, org_tubepress_api_patterns_Strategy $strategy);
-    
-    /**
-     * Register new strategies for the given tag name.
-     * 
-     * @param string $tagName    The strategy tag name.
-     * @param array  $strategies The strategy implementations as an array.
-     */
-    function registerStrategies($tagName, $strategies);
+    function executeStrategy($strategyNames);
 }

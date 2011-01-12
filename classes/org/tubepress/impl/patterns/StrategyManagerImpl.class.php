@@ -34,18 +34,36 @@ class org_tubepress_impl_patterns_StrategyManagerImpl implements org_tubepress_a
      */
     public function executeStrategy($strategies)
     {
-        /* run the first strategy that wants to handle this */
-        foreach ($strategies as $strategy) {
+        /* sanity checkin' */
+        if (!is_array($strategies)) {
+            throw new Exception('executeStrategy() requires an array of strategies as the first argument');
+        }
+        
+        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Seeing if "%s" wants to handle execution', get_class($strategy));
+        /* grab the arguments */
+        $args = array_slice(func_get_args(), 1);
+        
+        /* run the first strategy that wants to handle this */
+        foreach ($strategies as $strategyName) {
+
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Seeing if "%s" wants to handle execution', $strategyName);
+            
+            $strategy = $ioc->get($strategyName);
+            if (!is_a($strategy, 'org_tubepress_api_patterns_Strategy')) {
+                throw new Exception("$strategyName does not implement org_tubepress_api_patterns_Strategy");
+            }
             
             $strategy->start();
 
-            if ($strategy->canHandle()) {
+            if (call_user_func_array(array($strategy, 'canHandle'), $args)) {
                 
-                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%s will handle execution', get_class($strategy));
-                $returnValue = $strategy->execute();
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%s will handle execution', $strategyName);
+
+                $returnValue = call_user_func_array(array($strategy, 'execute'), $args);
+                
                 $strategy->stop();
+                
                 return $returnValue;
             }
 

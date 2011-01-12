@@ -11,17 +11,39 @@ class org_tubepress_impl_patterns_StrategyManagerImplTest extends TubePressUnitT
 	
     function setUp()
     {
+        $this->initFakeIoc();
         $this->_sut = new org_tubepress_impl_patterns_StrategyManagerImpl();
         $this->_mockStrategyOne = $this->getMock('org_tubepress_api_patterns_Strategy');
         $this->_mockStrategyTwo = $this->getMock('org_tubepress_api_patterns_Strategy');
     }
     
+    function getMock($className)
+    {
+        $mock = parent::getMock($className);
+        
+        if ($className == 'fakestrat1') {
+            $mock = $this->_mockStrategyOne;
+        }
+        if ($className == 'fakestrat2') {
+            $mock = $this->_mockStrategyTwo;
+        }
+        return $mock;
+    }
+    
     /**
      * @expectedException Exception
      */
-    function testNoStrategysRegistered()
+    function testExecuteWithNonStrategy()
     {
-        $this->_sut->executeStrategy('fake');
+        $this->_sut->executeStrategy(array('org_tubepress_api_options_OptionsManager'));
+    }
+    
+    /**
+     * @expectedException Exception
+     */
+    function testExecuteWithNonArrayArgument()
+    {
+        $this->_sut->executeStrategy('bla');
     }
 
     function testExecSecondStrategy()
@@ -37,25 +59,12 @@ class org_tubepress_impl_patterns_StrategyManagerImplTest extends TubePressUnitT
         $this->_mockStrategyOne->expects($this->never())
              ->method('execute');
         $this->_mockStrategyTwo->expects($this->once())
-             ->method('execute');
+             ->method('execute')
+             ->with($this->equalTo(400))
+             ->will($this->returnValue(500));
         
-        $this->_sut->registerStrategy('fakepoint', $this->_mockStrategyOne);
-        $this->_sut->registerStrategy('fakepoint', $this->_mockStrategyTwo);
-        
-        $result = $this->_sut->executeStrategy('fakepoint');
-    }
-    
-    /**
-     * @expectedException Exception
-     */
-    function testRegisterStrategiesBadSecondArgument()
-    {
-        $this->_sut->registerStrategies('fake', 'fake');
-    }
-    
-    function testRegisterStrategies()
-    {
-        $this->_sut->registerStrategies('fake', array($this->_mockStrategyOne, $this->_mockStrategyTwo));
+        $result = $this->_sut->executeStrategy(array('fakestrat1', 'fakestrat2'), 400);
+        $this->assertEquals(500, $result);
     }
     
     /**
@@ -64,7 +73,6 @@ class org_tubepress_impl_patterns_StrategyManagerImplTest extends TubePressUnitT
     function testNoStrategyCanHandle()
     {
         $this->mockStartStop();
-        
         
         $this->_mockStrategyOne->expects($this->once())
              ->method('canHandle')
@@ -77,26 +85,7 @@ class org_tubepress_impl_patterns_StrategyManagerImplTest extends TubePressUnitT
         $this->_mockStrategyTwo->expects($this->never())
              ->method('execute');
         
-        $this->_sut->registerStrategy('fakepoint', $this->_mockStrategyOne);
-        $this->_sut->registerStrategy('fakepoint', $this->_mockStrategyTwo);
-        
-        $result = $this->_sut->executeStrategy('fakepoint');
-    }
-    
-    /**
-     * @expectedException Exception
-     */
-    function testRegisterBadStrategyName()
-    {
-        $this->_sut->registerStrategy(1, $this->_mockStrategyOne);
-    }
-    
-    /**
-     * @expectedException Exception
-     */
-    function testRegisterNonStrategy()
-    {
-        $this->_sut->registerStrategy('fake', 'nothing');
+        $result = $this->_sut->executeStrategy(array('fakestrat1', 'fakestrat2'));
     }
     
     private function mockStartStop()
