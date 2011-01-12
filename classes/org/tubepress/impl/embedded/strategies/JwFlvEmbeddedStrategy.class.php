@@ -22,10 +22,8 @@
 tubepress_load_classes(array('org_tubepress_impl_embedded_strategies_AbstractEmbeddedStrategy',
     'org_tubepress_api_ioc_IocService',
     'net_php_pear_Net_URL2',
-    'org_tubepress_api_template_Template',
     'org_tubepress_api_const_options_Embedded',
-    'org_tubepress_api_options_OptionsManager',
-    'org_tubepress_api_embedded_EmbeddedPlayer'));
+    'org_tubepress_api_options_OptionsManager'));
 
 /**
  * Embedded player strategy for the JW FLV player
@@ -38,26 +36,15 @@ class org_tubepress_impl_embedded_strategies_JwFlvEmbeddedStrategy extends org_t
             && $tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) === org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL;
     }
 
-    protected function _execute($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
+    protected function _getTemplatePath()
+    {
+        return 'embedded_flash/longtail.tpl.php';
+    }
+
+    protected function _getEmbeddedDataUrl($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
     {    
-        global $tubepress_base_url;
-
-        $theme    = $ioc->get('org_tubepress_api_theme_ThemeHandler');
-        $template = $theme->getTemplateInstance('embedded_flash/longtail.tpl.php');
-
         $link = new net_php_pear_Net_URL2(sprintf('http://www.youtube.com/watch?v=%s', $videoId));
-
-        $link = $link->getURL(true);
-
-        $template->setVariable(org_tubepress_api_template_Template::TUBEPRESS_BASE_URL, $tubepress_base_url);
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_DATA_URL, $link);
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_AUTOSTART, $tpom->get(org_tubepress_api_const_options_Embedded::AUTOPLAY) ? 'true' : 'false');
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_api_const_options_Embedded::EMBEDDED_WIDTH));
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_HEIGHT, $tpom->get(org_tubepress_api_const_options_Embedded::EMBEDDED_HEIGHT));
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_COLOR_PRIMARY, $tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_COLOR));
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_COLOR_HIGHLIGHT, $tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_HIGHLIGHT));
-
-        return $template->toString();
+        return $link->getURL(true);
     }
 
 }

@@ -19,12 +19,12 @@
  *
  */
 
-tubepress_load_classes(array(
-    'org_tubepress_api_embedded_EmbeddedPlayer',
-    'org_tubepress_impl_ioc_IocContainer',
+tubepress_load_classes(array('org_tubepress_impl_embedded_strategies_AbstractEmbeddedStrategy',
+    'org_tubepress_api_ioc_IocService',
+    'org_tubepress_api_options_OptionsManager',
     'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
     'org_tubepress_api_const_options_Embedded',
-    'org_tubepress_api_template_Template',
+    'org_tubepress_api_provider_Provider',
     'net_php_pear_Net_URL2'));
 
 /**
@@ -45,17 +45,13 @@ class org_tubepress_impl_embedded_strategies_VimeoEmbeddedStrategy extends org_t
         return $providerName === org_tubepress_api_provider_Provider::VIMEO;
     }
 
-    protected function _execute($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
+    protected function _getTemplatePath()
+    {
+        return 'embedded_flash/vimeo.tpl.php';
+    }
+
+    protected function _getEmbeddedDataUrl($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
     {    
-        /* collect the embedded options we're interested in */
-        $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom     = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $theme    = $ioc->get('org_tubepress_api_theme_ThemeHandler');
-        $template = $theme->getTemplateInstance('embedded_flash/vimeo.tpl.php');
-        
-        $width      = $tpom->get(org_tubepress_api_const_options_Embedded::EMBEDDED_WIDTH);
-        $height     = $tpom->get(org_tubepress_api_const_options_Embedded::EMBEDDED_HEIGHT);
-        $fullscreen = $tpom->get(org_tubepress_api_const_options_Embedded::FULLSCREEN);
         $autoPlay   = $tpom->get(org_tubepress_api_const_options_Embedded::AUTOPLAY);
         $color      = $tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_COLOR);
         $showInfo   = $tpom->get(org_tubepress_api_const_options_Embedded::SHOW_INFO);
@@ -70,14 +66,7 @@ class org_tubepress_impl_embedded_strategies_VimeoEmbeddedStrategy extends org_t
         $link->setQueryVariable(self::VIMEO_QUERYPARAM_BYLINE, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
         $link->setQueryVariable(self::VIMEO_QUERYPARAM_PORTRAIT, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
 
-        $link = $link->getURL(true);
-
-        /* prep the template and we're done */
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_DATA_URL, $link);
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_WIDTH, $width);
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_HEIGHT, $height);
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_FULLSCREEN, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($fullscreen));
-        return $template->toString();
+        return $link->getURL(true);
     }
 }
 

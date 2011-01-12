@@ -21,7 +21,8 @@
 
 tubepress_load_classes(array('org_tubepress_api_patterns_Strategy',
     'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_api_ioc_IocService',
+    'org_tubepress_api_const_options_Embedded',
+    'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
     'org_tubepress_api_options_OptionsManager'));
 
 /**
@@ -51,12 +52,33 @@ class org_tubepress_impl_embedded_strategies_AbstractEmbeddedStrategy implements
 
     public function execute($providerName, $videoId)
     {    
-        return $this->_execute($providerName, $videoId, $this->_ioc, $this->_tpom);
+        global $tubepress_base_url;
+       
+        $theme    = $this->_ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $template = $theme->getTemplateInstance($this->_getTemplatePath());
+
+        $fullscreen      = $tpom->get(org_tubepress_api_const_options_Embedded::FULLSCREEN);
+        $playerColor     = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_COLOR), '999999');
+        $playerHighlight = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_HIGHLIGHT), 'FFFFFF');
+        $autoPlay        = $tpom->get(org_tubepress_api_const_options_Embedded::AUTOPLAY);
+
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_DATA_URL, $this->_getEmbeddedDataUrl($providerName, $videoId, $this->_ioc, $this->_tpom));
+        $template->setVariable(org_tubepress_api_template_Template::TUBEPRESS_BASE_URL, $tubepress_base_url);
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_AUTOSTART, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToString($autoPlay);
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_api_const_options_Embedded::EMBEDDED_WIDTH));
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_HEIGHT, $tpom->get(org_tubepress_api_const_options_Embedded::EMBEDDED_HEIGHT));
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_COLOR_PRIMARY, $playerColor);
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_COLOR_HIGHLIGHT, $playerHighlight);
+        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_FULLSCREEN, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($fullscreen));
+
+        return $template->toString();
     }
     
     protected abstract function _canHandle($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom);
 
-    protected abstract function _execute($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom);
+    protected abstract function _getTemplatePath($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom);
+
+    protected abstract function _getEmbeddedDataUrl($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom);
 }
 
 ?>

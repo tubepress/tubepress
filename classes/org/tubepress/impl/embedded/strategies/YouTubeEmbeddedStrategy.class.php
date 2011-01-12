@@ -19,12 +19,11 @@
  *
  */
 
-tubepress_load_classes(array('org_tubepress_api_embedded_EmbeddedPlayer',
+tubepress_load_classes(array('org_tubepress_impl_embedded_strategies_AbstractEmbeddedStrategy',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
     'org_tubepress_api_const_options_Embedded',
-    'org_tubepress_api_theme_ThemeHandler',
-    'org_tubepress_api_template_Template',
+    'org_tubepress_api_options_OptionsManager',
     'net_php_pear_Net_URL2'));
 
 /**
@@ -37,31 +36,31 @@ class org_tubepress_impl_embedded_strategies_YouTubeEmbeddedStrategy extends org
         return true;
     }
 
-    protected function _execute($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
+    protected function _getTemplatePath($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
+    {
+        $themeName = $this->_isIos($ioc) ? 'youtube-iphone' : 'youtube';
+
+        return "embedded_flash/$themeName.tpl.php";
+    }
+
+    protected function _getEmbeddedDataUrl($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
     {    
         $link  = new net_php_pear_Net_URL2(sprintf('http://www.youtube.com/v/%s', $videoId));
-        $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom  = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $theme = $ioc->get('org_tubepress_api_theme_ThemeHandler');
-        $bd    = $ioc->get('org_tubepress_api_http_AgentDetector');
 
-        $playerColor     = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_COLOR), '999999');
-        $playerHighlight = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_HIGHLIGHT), 'FFFFFF');
         $showRelated     = $tpom->get(org_tubepress_api_const_options_Embedded::SHOW_RELATED);
         $autoPlay        = $tpom->get(org_tubepress_api_const_options_Embedded::AUTOPLAY);
         $loop            = $tpom->get(org_tubepress_api_const_options_Embedded::LOOP);
         $genie           = $tpom->get(org_tubepress_api_const_options_Embedded::GENIE);
         $border          = $tpom->get(org_tubepress_api_const_options_Embedded::BORDER);
-        $width           = $tpom->get(org_tubepress_api_const_options_Embedded::EMBEDDED_WIDTH);
-        $height          = $tpom->get(org_tubepress_api_const_options_Embedded::EMBEDDED_HEIGHT);
-        $hq              = $tpom->get(org_tubepress_api_const_options_Embedded::HIGH_QUALITY);
-        $fullscreen      = $tpom->get(org_tubepress_api_const_options_Embedded::FULLSCREEN);
+        $playerColor     = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_COLOR), '999999');
+        $playerHighlight = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_HIGHLIGHT), 'FFFFFF');
         $showInfo        = $tpom->get(org_tubepress_api_const_options_Embedded::SHOW_INFO);
 
         if (!($playerColor == '999999' && $playerHighlight == 'FFFFFF')) {
             $link->setQueryVariable('color2', '0x' . $playerColor);
             $link->setQueryVariable('color1', '0x' . $playerHighlight);
         }
+
         $link->setQueryVariable('rel', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showRelated));
         $link->setQueryVariable('autoplay', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));
         $link->setQueryVariable('loop', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($loop));
@@ -70,31 +69,20 @@ class org_tubepress_impl_embedded_strategies_YouTubeEmbeddedStrategy extends org
         $link->setQueryVariable('fs', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($fullscreen));
         $link->setQueryVariable('showinfo', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
 
-        if ($hq) {
+        if ($tpom->get(org_tubepress_api_const_options_Embedded::HIGH_QUALITY)) {
             $link->setQueryVariable('hd', '1');
         }
 
-        $link = $link->getURL(true);
-        $themeName = 'youtube';
-        if ($this->isIsomething($bd)) {
-            $themeName = 'youtube-iphone';
-            $link = "http://www.youtube.com/v/$videoId";
-        }
-        
-        $template = $theme->getTemplateInstance("embedded_flash/$themeName.tpl.php");
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_DATA_URL, $link);
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_WIDTH, $width);
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_HEIGHT, $height);
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_FULLSCREEN, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToString($fullscreen));
+        $link = $this->isIos($bd) ? "http://www.youtube.com/v/$videoId" : $link->getURL(true);
 
-        $embedSrc = $template->toString();
-
-        return $embedSrc;
+        return $link;
     }
     
-    private function isIsomething(org_tubepress_api_http_AgentDetector $bd)
+    private function _isIos(org_tubepress_api_ioc_IocService $ioc)
     {
+        $bd    = $ioc->get('org_tubepress_api_http_AgentDetector');
         $agent = $_SERVER['HTTP_USER_AGENT'];
+
         return $bd->isIphoneOrIpod($agent) || $bd->isIpad($agent);
     }
 }

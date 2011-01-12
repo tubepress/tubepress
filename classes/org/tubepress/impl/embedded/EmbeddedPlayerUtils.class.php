@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2010 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
  * 
  * This file is part of TubePress (http://tubepress.org)
  * 
@@ -54,11 +54,8 @@ class org_tubepress_impl_embedded_EmbeddedPlayerUtils
      */
     public static function booleanToOneOrZero($bool)
     {
-        if ($bool === '1') {
-            return '1';
-        }
-        if ($bool === '0') {
-            return '0';
+        if ($bool === '1' || $bool === '0') {
+            return $bool;
         }
         return $bool ? '1' : '0';
     }
