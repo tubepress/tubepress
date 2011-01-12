@@ -48,7 +48,7 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocService extends org_tubepress
         $this->bind('org_tubepress_api_pagination_Pagination')         ->to('org_tubepress_impl_pagination_DiggStylePaginationService');
         $this->bind('org_tubepress_api_patterns_FilterManager')        ->to('org_tubepress_impl_patterns_FilterManagerImpl');
         $this->bind('org_tubepress_api_patterns_StrategyManager')      ->to('org_tubepress_impl_patterns_StrategyManagerImpl');
-        $this->bind('org_tubepress_api_player_Player')                 ->to('org_tubepress_player_SimplePlayer');
+        $this->bind('org_tubepress_api_player_Player')                 ->to('org_tubepress_impl_player_SimplePlayer');
         $this->bind('org_tubepress_api_provider_ProviderCalculator')   ->to('org_tubepress_impl_provider_SimpleProviderCalculator');
         $this->bind('org_tubepress_api_querystring_QueryStringService')->to('org_tubepress_impl_querystring_SimpleQueryStringService');
         $this->bind('org_tubepress_api_shortcode_ShortcodeParser')     ->to('org_tubepress_impl_shortcode_SimpleShortcodeParser');

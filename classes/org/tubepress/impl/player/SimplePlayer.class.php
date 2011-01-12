@@ -27,7 +27,7 @@ tubepress_load_classes(array('org_tubepress_api_player_Player',
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
-class org_tubepress_player_SimplePlayer implements org_tubepress_api_player_Player
+class org_tubepress_impl_player_SimplePlayer implements org_tubepress_api_player_Player
 {
     const LOG_PREFIX = 'Player';
     
