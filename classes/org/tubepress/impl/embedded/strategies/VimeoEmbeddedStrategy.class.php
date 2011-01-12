@@ -19,8 +19,6 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array(
     'org_tubepress_api_embedded_EmbeddedPlayer',
     'org_tubepress_impl_ioc_IocContainer',
@@ -30,9 +28,9 @@ tubepress_load_classes(array(
     'net_php_pear_Net_URL2'));
 
 /**
- * An HTML-embeddable player for Vimeo.
+ * Embedded player strategy for native Vimeo
  */
-class org_tubepress_impl_embedded_VimeoEmbeddedPlayer implements org_tubepress_api_embedded_EmbeddedPlayer
+class org_tubepress_impl_embedded_strategies_VimeoEmbeddedStrategy extends org_tubepress_impl_embedded_strategies_AbstractEmbeddedStrategy
 {
     const VIMEO_EMBEDDED_PLAYER_URL = 'http://player.vimeo.com/';
     const VIMEO_QUERYPARAM_AUTOPLAY = 'autoplay';
@@ -42,17 +40,15 @@ class org_tubepress_impl_embedded_VimeoEmbeddedPlayer implements org_tubepress_a
     const VIMEO_QUERYPARAM_LOOP     = 'loop';
     const VIMEO_QUERYPARAM_PORTRAIT = 'portrait';
 
-    /**
-     * Spits back the text for this embedded player
-     *
-     * @param string $videoId The video ID to display
-     *
-     * @return string The text for this embedded player
-     */
-    public function toString($videoId)
+    protected function _canHandle($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
     {
+        return $providerName === org_tubepress_api_provider_Provider::VIMEO;
+    }
+
+    protected function _execute($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
+    {    
         /* collect the embedded options we're interested in */
-        $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom     = $ioc->get('org_tubepress_api_options_OptionsManager');
         $theme    = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $template = $theme->getTemplateInstance('embedded_flash/vimeo.tpl.php');
@@ -84,3 +80,5 @@ class org_tubepress_impl_embedded_VimeoEmbeddedPlayer implements org_tubepress_a
         return $template->toString();
     }
 }
+
+?>

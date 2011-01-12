@@ -19,31 +19,29 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_embedded_EmbeddedPlayer',
+tubepress_load_classes(array('org_tubepress_impl_embedded_strategies_AbstractEmbeddedStrategy',
+    'org_tubepress_api_ioc_IocService',
     'net_php_pear_Net_URL2',
     'org_tubepress_api_template_Template',
-    'org_tubepress_impl_ioc_IocContainer'));
+    'org_tubepress_api_const_options_Embedded',
+    'org_tubepress_api_options_OptionsManager',
+    'org_tubepress_api_embedded_EmbeddedPlayer'));
 
 /**
- * Represents an HTML-embeddable JW FLV Player.
+ * Embedded player strategy for the JW FLV player
  */
-class org_tubepress_impl_embedded_JwFlvEmbeddedPlayer implements org_tubepress_api_embedded_EmbeddedPlayer
+class org_tubepress_impl_embedded_strategies_JwFlvEmbeddedStrategy extends org_tubepress_impl_embedded_strategies_AbstractEmbeddedStrategy
 {
-    /**
-     * Spits back the text for this embedded player
-     *
-     * @param string                       $videoId The video ID to display
-     *
-     * @return string The text for this embedded player
-     */
-    public function toString($videoId)
+    protected function _canHandle($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
     {
+        return $providerName === org_tubepress_api_provider_Provider::YOUTUBE 
+            && $tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) === org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL;
+    }
+
+    protected function _execute($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
+    {    
         global $tubepress_base_url;
 
-        $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom     = $ioc->get('org_tubepress_api_options_OptionsManager');
         $theme    = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $template = $theme->getTemplateInstance('embedded_flash/longtail.tpl.php');
 
@@ -61,4 +59,7 @@ class org_tubepress_impl_embedded_JwFlvEmbeddedPlayer implements org_tubepress_a
 
         return $template->toString();
     }
+
 }
+
+?>

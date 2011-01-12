@@ -19,8 +19,6 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_embedded_EmbeddedPlayer',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
@@ -30,21 +28,17 @@ tubepress_load_classes(array('org_tubepress_api_embedded_EmbeddedPlayer',
     'net_php_pear_Net_URL2'));
 
 /**
- * An HTML-embeddable YouTube player
- *
+ * Embedded player strategy for native Vimeo
  */
-class org_tubepress_impl_embedded_YouTubeEmbeddedPlayer implements org_tubepress_api_embedded_EmbeddedPlayer
+class org_tubepress_impl_embedded_strategies_YouTubeEmbeddedStrategy extends org_tubepress_impl_embedded_strategies_AbstractEmbeddedStrategy
 {
-    /**
-     * Spits back the text for this embedded player
-     *
-     * @param org_tubepress_api_ioc_IocService $ioc     The IOC container
-     * @param string                       $videoId The video ID to display
-     *
-     * @return string The text for this embedded player
-     */
-    public function toString($videoId)
+    protected function _canHandle($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
     {
+        return true;
+    }
+
+    protected function _execute($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
+    {    
         $link  = new net_php_pear_Net_URL2(sprintf('http://www.youtube.com/v/%s', $videoId));
         $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom  = $ioc->get('org_tubepress_api_options_OptionsManager');
@@ -104,3 +98,5 @@ class org_tubepress_impl_embedded_YouTubeEmbeddedPlayer implements org_tubepress
         return $bd->isIphoneOrIpod($agent) || $bd->isIpad($agent);
     }
 }
+
+?>
