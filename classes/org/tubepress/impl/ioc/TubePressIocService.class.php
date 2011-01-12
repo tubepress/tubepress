@@ -65,7 +65,7 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
         if (!isset($implementation)) {
     
             /* maybe we can instantiate a singleton? */
-            if (is_class($classOrInterfaceName)) {
+            if (class_exists($classOrInterfaceName)) {
                 return $this->_buildAndRemember($classOrInterfaceName);
             }
 
@@ -105,7 +105,7 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
         $instance = $ref->newInstance();
                 
         /* save it for later */
-        $this->_map[$className, $instance];
+        $this->_map[$className] = $instance;
         
         return $instance;
     }
