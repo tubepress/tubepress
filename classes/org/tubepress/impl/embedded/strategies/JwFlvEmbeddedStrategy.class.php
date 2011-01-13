@@ -19,6 +19,8 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_impl_embedded_strategies_AbstractEmbeddedStrategy',
     'org_tubepress_api_ioc_IocService',
     'net_php_pear_Net_URL2',
@@ -33,10 +35,10 @@ class org_tubepress_impl_embedded_strategies_JwFlvEmbeddedStrategy extends org_t
     protected function _canHandle($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
     {
         return $providerName === org_tubepress_api_provider_Provider::YOUTUBE 
-            && $tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) === org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL;
+            && $tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_IMPL) === org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL;
     }
 
-    protected function _getTemplatePath()
+    protected function _getTemplatePath($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
     {
         return 'embedded_flash/longtail.tpl.php';
     }

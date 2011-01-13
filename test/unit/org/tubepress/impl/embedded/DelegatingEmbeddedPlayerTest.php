@@ -12,42 +12,34 @@ class org_tubepress_impl_embedded_DelegatingEmbeddedPlayerTest extends TubePress
         $this->initFakeIoc();
         $this->_sut = new org_tubepress_impl_embedded_DelegatingEmbeddedPlayer();
     }
-    
-    function testToString()
-    {
-        $this->assertEquals($this->expected(), $this->_sut->toString('FAKEID'));
-    }
-    
+
     function getMock($className)
     {
         $mock = parent::getMock($className);
         if ($className === 'org_tubepress_api_provider_ProviderCalculator') {
             $mock->expects($this->once())
                  ->method('calculateProviderOfVideoId')
+                 ->with($this->equalTo('videoid'))
                  ->will($this->returnValue(org_tubepress_api_provider_Provider::VIMEO));
         }
-        if ($className === 'org_tubepress_api_embedded_EmbeddedPlayer') {
+        if ($className === 'org_tubepress_api_patterns_StrategyManager') {
             $mock->expects($this->once())
-                 ->method('toString')
-                 ->will($this->returnCallback(array($this, 'expected')));
+                 ->method('executeStrategy')
+                 ->with(array(
+                     'org_tubepress_impl_embedded_strategies_JwFlvEmbeddedStrategy',
+                      'org_tubepress_impl_embedded_strategies_YouTubeEmbeddedStrategy',
+                      'org_tubepress_impl_embedded_strategies_VimeoEmbeddedStrategy'
+                  ), new PHPUnit_Framework_Constraint_IsEqual(org_tubepress_api_provider_Provider::VIMEO),
+                     new PHPUnit_Framework_Constraint_IsEqual('videoid'))
+                  ->will($this->returnValue('foo'));
         }
+        
         return $mock;
     }
     
-    function expected()
+    function testToString()
     {
-        return <<<EOT
-<object type="application/x-shockwave-flash" data="/ui/lib/embedded_flash/longtail/lib/player.swf" style="width: 425px; height: 350px" >
-        <param name="AllowScriptAccess" value="never" />
-        <param name="wmode" value="opaque" />
-        <param name="movie" value="/ui/lib/embedded_flash/longtail/lib/player.swf" />
-        <param name="bgcolor" value="999999" />
-        <param name="frontcolor" value="FFFFFF" />
-        <param name="quality" value="high" />
-        <param name="flashvars" value="file=http://www.youtube.com/watch?v=FAKEID&amp;autostart=false&amp;height=350&amp;width=425&amp;frontcolor=FFFFFF" />
-      </object>
-
-EOT;
+        $this->assertEquals('foo', $this->_sut->toString('videoid'));
     }
     
 }

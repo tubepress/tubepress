@@ -19,11 +19,14 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_impl_embedded_strategies_AbstractEmbeddedStrategy',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
     'org_tubepress_api_const_options_Embedded',
     'org_tubepress_api_options_OptionsManager',
+    'org_tubepress_api_http_AgentDetector',
     'net_php_pear_Net_URL2'));
 
 /**
@@ -52,6 +55,7 @@ class org_tubepress_impl_embedded_strategies_YouTubeEmbeddedStrategy extends org
         $loop            = $tpom->get(org_tubepress_api_const_options_Embedded::LOOP);
         $genie           = $tpom->get(org_tubepress_api_const_options_Embedded::GENIE);
         $border          = $tpom->get(org_tubepress_api_const_options_Embedded::BORDER);
+        $fullscreen      = $tpom->get(org_tubepress_api_const_options_Embedded::FULLSCREEN);
         $playerColor     = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_COLOR), '999999');
         $playerHighlight = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_HIGHLIGHT), 'FFFFFF');
         $showInfo        = $tpom->get(org_tubepress_api_const_options_Embedded::SHOW_INFO);
@@ -73,7 +77,7 @@ class org_tubepress_impl_embedded_strategies_YouTubeEmbeddedStrategy extends org
             $link->setQueryVariable('hd', '1');
         }
 
-        $link = $this->isIos($bd) ? "http://www.youtube.com/v/$videoId" : $link->getURL(true);
+        $link = $this->_isIos($ioc) ? "http://www.youtube.com/v/$videoId" : $link->getURL(true);
 
         return $link;
     }

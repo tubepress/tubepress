@@ -19,6 +19,8 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_impl_embedded_strategies_AbstractEmbeddedStrategy',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_api_options_OptionsManager',
@@ -45,7 +47,7 @@ class org_tubepress_impl_embedded_strategies_VimeoEmbeddedStrategy extends org_t
         return $providerName === org_tubepress_api_provider_Provider::VIMEO;
     }
 
-    protected function _getTemplatePath()
+    protected function _getTemplatePath($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
     {
         return 'embedded_flash/vimeo.tpl.php';
     }

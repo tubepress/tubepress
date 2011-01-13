@@ -21,9 +21,10 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_provider_Provider',
+tubepress_load_classes(array('org_tubepress_api_patterns_StrategyManager',
     'org_tubepress_api_embedded_EmbeddedPlayer',
-    'org_tubepress_impl_ioc_IocContainer'));
+    'org_tubepress_impl_ioc_IocContainer',
+    'org_tubepress_api_provider_ProviderCalculator'));
 
 /**
  * An HTML-embeddable video player.
@@ -41,13 +42,14 @@ class org_tubepress_impl_embedded_DelegatingEmbeddedPlayer implements org_tubepr
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-	$providerName = $pc->calculateProviderOfVideoId($videoId);
+        $sm           = $ioc->get('org_tubepress_api_patterns_StrategyManager');
+	    $providerName = $pc->calculateProviderOfVideoId($videoId);
     
         /* let the strategies do the heavy lifting */
-	return $sm->executeStrategy(array(
-	    'org_tubepress_impl_embedded_strategies_JwFlvEmbeddedStrategy',
-	    'org_tubepress_impl_embedded_strategies_YouTubeEmbeddedStrategy',
-	    'org_tubepress_impl_embedded_strategies_VimeoEmbeddedStrategy'
-	), $providerName, $videoId);
+	    return $sm->executeStrategy(array(
+	        'org_tubepress_impl_embedded_strategies_JwFlvEmbeddedStrategy',
+	        'org_tubepress_impl_embedded_strategies_YouTubeEmbeddedStrategy',
+	        'org_tubepress_impl_embedded_strategies_VimeoEmbeddedStrategy'
+	    ), $providerName, $videoId);
     }
 }
