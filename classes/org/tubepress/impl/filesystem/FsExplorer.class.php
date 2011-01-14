@@ -123,10 +123,10 @@ if (!function_exists("sys_get_temp_dir")) {
             // Detect by creating a temporary file
             // Try to use system's temporary directory
             // as random name shouldn't exist
-            $tempfile = tempnam(md5(uniqid(rand(), true)), '');
+            $tempfile = @tempnam(md5(uniqid(rand(), true)), '');
             if ( $tempfile ) {
                 $tempdir = realpath(dirname($tempfile));
-                unlink($tempfile);
+                @unlink($tempfile);
                 return $tempdir;
             } else {
                 return false;
