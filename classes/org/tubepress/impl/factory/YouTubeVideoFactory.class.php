@@ -38,18 +38,10 @@ class org_tubepress_impl_factory_YouTubeVideoFactory implements org_tubepress_ap
     const NS_YT    = 'http://gdata.youtube.com/schemas/2007';
     const NS_GD    = 'http://schemas.google.com/g/2005';
 
-    private $_logPrefix;
+    const LOG_PREFIX = 'YouTube Video Factory';
 
     private $_xpath;
     private $_currentNode;
-
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        $this->_logPrefix = 'YouTube Video Factory';
-    }
 
     protected function getXpath()
     {
@@ -92,7 +84,7 @@ class org_tubepress_impl_factory_YouTubeVideoFactory implements org_tubepress_ap
 
     private function _createXPath(DOMDocument $doc)
     {
-        org_tubepress_impl_log_Log::log($this->_logPrefix, 'Building xpath to parse XML');
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Building xpath to parse XML');
 
         if (!class_exists('DOMXPath')) {
             throw new Exception('Class DOMXPath not found');
@@ -109,7 +101,7 @@ class org_tubepress_impl_factory_YouTubeVideoFactory implements org_tubepress_ap
 
     private function _createDomDocument($feed)
     {
-        org_tubepress_impl_log_Log::log($this->_logPrefix, 'Attempting to load XML from YouTube');
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Attempting to load XML from YouTube');
 
         if (!class_exists('DOMDocument')) {
             throw new Exception('DOMDocument class not found');
@@ -119,13 +111,13 @@ class org_tubepress_impl_factory_YouTubeVideoFactory implements org_tubepress_ap
         if ($doc->loadXML($feed) === false) {
             throw new Exception('Could not parse XML from YouTube');
         }
-        org_tubepress_impl_log_Log::log($this->_logPrefix, 'Successfully loaded XML from YouTube');
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Successfully loaded XML from YouTube');
         return $doc;
     }
 
     private function _buildVideos($limit, $entryXpath)
     {
-        org_tubepress_impl_log_Log::log($this->_logPrefix, 'Now parsing video(s). Limit is %d.', $limit);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Now parsing video(s). Limit is %d.', $limit);
 
         $results   = array();
         $entries   = $this->_xpath->query($entryXpath);
@@ -139,17 +131,12 @@ class org_tubepress_impl_factory_YouTubeVideoFactory implements org_tubepress_ap
             $this->_currentNode = $entry;
 
             if ($this->_videoNotAvailable()) {
-                org_tubepress_impl_log_Log::log($this->_logPrefix, 'Video not available. Skipping it.');
-                continue;
-            }
-
-            if (strpos($blacklist, $this->_getId()) !== false) {
-                org_tubepress_impl_log_Log::log($this->_logPrefix, 'Video with ID %s is blacklisted. Skipping it.', $this->_getId());
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Video not available. Skipping it.');
                 continue;
             }
 
             if ($index > 0 && $index >= $limit) {
-                org_tubepress_impl_log_Log::log($this->_logPrefix, 'Reached limit of %d videos', $limit);
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Reached limit of %d videos', $limit);
                 break;
             }
             $index++;
@@ -157,7 +144,7 @@ class org_tubepress_impl_factory_YouTubeVideoFactory implements org_tubepress_ap
             $results[] = $this->_createVideo($tpom);
         }
 
-        org_tubepress_impl_log_Log::log($this->_logPrefix, 'Built %d video(s) from YouTube\'s XML', sizeof($results));
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Built %d video(s) from YouTube\'s XML', sizeof($results));
         return $results;
     }
 

@@ -31,15 +31,7 @@ tubepress_load_classes(array('org_tubepress_api_factory_VideoFactory',
  */
 class org_tubepress_impl_factory_VimeoVideoFactory implements org_tubepress_api_factory_VideoFactory
 {
-    private $_logPrefix;
-
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        $this->_logPrefix = 'Vimeo Video Factory';
-    }
+    const LOG_PREFIX = 'Vimeo Video Factory';
 
     /**
      * Converts raw video feeds to TubePress videos
@@ -51,47 +43,41 @@ class org_tubepress_impl_factory_VimeoVideoFactory implements org_tubepress_api_
      */
     public function feedToVideoArray($rawFeed, $limit)
     {
-        $feed = unserialize($rawFeed);
-
-        org_tubepress_impl_log_Log::log($this->_logPrefix, 'Now parsing video(s)');
+        $feed = self::unserialize($rawFeed);
+        
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Now parsing video(s)');
 
         $entries = $feed->videos->video;
-
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        return $this->_buildVideos($entries, $ioc);
+        
+        return $this->_buildVideos($entries);
     }
 
     /**
      * Converts a single raw video into a TubePress video
      *
-     * @param unknown                      $rawFeed The raw feed result from the video provider
+     * @param unknown $rawFeed The raw feed result from the video provider
      * 
      * @return array an array of TubePress videos generated from the feed
      */
     public function convertSingleVideo($rawFeed)
     {
-        $feed = unserialize($rawFeed);
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        return $this->_buildVideos($feed->video, $ioc);
+        $feed = self::unserialize($rawFeed);
+        
+        return $this->_buildVideos($feed->video);
     }
 
-    private function _buildVideos($entries, org_tubepress_api_ioc_IocService $ioc)
+    private function _buildVideos($entries)
     {
         $results   = array();
         $index     = 0;
+        $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom      = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $blacklist = $tpom->get(org_tubepress_api_const_options_Advanced::VIDEO_BLACKLIST);
 
         if (is_array($entries) && sizeof($entries) > 0) {
             foreach ($entries as $entry) {
 
-                if (strpos($blacklist, $entry->id) !== false) {
-                    org_tubepress_impl_log_Log::log($this->_logPrefix, 'Video with ID %s is blacklisted. Skipping it.', $entry->id);
-                    continue;
-                }
-
                 if ($index > 0 && $index++ >= $limit) {
-                    org_tubepress_impl_log_Log::log($this->_logPrefix, 'Reached limit of %d videos', $limit);
+                    org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Reached limit of %d videos', $limit);
                     break;
                 }
 
@@ -99,7 +85,7 @@ class org_tubepress_impl_factory_VimeoVideoFactory implements org_tubepress_api_
             }
         }
 
-        org_tubepress_impl_log_Log::log($this->_logPrefix, 'Built %d video(s) from Vimeo\'s feed', sizeof($results));
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Built %d video(s) from Vimeo\'s feed', sizeof($results));
         return $results;
     }
 
@@ -167,5 +153,16 @@ class org_tubepress_impl_factory_VimeoVideoFactory implements org_tubepress_api_
     private function _getViewCount($entry)
     {
         return number_format($entry->number_of_plays);
+    }
+    
+    private static function unserialize($raw)
+    {
+        $result = unserialize($raw);
+        
+        if ($result === FALSE) {
+            throw new Exception(sprintf('Unable to unserialize feed from Vimeo: %s', $raw));
+        }
+        
+        return $result;
     }
 }

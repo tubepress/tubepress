@@ -24,7 +24,8 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_api_factory_VideoFactory',
     'org_tubepress_api_options_OptionsManager',
     'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_api_provider_ProviderCalculator'));
+    'org_tubepress_api_provider_ProviderCalculator',
+    'org_tubepress_api_provider_Provider'));
 
 /**
  * Video factory that sends the feed to the right video factory based on the provider
@@ -53,8 +54,13 @@ class org_tubepress_impl_factory_DelegatingVideoFactory implements org_tubepress
     
     private static function _getDelegate()
     {
-        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $pc = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-        return $ioc->get('org_tubepress_api_factory_VideoFactory', $pc->calculateCurrentVideoProvider());    
+        $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $pc       = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $provider = $pc->calculateCurrentVideoProvider();
+        
+        if ($provider === org_tubepress_api_provider_Provider::VIMEO) {
+            return $ioc->get('org_tubepress_impl_factory_VimeoVideoFactory');
+        }
+        return $ioc->get('org_tubepress_impl_factory_YouTubeVideoFactory');    
     }
 }

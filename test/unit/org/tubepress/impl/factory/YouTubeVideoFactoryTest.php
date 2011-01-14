@@ -9,8 +9,8 @@ class org_tubepress_impl_factory_YouTubeVideoFactoryTest extends TubePressUnitTe
     private $_playlistFeed;
     
     function setUp() {
-	$this->initFakeIoc();
-        $this->_sampleFeedOne = file_get_contents(dirname(__FILE__) . '/playlist.xml');
+    	$this->initFakeIoc();
+        $this->_sampleFeedOne = file_get_contents(dirname(__FILE__) . '/feeds/playlist.xml');
         $this->_sut = new org_tubepress_impl_factory_YouTubeVideoFactory();
         org_tubepress_impl_log_Log::setEnabled(false, array());
     }
