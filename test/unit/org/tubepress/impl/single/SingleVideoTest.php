@@ -6,12 +6,15 @@ require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/
 class org_tubepress_single_VideoTest extends TubePressUnitTest
 {
 	private $_sut;
+	private $_video;
 
 	function setup()
 	{
 		$this->initFakeIoc();
 		$this->_sut = new org_tubepress_impl_single_SimpleSingleVideo();
 	    org_tubepress_impl_log_Log::setEnabled(false, array());
+	    $this->_video =  new org_tubepress_api_video_Video();
+	    $this->_video->setTitle('fake title');
 	}
     
 	public function getMock($className)
@@ -22,7 +25,12 @@ class org_tubepress_single_VideoTest extends TubePressUnitTest
 			case 'org_tubepress_api_provider_Provider':
 				$mock->expects($this->any())
 					->method('getSingleVideo')
-					->will($this->returnValue(new org_tubepress_api_video_Video()));
+					->will($this->returnValue($this->_video));
+			    break;
+			case 'org_tubepress_api_patterns_FilterManager':
+			    $mock->expects($this->exactly(2))
+			         ->method('runFilters')
+			         ->will($this->returnCallback(array($this, 'callback')));
 		}
 
 		return $mock;
@@ -37,15 +45,20 @@ class org_tubepress_single_VideoTest extends TubePressUnitTest
 	
 	function expected()
 	{
-	    return '
+	    return <<<EOT
+
 <div class="tubepress_single_video">
-        <div class="tubepress_embedded_title"></div>
-    <dl class="tubepress_meta_group" style="width: 425px">
-    <dt class="tubepress_meta tubepress_meta_runtime">video-length</dt><dd class="tubepress_meta tubepress_meta_runtime"></dd>
-    <dt class="tubepress_meta tubepress_meta_views">video-views</dt><dd class="tubepress_meta tubepress_meta_views"></dd>
+    <dl class="tubepress_meta_group" style="width: px">
 </dl>
 </div>
-';
+
+EOT;
+	}
+	
+	function callback()
+	{
+	    $args = func_get_args();
+	    return $args[1];
 	}
 }
 ?>

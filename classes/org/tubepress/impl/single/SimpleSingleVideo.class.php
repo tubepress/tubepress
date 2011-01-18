@@ -26,7 +26,10 @@ tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_options_OptionsReference',
     'org_tubepress_api_single_SingleVideo',
     'org_tubepress_api_const_options_OptionCategory',
-    'org_tubepress_api_message_MessageService'));
+    'org_tubepress_api_message_MessageService',
+    'org_tubepress_api_provider_Provider',
+    'org_tubepress_api_patterns_FilterManager',
+    'org_tubepress_api_const_FilterExecutionPoint'));
 
 /**
  * Handles requests for a single video (for embedding)
@@ -59,13 +62,9 @@ class org_tubepress_impl_single_SimpleSingleVideo implements org_tubepress_api_s
         
         /* send the template through the filters */
         $filteredTemplate = $filterManager->runFilters(org_tubepress_api_const_FilterExecutionPoint::SINGLE_VIDEO_TEMPLATE, $template);
-        
+
         /* send video HTML through the filters */
         $filteredHtml = $filterManager->runFilters(org_tubepress_api_const_FilterExecutionPoint::SINGLE_VIDEO_HTML, $filteredTemplate->toString());
-        
-        //$template = self::_prepTemplate($ioc, $video, $provider);
-        //$result   = $template->toString();
-        //$result .= org_tubepress_impl_gallery_GalleryTemplateUtils::getThemeCss($ioc);
 
         /* we're done. tie up. */
 	    $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
@@ -73,26 +72,6 @@ class org_tubepress_impl_single_SimpleSingleVideo implements org_tubepress_api_s
         
         /* staples - that was easy */
         return $filteredHtml;
-    }
-
-    /**
-     * Prep the template for display.
-     *
-     * @param org_tubepress_api_video_Video $video The video to display.
-     *
-     * @return void
-     */
-    private static function _prepTemplate(org_tubepress_api_ioc_IocService $ioc, $video, org_tubepress_api_provider_Provider $provider)
-    {
-        $tpom           = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $eps            = $ioc->get('org_tubepress_api_embedded_EmbeddedPlayer');
-
-        /* apply it to the template */
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_SOURCE, $eps->toString($video->getId()));
-        
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_api_const_options_Embedded::EMBEDDED_WIDTH));
-       
-        return $template;
     }
 }
 
