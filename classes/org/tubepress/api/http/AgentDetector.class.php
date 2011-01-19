@@ -257,7 +257,7 @@ interface org_tubepress_api_http_AgentDetector
      *   Will probably detect most recent/current mid-tier Feature Phones
      *   as well as smartphone-class devices. Excludes Apple iPads.
      *
-     * @param string $agent The HTTP user agent.
+     * @param array $serverVars The PHP $_SERVER variable.
      *
      * @return boolean True if the agent is a mobile device, false otherwise.
      */

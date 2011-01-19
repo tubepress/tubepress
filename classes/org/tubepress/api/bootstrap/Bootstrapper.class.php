@@ -24,9 +24,11 @@
  */
 interface org_tubepress_api_bootstrap_Bootstrapper
 {
-    
+
     /**
      * Performs TubePress-wide initialization.
+     * 
+     * @return null
      */
     function boot();
 }

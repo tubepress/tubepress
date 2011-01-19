@@ -32,10 +32,10 @@ class org_tubepress_api_const_FilterExecutionPoint
 
     /* immediately after thumbnail gallery template is converted to HTML */
     const GALLERY_HTML = 'galleryHtml';
-    
+
     /* immediately after single video template generation */
     const SINGLE_VIDEO_TEMPLATE = 'singleVideoTemplate';
-    
+
     /* immediately after single video template is converted to HTML */
     const SINGLE_VIDEO_HTML = 'singleVideoHtml';
 

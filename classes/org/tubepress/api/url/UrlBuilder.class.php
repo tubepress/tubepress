@@ -28,6 +28,8 @@ interface org_tubepress_api_url_UrlBuilder
     /**
      * Builds a URL for a list of videos
      *
+     * @param int $currentPage The current page number of the gallery.
+     *
      * @return string The request URL for this gallery
      */
     public function buildGalleryUrl($currentPage);
@@ -36,6 +38,8 @@ interface org_tubepress_api_url_UrlBuilder
      * Builds a request url for a single video
      *
      * @param string $id The video ID to search for
+     *
+     * @return string The URL for the single video given.
      */
     public function buildSingleVideoUrl($id);
 }

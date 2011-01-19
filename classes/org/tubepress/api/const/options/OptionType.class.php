@@ -26,7 +26,7 @@
 class org_tubepress_api_const_options_OptionType
 {
     const BOOL        = 'boolean';              // Yes/No options
-    const COLOR       = 'color';                // An HTML color (6 hex digits)      
+    const COLOR       = 'color';                // An HTML color (6 hex digits)
     const INTEGRAL    = 'integral';             // A number
     const MODE        = 'mode';                 // A gallery mode
     const ORDER       = 'order';                // Video sort order
@@ -37,5 +37,5 @@ class org_tubepress_api_const_options_OptionType
     const TEXT        = 'text';                 // Free form text
     const THEME       = 'theme';                // TubePress theme to use
     const TIME_FRAME  = 'timeFrame';            // Today, last week, etc
-    const YT_USER     = 'youtubeUser';          // A YouTube username    
+    const YT_USER     = 'youtubeUser';          // A YouTube username
 }

@@ -20,16 +20,20 @@
  */
 
 /**
- * TubePress theme handling
+ * TubePress theme handler.
  */
 interface org_tubepress_api_theme_ThemeHandler
 {
+    /**
+     * Gets an instance of a template appropriate for the current theme.
+     *
+     * @param string $pathToTemplate The relative path (from the root of the theme directory) to the template.
+     *
+     * @return org_tubepress_api_template_Template The template instance.
+     */
+    function getTemplateInstance($pathToTemplate);
 
-    public function getTemplateInstance($pathToTemplate);
+    function getCssPath($currentTheme, $relative = false);
 
-    public function getCssPath($currentTheme, $relative = false);
-
-    public function calculateCurrentThemeName();
-
-}  
-
+    function calculateCurrentThemeName();
+}

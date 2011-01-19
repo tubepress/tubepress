@@ -27,8 +27,8 @@ interface org_tubepress_api_factory_VideoFactory
     /**
      * Converts raw video feeds to TubePress videos
      *
-     * @param unknown                      $feed  The raw feed result from the video provider
-     * @param int                          $limit The max number of videos to return
+     * @param unknown $feed  The raw feed result from the video provider
+     * @param int     $limit The max number of videos to return
      * 
      * @return array an array of TubePress videos generated from the feed
      */
@@ -37,7 +37,7 @@ interface org_tubepress_api_factory_VideoFactory
     /**
      * Converts a single raw video into a TubePress video
      *
-     * @param unknown                      $feed The raw feed result from the video provider
+     * @param unknown $feed The raw feed result from the video provider
      * 
      * @return array an array of TubePress videos generated from the feed
      */
