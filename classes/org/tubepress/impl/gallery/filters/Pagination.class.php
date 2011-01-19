@@ -24,11 +24,12 @@
  */
 class org_tubepress_impl_gallery_filters_Pagination
 {
-    public function filter($template)
+    public function filter($template, $feedResult, $galleryId)
     {
-        $tpom              = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $ioc               = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $tpom              = $ioc->get('org_tubepress_api_options_OptionsManager');
         $paginationService = $ioc->get('org_tubepress_api_pagination_Pagination');
-        $pagination        = $paginationService->getHtml($feedResult->getEffectiveTotalResultCount(), $ioc);
+        $pagination        = $paginationService->getHtml($feedResult->getEffectiveTotalResultCount());
 
         if ($tpom->get(org_tubepress_api_const_options_Display::PAGINATE_ABOVE)) {
             $template->setVariable(org_tubepress_api_template_Template::PAGINATION_TOP, $pagination);

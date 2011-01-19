@@ -35,8 +35,8 @@ class org_tubepress_impl_filter_VideosDeliveryBlacklist
 		}
 
 		$ioc              = org_tubepress_ioc_IocContainer::getInstance();
-		$tpom             = $ioc->get('org_tubepress_options_manager_OptionsManager');
-		$blacklist        = $tpom->get(org_tubepress_options_category_Advanced::VIDEO_BLACKLIST);
+		$tpom             = $ioc->get('org_tubepress_api_options_OptionsManager');
+		$blacklist        = $tpom->get(org_tubepress_api_const_options_Advanced::VIDEO_BLACKLIST);
 		$videosToKeep     = array();
 
 		foreach ($videos as $video) {

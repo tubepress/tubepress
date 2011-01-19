@@ -19,6 +19,8 @@
  *
  */
 
+tubepress_load_classes(array('org_tubepress_api_const_options_OptionCategory'));
+
 /**
  * Handles applying video meta info to the gallery template.
  */
@@ -26,10 +28,11 @@ class org_tubepress_impl_gallery_filters_VideoMeta
 {
     public function filter($template)
     {
-        $tpom           = $ioc->get('org_tubepress_options_manager_OptionsManager');
-        $messageService = $ioc->get('org_tubepress_message_MessageService');
+        $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $tpom           = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $messageService = $ioc->get('org_tubepress_api_message_MessageService');
 
-        $metaNames  = org_tubepress_options_reference_OptionsReference::getOptionNamesForCategory(org_tubepress_options_Category::META);
+        $metaNames  = org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::META);
         $shouldShow = array();
         $labels     = array();
 
@@ -37,8 +40,8 @@ class org_tubepress_impl_gallery_filters_VideoMeta
             $shouldShow[$metaName] = $tpom->get($metaName);
             $labels[$metaName]     = $messageService->_('video-' . $metaName);
         }
-        $template->setVariable(org_tubepress_template_Template::META_SHOULD_SHOW, $shouldShow);
-        $template->setVariable(org_tubepress_template_Template::META_LABELS, $labels);
+        $template->setVariable(org_tubepress_api_template_Template::META_SHOULD_SHOW, $shouldShow);
+        $template->setVariable(org_tubepress_api_template_Template::META_LABELS, $labels);
 
         return $template;
     }

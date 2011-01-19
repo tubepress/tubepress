@@ -20,15 +20,18 @@
  */
 
 tubepress_load_classes(array('org_tubepress_api_patterns_Strategy',
-    'org_tubepress_options_category_Display',
-    'org_tubepress_player_Player',
-    'org_tubepress_impl_log_Log'));
+    'org_tubepress_api_const_options_Display',
+    'org_tubepress_api_player_Player',
+    'org_tubepress_impl_log_Log',
+    'org_tubepress_api_querystring_QueryStringService'));
 
 /**
  * HTML-generation strategy that implements the "solo" player strategy.
  */
 class org_tubepress_impl_gallery_strategies_SoloPlayerStrategy implements org_tubepress_api_patterns_Strategy
 {
+    const LOG_PREFIX = 'Solo Player Strategy';
+    
     private $_ioc;
     private $_videoId;
 
@@ -45,17 +48,17 @@ class org_tubepress_impl_gallery_strategies_SoloPlayerStrategy implements org_tu
 
     public function canHandle()
     {
-        $tpom       = $this->_ioc->get('org_tubepress_options_manager_OptionsManager');
-        $playerName = $tpom->get(org_tubepress_options_category_Display::CURRENT_PLAYER_NAME);
+        $tpom       = $this->_ioc->get('org_tubepress_api_options_OptionsManager');
+        $playerName = $tpom->get(org_tubepress_api_const_options_Display::CURRENT_PLAYER_NAME);
 
-        if ($playerName !== org_tubepress_player_Player::SOLO) {
+        if ($playerName !== org_tubepress_api_player_Player::SOLO) {
             return false;
         }
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Solo player detected. Checking query string for video ID.');
 
         /* see if we have a custom video ID set */
-        $qss     = $this->_ioc->get('org_tubepress_querystring_QueryStringService');
+        $qss     = $this->_ioc->get('org_tubepress_api_querystring_QueryStringService');
         $videoId = $qss->getCustomVideo($_GET);
 
         if ($videoId == '') {

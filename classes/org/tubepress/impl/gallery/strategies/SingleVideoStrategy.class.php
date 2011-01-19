@@ -20,20 +20,23 @@
  */
 
 tubepress_load_classes(array('org_tubepress_api_patterns_Strategy',
-    'org_tubepress_options_category_Gallery'));
+    'org_tubepress_api_const_options_Gallery',
+    'org_tubepress_api_single_SingleVideo'));
 
 /**
  * HTML generation strategy that generates HTML for a single video + meta info.
  */
 class org_tubepress_impl_gallery_strategies_SingleVideoStrategy implements org_tubepress_api_patterns_Strategy
 {
+    const LOG_PREFIX = 'Single Video Strategy';
+    
     private $_ioc;
     private $_tpom;
 
     public function start()
     {
         $this->_ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $this->_tpom = $this->_ioc->get('org_tubepress_options_manager_OptionsManager');
+        $this->_tpom = $this->_ioc->get('org_tubepress_api_options_OptionsManager');
     }
 
     public function stop()
@@ -44,7 +47,7 @@ class org_tubepress_impl_gallery_strategies_SingleVideoStrategy implements org_t
 
     public function canHandle()
     {
-        return $this->_tpom->get(org_tubepress_options_category_Gallery::VIDEO) != '';
+        return $this->_tpom->get(org_tubepress_api_const_options_Gallery::VIDEO) != '';
     }
 
     public function execute()

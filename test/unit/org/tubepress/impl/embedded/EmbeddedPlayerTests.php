@@ -6,7 +6,7 @@ require_once 'strategies/VimeoEmbeddedStrategyTest.php';
 require_once 'EmbeddedPlayerUtilsTest.php';
 require_once 'DelegatingEmbeddedPlayerTest.php';
 
-class EmbeddedStrategyTests
+class EmbeddedPlayerTests
 {
 	public static function suite()
 	{

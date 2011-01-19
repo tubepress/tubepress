@@ -19,6 +19,8 @@
  *
  */
 
+tubepress_load_classes(array('org_tubepress_api_provider_ProviderCalculator'));
+
 /**
  * Applies the embedded service name to the template.
  */

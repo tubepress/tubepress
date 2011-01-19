@@ -19,6 +19,8 @@
  *
  */
 
+tubepress_load_classes(array('org_tubepress_api_filesystem_Explorer'));
+
 /**
  * Injects Ajax pagination code into the gallery's HTML, if necessary.
 */
@@ -26,7 +28,7 @@ class org_tubepress_impl_gallery_filters_AjaxPagination
 {
     const LOG_PREFIX = 'Ajax Pagination Filter';
 
-    public function filter($html)
+    public function filter($html, $galleryId)
     {
         if (!is_string($html)) {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Filter invoked with a non-string argument :(');
@@ -34,21 +36,21 @@ class org_tubepress_impl_gallery_filters_AjaxPagination
         }
 
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
 
-        if (!$tpom->get(org_tubepress_options_category_Display::AJAX_PAGINATION)) {
+        if (!$tpom->get(org_tubepress_api_const_options_Display::AJAX_PAGINATION)) {
             return $html;
         }
         
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Using Ajax pagination');
 
-        $template             = new org_tubepress_template_SimpleTemplate();
+        $template             = new org_tubepress_impl_template_SimpleTemplate();
         $fs                   = $ioc->get('org_tubepress_api_filesystem_Explorer');
         $baseInstallationPath = $fs->getTubePressBaseInstallationPath();
 
         $template->setPath("$baseInstallationPath/ui/lib/gallery_html_snippets/ajax_pagination.tpl.php");
-        $template->setVariable(org_tubepress_template_Template::GALLERY_ID, $galleryId);
-        $template->setVariable(org_tubepress_template_Template::SHORTCODE, urlencode($tpom->getShortcode()));
+        $template->setVariable(org_tubepress_api_template_Template::GALLERY_ID, $galleryId);
+        $template->setVariable(org_tubepress_api_template_Template::SHORTCODE, urlencode($tpom->getShortcode()));
 
         return $html . $template->toString();
     }

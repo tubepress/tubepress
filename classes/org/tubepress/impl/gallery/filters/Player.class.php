@@ -24,14 +24,13 @@
  */
 class org_tubepress_impl_gallery_filters_Player
 {
-    public function filter($template)
+    public function filter($template, $feedResult, $galleryId)
     {
-        $tpom       = $ioc->get('org_tubepress_options_manager_OptionsManager');
+        $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $tpom       = $ioc->get('org_tubepress_api_options_OptionsManager');
         $playerName = $tpom->get(org_tubepress_api_const_options_Display::CURRENT_PLAYER_NAME);
-
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Applying HTML for <tt>%s</tt> player to the template', $playerName);
-
         $player     = $ioc->get('org_tubepress_api_player_Player');
+        $videos     = $feedResult->getVideoArray();
         $playerHtml = $player->getHtml($videos[0], $galleryId);
 
         $template->setVariable(org_tubepress_api_template_Template::PLAYER_HTML, $playerHtml);

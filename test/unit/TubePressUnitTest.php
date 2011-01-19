@@ -56,6 +56,9 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
                 $mock->expects($this->any())
                      ->method('getTemplateInstance')
                      ->will($this->returnCallback(array($this, 'templateCallback')));
+                $mock->expects($this->any())
+                     ->method('getCssPath')
+                     ->will($this->returnCallback(array($this, 'cssPathCallback')));
                 break;
                 
             case 'org_tubepress_api_filesystem_Explorer':
@@ -69,6 +72,16 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
         }
         return $mock;
     }
+
+    public function cssPathCallback()
+    {
+        $args = func_get_args();
+        if (!$args[1]) {
+            return dirname(__FILE__) . '/../../ui/themes/' . $args[0] . '/style.css';
+        }
+        return 'ui/themes/' . $args[0] . '/style.css';
+    }
+    
     
     public function templateCallback()
     {

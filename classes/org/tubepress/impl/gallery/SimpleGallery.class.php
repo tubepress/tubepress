@@ -23,7 +23,8 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_gallery_Gallery',
     'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_impl_log_Log'));
+    'org_tubepress_impl_log_Log',
+    'org_tubepress_api_patterns_StrategyManager'));
 
 /**
  * TubePress gallery. Generates HTML for TubePress.
@@ -48,11 +49,12 @@ class org_tubepress_impl_gallery_SimpleGallery implements org_tubepress_api_gall
         
         /* parse the shortcode if we need to */
         if ($shortCodeContent != '') {
+            $shortcodeParser = $ioc->get('org_tubepress_api_shortcode_ShortcodeParser');
             $shortcodeParser->parse($shortCodeContent);
         }
 
         /* use the strategy manager to get the HTML */
-        $ioc->get('org_tubepress_api_patterns_StrategyManager')->executeStrategy(array(
+        return $ioc->get('org_tubepress_api_patterns_StrategyManager')->executeStrategy(array(
             'org_tubepress_impl_gallery_strategies_SingleVideoStrategy',
             'org_tubepress_impl_gallery_strategies_SoloPlayerStrategy',
             'org_tubepress_impl_gallery_strategies_ThumbGalleryStrategy'

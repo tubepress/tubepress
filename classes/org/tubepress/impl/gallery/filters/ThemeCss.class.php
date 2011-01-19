@@ -34,11 +34,11 @@ class org_tubepress_impl_gallery_filters_ThemeCss
         }
 
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $themeHandler = $ioc->get('org_tubepress_theme_ThemeHandler');
-        $currentTheme = $themeHandler->calculateCurrentThemeName($ioc);
+        $themeHandler = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $currentTheme = $themeHandler->calculateCurrentThemeName();
 
         if ($currentTheme === 'default') {
-            org_tubepress_log_Log::log(self::LOG_PREFIX, 'Default theme is in use. No need to inject extra CSS.');
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Default theme is in use. No need to inject extra CSS.');
             return $html;
         }
 
@@ -46,28 +46,29 @@ class org_tubepress_impl_gallery_filters_ThemeCss
         $cssPath = $themeHandler->getCssPath($currentTheme);
 
         if (!is_readable($cssPath) || strpos($cssPath, 'themes' . DIRECTORY_SEPARATOR . 'default') !== false) {
-            org_tubepress_log_Log::log(self::LOG_PREFIX, 'No theme CSS found.');
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'No theme CSS found.');
             return $html;
         } else {
-            org_tubepress_log_Log::log(self::LOG_PREFIX, 'Theme CSS found at <tt>%s</tt>', $cssPath);
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Theme CSS found at <tt>%s</tt>', $cssPath);
         }
 
-        return _injectCss($html, $themeHandler, $currentTheme);
+        return $this->_injectCss($html, $themeHandler, $currentTheme, $ioc);
     }
 
-    private function _injectCss($html, $themeHandler, $currentTheme, $cssPath)
+    private function _injectCss($html, $themeHandler, $currentTheme, $ioc)
     {
         global $tubepress_base_url;
 
+        $fs                   = $ioc->get('org_tubepress_api_filesystem_Explorer');
         $cssRelativePath      = $themeHandler->getCssPath($currentTheme, true);
-        $baseInstallationPath = org_tubepress_util_FilesystemUtils::getTubePressBaseInstallationPath();
+        $baseInstallationPath = $fs->getTubePressBaseInstallationPath();
         $cssUrl               = "$tubepress_base_url/$cssRelativePath";
 
-        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Will inject CSS from <tt>%s</tt>', $cssUrl);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Will inject CSS from <tt>%s</tt>', $cssUrl);
         
-        $template = new org_tubepress_template_SimpleTemplate();
+        $template = new org_tubepress_impl_template_SimpleTemplate();
         $template->setPath("$baseInstallationPath/ui/lib/gallery_html_snippets/theme_loader.tpl.php");
-        $template->setVariable(org_tubepress_template_Template::THEME_CSS, $cssUrl);
+        $template->setVariable(org_tubepress_api_template_Template::THEME_CSS, $cssUrl);
 
         return $html . $template->toString();
     }
