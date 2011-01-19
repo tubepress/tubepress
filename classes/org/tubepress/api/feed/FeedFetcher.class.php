@@ -33,5 +33,5 @@ interface org_tubepress_api_feed_FeedFetcher
      *
      * @return unknown The raw feed from the provider
      */
-    public function fetch($url, $useCache);
+    function fetch($url, $useCache);
 }

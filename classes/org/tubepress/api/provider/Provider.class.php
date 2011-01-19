@@ -37,14 +37,14 @@ interface org_tubepress_api_provider_Provider
      *
      * @return org_tubepress_api_feed_FeedResult The feed result.
      */
-    public function getMultipleVideos();
+    function getMultipleVideos();
 
     /**
      * Fetch a single video.
      *
-     * @param string                       $customVideoId The video ID to fetch.
+     * @param string $customVideoId The video ID to fetch.
      *
      * @return org_tubepress_api_video_Video The video.
      */
-    public function getSingleVideo($customVideoId);
+    function getSingleVideo($customVideoId);
 }

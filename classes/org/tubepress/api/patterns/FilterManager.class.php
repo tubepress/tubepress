@@ -33,7 +33,7 @@ interface org_tubepress_api_patterns_FilterManager
      * 
      * @return unknown_type The modified value.
      */
-    public function runFilters($name, $value);
+    function runFilters($name, $value);
 
     /**
      * Registers a filter for the specified execution point.
@@ -43,5 +43,5 @@ interface org_tubepress_api_patterns_FilterManager
      * 
      * @return void
      */
-    public function registerFilter($name, $callback);
+    function registerFilter($name, $callback);
 }

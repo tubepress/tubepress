@@ -31,7 +31,7 @@ interface org_tubepress_api_querystring_QueryStringService
      *
      * @return string The custom video ID, or '' if not set
     */
-    public function getCustomVideo($getVars);
+    function getCustomVideo($getVars);
 
     /**
      * Try to get the gallery ID from the query string
@@ -40,7 +40,7 @@ interface org_tubepress_api_querystring_QueryStringService
      *
      * @return string The gallery ID, or '' if not set
     */
-    public function getGalleryId($getVars);
+    function getGalleryId($getVars);
 
     /**
      * Returns what's in the address bar
@@ -49,7 +49,7 @@ interface org_tubepress_api_querystring_QueryStringService
      *
      * @return string What's in the address bar
      */
-    public function getFullUrl($serverVars);
+    function getFullUrl($serverVars);
 
     /**
      * Try to figure out what page we're on by looking at the query string
@@ -59,7 +59,7 @@ interface org_tubepress_api_querystring_QueryStringService
      *
      * @return int The page number
      */
-    public function getPageNum($getVars);
+    function getPageNum($getVars);
 
     /**
      * Try to get the shortcode from the query string
@@ -68,5 +68,5 @@ interface org_tubepress_api_querystring_QueryStringService
      *
      * @return string The shortcode, or '' if not set
      */
-    public function getShortcode($getVars);
+    function getShortcode($getVars);
 }

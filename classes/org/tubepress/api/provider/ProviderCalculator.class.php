@@ -32,5 +32,12 @@ interface org_tubepress_api_provider_ProviderCalculator
      */
     function calculateCurrentVideoProvider();
 
+    /**
+     * Determine the provider of the given video ID.
+     *
+     * @param string $videoId The ID of the video to examine.
+     *
+     * @return string 'youtube', 'vimeo', or 'directory'
+     */
     function calculateProviderOfVideoId($videoId);
 }

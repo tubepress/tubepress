@@ -31,5 +31,5 @@ interface org_tubepress_api_ioc_IocService
      *
      * @return object The object with the given name.
      */
-    public function get($className);
+    function get($className);
 }

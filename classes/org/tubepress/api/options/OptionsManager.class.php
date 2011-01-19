@@ -33,7 +33,7 @@ interface org_tubepress_api_options_OptionsManager
      * 
      * @return unknown The option value
      */
-    public function get($optionName);
+    function get($optionName);
 
     /**
      * Sets the value of an option
@@ -43,7 +43,7 @@ interface org_tubepress_api_options_OptionsManager
      * 
      * @return void
      */
-    public function set($optionName, $optionValue);
+    function set($optionName, $optionValue);
 
     /**
      * Sets the options that differ from the default options.
@@ -52,14 +52,14 @@ interface org_tubepress_api_options_OptionsManager
      * 
      * @return void
      */
-    public function setCustomOptions($customOpts);
+    function setCustomOptions($customOpts);
 
     /**
      * Gets the options that differ from the default options.
      * 
      * @return array The options that differ from the default options.
      */
-    public function getCustomOptions();
+    function getCustomOptions();
 
     /**
      * Set the current shortcode.
@@ -68,12 +68,12 @@ interface org_tubepress_api_options_OptionsManager
      * 
      * @return void
      */
-    public function setShortcode($newTagString);
+    function setShortcode($newTagString);
 
     /**
      * Get the current shortcode
      *
      * @return string The current shortcode
      */
-    public function getShortcode();
+    function getShortcode();
 }

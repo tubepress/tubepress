@@ -33,5 +33,5 @@ interface org_tubepress_api_options_OptionValidator
      *
      * @return void
     */
-    public function validate($optionName, $candidate);
+    function validate($optionName, $candidate);
 }

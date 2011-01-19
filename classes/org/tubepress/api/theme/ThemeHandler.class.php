@@ -33,7 +33,20 @@ interface org_tubepress_api_theme_ThemeHandler
      */
     function getTemplateInstance($pathToTemplate);
 
+    /**
+     * Returns the URL of the CSS stylesheet for the given theme.
+     *
+     * @param string  $currentTheme The name of the theme.
+     * @param boolean $relative     Whether or not to include the full URL or just the portion relative to $tubepress_base_url
+     *
+     * @return string The URl of the CSS stylesheet.
+     */
     function getCssPath($currentTheme, $relative = false);
 
+    /**
+     * Returns the name of the current TubePress theme in use.
+     *
+     * @return string The current theme name, or 'default' if the default theme is in use.
+     */
     function calculateCurrentThemeName();
 }

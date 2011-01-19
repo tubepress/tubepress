@@ -32,7 +32,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is an iPhone, false otherwise.
      */
-    public function isIphone($agent);
+    function isIphone($agent);
 
     /**
      * Detects whether the device is an iPod
@@ -41,7 +41,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is an iPod, false otherwise.
      */
-    public function isIpod($agent);
+    function isIpod($agent);
 
     /**
      * Detects whether the device is an iPad
@@ -50,7 +50,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is an iPad, false otherwise.
      */
-    public function isIpad($agent);
+    function isIpad($agent);
 
     /**
      * Detects whether the device is an iPhone or iPad.
@@ -59,7 +59,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is an iPod or iPad, false otherwise.
      */
-    public function isIphoneOrIpod($agent);
+    function isIphoneOrIpod($agent);
 
     /**
      * Detects whether the device is an Android phone.
@@ -68,7 +68,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is an Android phone, false otherwise.
      */
-    public function isAndroid($agent);
+    function isAndroid($agent);
 
     /**
      * Detects whether the device is an Android phone running WebKit
@@ -77,7 +77,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is an Android phone running WebKit, false otherwise.
      */
-    public function isAndroidWebKit($agent);
+    function isAndroidWebKit($agent);
 
     /**
      * Detects whether the agent is running WebKit.
@@ -86,7 +86,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is running WebKit, false otherwise.
      */
-    public function isWebkit($agent);
+    function isWebkit($agent);
 
     /**
      * Detects whether the device is running the S60 platform
@@ -95,7 +95,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is running the S60 platform, false otherwise.
      */
-    public function isS60OsBrowser($agent);
+    function isS60OsBrowser($agent);
 
     /**
      * Detects if the current device is any Symbian OS-based device,
@@ -106,7 +106,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is any Symbian OS-based device, false otherwise.
      */
-    public function isSymbianOS($agent);
+    function isSymbianOS($agent);
 
     /**
      * Detects if the current browser is a Windows Phone 7 device.
@@ -115,7 +115,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is a Windows Phone 7 device, false otherwise.
      */
-    public function isWindowsPhone7($agent);
+    function isWindowsPhone7($agent);
 
     /**
      *  Detects if the current browser is a Windows Mobile device.
@@ -126,7 +126,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is a Windows Mobile device, false otherwise.
      */
-    public function isWindowsMobile($agent);
+    function isWindowsMobile($agent);
 
     /**
      * Detects if the current browser is a BlackBerry of some sort.
@@ -135,7 +135,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is a BlackBerry, false otherwise.
      */
-    public function isBlackBerry($agent);
+    function isBlackBerry($agent);
 
     /**
      * Detects if the current browser is a BlackBerry Touch
@@ -145,7 +145,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is a BlackBerry touch, false otherwise.
      */
-    public function isBlackBerryTouch($agent);
+    function isBlackBerryTouch($agent);
 
     /**
      * Detects if the current browser is a BlackBerry device AND
@@ -156,7 +156,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is a "high" BlackBerry, false otherwise.
      */
-    public function isBlackBerryHigh($agent);
+    function isBlackBerryHigh($agent);
 
     /**
      * Detects if the current browser is a BlackBerry device AND
@@ -167,7 +167,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is a "low" BlackBerry, false otherwise.
      */
-    public function isBlackBerryLow($agent);
+    function isBlackBerryLow($agent);
 
     /**
      * Detects if the current browser is on a PalmOS device.
@@ -176,7 +176,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is a PalmOS device, false otherwise.
      */
-    public function isPalmOS($agent);
+    function isPalmOS($agent);
 
     /**
      * Detects if the current browser is running WebOS.
@@ -185,7 +185,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is running WebOS, false otherwise.
      */
-    public function isPalmWebOS($agent);
+    function isPalmWebOS($agent);
 
     /**
      * Detects if the current browser is a
@@ -195,7 +195,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is a Garmin Nuvifone, false otherwise.
      */
-    public function isGarminNuvifone($agent);
+    function isGarminNuvifone($agent);
 
     /**
      * Check to see whether the device is any device
@@ -205,7 +205,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is a "smartphone", false otherwise.
      */
-    public function isSmartphone($agent);
+    function isSmartphone($agent);
 
     /**
      * Detects whether the device is a Brew-powered device.
@@ -214,7 +214,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is Brew powered, false otherwise.
      */
-    public function isBrewDevice($agent);
+    function isBrewDevice($agent);
 
     /**
      * Detects the Danger Hiptop device.
@@ -223,7 +223,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is a Danger Hiptop device, false otherwise.
      */
-    public function isDangerHiptop($agent);
+    function isDangerHiptop($agent);
 
     /**
      * Detects if the current browser is Opera Mobile or Mini.
@@ -232,7 +232,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is running Opera Mobile or Mini, false otherwise.
      */
-    public function isOperaMobile($agent);
+    function isOperaMobile($agent);
 
     /**
      * Detects whether the device supports WAP or WML.
@@ -241,7 +241,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent supports WAP or WML, false otherwise.
      */
-    public function isWapOrWml($agent);
+    function isWapOrWml($agent);
 
     /**
      * Detects if the current device is an Amazon Kindle.
@@ -250,7 +250,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is an Amazon Kindle, false otherwise.
      */
-    public function isKindle($agent);
+    function isKindle($agent);
 
     /**
      * The quick way to detect for a MOBILE device.
@@ -261,7 +261,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is a mobile device, false otherwise.
      */
-    public function isMobileQuick($serverVars);
+    function isMobileQuick($serverVars);
 
     /**
      * Detects if the current device is a Sony Playstation.
@@ -270,7 +270,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is a Sony Playstation, false otherwise.
      */
-    public function isSonyPlaystation($agent);
+    function isSonyPlaystation($agent);
 
     /**
      * Detects if the current device is a Nintendo game device.
@@ -279,7 +279,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is a Nintendo game device, false otherwise.
      */
-    public function isNintendo($agent);
+    function isNintendo($agent);
 
     /**
      * Detects if the current device is a Microsoft Xbox.
@@ -288,7 +288,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is a Microsoft Xbox, false otherwise.
      */
-    public function isXbox($agent);
+    function isXbox($agent);
 
     /**
      * Detects if the current device is an Internet-capable game console.
@@ -297,7 +297,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is an Internet-capable game console, false otherwise.
      */
-    public function isGameConsole($agent);
+    function isGameConsole($agent);
 
     /**
      * Detects if the current device supports MIDP, a MOBILE Java technology.
@@ -306,7 +306,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent supports MIDP, false otherwise.
      */
-    public function isMidpCapable($agent);
+    function isMidpCapable($agent);
 
     /**
      * Detects if the current device is on one of the Maemo-based Nokia Internet Tablets.
@@ -315,7 +315,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is on one of the Maemo-based Nokia Internet Tablets, false otherwise.
      */
-    public function isMaemoTablet($agent);
+    function isMaemoTablet($agent);
 
     /**
      * Detects if the current device is an Archos media player/Internet tablet.
@@ -324,7 +324,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
      */
-    public function isArchos($agent);
+    function isArchos($agent);
 
     /**
      * Detects if the current browser is a Sony Mylo device.
@@ -333,7 +333,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
      */
-    public function isSonyMylo($agent);
+    function isSonyMylo($agent);
 
     /**
      * The longer and more thorough way to detect for a MOBILE device.
@@ -347,7 +347,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
      */
-    public function isMobileLong($agent);
+    function isMobileLong($agent);
 
     /**
      * The quick way to detect for a tier of devices.
@@ -359,7 +359,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
      */
-    public function isTierIphone($agent);
+    function isTierIphone($agent);
 
     /**
      * The quick way to detect for a tier of devices.
@@ -372,7 +372,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is an iPhone-tier phone, false otherwise.
      */
-    public function isTierRichCss($agent);
+    function isTierRichCss($agent);
 
     /**
      * The quick way to detect for a tier of devices.
@@ -383,7 +383,7 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return boolean True if the agent is an "Other" tier phone, false otherwise.
      */
-    public function isTierOtherPhones($agent);
+    function isTierOtherPhones($agent);
 
     /**
      * Safe-get of the HTTP agent header
@@ -392,5 +392,5 @@ interface org_tubepress_api_http_AgentDetector
      *
      * @return string The value of the HTTP agent header, of '' if not found
      */
-    public function getHttpAgent($serverVars);
+    function getHttpAgent($serverVars);
 }

@@ -52,5 +52,5 @@ interface org_tubepress_api_gallery_Gallery
      *
      * @return The HTML for TubePress.
      */
-    public function getHtml($shortCodeContent = '');
+    function getHtml($shortCodeContent = '');
 }

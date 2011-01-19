@@ -38,6 +38,14 @@ interface org_tubepress_api_player_Player
     const STATICC   = 'static';
     const SOLO      = 'solo';
     const VIMEO     = 'vimeo';
-    
-    public function getHtml(org_tubepress_api_video_Video $vid, $galleryId);
+
+    /**
+     * Get's the HTML for the TubePress "player"
+     *
+     * @param org_tubepress_api_video_Video $vid       The video to display in the player.
+     * @param unknown                       $galleryId The current gallery ID.
+     *
+     * @return string The HTML for this player with the given video.
+     */
+    function getHtml(org_tubepress_api_video_Video $vid, $galleryId);
 }

@@ -32,7 +32,7 @@ interface org_tubepress_api_url_UrlBuilder
      *
      * @return string The request URL for this gallery
      */
-    public function buildGalleryUrl($currentPage);
+    function buildGalleryUrl($currentPage);
 
     /**
      * Builds a request url for a single video
@@ -41,5 +41,5 @@ interface org_tubepress_api_url_UrlBuilder
      *
      * @return string The URL for the single video given.
      */
-    public function buildSingleVideoUrl($id);
+    function buildSingleVideoUrl($id);
 }

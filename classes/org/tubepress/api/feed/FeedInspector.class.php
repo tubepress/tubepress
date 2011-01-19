@@ -31,7 +31,7 @@ interface org_tubepress_api_feed_FeedInspector
      *
      * @return integer The total number of videos in this gallery.
      */
-    public function getTotalResultCount($rawFeed);
+    function getTotalResultCount($rawFeed);
 
     /**
      * Determine the number of videos in this gallery page.
@@ -40,5 +40,5 @@ interface org_tubepress_api_feed_FeedInspector
      *
      * @return integer The number of videos in this gallery page.
      */
-    public function getQueryResultCount($rawFeed);
+    function getQueryResultCount($rawFeed);
 }

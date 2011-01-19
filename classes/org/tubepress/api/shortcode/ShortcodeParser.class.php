@@ -23,7 +23,7 @@
  * Parses shortcodes.
  */
 interface org_tubepress_api_shortcode_ShortcodeParser
-{ 
+{
     /**
      * This function is used to parse a shortcode into options that TubePress can use.
      *
@@ -31,7 +31,7 @@ interface org_tubepress_api_shortcode_ShortcodeParser
      * 
      * @return array The associative array of parsed options.
      */
-    public function parse($content);
+    function parse($content);
 
     /**
      * Determines if the given content contains a shortcode.
@@ -41,6 +41,6 @@ interface org_tubepress_api_shortcode_ShortcodeParser
      *
      * @return boolean True if there's a shortcode in the content, false otherwise.
      */
-    public function somethingToParse($content, $trigger = "tubepress");
+    function somethingToParse($content, $trigger = "tubepress");
 }
 

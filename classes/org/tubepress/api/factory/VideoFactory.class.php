@@ -32,7 +32,7 @@ interface org_tubepress_api_factory_VideoFactory
      * 
      * @return array an array of TubePress videos generated from the feed
      */
-    public function feedToVideoArray($feed, $limit);
+    function feedToVideoArray($feed, $limit);
 
     /**
      * Converts a single raw video into a TubePress video
@@ -41,5 +41,5 @@ interface org_tubepress_api_factory_VideoFactory
      * 
      * @return array an array of TubePress videos generated from the feed
      */
-    public function convertSingleVideo($feed);
+    function convertSingleVideo($feed);
 }
