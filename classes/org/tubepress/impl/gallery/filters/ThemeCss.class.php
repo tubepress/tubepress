@@ -26,6 +26,13 @@ class org_tubepress_impl_gallery_filters_ThemeCss
 {
     const LOG_PREFIX = 'Theme CSS Filter';
 
+    /**
+     * Filters the HTML for the gallery.
+     *
+     * @param string $html The gallery HTML.
+     *
+     * @return string The modified HTML
+     */
     public function filter($html)
     {
         if (!is_string($html)) {
@@ -55,6 +62,9 @@ class org_tubepress_impl_gallery_filters_ThemeCss
         return $this->_injectCss($html, $themeHandler, $currentTheme, $ioc);
     }
 
+    /**
+     * Handles the heavy lifting of injecting CSS loader
+     */
     private function _injectCss($html, $themeHandler, $currentTheme, $ioc)
     {
         global $tubepress_base_url;
@@ -65,7 +75,7 @@ class org_tubepress_impl_gallery_filters_ThemeCss
         $cssUrl               = "$tubepress_base_url/$cssRelativePath";
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Will inject CSS from <tt>%s</tt>', $cssUrl);
-        
+
         $template = new org_tubepress_impl_template_SimpleTemplate();
         $template->setPath("$baseInstallationPath/ui/lib/gallery_html_snippets/theme_loader.tpl.php");
         $template->setVariable(org_tubepress_api_template_Template::THEME_CSS, $cssUrl);

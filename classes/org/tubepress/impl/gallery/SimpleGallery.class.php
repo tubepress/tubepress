@@ -32,7 +32,7 @@ tubepress_load_classes(array('org_tubepress_api_gallery_Gallery',
 class org_tubepress_impl_gallery_SimpleGallery implements org_tubepress_api_gallery_Gallery
 {
     const LOG_PREFIX = 'Gallery';
-    
+
     /**
      * Generates the HTML for TubePress.
      *
@@ -43,10 +43,10 @@ class org_tubepress_impl_gallery_SimpleGallery implements org_tubepress_api_gall
     public function getHtml($shortCodeContent = '')
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-       
+
         /* do a bit of logging */
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Type of IOC container is %s', get_class($ioc));
-        
+
         /* parse the shortcode if we need to */
         if ($shortCodeContent != '') {
             $shortcodeParser = $ioc->get('org_tubepress_api_shortcode_ShortcodeParser');

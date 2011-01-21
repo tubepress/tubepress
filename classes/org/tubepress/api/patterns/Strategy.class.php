@@ -27,23 +27,31 @@ interface org_tubepress_api_patterns_Strategy
     /**
      * Returns true if this strategy is able to handle
      *  the request.
+     *
+     * @return boolean True if the strategy can handle the request, false otherwise.
      */
     function canHandle();
     
     /**
      * Execute the strategy.
+     *
+     * @return unknown The result of this strategy execution.
      */
     function execute();
     
     /**
      * Called *before* canHandle() and execute() to allow the strategy
      *  to initialize itself.
+     *
+     * @return void
      */
     function start();
     
     /**
      * Called *after* canHandle() and execute() to allow the strategy
      *  to tear itself down.
+     *
+     * @return void
      */
     function stop();
 }

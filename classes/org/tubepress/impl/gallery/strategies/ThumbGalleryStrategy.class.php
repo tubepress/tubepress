@@ -30,24 +30,47 @@ tubepress_load_classes(array('org_tubepress_api_patterns_Strategy',
 class org_tubepress_impl_gallery_strategies_ThumbGalleryStrategy implements org_tubepress_api_patterns_Strategy
 {
     const LOG_PREFIX = 'Thumb Gallery Strategy';
-    
+
     private $_ioc;
 
+    /**
+     * Called *before* canHandle() and execute() to allow the strategy
+     *  to initialize itself.
+     *
+     * @return void
+     */
     public function start()
     {
-        $this->_ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
     }
 
+    /**
+     * Called *after* canHandle() and execute() to allow the strategy
+     *  to tear itself down.
+     *
+     * @return void
+     */
     public function stop()
     {
         unset($this->_ioc);
     }
 
+    /**
+     * Returns true if this strategy is able to handle
+     *  the request.
+     *
+     * @return boolean True if the strategy can handle the request, false otherwise.
+     */
     public function canHandle()
     {
         return true;
     }
 
+    /**
+     * Execute the strategy.
+     *
+     * @return unknown The result of this strategy execution.
+     */
     public function execute()
     {
         $qss       = $this->_ioc->get('org_tubepress_api_querystring_QueryStringService');
@@ -65,7 +88,7 @@ class org_tubepress_impl_gallery_strategies_ThumbGalleryStrategy implements org_
     /**
      * Generates the content of this gallery
      *
-     * @param integer                      $galleryId The unique identifier of the gallery.
+     * @param integer $galleryId The unique identifier of the gallery.
      *
      * @return The HTML content for this gallery
      */
@@ -108,7 +131,4 @@ class org_tubepress_impl_gallery_strategies_ThumbGalleryStrategy implements org_
 
         return $filteredHtml;
     }
-
 }
-
-?>

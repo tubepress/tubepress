@@ -28,6 +28,14 @@ class org_tubepress_impl_gallery_filters_AjaxPagination
 {
     const LOG_PREFIX = 'Ajax Pagination Filter';
 
+    /**
+     * Filters the HTML for the gallery.
+     *
+     * @param string $html      The gallery HTML.
+     * @param string $galleryId The current gallery ID
+     *
+     * @return string The modified HTML
+     */
     public function filter($html, $galleryId)
     {
         if (!is_string($html)) {
@@ -41,7 +49,7 @@ class org_tubepress_impl_gallery_filters_AjaxPagination
         if (!$tpom->get(org_tubepress_api_const_options_Display::AJAX_PAGINATION)) {
             return $html;
         }
-        
+
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Using Ajax pagination');
 
         $template             = new org_tubepress_impl_template_SimpleTemplate();
