@@ -27,16 +27,21 @@ tubepress_load_classes(array('org_tubepress_impl_bootstrap_AbstractBootstrapper'
     'org_tubepress_impl_env_wordpress_Widget'));
 
 /**
- * Performs TubePress-wide preflight checks and initialization.
+ * Performs WordPress initialization.
  */
 class org_tubepress_impl_bootstrap_FreeWordPressPluginBootstrapper extends org_tubepress_impl_bootstrap_AbstractBootstrapper
 {
+    /**
+     * Perform boot procedure.
+     *
+     * @return void
+     */
     protected function _doBoot()
     {
         global $tubepress_base_url;
 
         /* have to consider that sometimes people may name the "tubepress" directory differently */
-        $dirName = realpath(dirname(__FILE__) . '/../../../../../');
+        $dirName  = realpath(dirname(__FILE__) . '/../../../../../');
         $baseName = basename($dirName);
 
         /* set the tubepress_base_url global */
@@ -45,17 +50,22 @@ class org_tubepress_impl_bootstrap_FreeWordPressPluginBootstrapper extends org_t
         /* register the plugin's message bundles */
         load_plugin_textdomain('tubepress', false, "$baseName/i18n");
 
-        add_filter('the_content',  array('org_tubepress_impl_env_wordpress_Main',   'contentFilter'));
-        add_action('wp_head',      array('org_tubepress_impl_env_wordpress_Main',   'headAction'));
-        add_action('init',         array('org_tubepress_impl_env_wordpress_Main',   'initAction'));
+        add_filter('the_content', array('org_tubepress_impl_env_wordpress_Main',   'contentFilter'));
+        add_action('wp_head', array('org_tubepress_impl_env_wordpress_Main',   'headAction'));
+        add_action('init', array('org_tubepress_impl_env_wordpress_Main',   'initAction'));
 
-        add_action('admin_menu',   array('org_tubepress_impl_env_wordpress_Admin',  'menuAction'));
-        add_action('admin_head',   array('org_tubepress_impl_env_wordpress_Admin',  'headAction'));
-        add_action('admin_init',   array('org_tubepress_impl_env_wordpress_Admin',  'initAction'));
+        add_action('admin_menu', array('org_tubepress_impl_env_wordpress_Admin',  'menuAction'));
+        add_action('admin_head', array('org_tubepress_impl_env_wordpress_Admin',  'headAction'));
+        add_action('admin_init', array('org_tubepress_impl_env_wordpress_Admin',  'initAction'));
 
         add_action('widgets_init', array('org_tubepress_impl_env_wordpress_Widget', 'initAction'));
     }
-    
+
+    /**
+     * Get the name of this bootstrapper.
+     *
+     * @return void
+     */
     protected function _getName()
     {
         return 'WordPress Bootstrapper';

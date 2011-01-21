@@ -53,11 +53,11 @@ class org_tubepress_impl_embedded_strategies_VimeoEmbeddedStrategy extends org_t
     }
 
     protected function _getEmbeddedDataUrl($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
-    {    
-        $autoPlay   = $tpom->get(org_tubepress_api_const_options_Embedded::AUTOPLAY);
-        $color      = $tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_COLOR);
-        $showInfo   = $tpom->get(org_tubepress_api_const_options_Embedded::SHOW_INFO);
-        $loop       = $tpom->get(org_tubepress_api_const_options_Embedded::LOOP);
+    {
+        $autoPlay = $tpom->get(org_tubepress_api_const_options_Embedded::AUTOPLAY);
+        $color    = $tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_COLOR);
+        $showInfo = $tpom->get(org_tubepress_api_const_options_Embedded::SHOW_INFO);
+        $loop     = $tpom->get(org_tubepress_api_const_options_Embedded::LOOP);
 
         /* build the data URL based on these options */
         $link = new net_php_pear_Net_URL2(self::VIMEO_EMBEDDED_PLAYER_URL . "video/$videoId");
@@ -71,5 +71,3 @@ class org_tubepress_impl_embedded_strategies_VimeoEmbeddedStrategy extends org_t
         return $link->getURL(true);
     }
 }
-
-?>

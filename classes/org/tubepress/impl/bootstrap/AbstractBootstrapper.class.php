@@ -33,7 +33,9 @@ abstract class org_tubepress_impl_bootstrap_AbstractBootstrapper implements org_
     private static $_alreadyBooted = false;
 
     /**
-     * Performs TubePress-wide initialization and preflight checks.
+     * Performs TubePress-wide initialization.
+     * 
+     * @return null
      */
     public function boot()
     {
@@ -59,8 +61,18 @@ abstract class org_tubepress_impl_bootstrap_AbstractBootstrapper implements org_
         self::$_alreadyBooted = true;
     }
 
+    /**
+     * Get the name of this bootstrapper.
+     *
+     * @return void
+     */
     protected abstract function _getName();
-    
+
+    /**
+     * Perform boot procedure.
+     *
+     * @return void
+     */
     protected abstract function _doBoot();
 
     private function _loadFilters($directory, $fs, $ioc)
@@ -72,14 +84,14 @@ abstract class org_tubepress_impl_bootstrap_AbstractBootstrapper implements org_
 
         /* we want to provide the filter manager to the filters */
         $tubepressFilterManager = $ioc->get('org_tubepress_api_patterns_FilterManager');
-        
+
         /* include the PHP files that we can read */
         foreach ($pluginPaths as $pluginPath) {
 
             if ('.php' == substr($pluginPath, -4) && is_readable($pluginPath)) {
-                 
+
                 org_tubepress_impl_log_Log::log($this->_getName(), 'Loading TubePress filter at <tt>%s</tt>', $pluginPath);
-                
+
                 include $pluginPath;
 
             } else {

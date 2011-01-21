@@ -35,18 +35,30 @@ abstract class org_tubepress_impl_embedded_strategies_AbstractEmbeddedStrategy i
     private $_ioc;
     private $_tpom;
     
+    /**
+     * Called *before* canHandle() and execute() to allow the strategy
+     *  to initialize itself.
+     */
     public function start()
     {
         $this->_ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
         $this->_tpom = $this->_ioc->get('org_tubepress_api_options_OptionsManager');
     }
 
+    /**
+     * Called *after* canHandle() and execute() to allow the strategy
+     *  to tear itself down.
+     */
     public function stop()
     {
         unset($this->_ioc);
         unset($this->_tpom);
     }
 
+    /**
+     * Returns true if this strategy is able to handle
+     *  the request.
+     */
     public function canHandle()
     {
         /* grab the arguments */
@@ -60,6 +72,9 @@ abstract class org_tubepress_impl_embedded_strategies_AbstractEmbeddedStrategy i
         return $this->_canHandle($providerName, $videoId, $this->_ioc, $this->_tpom);
     }
 
+    /**
+     * Execute the strategy.
+     */
     public function execute()
     {    
         global $tubepress_base_url;
