@@ -26,6 +26,7 @@ require_once 'org/tubepress/impl/url/UrlTests.php';
 require_once 'org/tubepress/impl/ioc/IocTests.php';
 require_once 'org/tubepress/impl/util/UtilsTests.php';
 require_once 'org/tubepress/api/video/VideoTests.php';
+require_once 'org/tubepress/impl/env/EnvTests.php';
 
 
 class TubePressUnitTests
@@ -33,9 +34,9 @@ class TubePressUnitTests
 	public static function suite()
 	{
 		$suite = new PHPUnit_Framework_TestSuite("TubePress Unit Tests");
-		$suite->addTest(BootstrapTests::suite());
 		$suite->addTest(CacheTests::suite());
 		$suite->addTest(EmbeddedPlayerTests::suite());
+		$suite->addTest(BootstrapTests::suite());
 		$suite->addTest(GalleryTests::suite());
 		$suite->addTest(IocTests::suite());
 		$suite->addTest(MessageTests::suite());
@@ -59,6 +60,7 @@ class TubePressUnitTests
 		$suite->addTest(LogTests::suite());
 		$suite->addTest(PatternsTests::suite());
 		$suite->addTest(EnvironmentTests::suite());
+		$suite->addTest(EnvTests::suite());
 
 		return $suite;
 	}

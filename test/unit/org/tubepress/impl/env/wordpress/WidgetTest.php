@@ -5,9 +5,11 @@ require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
 
 define('WP_PLUGIN_URL', 'fooby');
 
+if (!function_exists('__')) {
 function __($something)
 {
     return $something;
+}
 }
 
 function wp_register_sidebar_widget($one, $two, $three, $four)

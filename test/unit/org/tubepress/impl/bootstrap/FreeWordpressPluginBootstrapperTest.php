@@ -27,6 +27,7 @@ class org_tubepress_impl_bootstrap_FreeWordPressPluginBootstrapperTest extends T
 
 	function setUp()
 	{
+	    $this->initFakeIoc();
 		$this->_sut = new org_tubepress_impl_bootstrap_FreeWordPressPluginBootstrapper();
 	}
 	

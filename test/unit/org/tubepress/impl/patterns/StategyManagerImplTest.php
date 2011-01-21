@@ -15,6 +15,7 @@ class org_tubepress_impl_patterns_StrategyManagerImplTest extends TubePressUnitT
         $this->_sut = new org_tubepress_impl_patterns_StrategyManagerImpl();
         $this->_mockStrategyOne = $this->getMock('org_tubepress_api_patterns_Strategy');
         $this->_mockStrategyTwo = $this->getMock('org_tubepress_api_patterns_Strategy');
+        org_tubepress_impl_log_Log::setEnabled(false, array());
     }
     
     function getMock($className)
