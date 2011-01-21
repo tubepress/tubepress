@@ -73,41 +73,15 @@ class org_tubepress_impl_env_wordpress_Admin
      */
     public static function conditionalExecuteOptionsPage()
     {
-        if (version_compare(PHP_VERSION, '5.0.2', '>=')) {
-            self::_executeOptionsPage();
-        } else {
-                print <<<EOT
-<div id="message" class="error fade">
-    <p>
-        <strong>
-            This version of TubePress requires PHP 5.0.2 or higher. 
-            Please <a href="http://php.net">upgrade your PHP installation</a> 
-            or visit <a href="http://tubepress.org">tubepress.org</a> to obtain 
-            a different version of the plugin.
-        </strong>
-    </p>
-</div>
-EOT
-                ;
-        }
-    }
-
-    /**
-     * Handles the TubePress options page.
-     *
-     * @return void
-     */
-    private static function _executeOptionsPage()
-    {
         /* grab the storage manager */
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $wpsm = $iocContainer->get('org_tubepress_api_options_StorageManager');
+        $wpsm         = $iocContainer->get('org_tubepress_api_options_StorageManager');
 
         /* initialize our options in case we need to */
         $wpsm->init();
 
         /* get the form handler */
-        $optionsForm = new org_tubepress_impl_options_FormHandler();
+        $optionsForm = $iocContainer->get('org_tubepress_impl_options_FormHandler');
 
         /* are we updating? */
         if (isset($_POST['tubepress_save'])) {

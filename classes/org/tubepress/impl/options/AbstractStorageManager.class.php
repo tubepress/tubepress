@@ -56,7 +56,7 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
      * 
      * @return void
      */
-    public final function init()
+    public function init()
     {
         $allOptionNames = org_tubepress_impl_options_OptionsReference::getAllOptionNames();
         $vals           = array();
@@ -101,7 +101,7 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
      * 
      * @return void
      */
-    public final function set($optionName, $optionValue)
+    public function set($optionName, $optionValue)
     {
         if (!org_tubepress_impl_options_OptionsReference::shouldBePersisted($optionName)) {
             return;

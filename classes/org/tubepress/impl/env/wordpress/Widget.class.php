@@ -30,7 +30,8 @@ tubepress_load_classes(array('org_tubepress_impl_message_WordPressMessageService
     'org_tubepress_api_const_options_Advanced',
     'org_tubepress_api_const_options_Display',
     'org_tubepress_api_const_options_Meta',
-    'org_tubepress_api_const_options_Gallery'));
+    'org_tubepress_api_const_options_Gallery',
+    'org_tubepress_api_player_Player'));
 
 class org_tubepress_impl_env_wordpress_Widget
 {
@@ -120,7 +121,7 @@ class org_tubepress_impl_env_wordpress_Widget
 
         /* load up the gallery template */
         $tpl = new org_tubepress_impl_template_SimpleTemplate();
-        $tpl->setPath(dirname(__FILE__) . '/../../../../../env/WordPress/ui/widget/html_templates/controls.tpl.php');
+        $tpl->setPath(dirname(__FILE__) . '/../../../../../../env/WordPress/ui/widget/html_templates/controls.tpl.php');
 
         /* set up the template */
         $tpl->setVariable(org_tubepress_api_template_Template::WIDGET_CONTROL_TITLE, $msg->_('options-meta-title-title'));

@@ -43,6 +43,9 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
 		        $mock->expects($this->any())
 		           ->method('setCustomOptions')
 		           ->will($this->returnCallback(array($this, 'setOptions')));
+		        $mock->expects($this->any())
+		             ->method('getCustomOptions')
+		             ->will($this->returnValue($this->options));
                 break;
                 
             case 'org_tubepress_api_message_MessageService':

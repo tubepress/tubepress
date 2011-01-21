@@ -45,7 +45,7 @@ class org_tubepress_impl_options_FormHandler
      * 
      * @return void
      */
-    public final function getHtml()
+    public function getHtml()
     {   
         global $tubepress_base_url;
 

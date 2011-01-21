@@ -34,7 +34,7 @@ class org_tubepress_impl_html_HtmlUtils
         }
 
         $result = <<<GBS
-    $jqueryInclude
+$jqueryInclude
 <script type="text/javascript">function getTubePressBaseUrl(){return "$tubepress_base_url";}</script>
 <script type="text/javascript" src="$tubepress_base_url/ui/lib/tubepress.js"></script>
 <link rel="stylesheet" href="$tubepress_base_url/ui/themes/default/style.css" type="text/css" />
