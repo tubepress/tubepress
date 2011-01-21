@@ -28,14 +28,26 @@ tubepress_load_classes(array('org_tubepress_api_patterns_FilterManager',
 class org_tubepress_impl_patterns_FilterManagerImpl implements org_tubepress_api_patterns_FilterManager
 {
     const LOG_PREFIX = 'Filter Manager';
-    
+
     private $_filters;
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         $this->_filters = array();
     }
 
+    /**
+     * Run all filters for the specified execution point, giving each filter a chance
+     *  to modify the given value.
+     *  
+     * @param string       $name  The execution point name.
+     * @param unknown_type $value The value to send to the filters.
+     * 
+     * @return unknown_type The modified value.
+     */
     public function runFilters($name, $value)
     {
         /* no callbacks registered for this filter? */
@@ -45,16 +57,16 @@ class org_tubepress_impl_patterns_FilterManagerImpl implements org_tubepress_api
         }
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, "Now running %d filter(s) for \"%s\" execution point", sizeof($this->_filters[$name]), $name);
-        
+
         $args = func_get_args();
-        
+
         /* run all the callbacks for this filter name */
         foreach ($this->_filters[$name] as $callback) {
 
             try {
 
                 $args[1] = $value;
-                $value = call_user_func_array($callback, array_slice($args, 1));
+                $value   = call_user_func_array($callback, array_slice($args, 1));
 
             } catch (Exception $e) {
                 org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception running filter: %s', $e->getMessage());
@@ -66,8 +78,16 @@ class org_tubepress_impl_patterns_FilterManagerImpl implements org_tubepress_api
         return $value;
     }
 
-    public function registerFilter($name, $callback) {
-
+    /**
+     * Registers a filter for the specified execution point.
+     * 
+     * @param string   $name     The execution point name.
+     * @param callback $callback The filter callback.
+     * 
+     * @return void
+     */
+    public function registerFilter($name, $callback)
+    {
         /* sanity check on the callback */
         if (!is_callable($callback)) {
             throw new Exception("$callback is not a valid filter callback");
@@ -87,5 +107,3 @@ class org_tubepress_impl_patterns_FilterManagerImpl implements org_tubepress_api
         array_push($this->_filters[$name], $callback);
     }
 }
-
-?>
