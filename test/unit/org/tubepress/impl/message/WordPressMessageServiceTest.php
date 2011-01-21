@@ -210,11 +210,12 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 
 	function testPoCompiles()
 	{
+		$testOpts = parse_ini_file(dirname(__FILE__) . '/../../../../../test.properties');
 		$files = $this->getPoFiles();
 		foreach ($files as $file) {
 			$realPath = dirname(__FILE__) . '/../../../../../../i18n/' . $file;
 			$outputfile = str_replace(array('.pot', '.po'), '.mo', $realPath);
-			exec("/opt/local/bin/msgfmt	-o $outputfile $realPath", $results, $return);
+			exec($testOpts['msgfmt_path'] . " -o $outputfile $realPath", $results, $return);
 			$this->assertTrue($return === 0);
 		}
 		dirname(__FILE__) . '/../../../../../../i18n/tubepress.mo';

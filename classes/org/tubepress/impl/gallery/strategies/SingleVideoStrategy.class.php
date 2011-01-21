@@ -51,7 +51,9 @@ class org_tubepress_impl_gallery_strategies_SingleVideoStrategy implements org_t
     }
 
     public function execute()
-    {    
+    {   
+        $videoId = $this->_tpom->get(org_tubepress_api_const_options_Gallery::VIDEO);
+
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
 
         $singleVideoGenerator = $this->_ioc->get('org_tubepress_api_single_SingleVideo');

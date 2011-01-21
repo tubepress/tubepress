@@ -72,11 +72,11 @@ class org_tubepress_impl_gallery_strategies_SoloPlayerStrategy implements org_tu
 
     public function execute()
     {
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $this->_videoId);
 
         $single = $this->_ioc->get('org_tubepress_api_single_SingleVideo');
 
-        return $single->getSingleVideoHtml($videoId, $this->_ioc);
+        return $single->getSingleVideoHtml($this->_videoId, $this->_ioc);
     }
 }
 

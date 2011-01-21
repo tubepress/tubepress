@@ -16,6 +16,7 @@ tubepress_load_classes(array('org_tubepress_api_options_OptionsManager',
     'org_tubepress_api_pagination_Pagination',
     'org_tubepress_impl_template_SimpleTemplate',
     'org_tubepress_impl_ioc_IocContainer',
+    'org_tubepress_impl_filesystem_FsExplorer',
     'org_tubepress_api_theme_ThemeHandler'));
 
 abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
@@ -68,6 +69,9 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
                 $mock->expects($this->any())
                      ->method('getTubePressBaseInstallationPath')
                      ->will($this->returnValue(realpath(dirname(__FILE__) . '/../../')));
+                $mock->expects($this->any())
+                     ->method('getFilenamesInDirectory')
+                     ->will($this->returnValue(array()));
                 break;
                 
             default:
@@ -79,7 +83,7 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
     public function cssPathCallback()
     {
         $args = func_get_args();
-        if (!$args[1]) {
+        if (count($args) === 1 || !$args[1]) {
             return dirname(__FILE__) . '/../../ui/themes/' . $args[0] . '/style.css';
         }
         return 'ui/themes/' . $args[0] . '/style.css';

@@ -11,7 +11,7 @@ class org_tubepress_impl_gallery_filters_ThemeCssTest extends TubePressUnitTest
 	function setup()
 	{
 		$this->initFakeIoc();
-		unset($this->_themeName);
+		$this->_themeName = 'default';
 		$this->_sut = new org_tubepress_impl_gallery_filters_ThemeCss();
 	}
 

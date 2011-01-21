@@ -80,10 +80,15 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest {
     function testPrintWidget()
     {
         ob_start();
-        org_tubepress_impl_env_wordpress_Widget::printWidget(array());
+        org_tubepress_impl_env_wordpress_Widget::printWidget(array(
+		'before_widget' => 'before_widget',
+		'before_title' => 'before_title',
+		'after_title' => 'after_title',
+		'after_widget' => 'after_widget'
+        ));
         $contents = ob_get_contents();
         ob_end_clean();
-        $this->assertEquals('TubePresssomehtml', $contents);
+        $this->assertEquals('before_widgetbefore_titleTubePressafter_titlesomehtmlafter_widget', $contents);
     }
     
     function testInit()

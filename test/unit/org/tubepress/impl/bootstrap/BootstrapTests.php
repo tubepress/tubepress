@@ -1,6 +1,6 @@
 <?php
 require dirname(__FILE__) . '/../../../../PhpUnitLoader.php';
-require_once 'FreeWordPressPluginBootstrapperTest.php';
+require_once 'FreeWordpressPluginBootstrapperTest.php';
 
 class BootstrapTests
 {

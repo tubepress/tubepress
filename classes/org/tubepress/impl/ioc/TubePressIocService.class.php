@@ -59,10 +59,8 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
 
     public function get($classOrInterfaceName)
     {
-        $implementation = $this->_map[$classOrInterfaceName];
-
         /* haven't built this class/interface before? */
-        if (!isset($implementation)) {
+        if (!isset($this->_map[$classOrInterfaceName])) {
     
             /* maybe we can instantiate a singleton? */
             if (class_exists($classOrInterfaceName)) {
@@ -74,12 +72,12 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
         }
     
         /* we've already built it. this should be the normal case. */
-        if (is_a($implementation, $classOrInterfaceName)) {
-            return $implementation;
+        if (is_a($this->_map[$classOrInterfaceName], $classOrInterfaceName)) {
+            return $this->_map[$classOrInterfaceName];
         }
 
         /* build and return the mapped implementation */
-        return $this->_buildInterface($classOrInterfaceName, $implementation);
+        return $this->_buildInterface($classOrInterfaceName, $this->_map[$classOrInterfaceName]);
     }
 
     private function _buildInterface($interfaceName, $implementationName)
