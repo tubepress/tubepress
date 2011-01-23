@@ -92,7 +92,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
 
         /* convert the XML to objects */
         $factory = $ioc->get('org_tubepress_api_factory_VideoFactory');
-        $videos = $factory->feedToVideoArray($rawFeed, $effectiveDisplayCount);
+        $videos = $factory->feedToVideoArray($rawFeed);
 
         /* shuffle if we need to */
         if ($tpom->get(org_tubepress_api_const_options_Display::ORDER_BY) == 'random') {
@@ -129,7 +129,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         $tpom                 = $ioc->get('org_tubepress_api_options_OptionsManager');
         $results              = $feedRetrievalService->fetch($videoUrl, $tpom->get(org_tubepress_api_const_options_Feed::CACHE_ENABLED));
         $factory              = $ioc->get('org_tubepress_api_factory_VideoFactory');
-        $videoArray           = $factory->convertSingleVideo($results, 1);
+        $videoArray           = $factory->feedToVideoArray($results);
 
         return $videoArray[0];
     }
