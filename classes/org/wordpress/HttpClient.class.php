@@ -1,71 +1,37 @@
 <?php
 /**
- * Simple and uniform HTTP request API.
+ * This entire class is based on http://core.trac.wordpress.org/browser/trunk/wp-includes/class-http.php.
  *
- * Standardizes the HTTP requests for WordPress. Handles cookies, gzip encoding and decoding, chunk
- * decoding, if HTTP 1.1 and various other difficult HTTP protocol implementations.
+ * HTTP Class for managing HTTP Transports and making HTTP requests.
  *
- * @link http://trac.wordpress.org/ticket/4779 HTTP API Proposal
- *
- * @package WordPress
- * @subpackage HTTP
- * @since 2.7.0
- */
-
-/**
- * WordPress HTTP Class for managing HTTP Transports and making HTTP requests.
- *
- * This class is called for the functionality of making HTTP requests and replaces Snoopy
- * functionality. There is no available functionality to add HTTP transport implementations, since
- * most of the HTTP transports are added and available for use.
+ * This class is called for the functionality of making HTTP requests. There is no available functionality
+ * to add HTTP transport implementations, since most of the HTTP transports are added and available for use.
  *
  * There are no properties, because none are needed and for performance reasons. Some of the
  * functions are static and while they do have some overhead over functions in PHP4, the purpose is
- * maintainability. When PHP5 is finally the requirement, it will be easy to add the static keyword
- * to the code. It is not as easy to convert a function to a method after enough code uses the old
- * way.
+ * maintainability.
  *
- * Debugging includes several actions, which pass different variables for debugging the HTTP API.
- *
- * <strong>http_transport_get_debug</strong> - gives working, nonblocking, and blocking transports.
- *
- * <strong>http_transport_post_debug</strong> - gives working, nonblocking, and blocking transports.
- *
- * @package WordPress
- * @subpackage HTTP
- * @since 2.7.0
  */
-class org_wordpress_HttpClient {
-
-    /**
-     * PHP4 style Constructor - Calls PHP5 Style Constructor
-     *
-     * @since 2.7.0
-     * @return org_wordpress_HttpClient
-     */
-    function org_wordpress_HttpClient() {
-        $this->__construct();
-    }
+class org_wordpress_HttpClient
+{
+    const LOG_PREFIX = 'HTTP Client';
 
     /**
      * PHP5 style Constructor - Set up available transport if not available.
      *
-     * PHP4 does not have the 'self' keyword and since WordPress supports PHP4, the class needs to
-     * be used for the static call. The transport are set up to save time and will only be created
+     * The transport are set up to save time and will only be created
      * once. This class can be created many times without having to go through the step of finding
      * which transports are available.
      *
-     * @since 2.7.0
      * @return org_wordpress_HttpClient
      */
-    function __construct() {
-        org_wordpress_HttpClient::_getTransport();
-        org_wordpress_HttpClient::_postTransport();
+    function __construct()
+    {
+        self::_getTransport();
+        self::_postTransport();
     }
 
     /**
-     * Tests the WordPress HTTP objects for an object to use and returns it.
-     *
      * Tests all of the objects and returns the object that passes. Also caches that object to be
      * used later.
      *
@@ -79,88 +45,103 @@ class org_wordpress_HttpClient {
      * not properly respond after a period of time, or established connection failed because [the]
      * connected host has failed to respond."
      *
-     * @since 2.7.0
-     * @access private
+     * @param array $args Request args, default use an empty array
      *
-     * @param array $args Request args, default us an empty array
      * @return object|null Null if no transports are available, HTTP transport object.
      */
-    function &_getTransport( $args = array() ) {
+    private static function &_getTransport($args = array())
+    {
         static $working_transport, $blocking_transport, $nonblocking_transport;
 
         if ( is_null($working_transport) ) {
+
+            org_tubepress_impl_log_Log(self::LOG_PREFIX, 'Determining which implementation to use for GET requests');
+
             if ( true === org_wordpress_HttpClient_ExtHttp::test($args) ) {
+                org_tubepress_impl_log_Log(self::LOG_PREFIX, 'Will use ExtHttp for GET requests');
                 $working_transport['exthttp'] = new org_wordpress_HttpClient_ExtHttp();
-                $blocking_transport[] = &$working_transport['exthttp'];
+                $blocking_transport[]         = &$working_transport['exthttp'];
             } else if ( true === org_wordpress_HttpClient_Curl::test($args) ) {
+                org_tubepress_impl_log_Log(self::LOG_PREFIX, 'Will use curl for GET requests');
                 $working_transport['curl'] = new org_wordpress_HttpClient_Curl();
-                $blocking_transport[] = &$working_transport['curl'];
+                $blocking_transport[]      = &$working_transport['curl'];
             } else if ( true === org_wordpress_HttpClient_Streams::test($args) ) {
+                org_tubepress_impl_log_Log(self::LOG_PREFIX, 'Will use streams for GET requests');
                 $working_transport['streams'] = new org_wordpress_HttpClient_Streams();
-                $blocking_transport[] = &$working_transport['streams'];
+                $blocking_transport[]         = &$working_transport['streams'];
             } else if ( true === org_wordpress_HttpClient_Fopen::test($args) ) {
+                org_tubepress_impl_log_Log(self::LOG_PREFIX, 'Will use fopen for GET requests');
                 $working_transport['fopen'] = new org_wordpress_HttpClient_Fopen();
-                $blocking_transport[] = &$working_transport['fopen'];
+                $blocking_transport[]       = &$working_transport['fopen'];
             } else if ( true === org_wordpress_HttpClient_Fsockopen::test($args) ) {
+                org_tubepress_impl_log_Log(self::LOG_PREFIX, 'Will use fsockopen for GET requests');
                 $working_transport['fsockopen'] = new org_wordpress_HttpClient_Fsockopen();
-                $blocking_transport[] = &$working_transport['fsockopen'];
+                $blocking_transport[]           = &$working_transport['fsockopen'];
             }
 
             foreach ( array('curl', 'streams', 'fopen', 'fsockopen', 'exthttp') as $transport ) {
-                if ( isset($working_transport[$transport]) )
+                if (isset($working_transport[$transport])) {
                     $nonblocking_transport[] = &$working_transport[$transport];
+                }
             }
         }
 
-        if ( isset($args['blocking']) && !$args['blocking'] )
+        if ( isset($args['blocking']) && !$args['blocking']) {
             return $nonblocking_transport;
-        else
+        } else {
             return $blocking_transport;
+        }
     }
 
     /**
-     * Tests the WordPress HTTP objects for an object to use and returns it.
-     *
      * Tests all of the objects and returns the object that passes. Also caches
      * that object to be used later. This is for posting content to a URL and
      * is used when there is a body. The plain Fopen Transport can not be used
      * to send content, but the streams transport can. This is a limitation that
      * is addressed here, by just not including that transport.
      *
-     * @since 2.7.0
-     * @access private
-     *
      * @param array $args Request args, default us an empty array
+     *
      * @return object|null Null if no transports are available, HTTP transport object.
      */
-    function &_postTransport( $args = array() ) {
+    private static function &_postTransport($args = array())
+    {
         static $working_transport, $blocking_transport, $nonblocking_transport;
 
         if ( is_null($working_transport) ) {
+
+            org_tubepress_impl_log_Log(self::LOG_PREFIX, 'Determining which implementation to use for POST requests');
+
             if ( true === org_wordpress_HttpClient_ExtHttp::test($args) ) {
+                org_tubepress_impl_log_Log(self::LOG_PREFIX, 'Will use ExtHttp for POST requests');
                 $working_transport['exthttp'] = new org_wordpress_HttpClient_ExtHttp();
-                $blocking_transport[] = &$working_transport['exthttp'];
+                $blocking_transport[]         = &$working_transport['exthttp'];
             } else if ( true === org_wordpress_HttpClient_Curl::test($args) ) {
+                org_tubepress_impl_log_Log(self::LOG_PREFIX, 'Will use curl for POST requests');
                 $working_transport['curl'] = new org_wordpress_HttpClient_Curl();
-                $blocking_transport[] = &$working_transport['curl'];
+                $blocking_transport[]      = &$working_transport['curl'];
             } else if ( true === org_wordpress_HttpClient_Streams::test($args) ) {
+                org_tubepress_impl_log_Log(self::LOG_PREFIX, 'Will use streams for POST requests');
                 $working_transport['streams'] = new org_wordpress_HttpClient_Streams();
-                $blocking_transport[] = &$working_transport['streams'];
+                $blocking_transport[]         = &$working_transport['streams'];
             } else if ( true === org_wordpress_HttpClient_Fsockopen::test($args) ) {
+                org_tubepress_impl_log_Log(self::LOG_PREFIX, 'Will use fsockopen for POST requests');
                 $working_transport['fsockopen'] = new org_wordpress_HttpClient_Fsockopen();
-                $blocking_transport[] = &$working_transport['fsockopen'];
+                $blocking_transport[]           = &$working_transport['fsockopen'];
             }
 
             foreach ( array('curl', 'streams', 'fsockopen', 'exthttp') as $transport ) {
-                if ( isset($working_transport[$transport]) )
+                if ( isset($working_transport[$transport]) ) {
                     $nonblocking_transport[] = &$working_transport[$transport];
+                }
             }
         }
 
-        if ( isset($args['blocking']) && !$args['blocking'] )
+        if ( isset($args['blocking']) && !$args['blocking'] ) {
             return $nonblocking_transport;
-        else
+        } else {
             return $blocking_transport;
+        }
     }
 
     /**
@@ -185,9 +166,7 @@ class org_wordpress_HttpClient {
      * accept setting that value.
      *
      * The 'httpversion' option is used to sent the HTTP version and accepted values are '1.0', and
-     * '1.1' and should be a string. Version 1.1 is not supported, because of chunk response. The
-     * 'user-agent' option is the user-agent and is used to replace the default user-agent, which is
-     * 'WordPress/WP_Version', where WP_Version is the value from $wp_version.
+     * '1.1' and should be a string. Version 1.1 is not supported, because of chunk response.
      *
      * 'blocking' is the default, which is used to tell the transport, whether it should halt PHP
      * while it performs the request or continue regardless. Actually, that isn't entirely correct.
@@ -196,190 +175,171 @@ class org_wordpress_HttpClient {
      * the entire content. It doesn't actually always mean that PHP will continue going after making
      * the request.
      *
-     * @access public
-     * @since 2.7.0
-     * @todo Refactor this code. The code in this method extends the scope of its original purpose
-     *      and should be refactored to allow for cleaner abstraction and reduce duplication of the
-     *      code. One suggestion is to create a class specifically for the arguments, however
-     *      preliminary refactoring to this affect has affect more than just the scope of the
-     *      arguments. Something to ponder at least.
+     * @param string $url  URI resource.
+     * @param array  $args Optional. Override the defaults.
      *
-     * @param string $url URI resource.
-     * @param str|array $args Optional. Override the defaults.
      * @return array containing 'headers', 'body', 'response', 'cookies'
      */
-    function request( $url, $args = array() ) {
-
+    public function request( $url, $args = array() )
+    {
         $defaults = array(
-            'method' => 'GET',
-            'timeout' => 5,
+            'method'      => 'GET',
+            'timeout'     => 5,
             'redirection' => 5,
             'httpversion' => '1.0',
-            'user-agent' => 'TubePress',
-            'blocking' => true,
-            'headers' => array(),
-            'cookies' => array(),
-            'body' => null,
-            'compress' => false,
-            'decompress' => true,
-            'sslverify' => true
+            'user-agent'  => 'TubePress; http://tubepress.org',
+            'blocking'    => true,
+            'headers'     => array(),
+            'cookies'     => array(),
+            'body'        => null,
+            'compress'    => false,
+            'decompress'  => true,
+            'sslverify'   => true
         );
 
-        $r = array_merge( $defaults, $args );
+        $r      = array_merge($defaults, $args);
+        $arrURL = parse_url($url);
 
-        // Allow plugins to short-circuit the request
-        $pre = false;
-        if ( false !== $pre )
-            return $pre;
-
-        $arrURL = parse_url( $url );
-
-        if ( empty( $url ) || empty( $arrURL['scheme'] ) )
+        if ( empty( $url ) || empty( $arrURL['scheme'] ) ) {
             throw new Exception('A valid URL was not provided.');
-
-        if ( $this->block_request( $url ) )
-            throw new Exception('User has blocked requests through HTTP.');
+        }
 
         // Determine if this is a https call and pass that on to the transport functions
         // so that we can blacklist the transports that do not support ssl verification
         $r['ssl'] = $arrURL['scheme'] == 'https' || $arrURL['scheme'] == 'ssl';
 
-        // Determine if this request is to OUR install of WordPress
-        $homeURL = parse_url( get_bloginfo( 'url' ) );
-        $r['local'] = $homeURL['host'] == $arrURL['host'] || 'localhost' == $arrURL['host'];
-        unset( $homeURL );
+        // Determine if this request is local
+        $r['local'] = 'localhost' == $arrURL['host'];
 
-        if ( is_null( $r['headers'] ) )
+        if ( is_null($r['headers']) ) {
             $r['headers'] = array();
-
-        if ( ! is_array( $r['headers'] ) ) {
-            $processedHeaders = org_wordpress_HttpClient::processHeaders( $r['headers'] );
-            $r['headers'] = $processedHeaders['headers'];
         }
 
-        if ( isset( $r['headers']['User-Agent'] ) ) {
+        if ( ! is_array($r['headers']) ) {
+            $processedHeaders = org_wordpress_HttpClient::processHeaders($r['headers']);
+            $r['headers']     = $processedHeaders['headers'];
+        }
+
+        if ( isset($r['headers']['User-Agent'] ) ) {
             $r['user-agent'] = $r['headers']['User-Agent'];
             unset( $r['headers']['User-Agent'] );
         }
 
-        if ( isset( $r['headers']['user-agent'] ) ) {
+        if ( isset($r['headers']['user-agent'] ) ) {
             $r['user-agent'] = $r['headers']['user-agent'];
             unset( $r['headers']['user-agent'] );
         }
 
         // Construct Cookie: header if any cookies are set
-        org_wordpress_HttpClient::buildCookieHeader( $r );
+        org_wordpress_HttpClient::buildCookieHeader($r);
 
-        if ( org_wordpress_HttpClient_Encoding::is_available() )
+        if ( org_wordpress_HttpClient_Encoding::is_available() ) {
             $r['headers']['Accept-Encoding'] = org_wordpress_HttpClient_Encoding::accept_encoding();
+        }
 
         if ( empty($r['body']) ) {
             $r['body'] = null;
             // Some servers fail when sending content without the content-length header being set.
             // Also, to fix another bug, we only send when doing POST and PUT and the content-length
             // header isn't already set.
-            if ( ($r['method'] == 'POST' || $r['method'] == 'PUT') && ! isset( $r['headers']['Content-Length'] ) )
+            if ( ($r['method'] == 'POST' || $r['method'] == 'PUT') && ! isset($r['headers']['Content-Length'] ) ) {
                 $r['headers']['Content-Length'] = 0;
+            }
 
             // The method is ambiguous, because we aren't talking about HTTP methods, the "get" in
             // this case is simply that we aren't sending any bodies and to get the transports that
             // don't support sending bodies along with those which do.
-            $transports = org_wordpress_HttpClient::_getTransport( $r );
+            $transports = self::_getTransport($r);
         } else {
-            if ( is_array( $r['body'] ) || is_object( $r['body'] ) ) {
-                if ( ! version_compare(phpversion(), '5.1.2', '>=') )
-                    $r['body'] = _http_build_query( $r['body'], null, '&' );
-                else
-                    $r['body'] = http_build_query( $r['body'], null, '&' );
-                $r['headers']['Content-Type'] = 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' );
-                $r['headers']['Content-Length'] = strlen( $r['body'] );
+            if ( is_array($r['body']) || is_object($r['body']) ) {
+                if ( ! version_compare(phpversion(), '5.1.2', '>=') ) {
+                    $r['body'] = self::_http_build_query($r['body'], null, '&');
+                } else {
+                    $r['body'] = http_build_query($r['body'], null, '&');
+                }
+                $r['headers']['Content-Type']   = 'application/x-www-form-urlencoded; charset=utf-8';
+                $r['headers']['Content-Length'] = strlen($r['body']);
             }
 
-            if ( ! isset( $r['headers']['Content-Length'] ) && ! isset( $r['headers']['content-length'] ) )
-                $r['headers']['Content-Length'] = strlen( $r['body'] );
+            if ( ! isset($r['headers']['Content-Length']) && ! isset($r['headers']['content-length']) ) {
+                $r['headers']['Content-Length'] = strlen($r['body']);
+            }
 
             // The method is ambiguous, because we aren't talking about HTTP methods, the "post" in
             // this case is simply that we are sending HTTP body and to get the transports that do
             // support sending the body. Not all do, depending on the limitations of the PHP core
             // limitations.
-            $transports = org_wordpress_HttpClient::_postTransport( $r );
+            $transports = self::_postTransport($r);
         }
 
         $response = array( 'headers' => array(), 'body' => '', 'response' => array('code' => false, 'message' => false), 'cookies' => array() );
         foreach ( (array) $transports as $transport ) {
-            $response = $transport->request( $url, $r );
-
-                return $response;
+            try {
+                org_tubepress_impl_log_Log(self::LOG_PREFIX, 'Fetching <tt>%s</tt> with %s', $url, get_class($transport));
+                $response = $transport->request($url, $r);
+            } catch (Exception $e) {
+                org_tubepress_impl_log_Log(self::LOG_PREFIX, 'Caught error when requesting %s with %s: %s', $url, get_class($transport), $e->getMessage());
+            }
         }
 
+        org_tubepress_impl_log_Log(self::LOG_PREFIX, 'Successfully retrieved <tt>%s</tt> with %s', $url, get_class($transport));
         return $response;
     }
 
     /**
      * Uses the POST HTTP method.
      *
-     * Used for sending data that is expected to be in the body.
+     * @param string $url  URI resource.
+     * @param array  $args Optional. Override the defaults.
      *
-     * @access public
-     * @since 2.7.0
-     *
-     * @param string $url URI resource.
-     * @param str|array $args Optional. Override the defaults.
      * @return boolean
      */
-    function post($url, $args = array()) {
+    public function post($url, $args = array())
+    {
         $defaults = array('method' => 'POST');
-        $r = array_merge( $defaults, $args );
+        $r        = array_merge($defaults, $args);
         return $this->request($url, $r);
     }
 
     /**
      * Uses the GET HTTP method.
      *
-     * Used for sending data that is expected to be in the body.
+     * @param string $url  URI resource.
+     * @param array  $args Optional. Override the defaults.
      *
-     * @access public
-     * @since 2.7.0
-     *
-     * @param string $url URI resource.
-     * @param str|array $args Optional. Override the defaults.
      * @return boolean
      */
-    function get($url, $args = array()) {
+    public function get($url, $args = array())
+    {
         $defaults = array('method' => 'GET');
-        $r = array_merge( $defaults, $args );
+        $r        = array_merge($defaults, $args);
         return $this->request($url, $r);
     }
 
     /**
      * Uses the HEAD HTTP method.
      *
-     * Used for sending data that is expected to be in the body.
+     * @param string $url  URI resource.
+     * @param array  $args Optional. Override the defaults.
      *
-     * @access public
-     * @since 2.7.0
-     *
-     * @param string $url URI resource.
-     * @param str|array $args Optional. Override the defaults.
      * @return boolean
      */
-    function head($url, $args = array()) {
+    public function head($url, $args = array())
+    {
         $defaults = array('method' => 'HEAD');
-        $r = array_merge( $defaults, $args );
+        $r        = array_merge($defaults, $args);
         return $this->request($url, $r);
     }
 
     /**
      * Parses the responses and splits the parts into headers and body.
      *
-     * @access public
-     * @static
-     * @since 2.7.0
-     *
      * @param string $strResponse The full response string
+     *
      * @return array Array with 'headers' and 'body' keys.
      */
-    function processResponse($strResponse) {
+    public static function processResponse($strResponse)
+    {
         $res = explode("\r\n\r\n", $strResponse, 2);
 
         return array('headers' => isset($res[0]) ? $res[0] : array(), 'body' => isset($res[1]) ? $res[1] : '');
@@ -391,15 +351,13 @@ class org_wordpress_HttpClient {
      * If an array is given then it is assumed to be raw header data with numeric keys with the
      * headers as the values. No headers must be passed that were already processed.
      *
-     * @access public
-     * @static
-     * @since 2.7.0
+     * @param string|array $headers The headers.
      *
-     * @param string|array $headers
      * @return array Processed string headers. If duplicate headers are encountered,
      *                  Then a numbered array is returned as the value of that header-key.
      */
-    function processHeaders($headers) {
+    public static function processHeaders($headers)
+    {
         // split headers, one per array element
         if ( is_string($headers) ) {
             // tolerate line terminator: CRLF = LF (RFC 2616 19.3)
@@ -421,11 +379,12 @@ class org_wordpress_HttpClient {
             }
         }
 
-        $cookies = array();
+        $cookies    = array();
         $newheaders = array();
         foreach ( $headers as $tempheader ) {
-            if ( empty($tempheader) )
+            if ( empty($tempheader) ) {
                 continue;
+            }
 
             if ( false === strpos($tempheader, ':') ) {
                 list( , $response['code'], $response['message']) = explode(' ', $tempheader, 3);
@@ -435,16 +394,18 @@ class org_wordpress_HttpClient {
             list($key, $value) = explode(':', $tempheader, 2);
 
             if ( !empty( $value ) ) {
-                $key = strtolower( $key );
-                if ( isset( $newheaders[$key] ) ) {
-                    if ( !is_array($newheaders[$key]) )
+                $key = strtolower($key);
+                if ( isset($newheaders[$key]) ) {
+                    if ( !is_array($newheaders[$key]) ) {
                         $newheaders[$key] = array($newheaders[$key]);
-                    $newheaders[$key][] = trim( $value );
+                    }
+                    $newheaders[$key][] = trim($value);
                 } else {
-                    $newheaders[$key] = trim( $value );
+                    $newheaders[$key] = trim($value);
                 }
-                if ( 'set-cookie' == $key )
-                    $cookies[] = new org_wordpress_HttpClient_Cookie( $value );
+                if ( 'set-cookie' == $key ) {
+                    $cookies[] = new org_wordpress_HttpClient_Cookie($value);
+                }
             }
         }
 
@@ -458,19 +419,18 @@ class org_wordpress_HttpClient {
      * into strings and added to the Cookie: header (within the arguments array). Edits the array by
      * reference.
      *
-     * @access public
-     * @version 2.8.0
-     * @static
+     * @param array &$r Full array of args passed into ::request()
      *
-     * @param array $r Full array of args passed into ::request()
+     * @return void
      */
-    function buildCookieHeader( &$r ) {
+    public static function buildCookieHeader( &$r )
+    {
         if ( ! empty($r['cookies']) ) {
             $cookies_header = '';
             foreach ( (array) $r['cookies'] as $cookie ) {
                 $cookies_header .= $cookie->getHeaderValue() . '; ';
             }
-            $cookies_header = substr( $cookies_header, 0, -2 );
+            $cookies_header         = substr($cookies_header, 0, -2);
             $r['headers']['cookie'] = $cookies_header;
         }
     }
@@ -481,44 +441,80 @@ class org_wordpress_HttpClient {
      * Based off the HTTP http_encoding_dechunk function. Does not support UTF-8. Does not support
      * returning footer headers. Shouldn't be too difficult to support it though.
      *
-     * @todo Add support for footer chunked headers.
-     * @access public
-     * @since 2.7.0
-     * @static
-     *
      * @param string $body Body content
+     *
      * @return string Chunked decoded body on success or raw body on failure.
      */
-    function chunkTransferDecode($body) {
+    public static function chunkTransferDecode($body)
+    {
         $body = str_replace(array("\r\n", "\r"), "\n", $body);
         // The body is not chunked encoding or is malformed.
-        if ( ! preg_match( '/^[0-9a-f]+(\s|\n)+/mi', trim($body) ) )
+        if ( ! preg_match('/^[0-9a-f]+(\s|\n)+/mi', trim($body))) {
             return $body;
+        }
 
         $parsedBody = '';
         //$parsedHeaders = array(); Unsupported
 
         while ( true ) {
-            $hasChunk = (bool) preg_match( '/^([0-9a-f]+)(\s|\n)+/mi', $body, $match );
+            $hasChunk = (bool) preg_match('/^([0-9a-f]+)(\s|\n)+/mi', $body, $match);
 
             if ( $hasChunk ) {
-                if ( empty( $match[1] ) )
+                if ( empty($match[1]) ) {
                     return $body;
+                }
 
-                $length = hexdec( $match[1] );
-                $chunkLength = strlen( $match[0] );
+                $length      = hexdec($match[1]);
+                $chunkLength = strlen($match[0]);
 
-                $strBody = substr($body, $chunkLength, $length);
+                $strBody     = substr($body, $chunkLength, $length);
                 $parsedBody .= $strBody;
 
                 $body = ltrim(str_replace(array($match[0], $strBody), '', $body), "\n");
 
-                if ( "0" == trim($body) )
+                if ( "0" == trim($body) ) {
                     return $parsedBody; // Ignore footer headers.
+                }
             } else {
                 return $body;
             }
         }
+    }
+
+    private static function _http_build_query($data, $prefix=null, $sep=null, $key='', $urlencode=true)
+    {
+        $ret = array();
+
+        foreach ( (array) $data as $k => $v ) {
+            if ( $urlencode) {
+                $k = urlencode($k);
+            }
+            if ( is_int($k) && $prefix != null ) {
+                $k = $prefix.$k;
+            }
+            if ( !empty($key) ) {
+                $k = $key . '%5B' . $k . '%5D';
+            }
+            if ( $v === null ) {
+                continue;
+            } elseif ( $v === false ) {
+                $v = '0';
+            }
+
+            if ( is_array($v) || is_object($v) ) {
+                array_push($ret, self::_http_build_query($v, '', $sep, $k, $urlencode));
+            } elseif ( $urlencode ) {
+                array_push($ret, $k.'='.urlencode($v));
+            } else {
+                array_push($ret, $k.'='.$v);
+            }
+        }
+
+        if ( null === $sep ) {
+            $sep = ini_get('arg_separator.output');
+        }
+
+        return implode($sep, $ret);
     }
 }
 
@@ -528,25 +524,21 @@ class org_wordpress_HttpClient {
  * This would be the preferred method, but the fsockopen implementation has the most overhead of all
  * the HTTP transport implementations.
  *
- * @package WordPress
- * @subpackage HTTP
- * @since 2.7.0
  */
-class org_wordpress_HttpClient_Fsockopen {
+class org_wordpress_HttpClient_Fsockopen
+{
     /**
      * Send a HTTP request to a URI using fsockopen().
      *
      * Does not support non-blocking mode.
      *
-     * @see org_wordpress_HttpClient::request For default options descriptions.
+     * @param string $url  URI resource.
+     * @param array  $args Optional. Override the defaults.
      *
-     * @since 2.7
-     * @access public
-     * @param string $url URI resource.
-     * @param str|array $args Optional. Override the defaults.
      * @return array 'headers', 'body', 'cookies' and 'response' keys.
      */
-    function request($url, $args = array()) {
+    public function request($url, $args = array())
+    {
         $defaults = array(
             'method' => 'GET', 'timeout' => 5,
             'redirection' => 5, 'httpversion' => '1.0',
@@ -554,7 +546,7 @@ class org_wordpress_HttpClient_Fsockopen {
             'headers' => array(), 'body' => null, 'cookies' => array()
         );
 
-        $r = array_merge( $defaults, $args );
+        $r = array_merge($defaults, $args);
 
         if ( isset($r['headers']['User-Agent']) ) {
             $r['user-agent'] = $r['headers']['User-Agent'];
@@ -565,21 +557,18 @@ class org_wordpress_HttpClient_Fsockopen {
         }
 
         // Construct Cookie: header if any cookies are set
-        org_wordpress_HttpClient::buildCookieHeader( $r );
+        org_wordpress_HttpClient::buildCookieHeader($r);
 
-        $iError = null; // Store error number
-        $strError = null; // Store error string
-
-        $arrURL = parse_url($url);
-
-        $fsockopen_host = $arrURL['host'];
-
+        $iError           = null; // Store error number
+        $strError         = null; // Store error string
+        $arrURL           = parse_url($url);
+        $fsockopen_host   = $arrURL['host'];
         $secure_transport = false;
 
-        if ( ! isset( $arrURL['port'] ) ) {
+        if ( ! isset($arrURL['port'] ) ) {
             if ( ( $arrURL['scheme'] == 'ssl' || $arrURL['scheme'] == 'https' ) && extension_loaded('openssl') ) {
-                $fsockopen_host = "ssl://$fsockopen_host";
-                $arrURL['port'] = 443;
+                $fsockopen_host   = "ssl://$fsockopen_host";
+                $arrURL['port']   = 443;
                 $secure_transport = true;
             } else {
                 $arrURL['port'] = 80;
@@ -588,70 +577,52 @@ class org_wordpress_HttpClient_Fsockopen {
 
         //fsockopen has issues with 'localhost' with IPv6 with certain versions of PHP, It attempts to connect to ::1,
         // which fails when the server is not set up for it. For compatibility, always connect to the IPv4 address.
-        if ( 'localhost' == strtolower($fsockopen_host) )
+        if ( 'localhost' == strtolower($fsockopen_host) ) {
             $fsockopen_host = '127.0.0.1';
+        }
 
         // There are issues with the HTTPS and SSL protocols that cause errors that can be safely
         // ignored and should be ignored.
-        if ( true === $secure_transport )
+        if ( true === $secure_transport ) {
             $error_reporting = error_reporting(0);
+        }
 
-        $startDelay = time();
+        $handle = @fsockopen($fsockopen_host, $arrURL['port'], $iError, $strError, $r['timeout']);
 
-        $proxy = new org_wordpress_HttpClient_Proxy();
-
-            if ( $proxy->is_enabled() && $proxy->send_through_proxy( $url ) )
-                $handle = @fsockopen( $proxy->host(), $proxy->port(), $iError, $strError, $r['timeout'] );
-            else
-                $handle = @fsockopen( $fsockopen_host, $arrURL['port'], $iError, $strError, $r['timeout'] );
-
-        $endDelay = time();
-
-        // If the delay is greater than the timeout then fsockopen should't be used, because it will
-        // cause a long delay.
-        $elapseDelay = ($endDelay-$startDelay) > $r['timeout'];
-        if ( true === $elapseDelay )
-            add_option( 'disable_fsockopen', $endDelay, null, true );
-
-        if ( false === $handle )
+        if ( false === $handle ) {
             throw new Exception($iError . ': ' . $strError);
+        }
 
-        $timeout = (int) floor( $r['timeout'] );
+        $timeout  = (int) floor($r['timeout']);
         $utimeout = $timeout == $r['timeout'] ? 0 : 1000000 * $r['timeout'] % 1000000;
-        stream_set_timeout( $handle, $timeout, $utimeout );
+        stream_set_timeout($handle, $timeout, $utimeout);
 
-        if ( $proxy->is_enabled() && $proxy->send_through_proxy( $url ) ) //Some proxies require full URL in this field.
-            $requestPath = $url;
-        else
-            $requestPath = $arrURL['path'] . ( isset($arrURL['query']) ? '?' . $arrURL['query'] : '' );
+        $requestPath = $arrURL['path'] . ( isset($arrURL['query']) ? '?' . $arrURL['query'] : '' );
 
-        if ( empty($requestPath) )
+        if ( empty($requestPath) ) {
             $requestPath .= '/';
+        }
 
-        $strHeaders = strtoupper($r['method']) . ' ' . $requestPath . ' HTTP/' . $r['httpversion'] . "\r\n";
+        $strHeaders  = strtoupper($r['method']) . ' ' . $requestPath . ' HTTP/' . $r['httpversion'] . "\r\n";
+        $strHeaders .= 'Host: ' . $arrURL['host'] . "\r\n";
 
-        if ( $proxy->is_enabled() && $proxy->send_through_proxy( $url ) )
-            $strHeaders .= 'Host: ' . $arrURL['host'] . ':' . $arrURL['port'] . "\r\n";
-        else
-            $strHeaders .= 'Host: ' . $arrURL['host'] . "\r\n";
-
-        if ( isset($r['user-agent']) )
+        if ( isset($r['user-agent']) ) {
             $strHeaders .= 'User-agent: ' . $r['user-agent'] . "\r\n";
+        }
 
         if ( is_array($r['headers']) ) {
-            foreach ( (array) $r['headers'] as $header => $headerValue )
+            foreach ( (array) $r['headers'] as $header => $headerValue ) {
                 $strHeaders .= $header . ': ' . $headerValue . "\r\n";
+            }
         } else {
             $strHeaders .= $r['headers'];
         }
 
-        if ( $proxy->use_authentication() )
-            $strHeaders .= $proxy->authentication_header() . "\r\n";
-
         $strHeaders .= "\r\n";
 
-        if ( ! is_null($r['body']) )
+        if ( ! is_null($r['body']) ) {
             $strHeaders .= $r['body'];
+        }
 
         fwrite($handle, $strHeaders);
 
@@ -661,20 +632,23 @@ class org_wordpress_HttpClient_Fsockopen {
         }
 
         $strResponse = '';
-        while ( ! feof($handle) )
+        while ( ! feof($handle) ) {
             $strResponse .= fread($handle, 4096);
+        }
 
         fclose($handle);
 
-        if ( true === $secure_transport )
+        if ( true === $secure_transport ) {
             error_reporting($error_reporting);
+        }
 
-        $process = org_wordpress_HttpClient::processResponse($strResponse);
+        $process    = org_wordpress_HttpClient::processResponse($strResponse);
         $arrHeaders = org_wordpress_HttpClient::processHeaders($process['headers']);
 
         // Is the response code within the 400 range?
-        if ( (int) $arrHeaders['response']['code'] >= 400 && (int) $arrHeaders['response']['code'] < 500 )
+        if ( (int) $arrHeaders['response']['code'] >= 400 && (int) $arrHeaders['response']['code'] < 500 ) {
             throw new Exception($arrHeaders['response']['code'] . ': ' . $arrHeaders['response']['message']);
+        }
 
         // If location is found, then assume redirect and redirect to location.
         if ( 'HEAD' != $r['method'] && isset($arrHeaders['headers']['location']) ) {
@@ -686,11 +660,13 @@ class org_wordpress_HttpClient_Fsockopen {
         }
 
         // If the body was chunk encoded, then decode it.
-        if ( ! empty( $process['body'] ) && isset( $arrHeaders['headers']['transfer-encoding'] ) && 'chunked' == $arrHeaders['headers']['transfer-encoding'] )
+        if ( ! empty( $process['body'] ) && isset($arrHeaders['headers']['transfer-encoding'] ) && 'chunked' == $arrHeaders['headers']['transfer-encoding'] ) {
             $process['body'] = org_wordpress_HttpClient::chunkTransferDecode($process['body']);
+        }
 
-        if ( true === $r['decompress'] && true === org_wordpress_HttpClient_Encoding::should_decode($arrHeaders['headers']) )
-            $process['body'] = org_wordpress_HttpClient_Encoding::decompress( $process['body'] );
+        if ( true === $r['decompress'] && true === org_wordpress_HttpClient_Encoding::should_decode($arrHeaders['headers']) ) {
+            $process['body'] = org_wordpress_HttpClient_Encoding::decompress($process['body']);
+        }
 
         return array('headers' => $arrHeaders['headers'], 'body' => $process['body'], 'response' => $arrHeaders['response'], 'cookies' => $arrHeaders['cookies']);
     }
@@ -698,22 +674,21 @@ class org_wordpress_HttpClient_Fsockopen {
     /**
      * Whether this class can be used for retrieving an URL.
      *
-     * @since 2.7.0
-     * @static
+     * @param array $args Optional arguments.
+     *
      * @return boolean False means this class can not be used, true means it can.
      */
-    function test( $args = array() ) {
-        if ( false !== ($option = get_option( 'disable_fsockopen' )) && time()-$option < 43200 ) // 12 hours
-            return false;
-
+    public function test( $args = array() )
+    {
         $is_ssl = isset($args['ssl']) && $args['ssl'];
 
-        if ( ! $is_ssl && function_exists( 'fsockopen' ) )
+        if ( ! $is_ssl && function_exists('fsockopen') ) {
             $use = true;
-        elseif ( $is_ssl && extension_loaded('openssl') && function_exists( 'fsockopen' ) )
+        } elseif ( $is_ssl && extension_loaded('openssl') && function_exists('fsockopen') ) {
             $use = true;
-        else
+        } else {
             $use = false;
+        }
 
         return $use;
     }
@@ -722,15 +697,13 @@ class org_wordpress_HttpClient_Fsockopen {
 /**
  * HTTP request method uses fopen function to retrieve the url.
  *
- * Requires PHP version greater than 4.3.0 for stream support. Does not allow for $context support,
+ * Does not allow for $context support,
  * but should still be okay, to write the headers, before getting the response. Also requires that
  * 'allow_url_fopen' to be enabled.
  *
- * @package WordPress
- * @subpackage HTTP
- * @since 2.7.0
  */
-class org_wordpress_HttpClient_Fopen {
+class org_wordpress_HttpClient_Fopen
+{
     /**
      * Send a HTTP request to a URI using fopen().
      *
@@ -739,16 +712,13 @@ class org_wordpress_HttpClient_Fopen {
      *
      * Notes: Does not support non-blocking mode. Ignores 'redirection' option.
      *
-     * @see org_wordpress_HttpClient::retrieve For default options descriptions.
+     * @param string $url  URI resource.
+     * @param array  $args Optional. Override the defaults.
      *
-     * @access public
-     * @since 2.7.0
-     *
-     * @param string $url URI resource.
-     * @param str|array $args Optional. Override the defaults.
      * @return array 'headers', 'body', 'cookies' and 'response' keys.
      */
-    function request($url, $args = array()) {
+    function request($url, $args = array())
+    {
         $defaults = array(
             'method' => 'GET', 'timeout' => 5,
             'redirection' => 5, 'httpversion' => '1.0',
@@ -756,43 +726,48 @@ class org_wordpress_HttpClient_Fopen {
             'headers' => array(), 'body' => null, 'cookies' => array()
         );
 
-        $r = array_merge( $defaults, $args );
+        $r = array_merge($defaults, $args);
 
         $arrURL = parse_url($url);
 
-        if ( false === $arrURL )
+        if ( false === $arrURL ) {
             throw new Exception(sprintf('Malformed URL: %s'), $url);
+        }
 
-        if ( 'http' != $arrURL['scheme'] && 'https' != $arrURL['scheme'] )
+        if ( 'http' != $arrURL['scheme'] && 'https' != $arrURL['scheme'] ) {
             $url = str_replace($arrURL['scheme'], 'http', $url);
+        }
 
-        if ( is_null( $r['headers'] ) )
+        if ( is_null($r['headers']) ) {
             $r['headers'] = array();
+        }
 
         if ( is_string($r['headers']) ) {
             $processedHeaders = org_wordpress_HttpClient::processHeaders($r['headers']);
-            $r['headers'] = $processedHeaders['headers'];
+            $r['headers']     = $processedHeaders['headers'];
         }
 
         $initial_user_agent = ini_get('user_agent');
 
         if ( !empty($r['headers']) && is_array($r['headers']) ) {
             $user_agent_extra_headers = '';
-            foreach ( $r['headers'] as $header => $value )
+            foreach ( $r['headers'] as $header => $value ) {
                 $user_agent_extra_headers .= "\r\n$header: $value";
+            }
             @ini_set('user_agent', $r['user-agent'] . $user_agent_extra_headers);
         } else {
             @ini_set('user_agent', $r['user-agent']);
         }
 
-            $handle = @fopen($url, 'r');
+        $handle = @fopen($url, 'r');
 
-        if (! $handle)
+        if (! $handle) {
             throw new Exception(sprintf('Could not open handle for fopen() to %s'), $url);
+        }
 
-        $timeout = (int) floor( $r['timeout'] );
+        $timeout  = (int) floor($r['timeout']);
         $utimeout = $timeout == $r['timeout'] ? 0 : 1000000 * $r['timeout'] % 1000000;
-        stream_set_timeout( $handle, $timeout, $utimeout );
+        stream_set_timeout($handle, $timeout, $utimeout);
 
         if ( ! $r['blocking'] ) {
             fclose($handle);
@@ -801,15 +776,17 @@ class org_wordpress_HttpClient_Fopen {
         }
 
         $strResponse = '';
-        while ( ! feof($handle) )
+        while ( ! feof($handle) ) {
             $strResponse .= fread($handle, 4096);
+        }
 
         if ( function_exists('stream_get_meta_data') ) {
             $meta = stream_get_meta_data($handle);
 
             $theHeaders = $meta['wrapper_data'];
-            if ( isset( $meta['wrapper_data']['headers'] ) )
+            if ( isset($meta['wrapper_data']['headers']) ) {
                 $theHeaders = $meta['wrapper_data']['headers'];
+            }
         } else {
             //$http_response_header is a PHP reserved variable which is set in the current-scope when using the HTTP Wrapper
             //see http://php.oregonstate.edu/manual/en/reserved.variables.httpresponseheader.php
@@ -822,11 +799,13 @@ class org_wordpress_HttpClient_Fopen {
 
         $processedHeaders = org_wordpress_HttpClient::processHeaders($theHeaders);
 
-        if ( ! empty( $strResponse ) && isset( $processedHeaders['headers']['transfer-encoding'] ) && 'chunked' == $processedHeaders['headers']['transfer-encoding'] )
+        if ( ! empty( $strResponse ) && isset($processedHeaders['headers']['transfer-encoding'] ) && 'chunked' == $processedHeaders['headers']['transfer-encoding'] ) {
             $strResponse = org_wordpress_HttpClient::chunkTransferDecode($strResponse);
+        }
 
-        if ( true === $r['decompress'] && true === org_wordpress_HttpClient_Encoding::should_decode($processedHeaders['headers']) )
-            $strResponse = org_wordpress_HttpClient_Encoding::decompress( $strResponse );
+        if ( true === $r['decompress'] && true === org_wordpress_HttpClient_Encoding::should_decode($processedHeaders['headers'])) {
+            $strResponse = org_wordpress_HttpClient_Encoding::decompress($strResponse);
+        }
 
         return array('headers' => $processedHeaders['headers'], 'body' => $strResponse, 'response' => $processedHeaders['response'], 'cookies' => $processedHeaders['cookies']);
     }
@@ -834,31 +813,35 @@ class org_wordpress_HttpClient_Fopen {
     /**
      * Whether this class can be used for retrieving an URL.
      *
-     * @since 2.7.0
-     * @static
+     * @param array $args The optional args
+     *
      * @return boolean False means this class can not be used, true means it can.
      */
-    function test($args = array()) {
-        if ( ! function_exists('fopen') || (function_exists('ini_get') && true != ini_get('allow_url_fopen')) )
+    public function test($args = array())
+    {
+        if ( ! function_exists('fopen') || (function_exists('ini_get') && true != ini_get('allow_url_fopen')) ) {
             return false;
+        }
 
-        if ( isset($args['method']) && 'HEAD' == $args['method'] ) //This transport cannot make a HEAD request
+        if ( isset($args['method']) && 'HEAD' == $args['method'] )  {//This transport cannot make a HEAD request
             return false;
+        }
 
         $use = true;
         //PHP does not verify SSL certs, We can only make a request via this transports if SSL Verification is turned off.
         $is_ssl = isset($args['ssl']) && $args['ssl'];
         if ( $is_ssl ) {
-            $is_local = isset($args['local']) && $args['local'];
+            $is_local   = isset($args['local']) && $args['local'];
             $ssl_verify = isset($args['sslverify']) && $args['sslverify'];
-            if ( $is_local && true != true )
+            if ( $is_local && true != true ) {
                 $use = true;
-            elseif ( !$is_local && true != true )
+            } elseif ( !$is_local && true != true ) {
                 $use = true;
-            elseif ( !$ssl_verify )
+            } elseif ( !$ssl_verify ) {
                 $use = true;
-            else
+            } else {
                 $use = false;
+            }
         }
 
         return $use;
@@ -896,7 +879,7 @@ class org_wordpress_HttpClient_Streams {
             'headers' => array(), 'body' => null, 'cookies' => array()
         );
 
-        $r = array_merge( $defaults, $args );
+        $r = array_merge($defaults, $args );
 
         if ( isset($r['headers']['User-Agent']) ) {
             $r['user-agent'] = $r['headers']['User-Agent'];
@@ -988,16 +971,16 @@ class org_wordpress_HttpClient_Streams {
         fclose($handle);
 
         $processedHeaders = array();
-        if ( isset( $meta['wrapper_data']['headers'] ) )
+        if ( isset($meta['wrapper_data']['headers'] ) )
             $processedHeaders = org_wordpress_HttpClient::processHeaders($meta['wrapper_data']['headers']);
         else
             $processedHeaders = org_wordpress_HttpClient::processHeaders($meta['wrapper_data']);
 
-        if ( ! empty( $strResponse ) && isset( $processedHeaders['headers']['transfer-encoding'] ) && 'chunked' == $processedHeaders['headers']['transfer-encoding'] )
+        if ( ! empty( $strResponse ) && isset($processedHeaders['headers']['transfer-encoding'] ) && 'chunked' == $processedHeaders['headers']['transfer-encoding'] )
             $strResponse = org_wordpress_HttpClient::chunkTransferDecode($strResponse);
 
         if ( true === $r['decompress'] && true === org_wordpress_HttpClient_Encoding::should_decode($processedHeaders['headers']) )
-            $strResponse = org_wordpress_HttpClient_Encoding::decompress( $strResponse );
+            $strResponse = org_wordpress_HttpClient_Encoding::decompress($strResponse );
 
         return array('headers' => $processedHeaders['headers'], 'body' => $strResponse, 'response' => $processedHeaders['response'], 'cookies' => $processedHeaders['cookies']);
     }
@@ -1066,7 +1049,7 @@ class org_wordpress_HttpClient_ExtHTTP {
             'headers' => array(), 'body' => null, 'cookies' => array()
         );
 
-        $r = array_merge( $defaults, $args );
+        $r = array_merge($defaults, $args );
 
         if ( isset($r['headers']['User-Agent']) ) {
             $r['user-agent'] = $r['headers']['User-Agent'];
@@ -1154,7 +1137,7 @@ class org_wordpress_HttpClient_ExtHTTP {
 
         $theHeaders = org_wordpress_HttpClient::processHeaders($theHeaders);
 
-        if ( ! empty( $theBody ) && isset( $theHeaders['headers']['transfer-encoding'] ) && 'chunked' == $theHeaders['headers']['transfer-encoding'] ) {
+        if ( ! empty( $theBody ) && isset($theHeaders['headers']['transfer-encoding'] ) && 'chunked' == $theHeaders['headers']['transfer-encoding'] ) {
                 $theBody = @http_chunked_decode($theBody);
         }
 
@@ -1210,7 +1193,7 @@ class org_wordpress_HttpClient_Curl {
             'headers' => array(), 'body' => null, 'cookies' => array()
         );
 
-        $r = array_merge( $defaults, $args );
+        $r = array_merge($defaults, $args );
 
         if ( isset($r['headers']['User-Agent']) ) {
             $r['user-agent'] = $r['headers']['User-Agent'];
@@ -1354,7 +1337,7 @@ class org_wordpress_HttpClient_Curl {
         }
 
         if ( true === $r['decompress'] && true === org_wordpress_HttpClient_Encoding::should_decode($theHeaders['headers']) )
-            $theBody = org_wordpress_HttpClient_Encoding::decompress( $theBody );
+            $theBody = org_wordpress_HttpClient_Encoding::decompress($theBody );
 
         return array('headers' => $theHeaders['headers'], 'body' => $theBody, 'response' => $response, 'cookies' => $theHeaders['cookies']);
     }
@@ -1486,16 +1469,16 @@ class org_wordpress_HttpClient_Cookie {
                 $this->$key = $val;
             }
         } else {
-            if ( !isset( $data['name'] ) )
+            if ( !isset($data['name'] ) )
                 return false;
 
             // Set properties based directly on parameters
             $this->name   = $data['name'];
-            $this->value  = isset( $data['value'] ) ? $data['value'] : '';
-            $this->path   = isset( $data['path'] ) ? $data['path'] : '';
-            $this->domain = isset( $data['domain'] ) ? $data['domain'] : '';
+            $this->value  = isset($data['value'] ) ? $data['value'] : '';
+            $this->path   = isset($data['path'] ) ? $data['path'] : '';
+            $this->domain = isset($data['domain'] ) ? $data['domain'] : '';
 
-            if ( isset( $data['expires'] ) )
+            if ( isset($data['expires'] ) )
                 $this->expires = is_int( $data['expires'] ) ? $data['expires'] : strtotime( $data['expires'] );
             else
                 $this->expires = null;
@@ -1520,13 +1503,13 @@ class org_wordpress_HttpClient_Cookie {
 
         // Get details on the URL we're thinking about sending to
         $url = parse_url( $url );
-        $url['port'] = isset( $url['port'] ) ? $url['port'] : 80;
-        $url['path'] = isset( $url['path'] ) ? $url['path'] : '/';
+        $url['port'] = isset($url['port'] ) ? $url['port'] : 80;
+        $url['path'] = isset($url['path'] ) ? $url['path'] : '/';
 
         // Values to use for comparison against the URL
-        $path   = isset( $this->path )   ? $this->path   : '/';
-        $port   = isset( $this->port )   ? $this->port   : 80;
-        $domain = isset( $this->domain ) ? strtolower( $this->domain ) : strtolower( $url['host'] );
+        $path   = isset($this->path )   ? $this->path   : '/';
+        $port   = isset($this->port )   ? $this->port   : 80;
+        $domain = isset($this->domain ) ? strtolower( $this->domain ) : strtolower( $url['host'] );
         if ( false === stripos( $domain, '.' ) )
             $domain .= '.local';
 
@@ -1615,7 +1598,7 @@ class org_wordpress_HttpClient_Encoding {
      * @param int $length The optional length of the compressed data.
      * @return string|bool False on failure.
      */
-    function decompress( $compressed, $length = null ) {
+    function decompress($compressed, $length = null ) {
 
         if ( empty($compressed) )
             return $compressed;
