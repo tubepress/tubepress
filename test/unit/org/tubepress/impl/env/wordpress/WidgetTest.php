@@ -3,7 +3,7 @@
 require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/impl/env/wordpress/Widget.class.php';
 require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
 
-define('WP_PLUGIN_URL', 'fooby');
+defined('WP_PLUGIN_URL') || define('WP_PLUGIN_URL', 'fooby');
 
 if (!function_exists('__')) {
 function __($something)

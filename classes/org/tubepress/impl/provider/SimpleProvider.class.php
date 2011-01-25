@@ -26,7 +26,9 @@ tubepress_load_classes(array('org_tubepress_api_provider_Provider',
     'org_tubepress_api_url_UrlBuilder',
     'org_tubepress_api_const_options_Feed',
     'org_tubepress_api_feed_FeedResult',
-    'org_tubepress_api_provider_ProviderCalculator'));
+    'org_tubepress_api_provider_ProviderCalculator',
+    'org_tubepress_api_factory_VideoFactory',
+    'org_tubepress_api_querystring_QueryStringService'));
 
 /**
  * Interface to a remove video provider

@@ -2,12 +2,14 @@
 
 require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
 require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/provider/SimpleProvider.class.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/api/video/Video.class.php';
 
 class org_tubepress_impl_provider_ProviderTest extends TubePressUnitTest
 {
 	private $_sut;
 	private static $_totalResultCount;
 	private static $_queryResultCount;
+    private $_fakeVideo;
 
     function setup()
     {
@@ -16,6 +18,7 @@ class org_tubepress_impl_provider_ProviderTest extends TubePressUnitTest
 	$this->initFakeIoc();
 	$this->_sut = new org_tubepress_impl_provider_SimpleProvider();
         org_tubepress_impl_log_Log::setEnabled(false, array());
+        $this->_fakeVideo = new org_tubepress_api_video_Video();
     }
 
 	public function getMock($className)
@@ -32,10 +35,7 @@ class org_tubepress_impl_provider_ProviderTest extends TubePressUnitTest
 		if ($className == 'org_tubepress_api_factory_VideoFactory') {
 			$mock->expects($this->any())
 				->method('feedToVideoArray')
-				->will($this->returnValue(array()));
-			$mock->expects($this->any())
-				->method('convertSingleVideo')
-				->will($this->returnValue('foobar'));
+				->will($this->returnValue(array($this->_fakeVideo)));
 		}	
 		return $mock;
 	}
@@ -85,7 +85,7 @@ class org_tubepress_impl_provider_ProviderTest extends TubePressUnitTest
     function testGetSingleVideo()
     {
         $result = $this->_sut->getSingleVideo('something');
-        $this->assertEquals('f', $result);
+        $this->assertEquals($this->_fakeVideo, $result);
     }
 
     function testGetMultipleVideos()

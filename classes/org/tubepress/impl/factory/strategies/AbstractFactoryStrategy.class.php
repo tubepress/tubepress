@@ -165,20 +165,20 @@ abstract class org_tubepress_impl_factory_strategies_AbstractFactoryStrategy imp
         $authorDisplayName = $this->_getAuthorDisplayName($index);
         $authorUid         = $this->_getAuthorUid($index);
         $category          = $this->_getCategory($index);
-        $commentCount      = number_format($this->_getRawCommentCount($index));
+        $commentCount      = self::_fancyNumber($this->_getRawCommentCount($index));
         $description       = $this->_trimDescription($this->_getDescription($index));
         $duration          = org_tubepress_impl_util_TimeUtils::secondsToHumanTime($this->_getDurationInSeconds($index));
         $homeUrl           = $this->_getHomeUrl($index);
         $id                = $this->_getId($index);
         $keywordsArray     = $this->_getKeywordsArray($index);
-        $likesCount        = number_format($this->_getRawLikeCount($index));
+        $likesCount        = self::_fancyNumber($this->_getRawLikeCount($index));
         $ratingAverage     = $this->_getRatingAverage($index);
-        $ratingCount       = number_format($this->_getRawRatingCount($index));
+        $ratingCount       = self::_fancyNumber($this->_getRawRatingCount($index));
         $thumbUrl          = $this->_pickThumbnailUrl($this->_getThumbnailUrlsArray($index));
         $timeLastUpdated   = $this->_fancyTime($this->_getTimeLastUpdatedInUnixTime($index));
         $timePublished     = $this->_fancyTime($this->_getTimePublishedInUnixTime($index));
         $title             = $this->_getTitle($index);
-        $viewCount         = number_format($this->_getRawViewCount($index));
+        $viewCount         = self::_fancyNumber($this->_getRawViewCount($index));
 
         /* now build a video out of them */
         $vid = new org_tubepress_api_video_Video();
@@ -204,6 +204,14 @@ abstract class org_tubepress_impl_factory_strategies_AbstractFactoryStrategy imp
         return $vid;
     }
     
+    private static function _fancyNumber($num)
+    {
+        if (!is_numeric($num)) {
+            return 'N/A';
+        }
+        return number_format($num);
+    }
+
     private function _fancyTime($unixTime)
     {
         if ($unixTime == '') {

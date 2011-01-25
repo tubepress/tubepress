@@ -20,6 +20,9 @@ class org_tubepress_impl_template_SimpleTemplateTest extends TubePressUnitTest
         $this->_sut->setPath(dirname(__FILE__) . '/nosuchfile.php');
     }       
 
+    /**
+     * @expectedException Exception
+     */
     public function testMissingVariable()
     {
         $this->_sut->setPath(dirname(__FILE__) . '/fake_template.php');

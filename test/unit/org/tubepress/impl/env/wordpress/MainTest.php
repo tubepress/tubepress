@@ -3,7 +3,7 @@
 require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/impl/env/wordpress/Main.class.php';
 require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
 
-define('WP_PLUGIN_URL', 'fooby');
+defined('WP_PLUGIN_URL') || define('WP_PLUGIN_URL', 'fooby');
 
 function add_option($name, $value)
 {

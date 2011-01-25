@@ -24,13 +24,13 @@ class org_tubepress_impl_factory_strategies_YouTubeFactoryStrategyTest extends T
         $this->assertEquals('TheAkcitycouncil', $video->getAuthorDisplayName());
         $this->assertEquals('TheAkcitycouncil', $video->getAuthorUid());
         $this->assertEquals('People & Blogs', $video->getCategory());
-        $this->assertEquals('0', $video->getCommentCount());
+        $this->assertEquals('N/A', $video->getCommentCount());
         $this->assertEquals("Information about shared spaces proposals in the Auckland CBD area.", $video->getDescription());
         $this->assertEquals('4:04', $video->getDuration());
         $this->assertEquals('http://www.youtube.com/watch?v=BRKWi5beywQ&amp;feature=youtube_gdata', $video->getHomeUrl());
         $this->assertEquals('BRKWi5beywQ', $video->getId());
         $this->assertEquals(array('Shared', 'Spaces', 'Upload'), $video->getKeywords());
-        $this->assertEquals('0', $video->getLikesCount());
+        $this->assertEquals('N/A', $video->getLikesCount());
         $this->assertEquals('3.83', $video->getRatingAverage());
         $this->assertEquals('6', $video->getRatingCount());
         $this->assertEquals('http://i.ytimg.com/vi/BRKWi5beywQ/2.jpg', $video->getThumbnailUrl());
