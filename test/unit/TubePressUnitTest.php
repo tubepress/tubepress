@@ -2,21 +2,22 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../classes/tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_options_manager_OptionsManager',
-    'org_tubepress_ioc_IocService',
-    'org_tubepress_options_reference_OptionsReference',
-    'org_tubepress_message_MessageService',
-    'org_tubepress_options_storage_StorageManager',
-    'org_tubepress_url_impl_YouTubeUrlBuilder',
-    'org_tubepress_video_feed_retrieval_HTTPRequest2',
-    'org_tubepress_video_factory_impl_YouTubeVideoFactory',
-    'org_tubepress_embedded_impl_YouTubeEmbeddedPlayerService',
-    'org_tubepress_video_feed_inspection_impl_YouTubeFeedInspectionService',
-    'org_tubepress_cache_CacheService',
-    'org_tubepress_pagination_PaginationService',
-    'org_tubepress_template_SimpleTemplate',
-    'org_tubepress_ioc_IocContainer',
-    'org_tubepress_theme_ThemeHandler'));
+tubepress_load_classes(array('org_tubepress_api_options_OptionsManager',
+    'org_tubepress_api_ioc_IocService',
+    'org_tubepress_impl_options_OptionsReference',
+    'org_tubepress_api_message_MessageService',
+    'org_tubepress_api_options_StorageManager',
+    'org_tubepress_impl_url_YouTubeUrlBuilder',
+    'org_tubepress_impl_feed_HTTPRequest2FeedFetcher',
+    'org_tubepress_impl_factory_YouTubeVideoFactory',
+    'org_tubepress_impl_embedded_YouTubeEmbeddedPlayer',
+    'org_tubepress_impl_feed_YouTubeFeedInspector',
+    'org_tubepress_api_cache_Cache',
+    'org_tubepress_api_pagination_Pagination',
+    'org_tubepress_impl_template_SimpleTemplate',
+    'org_tubepress_impl_ioc_IocContainer',
+    'org_tubepress_impl_filesystem_FsExplorer',
+    'org_tubepress_api_theme_ThemeHandler'));
 
 abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
 {
@@ -24,11 +25,11 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
     
     protected function initFakeIoc()
     {
-        $ioc  = $this->getMock('org_tubepress_ioc_IocService');
+        $ioc  = $this->getMock('org_tubepress_api_ioc_IocService');
         $ioc->expects($this->any())
                    ->method('get')
                    ->will($this->returnCallback(array($this, 'getMock')));
-        org_tubepress_ioc_IocContainer::setInstance($ioc);
+        org_tubepress_impl_ioc_IocContainer::setInstance($ioc);
     }
     
     public function getMock($className)
@@ -36,33 +37,62 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
         $mock = parent::getMock($className);
         
         switch ($className) {
-            case 'org_tubepress_options_manager_OptionsManager':
+            case 'org_tubepress_api_options_OptionsManager':
                 $mock->expects($this->any())
                    ->method('get')
                    ->will($this->returnCallback(array($this, 'optionsCallback')));
-		$mock->expects($this->any())
-		   ->method('setCustomOptions')
-		   ->will($this->returnCallback(array($this, 'setOptions')));
+		        $mock->expects($this->any())
+		           ->method('setCustomOptions')
+		           ->will($this->returnCallback(array($this, 'setOptions')));
+		        $mock->expects($this->any())
+		             ->method('getCustomOptions')
+		             ->will($this->returnValue($this->options));
                 break;
-            case 'org_tubepress_message_MessageService':
-            case 'org_tubepress_options_storage_StorageManager':
+                
+            case 'org_tubepress_api_message_MessageService':
+            case 'org_tubepress_api_options_StorageManager':
                 $mock->expects($this->any())
                    ->method('_')
                    ->will($this->returnCallback(array($this, 'echoCallback')));
                 break;
-            case 'org_tubepress_theme_ThemeHandler':
+                
+            case 'org_tubepress_api_theme_ThemeHandler':
                 $mock->expects($this->any())
                      ->method('getTemplateInstance')
                      ->will($this->returnCallback(array($this, 'templateCallback')));
+                $mock->expects($this->any())
+                     ->method('getCssPath')
+                     ->will($this->returnCallback(array($this, 'cssPathCallback')));
+                break;
+                
+            case 'org_tubepress_api_filesystem_Explorer':
+                $mock->expects($this->any())
+                     ->method('getTubePressBaseInstallationPath')
+                     ->will($this->returnValue(realpath(dirname(__FILE__) . '/../../')));
+                $mock->expects($this->any())
+                     ->method('getFilenamesInDirectory')
+                     ->will($this->returnValue(array()));
+                break;
+                
             default:
                 break;
         }
         return $mock;
     }
+
+    public function cssPathCallback()
+    {
+        $args = func_get_args();
+        if (count($args) === 1 || !$args[1]) {
+            return dirname(__FILE__) . '/../../ui/themes/' . $args[0] . '/style.css';
+        }
+        return 'ui/themes/' . $args[0] . '/style.css';
+    }
+    
     
     public function templateCallback()
     {
-        $template = new org_tubepress_template_SimpleTemplate();
+        $template = new org_tubepress_impl_template_SimpleTemplate();
         $args = func_get_args();
         $template->setPath(dirname(__FILE__) . '/../../ui/themes/default/' .$args[0]);
         return $template;
@@ -89,7 +119,7 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
             return $this->options[$args[0]];
         }
         
-        return org_tubepress_options_reference_OptionsReference::getDefaultValue($args[0]);
+        return org_tubepress_impl_options_OptionsReference::getDefaultValue($args[0]);
     }
 }
 ?>
