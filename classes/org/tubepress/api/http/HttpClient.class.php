@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2010 Eric D. Hough (http://ehough.com)
  * 
  * This file is part of TubePress (http://tubepress.org)
  * 
@@ -20,16 +20,34 @@
  */
 
 /**
- * Finds the first strategy to execute and executes it.
+ * Handles HTTP client functionality.
  */
-interface org_tubepress_api_patterns_StrategyManager
+interface org_tubepress_api_http_HttpClient
 {
+    const HTTP_METHOD_GET  = 'GET';
+    const HTTP_METHOD_POST = 'POST';
+    const HTTP_METHOD_PUT = 'PUT';
+
+    const HTTP_HEADER_CONTENT_LENGTH = 'Content-Length';
+    const HTTP_HEADER_USER_AGENT     = 'User-Agent';
+
     /**
-     * Executes the given strategies.
+     * Get.
      *
-     * @param array $strategyInstances An array of org_tubepress_api_patterns_Strategy class names to execute.
+     * @param string $url URI resource.
      *
-     * @return unknown The result of the strategy execution.
+     * @return string Resulting body as a string (could be null)
      */
-    function executeStrategy($strategyInstances);
+    function get($url);
+
+    /**
+     * Post.
+     *
+     * @param string $url   URI resource.
+     * @param unknown $body The HTTP body.
+     *
+     * @return string Resulting body as a string (could be null)
+     */
+    function post($url, $body);
 }
+
