@@ -19,6 +19,11 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require dirname(__FILE__) . '/../../../../../../../tubepress_classloader.php';
+tubepress_load_classes(array('org_tubepress_impl_http_clientimpl_strategies_AbstractHttpStrategy',
+    'org_tubepress_impl_http_FastHttpClient'));
+
 /**
  * Lifted from http://core.trac.wordpress.org/browser/tags/3.0.4/wp-includes/class-http.php
  *
@@ -61,25 +66,21 @@ class org_tubepress_impl_http_clientimpl_strategies_ExtHttpStrategy extends org_
             $url = preg_replace('|^' . preg_quote($urlAsArray['scheme'], '|') . '|', 'http', $url);
         }
 
-        $sslVerify = isset($args['sslverify']) && $args['sslverify'];
+        $sslVerify = isset($args[org_tubepress_impl_http_FastHttpClient::ARGS_SSL_VERIFY]) && $args[org_tubepress_impl_http_FastHttpClient::ARGS_SSL_VERIFY];
 
         $args[org_tubepress_impl_http_FastHttpClient::ARGS_TIMEOUT] = (int) ceil($args[org_tubepress_impl_http_FastHttpClient::ARGS_TIMEOUT]);
 
         $options = array(
             'timeout'        => $args[org_tubepress_impl_http_FastHttpClient::ARGS_TIMEOUT],
             'connecttimeout' => $args[org_tubepress_impl_http_FastHttpClient::ARGS_TIMEOUT],
-            'redirect'       => $args['redirection'],
-            'useragent'      => $args['user-agent'],
-            'headers'        => $args['headers'],
+            'redirect'       => 5,
+            'useragent'      => $args[org_tubepress_impl_http_FastHttpClient::ARGS_USER_AGENT],
+            'headers'        => $args[org_tubepress_impl_http_FastHttpClient::ARGS_HEADERS],
             'ssl'            => array(
                 'verifypeer' => $sslVerify,
                 'verifyhost' => $sslVerify
             )
         );
-
-        if (HTTP_METH_HEAD == $args[org_tubepress_impl_http_FastHttpClient::ARGS_METHOD]) {
-            $options['redirect'] = 0; // Assumption: Docs seem to suggest that this means do not follow. Untested.
-        }
 
         $strResponse = @http_request($args[org_tubepress_impl_http_FastHttpClient::ARGS_METHOD], $url, $args[org_tubepress_impl_http_FastHttpClient::ARGS_BODY], $options, $info);
 
@@ -89,27 +90,23 @@ class org_tubepress_impl_http_clientimpl_strategies_ExtHttpStrategy extends org_
             throw new Exception($info['response_code'] . ': ' . $info['error']);
         }
 
-        if (! $args['blocking']) {
-            return array('headers' => array(), 'body' => '', 'response' => array('code' => false, 'message' => false), 'cookies' => array());
-        }
+        $headersBody = self::_breakRawStringResponseIntoHeaderAndBody($strResponse);
+        $theHeaders   = $headersBody[org_tubepress_impl_http_FastHttpClient::ARGS_HEADERS];
+        $theBody      = $headersBody[org_tubepress_impl_http_FastHttpClient::ARGS_BODY];
 
-        $headers_body = org_wordpress_HttpClient::processResponse($strResponse);
-        $theHeaders   = $headers_body[org_tubepress_impl_http_FastHttpClient::ARGS_HEADERS];
-        $theBody      = $headers_body[org_tubepress_impl_http_FastHttpClient::ARGS_BODY];
+        unset($headersBody);
 
-        unset($headers_body);
-
-        $theHeaders = org_wordpress_HttpClient::processHeaders($theHeaders);
+        $theHeaders = self::_getProcessedHeaders($theHeaders);
 
         if (! empty($theBody) && isset($theHeaders['headers']['transfer-encoding']) && 'chunked' == $theHeaders['headers']['transfer-encoding']) {
             $theBody = @http_chunked_decode($theBody);
         }
 
-        if (true === $args['decompress'] && true === org_wordpress_HttpClient_Encoding::should_decode($theHeaders['headers'])) {
+        if (true === $args['decompress'] && true === org_tubepress_impl_http_clientimpl_Encoding::shouldDecode($theHeaders['headers'])) {
             $theBody = http_inflate($theBody);
         }
 
-        return $theBody;
+        return array('headers' => $theHeaders['headers'], 'body' => $theBody, 'response' => $theHeaders['response'], 'cookies' => $theHeaders['cookies']);
     }
 
     /**

@@ -19,6 +19,11 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require dirname(__FILE__) . '/../../../../../../../tubepress_classloader.php';
+tubepress_load_classes(array('org_tubepress_impl_http_clientimpl_strategies_AbstractHttpStrategy',
+    'org_tubepress_impl_http_FastHttpClient'));
+
 /**
  * Lifted from http://core.trac.wordpress.org/browser/tags/3.0.4/wp-includes/class-http.php
  *
@@ -31,19 +36,19 @@ class org_tubepress_impl_http_clientimpl_strategies_CurlStrategy extends org_tub
     /**
      * Send a HTTP request to a URI using cURL extension.
      *
-     * @param string    $url  The URL to handle.
-     * @param str|array $args Optional. Override the defaults.
+     * @param string    $url The URL to handle.
+     * @param str|array $r   Optional. Override the defaults.
      *
      * @return array 'headers', 'body', 'cookies' and 'response' keys.
      */
-    protected function _doExecute($url, $args = array())
+    protected function _doExecute($url, $r)
     {
         $handle    = curl_init();
-        $sslVerify = isset($args['sslverify']) && $args['sslverify'];
+        $sslVerify = isset($r[org_tubepress_impl_http_FastHttpClient::ARGS_SSL_VERIFY]) && $r[org_tubepress_impl_http_FastHttpClient::ARGS_SSL_VERIFY];
 
         // CURLOPT_TIMEOUT and CURLOPT_CONNECTTIMEOUT expect integers.  Have to use ceil since
         // a value of 0 will allow an ulimited timeout.
-        $timeout = (int) ceil($r['timeout']);
+        $timeout = (int) ceil($r[org_tubepress_impl_http_FastHttpClient::ARGS_TIMEOUT]);
         curl_setopt($handle, CURLOPT_CONNECTTIMEOUT, $timeout);
         curl_setopt($handle, CURLOPT_TIMEOUT, $timeout);
 
@@ -51,13 +56,10 @@ class org_tubepress_impl_http_clientimpl_strategies_CurlStrategy extends org_tub
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, $sslVerify);
         curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, $sslVerify);
-        curl_setopt($handle, CURLOPT_USERAGENT, $r['user-agent']);
-        curl_setopt($handle, CURLOPT_MAXREDIRS, $r['redirection']);
+        curl_setopt($handle, CURLOPT_USERAGENT, $r[org_tubepress_impl_http_FastHttpClient::ARGS_USER_AGENT]);
+        curl_setopt($handle, CURLOPT_MAXREDIRS, 5);
 
-        switch ($r['method']) {
-        case 'HEAD':
-            curl_setopt($handle, CURLOPT_NOBODY, true);
-            break;
+        switch ($r[org_tubepress_impl_http_FastHttpClient::ARGS_METHOD]) {
         case 'POST':
             curl_setopt($handle, CURLOPT_POST, true);
             curl_setopt($handle, CURLOPT_POSTFIELDS, $r['body']);
@@ -68,38 +70,27 @@ class org_tubepress_impl_http_clientimpl_strategies_CurlStrategy extends org_tub
             break;
         }
 
-        if (true === $r['blocking']) {
-            curl_setopt($handle, CURLOPT_HEADER, true);
-        } else {
-            curl_setopt($handle, CURLOPT_HEADER, false);
-        }
+        curl_setopt($handle, CURLOPT_HEADER, true);
 
         // The option doesn't work with safe mode or when open_basedir is set.
         // Disable HEAD when making HEAD requests.
-        if (!ini_get('safe_mode') && !ini_get('open_basedir') && 'HEAD' != $r['method']) {
+        if (!ini_get('safe_mode') && !ini_get('open_basedir')) {
             curl_setopt($handle, CURLOPT_FOLLOWLOCATION, true);
         }
 
-        if (!empty($r['headers'])) {
+        if (!empty($r[org_tubepress_impl_http_FastHttpClient::ARGS_HEADERS])) {
             // cURL expects full header strings in each element
             $headers = array();
-            foreach ($r['headers'] as $name => $value) {
+            foreach ($r[org_tubepress_impl_http_FastHttpClient::ARGS_HEADERS] as $name => $value) {
                 $headers[] = "{$name}: $value";
             }
             curl_setopt($handle, CURLOPT_HTTPHEADER, $headers);
         }
 
-        if ($r['httpversion'] == '1.0') {
+        if ($r[org_tubepress_impl_http_FastHttpClient::ARGS_HTTP_VERSION] == '1.0') {
             curl_setopt($handle, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
         } else {
             curl_setopt($handle, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-        }
-
-        // We don't need to return the body, so don't. Just execute request and return.
-        if (! $r['blocking']) {
-            curl_exec($handle);
-            curl_close($handle);
-            return array('headers' => array(), 'body' => '', 'response' => array('code' => false, 'message' => false), 'cookies' => array());
         }
 
         $theResponse = curl_exec($handle);
@@ -119,7 +110,7 @@ class org_tubepress_impl_http_clientimpl_strategies_CurlStrategy extends org_tub
                 $headerParts = explode("\r\n\r\n", $theHeaders);
                 $theHeaders  = $headerParts[ count($headerParts) -1 ];
             }
-            $theHeaders = org_wordpress_HttpClient::processHeaders($theHeaders);
+            $theHeaders = self::_getProcessedHeaders($theHeaders);
 
         } else {
             if ($curlError = curl_error($handle)) {
@@ -135,12 +126,12 @@ class org_tubepress_impl_http_clientimpl_strategies_CurlStrategy extends org_tub
 
         $response            = array();
         $response['code']    = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-        $response['message'] = get_status_header_desc($response['code']);
+        $response['message'] = $response['code'];
 
         curl_close($handle);
 
-        if (true === $r['decompress'] && true === org_wordpress_HttpClient_Encoding::should_decode($theHeaders['headers'])) {
-            $theBody = org_wordpress_HttpClient_Encoding::decompress($theBody);
+        if (true === $r[org_tubepress_impl_http_FastHttpClient::ARGS_DECOMPRESS] && true === org_tubepress_impl_http_clientimpl_Encoding::shouldDecode($theHeaders['headers'])) {
+            $theBody = org_tubepress_impl_http_clientimpl_Encoding::decompress($theBody);
         }
 
         return array('headers' => $theHeaders['headers'], 'body' => $theBody, 'response' => $response, 'cookies' => $theHeaders['cookies']);
@@ -152,7 +143,7 @@ class org_tubepress_impl_http_clientimpl_strategies_CurlStrategy extends org_tub
      *
      * @return boolean True if the strategy can handle the request, false otherwise.
      */
-    function canHandle();
+    function canHandle()
     {
         return function_exists('curl_init') && function_exists('curl_exec');
     }

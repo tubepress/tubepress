@@ -50,7 +50,8 @@ class org_tubepress_impl_http_FastHttpClient implements org_tubepress_api_http_H
     /**
      * Post.
      *
-     * @param string $url URI resource.
+     * @param string  $url  URI resource.
+     * @param unknown $body The body of the POST
      *
      * @return string Resulting body as a string (could be null)
      */
@@ -79,24 +80,14 @@ class org_tubepress_impl_http_FastHttpClient implements org_tubepress_api_http_H
      *
      * The body and headers are part of the arguments. The 'body' argument is for the body and will
      * accept either a string or an array. The 'headers' argument should be an array, but a string
-     * is acceptable. If the 'body' argument is an array, then it will automatically be escaped
-     * using http_build_query().
+     * is acceptable.
      *
      * The only URI that are supported in the HTTP Transport implementation are the HTTP and HTTPS
      * protocols. HTTP and HTTPS are assumed so the server might not know how to handle the send
      * headers. Other protocols are unsupported and most likely will fail.
      *
-     * Accepted self::ARGS_METHOD values are 'GET', 'POST', and 'HEAD', some transports technically allow
-     * others, but should not be assumed. The 'timeout' is used to sent how long the connection
-     * should stay open before failing when no response. 'redirection' is used to track how many
-     * redirects were taken and used to sent the amount for other transports, but not all transports
-     * accept setting that value.
-     *
-     * The 'httpversion' option is used to sent the HTTP version and accepted values are '1.0', and
-     * '1.1' and should be a string. Version 1.1 is not supported, because of chunk response.
-     *
-     * @param string $url        URI resource.
-     * @param array  $methodName GET|POST
+     * @param string $url  URI resource.
+     * @param array  $args Generic HTTP options.
      *
      * @return array containing 'headers', 'body', 'response', 'cookies'
      */
@@ -115,7 +106,7 @@ class org_tubepress_impl_http_FastHttpClient implements org_tubepress_api_http_H
             self::ARGS_SSL_VERIFY   => true
         );
 
-        $r = array_merge($defaults, $args);
+        $r      = array_merge($defaults, $args);
         $arrURL = parse_url($url);
 
         if (empty($url) || empty($arrURL['scheme'])) {
@@ -132,8 +123,10 @@ class org_tubepress_impl_http_FastHttpClient implements org_tubepress_api_http_H
         $r['local'] = 'localhost' == $arrURL['host'];
 
         if (org_tubepress_impl_http_clientimpl_Encoding::isCompressionAvailable()) {
+
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'HTTP compression is available. Yay!');
             $r[self::ARGS_HEADERS][org_tubepress_api_http_HttpClient::HTTP_HEADER_ACCEPT_ENCODING] = org_tubepress_impl_http_clientimpl_Encoding::getAcceptEncodingString();
+
         } else {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'HTTP compression is NOT available. Boo.');
         }

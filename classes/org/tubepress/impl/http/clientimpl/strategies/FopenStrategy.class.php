@@ -19,6 +19,11 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require dirname(__FILE__) . '/../../../../../../../tubepress_classloader.php';
+tubepress_load_classes(array('org_tubepress_impl_http_clientimpl_strategies_AbstractHttpStrategy',
+    'org_tubepress_impl_http_FastHttpClient'));
+
 /**
  * Lifted from http://core.trac.wordpress.org/browser/tags/3.0.4/wp-includes/class-http.php
  *
@@ -29,54 +34,39 @@
  * 'allow_url_fopen' to be enabled.
  *
  */
-class org_wordpress_HttpClient_Fopen  extends org_tubepress_impl_http_clientimpl_strategies_AbstractHttpStrategy
+class org_tubepress_impl_http_clientimpl_strategies_FopenStrategy  extends org_tubepress_impl_http_clientimpl_strategies_AbstractHttpStrategy
 {
+    const INI_USER_AGENT = 'user_agent';
+
     /**
      * Send a HTTP request to a URI using fopen().
      *
      * This transport does not support sending of headers and body, therefore should not be used in
      * the instances, where there is a body and headers.
      *
-     * Notes: Does not support non-blocking mode. Ignores 'redirection' option.
-     *
      * @param string $url  URI resource.
      * @param array  $args Optional. Override the defaults.
      *
      * @return array 'headers', 'body', 'cookies' and 'response' keys.
      */
-    protected function _doExecute($url, $args = array())
+    protected function _doExecute($url, $r)
     {
-
-
         $arrURL = parse_url($url);
-
-        if (false === $arrURL) {
-            throw new Exception(sprintf('Malformed URL: %s'), $url);
-        }
 
         if ('http' != $arrURL['scheme'] && 'https' != $arrURL['scheme']) {
             $url = str_replace($arrURL['scheme'], 'http', $url);
         }
 
-        if (is_null($r['headers'])) {
-            $r['headers'] = array();
-        }
+        $initialUserAgent = ini_get(self::INI_USER_AGENT);
 
-        if (is_string($r['headers'])) {
-            $processedHeaders = org_wordpress_HttpClient::processHeaders($r['headers']);
-            $r['headers']     = $processedHeaders['headers'];
-        }
-
-        $initial_user_agent = ini_get('user_agent');
-
-        if (!empty($r['headers']) && is_array($r['headers'])) {
+        if (!empty($r[org_tubepress_impl_http_FastHttpClient::ARGS_HEADERS]) && is_array($r[org_tubepress_impl_http_FastHttpClient::ARGS_HEADERS])) {
             $user_agent_extra_headers = '';
-            foreach ($r['headers'] as $header => $value) {
+            foreach ($r[org_tubepress_impl_http_FastHttpClient::ARGS_HEADERS] as $header => $value) {
                 $user_agent_extra_headers .= "\r\n$header: $value";
             }
-            @ini_set('user_agent', $r['user-agent'] . $user_agent_extra_headers);
+            @ini_set(self::INI_USER_AGENT, $r[org_tubepress_impl_http_FastHttpClient::ARGS_HEADERS] . $user_agent_extra_headers);
         } else {
-            @ini_set('user_agent', $r['user-agent']);
+            @ini_set(self::INI_USER_AGENT, $r[org_tubepress_impl_http_FastHttpClient::ARGS_HEADERS]);
         }
 
         $handle = @fopen($url, 'r');
@@ -85,15 +75,9 @@ class org_wordpress_HttpClient_Fopen  extends org_tubepress_impl_http_clientimpl
             throw new Exception(sprintf('Could not open handle for fopen() to %s'), $url);
         }
 
-        $timeout  = (int) floor($r['timeout']);
-        $utimeout = $timeout == $r['timeout'] ? 0 : 1000000 * $r['timeout'] % 1000000;
+        $timeout  = (int) floor($r[org_tubepress_impl_http_FastHttpClient::ARGS_TIMEOUT]);
+        $utimeout = $timeout == $r[org_tubepress_impl_http_FastHttpClient::ARGS_TIMEOUT] ? 0 : 1000000 * $r['timeout'] % 1000000;
         stream_set_timeout($handle, $timeout, $utimeout);
-
-        if (! $r['blocking']) {
-            fclose($handle);
-            @ini_set('user_agent', $initial_user_agent); //Clean up any extra headers added
-            return array('headers' => array(), 'body' => '', 'response' => array('code' => false, 'message' => false), 'cookies' => array());
-        }
 
         $strResponse = '';
         while (! feof($handle)) {
@@ -115,16 +99,16 @@ class org_wordpress_HttpClient_Fopen  extends org_tubepress_impl_http_clientimpl
 
         fclose($handle);
 
-        @ini_set('user_agent', $initial_user_agent); //Clean up any extra headers added
+        @ini_set(self::INI_USER_AGENT, $initialUserAgent); //Clean up any extra headers added
 
-        $processedHeaders = org_wordpress_HttpClient::processHeaders($theHeaders);
+        $processedHeaders = self::_getProcessedHeaders($theHeaders);
 
         if (! empty($strResponse) && isset($processedHeaders['headers']['transfer-encoding']) && 'chunked' == $processedHeaders['headers']['transfer-encoding']) {
-            $strResponse = org_wordpress_HttpClient::chunkTransferDecode($strResponse);
+            $strResponse = org_tubepress_impl_http_clientimpl_Encoding::chunkTransferDecode($strResponse);
         }
 
-        if (true === $r['decompress'] && true === org_wordpress_HttpClient_Encoding::should_decode($processedHeaders['headers'])) {
-            $strResponse = org_wordpress_HttpClient_Encoding::decompress($strResponse);
+        if (true === $r['decompress'] && true === org_tubepress_impl_http_clientimpl_Encoding::shouldDecode($processedHeaders['headers'])) {
+            $strResponse = org_tubepress_impl_http_clientimpl_Encoding::decompress($strResponse);
         }
 
         return array('headers' => $processedHeaders['headers'], 'body' => $strResponse, 'response' => $processedHeaders['response'], 'cookies' => $processedHeaders['cookies']);
@@ -137,28 +121,29 @@ class org_wordpress_HttpClient_Fopen  extends org_tubepress_impl_http_clientimpl
      *
      * @return boolean False means this class can not be used, true means it can.
      */
-    public function test($args = array())
+    public function canHandle()
     {
+        $args = func_get_args();
+        $url  = $args[0];
+        $r    = $args[1];
+
         if (! function_exists('fopen') || (function_exists('ini_get') && true != ini_get('allow_url_fopen'))) {
             return false;
         }
 
-        //This transport cannot make a HEAD request
-        if (isset($args['method']) && 'HEAD' == $args['method']) {
-            return false;
-        }
-
         $use = true;
+
         //PHP does not verify SSL certs, We can only make a request via this transports if SSL Verification is turned off.
-        $is_ssl = isset($args['ssl']) && $args['ssl'];
-        if ($is_ssl) {
-            $is_local   = isset($args['local']) && $args['local'];
-            $ssl_verify = isset($args['sslverify']) && $args['sslverify'];
-            if ($is_local && true != true) {
+        $isSsl = isset($args[org_tubepress_impl_http_FastHttpClient::ARGS_IS_SSL]) && $args[org_tubepress_impl_http_FastHttpClient::ARGS_IS_SSL];
+
+        if ($isSsl) {
+            $isLocal   = isset($args['local']) && $args['local'];
+            $sslVerify = isset($args[org_tubepress_impl_http_FastHttpClient::ARGS_SSL_VERIFY]) && $args[org_tubepress_impl_http_FastHttpClient::ARGS_SSL_VERIFY];
+            if ($isLocal && true != true) {
                 $use = true;
-            } elseif (!$is_local && true != true) {
+            } elseif (!$isLocal && true != true) {
                 $use = true;
-            } elseif (!$ssl_verify) {
+            } elseif (!$sslVerify) {
                 $use = true;
             } else {
                 $use = false;

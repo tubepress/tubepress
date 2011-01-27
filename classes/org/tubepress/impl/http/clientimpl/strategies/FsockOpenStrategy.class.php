@@ -21,7 +21,8 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_impl_http_clientimpl_strategies_AbstractHttpStrategy'));
+tubepress_load_classes(array('org_tubepress_impl_http_clientimpl_strategies_AbstractHttpStrategy',
+    'org_tubepress_impl_http_FastHttpClient'));
 
 /**
  * Lifted from http://core.trac.wordpress.org/browser/tags/3.0.4/wp-includes/class-http.php
@@ -44,7 +45,7 @@ class org_tubepress_impl_http_clientimpl_strategies_FsockOpenStrategy extends or
      *
      * @return array 'headers', 'body', 'cookies' and 'response' keys.
      */
-    protected function _doExecute($url, $r = array())
+    protected function _doExecute($url, $r)
     {
         $iError           = null; // Store error number
         $strError         = null; // Store error string
@@ -157,7 +158,7 @@ class org_tubepress_impl_http_clientimpl_strategies_FsockOpenStrategy extends or
      */
     public function canHandle()
     {
-        $isSsl = isset($args[org_tubepress_impl_http_FastHttpClient::ARGS_SSL]) && $args[org_tubepress_impl_http_FastHttpClient::ARGS_SSL];
+        $isSsl = isset($args[org_tubepress_impl_http_FastHttpClient::ARGS_IS_SSL]) && $args[org_tubepress_impl_http_FastHttpClient::ARGS_IS_SSL];
 
         if (! $isSsl && function_exists('fsockopen')) {
             $use = true;
