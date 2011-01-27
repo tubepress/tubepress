@@ -147,15 +147,11 @@ class org_tubepress_impl_http_FastHttpClient implements org_tubepress_api_http_H
             $r[self::ARGS_HEADERS][org_tubepress_api_http_HttpClient::HTTP_HEADER_CONTENT_LENGTH] = strlen($r[self::ARGS_BODY]);
         }
 
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $sm  = $ioc->get('org_tubepress_api_patterns_StrategyManager');
+        $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $strategies = self::_getTransportStrategies($ioc);
+        $sm         = $ioc->get('org_tubepress_api_patterns_StrategyManager');
 
-        $result = $sm->executeStrategy(array(
-            'org_tubepress_impl_http_clientimpl_strategies_ExtHttpStrategy',
-            'org_tubepress_impl_http_clientimpl_strategies_CurlStrategy',
-            'org_tubepress_impl_http_clientimpl_strategies_StreamsStrategy',
-            'org_tubepress_impl_http_clientimpl_strategies_FopenStrategy',
-            'org_tubepress_impl_http_clientimpl_strategies_FsockOpenStrategy'), $url, $r);
+        $result = $sm->executeStrategy($strategies, $url, $r);
 
         if (is_null($result)) {
             throw new Exception("Could not retrieve $url");
@@ -163,6 +159,48 @@ class org_tubepress_impl_http_FastHttpClient implements org_tubepress_api_http_H
 
         //log
 
+        return $result;
+    }
+
+    private static function _getTransportStrategies(org_tubepress_api_ioc_IocService $ioc)
+    {
+        $result = array();
+        $tpom   = $ioc->get('org_tubepress_api_options_OptionsManager');
+
+        if (!$tpom->get(org_tubepress_api_const_options_Advanced::DISABLE_HTTP_EXTHTTP)) {
+            $result[] = 'org_tubepress_impl_http_clientimpl_strategies_ExtHttpStrategy'; 
+        } else {
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'ExtHttp transport disabled by request');
+        }
+
+        if (!$tpom->get(org_tubepress_api_const_options_Advanced::DISABLE_HTTP_CURL)) {
+            $result[] = 'org_tubepress_impl_http_clientimpl_strategies_CurlStrategy'; 
+        } else {
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Curl transport disabled by request');
+        }
+
+        if (!$tpom->get(org_tubepress_api_const_options_Advanced::DISABLE_HTTP_STREAMS)) {
+            $result[] = 'org_tubepress_impl_http_clientimpl_strategies_StreamsStrategy'; 
+        } else {
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Streams transport disabled by request');
+        }
+
+        if (!$tpom->get(org_tubepress_api_const_options_Advanced::DISABLE_HTTP_FOPEN)) {
+            $result[] = 'org_tubepress_impl_http_clientimpl_strategies_FopenStrategy'; 
+        } else {
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'fopen transport disabled by request');
+        }
+
+        if (!$tpom->get(org_tubepress_api_const_options_Advanced::DISABLE_HTTP_FSOCKOPEN)) {
+            $result[] = 'org_tubepress_impl_http_clientimpl_strategies_FsockOpenStrategy'; 
+        } else {
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'fsockopen transport disabled by request');
+        }
+
+        if (sizeof($result) === 0) {
+            throw new Exception("Must enable at least one HTTP transport");
+        }
+        
         return $result;
     }
 }

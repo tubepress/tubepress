@@ -39,6 +39,11 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
         ),
         org_tubepress_api_const_options_OptionType::BOOL => array(
             org_tubepress_api_const_options_Advanced::DEBUG_ON           => true,
+            org_tubepress_api_const_options_Advanced::DISABLE_HTTP_CURL      => false,
+            org_tubepress_api_const_options_Advanced::DISABLE_HTTP_EXTHTTP   => false,
+            org_tubepress_api_const_options_Advanced::DISABLE_HTTP_FOPEN     => false,
+            org_tubepress_api_const_options_Advanced::DISABLE_HTTP_FSOCKOPEN => false,
+            org_tubepress_api_const_options_Advanced::DISABLE_HTTP_STREAMS   => false,
             org_tubepress_api_const_options_Display::RANDOM_THUMBS       => true,
             org_tubepress_api_const_options_Display::RELATIVE_DATES      => false,
             org_tubepress_api_const_options_Display::PAGINATE_ABOVE      => true,
@@ -103,7 +108,7 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
 	function testGetAdvancedOptionNames()
 	{
 	    $expectedNames = array(
-	    	'dateFormat', 'debugging_enabled', 'keyword',
+	    	'dateFormat', 'debugging_enabled',  'disableHttpTransportCurl', 'disableHttpTransportExtHttp', 'disableHttpTransportFopen', 'disableHttpTransportFsockOpen', 'disableHttpTransportStreams', 'keyword',
 	    	'videoBlacklist'
 	    );
 	    $this->assertTrue($expectedNames == org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::ADVANCED));

@@ -58,6 +58,6 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocService extends org_tubepress
         $this->bind('org_tubepress_api_factory_VideoFactory')          ->to('org_tubepress_impl_factory_DelegatingVideoFactory');
         $this->bind('org_tubepress_api_feed_FeedInspector')            ->to('org_tubepress_impl_feed_DelegatingFeedInspector');
         $this->bind('org_tubepress_api_provider_Provider')             ->to('org_tubepress_impl_provider_SimpleProvider');
-        $this->bind('org_tubepress_api_feed_FeedFetcher')              ->to('org_tubepress_impl_feed_HTTPRequest2FeedFetcher');
+        $this->bind('org_tubepress_api_feed_FeedFetcher')              ->to('org_tubepress_impl_feed_FastHttpClientFeedFetcher');
     }
 }
