@@ -19,6 +19,10 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require dirname(__FILE__) . '/../../../../../../../tubepress_classloader.php';
+tubepress_load_classes(array('org_tubepress_impl_http_clientimpl_strategies_AbstractHttpStrategy'));
+
 /**
  * Lifted from http://core.trac.wordpress.org/browser/tags/3.0.4/wp-includes/class-http.php
  *
@@ -28,7 +32,7 @@
  * the HTTP transport implementations.
  *
  */
-class org_wordpress_HttpClient_Fsockopen
+class org_tubepress_impl_http_clientimpl_strategies_FsockOpenStrategy extends org_tubepress_impl_http_clientimpl_strategies_AbstractHttpStrategy
 {
     /**
      * Send a HTTP request to a URI using fsockopen().
@@ -36,32 +40,12 @@ class org_wordpress_HttpClient_Fsockopen
      * Does not support non-blocking mode.
      *
      * @param string $url  URI resource.
-     * @param array  $args Optional. Override the defaults.
+     * @param array  $r    Optional. Override the defaults.
      *
      * @return array 'headers', 'body', 'cookies' and 'response' keys.
      */
-    public function request($url, $args = array())
+    protected function _doExecute($url, $r = array())
     {
-        $defaults = array(
-            'method' => 'GET', 'timeout' => 5,
-            'redirection' => 5, 'httpversion' => '1.0',
-            'blocking' => true,
-            'headers' => array(), 'body' => null, 'cookies' => array()
-        );
-
-        $r = array_merge($defaults, $args);
-
-        if (isset($r['headers']['User-Agent'])) {
-            $r['user-agent'] = $r['headers']['User-Agent'];
-            unset($r['headers']['User-Agent']);
-        } else if (isset($r['headers']['user-agent'])) {
-            $r['user-agent'] = $r['headers']['user-agent'];
-            unset($r['headers']['user-agent']);
-        }
-
-        // Construct Cookie: header if any cookies are set
-        org_wordpress_HttpClient::buildCookieHeader($r);
-
         $iError           = null; // Store error number
         $strError         = null; // Store error string
         $arrURL           = parse_url($url);
@@ -90,7 +74,7 @@ class org_wordpress_HttpClient_Fsockopen
             $error_reporting = error_reporting(0);
         }
 
-        $handle = @fsockopen($fsockopen_host, $arrURL['port'], $iError, $strError, $r['timeout']);
+        $handle = @fsockopen($fsockopen_host, $arrURL['port'], $iError, $strError, $r[org_tubepress_impl_http_FastHttpClient::ARGS_TIMEOUT]);
 
         if (false === $handle) {
             throw new Exception($iError . ': ' . $strError);
@@ -106,33 +90,28 @@ class org_wordpress_HttpClient_Fsockopen
             $requestPath .= '/';
         }
 
-        $strHeaders  = strtoupper($r['method']) . ' ' . $requestPath . ' HTTP/' . $r['httpversion'] . "\r\n";
+        $strHeaders  = strtoupper($r[org_tubepress_impl_http_FastHttpClient::ARGS_METHOD]) . ' ' . $requestPath . ' HTTP/' . $r[org_tubepress_impl_http_FastHttpClient::ARGS_HTTP_VERSION] . "\r\n";
         $strHeaders .= 'Host: ' . $arrURL['host'] . "\r\n";
 
-        if (isset($r['user-agent'])) {
-            $strHeaders .= 'User-agent: ' . $r['user-agent'] . "\r\n";
+        if (isset($r[org_tubepress_impl_http_FastHttpClient::ARGS_USER_AGENT])) {
+            $strHeaders .= org_tubepress_api_http_HttpClient::HTTP_HEADER_USER_AGENT . ': ' . $r[org_tubepress_impl_http_FastHttpClient::ARGS_USER_AGENT] . "\r\n";
         }
 
-        if (is_array($r['headers'])) {
-            foreach ((array) $r['headers'] as $header => $headerValue) {
+        if (is_array($r[org_tubepress_impl_http_FastHttpClient::ARGS_HEADERS])) {
+            foreach ((array) $r[org_tubepress_impl_http_FastHttpClient::ARGS_HEADERS] as $header => $headerValue) {
                 $strHeaders .= $header . ': ' . $headerValue . "\r\n";
             }
         } else {
-            $strHeaders .= $r['headers'];
+            $strHeaders .= $r[org_tubepress_impl_http_FastHttpClient::ARGS_HEADERS];
         }
 
         $strHeaders .= "\r\n";
 
-        if (! is_null($r['body'])) {
-            $strHeaders .= $r['body'];
+        if (! is_null($r[org_tubepress_impl_http_FastHttpClient::ARGS_BODY])) {
+            $strHeaders .= $r[org_tubepress_impl_http_FastHttpClient::ARGS_BODY];
         }
 
         fwrite($handle, $strHeaders);
-
-        if (! $r['blocking']) {
-            fclose($handle);
-            return array('headers' => array(), 'body' => '', 'response' => array('code' => false, 'message' => false), 'cookies' => array());
-        }
 
         $strResponse = '';
         while (! feof($handle)) {
@@ -145,18 +124,13 @@ class org_wordpress_HttpClient_Fsockopen
             error_reporting($error_reporting);
         }
 
-        $process    = org_wordpress_HttpClient::processResponse($strResponse);
-        $arrHeaders = org_wordpress_HttpClient::processHeaders($process['headers']);
-
-        // Is the response code within the 400 range?
-        if ((int) $arrHeaders['response']['code'] >= 400 && (int) $arrHeaders['response']['code'] < 500) {
-            throw new Exception($arrHeaders['response']['code'] . ': ' . $arrHeaders['response']['message']);
-        }
+        $process    = self::_breakRawStringResponseIntoHeaderAndBody($strResponse);
+        $arrHeaders = self::_getProcessedHeaders($process['headers']);
 
         // If location is found, then assume redirect and redirect to location.
-        if ('HEAD' != $r['method'] && isset($arrHeaders['headers']['location'])) {
-            if ($r['redirection']-- > 0) {
-                return $this->request($arrHeaders['headers']['location'], $r);
+        if (isset($arrHeaders['headers']['location'])) {
+            if ($this->_canRedirect()) {
+                return $this->_doExecute($arrHeaders['headers']['location'], $r);
             } else {
                 throw new Exception('Too many redirects.');
             }
@@ -164,11 +138,11 @@ class org_wordpress_HttpClient_Fsockopen
 
         // If the body was chunk encoded, then decode it.
         if (! empty($process['body']) && isset($arrHeaders['headers']['transfer-encoding']) && 'chunked' == $arrHeaders['headers']['transfer-encoding']) {
-            $process['body'] = org_wordpress_HttpClient::chunkTransferDecode($process['body']);
+            $process['body'] = org_tubepress_impl_http_clientimpl_Encoding::chunkTransferDecode($process['body']);
         }
 
-        if (true === $r['decompress'] && true === org_wordpress_HttpClient_Encoding::should_decode($arrHeaders['headers'])) {
-            $process['body'] = org_wordpress_HttpClient_Encoding::decompress($process['body']);
+        if (true === $r[org_tubepress_impl_http_FastHttpClient::ARGS_DECOMPRESS] && true === org_tubepress_impl_http_clientimpl_Encoding::shouldDecode($arrHeaders['headers'])) {
+            $process['body'] = org_tubepress_impl_http_clientimpl_Encoding::decompress($process['body']);
         }
 
         return array('headers' => $arrHeaders['headers'], 'body' => $process['body'], 'response' => $arrHeaders['response'], 'cookies' => $arrHeaders['cookies']);
@@ -181,13 +155,13 @@ class org_wordpress_HttpClient_Fsockopen
      *
      * @return boolean False means this class can not be used, true means it can.
      */
-    public function test($args = array())
+    public function canHandle()
     {
-        $is_ssl = isset($args['ssl']) && $args['ssl'];
+        $isSsl = isset($args[org_tubepress_impl_http_FastHttpClient::ARGS_SSL]) && $args[org_tubepress_impl_http_FastHttpClient::ARGS_SSL];
 
-        if (! $is_ssl && function_exists('fsockopen')) {
+        if (! $isSsl && function_exists('fsockopen')) {
             $use = true;
-        } elseif ($is_ssl && extension_loaded('openssl') && function_exists('fsockopen')) {
+        } elseif ($isSsl && extension_loaded('openssl') && function_exists('fsockopen')) {
             $use = true;
         } else {
             $use = false;

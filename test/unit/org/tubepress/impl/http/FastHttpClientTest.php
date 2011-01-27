@@ -46,15 +46,6 @@ class org_tubepress_impl_http_FastHttpClientTest extends TubePressUnitTest {
         return $mock;
     }
 
-    function testPostArray()
-    {
-        $this->_args['method'] = 'POST';
-        $this->_args['body'] = 'one=two';
-        $this->_args['headers']['Content-Type'] = 'application/x-www-form-urlencoded; charset=utf-8';
-        $this->_args['headers']['Content-Length'] = 7;
-        $this->assertEquals('foo', $this->_sut->post('http://tubepress.org', array('one' => 'two')));
-    }
-
     function testPostString()
     {
         $this->_args['method'] = 'POST';

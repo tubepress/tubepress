@@ -188,8 +188,48 @@ class org_tubepress_impl_http_clientimpl_Encoding
      *
      * @return bool
      */
-    public static function isAvailable()
+    public static function isCompressionAvailable()
     {
         return (function_exists('gzuncompress') || function_exists('gzdeflate') || function_exists('gzinflate'));
+    }
+
+        /**
+     * Decodes chunk transfer-encoding, based off the HTTP 1.1 specification.
+     *
+     * Based off the HTTP http_encoding_dechunk function. Does not support UTF-8. Does not support
+     * returning footer headers. Shouldn't be too difficult to support it though.
+     *
+     * @param string $body Body content
+     *
+     * @return string Chunked decoded body on success or raw body on failure.
+     */
+    public static function chunkTransferDecode($body)
+    {
+        $body = str_replace(array("\r\n", "\r"), "\n", $body);
+
+        // The body is not chunked encoding or is malformed.
+        if (! preg_match('/^[0-9a-f]+(\s|\n)+/mi', trim($body))) {
+            return $body;
+        }
+
+        $parsedBody = '';
+
+        while (true) {
+            $hasChunk = (bool) preg_match('/^([0-9a-f]+)(\s|\n)+/mi', $body, $match);
+
+            if (!$hasChunk || empty($match[1])) {
+                return $body;
+            }
+
+            $length      = hexdec($match[1]);
+            $chunkLength = strlen($match[0]);
+            $strBody     = substr($body, $chunkLength, $length);
+            $parsedBody .= $strBody;
+            $body        = ltrim(str_replace(array($match[0], $strBody), '', $body), "\n");
+
+            if ("0" == trim($body)) {
+                return $parsedBody; // Ignore footer headers.
+            }
+        }
     }
 }

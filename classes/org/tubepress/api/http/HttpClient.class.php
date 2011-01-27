@@ -28,8 +28,10 @@ interface org_tubepress_api_http_HttpClient
     const HTTP_METHOD_POST = 'POST';
     const HTTP_METHOD_PUT = 'PUT';
 
-    const HTTP_HEADER_CONTENT_LENGTH = 'Content-Length';
-    const HTTP_HEADER_USER_AGENT     = 'User-Agent';
+    const HTTP_HEADER_ACCEPT_ENCODING = 'Accept-Encoding';
+    const HTTP_HEADER_CONTENT_LENGTH  = 'Content-Length';
+    const HTTP_HEADER_CONTENT_TYPE    = 'Content-Type';
+    const HTTP_HEADER_USER_AGENT      = 'User-Agent';
 
     /**
      * Get.
