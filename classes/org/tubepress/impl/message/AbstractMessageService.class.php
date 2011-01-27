@@ -134,6 +134,17 @@ abstract class org_tubepress_impl_message_AbstractMessageService implements org_
         'options-desc-keyword'               => 'The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery.',
         'options-title-randomize_thumbnails' => 'Randomize thumbnails',
         'options-desc-randomize_thumbnails'  => 'Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature',
+        'options-title-disableHttpTransportCurl' => 'Disable <a href="http://php.net/manual/en/function.curl-exec.php">cURL</a> HTTP transport',
+        'options-title-disableHttpTransportCurl' => 'Do not attempt to use cURL to fetch remote feeds. Leave enabled unless you know what you are doing.',
+        'options-title-disableHttpTransportExtHttp' => 'Disable <a href="http://php.net/http_request">HTTP extension</a> transport',
+        'options-title-disableHttpTransportExtHttp' => 'Do not attempt to use the PHP HTTP extension to fetch remote feeds. Leave enabled unless you know what you are doing.',
+        'options-title-disableHttpTransportFopen' => 'Disable <a href="http://php.net/manual/en/function.fopen.php">fopen</a> HTTP transport',
+        'options-title-disableHttpTransportFopen' => 'Do not attempt to use fopen to fetch remote feeds. Leave enabled unless you know what you are doing.',
+        'options-title-disableHttpTransportFsockOpen' => 'Disable <a href="http://php.net/fsockopen">fsockopen</a> HTTP transport',
+        'options-title-disableHttpTransportFsockOpen' => 'Do not attempt to use fsockopen to fetch remote feeds. Leave enabled unless you know what you are doing.',
+        'options-title-disableHttpTransportStreams' => 'Disable <a href="http://php.net/manual/en/intro.stream.php">PHP streams</a> HTTP transport',
+        'options-title-disableHttpTransportStreams' => 'Do not attempt to use PHP streams to fetch remote feeds. Leave enabled unless you know what you are doing.',
+
 
         'options-title-thumbsPerVideo' => 'Thumbs per video',
         'options-desc-thumbsPerVideo'  => 'How many thumbnails to generate for each video. TubePress can randomly display the thumbs each time someone visits the gallery. See the "Randomize thumbnails" option under the "Appearance" tab.',
