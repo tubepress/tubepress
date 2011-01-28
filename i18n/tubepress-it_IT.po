@@ -501,3 +501,32 @@ msgstr "<a href=\"http://vimeo.com/api/applications/new\">Clicca qui</a> per ott
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "API Vimeo \"Consumer Secret\""
 
+msgid "Do not attempt to use cURL to fetch remote feeds. Leave enabled unless you know what you are doing."
+msgstr ""
+
+msgid "Do not attempt to use the PHP HTTP extension to fetch remote feeds. Leave enabled unless you know what you are doing."
+msgstr ""
+
+msgid "Do not attempt to use fopen to fetch remote feeds. Leave enabled unless you know what you are doing."
+msgstr ""
+
+msgid "Do not attempt to use fsockopen to fetch remote feeds. Leave enabled unless you know what you are doing."
+msgstr ""
+
+msgid "Do not attempt to use PHP streams to fetch remote feeds. Leave enabled unless you know what you are doing."
+msgstr ""
+
+msgid "Disable <a href=\"http://php.net/manual/en/function.curl-exec.php\">cURL</a> HTTP transport"
+msgstr ""
+
+msgid "Disable <a href=\"http://php.net/http_request\">HTTP extension</a> transport"
+msgstr ""
+
+msgid "Disable <a href=\"http://php.net/manual/en/function.fopen.php\">fopen</a> HTTP transport"
+msgstr ""
+
+msgid "Disable <a href=\"http://php.net/fsockopen\">fsockopen</a> HTTP transport"
+msgstr ""
+
+msgid "Disable <a href=\"http://php.net/manual/en/intro.stream.php\">PHP streams</a> HTTP transport"
+msgstr ""
