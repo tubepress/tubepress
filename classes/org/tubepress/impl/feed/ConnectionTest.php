@@ -24,7 +24,7 @@
  */
 
 function_exists('tubepress_load_classes') || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('net_php_pear_Net_URL2',
+tubepress_load_classes(array('org_tubepress_api_url_Url',
     'net_php_pear_HTTP_Request2',
     'net_php_pear_HTTP_Request2_Adapter_Socket'));
 
@@ -34,7 +34,7 @@ print '</tt>';
 
 function tubepress_run_connection_test($url, $escape = false) {
     
-    $request = new net_php_pear_Net_URL2($url);
+    $request = new org_tubepress_api_url_Url($url);
     $req = new net_php_pear_HTTP_Request2($request);
     $req->setAdapter(new net_php_pear_HTTP_Request2_Adapter_Socket());
 

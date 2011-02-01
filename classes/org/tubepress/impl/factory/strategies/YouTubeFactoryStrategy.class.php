@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_patterns_Strategy',
     'org_tubepress_api_video_Video',
-    'net_php_pear_Net_URL2',
+    'org_tubepress_api_url_Url',
     'org_tubepress_impl_factory_strategies_AbstractFactoryStrategy'));
 
 /**
@@ -124,9 +124,9 @@ class org_tubepress_impl_factory_strategies_YouTubeFactoryStrategy extends org_t
     protected function _getHomeUrl($index)
     {
                 $rawUrl = $this->_relativeQuery($index, "atom:link[@rel='alternate']")->item(0)->getAttribute('href');
-        $url    = new net_php_pear_Net_URL2($rawUrl);
+        $url    = new org_tubepress_api_url_Url($rawUrl);
 
-        return $url->getURL(true);
+        return $url->toString(true);
     }
     
     protected function _getId($index)

@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_pagination_Pagination',
     'org_tubepress_api_const_options_Display',
-    'net_php_pear_Net_URL2',
+    'org_tubepress_api_url_Url',
     'org_tubepress_api_message_MessageService',
     'org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_api_options_OptionsManager',
@@ -51,10 +51,10 @@ class org_tubepress_impl_pagination_DiggStylePaginationService implements org_tu
         $currentPage = $qss->getPageNum($_GET);
         $vidsPerPage = $tpom->get(org_tubepress_api_const_options_Display::RESULTS_PER_PAGE);
 
-        $newurl = new net_php_pear_Net_URL2($qss->getFullUrl($_SERVER));
+        $newurl = new org_tubepress_api_url_Url($qss->getFullUrl($_SERVER));
         $newurl->unsetQueryVariable('tubepress_page');
 
-        $result = $this->_diggStyle($vidCount, $messageService, $currentPage, $vidsPerPage, 1, $newurl->getURL(), 'tubepress_page');
+        $result = $this->_diggStyle($vidCount, $messageService, $currentPage, $vidsPerPage, 1, $newurl->toString(), 'tubepress_page');
 
         /* if we're using Ajax for pagination, remove all the hrefs */
         if ($tpom->get(org_tubepress_api_const_options_Display::AJAX_PAGINATION)) {
@@ -84,13 +84,13 @@ class org_tubepress_impl_pagination_DiggStylePaginationService implements org_tu
         $lpm1       = $lastpage - 1;
         $pagination = '';
 
-        $url = new net_php_pear_Net_URL2($targetpage);
+        $url = new org_tubepress_api_url_Url($targetpage);
 
         if ($lastpage > 1) {
             $pagination .= '<div class="pagination">';
             if ($page > 1) {
                 $url->setQueryVariable($pagestring, $prev);
-                $newurl      = $url->getURL();
+                $newurl      = $url->toString();
                 $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">" . $messageService->_("prev") . '</a>';
             } else {
                 $pagination .= '<span class="disabled">' . $messageService->_("prev") . '</span>';
@@ -102,7 +102,7 @@ class org_tubepress_impl_pagination_DiggStylePaginationService implements org_tu
                         $pagination .= "<span class=\"current\">$counter</span>";
                     } else {
                         $url->setQueryVariable($pagestring, $counter);
-                        $newurl      = $url->getURL();
+                        $newurl      = $url->toString();
                         $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">$counter</a>";
                     }
                 }
@@ -114,23 +114,23 @@ class org_tubepress_impl_pagination_DiggStylePaginationService implements org_tu
                             $pagination .= "<span class=\"current\">$counter</span>";
                         } else {
                             $url->setQueryVariable($pagestring, $counter);
-                            $newurl      = $url->getURL();
+                            $newurl      = $url->toString();
                             $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">$counter</a>";
                         }
                     }
                     $pagination .= '...';
                     $url->setQueryVariable($pagestring, $lpm1);
-                    $newurl      = $url->getURL();
+                    $newurl      = $url->toString();
                     $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$lpm1</a>";
                     $url->setQueryVariable($pagestring, $lastpage);
-                    $newurl      = $url->getURL();
+                    $newurl      = $url->toString();
                     $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">$lastpage</a>";
                 } elseif ($lastpage - ($adjacents * 2) > $page && $page > ($adjacents * 2)) {
                     $url->setQueryVariable($pagestring, 1);
-                    $newurl      = $url->getURL();
+                    $newurl      = $url->toString();
                     $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">1</a>";
                     $url->setQueryVariable($pagestring, 2);
-                    $newurl      = $url->getURL();
+                    $newurl      = $url->toString();
                     $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">2</a>";
                     $pagination .= '...';
 
@@ -139,25 +139,25 @@ class org_tubepress_impl_pagination_DiggStylePaginationService implements org_tu
                             $pagination .= "<span class=\"current\">$counter</span>";
                         } else {
                             $url->setQueryVariable($pagestring, $counter);
-                            $newurl      = $url->getURL();
+                            $newurl      = $url->toString();
                             $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$counter</a>";
                         }
                     }
                     $pagination .= '...';
 
                     $url->setQueryVariable($pagestring, $lpm1);
-                    $newurl      = $url->getURL();
+                    $newurl      = $url->toString();
                     $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$lpm1</a>";
                     $url->setQueryVariable($pagestring, $lastpage);
-                    $newurl      = $url->getURL();
+                    $newurl      = $url->toString();
                     $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$lastpage</a>";
 
                 } else {
                     $url->setQueryVariable($pagestring, 1);
-                    $newurl = $url->getURL();
+                    $newurl = $url->toString();
                     $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">1</a>";
                     $url->setQueryVariable($pagestring, 2);
-                    $newurl = $url->getURL();
+                    $newurl = $url->toString();
                     $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">2</a>";
                     $pagination .= '...';
 
@@ -166,7 +166,7 @@ class org_tubepress_impl_pagination_DiggStylePaginationService implements org_tu
                             $pagination .= "<span class=\"current\">$counter</span>";
                         } else {
                             $url->setQueryVariable($pagestring, $counter);
-                            $newurl = $url->getURL();
+                            $newurl = $url->toString();
                             $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$counter</a>";
                         }
                     }
@@ -174,7 +174,7 @@ class org_tubepress_impl_pagination_DiggStylePaginationService implements org_tu
             }
             if ($page < $counter - 1) {
                 $url->setQueryVariable($pagestring, $next);
-                $newurl      = $url->getURL();
+                $newurl      = $url->toString();
                 $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">" . $messageService->_('next') . '</a>';
             } else {
                 $pagination .= '<span class="disabled">' . $messageService->_('next') . '</span>';

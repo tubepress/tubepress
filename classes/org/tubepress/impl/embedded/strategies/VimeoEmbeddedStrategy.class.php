@@ -27,7 +27,7 @@ tubepress_load_classes(array('org_tubepress_impl_embedded_strategies_AbstractEmb
     'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
     'org_tubepress_api_const_options_Embedded',
     'org_tubepress_api_provider_Provider',
-    'net_php_pear_Net_URL2'));
+    'org_tubepress_api_url_Url'));
 
 /**
  * Embedded player strategy for native Vimeo
@@ -60,7 +60,7 @@ class org_tubepress_impl_embedded_strategies_VimeoEmbeddedStrategy extends org_t
         $loop     = $tpom->get(org_tubepress_api_const_options_Embedded::LOOP);
 
         /* build the data URL based on these options */
-        $link = new net_php_pear_Net_URL2(self::VIMEO_EMBEDDED_PLAYER_URL . "video/$videoId");
+        $link = new org_tubepress_api_url_Url(self::VIMEO_EMBEDDED_PLAYER_URL . "video/$videoId");
         $link->setQueryVariable(self::VIMEO_QUERYPARAM_AUTOPLAY, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));
         $link->setQueryVariable(self::VIMEO_QUERYPARAM_COLOR, $color);
         $link->setQueryVariable(self::VIMEO_QUERYPARAM_LOOP, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($loop));
@@ -68,6 +68,6 @@ class org_tubepress_impl_embedded_strategies_VimeoEmbeddedStrategy extends org_t
         $link->setQueryVariable(self::VIMEO_QUERYPARAM_BYLINE, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
         $link->setQueryVariable(self::VIMEO_QUERYPARAM_PORTRAIT, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
 
-        return $link->getURL(true);
+        return $link->toString(true);
     }
 }
