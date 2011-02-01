@@ -29,8 +29,7 @@ tubepress_load_classes(array('org_tubepress_impl_options_WordPressStorageManager
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_util_StringUtils',
-    'org_tubepress_api_gallery_Gallery',
-    'org_tubepress_impl_html_HtmlUtils'));
+    'org_tubepress_api_gallery_Gallery'));
 
 class org_tubepress_impl_env_wordpress_Main
 {
@@ -106,7 +105,14 @@ class org_tubepress_impl_env_wordpress_Main
      */
     public static function headAction()
     {
-        print org_tubepress_impl_html_HtmlUtils::getHeadElementsAsString($_GET, false);
+        $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $hh       = $ioc->get('org_tubepress_api_html_HtmlHandler');
+        $inlineJs = $hh->getHeadInlineJavaScriptString();
+        $meta     = $hh->getHeadMetaString();
+        print <<<EOT
+$inlineJs
+$meta
+EOT;
     }
 
     /**
@@ -116,7 +122,15 @@ class org_tubepress_impl_env_wordpress_Main
      */
     public static function initAction()
     {
+        global $tubepress_base_url;
+
+        wp_register_script('tubepress', "$tubepress_base_url/ui/lib/tubepress.js");
+        wp_register_style('tubepress', "$tubepress_base_url/ui/themes/default/style.css");
+
         wp_enqueue_script('jquery');
+        wp_enqueue_script('tubepress');
+        
+        wp_enqueue_style('tubepress');
     }
 }
 
