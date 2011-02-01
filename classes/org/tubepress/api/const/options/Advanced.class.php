@@ -24,6 +24,9 @@
  */
 class org_tubepress_api_const_options_Advanced
 {
+    const CACHE_CLEAN_FACTOR     = 'cacheCleaningFactor';
+    const CACHE_DIR              = 'cacheDirectory';
+    const CACHE_LIFETIME_SECONDS = 'cacheLifetimeSeconds';
     const DATEFORMAT             = 'dateFormat';
     const DEBUG_ON               = 'debugging_enabled';
     const DISABLE_HTTP_CURL      = 'disableHttpTransportCurl';

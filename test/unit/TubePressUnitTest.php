@@ -72,6 +72,9 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
                 $mock->expects($this->any())
                      ->method('getFilenamesInDirectory')
                      ->will($this->returnValue(array()));
+                $mock->expects($this->any())
+                     ->method('getSystemTempDirectory')
+                     ->will($this->returnCallback('sys_get_temp_dir'));
                 break;
                 
             default:

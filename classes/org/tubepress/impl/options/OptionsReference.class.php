@@ -70,6 +70,7 @@ class org_tubepress_impl_options_OptionsReference
             org_tubepress_api_const_options_Gallery::VIMEO_CHANNEL_VALUE    => 'splitscreenstuff',
             org_tubepress_api_const_options_Gallery::VIMEO_GROUP_VALUE      => 'hdxs',
             org_tubepress_api_const_options_Gallery::VIMEO_ALBUM_VALUE      => '140484',
+            org_tubepress_api_const_options_Advanced::CACHE_DIR             => ''
         ),
         org_tubepress_api_const_options_OptionType::BOOL => array(
             org_tubepress_api_const_options_Advanced::DEBUG_ON               => true,
@@ -109,13 +110,16 @@ class org_tubepress_impl_options_OptionsReference
             org_tubepress_api_const_options_Feed::EMBEDDABLE_ONLY            => true
         ),
         org_tubepress_api_const_options_OptionType::INTEGRAL => array(
-            org_tubepress_api_const_options_Display::DESC_LIMIT          => 80,
-            org_tubepress_api_const_options_Display::RESULTS_PER_PAGE    => 20,
-            org_tubepress_api_const_options_Display::THUMB_HEIGHT        => 90,
-            org_tubepress_api_const_options_Display::THUMB_WIDTH         => 120,
-            org_tubepress_api_const_options_Embedded::EMBEDDED_HEIGHT    => 350,
-            org_tubepress_api_const_options_Embedded::EMBEDDED_WIDTH     => 425,
-            org_tubepress_api_const_options_Feed::RESULT_COUNT_CAP       => 300,
+            org_tubepress_api_const_options_Display::DESC_LIMIT              => 80,
+            org_tubepress_api_const_options_Display::RESULTS_PER_PAGE        => 20,
+            org_tubepress_api_const_options_Display::THUMB_HEIGHT            => 90,
+            org_tubepress_api_const_options_Display::THUMB_WIDTH             => 120,
+            org_tubepress_api_const_options_Embedded::EMBEDDED_HEIGHT        => 350,
+            org_tubepress_api_const_options_Embedded::EMBEDDED_WIDTH         => 425,
+            org_tubepress_api_const_options_Feed::RESULT_COUNT_CAP           => 300,
+            org_tubepress_api_const_options_Advanced::CACHE_CLEAN_FACTOR     => 20,
+            org_tubepress_api_const_options_Advanced::CACHE_LIFETIME_SECONDS => 3600
+            
         ),
         org_tubepress_api_const_options_OptionType::TIME_FRAME => array(
             org_tubepress_api_const_options_Gallery::MOST_VIEWED_VALUE   => 'today',

@@ -144,7 +144,12 @@ abstract class org_tubepress_impl_message_AbstractMessageService implements org_
         'options-desc-disableHttpTransportFsockOpen'  => 'Do not attempt to use fsockopen to fetch remote feeds. Leave enabled unless you know what you are doing.',
         'options-title-disableHttpTransportStreams'   => 'Disable <a href="http://php.net/manual/en/intro.stream.php">PHP streams</a> HTTP transport',
         'options-desc-disableHttpTransportStreams'    => 'Do not attempt to use PHP streams to fetch remote feeds. Leave enabled unless you know what you are doing.',
-
+        'options-title-cacheDirectory'                => 'Cache directory',
+        'options-desc-cacheDirectory'                 => 'Leave blank to attempt to use system temp directory. Otherwise enter the absolute path of a writeable directory.',
+        'options-title-cacheLifetimeSeconds'          => 'Cache expiration time (seconds)',
+        'options-desc-cacheLifetimeSeconds'           => 'Cache entries will be considered stale after the specified number of seconds. Default is 3600 (one hour).',
+        'options-title-cacheCleaningFactor'           => 'Cache cleaning factor',
+        'options-desc-cacheCleaningFactor'            => 'If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning.',
 
         'options-title-thumbsPerVideo' => 'Thumbs per video',
         'options-desc-thumbsPerVideo'  => 'How many thumbnails to generate for each video. TubePress can randomly display the thumbs each time someone visits the gallery. See the "Randomize thumbnails" option under the "Appearance" tab.',
