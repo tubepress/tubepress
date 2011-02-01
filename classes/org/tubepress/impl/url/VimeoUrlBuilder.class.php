@@ -29,7 +29,6 @@ tubepress_load_classes(array('org_tubepress_api_url_UrlBuilder',
     'org_tubepress_api_const_options_Display',
     'org_tubepress_api_const_options_Embedded',
     'org_tubepress_api_const_options_Meta',
-    'net_php_pear_Net_URL2',
     'org_tubepress_api_const_options_Feed'));
 
 /**

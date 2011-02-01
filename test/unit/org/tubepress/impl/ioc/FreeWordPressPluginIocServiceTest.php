@@ -36,7 +36,7 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
             'org_tubepress_api_factory_VideoFactory' => 'org_tubepress_impl_factory_DelegatingVideoFactory',
             'org_tubepress_api_feed_FeedInspector' => 'org_tubepress_impl_feed_DelegatingFeedInspector',
             'org_tubepress_api_provider_Provider' => 'org_tubepress_impl_provider_SimpleProvider',
-            'org_tubepress_api_feed_FeedFetcher' => 'org_tubepress_impl_feed_HTTPRequest2FeedFetcher');
+            'org_tubepress_api_feed_FeedFetcher' => 'org_tubepress_impl_feed_FastHttpClientFeedFetcher');
     }
 
     /**

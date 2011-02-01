@@ -8,11 +8,13 @@ class org_tubepress_impl_cache_PearCacheLiteCacheServiceTest extends TubePressUn
 
 	function setUp()
 	{
+	    $this->initFakeIoc();
 		$this->_sut = new org_tubepress_impl_cache_PearCacheLiteCacheService();
 	}
 
 	function testSetGet()
 	{
+	    $this->_sut->clean();
 		$key = $this->_randomString();
 		$data = $this->_randomString();
 		$this->_sut->save($key, $data);

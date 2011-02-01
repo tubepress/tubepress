@@ -27,7 +27,7 @@ interface org_tubepress_api_patterns_StrategyManager
     /**
      * Executes the given strategies.
      *
-     * @param array $strategyInstances An array of org_tubepress_api_patterns_Strategy instances to execute.
+     * @param array $strategyInstances An array of org_tubepress_api_patterns_Strategy class names to execute.
      *
      * @return unknown The result of the strategy execution.
      */

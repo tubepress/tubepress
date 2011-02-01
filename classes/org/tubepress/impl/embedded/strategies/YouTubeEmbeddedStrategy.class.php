@@ -27,7 +27,7 @@ tubepress_load_classes(array('org_tubepress_impl_embedded_strategies_AbstractEmb
     'org_tubepress_api_const_options_Embedded',
     'org_tubepress_api_options_OptionsManager',
     'org_tubepress_api_http_AgentDetector',
-    'net_php_pear_Net_URL2'));
+    'org_tubepress_api_url_Url'));
 
 /**
  * Embedded player strategy for native Vimeo
@@ -48,7 +48,7 @@ class org_tubepress_impl_embedded_strategies_YouTubeEmbeddedStrategy extends org
 
     protected function _getEmbeddedDataUrl($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
     {    
-        $link  = new net_php_pear_Net_URL2(sprintf('http://www.youtube.com/v/%s', $videoId));
+        $link  = new org_tubepress_api_url_Url(sprintf('http://www.youtube.com/v/%s', $videoId));
 
         $showRelated     = $tpom->get(org_tubepress_api_const_options_Embedded::SHOW_RELATED);
         $autoPlay        = $tpom->get(org_tubepress_api_const_options_Embedded::AUTOPLAY);
@@ -77,7 +77,7 @@ class org_tubepress_impl_embedded_strategies_YouTubeEmbeddedStrategy extends org
             $link->setQueryVariable('hd', '1');
         }
 
-        $link = $this->_isIos($ioc) ? "http://www.youtube.com/v/$videoId" : $link->getURL(true);
+        $link = $this->_isIos($ioc) ? "http://www.youtube.com/v/$videoId" : $link->toString(true);
 
         return $link;
     }

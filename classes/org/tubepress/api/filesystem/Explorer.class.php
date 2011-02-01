@@ -50,4 +50,6 @@ interface org_tubepress_api_filesystem_Explorer
      * @return array The names of the files in the given directory (non-recursive).
      */
     function getFilenamesInDirectory($dir, $prefix);
+    
+    function getSystemTempDirectory();
 }
