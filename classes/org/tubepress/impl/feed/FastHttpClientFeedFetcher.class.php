@@ -46,9 +46,6 @@ class org_tubepress_impl_feed_FastHttpClientFeedFetcher implements org_tubepress
 
         $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
         $cache     = $ioc->get('org_tubepress_api_cache_Cache');
-        $testUrl   = "$tubepress_base_url/classes/org/tubepress/impl/feed/ConnectionTest.php";
-
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Connection test can be run at <tt><a href="%s">%s</a></tt>', $testUrl, $testUrl);
 
         $result = '';
         if ($useCache) {
