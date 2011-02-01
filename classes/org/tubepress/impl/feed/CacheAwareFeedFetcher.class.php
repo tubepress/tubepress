@@ -23,14 +23,15 @@ function_exists('tubepress_load_classes') || require dirname(__FILE__) . '/../..
 tubepress_load_classes(array('org_tubepress_api_feed_FeedFetcher',
     'org_tubepress_api_cache_Cache',
     'org_tubepress_impl_log_Log',
-    'org_tubepress_impl_ioc_IocContainer'));
+    'org_tubepress_impl_ioc_IocContainer',
+    'org_tubepress_api_http_HttpClient'));
 
 /**
  * Base functionality for feed retrieval services.
  */
-class org_tubepress_impl_feed_FastHttpClientFeedFetcher implements org_tubepress_api_feed_FeedFetcher
+class org_tubepress_impl_feed_CacheAwareFeedFetcher implements org_tubepress_api_feed_FeedFetcher
 {
-    const LOG_PREFIX = 'Fast HTTP Client Feed Fetcher';
+    const LOG_PREFIX = 'Cache Aware Feed Fetcher';
 
     /**
      * Fetches the feed from a remote provider

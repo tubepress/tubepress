@@ -22,31 +22,34 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_feed_FeedInspector',
-    'org_tubepress_api_options_OptionsManager',
+    'org_tubepress_api_feed_FeedResult',
     'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_api_provider_ProviderCalculator'));
+    'org_tubepress_api_provider_ProviderCalculator',
+    'org_tubepress_api_patterns_StrategyManager'));
 
 /**
  * Sends the feed to the right inspection service based on the provider.
  */
 class org_tubepress_impl_feed_DelegatingFeedInspector implements org_tubepress_api_feed_FeedInspector
 {
-    public function getTotalResultCount($rawFeed)
+    /**
+     * Count the videos in this feed result.
+     *
+     * @param unknown $rawFeed The raw video feed (varies depending on provider)
+     *
+     * @return org_tubepress_api_feed_FeedResult The feed result with the total/query results filled in.
+     */
+    function count($rawFeed)
     {
-        $insp = self::_getDelegate();
-        return $insp->getTotalResultCount($rawFeed);
-    }
+        $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $sm           = $ioc->get('org_tubepress_api_patterns_StrategyManager');
+        $providerName = $pc->calculateCurrentVideoProvider();
 
-    public function getQueryResultCount($rawFeed)
-    {
-        $insp = self::_getDelegate();
-        return $insp->getQueryResultCount($rawFeed);
-    }
-    
-    private static function _getDelegate()
-    {
-        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $pc = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-        return $ioc->get('org_tubepress_api_feed_FeedInspector', $pc->calculateCurrentVideoProvider());    
+        /* let the strategies do the heavy lifting */
+        return $sm->executeStrategy(array(
+            'org_tubepress_impl_feed_inspectionstrategies_YouTubeFeedInspectionStrategy',
+            'org_tubepress_impl_feed_inspectionstrategies_VimeoFeedInspectionStrategy'
+        ), $providerName, $rawFeed);
     }
 }

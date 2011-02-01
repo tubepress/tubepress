@@ -21,45 +21,34 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_feed_FeedInspector'));
+tubepress_load_classes(array('org_tubepress_impl_feed_inspectionstrategies_AbstractFeedInspectionStrategy'));
 
 /**
  * Examines the feed from YouTube
  *
  */
-class org_tubepress_impl_feed_YouTubeFeedInspector implements org_tubepress_api_feed_FeedInspector
+class org_tubepress_impl_feed_inspectionstrategies_YouTubeFeedInspectionStrategy extends org_tubepress_impl_feed_inspectionstrategies_AbstractFeedInspectionStrategy
 {
     const NS_OPENSEARCH = 'http://a9.com/-/spec/opensearch/1.1/';
 
-    /**
-     * Determine the total number of videos in this gallery.
-     *
-     * @param unknown $rawFeed The raw video feed (varies depending on provider)
-     *
-     * @return integer The total number of videos in this gallery.
-     */
-    public function getTotalResultCount($rawFeed)
+    protected function _count($rawFeed)
     {
-        $dom    = $this->_getDom($rawFeed);
-        $result = $dom->getElementsByTagNameNS(self::NS_OPENSEARCH, 'totalResults')->item(0)->nodeValue;
+        $dom          = $this->_getDom($rawFeed);
+        $totalResults = $dom->getElementsByTagNameNS(self::NS_OPENSEARCH, 'totalResults')->item(0)->nodeValue;
+        $queryResult  = $dom->getElementsByTagName('entry')->length;
 
-        $this->_makeSureNumeric($result);
-        return $result;
+        self::_makeSureNumeric($totalResults);
+        self::_makeSureNumeric($queryResult);
+
+        $toReturn = new org_tubepress_api_feed_FeedResult();
+        $toReturn->setEffectiveTotalResultCount($totalResults);
+        $toReturn->setEffectiveDisplayCount($queryResult);
+        return $toReturn;
     }
 
-    /**
-     * Determine the number of videos in this gallery page.
-     *
-     * @param unknown $rawFeed The raw video feed (varies depending on provider) 
-     *
-     * @return integer The number of videos in this gallery page.
-     */
-    public function getQueryResultCount($rawFeed)
+    protected function _getNameOfHandledProvider()
     {
-        $dom    = $this->_getDom($rawFeed);
-        $result = $dom->getElementsByTagName('entry')->length;
-        $this->_makeSureNumeric($result);
-        return $result;
+        return org_tubepress_api_provider_Provider::YOUTUBE;
     }
 
     private function _getDom($rawFeed)
@@ -74,10 +63,10 @@ class org_tubepress_impl_feed_YouTubeFeedInspector implements org_tubepress_api_
         return $dom;
     }
 
-    private function _makeSureNumeric($result)
+    private static function _makeSureNumeric($result)
     {
         if (is_numeric($result) === false) {
-            throw new Exception("YouTube returned a non-numeric total result count: $result");
+            throw new Exception("YouTube returned a non-numeric result count: $result");
         }
     }
 }
