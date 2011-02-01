@@ -34,10 +34,9 @@ tubepress_load_classes(array('org_tubepress_api_cache_Cache',
 
 class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepress_api_cache_Cache
 {
-    const GROUP          = 'tubepress';
     const HASH_DIR_LEVEL = 1;
-    const HASH_DIR_UMASK = 0700; 
-    
+    const HASH_DIR_UMASK = 0700;
+
     const LOG_PREFIX = 'Cache_Lite Cache';
 
     /**
@@ -57,7 +56,7 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
         }
         return $has;
     }
-    
+
     /**
      * Test if a cache is available and (if yes) return it
      *
@@ -72,9 +71,9 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
         $data        = false;
         $refreshTime = $this->_getRefreshTime($life);
         $file        = $this->_getFileWithPath($id, $ioc);
-        
+
         clearstatcache();
-        
+
         if (is_null($refreshTime)) {
             if (file_exists($file)) {
                 $data = $this->_read($file, $life);
@@ -84,7 +83,7 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
                 $data = $this->_read($file, $life);
             }
         }
-        
+
         return $data;
     }
 
@@ -100,7 +99,7 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
         if (!is_string($data)) {
             throw new Exception("Cache can only save string data");
         }
-        
+
         $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom           = $ioc->get('org_tubepress_api_options_OptionsManager');
         $life           = $tpom->get(org_tubepress_api_const_options_Advanced::CACHE_LIFETIME_SECONDS);
@@ -112,14 +111,14 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
         if ($cleaningFactor > 0) {
             $rand = rand(1, $cleaningFactor);
             if ($rand == 1) {
-                
+
                 org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Cleaning out old cache entries');
                 $this->_cleanDir($this->_getCacheDir($ioc));
             }
         }
 
         $res = $this->_writeAndControl($id, $data, $life, $file, $ioc);
-        
+
         if (is_bool($res)) {
             if ($res) {
                 org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Saved data to key at %s', $id);
@@ -139,11 +138,10 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
     {
         $this->_cleanDir($this->_getCacheDir(org_tubepress_impl_ioc_IocContainer::getInstance()));
     }
-    
+
     /**
      * Compute & set the refresh time
      *
-     * @access private
      */
     private function _getRefreshTime($life)
     {
@@ -179,20 +177,20 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
     private function _cleanDir($dir)
     {
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Removing cache files under directory at %s', $dir);
-        $motif = 'cache_'.md5(self::GROUP).'_';
+        $motif = 'cache_';
 
-        if (!($dh = opendir($dir))) {
-            throw new Exception('Unable to open cache directory at ' . $dir);
+        if (!($dh = @opendir($dir))) {
+            return;
         }
 
         $result = true;
 
         while ($file = readdir($dh)) {
-            
+
             if (($file != '.') && ($file != '..')) {
 
                 if (substr($file, 0, 6) == 'cache_') {
-                    
+
                     $file2 = $dir . $file;
 
                     if (is_file($file2)) {
@@ -201,27 +199,26 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
                             $result = ($result and ($this->_unlink($file2)));
                         }
                     }
-                    
+
                     if ((is_dir($file2)) and (self::HASH_DIR_LEVEL > 0)) {
                         $result = ($result and ($this->_cleanDir($file2 . '/')));
                     }
                 }
             }
         }
-        
+
         return $result;
     }
-    
+
     private function _getFileWithoutPath($id)
     {
-        return 'cache_'.md5(self::GROUP).'_'.md5($id);
+        return 'cache_' . md5($id);
     }
-    
+
     /**
      * Make a file name (with path)
      *
      * @param string $id cache id
-     * @access private
      */
     private function _getFileWithPath($id, $ioc)
     {
@@ -229,14 +226,14 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
         $root   = $this->_getCacheDir($ioc);
 
         if (self::HASH_DIR_LEVEL > 0) {
-            
+
             $hash = md5($suffix);
-            
+
             for ($i=0 ; $i < self::HASH_DIR_LEVEL ; $i++) {
                 $root = $root . 'cache_' . substr($hash, 0, $i + 1) . '/';
             }
         }
-        
+
         return $root . $suffix;
     }
 
@@ -244,7 +241,6 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
      * Read the cache file and return the content
      *
      * @return string content of the cache file (else : false)
-     * @access private
      */
     private function _read($file, $life)
     {
@@ -255,22 +251,22 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
         }
 
         clearstatcache();
-        
+
         $length      = @filesize($file);
         $hashControl = @fread($fp, 32);
         $length      = $length - 32;
-        
+
         if ($length) {
             $data = @fread($fp, $length);
         } else {
             $data = '';
         }
-        
+
         @flock($fp, LOCK_UN);
         @fclose($fp);
-        
+
         $hashData = $this->_hash($data);
-        
+
         if ($hashData != $hashControl) {
 
             if (!(is_null($life))) {
@@ -288,22 +284,21 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
      *
      * @param string $data data to put in cache
      * @return boolean true if ok (a PEAR_Error object else)
-     * @access private
      */
     private function _write($id, $data, $ioc)
     {
         $file     = $this->_getFileWithPath($id, $ioc);
         $cacheDir = $this->_getCacheDir($ioc);
-        
+
         if (self::HASH_DIR_LEVEL > 0) {
-            
+
             $hash = md5($file);
             $root = $cacheDir;
-            
+
             for ($i=0 ; $i < self::HASH_DIR_LEVEL ; $i++) {
 
                 $root = $root . 'cache_' . substr($hash, 0, $i + 1) . '/';
-                
+
                 if (!(@is_dir($root))) {
                     @mkdir($root, self::HASH_DIR_UMASK, true);
                 }
@@ -314,7 +309,7 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
         if (!@is_dir($dir)) {
             @mkdir($dir, self::HASH_DIR_UMASK, true);
         }
-        
+
         $fp = @fopen($file, "wb");
 
         if (!$fp) {
@@ -326,17 +321,16 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
         @fwrite($fp, $data);
         @flock($fp, LOCK_UN);
         @fclose($fp);
-        
+
         return true;
     }
 
-     
+
     /**
      * Write the given data in the cache file and control it just after to avoir corrupted cache entries
      *
      * @param string $data data to put in cache
      * @return boolean true if the test is ok (else : false or a PEAR_Error object)
-     * @access private
      */
     private function _writeAndControl($id, $data, $life, $file, $ioc)
     {
@@ -346,7 +340,7 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
         if ((is_bool($dataRead)) && (!$dataRead)) {
             return false;
         }
-        
+
         return $dataRead == $data;
     }
 
@@ -354,23 +348,23 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
      * Make a control key with the string containing datas
      *
      * @param string $data data
+     *
      * @return string control key
-     * @access private
      */
     private function _hash($data)
     {
         return sprintf('% 32d', crc32($data));
     }
-    
+
     private function _getCacheDir($ioc)
     {
         $tpom     = $ioc->get('org_tubepress_api_options_OptionsManager');
         $cacheDir = $tpom->get(org_tubepress_api_const_options_Advanced::CACHE_DIR);
-        
+
         if ($cacheDir != '') {
             return $cacheDir;
         }
-        
+
         $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
         return $fs->getSystemTempDirectory() . '/tubepress_cache/';
     }
