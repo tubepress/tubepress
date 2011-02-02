@@ -1,9 +1,9 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/url/VimeoUrlBuilder.class.php';
+require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
+require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/impl/url/strategies/VimeoUrlBuilderStrategy.class.php';
 
-class org_tubepress_impl_url_VimeoUrlBuilderTest extends TubePressUnitTest {
+class org_tubepress_impl_url_strategies_VimeoUrlBuilderStrategyTest extends TubePressUnitTest {
     
     const PRE = "/http:\/\/vimeo.com\/api\/rest\/v2\?";
     const POST = "&format=php&oauth_consumer_key=vimeokey&oauth_nonce=[a-zA-Z0-9]+&oauth_signature_method=HMAC-SHA1&oauth_timestamp=[0-9]+&oauth_version=1.0&oauth_signature=[a-zA-Z0-9%]+/";
@@ -13,7 +13,7 @@ class org_tubepress_impl_url_VimeoUrlBuilderTest extends TubePressUnitTest {
 	function setUp()
 	{
 		$this->initFakeIoc();
-		$this->_sut = new org_tubepress_impl_url_VimeoUrlBuilder();
+		$this->_sut = new org_tubepress_impl_url_strategies_VimeoUrlBuilderStrategy();
 	}
 
 	public function getMock($className)
@@ -37,10 +37,10 @@ class org_tubepress_impl_url_VimeoUrlBuilderTest extends TubePressUnitTest {
            org_tubepress_api_const_options_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
 		$this->assertTrue($this->urlMatches('method=vimeo.videos.getInfo&video_id=444333', 
-		    $this->_sut->buildSingleVideoUrl('444333')));
+		    $this->_sut->execute(org_tubepress_api_provider_Provider::VIMEO, true, '444333')));
 	}
 	
-	function testBuildGalleryUrlGroup()
+	function testexecuteGroup()
 	{
 	    $this->setOptions(array(
            org_tubepress_api_const_options_Gallery::MODE => org_tubepress_api_gallery_Gallery::VIMEO_GROUP,
@@ -51,10 +51,10 @@ class org_tubepress_impl_url_VimeoUrlBuilderTest extends TubePressUnitTest {
         ));
              
 		$this->assertTrue($this->urlMatches('method=vimeo.groups.getVideos&group_id=eric&full_response=true&page=1&per_page=20&sort=random', 
-		    $this->_sut->buildGalleryUrl(1)));
+		    $this->_sut->execute(org_tubepress_api_provider_Provider::VIMEO, false, 1)));
 	}
 	
-	function testBuildGalleryUrlAlbum()
+	function testexecuteAlbum()
 	{
         $this->setOptions(array(
            org_tubepress_api_const_options_Gallery::MODE => org_tubepress_api_gallery_Gallery::VIMEO_ALBUM,
@@ -64,10 +64,10 @@ class org_tubepress_impl_url_VimeoUrlBuilderTest extends TubePressUnitTest {
         ));
         
 		$this->assertTrue($this->urlMatches('method=vimeo.albums.getVideos&album_id=eric&full_response=true&page=1&per_page=20', 
-		   $this->_sut->buildGalleryUrl(1)));
+		   $this->_sut->execute(org_tubepress_api_provider_Provider::VIMEO, false, 1)));
 	}
 	
-	function testBuildGalleryUrlChannel()
+	function testexecuteChannel()
 	{
         $this->setOptions(array(
            org_tubepress_api_const_options_Gallery::MODE => org_tubepress_api_gallery_Gallery::VIMEO_CHANNEL,
@@ -77,10 +77,10 @@ class org_tubepress_impl_url_VimeoUrlBuilderTest extends TubePressUnitTest {
         ));
              
 		$this->assertTrue($this->urlMatches('method=vimeo.channels.getVideos&channel_id=eric&full_response=true&page=1&per_page=20', 
-		    $this->_sut->buildGalleryUrl(1)));
+		    $this->_sut->execute(org_tubepress_api_provider_Provider::VIMEO, false, 1)));
 	}
 	
-	function testBuildGalleryUrlCreditedTo()
+	function testexecuteCreditedTo()
 	{
         $this->setOptions(array(
            org_tubepress_api_const_options_Gallery::MODE => org_tubepress_api_gallery_Gallery::VIMEO_CREDITED,
@@ -90,10 +90,10 @@ class org_tubepress_impl_url_VimeoUrlBuilderTest extends TubePressUnitTest {
         ));
         
 		$this->assertTrue($this->urlMatches('method=vimeo.videos.getAll&user_id=eric&full_response=true&page=1&per_page=20&sort=most_played', 
-		    $this->_sut->buildGalleryUrl(1)));
+		    $this->_sut->execute(org_tubepress_api_provider_Provider::VIMEO, false, 1)));
 	}
 	
-	function testBuildGalleryUrlSearch()
+	function testexecuteSearch()
 	{
         $this->setOptions(array(
            org_tubepress_api_const_options_Gallery::MODE => org_tubepress_api_gallery_Gallery::VIMEO_SEARCH,
@@ -104,10 +104,10 @@ class org_tubepress_impl_url_VimeoUrlBuilderTest extends TubePressUnitTest {
         ));
         
 		$this->assertTrue($this->urlMatches('method=vimeo.videos.search&query=eric\+hough&full_response=true&page=1&per_page=20&sort=relevant', 
-		    $this->_sut->buildGalleryUrl(1)));
+		    $this->_sut->execute(org_tubepress_api_provider_Provider::VIMEO, false, 1)));
 	}
 	
-	function testBuildGalleryUrlAppearsIn()
+	function testexecuteAppearsIn()
 	{
         $this->setOptions(array(
            org_tubepress_api_const_options_Gallery::MODE => org_tubepress_api_gallery_Gallery::VIMEO_APPEARS_IN,
@@ -118,10 +118,10 @@ class org_tubepress_impl_url_VimeoUrlBuilderTest extends TubePressUnitTest {
         ));
         
 		$this->assertTrue($this->urlMatches('method=vimeo.videos.getAppearsIn&user_id=eric&full_response=true&page=1&per_page=20&sort=oldest', 
-		    $this->_sut->buildGalleryUrl(1)));
+		    $this->_sut->execute(org_tubepress_api_provider_Provider::VIMEO, false, 1)));
 	}
 	
-	function testBuildGalleryUrlLikes()
+	function testexecuteLikes()
 	{
         $this->setOptions(array(
            org_tubepress_api_const_options_Gallery::MODE => org_tubepress_api_gallery_Gallery::VIMEO_LIKES,
@@ -132,10 +132,10 @@ class org_tubepress_impl_url_VimeoUrlBuilderTest extends TubePressUnitTest {
         ));
         
 		$this->assertTrue($this->urlMatches('method=vimeo.videos.getLikes&user_id=eric&full_response=true&page=1&per_page=20&sort=most_liked', 
-		    $this->_sut->buildGalleryUrl(1)));
+		    $this->_sut->execute(org_tubepress_api_provider_Provider::VIMEO, false, 1)));
 	}
 	
-	function testBuildGalleryUrlUploadedBy()
+	function testexecuteUploadedBy()
 	{
         $this->setOptions(array(
            org_tubepress_api_const_options_Gallery::MODE => org_tubepress_api_gallery_Gallery::VIMEO_UPLOADEDBY,
@@ -146,12 +146,12 @@ class org_tubepress_impl_url_VimeoUrlBuilderTest extends TubePressUnitTest {
         ));
 	    
 		$this->assertTrue($this->urlMatches('method=vimeo.videos.getUploaded&user_id=eric&full_response=true&page=1&per_page=20&sort=most_commented', 
-		    $this->_sut->buildGalleryUrl(1)));
+		    $this->_sut->execute(org_tubepress_api_provider_Provider::VIMEO, false, 1)));
 	}
 		
 	private function urlMatches($url, $full)
 	{
-		$pattern = org_tubepress_impl_url_VimeoUrlBuilderTest::PRE . $url . org_tubepress_impl_url_VimeoUrlBuilderTest::POST;
+		$pattern = self::PRE . $url . self::POST;
 		$result = 1 === preg_match($pattern, $full);
 		if (!$result) {
 			echo "\n\n$full\n    does not match\n$pattern\n\n";

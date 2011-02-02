@@ -112,8 +112,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
     /**
      * Fetch a single video.
      *
-     * @param string                       $customVideoId The video ID to fetch.
-     * @param org_tubepress_api_ioc_IocService $ioc           The IOC container.
+     * @param string $customVideoId The video ID to fetch.
      *
      * @return org_tubepress_api_video_Video The video.
      */
@@ -121,8 +120,8 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
     {
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Fetching video with ID <tt>%s</tt>', $customVideoId);
 
-	$ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
-	$urlBuilder = $ioc->get('org_tubepress_api_url_UrlBuilder');
+        $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $urlBuilder = $ioc->get('org_tubepress_api_url_UrlBuilder');
         $videoUrl   = $urlBuilder->buildSingleVideoUrl($customVideoId);
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'URL to fetch is %s', $videoUrl);

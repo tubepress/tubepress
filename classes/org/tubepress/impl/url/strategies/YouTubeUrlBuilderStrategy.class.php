@@ -20,8 +20,8 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_api_url_UrlBuilder',
+    || require(dirname(__FILE__) . '/../../../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_impl_url_strategies_AbstractUrlBuilderStrategy',
     'org_tubepress_api_const_options_Gallery',
     'org_tubepress_api_gallery_Gallery',
     'org_tubepress_api_options_OptionsManager',
@@ -36,14 +36,14 @@ tubepress_load_classes(array('org_tubepress_api_url_UrlBuilder',
  * Builds URLs to send out to YouTube for gdata
  *
  */
-class org_tubepress_impl_url_YouTubeUrlBuilder implements org_tubepress_api_url_UrlBuilder
+class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategy extends org_tubepress_impl_url_strategies_AbstractUrlBuilderStrategy
 {
     /**
      * Builds a gdata request url for a list of videos
      *
      * @return string The gdata request URL for this gallery
      */
-    public function buildGalleryUrl($currentPage)
+    protected function _buildGalleryUrl($currentPage)
     {
         $url = '';
 
@@ -110,12 +110,17 @@ class org_tubepress_impl_url_YouTubeUrlBuilder implements org_tubepress_api_url_
         return $request->toString();
     }
     
+    protected function _getHandledProviderName()
+    {
+        return org_tubepress_api_provider_Provider::YOUTUBE;
+    }
+    
     private static function _replaceQuotes($text)
     {
         return str_replace(array('&#8216', '&#8217', '&#8242;', '&#34', '&#8220;', '&#8221;', '&#8243;'), '"', $text);
     }
     
-    public function buildSingleVideoUrl($id)
+    protected function _buildSingleVideoUrl($id)
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');

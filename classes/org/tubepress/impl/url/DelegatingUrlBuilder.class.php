@@ -22,13 +22,12 @@
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_api_url_UrlBuilder',
-    'org_tubepress_api_provider_Provider',
-    'org_tubepress_ioc_IocDelegateUtils',
-    'org_tubepress_api_url_UrlBuilder'));
+    'org_tubepress_api_provider_ProviderCalculator',
+    'org_tubepress_impl_ioc_IocContainer',
+    'org_tubepress_api_patterns_StrategyManager'));
 
 /**
- * Builds URLs based on the urrent provider
- *
+ * Builds URLs based on the current provider
  */
 class org_tubepress_impl_url_DelegatingUrlBuilder implements org_tubepress_api_url_UrlBuilder
 {
@@ -39,11 +38,7 @@ class org_tubepress_impl_url_DelegatingUrlBuilder implements org_tubepress_api_u
      */
     public function buildGalleryUrl($currentPage)
     {
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $pc      = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-        $builder = $ioc->get('org_tubepress_api_url_UrlBuilder', $pc->calculateCurrentVideoProvider());
-        
-        return $builder->buildGalleryUrl($currentPage);
+        return self::_build($currentPage, false);
     }
 
     /**
@@ -53,10 +48,20 @@ class org_tubepress_impl_url_DelegatingUrlBuilder implements org_tubepress_api_u
      */
     public function buildSingleVideoUrl($id)
     {   
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $pc      = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-        $builder = $ioc->get('org_tubepress_api_url_UrlBuilder', $pc->calculateProviderOfVideoId($id));
+        return self::_build($id, true);
+    }
+    
+    private static function _build($arg, $single)
+    {
+        $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $sm           = $ioc->get('org_tubepress_api_patterns_StrategyManager');
+        $providerName = $pc->calculateCurrentVideoProvider();
         
-        return $builder->buildSingleVideoUrl($id);
+        /* let the strategies do the heavy lifting */
+        return $sm->executeStrategy(array(
+            'org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategy',
+            'org_tubepress_impl_url_strategies_VimeoUrlBuilderStrategy'
+        ), $providerName, $single, $arg);
     }
 }

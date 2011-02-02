@@ -20,8 +20,8 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_api_url_UrlBuilder',
+    || require(dirname(__FILE__) . '/../../../../../tubepress_classloader.php');
+tubepress_load_classes(array('org_tubepress_impl_url_strategies_AbstractUrlBuilderStrategy',
     'org_tubepress_api_const_options_Gallery',
     'org_tubepress_api_gallery_Gallery',
     'org_tubepress_api_options_OptionsManager',
@@ -35,14 +35,16 @@ tubepress_load_classes(array('org_tubepress_api_url_UrlBuilder',
  * Builds URLs to send out to Vimeo
  *
  */
-class org_tubepress_impl_url_VimeoUrlBuilder implements org_tubepress_api_url_UrlBuilder
+class org_tubepress_impl_url_strategies_VimeoUrlBuilderStrategy extends org_tubepress_impl_url_strategies_AbstractUrlBuilderStrategy
 {
+    
+    
     /**
      * Builds a gdata request url for a list of videos
      *
      * @return string The gdata request URL for this gallery
      */
-    public function buildGalleryUrl($currentPage)
+    protected function _buildGalleryUrl($currentPage)
     {
         $params = array();
         $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
@@ -97,7 +99,7 @@ class org_tubepress_impl_url_VimeoUrlBuilder implements org_tubepress_api_url_Ur
         return $this->_buildUrl($params, $tpom);
     }
     
-    public function buildSingleVideoUrl($id)
+    protected function _buildSingleVideoUrl($id)
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom         = $ioc->get('org_tubepress_api_options_OptionsManager');
@@ -113,6 +115,11 @@ class org_tubepress_impl_url_VimeoUrlBuilder implements org_tubepress_api_url_Ur
         $params['video_id'] = $id;
         
         return $this->_buildUrl($params, $tpom);
+    }
+    
+    protected function _getHandledProviderName()
+    {
+        return org_tubepress_api_provider_Provider::VIMEO;
     }
     
     private function _getSort($mode, org_tubepress_api_options_OptionsManager $tpom)
