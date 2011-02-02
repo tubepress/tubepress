@@ -30,30 +30,23 @@ tubepress_load_classes(array('org_tubepress_impl_ioc_FreeWordPressPluginIocServi
 class org_tubepress_impl_env_wordpress_Admin
 {
     /**
-     * Hook for WordPress head.
-     *
-     * @return void
-     */
-    public static function headAction()
-    {
-        global $tubepress_base_url;
-        $jsColorFile = "$tubepress_base_url/ui/lib/options_page/js/jscolor/jscolor.js";
-        echo "<script type=\"text/javascript\" src=\"$jsColorFile\"></script>";
-    }
-
-    /**
      * Hook for WordPress init.
      *
      * @return void
      */
     public static function initAction()
     {
+        global $tubepress_base_url;
+        
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
         $fs           = $iocContainer->get('org_tubepress_api_filesystem_Explorer');
         $dirName      = basename($fs->getTubePressBaseInstallationPath());
         
-        wp_enqueue_style('jquery-ui-flick', WP_PLUGIN_URL . "/$dirName/ui/lib/options_page/css/flick/jquery-ui-1.7.2.custom.css");
+        wp_register_style('jquery-ui-flick', "$tubepress_base_url/ui/lib/options_page/css/flick/jquery-ui-1.7.2.custom.css");
+        wp_register_script('jscolor-tubepress', "$tubepress_base_url/ui/lib/options_page/js/jscolor/jscolor.js");
+        wp_enqueue_style('jquery-ui-flick');
         wp_enqueue_script('jquery-ui-tabs');
+        wp_enqueue_script('jscolor-tubepress');
     }
 
     /**
@@ -73,41 +66,15 @@ class org_tubepress_impl_env_wordpress_Admin
      */
     public static function conditionalExecuteOptionsPage()
     {
-        if (version_compare(PHP_VERSION, '5.0.2', '>=')) {
-            self::_executeOptionsPage();
-        } else {
-                print <<<EOT
-<div id="message" class="error fade">
-    <p>
-        <strong>
-            This version of TubePress requires PHP 5.0.2 or higher. 
-            Please <a href="http://php.net">upgrade your PHP installation</a> 
-            or visit <a href="http://tubepress.org">tubepress.org</a> to obtain 
-            a different version of the plugin.
-        </strong>
-    </p>
-</div>
-EOT
-                ;
-        }
-    }
-
-    /**
-     * Handles the TubePress options page.
-     *
-     * @return void
-     */
-    private static function _executeOptionsPage()
-    {
         /* grab the storage manager */
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $wpsm = $iocContainer->get('org_tubepress_api_options_StorageManager');
+        $wpsm         = $iocContainer->get('org_tubepress_api_options_StorageManager');
 
         /* initialize our options in case we need to */
         $wpsm->init();
 
         /* get the form handler */
-        $optionsForm = new org_tubepress_impl_options_FormHandler();
+        $optionsForm = $iocContainer->get('org_tubepress_impl_options_FormHandler');
 
         /* are we updating? */
         if (isset($_POST['tubepress_save'])) {

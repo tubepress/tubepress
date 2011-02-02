@@ -11,7 +11,7 @@ class org_tubepress_api_const_options_AdvancedTest extends org_tubepress_api_con
 	
     protected function getExpectedNames()
     {
-        return array('dateFormat', 'debugging_enabled', 'keyword', 'videoBlacklist');
+        return array('cacheCleaningFactor', 'cacheDirectory', 'cacheLifetimeSeconds', 'dateFormat', 'debugging_enabled', 'disableHttpTransportCurl', 'disableHttpTransportExtHttp', 'disableHttpTransportFopen', 'disableHttpTransportFsockOpen', 'disableHttpTransportStreams', 'keyword', 'videoBlacklist');
     }
 	
 }

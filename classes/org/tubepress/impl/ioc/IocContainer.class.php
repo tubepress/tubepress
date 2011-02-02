@@ -21,10 +21,9 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_ioc_IocService',
-    'org_tubepress_impl_ioc_FreeWordPressPluginIocService',
-    'org_tubepress_ioc_impl_ProInWordPressIocService',
-    'org_tubepress_util_EnvironmentDetector'));
+tubepress_load_classes(array('org_tubepress_impl_environment_SimpleEnvironmentDetector',
+    'org_tubepress_api_ioc_IocService',
+    'org_tubepress_impl_log_Log'));
 
 /**
  * Class that holds a reference to an IOC container.
@@ -32,6 +31,8 @@ tubepress_load_classes(array('org_tubepress_api_ioc_IocService',
 class org_tubepress_impl_ioc_IocContainer
 {
     private static $_instance = null;
+    
+    const LOG_PREFIX = 'IOC Container';
 
     public static function getInstance()
     {
@@ -40,14 +41,26 @@ class org_tubepress_impl_ioc_IocContainer
             return self::$_instance;        
         }
         
-        if (org_tubepress_util_EnvironmentDetector::isPro()) {
-            if (org_tubepress_util_EnvironmentDetector::isWordPress()) {
+        $detector = new org_tubepress_impl_environment_SimpleEnvironmentDetector();
+        
+        if ($detector->isPro()) {
+            if ($detector->isWordPress()) {
+                
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Building IOC container for TubePress Pro in WordPress');
+                tubepress_classloader('org_tubepress_ioc_impl_ProInWordPressIocService');
                 self::$_instance = new org_tubepress_ioc_impl_ProInWordPressIocService();
+                
             } else {
+                
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Building IOC container for TubePress Pro in standalone PHP');
+                tubepress_classloader('org_tubepress_ioc_impl_ProIocService');
                 self::$_instance = new org_tubepress_ioc_impl_ProIocService();
             }
             
         } else {
+            
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Building IOC container for free version of TubePress');
+            tubepress_classloader('org_tubepress_impl_ioc_FreeWordPressPluginIocService');
             self::$_instance = new org_tubepress_impl_ioc_FreeWordPressPluginIocService();
         }
         

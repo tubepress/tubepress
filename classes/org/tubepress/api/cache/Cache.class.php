@@ -31,8 +31,8 @@ interface org_tubepress_api_cache_Cache
      * 
      * @return string The data at the given key, or null if not there
      */
-    public function get($key);
-    
+    function get($key);
+
     /**
      * Determine if the cache has data for a certain key
      *
@@ -40,8 +40,8 @@ interface org_tubepress_api_cache_Cache
      * 
      * @return boolean True if the cache has the data, false otherwise
      */
-    public function has($key);
-    
+    function has($key);
+
     /**
      * Save the given data with the given key
      *
@@ -50,5 +50,5 @@ interface org_tubepress_api_cache_Cache
      * 
      * @return void
      */
-    public function save($key, $data);
+    function save($key, $data);
 }

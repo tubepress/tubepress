@@ -25,20 +25,11 @@
 interface org_tubepress_api_feed_FeedInspector
 {
     /**
-     * Determine the total number of videos in this gallery.
+     * Count the videos in this feed result.
      *
      * @param unknown $rawFeed The raw video feed (varies depending on provider)
      *
-     * @return integer The total number of videos in this gallery.
+     * @return org_tubepress_api_feed_FeedResult The feed result with the total/query results filled in.
      */
-    function getTotalResultCount($rawFeed);
-
-    /**
-     * Determine the number of videos in this gallery page.
-     *
-     * @param unknown $rawFeed The raw video feed (varies depending on provider)
-     *
-     * @return integer The number of videos in this gallery page.
-     */
-    function getQueryResultCount($rawFeed);
+    function count($rawFeed);
 }

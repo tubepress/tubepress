@@ -35,5 +35,5 @@ interface org_tubepress_api_embedded_EmbeddedPlayer
      *
      * @return string The text for this embedded player
      */
-    public function toString($videoId);
+    function toString($videoId);
 }

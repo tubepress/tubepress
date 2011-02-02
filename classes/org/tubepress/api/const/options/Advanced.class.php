@@ -24,8 +24,16 @@
  */
 class org_tubepress_api_const_options_Advanced
 {
-    const DATEFORMAT      = 'dateFormat';
-    const DEBUG_ON        = 'debugging_enabled';
-    const KEYWORD         = 'keyword';
-    const VIDEO_BLACKLIST = 'videoBlacklist';
+    const CACHE_CLEAN_FACTOR     = 'cacheCleaningFactor';
+    const CACHE_DIR              = 'cacheDirectory';
+    const CACHE_LIFETIME_SECONDS = 'cacheLifetimeSeconds';
+    const DATEFORMAT             = 'dateFormat';
+    const DEBUG_ON               = 'debugging_enabled';
+    const DISABLE_HTTP_CURL      = 'disableHttpTransportCurl';
+    const DISABLE_HTTP_EXTHTTP   = 'disableHttpTransportExtHttp';
+    const DISABLE_HTTP_FOPEN     = 'disableHttpTransportFopen';
+    const DISABLE_HTTP_FSOCKOPEN = 'disableHttpTransportFsockOpen';
+    const DISABLE_HTTP_STREAMS   = 'disableHttpTransportStreams';
+    const KEYWORD                = 'keyword';
+    const VIDEO_BLACKLIST        = 'videoBlacklist';
 }

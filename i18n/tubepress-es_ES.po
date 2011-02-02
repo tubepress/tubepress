@@ -497,3 +497,50 @@ msgstr ""
 msgid "Vimeo API \"Consumer Secret\""
 msgstr ""
 
+msgid "Do not attempt to use cURL to fetch remote feeds. Leave enabled unless you know what you are doing."
+msgstr ""
+
+msgid "Do not attempt to use the PHP HTTP extension to fetch remote feeds. Leave enabled unless you know what you are doing."
+msgstr ""
+
+msgid "Do not attempt to use fopen to fetch remote feeds. Leave enabled unless you know what you are doing."
+msgstr ""
+
+msgid "Do not attempt to use fsockopen to fetch remote feeds. Leave enabled unless you know what you are doing."
+msgstr ""
+
+msgid "Do not attempt to use PHP streams to fetch remote feeds. Leave enabled unless you know what you are doing."
+msgstr ""
+
+msgid "Disable <a href=\"http://php.net/manual/en/function.curl-exec.php\">cURL</a> HTTP transport"
+msgstr ""
+
+msgid "Disable <a href=\"http://php.net/http_request\">HTTP extension</a> transport"
+msgstr ""
+
+msgid "Disable <a href=\"http://php.net/manual/en/function.fopen.php\">fopen</a> HTTP transport"
+msgstr ""
+
+msgid "Disable <a href=\"http://php.net/fsockopen\">fsockopen</a> HTTP transport"
+msgstr ""
+
+msgid "Disable <a href=\"http://php.net/manual/en/intro.stream.php\">PHP streams</a> HTTP transport"
+msgstr ""
+
+msgid "Cache directory"
+msgstr ""
+
+msgid "Leave blank to attempt to use system temp directory. Otherwise enter the absolute path of a writeable directory."
+msgstr ""
+
+msgid "Cache expiration time (seconds)"
+msgstr ""
+
+msgid "Cache entries will be considered stale after the specified number of seconds. Default is 3600 (one hour)."
+msgstr ""
+
+msgid "Cache cleaning factor"
+msgstr ""
+
+msgid "If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning."
+msgstr ""

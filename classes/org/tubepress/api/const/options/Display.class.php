@@ -40,5 +40,4 @@ class org_tubepress_api_const_options_Display
     const RANDOM_THUMBS       = 'randomize_thumbnails';
     const RELATIVE_DATES      = 'relativeDates';
     const DESC_LIMIT          = 'descriptionLimit';
-    
 }

@@ -27,35 +27,19 @@ tubepress_classloader('org_tubepress_api_ioc_IocService');
  */
 class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_ioc_IocService
 {
-    /* a transient variable that holds the interface name during method chaining. */
     private $_interface;
 
-    /* a transient variable that holds the object label (if any) during method chaining. */
-    private $_label;
-
-    /* map of labeled interfaces to implementations. */
-    private $_labeledMap;
-    
-    /* map of un-labeled interfaces to implementations. */
+    /* map of interface/class names to implementations */
     private $_map;
 
     public function __construct()
     {
-        $this->_labeledMap = array();
         $this->_map = array();
     }
 
     public function bind($interface)
     {
         $this->_interface = $interface;
-
-        /* chainable.. */
-        return $this;
-    }
-
-    public function labeled($label)
-    {
-        $this->_label = $label;
 
         /* chainable.. */
         return $this;
@@ -68,88 +52,60 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
             throw new Exception('Call to "to" without calling "bind" first');
         }
 
-        /* labeled? */
-        if (isset($this->_label)) {
+        $this->_map[$this->_interface] = $className;
 
-            /* first time seeing this interface? create a bucket for it. */
-            if (!isset($this->_labeledMap[$this->_interface])) {
-                $this->_labeledMap[$this->_interface] = array();
-            }
-
-            /* register the interface/label combination */
-            $this->_labeledMap[$this->_interface][$this->_label] = $className;
-
-        } else {
-
-            /* unlabled interface to implementation */
-            $this->_map[$this->_interface] = $className;
-        }
-
-        /* clear these out for the next round */
+        /* clear this out for the next round */
         unset($this->_interface);
-        unset($this->_label);
-
-        /* chainable.. */
-        return $this;
     }
 
-    public function get($interface, $label = "")
+    public function get($classOrInterfaceName)
     {
-        if ($label === '') {
-
-            /* never heard of this interface before? */
-            if (!isset($this->_map[$interface])) {
+        /* haven't built this class/interface before? */
+        if (!isset($this->_map[$classOrInterfaceName])) {
     
-                /* maybe you forgot to supply a label? */
-                if (isset($this->_labeledMap[$interface])) {
-                    throw new Exception("$interface was never bound to an implementation without a label");
-                }
-    
-                /* give up */
-                throw new Exception("$interface was never bound to an implementation");
+            /* maybe we can instantiate a singleton? */
+            if (class_exists($classOrInterfaceName)) {
+                return $this->_buildAndRemember($classOrInterfaceName);
             }
-    
-            /* return the implementation */
-            return $this->_getInstance($interface, $this->_map[$interface]);
+
+            /* give up */
+            throw new Exception("$classOrInterfaceName was never bound to an implementation");
         }
-        
-        /* don't have this interface/label combo? */
-        if (!isset($this->_labeledMap[$interface][$label])) {
-            throw new Exception("Can't find implementation of $interface with label $label");
+    
+        /* we've already built it. this should be the normal case. */
+        if (is_a($this->_map[$classOrInterfaceName], $classOrInterfaceName)) {
+            return $this->_map[$classOrInterfaceName];
         }
 
-        /* return the labeled implementation */
-        return $this->_getInstance($interface, $this->_labeledMap[$interface][$label], $label);
+        /* build and return the mapped implementation */
+        return $this->_buildInterface($classOrInterfaceName, $this->_map[$classOrInterfaceName]);
     }
 
-    private function _getInstance($interface, $implementation, $label = "")
+    private function _buildInterface($interfaceName, $implementationName)
     {
-        /* see if we've already built it. this should be the normal case. */
-        if (is_a($implementation, $interface)) {
-            return $implementation;
-        }
+        class_exists($interfaceName) || tubepress_classloader($interfaceName);
+        class_exists($implementationName) || tubepress_classloader($implementationName);
 
-        /* make sure we've loaded the classes */
-        class_exists($interface) || tubepress_classloader($interface);
-        class_exists($implementation) || tubepress_classloader($implementation);
-
-        /* built it with reflection */
-        $ref = new ReflectionClass($implementation);
-        $instance = $ref->newInstance();
+        /* build the implementation */
+        $instance = $this->_buildAndRemember($implementationName);
 
         /* make sure the class looks OK */
-        if (!is_a($instance, $interface)) {
-            throw new Exception("$implementation does not implement $interface, but they were bound together");
+        if (!is_a($instance, $interfaceName)) {
+            throw new Exception("$implementationName does not implement $interfaceName, but they were bound together");
         }
 
+        return $instance;
+    }
+
+    private function _buildAndRemember($className)
+    {
+        /* build it */
+        $ref      = new ReflectionClass($className);
+        $instance = $ref->newInstance();
+                
         /* save it for later */
-        if ($label === "") {
-            $this->_map[$interface] = $instance;
-        } else {
-            $this->_labeledMap[$interface][$label] = $instance;
-        }
-
-        /* ... puts on sunglasses */
+        $this->_map[$className] = $instance;
+        
         return $instance;
     }
 }

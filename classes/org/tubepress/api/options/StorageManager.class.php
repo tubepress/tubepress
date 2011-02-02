@@ -32,14 +32,14 @@ interface org_tubepress_api_options_StorageManager
      * 
      * @return boolean True if the option exists, false otherwise
      */
-    public function exists($optionName);
+    function exists($optionName);
 
     /**
      * Initializes the storage
      *
      * @return void
      */
-    public function init();
+    function init();
 
     /**
      * Retrieve the current value of an option
@@ -48,7 +48,7 @@ interface org_tubepress_api_options_StorageManager
      * 
      * @return unknown_type The option's value
      */
-    public function get($optionName);
+    function get($optionName);
 
     /**
      * Sets an option value
@@ -58,5 +58,5 @@ interface org_tubepress_api_options_StorageManager
      * 
      * @return void
      */
-    public function set($optionName, $optionValue);
+    function set($optionName, $optionValue);
 }

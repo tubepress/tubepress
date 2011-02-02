@@ -31,5 +31,5 @@ interface org_tubepress_api_message_MessageService
      *
      * @return string The corresponding message.
      */
-    public function _($messageKey);
+    function _($messageKey);
 }

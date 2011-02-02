@@ -21,7 +21,6 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array());
 
 /**
  * Embedded player utilities
@@ -55,11 +54,8 @@ class org_tubepress_impl_embedded_EmbeddedPlayerUtils
      */
     public static function booleanToOneOrZero($bool)
     {
-        if ($bool === '1') {
-            return '1';
-        }
-        if ($bool === '0') {
-            return '0';
+        if ($bool === '1' || $bool === '0') {
+            return $bool;
         }
         return $bool ? '1' : '0';
     }

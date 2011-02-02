@@ -29,8 +29,7 @@ tubepress_load_classes(array('org_tubepress_impl_options_WordPressStorageManager
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_util_StringUtils',
-    'org_tubepress_api_gallery_Gallery',
-    'org_tubepress_impl_html_HtmlUtils'));
+    'org_tubepress_api_gallery_Gallery'));
 
 class org_tubepress_impl_env_wordpress_Main
 {
@@ -44,17 +43,20 @@ class org_tubepress_impl_env_wordpress_Main
     public static function contentFilter($content = '')
     {
         try {
+            /* Whip up the IOC service */
+            $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+            
             /* do as little work as possible here 'cause we might not even run */
-            $wpsm    = new org_tubepress_impl_options_WordPressStorageManager();
+            $wpsm    = $ioc->get('org_tubepress_api_options_StorageManager');
             $trigger = $wpsm->get(org_tubepress_api_const_options_Advanced::KEYWORD);
-            $parser  = new org_tubepress_impl_shortcode_SimpleShortcodeParser();
+            $parser  = $ioc->get('org_tubepress_api_shortcode_ShortcodeParser');
 
             /* no shortcode? get out */
             if (!$parser->somethingToParse($content, $trigger)) {
                 return $content;
             }
 
-            return self::_getHtml($content, $trigger, $parser);
+            return self::_getHtml($content, $trigger, $parser, $ioc);
         } catch (Exception $e) {
             return $e->getMessage() . $content;
         }
@@ -68,19 +70,16 @@ class org_tubepress_impl_env_wordpress_Main
      *
      * @return string The modified content.
      */
-    private static function _getHtml($content, $trigger, $parser)
+    private static function _getHtml($content, $trigger, $parser, $ioc)
     {
-        /* Whip up the IOC service */
-        $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
-
         /* Get a handle to our options manager */
-        $tpom = $iocContainer->get('org_tubepress_api_options_OptionsManager');
+        $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
 
         /* Turn on logging if we need to */
         org_tubepress_impl_log_Log::setEnabled($tpom->get(org_tubepress_api_const_options_Advanced::DEBUG_ON), $_GET);
 
         /* Grab the gallery that will do the heavy lifting */
-        $gallery = $iocContainer->get('org_tubepress_api_gallery_Gallery');
+        $gallery = $ioc->get('org_tubepress_api_gallery_Gallery');
 
         /* Parse each shortcode one at a time */
         while ($parser->somethingToParse($content, $trigger)) {
@@ -106,7 +105,14 @@ class org_tubepress_impl_env_wordpress_Main
      */
     public static function headAction()
     {
-        print org_tubepress_impl_html_HtmlUtils::getHeadElementsAsString($_GET, false);
+        $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $hh       = $ioc->get('org_tubepress_api_html_HtmlHandler');
+        $inlineJs = $hh->getHeadInlineJavaScriptString();
+        $meta     = $hh->getHeadMetaString();
+        print <<<EOT
+$inlineJs
+$meta
+EOT;
     }
 
     /**
@@ -116,7 +122,15 @@ class org_tubepress_impl_env_wordpress_Main
      */
     public static function initAction()
     {
+        global $tubepress_base_url;
+
+        wp_register_script('tubepress', "$tubepress_base_url/ui/lib/tubepress.js");
+        wp_register_style('tubepress', "$tubepress_base_url/ui/themes/default/style.css");
+
         wp_enqueue_script('jquery');
+        wp_enqueue_script('tubepress');
+        
+        wp_enqueue_style('tubepress');
     }
 }
 

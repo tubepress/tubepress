@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2010 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
  * 
  * This file is part of TubePress (http://tubepress.org)
  * 
@@ -21,37 +21,35 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_provider_Provider',
+tubepress_load_classes(array('org_tubepress_api_patterns_StrategyManager',
     'org_tubepress_api_embedded_EmbeddedPlayer',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_api_provider_ProviderCalculator'));
 
 /**
- * An HTML-embeddable player
- *
+ * An HTML-embeddable video player.
  */
 class org_tubepress_impl_embedded_DelegatingEmbeddedPlayer implements org_tubepress_api_embedded_EmbeddedPlayer
 {
     /**
-     * Spits back the text for this embedded player
+     * Spits back the HTML for this embedded player
      *
      * @param string $videoId The video ID to display
      *
-     * @return string The text for this embedded player
+     * @return string The HTML for this embedded player
      */
     public function toString($videoId)
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-	    $providerName = $pc->calculateProviderOfVideoId($videoId);
-    
-        /** The user wants to use JW FLV Player to show YouTube videos. */   
-        if ($providerName === org_tubepress_api_provider_Provider::YOUTUBE 
-            && $tpom->get(org_tubepress_options_category_Embedded::PLAYER_IMPL) === org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL) {
-            return $ioc->get('org_tubepress_api_embedded_EmbeddedPlayer', org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL)->toString($videoId);    
-        }
-        
-        $service = $ioc->get('org_tubepress_api_embedded_EmbeddedPlayer', $providerName);
-        return $service->toString($videoId);
+        $sm           = $ioc->get('org_tubepress_api_patterns_StrategyManager');
+        $providerName = $pc->calculateProviderOfVideoId($videoId);
+
+        /* let the strategies do the heavy lifting */
+        return $sm->executeStrategy(array(
+            'org_tubepress_impl_embedded_strategies_JwFlvEmbeddedStrategy',
+            'org_tubepress_impl_embedded_strategies_YouTubeEmbeddedStrategy',
+            'org_tubepress_impl_embedded_strategies_VimeoEmbeddedStrategy'
+        ), $providerName, $videoId);
     }
 }

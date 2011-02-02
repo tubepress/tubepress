@@ -20,14 +20,36 @@
  */
 
 /**
- * Some filesystem utilities
- *
+ * Filesystem utilities.
  */
 interface org_tubepress_api_filesystem_Explorer
 {
+    /**
+     * Finds the absolute path of the TubePress installation on the filesystem.
+     *
+     * @return string The absolute filesystem path of this TubePress installation.
+     */
     function getTubePressBaseInstallationPath();
-    
+
+    /**
+     * Find the directories contained in the given directory (non-recursive).
+     *
+     * @param string $dir    The absolute filesystem path of the directory to examine.
+     * @param string $prefix The logging prefix.
+     *
+     * @return array The names of the directories in the given directory (non-recursive).
+     */
     function getDirectoriesInDirectory($dir, $prefix);
 
+    /**
+     * Find the files contained in the given directory (non-recursive).
+     *
+     * @param string $dir    The absolute filesystem path of the directory to examine.
+     * @param string $prefix The logging prefix.
+     *
+     * @return array The names of the files in the given directory (non-recursive).
+     */
     function getFilenamesInDirectory($dir, $prefix);
+    
+    function getSystemTempDirectory();
 }

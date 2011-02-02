@@ -6,11 +6,10 @@ require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/
 class org_tubepress_impl_gallery_SimpleGalleryTest extends TubePressUnitTest
 {
 	private $_sut;
-	private static $_feedResult;
+	private $_shouldParse;
 
 	function setup()
 	{
-		self::$_feedResult = new org_tubepress_api_feed_FeedResult();
 		$this->initFakeIoc();
 		$this->_sut = new org_tubepress_impl_gallery_SimpleGallery();
 	}
@@ -20,47 +19,31 @@ class org_tubepress_impl_gallery_SimpleGalleryTest extends TubePressUnitTest
 		$mock = parent::getMock($className);
 
 		switch ($className) {
-			case 'org_tubepress_api_provider_Provider':
-				$mock->expects($this->any())
-					->method('getMultipleVideos')
-					->will($this->returnValue(self::$_feedResult));
-				break;
-			case 'org_tubepress_api_querystring_QueryStringService':
-				$mock->expects($this->any())
-					->method('getGalleryId')
-					->will($this->returnValue('FAKEID'));
+			case 'org_tubepress_api_patterns_StrategyManager':
+				$mock->expects($this->once())
+					->method('executeStrategy')
+					->with($this->equalTo(array(
+            'org_tubepress_impl_gallery_strategies_SingleVideoStrategy',
+            'org_tubepress_impl_gallery_strategies_SoloPlayerStrategy',
+            'org_tubepress_impl_gallery_strategies_ThumbGalleryStrategy'
+        )))
+					->will($this->returnValue('boop'));
 				break;
 		}
 
 		return $mock;
 	}
 
+	function callback()
+	{
+	    
+	}
+	
     function testGetHtml()
     {
 	    $result = $this->_sut->getHtml();
-        $this->assertEquals($this->expected(), $result);
+        $this->assertEquals('boop', $result);
     }
-    
-    function expected()
-    {
-        return <<<EOT
 
-<div class="tubepress_container" id="tubepress_gallery_FAKEID">
-  <div id="tubepress_gallery_FAKEID_thumbnail_area" class="tubepress_thumbnail_area">
-    <div class="tubepress_thumbs">
-    </div>
-      </div>
-  <script type="text/javascript">
-    jQuery(document).ready(function(){
-       TubePressGallery.fluidThumbs("#tubepress_gallery_FAKEID",  120);
-    });
-    jQuery(window).resize(function(){
-       TubePressGallery.fluidThumbs("#tubepress_gallery_FAKEID",  120);
-    });
-  </script>
-</div>
-
-EOT;
-    }
 }
 ?>

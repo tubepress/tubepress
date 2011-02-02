@@ -31,6 +31,6 @@ interface org_tubepress_api_single_SingleVideo
      *
      * @return string The HTML for the single video display.
      */
-    public function getSingleVideoHtml($videoId);
+    function getSingleVideoHtml($videoId);
 }
 
