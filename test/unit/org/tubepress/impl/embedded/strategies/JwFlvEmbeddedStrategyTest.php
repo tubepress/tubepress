@@ -36,10 +36,10 @@ class org_tubepress_impl_embedded_JwFlvEmbeddedStrategyTest extends org_tubepres
     function expected()
     {
         return <<<EOT
-<object type="application/x-shockwave-flash" data="/ui/lib/embedded_flash/longtail/lib/player.swf" style="width: 425px; height: 350px" >
+<object type="application/x-shockwave-flash" data="tubepress_base_url/ui/lib/embedded_flash/longtail/lib/player.swf" style="width: 425px; height: 350px" >
         <param name="AllowScriptAccess" value="never" />
         <param name="wmode" value="opaque" />
-        <param name="movie" value="/ui/lib/embedded_flash/longtail/lib/player.swf" />
+        <param name="movie" value="tubepress_base_url/ui/lib/embedded_flash/longtail/lib/player.swf" />
         <param name="bgcolor" value="999999" />
         <param name="frontcolor" value="FFFFFF" />
         <param name="quality" value="high" />

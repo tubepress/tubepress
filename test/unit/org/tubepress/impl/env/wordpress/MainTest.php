@@ -2,13 +2,7 @@
 
 require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/impl/env/wordpress/Main.class.php';
 require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
-
-defined('WP_PLUGIN_URL') || define('WP_PLUGIN_URL', 'fooby');
-
-function add_option($name, $value)
-{
-    
-}
+require_once 'fake_wordpress_functions.inc.php';
 
 class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
     
@@ -16,6 +10,18 @@ class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
     
     function setUp()
     {
+        global $enqueuedStyles,
+        $enqueuedScripts,
+        $add_options_page_called,
+        $registeredScripts,
+        $registeredStyles;
+         
+        $enqueuedStyles          = array();
+        $enqueuedScripts         = array();
+        $registeredStyles        = array();
+        $registeredScripts       = array();
+        $add_options_page_called = false;
+
         $this->_parseCount = 0;
         $this->initFakeIoc();
     }
@@ -28,6 +34,14 @@ class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
             $mock->expects($this->any())
                  ->method('somethingToParse')
                  ->will($this->returnCallback(array($this, 'parserCallback')));
+        }
+        if ($className === 'org_tubepress_api_html_HtmlHandler') {
+            $mock->expects($this->any())
+                 ->method('getHeadInlineJavaScriptString')
+                 ->will($this->returnValue('inlinejs'));
+            $mock->expects($this->any())
+                 ->method('getHeadMetaString')
+                 ->will($this->returnValue('headmeta'));
         }
         return $mock;
     }
@@ -57,25 +71,20 @@ class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
         org_tubepress_impl_env_wordpress_Main::headAction();
         $contents = ob_get_contents();
         ob_end_clean();
-        $this->assertEquals($this->headElements(), $contents);
+        $this->assertEquals("inlinejs\nheadmeta", $contents);
     }
     
     function testInit()
     {
-        global $expectedScript;
-        $expectedScript = 'jquery';
+        global $enqueuedStyles, $enqueuedScripts, $add_options_page_called, $registeredScripts, $registeredStyles;
+        
         org_tubepress_impl_env_wordpress_Main::initAction();
-    }
-    
-    function headElements()
-    {
-        return <<<EOT
-
-<script type="text/javascript">function getTubePressBaseUrl(){return "";}</script>
-<script type="text/javascript" src="/ui/lib/tubepress.js"></script>
-<link rel="stylesheet" href="/ui/themes/default/style.css" type="text/css" />
-
-EOT;
+        
+        $this->assertTrue($registeredScripts['tubepress'] === 'tubepress_base_url/ui/lib/tubepress.js');
+        $this->assertTrue($enqueuedScripts['tubepress'] === true);
+        $this->assertTrue($enqueuedScripts['jquery'] === true);
+        $this->assertTrue($enqueuedStyles['tubepress'] === true);
+        $this->assertTrue($registeredStyles['tubepress'] === 'tubepress_base_url/ui/themes/default/style.css');
     }
 }
 ?>

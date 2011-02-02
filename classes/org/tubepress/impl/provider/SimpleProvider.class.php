@@ -67,12 +67,12 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
 
         $feedInspectionService = $ioc->get('org_tubepress_api_feed_FeedInspector');
 
-        /* get reported total result count */
-        $reportedTotalResultCount = $feedInspectionService->getTotalResultCount($rawFeed);
+        /* get the counts */
+        $count                    = $feedInspectionService->count($rawFeed);
+        $reportedTotalResultCount = $count->getEffectiveTotalResultCount();
+        $queryResult              = $count->getEffectiveDisplayCount();
+        
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Reported total result count is %d video(s)', $reportedTotalResultCount);
-
-        /* count the results in this particular response */
-        $queryResult = $feedInspectionService->getQueryResultCount($rawFeed);
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Query result count is %d video(s)', $queryResult);
 
         /* no videos? bail. */

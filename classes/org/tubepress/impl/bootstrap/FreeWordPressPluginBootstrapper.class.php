@@ -55,7 +55,6 @@ class org_tubepress_impl_bootstrap_FreeWordPressPluginBootstrapper extends org_t
         add_action('init', array('org_tubepress_impl_env_wordpress_Main',   'initAction'));
 
         add_action('admin_menu', array('org_tubepress_impl_env_wordpress_Admin',  'menuAction'));
-        add_action('admin_head', array('org_tubepress_impl_env_wordpress_Admin',  'headAction'));
         add_action('admin_init', array('org_tubepress_impl_env_wordpress_Admin',  'initAction'));
 
         add_action('widgets_init', array('org_tubepress_impl_env_wordpress_Widget', 'initAction'));

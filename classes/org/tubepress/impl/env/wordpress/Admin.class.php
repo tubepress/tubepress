@@ -30,30 +30,23 @@ tubepress_load_classes(array('org_tubepress_impl_ioc_FreeWordPressPluginIocServi
 class org_tubepress_impl_env_wordpress_Admin
 {
     /**
-     * Hook for WordPress head.
-     *
-     * @return void
-     */
-    public static function headAction()
-    {
-        global $tubepress_base_url;
-        $jsColorFile = "$tubepress_base_url/ui/lib/options_page/js/jscolor/jscolor.js";
-        echo "<script type=\"text/javascript\" src=\"$jsColorFile\"></script>";
-    }
-
-    /**
      * Hook for WordPress init.
      *
      * @return void
      */
     public static function initAction()
     {
+        global $tubepress_base_url;
+        
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
         $fs           = $iocContainer->get('org_tubepress_api_filesystem_Explorer');
         $dirName      = basename($fs->getTubePressBaseInstallationPath());
         
-        wp_enqueue_style('jquery-ui-flick', WP_PLUGIN_URL . "/$dirName/ui/lib/options_page/css/flick/jquery-ui-1.7.2.custom.css");
+        wp_register_style('jquery-ui-flick', "$tubepress_base_url/ui/lib/options_page/css/flick/jquery-ui-1.7.2.custom.css");
+        wp_register_script('jscolor-tubepress', "$tubepress_base_url/ui/lib/options_page/js/jscolor/jscolor.js");
+        wp_enqueue_style('jquery-ui-flick');
         wp_enqueue_script('jquery-ui-tabs');
+        wp_enqueue_script('jscolor-tubepress');
     }
 
     /**
