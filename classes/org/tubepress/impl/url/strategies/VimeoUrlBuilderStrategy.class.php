@@ -20,8 +20,8 @@
  */
 
 function_exists('tubepress_load_classes')
-    || require(dirname(__FILE__) . '/../../../../../tubepress_classloader.php');
-tubepress_load_classes(array('org_tubepress_impl_url_strategies_AbstractUrlBuilderStrategy',
+    || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
+tubepress_load_classesarray('org_tubepress_impl_url_strategies_AbstractUrlBuilderStrategy',
     'org_tubepress_api_const_options_Gallery',
     'org_tubepress_api_gallery_Gallery',
     'org_tubepress_api_options_OptionsManager',
@@ -37,8 +37,6 @@ tubepress_load_classes(array('org_tubepress_impl_url_strategies_AbstractUrlBuild
  */
 class org_tubepress_impl_url_strategies_VimeoUrlBuilderStrategy extends org_tubepress_impl_url_strategies_AbstractUrlBuilderStrategy
 {
-    
-    
     /**
      * Builds a gdata request url for a list of videos
      *
@@ -52,146 +50,147 @@ class org_tubepress_impl_url_strategies_VimeoUrlBuilderStrategy extends org_tube
         $mode   = $tpom->get(org_tubepress_api_const_options_Gallery::MODE);
 
         $this->_verifyKeyAndSecretExists($tpom);
-        
+
         switch ($mode) {
-            
+
         case org_tubepress_api_gallery_Gallery::VIMEO_UPLOADEDBY:
-            $params['method']        = 'vimeo.videos.getUploaded';
-            $params['user_id']       = $tpom->get(org_tubepress_api_const_options_Gallery::VIMEO_UPLOADEDBY_VALUE);
+            $params['method']  = 'vimeo.videos.getUploaded';
+            $params['user_id'] = $tpom->get(org_tubepress_api_const_options_Gallery::VIMEO_UPLOADEDBY_VALUE);
             break;
         case org_tubepress_api_gallery_Gallery::VIMEO_LIKES:
-            $params['method']        = 'vimeo.videos.getLikes';
-            $params['user_id']       = $tpom->get(org_tubepress_api_const_options_Gallery::VIMEO_LIKES_VALUE);
+            $params['method']  = 'vimeo.videos.getLikes';
+            $params['user_id'] = $tpom->get(org_tubepress_api_const_options_Gallery::VIMEO_LIKES_VALUE);
             break;
         case org_tubepress_api_gallery_Gallery::VIMEO_APPEARS_IN:
-            $params['method']        = 'vimeo.videos.getAppearsIn';
-            $params['user_id']       = $tpom->get(org_tubepress_api_const_options_Gallery::VIMEO_APPEARS_IN_VALUE);
+            $params['method']  = 'vimeo.videos.getAppearsIn';
+            $params['user_id'] = $tpom->get(org_tubepress_api_const_options_Gallery::VIMEO_APPEARS_IN_VALUE);
             break;
         case org_tubepress_api_gallery_Gallery::VIMEO_SEARCH:
-            $params['method']        = 'vimeo.videos.search';
-            $params['query']         = $tpom->get(org_tubepress_api_const_options_Gallery::VIMEO_SEARCH_VALUE);
+            $params['method'] = 'vimeo.videos.search';
+            $params['query']  = $tpom->get(org_tubepress_api_const_options_Gallery::VIMEO_SEARCH_VALUE);
             break;
         case org_tubepress_api_gallery_Gallery::VIMEO_CREDITED:
-            $params['method']        = 'vimeo.videos.getAll';
-            $params['user_id']       = $tpom->get(org_tubepress_api_const_options_Gallery::VIMEO_CREDITED_VALUE);
+            $params['method']  = 'vimeo.videos.getAll';
+            $params['user_id'] = $tpom->get(org_tubepress_api_const_options_Gallery::VIMEO_CREDITED_VALUE);
             break;
         case org_tubepress_api_gallery_Gallery::VIMEO_CHANNEL:
-            $params['method']        = 'vimeo.channels.getVideos';
-            $params['channel_id']    = $tpom->get(org_tubepress_api_const_options_Gallery::VIMEO_CHANNEL_VALUE);
+            $params['method']     = 'vimeo.channels.getVideos';
+            $params['channel_id'] = $tpom->get(org_tubepress_api_const_options_Gallery::VIMEO_CHANNEL_VALUE);
             break;
         case org_tubepress_api_gallery_Gallery::VIMEO_ALBUM:
-            $params['method']        = 'vimeo.albums.getVideos';
-            $params['album_id']      = $tpom->get(org_tubepress_api_const_options_Gallery::VIMEO_ALBUM_VALUE);
+            $params['method']   = 'vimeo.albums.getVideos';
+            $params['album_id'] = $tpom->get(org_tubepress_api_const_options_Gallery::VIMEO_ALBUM_VALUE);
             break;
         case org_tubepress_api_gallery_Gallery::VIMEO_GROUP:
-            $params['method']        = 'vimeo.groups.getVideos';
-            $params['group_id']      = $tpom->get(org_tubepress_api_const_options_Gallery::VIMEO_GROUP_VALUE);
+            $params['method']   = 'vimeo.groups.getVideos';
+            $params['group_id'] = $tpom->get(org_tubepress_api_const_options_Gallery::VIMEO_GROUP_VALUE);
         }
-        
+
         $params['full_response'] = 'true';
         $params['page']          = $currentPage;
         $params['per_page']      = $tpom->get(org_tubepress_api_const_options_Display::RESULTS_PER_PAGE);
-        $sort = $this->_getSort($mode, $tpom);
+        $sort                    = $this->_getSort($mode, $tpom);
+
         if ($sort != '') {
-        	$params['sort'] = $sort;
+            $params['sort'] = $sort;
         }
-        
+
         return $this->_buildUrl($params, $tpom);
     }
-    
+
     protected function _buildSingleVideoUrl($id)
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom         = $ioc->get('org_tubepress_api_options_OptionsManager');
         $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
         $providerName = $pc->calculateProviderOfVideoId($id);
-        
+
         if ($providerName !== org_tubepress_api_provider_Provider::VIMEO) {
             throw new Exception("Unable to build Vimeo URL for video with ID $id");
         }
-        
+
         $params             = array();
         $params['method']   = 'vimeo.videos.getInfo';
         $params['video_id'] = $id;
-        
+
         return $this->_buildUrl($params, $tpom);
     }
-    
+
     protected function _getHandledProviderName()
     {
         return org_tubepress_api_provider_Provider::VIMEO;
     }
-    
+
     private function _getSort($mode, org_tubepress_api_options_OptionsManager $tpom)
     {
-    	/* these two modes can't be sorted */
-    	if ($mode == org_tubepress_api_gallery_Gallery::VIMEO_CHANNEL
-    		|| $mode ==org_tubepress_api_gallery_Gallery::VIMEO_ALBUM) {
-    		return '';		
-    	}
-    	
-    	$order = $tpom->get(org_tubepress_api_const_options_Display::ORDER_BY);
-    	
-    	if ($mode == org_tubepress_api_gallery_Gallery::VIMEO_SEARCH
-    		&& $order == 'relevance') {
-       		return 'relevant';
-    	}
-    	
-    	if ($mode == org_tubepress_api_gallery_Gallery::VIMEO_GROUP
-    		&& $order == 'random') {
-    		return $order;
-    	}
-    	
-    	if ($order == 'viewCount') {
-    		return 'most_played';
-    	}
-    	
-    	if ($order == 'commentCount') {
-    		return 'most_commented';
-    	}
-    	
-    	if ($order == 'rating') {
-    		return 'most_liked';
-    	}
-    	
-    	if ($order == 'newest' || $order == 'oldest') {
-    		return $order;	
-    	}
-    	return '';
+        /* these two modes can't be sorted */
+        if ($mode == org_tubepress_api_gallery_Gallery::VIMEO_CHANNEL
+            || $mode == org_tubepress_api_gallery_Gallery::VIMEO_ALBUM) {
+            return '';
+        }
+
+        $order = $tpom->get(org_tubepress_api_const_options_Display::ORDER_BY);
+
+        if ($mode == org_tubepress_api_gallery_Gallery::VIMEO_SEARCH
+            && $order == 'relevance') {
+               return 'relevant';
+        }
+
+        if ($mode == org_tubepress_api_gallery_Gallery::VIMEO_GROUP
+            && $order == 'random') {
+            return $order;
+        }
+
+        if ($order == 'viewCount') {
+            return 'most_played';
+        }
+
+        if ($order == 'commentCount') {
+            return 'most_commented';
+        }
+
+        if ($order == 'rating') {
+            return 'most_liked';
+        }
+
+        if ($order == 'newest' || $order == 'oldest') {
+            return $order;    
+        }
+        return '';
     }
-    
+
     private function _buildUrl($params, org_tubepress_api_options_OptionsManager $tpom)
     {
         $base = 'http://vimeo.com/api/rest/v2';
-        
+
         $params['format']                 = 'php';
         $params['oauth_consumer_key']     = $tpom->get(org_tubepress_api_const_options_Feed::VIMEO_KEY);
-        $params['oauth_nonce']            = md5(uniqid(mt_rand(), TRUE));
+        $params['oauth_nonce']            = md5(uniqid(mt_rand(), true));
         $params['oauth_signature_method'] = 'HMAC-SHA1';
         $params['oauth_timestamp']        = time();
         $params['oauth_version']          ='1.0';
         $params['oauth_signature']        = $this->_generateSignature($params, $base, $tpom);
         return $base . '?' . http_build_query($params);
     }
-    
+
     private function _generateSignature($params, $base, org_tubepress_api_options_OptionsManager $tpom)
     {
         uksort($params, 'strcmp');
         $params = $this->_url_encode_rfc3986($params);
-        
+
         $baseString = array('GET', $base, urldecode(http_build_query($params)));
         $baseString = $this->_url_encode_rfc3986($baseString);
         $baseString = implode('&', $baseString);
-        
+
         // Make the key
-        $key_parts = array($tpom->get(org_tubepress_api_const_options_Feed::VIMEO_SECRET), '');
-        $key_parts = $this->_url_encode_rfc3986($key_parts);
-        $key = implode('&', $key_parts);
-        
+        $keyParts = array($tpom->get(org_tubepress_api_const_options_Feed::VIMEO_SECRET), '');
+        $keyParts = $this->_url_encode_rfc3986($keyParts);
+        $key      = implode('&', $keyParts);
+
         // Generate signature
         return base64_encode(hash_hmac('sha1', $baseString, $key, true));
     }
-    
+
     private function _verifyKeyAndSecretExists(org_tubepress_api_options_OptionsManager $tpom)
     {
         if ($tpom->get(org_tubepress_api_const_options_Feed::VIMEO_KEY) === '') {
@@ -208,7 +207,8 @@ class org_tubepress_impl_url_strategies_VimeoUrlBuilderStrategy extends org_tube
      * 
      * @param array/string $input A parameter or set of parameters to encode.
      */
-    private function _url_encode_rfc3986($input) {
+    private function _url_encode_rfc3986($input)
+    {
         if (is_array($input)) {
             return array_map(array($this, '_url_encode_rfc3986'), $input);
         } elseif (is_scalar($input)) {
