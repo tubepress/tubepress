@@ -47,12 +47,12 @@ abstract class org_tubepress_impl_bootstrap_AbstractBootstrapper implements org_
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom        = $ioc->get('org_tubepress_api_options_OptionsManager');
         $envDetector = $ioc->get('org_tubepress_api_environment_Detector');
-        
+
         /* WordPress likes to keep control of the output */
         if ($envDetector->isWordPress()) {
             ob_start();
         }
-        
+
         /* Turn on logging if we need to */
         org_tubepress_impl_log_Log::setEnabled($tpom->get(org_tubepress_api_const_options_Advanced::DEBUG_ON), $_GET);
         org_tubepress_impl_log_Log::log($this->_getName(), 'Booting!');
