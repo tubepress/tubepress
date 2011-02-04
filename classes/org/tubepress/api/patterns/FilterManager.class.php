@@ -43,5 +43,5 @@ interface org_tubepress_api_patterns_FilterManager
      * 
      * @return void
      */
-    function registerFilter($name, $callback);
+    function registerFilter($name, $className, $methodName);
 }
