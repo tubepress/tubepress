@@ -88,12 +88,8 @@ class org_tubepress_impl_patterns_FilterManagerImpl implements org_tubepress_api
      * 
      * @return void
      */
-    public function registerFilter($name, $className, $methodName)
+    public function registerFilter($name, $callback)
     {
-        $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $instance = $ioc->get($className);
-        $callback = array($instance, $methodName);
-        
         /* sanity check on the callback */
         if (!is_callable($callback)) {
             throw new Exception("Invalid filter registered for $name");
@@ -109,12 +105,12 @@ class org_tubepress_impl_patterns_FilterManagerImpl implements org_tubepress_api
             $this->_filters[$name] = array();
         }
 
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Registered %s as a filter for %s', $this->_callbackToString($callback), $name);
-        
         /* everything looks good. push it to the stack. */
         $this->_filters[$name][] = $callback;
+
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Registered %s as a filter for %s', $this->_callbackToString($callback), $name);
     }
-    
+
     private function _callbackToString($callback)
     {
         if (is_array($callback)) {
