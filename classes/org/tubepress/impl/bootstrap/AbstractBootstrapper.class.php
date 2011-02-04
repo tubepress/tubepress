@@ -48,6 +48,7 @@ abstract class org_tubepress_impl_bootstrap_AbstractBootstrapper implements org_
         $tpom        = $ioc->get('org_tubepress_api_options_OptionsManager');
         $envDetector = $ioc->get('org_tubepress_api_environment_Detector');
         
+        /* WordPress likes to keep control of the output */
         if ($envDetector->isWordPress()) {
             ob_start();
         }

@@ -292,6 +292,3 @@ class org_tubepress_api_url_Url
     }
 
 }
-
-?>
-}

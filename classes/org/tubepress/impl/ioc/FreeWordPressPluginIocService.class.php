@@ -36,14 +36,18 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocService extends org_tubepress
     {
         parent::__construct();
         
+        $this->bind('org_tubepress_api_bootstrap_Bootstrapper')        ->to('org_tubepress_impl_bootstrap_FreeWordPressPluginBootstrapper');
         $this->bind('org_tubepress_api_cache_Cache')                   ->to('org_tubepress_impl_cache_PearCacheLiteCacheService');
         $this->bind('org_tubepress_api_embedded_EmbeddedPlayer')       ->to('org_tubepress_impl_embedded_DelegatingEmbeddedPlayer');
+        $this->bind('org_tubepress_api_environment_Detector')          ->to('org_tubepress_impl_environment_SimpleEnvironmentDetector');
         $this->bind('org_tubepress_api_factory_VideoFactory')          ->to('org_tubepress_impl_factory_DelegatingVideoFactory');
         $this->bind('org_tubepress_api_feed_FeedFetcher')              ->to('org_tubepress_impl_feed_CacheAwareFeedFetcher');
         $this->bind('org_tubepress_api_feed_FeedInspector')            ->to('org_tubepress_impl_feed_DelegatingFeedInspector');
         $this->bind('org_tubepress_api_filesystem_Explorer')           ->to('org_tubepress_impl_filesystem_FsExplorer');
         $this->bind('org_tubepress_api_gallery_Gallery')               ->to('org_tubepress_impl_gallery_SimpleGallery');
+        $this->bind('org_tubepress_api_html_HtmlHandler')              ->to('org_tubepress_impl_html_DefaultHtmlHandler');
         $this->bind('org_tubepress_api_http_AgentDetector')            ->to('org_tubepress_impl_http_MobileEspBrowserDetector');
+        $this->bind('org_tubepress_api_http_HttpClient')               ->to('org_tubepress_impl_http_FastHttpClient');
         $this->bind('org_tubepress_api_message_MessageService')        ->to('org_tubepress_impl_message_WordPressMessageService');
         $this->bind('org_tubepress_api_options_OptionsManager')        ->to('org_tubepress_impl_options_SimpleOptionsManager');    
         $this->bind('org_tubepress_api_options_OptionValidator')       ->to('org_tubepress_impl_options_SimpleOptionValidator');    

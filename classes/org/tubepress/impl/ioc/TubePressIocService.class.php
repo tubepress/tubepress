@@ -64,8 +64,9 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
         if (!isset($this->_map[$classOrInterfaceName])) {
     
             /* maybe we can instantiate a singleton? */
+            tubepress_classloader($classOrInterfaceName);
             if (class_exists($classOrInterfaceName)) {
-                return $this->_buildAndRemember($classOrInterfaceName);
+                return $this->_buildAndRemember($classOrInterfaceName, $classOrInterfaceName);
             }
 
             /* give up */
@@ -87,7 +88,7 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
         class_exists($implementationName) || tubepress_classloader($implementationName);
 
         /* build the implementation */
-        $instance = $this->_buildAndRemember($implementationName);
+        $instance = $this->_buildAndRemember($interfaceName, $implementationName);
 
         /* make sure the class looks OK */
         if (!is_a($instance, $interfaceName)) {
@@ -97,15 +98,15 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
         return $instance;
     }
 
-    private function _buildAndRemember($className)
+    private function _buildAndRemember($interfaceName, $className)
     {
         /* build it */
         $ref      = new ReflectionClass($className);
         $instance = $ref->newInstance();
                 
         /* save it for later */
-        $this->_map[$className] = $instance;
-        
+        $this->_map[$interfaceName] = $instance;
+
         return $instance;
     }
 }

@@ -17,7 +17,8 @@ class FakeIocService implements org_tubepress_api_ioc_IocService
     }            
 }
 
-class org_tubepress_impl_ioc_IocContainerTest extends TubePressUnitTest {
+class org_tubepress_impl_ioc_IocContainerTest extends TubePressUnitTest
+{
 
     function testDefaultContainer()
     {
@@ -33,4 +34,3 @@ class org_tubepress_impl_ioc_IocContainerTest extends TubePressUnitTest {
         $this->assertTrue(is_a($result, 'FakeIocService'));
     }
 }
-?>
