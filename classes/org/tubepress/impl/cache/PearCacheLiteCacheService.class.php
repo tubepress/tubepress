@@ -61,6 +61,7 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
      * Test if a cache is available and (if yes) return it
      *
      * @param string $id cache id
+     *
      * @return string data of the cache (else : false)
      */
     public function get($id)
@@ -90,8 +91,9 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
     /**
      * Save some data in a cache file
      *
+     * @param string $id   cache id
      * @param string $data data to put in cache
-     * @param string $id cache id
+     *
      * @return boolean true if no problem (else : false or throws an Exception)
      */
     public function save($id, $data)
@@ -133,7 +135,11 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
         return $res;
     }
 
-    //should only be called during testing...
+    /**
+     * Should only be called during testing!
+     *
+     * @return void
+     */
     public function clean()
     {
         $this->_cleanDir($this->_getCacheDir(org_tubepress_impl_ioc_IocContainer::getInstance()));
@@ -142,6 +148,9 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
     /**
      * Compute & set the refresh time
      *
+     * @param int $life The current cache lifetime.
+     *
+     * @return int The Unix time when a cache item must be refreshed.
      */
     private function _getRefreshTime($life)
     {
@@ -156,6 +165,7 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
      * Remove a file
      *
      * @param string $file complete file path and name
+     *
      * @return boolean true if no problem
      */
     private function _unlink($file)
@@ -172,6 +182,7 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
      * Recursive function for cleaning cache file in the given directory
      *
      * @param string $dir directory complete path (with a trailing slash)
+     *
      * @return boolean true if no problem
      */
     private function _cleanDir($dir)
@@ -191,17 +202,17 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
 
                 if (substr($file, 0, 6) == 'cache_') {
 
-                    $file2 = $dir . $file;
+                    $fileTwo = $dir . $file;
 
-                    if (is_file($file2)) {
+                    if (is_file($fileTwo)) {
 
-                        if (strpos($file2, $motif) !== false) {
-                            $result = ($result and ($this->_unlink($file2)));
+                        if (strpos($fileTwo, $motif) !== false) {
+                            $result = ($result and ($this->_unlink($fileTwo)));
                         }
                     }
 
-                    if ((is_dir($file2)) and (self::HASH_DIR_LEVEL > 0)) {
-                        $result = ($result and ($this->_cleanDir($file2 . '/')));
+                    if ((is_dir($fileTwo)) and (self::HASH_DIR_LEVEL > 0)) {
+                        $result = ($result and ($this->_cleanDir($fileTwo . '/')));
                     }
                 }
             }
@@ -215,11 +226,6 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
         return 'cache_' . md5($id);
     }
 
-    /**
-     * Make a file name (with path)
-     *
-     * @param string $id cache id
-     */
     private function _getFileWithPath($id, $ioc)
     {
         $suffix = $this->_getFileWithoutPath($id);
@@ -237,11 +243,6 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
         return $root . $suffix;
     }
 
-    /**
-     * Read the cache file and return the content
-     *
-     * @return string content of the cache file (else : false)
-     */
     private function _read($file, $life)
     {
         $fp = @fopen($file, "rb");
@@ -279,12 +280,6 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
         return $data;
     }
 
-    /**
-     * Write the given data in the cache file
-     *
-     * @param string $data data to put in cache
-     * @return boolean true if ok (a PEAR_Error object else)
-     */
     private function _write($id, $data, $ioc)
     {
         $file     = $this->_getFileWithPath($id, $ioc);
@@ -325,13 +320,6 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
         return true;
     }
 
-
-    /**
-     * Write the given data in the cache file and control it just after to avoir corrupted cache entries
-     *
-     * @param string $data data to put in cache
-     * @return boolean true if the test is ok (else : false or a PEAR_Error object)
-     */
     private function _writeAndControl($id, $data, $life, $file, $ioc)
     {
         $result   = $this->_write($id, $data, $ioc);
@@ -344,13 +332,6 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
         return $dataRead == $data;
     }
 
-    /**
-     * Make a control key with the string containing datas
-     *
-     * @param string $data data
-     *
-     * @return string control key
-     */
     private function _hash($data)
     {
         return sprintf('% 32d', crc32($data));
