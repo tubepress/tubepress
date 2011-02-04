@@ -45,6 +45,6 @@ class org_tubepress_impl_environment_SimpleEnvironmentDetector implements org_tu
      */
     public function isWordPress()
     {
-        return strpos(realpath(__FILE__), 'wp-content' . DIRECTORY_SEPARATOR . 'plugins') !== false;
+        return function_exists('wp_cron');
     }
 }

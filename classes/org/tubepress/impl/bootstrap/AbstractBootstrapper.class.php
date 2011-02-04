@@ -44,10 +44,19 @@ abstract class org_tubepress_impl_bootstrap_AbstractBootstrapper implements org_
             return;
         }
 
+        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $tpom        = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $envDetector = $ioc->get('org_tubepress_api_environment_Detector');
+        
+        if ($envDetector->isWordPress()) {
+            ob_start();
+        }
+        
+        /* Turn on logging if we need to */
+        org_tubepress_impl_log_Log::setEnabled($tpom->get(org_tubepress_api_const_options_Advanced::DEBUG_ON), $_GET);
         org_tubepress_impl_log_Log::log($this->_getName(), 'Booting!');
 
         /* register default filters */
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
         $fs      = $ioc->get('org_tubepress_api_filesystem_Explorer');
         $baseDir = $fs->getTubePressBaseInstallationPath() . '/classes/org/tubepress/impl/';
 
@@ -92,7 +101,7 @@ abstract class org_tubepress_impl_bootstrap_AbstractBootstrapper implements org_
 
                 org_tubepress_impl_log_Log::log($this->_getName(), 'Loading TubePress filter at <tt>%s</tt>', $pluginPath);
 
-                include $pluginPath;
+                include_once $pluginPath;
 
             } else {
 
