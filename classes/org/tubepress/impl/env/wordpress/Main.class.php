@@ -23,13 +23,12 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_impl_options_WordPressStorageManager',
     'org_tubepress_api_const_options_Advanced',
-    'org_tubepress_impl_shortcode_SimpleShortcodeParser',
-    'org_tubepress_impl_ioc_FreeWordPressPluginIocService',
+    'org_tubepress_api_shortcode_ShortcodeParser',
     'org_tubepress_ioc_ProInWordPressIocService',
-    'org_tubepress_api_ioc_IocService',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_util_StringUtils',
-    'org_tubepress_api_gallery_Gallery'));
+    'org_tubepress_api_gallery_Gallery',
+    'org_tubepress_api_html_HtmlHandler'));
 
 class org_tubepress_impl_env_wordpress_Main
 {
@@ -75,9 +74,6 @@ class org_tubepress_impl_env_wordpress_Main
         /* Get a handle to our options manager */
         $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
 
-        /* Turn on logging if we need to */
-        org_tubepress_impl_log_Log::setEnabled($tpom->get(org_tubepress_api_const_options_Advanced::DEBUG_ON), $_GET);
-
         /* Grab the gallery that will do the heavy lifting */
         $gallery = $ioc->get('org_tubepress_api_gallery_Gallery');
 
@@ -93,7 +89,7 @@ class org_tubepress_impl_env_wordpress_Main
 
             /* replace the shortcode with our new content */
             $currentShortcode = $tpom->getShortcode();
-            $content          = org_tubepress_impl_util_StringUtils::replaceFirst($currentShortcode, $generatedHtml, $content);
+            $content = org_tubepress_impl_util_StringUtils::replaceFirst($currentShortcode, $generatedHtml, $content);
         }
         return $content;
     }
@@ -105,10 +101,20 @@ class org_tubepress_impl_env_wordpress_Main
      */
     public static function headAction()
     {
+        /* no need to print anything in the head of the admin section */
+        if (is_admin()) {
+            return;
+        }
+        
         $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
         $hh       = $ioc->get('org_tubepress_api_html_HtmlHandler');
+
+        /* this inline JS helps initialize TubePress */
         $inlineJs = $hh->getHeadInlineJavaScriptString();
+ 
+        /* this meta stuff prevents search engines from indexing gallery pages > 1 */
         $meta     = $hh->getHeadMetaString();
+
         print <<<EOT
 $inlineJs
 $meta
@@ -122,6 +128,10 @@ EOT;
      */
     public static function initAction()
     {
+        /* no need to queue any of this stuff up in the admin section */
+        if (is_admin()) {
+            return;
+        }
         global $tubepress_base_url;
 
         wp_register_script('tubepress', "$tubepress_base_url/ui/lib/tubepress.js");

@@ -14,14 +14,16 @@ class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
         $enqueuedScripts,
         $add_options_page_called,
         $registeredScripts,
-        $registeredStyles;
+        $registeredStyles,
+        $tubepress_base_url;
          
         $enqueuedStyles          = array();
         $enqueuedScripts         = array();
         $registeredStyles        = array();
         $registeredScripts       = array();
         $add_options_page_called = false;
-
+        $tubepress_base_url      ='tubepress_base_url';
+        
         $this->_parseCount = 0;
         $this->initFakeIoc();
     }
@@ -76,10 +78,11 @@ class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
     
     function testInit()
     {
-        global $enqueuedStyles, $enqueuedScripts, $add_options_page_called, $registeredScripts, $registeredStyles;
+        global $enqueuedStyles, $enqueuedScripts, $add_options_page_called, $registeredScripts, $registeredStyles, $isAdmin;;
+        $isAdmin = false;
         
         org_tubepress_impl_env_wordpress_Main::initAction();
-        
+
         $this->assertTrue($registeredScripts['tubepress'] === 'tubepress_base_url/ui/lib/tubepress.js');
         $this->assertTrue($enqueuedScripts['tubepress'] === true);
         $this->assertTrue($enqueuedScripts['jquery'] === true);

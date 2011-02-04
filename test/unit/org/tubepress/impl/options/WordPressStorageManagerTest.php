@@ -1,24 +1,7 @@
 <?php
 require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
 require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/options/WordPressStorageManager.class.php';
-
-if (!function_exists('get_option')) {
-    function get_option($optionName) {
-        return "";
-    }
-}
-
-if (!function_exists('update_option')) {
-    function update_option($optionName) {
-        return "";
-    }
-}
-
-if (!function_exists('get_alloptions')) {
-    function get_alloptions() {
-        return array('foo' => 'bar');
-    }
-}
+require_once dirname(__FILE__) . '/../../../../org/tubepress/impl/env/wordpress/fake_wordpress_functions.inc.php';
 
 class org_tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTest {
     

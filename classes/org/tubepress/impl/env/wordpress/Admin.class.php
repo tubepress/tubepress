@@ -36,6 +36,10 @@ class org_tubepress_impl_env_wordpress_Admin
      */
     public static function initAction()
     {
+        if (!is_admin()) {
+            return;
+        }
+        
         global $tubepress_base_url;
         
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
@@ -60,7 +64,7 @@ class org_tubepress_impl_env_wordpress_Admin
     }
 
     /**
-     * Registers the TubePress options page if the user is running PHP >= 5.0.2.
+     * Registers the TubePress options page
      *
      * @return void
      */

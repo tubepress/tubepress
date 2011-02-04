@@ -6,13 +6,25 @@ global $enqueuedStyles,
        $enqueuedScripts,
        $add_options_page_called,
        $registeredScripts,
-       $registeredStyles;
+       $registeredStyles,
+       $isAdmin,
+       $wp_register_sidebar_widget_called,
+       $wp_register_widget_control;
        
-$enqueuedStyles          = array();
-$enqueuedScripts         = array();
-$registeredStyles        = array();
-$registeredScripts       = array();
-$add_options_page_called = false;
+$enqueuedStyles                    = array();
+$enqueuedScripts                   = array();
+$registeredStyles                  = array();
+$registeredScripts                 = array();
+$add_options_page_called           = false;
+$isAdmin                           = false;
+$wp_register_sidebar_widget_called = false;
+$wp_register_widget_control        = false;
+
+function is_admin()
+{
+    global $isAdmin;
+    return $isAdmin;
+}
 
 function add_options_page($one, $two, $three, $four, $five)
 {
@@ -39,6 +51,24 @@ function add_options_page($one, $two, $three, $four, $five)
     }
     global $add_options_page_called;
     $add_options_page_called = true;
+}
+
+if (!function_exists('get_option')) {
+    function get_option($optionName) {
+        return "";
+    }
+}
+
+if (!function_exists('update_option')) {
+    function update_option($optionName) {
+        return "";
+    }
+}
+
+if (!function_exists('get_alloptions')) {
+    function get_alloptions() {
+        return array('foo' => 'bar');
+    }
 }
 
 function wp_enqueue_style($one) 

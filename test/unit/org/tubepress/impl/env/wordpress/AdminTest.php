@@ -8,7 +8,14 @@ class org_tubepress_impl_env_wordpress_AdminTest extends TubePressUnitTest {
     
     function setUp()
     {
-        global $add_options_page_called;
+        global $add_options_page_called, $enqueuedScripts, $enqueuedStyles, $registeredScripts, $registeredStyles, $isAdmin, $tubepress_base_url;
+        
+        $tubepress_base_url      ='tubepress_base_url';
+        $enqueuedScripts = array();
+        $enqueuedStyles = array();
+        $registeredScripts = array();
+        $registeredStyles = array();
+        $isAdmin = false;
         $add_options_page_called = false;
         $this->initFakeIoc();
     }
@@ -44,7 +51,8 @@ class org_tubepress_impl_env_wordpress_AdminTest extends TubePressUnitTest {
     
     function testInit()
     {
-        global $enqueuedScripts, $enqueuedStyles, $registeredScripts, $registeredStyles;
+        global $enqueuedScripts, $enqueuedStyles, $registeredScripts, $registeredStyles, $isAdmin;
+        $isAdmin = true;
         org_tubepress_impl_env_wordpress_Admin::initAction();
         $this->assertTrue($enqueuedScripts['jquery-ui-tabs'] === true);
         $this->assertTrue($enqueuedScripts['jscolor-tubepress'] === true);
