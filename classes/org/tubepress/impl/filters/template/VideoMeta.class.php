@@ -24,7 +24,7 @@ tubepress_load_classes(array('org_tubepress_api_const_options_OptionCategory'));
 /**
  * Handles applying video meta info to the gallery template.
  */
-class org_tubepress_impl_gallery_filters_VideoMeta
+class org_tubepress_impl_filters_template_VideoMeta
 {
     public function filter($template)
     {
@@ -46,3 +46,9 @@ class org_tubepress_impl_gallery_filters_VideoMeta
         return $template;
     }
 }
+
+$ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
+$fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
+$instance = $ioc->get('org_tubepress_impl_filters_template_VideoMeta');
+
+$fm->registerFilter(org_tubepress_api_const_FilterExecutionPoint::GALLERY_TEMPLATE, array($instance, 'filter'));

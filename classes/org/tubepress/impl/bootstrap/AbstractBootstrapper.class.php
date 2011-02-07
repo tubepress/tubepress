@@ -59,10 +59,10 @@ abstract class org_tubepress_impl_bootstrap_AbstractBootstrapper implements org_
 
         /* register default filters */
         $fs      = $ioc->get('org_tubepress_api_filesystem_Explorer');
-        $baseDir = $fs->getTubePressBaseInstallationPath() . '/classes/org/tubepress/impl/';
+        $baseDir = $fs->getTubePressBaseInstallationPath() . '/classes/org/tubepress/impl/filters/';
 
-        $this->_loadFilters($baseDir . 'gallery/filters', $fs, $ioc);
-        $this->_loadFilters($baseDir . 'single/filters', $fs, $ioc);
+        $this->_loadFilters($baseDir . 'html', $fs, $ioc);
+        $this->_loadFilters($baseDir . 'template', $fs, $ioc);
 
         /* continue booting process */
         $this->_doBoot();

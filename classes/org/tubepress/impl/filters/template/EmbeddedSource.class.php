@@ -22,7 +22,7 @@
 /**
  * Handles applying the embedded player's HTML to the template.
  */
-class org_tubepress_impl_single_filters_EmbeddedSource
+class org_tubepress_impl_filters_template_EmbeddedSource
 {
     public function filter($template)
     {
@@ -38,3 +38,9 @@ class org_tubepress_impl_single_filters_EmbeddedSource
         return $template;
     }
 }
+
+$ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
+$fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
+$instance = $ioc->get('org_tubepress_impl_filters_template_EmbeddedSource');
+
+$fm->registerFilter(org_tubepress_api_const_FilterExecutionPoint::SINGLE_VIDEO_TEMPLATE, array($instance, 'filter'));

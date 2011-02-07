@@ -22,7 +22,7 @@
 /**
  * Injects theme CSS to the gallery's HTML, if necessary.
 */
-class org_tubepress_impl_gallery_filters_ThemeCss
+class org_tubepress_impl_filters_html_ThemeCss
 {
     const LOG_PREFIX = 'Theme CSS Filter';
 
@@ -83,3 +83,9 @@ class org_tubepress_impl_gallery_filters_ThemeCss
         return $html . $template->toString();
     }
 }
+
+$ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
+$fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
+$instance = $ioc->get('org_tubepress_impl_filters_html_ThemeCss');
+
+$fm->registerFilter(org_tubepress_api_const_FilterExecutionPoint::GALLERY_HTML, array($instance, 'filter'));

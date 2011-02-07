@@ -19,10 +19,20 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
+tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer',
+    'org_tubepress_api_const_options_Display',
+    'org_tubepress_api_template_Template',
+    'org_tubepress_api_const_FilterExecutionPoint',
+    'org_tubepress_api_feed_FeedResult',
+    'org_tubepress_api_video_Video',
+    'org_tubepress_api_player_Player'));
+
 /**
  * Handles applying the player HTML to the gallery template.
  */
-class org_tubepress_impl_gallery_filters_Player
+class org_tubepress_impl_filters_template_Player
 {
     public function filter($template, $feedResult, $galleryId)
     {
@@ -39,3 +49,9 @@ class org_tubepress_impl_gallery_filters_Player
         return $template;
     }
 }
+
+$ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
+$fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
+$instance = $ioc->get('org_tubepress_impl_filters_template_Player');
+
+$fm->registerFilter(org_tubepress_api_const_FilterExecutionPoint::GALLERY_TEMPLATE, array($instance, 'filter'));

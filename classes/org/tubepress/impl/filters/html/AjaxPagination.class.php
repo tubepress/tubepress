@@ -24,7 +24,7 @@ tubepress_load_classes(array('org_tubepress_api_filesystem_Explorer'));
 /**
  * Injects Ajax pagination code into the gallery's HTML, if necessary.
 */
-class org_tubepress_impl_gallery_filters_AjaxPagination
+class org_tubepress_impl_filters_html_AjaxPagination
 {
     const LOG_PREFIX = 'Ajax Pagination Filter';
 
@@ -63,3 +63,9 @@ class org_tubepress_impl_gallery_filters_AjaxPagination
         return $html . $template->toString();
     }
 }
+
+$ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
+$fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
+$instance = $ioc->get('org_tubepress_impl_filters_html_AjaxPagination');
+
+$fm->registerFilter(org_tubepress_api_const_FilterExecutionPoint::GALLERY_HTML, array($instance, 'filter'));
