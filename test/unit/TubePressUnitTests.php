@@ -8,6 +8,7 @@ require_once 'org/tubepress/impl/environment/EnvironmentTests.php';
 require_once 'org/tubepress/impl/factory/FactoryTests.php';
 require_once 'org/tubepress/impl/feed/FeedTests.php';
 require_once 'org/tubepress/impl/filesystem/ExplorerTests.php';
+require_once 'org/tubepress/impl/filters/FilterTests.php';
 require_once 'org/tubepress/impl/gallery/GalleryTests.php';
 require_once 'org/tubepress/impl/html/HtmlTests.php';
 require_once 'org/tubepress/impl/http/HttpTests.php';
@@ -66,6 +67,7 @@ class TubePressUnitTests
 		$suite->addTest(EnvironmentTests::suite());
 		$suite->addTest(EnvTests::suite());
 		$suite->addTest(HtmlTests::suite());
+		$suite->addTest(FilterTests::suite());
 
 		return $suite;
 	}

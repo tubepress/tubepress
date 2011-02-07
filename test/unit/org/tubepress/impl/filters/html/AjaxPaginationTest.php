@@ -1,16 +1,16 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/impl/gallery/filters/AjaxPagination.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/impl/filters/html/AjaxPagination.class.php';
 
-class org_tubepress_impl_gallery_filters_AjaxPaginationTest extends TubePressUnitTest
+class org_tubepress_impl_filters_html_AjaxPaginationTest extends TubePressUnitTest
 {
 	private $_sut;
 
 	function setup()
 	{
 		$this->initFakeIoc();
-		$this->_sut = new org_tubepress_impl_gallery_filters_AjaxPagination();
+		$this->_sut = new org_tubepress_impl_filters_html_AjaxPagination();
 	}
 
 	function getMock($className)

@@ -1,9 +1,9 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/impl/gallery/filters/ThemeCss.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/impl/filters/html/ThemeCss.class.php';
 
-class org_tubepress_impl_gallery_filters_ThemeCssTest extends TubePressUnitTest
+class org_tubepress_impl_filters_html_ThemeCssTest extends TubePressUnitTest
 {
 	private $_sut;
 	private $_themeName;
@@ -12,7 +12,7 @@ class org_tubepress_impl_gallery_filters_ThemeCssTest extends TubePressUnitTest
 	{
 		$this->initFakeIoc();
 		$this->_themeName = 'default';
-		$this->_sut = new org_tubepress_impl_gallery_filters_ThemeCss();
+		$this->_sut = new org_tubepress_impl_filters_html_ThemeCss();
 	}
 
 	function getMock($className)

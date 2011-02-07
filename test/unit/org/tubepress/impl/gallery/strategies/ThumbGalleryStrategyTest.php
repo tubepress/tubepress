@@ -2,6 +2,7 @@
 
 require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
 require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/impl/gallery/strategies/ThumbGalleryStrategy.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/api/const/options/OptionCategory.class.php';
 
 class org_tubepress_impl_gallery_strategies_ThumbGalleryStrategyTest extends TubePressUnitTest
 {

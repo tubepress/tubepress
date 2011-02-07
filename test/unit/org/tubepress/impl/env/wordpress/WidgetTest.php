@@ -62,10 +62,10 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest {
     {
         return <<<EOT
 <p>
-<label for="tubepress-widget-title"><input class="widefat" id="tubepress-widget-title" name="tubepress-widget-title" type="text" value="" /></label>
+<label for="tubepress-widget-title"><input class="widefat" id="tubepress-widget-title" name="tubepress-widget-title" type="text" value="foo" /></label>
 </p>
 <p>
-<label for="tubepress-widget-tagstring">TubePress shortcode for the widget. See the <a href="http://tubepress.org/documentation"> documentation</a>.<textarea class="widefat" rows="9" cols="12" id="tubepress-widget-tagstring" name="tubepress-widget-tagstring"></textarea>
+<label for="tubepress-widget-tagstring">TubePress shortcode for the widget. See the <a href="http://tubepress.org/documentation"> documentation</a>.<textarea class="widefat" rows="9" cols="12" id="tubepress-widget-tagstring" name="tubepress-widget-tagstring">foo</textarea>
 </label>
 </p>
 <input type="hidden" id="tubepress-widget-submit" name="tubepress-widget-submit" value="1" />

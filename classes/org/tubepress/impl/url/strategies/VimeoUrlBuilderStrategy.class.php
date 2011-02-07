@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
-tubepress_load_classesarray('org_tubepress_impl_url_strategies_AbstractUrlBuilderStrategy',
+tubepress_load_classes(array('org_tubepress_impl_url_strategies_AbstractUrlBuilderStrategy',
     'org_tubepress_api_const_options_Gallery',
     'org_tubepress_api_gallery_Gallery',
     'org_tubepress_api_options_OptionsManager',

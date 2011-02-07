@@ -62,7 +62,7 @@ class org_tubepress_impl_patterns_FilterManagerImplTest extends TubePressUnitTes
 
 	function testMultipleArguments()
 	{
-	    $this->_sut->registerFilter('fakepoint', 'FilterManagerImplTestCallback', 'adderThree');
+	    $this->_sut->registerFilter('fakepoint', array($this->_callback, 'adderThree'));
 	    $result = $this->_sut->runFilters('fakepoint', 1, 500);
 	    $result += $this->_sut->runFilters('fakepoint', 1, 800);
 	    
@@ -72,8 +72,8 @@ class org_tubepress_impl_patterns_FilterManagerImplTest extends TubePressUnitTes
 	
     function testFilterBails()
     {
-        $this->_sut->registerFilter('fakepoint', 'FilterManagerImplTestCallback', 'bailer');
-        $this->_sut->registerFilter('fakepoint', 'FilterManagerImplTestCallback', 'adderTwo');
+        $this->_sut->registerFilter('fakepoint', array($this->_callback, 'bailer'));
+        $this->_sut->registerFilter('fakepoint', array($this->_callback, 'adderTwo'));
         
         $result = $this->_sut->runFilters('fakepoint', 1);
         
@@ -84,8 +84,8 @@ class org_tubepress_impl_patterns_FilterManagerImplTest extends TubePressUnitTes
 	
     function testDoubleFilter()
     {
-        $this->_sut->registerFilter('fakepoint', 'FilterManagerImplTestCallback', 'adderOne');
-        $this->_sut->registerFilter('fakepoint', 'FilterManagerImplTestCallback', 'adderTwo');
+        $this->_sut->registerFilter('fakepoint', array($this->_callback, 'adderOne'));
+        $this->_sut->registerFilter('fakepoint', array($this->_callback, 'adderTwo'));
         
         $result = $this->_sut->runFilters('fakepoint', 1);
         
@@ -96,8 +96,8 @@ class org_tubepress_impl_patterns_FilterManagerImplTest extends TubePressUnitTes
     
 	function testSingleFilter()
 	{
-	    $this->_sut->registerFilter('fakepoint', 'FilterManagerImplTestCallback', 'adderOne');
-	    $this->_sut->registerFilter('fakepoint2', 'FilterManagerImplTestCallback', 'adderTwo');
+	    $this->_sut->registerFilter('fakepoint', array($this->_callback, 'adderOne'));
+	    $this->_sut->registerFilter('fakepoint2', array($this->_callback, 'adderTwo'));
 	    
 	    $result = $this->_sut->runFilters('fakepoint', 1);
 	    
@@ -121,8 +121,5 @@ class org_tubepress_impl_patterns_FilterManagerImplTest extends TubePressUnitTes
 	{
 	    $this->_sut->registerFilter('fake', 'nothing');
 	}
-	
-
-	
 }
 ?>
