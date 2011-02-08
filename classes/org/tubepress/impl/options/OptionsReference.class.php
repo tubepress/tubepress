@@ -70,7 +70,8 @@ class org_tubepress_impl_options_OptionsReference
             org_tubepress_api_const_options_Gallery::VIMEO_CHANNEL_VALUE    => 'splitscreenstuff',
             org_tubepress_api_const_options_Gallery::VIMEO_GROUP_VALUE      => 'hdxs',
             org_tubepress_api_const_options_Gallery::VIMEO_ALBUM_VALUE      => '140484',
-            org_tubepress_api_const_options_Advanced::CACHE_DIR             => ''
+            org_tubepress_api_const_options_Advanced::CACHE_DIR             => '',
+            org_tubepress_api_const_options_Feed::SEARCH_ONLY_USER          => ''
         ),
         org_tubepress_api_const_options_OptionType::BOOL => array(
             org_tubepress_api_const_options_Advanced::DEBUG_ON               => true,

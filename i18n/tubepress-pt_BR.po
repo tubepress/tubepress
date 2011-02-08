@@ -551,3 +551,8 @@ msgstr ""
 msgid "YouTube iframe"
 msgstr ""
 
+msgid "Restrict search results to videos from this user"
+msgstr ""
+
+msgid "Only applies to search-based galleries"
+msgstr ""

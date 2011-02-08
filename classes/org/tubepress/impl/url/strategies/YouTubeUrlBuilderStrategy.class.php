@@ -98,6 +98,11 @@ class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategy extends org_tu
             $tags = str_replace(' ', '+', self::_replaceQuotes($tags));
             $tags = rawurlencode($tags);
             $url  = "videos?q=$tags";
+
+            $filter = $tpom->get(org_tubepress_api_const_options_Feed::SEARCH_ONLY_USER);
+            if ($filter != '') {
+                $url .= "&author=$filter";
+            }
             break;
 
         default:

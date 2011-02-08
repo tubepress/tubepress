@@ -164,6 +164,16 @@ class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategyTest extends Tu
 		    $this->_sut->execute(org_tubepress_api_provider_Provider::YOUTUBE, false, 1));
 	}
 	
+	function testexecuteTagWithUser()
+	{
+	    $this->setOptions(array(
+           org_tubepress_api_const_options_Gallery::MODE => org_tubepress_api_gallery_Gallery::TAG,
+org_tubepress_api_const_options_Feed::SEARCH_ONLY_USER => '3hough'
+        ));
+		$this->assertEquals("http://gdata.youtube.com/feeds/api/videos?q=stewart%2Bdaily%2Bshow&author=3hough&" . $this->_standardPostProcessingStuff(), 
+		    $this->_sut->execute(org_tubepress_api_provider_Provider::YOUTUBE, false, 1));
+	}
+
 	function testexecuteFeatured()
 	{
 	    $this->setOptions(array(

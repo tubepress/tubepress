@@ -31,6 +31,7 @@ class org_tubepress_api_const_options_Feed
     const FILTER           = 'filter_racy';
     const DEV_KEY          = 'developerKey';
     const RESULT_COUNT_CAP = 'resultCountCap';
+    const SEARCH_ONLY_USER = 'searchResultsRestrictedToUser';
     const VIMEO_KEY        = 'vimeoKey';
     const VIMEO_SECRET     = 'vimeoSecret';
 }
