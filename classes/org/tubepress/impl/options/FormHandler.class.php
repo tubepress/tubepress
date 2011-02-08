@@ -28,7 +28,7 @@ tubepress_load_classes(array('org_tubepress_api_const_options_OptionCategory',
     'org_tubepress_api_options_StorageManager',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_impl_template_SimpleTemplate',
-    'org_tubepress_api_template_Template',
+    'org_tubepress_api_const_Template',
     'org_tubepress_api_const_options_Gallery',
     'org_tubepress_api_filesystem_Explorer'));
 

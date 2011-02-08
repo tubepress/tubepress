@@ -22,7 +22,7 @@
 /**
  * TubePress template variables
  */
-interface org_tubepress_api_const_Template
+class org_tubepress_api_const_Template
 {
     const AUTHOR_URL_PREFIX             = 'authorUrlPrefix';
     const EMBEDDED_AUTOSTART            = 'autostart';
@@ -67,4 +67,8 @@ interface org_tubepress_api_const_Template
     const WIDGET_CONTROL_TITLE          = 'widgetControlTitle';
     const WIDGET_SHORTCODE              = 'widgetShortcode';
     const WIDGET_TITLE                  = 'widgetTitle';
+}
+
+class org_tubepress_template_Template extends org_tubepress_api_const_Template {
+	//the only purpose of this class is for backwards compatibility with user HTML templates :(
 }

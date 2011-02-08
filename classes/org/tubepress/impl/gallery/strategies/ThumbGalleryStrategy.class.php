@@ -20,7 +20,7 @@
  */
 
 tubepress_load_classes(array('org_tubepress_api_patterns_Strategy',
-    'org_tubepress_api_template_Template',
+    'org_tubepress_api_const_Template',
     'org_tubepress_impl_log_Log',
     'org_tubepress_api_const_FilterExecutionPoint',
     'org_tubepress_api_provider_Provider',

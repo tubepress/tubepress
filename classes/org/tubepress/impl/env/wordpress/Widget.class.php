@@ -25,7 +25,7 @@ tubepress_load_classes(array('org_tubepress_impl_message_WordPressMessageService
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_api_const_options_Widget',
     'org_tubepress_impl_template_SimpleTemplate',
-    'org_tubepress_api_template_Template',
+    'org_tubepress_api_const_Template',
     'org_tubepress_ioc_ProInWordPressIocService',
     'org_tubepress_api_const_options_Advanced',
     'org_tubepress_api_const_options_Display',
