@@ -102,9 +102,24 @@ class org_tubepress_impl_url_strategies_VimeoUrlBuilderStrategyTest extends Tube
            org_tubepress_api_const_options_Feed::VIMEO_KEY => 'vimeokey',
            org_tubepress_api_const_options_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
-        
+        $result = $this->_sut->execute(org_tubepress_api_provider_Provider::VIMEO, false, 1);
 		$this->assertTrue($this->urlMatches('method=vimeo.videos.search&query=eric\+hough&full_response=true&page=1&per_page=20&sort=relevant', 
-		    $this->_sut->execute(org_tubepress_api_provider_Provider::VIMEO, false, 1)));
+		    $result));
+	}
+
+	function testexecuteSearchWithUser()
+	{
+        $this->setOptions(array(
+           org_tubepress_api_const_options_Gallery::MODE => org_tubepress_api_gallery_Gallery::VIMEO_SEARCH,
+           org_tubepress_api_const_options_Gallery::VIMEO_SEARCH_VALUE => 'eric hough',
+           org_tubepress_api_const_options_Display::ORDER_BY => 'relevance',
+           org_tubepress_api_const_options_Feed::VIMEO_KEY => 'vimeokey',
+           org_tubepress_api_const_options_Feed::VIMEO_SECRET => 'vimeosecret',
+           org_tubepress_api_const_options_Feed::SEARCH_ONLY_USER => 'ehough'
+        ));
+        $result = $this->_sut->execute(org_tubepress_api_provider_Provider::VIMEO, false, 1);
+		$this->assertTrue($this->urlMatches('method=vimeo.videos.search&query=eric\+hough&user_id=ehough&full_response=true&page=1&per_page=20&sort=relevant', 
+		    $result));
 	}
 	
 	function testexecuteAppearsIn()

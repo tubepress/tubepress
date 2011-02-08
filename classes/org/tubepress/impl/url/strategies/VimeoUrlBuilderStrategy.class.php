@@ -68,6 +68,12 @@ class org_tubepress_impl_url_strategies_VimeoUrlBuilderStrategy extends org_tube
         case org_tubepress_api_gallery_Gallery::VIMEO_SEARCH:
             $params['method'] = 'vimeo.videos.search';
             $params['query']  = $tpom->get(org_tubepress_api_const_options_Gallery::VIMEO_SEARCH_VALUE);
+
+            $filter = $tpom->get(org_tubepress_api_const_options_Feed::SEARCH_ONLY_USER);
+            if ($filter != '') {
+                $params['user_id'] = $filter;
+            }
+
             break;
         case org_tubepress_api_gallery_Gallery::VIMEO_CREDITED:
             $params['method']  = 'vimeo.videos.getAll';
