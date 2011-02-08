@@ -83,10 +83,10 @@ EOT;
                 $labels[$name] = "$name-label";
             }
             
-            $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_SOURCE, 'embedded-source');
-            $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_WIDTH, 'embedded-width');
-            $template->setVariable(org_tubepress_api_template_Template::META_SHOULD_SHOW, $shouldShow);
-            $template->setVariable(org_tubepress_api_template_Template::META_LABELS, $labels);
+            $template->setVariable(org_tubepress_api_const_Template::EMBEDDED_SOURCE, 'embedded-source');
+            $template->setVariable(org_tubepress_api_const_Template::EMBEDDED_WIDTH, 'embedded-width');
+            $template->setVariable(org_tubepress_api_const_Template::META_SHOULD_SHOW, $shouldShow);
+            $template->setVariable(org_tubepress_api_const_Template::META_LABELS, $labels);
         }
     }  
 }

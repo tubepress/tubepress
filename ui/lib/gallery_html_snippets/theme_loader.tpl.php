@@ -24,6 +24,6 @@
 ?>
 <script type="text/javascript">
   jQuery(document).ready(function(){
-    TubePressJS.loadCss("<?php echo ${org_tubepress_api_template_Template::THEME_CSS}; ?>");
+    TubePressJS.loadCss("<?php echo ${org_tubepress_api_const_Template::THEME_CSS}; ?>");
   });
 </script>

@@ -113,10 +113,10 @@ class org_tubepress_impl_gallery_strategies_ThumbGalleryStrategy implements org_
         $feedResult->setVideoArray($filteredVideos);
 
         /* add some core template variables */
-        $template->setVariable(org_tubepress_api_template_Template::VIDEO_ARRAY, $filteredVideos);
-        $template->setVariable(org_tubepress_api_template_Template::GALLERY_ID, $galleryId);
-        $template->setVariable(org_tubepress_api_template_Template::THUMBNAIL_WIDTH, $tpom->get(org_tubepress_api_const_options_Display::THUMB_WIDTH));
-        $template->setVariable(org_tubepress_api_template_Template::THUMBNAIL_HEIGHT, $tpom->get(org_tubepress_api_const_options_Display::THUMB_HEIGHT));
+        $template->setVariable(org_tubepress_api_const_Template::VIDEO_ARRAY, $filteredVideos);
+        $template->setVariable(org_tubepress_api_const_Template::GALLERY_ID, $galleryId);
+        $template->setVariable(org_tubepress_api_const_Template::THUMBNAIL_WIDTH, $tpom->get(org_tubepress_api_const_options_Display::THUMB_WIDTH));
+        $template->setVariable(org_tubepress_api_const_Template::THUMBNAIL_HEIGHT, $tpom->get(org_tubepress_api_const_options_Display::THUMB_HEIGHT));
 
         /* send the template through the filters */
         $filteredTemplate = $filterManager->runFilters(org_tubepress_api_const_FilterExecutionPoint::GALLERY_TEMPLATE, $template, $feedResult, $galleryId);

@@ -78,7 +78,7 @@ class org_tubepress_impl_filters_html_ThemeCss
 
         $template = new org_tubepress_impl_template_SimpleTemplate();
         $template->setPath("$baseInstallationPath/ui/lib/gallery_html_snippets/theme_loader.tpl.php");
-        $template->setVariable(org_tubepress_api_template_Template::THEME_CSS, $cssUrl);
+        $template->setVariable(org_tubepress_api_const_Template::THEME_CSS, $cssUrl);
 
         return $html . $template->toString();
     }

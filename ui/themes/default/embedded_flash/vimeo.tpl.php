@@ -19,4 +19,4 @@
  *
  */
 ?>
-<iframe src="<?php echo ${org_tubepress_api_template_Template::EMBEDDED_DATA_URL}; ?>" width="<?php echo ${org_tubepress_api_template_Template::EMBEDDED_WIDTH}; ?>" height="<?php echo ${org_tubepress_api_template_Template::EMBEDDED_HEIGHT}; ?>" frameborder="0"></iframe>
+<iframe src="<?php echo ${org_tubepress_api_const_Template::EMBEDDED_DATA_URL}; ?>" width="<?php echo ${org_tubepress_api_const_Template::EMBEDDED_WIDTH}; ?>" height="<?php echo ${org_tubepress_api_const_Template::EMBEDDED_HEIGHT}; ?>" frameborder="0"></iframe>

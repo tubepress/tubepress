@@ -41,10 +41,10 @@ class org_tubepress_impl_filters_template_Pagination
         $pagination        = $paginationService->getHtml($feedResult->getEffectiveTotalResultCount());
 
         if ($tpom->get(org_tubepress_api_const_options_Display::PAGINATE_ABOVE)) {
-            $template->setVariable(org_tubepress_api_template_Template::PAGINATION_TOP, $pagination);
+            $template->setVariable(org_tubepress_api_const_Template::PAGINATION_TOP, $pagination);
         }
         if ($tpom->get(org_tubepress_api_const_options_Display::PAGINATE_BELOW)) {
-            $template->setVariable(org_tubepress_api_template_Template::PAGINATION_BOTTOM, $pagination);
+            $template->setVariable(org_tubepress_api_const_Template::PAGINATION_BOTTOM, $pagination);
         }
 
         return $template;

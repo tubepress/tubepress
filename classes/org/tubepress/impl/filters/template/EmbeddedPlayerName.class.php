@@ -28,7 +28,7 @@ class org_tubepress_impl_filters_template_EmbeddedPlayerName
 {
     public function filter($template, $feedResult, $galleryId)
     {
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_IMPL_NAME, self::_getEmbeddedServiceName());
+        $template->setVariable(org_tubepress_api_const_Template::EMBEDDED_IMPL_NAME, self::_getEmbeddedServiceName());
         
         return $template;
     }

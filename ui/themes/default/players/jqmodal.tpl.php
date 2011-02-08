@@ -19,4 +19,4 @@
  *
  */
 ?>
-<div id="tubepress_embedded_object_<?php echo ${org_tubepress_api_template_Template::GALLERY_ID}; ?>" style="display:none"><?php echo ${org_tubepress_api_template_Template::EMBEDDED_SOURCE}; ?></div>
+<div id="tubepress_embedded_object_<?php echo ${org_tubepress_api_const_Template::GALLERY_ID}; ?>" style="display:none"><?php echo ${org_tubepress_api_const_Template::EMBEDDED_SOURCE}; ?></div>
