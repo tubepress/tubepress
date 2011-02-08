@@ -19,8 +19,8 @@
  *
  */
 ?>
-<object width="<?php echo ${org_tubepress_api_template_Template::EMBEDDED_WIDTH}; ?>" height="<?php echo ${org_tubepress_api_template_Template::EMBEDDED_HEIGHT}; ?>">
-    <param name="movie" value="<?php echo ${org_tubepress_api_template_Template::EMBEDDED_DATA_URL}; ?>"></param>
+<object width="<?php echo ${org_tubepress_api_const_Template::EMBEDDED_WIDTH}; ?>" height="<?php echo ${org_tubepress_api_const_Template::EMBEDDED_HEIGHT}; ?>">
+    <param name="movie" value="<?php echo ${org_tubepress_api_const_Template::EMBEDDED_DATA_URL}; ?>"></param>
     <param name="wmode" value="transparent"></param>
-    <embed src="<?php echo ${org_tubepress_api_template_Template::EMBEDDED_DATA_URL}; ?>" type="application/x-shockwave-flash" wmode="transparent" width="<?php echo ${org_tubepress_api_template_Template::EMBEDDED_WIDTH}; ?>" height="<?php echo ${org_tubepress_api_template_Template::EMBEDDED_HEIGHT}; ?>"></embed>
+    <embed src="<?php echo ${org_tubepress_api_const_Template::EMBEDDED_DATA_URL}; ?>" type="application/x-shockwave-flash" wmode="transparent" width="<?php echo ${org_tubepress_api_const_Template::EMBEDDED_WIDTH}; ?>" height="<?php echo ${org_tubepress_api_const_Template::EMBEDDED_HEIGHT}; ?>"></embed>
 </object>

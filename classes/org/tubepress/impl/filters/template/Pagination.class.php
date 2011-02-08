@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_api_const_options_Display',
-    'org_tubepress_api_template_Template',
+    'org_tubepress_api_const_Template',
     'org_tubepress_api_const_FilterExecutionPoint',
     'org_tubepress_api_feed_FeedResult'));
 
@@ -41,10 +41,10 @@ class org_tubepress_impl_filters_template_Pagination
         $pagination        = $paginationService->getHtml($feedResult->getEffectiveTotalResultCount());
 
         if ($tpom->get(org_tubepress_api_const_options_Display::PAGINATE_ABOVE)) {
-            $template->setVariable(org_tubepress_api_template_Template::PAGINATION_TOP, $pagination);
+            $template->setVariable(org_tubepress_api_const_Template::PAGINATION_TOP, $pagination);
         }
         if ($tpom->get(org_tubepress_api_const_options_Display::PAGINATE_BELOW)) {
-            $template->setVariable(org_tubepress_api_template_Template::PAGINATION_BOTTOM, $pagination);
+            $template->setVariable(org_tubepress_api_const_Template::PAGINATION_BOTTOM, $pagination);
         }
 
         return $template;

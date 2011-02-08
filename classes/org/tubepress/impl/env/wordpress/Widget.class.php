@@ -25,7 +25,7 @@ tubepress_load_classes(array('org_tubepress_impl_message_WordPressMessageService
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_api_const_options_Widget',
     'org_tubepress_impl_template_SimpleTemplate',
-    'org_tubepress_api_template_Template',
+    'org_tubepress_api_const_Template',
     'org_tubepress_ioc_ProInWordPressIocService',
     'org_tubepress_api_const_options_Advanced',
     'org_tubepress_api_const_options_Display',
@@ -124,10 +124,10 @@ class org_tubepress_impl_env_wordpress_Widget
         $tpl->setPath(dirname(__FILE__) . '/../../../../../../env/WordPress/ui/widget/html_templates/controls.tpl.php');
 
         /* set up the template */
-        $tpl->setVariable(org_tubepress_api_template_Template::WIDGET_CONTROL_TITLE, $msg->_('options-meta-title-title'));
-        $tpl->setVariable(org_tubepress_api_template_Template::WIDGET_TITLE, $wpsm->get(org_tubepress_api_const_options_Widget::TITLE));
-        $tpl->setVariable(org_tubepress_api_template_Template::WIDGET_CONTROL_SHORTCODE, $msg->_('widget-tagstring-description'));
-        $tpl->setVariable(org_tubepress_api_template_Template::WIDGET_SHORTCODE, $wpsm->get(org_tubepress_api_const_options_Widget::TAGSTRING));
+        $tpl->setVariable(org_tubepress_api_const_Template::WIDGET_CONTROL_TITLE, $msg->_('options-meta-title-title'));
+        $tpl->setVariable(org_tubepress_api_const_Template::WIDGET_TITLE, $wpsm->get(org_tubepress_api_const_options_Widget::TITLE));
+        $tpl->setVariable(org_tubepress_api_const_Template::WIDGET_CONTROL_SHORTCODE, $msg->_('widget-tagstring-description'));
+        $tpl->setVariable(org_tubepress_api_const_Template::WIDGET_SHORTCODE, $wpsm->get(org_tubepress_api_const_options_Widget::TAGSTRING));
 
         /* get the template's output */
         echo $tpl->toString();

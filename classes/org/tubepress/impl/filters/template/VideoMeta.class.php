@@ -40,8 +40,8 @@ class org_tubepress_impl_filters_template_VideoMeta
             $shouldShow[$metaName] = $tpom->get($metaName);
             $labels[$metaName]     = $messageService->_('video-' . $metaName);
         }
-        $template->setVariable(org_tubepress_api_template_Template::META_SHOULD_SHOW, $shouldShow);
-        $template->setVariable(org_tubepress_api_template_Template::META_LABELS, $labels);
+        $template->setVariable(org_tubepress_api_const_Template::META_SHOULD_SHOW, $shouldShow);
+        $template->setVariable(org_tubepress_api_const_Template::META_LABELS, $labels);
 
         return $template;
     }

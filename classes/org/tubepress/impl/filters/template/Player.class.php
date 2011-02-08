@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_api_const_options_Display',
-    'org_tubepress_api_template_Template',
+    'org_tubepress_api_const_Template',
     'org_tubepress_api_const_FilterExecutionPoint',
     'org_tubepress_api_feed_FeedResult',
     'org_tubepress_api_video_Video',
@@ -43,8 +43,8 @@ class org_tubepress_impl_filters_template_Player
         $videos     = $feedResult->getVideoArray();
         $playerHtml = $player->getHtml($videos[0], $galleryId);
 
-        $template->setVariable(org_tubepress_api_template_Template::PLAYER_HTML, $playerHtml);
-        $template->setVariable(org_tubepress_api_template_Template::PLAYER_NAME, $playerName);
+        $template->setVariable(org_tubepress_api_const_Template::PLAYER_HTML, $playerHtml);
+        $template->setVariable(org_tubepress_api_const_Template::PLAYER_NAME, $playerName);
         
         return $template;
     }

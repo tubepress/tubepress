@@ -83,11 +83,11 @@ class org_tubepress_impl_gallery_strategies_ThumbGalleryStrategyTest extends Tub
                 $labels[$name] = "$name-label";
             }
             
-            $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_IMPL_NAME, 'embedded-impl-name');
-            $template->setVariable(org_tubepress_api_template_Template::PLAYER_HTML, 'player-html');
-            $template->setVariable(org_tubepress_api_template_Template::PLAYER_NAME, 'player-name');
-            $template->setVariable(org_tubepress_api_template_Template::META_SHOULD_SHOW, $shouldShow);
-            $template->setVariable(org_tubepress_api_template_Template::META_LABELS, $labels);
+            $template->setVariable(org_tubepress_api_const_Template::EMBEDDED_IMPL_NAME, 'embedded-impl-name');
+            $template->setVariable(org_tubepress_api_const_Template::PLAYER_HTML, 'player-html');
+            $template->setVariable(org_tubepress_api_const_Template::PLAYER_NAME, 'player-name');
+            $template->setVariable(org_tubepress_api_const_Template::META_SHOULD_SHOW, $shouldShow);
+            $template->setVariable(org_tubepress_api_const_Template::META_LABELS, $labels);
         }
     }    
     

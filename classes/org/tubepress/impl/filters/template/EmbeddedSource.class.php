@@ -31,9 +31,9 @@ class org_tubepress_impl_filters_template_EmbeddedSource
         $eps  = $ioc->get('org_tubepress_api_embedded_EmbeddedPlayer');
 
         /* apply it to the template */
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_SOURCE, $eps->toString($video->getId()));
+        $template->setVariable(org_tubepress_api_const_Template::EMBEDDED_SOURCE, $eps->toString($video->getId()));
         
-        $template->setVariable(org_tubepress_api_template_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_api_const_options_Embedded::EMBEDDED_WIDTH));
+        $template->setVariable(org_tubepress_api_const_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_api_const_options_Embedded::EMBEDDED_WIDTH));
        
         return $template;
     }

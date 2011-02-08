@@ -23,11 +23,11 @@
  */
 ?>
 <script type="text/javascript">
-    function getUrlEncodedShortcodeForTubePressGallery<?php echo ${org_tubepress_api_template_Template::GALLERY_ID}; ?>() {
-        return "<?php echo ${org_tubepress_api_template_Template::SHORTCODE}; ?>";
+    function getUrlEncodedShortcodeForTubePressGallery<?php echo ${org_tubepress_api_const_Template::GALLERY_ID}; ?>() {
+        return "<?php echo ${org_tubepress_api_const_Template::SHORTCODE}; ?>";
     }
     jQuery(document).ready(function(){
-        TubePressAjaxPagination.init(<?php echo ${org_tubepress_api_template_Template::GALLERY_ID}; ?>);
+        TubePressAjaxPagination.init(<?php echo ${org_tubepress_api_const_Template::GALLERY_ID}; ?>);
     });
 </script>
 
