@@ -178,21 +178,11 @@ TubePressPlayers = (function () {
 /* deals with the embedded video player */
 TubePressEmbedded = (function () {
 
-	var init, swap, getEmbeddedObjectClone, getHtmlForCurrentEmbed, getWidthOfCurrentEmbed,
-		getHeightOfCurrentEmbed, dealingWithiframe, getIframeIframe, objCss;
+	var swap, getEmbeddedObjectClone, getHtmlForCurrentEmbed, getWidthOfCurrentEmbed,
+		getHeightOfCurrentEmbed, dealingWithiframe, getIframeIframe, objCss, isIframe;
 	
-	/* loads up JS necessary for dealing with embedded Flash implementations that we find on the page */
-	init = function (baseUrl) {
-		var embeddedNames = TubePressAnchors.findAllEmbeddedNames(), i, emptyFunc = function () {};
-		for (i = 0; i < embeddedNames.length; i = i + 1) {
-			
-			/* iframes have no extra JS */
-			if (embeddedNames[i] === 'vimeo') {
-				continue;
-			}
-			
-			jQuery.getScript(baseUrl + '/ui/lib/embedded_flash/' + embeddedNames[i] + '/' + embeddedNames[i] + '.js', emptyFunc, true);
-		}
+	isIframe = function (embeddedName) {
+		return embeddedName === 'vimeo' || embeddedName === 'youtube-iframe';
 	};
 	
 	getHtmlForCurrentEmbed = function (galleryId) {
@@ -244,27 +234,44 @@ TubePressEmbedded = (function () {
 	*/
 	swap = function (galleryId, videoId, embeddedName) {
 		var wrapperId = '#tubepress_embedded_object_' + galleryId,
-			wrapper = jQuery(wrapperId), newHtml, oldHtml, oldId, matcher,
-			paramName, obj, oldVideoId, params;
+			wrapper = jQuery(wrapperId),
+			matcher = getIdMatcher(embeddedName);
 
 		/* if we can't find the embedded object, just bail */
 		if (wrapper.length === 0) {
 			return;
 		}
 
-		/* iframes are special. */
-		if (embeddedName === 'vimeo') {
-			oldHtml = wrapper.html();
-			oldId = oldHtml.match(/\/video\/([0-9]+).*/)[1];
-			wrapper.html(oldHtml.replace(oldId, videoId) + ' ');
-			wrapper.children('iframe')[0].src = wrapper.children('iframe')[0].src + Math.random();
-			return;
+		/* swap technique depends if iframe or not */
+		if (TubePressEmbedded.isIframe(embeddedName)) {
+			swapIframe(embeddedName, wrapper, matcher, videoId);
+		} else {
+			swapEmbeddedObject(embeddedName, wrapperId);
 		}
-
-		matcher		= window['tubepress_' + embeddedName + '_matcher']();
-		paramName	= window['tubepress_' + embeddedName + '_param']();
-		obj			= jQuery(wrapperId + ' > object');
-		oldVideoId	= obj.children("param[name='" + paramName + "']").attr('value').match(matcher)[1];
+	}
+	
+	/**
+	 * Swaps an iframe for the new video
+	 */
+	swapIframe = function (embeddedName, wrapper, matcher, videoId) {
+		var oldHtml	= wrapper.html(),
+			oldId 	= oldHtml.match(matcher)[1];
+			
+		wrapper.html(oldHtml.replace(oldId, videoId) + ' ');
+			
+		/* add the random digits here to prevent browser from caching iframe */
+		wrapper.children('iframe')[0].src = wrapper.children('iframe')[0].src + Math.random();
+	
+		/* you've earned yourself a beer */
+	};
+	
+	/**
+	 * Swaps an embedded object for a new video
+	 */
+	swapEmbeddedObject = function (embeddedName, wrapperId, matcher) {
+		var paramName	= getEmbedParam(embeddedName),
+			obj			= jQuery(wrapperId + ' > object'),
+			oldVideoId	= obj.children("param[name='" + paramName + "']").attr('value').match(matcher)[1];
 
 		/* remove anything AdBlock plus sticks in there */
 		obj.siblings().remove();
@@ -300,8 +307,29 @@ TubePressEmbedded = (function () {
 		return newHtml;
 	};
 	
+	getIdMatcher = function (embeddedName) {
+		switch (embeddedName) {
+		case 'longtail':
+			return /youtube\.com\/watch\?v=(.{11}).*/;
+		
+		case 'youtube-iframe':
+			return /youtube\.com\/embed\/(.{11}).*/;
+		default:
+			return /youtube\.com\/v\/(.{11}).*/;
+		}
+	};
+	
+	getEmbedParam = function (embeddedName) {
+		switch (embeddedName) {
+		case 'longtail':
+			return 'flashvars';
+		default:
+			return 'movie';
+		}
+	}
+	
 	return {
-		init					: init,
+		isIframe				: isIframe,
 		swap 					: swap,
 		getHtmlForCurrentEmbed	: getHtmlForCurrentEmbed,
 		getHeightOfCurrentEmbed	: getHeightOfCurrentEmbed,
@@ -320,7 +348,6 @@ TubePressGallery = (function () {
 	/* Primary setup function for TubePress. Meant to run once on page load. */
 	init = function (baseUrl) {
 		TubePressPlayers.init(baseUrl);
-		TubePressEmbedded.init(baseUrl);
 		TubePressGallery.initClickListeners();
 	};
 

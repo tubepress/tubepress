@@ -39,7 +39,7 @@ class org_tubepress_impl_filters_template_EmbeddedPlayerName
         $tpom   = $ioc->get('org_tubepress_api_options_OptionsManager');
         $stored = $tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_IMPL);
         
-        if ($stored === org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL) {
+        if ($stored === org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL || $stored === org_tubepress_api_embedded_EmbeddedPlayer::YOUTUBE_IFRAME) {
             return $stored;
         }
         
