@@ -61,7 +61,7 @@ class org_tubepress_impl_single_SimpleSingleVideo implements org_tubepress_api_s
         $template->setVariable(org_tubepress_api_const_Template::VIDEO, $video);
         
         /* send the template through the filters */
-        $filteredTemplate = $filterManager->runFilters(org_tubepress_api_const_FilterExecutionPoint::SINGLE_VIDEO_TEMPLATE, $template);
+        $filteredTemplate = $filterManager->runFilters(org_tubepress_api_const_FilterExecutionPoint::SINGLE_VIDEO_TEMPLATE, $template, $video);
 
         /* send video HTML through the filters */
         $filteredHtml = $filterManager->runFilters(org_tubepress_api_const_FilterExecutionPoint::SINGLE_VIDEO_HTML, $filteredTemplate->toString());

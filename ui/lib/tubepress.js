@@ -179,14 +179,14 @@ TubePressPlayers = (function () {
 TubePressEmbedded = (function () {
 
 	var init, swap, getEmbeddedObjectClone, getHtmlForCurrentEmbed, getWidthOfCurrentEmbed,
-		getHeightOfCurrentEmbed, dealingWithVimeo, vimeoIframe, objCss;
+		getHeightOfCurrentEmbed, dealingWithiframe, getIframeIframe, objCss;
 	
 	/* loads up JS necessary for dealing with embedded Flash implementations that we find on the page */
 	init = function (baseUrl) {
 		var embeddedNames = TubePressAnchors.findAllEmbeddedNames(), i, emptyFunc = function () {};
 		for (i = 0; i < embeddedNames.length; i = i + 1) {
 			
-			/* vimeo has no extra JS */
+			/* iframes have no extra JS */
 			if (embeddedNames[i] === 'vimeo') {
 				continue;
 			}
@@ -196,7 +196,7 @@ TubePressEmbedded = (function () {
 	};
 	
 	getHtmlForCurrentEmbed = function (galleryId) {
-		if (dealingWithVimeo(galleryId)) {
+		if (dealingWithiframe(galleryId)) {
 			return jQuery('div#tubepress_embedded_object_' + galleryId).html();
 		}
 		
@@ -208,15 +208,15 @@ TubePressEmbedded = (function () {
 	};
 	
 	getWidthOfCurrentEmbed = function (galleryId) {
-		if (dealingWithVimeo(galleryId)) {
-			return parseInt(vimeoIframe(galleryId).attr('width'), 10);
+		if (dealingWithiframe(galleryId)) {
+			return parseInt(getIframe(galleryId).attr('width'), 10);
 		}
 		return objCss(galleryId, 'width');
 	};
 	
 	getHeightOfCurrentEmbed = function (galleryId) {
-		if (dealingWithVimeo(galleryId)) {
-			return parseInt(vimeoIframe(galleryId).attr('height'), 10);
+		if (dealingWithiframe(galleryId)) {
+			return parseInt(getIframe(galleryId).attr('height'), 10);
 		}
 		return objCss(galleryId, 'height');
 	};
@@ -229,12 +229,12 @@ TubePressEmbedded = (function () {
 		return parseInt(obj.attr('style').match(regex)[1], 10);
 	};
 	
-	vimeoIframe = function (galleryId) {
+	getIframe = function (galleryId) {
 		return jQuery('div#tubepress_embedded_object_' + galleryId + ' > iframe:first');
 	};
 	
-	dealingWithVimeo = function (galleryId) {
-		return vimeoIframe(galleryId).length !== 0;
+	dealingWithiframe = function (galleryId) {
+		return getIframe(galleryId).length !== 0;
 	};
 	
 	/**
@@ -252,7 +252,7 @@ TubePressEmbedded = (function () {
 			return;
 		}
 
-		/* Vimeo is special. */
+		/* iframes are special. */
 		if (embeddedName === 'vimeo') {
 			oldHtml = wrapper.html();
 			oldId = oldHtml.match(/\/video\/([0-9]+).*/)[1];
@@ -444,6 +444,9 @@ TubePressAjaxPagination = (function () {
 
 /* this is meant to be called from the user's HTML page */
 var safeTubePressInit = function () {
+	if (!window.getTubePressBaseUrl) {
+		return;
+	}
 	try {
 		TubePressGallery.init(getTubePressBaseUrl());
 	} catch (f) {

@@ -113,7 +113,7 @@ class org_tubepress_impl_http_FastHttpClient implements org_tubepress_api_http_H
             throw new Exception('A valid URL was not provided.');
         }
 
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Will perform <tt>%s</tt> to <tt>%s</tt>', $r[self::ARGS_METHOD], $url);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Will perform %s to <a href=\"%s\">%s</a>', $r[self::ARGS_METHOD], $url, $url);
 
         // Determine if this is a https call and pass that on to the transport functions
         // so that we can blacklist the transports that do not support ssl verification

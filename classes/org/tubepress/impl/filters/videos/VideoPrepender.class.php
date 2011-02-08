@@ -22,12 +22,12 @@
 /**
  * Appends/moves a video the front of the gallery based on the query string parameter.
  */
-class org_tubepress_impl_filter_VideosDeliveryPrepender
+class org_tubepress_impl_filters_videos_VideoPrepender
 {
 	public function filter($videos)
 	{
-		$ioc = org_tubepress_ioc_IocContainer::getInstance();
-		$qss = $ioc->get('org_tubepress_querystring_QueryStringService');
+		$ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+		$qss = $ioc->get('org_tubepress_api_querystring_QueryStringService');
 
 		$customVideoId = $qss->getCustomVideo($_GET);
 
@@ -36,7 +36,7 @@ class org_tubepress_impl_filter_VideosDeliveryPrepender
 			return $videos;
 		}
 
-		org_tubepress_log_Log::log(self::LOG_PREFIX, 'Prepending video <tt>%s</tt> to the gallery', $customVideoId);
+		org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Prepending video %s to the gallery', $customVideoId);
 		
 		return $this->_prependVideo($ioc, $customVideoId, $videos);
 	}
@@ -53,7 +53,7 @@ class org_tubepress_impl_filter_VideosDeliveryPrepender
 		        $video = $provider->getSingleVideo($customVideoId);
 		        array_unshift($videos, $video);
 		    } catch (Exception $e) {
-		        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Could not prepend video <tt>%s</tt> to the gallery: %s', $customVideoId, $e->getMessage());
+		        org_tubepress_log_Log::log(self::LOG_PREFIX, 'Could not prepend video %s to the gallery: %s', $customVideoId, $e->getMessage());
 		    }
 		
 		return $videos;
@@ -66,5 +66,8 @@ class org_tubepress_impl_filter_VideosDeliveryPrepender
 	}
 }
 
-$tubepressFilterManager->registerFilter(org_tubepress_api_const_FilterExecutionPoint::VIDEOS_DELIVERY, array(new org_tubepress_impl_filter_VideosDeliveryPrepender(), 'filter'));
-?>
+$ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
+$fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
+$instance = $ioc->get('org_tubepress_impl_filters_videos_VideoPrepender');
+
+$fm->registerFilter(org_tubepress_api_const_FilterExecutionPoint::VIDEOS_DELIVERY, array($instance, 'filter'));

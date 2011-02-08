@@ -48,7 +48,7 @@ class org_tubepress_impl_log_Log
             }
 
             /* print it! */
-            printf("%s ms > (%s) > %s (memory: %s KB)<br /><br />\n", $time, $prefix, $message, number_format(memory_get_usage() / 1024));
+            printf("<div><tt style=\"font-size: small\">%s ms > (%s) > %s (memory: %s KB)</tt></div>\n", $time, $prefix, $message, number_format(memory_get_usage() / 1024));
         }
     }
 

@@ -58,7 +58,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         /* build the request URL */
         $urlBuilder = $ioc->get('org_tubepress_api_url_UrlBuilder');
         $url        = $urlBuilder->buildGalleryUrl($currentPage);
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'URL to fetch is <tt>%s</tt>', $url);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'URL to fetch is <a href=\"%s\">%s</a>', $url, $url);
 
         /* make the request */
         $feedRetrievalService = $ioc->get('org_tubepress_api_feed_FeedFetcher');

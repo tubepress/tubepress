@@ -24,7 +24,7 @@
  */
 class org_tubepress_impl_filters_template_EmbeddedSource
 {
-    public function filter($template)
+    public function filter($template, $video)
     {
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');

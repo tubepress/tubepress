@@ -80,7 +80,7 @@ class org_tubepress_impl_gallery_strategies_ThumbGalleryStrategy implements org_
             $galleryId = mt_rand();
         }
 
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Starting to build thumbnail gallery <tt>%s</tt>', $galleryId);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Starting to build thumbnail gallery %s', $galleryId);
 
         return $this->_getHtml($galleryId);
     }
@@ -125,7 +125,7 @@ class org_tubepress_impl_gallery_strategies_ThumbGalleryStrategy implements org_
         $filteredHtml = $filterManager->runFilters(org_tubepress_api_const_FilterExecutionPoint::GALLERY_HTML, $filteredTemplate->toString(), $galleryId);
 
         /* we're done. tie up */
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Done assembling gallery <tt>%d</tt>', $galleryId);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Done assembling gallery %d', $galleryId);
         $tpom = $this->_ioc->get('org_tubepress_api_options_OptionsManager');
         $tpom->setCustomOptions(array());
 

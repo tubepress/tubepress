@@ -51,22 +51,22 @@ class org_tubepress_impl_feed_CacheAwareFeedFetcher implements org_tubepress_api
         $result = '';
         if ($useCache) {
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'First asking cache for <tt>%s</tt>', $url);
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'First asking cache for <a href=\"%s\">%s</a>', $url, $url);
 
             if ($cache->has($url)) {
-                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Cache has <tt>%s</tt>. Sweet.', $url);
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Cache has <a href=\"%s\">%s</a>. Sweet.', $url, $url);
                 $result = $cache->get($url);
             } else {
-                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Cache does not have <tt>%s</tt>. We\'ll have to get it from the network.', $url);
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Cache does not have <a href=\"%s\">%s</a>. We\'ll have to get it from the network.', $url, $url);
                 $result = $this->_getFromNetwork($url, $ioc);
                 $cache->save($url, $result);
             }
         } else {
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Skip cache check for <tt>%s</tt>', $url);
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Skip cache check for <a href=\"%s\">%s</a>', $url, $url);
             $result = $this->_getFromNetwork($url, $ioc);
         }
         
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Raw result for <tt>%s</tt> is in the HTML source for this page. <span style="display:none">%s</span>', $url, htmlspecialchars($result));
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Raw result for <a href=\"%s\">%s</a> is in the HTML source for this page. <span style="display:none">%s</span>', $url, $url, htmlspecialchars($result));
         
         return $result;
     }
