@@ -37,7 +37,7 @@ tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer',
 class org_tubepress_impl_single_SimpleSingleVideo implements org_tubepress_api_single_SingleVideo
 {
     const LOG_PREFIX = 'Single video';
-    
+
     /**
      * Get the HTML for a single video display.
      *
@@ -59,7 +59,7 @@ class org_tubepress_impl_single_SimpleSingleVideo implements org_tubepress_api_s
 
         /* add some core template variables */
         $template->setVariable(org_tubepress_api_const_Template::VIDEO, $video);
-        
+
         /* send the template through the filters */
         $filteredTemplate = $filterManager->runFilters(org_tubepress_api_const_FilterExecutionPoint::SINGLE_VIDEO_TEMPLATE, $template, $video);
 
@@ -67,9 +67,9 @@ class org_tubepress_impl_single_SimpleSingleVideo implements org_tubepress_api_s
         $filteredHtml = $filterManager->runFilters(org_tubepress_api_const_FilterExecutionPoint::SINGLE_VIDEO_HTML, $filteredTemplate->toString());
 
         /* we're done. tie up. */
-	    $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
         $tpom->setCustomOptions(array());
-        
+
         /* staples - that was easy */
         return $filteredHtml;
     }

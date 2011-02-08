@@ -30,11 +30,11 @@ tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer',
 class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepress_api_shortcode_ShortcodeParser
 {
     const LOG_PREFIX = 'Shortcode parser';
-    
+
     /**
      * This function is used to parse a shortcode into options that TubePress can use.
      *
-     * @param string                                       $content The haystack in which to search
+     * @param string $content The haystack in which to search
      * 
      * @return array The associative array of parsed options.
      */
@@ -42,7 +42,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
     {
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
-        
+
         /* what trigger word are we using? */
         $keyword = $tpom->get(org_tubepress_api_const_options_Advanced::KEYWORD);
 
@@ -100,12 +100,13 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
     {
         return preg_match("/\[$trigger\b(.*)\]/", $content) === 1;
     }
-    
+
     /**
      * Handles the detection of a custom options
      *
-     * @param array $customOptions The custom options array
-     * @param array $match         The array shortcode matches
+     * @param array                            $customOptions The custom options array
+     * @param array                            $match         The array shortcode matches
+     * @param org_tubepress_api_ioc_IocService $ioc           The IOC service
      *
      * @return void
      */
@@ -137,7 +138,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
         }
         return $customOptions;
     }
-    
+
     /**
      * Replaces weird quotes with normal ones. Fun.
      *
@@ -150,7 +151,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
         $converted = str_replace(array('&#8216', '&#8217', '&#8242;'), '\'', $text);
         return str_replace(array('&#34', '&#8220;', '&#8221;', '&#8243;'), '"', $converted);
     }
-    
+
     /**
      * Strips out ugly slashes and converts boolean
      *

@@ -49,7 +49,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
         $pc   = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
 
-        /* figure out which page we're on */        
+        /* figure out which page we're on */
         $currentPage = $qss->getPageNum($_GET);
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Current page number is %d', $currentPage);
 
@@ -71,7 +71,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         $count                    = $feedInspectionService->count($rawFeed);
         $reportedTotalResultCount = $count->getEffectiveTotalResultCount();
         $queryResult              = $count->getEffectiveDisplayCount();
-        
+
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Reported total result count is %d video(s)', $reportedTotalResultCount);
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Query result count is %d video(s)', $queryResult);
 
@@ -94,7 +94,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
 
         /* convert the XML to objects */
         $factory = $ioc->get('org_tubepress_api_factory_VideoFactory');
-        $videos = $factory->feedToVideoArray($rawFeed);
+        $videos  = $factory->feedToVideoArray($rawFeed);
 
         /* shuffle if we need to */
         if ($tpom->get(org_tubepress_api_const_options_Display::ORDER_BY) == 'random') {
@@ -134,7 +134,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
 
         return $videoArray[0];
     }
-    
+
     private static function _capTotalResultsIfNeeded(org_tubepress_api_options_OptionsManager $tpom, $totalResults)
     {
         $limit = $tpom-> get(org_tubepress_api_const_options_Feed::RESULT_COUNT_CAP);
