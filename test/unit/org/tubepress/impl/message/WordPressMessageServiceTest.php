@@ -208,7 +208,8 @@ $msgs = array(
         'safeSearch-strict'   => 'strict',
 
         'playerImplementation-provider_based'    => 'Provider default',
-        'playerImplementation-longtail'   => 'JW FLV Media Player (by Longtail Video)'
+        'playerImplementation-longtail'   => 'JW FLV Media Player (by Longtail Video)',
+        'playerImplementation-youtube-iframe' => 'YouTube iframe'
     );
         
 function __($key) {

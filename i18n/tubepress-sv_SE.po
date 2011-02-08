@@ -531,3 +531,6 @@ msgstr ""
 msgid "Only show options applicable to..."
 msgstr ""
 
+msgid "YouTube iframe"
+msgstr ""
+

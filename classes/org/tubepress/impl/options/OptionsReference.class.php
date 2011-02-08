@@ -316,6 +316,7 @@ class org_tubepress_impl_options_OptionsReference
                 return array('none', 'moderate', 'strict');
             case org_tubepress_api_const_options_OptionType::PLAYER_IMPL:
                 return array(
+                    org_tubepress_api_embedded_EmbeddedPlayer::YOUTUBE_IFRAME,
                     org_tubepress_api_embedded_EmbeddedPlayer::PROVIDER_BASED,
                     org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL
                 );

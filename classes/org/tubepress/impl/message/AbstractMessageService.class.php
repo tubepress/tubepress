@@ -236,7 +236,8 @@ abstract class org_tubepress_impl_message_AbstractMessageService implements org_
         'safeSearch-strict'   => 'strict',
 
         'playerImplementation-provider_based'    => 'Provider default',
-        'playerImplementation-longtail'   => 'JW FLV Media Player (by Longtail Video)'
+        'playerImplementation-longtail'   => 'JW FLV Media Player (by Longtail Video)',
+        'playerImplementation-youtube-iframe' => 'YouTube iframe'
     );
 
     /**
