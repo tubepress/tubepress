@@ -171,7 +171,7 @@ class org_tubepress_impl_factory_strategies_VimeoFactoryStrategy extends org_tub
     
     private static function _gatherArrayOfContent($node, $firstDimension, $secondDimension)
     {
-        $result = array();
+        $results = array();
         
         if (isset($node->$firstDimension) && is_array($node->$firstDimension->$secondDimension)) {
             foreach ($node->$firstDimension->$secondDimension as $item) {

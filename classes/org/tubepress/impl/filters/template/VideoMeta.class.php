@@ -52,3 +52,4 @@ $fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
 $instance = $ioc->get('org_tubepress_impl_filters_template_VideoMeta');
 
 $fm->registerFilter(org_tubepress_api_const_FilterExecutionPoint::GALLERY_TEMPLATE, array($instance, 'filter'));
+$fm->registerFilter(org_tubepress_api_const_FilterExecutionPoint::SINGLE_VIDEO_TEMPLATE, array($instance, 'filter'));

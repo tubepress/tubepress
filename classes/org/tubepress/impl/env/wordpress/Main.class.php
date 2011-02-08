@@ -128,8 +128,8 @@ EOT;
      */
     public static function initAction()
     {
-        /* no need to queue any of this stuff up in the admin section */
-        if (is_admin()) {
+        /* no need to queue any of this stuff up in the admin section or login page */
+        if (is_admin() || __FILE__ === 'wp-login.php') {
             return;
         }
         global $tubepress_base_url;

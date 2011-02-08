@@ -36,7 +36,7 @@ class org_tubepress_impl_embedded_strategies_YouTubeEmbeddedStrategy extends org
 {
     protected function _canHandle($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
     {
-        return true;
+        return $providerName === org_tubepress_api_provider_Provider::YOUTUBE;
     }
 
     protected function _getTemplatePath($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
