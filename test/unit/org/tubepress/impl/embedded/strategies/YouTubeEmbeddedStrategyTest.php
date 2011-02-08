@@ -5,28 +5,34 @@ require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/im
 
 class org_tubepress_impl_embedded_YouTubeEmbeddedStrategyTest extends org_tubepress_impl_embedded_AbstractEmbeddedStrategyTest {
     
-	function buildSut()
-	{
-	    return new org_tubepress_impl_embedded_strategies_YouTubeEmbeddedStrategy();
-	}
-	
+    function buildSut()
+    {
+        return new org_tubepress_impl_embedded_strategies_YouTubeEmbeddedStrategy();
+    }
+    
     function testCanHandle()
     {
         $this->getSut()->start();
-        $this->assertTrue($this->getSut()->canHandle('one', 'two'));
+        $this->assertTrue($this->getSut()->canHandle('youtube', 'two'));
     }
-	
-	function getMock($className)
-	{
-	    $mock = parent::getMock($className);
-	    if ($className === 'org_tubepress_api_http_AgentDetector') {
-	        $mock->expects($this->once())
-	             ->method('isIphoneOrIpod')
-	             ->will($this->returnValue(false));
-	    }
-	    return $mock;
-	}
-	
+    
+    function testCannotHandle()
+    {
+        $this->getSut()->start();
+        $this->assertFalse($this->getSut()->canHandle('blabla', 'two'));
+    }
+
+    function getMock($className)
+    {
+        $mock = parent::getMock($className);
+        if ($className === 'org_tubepress_api_http_AgentDetector') {
+            $mock->expects($this->once())
+                 ->method('isIphoneOrIpod')
+                 ->will($this->returnValue(false));
+        }
+        return $mock;
+    }
+    
     function testExec()
     {
         $this->setOptions(array(
@@ -50,6 +56,6 @@ class org_tubepress_impl_embedded_YouTubeEmbeddedStrategyTest extends org_tubepr
 
 EOT;
     }
-	
+    
 }
 ?>

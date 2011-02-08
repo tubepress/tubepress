@@ -11,7 +11,7 @@ class org_tubepress_api_const_options_FeedTest extends org_tubepress_api_const_o
     
     protected function getExpectedNames()
     {
-        return array('cacheEnabled', 'embeddableOnly', 'filter_racy', 'developerKey', 'resultCountCap', 'vimeoKey', 'vimeoSecret');
+        return array('cacheEnabled', 'embeddableOnly', 'filter_racy', 'developerKey', 'resultCountCap', 'searchResultsRestrictedToUser', 'vimeoKey', 'vimeoSecret');
     }
 }
 ?>
