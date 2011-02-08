@@ -444,6 +444,9 @@ TubePressAjaxPagination = (function () {
 
 /* this is meant to be called from the user's HTML page */
 var safeTubePressInit = function () {
+	if (!window.getTubePressBaseUrl) {
+		return;
+	}
 	try {
 		TubePressGallery.init(getTubePressBaseUrl());
 	} catch (f) {

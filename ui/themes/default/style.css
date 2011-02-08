@@ -71,7 +71,7 @@ dt.tubepress_meta_description {
 }
 
 dd.tubepress_meta {
-	margin-bottom: auto ! important;	
+	margin-bottom: auto ! important;
 }
 
 dd.tubepress_meta_title, dd.tubepress_meta_title a, dd.tubepress_meta_title a:hover {
@@ -111,7 +111,7 @@ dt.tubepress_meta_likes:after,
 dt.tubepress_meta_id:after,
 dt.tubepress_meta_views:after,
 dt.tubepress_meta_uploaddate:after {
-	content: ":";	
+	content: ":"
 }
 
 dd.tubepress_meta_author, 
@@ -135,12 +135,12 @@ dd.tubepress_meta_description {
 	width: 100%;
 }
 .tubepress_meta_group dd {
-        margin: 0;
+	margin: 0;
 }
 
 .tubepress_meta_group dt {
-        clear: both;
-        float: left;
+	clear: both;
+	float: left;
 }
 
 .tubepress_sidebar .tubepress_thumb {
