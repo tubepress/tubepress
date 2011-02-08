@@ -35,9 +35,6 @@ msgstr "Guardar"
 msgid "Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info. An asterisk (*) next to an option indicates it's only available with <a href=\"http://tubepress.org/features\">TubePress Pro</a>."
 msgstr "Establece las opciones por omisión para el plugin. Cada una puede ser sobreseída de manera individual en las página o entradas individuaes. Consulte la <a href=\"http://tubepress.org/documentation\">documentación</a> para mayor información. Un asterisco (*) al lado de la opción indica que solo se encuentra disponible con <a ref=\"http://tubepress.org/features\">TubePress Pro</a>."
 
-msgid "If you appreciate the hundreds of hours I've spent developing and supporting TubePress, please consider a donation. No amount is too small. Thanks!"
-msgstr "TubePress es gratuito. Si el plugin le ha sido útil y aprecia las cientos de horas que he invertido en su desarrollo y soporte, por favor considere una donación. Ninguna cantidad es demasiada pequeña. Gracias."
-
 msgid "Which videos?"
 msgstr "¿Cuales videos?"
 
@@ -544,3 +541,7 @@ msgstr ""
 
 msgid "If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning."
 msgstr ""
+
+msgid "Only show options applicable to..."
+msgstr ""
+

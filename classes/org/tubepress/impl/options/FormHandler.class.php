@@ -59,8 +59,8 @@ class org_tubepress_impl_options_FormHandler
         /* set the surrounding text */
         $template->setVariable(org_tubepress_api_const_Template::OPTIONS_PAGE_TITLE, $messageService->_('options-page-title'));
         $template->setVariable(org_tubepress_api_const_Template::OPTIONS_PAGE_INTRO, $messageService->_('options-page-intro-text'));
-        $template->setVariable(org_tubepress_api_const_Template::OPTIONS_PAGE_DONATION, $messageService->_('options-page-donation'));
         $template->setVariable(org_tubepress_api_const_Template::OPTIONS_PAGE_SAVE, $messageService->_('options-page-save-button'));
+        $template->setVariable(org_tubepress_api_const_Template::OPTIONS_PAGE_OPTIONS_FILTER, $messageService->_('options-page-options-filter'));
         $template->setVariable(org_tubepress_api_const_Template::TUBEPRESS_BASE_URL, $tubepress_base_url);
 
         $categories = array();

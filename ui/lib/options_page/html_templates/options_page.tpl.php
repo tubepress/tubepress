@@ -24,7 +24,7 @@
     <h2><?php echo ${org_tubepress_api_const_Template::OPTIONS_PAGE_TITLE}; ?></h2>
     <div style="margin-bottom: 1em; width: 60%; float: left"><?php echo ${org_tubepress_api_const_Template::OPTIONS_PAGE_INTRO}; ?></div>
     <div style="width: 30%; float: right; background-color: #FFFFFF; padding: .5em 1em .5em 1em" class="ui-corner-all">
-	<p style="float: left">Only show options applicable to...</p>
+	<p style="float: left"><?php echo ${org_tubepress_api_const_Template::OPTIONS_PAGE_OPTIONS_FILTER}; ?></p>
 	<div style="float: right; vertical-align: middle; padding: 6px">
 		<input type="checkbox" id="youtube-checkbox" /><img src="<?php echo ${org_tubepress_api_const_Template::TUBEPRESS_BASE_URL}; ?>/ui/lib/options_page/images/youtube.png" style="margin: 0 1em -5px 3px" alt="YouTube"/>
 		<input type="checkbox" id="vimeo-checkbox" /><img src="<?php echo ${org_tubepress_api_const_Template::TUBEPRESS_BASE_URL}; ?>/ui/lib/options_page/images/vimeo.png" style="margin: 0 0 -8px 3px"/ alt="Vimeo">

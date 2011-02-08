@@ -40,9 +40,9 @@ class org_tubepress_api_const_Template
     const OPTIONS_PAGE_CATEGORIES       = 'optionsPageCategories';
     const OPTIONS_PAGE_CATEGORY_OPTIONS = 'optionsPageCategoryOptions';
     const OPTIONS_PAGE_CATEGORY_TITLE   = 'optionsPageCategoryTitle';
-    const OPTIONS_PAGE_DONATION         = 'optionsPageDonation';
     const OPTIONS_PAGE_INTRO            = 'optionsPageIntro';
     const OPTIONS_PAGE_OPTIONS_DESC     = 'optionsPageOptionsDesc';
+    const OPTIONS_PAGE_OPTIONS_FILTER   = 'optionsPageOptionsFilter';
     const OPTIONS_PAGE_OPTIONS_PRO_ONLY = 'optionsPageProOnly';
     const OPTIONS_PAGE_OPTIONS_TITLE    = 'optionsPageOptionTitle';
     const OPTIONS_PAGE_OPTIONS_WIDGET   = 'optionsPageOptionsWidget';

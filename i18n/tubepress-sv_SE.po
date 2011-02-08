@@ -294,9 +294,6 @@ msgstr ""
 msgid "Likes"
 msgstr ""
 
-msgid "If you appreciate the hundreds of hours I've spent developing and supporting TubePress, please consider a donation. No amount is too small. Thanks!"
-msgstr ""
-
 msgid "Provider Feed"
 msgstr ""
 
@@ -530,3 +527,7 @@ msgstr ""
 
 msgid "If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning."
 msgstr ""
+
+msgid "Only show options applicable to..."
+msgstr ""
+

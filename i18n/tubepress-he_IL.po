@@ -23,9 +23,6 @@ msgstr "שמור "
 msgid "Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info. An asterisk (*) next to an option indicates it's only available with <a href=\"http://tubepress.org/features\">TubePress Pro</a>."
 msgstr "הגדר אפשרויות ברירת מחדל עבור התוסף. כל אפשרות כאן ניתן לדרוס בהתאם לעמוד / פוסט עם shortcodes TubePress. צפה ב  <a href=\"http://tubepress.org/documentation\">תיעוד</a> לקבלת מידע נוסף. כוכבית (*) לצד אופציה מציין שמאפיין זה זמין רק בגירסה <a href=\"http://tubepress.org/features\"> TubePress Pro </ a>."
 
-msgid "If you appreciate the hundreds of hours I've spent developing and supporting TubePress, please consider a donation. No amount is too small. Thanks!"
-msgstr "TubePress בחינם. אם אתם נהנים מהתוסף, ומעריכים את מאות השעות שהשקיע המפתח בפיתוח ובתמיכה של התוסף, אנא שקול תרומה. אין סכום קטן מדי. תודה!"
-
 msgid "Which videos?"
 msgstr "איזה וידאו?"
 
@@ -535,3 +532,7 @@ msgstr ""
 
 msgid "If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning."
 msgstr ""
+
+msgid "Only show options applicable to..."
+msgstr ""
+
