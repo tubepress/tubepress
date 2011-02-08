@@ -22,7 +22,7 @@
 /**
  * Filters out any videos that the user has in their blacklist.
  */
-class org_tubepress_impl_filter_VideosDeliveryBlacklist
+class org_tubepress_impl_filters_videos_VideoBlacklist
 {
 	public function filter()
 	{
@@ -34,7 +34,7 @@ class org_tubepress_impl_filter_VideosDeliveryBlacklist
 			return $videos;
 		}
 
-		$ioc              = org_tubepress_ioc_IocContainer::getInstance();
+		$ioc              = org_tubepress_impl_ioc_IocContainer::getInstance();
 		$tpom             = $ioc->get('org_tubepress_api_options_OptionsManager');
 		$blacklist        = $tpom->get(org_tubepress_api_const_options_Advanced::VIDEO_BLACKLIST);
 		$videosToKeep     = array();
@@ -56,11 +56,15 @@ class org_tubepress_impl_filter_VideosDeliveryBlacklist
 	protected function _isNotBlacklisted($id, $blacklist)
 	{
 		if (strpos($blacklist, $id) !== false) {
-	        	org_tubepress_log_Log::log($this->_logPrefix, 'Video with ID %s is blacklisted. Skipping it.', $id);
+	        	org_tubepress_impl_log_Log::log($this->_logPrefix, 'Video with ID %s is blacklisted. Skipping it.', $id);
 	        	return false;
 	    	}
 		return true;
 	}
 }
 
-$tubepressFilterManager->registerFilter(org_tubepress_api_const_FilterExecutionPoint::VIDEOS_DELIVERY, array(new org_tubepress_impl_filter_VideosDeliveryBlacklist(), 'filter'));
+$ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
+$fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
+$instance = $ioc->get('org_tubepress_impl_filters_videos_VideoBlacklist');
+
+$fm->registerFilter(org_tubepress_api_const_FilterExecutionPoint::VIDEOS_DELIVERY, array($instance, 'filter'));
