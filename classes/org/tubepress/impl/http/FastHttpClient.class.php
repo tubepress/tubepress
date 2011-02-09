@@ -167,31 +167,31 @@ class org_tubepress_impl_http_FastHttpClient implements org_tubepress_api_http_H
         $result = array();
         $tpom   = $ioc->get('org_tubepress_api_options_OptionsManager');
 
-        if (!$tpom->get(org_tubepress_api_const_options_Advanced::DISABLE_HTTP_EXTHTTP)) {
+        if (!$tpom->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_EXTHTTP)) {
             $result[] = 'org_tubepress_impl_http_clientimpl_strategies_ExtHttpStrategy'; 
         } else {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'ExtHttp transport disabled by request');
         }
 
-        if (!$tpom->get(org_tubepress_api_const_options_Advanced::DISABLE_HTTP_CURL)) {
+        if (!$tpom->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_CURL)) {
             $result[] = 'org_tubepress_impl_http_clientimpl_strategies_CurlStrategy'; 
         } else {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Curl transport disabled by request');
         }
 
-        if (!$tpom->get(org_tubepress_api_const_options_Advanced::DISABLE_HTTP_STREAMS)) {
+        if (!$tpom->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_STREAMS)) {
             $result[] = 'org_tubepress_impl_http_clientimpl_strategies_StreamsStrategy'; 
         } else {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Streams transport disabled by request');
         }
 
-        if (!$tpom->get(org_tubepress_api_const_options_Advanced::DISABLE_HTTP_FOPEN)) {
+        if (!$tpom->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FOPEN)) {
             $result[] = 'org_tubepress_impl_http_clientimpl_strategies_FopenStrategy'; 
         } else {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'fopen transport disabled by request');
         }
 
-        if (!$tpom->get(org_tubepress_api_const_options_Advanced::DISABLE_HTTP_FSOCKOPEN)) {
+        if (!$tpom->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FSOCKOPEN)) {
             $result[] = 'org_tubepress_impl_http_clientimpl_strategies_FsockOpenStrategy'; 
         } else {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'fsockopen transport disabled by request');

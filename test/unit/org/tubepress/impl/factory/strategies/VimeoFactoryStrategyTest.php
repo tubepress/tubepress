@@ -34,7 +34,7 @@ class org_tubepress_impl_factory_strategies_VimeoFactoryStrategyTest extends Tub
     
     function testRelativeDates()
     {
-        $this->setOptions(array(org_tubepress_api_const_options_Display::RELATIVE_DATES => true));
+        $this->setOptions(array(org_tubepress_api_const_options_names_Display::RELATIVE_DATES => true));
         $result = $this->_sut->execute($this->_multipleFeed);
         $this->assertTrue(is_array($result));
         $this->assertEquals(8, count($result));

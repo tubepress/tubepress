@@ -18,7 +18,6 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
             'org_tubepress_api_embedded_EmbeddedPlayer' => 'org_tubepress_impl_embedded_DelegatingEmbeddedPlayer',
             'org_tubepress_api_filesystem_Explorer' => 'org_tubepress_impl_filesystem_FsExplorer',
             'org_tubepress_api_http_AgentDetector' => 'org_tubepress_impl_http_MobileEspBrowserDetector',
-            'org_tubepress_api_gallery_Gallery' => 'org_tubepress_impl_gallery_SimpleGallery',
             'org_tubepress_api_message_MessageService' => 'org_tubepress_impl_message_WordPressMessageService',
             'org_tubepress_api_options_OptionsManager' => 'org_tubepress_impl_options_SimpleOptionsManager',    
             'org_tubepress_api_options_StorageManager' => 'org_tubepress_impl_options_WordPressStorageManager',

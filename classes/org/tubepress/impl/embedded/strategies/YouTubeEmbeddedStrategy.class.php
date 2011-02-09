@@ -24,7 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_impl_embedded_strategies_AbstractEmbeddedStrategy',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
-    'org_tubepress_api_const_options_Embedded',
+    'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_options_OptionsManager',
     'org_tubepress_api_http_AgentDetector',
     'org_tubepress_api_url_Url'));
@@ -50,15 +50,15 @@ class org_tubepress_impl_embedded_strategies_YouTubeEmbeddedStrategy extends org
     {    
         $link  = new org_tubepress_api_url_Url(sprintf('http://www.youtube.com/v/%s', $videoId));
 
-        $showRelated     = $tpom->get(org_tubepress_api_const_options_Embedded::SHOW_RELATED);
-        $autoPlay        = $tpom->get(org_tubepress_api_const_options_Embedded::AUTOPLAY);
-        $loop            = $tpom->get(org_tubepress_api_const_options_Embedded::LOOP);
-        $genie           = $tpom->get(org_tubepress_api_const_options_Embedded::GENIE);
-        $border          = $tpom->get(org_tubepress_api_const_options_Embedded::BORDER);
-        $fullscreen      = $tpom->get(org_tubepress_api_const_options_Embedded::FULLSCREEN);
-        $playerColor     = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_COLOR), '999999');
-        $playerHighlight = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_HIGHLIGHT), 'FFFFFF');
-        $showInfo        = $tpom->get(org_tubepress_api_const_options_Embedded::SHOW_INFO);
+        $showRelated     = $tpom->get(org_tubepress_api_const_options_names_Embedded::SHOW_RELATED);
+        $autoPlay        = $tpom->get(org_tubepress_api_const_options_names_Embedded::AUTOPLAY);
+        $loop            = $tpom->get(org_tubepress_api_const_options_names_Embedded::LOOP);
+        $genie           = $tpom->get(org_tubepress_api_const_options_names_Embedded::GENIE);
+        $border          = $tpom->get(org_tubepress_api_const_options_names_Embedded::BORDER);
+        $fullscreen      = $tpom->get(org_tubepress_api_const_options_names_Embedded::FULLSCREEN);
+        $playerColor     = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR), '999999');
+        $playerHighlight = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT), 'FFFFFF');
+        $showInfo        = $tpom->get(org_tubepress_api_const_options_names_Embedded::SHOW_INFO);
 
         if (!($playerColor == '999999' && $playerHighlight == 'FFFFFF')) {
             $link->setQueryVariable('color2', '0x' . $playerColor);
@@ -73,7 +73,7 @@ class org_tubepress_impl_embedded_strategies_YouTubeEmbeddedStrategy extends org
         $link->setQueryVariable('fs', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($fullscreen));
         $link->setQueryVariable('showinfo', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
 
-        if ($tpom->get(org_tubepress_api_const_options_Embedded::HIGH_QUALITY)) {
+        if ($tpom->get(org_tubepress_api_const_options_names_Embedded::HIGH_QUALITY)) {
             $link->setQueryVariable('hd', '1');
         }
 

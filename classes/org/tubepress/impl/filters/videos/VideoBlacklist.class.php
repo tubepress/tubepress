@@ -36,7 +36,7 @@ class org_tubepress_impl_filters_videos_VideoBlacklist
 
 		$ioc              = org_tubepress_impl_ioc_IocContainer::getInstance();
 		$tpom             = $ioc->get('org_tubepress_api_options_OptionsManager');
-		$blacklist        = $tpom->get(org_tubepress_api_const_options_Advanced::VIDEO_BLACKLIST);
+		$blacklist        = $tpom->get(org_tubepress_api_const_options_names_Advanced::VIDEO_BLACKLIST);
 		$videosToKeep     = array();
 
 		foreach ($videos as $video) {
@@ -67,4 +67,4 @@ $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
 $fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
 $instance = $ioc->get('org_tubepress_impl_filters_videos_VideoBlacklist');
 
-$fm->registerFilter(org_tubepress_api_const_FilterExecutionPoint::VIDEOS_DELIVERY, array($instance, 'filter'));
+$fm->registerFilter(org_tubepress_api_const_filters_ExecutionPoint::VIDEOS_DELIVERY, array($instance, 'filter'));

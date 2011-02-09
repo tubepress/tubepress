@@ -33,5 +33,14 @@ interface org_tubepress_api_html_HtmlHandler
     function getHeadTubePressCssIncludeString();
 
     function getHeadMetaString();
+
+    /**
+     * Generates the HTML for TubePress. Could be a gallery or single video.
+     *
+     * @param string $shortCodeContent The shortcode content. May be empty or null.
+     *
+     * @return The HTML for the given shortcode.
+     */
+    function getHtmlForShortcode($shortCodeContent);
 }
 

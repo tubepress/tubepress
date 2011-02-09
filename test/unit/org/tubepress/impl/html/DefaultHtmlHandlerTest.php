@@ -25,8 +25,26 @@ class org_tubepress_impl_html_DefaultHtmlHandlerTest extends TubePressUnitTest {
                  ->method('getPageNum')
                  ->will($this->returnValue($this->_page));
         }
+        if ($className === 'org_tubepress_api_patterns_StrategyManager') {
+            $mock->expects($this->once())
+                 ->method('executeStrategy')
+                 ->with($this->equalTo(array(
+                     'org_tubepress_impl_html_strategies_SearchInputStrategy',
+                     'org_tubepress_impl_html_strategies_SearchOutputStrategy',
+                     'org_tubepress_impl_html_strategies_SingleVideoStrategy',
+                     'org_tubepress_impl_html_strategies_SoloPlayerStrategy',
+                     'org_tubepress_impl_html_strategies_ThumbGalleryStrategy'
+                 )))
+                 ->will($this->returnValue('boop'));
+        }
 
         return $mock;
+    }
+
+    function testGetHtml()
+    {
+    $result = $this->_sut->getHtmlForShortcode('');
+        $this->assertEquals('boop', $result);
     }
 
     function testGetHeadMetaStringPageTwo()

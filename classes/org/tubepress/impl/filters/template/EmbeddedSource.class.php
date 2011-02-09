@@ -31,9 +31,9 @@ class org_tubepress_impl_filters_template_EmbeddedSource
         $eps  = $ioc->get('org_tubepress_api_embedded_EmbeddedPlayer');
 
         /* apply it to the template */
-        $template->setVariable(org_tubepress_api_const_Template::EMBEDDED_SOURCE, $eps->toString($video->getId()));
+        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_SOURCE, $eps->toString($video->getId()));
         
-        $template->setVariable(org_tubepress_api_const_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_api_const_options_Embedded::EMBEDDED_WIDTH));
+        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_WIDTH, $tpom->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH));
        
         return $template;
     }
@@ -43,4 +43,4 @@ $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
 $fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
 $instance = $ioc->get('org_tubepress_impl_filters_template_EmbeddedSource');
 
-$fm->registerFilter(org_tubepress_api_const_FilterExecutionPoint::SINGLE_VIDEO_TEMPLATE, array($instance, 'filter'));
+$fm->registerFilter(org_tubepress_api_const_filters_ExecutionPoint::SINGLE_VIDEO_TEMPLATE, array($instance, 'filter'));

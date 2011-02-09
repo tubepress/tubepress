@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_pagination_Pagination',
-    'org_tubepress_api_const_options_Display',
+    'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_url_Url',
     'org_tubepress_api_message_MessageService',
     'org_tubepress_api_querystring_QueryStringService',
@@ -49,7 +49,7 @@ class org_tubepress_impl_pagination_DiggStylePaginationService implements org_tu
         $qss            = $ioc->get('org_tubepress_api_querystring_QueryStringService');
         
         $currentPage = $qss->getPageNum($_GET);
-        $vidsPerPage = $tpom->get(org_tubepress_api_const_options_Display::RESULTS_PER_PAGE);
+        $vidsPerPage = $tpom->get(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE);
 
         $newurl = new org_tubepress_api_url_Url($qss->getFullUrl($_SERVER));
         $newurl->unsetQueryVariable('tubepress_page');
@@ -57,7 +57,7 @@ class org_tubepress_impl_pagination_DiggStylePaginationService implements org_tu
         $result = $this->_diggStyle($vidCount, $messageService, $currentPage, $vidsPerPage, 1, $newurl->toString(), 'tubepress_page');
 
         /* if we're using Ajax for pagination, remove all the hrefs */
-        if ($tpom->get(org_tubepress_api_const_options_Display::AJAX_PAGINATION)) {
+        if ($tpom->get(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION)) {
             $result = preg_replace('/rel="nofollow" href="[^"]*tubepress_page=([0-9]+)[^"]*"/', 'rel="page=${1}"', $result);
         }
 

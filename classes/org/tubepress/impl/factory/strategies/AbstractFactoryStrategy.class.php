@@ -218,15 +218,15 @@ abstract class org_tubepress_impl_factory_strategies_AbstractFactoryStrategy imp
             return '';
         }
         
-        if ($this->_tpom->get(org_tubepress_api_const_options_Display::RELATIVE_DATES)) {
+        if ($this->_tpom->get(org_tubepress_api_const_options_names_Display::RELATIVE_DATES)) {
             return org_tubepress_impl_util_TimeUtils::getRelativeTime($unixTime);
         }
-        return date($this->_tpom->get(org_tubepress_api_const_options_Advanced::DATEFORMAT), $unixTime);
+        return date($this->_tpom->get(org_tubepress_api_const_options_names_Advanced::DATEFORMAT), $unixTime);
     }
     
     private function _trimDescription($description)
     {
-        $limit = $this->_tpom->get(org_tubepress_api_const_options_Display::DESC_LIMIT);
+        $limit = $this->_tpom->get(org_tubepress_api_const_options_names_Display::DESC_LIMIT);
 
         if ($limit > 0 && strlen($description) > $limit) {
             $description = substr($description, 0, $limit) . '...';

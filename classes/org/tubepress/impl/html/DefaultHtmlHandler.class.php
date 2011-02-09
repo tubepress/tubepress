@@ -23,38 +23,72 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_html_HtmlHandler',
     'org_tubepress_api_querystring_QueryStringService',
-    'org_tubepress_impl_ioc_IocContainer'));
+    'org_tubepress_impl_ioc_IocContainer',
+    'org_tubepress_impl_log_Log',
+    'org_tubepress_api_patterns_StrategyManager'));
 
 /**
  * HTML handler implementation.
  */
 class org_tubepress_impl_html_DefaultHtmlHandler implements org_tubepress_api_html_HtmlHandler
 {
-    function getHeadJqueryIncludeString()
+    const LOG_PREFIX = 'HTML Generator';
+
+    /**
+     * Generates the HTML for TubePress. Could be a gallery or single video.
+     *
+     * @param string $shortCodeContent The shortcode content. May be empty or null.
+     *
+     * @return The HTML for the given shortcode.
+     */
+    public function getHtmlForShortcode($shortCodeContent)
+    {
+        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+
+        /* do a bit of logging */
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Type of IOC container is %s', get_class($ioc));
+
+        /* parse the shortcode if we need to */
+        if ($shortCodeContent != '') {
+            $shortcodeParser = $ioc->get('org_tubepress_api_shortcode_ShortcodeParser');
+            $shortcodeParser->parse($shortCodeContent);
+        }
+
+        /* use the strategy manager to get the HTML */
+        return $ioc->get('org_tubepress_api_patterns_StrategyManager')->executeStrategy(array(
+            'org_tubepress_impl_html_strategies_SearchInputStrategy',
+            'org_tubepress_impl_html_strategies_SearchOutputStrategy',
+            'org_tubepress_impl_html_strategies_SingleVideoStrategy',
+            'org_tubepress_impl_html_strategies_SoloPlayerStrategy',
+            'org_tubepress_impl_html_strategies_ThumbGalleryStrategy'
+        ));
+    }
+
+    public function getHeadJqueryIncludeString()
     {
         global $tubepress_base_url;
         return "<script type=\"text/javascript\" src=\"$tubepress_base_url/ui/lib/jquery-1.4.2.min.js\"></script>";
     }
 
-    function getHeadInlineJavaScriptString()
+    public function getHeadInlineJavaScriptString()
     {
         global $tubepress_base_url;
         return "<script type=\"text/javascript\">function getTubePressBaseUrl(){return \"$tubepress_base_url\";}</script>";
     }
 
-    function getHeadTubePressJsIncludeString()
+    public function getHeadTubePressJsIncludeString()
     {
         global $tubepress_base_url;
         return "<script type=\"text/javascript\" src=\"$tubepress_base_url/ui/lib/tubepress.js\"></script>";
     }
 
-    function getHeadTubePressCssIncludeString()
+    public function getHeadTubePressCssIncludeString()
     {
         global $tubepress_base_url;
         return "<link rel=\"stylesheet\" href=\"$tubepress_base_url/ui/themes/default/style.css\" type=\"text/css\" />";
     }
 
-    function getHeadMetaString()
+    public function getHeadMetaString()
     {
         global $tubepress_base_url;
         

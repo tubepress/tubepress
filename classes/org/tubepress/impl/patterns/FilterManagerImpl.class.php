@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
 || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_patterns_FilterManager',
-    'org_tubepress_api_const_FilterExecutionPoint',
+    'org_tubepress_api_const_filters_ExecutionPoint',
     'org_tubepress_impl_log_Log'));
 
 class org_tubepress_impl_patterns_FilterManagerImpl implements org_tubepress_api_patterns_FilterManager

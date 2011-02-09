@@ -22,9 +22,9 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_api_const_options_Display',
-    'org_tubepress_api_const_Template',
-    'org_tubepress_api_const_FilterExecutionPoint',
+    'org_tubepress_api_const_options_names_Display',
+    'org_tubepress_api_const_template_Variable',
+    'org_tubepress_api_const_filters_ExecutionPoint',
     'org_tubepress_api_feed_FeedResult',
     'org_tubepress_api_video_Video',
     'org_tubepress_api_player_Player'));
@@ -38,13 +38,13 @@ class org_tubepress_impl_filters_template_Player
     {
         $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom       = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $playerName = $tpom->get(org_tubepress_api_const_options_Display::CURRENT_PLAYER_NAME);
+        $playerName = $tpom->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
         $player     = $ioc->get('org_tubepress_api_player_Player');
         $videos     = $feedResult->getVideoArray();
         $playerHtml = $player->getHtml($videos[0], $galleryId);
 
-        $template->setVariable(org_tubepress_api_const_Template::PLAYER_HTML, $playerHtml);
-        $template->setVariable(org_tubepress_api_const_Template::PLAYER_NAME, $playerName);
+        $template->setVariable(org_tubepress_api_const_template_Variable::PLAYER_HTML, $playerHtml);
+        $template->setVariable(org_tubepress_api_const_template_Variable::PLAYER_NAME, $playerName);
         
         return $template;
     }
@@ -54,4 +54,4 @@ $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
 $fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
 $instance = $ioc->get('org_tubepress_impl_filters_template_Player');
 
-$fm->registerFilter(org_tubepress_api_const_FilterExecutionPoint::GALLERY_TEMPLATE, array($instance, 'filter'));
+$fm->registerFilter(org_tubepress_api_const_filters_ExecutionPoint::GALLERY_TEMPLATE, array($instance, 'filter'));

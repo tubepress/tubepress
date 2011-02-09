@@ -31,9 +31,9 @@ class org_tubepress_impl_filters_template_EmbeddedPlayerNameTest extends TubePre
 	    $fakeTemplate = $this->getMock('org_tubepress_api_template_Template');
 	    $fakeTemplate->expects($this->once())
 	                 ->method('setVariable')
-	                 ->with(org_tubepress_api_const_Template::EMBEDDED_IMPL_NAME,
+	                 ->with(org_tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME,
 	                     new PHPUnit_Framework_Constraint_IsEqual(org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL));
-	    $this->setOptions(array(org_tubepress_api_const_options_Embedded::PLAYER_IMPL => org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL));
+	    $this->setOptions(array(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL => org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL));
 	    $this->_sut->filter($fakeTemplate, $this->getMock('org_tubepress_api_feed_FeedResult'), 3);
 	}
 	
@@ -42,7 +42,7 @@ class org_tubepress_impl_filters_template_EmbeddedPlayerNameTest extends TubePre
         $fakeTemplate = $this->getMock('org_tubepress_api_template_Template');
         $fakeTemplate->expects($this->once())
                      ->method('setVariable')
-                     ->with(org_tubepress_api_const_Template::EMBEDDED_IMPL_NAME,
+                     ->with(org_tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME,
                          new PHPUnit_Framework_Constraint_IsEqual('somethingelse'));
         $this->_sut->filter($fakeTemplate, $this->getMock('org_tubepress_api_feed_FeedResult'), 3);
     }

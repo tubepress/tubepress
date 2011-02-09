@@ -22,12 +22,12 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_impl_options_WordPressStorageManager',
-    'org_tubepress_api_const_options_Advanced',
+    'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_shortcode_ShortcodeParser',
     'org_tubepress_ioc_ProInWordPressIocService',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_util_StringUtils',
-    'org_tubepress_api_gallery_Gallery',
+    'org_tubepress_api_const_options_values_GalleryContentMode',
     'org_tubepress_api_html_HtmlHandler'));
 
 class org_tubepress_impl_env_wordpress_Main
@@ -47,7 +47,7 @@ class org_tubepress_impl_env_wordpress_Main
             
             /* do as little work as possible here 'cause we might not even run */
             $wpsm    = $ioc->get('org_tubepress_api_options_StorageManager');
-            $trigger = $wpsm->get(org_tubepress_api_const_options_Advanced::KEYWORD);
+            $trigger = $wpsm->get(org_tubepress_api_const_options_names_Advanced::KEYWORD);
             $parser  = $ioc->get('org_tubepress_api_shortcode_ShortcodeParser');
 
             /* no shortcode? get out */
@@ -75,13 +75,13 @@ class org_tubepress_impl_env_wordpress_Main
         $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
 
         /* Grab the gallery that will do the heavy lifting */
-        $gallery = $ioc->get('org_tubepress_api_gallery_Gallery');
+        $gallery = $ioc->get('org_tubepress_api_html_HtmlHandler');
 
         /* Parse each shortcode one at a time */
         while ($parser->somethingToParse($content, $trigger)) {
 
             /* Get the HTML for this particular shortcode. Could be a single video or a gallery. */
-            $generatedHtml = $gallery->getHtml($content);
+            $generatedHtml = $gallery->getHtmlForShortcode($content);
 
             /* remove any leading/trailing <p> tags from the content */
             $pattern = '/(<[P|p]>\s*)(' . preg_quote($tpom->getShortcode(), '/') . ')(\s*<\/[P|p]>)/';

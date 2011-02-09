@@ -24,7 +24,7 @@ class org_tubepress_impl_filters_html_AjaxPaginationTest extends TubePressUnitTe
 
 	function testAjaxPagination()
 	{
-	    $this->setOptions(array(org_tubepress_api_const_options_Display::AJAX_PAGINATION => true));
+	    $this->setOptions(array(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION => true));
 	    $result = $this->_sut->filter('hello', 'galleryid');
 	    $this->assertEquals($this->expected(), $result);
 	}

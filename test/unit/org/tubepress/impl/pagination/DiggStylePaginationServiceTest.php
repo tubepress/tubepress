@@ -34,8 +34,8 @@ class org_tubepress_impl_pagination_DiggStylePaginationServiceTest extends TubeP
     public function testAjax()
     {       
         $this->setOptions(array(
-            org_tubepress_api_const_options_Display::AJAX_PAGINATION => true,
-            org_tubepress_api_const_options_Display::RESULTS_PER_PAGE => 4
+            org_tubepress_api_const_options_names_Display::AJAX_PAGINATION => true,
+            org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE => 4
         ));
         
         $this->_tester(<<<EOT
@@ -48,7 +48,7 @@ EOT
     public function testNoAjaxHighPage()
     {
         $this->setOptions(array(
-            org_tubepress_api_const_options_Display::RESULTS_PER_PAGE => 4
+            org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE => 4
         ));
 
 	self::$_currentPage = 25;
@@ -63,7 +63,7 @@ EOT
     public function testNoAjaxMiddlePage()
     {
         $this->setOptions(array(
-            org_tubepress_api_const_options_Display::RESULTS_PER_PAGE => 4
+            org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE => 4
         ));
 
 	self::$_currentPage = 12;
@@ -78,7 +78,7 @@ EOT
     public function testNoAjax()
     {
         $this->setOptions(array(
-            org_tubepress_api_const_options_Display::RESULTS_PER_PAGE => 4
+            org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE => 4
         ));
 
 	self::$_currentPage = 1;

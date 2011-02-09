@@ -22,10 +22,9 @@
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_api_const_options_Display',
-    'org_tubepress_api_const_options_Gallery',   
+    'org_tubepress_api_const_options_names_Display',
     'org_tubepress_impl_options_OptionsReference',
-    'org_tubepress_api_const_options_OptionType'));
+    'org_tubepress_api_const_options_Type'));
 
 /**
  * Performs validation on option values
@@ -69,11 +68,11 @@ class org_tubepress_impl_options_SimpleOptionValidator implements org_tubepress_
         switch ($optionName) {
 
         /* YouTube limits us to 50 per page */
-        case org_tubepress_api_const_options_Display::RESULTS_PER_PAGE:
-            self::_checkIntegerRange(org_tubepress_api_const_options_Display::RESULTS_PER_PAGE, $candidate, 1, 50, $messageService);
+        case org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE:
+            self::_checkIntegerRange(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE, $candidate, 1, 50, $messageService);
             break;
 
-        case org_tubepress_api_const_options_Display::THEME:
+        case org_tubepress_api_const_options_names_Display::THEME:
             if (strpos($candidate, '..') !== false) {
                 throw new Exception($messageService->_('validation-no-dots-in-path'));
             }
@@ -108,38 +107,38 @@ class org_tubepress_impl_options_SimpleOptionValidator implements org_tubepress_
         $type = org_tubepress_impl_options_OptionsReference::getType($optionName);
 
         switch ($type) {
-        case org_tubepress_api_const_options_OptionType::TEXT:
-        case org_tubepress_api_const_options_OptionType::YT_USER:
-        case org_tubepress_api_const_options_OptionType::PLAYLIST:
+        case org_tubepress_api_const_options_Type::TEXT:
+        case org_tubepress_api_const_options_Type::YT_USER:
+        case org_tubepress_api_const_options_Type::PLAYLIST:
             if (!is_string($candidate)) {
                 throw new Exception(sprintf($messageService->_('validation-text'), $optionName, $candidate));
             }
             break;
 
-        case org_tubepress_api_const_options_OptionType::BOOL:
+        case org_tubepress_api_const_options_Type::BOOL:
             if (strcasecmp((string)$candidate, '1') !== 0 && strcasecmp((string)$candidate, '') !== 0) {
                 throw new Exception(sprintf($messageService->_('validation-bool'), $optionName, $candidate));
             }
             break;
 
-        case org_tubepress_api_const_options_OptionType::INTEGRAL:
-            if (intval($candidate) == 0 && $optionName != org_tubepress_api_const_options_Display::DESC_LIMIT) {
+        case org_tubepress_api_const_options_Type::INTEGRAL:
+            if (intval($candidate) == 0 && $optionName != org_tubepress_api_const_options_names_Display::DESC_LIMIT) {
                 throw new Exception(sprintf($messageService->_('validation-int-type'), $optionName, $candidate));
             }
             break;
 
-        case org_tubepress_api_const_options_OptionType::ORDER:
-        case org_tubepress_api_const_options_OptionType::PLAYER:
-        case org_tubepress_api_const_options_OptionType::PLAYER_IMPL:
-        case org_tubepress_api_const_options_OptionType::SAFE_SEARCH:
-        case org_tubepress_api_const_options_OptionType::TIME_FRAME:
+        case org_tubepress_api_const_options_Type::ORDER:
+        case org_tubepress_api_const_options_Type::PLAYER:
+        case org_tubepress_api_const_options_Type::PLAYER_IMPL:
+        case org_tubepress_api_const_options_Type::SAFE_SEARCH:
+        case org_tubepress_api_const_options_Type::TIME_FRAME:
             $validValues = org_tubepress_impl_options_OptionsReference::getValidEnumValues($type);
             if (in_array((string)$candidate, $validValues) !== true) {
                 throw new Exception(sprintf($messageService->_('validation-enum'), $optionName, implode(', ', $validValues), $candidate));
             }
             break;
 
-        case org_tubepress_api_const_options_OptionType::COLOR:
+        case org_tubepress_api_const_options_Type::COLOR:
             //implement me please
             break;
         }

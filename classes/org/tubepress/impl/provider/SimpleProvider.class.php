@@ -24,7 +24,7 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_api_provider_Provider',
     'org_tubepress_impl_log_Log',
     'org_tubepress_api_url_UrlBuilder',
-    'org_tubepress_api_const_options_Feed',
+    'org_tubepress_api_const_options_names_Feed',
     'org_tubepress_api_feed_FeedResult',
     'org_tubepress_api_provider_ProviderCalculator',
     'org_tubepress_api_factory_VideoFactory',
@@ -62,7 +62,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
 
         /* make the request */
         $feedRetrievalService = $ioc->get('org_tubepress_api_feed_FeedFetcher');
-        $useCache             = $tpom->get(org_tubepress_api_const_options_Feed::CACHE_ENABLED);
+        $useCache             = $tpom->get(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED);
         $rawFeed              = $feedRetrievalService->fetch($url, $useCache);
 
         $feedInspectionService = $ioc->get('org_tubepress_api_feed_FeedInspector');
@@ -85,7 +85,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Effective total result count (taking into account user-defined limit) is %d video(s)', $effectiveTotalResultCount);
 
         /* find out how many videos per page the user wants to show */
-        $perPageLimit = $tpom->get(org_tubepress_api_const_options_Display::RESULTS_PER_PAGE);
+        $perPageLimit = $tpom->get(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE);
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Results-per-page limit is %d', $perPageLimit);
 
         /* find out how many videos this gallery will actually show (could be less than user limit) */
@@ -97,7 +97,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         $videos  = $factory->feedToVideoArray($rawFeed);
 
         /* shuffle if we need to */
-        if ($tpom->get(org_tubepress_api_const_options_Display::ORDER_BY) == 'random') {
+        if ($tpom->get(org_tubepress_api_const_options_names_Display::ORDER_BY) == 'random') {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Shuffling videos');
             shuffle($videos);
         }
@@ -128,7 +128,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
 
         $feedRetrievalService = $ioc->get('org_tubepress_api_feed_FeedFetcher');
         $tpom                 = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $results              = $feedRetrievalService->fetch($videoUrl, $tpom->get(org_tubepress_api_const_options_Feed::CACHE_ENABLED));
+        $results              = $feedRetrievalService->fetch($videoUrl, $tpom->get(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED));
         $factory              = $ioc->get('org_tubepress_api_factory_VideoFactory');
         $videoArray           = $factory->feedToVideoArray($results);
 
@@ -137,7 +137,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
 
     private static function _capTotalResultsIfNeeded(org_tubepress_api_options_OptionsManager $tpom, $totalResults)
     {
-        $limit = $tpom-> get(org_tubepress_api_const_options_Feed::RESULT_COUNT_CAP);
+        $limit = $tpom-> get(org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP);
         return $limit == 0 ? $totalResults : min($limit, $totalResults);
     }
 

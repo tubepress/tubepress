@@ -22,9 +22,9 @@
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_api_const_options_Display',
-    'org_tubepress_api_const_Template',
-    'org_tubepress_api_const_FilterExecutionPoint',
+    'org_tubepress_api_const_options_names_Display',
+    'org_tubepress_api_const_template_Variable',
+    'org_tubepress_api_const_filters_ExecutionPoint',
     'org_tubepress_api_feed_FeedResult'));
 
 /**
@@ -40,11 +40,11 @@ class org_tubepress_impl_filters_template_Pagination
         $paginationService = $ioc->get('org_tubepress_api_pagination_Pagination');
         $pagination        = $paginationService->getHtml($feedResult->getEffectiveTotalResultCount());
 
-        if ($tpom->get(org_tubepress_api_const_options_Display::PAGINATE_ABOVE)) {
-            $template->setVariable(org_tubepress_api_const_Template::PAGINATION_TOP, $pagination);
+        if ($tpom->get(org_tubepress_api_const_options_names_Display::PAGINATE_ABOVE)) {
+            $template->setVariable(org_tubepress_api_const_template_Variable::PAGINATION_TOP, $pagination);
         }
-        if ($tpom->get(org_tubepress_api_const_options_Display::PAGINATE_BELOW)) {
-            $template->setVariable(org_tubepress_api_const_Template::PAGINATION_BOTTOM, $pagination);
+        if ($tpom->get(org_tubepress_api_const_options_names_Display::PAGINATE_BELOW)) {
+            $template->setVariable(org_tubepress_api_const_template_Variable::PAGINATION_BOTTOM, $pagination);
         }
 
         return $template;
@@ -55,4 +55,4 @@ $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
 $fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
 $instance = $ioc->get('org_tubepress_impl_filters_template_Pagination');
 
-$fm->registerFilter(org_tubepress_api_const_FilterExecutionPoint::GALLERY_TEMPLATE, array($instance, 'filter'));
+$fm->registerFilter(org_tubepress_api_const_filters_ExecutionPoint::GALLERY_TEMPLATE, array($instance, 'filter'));

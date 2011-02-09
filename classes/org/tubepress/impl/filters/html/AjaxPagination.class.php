@@ -19,7 +19,10 @@
  *
  */
 
-tubepress_load_classes(array('org_tubepress_api_filesystem_Explorer'));
+tubepress_load_classes(array(
+    'org_tubepress_api_filesystem_Explorer',
+    'org_tubepress_api_const_filters_ExecutionPoint'
+));
 
 /**
  * Injects Ajax pagination code into the gallery's HTML, if necessary.
@@ -46,7 +49,7 @@ class org_tubepress_impl_filters_html_AjaxPagination
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
 
-        if (!$tpom->get(org_tubepress_api_const_options_Display::AJAX_PAGINATION)) {
+        if (!$tpom->get(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION)) {
             return $html;
         }
 
@@ -57,8 +60,8 @@ class org_tubepress_impl_filters_html_AjaxPagination
         $baseInstallationPath = $fs->getTubePressBaseInstallationPath();
 
         $template->setPath("$baseInstallationPath/ui/lib/gallery_html_snippets/ajax_pagination.tpl.php");
-        $template->setVariable(org_tubepress_api_const_Template::GALLERY_ID, $galleryId);
-        $template->setVariable(org_tubepress_api_const_Template::SHORTCODE, urlencode($tpom->getShortcode()));
+        $template->setVariable(org_tubepress_api_const_template_Variable::GALLERY_ID, $galleryId);
+        $template->setVariable(org_tubepress_api_const_template_Variable::SHORTCODE, urlencode($tpom->getShortcode()));
 
         return $html . $template->toString();
     }
@@ -68,4 +71,4 @@ $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
 $fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
 $instance = $ioc->get('org_tubepress_impl_filters_html_AjaxPagination');
 
-$fm->registerFilter(org_tubepress_api_const_FilterExecutionPoint::GALLERY_HTML, array($instance, 'filter'));
+$fm->registerFilter(org_tubepress_api_const_filters_ExecutionPoint::GALLERY_HTML, array($instance, 'filter'));

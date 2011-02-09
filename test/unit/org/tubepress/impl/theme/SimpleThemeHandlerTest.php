@@ -33,7 +33,7 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
 
 	public function testCalculateCurrentThemeNameCustomTheme()
 	{
-		$this->setOptions(array(org_tubepress_api_const_options_Display::THEME => 'foo'));
+		$this->setOptions(array(org_tubepress_api_const_options_names_Display::THEME => 'foo'));
 		$result = $this->_sut->calculateCurrentThemeName();
 		$this->assertEquals('foo', $result);
 	}
