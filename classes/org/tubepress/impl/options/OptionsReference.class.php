@@ -128,21 +128,21 @@ class org_tubepress_impl_options_OptionsReference
             org_tubepress_api_const_options_names_Advanced::CACHE_LIFETIME_SECONDS => 3600
         ),
         org_tubepress_api_const_options_Type::TIME_FRAME => array(
-            org_tubepress_api_const_options_names_Output::MOST_VIEWED_VALUE   => 'today',
-            org_tubepress_api_const_options_names_Output::TOP_RATED_VALUE     => 'today',
-            org_tubepress_api_const_options_names_Output::TOP_FAVORITES_VALUE => 'today'
+            org_tubepress_api_const_options_names_Output::MOST_VIEWED_VALUE   => org_tubepress_api_const_options_values_TimeFrameValue::TODAY,
+            org_tubepress_api_const_options_names_Output::TOP_RATED_VALUE     => org_tubepress_api_const_options_values_TimeFrameValue::TODAY,
+            org_tubepress_api_const_options_names_Output::TOP_FAVORITES_VALUE => org_tubepress_api_const_options_values_TimeFrameValue::TODAY
         ),
         org_tubepress_api_const_options_Type::ORDER => array(
-            org_tubepress_api_const_options_names_Display::ORDER_BY            => 'viewCount',
+            org_tubepress_api_const_options_names_Display::ORDER_BY            => org_tubepress_api_const_options_values_OrderValue::VIEW_COUNT,
         ),
         org_tubepress_api_const_options_Type::PLAYER => array(
-            org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME => 'normal',
+            org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME => org_tubepress_api_const_options_values_PlayerValue::NORMAL,
         ),
         org_tubepress_api_const_options_Type::SAFE_SEARCH => array(
-            org_tubepress_api_const_options_names_Feed::FILTER                 => 'moderate'
+            org_tubepress_api_const_options_names_Feed::FILTER                 => org_tubepress_api_const_options_values_SafeSearchValue::MODERATE
         ),
         org_tubepress_api_const_options_Type::PLAYER_IMPL => array(
-            org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL        => 'youtube'
+            org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL        => org_tubepress_api_const_options_values_PlayerImplementationValue::YOUTUBE
         ),
         org_tubepress_api_const_options_Type::THEME => array(
             org_tubepress_api_const_options_names_Display::THEME => ''
