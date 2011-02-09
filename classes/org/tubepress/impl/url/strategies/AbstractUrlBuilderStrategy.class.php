@@ -22,7 +22,7 @@
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_api_patterns_Strategy',
-    'org_tubepress_api_const_options_values_GalleryContentMode',
+    'org_tubepress_api_const_options_values_ModeValue',
     'org_tubepress_api_options_OptionsManager',
     'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_options_names_Display',

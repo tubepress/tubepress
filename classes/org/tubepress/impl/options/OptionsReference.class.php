@@ -30,8 +30,13 @@ tubepress_load_classes(array('org_tubepress_impl_options_OptionsReference',
     'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_const_options_names_Meta',
     'org_tubepress_api_const_options_names_Output',
-    'org_tubepress_api_const_options_values_GalleryContentMode',
-    'org_tubepress_api_const_options_values_GalleryContentModeValue',
+    'org_tubepress_api_const_options_values_ModeValue',
+    'org_tubepress_api_const_options_values_OrderValue',
+    'org_tubepress_api_const_options_values_TimeFrameValue',
+    'org_tubepress_api_const_options_values_PlayerValue',
+    'org_tubepress_api_const_options_values_SafeSearchValue',
+    'org_tubepress_api_const_options_values_PlayerImplementationValue',
+    'org_tubepress_api_const_options_names_Output',
     'org_tubepress_api_embedded_EmbeddedPlayer'));
 
 /**
@@ -47,30 +52,30 @@ class org_tubepress_impl_options_OptionsReference
             org_tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT => 'FFFFFF'
         ),
         org_tubepress_api_const_options_Type::MODE  => array(
-            org_tubepress_api_const_options_names_Output::MODE => 'recently_featured'
+            org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::FEATURED
         ),
         org_tubepress_api_const_options_Type::TEXT => array(
             org_tubepress_api_const_options_names_Advanced::DATEFORMAT            => 'M j, Y',
             org_tubepress_api_const_options_names_Advanced::KEYWORD               => 'tubepress',
             org_tubepress_api_const_options_names_Advanced::VIDEO_BLACKLIST       => '',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::FAVORITES_VALUE        => 'mrdeathgod',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::PLAYLIST_VALUE         => 'D2B04665B213AE35',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::TAG_VALUE              => 'stewart daily show',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::USER_VALUE             => '3hough',
+            org_tubepress_api_const_options_names_Output::FAVORITES_VALUE        => 'mrdeathgod',
+            org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE         => 'D2B04665B213AE35',
+            org_tubepress_api_const_options_names_Output::TAG_VALUE              => 'stewart daily show',
+            org_tubepress_api_const_options_names_Output::USER_VALUE             => '3hough',
             org_tubepress_api_const_options_names_Feed::DEV_KEY                   => 'AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg',
             org_tubepress_api_const_options_names_Feed::VIMEO_KEY                 => '',
             org_tubepress_api_const_options_names_Feed::VIMEO_SECRET              => '',
             org_tubepress_api_const_options_names_Widget::TITLE                   => 'TubePress',
             org_tubepress_api_const_options_names_Widget::TAGSTRING               => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']',
             org_tubepress_api_const_options_names_Output::VIDEO                  => '',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::VIMEO_UPLOADEDBY_VALUE => 'mattkaar',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::VIMEO_LIKES_VALUE      => 'coiffier',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::VIMEO_APPEARS_IN_VALUE => 'royksopp',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::VIMEO_SEARCH_VALUE     => 'cats playing piano',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::VIMEO_CREDITED_VALUE   => 'patricklawler',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::VIMEO_CHANNEL_VALUE    => 'splitscreenstuff',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::VIMEO_GROUP_VALUE      => 'hdxs',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::VIMEO_ALBUM_VALUE      => '140484',
+            org_tubepress_api_const_options_names_Output::VIMEO_UPLOADEDBY_VALUE => 'mattkaar',
+            org_tubepress_api_const_options_names_Output::VIMEO_LIKES_VALUE      => 'coiffier',
+            org_tubepress_api_const_options_names_Output::VIMEO_APPEARS_IN_VALUE => 'royksopp',
+            org_tubepress_api_const_options_names_Output::VIMEO_SEARCH_VALUE     => 'cats playing piano',
+            org_tubepress_api_const_options_names_Output::VIMEO_CREDITED_VALUE   => 'patricklawler',
+            org_tubepress_api_const_options_names_Output::VIMEO_CHANNEL_VALUE    => 'splitscreenstuff',
+            org_tubepress_api_const_options_names_Output::VIMEO_GROUP_VALUE      => 'hdxs',
+            org_tubepress_api_const_options_names_Output::VIMEO_ALBUM_VALUE      => '140484',
             org_tubepress_api_const_options_names_Advanced::CACHE_DIR             => '',
             org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER          => ''
         ),
@@ -123,9 +128,9 @@ class org_tubepress_impl_options_OptionsReference
             org_tubepress_api_const_options_names_Advanced::CACHE_LIFETIME_SECONDS => 3600
         ),
         org_tubepress_api_const_options_Type::TIME_FRAME => array(
-            org_tubepress_api_const_options_values_GalleryContentModeValue::MOST_VIEWED_VALUE   => 'today',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::TOP_RATED_VALUE     => 'today',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::TOP_FAVORITES_VALUE => 'today'
+            org_tubepress_api_const_options_names_Output::MOST_VIEWED_VALUE   => 'today',
+            org_tubepress_api_const_options_names_Output::TOP_RATED_VALUE     => 'today',
+            org_tubepress_api_const_options_names_Output::TOP_FAVORITES_VALUE => 'today'
         ),
         org_tubepress_api_const_options_Type::ORDER => array(
             org_tubepress_api_const_options_names_Display::ORDER_BY            => 'viewCount',
@@ -148,22 +153,32 @@ class org_tubepress_impl_options_OptionsReference
     );
 
     private static $_vimeoOnly = array(
-        org_tubepress_api_const_options_values_GalleryContentMode::VIMEO_UPLOADEDBY,
-        org_tubepress_api_const_options_values_GalleryContentMode::VIMEO_LIKES,
-        org_tubepress_api_const_options_values_GalleryContentMode::VIMEO_APPEARS_IN,
-        org_tubepress_api_const_options_values_GalleryContentMode::VIMEO_SEARCH,
-        org_tubepress_api_const_options_values_GalleryContentMode::VIMEO_CREDITED,
-        org_tubepress_api_const_options_values_GalleryContentMode::VIMEO_ALBUM,
-        org_tubepress_api_const_options_values_GalleryContentMode::VIMEO_GROUP,
-        org_tubepress_api_const_options_values_GalleryContentMode::VIMEO_CHANNEL,
+        org_tubepress_api_const_options_values_ModeValue::VIMEO_UPLOADEDBY,
+        org_tubepress_api_const_options_values_ModeValue::VIMEO_LIKES,
+        org_tubepress_api_const_options_values_ModeValue::VIMEO_APPEARS_IN,
+        org_tubepress_api_const_options_values_ModeValue::VIMEO_SEARCH,
+        org_tubepress_api_const_options_values_ModeValue::VIMEO_CREDITED,
+        org_tubepress_api_const_options_values_ModeValue::VIMEO_ALBUM,
+        org_tubepress_api_const_options_values_ModeValue::VIMEO_GROUP,
+        org_tubepress_api_const_options_values_ModeValue::VIMEO_CHANNEL,
         org_tubepress_api_const_options_names_Meta::LIKES,
         org_tubepress_api_const_options_names_Feed::VIMEO_KEY,
         org_tubepress_api_const_options_names_Feed::VIMEO_SECRET
     );
 
     private static $_youtubeOnly = array(
-        'favorites', 'playlist', 'tag', 'user', 'recently_featured', 'mobile', 'most_discussed',
-        'most_recent', 'most_responded', 'most_viewed', 'youtubeTopFavorites', 'top_rated',
+        org_tubepress_api_const_options_values_ModeValue::FAVORITES,
+        org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
+        org_tubepress_api_const_options_values_ModeValue::TAG,
+        org_tubepress_api_const_options_values_ModeValue::USER,
+        org_tubepress_api_const_options_values_ModeValue::FEATURED,
+        org_tubepress_api_const_options_values_ModeValue::MOBILE,
+        org_tubepress_api_const_options_values_ModeValue::MOST_DISCUSSED,
+        org_tubepress_api_const_options_values_ModeValue::MOST_RECENT, 
+        org_tubepress_api_const_options_values_ModeValue::MOST_RESPONDED,
+        org_tubepress_api_const_options_values_ModeValue::POPULAR, 
+        org_tubepress_api_const_options_values_ModeValue::TOP_FAVORITES,
+        org_tubepress_api_const_options_values_ModeValue::TOP_RATED,
         org_tubepress_api_const_options_names_Embedded::GENIE,
         org_tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT,
         org_tubepress_api_const_options_names_Embedded::SHOW_RELATED,
@@ -290,43 +305,8 @@ class org_tubepress_impl_options_OptionsReference
     static function getValidEnumValues($optionType)
     {
         switch ($optionType) {
-        case org_tubepress_api_const_options_Type::PLAYER:
-            return array('normal', 'popup','shadowbox','jqmodal', 'youtube', 'static', 'solo', 'vimeo', 'fancybox', 'tinybox');
-        case org_tubepress_api_const_options_Type::ORDER:
-            return array('relevance', 'viewCount', 'rating', 'published', 'random', 'position', 'commentCount', 'duration', 'title', 'newest', 'oldest');
-        case org_tubepress_api_const_options_Type::MODE:
-            return array(
-                org_tubepress_api_const_options_values_GalleryContentMode::FAVORITES,
-                org_tubepress_api_const_options_values_GalleryContentMode::PLAYLIST,
-                org_tubepress_api_const_options_values_GalleryContentMode::TAG,
-                org_tubepress_api_const_options_values_GalleryContentMode::USER,
-                org_tubepress_api_const_options_values_GalleryContentMode::FEATURED,
-                org_tubepress_api_const_options_values_GalleryContentMode::MOBILE,
-                org_tubepress_api_const_options_values_GalleryContentMode::MOST_DISCUSSED,
-                org_tubepress_api_const_options_values_GalleryContentMode::MOST_RECENT,
-                org_tubepress_api_const_options_values_GalleryContentMode::MOST_RESPONDED,
-                org_tubepress_api_const_options_values_GalleryContentMode::POPULAR,
-                org_tubepress_api_const_options_values_GalleryContentMode::TOP_FAVORITES,
-                org_tubepress_api_const_options_values_GalleryContentMode::TOP_RATED,
-                org_tubepress_api_const_options_values_GalleryContentMode::VIMEO_UPLOADEDBY,
-                org_tubepress_api_const_options_values_GalleryContentMode::VIMEO_LIKES,
-                org_tubepress_api_const_options_values_GalleryContentMode::VIMEO_APPEARS_IN,
-                org_tubepress_api_const_options_values_GalleryContentMode::VIMEO_SEARCH,
-                org_tubepress_api_const_options_values_GalleryContentMode::VIMEO_CREDITED,
-                org_tubepress_api_const_options_values_GalleryContentMode::VIMEO_CHANNEL,
-                org_tubepress_api_const_options_values_GalleryContentMode::VIMEO_ALBUM,
-                org_tubepress_api_const_options_values_GalleryContentMode::VIMEO_GROUP);
 
-        case org_tubepress_api_const_options_Type::SAFE_SEARCH:
-            return array('none', 'moderate', 'strict');
-
-        case org_tubepress_api_const_options_Type::PLAYER_IMPL:
-            return array(
-                org_tubepress_api_embedded_EmbeddedPlayer::PROVIDER_BASED,
-                org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL
-            );
-
-        case org_tubepress_api_const_options_Type::THEME:
+            case org_tubepress_api_const_options_Type::THEME:
             
             $ioc                           = org_tubepress_impl_ioc_IocContainer::getInstance();
             $fs                            = $ioc->get('org_tubepress_api_filesystem_Explorer');
@@ -340,14 +320,10 @@ class org_tubepress_impl_options_OptionsReference
             }
             return $result;
 
-        case org_tubepress_api_const_options_Type::OUTPUT:
-
-            return array(
-                org_tubepress_api_const_options_values_OutputModeValues::SEARCH_INPUT,
-                org_tubepress_api_const_options_values_OutputModeValues::SEARCH_OUTPUT
-            );
+        default:
+            $className = 'org_tubepress_api_const_options_values_' . ucwords($optionType) . 'Value';
+            return self::_getConstantsForClass($className);
         }
-        return array('today', 'this_week', 'this_month', 'all_time');
     }
 
     /**

@@ -27,7 +27,7 @@ tubepress_load_classes(array('org_tubepress_impl_options_WordPressStorageManager
     'org_tubepress_ioc_ProInWordPressIocService',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_util_StringUtils',
-    'org_tubepress_api_const_options_values_GalleryContentMode',
+    'org_tubepress_api_const_options_values_ModeValue',
     'org_tubepress_api_html_HtmlHandler'));
 
 class org_tubepress_impl_env_wordpress_Main

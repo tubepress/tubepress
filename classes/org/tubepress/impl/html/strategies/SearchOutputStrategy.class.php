@@ -64,7 +64,7 @@ class org_tubepress_impl_html_strategies_SearchOutputStrategy implements org_tub
      */
     public function canHandle()
     {
-        return $this->_tpom->get(org_tubepress_api_const_options_names_Output::OUTPUT) === org_tubepress_api_const_options_values_OutputModeValues::SEARCH_OUTPUT;
+        return $this->_tpom->get(org_tubepress_api_const_options_names_Output::OUTPUT) === org_tubepress_api_const_options_values_OutputValues::SEARCH_OUTPUT;
     }
 
     /**

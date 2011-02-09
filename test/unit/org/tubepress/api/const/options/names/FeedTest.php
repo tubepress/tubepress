@@ -3,12 +3,13 @@ require_once dirname(__FILE__) . '/../../../../../../../../classes/org/tubepress
 require_once dirname(__FILE__) . '/../../../../../../TubePressUnitTest.php';
 
 class org_tubepress_api_const_options_names_FeedTest extends TubePressUnitTest {
-    
+
     function testConstants()
     {
         $expected = array('cacheEnabled', 'embeddableOnly', 'filter_racy', 'developerKey', 'resultCountCap', 'searchResultsRestrictedToUser', 'vimeoKey', 'vimeoSecret');
 
-        org_tubepress_api_const_ClassConstantTestUtility::performTest('org_tubepress_api_const_options_names_Feed', $expected);
+        self::checkArrayEquality(self::getConstantsForClass('org_tubepress_api_const_options_names_Feed'), $expected);
+
     }
 
 }

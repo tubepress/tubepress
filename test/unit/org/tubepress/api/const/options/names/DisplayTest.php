@@ -3,14 +3,14 @@ require_once dirname(__FILE__) . '/../../../../../../../../classes/org/tubepress
 require_once dirname(__FILE__) . '/../../../../../../TubePressUnitTest.php';
 
 class org_tubepress_api_const_options_names_DisplayTest extends TubePressUnitTest {
-    
+
     function testConstants()
     {
-        $expected = array('ajaxPagination', 'playerLocation', 'descriptionLimit', 'orderBy', 'relativeDates', 
+        $expected = array('ajaxPagination', 'playerLocation', 'descriptionLimit', 'orderBy', 'relativeDates',
             'resultsPerPage', 'thumbHeight', 'thumbWidth', 'paginationAbove', 'paginationBelow',
             'hqThumbs', 'randomize_thumbnails', 'theme');
 
-        org_tubepress_api_const_ClassConstantTestUtility::performTest('org_tubepress_api_const_options_names_Display', $expected);
+        self::checkArrayEquality(self::getConstantsForClass('org_tubepress_api_const_options_names_Display'), $expected);
     }
 }
 ?>

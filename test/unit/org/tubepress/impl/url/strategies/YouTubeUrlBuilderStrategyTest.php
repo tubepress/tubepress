@@ -37,7 +37,7 @@ class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategyTest extends Tu
 	function testexecuteUserMode()
 	{
 	    $this->setOptions(array(
-	       org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_GalleryContentMode::USER
+	       org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::USER
 	    ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/users/3hough/uploads?" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->execute(org_tubepress_api_provider_Provider::YOUTUBE, false, 1));
@@ -46,7 +46,7 @@ class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategyTest extends Tu
 	function testexecuteTopRated()
 	{
 	    $this->setOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_GalleryContentMode::TOP_RATED
+           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::TOP_RATED
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/top_rated?time=today&" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->execute(org_tubepress_api_provider_Provider::YOUTUBE, false, 1));
@@ -55,7 +55,7 @@ class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategyTest extends Tu
 	function testexecutePopular()
 	{
 	    $this->setOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_GalleryContentMode::POPULAR
+           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::POPULAR
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_viewed?time=today&" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->execute(org_tubepress_api_provider_Provider::YOUTUBE, false, 1));
@@ -64,7 +64,7 @@ class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategyTest extends Tu
 	function testexecutePlaylist()
 	{
 	    $this->setOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_GalleryContentMode::PLAYLIST,
+           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
            org_tubepress_api_const_options_names_Display::ORDER_BY => 'relevance'
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&safeSearch=moderate&format=5", 
@@ -74,7 +74,7 @@ class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategyTest extends Tu
 	function testexecuteMostResponded()
 	{
 	    $this->setOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_GalleryContentMode::MOST_RESPONDED
+           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::MOST_RESPONDED
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_responded?" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->execute(org_tubepress_api_provider_Provider::YOUTUBE, false, 1));
@@ -83,7 +83,7 @@ class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategyTest extends Tu
 	function testexecuteMostRecent()
 	{
 	    $this->setOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_GalleryContentMode::MOST_RECENT
+           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::MOST_RECENT
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_recent?" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->execute(org_tubepress_api_provider_Provider::YOUTUBE, false, 1));
@@ -92,7 +92,7 @@ class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategyTest extends Tu
 	function testexecuteTopFavorites()
 	{
 	    $this->setOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_GalleryContentMode::TOP_FAVORITES
+           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::TOP_FAVORITES
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/top_favorites?" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->execute(org_tubepress_api_provider_Provider::YOUTUBE, false, 1));
@@ -101,7 +101,7 @@ class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategyTest extends Tu
 	function testexecuteMostDiscussed()
 	{
 	    $this->setOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_GalleryContentMode::MOST_DISCUSSED
+           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::MOST_DISCUSSED
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/most_discussed?" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->execute(org_tubepress_api_provider_Provider::YOUTUBE, false, 1));
@@ -110,7 +110,7 @@ class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategyTest extends Tu
 	function testexecuteMobile()
 	{
 	    $this->setOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_GalleryContentMode::MOBILE
+           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::MOBILE
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/watch_on_mobile?" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->execute(org_tubepress_api_provider_Provider::YOUTUBE, false, 1));
@@ -119,7 +119,7 @@ class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategyTest extends Tu
 	function testexecuteFavorites()
 	{
 	    $this->setOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_GalleryContentMode::FAVORITES
+           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::FAVORITES
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/users/mrdeathgod/favorites?" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->execute(org_tubepress_api_provider_Provider::YOUTUBE, false, 1));
@@ -128,8 +128,8 @@ class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategyTest extends Tu
     function testexecuteTagWithDoubleQuotes()
     {
         $this->setOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE      => org_tubepress_api_const_options_values_GalleryContentMode::TAG,
-           org_tubepress_api_const_options_values_GalleryContentModeValue::TAG_VALUE => '"stewart daily" -show' 
+           org_tubepress_api_const_options_names_Output::MODE      => org_tubepress_api_const_options_values_ModeValue::TAG,
+           org_tubepress_api_const_options_names_Output::TAG_VALUE => '"stewart daily" -show' 
         ));
         $this->assertEquals("http://gdata.youtube.com/feeds/api/videos?q=%22stewart%2Bdaily%22%2B-show&" . $this->_standardPostProcessingStuff(), 
             $this->_sut->execute(org_tubepress_api_provider_Provider::YOUTUBE, false, 1));
@@ -138,8 +138,8 @@ class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategyTest extends Tu
     function testexecuteTagWithExclusion()
     {
         $this->setOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE      => org_tubepress_api_const_options_values_GalleryContentMode::TAG,
-           org_tubepress_api_const_options_values_GalleryContentModeValue::TAG_VALUE => 'stewart daily -show' 
+           org_tubepress_api_const_options_names_Output::MODE      => org_tubepress_api_const_options_values_ModeValue::TAG,
+           org_tubepress_api_const_options_names_Output::TAG_VALUE => 'stewart daily -show' 
         ));
         $this->assertEquals("http://gdata.youtube.com/feeds/api/videos?q=stewart%2Bdaily%2B-show&" . $this->_standardPostProcessingStuff(), 
             $this->_sut->execute(org_tubepress_api_provider_Provider::YOUTUBE, false, 1));
@@ -148,8 +148,8 @@ class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategyTest extends Tu
     function testexecuteTagWithPipes()
     {
         $this->setOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE      => org_tubepress_api_const_options_values_GalleryContentMode::TAG,
-           org_tubepress_api_const_options_values_GalleryContentModeValue::TAG_VALUE => 'stewart|daily|show' 
+           org_tubepress_api_const_options_names_Output::MODE      => org_tubepress_api_const_options_values_ModeValue::TAG,
+           org_tubepress_api_const_options_names_Output::TAG_VALUE => 'stewart|daily|show' 
         ));
         $this->assertEquals("http://gdata.youtube.com/feeds/api/videos?q=stewart%7Cdaily%7Cshow&" . $this->_standardPostProcessingStuff(), 
             $this->_sut->execute(org_tubepress_api_provider_Provider::YOUTUBE, false, 1));
@@ -158,7 +158,7 @@ class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategyTest extends Tu
 	function testexecuteTag()
 	{
 	    $this->setOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_GalleryContentMode::TAG
+           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::TAG
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/videos?q=stewart%2Bdaily%2Bshow&" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->execute(org_tubepress_api_provider_Provider::YOUTUBE, false, 1));
@@ -167,7 +167,7 @@ class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategyTest extends Tu
 	function testexecuteTagWithUser()
 	{
 	    $this->setOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_GalleryContentMode::TAG,
+           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::TAG,
 org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => '3hough'
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/videos?q=stewart%2Bdaily%2Bshow&author=3hough&" . $this->_standardPostProcessingStuff(), 
@@ -177,7 +177,7 @@ org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => '3hough'
 	function testexecuteFeatured()
 	{
 	    $this->setOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_GalleryContentMode::FEATURED
+           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::FEATURED
         ));
 		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/recently_featured?" . $this->_standardPostProcessingStuff(), 
 		    $this->_sut->execute(org_tubepress_api_provider_Provider::YOUTUBE, false, 1));

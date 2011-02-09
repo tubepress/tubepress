@@ -12,30 +12,30 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
             org_tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT => 'FFFFFF'
         ),
         org_tubepress_api_const_options_Type::MODE  => array(
-            org_tubepress_api_const_options_names_Output::MODE => 'recently_featured'
+            org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::FEATURED
         ),
         org_tubepress_api_const_options_Type::TEXT => array(
             org_tubepress_api_const_options_names_Advanced::DATEFORMAT            => 'M j, Y',
             org_tubepress_api_const_options_names_Advanced::KEYWORD               => 'tubepress',
             org_tubepress_api_const_options_names_Advanced::VIDEO_BLACKLIST       => '',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::FAVORITES_VALUE        => 'mrdeathgod',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::PLAYLIST_VALUE         => 'D2B04665B213AE35',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::TAG_VALUE              => 'stewart daily show',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::USER_VALUE             => '3hough',
+            org_tubepress_api_const_options_names_Output::FAVORITES_VALUE        => 'mrdeathgod',
+            org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE         => 'D2B04665B213AE35',
+            org_tubepress_api_const_options_names_Output::TAG_VALUE              => 'stewart daily show',
+            org_tubepress_api_const_options_names_Output::USER_VALUE             => '3hough',
             org_tubepress_api_const_options_names_Feed::DEV_KEY                   => 'AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg',
             org_tubepress_api_const_options_names_Feed::VIMEO_KEY                 => '',
             org_tubepress_api_const_options_names_Feed::VIMEO_SECRET              => '',
             org_tubepress_api_const_options_names_Widget::TITLE                   => 'TubePress',
             org_tubepress_api_const_options_names_Widget::TAGSTRING               => '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']',
             org_tubepress_api_const_options_names_Output::VIDEO                  => '',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::VIMEO_UPLOADEDBY_VALUE => 'mattkaar',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::VIMEO_LIKES_VALUE      => 'coiffier',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::VIMEO_APPEARS_IN_VALUE => 'royksopp',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::VIMEO_SEARCH_VALUE     => 'cats playing piano',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::VIMEO_CREDITED_VALUE   => 'patricklawler',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::VIMEO_CHANNEL_VALUE    => 'splitscreenstuff',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::VIMEO_GROUP_VALUE      => 'hdxs',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::VIMEO_ALBUM_VALUE      => '140484',
+            org_tubepress_api_const_options_names_Output::VIMEO_UPLOADEDBY_VALUE => 'mattkaar',
+            org_tubepress_api_const_options_names_Output::VIMEO_LIKES_VALUE      => 'coiffier',
+            org_tubepress_api_const_options_names_Output::VIMEO_APPEARS_IN_VALUE => 'royksopp',
+            org_tubepress_api_const_options_names_Output::VIMEO_SEARCH_VALUE     => 'cats playing piano',
+            org_tubepress_api_const_options_names_Output::VIMEO_CREDITED_VALUE   => 'patricklawler',
+            org_tubepress_api_const_options_names_Output::VIMEO_CHANNEL_VALUE    => 'splitscreenstuff',
+            org_tubepress_api_const_options_names_Output::VIMEO_GROUP_VALUE      => 'hdxs',
+            org_tubepress_api_const_options_names_Output::VIMEO_ALBUM_VALUE      => '140484',
             org_tubepress_api_const_options_names_Advanced::CACHE_DIR             => '',
             org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER          => ''
         ),
@@ -88,9 +88,9 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
             org_tubepress_api_const_options_names_Advanced::CACHE_LIFETIME_SECONDS => 3600
         ),
         org_tubepress_api_const_options_Type::TIME_FRAME => array(
-            org_tubepress_api_const_options_values_GalleryContentModeValue::MOST_VIEWED_VALUE   => 'today',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::TOP_RATED_VALUE     => 'today',
-            org_tubepress_api_const_options_values_GalleryContentModeValue::TOP_FAVORITES_VALUE => 'today'
+            org_tubepress_api_const_options_names_Output::MOST_VIEWED_VALUE   => 'today',
+            org_tubepress_api_const_options_names_Output::TOP_RATED_VALUE     => 'today',
+            org_tubepress_api_const_options_names_Output::TOP_FAVORITES_VALUE => 'today'
         ),
         org_tubepress_api_const_options_Type::ORDER => array(
             org_tubepress_api_const_options_names_Display::ORDER_BY            => 'viewCount',
@@ -118,7 +118,7 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
 	    	'dateFormat', 'debugging_enabled',  'disableHttpTransportCurl', 'disableHttpTransportExtHttp', 'disableHttpTransportFopen', 'disableHttpTransportFsockOpen', 'disableHttpTransportStreams', 'keyword',
 	    	'videoBlacklist'
 	    );
-	    $this->assertTrue($expectedNames == org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::ADVANCED));
+	    self::checkArrayEquality($expectedNames, org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::ADVANCED));
 	}
     
     function testGetAllOptionNames()
@@ -144,7 +144,7 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
          $expectedNames = array('theme', 'ajaxPagination', 'playerLocation', 'resultsPerPage', 'hqThumbs', 'thumbHeight', 'thumbWidth',
          'orderBy', 'paginationAbove', 'paginationBelow', 'randomize_thumbnails', 'relativeDates' ,'descriptionLimit'
          );
-         $this->assertTrue($expectedNames == org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::DISPLAY));
+         self::checkArrayEquality($expectedNames, org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::DISPLAY));
     }
     
     function testGetEmbeddedOptionNames()
@@ -154,7 +154,7 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
             'autoplay', 'border', 'fullscreen', 'hd', 'genie', 'loop', 'playerColor',
             'playerHighlight', 'showInfo', 'showRelated'
         );
-        $this->assertTrue($expectedNames == org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::EMBEDDED));  
+        self::checkArrayEquality($expectedNames, org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::EMBEDDED));  
     }
     
     function testGetFeedOptionNames()
@@ -162,15 +162,17 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
          $expectedNames = array(
              'cacheEnabled', 'embeddableOnly', 'filter_racy', 'developerKey', 'resultCountCap', 'searchResultsRestrictedToUser', 'vimeoKey', 'vimeoSecret'
          );   
-         $this->assertTrue($expectedNames == org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::FEED));
+         self::checkArrayEquality($expectedNames, org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::FEED));
     }
     
     function testGetOutputOptionNames()
     {
         $expectedNames = array(
-            'mode', 'video', 'output'
+            'mode', 'video', 'output',  'favoritesValue', 'most_viewedValue', 'playlistValue', 'tagValue',
+            'youtubeTopFavoritesValue', 'top_ratedValue', 'userValue', 'vimeoUploadedByValue', 'vimeoLikesValue',
+            'vimeoAppearsInValue', 'vimeoSearchValue', 'vimeoCreditedToValue', 'vimeoChannelValue', 'vimeoAlbumValue', 'vimeoGroupValue'
         );
-        $this->assertTrue($expectedNames == org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::OUTPUT));
+        self::checkArrayEquality($expectedNames, org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::OUTPUT));
     }
     
     function testGetMetaOptionNames()
@@ -180,7 +182,7 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
             'length', 'likes', 'rating', 'ratings', 'tags',
             'title', 'uploaded', 'url', 'views'
         );
-        $this->assertTrue($expectedNames == org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::META));
+        self::checkArrayEquality($expectedNames, org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::META));
     }
     
     function testIsOptionName()
@@ -199,7 +201,7 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
         $expectedNames = array(
             'widget-tagstring', 'widget-title'
         );
-        $this->assertTrue($expectedNames == org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::WIDGET));
+        self::checkArrayEquality($expectedNames, org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::WIDGET));
     }
     function testGetType()
     {
@@ -229,26 +231,26 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
     function testPlayerEnumValues()
     {
         $expected = array('normal', 'popup','shadowbox', 'jqmodal', 'youtube', 'static', 'solo', 'vimeo', 'fancybox', 'tinybox');
-        $this->assertEquals($expected, org_tubepress_impl_options_OptionsReference::getValidEnumValues(org_tubepress_api_const_options_Type::PLAYER));
+        self::checkArrayEquality($expected, org_tubepress_impl_options_OptionsReference::getValidEnumValues(org_tubepress_api_const_options_Type::PLAYER));
     }
     function testMostViewedEnumValues()
     {
         $expected = array('today', 'this_week', 'this_month', 'all_time');
-        $this->assertEquals($expected, org_tubepress_impl_options_OptionsReference::getValidEnumValues(org_tubepress_api_const_options_Type::TIME_FRAME));
+        self::checkArrayEquality($expected, org_tubepress_impl_options_OptionsReference::getValidEnumValues(org_tubepress_api_const_options_Type::TIME_FRAME));
     }
     function testOrderEnumValues()
     {
         $expected = array('relevance', 'viewCount', 'rating', 'published', 'random', 'position', 'commentCount', 'duration', 'title', 'newest', 'oldest');
-        $this->assertEquals($expected, org_tubepress_impl_options_OptionsReference::getValidEnumValues(org_tubepress_api_const_options_Type::ORDER));
+        self::checkArrayEquality($expected, org_tubepress_impl_options_OptionsReference::getValidEnumValues(org_tubepress_api_const_options_Type::ORDER));
     }
     
     function testGalleryEnumValues()
     {
-        $expected = array('favorites', 'playlist', 'tag', 'user', 'recently_featured', 'mobile', 'most_discussed',
-                    'most_recent', 'most_responded', 'most_viewed', 'youtubeTopFavorites',
-                    'top_rated', 'vimeoUploadedBy', 'vimeoLikes', 'vimeoAppearsIn', 'vimeoSearch', 'vimeoCreditedTo',
+        $expected = array(org_tubepress_api_const_options_values_ModeValue::FAVORITES, org_tubepress_api_const_options_values_ModeValue::PLAYLIST, org_tubepress_api_const_options_values_ModeValue::TAG, org_tubepress_api_const_options_values_ModeValue::USER, org_tubepress_api_const_options_values_ModeValue::FEATURED, org_tubepress_api_const_options_values_ModeValue::MOBILE, org_tubepress_api_const_options_values_ModeValue::MOST_DISCUSSED,
+                    org_tubepress_api_const_options_values_ModeValue::MOST_RECENT, org_tubepress_api_const_options_values_ModeValue::MOST_RESPONDED, org_tubepress_api_const_options_values_ModeValue::POPULAR, org_tubepress_api_const_options_values_ModeValue::TOP_FAVORITES,
+                    org_tubepress_api_const_options_values_ModeValue::TOP_RATED, 'vimeoUploadedBy', 'vimeoLikes', 'vimeoAppearsIn', 'vimeoSearch', 'vimeoCreditedTo',
                     'vimeoChannel', 'vimeoAlbum', 'vimeoGroup');
-        $this->assertEquals($expected, org_tubepress_impl_options_OptionsReference::getValidEnumValues(org_tubepress_api_const_options_Type::MODE));
+        self::checkArrayEquality($expected, org_tubepress_impl_options_OptionsReference::getValidEnumValues(org_tubepress_api_const_options_Type::MODE));
     }
 }
 ?>

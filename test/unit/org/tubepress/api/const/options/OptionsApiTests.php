@@ -10,9 +10,8 @@ require_once 'names/WidgetTest.php';
 require_once 'names/FeedTest.php';
 require_once 'TypeTest.php';
 require_once 'CategoryNameTest.php';
-require_once 'values/GalleryContentModeTest.php';
-require_once 'values/GalleryContentModeValueTest.php';
-require_once 'values/OutputModeValueTest.php';
+require_once 'values/ModeValueTest.php';
+require_once 'values/OutputValueTest.php';
 
 class OptionsApiTests
 {
@@ -28,9 +27,8 @@ class OptionsApiTests
         $suite->addTestSuite('org_tubepress_api_const_options_names_FeedTest');
         $suite->addTestSuite('org_tubepress_api_const_options_CategoryNameTest');
         $suite->addTestSuite('org_tubepress_api_const_options_TypeTest');
-        $suite->addTestSuite('org_tubepress_api_const_options_values_GalleryContentModeTest');
-        $suite->addTestSuite('org_tubepress_api_const_options_values_GalleryContentModeValueTest');
-        $suite->addTestSuite('org_tubepress_api_const_options_values_OutputModeValueTest');
+        $suite->addTestSuite('org_tubepress_api_const_options_values_ModeValueTest');
+        $suite->addTestSuite('org_tubepress_api_const_options_values_OutputValueTest');
 
         return $suite;
     }

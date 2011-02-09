@@ -20,10 +20,19 @@
  */
 
 /**
- * Output options.
+ * TubePress gallery content modes.
  */
-class org_tubepress_api_const_options_values_OutputModeValue
+class org_tubepress_api_const_options_values_PlayerValue
 {
-    const SEARCH_INPUT   = 'searchInput';
-    const SEARCH_RESULTS = 'searchResults';
+    const NORMAL    = 'normal';
+    const POPUP     = 'popup';
+    const SHADOWBOX = 'shadowbox';
+    const JQMODAL   = 'jqmodal';
+    const VIMEO     = 'vimeo';
+    const YOUTUBE   = 'youtube';
+    const STATICC   = 'static';
+    const SOLO      = 'solo';
+    const FANCYBOX  = 'fancybox';
+    const TINYBOX   = 'tinybox';
+    
 }

@@ -27,4 +27,20 @@ class org_tubepress_api_const_options_names_Output
     const MODE   = 'mode';
     const VIDEO  = 'video';
     const OUTPUT = 'output';
+    
+    const FAVORITES_VALUE        = 'favoritesValue';
+    const MOST_VIEWED_VALUE      = 'most_viewedValue';
+    const PLAYLIST_VALUE         = 'playlistValue';
+    const TAG_VALUE              = 'tagValue';
+    const TOP_FAVORITES_VALUE    = 'youtubeTopFavoritesValue';
+    const TOP_RATED_VALUE        = 'top_ratedValue';
+    const USER_VALUE             = 'userValue';
+    const VIMEO_UPLOADEDBY_VALUE = 'vimeoUploadedByValue';
+    const VIMEO_LIKES_VALUE      = 'vimeoLikesValue';
+    const VIMEO_APPEARS_IN_VALUE = 'vimeoAppearsInValue';
+    const VIMEO_SEARCH_VALUE     = 'vimeoSearchValue';
+    const VIMEO_CREDITED_VALUE   = 'vimeoCreditedToValue';
+    const VIMEO_CHANNEL_VALUE    = 'vimeoChannelValue';
+    const VIMEO_ALBUM_VALUE      = 'vimeoAlbumValue';
+    const VIMEO_GROUP_VALUE      = 'vimeoGroupValue';
 }

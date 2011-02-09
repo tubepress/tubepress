@@ -30,8 +30,8 @@ class org_tubepress_api_shortcode_ShortcodeParserTest extends TubePressUnitTest
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
 		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
 		
-		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => 'playlist',
-			org_tubepress_api_const_options_values_GalleryContentModeValue::PLAYLIST_VALUE => 'foobar',
+		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
+			org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE => 'foobar',
 			org_tubepress_api_const_options_names_Meta::AUTHOR => false,
 			org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => 200,
 			org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE => 3);
@@ -48,8 +48,8 @@ class org_tubepress_api_shortcode_ShortcodeParserTest extends TubePressUnitTest
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
 		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
 		
-		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => 'playlist',
-			org_tubepress_api_const_options_values_GalleryContentModeValue::PLAYLIST_VALUE => 'foobar',
+		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
+			org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE => 'foobar',
 			org_tubepress_api_const_options_names_Meta::AUTHOR => true,
 			org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => 200,
 			org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE => 3);
@@ -66,8 +66,8 @@ class org_tubepress_api_shortcode_ShortcodeParserTest extends TubePressUnitTest
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
 		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
 		
-		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => 'playlist',
-			org_tubepress_api_const_options_values_GalleryContentModeValue::PLAYLIST_VALUE => 'foobar',
+		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
+			org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE => 'foobar',
 			org_tubepress_api_const_options_names_Meta::AUTHOR => true,
 			org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => 200,
 			org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE => 3);
@@ -90,8 +90,8 @@ class org_tubepress_api_shortcode_ShortcodeParserTest extends TubePressUnitTest
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
 		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
 		
-		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => 'playlist',
-			org_tubepress_api_const_options_values_GalleryContentModeValue::PLAYLIST_VALUE => 'foobar');
+		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
+			org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE => 'foobar');
 							
 			$this->_sut->parse('[butters mode=&#8216playlist&#8217 playlistValue=&#8242;foobar&#8242;]');
 	
@@ -105,8 +105,8 @@ class org_tubepress_api_shortcode_ShortcodeParserTest extends TubePressUnitTest
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
 		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
 		
-		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => 'playlist',
-			org_tubepress_api_const_options_values_GalleryContentModeValue::PLAYLIST_VALUE => 'foobar');
+		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
+			org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE => 'foobar');
 							
 	  	$this->_sut->parse('[butters mode=&#34playlist&#8220; playlistValue=&#8221;foobar&#8243;]');
 	
@@ -120,7 +120,7 @@ class org_tubepress_api_shortcode_ShortcodeParserTest extends TubePressUnitTest
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
 		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
 		
-		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => 'playlist');
+		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST);
 					
 			$this->_sut->parse('[butters mode=playlist	]');
 
@@ -134,7 +134,7 @@ class org_tubepress_api_shortcode_ShortcodeParserTest extends TubePressUnitTest
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
 		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
 		
-		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => 'playlist');
+		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST);
 					
 		$this->_sut->parse('[butters mode=\'playlist\']');
 
@@ -148,7 +148,7 @@ class org_tubepress_api_shortcode_ShortcodeParserTest extends TubePressUnitTest
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
 		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
 		
-		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => 'playlist');
+		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST);
 					
 		$this->_sut->parse('[butters mode="playlist"]');
 
@@ -185,7 +185,7 @@ class org_tubepress_api_shortcode_ShortcodeParserTest extends TubePressUnitTest
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
 		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
 		
-		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => 'playlist');
+		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST);
 		$content = "[butters mode='playlist']";
 		
 		$this->_sut->parse($content);
@@ -200,7 +200,7 @@ class org_tubepress_api_shortcode_ShortcodeParserTest extends TubePressUnitTest
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
 		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
 		
-		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => 'playlist');
+		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST);
 		$content = "sddf	 [butters mode='playlist']	sdsdfsdf";
 		
 		$this->_sut->parse($content);
@@ -215,7 +215,7 @@ class org_tubepress_api_shortcode_ShortcodeParserTest extends TubePressUnitTest
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
 		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
 		
-		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => 'playlist');
+		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST);
 		$content = "sddf[butters mode='playlist']sdsdfsdf";
 		
 		$this->_sut->parse($content);
