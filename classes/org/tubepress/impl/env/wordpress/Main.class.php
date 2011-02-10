@@ -28,7 +28,7 @@ tubepress_load_classes(array('org_tubepress_impl_options_WordPressStorageManager
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_util_StringUtils',
     'org_tubepress_api_const_options_values_ModeValue',
-    'org_tubepress_api_html_HtmlHandler'));
+    'org_tubepress_api_html_HtmlGenerator'));
 
 class org_tubepress_impl_env_wordpress_Main
 {
@@ -75,7 +75,7 @@ class org_tubepress_impl_env_wordpress_Main
         $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
 
         /* Grab the gallery that will do the heavy lifting */
-        $gallery = $ioc->get('org_tubepress_api_html_HtmlHandler');
+        $gallery = $ioc->get('org_tubepress_api_html_HtmlGenerator');
 
         /* Parse each shortcode one at a time */
         while ($parser->somethingToParse($content, $trigger)) {
@@ -107,7 +107,7 @@ class org_tubepress_impl_env_wordpress_Main
         }
         
         $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $hh       = $ioc->get('org_tubepress_api_html_HtmlHandler');
+        $hh       = $ioc->get('org_tubepress_api_html_HtmlGenerator');
 
         /* this inline JS helps initialize TubePress */
         $inlineJs = $hh->getHeadInlineJavaScriptString();

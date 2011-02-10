@@ -1,8 +1,8 @@
 <?php
 require_once dirname(__FILE__) . '/../../../../../../test/unit/TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/html/DefaultHtmlHandler.class.php';
+require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/html/DefaultHtmlGenerator.class.php';
 
-class org_tubepress_impl_html_DefaultHtmlHandlerTest extends TubePressUnitTest {
+class org_tubepress_impl_html_DefaultHtmlGeneratorTest extends TubePressUnitTest {
 
     private $_sut;
     private $_page;
@@ -13,7 +13,7 @@ class org_tubepress_impl_html_DefaultHtmlHandlerTest extends TubePressUnitTest {
         $tubepress_base_url = 'tubepress_base_url';
         $this->_page = 1;
         $this->initFakeIoc();
-        $this->_sut = new org_tubepress_impl_html_DefaultHtmlHandler();
+        $this->_sut = new org_tubepress_impl_html_DefaultHtmlGenerator();
     }
 
     function getMock($className)

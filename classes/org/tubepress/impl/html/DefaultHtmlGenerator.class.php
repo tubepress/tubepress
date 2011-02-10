@@ -21,7 +21,7 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_html_HtmlHandler',
+tubepress_load_classes(array('org_tubepress_api_html_HtmlGenerator',
     'org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_log_Log',
@@ -30,7 +30,7 @@ tubepress_load_classes(array('org_tubepress_api_html_HtmlHandler',
 /**
  * HTML handler implementation.
  */
-class org_tubepress_impl_html_DefaultHtmlHandler implements org_tubepress_api_html_HtmlHandler
+class org_tubepress_impl_html_DefaultHtmlGenerator implements org_tubepress_api_html_HtmlGenerator
 {
     const LOG_PREFIX = 'HTML Generator';
 

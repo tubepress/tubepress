@@ -64,7 +64,7 @@ class org_tubepress_impl_html_strategies_SearchInputStrategy implements org_tube
      */
     public function canHandle()
     {
-        return $this->_tpom->get(org_tubepress_api_const_options_names_Output::OUTPUT) === org_tubepress_api_const_options_values_OutputValues::SEARCH_INPUT;
+        return $this->_tpom->get(org_tubepress_api_const_options_names_Output::OUTPUT) === org_tubepress_api_const_options_values_OutputValue::SEARCH_INPUT;
     }
 
     /**
@@ -74,7 +74,20 @@ class org_tubepress_impl_html_strategies_SearchInputStrategy implements org_tube
      */
     public function execute()
     {
+        $th         = $this->_ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $template   = $th->getTemplateInstance('search_input.tpl.php');
+        $resultsUrl = $this->_tpom->get(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL);
 
+        /* if the user didn't request a certain page, just send the search results right back here */
+        if ($resultsUrl == '') {
+            $qss        = $this->_ioc->get('org_tubepress_api_querystring_QueryStringService');
+            $resultsUrl = $qss->getFullUrl($_SERVER);
+        }
+
+        /* apply the template variables */
+        $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_HANDLER_URL, $resultsUrl);
+
+        return $template->toString();
     }
 
 }

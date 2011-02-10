@@ -28,6 +28,8 @@ class org_tubepress_api_const_options_names_Output
     const VIDEO  = 'video';
     const OUTPUT = 'output';
     
+    const SEARCH_RESULTS_URL = 'searchResultsUrl';
+
     const FAVORITES_VALUE        = 'favoritesValue';
     const MOST_VIEWED_VALUE      = 'most_viewedValue';
     const PLAYLIST_VALUE         = 'playlistValue';

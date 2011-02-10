@@ -22,9 +22,9 @@
  * Sure, maybe your templating system of choice looks prettier but I'll bet it's not faster :)
  */
 ?>
-<form method="get" id="tubepress-search-<?php echo ${org_tubepress_api_const_template_Variable::GALLERY_ID}; ?>" action="<?php echo ${org_tubepress_api_const_template_Variable::SEARCH_HANDLER_URL}; ?>">
+<form method="get" action="<?php echo ${org_tubepress_api_const_template_Variable::SEARCH_HANDLER_URL}; ?>">
 	<fieldset class="tubepress_search">
-		<input type="text" class="tubepress_box" />
+		<input type="text" class="tubepress_box"/>
 		<button class="tubepress_button" title="Submit Search">Search</button>
 	</fieldset>
 </form>

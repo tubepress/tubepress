@@ -22,7 +22,7 @@
 /**
  * Handles HTML.
  */
-interface org_tubepress_api_html_HtmlHandler
+interface org_tubepress_api_html_HtmlGenerator
 {
     function getHeadJqueryIncludeString();
 

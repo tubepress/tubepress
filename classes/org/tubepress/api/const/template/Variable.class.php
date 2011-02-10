@@ -55,6 +55,7 @@ class org_tubepress_api_const_template_Variable
     const PLAYER_HTML                   = 'preGallery';
     const PLAYER_NAME                   = 'playerName';
     const PRE_GALLERY                   = self::PLAYER_HTML;
+    const SEARCH_HANDLER_URL            = 'searchHandlerUrl';
     const SHORTCODE                     = 'shortcode';
     const THEME_CSS                     = 'themeCssUrl';
     const THUMBNAIL_HEIGHT              = 'thumbHeight';

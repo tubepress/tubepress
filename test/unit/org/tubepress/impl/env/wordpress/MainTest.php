@@ -37,7 +37,7 @@ class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
                  ->method('somethingToParse')
                  ->will($this->returnCallback(array($this, 'parserCallback')));
         }
-        if ($className === 'org_tubepress_api_html_HtmlHandler') {
+        if ($className === 'org_tubepress_api_html_HtmlGenerator') {
             $mock->expects($this->any())
                  ->method('getHeadInlineJavaScriptString')
                  ->will($this->returnValue('inlinejs'));

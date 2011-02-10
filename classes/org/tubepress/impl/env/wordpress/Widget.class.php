@@ -62,7 +62,7 @@ class org_tubepress_impl_env_wordpress_Widget
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom         = $iocContainer->get('org_tubepress_api_options_OptionsManager');
         $parser       = $iocContainer->get('org_tubepress_api_shortcode_ShortcodeParser');
-        $gallery      = $iocContainer->get('org_tubepress_api_html_HtmlHandler');
+        $gallery      = $iocContainer->get('org_tubepress_api_html_HtmlGenerator');
 
         /* Turn on logging if we need to */
         org_tubepress_impl_log_Log::setEnabled($tpom->get(org_tubepress_api_const_options_names_Advanced::DEBUG_ON), $_GET);
