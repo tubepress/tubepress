@@ -21,18 +21,14 @@
 
 function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_querystring_QueryStringService'));
+tubepress_load_classes(array('org_tubepress_api_querystring_QueryStringService',
+    'org_tubepress_api_const_querystring_QueryParamName'));
 
 /**
  * Handles some tasks related to the query string
  */
 class org_tubepress_impl_querystring_SimpleQueryStringService implements org_tubepress_api_querystring_QueryStringService
 {
-    const TUBEPRESS_GALLERY_ID = 'tubepress_galleryId';
-    const TUBEPRESS_PAGE       = 'tubepress_page';
-    const TUBEPRESS_SHORTCODE  = 'tubepress_shortcode';
-    const TUBEPRESS_VIDEO      = 'tubepress_video';
-
     /**
      * Try to get the custom video ID from the query string
      *
@@ -42,7 +38,7 @@ class org_tubepress_impl_querystring_SimpleQueryStringService implements org_tub
     */
     public function getCustomVideo($getVars)
     {
-        return self::_getQueryVar($getVars, self::TUBEPRESS_VIDEO);
+        return self::_getQueryVar($getVars, org_tubepress_api_const_querystring_QueryParamName::VIDEO);
     }
 
     /**
@@ -54,7 +50,7 @@ class org_tubepress_impl_querystring_SimpleQueryStringService implements org_tub
     */
     public function getGalleryId($getVars)
     {
-        return self::_getQueryVar($getVars, self::TUBEPRESS_GALLERY_ID);
+        return self::_getQueryVar($getVars, org_tubepress_api_const_querystring_QueryParamName::GALLERY_ID);
     }
 
     /**
@@ -90,7 +86,7 @@ class org_tubepress_impl_querystring_SimpleQueryStringService implements org_tub
      */
     public function getPageNum($getVars)
     {
-        $key     = self::TUBEPRESS_PAGE;
+        $key     = org_tubepress_api_const_querystring_QueryParamName::PAGE;
         $pageNum = ((isset($getVars[$key])) ?
             $getVars[$key] : 1);
 
@@ -109,7 +105,7 @@ class org_tubepress_impl_querystring_SimpleQueryStringService implements org_tub
      */
     public function getShortcode($getVars)
     {
-        return self::_getQueryVar($getVars, self::TUBEPRESS_SHORTCODE);
+        return self::_getQueryVar($getVars, org_tubepress_api_const_querystring_QueryParamName::SHORTCODE);
     }
 
     /**
