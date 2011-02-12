@@ -41,6 +41,11 @@ class org_tubepress_impl_querystring_SimpleQueryStringService implements org_tub
         return self::_getQueryVar($getVars, org_tubepress_api_const_querystring_QueryParamName::VIDEO);
     }
 
+    public function getSearchTerms($getVars)
+    {
+        return self::_getQueryVar($getVars, org_tubepress_api_const_querystring_QueryParamName::SEARCH_TERMS);
+    }
+
     /**
      * Try to get the gallery ID from the query string
      *

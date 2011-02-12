@@ -115,7 +115,8 @@ class org_tubepress_impl_options_OptionsReference
             org_tubepress_api_const_options_names_Meta::VIEWS                      => true,
             org_tubepress_api_const_options_names_Meta::LIKES                      => false,
             org_tubepress_api_const_options_names_Feed::CACHE_ENABLED              => false,
-            org_tubepress_api_const_options_names_Feed::EMBEDDABLE_ONLY            => true
+            org_tubepress_api_const_options_names_Feed::EMBEDDABLE_ONLY            => true,
+            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY      => false
         ),
         org_tubepress_api_const_options_Type::INTEGRAL => array(
             org_tubepress_api_const_options_names_Display::DESC_LIMIT              => 80,
@@ -376,7 +377,8 @@ class org_tubepress_impl_options_OptionsReference
         return !in_array($optionName, array(
             org_tubepress_api_const_options_names_Output::VIDEO,
             org_tubepress_api_const_options_names_Output::OUTPUT,
-            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL
+            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL,
+            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY
         ));
     }
 
@@ -423,7 +425,8 @@ class org_tubepress_impl_options_OptionsReference
         return !in_array($optionName, array(
             org_tubepress_api_const_options_names_Output::VIDEO,
             org_tubepress_api_const_options_names_Output::OUTPUT,
-            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL
+            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL,
+            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY
         ));
     }
 

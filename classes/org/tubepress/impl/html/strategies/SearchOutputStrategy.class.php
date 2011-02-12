@@ -31,6 +31,7 @@ class org_tubepress_impl_html_strategies_SearchOutputStrategy implements org_tub
 
     private $_ioc;
     private $_tpom;
+    private $_rawSearchTerms;
 
     /**
      * Called *before* canHandle() and execute() to allow the strategy
@@ -54,6 +55,7 @@ class org_tubepress_impl_html_strategies_SearchOutputStrategy implements org_tub
     {
         unset($this->_ioc);
         unset($this->_tpom);
+        unset($this->_rawSearchTerms);
     }
 
     /**
@@ -64,7 +66,20 @@ class org_tubepress_impl_html_strategies_SearchOutputStrategy implements org_tub
      */
     public function canHandle()
     {
-        return $this->_tpom->get(org_tubepress_api_const_options_names_Output::OUTPUT) === org_tubepress_api_const_options_values_OutputValues::SEARCH_OUTPUT;
+        /* not configured at all for search results */
+        if ($this->_tpom->get(org_tubepress_api_const_options_names_Output::OUTPUT) !== org_tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS) {
+            return false;
+        }
+
+        /* do we have search terms? */
+        $qss                   = $this->_ioc->get('org_tubepress_api_querystring_QueryStringService');
+        $this->_rawSearchTerms = $qss->getSearchTerms($_SERVER);
+        
+        /* are we set up for a gallery fallback? */
+        $mustShowSearchResults = $this->_tpom->get(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY);
+
+        /* either the user is searching, or they've requested that we only show search results */
+        return $this->_rawSearchTerms != '' || $mustShowSearchResults;
     }
 
     /**
@@ -74,7 +89,12 @@ class org_tubepress_impl_html_strategies_SearchOutputStrategy implements org_tub
      */
     public function execute()
     {
-        
+        /* if the user isn't searching, don't display anything */
+        if ($this->_rawSearchTerms == '') {
+            return '';
+        }
+
+        $searchTerms = $this->_cleanSearchTerms();
     }
 
 }

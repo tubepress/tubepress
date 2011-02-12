@@ -29,6 +29,11 @@ class org_tubepress_impl_querystring_SimpleQueryStringServiceTest extends TubePr
 		$this->assertEquals('boo', $this->_sut->getGalleryId(array("tubepress_galleryId" => "boo")));
 	}
 
+	public function testSearchTerms()
+	{
+		$this->assertEquals('kkjjhh', $this->_sut->getSearchTerms(array("tubepress_search" => "kkjjhh")));
+	}
+
 	public function testGetCustomVideo()
 	{
 		$this->assertEquals('word', $this->_sut->getCustomVideo(array("tubepress_video" => "word")));
