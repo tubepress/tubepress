@@ -24,7 +24,15 @@
 ?>
 <form method="get" action="<?php echo ${org_tubepress_api_const_template_Variable::SEARCH_HANDLER_URL}; ?>">
 	<fieldset class="tubepress_search">
-		<input type="text" class="tubepress_box"/>
+		<?php 
+		/* 
+         * read http://stackoverflow.com/questions/1116019/submitting-a-get-form-with-query-string-params-and-hidden-params-disappear
+         * if you're curious as to what's going on here
+         */
+		foreach (${org_tubepress_api_const_template_Variable::SEARCH_HIDDEN_INPUTS} as $name => $value) : ?>
+		  <input type="hidden" name="<?php echo $name; ?>" value="<?php echo $value; ?>" />
+		<?php endforeach; ?>
+		<input type="text" id="tubepress_search" name="tubepress_search" class="tubepress_text_input" value="<?php echo htmlspecialchars(${org_tubepress_api_const_template_Variable::SEARCH_TERMS}); ?>"/>
 		<button class="tubepress_button" title="Submit Search">Search</button>
 	</fieldset>
 </form>

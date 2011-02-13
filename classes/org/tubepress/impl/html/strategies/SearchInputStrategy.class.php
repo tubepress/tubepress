@@ -20,7 +20,9 @@
  */
 
 tubepress_load_classes(array('org_tubepress_api_patterns_Strategy',
-    'org_tubepress_api_const_options_names_Output'));
+    'org_tubepress_api_const_options_names_Output',
+    'org_tubepress_api_const_options_values_OutputValue',
+    'org_tubepress_api_url_Url'));
 
 /**
  * HTML generation strategy that generates HTML for a single video + meta info.
@@ -77,16 +79,31 @@ class org_tubepress_impl_html_strategies_SearchInputStrategy implements org_tube
         $th         = $this->_ioc->get('org_tubepress_api_theme_ThemeHandler');
         $template   = $th->getTemplateInstance('search_input.tpl.php');
         $resultsUrl = $this->_tpom->get(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL);
-
+        $qss        = $this->_ioc->get('org_tubepress_api_querystring_QueryStringService');
+        
         /* if the user didn't request a certain page, just send the search results right back here */
         if ($resultsUrl == '') {
-            $qss        = $this->_ioc->get('org_tubepress_api_querystring_QueryStringService');
             $resultsUrl = $qss->getFullUrl($_SERVER);
         }
+        
+        /* clean up the search terms a bit */
+        $searchTerms = rawurldecode($qss->getSearchTerms($_GET));
+        $searchTerms = org_tubepress_impl_util_StringUtils::cleanForSearch($searchTerms);
+        
+        /* 
+         * read http://stackoverflow.com/questions/1116019/submitting-a-get-form-with-query-string-params-and-hidden-params-disappear
+         * if you're curious as to what's going on here
+         */
+        $url    = new org_tubepress_api_url_Url($resultsUrl);
+        $params = $url->getQueryVariables();
+        
+        unset($params['tubepress_search']);
 
         /* apply the template variables */
         $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_HANDLER_URL, $resultsUrl);
-
+        $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_HIDDEN_INPUTS, $params);
+        $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_TERMS, $searchTerms);
+        
         return $template->toString();
     }
 

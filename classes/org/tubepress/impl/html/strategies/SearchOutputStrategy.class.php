@@ -73,7 +73,7 @@ class org_tubepress_impl_html_strategies_SearchOutputStrategy implements org_tub
 
         /* do we have search terms? */
         $qss                   = $this->_ioc->get('org_tubepress_api_querystring_QueryStringService');
-        $this->_rawSearchTerms = $qss->getSearchTerms($_SERVER);
+        $this->_rawSearchTerms = $qss->getSearchTerms($_GET);
         
         /* are we set up for a gallery fallback? */
         $mustShowSearchResults = $this->_tpom->get(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY);
@@ -91,10 +91,30 @@ class org_tubepress_impl_html_strategies_SearchOutputStrategy implements org_tub
     {
         /* if the user isn't searching, don't display anything */
         if ($this->_rawSearchTerms == '') {
+            
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'User doesn\'t appear to be searching. Will not display anything.');
             return '';
         }
 
-        $searchTerms = $this->_cleanSearchTerms();
+        /* clean up the search terms */
+        $searchTerms = org_tubepress_impl_util_StringUtils::cleanForSearch($this->_rawSearchTerms);
+        
+        /* who are we searching? */
+        switch ($this->_tpom->get(org_tubepress_api_const_options_names_Output::SEARCH_PROVIDER)) {
+            
+            case 'vimeo':
+                $this->_tpom->set(org_tubepress_api_const_options_names_Output::MODE, org_tubepress_api_const_options_values_ModeValue::VIMEO_SEARCH);
+                $this->_tpom->set(org_tubepress_api_const_options_names_Output::VIMEO_SEARCH_VALUE, $searchTerms);
+                
+            default:
+                $this->_tpom->set(org_tubepress_api_const_options_names_Output::MODE, org_tubepress_api_const_options_values_ModeValue::TAG);
+                $this->_tpom->set(org_tubepress_api_const_options_names_Output::TAG_VALUE, $searchTerms);
+        }
+        
+        /* display the results as a thumb gallery */
+        return $this->_ioc->get('org_tubepress_api_patterns_StrategyManager')->executeStrategy(array(
+            'org_tubepress_impl_html_strategies_ThumbGalleryStrategy'
+        ));
     }
 
 }
