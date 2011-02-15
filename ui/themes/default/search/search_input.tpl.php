@@ -32,7 +32,7 @@
 		foreach (${org_tubepress_api_const_template_Variable::SEARCH_HIDDEN_INPUTS} as $name => $value) : ?>
 		  <input type="hidden" name="<?php echo $name; ?>" value="<?php echo $value; ?>" />
 		<?php endforeach; ?>
-		<input type="text" id="tubepress_search" name="tubepress_search" class="tubepress_text_input" value="<?php echo htmlspecialchars(${org_tubepress_api_const_template_Variable::SEARCH_TERMS}); ?>"/>
-		<button class="tubepress_button" title="Submit Search">Search</button>
+<input type="text" id="tubepress_search" name="tubepress_search" class="tubepress_text_input" value="<?php echo htmlspecialchars(${org_tubepress_api_const_template_Variable::SEARCH_TERMS}); ?>"/>
+		<button class="tubepress_button" title="Submit Search"><?php echo htmlspecialchars(${org_tubepress_api_const_template_Variable::SEARCH_BUTTON}); ?></button>
 	</fieldset>
 </form>

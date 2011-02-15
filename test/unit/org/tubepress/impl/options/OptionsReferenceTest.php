@@ -38,7 +38,8 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
             org_tubepress_api_const_options_names_Output::VIMEO_ALBUM_VALUE      => '140484',
             org_tubepress_api_const_options_names_Advanced::CACHE_DIR            => '',
             org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER         => '',
-            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL     => ''
+            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL     => '',
+            org_tubepress_api_const_options_names_Output::SEARCH_PROVIDER        => 'youtube'
         ),
         org_tubepress_api_const_options_Type::BOOL => array(
             org_tubepress_api_const_options_names_Advanced::DEBUG_ON               => true,
@@ -129,7 +130,7 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
         foreach ($this->_options as $optionType) {
             $expected = array_merge($expected, array_keys($optionType));    
         }
-        $this->assertTrue($expected == org_tubepress_impl_options_OptionsReference::getAllOptionNames());   
+	self::checkArrayEquality($expected, org_tubepress_impl_options_OptionsReference::getAllOptionNames());
     }
     
     function testGetDefaultValue()

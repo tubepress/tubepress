@@ -554,3 +554,9 @@ msgstr ""
 
 msgid "Only applies to search-based galleries"
 msgstr ""
+
+msgid "No matching videos"
+msgstr ""
+
+msgid "Search"
+msgstr ""

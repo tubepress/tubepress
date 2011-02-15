@@ -77,7 +77,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
 
         /* no videos? bail. */
         if ($queryResult == 0) {
-            throw new Exception("No videos to populate this TubePress gallery.");
+            return $count;
         }
 
         /* limit the result count if requested */

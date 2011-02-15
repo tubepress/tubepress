@@ -98,12 +98,18 @@ class org_tubepress_impl_html_strategies_ThumbGalleryStrategy implements org_tub
         $tpom          = $this->_ioc->get('org_tubepress_api_options_OptionsManager');
         $filterManager = $this->_ioc->get('org_tubepress_api_patterns_FilterManager');
         $themeHandler  = $this->_ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $ms            = $this->_ioc->get('org_tubepress_api_message_MessageService');
         $template      = $themeHandler->getTemplateInstance('gallery.tpl.php');
 
         /* first grab the videos */
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Asking provider for videos');
         $feedResult = $provider->getMultipleVideos();
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Provider has delivered %d videos', sizeof($feedResult->getVideoArray()));
+        $numVideos  = sizeof($feedResult->getVideoArray());
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Provider has delivered %d videos', $numVideos);
+        
+        if ($numVideos == 0) {
+            return $ms->_('no-videos-found');
+        }
 
         /* send the videos through the filters */
         $filteredVideos = $filterManager->runFilters(org_tubepress_api_const_filters_ExecutionPoint::VIDEOS_DELIVERY, $feedResult->getVideoArray(), $galleryId);

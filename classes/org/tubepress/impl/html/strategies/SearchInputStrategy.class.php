@@ -77,7 +77,8 @@ class org_tubepress_impl_html_strategies_SearchInputStrategy implements org_tube
     public function execute()
     {
         $th         = $this->_ioc->get('org_tubepress_api_theme_ThemeHandler');
-        $template   = $th->getTemplateInstance('search_input.tpl.php');
+        $ms         = $this->_ioc->get('org_tubepress_api_message_MessageService');
+        $template   = $th->getTemplateInstance('search/search_input.tpl.php');
         $resultsUrl = $this->_tpom->get(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL);
         $qss        = $this->_ioc->get('org_tubepress_api_querystring_QueryStringService');
         
@@ -103,6 +104,7 @@ class org_tubepress_impl_html_strategies_SearchInputStrategy implements org_tube
         $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_HANDLER_URL, $resultsUrl);
         $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_HIDDEN_INPUTS, $params);
         $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_TERMS, $searchTerms);
+        $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_BUTTON, $ms->_('search-input-button'));
         
         return $template->toString();
     }

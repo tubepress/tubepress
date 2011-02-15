@@ -57,6 +57,7 @@ class org_tubepress_api_const_template_Variable
     const PRE_GALLERY                   = self::PLAYER_HTML;
     const SEARCH_HANDLER_URL            = 'searchHandlerUrl';
     const SEARCH_HIDDEN_INPUTS          = 'searchHiddenInputs';
+    const SEARCH_BUTTON                 = 'searchButton';
     const SEARCH_TERMS                  = 'searchTerms';
     const SHORTCODE                     = 'shortcode';
     const THEME_CSS                     = 'themeCssUrl';

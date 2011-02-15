@@ -52,8 +52,8 @@ class org_tubepress_impl_html_strategies_SearchInputStrategyTest extends TubePre
         return <<<EOT
 <form method="get" action="fullurl">
 	<fieldset class="tubepress_search">
-		<input type="text" class="tubepress_box"/>
-		<button class="tubepress_button" title="Submit Search">Search</button>
+		<input type="text" id="tubepress_search" name="tubepress_search" class="tubepress_text_input" value=""/>
+		<button class="tubepress_button" title="Submit Search">search-input-button</button>
 	</fieldset>
 </form>
 

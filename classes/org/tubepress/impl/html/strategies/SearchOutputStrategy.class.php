@@ -105,10 +105,12 @@ class org_tubepress_impl_html_strategies_SearchOutputStrategy implements org_tub
             case 'vimeo':
                 $this->_tpom->set(org_tubepress_api_const_options_names_Output::MODE, org_tubepress_api_const_options_values_ModeValue::VIMEO_SEARCH);
                 $this->_tpom->set(org_tubepress_api_const_options_names_Output::VIMEO_SEARCH_VALUE, $searchTerms);
+                break;
                 
             default:
                 $this->_tpom->set(org_tubepress_api_const_options_names_Output::MODE, org_tubepress_api_const_options_values_ModeValue::TAG);
                 $this->_tpom->set(org_tubepress_api_const_options_names_Output::TAG_VALUE, $searchTerms);
+                break;
         }
         
         /* display the results as a thumb gallery */
