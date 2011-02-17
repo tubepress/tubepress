@@ -88,7 +88,7 @@ class org_tubepress_impl_html_strategies_SearchInputStrategy implements org_tube
         }
         
         /* clean up the search terms a bit */
-        $searchTerms = rawurldecode($qss->getSearchTerms($_GET));
+        $searchTerms = urldecode($qss->getSearchTerms($_GET));
         $searchTerms = org_tubepress_impl_util_StringUtils::cleanForSearch($searchTerms);
         
         /* 
@@ -97,8 +97,8 @@ class org_tubepress_impl_html_strategies_SearchInputStrategy implements org_tube
          */
         $url    = new org_tubepress_api_url_Url($resultsUrl);
         $params = $url->getQueryVariables();
-        
-        unset($params['tubepress_search']);
+        unset($params[org_tubepress_api_const_querystring_QueryParamName::PAGE]);
+        unset($params[org_tubepress_api_const_querystring_QueryParamName::SEARCH_TERMS]);
 
         /* apply the template variables */
         $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_HANDLER_URL, $resultsUrl);
