@@ -25,7 +25,7 @@ tubepress_load_classes(array('org_tubepress_impl_embedded_strategies_AbstractEmb
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_api_options_OptionsManager',
     'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
-    'org_tubepress_api_const_options_Embedded',
+    'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_provider_Provider',
     'org_tubepress_api_url_Url'));
 
@@ -54,10 +54,10 @@ class org_tubepress_impl_embedded_strategies_VimeoEmbeddedStrategy extends org_t
 
     protected function _getEmbeddedDataUrl($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
     {
-        $autoPlay = $tpom->get(org_tubepress_api_const_options_Embedded::AUTOPLAY);
-        $color    = $tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_COLOR);
-        $showInfo = $tpom->get(org_tubepress_api_const_options_Embedded::SHOW_INFO);
-        $loop     = $tpom->get(org_tubepress_api_const_options_Embedded::LOOP);
+        $autoPlay = $tpom->get(org_tubepress_api_const_options_names_Embedded::AUTOPLAY);
+        $color    = $tpom->get(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR);
+        $showInfo = $tpom->get(org_tubepress_api_const_options_names_Embedded::SHOW_INFO);
+        $loop     = $tpom->get(org_tubepress_api_const_options_names_Embedded::LOOP);
 
         /* build the data URL based on these options */
         $link = new org_tubepress_api_url_Url(self::VIMEO_EMBEDDED_PLAYER_URL . "video/$videoId");

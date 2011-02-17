@@ -28,7 +28,7 @@ class org_tubepress_impl_filters_template_EmbeddedPlayerName
 {
     public function filter($template, $feedResult, $galleryId)
     {
-        $template->setVariable(org_tubepress_api_const_Template::EMBEDDED_IMPL_NAME, self::_getEmbeddedServiceName());
+        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, self::_getEmbeddedServiceName());
         
         return $template;
     }
@@ -37,7 +37,7 @@ class org_tubepress_impl_filters_template_EmbeddedPlayerName
     {
         $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom   = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $stored = $tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_IMPL);
+        $stored = $tpom->get(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
         
         if ($stored === org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL) {
             return $stored;
@@ -53,4 +53,4 @@ $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
 $fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
 $instance = $ioc->get('org_tubepress_impl_filters_template_EmbeddedPlayerName');
 
-$fm->registerFilter(org_tubepress_api_const_FilterExecutionPoint::GALLERY_TEMPLATE, array($instance, 'filter'));
+$fm->registerFilter(org_tubepress_api_const_filters_ExecutionPoint::GALLERY_TEMPLATE, array($instance, 'filter'));

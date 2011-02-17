@@ -49,4 +49,13 @@ class org_tubepress_impl_util_StringUtils
     {
         return preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $string);
     }
+    
+    public static function cleanForSearch($string)
+    {
+        /* chop it off at 100 chars */
+        $result = substr($string, 0, 100);
+        
+        /* only allow alphanumerics, pipe, plus, quotes, and minus */
+        return preg_replace('/[^a-zA-Z0-9"\'\+\|\- ]/', '', $result);
+    }
 }

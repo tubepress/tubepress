@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
 || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_bootstrap_Bootstrapper',
     'org_tubepress_impl_log_Log',
-    'org_tubepress_api_const_FilterExecutionPoint'));
+    'org_tubepress_api_const_filters_ExecutionPoint'));
 
 /**
  * Performs TubePress-wide initialization.
@@ -54,7 +54,7 @@ abstract class org_tubepress_impl_bootstrap_AbstractBootstrapper implements org_
         }
 
         /* Turn on logging if we need to */
-        org_tubepress_impl_log_Log::setEnabled($tpom->get(org_tubepress_api_const_options_Advanced::DEBUG_ON), $_GET);
+        org_tubepress_impl_log_Log::setEnabled($tpom->get(org_tubepress_api_const_options_names_Advanced::DEBUG_ON), $_GET);
         org_tubepress_impl_log_Log::log($this->_getName(), 'Booting!');
 
         /* register default filters */

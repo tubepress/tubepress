@@ -36,7 +36,7 @@ class org_tubepress_impl_player_SimplePlayer implements org_tubepress_api_player
         $ioc             = org_tubepress_impl_ioc_IocContainer::getInstance();
         $browserDetector = $ioc->get('org_tubepress_api_http_AgentDetector');
         $tpom            = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $playerName      = $tpom->get(org_tubepress_api_const_options_Display::CURRENT_PLAYER_NAME);
+        $playerName      = $tpom->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
         $eps             = $ioc->get('org_tubepress_api_embedded_EmbeddedPlayer');
         $themeHandler    = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         
@@ -46,10 +46,10 @@ class org_tubepress_impl_player_SimplePlayer implements org_tubepress_api_player
             return '';
         }
         
-        $template->setVariable(org_tubepress_api_const_Template::EMBEDDED_SOURCE, $eps->toString($vid->getId()));
-        $template->setVariable(org_tubepress_api_const_Template::GALLERY_ID, $galleryId);
-        $template->setVariable(org_tubepress_api_const_Template::VIDEO, $vid);
-        $template->setVariable(org_tubepress_api_const_Template::EMBEDDED_WIDTH, $tpom->get(org_tubepress_api_const_options_Embedded::EMBEDDED_WIDTH));
+        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_SOURCE, $eps->toString($vid->getId()));
+        $template->setVariable(org_tubepress_api_const_template_Variable::GALLERY_ID, $galleryId);
+        $template->setVariable(org_tubepress_api_const_template_Variable::VIDEO, $vid);
+        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_WIDTH, $tpom->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH));
         
         return $template->toString();
     }

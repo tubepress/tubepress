@@ -124,5 +124,26 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
         
         return org_tubepress_impl_options_OptionsReference::getDefaultValue($args[0]);
     }
+    
+    public static function checkArrayEquality($expected, $actual)
+    {
+        foreach ($expected as $expectedName) {
+            if (!in_array($expectedName, $actual)) {
+                throw new Exception("Missing expected array value: $expectedName");
+            }
+        }
+    
+        foreach ($actual as $actualName) {
+            if (!in_array($actualName, $expected)) {
+                throw new Exception("Extra array value: $actualName");
+            }
+        }
+    }
+    
+    public static function getConstantsForClass($className)
+    {
+        $ref = new ReflectionClass($className);
+        return array_values($ref->getConstants());
+    }
 }
 ?>

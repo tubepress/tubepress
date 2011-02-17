@@ -19,7 +19,7 @@
  *
  */
 
-tubepress_load_classes(array('org_tubepress_api_const_options_OptionCategory'));
+tubepress_load_classes(array('org_tubepress_api_const_options_CategoryName'));
 
 /**
  * Handles applying video meta info to the gallery template.
@@ -32,7 +32,7 @@ class org_tubepress_impl_filters_template_VideoMeta
         $tpom           = $ioc->get('org_tubepress_api_options_OptionsManager');
         $messageService = $ioc->get('org_tubepress_api_message_MessageService');
 
-        $metaNames  = org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::META);
+        $metaNames  = org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::META);
         $shouldShow = array();
         $labels     = array();
 
@@ -40,8 +40,8 @@ class org_tubepress_impl_filters_template_VideoMeta
             $shouldShow[$metaName] = $tpom->get($metaName);
             $labels[$metaName]     = $messageService->_('video-' . $metaName);
         }
-        $template->setVariable(org_tubepress_api_const_Template::META_SHOULD_SHOW, $shouldShow);
-        $template->setVariable(org_tubepress_api_const_Template::META_LABELS, $labels);
+        $template->setVariable(org_tubepress_api_const_template_Variable::META_SHOULD_SHOW, $shouldShow);
+        $template->setVariable(org_tubepress_api_const_template_Variable::META_LABELS, $labels);
 
         return $template;
     }
@@ -51,5 +51,5 @@ $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
 $fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
 $instance = $ioc->get('org_tubepress_impl_filters_template_VideoMeta');
 
-$fm->registerFilter(org_tubepress_api_const_FilterExecutionPoint::GALLERY_TEMPLATE, array($instance, 'filter'));
-$fm->registerFilter(org_tubepress_api_const_FilterExecutionPoint::SINGLE_VIDEO_TEMPLATE, array($instance, 'filter'));
+$fm->registerFilter(org_tubepress_api_const_filters_ExecutionPoint::GALLERY_TEMPLATE, array($instance, 'filter'));
+$fm->registerFilter(org_tubepress_api_const_filters_ExecutionPoint::SINGLE_VIDEO_TEMPLATE, array($instance, 'filter'));

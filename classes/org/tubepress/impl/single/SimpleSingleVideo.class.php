@@ -25,11 +25,11 @@ tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_impl_options_OptionsReference',
     'org_tubepress_api_single_SingleVideo',
-    'org_tubepress_api_const_options_OptionCategory',
+    'org_tubepress_api_const_options_CategoryName',
     'org_tubepress_api_message_MessageService',
     'org_tubepress_api_provider_Provider',
     'org_tubepress_api_patterns_FilterManager',
-    'org_tubepress_api_const_FilterExecutionPoint'));
+    'org_tubepress_api_const_filters_ExecutionPoint'));
 
 /**
  * Handles requests for a single video (for embedding)
@@ -58,13 +58,13 @@ class org_tubepress_impl_single_SimpleSingleVideo implements org_tubepress_api_s
         $video = $provider->getSingleVideo($videoId);
 
         /* add some core template variables */
-        $template->setVariable(org_tubepress_api_const_Template::VIDEO, $video);
+        $template->setVariable(org_tubepress_api_const_template_Variable::VIDEO, $video);
 
         /* send the template through the filters */
-        $filteredTemplate = $filterManager->runFilters(org_tubepress_api_const_FilterExecutionPoint::SINGLE_VIDEO_TEMPLATE, $template, $video);
+        $filteredTemplate = $filterManager->runFilters(org_tubepress_api_const_filters_ExecutionPoint::SINGLE_VIDEO_TEMPLATE, $template, $video);
 
         /* send video HTML through the filters */
-        $filteredHtml = $filterManager->runFilters(org_tubepress_api_const_FilterExecutionPoint::SINGLE_VIDEO_HTML, $filteredTemplate->toString());
+        $filteredHtml = $filterManager->runFilters(org_tubepress_api_const_filters_ExecutionPoint::SINGLE_VIDEO_HTML, $filteredTemplate->toString());
 
         /* we're done. tie up. */
         $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');

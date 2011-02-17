@@ -70,4 +70,4 @@ $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
 $fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
 $instance = $ioc->get('org_tubepress_impl_filters_videos_VideoPrepender');
 
-$fm->registerFilter(org_tubepress_api_const_FilterExecutionPoint::VIDEOS_DELIVERY, array($instance, 'filter'));
+$fm->registerFilter(org_tubepress_api_const_filters_ExecutionPoint::VIDEOS_DELIVERY, array($instance, 'filter'));

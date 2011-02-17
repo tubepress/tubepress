@@ -78,7 +78,7 @@ class org_tubepress_impl_filters_html_ThemeCss
 
         $template = new org_tubepress_impl_template_SimpleTemplate();
         $template->setPath("$baseInstallationPath/ui/lib/gallery_html_snippets/theme_loader.tpl.php");
-        $template->setVariable(org_tubepress_api_const_Template::THEME_CSS, $cssUrl);
+        $template->setVariable(org_tubepress_api_const_template_Variable::THEME_CSS, $cssUrl);
 
         return $html . $template->toString();
     }
@@ -88,4 +88,4 @@ $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
 $fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
 $instance = $ioc->get('org_tubepress_impl_filters_html_ThemeCss');
 
-$fm->registerFilter(org_tubepress_api_const_FilterExecutionPoint::GALLERY_HTML, array($instance, 'filter'));
+$fm->registerFilter(org_tubepress_api_const_filters_ExecutionPoint::GALLERY_HTML, array($instance, 'filter'));

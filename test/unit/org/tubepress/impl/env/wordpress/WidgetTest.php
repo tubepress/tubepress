@@ -18,9 +18,9 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest {
     {
         $mock = parent::getMock($className);
         
-        if ($className === 'org_tubepress_api_gallery_Gallery') {
+        if ($className === 'org_tubepress_api_html_HtmlGenerator') {
             $mock->expects($this->any())
-                 ->method('getHtml')
+                 ->method('getHtmlForShortcode')
                  ->will($this->returnValue('somehtml'));
         }
         

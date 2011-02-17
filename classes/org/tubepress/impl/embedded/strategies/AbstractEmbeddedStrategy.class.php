@@ -23,7 +23,7 @@ function_exists('tubepress_load_classes')
     || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_patterns_Strategy',
     'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_api_const_options_Embedded',
+    'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
     'org_tubepress_api_options_OptionsManager'));
 
@@ -87,19 +87,19 @@ abstract class org_tubepress_impl_embedded_strategies_AbstractEmbeddedStrategy i
         $theme        = $this->_ioc->get('org_tubepress_api_theme_ThemeHandler');
         $template     = $theme->getTemplateInstance($this->_getTemplatePath($providerName, $videoId, $this->_ioc, $this->_tpom));
 
-        $fullscreen      = $this->_tpom->get(org_tubepress_api_const_options_Embedded::FULLSCREEN);
-        $playerColor     = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($this->_tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_COLOR), '999999');
-        $playerHighlight = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($this->_tpom->get(org_tubepress_api_const_options_Embedded::PLAYER_HIGHLIGHT), 'FFFFFF');
-        $autoPlay        = $this->_tpom->get(org_tubepress_api_const_options_Embedded::AUTOPLAY);
+        $fullscreen      = $this->_tpom->get(org_tubepress_api_const_options_names_Embedded::FULLSCREEN);
+        $playerColor     = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($this->_tpom->get(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR), '999999');
+        $playerHighlight = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($this->_tpom->get(org_tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT), 'FFFFFF');
+        $autoPlay        = $this->_tpom->get(org_tubepress_api_const_options_names_Embedded::AUTOPLAY);
 
-        $template->setVariable(org_tubepress_api_const_Template::EMBEDDED_DATA_URL, $this->_getEmbeddedDataUrl($providerName, $videoId, $this->_ioc, $this->_tpom));
-        $template->setVariable(org_tubepress_api_const_Template::TUBEPRESS_BASE_URL, $tubepress_base_url);
-        $template->setVariable(org_tubepress_api_const_Template::EMBEDDED_AUTOSTART, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToString($autoPlay));
-        $template->setVariable(org_tubepress_api_const_Template::EMBEDDED_WIDTH, $this->_tpom->get(org_tubepress_api_const_options_Embedded::EMBEDDED_WIDTH));
-        $template->setVariable(org_tubepress_api_const_Template::EMBEDDED_HEIGHT, $this->_tpom->get(org_tubepress_api_const_options_Embedded::EMBEDDED_HEIGHT));
-        $template->setVariable(org_tubepress_api_const_Template::EMBEDDED_COLOR_PRIMARY, $playerColor);
-        $template->setVariable(org_tubepress_api_const_Template::EMBEDDED_COLOR_HIGHLIGHT, $playerHighlight);
-        $template->setVariable(org_tubepress_api_const_Template::EMBEDDED_FULLSCREEN, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToString($fullscreen));
+        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_DATA_URL, $this->_getEmbeddedDataUrl($providerName, $videoId, $this->_ioc, $this->_tpom));
+        $template->setVariable(org_tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL, $tubepress_base_url);
+        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_AUTOSTART, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToString($autoPlay));
+        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_WIDTH, $this->_tpom->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH));
+        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_HEIGHT, $this->_tpom->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT));
+        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_COLOR_PRIMARY, $playerColor);
+        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_COLOR_HIGHLIGHT, $playerHighlight);
+        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_FULLSCREEN, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToString($fullscreen));
 
         return $template->toString();
     }

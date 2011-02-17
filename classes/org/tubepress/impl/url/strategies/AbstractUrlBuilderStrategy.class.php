@@ -22,15 +22,14 @@
 function_exists('tubepress_load_classes')
     || require(dirname(__FILE__) . '/../../../../../tubepress_classloader.php');
 tubepress_load_classes(array('org_tubepress_api_patterns_Strategy',
-    'org_tubepress_api_const_options_Gallery',
-    'org_tubepress_api_gallery_Gallery',
+    'org_tubepress_api_const_options_values_ModeValue',
     'org_tubepress_api_options_OptionsManager',
-    'org_tubepress_api_const_options_Advanced',
-    'org_tubepress_api_const_options_Display',
-    'org_tubepress_api_const_options_Embedded',
-    'org_tubepress_api_const_options_Meta',
+    'org_tubepress_api_const_options_names_Advanced',
+    'org_tubepress_api_const_options_names_Display',
+    'org_tubepress_api_const_options_names_Embedded',
+    'org_tubepress_api_const_options_names_Meta',
     'org_tubepress_api_url_Url',
-    'org_tubepress_api_const_options_Feed'));
+    'org_tubepress_api_const_options_names_Feed'));
 
 /**
  * Base URL builder functionality.

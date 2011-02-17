@@ -1,6 +1,6 @@
 <?php
 require 'PhpUnitLoader.php';
-require_once 'org/tubepress/api/const/options/OptionConstantsTests.php';
+require_once 'org/tubepress/api/const/options/OptionsApiTests.php';
 require_once 'org/tubepress/impl/bootstrap/BootstrapTests.php';
 require_once 'org/tubepress/impl/cache/CacheTests.php';
 require_once 'org/tubepress/impl/embedded/EmbeddedPlayerTests.php';
@@ -9,7 +9,6 @@ require_once 'org/tubepress/impl/factory/FactoryTests.php';
 require_once 'org/tubepress/impl/feed/FeedTests.php';
 require_once 'org/tubepress/impl/filesystem/ExplorerTests.php';
 require_once 'org/tubepress/impl/filters/FilterTests.php';
-require_once 'org/tubepress/impl/gallery/GalleryTests.php';
 require_once 'org/tubepress/impl/html/HtmlTests.php';
 require_once 'org/tubepress/impl/http/HttpTests.php';
 require_once 'org/tubepress/impl/log/LogTests.php';
@@ -42,7 +41,6 @@ class TubePressUnitTests
 		$suite->addTest(CacheTests::suite());
 		$suite->addTest(EmbeddedPlayerTests::suite());
 		$suite->addTest(BootstrapTests::suite());
-		$suite->addTest(GalleryTests::suite());
 		$suite->addTest(IocTests::suite());
 		$suite->addTest(MessageTests::suite());
 		$suite->addTest(PaginationTests::suite());
@@ -58,7 +56,7 @@ class TubePressUnitTests
 		$suite->addTest(HttpTests::suite());
 		$suite->addTest(SingleVideoTests::suite());
 		$suite->addTest(ThemeHandlerTests::suite());
-		$suite->addTest(OptionConstantsTests::suite());
+		$suite->addTest(OptionsApiTests::suite());
 		$suite->addTest(FactoryTests::suite());
 		$suite->addTest(UrlTests::suite());
 		$suite->addTest(ExplorerTests::suite());

@@ -69,4 +69,6 @@ interface org_tubepress_api_querystring_QueryStringService
      * @return string The shortcode, or '' if not set
      */
     function getShortcode($getVars);
+
+    function getSearchTerms($getVars);
 }

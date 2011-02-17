@@ -44,8 +44,7 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocService extends org_tubepress
         $this->bind('org_tubepress_api_feed_FeedFetcher')              ->to('org_tubepress_impl_feed_CacheAwareFeedFetcher');
         $this->bind('org_tubepress_api_feed_FeedInspector')            ->to('org_tubepress_impl_feed_DelegatingFeedInspector');
         $this->bind('org_tubepress_api_filesystem_Explorer')           ->to('org_tubepress_impl_filesystem_FsExplorer');
-        $this->bind('org_tubepress_api_gallery_Gallery')               ->to('org_tubepress_impl_gallery_SimpleGallery');
-        $this->bind('org_tubepress_api_html_HtmlHandler')              ->to('org_tubepress_impl_html_DefaultHtmlHandler');
+        $this->bind('org_tubepress_api_html_HtmlGenerator')              ->to('org_tubepress_impl_html_DefaultHtmlGenerator');
         $this->bind('org_tubepress_api_http_AgentDetector')            ->to('org_tubepress_impl_http_MobileEspBrowserDetector');
         $this->bind('org_tubepress_api_http_HttpClient')               ->to('org_tubepress_impl_http_FastHttpClient');
         $this->bind('org_tubepress_api_message_MessageService')        ->to('org_tubepress_impl_message_WordPressMessageService');

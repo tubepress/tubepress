@@ -15,19 +15,19 @@ class org_tubepress_impl_options_SimpleOptionValidatorTest extends TubePressUnit
 
 	public function testThumbHeightOk()
 	{
-		$this->_sut->validate(org_tubepress_api_const_options_Display::THUMB_HEIGHT, 90);	
+		$this->_sut->validate(org_tubepress_api_const_options_names_Display::THUMB_HEIGHT, 90);	
 	}
 
 	
 	public function testThumbWidthOk()
 	{
-		$this->_sut->validate(org_tubepress_api_const_options_Display::THUMB_WIDTH, 120);	
+		$this->_sut->validate(org_tubepress_api_const_options_names_Display::THUMB_WIDTH, 120);	
 	}
 	
 	
 	public function testResultsPerPageOk()
 	{
-		$this->_sut->validate(org_tubepress_api_const_options_Display::RESULTS_PER_PAGE, 50);
+		$this->_sut->validate(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE, 50);
 	}
 	
 	/**
@@ -35,7 +35,7 @@ class org_tubepress_impl_options_SimpleOptionValidatorTest extends TubePressUnit
 	 */
 	public function testResultsPerPageTooSmall()
 	{
-		$this->_sut->validate(org_tubepress_api_const_options_Display::RESULTS_PER_PAGE, 0);
+		$this->_sut->validate(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE, 0);
 	}
 
    	/**
@@ -43,12 +43,12 @@ class org_tubepress_impl_options_SimpleOptionValidatorTest extends TubePressUnit
 	 */
 	public function testDotsInTheme()
 	{
-		$this->_sut->validate(org_tubepress_api_const_options_Display::THEME, 'sometheme/../yo');
+		$this->_sut->validate(org_tubepress_api_const_options_names_Display::THEME, 'sometheme/../yo');
 	}
 
 	public function testNoDotsInTheme()
 	{
-		$this->_sut->validate(org_tubepress_api_const_options_Display::THEME, 'sometheme');
+		$this->_sut->validate(org_tubepress_api_const_options_names_Display::THEME, 'sometheme');
 	}
 	
    	/**
@@ -64,12 +64,12 @@ class org_tubepress_impl_options_SimpleOptionValidatorTest extends TubePressUnit
 	 */
 	public function testNonBooleanForBooleanOption()
 	{
-		$this->_sut->validate(org_tubepress_api_const_options_Meta::TITLE, 'somethingcrazy');
+		$this->_sut->validate(org_tubepress_api_const_options_names_Meta::TITLE, 'somethingcrazy');
 	}
 
 	public function testBooleanForBooleanOption()
 	{
-		$this->_sut->validate(org_tubepress_api_const_options_Meta::TITLE, '1');
+		$this->_sut->validate(org_tubepress_api_const_options_names_Meta::TITLE, '1');
 	}
 
 	/**
@@ -77,7 +77,7 @@ class org_tubepress_impl_options_SimpleOptionValidatorTest extends TubePressUnit
 	 */
 	public function testNonStringForStringOptions()
 	{
-		$this->_sut->validate(org_tubepress_api_const_options_Advanced::KEYWORD, array());
+		$this->_sut->validate(org_tubepress_api_const_options_names_Advanced::KEYWORD, array());
 	}
 
 	/**
@@ -85,7 +85,7 @@ class org_tubepress_impl_options_SimpleOptionValidatorTest extends TubePressUnit
 	 */
 	public function testResultsPerTooBig()
 	{
-		$this->_sut->validate(org_tubepress_api_const_options_Display::RESULTS_PER_PAGE, 51);
+		$this->_sut->validate(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE, 51);
 	}
 	
 	/**
@@ -93,12 +93,12 @@ class org_tubepress_impl_options_SimpleOptionValidatorTest extends TubePressUnit
 	 */
 	public function testResultsPerPageBelowZero()
 	{
-		$this->_sut->validate(org_tubepress_api_const_options_Display::RESULTS_PER_PAGE, -1);
+		$this->_sut->validate(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE, -1);
 	}
 	
 	public function testDescLimitZero()
 	{
-		$this->_sut->validate(org_tubepress_api_const_options_Display::DESC_LIMIT, 0);
+		$this->_sut->validate(org_tubepress_api_const_options_names_Display::DESC_LIMIT, 0);
 	}
 }
 ?>

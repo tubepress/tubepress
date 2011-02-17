@@ -77,16 +77,16 @@ EOT;
         if (is_a($template, 'org_tubepress_api_template_Template')) {
             $shouldShow = array();
             $labels = array();
-            $names = org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_OptionCategory::META);
+            $names = org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::META);
             foreach ($names as $name) {
                 $shouldShow[$name] = true;
                 $labels[$name] = "$name-label";
             }
             
-            $template->setVariable(org_tubepress_api_const_Template::EMBEDDED_SOURCE, 'embedded-source');
-            $template->setVariable(org_tubepress_api_const_Template::EMBEDDED_WIDTH, 'embedded-width');
-            $template->setVariable(org_tubepress_api_const_Template::META_SHOULD_SHOW, $shouldShow);
-            $template->setVariable(org_tubepress_api_const_Template::META_LABELS, $labels);
+            $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_SOURCE, 'embedded-source');
+            $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_WIDTH, 'embedded-width');
+            $template->setVariable(org_tubepress_api_const_template_Variable::META_SHOULD_SHOW, $shouldShow);
+            $template->setVariable(org_tubepress_api_const_template_Variable::META_LABELS, $labels);
         }
     }  
 }

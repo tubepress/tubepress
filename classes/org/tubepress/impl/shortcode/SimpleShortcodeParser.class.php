@@ -44,7 +44,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
         $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
 
         /* what trigger word are we using? */
-        $keyword = $tpom->get(org_tubepress_api_const_options_Advanced::KEYWORD);
+        $keyword = $tpom->get(org_tubepress_api_const_options_names_Advanced::KEYWORD);
 
         if (!$this->somethingToParse($content, $keyword)) {
             return;
