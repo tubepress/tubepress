@@ -36,7 +36,7 @@ abstract class org_tubepress_impl_message_AbstractMessageService implements org_
         'options-page-intro-text'  => 'Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="http://tubepress.org/documentation">documentation</a> for more info. An asterisk (*) next to an option indicates it\'s only available with <a href="http://tubepress.org/features">TubePress Pro</a>.',
         'options-page-options-filter' => 'Only show options applicable to...',
 
-        'options-category-title-gallery'  => 'Which videos?',
+        'options-category-title-output'   => 'Which videos?',
         'options-category-title-display'  => 'Appearance',
         'options-category-title-embedded' => 'Embedded Player',
         'options-category-title-meta'     => 'Meta Display',

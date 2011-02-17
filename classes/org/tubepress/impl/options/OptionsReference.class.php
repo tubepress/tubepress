@@ -281,7 +281,7 @@ class org_tubepress_impl_options_OptionsReference
      */
     static function getOptionCategoryNames()
     {
-        return array('display', 'embedded', 'meta', 'feed', 'advanced', 'output', 'widget');
+        return array('output', 'display', 'embedded', 'meta', 'feed', 'advanced', 'widget');
     }
 
     /**
@@ -394,8 +394,7 @@ class org_tubepress_impl_options_OptionsReference
     static function isOptionCategoryApplicableToOptionsForm($optionCategoryName)
     {
         return !in_array($optionCategoryName, array(
-            org_tubepress_api_const_options_CategoryName::WIDGET,
-            org_tubepress_api_const_options_CategoryName::OUTPUT
+            org_tubepress_api_const_options_CategoryName::WIDGET
         ));
     }
 
