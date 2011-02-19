@@ -153,10 +153,16 @@ abstract class org_tubepress_impl_factory_strategies_AbstractFactoryStrategy imp
     
     protected function _pickThumbnailUrl($urls)
     {
-        if (is_array($urls) && sizeof($urls) > 0) {
+        if (!is_array($urls) || sizeof($urls) == 0) {
+            return '';
+        }
+
+        $random = $this->_tpom->get(org_tubepress_api_const_options_names_Display::RANDOM_THUMBS);
+        if ($random) {
+            return $urls[array_rand($urls)];
+        } else {
             return $urls[0];
         }
-        return '';
     }
     
     private function _buildVideo($index)

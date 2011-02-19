@@ -108,7 +108,7 @@ class org_tubepress_impl_factory_strategies_YouTubeFactoryStrategy extends org_t
     
     protected function _getRawCommentCount($index)
     {
-        
+        return '';
     }
     
     protected function _getDescription($index)
@@ -185,7 +185,7 @@ class org_tubepress_impl_factory_strategies_YouTubeFactoryStrategy extends org_t
     
     protected function _getTimeLastUpdatedInUnixTime($index)
     {
-        
+        return '';
     }
     
     protected function _getTimePublishedInUnixTime($index)
