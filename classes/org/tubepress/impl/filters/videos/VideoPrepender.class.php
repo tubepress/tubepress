@@ -19,12 +19,21 @@
  *
  */
 
+function_exists('tubepress_load_classes')
+    || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
+tubepress_load_classes(array('org_tubepress_api_querystring_QueryStringService',
+    'org_tubepress_impl_log_Log',
+    'org_tubepress_impl_ioc_IocContainer',
+    'org_tubepress_api_const_filters_ExecutionPoint'));
+
 /**
  * Appends/moves a video the front of the gallery based on the query string parameter.
  */
 class org_tubepress_impl_filters_videos_VideoPrepender
 {
-	public function filter($videos)
+    const LOG_PREFIX = 'Video Prepender';
+    
+	public function filter($videos, $galleryId)
 	{
 		$ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 		$qss = $ioc->get('org_tubepress_api_querystring_QueryStringService');
@@ -38,14 +47,37 @@ class org_tubepress_impl_filters_videos_VideoPrepender
 
 		org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Prepending video %s to the gallery', $customVideoId);
 		
-		return $this->_prependVideo($ioc, $customVideoId, $videos);
+		return self::_prependVideo($ioc, $customVideoId, $videos);
 	}
 
-	private function _prependVideo($ioc, $id, $videos)
+	private static function _moveVideoUpFront($videos, $id)
+	{
+        for ($x = 0; $x < count($videos); $x++) {
+            if ($videos[$x]->getId() == $id) {
+                $saved = $videos[$x];
+                unset($videos[$x]);
+                array_unshift($videos, $saved);
+                break;
+            }
+        }
+        return $videos;
+	}
+	
+	private static function _videoArrayAlreadyHasVideo($videos, $id)
+	{
+	    foreach ($videos as $video) {
+	        if ($video->getId() == $id) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
+	private static function _prependVideo($ioc, $id, $videos)
 	{
 		/* see if the array already has it */
-		if ($this->_videoArrayAlreadyHasVideo($videos, $id)) {
-			return $this->_moveVideoUpFront($videos, $id);
+		if (self::_videoArrayAlreadyHasVideo($videos, $id)) {
+			return self::_moveVideoUpFront($videos, $id);
 		}
 	
 		$provider = $ioc->get('org_tubepress_video_feed_provider_Provider');
@@ -58,11 +90,6 @@ class org_tubepress_impl_filters_videos_VideoPrepender
 		
 		return $videos;
 
-	}
-
-	protected function _getLogPrefix()
-	{
-		return 'Prepending Video Filter';
 	}
 }
 

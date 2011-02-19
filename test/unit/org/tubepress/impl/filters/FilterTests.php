@@ -6,6 +6,7 @@ require_once 'template/PaginationTest.php';
 require_once 'template/PlayerTest.php';
 require_once 'html/ThemeCssTest.php';
 require_once 'template/VideoMetaTest.php';
+require_once 'videos/VideoPrependerTest.php';
 
 class FilterTests
 {
@@ -18,6 +19,7 @@ class FilterTests
 		$suite->addTestSuite('org_tubepress_impl_filters_template_PlayerTest');
 		$suite->addTestSuite('org_tubepress_impl_filters_html_ThemeCssTest');
 		$suite->addTestSuite('org_tubepress_impl_filters_template_VideoMetaTest');
+		$suite->addTestSuite('org_tubepress_impl_filters_videos_VideoPrependerTest');
 		return $suite;
 	}
 }
