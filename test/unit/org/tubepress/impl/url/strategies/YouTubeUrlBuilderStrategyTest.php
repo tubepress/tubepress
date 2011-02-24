@@ -107,15 +107,6 @@ class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategyTest extends Tu
 		    $this->_sut->execute(org_tubepress_api_provider_Provider::YOUTUBE, false, 1));
 	}
 	
-	function testexecuteMobile()
-	{
-	    $this->setOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::MOBILE
-        ));
-		$this->assertEquals("http://gdata.youtube.com/feeds/api/standardfeeds/watch_on_mobile?" . $this->_standardPostProcessingStuff(), 
-		    $this->_sut->execute(org_tubepress_api_provider_Provider::YOUTUBE, false, 1));
-	}
-	
 	function testexecuteFavorites()
 	{
 	    $this->setOptions(array(

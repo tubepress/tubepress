@@ -105,7 +105,7 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
             org_tubepress_api_const_options_names_Feed::FILTER => org_tubepress_api_const_options_values_SafeSearchValue::MODERATE
         ),
         org_tubepress_api_const_options_Type::PLAYER_IMPL => array(
-            org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL => org_tubepress_api_const_options_values_PlayerImplementationValue::YOUTUBE
+            org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL => org_tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED
         ),
         org_tubepress_api_const_options_Type::THEME => array(
             org_tubepress_api_const_options_names_Display::THEME => ''
@@ -251,7 +251,7 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
     
     function testGalleryEnumValues()
     {
-        $expected = array(org_tubepress_api_const_options_values_ModeValue::FAVORITES, org_tubepress_api_const_options_values_ModeValue::PLAYLIST, org_tubepress_api_const_options_values_ModeValue::TAG, org_tubepress_api_const_options_values_ModeValue::USER, org_tubepress_api_const_options_values_ModeValue::FEATURED, org_tubepress_api_const_options_values_ModeValue::MOBILE, org_tubepress_api_const_options_values_ModeValue::MOST_DISCUSSED,
+        $expected = array(org_tubepress_api_const_options_values_ModeValue::FAVORITES, org_tubepress_api_const_options_values_ModeValue::PLAYLIST, org_tubepress_api_const_options_values_ModeValue::TAG, org_tubepress_api_const_options_values_ModeValue::USER, org_tubepress_api_const_options_values_ModeValue::FEATURED, org_tubepress_api_const_options_values_ModeValue::MOST_DISCUSSED,
                     org_tubepress_api_const_options_values_ModeValue::MOST_RECENT, org_tubepress_api_const_options_values_ModeValue::MOST_RESPONDED, org_tubepress_api_const_options_values_ModeValue::POPULAR, org_tubepress_api_const_options_values_ModeValue::TOP_FAVORITES,
                     org_tubepress_api_const_options_values_ModeValue::TOP_RATED, 'vimeoUploadedBy', 'vimeoLikes', 'vimeoAppearsIn', 'vimeoSearch', 'vimeoCreditedTo',
                     'vimeoChannel', 'vimeoAlbum', 'vimeoGroup');

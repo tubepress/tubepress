@@ -84,10 +84,6 @@ class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategy extends org_tu
             $url = 'standardfeeds/most_discussed';
             break;
 
-        case org_tubepress_api_const_options_values_ModeValue::MOBILE:
-            $url = 'standardfeeds/watch_on_mobile';
-            break;
-
         case org_tubepress_api_const_options_values_ModeValue::FAVORITES:
             $url = 'users/' . $tpom->get(org_tubepress_api_const_options_names_Output::FAVORITES_VALUE) . '/favorites';
             break;

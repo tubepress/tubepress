@@ -26,7 +26,6 @@ class org_tubepress_api_const_options_values_ModeValue
 {
     const FAVORITES        = 'favorites';
     const FEATURED         = 'recently_featured';
-    const MOBILE           = 'mobile';
     const MOST_DISCUSSED   = 'most_discussed';
     const MOST_RECENT      = 'most_recent';
     const MOST_RESPONDED   = 'most_responded';
