@@ -1,4 +1,4 @@
-<?php
+<?php 
 /**
  * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
  * 
@@ -18,23 +18,5 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
-/**
- * Represents an HTML-embeddable Flash video player
- *
- */
-interface org_tubepress_api_embedded_EmbeddedPlayer
-{
-    const LONGTAIL       = 'longtail';
-    const PROVIDER_BASED = 'provider_based';
-    const YOUTUBE_IFRAME = 'youtube-iframe';
-
-    /**
-     * Spits back the text for this embedded player
-     *
-     * @param string $videoId The video ID to display
-     *
-     * @return string The text for this embedded player
-     */
-    function toString($videoId);
-}
+?>
+<iframe class="youtube-player" type="text/html" width="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>" height="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}; ?>" src="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_DATA_URL}; ?>" frameborder="0"></iframe>

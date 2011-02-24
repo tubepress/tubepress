@@ -545,6 +545,9 @@ msgstr ""
 msgid "Only show options applicable to..."
 msgstr ""
 
+msgid "YouTube iframe"
+msgstr ""
+
 msgid "Restrict search results to videos from this user"
 msgstr ""
 
