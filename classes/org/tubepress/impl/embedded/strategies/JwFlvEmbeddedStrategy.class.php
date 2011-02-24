@@ -35,7 +35,7 @@ class org_tubepress_impl_embedded_strategies_JwFlvEmbeddedStrategy extends org_t
     protected function _canHandle($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
     {
         return $providerName === org_tubepress_api_provider_Provider::YOUTUBE 
-            && $tpom->get(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL) === org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL;
+            && $tpom->get(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL) === org_tubepress_api_const_options_values_PlayerImplementationValue::LONGTAIL;
     }
 
     protected function _getTemplatePath($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)

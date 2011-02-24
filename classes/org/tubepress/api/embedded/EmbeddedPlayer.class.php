@@ -25,10 +25,6 @@
  */
 interface org_tubepress_api_embedded_EmbeddedPlayer
 {
-    const LONGTAIL       = 'longtail';
-    const PROVIDER_BASED = 'provider_based';
-    const YOUTUBE_IFRAME = 'youtube-iframe';
-
     /**
      * Spits back the text for this embedded player
      *

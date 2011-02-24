@@ -7,7 +7,7 @@ class org_tubepress_impl_embedded_JwFlvEmbeddedStrategyTest extends org_tubepres
     
     function testCanHandleVimeoWithLongtail()
     {
-        $this->setOptions(array(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL => org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL));
+        $this->setOptions(array(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL => org_tubepress_api_const_options_values_PlayerImplementationValue::LONGTAIL));
         $this->getSut()->start();
         $canHandle = $this->getSut()->canHandle(org_tubepress_api_provider_Provider::VIMEO, 'videoid');
         
@@ -16,7 +16,7 @@ class org_tubepress_impl_embedded_JwFlvEmbeddedStrategyTest extends org_tubepres
     
     function testCanHandleYouTubeWithLongtail()
     {
-        $this->setOptions(array(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL => org_tubepress_api_embedded_EmbeddedPlayer::LONGTAIL));
+        $this->setOptions(array(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL => org_tubepress_api_const_options_values_PlayerImplementationValue::LONGTAIL));
         $this->getSut()->start();
         $canHandle = $this->getSut()->canHandle(org_tubepress_api_provider_Provider::YOUTUBE, 'videoid');
         
@@ -25,7 +25,7 @@ class org_tubepress_impl_embedded_JwFlvEmbeddedStrategyTest extends org_tubepres
     
     function testCanHandleYouTubeWithDefaultPlayer()
     {
-        $this->setOptions(array(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL => org_tubepress_api_embedded_EmbeddedPlayer::PROVIDER_BASED));
+        $this->setOptions(array(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL => org_tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED));
         $this->getSut()->start();
         $canHandle = $this->getSut()->canHandle(org_tubepress_api_provider_Provider::YOUTUBE, 'videoid');
         
