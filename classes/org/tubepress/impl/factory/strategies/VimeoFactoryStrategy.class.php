@@ -140,7 +140,8 @@ class org_tubepress_impl_factory_strategies_VimeoFactoryStrategy extends org_tub
     
     protected function _getThumbnailUrlsArray($index)
     {
-        return self::_gatherArrayOfContent($this->_videoArray[$index], 'thumbnails', 'thumbnail');
+        $raw = self::_gatherArrayOfContent($this->_videoArray[$index], 'thumbnails', 'thumbnail');
+        return array($raw[0]);
     }
     
     protected function _getTimeLastUpdatedInUnixTime($index)

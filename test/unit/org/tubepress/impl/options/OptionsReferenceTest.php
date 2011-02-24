@@ -220,7 +220,7 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
     function testGetOptionCategoryNames()
     {
         $expected = array('display', 'embedded', 'meta', 'feed', 'advanced', 'output', 'widget');
-        $this->assertTrue($expected == org_tubepress_impl_options_OptionsReference::getOptionCategoryNames());
+        self::checkArrayEquality($expected, org_tubepress_impl_options_OptionsReference::getOptionCategoryNames());
     }
     function testGetCategory()
     {
