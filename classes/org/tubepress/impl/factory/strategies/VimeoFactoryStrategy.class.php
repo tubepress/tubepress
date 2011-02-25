@@ -50,11 +50,8 @@ class org_tubepress_impl_factory_strategies_VimeoFactoryStrategy extends org_tub
         } catch (Exception $e) {
             return false;
         }
-        
-        $isVimeoVideoArray = isset($unserialized->videos) && isset($unserialized->videos->video) && is_array($unserialized->videos->video);
-        $isVimeoVideo      = isset($unserialized->video) && is_array($unserialized->video);
-        
-        return $isVimeoVideo || $isVimeoVideoArray;
+
+        return $unserialized->stat === 'ok';
     }
     
     protected function _preExecute($feed)
@@ -63,9 +60,14 @@ class org_tubepress_impl_factory_strategies_VimeoFactoryStrategy extends org_tub
         
         if (isset($unserialized->video)) {
             $this->_videoArray = $unserialized->video;
-        } else {
-            $this->_videoArray = $unserialized->videos->video;    
+            return;
         }
+        
+        if (isset($unserialized->videos) && isset($unserialized->videos->video)) {
+            $this->_videoArray = $unserialized->videos->video;
+            return;    
+        }
+        $this->_videoArray = array();
     }
     
     protected function _postExecute($feed)
