@@ -210,7 +210,6 @@ $msgs = array(
 
         'playerImplementation-provider_based'    => 'Provider default',
         'playerImplementation-longtail'   => 'JW FLV Media Player (by Longtail Video)',
-        'playerImplementation-youtube-iframe' => 'YouTube iframe',
     
         'no-videos-found'     => 'No matching videos',
         'search-input-button' => 'Search'

@@ -28,7 +28,6 @@ class org_tubepress_impl_embedded_DelegatingEmbeddedPlayerTest extends TubePress
                  ->with(array(
                      'org_tubepress_impl_embedded_strategies_JwFlvEmbeddedStrategy',
                       'org_tubepress_impl_embedded_strategies_YouTubeIframeEmbeddedStrategy',
-                      'org_tubepress_impl_embedded_strategies_YouTubeEmbeddedStrategy',
                       'org_tubepress_impl_embedded_strategies_VimeoEmbeddedStrategy'
                   ), new PHPUnit_Framework_Constraint_IsEqual(org_tubepress_api_provider_Provider::VIMEO),
                      new PHPUnit_Framework_Constraint_IsEqual('videoid'))

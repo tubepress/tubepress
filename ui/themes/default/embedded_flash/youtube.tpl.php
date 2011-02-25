@@ -19,9 +19,4 @@
  *
  */
 ?>
-<object type="application/x-shockwave-flash" data="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_DATA_URL}; ?>" style="width: <?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>px; height: <?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}; ?>px">
-  
-        <param name="wmode" value="transparent" />
-        <param name="movie" value="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_DATA_URL}; ?>" />
-        <param name="allowfullscreen" value="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_FULLSCREEN}; ?>" />
-      </object>
+<iframe class="youtube-player" type="text/html" width="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>" height="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}; ?>" src="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_DATA_URL}; ?>" frameborder="0"></iframe>
