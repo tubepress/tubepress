@@ -18,17 +18,12 @@ class org_tubepress_impl_cache_PearCacheLiteCacheServiceTest extends TubePressUn
 		$key = $this->_randomString();
 		$data = $this->_randomString();
 		$this->_sut->save($key, $data);
-		$this->assertTrue($this->_sut->has($key));
-		$this->assertFalse($this->_sut->has('fakekey'));
 		$this->assertEquals($data, $this->_sut->get($key));
 	}
 
-	/**
-     * @expectedException Exception
-     */
 	function testSetNonStringData()
 	{
-		$this->_sut->save("fake", 3);
+		$this->assertFalse($this->_sut->save("fake", 3));
 	}
 
 	private function _randomString() {

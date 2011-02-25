@@ -45,17 +45,17 @@ class org_tubepress_impl_feed_CacheAwareFeedFetcher implements org_tubepress_api
     {
         global $tubepress_base_url;
 
-        $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $cache     = $ioc->get('org_tubepress_api_cache_Cache');
+        $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $cache = $ioc->get('org_tubepress_api_cache_Cache');
 
         $result = '';
         if ($useCache) {
 
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'First asking cache for <a href="%s">%s</a>', $url, $url);
 
-            if ($cache->has($url)) {
+            $result = $cache->get($url);
+            if ($result !== false) {
                 org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Cache has <a href="%s">%s</a>. Sweet.', $url, $url);
-                $result = $cache->get($url);
             } else {
                 org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Cache does not have <a href="%s">%s</a>. We\'ll have to get it from the network.', $url, $url);
                 $result = $this->_getFromNetwork($url, $ioc);

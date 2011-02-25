@@ -40,24 +40,6 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
     const LOG_PREFIX = 'Cache_Lite Cache';
 
     /**
-     * Determine if the cache has data for a certain key
-     *
-     * @param string $key The key for which to look
-     * 
-     * @return boolean True if the cache has the data, false otherwise
-     */
-    public function has($key)
-    {
-        $has = $this->get($key) !== false;
-        if ($has) {
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Cache hit for %s', $key);
-        } else {
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Cache miss for %s', $key);
-        }
-        return $has;
-    }
-
-    /**
      * Test if a cache is available and (if yes) return it
      *
      * @param string $id cache id
@@ -65,6 +47,16 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
      * @return string data of the cache (else : false)
      */
     public function get($id)
+    {
+        try {
+            return $this->_wrappedGet($id);
+        } catch (Exception $e) {
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception when running "get": ' . $e->getMessage());
+            return false;
+        }
+    }
+    
+    private function _wrappedGet($id)
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom        = $ioc->get('org_tubepress_api_options_OptionsManager');
@@ -94,9 +86,19 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
      * @param string $id   cache id
      * @param string $data data to put in cache
      *
-     * @return boolean true if no problem (else : false or throws an Exception)
+     * @return boolean true if no problem (else : false)
      */
     public function save($id, $data)
+    {
+        try {
+            return $this->_wrappedSave($id, $data);
+        } catch (Exception $e) {
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception when saving: ' . $e->getMessage());
+            return false;
+        }
+    }
+    
+    private function _wrappedSave($id, $data)
     {
         if (!is_string($data)) {
             throw new Exception("Cache can only save string data");
