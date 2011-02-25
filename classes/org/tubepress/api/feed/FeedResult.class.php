@@ -53,18 +53,6 @@ class org_tubepress_api_feed_FeedResult
     }
 
     /**
-     * Set the effective display count
-     *
-     * @param integer $count The effective display count
-     *
-     * @return void
-     */
-    public function setEffectiveDisplayCount($count)
-    {
-        $this->_effectiveDisplayCount = $count;
-    }
-
-    /**
      * Get the video array
      *
      * @return array The video array.
@@ -82,15 +70,5 @@ class org_tubepress_api_feed_FeedResult
     public function getEffectiveTotalResultCount()
     {
         return $this->_effectiveTotalResultCount;
-    }
-
-    /**
-     * Get the effective display count
-     *
-     * @return integer The effective display count
-     */
-    public function getEffectiveDisplayCount()
-    {
-        return $this->_effectiveDisplayCount;
     }
 }

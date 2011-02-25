@@ -35,14 +35,11 @@ class org_tubepress_impl_feed_inspectionstrategies_YouTubeFeedInspectionStrategy
     {
         $dom          = $this->_getDom($rawFeed);
         $totalResults = $dom->getElementsByTagNameNS(self::NS_OPENSEARCH, 'totalResults')->item(0)->nodeValue;
-        $queryResult  = $dom->getElementsByTagName('entry')->length;
 
         self::_makeSureNumeric($totalResults);
-        self::_makeSureNumeric($queryResult);
 
         $toReturn = new org_tubepress_api_feed_FeedResult();
         $toReturn->setEffectiveTotalResultCount($totalResults);
-        $toReturn->setEffectiveDisplayCount($queryResult);
         return $toReturn;
     }
 

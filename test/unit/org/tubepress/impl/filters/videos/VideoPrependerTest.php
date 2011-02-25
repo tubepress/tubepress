@@ -1,16 +1,16 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/impl/filters/videos/VideoPrepender.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/impl/filters/feedresult/VideoPrepender.class.php';
 
-class org_tubepress_impl_filters_videos_VideoPrependerTest extends TubePressUnitTest
+class org_tubepress_impl_filters_feedresult_VideoPrependerTest extends TubePressUnitTest
 {
 	private $_sut;
 
 	function setup()
 	{
 		$this->initFakeIoc();
-		$this->_sut = new org_tubepress_impl_filters_videos_VideoPrepender();
+		$this->_sut = new org_tubepress_impl_filters_feedresult_VideoPrepender();
 	}
 	
 	function getMock($className)

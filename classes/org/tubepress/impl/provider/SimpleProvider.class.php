@@ -70,27 +70,8 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         /* get the counts */
         $count                    = $feedInspectionService->count($rawFeed);
         $reportedTotalResultCount = $count->getEffectiveTotalResultCount();
-        $queryResult              = $count->getEffectiveDisplayCount();
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Reported total result count is %d video(s)', $reportedTotalResultCount);
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Query result count is %d video(s)', $queryResult);
-
-        /* no videos? bail. */
-        if ($queryResult == 0) {
-            return $count;
-        }
-
-        /* limit the result count if requested */
-        $effectiveTotalResultCount = self::_capTotalResultsIfNeeded($tpom, $reportedTotalResultCount);
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Effective total result count (taking into account user-defined limit) is %d video(s)', $effectiveTotalResultCount);
-
-        /* find out how many videos per page the user wants to show */
-        $perPageLimit = $tpom->get(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE);
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Results-per-page limit is %d', $perPageLimit);
-
-        /* find out how many videos this gallery will actually show (could be less than user limit) */
-        $effectiveDisplayCount = min($effectiveTotalResultCount, min($queryResult, $perPageLimit));
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Effective display count for this page is %d video(s)', $effectiveDisplayCount);
 
         /* convert the XML to objects */
         $factory = $ioc->get('org_tubepress_api_factory_VideoFactory');
@@ -103,8 +84,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         }
 
         $result = new org_tubepress_api_feed_FeedResult();
-        $result->setEffectiveDisplayCount($effectiveDisplayCount);
-        $result->setEffectiveTotalResultCount($effectiveTotalResultCount);
+        $result->setEffectiveTotalResultCount($reportedTotalResultCount);
         $result->setVideoArray($videos);
         return $result;
     }
@@ -134,11 +114,4 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
 
         return $videoArray[0];
     }
-
-    private static function _capTotalResultsIfNeeded(org_tubepress_api_options_OptionsManager $tpom, $totalResults)
-    {
-        $limit = $tpom-> get(org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP);
-        return $limit == 0 ? $totalResults : min($limit, $totalResults);
-    }
-
 }

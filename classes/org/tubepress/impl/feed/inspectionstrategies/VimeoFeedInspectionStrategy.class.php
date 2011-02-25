@@ -38,7 +38,6 @@ class org_tubepress_impl_feed_inspectionstrategies_VimeoFeedInspectionStrategy e
         $feed   = unserialize($rawFeed);
         $toReturn = new org_tubepress_api_feed_FeedResult();
         $toReturn->setEffectiveTotalResultCount($feed->videos->total);
-        $toReturn->setEffectiveDisplayCount($feed->videos->on_this_page);
         return $toReturn;
     }
 

@@ -63,7 +63,7 @@ abstract class org_tubepress_impl_bootstrap_AbstractBootstrapper implements org_
 
         $this->_loadFilters($baseDir . 'html', $fs, $ioc);
         $this->_loadFilters($baseDir . 'template', $fs, $ioc);
-        $this->_loadFilters($baseDir . 'videos', $fs, $ioc);
+        $this->_loadFilters($baseDir . 'feedresult', $fs, $ioc);
 
         /* continue booting process */
         $this->_doBoot();

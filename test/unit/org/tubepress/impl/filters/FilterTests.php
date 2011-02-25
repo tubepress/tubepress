@@ -19,7 +19,7 @@ class FilterTests
 		$suite->addTestSuite('org_tubepress_impl_filters_template_PlayerTest');
 		$suite->addTestSuite('org_tubepress_impl_filters_html_ThemeCssTest');
 		$suite->addTestSuite('org_tubepress_impl_filters_template_VideoMetaTest');
-		$suite->addTestSuite('org_tubepress_impl_filters_videos_VideoPrependerTest');
+		$suite->addTestSuite('org_tubepress_impl_filters_feedresult_VideoPrependerTest');
 		return $suite;
 	}
 }

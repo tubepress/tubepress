@@ -111,15 +111,11 @@ class org_tubepress_impl_html_strategies_ThumbGalleryStrategy implements org_tub
             return $ms->_('no-videos-found');
         }
 
-        /* send the videos through the filters */
-        $filteredVideos = $filterManager->runFilters(org_tubepress_api_const_filters_ExecutionPoint::VIDEOS_DELIVERY, $feedResult->getVideoArray(), $galleryId);
-
-        /* modify the feed result to reflect the filtration (if any) of the videos */
-        $feedResult->setEffectiveDisplayCount(abs($feedResult->getEffectiveDisplayCount() - abs(count($filteredVideos) - count($feedResult->getVideoArray()))));
-        $feedResult->setVideoArray($filteredVideos);
+        /* send the feed result through the filters */
+        $feedResult = $filterManager->runFilters(org_tubepress_api_const_filters_ExecutionPoint::VIDEOS_DELIVERY, $feedResult, $galleryId);
 
         /* add some core template variables */
-        $template->setVariable(org_tubepress_api_const_template_Variable::VIDEO_ARRAY, $filteredVideos);
+        $template->setVariable(org_tubepress_api_const_template_Variable::VIDEO_ARRAY, $feedResult->getVideoArray());
         $template->setVariable(org_tubepress_api_const_template_Variable::GALLERY_ID, $galleryId);
         $template->setVariable(org_tubepress_api_const_template_Variable::THUMBNAIL_WIDTH, $tpom->get(org_tubepress_api_const_options_names_Display::THUMB_WIDTH));
         $template->setVariable(org_tubepress_api_const_template_Variable::THUMBNAIL_HEIGHT, $tpom->get(org_tubepress_api_const_options_names_Display::THUMB_HEIGHT));
