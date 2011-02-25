@@ -39,6 +39,15 @@ abstract class org_tubepress_impl_bootstrap_AbstractBootstrapper implements org_
      */
     public function boot()
     {
+        try {
+            $this->_wrappedBoot();
+        } catch (Exception $e) {
+            org_tubepress_impl_log_Log::log($this->_getName(), 'Caught exception while booting: '.  $e->getMessage());
+        }
+    }
+    
+    private function _wrappedBoot()
+    {
         /* don't boot twice! */
         if (self::$_alreadyBooted) {
             return;
