@@ -40,7 +40,6 @@ abstract class org_tubepress_impl_embedded_strategies_AbstractYouTubeEmbeddedStr
         $showRelated     = $tpom->get(org_tubepress_api_const_options_names_Embedded::SHOW_RELATED);
         $autoPlay        = $tpom->get(org_tubepress_api_const_options_names_Embedded::AUTOPLAY);
         $loop            = $tpom->get(org_tubepress_api_const_options_names_Embedded::LOOP);
-        $genie           = $tpom->get(org_tubepress_api_const_options_names_Embedded::GENIE);
         $border          = $tpom->get(org_tubepress_api_const_options_names_Embedded::BORDER);
         $fullscreen      = $tpom->get(org_tubepress_api_const_options_names_Embedded::FULLSCREEN);
         $playerColor     = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR), '999999');
@@ -55,7 +54,6 @@ abstract class org_tubepress_impl_embedded_strategies_AbstractYouTubeEmbeddedStr
         $link->setQueryVariable('rel', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showRelated));
         $link->setQueryVariable('autoplay', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));
         $link->setQueryVariable('loop', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($loop));
-        $link->setQueryVariable('egm', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($genie));
         $link->setQueryVariable('border', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($border));
         $link->setQueryVariable('fs', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($fullscreen));
         $link->setQueryVariable('showinfo', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));

@@ -117,12 +117,6 @@ msgstr "Standard är 350"
 msgid "Default is 425"
 msgstr "Standard är 425"
 
-msgid "Enhanced genie menu"
-msgstr "Enhanced Genie Menu"
-
-msgid "Show the YouTube genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
-msgstr "Använder om möjligt s.k. Genie Menu, som visas så fort muspekaren förs över videon (istället för bara när användaren trycker på \"meny\"-knappen"
-
 msgid "Loop"
 msgstr "Loop"
 

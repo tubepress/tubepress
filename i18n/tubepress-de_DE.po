@@ -137,12 +137,6 @@ msgstr "Standardwert ist 350"
 msgid "Default is 425"
 msgstr "Standardwert ist 425"
 
-msgid "Enhanced genie menu"
-msgstr "Erweitertes Genie Men&uuml;"
-
-msgid "Show the YouTube genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
-msgstr "Zeigt, falls vorhanden, das Genie Men&uuml; wenn die Maus &uuml;ber dem Videobereich ist (Ansonsten wird das Men&uuml; nur angezeigt falls der Benutzer den \"Men&uuml;\" Knopf dr&uuml;ckt)."
-
 msgid "Loop"
 msgstr "Wiederholung"
 

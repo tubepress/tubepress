@@ -146,12 +146,6 @@ msgstr "ברירת המחדל היא 999999"
 msgid "Default is FFFFFF"
 msgstr "ברירת המחדל היא FFFFFF"
 
-msgid "Enhanced genie menu"
-msgstr "תפריט genie משופר"
-
-msgid "Show the YouTube genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
-msgstr "(הצג תפריט genie  , אם קיים כאשר העכבר נכנס לאזור וידאו (בניגוד רק כאשר המשתמש פותח את  כפתור \"menu\")"
-
 msgid "Loop"
 msgstr "לולאה"
 

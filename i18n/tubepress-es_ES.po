@@ -158,12 +158,6 @@ msgstr "999999 por omisión"
 msgid "Default is FFFFFF"
 msgstr "FFFFFF por omisión"
 
-msgid "Enhanced genie menu"
-msgstr "Menú genie mejorado"
-
-msgid "Show the YouTube genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
-msgstr "Mostrar el menú genie si se encuentra presente, cuando el ratón entre al área del video (contrario a cuando el usuario oprima el botón \"menu\")"
-
 msgid "Loop"
 msgstr "Iteración"
 

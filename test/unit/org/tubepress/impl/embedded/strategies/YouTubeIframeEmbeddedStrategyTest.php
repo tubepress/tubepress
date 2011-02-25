@@ -22,7 +22,7 @@ class org_tubepress_impl_embedded_YouTubeIframeEmbeddedStrategyTest extends org_
     function expected()
     {
         return <<<EOT
-<iframe class="youtube-player" type="text/html" width="425" height="350" src="http://www.youtube.com/embed/videoid?rel=1&amp;autoplay=0&amp;loop=0&amp;egm=0&amp;border=0&amp;fs=1&amp;showinfo=0" frameborder="0"></iframe>
+<iframe class="youtube-player" type="text/html" width="425" height="350" src="http://www.youtube.com/embed/videoid?rel=1&amp;autoplay=0&amp;loop=0&amp;border=0&amp;fs=1&amp;showinfo=0" frameborder="0"></iframe>
 
 EOT;
     }

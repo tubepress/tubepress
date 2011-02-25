@@ -158,12 +158,6 @@ msgstr "O padrão é 999999"
 msgid "Default is FFFFFF"
 msgstr "O padrão é FFFFFF"
 
-msgid "Enhanced genie menu"
-msgstr "Genie menu melhorado"
-
-msgid "Show the YouTube genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
-msgstr "Mostrar o genie menu, se presente, quando o mouse entra na área do vídeo (em oposição a apenas quando o usuário aperta o \"botão\" menu)"
-
 msgid "Loop"
 msgstr "Loop"
 

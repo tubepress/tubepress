@@ -95,8 +95,6 @@ abstract class org_tubepress_impl_message_AbstractMessageService implements org_
         'options-title-embeddedWidth'        => 'Max width (px)',
         'options-desc-embeddedWidth'         => 'Default is 425',
         'options-title-fullscreen'           => 'Allow fullscreen playback',
-        'options-title-genie'                => 'Enhanced genie menu',
-        'options-desc-genie'                 => 'Show the YouTube genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the "menu" button)',
         'options-title-loop'                 => 'Loop',
         'options-desc-loop'                  => 'Continue playing the video until the user stops it',
         'options-title-playerColor'          => 'Main color',

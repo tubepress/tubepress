@@ -145,12 +145,6 @@ msgstr "Défaut : 999999"
 msgid "Default is FFFFFF"
 msgstr "Défaut : FFFFFF"
 
-msgid "Enhanced genie menu"
-msgstr "Menu génie avancé"
-
-msgid "Show the YouTube genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
-msgstr "Afficher le menu génie si présent, quand la souris passe sur la zone de vidéo (en opposition à uniquement quand l'utilisateur clique sur le bouton \"menu\")"
-
 msgid "Loop"
 msgstr "Répéter"
 

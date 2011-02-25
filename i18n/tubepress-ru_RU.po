@@ -146,12 +146,6 @@ msgstr "По умолчанию: 999999"
 msgid "Default is FFFFFF"
 msgstr "По умолчанию: FFFFFF"
 
-msgid "Enhanced genie menu"
-msgstr "Всплывающее расширенное меню"
-
-msgid "Show the YouTube genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
-msgstr "Всплывающее меню (если оно есть) появляется, когда пользователь наводит курсор мыши на область воспроизведения видео, а не только при нажатии кнопки \"меню\")"
-
 msgid "Loop"
 msgstr "В цикле"
 

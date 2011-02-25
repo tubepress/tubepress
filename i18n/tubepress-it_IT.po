@@ -189,12 +189,6 @@ msgstr "Predefinita a 999999"
 msgid "Default is FFFFFF"
 msgstr "Predefinita a FFFFFF"
 
-msgid "Enhanced genie menu"
-msgstr "Enhanced genie menu"
-
-msgid "Show the YouTube genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
-msgstr "Mostra se presente il genie menu quando il mouse entra nell'area del video (come alternativa per l'utente di premere il tasto del \"menu\")"
-
 msgid "Loop"
 msgstr "Loop"
 

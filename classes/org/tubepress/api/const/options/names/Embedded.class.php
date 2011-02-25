@@ -34,7 +34,6 @@ class org_tubepress_api_const_options_names_Embedded
     const BORDER           = "border";
     const FULLSCREEN       = "fullscreen";
     const HIGH_QUALITY     = "hd";
-    const GENIE            = "genie";
     const LOOP             = "loop";
     const PLAYER_COLOR     = "playerColor";
     const PLAYER_HIGHLIGHT = "playerHighlight";

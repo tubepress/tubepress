@@ -185,12 +185,6 @@ msgstr "الافتراضي هو ٩٩٩٩٩٩"
 msgid "Default is FFFFFF"
 msgstr "الافتراضي هو FFFFFF"
 
-msgid "Enhanced genie menu"
-msgstr "قائمة مطورة سحرية"
-
-msgid "Show the YouTube genie menu, if present, when the mouse enters the video area (as opposed to only when the user pushes the \"menu\" button)"
-msgstr "أظهر القائمة المطورة في حالة وجودها اذا وضعت الفأرة فوق الفيديو"
-
 msgid "Loop"
 msgstr "تكرار"
 
