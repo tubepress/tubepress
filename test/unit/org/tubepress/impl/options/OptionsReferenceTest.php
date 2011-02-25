@@ -55,7 +55,6 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
             org_tubepress_api_const_options_names_Display::AJAX_PAGINATION         => false,
             org_tubepress_api_const_options_names_Display::HQ_THUMBS               => false,
             org_tubepress_api_const_options_names_Embedded::AUTOPLAY               => false,
-            org_tubepress_api_const_options_names_Embedded::BORDER                 => false,
             org_tubepress_api_const_options_names_Embedded::LOOP                   => false,
             org_tubepress_api_const_options_names_Embedded::SHOW_INFO              => false,
             org_tubepress_api_const_options_names_Embedded::SHOW_RELATED           => true,
@@ -153,7 +152,7 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
     {
         $expectedNames = array(
             'playerImplementation', 'embeddedHeight', 'embeddedWidth', 
-            'autoplay', 'border', 'fullscreen', 'hd', 'loop', 'playerColor',
+            'autoplay', 'fullscreen', 'hd', 'loop', 'playerColor',
             'playerHighlight', 'showInfo', 'showRelated'
         );
         self::checkArrayEquality($expectedNames, org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::EMBEDDED));  

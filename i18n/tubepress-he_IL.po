@@ -125,9 +125,6 @@ msgstr "נגן משובץ"
 msgid "Auto-play videos"
 msgstr "נגן אוטומטית קטעי וידאו"
 
-msgid "Show border"
-msgstr "הצג גבול"
-
 msgid "Allow fullscreen playback"
 msgstr "אפשר תצוגה במסך מלא"
 

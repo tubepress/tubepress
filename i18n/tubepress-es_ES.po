@@ -137,9 +137,6 @@ msgstr "Reproductor de video"
 msgid "Auto-play videos"
 msgstr "Videos con inicio automático"
 
-msgid "Show border"
-msgstr "Mostrar bordes"
-
 msgid "Allow fullscreen playback"
 msgstr "Permitir reproducción en pantalla completa"
 

@@ -125,9 +125,6 @@ msgstr "Eingebundener Player"
 msgid "Auto-play videos"
 msgstr "Automatisch abspielen"
 
-msgid "Show border"
-msgstr "Rahmen anzeigen"
-
 msgid "Max height (px)"
 msgstr "Max. H&ouml;he (Pixel)"
 

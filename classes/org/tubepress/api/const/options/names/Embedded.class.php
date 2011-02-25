@@ -31,7 +31,6 @@ class org_tubepress_api_const_options_names_Embedded
     const EMBEDDED_HEIGHT  = "embeddedHeight";
     const EMBEDDED_WIDTH   = "embeddedWidth";
     const AUTOPLAY         = "autoplay";
-    const BORDER           = "border";
     const FULLSCREEN       = "fullscreen";
     const HIGH_QUALITY     = "hd";
     const LOOP             = "loop";

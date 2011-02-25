@@ -125,9 +125,6 @@ msgstr "Встроенный проигрыватель"
 msgid "Auto-play videos"
 msgstr "Автовоспроизведение видео"
 
-msgid "Show border"
-msgstr "Показать рамку"
-
 msgid "Allow fullscreen playback"
 msgstr "Разрешить полноэкранное воспроизведение"
 

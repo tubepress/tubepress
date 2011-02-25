@@ -164,9 +164,6 @@ msgstr "مشغل مدمج"
 msgid "Auto-play videos"
 msgstr "شغل الفيديو تلقائياً"
 
-msgid "Show border"
-msgstr "أظهر حدود"
-
 msgid "Allow fullscreen playback"
 msgstr "اسمح بالتشغيل في وضع شاشة كاملة"
 

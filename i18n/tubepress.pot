@@ -167,9 +167,6 @@ msgstr ""
 msgid "Auto-play videos"
 msgstr ""
 
-msgid "Show border"
-msgstr ""
-
 msgid "Allow fullscreen playback"
 msgstr ""
 

@@ -137,9 +137,6 @@ msgstr "Incorporar Player"
 msgid "Auto-play videos"
 msgstr "Auto-reproduzir vídeos"
 
-msgid "Show border"
-msgstr "Mostrar borda"
-
 msgid "Allow fullscreen playback"
 msgstr "Permitir a reprodução em tela cheia"
 

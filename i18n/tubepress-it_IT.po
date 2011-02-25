@@ -168,9 +168,6 @@ msgstr "Lettore incorporato"
 msgid "Auto-play videos"
 msgstr "Avvio automatico"
 
-msgid "Show border"
-msgstr "Mostra bordo"
-
 msgid "Allow fullscreen playback"
 msgstr "Permetti la riproduzione a schermo intero"
 

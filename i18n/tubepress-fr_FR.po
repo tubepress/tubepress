@@ -124,9 +124,6 @@ msgstr "Lecteur embarqué"
 msgid "Auto-play videos"
 msgstr "Lecture auto des vidéos"
 
-msgid "Show border"
-msgstr "Afficher la bordure"
-
 msgid "Allow fullscreen playback"
 msgstr "Autoriser la lecture en plein écran"
 

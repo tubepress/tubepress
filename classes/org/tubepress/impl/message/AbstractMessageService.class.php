@@ -89,7 +89,6 @@ abstract class org_tubepress_impl_message_AbstractMessageService implements org_
         'options-desc-hqThumbs'			 => 'Note: this option cannot be used with the "randomize thumbnails" feature',
 
         'options-title-autoplay'             => 'Auto-play videos',
-        'options-title-border'               => 'Show border',
         'options-title-embeddedHeight'       => 'Max height (px)',
         'options-desc-embeddedHeight'        => 'Default is 350',
         'options-title-embeddedWidth'        => 'Max width (px)',
