@@ -27,14 +27,14 @@ interface org_tubepress_api_environment_Detector
     /**
      * Detects if the user is running TubePress Pro.
      *
-     * @return boolean True is the user is running TubePress Pro. False otherwise.
+     * @return boolean True is the user is running TubePress Pro. False otherwise (or if there is a problem detecting the environment).
      */
     function isPro();
 
     /**
      * Detects if the user is running within WordPress
      *
-     * @return boolean True is the user is running within WordPress. False otherwise.
+     * @return boolean True is the user is running within WordPress (or if there is a problem detecting the environment). False otherwise.
      */
     function isWordPress();
 }
