@@ -30,6 +30,8 @@ interface org_tubepress_api_embedded_EmbeddedPlayer
      *
      * @param string $videoId The video ID to display
      *
+     * @throws Exception If something goes wrong.
+     *
      * @return string The text for this embedded player
      */
     function toString($videoId);

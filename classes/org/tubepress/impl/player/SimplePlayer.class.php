@@ -45,6 +45,7 @@ class org_tubepress_impl_player_SimplePlayer implements org_tubepress_api_player
             return '';
         }
         
+        //TODO: what if this bails?
         $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_SOURCE, $eps->toString($vid->getId()));
         $template->setVariable(org_tubepress_api_const_template_Variable::GALLERY_ID, $galleryId);
         $template->setVariable(org_tubepress_api_const_template_Variable::VIDEO, $vid);

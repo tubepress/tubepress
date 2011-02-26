@@ -31,6 +31,7 @@ class org_tubepress_impl_filters_template_EmbeddedSource
         $eps  = $ioc->get('org_tubepress_api_embedded_EmbeddedPlayer');
 
         /* apply it to the template */
+        //TODO: what if this bails?
         $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_SOURCE, $eps->toString($video->getId()));
         
         $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_WIDTH, $tpom->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH));
