@@ -36,7 +36,7 @@ class org_tubepress_impl_feed_DelegatingFeedInspectorTest extends TubePressUnitT
 
     function testCount()
     {
-        $this->assertEquals('foo', $this->_sut->count('rawfeed'));
+        $this->assertEquals('foo', $this->_sut->getTotalResultCount('rawfeed'));
     }
 }
 ?>

@@ -38,9 +38,7 @@ class org_tubepress_impl_feed_inspectionstrategies_YouTubeFeedInspectionStrategy
 
         self::_makeSureNumeric($totalResults);
 
-        $toReturn = new org_tubepress_api_feed_FeedResult();
-        $toReturn->setEffectiveTotalResultCount($totalResults);
-        return $toReturn;
+        return $totalResults;
     }
 
     protected function _getNameOfHandledProvider()

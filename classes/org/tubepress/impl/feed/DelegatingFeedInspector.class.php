@@ -33,13 +33,23 @@ tubepress_load_classes(array('org_tubepress_api_feed_FeedInspector',
 class org_tubepress_impl_feed_DelegatingFeedInspector implements org_tubepress_api_feed_FeedInspector
 {
     /**
-     * Count the videos in this feed result.
+     * Count the total videos in this feed result.
      *
      * @param unknown $rawFeed The raw video feed (varies depending on provider)
      *
-     * @return org_tubepress_api_feed_FeedResult The feed result with the total/query results filled in.
+     * @return int The total result count of this query, or 0 if there was a problem.
      */
-    function count($rawFeed)
+    public function getTotalResultCount($rawFeed)
+    {
+        try {
+            return $this->_wrappedCount($rawFeed);
+        } catch (Exception $e) {
+            org_tubepress_impl_log_Log::log('Delegating Feed Inspector', 'Caught exception while counting: ' . $e->getMessage());
+            return 0;
+        }
+    }
+    
+    private function _wrappedCount($rawFeed)
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');

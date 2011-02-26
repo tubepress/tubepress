@@ -35,10 +35,9 @@ class org_tubepress_impl_feed_inspectionstrategies_VimeoFeedInspectionStrategy e
 
     protected function _count($rawFeed)
     {
-        $feed   = unserialize($rawFeed);
-        $toReturn = new org_tubepress_api_feed_FeedResult();
-        $toReturn->setEffectiveTotalResultCount($feed->videos->total);
-        return $toReturn;
+        $feed = @unserialize($rawFeed);
+        
+        return isset($feed->videos->total) ? $feed->videos->total : 0;
     }
 
 }

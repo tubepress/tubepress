@@ -29,8 +29,7 @@ class org_tubepress_impl_feed_inspectionstrategies_VimeoFeedInspectionStrategyTe
     {
         $feed = $this->getSampleFeed();
         $result = $this->_sut->execute(org_tubepress_api_provider_Provider::VIMEO, $feed);
-        $this->assertTrue(is_a($result, 'org_tubepress_api_feed_FeedResult'));
-        $this->assertEquals(11, $result->getEffectiveTotalResultCount());
+        $this->assertEquals(11, $result);
     }
 
     function getSampleFeed()

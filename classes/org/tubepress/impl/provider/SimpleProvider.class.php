@@ -61,17 +61,17 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'URL to fetch is <a href="%s">%s</a>', $url, $url);
 
         /* make the request */
+        //TODO: what if this bails
         $feedRetrievalService = $ioc->get('org_tubepress_api_feed_FeedFetcher');
         $useCache             = $tpom->get(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED);
         $rawFeed              = $feedRetrievalService->fetch($url, $useCache);
 
+        /* get the count */
+        //TODO: what if this returns 0?
         $feedInspectionService = $ioc->get('org_tubepress_api_feed_FeedInspector');
+        $totalCount = $feedInspectionService->getTotalResultCount($rawFeed);
 
-        /* get the counts */
-        $count                    = $feedInspectionService->count($rawFeed);
-        $reportedTotalResultCount = $count->getEffectiveTotalResultCount();
-
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Reported total result count is %d video(s)', $reportedTotalResultCount);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Reported total result count is %d video(s)', $totalCount);
 
         /* convert the XML to objects */
         $factory = $ioc->get('org_tubepress_api_factory_VideoFactory');
@@ -84,7 +84,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         }
 
         $result = new org_tubepress_api_feed_FeedResult();
-        $result->setEffectiveTotalResultCount($reportedTotalResultCount);
+        $result->setEffectiveTotalResultCount($totalCount);
         $result->setVideoArray($videos);
         return $result;
     }
@@ -106,6 +106,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'URL to fetch is %s', $videoUrl);
 
+        //TODO: what if this bails
         $feedRetrievalService = $ioc->get('org_tubepress_api_feed_FeedFetcher');
         $tpom                 = $ioc->get('org_tubepress_api_options_OptionsManager');
         $results              = $feedRetrievalService->fetch($videoUrl, $tpom->get(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED));

@@ -29,8 +29,7 @@ class org_tubepress_impl_feed_inspectionstrategies_YouTubeFeedInspectionStrategy
     {
         $feed = $this->getSampleXml();
         $result = $this->_sut->execute(org_tubepress_api_provider_Provider::YOUTUBE, $feed);
-        $this->assertTrue(is_a($result, 'org_tubepress_api_feed_FeedResult'));
-        $this->assertEquals(100, $result->getEffectiveTotalResultCount());
+        $this->assertEquals(100, $result);
     }
     
     /**

@@ -29,7 +29,7 @@ class org_tubepress_impl_provider_ProviderTest extends TubePressUnitTest
         $mock = parent::getMock($className);
         if ($className == 'org_tubepress_api_feed_FeedInspector') {
             $mock->expects($this->once())
-            ->method('count')
+            ->method('getTotalResultCount')
             ->will($this->returnValue($this->_fakeCount));
         }
         if ($className == 'org_tubepress_api_factory_VideoFactory') {
