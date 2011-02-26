@@ -35,17 +35,18 @@ class org_tubepress_impl_filters_template_EmbeddedPlayerName
 
     private static function _getEmbeddedServiceName()
     {
-        $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom   = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $stored = $tpom->get(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
+        $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $tpom         = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $stored       = $tpom->get(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
+        $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $providerName = $pc->calculateCurrentVideoProvider();
         
-        if ($stored === org_tubepress_api_const_options_values_PlayerImplementationValue::LONGTAIL) {
+        if ($stored === org_tubepress_api_const_options_values_PlayerImplementationValue::LONGTAIL
+            && $providerName !== org_tubepress_api_provider_Provider::VIMEO) {
             return $stored;
         }
         
-        $pc = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-        
-        return $pc->calculateCurrentVideoProvider();
+        return $providerName;
     }
 }
 

@@ -182,7 +182,7 @@ TubePressEmbedded = (function () {
 		getHeightOfCurrentEmbed, dealingWithiframe, getIframeIframe, objCss, isIframe;
 	
 	isIframe = function (embeddedName) {
-		return embeddedName === 'vimeo' || embeddedName === 'youtube-iframe';
+		return embeddedName !== 'longtail';
 	};
 	
 	getHtmlForCurrentEmbed = function (galleryId) {
@@ -246,7 +246,7 @@ TubePressEmbedded = (function () {
 		if (TubePressEmbedded.isIframe(embeddedName)) {
 			swapIframe(embeddedName, wrapper, matcher, videoId);
 		} else {
-			swapEmbeddedObject(embeddedName, wrapperId);
+			swapEmbeddedObject(embeddedName, wrapperId, matcher, wrapper, videoId);
 		}
 	}
 	
@@ -268,7 +268,7 @@ TubePressEmbedded = (function () {
 	/**
 	 * Swaps an embedded object for a new video
 	 */
-	swapEmbeddedObject = function (embeddedName, wrapperId, matcher) {
+	swapEmbeddedObject = function (embeddedName, wrapperId, matcher, wrapper, videoId) {
 		var paramName	= getEmbedParam(embeddedName),
 			obj			= jQuery(wrapperId + ' > object'),
 			oldVideoId	= obj.children("param[name='" + paramName + "']").attr('value').match(matcher)[1];
@@ -311,11 +311,10 @@ TubePressEmbedded = (function () {
 		switch (embeddedName) {
 		case 'longtail':
 			return /youtube\.com\/watch\?v=(.{11}).*/;
-		
-		case 'youtube-iframe':
-			return /youtube\.com\/embed\/(.{11}).*/;
+		case 'vimeo':
+			return /\/video\/([0-9]+).*/;
 		default:
-			return /youtube\.com\/v\/(.{11}).*/;
+			return /youtube\.com\/embed\/(.{11}).*/;
 		}
 	};
 	

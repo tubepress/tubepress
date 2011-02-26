@@ -47,7 +47,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         $result = new org_tubepress_api_feed_FeedResult();
         
         try {
-            return $this->_wrappedGetMultipleVideos();
+            return $this->_wrappedGetMultipleVideos($result);
         } catch (Exception $e) {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception when retrieving videos: ' . $e->getMessage());
             $result->setEffectiveTotalResultCount(0);
@@ -56,7 +56,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         }
     }
     
-    private function _wrappedGetMultipleVideos()
+    private function _wrappedGetMultipleVideos($result)
     {
         $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
         $qss    = $ioc->get('org_tubepress_api_querystring_QueryStringService');
@@ -137,6 +137,10 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         $results              = $feedRetrievalService->fetch($videoUrl, $tpom->get(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED));
         $factory              = $ioc->get('org_tubepress_api_factory_VideoFactory');
         $videoArray           = $factory->feedToVideoArray($results);
+        
+        if (empty($videoArray)) {
+            return null;
+        }
 
         return $videoArray[0];
     }
