@@ -44,11 +44,25 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
      */
     public function getMultipleVideos()
     {
-        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $qss  = $ioc->get('org_tubepress_api_querystring_QueryStringService');
-        $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $pc   = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-
+        $result = new org_tubepress_api_feed_FeedResult();
+        
+        try {
+            return $this->_wrappedGetMultipleVideos();
+        } catch (Exception $e) {
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception when retrieving videos: ' . $e->getMessage());
+            $result->setEffectiveTotalResultCount(0);
+            $result->setVideoArray(array());
+            return $result;
+        }
+    }
+    
+    private function _wrappedGetMultipleVideos()
+    {
+        $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $qss    = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+        $tpom   = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $pc     = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        
         /* figure out which page we're on */
         $currentPage = $qss->getPageNum($_GET);
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Current page number is %d', $currentPage);
@@ -61,15 +75,17 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'URL to fetch is <a href="%s">%s</a>', $url, $url);
 
         /* make the request */
-        //TODO: what if this bails
         $feedRetrievalService = $ioc->get('org_tubepress_api_feed_FeedFetcher');
         $useCache             = $tpom->get(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED);
         $rawFeed              = $feedRetrievalService->fetch($url, $useCache);
 
         /* get the count */
-        //TODO: what if this returns 0?
         $feedInspectionService = $ioc->get('org_tubepress_api_feed_FeedInspector');
         $totalCount = $feedInspectionService->getTotalResultCount($rawFeed);
+        
+        if ($totalCount == 0) {
+            throw new Exception('Zero videos found');
+        }
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Reported total result count is %d video(s)', $totalCount);
 
@@ -83,7 +99,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
             shuffle($videos);
         }
 
-        $result = new org_tubepress_api_feed_FeedResult();
+        
         $result->setEffectiveTotalResultCount($totalCount);
         $result->setVideoArray($videos);
         return $result;
@@ -98,6 +114,16 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
      */
     public function getSingleVideo($customVideoId)
     {
+        try {
+            return $this->_wrappedGetSingleVideo($customVideoId);
+        } catch (Exception $e) {
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception when getting single video: ' . $e->getMessage());
+            return null;
+        }
+    }
+    
+    private function _wrappedGetSingleVideo($customVideoId)
+    {
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Fetching video with ID <tt>%s</tt>', $customVideoId);
 
         $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
@@ -106,7 +132,6 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'URL to fetch is %s', $videoUrl);
 
-        //TODO: what if this bails
         $feedRetrievalService = $ioc->get('org_tubepress_api_feed_FeedFetcher');
         $tpom                 = $ioc->get('org_tubepress_api_options_OptionsManager');
         $results              = $feedRetrievalService->fetch($videoUrl, $tpom->get(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED));

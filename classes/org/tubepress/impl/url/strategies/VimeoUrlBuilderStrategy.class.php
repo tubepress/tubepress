@@ -108,6 +108,8 @@ class org_tubepress_impl_url_strategies_VimeoUrlBuilderStrategy extends org_tube
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom         = $ioc->get('org_tubepress_api_options_OptionsManager');
         $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        
+        //TODO: what if this bails?
         $providerName = $pc->calculateProviderOfVideoId($id);
 
         if ($providerName !== org_tubepress_api_provider_Provider::VIMEO) {

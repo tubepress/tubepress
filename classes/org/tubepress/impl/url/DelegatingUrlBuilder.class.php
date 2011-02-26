@@ -56,6 +56,8 @@ class org_tubepress_impl_url_DelegatingUrlBuilder implements org_tubepress_api_u
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
         $sm           = $ioc->get('org_tubepress_api_patterns_StrategyManager');
+        
+        //TODO: what if this bails?
         $providerName = $pc->calculateCurrentVideoProvider();
         
         /* let the strategies do the heavy lifting */

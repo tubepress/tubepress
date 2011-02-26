@@ -35,7 +35,7 @@ interface org_tubepress_api_provider_Provider
     /**
      * Get the video feed result.
      *
-     * @return org_tubepress_api_feed_FeedResult The feed result.
+     * @return org_tubepress_api_feed_FeedResult The feed result, never null.
      */
     function getMultipleVideos();
 
@@ -44,7 +44,7 @@ interface org_tubepress_api_provider_Provider
      *
      * @param string $customVideoId The video ID to fetch.
      *
-     * @return org_tubepress_api_video_Video The video.
+     * @return org_tubepress_api_video_Video The video, or null if there's a problem.
      */
     function getSingleVideo($customVideoId);
 }

@@ -29,6 +29,8 @@ interface org_tubepress_api_theme_ThemeHandler
      *
      * @param string $pathToTemplate The relative path (from the root of the theme directory) to the template.
      *
+     * @throws Exception If there was a problem.
+     *
      * @return org_tubepress_api_template_Template The template instance.
      */
     function getTemplateInstance($pathToTemplate);
@@ -46,7 +48,7 @@ interface org_tubepress_api_theme_ThemeHandler
     /**
      * Returns the name of the current TubePress theme in use.
      *
-     * @return string The current theme name, or 'default' if the default theme is in use.
+     * @return string The current theme name, or 'default' if the default theme is in use or if there was a problem.
      */
     function calculateCurrentThemeName();
 }

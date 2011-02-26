@@ -27,6 +27,8 @@ interface org_tubepress_api_template_Template
     /**
      * Converts this template to a string
      *
+     *@throws Exception If there was a problem.
+     *
      * @return string The string representation of this template.
      */
     function toString();
@@ -35,6 +37,8 @@ interface org_tubepress_api_template_Template
      * Sets the path of this template.
      *
      * @param string $path The absolute path on the filesystem of this template.
+     * 
+     * @throws Exception If there was a problem.
      *
      * @return void
      */

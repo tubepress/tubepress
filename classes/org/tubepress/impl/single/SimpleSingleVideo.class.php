@@ -47,7 +47,19 @@ class org_tubepress_impl_single_SimpleSingleVideo implements org_tubepress_api_s
      */
     public function getSingleVideoHtml($videoId)
     {
-        $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $ms  = $ioc->get('org_tubepress_api_message_MessageService');
+        
+        try {
+            return $this->_wrappedGetSingleVideoHtml($videoId, $ioc, $ms);
+        } catch (Exception $e) {
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception when getting single video HTML: ' . $e->getMessage());
+            return $ms->_('no-videos-found');
+        }
+    }
+    
+    private function _wrappedGetSingleVideoHtml($videoId, $ioc, $ms)
+    {
         $filterManager = $ioc->get('org_tubepress_api_patterns_FilterManager');
         $provider      = $ioc->get('org_tubepress_api_provider_Provider');
         $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
@@ -56,6 +68,10 @@ class org_tubepress_impl_single_SimpleSingleVideo implements org_tubepress_api_s
         /* grab the video from the provider */
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Asking provider for video with ID %s', $videoId);
         $video = $provider->getSingleVideo($videoId);
+        
+        if ($video === null) {
+            return $ms->_('no-videos-found');
+        }
 
         /* add some core template variables */
         $template->setVariable(org_tubepress_api_const_template_Variable::VIDEO, $video);

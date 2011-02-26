@@ -40,6 +40,15 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
      */
     public function parse($content)
     {
+        try {
+            $this->_wrappedParse($content);
+        } catch (Exception $e) {
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception when parsing shortcode: ' . $e->getMessage());
+        }
+    }
+    
+    private function _wrappedParse($content)
+    {
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
 

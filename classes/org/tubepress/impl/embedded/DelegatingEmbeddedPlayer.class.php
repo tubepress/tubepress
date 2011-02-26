@@ -43,6 +43,8 @@ class org_tubepress_impl_embedded_DelegatingEmbeddedPlayer implements org_tubepr
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
         $sm           = $ioc->get('org_tubepress_api_patterns_StrategyManager');
+        
+        //TODO: what if this bails?
         $providerName = $pc->calculateProviderOfVideoId($videoId);
 
         /* let the strategies do the heavy lifting */

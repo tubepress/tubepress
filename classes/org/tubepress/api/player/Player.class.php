@@ -44,6 +44,8 @@ interface org_tubepress_api_player_Player
      *
      * @param org_tubepress_api_video_Video $vid       The video to display in the player.
      * @param unknown                       $galleryId The current gallery ID.
+     * 
+     * @throws Exception If something goes wrong.
      *
      * @return string The HTML for this player with the given video.
      */

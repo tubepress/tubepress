@@ -125,6 +125,8 @@ class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategy extends org_tu
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        
+        //TODO: what if this bails?
         $providerName = $pc->calculateProviderOfVideoId($id);
 
         if ($providerName !== org_tubepress_api_provider_Provider::YOUTUBE) {

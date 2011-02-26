@@ -29,7 +29,7 @@ interface org_tubepress_api_querystring_QueryStringService
      *
      * @param array $getVars The PHP $_GET array
      *
-     * @return string The custom video ID, or '' if not set
+     * @return string The custom video ID, or '' if not set or if there was a problem.
     */
     function getCustomVideo($getVars);
 
@@ -38,7 +38,7 @@ interface org_tubepress_api_querystring_QueryStringService
      *
      * @param array $getVars The PHP $_GET array
      *
-     * @return string The gallery ID, or '' if not set
+     * @return string The gallery ID, or '' if not set or if there was a problem.
     */
     function getGalleryId($getVars);
 
@@ -57,7 +57,7 @@ interface org_tubepress_api_querystring_QueryStringService
      * 
      * @param array $getVars The PHP $_GET array
      *
-     * @return int The page number
+     * @return int The page number, or 1 if there was a problem.
      */
     function getPageNum($getVars);
 
@@ -66,7 +66,7 @@ interface org_tubepress_api_querystring_QueryStringService
      *
      * @param array $getVars The PHP $_GET array
      *
-     * @return string The shortcode, or '' if not set
+     * @return string The shortcode, or '' if not set or if there was a problem.
      */
     function getShortcode($getVars);
 

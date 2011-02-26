@@ -29,6 +29,8 @@ interface org_tubepress_api_url_UrlBuilder
      * Builds a URL for a list of videos
      *
      * @param int $currentPage The current page number of the gallery.
+     * 
+     * @throws Exception If there was a problem.
      *
      * @return string The request URL for this gallery
      */
@@ -38,6 +40,8 @@ interface org_tubepress_api_url_UrlBuilder
      * Builds a request url for a single video
      *
      * @param string $id The video ID to search for
+     * 
+     * @throws Exception If there was a problem.
      *
      * @return string The URL for the single video given.
      */

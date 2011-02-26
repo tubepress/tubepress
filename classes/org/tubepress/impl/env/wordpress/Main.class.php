@@ -106,14 +106,14 @@ class org_tubepress_impl_env_wordpress_Main
             return;
         }
         
-        $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $hh       = $ioc->get('org_tubepress_api_html_HtmlGenerator');
+        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $hh  = $ioc->get('org_tubepress_api_html_HtmlGenerator');
 
         /* this inline JS helps initialize TubePress */
         $inlineJs = $hh->getHeadInlineJavaScriptString();
  
         /* this meta stuff prevents search engines from indexing gallery pages > 1 */
-        $meta     = $hh->getHeadMetaString();
+        $meta = $hh->getHeadMetaString();
 
         print <<<EOT
 $inlineJs
