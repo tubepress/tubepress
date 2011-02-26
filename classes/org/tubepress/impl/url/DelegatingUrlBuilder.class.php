@@ -59,6 +59,7 @@ class org_tubepress_impl_url_DelegatingUrlBuilder implements org_tubepress_api_u
         $providerName = $pc->calculateCurrentVideoProvider();
         
         /* let the strategies do the heavy lifting */
+        //TODO: what if this bails?
         return $sm->executeStrategy(array(
             'org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategy',
             'org_tubepress_impl_url_strategies_VimeoUrlBuilderStrategy'

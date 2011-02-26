@@ -33,7 +33,7 @@ class org_tubepress_impl_factory_strategies_YouTubeFactoryStrategyTest extends T
         $this->assertEquals('N/A', $video->getLikesCount());
         $this->assertEquals('3.83', $video->getRatingAverage());
         $this->assertEquals('6', $video->getRatingCount());
-        $this->assertTrue(preg_match('/http:\/\/i\.ytimg\.com\/vi\/BRKWi5beywQ\/[1234]\.jpg/', $video->getThumbnailUrl()) === 1, $video->getThumbnailUrl());
+        $this->assertTrue(preg_match('/http:\/\/i\.ytimg\.com\/vi\/BRKWi5beywQ\/[0123]\.jpg/', $video->getThumbnailUrl()) === 1, $video->getThumbnailUrl());
         $this->assertEquals('', $video->getTimeLastUpdated());
         $this->assertEquals('Aug 17, 2009', $video->getTimePublished());
         $this->assertEquals('1,775', $video->getViewCount());

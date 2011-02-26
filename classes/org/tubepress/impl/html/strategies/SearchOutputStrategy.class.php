@@ -114,6 +114,7 @@ class org_tubepress_impl_html_strategies_SearchOutputStrategy implements org_tub
         }
         
         /* display the results as a thumb gallery */
+        //TODO: what if this bails?
         return $this->_ioc->get('org_tubepress_api_patterns_StrategyManager')->executeStrategy(array(
             'org_tubepress_impl_html_strategies_ThumbGalleryStrategy'
         ));

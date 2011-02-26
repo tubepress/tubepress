@@ -65,7 +65,7 @@ class org_tubepress_impl_patterns_FilterManagerImplTest extends TubePressUnitTes
 	    $this->_sut->registerFilter('fakepoint', array($this->_callback, 'adderThree'));
 	    $result = $this->_sut->runFilters('fakepoint', 1, 500);
 	    $result += $this->_sut->runFilters('fakepoint', 1, 800);
-	    
+
 	    $this->assertEquals(2, $result);
 	    $this->assertEquals(1300, $this->_callback->adderThreeValue);
 	}
@@ -106,17 +106,11 @@ class org_tubepress_impl_patterns_FilterManagerImplTest extends TubePressUnitTes
 	    $this->assertEquals(0, $this->_callback->adderTwoInvocationCount);
 	}
 	
-    /**
-     * @expectedException Exception
-     */
     function testRegisterBadExecutionPoint()
     {
         $this->_sut->registerFilter(1, array($this, 'setUp'));
     }
 	
-	/**
-     * @expectedException Exception
-     */
 	function testRegisterNonCallback()
 	{
 	    $this->_sut->registerFilter('fake', 'nothing');

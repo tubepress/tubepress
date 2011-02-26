@@ -50,34 +50,37 @@ class org_tubepress_impl_patterns_FilterManagerImpl implements org_tubepress_api
      */
     public function runFilters($name, $value)
     {
-        /* no callbacks registered for this filter? */
-        if (!isset($this->_filters[$name])) {
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, "No filters registered for $name");
-            return $value;
-        }
-
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, "Now running %d filter(s) for \"%s\" execution point", sizeof($this->_filters[$name]), $name);
-
-        $args = func_get_args();
-
-        /* run all the callbacks for this filter name */
-        foreach ($this->_filters[$name] as $callback) {
-
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, "Now running \"%s\" for \"%s\" execution point", $this->_callbackToString($callback), $name);
-
-            try {
-
-                $args[1] = $value;
-                $value   = call_user_func_array($callback, array_slice($args, 1));
-
-            } catch (Exception $e) {
-                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception running filter: %s', $e->getMessage());
+        try {
+            /* no callbacks registered for this filter? */
+            if (!isset($this->_filters[$name])) {
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, "No filters registered for $name");
+                return $value;
             }
-
+    
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, "Now running %d filter(s) for \"%s\" execution point", sizeof($this->_filters[$name]), $name);
+    
+            $args = func_get_args();
+    
+            /* run all the callbacks for this filter name */
+            foreach ($this->_filters[$name] as $callback) {
+    
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, "Now running \"%s\" for \"%s\" execution point", $this->_callbackToString($callback), $name);
+    
+                try {
+    
+                    $args[1] = $value;
+                    $value   = call_user_func_array($callback, array_slice($args, 1));
+    
+                } catch (Exception $e) {
+                    org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception running filter: %s', $e->getMessage());
+                }
+            }
+    
+            /* return the modified value */
+            return $value;
+        } catch (Exception $e) {
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception when running filters: ' . $e->getMessage());
         }
-
-        /* return the modified value */
-        return $value;
     }
 
     /**
@@ -89,6 +92,15 @@ class org_tubepress_impl_patterns_FilterManagerImpl implements org_tubepress_api
      * @return void
      */
     public function registerFilter($name, $callback)
+    {
+        try {
+            $this->_wrappedRegisterFilter($name, $callback);
+        } catch (Exception $e) {
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception when registering filter: ' . $e->getMessage());
+        }
+    }
+    
+    private function _wrappedRegisterFilter($name, $callback)
     {
         /* sanity check on the callback */
         if (!is_callable($callback)) {

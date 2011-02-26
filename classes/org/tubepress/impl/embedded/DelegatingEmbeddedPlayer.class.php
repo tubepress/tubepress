@@ -46,6 +46,7 @@ class org_tubepress_impl_embedded_DelegatingEmbeddedPlayer implements org_tubepr
         $providerName = $pc->calculateProviderOfVideoId($videoId);
 
         /* let the strategies do the heavy lifting */
+        //TODO: what if this bails?
         return $sm->executeStrategy(array(
             'org_tubepress_impl_embedded_strategies_JwFlvEmbeddedStrategy',
             'org_tubepress_impl_embedded_strategies_YouTubeIframeEmbeddedStrategy',

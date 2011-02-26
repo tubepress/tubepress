@@ -37,6 +37,8 @@ class org_tubepress_impl_filters_template_Pagination
     {
         $ioc               = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom              = $ioc->get('org_tubepress_api_options_OptionsManager');
+        
+        //TODO: what if this bails?
         $paginationService = $ioc->get('org_tubepress_api_pagination_Pagination');
         $pagination        = $paginationService->getHtml($feedResult->getEffectiveTotalResultCount());
 
