@@ -33,11 +33,21 @@ class org_tubepress_impl_factory_DelegatingVideoFactory implements org_tubepress
     /**
      * Converts raw video feeds to TubePress videos
      *
-     * @param unknown    $rss   The raw feed result from the video provider
+     * @param unknown $feed The raw feed result from the video provider
      * 
      * @return array an array of TubePress videos generated from the feed
      */
     public function feedToVideoArray($feed)
+    {
+        try {
+            return $this->_wrappedFeedToVideoArray($feed);
+        } catch (Exception $e) {
+            org_tubepress_impl_log_Log::log('Delegating video factory', 'Caught exception building videos: ' . $e->getMessage());
+            return array();
+        }
+    }
+    
+    private function _wrappedFeedToVideoArray($feed)
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
         $sm  = $ioc->get('org_tubepress_api_patterns_StrategyManager');

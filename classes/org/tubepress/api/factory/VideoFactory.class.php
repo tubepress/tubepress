@@ -29,7 +29,7 @@ interface org_tubepress_api_factory_VideoFactory
      *
      * @param unknown $feed  The raw feed result from the video provider
      * 
-     * @return array an array of TubePress videos generated from the feed
+     * @return array an array of TubePress videos generated from the feed (may be empty).
      */
     function feedToVideoArray($feed);
 }
