@@ -43,6 +43,15 @@ class org_tubepress_impl_html_DefaultHtmlGenerator implements org_tubepress_api_
      */
     public function getHtmlForShortcode($shortCodeContent)
     {
+        try {
+            return $this->_wrappedGetHtmlForShortcode($shortCodeContent);
+        } catch (Exception $e) {
+            return $e->getMessage;
+        }
+    }
+    
+    private function _wrappedGetHtmlForShortcode($shortCodeContent)
+    {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
         /* do a bit of logging */

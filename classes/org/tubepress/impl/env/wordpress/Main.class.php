@@ -80,12 +80,8 @@ class org_tubepress_impl_env_wordpress_Main
         /* Parse each shortcode one at a time */
         while ($parser->somethingToParse($content, $trigger)) {
 
-            try {
-                /* Get the HTML for this particular shortcode. Could be a single video or a gallery. */
-                $generatedHtml = $gallery->getHtmlForShortcode($content);
-            } catch (Exception $e) {
-                $generatedHtml = $e->getMessage();
-            }
+            /* Get the HTML for this particular shortcode. Could be a single video or a gallery. */
+            $generatedHtml = $gallery->getHtmlForShortcode($content);
 
             /* remove any leading/trailing <p> tags from the content */
             $pattern = '/(<[P|p]>\s*)(' . preg_quote($tpom->getShortcode(), '/') . ')(\s*<\/[P|p]>)/';

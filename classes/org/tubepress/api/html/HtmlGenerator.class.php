@@ -39,7 +39,7 @@ interface org_tubepress_api_html_HtmlGenerator
      *
      * @param string $shortCodeContent The shortcode content. May be empty or null.
      *
-     * @return The HTML for the given shortcode.
+     * @return The HTML for the given shortcode, or the error message if there was a problem.
      */
     function getHtmlForShortcode($shortCodeContent);
 }
