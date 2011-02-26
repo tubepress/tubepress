@@ -38,6 +38,8 @@ interface org_tubepress_api_http_HttpClient
      *
      * @param string $url URI resource.
      *
+     * @throws Exception If something goes wrong.
+     *
      * @return string Resulting body as a string (could be null)
      */
     function get($url);
