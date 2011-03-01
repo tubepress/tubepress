@@ -56,7 +56,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         }
     }
     
-    private function _wrappedGetMultipleVideos($result)
+    protected function _wrappedGetMultipleVideos($result)
     {
         $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
         $qss    = $ioc->get('org_tubepress_api_querystring_QueryStringService');

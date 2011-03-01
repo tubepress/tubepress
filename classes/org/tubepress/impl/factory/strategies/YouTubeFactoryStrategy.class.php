@@ -212,7 +212,7 @@ class org_tubepress_impl_factory_strategies_YouTubeFactoryStrategy extends org_t
         return '';
     }
     
-    private function _relativeQuery($index, $query)
+    protected function _relativeQuery($index, $query)
     {
         return $this->_xpath->query('//atom:entry[' . ($index + 1) . "]/$query");
     }

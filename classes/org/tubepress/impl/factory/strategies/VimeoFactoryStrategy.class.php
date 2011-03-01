@@ -30,7 +30,7 @@ class org_tubepress_impl_factory_strategies_VimeoFactoryStrategy extends org_tub
 {
     const LOG_PREFIX = 'Vimeo Factory Strategy';
 
-    private $_videoArray;
+    protected $_videoArray;
     
     /**
      * Returns true if this strategy is able to handle
@@ -172,7 +172,7 @@ class org_tubepress_impl_factory_strategies_VimeoFactoryStrategy extends org_tub
         return true;
     }
     
-    private static function _gatherArrayOfContent($node, $firstDimension, $secondDimension)
+    protected static function _gatherArrayOfContent($node, $firstDimension, $secondDimension)
     {
         $results = array();
         

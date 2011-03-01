@@ -47,15 +47,20 @@ class org_tubepress_impl_factory_DelegatingVideoFactory implements org_tubepress
         }
     }
     
+    protected function getArrayOfStrategyNames()
+    {
+        return array(
+            'org_tubepress_impl_factory_strategies_YouTubeFactoryStrategy',
+            'org_tubepress_impl_factory_strategies_VimeoFactoryStrategy'
+        );
+    }
+    
     private function _wrappedFeedToVideoArray($feed)
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
         $sm  = $ioc->get('org_tubepress_api_patterns_StrategyManager');
         
         /* let the strategies do the heavy lifting */
-        return $sm->executeStrategy(array(
-            'org_tubepress_impl_factory_strategies_YouTubeFactoryStrategy',
-            'org_tubepress_impl_factory_strategies_VimeoFactoryStrategy'
-        ), $feed);
+        return $sm->executeStrategy($this->getArrayOfStrategyNames(), $feed);
     }
 }
