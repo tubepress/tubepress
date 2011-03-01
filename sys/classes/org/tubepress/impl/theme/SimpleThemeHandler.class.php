@@ -74,7 +74,7 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
         $tubepressInstallationPath = $fs->getTubePressBaseInstallationPath();
         $filePath                  = "$tubepressInstallationPath/sys/ui/themes/$currentTheme/$pathToTemplate";
 
-        if ($currentTheme !== 'default' || !is_readable($filePath)) {
+        if ($currentTheme === 'default' || !is_readable($filePath)) {
             $filePath = "$tubepressInstallationPath/content/themes/$currentTheme/$pathToTemplate";
         }
         if ($currentTheme === 'default' || !is_readable($filePath)) {

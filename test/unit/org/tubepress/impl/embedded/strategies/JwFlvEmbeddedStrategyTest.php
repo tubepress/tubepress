@@ -1,7 +1,7 @@
 <?php
 
 require_once 'AbstractEmbeddedStrategyTest.php';
-require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/impl/embedded/strategies/JwFlvEmbeddedStrategy.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../sys/classes/org/tubepress/impl/embedded/strategies/JwFlvEmbeddedStrategy.class.php';
 
 class org_tubepress_impl_embedded_JwFlvEmbeddedStrategyTest extends org_tubepress_impl_embedded_AbstractEmbeddedStrategyTest {
     
@@ -36,10 +36,10 @@ class org_tubepress_impl_embedded_JwFlvEmbeddedStrategyTest extends org_tubepres
     function expected()
     {
         return <<<EOT
-<object type="application/x-shockwave-flash" data="tubepress_base_url/ui/lib/embedded_flash/longtail/lib/player.swf" style="width: 425px; height: 350px" >
+<object type="application/x-shockwave-flash" data="tubepress_base_url/sys/ui/static/embedded_flash/longtail/player.swf" style="width: 425px; height: 350px" >
         <param name="AllowScriptAccess" value="never" />
         <param name="wmode" value="opaque" />
-        <param name="movie" value="tubepress_base_url/ui/lib/embedded_flash/longtail/lib/player.swf" />
+        <param name="movie" value="tubepress_base_url/sys/ui/static/embedded_flash/longtail/player.swf" />
         <param name="bgcolor" value="999999" />
         <param name="frontcolor" value="FFFFFF" />
         <param name="quality" value="high" />

@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/bootstrap/FreeWordPressPluginBootstrapper.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/bootstrap/FreeWordPressPluginBootstrapper.class.php';
 require_once dirname(__FILE__) . '/../../../../../../test/unit/TubePressUnitTest.php';
 
 if (!function_exists('get_option')) {

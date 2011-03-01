@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/impl/env/wordpress/Widget.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../sys/classes/org/tubepress/impl/env/wordpress/Widget.class.php';
 require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
 require_once 'fake_wordpress_functions.inc.php';
 

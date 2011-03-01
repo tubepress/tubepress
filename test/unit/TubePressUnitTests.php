@@ -53,7 +53,7 @@ class TubePressUnitTests
 		$suite->addTest(VideoTests::suite());
 		$suite->addTest(OptionsTests::suite());
 		$suite->addTest(ProviderTests::suite());
-		$suite->addTest(HttpTests::suite());
+		//$suite->addTest(HttpTests::suite());
 		$suite->addTest(SingleVideoTests::suite());
 		$suite->addTest(ThemeHandlerTests::suite());
 		$suite->addTest(OptionsApiTests::suite());

@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../../../../../classes/org/tubepress/api/const/options/names/Meta.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../../sys/classes/org/tubepress/api/const/options/names/Meta.class.php';
 require_once dirname(__FILE__) . '/../../../../../../TubePressUnitTest.php';
 
 class org_tubepress_api_const_options_names_MetaTest extends TubePressUnitTest {

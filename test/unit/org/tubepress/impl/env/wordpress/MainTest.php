@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/impl/env/wordpress/Main.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../sys/classes/org/tubepress/impl/env/wordpress/Main.class.php';
 require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
 require_once 'fake_wordpress_functions.inc.php';
 
@@ -83,11 +83,11 @@ class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
         
         org_tubepress_impl_env_wordpress_Main::initAction();
 
-        $this->assertTrue($registeredScripts['tubepress'] === 'tubepress_base_url/ui/lib/tubepress.js');
+        $this->assertTrue($registeredScripts['tubepress'] === 'tubepress_base_url/sys/ui/static/js/tubepress.js');
         $this->assertTrue($enqueuedScripts['tubepress'] === true);
         $this->assertTrue($enqueuedScripts['jquery'] === true);
         $this->assertTrue($enqueuedStyles['tubepress'] === true);
-        $this->assertTrue($registeredStyles['tubepress'] === 'tubepress_base_url/ui/themes/default/style.css');
+        $this->assertTrue($registeredStyles['tubepress'] === 'tubepress_base_url/sys/ui/themes/default/style.css');
     }
 }
 ?>

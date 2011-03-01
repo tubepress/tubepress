@@ -41,7 +41,7 @@ class org_tubepress_impl_bootstrap_FreeWordPressPluginBootstrapper extends org_t
         global $tubepress_base_url;
 
         /* have to consider that sometimes people may name the "tubepress" directory differently */
-        $dirName  = realpath(dirname(__FILE__) . '/../../../../../');
+        $dirName  = realpath(dirname(__FILE__) . '/../../../../../../');
         $baseName = basename($dirName);
 
         /* set the tubepress_base_url global */

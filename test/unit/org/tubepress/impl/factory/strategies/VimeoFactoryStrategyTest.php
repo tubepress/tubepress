@@ -1,7 +1,7 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../../../test/unit/TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/impl/factory/strategies/VimeoFactoryStrategy.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../sys/classes/org/tubepress/impl/factory/strategies/VimeoFactoryStrategy.class.php';
 
 class org_tubepress_impl_factory_strategies_VimeoFactoryStrategyTest extends TubePressUnitTest {
 

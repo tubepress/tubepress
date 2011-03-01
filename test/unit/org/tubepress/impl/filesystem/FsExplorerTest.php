@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/filesystem/FsExplorer.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/filesystem/FsExplorer.class.php';
 require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
 
 class org_tubepress_impl_filesystem_FsExplorerTest extends TubePressUnitTest
@@ -15,17 +15,16 @@ class org_tubepress_impl_filesystem_FsExplorerTest extends TubePressUnitTest
     
 	function testLsDirs()
 	{
-	    $dir = realpath(dirname(__FILE__) . '/../../../../../../ui');
-	    $expected = array("$dir/themes", "$dir/lib");
+	    $dir = realpath(dirname(__FILE__) . '/../../../../../../sys/ui');
+	    $expected = array("$dir/themes", "$dir/static", "$dir/templates");
             
 		$result = $this->_sut->getDirectoriesInDirectory($dir, 'log prefix');
-		$difference = array_diff($expected, $result);
-		$this->assertTrue(empty($difference));
+		self::checkArrayEquality($expected, $result);
 	}
 
 	function testLsFiles()
 	{
-	    $dir = realpath(dirname(__FILE__) . '/../../../../../../i18n');
+	    $dir = realpath(dirname(__FILE__) . '/../../../../../../sys/i18n');
 	    $expected = array(
 	        "$dir/tubepress-ar_SA.mo",
 	        "$dir/tubepress-ar_SA.po",

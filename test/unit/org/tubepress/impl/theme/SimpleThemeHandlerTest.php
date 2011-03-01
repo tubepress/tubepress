@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/theme/SimpleThemeHandler.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/theme/SimpleThemeHandler.class.php';
 require_once dirname(__FILE__) . '/../../../../../../test/unit/TubePressUnitTest.php';
 
 class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
@@ -16,13 +16,13 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
 	public function testGetCssPathRelative()
 	{
 		$result = $this->_sut->getCssPath('foo', true);
-		$this->assertEquals('ui/themes/default/style.css', $result);
+		$this->assertEquals('sys/ui/themes/default/style.css', $result);
 	}
 
 	public function testGetCssPathAbsolute()
 	{
 		$result = $this->_sut->getCssPath('foo');
-		$this->assertEquals(realpath(dirname(__FILE__) . '/../../../../../../') . '/ui/themes/default/style.css', $result);
+		$this->assertEquals(realpath(dirname(__FILE__) . '/../../../../../../') . '/sys/ui/themes/default/style.css', $result);
 	}
 
 	public function testCalculateCurrentThemeNameNoCustomTheme()

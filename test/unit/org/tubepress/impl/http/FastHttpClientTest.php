@@ -1,6 +1,6 @@
 <?php
 require_once dirname(__FILE__) . '/../../../../../../test/unit/TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/http/FastHttpClient.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/http/FastHttpClient.class.php';
 
 class org_tubepress_impl_http_FastHttpClientTest extends TubePressUnitTest {
 

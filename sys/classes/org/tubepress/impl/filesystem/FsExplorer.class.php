@@ -34,7 +34,7 @@ class org_tubepress_impl_filesystem_FsExplorer implements org_tubepress_api_file
 {
     public function getTubePressBaseInstallationPath()
     {
-        return realpath(dirname(__FILE__) . '/../../../../../');
+        return realpath(dirname(__FILE__) . '/../../../../../../');
     }
 
     public function getDirectoriesInDirectory($dir, $prefix)

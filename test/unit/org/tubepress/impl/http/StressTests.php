@@ -1,10 +1,10 @@
 <?php
 require_once dirname(__FILE__) . '/../../../../../../test/unit/TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/http/clientimpl/strategies/ExtHttpStrategy.class.php';
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/http/clientimpl/strategies/FopenStrategy.class.php';
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/http/clientimpl/strategies/FsockOpenStrategy.class.php';
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/http/clientimpl/strategies/CurlStrategy.class.php';
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/http/clientimpl/strategies/StreamsStrategy.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/http/clientimpl/strategies/ExtHttpStrategy.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/http/clientimpl/strategies/FopenStrategy.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/http/clientimpl/strategies/FsockOpenStrategy.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/http/clientimpl/strategies/CurlStrategy.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/http/clientimpl/strategies/StreamsStrategy.class.php';
 
 class org_tubepress_impl_http_StressTests extends TubePressUnitTest {
 
