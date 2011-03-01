@@ -76,7 +76,7 @@ class org_tubepress_impl_html_DefaultHtmlGenerator implements org_tubepress_api_
     public function getHeadJqueryIncludeString()
     {
         global $tubepress_base_url;
-        return "<script type=\"text/javascript\" src=\"$tubepress_base_url/ui/lib/jquery-1.4.2.min.js\"></script>";
+        return "<script type=\"text/javascript\" src=\"$tubepress_base_url/sys/ui/static/js/jquery-1.5.1.min.js\"></script>";
     }
 
     public function getHeadInlineJavaScriptString()
@@ -88,13 +88,13 @@ class org_tubepress_impl_html_DefaultHtmlGenerator implements org_tubepress_api_
     public function getHeadTubePressJsIncludeString()
     {
         global $tubepress_base_url;
-        return "<script type=\"text/javascript\" src=\"$tubepress_base_url/ui/lib/tubepress.js\"></script>";
+        return "<script type=\"text/javascript\" src=\"$tubepress_base_url/sys/ui/static/js/tubepress.js\"></script>";
     }
 
     public function getHeadTubePressCssIncludeString()
     {
         global $tubepress_base_url;
-        return "<link rel=\"stylesheet\" href=\"$tubepress_base_url/ui/themes/default/style.css\" type=\"text/css\" />";
+        return "<link rel=\"stylesheet\" href=\"$tubepress_base_url/sys/ui/themes/default/style.css\" type=\"text/css\" />";
     }
 
     public function getHeadMetaString()

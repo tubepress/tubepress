@@ -59,7 +59,7 @@ class org_tubepress_impl_filters_html_AjaxPagination
         $fs                   = $ioc->get('org_tubepress_api_filesystem_Explorer');
         $baseInstallationPath = $fs->getTubePressBaseInstallationPath();
 
-        $template->setPath("$baseInstallationPath/ui/lib/gallery_html_snippets/ajax_pagination.tpl.php");
+        $template->setPath("$baseInstallationPath/sys/ui/templates/gallery/ajax_pagination.tpl.php");
         $template->setVariable(org_tubepress_api_const_template_Variable::GALLERY_ID, $galleryId);
         $template->setVariable(org_tubepress_api_const_template_Variable::SHORTCODE, urlencode($tpom->getShortcode()));
 

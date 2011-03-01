@@ -120,7 +120,7 @@ class org_tubepress_impl_env_wordpress_Widget
 
         /* load up the gallery template */
         $tpl = new org_tubepress_impl_template_SimpleTemplate();
-        $tpl->setPath(dirname(__FILE__) . '/../../../../../../env/WordPress/ui/widget/html_templates/controls.tpl.php');
+        $tpl->setPath(dirname(__FILE__) . '/../../../../../../../sys/ui/templates/wordpress/widget_controls.tpl.php');
 
         /* set up the template */
         $tpl->setVariable(org_tubepress_api_const_template_Variable::WIDGET_CONTROL_TITLE, $msg->_('options-meta-title-title'));

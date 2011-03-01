@@ -53,7 +53,7 @@ class org_tubepress_impl_options_FormHandler
         $template       = new org_tubepress_impl_template_SimpleTemplate();
         $storageManager = $ioc->get('org_tubepress_api_options_StorageManager');
 
-        $template->setPath(dirname(__FILE__) . '/../../../../../ui/lib/options_page/html_templates/options_page.tpl.php');
+        $template->setPath(dirname(__FILE__) . '/../../../../../../sys/ui/templates/wordpress/options_page.tpl.php');
         
         /* set the surrounding text */
         $template->setVariable(org_tubepress_api_const_template_Variable::OPTIONS_PAGE_TITLE, $messageService->_('options-page-title'));
@@ -152,7 +152,7 @@ class org_tubepress_impl_options_FormHandler
                 $baseInstallationPath = $fs->getTubePressBaseInstallationPath();
                 
                 $metaArray[org_tubepress_api_const_template_Variable::OPTIONS_PAGE_OPTIONS_DESC] = sprintf($messageService->_("options-desc-$optionName"),
-                     "$baseInstallationPath/content/themes", "$baseInstallationPath/ui/themes");
+                     "$baseInstallationPath/content/themes", "$baseInstallationPath/sys/ui/themes");
             } else {
                 $metaArray[org_tubepress_api_const_template_Variable::OPTIONS_PAGE_OPTIONS_DESC] = $messageService->_("options-desc-$optionName");
             }

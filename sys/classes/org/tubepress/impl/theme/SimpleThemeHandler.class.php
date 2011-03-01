@@ -72,13 +72,13 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
         $ioc                       = org_tubepress_impl_ioc_IocContainer::getInstance();
         $fs                        = $ioc->get('org_tubepress_api_filesystem_Explorer');
         $tubepressInstallationPath = $fs->getTubePressBaseInstallationPath();
-        $filePath                  = "$tubepressInstallationPath/ui/themes/$currentTheme/$pathToTemplate";
+        $filePath                  = "$tubepressInstallationPath/sys/ui/themes/$currentTheme/$pathToTemplate";
 
-        if ($currentTheme === 'default' || !is_readable($filePath)) {
+        if ($currentTheme !== 'default' || !is_readable($filePath)) {
             $filePath = "$tubepressInstallationPath/content/themes/$currentTheme/$pathToTemplate";
         }
         if ($currentTheme === 'default' || !is_readable($filePath)) {
-            $filePath = "$tubepressInstallationPath/ui/themes/default/$pathToTemplate";
+            $filePath = "$tubepressInstallationPath/sys/ui/themes/default/$pathToTemplate";
         }
 
         if ($relative) {

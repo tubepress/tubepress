@@ -46,8 +46,8 @@ class org_tubepress_impl_env_wordpress_Admin
         $fs           = $iocContainer->get('org_tubepress_api_filesystem_Explorer');
         $dirName      = basename($fs->getTubePressBaseInstallationPath());
         
-        wp_register_style('jquery-ui-flick', "$tubepress_base_url/ui/lib/options_page/css/flick/jquery-ui-1.7.2.custom.css");
-        wp_register_script('jscolor-tubepress', "$tubepress_base_url/ui/lib/options_page/js/jscolor/jscolor.js");
+        wp_register_style('jquery-ui-flick', "$tubepress_base_url/sys/ui/static/css/jquery-ui-flick/jquery-ui-1.7.2.custom.css");
+        wp_register_script('jscolor-tubepress', "$tubepress_base_url/sys/ui/static/js/jscolor/jscolor.js");
         wp_enqueue_style('jquery-ui-flick');
         wp_enqueue_script('jquery-ui-tabs');
         wp_enqueue_script('jscolor-tubepress');

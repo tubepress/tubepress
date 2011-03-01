@@ -77,7 +77,7 @@ class org_tubepress_impl_filters_html_ThemeCss
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Will inject CSS from <tt>%s</tt>', $cssUrl);
 
         $template = new org_tubepress_impl_template_SimpleTemplate();
-        $template->setPath("$baseInstallationPath/ui/lib/gallery_html_snippets/theme_loader.tpl.php");
+        $template->setPath("$baseInstallationPath/sys/ui/templates/gallery/theme_loader.tpl.php");
         $template->setVariable(org_tubepress_api_const_template_Variable::THEME_CSS, $cssUrl);
 
         return $html . $template->toString();
