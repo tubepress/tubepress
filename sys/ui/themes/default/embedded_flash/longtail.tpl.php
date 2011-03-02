@@ -19,11 +19,11 @@
  *
  */
 ?>
-<object type="application/x-shockwave-flash" data="<?php echo ${org_tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL}; ?>/sys/ui/static/embedded_flash/longtail/player.swf" style="width: <?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>px; height: <?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}; ?>px" >
+<object type="application/x-shockwave-flash" data="<?php echo ${org_tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL}; ?>/sys/ui/static/flash/longtail/player.swf" style="width: <?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>px; height: <?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}; ?>px" >
   
         <param name="AllowScriptAccess" value="never" />
         <param name="wmode" value="opaque" />
-        <param name="movie" value="<?php echo ${org_tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL}; ?>/sys/ui/static/embedded_flash/longtail/player.swf" />
+        <param name="movie" value="<?php echo ${org_tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL}; ?>/sys/ui/static/flash/longtail/player.swf" />
         <param name="bgcolor" value="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_COLOR_PRIMARY}; ?>" />
         <param name="frontcolor" value="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_COLOR_HIGHLIGHT}; ?>" />
         <param name="quality" value="high" />
