@@ -1,7 +1,7 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/impl/filters/template/EmbeddedPlayerName.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../sys/classes/org/tubepress/impl/filters/template/EmbeddedPlayerName.class.php';
 
 class org_tubepress_impl_filters_template_EmbeddedPlayerNameTest extends TubePressUnitTest
 {

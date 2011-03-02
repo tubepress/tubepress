@@ -1,7 +1,7 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/single/SimpleSingleVideo.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/single/SimpleSingleVideo.class.php';
 
 class org_tubepress_single_VideoTest extends TubePressUnitTest
 {

@@ -1,8 +1,8 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/impl/html/strategies/SearchInputStrategy.class.php';
-require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/api/const/options/values/OutputValue.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../sys/classes/org/tubepress/impl/html/strategies/SearchInputStrategy.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../sys/classes/org/tubepress/api/const/options/values/OutputValue.class.php';
 
 class org_tubepress_impl_html_strategies_SearchInputStrategyTest extends TubePressUnitTest
 {

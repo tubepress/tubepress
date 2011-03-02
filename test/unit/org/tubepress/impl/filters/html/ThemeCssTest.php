@@ -1,7 +1,7 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/impl/filters/html/ThemeCss.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../sys/classes/org/tubepress/impl/filters/html/ThemeCss.class.php';
 
 class org_tubepress_impl_filters_html_ThemeCssTest extends TubePressUnitTest
 {
@@ -62,7 +62,7 @@ class org_tubepress_impl_filters_html_ThemeCssTest extends TubePressUnitTest
 	    return <<<EOT
 hello<script type="text/javascript">
   jQuery(document).ready(function(){
-    TubePressJS.loadCss("foobee/ui/themes/sidebar/style.css");
+    TubePressJS.loadCss("foobee/sys/ui/themes/sidebar/style.css");
   });
 </script>
 

@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/feed/DelegatingFeedInspector.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/feed/DelegatingFeedInspector.class.php';
 require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
 
 class org_tubepress_impl_feed_DelegatingFeedInspectorTest extends TubePressUnitTest {

@@ -1,6 +1,6 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/patterns/StrategyManagerImpl.class.php';
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/api/patterns/Strategy.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/patterns/StrategyManagerImpl.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/api/patterns/Strategy.class.php';
 require_once dirname(__FILE__) . '/../../../../../../test/unit/TubePressUnitTest.php';
 
 class org_tubepress_impl_patterns_StrategyManagerImplTest extends TubePressUnitTest {

@@ -1,8 +1,8 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/provider/SimpleProvider.class.php';
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/api/video/Video.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/provider/SimpleProvider.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/api/video/Video.class.php';
 
 class org_tubepress_impl_provider_ProviderTest extends TubePressUnitTest
 {

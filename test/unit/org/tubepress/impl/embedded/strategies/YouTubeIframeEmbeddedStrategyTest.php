@@ -1,7 +1,7 @@
 <?php
 
 require_once 'AbstractEmbeddedStrategyTest.php';
-require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/impl/embedded/strategies/YouTubeIframeEmbeddedStrategy.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../sys/classes/org/tubepress/impl/embedded/strategies/YouTubeIframeEmbeddedStrategy.class.php';
 
 class org_tubepress_impl_embedded_YouTubeIframeEmbeddedStrategyTest extends org_tubepress_impl_embedded_AbstractEmbeddedStrategyTest {
     

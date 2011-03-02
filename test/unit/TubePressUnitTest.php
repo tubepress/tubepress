@@ -1,7 +1,7 @@
 <?php
 
 function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../classes/tubepress_classloader.php';
+    || require dirname(__FILE__) . '/../../sys/classes/tubepress_classloader.php';
 tubepress_load_classes(array('org_tubepress_api_options_OptionsManager',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_impl_options_OptionsReference',
@@ -87,9 +87,9 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         if (count($args) === 1 || !$args[1]) {
-            return dirname(__FILE__) . '/../../ui/themes/' . $args[0] . '/style.css';
+            return dirname(__FILE__) . '/../../sys/ui/themes/' . $args[0] . '/style.css';
         }
-        return 'ui/themes/' . $args[0] . '/style.css';
+        return 'sys/ui/themes/' . $args[0] . '/style.css';
     }
     
     
@@ -97,7 +97,7 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
     {
         $template = new org_tubepress_impl_template_SimpleTemplate();
         $args = func_get_args();
-        $template->setPath(dirname(__FILE__) . '/../../ui/themes/default/' .$args[0]);
+        $template->setPath(dirname(__FILE__) . '/../../sys/ui/themes/default/' .$args[0]);
         return $template;
     }
     

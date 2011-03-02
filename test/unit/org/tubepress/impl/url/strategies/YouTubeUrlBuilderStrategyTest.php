@@ -1,8 +1,8 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/impl/url/strategies/YouTubeUrlBuilderStrategy.class.php';
-require_once dirname(__FILE__) . '/../../../../../../../classes/org/tubepress/api/provider/Provider.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../sys/classes/org/tubepress/impl/url/strategies/YouTubeUrlBuilderStrategy.class.php';
+require_once dirname(__FILE__) . '/../../../../../../../sys/classes/org/tubepress/api/provider/Provider.class.php';
 
 class org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategyTest extends TubePressUnitTest {
     

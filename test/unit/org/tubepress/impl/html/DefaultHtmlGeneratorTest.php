@@ -1,6 +1,6 @@
 <?php
 require_once dirname(__FILE__) . '/../../../../../../test/unit/TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../classes/org/tubepress/impl/html/DefaultHtmlGenerator.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/html/DefaultHtmlGenerator.class.php';
 
 class org_tubepress_impl_html_DefaultHtmlGeneratorTest extends TubePressUnitTest {
 
@@ -63,13 +63,13 @@ class org_tubepress_impl_html_DefaultHtmlGeneratorTest extends TubePressUnitTest
     function testGetHeadTubePressCssIncludeString()
     {
         $result = $this->_sut->getHeadTubePressCssIncludeString();
-        $this->assertEquals('<link rel="stylesheet" href="tubepress_base_url/ui/themes/default/style.css" type="text/css" />', $result);
+        $this->assertEquals('<link rel="stylesheet" href="tubepress_base_url/sys/ui/themes/default/style.css" type="text/css" />', $result);
     }
 
     function testGetHeadTubePressJsIncludeString()
     {
         $result = $this->_sut->getHeadTubePressJsIncludeString();
-        $this->assertEquals('<script type="text/javascript" src="tubepress_base_url/ui/lib/tubepress.js"></script>', $result);
+        $this->assertEquals('<script type="text/javascript" src="tubepress_base_url/sys/ui/static/js/tubepress.js"></script>', $result);
     }
 
     function testGetHeadInlineJavaScriptString()
@@ -81,7 +81,7 @@ class org_tubepress_impl_html_DefaultHtmlGeneratorTest extends TubePressUnitTest
     function testGetHeadJqueryIncludeString()
     {
         $result = $this->_sut->getHeadJqueryIncludeString();
-        $this->assertEquals('<script type="text/javascript" src="tubepress_base_url/ui/lib/jquery-1.4.2.min.js"></script>', $result);
+        $this->assertEquals('<script type="text/javascript" src="tubepress_base_url/sys/ui/static/js/jquery-1.5.1.min.js"></script>', $result);
     }
 }
 ?>
