@@ -123,7 +123,7 @@ dd.tubepress_meta_likes,
 dd.tubepress_meta_id,
 dd.tubepress_meta_views,
 dd.tubepress_meta_uploaddate {
-	margin-left: .5em;	
+	margin-left: .2em;	
 }
 
 dd.tubepress_meta_url {
@@ -133,9 +133,6 @@ dd.tubepress_meta_description {
 	clear: both;
 	float: left;
 	width: 100%;
-}
-.tubepress_meta_group dd {
-	margin: 0;
 }
 
 .tubepress_meta_group dt {

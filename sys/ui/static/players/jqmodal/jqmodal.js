@@ -15,7 +15,7 @@ function tubepress_jqmodal_player(galleryId, videoId) {
 }
 
 function tubepress_jqmodal_player_init(baseUrl) {
-	var path = baseUrl + '/ui/lib/players/jqmodal/lib/jqModal.';
+	var path = baseUrl + '/sys/ui/static/players/jqmodal/lib/jqModal.';
 	jQuery.getScript(path + 'js', function () {}, true);
 	TubePressJS.loadCss(path + 'css');
 }

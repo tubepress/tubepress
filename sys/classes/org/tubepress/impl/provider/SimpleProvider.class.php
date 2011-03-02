@@ -93,13 +93,6 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         $factory = $ioc->get('org_tubepress_api_factory_VideoFactory');
         $videos  = $factory->feedToVideoArray($rawFeed);
 
-        /* shuffle if we need to */
-        if ($tpom->get(org_tubepress_api_const_options_names_Display::ORDER_BY) == 'random') {
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Shuffling videos');
-            shuffle($videos);
-        }
-
-        
         $result->setEffectiveTotalResultCount($totalCount);
         $result->setVideoArray($videos);
         return $result;

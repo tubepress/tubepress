@@ -31,7 +31,7 @@ function tubepress_static_player_initt() {
 }
 
 function tubepress_static_player_init(baseUrl) {
-	TubePressJS.getWaitCall(baseUrl + '/ui/lib/players/static/lib/jQuery.query.js',
+	TubePressJS.getWaitCall(baseUrl + '/sys/ui/static/players/static/lib/jQuery.query.js',
 		tubepress_static_player_readyTest,
 		tubepress_static_player_initt);
 	jQuery(document).bind(TubePressEvents.NEW_THUMBS_LOADED, function (x) {

@@ -34,12 +34,32 @@ class org_tubepress_impl_filters_feedresult_ResultCountCapper
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom         = $ioc->get('org_tubepress_api_options_OptionsManager');
         $limit        = $tpom-> get(org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP);
-        $limit        = $limit == 0 ? $totalResults : min($limit, $totalResults);
+        $firstCut     = $limit == 0 ? $totalResults : min($limit, $totalResults);
+        $secondCut    = self::_calculateRealMax($tpom, $firstCut);
         
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Effective total result count (taking into account user-defined limit) is %d video(s)', $limit);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Effective total result count (taking into account user-defined limit) is %d video(s)', $secondCut);
         
-        $feedResult->setEffectiveTotalResultCount($limit);
+        $feedResult->setEffectiveTotalResultCount($secondCut);
         return $feedResult;
+    }
+    
+    private static function _calculateRealMax($tpom, $reported)
+    {
+        $mode = $tpom->get(org_tubepress_api_const_options_names_Output::MODE);
+        
+        switch ($mode) {
+            case org_tubepress_api_const_options_values_ModeValue::TAG:
+                //http://code.google.com/apis/youtube/2.0/reference.html#Videos_feed
+                return 999;
+            case org_tubepress_api_const_options_values_ModeValue::FAVORITES:
+                //http://code.google.com/apis/youtube/2.0/reference.html#User_favorites_feed
+                return 50;
+            case org_tubepress_api_const_options_values_ModeValue::PLAYLIST:
+                //http://code.google.com/apis/youtube/2.0/reference.html#Playlist_feed
+                return 200;
+        }
+        
+        return $reported;
     }
 }
 

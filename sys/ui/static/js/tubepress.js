@@ -146,7 +146,7 @@ TubePressPlayers = (function () {
 		var playerNames = TubePressAnchors.findAllPlayerNames(), i, name;
 		for (i = 0; i < playerNames.length; i = i + 1) {
 			name = playerNames[i];
-			jQuery.getScript(baseUrl + '/ui/lib/players/' + name + '/' + name + '.js', 
+			jQuery.getScript(baseUrl + '/sys/ui/static/players/' + name + '/' + name + '.js', 
 				playerInit(name, baseUrl));
 		}
 	};

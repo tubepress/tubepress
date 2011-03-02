@@ -30,7 +30,7 @@ function tubepress_shadowbox_player_shadowboxjs(base)  {
 }
 
 function tubepress_shadowbox_player_init(baseUrl) {
-	var url = baseUrl + '/ui/lib/players/shadowbox/';
+	var url = baseUrl + '/sys/ui/static/players/shadowbox/';
 	
 	TubePressJS.loadCss(url + 'lib/shadowbox.css');
 	tubepress_shadowbox_player_shadowboxjs(url);

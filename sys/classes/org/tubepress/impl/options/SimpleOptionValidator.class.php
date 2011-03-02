@@ -122,7 +122,8 @@ class org_tubepress_impl_options_SimpleOptionValidator implements org_tubepress_
             break;
 
         case org_tubepress_api_const_options_Type::INTEGRAL:
-            if (intval($candidate) == 0 && $optionName != org_tubepress_api_const_options_names_Display::DESC_LIMIT) {
+            if (intval($candidate) == 0 && $optionName != org_tubepress_api_const_options_names_Display::DESC_LIMIT
+                && $optionName !== org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP) {
                 throw new Exception(sprintf($messageService->_('validation-int-type'), $optionName, $candidate));
             }
             break;
