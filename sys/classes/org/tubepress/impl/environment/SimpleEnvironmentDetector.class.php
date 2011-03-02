@@ -35,7 +35,7 @@ class org_tubepress_impl_environment_SimpleEnvironmentDetector implements org_tu
      */
     public function isPro()
     {
-        return is_readable(dirname(__FILE__) . '/../ioc/impl/ProIocService.class.php');
+        return is_readable(dirname(__FILE__) . '/../ioc/ProIocService.class.php');
     }
 
     /**
