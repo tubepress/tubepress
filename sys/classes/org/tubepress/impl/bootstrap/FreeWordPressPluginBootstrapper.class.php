@@ -40,9 +40,7 @@ class org_tubepress_impl_bootstrap_FreeWordPressPluginBootstrapper extends org_t
     {
         global $tubepress_base_url;
 
-        /* have to consider that sometimes people may name the "tubepress" directory differently */
-        $dirName  = realpath(dirname(__FILE__) . '/../../../../../../');
-        $baseName = basename($dirName);
+        $baseName = $this->getBaseName();
 
         /* set the tubepress_base_url global */
         $tubepress_base_url = get_option('siteurl') . "/wp-content/plugins/$baseName";
@@ -68,5 +66,13 @@ class org_tubepress_impl_bootstrap_FreeWordPressPluginBootstrapper extends org_t
     protected function _getName()
     {
         return 'WordPress Bootstrapper';
+    }
+    
+    protected function getBaseName()
+    {
+        /* have to consider that sometimes people may name the "tubepress" directory differently */
+        $dirName  = realpath(dirname(__FILE__) . '/../../../../../../');
+        
+        return basename($dirName);
     }
 }
