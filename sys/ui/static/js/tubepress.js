@@ -432,7 +432,7 @@ TubePressAjaxPagination = (function () {
 			postLoadCallback	= function () {
 				postAjaxGallerySetup(thumbnailArea, galleryId, thumbWidth);
 			},
-			pageToLoad		= baseUrl + '/env/pro/ajax-pagination.php?shortcode=' + shortcode + '&tubepress_' + page + '&tubepress_galleryId=' + galleryId,
+			pageToLoad		= baseUrl + '/sys/scripts/ajax/pagination.php?shortcode=' + shortcode + '&tubepress_' + page + '&tubepress_galleryId=' + galleryId,
 			remotePageSelector	= thumbnailArea + ' > *',
 			loadFunction		= function () {
 				jQuery.ajax({
