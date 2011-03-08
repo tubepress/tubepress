@@ -24,6 +24,59 @@ jQuery.fn.fadeTo = function (speed, to, callback) {
 		});
 };
 
+TubePressAjax = (function () {
+	
+	var load, loadAndStyle;
+	
+	load = function (url, targetDiv, selector, preLoadFunction, postLoadFunction) {
+		if (typeof preLoadFunction == 'function') {
+			preLoadFunction();
+		}
+		
+		jQuery.ajax({
+			url: url,
+			type: 'GET',
+			dataType: 'html',
+			complete: function (res) {
+				var html = selector ? jQuery('<div>').append(res.responseText).find(selector) :
+					res.responseText;
+				jQuery(targetDiv).html(html);
+				if (typeof postLoadFunction == 'function') {
+					postLoadFunction();
+				}
+			}
+		});
+	};
+	
+	loadAndStyle = function (url, targetDiv, selector, preLoadFunction, postLoadFunction) {
+		applyLoadingStyle(targetDiv);
+		post = removeLoadingStyle;
+		if (typeof postLoadFunction == 'function') {
+			post = function () {
+				removeLoadingStyle();
+				postLoadFunction();
+			};
+		}
+		load(url, targetDiv, selector, preLoadFunction, post);
+	};
+	
+	applyLoadingStyle = function (targetDiv) {
+		jQuery(targetDiv).fadeTo(0, .3);
+	};
+	
+	removeLoadingStyle = function (targetDiv) {
+		jQuery(targetDiv).fadeTo(0, 1);
+	};
+	
+	return {
+		load 				: load,
+		applyLoadingStyle 	: applyLoadingStyle,
+		removeLoadingStyle	: removeLoadingStyle,
+		loadAndStyle		: loadAndStyle
+	};
+	
+}());
+
 /**
  * Handles some DOM and network related tasks
  */
@@ -433,26 +486,8 @@ TubePressAjaxPagination = (function () {
 				postAjaxGallerySetup(thumbnailArea, galleryId, thumbWidth);
 			},
 			pageToLoad		= baseUrl + '/sys/scripts/ajax/pagination.php?shortcode=' + shortcode + '&tubepress_' + page + '&tubepress_galleryId=' + galleryId,
-			remotePageSelector	= thumbnailArea + ' > *',
-			loadFunction		= function () {
-				jQuery.ajax({
-					url: pageToLoad,
-					type: 'GET',
-					dataType: 'html',
-					complete: function (res) {
-						jQuery(thumbnailArea).html(
-							jQuery('<div>').append(res.responseText).find(thumbnailArea + ' > *')
-						);
-						postLoadCallback();
-					}
-				});
-			};
-
-		/* fade out the old stuff */
-		jQuery(thumbnailArea).fadeTo('fast', '.01');
-	
-		/* use a tiny delay here to prevent the new content from showing up before we're done fading */
-		setTimeout(loadFunction, 100);
+			remotePageSelector	= thumbnailArea + ' > *';
+		TubePressAjax.loadAndStyle(pageToLoad, thumbnailArea, remotePageSelector, '', postLoadCallback);
 	};
 
 	/* post thumbnail load setup */
