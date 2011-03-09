@@ -79,7 +79,8 @@ class org_tubepress_impl_options_OptionsReference
             org_tubepress_api_const_options_names_Advanced::CACHE_DIR            => '',
             org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER         => '',
             org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL     => '',
-            org_tubepress_api_const_options_names_Output::SEARCH_PROVIDER        => 'youtube'
+            org_tubepress_api_const_options_names_Output::SEARCH_PROVIDER        => 'youtube',
+            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_DOM_ID  => ''
         ),
         org_tubepress_api_const_options_Type::BOOL => array(
             org_tubepress_api_const_options_names_Advanced::DEBUG_ON               => true,
@@ -374,7 +375,8 @@ class org_tubepress_impl_options_OptionsReference
             org_tubepress_api_const_options_names_Output::VIDEO,
             org_tubepress_api_const_options_names_Output::OUTPUT,
             org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL,
-            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY
+            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY,
+            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_DOM_ID
         ));
     }
 
@@ -421,7 +423,8 @@ class org_tubepress_impl_options_OptionsReference
             org_tubepress_api_const_options_names_Output::VIDEO,
             org_tubepress_api_const_options_names_Output::OUTPUT,
             org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL,
-            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY
+            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY,
+            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_DOM_ID
         ));
     }
 

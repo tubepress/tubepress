@@ -64,13 +64,7 @@ class org_tubepress_impl_html_DefaultHtmlGenerator implements org_tubepress_api_
         }
 
         /* use the strategy manager to get the HTML */
-        return $ioc->get('org_tubepress_api_patterns_StrategyManager')->executeStrategy(array(
-            'org_tubepress_impl_html_strategies_SearchInputStrategy',
-            'org_tubepress_impl_html_strategies_SearchOutputStrategy',
-            'org_tubepress_impl_html_strategies_SingleVideoStrategy',
-            'org_tubepress_impl_html_strategies_SoloPlayerStrategy',
-            'org_tubepress_impl_html_strategies_ThumbGalleryStrategy'
-        ));
+        return $ioc->get('org_tubepress_api_patterns_StrategyManager')->executeStrategy($this->getStrategies());
     }
 
     public function getHeadJqueryIncludeString()
@@ -106,5 +100,16 @@ class org_tubepress_impl_html_DefaultHtmlGenerator implements org_tubepress_api_
         $page = $qss->getPageNum($_GET);    
 
         return $page > 1 ? "<meta name=\"robots\" content=\"noindex, nofollow\" />" : '';
+    }
+    
+    protected function getStrategies()
+    {
+        return array(
+            'org_tubepress_impl_html_strategies_SearchInputStrategy',
+            'org_tubepress_impl_html_strategies_SearchOutputStrategy',
+            'org_tubepress_impl_html_strategies_SingleVideoStrategy',
+            'org_tubepress_impl_html_strategies_SoloPlayerStrategy',
+            'org_tubepress_impl_html_strategies_ThumbGalleryStrategy'
+        );
     }
 }

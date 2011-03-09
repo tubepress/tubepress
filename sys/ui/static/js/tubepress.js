@@ -50,10 +50,10 @@ TubePressAjax = (function () {
 	
 	loadAndStyle = function (url, targetDiv, selector, preLoadFunction, postLoadFunction) {
 		applyLoadingStyle(targetDiv);
-		post = removeLoadingStyle;
+		post = function () { removeLoadingStyle(targetDiv); };
 		if (typeof postLoadFunction == 'function') {
 			post = function () {
-				removeLoadingStyle();
+				removeLoadingStyle(targetDiv);
 				postLoadFunction();
 			};
 		}
@@ -485,7 +485,7 @@ TubePressAjaxPagination = (function () {
 			postLoadCallback	= function () {
 				postAjaxGallerySetup(thumbnailArea, galleryId, thumbWidth);
 			},
-			pageToLoad		= baseUrl + '/sys/scripts/ajax/pagination.php?shortcode=' + shortcode + '&tubepress_' + page + '&tubepress_galleryId=' + galleryId,
+			pageToLoad		= baseUrl + '/sys/scripts/ajax/shortcode_printer.php?shortcode=' + shortcode + '&tubepress_' + page + '&tubepress_galleryId=' + galleryId,
 			remotePageSelector	= thumbnailArea + ' > *';
 		TubePressAjax.loadAndStyle(pageToLoad, thumbnailArea, remotePageSelector, '', postLoadCallback);
 	};

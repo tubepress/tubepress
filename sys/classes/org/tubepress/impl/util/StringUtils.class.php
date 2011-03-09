@@ -35,7 +35,7 @@ class org_tubepress_impl_util_StringUtils
      * @return string The haystack with the first needle replaced
      *     by the replacement string
      */
-    public function replaceFirst($search, $replace, $str)
+    public static function replaceFirst($search, $replace, $str)
     {
         $l    = strlen($str);
         $a    = strpos($str, $search);

@@ -6,7 +6,7 @@ class org_tubepress_api_const_options_values_OutputValueTest extends TubePressUn
 
     function testConstants()
     {
-        $expected = array('searchInput', 'searchResults');
+        $expected = array('searchInput', 'searchResults', 'ajaxSearchInput');
 
         self::checkArrayEquality(self::getConstantsForClass('org_tubepress_api_const_options_values_OutputValue'), $expected);
 

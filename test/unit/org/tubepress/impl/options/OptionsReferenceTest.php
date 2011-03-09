@@ -39,7 +39,8 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
             org_tubepress_api_const_options_names_Advanced::CACHE_DIR            => '',
             org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER         => '',
             org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL     => '',
-            org_tubepress_api_const_options_names_Output::SEARCH_PROVIDER        => 'youtube'
+            org_tubepress_api_const_options_names_Output::SEARCH_PROVIDER        => 'youtube',
+            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_DOM_ID  => ''
         ),
         org_tubepress_api_const_options_Type::BOOL => array(
             org_tubepress_api_const_options_names_Advanced::DEBUG_ON               => true,
@@ -169,7 +170,7 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
     function testGetOutputOptionNames()
     {
         $expectedNames = array(
-            'mode', 'video', 'output',  'favoritesValue', 'most_viewedValue', 'playlistValue', 'tagValue',
+            'mode', 'video', 'output',  'favoritesValue', 'most_viewedValue', 'playlistValue', 'tagValue', 'searchResultsDomId',
             'youtubeTopFavoritesValue', 'top_ratedValue', 'userValue', 'vimeoUploadedByValue', 'vimeoLikesValue',
             'vimeoAppearsInValue', 'vimeoSearchValue', 'vimeoCreditedToValue', 'vimeoChannelValue', 'vimeoAlbumValue', 'vimeoGroupValue', 'searchResultsUrl',
             org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY,

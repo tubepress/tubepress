@@ -32,7 +32,7 @@ class org_tubepress_impl_html_strategies_SearchInputStrategy implements org_tube
     const LOG_PREFIX = 'Search Input Strategy';
 
     private $_ioc;
-    private $_tpom;
+    protected $_tpom;
 
     /**
      * Called *before* canHandle() and execute() to allow the strategy
@@ -78,7 +78,7 @@ class org_tubepress_impl_html_strategies_SearchInputStrategy implements org_tube
     {
         $th         = $this->_ioc->get('org_tubepress_api_theme_ThemeHandler');
         $ms         = $this->_ioc->get('org_tubepress_api_message_MessageService');
-        $template   = $th->getTemplateInstance('search/search_input.tpl.php');
+        $template   = $th->getTemplateInstance($this->getTemplatePath());
         $resultsUrl = $this->_tpom->get(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL);
         $qss        = $this->_ioc->get('org_tubepress_api_querystring_QueryStringService');
         
@@ -106,7 +106,19 @@ class org_tubepress_impl_html_strategies_SearchInputStrategy implements org_tube
         $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_TERMS, $searchTerms);
         $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_BUTTON, $ms->_('search-input-button'));
         
+        $this->applyTemplateVariables($template);
+        
         return $template->toString();
+    }
+    
+    protected function applyTemplateVariables($template)
+    {
+        //override point
+    }
+    
+    protected function getTemplatePath()
+    {
+        return 'search/search_input.tpl.php';
     }
 
 }
