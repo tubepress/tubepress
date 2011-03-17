@@ -25,7 +25,7 @@
 class org_tubepress_impl_filters_feedresult_ResultCountCapper
 {
     const LOG_PREFIX = 'Result Count Capper';
-    
+
     public function filter()
     {
         $args         = func_get_args();
@@ -35,18 +35,25 @@ class org_tubepress_impl_filters_feedresult_ResultCountCapper
         $tpom         = $ioc->get('org_tubepress_api_options_OptionsManager');
         $limit        = $tpom-> get(org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP);
         $firstCut     = $limit == 0 ? $totalResults : min($limit, $totalResults);
-        $secondCut    = self::_calculateRealMax($tpom, $firstCut);
-        
+        $secondCut    = min($firstCut, self::_calculateRealMax($tpom, $firstCut));
+        $videos       = $feedResult->getVideoArray();
+        $resultCount  = count($videos);
+
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Effective total result count (taking into account user-defined limit) is %d video(s)', $secondCut);
-        
+
+        if ($resultCount > $secondCut) {
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Result has %d video(s), limit is %d. So we\'re chopping it down.', $resultCount, $secondCut);
+            $feedResult->setVideoArray(array_splice($videos, 0, $secondCut - $resultCount));
+        }
+
         $feedResult->setEffectiveTotalResultCount($secondCut);
         return $feedResult;
     }
-    
+
     private static function _calculateRealMax($tpom, $reported)
     {
         $mode = $tpom->get(org_tubepress_api_const_options_names_Output::MODE);
-        
+
         switch ($mode) {
             case org_tubepress_api_const_options_values_ModeValue::TAG:
                 //http://code.google.com/apis/youtube/2.0/reference.html#Videos_feed
@@ -58,7 +65,7 @@ class org_tubepress_impl_filters_feedresult_ResultCountCapper
                 //http://code.google.com/apis/youtube/2.0/reference.html#Playlist_feed
                 return 200;
         }
-        
+
         return $reported;
     }
 }
