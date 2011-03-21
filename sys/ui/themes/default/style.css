@@ -72,19 +72,18 @@ dt.tubepress_meta_description {
 
 dd.tubepress_meta {
 	margin-bottom: auto ! important;
+	margin-left: 0 ! important;
 }
 
 dd.tubepress_meta_title, dd.tubepress_meta_title a, dd.tubepress_meta_title a:hover {
 	font-size: 12px;
 	font-weight: bold;
-	margin-left: 0;
 	float: left;
 	width: auto;
 }
 
 dd.tubepress_meta_runtime {
 	font-size: 11px;
-	margin-left: 0;
 	font-weight: bold;
 	clear: both;	
 }
@@ -123,7 +122,7 @@ dd.tubepress_meta_likes,
 dd.tubepress_meta_id,
 dd.tubepress_meta_views,
 dd.tubepress_meta_uploaddate {
-	margin-left: .2em;	
+	margin-left: .2em ! important;	
 }
 
 dd.tubepress_meta_url {
