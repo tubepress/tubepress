@@ -1,0 +1,552 @@
+# Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+#
+# This file is part of TubePress (http://tubepress.org)
+#
+# TubePress is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# TubePress is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+msgid ""
+msgstr ""
+"Project-Id-Version: TubePress pt_BR\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Cátia Kitahara <contato@wordpress-br.com>\n"
+"Language-Team: Tecsite Estúdio Digital e Comunidade WordPress-BR <tecsite@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Portuguese\n"
+"X-Poedit-Country: BRAZIL\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+msgid "TubePress Options"
+msgstr "Opções do TubePress"
+
+msgid "Save"
+msgstr "Salvar"
+
+msgid "Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info. An asterisk (*) next to an option indicates it's only available with <a href=\"http://tubepress.org/features\">TubePress Pro</a>."
+msgstr "configurar as opções padrão para o plugin. Cada opção aqui pode ser substituída em uma base por página ou post com sShortcodess do TubePress. Veja a <a href=\"http://tubepress.org/documentation\"> documentação</a> para obter mais informações. Um asterisco (*) ao lado da opção indica que está disponível somente com o <a href=\"http://tubepress.org/features\"> TubePress Pro </ a>"
+
+msgid "Which videos?"
+msgstr "Quais vídeos?"
+
+msgid "Top rated videos from..."
+msgstr "Os vídeos mais votados de..."
+
+msgid "This YouTube user's \"favorites\""
+msgstr "Os favoritos deste usuário do Youtube"
+
+msgid "The latest \"featured\" videos on YouTube's homepage"
+msgstr "Os vídeos mais recentes \"destacados\" na página inicial do YouTube"
+
+msgid "Videos for mobile phones"
+msgstr "Vídeos para celulares"
+
+msgid "This playlist"
+msgstr "Esta playlist"
+
+msgid "Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35"
+msgstr "Limitado a 200 vídeos por lista. Normalmente algo parecido com isto: D2B04665B213AE35. Copie a id da playlist no final do URL na barra de endereços do navegador (enquanto olha para uma playlist do YouTube). Ela vem logo após o \"p =\". Por exemplo: http://youtube.com/my_playlists?p=D2B04665B213AE35"
+
+msgid "Most-viewed videos from"
+msgstr "Os vídeos mais vistos de"
+
+msgid "Most-recently added videos"
+msgstr "Os vídeos adicionados mais recentemente"
+
+msgid "Most-discussed videos"
+msgstr "Os vídeos mais comentados"
+
+msgid "Most-responded to videos"
+msgstr "Os vídeos com mais respostas"
+
+msgid "Views"
+msgstr "Visualizações"
+
+msgid "YouTube search for..."
+msgstr "Pesquisa Youtube por..."
+
+msgid "Videos from this YouTube user"
+msgstr "Vídeos deste usuário do Youtube"
+
+msgid "YouTube limits this mode to 1,000 results"
+msgstr "O Youtube limita este modo a 1.000 resultados"
+
+msgid "Play each video"
+msgstr "Reproduzir cada vídeo"
+
+msgid "Maximum description length"
+msgstr "Tamanho máximo para a descrição"
+
+msgid "Maximum number of characters to display in video descriptions. Set to 0 for no limit."
+msgstr "Número máximo de caracteres a serem mostrados nas descrições do vídeo. Configure 0 para ilimitado."
+
+msgid "Height (px) of thumbs"
+msgstr "Altura (px) das miniaturas"
+
+msgid "Default is 90"
+msgstr "O padrão é 90"
+
+msgid "Width (px) of thumbs"
+msgstr "Largura (px) das miniaturas"
+
+msgid "Default is 120"
+msgstr "O padrão é 120"
+
+msgid "Use relative dates"
+msgstr "Usar datas relativas"
+
+msgid "e.g. \"yesterday\" instead of \"November 3, 1980\""
+msgstr "por ex.: \"ontem\" ao invés de \"3 de Novembro de 1980\""
+
+msgid "Videos per Page"
+msgstr "Vídeos por página"
+
+msgid "Default is 20. Maximum is 50"
+msgstr "O padrão é 20. O máximo é 50"
+
+msgid "Show pagination above thumbnails"
+msgstr "Mostrar a paginação acima das miniaturas"
+
+msgid "Show pagination below thumbnails"
+msgstr "Mostrar a paginação abaixo das miniaturas"
+
+msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-enabled pagination"
+msgstr "Paginação com suporte a <a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a> "
+
+msgid "Only applies to galleries that span multiple pages"
+msgstr "Só se aplica às galerias que geram muitas páginas"
+
+msgid "Order videos by"
+msgstr "Ordenar vídeos por"
+
+msgid "Embedded Player"
+msgstr "Incorporar Player"
+
+msgid "Auto-play videos"
+msgstr "Auto-reproduzir vídeos"
+
+msgid "Allow fullscreen playback"
+msgstr "Permitir a reprodução em tela cheia"
+
+msgid "Max height (px)"
+msgstr "Altura máxima (px)"
+
+msgid "Default is 350"
+msgstr "O padrão é 350"
+
+msgid "Default is 425"
+msgstr "O padrão é 425"
+
+msgid "Default is 999999"
+msgstr "O padrão é 999999"
+
+msgid "Default is FFFFFF"
+msgstr "O padrão é FFFFFF"
+
+msgid "Loop"
+msgstr "Loop"
+
+msgid "Continue playing the video until the user stops it"
+msgstr "Continuar reproduzindo o vídeo até que o usuário o pare"
+
+msgid "Show title and rating before video starts"
+msgstr "Mostrar título e votação antes de iniciar o vídeo"
+
+msgid "Main color"
+msgstr "Cor principal"
+
+msgid "Highlight color"
+msgstr "Cor de destaque"
+
+msgid "Show related videos"
+msgstr "Mostra vídeos relacionados"
+
+msgid "Toggles the display of related videos after a video finishes"
+msgstr "Alterna a exibição de vídeos relacionados, após terminar um vídeo"
+
+msgid "Show videos in high definition when available"
+msgstr "Mostrar os vídeos em alta definição quando estiver disponível"
+
+msgid "Meta Display"
+msgstr "Exibição de meta-dados"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Category"
+msgstr "Categoria"
+
+msgid "Description"
+msgstr "Descrição"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Length"
+msgstr "Duração"
+
+msgid "Rating"
+msgstr "Votação"
+
+msgid "Ratings"
+msgstr "Votos"
+
+msgid "Keywords"
+msgstr "Palavras-chave"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Posted"
+msgstr "Publicado"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Advanced"
+msgstr "Avançado"
+
+msgid "Date format"
+msgstr "Formato da data"
+
+msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\">date</a> for examples."
+msgstr "Configurar a formatação textual para as datas dos vídeos. Veja <a href=\"http://us.php.net/date\">data</ a> para obter exemplos."
+
+msgid "Enable debugging"
+msgstr "Ativar depuração"
+
+msgid "If checked, anyone will be able to view your debugging information. This is a rather small privacy risk. If you're not having problems with TubePress, or you're worried about revealing any details of your TubePress pages, feel free to disable the feature."
+msgstr "Se marcado, ninguém será capaz de ver as suas informações de depuração. Este é um risco de privacidade bastante pequeno. Se você não tem problemas com o TubePress, ou você está preocupado em  revelar quaisquer detalhes de suas páginas TubePress, sinta-se livre para desativar o recurso."
+
+msgid "Filter \"racy\" content"
+msgstr "Filtra conteúdo \"adulto\""
+
+msgid "Don't show videos that may not be suitable for minors."
+msgstr "Não mostrar vídeos que podem não ser adequados para menores."
+
+msgid "Shortcode keyword"
+msgstr "Palavra-chave do \"shortcode\""
+
+msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
+msgstr "A palavra que você insere (em texto simples, entre colchetes) em seus posts/páginas para exibir uma galeria."
+
+msgid "Randomize thumbnails"
+msgstr "Mostrar miniaturas aleatoriamente"
+
+msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized. Note: this option cannot be used with the \"high quality thumbnails\" feature"
+msgstr "A maioria dos vídeos vêm com várias miniaturas. Ao selecionar esta opção, cada vez que alguém vir sua galeria verá os mesmos vídeos com cada miniatura aleatória"
+
+msgid "YouTube API Developer Key"
+msgstr "Chave de desenvolvedor de API do YouTube"
+
+msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing."
+msgstr "O YouTube usará esta chave de desenvolvedor para login e depuração se você tiver algum problema com o serviço deles. Você pode registrar uma nova ID e chave de desenvolvedor <a href=\"http://code.google.com/apis/youtube/dashboard/\">aqui</a>. Não mude isto a menos que você saiba o que está fazendo."
+
+msgid "Enable request cache"
+msgstr "Ativar cache solicitado"
+
+msgid "Only retrieve embeddable videos"
+msgstr "Recupera apenas vídeos que podem ser incorporados"
+
+msgid "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries."
+msgstr "Alguns vídeos têm incorporação desativada. Ao marcar esta opção esses vídeos de suas galerias serão excluídos."
+
+msgid "Store network responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
+msgstr "Armazenar respostas do YouTube localmente por 1 hora. Cada resposta possui algumas centenas de KB, portanto deixar o cache ativado reduzirá significativamente as vezes que suas galerias são carregadas, isto irá custar um pouco da atualização."
+
+msgid "Maximum total videos to retrieve"
+msgstr "Número máximo de vídeos a recuperar"
+
+msgid "This can help to reduce the number of pages in your gallery. Set to \"0\" to remove any limit."
+msgstr "Isto pode ajudar a reduzir o número de páginas em sua galeria. Configure \"0 \" para remover qualquer limite."
+
+msgid "normally (at the top of your gallery)"
+msgstr "normalmente (no topo da sua galeria)"
+
+msgid "in a popup window"
+msgstr "em uma janela popup"
+
+msgid "from the video's original YouTube page"
+msgstr "da página original do Youtube"
+
+msgid "with FancyBox"
+msgstr "com FancyBox"
+
+msgid "with TinyBox"
+msgstr "com TinyBox"
+
+msgid "with Shadowbox"
+msgstr "com Shadowbox"
+
+msgid "with jqModal"
+msgstr "com jqModal"
+
+msgid "statically (page refreshes on each thumbnail click)"
+msgstr "estaticamente (a página é atualizada a cada clique em miniatura)"
+
+msgid "relevance"
+msgstr "relevância"
+
+msgid "view count"
+msgstr "popularidade"
+
+msgid "rating"
+msgstr "votação"
+
+msgid "date published"
+msgstr "data de publicação"
+
+msgid "randomly"
+msgstr "aleatoriamente"
+
+msgid "today"
+msgstr "hoje"
+
+msgid "this week"
+msgstr "esta semana"
+
+msgid "this month"
+msgstr "este mês"
+
+msgid "all time"
+msgstr "sempre"
+
+msgid "next"
+msgstr "próximo"
+
+msgid "prev"
+msgstr "anterior"
+
+msgid "Displays YouTube videos in your sidebar using TubePress"
+msgstr "Mostra vídeos Youtube em sua barra lateral usando TubePress"
+
+msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>."
+msgstr "TubePress shortcode para widget. Veja a <a href=\"http://tubepress.org/documentation\"> documentação</a>."
+
+msgid "none"
+msgstr "nenhum"
+
+msgid "moderate"
+msgstr "moderar"
+
+msgid "strict"
+msgstr "estrito"
+
+msgid "JW FLV Media Player (by Longtail Video)"
+msgstr "JW FLV Media Player (by Longtail Video)"
+
+msgid "Implementation"
+msgstr "Implementação"
+
+msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)"
+msgstr ""
+
+msgid "Videos uploaded by this Vimeo user"
+msgstr ""
+
+msgid "Videos this Vimeo user likes"
+msgstr ""
+
+msgid "Videos this Vimeo user appears in"
+msgstr ""
+
+msgid "Vimeo search for..."
+msgstr ""
+
+msgid "Videos credited to this Vimeo user (either appears in or uploaded by)"
+msgstr ""
+
+msgid "Videos in this Vimeo channel"
+msgstr ""
+
+msgid "Videos from this Vimeo album"
+msgstr ""
+
+msgid "Videos from this Vimeo group"
+msgstr ""
+
+msgid "Use high-quality thumbnails"
+msgstr ""
+
+msgid "Videos blacklist"
+msgstr ""
+
+msgid "List of video IDs that should never be displayed"
+msgstr ""
+
+msgid "in a new window on its own"
+msgstr ""
+
+msgid "from the video's original Vimeo page"
+msgstr ""
+
+msgid "Likes"
+msgstr ""
+
+msgid "Appearance"
+msgstr ""
+
+msgid "Provider Feed"
+msgstr ""
+
+msgid "Max width (px)"
+msgstr ""
+
+msgid "position in a playlist"
+msgstr ""
+
+msgid "comment count"
+msgstr ""
+
+msgid "length"
+msgstr ""
+
+msgid "title"
+msgstr ""
+
+msgid "Runtime"
+msgstr ""
+
+msgid "Provider default"
+msgstr ""
+
+msgid "%s can only take on integer values. You supplied %s."
+msgstr "%s só pode assumir valores inteiros. Você forneceu %s."
+
+msgid "%s must be a string. You supplied %s."
+msgstr "%s deve ser uma string. Você forneceu %s."
+
+msgid "\"%s\" is not a valid option name."
+msgstr "\"%s\" não é um nome de opção válido."
+
+msgid "\"%s\" must be either true or false. You supplied \"%s\"."
+msgstr "\"%s\" deve ser verdadeiro ou falso. Você forneceu \"%s\"."
+
+msgid "\"%s\" must be one of \"%s\". You supplied \"%s\"."
+msgstr "\"%s\" deve ser um de \"%s\". Você forneceu \"%s\"."
+
+msgid "\"%s\" must be between \"%d\" and \"%d\". You supplied \"%d\"."
+msgstr "\"%s\" deve estar entre \"%d\" e \"%d\". Você forneceu \"%d\"."
+
+msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
+msgstr ""
+
+msgid "newest"
+msgstr ""
+
+msgid "oldest"
+msgstr ""
+
+msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature"
+msgstr ""
+
+msgid "%s is not executable or does not exist."
+msgstr ""
+
+msgid "Thumbs per video"
+msgstr ""
+
+msgid "How many thumbnails to generate for each video. TubePress can randomly display the thumbs each time someone visits the gallery. See the \"Randomize thumbnails\" option under the \"Appearance\" tab."
+msgstr ""
+
+msgid "This option cannot contain two consecutive periods"
+msgstr ""
+
+msgid "%s is not a directory"
+msgstr ""
+
+msgid "%s is not readable"
+msgstr ""
+
+msgid "Theme"
+msgstr ""
+
+msgid "The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>."
+msgstr ""
+
+msgid "Videos most frequently flagged as favorites from..."
+msgstr ""
+
+msgid "Vimeo API \"Consumer Key\""
+msgstr ""
+
+msgid "<a href=\"http://vimeo.com/api/applications/new\">Click here</a> to register for a consumer key and secret."
+msgstr ""
+
+msgid "Vimeo API \"Consumer Secret\""
+msgstr ""
+
+msgid "Do not attempt to use cURL to fetch remote feeds. Leave enabled unless you know what you are doing."
+msgstr ""
+
+msgid "Do not attempt to use the PHP HTTP extension to fetch remote feeds. Leave enabled unless you know what you are doing."
+msgstr ""
+
+msgid "Do not attempt to use fopen to fetch remote feeds. Leave enabled unless you know what you are doing."
+msgstr ""
+
+msgid "Do not attempt to use fsockopen to fetch remote feeds. Leave enabled unless you know what you are doing."
+msgstr ""
+
+msgid "Do not attempt to use PHP streams to fetch remote feeds. Leave enabled unless you know what you are doing."
+msgstr ""
+
+msgid "Disable <a href=\"http://php.net/manual/en/function.curl-exec.php\">cURL</a> HTTP transport"
+msgstr ""
+
+msgid "Disable <a href=\"http://php.net/http_request\">HTTP extension</a> transport"
+msgstr ""
+
+msgid "Disable <a href=\"http://php.net/manual/en/function.fopen.php\">fopen</a> HTTP transport"
+msgstr ""
+
+msgid "Disable <a href=\"http://php.net/fsockopen\">fsockopen</a> HTTP transport"
+msgstr ""
+
+msgid "Disable <a href=\"http://php.net/manual/en/intro.stream.php\">PHP streams</a> HTTP transport"
+msgstr ""
+
+msgid "Cache directory"
+msgstr ""
+
+msgid "Leave blank to attempt to use system temp directory. Otherwise enter the absolute path of a writeable directory."
+msgstr ""
+
+msgid "Cache expiration time (seconds)"
+msgstr ""
+
+msgid "Cache entries will be considered stale after the specified number of seconds. Default is 3600 (one hour)."
+msgstr ""
+
+msgid "Cache cleaning factor"
+msgstr ""
+
+msgid "If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning."
+msgstr ""
+
+msgid "Only show options applicable to..."
+msgstr ""
+
+msgid "Restrict search results to videos from this user"
+msgstr ""
+
+msgid "Only applies to search-based galleries"
+msgstr ""
+
+msgid "No matching videos"
+msgstr ""
+
+msgid "Search"
+msgstr ""
