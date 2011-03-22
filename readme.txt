@@ -16,6 +16,28 @@ Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and/or sideb
 
 == Changelog ==
 
+= 2.2.0 =
+* Interactive searching! (closes  issue 138 )
+* YouTube iframe embedded player (closes  issue 265  and  issue 259 )
+* Improved inclusion of JS/CSS resources in WordPress environments (closes  issue 191 )
+* Ability to restrict search-based galleries to videos from a specific YouTube/Vimeo user
+* New HTTP subsystem provides faster and more robust feed retrieval
+* Added advanced caching options
+* Improved visual feedback during Ajax operations (closes  issue 142 )
+* Better upgrade notice for TubePress Pro users in a WordPress environment (closes  issue 252 )
+* Graceful handling of single video embedding when video isn't found (closes  issue 267 )
+* Broken gallery when trying to display Vimeo videos with JW FLV Media Player (closes  issue 242 )
+* Incorrect detection of multi-gallery mode in some circumstances (closes  issue 238 )
+* Duplicate videos no longer appear in galleries (closes  issue 248 )
+* Private Vimeo videos no longer appear in galleries
+* Non-functional message service when using TubePress Pro in a PHP environment without built-in gettext support
+* Fixed bug that could affect TubePress Pro users in a WordPress environment hosted on Windows-based PHP installations
+* Removed option for "mobile" YouTube videos feed as it appears to be completely abandoned
+* YouTube now uses the iframe embedded player by default
+* Removed "enhanced genie menu" and "border" options from YouTube embedded player
+* Version bump for php-gettext to 1.0.11
+* Version bump for jQuery to 1.5.1
+
 = 2.1.2 =
 * Fixed JavaScript error in Internet Explorer when determining height/width of embedded video player
 * Fixed ajax pagination appearance when non-default thumbnail sizes are in use
