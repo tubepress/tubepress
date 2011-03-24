@@ -190,7 +190,7 @@ msgid "Loop"
 msgstr "Loop"
 
 msgid "Continue playing the video until the user stops it"
-msgstr "Riproduzione continua del video sino ad interruzione da parte del'utente"
+msgstr "Riproduzione continua del video sino ad interruzione da parte dell'utente"
 
 msgid "Show title and rating before video starts"
 msgstr "Mostra titolo e votazione prima dell'avvio del video"
@@ -535,7 +535,7 @@ msgid "Cache cleaning factor"
 msgstr "Fattore pulizia cache"
 
 msgid "If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning."
-msgstr "Inserendo un nmero X, la cache verrà completamente svuotata ogni 1/X operazioni di scrittura. Inserire 0 per disattivare lo svuotamento della cache."
+msgstr "Inserendo un numero X, la cache verrà completamente svuotata ogni 1/X operazioni di scrittura. Inserire 0 per disattivare lo svuotamento della cache."
 
 msgid "Only show options applicable to..."
 msgstr "Mostra le sole operazioni applicabili a..."
