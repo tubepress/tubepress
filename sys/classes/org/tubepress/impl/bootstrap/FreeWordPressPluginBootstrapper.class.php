@@ -46,7 +46,7 @@ class org_tubepress_impl_bootstrap_FreeWordPressPluginBootstrapper extends org_t
         $tubepress_base_url = get_option('siteurl') . "/wp-content/plugins/$baseName";
 
         /* register the plugin's message bundles */
-        load_plugin_textdomain('tubepress', false, "$baseName/i18n");
+        load_plugin_textdomain('tubepress', false, "$baseName/sys/i18n");
 
         add_filter('the_content', array('org_tubepress_impl_env_wordpress_Main',   'contentFilter'));
         add_action('wp_head', array('org_tubepress_impl_env_wordpress_Main',   'headAction'));
