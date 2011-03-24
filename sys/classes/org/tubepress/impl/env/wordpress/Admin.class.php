@@ -34,9 +34,10 @@ class org_tubepress_impl_env_wordpress_Admin
      *
      * @return void
      */
-    public static function initAction()
+    public static function initAction($hook)
     {
-        if (!is_admin()) {
+        /* only run on TubePress settings page */
+        if (strpos($hook, 'tubepress') === false || strpos($hook, 'Admin.class') === false) {
             return;
         }
         
