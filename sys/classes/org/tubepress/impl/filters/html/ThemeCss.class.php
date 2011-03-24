@@ -89,3 +89,4 @@ $fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
 $instance = $ioc->get('org_tubepress_impl_filters_html_ThemeCss');
 
 $fm->registerFilter(org_tubepress_api_const_filters_ExecutionPoint::GALLERY_HTML, array($instance, 'filter'));
+$fm->registerFilter(org_tubepress_api_const_filters_ExecutionPoint::SINGLE_VIDEO_HTML, array($instance, 'filter'));
