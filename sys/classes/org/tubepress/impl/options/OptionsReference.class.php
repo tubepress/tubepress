@@ -310,13 +310,19 @@ class org_tubepress_impl_options_OptionsReference
             $ioc                           = org_tubepress_impl_ioc_IocContainer::getInstance();
             $fs                            = $ioc->get('org_tubepress_api_filesystem_Explorer');
             $tubepressBaseInstallationPath = $fs->getTubePressBaseInstallationPath();
-            $dir                           = "$tubepressBaseInstallationPath/sys/ui/themes";
+            $sysdir                        = "$tubepressBaseInstallationPath/sys/ui/themes";
+            $userdir                       = "$tubepressBaseInstallationPath/content/themes";
             $result                        = array();
-            $dirs                          = $fs->getDirectoriesInDirectory($dir, 'Options reference');
+            $sysdirs                       = $fs->getDirectoriesInDirectory($sysdir, 'Options reference');
+            $userdirs                      = $fs->getDirectoriesInDirectory($userdir, 'Options Reference');
 
-            foreach ($dirs as $fullDir) {
+            foreach ($sysdirs as $fullDir) {
                 array_push($result, basename($fullDir));
             }
+            foreach ($userdirs as $fullDir) {
+                array_push($result, basename($fullDir));
+            }
+            
             return $result;
 
         default:
