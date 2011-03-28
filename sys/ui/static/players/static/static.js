@@ -22,7 +22,7 @@ function tubepress_static_player_initt() {
 		
 		galleryId	= TubePressAnchors.getGalleryIdFromRelSplit(rel_split);
 		newId		= TubePressAnchors.getVideoIdFromIdAttr(dis.attr('id'));
-		page		= TubePressGallery.getCurrentPageNumber(galleryId);
+		page		= TubePressThumbs.getCurrentPageNumber(galleryId);
 		newUrl		= jQuery.query.set('tubepress_video', newId).set('tubepress_page', page).toString();
 
 		dis.attr('href', newUrl);

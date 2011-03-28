@@ -9,23 +9,6 @@
 
 /*global jQuery, getTubePressBaseUrl, alert */
 
-/* caching script loader */
-jQuery.getScript = function (url, callback, cache) {
-	jQuery.ajax({ type: 'GET', url: url, success: callback, dataType: 'script', cache: cache }); 
-}; 
-
-/* http://jquery.malsup.com/fadetest.html */
-jQuery.fn.fadeTo = function (speed, to, callback) { 
-	return this.animate({opacity: to}, speed, function () { 
-		if (to === 1 && jQuery.browser.msie) {
-			this.style.removeAttribute('filter');
-		}
-		if (jQuery.isFunction(callback)) {
-			callback();
-		}
-	});
-};
-
 var TubePressAjax = (function () {
 
 	var load, loadAndStyle, applyLoadingStyle, removeLoadingStyle;
@@ -131,7 +114,7 @@ var TubePressJS = (function () {
 var TubePressEvents = (function () {
 	
 	return {
-		NEW_THUMBS_LOADED : 'tubepressNewThumbnailsLoaded'
+		NEW_THUMBS_LOADED	: 'tubepressNewThumbnailsLoaded'
 	};
 	
 }());
@@ -181,7 +164,7 @@ var TubePressAnchors = (function () {
 	
 	return {
 		findAllEmbeddedNames		: findAllEmbeddedNames,
-		findAllPlayerNames			: findAllPlayerNames,
+		findAllPlayerNames		: findAllPlayerNames,
 		getEmbeddedNameFromRelSplit	: getEmbeddedNameFromRelSplit,
 		getPlayerNameFromRelSplit	: getPlayerNameFromRelSplit,
 		getGalleryIdFromRelSplit	: getGalleryIdFromRelSplit,
@@ -193,14 +176,20 @@ var TubePressAnchors = (function () {
 /* handles player-related functionality (popup, Shadowbox, etc) */
 var TubePressPlayers = (function () {
 	
-	var init, playerInit, invokePlayer;
+	var loadPlayerJs, playerInit, invokePlayer, loadedPlayers;
 	
-	init = function (baseUrl) {
+	loadPlayerJs = function (baseUrl) {
 		
 		/* loads up JS necessary for dealing with TubePress players that we find on the page */
 		var playerNames = TubePressAnchors.findAllPlayerNames(), i, name;
 		for (i = 0; i < playerNames.length; i = i + 1) {
 			name = playerNames[i];
+
+			/* don't load a player twice */
+			if (loadedPlayers[name] === true) {
+				continue;
+			}
+
 			jQuery.getScript(baseUrl + '/sys/ui/static/players/' + name + '/' + name + '.js', 
 				playerInit(name, baseUrl));
 		}
@@ -213,6 +202,9 @@ var TubePressPlayers = (function () {
 	
 	playerInit = function (name, baseUrl) {
 		
+		/* remember that we already loaded this */
+		loadedPlayers[name] = true;
+
 		/* Call tubepress_<playername>_init() when the player JS is loaded */
 		var funcName = 'tubepress_' + name + '_player_init',
 			f = function () {
@@ -223,10 +215,13 @@ var TubePressPlayers = (function () {
 		}, f);	
 	};
 	
-	return {
-		init			: init,
-		invokePlayer	: invokePlayer
-	};
+	jQuery().bind(TubePressEvents.NEW_THUMBS_LOADED, function (e, galleryId) {
+
+		loadPlayerJs(getTubePressBaseUrl());
+
+	});
+
+	return { invokePlayer : invokePlayer };
 	
 }());
 
@@ -242,14 +237,16 @@ var TubePressEmbedded = (function () {
 	};
 	
 	getHtmlForCurrentEmbed = function (galleryId) {
+
 		if (dealingWithiframe(galleryId)) {
 			return jQuery('div#tubepress_embedded_object_' + galleryId).html();
 		}
 		
-		var wrapperId	= '#tubepress_embedded_object_' + galleryId,
+		var wrapperId		= '#tubepress_embedded_object_' + galleryId,
 			wrapper		= jQuery(wrapperId),
-			obj			= jQuery(wrapperId + ' > object'),
+			obj		= jQuery(wrapperId + ' > object'),
 			params		= obj.children('param');
+
 		return getEmbeddedObjectClone(wrapper, params);
 	};
 	
@@ -394,22 +391,31 @@ var TubePressEmbedded = (function () {
 	
 }());
 
+var TubePressGallery = (function () {
+
+	var isFluidThumbs, getShortcode;
+
+	isFluidThumbs = function (galleryId) {
+		return window['TubePressGallery' + galleryId].fluidThumbs;
+	};
+
+	getShortcode = function (galleryId) {
+		return window['getUrlEncodedShortcodeForTubePressThumbs' + galleryId]();
+	};
+
+	return {
+		isFluidThumbs	: isFluidThumbs,
+		getShortcode	: getShortcode
+	};
+}());
+
 /**
  * Main TubePress gallery module.
  */
-var TubePressGallery = (function () {
+var TubePressThumbs = (function () {
 
-	var init, initClickListeners, fluidThumbs, clickListener, getCurrentPageNumber;
+	var makeThumbsFluid, clickListener, getCurrentPageNumber, getThumbWidth, getThumbArea, getThumbAreaSelector;
 	
-	/* Primary setup function for TubePress. Meant to run once on page load. */
-	init = function (baseUrl) {
-		TubePressPlayers.init(baseUrl);
-		TubePressGallery.initClickListeners();
-	};
-
-	initClickListeners = function () {
-		jQuery("a[id^='tubepress_']").click(clickListener);
-	};
 	
 	/* thumbnail click listener */
 	clickListener = function () {
@@ -427,11 +433,13 @@ var TubePressGallery = (function () {
 	};
 
 	/* http://www.sohtanaka.com/web-design/smart-columns-w-css-jquery/ */
-	fluidThumbs = function (gallerySelector, columnWidth) {
+	makeThumbsFluid = function (galleryId) {
 		
-		jQuery(gallerySelector).css({ 'width' : "100%" });
+		getThumbArea(galleryId).css({ 'width' : "100%" });
 		
-		var gallery		= jQuery(gallerySelector),
+		var gallerySelector	= getThumbAreaSelector(galleryId),
+			columnWidth	= getThumbWidth(galleryId),
+			gallery		= jQuery(gallerySelector),
 			colWrap		= gallery.width(), 
 			colNum		= Math.floor(colWrap / columnWidth), 
 			colFixed	= Math.floor(colWrap / colNum),
@@ -454,14 +462,34 @@ var TubePressGallery = (function () {
 		
 		return page;
 	};
+
+	getThumbWidth = function (galleryId) {
+		return getThumbArea(galleryId).find('img:first').width();
+	};
+
+	getThumbArea = function (galleryId) {
+		return jQuery(getThumbAreaSelector(galleryId));
+	};
+
+	getThumbAreaSelector = function (galleryId) {
+		return "#tubepress_gallery_" + galleryId + "_thumbnail_area";
+	};
 	
+	jQuery().bind(TubePressEvents.NEW_THUMBS_LOADED, function (e, galleryId) {
+
+		/* add a click handler to each link in this gallery */
+		jQuery("#tubepress_gallery_ " + galleryId + " a[id^='tubepress_']").click(clickListener);
+
+		/* fluid thumbs if we need it */
+		if (TubePressGallery.isFluidThumbs(galleryId)) {
+			makeThumbsFluid(galleryId);
+		}
+	});
+
 	/* return only public functions */
 	return {
-		clickListener				: clickListener,
-		init						: init,
-		initClickListeners			: initClickListeners,
-		fluidThumbs					: fluidThumbs,
-		getCurrentPageNumber		: getCurrentPageNumber
+		getThumbAreaSelector	: getThumbAreaSelector,
+		getCurrentPageNumber	: getCurrentPageNumber
 	};
 }());
 
@@ -470,54 +498,86 @@ var TubePressGallery = (function () {
  */
 var TubePressAjaxPagination = (function () {
 	
-	var init, processRequest, postAjaxGallerySetup;
+	var addClickHandlers, processClick, postLoad;
 	
 	/* initializes pagination HTML for Ajax. */
-	init = function (galleryId) {
+	addClickHandlers = function (galleryId) {
 		var clickCallback = function () {
-			processRequest(jQuery(this), galleryId);
+			processClick(jQuery(this), galleryId);
 		};
 		jQuery('#tubepress_gallery_' + galleryId + ' div.pagination a').click(clickCallback);
 	};
 
-	processRequest = function (anchor, galleryId) {
+	processClick = function (anchor, galleryId) {
 		var baseUrl			= getTubePressBaseUrl(), 
-			shortcode		= window['getUrlEncodedShortcodeForTubePressGallery' + galleryId](),
+			shortcode		= TubePressGallery.getShortcode(galleryId),
 			page			= anchor.attr('rel'),
-			thumbnailArea		= '#tubepress_gallery_' + galleryId + '_thumbnail_area',
-			thumbWidth		= jQuery(thumbnailArea).find('img:first').width(),
-			postLoadCallback	= function () {
-				postAjaxGallerySetup(thumbnailArea, galleryId, thumbWidth);
-			},
+			thumbnailArea		= TubePressThumbs.getThumbAreaSelector(galleryId),
+			postLoadCallback	= function () { postLoad(galleryId); },
 			pageToLoad		= baseUrl + '/sys/scripts/ajax/shortcode_printer.php?shortcode=' + shortcode + '&tubepress_' + page + '&tubepress_galleryId=' + galleryId,
 			remotePageSelector	= thumbnailArea + ' > *';
 		TubePressAjax.loadAndStyle(pageToLoad, thumbnailArea, remotePageSelector, '', postLoadCallback);
 	};
 
 	/* post thumbnail load setup */
-	postAjaxGallerySetup = function (thumbnailArea, galleryId, thumbWidth) {
-		jQuery().trigger(TubePressEvents.NEW_THUMBS_LOADED);
-		TubePressGallery.fluidThumbs('#tubepress_gallery_' + galleryId, thumbWidth);
-		TubePressGallery.initClickListeners();
-		init(galleryId);
-		jQuery(thumbnailArea).fadeTo('fast', 1);
+	postLoad = function (galleryId) {
+		jQuery().trigger(TubePressEvents.NEW_THUMBS_LOADED, galleryId);
 	};
-	
-	/* return only public functions */
-	return { init : init };
+
+	jQuery().bind(TubePressEvents.NEW_THUMBS_LOADED, function (e, galleryId) {
+		addClickHandlers(galleryId);
+	});
 }());
 
-/* this is meant to be called from the user's HTML page */
-var safeTubePressInit = function () {
-	if (!window.getTubePressBaseUrl) {
-		return;
-	}
-	try {
-		TubePressGallery.init(getTubePressBaseUrl());
-	} catch (f) {
-		alert('TubePress failed to initialize: ' + f.message);
-	}
-};
+var TubePress = (function () {
+
+	/* this is meant to be called from the user's HTML page */
+	var init, compat, alreadyInited = false;
+
+	init = function () {
+		if (!window.getTubePressBaseUrl || alreadyInited) {
+			return;
+		}
+		try {
+			compat();
+		
+			/* init each gallery we find */
+			jQuery("div[id^=tubepress_gallery]").each(function () {
+				var galleryId = jQuery(this).attr('id').replace('tubepress_gallery_', '');
+				jQuery().trigger(TubePressEvents.NEW_THUMBS_LOADED, [galleryId]);
+			});
+
+			alreadyInited = true;
+
+		} catch (f) {
+			alert('TubePress failed to initialize: ' + f.message);
+		}
+	};
+
+	compat = function () {
+
+		/* caching script loader */
+		jQuery.getScript = function (url, callback, cache) {
+			jQuery.ajax({ type: 'GET', url: url, success: callback, dataType: 'script', cache: cache }); 
+		}; 
+
+		/* http://jquery.malsup.com/fadetest.html */
+		jQuery.fn.fadeTo = function (speed, to, callback) { 
+			return this.animate({opacity: to}, speed, function () { 
+				if (to === 1 && jQuery.browser.msie) {
+					this.style.removeAttribute('filter');
+				}
+				if (jQuery.isFunction(callback)) {
+					callback();
+				}
+			});
+		};
+	};
+
+	return { init: init };
+
+}());
+
 
 /* append our init method to after all the other (potentially full of errors) ready blocks have 
  * run. http://stackoverflow.com/questions/1890512/handling-errors-in-jquerydocument-ready */
@@ -527,11 +587,11 @@ if (!jQuery.browser.msie) {
 		try {
 			oldReady.apply(this, arguments);
 		} catch (e) { }
-		safeTubePressInit();
+		TubePress.init();
 	};
 } else {
 	jQuery().ready(function () {
-		safeTubePressInit();
+		TubePress.init();
 	});
 }
 
