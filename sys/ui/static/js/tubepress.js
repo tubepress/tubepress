@@ -7,6 +7,8 @@
  * Shrink your JS: http://developer.yahoo.com/yui/compressor/
  */
 
+/*global jQuery, getTubePressBaseUrl, alert */
+
 /* caching script loader */
 jQuery.getScript = function (url, callback, cache) {
 	jQuery.ajax({ type: 'GET', url: url, success: callback, dataType: 'script', cache: cache }); 
@@ -15,21 +17,21 @@ jQuery.getScript = function (url, callback, cache) {
 /* http://jquery.malsup.com/fadetest.html */
 jQuery.fn.fadeTo = function (speed, to, callback) { 
 	return this.animate({opacity: to}, speed, function () { 
-			if (to === 1 && jQuery.browser.msie) {
-				this.style.removeAttribute('filter');
-			}
-			if (jQuery.isFunction(callback)) {
-				callback();
-			}
-		});
+		if (to === 1 && jQuery.browser.msie) {
+			this.style.removeAttribute('filter');
+		}
+		if (jQuery.isFunction(callback)) {
+			callback();
+		}
+	});
 };
 
-TubePressAjax = (function () {
-	
-	var load, loadAndStyle;
+var TubePressAjax = (function () {
+
+	var load, loadAndStyle, applyLoadingStyle, removeLoadingStyle;
 	
 	load = function (url, targetDiv, selector, preLoadFunction, postLoadFunction) {
-		if (typeof preLoadFunction == 'function') {
+		if (typeof preLoadFunction === 'function') {
 			preLoadFunction();
 		}
 		
@@ -41,7 +43,7 @@ TubePressAjax = (function () {
 				var html = selector ? jQuery('<div>').append(res.responseText).find(selector) :
 					res.responseText;
 				jQuery(targetDiv).html(html);
-				if (typeof postLoadFunction == 'function') {
+				if (typeof postLoadFunction === 'function') {
 					postLoadFunction();
 				}
 			}
@@ -50,8 +52,8 @@ TubePressAjax = (function () {
 	
 	loadAndStyle = function (url, targetDiv, selector, preLoadFunction, postLoadFunction) {
 		applyLoadingStyle(targetDiv);
-		post = function () { removeLoadingStyle(targetDiv); };
-		if (typeof postLoadFunction == 'function') {
+		var post = function () { removeLoadingStyle(targetDiv); };
+		if (typeof postLoadFunction === 'function') {
 			post = function () {
 				removeLoadingStyle(targetDiv);
 				postLoadFunction();
@@ -61,7 +63,7 @@ TubePressAjax = (function () {
 	};
 	
 	applyLoadingStyle = function (targetDiv) {
-		jQuery(targetDiv).fadeTo(0, .3);
+		jQuery(targetDiv).fadeTo(0, 0.3);
 	};
 	
 	removeLoadingStyle = function (targetDiv) {
@@ -69,8 +71,8 @@ TubePressAjax = (function () {
 	};
 	
 	return {
-		load 				: load,
-		applyLoadingStyle 	: applyLoadingStyle,
+		load			: load,
+		applyLoadingStyle	: applyLoadingStyle,
 		removeLoadingStyle	: removeLoadingStyle,
 		loadAndStyle		: loadAndStyle
 	};
@@ -80,7 +82,7 @@ TubePressAjax = (function () {
 /**
  * Handles some DOM and network related tasks
  */
-TubePressJS = (function () {
+var TubePressJS = (function () {
 	
 	var callWhenTrue, getWaitCall, loadCss;
 	
@@ -126,7 +128,7 @@ TubePressJS = (function () {
 	};
 }());
 
-TubePressEvents = (function () {
+var TubePressEvents = (function () {
 	
 	return {
 		NEW_THUMBS_LOADED : 'tubepressNewThumbnailsLoaded'
@@ -135,7 +137,7 @@ TubePressEvents = (function () {
 }());
 
 /* analyzes HTML anchor objects */
-TubePressAnchors = (function () {
+var TubePressAnchors = (function () {
 	
 	var findAllEmbeddedNames, findAllPlayerNames, getEmbeddedNameFromRelSplit,
 		getPlayerNameFromRelSplit, getGalleryIdFromRelSplit, getVideoIdFromIdAttr,
@@ -189,7 +191,7 @@ TubePressAnchors = (function () {
 }());
 
 /* handles player-related functionality (popup, Shadowbox, etc) */
-TubePressPlayers = (function () {
+var TubePressPlayers = (function () {
 	
 	var init, playerInit, invokePlayer;
 	
@@ -229,10 +231,11 @@ TubePressPlayers = (function () {
 }());
 
 /* deals with the embedded video player */
-TubePressEmbedded = (function () {
+var TubePressEmbedded = (function () {
 
-	var swap, getEmbeddedObjectClone, getHtmlForCurrentEmbed, getWidthOfCurrentEmbed,
-		getHeightOfCurrentEmbed, dealingWithiframe, getIframeIframe, objCss, isIframe;
+	var isIframe, getHtmlForCurrentEmbed, getWidthOfCurrentEmbed, getHeightOfCurrentEmbed,
+		objCss, getIframe, dealingWithiframe, swap, swapIframe, swapEmbeddedObject,
+		getEmbeddedObjectClone, getIdMatcher, getEmbedParam;
 	
 	isIframe = function (embeddedName) {
 		return embeddedName !== 'longtail';
@@ -266,7 +269,6 @@ TubePressEmbedded = (function () {
 	
 	objCss = function (galleryId, attribute) {
 		var wrapperId	= '#tubepress_embedded_object_' + galleryId,
-			wrapper	= jQuery(wrapperId),
 			obj	= jQuery(wrapperId + ' > object'),
 			regex   = new RegExp(attribute + '[\\s]*:[\\s]*([\\d]+)', 'i');
 		return parseInt(obj.attr('style').match(regex)[1], 10);
@@ -301,15 +303,15 @@ TubePressEmbedded = (function () {
 		} else {
 			swapEmbeddedObject(embeddedName, wrapperId, matcher, wrapper, videoId);
 		}
-	}
-	
+	};
+
 	/**
 	 * Swaps an iframe for the new video
 	 */
 	swapIframe = function (embeddedName, wrapper, matcher, videoId) {
 		var oldHtml	= wrapper.html(),
-			oldId 	= oldHtml.match(matcher)[1];
-			
+			oldId	= oldHtml.match(matcher)[1];
+
 		wrapper.html(oldHtml.replace(oldId, videoId) + ' ');
 			
 		/* add the random digits here to prevent browser from caching iframe */
@@ -322,9 +324,11 @@ TubePressEmbedded = (function () {
 	 * Swaps an embedded object for a new video
 	 */
 	swapEmbeddedObject = function (embeddedName, wrapperId, matcher, wrapper, videoId) {
-		var paramName	= getEmbedParam(embeddedName),
-			obj			= jQuery(wrapperId + ' > object'),
-			oldVideoId	= obj.children("param[name='" + paramName + "']").attr('value').match(matcher)[1];
+		var paramName		= getEmbedParam(embeddedName),
+			obj		= jQuery(wrapperId + ' > object'),
+			oldVideoId	= obj.children("param[name='" + paramName + "']").attr('value').match(matcher)[1],
+			params,
+			newHtml;
 
 		/* remove anything AdBlock plus sticks in there */
 		obj.siblings().remove();
@@ -363,11 +367,11 @@ TubePressEmbedded = (function () {
 	getIdMatcher = function (embeddedName) {
 		switch (embeddedName) {
 		case 'longtail':
-			return /youtube\.com\/watch\?v=(.{11}).*/;
+			return (/youtube\.com\/watch\?v=(\S{11})\S*/);
 		case 'vimeo':
-			return /\/video\/([0-9]+).*/;
+			return (/\/video\/([0-9]+)\S*/);
 		default:
-			return /youtube\.com\/embed\/(.{11}).*/;
+			return (/youtube\.com\/embed\/(\S{11})\S*/);
 		}
 	};
 	
@@ -378,11 +382,11 @@ TubePressEmbedded = (function () {
 		default:
 			return 'movie';
 		}
-	}
-	
+	};
+
 	return {
-		isIframe				: isIframe,
-		swap 					: swap,
+		isIframe		: isIframe,
+		swap			: swap,
 		getHtmlForCurrentEmbed	: getHtmlForCurrentEmbed,
 		getHeightOfCurrentEmbed	: getHeightOfCurrentEmbed,
 		getWidthOfCurrentEmbed	: getWidthOfCurrentEmbed
@@ -393,7 +397,7 @@ TubePressEmbedded = (function () {
 /**
  * Main TubePress gallery module.
  */
-TubePressGallery = (function () {
+var TubePressGallery = (function () {
 
 	var init, initClickListeners, fluidThumbs, clickListener, getCurrentPageNumber;
 	
@@ -409,11 +413,11 @@ TubePressGallery = (function () {
 	
 	/* thumbnail click listener */
 	clickListener = function () {
-		var rel_split	= jQuery(this).attr('rel').split('_'),
-		galleryId		= TubePressAnchors.getGalleryIdFromRelSplit(rel_split),
-		playerName		= TubePressAnchors.getPlayerNameFromRelSplit(rel_split),
-		embeddedName	= TubePressAnchors.getEmbeddedNameFromRelSplit(rel_split),
-		videoId			= TubePressAnchors.getVideoIdFromIdAttr(jQuery(this).attr('id'));
+		var rel_split		= jQuery(this).attr('rel').split('_'),
+			galleryId	= TubePressAnchors.getGalleryIdFromRelSplit(rel_split),
+			playerName	= TubePressAnchors.getPlayerNameFromRelSplit(rel_split),
+			embeddedName	= TubePressAnchors.getEmbeddedNameFromRelSplit(rel_split),
+			videoId		= TubePressAnchors.getVideoIdFromIdAttr(jQuery(this).attr('id'));
 
 		/* swap the gallery's embedded object */
 		TubePressEmbedded.swap(galleryId, videoId, embeddedName);
@@ -445,7 +449,7 @@ TubePressGallery = (function () {
 			current = jQuery(paginationSelector);
 
 		if (current.length > 0) {
-			page = current.html()
+			page = current.html();
 		}
 		
 		return page;
@@ -464,7 +468,7 @@ TubePressGallery = (function () {
 /**
  * Functions for handling Ajax pagination.
  */
-TubePressAjaxPagination = (function () {
+var TubePressAjaxPagination = (function () {
 	
 	var init, processRequest, postAjaxGallerySetup;
 	
@@ -520,11 +524,11 @@ var safeTubePressInit = function () {
 if (!jQuery.browser.msie) {
 	var oldReady = jQuery.ready;
 	jQuery.ready = function () {
-			try {
-				oldReady.apply(this, arguments);
-			} catch (e) { }
-			safeTubePressInit();
-		};
+		try {
+			oldReady.apply(this, arguments);
+		} catch (e) { }
+		safeTubePressInit();
+	};
 } else {
 	jQuery().ready(function () {
 		safeTubePressInit();
