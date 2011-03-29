@@ -88,6 +88,12 @@ var TubePressJS = (function () {
 	};
 	
 	getWaitCall = function (scriptPath, test, callback) {
+
+		/* short circuit */
+		if (test()) {
+			return callback();
+		}
+
 		var futureCallback = function () {
 			callWhenTrue(test, callback);
 		};
@@ -106,8 +112,8 @@ var TubePressJS = (function () {
 	/* return only public functions */
 	return { 
 		callWhenTrue	: callWhenTrue,
-		getWaitCall		: getWaitCall,
-		loadCss			: loadCss
+		getWaitCall	: getWaitCall,
+		loadCss		: loadCss
 	};
 }());
 
@@ -122,25 +128,7 @@ var TubePressEvents = (function () {
 /* analyzes HTML anchor objects */
 var TubePressAnchors = (function () {
 	
-	var findAllEmbeddedNames, findAllPlayerNames, getEmbeddedNameFromRelSplit,
-		getPlayerNameFromRelSplit, getGalleryIdFromRelSplit, getVideoIdFromIdAttr,
-		parseRels;
-	
-	findAllEmbeddedNames = function () {
-		return parseRels(1);	
-	};
-	
-	findAllPlayerNames = function () {
-		return parseRels(2);	
-	};
-	
-	getEmbeddedNameFromRelSplit = function (relSplit) {
-		return relSplit[1];
-	};
-	
-	getPlayerNameFromRelSplit = function (relSplit) {
-		return relSplit[2];
-	};
+	var getGalleryIdFromRelSplit, getVideoIdFromIdAttr, parseRels;
 	
 	getGalleryIdFromRelSplit = function (relSplit) {
 		return relSplit[3];
@@ -163,14 +151,53 @@ var TubePressAnchors = (function () {
 	};
 	
 	return {
-		findAllEmbeddedNames		: findAllEmbeddedNames,
-		findAllPlayerNames		: findAllPlayerNames,
-		getEmbeddedNameFromRelSplit	: getEmbeddedNameFromRelSplit,
-		getPlayerNameFromRelSplit	: getPlayerNameFromRelSplit,
 		getGalleryIdFromRelSplit	: getGalleryIdFromRelSplit,
 		getVideoIdFromIdAttr		: getVideoIdFromIdAttr
 	};
 	
+}());
+
+var TubePressGallery = (function () {
+
+	var isFluidThumbs, getShortcode, getEmbeddedImplName, getPlayerLocationName, 
+		isAjaxPagination, isEmbedHasMeta, o;
+
+	isFluidThumbs = function (galleryId) {
+		return o().fluidThumbs;
+	};
+
+	getShortcode = function (galleryId) {
+		return o().shortcode;
+	};
+
+	getEmbeddedImplName = function (galleryId) {
+		return o().embeddedImplName;
+	};
+
+	getPlayerLocationName = function (galleryId) {
+		return o().playerLocationName;
+	};
+
+	isAjaxPagination = function (galleryId) {
+		return o().ajaxPagination;
+	};
+
+	isEmbedHasMeta = function (galleryId) {
+		return o().embedHasMeta;
+	};
+
+	o = function (galleryId) {
+		return window['TubePressGallery' + galleryId];
+	};
+
+	return {
+		isAjaxPagination	: isAjaxPagination,
+		isEmbedHasMeta		: isEmbedHasMeta,
+		isFluidThumbs		: isFluidThumbs,
+		getShortcode		: getShortcode,
+		getEmbeddedImplName	: getEmbeddedImplName,
+		getPlayerLocationName	: getPlayerLocationName
+	};
 }());
 
 /* handles player-related functionality (popup, Shadowbox, etc) */
@@ -178,235 +205,53 @@ var TubePressPlayers = (function () {
 	
 	var loadPlayerJs, playerInit, invokePlayer, loadedPlayers;
 	
-	loadPlayerJs = function (baseUrl) {
+	loadPlayerJs = function (baseUrl, galleryId) {
 		
-		/* loads up JS necessary for dealing with TubePress players that we find on the page */
-		var playerNames = TubePressAnchors.findAllPlayerNames(), i, name;
-		for (i = 0; i < playerNames.length; i = i + 1) {
-			name = playerNames[i];
+		var playerName = TubePressGallery.getPlayerLocationName(galleryId);
 
-			/* don't load a player twice */
-			if (loadedPlayers[name] === true) {
-				continue;
-			}
-
-			jQuery.getScript(baseUrl + '/sys/ui/static/players/' + name + '/' + name + '.js', 
-				playerInit(name, baseUrl));
+		/* don't load a player twice */
+		if (loadedPlayers[playerName] === true) {
+			return;
 		}
+
+		jQuery.getScript(baseUrl + '/sys/ui/static/players/' + playerName + '/' + playerName + '.js', 
+			playerInit(playerName, baseUrl));
 	};
 	
-	invokePlayer = function (galleryId, videoId, embeddedName, playerName) {
-		var playerFunctionName = 'tubepress_' + playerName + '_player';
-		window[playerFunctionName](galleryId, videoId);
-	};
-	
-	playerInit = function (name, baseUrl) {
+	playerInit = function (playerName, baseUrl) {
 		
 		/* remember that we already loaded this */
-		loadedPlayers[name] = true;
+		loadedPlayers[playerName] = true;
 
 		/* Call tubepress_<playername>_init() when the player JS is loaded */
-		var funcName = 'tubepress_' + name + '_player_init',
-			f = function () {
+		var funcName	= 'tubepress_' + playerName + '_player_init',
+			f	= function () {
 				window[funcName](baseUrl);
-			};	
+			};
+
 		TubePressJS.callWhenTrue(function () {
 			return typeof window[funcName] === 'function'; 
 		}, f);	
 	};
+
+	invokePlayer = function (galleryId, videoId) {
+		var playerFunctionName	= 'tubepress_' +  TubePressGallery.getPlayerLocationName(galleryId) + '_player',
+			embedName	= TubePressGallery.getEmbeddedImplName(),
+			baseUrl		= getTubePressBaseUrl(),
+			meta		= TubePressGallery.isEmbedHasMeta();
+
+		jQuery.get(baseUrl + '/sys/scripts/ajax/playerHtml.php', { embedName: embedName, video: videoId, meta: meta }, 
+			function (data) { window[playerFunctionName](data); }, 'html');
+	};
 	
 	jQuery().bind(TubePressEvents.NEW_THUMBS_LOADED, function (e, galleryId) {
 
-		loadPlayerJs(getTubePressBaseUrl());
+		loadPlayerJs(getTubePressBaseUrl(), galleryId);
 
 	});
 
 	return { invokePlayer : invokePlayer };
 	
-}());
-
-/* deals with the embedded video player */
-var TubePressEmbedded = (function () {
-
-	var isIframe, getHtmlForCurrentEmbed, getWidthOfCurrentEmbed, getHeightOfCurrentEmbed,
-		objCss, getIframe, dealingWithiframe, swap, swapIframe, swapEmbeddedObject,
-		getEmbeddedObjectClone, getIdMatcher, getEmbedParam;
-	
-	isIframe = function (embeddedName) {
-		return embeddedName !== 'longtail';
-	};
-	
-	getHtmlForCurrentEmbed = function (galleryId) {
-
-		if (dealingWithiframe(galleryId)) {
-			return jQuery('div#tubepress_embedded_object_' + galleryId).html();
-		}
-		
-		var wrapperId		= '#tubepress_embedded_object_' + galleryId,
-			wrapper		= jQuery(wrapperId),
-			obj		= jQuery(wrapperId + ' > object'),
-			params		= obj.children('param');
-
-		return getEmbeddedObjectClone(wrapper, params);
-	};
-	
-	getWidthOfCurrentEmbed = function (galleryId) {
-		if (dealingWithiframe(galleryId)) {
-			return parseInt(getIframe(galleryId).attr('width'), 10);
-		}
-		return objCss(galleryId, 'width');
-	};
-	
-	getHeightOfCurrentEmbed = function (galleryId) {
-		if (dealingWithiframe(galleryId)) {
-			return parseInt(getIframe(galleryId).attr('height'), 10);
-		}
-		return objCss(galleryId, 'height');
-	};
-	
-	objCss = function (galleryId, attribute) {
-		var wrapperId	= '#tubepress_embedded_object_' + galleryId,
-			obj	= jQuery(wrapperId + ' > object'),
-			regex   = new RegExp(attribute + '[\\s]*:[\\s]*([\\d]+)', 'i');
-		return parseInt(obj.attr('style').match(regex)[1], 10);
-	};
-	
-	getIframe = function (galleryId) {
-		return jQuery('div#tubepress_embedded_object_' + galleryId + ' > iframe:first');
-	};
-	
-	dealingWithiframe = function (galleryId) {
-		return getIframe(galleryId).length !== 0;
-	};
-	
-	/**
-	 * Swaps out the embedded Flash player with a replacement. 
-	 * This function is very carefully constructed to work with both IE 7-8 and FF.
-	 * Modify at your own risk!!
-	*/
-	swap = function (galleryId, videoId, embeddedName) {
-		var wrapperId = '#tubepress_embedded_object_' + galleryId,
-			wrapper = jQuery(wrapperId),
-			matcher = getIdMatcher(embeddedName);
-
-		/* if we can't find the embedded object, just bail */
-		if (wrapper.length === 0) {
-			return;
-		}
-
-		/* swap technique depends if iframe or not */
-		if (TubePressEmbedded.isIframe(embeddedName)) {
-			swapIframe(embeddedName, wrapper, matcher, videoId);
-		} else {
-			swapEmbeddedObject(embeddedName, wrapperId, matcher, wrapper, videoId);
-		}
-	};
-
-	/**
-	 * Swaps an iframe for the new video
-	 */
-	swapIframe = function (embeddedName, wrapper, matcher, videoId) {
-		var oldHtml	= wrapper.html(),
-			oldId	= oldHtml.match(matcher)[1];
-
-		wrapper.html(oldHtml.replace(oldId, videoId) + ' ');
-			
-		/* add the random digits here to prevent browser from caching iframe */
-		wrapper.children('iframe')[0].src = wrapper.children('iframe')[0].src + Math.random();
-	
-		/* you've earned yourself a beer */
-	};
-	
-	/**
-	 * Swaps an embedded object for a new video
-	 */
-	swapEmbeddedObject = function (embeddedName, wrapperId, matcher, wrapper, videoId) {
-		var paramName		= getEmbedParam(embeddedName),
-			obj		= jQuery(wrapperId + ' > object'),
-			oldVideoId	= obj.children("param[name='" + paramName + "']").attr('value').match(matcher)[1],
-			params,
-			newHtml;
-
-		/* remove anything AdBlock plus sticks in there */
-		obj.siblings().remove();
-	
-		/* save the params but remove them from the DOM for now */
-		params = obj.children('param');
-		params.remove();
-
-		/* create the new embedded object */
-		newHtml = getEmbeddedObjectClone(wrapper, params).replace(new RegExp(oldVideoId, 'g'), videoId);
-	
-		/* add it back in */
-		wrapper.html(newHtml);
-
-		/* now pat yourself on the back */	
-	};
-	
-	getEmbeddedObjectClone = function (wrapper, params) {
-		
-		//http://blog.stevenlevithan.com/archives/faster-trim-javascript
-		var newHtml = wrapper.html().replace(/\s\s*$/, '');
-		
-		/* chop off the closing </object>. Don't change this unless you want to break IE */
-		newHtml = newHtml.substring(0, newHtml.length - 9);
-
-		/* now add back the params, but this time with the new video ID */
-		params.each(function () {
-			newHtml += '<param name="' + this.name + '" value="' + this.value + '" />';
-		});
-	
-		/* re-close the object */
-		newHtml += '</object>';
-		return newHtml;
-	};
-	
-	getIdMatcher = function (embeddedName) {
-		switch (embeddedName) {
-		case 'longtail':
-			return (/youtube\.com\/watch\?v=(\S{11})\S*/);
-		case 'vimeo':
-			return (/\/video\/([0-9]+)\S*/);
-		default:
-			return (/youtube\.com\/embed\/(\S{11})\S*/);
-		}
-	};
-	
-	getEmbedParam = function (embeddedName) {
-		switch (embeddedName) {
-		case 'longtail':
-			return 'flashvars';
-		default:
-			return 'movie';
-		}
-	};
-
-	return {
-		isIframe		: isIframe,
-		swap			: swap,
-		getHtmlForCurrentEmbed	: getHtmlForCurrentEmbed,
-		getHeightOfCurrentEmbed	: getHeightOfCurrentEmbed,
-		getWidthOfCurrentEmbed	: getWidthOfCurrentEmbed
-	};
-	
-}());
-
-var TubePressGallery = (function () {
-
-	var isFluidThumbs, getShortcode;
-
-	isFluidThumbs = function (galleryId) {
-		return window['TubePressGallery' + galleryId].fluidThumbs;
-	};
-
-	getShortcode = function (galleryId) {
-		return window['getUrlEncodedShortcodeForTubePressThumbs' + galleryId]();
-	};
-
-	return {
-		isFluidThumbs	: isFluidThumbs,
-		getShortcode	: getShortcode
-	};
 }());
 
 /**
@@ -421,15 +266,10 @@ var TubePressThumbs = (function () {
 	clickListener = function () {
 		var rel_split		= jQuery(this).attr('rel').split('_'),
 			galleryId	= TubePressAnchors.getGalleryIdFromRelSplit(rel_split),
-			playerName	= TubePressAnchors.getPlayerNameFromRelSplit(rel_split),
-			embeddedName	= TubePressAnchors.getEmbeddedNameFromRelSplit(rel_split),
 			videoId		= TubePressAnchors.getVideoIdFromIdAttr(jQuery(this).attr('id'));
-
-		/* swap the gallery's embedded object */
-		TubePressEmbedded.swap(galleryId, videoId, embeddedName);
 	
 		/* then call the player to load up / play the video */
-		TubePressPlayers.invokePlayer(galleryId, videoId, embeddedName, playerName);
+		TubePressPlayers.invokePlayer(galleryId, videoId);
 	};
 
 	/* http://www.sohtanaka.com/web-design/smart-columns-w-css-jquery/ */
@@ -525,7 +365,9 @@ var TubePressAjaxPagination = (function () {
 	};
 
 	jQuery().bind(TubePressEvents.NEW_THUMBS_LOADED, function (e, galleryId) {
-		addClickHandlers(galleryId);
+		if (TubePressGallery.isAjaxPagination(galleryId)) {
+			addClickHandlers(galleryId);
+		}
 	});
 }());
 
@@ -590,7 +432,7 @@ if (!jQuery.browser.msie) {
 		TubePress.init();
 	};
 } else {
-	jQuery().ready(function () {
+	jQuery(document).ready(function () {
 		TubePress.init();
 	});
 }
