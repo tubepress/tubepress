@@ -6,13 +6,9 @@
  *
  * Shrink your JS: http://developer.yahoo.com/yui/compressor/
  */
-function tubepress_normal_player(galleryId, videoId) {
+function tubepress_normal_player(title, html, height, width, videoId) {
 	
-	var videoTitleAnchor	= jQuery('#tubepress_title_' + videoId + '_' + galleryId),
-		embeddedTitleId		= '#tubepress_embedded_title_' + galleryId,
-		mainTitleDiv		= jQuery(embeddedTitleId);
-	
-	mainTitleDiv.html(videoTitleAnchor.html());
+	mainTitleDiv.html(title);
 	jQuery(embeddedTitleId)[0].scrollIntoView(true);
 }
 

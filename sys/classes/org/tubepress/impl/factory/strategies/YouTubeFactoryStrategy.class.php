@@ -57,7 +57,7 @@ class org_tubepress_impl_factory_strategies_YouTubeFactoryStrategy extends org_t
 
         return is_string($feed) && strpos($feed, "http://gdata.youtube.com/schemas/2007") !== false;
     }
-    
+
     protected function getXpath()
     {
         return $this->_xpath;
@@ -67,17 +67,17 @@ class org_tubepress_impl_factory_strategies_YouTubeFactoryStrategy extends org_t
     {
         $this->_xpath = $this->_createXPath($this->_createDomDocument($feed));
     }
-    
+
     protected function _postExecute($feed)
     {
         unset($this->_xpath);
     }
-    
+
     protected function _countVideosInFeed($feed)
     {
         return $this->_xpath->query('//atom:entry')->length;
     }
-    
+
     protected function _canHandleVideo($index)
     {
         $states = $this->_relativeQuery($index, 'app:control/yt:state');
@@ -90,12 +90,12 @@ class org_tubepress_impl_factory_strategies_YouTubeFactoryStrategy extends org_t
         /* if state is other than limitedSyndication, it's not available */
         return $this->_relativeQuery($index, "app:control/yt:state[@reasonCode='limitedSyndication']")->length !== 0;
     }
-    
+
     protected function _getAuthorDisplayName($index)
     {
         return $this->_getAuthorUid($index);
     }
-    
+
     protected function _getAuthorUid($index)
     {
         return $this->_relativeQuery($index, 'atom:author/atom:name')->item(0)->nodeValue;
@@ -105,30 +105,30 @@ class org_tubepress_impl_factory_strategies_YouTubeFactoryStrategy extends org_t
     {
         return trim($this->_relativeQuery($index, 'media:group/media:category')->item(0)->getAttribute('label'));
     }
-    
+
     protected function _getRawCommentCount($index)
     {
         return '';
     }
-    
+
     protected function _getDescription($index)
     {
         return $this->_relativeQuery($index, 'media:group/media:description')->item(0)->nodeValue;
     }
-    
+
     protected function _getDurationInSeconds($index)
     {
         return $this->_relativeQuery($index, 'media:group/yt:duration')->item(0)->getAttribute('seconds');
     }
-    
+
     protected function _getHomeUrl($index)
     {
-                $rawUrl = $this->_relativeQuery($index, "atom:link[@rel='alternate']")->item(0)->getAttribute('href');
+        $rawUrl = $this->_relativeQuery($index, "atom:link[@rel='alternate']")->item(0)->getAttribute('href');
         $url    = new org_tubepress_api_url_Url($rawUrl);
 
         return $url->toString(true);
     }
-    
+
     protected function _getId($index)
     {
         $link    = $this->_relativeQuery($index, "atom:link[@type='text/html']")->item(0);
@@ -137,7 +137,7 @@ class org_tubepress_impl_factory_strategies_YouTubeFactoryStrategy extends org_t
 
         return $matches[1];
     }
-    
+
     protected function _getKeywordsArray($index)
     {
         $rawKeywords = $this->_relativeQuery($index, 'media:group/media:keywords')->item(0);
@@ -150,7 +150,7 @@ class org_tubepress_impl_factory_strategies_YouTubeFactoryStrategy extends org_t
     {
         return '';
     }
-    
+
     protected function _getRatingAverage($index)
     {
         $count = $this->_relativeQuery($index, 'gd:rating')->item(0);
@@ -159,7 +159,7 @@ class org_tubepress_impl_factory_strategies_YouTubeFactoryStrategy extends org_t
         }
         return '';
     }
-    
+
     protected function _getRawRatingCount($index)
     {
         $count = $this->_relativeQuery($index, 'gd:rating')->item(0);

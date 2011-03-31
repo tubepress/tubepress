@@ -168,8 +168,7 @@ class org_tubepress_impl_factory_strategies_VimeoFactoryStrategy extends org_tub
     
     protected function _canHandleVideo($index)
     {
-        //Vimeo never sends us videos we can't display
-        return true;
+        return $this->_videoArray[$index]->embed_privacy !== 'nowhere';
     }
     
     protected static function _gatherArrayOfContent($node, $firstDimension, $secondDimension)

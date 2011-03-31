@@ -39,6 +39,6 @@ function tubepress_solo_player_init(baseUrl) {
 	});
 }
 
-function tubepress_solo_player(galleryId, videoId) {
+function tubepress_solo_player(title, html, height, width, videoId) {
 	//do nothing
 }

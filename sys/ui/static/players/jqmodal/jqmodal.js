@@ -6,9 +6,9 @@
  *
  * Shrink your JS: http://developer.yahoo.com/yui/compressor/
  */
-function tubepress_jqmodal_player(galleryId, videoId) {
-	var element = jQuery('#tubepress_embedded_object_' + galleryId);
-	
+function tubepress_jqmodal_player(title, html, height, width, videoId) {
+	var element = jQuery('<div style="visibility: none; height: ' + height + 'px; width: ' + width + 'px;">' + html + '</div>').appendTo('body');
+
 	element.addClass('jqmWindow');	 
 	element.jqm(); 
 	element.jqmShow();

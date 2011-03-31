@@ -6,16 +6,11 @@
  *
  * Shrink your JS: http://developer.yahoo.com/yui/compressor/
  */
-function tubepress_init_shadowbox(base) {
-	Shadowbox.path = base + 'lib/';
-	Shadowbox.init({
-		initialHeight	: 160,
-		initialWidth	: 320,
-		skipSetup		: true, 
-		players			: ['html'],
-		useSizzle		: false
-	});
-	Shadowbox.load();
+function tubepress_shadowbox_player_init(baseUrl) {
+	var url = baseUrl + '/sys/ui/static/players/shadowbox/';
+	
+	TubePressJS.loadCss(url + 'lib/shadowbox.css');
+	tubepress_shadowbox_player_shadowboxjs(url);
 }
 
 function tubepress_shadowbox_player_shadowboxjs(base)  {
@@ -29,24 +24,24 @@ function tubepress_shadowbox_player_shadowboxjs(base)  {
 	);
 }
 
-function tubepress_shadowbox_player_init(baseUrl) {
-	var url = baseUrl + '/sys/ui/static/players/shadowbox/';
-	
-	TubePressJS.loadCss(url + 'lib/shadowbox.css');
-	tubepress_shadowbox_player_shadowboxjs(url);
+function tubepress_init_shadowbox(base) {
+	Shadowbox.path = base + 'lib/';
+	Shadowbox.init({
+		initialHeight	: 160,
+		initialWidth	: 320,
+		skipSetup	: true, 
+		players		: ['html'],
+		useSizzle	: false
+	});
+	Shadowbox.load();
 }
 
-function tubepress_shadowbox_player(galleryId, videoId) {
-	var html				= TubePressEmbedded.getHtmlForCurrentEmbed(galleryId),
-		videoTitleAnchor	= jQuery('#tubepress_title_' + videoId + '_' + galleryId),
-		embedWidth			= TubePressEmbedded.getWidthOfCurrentEmbed(galleryId),
-		embedHeight			= TubePressEmbedded.getHeightOfCurrentEmbed(galleryId);
-
+function tubepress_shadowbox_player(title, html, height, width, videoId) {
 	Shadowbox.open({
 		player:		'html',
-		title:		videoTitleAnchor.html(),
+		title:		title,
 		content:	html,
-		height:		embedHeight,
-		width:		embedWidth
+		height:		height,
+		width:		width
 	});
 }
