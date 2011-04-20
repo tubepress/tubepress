@@ -73,7 +73,7 @@ var TubePressAjax = (function () {
 	};
 	
 	return {
-		load			: load,
+		load				: load,
 		applyLoadingStyle	: applyLoadingStyle,
 		removeLoadingStyle	: removeLoadingStyle,
 		loadAndStyle		: loadAndStyle
@@ -133,8 +133,8 @@ var TubePressJS = (function () {
 	
 	return { 
 		callWhenTrue	: callWhenTrue,
-		getWaitCall	: getWaitCall,
-		loadCss		: loadCss
+		getWaitCall		: getWaitCall,
+		loadCss			: loadCss
 	};
 }());
 
@@ -178,8 +178,8 @@ var TubePressAnchors = (function () {
 
 var TubePressGallery = (function () {
 
-	var isFluidThumbs, getShortcode, getEmbeddedImplName, getPlayerLocationName, 
-		isAjaxPagination, isEmbedHasMeta, o, getEmbeddedHeight, getEmbeddedWidth;
+	var isFluidThumbs, getShortcode, getPlayerLocationName, 
+		isAjaxPagination, o;
 
 	o = function (galleryId) {
 		return window['TubePressGallery' + galleryId];
@@ -193,20 +193,12 @@ var TubePressGallery = (function () {
 		return o(galleryId).shortcode;
 	};
 
-	getEmbeddedImplName = function (galleryId) {
-		return o(galleryId).embeddedImplName;
-	};
-
 	getPlayerLocationName = function (galleryId) {
 		return o(galleryId).playerLocationName;
 	};
 
 	isAjaxPagination = function (galleryId) {
 		return o(galleryId).ajaxPagination;
-	};
-
-	isEmbedHasMeta = function (galleryId) {
-		return o(galleryId).embedHasMeta;
 	};
 
 	getEmbeddedHeight = function (galleryId) {
@@ -218,14 +210,12 @@ var TubePressGallery = (function () {
 	};
 
 	return {
-		isAjaxPagination	: isAjaxPagination,
-		isEmbedHasMeta		: isEmbedHasMeta,
-		isFluidThumbs		: isFluidThumbs,
-		getShortcode		: getShortcode,
-		getEmbeddedImplName	: getEmbeddedImplName,
+		isAjaxPagination		: isAjaxPagination,
+		isFluidThumbs			: isFluidThumbs,
+		getShortcode			: getShortcode,
 		getPlayerLocationName	: getPlayerLocationName,
-		getEmbeddedHeight	: getEmbeddedHeight,
-		getEmbeddedWidth	: getEmbeddedWidth
+		getEmbeddedHeight		: getEmbeddedHeight,
+		getEmbeddedWidth		: getEmbeddedWidth
 	};
 }());
 
@@ -265,14 +255,13 @@ var TubePressPlayers = (function () {
 
 	invokePlayer = function (galleryId, videoId) {
 		var playerFunctionName	= 'tubepress_' +  TubePressGallery.getPlayerLocationName(galleryId) + '_player',
-			embedName	= TubePressGallery.getEmbeddedImplName(),
 			baseUrl		= getTubePressBaseUrl(),
-			meta		= TubePressGallery.isEmbedHasMeta(),
-			height		= TubePressGallery.getEmbeddedHeight(),
-			width		= TubePressGallery.getEmbeddedWidth();
+			height		= TubePressGallery.getEmbeddedHeight(galleryId),
+			width		= TubePressGallery.getEmbeddedWidth(galleryId),
+			shortcode   = TubePressGallery.getShortcode(galleryId);
 
-		jQuery.get(baseUrl + '/sys/scripts/ajax/playerHtml.php', { embedName: embedName, video: videoId, meta: meta }, 
-			function (data) { window[playerFunctionName](data.title, data.html, height, width, videoId); }, 'html');
+		jQuery.get(baseUrl + '/sys/scripts/ajax/embeddedHtml.php', { tubepress_video: videoId, tubepress_shortcode: shortcode }, 
+			function (data) { window[playerFunctionName](data.title, data.html, height, width, videoId, galleryId); }, 'json');
 	};
 	
 	jQuery(document).bind(TubePressEvents.NEW_THUMBS_LOADED, function (e, galleryId) {
@@ -295,7 +284,7 @@ var TubePressThumbs = (function () {
 	
 	/* thumbnail click listener */
 	clickListener = function () {
-		var rel_split		= jQuery(this).attr('rel').split('_'),
+		var rel_split	= jQuery(this).attr('rel').split('_'),
 			galleryId	= TubePressAnchors.getGalleryIdFromRelSplit(rel_split),
 			videoId		= TubePressAnchors.getVideoIdFromIdAttr(jQuery(this).attr('id'));
 	
@@ -309,12 +298,12 @@ var TubePressThumbs = (function () {
 		getThumbArea(galleryId).css({ 'width' : "100%" });
 		
 		var gallerySelector	= getThumbAreaSelector(galleryId),
-			columnWidth	= getThumbWidth(galleryId),
-			gallery		= jQuery(gallerySelector),
-			colWrap		= gallery.width(), 
-			colNum		= Math.floor(colWrap / columnWidth), 
-			colFixed	= Math.floor(colWrap / colNum),
-			thumbs		= jQuery(gallerySelector + ' div.tubepress_thumb');
+			columnWidth		= getThumbWidth(galleryId),
+			gallery			= jQuery(gallerySelector),
+			colWrap			= gallery.width(), 
+			colNum			= Math.floor(colWrap / columnWidth), 
+			colFixed		= Math.floor(colWrap / colNum),
+			thumbs			= jQuery(gallerySelector + ' div.tubepress_thumb');
 		
 		gallery.css({ 'width' : '100%'});
 		gallery.css({ 'width' : colWrap });
@@ -349,7 +338,7 @@ var TubePressThumbs = (function () {
 	jQuery(document).bind(TubePressEvents.NEW_THUMBS_LOADED, function (e, galleryId) {
 
 		/* add a click handler to each link in this gallery */
-		jQuery("#tubepress_gallery_ " + galleryId + " a[id^='tubepress_']").click(clickListener);
+		jQuery("#tubepress_gallery_" + galleryId + " a[id^='tubepress_']").click(clickListener);
 
 		/* fluid thumbs if we need it */
 		if (TubePressGallery.isFluidThumbs(galleryId)) {
@@ -381,13 +370,14 @@ var TubePressAjaxPagination = (function () {
 
 	/* Handles an ajax pagination click. */
 	processClick = function (anchor, galleryId) {
-		var baseUrl			= getTubePressBaseUrl(), 
-			shortcode		= TubePressGallery.getShortcode(galleryId),
-			page			= anchor.attr('rel'),
+		var baseUrl				= getTubePressBaseUrl(), 
+			shortcode			= TubePressGallery.getShortcode(galleryId),
+			page				= anchor.attr('rel'),
 			thumbnailArea		= TubePressThumbs.getThumbAreaSelector(galleryId),
 			postLoadCallback	= function () { postLoad(galleryId); },
-			pageToLoad		= baseUrl + '/sys/scripts/ajax/shortcode_printer.php?shortcode=' + shortcode + '&tubepress_' + page + '&tubepress_galleryId=' + galleryId,
+			pageToLoad			= baseUrl + '/sys/scripts/ajax/shortcode_printer.php?shortcode=' + shortcode + '&tubepress_' + page + '&tubepress_galleryId=' + galleryId,
 			remotePageSelector	= thumbnailArea + ' > *';
+			
 		TubePressAjax.loadAndStyle(pageToLoad, thumbnailArea, remotePageSelector, '', postLoadCallback);
 	};
 
@@ -398,9 +388,11 @@ var TubePressAjaxPagination = (function () {
 
 	/* sets up new thumbnails for ajax pagination */
 	jQuery(document).bind(TubePressEvents.NEW_THUMBS_LOADED, function (e, galleryId) {
+		
 		if (TubePressGallery.isAjaxPagination(galleryId)) {
 			addClickHandlers(galleryId);
 		}
+		
 	});
 }());
 
@@ -409,6 +401,7 @@ var TubePress = (function () {
 	var init, compat, alreadyInited = false;
 
 	init = function () {
+		
 		if (!window.getTubePressBaseUrl || alreadyInited) {
 			return;
 		}
@@ -452,6 +445,13 @@ var TubePress = (function () {
 	return { init: init };
 
 }());
+
+/**
+ * This is here for backwards compatability only.
+ */
+function safeTubePressInit() {
+	TubePress.init();
+}
 
 
 /* append our init method to after all the other (potentially full of errors) ready blocks have 

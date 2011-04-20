@@ -95,6 +95,7 @@ class org_tubepress_impl_options_OptionsReference
             org_tubepress_api_const_options_names_Display::PAGINATE_BELOW          => true,
             org_tubepress_api_const_options_names_Display::AJAX_PAGINATION         => false,
             org_tubepress_api_const_options_names_Display::HQ_THUMBS               => false,
+            org_tubepress_api_const_options_names_Display::FLUID_THUMBS            => true,
             org_tubepress_api_const_options_names_Embedded::AUTOPLAY               => false,
             org_tubepress_api_const_options_names_Embedded::LOOP                   => false,
             org_tubepress_api_const_options_names_Embedded::SHOW_INFO              => false,
