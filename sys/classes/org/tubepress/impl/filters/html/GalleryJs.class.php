@@ -53,16 +53,20 @@ class org_tubepress_impl_filters_html_GalleryJs
         $playerName       = $tpom->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
         $shortcode        = rawurlencode($tpom->getShortcode());
         $fluidThumbs      = $tpom->get(org_tubepress_api_const_options_names_Display::FLUID_THUMBS) ? 'true' : 'false';
+        $height           = $tpom->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT);
+        $width            = $tpom->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
         
         return $html . <<<EOT
 <script type="text/javascript">
-	var TubePressGallery$galleryId = {
+	TubePressGallery.init($galleryId, {
 		ajaxPagination: $ajaxPagination,
 		fluidThumbs: $fluidThumbs,
 		shortcode: "$shortcode",
-		playerLocationName: "$playerName"
-    };
-</script>';
+		playerLocationName: "$playerName",
+		embeddedHeight: "$height",
+		embeddedWidth: "$width"
+    });
+</script>
 EOT;
     }
 }

@@ -27,15 +27,34 @@ function_exists('tubepress_load_classes')
 tubepress_load_classes(array('org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_impl_ioc_IocContainer'));
 
-$ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
-$qss    = $ioc->get('org_tubepress_api_querystring_QueryStringService');
-$booter = $ioc->get('org_tubepress_api_bootstrap_Bootstrapper');
-$env    = $ioc->get('org_tubepress_api_environment_Detector');
+$ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
+$qss      = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+$booter   = $ioc->get('org_tubepress_api_bootstrap_Bootstrapper');
+$env      = $ioc->get('org_tubepress_api_environment_Detector');
+$eps      = $ioc->get('org_tubepress_api_embedded_EmbeddedPlayer');
+$provider = $ioc->get('org_tubepress_api_provider_Provider');
 
 //if ($env->isWordPress()) {
     $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
     include '/Applications/MAMP/htdocs/tubepress_testing_ground/wp-blog-header.php';
 //}
 
+/* boot TubePress */
 $booter->boot();
 
+/* get the URL-encoded shortcode */
+$shortcode = $qss->getShortcode($_GET);
+
+/* video ID */
+$videoId = $qss->getCustomVideo($_GET);
+
+/* grab the video! */
+$video = $provider->getSingleVideo($videoId);
+if ($video == null) {
+    header("Status: 404 Not Found");
+    exit;
+}
+$title = $video->getTitle();
+$embeddedHtml = rawurlencode($eps->toString($videoId));
+
+echo "{ \"title\" : \"$title\", \"html\" : \"$embeddedHtml\" }";
