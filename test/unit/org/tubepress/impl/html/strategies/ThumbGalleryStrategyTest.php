@@ -117,14 +117,6 @@ class org_tubepress_impl_html_strategies_ThumbGalleryStrategyTest extends TubePr
       </div>
     </div>
       </div>
-  <script type="text/javascript">
-    jQuery(document).ready(function(){
-       TubePressGallery.fluidThumbs("#tubepress_gallery_390298742",  120);
-    });
-    jQuery(window).resize(function(){
-       TubePressGallery.fluidThumbs("#tubepress_gallery_390298742",  120);
-    });
-  </script>
 </div>
 
 EOT;

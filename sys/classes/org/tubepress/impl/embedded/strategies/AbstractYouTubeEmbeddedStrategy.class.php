@@ -55,6 +55,7 @@ abstract class org_tubepress_impl_embedded_strategies_AbstractYouTubeEmbeddedStr
         $link->setQueryVariable('loop', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($loop));
         $link->setQueryVariable('fs', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($fullscreen));
         $link->setQueryVariable('showinfo', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
+        $link->setQueryVariable('wmode', 'transparent');
 
         if ($tpom->get(org_tubepress_api_const_options_names_Embedded::HIGH_QUALITY)) {
             $link->setQueryVariable('hd', '1');

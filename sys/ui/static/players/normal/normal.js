@@ -6,10 +6,15 @@
  *
  * Shrink your JS: http://developer.yahoo.com/yui/compressor/
  */
-function tubepress_normal_player(title, html, height, width, videoId) {
+function tubepress_normal_player(title, html, height, width, videoId, galleryId) {
+
+	var	titleElement = jQuery("#tubepress_embedded_title_" + galleryId),
+		content = jQuery("#tubepress_embedded_object_" + galleryId);
 	
-	mainTitleDiv.html(title);
-	jQuery(embeddedTitleId)[0].scrollIntoView(true);
+	content.empty();
+	content.html(html);
+	titleElement.html(title);
+	titleElement[0].scrollIntoView(true);
 }
 
 function tubepress_normal_player_init(baseUrl) { }

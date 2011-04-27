@@ -6,7 +6,7 @@
  *
  * Shrink your JS: http://developer.yahoo.com/yui/compressor/
  */
-function tubepress_youtube_player(title, html, height, width, videoId) {
+function tubepress_youtube_player(title, html, height, width, videoId, galleryId) {
    window.location = 'http://www.youtube.com/watch?v=' + videoId;
 }
 
