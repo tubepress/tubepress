@@ -19,9 +19,9 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_patterns_Strategy',
+class_exists('TubePress')
+    || require dirname(__FILE__) . '/../../../../../TubePress.class.php';
+TubePress::loadClasses(array('org_tubepress_api_patterns_Strategy',
     'org_tubepress_api_video_Video',
     'org_tubepress_impl_log_Log',
     'org_tubepress_impl_util_TimeUtils'));

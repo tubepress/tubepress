@@ -19,7 +19,7 @@
  *
  */
 
-tubepress_load_classes(array('org_tubepress_api_patterns_Strategy',
+TubePress::loadClasses(array('org_tubepress_api_patterns_Strategy',
     'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_player_Player',
     'org_tubepress_impl_log_Log',

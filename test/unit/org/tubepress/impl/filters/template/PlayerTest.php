@@ -24,7 +24,7 @@ class org_tubepress_impl_filters_template_PlayerTest extends TubePressUnitTest
 	function testPlayerAboveAndBelow()
 	{
 	    $fakeTemplate = $this->getMock('org_tubepress_api_template_Template');
-	    $feedResult = $this->getMock('org_tubepress_api_feed_FeedResult');
+	    $feedResult = $this->getMock('org_tubepress_api_provider_ProviderResult');
 	    $feedResult->expects($this->once())
 	               ->method('getVideoArray')
 	               ->will($this->returnValue(array(new org_tubepress_api_video_Video())));

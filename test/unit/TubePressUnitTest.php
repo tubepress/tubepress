@@ -1,8 +1,8 @@
 <?php
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../sys/classes/tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_options_OptionsManager',
+class_exists('TubePress')
+    || require dirname(__FILE__) . '/../../sys/classes/TubePress.class.php';
+TubePress::loadClasses(array('org_tubepress_api_options_OptionsManager',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_impl_options_OptionsReference',
     'org_tubepress_api_message_MessageService',

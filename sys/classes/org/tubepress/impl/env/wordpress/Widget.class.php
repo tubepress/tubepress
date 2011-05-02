@@ -18,9 +18,9 @@ You should have received a copy of the GNU General Public License
 along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_impl_message_WordPressMessageService',
+class_exists('TubePress')
+    || require dirname(__FILE__) . '/../../../../../TubePress.class.php';
+TubePress::loadClasses(array('org_tubepress_impl_message_WordPressMessageService',
     'org_tubepress_impl_ioc_FreeWordPressPluginIocService',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_api_const_options_names_Widget',

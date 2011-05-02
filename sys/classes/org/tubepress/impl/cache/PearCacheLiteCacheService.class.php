@@ -26,9 +26,9 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-|| require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_cache_Cache',
+class_exists('TubePress')
+|| require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array('org_tubepress_api_cache_Cache',
     'org_tubepress_impl_log_Log',
     'org_tubepress_impl_filesystem_FsExplorer'));
 

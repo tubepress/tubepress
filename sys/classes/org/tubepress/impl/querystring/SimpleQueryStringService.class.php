@@ -19,9 +19,9 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_querystring_QueryStringService',
+class_exists('TubePress')
+    || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array('org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_api_const_querystring_QueryParamName'));
 
 /**

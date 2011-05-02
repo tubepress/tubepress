@@ -19,9 +19,9 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_impl_options_OptionsReference',
+class_exists('TubePress')
+    || require dirname(__FILE__) . '/../../../TubePress.class.php';
+TubePress::loadClasses(array('org_tubepress_impl_options_OptionsReference',
     'org_tubepress_api_const_options_Type',
     'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_const_options_names_Advanced',

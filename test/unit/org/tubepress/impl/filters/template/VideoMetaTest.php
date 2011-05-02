@@ -24,7 +24,7 @@ class org_tubepress_impl_filters_template_VideoMetaTest extends TubePressUnitTes
 	function testVideoMetaAboveAndBelow()
 	{
 	    $fakeTemplate = $this->getMock('org_tubepress_api_template_Template');
-	    $this->_sut->filter($fakeTemplate, $this->getMock('org_tubepress_api_feed_FeedResult'), 3);
+	    $this->_sut->filter($fakeTemplate, $this->getMock('org_tubepress_api_provider_ProviderResult'), 3);
 	}
 	
 }

@@ -19,9 +19,9 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php' ;
-tubepress_load_classes(array('org_tubepress_api_message_MessageService'));
+class_exists('TubePress')
+    || require dirname(__FILE__) . '/../../../../TubePress.class.php' ;
+TubePress::loadClasses(array('org_tubepress_api_message_MessageService'));
 
 /**
  * Shared message functionality for org_tubepress_api_message_MessageService implementations.

@@ -27,7 +27,7 @@ class org_tubepress_single_VideoTest extends TubePressUnitTest
 					->method('getSingleVideo')
 					->will($this->returnValue($this->_video));
 			    break;
-			case 'org_tubepress_api_patterns_FilterManager':
+			case 'org_tubepress_api_plugins_PluginManager':
 			    $mock->expects($this->exactly(2))
 			         ->method('runFilters')
 			         ->will($this->returnCallback(array($this, 'callback')));

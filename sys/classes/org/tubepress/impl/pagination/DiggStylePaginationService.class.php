@@ -19,9 +19,9 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_pagination_Pagination',
+class_exists('TubePress')
+    || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array('org_tubepress_api_pagination_Pagination',
     'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_url_Url',
     'org_tubepress_api_message_MessageService',

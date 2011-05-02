@@ -19,9 +19,9 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_impl_embedded_strategies_AbstractYouTubeEmbeddedStrategy',
+class_exists('TubePress')
+    || require dirname(__FILE__) . '/../../../../../TubePress.class.php';
+TubePress::loadClasses(array('org_tubepress_impl_embedded_strategies_AbstractYouTubeEmbeddedStrategy',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_api_options_OptionsManager',
     'org_tubepress_api_const_options_names_Embedded',
