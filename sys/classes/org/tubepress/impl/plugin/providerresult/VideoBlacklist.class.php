@@ -22,21 +22,13 @@
 /**
  * Filters out any videos that the user has in their blacklist.
  */
-class org_tubepress_impl_filters_feedresult_VideoBlacklist
+class org_tubepress_impl_plugin_providerresult_VideoBlacklist implements org_tubepress_api_plugin_Plugin
 {
-	public function filter()
+	public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $galleryId)
 	{
-		$args       = func_get_args();
-		$feedResult = $args[0];
-		$videos     = $feedResult->getVideoArray();
-
-		if (!is_array($videos)) {
-			//log
-			return $feedResult;
-		}
-
+		$videos         = $providerResult->getVideoArray();
 		$ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-		$tpom           = $ioc->get('org_tubepress_api_options_OptionsManager');
+		$tpom           = $ioc->get(org_tubepress_api_options_OptionsManager);
 		$blacklist      = $tpom->get(org_tubepress_api_const_options_names_Advanced::VIDEO_BLACKLIST);
 		$videosToKeep   = array();
 		$blacklistCount = 0;
@@ -54,11 +46,11 @@ class org_tubepress_impl_filters_feedresult_VideoBlacklist
 		}
 		
 		/* modify the feed result */
-		$feedResult->setVideoArray($videosToKeep);
+		$providerResult->setVideoArray($videosToKeep);
 		
-		return $feedResult;
+		return $providerResult;
 	}
-
+	
 	protected function _isNotBlacklisted($id, $blacklist)
 	{
 		if (strpos($blacklist, $id) !== false) {
@@ -68,9 +60,3 @@ class org_tubepress_impl_filters_feedresult_VideoBlacklist
 		return true;
 	}
 }
-
-$ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
-$fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
-$instance = $ioc->get('org_tubepress_impl_filters_feedresult_VideoBlacklist');
-
-$fm->registerFilter(org_tubepress_api_const_filters_ExecutionPoint::VIDEOS_DELIVERY, array($instance, 'filter'));

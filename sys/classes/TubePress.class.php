@@ -21,21 +21,28 @@
 
 class TubePress {
 
-    public static function registerPlugin(org_tubepress_api_plugin_Plugin $pluginInstance)
+    public static function registerFilter($filterPointName, org_tubepress_api_plugin_Plugin $pluginInstance)
     {
         $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
         $pluginManager = $ioc->get('org_tubepress_api_plugin_PluginManager');
         
-        $pluginManager->register($pluginInstance);
+        $pluginManager->registerFilter($filterPointName, $pluginInstance);
     }
 
-    public static function getSingleton($className)
+    public static function getSingletonInstance($className)
     {
+        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
         
+        return $ioc->get($className);
     }
     
     public static function loadClasses($classesToLoad)
     {
+        if (!is_array($classesToLoad)) {
+            self::loadClass($classesToLoad);
+            return;
+        }
+        
         foreach ($classesToLoad as $class) {
             self::loadClass($class);
         }
@@ -50,6 +57,10 @@ class TubePress {
      */
     public static function loadClass($className)
     {
+        if (!is_string($className)) {
+            return;
+        }
+        
         /* already have the class or interface? bail */
         if (class_exists($className, false) || interface_exists($className, false)) {
             return;

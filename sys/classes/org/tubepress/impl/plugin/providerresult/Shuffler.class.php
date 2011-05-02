@@ -22,21 +22,13 @@
 /**
  * Shuffles videos on request.
  */
-class org_tubepress_impl_filters_feedresult_Shuffler
+class org_tubepress_impl_plugin_providerresult_Shuffler implements org_tubepress_api_plugin_Plugin
 {
-	public function filter()
+	public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $galleryId)
 	{
-		$args       = func_get_args();
-		$feedResult = $args[0];
-		$videos     = $feedResult->getVideoArray();
-
-		if (!is_array($videos)) {
-			//log
-			return $feedResult;
-		}
-
-		$ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-		$tpom           = $ioc->get('org_tubepress_api_options_OptionsManager');
+		$videos = $feedResult->getVideoArray();
+		$ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
+		$tpom   = $ioc->get(org_tubepress_api_options_OptionsManager);
 		
 	    /* shuffle if we need to */
         if ($tpom->get(org_tubepress_api_const_options_names_Display::ORDER_BY) == org_tubepress_api_const_options_values_OrderValue::RANDOM) {
@@ -45,14 +37,8 @@ class org_tubepress_impl_filters_feedresult_Shuffler
         }
 		
 		/* modify the feed result */
-		$feedResult->setVideoArray($videos);
+		$providerResult->setVideoArray($videos);
 		
-		return $feedResult;
+		return $providerResult;
 	}
 }
-
-$ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
-$fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
-$instance = $ioc->get('org_tubepress_impl_filters_feedresult_Shuffler');
-
-$fm->registerFilter(org_tubepress_api_const_filters_ExecutionPoint::VIDEOS_DELIVERY, array($instance, 'filter'));

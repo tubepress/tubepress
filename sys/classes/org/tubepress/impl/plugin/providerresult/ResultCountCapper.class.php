@@ -22,21 +22,19 @@
 /**
  * Trims down the number of results based on various criteria.
  */
-class org_tubepress_impl_filters_feedresult_ResultCountCapper
+class org_tubepress_impl_plugin_providerresult_ResultCountCapper implements org_tubepress_api_plugin_Plugin
 {
     const LOG_PREFIX = 'Result Count Capper';
 
-    public function filter()
+    public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $galleryId)
     {
-        $args         = func_get_args();
-        $feedResult   = $args[0];
-        $totalResults = $feedResult->getEffectiveTotalResultCount();
+        $totalResults = $providerResult->getEffectiveTotalResultCount();
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom         = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $tpom         = $ioc->get(org_tubepress_api_options_OptionsManager);
         $limit        = $tpom-> get(org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP);
         $firstCut     = $limit == 0 ? $totalResults : min($limit, $totalResults);
         $secondCut    = min($firstCut, self::_calculateRealMax($tpom, $firstCut));
-        $videos       = $feedResult->getVideoArray();
+        $videos       = $providerResult->getVideoArray();
         $resultCount  = count($videos);
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Effective total result count (taking into account user-defined limit) is %d video(s)', $secondCut);
@@ -47,9 +45,9 @@ class org_tubepress_impl_filters_feedresult_ResultCountCapper
         }
 
         $feedResult->setEffectiveTotalResultCount($secondCut);
-        return $feedResult;
+        return $providerResult;
     }
-
+    
     private static function _calculateRealMax($tpom, $reported)
     {
         $mode = $tpom->get(org_tubepress_api_const_options_names_Output::MODE);
@@ -69,9 +67,3 @@ class org_tubepress_impl_filters_feedresult_ResultCountCapper
         return $reported;
     }
 }
-
-$ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
-$fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
-$instance = $ioc->get('org_tubepress_impl_filters_feedresult_ResultCountCapper');
-
-$fm->registerFilter(org_tubepress_api_const_filters_ExecutionPoint::VIDEOS_DELIVERY, array($instance, 'filter'));

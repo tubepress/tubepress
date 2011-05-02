@@ -19,27 +19,18 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_api_const_options_names_Display',
-    'org_tubepress_api_const_template_Variable',
-    'org_tubepress_api_const_filters_ExecutionPoint',
-    'org_tubepress_api_feed_FeedResult'));
-
 /**
  * Handles applying pagination to the gallery template.
  */
-class org_tubepress_impl_filters_template_Pagination
+class org_tubepress_impl_plugin_gallerytemplate_Pagination implements org_tubepress_api_plugin_Plugin
 {
     
-    public function filter($template, $feedResult, $galleryId)
+    public function alter_galleryTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_provider_ProviderResult $providerResult, $galleryId)
     {
         $ioc               = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom              = $ioc->get('org_tubepress_api_options_OptionsManager');
-        
-        $paginationService = $ioc->get('org_tubepress_api_pagination_Pagination');
-        $pagination        = $paginationService->getHtml($feedResult->getEffectiveTotalResultCount());
+        $tpom              = $ioc->get(org_tubepress_api_options_OptionsManager);
+        $paginationService = $ioc->get(org_tubepress_api_pagination_Pagination);
+        $pagination        = $paginationService->getHtml($providerResult->getEffectiveTotalResultCount());
 
         if ($tpom->get(org_tubepress_api_const_options_names_Display::PAGINATE_ABOVE)) {
             $template->setVariable(org_tubepress_api_const_template_Variable::PAGINATION_TOP, $pagination);
@@ -51,9 +42,3 @@ class org_tubepress_impl_filters_template_Pagination
         return $template;
     }
 }
-
-$ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
-$fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
-$instance = $ioc->get('org_tubepress_impl_filters_template_Pagination');
-
-$fm->registerFilter(org_tubepress_api_const_filters_ExecutionPoint::GALLERY_TEMPLATE, array($instance, 'filter'));

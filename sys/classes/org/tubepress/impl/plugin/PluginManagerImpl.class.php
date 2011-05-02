@@ -22,10 +22,10 @@
 class_exists('TubePress')
 || require dirname(__FILE__) . '/../../../../TubePress.class.php';
 TubePress::loadClasses(array('org_tubepress_api_filters_PluginManager',
-    'org_tubepress_api_const_FilterPoint',
+    'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_impl_log_Log'));
 
-class org_tubepress_impl_patterns_PluginManagerImpl implements org_tubepress_api_plugin_PluginManager
+class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_plugin_PluginManager
 {
     const LOG_PREFIX = 'Plugin Manager';
 
@@ -48,14 +48,14 @@ class org_tubepress_impl_patterns_PluginManagerImpl implements org_tubepress_api
         $this->_filters = array();
 
         /* initialize the valid filter points */
-        $ref              = new ReflectionClass('org_tubepress_api_const_FilterPoint');
+        $ref              = new ReflectionClass('org_tubepress_api_const_plugin_FilterPoint');
         $filterPointNames = $ref->getConstants();
         $filterPointFuncs = array();
 
         foreach ($filterPointNames as $filterPointName) {
 
             $this->_validFilterPoints[$filterPointName] = self::_getFilterMethodName($filterPointName);
-            $this->_filters[$filterPointName] = array();
+            $this->_filters[$filterPointName]           = array();
         }
     }
 
@@ -67,7 +67,7 @@ class org_tubepress_impl_patterns_PluginManagerImpl implements org_tubepress_api
      * 
      * @return unknown_type The modified value, or void.
      */
-    public function filter($filterPoint, $value)
+    public function runFilters($filterPoint, $value)
     {
         /* make sure this is a valid hook */
         if (!array_key_exists($filterPoint, $this->_validFilterPoints)) {
@@ -124,7 +124,7 @@ class org_tubepress_impl_patterns_PluginManagerImpl implements org_tubepress_api
      * 
      * @return void
      */
-    function registerFilter($filterPoint, $plugin)
+    function registerFilter($filterPoint, org_tubepress_api_plugin_Plugin $plugin)
     {
         /* sanity check 1/2 */
         if (!array_key_exists($filterPoint, $this->_validFilterPoints)) {
@@ -151,6 +151,6 @@ class org_tubepress_impl_patterns_PluginManagerImpl implements org_tubepress_api
 
     private static function _getFilterMethodName($filterPoint)
     {
-        return 'alter_' . ucfirst($filterPointName);
+        return 'alter_' . $filterPoint;
     }
 }

@@ -24,7 +24,5 @@
  */
 interface org_tubepress_api_plugin_Plugin
 {
-    function getDisplayName();
     
-    function getDescription();
 }

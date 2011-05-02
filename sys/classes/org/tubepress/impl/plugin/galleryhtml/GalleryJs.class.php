@@ -19,15 +19,10 @@
  *
  */
 
-tubepress_load_classes(array(
-    'org_tubepress_api_filesystem_Explorer',
-    'org_tubepress_api_const_filters_ExecutionPoint'
-));
-
 /**
  * Injects Ajax pagination code into the gallery's HTML, if necessary.
-*/
-class org_tubepress_impl_filters_html_GalleryJs
+ */
+class org_tubepress_impl_plugin_galleryhtml_GalleryJs implements org_tubepress_api_plugin_Plugin
 {
     const LOG_PREFIX = 'Gallery JS Filter';
 
@@ -39,7 +34,7 @@ class org_tubepress_impl_filters_html_GalleryJs
      *
      * @return string The modified HTML
      */
-    public function filter($html, $galleryId)
+    public function alter_galleryHtml($html, $galleryId)
     {
         if (!is_string($html)) {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Filter invoked with a non-string argument :(');
@@ -47,7 +42,7 @@ class org_tubepress_impl_filters_html_GalleryJs
         }
         
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $tpom = $ioc->get(org_tubepress_api_options_OptionsManager);
         
         $ajaxPagination   = $tpom->get(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION) ? 'true' : 'false';
         $playerName       = $tpom->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
@@ -55,6 +50,7 @@ class org_tubepress_impl_filters_html_GalleryJs
         $fluidThumbs      = $tpom->get(org_tubepress_api_const_options_names_Display::FLUID_THUMBS) ? 'true' : 'false';
         $height           = $tpom->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT);
         $width            = $tpom->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
+        $theme            = $this->_getThemeName($ioc);
         
         return $html . <<<EOT
 <script type="text/javascript">
@@ -64,15 +60,33 @@ class org_tubepress_impl_filters_html_GalleryJs
 		shortcode: "$shortcode",
 		playerLocationName: "$playerName",
 		embeddedHeight: "$height",
-		embeddedWidth: "$width"
+		embeddedWidth: "$width",
+		themeCSS: "$theme"
     });
 </script>
 EOT;
     }
+
+    private function _getThemeName($ioc)
+    {
+        $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $themeHandler = $ioc->get(org_tubepress_api_theme_ThemeHandler);
+        $currentTheme = $themeHandler->calculateCurrentThemeName();
+
+        if ($currentTheme === 'default') {
+            return $currentTheme;
+        }
+
+        /* get the CSS file's path on the filesystem */
+        $cssPath = $themeHandler->getCssPath($currentTheme);
+
+        if (!is_readable($cssPath) || strpos($cssPath, 'themes' . DIRECTORY_SEPARATOR . 'default') !== false) {
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'No theme CSS found.');
+            return 'default';
+        } else {
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Theme CSS found at <tt>%s</tt>', $cssPath);
+        }
+
+        return $currentTheme;
+    }
 }
-
-$ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
-$fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
-$instance = $ioc->get('org_tubepress_impl_filters_html_GalleryJs');
-
-$fm->registerFilter(org_tubepress_api_const_filters_ExecutionPoint::GALLERY_HTML, array($instance, 'filter'));

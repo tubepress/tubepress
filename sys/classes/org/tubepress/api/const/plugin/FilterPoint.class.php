@@ -22,14 +22,14 @@
 /**
  * Official filter points around the TubePress core.
  */
-interface org_tubepress_api_const_FilterPoint
+interface org_tubepress_api_const_plugin_FilterPoint
 {
     /**
-     * Filters the TubePress feed result.
+     * Filters the TubePress provider result.
      *
-     * function getFilteredFeedResult(org_tubepress_api_feed_FeedResult $rawFeedResult, $galleryId);
+     * function getFilteredFeedResult(org_tubepress_api_provider_ProviderResult $rawFeedResult, $galleryId);
      */
-    const FEEDRESULT = 'feedResult';
+    const PROVIDER_RESULT = 'providerResult';
 
     /**
      * Filters any HTML that TubePress generates.
@@ -49,7 +49,7 @@ interface org_tubepress_api_const_FilterPoint
     const HTML_SINGLEVIDEO = 'singleVideoHtml';
 
     /**
-     * function getFilteredGalleryTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_feed_FeedResult $feedResult, $galleryId);
+     * function getFilteredGalleryTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_provider_ProviderResult $feedResult, $galleryId);
      */
     const TEMPLATE_GALLERY = 'galleryTemplate';
 

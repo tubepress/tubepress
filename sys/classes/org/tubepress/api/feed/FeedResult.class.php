@@ -22,7 +22,7 @@
 /**
  * Simple class to abstract the response from a video provider
  */
-class org_tubepress_api_feed_FeedResult
+class org_tubepress_api_provider_ProviderResult
 {
     private $_effectiveDisplayCount;
     private $_effectiveTotalResultCount;

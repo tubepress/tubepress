@@ -32,7 +32,7 @@ interface org_tubepress_api_plugin_PluginManager
      * 
      * @return unknown_type The modified value, or void.
      */
-    public function filter($filterPoint, $value);
+    public function runFilters($filterPoint, $value);
 
     /**
      * Registers a filter.

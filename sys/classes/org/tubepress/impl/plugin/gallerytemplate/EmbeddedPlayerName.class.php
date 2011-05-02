@@ -19,26 +19,24 @@
  *
  */
 
-tubepress_load_classes(array('org_tubepress_api_provider_ProviderCalculator'));
-
 /**
  * Applies the embedded service name to the template.
  */
-class org_tubepress_impl_filters_template_EmbeddedPlayerName
+class org_tubepress_impl_plugin_gallerytemplate_EmbeddedPlayerName implements org_tubepress_api_plugin_Plugin
 {
-    public function filter($template, $feedResult, $galleryId)
+    public function alter_galleryTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_provider_ProviderResult $providerResult, $galleryId)
     {
         $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, self::_getEmbeddedServiceName());
         
         return $template;
     }
-
+    
     private static function _getEmbeddedServiceName()
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom         = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $tpom         = $ioc->get(org_tubepress_api_options_OptionsManager);
         $stored       = $tpom->get(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
-        $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $pc           = $ioc->get(org_tubepress_api_provider_ProviderCalculator);
         $providerName = $pc->calculateCurrentVideoProvider();
         
         if ($stored === org_tubepress_api_const_options_values_PlayerImplementationValue::LONGTAIL
@@ -49,9 +47,3 @@ class org_tubepress_impl_filters_template_EmbeddedPlayerName
         return $providerName;
     }
 }
-
-$ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
-$fm       = $ioc->get('org_tubepress_api_patterns_FilterManager');
-$instance = $ioc->get('org_tubepress_impl_filters_template_EmbeddedPlayerName');
-
-$fm->registerFilter(org_tubepress_api_const_filters_ExecutionPoint::GALLERY_TEMPLATE, array($instance, 'filter'));
