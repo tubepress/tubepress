@@ -44,6 +44,11 @@ interface org_tubepress_api_const_plugin_FilterPoint
     const HTML_GALLERY = 'galleryHtml';
 
     /**
+     * function alter_paginationHtml($paginationHtml, $galleryId);
+     */
+    const HTML_PAGINATION = 'paginationHtml';
+
+    /**
      * function alter_singleVideoHtml($rawHtml);
      */
     const HTML_SINGLEVIDEO = 'singleVideoHtml';
