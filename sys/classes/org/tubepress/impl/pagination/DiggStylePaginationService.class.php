@@ -19,15 +19,16 @@
  *
  */
 
-class_exists('TubePress')
-    || require dirname(__FILE__) . '/../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_api_pagination_Pagination',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
     'org_tubepress_api_const_options_names_Display',
-    'org_tubepress_api_url_Url',
     'org_tubepress_api_message_MessageService',
-    'org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_api_options_OptionsManager',
-    'org_tubepress_impl_ioc_IocContainer'));
+    'org_tubepress_api_pagination_Pagination',
+    'org_tubepress_api_querystring_QueryStringService',
+    'org_tubepress_api_url_Url',
+    'org_tubepress_impl_ioc_IocContainer',
+));
 
 /**
  * General purpose cache for TubePress

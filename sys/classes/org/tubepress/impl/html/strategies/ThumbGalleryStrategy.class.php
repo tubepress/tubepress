@@ -19,13 +19,15 @@
  *
  */
 
-TubePress::loadClasses(array('org_tubepress_api_patterns_Strategy',
-    'org_tubepress_api_const_template_Variable',
-    'org_tubepress_impl_log_Log',
+TubePress::loadClasses(array(
     'org_tubepress_api_const_plugin_FilterPoint',
+    'org_tubepress_api_const_template_Variable',
+    'org_tubepress_api_patterns_Strategy',
+    'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_api_provider_Provider',
     'org_tubepress_api_provider_ProviderResult',
-    'org_tubepress_api_plugin_PluginManager'));
+    'org_tubepress_impl_log_Log',
+));
 
 class org_tubepress_impl_html_strategies_ThumbGalleryStrategy implements org_tubepress_api_patterns_Strategy
 {

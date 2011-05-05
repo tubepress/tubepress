@@ -19,11 +19,12 @@
  *
  */
 
-class_exists('TubePress')
-|| require dirname(__FILE__) . '/../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_api_patterns_StrategyManager',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_patterns_Strategy',
+    'org_tubepress_api_patterns_StrategyManager',
     'org_tubepress_impl_log_Log',
-    'org_tubepress_api_patterns_Strategy'));
+));
 
 class org_tubepress_impl_patterns_StrategyManagerImpl implements org_tubepress_api_patterns_StrategyManager
 {

@@ -18,19 +18,19 @@ You should have received a copy of the GNU General Public License
 along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-class_exists('TubePress')
-    || require dirname(__FILE__) . '/../../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_impl_message_WordPressMessageService',
-    'org_tubepress_impl_ioc_FreeWordPressPluginIocService',
-    'org_tubepress_api_ioc_IocService',
-    'org_tubepress_api_const_options_names_Widget',
-    'org_tubepress_impl_template_SimpleTemplate',
-    'org_tubepress_api_const_template_Variable',
-    'org_tubepress_ioc_ProInWordPressIocService',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../../TubePress.class.php';
+TubePress::loadClasses(array(
     'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_const_options_names_Meta',
-    'org_tubepress_api_player_Player'));
+    'org_tubepress_api_const_options_names_Widget',
+    'org_tubepress_api_const_template_Variable',
+    'org_tubepress_api_ioc_IocService',
+    'org_tubepress_api_player_Player',
+    'org_tubepress_impl_ioc_FreeWordPressPluginIocService',
+    'org_tubepress_impl_message_WordPressMessageService',
+    'org_tubepress_impl_template_SimpleTemplate',
+));
 
 class org_tubepress_impl_env_wordpress_Widget
 {

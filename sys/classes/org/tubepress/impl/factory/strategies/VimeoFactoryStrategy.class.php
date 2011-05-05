@@ -19,9 +19,10 @@
  *
  */
 
-class_exists('TubePress')
-    || require dirname(__FILE__) . '/../../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_impl_factory_strategies_AbstractFactoryStrategy'));
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_impl_factory_strategies_AbstractFactoryStrategy'
+));
 
 /**
  * Video factory for Vimeo

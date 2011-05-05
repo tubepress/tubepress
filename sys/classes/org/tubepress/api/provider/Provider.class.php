@@ -19,9 +19,10 @@
  *
  */
 
-class_exists('TubePress')
-    || require dirname(__FILE__) . '/../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_api_options_OptionsManager'));
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_options_OptionsManager'
+));
 
 /**
  * Interface to a remove video provider

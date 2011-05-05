@@ -20,11 +20,13 @@
  */
 
 class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_api_feed_FeedFetcher',
+TubePress::loadClasses(array(
     'org_tubepress_api_cache_Cache',
-    'org_tubepress_impl_log_Log',
+    'org_tubepress_api_feed_FeedFetcher',
+    'org_tubepress_api_http_HttpClient',
     'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_api_http_HttpClient'));
+    'org_tubepress_impl_log_Log',
+));
 
 /**
  * Base functionality for feed retrieval services.

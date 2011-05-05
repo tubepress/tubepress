@@ -19,12 +19,13 @@
  *
  */
 
-class_exists('TubePress')
-|| require dirname(__FILE__) . '/../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_api_bootstrap_Bootstrapper',
-    'org_tubepress_impl_log_Log',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_bootstrap_Bootstrapper',
+    'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_api_const_plugin_FilterPoint'));
+    'org_tubepress_impl_log_Log',
+));
 
 /**
  * Performs TubePress-wide initialization.

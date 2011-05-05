@@ -19,17 +19,18 @@
  *
  */
 
-class_exists('TubePress')
-    || require(dirname(__FILE__) . '/../../../../../TubePress.class.php');
-TubePress::loadClasses(array('org_tubepress_api_patterns_Strategy',
-    'org_tubepress_api_const_options_values_ModeValue',
-    'org_tubepress_api_options_OptionsManager',
+class_exists('TubePress') || require(dirname(__FILE__) . '/../../../../../TubePress.class.php');
+TubePress::loadClasses(array(
     'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_const_options_names_Embedded',
+    'org_tubepress_api_const_options_names_Feed',
     'org_tubepress_api_const_options_names_Meta',
+    'org_tubepress_api_const_options_values_ModeValue',
+    'org_tubepress_api_patterns_Strategy',
     'org_tubepress_api_url_Url',
-    'org_tubepress_api_const_options_names_Feed'));
+    'org_tubepress_api_options_OptionsManager',
+));
 
 /**
  * Base URL builder functionality.

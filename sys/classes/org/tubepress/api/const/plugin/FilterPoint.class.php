@@ -27,34 +27,34 @@ interface org_tubepress_api_const_plugin_FilterPoint
     /**
      * Filters the TubePress provider result.
      *
-     * function getFilteredFeedResult(org_tubepress_api_provider_ProviderResult $rawFeedResult, $galleryId);
+     * function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $galleryId);
      */
     const PROVIDER_RESULT = 'providerResult';
 
     /**
      * Filters any HTML that TubePress generates.
      *
-     * function getFilteredHtml($rawHtml);
+     * function alter_html($html);
      */
     const HTML_ANY = 'html';
 
     /**
-     * function getFilteredGalleryHtml($rawHtml, $galleryId);
+     * function alter_galleryHtml($galleryHtml, $galleryId);
      */
     const HTML_GALLERY = 'galleryHtml';
 
     /**
-     * function getFilteredSingleVideoHtml($rawHtml);
+     * function alter_singleVideoHtml($rawHtml);
      */
     const HTML_SINGLEVIDEO = 'singleVideoHtml';
 
     /**
-     * function getFilteredGalleryTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_provider_ProviderResult $feedResult, $galleryId);
+     * function alter_galleryTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_provider_ProviderResult $feedResult, $galleryId);
      */
     const TEMPLATE_GALLERY = 'galleryTemplate';
 
     /**
-     * function getFilteredSingleVideoTemplate(org_tubepress_api_template_Template $rawSingleVideoTemplate);
+     * function alter_singleVideoTemplate(org_tubepress_api_template_Template $rawSingleVideoTemplate);
      */
     const TEMPLATE_SINGLEVIDEO = 'singleVideoTemplate';
 }

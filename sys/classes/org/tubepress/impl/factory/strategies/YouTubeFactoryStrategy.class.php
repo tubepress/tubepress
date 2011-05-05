@@ -19,12 +19,13 @@
  *
  */
 
-class_exists('TubePress')
-    || require dirname(__FILE__) . '/../../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_api_patterns_Strategy',
-    'org_tubepress_api_video_Video',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_patterns_Strategy',
     'org_tubepress_api_url_Url',
-    'org_tubepress_impl_factory_strategies_AbstractFactoryStrategy'));
+    'org_tubepress_api_video_Video',
+    'org_tubepress_impl_factory_strategies_AbstractFactoryStrategy',
+));
 
 /**
  * Video factory for YouTube

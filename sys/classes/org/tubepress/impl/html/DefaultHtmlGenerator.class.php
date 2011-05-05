@@ -19,13 +19,14 @@
  *
  */
 
-class_exists('TubePress')
-    || require dirname(__FILE__) . '/../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_api_html_HtmlGenerator',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_html_HtmlGenerator',
+    'org_tubepress_api_patterns_StrategyManager',
     'org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_log_Log',
-    'org_tubepress_api_patterns_StrategyManager'));
+));
 
 /**
  * HTML handler implementation.

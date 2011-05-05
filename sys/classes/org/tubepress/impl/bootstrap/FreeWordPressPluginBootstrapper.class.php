@@ -19,12 +19,13 @@
  *
  */
 
-class_exists('TubePress')
-    || require dirname(__FILE__) . '/../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_impl_bootstrap_AbstractBootstrapper',
-    'org_tubepress_impl_env_wordpress_Main',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_impl_bootstrap_AbstractBootstrapper',
     'org_tubepress_impl_env_wordpress_Admin',
-    'org_tubepress_impl_env_wordpress_Widget'));
+    'org_tubepress_impl_env_wordpress_Main',
+    'org_tubepress_impl_env_wordpress_Widget',
+));
 
 /**
  * Performs WordPress initialization.

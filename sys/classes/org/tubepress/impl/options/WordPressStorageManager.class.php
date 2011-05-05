@@ -19,9 +19,10 @@
  *
  */
 
-class_exists('TubePress')
-    || require dirname(__FILE__) . '/../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_impl_options_AbstractStorageManager'));
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_impl_options_AbstractStorageManager'
+));
 
 /**
  * Implementation of org_tubepress_api_options_StorageManager that uses the

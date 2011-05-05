@@ -19,13 +19,14 @@
  *
  */
 
-class_exists('TubePress')
-    || require dirname(__FILE__) . '/../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_api_options_StorageManager',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
     'org_tubepress_api_const_options_Type',
     'org_tubepress_api_options_OptionValidator',
+    'org_tubepress_api_options_StorageManager',
+    'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_options_OptionsReference',
-    'org_tubepress_impl_ioc_IocContainer'));
+));
 
 /**
  * Handles persistent storage of TubePress options

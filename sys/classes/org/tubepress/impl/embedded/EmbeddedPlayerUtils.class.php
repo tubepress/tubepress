@@ -19,8 +19,7 @@
  *
  */
 
-class_exists('TubePress')
-    || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
 
 /**
  * Embedded player utilities

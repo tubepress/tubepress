@@ -19,9 +19,10 @@
  *
  */
 
-class_exists('TubePress')
-    || require dirname(__FILE__) . '/../../../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_api_patterns_Strategy'));
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_patterns_Strategy'
+));
 
 /**
  * Base functionality for feed inspection.

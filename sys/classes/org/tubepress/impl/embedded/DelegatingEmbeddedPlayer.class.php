@@ -19,12 +19,13 @@
  *
  */
 
-class_exists('TubePress')
-    || require dirname(__FILE__) . '/../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_api_patterns_StrategyManager',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
     'org_tubepress_api_embedded_EmbeddedPlayer',
+    'org_tubepress_api_patterns_StrategyManager',
+    'org_tubepress_api_provider_ProviderCalculator',
     'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_api_provider_ProviderCalculator'));
+));
 
 /**
  * An HTML-embeddable video player.

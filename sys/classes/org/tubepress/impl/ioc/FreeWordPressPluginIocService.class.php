@@ -21,8 +21,9 @@
 
 class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
 TubePress::loadClasses(array(
+    'org_tubepress_api_provider_Provider',
     'org_tubepress_impl_ioc_TubePressIocService',
-    'org_tubepress_api_provider_Provider'));
+));
 
 /**
  * Dependency injector for TubePress in a WordPress environment

@@ -19,11 +19,10 @@
  *
  */
 
-class_exists('TubePress')
-|| require dirname(__FILE__) . '/../../../../TubePress.class.php';
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
 TubePress::loadClasses(array(
+    'org_tubepress_api_filesystem_Explorer',
     'org_tubepress_impl_log_Log',
-    'org_tubepress_api_filesystem_Explorer'
 ));
 
 /**

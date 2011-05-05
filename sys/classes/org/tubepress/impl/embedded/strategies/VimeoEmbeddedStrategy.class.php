@@ -19,15 +19,16 @@
  *
  */
 
-class_exists('TubePress')
-    || require dirname(__FILE__) . '/../../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_impl_embedded_strategies_AbstractEmbeddedStrategy',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_api_options_OptionsManager',
-    'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
-    'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_provider_Provider',
-    'org_tubepress_api_url_Url'));
+    'org_tubepress_api_url_Url',
+    'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
+    'org_tubepress_impl_embedded_strategies_AbstractEmbeddedStrategy',
+));
 
 /**
  * Embedded player strategy for native Vimeo

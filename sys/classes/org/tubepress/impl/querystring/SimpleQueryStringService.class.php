@@ -19,10 +19,11 @@
  *
  */
 
-class_exists('TubePress')
-    || require dirname(__FILE__) . '/../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_api_querystring_QueryStringService',
-    'org_tubepress_api_const_querystring_QueryParamName'));
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_const_querystring_QueryParamName',
+    'org_tubepress_api_querystring_QueryStringService',
+));
 
 /**
  * Handles some tasks related to the query string

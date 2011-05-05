@@ -19,11 +19,12 @@
  *
  */
 
-class_exists('TubePress')
-    || require dirname(__FILE__) . '/../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_impl_environment_SimpleEnvironmentDetector',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../TubePress.class.php';
+TubePress::loadClasses(array(
     'org_tubepress_api_ioc_IocService',
-    'org_tubepress_impl_log_Log'));
+    'org_tubepress_impl_environment_SimpleEnvironmentDetector',
+    'org_tubepress_impl_log_Log',
+));
 
 /**
  * Class that holds a reference to an IOC container.

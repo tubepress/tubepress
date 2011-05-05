@@ -19,11 +19,12 @@
  *
  */
 
-class_exists('TubePress')
-    || require dirname(__FILE__) . '/../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_api_http_HttpClient',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_http_HttpClient',
+    'org_tubepress_api_patterns_StrategyManager',
     'org_tubepress_impl_http_clientimpl_Encoding',
-    'org_tubepress_api_patterns_StrategyManager'));
+));
 
 /**
  * Lifted from http://core.trac.wordpress.org/browser/tags/3.0.4/wp-includes/class-http.php

@@ -19,17 +19,18 @@
  *
  */
 
-class_exists('TubePress')
-    || require(dirname(__FILE__) . '/../../../../TubePress.class.php');
-TubePress::loadClasses(array('org_tubepress_api_const_options_CategoryName',
+class_exists('TubePress') || require(dirname(__FILE__) . '/../../../../TubePress.class.php');
+TubePress::loadClasses(array(
+    'org_tubepress_api_const_options_CategoryName',
     'org_tubepress_api_const_options_Type',
+    'org_tubepress_api_const_template_Variable',
+    'org_tubepress_api_ioc_IocService',
+    'org_tubepress_api_filesystem_Explorer',
+    'org_tubepress_api_options_StorageManager',
     'org_tubepress_api_message_MessageService',
     'org_tubepress_impl_options_OptionsReference',
-    'org_tubepress_api_options_StorageManager',
-    'org_tubepress_api_ioc_IocService',
     'org_tubepress_impl_template_SimpleTemplate',
-    'org_tubepress_api_const_template_Variable',
-    'org_tubepress_api_filesystem_Explorer'));
+));
 
 /**
  * Displays a generic options form for TubePress

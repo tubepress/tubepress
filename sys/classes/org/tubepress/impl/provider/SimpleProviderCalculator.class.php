@@ -19,13 +19,13 @@
  *
  */
 
-class_exists('TubePress')
-    || require dirname(__FILE__) . '/../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_impl_ioc_IocContainer',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_options_OptionsManager',
     'org_tubepress_api_provider_Provider',
     'org_tubepress_api_provider_ProviderCalculator',
-    'org_tubepress_api_options_OptionsManager',
-    'org_tubepress_api_provider_ProviderCalculator'));
+    'org_tubepress_impl_ioc_IocContainer',
+));
 
 /**
  * Calculates video provider in use.

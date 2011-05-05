@@ -26,11 +26,12 @@
  *
  */
 
-class_exists('TubePress')
-|| require dirname(__FILE__) . '/../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_api_cache_Cache',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_cache_Cache',
+    'org_tubepress_impl_filesystem_FsExplorer',
     'org_tubepress_impl_log_Log',
-    'org_tubepress_impl_filesystem_FsExplorer'));
+));
 
 class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepress_api_cache_Cache
 {
