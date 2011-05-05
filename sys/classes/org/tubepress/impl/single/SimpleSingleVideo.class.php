@@ -19,17 +19,19 @@
  *
  */
 
-class_exists('TubePress')
-    || require dirname(__FILE__) . '/../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_api_theme_ThemeHandler',
-    'org_tubepress_impl_options_OptionsReference',
-    'org_tubepress_api_single_SingleVideo',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
     'org_tubepress_api_const_options_CategoryName',
+    'org_tubepress_api_const_plugin_FilterPoint',
+    'org_tubepress_api_const_template_Variable',
     'org_tubepress_api_message_MessageService',
+    'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_api_provider_Provider',
-    'org_tubepress_api_plugins_PluginManager',
-    'org_tubepress_api_const_filters_ExecutionPoint'));
+    'org_tubepress_api_single_SingleVideo',
+    'org_tubepress_api_theme_ThemeHandler',
+    'org_tubepress_impl_ioc_IocContainer',
+    'org_tubepress_impl_options_OptionsReference',
+));
 
 /**
  * Handles requests for a single video (for embedding)
@@ -60,7 +62,7 @@ class org_tubepress_impl_single_SimpleSingleVideo implements org_tubepress_api_s
     
     private function _wrappedGetSingleVideoHtml($videoId, $ioc, $ms)
     {
-        $pluginManager = $ioc->get('org_tubepress_api_plugins_PluginManager');
+        $pluginManager = $ioc->get('org_tubepress_api_plugin_PluginManager');
         $provider      = $ioc->get('org_tubepress_api_provider_Provider');
         $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $template      = $themeHandler->getTemplateInstance('single_video.tpl.php');
@@ -77,10 +79,10 @@ class org_tubepress_impl_single_SimpleSingleVideo implements org_tubepress_api_s
         $template->setVariable(org_tubepress_api_const_template_Variable::VIDEO, $video);
 
         /* send the template through the filters */
-        $filteredTemplate = $pluginManager->runFilters(org_tubepress_api_const_filters_ExecutionPoint::SINGLE_VIDEO_TEMPLATE, $template, $video);
+        $filteredTemplate = $pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $template, $video);
 
         /* send video HTML through the filters */
-        $filteredHtml = $pluginManager->runFilters(org_tubepress_api_const_filters_ExecutionPoint::SINGLE_VIDEO_HTML, $filteredTemplate->toString());
+        $filteredHtml = $pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_SINGLEVIDEO, $filteredTemplate->toString());
 
         /* we're done. tie up. */
         $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');

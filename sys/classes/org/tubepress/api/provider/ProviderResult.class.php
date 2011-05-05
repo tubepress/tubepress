@@ -28,6 +28,13 @@ class org_tubepress_api_provider_ProviderResult
     private $_effectiveTotalResultCount;
     private $_videoArray;
 
+    public function __construct()
+    {
+        $this->_effectiveDisplayCount = 0;
+        $this->_effectiveTotalResultCount = 0;
+        $this->_videoArray = array();
+    }
+    
     /**
      * Set the video array
      *
@@ -37,6 +44,9 @@ class org_tubepress_api_provider_ProviderResult
      */
     public function setVideoArray($videos)
     {
+        if (!is_array($videos)) {
+            throw new Exception('setVideoArray can only take on an array. You supplied ' . var_export($videos, true));
+        }
         $this->_videoArray = $videos;
     }
 
@@ -49,7 +59,11 @@ class org_tubepress_api_provider_ProviderResult
      */
     public function setEffectiveTotalResultCount($count)
     {
-        $this->_effectiveTotalResultCount = $count;
+        if (!is_numeric($count) || intval($count) < 0) {
+            throw new Exception('setEffectiveTotalResultCount must take on a positive integer. You supplied ' . $count);
+        }
+        
+        $this->_effectiveTotalResultCount = intval($count);
     }
 
     /**

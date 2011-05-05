@@ -22,10 +22,10 @@
 TubePress::loadClasses(array('org_tubepress_api_patterns_Strategy',
     'org_tubepress_api_const_template_Variable',
     'org_tubepress_impl_log_Log',
-    'org_tubepress_api_const_filters_ExecutionPoint',
+    'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_provider_Provider',
     'org_tubepress_api_provider_ProviderResult',
-    'org_tubepress_api_plugins_PluginManager'));
+    'org_tubepress_api_plugin_PluginManager'));
 
 class org_tubepress_impl_html_strategies_ThumbGalleryStrategy implements org_tubepress_api_patterns_Strategy
 {
@@ -73,7 +73,7 @@ class org_tubepress_impl_html_strategies_ThumbGalleryStrategy implements org_tub
      */
     public function execute()
     {
-        $qss       = $this->_ioc->get(org_tubepress_api_querystring_QueryStringService);
+        $qss       = $this->_ioc->get('org_tubepress_api_querystring_QueryStringService');
         $galleryId = $qss->getGalleryId($_GET);
 
         if ($galleryId == '') {
@@ -94,11 +94,11 @@ class org_tubepress_impl_html_strategies_ThumbGalleryStrategy implements org_tub
      */
     private function _getHtml($galleryId)
     {
-        $provider      = $this->_ioc->get(org_tubepress_api_provider_Provider);
-        $tpom          = $this->_ioc->get(org_tubepress_api_options_OptionsManager);
-        $pluginManager = $this->_ioc->get(org_tubepress_api_plugins_PluginManager);
-        $themeHandler  = $this->_ioc->get(org_tubepress_api_theme_ThemeHandler);
-        $ms            = $this->_ioc->get(org_tubepress_api_message_MessageService);
+        $provider      = $this->_ioc->get('org_tubepress_api_provider_Provider');
+        $tpom          = $this->_ioc->get('org_tubepress_api_options_OptionsManager');
+        $pluginManager = $this->_ioc->get('org_tubepress_api_plugin_PluginManager');
+        $themeHandler  = $this->_ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $ms            = $this->_ioc->get('org_tubepress_api_message_MessageService');
         $template      = $themeHandler->getTemplateInstance('gallery.tpl.php');
 
         /* first grab the videos */
@@ -128,7 +128,7 @@ class org_tubepress_impl_html_strategies_ThumbGalleryStrategy implements org_tub
 
         /* we're done. tie up */
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Done assembling gallery %d', $galleryId);
-        $tpom = $this->_ioc->get(org_tubepress_api_options_OptionsManager);
+        $tpom = $this->_ioc->get('org_tubepress_api_options_OptionsManager');
         $tpom->setCustomOptions(array());
 
         return $filteredHtml;

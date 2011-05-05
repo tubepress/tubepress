@@ -22,7 +22,7 @@
 /**
  * Trims down the number of results based on various criteria.
  */
-class org_tubepress_impl_plugin_providerresult_ResultCountCapper implements org_tubepress_api_plugin_Plugin
+class org_tubepress_impl_plugin_providerresult_ResultCountCapper
 {
     const LOG_PREFIX = 'Result Count Capper';
 

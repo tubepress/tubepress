@@ -22,7 +22,7 @@
 /**
  * Handles applying the embedded player's HTML to the template.
  */
-class org_tubepress_impl_plugin_singlevideotemplate_EmbeddedSource implements org_tubepress_api_plugin_Plugin
+class org_tubepress_impl_plugin_singlevideotemplate_EmbeddedSource
 {
     public function alter_singleVideoTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_video_Video $video)
     {

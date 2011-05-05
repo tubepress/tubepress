@@ -50,5 +50,3 @@ class org_tubepress_impl_embedded_strategies_JwFlvEmbeddedStrategy extends org_t
     }
 
 }
-
-?>

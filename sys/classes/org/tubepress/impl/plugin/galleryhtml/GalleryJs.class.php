@@ -22,7 +22,7 @@
 /**
  * Injects Ajax pagination code into the gallery's HTML, if necessary.
  */
-class org_tubepress_impl_plugin_galleryhtml_GalleryJs implements org_tubepress_api_plugin_Plugin
+class org_tubepress_impl_plugin_galleryhtml_GalleryJs
 {
     const LOG_PREFIX = 'Gallery JS Filter';
 
@@ -42,7 +42,7 @@ class org_tubepress_impl_plugin_galleryhtml_GalleryJs implements org_tubepress_a
         }
         
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom = $ioc->get(org_tubepress_api_options_OptionsManager);
+        $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
         
         $ajaxPagination   = $tpom->get(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION) ? 'true' : 'false';
         $playerName       = $tpom->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
@@ -70,7 +70,7 @@ EOT;
     private function _getThemeName($ioc)
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $themeHandler = $ioc->get(org_tubepress_api_theme_ThemeHandler);
+        $themeHandler = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $currentTheme = $themeHandler->calculateCurrentThemeName();
 
         if ($currentTheme === 'default') {

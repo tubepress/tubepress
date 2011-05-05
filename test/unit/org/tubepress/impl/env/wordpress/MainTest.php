@@ -2,7 +2,6 @@
 
 require_once dirname(__FILE__) . '/../../../../../../../sys/classes/org/tubepress/impl/env/wordpress/Main.class.php';
 require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
-require_once 'fake_wordpress_functions.inc.php';
 
 class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
     
@@ -14,15 +13,13 @@ class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
         $enqueuedScripts,
         $add_options_page_called,
         $registeredScripts,
-        $registeredStyles,
-        $tubepress_base_url;
+        $registeredStyles;
          
         $enqueuedStyles          = array();
         $enqueuedScripts         = array();
         $registeredStyles        = array();
         $registeredScripts       = array();
         $add_options_page_called = false;
-        $tubepress_base_url      ='tubepress_base_url';
         
         $this->_parseCount = 0;
         $this->initFakeIoc();
@@ -83,11 +80,11 @@ class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
         
         org_tubepress_impl_env_wordpress_Main::initAction();
 
-        $this->assertTrue($registeredScripts['tubepress'] === 'tubepress_base_url/sys/ui/static/js/tubepress.js');
+        $this->assertTrue($registeredScripts['tubepress'] === '<tubepressbaseurl>/sys/ui/static/js/tubepress.js');
         $this->assertTrue($enqueuedScripts['tubepress'] === true);
         $this->assertTrue($enqueuedScripts['jquery'] === true);
         $this->assertTrue($enqueuedStyles['tubepress'] === true);
-        $this->assertTrue($registeredStyles['tubepress'] === 'tubepress_base_url/sys/ui/themes/default/style.css');
+        $this->assertTrue($registeredStyles['tubepress'] === '<tubepressbaseurl>/sys/ui/themes/default/style.css');
     }
 }
 ?>

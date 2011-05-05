@@ -1,22 +1,27 @@
 <?php
 
+include_once 'fake_wordpress_functions.inc.php';
+
+global $tubepress_base_url;
+$tubepress_base_url = '<tubepressbaseurl>';
+
 class_exists('TubePress')
     || require dirname(__FILE__) . '/../../sys/classes/TubePress.class.php';
 TubePress::loadClasses(array('org_tubepress_api_options_OptionsManager',
+    'org_tubepress_api_cache_Cache',
     'org_tubepress_api_ioc_IocService',
-    'org_tubepress_impl_options_OptionsReference',
     'org_tubepress_api_message_MessageService',
     'org_tubepress_api_options_StorageManager',
-    'org_tubepress_impl_url_YouTubeUrlBuilder',
-    'org_tubepress_impl_feed_HTTPRequest2FeedFetcher',
-    'org_tubepress_impl_factory_YouTubeVideoFactory',
-    'org_tubepress_impl_embedded_YouTubeEmbeddedPlayer',
-    'org_tubepress_impl_feed_YouTubeFeedInspector',
-    'org_tubepress_api_cache_Cache',
     'org_tubepress_api_pagination_Pagination',
-    'org_tubepress_impl_template_SimpleTemplate',
-    'org_tubepress_impl_ioc_IocContainer',
+    'org_tubepress_impl_embedded_YouTubeEmbeddedPlayer',
+    'org_tubepress_impl_factory_YouTubeVideoFactory',
+    'org_tubepress_impl_feed_HTTPRequest2FeedFetcher',
+    'org_tubepress_impl_feed_YouTubeFeedInspector',
     'org_tubepress_impl_filesystem_FsExplorer',
+    'org_tubepress_impl_ioc_IocContainer',
+    'org_tubepress_impl_options_OptionsReference',
+    'org_tubepress_impl_template_SimpleTemplate',
+    'org_tubepress_impl_url_YouTubeUrlBuilder',
     'org_tubepress_api_theme_ThemeHandler'));
 
 abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase

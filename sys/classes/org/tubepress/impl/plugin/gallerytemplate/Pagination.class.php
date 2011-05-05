@@ -22,14 +22,14 @@
 /**
  * Handles applying pagination to the gallery template.
  */
-class org_tubepress_impl_plugin_gallerytemplate_Pagination implements org_tubepress_api_plugin_Plugin
+class org_tubepress_impl_plugin_gallerytemplate_Pagination
 {
     
     public function alter_galleryTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_provider_ProviderResult $providerResult, $galleryId)
     {
         $ioc               = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom              = $ioc->get(org_tubepress_api_options_OptionsManager);
-        $paginationService = $ioc->get(org_tubepress_api_pagination_Pagination);
+        $tpom              = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $paginationService = $ioc->get('org_tubepress_api_pagination_Pagination');
         $pagination        = $paginationService->getHtml($providerResult->getEffectiveTotalResultCount());
 
         if ($tpom->get(org_tubepress_api_const_options_names_Display::PAGINATE_ABOVE)) {

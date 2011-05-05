@@ -2,15 +2,13 @@
 
 require_once dirname(__FILE__) . '/../../../../../../../sys/classes/org/tubepress/impl/env/wordpress/Admin.class.php';
 require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
-require_once 'fake_wordpress_functions.inc.php';
 
 class org_tubepress_impl_env_wordpress_AdminTest extends TubePressUnitTest {
     
     function setUp()
     {
-        global $add_options_page_called, $enqueuedScripts, $enqueuedStyles, $registeredScripts, $registeredStyles, $isAdmin, $tubepress_base_url;
+        global $add_options_page_called, $enqueuedScripts, $enqueuedStyles, $registeredScripts, $registeredStyles, $isAdmin;
         
-        $tubepress_base_url      ='tubepress_base_url';
         $enqueuedScripts = array();
         $enqueuedStyles = array();
         $registeredScripts = array();
@@ -53,12 +51,12 @@ class org_tubepress_impl_env_wordpress_AdminTest extends TubePressUnitTest {
     {
         global $enqueuedScripts, $enqueuedStyles, $registeredScripts, $registeredStyles, $isAdmin;
         $isAdmin = true;
-        org_tubepress_impl_env_wordpress_Admin::initAction();
+        org_tubepress_impl_env_wordpress_Admin::initAction('tubepress/Admin.class.php');
         $this->assertTrue($enqueuedScripts['jquery-ui-tabs'] === true);
         $this->assertTrue($enqueuedScripts['jscolor-tubepress'] === true);
         $this->assertTrue($enqueuedStyles['jquery-ui-flick'] === true);
-        $this->assertTrue($registeredStyles['jquery-ui-flick'] === "tubepress_base_url/sys/ui/static/css/jquery-ui-flick/jquery-ui-1.7.2.custom.css");
-        $this->assertTrue($registeredScripts['jscolor-tubepress'] === "tubepress_base_url/sys/ui/static/js/jscolor/jscolor.js");
+        $this->assertTrue($registeredStyles['jquery-ui-flick'] === "<tubepressbaseurl>/sys/ui/static/css/jquery-ui-flick/jquery-ui-1.7.2.custom.css");
+        $this->assertTrue($registeredScripts['jscolor-tubepress'] === "<tubepressbaseurl>/sys/ui/static/js/jscolor/jscolor.js");
     }
 }
 ?>

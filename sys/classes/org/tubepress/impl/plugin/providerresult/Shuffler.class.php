@@ -22,7 +22,7 @@
 /**
  * Shuffles videos on request.
  */
-class org_tubepress_impl_plugin_providerresult_Shuffler implements org_tubepress_api_plugin_Plugin
+class org_tubepress_impl_plugin_providerresult_Shuffler
 {
 	public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $galleryId)
 	{

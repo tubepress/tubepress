@@ -37,10 +37,10 @@ interface org_tubepress_api_plugin_PluginManager
     /**
      * Registers a filter.
      * 
-     * @param string                          $filterPoint The name of the filter point.
-     * @param org_tubepress_api_plugin_Plugin $plugin The  plugin instance.
+     * @param string $filterPoint The name of the filter point.
+     * @param object $plugin      The plugin instance.
      * 
      * @return void
      */
-    function registerFilter($filterPoint, org_tubepress_api_plugin_Plugin $plugin);
+    function registerFilter($filterPoint, $plugin);
 }

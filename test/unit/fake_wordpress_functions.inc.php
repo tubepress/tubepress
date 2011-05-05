@@ -55,7 +55,7 @@ function add_options_page($one, $two, $three, $four, $five)
 
 if (!function_exists('get_option')) {
     function get_option($optionName) {
-        return "";
+        return 'valueOf-' . $optionName;
     }
 }
 
@@ -105,6 +105,18 @@ if (!function_exists('__')) {
     {
         return $something;
     }
+}
+
+if (!function_exists('load_plugin_textdomain')) {
+    function load_plugin_textdomain() {}
+}
+
+if (!function_exists('add_filter')) {
+    function add_filter() {}
+}
+
+if (!function_exists('add_action')) {
+    function add_action() {}
 }
 
 function wp_register_sidebar_widget($one, $two, $three, $four)

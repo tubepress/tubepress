@@ -23,7 +23,8 @@ class_exists('TubePress')
 || require dirname(__FILE__) . '/../../../../TubePress.class.php';
 TubePress::loadClasses(array('org_tubepress_api_bootstrap_Bootstrapper',
     'org_tubepress_impl_log_Log',
-    'org_tubepress_impl_ioc_IocContainer'));
+    'org_tubepress_impl_ioc_IocContainer',
+    'org_tubepress_api_const_plugin_FilterPoint'));
 
 /**
  * Performs TubePress-wide initialization.
@@ -92,24 +93,24 @@ abstract class org_tubepress_impl_bootstrap_AbstractBootstrapper implements org_
     
     private function _loadSystemPlugins(org_tubepress_api_ioc_IocService $ioc)
     {
-        $pm      = $ioc->get(org_tubepress_api_plugin_PluginManager);
+        $pm      = $ioc->get('org_tubepress_api_plugin_PluginManager');
 
         /* gallery HTML filters */
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::HTML_GALLERY, $ioc->get(org_tubepress_impl_plugin_galleryhtml_GalleryJs));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::HTML_GALLERY, $ioc->get('org_tubepress_impl_plugin_galleryhtml_GalleryJs'));
 
         /* gallery template filters */
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get(org_tubepress_impl_plugin_gallerytemplate_EmbeddedPlayerName));
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get(org_tubepress_impl_plugin_gallerytemplate_Pagination));
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get(org_tubepress_impl_plugin_gallerytemplate_Player));
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get(org_tubepress_impl_plugin_gallerytemplate_VideoMeta));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_gallerytemplate_EmbeddedPlayerName'));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_gallerytemplate_Pagination'));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_gallerytemplate_Player'));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_gallerytemplate_VideoMeta'));
         
         /* provider result filters */
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get(org_tubepress_impl_plugin_providerresult_ResultCountCapper));
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get(org_tubepress_impl_plugin_providerresult_VideoBlacklist));
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get(org_tubepress_impl_plugin_providerresult_Shuffler));
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get(org_tubepress_impl_plugin_providerresult_VideoPrepender));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_providerresult_ResultCountCapper'));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_providerresult_VideoBlacklist'));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_providerresult_Shuffler'));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_providerresult_VideoPrepender'));
         
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $ioc->get(org_tubepress_impl_plugin_singlevideotemplate_EmbeddedSource));
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $ioc->get(org_tubepress_impl_plugin_singlevideotemplate_VideoMeta));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $ioc->get('org_tubepress_impl_plugin_singlevideotemplate_EmbeddedSource'));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $ioc->get('org_tubepress_impl_plugin_singlevideotemplate_VideoMeta'));
     }
 }

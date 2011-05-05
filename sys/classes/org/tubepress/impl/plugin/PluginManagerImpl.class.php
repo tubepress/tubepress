@@ -19,11 +19,12 @@
  *
  */
 
-class_exists('TubePress')
-|| require dirname(__FILE__) . '/../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_api_filters_PluginManager',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
     'org_tubepress_api_const_plugin_FilterPoint',
-    'org_tubepress_impl_log_Log'));
+    'org_tubepress_api_plugin_PluginManager',
+    'org_tubepress_impl_log_Log',
+));
 
 class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_plugin_PluginManager
 {
@@ -120,13 +121,20 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
      * Registers a filter.
      * 
      * @param string $filterPoint The name of the filter point.
-     * @param object $plugin The  plugin instance.
+     * @param object $plugin      The plugin instance.
      * 
      * @return void
      */
-    function registerFilter($filterPoint, org_tubepress_api_plugin_Plugin $plugin)
+    function registerFilter($filterPoint, $plugin)
     {
-        /* sanity check 1/2 */
+        /* sanity check 1/3 */
+        if (!is_object($plugin)) {
+            
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Only object instances can be registered as TubePress filter. Ingoring filter registration for "%s"', $filterPoint);
+            return;
+        }
+        
+        /* sanity check 2/3 */
         if (!array_key_exists($filterPoint, $this->_validFilterPoints)) {
 
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Invalid filter point: "%s". Ignoring filter registration for "%s".', $filterPoint, get_class($plugin));
@@ -135,7 +143,7 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
 
         $methodName = $this->_validFilterPoints[$filterPoint];
 
-        /* sanity check 2/2 */
+        /* sanity check 3/3 */
         if (!method_exists($plugin, $methodName) || !is_callable(array($plugin, $methodName))) {
 
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '"%s" must have a callable class method named "%s" to be registered for "%s" filter point. Ignoring this registration.',

@@ -33,5 +33,3 @@ if (version_compare(PHP_VERSION, '5.0.2', '>=')) {
     
     org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_bootstrap_Bootstrapper')->boot();
 }
-
-?>

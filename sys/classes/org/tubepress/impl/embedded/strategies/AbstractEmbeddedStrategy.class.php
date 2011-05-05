@@ -25,7 +25,8 @@ TubePress::loadClasses(array('org_tubepress_api_patterns_Strategy',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
-    'org_tubepress_api_options_OptionsManager'));
+    'org_tubepress_api_options_OptionsManager',
+    'org_tubepress_api_const_template_Variable'));
 
 /**
  * Base class for embedded strategies.
@@ -118,5 +119,3 @@ abstract class org_tubepress_impl_embedded_strategies_AbstractEmbeddedStrategy i
         }
     }
 }
-
-?>

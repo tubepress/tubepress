@@ -19,10 +19,12 @@
  *
  */
 
-class_exists('TubePress')
-    || require dirname(__FILE__) . '/../../../../TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_api_player_Player',
-    'org_tubepress_impl_ioc_IocContainer'));
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_const_template_Variable',
+    'org_tubepress_api_player_Player',
+    'org_tubepress_impl_ioc_IocContainer'
+));
 
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc

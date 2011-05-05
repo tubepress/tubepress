@@ -19,23 +19,31 @@
  *
  */
 
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_provider_ProviderResult',
+    'org_tubepress_api_querystring_QueryStringService',
+    'org_tubepress_impl_ioc_IocContainer',
+    'org_tubepress_impl_log_Log',
+));
+
 /**
  * Appends/moves a video the front of the gallery based on the query string parameter.
  */
-class org_tubepress_impl_plugin_providerresult_VideoPrepender implements org_tubepress_api_plugin_Plugin
+class org_tubepress_impl_plugin_providerresult_VideoPrepender
 {
     const LOG_PREFIX = 'Video Prepender';
     
     public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $galleryId)
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $qss = $ioc->get(org_tubepress_api_querystring_QueryStringService);
+        $qss = $ioc->get('org_tubepress_api_querystring_QueryStringService');
 
         $customVideoId = $qss->getCustomVideo($_GET);
 
         /* they didn't set a custom video id */
         if ($customVideoId == '') {
-            return $feedResult;
+            return $providerResult;
         }
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Prepending video %s to the gallery', $customVideoId);
@@ -73,11 +81,11 @@ class org_tubepress_impl_plugin_providerresult_VideoPrepender implements org_tub
         /* see if the array already has it */
         if (self::_videoArrayAlreadyHasVideo($videos, $id)) {
             $videos = self::_moveVideoUpFront($videos, $id);
-            $feedResult->setVideoArray($videos);
+            $providerResult->setVideoArray($videos);
             return $providerResult;
         }
     
-        $provider = $ioc->get(org_tubepress_video_feed_provider_Provider);
+        $provider = $ioc->get('org_tubepress_api_provider_Provider');
         try {
             $video = $provider->getSingleVideo($customVideoId);
             array_unshift($videos, $video);

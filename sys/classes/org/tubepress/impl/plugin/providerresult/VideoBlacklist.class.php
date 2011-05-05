@@ -22,7 +22,7 @@
 /**
  * Filters out any videos that the user has in their blacklist.
  */
-class org_tubepress_impl_plugin_providerresult_VideoBlacklist implements org_tubepress_api_plugin_Plugin
+class org_tubepress_impl_plugin_providerresult_VideoBlacklist
 {
 	public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $galleryId)
 	{

@@ -19,16 +19,28 @@
  *
  */
 
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_const_options_CategoryName',
+    'org_tubepress_api_const_template_Variable',
+    'org_tubepress_api_const_template_Variable',
+    'org_tubepress_api_message_MessageService',
+    'org_tubepress_api_options_OptionsManager',
+    'org_tubepress_api_provider_Provider',
+    'org_tubepress_api_template_Template',
+    'org_tubepress_impl_ioc_IocContainer',
+));
+
 /**
  * Handles applying video meta info to the gallery template.
  */
-class org_tubepress_impl_plugin_gallerytemplate_VideoMeta implements org_tubepress_api_plugin_Plugin
+class org_tubepress_impl_plugin_gallerytemplate_VideoMeta
 {
     public function alter_galleryTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_provider_ProviderResult $providerResult, $galleryId)
     {
         $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom           = $ioc->get(org_tubepress_api_options_OptionsManager);
-        $messageService = $ioc->get(org_tubepress_api_message_MessageService);
+        $tpom           = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $messageService = $ioc->get('org_tubepress_api_message_MessageService');
 
         $metaNames  = org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::META);
         $shouldShow = array();

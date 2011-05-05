@@ -32,7 +32,7 @@ class org_tubepress_impl_html_strategies_ThumbGalleryStrategyTest extends TubePr
 	             ->method('getMultipleVideos')
 	             ->will($this->returnValue($this->_feedResult));
 	    }
-	    if ($className === 'org_tubepress_api_plugins_PluginManager') {
+	    if ($className === 'org_tubepress_api_plugin_PluginManager') {
                 $mock->expects($this->exactly(3))
                      ->method('runFilters')
                      ->will($this->returnCallback(array($this, 'callback')));

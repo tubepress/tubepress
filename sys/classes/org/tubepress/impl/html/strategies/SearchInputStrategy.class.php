@@ -22,7 +22,8 @@
 TubePress::loadClasses(array('org_tubepress_api_patterns_Strategy',
     'org_tubepress_api_const_options_names_Output',
     'org_tubepress_api_const_options_values_OutputValue',
-    'org_tubepress_api_url_Url'));
+    'org_tubepress_api_url_Url',
+    'org_tubepress_api_const_querystring_QueryParamName'));
 
 /**
  * HTML generation strategy that generates HTML for a single video + meta info.
