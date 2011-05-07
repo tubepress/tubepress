@@ -40,4 +40,4 @@ class org_tubepress_impl_options_SimpleOptionsManagerTest extends TubePressUnitT
     	$this->_sut->get("nonexistent");
     }
 }
-?>
+

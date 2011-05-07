@@ -11,4 +11,3 @@ class EnvironmentTests
 		return $suite;
 	}
 }
-?>

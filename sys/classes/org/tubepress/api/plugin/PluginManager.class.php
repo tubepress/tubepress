@@ -25,6 +25,15 @@
 interface org_tubepress_api_plugin_PluginManager
 {
     /**
+     * Determines if there are any filters registered for the given point.
+     * 
+     * @param string $filterPoint The filter point to check.
+     * 
+     * @return boolean True if there are filters registered for the given point. False otherwise.
+     */
+    public function hasFilters($filterPoint);
+    
+    /**
      * Run all filters for the given filter point.
      *  
      * @param string  $filterPoint The name of the filter point.

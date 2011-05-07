@@ -44,7 +44,7 @@ class org_tubepress_impl_plugin_providerresult_ResultCountCapper
             $feedResult->setVideoArray(array_splice($videos, 0, $secondCut - $resultCount));
         }
 
-        $feedResult->setEffectiveTotalResultCount($secondCut);
+        $providerResult->setEffectiveTotalResultCount($secondCut);
         return $providerResult;
     }
     

@@ -26,7 +26,7 @@ class org_tubepress_impl_plugin_providerresult_Shuffler
 {
 	public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $galleryId)
 	{
-		$videos = $feedResult->getVideoArray();
+		$videos = $providerResult->getVideoArray();
 		$ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
 		$tpom   = $ioc->get(org_tubepress_api_options_OptionsManager);
 		

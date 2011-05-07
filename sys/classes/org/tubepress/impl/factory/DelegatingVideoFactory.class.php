@@ -23,6 +23,7 @@ class_exists('TubePress') || require(dirname(__FILE__) . '/../../../../TubePress
 TubePress::loadClasses(array(
     'org_tubepress_api_factory_VideoFactory',
     'org_tubepress_api_patterns_StrategyManager',
+    'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_impl_ioc_IocContainer',
 ));
 
@@ -60,8 +61,18 @@ class org_tubepress_impl_factory_DelegatingVideoFactory implements org_tubepress
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
         $sm  = $ioc->get('org_tubepress_api_patterns_StrategyManager');
+        $pm  = $ioc->get('org_tubepress_api_plugin_PluginManager');
         
         /* let the strategies do the heavy lifting */
-        return $sm->executeStrategy($this->getArrayOfStrategyNames(), $feed);
+        $videoArray = $sm->executeStrategy($this->getArrayOfStrategyNames(), $feed);
+
+        if ($pm->hasFilters(org_tubepress_api_const_plugin_FilterPoint::VIDEO_ANY)) {
+            for ($x = 0; $x < count($videoArray); $x++) {
+                
+                $videoArray[$x] = $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::VIDEO_ANY, $videoArray[$x]);
+            }
+        }
+        
+        return $videoArray;
     }
 }

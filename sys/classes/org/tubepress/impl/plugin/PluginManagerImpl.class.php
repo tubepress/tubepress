@@ -70,22 +70,13 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
      */
     public function runFilters($filterPoint, $value)
     {
-        /* make sure this is a valid hook */
-        if (!array_key_exists($filterPoint, $this->_validFilterPoints)) {
-
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Invalid filter point: "%s". Ignoring.', $filterPoint);
-            return $value;
-        }
-
-        $filters = $this->_filters[$filterPoint];
-
-        /* do we have anything to do? */
-        if (empty($filters)) {
-
+        if (!$this->hasFilters($filterPoint)) {
+            
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'No filters registered for "%s".', $filterPoint);
             return $value;
         }
 
+        $filters     = $this->_filters[$filterPoint];
         $filterCount = count($filters);
         $filterIndex = 1;
         $args        = func_get_args();
@@ -155,6 +146,25 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
         array_push($this->_filters[$filterPoint], $plugin);
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Registered "%s" as a filter for "%s"', get_class($plugin), $filterPoint);
+    }
+    
+    /**
+     * Determines if there are any filters registered for the given point.
+     * 
+     * @param string $filterPoint The filter point to check.
+     * 
+     * @return boolean True if there are filters registered for the given point. False otherwise.
+     */
+    public function hasFilters($filterPoint)
+    {
+        /* make sure this is a valid hook */
+        if (!array_key_exists($filterPoint, $this->_validFilterPoints)) {
+
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Invalid filter point: "%s". Ignoring.', $filterPoint);
+            return false;
+        }
+
+        return ! empty($this->_filters[$filterPoint]);
     }
 
     private static function _getFilterMethodName($filterPoint)

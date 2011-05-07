@@ -76,5 +76,4 @@ EOT;
 
     protected abstract function _getSutInstance();
 }
-?>
 

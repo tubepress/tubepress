@@ -13,4 +13,3 @@ class org_tubepress_api_const_options_names_DisplayTest extends TubePressUnitTes
         self::checkArrayEquality(self::getConstantsForClass('org_tubepress_api_const_options_names_Display'), $expected);
     }
 }
-?>

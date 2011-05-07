@@ -258,4 +258,4 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
         self::checkArrayEquality($expected, org_tubepress_impl_options_OptionsReference::getValidEnumValues(org_tubepress_api_const_options_Type::MODE));
     }
 }
-?>
+

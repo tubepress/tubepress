@@ -308,4 +308,4 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
    	}
 }
 
-?>
+

@@ -48,4 +48,4 @@ class org_tubepress_impl_html_strategies_SingleVideoStrategyTest extends TubePre
     }
 
 }
-?>
+

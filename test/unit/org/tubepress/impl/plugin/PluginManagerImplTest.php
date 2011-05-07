@@ -66,4 +66,4 @@ class org_tubepress_impl_plugin_PluginManagerImplTest extends TubePressUnitTest 
         $this->_sut->registerFilter(1, $this->_plugin);
     }
 }
-?>
+

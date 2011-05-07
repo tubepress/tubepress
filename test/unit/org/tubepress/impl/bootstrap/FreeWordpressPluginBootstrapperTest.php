@@ -21,4 +21,3 @@ class org_tubepress_impl_bootstrap_FreeWordPressPluginBootstrapperTest extends T
 	}
 
 }
-?>

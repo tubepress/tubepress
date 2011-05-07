@@ -26,7 +26,6 @@ TubePress::loadClasses(array(
     'org_tubepress_api_message_MessageService',
     'org_tubepress_api_options_OptionsManager',
     'org_tubepress_api_pagination_Pagination',
-    'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_api_url_Url',
     'org_tubepress_impl_ioc_IocContainer',
@@ -50,7 +49,6 @@ class org_tubepress_impl_pagination_DiggStylePaginationService implements org_tu
         $tpom           = $ioc->get('org_tubepress_api_options_OptionsManager');
         $messageService = $ioc->get('org_tubepress_api_message_MessageService');
         $qss            = $ioc->get('org_tubepress_api_querystring_QueryStringService');
-        $pm             = $ioc->get('org_tubepress_api_plugin_PluginManager');
         
         $currentPage = $qss->getPageNum($_GET);
         $vidsPerPage = $tpom->get(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE);
@@ -65,8 +63,7 @@ class org_tubepress_impl_pagination_DiggStylePaginationService implements org_tu
             $result = preg_replace('/rel="nofollow" href="[^"]*tubepress_page=([0-9]+)[^"]*"/', 'rel="page=${1}"', $result);
         }
 
-        /* send the HTML through any filters */
-        return $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_PAGINATION, $result);
+        return $result;
     }
 
     /**

@@ -57,4 +57,3 @@ abstract class org_tubepress_impl_embedded_AbstractEmbeddedStrategyTest extends 
         return $this->_sut;
     }
 }
-?>

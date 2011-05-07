@@ -13,4 +13,4 @@ class UtilsTests
 		return $suite;
 	}
 }
-?>
+

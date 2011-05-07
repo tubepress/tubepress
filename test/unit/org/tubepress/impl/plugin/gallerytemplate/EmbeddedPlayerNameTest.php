@@ -48,4 +48,4 @@ class org_tubepress_impl_plugin_gallerytemplate_EmbeddedPlayerNameTest extends T
     }
 	
 }
-?>
+

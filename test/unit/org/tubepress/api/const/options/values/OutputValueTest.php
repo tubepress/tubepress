@@ -12,4 +12,3 @@ class org_tubepress_api_const_options_values_OutputValueTest extends TubePressUn
 
     }
 }
-?>

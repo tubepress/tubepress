@@ -11,7 +11,3 @@ class org_tubepress_api_const_options_TypeTest extends TubePressUnitTest {
         self::checkArrayEquality(self::getConstantsForClass('org_tubepress_api_const_options_Type'), $expected);
     }
 }
-?>
-
-
-

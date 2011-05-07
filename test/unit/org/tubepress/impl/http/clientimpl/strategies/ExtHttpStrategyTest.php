@@ -9,5 +9,5 @@ class org_tubepress_impl_http_clientimpl_strategies_ExtHttpStrategyTest extends 
        return new org_tubepress_impl_http_clientimpl_strategies_ExtHttpStrategy();
     }
 }
-?>
+
 

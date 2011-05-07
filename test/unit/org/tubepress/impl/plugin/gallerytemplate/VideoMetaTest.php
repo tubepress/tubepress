@@ -28,4 +28,4 @@ class org_tubepress_impl_plugin_gallerytemplate_VideoMetaTest extends TubePressU
 	}
 	
 }
-?>
+

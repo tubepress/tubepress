@@ -11,4 +11,3 @@ class ProviderApiTests
 		return $suite;
 	}
 }
-?>

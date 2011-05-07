@@ -95,4 +95,4 @@ class org_tubepress_impl_provider_ProviderTest extends TubePressUnitTest
         $this->assertTrue(is_a($result, 'org_tubepress_api_provider_ProviderResult'));
     }
 }
-?>
+

@@ -97,14 +97,8 @@ EOT
     private function _tester($expected)
     {
         $sut = new org_tubepress_impl_pagination_DiggStylePaginationService();
-        $this->assertEquals("<<$expected>>", $sut->getHtml(100));
+        $this->assertEquals("$expected", $sut->getHtml(100));
     }
 }
 
-class paginationModifier
-{
-    public function alter_paginationHtml($point, $html)
-    {
-        return "<<$html>>";
-    }
-}
+

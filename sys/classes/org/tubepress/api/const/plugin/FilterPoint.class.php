@@ -62,5 +62,20 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * function alter_singleVideoTemplate(org_tubepress_api_template_Template $rawSingleVideoTemplate);
      */
     const TEMPLATE_SINGLEVIDEO = 'singleVideoTemplate';
+    
+    /**
+     * function alter_anyVideo(org_tubepress_api_video_Video $video);
+     */
+    const VIDEO_ANY = 'anyVideo';
+    
+    /**
+     * function alter_vimeoVideo(org_tubepress_api_video_Video $video);
+     */
+    const VIDEO_VIMEO = 'vimeoVideo';
+    
+    /**
+     * function alter_youtubeVideo(org_tubepress_api_video_Video $video);
+     */
+    const VIDEO_YOUTUBE = 'youtubeVideo';
 }
 

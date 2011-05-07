@@ -55,4 +55,4 @@ class org_tubepress_api_provider_ProviderResultTest extends TubePressUnitTest {
         $this->assertEquals(501, $this->_sut->getEffectiveTotalResultCount());
     }
 }
-?>
+

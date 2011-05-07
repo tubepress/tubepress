@@ -11,4 +11,4 @@ class PlayerTests
 		return $suite;
 	}
 }
-?>
+

@@ -11,4 +11,3 @@ class VideoTests
 		return $suite;
 	}
 }
-?>

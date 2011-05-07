@@ -72,4 +72,3 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest {
 EOT;
     }
 }
-?>

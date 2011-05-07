@@ -12,15 +12,21 @@ class org_tubepress_impl_plugin_gallerytemplate_PaginationTest extends TubePress
 		$this->initFakeIoc();
 		$this->_sut = new org_tubepress_impl_plugin_gallerytemplate_Pagination();
 	}
+
+    public function getMock($className)
+    {
+        $mock = parent::getMock($className);
+        switch ($className) {
+           
+            case 'org_tubepress_api_plugin_PluginManager':
+                $mock->expects($this->once())
+                     ->method('runFilters')
+                     ->with($this->equalTo(org_tubepress_api_const_plugin_FilterPoint::HTML_PAGINATION), $this->anything())
+                     ->will($this->returnCallback(array(new paginationModifier(), 'alter_paginationHtml')));
+        }
+        return $mock;
+    }
 	
-	function getMock($className)
-	{
-	    $mock = parent::getMock($className);
-
-	    
-	    return $mock;
-	}
-
 	function testPaginationAboveAndBelow()
 	{
 	    $fakeTemplate = $this->getMock('org_tubepress_api_template_Template');
@@ -28,4 +34,11 @@ class org_tubepress_impl_plugin_gallerytemplate_PaginationTest extends TubePress
 	}
 	
 }
-?>
+
+class paginationModifier
+{
+    public function alter_paginationHtml($point, $html)
+    {
+        return "<<$html>>";
+    }
+}

@@ -23,4 +23,4 @@ class PluginTests
 		return $suite;
 	}
 }
-?>
+

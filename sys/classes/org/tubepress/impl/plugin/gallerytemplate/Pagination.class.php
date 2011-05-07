@@ -19,6 +19,17 @@
  *
  */
 
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_const_plugin_FilterPoint',
+    'org_tubepress_api_const_options_names_Display',
+    'org_tubepress_api_const_template_Variable',
+    'org_tubepress_api_options_OptionsManager',
+    'org_tubepress_api_pagination_Pagination',
+    'org_tubepress_api_plugin_PluginManager',
+    'org_tubepress_impl_ioc_IocContainer',
+));
+
 /**
  * Handles applying pagination to the gallery template.
  */
@@ -30,8 +41,10 @@ class org_tubepress_impl_plugin_gallerytemplate_Pagination
         $ioc               = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom              = $ioc->get('org_tubepress_api_options_OptionsManager');
         $paginationService = $ioc->get('org_tubepress_api_pagination_Pagination');
+        $pm                = $ioc->get('org_tubepress_api_plugin_PluginManager');
         $pagination        = $paginationService->getHtml($providerResult->getEffectiveTotalResultCount());
-
+        $pagination        = $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_PAGINATION, $pagination);
+        
         if ($tpom->get(org_tubepress_api_const_options_names_Display::PAGINATE_ABOVE)) {
             $template->setVariable(org_tubepress_api_const_template_Variable::PAGINATION_TOP, $pagination);
         }

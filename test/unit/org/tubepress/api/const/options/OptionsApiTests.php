@@ -33,4 +33,4 @@ class OptionsApiTests
         return $suite;
     }
 }
-?>
+

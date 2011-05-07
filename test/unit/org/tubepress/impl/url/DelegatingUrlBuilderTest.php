@@ -52,4 +52,4 @@ class org_tubepress_impl_url_DelegatingUrlBuilderTest extends TubePressUnitTest 
         $this->assertEquals('foo', $this->_sut->buildSingleVideoUrl($this->_arg));
     }
 }
-?>
+

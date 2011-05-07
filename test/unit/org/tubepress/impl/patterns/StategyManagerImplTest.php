@@ -97,4 +97,4 @@ class org_tubepress_impl_patterns_StrategyManagerImplTest extends TubePressUnitT
         $this->_mockStrategyTwo->expects($this->once())->method('stop');
     }
 }
-?>
+

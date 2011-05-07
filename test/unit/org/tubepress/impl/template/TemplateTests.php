@@ -11,4 +11,4 @@ class TemplateTests
         return $suite;
     }
 }
-?>
+

@@ -21,4 +21,3 @@ class HtmlTests
         return $suite;
     }
 }
-?>

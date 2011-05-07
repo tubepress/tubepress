@@ -27,4 +27,4 @@ class org_tubepress_impl_options_WordPressStorageManagerTest extends TubePressUn
         $this->_sut->nuclear();
     }
 }
-?>
+

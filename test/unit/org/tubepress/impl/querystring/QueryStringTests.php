@@ -11,4 +11,4 @@ class QueryStringTests
 		return $suite;
 	}
 }
-?>
+

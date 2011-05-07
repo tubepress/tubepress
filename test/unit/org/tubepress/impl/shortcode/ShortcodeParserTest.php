@@ -225,4 +225,4 @@ class org_tubepress_api_shortcode_ShortcodeParserTest extends TubePressUnitTest
 		}
 	}
 }
-?>
+

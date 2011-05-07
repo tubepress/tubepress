@@ -23,4 +23,3 @@ class org_tubepress_impl_environment_SimpleEnvironmentDetectorTest extends TubeP
     }
     
 }
-?>

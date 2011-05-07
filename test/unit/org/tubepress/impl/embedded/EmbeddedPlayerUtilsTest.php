@@ -30,4 +30,4 @@ class org_tubepress_impl_embedded_EmbeddedPlayerUtilsTest extends TubePressUnitT
     }
     
 }
-?>
+

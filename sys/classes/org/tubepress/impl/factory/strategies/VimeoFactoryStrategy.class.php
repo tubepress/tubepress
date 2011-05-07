@@ -21,6 +21,7 @@
 
 class_exists('TubePress') || require dirname(__FILE__) . '/../../../../../TubePress.class.php';
 TubePress::loadClasses(array(
+    'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_impl_factory_strategies_AbstractFactoryStrategy'
 ));
 
@@ -170,6 +171,11 @@ class org_tubepress_impl_factory_strategies_VimeoFactoryStrategy extends org_tub
     protected function _canHandleVideo($index)
     {
         return $this->_videoArray[$index]->embed_privacy !== 'nowhere';
+    }
+    
+    protected function _getFilterPointNameForVideos()
+    {
+        return org_tubepress_api_const_plugin_FilterPoint::VIDEO_VIMEO;
     }
     
     protected static function _gatherArrayOfContent($node, $firstDimension, $secondDimension)

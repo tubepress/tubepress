@@ -59,4 +59,3 @@ class org_tubepress_impl_env_wordpress_AdminTest extends TubePressUnitTest {
         $this->assertTrue($registeredScripts['jscolor-tubepress'] === "<tubepressbaseurl>/sys/ui/static/js/jscolor/jscolor.js");
     }
 }
-?>

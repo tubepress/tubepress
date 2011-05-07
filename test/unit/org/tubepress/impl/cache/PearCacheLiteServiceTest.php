@@ -41,4 +41,3 @@ class org_tubepress_impl_cache_PearCacheLiteCacheServiceTest extends TubePressUn
 		return $pass;
 	}
 }
-?>

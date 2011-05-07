@@ -87,4 +87,3 @@ class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
         $this->assertTrue($registeredStyles['tubepress'] === '<tubepressbaseurl>/sys/ui/themes/default/style.css');
     }
 }
-?>

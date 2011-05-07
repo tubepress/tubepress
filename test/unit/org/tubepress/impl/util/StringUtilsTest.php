@@ -10,4 +10,4 @@ class org_tubepress_impl_util_StringUtilsTest extends TubePressUnitTest
 		$this->assertEquals("zxx", org_tubepress_impl_util_StringUtils::replaceFirst("x", "z", "xxx"));
 	}
 }
-?>
+

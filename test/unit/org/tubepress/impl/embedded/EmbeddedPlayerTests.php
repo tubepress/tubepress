@@ -19,4 +19,3 @@ class EmbeddedPlayerTests
 		return $suite;
 	}
 }
-?>

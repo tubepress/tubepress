@@ -22,6 +22,7 @@
 class_exists('TubePress') || require dirname(__FILE__) . '/../../../../../TubePress.class.php';
 TubePress::loadClasses(array(
     'org_tubepress_api_patterns_Strategy',
+    'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_api_video_Video',
     'org_tubepress_impl_log_Log',
     'org_tubepress_impl_util_TimeUtils'
@@ -73,8 +74,11 @@ abstract class org_tubepress_impl_factory_strategies_AbstractFactoryStrategy imp
         /* give the strategy a chance to do some initial processing */
         $this->_preExecute($feed);
         
-        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $this->_tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $ioc             = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_tpom     = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $pm              = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $filterPointName = $this->_getFilterPointNameForVideos();
+        $hasFilters      = $pm->hasFilters($filterPointName);
         
         $results = array();
         $index   = 0;
@@ -89,7 +93,11 @@ abstract class org_tubepress_impl_factory_strategies_AbstractFactoryStrategy imp
                 continue;
             }
 
-            $results[] = $this->_buildVideo($index);
+            /* build the video first */
+            $video = $this->_buildVideo($index);
+            
+            /* then send it through the filters (maybe) */
+            $results[] = $hasFilters ? $pm->runFilters($filterPointName, $video) : $video;
         }
 
         /* give the strategy a chance to do some post processing */
@@ -144,6 +152,8 @@ abstract class org_tubepress_impl_factory_strategies_AbstractFactoryStrategy imp
     protected abstract function _getTimePublishedInUnixTime($index);
     protected abstract function _getTitle($index);
     protected abstract function _getRawViewCount($index);  
+    
+    protected abstract function _getFilterPointNameForVideos();
     
     protected static function _checkArgs($args)
     {

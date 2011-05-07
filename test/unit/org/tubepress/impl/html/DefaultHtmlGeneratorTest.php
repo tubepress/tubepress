@@ -82,5 +82,5 @@ class org_tubepress_impl_html_DefaultHtmlGeneratorTest extends TubePressUnitTest
         $this->assertEquals('<script type="text/javascript" src="<tubepressbaseurl>/sys/ui/static/js/jquery-1.5.1.min.js"></script>', $result);
     }
 }
-?>
+
 

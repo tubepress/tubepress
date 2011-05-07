@@ -9,5 +9,5 @@ class org_tubepress_impl_http_clientimpl_strategies_FopenStrategyTest extends or
        return new org_tubepress_impl_http_clientimpl_strategies_FopenStrategy();
     }
 }
-?>
+
 

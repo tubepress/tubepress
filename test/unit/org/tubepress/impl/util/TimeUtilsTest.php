@@ -23,4 +23,4 @@ class org_tubepress_impl_util_TimeUtilsTest extends TubePressUnitTest
 		$this->assertEquals('342108213', $result);
 	}
 }
-?>
+
