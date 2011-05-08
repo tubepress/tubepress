@@ -19,11 +19,13 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-|| require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_bootstrap_Bootstrapper',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_bootstrap_Bootstrapper',
+    'org_tubepress_api_const_plugin_FilterPoint',
+    'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_log_Log',
-    'org_tubepress_api_const_filters_ExecutionPoint'));
+));
 
 /**
  * Performs TubePress-wide initialization.
@@ -66,14 +68,9 @@ abstract class org_tubepress_impl_bootstrap_AbstractBootstrapper implements org_
         org_tubepress_impl_log_Log::setEnabled($tpom->get(org_tubepress_api_const_options_names_Advanced::DEBUG_ON), $_GET);
         org_tubepress_impl_log_Log::log($this->_getName(), 'Booting!');
 
-        /* register default filters */
-        $fs      = $ioc->get('org_tubepress_api_filesystem_Explorer');
-        $baseDir = $fs->getTubePressBaseInstallationPath() . '/sys/classes/org/tubepress/impl/filters/';
-
-        $this->_loadFilters($baseDir . 'html', $fs, $ioc);
-        $this->_loadFilters($baseDir . 'template', $fs, $ioc);
-        $this->_loadFilters($baseDir . 'feedresult', $fs, $ioc);
-
+        /* load system plugins */
+        $this->_loadSystemPlugins($ioc);
+        
         /* continue booting process */
         $this->_doBoot();
 
@@ -94,32 +91,27 @@ abstract class org_tubepress_impl_bootstrap_AbstractBootstrapper implements org_
      * @return void
      */
     protected abstract function _doBoot();
-
-    private function _loadFilters($directory, $fs, $ioc)
+    
+    private function _loadSystemPlugins(org_tubepress_api_ioc_IocService $ioc)
     {
-        org_tubepress_impl_log_Log::log($this->_getName(), 'Loading TubePress filters from <tt>%s</tt>', $directory);
+        $pm      = $ioc->get('org_tubepress_api_plugin_PluginManager');
 
-        /* get a list of the files in the directory */
-        $pluginPaths = $fs->getFilenamesInDirectory($directory, $this->_getName());
+        /* gallery HTML filters */
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::HTML_GALLERY, $ioc->get('org_tubepress_impl_plugin_galleryhtml_GalleryJs'));
 
-        /* we want to provide the filter manager to the filters */
-        $tubepressFilterManager = $ioc->get('org_tubepress_api_patterns_FilterManager');
-
-        /* include the PHP files that we can read */
-        foreach ($pluginPaths as $pluginPath) {
-
-            if ('.php' == substr($pluginPath, -4) && is_readable($pluginPath)) {
-
-                org_tubepress_impl_log_Log::log($this->_getName(), 'Loading TubePress filter at <tt>%s</tt>', $pluginPath);
-
-                include_once $pluginPath;
-
-            } else {
-
-                org_tubepress_impl_log_Log::log($this->_getName(), 'Ignoring non-filter file at <tt>%s</tt>', $pluginPath);
-
-            }
-        }
+        /* gallery template filters */
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_gallerytemplate_EmbeddedPlayerName'));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_gallerytemplate_Pagination'));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_gallerytemplate_Player'));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_gallerytemplate_VideoMeta'));
+        
+        /* provider result filters */
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_providerresult_ResultCountCapper'));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_providerresult_VideoBlacklist'));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_providerresult_Shuffler'));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_providerresult_VideoPrepender'));
+        
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $ioc->get('org_tubepress_impl_plugin_singlevideotemplate_EmbeddedSource'));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $ioc->get('org_tubepress_impl_plugin_singlevideotemplate_VideoMeta'));
     }
-
 }

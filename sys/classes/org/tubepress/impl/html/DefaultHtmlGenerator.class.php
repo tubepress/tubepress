@@ -19,13 +19,16 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_html_HtmlGenerator',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_const_plugin_FilterPoint',
+    'org_tubepress_api_html_HtmlGenerator',
+    'org_tubepress_api_patterns_StrategyManager',
+    'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_log_Log',
-    'org_tubepress_api_patterns_StrategyManager'));
+));
 
 /**
  * HTML handler implementation.
@@ -53,6 +56,7 @@ class org_tubepress_impl_html_DefaultHtmlGenerator implements org_tubepress_api_
     private function _wrappedGetHtmlForShortcode($shortCodeContent)
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $pm  = $ioc->get('org_tubepress_api_plugin_PluginManager');
 
         /* do a bit of logging */
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Type of IOC container is %s', get_class($ioc));
@@ -64,7 +68,14 @@ class org_tubepress_impl_html_DefaultHtmlGenerator implements org_tubepress_api_
         }
 
         /* use the strategy manager to get the HTML */
-        return $ioc->get('org_tubepress_api_patterns_StrategyManager')->executeStrategy($this->getStrategies());
+        $rawHtml = $ioc->get('org_tubepress_api_patterns_StrategyManager')->executeStrategy($this->getStrategies());
+        
+        /* send it through the filters */
+        if ($pm->hasFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_ANY)) {            
+            return $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_ANY, $rawHtml);
+        }
+        
+        return $rawHtml;
     }
 
     public function getHeadJqueryIncludeString()

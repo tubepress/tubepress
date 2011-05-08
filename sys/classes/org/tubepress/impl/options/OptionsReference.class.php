@@ -19,25 +19,26 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_impl_options_OptionsReference',
-    'org_tubepress_api_const_options_Type',
-    'org_tubepress_api_const_options_names_Embedded',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../TubePress.class.php';
+TubePress::loadClasses(array(
     'org_tubepress_api_const_options_names_Advanced',
-    'org_tubepress_api_const_options_names_Feed',
-    'org_tubepress_api_const_options_names_Widget',
     'org_tubepress_api_const_options_names_Display',
+    'org_tubepress_api_const_options_names_Embedded',
+    'org_tubepress_api_const_options_names_Feed',
     'org_tubepress_api_const_options_names_Meta',
     'org_tubepress_api_const_options_names_Output',
+    'org_tubepress_api_const_options_names_Output',
+    'org_tubepress_api_const_options_names_Widget',
+    'org_tubepress_api_const_options_Type',
     'org_tubepress_api_const_options_values_ModeValue',
     'org_tubepress_api_const_options_values_OrderValue',
-    'org_tubepress_api_const_options_values_TimeFrameValue',
+    'org_tubepress_api_const_options_values_PlayerImplementationValue',
     'org_tubepress_api_const_options_values_PlayerValue',
     'org_tubepress_api_const_options_values_SafeSearchValue',
-    'org_tubepress_api_const_options_values_PlayerImplementationValue',
-    'org_tubepress_api_const_options_names_Output',
-    'org_tubepress_api_embedded_EmbeddedPlayer'));
+    'org_tubepress_api_const_options_values_TimeFrameValue',
+    'org_tubepress_api_embedded_EmbeddedPlayer',
+    'org_tubepress_impl_options_OptionsReference',
+));
 
 /**
  * The master reference for TubePress options - their names, deprecated

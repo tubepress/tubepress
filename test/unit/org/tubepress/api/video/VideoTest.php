@@ -103,4 +103,3 @@ class org_tubepress_api_video_VideoTest extends TubePressUnitTest {
 		$this->assertEquals($this->_vid->getViewCount(), '12000');
 	}
 }
-?>

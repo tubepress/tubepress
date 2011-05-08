@@ -77,5 +77,5 @@ class org_tubepress_impl_http_StressTests extends TubePressUnitTest {
         echo sprintf("%s finished in %f seconds", $class, $now - $then);
     }
 }
-?>
+
 

@@ -11,4 +11,4 @@ class LogTests
 		return $suite;
 	}
 }
-?>
+

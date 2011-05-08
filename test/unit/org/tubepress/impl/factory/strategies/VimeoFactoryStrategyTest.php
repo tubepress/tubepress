@@ -39,7 +39,7 @@ class org_tubepress_impl_factory_strategies_VimeoFactoryStrategyTest extends Tub
         $this->assertTrue(is_array($result));
         $this->assertEquals(8, count($result));
         $video = $result[5];
-        $this->assertEquals('1 year ago', $video->getTimePublished());
+        $this->assertEquals('2 years ago', $video->getTimePublished());
     }
     
     function testGetMultiple()
@@ -76,5 +76,3 @@ class org_tubepress_impl_factory_strategies_VimeoFactoryStrategyTest extends Tub
         $this->assertFalse($this->_sut->canHandle('bla'));
     }
 }
-
-?>

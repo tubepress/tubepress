@@ -11,4 +11,4 @@ class MessageTests
 		return $suite;
 	}
 }
-?>
+

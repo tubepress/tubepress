@@ -37,5 +37,5 @@ class org_tubepress_impl_http_clientimpl_EncodingTest extends TubePressUnitTest 
         $this->assertEquals('deflate', org_tubepress_impl_http_clientimpl_Encoding::getContentEncodingString());
     }
 }
-?>
+
 

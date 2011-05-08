@@ -19,16 +19,19 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_provider_Provider',
-    'org_tubepress_impl_log_Log',
-    'org_tubepress_api_url_UrlBuilder',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
     'org_tubepress_api_const_options_names_Feed',
-    'org_tubepress_api_feed_FeedResult',
-    'org_tubepress_api_provider_ProviderCalculator',
     'org_tubepress_api_factory_VideoFactory',
-    'org_tubepress_api_querystring_QueryStringService'));
+    'org_tubepress_api_feed_FeedFetcher',
+    'org_tubepress_api_feed_FeedInspector',
+    'org_tubepress_api_provider_Provider',
+    'org_tubepress_api_provider_ProviderCalculator',
+    'org_tubepress_api_provider_ProviderResult',
+    'org_tubepress_api_querystring_QueryStringService',
+    'org_tubepress_api_url_UrlBuilder',
+    'org_tubepress_impl_log_Log'
+));
 
 /**
  * Interface to a remove video provider
@@ -40,11 +43,11 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
     /**
      * Get the video feed result.
      *
-     * @return org_tubepress_api_feed_FeedResult The feed result.
+     * @return org_tubepress_api_provider_ProviderResult The feed result.
      */
     public function getMultipleVideos()
     {
-        $result = new org_tubepress_api_feed_FeedResult();
+        $result = new org_tubepress_api_provider_ProviderResult();
         
         try {
             return $this->_wrappedGetMultipleVideos($result);

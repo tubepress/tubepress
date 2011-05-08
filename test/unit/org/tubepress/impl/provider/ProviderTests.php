@@ -11,4 +11,4 @@ class ProviderTests
         return $suite;
     }
 }
-?>
+

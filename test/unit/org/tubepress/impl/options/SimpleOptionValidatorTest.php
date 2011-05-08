@@ -101,4 +101,4 @@ class org_tubepress_impl_options_SimpleOptionValidatorTest extends TubePressUnit
 		$this->_sut->validate(org_tubepress_api_const_options_names_Display::DESC_LIMIT, 0);
 	}
 }
-?>
+

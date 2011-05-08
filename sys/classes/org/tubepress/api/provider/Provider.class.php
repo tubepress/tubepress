@@ -19,9 +19,10 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_options_OptionsManager'));
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_options_OptionsManager'
+));
 
 /**
  * Interface to a remove video provider
@@ -35,7 +36,7 @@ interface org_tubepress_api_provider_Provider
     /**
      * Get the video feed result.
      *
-     * @return org_tubepress_api_feed_FeedResult The feed result, never null.
+     * @return org_tubepress_api_provider_ProviderResult The feed result, never null.
      */
     function getMultipleVideos();
 

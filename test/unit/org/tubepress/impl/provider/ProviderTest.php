@@ -17,7 +17,7 @@ class org_tubepress_impl_provider_ProviderTest extends TubePressUnitTest
         self::$_totalResultCount = 100;
         self::$_queryResultCount = 20;
         $this->initFakeIoc();
-        $this->_fakeCount = new org_tubepress_api_feed_FeedResult();
+        $this->_fakeCount = new org_tubepress_api_provider_ProviderResult();
         $this->_fakeCount->setEffectiveTotalResultCount(self::$_totalResultCount);
         $this->_sut = new org_tubepress_impl_provider_SimpleProvider();
         org_tubepress_impl_log_Log::setEnabled(false, array());
@@ -92,7 +92,7 @@ class org_tubepress_impl_provider_ProviderTest extends TubePressUnitTest
     {
         $this->setOptions(array(org_tubepress_api_const_options_names_Display::ORDER_BY => 'random'));
         $result = $this->_sut->getMultipleVideos();
-        $this->assertTrue(is_a($result, 'org_tubepress_api_feed_FeedResult'));
+        $this->assertTrue(is_a($result, 'org_tubepress_api_provider_ProviderResult'));
     }
 }
-?>
+

@@ -13,7 +13,7 @@ class org_tubepress_impl_html_strategies_ThumbGalleryStrategyTest extends TubePr
 	function setup()
 	{
 		$this->initFakeIoc();
-		$this->_feedResult = new org_tubepress_api_feed_FeedResult();
+		$this->_feedResult = new org_tubepress_api_provider_ProviderResult();
 		$this->_feedResult->setVideoArray(array(new org_tubepress_api_video_Video()));
 		$this->_sut = new org_tubepress_impl_html_strategies_ThumbGalleryStrategy();
 	}
@@ -32,7 +32,7 @@ class org_tubepress_impl_html_strategies_ThumbGalleryStrategyTest extends TubePr
 	             ->method('getMultipleVideos')
 	             ->will($this->returnValue($this->_feedResult));
 	    }
-	    if ($className === 'org_tubepress_api_patterns_FilterManager') {
+	    if ($className === 'org_tubepress_api_plugin_PluginManager') {
                 $mock->expects($this->exactly(3))
                      ->method('runFilters')
                      ->will($this->returnCallback(array($this, 'callback')));
@@ -124,4 +124,3 @@ EOT;
     
 
 }
-?>

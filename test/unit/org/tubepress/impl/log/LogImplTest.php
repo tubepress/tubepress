@@ -28,4 +28,4 @@ class org_tubepress_impl_log_LogImplTest extends TubePressUnitTest {
         $this->assertTrue(strpos($contents, 'ms > (prefix) > message1 message2 (memory: ') !== false);
     }
 }
-?>
+

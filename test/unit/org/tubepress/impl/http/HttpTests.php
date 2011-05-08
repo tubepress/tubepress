@@ -15,4 +15,4 @@ class HttpTests
 		return $suite;
 	}
 }
-?>
+

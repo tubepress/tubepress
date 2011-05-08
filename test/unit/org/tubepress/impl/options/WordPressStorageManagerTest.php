@@ -1,7 +1,6 @@
 <?php
 require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
 require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/options/WordPressStorageManager.class.php';
-require_once dirname(__FILE__) . '/../../../../org/tubepress/impl/env/wordpress/fake_wordpress_functions.inc.php';
 
 class org_tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTest {
     
@@ -28,4 +27,4 @@ class org_tubepress_impl_options_WordPressStorageManagerTest extends TubePressUn
         $this->_sut->nuclear();
     }
 }
-?>
+

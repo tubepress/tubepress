@@ -11,4 +11,4 @@ class ThemeHandlerTests
         return $suite;
     }
 }
-?>
+

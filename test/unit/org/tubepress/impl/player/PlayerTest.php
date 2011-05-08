@@ -67,4 +67,4 @@ EOT;
         $this->assertEquals($expected, $result);
     }
 }
-?>
+

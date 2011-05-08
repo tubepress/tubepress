@@ -44,4 +44,4 @@ class org_tubepress_impl_options_FormHandlerTest extends TubePressUnitTest {
 	    return file_get_contents(dirname(__FILE__) . '/expected.txt');
 	}
 }
-?>
+

@@ -55,6 +55,7 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
             org_tubepress_api_const_options_names_Display::PAGINATE_BELOW          => true,
             org_tubepress_api_const_options_names_Display::AJAX_PAGINATION         => false,
             org_tubepress_api_const_options_names_Display::HQ_THUMBS               => false,
+            org_tubepress_api_const_options_names_Display::FLUID_THUMBS            => true,
             org_tubepress_api_const_options_names_Embedded::AUTOPLAY               => false,
             org_tubepress_api_const_options_names_Embedded::LOOP                   => false,
             org_tubepress_api_const_options_names_Embedded::SHOW_INFO              => false,
@@ -144,7 +145,7 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
     function testGetDisplayOptionNames()
     {
          $expectedNames = array('theme', 'ajaxPagination', 'playerLocation', 'resultsPerPage', 'hqThumbs', 'thumbHeight', 'thumbWidth',
-         'orderBy', 'paginationAbove', 'paginationBelow', 'randomize_thumbnails', 'relativeDates' ,'descriptionLimit'
+         'orderBy', 'paginationAbove', 'paginationBelow', 'randomize_thumbnails', 'relativeDates' ,'descriptionLimit', 'fluidThumbs'
          );
          self::checkArrayEquality($expectedNames, org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::DISPLAY));
     }
@@ -257,4 +258,4 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
         self::checkArrayEquality($expected, org_tubepress_impl_options_OptionsReference::getValidEnumValues(org_tubepress_api_const_options_Type::MODE));
     }
 }
-?>
+

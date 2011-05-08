@@ -11,4 +11,4 @@ class SingleVideoTests
 		return $suite;
 	}
 }
-?>
+

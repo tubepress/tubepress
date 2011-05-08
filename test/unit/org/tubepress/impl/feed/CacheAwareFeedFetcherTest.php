@@ -30,4 +30,3 @@ class org_tubepress_impl_feed_CacheAwareFeedFetcherTest extends TubePressUnitTes
         return $output;
 	}
 }
-?>

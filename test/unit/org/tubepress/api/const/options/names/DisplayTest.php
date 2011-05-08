@@ -8,9 +8,8 @@ class org_tubepress_api_const_options_names_DisplayTest extends TubePressUnitTes
     {
         $expected = array('ajaxPagination', 'playerLocation', 'descriptionLimit', 'orderBy', 'relativeDates',
             'resultsPerPage', 'thumbHeight', 'thumbWidth', 'paginationAbove', 'paginationBelow',
-            'hqThumbs', 'randomize_thumbnails', 'theme');
+            'hqThumbs', 'randomize_thumbnails', 'theme', 'fluidThumbs');
 
         self::checkArrayEquality(self::getConstantsForClass('org_tubepress_api_const_options_names_Display'), $expected);
     }
 }
-?>

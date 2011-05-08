@@ -13,4 +13,4 @@ class IocTests
 		return $suite;
 	}
 }
-?>
+

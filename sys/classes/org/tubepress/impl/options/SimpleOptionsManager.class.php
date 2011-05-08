@@ -19,13 +19,14 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_options_OptionsManager',
-    'org_tubepress_api_options_StorageManager',
-    'org_tubepress_impl_options_OptionsReference',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_options_OptionsManager',
     'org_tubepress_api_options_OptionValidator',
-    'org_tubepress_impl_ioc_IocContainer'));
+    'org_tubepress_api_options_StorageManager',
+    'org_tubepress_impl_ioc_IocContainer',
+    'org_tubepress_impl_options_OptionsReference',
+));
 
 /**
  * Holds the current options for TubePress. This is the default options,

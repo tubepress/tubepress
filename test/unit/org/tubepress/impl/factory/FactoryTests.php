@@ -14,4 +14,3 @@ class FactoryTests
         return $suite;
     }
 }
-?>

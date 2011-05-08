@@ -13,4 +13,3 @@ class org_tubepress_api_const_options_names_MetaTest extends TubePressUnitTest {
     }
 
 }
-?>

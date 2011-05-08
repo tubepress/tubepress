@@ -22,9 +22,9 @@
  * paramters: embedName (the string name of the embedded player implementation),
  * video (the video ID to load), meta (true/false whether or not to include video meta info)
  */
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../classes/tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_querystring_QueryStringService',
+class_exists('TubePress')
+    || require dirname(__FILE__) . '/../../classes/TubePress.class.php';
+TubePress::loadClasses(array('org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_impl_ioc_IocContainer'));
 
 $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();

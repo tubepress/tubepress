@@ -8,7 +8,6 @@ require_once 'org/tubepress/impl/environment/EnvironmentTests.php';
 require_once 'org/tubepress/impl/factory/FactoryTests.php';
 require_once 'org/tubepress/impl/feed/FeedTests.php';
 require_once 'org/tubepress/impl/filesystem/ExplorerTests.php';
-require_once 'org/tubepress/impl/filters/FilterTests.php';
 require_once 'org/tubepress/impl/html/HtmlTests.php';
 require_once 'org/tubepress/impl/http/HttpTests.php';
 require_once 'org/tubepress/impl/log/LogTests.php';
@@ -17,6 +16,7 @@ require_once 'org/tubepress/impl/options/OptionsTests.php';
 require_once 'org/tubepress/impl/pagination/PaginationTests.php';
 require_once 'org/tubepress/impl/patterns/PatternsTests.php';
 require_once 'org/tubepress/impl/player/PlayerTests.php';
+require_once 'org/tubepress/impl/plugin/PluginTests.php';
 require_once 'org/tubepress/impl/provider/ProviderTests.php';
 require_once 'org/tubepress/impl/querystring/QueryStringTests.php';
 require_once 'org/tubepress/impl/shortcode/ShortcodeTests.php';
@@ -27,11 +27,8 @@ require_once 'org/tubepress/impl/url/UrlTests.php';
 require_once 'org/tubepress/impl/ioc/IocTests.php';
 require_once 'org/tubepress/impl/util/UtilsTests.php';
 require_once 'org/tubepress/api/video/VideoTests.php';
-require_once 'org/tubepress/api/feed/FeedApiTests.php';
+require_once 'org/tubepress/api/provider/ProviderApiTests.php';
 require_once 'org/tubepress/impl/env/EnvTests.php';
-
-global $tubepress_base_url;
-$tubepress_base_url = 'tubepress_base_url';
 
 class TubePressUnitTests
 {
@@ -65,10 +62,11 @@ class TubePressUnitTests
 		$suite->addTest(EnvironmentTests::suite());
 		$suite->addTest(EnvTests::suite());
 		$suite->addTest(HtmlTests::suite());
-		$suite->addTest(FilterTests::suite());
+		$suite->addTest(PluginTests::suite());
+		$suite->addTest(ProviderApiTests::suite());
 
 		return $suite;
 	}
 }
 
-?>
+

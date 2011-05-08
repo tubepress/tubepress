@@ -11,4 +11,3 @@ class ExplorerTests
 		return $suite;
 	}
 }
-?>

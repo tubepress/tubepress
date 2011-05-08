@@ -9,5 +9,5 @@ class org_tubepress_impl_http_clientimpl_strategies_FsockOpenStrategyTest extend
        return new org_tubepress_impl_http_clientimpl_strategies_FsockOpenStrategy();
     }
 }
-?>
+
 

@@ -19,16 +19,16 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_impl_options_WordPressStorageManager',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../../TubePress.class.php';
+TubePress::loadClasses(array(
     'org_tubepress_api_const_options_names_Advanced',
-    'org_tubepress_api_shortcode_ShortcodeParser',
-    'org_tubepress_ioc_ProInWordPressIocService',
-    'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_impl_util_StringUtils',
     'org_tubepress_api_const_options_values_ModeValue',
-    'org_tubepress_api_html_HtmlGenerator'));
+    'org_tubepress_api_html_HtmlGenerator',
+    'org_tubepress_api_shortcode_ShortcodeParser',
+    'org_tubepress_impl_ioc_IocContainer',
+    'org_tubepress_impl_options_WordPressStorageManager',
+    'org_tubepress_impl_util_StringUtils',
+));
 
 class org_tubepress_impl_env_wordpress_Main
 {

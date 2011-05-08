@@ -19,12 +19,14 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_patterns_Strategy',
-    'org_tubepress_api_video_Video',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_patterns_Strategy',
+    'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_url_Url',
-    'org_tubepress_impl_factory_strategies_AbstractFactoryStrategy'));
+    'org_tubepress_api_video_Video',
+    'org_tubepress_impl_factory_strategies_AbstractFactoryStrategy',
+));
 
 /**
  * Video factory for YouTube
@@ -215,6 +217,11 @@ class org_tubepress_impl_factory_strategies_YouTubeFactoryStrategy extends org_t
     protected function _relativeQuery($index, $query)
     {
         return $this->_xpath->query('//atom:entry[' . ($index + 1) . "]/$query");
+    }
+    
+    protected function _getFilterPointNameForVideos()
+    {
+        return org_tubepress_api_const_plugin_FilterPoint::VIDEO_YOUTUBE;
     }
     
     private function _createXPath(DOMDocument $doc)

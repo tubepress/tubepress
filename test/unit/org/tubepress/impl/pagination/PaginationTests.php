@@ -11,4 +11,4 @@ class PaginationTests
 		return $suite;
 	}
 }
-?>
+

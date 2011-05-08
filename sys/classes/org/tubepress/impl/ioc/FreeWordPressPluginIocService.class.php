@@ -19,10 +19,11 @@
  *
  */
 
-function_exists('tubepress_load_classes') || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array(
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_provider_Provider',
     'org_tubepress_impl_ioc_TubePressIocService',
-    'org_tubepress_api_provider_Provider'));
+));
 
 /**
  * Dependency injector for TubePress in a WordPress environment
@@ -44,14 +45,14 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocService extends org_tubepress
         $this->bind('org_tubepress_api_feed_FeedFetcher')              ->to('org_tubepress_impl_feed_CacheAwareFeedFetcher');
         $this->bind('org_tubepress_api_feed_FeedInspector')            ->to('org_tubepress_impl_feed_DelegatingFeedInspector');
         $this->bind('org_tubepress_api_filesystem_Explorer')           ->to('org_tubepress_impl_filesystem_FsExplorer');
-        $this->bind('org_tubepress_api_html_HtmlGenerator')              ->to('org_tubepress_impl_html_DefaultHtmlGenerator');
+        $this->bind('org_tubepress_api_html_HtmlGenerator')            ->to('org_tubepress_impl_html_DefaultHtmlGenerator');
         $this->bind('org_tubepress_api_http_HttpClient')               ->to('org_tubepress_impl_http_FastHttpClient');
         $this->bind('org_tubepress_api_message_MessageService')        ->to('org_tubepress_impl_message_WordPressMessageService');
         $this->bind('org_tubepress_api_options_OptionsManager')        ->to('org_tubepress_impl_options_SimpleOptionsManager');    
         $this->bind('org_tubepress_api_options_OptionValidator')       ->to('org_tubepress_impl_options_SimpleOptionValidator');    
         $this->bind('org_tubepress_api_options_StorageManager')        ->to('org_tubepress_impl_options_WordPressStorageManager');
         $this->bind('org_tubepress_api_pagination_Pagination')         ->to('org_tubepress_impl_pagination_DiggStylePaginationService');
-        $this->bind('org_tubepress_api_patterns_FilterManager')        ->to('org_tubepress_impl_patterns_FilterManagerImpl');
+        $this->bind('org_tubepress_api_plugin_PluginManager')          ->to('org_tubepress_impl_plugin_PluginManagerImpl');
         $this->bind('org_tubepress_api_patterns_StrategyManager')      ->to('org_tubepress_impl_patterns_StrategyManagerImpl');
         $this->bind('org_tubepress_api_player_Player')                 ->to('org_tubepress_impl_player_SimplePlayer');
         $this->bind('org_tubepress_api_provider_Provider')             ->to('org_tubepress_impl_provider_SimpleProvider');

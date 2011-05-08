@@ -43,4 +43,3 @@ class org_tubepress_impl_embedded_DelegatingEmbeddedPlayerTest extends TubePress
     }
     
 }
-?>

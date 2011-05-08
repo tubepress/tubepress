@@ -68,5 +68,5 @@ class org_tubepress_impl_http_FastHttpClientTest extends TubePressUnitTest {
         $this->_sut->get();
     }
 }
-?>
+
 

@@ -11,4 +11,3 @@ class CacheTests
 		return $suite;
 	}
 }
-?>

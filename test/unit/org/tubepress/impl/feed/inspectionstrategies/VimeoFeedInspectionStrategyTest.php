@@ -37,4 +37,4 @@ class org_tubepress_impl_feed_inspectionstrategies_VimeoFeedInspectionStrategyTe
         return file_get_contents(dirname(__FILE__) . '/../../factory/feeds/vimeo.txt');
     }
 }
-?>
+

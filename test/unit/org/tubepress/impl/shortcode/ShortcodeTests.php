@@ -11,4 +11,4 @@ class ShortcodeTests
 		return $suite;
 	}
 }
-?>
+

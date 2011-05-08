@@ -19,13 +19,14 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_feed_FeedInspector',
-    'org_tubepress_api_feed_FeedResult',
-    'org_tubepress_impl_ioc_IocContainer',
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_api_feed_FeedInspector',
+    'org_tubepress_api_patterns_StrategyManager',
     'org_tubepress_api_provider_ProviderCalculator',
-    'org_tubepress_api_patterns_StrategyManager'));
+    'org_tubepress_api_provider_ProviderResult',
+    'org_tubepress_impl_ioc_IocContainer',
+));
 
 /**
  * Sends the feed to the right inspection service based on the provider.

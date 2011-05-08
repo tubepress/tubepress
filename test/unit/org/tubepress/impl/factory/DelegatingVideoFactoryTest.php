@@ -34,4 +34,3 @@ class org_tubepress_impl_factory_DelegatingVideoFactoryTest extends TubePressUni
    }
 }
 
-?>

@@ -76,4 +76,3 @@ class org_tubepress_impl_filesystem_FsExplorerTest extends TubePressUnitTest
 	    $this->_sut->getFilenamesInDirectory('fake dir', 'log prefix');
 	}
 }
-?>

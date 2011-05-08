@@ -27,11 +27,9 @@ along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
 
 if (version_compare(PHP_VERSION, '5.0.2', '>=')) {
 
-    function_exists('tubepress_load_classes')
-        || require dirname(__FILE__) . '/sys/classes/tubepress_classloader.php';
-    tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer'));
+    class_exists('TubePress')
+        || require dirname(__FILE__) . '/sys/classes/TubePress.class.php';
+    TubePress::loadClasses(array('org_tubepress_impl_ioc_IocContainer'));
     
     org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_bootstrap_Bootstrapper')->boot();
 }
-
-?>

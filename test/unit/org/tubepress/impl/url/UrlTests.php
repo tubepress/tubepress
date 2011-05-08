@@ -15,4 +15,4 @@ class UrlTests
 		return $suite;
 	}
 }
-?>
+

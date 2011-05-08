@@ -10,6 +10,12 @@ class org_tubepress_impl_template_SimpleTemplateTest extends TubePressUnitTest
     public function setUp()
     {
         $this->_sut = new org_tubepress_impl_template_SimpleTemplate();
+        ob_start();
+    }
+    
+    public function tearDown()
+    {
+        ob_end_clean();
     }
     
     /**
@@ -50,4 +56,4 @@ class org_tubepress_impl_template_SimpleTemplateTest extends TubePressUnitTest
     }
     
 }
-?>
+

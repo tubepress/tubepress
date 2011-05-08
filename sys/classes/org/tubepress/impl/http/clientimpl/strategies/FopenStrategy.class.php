@@ -19,10 +19,11 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_impl_http_clientimpl_strategies_AbstractHttpStrategy',
-    'org_tubepress_impl_http_FastHttpClient'));
+class_exists('TubePress') || require dirname(__FILE__) . '/../../../../../../../TubePress.class.php';
+TubePress::loadClasses(array(
+    'org_tubepress_impl_http_clientimpl_strategies_AbstractHttpStrategy',
+    'org_tubepress_impl_http_FastHttpClient',
+));
 
 /**
  * Lifted from http://core.trac.wordpress.org/browser/tags/3.0.4/wp-includes/class-http.php

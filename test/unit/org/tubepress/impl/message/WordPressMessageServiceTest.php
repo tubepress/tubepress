@@ -212,10 +212,6 @@ $msgs = array(
         'search-input-button' => 'Search'
     );
         
-function __($key) {
-    return $key;
-}    
-    
 class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTest {
 
 	private $_sut;
@@ -312,4 +308,4 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
    	}
 }
 
-?>
+

@@ -19,8 +19,10 @@
  *
  */
 
-tubepress_load_classes(array('org_tubepress_api_patterns_Strategy',
-    'org_tubepress_api_single_SingleVideo'));
+TubePress::loadClasses(array(
+    'org_tubepress_api_patterns_Strategy',
+    'org_tubepress_api_single_SingleVideo',
+));
 
 /**
  * HTML generation strategy that generates HTML for a single video + meta info.

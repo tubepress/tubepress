@@ -74,4 +74,4 @@ class org_tubepress_impl_querystring_SimpleQueryStringServiceTest extends TubePr
 		    $this->_sut->getFullUrl($serverVars));
 	}
 }
-?>
+
