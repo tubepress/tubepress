@@ -23,8 +23,11 @@ class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_bootstrap_Bootstrapper',
     'org_tubepress_api_const_plugin_FilterPoint',
+    'org_tubepress_api_filesystem_Explorer',
+    'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_log_Log',
+    'TubePress'
 ));
 
 /**
@@ -68,8 +71,9 @@ abstract class org_tubepress_impl_bootstrap_AbstractBootstrapper implements org_
         org_tubepress_impl_log_Log::setEnabled($tpom->get(org_tubepress_api_const_options_names_Advanced::DEBUG_ON), $_GET);
         org_tubepress_impl_log_Log::log($this->_getName(), 'Booting!');
 
-        /* load system plugins */
+        /* load plugins */
         $this->_loadSystemPlugins($ioc);
+        $this->_loadUserPlugins($ioc);
         
         /* continue booting process */
         $this->_doBoot();
@@ -92,9 +96,35 @@ abstract class org_tubepress_impl_bootstrap_AbstractBootstrapper implements org_
      */
     protected abstract function _doBoot();
     
+    private function _loadUserPlugins(org_tubepress_api_ioc_IocService $ioc)
+    {
+        $pm          = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $fe          = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $path        = $fe->getTubePressBaseInstallationPath() . '/content/plugins';
+        $pluginDirs  = $fe->getDirectoriesInDirectory($path, $this->_getName());
+
+        foreach ($pluginDirs as $pluginDir) {
+            
+            org_tubepress_impl_log_Log::log($this->_getName(), 'Examining potential plugin directory at %s', $pluginDir);
+            
+            $files = $fe->getFilenamesInDirectory($pluginDir, $this->_getName());
+            
+            foreach ($files as $file) {
+                
+                if ('.php' == substr($file, -4) && is_readable($file)) {
+    
+                    org_tubepress_impl_log_Log::log($this->_getName(), 'Loading PHP file at <tt>%s</tt>', $file);
+    
+                    include_once $file;
+                }
+            }
+            
+        }
+    }
+    
     private function _loadSystemPlugins(org_tubepress_api_ioc_IocService $ioc)
     {
-        $pm      = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm = $ioc->get('org_tubepress_api_plugin_PluginManager');
 
         /* gallery HTML filters */
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::HTML_GALLERY, $ioc->get('org_tubepress_impl_plugin_galleryhtml_GalleryJs'));
