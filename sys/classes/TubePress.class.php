@@ -19,85 +19,19 @@
  *
  */
 
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/org/tubepress/impl/classloader/ClassLoader.class.php';
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_plugin_PluginManager',
+    'org_tubepress_impl_ioc_IocContainer'
+));
+
 class TubePress {
 
-    public static function registerFilter($filterPointName, org_tubepress_api_plugin_Plugin $pluginInstance)
+    public static function registerFilter($filterPointName, $pluginInstance)
     {
         $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
         $pluginManager = $ioc->get('org_tubepress_api_plugin_PluginManager');
         
         $pluginManager->registerFilter($filterPointName, $pluginInstance);
     }
-
-    public static function getSingletonInstance($className)
-    {
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        
-        return $ioc->get($className);
-    }
-    
-    public static function loadClasses($classesToLoad)
-    {
-        if (!is_array($classesToLoad)) {
-            self::loadClass($classesToLoad);
-            return;
-        }
-        
-        foreach ($classesToLoad as $class) {
-            self::loadClass($class);
-        }
-    }
-
-    /**
-     * Attempts to load a class file based on the class name
-     *
-     * @param string $className The name of the class to load
-     *
-     * @return void
-     */
-    public static function loadClass($className)
-    {
-        if (!is_string($className)) {
-            return;
-        }
-        
-        /* already have the class or interface? bail */
-        if (class_exists($className, false) || interface_exists($className, false)) {
-            return;
-        }
-
-        /* see if the class is in the loading queue */
-        global $tubepressClassLoadingQueue;
-        if (!isset($tubepressClassLoadingQueue)) {
-            $tubepressClassLoadingQueue = array();
-        }
-        if (array_key_exists($className, $tubepressClassLoadingQueue)) {
-            return;
-        }
-        $tubepressClassLoadingQueue[$className] = '1';
-
-        /*
-         * replace all underscores with the directory separator and add ".class.php"
-         * e.g. "org_tubepress_package_MyClass" becomes "org/tubepress/package/MyClass.class.php"
-         */
-        $fileName = str_replace('_', DIRECTORY_SEPARATOR, $className) . '.class.php';
-
-        /* piece together the absolute file name */
-        $currentDir = dirname(__FILE__) . "/../classes/";
-        $absPath    = $currentDir . $fileName;
-
-        /* include the file if it exists */
-        if (file_exists($absPath)) {
-            include $absPath;
-        }
-
-        /* class is done loading, remove it from the queue */
-        unset($tubepressClassLoadingQueue[$className]);
-    }
 }
-
-TubePress::loadClasses(array(
-    'org_tubepress_api_plugin_Plugin',
-    'org_tubepress_api_plugin_PluginManager',
-    'org_tubepress_impl_ioc_IocContainer'
-));

@@ -150,30 +150,39 @@ dd.tubepress_meta_description {
 	margin: 3px;
 	text-align:center;
 	clear: both;
+	font-size: 13px;
 }
 
 .tubepress_container div.pagination a {
-	border: 1px solid #dedfde;
-	margin-right:3px;
-	padding:2px 6px;
-	background-position:bottom;
+	border: 1px solid #CCCCCC;
 	text-decoration: none;
-	color: #0061de;
-	cursor: pointer;		
+	color: #0033CC;
+	cursor: pointer;
+	vertical-align: middle;
+	padding: 0.5em;
+	whitespace: nowrap;
+	background: -moz-linear-gradient(center top , #FFFFFF, #EFEFEF) repeat scroll 0 0 #F6F6F6;
+	border-radius: 3px 3px 3px 3px;
+	margin: 0 .3em;
 }
 
 .tubepress_container div.pagination a:hover, div.meneame a:active {
-	border: 1px solid #000;
-	background-image:none;
-	background-color:#0061de;
-	color: #fff;
+	background: -moz-linear-gradient(center top , #FFFFFF, #EBEBEB) repeat scroll 0 0 #F3F3F3;
+    border-color: #999999;
+    box-shadow: 0 0 3px #999999;
+    outline: 0 none;
 }
 
 .tubepress_container div.pagination span.current {
-	margin-right:3px;
-	padding:2px 6px;	
-	font-weight: bold;
-	color: #ff0084;
+    background: none repeat scroll 0 0 #DDDDDD;
+    color: #000000;
+    font-weight: bold;
+    border: 1px solid #CCCCCC;
+    vertical-align: middle;
+    whitespace: nowrap;
+    border-radius: 3px 3px 3px 3px;
+    margin: 0 .3em;
+    padding: 0.5em;
 }
 .tubepress_container div.pagination span.disabled {
 	margin-right:3px;

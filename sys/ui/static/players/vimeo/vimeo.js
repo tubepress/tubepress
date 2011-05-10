@@ -6,10 +6,16 @@
  *
  * Shrink your JS: http://developer.yahoo.com/yui/compressor/
  */
-function tubepress_vimeo_player(title, html, height, width, videoId, galleryId) {
-   window.location = 'http://www.vimeo.com/' + videoId;
-}
+var TubePressVimeoPlayer = (function () {
+	
+	/* this stuff helps compression */
+	var events	= TubePressEvents,
+		name	= 'vimeo',
+		
+		invoke = function (e, videoId, galleryId, width, height) {
 
-function tubepress_vimeo_player_init(baseUrl) { 
-    //nada
-}
+			window.location = 'http://www.vimeo.com/' + videoId;
+		};
+
+	jQuery(document).bind(events.PLAYER_INVOKE + name, invoke);
+}());

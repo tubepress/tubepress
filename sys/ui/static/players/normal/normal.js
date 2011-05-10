@@ -3,18 +3,57 @@
  * 
  * This file is part of TubePress (http://tubepress.org) and is released 
  * under the General Public License (GPL) version 3
- *
- * Shrink your JS: http://developer.yahoo.com/yui/compressor/
  */
-function tubepress_normal_player(title, html, height, width, videoId, galleryId) {
-
-	var	titleElement = jQuery("#tubepress_embedded_title_" + galleryId),
-		content = jQuery("#tubepress_embedded_object_" + galleryId);
+var TubePressNormalPlayer = (function () {
 	
-	content.empty();
-	content.html(html);
-	titleElement.html(title);
-	titleElement[0].scrollIntoView(true);
-}
+	var getTitleId = function (gId) {
+		return "#tubepress_embedded_title_" + gId;
+	},
+	
+		/* this stuff helps compression */
+		jquery	= jQuery,
+		tpAjax	= TubePressAjax,
+		events	= TubePressEvents,
+		name	= 'normal',
+		doc		= jquery(document),
+	
+		applyLoadingStyle = function (id) {
+			tpAjax.applyLoadingStyle(id);
+		},
+		
+		removeLoadingStyle = function (id) {
+			tpAjax.removeLoadingStyle(id);
+		},
+	
+		getEmbedId = function (gId) {
+			return '#tubepress_embedded_object_' + gId;
+		},
+	
+		invoke = function (e, videoId, galleryId, width, height) {
+		
+			var titleDivId = getTitleId(galleryId);
+			
+			applyLoadingStyle(titleDivId);
+			applyLoadingStyle(getEmbedId(galleryId));
+		
+			jquery(titleDivId)[0].scrollIntoView(true);
+		},
+		
+		populate = function (e, title, html, height, width, videoId, galleryId) {
+			
+			var content 		= jquery(getEmbedId(galleryId)),
+				titleElement	= jquery(getTitleId(galleryId));
+			
+			content.empty();
+			content.html(html);
+			titleElement.html(title);
+			
+			removeLoadingStyle(getTitleId(galleryId));
+			removeLoadingStyle(getEmbedId(galleryId));
+		};
 
-function tubepress_normal_player_init(baseUrl) { }
+	doc.bind(events.PLAYER_INVOKE + name, invoke);
+	doc.bind(events.PLAYER_POPULATE + name, populate);
+} ());
+
+

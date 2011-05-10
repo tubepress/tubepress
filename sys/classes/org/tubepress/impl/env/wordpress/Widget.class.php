@@ -18,8 +18,8 @@ You should have received a copy of the GNU General Public License
 along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-class_exists('TubePress') || require dirname(__FILE__) . '/../../../../../TubePress.class.php';
-TubePress::loadClasses(array(
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_const_options_names_Meta',

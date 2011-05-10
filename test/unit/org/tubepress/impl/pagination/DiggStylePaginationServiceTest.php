@@ -5,7 +5,7 @@ require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/i
 
 class org_tubepress_impl_pagination_DiggStylePaginationServiceTest extends TubePressUnitTest
 {
-    private $_prefix = '<div class="pagination"><span class="disabled">prev</span><span class="current">1</span><a rel=';
+    private $_prefix = '<div class="pagination"><span class="current">1</span><a rel=';
     
     private static $_currentPage = 1;
 
@@ -100,5 +100,3 @@ EOT
         $this->assertEquals("$expected", $sut->getHtml(100));
     }
 }
-
-

@@ -19,8 +19,8 @@
  *
  */
 
-class_exists('TubePress') || require dirname(__FILE__) . '/../../../TubePress.class.php';
-TubePress::loadClasses(array(
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_impl_environment_SimpleEnvironmentDetector',
     'org_tubepress_impl_log_Log',
@@ -45,18 +45,18 @@ class org_tubepress_impl_ioc_IocContainer
         if ($detector->isPro()) {
             if ($detector->isWordPress()) {
                 
-                TubePress::loadClass('org_tubepress_impl_ioc_ProInWordPressIocService');
+                org_tubepress_impl_classloader_ClassLoader::loadClass('org_tubepress_impl_ioc_ProInWordPressIocService');
                 self::$_instance = new org_tubepress_impl_ioc_ProInWordPressIocService();
                 
             } else {
                 
-                TubePress::loadClass('org_tubepress_impl_ioc_ProIocService');
+                org_tubepress_impl_classloader_ClassLoader::loadClass('org_tubepress_impl_ioc_ProIocService');
                 self::$_instance = new org_tubepress_impl_ioc_ProIocService();
             }
             
         } else {
             
-            TubePress::loadClass('org_tubepress_impl_ioc_FreeWordPressPluginIocService');
+            org_tubepress_impl_classloader_ClassLoader::loadClass('org_tubepress_impl_ioc_FreeWordPressPluginIocService');
             self::$_instance = new org_tubepress_impl_ioc_FreeWordPressPluginIocService();
         }
         

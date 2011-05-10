@@ -19,8 +19,8 @@
  *
  */
 
-class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
-TubePress::loadClasses(array(
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_message_MessageService',
@@ -94,8 +94,6 @@ class org_tubepress_impl_pagination_DiggStylePaginationService implements org_tu
                 $url->setQueryVariable($pagestring, $prev);
                 $newurl      = $url->toString();
                 $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">" . $messageService->_("prev") . '</a>';
-            } else {
-                $pagination .= '<span class="disabled">' . $messageService->_("prev") . '</span>';
             }
 
             if ($lastpage < 7 + ($adjacents * 2)) {

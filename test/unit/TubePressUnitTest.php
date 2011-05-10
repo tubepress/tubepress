@@ -5,9 +5,8 @@ include_once 'fake_wordpress_functions.inc.php';
 global $tubepress_base_url;
 $tubepress_base_url = '<tubepressbaseurl>';
 
-class_exists('TubePress')
-    || require dirname(__FILE__) . '/../../sys/classes/TubePress.class.php';
-TubePress::loadClasses(array('org_tubepress_api_options_OptionsManager',
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../sys/classes/org/tubepress/impl/classloader/ClassLoader.class.php';
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array('org_tubepress_api_options_OptionsManager',
     'org_tubepress_api_cache_Cache',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_api_message_MessageService',

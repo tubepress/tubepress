@@ -19,8 +19,8 @@
  *
  */
 
-class_exists('TubePress') || require dirname(__FILE__) . '/../../../../TubePress.class.php';
-TubePress::loadClass('org_tubepress_api_ioc_IocService');
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
+org_tubepress_impl_classloader_ClassLoader::loadClass('org_tubepress_api_ioc_IocService');
 
 /**
  * Simple dependency injector for TubePress.
@@ -64,7 +64,7 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
         if (!isset($this->_map[$classOrInterfaceName])) {
     
             /* maybe we can instantiate a singleton? */
-            TubePress::loadClass($classOrInterfaceName);
+            org_tubepress_impl_classloader_ClassLoader::loadClass($classOrInterfaceName);
             if (class_exists($classOrInterfaceName)) {
                 return $this->_buildAndRemember($classOrInterfaceName, $classOrInterfaceName);
             }
@@ -84,8 +84,8 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
 
     private function _buildInterface($interfaceName, $implementationName)
     {
-        class_exists($interfaceName) || TubePress::loadClass($interfaceName);
-        class_exists($implementationName) || TubePress::loadClass($implementationName);
+        class_exists($interfaceName) || org_tubepress_impl_classloader_ClassLoader::loadClass($interfaceName);
+        class_exists($implementationName) || org_tubepress_impl_classloader_ClassLoader::loadClass($implementationName);
 
         /* build the implementation */
         $instance = $this->_buildAndRemember($interfaceName, $implementationName);

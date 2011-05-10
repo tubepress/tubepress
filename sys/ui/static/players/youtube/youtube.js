@@ -6,10 +6,16 @@
  *
  * Shrink your JS: http://developer.yahoo.com/yui/compressor/
  */
-function tubepress_youtube_player(title, html, height, width, videoId, galleryId) {
-   window.location = 'http://www.youtube.com/watch?v=' + videoId;
-}
+var TubePressYouTubePlayer = (function () {
+	
+	/* this stuff helps compression */
+	var events	= TubePressEvents,
+		name	= 'youtube',
+		
+		invoke = function (e, videoId, galleryId, width, height) {
 
-function tubepress_youtube_player_init(baseUrl) { 
-    //nada
-}
+			window.location = 'http://www.youtube.com/watch?v=' + videoId;
+		};
+
+	jQuery(document).bind(events.PLAYER_INVOKE + name, invoke);
+}());
