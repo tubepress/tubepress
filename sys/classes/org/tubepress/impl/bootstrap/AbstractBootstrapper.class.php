@@ -100,6 +100,7 @@ abstract class org_tubepress_impl_bootstrap_AbstractBootstrapper implements org_
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::HTML_GALLERY, $ioc->get('org_tubepress_impl_plugin_galleryhtml_GalleryJs'));
 
         /* gallery template filters */
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_gallerytemplate_CoreVariables'));
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_gallerytemplate_EmbeddedPlayerName'));
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_gallerytemplate_Pagination'));
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_gallerytemplate_Player'));

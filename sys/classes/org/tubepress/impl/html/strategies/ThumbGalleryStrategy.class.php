@@ -116,12 +116,6 @@ class org_tubepress_impl_html_strategies_ThumbGalleryStrategy implements org_tub
         /* send the provider result through the plugins */
         $feedResult = $pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $feedResult, $galleryId);
 
-        /* add some core template variables */
-        $template->setVariable(org_tubepress_api_const_template_Variable::VIDEO_ARRAY, $feedResult->getVideoArray());
-        $template->setVariable(org_tubepress_api_const_template_Variable::GALLERY_ID, $galleryId);
-        $template->setVariable(org_tubepress_api_const_template_Variable::THUMBNAIL_WIDTH, $tpom->get(org_tubepress_api_const_options_names_Display::THUMB_WIDTH));
-        $template->setVariable(org_tubepress_api_const_template_Variable::THUMBNAIL_HEIGHT, $tpom->get(org_tubepress_api_const_options_names_Display::THUMB_HEIGHT));
-
         /* send the template through the plugins */
         $filteredTemplate = $pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $template, $feedResult, $galleryId);
 
@@ -130,7 +124,6 @@ class org_tubepress_impl_html_strategies_ThumbGalleryStrategy implements org_tub
 
         /* we're done. tie up */
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Done assembling gallery %d', $galleryId);
-        $tpom = $this->_ioc->get('org_tubepress_api_options_OptionsManager');
         $tpom->setCustomOptions(array());
 
         return $filteredHtml;

@@ -53,8 +53,11 @@ class org_tubepress_impl_single_SimpleSingleVideo implements org_tubepress_api_s
         $ms  = $ioc->get('org_tubepress_api_message_MessageService');
         
         try {
+            
             return $this->_wrappedGetSingleVideoHtml($videoId, $ioc, $ms);
+        
         } catch (Exception $e) {
+
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception when getting single video HTML: ' . $e->getMessage());
             return $ms->_('no-videos-found');
         }
@@ -92,4 +95,3 @@ class org_tubepress_impl_single_SimpleSingleVideo implements org_tubepress_api_s
         return $filteredHtml;
     }
 }
-

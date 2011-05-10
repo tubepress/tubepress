@@ -39,6 +39,13 @@ interface org_tubepress_api_const_plugin_FilterPoint
     const HTML_ANY = 'html';
 
     /**
+     * Filters the HTML for the embedded video player.
+     * 
+     * function alter_embeddedHtml($html);
+     */
+    const HTML_EMBEDDED = 'embeddedHtml';
+    
+    /**
      * function alter_galleryHtml($galleryHtml, $galleryId);
      */
     const HTML_GALLERY = 'galleryHtml';

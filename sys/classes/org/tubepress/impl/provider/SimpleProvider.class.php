@@ -50,6 +50,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         $result = new org_tubepress_api_provider_ProviderResult();
         
         try {
+            
             return $this->_wrappedGetMultipleVideos($result);
         } catch (Exception $e) {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception when retrieving videos: ' . $e->getMessage());
@@ -61,10 +62,10 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
     
     protected function _wrappedGetMultipleVideos($result)
     {
-        $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $qss    = $ioc->get('org_tubepress_api_querystring_QueryStringService');
-        $tpom   = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $pc     = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $qss  = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+        $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $pc   = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
         
         /* figure out which page we're on */
         $currentPage = $qss->getPageNum($_GET);
@@ -111,8 +112,11 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
     public function getSingleVideo($customVideoId)
     {
         try {
+            
             return $this->_wrappedGetSingleVideo($customVideoId);
+        
         } catch (Exception $e) {
+
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception when getting single video: ' . $e->getMessage());
             return null;
         }

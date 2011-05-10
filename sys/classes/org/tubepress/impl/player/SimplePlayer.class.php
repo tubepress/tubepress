@@ -35,15 +35,19 @@ class org_tubepress_impl_player_SimplePlayer implements org_tubepress_api_player
     
     public function getHtml(org_tubepress_api_video_Video $vid, $galleryId)
     {
-        $ioc             = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom            = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $playerName      = $tpom->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
-        $eps             = $ioc->get('org_tubepress_api_embedded_EmbeddedPlayer');
-        $themeHandler    = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $pm           = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $tpom         = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $playerName   = $tpom->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
+        $eps          = $ioc->get('org_tubepress_api_embedded_EmbeddedPlayer');
+        $themeHandler = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         
         try {
+            
             $template   = $themeHandler->getTemplateInstance("players/$playerName.tpl.php");
+            
         } catch (Exception $e) {
+
             return '';
         }
         

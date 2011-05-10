@@ -88,6 +88,11 @@ class org_tubepress_impl_html_strategies_ThumbGalleryStrategyTest extends TubePr
             $template->setVariable(org_tubepress_api_const_template_Variable::PLAYER_NAME, 'player-name');
             $template->setVariable(org_tubepress_api_const_template_Variable::META_SHOULD_SHOW, $shouldShow);
             $template->setVariable(org_tubepress_api_const_template_Variable::META_LABELS, $labels);
+            $template->setVariable(org_tubepress_api_const_template_Variable::GALLERY_ID, '390298742');
+            $template->setVariable(org_tubepress_api_const_template_Variable::VIDEO_ARRAY, array(new org_tubepress_api_video_Video()));
+            $template->setVariable(org_tubepress_api_const_template_Variable::THUMBNAIL_HEIGHT, 90);
+            $template->setVariable(org_tubepress_api_const_template_Variable::THUMBNAIL_WIDTH, 120);
+            
         }
     }    
     
