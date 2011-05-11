@@ -81,7 +81,7 @@ class org_tubepress_impl_html_DefaultHtmlGenerator implements org_tubepress_api_
     public function getHeadJqueryIncludeString()
     {
         global $tubepress_base_url;
-        return "<script type=\"text/javascript\" src=\"$tubepress_base_url/sys/ui/static/js/jquery-1.5.1.min.js\"></script>";
+        return "<script type=\"text/javascript\" src=\"$tubepress_base_url/sys/ui/static/js/jquery-1.6.min.js\"></script>";
     }
 
     public function getHeadInlineJavaScriptString()

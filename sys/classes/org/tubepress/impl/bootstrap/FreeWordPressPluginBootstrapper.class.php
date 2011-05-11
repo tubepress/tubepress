@@ -49,11 +49,11 @@ class org_tubepress_impl_bootstrap_FreeWordPressPluginBootstrapper extends org_t
         /* register the plugin's message bundles */
         load_plugin_textdomain('tubepress', false, "$baseName/sys/i18n");
 
-        add_filter('the_content', array('org_tubepress_impl_env_wordpress_Main',   'contentFilter'));
-        add_action('wp_head', array('org_tubepress_impl_env_wordpress_Main',   'headAction'));
-        add_action('init', array('org_tubepress_impl_env_wordpress_Main',   'initAction'));
+        add_filter('the_content', array('org_tubepress_impl_env_wordpress_Main', 'contentFilter'));
+        add_action('wp_head',     array('org_tubepress_impl_env_wordpress_Main', 'headAction'));
+        add_action('init',        array('org_tubepress_impl_env_wordpress_Main', 'initAction'));
 
-        add_action('admin_menu', array('org_tubepress_impl_env_wordpress_Admin',  'menuAction'));
+        add_action('admin_menu',            array('org_tubepress_impl_env_wordpress_Admin', 'menuAction'));
         add_action('admin_enqueue_scripts', array('org_tubepress_impl_env_wordpress_Admin', 'initAction')); 
 
         add_action('widgets_init', array('org_tubepress_impl_env_wordpress_Widget', 'initAction'));

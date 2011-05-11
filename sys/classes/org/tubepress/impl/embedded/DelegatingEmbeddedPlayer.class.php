@@ -21,8 +21,10 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_embedded_EmbeddedPlayer',
     'org_tubepress_api_patterns_StrategyManager',
+    'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_api_provider_ProviderCalculator',
     'org_tubepress_impl_ioc_IocContainer',
 ));
@@ -41,19 +43,22 @@ class org_tubepress_impl_embedded_DelegatingEmbeddedPlayer implements org_tubepr
      */
     public function toString($videoId)
     {
-        $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-        $sm           = $ioc->get('org_tubepress_api_patterns_StrategyManager');
+        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $pc  = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $sm  = $ioc->get('org_tubepress_api_patterns_StrategyManager');
+        $pm  = $ioc->get('org_tubepress_api_plugin_PluginManager');
         
         //TODO: what if this bails?
         $providerName = $pc->calculateProviderOfVideoId($videoId);
 
         /* let the strategies do the heavy lifting */
         //TODO: what if this bails?
-        return $sm->executeStrategy(array(
+        $rawHtml = $sm->executeStrategy(array(
             'org_tubepress_impl_embedded_strategies_JwFlvEmbeddedStrategy',
             'org_tubepress_impl_embedded_strategies_YouTubeIframeEmbeddedStrategy',
             'org_tubepress_impl_embedded_strategies_VimeoEmbeddedStrategy'
         ), $providerName, $videoId);
+        
+        return $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_EMBEDDED, $rawHtml);
     }
 }
