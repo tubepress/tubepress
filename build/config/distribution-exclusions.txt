@@ -4,3 +4,4 @@ test/**
 .settings
 .git/**
 .gitignore
+README

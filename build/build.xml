@@ -1,12 +1,16 @@
 <project name="TubePress" default="free-plugin" basedir=".">
 
-        <property file="config.properties" />
+        <property file="config/config.properties" />
 
 	<target name="assemble-free">
 
 		<echo message="Copying TubePress into staging area" />
 		<copy todir="${build.directory.stage}/tubepress">
-			<fileset dir=".." excludesfile="distribution-exclusions.txt" />
+			<fileset dir=".." excludesfile="config/distribution-exclusions.txt" />
+		</copy>
+
+		<copy todir="${build.directory.stage}/tubepress">
+			<fileset dir="resources" />
 		</copy>
 
 	</target>
