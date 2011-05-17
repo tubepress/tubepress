@@ -1,0 +1,42 @@
+<project name="TubePress" default="free-plugin" basedir=".">
+
+        <property file="config.properties" />
+
+	<target name="assemble-free">
+
+		<echo message="Copying TubePress into staging area" />
+		<copy todir="${build.directory.stage}/tubepress">
+			<fileset dir=".." excludesfile="distribution-exclusions.txt" />
+		</copy>
+
+	</target>
+
+	<target name="package-free">
+
+		<zip destfile="${build.directory.dist}/tubepress_${version.major}_${version.minor}_${version.micro}.zip" basedir="${build.directory.stage}" />
+
+	</target>
+
+        <target name="clean" description="Cleans build environment">
+
+                <echo message="Deleting ${build.directory.dist} and ${build.directory.stage}" />
+                <delete dir="${build.directory.dist}" />
+                <delete dir="${build.directory.stage}" />
+        </target>
+
+        <target name="init">
+                <antcall target="clean" />
+
+                <echo message="Creating empty directories at ${build.directory.dist} and ${build.directory.stage}" />
+                <mkdir dir="${build.directory.dist}" />
+                <mkdir dir="${build.directory.stage}" />
+        </target>
+
+	<target name="free-plugin" description="Builds the free version of TubePress" depends="init">
+        
+		<antcall target="assemble-free" />
+		<antcall target="package-free" />
+
+	</target>
+
+</project>
