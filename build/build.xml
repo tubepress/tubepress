@@ -2,6 +2,25 @@
 
         <property file="config/config.properties" />
 
+	<target name="compress-js">
+
+		<copy todir="${build.directory.stage}/tubepress">
+			<fileset dir="${build.directory.stage}/tubepress/" includesfile="config/js-to-compress.txt"/>
+			<mapper type="glob" from="*.js" to="*-dev.js" />
+		</copy>
+
+		<apply executable="java" parallel="false" dir="${build.directory.stage}/tubepress" relative="true">
+			<fileset dir="${build.directory.stage}/tubepress/" includesfile="config/js-to-compress.txt"/>
+			<arg line="-jar"/>
+			<arg path="${bin.yuicompressor}"/>
+			<srcfile />
+			<arg line="-o" />
+			<mapper type="identity" />
+			<targetfile />
+		</apply>
+
+	</target>
+
 	<target name="assemble-free">
 
 		<echo message="Copying TubePress into staging area" />
@@ -39,6 +58,7 @@
 	<target name="free-plugin" description="Builds the free version of TubePress" depends="init">
         
 		<antcall target="assemble-free" />
+		<antcall target="compress-js" />
 		<antcall target="package-free" />
 
 	</target>
