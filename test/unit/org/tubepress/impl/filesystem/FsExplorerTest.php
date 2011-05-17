@@ -1,14 +1,14 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/filesystem/FsExplorer.class.php';
-require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
 
 class org_tubepress_impl_filesystem_FsExplorerTest extends TubePressUnitTest
 {
     private $_sut;
     
-    function setUp() {
-        $this->initFakeIoc();
+    function setUp()
+    {
+        parent::setUp();
         $this->_sut = new org_tubepress_impl_filesystem_FsExplorer();
         org_tubepress_impl_log_Log::setEnabled(false, array());
     }
@@ -19,7 +19,7 @@ class org_tubepress_impl_filesystem_FsExplorerTest extends TubePressUnitTest
 	    $expected = array("$dir/themes", "$dir/static", "$dir/templates");
             
 		$result = $this->_sut->getDirectoriesInDirectory($dir, 'log prefix');
-		self::checkArrayEquality($expected, $result);
+		TubePressArrayTestUtils::checkArrayEquality($expected, $result);
 	}
 
 	function testLsFiles()

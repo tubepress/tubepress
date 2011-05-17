@@ -1,6 +1,5 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
 require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/options/SimpleOptionValidator.class.php';
 
 class org_tubepress_impl_options_SimpleOptionValidatorTest extends TubePressUnitTest {
@@ -9,7 +8,7 @@ class org_tubepress_impl_options_SimpleOptionValidatorTest extends TubePressUnit
 
 	public function setup()
 	{
-		$this->initFakeIoc();
+		parent::setUp();
 		$this->_sut = new org_tubepress_impl_options_SimpleOptionValidator();
 	}
 

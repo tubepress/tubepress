@@ -1,12 +1,13 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../../../sys/classes/org/tubepress/impl/env/wordpress/Admin.class.php';
-require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
 
 class org_tubepress_impl_env_wordpress_AdminTest extends TubePressUnitTest {
     
     function setUp()
     {
+        parent::setUp();
+        
         global $add_options_page_called, $enqueuedScripts, $enqueuedStyles, $registeredScripts, $registeredStyles, $isAdmin;
         
         $enqueuedScripts = array();
@@ -15,7 +16,6 @@ class org_tubepress_impl_env_wordpress_AdminTest extends TubePressUnitTest {
         $registeredStyles = array();
         $isAdmin = false;
         $add_options_page_called = false;
-        $this->initFakeIoc();
     }
     
     function getMock($className)

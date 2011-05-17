@@ -1,23 +1,23 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../../../sys/classes/org/tubepress/impl/env/wordpress/Widget.class.php';
-require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
 
 class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest {
     
     function setUp()
     {
+        parent::setUp();
+        
         global $wp_register_widget_control, $wp_register_sidebar_widget_called;
         $wp_register_widget_control = false;
         $wp_register_sidebar_widget_called = false;
-        $this->initFakeIoc();
     }
     
     function getMock($className)
     {
         $mock = parent::getMock($className);
         
-        if ($className === 'org_tubepress_api_html_HtmlGenerator') {
+        if ($className === 'org_tubepress_api_shortcode_ShortcodeHtmlGenerator') {
             $mock->expects($this->any())
                  ->method('getHtmlForShortcode')
                  ->will($this->returnValue('somehtml'));

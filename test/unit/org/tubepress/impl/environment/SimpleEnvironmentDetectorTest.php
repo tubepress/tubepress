@@ -1,14 +1,12 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
-
 class org_tubepress_impl_environment_SimpleEnvironmentDetectorTest extends TubePressUnitTest {
     
     private $_sut;
     
     function setUp()
     {
-        $this->initFakeIoc();
+        parent::setUp();
         $this->_sut = new org_tubepress_impl_environment_SimpleEnvironmentDetector();
     }
     

@@ -23,7 +23,8 @@ class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_options_values_ModeValue',
-    'org_tubepress_api_html_HtmlGenerator',
+    'org_tubepress_api_html_HeadHtmlGenerator',
+    'org_tubepress_api_shortcode_ShortcodeHtmlGenerator',
     'org_tubepress_api_shortcode_ShortcodeParser',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_options_WordPressStorageManager',
@@ -41,24 +42,20 @@ class org_tubepress_impl_env_wordpress_Main
      */
     public static function contentFilter($content = '')
     {
-        try {
-            /* Whip up the IOC service */
-            $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        /* Whip up the IOC service */
+        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
             
-            /* do as little work as possible here 'cause we might not even run */
-            $wpsm    = $ioc->get('org_tubepress_api_options_StorageManager');
-            $trigger = $wpsm->get(org_tubepress_api_const_options_names_Advanced::KEYWORD);
-            $parser  = $ioc->get('org_tubepress_api_shortcode_ShortcodeParser');
+        /* do as little work as possible here 'cause we might not even run */
+        $wpsm    = $ioc->get('org_tubepress_api_options_StorageManager');
+        $trigger = $wpsm->get(org_tubepress_api_const_options_names_Advanced::KEYWORD);
+        $parser  = $ioc->get('org_tubepress_api_shortcode_ShortcodeParser');
 
-            /* no shortcode? get out */
-            if (!$parser->somethingToParse($content, $trigger)) {
-                return $content;
-            }
-
-            return self::_getHtml($content, $trigger, $parser, $ioc);
-        } catch (Exception $e) {
-            return $e->getMessage() . $content;
+        /* no shortcode? get out */
+        if (!$parser->somethingToParse($content, $trigger)) {
+            return $content;
         }
+
+        return self::_getHtml($content, $trigger, $parser, $ioc);
     }
 
     /**
@@ -71,17 +68,19 @@ class org_tubepress_impl_env_wordpress_Main
      */
     private static function _getHtml($content, $trigger, $parser, $ioc)
     {
-        /* Get a handle to our options manager */
-        $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
-
-        /* Grab the gallery that will do the heavy lifting */
-        $gallery = $ioc->get('org_tubepress_api_html_HtmlGenerator');
+        $ms      = $ioc->get('org_tubepress_api_message_MessageService');
+        $tpom    = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $gallery = $ioc->get('org_tubepress_api_shortcode_ShortcodeHtmlGenerator');
 
         /* Parse each shortcode one at a time */
         while ($parser->somethingToParse($content, $trigger)) {
 
             /* Get the HTML for this particular shortcode. Could be a single video or a gallery. */
-            $generatedHtml = $gallery->getHtmlForShortcode($content);
+            try {
+                $generatedHtml = $gallery->getHtmlForShortcode($content);
+            } catch (Exception $e) {
+                $generatedHtml = $ms->_('no-videos-found');
+            }
 
             /* remove any leading/trailing <p> tags from the content */
             $pattern = '/(<[P|p]>\s*)(' . preg_quote($tpom->getShortcode(), '/') . ')(\s*<\/[P|p]>)/';
@@ -107,13 +106,13 @@ class org_tubepress_impl_env_wordpress_Main
         }
         
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $hh  = $ioc->get('org_tubepress_api_html_HtmlGenerator');
+        $hh  = $ioc->get('org_tubepress_api_html_HeadHtmlGenerator');
 
         /* this inline JS helps initialize TubePress */
-        $inlineJs = $hh->getHeadInlineJavaScriptString();
+        $inlineJs = $hh->getHeadInlineJs();
  
         /* this meta stuff prevents search engines from indexing gallery pages > 1 */
-        $meta = $hh->getHeadMetaString();
+        $meta = $hh->getHeadHtmlMeta();
 
         print <<<EOT
 $inlineJs

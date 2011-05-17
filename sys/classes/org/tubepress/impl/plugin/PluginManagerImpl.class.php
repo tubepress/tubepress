@@ -21,6 +21,7 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_plugin_EventName',
     'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_impl_log_Log',
@@ -39,6 +40,16 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
      * Internal two-dimensional array of all filters, first keyed by filter point name.
      */
     private $_filters;
+    
+    /**
+     * Cached list of valid event names. Used to validate listener registrations.
+     */
+    private $_validEventNames;
+
+    /**
+     * Internal two-dimensional array of all listeners, first keyed by event name.
+     */
+    private $_listeners;
 
     /**
      * Constructor.
@@ -47,16 +58,30 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
     {
         /* set up an empty filters array */
         $this->_filters = array();
+        
+        /* set up an empty listeners array */
+        $this->_listeners = array();
 
         /* initialize the valid filter points */
         $ref              = new ReflectionClass('org_tubepress_api_const_plugin_FilterPoint');
         $filterPointNames = $ref->getConstants();
         $filterPointFuncs = array();
+        
+        /* initialize the valid event names */
+        $ref            = new ReflectionClass('org_tubepress_api_const_plugin_EventName');
+        $eventNames     = $ref->getConstants();
+        $eventNameFuncs = array();
 
         foreach ($filterPointNames as $filterPointName) {
 
             $this->_validFilterPoints[$filterPointName] = self::_getFilterMethodName($filterPointName);
             $this->_filters[$filterPointName]           = array();
+        }
+        
+        foreach ($eventNames as $eventName) {
+
+            $this->_validEventNames[$eventName] = self::_getListenerMethodName($eventName);
+            $this->_listeners[$eventName]       = array();
         }
     }
 
@@ -81,7 +106,7 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
         $filterIndex = 1;
         $args        = func_get_args();
     
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Now running %d filter(s) for "%s"', count($filters), $filterPoint);
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Now running %d filter(s) for "%s"', $filterCount, $filterPoint);
 
         /* run all the callbacks for this filter name */
         foreach ($filters as $filter) {
@@ -116,7 +141,7 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
      * 
      * @return void
      */
-    function registerFilter($filterPoint, $plugin)
+    public function registerFilter($filterPoint, $plugin)
     {
         /* sanity check 1/3 */
         if (!is_object($plugin)) {
@@ -166,7 +191,118 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
 
         return ! empty($this->_filters[$filterPoint]);
     }
+    
+    /**
+     * Determines if there are any listeners registered for the given event.
+     * 
+     * @param string $eventName The event name to check.
+     * 
+     * @return boolean True if there are listeners registered for the given event. False otherwise.
+     */
+    public function hasListeners($eventName)
+    {
+        /* make sure this is a valid hook */
+        if (!array_key_exists($eventName, $this->_validEventNames)) {
 
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Invalid event name: "%s". Ignoring.', $eventName);
+            return false;
+        }
+
+        return ! empty($this->_listeners[$eventName]);
+    }
+    
+    /**
+     * Run all listeners for the given event.
+     *  
+     * @param string $eventName The name of the event.
+     * 
+     * @return void
+     */
+    public function notifyListeners($eventName)
+    {
+        if (!$this->hasListeners($eventName)) {
+            
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'No listeners registered for "%s".', $eventName);
+            return;
+        }
+
+        $listeners     = $this->_listeners[$eventName];
+        $listenerCount = count($listeners);
+        $listenerIndex = 1;
+        $args          = func_num_args() > 1 ? array_slice(func_get_args(), 1) : null;
+    
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Now running %d listeners(s) for "%s"', $listenerCount, $eventName);
+
+        /* run all the callbacks for this event name */
+        foreach ($listeners as $listener) {
+    
+            $callback         = array($listener, self::_getListenerMethodName($eventName));
+            $listenerAsString = get_class($listener);
+
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Now running listener %d of %d for event "%s": "%s"', 
+                $listenerIndex, $listenerCount, $eventName, $listenerAsString);
+    
+            try {
+
+                if ($args !== null) {
+                    call_user_func_array($callback, $args);
+                } else {
+                    call_user_func($callback);
+                }
+    
+            } catch (Exception $e) {
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception running "%s" for event "%s": %s', $listenerAsString, $eventName, $e->getMessage());
+            }
+
+            $listenerIndex++;
+        }
+    }
+
+    /**
+     * Registers a listener.
+     * 
+     * @param string $eventName The name of the event.
+     * @param object $plugin    The plugin instance.
+     * 
+     * @return void
+     */
+    public function registerListener($eventName, $plugin)
+    {
+        /* sanity check 1/3 */
+        if (!is_object($plugin)) {
+            
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Only object instances can be registered as TubePress listener. Ingoring listener registration for "%s"', $eventName);
+            return;
+        }
+        
+        /* sanity check 2/3 */
+        if (!array_key_exists($eventName, $this->_validEventNames)) {
+
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Invalid event name: "%s". Ignoring listener registration for "%s".', $eventName, get_class($plugin));
+            return;
+        }
+
+        $methodName = $this->_validEventNames[$eventName];
+
+        /* sanity check 3/3 */
+        if (!method_exists($plugin, $methodName) || !is_callable(array($plugin, $methodName))) {
+
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '"%s" must have a callable class method named "%s" to be registered for "%s" event. Ignoring this registration.',
+                get_class($plugin), $methodName, $eventName);
+            return;
+        }
+
+        /* looks good, let's register it */
+        array_push($this->_listeners[$eventName], $plugin);
+
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Registered "%s" as a listener for "%s"', get_class($plugin), $eventName);
+    }
+
+    private static function _getListenerMethodName($eventName)
+    {
+        return 'on_' . $eventName;
+    }
+    
     private static function _getFilterMethodName($filterPoint)
     {
         return 'alter_' . $filterPoint;

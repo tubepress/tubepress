@@ -1,6 +1,5 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
 require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/options/SimpleOptionsManager.class.php';
 
 class org_tubepress_impl_options_SimpleOptionsManagerTest extends TubePressUnitTest {
@@ -11,7 +10,7 @@ class org_tubepress_impl_options_SimpleOptionsManagerTest extends TubePressUnitT
 	
 	public function setup()
 	{
-		$this->initFakeIoc();
+		parent::setUp();
 		$this->_sut = new org_tubepress_impl_options_SimpleOptionsManager();
 	}
     

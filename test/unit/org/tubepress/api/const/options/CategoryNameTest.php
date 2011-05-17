@@ -1,6 +1,5 @@
 <?php
 require_once dirname(__FILE__) . '/../../../../../../../sys/classes/org/tubepress/api/const/options/CategoryName.class.php';
-require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
 
 class org_tubepress_api_const_options_CategoryNameTest extends TubePressUnitTest {
 
@@ -8,6 +7,9 @@ class org_tubepress_api_const_options_CategoryNameTest extends TubePressUnitTest
     {
         $expected = array('advanced', 'display', 'embedded', 'feed', 'meta', 'widget', 'output');
 
-        self::checkArrayEquality(self::getConstantsForClass('org_tubepress_api_const_options_CategoryName'), $expected);
+        $actual = TubePressConstantsTestUtils::getConstantsForClass('org_tubepress_api_const_options_CategoryName');
+        
+        TubePressArrayTestUtils::checkArrayEquality($expected, $actual);
+        
     }
 }

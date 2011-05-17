@@ -49,19 +49,6 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
     {
         $result = new org_tubepress_api_provider_ProviderResult();
         
-        try {
-            
-            return $this->_wrappedGetMultipleVideos($result);
-        } catch (Exception $e) {
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception when retrieving videos: ' . $e->getMessage());
-            $result->setEffectiveTotalResultCount(0);
-            $result->setVideoArray(array());
-            return $result;
-        }
-    }
-    
-    protected function _wrappedGetMultipleVideos($result)
-    {
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
         $qss  = $ioc->get('org_tubepress_api_querystring_QueryStringService');
         $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
@@ -96,6 +83,10 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         /* convert the XML to objects */
         $factory = $ioc->get('org_tubepress_api_factory_VideoFactory');
         $videos  = $factory->feedToVideoArray($rawFeed);
+        
+        if (count($videos) == 0) {
+            throw new Exception('Zero videos built from factory');
+        }
 
         $result->setEffectiveTotalResultCount($totalCount);
         $result->setVideoArray($videos);
@@ -110,19 +101,6 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
      * @return org_tubepress_api_video_Video The video.
      */
     public function getSingleVideo($customVideoId)
-    {
-        try {
-            
-            return $this->_wrappedGetSingleVideo($customVideoId);
-        
-        } catch (Exception $e) {
-
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception when getting single video: ' . $e->getMessage());
-            return null;
-        }
-    }
-    
-    private function _wrappedGetSingleVideo($customVideoId)
     {
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Fetching video with ID <tt>%s</tt>', $customVideoId);
 
@@ -139,7 +117,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         $videoArray           = $factory->feedToVideoArray($results);
         
         if (empty($videoArray)) {
-            return null;
+            throw new Exception("Could not find video with ID $customVideoId");
         }
 
         return $videoArray[0];

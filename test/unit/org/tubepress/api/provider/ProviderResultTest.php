@@ -1,7 +1,6 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/api/provider/ProviderResult.class.php';
-require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
 
 class org_tubepress_api_provider_ProviderResultTest extends TubePressUnitTest {
     

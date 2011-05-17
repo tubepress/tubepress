@@ -1,6 +1,5 @@
 <?php
 require_once dirname(__FILE__) . '/../../../../../../../../sys/classes/org/tubepress/api/const/options/values/OutputValue.class.php';
-require_once dirname(__FILE__) . '/../../../../../../TubePressUnitTest.php';
 
 class org_tubepress_api_const_options_values_OutputValueTest extends TubePressUnitTest {
 
@@ -8,7 +7,9 @@ class org_tubepress_api_const_options_values_OutputValueTest extends TubePressUn
     {
         $expected = array('searchInput', 'searchResults', 'ajaxSearchInput');
 
-        self::checkArrayEquality(self::getConstantsForClass('org_tubepress_api_const_options_values_OutputValue'), $expected);
-
+        $actual = TubePressConstantsTestUtils::getConstantsForClass('org_tubepress_api_const_options_values_OutputValue');
+        
+        TubePressArrayTestUtils::checkArrayEquality($expected, $actual);
+        
     }
 }

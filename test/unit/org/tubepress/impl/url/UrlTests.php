@@ -1,18 +1,18 @@
 <?php
-require dirname(__FILE__) . '/../../../../PhpUnitLoader.php';
-require_once 'strategies/YouTubeUrlBuilderStrategyTest.php';
-require_once 'strategies/VimeoUrlBuilderStrategyTest.php';
-require_once 'DelegatingUrlBuilderTest.php';
+require_once dirname(__FILE__) . '/../../../../../includes/TubePressUnitTest.php';
+require_once 'commands/YouTubeUrlBuilderCommandTest.php';
+require_once 'commands/VimeoUrlBuilderCommandTest.php';
+require_once 'UrlBuilderChainTest.php';
 
 class UrlTests
 {
-	public static function suite()
-	{
-		$suite = new PHPUnit_Framework_TestSuite("TubePress URL Tests");
-		$suite->addTestSuite('org_tubepress_impl_url_strategies_YouTubeUrlBuilderStrategyTest');
-		$suite->addTestSuite('org_tubepress_impl_url_strategies_VimeoUrlBuilderStrategyTest');
-        $suite->addTestSuite('org_tubepress_impl_url_DelegatingUrlBuilderTest');
-		return $suite;
-	}
+    public static function suite()
+    {
+        $suite = new PHPUnit_Framework_TestSuite("TubePress URL Tests");
+        $suite->addTestSuite('org_tubepress_impl_url_commands_YouTubeUrlBuilderCommandTest');
+        $suite->addTestSuite('org_tubepress_impl_url_commands_VimeoUrlBuilderCommandTest');
+        $suite->addTestSuite('org_tubepress_impl_url_UrlBuilderChainTest');
+        return $suite;
+    }
 }
 

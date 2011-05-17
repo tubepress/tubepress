@@ -1,7 +1,6 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/querystring/SimpleQueryStringService.class.php';
-require_once dirname(__FILE__) . '/../../../../../../test/unit/TubePressUnitTest.php';
 
 class org_tubepress_impl_querystring_SimpleQueryStringServiceTest extends TubePressUnitTest {
 	
@@ -9,7 +8,7 @@ class org_tubepress_impl_querystring_SimpleQueryStringServiceTest extends TubePr
 
 	public function setup()
 	{
-		$this->initFakeIoc();
+		parent::setUp();
 		$this->_sut = new org_tubepress_impl_querystring_SimpleQueryStringService();
 	}
 

@@ -1,21 +1,21 @@
 <?php
-require dirname(__FILE__) . '/../../../../PhpUnitLoader.php';
-require_once 'strategies/JwFlvEmbeddedStrategyTest.php';
-require_once 'strategies/VimeoEmbeddedStrategyTest.php';
-require_once 'strategies/YouTubeIframeEmbeddedStrategyTest.php';
+require_once dirname(__FILE__) . '/../../../../../includes/TubePressUnitTest.php';
+require_once 'commands/JwFlvCommandTest.php';
+require_once 'commands/VimeoCommandTest.php';
+require_once 'commands/YouTubeIframeCommandTest.php';
 require_once 'EmbeddedPlayerUtilsTest.php';
-require_once 'DelegatingEmbeddedPlayerTest.php';
+require_once 'EmbeddedPlayerChainTest.php';
 
 class EmbeddedPlayerTests
 {
 	public static function suite()
 	{
 		$suite = new PHPUnit_Framework_TestSuite('TubePress Embedded Player Tests');
-		$suite->addTestSuite('org_tubepress_impl_embedded_JwFlvEmbeddedStrategyTest');
-		$suite->addTestSuite('org_tubepress_impl_embedded_VimeoEmbeddedStrategyTest');
-		$suite->addTestSuite('org_tubepress_impl_embedded_YouTubeIframeEmbeddedStrategyTest');
+		$suite->addTestSuite('org_tubepress_impl_embedded_commands_JwFlvCommandTest');
+		$suite->addTestSuite('org_tubepress_impl_embedded_commands_VimeoCommandTest');
+		$suite->addTestSuite('org_tubepress_impl_embedded_commands_YouTubeIframeCommandTest');
 		$suite->addTestSuite('org_tubepress_impl_embedded_EmbeddedPlayerUtilsTest');
-		$suite->addTestSuite('org_tubepress_impl_embedded_DelegatingEmbeddedPlayerTest');
+		$suite->addTestSuite('org_tubepress_impl_embedded_EmbeddedPlayerChainTest');
 		return $suite;
 	}
 }

@@ -1,5 +1,4 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../../../../test/unit/TubePressUnitTest.php';
 require_once dirname(__FILE__) . '/../../../../../../../sys/classes/org/tubepress/impl/http/clientimpl/Encoding.class.php';
 
 class org_tubepress_impl_http_clientimpl_EncodingTest extends TubePressUnitTest {
@@ -8,7 +7,7 @@ class org_tubepress_impl_http_clientimpl_EncodingTest extends TubePressUnitTest 
     
     function setup()
     {
-        $this->initFakeIoc();
+        parent::setUp();
         $this->_sut = new org_tubepress_impl_http_clientimpl_Encoding();
     }
 

@@ -1,7 +1,6 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/util/StringUtils.class.php';
-require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
 
 class org_tubepress_impl_util_StringUtilsTest extends TubePressUnitTest
 {

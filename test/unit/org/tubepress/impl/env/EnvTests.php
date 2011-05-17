@@ -1,5 +1,5 @@
 <?php
-require dirname(__FILE__) . '/../../../../PhpUnitLoader.php';
+require_once dirname(__FILE__) . '/../../../../../includes/TubePressUnitTest.php';
 require_once 'wordpress/AdminTest.php';
 require_once 'wordpress/WidgetTest.php';
 require_once 'wordpress/MainTest.php';

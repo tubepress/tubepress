@@ -1,7 +1,6 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../../../../../../sys/classes/org/tubepress/impl/env/wordpress/Main.class.php';
-require_once dirname(__FILE__) . '/../../../../../TubePressUnitTest.php';
 
 class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
     
@@ -9,6 +8,8 @@ class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
     
     function setUp()
     {
+        parent::setUp();
+        
         global $enqueuedStyles,
         $enqueuedScripts,
         $add_options_page_called,
@@ -22,7 +23,6 @@ class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
         $add_options_page_called = false;
         
         $this->_parseCount = 0;
-        $this->initFakeIoc();
     }
     
     function getMock($className)
@@ -34,12 +34,12 @@ class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
                  ->method('somethingToParse')
                  ->will($this->returnCallback(array($this, 'parserCallback')));
         }
-        if ($className === 'org_tubepress_api_html_HtmlGenerator') {
+        if ($className === 'org_tubepress_api_html_HeadHtmlGenerator') {
             $mock->expects($this->any())
-                 ->method('getHeadInlineJavaScriptString')
+                 ->method('getHeadInlineJs')
                  ->will($this->returnValue('inlinejs'));
             $mock->expects($this->any())
-                 ->method('getHeadMetaString')
+                 ->method('getHeadHtmlMeta')
                  ->will($this->returnValue('headmeta'));
         }
         return $mock;

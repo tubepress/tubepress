@@ -1,6 +1,5 @@
 <?php
 require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/cache/PearCacheLiteCacheService.class.php';
-require_once dirname(__FILE__) . '/../../../../../../test/unit/TubePressUnitTest.php';
 
 class org_tubepress_impl_cache_PearCacheLiteCacheServiceTest extends TubePressUnitTest {
 
@@ -8,7 +7,7 @@ class org_tubepress_impl_cache_PearCacheLiteCacheServiceTest extends TubePressUn
 
 	function setUp()
 	{
-	    $this->initFakeIoc();
+	    parent::setUp();
 		$this->_sut = new org_tubepress_impl_cache_PearCacheLiteCacheService();
 	}
 

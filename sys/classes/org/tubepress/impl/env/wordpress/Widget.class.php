@@ -24,9 +24,9 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_const_options_names_Meta',
     'org_tubepress_api_const_options_names_Widget',
+    'org_tubepress_api_const_options_values_PlayerValue',
     'org_tubepress_api_const_template_Variable',
     'org_tubepress_api_ioc_IocService',
-    'org_tubepress_api_player_Player',
     'org_tubepress_impl_ioc_FreeWordPressPluginIocService',
     'org_tubepress_impl_message_WordPressMessageService',
     'org_tubepress_impl_template_SimpleTemplate',
@@ -62,7 +62,8 @@ class org_tubepress_impl_env_wordpress_Widget
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tpom         = $iocContainer->get('org_tubepress_api_options_OptionsManager');
         $parser       = $iocContainer->get('org_tubepress_api_shortcode_ShortcodeParser');
-        $gallery      = $iocContainer->get('org_tubepress_api_html_HtmlGenerator');
+        $gallery      = $iocContainer->get('org_tubepress_api_shortcode_ShortcodeHtmlGenerator');
+        $ms           = $iocContainer->get('org_tubepress_api_message_MessageService');
 
         /* Turn on logging if we need to */
         org_tubepress_impl_log_Log::setEnabled($tpom->get(org_tubepress_api_const_options_names_Advanced::DEBUG_ON), $_GET);
@@ -73,7 +74,7 @@ class org_tubepress_impl_env_wordpress_Widget
             org_tubepress_api_const_options_names_Meta::VIEWS                  => false,
             org_tubepress_api_const_options_names_Meta::DESCRIPTION            => true,
             org_tubepress_api_const_options_names_Display::DESC_LIMIT          => 50,
-            org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME => org_tubepress_api_player_Player::POPUP,
+            org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME => org_tubepress_api_const_options_values_PlayerValue::POPUP,
             org_tubepress_api_const_options_names_Display::THUMB_HEIGHT        => 105,
             org_tubepress_api_const_options_names_Display::THUMB_WIDTH         => 135,
             org_tubepress_api_const_options_names_Display::PAGINATE_ABOVE      => false,
@@ -93,7 +94,11 @@ class org_tubepress_impl_env_wordpress_Widget
             $tpom->set(org_tubepress_api_const_options_names_Display::THEME, 'sidebar');
         }
 
-        $out = $gallery->getHtmlForShortcode('');
+        try {
+            $out = $gallery->getHtmlForShortcode('');
+        } catch (Exception $e) {
+            $out = $ms->_('no-videos-found');
+        }
 
         /* do the standard WordPress widget dance */
         echo $before_widget . $before_title .

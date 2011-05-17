@@ -1,6 +1,5 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../TubePressUnitTest.php';
 require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/feed/CacheAwareFeedFetcher.class.php';
 
 class org_tubepress_impl_feed_CacheAwareFeedFetcherTest extends TubePressUnitTest {
@@ -9,7 +8,7 @@ class org_tubepress_impl_feed_CacheAwareFeedFetcherTest extends TubePressUnitTes
 	
 	function setUp()
 	{
-		$this->initFakeIoc();
+		parent::setUp();
 		$this->_sut = new org_tubepress_impl_feed_CacheAwareFeedFetcher();
  	        org_tubepress_impl_log_Log::setEnabled(false, array());
 	}

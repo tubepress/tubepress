@@ -1,10 +1,9 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../../../test/unit/TubePressUnitTest.php';
-require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/http/clientimpl/strategies/ExtHttpStrategy.class.php';
-require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/http/clientimpl/strategies/FopenStrategy.class.php';
-require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/http/clientimpl/strategies/FsockOpenStrategy.class.php';
-require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/http/clientimpl/strategies/CurlStrategy.class.php';
-require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/http/clientimpl/strategies/StreamsStrategy.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/http/clientimpl/commands/ExtHttpCommand.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/http/clientimpl/commands/FopenCommand.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/http/clientimpl/commands/FsockOpenCommand.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/http/clientimpl/commands/CurlCommand.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/http/clientimpl/commands/StreamsCommand.class.php';
 
 class org_tubepress_impl_http_StressTests extends TubePressUnitTest {
 
@@ -29,34 +28,32 @@ class org_tubepress_impl_http_StressTests extends TubePressUnitTest {
 
     function testExtHttp()
     {
-        $this->_doTest('org_tubepress_impl_http_clientimpl_strategies_ExtHttpStrategy');
+        $this->_doTest('org_tubepress_impl_http_clientimpl_commands_ExtHttpCommand');
     }
     
     function dtestStreams()
     {
-        $this->_doTest('org_tubepress_impl_http_clientimpl_strategies_StreamsStrategy');
+        $this->_doTest('org_tubepress_impl_http_clientimpl_commands_StreamsCommand');
     }
     
     function dtestCurl()
     {
-        $this->_doTest('org_tubepress_impl_http_clientimpl_strategies_CurlStrategy');
+        $this->_doTest('org_tubepress_impl_http_clientimpl_commands_CurlCommand');
     }
     
     function dtestFsockOpen()
     {
-        $this->_doTest('org_tubepress_impl_http_clientimpl_strategies_FsockOpenStrategy');
+        $this->_doTest('org_tubepress_impl_http_clientimpl_commands_FsockOpenCommand');
     }
     
     function dtestFopen()
     {
-        $this->_doTest('org_tubepress_impl_http_clientimpl_strategies_FopenStrategy');
+        $this->_doTest('org_tubepress_impl_http_clientimpl_commands_FopenCommand');
     }
     
     function _doTest($class)
     {
         $client = new $class();
-        
-        $this->assertTrue($client->canHandle("http://tubepress.org/http_tests/1.file", $this->_args));
         
         $then = time();
         echo "Starting at $then\n";
@@ -65,11 +62,10 @@ class org_tubepress_impl_http_StressTests extends TubePressUnitTest {
 
             echo "Iteration $x with $class\n";
             
-            $client->start();
-            $result = $client->execute("http://tubepress.org/http_tests/$x.file", $this->_args);
+            $context = new org_tubepress_impl_http_HttpClientChainContext("http://tubepress.org/http_tests/$x.file", $this->_args);
+            $result = $client->execute($context);
             
             unset($result);
-            $client->stop();
         }
         $now = time();
         echo "Ending at $now\n";

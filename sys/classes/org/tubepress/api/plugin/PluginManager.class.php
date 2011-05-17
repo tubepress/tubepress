@@ -52,4 +52,32 @@ interface org_tubepress_api_plugin_PluginManager
      * @return void
      */
     function registerFilter($filterPoint, $plugin);
+    
+    /**
+     * Determines if there are any listeners registered for the given event.
+     * 
+     * @param string $eventName The event name to check.
+     * 
+     * @return boolean True if there are listeners registered for the given event. False otherwise.
+     */
+    public function hasListeners($eventName);
+    
+    /**
+     * Run all listeners for the given event.
+     *  
+     * @param string $eventName The name of the event.
+     * 
+     * @return void
+     */
+    public function notifyListeners($eventName);
+
+    /**
+     * Registers a listener.
+     * 
+     * @param string $eventName The name of the event.
+     * @param object $plugin    The plugin instance.
+     * 
+     * @return void
+     */
+    function registerListener($eventName, $plugin);
 }

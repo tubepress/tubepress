@@ -1,6 +1,5 @@
 <?php
 require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/message/WordPressMessageService.class.php';
-require_once dirname(__FILE__) . '/../../../../../../test/unit/TubePressUnitTest.php';
 
 $msgs = array(
         'options-page-title'       => 'TubePress Options',
@@ -223,7 +222,7 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 
 	function testPoCompiles()
 	{
-		$testOpts = parse_ini_file(dirname(__FILE__) . '/../../../../../test.properties');
+		$testOpts = parse_ini_file(dirname(__FILE__) . '/../../../../../includes/env/test.properties');
 		$files = $this->getPoFiles();
 		foreach ($files as $file) {
 			$realPath = dirname(__FILE__) . '/../../../../../../sys/i18n/' . $file;
