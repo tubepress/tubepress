@@ -2,9 +2,9 @@
 /**
 Plugin Name: TubePress
 Plugin URI: http://tubepress.org
-Description: Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and/or sidebar. Upgrade to <a href="http://tubepress.org/download/">TubePress Pro</a> for more features!
+Description: Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and/or sidebar. @description@
 Author: Eric D. Hough
-Version: 2.2.5
+Version: git-bleeding
 Author URI: http://ehough.com
 
 Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)

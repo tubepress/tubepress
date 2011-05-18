@@ -1,16 +1,20 @@
 <project name="TubePress" default="free-plugin" basedir=".">
 
         <property file="config/config.properties" />
+	<property name="stagingdir" 	value="${build.directory.stage}/tubepress" />
+	<property name="jscompresslist"	value="config/js-to-compress.txt" />
 
 	<target name="compress-js">
 
-		<copy todir="${build.directory.stage}/tubepress">
-			<fileset dir="${build.directory.stage}/tubepress/" includesfile="config/js-to-compress.txt"/>
+		<copy todir="${stagingdir}">
+			<fileset dir="${stagingdir}/" includesfile="${jscompresslist}"/>
 			<mapper type="glob" from="*.js" to="*-dev.js" />
 		</copy>
 
-		<apply executable="java" parallel="false" dir="${build.directory.stage}/tubepress" relative="true">
-			<fileset dir="${build.directory.stage}/tubepress/" includesfile="config/js-to-compress.txt"/>
+		<echo message="Compressing JS. This may take a moment..." />
+
+		<apply executable="java" parallel="false" dir="${stagingdir}" relative="true">
+			<fileset dir="${stagingdir}/" includesfile="${jscompresslist}"/>
 			<arg line="-jar"/>
 			<arg path="${bin.yuicompressor}"/>
 			<srcfile />
@@ -24,13 +28,21 @@
 	<target name="assemble-free">
 
 		<echo message="Copying TubePress into staging area" />
-		<copy todir="${build.directory.stage}/tubepress">
+		<copy todir="${stagingdir}">
 			<fileset dir=".." excludesfile="config/distribution-exclusions.txt" />
 		</copy>
 
-		<copy todir="${build.directory.stage}/tubepress">
+		<copy todir="${stagingdir}">
 			<fileset dir="resources" />
 		</copy>
+
+	</target>
+
+	<target name="free-wordpress-mods">
+	
+		<replace file="${stagingdir}/tubepress.php" token="git-bleeding" value="${version.major}.${version.minor}.${version.micro}" />
+
+		<replace file="${stagingdir}/tubepress.php" token="@description@" value="${wordpress.desc.free}" />
 
 	</target>
 
@@ -58,6 +70,7 @@
 	<target name="free-plugin" description="Builds the free version of TubePress" depends="init">
         
 		<antcall target="assemble-free" />
+		<antcall target="free-wordpress-mods" />
 		<antcall target="compress-js" />
 		<antcall target="package-free" />
 
