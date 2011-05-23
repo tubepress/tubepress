@@ -20,21 +20,23 @@
  */
 
 /**
- * Handles applying the embedded player's HTML to the template.
+ * Adds some core variables to the single video template.
  */
-class org_tubepress_impl_plugin_filters_singlevideotemplate_EmbeddedSource
+class org_tubepress_impl_plugin_filters_singlevideotemplate_CoreVariables
 {
-    public function alter_singleVideoTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_video_Video $video)
+    public function alter_singleVideoTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_video_Video $video, $providerName)
     {
         $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom           = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $context        = $ioc->get('org_tubepress_api_exec_ExecutionContext');
         $embedded       = $ioc->get('org_tubepress_api_embedded_EmbeddedHtmlGenerator');
         $embeddedString = $embedded->getHtml($video->getId());
-        $width          = $tpom->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
+        $width          = $context->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
 
         /* apply it to the template */
         $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_SOURCE, $embeddedString);
         $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_WIDTH, $width);
+        
+        $template->setVariable(org_tubepress_api_const_template_Variable::VIDEO, $video);
        
         return $template;
     }

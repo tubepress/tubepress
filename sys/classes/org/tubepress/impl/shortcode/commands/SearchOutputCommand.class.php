@@ -40,11 +40,11 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_t
      */
     public function execute($context)
     {
-        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');    
         
         /* not configured at all for search results */
-        if ($tpom->get(org_tubepress_api_const_options_names_Output::OUTPUT) !== org_tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS) {
+        if ($execContext->get(org_tubepress_api_const_options_names_Output::OUTPUT) !== org_tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS) {
             return false;
         }
 
@@ -53,7 +53,7 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_t
         $rawSearchTerms = $qss->getSearchTerms($_GET);
         
         /* are we set up for a gallery fallback? */
-        $mustShowSearchResults = $tpom->get(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY);
+        $mustShowSearchResults = $execContext->get(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY);
         $hasSearchTerms        = $rawSearchTerms != '';
 
         /* the user is not searching and we don't have to show results */
@@ -61,7 +61,7 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_t
             return false;
         }
 
-        $html = $context[0];
+        $html = $execContext[0];
         
         /* if the user isn't searching, don't display anything */
         if (!$hasSearchTerms) {
@@ -75,16 +75,16 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_t
         $searchTerms = org_tubepress_impl_util_StringUtils::cleanForSearch($rawSearchTerms);
         
         /* who are we searching? */
-        switch ($tpom->get(org_tubepress_api_const_options_names_Output::SEARCH_PROVIDER)) {
+        switch ($execContext->get(org_tubepress_api_const_options_names_Output::SEARCH_PROVIDER)) {
             
             case 'vimeo':
-                $tpom->set(org_tubepress_api_const_options_names_Output::MODE, org_tubepress_api_const_options_values_ModeValue::VIMEO_SEARCH);
-                $tpom->set(org_tubepress_api_const_options_names_Output::VIMEO_SEARCH_VALUE, $searchTerms);
+                $execContext->set(org_tubepress_api_const_options_names_Output::MODE, org_tubepress_api_const_options_values_ModeValue::VIMEO_SEARCH);
+                $execContext->set(org_tubepress_api_const_options_names_Output::VIMEO_SEARCH_VALUE, $searchTerms);
                 break;
                 
             default:
-                $tpom->set(org_tubepress_api_const_options_names_Output::MODE, org_tubepress_api_const_options_values_ModeValue::TAG);
-                $tpom->set(org_tubepress_api_const_options_names_Output::TAG_VALUE, $searchTerms);
+                $execContext->set(org_tubepress_api_const_options_names_Output::MODE, org_tubepress_api_const_options_values_ModeValue::TAG);
+                $execContext->set(org_tubepress_api_const_options_names_Output::TAG_VALUE, $searchTerms);
                 break;
         }
         

@@ -24,7 +24,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_const_template_Variable',
-    'org_tubepress_api_options_OptionsManager',
+    'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_player_PlayerHtmlGenerator',
     'org_tubepress_api_provider_Provider',
     'org_tubepress_api_provider_ProviderCalculator',
@@ -39,12 +39,12 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_plugin_filters_gallerytemplate_Player
 {
-    public function alter_galleryTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_provider_ProviderResult $providerResult, $galleryId)
+    public function alter_galleryTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_provider_ProviderResult $providerResult, $page, $providerName)
     {
         $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom          = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $context       = $ioc->get('org_tubepress_api_exec_ExecutionContext');
         $htmlGenerator = $ioc->get('org_tubepress_api_player_PlayerHtmlGenerator');
-        $playerName    = $tpom->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
+        $playerName    = $context->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
         $videos        = $providerResult->getVideoArray();
         $playerHtml    = $playerHtml = $this->_showPlayerHtmlOnPageLoad($ioc, $playerName) ? 
             $htmlGenerator->getHtml($videos[0], $galleryId) : '';
@@ -57,13 +57,11 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Player
     
     private function _showPlayerHtmlOnPageLoad($ioc, $playerName)
     {
-        if ($playerName === org_tubepress_api_const_options_values_PlayerValue::NORMAL) {
+        if ($playerName === org_tubepress_api_const_options_values_PlayerValue::NORMAL
+            || $playerName === org_tubepress_api_const_options_values_PlayerValue::STATICC) {
             return true;
         }
         
-        $qss         = $ioc->get('org_tubepress_api_querystring_QueryStringService');
-        $customVideo = $qss->getCustomVideo($_GET) != '';
-        
-        return $playerName === org_tubepress_api_const_options_values_PlayerValue::STATICC && $customVideo;
+        return false;
     }
 }

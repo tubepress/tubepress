@@ -29,7 +29,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_values_ModeValue',
     'org_tubepress_api_patterns_cor_Command',
     'org_tubepress_api_url_Url',
-    'org_tubepress_api_options_OptionsManager',
+    'org_tubepress_api_exec_ExecutionContext',
 ));
 
 /**

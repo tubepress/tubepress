@@ -1,19 +1,19 @@
 <?php
 /**
  * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
- * 
+ *
  * This file is part of TubePress (http://tubepress.org)
- * 
+ *
  * TubePress is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * TubePress is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -22,8 +22,7 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_patterns_cor_Command',
-    'org_tubepress_api_options_OptionsManager',
-    'org_tubepress_api_plugin_PluginManager',
+    'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_video_Video',
     'org_tubepress_impl_log_Log',
     'org_tubepress_impl_util_TimeUtils'
@@ -35,9 +34,9 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implements org_tubepress_api_patterns_cor_Command
 {
     const LOG_PREFIX = 'Abstract Factory Command';
-    
-    private $_tpom;
-    
+
+    private $_context;
+
     /**
      * Execute the command.
      *
@@ -49,73 +48,67 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
     {
         /* grab the arguments */
         $feed = $context->getFeed();
-        
+
         if (!$this->_canHandleFeed($feed)) {
             return false;
         }
-        
+
         /* give the command a chance to do some initial processing */
         $this->_preExecute($feed);
-        
+
         $ioc             = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $this->_tpom     = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $pm              = $ioc->get('org_tubepress_api_plugin_PluginManager');
-        $filterPointName = $this->_getFilterPointNameForVideos();
-        $hasFilters      = $pm->hasFilters($filterPointName);
-        
+        $this->_context  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+
         $results = array();
         $index   = 0;
         $total   = $this->_countVideosInFeed($feed);
-        
+
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Now building %d video(s) from raw feed', $total);
-        
+
         for ($index = 0; $index < $total; $index++) {
-            
+
             if (!$this->_canHandleVideo($index)) {
                 org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Skipping video at index %d', $index);
                 continue;
             }
 
-            /* build the video first */
-            $video = $this->_buildVideo($index);
-            
-            /* then send it through the filters (maybe) */
-            $results[] = $hasFilters ? $pm->runFilters($filterPointName, $video) : $video;
+            /* build the video */
+            $results[] = $this->_buildVideo($index);
         }
 
         /* give the command a chance to do some post processing */
         $this->_postExecute($feed);
-        
+
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Built %d video(s) from raw feed', sizeof($results));
 
         $context->setReturnValue($results);
-        
+
         return true;
     }
-    
+
     /**
      * Safely attempts to unserialize serialized PHP.
-     * 
+     *
      * @param unknown_type $raw The item to attempt to unserialize.
      * @throws Exception If the item cannot be unserialized.
-     * 
+     *
      * @return unknown_type The unserialized PHP.
      */
     protected static function _unserializePhpFeed($raw)
     {
         $result = false;
-        
-        if (is_string($raw) && trim($raw) != '' && preg_match("/^(i|s|a|o|d):(.*);/si",$raw) > 0) { 
+
+        if (is_string($raw) && trim($raw) != '' && preg_match("/^(i|s|a|o|d):(.*);/si",$raw) > 0) {
             $result = unserialize($raw);
         }
-            
+
         if ($result === false) {
             throw new Exception(sprintf('Unable to unserialize PHP from feed'));
         }
-        
+
         return $result;
     }
-    
+
     protected abstract function _preExecute($feed);
     protected abstract function _postExecute($feed);
     protected abstract function _countVideosInFeed($feed);
@@ -136,24 +129,22 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
     protected abstract function _getTimeLastUpdatedInUnixTime($index);
     protected abstract function _getTimePublishedInUnixTime($index);
     protected abstract function _getTitle($index);
-    protected abstract function _getRawViewCount($index);  
-    
-    protected abstract function _getFilterPointNameForVideos();
-    
+    protected abstract function _getRawViewCount($index);
+
     protected function _pickThumbnailUrl($urls)
     {
         if (!is_array($urls) || sizeof($urls) == 0) {
             return '';
         }
 
-        $random = $this->_tpom->get(org_tubepress_api_const_options_names_Display::RANDOM_THUMBS);
+        $random = $this->_context->get(org_tubepress_api_const_options_names_Display::RANDOM_THUMBS);
         if ($random) {
             return $urls[array_rand($urls)];
         } else {
             return $urls[0];
         }
     }
-    
+
     private function _buildVideo($index)
     {
         /* collect the pieces of the video */
@@ -177,7 +168,7 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
 
         /* now build a video out of them */
         $vid = new org_tubepress_api_video_Video();
-        
+
         $vid->setAuthorDisplayName($authorDisplayName);
         $vid->setAuthorUid($authorUid);
         $vid->setCategory($category);
@@ -195,10 +186,10 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
         $vid->setTimePublished($timePublished);
         $vid->setTitle($title);
         $vid->setViewCount($viewCount);
-        
+
         return $vid;
     }
-    
+
     private static function _fancyNumber($num)
     {
         if (!is_numeric($num)) {
@@ -212,16 +203,16 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
         if ($unixTime == '') {
             return '';
         }
-        
-        if ($this->_tpom->get(org_tubepress_api_const_options_names_Display::RELATIVE_DATES)) {
+
+        if ($this->_context->get(org_tubepress_api_const_options_names_Display::RELATIVE_DATES)) {
             return org_tubepress_impl_util_TimeUtils::getRelativeTime($unixTime);
         }
-        return date($this->_tpom->get(org_tubepress_api_const_options_names_Advanced::DATEFORMAT), $unixTime);
+        return date($this->_context->get(org_tubepress_api_const_options_names_Advanced::DATEFORMAT), $unixTime);
     }
-    
+
     private function _trimDescription($description)
     {
-        $limit = $this->_tpom->get(org_tubepress_api_const_options_names_Display::DESC_LIMIT);
+        $limit = $this->_context->get(org_tubepress_api_const_options_names_Display::DESC_LIMIT);
 
         if ($limit > 0 && strlen($description) > $limit) {
             $description = substr($description, 0, $limit) . '...';

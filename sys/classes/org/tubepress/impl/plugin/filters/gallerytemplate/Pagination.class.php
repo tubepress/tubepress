@@ -24,7 +24,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_const_template_Variable',
-    'org_tubepress_api_options_OptionsManager',
+    'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_api_url_Url',
     'org_tubepress_impl_ioc_IocContainer',
@@ -35,19 +35,20 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
 {
+    const DOTS = '<span class="tubepress_pagination_dots">...</span>';
     
-    public function alter_galleryTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_provider_ProviderResult $providerResult, $galleryId)
+    public function alter_galleryTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_provider_ProviderResult $providerResult, $page, $providerName)
     {
         $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom          = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $context       = $ioc->get('org_tubepress_api_exec_ExecutionContext');
         $pm            = $ioc->get('org_tubepress_api_plugin_PluginManager');
         $pagination    = $this->_getHtml($providerResult->getEffectiveTotalResultCount());
         $pagination    = $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_PAGINATION, $pagination);
         
-        if ($tpom->get(org_tubepress_api_const_options_names_Display::PAGINATE_ABOVE)) {
+        if ($context->get(org_tubepress_api_const_options_names_Display::PAGINATE_ABOVE)) {
             $template->setVariable(org_tubepress_api_const_template_Variable::PAGINATION_TOP, $pagination);
         }
-        if ($tpom->get(org_tubepress_api_const_options_names_Display::PAGINATE_BELOW)) {
+        if ($context->get(org_tubepress_api_const_options_names_Display::PAGINATE_BELOW)) {
             $template->setVariable(org_tubepress_api_const_template_Variable::PAGINATION_BOTTOM, $pagination);
         }
 
@@ -64,12 +65,12 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
     private function _getHtml($vidCount)
     {
         $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom           = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $context        = $ioc->get('org_tubepress_api_exec_ExecutionContext');
         $messageService = $ioc->get('org_tubepress_api_message_MessageService');
         $qss            = $ioc->get('org_tubepress_api_querystring_QueryStringService');
         
         $currentPage = $qss->getPageNum($_GET);
-        $vidsPerPage = $tpom->get(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE);
+        $vidsPerPage = $context->get(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE);
 
         $newurl = new org_tubepress_api_url_Url($qss->getFullUrl($_SERVER));
         $newurl->unsetQueryVariable('tubepress_page');
@@ -77,7 +78,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
         $result = $this->_diggStyle($vidCount, $messageService, $currentPage, $vidsPerPage, 1, $newurl->toString(), 'tubepress_page');
 
         /* if we're using Ajax for pagination, remove all the hrefs */
-        if ($tpom->get(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION)) {
+        if ($context->get(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION)) {
             $result = preg_replace('/rel="nofollow" href="[^"]*tubepress_page=([0-9]+)[^"]*"/', 'rel="page=${1}"', $result);
         }
 
@@ -136,7 +137,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
                             $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">$counter</a>";
                         }
                     }
-                    $pagination .= '...';
+                    $pagination .= self::DOTS;
                     $url->setQueryVariable($pagestring, $lpm1);
                     $newurl      = $url->toString();
                     $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$lpm1</a>";
@@ -150,7 +151,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
                     $url->setQueryVariable($pagestring, 2);
                     $newurl      = $url->toString();
                     $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">2</a>";
-                    $pagination .= '...';
+                    $pagination .= self::DOTS;
 
                     for ($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++) {
                         if ($counter == $page) {
@@ -161,7 +162,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
                             $pagination .= " <a rel=\"nofollow\" href=\"$newurl\">$counter</a>";
                         }
                     }
-                    $pagination .= '...';
+                    $pagination .= self::DOTS;
 
                     $url->setQueryVariable($pagestring, $lpm1);
                     $newurl      = $url->toString();
@@ -177,7 +178,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
                     $url->setQueryVariable($pagestring, 2);
                     $newurl = $url->toString();
                     $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">2</a>";
-                    $pagination .= '...';
+                    $pagination .= self::DOTS;
 
                     for ($counter = $lastpage - (1 + ($adjacents * 3)); $counter <= $lastpage; $counter++) {
                         if ($counter == $page) {

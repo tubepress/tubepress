@@ -114,7 +114,7 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
             $callback       = array($filter, self::_getFilterMethodName($filterPoint));
             $filterAsString = get_class($filter);
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Now running filter %d of %d for filter point "%s": "%s"', 
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Running filter %d of %d for "%s" point: "%s"', 
                 $filterIndex, $filterCount, $filterPoint, $filterAsString);
     
             try {

@@ -36,7 +36,7 @@ class org_tubepress_impl_patterns_cor_ChainGangTest extends TubePressUnitTest {
      */
     function testExecuteWithNonCommand()
     {
-        $this->_sut->execute(array('org_tubepress_api_options_OptionsManager'));
+        $this->_sut->execute(array('org_tubepress_api_exec_ExecutionContext'));
     }
     
     /**

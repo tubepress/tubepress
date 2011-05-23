@@ -36,7 +36,7 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
         
         switch ($className) {
             
-            case 'org_tubepress_api_options_OptionsManager':
+            case 'org_tubepress_api_exec_ExecutionContext':
                 $this->setupOptionsManagerMock($mock);
                 break;
                 

@@ -23,24 +23,13 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePress
             ->method('getHtml')
             ->will($this->returnValue('foobar'));
         }
+        if ($className == 'org_tubepress_api_plugin_PluginManager') {
+            $mock->expects($this->once())
+                 ->method('runFilters')
+                 ->with(self::equalTo(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_PLAYER), self::any(), self::any(), self::any(), self::any())
+                 ->will($this->returnValue(self::getMock('org_tubepress_api_template_Template')));
+        }
         return $mock;
-    }
-
-    function testMobile()
-    {
-        self::$_isMobile = true;
-        $result = $this->_sut->getHtml($this->_video, 12);
-        $this->assertEquals(<<<EOT
-<div class="tubepress_normal_embedded_wrapper" style="width: 425px">
-    <div id="tubepress_embedded_title_12" class="tubepress_embedded_title">
-    </div>
-    <div id="tubepress_embedded_object_12">
-      foobar    
-    </div>
-  </div>
-
-EOT
-        , $result);
     }
 
     function testGetPreGalleryHtml()

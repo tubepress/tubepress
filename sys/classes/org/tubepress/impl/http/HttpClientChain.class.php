@@ -22,7 +22,7 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_http_HttpClient',
-    'org_tubepress_api_options_OptionsManager',
+    'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_patterns_cor_Chain',
     'org_tubepress_impl_http_HttpClientChainContext',
     'org_tubepress_impl_http_clientimpl_Encoding',
@@ -166,34 +166,34 @@ class org_tubepress_impl_http_HttpClientChain implements org_tubepress_api_http_
 
     private static function _getTransportCommands(org_tubepress_api_ioc_IocService $ioc)
     {
-        $result = array();
-        $tpom   = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $result  = array();
+        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
 
-        if (!$tpom->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_EXTHTTP)) {
+        if (!$context->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_EXTHTTP)) {
             $result[] = 'org_tubepress_impl_http_clientimpl_commands_ExtHttpCommand'; 
         } else {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'ExtHttp transport disabled by request');
         }
 
-        if (!$tpom->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_CURL)) {
+        if (!$context->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_CURL)) {
             $result[] = 'org_tubepress_impl_http_clientimpl_commands_CurlCommand'; 
         } else {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Curl transport disabled by request');
         }
 
-        if (!$tpom->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_STREAMS)) {
+        if (!$context->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_STREAMS)) {
             $result[] = 'org_tubepress_impl_http_clientimpl_commands_StreamsCommand'; 
         } else {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Streams transport disabled by request');
         }
 
-        if (!$tpom->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FOPEN)) {
+        if (!$context->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FOPEN)) {
             $result[] = 'org_tubepress_impl_http_clientimpl_commands_FopenCommand'; 
         } else {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'fopen transport disabled by request');
         }
 
-        if (!$tpom->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FSOCKOPEN)) {
+        if (!$context->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FSOCKOPEN)) {
             $result[] = 'org_tubepress_impl_http_clientimpl_commands_FsockOpenCommand'; 
         } else {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'fsockopen transport disabled by request');

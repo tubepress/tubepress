@@ -1,19 +1,19 @@
 <?php
 /**
  * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
- * 
+ *
  * This file is part of TubePress (http://tubepress.org)
- * 
+ *
  * TubePress is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * TubePress is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -35,7 +35,7 @@ class org_tubepress_impl_env_wordpress_Main
 {
     /**
      * Filters the WordPress content, looking for TubePress shortcodes and replacing them with galleries/videos.
-     * 
+     *
      * @param string $content The WordPress content.
      *
      * @return string The modified content.
@@ -44,7 +44,7 @@ class org_tubepress_impl_env_wordpress_Main
     {
         /* Whip up the IOC service */
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-            
+
         /* do as little work as possible here 'cause we might not even run */
         $wpsm    = $ioc->get('org_tubepress_api_options_StorageManager');
         $trigger = $wpsm->get(org_tubepress_api_const_options_names_Advanced::KEYWORD);
@@ -60,7 +60,7 @@ class org_tubepress_impl_env_wordpress_Main
 
     /**
      * Does the heavy lifting of generating videos/galleries from content.
-     * 
+     *
      * @param string $content The WordPress content.
      * @param string $trigger The shortcode keyword
      *
@@ -69,7 +69,7 @@ class org_tubepress_impl_env_wordpress_Main
     private static function _getHtml($content, $trigger, $parser, $ioc)
     {
         $ms      = $ioc->get('org_tubepress_api_message_MessageService');
-        $tpom    = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
         $gallery = $ioc->get('org_tubepress_api_shortcode_ShortcodeHtmlGenerator');
 
         /* Parse each shortcode one at a time */
@@ -83,12 +83,15 @@ class org_tubepress_impl_env_wordpress_Main
             }
 
             /* remove any leading/trailing <p> tags from the content */
-            $pattern = '/(<[P|p]>\s*)(' . preg_quote($tpom->getShortcode(), '/') . ')(\s*<\/[P|p]>)/';
+            $pattern = '/(<[P|p]>\s*)(' . preg_quote($context->getShortcode(), '/') . ')(\s*<\/[P|p]>)/';
             $content = preg_replace($pattern, '${2}', $content);
 
             /* replace the shortcode with our new content */
-            $currentShortcode = $tpom->getShortcode();
-            $content = org_tubepress_impl_util_StringUtils::replaceFirst($currentShortcode, $generatedHtml, $content);
+            $currentShortcode = $context->getShortcode();
+            $content          = org_tubepress_impl_util_StringUtils::replaceFirst($currentShortcode, $generatedHtml, $content);
+
+            /* reset the context for the next shortcode */
+            $context->reset();
         }
         return $content;
     }
@@ -104,13 +107,13 @@ class org_tubepress_impl_env_wordpress_Main
         if (is_admin()) {
             return;
         }
-        
+
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
         $hh  = $ioc->get('org_tubepress_api_html_HeadHtmlGenerator');
 
         /* this inline JS helps initialize TubePress */
         $inlineJs = $hh->getHeadInlineJs();
- 
+
         /* this meta stuff prevents search engines from indexing gallery pages > 1 */
         $meta = $hh->getHeadHtmlMeta();
 
@@ -138,7 +141,7 @@ EOT;
 
         wp_enqueue_script('jquery');
         wp_enqueue_script('tubepress');
-        
+
         wp_enqueue_style('tubepress');
     }
 }

@@ -21,7 +21,7 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_options_OptionsManager',
+    'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_options_OptionValidator',
     'org_tubepress_api_options_StorageManager',
     'org_tubepress_impl_ioc_IocContainer',
@@ -33,7 +33,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  * usually in persistent storage somewhere, and custom options parsed
  * from a shortcode
  */
-class org_tubepress_impl_options_SimpleOptionsManager implements org_tubepress_api_options_OptionsManager
+class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_api_exec_ExecutionContext
 {
     private $_customOptions = array();
     private $_shortcode;
@@ -46,6 +46,12 @@ class org_tubepress_impl_options_SimpleOptionsManager implements org_tubepress_a
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
         $this->_tpsm = $ioc->get('org_tubepress_api_options_StorageManager');
+    }
+    
+    public function reset()
+    {
+        $this->_customOptions = array();
+        $this->_shortcode     = '';
     }
 
     /**

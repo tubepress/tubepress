@@ -23,7 +23,7 @@ class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_ioc_IocService',
-    'org_tubepress_api_options_OptionsManager',
+    'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_url_Url',
     'org_tubepress_impl_embedded_commands_AbstractEmbeddedCommand',
 ));
@@ -33,20 +33,24 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_embedded_commands_JwFlvCommand extends org_tubepress_impl_embedded_commands_AbstractEmbeddedCommand
 {
-    protected function _canHandle($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
+    protected function _canHandle($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_exec_ExecutionContext $context)
     {
         return $providerName === org_tubepress_api_provider_Provider::YOUTUBE 
-            && $tpom->get(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL) === org_tubepress_api_const_options_values_PlayerImplementationValue::LONGTAIL;
+            && $context->get(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL) === org_tubepress_api_const_options_values_PlayerImplementationValue::LONGTAIL;
     }
 
-    protected function _getTemplatePath($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
+    protected function _getTemplatePath($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_exec_ExecutionContext $context)
     {
         return 'embedded_flash/longtail.tpl.php';
     }
 
-    protected function _getEmbeddedDataUrl($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
+    protected function _getEmbeddedDataUrl($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_exec_ExecutionContext $context)
     {    
-        $link = new org_tubepress_api_url_Url(sprintf('http://www.youtube.com/watch?v=%s', $videoId));
-        return $link->toString(true);
+        return new org_tubepress_api_url_Url(sprintf('http://www.youtube.com/watch?v=%s', $videoId));
+    }
+    
+    protected function _getEmbeddedImplName()
+    {
+        return 'longtail';
     }
 }

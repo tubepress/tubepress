@@ -13,7 +13,7 @@ class ShortcodeTests
 	{
 		$suite = new PHPUnit_Framework_TestSuite('TubePress Shortcode Tests');
 		$suite->addTestSuite('org_tubepress_impl_shortcode_SimpleShortcodeParserTest');
-		$suite->addTestSuite('org_tubepress_impl_shortcode_DefaultShortcodeHtmlGeneratorTest');
+		$suite->addTestSuite('org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChainTest');
 		$suite->addTestSuite('org_tubepress_impl_shortcode_commands_SearchInputCommandTest');
 		$suite->addTestSuite('org_tubepress_impl_shortcode_commands_SingleVideoCommandTest');
 		$suite->addTestSuite('org_tubepress_impl_shortcode_commands_SoloPlayerCommandTest');

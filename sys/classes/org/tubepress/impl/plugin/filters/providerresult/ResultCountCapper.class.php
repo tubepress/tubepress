@@ -26,14 +26,14 @@ class org_tubepress_impl_plugin_filters_providerresult_ResultCountCapper
 {
     const LOG_PREFIX = 'Result Count Capper';
 
-    public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $galleryId)
+    public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult)
     {
         $totalResults = $providerResult->getEffectiveTotalResultCount();
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom         = $ioc->get(org_tubepress_api_options_OptionsManager);
-        $limit        = $tpom-> get(org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP);
+        $context      = $ioc->get(org_tubepress_api_exec_ExecutionContext);
+        $limit        = $context-> get(org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP);
         $firstCut     = $limit == 0 ? $totalResults : min($limit, $totalResults);
-        $secondCut    = min($firstCut, self::_calculateRealMax($tpom, $firstCut));
+        $secondCut    = min($firstCut, self::_calculateRealMax($context, $firstCut));
         $videos       = $providerResult->getVideoArray();
         $resultCount  = count($videos);
 
@@ -48,9 +48,9 @@ class org_tubepress_impl_plugin_filters_providerresult_ResultCountCapper
         return $providerResult;
     }
     
-    private static function _calculateRealMax($tpom, $reported)
+    private static function _calculateRealMax($context, $reported)
     {
-        $mode = $tpom->get(org_tubepress_api_const_options_names_Output::MODE);
+        $mode = $context->get(org_tubepress_api_const_options_names_Output::MODE);
 
         switch ($mode) {
             case org_tubepress_api_const_options_values_ModeValue::TAG:

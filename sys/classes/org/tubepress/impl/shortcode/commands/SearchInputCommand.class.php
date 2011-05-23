@@ -43,17 +43,17 @@ class org_tubepress_impl_shortcode_commands_SearchInputCommand implements org_tu
      */
     public function execute($context)
     {
-        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
         
-        if ($tpom->get(org_tubepress_api_const_options_names_Output::OUTPUT) !== org_tubepress_api_const_options_values_OutputValue::SEARCH_INPUT) {
+        if ($execContext->get(org_tubepress_api_const_options_names_Output::OUTPUT) !== org_tubepress_api_const_options_values_OutputValue::SEARCH_INPUT) {
             return false;
         }
         
         $th         = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $ms         = $ioc->get('org_tubepress_api_message_MessageService');
         $template   = $th->getTemplateInstance($this->getTemplatePath());
-        $resultsUrl = $tpom->get(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL);
+        $resultsUrl = $execContext->get(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL);
         $qss        = $ioc->get('org_tubepress_api_querystring_QueryStringService');
         
         /* if the user didn't request a certain page, just send the search results right back here */

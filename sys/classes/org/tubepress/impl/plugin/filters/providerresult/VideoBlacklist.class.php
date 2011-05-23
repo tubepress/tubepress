@@ -24,12 +24,12 @@
  */
 class org_tubepress_impl_plugin_filters_providerresult_VideoBlacklist
 {
-	public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $galleryId)
+	public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult)
 	{
 		$videos         = $providerResult->getVideoArray();
 		$ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-		$tpom           = $ioc->get(org_tubepress_api_options_OptionsManager);
-		$blacklist      = $tpom->get(org_tubepress_api_const_options_names_Advanced::VIDEO_BLACKLIST);
+		$context        = $ioc->get(org_tubepress_api_exec_ExecutionContext);
+		$blacklist      = $context->get(org_tubepress_api_const_options_names_Advanced::VIDEO_BLACKLIST);
 		$videosToKeep   = array();
 		$blacklistCount = 0;
 

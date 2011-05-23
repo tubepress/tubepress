@@ -26,12 +26,12 @@ class org_tubepress_impl_plugin_filters_providerresult_Shuffler
 {
 	public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $galleryId)
 	{
-		$videos = $providerResult->getVideoArray();
-		$ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
-		$tpom   = $ioc->get(org_tubepress_api_options_OptionsManager);
+		$videos  = $providerResult->getVideoArray();
+		$ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
+		$context = $ioc->get(org_tubepress_api_exec_ExecutionContext);
 		
 	    /* shuffle if we need to */
-        if ($tpom->get(org_tubepress_api_const_options_names_Display::ORDER_BY) == org_tubepress_api_const_options_values_OrderValue::RANDOM) {
+        if ($context->get(org_tubepress_api_const_options_names_Display::ORDER_BY) == org_tubepress_api_const_options_values_OrderValue::RANDOM) {
             org_tubepress_impl_log_Log::log('Shuffler', 'Shuffling videos');
             shuffle($videos);
         }

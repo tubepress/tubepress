@@ -23,7 +23,7 @@ class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_filesystem_Explorer',
-    'org_tubepress_api_options_OptionsManager',
+    'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_log_Log',
@@ -62,8 +62,8 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
     public function calculateCurrentThemeName()
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom         = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $currentTheme = $tpom->get(org_tubepress_api_const_options_names_Display::THEME);
+        $execContext  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $currentTheme = $execContext->get(org_tubepress_api_const_options_names_Display::THEME);
         if ($currentTheme == '') {
             $currentTheme = 'default';
         }

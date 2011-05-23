@@ -49,15 +49,20 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_t
         if ($galleryId == '') {
             $galleryId = mt_rand();
         }
-
+        
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Starting to build thumbnail gallery %s', $galleryId);
 
         $provider      = $ioc->get('org_tubepress_api_provider_Provider');
-        $tpom          = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $execContext   = $ioc->get('org_tubepress_api_exec_ExecutionContext');
         $pluginManager = $ioc->get('org_tubepress_api_plugin_PluginManager');
         $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $ms            = $ioc->get('org_tubepress_api_message_MessageService');
+        $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
         $template      = $themeHandler->getTemplateInstance('gallery.tpl.php');
+        $page          = $qss->getPageNum($_GET);
+        $providerName  = $pc->calculateCurrentVideoProvider();
+        
+        $execContext->set(org_tubepress_api_const_ExecutionContextVariables::GALLERY_ID, $galleryId);
 
         /* first grab the videos */
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Asking provider for videos');
@@ -66,24 +71,20 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_t
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Provider has delivered %d videos', $numVideos);
         
         if ($numVideos == 0) {
-            $context->html = $ms->_('no-videos-found');
+            $context->setReturnValue($ms->_('no-videos-found'));
             return true;
         }
 
-        /* send the provider result through the plugins */
-        $feedResult = $pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $feedResult, $galleryId);
-
         /* send the template through the plugins */
-        $filteredTemplate = $pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $template, $feedResult, $galleryId);
+        $template = $pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $template, $feedResult, $page, $providerName);
 
         /* send gallery HTML through the plugins */
-        $filteredHtml = $pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_GALLERY, $filteredTemplate->toString(), $galleryId);
+        $filteredHtml = $pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_GALLERY, $template->toString(), $feedResult, $page, $providerName);
 
         /* we're done. tie up */
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Done assembling gallery %d', $galleryId);
-        $tpom->setCustomOptions(array());
 
-        $context->html = $filteredHtml;
+        $context->setReturnValue($filteredHtml);
         
         return true;
     }

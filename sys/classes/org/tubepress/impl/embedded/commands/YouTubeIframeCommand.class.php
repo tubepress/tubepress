@@ -23,7 +23,7 @@ class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_ioc_IocService',
-    'org_tubepress_api_options_OptionsManager',
+    'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_provider_Provider'
 ));
 
@@ -32,27 +32,27 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_embedded_commands_YouTubeIframeCommand extends org_tubepress_impl_embedded_commands_AbstractEmbeddedCommand
 {
-    protected function _canHandle($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
+    protected function _canHandle($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_exec_ExecutionContext $context)
     {
         return $providerName === org_tubepress_api_provider_Provider::YOUTUBE;
     }
 
-    protected function _getTemplatePath($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
+    protected function _getTemplatePath($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_exec_ExecutionContext $context)
     {
         return "embedded_flash/youtube.tpl.php";
     }
     
-    protected function _getEmbeddedDataUrl($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
+    protected function _getEmbeddedDataUrl($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_exec_ExecutionContext $context)
     {    
         $link  = new org_tubepress_api_url_Url('http://www.youtube.com/embed/' . $videoId);
 
-        $showRelated     = $tpom->get(org_tubepress_api_const_options_names_Embedded::SHOW_RELATED);
-        $autoPlay        = $tpom->get(org_tubepress_api_const_options_names_Embedded::AUTOPLAY);
-        $loop            = $tpom->get(org_tubepress_api_const_options_names_Embedded::LOOP);
-        $fullscreen      = $tpom->get(org_tubepress_api_const_options_names_Embedded::FULLSCREEN);
-        $playerColor     = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR), '999999');
-        $playerHighlight = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($tpom->get(org_tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT), 'FFFFFF');
-        $showInfo        = $tpom->get(org_tubepress_api_const_options_names_Embedded::SHOW_INFO);
+        $showRelated     = $context->get(org_tubepress_api_const_options_names_Embedded::SHOW_RELATED);
+        $autoPlay        = $context->get(org_tubepress_api_const_options_names_Embedded::AUTOPLAY);
+        $loop            = $context->get(org_tubepress_api_const_options_names_Embedded::LOOP);
+        $fullscreen      = $context->get(org_tubepress_api_const_options_names_Embedded::FULLSCREEN);
+        $playerColor     = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($context->get(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR), '999999');
+        $playerHighlight = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($context->get(org_tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT), 'FFFFFF');
+        $showInfo        = $context->get(org_tubepress_api_const_options_names_Embedded::SHOW_INFO);
 
         if (!($playerColor == '999999' && $playerHighlight == 'FFFFFF')) {
             $link->setQueryVariable('color2', '0x' . $playerColor);
@@ -66,10 +66,15 @@ class org_tubepress_impl_embedded_commands_YouTubeIframeCommand extends org_tube
         $link->setQueryVariable('showinfo', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
         $link->setQueryVariable('wmode', 'transparent');
 
-        if ($tpom->get(org_tubepress_api_const_options_names_Embedded::HIGH_QUALITY)) {
+        if ($context->get(org_tubepress_api_const_options_names_Embedded::HIGH_QUALITY)) {
             $link->setQueryVariable('hd', '1');
         }
 
-        return $link->toString(true);
+        return $link;
+    }
+    
+    protected function _getEmbeddedImplName()
+    {
+        return 'youtube';
     }
 }

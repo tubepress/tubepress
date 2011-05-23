@@ -39,23 +39,24 @@ class org_tubepress_impl_plugin_filters_galleryhtml_GalleryJs
      *
      * @return string The modified HTML
      */
-    public function alter_galleryHtml($html, $galleryId)
+    public function alter_galleryHtml($html, org_tubepress_api_provider_ProviderResult $providerResult, $page, $providerName)
     {
         if (!is_string($html)) {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Filter invoked with a non-string argument :(');
             return $html;
         }
         
-        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
         
-        $ajaxPagination   = $tpom->get(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION) ? 'true' : 'false';
-        $playerName       = $tpom->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
-        $shortcode        = rawurlencode($tpom->getShortcode());
-        $fluidThumbs      = $tpom->get(org_tubepress_api_const_options_names_Display::FLUID_THUMBS) ? 'true' : 'false';
-        $height           = $tpom->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT);
-        $width            = $tpom->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
+        $ajaxPagination   = $context->get(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION) ? 'true' : 'false';
+        $playerName       = $context->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
+        $shortcode        = rawurlencode($context->getShortcode());
+        $fluidThumbs      = $context->get(org_tubepress_api_const_options_names_Display::FLUID_THUMBS) ? 'true' : 'false';
+        $height           = $context->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT);
+        $width            = $context->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
         $theme            = $this->_getThemeName($ioc);
+        $galleryId        = $context->get(org_tubepress_api_const_ExecutionContextVariables::GALLERY_ID);
         
         return $html . <<<EOT
 <script type="text/javascript">

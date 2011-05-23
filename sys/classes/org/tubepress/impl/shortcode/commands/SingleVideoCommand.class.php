@@ -39,9 +39,9 @@ class org_tubepress_impl_shortcode_commands_SingleVideoCommand implements org_tu
      */
     public function execute($context)
     {
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom    = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $videoId = $tpom->get(org_tubepress_api_const_options_names_Output::VIDEO);
+        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $videoId     = $execContext->get(org_tubepress_api_const_options_names_Output::VIDEO);
         
         if ($videoId == '') {
             return false;
@@ -49,44 +49,30 @@ class org_tubepress_impl_shortcode_commands_SingleVideoCommand implements org_tu
         
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
 
-        $context->html = $this->getSingleVideoHtml($videoId);
+        $context->html = $this->_getSingleVideoHtml($videoId, $ioc);
         
         return true;
     }
     
-    private function getSingleVideoHtml($videoId)
+    private function _getSingleVideoHtml($videoId, $ioc)
     {
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $ms  = $ioc->get('org_tubepress_api_message_MessageService');
-        
+        $ms            = $ioc->get('org_tubepress_api_message_MessageService');
         $pluginManager = $ioc->get('org_tubepress_api_plugin_PluginManager');
         $provider      = $ioc->get('org_tubepress_api_provider_Provider');
         $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
         $template      = $themeHandler->getTemplateInstance('single_video.tpl.php');
+        $providerName  = $pc->calculateProviderOfVideoId($videoId);
 
         /* grab the video from the provider */
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Asking provider for video with ID %s', $videoId);
         $video = $provider->getSingleVideo($videoId);
-        
-        if ($video === null) {
-            return $ms->_('no-videos-found');
-        }
-
-        /* add some core template variables */
-        $template->setVariable(org_tubepress_api_const_template_Variable::VIDEO, $video);
 
         /* send the template through the filters */
-        $filteredTemplate = $pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $template, $video);
+        $template = $pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $template, $video, $providerName);
 
         /* send video HTML through the filters */
-        $filteredHtml = $pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_SINGLEVIDEO, $filteredTemplate->toString());
-
-        /* we're done. tie up. */
-        $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $tpom->setCustomOptions(array());
-
-        /* staples - that was easy */
-        return $filteredHtml;
+        return $pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_SINGLEVIDEO,
+                            $template->toString(), $video, $providerName);
     }
-
 }

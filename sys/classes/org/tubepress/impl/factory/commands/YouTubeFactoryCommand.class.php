@@ -208,11 +208,6 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommand extends org_tube
         return $this->_xpath->query('//atom:entry[' . ($index + 1) . "]/$query");
     }
     
-    protected function _getFilterPointNameForVideos()
-    {
-        return org_tubepress_api_const_plugin_FilterPoint::VIDEO_YOUTUBE;
-    }
-    
     private function _createXPath(DOMDocument $doc)
     {
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Building xpath to parse XML');

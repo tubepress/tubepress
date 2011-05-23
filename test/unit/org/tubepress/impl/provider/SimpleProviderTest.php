@@ -45,21 +45,21 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
     //    function testCurrentProviderDirectory()
     //    {
     //	$this->setOptions(array(org_tubepress_api_const_options_names_Output::MODE => 'directorySomething'));
-    //	$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
+    //	$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_exec_ExecutionContext');
     //	$this->assertTrue($this->_sut->calculateCurrentVideoProvider($tpom) == org_tubepress_api_provider_Provider::DIRECTORY);
     //    }
     //
     //    function testCurrentProviderVimeo()
     //    {
     //	$this->setOptions(array(org_tubepress_api_const_options_names_Output::MODE => 'vimeoSomething'));
-    //	$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
+    //	$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_exec_ExecutionContext');
     //	$this->assertTrue($this->_sut->calculateCurrentVideoProvider($tpom) == org_tubepress_api_provider_Provider::VIMEO);
     //    }
     //
     //    function testCurrentProviderWithVideoIdSet()
     //    {
     //	$this->setOptions(array(org_tubepress_api_const_options_names_Output::VIDEO => 'something'));
-    //	$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
+    //	$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_exec_ExecutionContext');
     //	$this->assertTrue($this->_sut->calculateCurrentVideoProvider($tpom) == org_tubepress_api_provider_Provider::YOUTUBE);
     //    }
     //

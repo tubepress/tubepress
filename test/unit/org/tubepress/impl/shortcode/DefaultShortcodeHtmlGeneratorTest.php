@@ -1,7 +1,7 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/shortcode/DefaultShortcodeHtmlGenerator.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/shortcode/ShortcodeHtmlGeneratorChain.class.php';
 
-class org_tubepress_impl_shortcode_DefaultShortcodeHtmlGeneratorTest extends TubePressUnitTest {
+class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChainTest extends TubePressUnitTest {
 
     private $_sut;
     private $_page;
@@ -11,7 +11,7 @@ class org_tubepress_impl_shortcode_DefaultShortcodeHtmlGeneratorTest extends Tub
     {
         $this->_page = 1;
         parent::setUp();
-        $this->_sut = new org_tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator();
+        $this->_sut = new org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain();
     }
 
     function getMock($className)

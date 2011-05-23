@@ -25,13 +25,16 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_impl_ioc_IocContainer'
 ));
 
+/**
+ * Convenience methods for the API user.
+ */
 class TubePress {
 
     public static function registerFilter($filterPointName, $pluginInstance)
     {
         $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
         $pluginManager = $ioc->get('org_tubepress_api_plugin_PluginManager');
-        
+
         $pluginManager->registerFilter($filterPointName, $pluginInstance);
     }
 }

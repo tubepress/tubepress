@@ -28,7 +28,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Meta',
     'org_tubepress_api_const_options_values_ModeValue',
     'org_tubepress_api_url_Url',
-    'org_tubepress_api_options_OptionsManager',
+    'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_impl_url_commands_AbstractUrlBuilderCommand',
 ));
 
@@ -47,26 +47,26 @@ class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand extends org_tubep
      */
     protected function _buildGalleryUrl($currentPage)
     {
-        $url  = '';
-        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $url         = '';
+        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
 
-        switch ($tpom->get(org_tubepress_api_const_options_names_Output::MODE)) {
+        switch ($execContext->get(org_tubepress_api_const_options_names_Output::MODE)) {
 
         case org_tubepress_api_const_options_values_ModeValue::USER:
-            $url = 'users/' . $tpom->get(org_tubepress_api_const_options_names_Output::USER_VALUE) . '/uploads';
+            $url = 'users/' . $execContext->get(org_tubepress_api_const_options_names_Output::USER_VALUE) . '/uploads';
             break;
 
         case org_tubepress_api_const_options_values_ModeValue::TOP_RATED:
-            $url = 'standardfeeds/top_rated?time=' . $tpom->get(org_tubepress_api_const_options_names_Output::TOP_RATED_VALUE);
+            $url = 'standardfeeds/top_rated?time=' . $execContext->get(org_tubepress_api_const_options_names_Output::TOP_RATED_VALUE);
             break;
 
         case org_tubepress_api_const_options_values_ModeValue::POPULAR:
-            $url = 'standardfeeds/most_viewed?time=' . $tpom->get(org_tubepress_api_const_options_names_Output::MOST_VIEWED_VALUE);
+            $url = 'standardfeeds/most_viewed?time=' . $execContext->get(org_tubepress_api_const_options_names_Output::MOST_VIEWED_VALUE);
             break;
 
         case org_tubepress_api_const_options_values_ModeValue::PLAYLIST:
-            $url = 'playlists/' . $tpom->get(org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE);
+            $url = 'playlists/' . $execContext->get(org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE);
             break;
 
         case org_tubepress_api_const_options_values_ModeValue::MOST_RESPONDED:
@@ -86,16 +86,16 @@ class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand extends org_tubep
             break;
 
         case org_tubepress_api_const_options_values_ModeValue::FAVORITES:
-            $url = 'users/' . $tpom->get(org_tubepress_api_const_options_names_Output::FAVORITES_VALUE) . '/favorites';
+            $url = 'users/' . $execContext->get(org_tubepress_api_const_options_names_Output::FAVORITES_VALUE) . '/favorites';
             break;
 
         case org_tubepress_api_const_options_values_ModeValue::TAG:
-            $tags = $tpom->get(org_tubepress_api_const_options_names_Output::TAG_VALUE);
+            $tags = $execContext->get(org_tubepress_api_const_options_names_Output::TAG_VALUE);
             $tags = str_replace(' ', '+', self::_replaceQuotes($tags));
             $tags = rawurlencode($tags);
             $url  = "videos?q=$tags";
 
-            $filter = $tpom->get(org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER);
+            $filter = $execContext->get(org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER);
             if ($filter != '') {
                 $url .= "&author=$filter";
             }
@@ -107,8 +107,8 @@ class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand extends org_tubep
         }
 
         $request = new org_tubepress_api_url_Url("http://gdata.youtube.com/feeds/api/$url");
-        $this->_commonUrlPostProcessing($tpom, $request);
-        $this->_galleryUrlPostProcessing($tpom, $request, $currentPage);
+        $this->_commonUrlPostProcessing($execContext, $request);
+        $this->_galleryUrlPostProcessing($execContext, $request, $currentPage);
         return $request->toString();
     }
 
@@ -135,15 +135,15 @@ class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand extends org_tubep
         }
 
         $requestURL = new org_tubepress_api_url_Url("http://gdata.youtube.com/feeds/api/videos/$id");
-        $this->_commonUrlPostProcessing($ioc->get('org_tubepress_api_options_OptionsManager'), $requestURL);
+        $this->_commonUrlPostProcessing($ioc->get('org_tubepress_api_exec_ExecutionContext'), $requestURL);
 
         return $requestURL->toString();
     }
 
-    private function _commonUrlPostProcessing(org_tubepress_api_options_OptionsManager $tpom, org_tubepress_api_url_Url $url)
+    private function _commonUrlPostProcessing(org_tubepress_api_exec_ExecutionContext $execContext, org_tubepress_api_url_Url $url)
     {
         $url->setQueryVariable('v', 2);
-        $url->setQueryVariable('key', $tpom->get(org_tubepress_api_const_options_names_Feed::DEV_KEY));
+        $url->setQueryVariable('key', $execContext->get(org_tubepress_api_const_options_names_Feed::DEV_KEY));
     }
 
     /**
@@ -154,9 +154,9 @@ class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand extends org_tubep
      * 
      * @return void
      */
-    private function _galleryUrlPostProcessing(org_tubepress_api_options_OptionsManager $tpom, org_tubepress_api_url_Url $url, $currentPage)
+    private function _galleryUrlPostProcessing(org_tubepress_api_exec_ExecutionContext $execContext, org_tubepress_api_url_Url $url, $currentPage)
     {
-        $perPage = $tpom->get(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE);
+        $perPage = $execContext->get(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE);
 
         /* start index of the videos */
         $start = ($currentPage * $perPage) - $perPage + 1;
@@ -164,19 +164,19 @@ class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand extends org_tubep
         $url->setQueryVariable('start-index', $start);
         $url->setQueryVariable('max-results', $perPage);
         
-        $this->_setOrderBy($tpom, $url);
+        $this->_setOrderBy($execContext, $url);
         
-        $url->setQueryVariable('safeSearch', $tpom->get(org_tubepress_api_const_options_names_Feed::FILTER));
+        $url->setQueryVariable('safeSearch', $execContext->get(org_tubepress_api_const_options_names_Feed::FILTER));
 
-        if ($tpom->get(org_tubepress_api_const_options_names_Feed::EMBEDDABLE_ONLY)) {
+        if ($execContext->get(org_tubepress_api_const_options_names_Feed::EMBEDDABLE_ONLY)) {
             $url->setQueryVariable('format', '5');
         }
     }
 
-    private function _setOrderBy(org_tubepress_api_options_OptionsManager $tpom, org_tubepress_api_url_Url $url) 
+    private function _setOrderBy(org_tubepress_api_exec_ExecutionContext $execContext, org_tubepress_api_url_Url $url) 
     {
-        $order = $tpom->get(org_tubepress_api_const_options_names_Display::ORDER_BY);
-        $mode  = $tpom->get(org_tubepress_api_const_options_names_Output::MODE);
+        $order = $execContext->get(org_tubepress_api_const_options_names_Display::ORDER_BY);
+        $mode  = $execContext->get(org_tubepress_api_const_options_names_Output::MODE);
 
         if ($order == 'random') {
             return;

@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/options/SimpleOptionsManager.class.php';
 
-class org_tubepress_impl_options_SimpleOptionsManagerTest extends TubePressUnitTest {
+class org_tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTest {
     
 	private $_sut;
 	
@@ -11,7 +11,7 @@ class org_tubepress_impl_options_SimpleOptionsManagerTest extends TubePressUnitT
 	public function setup()
 	{
 		parent::setUp();
-		$this->_sut = new org_tubepress_impl_options_SimpleOptionsManager();
+		$this->_sut = new org_tubepress_impl_exec_MemoryExecutionContext();
 	}
     
 	public function testSetGet()

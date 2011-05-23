@@ -23,7 +23,7 @@ class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_ioc_IocService',
-    'org_tubepress_api_options_OptionsManager',
+    'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_provider_Provider',
     'org_tubepress_api_url_Url',
     'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
@@ -43,22 +43,22 @@ class org_tubepress_impl_embedded_commands_VimeoCommand extends org_tubepress_im
     const VIMEO_QUERYPARAM_LOOP     = 'loop';
     const VIMEO_QUERYPARAM_PORTRAIT = 'portrait';
 
-    protected function _canHandle($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
+    protected function _canHandle($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_exec_ExecutionContext $context)
     {
         return $providerName === org_tubepress_api_provider_Provider::VIMEO;
     }
 
-    protected function _getTemplatePath($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
+    protected function _getTemplatePath($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_exec_ExecutionContext $context)
     {
         return 'embedded_flash/vimeo.tpl.php';
     }
 
-    protected function _getEmbeddedDataUrl($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_options_OptionsManager $tpom)
+    protected function _getEmbeddedDataUrl($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_exec_ExecutionContext $context)
     {
-        $autoPlay = $tpom->get(org_tubepress_api_const_options_names_Embedded::AUTOPLAY);
-        $color    = $tpom->get(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR);
-        $showInfo = $tpom->get(org_tubepress_api_const_options_names_Embedded::SHOW_INFO);
-        $loop     = $tpom->get(org_tubepress_api_const_options_names_Embedded::LOOP);
+        $autoPlay = $context->get(org_tubepress_api_const_options_names_Embedded::AUTOPLAY);
+        $color    = $context->get(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR);
+        $showInfo = $context->get(org_tubepress_api_const_options_names_Embedded::SHOW_INFO);
+        $loop     = $context->get(org_tubepress_api_const_options_names_Embedded::LOOP);
 
         /* build the data URL based on these options */
         $link = new org_tubepress_api_url_Url(self::VIMEO_EMBEDDED_PLAYER_URL . "video/$videoId");
@@ -69,6 +69,11 @@ class org_tubepress_impl_embedded_commands_VimeoCommand extends org_tubepress_im
         $link->setQueryVariable(self::VIMEO_QUERYPARAM_BYLINE, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
         $link->setQueryVariable(self::VIMEO_QUERYPARAM_PORTRAIT, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
 
-        return $link->toString(true);
+        return $link;
+    }
+    
+    protected function _getEmbeddedImplName()
+    {
+        return 'vimeo';
     }
 }

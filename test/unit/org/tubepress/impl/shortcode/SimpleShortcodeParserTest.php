@@ -27,7 +27,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 	function testMixedCommasWithAllSortsOfQuotes()
 	{
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
-		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
+		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_exec_ExecutionContext');
 		
 		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
 			org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE => 'foobar',
@@ -45,7 +45,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 	function testNoCommasWithAllSortsOfQuotes()
 	{
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
-		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
+		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_exec_ExecutionContext');
 		
 		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
 			org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE => 'foobar',
@@ -63,7 +63,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 	function testCommasWithAllSortsOfQuotes()
 	{
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
-		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
+		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_exec_ExecutionContext');
 		
 		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
 			org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE => 'foobar',
@@ -87,7 +87,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 	function testWeirdSingleQuotes()
 	{
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
-		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
+		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_exec_ExecutionContext');
 		
 		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
 			org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE => 'foobar');
@@ -102,7 +102,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 	function testWeirdDoubleQuotes()
 	{
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
-		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
+		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_exec_ExecutionContext');
 		
 		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
 			org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE => 'foobar');
@@ -117,7 +117,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 	function testNoQuotes()
 	{	
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
-		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
+		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_exec_ExecutionContext');
 		
 		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST);
 					
@@ -131,7 +131,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 	function testSingleQuotes()
 	{
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
-		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
+		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_exec_ExecutionContext');
 		
 		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST);
 					
@@ -145,7 +145,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 	function testDoubleQuotes()
 	{
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
-		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
+		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_exec_ExecutionContext');
 		
 		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST);
 					
@@ -182,7 +182,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 	function testSpaceAroundAttributes()
 	{
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
-		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
+		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_exec_ExecutionContext');
 		
 		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST);
 		$content = "[butters mode='playlist']";
@@ -197,7 +197,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 	function testSpaceAroundShortcode()
 	{
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
-		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
+		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_exec_ExecutionContext');
 		
 		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST);
 		$content = "sddf	 [butters mode='playlist']	sdsdfsdf";
@@ -212,7 +212,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 	function testNoSpaceAroundShortcode()
 	{
 		$this->setOptions(array(org_tubepress_api_const_options_names_Advanced::KEYWORD => 'butters'));
-		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_options_OptionsManager');
+		$tpom = org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_exec_ExecutionContext');
 		
 		$expectedOptions = array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST);
 		$content = "sddf[butters mode='playlist']sdsdfsdf";

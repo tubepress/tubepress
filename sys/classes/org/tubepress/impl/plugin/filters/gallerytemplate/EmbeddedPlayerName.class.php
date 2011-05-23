@@ -23,7 +23,7 @@ class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_const_template_Variable',
-    'org_tubepress_api_options_OptionsManager',
+    'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_provider_Provider',
     'org_tubepress_api_provider_ProviderCalculator',
     'org_tubepress_api_provider_ProviderResult',
@@ -36,7 +36,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_plugin_filters_gallerytemplate_EmbeddedPlayerName
 {
-    public function alter_galleryTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_provider_ProviderResult $providerResult, $galleryId)
+    public function alter_galleryTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_provider_ProviderResult $providerResult, $page, $providerName)
     {
         $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, self::_getEmbeddedServiceName());
         
@@ -46,8 +46,8 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_EmbeddedPlayerName
     private static function _getEmbeddedServiceName()
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom         = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $stored       = $tpom->get(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
+        $context      = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $stored       = $context->get(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
         $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
         $providerName = $pc->calculateCurrentVideoProvider();
         

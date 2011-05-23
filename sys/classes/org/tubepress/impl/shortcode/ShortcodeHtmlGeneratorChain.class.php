@@ -34,28 +34,47 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 /**
  * HTML handler implementation.
  */
-class org_tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements org_tubepress_api_shortcode_ShortcodeHtmlGenerator
+class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements org_tubepress_api_shortcode_ShortcodeHtmlGenerator
 {
     const LOG_PREFIX = 'HTML Generator';
-    
-    private $_ioc;
-    
-    private $_tpom;
-    
-    private $_chain;
-    
-    private $_tubepressBaseUrl;
 
-    public function __construct()
+    /**
+     * Generates the HTML for TubePress. Could be a gallery or single video.
+     *
+     * @param string $shortCodeContent The shortcode content.
+     *
+     * @return The HTML for the given shortcode, or the error message if there was a problem.
+     */
+    public function getHtmlForShortcode($shortCodeContent)
     {
         global $tubepress_base_url;
         
-        $this->_tubepressBaseUrl = $tubepress_base_url;
-        $this->_ioc              = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $this->_tpom             = $this->_ioc->get('org_tubepress_api_options_OptionsManager');
-        $this->_chain            = $this->_ioc->get('org_tubepress_api_patterns_cor_Chain');
-    }
+        $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $tpom  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $pm    = $ioc->get('org_tubepress_api_plugin_PluginManager');
 
+        /* do a bit of logging */
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Type of IOC container is %s', get_class($ioc));
+
+        /* parse the shortcode if we need to */
+        if ($shortCodeContent != '') {
+            $shortcodeParser = $ioc->get('org_tubepress_api_shortcode_ShortcodeParser');
+            $shortcodeParser->parse($shortCodeContent);
+        }
+
+        /* use the chain to get the HTML */
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Running the shortcode HTML chain');
+        $rawHtml = $this->_runChain($chain);
+        
+        /* send it through the filters */
+        if ($pm->hasFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_ANY)) {            
+            return $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_ANY, $rawHtml);
+        }
+        
+        return $rawHtml;
+    }
+    
     protected function _getShortcodeCommands()
     {
         return array(
@@ -67,48 +86,15 @@ class org_tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements org_
         );
     }
     
-    /**
-     * Generates the HTML for TubePress. Could be a gallery or single video.
-     *
-     * @param string $shortCodeContent The shortcode content.
-     *
-     * @return The HTML for the given shortcode, or the error message if there was a problem.
-     */
-    public function getHtmlForShortcode($shortCodeContent)
-    {
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $pm  = $ioc->get('org_tubepress_api_plugin_PluginManager');
-
-        /* do a bit of logging */
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Type of IOC container is %s', get_class($ioc));
-
-        /* parse the shortcode if we need to */
-        if ($shortCodeContent != '') {
-            $shortcodeParser = $ioc->get('org_tubepress_api_shortcode_ShortcodeParser');
-            $shortcodeParser->parse($shortCodeContent);
-        }
-
-        /* use the command manager to get the HTML */
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Running the shortcode HTML chain');
-        $rawHtml = $this->_runChain();
-        
-        /* send it through the filters */
-        if ($pm->hasFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_ANY)) {            
-            return $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_ANY, $rawHtml);
-        }
-        
-        return $rawHtml;
-    }
-    
-    private function _runChain()
+    private function _runChain(org_tubepress_api_patterns_cor_Chain $chain)
     {
         $context = new org_tubepress_impl_shortcode_ShortcodeHtmlGenerationChainContext();
-        $status  = $this->_chain->execute($context, $this->_getShortcodeCommands());
+        $status  = $chain->execute($context, $this->_getShortcodeCommands());
 
         if ($status === false) {
-            throw new Exception('No commands could handle execution.');
+            throw new Exception('No commands could generate the shortcode HTML.');
         }
-        
+
         return $context->getReturnValue();
     }
 }

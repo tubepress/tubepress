@@ -20,11 +20,11 @@
  */
 
 /**
- * Holds the current options for TubePress. This is the default options,
+ * Holds the current execution context for TubePress. This is the default options,
  * usually in persistent storage somewhere, and custom options parsed
- * from a shortcode
+ * from a shortcode.
  */
-interface org_tubepress_api_options_OptionsManager
+interface org_tubepress_api_exec_ExecutionContext
 {
     /**
      * Gets the value of an option
@@ -76,4 +76,9 @@ interface org_tubepress_api_options_OptionsManager
      * @return string The current shortcode
      */
     function getShortcode();
+    
+    /**
+     * Resets the context for fresh execution.
+     */
+    function reset();
 }

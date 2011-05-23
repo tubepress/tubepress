@@ -60,13 +60,13 @@ class org_tubepress_impl_env_wordpress_Widget
         extract($opts);
 
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom         = $iocContainer->get('org_tubepress_api_options_OptionsManager');
+        $context      = $iocContainer->get('org_tubepress_api_exec_ExecutionContext');
         $parser       = $iocContainer->get('org_tubepress_api_shortcode_ShortcodeParser');
         $gallery      = $iocContainer->get('org_tubepress_api_shortcode_ShortcodeHtmlGenerator');
         $ms           = $iocContainer->get('org_tubepress_api_message_MessageService');
 
         /* Turn on logging if we need to */
-        org_tubepress_impl_log_Log::setEnabled($tpom->get(org_tubepress_api_const_options_names_Advanced::DEBUG_ON), $_GET);
+        org_tubepress_impl_log_Log::setEnabled($context->get(org_tubepress_api_const_options_names_Advanced::DEBUG_ON), $_GET);
 
         /* default widget options */
         $defaultWidgetOptions = array(
@@ -83,15 +83,15 @@ class org_tubepress_impl_env_wordpress_Widget
         );
 
         /* now apply the user's options */
-        $wpsm = $iocContainer->get('org_tubepress_api_options_OptionsManager');
+        $wpsm = $iocContainer->get('org_tubepress_api_exec_ExecutionContext');
         $parser->parse($wpsm->get(org_tubepress_api_const_options_names_Widget::TAGSTRING));
 
         /* calculate the final options */
-        $finalOptions = array_merge($defaultWidgetOptions, $tpom->getCustomOptions());
-        $tpom->setCustomOptions($finalOptions);
+        $finalOptions = array_merge($defaultWidgetOptions, $context->getCustomOptions());
+        $context->setCustomOptions($finalOptions);
 
-        if ($tpom->get(org_tubepress_api_const_options_names_Display::THEME) === '') {
-            $tpom->set(org_tubepress_api_const_options_names_Display::THEME, 'sidebar');
+        if ($context->get(org_tubepress_api_const_options_names_Display::THEME) === '') {
+            $context->set(org_tubepress_api_const_options_names_Display::THEME, 'sidebar');
         }
 
         try {
@@ -104,6 +104,9 @@ class org_tubepress_impl_env_wordpress_Widget
         echo $before_widget . $before_title .
             $wpsm->get(org_tubepress_api_const_options_names_Widget::TITLE) .
             $after_title . $out . $after_widget;
+            
+        /* reset the context for the next shortcode */
+        $context->reset();
     }
 
     /**

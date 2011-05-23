@@ -46,9 +46,9 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommand implements org_tub
      */
     public function execute($context)
     {
-        $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom       = $ioc->get('org_tubepress_api_options_OptionsManager');
-        $playerName = $tpom->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
+        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $playerName  = $execContext->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
 
         if ($playerName !== org_tubepress_api_const_options_values_PlayerValue::SOLO) {
             return false;
@@ -66,7 +66,7 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommand implements org_tub
         }
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
-        $tpom->set(org_tubepress_api_const_options_names_Output::VIDEO, $videoId);
+        $execContext->set(org_tubepress_api_const_options_names_Output::VIDEO, $videoId);
 
         /* display the results as a thumb gallery */
         $ioc->get('org_tubepress_api_patterns_cor_Chain')->execute($context, array(

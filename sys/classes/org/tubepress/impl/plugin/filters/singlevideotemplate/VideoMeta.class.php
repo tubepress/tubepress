@@ -26,6 +26,6 @@ class org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMeta extends or
 {
     public function alter_singleVideoTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_video_Video $video)
     {
-        return parent::alter_galleryTemplate($template, new org_tubepress_api_provider_ProviderResult(), $galleryId);
+        return parent::alter_galleryTemplate($template, new org_tubepress_api_provider_ProviderResult(), '');
     }
 }
