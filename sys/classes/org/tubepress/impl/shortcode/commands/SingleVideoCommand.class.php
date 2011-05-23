@@ -49,7 +49,7 @@ class org_tubepress_impl_shortcode_commands_SingleVideoCommand implements org_tu
         
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
 
-        $context->html = $this->_getSingleVideoHtml($videoId, $ioc);
+        $context->setReturnValue($this->_getSingleVideoHtml($videoId, $ioc));
         
         return true;
     }
