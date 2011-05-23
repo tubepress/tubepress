@@ -11,18 +11,19 @@ var TubePressShadowboxPlayer = (function () {
 	/* this stuff helps compression */
 	var events	= TubePressEvents,
 		name	= 'shadowbox',
-		jquery	= jquery,
+		jquery	= jQuery,
 		doc		= jquery(document),
-		sb	= Shadowbox,
-		url		= getTubePressBaseUrl() + '/sys/ui/static/players/shadowbox/',
+		url		= getTubePressBaseUrl() + '/sys/ui/static/players/shadowbox/';//,
 
 		boot	= function () {
 
-			if (typeof sb === 'undefined') {
+			if (typeof Shadowbox === 'undefined') {
 				setTimeout(boot, 400);
 				return;
 			}
 		
+			var sb = Shadowbox;
+			
 			sb.path = url + 'lib/';
 			sb.init({
 				initialHeight	: 160,
@@ -35,7 +36,7 @@ var TubePressShadowboxPlayer = (function () {
 		},
 		
 		invoke = function (e, videoId, galleryId, width, height) {
-			sb.open({
+			Shadowbox.open({
 				player:		'html',
 				height:		height,
 				width:		width,
@@ -47,15 +48,15 @@ var TubePressShadowboxPlayer = (function () {
 			
 			if (!jquery('#sb-player').length) {
 				setTimeout( function () { populate(e, title, html, height, width, videoId, galleryId); }, 200);
-				console.log('waiting');
 				return;
 			}
 			
 			jquery('#sb-player').html(html);
 		};
 		
-	jquery.getScript(url + 'lib/shadowbox.js', function () {}, true);
+	jQuery.getScript(url + 'lib/shadowbox.js', function () {}, true);
 	TubePressCss.load(url + 'lib/shadowbox.css');
+
 	boot();
 	
 	doc.bind(events.PLAYER_INVOKE + name, invoke);

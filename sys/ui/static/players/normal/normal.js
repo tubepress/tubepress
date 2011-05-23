@@ -30,23 +30,18 @@ var TubePressNormalPlayer = (function () {
 		},
 	
 		invoke = function (e, videoId, galleryId, width, height) {
-		
+
 			var titleDivId = getTitleId(galleryId);
 			
 			applyLoadingStyle(titleDivId);
 			applyLoadingStyle(getEmbedId(galleryId));
-		
+
 			jquery(titleDivId)[0].scrollIntoView(true);
 		},
 		
 		populate = function (e, title, html, height, width, videoId, galleryId) {
 			
-			var content 		= jquery(getEmbedId(galleryId)),
-				titleElement	= jquery(getTitleId(galleryId));
-			
-			content.empty();
-			content.html(html);
-			titleElement.html(title);
+			jquery('#tubepress_gallery_' + galleryId + ' div.tubepress_normal_embedded_wrapper:first').replaceWith(html);
 			
 			removeLoadingStyle(getTitleId(galleryId));
 			removeLoadingStyle(getEmbedId(galleryId));

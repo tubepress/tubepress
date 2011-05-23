@@ -121,6 +121,8 @@ var TubePressGallery = (function () {
 
 	var galleries = {},
 	
+		cssLoaded = {},
+	
 		isFluidThumbs = function (galleryId) {
 			return galleries[galleryId].fluidThumbs;
 		},
@@ -145,11 +147,21 @@ var TubePressGallery = (function () {
 			return galleries[galleryId].embeddedWidth;
 		},
 		
+		getThemeCss = function (galleryId) {
+			return galleries[galleryId].themeCSS;
+		},
+		
 		init = function (galleryId, params) {
-			
+
 			/* save the params */
 			galleries[galleryId] = params;
-
+			
+			var theme = getThemeCss(galleryId);
+			if (theme != 'default' && cssLoaded[theme] !== true) {
+				TubePressCss.load(getTubePressBaseUrl() + '/sys/ui/themes/' + theme + '/style.css');
+				cssLoaded[theme] = true;
+			}
+			
 			/* init the thumbs */
 			jQuery(document).trigger(TubePressEvents.NEW_GALLERY_LOADED, galleryId);
 		};
@@ -209,11 +221,11 @@ var TubePressPlayers = (function () {
 				
 					var title = decodeURIComponent(data.title),
 						html = decodeURIComponent(data.html);
-					
+
 					documentElement.trigger(tubepressEvents.PLAYER_POPULATE + playerName, [ title, html, height, width, videoId, galleryId ]); 
 				},
-				dataToSend			= { tubepress_video : videoId, tubepress_shortcode : shortcode },
-				url					= getTubePressBaseUrl() + '/sys/scripts/ajax/embeddedHtml.php';
+				dataToSend			= { tubepress_video : videoId, tubepress_shortcode : shortcode, tubepress_galleryId : galleryId },
+				url					= getTubePressBaseUrl() + '/sys/scripts/ajax/playerHtml.php';
 		
 			/* announce we're gonna invoke the player... */
 			documentElement.trigger(tubepressEvents.PLAYER_INVOKE + playerName, [ videoId, galleryId, width, height ]);
