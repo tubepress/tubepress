@@ -165,7 +165,7 @@ msgstr "Disponi i video"
 msgid "Embedded Player"
 msgstr "Lettore incorporato"
 
-msgid "Auto-play videos"
+msgid "Auto-play all videos"
 msgstr "Avvio automatico"
 
 msgid "Allow fullscreen playback"
@@ -552,3 +552,14 @@ msgstr "Nessun video corrispondente"
 msgid "Search"
 msgstr "Cerca"
 
+msgid "Use \"fluid\" thumbnails"
+msgstr ""
+
+msgid "Dynamically set thumbnail spacing based on the width of their container."
+msgstr ""
+
+msgid "Auto-play each video after thumbnail click"
+msgstr ""
+
+msgid "\"Lazy\" play videos"
+msgstr ""

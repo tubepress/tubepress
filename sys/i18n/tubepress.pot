@@ -164,7 +164,7 @@ msgstr ""
 msgid "Embedded Player"
 msgstr ""
 
-msgid "Auto-play videos"
+msgid "Auto-play all videos"
 msgstr ""
 
 msgid "Allow fullscreen playback"
@@ -546,4 +546,16 @@ msgid "No matching videos"
 msgstr ""
 
 msgid "Search"
+msgstr ""
+
+msgid "Use \"fluid\" thumbnails"
+msgstr ""
+
+msgid "Dynamically set thumbnail spacing based on the width of their container."
+msgstr ""
+
+msgid "\"Lazy\" play videos"
+msgstr ""
+
+msgid "Auto-play each video after thumbnail click"
 msgstr ""

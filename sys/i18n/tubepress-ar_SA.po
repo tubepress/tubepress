@@ -161,7 +161,7 @@ msgstr "رتب الفيديوهات على حسب"
 msgid "Embedded Player"
 msgstr "مشغل مدمج"
 
-msgid "Auto-play videos"
+msgid "Auto-play all videos"
 msgstr "شغل الفيديو تلقائياً"
 
 msgid "Allow fullscreen playback"
@@ -549,3 +549,14 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
+msgid "Use \"fluid\" thumbnails"
+msgstr ""
+
+msgid "Dynamically set thumbnail spacing based on the width of their container."
+msgstr ""
+
+msgid "Auto-play each video after thumbnail click"
+msgstr ""
+
+msgid "\"Lazy\" play videos"
+msgstr ""

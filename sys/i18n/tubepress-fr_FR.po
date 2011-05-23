@@ -121,7 +121,7 @@ msgstr "Trier les vidéos par"
 msgid "Embedded Player"
 msgstr "Lecteur embarqué"
 
-msgid "Auto-play videos"
+msgid "Auto-play all videos"
 msgstr "Lecture auto des vidéos"
 
 msgid "Allow fullscreen playback"
@@ -533,4 +533,16 @@ msgid "No matching videos"
 msgstr ""
 
 msgid "Search"
+msgstr ""
+
+msgid "Use \"fluid\" thumbnails"
+msgstr ""
+
+msgid "Dynamically set thumbnail spacing based on the width of their container."
+msgstr ""
+
+msgid "Auto-play each video after thumbnail click"
+msgstr ""
+
+msgid "\"Lazy\" play videos"
 msgstr ""
