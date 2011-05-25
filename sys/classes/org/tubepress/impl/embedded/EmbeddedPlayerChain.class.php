@@ -54,6 +54,7 @@ class org_tubepress_impl_embedded_EmbeddedPlayerChain implements org_tubepress_a
         /* let the commands do the heavy lifting */
         $status = $chain->execute($context, array(
              'org_tubepress_impl_embedded_commands_JwFlvCommand',
+             'org_tubepress_impl_embedded_commands_EmbedPlusCommand',
              'org_tubepress_impl_embedded_commands_YouTubeIframeCommand',
              'org_tubepress_impl_embedded_commands_VimeoCommand',
         ));
@@ -62,18 +63,16 @@ class org_tubepress_impl_embedded_EmbeddedPlayerChain implements org_tubepress_a
         if ($status === false) {
             throw new Exception('No commands could produce the embedded HTML');
         }
-        
+
         /* pull out the relevant stuff from the context */
         $template = $context->getTemplate();
         $dataUrl  = $context->getDataUrl();
         $implName = $context->getEmbeddedImplementationName();
-        
+
         $template = $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_EMBEDDED,
-            $template, $videoId, $providerName, $dataUrl, $implName
-        );
-        
+            $template, $videoId, $providerName, $dataUrl, $implName);
+
         return $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_EMBEDDED,
-            $template->toString(), $videoId, $providerName, $implName
-        );
+            $template->toString(), $videoId, $providerName, $implName);
     }
 }

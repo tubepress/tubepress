@@ -238,9 +238,10 @@ abstract class org_tubepress_impl_message_AbstractMessageService implements org_
         'safeSearch-moderate' => 'moderate',
         'safeSearch-strict'   => 'strict',
 
-        'playerImplementation-provider_based'    => 'Provider default',
-        'playerImplementation-longtail'   => 'JW FLV Media Player (by Longtail Video)',
-    
+        'playerImplementation-provider_based' => 'Provider default',
+        'playerImplementation-longtail'       => 'JW FLV Media Player (by Longtail Video)',
+        'playerImplementation-embedplus'      => 'EmbedPlus',   
+ 
         'no-videos-found'     => 'No matching videos',
         'search-input-button' => 'Search'
     );

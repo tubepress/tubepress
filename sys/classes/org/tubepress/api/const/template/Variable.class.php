@@ -68,6 +68,7 @@ class org_tubepress_api_const_template_Variable
     const VIDEO_ARRAY                   = 'videoArray';
     const VIDEO_SEARCH_PREFIX           = 'videoSearchPrefix';
     const VIDEO                         = 'video';
+    const VIDEO_ID                      = 'videoId';
     const WIDGET_CONTROL_SHORTCODE      = 'widgetControlShortcode';
     const WIDGET_CONTROL_TITLE          = 'widgetControlTitle';
     const WIDGET_SHORTCODE              = 'widgetShortcode';
