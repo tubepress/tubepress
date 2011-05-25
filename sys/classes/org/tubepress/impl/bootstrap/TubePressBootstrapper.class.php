@@ -39,7 +39,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepress_api_bootstrap_Bootstrapper
 {
     const LOG_PREFIX = 'TubePress Bootstrapper';
-    
+
     private static $_alreadyBooted = false;
 
     /**
@@ -55,7 +55,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception while booting: '.  $e->getMessage());
         }
     }
-    
+
     private function _wrappedBoot()
     {
         /* don't boot twice! */
@@ -83,43 +83,43 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
 
         /* tell everyone we're booting */
         $pm->notifyListeners(org_tubepress_api_const_plugin_EventName::BOOT);
-        
+
         /* remember that we booted. */
         self::$_alreadyBooted = true;
     }
-    
+
     private function _loadUserPlugins(org_tubepress_api_ioc_IocService $ioc)
     {
-        $pm          = $ioc->get('org_tubepress_api_plugin_PluginManager');
-        $fe          = $ioc->get('org_tubepress_api_filesystem_Explorer');
-        $path        = $fe->getTubePressBaseInstallationPath() . '/content/plugins';
-        $pluginDirs  = $fe->getDirectoriesInDirectory($path, self::LOG_PREFIX);
+        $pm         = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $fe         = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $path       = $fe->getTubePressBaseInstallationPath() . '/content/plugins';
+        $pluginDirs = $fe->getDirectoriesInDirectory($path, self::LOG_PREFIX);
 
         foreach ($pluginDirs as $pluginDir) {
-            
+
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Examining potential plugin directory at %s', $pluginDir);
-            
+
             $files = $fe->getFilenamesInDirectory($pluginDir, self::LOG_PREFIX);
 
             foreach ($files as $file) {
-                
+
                 if ('.php' == substr($file, -4) && is_readable($file)) {
 
                     org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Loading PHP file at <tt>%s</tt>', $file);
-    
+
                     include_once $file;
                 }
             }
         }
     }
-    
+
     private function _loadSystemPlugins(org_tubepress_api_ioc_IocService $ioc)
     {
         $pm = $ioc->get('org_tubepress_api_plugin_PluginManager');
 
         /* embedded template filters */
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_EMBEDDED, $ioc->get('org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariables'));
-        
+
         /* gallery HTML filters */
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::HTML_GALLERY, $ioc->get('org_tubepress_impl_plugin_filters_galleryhtml_GalleryJs'));
 
@@ -129,19 +129,19 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_filters_gallerytemplate_Pagination'));
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_filters_gallerytemplate_Player'));
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_filters_gallerytemplate_VideoMeta'));
-        
+
         /* player template filters */
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_PLAYER, $ioc->get('org_tubepress_impl_plugin_filters_playertemplate_CoreVariables'));
-        
+
         /* provider result filters */
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_filters_providerresult_ResultCountCapper'));
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_filters_providerresult_VideoBlacklist'));
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_filters_providerresult_Shuffler'));
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_filters_providerresult_VideoPrepender'));
-        
+
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $ioc->get('org_tubepress_impl_plugin_filters_singlevideotemplate_CoreVariables'));
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $ioc->get('org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMeta'));
-        
+
         $pm->registerListener(org_tubepress_api_const_plugin_EventName::BOOT, $ioc->get('org_tubepress_impl_plugin_listeners_WordPressBoot'));
     }
 }

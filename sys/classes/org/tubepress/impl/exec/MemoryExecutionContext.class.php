@@ -47,7 +47,12 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
         $this->_tpsm = $ioc->get('org_tubepress_api_options_StorageManager');
     }
-    
+
+    /**
+     * Resets the context.
+     *
+     * @return void
+     */
     public function reset()
     {
         $this->_customOptions = array();

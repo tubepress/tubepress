@@ -19,15 +19,22 @@
  *
  */
 
-class org_tubepress_impl_classloader_ClassLoader {
-
+class org_tubepress_impl_classloader_ClassLoader
+{
+    /**
+     * Loads an array of classes for TubePress.
+     *
+     * @param array $classesToLoad An array of class names to load.
+     *
+     * @return void
+     */
     public static function loadClasses($classesToLoad)
     {
         if (!is_array($classesToLoad)) {
             self::loadClass($classesToLoad);
             return;
         }
-        
+
         foreach ($classesToLoad as $class) {
             self::loadClass($class);
         }
@@ -45,7 +52,7 @@ class org_tubepress_impl_classloader_ClassLoader {
         if (!is_string($className)) {
             return;
         }
-        
+
         /* already have the class or interface? bail */
         if (class_exists($className, false) || interface_exists($className, false)) {
             return;
@@ -53,15 +60,15 @@ class org_tubepress_impl_classloader_ClassLoader {
 
         /* see if the class is in the loading queue */
         global $tubepressClassLoadingQueue;
-        
+
         if (!isset($tubepressClassLoadingQueue)) {
             $tubepressClassLoadingQueue = array();
         }
-        
+
         if (array_key_exists($className, $tubepressClassLoadingQueue)) {
             return;
         }
-        
+
         $tubepressClassLoadingQueue[$className] = '1';
 
         /*
