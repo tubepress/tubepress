@@ -31,7 +31,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 
 class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_tubepress_api_patterns_cor_Command
 {
-    const LOG_PREFIX = 'Thumb Gallery Strategy';
+    const LOG_PREFIX = 'Thumb Gallery Command';
 
     /**
      * Execute the command.

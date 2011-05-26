@@ -64,7 +64,7 @@ class org_tubepress_impl_url_UrlBuilderChain implements org_tubepress_api_url_Ur
 
         $context = new org_tubepress_impl_url_UrlBuilderChainContext($providerName, $single, $arg);
         
-        /* let the strategies do the heavy lifting */
+        /* let the commands do the heavy lifting */
         //TODO: what if this bails?
         $status = $sm->execute($context, array(
             'org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand',

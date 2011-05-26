@@ -30,7 +30,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_factory_commands_VimeoFactoryCommand extends org_tubepress_impl_factory_commands_AbstractFactoryCommand
 {
-    const LOG_PREFIX = 'Vimeo Factory Strategy';
+    const LOG_PREFIX = 'Vimeo Factory Command';
 
     protected $_videoArray;
     

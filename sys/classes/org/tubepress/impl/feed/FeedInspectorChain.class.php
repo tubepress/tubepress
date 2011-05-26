@@ -62,7 +62,7 @@ class org_tubepress_impl_feed_FeedInspectorChain implements org_tubepress_api_fe
         $providerName          = $pc->calculateCurrentVideoProvider();
         $context               = new org_tubepress_impl_feed_FeedInspectorChainContext($providerName, $rawFeed);
 
-        /* let the strategies do the heavy lifting */
+        /* let the commands do the heavy lifting */
         $status = $sm->execute($context, array(
             'org_tubepress_impl_feed_commands_YouTubeFeedInspectionCommand',
             'org_tubepress_impl_feed_commands_VimeoFeedInspectionCommand'

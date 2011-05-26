@@ -34,7 +34,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_shortcode_commands_SearchInputCommand implements org_tubepress_api_patterns_cor_Command
 {
-    const LOG_PREFIX = 'Search Input Strategy';
+    const LOG_PREFIX = 'Search Input Command';
 
     /**
      * Execute the command.
@@ -82,7 +82,10 @@ class org_tubepress_impl_shortcode_commands_SearchInputCommand implements org_tu
         
         $this->applyTemplateVariables($template);
         
-        return $template->toString();
+        $context->setReturnValue($template->toString());
+        
+        /* signal that we've handled execution */
+        return true;
     }
     
     protected function applyTemplateVariables($template)

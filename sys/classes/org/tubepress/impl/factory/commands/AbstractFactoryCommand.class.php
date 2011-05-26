@@ -29,7 +29,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 ));
 
 /**
- * Base class for factory strategies.
+ * Base class for factory commands.
  */
 abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implements org_tubepress_api_patterns_cor_Command
 {

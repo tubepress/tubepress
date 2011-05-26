@@ -45,6 +45,7 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_t
         
         /* not configured at all for search results */
         if ($execContext->get(org_tubepress_api_const_options_names_Output::OUTPUT) !== org_tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS) {
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Not configured for search results');
             return false;
         }
 
@@ -58,11 +59,10 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_t
 
         /* the user is not searching and we don't have to show results */
         if(!$hasSearchTerms && ! $mustShowSearchResults) {
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'The user isn\'t searching.');
             return false;
         }
 
-        $html = $execContext[0];
-        
         /* if the user isn't searching, don't display anything */
         if (!$hasSearchTerms) {
             
@@ -71,6 +71,8 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_t
             return true;
         }
 
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'User is searching. We\'ll handle this.');
+        
         /* clean up the search terms */
         $searchTerms = org_tubepress_impl_util_StringUtils::cleanForSearch($rawSearchTerms);
         
