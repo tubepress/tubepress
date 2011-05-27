@@ -222,6 +222,19 @@ interface org_tubepress_api_const_plugin_FilterPoint
     const TEMPLATE_SINGLEVIDEO = 'singleVideoTemplate';
 
     /**
+     * Modify the template for the interactive search input.
+     *
+     * To use this filter point, create a class that includes a function with the method signature defined below.
+     * Then in your plugin file (tubepress/content/plugins/yourplugin/yourplugin.php), register the class with:
+     *
+     *     TubePress::registerFilter('searchInputTemplate', $yourClassInstance);
+     *
+     *
+     * @param org_tubepress_api_template_Template $template The template to modify.
+     *
+     * @return org_tubepress_api_template_Template The (possibly modified) template. Never null.
+     *
+     *
      * function alter_searchInputTemplate(org_tubepress_api_template_Template $template);
      */
     const TEMPLATE_SEARCHINPUT = 'searchInputTemplate';

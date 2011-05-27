@@ -139,6 +139,10 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_filters_providerresult_Shuffler'));
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_filters_providerresult_VideoPrepender'));
 
+        /* search input template filter */
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SEARCHINPUT, $ioc->get('org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariables'));
+        
+        /* single video template filters */
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $ioc->get('org_tubepress_impl_plugin_filters_singlevideotemplate_CoreVariables'));
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $ioc->get('org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMeta'));
 
