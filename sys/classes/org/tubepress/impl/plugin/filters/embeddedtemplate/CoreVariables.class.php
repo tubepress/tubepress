@@ -56,6 +56,7 @@ class org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariables
         $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_COLOR_PRIMARY, $playerColor);
         $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_COLOR_HIGHLIGHT, $playerHighlight);
         $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_FULLSCREEN, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToString($fullscreen));
+        $template->setVariable(org_tubepress_api_const_template_Variable::VIDEO_ID, $videoId);
         
         return $template;
     }

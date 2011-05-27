@@ -24,7 +24,7 @@
  */
 class org_tubepress_api_const_options_values_PlayerImplementationValue
 {
-    const EMBEDPLUS      = 'embedplus';
-    const LONGTAIL       = 'longtail';
     const PROVIDER_BASED = 'provider_based';
+    const LONGTAIL       = 'longtail';
+    const EMBEDPLUS      = 'embedplus';
 }
