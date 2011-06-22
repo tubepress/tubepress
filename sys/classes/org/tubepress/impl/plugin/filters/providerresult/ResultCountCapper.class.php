@@ -19,6 +19,15 @@
  *
  */
 
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php';
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_options_names_Feed',
+    'org_tubepress_api_const_options_values_ModeValue',
+    'org_tubepress_api_exec_ExecutionContext',
+    'org_tubepress_api_provider_ProviderResult',
+    'org_tubepress_impl_ioc_IocContainer',
+));
+
 /**
  * Trims down the number of results based on various criteria.
  */
@@ -26,12 +35,12 @@ class org_tubepress_impl_plugin_filters_providerresult_ResultCountCapper
 {
     const LOG_PREFIX = 'Result Count Capper';
 
-    public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult)
+    public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $providerName)
     {
         $totalResults = $providerResult->getEffectiveTotalResultCount();
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context      = $ioc->get(org_tubepress_api_exec_ExecutionContext);
-        $limit        = $context-> get(org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP);
+        $context      = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $limit        = $context->get(org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP);
         $firstCut     = $limit == 0 ? $totalResults : min($limit, $totalResults);
         $secondCut    = min($firstCut, self::_calculateRealMax($context, $firstCut));
         $videos       = $providerResult->getVideoArray();
@@ -47,7 +56,7 @@ class org_tubepress_impl_plugin_filters_providerresult_ResultCountCapper
         $providerResult->setEffectiveTotalResultCount($secondCut);
         return $providerResult;
     }
-    
+
     private static function _calculateRealMax($context, $reported)
     {
         $mode = $context->get(org_tubepress_api_const_options_names_Output::MODE);

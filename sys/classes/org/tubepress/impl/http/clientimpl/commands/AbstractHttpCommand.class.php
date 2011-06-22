@@ -1,19 +1,19 @@
 <?php
 /**
  * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
- * 
+ *
  * This file is part of TubePress (http://tubepress.org)
- * 
+ *
  * TubePress is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * TubePress is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -43,25 +43,25 @@ abstract class org_tubepress_impl_http_clientimpl_commands_AbstractHttpCommand i
      */
     public function execute($context)
     {
-        if ($this->_canHandle($context->getUrl(), $context->getArgs()) === false) {
+        if ($this->_canHandle($context->url, $context->args) === false) {
             return false;
         }
-        
-        $result = $this->_doExecute($context->getUrl(), $context->getArgs());
-        
+
+        $result = $this->_doExecute($context->url, $context->args);
+
         /* check response code */
         $code = $result['response']['code'];
         if ($code != 200) {
-            throw new Exception("Request for " . $context->getUrl() . " returned a $code HTTP response: " . $result['response']['message']);
+            throw new Exception("Request for " . $context->url . " returned a $code HTTP response: " . $result['response']['message']);
         }
-  
-        $context->setReturnValue($result['body']);
-        
+
+        $context->returnValue = $result['body'];
+
         return true;
     }
 
     protected abstract function _doExecute($url, $args);
-    
+
     protected abstract function _canHandle($url, $args);
 
     protected function _canRedirect()

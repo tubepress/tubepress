@@ -21,6 +21,7 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_const_template_Variable',
     'org_tubepress_api_exec_ExecutionContext',
@@ -50,9 +51,9 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGenerator implements org_tubepr
         $template      = $themeHandler->getTemplateInstance("players/$playerName.tpl.php");
         $providerName  = $pc->calculateProviderOfVideoId($vid->getId());
 
-        $template = $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_PLAYER, 
+        $template = $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_PLAYER,
                             $template, $vid, $providerName, $playerName);
-        
+
         $html = $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_PLAYER, $template->toString(), $vid, $providerName, $playerName);
         $html = $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_ANY, $html);
 

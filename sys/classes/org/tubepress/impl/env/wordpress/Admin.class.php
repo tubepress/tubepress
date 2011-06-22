@@ -1,19 +1,19 @@
 <?php
 /**
  * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
- * 
+ *
  * This file is part of TubePress (http://tubepress.org)
- * 
+ *
  * TubePress is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * TubePress is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -40,13 +40,13 @@ class org_tubepress_impl_env_wordpress_Admin
         if (strpos($hook, 'tubepress') === false || strpos($hook, 'Admin.class') === false) {
             return;
         }
-        
+
         global $tubepress_base_url;
-        
+
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
         $fs           = $iocContainer->get('org_tubepress_api_filesystem_Explorer');
         $dirName      = basename($fs->getTubePressBaseInstallationPath());
-        
+
         wp_register_style('jquery-ui-flick', "$tubepress_base_url/sys/ui/static/css/jquery-ui-flick/jquery-ui-1.7.2.custom.css");
         wp_register_script('jscolor-tubepress', "$tubepress_base_url/sys/ui/static/js/jscolor/jscolor.js");
         wp_enqueue_style('jquery-ui-flick');

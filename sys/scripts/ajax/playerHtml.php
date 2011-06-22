@@ -29,23 +29,17 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_impl_ioc_IocContainer'
 ));
 
-$ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
-$env      = $ioc->get('org_tubepress_api_environment_Detector');
+require dirname(__FILE__) . '/../wordpress/loader.php';
 
-//if ($env->isWordPress()) {
-    $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
-    include '/Applications/MAMP/htdocs/tubepress_testing_ground/wp-blog-header.php';
-//}
+/* boot TubePress */
+$booter = $ioc->get('org_tubepress_api_bootstrap_Bootstrapper');
+$booter->boot();
 
-$booter   = $ioc->get('org_tubepress_api_bootstrap_Bootstrapper');
 $context  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
 $player   = $ioc->get('org_tubepress_api_player_PlayerHtmlGenerator');
 $provider = $ioc->get('org_tubepress_api_provider_Provider');
 $qss      = $ioc->get('org_tubepress_api_querystring_QueryStringService');
 $sp       = $ioc->get('org_tubepress_api_shortcode_ShortcodeParser');
-
-/* boot TubePress */
-$booter->boot();
 
 $shortcode = rawurldecode($qss->getShortcode($_GET));
 $videoId   = $qss->getCustomVideo($_GET);

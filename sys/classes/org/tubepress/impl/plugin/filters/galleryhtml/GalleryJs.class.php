@@ -21,7 +21,12 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_theme_ThemeHandler'
+    'org_tubepress_api_const_ExecutionContextVariables',
+    'org_tubepress_api_const_options_names_Display',
+    'org_tubepress_api_const_options_names_Embedded',
+    'org_tubepress_api_provider_ProviderResult',
+    'org_tubepress_api_theme_ThemeHandler',
+    'org_tubepress_impl_log_Log'
 ));
 
 /**
@@ -45,19 +50,19 @@ class org_tubepress_impl_plugin_filters_galleryhtml_GalleryJs
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Filter invoked with a non-string argument :(');
             return $html;
         }
-        
+
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
         $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
-        
+
         $ajaxPagination   = $context->get(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION) ? 'true' : 'false';
         $playerName       = $context->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
         $shortcode        = rawurlencode($context->getShortcode());
         $fluidThumbs      = $context->get(org_tubepress_api_const_options_names_Display::FLUID_THUMBS) ? 'true' : 'false';
         $height           = $context->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT);
         $width            = $context->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
-        $theme            = $this->_getThemeName($ioc);
+        $theme            = rawurlencode($this->_getThemeName($ioc));
         $galleryId        = $context->get(org_tubepress_api_const_ExecutionContextVariables::GALLERY_ID);
-        
+
         return $html . <<<EOT
 <script type="text/javascript">
 	TubePressGallery.init($galleryId, {
@@ -78,6 +83,8 @@ EOT;
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $themeHandler = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $currentTheme = $themeHandler->calculateCurrentThemeName();
+        $fe           = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $basePath     = $fe->getTubePressBaseInstallationPath();
 
         if ($currentTheme === 'default') {
             return $currentTheme;
@@ -88,11 +95,11 @@ EOT;
 
         if (!is_readable($cssPath) || strpos($cssPath, 'themes' . DIRECTORY_SEPARATOR . 'default') !== false) {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'No theme CSS found.');
-            return 'default';
+            return '';
         } else {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Theme CSS found at <tt>%s</tt>', $cssPath);
         }
 
-        return $currentTheme;
+        return str_replace($basePath, '', $cssPath);
     }
 }

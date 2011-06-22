@@ -1,19 +1,19 @@
 <?php
 /**
  * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
- * 
+ *
  * This file is part of TubePress (http://tubepress.org)
- * 
+ *
  * TubePress is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * TubePress is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -40,18 +40,19 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
     public function getTemplateInstance($pathToTemplate)
     {
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Attempting to load template instance from %s', $pathToTemplate);
-        
+
         $currentTheme = $this->calculateCurrentThemeName();
         $filePath     = self::_getFilePath($currentTheme, $pathToTemplate);
-        
+
         if (!is_readable($filePath)) {
             throw new Exception("Cannot read file at $filePath");
         }
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Successfully loaded template from %s', $filePath);
-        $template = new org_tubepress_impl_template_SimpleTemplate();
-        $template->setPath($filePath);
-        return $template;
+
+        $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $tb = $ioc->get('org_tubepress_api_template_TemplateBuilder');
+        return $tb->getNewTemplateInstance($filePath);
     }
 
     public function getCssPath($currentTheme, $relative = false)
@@ -90,5 +91,5 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
 
         return $filePath;
     }
-}  
+}
 

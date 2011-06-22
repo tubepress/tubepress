@@ -21,6 +21,8 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_options_names_Advanced',
+    'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_patterns_cor_Command',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_video_Video',
@@ -47,7 +49,7 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
     function execute($context)
     {
         /* grab the arguments */
-        $feed = $context->getFeed();
+        $feed = $context->feed;
 
         if (!$this->_canHandleFeed($feed)) {
             return false;
@@ -81,7 +83,7 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Built %d video(s) from raw feed', sizeof($results));
 
-        $context->setReturnValue($results);
+        $context->returnValue = $results;
 
         return true;
     }

@@ -24,6 +24,8 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_const_template_Variable',
     'org_tubepress_api_exec_ExecutionContext',
+    'org_tubepress_api_template_Template',
+    'org_tubepress_api_url_Url',
     'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
     'org_tubepress_impl_ioc_IocContainer',
 ));
@@ -33,7 +35,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariables
 {
-    public function alter_embeddedTemplate(org_tubepress_api_template_Template $template, $videoId, $videoProviderName, 
+    public function alter_embeddedTemplate(org_tubepress_api_template_Template $template, $videoId, $videoProviderName,
                                            org_tubepress_api_url_Url $dataUrl, $embeddedImplName)
     {
         global $tubepress_base_url;
@@ -57,7 +59,7 @@ class org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariables
         $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_COLOR_HIGHLIGHT, $playerHighlight);
         $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_FULLSCREEN, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToString($fullscreen));
         $template->setVariable(org_tubepress_api_const_template_Variable::VIDEO_ID, $videoId);
-        
+
         return $template;
     }
 }

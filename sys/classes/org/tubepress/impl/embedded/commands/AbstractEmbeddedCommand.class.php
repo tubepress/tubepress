@@ -45,8 +45,8 @@ abstract class org_tubepress_impl_embedded_commands_AbstractEmbeddedCommand impl
     {
         global $tubepress_base_url;
 
-        $providerName = $context->getProviderName();
-        $videoId      = $context->getVideoId();
+        $providerName = $context->providerName;
+        $videoId      = $context->videoId;
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $execContext  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
 
@@ -56,17 +56,17 @@ abstract class org_tubepress_impl_embedded_commands_AbstractEmbeddedCommand impl
 
         $theme    = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $template = $theme->getTemplateInstance($this->_getTemplatePath($providerName, $videoId, $ioc, $execContext));
-        
-        $context->setTemplate($template);
-        $context->setDataUrl($this->_getEmbeddedDataUrl($providerName, $videoId, $ioc, $execContext));
-        $context->setEmbeddedImplementationName($this->_getEmbeddedImplName());
-        
+
+        $context->template                   = $template;
+        $context->dataUrl                    = $this->_getEmbeddedDataUrl($providerName, $videoId, $ioc, $execContext);
+        $context->embeddedImplementationName = $this->_getEmbeddedImplName();
+
         /* signal that we've handled execution */
         return true;
     }
 
     protected abstract function _getEmbeddedImplName();
-    
+
     protected abstract function _canHandle($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_exec_ExecutionContext $execContext);
 
     protected abstract function _getTemplatePath($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_exec_ExecutionContext $execContext);

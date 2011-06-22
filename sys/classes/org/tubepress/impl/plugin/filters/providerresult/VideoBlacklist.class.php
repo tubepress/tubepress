@@ -28,7 +28,7 @@ class org_tubepress_impl_plugin_filters_providerresult_VideoBlacklist
 	{
 		$videos         = $providerResult->getVideoArray();
 		$ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-		$context        = $ioc->get(org_tubepress_api_exec_ExecutionContext);
+		$context        = $ioc->get('org_tubepress_api_exec_ExecutionContext');
 		$blacklist      = $context->get(org_tubepress_api_const_options_names_Advanced::VIDEO_BLACKLIST);
 		$videosToKeep   = array();
 		$blacklistCount = 0;
@@ -36,25 +36,25 @@ class org_tubepress_impl_plugin_filters_providerresult_VideoBlacklist
 		foreach ($videos as $video) {
 
 			$id = $video->getId();
-			
+
 			/* keep videos without an ID or that aren't blacklisted */
 			if (!isset($id) || $this->_isNotBlacklisted($id, $blacklist)) {
-				$videosToKeep[] = $video;				
+				$videosToKeep[] = $video;
 			} else {
 			    $blacklistCount++;
 			}
 		}
-		
+
 		/* modify the feed result */
 		$providerResult->setVideoArray($videosToKeep);
-		
+
 		return $providerResult;
 	}
-	
+
 	protected function _isNotBlacklisted($id, $blacklist)
 	{
 		if (strpos($blacklist, $id) !== false) {
-	        org_tubepress_impl_log_Log::log($this->_logPrefix, 'Video with ID %s is blacklisted. Skipping it.', $id);
+	        org_tubepress_impl_log_Log::log('Video Blacklister', 'Video with ID %s is blacklisted. Skipping it.', $id);
 	        return false;
 	    }
 		return true;

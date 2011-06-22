@@ -33,7 +33,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 class org_tubepress_impl_plugin_filters_providerresult_VideoPrepender
 {
     const LOG_PREFIX = 'Video Prepender';
-    
+
     public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $galleryId)
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
@@ -47,7 +47,7 @@ class org_tubepress_impl_plugin_filters_providerresult_VideoPrepender
         }
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Prepending video %s to the gallery', $customVideoId);
-        
+
         return self::_prependVideo($ioc, $customVideoId, $providerResult);
     }
 
@@ -63,7 +63,7 @@ class org_tubepress_impl_plugin_filters_providerresult_VideoPrepender
         }
         return $videos;
     }
-    
+
     private static function _videoArrayAlreadyHasVideo($videos, $id)
     {
         foreach ($videos as $video) {
@@ -73,7 +73,7 @@ class org_tubepress_impl_plugin_filters_providerresult_VideoPrepender
         }
         return false;
     }
-    
+
     private static function _prependVideo($ioc, $id, $providerResult)
     {
         $videos = $providerResult->getVideoArray();
@@ -84,18 +84,18 @@ class org_tubepress_impl_plugin_filters_providerresult_VideoPrepender
             $providerResult->setVideoArray($videos);
             return $providerResult;
         }
-    
+
         $provider = $ioc->get('org_tubepress_api_provider_Provider');
         try {
-            $video = $provider->getSingleVideo($customVideoId);
+            $video = $provider->getSingleVideo($id);
             array_unshift($videos, $video);
         } catch (Exception $e) {
-            org_tubepress_log_Log::log(self::LOG_PREFIX, 'Could not prepend video %s to the gallery: %s', $customVideoId, $e->getMessage());
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Could not prepend video %s to the gallery: %s', $customVideoId, $e->getMessage());
         }
-        
+
         /* modify the feed result */
         $providerResult->setVideoArray($videos);
-        
+
         return $providerResult;
     }
 }

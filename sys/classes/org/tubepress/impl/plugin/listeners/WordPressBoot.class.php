@@ -40,11 +40,11 @@ class org_tubepress_impl_plugin_listeners_WordPressBoot
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
         $ed  = $ioc->get('org_tubepress_api_environment_Detector');
-        
+
         if (!$ed->isWordPress()) {
             return;
         }
-        
+
         global $tubepress_base_url;
 
         $baseName = $this->getBaseName();
@@ -60,16 +60,17 @@ class org_tubepress_impl_plugin_listeners_WordPressBoot
         add_action('init',        array('org_tubepress_impl_env_wordpress_Main', 'initAction'));
 
         add_action('admin_menu',            array('org_tubepress_impl_env_wordpress_Admin', 'menuAction'));
-        add_action('admin_enqueue_scripts', array('org_tubepress_impl_env_wordpress_Admin', 'initAction')); 
+        add_action('admin_enqueue_scripts', array('org_tubepress_impl_env_wordpress_Admin', 'initAction'));
 
         add_action('widgets_init', array('org_tubepress_impl_env_wordpress_Widget', 'initAction'));
     }
-    
+
     protected function getBaseName()
     {
-        /* have to consider that sometimes people may name the "tubepress" directory differently */
-        $dirName  = realpath(dirname(__FILE__) . '/../../../../../../../');
-        
-        return basename($dirName);
+        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $fse  = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $base = $fse->getTubePressBaseInstallationPath();
+
+        return basename($base);
     }
 }

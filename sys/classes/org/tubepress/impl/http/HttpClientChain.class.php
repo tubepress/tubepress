@@ -1,19 +1,19 @@
 <?php
 /**
  * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
- * 
+ *
  * This file is part of TubePress (http://tubepress.org)
- * 
+ *
  * TubePress is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * TubePress is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -21,10 +21,10 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_http_HttpClient',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_patterns_cor_Chain',
-    'org_tubepress_impl_http_HttpClientChainContext',
     'org_tubepress_impl_http_clientimpl_Encoding',
 ));
 
@@ -153,7 +153,10 @@ class org_tubepress_impl_http_HttpClientChain implements org_tubepress_api_http_
         $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
         $commands = self::_getTransportCommands($ioc);
         $sm       = $ioc->get('org_tubepress_api_patterns_cor_Chain');
-        $context  = new org_tubepress_impl_http_HttpClientChainContext($url, $r);
+        $context  = $sm->createContextInstance();
+
+        $context->url  = $url;
+        $context->args = $r;
 
         $status = $sm->execute($context, $commands);
 
@@ -161,7 +164,7 @@ class org_tubepress_impl_http_HttpClientChain implements org_tubepress_api_http_
             throw new Exception("Could not retrieve $url");
         }
 
-        return $context->getReturnValue();
+        return $context->returnValue;
     }
 
     private static function _getTransportCommands(org_tubepress_api_ioc_IocService $ioc)
@@ -170,31 +173,31 @@ class org_tubepress_impl_http_HttpClientChain implements org_tubepress_api_http_
         $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
 
         if (!$context->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_EXTHTTP)) {
-            $result[] = 'org_tubepress_impl_http_clientimpl_commands_ExtHttpCommand'; 
+            $result[] = 'org_tubepress_impl_http_clientimpl_commands_ExtHttpCommand';
         } else {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'ExtHttp transport disabled by request');
         }
 
         if (!$context->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_CURL)) {
-            $result[] = 'org_tubepress_impl_http_clientimpl_commands_CurlCommand'; 
+            $result[] = 'org_tubepress_impl_http_clientimpl_commands_CurlCommand';
         } else {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Curl transport disabled by request');
         }
 
         if (!$context->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_STREAMS)) {
-            $result[] = 'org_tubepress_impl_http_clientimpl_commands_StreamsCommand'; 
+            $result[] = 'org_tubepress_impl_http_clientimpl_commands_StreamsCommand';
         } else {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Streams transport disabled by request');
         }
 
         if (!$context->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FOPEN)) {
-            $result[] = 'org_tubepress_impl_http_clientimpl_commands_FopenCommand'; 
+            $result[] = 'org_tubepress_impl_http_clientimpl_commands_FopenCommand';
         } else {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'fopen transport disabled by request');
         }
 
         if (!$context->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FSOCKOPEN)) {
-            $result[] = 'org_tubepress_impl_http_clientimpl_commands_FsockOpenCommand'; 
+            $result[] = 'org_tubepress_impl_http_clientimpl_commands_FsockOpenCommand';
         } else {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'fsockopen transport disabled by request');
         }
@@ -202,7 +205,7 @@ class org_tubepress_impl_http_HttpClientChain implements org_tubepress_api_http_
         if (sizeof($result) === 0) {
             throw new Exception("Must enable at least one HTTP transport");
         }
-        
+
         return $result;
     }
 }

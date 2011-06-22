@@ -21,11 +21,11 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../classloader/ClassLoader.class.php');
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_factory_VideoFactory',
     'org_tubepress_api_patterns_cor_Chain',
     'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_impl_factory_VideoFactoryChainContext',
 ));
 
 /**
@@ -68,7 +68,9 @@ class org_tubepress_impl_factory_VideoFactoryChain implements org_tubepress_api_
         $pm           = $ioc->get('org_tubepress_api_plugin_PluginManager');
         $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
         $providerName = $pc->calculateCurrentVideoProvider();
-        $context      = new org_tubepress_impl_factory_VideoFactoryChainContext($feed);
+        $context      = $chain->createContextInstance();
+
+        $context->feed = $feed;
 
         /* let the commands do the heavy lifting */
         $status = $chain->execute($context, $this->getArrayOfCommandNames());
@@ -77,13 +79,13 @@ class org_tubepress_impl_factory_VideoFactoryChain implements org_tubepress_api_
             throw new Exception('No command could build the videos');
         }
 
-        $videos = $context->getReturnValue();
+        $videos = $context->returnValue;
 
         if ($pm->hasFilters(org_tubepress_api_const_plugin_FilterPoint::VIDEO)) {
 
             for ($x = 0; $x < count($videos); $x++) {
 
-                $videos[$x] = $pm-runFilters(org_tubepress_api_const_plugin_FilterPoint::VIDEO, $videos[$x], $providerName);
+                $videos[$x] = $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::VIDEO, $videos[$x], $providerName);
             }
         }
 

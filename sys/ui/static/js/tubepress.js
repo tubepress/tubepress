@@ -156,9 +156,9 @@ var TubePressGallery = (function () {
 			/* save the params */
 			galleries[galleryId] = params;
 			
-			var theme = getThemeCss(galleryId);
-			if (theme != 'default' && cssLoaded[theme] !== true) {
-				TubePressCss.load(getTubePressBaseUrl() + '/sys/ui/themes/' + theme + '/style.css');
+			var theme = decodeURIComponent(getThemeCss(galleryId));
+			if (theme != '' && cssLoaded[theme] !== true) {
+				TubePressCss.load(getTubePressBaseUrl() + theme);
 				cssLoaded[theme] = true;
 			}
 			

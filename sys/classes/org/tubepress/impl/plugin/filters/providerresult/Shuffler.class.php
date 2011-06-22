@@ -19,26 +19,36 @@
  *
  */
 
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php';
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_options_names_Display',
+    'org_tubepress_api_const_options_values_OrderValue',
+    'org_tubepress_api_exec_ExecutionContext',
+    'org_tubepress_api_provider_ProviderResult',
+    'org_tubepress_impl_ioc_IocContainer',
+));
+
+
 /**
  * Shuffles videos on request.
  */
 class org_tubepress_impl_plugin_filters_providerresult_Shuffler
 {
-	public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $galleryId)
+	public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $providerName)
 	{
 		$videos  = $providerResult->getVideoArray();
 		$ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-		$context = $ioc->get(org_tubepress_api_exec_ExecutionContext);
-		
+		$context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+
 	    /* shuffle if we need to */
         if ($context->get(org_tubepress_api_const_options_names_Display::ORDER_BY) == org_tubepress_api_const_options_values_OrderValue::RANDOM) {
             org_tubepress_impl_log_Log::log('Shuffler', 'Shuffling videos');
             shuffle($videos);
         }
-		
+
 		/* modify the feed result */
 		$providerResult->setVideoArray($videos);
-		
+
 		return $providerResult;
 	}
 }

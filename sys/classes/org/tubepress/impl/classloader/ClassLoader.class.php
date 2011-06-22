@@ -84,6 +84,9 @@ class org_tubepress_impl_classloader_ClassLoader
         /* include the file if it exists */
         if (file_exists($absPath)) {
             include $absPath;
+        } else {
+            /* stupid hack to be able to insert a debugging breakpoint */
+            $x = 1;
         }
 
         /* class is done loading, remove it from the queue */

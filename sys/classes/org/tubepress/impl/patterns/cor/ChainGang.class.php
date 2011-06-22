@@ -47,7 +47,7 @@ class org_tubepress_impl_patterns_cor_ChainGang implements org_tubepress_api_pat
         if (!is_array($commands)) {
             throw new Exception('execute() requires an array of commands');
         }
-        
+
         if (!is_object($context)) {
             throw new Exception('execute() requires an object to be passed as the context');
         }
@@ -60,21 +60,31 @@ class org_tubepress_impl_patterns_cor_ChainGang implements org_tubepress_api_pat
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Seeing if "%s" wants to handle execution', $commandName);
 
             $command = $ioc->get($commandName);
-            
+
             if (!is_a($command, 'org_tubepress_api_patterns_cor_Command')) {
                 throw new Exception("$commandName does not implement org_tubepress_api_patterns_cor_Command");
             }
 
             $ableToHandle = call_user_func_array(array($command, 'execute'), array($context));
-                
+
             if ($ableToHandle === true) {
                 org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%s handled execution', $commandName);
-                return true;               
+                return true;
             }
         }
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'None of the supplied commands were able to handle the execution: ' . implode("', '", $commands));
 
         return false;
+    }
+
+    /**
+     * Create a context object for the chain to work with.
+     *
+     * @return object An instance of stdClass for the commands to work with.
+     */
+    function createContextInstance()
+    {
+        return new stdClass;
     }
 }

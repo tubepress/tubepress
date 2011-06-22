@@ -1,19 +1,19 @@
 <?php
 /**
  * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
- * 
+ *
  * This file is part of TubePress (http://tubepress.org)
- * 
+ *
  * TubePress is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * TubePress is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -28,7 +28,6 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_shortcode_ShortcodeHtmlGenerator',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_log_Log',
-    'org_tubepress_impl_shortcode_ShortcodeHtmlGenerationChainContext',
 ));
 
 /**
@@ -48,9 +47,8 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements org_tu
     public function getHtmlForShortcode($shortCodeContent)
     {
         global $tubepress_base_url;
-        
+
         $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
         $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
         $pm    = $ioc->get('org_tubepress_api_plugin_PluginManager');
 
@@ -66,15 +64,15 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements org_tu
         /* use the chain to get the HTML */
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Running the shortcode HTML chain');
         $rawHtml = $this->_runChain($chain);
-        
+
         /* send it through the filters */
-        if ($pm->hasFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_ANY)) {            
+        if ($pm->hasFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_ANY)) {
             return $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_ANY, $rawHtml);
         }
-        
+
         return $rawHtml;
     }
-    
+
     protected function _getShortcodeCommands()
     {
         return array(
@@ -85,16 +83,16 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements org_tu
             'org_tubepress_impl_shortcode_commands_ThumbGalleryCommand'
         );
     }
-    
+
     private function _runChain(org_tubepress_api_patterns_cor_Chain $chain)
     {
-        $context = new org_tubepress_impl_shortcode_ShortcodeHtmlGenerationChainContext();
+        $context = $chain->createContextInstance();
         $status  = $chain->execute($context, $this->_getShortcodeCommands());
 
         if ($status === false) {
             throw new Exception('No commands could generate the shortcode HTML.');
         }
 
-        return $context->getReturnValue();
+        return $context->returnValue;
     }
 }

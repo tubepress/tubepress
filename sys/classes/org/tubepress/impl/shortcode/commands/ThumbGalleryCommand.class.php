@@ -20,6 +20,7 @@
  */
 
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_ExecutionContextVariables',
     'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_const_template_Variable',
     'org_tubepress_api_patterns_cor_Command',
@@ -49,7 +50,7 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_t
         if ($galleryId == '') {
             $galleryId = mt_rand();
         }
-        
+
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Starting to build thumbnail gallery %s', $galleryId);
 
         $provider      = $ioc->get('org_tubepress_api_provider_Provider');
@@ -61,7 +62,7 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_t
         $template      = $themeHandler->getTemplateInstance('gallery.tpl.php');
         $page          = $qss->getPageNum($_GET);
         $providerName  = $pc->calculateCurrentVideoProvider();
-        
+
         $execContext->set(org_tubepress_api_const_ExecutionContextVariables::GALLERY_ID, $galleryId);
 
         /* first grab the videos */
@@ -69,7 +70,7 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_t
         $feedResult = $provider->getMultipleVideos();
         $numVideos  = sizeof($feedResult->getVideoArray());
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Provider has delivered %d videos', $numVideos);
-        
+
         if ($numVideos == 0) {
             $context->setReturnValue($ms->_('no-videos-found'));
             return true;
@@ -84,8 +85,8 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_t
         /* we're done. tie up */
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Done assembling gallery %d', $galleryId);
 
-        $context->setReturnValue($filteredHtml);
-        
+        $context->returnValue = $filteredHtml;
+
         return true;
     }
 }

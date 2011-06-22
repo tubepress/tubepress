@@ -26,7 +26,6 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_patterns_cor_Chain',
     'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_api_provider_ProviderCalculator',
-    'org_tubepress_impl_embedded_EmbeddedPlayerChainContext',
     'org_tubepress_impl_ioc_IocContainer',
 ));
 
@@ -49,7 +48,10 @@ class org_tubepress_impl_embedded_EmbeddedPlayerChain implements org_tubepress_a
         $chain        = $ioc->get('org_tubepress_api_patterns_cor_Chain');
         $pm           = $ioc->get('org_tubepress_api_plugin_PluginManager');
         $providerName = $pc->calculateProviderOfVideoId($videoId);
-        $context      = new org_tubepress_impl_embedded_EmbeddedPlayerChainContext($providerName, $videoId);
+        $context      = $chain->createContextInstance();
+
+        $context->providerName = $providerName;
+        $context->videoId      = $videoId;
 
         /* let the commands do the heavy lifting */
         $status = $chain->execute($context, array(
@@ -65,9 +67,9 @@ class org_tubepress_impl_embedded_EmbeddedPlayerChain implements org_tubepress_a
         }
 
         /* pull out the relevant stuff from the context */
-        $template = $context->getTemplate();
-        $dataUrl  = $context->getDataUrl();
-        $implName = $context->getEmbeddedImplementationName();
+        $template = $context->template;
+        $dataUrl  = $context->dataUrl;
+        $implName = $context->embeddedImplementationName;
 
         $template = $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_EMBEDDED,
             $template, $videoId, $providerName, $dataUrl, $implName);

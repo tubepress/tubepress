@@ -22,12 +22,14 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_bootstrap_Bootstrapper',
+    'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_plugin_EventName',
     'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_environment_Detector',
     'org_tubepress_api_filesystem_Explorer',
     'org_tubepress_api_ioc_IocService',
+    'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_log_Log',
     'TubePress'
@@ -44,7 +46,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
 
     /**
      * Performs TubePress-wide initialization.
-     * 
+     *
      * @return null
      */
     public function boot()
@@ -141,7 +143,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
 
         /* search input template filter */
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SEARCHINPUT, $ioc->get('org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariables'));
-        
+
         /* single video template filters */
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $ioc->get('org_tubepress_impl_plugin_filters_singlevideotemplate_CoreVariables'));
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $ioc->get('org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMeta'));

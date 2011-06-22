@@ -22,6 +22,7 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Feed',
+    'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_factory_VideoFactory',
     'org_tubepress_api_feed_FeedFetcher',
     'org_tubepress_api_feed_FeedInspector',
