@@ -1,8 +1,9 @@
 build/**
 test/**
 .project
-.settings
+.settings/
 .git/**
 .gitignore
+.build*
 README
 sys/i18n/tubepress.mo

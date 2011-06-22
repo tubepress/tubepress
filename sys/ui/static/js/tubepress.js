@@ -41,6 +41,18 @@ var TubePressAjax = (function () {
 		});
 	},
 	
+		/* Similar to jQuery's "get" but ignores response code. */
+		get = function (url, data, success, dataType) {
+		
+			jQuery.ajax({
+				url: url,
+				type: 'GET',
+				dataType: dataType,
+				complete: success
+			});
+		
+		},
+	
 		/* fade to "white" */
 		applyLoadingStyle = function (targetDiv) {
 		
@@ -79,7 +91,8 @@ var TubePressAjax = (function () {
 		load				: load,
 		applyLoadingStyle	: applyLoadingStyle,
 		removeLoadingStyle	: removeLoadingStyle,
-		loadAndStyle		: loadAndStyle
+		loadAndStyle		: loadAndStyle,
+		get					: get
 	};
 }());
 
@@ -157,7 +170,7 @@ var TubePressGallery = (function () {
 			galleries[galleryId] = params;
 			
 			var theme = decodeURIComponent(getThemeCss(galleryId));
-			if (theme != '' && cssLoaded[theme] !== true) {
+			if (theme !== '' && cssLoaded[theme] !== true) {
 				TubePressCss.load(getTubePressBaseUrl() + theme);
 				cssLoaded[theme] = true;
 			}
@@ -232,7 +245,7 @@ var TubePressPlayers = (function () {
 			
 			if (requiresPopulation(playerName)) {
 				/* ... and fetch the HTML for it */
-				jquery.get(url, dataToSend, callback, 'json');
+				TubePressAjax.get(url, dataToSend, callback, 'json');
 			}
 		};
 	
@@ -287,7 +300,7 @@ var TubePressThumbs = (function () {
 		/* http://www.sohtanaka.com/web-design/smart-columns-w-css-jquery/ */
 		makeThumbsFluid = function (galleryId) {
 			
-			getThumbArea(galleryId).css({ 'width' : "100%" });
+			getThumbArea(galleryId).css({ 'width' : '100%' });
 			
 			var gallerySelector	= getThumbAreaSelector(galleryId),
 				columnWidth		= getThumbWidth(galleryId),
