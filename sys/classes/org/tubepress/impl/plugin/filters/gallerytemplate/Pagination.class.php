@@ -112,7 +112,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
             if ($page > 1) {
                 $url->setQueryVariable($pagestring, $prev);
                 $newurl      = $url->toString();
-                $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">" . $messageService->_("prev") . '</a>';
+                $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">&laquo; " . $messageService->_("prev") . '</a>';
             }
 
             if ($lastpage < 7 + ($adjacents * 2)) {
@@ -194,9 +194,9 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
             if ($page < $counter - 1) {
                 $url->setQueryVariable($pagestring, $next);
                 $newurl      = $url->toString();
-                $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">" . $messageService->_('next') . '</a>';
+                $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">" . $messageService->_('next') . ' &raquo;</a>';
             } else {
-                $pagination .= '<span class="disabled">' . $messageService->_('next') . '</span>';
+                $pagination .= '<span class="disabled">' . $messageService->_('next') . ' &raquo;</span>';
             }
             $pagination .= "</div>\n";
         }

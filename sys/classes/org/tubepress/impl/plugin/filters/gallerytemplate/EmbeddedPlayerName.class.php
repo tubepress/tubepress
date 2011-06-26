@@ -49,10 +49,10 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_EmbeddedPlayerName
         $context      = $ioc->get('org_tubepress_api_exec_ExecutionContext');
         $stored       = $context->get(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
 
-        $longTailWithYouTube = org_tubepress_api_const_options_values_PlayerImplementationValue::LONGTAIL
+        $longTailWithYouTube = $stored === org_tubepress_api_const_options_values_PlayerImplementationValue::LONGTAIL
             && $providerName === org_tubepress_api_provider_Provider::YOUTUBE;
 
-        $embedPlusWithYouTube = org_tubepress_api_const_options_values_PlayerImplementationValue::EMBEDPLUS
+        $embedPlusWithYouTube = $stored === org_tubepress_api_const_options_values_PlayerImplementationValue::EMBEDPLUS
             && $providerName === org_tubepress_api_provider_Provider::YOUTUBE;
 
         if ($longTailWithYouTube || $embedPlusWithYouTube) {
