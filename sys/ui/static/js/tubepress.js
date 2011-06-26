@@ -47,6 +47,7 @@ var TubePressAjax = (function () {
 			jQuery.ajax({
 				url: url,
 				type: 'GET',
+				data: data,
 				dataType: dataType,
 				complete: success
 			});
@@ -232,8 +233,9 @@ var TubePressPlayers = (function () {
 				shortcode			= tubepressGallery.getShortcode(galleryId),
 				callback			= function (data) { 
 				
-					var title = decodeURIComponent(data.title),
-						html = decodeURIComponent(data.html);
+					var result = jQuery.parseJSON(data.responseText),
+						title  = decodeURIComponent(result.title),
+						html   = decodeURIComponent(result.html);
 
 					documentElement.trigger(tubepressEvents.PLAYER_POPULATE + playerName, [ title, html, height, width, videoId, galleryId ]); 
 				},
