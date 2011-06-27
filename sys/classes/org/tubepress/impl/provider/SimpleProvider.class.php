@@ -118,10 +118,20 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         $results              = $feedRetrievalService->fetch($videoUrl, $context->get(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED));
         $factory              = $ioc->get('org_tubepress_api_factory_VideoFactory');
         $videoArray           = $factory->feedToVideoArray($results);
+        $pm                   = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pc                   = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
 
         if (empty($videoArray)) {
             throw new Exception("Could not find video with ID $customVideoId");
         }
+
+        $result = new org_tubepress_api_provider_ProviderResult();
+        $result->setEffectiveTotalResultCount(1);
+        $result->setVideoArray($videoArray);
+        
+        $provider = $pc->calculateProviderOfVideoId($customVideoId);
+        
+        $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $result, $provider);
 
         return $videoArray[0];
     }
