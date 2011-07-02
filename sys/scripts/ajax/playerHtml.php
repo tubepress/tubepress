@@ -56,6 +56,7 @@ $context->set(org_tubepress_api_const_ExecutionContextVariables::GALLERY_ID, $ga
 try {
     $video = $provider->getSingleVideo($videoId);
 } catch (Exception $e) {
+    org_tubepress_impl_log_Log::log('Player HTML', $e->getMessage());
     header("Status: 404 Not Found");
     exit;
 }
