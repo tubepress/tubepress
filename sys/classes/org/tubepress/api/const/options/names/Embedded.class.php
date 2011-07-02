@@ -30,7 +30,7 @@ class org_tubepress_api_const_options_names_Embedded
     const PLAYER_IMPL      = 'playerImplementation';
     const EMBEDDED_HEIGHT  = 'embeddedHeight';
     const EMBEDDED_WIDTH   = 'embeddedWidth';
-    const LAZYPLAY         = 'lazyplay';
+    const LAZYPLAY         = 'lazyPlay';
     const AUTOPLAY         = 'autoplay';
     const FULLSCREEN       = 'fullscreen';
     const HIGH_QUALITY     = 'hd';
