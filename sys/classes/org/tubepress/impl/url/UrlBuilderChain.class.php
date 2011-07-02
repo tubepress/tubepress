@@ -59,7 +59,11 @@ class org_tubepress_impl_url_UrlBuilderChain implements org_tubepress_api_url_Ur
         $sm  = $ioc->get('org_tubepress_api_patterns_cor_Chain');
 
         //TODO: what if this bails?
-        $providerName = $pc->calculateCurrentVideoProvider();
+        if ($single) {
+            $providerName = $pc->calculateProviderOfVideoId($arg);    
+        } else {
+            $providerName = $pc->calculateCurrentVideoProvider();    
+        }
 
         $context = $sm->createContextInstance();
         $context->providerName = $providerName;
