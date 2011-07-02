@@ -16,11 +16,14 @@ var TubePressJqModalPlayer = (function () {
 		
 		invoke = function (e, videoId, galleryId, width, height) {
 
-			var element = jQuery('<div id="jqmodal' + galleryId + videoId + '" style="visibility: none; height: ' + height + 'px; width: ' + width + 'px;"></div>').appendTo('body');
+			var element = jQuery('<div id="jqmodal' + galleryId + videoId + '" style="visibility: none; height: ' + height + 'px; width: ' + width + 'px;"></div>').appendTo('body'),
+				hider = function (hash) {
+					hash.o.remove();
+					hash.w.remove();
+			};
 	
 			element.addClass('jqmWindow');	 
-			element.jqm(); 
-			element.jqmShow();
+			element.jqm({ onHide : hider }).jqmShow();
 		},
 		
 		populate = function (e, title, html, height, width, videoId, galleryId) {
