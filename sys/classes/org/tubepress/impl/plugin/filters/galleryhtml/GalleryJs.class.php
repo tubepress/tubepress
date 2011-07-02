@@ -87,7 +87,7 @@ EOT;
         $basePath     = $fe->getTubePressBaseInstallationPath();
 
         if ($currentTheme === 'default') {
-            return $currentTheme;
+            return '';
         }
 
         /* get the CSS file's path on the filesystem */
