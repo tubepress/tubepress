@@ -20,82 +20,18 @@
  *
  */
 -->
-<project name="TubePress" default="free-plugin" basedir=".">
+<project name="tubepress" default="free-plugin" basedir=".">
 
-        <property file="config/config.properties" />
-	<property name="stagingdir" 	value="${build.directory.stage}/tubepress" />
-	<property name="jscompresslist"	value="config/js-to-compress.txt" />
+    <import file="include/common.xml" />
+	    
+    <target name="free-plugin" description="Builds the free version of TubePress" depends="init">
+	            
+        <antcall target="assemble" />
+    	<antcall target="copy-resources" />
+        <antcall target="wordpress-mods" />
+        <antcall target="compress-js" />
+        <antcall target="package" />
 
-	<target name="compress-js">
-
-		<copy todir="${stagingdir}">
-			<fileset dir="${stagingdir}/" includesfile="${jscompresslist}"/>
-			<mapper type="glob" from="*.js" to="*-dev.js" />
-		</copy>
-
-		<echo message="Compressing JS. This may take a moment..." />
-
-		<apply executable="java" parallel="false" dir="${stagingdir}" relative="true">
-			<fileset dir="${stagingdir}/" includesfile="${jscompresslist}"/>
-			<arg line="-jar"/>
-			<arg path="${bin.yuicompressor}"/>
-			<srcfile />
-			<arg line="-o" />
-			<mapper type="identity" />
-			<targetfile />
-		</apply>
-
-	</target>
-
-	<target name="assemble-free">
-
-		<echo message="Copying TubePress into staging area" />
-		<copy todir="${stagingdir}">
-			<fileset dir=".." excludesfile="config/distribution-exclusions.txt" />
-		</copy>
-
-		<copy todir="${stagingdir}">
-			<fileset dir="resources" />
-		</copy>
-
-	</target>
-
-	<target name="free-wordpress-mods">
+    </target>
 	
-		<replace file="${stagingdir}/tubepress.php" token="git-bleeding" value="${version.major}.${version.minor}.${version.micro}" />
-
-		<replace file="${stagingdir}/tubepress.php" token="@description@" value="${wordpress.desc.free}" />
-
-	</target>
-
-	<target name="package-free">
-
-		<zip destfile="${build.directory.dist}/tubepress_${version.major}_${version.minor}_${version.micro}.zip" basedir="${build.directory.stage}" />
-
-	</target>
-
-        <target name="clean" description="Cleans build environment">
-
-                <echo message="Deleting ${build.directory.dist} and ${build.directory.stage}" />
-                <delete dir="${build.directory.dist}" />
-                <delete dir="${build.directory.stage}" />
-        </target>
-
-        <target name="init">
-                <antcall target="clean" />
-
-                <echo message="Creating empty directories at ${build.directory.dist} and ${build.directory.stage}" />
-                <mkdir dir="${build.directory.dist}" />
-                <mkdir dir="${build.directory.stage}" />
-        </target>
-
-	<target name="free-plugin" description="Builds the free version of TubePress" depends="init">
-        
-		<antcall target="assemble-free" />
-		<antcall target="free-wordpress-mods" />
-		<antcall target="compress-js" />
-		<antcall target="package-free" />
-
-	</target>
-
 </project>
