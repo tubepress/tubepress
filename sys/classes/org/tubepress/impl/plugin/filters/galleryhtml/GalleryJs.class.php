@@ -21,7 +21,7 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_ExecutionContextVariables',
+    'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_provider_ProviderResult',
@@ -56,12 +56,12 @@ class org_tubepress_impl_plugin_filters_galleryhtml_GalleryJs
 
         $ajaxPagination   = $context->get(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION) ? 'true' : 'false';
         $playerName       = $context->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
-        $shortcode        = rawurlencode($context->getShortcode());
+        $shortcode        = rawurlencode($context->toShortcode());
         $fluidThumbs      = $context->get(org_tubepress_api_const_options_names_Display::FLUID_THUMBS) ? 'true' : 'false';
         $height           = $context->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT);
         $width            = $context->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
         $theme            = rawurlencode($this->_getThemeName($ioc));
-        $galleryId        = $context->get(org_tubepress_api_const_ExecutionContextVariables::GALLERY_ID);
+        $galleryId        = $context->get(org_tubepress_api_const_options_names_Advanced::GALLERY_ID);
 
         return $html . <<<EOT
 <script type="text/javascript">

@@ -117,7 +117,7 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
      * 
      * @return void
      */
-    public function setShortcode($newTagString)
+    public function setActualShortcodeUsed($newTagString)
     {
         $this->_shortcode = $newTagString;
     }
@@ -127,8 +127,22 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
      *
      * @return string The current shortcode
      */
-    public function getShortcode()
+    public function getActualShortcodeUsed()
     {
         return $this->_shortcode;
+    }
+    
+    public function toShortcode()
+    {
+        $trigger  = $this->get(org_tubepress_api_const_options_names_Advanced::KEYWORD);
+        $optPairs = array();
+
+        foreach ($this->_customOptions as $name => $value) {
+            $optPairs[] = $name . '="' . $value . '"';
+        }
+        
+        $optString = implode($optPairs, ', ');
+        
+        return "[$trigger $optString]";
     }
 }

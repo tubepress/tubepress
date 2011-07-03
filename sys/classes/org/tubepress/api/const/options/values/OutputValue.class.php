@@ -27,4 +27,5 @@ class org_tubepress_api_const_options_values_OutputValue
     const AJAX_SEARCH_INPUT = 'ajaxSearchInput';
     const SEARCH_INPUT      = 'searchInput';
     const SEARCH_RESULTS    = 'searchResults';
+    const PLAYER            = 'player';
 }

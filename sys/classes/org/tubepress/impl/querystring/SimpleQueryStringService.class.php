@@ -48,18 +48,6 @@ class org_tubepress_impl_querystring_SimpleQueryStringService implements org_tub
     }
 
     /**
-     * Try to get the gallery ID from the query string
-     *
-     * @param array $getVars The PHP $_GET array
-     *
-     * @return string The gallery ID, or '' if not set
-    */
-    public function getGalleryId($getVars)
-    {
-        return self::_getQueryVar($getVars, org_tubepress_api_const_querystring_QueryParamName::GALLERY_ID);
-    }
-
-    /**
      * Returns what's in the address bar
      * 
      * @param array $serverVars The PHP $_SERVER array

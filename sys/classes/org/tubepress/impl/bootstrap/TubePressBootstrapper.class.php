@@ -51,20 +51,20 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
      */
     public function boot()
     {
+        /* don't boot twice! */
+        if (self::$_alreadyBooted) {
+            return;
+        }
+        
         try {
-            $this->_wrappedBoot();
+            $this->wrappedBoot();
         } catch (Exception $e) {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception while booting: '.  $e->getMessage());
         }
     }
 
-    private function _wrappedBoot()
+    protected function wrappedBoot()
     {
-        /* don't boot twice! */
-        if (self::$_alreadyBooted) {
-            return;
-        }
-
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
         $context     = $ioc->get('org_tubepress_api_exec_ExecutionContext');
         $envDetector = $ioc->get('org_tubepress_api_environment_Detector');

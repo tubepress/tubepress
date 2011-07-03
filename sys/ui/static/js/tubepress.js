@@ -239,7 +239,7 @@ var TubePressPlayers = (function () {
 
 					documentElement.trigger(tubepressEvents.PLAYER_POPULATE + playerName, [ title, html, height, width, videoId, galleryId ]); 
 				},
-				dataToSend			= { tubepress_video : videoId, tubepress_shortcode : shortcode, tubepress_galleryId : galleryId },
+				dataToSend			= { tubepress_video : videoId, tubepress_shortcode : shortcode },
 				url					= getTubePressBaseUrl() + '/sys/scripts/ajax/playerHtml.php';
 		
 			/* announce we're gonna invoke the player... */

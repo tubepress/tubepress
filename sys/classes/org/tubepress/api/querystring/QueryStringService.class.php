@@ -34,15 +34,6 @@ interface org_tubepress_api_querystring_QueryStringService
     function getCustomVideo($getVars);
 
     /**
-     * Try to get the gallery ID from the query string
-     *
-     * @param array $getVars The PHP $_GET array
-     *
-     * @return string The gallery ID, or '' if not set or if there was a problem.
-    */
-    function getGalleryId($getVars);
-
-    /**
      * Returns what's in the address bar
      * 
      * @param array $serverVars The PHP $_SERVER array

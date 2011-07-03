@@ -81,7 +81,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Found a shortcode: %s', $matches[0]);
 
-        $context->setShortcode($matches[0]);
+        $context->setActualShortcodeUsed($matches[0]);
 
         /* Anything matched? */
         if (isset($matches[1]) && $matches[1] != '') {

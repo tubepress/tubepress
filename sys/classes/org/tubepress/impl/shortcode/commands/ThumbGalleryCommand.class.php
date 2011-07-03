@@ -20,7 +20,7 @@
  */
 
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_ExecutionContextVariables',
+    'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_const_template_Variable',
     'org_tubepress_api_patterns_cor_Command',
@@ -43,27 +43,26 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_t
      */
     public function execute($context)
     {
-        $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $qss       = $ioc->get('org_tubepress_api_querystring_QueryStringService');
-        $galleryId = $qss->getGalleryId($_GET);
+        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $galleryId   = $execContext->get(org_tubepress_api_const_options_names_Advanced::GALLERY_ID);
 
         if ($galleryId == '') {
             $galleryId = mt_rand();
+            $execContext->set(org_tubepress_api_const_options_names_Advanced::GALLERY_ID, $galleryId);
         }
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Starting to build thumbnail gallery %s', $galleryId);
 
         $provider      = $ioc->get('org_tubepress_api_provider_Provider');
-        $execContext   = $ioc->get('org_tubepress_api_exec_ExecutionContext');
         $pluginManager = $ioc->get('org_tubepress_api_plugin_PluginManager');
         $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $ms            = $ioc->get('org_tubepress_api_message_MessageService');
         $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $qss           = $ioc->get('org_tubepress_api_querystring_QueryStringService');
         $template      = $themeHandler->getTemplateInstance('gallery.tpl.php');
         $page          = $qss->getPageNum($_GET);
         $providerName  = $pc->calculateCurrentVideoProvider();
-
-        $execContext->set(org_tubepress_api_const_ExecutionContextVariables::GALLERY_ID, $galleryId);
 
         /* first grab the videos */
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Asking provider for videos');

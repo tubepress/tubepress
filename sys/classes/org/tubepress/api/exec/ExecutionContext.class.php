@@ -68,14 +68,16 @@ interface org_tubepress_api_exec_ExecutionContext
      * 
      * @return void
      */
-    function setShortcode($newTagString);
+    function setActualShortcodeUsed($newTagString);
 
     /**
      * Get the current shortcode
      *
      * @return string The current shortcode
      */
-    function getShortcode();
+    function getActualShortcodeUsed();
+    
+    function toShortcode();
     
     /**
      * Resets the context for fresh execution.

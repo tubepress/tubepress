@@ -59,6 +59,7 @@ class org_tubepress_impl_options_OptionsReference
             org_tubepress_api_const_options_names_Advanced::DATEFORMAT           => 'M j, Y',
             org_tubepress_api_const_options_names_Advanced::KEYWORD              => 'tubepress',
             org_tubepress_api_const_options_names_Advanced::VIDEO_BLACKLIST      => '',
+            org_tubepress_api_const_options_names_Advanced::GALLERY_ID           => '',
             org_tubepress_api_const_options_names_Output::FAVORITES_VALUE        => 'mrdeathgod',
             org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE         => 'D2B04665B213AE35',
             org_tubepress_api_const_options_names_Output::TAG_VALUE              => 'pittsburgh steelers',
@@ -385,7 +386,8 @@ class org_tubepress_impl_options_OptionsReference
             org_tubepress_api_const_options_names_Output::OUTPUT,
             org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL,
             org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY,
-            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_DOM_ID
+            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_DOM_ID,
+            org_tubepress_api_const_options_names_Advanced::GALLERY_ID
         ));
     }
 
@@ -433,7 +435,8 @@ class org_tubepress_impl_options_OptionsReference
             org_tubepress_api_const_options_names_Output::OUTPUT,
             org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL,
             org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY,
-            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_DOM_ID
+            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_DOM_ID,
+            org_tubepress_api_const_options_names_Advanced::GALLERY_ID
         ));
     }
 

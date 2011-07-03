@@ -185,6 +185,7 @@ abstract class org_tubepress_impl_message_AbstractMessageService implements org_
         'player-static'      => 'statically (page refreshes on each thumbnail click)',
         'player-solo'        => 'in a new window on its own',
         'player-vimeo'       => 'from the video\'s original Vimeo page',
+        'player-detached'    => 'in a "detached" location (see the documentation)',
 
         'order-relevance'    => 'relevance',
         'order-viewCount'    => 'view count',

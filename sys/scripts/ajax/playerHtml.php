@@ -24,7 +24,7 @@
  */
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classes/org/tubepress/impl/classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_ExecutionContextVariables',
+    'org_tubepress_api_const_options_names_Advanced',
 	'org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_impl_ioc_IocContainer'
 ));
@@ -43,14 +43,12 @@ $sp       = $ioc->get('org_tubepress_api_shortcode_ShortcodeParser');
 
 $shortcode = rawurldecode($qss->getShortcode($_GET));
 $videoId   = $qss->getCustomVideo($_GET);
-$galleryId = $qss->getGalleryId($_GET);
 
 /* gather up the options */
 $sp->parse($shortcode);
 if ($context->get(org_tubepress_api_const_options_names_Embedded::LAZYPLAY)) {
     $context->set(org_tubepress_api_const_options_names_Embedded::AUTOPLAY, true);
 }
-$context->set(org_tubepress_api_const_ExecutionContextVariables::GALLERY_ID, $galleryId);
 
 /* grab the video! */
 try {

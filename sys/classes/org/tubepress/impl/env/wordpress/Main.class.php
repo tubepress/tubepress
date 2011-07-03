@@ -83,11 +83,11 @@ class org_tubepress_impl_env_wordpress_Main
             }
 
             /* remove any leading/trailing <p> tags from the content */
-            $pattern = '/(<[P|p]>\s*)(' . preg_quote($context->getShortcode(), '/') . ')(\s*<\/[P|p]>)/';
+            $pattern = '/(<[P|p]>\s*)(' . preg_quote($context->getActualShortcodeUsed(), '/') . ')(\s*<\/[P|p]>)/';
             $content = preg_replace($pattern, '${2}', $content);
 
             /* replace the shortcode with our new content */
-            $currentShortcode = $context->getShortcode();
+            $currentShortcode = $context->getActualShortcodeUsed();
             $content          = org_tubepress_impl_util_StringUtils::replaceFirst($currentShortcode, $generatedHtml, $content);
 
             /* reset the context for the next shortcode */

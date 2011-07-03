@@ -43,7 +43,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_CoreVariables
         $videoArray  = $providerResult->getVideoArray();
         $thumbWidth  = $context->get(org_tubepress_api_const_options_names_Display::THUMB_WIDTH);
         $thumbHeight = $context->get(org_tubepress_api_const_options_names_Display::THUMB_HEIGHT);
-        $galleryId   = $context->get(org_tubepress_api_const_ExecutionContextVariables::GALLERY_ID);
+        $galleryId   = $context->get(org_tubepress_api_const_options_names_Advanced::GALLERY_ID);
         
         /* add some core template variables */
         $template->setVariable(org_tubepress_api_const_template_Variable::VIDEO_ARRAY, $videoArray);
