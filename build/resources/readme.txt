@@ -16,19 +16,40 @@ Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and/or sideb
 
 == Changelog ==
 
+= 2.2.5 =
+* Lightweight plugin support! Now you can customize TubePress's behavior without touching the core.
+* "Lazy" play option. Auto-starts video playback after thumbnail click (closes issue 166 )
+* Improved video meta support for embedded player in thumbnail galleries (closes issue 169 )
+* EmbedPlus support
+* TubePress Pro: Ability to combine YouTube and Vimeo in a single gallery (closes issue 228 )
+* TubePress Pro: Ability to load embedded player in a "detached" location (closes issue 244 )
+* Fixed broken i18n functionality in WordPress
+* Custom theme CSS now loads correctly for single video embeds
+* Updated Italian translation thanks to Gianni Diurno
+* Fixed jQuery UI conflict in admin section of WordPress (closes issue 296 )
+* User themes now appear in dropdown menu in WordPress settings page
+* Private Vimeo videos no longer appear in galleries (closes issue 276 )
+* YouTube embedded player now uses wmode=transparent (closes issue 298 )
+* Fixed deprecated warnings in PHP 5.3.0+ (closes issue 337 )
+* Made "fluid thumbnails" a first-class option, is now easy to disable when desired.
+* Modernized pagination style
+* Version bump to TinyBox2
+* Version bump to jQuery 1.6.1
+* Version bump to Fancybox 1.3.4 (closes issue 332 )
+
 = 2.2.0 =
-* Interactive searching! (closes  issue 138 )
-* YouTube iframe embedded player (closes  issue 265  and  issue 259 )
-* Improved inclusion of JS/CSS resources in WordPress environments (closes  issue 191 )
+* Interactive searching! (closes issue 138 )
+* YouTube iframe embedded player (closes issue 265  and  issue 259 )
+* Improved inclusion of JS/CSS resources in WordPress environments (closes issue 191 )
 * Ability to restrict search-based galleries to videos from a specific YouTube/Vimeo user
 * New HTTP subsystem provides faster and more robust feed retrieval
 * Added advanced caching options
-* Improved visual feedback during Ajax operations (closes  issue 142 )
-* Better upgrade notice for TubePress Pro users in a WordPress environment (closes  issue 252 )
-* Graceful handling of single video embedding when video isn't found (closes  issue 267 )
-* Broken gallery when trying to display Vimeo videos with JW FLV Media Player (closes  issue 242 )
-* Incorrect detection of multi-gallery mode in some circumstances (closes  issue 238 )
-* Duplicate videos no longer appear in galleries (closes  issue 248 )
+* Improved visual feedback during Ajax operations (closes issue 142 )
+* Better upgrade notice for TubePress Pro users in a WordPress environment (closes issue 252 )
+* Graceful handling of single video embedding when video isn't found (closes issue 267 )
+* Broken gallery when trying to display Vimeo videos with JW FLV Media Player (closes issue 242 )
+* Incorrect detection of multi-gallery mode in some circumstances (closes issue 238 )
+* Duplicate videos no longer appear in galleries (closes issue 248 )
 * Private Vimeo videos no longer appear in galleries
 * Non-functional message service when using TubePress Pro in a PHP environment without built-in gettext support
 * Fixed bug that could affect TubePress Pro users in a WordPress environment hosted on Windows-based PHP installations
