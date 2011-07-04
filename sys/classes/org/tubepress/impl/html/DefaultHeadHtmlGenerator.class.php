@@ -41,7 +41,7 @@ class org_tubepress_impl_html_DefaultHeadHtmlGenerator implements org_tubepress_
     public function getHeadJqueryInclusion()
     {
         $url = $this->_tubepressBaseUrl;
-        return "<script type=\"text/javascript\" src=\"$url/sys/ui/static/js/jquery-1.6.min.js\"></script>";
+        return "<script type=\"text/javascript\" src=\"$url/sys/ui/static/js/jquery-1.6.1.min.js\"></script>";
     }
 
     public function getHeadInlineJs()
