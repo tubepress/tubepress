@@ -197,6 +197,7 @@ div.tubepress_container div.pagination a, div.tubepress_container div.pagination
     margin: 2px !important;
     text-decoration: none;
     padding: 3px 5px;
+    cursor: pointer;
 }
 
 div.tubepress_container div.pagination span.current {

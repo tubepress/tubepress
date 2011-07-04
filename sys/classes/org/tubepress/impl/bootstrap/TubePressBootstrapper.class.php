@@ -57,13 +57,13 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
         }
         
         try {
-            $this->wrappedBoot();
+            $this->_doBoot();
         } catch (Exception $e) {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception while booting: '.  $e->getMessage());
         }
     }
 
-    protected function wrappedBoot()
+    private function _doBoot()
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
         $context     = $ioc->get('org_tubepress_api_exec_ExecutionContext');
@@ -80,7 +80,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Booting!');
 
         /* load plugins */
-        $this->_loadSystemPlugins($ioc);
+        $this->loadSystemPlugins($ioc);
         $this->_loadUserPlugins($ioc);
 
         /* tell everyone we're booting */
@@ -115,7 +115,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
         }
     }
 
-    private function _loadSystemPlugins(org_tubepress_api_ioc_IocService $ioc)
+    protected function loadSystemPlugins(org_tubepress_api_ioc_IocService $ioc)
     {
         $pm = $ioc->get('org_tubepress_api_plugin_PluginManager');
 

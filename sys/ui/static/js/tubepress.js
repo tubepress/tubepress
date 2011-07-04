@@ -400,6 +400,7 @@ var TubePressAjaxPagination = (function () {
 
 	/* sets up new thumbnails for ajax pagination */
 	jQuery(document).bind(TubePressEvents.NEW_THUMBS_LOADED, paginationBinder);
+	jQuery(document).bind(TubePressEvents.NEW_GALLERY_LOADED, paginationBinder);
 }());
 
 /**

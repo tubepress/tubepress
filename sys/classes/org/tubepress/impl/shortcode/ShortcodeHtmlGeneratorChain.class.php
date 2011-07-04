@@ -35,8 +35,6 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements org_tubepress_api_shortcode_ShortcodeHtmlGenerator
 {
-    const LOG_PREFIX = 'HTML Generator';
-
     /**
      * Generates the HTML for TubePress. Could be a gallery or single video.
      *
@@ -53,7 +51,7 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements org_tu
         $pm    = $ioc->get('org_tubepress_api_plugin_PluginManager');
 
         /* do a bit of logging */
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Type of IOC container is %s', get_class($ioc));
+        org_tubepress_impl_log_Log::log($this->getName(), 'Type of IOC container is %s', get_class($ioc));
 
         /* parse the shortcode if we need to */
         if ($shortCodeContent != '') {
@@ -62,7 +60,7 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements org_tu
         }
 
         /* use the chain to get the HTML */
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Running the shortcode HTML chain');
+        org_tubepress_impl_log_Log::log($this->getName(), 'Running the shortcode HTML chain');
         $rawHtml = $this->_runChain($chain);
 
         /* send it through the filters */
@@ -73,7 +71,12 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements org_tu
         return $rawHtml;
     }
 
-    protected function _getShortcodeCommands()
+    protected function getName()
+    {
+        return 'Shortcode HTML Generator Chain';
+    }
+    
+    protected function getShortcodeCommands()
     {
         return array(
             'org_tubepress_impl_shortcode_commands_SearchInputCommand',
@@ -87,7 +90,7 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements org_tu
     private function _runChain(org_tubepress_api_patterns_cor_Chain $chain)
     {
         $context = $chain->createContextInstance();
-        $status  = $chain->execute($context, $this->_getShortcodeCommands());
+        $status  = $chain->execute($context, $this->getShortcodeCommands());
 
         if ($status === false) {
             throw new Exception('No commands could generate the shortcode HTML.');
