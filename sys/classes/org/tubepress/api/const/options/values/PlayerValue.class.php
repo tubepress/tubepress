@@ -34,5 +34,5 @@ class org_tubepress_api_const_options_values_PlayerValue
     const SOLO      = 'solo';
     const FANCYBOX  = 'fancybox';
     const TINYBOX   = 'tinybox';
-    
+    const DETACHED  = 'detached';
 }

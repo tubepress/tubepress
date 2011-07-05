@@ -1,43 +1,44 @@
 <?php
 /**
  * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
- * 
+ *
  * This file is part of TubePress (http://tubepress.org)
- * 
+ *
  * TubePress is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * TubePress is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_impl_options_OptionsReference',
-    'org_tubepress_api_const_options_Type',
-    'org_tubepress_api_const_options_names_Embedded',
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Advanced',
-    'org_tubepress_api_const_options_names_Feed',
-    'org_tubepress_api_const_options_names_Widget',
     'org_tubepress_api_const_options_names_Display',
+    'org_tubepress_api_const_options_names_Embedded',
+    'org_tubepress_api_const_options_names_Feed',
     'org_tubepress_api_const_options_names_Meta',
     'org_tubepress_api_const_options_names_Output',
+    'org_tubepress_api_const_options_names_Output',
+    'org_tubepress_api_const_options_names_Widget',
+    'org_tubepress_api_const_options_Type',
     'org_tubepress_api_const_options_values_ModeValue',
     'org_tubepress_api_const_options_values_OrderValue',
-    'org_tubepress_api_const_options_values_TimeFrameValue',
+    'org_tubepress_api_const_options_values_PlayerImplementationValue',
     'org_tubepress_api_const_options_values_PlayerValue',
     'org_tubepress_api_const_options_values_SafeSearchValue',
-    'org_tubepress_api_const_options_values_PlayerImplementationValue',
-    'org_tubepress_api_const_options_names_Output',
-    'org_tubepress_api_embedded_EmbeddedPlayer'));
+    'org_tubepress_api_const_options_values_TimeFrameValue',
+    'org_tubepress_api_embedded_EmbeddedHtmlGenerator',
+    'org_tubepress_impl_options_OptionsReference',
+));
 
 /**
  * The master reference for TubePress options - their names, deprecated
@@ -58,9 +59,10 @@ class org_tubepress_impl_options_OptionsReference
             org_tubepress_api_const_options_names_Advanced::DATEFORMAT           => 'M j, Y',
             org_tubepress_api_const_options_names_Advanced::KEYWORD              => 'tubepress',
             org_tubepress_api_const_options_names_Advanced::VIDEO_BLACKLIST      => '',
+            org_tubepress_api_const_options_names_Advanced::GALLERY_ID           => '',
             org_tubepress_api_const_options_names_Output::FAVORITES_VALUE        => 'mrdeathgod',
             org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE         => 'D2B04665B213AE35',
-            org_tubepress_api_const_options_names_Output::TAG_VALUE              => 'stewart daily show',
+            org_tubepress_api_const_options_names_Output::TAG_VALUE              => 'pittsburgh steelers',
             org_tubepress_api_const_options_names_Output::USER_VALUE             => '3hough',
             org_tubepress_api_const_options_names_Feed::DEV_KEY                  => 'AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg',
             org_tubepress_api_const_options_names_Feed::VIMEO_KEY                => '',
@@ -95,7 +97,9 @@ class org_tubepress_impl_options_OptionsReference
             org_tubepress_api_const_options_names_Display::PAGINATE_BELOW          => true,
             org_tubepress_api_const_options_names_Display::AJAX_PAGINATION         => false,
             org_tubepress_api_const_options_names_Display::HQ_THUMBS               => false,
+            org_tubepress_api_const_options_names_Display::FLUID_THUMBS            => true,
             org_tubepress_api_const_options_names_Embedded::AUTOPLAY               => false,
+            org_tubepress_api_const_options_names_Embedded::LAZYPLAY               => true,
             org_tubepress_api_const_options_names_Embedded::LOOP                   => false,
             org_tubepress_api_const_options_names_Embedded::SHOW_INFO              => false,
             org_tubepress_api_const_options_names_Embedded::SHOW_RELATED           => true,
@@ -175,9 +179,9 @@ class org_tubepress_impl_options_OptionsReference
         org_tubepress_api_const_options_values_ModeValue::USER,
         org_tubepress_api_const_options_values_ModeValue::FEATURED,
         org_tubepress_api_const_options_values_ModeValue::MOST_DISCUSSED,
-        org_tubepress_api_const_options_values_ModeValue::MOST_RECENT, 
+        org_tubepress_api_const_options_values_ModeValue::MOST_RECENT,
         org_tubepress_api_const_options_values_ModeValue::MOST_RESPONDED,
-        org_tubepress_api_const_options_values_ModeValue::POPULAR, 
+        org_tubepress_api_const_options_values_ModeValue::POPULAR,
         org_tubepress_api_const_options_values_ModeValue::TOP_FAVORITES,
         org_tubepress_api_const_options_values_ModeValue::TOP_RATED,
         org_tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT,
@@ -306,17 +310,23 @@ class org_tubepress_impl_options_OptionsReference
         switch ($optionType) {
 
             case org_tubepress_api_const_options_Type::THEME:
-            
+
             $ioc                           = org_tubepress_impl_ioc_IocContainer::getInstance();
             $fs                            = $ioc->get('org_tubepress_api_filesystem_Explorer');
             $tubepressBaseInstallationPath = $fs->getTubePressBaseInstallationPath();
-            $dir                           = "$tubepressBaseInstallationPath/sys/ui/themes";
+            $sysdir                        = "$tubepressBaseInstallationPath/sys/ui/themes";
+            $userdir                       = "$tubepressBaseInstallationPath/content/themes";
             $result                        = array();
-            $dirs                          = $fs->getDirectoriesInDirectory($dir, 'Options reference');
+            $sysdirs                       = $fs->getDirectoriesInDirectory($sysdir, 'Options Reference');
+            $userdirs                      = $fs->getDirectoriesInDirectory($userdir, 'Options Reference');
 
-            foreach ($dirs as $fullDir) {
+            foreach ($sysdirs as $fullDir) {
                 array_push($result, basename($fullDir));
             }
+            foreach ($userdirs as $fullDir) {
+                array_push($result, basename($fullDir));
+            }
+
             return $result;
 
         default:
@@ -376,7 +386,8 @@ class org_tubepress_impl_options_OptionsReference
             org_tubepress_api_const_options_names_Output::OUTPUT,
             org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL,
             org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY,
-            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_DOM_ID
+            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_DOM_ID,
+            org_tubepress_api_const_options_names_Advanced::GALLERY_ID
         ));
     }
 
@@ -424,7 +435,8 @@ class org_tubepress_impl_options_OptionsReference
             org_tubepress_api_const_options_names_Output::OUTPUT,
             org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL,
             org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY,
-            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_DOM_ID
+            org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_DOM_ID,
+            org_tubepress_api_const_options_names_Advanced::GALLERY_ID
         ));
     }
 

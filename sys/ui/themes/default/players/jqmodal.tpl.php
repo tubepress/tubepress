@@ -18,5 +18,5 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-?>
-<div id="tubepress_embedded_object_<?php echo ${org_tubepress_api_const_template_Variable::GALLERY_ID}; ?>" style="display:none"><?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_SOURCE}; ?></div>
+
+echo ${org_tubepress_api_const_template_Variable::EMBEDDED_SOURCE};

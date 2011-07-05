@@ -30,7 +30,7 @@ if (!current_user_can(9)) {
 
 if (isset($_POST["tubepress_init_db"])) {
     $ioc = new org_tubepress_impl_ioc_FreeWordPressPluginIocService();
-	$wpsm = $ioc->get('org_tubepress_api_options_OptionsManager');
+	$wpsm = $ioc->get('org_tubepress_api_exec_ExecutionContext');
 	$wpsm->nuclear();
 	echo "TubePress options initialized<br /><br />";
 }

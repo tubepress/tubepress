@@ -19,9 +19,10 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_impl_options_AbstractStorageManager'));
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_impl_options_AbstractStorageManager'
+));
 
 /**
  * Implementation of org_tubepress_api_options_StorageManager that uses the
@@ -45,16 +46,17 @@ class org_tubepress_impl_options_WordPressStorageManager extends org_tubepress_i
 
         if ($this->exists("version")) {
             $version = $this->get("version");
-            if (!is_numeric($version) || $version < 200) {
+            if (!is_numeric($version) || $version < 225) {
                 $needToInit = true;
             }
         } else {
-            $this->create("version", 200);
+            $this->create("version", 225);
             $needToInit = true;
         }
 
         if ($needToInit) {
             $this->init();
+            $this->setOption("version", 225);
         }
     }
 

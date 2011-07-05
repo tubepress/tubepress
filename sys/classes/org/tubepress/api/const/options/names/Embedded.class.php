@@ -27,15 +27,16 @@ class org_tubepress_api_const_options_names_Embedded
 {
     //The order in which these constants are declared dictates the
     //order in which they'll be presented on the options page */
-    const PLAYER_IMPL      = "playerImplementation";
-    const EMBEDDED_HEIGHT  = "embeddedHeight";
-    const EMBEDDED_WIDTH   = "embeddedWidth";
-    const AUTOPLAY         = "autoplay";
-    const FULLSCREEN       = "fullscreen";
-    const HIGH_QUALITY     = "hd";
-    const LOOP             = "loop";
-    const PLAYER_COLOR     = "playerColor";
-    const PLAYER_HIGHLIGHT = "playerHighlight";
-    const SHOW_INFO        = "showInfo";
-    const SHOW_RELATED     = "showRelated";
+    const PLAYER_IMPL      = 'playerImplementation';
+    const EMBEDDED_HEIGHT  = 'embeddedHeight';
+    const EMBEDDED_WIDTH   = 'embeddedWidth';
+    const LAZYPLAY         = 'lazyPlay';
+    const AUTOPLAY         = 'autoplay';
+    const FULLSCREEN       = 'fullscreen';
+    const HIGH_QUALITY     = 'hd';
+    const LOOP             = 'loop';
+    const PLAYER_COLOR     = 'playerColor';
+    const PLAYER_HIGHLIGHT = 'playerHighlight';
+    const SHOW_INFO        = 'showInfo';
+    const SHOW_RELATED     = 'showRelated';
 }

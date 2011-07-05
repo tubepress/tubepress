@@ -34,6 +34,7 @@ class org_tubepress_api_const_options_names_Display
     const HQ_THUMBS           = 'hqThumbs';
     const THUMB_HEIGHT        = 'thumbHeight';
     const THUMB_WIDTH         = 'thumbWidth';
+    const FLUID_THUMBS        = 'fluidThumbs';
     const ORDER_BY            = 'orderBy';
     const PAGINATE_ABOVE      = 'paginationAbove';
     const PAGINATE_BELOW      = 'paginationBelow';

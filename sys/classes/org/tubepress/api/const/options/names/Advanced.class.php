@@ -34,6 +34,7 @@ class org_tubepress_api_const_options_names_Advanced
     const DISABLE_HTTP_FOPEN     = 'disableHttpTransportFopen';
     const DISABLE_HTTP_FSOCKOPEN = 'disableHttpTransportFsockOpen';
     const DISABLE_HTTP_STREAMS   = 'disableHttpTransportStreams';
+    const GALLERY_ID             = 'galleryId';
     const KEYWORD                = 'keyword';
     const VIDEO_BLACKLIST        = 'videoBlacklist';
 }

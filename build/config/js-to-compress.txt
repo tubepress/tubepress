@@ -1,0 +1,10 @@
+sys/ui/static/js/jscolor/jscolor.js
+sys/ui/static/js/tubepress.js
+sys/ui/static/players/jqmodal/jqmodal.js
+sys/ui/static/players/normal/normal.js
+sys/ui/static/players/popup/popup.js
+sys/ui/static/players/shadowbox/shadowbox.js
+sys/ui/static/players/solo/solo.js
+sys/ui/static/players/static/static.js
+sys/ui/static/players/vimeo/vimeo.js
+sys/ui/static/players/youtube/youtube.js

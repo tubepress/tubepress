@@ -19,10 +19,11 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_api_querystring_QueryStringService',
-    'org_tubepress_api_const_querystring_QueryParamName'));
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_querystring_QueryParamName',
+    'org_tubepress_api_querystring_QueryStringService',
+));
 
 /**
  * Handles some tasks related to the query string
@@ -44,18 +45,6 @@ class org_tubepress_impl_querystring_SimpleQueryStringService implements org_tub
     public function getSearchTerms($getVars)
     {
         return self::_getQueryVar($getVars, org_tubepress_api_const_querystring_QueryParamName::SEARCH_TERMS);
-    }
-
-    /**
-     * Try to get the gallery ID from the query string
-     *
-     * @param array $getVars The PHP $_GET array
-     *
-     * @return string The gallery ID, or '' if not set
-    */
-    public function getGalleryId($getVars)
-    {
-        return self::_getQueryVar($getVars, org_tubepress_api_const_querystring_QueryParamName::GALLERY_ID);
     }
 
     /**

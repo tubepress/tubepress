@@ -24,10 +24,9 @@
  */
 class org_tubepress_api_const_querystring_QueryParamName
 {
-    const DEBUG        = 'tubepress_debug';
-    const GALLERY_ID   = 'tubepress_galleryId';
-    const PAGE         = 'tubepress_page';
-    const SEARCH_TERMS = 'tubepress_search';
-    const SHORTCODE    = 'tubepress_shortcode';
-    const VIDEO        = 'tubepress_video';
+    const DEBUG              = 'tubepress_debug';
+    const PAGE               = 'tubepress_page';
+    const SEARCH_TERMS       = 'tubepress_search';
+    const SHORTCODE          = 'tubepress_shortcode';
+    const VIDEO              = 'tubepress_video';
 }

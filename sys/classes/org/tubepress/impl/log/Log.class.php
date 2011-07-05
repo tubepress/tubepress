@@ -35,12 +35,13 @@ class org_tubepress_impl_log_Log
     public static function log()
     {
         if (self::$_enabled) {
+            
             $numArgs = func_num_args();
             $prefix  = func_get_arg(0);
             $message = func_get_arg(1);
 
             /* how many milliseconds have elapsed? */
-            $time = (microtime(true) - self::$_birthDate) * 1000;
+            $time = number_format((microtime(true) - self::$_birthDate) * 1000, 2);
 
             if ($numArgs > 2) {
                 $args    = func_get_args();
@@ -48,7 +49,7 @@ class org_tubepress_impl_log_Log
             }
 
             /* print it! */
-            printf("<div><tt style=\"font-size: small\">%s ms > (%s) > %s (memory: %s KB)</tt></div>\n", $time, $prefix, $message, number_format(memory_get_usage() / 1024));
+            printf("<div><tt style=\"font-size: small\">%s ms (%s) %s (memory: %s KB)</tt></div>\n", $time, $prefix, $message, number_format(memory_get_usage() / 1024));
         }
     }
 

@@ -19,11 +19,10 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-|| require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array(
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_filesystem_Explorer',
     'org_tubepress_impl_log_Log',
-    'org_tubepress_api_filesystem_Explorer'
 ));
 
 /**

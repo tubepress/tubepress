@@ -2,9 +2,9 @@
 /**
 Plugin Name: TubePress
 Plugin URI: http://tubepress.org
-Description: Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and/or sidebar. Upgrade to <a href="http://tubepress.org/download/">TubePress Pro</a> for more features!
+Description: Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and/or sidebar. @description@
 Author: Eric D. Hough
-Version: 2.2.0
+Version: git-bleeding
 Author URI: http://ehough.com
 
 Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
@@ -27,11 +27,8 @@ along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
 
 if (version_compare(PHP_VERSION, '5.0.2', '>=')) {
 
-    function_exists('tubepress_load_classes')
-        || require dirname(__FILE__) . '/sys/classes/tubepress_classloader.php';
-    tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer'));
+    class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/sys/classes/org/tubepress/impl/classloader/ClassLoader.class.php';
+    org_tubepress_impl_classloader_ClassLoader::loadClasses(array('org_tubepress_impl_ioc_IocContainer'));
     
     org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_bootstrap_Bootstrapper')->boot();
 }
-
-?>

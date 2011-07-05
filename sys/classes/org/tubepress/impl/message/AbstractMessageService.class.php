@@ -19,9 +19,10 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php' ;
-tubepress_load_classes(array('org_tubepress_api_message_MessageService'));
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php' ;
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_message_MessageService'
+));
 
 /**
  * Shared message functionality for org_tubepress_api_message_MessageService implementations.
@@ -87,8 +88,10 @@ abstract class org_tubepress_impl_message_AbstractMessageService implements org_
         'options-title-ajaxPagination'   => '<a href="http://wikipedia.org/wiki/Ajax_(programming)">Ajax</a>-enabled pagination',
         'options-title-hqThumbs'         => 'Use high-quality thumbnails',
         'options-desc-hqThumbs'			 => 'Note: this option cannot be used with the "randomize thumbnails" feature',
+        'options-title-fluidThumbs'		 => 'Use "fluid" thumbnails',
+        'options-desc-fluidThumbs'		 => 'Dynamically set thumbnail spacing based on the width of their container.',
 
-        'options-title-autoplay'             => 'Auto-play videos',
+        'options-title-autoplay'             => 'Auto-play all videos',
         'options-title-embeddedHeight'       => 'Max height (px)',
         'options-desc-embeddedHeight'        => 'Default is 350',
         'options-title-embeddedWidth'        => 'Max width (px)',
@@ -108,7 +111,9 @@ abstract class org_tubepress_impl_message_AbstractMessageService implements org_
         'options-desc-playerImplementation'  => 'The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc)',
         'options-title-theme'                => 'Theme',
         'options-desc-theme'                 => 'The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>.',
-
+        'options-title-lazyplay'			 => '"Lazy" play videos',
+        'options-desc-lazyplay'				 => 'Auto-play each video after thumbnail click',
+    
         'options-title-author'      => 'Author',
         'options-title-category'    => 'Category',
         'options-title-description' => 'Description',
@@ -180,6 +185,7 @@ abstract class org_tubepress_impl_message_AbstractMessageService implements org_
         'player-static'      => 'statically (page refreshes on each thumbnail click)',
         'player-solo'        => 'in a new window on its own',
         'player-vimeo'       => 'from the video\'s original Vimeo page',
+        'player-detached'    => 'in a "detached" location (see the documentation)',
 
         'order-relevance'    => 'relevance',
         'order-viewCount'    => 'view count',
@@ -233,9 +239,10 @@ abstract class org_tubepress_impl_message_AbstractMessageService implements org_
         'safeSearch-moderate' => 'moderate',
         'safeSearch-strict'   => 'strict',
 
-        'playerImplementation-provider_based'    => 'Provider default',
-        'playerImplementation-longtail'   => 'JW FLV Media Player (by Longtail Video)',
-    
+        'playerImplementation-provider_based' => 'Provider default',
+        'playerImplementation-longtail'       => 'JW FLV Media Player (by Longtail Video)',
+        'playerImplementation-embedplus'      => 'EmbedPlus',   
+ 
         'no-videos-found'     => 'No matching videos',
         'search-input-button' => 'Search'
     );

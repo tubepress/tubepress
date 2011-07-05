@@ -6,16 +6,34 @@
  *
  * Shrink your JS: http://developer.yahoo.com/yui/compressor/
  */
-function tubepress_jqmodal_player(galleryId, videoId) {
-	var element = jQuery('#tubepress_embedded_object_' + galleryId);
+var TubePressJqModalPlayer = (function () {
 	
-	element.addClass('jqmWindow');	 
-	element.jqm(); 
-	element.jqmShow();
-}
+	/* this stuff helps compression */
+	var events	= TubePressEvents,
+		name	= 'jqmodal',
+		doc		= jQuery(document),
+		path	= getTubePressBaseUrl() + '/sys/ui/static/players/jqmodal/lib/jqModal.',
+		
+		invoke = function (e, videoId, galleryId, width, height) {
 
-function tubepress_jqmodal_player_init(baseUrl) {
-	var path = baseUrl + '/sys/ui/static/players/jqmodal/lib/jqModal.';
+			var element = jQuery('<div id="jqmodal' + galleryId + videoId + '" style="visibility: none; height: ' + height + 'px; width: ' + width + 'px;"></div>').appendTo('body'),
+				hider = function (hash) {
+					hash.o.remove();
+					hash.w.remove();
+			};
+	
+			element.addClass('jqmWindow');	 
+			element.jqm({ onHide : hider }).jqmShow();
+		},
+		
+		populate = function (e, title, html, height, width, videoId, galleryId) {
+			
+			jQuery('#jqmodal' + galleryId + videoId).html(html);
+		};
+
 	jQuery.getScript(path + 'js', function () {}, true);
-	TubePressJS.loadCss(path + 'css');
-}
+	TubePressCss.load(path + 'css');
+		
+	doc.bind(events.PLAYER_INVOKE + name, invoke);
+	doc.bind(events.PLAYER_POPULATE + name, populate);
+}());

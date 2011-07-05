@@ -20,7 +20,7 @@ msgstr ""
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: Gianni Diurno (aka gidibao) <gidibao[at]gmail[dot]com>\n"
-"Language-Team: Gianni Diurno | gidibao.net <gidibao[at]gmail[dot]com>\n"
+"Language-Team: Gianni Diurno | gidibao.net\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -70,7 +70,7 @@ msgid "Most-discussed videos"
 msgstr "i video più commentati"
 
 msgid "Most-responded to videos"
-msgstr "i video con più risposte"
+msgstr "i video più commentati "
 
 msgid "Videos uploaded by this Vimeo user"
 msgstr "Video caricati da questo utente Vimeo"
@@ -136,7 +136,7 @@ msgid "Use relative dates"
 msgstr "Usa data relativa"
 
 msgid "e.g. \"yesterday\" instead of \"November 3, 1980\""
-msgstr "ad es. \"ieri\" al posto di \"12 Gennaio 2009\""
+msgstr "ad es. \"ieri\" al posto di \"12 Gennaio 2011\""
 
 msgid "Videos per Page"
 msgstr "Video per pagina"
@@ -165,14 +165,14 @@ msgstr "Disponi i video"
 msgid "Embedded Player"
 msgstr "Lettore incorporato"
 
-msgid "Auto-play videos"
+msgid "Auto-play all videos"
 msgstr "Avvio automatico"
 
 msgid "Allow fullscreen playback"
 msgstr "Permetti la riproduzione a schermo intero"
 
 msgid "Max height (px)"
-msgstr "dimensioni (px)"
+msgstr "Altezza max (px)"
 
 msgid "Default is 350"
 msgstr "Predefinita a 350"
@@ -190,7 +190,7 @@ msgid "Loop"
 msgstr "Loop"
 
 msgid "Continue playing the video until the user stops it"
-msgstr "Riproduzione continua del video sino ad interruzione da parte del'utente"
+msgstr "Riproduzione continua del video sino ad interruzione da parte dell'utente"
 
 msgid "Show title and rating before video starts"
 msgstr "Mostra titolo e votazione prima dell'avvio del video"
@@ -208,7 +208,7 @@ msgid "Toggles the display of related videos after a video finishes"
 msgstr "Commuta alla presentazione dei video correlati una volta terminato il video"
 
 msgid "Show videos in high definition when available"
-msgstr "Qualità video"
+msgstr "Mostra video in HD (se disponibili)"
 
 msgid "Provider Feed"
 msgstr "Feed provider"
@@ -232,7 +232,7 @@ msgid "Length"
 msgstr "Lunghezza"
 
 msgid "Likes"
-msgstr "Piace"
+msgstr "Mi piace"
 
 msgid "Rating"
 msgstr "Valutazione"
@@ -256,7 +256,7 @@ msgid "URL"
 msgstr "URL"
 
 msgid "Advanced"
-msgstr "Funzioni varie avanzate"
+msgstr "Avanzate"
 
 msgid "Date format"
 msgstr "Formato data"
@@ -292,7 +292,7 @@ msgid "Randomize thumbnails"
 msgstr "Casualizza le miniature"
 
 msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized. Note: this option cannot be used with the \"high quality thumbnails\" feature"
-msgstr "La maggior parte dei video viene proposta con diverse miniature. Selezionando questa opzione, ogni volta che qualcuno accederà alla tua galleria potrà vedere i video presenti associati alle loro varie miniature mostrate casualmente "
+msgstr "La maggior parte dei video viene proposta con diverse miniature. Selezionando questa opzione, ogni volta che qualcuno accederà alla tua galleria potrà vedere i video presenti associati alle loro varie miniature mostrate casualmente.Nota: questa opzione non potrà essere utilizzata insieme alla caratteristica \"miniature HD\" "
 
 msgid "YouTube API Developer Key"
 msgstr "YouTube API Developer Key"
@@ -316,7 +316,7 @@ msgid "Maximum total videos to retrieve"
 msgstr "Numero massimo di video da estrarre"
 
 msgid "This can help to reduce the number of pages in your gallery. Set to \"0\" to remove any limit."
-msgstr "Questo potrà esserti utile per ridurre il numero di pagine nella galleria. Imposta a \"0\" pre nessun limite."
+msgstr "Questo potrà esserti utile per ridurre il numero di pagine nella galleria. Imposta a \"0\" per nessun limite."
 
 msgid "Appearance"
 msgstr "Aspetto"
@@ -328,7 +328,7 @@ msgid "in a popup window"
 msgstr "in una finestra popup"
 
 msgid "from the video's original YouTube page"
-msgstr "nella pagina originale di YouTube"
+msgstr "dalla pagina originale di YouTube"
 
 msgid "from the video's original Vimeo page"
 msgstr "dalla pagina originale Vimeo del video"
@@ -409,7 +409,7 @@ msgid "moderate"
 msgstr "modera"
 
 msgid "strict"
-msgstr "rispetto rigoroso della norma"
+msgstr "rigoroso"
 
 msgid "Provider default"
 msgstr "Provider predefinito"
@@ -490,64 +490,76 @@ msgid "Vimeo API \"Consumer Secret\""
 msgstr "API Vimeo \"Consumer Secret\""
 
 msgid "Do not attempt to use cURL to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr ""
+msgstr "Non tentare di utilizzare il cURL per prelevare i feed (remoto). Non disattivare a meno che tu non sappia cosa stai facendo."
 
 msgid "Do not attempt to use the PHP HTTP extension to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr ""
+msgstr "Non tentare di utilizzare l'estensione PHP HTTP per prelevare i feed (remoto). Non disattivare a meno che tu non sappia cosa stai facendo."
 
 msgid "Do not attempt to use fopen to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr ""
+msgstr "Non tentare di utilizzare la funzione fopen per prelevare i feed (remoto). Non disattivare a meno che tu non sappia cosa stai facendo."
 
 msgid "Do not attempt to use fsockopen to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr ""
+msgstr "Non tentare di utilizzare la funzione fsockopen per prelevare i feed (remoto). Non disattivare a meno che tu non sappia cosa stai facendo."
 
 msgid "Do not attempt to use PHP streams to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr ""
+msgstr "Non tentare di utilizzare i PHP stream per prelevare i feed (remoto). Non disattivare a meno che tu non sappia cosa stai facendo."
 
 msgid "Disable <a href=\"http://php.net/manual/en/function.curl-exec.php\">cURL</a> HTTP transport"
-msgstr ""
+msgstr "Disattiva il trasporto HTTP <a href=\"http://php.net/manual/en/function.curl-exec.php\">cURL</a>"
 
 msgid "Disable <a href=\"http://php.net/http_request\">HTTP extension</a> transport"
-msgstr ""
+msgstr "Disattiva il trasporto <a href=\"http://php.net/http_request\">estensione HTTP</a>"
 
 msgid "Disable <a href=\"http://php.net/manual/en/function.fopen.php\">fopen</a> HTTP transport"
-msgstr ""
+msgstr "Disattiva il trasporto HTTP <a href=\"http://php.net/manual/en/function.fopen.php\">fopen</a>"
 
 msgid "Disable <a href=\"http://php.net/fsockopen\">fsockopen</a> HTTP transport"
-msgstr ""
+msgstr "Disattiva il trasporto HTTP <a href=\"http://php.net/fsockopen\">fsockopen</a>"
 
 msgid "Disable <a href=\"http://php.net/manual/en/intro.stream.php\">PHP streams</a> HTTP transport"
-msgstr ""
+msgstr "Disattiva il trasporto HTTP <a href=\"http://php.net/manual/en/intro.stream.php\">PHP streams</a>"
 
 msgid "Cache directory"
-msgstr ""
+msgstr "Cartella cache"
 
 msgid "Leave blank to attempt to use system temp directory. Otherwise enter the absolute path of a writeable directory."
-msgstr ""
+msgstr "Lascia in bianco per tentare l'utilizzo della cartella temp del sistema. Diversamente, inserisci il percorso assoluto ad una cartella scrivibile."
 
 msgid "Cache expiration time (seconds)"
-msgstr ""
+msgstr "Tempo di scadenza cache (secondi)"
 
 msgid "Cache entries will be considered stale after the specified number of seconds. Default is 3600 (one hour)."
-msgstr ""
+msgstr "I contenuti della cache saranno ritenuti scaduti dopo X secondi. Predefinito a 3600 (1 ora)."
 
 msgid "Cache cleaning factor"
-msgstr ""
+msgstr "Fattore pulizia cache"
 
 msgid "If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning."
-msgstr ""
+msgstr "Inserendo un numero X, la cache verrà completamente svuotata ogni 1/X operazioni di scrittura. Inserire 0 per disattivare lo svuotamento della cache."
 
 msgid "Only show options applicable to..."
-msgstr ""
+msgstr "Mostra le sole operazioni applicabili a..."
 
 msgid "Restrict search results to videos from this user"
-msgstr ""
+msgstr "Limita a questo utente i risultati della ricerca video"
 
 msgid "Only applies to search-based galleries"
-msgstr ""
+msgstr "Applicato alle sole gallerie a base-ricerca"
 
 msgid "No matching videos"
-msgstr ""
+msgstr "Nessun video corrispondente"
 
 msgid "Search"
+msgstr "Cerca"
+
+msgid "Use \"fluid\" thumbnails"
+msgstr ""
+
+msgid "Dynamically set thumbnail spacing based on the width of their container."
+msgstr ""
+
+msgid "Auto-play each video after thumbnail click"
+msgstr ""
+
+msgid "\"Lazy\" play videos"
 msgstr ""

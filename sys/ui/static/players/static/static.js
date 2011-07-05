@@ -6,39 +6,38 @@
  *
  * Shrink your JS: http://developer.yahoo.com/yui/compressor/
  */
-function tubepress_static_player_readyTest() {
-	return typeof jQuery.query !== 'undefined';
-}
+var TubePressStaticPlayer = (function () {
 
-function tubepress_static_player_initt() {
-	jQuery("a[id^='tubepress_']").each(function () {
+	/* this stuff helps compression */
+	var events	= TubePressEvents,
+		doc		= jQuery(document),
+		anchors = TubePressThumbs,
+		jquery	= jQuery,
 		
-		var dis = jQuery(this), rel_split = dis.attr('rel').split('_'),
-			page, newId, newUrl, galleryId;
+		scanAndModifyThumbs = function () {
 		
-		if (TubePressAnchors.getPlayerNameFromRelSplit(rel_split) !== 'static') {
-			return;
-		}
-		
-		galleryId	= TubePressAnchors.getGalleryIdFromRelSplit(rel_split);
-		newId		= TubePressAnchors.getVideoIdFromIdAttr(dis.attr('id'));
-		page		= TubePressGallery.getCurrentPageNumber(galleryId);
-		newUrl		= jQuery.query.set('tubepress_video', newId).set('tubepress_page', page).toString();
+			jquery("a[id^='tubepress_']").each(function () {
+				
+				var dis 		= jquery(this),
+					rel_split 	= dis.attr('rel').split('_'),
+					page, newId, newUrl, galleryId;
+				
+				galleryId	= anchors.getGalleryIdFromRelSplit(rel_split);
+				
+				if (TubePressGallery.getPlayerLocationName(galleryId) !== 'static') {
+					return;
+				}
+				
+				newId		= anchors.getVideoIdFromIdAttr(dis.attr('id'));
+				page		= anchors.getCurrentPageNumber(galleryId);
+				newUrl		= jquery.query.set('tubepress_video', newId).set('tubepress_page', page).toString();
+	
+				dis.attr('href', newUrl);
+				dis.unbind('click');
+			});
+		};
 
-		dis.attr('href', newUrl);
-		dis.unbind('click');
-	});
-}
-
-function tubepress_static_player_init(baseUrl) {
-	TubePressJS.getWaitCall(baseUrl + '/sys/ui/static/players/static/lib/jQuery.query.js',
-		tubepress_static_player_readyTest,
-		tubepress_static_player_initt);
-	jQuery(document).bind(TubePressEvents.NEW_THUMBS_LOADED, function (x) {
-		tubepress_static_player_initt();
-	});
-}
-
-function tubepress_static_player(galleryId, videoId) {
-   //do nothing
-}
+	jquery.getScript(getTubePressBaseUrl() + '/sys/ui/static/players/static/lib/jQuery.query.js', scanAndModifyThumbs, true);	
+	doc.bind(events.NEW_THUMBS_LOADED, scanAndModifyThumbs);
+	
+}());

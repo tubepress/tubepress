@@ -19,10 +19,16 @@
  *
  */
 
-function_exists('tubepress_load_classes')
-    || require dirname(__FILE__) . '/../../../../tubepress_classloader.php';
-tubepress_load_classes(array('org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_api_shortcode_ShortcodeParser'));
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_options_names_Advanced',
+    'org_tubepress_api_ioc_IocService',
+    'org_tubepress_api_exec_ExecutionContext',
+    'org_tubepress_api_options_OptionValidator',
+    'org_tubepress_api_shortcode_ShortcodeParser',
+    'org_tubepress_impl_ioc_IocContainer',
+    'org_tubepress_impl_log_Log',
+));
 
 /**
  * Parses shortcodes.
@@ -49,11 +55,11 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
     
     private function _wrappedParse($content)
     {
-        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tpom = $ioc->get('org_tubepress_api_options_OptionsManager');
+        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
 
         /* what trigger word are we using? */
-        $keyword = $tpom->get(org_tubepress_api_const_options_names_Advanced::KEYWORD);
+        $keyword = $context->get(org_tubepress_api_const_options_names_Advanced::KEYWORD);
 
         if (!$this->somethingToParse($content, $keyword)) {
             return;
@@ -75,7 +81,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Found a shortcode: %s', $matches[0]);
 
-        $tpom->setShortcode($matches[0]);
+        $context->setActualShortcodeUsed($matches[0]);
 
         /* Anything matched? */
         if (isset($matches[1]) && $matches[1] != '') {
@@ -90,7 +96,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
 
                 $toReturn = self::_parseCustomOption($toReturn, $match, $ioc);
 
-                $tpom->setCustomOptions($toReturn);
+                $context->setCustomOptions($toReturn);
             }
         } else {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'No custom options detected in shortcode: %s', $matches[0]);

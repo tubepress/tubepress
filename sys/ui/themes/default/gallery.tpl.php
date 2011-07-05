@@ -119,13 +119,4 @@
     </div>
     <?php if (isset(${org_tubepress_api_const_template_Variable::PAGINATION_BOTTOM})) : echo ${org_tubepress_api_const_template_Variable::PAGINATION_BOTTOM}; endif; ?>
   </div>
-
-  <script type="text/javascript">
-    jQuery(document).ready(function(){
-       TubePressGallery.fluidThumbs("#tubepress_gallery_<?php echo ${org_tubepress_api_const_template_Variable::GALLERY_ID}; ?>",  <?php echo ${org_tubepress_api_const_template_Variable::THUMBNAIL_WIDTH}; ?>);
-    });
-    jQuery(window).resize(function(){
-       TubePressGallery.fluidThumbs("#tubepress_gallery_<?php echo ${org_tubepress_api_const_template_Variable::GALLERY_ID}; ?>",  <?php echo ${org_tubepress_api_const_template_Variable::THUMBNAIL_WIDTH}; ?>);
-    });
-  </script>
 </div>
