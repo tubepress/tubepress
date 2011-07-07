@@ -295,6 +295,11 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 		return $files;
 	}
 
+	function testGetKeyNoExists()
+	{
+        $this->assertEquals('', $this->_sut->_('foobar'));
+	}
+
 	function testGetKey()
 	{
 	    global $msgs;
