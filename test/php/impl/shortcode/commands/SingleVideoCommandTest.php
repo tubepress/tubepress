@@ -12,6 +12,17 @@ class org_tubepress_impl_shortcode_commands_SingleVideoCommandTest extends TubeP
 		$this->_sut = new org_tubepress_impl_shortcode_commands_SingleVideoCommand();
 	}
 
+	function testExecuteNoVideo()
+	{
+	    $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
+
+	    $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+	    $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::VIDEO)->andReturn('');
+
+
+	    $this->assertFalse($this->_sut->execute(new stdClass()));
+	}
+
 	function testExecute()
 	{
 	    $mockChainContext = new stdClass();

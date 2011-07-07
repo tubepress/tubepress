@@ -71,7 +71,7 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_t
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Provider has delivered %d videos', $numVideos);
 
         if ($numVideos == 0) {
-            $context->setReturnValue($ms->_('no-videos-found'));
+            $context->returnValue = $ms->_('no-videos-found');
             return true;
         }
 
