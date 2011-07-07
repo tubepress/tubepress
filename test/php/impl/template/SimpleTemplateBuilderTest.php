@@ -27,7 +27,7 @@ class org_tubepress_impl_template_SimpleTemplateBuilderTest extends TubePressUni
 
     public function testBuild()
     {
-        $result = $this->_sut->getNewTemplateInstance('fake_template.php');
+        $result = $this->_sut->getNewTemplateInstance(dirname(__FILE__) . '/fake_template.php');
 
         $this->assertTrue(is_a($result, 'org_tubepress_impl_template_SimpleTemplate'));
     }
