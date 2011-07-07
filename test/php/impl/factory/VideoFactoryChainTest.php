@@ -12,6 +12,26 @@ class org_tubepress_impl_factory_VideoFactoryChainTest extends TubePressUnitTest
         $this->_sut = new org_tubepress_impl_factory_VideoFactoryChain();
     }
 
+    function testNobodyCanHandle()
+    {
+        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+
+        $pc = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('providerrr');
+
+        $mockChainContext = \Mockery::mock('stdClass');
+        $mockChainContext->returnValue = array('one', 'two');
+
+        $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $chain->shouldReceive('execute')->once()->with(anInstanceOf('stdClass'), array(
+                'org_tubepress_impl_factory_commands_YouTubeFactoryCommand',
+                'org_tubepress_impl_factory_commands_VimeoFactoryCommand'
+        ))->andReturn(false);
+        $chain->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
+
+        $this->assertEquals(array(), $this->_sut->feedToVideoArray('bla'));
+    }
+
     function testConvert()
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
