@@ -23,11 +23,6 @@ class org_tubepress_impl_querystring_SimpleQueryStringServiceTest extends TubePr
         $this->assertEquals(1, $this->_sut->getPageNum(array("tubepress_page" => -1)));
     }
 
-    public function testGetGalleryId()
-    {
-        $this->assertEquals('boo', $this->_sut->getGalleryId(array("tubepress_galleryId" => "boo")));
-    }
-
     public function testSearchTerms()
     {
         $this->assertEquals('kkjjhh', $this->_sut->getSearchTerms(array("tubepress_search" => "kkjjhh")));
