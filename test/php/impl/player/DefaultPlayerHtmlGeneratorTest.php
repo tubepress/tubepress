@@ -15,8 +15,8 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePress
         $this->_video->shouldReceive('getId')->once()->andReturn('video-id');
     }
 
-   function testGetHtml()
-   {
+    function testGetHtml()
+    {
         $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
 
         $context       = $ioc->get('org_tubepress_api_exec_ExecutionContext');
@@ -33,17 +33,17 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePress
 
         $pm            = $ioc->get('org_tubepress_api_plugin_PluginManager');
         $pm->shouldReceive('runFilters')->once()->with(
-            org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_PLAYER,
-            $mockTemplate, $this->_video, 'video-provider', 'current-player-name'
+        org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_PLAYER,
+        $mockTemplate, $this->_video, 'video-provider', 'current-player-name'
         )->andReturn($mockTemplate);
         $pm->shouldReceive('runFilters')->once()->with(
-            org_tubepress_api_const_plugin_FilterPoint::HTML_PLAYER, 'foobarr',
-            $this->_video, 'video-provider', 'current-player-name'
+        org_tubepress_api_const_plugin_FilterPoint::HTML_PLAYER, 'foobarr',
+        $this->_video, 'video-provider', 'current-player-name'
         )->andReturn('modified-player-html');
         $pm->shouldReceive('runFilters')->once()->with(
-            org_tubepress_api_const_plugin_FilterPoint::HTML_ANY, 'modified-player-html'
+        org_tubepress_api_const_plugin_FilterPoint::HTML_ANY, 'modified-player-html'
         )->andReturn('final-html');
 
         $this->assertEquals('final-html', $this->_sut->getHtml($this->_video));
-   }
+    }
 }

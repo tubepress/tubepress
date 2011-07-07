@@ -4,7 +4,7 @@ require_once dirname(__FILE__) . '/../../../../../sys/classes/org/tubepress/api/
 
 class org_tubepress_impl_patterns_cor_ChainGangTest extends TubePressUnitTest {
 
-	private $_sut;
+    private $_sut;
 
     function setUp()
     {
@@ -16,11 +16,24 @@ class org_tubepress_impl_patterns_cor_ChainGangTest extends TubePressUnitTest {
     }
 
     /**
+    * @expectedException Exception
+    */
+    function testExecuteWithNonContext()
+    {
+        $this->_sut->execute('hello', array('org_tubepress_api_exec_ExecutionContext'));
+    }
+
+    /**
      * @expectedException Exception
      */
     function testExecuteWithNonCommand()
     {
-        $this->_sut->execute(array('org_tubepress_api_exec_ExecutionContext'));
+        $this->_sut->execute(new stdClass, array('org_tubepress_api_exec_ExecutionContext'));
+    }
+
+    function testCreateContextInstance()
+    {
+        $this->assertTrue(is_a($this->_sut->createContextInstance(), 'stdClass'));
     }
 
     /**
@@ -28,7 +41,7 @@ class org_tubepress_impl_patterns_cor_ChainGangTest extends TubePressUnitTest {
      */
     function testExecuteWithNonArrayArgument()
     {
-        $this->_sut->execute('bla');
+        $this->_sut->execute(new stdClass, 'bla');
     }
 
     function testCanHandle()
