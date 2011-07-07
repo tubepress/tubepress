@@ -37,4 +37,17 @@ class org_tubepress_impl_template_SimpleTemplateTest extends TubePressUnitTest
         $template->setVariable('world', 'World!');
         $this->assertEquals('Hello World!', $template->toString());
     }
+
+    /**
+    * @expectedException Exception
+    */
+    public function testReset()
+    {
+        $template = new org_tubepress_impl_template_SimpleTemplate(dirname(__FILE__) . '/fake_template.php');
+        $template->setVariable('world', 'World!');
+        $this->assertEquals('Hello World!', $template->toString());
+
+        $template->reset();
+        $template->toString();
+    }
 }

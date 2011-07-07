@@ -19,7 +19,7 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../classloader/ClassLoader.class.php');
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_template_Template',
     'org_tubepress_impl_util_StringUtils',
@@ -30,27 +30,45 @@ class org_tubepress_impl_template_SimpleTemplate implements org_tubepress_api_te
     private $_source;
     private $_path;
 
+    /**
+     * Constructor.
+     *
+     * @param string $path Absolute path to the template file.
+     *
+     * @return void
+     */
     public function __construct($path)
     {
         if (!is_readable($path)) {
             throw new Exception("Cannot read template at $path");
         }
 
-            $this->_path = $path;
-            $this->_source = array();
+        $this->_path   = $path;
+        $this->_source = array();
     }
 
+    /**
+    * Set a template variable.
+    *
+    * @param string  $name  The name of the template variable to set.
+    * @param unknown $value The value of the template variable.
+    *
+    * @return void
+    */
     public function setVariable($name, $value)
     {
         $this->_source[$name] = $value;
     }
 
+    /**
+    * Converts this template to a string
+    *
+    *@throws Exception If there was a problem.
+    *
+    * @return string The string representation of this template.
+    */
     public function toString()
     {
-        if (!isset($this->_path)) {
-            throw new Exception('Can\'t build template when no file is set');
-        }
-
         ob_start();
         extract($this->_source);
         include realpath($this->_path);
@@ -60,13 +78,13 @@ class org_tubepress_impl_template_SimpleTemplate implements org_tubepress_api_te
         return org_tubepress_impl_util_StringUtils::removeEmptyLines($result);
     }
 
+    /**
+    * Resets this template for use. Clears out any set variables.
+    *
+    * @return void
+    */
     public function reset()
     {
         $this->_source = array();
-    }
-
-    public function getInstance($path)
-    {
-        return new org_tubepress_impl_template_SimpleTemplate($path);
     }
 }
