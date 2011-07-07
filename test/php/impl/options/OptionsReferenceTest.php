@@ -17,6 +17,7 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
             org_tubepress_api_const_options_names_Advanced::DATEFORMAT           => 'M j, Y',
             org_tubepress_api_const_options_names_Advanced::KEYWORD              => 'tubepress',
             org_tubepress_api_const_options_names_Advanced::VIDEO_BLACKLIST      => '',
+            org_tubepress_api_const_options_names_Advanced::GALLERY_ID           => '',
             org_tubepress_api_const_options_names_Output::FAVORITES_VALUE        => 'mrdeathgod',
             org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE         => 'D2B04665B213AE35',
             org_tubepress_api_const_options_names_Output::TAG_VALUE              => 'pittsburgh steelers',
@@ -119,7 +120,7 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
 	{
 	    $expectedNames = array('cacheCleaningFactor', 'cacheDirectory', 'cacheLifetimeSeconds',
 	    	'dateFormat', 'debugging_enabled',  'disableHttpTransportCurl', 'disableHttpTransportExtHttp', 'disableHttpTransportFopen', 'disableHttpTransportFsockOpen', 'disableHttpTransportStreams', 'keyword',
-	    	'videoBlacklist'
+	    	'videoBlacklist', 'galleryId'
 	    );
 	    self::assertArrayEquality($expectedNames, org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::ADVANCED));
 	}
@@ -155,7 +156,7 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
         $expectedNames = array(
             'playerImplementation', 'embeddedHeight', 'embeddedWidth',
             'autoplay', 'fullscreen', 'hd', 'loop', 'playerColor',
-            'playerHighlight', 'showInfo', 'showRelated', 'lazyplay'
+            'playerHighlight', 'showInfo', 'showRelated', 'lazyPlay'
         );
         self::assertArrayEquality($expectedNames, org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::EMBEDDED));
     }
@@ -233,9 +234,16 @@ class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest 
             }
         }
     }
+
+    function testCanOptionBeSetViaShortcode()
+    {
+        $this->assertFalse(org_tubepress_impl_options_OptionsReference::canOptionBeSetViaShortcode(org_tubepress_api_const_options_names_Advanced::KEYWORD));
+        $this->assertTrue(org_tubepress_impl_options_OptionsReference::canOptionBeSetViaShortcode(org_tubepress_api_const_options_names_Advanced::CACHE_CLEAN_FACTOR));
+    }
+
     function testPlayerEnumValues()
     {
-        $expected = array('normal', 'popup','shadowbox', 'jqmodal', 'youtube', 'static', 'solo', 'vimeo', 'fancybox', 'tinybox');
+        $expected = array('normal', 'popup','shadowbox', 'jqmodal', 'youtube', 'static', 'solo', 'vimeo', 'fancybox', 'tinybox', 'detached');
         self::assertArrayEquality($expected, org_tubepress_impl_options_OptionsReference::getValidEnumValues(org_tubepress_api_const_options_Type::PLAYER));
     }
     function testMostViewedEnumValues()
