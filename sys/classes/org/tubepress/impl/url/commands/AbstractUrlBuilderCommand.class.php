@@ -19,7 +19,7 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../classloader/ClassLoader.class.php');
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_options_names_Display',
@@ -48,25 +48,44 @@ abstract class org_tubepress_impl_url_commands_AbstractUrlBuilderCommand impleme
      */
     public function execute($context)
     {
-        if ($context->providerName !== $this->_getHandledProviderName()) {
+        if ($context->providerName !== $this->getHandledProviderName()) {
             return false;
         }
 
         /* single video */
         if ($context->single) {
 
-            $context->returnValue = $this->_buildSingleVideoUrl($context->arg);
+            $context->returnValue = $this->buildSingleVideoUrl($context->arg);
         } else {
 
-            $context->returnValue = $this->_buildGalleryUrl($context->arg);
+            $context->returnValue = $this->buildGalleryUrl($context->arg);
         }
 
         return true;
     }
 
-    protected abstract function _getHandledProviderName();
+    /**
+     * Return the name of the provider for which this command can handle.
+     *
+     * @return string The name of the video provider that this command can handle.
+     */
+    protected abstract function getHandledProviderName();
 
-    protected abstract function _buildSingleVideoUrl($id);
+    /**
+     * Build the URL for a single video.
+     *
+     * @param string $id The video ID.
+     *
+     * @return string The URL for the video.
+     */
+    protected abstract function buildSingleVideoUrl($id);
 
-    protected abstract function _buildGalleryUrl($page);
+    /**
+     * Build a gallery URL for the given page.
+     *
+     * @param int $page The page number.
+     *
+     * @return string The gallery URL.
+     */
+    protected abstract function buildGalleryUrl($page);
 }

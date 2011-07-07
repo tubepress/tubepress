@@ -23,6 +23,66 @@ class org_tubepress_impl_url_commands_VimeoUrlBuilderCommandTest extends TubePre
         $execContext->shouldReceive('get')->zeroOrMoreTimes()->with(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE)->andReturn(20);
     }
 
+    /**
+    * @expectedException Exception
+    */
+    function testNoVimeoKeyGallery()
+    {
+        $this->_expectOptions(array(
+        org_tubepress_api_const_options_names_Feed::VIMEO_KEY => '',
+        org_tubepress_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
+        ));
+
+        $context = self::_buildContext(org_tubepress_api_provider_Provider::VIMEO, true, '444333');
+
+        $this->_sut->execute($context);
+    }
+
+    /**
+     * @expectedException Exception
+     */
+    function testNoVimeoKeySingleVideo()
+    {
+        $this->_expectOptions(array(
+        org_tubepress_api_const_options_names_Feed::VIMEO_KEY => '',
+        org_tubepress_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
+        ));
+
+        $context = self::_buildContext(org_tubepress_api_provider_Provider::VIMEO, true, '444333');
+
+        $this->_sut->execute($context);
+    }
+
+    /**
+    * @expectedException Exception
+    */
+    function testNoVimeoSecretGallery()
+    {
+        $this->_expectOptions(array(
+        org_tubepress_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
+        org_tubepress_api_const_options_names_Feed::VIMEO_SECRET => ''
+        ));
+
+        $context = self::_buildContext(org_tubepress_api_provider_Provider::VIMEO, true, '444333');
+
+        $this->_sut->execute($context);
+    }
+
+    /**
+     * @expectedException Exception
+     */
+    function testNoVimeoSecretSingleVideo()
+    {
+        $this->_expectOptions(array(
+        org_tubepress_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
+        org_tubepress_api_const_options_names_Feed::VIMEO_SECRET => ''
+        ));
+
+        $context = self::_buildContext(org_tubepress_api_provider_Provider::VIMEO, true, '444333');
+
+        $this->_sut->execute($context);
+    }
+
     function testSingleVideoUrl()
     {
         $this->_expectOptions(array(
@@ -48,6 +108,21 @@ class org_tubepress_impl_url_commands_VimeoUrlBuilderCommandTest extends TubePre
         $context = self::_buildContext(org_tubepress_api_provider_Provider::VIMEO, false, 1);
 
         self::assertTrue($this->urlMatches('method=vimeo.groups.getVideos&group_id=eric&full_response=true&page=1&per_page=20&sort=random', $context));
+    }
+
+    function testExecuteCreditedTo()
+    {
+        $this->_expectOptions(array(
+        org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::VIMEO_CREDITED,
+        org_tubepress_api_const_options_names_Output::VIMEO_CREDITED_VALUE => 'eric',
+        org_tubepress_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
+        org_tubepress_api_const_options_names_Display::ORDER_BY => 'random',
+        org_tubepress_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
+        ));
+
+        $context = self::_buildContext(org_tubepress_api_provider_Provider::VIMEO, false, 1);
+
+        self::assertTrue($this->urlMatches('method=vimeo.videos.getAll&user_id=eric&full_response=true&page=1&per_page=20', $context));
     }
 
     function testexecuteAlbum()
