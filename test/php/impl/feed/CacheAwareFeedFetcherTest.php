@@ -13,14 +13,38 @@ class org_tubepress_impl_feed_CacheAwareFeedFetcherTest extends TubePressUnitTes
  	        org_tubepress_impl_log_Log::setEnabled(false, array());
 	}
 
+	function testFetchGoodXmlCacheHit()
+	{
+	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+
+	    $cache = $ioc->get('org_tubepress_api_cache_Cache');
+	    $cache->shouldReceive('get')->once()->with("http://www.ietf.org/css/ietf.css")->andReturn('someValue');
+
+	    $this->assertEquals('someValue', $this->_sut->fetch("http://www.ietf.org/css/ietf.css", true));
+	}
+
+	function testFetchGoodXmlCacheMiss()
+	{
+	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+
+	    $cache = $ioc->get('org_tubepress_api_cache_Cache');
+	    $cache->shouldReceive('get')->once()->with("http://www.ietf.org/css/ietf.css")->andReturn(false);
+	    $cache->shouldReceive('save')->once()->with("http://www.ietf.org/css/ietf.css", "someValue");
+
+	    $httpClient = $ioc->get('org_tubepress_api_http_HttpClient');
+	    $httpClient->shouldReceive('get')->once()->with("http://www.ietf.org/css/ietf.css")->andReturn('someValue');
+
+	    $this->assertEquals('someValue', $this->_sut->fetch("http://www.ietf.org/css/ietf.css", true));
+	}
+
 	function testFetchGoodXmlCacheDisabled()
 	{
 	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
 	    $httpClient = $ioc->get('org_tubepress_api_http_HttpClient');
-	    $httpClient->shouldReceive('get')->once()->with("http://www.ietf.org/css/ietf.css")->andReturn('shit');
+	    $httpClient->shouldReceive('get')->once()->with("http://www.ietf.org/css/ietf.css")->andReturn('someValue');
 
-		$this->_sut->fetch("http://www.ietf.org/css/ietf.css", false);
+		$this->assertEquals('someValue', $this->_sut->fetch("http://www.ietf.org/css/ietf.css", false));
 	}
 
 	/**
