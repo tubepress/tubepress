@@ -66,7 +66,8 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest {
             org_tubepress_api_const_options_names_Display::THUMB_WIDTH         => 22135,
             org_tubepress_api_const_options_names_Display::PAGINATE_ABOVE      => false,
             org_tubepress_api_const_options_names_Display::PAGINATE_BELOW      => false,
-            org_tubepress_api_const_options_names_Display::THEME               => 'sidebar'
+            org_tubepress_api_const_options_names_Display::THEME               => 'sidebar',
+            org_tubepress_api_const_options_names_Display::FLUID_THUMBS        => false
         ));
         $context->shouldReceive('reset')->once();
 
