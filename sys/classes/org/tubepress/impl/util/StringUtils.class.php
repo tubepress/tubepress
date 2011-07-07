@@ -44,17 +44,30 @@ class org_tubepress_impl_util_StringUtils
         return $temp;
     }
 
-    //http://programming-oneliners.blogspot.com/2006/03/remove-blank-empty-lines-php-29.html
+    /**
+     * Grabbed from http://programming-oneliners.blogspot.com/2006/03/remove-blank-empty-lines-php-29.html
+     * 
+     * @param string $string The string to modify
+     * 
+     * @return string The string with most empty lines removed.
+     */
     public static function removeEmptyLines($string)
     {
         return preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $string);
     }
-    
+
+    /**
+     * Cleans up potentially malicious user input.
+     *
+     * @param string $string The raw user input string.
+     * 
+     * @return string The cleaned up user input string.
+     */
     public static function cleanForSearch($string)
     {
         /* chop it off at 100 chars */
         $result = substr($string, 0, 100);
-        
+
         /* only allow alphanumerics, pipe, plus, quotes, and minus */
         return preg_replace('/[^a-zA-Z0-9"\'\+\|\- ]/', '', $result);
     }
