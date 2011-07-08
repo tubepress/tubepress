@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../sys/classes/org/tubepress/impl/shortcode/commands/ThumbGalleryCommand.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/shortcode/commands/ThumbGalleryCommand.class.php';
 
 class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends TubePressUnitTest
 {

@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/theme/SimpleThemeHandler.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/theme/SimpleThemeHandler.class.php';
 
 class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
 {

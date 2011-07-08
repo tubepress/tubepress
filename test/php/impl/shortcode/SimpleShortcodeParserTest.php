@@ -1,8 +1,8 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/shortcode/SimpleShortcodeParser.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/shortcode/SimpleShortcodeParser.class.php';
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/classloader/ClassLoader.class.php';
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require BASE . '/sys/classes/org/tubepress/impl/classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Output',
     'org_tubepress_api_const_options_values_ModeValue',

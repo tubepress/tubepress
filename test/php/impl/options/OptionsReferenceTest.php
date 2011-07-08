@@ -1,7 +1,7 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/options/OptionsReference.class.php';
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/api/const/options/CategoryName.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/options/OptionsReference.class.php';
+require_once BASE . '/sys/classes/org/tubepress/api/const/options/CategoryName.class.php';
 
 class org_tubepress_impl_options_OptionsReferenceTest extends TubePressUnitTest {
 

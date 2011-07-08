@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__FILE__) . '/../../../includes/TubePressUnitTest.php';
+require_once BASE . '/test/includes/TubePressUnitTest.php';
 require_once 'commands/YouTubeUrlBuilderCommandTest.php';
 require_once 'commands/VimeoUrlBuilderCommandTest.php';
 require_once 'UrlBuilderChainTest.php';

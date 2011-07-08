@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../sys/classes/org/tubepress/impl/url/commands/VimeoUrlBuilderCommand.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/url/commands/VimeoUrlBuilderCommand.class.php';
 
 class org_tubepress_impl_url_commands_VimeoUrlBuilderCommandTest extends TubePressUnitTest {
 

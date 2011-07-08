@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/player/DefaultPlayerHtmlGenerator.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/player/DefaultPlayerHtmlGenerator.class.php';
 
 class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePressUnitTest {
 

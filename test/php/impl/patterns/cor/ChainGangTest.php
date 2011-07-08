@@ -1,6 +1,6 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../../sys/classes/org/tubepress/impl/patterns/cor/ChainGang.class.php';
-require_once dirname(__FILE__) . '/../../../../../sys/classes/org/tubepress/api/patterns/cor/Command.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/patterns/cor/ChainGang.class.php';
+require_once BASE . '/sys/classes/org/tubepress/api/patterns/cor/Command.class.php';
 
 class org_tubepress_impl_patterns_cor_ChainGangTest extends TubePressUnitTest {
 

@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/embedded/EmbeddedPlayerChain.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/embedded/EmbeddedPlayerChain.class.php';
 
 class org_tubepress_impl_embedded_EmbeddedPlayerChainTest extends TubePressUnitTest {
 

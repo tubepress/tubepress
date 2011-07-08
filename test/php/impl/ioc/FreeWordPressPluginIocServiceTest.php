@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/ioc/FreeWordPressPluginIocService.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/ioc/FreeWordPressPluginIocService.class.php';
 
 class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePressUnitTest {
 

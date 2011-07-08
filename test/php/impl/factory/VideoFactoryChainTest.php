@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/factory/VideoFactoryChain.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/factory/VideoFactoryChain.class.php';
 
 class org_tubepress_impl_factory_VideoFactoryChainTest extends TubePressUnitTest {
 

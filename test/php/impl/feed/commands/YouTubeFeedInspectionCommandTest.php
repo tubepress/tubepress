@@ -1,7 +1,7 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../sys/classes/org/tubepress/api/provider/Provider.class.php';
-require_once dirname(__FILE__) . '/../../../../../sys/classes/org/tubepress/impl/feed/commands/YouTubeFeedInspectionCommand.class.php';
+require_once BASE . '/sys/classes/org/tubepress/api/provider/Provider.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/feed/commands/YouTubeFeedInspectionCommand.class.php';
 
 class org_tubepress_impl_feed_commands_YouTubeFeedInspectionCommandTest extends TubePressUnitTest {
 

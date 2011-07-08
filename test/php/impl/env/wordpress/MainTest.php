@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../sys/classes/org/tubepress/impl/env/wordpress/Main.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/env/wordpress/Main.class.php';
 
 class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
 

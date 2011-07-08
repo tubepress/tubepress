@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../includes/TubePressUnitTest.php';
+require_once BASE . '/test/includes/TubePressUnitTest.php';
 
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Advanced',
