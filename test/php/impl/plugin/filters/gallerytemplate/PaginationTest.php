@@ -50,7 +50,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PaginationTest extends T
 
     public function testAjax()
     {
-        $expectedHtml = $this->_prefix . '"page=2">2</a><a rel="page=3">3</a><a rel="page=4">4</a><a rel="page=5">5</a><span class="tubepress_pagination_dots">...</span> <a rel="page=124">124</a><a rel="page=125">125</a><a rel="page=2">##next##</a></div>
+        $expectedHtml = $this->_prefix . '"page=2">2</a><a rel="page=3">3</a><a rel="page=4">4</a><a rel="page=5">5</a><span class="tubepress_pagination_dots">...</span> <a rel="page=124">124</a><a rel="page=125">125</a><a rel="page=2">##next## &raquo;</a></div>
 ';
 
         $this->_pluginManager->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_PAGINATION, $expectedHtml)->andReturn('pagination-html');
@@ -63,7 +63,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PaginationTest extends T
     public function testNoAjaxHighPage()
     {
 
-        $expectedHtml = '<div class="pagination"><a rel="nofollow" href="http://tubepress.org?tubepress_page=24">##prev##</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=1">1</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=2">2</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=24">24</a><span class="current">25</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=26">26</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=124">124</a> <a rel="nofollow" href="http://tubepress.org?tubepress_page=125">125</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=26">##next##</a></div>
+        $expectedHtml = '<div class="pagination"><a rel="nofollow" href="http://tubepress.org?tubepress_page=24">&laquo; ##prev##</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=1">1</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=2">2</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=24">24</a><span class="current">25</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=26">26</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=124">124</a> <a rel="nofollow" href="http://tubepress.org?tubepress_page=125">125</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=26">##next## &raquo;</a></div>
 ';
 
         $this->_pluginManager->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_PAGINATION, $expectedHtml)->andReturn('pagination-html');
@@ -75,7 +75,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PaginationTest extends T
 
     public function testNoAjaxMiddlePage()
     {
-        $expectedHtml = '<div class="pagination"><a rel="nofollow" href="http://tubepress.org?tubepress_page=11">##prev##</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=1">1</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=2">2</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=11">11</a><span class="current">12</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=13">13</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=124">124</a> <a rel="nofollow" href="http://tubepress.org?tubepress_page=125">125</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=13">##next##</a></div>
+        $expectedHtml = '<div class="pagination"><a rel="nofollow" href="http://tubepress.org?tubepress_page=11">&laquo; ##prev##</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=1">1</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=2">2</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=11">11</a><span class="current">12</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=13">13</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=124">124</a> <a rel="nofollow" href="http://tubepress.org?tubepress_page=125">125</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=13">##next## &raquo;</a></div>
 ';
 
         $this->_pluginManager->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_PAGINATION, $expectedHtml)->andReturn('pagination-html');
@@ -87,7 +87,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PaginationTest extends T
 
     public function testNoAjax()
     {
-        $expectedHtml = '<div class="pagination"><span class="current">1</span><a rel="nofollow" href="http://tubepress.org?tubepress_page=2">2</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=3">3</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=4">4</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=5">5</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=124">124</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=125">125</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=2">##next##</a></div>
+        $expectedHtml = '<div class="pagination"><span class="current">1</span><a rel="nofollow" href="http://tubepress.org?tubepress_page=2">2</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=3">3</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=4">4</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=5">5</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=124">124</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=125">125</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=2">##next## &raquo;</a></div>
 ';
 
         $this->_pluginManager->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_PAGINATION, $expectedHtml)->andReturn('pagination-html');

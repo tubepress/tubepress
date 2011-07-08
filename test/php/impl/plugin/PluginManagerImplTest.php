@@ -7,6 +7,8 @@ class FakePlugin
     {
         return $one . $two;
     }
+
+    public function on_boot() {}
 }
 
 class org_tubepress_impl_plugin_PluginManagerImplTest extends TubePressUnitTest
@@ -25,6 +27,29 @@ class org_tubepress_impl_plugin_PluginManagerImplTest extends TubePressUnitTest
         $this->_sut->registerFilter('galleryHtml', new FakePlugin());
         $result = $this->_sut->runFilters('galleryHtml', 'some value', 56);
         $this->assertEquals('some value56', $result);
+    }
+
+    function testNotifyListenersNoneRegistered()
+    {
+        $this->_sut->notifyListeners('boot');
+    }
+
+    function testNotifyListeners()
+    {
+        $this->_sut->registerListener('boot', new FakePlugin());
+        $this->_sut->notifyListeners('boot');
+    }
+
+    function testHasListenersBadEventName()
+    {
+        $this->assertFalse($this->_sut->hasListeners('booter'));
+    }
+
+    function testHasListeners()
+    {
+        $this->assertFalse($this->_sut->hasListeners('boot'));
+        $this->_sut->registerListener('boot', new FakePlugin());
+        $this->assertTrue($this->_sut->hasListeners('boot'));
     }
 
     function testRunFiltersNoFiltersRegistered()
