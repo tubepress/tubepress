@@ -14,7 +14,7 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest {
             return "<<$key>>";
         });
 
-        $wpsm         = $iocContainer->get('org_tubepress_api_exec_ExecutionContext');
+        $wpsm         = $iocContainer->get('org_tubepress_api_options_StorageManager');
         $wpsm->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Widget::TITLE)->andReturn('value of widget title');
         $wpsm->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Widget::TAGSTRING)->andReturn('value of widget shortcode');
 
