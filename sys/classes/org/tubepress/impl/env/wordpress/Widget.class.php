@@ -118,7 +118,7 @@ class org_tubepress_impl_env_wordpress_Widget
     public static function printControlPanel()
     {
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $wpsm         = $iocContainer->get('org_tubepress_api_exec_ExecutionContext');
+        $wpsm         = $iocContainer->get('org_tubepress_api_options_StorageManager');
         $msg          = $iocContainer->get('org_tubepress_api_message_MessageService');
         $explorer     = $iocContainer->get('org_tubepress_api_filesystem_Explorer');
         $tplBuilder   = $iocContainer->get('org_tubepress_api_template_TemplateBuilder');
