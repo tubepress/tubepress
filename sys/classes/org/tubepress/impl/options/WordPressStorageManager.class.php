@@ -36,7 +36,7 @@ class org_tubepress_impl_options_WordPressStorageManager extends org_tubepress_i
      */
     const OPTION_PREFIX = "tubepress-";
 
-    const VERSION = 225;
+    const VERSION = 226;
 
     const VERSION_OPTION_NAME = 'version';
 
