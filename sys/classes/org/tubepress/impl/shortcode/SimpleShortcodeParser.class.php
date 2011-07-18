@@ -1,19 +1,19 @@
 <?php
 /**
  * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
- * 
+ *
  * This file is part of TubePress (http://tubepress.org)
- * 
+ *
  * TubePress is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * TubePress is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -41,7 +41,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
      * This function is used to parse a shortcode into options that TubePress can use.
      *
      * @param string $content The haystack in which to search
-     * 
+     *
      * @return array The associative array of parsed options.
      */
     public function parse($content)
@@ -52,7 +52,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception when parsing shortcode: ' . $e->getMessage());
         }
     }
-    
+
     private function _wrappedParse($content)
     {
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
@@ -132,22 +132,30 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
         foreach ($match as $m) {
 
             if (!empty($m[1])) {
+
                 $name  = $m[1];
                 $value = self::_normalizeValue($m[2]);
+
             } elseif (!empty($m[3])) {
+
                 $name  = $m[3];
                 $value = self::_normalizeValue($m[4]);
+
             } elseif (!empty($m[5])) {
+
                 $name  = $m[5];
                 $value = self::_normalizeValue($m[6]);
             }
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Custom shortcode detected: %s = %s', $name, (string)$value);
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Valid shortcode option detected: %s = %s', $name, (string)$value);
 
             try {
+
                 $inputValidationService->validate($name, $value);
                 $customOptions[$name] = $value;
+
             } catch (Exception $e) {
+
                 org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Ignoring invalid value for "%s" option: %s', $name, $e->getMessage());
             }
         }
@@ -171,19 +179,23 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
      * Strips out ugly slashes and converts boolean
      *
      * @param string $value The raw option name or value
-     * 
+     *
      * @return string The cleaned up option name or value
      */
     private static function _normalizeValue($value)
     {
         $cleanValue = trim(stripcslashes($value));
+
         if ($cleanValue == 'true') {
+
             return true;
         }
+
         if ($cleanValue == 'false') {
+
             return false;
         }
+
         return $cleanValue;
     }
 }
-

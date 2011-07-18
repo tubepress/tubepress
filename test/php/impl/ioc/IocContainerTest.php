@@ -1,6 +1,6 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/ioc/IocContainer.class.php';
-require_once dirname(__FILE__) . '/../../../includes/TubePressUnitTest.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/ioc/IocContainer.class.php';
+require_once BASE . '/test/includes/TubePressUnitTest.php';
 
 
 class FakeIocService implements org_tubepress_api_ioc_IocService

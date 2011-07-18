@@ -41,7 +41,7 @@ class org_tubepress_impl_util_TimeUtils
         $ending     = 'ago';
 
         for ($j = 0; $difference >= $lengths[$j]; $j++) {
-		
+
             if ($lengths[$j] != 0) {
                 $difference /= $lengths[$j];
             }
@@ -76,14 +76,14 @@ class org_tubepress_impl_util_TimeUtils
     /**
      * Converts gdata timestamps to unix time
      * 
-     * @param string $rfc3339 The RFC 3339 format of time
+     * @param string $rfcTime The RFC 3339 format of time
      * 
      * @return int Unix time for the given RFC 3339 time
      */
-    public static function rfc3339toUnixTime($rfc3339)
+    public static function rfc3339toUnixTime($rfcTime)
     {
-        $tmp      = str_replace("T", " ", $rfc3339);
-        $tmp      = ereg_replace("(\.[0-9]{1,})?", "", $tmp);
+        $tmp      = str_replace("T", " ", $rfcTime);
+        $tmp      = preg_replace('/(\.[0-9]{1,})?/', '', $tmp);
         $datetime = substr($tmp, 0, 19);
         $timezone = str_replace(":", "", substr($tmp, 19, 6));
 

@@ -1,19 +1,19 @@
 <?php
 /**
  * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
- * 
+ *
  * This file is part of TubePress (http://tubepress.org)
- * 
+ *
  * TubePress is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * TubePress is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -63,7 +63,7 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
      * Gets the value of an option
      *
      * @param string $optionName The name of the option
-     * 
+     *
      * @return unknown The option value
      */
     public function get($optionName)
@@ -80,7 +80,7 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
      *
      * @param string  $optionName  The name of the option
      * @param unknown $optionValue The option value
-     * 
+     *
      * @return void
      */
     public function set($optionName, $optionValue)
@@ -92,7 +92,7 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
      * Sets the options that differ from the default options.
      *
      * @param array $customOpts The custom options.
-     * 
+     *
      * @return void
      */
     public function setCustomOptions($customOpts)
@@ -102,7 +102,7 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
 
     /**
      * Gets the options that differ from the default options.
-     * 
+     *
      * @return array The options that differ from the default options.
      */
     public function getCustomOptions()
@@ -114,7 +114,7 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
      * Set the current shortcode.
      *
      * @param string $newTagString The current shortcode
-     * 
+     *
      * @return void
      */
     public function setActualShortcodeUsed($newTagString)
@@ -131,7 +131,12 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
     {
         return $this->_shortcode;
     }
-    
+
+    /**
+     * Reconstruct the current state of this execution context as a shortcode string.
+     *
+     * @return string This context as a shortcode string.
+     */
     public function toShortcode()
     {
         $trigger  = $this->get(org_tubepress_api_const_options_names_Advanced::KEYWORD);
@@ -140,9 +145,9 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
         foreach ($this->_customOptions as $name => $value) {
             $optPairs[] = $name . '="' . $value . '"';
         }
-        
+
         $optString = implode($optPairs, ', ');
-        
+
         return "[$trigger $optString]";
     }
 }

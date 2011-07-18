@@ -553,13 +553,14 @@ msgid "Search"
 msgstr "Cerca"
 
 msgid "Use \"fluid\" thumbnails"
-msgstr ""
+msgstr "Usa miniature \"fluide\""
 
 msgid "Dynamically set thumbnail spacing based on the width of their container."
-msgstr ""
+msgstr "Impostazione dinamica spazio tra miniature in relazione alla larghezza del loro contenitore."
 
 msgid "Auto-play each video after thumbnail click"
-msgstr ""
+msgstr "Riproduzione auto video al click miniatura"
 
 msgid "\"Lazy\" play videos"
-msgstr ""
+msgstr "\"Lazy\" play videos"
+

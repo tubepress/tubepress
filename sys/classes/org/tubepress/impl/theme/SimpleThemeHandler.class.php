@@ -37,6 +37,15 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
 {
     const LOG_PREFIX = 'Theme Handler';
 
+    /**
+    * Gets an instance of a template appropriate for the current theme.
+    *
+    * @param string $pathToTemplate The relative path (from the root of the theme directory) to the template.
+    *
+    * @throws Exception If there was a problem.
+    *
+    * @return org_tubepress_api_template_Template The template instance.
+    */
     public function getTemplateInstance($pathToTemplate)
     {
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Attempting to load template instance from %s', $pathToTemplate);
@@ -50,16 +59,30 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Successfully loaded template from %s', $filePath);
 
-        $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tb = $ioc->get('org_tubepress_api_template_TemplateBuilder');
+        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $tb  = $ioc->get('org_tubepress_api_template_TemplateBuilder');
+
         return $tb->getNewTemplateInstance($filePath);
     }
 
+    /**
+    * Returns the URL of the CSS stylesheet for the given theme.
+    *
+    * @param string  $currentTheme The name of the theme.
+    * @param boolean $relative     Whether or not to include the full URL or just the portion relative to $tubepress_base_url
+    *
+    * @return string The URl of the CSS stylesheet.
+    */
     public function getCssPath($currentTheme, $relative = false)
     {
         return self::_getFilePath($currentTheme, 'style.css', $relative);
     }
 
+    /**
+    * Returns the name of the current TubePress theme in use.
+    *
+    * @return string The current theme name, or 'default' if the default theme is in use or if there was a problem.
+    */
     public function calculateCurrentThemeName()
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();

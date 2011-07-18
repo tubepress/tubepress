@@ -20,15 +20,15 @@
  *
  */
 -->
-<project name="tubepress" default="free-plugin" basedir=".">
+<project name="tubepress-free" default="build-free" basedir=".">
 
     <import file="include/common.xml" />
 	    
-    <target name="free-plugin" description="Builds the free version of TubePress" depends="init">
+    <target name="build-free" description="Builds the free version of TubePress" depends="init">
 	            
-        <antcall target="assemble" />
-    	<antcall target="copy-resources" />
-        <antcall target="wordpress-mods" />
+        <antcall target="stage-self" />
+    	<antcall target="add-distribution-resources" />
+        <antcall target="modify-wordpress-info" />
         <antcall target="compress-js" />
         <antcall target="package" />
 

@@ -18,7 +18,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PlayerTest extends TubeP
 
         $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME)->andReturn('player-name');
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_ExecutionContextVariables::GALLERY_ID)->andReturn('gallery-id');
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('gallery-id');
 
         $fakeVideo = \Mockery::mock('org_tubepress_api_video_Video');
 
@@ -48,7 +48,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PlayerTest extends TubeP
 
         $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME)->andReturn($name);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_ExecutionContextVariables::GALLERY_ID)->andReturn('gallery-id');
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('gallery-id');
 
         $fakeVideo = \Mockery::mock('org_tubepress_api_video_Video');
 

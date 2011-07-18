@@ -134,7 +134,7 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommand extends org_tube
         $rawKeywords = $this->_relativeQuery($index, 'media:group/media:keywords')->item(0);
         $raw         = trim($rawKeywords->nodeValue);
 
-        return split(", ", $raw);
+        return explode(", ", $raw);
     }
     
     protected function _getRawLikeCount($index)

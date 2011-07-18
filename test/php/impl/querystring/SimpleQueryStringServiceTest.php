@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/querystring/SimpleQueryStringService.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/querystring/SimpleQueryStringService.class.php';
 
 class org_tubepress_impl_querystring_SimpleQueryStringServiceTest extends TubePressUnitTest {
 
@@ -21,11 +21,6 @@ class org_tubepress_impl_querystring_SimpleQueryStringServiceTest extends TubePr
     public function testGetPageNumLessThanOne()
     {
         $this->assertEquals(1, $this->_sut->getPageNum(array("tubepress_page" => -1)));
-    }
-
-    public function testGetGalleryId()
-    {
-        $this->assertEquals('boo', $this->_sut->getGalleryId(array("tubepress_galleryId" => "boo")));
     }
 
     public function testSearchTerms()

@@ -55,7 +55,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
         if (self::$_alreadyBooted) {
             return;
         }
-        
+
         try {
             $this->_doBoot();
         } catch (Exception $e) {
@@ -115,6 +115,13 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
         }
     }
 
+    /**
+     * Load system-defined plugins.
+     *
+     * @param org_tubepress_api_ioc_IocService $ioc The IOC container.
+     *
+     * @return void
+     */
     protected function loadSystemPlugins(org_tubepress_api_ioc_IocService $ioc)
     {
         $pm = $ioc->get('org_tubepress_api_plugin_PluginManager');

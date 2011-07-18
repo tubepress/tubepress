@@ -16,6 +16,12 @@ Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and/or sideb
 
 == Changelog ==
 
+= 2.2.6 =
+* Fixed deprecated warnings in PHP 5.3.0+ (closes issue 337)
+* WordPress widget now saves correctly (closes issue 348)
+* Fixed missing text for "lazy play" option in WordPress options page
+* Various code cleanup and minor fixes
+
 = 2.2.5 =
 * Lightweight plugin support! Now you can customize TubePress's behavior without touching the core.
 * "Lazy" play option. Auto-starts video playback after thumbnail click (closes issue 166 )

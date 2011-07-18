@@ -1,26 +1,26 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/options/WordPressStorageManager.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/options/WordPressStorageManager.class.php';
 
 class org_tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTest {
 
-	private $_sut;
+    private $_sut;
 
-	function setUp()
-	{
-		parent::setUp();
+    function setUp()
+    {
+        parent::setUp();
 
-		$get_option = new PHPUnit_Extensions_MockFunction('get_option');
+        $get_option = new PHPUnit_Extensions_MockFunction('get_option');
         $get_option->expects($this->any())->will($this->returnCallback(array($this, 'callback')));
 
         $update_option = new PHPUnit_Extensions_MockFunction('update_option');
 
-		$this->_sut = new org_tubepress_impl_options_WordPressStorageManager();
-	}
+        $this->_sut = new org_tubepress_impl_options_WordPressStorageManager();
+    }
 
-	function testInit()
-	{
-		$this->_sut->init();
-	}
+    function testInit()
+    {
+        $this->_sut->init();
+    }
 
     function testSet()
     {
@@ -30,14 +30,6 @@ class org_tubepress_impl_options_WordPressStorageManagerTest extends TubePressUn
         $validationService->shouldReceive('validate')->with(org_tubepress_api_const_options_names_Advanced::DEBUG_ON, true)->once();
 
         $this->_sut->set(org_tubepress_api_const_options_names_Advanced::DEBUG_ON, true);
-    }
-
-    function testNuclear()
-    {
-        $get_alloptions = new PHPUnit_Extensions_MockFunction('get_alloptions');
-        $get_alloptions->expects($this->once())->will($this->returnValue(array('foo' => 'bar')));
-
-        $this->_sut->nuclear();
     }
 
     function callback($name)

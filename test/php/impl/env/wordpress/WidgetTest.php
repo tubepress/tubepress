@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../sys/classes/org/tubepress/impl/env/wordpress/Widget.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/env/wordpress/Widget.class.php';
 
 class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest {
 
@@ -14,7 +14,7 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest {
             return "<<$key>>";
         });
 
-        $wpsm         = $iocContainer->get('org_tubepress_api_exec_ExecutionContext');
+        $wpsm         = $iocContainer->get('org_tubepress_api_options_StorageManager');
         $wpsm->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Widget::TITLE)->andReturn('value of widget title');
         $wpsm->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Widget::TAGSTRING)->andReturn('value of widget shortcode');
 
@@ -66,7 +66,8 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest {
             org_tubepress_api_const_options_names_Display::THUMB_WIDTH         => 22135,
             org_tubepress_api_const_options_names_Display::PAGINATE_ABOVE      => false,
             org_tubepress_api_const_options_names_Display::PAGINATE_BELOW      => false,
-            org_tubepress_api_const_options_names_Display::THEME               => 'sidebar'
+            org_tubepress_api_const_options_names_Display::THEME               => 'sidebar',
+            org_tubepress_api_const_options_names_Display::FLUID_THUMBS        => false
         ));
         $context->shouldReceive('reset')->once();
 

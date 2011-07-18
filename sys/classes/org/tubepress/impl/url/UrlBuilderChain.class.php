@@ -19,7 +19,7 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../classloader/ClassLoader.class.php');
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_url_UrlBuilder',
     'org_tubepress_api_patterns_cor_Chain',
@@ -35,6 +35,10 @@ class org_tubepress_impl_url_UrlBuilderChain implements org_tubepress_api_url_Ur
     /**
      * Builds a URL for a list of videos
      *
+     * @param int $currentPage The current page number of the gallery.
+     *
+     * @throws Exception If there was a problem.
+     *
      * @return string The request URL for this gallery
      */
     public function buildGalleryUrl($currentPage)
@@ -46,6 +50,10 @@ class org_tubepress_impl_url_UrlBuilderChain implements org_tubepress_api_url_Ur
      * Builds a request url for a single video
      *
      * @param string $id The video ID to search for
+     *
+     * @throws Exception If there was a problem.
+     *
+     * @return string The URL for the single video given.
      */
     public function buildSingleVideoUrl($id)
     {
@@ -54,25 +62,23 @@ class org_tubepress_impl_url_UrlBuilderChain implements org_tubepress_api_url_Ur
 
     private static function _build($arg, $single)
     {
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $pc  = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-        $sm  = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $pc    = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
 
-        //TODO: what if this bails?
         if ($single) {
-            $providerName = $pc->calculateProviderOfVideoId($arg);    
+            $providerName = $pc->calculateProviderOfVideoId($arg);
         } else {
-            $providerName = $pc->calculateCurrentVideoProvider();    
+            $providerName = $pc->calculateCurrentVideoProvider();
         }
 
-        $context = $sm->createContextInstance();
+        $context               = $chain->createContextInstance();
         $context->providerName = $providerName;
-        $context->single = $single;
-        $context->arg = $arg;
+        $context->single       = $single;
+        $context->arg          = $arg;
 
         /* let the commands do the heavy lifting */
-        //TODO: what if this bails?
-        $status = $sm->execute($context, array(
+        $status = $chain->execute($context, array(
             'org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand',
             'org_tubepress_impl_url_commands_VimeoUrlBuilderCommand'
         ));

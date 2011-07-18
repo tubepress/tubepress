@@ -36,8 +36,8 @@ class org_tubepress_impl_patterns_cor_ChainGang implements org_tubepress_api_pat
     /**
      * Executes the given commands with the given context.
      *
-     * @param array $context          An array of context elements (may be empty).
-     * @param array $commandInstances An array of org_tubepress_api_patterns_cor_Command class names to execute.
+     * @param array $context  An array of context elements (may be empty).
+     * @param array $commands An array of org_tubepress_api_patterns_cor_Command class names to execute.
      *
      * @return unknown The result of the command execution.
      */

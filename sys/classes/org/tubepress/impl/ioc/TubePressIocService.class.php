@@ -32,11 +32,21 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
     /* map of interface/class names to implementations */
     private $_map;
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         $this->_map = array();
     }
 
+    /**
+     * Define the interface to which we are about to bind.
+     *
+     * @param string $interface The name of the interface.
+     *
+     * @return org_tubepress_impl_ioc_TubePressIocService For chaining.
+     */
     public function bind($interface)
     {
         $this->_interface = $interface;
@@ -45,6 +55,13 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
         return $this;
     }
 
+    /**
+    * Define the implementation of the interface used in bind().
+    *
+    * @param string $className The name of the implementation.
+    *
+    * @return void
+    */
     public function to($className)
     {
         /* prevent people from doing something like $ioc->to('foo') */
@@ -58,11 +75,18 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
         unset($this->_interface);
     }
 
+    /**
+     * Gets a reference to the object implemented by the given class or interface name.
+     *
+     * @param string $classOrInterfaceName The name of the class or interface to retrieve.
+     *
+     * @return object The object instance.
+     */
     public function get($classOrInterfaceName)
     {
         /* haven't built this class/interface before? */
         if (!isset($this->_map[$classOrInterfaceName])) {
-    
+
             /* maybe we can instantiate a singleton? */
             org_tubepress_impl_classloader_ClassLoader::loadClass($classOrInterfaceName);
             if (class_exists($classOrInterfaceName)) {
@@ -72,7 +96,7 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
             /* give up */
             throw new Exception("$classOrInterfaceName was never bound to an implementation");
         }
-    
+
         /* we've already built it. this should be the normal case. */
         if (is_a($this->_map[$classOrInterfaceName], $classOrInterfaceName)) {
             return $this->_map[$classOrInterfaceName];
@@ -103,7 +127,7 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
         /* build it */
         $ref      = new ReflectionClass($className);
         $instance = $ref->newInstance();
-                
+
         /* save it for later */
         $this->_map[$interfaceName] = $instance;
 

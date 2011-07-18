@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/options/SimpleOptionValidator.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/options/SimpleOptionValidator.class.php';
 
 class org_tubepress_impl_options_SimpleOptionValidatorTest extends TubePressUnitTest {
 

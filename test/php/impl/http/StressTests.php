@@ -1,9 +1,9 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/http/clientimpl/commands/ExtHttpCommand.class.php';
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/http/clientimpl/commands/FopenCommand.class.php';
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/http/clientimpl/commands/FsockOpenCommand.class.php';
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/http/clientimpl/commands/CurlCommand.class.php';
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/http/clientimpl/commands/StreamsCommand.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/http/clientimpl/commands/ExtHttpCommand.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/http/clientimpl/commands/FopenCommand.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/http/clientimpl/commands/FsockOpenCommand.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/http/clientimpl/commands/CurlCommand.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/http/clientimpl/commands/StreamsCommand.class.php';
 
 class org_tubepress_impl_http_StressTests extends TubePressUnitTest {
 

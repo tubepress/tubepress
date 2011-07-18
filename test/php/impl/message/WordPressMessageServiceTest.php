@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/message/WordPressMessageService.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/message/WordPressMessageService.class.php';
 
 $msgs = array(
         'options-page-title'       => 'TubePress Options',
@@ -81,8 +81,8 @@ $msgs = array(
         'options-desc-playerImplementation'  => 'The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc)',
         'options-title-theme'                => 'Theme',
         'options-desc-theme'                 => 'The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>.',
-        'options-title-lazyplay'			 => '"Lazy" play videos',
-        'options-desc-lazyplay'				 => 'Auto-play each video after thumbnail click',
+        'options-title-lazyPlay'			 => '"Lazy" play videos',
+        'options-desc-lazyPlay'				 => 'Auto-play each video after thumbnail click',
 
         'options-title-author'      => 'Author',
         'options-title-category'    => 'Category',
@@ -232,7 +232,7 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 		$testOpts = parse_ini_file(dirname(__FILE__) . '/../../../test.config');
 		$files = $this->getPoFiles();
 		foreach ($files as $file) {
-			$realPath = dirname(__FILE__) . '/../../../../sys/i18n/' . $file;
+			$realPath = BASE . '/sys/i18n/' . $file;
 			$outputfile = str_replace(array('.pot', '.po'), '.mo', $realPath);
 			exec($testOpts['msgfmt_path'] . " -o $outputfile $realPath", $results, $return);
 			$this->assertTrue($return === 0);
@@ -252,7 +252,7 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 	{
 		global $msgs;
 		$rawMatches = array();
-		$potContents = file_get_contents(dirname(__FILE__) . '/../../../../sys/i18n/' . $file);
+		$potContents = file_get_contents(BASE . '/sys/i18n/' . $file);
 		preg_match_all("/msgid\b.*/", $potContents, $rawMatches, PREG_SET_ORDER);
 		$matches = array();
 		foreach ($rawMatches as $rawMatch) {
@@ -282,7 +282,7 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 	function getPoFiles()
 	{
 		$files = array();
-		$handle = opendir(dirname(__FILE__) . '/../../../../sys/i18n/');
+		$handle = opendir(BASE . '/sys/i18n/');
 	    while (false !== ($file = readdir($handle))) {
 	        if ($file == "." || $file == "..") {
 				continue;
@@ -293,6 +293,11 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 		}
 		closedir($handle);
 		return $files;
+	}
+
+	function testGetKeyNoExists()
+	{
+        $this->assertEquals('', $this->_sut->_('foobar'));
 	}
 
 	function testGetKey()

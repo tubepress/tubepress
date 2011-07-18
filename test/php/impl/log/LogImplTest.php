@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/log/Log.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/log/Log.class.php';
 
 class org_tubepress_impl_log_LogImplTest extends TubePressUnitTest {
 

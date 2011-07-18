@@ -111,8 +111,8 @@ abstract class org_tubepress_impl_message_AbstractMessageService implements org_
         'options-desc-playerImplementation'  => 'The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc)',
         'options-title-theme'                => 'Theme',
         'options-desc-theme'                 => 'The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>.',
-        'options-title-lazyplay'			 => '"Lazy" play videos',
-        'options-desc-lazyplay'				 => 'Auto-play each video after thumbnail click',
+        'options-title-lazyPlay'			 => '"Lazy" play videos',
+        'options-desc-lazyPlay'				 => 'Auto-play each video after thumbnail click',
     
         'options-title-author'      => 'Author',
         'options-title-category'    => 'Category',

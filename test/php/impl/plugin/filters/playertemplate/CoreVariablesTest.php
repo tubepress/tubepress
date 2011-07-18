@@ -20,7 +20,7 @@ class org_tubepress_impl_plugin_filters_playertemplate_CoreVariablesTest extends
         $video->shouldReceive('getId')->once()->andReturn('video-id');
 
         $context   = $ioc->get('org_tubepress_api_exec_ExecutionContext');
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_ExecutionContextVariables::GALLERY_ID)->andReturn('gallery-id');
+        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('gallery-id');
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH)->andReturn(668);
 
         $embedded  = $ioc->get('org_tubepress_api_embedded_EmbeddedHtmlGenerator');

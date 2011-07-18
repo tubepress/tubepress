@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../sys/classes/org/tubepress/impl/shortcode/commands/SearchInputCommand.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/shortcode/commands/SearchInputCommand.class.php';
 
 class org_tubepress_impl_shortcode_commands_SearchInputCommandTest extends TubePressUnitTest
 {
@@ -10,6 +10,16 @@ class org_tubepress_impl_shortcode_commands_SearchInputCommandTest extends TubeP
     {
         parent::setUp();
         $this->_sut = new org_tubepress_impl_shortcode_commands_SearchInputCommand();
+    }
+
+    function testCantExecute()
+    {
+        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
+
+        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::OUTPUT)->andReturn(org_tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS);
+
+        $this->assertFalse($this->_sut->execute(new stdClass()));
     }
 
     function testExecute()

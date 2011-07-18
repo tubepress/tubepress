@@ -20,7 +20,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_CoreVariablesTest extend
         $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::THUMB_WIDTH)->andReturn(556);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::THUMB_HEIGHT)->andReturn(984);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_ExecutionContextVariables::GALLERY_ID)->andReturn(47);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn(47);
 
         $providerResult = \Mockery::mock('org_tubepress_api_provider_ProviderResult');
         $providerResult->shouldReceive('getVideoArray')->once()->andReturn('video-array');

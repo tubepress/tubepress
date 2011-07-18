@@ -1,19 +1,19 @@
 <?php
 /**
  * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
- * 
+ *
  * This file is part of TubePress (http://tubepress.org)
- * 
+ *
  * TubePress is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * TubePress is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -27,6 +27,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Feed',
     'org_tubepress_api_const_options_names_Meta',
     'org_tubepress_api_const_options_values_ModeValue',
+    'org_tubepress_api_const_options_values_OrderValue',
     'org_tubepress_api_url_Url',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_impl_url_commands_AbstractUrlBuilderCommand',
@@ -38,6 +39,14 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand extends org_tubepress_impl_url_commands_AbstractUrlBuilderCommand
 {
+    const PARAM_FORMAT      = 'format';
+    const PARAM_KEY         = 'key';
+    const PARAM_MAX_RESULTS = 'max-results';
+    const PARAM_ORDER       = 'orderby';
+    const PARAM_SAFESEARCH  = 'safeSearch';
+    const PARAM_START_INDEX = 'start-index';
+    const PARAM_VERSION     = 'v';
+
     /**
      * Builds a gdata request url for a list of videos
      *
@@ -45,7 +54,7 @@ class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand extends org_tubep
      *
      * @return string The gdata request URL for this gallery
      */
-    protected function _buildGalleryUrl($currentPage)
+    protected function buildGalleryUrl($currentPage)
     {
         $url         = '';
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
@@ -112,7 +121,12 @@ class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand extends org_tubep
         return $request->toString();
     }
 
-    protected function _getHandledProviderName()
+    /**
+    * Return the name of the provider for which this command can handle.
+    *
+    * @return string The name of the video provider that this command can handle.
+    */
+    protected function getHandledProviderName()
     {
         return org_tubepress_api_provider_Provider::YOUTUBE;
     }
@@ -122,12 +136,17 @@ class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand extends org_tubep
         return str_replace(array('&#8216', '&#8217', '&#8242;', '&#34', '&#8220;', '&#8221;', '&#8243;'), '"', $text);
     }
 
-    protected function _buildSingleVideoUrl($id)
+    /**
+    * Build the URL for a single video.
+    *
+    * @param string $id The video ID.
+    *
+    * @return string The URL for the video.
+    */
+    protected function buildSingleVideoUrl($id)
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-        
-        //TODO: what if this bails?
         $providerName = $pc->calculateProviderOfVideoId($id);
 
         if ($providerName !== org_tubepress_api_provider_Provider::YOUTUBE) {
@@ -142,18 +161,10 @@ class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand extends org_tubep
 
     private function _commonUrlPostProcessing(org_tubepress_api_exec_ExecutionContext $execContext, org_tubepress_api_url_Url $url)
     {
-        $url->setQueryVariable('v', 2);
-        $url->setQueryVariable('key', $execContext->get(org_tubepress_api_const_options_names_Feed::DEV_KEY));
+        $url->setQueryVariable(self::PARAM_VERSION, 2);
+        $url->setQueryVariable(self::PARAM_KEY, $execContext->get(org_tubepress_api_const_options_names_Feed::DEV_KEY));
     }
 
-    /**
-     * Appends some global query parameters on the request
-     * before we fire it off to YouTube
-     *
-     * @param string                  &$request The request to be manipulated
-     * 
-     * @return void
-     */
     private function _galleryUrlPostProcessing(org_tubepress_api_exec_ExecutionContext $execContext, org_tubepress_api_url_Url $url, $currentPage)
     {
         $perPage = $execContext->get(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE);
@@ -161,43 +172,47 @@ class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand extends org_tubep
         /* start index of the videos */
         $start = ($currentPage * $perPage) - $perPage + 1;
 
-        $url->setQueryVariable('start-index', $start);
-        $url->setQueryVariable('max-results', $perPage);
-        
+        $url->setQueryVariable(self::PARAM_START_INDEX, $start);
+        $url->setQueryVariable(self::PARAM_MAX_RESULTS, $perPage);
+
         $this->_setOrderBy($execContext, $url);
-        
-        $url->setQueryVariable('safeSearch', $execContext->get(org_tubepress_api_const_options_names_Feed::FILTER));
+
+        $url->setQueryVariable(self::PARAM_SAFESEARCH, $execContext->get(org_tubepress_api_const_options_names_Feed::FILTER));
 
         if ($execContext->get(org_tubepress_api_const_options_names_Feed::EMBEDDABLE_ONLY)) {
-            $url->setQueryVariable('format', '5');
+            $url->setQueryVariable(self::PARAM_FORMAT, '5');
         }
     }
 
-    private function _setOrderBy(org_tubepress_api_exec_ExecutionContext $execContext, org_tubepress_api_url_Url $url) 
+    private function _setOrderBy(org_tubepress_api_exec_ExecutionContext $execContext, org_tubepress_api_url_Url $url)
     {
         $order = $execContext->get(org_tubepress_api_const_options_names_Display::ORDER_BY);
         $mode  = $execContext->get(org_tubepress_api_const_options_names_Output::MODE);
 
-        if ($order == 'random') {
+        if ($order == org_tubepress_api_const_options_values_OrderValue::RANDOM) {
             return;
         }
 
         /* any feed can take these */
-        if ($order == 'viewCount' || $order =='published') {
-            $url->setQueryVariable('orderby', $order);
+        if ($order == org_tubepress_api_const_options_values_OrderValue::VIEW_COUNT || $order == org_tubepress_api_const_options_values_OrderValue::DATE_PUBLISHED) {
+            $url->setQueryVariable(self::PARAM_ORDER, $order);
             return;
         }
 
         /* playlist specific stuff */
         if ($mode == org_tubepress_api_const_options_values_ModeValue::PLAYLIST) {
-            if (in_array($order, array('position', 'commentCount', 'duration', 'title'))) {
-                $url->setQueryVariable('orderby', $order);
+            if (in_array($order, array(
+                org_tubepress_api_const_options_values_OrderValue::POSITION,
+                org_tubepress_api_const_options_values_OrderValue::COMMENT_COUNT,
+                org_tubepress_api_const_options_values_OrderValue::DURATION,
+                org_tubepress_api_const_options_values_OrderValue::TITLE))) {
+                $url->setQueryVariable(self::PARAM_ORDER, $order);
             }
             return;
         }
 
-        if (in_array($order, array('relevance', 'rating'))) {
-            $url->setQueryVariable('orderby', $order);
+        if (in_array($order, array(org_tubepress_api_const_options_values_OrderValue::RELEVANCE, org_tubepress_api_const_options_values_OrderValue::RATING))) {
+            $url->setQueryVariable(self::PARAM_ORDER, $order);
         }
     }
 }

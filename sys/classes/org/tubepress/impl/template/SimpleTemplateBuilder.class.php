@@ -19,14 +19,27 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../classloader/ClassLoader.class.php');
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_template_TemplateBuilder',
     'org_tubepress_impl_template_SimpleTemplate',
 ));
 
+/**
+ * Very simple template builder.
+ *
+ */
 class org_tubepress_impl_template_SimpleTemplateBuilder implements org_tubepress_api_template_TemplateBuilder
 {
+    /**
+    * Get a new template instance.
+    *
+    * @param string $path The absolute path of the template.
+    *
+    * @return org_tubepress_api_template_Template The template instance.
+    *
+    * @throws Exception If the template cannot be built.
+    */
     public function getNewTemplateInstance($path)
     {
         return new org_tubepress_impl_template_SimpleTemplate($path);

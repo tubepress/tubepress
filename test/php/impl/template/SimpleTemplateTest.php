@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/template/SimpleTemplate.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/template/SimpleTemplate.class.php';
 
 class org_tubepress_impl_template_SimpleTemplateTest extends TubePressUnitTest
 {
@@ -36,5 +36,18 @@ class org_tubepress_impl_template_SimpleTemplateTest extends TubePressUnitTest
         $template = new org_tubepress_impl_template_SimpleTemplate(dirname(__FILE__) . '/fake_template.php');
         $template->setVariable('world', 'World!');
         $this->assertEquals('Hello World!', $template->toString());
+    }
+
+    /**
+    * @expectedException Exception
+    */
+    public function testReset()
+    {
+        $template = new org_tubepress_impl_template_SimpleTemplate(dirname(__FILE__) . '/fake_template.php');
+        $template->setVariable('world', 'World!');
+        $this->assertEquals('Hello World!', $template->toString());
+
+        $template->reset();
+        $template->toString();
     }
 }

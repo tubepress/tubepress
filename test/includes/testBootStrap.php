@@ -1,5 +1,7 @@
 <?php
 
+define('BASE', realpath(dirname(__FILE__) . '/../../'));
+
 /** Load up PHPUnit */
 require_once 'PHPUnit/Framework.php';
 
@@ -13,7 +15,7 @@ $loader->register();
 require_once 'phpunit/MockFunction.php';
 
 /** Load up the class loader */
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../sys/classes/org/tubepress/impl/classloader/ClassLoader.class.php';
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require BASE . '/sys/classes/org/tubepress/impl/classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClass('org_tubepress_impl_ioc_IocContainer');
 
 /** Load up the test base classes */

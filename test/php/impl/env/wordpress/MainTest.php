@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../sys/classes/org/tubepress/impl/env/wordpress/Main.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/env/wordpress/Main.class.php';
 
 class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
 
@@ -20,7 +20,7 @@ class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
         $gallery->shouldReceive('getHtmlForShortcode')->once()->with('html for shortcode')->andReturn('html for shortcode');
 
         $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
-        $context->shouldReceive('getShortcode')->times(4)->andReturn('<current shortcode>');
+        $context->shouldReceive('getActualShortcodeUsed')->times(4)->andReturn('<current shortcode>');
         $context->shouldReceive('reset')->twice();
 
         $ms      = $ioc->get('org_tubepress_api_message_MessageService');

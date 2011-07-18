@@ -19,7 +19,7 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../classloader/ClassLoader.class.php');
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_factory_VideoFactory',
@@ -53,6 +53,11 @@ class org_tubepress_impl_factory_VideoFactoryChain implements org_tubepress_api_
         }
     }
 
+    /**
+     * Return an array of the video factory command class names.
+     *
+     * @return array The video factory command class names.
+     */
     protected function getArrayOfCommandNames()
     {
         return array(

@@ -24,5 +24,14 @@
  */
 interface org_tubepress_api_template_TemplateBuilder
 {
+    /**
+     * Get a new template instance.
+     *
+     * @param string $path The absolute path of the template.
+     *
+     * @return org_tubepress_api_template_Template The template instance.
+     *
+     * @throws Exception If the template cannot be built.
+     */
     function getNewTemplateInstance($path);
 }

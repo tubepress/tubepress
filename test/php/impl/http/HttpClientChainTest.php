@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../sys/classes/org/tubepress/impl/http/HttpClientChain.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/http/HttpClientChain.class.php';
 
 class org_tubepress_impl_http_HttpClientChainTest extends TubePressUnitTest {
 

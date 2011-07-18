@@ -71,11 +71,21 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements org_tu
         return $rawHtml;
     }
 
+    /**
+     * Get the name of this class. May be overriden.
+     *
+     * @return string The name of this class.
+     */
     protected function getName()
     {
         return 'Shortcode HTML Generator Chain';
     }
-    
+
+    /**
+     * Get an array of the names of the commands to run.
+     *
+     * @return array An array of the names of the commands to run.
+     */
     protected function getShortcodeCommands()
     {
         return array(
