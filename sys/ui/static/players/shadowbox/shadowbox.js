@@ -30,28 +30,27 @@ var TubePressShadowboxPlayer = (function () {
 		jquery	= jQuery,
 		doc		= jquery(document),
 		url		= getTubePressBaseUrl() + '/sys/ui/static/players/shadowbox/',
-		sb      = Shadowbox,
 
 		boot	= function () {
 
-			if (typeof sb === 'undefined') {
+			if (typeof Shadowbox === 'undefined') {
 				setTimeout(boot, 400);
 				return;
 			}
 		
-			sb.path = url + 'lib/';
-			sb.init({
+			Shadowbox.path = url + 'lib/';
+			Shadowbox.init({
 				initialHeight	: 160,
 				initialWidth	: 320,
 				skipSetup		: true, 
 				players			: ['html'],
 				useSizzle		: false
 			});
-			sb.load();
+			Shadowbox.load();
 		},
 		
 		invoke = function (e, videoId, galleryId, width, height) {
-			sb.open({
+			Shadowbox.open({
 				player:		'html',
 				height:		height,
 				width:		width,

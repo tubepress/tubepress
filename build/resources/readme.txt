@@ -16,6 +16,9 @@ Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and/or sideb
 
 == Changelog ==
 
+= 2.2.7 =
+* Fixed bug that prevented Shadowbox from working in certain situations
+
 = 2.2.6 =
 * Fixed deprecated warnings in PHP 5.3.0+ (closes issue 337)
 * WordPress widget now saves correctly (closes issue 348)
