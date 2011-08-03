@@ -50,7 +50,7 @@ class org_tubepress_impl_plugin_listeners_WordPressBoot
         $baseName = $this->getBaseName();
 
         /* set the tubepress_base_url global */
-        $tubepress_base_url = get_option('siteurl') . "/wp-content/plugins/$baseName";
+        $tubepress_base_url = site_url()  . "/wp-content/plugins/$baseName";
 
         /* register the plugin's message bundles */
         load_plugin_textdomain('tubepress', false, "$baseName/sys/i18n");
