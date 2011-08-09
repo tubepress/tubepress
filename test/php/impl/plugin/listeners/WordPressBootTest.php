@@ -20,10 +20,10 @@ class org_tubepress_impl_plugin_listeners_WordPressBootTest extends TubePressUni
         $ed->shouldReceive('isWordPress')->once()->andReturn(true);
 
         $fse  = $ioc->get('org_tubepress_api_filesystem_Explorer');
-        $fse->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('some/path');
+        $fse->shouldReceive('getTubePressInstallationDirectoryBaseName')->once()->andReturn('path');
 
-        $get_option = new PHPUnit_Extensions_MockFunction('get_option');
-        $get_option->expects($this->once())->with('siteurl')->will($this->returnValue('valueofsiteurl'));
+        $get_option = new PHPUnit_Extensions_MockFunction('site_url');
+        $get_option->expects($this->once())->will($this->returnValue('valueofsiteurl'));
 
         $loadPluginTextDomain = new PHPUnit_Extensions_MockFunction('load_plugin_textdomain');
         $loadPluginTextDomain->expects($this->once())->with('tubepress', false, 'path/sys/i18n');
@@ -56,8 +56,8 @@ class org_tubepress_impl_plugin_listeners_WordPressBootTest extends TubePressUni
 
         $returnMapBuilder->addEntry()->with(array('wp_head',     array('org_tubepress_impl_env_wordpress_Main', 'headAction')));
         $returnMapBuilder->addEntry()->with(array('init',        array('org_tubepress_impl_env_wordpress_Main', 'initAction')));
-        $returnMapBuilder->addEntry()->with(array('admin_menu',            array('org_tubepress_impl_env_wordpress_Admin', 'menuAction')));
-        $returnMapBuilder->addEntry()->with(array('admin_enqueue_scripts', array('org_tubepress_impl_env_wordpress_Admin', 'initAction')));
+        $returnMapBuilder->addEntry()->with(array('admin_menu',            array('org_tubepress_impl_env_wordpress_OptionsPage', 'menuAction')));
+        $returnMapBuilder->addEntry()->with(array('admin_enqueue_scripts', array('org_tubepress_impl_env_wordpress_OptionsPage', 'initAction')));
         $returnMapBuilder->addEntry()->with(array('widgets_init', array('org_tubepress_impl_env_wordpress_Widget', 'initAction')));
 
         return $returnMapBuilder->build();

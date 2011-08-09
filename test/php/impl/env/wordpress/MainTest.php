@@ -50,14 +50,21 @@ html meta', $contents);
 
     function testInitAction()
     {
+        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fs->shouldReceive('getTubePressInstallationDirectoryBaseName')->once()->andReturn('base_name');
+
+	$plugins_url = new PHPUnit_Extensions_MockFunction('plugins_url');
+	$plugins_url->expects($this->exactly(2))->will($this->_getPluginsUrlReturnMap());
+
         $is_admin = new PHPUnit_Extensions_MockFunction('is_admin');
         $is_admin->expects($this->once())->will($this->returnValue(false));
 
         $wp_register_script = new PHPUnit_Extensions_MockFunction('wp_register_script');
-        $wp_register_script->expects($this->once())->with('tubepress', '<tubepress_base_url>/sys/ui/static/js/tubepress.js');
+        $wp_register_script->expects($this->once())->with('tubepress', 'foobar');
 
         $wp_register_style = new PHPUnit_Extensions_MockFunction('wp_register_style');
-        $wp_register_style->expects($this->once())->with('tubepress', '<tubepress_base_url>/sys/ui/themes/default/style.css');
+        $wp_register_style->expects($this->once())->with('tubepress', 'fooey');
 
         $wp_enqueue_script = new PHPUnit_Extensions_MockFunction('wp_enqueue_script');
         $wp_enqueue_script->expects($this->exactly(2))->will($this->_getEnqueueScriptReturnMap());
@@ -66,6 +73,16 @@ html meta', $contents);
         $wp_enqueue_style->expects($this->once())->with('tubepress');
 
         org_tubepress_impl_env_wordpress_Main::initAction();
+    }
+
+    private function _getPluginsUrlReturnMap()
+    {
+         $returnMapBuilder = new PHPUnit_Extensions_MockObject_Stub_ReturnMapping_Builder();
+
+         $returnMapBuilder->addEntry()->with(array('sys/ui/static/js/tubepress.js', 'base_name'))->will($this->returnValue('foobar'));
+         $returnMapBuilder->addEntry()->with(array('sys/ui/themes/default/style.css', 'base_name'))->will($this->returnValue('fooey'));
+
+         return $returnMapBuilder->build();
     }
 
     private function _getEnqueueScriptReturnMap()
