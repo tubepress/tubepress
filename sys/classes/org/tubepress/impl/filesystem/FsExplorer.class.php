@@ -31,11 +31,34 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_filesystem_FsExplorer implements org_tubepress_api_filesystem_Explorer
 {
+	/**
+	 * Finds the absolute path of the TubePress installation on the filesystem.
+	 *
+	 * @return string The absolute filesystem path of this TubePress installation.
+     */
     public function getTubePressBaseInstallationPath()
     {
         return realpath(dirname(__FILE__) . '/../../../../../../');
     }
+    
+    /**
+     * Find the directory name of the TubePress base installation.
+     *
+     * @return string The base name of the TubePress installation directory.
+     */
+    function getTubePressInstallationDirectoryBaseName()
+    {
+    	return basename($this->getTubePressBaseInstallationPath());
+    }
 
+    /**
+     * Find the directories contained in the given directory (non-recursive).
+     *
+     * @param string $dir    The absolute filesystem path of the directory to examine.
+     * @param string $prefix The logging prefix.
+     *
+     * @return array The names of the directories in the given directory (non-recursive).
+     */
     public function getDirectoriesInDirectory($dir, $prefix)
     {
         $realDir = $dir;
@@ -67,6 +90,14 @@ class org_tubepress_impl_filesystem_FsExplorer implements org_tubepress_api_file
         return $toReturn;
     }
 
+    /**
+     * Find the files contained in the given directory (non-recursive).
+     *
+     * @param string $dir    The absolute filesystem path of the directory to examine.
+     * @param string $prefix The logging prefix.
+     *
+     * @return array The names of the files in the given directory (non-recursive).
+     */
     public function getFilenamesInDirectory($dir, $prefix)
     {
         $realDir = $dir;
@@ -97,6 +128,11 @@ class org_tubepress_impl_filesystem_FsExplorer implements org_tubepress_api_file
         return $toReturn;
     }
 
+    /**
+     * Attempt to get temporary directory.
+     *
+     * @return string The absolute path of a temporary directory, preferably the system directory.
+     */
     public function getSystemTempDirectory()
     {
         if (function_exists('sys_get_temp_dir')) {

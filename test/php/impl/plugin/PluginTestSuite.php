@@ -1,5 +1,5 @@
 <?php
-require_once BASE . '/test/includes/TubePressUnitTest.php';
+require_once dirname(__FILE__) . '/../../../includes/TubePressUnitTestSuite.php';
 require_once 'filters/embeddedtemplate/CoreVariablesTest.php';
 require_once 'filters/galleryhtml/GalleryJsTest.php';
 require_once 'filters/gallerytemplate/PaginationTest.php';

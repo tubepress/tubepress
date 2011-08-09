@@ -27,7 +27,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_impl_options_FormHandler',
 ));
 
-class org_tubepress_impl_env_wordpress_Admin
+class org_tubepress_impl_env_wordpress_OptionsPage
 {
     /**
      * Hook for WordPress init.
@@ -37,7 +37,7 @@ class org_tubepress_impl_env_wordpress_Admin
     public static function initAction($hook)
     {
         /* only run on TubePress settings page */
-        if (strpos($hook, 'tubepress') === false || strpos($hook, 'Admin.class') === false) {
+        if (strpos($hook, 'tubepress') === false || strpos($hook, 'OptionsPage.class.php') === false) {
             return;
         }
 
@@ -45,10 +45,10 @@ class org_tubepress_impl_env_wordpress_Admin
 
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
         $fs           = $iocContainer->get('org_tubepress_api_filesystem_Explorer');
-        $dirName      = basename($fs->getTubePressBaseInstallationPath());
+        $baseName     = $fs->getTubePressInstallationDirectoryBaseName();
 
-        wp_register_style('jquery-ui-flick', "$tubepress_base_url/sys/ui/static/css/jquery-ui-flick/jquery-ui-1.7.2.custom.css");
-        wp_register_script('jscolor-tubepress', "$tubepress_base_url/sys/ui/static/js/jscolor/jscolor.js");
+        wp_register_style('jquery-ui-flick', plugins_url('sys/ui/static/css/jquery-ui-flick/jquery-ui-1.7.2.custom.css', $baseName));
+        wp_register_script('jscolor-tubepress', plugins_url('sys/ui/static/js/jscolor/jscolor.js', $baseName));
         wp_enqueue_style('jquery-ui-flick');
         wp_enqueue_script('jquery-ui-tabs');
         wp_enqueue_script('jscolor-tubepress');
@@ -61,7 +61,7 @@ class org_tubepress_impl_env_wordpress_Admin
      */
     public static function menuAction()
     {
-        add_options_page('TubePress Options', 'TubePress', 'manage_options', __FILE__, array('org_tubepress_impl_env_wordpress_Admin', 'conditionalExecuteOptionsPage'));
+        add_options_page('TubePress Options', 'TubePress', 'manage_options', __FILE__, array('org_tubepress_impl_env_wordpress_OptionsPage', 'conditionalExecuteOptionsPage'));
     }
 
     /**
