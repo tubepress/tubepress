@@ -79,8 +79,8 @@ html meta', $contents);
     {
          $returnMapBuilder = new PHPUnit_Extensions_MockObject_Stub_ReturnMapping_Builder();
 
-         $returnMapBuilder->addEntry()->with(array('sys/ui/static/js/tubepress.js', 'base_name'))->will($this->returnValue('foobar'));
-         $returnMapBuilder->addEntry()->with(array('sys/ui/themes/default/style.css', 'base_name'))->will($this->returnValue('fooey'));
+         $returnMapBuilder->addEntry()->with(array('base_name/sys/ui/static/js/tubepress.js', 'base_name'))->will($this->returnValue('foobar'));
+         $returnMapBuilder->addEntry()->with(array('base_name/sys/ui/themes/default/style.css', 'base_name'))->will($this->returnValue('fooey'));
 
          return $returnMapBuilder->build();
     }
