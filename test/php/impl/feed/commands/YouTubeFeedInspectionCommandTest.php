@@ -44,37 +44,7 @@ class org_tubepress_impl_feed_commands_YouTubeFeedInspectionCommandTest extends 
         $this->_sut->execute($context);
 
         $result = $context->returnValue;
-        $this->assertEquals(100, $result);
-    }
-
-    /**
-     * @expectedException Exception
-     */
-    function testGetTotalResultNonNumeric()
-    {
-        $context = new stdClass();
-
-        $context->providerName = org_tubepress_api_provider_Provider::YOUTUBE;
-        $context->rawFeed      = str_replace("100", "fake", $this->getSampleXml());
-
-        $this->assertTrue($this->_sut->execute($context));
-
-        $this->_sut->execute($context);
-    }
-
-    /**
-     * @expectedException Exception
-     */
-    function testGetTotalResultMissing()
-    {
-        $context = new stdClass();
-
-        $context->providerName = org_tubepress_api_provider_Provider::YOUTUBE;
-        $context->rawFeed      = str_replace("<openSearch:totalResults>100</openSearch:totalResults>", "", $this->getSampleXml());
-
-        $this->assertTrue($this->_sut->execute($context));
-
-        $this->_sut->execute($context);
+        $this->assertEquals(3, $result);
     }
 
     function getSampleXml()

@@ -35,7 +35,7 @@ class org_tubepress_impl_feed_commands_YouTubeFeedInspectionCommand extends org_
     protected function _count($rawFeed)
     {
         $dom          = $this->_getDom($rawFeed);
-        $totalResults = $dom->getElementsByTagNameNS(self::NS_OPENSEARCH, 'totalResults')->item(0)->nodeValue;
+        $totalResults = $dom->getElementsByTagName('entry')->length;
 
         self::_makeSureNumeric($totalResults);
 
