@@ -38,6 +38,7 @@ class org_tubepress_api_const_template_Variable
     const META_LABELS                   = 'metaLabels';
     const META_SHOULD_SHOW              = 'shouldShow';
     const OPTIONS_PAGE_CATEGORIES       = 'optionsPageCategories';
+    const OPTIONS_PAGE_CATEGORY_NAME    = 'optionsPageCategoryName';
     const OPTIONS_PAGE_CATEGORY_OPTIONS = 'optionsPageCategoryOptions';
     const OPTIONS_PAGE_CATEGORY_TITLE   = 'optionsPageCategoryTitle';
     const OPTIONS_PAGE_INTRO            = 'optionsPageIntro';

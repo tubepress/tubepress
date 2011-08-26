@@ -20,19 +20,24 @@
  */
 ?>
 <div class="wrap">
-  <form method="post">
-    <h2><?php echo ${org_tubepress_api_const_template_Variable::OPTIONS_PAGE_TITLE}; ?></h2>
-    <div style="margin-bottom: 1em; width: 60%; float: left"><?php echo ${org_tubepress_api_const_template_Variable::OPTIONS_PAGE_INTRO}; ?></div>
-    <div style="width: 30%; float: right; background-color: #FFFFFF; padding: .5em 1em .5em 1em" class="ui-corner-all">
-	<p style="float: left"><?php echo ${org_tubepress_api_const_template_Variable::OPTIONS_PAGE_OPTIONS_FILTER}; ?></p>
-	<div style="float: right; vertical-align: middle; padding: 6px">
-		<input type="checkbox" id="youtube-checkbox" /><img src="<?php echo ${org_tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL}; ?>/sys/ui/static/images/youtube.png" style="margin: 0 1em -5px 3px" alt="YouTube"/>
-		<input type="checkbox" id="vimeo-checkbox" /><img src="<?php echo ${org_tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL}; ?>/sys/ui/static/images/vimeo.png" style="margin: 0 0 -8px 3px"/ alt="Vimeo">
+	
+	<form method="post">
+
+	<h2><?php echo ${org_tubepress_api_const_template_Variable::OPTIONS_PAGE_TITLE}; ?></h2>
+
+	<div style="margin-bottom: 1em; width: 60%; float: left">
+		<?php echo ${org_tubepress_api_const_template_Variable::OPTIONS_PAGE_INTRO}; ?>
 	</div>
-    </div>
-    <div id="tubepress_tabs" style="clear: both">
-      <ul>
-        <?php foreach (${org_tubepress_api_const_template_Variable::OPTIONS_PAGE_CATEGORIES} as $optionCategoryName => $optionCategoryMetaArray): ?>
+
+	<?php
+	    /* filter */
+	    include dirname(__FILE__) . '/../options_page/filter_dropdown.tpl.php';
+    ?>
+    
+	<div id="tubepress_tabs" style="clear: both">
+		
+		<ul>
+            <?php foreach (${org_tubepress_api_const_template_Variable::OPTIONS_PAGE_CATEGORIES} as $optionCategoryName => $optionCategoryMetaArray): ?>
 <li><a href="#<?php echo 'tubepress_' . md5($optionCategoryName); ?>"><span><?php echo $optionCategoryMetaArray[org_tubepress_api_const_template_Variable::OPTIONS_PAGE_CATEGORY_TITLE]; ?></span></a></li>
         <?php endforeach; ?>
 
@@ -96,26 +101,3 @@
     <br /><br />
   </form>
 </div>
-<script type="text/javascript">
-	function tubepressOptionsPageProviderSelector() {
-		var names = ["youtube", "vimeo"];
-		for (var i in names) {
-			if (jQuery("#" + names[i] + "-checkbox").attr("checked")) {
-				jQuery(".tubepress-" + names[i] + "-option").show();
-			} else {
-				jQuery(".tubepress-" + names[i] + "-option").each(function () {
-					if (jQuery(this).attr("class") == "tubepress-" + names[i] + "-option") {
-						jQuery(this).hide();
-					}
-				});
-			}
-		}
-	}
-
-	jQuery(document).ready(function() {
-		jQuery("#youtube-checkbox, #vimeo-checkbox").attr("checked", true);
-		jQuery("#tubepress_tabs").tabs();
-		jQuery("#youtube-checkbox, #vimeo-checkbox").click(tubepressOptionsPageProviderSelector);
-		tubepressOptionsPageProviderSelector();
-	});
-</script>
