@@ -54,9 +54,46 @@ class org_tubepress_api_options_OptionDescriptor
     /** What's the default value for this option? */
     private $_defaultValue;
 
-    public function __construct($name, $label, $defaultValue, $description = null, $proOnly = false, $aliases = array(),
-        $excludedProviders = array(), $validValueRegex = null, $canBeSetViaShortcode = true, $shouldPersist = true)
+    /**
+     * Constructor.
+     *
+     * @param string       $name
+     * @param string       $label
+     * @param unknown_type $defaultValue
+     * @param string       $description
+     * @param boolean      $proOnly
+     * @param array        $aliases
+     * @param array        $excludedProviders
+     * @param string       $validValueRegex
+     * @param boolean      $canBeSetViaShortcode
+     * @param boolean      $shouldPersist
+     * @param array        $valueMap
+     *
+     * @throws Exception If any of the supplied values are of the wrong type.
+     */
+    public function __construct($name, $label, $defaultValue, $description, $proOnly, $aliases,
+        $excludedProviders, $validValueRegex, $canBeSetViaShortcode, $shouldPersist, $valueMap)
     {
+        if (!is_string($name) || !isset($name)) {
+
+            throw new Exception('Must supply an option name');
+        }
+
+        if (isset($label) && !is_string($label)) {
+
+            throw new Exception('Label must be a string for ' . $name);
+        }
+
+        if ($description !== null && !is_string($description)) {
+
+            throw new Exception('Description must be a string for ' . $name);
+        }
+
+        if (!is_bool($proOnly)) {
+
+            throw new Exception('Pro-only must be a boolean for ' . $name);
+        }
+
         if (!is_array($aliases)) {
 
             throw new Exception('Aliases must be an array for ' . $name);
@@ -65,6 +102,26 @@ class org_tubepress_api_options_OptionDescriptor
         if (!is_array($excludedProviders)) {
 
             throw new Exception('Excluded providers must be an array for ' . $name);
+        }
+
+        if ($validValueRegex !== null && !is_string($validValueRegex)) {
+
+            throw new Exception('Regex must be a string for ' . $name);
+        }
+
+        if (!is_bool($canBeSetViaShortcode)) {
+
+            throw new Exception('"Can be set via shortcode" must be a boolean for ' . $name);
+        }
+
+        if (!is_bool($shouldPersist)) {
+
+            throw new Exception('"Should persist" must be a boolean for ' . $name);
+        }
+
+        if (!is_array($valueMap) || (! empty($valueMap) && array_keys($valueMap) === range(0, count($valueMap) - 1))) {
+
+            throw new Exception('Value map must be an empty or associative array');
         }
 
         $this->_name              = $name;

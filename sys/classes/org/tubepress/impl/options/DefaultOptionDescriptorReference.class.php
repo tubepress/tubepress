@@ -499,49 +499,47 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
 
             $builder->setName(org_tubepress_api_const_options_names_Output::FAVORITES_VALUE)
                     ->setDefaultValue('mrdeathgod')
-                    ->setLabel('This YouTube user\'s "favorites"')
                     ->setWordCharsOnly()
                     ->setYouTubeOnly()
                     ->build(),
 
             $builder->setName(org_tubepress_api_const_options_names_Output::MODE)
                     ->setDefaultValue(org_tubepress_api_const_options_values_ModeValue::FEATURED)
-                    ->setChooseFrom(array(
-                        org_tubepress_api_const_options_values_ModeValue::FAVORITES,
-                        org_tubepress_api_const_options_values_ModeValue::FEATURED,
-                        org_tubepress_api_const_options_values_ModeValue::MOST_DISCUSSED,
-                        org_tubepress_api_const_options_values_ModeValue::MOST_RECENT,
-                        org_tubepress_api_const_options_values_ModeValue::MOST_RESPONDED,
-                        org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
-                        org_tubepress_api_const_options_values_ModeValue::POPULAR,
-                        org_tubepress_api_const_options_values_ModeValue::TAG,
-                        org_tubepress_api_const_options_values_ModeValue::TOP_FAVORITES,
-                        org_tubepress_api_const_options_values_ModeValue::TOP_RATED,
-                        org_tubepress_api_const_options_values_ModeValue::USER,
-                        org_tubepress_api_const_options_values_ModeValue::VIMEO_ALBUM,
-                        org_tubepress_api_const_options_values_ModeValue::VIMEO_APPEARS_IN,
-                        org_tubepress_api_const_options_values_ModeValue::VIMEO_CHANNEL,
-                        org_tubepress_api_const_options_values_ModeValue::VIMEO_CREDITED,
-                        org_tubepress_api_const_options_values_ModeValue::VIMEO_GROUP,
-                        org_tubepress_api_const_options_values_ModeValue::VIMEO_LIKES,
-                        org_tubepress_api_const_options_values_ModeValue::VIMEO_SEARCH,
-                        org_tubepress_api_const_options_values_ModeValue::VIMEO_UPLOADEDBY
+                    ->setValueMap(array(
+                        org_tubepress_api_const_options_values_ModeValue::FAVORITES        => 'This YouTube user\'s "favorites"',
+                        org_tubepress_api_const_options_values_ModeValue::FEATURED         => 'The latest "featured" videos on YouTube\'s homepage',
+                        org_tubepress_api_const_options_values_ModeValue::MOST_DISCUSSED   => 'Most-discussed videos',
+                        org_tubepress_api_const_options_values_ModeValue::MOST_RECENT      => 'Most-recently added videos',
+                        org_tubepress_api_const_options_values_ModeValue::MOST_RESPONDED   => 'Most-responded to videos',
+                        org_tubepress_api_const_options_values_ModeValue::PLAYLIST         => 'This playlist',
+                        org_tubepress_api_const_options_values_ModeValue::POPULAR          => 'Most-viewed videos from',
+                        org_tubepress_api_const_options_values_ModeValue::TAG              => 'YouTube search for...',
+                        org_tubepress_api_const_options_values_ModeValue::TOP_FAVORITES    => 'Videos most frequently flagged as favorites from...',
+                        org_tubepress_api_const_options_values_ModeValue::TOP_RATED        => 'Top rated videos from...',
+                        org_tubepress_api_const_options_values_ModeValue::USER             => 'Videos from this YouTube user',
+                        org_tubepress_api_const_options_values_ModeValue::VIMEO_ALBUM      => 'Videos from this Vimeo album',
+                        org_tubepress_api_const_options_values_ModeValue::VIMEO_APPEARS_IN => 'Videos this Vimeo user appears in',
+                        org_tubepress_api_const_options_values_ModeValue::VIMEO_CHANNEL    => 'Videos in this Vimeo channel',
+                        org_tubepress_api_const_options_values_ModeValue::VIMEO_CREDITED   => 'Videos credited to this Vimeo user (either appears in or uploaded by)',
+                        org_tubepress_api_const_options_values_ModeValue::VIMEO_GROUP      => 'Videos from this Vimeo group',
+                        org_tubepress_api_const_options_values_ModeValue::VIMEO_LIKES      => 'Videos this Vimeo user likes',
+                        org_tubepress_api_const_options_values_ModeValue::VIMEO_SEARCH     => 'Vimeo search for...',
+                        org_tubepress_api_const_options_values_ModeValue::VIMEO_UPLOADEDBY => 'Videos uploaded by this Vimeo user'
                     ))
                     ->build(),
 
             $builder->setName(org_tubepress_api_const_options_names_Output::MOST_VIEWED_VALUE)
                     ->setDefaultValue(org_tubepress_api_const_options_values_TimeFrameValue::TODAY)
-                    ->setDescription('Most-viewed videos from')
                     ->setTime()
                     ->setYouTubeOnly()
                     ->build(),
 
             $builder->setName(org_tubepress_api_const_options_names_Output::OUTPUT)
+                    ->setShouldPersist(false)
                     ->build(),
 
             $builder->setName(org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE)
                     ->setDefaultValue('D2B04665B213AE35')
-                    ->setLabel('This playlist')
                     ->setDescription('Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser\'s address bar (while looking at a YouTube playlist). It comes right after the "p=". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35')
                     ->setWordCharsOnly()
                     ->setYouTubeOnly()
@@ -567,7 +565,6 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
 
             $builder->setName(org_tubepress_api_const_options_names_Output::TAG_VALUE)
                     ->setDefaultValue('pittsburgh steelers')
-                    ->setLabel('YouTube search for...')
                     ->setDescription('YouTube limits this mode to 1,000 results')
                     ->setYouTubeOnly()
                     ->build(),
@@ -646,16 +643,16 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
  */
 class org_tubepress_impl_options_DefaultOptionsDescriptorReferenceBuilder
 {
-    private $_name;
-    private $_label;
-    private $_description;
-    private $_proOnly;
     private $_aliases;
+    private $_defaultValue;
+    private $_description;
     private $_excludedProviders;
-    private $_validValueRegex;
+    private $_label;
+    private $_name;
+    private $_proOnly;
     private $_shortcodeSettable;
     private $_shouldPersist;
-    private $_defaultValue;
+    private $_validValueRegex;
     private $_valueMap;
 
     private static $_valueMapTime = array(
@@ -673,16 +670,16 @@ class org_tubepress_impl_options_DefaultOptionsDescriptorReferenceBuilder
 
     public function reset()
     {
-        $this->_name              = null;
-        $this->_label             = null;
-        $this->_description       = null;
-        $this->_proOnly           = false;
         $this->_aliases           = array();
+        $this->_defaultValue      = null;
+        $this->_description       = null;
         $this->_excludedProviders = array();
-        $this->_validValueRegex   = null;
+        $this->_label             = null;
+        $this->_name              = null;
+        $this->_proOnly           = false;
         $this->_shortcodeSettable = true;
         $this->_shouldPersist     = true;
-        $this->_defaultValue      = null;
+        $this->_validValueRegex   = null;
         $this->_valueMap          = array();
     }
 
@@ -802,9 +799,20 @@ class org_tubepress_impl_options_DefaultOptionsDescriptorReferenceBuilder
 
     public function build()
     {
+        return new org_tubepress_api_options_OptionDescriptor(
+            $this->_name,
+            $this->_label,
+            $this->_defaultValue,
+            $this->_description,
+            $this->_proOnly,
+            $this->_aliases,
+            $this->_excludedProviders,
+            $this->_validValueRegex,
+            $this->_shortcodeSettable,
+            $this->_shouldPersist,
+            $this->_valueMap
+        );
+
         $this->reset();
-
-        //return new option...
     }
-
 }
