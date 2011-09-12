@@ -24,12 +24,10 @@
  */
 class org_tubepress_api_const_options_names_Feed
 {
-    /* The order in which these constants are declared dictates the
-       order in which they'll be presented on the options page */
     const CACHE_ENABLED    = 'cacheEnabled';
+    const DEV_KEY          = 'developerKey';
     const EMBEDDABLE_ONLY  = 'embeddableOnly';
     const FILTER           = 'filter_racy';
-    const DEV_KEY          = 'developerKey';
     const RESULT_COUNT_CAP = 'resultCountCap';
     const SEARCH_ONLY_USER = 'searchResultsRestrictedToUser';
     const VIMEO_KEY        = 'vimeoKey';
