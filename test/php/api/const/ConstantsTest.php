@@ -4,7 +4,6 @@ require_once BASE . '/test/includes/TubePressUnitTest.php';
 
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Advanced',
-    'org_tubepress_api_const_options_CategoryName',
     'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_const_options_names_Embedded',
@@ -12,7 +11,6 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Meta',
     'org_tubepress_api_const_options_names_Output',
     'org_tubepress_api_const_options_names_Widget',
-    'org_tubepress_api_const_options_Type',
     'org_tubepress_api_const_options_values_ModeValue',
     'org_tubepress_api_const_options_values_OrderValue',
     'org_tubepress_api_const_options_values_OutputValue',
@@ -32,7 +30,6 @@ class org_tubepress_api_const_ConstantsTest extends TubePressUnitTest {
     {
         $toTest = array(
 
-            'org_tubepress_api_const_options_CategoryName'     					=> array('advanced', 'display', 'embedded', 'feed', 'meta', 'widget', 'output'),
             'org_tubepress_api_const_options_names_Advanced'                    => array('cacheCleaningFactor', 'cacheDirectory', 'cacheLifetimeSeconds', 'dateFormat', 'debugging_enabled', 'disableHttpTransportCurl', 'disableHttpTransportExtHttp', 'disableHttpTransportFopen', 'disableHttpTransportFsockOpen', 'disableHttpTransportStreams', 'keyword', 'videoBlacklist', 'galleryId'),
             'org_tubepress_api_const_options_names_Display'						=> array('theme', 'ajaxPagination', 'playerLocation', 'resultsPerPage', 'hqThumbs', 'thumbHeight', 'thumbWidth', 'fluidThumbs', 'orderBy', 'paginationAbove', 'paginationBelow', 'randomize_thumbnails', 'relativeDates', 'descriptionLimit'),
             'org_tubepress_api_const_options_names_Embedded' 					=> array('playerImplementation', 'embeddedHeight', 'embeddedWidth', 'lazyPlay', 'autoplay', 'fullscreen', 'hd', 'loop', 'playerColor', 'playerHighlight', 'showInfo', 'showRelated'),
@@ -40,7 +37,6 @@ class org_tubepress_api_const_ConstantsTest extends TubePressUnitTest {
             'org_tubepress_api_const_options_names_Meta'						=> array('author', 'category', 'description', 'id', 'length', 'likes', 'rating', 'ratings', 'tags', 'title', 'uploaded', 'url', 'views'),
             'org_tubepress_api_const_options_names_Output'						=> array('favoritesValue', 'mode', 'most_viewedValue', 'output', 'playlistValue', 'searchProvider', 'searchResultsDomId', 'searchResultsOnly', 'searchResultsUrl', 'tagValue', 'top_ratedValue', 'userValue', 'video', 'vimeoAlbumValue', 'vimeoAppearsInValue', 'vimeoChannelValue', 'vimeoCreditedToValue', 'vimeoGroupValue', 'vimeoLikesValue', 'vimeoSearchValue', 'vimeoUploadedByValue', 'youtubeTopFavoritesValue'),
             'org_tubepress_api_const_options_names_Widget'						=> array('widget-tagstring', 'widget-title'),
-            'org_tubepress_api_const_options_Type'                              => array('boolean', 'color', 'integral', 'mode', 'order', 'output', 'player', 'playerImplementation', 'playlist', 'safeSearch', 'text', 'theme', 'timeFrame', 'youtubeUser'),
             'org_tubepress_api_const_options_values_ModeValue'					=> array('favorites', 'most_discussed', 'most_recent', 'most_responded', 'most_viewed', 'playlist', 'recently_featured', 'tag', 'top_rated', 'user', 'vimeoAlbum', 'vimeoAppearsIn', 'vimeoChannel', 'vimeoCreditedTo', 'vimeoGroup', 'vimeoLikes', 'vimeoSearch', 'vimeoUploadedBy', 'youtubeTopFavorites'),
             'org_tubepress_api_const_options_values_OrderValue'					=> array('commentCount', 'duration', 'newest', 'oldest', 'position', 'published', 'random', 'rating', 'relevance', 'title', 'viewCount'),
             'org_tubepress_api_const_options_values_OutputValue'				=> array('ajaxSearchInput', 'searchInput', 'searchResults', 'player'),
@@ -51,7 +47,7 @@ class org_tubepress_api_const_ConstantsTest extends TubePressUnitTest {
             'org_tubepress_api_const_plugin_EventName'							=> array('boot'),
             'org_tubepress_api_const_plugin_FilterPoint'						=> array('embeddedHtml', 'embeddedTemplate', 'galleryHtml', 'galleryTemplate', 'html', 'paginationHtml', 'playerHtml', 'playerTemplate', 'providerResult', 'searchInputHtml', 'searchInputTemplate', 'singleVideoHtml', 'singleVideoTemplate', 'video'),
             'org_tubepress_api_const_querystring_QueryParamName'				=> array('tubepress_debug', 'tubepress_page', 'tubepress_search', 'tubepress_shortcode', 'tubepress_video'),
-            'org_tubepress_api_const_template_Variable'                         => array('authorUrlPrefix', 'autostart', 'bottomPagination', 'embeddedColorHightlight', 'embeddedColorPrimary', 'embeddedFullscreen', 'embeddedHeight', 'embeddedImplementationName', 'embeddedSource', 'embeddedWidth', 'galleryId', 'homeURL', 'metaLabels', 'optionsPageCategories', 'optionsPageCategoryOptions', 'optionsPageCategoryTitle', 'optionsPageIntro', 'optionsPageOptionsDesc', 'optionsPageOptionsFilter', 'optionsPageOptionsWidget', 'optionsPageOptionTitle', 'optionsPageProOnly', 'optionsPageSave', 'optionsPageTitle', 'optionsPageVimeoOption', 'optionsPageYouTubeOption', 'playerName', 'preGallery', 'searchButton', 'searchHandlerUrl', 'searchHiddenInputs', 'searchTargetDomId', 'searchTerms', 'shortcode', 'shouldShow', 'themeCssUrl', 'thumbHeight', 'thumbWidth', 'topPagination', 'tubepressBaseUrl', 'video', 'videoArray', 'videoId', 'videoSearchPrefix', 'widgetControlShortcode', 'widgetControlTitle', 'widgetShortcode', 'widgetTitle')
+            'org_tubepress_api_const_template_Variable'                         => array('autostart', 'bottomPagination', 'embeddedColorHightlight', 'embeddedColorPrimary', 'embeddedFullscreen', 'embeddedHeight', 'embeddedImplementationName', 'embeddedSource', 'embeddedWidth', 'galleryId', 'homeURL', 'metaLabels', 'playerName', 'preGallery', 'searchButton', 'searchHandlerUrl', 'searchHiddenInputs', 'searchTargetDomId', 'searchTerms', 'shouldShow', 'thumbHeight', 'thumbWidth', 'topPagination', 'tubepressBaseUrl', 'video', 'videoArray', 'videoId')
 
         );
 
