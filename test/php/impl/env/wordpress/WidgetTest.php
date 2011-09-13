@@ -22,10 +22,11 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest {
         $explorer->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('fakepath');
 
         $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::WIDGET_CONTROL_TITLE, '<<options-meta-title-title>>');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::WIDGET_TITLE, 'value of widget title');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::WIDGET_CONTROL_SHORTCODE, '<<widget-tagstring-description>>');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::WIDGET_SHORTCODE, 'value of widget shortcode');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_impl_env_wordpress_Widget::WIDGET_CONTROL_TITLE, '<<Title>>');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_impl_env_wordpress_Widget::WIDGET_TITLE, 'value of widget title');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_impl_env_wordpress_Widget::WIDGET_CONTROL_SHORTCODE, '<<TubePress shortcode for the widget. See the <a href="http://tubepress.org/documentation"> documentation</a>.>>');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_impl_env_wordpress_Widget::WIDGET_SHORTCODE, 'value of widget shortcode');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_impl_env_wordpress_Widget::WIDGET_SUBMIT_TAG, org_tubepress_impl_env_wordpress_Widget::WIDGET_SUBMIT_TAG);
         $mockTemplate->shouldReceive('toString')->once()->andReturn('final result');
 
         $tplBuilder   = $iocContainer->get('org_tubepress_api_template_TemplateBuilder');
@@ -92,7 +93,7 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest {
     {
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
         $ms           = $iocContainer->get('org_tubepress_api_message_MessageService');
-        $widgetOps = array('classname' => 'widget_tubepress', 'description' => '<<widget-description>>');
+        $widgetOps = array('classname' => 'widget_tubepress', 'description' => '<<Displays YouTube or Vimeo videos with TubePress>>');
 
         $ms->shouldReceive('_')->atLeast(1)->andReturnUsing( function ($key) {
             return "<<$key>>";

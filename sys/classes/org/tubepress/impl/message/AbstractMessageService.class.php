@@ -41,10 +41,6 @@ abstract class org_tubepress_impl_message_AbstractMessageService implements org_
         'options-category-title-feed'     => 'Provider Feed',
         'options-category-title-advanced' => 'Advanced',
 
-        'widget-description'           => 'Displays YouTube videos in your sidebar using TubePress',
-        'widget-tagstring-description' => 'TubePress shortcode for the widget. See the <a href="http://tubepress.org/documentation"> documentation</a>.',
-
-
         'no-videos-found'     => 'No matching videos',
         'search-input-button' => 'Search'
     );

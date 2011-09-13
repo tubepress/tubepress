@@ -9,7 +9,7 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
         parent::setUp();
     }
 
-    function testConditionalExecuteOptionsPage()
+    function testExecuteOptionsPage()
     {
         $addOptionsPageFunctionMock = new PHPUnit_Extensions_MockFunction('add_options_page');
 
@@ -18,7 +18,7 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
         $wpsm = $ioc->get('org_tubepress_api_options_StorageManager');
         $wpsm->shouldReceive('init')->once();
 
-        $formHandler = $ioc->get('org_tubepress_impl_options_FormHandler');
+        $formHandler = $ioc->get('org_tubepress_api_options_ui_FormHandler');
         $formHandler->shouldReceive('getHtml')->once()->andReturn('yo');
 
         ob_start();
@@ -43,8 +43,8 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
         $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
         $fs->shouldReceive('getTubePressInstallationDirectoryBaseName')->once()->andReturn('base_name');
 
-	$plugins_url = new PHPUnit_Extensions_MockFunction('plugins_url');
-	$plugins_url->expects($this->exactly(2))->will($this->_getPluginsUrlReturnMap());
+	    $plugins_url = new PHPUnit_Extensions_MockFunction('plugins_url');
+	    $plugins_url->expects($this->exactly(2))->will($this->_getPluginsUrlReturnMap());
 
         $wp_register_style = new PHPUnit_Extensions_MockFunction('wp_register_style');
         $wp_register_style->expects($this->once())->with('jquery-ui-flick', 'foobar');

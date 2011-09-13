@@ -21,10 +21,9 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_ioc_IocService',
     'org_tubepress_api_filesystem_Explorer',
-    'org_tubepress_impl_ioc_FreeWordPressPluginIocService',
-    'org_tubepress_impl_options_FormHandler',
+    'org_tubepress_api_options_ui_FormHandler',
+    'org_tubepress_api_options_StorageManager'
 ));
 
 class org_tubepress_impl_env_wordpress_OptionsPage
@@ -79,17 +78,23 @@ class org_tubepress_impl_env_wordpress_OptionsPage
         $wpsm->init();
 
         /* get the form handler */
-        $optionsForm = $iocContainer->get('org_tubepress_impl_options_FormHandler');
+        $optionsForm = $iocContainer->get('org_tubepress_api_options_ui_FormHandler');
 
         /* are we updating? */
         if (isset($_POST['tubepress_save'])) {
+
             try {
-                $optionsForm->collect($_POST);
+
+                $optionsForm->onSubmit($_POST);
+
                 echo '<div id="message" class="updated fade"><p><strong>Options updated</strong></p></div>';
+
             } catch (Exception $error) {
+
                 echo '<div id="message" class="error fade"><p><strong>' . $error->getMessage() . '</strong></p></div>';
             }
         }
+
         print $optionsForm->getHtml();
     }
 }

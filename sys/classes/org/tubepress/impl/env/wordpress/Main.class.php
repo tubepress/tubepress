@@ -79,7 +79,7 @@ class org_tubepress_impl_env_wordpress_Main
             try {
                 $generatedHtml = $gallery->getHtmlForShortcode($content);
             } catch (Exception $e) {
-                $generatedHtml = $ms->_('no-videos-found');
+                $generatedHtml = $ms->_('No matching videos');
             }
 
             /* remove any leading/trailing <p> tags from the content */

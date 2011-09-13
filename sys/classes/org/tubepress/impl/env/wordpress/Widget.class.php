@@ -34,6 +34,12 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 
 class org_tubepress_impl_env_wordpress_Widget
 {
+    const WIDGET_CONTROL_SHORTCODE = 'widgetControlShortcode';
+    const WIDGET_CONTROL_TITLE     = 'widgetControlTitle';
+    const WIDGET_SHORTCODE         = 'widgetShortcode';
+    const WIDGET_TITLE             = 'widgetTitle';
+    const WIDGET_SUBMIT_TAG        = 'tubepress-widget-submit';
+
     /**
      * Registers the TubePress widget with WordPress.
      *
@@ -43,7 +49,7 @@ class org_tubepress_impl_env_wordpress_Widget
     {
         $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
         $msg       = $ioc->get('org_tubepress_api_message_MessageService');
-        $widgetOps = array('classname' => 'widget_tubepress', 'description' => $msg->_('widget-description'));
+        $widgetOps = array('classname' => 'widget_tubepress', 'description' => $msg->_('Displays YouTube or Vimeo videos with TubePress'));
 
         wp_register_sidebar_widget('tubepress', 'TubePress', array('org_tubepress_impl_env_wordpress_Widget', 'printWidget'), $widgetOps);
         wp_register_widget_control('tubepress', 'TubePress', array('org_tubepress_impl_env_wordpress_Widget', 'printControlPanel'));
@@ -96,9 +102,12 @@ class org_tubepress_impl_env_wordpress_Widget
         }
 
         try {
+
             $out = $gallery->getHtmlForShortcode('');
+
         } catch (Exception $e) {
-            $out = $ms->_('no-videos-found');
+
+            $out = $ms->_('No matching videos');
         }
 
         /* do the standard WordPress widget dance */
@@ -124,7 +133,8 @@ class org_tubepress_impl_env_wordpress_Widget
         $tplBuilder   = $iocContainer->get('org_tubepress_api_template_TemplateBuilder');
 
         /* are we saving? */
-        if (isset($_POST['tubepress-widget-submit'])) {
+        if (isset($_POST[self::WIDGET_SUBMIT_TAG])) {
+
             $wpsm->set(org_tubepress_api_const_options_names_Widget::TAGSTRING, strip_tags(stripslashes($_POST['tubepress-widget-tagstring'])));
             $wpsm->set(org_tubepress_api_const_options_names_Widget::TITLE, strip_tags(stripslashes($_POST['tubepress-widget-title'])));
         }
@@ -134,10 +144,11 @@ class org_tubepress_impl_env_wordpress_Widget
         $tpl          = $tplBuilder->getNewTemplateInstance($templatePath);
 
         /* set up the template */
-        $tpl->setVariable(org_tubepress_api_const_template_Variable::WIDGET_CONTROL_TITLE, $msg->_('options-meta-title-title'));
-        $tpl->setVariable(org_tubepress_api_const_template_Variable::WIDGET_TITLE, $wpsm->get(org_tubepress_api_const_options_names_Widget::TITLE));
-        $tpl->setVariable(org_tubepress_api_const_template_Variable::WIDGET_CONTROL_SHORTCODE, $msg->_('widget-tagstring-description'));
-        $tpl->setVariable(org_tubepress_api_const_template_Variable::WIDGET_SHORTCODE, $wpsm->get(org_tubepress_api_const_options_names_Widget::TAGSTRING));
+        $tpl->setVariable(self::WIDGET_CONTROL_TITLE, $msg->_('Title'));
+        $tpl->setVariable(self::WIDGET_TITLE, $wpsm->get(org_tubepress_api_const_options_names_Widget::TITLE));
+        $tpl->setVariable(self::WIDGET_CONTROL_SHORTCODE, $msg->_('TubePress shortcode for the widget. See the <a href="http://tubepress.org/documentation"> documentation</a>.'));
+        $tpl->setVariable(self::WIDGET_SHORTCODE, $wpsm->get(org_tubepress_api_const_options_names_Widget::TAGSTRING));
+        $tpl->setVariable(self::WIDGET_SUBMIT_TAG, self::WIDGET_SUBMIT_TAG);
 
         /* get the template's output */
         echo $tpl->toString();
