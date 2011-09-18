@@ -103,7 +103,7 @@ class org_tubepress_impl_options_SimpleOptionValidator implements org_tubepress_
      *
      * @return void
      */
-    private function _checkType($optionName, $candidate, org_tubepress_api_message_MessageService $messageService)
+    private static function _checkType($optionName, $candidate, org_tubepress_api_message_MessageService $messageService)
     {
         $type = org_tubepress_impl_options_OptionsReference::getType($optionName);
 
@@ -158,7 +158,7 @@ class org_tubepress_impl_options_SimpleOptionValidator implements org_tubepress_
      *      
      * @return void
      */
-    private function _checkIntegerRange($name, $candidate, $min, $max, org_tubepress_api_message_MessageService $messageService)
+    private static function _checkIntegerRange($name, $candidate, $min, $max, org_tubepress_api_message_MessageService $messageService)
     {
         if ($candidate < $min || $candidate > $max) {
             throw new Exception(sprintf($messageService->_('validation-int-range'), $name, $min, $max, $candidate));

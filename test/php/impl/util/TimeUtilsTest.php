@@ -4,10 +4,16 @@ require_once BASE . '/sys/classes/org/tubepress/impl/util/TimeUtils.class.php';
 
 class org_tubepress_impl_util_TimeUtilsTest extends TubePressUnitTest
 {
-	function testGetRelativeTimePast()
+	function testGetRelativeTimePastDecade()
 	{
 		$result = org_tubepress_impl_util_TimeUtils::getRelativeTime(1000000000);
 		$this->assertEquals('10 years ago', $result);
+	}
+	
+	function testGetRelativeTimePast5Years()
+	{
+	    $result = org_tubepress_impl_util_TimeUtils::getRelativeTime(1288760400);
+	    $this->assertEquals('11 months ago', $result);
 	}
 
 	function testSeconds2HumanTime()
