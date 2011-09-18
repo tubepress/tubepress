@@ -67,6 +67,31 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
         $this->_sut->getTemplateInstance('foo');
     }
 
+    public function testGetUserContentDirWordPress()
+    {
+        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+    
+        $execContext = $ioc->get('org_tubepress_api_environment_Detector');
+        $execContext->shouldReceive('isWordPress')->once()->andReturn(true);
+    
+        define('WP_CONTENT_DIR', 'value-of-wp-content-dir');
+        
+        $this->assertEquals('value-of-wp-content-dir/tubepress-content', $this->_sut->getUserContentDirectory());
+    }
+    
+    public function testGetUserContentDirNonWordPress()
+    {
+        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+    
+        $execContext = $ioc->get('org_tubepress_api_environment_Detector');
+        $execContext->shouldReceive('isWordPress')->once()->andReturn(false);
+
+        $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fs->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('foobar');
+        
+        $this->assertEquals('foobar/tubepress-content', $this->_sut->getUserContentDirectory());
+    }
+    
     public function testGetTemplateInstance()
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
