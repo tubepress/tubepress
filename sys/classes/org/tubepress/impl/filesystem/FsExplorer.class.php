@@ -75,8 +75,6 @@ class org_tubepress_impl_filesystem_FsExplorer implements org_tubepress_api_file
         $toReturn = array();
         if ($handle = opendir($dir)) {
             
-        	org_tubepress_impl_log_Log::log($prefix, 'Successfully opened <tt>%s</tt> to read contents.', $realDir);
-            
             while (($file = readdir($handle)) !== false) {
 
                 if ($file === '.' || $file === '..' || strpos($file, ".") === 0) {
@@ -121,8 +119,8 @@ class org_tubepress_impl_filesystem_FsExplorer implements org_tubepress_api_file
 
         $toReturn = array();
         if ($handle = opendir($dir)) {
-            org_tubepress_impl_log_Log::log($prefix, 'Successfully opened <tt>%s</tt> to read contents.', $realDir);
-            while (($file = readdir($handle)) !== false) {
+
+        	while (($file = readdir($handle)) !== false) {
 
                 if ($file === '.' || $file === '..') {
                     continue;
@@ -216,10 +214,10 @@ class org_tubepress_impl_filesystem_FsExplorer implements org_tubepress_api_file
     private function _doCopyDirectory($source, $dest, $level)
     {
     	$files = $this->getFilenamesInDirectory($source, self::LOG_PREFIX);
-    	org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%sWill copy %d file(s) from %s to %s', self::_spaces($level), count($files), $source, $dest);
+    	org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%sWill try to copy %d file(s) from %s to %s', self::_spaces($level), count($files), $source, $dest);
     	
     	$dirs = $this->getDirectoriesInDirectory($source, self::LOG_PREFIX);
-    	org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%sWill copy %d directories from %s to %s', self::_spaces($level), count($dirs), $source, $dest);
+    	org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%sWill try to copy %d directories from %s to %s', self::_spaces($level), count($dirs), $source, $dest);
     	
     	$finalDest = $dest . DIRECTORY_SEPARATOR . basename($source);
     	
