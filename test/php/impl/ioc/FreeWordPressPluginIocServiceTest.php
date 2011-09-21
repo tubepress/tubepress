@@ -72,7 +72,7 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
     function testMapping()
     {
         $get_option = new PHPUnit_Extensions_MockFunction('get_option');
-        $get_option->expects($this->any())->with('tubepress-version')->will($this->returnValue(225));
+        $get_option->expects($this->any())->with('tubepress-version')->will($this->returnValue(226));
 
         foreach ($this->_expectedMapping as $key => $value) {
             $test = is_a($this->_sut->get($key), $value);

@@ -31,6 +31,9 @@ class org_tubepress_impl_options_FormHandlerTest extends TubePressUnitTest {
         $fs->shouldReceive('getDirectoriesInDirectory')->atLeast()->once()->with('basePath/sys/ui/themes', 'Options Reference')->andReturn(array());
         $fs->shouldReceive('getDirectoriesInDirectory')->atLeast()->once()->with('basePath/content/themes', 'Options Reference')->andReturn(array());
 
+        $th = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $th->shouldReceive('getUserContentDirectory')->once()->andReturn('user-content-dir');
+        
         $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
         $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::OPTIONS_PAGE_TITLE, '[[options-page-title]]');
         $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::OPTIONS_PAGE_INTRO, '[[options-page-intro-text]]');

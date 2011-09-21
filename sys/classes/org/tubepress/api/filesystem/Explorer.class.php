@@ -64,4 +64,8 @@ interface org_tubepress_api_filesystem_Explorer
      * @return string The absolute path of a temporary directory, preferably the system directory.
      */
     function getSystemTempDirectory();
+    
+    function copyDirectory($source, $dest);
+    
+    function ensureDirectoryExists($directory);
 }

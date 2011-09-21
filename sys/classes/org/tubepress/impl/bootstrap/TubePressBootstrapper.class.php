@@ -94,8 +94,9 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
     {
         $pm         = $ioc->get('org_tubepress_api_plugin_PluginManager');
         $fe         = $ioc->get('org_tubepress_api_filesystem_Explorer');
-        $path       = $fe->getTubePressBaseInstallationPath() . '/content/plugins';
-        $pluginDirs = $fe->getDirectoriesInDirectory($path, self::LOG_PREFIX);
+        $th         = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $pluginPath = $th->getUserContentDirectory() . '/plugins';
+        $pluginDirs = $fe->getDirectoriesInDirectory($pluginPath, self::LOG_PREFIX);
 
         foreach ($pluginDirs as $pluginDir) {
 
@@ -156,5 +157,6 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $ioc->get('org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMeta'));
 
         $pm->registerListener(org_tubepress_api_const_plugin_EventName::BOOT, $ioc->get('org_tubepress_impl_plugin_listeners_WordPressBoot'));
+        $pm->registerListener(org_tubepress_api_const_plugin_EventName::BOOT, $ioc->get('org_tubepress_impl_plugin_listeners_SkeletonExistsListener'));
     }
 }

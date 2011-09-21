@@ -1,5 +1,5 @@
 <?php
-require_once BASE . '/test/includes/TubePressUnitTest.php';
+require_once dirname(__FILE__) . '/../../../../test/includes/TubePressUnitTest.php';
 require_once 'SimpleTemplateTest.php';
 require_once 'SimpleTemplateBuilderTest.php';
 

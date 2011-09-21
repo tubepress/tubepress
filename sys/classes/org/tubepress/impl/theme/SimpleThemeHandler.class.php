@@ -93,6 +93,29 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
         }
         return $currentTheme;
     }
+    
+    /**
+    * Find the absolute path of the user's content directory. In WordPress, this will be
+    * wp-content/tubepress. In standalone PHP, this will be tubepress/content. Confusing, I know.
+    *
+    * @return string The absolute path of the user's content directory.
+    */
+    function getUserContentDirectory()
+    {
+        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $envDetector = $ioc->get('org_tubepress_api_environment_Detector');
+    
+        if ($envDetector->isWordPress()) {
+    
+            return ABSPATH . 'wp-content/tubepress-content';
+    
+        } else {
+    
+            $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
+            
+            return $fs->getTubePressBaseInstallationPath() . '/tubepress-content';
+        }
+    }
 
     private static function _getFilePath($currentTheme, $pathToTemplate, $relative = false)
     {
