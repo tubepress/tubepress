@@ -156,5 +156,6 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $ioc->get('org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMeta'));
 
         $pm->registerListener(org_tubepress_api_const_plugin_EventName::BOOT, $ioc->get('org_tubepress_impl_plugin_listeners_WordPressBoot'));
+        $pm->registerListener(org_tubepress_api_const_plugin_EventName::BOOT, $ioc->get('org_tubepress_impl_plugin_listeners_SkeletonExistsListener'));
     }
 }

@@ -223,7 +223,7 @@ class org_tubepress_impl_filesystem_FsExplorer implements org_tubepress_api_file
     	
     	$finalDest = $dest . '/' . basename($source);
     	
-    	if ($this->_mkdir($finalDest, $level) === false) {
+    	if ($this->ensureDirectoryExists($finalDest, $level) === false) {
     		
     		return false;
     	}
@@ -246,7 +246,7 @@ class org_tubepress_impl_filesystem_FsExplorer implements org_tubepress_api_file
     		
     		$finalDirDest = self::_cleanPath($finalDest . '/' . basename($dir));
     		
-    		if ($this->_mkdir($finalDest, $level) === false) {
+    		if ($this->ensureDirectoryExists($finalDest, $level) === false) {
     			
     			return false;
     		}
@@ -265,23 +265,23 @@ class org_tubepress_impl_filesystem_FsExplorer implements org_tubepress_api_file
     	return true;
     }
     
-    private function _mkdir($finalDest, $level)
+    public function ensureDirectoryExists($path, $level = 0)
     {
-    	$finalDest = self::_cleanPath($finalDest);
+    	$path = self::_cleanPath($path);
     	
-    	if (!is_dir($finalDest)) {
+    	if (!is_dir($path)) {
     	
-    		org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%sAttempting to create %s', self::_spaces($level), $finalDest);
+    		org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%sAttempting to create %s', self::_spaces($level), $path);
     		
-    		$result = @mkdir($finalDest);
+    		$result = @mkdir($path);
     	
     		if ($result === false) {
     			 
-    			org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%sCould not create directory at %s', self::_spaces($level), $finalDest);
+    			org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%sCould not create directory at %s', self::_spaces($level), $path);
     			return false;
     		}
     		
-    		org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%sSuccessfully created directory at %s', self::_spaces($level), $finalDest);
+    		org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%sSuccessfully created directory at %s', self::_spaces($level), $path);
     		
     		return true;
     	}

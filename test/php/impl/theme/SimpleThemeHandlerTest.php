@@ -74,9 +74,9 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
         $execContext = $ioc->get('org_tubepress_api_environment_Detector');
         $execContext->shouldReceive('isWordPress')->once()->andReturn(true);
     
-        define('WP_CONTENT_DIR', 'value-of-wp-content-dir');
+        define('ABSPATH', 'value-of-abspath/');
         
-        $this->assertEquals('value-of-wp-content-dir/tubepress-content', $this->_sut->getUserContentDirectory());
+        $this->assertEquals('value-of-abspath/wp-content/tubepress-content', $this->_sut->getUserContentDirectory());
     }
     
     public function testGetUserContentDirNonWordPress()

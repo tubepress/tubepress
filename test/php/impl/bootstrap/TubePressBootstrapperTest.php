@@ -40,6 +40,8 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUn
             $pm->shouldReceive('registerFilter')->with($filter[0], anInstanceOf($filter[1]))->once();
         }
         $pm->shouldReceive('registerListener')->with(org_tubepress_api_const_plugin_EventName::BOOT, anInstanceOf('org_tubepress_impl_plugin_listeners_WordPressBoot'));
+        $pm->shouldReceive('registerListener')->with(org_tubepress_api_const_plugin_EventName::BOOT, anInstanceOf('org_tubepress_impl_plugin_listeners_SkeletonExistsListener'));
+        
         $pm->shouldReceive('notifyListeners')->with(org_tubepress_api_const_plugin_EventName::BOOT)->once();
 
         $envD = $ioc->get('org_tubepress_api_environment_Detector');

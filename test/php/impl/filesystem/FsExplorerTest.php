@@ -20,7 +20,7 @@ class org_tubepress_impl_filesystem_FsExplorerTest extends TubePressUnitTest
     }
 
     function testCopyDir2Dir()
-    {org_tubepress_impl_log_Log::setEnabled(true, array('tubepress_debug' => true));
+    {
         $source = '/tmp/tubepress-fs-test/source/one/two';
         mkdir($source, 0755, true);
         
