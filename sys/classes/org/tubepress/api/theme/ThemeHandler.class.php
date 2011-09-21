@@ -54,7 +54,7 @@ interface org_tubepress_api_theme_ThemeHandler
     
     /**
     * Find the absolute path of the user's content directory. In WordPress, this will be
-    * wp-content/tubepress. In standalone PHP, this will be tubepress/content. Confusing, I know.
+    * wp-content/tubepress-content. In standalone PHP, this will be tubepress/tubepress-content. Confusing, I know.
     *
     * @return string The absolute path of the user's content directory.
     */

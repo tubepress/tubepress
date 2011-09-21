@@ -16,6 +16,7 @@ require_once 'filters/searchinputtemplate/CoreVariablesTest.php';
 require_once 'filters/singlevideotemplate/CoreVariablesTest.php';
 require_once 'filters/singlevideotemplate/VideoMetaTest.php';
 require_once 'listeners/WordPressBootTest.php';
+require_once 'listeners/SkeletonExistsListenerTest.php';
 require_once 'PluginManagerImplTest.php';
 
 class org_tubepress_impl_plugin_PluginTestSuite
@@ -40,6 +41,7 @@ class org_tubepress_impl_plugin_PluginTestSuite
 		    'org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariablesTest',
 		    'org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMetaTest',
 		    'org_tubepress_impl_plugin_listeners_WordPressBootTest',
+		    'org_tubepress_impl_plugin_listeners_SkeletonExistsListenerTest'
         ));
 	}
 }

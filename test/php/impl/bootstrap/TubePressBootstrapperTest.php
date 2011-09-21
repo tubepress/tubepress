@@ -51,10 +51,12 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUn
         $context->shouldReceive('get')->with(org_tubepress_api_const_options_names_Advanced::DEBUG_ON)->andReturn(false);
 
         $fe = $ioc->get('org_tubepress_api_filesystem_Explorer');
-        $fe->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('baseinstallationpath');
-        $fe->shouldReceive('getDirectoriesInDirectory')->once()->with('baseinstallationpath/content/plugins', anything())->andReturn(array('fakedirectory'));
+        $fe->shouldReceive('getDirectoriesInDirectory')->once()->with('<<user-content-dir>>/plugins', anything())->andReturn(array('fakedirectory'));
         $fe->shouldReceive('getFilenamesInDirectory')->once()->with('fakedirectory', anything())->andReturn(array(dirname(__FILE__) . '/../../../resources/simplePhpFile.php'));
 
+        $th         = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $th->shouldReceive('getUserContentDirectory')->once()->andReturn('<<user-content-dir>>');
+        
         $this->_sut->boot();
     }
 }

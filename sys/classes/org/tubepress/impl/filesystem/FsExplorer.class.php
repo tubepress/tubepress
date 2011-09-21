@@ -84,12 +84,12 @@ class org_tubepress_impl_filesystem_FsExplorer implements org_tubepress_api_file
                 	continue;
                 }
 
-                if (!is_dir($dir . '/' . $file)) {
+                if (!is_dir($dir . DIRECTORY_SEPARATOR . $file)) {
 
                 	continue;
                 }
 
-                array_push($toReturn, realpath($dir . '/' . $file));
+                array_push($toReturn, realpath($dir . DIRECTORY_SEPARATOR . $file));
             }
             
             closedir($handle);
@@ -127,11 +127,11 @@ class org_tubepress_impl_filesystem_FsExplorer implements org_tubepress_api_file
                 if ($file === '.' || $file === '..') {
                     continue;
                 }
-                if (is_dir($dir . '/' . $file)) {
+                if (is_dir($dir . DIRECTORY_SEPARATOR . $file)) {
                     continue;
                 }
 
-                array_push($toReturn, realpath($dir . '/' . $file));
+                array_push($toReturn, realpath($dir . DIRECTORY_SEPARATOR . $file));
             }
             closedir($handle);
         } else {
@@ -221,7 +221,7 @@ class org_tubepress_impl_filesystem_FsExplorer implements org_tubepress_api_file
     	$dirs = $this->getDirectoriesInDirectory($source, self::LOG_PREFIX);
     	org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%sWill copy %d directories from %s to %s', self::_spaces($level), count($dirs), $source, $dest);
     	
-    	$finalDest = $dest . '/' . basename($source);
+    	$finalDest = $dest . DIRECTORY_SEPARATOR . basename($source);
     	
     	if ($this->ensureDirectoryExists($finalDest, $level) === false) {
     		
@@ -230,7 +230,7 @@ class org_tubepress_impl_filesystem_FsExplorer implements org_tubepress_api_file
 
     	foreach ($files as $file) {
     		
-    		$finalFileDest = $finalDest . '/' . basename($file);
+    		$finalFileDest = $finalDest . DIRECTORY_SEPARATOR . basename($file);
     		$result        = @copy($file, $finalFileDest);
     		
     		if ($result === false) {
@@ -244,7 +244,7 @@ class org_tubepress_impl_filesystem_FsExplorer implements org_tubepress_api_file
     	
     	foreach ($dirs as $dir) {
     		
-    		$finalDirDest = self::_cleanPath($finalDest . '/' . basename($dir));
+    		$finalDirDest = self::_cleanPath($finalDest . DIRECTORY_SEPARATOR . basename($dir));
     		
     		if ($this->ensureDirectoryExists($finalDest, $level) === false) {
     			

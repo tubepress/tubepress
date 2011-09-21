@@ -94,8 +94,9 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
     {
         $pm         = $ioc->get('org_tubepress_api_plugin_PluginManager');
         $fe         = $ioc->get('org_tubepress_api_filesystem_Explorer');
-        $path       = $fe->getTubePressBaseInstallationPath() . '/content/plugins';
-        $pluginDirs = $fe->getDirectoriesInDirectory($path, self::LOG_PREFIX);
+        $th         = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $pluginPath = $th->getUserContentDirectory() . '/plugins';
+        $pluginDirs = $fe->getDirectoriesInDirectory($pluginPath, self::LOG_PREFIX);
 
         foreach ($pluginDirs as $pluginDir) {
 
