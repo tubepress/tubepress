@@ -19,6 +19,11 @@
  *
  */
 
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../impl/classloader/ClassLoader.class.php';
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_provider_Provider'
+));
+
 /**
  * TubePress option descriptor.
  */
@@ -54,6 +59,9 @@ class org_tubepress_api_options_OptionDescriptor
     /** What's the default value for this option? */
     private $_defaultValue;
 
+    /** Associative array of label to values. */
+    private $_valueMap;
+
     /**
      * Constructor.
      *
@@ -74,52 +82,52 @@ class org_tubepress_api_options_OptionDescriptor
     public function __construct($name, $label, $defaultValue, $description, $proOnly, $aliases,
         $excludedProviders, $validValueRegex, $canBeSetViaShortcode, $shouldPersist, $valueMap)
     {
-        if (!is_string($name) || !isset($name)) {
+        if (! is_string($name) || ! isset($name)) {
 
             throw new Exception('Must supply an option name');
         }
 
-        if (isset($label) && !is_string($label)) {
+        if (isset($label) && ! is_string($label)) {
 
             throw new Exception('Label must be a string for ' . $name);
         }
 
-        if ($description !== null && !is_string($description)) {
+        if ($description !== null && ! is_string($description)) {
 
             throw new Exception('Description must be a string for ' . $name);
         }
 
-        if (!is_bool($proOnly)) {
+        if (! is_bool($proOnly)) {
 
             throw new Exception('Pro-only must be a boolean for ' . $name);
         }
 
-        if (!is_array($aliases)) {
+        if (! is_array($aliases)) {
 
             throw new Exception('Aliases must be an array for ' . $name);
         }
 
-        if (!is_array($excludedProviders)) {
+        if (! is_array($excludedProviders)) {
 
             throw new Exception('Excluded providers must be an array for ' . $name);
         }
 
-        if ($validValueRegex !== null && !is_string($validValueRegex)) {
+        if ($validValueRegex !== null && ! is_string($validValueRegex)) {
 
             throw new Exception('Regex must be a string for ' . $name);
         }
 
-        if (!is_bool($canBeSetViaShortcode)) {
+        if (! is_bool($canBeSetViaShortcode)) {
 
             throw new Exception('"Can be set via shortcode" must be a boolean for ' . $name);
         }
 
-        if (!is_bool($shouldPersist)) {
+        if (! is_bool($shouldPersist)) {
 
             throw new Exception('"Should persist" must be a boolean for ' . $name);
         }
 
-        if (!is_array($valueMap) || (! empty($valueMap) && array_keys($valueMap) === range(0, count($valueMap) - 1))) {
+        if (! is_array($valueMap) || (! empty($valueMap) && array_keys($valueMap) === range(0, count($valueMap) - 1))) {
 
             throw new Exception('Value map must be an empty or associative array');
         }
@@ -134,6 +142,7 @@ class org_tubepress_api_options_OptionDescriptor
         $this->_validValueRegex   = (string) $validValueRegex;
         $this->_shortcodeSettable = (boolean) $canBeSetViaShortcode;
         $this->_shouldPersist     = (boolean) $shouldPersist;
+        $this->_valueMap          = $valueMap;
     }
 
     public function getName()
@@ -189,5 +198,10 @@ class org_tubepress_api_options_OptionDescriptor
     public function isApplicableToVimeo()
     {
         return ! in_array(org_tubepress_api_provider_Provider::VIMEO, $this->_excludedProviders);
+    }
+
+    public function getValueMap()
+    {
+        return $this->_valueMap;
     }
 }
