@@ -44,7 +44,7 @@ class org_tubepress_impl_feed_commands_YouTubeFeedInspectionCommandTest extends 
         $this->_sut->execute($context);
 
         $result = $context->returnValue;
-        $this->assertEquals(3, $result);
+        $this->assertEquals(100, $result);
     }
 
     function getSampleXml()
