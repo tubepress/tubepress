@@ -443,7 +443,7 @@ var TubePressDepCheck = (function () {
 
 		if (/1\.6|7|8|9\.[0-9]+/.test(version) === false) {
 
-			alert("TubePress requires jQuery 1.6 or higher. This page is running version " + version);
+			console.log("TubePress requires jQuery 1.6 or higher. This page is running version " + version);
 		}
 	};
 	
