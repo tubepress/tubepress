@@ -30,6 +30,13 @@ interface org_tubepress_api_filesystem_Explorer
      * @return string The absolute filesystem path of this TubePress installation.
      */
     function getTubePressBaseInstallationPath();
+    
+    /**
+     * Find the directory name of the TubePress base installation.
+     * 
+     * @return string The base name of the TubePress installation directory.
+     */
+    function getTubePressInstallationDirectoryBaseName();
 
     /**
      * Find the directories contained in the given directory (non-recursive).
@@ -51,5 +58,14 @@ interface org_tubepress_api_filesystem_Explorer
      */
     function getFilenamesInDirectory($dir, $prefix);
     
+    /**
+     * Attempt to get temporary directory.
+     * 
+     * @return string The absolute path of a temporary directory, preferably the system directory.
+     */
     function getSystemTempDirectory();
+    
+    function copyDirectory($source, $dest);
+    
+    function ensureDirectoryExists($directory);
 }

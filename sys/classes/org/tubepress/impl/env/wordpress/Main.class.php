@@ -134,10 +134,13 @@ EOT;
         if (is_admin() || __FILE__ === 'wp-login.php') {
             return;
         }
-        global $tubepress_base_url;
 
-        wp_register_script('tubepress', "$tubepress_base_url/sys/ui/static/js/tubepress.js");
-        wp_register_style('tubepress', "$tubepress_base_url/sys/ui/themes/default/style.css");
+	$ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $fse      = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $baseName = $fse->getTubePressInstallationDirectoryBaseName();
+
+        wp_register_script('tubepress', plugins_url("$baseName/sys/ui/static/js/tubepress.js", $baseName));
+        wp_register_style('tubepress', plugins_url("$baseName/sys/ui/themes/default/style.css", $baseName));
 
         wp_enqueue_script('jquery');
         wp_enqueue_script('tubepress');

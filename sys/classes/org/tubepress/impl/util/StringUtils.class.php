@@ -44,6 +44,11 @@ class org_tubepress_impl_util_StringUtils
         return $temp;
     }
 
+    public static function removeNewLines($string)
+    {
+    	return str_replace(array("\r\n", "\r", "\n"), '', $string);
+    }
+    
     /**
      * Grabbed from http://programming-oneliners.blogspot.com/2006/03/remove-blank-empty-lines-php-29.html
      * 

@@ -39,11 +39,10 @@ interface org_tubepress_api_theme_ThemeHandler
      * Returns the URL of the CSS stylesheet for the given theme.
      *
      * @param string  $currentTheme The name of the theme.
-     * @param boolean $relative     Whether or not to include the full URL or just the portion relative to $tubepress_base_url
      *
      * @return string The URl of the CSS stylesheet.
      */
-    function getCssPath($currentTheme, $relative = false);
+    function getCssPath($currentTheme);
 
     /**
      * Returns the name of the current TubePress theme in use.
@@ -51,4 +50,12 @@ interface org_tubepress_api_theme_ThemeHandler
      * @return string The current theme name, or 'default' if the default theme is in use or if there was a problem.
      */
     function calculateCurrentThemeName();
+    
+    /**
+    * Find the absolute path of the user's content directory. In WordPress, this will be
+    * wp-content/tubepress-content. In standalone PHP, this will be tubepress/tubepress-content. Confusing, I know.
+    *
+    * @return string The absolute path of the user's content directory.
+    */
+    function getUserContentDirectory();
 }

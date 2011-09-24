@@ -74,6 +74,10 @@ class org_tubepress_impl_url_commands_VimeoUrlBuilderCommand extends org_tubepre
     const SORT_MOST_PLAYED   = 'most_played';
     const SORT_RELEVANT      = 'relevant';
 
+    const INI_ARG_SEPARATOR = 'arg_separator.input';
+    
+    const LOG_PREFIX = 'Vimeo URL Builder';
+    
     const URL_BASE = 'http://vimeo.com/api/rest/v2';
 
     /**
@@ -85,12 +89,14 @@ class org_tubepress_impl_url_commands_VimeoUrlBuilderCommand extends org_tubepre
      */
     protected function buildGalleryUrl($currentPage)
     {
-        $params      = array();
-        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
-        $mode        = $execContext->get(org_tubepress_api_const_options_names_Output::MODE);
-
+        $params       = array();
+        $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $execContext  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $mode         = $execContext->get(org_tubepress_api_const_options_names_Output::MODE);
+        
         $this->_verifyKeyAndSecretExists($execContext);
+
+        self::_setIniArgSeparator();
 
         switch ($mode) {
 
@@ -157,7 +163,11 @@ class org_tubepress_impl_url_commands_VimeoUrlBuilderCommand extends org_tubepre
             $params[self::PARAM_SORT] = $sort;
         }
 
-        return $this->_buildUrl($params, $execContext);
+        $finalUrl = $this->_buildUrl($params, $execContext);
+        
+        self::_restoreIniArgSeparator();
+        
+        return $finalUrl;
     }
 
     /**
@@ -181,11 +191,17 @@ class org_tubepress_impl_url_commands_VimeoUrlBuilderCommand extends org_tubepre
 
         $this->_verifyKeyAndSecretExists($execContext);
 
+        self::_setIniArgSeparator();
+        
         $params                       = array();
         $params[self::PARAM_METHOD]   = self::METHOD_VIDEOS_GETINFO;
         $params[self::PARAM_VIDEO_ID] = $id;
 
-        return $this->_buildUrl($params, $execContext);
+        $finalUrl = $this->_buildUrl($params, $execContext);
+        
+        self::_restoreIniArgSeparator();
+        
+        return $finalUrl;
     }
 
     /**
@@ -300,5 +316,20 @@ class org_tubepress_impl_url_commands_VimeoUrlBuilderCommand extends org_tubepre
 
             return '';
         }
+    }
+    
+    private static function _setIniArgSeparator()
+    {
+    	/* Vimeo is sensitive to URL argument separators, so we have to set it to just '&' */
+    	if (ini_get(self::INI_ARG_SEPARATOR) !== '&') {
+    	
+    		org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Setting arg_separator.input');
+    		ini_set(self::INI_ARG_SEPARATOR, '&');
+    	}
+    }
+    
+    private static function _restoreIniArgSeparator()
+    {
+    	ini_restore(self::INI_ARG_SEPARATOR);
     }
 }

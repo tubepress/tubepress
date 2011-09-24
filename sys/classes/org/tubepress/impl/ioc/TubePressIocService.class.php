@@ -98,7 +98,7 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
         }
 
         /* we've already built it. this should be the normal case. */
-        if (is_a($this->_map[$classOrInterfaceName], $classOrInterfaceName)) {
+        if ($this->_map[$classOrInterfaceName] instanceof $classOrInterfaceName) {
             return $this->_map[$classOrInterfaceName];
         }
 
@@ -115,7 +115,7 @@ class org_tubepress_impl_ioc_TubePressIocService implements org_tubepress_api_io
         $instance = $this->_buildAndRemember($interfaceName, $implementationName);
 
         /* make sure the class looks OK */
-        if (!is_a($instance, $interfaceName)) {
+        if (!($instance instanceof $interfaceName)) {
             throw new Exception("$implementationName does not implement $interfaceName, but they were bound together");
         }
 

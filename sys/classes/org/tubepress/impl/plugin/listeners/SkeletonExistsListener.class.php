@@ -27,9 +27,9 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 ));
 
 /**
- * Performs WordPress initialization.
+ * Loads up a skeleton "content" directory if it doesn't already exist.
  */
-class org_tubepress_impl_plugin_listeners_WordPressBoot
+class org_tubepress_impl_plugin_listeners_SkeletonExistsListener
 {
     /**
      * Perform boot procedure.
@@ -42,28 +42,23 @@ class org_tubepress_impl_plugin_listeners_WordPressBoot
         $ed  = $ioc->get('org_tubepress_api_environment_Detector');
         $fse = $ioc->get('org_tubepress_api_filesystem_Explorer');
 
-        if (!$ed->isWordPress()) {
+        if ($ed->isWordPress()) {
         	
-            return;
+	        /* add the content directory if it's not already there */
+	        if (!is_dir(ABSPATH . 'wp-content/tubepress-content')) {
+	        	
+	        	$fse->copyDirectory($fse->getTubePressBaseInstallationPath() . '/sys/skel/tubepress-content', ABSPATH . 'wp-content');
+	        }
+	        
+        } else {
+        	
+        	$basePath = $fse->getTubePressBaseInstallationPath();
+        	
+        	/* add the content directory if it's not already there */
+        	if (!is_dir($basePath . '/tubepress-content')) {
+        		
+        		$fse->copyDirectory($basePath . '/sys/skel/tubepress-content', $basePath);
+        	}
         }
-
-        global $tubepress_base_url;
-
-        $baseName = $fse->getTubePressInstallationDirectoryBaseName();
-
-        /* set the tubepress_base_url global */
-        $tubepress_base_url = site_url()  . "/wp-content/plugins/$baseName";
-
-        /* register the plugin's message bundles */
-        load_plugin_textdomain('tubepress', false, "$baseName/sys/i18n");
-
-        add_filter('the_content', array('org_tubepress_impl_env_wordpress_Main', 'contentFilter'));
-        add_action('wp_head', array('org_tubepress_impl_env_wordpress_Main', 'headAction'));
-        add_action('init', array('org_tubepress_impl_env_wordpress_Main', 'initAction'));
-
-        add_action('admin_menu', array('org_tubepress_impl_env_wordpress_OptionsPage', 'menuAction'));
-        add_action('admin_enqueue_scripts', array('org_tubepress_impl_env_wordpress_OptionsPage', 'initAction'));
-
-        add_action('widgets_init', array('org_tubepress_impl_env_wordpress_Widget', 'initAction'));
     }
 }

@@ -85,7 +85,9 @@ class org_tubepress_impl_env_wordpress_Widget
         );
 
         /* now apply the user's options */
-        $parser->parse($context->get(org_tubepress_api_const_options_names_Widget::TAGSTRING));
+        $rawTag    = $context->get(org_tubepress_api_const_options_names_Widget::TAGSTRING);
+        $widgetTag = org_tubepress_impl_util_StringUtils::removeNewLines($rawTag);
+        $parser->parse($widgetTag);
 
         /* calculate the final options */
         $finalOptions = array_merge($defaultWidgetOptions, $context->getCustomOptions());

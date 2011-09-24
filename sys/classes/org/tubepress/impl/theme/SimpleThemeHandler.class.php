@@ -51,9 +51,10 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Attempting to load template instance from %s', $pathToTemplate);
 
         $currentTheme = $this->calculateCurrentThemeName();
-        $filePath     = self::_getFilePath($currentTheme, $pathToTemplate);
+        $filePath     = $this->_getFilePath($currentTheme, $pathToTemplate);
 
         if (!is_readable($filePath)) {
+            
             throw new Exception("Cannot read file at $filePath");
         }
 
@@ -75,7 +76,7 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
     */
     public function getCssPath($currentTheme, $relative = false)
     {
-        return self::_getFilePath($currentTheme, 'style.css', $relative);
+        return $this->_getFilePath($currentTheme, 'style.css');
     }
 
     /**
@@ -88,31 +89,67 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $execContext  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
         $currentTheme = $execContext->get(org_tubepress_api_const_options_names_Display::THEME);
+        
         if ($currentTheme == '') {
+
             $currentTheme = 'default';
         }
+        
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Requested theme is \'%s\'', $currentTheme);
+        
         return $currentTheme;
     }
+    
+    /**
+    * Find the absolute path of the user's content directory. In WordPress, this will be
+    * wp-content/tubepress. In standalone PHP, this will be tubepress/content. Confusing, I know.
+    *
+    * @return string The absolute path of the user's content directory.
+    */
+    function getUserContentDirectory()
+    {
+        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $envDetector = $ioc->get('org_tubepress_api_environment_Detector');
+    
+        if ($envDetector->isWordPress()) {
+    
+            return ABSPATH . 'wp-content/tubepress-content';
+    
+        } else {
+    
+            $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
+            
+            return $fs->getTubePressBaseInstallationPath() . '/tubepress-content';
+        }
+    }
 
-    private static function _getFilePath($currentTheme, $pathToTemplate, $relative = false)
+    private function _getFilePath($currentTheme, $pathToTemplate)
     {
         $ioc                       = org_tubepress_impl_ioc_IocContainer::getInstance();
         $fs                        = $ioc->get('org_tubepress_api_filesystem_Explorer');
         $tubepressInstallationPath = $fs->getTubePressBaseInstallationPath();
-        $filePath                  = "$tubepressInstallationPath/sys/ui/themes/$currentTheme/$pathToTemplate";
+        
+        /* first try to load the theme from sys/ui */
+        $filePath = "$tubepressInstallationPath/sys/ui/themes/$currentTheme/$pathToTemplate";
 
-        if ($currentTheme === 'default' || !is_readable($filePath)) {
-            $filePath = "$tubepressInstallationPath/content/themes/$currentTheme/$pathToTemplate";
-        }
-        if ($currentTheme === 'default' || !is_readable($filePath)) {
-            $filePath = "$tubepressInstallationPath/sys/ui/themes/default/$pathToTemplate";
-        }
+        /* if that fails, try to load it from the user's theme directory */
+        if (!is_readable($filePath)) {
 
-        if ($relative) {
-            return str_replace("$tubepressInstallationPath/", '', $filePath);
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Could not read file at %s', $filePath);
+            
+            $filePath = $this->getUserContentDirectory() . "/themes/$currentTheme/$pathToTemplate";
+            
+            /* finally, just fall back to the default theme. */
+            if (!is_readable($filePath)) {
+           
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Could not read file at %s. Falling back to default.', $filePath);
+               
+                $filePath = "$tubepressInstallationPath/sys/ui/themes/default/$pathToTemplate";
+            }
         }
-
+        
+        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Loaded file at %s', $filePath);
+        
         return $filePath;
     }
 }
-

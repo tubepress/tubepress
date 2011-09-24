@@ -12,9 +12,19 @@ class TubePressUnitTestSuite extends PHPUnit_Framework_TestSuite
             $this->addTestSuite($test);
         }
 
-        PHPUnit_Util_Filter::addDirectoryToFilter('/usr/share/php');
-        PHPUnit_Util_Filter::addDirectoryToFilter(realpath(dirname(__FILE__) . '/..'));
 
+	if (is_callable('PHP_CodeCoverage_Filter::getInstance')) {
+
+		$filter = PHP_CodeCoverage_Filter::getInstance();
+
+        	$filter->addDirectoryToBlacklist('/usr/share/php');
+        	$filter->addDirectoryToBlacklist(realpath(dirname(__FILE__) . '/..'));
+	
+	} else {
+
+		PHPUnit_Util_Filter::addDirectoryToFilter('/usr/share/php');
+		PHPUnit_Util_Filter::addDirectoryToFilter(realpath(dirname(__FILE__) . '/..'));
+	}
     }
 
     public function run(PHPUnit_Framework_TestResult $result = NULL, $filter = FALSE, array $groups = array(), array $excludeGroups = array(), $processIsolation = FALSE)

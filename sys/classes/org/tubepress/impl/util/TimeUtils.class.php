@@ -36,23 +36,26 @@ class org_tubepress_impl_util_TimeUtils
     public static function getRelativeTime($timestamp)
     {
         $difference = time() - $timestamp;
-        $periods    = array('sec', 'min', 'hour', 'day', 'week', 'month', 'year', 'decade');
-        $lengths    = array('60','60','24','7','4.35','12','10');
-        $ending     = 'ago';
-
-        for ($j = 0; $difference >= $lengths[$j]; $j++) {
-
-            if ($lengths[$j] != 0) {
-                $difference /= $lengths[$j];
+        $a = array(
+            31104000 =>  'year',
+            2592000  =>  'month',
+            86400    =>  'day',
+            3600     =>  'hour',
+            60       =>  'minute',
+            1        =>  'second'
+        );
+    
+        foreach ($a as $secs => $str) {
+        
+            $d = $difference / $secs;
+        
+            if ($d >= 1) {
+                
+                $r = round($d);
+            
+                return $r . ' ' . $str . ($r > 1 ? 's' : '') . ' ago';
             }
         }
-
-        $difference = round($difference);
-        if ($difference != 1) {
-            $periods[$j] .= 's';
-        }
-        $text = "$difference $periods[$j] $ending";
-        return $text;
     }
 
     /**
