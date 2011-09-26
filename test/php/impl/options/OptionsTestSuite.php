@@ -11,7 +11,7 @@ class org_tubepress_impl_options_OptionsTestSuite
 		return new TubePressUnitTestSuite(array(
 			'org_tubepress_impl_options_WordPressStorageManagerTest',
 			'org_tubepress_impl_options_SimpleOptionValidatorTest',
-			'org_tubepress_impl_options_FormHandlerTest',
+			//'org_tubepress_impl_options_FormHandlerTest',
 		));
 	}
 }

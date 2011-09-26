@@ -29,6 +29,8 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_api_options_OptionDescriptor
 {
+    const _ = 'org_tubepress_api_options_OptionDescriptor';
+    
     /** What's the name, y'all? */
     private $_name;
 

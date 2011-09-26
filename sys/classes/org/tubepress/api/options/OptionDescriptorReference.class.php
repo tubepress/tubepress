@@ -24,6 +24,8 @@
  */
 interface org_tubepress_api_options_OptionDescriptorReference
 {
+    const _ = 'org_tubepress_api_options_OptionDescriptorReference';
+    
     function findAll();
 
     function findOneByName($name);

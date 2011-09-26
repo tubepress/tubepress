@@ -1,6 +1,8 @@
 <?php
 
 require_once BASE . '/sys/classes/org/tubepress/impl/options/SimpleOptionValidator.class.php';
+require_once BASE . '/sys/classes/org/tubepress/api/const/options/names/Meta.class.php';
+require_once BASE . '/sys/classes/org/tubepress/api/const/options/names/Advanced.class.php';
 
 class org_tubepress_impl_options_SimpleOptionValidatorTest extends TubePressUnitTest {
 
@@ -12,92 +14,27 @@ class org_tubepress_impl_options_SimpleOptionValidatorTest extends TubePressUnit
 		$this->_sut = new org_tubepress_impl_options_SimpleOptionValidator();
 	}
 
-	public function testThumbHeightOk()
+	public function testExists()
 	{
-		$this->_sut->validate(org_tubepress_api_const_options_names_Display::THUMB_HEIGHT, 90);
+	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+	    $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
+	    
+	    $od = \Mockery::mock(org_tubepress_api_options_OptionDescriptor::_);
+	    
+	    $odr->shouldReceive('findOneByName')->once()->with(org_tubepress_api_const_options_names_Display::THUMB_HEIGHT)->andReturn($od);
+	    
+		$this->assertTrue($this->_sut->isValid(org_tubepress_api_const_options_names_Display::THUMB_HEIGHT, 90) === true);
 	}
 
 
-	public function testThumbWidthOk()
+	public function testNotExists()
 	{
-		$this->_sut->validate(org_tubepress_api_const_options_names_Display::THUMB_WIDTH, 120);
-	}
-
-
-	public function testResultsPerPageOk()
-	{
-		$this->_sut->validate(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE, 50);
-	}
-
-	/**
-	 * @expectedException Exception
-	 */
-	public function testResultsPerPageTooSmall()
-	{
-		$this->_sut->validate(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE, 0);
-	}
-
-   	/**
-	 * @expectedException Exception
-	 */
-	public function testDotsInTheme()
-	{
-		$this->_sut->validate(org_tubepress_api_const_options_names_Display::THEME, 'sometheme/../yo');
-	}
-
-	public function testNoDotsInTheme()
-	{
-		$this->_sut->validate(org_tubepress_api_const_options_names_Display::THEME, 'sometheme');
-	}
-
-   	/**
-	 * @expectedException Exception
-	 */
-	public function testNoSuchOption()
-	{
-		$this->_sut->validate('no such option', 51);
-	}
-
-	/**
-	 * @expectedException Exception
-	 */
-	public function testNonBooleanForBooleanOption()
-	{
-		$this->_sut->validate(org_tubepress_api_const_options_names_Meta::TITLE, 'somethingcrazy');
-	}
-
-	public function testBooleanForBooleanOption()
-	{
-		$this->_sut->validate(org_tubepress_api_const_options_names_Meta::TITLE, '1');
-	}
-
-	/**
-	 * @expectedException Exception
-	 */
-	public function testNonStringForStringOptions()
-	{
-		$this->_sut->validate(org_tubepress_api_const_options_names_Advanced::KEYWORD, array());
-	}
-
-	/**
-	 * @expectedException Exception
-	 */
-	public function testResultsPerTooBig()
-	{
-		$this->_sut->validate(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE, 51);
-	}
-
-	/**
-	 * @expectedException Exception
-	 */
-	public function testResultsPerPageBelowZero()
-	{
-		$this->_sut->validate(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE, -1);
-	}
-
-	public function testDescLimitZero()
-	{
-		$this->_sut->validate(org_tubepress_api_const_options_names_Display::DESC_LIMIT, 0);
+	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+	    $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
+	     
+	    $odr->shouldReceive('findOneByName')->once()->with(org_tubepress_api_const_options_names_Display::THUMB_WIDTH)->andReturn(null);
+	    
+		$this->assertTrue($this->_sut->isValid(org_tubepress_api_const_options_names_Display::THUMB_WIDTH, 120) === false);
 	}
 }
 
