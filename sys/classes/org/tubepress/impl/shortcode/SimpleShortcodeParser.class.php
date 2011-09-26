@@ -67,7 +67,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
 
         $toReturn = array();
 
-        preg_match("/\[$keyword\b(.*)\]/s", $content, $matches);
+        preg_match("/\[$keyword\b(.*)\]/", $content, $matches);
 
         if (sizeof($matches) === 0) {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'No shortcodes detected in content');
@@ -108,7 +108,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
      */
     public function somethingToParse($content, $trigger = "tubepress")
     {
-        return preg_match("/\[$trigger\b(.*)\]/s", $content) === 1;
+        return preg_match("/\[$trigger\b(.*)\]/", $content) === 1;
     }
 
     /**

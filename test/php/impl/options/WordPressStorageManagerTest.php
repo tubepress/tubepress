@@ -8,7 +8,6 @@ class org_tubepress_impl_options_WordPressStorageManagerTest extends TubePressUn
     function setUp()
     {
         parent::setUp();
-
         $get_option = new PHPUnit_Extensions_MockFunction('get_option');
         $get_option->expects($this->any())->will($this->returnCallback(array($this, 'callback')));
 
