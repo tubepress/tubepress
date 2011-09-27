@@ -23,14 +23,14 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_const_template_Variable',
-    'org_tubepress_api_patterns_cor_Command',
+    'org_tubepress_spi_patterns_cor_Command',
     'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_api_provider_Provider',
     'org_tubepress_api_provider_ProviderResult',
     'org_tubepress_impl_log_Log',
 ));
 
-class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_tubepress_api_patterns_cor_Command
+class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_tubepress_spi_patterns_cor_Command
 {
     const LOG_PREFIX = 'Thumb Gallery Command';
 

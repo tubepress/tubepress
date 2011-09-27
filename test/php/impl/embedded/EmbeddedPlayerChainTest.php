@@ -28,7 +28,7 @@ class org_tubepress_impl_embedded_EmbeddedPlayerChainTest extends TubePressUnitT
         $pc  = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
         $pc->shouldReceive('calculateProviderOfVideoId')->with('videoid')->once()->andReturn('video_provider');
 
-        $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $chain = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
         $chain->shouldReceive('execute')->once()->with(anInstanceOf('stdClass'), array(
              'org_tubepress_impl_embedded_commands_JwFlvCommand',
              'org_tubepress_impl_embedded_commands_EmbedPlusCommand',

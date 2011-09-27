@@ -22,7 +22,7 @@
 /**
  * A generic chain link.
  */
-interface org_tubepress_api_patterns_cor_Command
+interface org_tubepress_spi_patterns_cor_Command
 {
     /**
      * Execute the command.

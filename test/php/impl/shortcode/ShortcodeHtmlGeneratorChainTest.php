@@ -28,7 +28,7 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChainTest extends TubeP
         $mockChainContext = new stdClass();
         $mockChainContext->returnValue = 'chain-return-value';
 
-        $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $chain = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
         $chain->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
         $chain->shouldReceive('execute')->once()->with($mockChainContext, array(
             	'org_tubepress_impl_shortcode_commands_SearchInputCommand',
@@ -48,7 +48,7 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChainTest extends TubeP
         $mockChainContext = new stdClass();
         $mockChainContext->returnValue = 'chain-return-value';
 
-        $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $chain = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
         $chain->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
         $chain->shouldReceive('execute')->once()->with($mockChainContext, array(
         	'org_tubepress_impl_shortcode_commands_SearchInputCommand',

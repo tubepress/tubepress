@@ -38,7 +38,7 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommandTest extends Tube
         $qss            = $ioc->get('org_tubepress_api_querystring_QueryStringService');
         $qss->shouldReceive('getSearchTerms')->once()->andReturn("(#@@!!search (())(())((terms*$$#");
 
-        $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $chain = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
         $chain->shouldReceive('execute')->once()->with($mockChainContext, array('org_tubepress_impl_shortcode_commands_ThumbGalleryCommand'))->andReturn(true);
 
         $this->assertTrue($this->_sut->execute($mockChainContext));
@@ -60,7 +60,7 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommandTest extends Tube
         $qss            = $ioc->get('org_tubepress_api_querystring_QueryStringService');
         $qss->shouldReceive('getSearchTerms')->once()->andReturn("(#@@!!search (())(())((terms*$$#");
 
-        $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $chain = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
         $chain->shouldReceive('execute')->once()->with($mockChainContext, array('org_tubepress_impl_shortcode_commands_ThumbGalleryCommand'))->andReturn(true);
 
         $this->assertTrue($this->_sut->execute($mockChainContext));

@@ -50,7 +50,7 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommandTest extends TubePr
 	    $qss     = $ioc->get('org_tubepress_api_querystring_QueryStringService');
 	    $qss->shouldReceive('getCustomVideo')->once()->andReturn('video-id');
 
-	    $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+	    $chain = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
 	    $chain->shouldReceive('execute')->once()->with($mockChainContext, array(
             'org_tubepress_impl_shortcode_commands_SingleVideoCommand'
         ));

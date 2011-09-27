@@ -23,7 +23,7 @@ class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_embedded_EmbeddedHtmlGenerator',
-    'org_tubepress_api_patterns_cor_Chain',
+    'org_tubepress_spi_patterns_cor_Chain',
     'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_api_provider_ProviderCalculator',
     'org_tubepress_impl_ioc_IocContainer',
@@ -45,7 +45,7 @@ class org_tubepress_impl_embedded_EmbeddedPlayerChain implements org_tubepress_a
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-        $chain        = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $chain        = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
         $pm           = $ioc->get('org_tubepress_api_plugin_PluginManager');
         $providerName = $pc->calculateProviderOfVideoId($videoId);
         $context      = $chain->createContextInstance();

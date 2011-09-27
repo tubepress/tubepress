@@ -22,7 +22,7 @@ class org_tubepress_impl_factory_VideoFactoryChainTest extends TubePressUnitTest
         $mockChainContext = \Mockery::mock('stdClass');
         $mockChainContext->returnValue = array('one', 'two');
 
-        $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $chain = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
         $chain->shouldReceive('execute')->once()->with(anInstanceOf('stdClass'), array(
                 'org_tubepress_impl_factory_commands_YouTubeFactoryCommand',
                 'org_tubepress_impl_factory_commands_VimeoFactoryCommand'
@@ -47,7 +47,7 @@ class org_tubepress_impl_factory_VideoFactoryChainTest extends TubePressUnitTest
         $mockChainContext = \Mockery::mock('stdClass');
         $mockChainContext->returnValue = array('one', 'two');
 
-        $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $chain = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
         $chain->shouldReceive('execute')->once()->with(anInstanceOf('stdClass'), array(
             'org_tubepress_impl_factory_commands_YouTubeFactoryCommand',
             'org_tubepress_impl_factory_commands_VimeoFactoryCommand'

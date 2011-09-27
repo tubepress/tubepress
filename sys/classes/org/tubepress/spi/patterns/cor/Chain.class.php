@@ -22,13 +22,13 @@
 /**
  * Chain in the chain-of-responsibility pattern.
  */
-interface org_tubepress_api_patterns_cor_Chain
+interface org_tubepress_spi_patterns_cor_Chain
 {
     /**
      * Executes the given commands with the given context.
      *
      * @param array $context          An array of context elements (may be empty).
-     * @param array $commandInstances An array of org_tubepress_api_patterns_cor_Command class names to execute.
+     * @param array $commandInstances An array of org_tubepress_spi_patterns_cor_Command class names to execute.
      *
      * @throws Exception If none of the commands can handle execution.
      *
