@@ -19,6 +19,18 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 	    $this->assertTrue(count($all) === 83);
 	}
 
+	/**
+	 * @expectedException Exception
+	 */
+	public function testRegisterDuplicate()
+	{
+	    $od = \Mockery::mock(org_tubepress_api_options_OptionDescriptor::_);
+	    $od->shouldReceive('getName')->atLeast()->once()->andReturn('name');
+
+	    $this->_sut->register($od);
+	    $this->_sut->register($od);
+	}
+
 	public function testOptions()
 	{
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Advanced::CACHE_CLEAN_FACTOR);
