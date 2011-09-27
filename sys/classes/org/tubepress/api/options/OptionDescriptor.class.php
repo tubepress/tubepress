@@ -30,131 +30,68 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 class org_tubepress_api_options_OptionDescriptor
 {
     const _ = 'org_tubepress_api_options_OptionDescriptor';
-    
+
     /** What's the name, y'all? */
     private $_name;
 
-    /** You got a label? */
-    private $_label;
-
-    /** Friendly description. */
-    private $_description;
-
-    /** Pro only? */
-    private $_proOnly;
+    /** Acceptable values. */
+    private $_acceptableValues;
 
     /** Aliases. */
-    private $_aliases;
-
-    /** Providers for which this option does not work. */
-    private $_excludedProviders;
-
-    /** Regex describing valid values that this option can take on (from a string). */
-    private $_validValueRegex;
-
-    /** Can this option be set via shortcode? */
-    private $_shortcodeSettable;
-
-    /** Should we store this option in persistent storage? */
-    private $_shouldPersist;
+    private $_aliases = array();
 
     /** What's the default value for this option? */
     private $_defaultValue;
 
-    /** Associative array of label to values. */
-    private $_valueMap;
+    /** Friendly description. */
+    private $_description;
+
+    /** Providers for which this option does not work. */
+    private $_excludedProviders = array();
+
+    /** Is this boolean? */
+    private $_isBoolean = false;
+
+    /** You got a label? */
+    private $_label;
+
+    /** Pro only? */
+    private $_proOnly = false;
+
+    /** Should we store this option in persistent storage? */
+    private $_shouldPersist = true;
+
+    /** Can this option be set via shortcode? */
+    private $_shortcodeSettable = true;
+
+    /** Regex describing valid values that this option can take on (from a string). */
+    private $_validValueRegex;
 
     /**
      * Constructor.
      *
-     * @param string       $name
-     * @param string       $label
-     * @param unknown_type $defaultValue
-     * @param string       $description
-     * @param boolean      $proOnly
-     * @param array        $aliases
-     * @param array        $excludedProviders
-     * @param string       $validValueRegex
-     * @param boolean      $canBeSetViaShortcode
-     * @param boolean      $shouldPersist
-     * @param array        $valueMap
+     * @param string $name
      *
-     * @throws Exception If any of the supplied values are of the wrong type.
+     * @throws Exception If the name is null or empty.
      */
-    public function __construct($name, $label, $defaultValue, $description, $proOnly, $aliases,
-        $excludedProviders, $validValueRegex, $canBeSetViaShortcode, $shouldPersist, $valueMap)
+    public function __construct($name)
     {
         if (! is_string($name) || ! isset($name)) {
 
             throw new Exception('Must supply an option name');
         }
 
-        if (isset($label) && ! is_string($label)) {
-
-            throw new Exception('Label must be a string for ' . $name);
-        }
-
-        if ($description !== null && ! is_string($description)) {
-
-            throw new Exception('Description must be a string for ' . $name);
-        }
-
-        if (! is_bool($proOnly)) {
-
-            throw new Exception('Pro-only must be a boolean for ' . $name);
-        }
-
-        if (! is_array($aliases)) {
-
-            throw new Exception('Aliases must be an array for ' . $name);
-        }
-
-        if (! is_array($excludedProviders)) {
-
-            throw new Exception('Excluded providers must be an array for ' . $name);
-        }
-
-        if ($validValueRegex !== null && ! is_string($validValueRegex)) {
-
-            throw new Exception('Regex must be a string for ' . $name);
-        }
-
-        if (! is_bool($canBeSetViaShortcode)) {
-
-            throw new Exception('"Can be set via shortcode" must be a boolean for ' . $name);
-        }
-
-        if (! is_bool($shouldPersist)) {
-
-            throw new Exception('"Should persist" must be a boolean for ' . $name);
-        }
-
-        if (! is_array($valueMap) || (! empty($valueMap) && array_keys($valueMap) === range(0, count($valueMap) - 1))) {
-
-            throw new Exception('Value map must be an empty or associative array');
-        }
-
-        $this->_name              = $name;
-        $this->_label             = $label;
-        $this->_defaultValue      = $defaultValue;
-        $this->_description       = $description;
-        $this->_proOnly           = (boolean) $proOnly;
-        $this->_aliases           = $aliases;
-        $this->_excludedProviders = $excludedProviders;
-        $this->_validValueRegex   = (string) $validValueRegex;
-        $this->_shortcodeSettable = (boolean) $canBeSetViaShortcode;
-        $this->_shouldPersist     = (boolean) $shouldPersist;
-        $this->_valueMap          = $valueMap;
+        $this->_name = $name;
     }
 
-    public function getName()
+    public function getAcceptableValues()
     {
-        return $this->_name;
+        return $this->_acceptableValues;
     }
 
-    public function getLabel()
+    public function getAliases()
     {
-        return $this->_label;
+        return $this->_aliases;
     }
 
     public function getDefaultValue()
@@ -167,14 +104,14 @@ class org_tubepress_api_options_OptionDescriptor
         return $this->_description;
     }
 
-    public function isProOnly()
+    public function getLabel()
     {
-        return $this->_proOnly;
+        return $this->_label;
     }
 
-    public function getAliases()
+    public function getName()
     {
-        return $this->_aliases;
+        return $this->_name;
     }
 
     public function getValidValueRegex()
@@ -182,19 +119,29 @@ class org_tubepress_api_options_OptionDescriptor
         return $this->_validValueRegex;
     }
 
+    public function hasDescription()
+    {
+        return $this->_description !== null;
+    }
+
+    public function hasDiscreteAcceptableValues()
+    {
+        return ! empty($this->_acceptableValues);
+    }
+
+    public function hasLabel()
+    {
+        return $this->_label !== null;
+    }
+
+    public function hasValidValueRegex()
+    {
+        return $this->_validValueRegex !== null;
+    }
+
     public function isAbleToBeSetViaShortcode()
     {
         return $this->_shortcodeSettable;
-    }
-
-    public function isMeantToBePersisted()
-    {
-        return $this->_shouldPersist;
-    }
-
-    public function isApplicableToYouTube()
-    {
-        return ! in_array(org_tubepress_api_provider_Provider::YOUTUBE, $this->_excludedProviders);
     }
 
     public function isApplicableToVimeo()
@@ -202,8 +149,141 @@ class org_tubepress_api_options_OptionDescriptor
         return ! in_array(org_tubepress_api_provider_Provider::VIMEO, $this->_excludedProviders);
     }
 
-    public function getValueMap()
+    public function isApplicableToYouTube()
     {
-        return $this->_valueMap;
+        return ! in_array(org_tubepress_api_provider_Provider::YOUTUBE, $this->_excludedProviders);
+    }
+
+    public function isBoolean()
+    {
+        return $this->_isBoolean;
+    }
+
+    public function isApplicableToAllProviders()
+    {
+        return empty($this->_excludedProviders);
+    }
+
+    public function isMeantToBePersisted()
+    {
+        return $this->_shouldPersist;
+    }
+
+    public function isProOnly()
+    {
+        return $this->_proOnly;
+    }
+
+    public function setAcceptableValues($values)
+    {
+        $this->_checkNotBoolean();
+        $this->_checkRegexNotSet();
+
+        $this->_acceptableValues = $values;
+    }
+
+    public function setAliases($aliases)
+    {
+        if (! is_array($aliases)) {
+
+            throw new Exception('Aliases must be an array for ' . $this->getName());
+        }
+
+        $this->_aliases = $aliases;
+    }
+
+    public function setBoolean()
+    {
+        $this->_checkAcceptableValuesNotSet();
+        $this->_checkRegexNotSet();
+
+        $this->_isBoolean = true;
+    }
+
+    public function setCannotBeSetViaShortcode()
+    {
+        $this->_shortcodeSettable = false;
+    }
+
+    public function setDefaultValue($value)
+    {
+        $this->_defaultValue = $value;
+    }
+
+    public function setDescription($description)
+    {
+        if (! is_string($description)) {
+
+            throw new Exception('Description must be a string for ' . $this->getName());
+        }
+
+        $this->_description = $description;
+    }
+
+    public function setDoNotPersist()
+    {
+        $this->_shouldPersist = false;
+    }
+
+    public function setExcludedProviders($excludedProviders)
+    {
+        if (! is_array($excludedProviders)) {
+
+            throw new Exception('Excluded providers must be an array for ' . $this->getName());
+        }
+
+        $this->_excludedProviders = $excludedProviders;
+    }
+
+    public function setLabel($label)
+    {
+        if (! is_string($label)) {
+
+            throw new Exception('Label must be a string for ' . $this->getName());
+        }
+
+        $this->_label = $label;
+    }
+
+    public function setProOnly()
+    {
+        $this->_proOnly = true;
+    }
+
+    public function setValidValueRegex($validValueRegex)
+    {
+        if (! is_string($validValueRegex)) {
+
+            throw new Exception('Regex must be a string for ' . $this->getName());
+        }
+
+        $this->_checkAcceptableValuesNotSet();
+        $this->_checkNotBoolean();
+
+        $this->_validValueRegex = $validValueRegex;
+    }
+
+    private function _checkRegexNotSet()
+    {
+        if (isset($this->_validValueRegex)) {
+
+            throw new Exception($this->getName() . ' already has a regex set');
+        }
+    }
+
+    private function _checkAcceptableValuesNotSet()
+    {
+        if (! empty($this->_acceptableValues)) {
+
+            throw new Exception($this->getName() . ' already has acceptable values set');
+        }
+    }
+
+    private function _checkNotBoolean()
+    {
+        if ($this->_isBoolean === true) {
+
+            throw new Exception($this->getName() . ' is set to be a boolean');
+        }
     }
 }

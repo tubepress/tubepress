@@ -8,68 +8,42 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
 
     function setUp()
     {
-        $this->_sut = new org_tubepress_api_options_OptionDescriptor('name', 'label', 'default value', 'description', true, array('alias'), array('youtube'), 'regex', false, true, array('key' => 'value'));
+        $this->_sut = new org_tubepress_api_options_OptionDescriptor('name');
     }
 
-    /**
-    * @expectedException Exception
-    */
-    function testNonAssociativeArrayValueMap()
+    function testSetAcceptableValues()
     {
-        new org_tubepress_api_options_OptionDescriptor('name', 'label', 'default value', 'description', true, array('alias'), array('youtube'), 'regex', false, true, array('one'));
+        $this->assertFalse($this->_sut->hasDiscreteAcceptableValues());
+        $this->_sut->setAcceptableValues(array('foo' => 'bar'));
+        $this->assertTrue($this->_sut->hasDiscreteAcceptableValues());
+        $this->assertTrue($this->_sut->getAcceptableValues() === array('foo' => 'bar'));
     }
 
-    /**
-    * @expectedException Exception
-    */
-    function testNonArrayValueMap()
+    function testSetBoolean()
     {
-        new org_tubepress_api_options_OptionDescriptor('name', 'label', 'default value', 'description', true, array('alias'), array('youtube'), 'regex', false, true, 88);
+        $this->assertFalse($this->_sut->isBoolean());
+
+        $this->_sut->setBoolean();
+
+        $this->assertTrue($this->_sut->isBoolean());
     }
 
-    function testEmptyValueMap()
-    {
-        new org_tubepress_api_options_OptionDescriptor('name', 'label', 'default value', 'description', true, array('alias'), array('youtube'), 'regex', false, true, array());
-    }
-
-    /**
-    * @expectedException Exception
-    */
-    function testNullValueMap()
-    {
-        new org_tubepress_api_options_OptionDescriptor('name', 'label', 'default value', 'description', true, array('alias'), array('youtube'), 'regex', false, true, null);
-    }
-
-    /**
-    * @expectedException Exception
-    */
     function testNonBoolShouldBePersisted()
     {
-        new org_tubepress_api_options_OptionDescriptor('name', 'label', 'default value', 'description', true, array('alias'), array('youtube'), 'regex', false, 77, array('key' => 'value'));
+        $this->assertTrue($this->_sut->isMeantToBePersisted());
+
+        $this->_sut->setDoNotPersist();
+
+        $this->assertFalse($this->_sut->isMeantToBePersisted());
     }
 
-    /**
-     * @expectedException Exception
-     */
-    function testNullShouldBePersisted()
-    {
-        new org_tubepress_api_options_OptionDescriptor('name', 'label', 'default value', 'description', true, array('alias'), array('youtube'), 'regex', false, null, array('key' => 'value'));
-    }
-
-    /**
-    * @expectedException Exception
-    */
     function testNonBoolCanBeSetViaShortcode()
     {
-        new org_tubepress_api_options_OptionDescriptor('name', 'label', 'default value', 'description', true, array('alias'), array('youtube'), 'regex', 88, true, array('key' => 'value'));
-    }
+        $this->assertTrue($this->_sut->isAbleToBeSetViaShortcode());
 
-    /**
-     * @expectedException Exception
-     */
-    function testNullCanBeSetViaShortcode()
-    {
-        new org_tubepress_api_options_OptionDescriptor('name', 'label', 'default value', 'description', true, array('alias'), array('youtube'), 'regex', null, true, array('key' => 'value'));
+        $this->_sut->setCannotBeSetViaShortcode();
+
+        $this->assertFalse($this->_sut->isAbleToBeSetViaShortcode());
     }
 
     /**
@@ -77,12 +51,15 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     */
     function testNonStringRegex()
     {
-        new org_tubepress_api_options_OptionDescriptor('name', 'label', 'default value', 'description', true, array('alias'), array('youtube'), 88, false, true, array('key' => 'value'));
+        $this->_sut->setValidValueRegex(1);
     }
 
+    /**
+    * @expectedException Exception
+    */
     function testNullRegex()
     {
-        new org_tubepress_api_options_OptionDescriptor('name', 'label', 'default value', 'description', true, array('alias'), array('youtube'), null, false, true, array('key' => 'value'));
+        $this->_sut->setValidValueRegex(null);
     }
 
     /**
@@ -90,7 +67,7 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     */
     function testNonArrayExcludedProviders()
     {
-        new org_tubepress_api_options_OptionDescriptor('name', 'label', 'default value', 'description', true, array('alias'), 'stuff', 'regex', false, true, array('key' => 'value'));
+        $this->_sut->setExcludedProviders(1);
     }
 
     /**
@@ -98,7 +75,7 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
      */
     function testNullExcludedProviders()
     {
-        new org_tubepress_api_options_OptionDescriptor('name', 'label', 'default value', 'description', true, array('alias'), null, 'regex', false, true, array('key' => 'value'));
+        $this->_sut->setExcludedProviders(null);
     }
 
     /**
@@ -106,7 +83,7 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     */
     function testNonArrayAliases()
     {
-        new org_tubepress_api_options_OptionDescriptor('name', 'label', 'default value', 'description', true, 'stuff', array('youtube'), 'regex', false, true, array('key' => 'value'));
+        $this->_sut->setAliases(1);
     }
 
     /**
@@ -114,23 +91,16 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
      */
     function testNullAliases()
     {
-        new org_tubepress_api_options_OptionDescriptor('name', 'label', 'default value', 'description', true, null, array('youtube'), 'regex', false, true, array('key' => 'value'));
+        $this->_sut->setAliases(null);
     }
 
-    /**
-    * @expectedException Exception
-    */
     function testNonBoolProOnly()
     {
-        new org_tubepress_api_options_OptionDescriptor('name', 'label', 'default value', 'description', 'stuff', array('alias'), array('youtube'), 'regex', false, true, array('key' => 'value'));
-    }
+        $this->assertFalse($this->_sut->isProOnly());
 
-    /**
-     * @expectedException Exception
-     */
-    function testNullProOnly()
-    {
-        new org_tubepress_api_options_OptionDescriptor('name', 'label', 'default value', 'description', null, array('alias'), array('youtube'), 'regex', false, true, array('key' => 'value'));
+        $this->_sut->setProOnly();
+
+        $this->assertTrue($this->_sut->isProOnly());
     }
 
     /**
@@ -138,12 +108,15 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     */
     function testNonStringDesc()
     {
-        new org_tubepress_api_options_OptionDescriptor('name', 'label', 'default value', 88, true, array('alias'), array('youtube'), 'regex', false, true, array('key' => 'value'));
+        $this->_sut->setDescription(array());
     }
 
+    /**
+    * @expectedException Exception
+    */
     function testNullDesc()
     {
-        new org_tubepress_api_options_OptionDescriptor('name', 'label', 'default value', null, true, array('alias'), array('youtube'), 'regex', false, true, array('key' => 'value'));
+        $this->_sut->setDescription(null);
     }
 
     /**
@@ -151,12 +124,15 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     */
     function testNonStringLabel()
     {
-        new org_tubepress_api_options_OptionDescriptor('name', 44, 'default value', 'description', true, array('alias'), array('youtube'), 'regex', false, true, array('key' => 'value'));
+        $this->_sut->setLabel(array());
     }
 
+    /**
+    * @expectedException Exception
+    */
     function testNullLabel()
     {
-        new org_tubepress_api_options_OptionDescriptor('name', null, 'default value', 'description', true, array('alias'), array('youtube'), 'regex', false, true, array('key' => 'value'));
+        $this->_sut->setLabel(null);
     }
 
     /**
@@ -164,7 +140,7 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     */
     function testNonStringName()
     {
-        new org_tubepress_api_options_OptionDescriptor(88, 'label', 'default value', 'description', true, array('alias'), array('youtube'), 'regex', false, true, array('key' => 'value'));
+        new org_tubepress_api_options_OptionDescriptor(88);
     }
 
     /**
@@ -172,47 +148,117 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
      */
     function testNullName()
     {
-        new org_tubepress_api_options_OptionDescriptor(null, 'label', 'default value', 'description', true, array('alias'), array('youtube'), 'regex', false, true, array('key' => 'value'));
+        new org_tubepress_api_options_OptionDescriptor(null);
     }
 
-    function testGetValueMap()
+    /**
+    * @expectedException Exception
+    */
+    function testSetRegexAlreadyBoolean()
     {
-        $this->assertTrue(array('key' => 'value') === $this->_sut->getValueMap());
+        $this->_sut->setBoolean();
+        $this->_sut->setValidValueRegex('/some/');
+    }
+
+    /**
+    * @expectedException Exception
+    */
+    function testSetRegexAlreadyDiscrete()
+    {
+        $this->_sut->setAcceptableValues(array('foo'));
+        $this->_sut->setValidValueRegex('/some/');
+    }
+
+    /**
+    * @expectedException Exception
+    */
+    function testSetDiscreteAlreadyBoolean()
+    {
+        $this->_sut->setBoolean();
+        $this->_sut->setAcceptableValues(array('foo'));
+    }
+
+    /**
+     * @expectedException Exception
+     */
+    function testSetDiscreteAlreadyRegex()
+    {
+        $this->_sut->setValidValueRegex('/some/');
+        $this->_sut->setAcceptableValues(array('foo'));
+    }
+
+
+    /**
+    * @expectedException Exception
+     */
+    function testSetBooleanAlreadyDiscrete()
+    {
+        $this->_sut->setAcceptableValues(array('foo'));
+        $this->_sut->setBoolean();
+    }
+
+    /**
+    * @expectedException Exception
+    */
+    function testSetBooleanAlreadyRegex()
+    {
+        $this->_sut->setValidValueRegex('/some/');
+        $this->_sut->setBoolean();
     }
 
     function testGetShouldBePersisted()
     {
         $this->assertTrue(true === $this->_sut->isMeantToBePersisted());
+
+        $this->_sut->setDoNotPersist();
+
+        $this->assertFalse($this->_sut->isMeantToBePersisted());
     }
 
     function testGetCanBeSetViaShortcode()
     {
-        $this->assertTrue(false === $this->_sut->isAbleToBeSetViaShortcode());
+        $this->assertTrue($this->_sut->isAbleToBeSetViaShortcode());
+
+        $this->_sut->setCannotBeSetViaShortcode();
+
+        $this->assertFalse($this->_sut->isAbleToBeSetViaShortcode());
     }
 
     function testGetRegex()
     {
+        $this->assertFalse($this->_sut->hasValidValueRegex());
+        $this->_sut->setValidValueRegex('regex');
         $this->assertEquals('regex', $this->_sut->getValidValueRegex());
     }
 
     function testGetExcludedProviders()
     {
+        $this->assertTrue($this->_sut->isApplicableToAllProviders());
+        $this->_sut->setExcludedProviders(array('youtube'));
         $this->assertTrue($this->_sut->isApplicableToVimeo());
         $this->assertFalse($this->_sut->isApplicableToYouTube());
+        $this->assertFalse($this->_sut->isApplicableToAllProviders());
     }
 
     function testGetAliases()
     {
+        $this->_sut->setAliases(array('alias'));
         $this->assertTrue(array('alias') === $this->_sut->getAliases());
     }
 
     function testGetProOnly()
     {
+        $this->assertFalse($this->_sut->isProOnly());
+
+        $this->_sut->setProOnly();
+
         $this->assertTrue(true === $this->_sut->isProOnly());
     }
 
     function testGetDescription()
     {
+        $this->assertFalse($this->_sut->hasDescription());
+        $this->_sut->setDescription('description');
         $this->assertEquals('description', $this->_sut->getDescription());
     }
 
@@ -223,11 +269,14 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
 
     function testGetLabel()
     {
+        $this->assertFalse($this->_sut->hasLabel());
+        $this->_sut->setLabel('label');
         $this->assertEquals('label', $this->_sut->getLabel());
     }
 
     function testGetDefaultValue()
     {
+        $this->_sut->setDefaultValue('default value');
         $this->assertEquals('default value', $this->_sut->getDefaultValue());
     }
 }
