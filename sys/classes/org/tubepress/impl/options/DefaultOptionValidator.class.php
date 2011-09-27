@@ -30,9 +30,9 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 /**
  * Performs validation on option values
  */
-class org_tubepress_impl_options_SimpleOptionValidator implements org_tubepress_api_options_OptionValidator
+class org_tubepress_impl_options_DefaultOptionValidator implements org_tubepress_api_options_OptionValidator
 {
-    const LOG_PREFIX = 'Simple Option Validator';
+    const LOG_PREFIX = 'Option Validator';
 
     /**
      * Validates an option value.
@@ -53,7 +53,42 @@ class org_tubepress_impl_options_SimpleOptionValidator implements org_tubepress_
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'No option with name %s', $optionName);
             return false;
         }
-        
+
+        if ($descriptor->hasValidValueRegex()) {
+
+            if (preg_match_all($descriptor->getValidValueRegex(), $candidate, $matches) === 1) {
+
+                return true;
+            }
+
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%s must match the regular expression %s. You supplied "%s"', $optionName, $descriptor->getValidValueRegex(), $candidate);
+            return false;
+        }
+
+        if ($descriptor->hasDiscreteAcceptableValues()) {
+
+            $values = array_values($descriptor->getAcceptableValues());
+
+            if (in_array($candidate, $values)) {
+
+                return true;
+            }
+
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%s must be one of "%s". You supplied "%s"', $optionName, implode(', ', $values), $candidate);
+            return false;
+        }
+
+        if ($descriptor->isBoolean()) {
+
+            if (is_bool($candidate)) {
+
+                return true;
+            }
+
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%s can only accept true/false values. You supplied "%s"', $optionName, $candidate);
+            return false;
+        }
+
         return true;
     }
 }
