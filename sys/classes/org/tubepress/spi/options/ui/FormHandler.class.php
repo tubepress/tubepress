@@ -20,35 +20,23 @@
  */
 
 /**
- * TubePress template
+ * Generates HTML for the options form and handles form submission.
  */
-interface org_tubepress_api_template_Template
+interface org_tubepress_spi_options_ui_FormHandler
 {
-    const _ = 'org_tubepress_api_template_Template';
+    /**
+     * Generates the HTML for the options form.
+     *
+     * @return string The HTML for the options form.
+    */
+    function getHtml();
 
     /**
-     * Converts this template to a string
+     * Handles form submission.
      *
-     *@throws Exception If there was a problem.
-     *
-     * @return string The string representation of this template.
-     */
-    function toString();
-
-    /**
-     * Set a template variable.
-     *
-     * @param string  $name  The name of the template variable to set.
-     * @param unknown $value The value of the template variable.
+     * @param array $postVars The $_POST array.
      *
      * @return void
      */
-    function setVariable($name, $value);
-
-    /**
-     * Resets this template for use. Clears out any set variables.
-     *
-     * @return void
-     */
-    function reset();
+    function onSubmit($postVars);
 }

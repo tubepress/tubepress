@@ -78,7 +78,7 @@ class org_tubepress_impl_env_wordpress_OptionsPage
         $wpsm->init();
 
         /* get the form handler */
-        $optionsForm = $iocContainer->get('org_tubepress_api_options_ui_FormHandler');
+        $optionsForm = $iocContainer->get('org_tubepress_spi_options_ui_FormHandler');
 
         /* are we updating? */
         if (isset($_POST['tubepress_save'])) {

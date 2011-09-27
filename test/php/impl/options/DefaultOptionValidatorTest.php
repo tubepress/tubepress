@@ -20,13 +20,14 @@ class org_tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUni
 	    $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
 
 	    $od = \Mockery::mock(org_tubepress_api_options_OptionDescriptor::_);
-	    $od->shouldReceive('hasValidValueRegex')->once()->andReturn(false);
-	    $od->shouldReceive('hasDiscreteAcceptableValues')->once()->andReturn(false);
-	    $od->shouldReceive('isBoolean')->once()->andReturn(false);
+	    $od->shouldReceive('hasValidValueRegex')->twice()->andReturn(false);
+	    $od->shouldReceive('hasDiscreteAcceptableValues')->twice()->andReturn(false);
+	    $od->shouldReceive('isBoolean')->twice()->andReturn(false);
 
-	    $odr->shouldReceive('findOneByName')->once()->with('name')->andReturn($od);
+	    $odr->shouldReceive('findOneByName')->twice()->with('name')->andReturn($od);
 
 	    $this->assertTrue($this->_sut->isValid('name', 'poo') === true);
+	    $this->assertEquals(null, $this->_sut->getProblemMessage('name', 'poo'));
 	}
 
 	public function testBoolean()
@@ -35,13 +36,14 @@ class org_tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUni
 	    $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
 
 	    $od = \Mockery::mock(org_tubepress_api_options_OptionDescriptor::_);
-	    $od->shouldReceive('hasValidValueRegex')->twice()->andReturn(false);
-	    $od->shouldReceive('hasDiscreteAcceptableValues')->twice()->andReturn(false);
-	    $od->shouldReceive('isBoolean')->twice()->andReturn(true);
+	    $od->shouldReceive('hasValidValueRegex')->atLeast()->once()->andReturn(false);
+	    $od->shouldReceive('hasDiscreteAcceptableValues')->atLeast()->once()->andReturn(false);
+	    $od->shouldReceive('isBoolean')->atLeast()->once()->andReturn(true);
 
-	    $odr->shouldReceive('findOneByName')->twice()->with('name')->andReturn($od);
+	    $odr->shouldReceive('findOneByName')->atLeast()->once()->with('name')->andReturn($od);
 
 	    $this->assertTrue($this->_sut->isValid('name', 'poo') === false);
+	    $this->assertEquals('"name" can only accept true/false values. You supplied "poo".', $this->_sut->getProblemMessage('name', 'poo'));
 	    $this->assertTrue($this->_sut->isValid('name', true) === true);
 	}
 
@@ -51,13 +53,14 @@ class org_tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUni
 	    $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
 
 	    $od = \Mockery::mock(org_tubepress_api_options_OptionDescriptor::_);
-	    $od->shouldReceive('hasValidValueRegex')->twice()->andReturn(false);
-	    $od->shouldReceive('hasDiscreteAcceptableValues')->twice()->andReturn(true);
-	    $od->shouldReceive('getAcceptableValues')->twice()->andReturn(array('bar', 'two'));
+	    $od->shouldReceive('hasValidValueRegex')->atLeast()->once()->andReturn(false);
+	    $od->shouldReceive('hasDiscreteAcceptableValues')->atLeast()->once()->andReturn(true);
+	    $od->shouldReceive('getAcceptableValues')->atLeast()->once()->andReturn(array('bar', 'two'));
 
-	    $odr->shouldReceive('findOneByName')->twice()->with('name')->andReturn($od);
+	    $odr->shouldReceive('findOneByName')->atLeast()->once()->with('name')->andReturn($od);
 
 	    $this->assertTrue($this->_sut->isValid('name', 'foo') === false);
+	    $this->assertEquals('"name" must be one of {bar, two}. You supplied "foo".', $this->_sut->getProblemMessage('name', 'foo'));
 	    $this->assertTrue($this->_sut->isValid('name', 'bar') === true);
 	}
 
@@ -67,12 +70,13 @@ class org_tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUni
 	    $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
 
 	    $od = \Mockery::mock(org_tubepress_api_options_OptionDescriptor::_);
-	    $od->shouldReceive('hasValidValueRegex')->twice()->andReturn(true);
-	    $od->shouldReceive('getValidValueRegex')->times(3)->andReturn('/t{5}/i');
+	    $od->shouldReceive('hasValidValueRegex')->atLeast()->once()->andReturn(true);
+	    $od->shouldReceive('getValidValueRegex')->atLeast()->once()->andReturn('/t{5}/i');
 
-	    $odr->shouldReceive('findOneByName')->twice()->with('name')->andReturn($od);
+	    $odr->shouldReceive('findOneByName')->atLeast()->once()->with('name')->andReturn($od);
 
 		$this->assertTrue($this->_sut->isValid('name', 90) === false);
+		$this->assertEquals('"name" must match the regular expression /t{5}/i. You supplied "90".', $this->_sut->getProblemMessage('name', 90));
 		$this->assertTrue($this->_sut->isValid('name', 'tTtTt') === true);
 	}
 

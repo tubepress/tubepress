@@ -105,7 +105,6 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
     public function set($optionName, $optionValue)
     {
         $ioc               = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $validationService = $ioc->get(org_tubepress_api_options_OptionValidator::_);
         $odr               = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
         $descriptor        = $odr->findOneByName($optionName);
 
@@ -119,8 +118,6 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
 
             return;
         }
-
-        $validationService->validate($optionName, $optionValue);
 
         $this->setOption($optionName, $optionValue);
     }

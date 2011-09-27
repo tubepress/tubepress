@@ -20,23 +20,14 @@
  */
 
 /**
- * Displays option form and handles form submission.
+ * Generates HTML for the drop-down option filter for the options page.
  */
-interface org_tubepress_api_options_ui_FormHandler
+interface org_tubepress_spi_options_ui_FilterHtmlGenerator
 {
     /**
-     * Displays the options form.
+     * Generates the HTML for the drop-down option filter.
      *
-     * @return string The HTML for the options form.
+     * @return string The HTML for the drop-down filter.
     */
     function getHtml();
-
-    /**
-     * Handles form submission.
-     *
-     * @param array $postVars The $_POST array.
-     *
-     * @return void
-     */
-    function onSubmit($postVars);
 }

@@ -44,25 +44,36 @@ class org_tubepress_impl_options_DefaultOptionValidator implements org_tubepress
     */
     public function isValid($optionName, $candidate)
     {
-	    $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
+        return $this->getProblemMessage($optionName, $candidate) === null;
+    }
+
+    /**
+    * Gets the failure message of a name/value pair that has failed validation.
+    *
+    * @param string       $optionName The option name
+    * @param unknown_type $candidate  The candidate option value
+    *
+    * @return unknown Null if the option passes validation, otherwise a string failure message.
+    */
+    function getProblemMessage($optionName, $candidate)
+    {
+        $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
         $odr        = $ioc->get('org_tubepress_api_options_OptionDescriptorReference');
         $descriptor = $odr->findOneByName($optionName);
 
         if ($descriptor === null) {
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'No option with name %s', $optionName);
-            return false;
+            return sprintf('No option with name %s', $optionName);
         }
 
         if ($descriptor->hasValidValueRegex()) {
 
             if (preg_match_all($descriptor->getValidValueRegex(), $candidate, $matches) === 1) {
 
-                return true;
+                return null;
             }
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%s must match the regular expression %s. You supplied "%s"', $optionName, $descriptor->getValidValueRegex(), $candidate);
-            return false;
+            return sprintf('"%s" must match the regular expression %s. You supplied "%s".', $optionName, $descriptor->getValidValueRegex(), $candidate);
         }
 
         if ($descriptor->hasDiscreteAcceptableValues()) {
@@ -71,24 +82,22 @@ class org_tubepress_impl_options_DefaultOptionValidator implements org_tubepress
 
             if (in_array($candidate, $values)) {
 
-                return true;
+                return null;
             }
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%s must be one of "%s". You supplied "%s"', $optionName, implode(', ', $values), $candidate);
-            return false;
+            return sprintf('"%s" must be one of {%s}. You supplied "%s".', $optionName, implode(', ', $values), $candidate);
         }
 
         if ($descriptor->isBoolean()) {
 
             if (is_bool($candidate)) {
 
-                return true;
+                return null;
             }
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%s can only accept true/false values. You supplied "%s"', $optionName, $candidate);
-            return false;
+            return sprintf('"%s" can only accept true/false values. You supplied "%s".', $optionName, $candidate);
         }
 
-        return true;
+        return null;
     }
 }

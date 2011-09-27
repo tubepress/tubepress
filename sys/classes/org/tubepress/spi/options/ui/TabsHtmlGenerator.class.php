@@ -20,35 +20,14 @@
  */
 
 /**
- * TubePress template
+ * Generates the "meat" of the options form (in the form of tabs).
  */
-interface org_tubepress_api_template_Template
+interface org_tubepress_spi_options_ui_TabsHtmlGenerator
 {
-    const _ = 'org_tubepress_api_template_Template';
-
     /**
-     * Converts this template to a string
+     * Generates the HTML for the "meat" of the options form.
      *
-     *@throws Exception If there was a problem.
-     *
-     * @return string The string representation of this template.
-     */
-    function toString();
-
-    /**
-     * Set a template variable.
-     *
-     * @param string  $name  The name of the template variable to set.
-     * @param unknown $value The value of the template variable.
-     *
-     * @return void
-     */
-    function setVariable($name, $value);
-
-    /**
-     * Resets this template for use. Clears out any set variables.
-     *
-     * @return void
-     */
-    function reset();
+     * @return string The HTML for the options form.
+    */
+    function getHtml();
 }
