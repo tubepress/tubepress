@@ -7,9 +7,80 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
     function setUp()
     {
         parent::setUp();
+
+        $_POST = array();
     }
 
-    function testExecuteOptionsPage()
+    function testSubmitThrowsException()
+    {
+        $_POST['tubepress_save'] = true;
+
+        $addOptionsPageFunctionMock = new PHPUnit_Extensions_MockFunction('add_options_page');
+
+        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
+
+        $wpsm = $ioc->get('org_tubepress_api_options_StorageManager');
+        $wpsm->shouldReceive('init')->once();
+
+        $formHandler = $ioc->get('org_tubepress_spi_options_ui_FormHandler');
+        $formHandler->shouldReceive('getHtml')->once()->andReturn('yo');
+        $formHandler->shouldReceive('onSubmit')->once()->with($_POST)->andThrow(new Exception('something!'));
+
+        ob_start();
+        org_tubepress_impl_env_wordpress_OptionsPage::executeOptionsPage();
+        $contents = ob_get_contents();
+        ob_end_clean();
+
+        $this->assertEquals('<div id="message" class="error fade"><p><strong>something!</strong></p></div>yo', $contents);
+    }
+
+    function testSubmitValidValue()
+    {
+        $_POST['tubepress_save'] = true;
+
+        $addOptionsPageFunctionMock = new PHPUnit_Extensions_MockFunction('add_options_page');
+
+        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
+
+        $wpsm = $ioc->get('org_tubepress_api_options_StorageManager');
+        $wpsm->shouldReceive('init')->once();
+
+        $formHandler = $ioc->get('org_tubepress_spi_options_ui_FormHandler');
+        $formHandler->shouldReceive('getHtml')->once()->andReturn('yo');
+        $formHandler->shouldReceive('onSubmit')->once()->with($_POST)->andReturn(null);
+
+        ob_start();
+        org_tubepress_impl_env_wordpress_OptionsPage::executeOptionsPage();
+        $contents = ob_get_contents();
+        ob_end_clean();
+
+        $this->assertEquals('<div id="message" class="updated fade"><p><strong>Options updated</strong></p></div>yo', $contents);
+    }
+
+    function testSubmitInvalidValue()
+    {
+        $_POST['tubepress_save'] = true;
+
+        $addOptionsPageFunctionMock = new PHPUnit_Extensions_MockFunction('add_options_page');
+
+        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
+
+        $wpsm = $ioc->get('org_tubepress_api_options_StorageManager');
+        $wpsm->shouldReceive('init')->once();
+
+        $formHandler = $ioc->get('org_tubepress_spi_options_ui_FormHandler');
+        $formHandler->shouldReceive('getHtml')->once()->andReturn('yo');
+        $formHandler->shouldReceive('onSubmit')->once()->with($_POST)->andReturn('bad value!');
+
+        ob_start();
+        org_tubepress_impl_env_wordpress_OptionsPage::executeOptionsPage();
+        $contents = ob_get_contents();
+        ob_end_clean();
+
+        $this->assertEquals('<div id="message" class="error fade"><p><strong>bad value!</strong></p></div>yo', $contents);
+    }
+
+    function testDisplayOptionsPage()
     {
         $addOptionsPageFunctionMock = new PHPUnit_Extensions_MockFunction('add_options_page');
 

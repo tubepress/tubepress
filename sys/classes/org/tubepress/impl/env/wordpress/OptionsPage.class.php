@@ -85,17 +85,29 @@ class org_tubepress_impl_env_wordpress_OptionsPage
 
             try {
 
-                $optionsForm->onSubmit($_POST);
+                $result = $optionsForm->onSubmit($_POST);
 
-                echo '<div id="message" class="updated fade"><p><strong>Options updated</strong></p></div>';
+                if ($result === null) {
+
+                    echo '<div id="message" class="updated fade"><p><strong>Options updated</strong></p></div>';
+
+                } else {
+
+                    self::_error($result);
+                }
 
             } catch (Exception $error) {
 
-                echo '<div id="message" class="error fade"><p><strong>' . $error->getMessage() . '</strong></p></div>';
+                self::_error($error->getMessage());
             }
         }
 
         print $optionsForm->getHtml();
+    }
+
+    private static function _error($message)
+    {
+        echo '<div id="message" class="error fade"><p><strong>' . $message . '</strong></p></div>';
     }
 }
 
