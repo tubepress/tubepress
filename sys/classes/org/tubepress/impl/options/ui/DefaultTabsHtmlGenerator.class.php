@@ -22,6 +22,9 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../classloader/ClassLoader.class.php');
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_spi_options_ui_TabsHtmlGenerator',
+    'org_tubepress_api_filesystem_Explorer',
+    'org_tubepress_api_template_Template',
+    'org_tubepress_api_template_TemplateBuilder',
 ));
 
 /**
@@ -29,6 +32,8 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_options_ui_DefaultTabsHtmlGenerator implements org_tubepress_spi_options_ui_TabsHtmlGenerator
 {
+    const TEMPLATE_VAR_TABS = 'org_tubepress_impl_options_ui_DefaultTabsHtmlGenerator__tabs';
+
     /**
      * Generates the HTML for the "meat" of the options form.
      *
@@ -36,6 +41,16 @@ class org_tubepress_impl_options_ui_DefaultTabsHtmlGenerator implements org_tube
      */
     public function getHtml()
     {
-        return 'whatup';
+        $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $templateBldr   = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
+        $fse            = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
+        $basePath       = $fse->getTubePressBaseInstallationPath();
+        $template       = $templateBldr->getNewTemplateInstance("$basePath/sys/ui/templates/options_page/tabs.tpl.php");
+        $tabs           = array(
+            $ioc->get('org_tubepress_impl_options_ui_tabs_AppearanceTab')
+        );
+        $template->setVariable(self::TEMPLATE_VAR_TABS, $tabs);
+
+        return $template->toString();
     }
 }
