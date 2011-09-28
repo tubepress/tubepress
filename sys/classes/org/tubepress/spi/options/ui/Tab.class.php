@@ -20,16 +20,21 @@
  */
 
 /**
- * Generates HTML for the drop-down option filter for the options page.
+ * An individual option tab.
  */
-interface org_tubepress_spi_options_ui_FilterHtmlGenerator
+interface org_tubepress_spi_options_ui_Tab
 {
-    const _ = 'org_tubepress_spi_options_ui_FilterHtmlGenerator';
+    const _ = 'org_tubepress_spi_options_ui_Tab';
 
     /**
-     * Generates the HTML for the drop-down option filter.
+     * Generates the HTML for the "meat" of the options form.
      *
-     * @return string The HTML for the drop-down filter.
-    */
+     * @return string The HTML for the options form.
+     */
     function getHtml();
+
+    /**
+     *
+     */
+    function getTitle();
 }
