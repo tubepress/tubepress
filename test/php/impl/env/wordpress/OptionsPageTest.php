@@ -22,7 +22,7 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
         $wpsm = $ioc->get('org_tubepress_api_options_StorageManager');
         $wpsm->shouldReceive('init')->once();
 
-        $formHandler = $ioc->get('org_tubepress_spi_options_ui_FormHandler');
+        $formHandler = $ioc->get(org_tubepress_spi_options_ui_FormHandler::_);
         $formHandler->shouldReceive('getHtml')->once()->andReturn('yo');
         $formHandler->shouldReceive('onSubmit')->once()->with($_POST)->andThrow(new Exception('something!'));
 
@@ -45,7 +45,7 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
         $wpsm = $ioc->get('org_tubepress_api_options_StorageManager');
         $wpsm->shouldReceive('init')->once();
 
-        $formHandler = $ioc->get('org_tubepress_spi_options_ui_FormHandler');
+        $formHandler = $ioc->get(org_tubepress_spi_options_ui_FormHandler::_);
         $formHandler->shouldReceive('getHtml')->once()->andReturn('yo');
         $formHandler->shouldReceive('onSubmit')->once()->with($_POST)->andReturn(null);
 
@@ -68,7 +68,7 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
         $wpsm = $ioc->get('org_tubepress_api_options_StorageManager');
         $wpsm->shouldReceive('init')->once();
 
-        $formHandler = $ioc->get('org_tubepress_spi_options_ui_FormHandler');
+        $formHandler = $ioc->get(org_tubepress_spi_options_ui_FormHandler::_);
         $formHandler->shouldReceive('getHtml')->once()->andReturn('yo');
         $formHandler->shouldReceive('onSubmit')->once()->with($_POST)->andReturn('bad value!');
 
@@ -89,7 +89,7 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
         $wpsm = $ioc->get('org_tubepress_api_options_StorageManager');
         $wpsm->shouldReceive('init')->once();
 
-        $formHandler = $ioc->get('org_tubepress_spi_options_ui_FormHandler');
+        $formHandler = $ioc->get(org_tubepress_spi_options_ui_FormHandler::_);
         $formHandler->shouldReceive('getHtml')->once()->andReturn('yo');
 
         ob_start();

@@ -24,10 +24,12 @@
  */
 interface org_tubepress_spi_options_ui_TabsHtmlGenerator
 {
+    const _ = 'org_tubepress_spi_options_ui_TabsHtmlGenerator';
+
     /**
      * Generates the HTML for the "meat" of the options form.
      *
      * @return string The HTML for the options form.
-    */
+     */
     function getHtml();
 }
