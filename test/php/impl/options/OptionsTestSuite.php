@@ -4,10 +4,12 @@ require_once 'WordPressStorageManagerTest.php';
 require_once 'DefaultOptionValidatorTest.php';
 require_once 'DefaultOptionDescriptorReferenceTest.php';
 require_once 'ui/DefaultTabsHtmlGeneratorTest.php';
+require_once 'ui/DefaultWidgetBuilderTest.php';
 require_once 'ui/widgets/TextWidgetTest.php';
 require_once 'ui/widgets/CheckboxWidgetTest.php';
 require_once 'ui/widgets/ColorWidgetTest.php';
 require_once 'ui/widgets/DropdownWidgetTest.php';
+require_once 'ui/tabs/AppearanceTabTest.php';
 
 class org_tubepress_impl_options_OptionsTestSuite
 {
@@ -18,10 +20,12 @@ class org_tubepress_impl_options_OptionsTestSuite
 			'org_tubepress_impl_options_DefaultOptionValidatorTest',
 			'org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest',
 			'org_tubepress_impl_options_ui_DefaultTabsHtmlGeneratorTest',
+    		'org_tubepress_impl_options_ui_DefaultWidgetBuilderTest',
 			'org_tubepress_impl_options_ui_widgets_TextWidgetTest',
 		    'org_tubepress_impl_options_ui_widgets_CheckboxWidgetTest',
     		'org_tubepress_impl_options_ui_widgets_ColorWidgetTest',
 			'org_tubepress_impl_options_ui_widgets_DropdownWidgetTest',
+    		'org_tubepress_impl_options_ui_tabs_AppearanceTabTest',
 		));
 	}
 }

@@ -30,6 +30,8 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_options_ui_widgets_DropdownInput extends org_tubepress_impl_options_ui_widgets_AbstractWidget
 {
+    const _ = 'org_tubepress_impl_options_ui_widgets_DropdownInput';
+
     const TEMPLATE_VAR_ACCEPTABLE_VALUES = 'org_tubepress_impl_options_ui_widgets_DropdownInput__options';
 
     protected function getTemplatePath()
