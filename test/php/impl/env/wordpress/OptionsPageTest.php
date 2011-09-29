@@ -118,13 +118,13 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
 	    $plugins_url->expects($this->exactly(2))->will($this->_getPluginsUrlReturnMap());
 
         $wp_register_style = new PHPUnit_Extensions_MockFunction('wp_register_style');
-        $wp_register_style->expects($this->once())->with('jquery-ui-flick', 'foobar');
+        $wp_register_style->expects($this->once())->with('jquery-ui-lightness', 'foobar');
 
         $wp_register_script = new PHPUnit_Extensions_MockFunction('wp_register_script');
         $wp_register_script->expects($this->once())->with('jscolor-tubepress', 'fooey');
 
         $wp_enqueue_style = new PHPUnit_Extensions_MockFunction('wp_enqueue_style');
-        $wp_enqueue_style->expects($this->once())->with('jquery-ui-flick');
+        $wp_enqueue_style->expects($this->once())->with('jquery-ui-lightness');
 
         $wp_enqueue_script = new PHPUnit_Extensions_MockFunction('wp_enqueue_script');
         $wp_enqueue_script->expects($this->exactly(2))->will($this->_getEnqueueScriptReturnMap());
@@ -136,7 +136,7 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
     {
          $returnMapBuilder = new PHPUnit_Extensions_MockObject_Stub_ReturnMapping_Builder();
 
-         $returnMapBuilder->addEntry()->with(array('base_name/sys/ui/static/css/jquery-ui-flick/jquery-ui-1.7.2.custom.css', 'base_name'))->will($this->returnValue('foobar'));
+         $returnMapBuilder->addEntry()->with(array('base_name/sys/ui/static/css/jquery-ui-lightness/jquery-ui-1.8.16.custom.css', 'base_name'))->will($this->returnValue('foobar'));
          $returnMapBuilder->addEntry()->with(array('base_name/sys/ui/static/js/jscolor/jscolor.js', 'base_name'))->will($this->returnValue('fooey'));
 
          return $returnMapBuilder->build();
