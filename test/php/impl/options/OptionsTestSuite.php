@@ -7,6 +7,7 @@ require_once 'ui/DefaultTabsHtmlGeneratorTest.php';
 require_once 'ui/widgets/TextWidgetTest.php';
 require_once 'ui/widgets/CheckboxWidgetTest.php';
 require_once 'ui/widgets/ColorWidgetTest.php';
+require_once 'ui/widgets/DropdownWidgetTest.php';
 
 class org_tubepress_impl_options_OptionsTestSuite
 {
@@ -20,6 +21,7 @@ class org_tubepress_impl_options_OptionsTestSuite
 			'org_tubepress_impl_options_ui_widgets_TextWidgetTest',
 		    'org_tubepress_impl_options_ui_widgets_CheckboxWidgetTest',
     		'org_tubepress_impl_options_ui_widgets_ColorWidgetTest',
+			'org_tubepress_impl_options_ui_widgets_DropdownWidgetTest',
 		));
 	}
 }

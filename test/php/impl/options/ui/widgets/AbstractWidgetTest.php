@@ -20,6 +20,10 @@ abstract class org_tubepress_impl_options_ui_widgets_AbstractWidgetTest extends 
 		$this->_optionDescriptor->shouldReceive('isApplicableToYouTube')->once()->andReturn(true);
 
 		$this->_messageService   = $ioc->get(org_tubepress_api_message_MessageService::_);
+		$this->_messageService->shouldReceive('_')->andReturnUsing( function ($key) {
+            return "<<message: $key>>";
+        });
+
 
 		$odr                     = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
 		$odr->shouldReceive('findOneByName')->once()->with('name')->andReturn($this->_optionDescriptor);
@@ -70,7 +74,14 @@ abstract class org_tubepress_impl_options_ui_widgets_AbstractWidgetTest extends 
 
 	    $this->_optionDescriptor->shouldReceive('getName')->twice()->andReturn('name');
 
+	    $this->_performAdditionToStringTestSetup($template);
+
 	    $this->assertEquals('boogity', $this->_sut->getInputHtml());
+	}
+
+	protected function _performAdditionToStringTestSetup($template)
+	{
+	    //override point
 	}
 
 	public function testProviders()
@@ -95,17 +106,15 @@ abstract class org_tubepress_impl_options_ui_widgets_AbstractWidgetTest extends 
 	public function testGetDescription()
 	{
 	    $this->_optionDescriptor->shouldReceive('getDescription')->once()->andReturn('some-desc');
-	    $this->_messageService->shouldReceive('_')->once()->with('some-desc')->andReturn('foobar');
 
-	    $this->assertTrue($this->_sut->getDescription() === 'foobar');
+	    $this->assertTrue($this->_sut->getDescription() === '<<message: some-desc>>');
 	}
 
 	public function testGetTitle()
 	{
 	    $this->_optionDescriptor->shouldReceive('getLabel')->once()->andReturn('some-label');
-	    $this->_messageService->shouldReceive('_')->once()->with('some-label')->andReturn('foobar');
 
-	    $this->assertTrue($this->_sut->getTitle() === 'foobar');
+	    $this->assertTrue($this->_sut->getTitle() === '<<message: some-label>>');
 	}
 
 	protected abstract function getTemplatePath();
