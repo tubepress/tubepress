@@ -19,19 +19,18 @@
  *
  */
 
-/**
- * General purpose message abstraction for TubePress
- */
-interface org_tubepress_api_message_MessageService
-{
-    const _ = 'org_tubepress_api_message_MessageService';
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php');
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_impl_options_ui_widgets_AbstractWidget',
+));
 
-    /**
-     * Get the message corresponding to the given key.
-     *
-     * @param string $messageKey The message key.
-     *
-     * @return string The corresponding message.
-     */
-    function _($messageKey);
+/**
+ * Displays a standard text input.
+ */
+class org_tubepress_impl_options_ui_widgets_TextInput extends org_tubepress_impl_options_ui_widgets_AbstractWidget
+{
+    protected function getTemplatePath()
+    {
+        return 'sys/ui/templates/options_page/widgets/text.tpl.php';
+    }
 }

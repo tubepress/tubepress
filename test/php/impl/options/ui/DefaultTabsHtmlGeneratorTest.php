@@ -2,7 +2,7 @@
 
 require_once BASE . '/sys/classes/org/tubepress/impl/options/ui/DefaultTabsHtmlGenerator.class.php';
 
-class org_tubepress_impl_options_DefaultTabsHtmlGeneratorTest extends TubePressUnitTest {
+class org_tubepress_impl_options_ui_DefaultTabsHtmlGeneratorTest extends TubePressUnitTest {
 
 	private $_sut;
 

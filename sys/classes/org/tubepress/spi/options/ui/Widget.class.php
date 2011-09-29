@@ -20,18 +20,19 @@
  */
 
 /**
- * General purpose message abstraction for TubePress
+ * An HTML widget control.
  */
-interface org_tubepress_api_message_MessageService
+interface org_tubepress_spi_options_ui_Widget
 {
-    const _ = 'org_tubepress_api_message_MessageService';
+    const _ = 'org_tubepress_spi_options_ui_Widget';
 
-    /**
-     * Get the message corresponding to the given key.
-     *
-     * @param string $messageKey The message key.
-     *
-     * @return string The corresponding message.
-     */
-    function _($messageKey);
+    function getInputHtml();
+
+    function getTitle();
+
+    function getDescription();
+
+    function isProOnly();
+
+    function getArrayOfApplicableProviderNames();
 }

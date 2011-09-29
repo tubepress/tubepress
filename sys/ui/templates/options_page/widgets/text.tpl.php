@@ -18,20 +18,5 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
-/**
- * General purpose message abstraction for TubePress
- */
-interface org_tubepress_api_message_MessageService
-{
-    const _ = 'org_tubepress_api_message_MessageService';
-
-    /**
-     * Get the message corresponding to the given key.
-     *
-     * @param string $messageKey The message key.
-     *
-     * @return string The corresponding message.
-     */
-    function _($messageKey);
-}
+?>
+<input type="text" name="<?php echo ${org_tubepress_impl_options_ui_widgets_AbstractWidget::TEMPLATE_VAR_NAME}; ?>" size="20" value="<?php echo ${org_tubepress_impl_options_ui_widgets_AbstractWidget::TEMPLATE_VAR_VALUE}; ?>" />
