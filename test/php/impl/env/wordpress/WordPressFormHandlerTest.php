@@ -14,48 +14,25 @@ class org_tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePres
     }
 
     /**
-    * @expectedException Exception
-    */
-    function testGetFailureMessagesNonArrayHandlers()
-    {
-        org_tubepress_impl_options_ui_AbstractFormHandler::getFailureMessagesArrayOrNull(2, array('foo'));
-    }
-
-    /**
      * @expectedException Exception
      */
     function testGetFailureMessagesNonArrayPost()
     {
-        $one = \Mockery::mock(org_tubepress_api_options_ui_FormHandler::_);
-        $two = \Mockery::mock(org_tubepress_api_options_ui_FormHandler::_);
-
-       org_tubepress_impl_options_ui_AbstractFormHandler::getFailureMessagesArrayOrNull(array($one, $two), 3);
+        $this->_sut->onSubmit(3);
     }
 
     function testGetFailureMessagesOneError()
     {
-        $one = \Mockery::mock(org_tubepress_api_options_ui_FormHandler::_);
-        $two = \Mockery::mock(org_tubepress_api_options_ui_FormHandler::_);
+        $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $tabs   = $ioc->get(org_tubepress_spi_options_ui_TabsHandler::_);
+        $filter = $ioc->get(org_tubepress_spi_options_ui_FilterHandler::_);
 
-        $postVars = array('foobar');
+        $postVars = array('post');
 
-        $one->shouldReceive('onSubmit')->once()->with($postVars)->andReturn(array('holy smokes!'));
-        $two->shouldReceive('onSubmit')->once()->with($postVars)->andReturn(null);
+        $tabs->shouldReceive('onSubmit')->once()->with($postVars)->andReturn(array('holy smokes!'));
+        $filter->shouldReceive('onSubmit')->once()->with($postVars)->andReturn(null);
 
-        $this->assertEquals(array('holy smokes!'), org_tubepress_impl_options_ui_AbstractFormHandler::getFailureMessagesArrayOrNull(array($one, $two), $postVars));
-    }
-
-    function testGetFailureMessagesNoErrors()
-    {
-        $one = \Mockery::mock(org_tubepress_api_options_ui_FormHandler::_);
-        $two = \Mockery::mock(org_tubepress_api_options_ui_FormHandler::_);
-
-        $postVars = array('foobar');
-
-        $one->shouldReceive('onSubmit')->once()->with($postVars)->andReturn(null);
-        $two->shouldReceive('onSubmit')->once()->with($postVars)->andReturn(null);
-
-        $this->assertNull(org_tubepress_impl_options_ui_AbstractFormHandler::getFailureMessagesArrayOrNull(array($one, $two), $postVars));
+        $this->assertEquals(array('holy smokes!'), $this->_sut->onSubmit($postVars));
     }
 
     function testOnSubmit()

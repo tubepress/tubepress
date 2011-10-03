@@ -30,7 +30,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_options_StorageManager',
     'org_tubepress_api_message_MessageService',
     'org_tubepress_api_template_Template',
-    'org_tubepress_api_options_ui_FormHandler',
+    'org_tubepress_impl_options_ui_AbstractDelegatingFormHandler',
     'org_tubepress_spi_options_ui_TabsHandler',
     'org_tubepress_spi_options_ui_FilterHandler',
 ));
@@ -39,7 +39,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  * Displays a generic options form for TubePress
  *
  */
-abstract class org_tubepress_impl_options_ui_AbstractFormHandler implements org_tubepress_api_options_ui_FormHandler
+abstract class org_tubepress_impl_options_ui_AbstractFormHandler extends org_tubepress_impl_options_ui_AbstractDelegatingFormHandler
 {
     const TEMPLATE_VAR_TITLE     = 'optionsPageTitle';
     const TEMPLATE_VAR_INTRO     = 'optionsPageIntro';
@@ -74,53 +74,13 @@ abstract class org_tubepress_impl_options_ui_AbstractFormHandler implements org_
         return $template->toString();
     }
 
-    /**
-    * Updates options from a keyed array
-    *
-    * @param array $postVars The POST variables
-    *
-    * @return unknown Null if there was no problem handling the submission, otherwise an array
-    * of string failure messages.
-    */
-    public function onSubmit($postVars)
+    protected function getDelegateFormHandlers()
     {
         $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tabs   = $ioc->get(org_tubepress_spi_options_ui_TabsHandler::_);
         $filter = $ioc->get(org_tubepress_spi_options_ui_FilterHandler::_);
 
-        return self::getFailureMessagesArrayOrNull(array($tabs, $filter), $postVars);
-    }
-
-    public static function getFailureMessagesArrayOrNull($formHandlerInstances, $postVars)
-    {
-        if (! is_array($formHandlerInstances)) {
-
-            throw new Exception('Must pass an array of form handler instances');
-        }
-
-        if (! is_array($postVars)) {
-
-            throw new Exception('POST variables must be an array');
-        }
-
-        $failures = array();
-
-        foreach ($formHandlerInstances as $formHandlerInstance) {
-
-            $result = $formHandlerInstance->onSubmit($postVars);
-
-            if (is_array($result) && ! empty($result)) {
-
-                $failures = array_merge($failures, $result);
-            }
-        }
-
-        if (empty($failures)) {
-
-            return null;
-        }
-
-        return $failures;
+        return array($tabs, $filter);
     }
 
     protected abstract function getRelativeTemplatePath();
