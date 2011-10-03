@@ -35,10 +35,8 @@ class org_tubepress_impl_options_ui_tabs_CacheTab extends org_tubepress_impl_opt
         return 'Caching';
     }
 
-    protected function getWidgetArray()
+    protected function getDelegateFormHandlers()
     {
-        return array(
-
-        );
+        return array();
     }
 }

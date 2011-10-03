@@ -1,7 +1,7 @@
 <?php
 
 
-abstract class org_tubepress_impl_options_ui_widgets_AbstractWidgetTest extends TubePressUnitTest {
+abstract class org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidgetTest extends TubePressUnitTest {
 
 	private $_sut;
 
@@ -62,8 +62,8 @@ abstract class org_tubepress_impl_options_ui_widgets_AbstractWidgetTest extends 
 	    $sm           = $ioc->get(org_tubepress_api_options_StorageManager::_);
 
 	    $template = \Mockery::mock(org_tubepress_api_template_Template::_);
-	    $template->shouldReceive('setVariable')->once()->with(org_tubepress_impl_options_ui_widgets_AbstractWidget::TEMPLATE_VAR_NAME, 'name');
-	    $template->shouldReceive('setVariable')->once()->with(org_tubepress_impl_options_ui_widgets_AbstractWidget::TEMPLATE_VAR_VALUE, '<<currentvalue>>');
+	    $template->shouldReceive('setVariable')->once()->with(org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidget::TEMPLATE_VAR_NAME, 'name');
+	    $template->shouldReceive('setVariable')->once()->with(org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidget::TEMPLATE_VAR_VALUE, '<<currentvalue>>');
         $template->shouldReceive('toString')->once()->andReturn('boogity');
 
 	    $fse->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath>>');
@@ -76,7 +76,7 @@ abstract class org_tubepress_impl_options_ui_widgets_AbstractWidgetTest extends 
 
 	    $this->_performAdditionToStringTestSetup($template);
 
-	    $this->assertEquals('boogity', $this->_sut->getInputHtml());
+	    $this->assertEquals('boogity', $this->_sut->getHtml());
 	}
 
 	protected function _performAdditionToStringTestSetup($template)

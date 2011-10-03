@@ -19,14 +19,17 @@
  *
  */
 
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../../impl/classloader/ClassLoader.class.php');
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_options_ui_FormHandler'
+));
+
 /**
  * An HTML widget control.
  */
-interface org_tubepress_spi_options_ui_Widget
+interface org_tubepress_spi_options_ui_Widget extends org_tubepress_api_options_ui_FormHandler
 {
-    const _ = 'org_tubepress_spi_options_ui_Widget';
-
-    function getInputHtml();
+    const __ = 'org_tubepress_spi_options_ui_Widget';
 
     function getTitle();
 

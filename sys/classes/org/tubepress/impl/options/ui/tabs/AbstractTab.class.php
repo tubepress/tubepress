@@ -26,6 +26,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_options_StorageManager',
     'org_tubepress_api_message_MessageService',
     'org_tubepress_api_template_TemplateBuilder',
+    'org_tubepress_impl_options_ui_AbstractDelegatingFormHandler',
     'org_tubepress_spi_options_ui_Tab',
 	'org_tubepress_spi_options_ui_WidgetBuilder'
 ));
@@ -33,7 +34,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 /**
  * Displays a tab on the options page.
  */
-abstract class org_tubepress_impl_options_ui_tabs_AbstractTab implements org_tubepress_spi_options_ui_Tab
+abstract class org_tubepress_impl_options_ui_tabs_AbstractTab extends org_tubepress_impl_options_ui_AbstractDelegatingFormHandler implements org_tubepress_spi_options_ui_Tab
 {
     const TEMPLATE_VAR_WIDGETARRAY = 'org_tubepress_impl_options_ui_tabs_AbstractTab__widgetArray';
 
@@ -54,32 +55,11 @@ abstract class org_tubepress_impl_options_ui_tabs_AbstractTab implements org_tub
         $basePath       = $fse->getTubePressBaseInstallationPath();
         $template       = $templateBldr->getNewTemplateInstance($basePath . '/sys/ui/templates/options_page/tab.tpl.php');
 
-        $template->setVariable(self::TEMPLATE_VAR_WIDGETARRAY, $this->_buildWidgets());
+        $template->setVariable(self::TEMPLATE_VAR_WIDGETARRAY, $this->getDelegateFormHandlers());
 
         return $template->toString();
     }
 
-    public function onSubmit($postVars)
-    {
-
-    }
-
     protected abstract function doGetTitle();
 
-    protected abstract function getWidgetArray();
-
-    private function _buildWidgets()
-    {
-        $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $widgetBuilder = $ioc->get(org_tubepress_spi_options_ui_WidgetBuilder::_);
-        $toReturn      = array();
-        $map           = $this->getWidgetArray();
-
-        foreach ($map as $name => $type) {
-
-            $toReturn[] = $widgetBuilder->build($name, $type);
-        }
-
-        return $toReturn;
-    }
 }

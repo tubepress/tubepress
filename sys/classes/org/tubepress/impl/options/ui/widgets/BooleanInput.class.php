@@ -21,13 +21,13 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php');
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_impl_options_ui_widgets_AbstractWidget',
+    'org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidget',
 ));
 
 /**
  * Displays a checkbox input.
  */
-class org_tubepress_impl_options_ui_widgets_BooleanInput extends org_tubepress_impl_options_ui_widgets_AbstractWidget
+class org_tubepress_impl_options_ui_widgets_BooleanInput extends org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidget
 {
     protected function getTemplatePath()
     {

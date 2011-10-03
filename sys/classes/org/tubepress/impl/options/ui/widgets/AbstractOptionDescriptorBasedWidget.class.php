@@ -33,10 +33,10 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 /**
  * Base class for HTML widgets.
  */
-abstract class org_tubepress_impl_options_ui_widgets_AbstractWidget implements org_tubepress_spi_options_ui_Widget
+abstract class org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidget implements org_tubepress_spi_options_ui_Widget
 {
-    const TEMPLATE_VAR_NAME  = 'org_tubepress_impl_options_ui_widgets_AbstractWidget__name';
-    const TEMPLATE_VAR_VALUE = 'org_tubepress_impl_options_ui_widgets_AbstractWidget__value';
+    const TEMPLATE_VAR_NAME  = 'org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidget__name';
+    const TEMPLATE_VAR_VALUE = 'org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidget__value';
 
     /** Applicable providers. */
     private $_providerArray = array();
@@ -90,7 +90,7 @@ abstract class org_tubepress_impl_options_ui_widgets_AbstractWidget implements o
         return $this->_optionDescriptor->isProOnly();
     }
 
-    public function getInputHtml()
+    public function getHtml()
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $templateBldr = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
@@ -106,6 +106,49 @@ abstract class org_tubepress_impl_options_ui_widgets_AbstractWidget implements o
         $this->populateTemplate($template, $currentValue);
 
         return $template->toString();
+    }
+
+    public function onSubmit($postVars)
+    {
+        $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $storageManager = $ioc->get(org_tubepress_api_options_StorageManager::_);
+
+        if ($this->_optionDescriptor->isBoolean()) {
+
+            return $this->_onSubmitBoolean($storageManager, $postVars);
+        }
+
+        return $this->_onSubmitSimple($storageManager, $postVars);
+    }
+
+    private function _onSubmitSimple(org_tubepress_api_options_StorageManager $storageManager, $postVars)
+    {
+        $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $validator = $ioc->get(org_tubepress_api_options_OptionValidator::_);
+
+        if (! in_array($this->_optionDescriptor->getName(), $postVars)) {
+
+            /* not submitted. */
+            return;
+        }
+
+        /* run it through validation. */
+        if (! $validator->isValid($name, $value)) {
+
+            return array($validator->getFailureMessage($name, $value));
+        }
+
+        $storageManager->set($name, $value);
+
+        return null;
+    }
+
+    private function _onSubmitBoolean(org_tubepress_api_options_StorageManager $storageManager, $postVars)
+    {
+        /* if the user checked the box, the option name will appear in the POST vars */
+        $storageManager->set($name, array_key_exists($this->_optionDescriptor->getName(), $postVars));
+
+        return null;
     }
 
     protected abstract function getTemplatePath();

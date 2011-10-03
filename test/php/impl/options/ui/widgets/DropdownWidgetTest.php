@@ -1,9 +1,9 @@
 <?php
 
-require_once 'AbstractWidgetTest.php';
+require_once 'AbstractOptionDescriptorBasedWidgetTest.php';
 require_once BASE . '/sys/classes/org/tubepress/impl/options/ui/widgets/DropdownInput.class.php';
 
-class org_tubepress_impl_options_ui_widgets_DropdownWidgetTest extends org_tubepress_impl_options_ui_widgets_AbstractWidgetTest {
+class org_tubepress_impl_options_ui_widgets_DropdownWidgetTest extends org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidgetTest {
 
     protected function _buildSut($name)
     {

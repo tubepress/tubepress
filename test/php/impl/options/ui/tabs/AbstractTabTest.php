@@ -25,14 +25,14 @@ abstract class org_tubepress_impl_options_ui_tabs_AbstractTabTest extends TubePr
 
 	public function testGetHtml()
 	{
-	    $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-	    $templateBldr   = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
-	    $fse            = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-
+	    $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
+	    $templateBldr  = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
+	    $fse           = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
 	    $widgetBuilder = $ioc->get(org_tubepress_spi_options_ui_WidgetBuilder::_);
 
 	    $expected = $this->_getWidgetArray();
 	    $expectedWidgetArray = array();
+
 	    foreach ($expected as $name => $type) {
 
 	        $widgetBuilder->shouldReceive('build')->once()->with($name, $type)->andReturn("$name-$type");

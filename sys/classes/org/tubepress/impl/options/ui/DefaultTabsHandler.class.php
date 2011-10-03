@@ -25,20 +25,16 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_filesystem_Explorer',
     'org_tubepress_api_template_Template',
     'org_tubepress_api_template_TemplateBuilder',
+    'org_tubepress_impl_options_ui_AbstractDelegatingFormHandler',
     'org_tubepress_impl_options_ui_tabs_AppearanceTab'
 ));
 
 /**
  * Generates the "meat" of the options form (in the form of tabs).
  */
-class org_tubepress_impl_options_ui_DefaultTabsHandler implements org_tubepress_spi_options_ui_TabsHandler
+class org_tubepress_impl_options_ui_DefaultTabsHandler extends org_tubepress_impl_options_ui_AbstractDelegatingFormHandler implements org_tubepress_spi_options_ui_TabsHandler
 {
     const TEMPLATE_VAR_TABS = 'org_tubepress_impl_options_ui_DefaultTabsHandler__tabs';
-
-    private static $_tabClasses = array(
-
-        org_tubepress_impl_options_ui_tabs_AppearanceTab::_
-    );
 
     /**
      * Generates the HTML for the "meat" of the options form.
@@ -52,30 +48,20 @@ class org_tubepress_impl_options_ui_DefaultTabsHandler implements org_tubepress_
         $fse            = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $basePath       = $fse->getTubePressBaseInstallationPath();
         $template       = $templateBldr->getNewTemplateInstance("$basePath/sys/ui/templates/options_page/tabs.tpl.php");
-        $tabs           = $this->_getTabInstances();
+        $tabs           = $this->getDelegateFormHandlers();
 
         $template->setVariable(self::TEMPLATE_VAR_TABS, $tabs);
 
         return $template->toString();
     }
 
-    function onSubmit($postVars)
+    protected function getDelegateFormHandlers()
     {
-        $tabs = $this->_getTabInstances();
+        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        return org_tubepress_impl_options_ui_AbstractFormHandler::getFailureMessagesArrayOrNull($tabs, $postVars);
-    }
+        return array(
 
-    private function _getTabInstances()
-    {
-        $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $toReturn = array();
-
-        foreach (self::$_tabClasses as $tabClass) {
-
-            $toReturn[] = $ioc->get($tabClass);
-        }
-
-        return $toReturn;
+            $ioc->get(org_tubepress_impl_options_ui_tabs_AppearanceTab::_)
+        );
     }
 }
