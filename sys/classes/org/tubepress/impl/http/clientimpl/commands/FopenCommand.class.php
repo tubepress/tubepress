@@ -73,7 +73,7 @@ class org_tubepress_impl_http_clientimpl_commands_FopenCommand  extends org_tube
         $handle = @fopen($url, 'r');
 
         if (! $handle) {
-            throw new Exception(sprintf('Could not open handle for fopen() to %s'), $url);
+            throw new Exception(sprintf('Could not open handle for fopen() to %s', $url));
         }
 
         $timeout  = (int) floor($r[org_tubepress_impl_http_HttpClientChain::ARGS_TIMEOUT]);
