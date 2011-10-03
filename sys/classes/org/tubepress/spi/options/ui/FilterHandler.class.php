@@ -19,19 +19,15 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../classloader/ClassLoader.class.php');
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../../impl/classloader/ClassLoader.class.php');
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_spi_options_ui_FilterHtmlGenerator',
+    'org_tubepress_api_options_ui_FormHandler'
 ));
 
 /**
- * Generates the HTML for a fancy filter dropdown for the TubePress options page.
- *
+ * Generates HTML for the drop-down option filter for the options page.
  */
-class org_tubepress_impl_options_ui_DefaultFilterHtmlGenerator implements org_tubepress_spi_options_ui_FilterHtmlGenerator
+interface org_tubepress_spi_options_ui_FilterHandler extends org_tubepress_api_options_ui_FormHandler
 {
-    public function getHtml()
-    {
-        return 'whatup';
-    }
+    const __ = 'org_tubepress_spi_options_ui_FilterHandler';
 }

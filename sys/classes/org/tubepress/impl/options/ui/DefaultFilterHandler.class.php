@@ -19,20 +19,19 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../../impl/classloader/ClassLoader.class.php');
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../classloader/ClassLoader.class.php');
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_options_ui_FormHandler'
+    'org_tubepress_spi_options_ui_FilterHandler',
 ));
 
 /**
- * An individual option tab.
+ * Generates the HTML for a fancy filter dropdown for the TubePress options page.
+ *
  */
-interface org_tubepress_spi_options_ui_Tab extends org_tubepress_api_options_ui_FormHandler
+class org_tubepress_impl_options_ui_DefaultFilterHtmlGenerator implements org_tubepress_spi_options_ui_FilterHandler
 {
-    const __ = 'org_tubepress_spi_options_ui_Tab';
-
-    /**
-     *
-     */
-    function getTitle();
+    public function getHtml()
+    {
+        return 'whatup';
+    }
 }

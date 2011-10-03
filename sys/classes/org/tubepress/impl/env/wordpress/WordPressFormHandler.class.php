@@ -19,17 +19,20 @@
  *
  */
 
-/**
- * Generates the "meat" of the options form (in the form of tabs).
- */
-interface org_tubepress_spi_options_ui_TabsHtmlGenerator
-{
-    const _ = 'org_tubepress_spi_options_ui_TabsHtmlGenerator';
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../classloader/ClassLoader.class.php');
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_impl_options_ui_AbstractFormHandler'
+));
 
-    /**
-     * Generates the HTML for the "meat" of the options form.
-     *
-     * @return string The HTML for the options form.
-     */
-    function getHtml();
+/**
+ * Displays a WordPress-specific options form for TubePress
+ *
+ */
+class org_tubepress_impl_env_wordpress_WordPressFormHandler extends org_tubepress_impl_options_ui_AbstractFormHandler
+{
+
+    protected function getRelativeTemplatePath()
+    {
+        return 'sys/ui/templates/wordpress/options_page.tpl.php';
+    }
 }

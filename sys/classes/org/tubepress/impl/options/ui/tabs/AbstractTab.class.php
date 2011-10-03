@@ -59,6 +59,11 @@ abstract class org_tubepress_impl_options_ui_tabs_AbstractTab implements org_tub
         return $template->toString();
     }
 
+    public function onSubmit($postVars)
+    {
+
+    }
+
     protected abstract function doGetTitle();
 
     protected abstract function getWidgetArray();

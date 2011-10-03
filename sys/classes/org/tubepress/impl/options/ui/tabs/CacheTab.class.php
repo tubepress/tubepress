@@ -19,26 +19,26 @@
  *
  */
 
-/**
- * Generates HTML for the options form and handles form submission.
- */
-interface org_tubepress_spi_options_ui_FormHandler
-{
-	const _ = 'org_tubepress_spi_options_ui_FormHandler';
-	
-    /**
-     * Generates the HTML for the options form.
-     *
-     * @return string The HTML for the options form.
-    */
-    function getHtml();
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php');
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_impl_options_ui_tabs_AbstractTab',
+    'org_tubepress_impl_options_ui_widgets_DropdownInput',
+));
 
-    /**
-     * Handles form submission.
-     *
-     * @param array $postVars The $_POST array.
-     *
-     * @return void
-     */
-    function onSubmit($postVars);
+/**
+ * Displays the appearance tab.
+ */
+class org_tubepress_impl_options_ui_tabs_CacheTab extends org_tubepress_impl_options_ui_tabs_AbstractTab
+{
+    protected function doGetTitle()
+    {
+        return 'Caching';
+    }
+
+    protected function getWidgetArray()
+    {
+        return array(
+
+        );
+    }
 }

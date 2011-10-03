@@ -30,16 +30,16 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_options_StorageManager',
     'org_tubepress_api_message_MessageService',
     'org_tubepress_api_template_Template',
-    'org_tubepress_spi_options_ui_FormHandler',
-    'org_tubepress_spi_options_ui_TabsHtmlGenerator',
-    'org_tubepress_spi_options_ui_FilterHtmlGenerator',
+    'org_tubepress_api_options_ui_FormHandler',
+    'org_tubepress_spi_options_ui_TabsHandler',
+    'org_tubepress_spi_options_ui_FilterHandler',
 ));
 
 /**
  * Displays a generic options form for TubePress
  *
  */
-abstract class org_tubepress_impl_options_ui_AbstractFormHandler implements org_tubepress_spi_options_ui_FormHandler
+abstract class org_tubepress_impl_options_ui_AbstractFormHandler implements org_tubepress_api_options_ui_FormHandler
 {
     const TEMPLATE_VAR_TITLE     = 'optionsPageTitle';
     const TEMPLATE_VAR_INTRO     = 'optionsPageIntro';
@@ -56,11 +56,11 @@ abstract class org_tubepress_impl_options_ui_AbstractFormHandler implements org_
     public function getHtml()
     {
         $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $messageService = $ioc->get('org_tubepress_api_message_MessageService');
-        $templateBldr   = $ioc->get('org_tubepress_api_template_TemplateBuilder');
-        $fse            = $ioc->get('org_tubepress_api_filesystem_Explorer');
-        $tabs           = $ioc->get('org_tubepress_spi_options_ui_TabsHtmlGenerator');
-        $filter         = $ioc->get('org_tubepress_spi_options_ui_FilterHtmlGenerator');
+        $messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
+        $templateBldr   = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
+        $fse            = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
+        $tabs           = $ioc->get(org_tubepress_spi_options_ui_TabsHandler::_);
+        $filter         = $ioc->get(org_tubepress_spi_options_ui_FilterHandler::_);
         $basePath       = $fse->getTubePressBaseInstallationPath();
         $template       = $templateBldr->getNewTemplateInstance($basePath . '/' . $this->getRelativeTemplatePath());
 
@@ -79,56 +79,48 @@ abstract class org_tubepress_impl_options_ui_AbstractFormHandler implements org_
     *
     * @param array $postVars The POST variables
     *
-    * @return unknown Null if there was no problem handling the submission, otherwise a string failure message.
+    * @return unknown Null if there was no problem handling the submission, otherwise an array
+    * of string failure messages.
     */
     public function onSubmit($postVars)
     {
-        $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $storageManager = $ioc->get('org_tubepress_api_options_StorageManager');
-        $odr            = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
-        $validator      = $ioc->get(org_tubepress_api_options_OptionValidator::_);
-        $allOds         = $odr->findAll();
+        $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $tabs   = $ioc->get(org_tubepress_spi_options_ui_TabsHandler::_);
+        $filter = $ioc->get(org_tubepress_spi_options_ui_FilterHandler::_);
 
-        /* this loop will collect everything except checkboxes */
-        foreach ($postVars as $name => $value) {
+        return self::getFailureMessagesArrayOrNull(array($tabs, $filter), $postVars);
+    }
 
-            $descriptor = $odr->findOneByName($name);
+    public static function getFailureMessagesArrayOrNull($formHandlerInstances, $postVars)
+    {
+        if (! is_array($formHandlerInstances)) {
 
-            /* is this actually an option? */
-            if ($descriptor === null) {
-
-                continue;
-            }
-
-            /* we'll handle these later. */
-            if ($descriptor->isBoolean()) {
-
-                continue;
-            }
-
-            /* run it through validation. */
-            if (! $validator->isValid($name, $value)) {
-
-                return $validator->getFailureMessage($name, $value);
-            }
-
-            $storageManager->set($name, $value);
+            throw new Exception('Must pass an array of form handler instances');
         }
 
-        /* handle the booleans */
-        foreach ($allOds as $descriptor) {
+        if (! is_array($postVars)) {
 
-            /* ignore non-bools */
-            if (! $descriptor->isBoolean()) {
-
-                continue;
-            }
-
-            /* if the user checked the box, the option name will appear in the POST vars */
-            $storageManager->set($name, array_key_exists($descriptor->getName(), $postVars));
+            throw new Exception('POST variables must be an array');
         }
 
-        return null;
+        $failures = array();
+
+        foreach ($formHandlerInstances as $formHandlerInstance) {
+
+            $result = $formHandlerInstance->onSubmit($postVars);
+
+            if (is_array($result) && ! empty($result)) {
+
+                $failures = array_merge($failures, $result);
+            }
+        }
+
+        if (empty($failures)) {
+
+            return null;
+        }
+
+        return $failures;
     }
 
     protected abstract function getRelativeTemplatePath();

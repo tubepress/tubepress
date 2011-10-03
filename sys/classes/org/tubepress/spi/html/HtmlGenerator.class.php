@@ -19,20 +19,12 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../../impl/classloader/ClassLoader.class.php');
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_options_ui_FormHandler'
-));
-
 /**
- * An individual option tab.
+ * Generates HTML.
  */
-interface org_tubepress_spi_options_ui_Tab extends org_tubepress_api_options_ui_FormHandler
+interface org_tubepress_spi_html_HtmlGenerator
 {
-    const __ = 'org_tubepress_spi_options_ui_Tab';
+    const _ = 'org_tubepress_spi_html_HtmlGenerator';
 
-    /**
-     *
-     */
-    function getTitle();
+    function getHtml();
 }

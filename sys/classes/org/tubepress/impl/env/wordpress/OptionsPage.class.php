@@ -72,13 +72,13 @@ class org_tubepress_impl_env_wordpress_OptionsPage
     {
         /* grab the storage manager */
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $wpsm         = $iocContainer->get('org_tubepress_api_options_StorageManager');
+        $wpsm         = $iocContainer->get(org_tubepress_api_options_StorageManager::_);
 
         /* initialize our options in case we need to */
         $wpsm->init();
 
         /* get the form handler */
-        $optionsForm = $iocContainer->get(org_tubepress_spi_options_ui_FormHandler::_);
+        $optionsForm = $iocContainer->get(org_tubepress_api_options_ui_FormHandler::_);
 
         /* are we updating? */
         if (isset($_POST['tubepress_save'])) {
@@ -107,6 +107,11 @@ class org_tubepress_impl_env_wordpress_OptionsPage
 
     private static function _error($message)
     {
+        if (is_array($message)) {
+
+            $message = implode($message, '<br />');
+        }
+
         echo '<div id="message" class="error fade"><p><strong>' . $message . '</strong></p></div>';
     }
 }

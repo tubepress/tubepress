@@ -1,15 +1,15 @@
 <?php
 
-require_once BASE . '/sys/classes/org/tubepress/impl/options/ui/DefaultTabsHtmlGenerator.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/options/ui/DefaultTabsHandler.class.php';
 
-class org_tubepress_impl_options_ui_DefaultTabsHtmlGeneratorTest extends TubePressUnitTest {
+class org_tubepress_impl_options_ui_DefaultTabsHandlerTest extends TubePressUnitTest {
 
 	private $_sut;
 
 	public function setup()
 	{
 		parent::setUp();
-		$this->_sut = new org_tubepress_impl_options_ui_DefaultTabsHtmlGenerator();
+		$this->_sut = new org_tubepress_impl_options_ui_DefaultTabsHandler();
 	}
 
 	public function testGetHtml()
@@ -21,7 +21,7 @@ class org_tubepress_impl_options_ui_DefaultTabsHtmlGeneratorTest extends TubePre
         );
 
 	    $template = \Mockery::mock(org_tubepress_api_template_Template::_);
-	    $template->shouldReceive('setVariable')->once()->with(org_tubepress_impl_options_ui_DefaultTabsHtmlGenerator::TEMPLATE_VAR_TABS, $tabs);
+	    $template->shouldReceive('setVariable')->once()->with(org_tubepress_impl_options_ui_DefaultTabsHandler::TEMPLATE_VAR_TABS, $tabs);
 	    $template->shouldReceive('toString')->once()->andReturn('foobar');
 
 	    $fse            = $ioc->get(org_tubepress_api_filesystem_Explorer::_);

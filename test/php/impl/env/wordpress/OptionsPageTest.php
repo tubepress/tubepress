@@ -22,7 +22,7 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
         $wpsm = $ioc->get('org_tubepress_api_options_StorageManager');
         $wpsm->shouldReceive('init')->once();
 
-        $formHandler = $ioc->get(org_tubepress_spi_options_ui_FormHandler::_);
+        $formHandler = $ioc->get(org_tubepress_api_options_ui_FormHandler::_);
         $formHandler->shouldReceive('getHtml')->once()->andReturn('yo');
         $formHandler->shouldReceive('onSubmit')->once()->with($_POST)->andThrow(new Exception('something!'));
 
@@ -45,7 +45,7 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
         $wpsm = $ioc->get('org_tubepress_api_options_StorageManager');
         $wpsm->shouldReceive('init')->once();
 
-        $formHandler = $ioc->get(org_tubepress_spi_options_ui_FormHandler::_);
+        $formHandler = $ioc->get(org_tubepress_api_options_ui_FormHandler::_);
         $formHandler->shouldReceive('getHtml')->once()->andReturn('yo');
         $formHandler->shouldReceive('onSubmit')->once()->with($_POST)->andReturn(null);
 
@@ -68,16 +68,16 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
         $wpsm = $ioc->get('org_tubepress_api_options_StorageManager');
         $wpsm->shouldReceive('init')->once();
 
-        $formHandler = $ioc->get(org_tubepress_spi_options_ui_FormHandler::_);
+        $formHandler = $ioc->get(org_tubepress_api_options_ui_FormHandler::_);
         $formHandler->shouldReceive('getHtml')->once()->andReturn('yo');
-        $formHandler->shouldReceive('onSubmit')->once()->with($_POST)->andReturn('bad value!');
+        $formHandler->shouldReceive('onSubmit')->once()->with($_POST)->andReturn(array('bad value!', 'another bad value!'));
 
         ob_start();
         org_tubepress_impl_env_wordpress_OptionsPage::executeOptionsPage();
         $contents = ob_get_contents();
         ob_end_clean();
 
-        $this->assertEquals('<div id="message" class="error fade"><p><strong>bad value!</strong></p></div>yo', $contents);
+        $this->assertEquals('<div id="message" class="error fade"><p><strong>bad value!<br />another bad value!</strong></p></div>yo', $contents);
     }
 
     function testDisplayOptionsPage()
@@ -89,7 +89,7 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
         $wpsm = $ioc->get('org_tubepress_api_options_StorageManager');
         $wpsm->shouldReceive('init')->once();
 
-        $formHandler = $ioc->get(org_tubepress_spi_options_ui_FormHandler::_);
+        $formHandler = $ioc->get(org_tubepress_api_options_ui_FormHandler::_);
         $formHandler->shouldReceive('getHtml')->once()->andReturn('yo');
 
         ob_start();

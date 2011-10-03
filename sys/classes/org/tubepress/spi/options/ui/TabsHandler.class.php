@@ -19,17 +19,15 @@
  *
  */
 
-/**
- * Generates HTML for the drop-down option filter for the options page.
- */
-interface org_tubepress_spi_options_ui_FilterHtmlGenerator
-{
-    const _ = 'org_tubepress_spi_options_ui_FilterHtmlGenerator';
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../../impl/classloader/ClassLoader.class.php');
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_options_ui_FormHandler'
+));
 
-    /**
-     * Generates the HTML for the drop-down option filter.
-     *
-     * @return string The HTML for the drop-down filter.
-    */
-    function getHtml();
+/**
+ * Generates the "meat" of the options form (in the form of tabs).
+ */
+interface org_tubepress_spi_options_ui_TabsHandler extends org_tubepress_api_options_ui_FormHandler
+{
+    const __ = 'org_tubepress_spi_options_ui_TabsHandler';
 }

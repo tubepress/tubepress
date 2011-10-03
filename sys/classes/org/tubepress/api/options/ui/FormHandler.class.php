@@ -19,20 +19,26 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../classloader/ClassLoader.class.php');
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_impl_options_ui_AbstractFormHandler'
-));
-
 /**
- * Displays a WordPress-specific options form for TubePress
- *
+ * Generates HTML for the options form and handles form submission.
  */
-class org_tubepress_impl_env_wordpress_FormHandler extends org_tubepress_impl_options_ui_AbstractFormHandler
+interface org_tubepress_api_options_ui_FormHandler
 {
+	const _ = 'org_tubepress_api_options_ui_FormHandler';
 
-    protected function getRelativeTemplatePath()
-    {
-        return 'sys/ui/templates/wordpress/options_page.tpl.php';
-    }
+    /**
+     * Generates the HTML for the options form.
+     *
+     * @return string The HTML for the options form.
+    */
+    function getHtml();
+
+    /**
+     * Handles form submission.
+     *
+     * @param array $postVars The $_POST array.
+     *
+     * @return An array of failure messages if there's a problem, otherwise null.
+     */
+    function onSubmit($postVars);
 }
