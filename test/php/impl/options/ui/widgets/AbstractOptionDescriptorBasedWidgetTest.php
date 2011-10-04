@@ -84,6 +84,11 @@ abstract class org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBas
 	    //override point
 	}
 
+	protected function _performAdditionGetDescriptionSetup()
+	{
+	    //override point
+	}
+
 	public function testProviders()
 	{
         $this->assertTrue($this->_sut->getArrayOfApplicableProviderNames() === array(org_tubepress_api_provider_Provider::VIMEO, org_tubepress_api_provider_Provider::YOUTUBE));
@@ -106,6 +111,8 @@ abstract class org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBas
 	public function testGetDescription()
 	{
 	    $this->_optionDescriptor->shouldReceive('getDescription')->once()->andReturn('some-desc');
+
+	    $this->_performAdditionGetDescriptionSetup();
 
 	    $this->assertTrue($this->_sut->getDescription() === '<<message: some-desc>>');
 	}
