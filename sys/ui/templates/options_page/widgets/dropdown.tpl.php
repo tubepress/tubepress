@@ -19,12 +19,12 @@
  *
  */
 ?>
-<select name="<?php echo ${org_tubepress_impl_options_ui_widgets_AbstractWidget::TEMPLATE_VAR_NAME}; ?>">
+<select name="<?php echo ${org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidget::TEMPLATE_VAR_NAME}; ?>">
 
 	<?php foreach (${org_tubepress_impl_options_ui_widgets_DropdownInput::TEMPLATE_VAR_ACCEPTABLE_VALUES} as $name => $value): ?>
 
-	<option value="<?php echo $name; ?>" <?php if (${org_tubepress_impl_options_ui_widgets_AbstractWidget::TEMPLATE_VAR_VALUE} === $value) { echo 'SELECTED'; } ?>><?php echo $value; ?></option>
+	<option value="<?php echo $name; ?>" <?php if (${org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidget::TEMPLATE_VAR_VALUE} === $value) { echo 'SELECTED'; } ?>><?php echo $value; ?></option>
 
-	<?php endforeach; ?>
+<?php endforeach; ?>
 
 </select>

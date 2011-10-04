@@ -28,7 +28,7 @@
 		<th><?php echo $widget->getTitle(); ?></th>
 
 		<td>
-		    <?php echo $widget->getInputHtml(); ?>
+		    <?php echo $widget->getHtml(); ?>
 			<br />
 			<?php echo $widget->getDescription(); ?>
 		</td>

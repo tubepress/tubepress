@@ -29,6 +29,12 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_options_ui_widgets_MultiSelect implements org_tubepress_spi_options_ui_Widget
 {
+    const TEMPLATE_VAR_NAME = 'org_tubepress_impl_options_ui_widgets_MultiSelect__name';
+
+    const TEMPLATE_VAR_DESCRIPTORS = 'org_tubepress_impl_options_ui_widgets_MultiSelect__descriptors';
+
+    const TEMPLATE_VAR_CURRENTVALUES = 'org_tubepress_impl_options_ui_widgets_MultiSelect__currentValues';
+
     /** Array of option descriptors. */
     private $_optionDescriptors;
 
@@ -62,5 +68,39 @@ class org_tubepress_impl_options_ui_widgets_MultiSelect implements org_tubepress
         $this->_currentValues     = $currentValues;
         $this->_label             = $label;
         $this->_description       = $description;
+    }
+
+    function getTitle()
+    {
+        return $this->_label;
+    }
+
+    function getDescription()
+    {
+        return $this->_description;
+    }
+
+    function isProOnly()
+    {
+        return false;
+    }
+
+    function getArrayOfApplicableProviderNames()
+    {
+        return array(
+
+            org_tubepress_api_provider_Provider::YOUTUBE,
+            org_tubepress_api_provider_Provider::VIMEO,
+        );
+    }
+
+    function onSubmit($postVars)
+    {
+
+    }
+
+    function getHtml()
+    {
+
     }
 }

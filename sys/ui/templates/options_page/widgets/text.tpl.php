@@ -19,4 +19,4 @@
  *
  */
 ?>
-<input type="text" name="<?php echo ${org_tubepress_impl_options_ui_widgets_AbstractWidget::TEMPLATE_VAR_NAME}; ?>" size="20" value="<?php echo ${org_tubepress_impl_options_ui_widgets_AbstractWidget::TEMPLATE_VAR_VALUE}; ?>" />
+<input type="text" name="<?php echo ${org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidget::TEMPLATE_VAR_NAME}; ?>" size="20" value="<?php echo ${org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidget::TEMPLATE_VAR_VALUE}; ?>" />

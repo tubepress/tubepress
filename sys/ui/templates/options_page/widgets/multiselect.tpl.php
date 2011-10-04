@@ -19,4 +19,11 @@
  *
  */
 ?>
-<input type="text" name="<?php echo ${org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidget::TEMPLATE_VAR_NAME}; ?>" size="6" class="color" value="<?php echo ${org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidget::TEMPLATE_VAR_VALUE}; ?>" />
+<select name="<?php echo ${org_tubepress_impl_options_ui_widgets_MultiSelect::TEMPLATE_VAR_NAME}; ?>">
+
+	<?php foreach (${org_tubepress_impl_options_ui_widgets_MultiSelect::TEMPLATE_VAR_DESCRIPTORS} as $descriptor): ?>
+
+	<option value="<?php echo $descriptor->getName(); ?>" <?php if (in_array($descriptor->getName(), ${org_tubepress_impl_options_ui_widgets_MultiSelect::TEMPLATE_VAR_CURRENTVALUES})): ?>selected="selected"<?php endif; ?>><?php echo $descriptor->getLabel(); ?></option>
+
+	<?php endforeach; ?>
+</select>
