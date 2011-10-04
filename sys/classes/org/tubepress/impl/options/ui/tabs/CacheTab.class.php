@@ -32,11 +32,20 @@ class org_tubepress_impl_options_ui_tabs_CacheTab extends org_tubepress_impl_opt
 {
     protected function doGetTitle()
     {
-        return 'Caching';
+        return 'Cache';
     }
 
     protected function getDelegateFormHandlers()
     {
-        return array();
+        $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $widgetBuilder = $ioc->get(org_tubepress_spi_options_ui_WidgetBuilder::_);
+
+        return array(
+
+            $widgetBuilder->build(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED, org_tubepress_impl_options_ui_widgets_BooleanInput::_),
+            $widgetBuilder->build(org_tubepress_api_const_options_names_Advanced::CACHE_CLEAN_FACTOR, org_tubepress_impl_options_ui_widgets_TextInput::_),
+            $widgetBuilder->build(org_tubepress_api_const_options_names_Advanced::CACHE_DIR, org_tubepress_impl_options_ui_widgets_TextInput::_),
+            $widgetBuilder->build(org_tubepress_api_const_options_names_Advanced::CACHE_LIFETIME_SECONDS, org_tubepress_impl_options_ui_widgets_TextInput::_),
+        );
     }
 }

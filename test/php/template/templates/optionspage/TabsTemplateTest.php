@@ -1,6 +1,6 @@
 <?php
 
-require_once BASE . '/sys/classes/org/tubepress/impl/options/ui/DefaultTabsHtmlGenerator.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/options/ui/DefaultTabsHandler.class.php';
 require_once BASE . '/sys/classes/org/tubepress/spi/options/ui/Tab.class.php';
 require_once BASE . '/sys/classes/org/tubepress/impl/util/StringUtils.class.php';
 
@@ -16,7 +16,7 @@ class org_tubepress_impl_template_templates_optionspage_TabsTemplateTest extends
         $tab2->shouldReceive('getTitle')->times(3)->andReturn('title2');
         $tab2->shouldReceive('getHtml')->once()->andReturn('html2');
 
-        ${org_tubepress_impl_options_ui_DefaultTabsHtmlGenerator::TEMPLATE_VAR_TABS} = array($tab1, $tab2);
+        ${org_tubepress_impl_options_ui_DefaultTabsHandler::TEMPLATE_VAR_TABS} = array($tab1, $tab2);
 
         ob_start();
         include BASE . '/sys/ui/templates/options_page/tabs.tpl.php';

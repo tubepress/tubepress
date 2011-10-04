@@ -1,14 +1,14 @@
 <?php
 
-require_once BASE . '/sys/classes/org/tubepress/impl/options/ui/widgets/AbstractWidget.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/options/ui/widgets/AbstractOptionDescriptorBasedWidget.class.php';
 require_once BASE . '/sys/classes/org/tubepress/impl/options/ui/widgets/DropdownInput.class.php';
 
 class org_tubepress_impl_template_templates_optionspage_widgets_DropdownInputTemplateTest extends TubePressUnitTest {
 
     public function test()
     {
-        ${org_tubepress_impl_options_ui_widgets_AbstractWidget::TEMPLATE_VAR_NAME} = 'some-name';
-        ${org_tubepress_impl_options_ui_widgets_AbstractWidget::TEMPLATE_VAR_VALUE} = 'some-value';
+        ${org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidget::TEMPLATE_VAR_NAME} = 'some-name';
+        ${org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidget::TEMPLATE_VAR_VALUE} = 'some-value';
         ${org_tubepress_impl_options_ui_widgets_DropdownInput::TEMPLATE_VAR_ACCEPTABLE_VALUES} = array('crack' => 'rock', 'poo' => 'some-value', 'pretzels' => 'jets');
 
         ob_start();
