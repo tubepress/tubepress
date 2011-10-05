@@ -21,8 +21,8 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../classloader/ClassLoader.class.php');
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_spi_options_ui_TabsHandler',
     'org_tubepress_api_filesystem_Explorer',
+    'org_tubepress_api_options_ui_FormHandler',
     'org_tubepress_api_template_Template',
     'org_tubepress_api_template_TemplateBuilder',
     'org_tubepress_impl_options_ui_AbstractDelegatingFormHandler',
@@ -32,7 +32,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 /**
  * Generates the "meat" of the options form (in the form of tabs).
  */
-class org_tubepress_impl_options_ui_DefaultTabsHandler extends org_tubepress_impl_options_ui_AbstractDelegatingFormHandler implements org_tubepress_spi_options_ui_TabsHandler
+class org_tubepress_impl_options_ui_DefaultTabsHandler extends org_tubepress_impl_options_ui_AbstractDelegatingFormHandler implements org_tubepress_api_options_ui_FormHandler
 {
     const TEMPLATE_VAR_TABS = 'org_tubepress_impl_options_ui_DefaultTabsHandler__tabs';
 
