@@ -27,19 +27,16 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 /**
  * Displays a multi-select drop-down input.
  */
-class org_tubepress_impl_options_ui_widgets_MultiSelect implements org_tubepress_spi_options_ui_Widget
+class org_tubepress_impl_options_ui_widgets_MultiSelectInput implements org_tubepress_spi_options_ui_Widget
 {
-    const TEMPLATE_VAR_NAME = 'org_tubepress_impl_options_ui_widgets_MultiSelect__name';
+    const TEMPLATE_VAR_NAME = 'org_tubepress_impl_options_ui_widgets_MultiSelectInput__name';
 
-    const TEMPLATE_VAR_DESCRIPTORS = 'org_tubepress_impl_options_ui_widgets_MultiSelect__descriptors';
+    const TEMPLATE_VAR_DESCRIPTORS = 'org_tubepress_impl_options_ui_widgets_MultiSelectInput__descriptors';
 
-    const TEMPLATE_VAR_CURRENTVALUES = 'org_tubepress_impl_options_ui_widgets_MultiSelect__currentValues';
+    const TEMPLATE_VAR_CURRENTVALUES = 'org_tubepress_impl_options_ui_widgets_MultiSelectInput__currentValues';
 
     /** Array of option descriptors. */
     private $_optionDescriptors;
-
-    /** Array of current values. */
-    private $_currentValues;
 
     /** Label. */
     private $_label;
@@ -47,16 +44,24 @@ class org_tubepress_impl_options_ui_widgets_MultiSelect implements org_tubepress
     /** Description. */
     private $_description;
 
-    public function __construct($optionDescriptors, $currentValues, $label, $description = '')
+    public function __construct($optionDescriptors, $label, $description = '')
     {
         if (! is_array($optionDescriptors)) {
 
             throw new Exception('Option descriptors must be an array');
         }
 
-        if (! is_array($currentValues)) {
+        foreach ($optionDescriptors as $optionDescriptor) {
 
-            throw new Exception('Current values must be an array');
+            if (! $optionDescriptor instanceof org_tubepress_api_options_OptionDescriptor) {
+
+                throw new Exception('Non option descriptor detected');
+            }
+
+            if (! $optionDescriptor->isBoolean()) {
+
+                throw new Exception('Non-boolean option descriptor detected');
+            }
         }
 
         if (! is_string($label)) {
@@ -65,7 +70,6 @@ class org_tubepress_impl_options_ui_widgets_MultiSelect implements org_tubepress
         }
 
         $this->_optionDescriptors = $optionDescriptors;
-        $this->_currentValues     = $currentValues;
         $this->_label             = $label;
         $this->_description       = $description;
     }
@@ -96,11 +100,50 @@ class org_tubepress_impl_options_ui_widgets_MultiSelect implements org_tubepress
 
     function onSubmit($postVars)
     {
+        if (! array_key_exists($this->_label, $postVars)) {
 
+            /* not submitted. */
+            return;
+        }
+
+        $vals = $postVars[$this->_label];
+
+        if (! is_array($vals)) {
+
+            /* this should never happen. */
+            return;
+        }
+        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $sm   = $ioc->get(org_tubepress_api_options_StorageManager::_);
+
+        foreach ($this->_optionDescriptors as $optionDescriptor) {
+
+            $sm->set($optionDescriptor->getName(), in_array($optionDescriptor->getName(), $vals));
+        }
     }
 
     function getHtml()
     {
+        $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $templateBldr  = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
+        $fse           = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
+        $basePath      = $fse->getTubePressBaseInstallationPath();
+        $template      = $templateBldr->getNewTemplateInstance($basePath . '/sys/ui/templates/options_page/widgets/multiselect.tpl.php');
+        $sm            = $ioc->get(org_tubepress_api_options_StorageManager::_);
+        $currentValues = array();
 
+        foreach ($this->_optionDescriptors as $optionDescriptor) {
+
+            if ($sm->get($optionDescriptor->getName())) {
+
+                $currentValues[] = $optionDescriptor->getName();
+            }
+        }
+
+        $template->setVariable(self::TEMPLATE_VAR_NAME, $this->_label);
+        $template->setVariable(self::TEMPLATE_VAR_DESCRIPTORS, $this->_optionDescriptors);
+        $template->setVariable(self::TEMPLATE_VAR_CURRENTVALUES, $currentValues);
+
+        return $template->toString();
     }
 }
