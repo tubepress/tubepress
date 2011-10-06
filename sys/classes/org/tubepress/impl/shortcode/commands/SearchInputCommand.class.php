@@ -50,7 +50,7 @@ class org_tubepress_impl_shortcode_commands_SearchInputCommand implements org_tu
             return false;
         }
 
-        $th       = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $th       = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $pm       = $ioc->get('org_tubepress_api_plugin_PluginManager');
         $template = $th->getTemplateInstance($this->getTemplatePath());
 

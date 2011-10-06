@@ -24,7 +24,7 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 	    $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
 	    $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');
 
-	    $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+	    $themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
 	    $themeHandler->shouldReceive('getTemplateInstance')->once()->with('gallery.tpl.php')->andReturn($mockTemplate);
 
 	    $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
@@ -59,7 +59,7 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 
 	    $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
 
-	    $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+	    $themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
 	    $themeHandler->shouldReceive('getTemplateInstance')->once()->with('gallery.tpl.php')->andReturn($mockTemplate);
 
 	    $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
@@ -95,7 +95,7 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 	    $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
 	    $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');
 
-	    $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+	    $themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
 	    $themeHandler->shouldReceive('getTemplateInstance')->once()->with('gallery.tpl.php')->andReturn($mockTemplate);
 
 	    $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');

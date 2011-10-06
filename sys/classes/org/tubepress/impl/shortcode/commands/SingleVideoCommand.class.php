@@ -59,7 +59,7 @@ class org_tubepress_impl_shortcode_commands_SingleVideoCommand implements org_tu
         $ms            = $ioc->get('org_tubepress_api_message_MessageService');
         $pluginManager = $ioc->get('org_tubepress_api_plugin_PluginManager');
         $provider      = $ioc->get('org_tubepress_api_provider_Provider');
-        $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
         $template      = $themeHandler->getTemplateInstance('single_video.tpl.php');
         $providerName  = $pc->calculateProviderOfVideoId($videoId);

@@ -25,7 +25,7 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePress
         $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
         $mockTemplate->shouldReceive('toString')->once()->andReturn('foobarr');
 
-        $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $themeHandler->shouldReceive('getTemplateInstance')->once()->with('players/current-player-name.tpl.php')->andReturn($mockTemplate);
 
         $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');

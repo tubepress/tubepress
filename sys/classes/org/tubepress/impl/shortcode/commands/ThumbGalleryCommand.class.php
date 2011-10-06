@@ -56,7 +56,7 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_t
 
         $provider      = $ioc->get('org_tubepress_api_provider_Provider');
         $pluginManager = $ioc->get('org_tubepress_api_plugin_PluginManager');
-        $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $ms            = $ioc->get('org_tubepress_api_message_MessageService');
         $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
         $qss           = $ioc->get('org_tubepress_api_querystring_QueryStringService');

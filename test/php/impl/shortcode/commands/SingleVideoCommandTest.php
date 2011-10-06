@@ -35,7 +35,7 @@ class org_tubepress_impl_shortcode_commands_SingleVideoCommandTest extends TubeP
 	    $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
 	    $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');
 
-	    $th       = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+	    $th       = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
 	    $th->shouldReceive('getTemplateInstance')->once()->with('single_video.tpl.php')->andReturn($mockTemplate);
 
 	    $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
