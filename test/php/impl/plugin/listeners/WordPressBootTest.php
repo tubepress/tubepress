@@ -19,7 +19,7 @@ class org_tubepress_impl_plugin_listeners_WordPressBootTest extends TubePressUni
         $ed  = $ioc->get(org_tubepress_api_environment_Detector::_);
         $ed->shouldReceive('isWordPress')->once()->andReturn(true);
 
-        $fse  = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fse  = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fse->shouldReceive('getTubePressInstallationDirectoryBaseName')->once()->andReturn('path');
 
         $get_option = new PHPUnit_Extensions_MockFunction('site_url');

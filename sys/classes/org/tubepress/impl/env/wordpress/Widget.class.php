@@ -131,7 +131,7 @@ class org_tubepress_impl_env_wordpress_Widget
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
         $wpsm         = $iocContainer->get('org_tubepress_api_options_StorageManager');
         $msg          = $iocContainer->get('org_tubepress_api_message_MessageService');
-        $explorer     = $iocContainer->get('org_tubepress_api_filesystem_Explorer');
+        $explorer     = $iocContainer->get(org_tubepress_api_filesystem_Explorer::_);
         $tplBuilder   = $iocContainer->get('org_tubepress_api_template_TemplateBuilder');
 
         /* are we saving? */

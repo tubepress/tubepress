@@ -18,7 +18,7 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest {
         $wpsm->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Widget::TITLE)->andReturn('value of widget title');
         $wpsm->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Widget::TAGSTRING)->andReturn('value of widget shortcode');
 
-        $explorer     = $iocContainer->get('org_tubepress_api_filesystem_Explorer');
+        $explorer     = $iocContainer->get(org_tubepress_api_filesystem_Explorer::_);
         $explorer->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('fakepath');
 
         $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');

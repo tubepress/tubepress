@@ -43,7 +43,7 @@ class org_tubepress_impl_env_wordpress_OptionsPage
         global $tubepress_base_url;
 
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $fs           = $iocContainer->get('org_tubepress_api_filesystem_Explorer');
+        $fs           = $iocContainer->get(org_tubepress_api_filesystem_Explorer::_);
         $baseName     = $fs->getTubePressInstallationDirectoryBaseName();
 
         wp_register_style('jquery-ui-lightness', plugins_url("$baseName/sys/ui/static/css/jquery-ui-lightness/jquery-ui-1.8.16.custom.css", $baseName));

@@ -117,7 +117,7 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
     
         } else {
     
-            $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
+            $fs = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
             
             return $fs->getTubePressBaseInstallationPath() . '/tubepress-content';
         }
@@ -126,7 +126,7 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
     private function _getFilePath($currentTheme, $pathToTemplate)
     {
         $ioc                       = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $fs                        = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fs                        = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $tubepressInstallationPath = $fs->getTubePressBaseInstallationPath();
         
         /* first try to load the theme from sys/ui */

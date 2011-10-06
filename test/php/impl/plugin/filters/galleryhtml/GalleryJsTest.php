@@ -26,7 +26,7 @@ class org_tubepress_impl_plugin_filters_galleryhtml_GalleryJsTest extends TubePr
         $themeHandler->shouldReceive('calculateCurrentThemeName')->once()->andReturn('current-theme-name');
         $themeHandler->shouldReceive('getCssPath')->once()->with('current-theme-name')->andReturn('css-path');
 
-        $fe           = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fe           = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fe->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('baseInstallPath');
 	}
 

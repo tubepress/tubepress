@@ -136,7 +136,7 @@ EOT;
         }
 
 	$ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $fse      = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fse      = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $baseName = $fse->getTubePressInstallationDirectoryBaseName();
 
         wp_register_script('tubepress', plugins_url("$baseName/sys/ui/static/js/tubepress.js", $baseName));

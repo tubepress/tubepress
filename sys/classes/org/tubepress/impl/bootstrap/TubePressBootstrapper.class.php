@@ -93,7 +93,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
     private function _loadUserPlugins(org_tubepress_api_ioc_IocService $ioc)
     {
         $pm         = $ioc->get('org_tubepress_api_plugin_PluginManager');
-        $fe         = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fe         = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $th         = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $pluginPath = $th->getUserContentDirectory() . '/plugins';
         $pluginDirs = $fe->getDirectoriesInDirectory($pluginPath, self::LOG_PREFIX);

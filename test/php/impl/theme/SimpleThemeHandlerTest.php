@@ -19,7 +19,7 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
         $envDetector = $ioc->get(org_tubepress_api_environment_Detector::_);
         $envDetector->shouldReceive('isWordPress')->once()->andReturn(false);
         
-        $fs  = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fs  = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fs->shouldReceive('getTubePressBaseInstallationPath')->twice()->andReturn('basePath');
 
         $result = $this->_sut->getCssPath('foo');
@@ -55,7 +55,7 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
         $execContext  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->zeroOrMoreTimes()->with(org_tubepress_api_const_options_names_Display::THEME)->andReturn('');
 
-        $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fs = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fs->shouldReceive('getTubePressBaseInstallationPath')->zeroOrMoreTimes()->andReturn('basePath');
 
         $this->_sut->getTemplateInstance('foo');
@@ -83,7 +83,7 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
         $execContext = $ioc->get(org_tubepress_api_environment_Detector::_);
         $execContext->shouldReceive('isWordPress')->once()->andReturn(false);
 
-        $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fs = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fs->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('foobar');
         
         $this->assertEquals('foobar/tubepress-content', $this->_sut->getUserContentDirectory());
@@ -96,7 +96,7 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
         $execContext  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->zeroOrMoreTimes()->with(org_tubepress_api_const_options_names_Display::THEME)->andReturn('foo');
 
-        $fs                        = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fs                        = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fs->shouldReceive('getTubePressBaseInstallationPath')->zeroOrMoreTimes()->andReturn(realpath(dirname(__FILE__) . '/../../../../'));
         
         $envDetector = $ioc->get(org_tubepress_api_environment_Detector::_);

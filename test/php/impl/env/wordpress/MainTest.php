@@ -51,7 +51,7 @@ html meta', $contents);
     function testInitAction()
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fs = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fs->shouldReceive('getTubePressInstallationDirectoryBaseName')->once()->andReturn('base_name');
 
 	$plugins_url = new PHPUnit_Extensions_MockFunction('plugins_url');

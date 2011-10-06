@@ -351,7 +351,7 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
             return $cacheDir;
         }
 
-        $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fs = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $tempDir = $fs->getSystemTempDirectory();
         
         if (!is_dir($tempDir)) {
