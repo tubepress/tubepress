@@ -26,6 +26,8 @@
  */
 interface org_tubepress_api_exec_ExecutionContext
 {
+    const _ = 'org_tubepress_api_exec_ExecutionContext';
+    
     /**
      * Gets the value of an option
      *
