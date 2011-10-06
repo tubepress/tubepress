@@ -21,7 +21,7 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php');
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_spi_options_ui_Widget',
+    'org_tubepress_impl_options_ui_widgets_AbstractMultiSelectInput',
 ));
 
 /**
@@ -46,5 +46,10 @@ class org_tubepress_impl_options_ui_widgets_FilterMultiSelectInput extends org_t
     protected function getRawTitle()
     {
         return 'Show options applicable to...';
+    }
+
+    protected function getRawDescription()
+    {
+        return '';
     }
 }

@@ -59,8 +59,8 @@ abstract class org_tubepress_impl_options_ui_AbstractFormHandler extends org_tub
         $messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
         $templateBldr   = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
         $fse            = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-        $tabs           = $ioc->get(org_tubepress_spi_options_ui_TabsHandler::_);
-        $filter         = $ioc->get(org_tubepress_spi_options_ui_FilterHandler::_);
+        $tabs           = $ioc->get(org_tubepress_impl_options_ui_DefaultTabsHandler::_);
+        $filter         = $ioc->get(org_tubepress_impl_options_ui_widgets_FilterMultiSelectInput::_);
         $basePath       = $fse->getTubePressBaseInstallationPath();
         $template       = $templateBldr->getNewTemplateInstance($basePath . '/' . $this->getRelativeTemplatePath());
 
@@ -77,7 +77,7 @@ abstract class org_tubepress_impl_options_ui_AbstractFormHandler extends org_tub
     protected function getDelegateFormHandlers()
     {
         $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tabs   = $ioc->get(org_tubepress_impl_options_ui_DefaultTabsHandler::__);
+        $tabs   = $ioc->get(org_tubepress_impl_options_ui_DefaultTabsHandler::_);
         $filter = $ioc->get(org_tubepress_impl_options_ui_widgets_FilterMultiSelectInput::_);
 
         return array($tabs, $filter);

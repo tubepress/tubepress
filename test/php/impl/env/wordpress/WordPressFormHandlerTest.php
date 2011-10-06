@@ -24,8 +24,8 @@ class org_tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePres
     function testGetFailureMessagesOneError()
     {
         $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tabs   = $ioc->get(org_tubepress_spi_options_ui_TabsHandler::_);
-        $filter = $ioc->get(org_tubepress_spi_options_ui_FilterHandler::_);
+        $tabs   = $ioc->get(org_tubepress_impl_options_ui_DefaultTabsHandler::_);
+        $filter = $ioc->get(org_tubepress_impl_options_ui_widgets_FilterMultiSelectInput::_);
 
         $postVars = array('post');
 
@@ -38,8 +38,8 @@ class org_tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePres
     function testOnSubmit()
     {
         $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tabs   = $ioc->get(org_tubepress_spi_options_ui_TabsHandler::_);
-        $filter = $ioc->get(org_tubepress_spi_options_ui_FilterHandler::_);
+        $tabs   = $ioc->get(org_tubepress_impl_options_ui_DefaultTabsHandler::_);
+        $filter = $ioc->get(org_tubepress_impl_options_ui_widgets_FilterMultiSelectInput::_);
 
         $postVars = array('post');
 
@@ -55,8 +55,8 @@ class org_tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePres
         $messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
         $templateBldr   = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
         $fse            = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-        $tabs           = $ioc->get(org_tubepress_spi_options_ui_TabsHandler::_);
-        $filter         = $ioc->get(org_tubepress_spi_options_ui_FilterHandler::_);
+        $tabs           = $ioc->get(org_tubepress_impl_options_ui_DefaultTabsHandler::_);
+        $filter         = $ioc->get(org_tubepress_impl_options_ui_widgets_FilterMultiSelectInput::_);
         $template       = \Mockery::mock(org_tubepress_api_template_Template::_);
 
         $fse->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath>>');
