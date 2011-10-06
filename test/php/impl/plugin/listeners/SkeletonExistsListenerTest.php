@@ -20,7 +20,7 @@ class org_tubepress_impl_plugin_listeners_SkeletonExistsListenerTest extends Tub
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $ed  = $ioc->get('org_tubepress_api_environment_Detector');
+        $ed  = $ioc->get(org_tubepress_api_environment_Detector::_);
         $ed->shouldReceive('isWordPress')->once()->andReturn(true);
 
         $fse  = $ioc->get('org_tubepress_api_filesystem_Explorer');
@@ -34,7 +34,7 @@ class org_tubepress_impl_plugin_listeners_SkeletonExistsListenerTest extends Tub
     {
     	$ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
     
-    	$ed  = $ioc->get('org_tubepress_api_environment_Detector');
+    	$ed  = $ioc->get(org_tubepress_api_environment_Detector::_);
     	$ed->shouldReceive('isWordPress')->once()->andReturn(false);
     
     	$fse  = $ioc->get('org_tubepress_api_filesystem_Explorer');

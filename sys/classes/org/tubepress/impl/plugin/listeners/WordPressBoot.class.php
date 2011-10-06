@@ -39,7 +39,7 @@ class org_tubepress_impl_plugin_listeners_WordPressBoot
     public function on_boot()
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $ed  = $ioc->get('org_tubepress_api_environment_Detector');
+        $ed  = $ioc->get(org_tubepress_api_environment_Detector::_);
         $fse = $ioc->get('org_tubepress_api_filesystem_Explorer');
 
         if (!$ed->isWordPress()) {

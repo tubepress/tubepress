@@ -67,7 +67,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
         $context     = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $envDetector = $ioc->get('org_tubepress_api_environment_Detector');
+        $envDetector = $ioc->get(org_tubepress_api_environment_Detector::_);
         $pm          = $ioc->get('org_tubepress_api_plugin_PluginManager');
 
         /* WordPress likes to keep control of the output */
