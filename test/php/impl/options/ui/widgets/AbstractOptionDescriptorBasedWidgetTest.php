@@ -24,6 +24,63 @@ abstract class org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBas
 		$this->_sut = $this->_buildSut('name');
 	}
 
+	public function testSubmitSimpleInvalid()
+	{
+	    $this->_optionDescriptor->shouldReceive('isBoolean')->once()->andReturn(false);
+	    $this->_optionDescriptor->shouldReceive('getName')->once()->andReturn('name');
+
+	    $postVars = array('name' => 'some-value');
+
+	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+	    $validator = $ioc->get(org_tubepress_api_options_OptionValidator::_);
+	    $validator->shouldReceive('isValid')->once()->with('name', 'some-value')->andReturn(false);
+        $validator->shouldReceive('getFailureMessage')->once()->with('name', 'some-value')->andReturn('you suck');
+
+	    $this->assertEquals(array('you suck'), $this->_sut->onSubmit($postVars));
+	}
+
+	public function testSubmitNoExist()
+	{
+	    $this->_optionDescriptor->shouldReceive('isBoolean')->once()->andReturn(false);
+	    $this->_optionDescriptor->shouldReceive('getName')->once()->andReturn('name');
+
+	    $postVars = array('name2' => 'some-value');
+
+	    $this->assertNull($this->_sut->onSubmit($postVars));
+	}
+
+	public function testSubmitBoolean()
+	{
+	    $this->_optionDescriptor->shouldReceive('isBoolean')->once()->andReturn(true);
+	    $this->_optionDescriptor->shouldReceive('getName')->once()->andReturn('name');
+
+	    $postVars = array('name' => 'some-value');
+
+	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+
+	    $sm = $ioc->get(org_tubepress_api_options_StorageManager::_);
+	    $sm->shouldReceive('set')->once()->with('name', true);
+
+	    $this->assertNull($this->_sut->onSubmit($postVars));
+	}
+
+	public function testSubmitSimple()
+	{
+	    $this->_optionDescriptor->shouldReceive('isBoolean')->once()->andReturn(false);
+	    $this->_optionDescriptor->shouldReceive('getName')->once()->andReturn('name');
+
+	    $postVars = array('name' => 'some-value');
+
+	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+	    $validator = $ioc->get(org_tubepress_api_options_OptionValidator::_);
+	    $validator->shouldReceive('isValid')->once()->with('name', 'some-value')->andReturn(true);
+
+	    $sm = $ioc->get(org_tubepress_api_options_StorageManager::_);
+	    $sm->shouldReceive('set')->once()->with('name', 'some-value');
+
+	    $this->assertNull($this->_sut->onSubmit($postVars));
+	}
+
 	protected function getSut()
 	{
 	    return $this->_sut;

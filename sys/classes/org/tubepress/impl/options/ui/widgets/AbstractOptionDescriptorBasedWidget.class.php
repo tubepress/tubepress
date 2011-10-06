@@ -122,12 +122,15 @@ abstract class org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBas
     {
         $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
         $validator = $ioc->get(org_tubepress_api_options_OptionValidator::_);
+        $name      = $this->_optionDescriptor->getName();
 
-        if (! in_array($this->_optionDescriptor->getName(), $postVars)) {
+        if (! array_key_exists($name, $postVars)) {
 
             /* not submitted. */
-            return;
+            return null;
         }
+
+        $value = $postVars[$name];
 
         /* run it through validation. */
         if (! $validator->isValid($name, $value)) {
@@ -142,8 +145,10 @@ abstract class org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBas
 
     private function _onSubmitBoolean(org_tubepress_api_options_StorageManager $storageManager, $postVars)
     {
+        $name = $this->_optionDescriptor->getName();
+
         /* if the user checked the box, the option name will appear in the POST vars */
-        $storageManager->set($name, array_key_exists($this->_optionDescriptor->getName(), $postVars));
+        $storageManager->set($name, array_key_exists($name, $postVars));
 
         return null;
     }
