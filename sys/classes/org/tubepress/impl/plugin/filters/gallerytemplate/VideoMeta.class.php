@@ -23,7 +23,6 @@ class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_CategoryName',
     'org_tubepress_api_const_template_Variable',
-    'org_tubepress_api_const_template_Variable',
     'org_tubepress_api_message_MessageService',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_provider_Provider',
@@ -46,11 +45,11 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_VideoMeta
         $metaNames                 = org_tubepress_impl_util_LangUtils::getDefinedConstants(org_tubepress_api_const_options_names_Meta::_);
         $shouldShow                = array();
         $labels                    = array();
-        
+
         foreach ($metaNames as $metaName) {
-            
+
             $optionDescriptor = $optionDescriptorReference->findOneByName($metaName);
-            
+
             $shouldShow[$metaName] = $context->get($metaName);
             $labels[$metaName]     = $messageService->_($optionDescriptor->getLabel());
         }

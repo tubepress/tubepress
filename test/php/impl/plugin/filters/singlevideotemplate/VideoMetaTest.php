@@ -21,7 +21,7 @@ class org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMetaTest extend
 	          return "##$msg##";
 	    });
 
-	    $metaNames  = org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::META);
+	    $metaNames  = org_tubepress_impl_util_LangUtils::getDefinedConstants(org_tubepress_api_const_options_names_Meta::_);
         $shouldShow = array();
         $labels     = array();
 

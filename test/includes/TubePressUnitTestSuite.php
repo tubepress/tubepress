@@ -13,18 +13,18 @@ class TubePressUnitTestSuite extends PHPUnit_Framework_TestSuite
         }
 
 
-	if (is_callable('PHP_CodeCoverage_Filter::getInstance')) {
+    	if (is_callable('PHP_CodeCoverage_Filter::getInstance')) {
 
-		$filter = PHP_CodeCoverage_Filter::getInstance();
+    		$filter = PHP_CodeCoverage_Filter::getInstance();
 
-        	$filter->addDirectoryToBlacklist('/usr/share/php');
-        	$filter->addDirectoryToBlacklist(realpath(dirname(__FILE__) . '/..'));
-	
-	} else {
+            	$filter->addDirectoryToBlacklist('/usr/share/php');
+            	$filter->addDirectoryToBlacklist(realpath(dirname(__FILE__) . '/..'));
 
-		PHPUnit_Util_Filter::addDirectoryToFilter('/usr/share/php');
-		PHPUnit_Util_Filter::addDirectoryToFilter(realpath(dirname(__FILE__) . '/..'));
-	}
+    	} else {
+
+    		PHPUnit_Util_Filter::addDirectoryToFilter('/usr/share/php');
+    		PHPUnit_Util_Filter::addDirectoryToFilter(realpath(dirname(__FILE__) . '/..'));
+    	}
     }
 
     public function run(PHPUnit_Framework_TestResult $result = NULL, $filter = FALSE, array $groups = array(), array $excludeGroups = array(), $processIsolation = FALSE)
@@ -35,6 +35,13 @@ class TubePressUnitTestSuite extends PHPUnit_Framework_TestSuite
 
         $result->addListener(new \Mockery\Adapter\Phpunit\TestListener());
 
-        return parent::run($result, $filter, $groups, $excludeGroups, $processIsolation);
+        try {
+
+            return parent::run($result, $filter, $groups, $excludeGroups, $processIsolation);
+
+        } catch (Exception $e) {
+
+            echo "\n\nCaught exception running test: " . $e->getMessage() . "\n";
+        }
     }
 }
