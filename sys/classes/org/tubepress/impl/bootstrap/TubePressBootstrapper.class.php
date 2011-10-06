@@ -68,7 +68,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
         $context     = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $envDetector = $ioc->get(org_tubepress_api_environment_Detector::_);
-        $pm          = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm          = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
 
         /* WordPress likes to keep control of the output */
         if ($envDetector->isWordPress()) {
@@ -92,7 +92,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
 
     private function _loadUserPlugins(org_tubepress_api_ioc_IocService $ioc)
     {
-        $pm         = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm         = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $fe         = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $th         = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $pluginPath = $th->getUserContentDirectory() . '/plugins';
@@ -125,7 +125,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
      */
     protected function loadSystemPlugins(org_tubepress_api_ioc_IocService $ioc)
     {
-        $pm = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
 
         /* embedded template filters */
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_EMBEDDED, $ioc->get('org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariables'));

@@ -31,7 +31,7 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePress
         $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
         $pc->shouldReceive('calculateProviderOfVideoId')->once()->with('video-id')->andReturn('video-provider');
 
-        $pm            = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm            = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $pm->shouldReceive('runFilters')->once()->with(
         org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_PLAYER,
         $mockTemplate, $this->_video, 'video-provider', 'current-player-name'

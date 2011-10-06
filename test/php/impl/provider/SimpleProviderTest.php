@@ -104,7 +104,7 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
         $factory = $ioc->get('org_tubepress_api_factory_VideoFactory');
         $factory->shouldReceive('feedToVideoArray')->once()->with('fetch-result')->andReturn($fakeVideoArray);
 
-        $pm      = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm      = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT,
             anInstanceOf('org_tubepress_api_provider_ProviderResult'), 'current-video-provider')->andReturn('final-result');
 
@@ -130,7 +130,7 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
         $pc                   = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
         $pc->shouldReceive('calculateProviderOfVideoId')->with('video-id')->andReturn('video-provider');
 
-        $pm                   = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm                   = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $pm->shouldReceive('runFilters')->with(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, anInstanceOf('org_tubepress_api_provider_ProviderResult'), 'video-provider')->once();
 
         $this->assertEquals($this->_fakeVideo, $this->_sut->getSingleVideo('video-id'));

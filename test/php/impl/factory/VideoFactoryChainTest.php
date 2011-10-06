@@ -36,7 +36,7 @@ class org_tubepress_impl_factory_VideoFactoryChainTest extends TubePressUnitTest
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $pm  = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm  = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $pm->shouldReceive('hasFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::VIDEO)->andReturn(true);
         $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::VIDEO, 'one', 'providerrr')->andReturn('modified one');
         $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::VIDEO, 'two', 'providerrr')->andReturn('modified two');

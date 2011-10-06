@@ -51,7 +51,7 @@ class org_tubepress_impl_shortcode_commands_SearchInputCommand implements org_tu
         }
 
         $th       = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
-        $pm       = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm       = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $template = $th->getTemplateInstance($this->getTemplatePath());
 
         $template = $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SEARCHINPUT, $template);

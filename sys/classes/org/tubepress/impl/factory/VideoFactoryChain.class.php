@@ -70,7 +70,7 @@ class org_tubepress_impl_factory_VideoFactoryChain implements org_tubepress_api_
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $chain        = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
-        $pm           = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm           = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
         $providerName = $pc->calculateCurrentVideoProvider();
         $context      = $chain->createContextInstance();

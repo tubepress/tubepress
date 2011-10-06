@@ -33,7 +33,7 @@ class TubePress {
     public static function registerFilter($filterPointName, $pluginInstance)
     {
         $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $pluginManager = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pluginManager = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
 
         $pluginManager->registerFilter($filterPointName, $pluginInstance);
     }

@@ -55,7 +55,7 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_t
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Starting to build thumbnail gallery %s', $galleryId);
 
         $provider      = $ioc->get('org_tubepress_api_provider_Provider');
-        $pluginManager = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pluginManager = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $ms            = $ioc->get('org_tubepress_api_message_MessageService');
         $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');

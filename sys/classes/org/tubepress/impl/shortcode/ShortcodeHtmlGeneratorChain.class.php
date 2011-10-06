@@ -48,7 +48,7 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements org_tu
 
         $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
         $chain = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
-        $pm    = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm    = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
 
         /* do a bit of logging */
         org_tubepress_impl_log_Log::log($this->getName(), 'Type of IOC container is %s', get_class($ioc));

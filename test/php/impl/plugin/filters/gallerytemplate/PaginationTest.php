@@ -45,7 +45,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PaginationTest extends T
            return "##$msg##";
         });
 
-        $this->_pluginManager = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $this->_pluginManager = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
     }
 
     public function testAjax()

@@ -58,7 +58,7 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChainTest extends TubeP
             'org_tubepress_impl_shortcode_commands_ThumbGalleryCommand',
         ))->andReturn(true);
 
-        $pm    = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm    = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $pm->shouldReceive('hasFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_ANY)->andReturn(true);
         $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_ANY, 'chain-return-value')->andReturn('final-value');
 

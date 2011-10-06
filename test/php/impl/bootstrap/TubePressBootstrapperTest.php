@@ -17,7 +17,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUn
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $pm                    = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm                    = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $expectedSystemFilters = array(
             array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_EMBEDDED    , 'org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariables'),
             array(org_tubepress_api_const_plugin_FilterPoint::HTML_GALLERY         , 'org_tubepress_impl_plugin_filters_galleryhtml_GalleryJs'),

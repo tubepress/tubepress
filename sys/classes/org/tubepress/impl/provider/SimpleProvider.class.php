@@ -54,7 +54,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         $qss     = $ioc->get('org_tubepress_api_querystring_QueryStringService');
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $pc      = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-        $pm      = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm      = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
 
         /* figure out which page we're on */
         $currentPage = $qss->getPageNum($_GET);
@@ -118,7 +118,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         $results              = $feedRetrievalService->fetch($videoUrl, $context->get(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED));
         $factory              = $ioc->get('org_tubepress_api_factory_VideoFactory');
         $videoArray           = $factory->feedToVideoArray($results);
-        $pm                   = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm                   = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $pc                   = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
 
         if (empty($videoArray)) {

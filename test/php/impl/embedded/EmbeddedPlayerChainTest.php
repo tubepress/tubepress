@@ -37,7 +37,7 @@ class org_tubepress_impl_embedded_EmbeddedPlayerChainTest extends TubePressUnitT
         ))->andReturn(true);
         $chain->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
 
-        $pm = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_EMBEDDED,
             $mockTemplate, 'videoid', 'video_provider', 'dataurl', 'implname')->andReturn($mockTemplate);
         $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_EMBEDDED,

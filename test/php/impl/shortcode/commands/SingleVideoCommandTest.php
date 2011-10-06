@@ -46,7 +46,7 @@ class org_tubepress_impl_shortcode_commands_SingleVideoCommandTest extends TubeP
 	    $provider      = $ioc->get('org_tubepress_api_provider_Provider');
 	    $provider->shouldReceive('getSingleVideo')->once()->with('video-id')->andReturn($video);
 
-	    $pluginManager = $ioc->get('org_tubepress_api_plugin_PluginManager');
+	    $pluginManager = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
 	    $pluginManager->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $mockTemplate, $video, 'video-provider')->andReturn($mockTemplate);
 	    $pluginManager->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_SINGLEVIDEO, 'template-string', $video, 'video-provider')->andReturn('final-value');
 
