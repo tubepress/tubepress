@@ -22,7 +22,7 @@ class org_tubepress_impl_plugin_filters_singlevideotemplate_CoreVariablesTest ex
         $video = \Mockery::mock('org_tubepress_api_video_Video');
         $video->shouldReceive('getId')->once()->andReturn('video-id');
 
-        $embedded       = $ioc->get('org_tubepress_api_embedded_EmbeddedHtmlGenerator');
+        $embedded       = $ioc->get(org_tubepress_api_embedded_EmbeddedHtmlGenerator::_);
         $embedded->shouldReceive('getHtml')->once()->with('video-id')->andReturn('embedded-html');
 
         $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');

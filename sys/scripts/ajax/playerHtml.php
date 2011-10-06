@@ -32,14 +32,14 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 require dirname(__FILE__) . '/../wordpress/loader.php';
 
 /* boot TubePress */
-$booter = $ioc->get('org_tubepress_api_bootstrap_Bootstrapper');
+$booter = $ioc->get(org_tubepress_api_bootstrap_Bootstrapper::_);
 $booter->boot();
 
 $context  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-$player   = $ioc->get('org_tubepress_api_player_PlayerHtmlGenerator');
-$provider = $ioc->get('org_tubepress_api_provider_Provider');
-$qss      = $ioc->get('org_tubepress_api_querystring_QueryStringService');
-$sp       = $ioc->get('org_tubepress_api_shortcode_ShortcodeParser');
+$player   = $ioc->get(org_tubepress_api_player_PlayerHtmlGenerator::_);
+$provider = $ioc->get(org_tubepress_api_provider_Provider::_);
+$qss      = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
+$sp       = $ioc->get(org_tubepress_api_shortcode_ShortcodeParser::_);
 
 $shortcode = rawurldecode($qss->getShortcode($_GET));
 $videoId   = $qss->getCustomVideo($_GET);

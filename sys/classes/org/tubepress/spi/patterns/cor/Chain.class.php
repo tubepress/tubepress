@@ -24,6 +24,8 @@
  */
 interface org_tubepress_spi_patterns_cor_Chain
 {
+    const _ = 'org_tubepress_spi_patterns_cor_Chain';
+
     /**
      * Executes the given commands with the given context.
      *

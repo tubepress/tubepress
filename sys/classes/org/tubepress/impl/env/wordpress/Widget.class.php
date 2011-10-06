@@ -48,7 +48,7 @@ class org_tubepress_impl_env_wordpress_Widget
     public static function initAction()
     {
         $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $msg       = $ioc->get('org_tubepress_api_message_MessageService');
+        $msg       = $ioc->get(org_tubepress_api_message_MessageService::_);
         $widgetOps = array('classname' => 'widget_tubepress', 'description' => $msg->_('Displays YouTube or Vimeo videos with TubePress'));
 
         wp_register_sidebar_widget('tubepress', 'TubePress', array('org_tubepress_impl_env_wordpress_Widget', 'printWidget'), $widgetOps);
@@ -68,9 +68,9 @@ class org_tubepress_impl_env_wordpress_Widget
 
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
         $context      = $iocContainer->get(org_tubepress_api_exec_ExecutionContext::_);
-        $parser       = $iocContainer->get('org_tubepress_api_shortcode_ShortcodeParser');
-        $gallery      = $iocContainer->get('org_tubepress_api_shortcode_ShortcodeHtmlGenerator');
-        $ms           = $iocContainer->get('org_tubepress_api_message_MessageService');
+        $parser       = $iocContainer->get(org_tubepress_api_shortcode_ShortcodeParser::_);
+        $gallery      = $iocContainer->get(org_tubepress_api_shortcode_ShortcodeHtmlGenerator::_);
+        $ms           = $iocContainer->get(org_tubepress_api_message_MessageService::_);
 
         /* Turn on logging if we need to */
         org_tubepress_impl_log_Log::setEnabled($context->get(org_tubepress_api_const_options_names_Advanced::DEBUG_ON), $_GET);
@@ -129,10 +129,10 @@ class org_tubepress_impl_env_wordpress_Widget
     public static function printControlPanel()
     {
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $wpsm         = $iocContainer->get('org_tubepress_api_options_StorageManager');
-        $msg          = $iocContainer->get('org_tubepress_api_message_MessageService');
+        $wpsm         = $iocContainer->get(org_tubepress_api_options_StorageManager::_);
+        $msg          = $iocContainer->get(org_tubepress_api_message_MessageService::_);
         $explorer     = $iocContainer->get(org_tubepress_api_filesystem_Explorer::_);
-        $tplBuilder   = $iocContainer->get('org_tubepress_api_template_TemplateBuilder');
+        $tplBuilder   = $iocContainer->get(org_tubepress_api_template_TemplateBuilder::_);
 
         /* are we saving? */
         if (isset($_POST[self::WIDGET_SUBMIT_TAG])) {

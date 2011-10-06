@@ -58,7 +58,7 @@ class org_tubepress_impl_options_DefaultOptionValidator implements org_tubepress
     function getProblemMessage($optionName, $candidate)
     {
         $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $odr        = $ioc->get('org_tubepress_api_options_OptionDescriptorReference');
+        $odr        = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
         $descriptor = $odr->findOneByName($optionName);
 
         if ($descriptor === null) {

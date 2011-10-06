@@ -25,6 +25,8 @@
  */
 interface org_tubepress_api_provider_ProviderCalculator
 {
+    const _ = 'org_tubepress_api_provider_ProviderCalculator';
+
     /**
      * Determine the current video provider.
      *

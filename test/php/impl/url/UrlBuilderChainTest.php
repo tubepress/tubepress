@@ -19,13 +19,13 @@ class org_tubepress_impl_url_UrlBuilderChainTest extends TubePressUnitTest {
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $pc  = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $pc  = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
         $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('providerName');
 
         $mockChainContext = new stdClass();
         $mockChainContext->returnValue = 'stuff';
 
-        $sm  = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
+        $sm  = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
         $sm->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
         $sm->shouldReceive('execute')->once()->with($mockChainContext, array(
                 'org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand',
@@ -43,13 +43,13 @@ class org_tubepress_impl_url_UrlBuilderChainTest extends TubePressUnitTest {
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $pc  = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $pc  = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
         $pc->shouldReceive('calculateProviderOfVideoId')->once()->with('video-id')->andReturn('providerName');
 
         $mockChainContext = new stdClass();
         $mockChainContext->returnValue = 'stuff';
 
-        $sm  = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
+        $sm  = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
         $sm->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
         $sm->shouldReceive('execute')->once()->with($mockChainContext, array(
                 'org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand',
@@ -67,13 +67,13 @@ class org_tubepress_impl_url_UrlBuilderChainTest extends TubePressUnitTest {
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $pc  = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $pc  = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
         $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('providerName');
 
         $mockChainContext = new stdClass();
         $mockChainContext->returnValue = 'stuff';
 
-        $sm  = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
+        $sm  = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
         $sm->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
         $sm->shouldReceive('execute')->once()->with($mockChainContext, array(
             'org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand',

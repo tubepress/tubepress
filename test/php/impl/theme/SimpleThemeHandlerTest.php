@@ -102,7 +102,7 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
         $envDetector = $ioc->get(org_tubepress_api_environment_Detector::_);
         $envDetector->shouldReceive('isWordPress')->once()->andReturn(false);
 
-        $tb = $ioc->get('org_tubepress_api_template_TemplateBuilder');
+        $tb = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
         $tb->shouldReceive('getNewTemplateInstance')->zeroOrMoreTimes()->andReturn('result');
 
         $this->assertEquals('result', $this->_sut->getTemplateInstance('gallery.tpl.php'));

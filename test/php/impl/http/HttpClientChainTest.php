@@ -22,7 +22,7 @@ class org_tubepress_impl_http_HttpClientChainTest extends TubePressUnitTest {
         $mockChainContext = \Mockery::mock('stdClass');
         $mockChainContext->returnValue = 'foo';
 
-        $chain = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
+        $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
         $chain->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
         $chain->shouldReceive('execute')->once()->with($mockChainContext, array(
             'org_tubepress_impl_http_clientimpl_commands_ExtHttpCommand',

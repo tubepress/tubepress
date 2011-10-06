@@ -19,7 +19,7 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
 
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $wpsm = $ioc->get('org_tubepress_api_options_StorageManager');
+        $wpsm = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $wpsm->shouldReceive('init')->once();
 
         $formHandler = $ioc->get(org_tubepress_api_options_ui_FormHandler::_);
@@ -42,7 +42,7 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
 
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $wpsm = $ioc->get('org_tubepress_api_options_StorageManager');
+        $wpsm = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $wpsm->shouldReceive('init')->once();
 
         $formHandler = $ioc->get(org_tubepress_api_options_ui_FormHandler::_);
@@ -65,7 +65,7 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
 
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $wpsm = $ioc->get('org_tubepress_api_options_StorageManager');
+        $wpsm = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $wpsm->shouldReceive('init')->once();
 
         $formHandler = $ioc->get(org_tubepress_api_options_ui_FormHandler::_);
@@ -86,7 +86,7 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
 
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $wpsm = $ioc->get('org_tubepress_api_options_StorageManager');
+        $wpsm = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $wpsm->shouldReceive('init')->once();
 
         $formHandler = $ioc->get(org_tubepress_api_options_ui_FormHandler::_);

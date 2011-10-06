@@ -24,6 +24,8 @@
  */
 interface org_tubepress_api_html_HeadHtmlGenerator
 {
+    const _ = 'org_tubepress_api_html_HeadHtmlGenerator';
+
     function getHeadJqueryInclusion();
 
     function getHeadInlineJs();

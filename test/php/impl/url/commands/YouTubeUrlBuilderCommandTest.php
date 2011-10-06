@@ -13,7 +13,7 @@ class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommandTest extends TubeP
 
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $pc           = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
         $pc->shouldReceive('calculateProviderOfVideoId')->zeroOrMoreTimes()->andReturn(org_tubepress_api_provider_Provider::YOUTUBE);
 
         $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);

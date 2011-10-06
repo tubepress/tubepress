@@ -48,7 +48,7 @@ class org_tubepress_impl_feed_CacheAwareFeedFetcher implements org_tubepress_api
         global $tubepress_base_url;
 
         $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $cache = $ioc->get('org_tubepress_api_cache_Cache');
+        $cache = $ioc->get(org_tubepress_api_cache_Cache::_);
 
         $result = '';
         if ($useCache) {
@@ -75,7 +75,7 @@ class org_tubepress_impl_feed_CacheAwareFeedFetcher implements org_tubepress_api
 
     private function _getFromNetwork($url, $ioc)
     {
-        $client = $ioc->get('org_tubepress_api_http_HttpClient');
+        $client = $ioc->get(org_tubepress_api_http_HttpClient::_);
         return $client->get($url);
     }
 

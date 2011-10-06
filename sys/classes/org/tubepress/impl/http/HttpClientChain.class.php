@@ -152,7 +152,7 @@ class org_tubepress_impl_http_HttpClientChain implements org_tubepress_api_http_
 
         $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
         $commands = self::_getTransportCommands($ioc);
-        $sm       = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
+        $sm       = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
         $context  = $sm->createContextInstance();
 
         $context->url  = $url;

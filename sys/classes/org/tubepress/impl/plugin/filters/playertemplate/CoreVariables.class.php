@@ -38,7 +38,7 @@ class org_tubepress_impl_plugin_filters_playertemplate_CoreVariables
     public function alter_playerTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_video_Video $video, $videoProviderName, $playerName)
     {
         $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $embedded  = $ioc->get('org_tubepress_api_embedded_EmbeddedHtmlGenerator');
+        $embedded  = $ioc->get(org_tubepress_api_embedded_EmbeddedHtmlGenerator::_);
         $context   = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $galleryId = $context->get(org_tubepress_api_const_options_names_Advanced::GALLERY_ID);
         

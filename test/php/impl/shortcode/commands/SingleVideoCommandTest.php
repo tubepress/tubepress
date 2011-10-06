@@ -38,12 +38,12 @@ class org_tubepress_impl_shortcode_commands_SingleVideoCommandTest extends TubeP
 	    $th       = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
 	    $th->shouldReceive('getTemplateInstance')->once()->with('single_video.tpl.php')->andReturn($mockTemplate);
 
-	    $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+	    $pc            = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
 	    $pc->shouldReceive('calculateProviderOfVideoId')->once()->with('video-id')->andReturn('video-provider');
 
 	    $video = \Mockery::mock('org_tubepress_api_video_Video');
 
-	    $provider      = $ioc->get('org_tubepress_api_provider_Provider');
+	    $provider      = $ioc->get(org_tubepress_api_provider_Provider::_);
 	    $provider->shouldReceive('getSingleVideo')->once()->with('video-id')->andReturn($video);
 
 	    $pluginManager = $ioc->get(org_tubepress_api_plugin_PluginManager::_);

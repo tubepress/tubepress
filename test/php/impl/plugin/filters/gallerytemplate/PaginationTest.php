@@ -37,10 +37,10 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PaginationTest extends T
         $this->_mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::PAGINATION_TOP, 'pagination-html');
         $this->_mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::PAGINATION_BOTTOM, 'pagination-html');
 
-        $this->_qss = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+        $this->_qss = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $this->_qss->shouldReceive('getFullUrl')->once()->andReturn('http://tubepress.org');
 
-        $messageService = $ioc->get('org_tubepress_api_message_MessageService');
+        $messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
         $messageService->shouldReceive('_')->atLeast()->once()->andReturnUsing(function ($msg) {
            return "##$msg##";
         });

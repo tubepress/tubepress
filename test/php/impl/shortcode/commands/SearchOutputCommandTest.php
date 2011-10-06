@@ -35,10 +35,10 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommandTest extends Tube
         $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_Output::MODE, org_tubepress_api_const_options_values_ModeValue::VIMEO_SEARCH);
         $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_Output::VIMEO_SEARCH_VALUE, "search terms");
 
-        $qss            = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+        $qss            = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $qss->shouldReceive('getSearchTerms')->once()->andReturn("(#@@!!search (())(())((terms*$$#");
 
-        $chain = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
+        $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
         $chain->shouldReceive('execute')->once()->with($mockChainContext, array('org_tubepress_impl_shortcode_commands_ThumbGalleryCommand'))->andReturn(true);
 
         $this->assertTrue($this->_sut->execute($mockChainContext));
@@ -57,10 +57,10 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommandTest extends Tube
         $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_Output::MODE, org_tubepress_api_const_options_values_ModeValue::TAG);
         $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_Output::TAG_VALUE, "search terms");
 
-        $qss            = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+        $qss            = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $qss->shouldReceive('getSearchTerms')->once()->andReturn("(#@@!!search (())(())((terms*$$#");
 
-        $chain = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
+        $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
         $chain->shouldReceive('execute')->once()->with($mockChainContext, array('org_tubepress_impl_shortcode_commands_ThumbGalleryCommand'))->andReturn(true);
 
         $this->assertTrue($this->_sut->execute($mockChainContext));
@@ -76,7 +76,7 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommandTest extends Tube
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::OUTPUT)->andReturn(org_tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY)->andReturn(true);
 
-        $qss            = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+        $qss            = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $qss->shouldReceive('getSearchTerms')->once()->andReturn("");
 
         $this->assertTrue($this->_sut->execute($mockChainContext));
@@ -93,7 +93,7 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommandTest extends Tube
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::OUTPUT)->andReturn(org_tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY)->andReturn(false);
 
-        $qss            = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+        $qss            = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $qss->shouldReceive('getSearchTerms')->once()->andReturn("");
 
         $this->assertFalse($this->_sut->execute($mockChainContext));

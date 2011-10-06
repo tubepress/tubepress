@@ -24,6 +24,8 @@
  */
 interface org_tubepress_spi_patterns_cor_Command
 {
+    const _ = 'org_tubepress_spi_patterns_cor_Command';
+
     /**
      * Execute the command.
      *

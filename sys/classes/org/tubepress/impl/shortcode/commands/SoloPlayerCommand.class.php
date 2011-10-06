@@ -57,7 +57,7 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommand implements org_tub
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Solo player detected. Checking query string for video ID.');
 
         /* see if we have a custom video ID set */
-        $qss     = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+        $qss     = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $videoId = $qss->getCustomVideo($_GET);
 
         if ($videoId == '') {
@@ -69,7 +69,7 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommand implements org_tub
         $execContext->set(org_tubepress_api_const_options_names_Output::VIDEO, $videoId);
 
         /* display the results as a thumb gallery */
-        $ioc->get('org_tubepress_spi_patterns_cor_Chain')->execute($context, array(
+        $ioc->get(org_tubepress_spi_patterns_cor_Chain::_)->execute($context, array(
             'org_tubepress_impl_shortcode_commands_SingleVideoCommand'
         ));
 
