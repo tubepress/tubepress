@@ -1,11 +1,10 @@
 <?php
 
+require_once 'AbstractWidgetTest.php';
 
-abstract class org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidgetTest extends TubePressUnitTest {
+abstract class org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidgetTest extends org_tubepress_impl_options_ui_widgets_AbstractWidgetTest {
 
 	private $_sut;
-
-	private $_messageService;
 
 	private $_optionDescriptor;
 
@@ -18,12 +17,6 @@ abstract class org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBas
 		$this->_optionDescriptor = \Mockery::mock(org_tubepress_api_options_OptionDescriptor::_);
 		$this->_optionDescriptor->shouldReceive('isApplicableToVimeo')->once()->andReturn(true);
 		$this->_optionDescriptor->shouldReceive('isApplicableToYouTube')->once()->andReturn(true);
-
-		$this->_messageService   = $ioc->get(org_tubepress_api_message_MessageService::_);
-		$this->_messageService->shouldReceive('_')->andReturnUsing( function ($key) {
-            return "<<message: $key>>";
-        });
-
 
 		$odr                     = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
 		$odr->shouldReceive('findOneByName')->once()->with('name')->andReturn($this->_optionDescriptor);

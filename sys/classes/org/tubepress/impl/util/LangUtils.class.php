@@ -30,5 +30,27 @@ class org_tubepress_impl_util_LangUtils
             && ! empty($candidate)
             && count(array_filter(array_keys($candidate),'is_string')) == count($candidate);
     }
+    
+    public static function getDefinedConstants($classOrInterface)
+    {
+        if (! class_exists($classOrInterface) && ! interface_exists($classOrInterface)) {
+            
+            return array();
+        }
+        
+        $ref       = new ReflectionClass($classOrInterface);
+        $constants = $ref->getConstants();
+        $toReturn  = array();
+        
+        foreach ($constants as $name => $value) {
+            
+            if (substr($name, 0, 1) !== '_') {
+                
+                $toReturn[] = $value;
+            }
+        }
+        
+        return $toReturn;
+    }
 }
 

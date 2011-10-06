@@ -34,6 +34,8 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_options_ui_DefaultTabsHandler extends org_tubepress_impl_options_ui_AbstractDelegatingFormHandler implements org_tubepress_api_options_ui_FormHandler
 {
+    const __ = 'org_tubepress_impl_options_ui_DefaultTabsHandler';
+
     const TEMPLATE_VAR_TABS = 'org_tubepress_impl_options_ui_DefaultTabsHandler__tabs';
 
     /**

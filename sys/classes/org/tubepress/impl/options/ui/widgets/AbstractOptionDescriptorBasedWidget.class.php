@@ -27,30 +27,27 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_options_OptionDescriptorReference',
     'org_tubepress_api_options_StorageManager',
     'org_tubepress_api_message_MessageService',
-    'org_tubepress_spi_options_ui_Widget'
+    'org_tubepress_impl_options_ui_widgets_AbstractWidget'
 ));
 
 /**
  * Base class for HTML widgets.
  */
-abstract class org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidget implements org_tubepress_spi_options_ui_Widget
+abstract class org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidget extends org_tubepress_impl_options_ui_widgets_AbstractWidget
 {
-    const TEMPLATE_VAR_NAME  = 'org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidget__name';
     const TEMPLATE_VAR_VALUE = 'org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBasedWidget__value';
 
     /** Applicable providers. */
     private $_providerArray = array();
-
-    /** Message service. */
-    private $_messageService;
 
     /** Option descriptor. */
     private $_optionDescriptor;
 
     public function __construct($name)
     {
+        parent::__construct();
+
         $ioc                     = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $this->_messageService   = $ioc->get(org_tubepress_api_message_MessageService::_);
         $odr                     = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
         $this->_optionDescriptor = $odr->findOneByName($name);
 
@@ -75,14 +72,14 @@ abstract class org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBas
         return $this->_providerArray;
     }
 
-    public function getTitle()
+    public function getRawTitle()
     {
-        return $this->_messageService->_($this->_optionDescriptor->getLabel());
+        return $this->_optionDescriptor->getLabel();
     }
 
-    public function getDescription()
+    public function getRawDescription()
     {
-        return $this->_messageService->_($this->_optionDescriptor->getDescription());
+        return $this->_optionDescriptor->getDescription();
     }
 
     public function isProOnly()
@@ -161,10 +158,5 @@ abstract class org_tubepress_impl_options_ui_widgets_AbstractOptionDescriptorBas
     protected function getOptionDescriptor()
     {
         return $this->_optionDescriptor;
-    }
-
-    protected function getMessageService()
-    {
-        return $this->_messageService;
     }
 }

@@ -10,7 +10,7 @@ require_once 'ui/widgets/CheckboxWidgetTest.php';
 require_once 'ui/widgets/ColorWidgetTest.php';
 require_once 'ui/widgets/DropdownWidgetTest.php';
 require_once 'ui/widgets/ThemeWidgetTest.php';
-require_once 'ui/widgets/MultiSelectWidgetTest.php';
+require_once 'ui/widgets/MetaMultiSelectInputTest.php';
 require_once 'ui/tabs/AppearanceTabTest.php';
 
 class org_tubepress_impl_options_OptionsTestSuite
@@ -28,7 +28,7 @@ class org_tubepress_impl_options_OptionsTestSuite
     		'org_tubepress_impl_options_ui_widgets_ColorWidgetTest',
 			'org_tubepress_impl_options_ui_widgets_DropdownWidgetTest',
 			'org_tubepress_impl_options_ui_widgets_ThemeWidgetTest',
-    		'org_tubepress_impl_options_ui_widgets_MultiSelectWidgetTest',
+    		'org_tubepress_impl_options_ui_widgets_MetaMultiSelectInputTest',
     		'org_tubepress_impl_options_ui_tabs_AppearanceTabTest',
 		));
 	}

@@ -20,11 +20,10 @@
  */
 
 /**
- * Generates HTML.
+ * WordPress option names for the plugin.
  */
-interface org_tubepress_spi_html_HtmlGenerator
+class org_tubepress_api_const_options_names_WordPress
 {
-    const _ = 'org_tubepress_spi_html_HtmlGenerator';
-
-    function getHtml();
+    const SHOW_VIMEO_OPTIONS   = 'showVimeoOptions';
+    const SHOW_YOUTUBE_OPTIONS = 'showYouTubeOptions';
 }

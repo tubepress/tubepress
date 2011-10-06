@@ -27,25 +27,22 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 /**
  * Displays a multi-select drop-down input.
  */
-class org_tubepress_impl_options_ui_widgets_MultiSelectInput implements org_tubepress_spi_options_ui_Widget
+abstract class org_tubepress_impl_options_ui_widgets_AbstractMultiSelectInput extends org_tubepress_impl_options_ui_widgets_AbstractWidget
 {
-    const TEMPLATE_VAR_NAME = 'org_tubepress_impl_options_ui_widgets_MultiSelectInput__name';
+    const TEMPLATE_VAR_DESCRIPTORS = 'org_tubepress_impl_options_ui_widgets_AbstractMultiSelectInput__descriptors';
 
-    const TEMPLATE_VAR_DESCRIPTORS = 'org_tubepress_impl_options_ui_widgets_MultiSelectInput__descriptors';
-
-    const TEMPLATE_VAR_CURRENTVALUES = 'org_tubepress_impl_options_ui_widgets_MultiSelectInput__currentValues';
+    const TEMPLATE_VAR_CURRENTVALUES = 'org_tubepress_impl_options_ui_widgets_AbstractMultiSelectInput__currentValues';
 
     /** Array of option descriptors. */
     private $_optionDescriptors;
 
-    /** Label. */
-    private $_label;
+    /** Name. */
+    private $_name;
 
-    /** Description. */
-    private $_description;
-
-    public function __construct($optionDescriptors, $label, $description = '')
+    public function __construct($optionDescriptors, $name, $description = '')
     {
+        parent::__construct();
+
         if (! is_array($optionDescriptors)) {
 
             throw new Exception('Option descriptors must be an array');
@@ -64,55 +61,31 @@ class org_tubepress_impl_options_ui_widgets_MultiSelectInput implements org_tube
             }
         }
 
-        if (! is_string($label)) {
+        if (! is_string($name)) {
 
             throw new Exception('Label must be a string');
         }
 
         $this->_optionDescriptors = $optionDescriptors;
-        $this->_label             = $label;
-        $this->_description       = $description;
-    }
-
-    function getTitle()
-    {
-        return $this->_label;
-    }
-
-    function getDescription()
-    {
-        return $this->_description;
-    }
-
-    function isProOnly()
-    {
-        return false;
-    }
-
-    function getArrayOfApplicableProviderNames()
-    {
-        return array(
-
-            org_tubepress_api_provider_Provider::YOUTUBE,
-            org_tubepress_api_provider_Provider::VIMEO,
-        );
+        $this->_name              = $name;
     }
 
     function onSubmit($postVars)
     {
-        if (! array_key_exists($this->_label, $postVars)) {
+        if (! array_key_exists($this->_name, $postVars)) {
 
             /* not submitted. */
             return;
         }
 
-        $vals = $postVars[$this->_label];
+        $vals = $postVars[$this->_name];
 
         if (! is_array($vals)) {
 
             /* this should never happen. */
             return;
         }
+
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
         $sm   = $ioc->get(org_tubepress_api_options_StorageManager::_);
 
@@ -139,11 +112,24 @@ class org_tubepress_impl_options_ui_widgets_MultiSelectInput implements org_tube
                 $currentValues[] = $optionDescriptor->getName();
             }
         }
-
-        $template->setVariable(self::TEMPLATE_VAR_NAME, $this->_label);
+        $template->setVariable(self::TEMPLATE_VAR_NAME, $this->_name);
         $template->setVariable(self::TEMPLATE_VAR_DESCRIPTORS, $this->_optionDescriptors);
         $template->setVariable(self::TEMPLATE_VAR_CURRENTVALUES, $currentValues);
 
         return $template->toString();
+    }
+
+    function isProOnly()
+    {
+        return false;
+    }
+
+    function getArrayOfApplicableProviderNames()
+    {
+        return array(
+
+        org_tubepress_api_provider_Provider::YOUTUBE,
+        org_tubepress_api_provider_Provider::VIMEO,
+        );
     }
 }

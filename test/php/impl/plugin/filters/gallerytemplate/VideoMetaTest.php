@@ -16,18 +16,27 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_VideoMetaTest extends Tu
 	{
 	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-	    $messageService = $ioc->get('org_tubepress_api_message_MessageService');
+	    $messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
 	    $messageService->shouldReceive('_')->atLeast()->once()->andReturnUsing(function ($msg) {
 	          return "##$msg##";
 	    });
 
-	    $metaNames  = org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::META);
+	    $metaNames  = org_tubepress_impl_util_LangUtils::getDefinedConstants(org_tubepress_api_const_options_names_Meta::_);
         $shouldShow = array();
         $labels     = array();
 
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+        
+        $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
+        $odr->shouldReceive('findOneByName')->times(13)->andReturnUsing(function ($m) {
+
+             $mock = \Mockery::mock(org_tubepress_api_options_OptionDescriptor::_);
+             $mock->shouldReceive('getLabel')->once()->andReturn('label-' . $m);
+             return $mock;
+        });
 
         foreach ($metaNames as $metaName) {
+            
             $shouldShow[$metaName] = "<<value of $metaName>>";
             $labels[$metaName]     = '##video-' . $metaName . '##';
 
@@ -36,7 +45,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_VideoMetaTest extends Tu
             });
         }
 
-	    $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
+        $mockTemplate = \Mockery::mock(org_tubepress_api_template_Template::_);
 	    $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::META_SHOULD_SHOW, $shouldShow);
         $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::META_LABELS, $labels);
 

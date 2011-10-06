@@ -1,6 +1,6 @@
 <?php
 
-require_once BASE . '/sys/classes/org/tubepress/impl/options/ui/widgets/MultiSelectInput.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/options/ui/widgets/AbstractMultiSelectInput.class.php';
 require_once BASE . '/sys/classes/org/tubepress/api/options/OptionDescriptor.class.php';
 
 class org_tubepress_impl_template_templates_optionspage_widgets_MultiSelectTemplateTest extends TubePressUnitTest {
@@ -20,9 +20,9 @@ class org_tubepress_impl_template_templates_optionspage_widgets_MultiSelectTempl
 
         $descriptors = array($one, $two, $three);
 
-        ${org_tubepress_impl_options_ui_widgets_MultiSelectInput::TEMPLATE_VAR_NAME} = 'some-name';
-        ${org_tubepress_impl_options_ui_widgets_MultiSelectInput::TEMPLATE_VAR_DESCRIPTORS} = $descriptors;
-        ${org_tubepress_impl_options_ui_widgets_MultiSelectInput::TEMPLATE_VAR_CURRENTVALUES} = array('crack', 'name-one', 'pittsburgh', 'steelers', 'name-three');
+        ${org_tubepress_impl_options_ui_widgets_AbstractMultiSelectInput::TEMPLATE_VAR_NAME} = 'some-name';
+        ${org_tubepress_impl_options_ui_widgets_AbstractMultiSelectInput::TEMPLATE_VAR_DESCRIPTORS} = $descriptors;
+        ${org_tubepress_impl_options_ui_widgets_AbstractMultiSelectInput::TEMPLATE_VAR_CURRENTVALUES} = array('crack', 'name-one', 'pittsburgh', 'steelers', 'name-three');
 
         ob_start();
         include BASE . '/sys/ui/templates/options_page/widgets/multiselect.tpl.php';
@@ -35,7 +35,7 @@ class org_tubepress_impl_template_templates_optionspage_widgets_MultiSelectTempl
     private function _expected()
     {
         return <<<EOT
-<select name="some-name">
+<select name="some-name[]">
 	<option value="name-one" selected="selected">label-one</option>
 	<option value="name-two" >label-two</option>
 	<option value="name-three" selected="selected">label-three</option>
