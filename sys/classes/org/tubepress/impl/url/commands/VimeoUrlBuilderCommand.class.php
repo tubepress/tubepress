@@ -91,7 +91,7 @@ class org_tubepress_impl_url_commands_VimeoUrlBuilderCommand extends org_tubepre
     {
         $params       = array();
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $mode         = $execContext->get(org_tubepress_api_const_options_names_Output::MODE);
         
         $this->_verifyKeyAndSecretExists($execContext);
@@ -180,7 +180,7 @@ class org_tubepress_impl_url_commands_VimeoUrlBuilderCommand extends org_tubepre
     protected function buildSingleVideoUrl($id)
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
         $providerName = $pc->calculateProviderOfVideoId($id);
 

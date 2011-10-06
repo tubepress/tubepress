@@ -16,7 +16,7 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommandTest extends TubePr
 	{
 	    $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-	    $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+	    $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 	    $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME)->andReturn(org_tubepress_api_const_options_values_PlayerValue::SHADOWBOX);
 
 	    $this->assertFalse($this->_sut->execute(new stdClass()));
@@ -28,7 +28,7 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommandTest extends TubePr
 
 	    $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-	    $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+	    $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 	    $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME)->andReturn(org_tubepress_api_const_options_values_PlayerValue::SOLO);
 
 	    $qss     = $ioc->get('org_tubepress_api_querystring_QueryStringService');
@@ -43,7 +43,7 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommandTest extends TubePr
 
 	    $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-	    $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+	    $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 	    $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME)->andReturn(org_tubepress_api_const_options_values_PlayerValue::SOLO);
         $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_Output::VIDEO, 'video-id');
 

@@ -48,7 +48,7 @@ abstract class org_tubepress_impl_embedded_commands_AbstractEmbeddedCommand impl
         $providerName = $context->providerName;
         $videoId      = $context->videoId;
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
         if (!$this->_canHandle($providerName, $videoId, $ioc, $execContext)) {
             return false;

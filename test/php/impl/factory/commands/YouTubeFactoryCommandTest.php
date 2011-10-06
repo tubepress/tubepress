@@ -21,7 +21,7 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommandTest extends Tube
 
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::DESC_LIMIT)->andReturn(0);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::RANDOM_THUMBS)->andReturn(false);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::RELATIVE_DATES)->andReturn(false);
@@ -58,7 +58,7 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommandTest extends Tube
 
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::DESC_LIMIT)->andReturn(0);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::RANDOM_THUMBS)->andReturn(false);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::RELATIVE_DATES)->andReturn(false);

@@ -39,7 +39,7 @@ class org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariables
     public function alter_searchInputTemplate(org_tubepress_api_template_Template $template)
     {
         $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context    = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context    = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $qss        = $ioc->get('org_tubepress_api_querystring_QueryStringService');
         $ms         = $ioc->get('org_tubepress_api_message_MessageService');
         $resultsUrl = $context->get(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL);

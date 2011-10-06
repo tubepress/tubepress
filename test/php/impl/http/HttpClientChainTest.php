@@ -12,7 +12,7 @@ class org_tubepress_impl_http_HttpClientChainTest extends TubePressUnitTest {
 
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_EXTHTTP)->andReturn(false);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_CURL)->andReturn(false);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FOPEN)->andReturn(false);

@@ -19,7 +19,7 @@ class org_tubepress_impl_plugin_filters_playertemplate_CoreVariablesTest extends
         $video = \Mockery::mock('org_tubepress_api_video_Video');
         $video->shouldReceive('getId')->once()->andReturn('video-id');
 
-        $context   = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context   = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('gallery-id');
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH)->andReturn(668);
 

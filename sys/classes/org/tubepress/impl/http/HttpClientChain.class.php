@@ -170,7 +170,7 @@ class org_tubepress_impl_http_HttpClientChain implements org_tubepress_api_http_
     private static function _getTransportCommands(org_tubepress_api_ioc_IocService $ioc)
     {
         $result  = array();
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
         if (!$context->get(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_EXTHTTP)) {
             $result[] = 'org_tubepress_impl_http_clientimpl_commands_ExtHttpCommand';

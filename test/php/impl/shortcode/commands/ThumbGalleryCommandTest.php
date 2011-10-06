@@ -30,7 +30,7 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 	    $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
 	    $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('provider-name');
 
-	    $execContext   = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+	    $execContext   = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 	    $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('');
 	    $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID, integerValue());
 
@@ -65,7 +65,7 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 	    $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
 	    $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('provider-name');
 
-	    $execContext   = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+	    $execContext   = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 	    $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('gallery-id');
 
 	    $mockFeedResult = \Mockery::mock('org_tubepress_api_provider_ProviderResult');
@@ -101,7 +101,7 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 	    $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
 	    $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('provider-name');
 
-	    $execContext   = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+	    $execContext   = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 	    $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('gallery-id');
 
 	    $mockFeedResult = \Mockery::mock('org_tubepress_api_provider_ProviderResult');

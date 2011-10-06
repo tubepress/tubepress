@@ -25,7 +25,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PaginationTest extends T
 
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $this->_execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $this->_execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $this->_execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::PAGINATE_ABOVE)->andReturn(true);
         $this->_execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::PAGINATE_BELOW)->andReturn(true);
         $this->_execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE)->andReturn(4);

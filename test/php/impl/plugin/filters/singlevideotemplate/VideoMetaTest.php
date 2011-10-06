@@ -25,7 +25,7 @@ class org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMetaTest extend
         $shouldShow = array();
         $labels     = array();
 
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
         foreach ($metaNames as $metaName) {
             $shouldShow[$metaName] = "<<value of $metaName>>";

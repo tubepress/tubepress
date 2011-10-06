@@ -40,7 +40,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
     public function alter_galleryTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_provider_ProviderResult $providerResult, $page, $providerName)
     {
         $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context       = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context       = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $pm            = $ioc->get('org_tubepress_api_plugin_PluginManager');
         $pagination    = $this->_getHtml($providerResult->getEffectiveTotalResultCount());
         $pagination    = $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_PAGINATION, $pagination);
@@ -65,7 +65,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
     private function _getHtml($vidCount)
     {
         $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context        = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context        = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $messageService = $ioc->get('org_tubepress_api_message_MessageService');
         $qss            = $ioc->get('org_tubepress_api_querystring_QueryStringService');
         

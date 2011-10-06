@@ -52,7 +52,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
 
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
         $qss     = $ioc->get('org_tubepress_api_querystring_QueryStringService');
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $pc      = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
         $pm      = $ioc->get('org_tubepress_api_plugin_PluginManager');
 
@@ -114,7 +114,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'URL to fetch is %s', $videoUrl);
 
         $feedRetrievalService = $ioc->get('org_tubepress_api_feed_FeedFetcher');
-        $context              = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context              = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $results              = $feedRetrievalService->fetch($videoUrl, $context->get(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED));
         $factory              = $ioc->get('org_tubepress_api_factory_VideoFactory');
         $videoArray           = $factory->feedToVideoArray($results);

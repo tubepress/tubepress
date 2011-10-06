@@ -43,7 +43,7 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGenerator implements org_tubepr
     public function getHtml(org_tubepress_api_video_Video $vid)
     {
         $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context       = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context       = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $pm            = $ioc->get('org_tubepress_api_plugin_PluginManager');
         $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');

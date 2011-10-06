@@ -19,7 +19,7 @@ class org_tubepress_impl_url_commands_VimeoUrlBuilderCommandTest extends TubePre
         $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
         $pc->shouldReceive('calculateProviderOfVideoId')->zeroOrMoreTimes()->andReturn(org_tubepress_api_provider_Provider::VIMEO);
 
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->zeroOrMoreTimes()->with(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE)->andReturn(20);
     }
 
@@ -234,7 +234,7 @@ class org_tubepress_impl_url_commands_VimeoUrlBuilderCommandTest extends TubePre
     private function _expectOptions($opts)
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
         foreach ($opts as $name => $value) {
             $execContext->shouldReceive('get')->zeroOrMoreTimes()->with($name)->andReturn($value);

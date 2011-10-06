@@ -66,7 +66,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
     private function _doBoot()
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context     = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context     = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $envDetector = $ioc->get('org_tubepress_api_environment_Detector');
         $pm          = $ioc->get('org_tubepress_api_plugin_PluginManager');
 

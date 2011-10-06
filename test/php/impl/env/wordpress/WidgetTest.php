@@ -43,7 +43,7 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest {
     function testPrintWidget()
     {
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context      = $iocContainer->get('org_tubepress_api_exec_ExecutionContext');
+        $context      = $iocContainer->get(org_tubepress_api_exec_ExecutionContext::_);
         $parser       = $iocContainer->get('org_tubepress_api_shortcode_ShortcodeParser');
         $gallery      = $iocContainer->get('org_tubepress_api_shortcode_ShortcodeHtmlGenerator');
         $ms           = $iocContainer->get('org_tubepress_api_message_MessageService');

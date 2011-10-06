@@ -18,7 +18,7 @@ class org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariablesTest exten
 
 	    $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-	    $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+	    $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::FULLSCREEN)->andReturn(true);
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR)->andReturn('999999');
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT)->andReturn('FFFFFF');

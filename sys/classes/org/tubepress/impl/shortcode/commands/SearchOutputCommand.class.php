@@ -42,7 +42,7 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_t
     public function execute($context)
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
         /* not configured at all for search results */
         if ($execContext->get(org_tubepress_api_const_options_names_Output::OUTPUT) !== org_tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS) {

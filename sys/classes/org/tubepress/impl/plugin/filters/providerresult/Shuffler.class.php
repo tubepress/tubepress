@@ -38,7 +38,7 @@ class org_tubepress_impl_plugin_filters_providerresult_Shuffler
 	{
 		$videos  = $providerResult->getVideoArray();
 		$ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-		$context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+		$context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
 	    /* shuffle if we need to */
         if ($context->get(org_tubepress_api_const_options_names_Display::ORDER_BY) == org_tubepress_api_const_options_values_OrderValue::RANDOM) {

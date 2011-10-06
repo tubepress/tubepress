@@ -16,7 +16,7 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommandTest extends Tube
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::OUTPUT)->andReturn(org_tubepress_api_const_options_values_OutputValue::SEARCH_INPUT);
 
         $this->assertFalse($this->_sut->execute(new stdClass()));
@@ -28,7 +28,7 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommandTest extends Tube
 
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::OUTPUT)->andReturn(org_tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY)->andReturn(true);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::SEARCH_PROVIDER)->andReturn(org_tubepress_api_provider_Provider::VIMEO);
@@ -50,7 +50,7 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommandTest extends Tube
 
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::OUTPUT)->andReturn(org_tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY)->andReturn(true);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::SEARCH_PROVIDER)->andReturn(org_tubepress_api_provider_Provider::YOUTUBE);
@@ -72,7 +72,7 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommandTest extends Tube
 
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::OUTPUT)->andReturn(org_tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY)->andReturn(true);
 
@@ -89,7 +89,7 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommandTest extends Tube
 
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::OUTPUT)->andReturn(org_tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY)->andReturn(false);
 
