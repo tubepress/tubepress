@@ -58,11 +58,11 @@ class org_tubepress_api_http_HttpRequestTest extends TubePressUnitTest {
 
     function testSetUrlUrl()
     {
-        $url = new org_tubepress_api_url_Url('http://tubepress.org/foo.html');
+        $url = new org_tubepress_api_http_Url('http://tubepress.org/foo.html');
         $this->_sut->setUrl($url);
         $url = $this->_sut->getUrl();
 
-        $this->assertTrue($url instanceof org_tubepress_api_url_Url);
+        $this->assertTrue($url instanceof org_tubepress_api_http_Url);
         $this->assertEquals('http://tubepress.org/foo.html', $url->toString());
     }
 
@@ -79,7 +79,7 @@ class org_tubepress_api_http_HttpRequestTest extends TubePressUnitTest {
         $this->_sut->setUrl('http://tubepress.org/foo.html');
         $url = $this->_sut->getUrl();
 
-        $this->assertTrue($url instanceof org_tubepress_api_url_Url);
+        $this->assertTrue($url instanceof org_tubepress_api_http_Url);
         $this->assertEquals('http://tubepress.org/foo.html', $url->toString());
     }
 
