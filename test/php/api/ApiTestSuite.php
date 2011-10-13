@@ -3,6 +3,7 @@ require_once 'const/ConstantsTestSuite.php';
 require_once 'provider/ProviderApiTestSuite.php';
 require_once 'url/UrlApiTestSuite.php';
 require_once 'video/VideoApiTestSuite.php';
+require_once 'http/HttpApiTestSuite.php';
 
 class org_tubepress_api_ApiTestSuite
 {
@@ -14,6 +15,7 @@ class org_tubepress_api_ApiTestSuite
 		$suite->addTest(org_tubepress_api_provider_ProviderApiTestSuite::suite());
 		$suite->addTest(org_tubepress_api_url_UrlApiTestSuite::suite());
 		$suite->addTest(org_tubepress_api_video_VideoApiTestSuite::suite());
+		$suite->addTest(org_tubepress_api_http_HttpApiTestSuite::suite());
 
 		return $suite;
 	}
