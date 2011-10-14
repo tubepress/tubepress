@@ -34,6 +34,7 @@ class org_tubepress_api_http_HttpEntity
 
     private $_chunked = false;
 
+    
     /**
      * Get the content of this entity.
      *
@@ -77,17 +78,19 @@ class org_tubepress_api_http_HttpEntity
      */
     public function setContentLength($length)
     {
-        if (! is_int($length)) {
-
+        if (! is_numeric($length)) {
+            
             throw new Exception('Content-Length must be an integer');
         }
+
+        $length = intval($length);
 
         if ($length < 0) {
 
             throw new Exception('Content-Length cannot be neegative');
         }
 
-        return $length;
+        return $this->_contentLength = $length;
     }
 
     /**
