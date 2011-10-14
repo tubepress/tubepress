@@ -80,10 +80,12 @@ class org_tubepress_api_http_HttpResponse extends org_tubepress_api_http_HttpMes
      */
     function setStatusCode($code)
     {
-        if (! is_int($code)) {
+        if (! is_numeric($code)) {
 
             throw new Exception('Status code must be an integer (' . $code . ')');
         }
+
+        $code = intval($code);
 
         if ($code < 100 || $code > 599) {
 
