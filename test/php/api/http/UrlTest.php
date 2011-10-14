@@ -11,6 +11,29 @@ class org_tubepress_api_http_UrlTest extends TubePressUnitTest {
 	    $this->_sut = new org_tubepress_api_http_Url('http://user@tubepress.org:994/something/index.php?one=two+four&three=four#fragment/one/three?poo');
 	}
 
+	function testSetHostIpv4()
+	{
+	    $this->_sut->setHostIpv4('123.123.123.123');
+	    $this->assertEquals('123.123.123.123', $this->_sut->getHost());
+	    $this->assertEquals('http://user@123.123.123.123:994/something/index.php?one=two+four&three=four#fragment/one/three?poo', $this->_sut->toString());
+	}
+
+	/**
+	* @expectedException Exception
+	*/
+	function testSetBadIpv4()
+	{
+	    $this->_sut->setHostIpv4('123::');
+	}
+
+	/**
+	* @expectedException Exception
+	*/
+	function testSetHostBadHostName()
+	{
+	    $this->_sut->setHost('#*&$(*&#$(&*');
+	}
+
 	function testSetQueryVariables()
 	{
 	    $arr = array('orange' => null, 'bear' => 'claws are good');
@@ -219,7 +242,7 @@ class org_tubepress_api_http_UrlTest extends TubePressUnitTest {
 
 	function testIpv6Setter()
 	{
-	    $url = new org_tubepress_api_http_Url("http://[123::]/foo/bar?something#nine/two");
+	    $url = new org_tubepress_api_http_Url("http://[123::]:997/foo/bar?something#nine/two");
 	    $this->assertEquals('123::', $url->getHost());
 
 	    $ipv6 = $this->_getIpv6Cases();
@@ -241,6 +264,11 @@ class org_tubepress_api_http_UrlTest extends TubePressUnitTest {
 	{
         $url->setHostIpv6($ip);
         $this->assertTrue($url->getHost() === strtolower(trim($ip)), "Expected '$ip' but got '" . $url->getHost() . "'");
+        $this->assertEquals('nine/two', $url->getFragment());
+        $this->assertEquals('something', $url->getQuery());
+        $this->assertEquals('/foo/bar', $url->getPath());
+        $this->assertEquals('http', $url->getScheme());
+        $this->assertEquals(997, $url->getPort());
 	}
 
 	private function _testSetInvalidIpv6($url, $ip)
@@ -264,6 +292,11 @@ class org_tubepress_api_http_UrlTest extends TubePressUnitTest {
         $url = new org_tubepress_api_http_Url("http://[$ip]:89/foo/bar?fickle#niner/eight");
 
         $this->assertEquals(strtolower(trim($ip)), $url->getHost());
+        $this->assertEquals('niner/eight', $url->getFragment());
+        $this->assertEquals('fickle', $url->getQuery());
+        $this->assertEquals('/foo/bar', $url->getPath());
+        $this->assertEquals('http', $url->getScheme());
+        $this->assertEquals(89, $url->getPort());
 	}
 
 	private function _testConstructInvalidIpv6($ip)

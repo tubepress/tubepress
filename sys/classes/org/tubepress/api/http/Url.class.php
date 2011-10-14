@@ -50,6 +50,10 @@ class org_tubepress_api_http_Url
     /** http://stackoverflow.com/questions/1418423/the-hostname-regex/1420225#1420225 */
     private static $_regex_hostname = '(?=.{1,255}$)[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}[0-9A-Za-z])?(?:\.[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}[0-9A-Za-z])?)*\.?';
 
+    private static $_regex_path_segment = '(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)+';
+
+    private static $_regex_path_character = '(?:[a-z0-9-._~!$&\'()*+,;=:@\/]|%[0-9a-f]{2})';
+
     /** begins with "/" but not "//" */
     private static $_regex_path_absolute = '\/(?:(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)+(?:\/(?:(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)*))*)*';
 
@@ -85,12 +89,7 @@ class org_tubepress_api_http_Url
         $regex .=   "(?:\[(" . self::$_regex_ipv6_dartware . ")\])?";                        //IPv6
         $regex .=   "((?:" . self::$_regex_hostname . ")|(?:" . self::$_regex_ipv4 . "))?";  //IPv4
         $regex .=   '(?::(\d*))?';                                                           //port
-        $regex .=   '(' . self::$_regex_path_absolute . ')?';                                //path
-        $regex .=   "|";
-        $regex .=   "(/?";
-        $regex .=     "(?:[a-z0-9-._~!$&'()*+,;=:@]|%[0-9a-f]{2})+";
-        $regex .=     "(?:[a-z0-9-._~!$&'()*+,;=:@\/]|%[0-9a-f]{2})*";
-        $regex .=    ")?";
+        $regex .=   '(' . self::$_regex_path_absolute . ')?|(/?' . self::$_regex_path_segment . self::$_regex_path_character . "*)?";
         $regex .= ")";
         $regex .= "(?:\?(" . self::$_regex_query_or_fragment . "))?";
         $regex .= "(?:#(" . self::$_regex_query_or_fragment . "))?";
