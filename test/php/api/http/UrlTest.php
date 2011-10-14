@@ -202,7 +202,7 @@ class org_tubepress_api_http_UrlTest extends TubePressUnitTest {
 
 	function testIpv6Constructors()
 	{
-	    $ipv6 = $this->_getEasyIpv6Cases();
+	    $ipv6 = $this->_getIpv6Cases();
 
 	    foreach ($ipv6 as $case) {
 
@@ -222,7 +222,7 @@ class org_tubepress_api_http_UrlTest extends TubePressUnitTest {
 	    $url = new org_tubepress_api_http_Url("http://[123::]/foo/bar?something#nine/two");
 	    $this->assertEquals('123::', $url->getHost());
 
-	    $ipv6 = $this->_getDifficultIpv6Cases();
+	    $ipv6 = $this->_getIpv6Cases();
 
 	    foreach ($ipv6 as $case) {
 
@@ -239,7 +239,7 @@ class org_tubepress_api_http_UrlTest extends TubePressUnitTest {
 
 	private function _testSetValidIpv6($url, $ip)
 	{
-        $url->setHostIp($ip);
+        $url->setHostIpv6($ip);
         $this->assertTrue($url->getHost() === strtolower(trim($ip)), "Expected '$ip' but got '" . $url->getHost() . "'");
 	}
 
@@ -249,7 +249,7 @@ class org_tubepress_api_http_UrlTest extends TubePressUnitTest {
 
 	    try {
 
-	        $url->setHostIp($ip);
+	        $url->setHostIpv6($ip);
 
 	    } catch (Exception $e) {
 
@@ -263,7 +263,7 @@ class org_tubepress_api_http_UrlTest extends TubePressUnitTest {
 	{
         $url = new org_tubepress_api_http_Url("http://[$ip]:89/foo/bar?fickle#niner/eight");
 
-        $this->assertEquals(strtolower($ip), $url->getHost());
+        $this->assertEquals(strtolower(trim($ip)), $url->getHost());
 	}
 
 	private function _testConstructInvalidIpv6($ip)
@@ -302,7 +302,7 @@ class org_tubepress_api_http_UrlTest extends TubePressUnitTest {
 //         $this->assertEquals('http://user@tubepress.org:994/something/index.php?one=two+four&nine=ten#fragment/one/three?poo', $this->_sut->toString());
 //     }
 
-    private function _getEasyIpv6Cases()
+    private function _getIpv6Cases()
     {
         //https://github.com/strattg/ipv6-address-test/blob/master/Tests/Ipv6TestCase.php
 
@@ -680,14 +680,9 @@ class org_tubepress_api_http_UrlTest extends TubePressUnitTest {
             array('::4444:5555:6666:7777:8888:', false),
             array('1111::3333:4444:5555:6666:7777:8888:', false),
             array('::3333:4444:5555:6666:7777:8888:', false),
-            array('::2222:3333:4444:5555:6666:7777:8888:', false)
-        );
-    }
+            array('::2222:3333:4444:5555:6666:7777:8888:', false),
 
-    private function _getDifficultIpv6Cases()
-    {
-        return array(
-
+            //DIFFICULT CASES
             array('::ffff:192.168.1.26', true),
             array(' 2001:0000:1234:0000:0000:C1C0:ABCD:0876', true), // leading space
             array(' 2001:0000:1234:0000:0000:C1C0:ABCD:0876  ', true), // leading and trailing space

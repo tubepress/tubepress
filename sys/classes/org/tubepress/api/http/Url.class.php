@@ -29,36 +29,32 @@
  */
 class org_tubepress_api_http_Url
 {
-    private static $_partialregex_unreserved = '\w0-9\-\.\~';
-
-    private static $_partialregex_pct_encoded = '%[A-Fa-f0-9]{2}';
-
-    private static $_partialregex_sub_delims = '!\$&\'\(\)\*\+,;=';
-
-    private static $_partialregex_gen_delims = ':\/\?#\[\]@';
-
-    private static $_partialregex_pchar = '(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)';
+    //unreserved = '\w0-9\-\.\~';
+    //pct_encoded = '%[A-Fa-f0-9]{2}';
+    //sub_delims = '!\$&\'\(\)\*\+,;=';
+    //gen_delims = ':\/\?#\[\]@';
+    //pchar = '(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)';
 
     /** scheme        = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." ) */
-    private static $_regex_scheme = '/^[a-z][a-z0-9\+\-\.]*$/';
+    private static $_regex_scheme = '[a-z][a-z0-9\+\-\.]*';
 
     /** userinfo      = *( unreserved / pct-encoded / sub-delims ) */
-    private static $_regex_user = '/^(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*)*$/';
+    private static $_regex_user = '(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*)*';
 
     /** http://forums.intermapper.com/viewtopic.php?t=452 */
-    private static $_regex_ipv6_dartware = '/^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/';
+    private static $_regex_ipv6_dartware = '\s*(?:(?:(?:[0-9A-Fa-f]{1,4}:){7}(?:[0-9A-Fa-f]{1,4}|:))|(?:(?:[0-9A-Fa-f]{1,4}:){6}(?::[0-9A-Fa-f]{1,4}|(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(?:(?:[0-9A-Fa-f]{1,4}:){5}(?:(?:(?::[0-9A-Fa-f]{1,4}){1,2})|:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(?:(?:[0-9A-Fa-f]{1,4}:){4}(?:(?:(?::[0-9A-Fa-f]{1,4}){1,3})|(?:(?::[0-9A-Fa-f]{1,4})?:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9A-Fa-f]{1,4}:){3}(?:(?:(?::[0-9A-Fa-f]{1,4}){1,4})|(?:(?::[0-9A-Fa-f]{1,4}){0,2}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9A-Fa-f]{1,4}:){2}(?:(?:(?::[0-9A-Fa-f]{1,4}){1,5})|(?:(?::[0-9A-Fa-f]{1,4}){0,3}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9A-Fa-f]{1,4}:){1}(?:(?:(?::[0-9A-Fa-f]{1,4}){1,6})|(?:(?::[0-9A-Fa-f]{1,4}){0,4}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?::(?:(?:(?::[0-9A-Fa-f]{1,4}){1,7})|(?:(?::[0-9A-Fa-f]{1,4}){0,5}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(?:%.+)?\s*';
 
     /** http://stackoverflow.com/questions/5284147/validating-ipv4-addresses-with-regexp/5284410#5284410 */
-    private static $_regex_ipv4 = '/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}$/';
+    private static $_regex_ipv4 = '(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(?:\.|$)){4}';
 
-    /** http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address/106223#106223 */
-    private static $_regex_hostname = '/(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$/';
+    /** http://stackoverflow.com/questions/1418423/the-hostname-regex/1420225#1420225 */
+    private static $_regex_hostname = '(?=.{1,255}$)[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}[0-9A-Za-z])?(?:\.[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}[0-9A-Za-z])?)*\.?';
 
     /** begins with "/" but not "//" */
-    private static $_regex_path_absolute = '/^\/(?:(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)+(?:\/(?:(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)*))*)*$/';
+    private static $_regex_path_absolute = '\/(?:(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)+(?:\/(?:(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)*))*)*';
 
     /** query         = *( pchar / "/" / "?" ) */
-    private static $_regex_query_or_fragment = '/^(?:(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)*\/*\?*)*$/';
+    private static $_regex_query_or_fragment = '(?:(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)*\/*\?*)*';
 
     private $_scheme;
 
@@ -83,25 +79,32 @@ class org_tubepress_api_http_Url
     {
         /* http://www.php.net/manual/en/function.parse-url.php#90365 */
 
-        $r  = "(?:([a-z0-9+-._]+)://)?";
-        $r .= "(?:";
-        $r .=   "(?:((?:[a-z0-9-._~!$&'()*+,;=:]|%[0-9a-f]{2})*)@)?";
-        $r .=   "(?:\[((?:[a-z0-9:])*)\])?";
-        $r .=   "((?:[a-z0-9-._~!$&'()*+,;=]|%[0-9a-f]{2})*)";
-        $r .=   "(?::(\d*))?";
-        $r .=   "(/(?:[a-z0-9-._~!$&'()*+,;=:@/]|%[0-9a-f]{2})*)?";
-        $r .=   "|";
-        $r .=   "(/?";
-        $r .=     "(?:[a-z0-9-._~!$&'()*+,;=:@]|%[0-9a-f]{2})+";
-        $r .=     "(?:[a-z0-9-._~!$&'()*+,;=:@\/]|%[0-9a-f]{2})*";
-        $r .=    ")?";
-        $r .= ")";
-        $r .= "(?:\?((?:[a-z0-9-._~!$&'()*+,;=:\/?@]|%[0-9a-f]{2})*))?";
-        $r .= "(?:#((?:[a-z0-9-._~!$&'()*+,;=:\/?@]|%[0-9a-f]{2})*))?";
+        $regex  = '(?:(' . self::$_regex_scheme . ')://)?';                                  //scheme
+        $regex .= '(?:';
+        $regex .=   '(?:(' . self::$_regex_user . ')@)?';                                    //user
+        $regex .=   "(?:\[(" . self::$_regex_ipv6_dartware . ")\])?";                        //IPv6
+        $regex .=   "((?:" . self::$_regex_hostname . ")|(?:" . self::$_regex_ipv4 . "))?";  //IPv4
+        $regex .=   '(?::(\d*))?';                                                           //port
+        $regex .=   '(' . self::$_regex_path_absolute . ')?';                                //path
+        $regex .=   "|";
+        $regex .=   "(/?";
+        $regex .=     "(?:[a-z0-9-._~!$&'()*+,;=:@]|%[0-9a-f]{2})+";
+        $regex .=     "(?:[a-z0-9-._~!$&'()*+,;=:@\/]|%[0-9a-f]{2})*";
+        $regex .=    ")?";
+        $regex .= ")";
+        $regex .= "(?:\?(" . self::$_regex_query_or_fragment . "))?";
+        $regex .= "(?:#(" . self::$_regex_query_or_fragment . "))?";
 
-        preg_match("`$r`i", $url, $match);
+        preg_match("`$regex`i", $url, $match);
 
-        switch (count ($match)) {
+        $matchLength = count($match);
+
+        if ($matchLength < 4) {
+
+            throw new Exception("Invalid URL ($url)");
+        }
+
+        switch ($matchLength) {
 
             case 10: $this->setFragment($match[9]);
             case 9:  $this->setQuery($match[8]);
@@ -123,7 +126,7 @@ class org_tubepress_api_http_Url
 
         $scheme = strtolower($scheme);
 
-        if (preg_match_all(self::$_regex_scheme, $scheme, $matches) !== 1) {
+        if (preg_match_all('/^' . self::$_regex_scheme . '$/', $scheme, $matches) !== 1) {
 
             throw new Exception('Scheme names consist of a sequence of characters beginning with a'
                . ' letter and followed by any combination of letters, digits, plus ("+"), period (".")'
@@ -135,9 +138,11 @@ class org_tubepress_api_http_Url
 
     public function setUser($user)
     {
-        if (preg_match_all(self::$_regex_user, $user, $matches) !== 1) {
+        $regex = '/^' . self::$_regex_user . '$/';
 
-            throw new Exception('User must match ' . self::$_regex_user);
+        if (preg_match_all($regex, $user, $matches) !== 1) {
+
+            throw new Exception('User must match ' . $regex);
         }
 
         $this->_user = $user;
@@ -163,11 +168,21 @@ class org_tubepress_api_http_Url
         $this->setHost($host);
     }
 
-    public function setHostIp($host)
+    public function setHostIpv4($host)
     {
-        if (! self::_isIpAddress($host)) {
+        if (! self::_isIpv4Address($host)) {
 
-            throw new Exception("Invalid IP ($host)");
+            throw new Exception("Invalid IPv4 ($host)");
+        }
+
+        $this->setHost($host);
+    }
+
+    public function setHostIpv6($host)
+    {
+        if (! self::_isIpv6Address($host)) {
+
+            throw new Exception("Invalid IPv6 ($host)");
         }
 
         $this->setHost($host);
@@ -197,7 +212,7 @@ class org_tubepress_api_http_Url
             throw new Exception("Path must be a string ($path)");
         }
 
-        if (preg_match_all(self::$_regex_path_absolute, $path, $matches) !== 1) {
+        if (preg_match_all('/^' . self::$_regex_path_absolute . '$/', $path, $matches) !== 1) {
 
             throw new Exception("Invalid path ($path)");
         }
@@ -212,7 +227,7 @@ class org_tubepress_api_http_Url
             throw new Exception("Query must be a string ($query)");
         }
 
-        if (preg_match_all(self::$_regex_query_or_fragment, $query, $matches) !== 1) {
+        if (preg_match_all('/^' . self::$_regex_query_or_fragment . '$/', $query, $matches) !== 1) {
 
             throw new Exception("Invalid query ($query)");
         }
@@ -227,7 +242,7 @@ class org_tubepress_api_http_Url
             throw new Exception("Fragment must be a string ($fragment)");
         }
 
-        if (preg_match_all(self::$_regex_query_or_fragment, $fragment, $matches) !== 1) {
+        if (preg_match_all('/^' . self::$_regex_query_or_fragment . '$/', $fragment, $matches) !== 1) {
 
             throw new Exception("Invalid fragment ($fragment)");
         }
@@ -399,18 +414,18 @@ class org_tubepress_api_http_Url
 
     private static function _isHostname($name)
     {
-        return is_string($name) && preg_match_all(self::$_regex_hostname, strtolower(trim($name)), $matches) === 1;
+        return is_string($name) && preg_match_all('/^' . self::$_regex_hostname . '$/', strtolower(trim($name)), $matches) === 1;
     }
 
     private static function _isIpv4Address($ip)
     {
-        return is_string($ip) && preg_match_all(self::$_regex_ipv4, strtolower(trim($ip)), $matches) === 1;
+        return is_string($ip) && preg_match_all('/^' . self::$_regex_ipv4 . '$/', strtolower(trim($ip)), $matches) === 1;
     }
 
     private static function _isIpv6Address($ip)
     {
         return is_string($ip) && preg_match_all('/^[:\.0-9a-f]+$/i', strtolower(trim($ip)), $matches) === 1
-            && preg_match_all(self::$_regex_ipv6_dartware, strtolower(trim($ip)), $matches) === 1;
+            && preg_match_all('/^' . self::$_regex_ipv6_dartware . '$/', strtolower(trim($ip)), $matches) === 1;
     }
 
     private static function _isIpAddress($ip)
