@@ -23,7 +23,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Output',
     'org_tubepress_api_const_options_values_OutputValue',
     'org_tubepress_api_const_plugin_FilterPoint',
-    'org_tubepress_api_patterns_cor_Command',
+    'org_tubepress_spi_patterns_cor_Command',
     'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_impl_ioc_IocContainer',
@@ -32,7 +32,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 /**
  * HTML generation command that generates HTML for a single video + meta info.
  */
-class org_tubepress_impl_shortcode_commands_SearchInputCommand implements org_tubepress_api_patterns_cor_Command
+class org_tubepress_impl_shortcode_commands_SearchInputCommand implements org_tubepress_spi_patterns_cor_Command
 {
     const LOG_PREFIX = 'Search Input Command';
 

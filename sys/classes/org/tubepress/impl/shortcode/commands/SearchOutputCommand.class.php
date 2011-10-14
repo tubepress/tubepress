@@ -21,14 +21,14 @@
 
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Output',
-    'org_tubepress_api_patterns_cor_Command',
+    'org_tubepress_spi_patterns_cor_Command',
     'org_tubepress_impl_util_StringUtils',
 ));
 
 /**
  * HTML generation command that generates HTML for a single video + meta info.
  */
-class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_tubepress_api_patterns_cor_Command
+class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_tubepress_spi_patterns_cor_Command
 {
     const LOG_PREFIX = 'Search Output Command';
 
@@ -95,7 +95,7 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_t
         }
 
         /* display the results as a thumb gallery */
-        return $ioc->get('org_tubepress_api_patterns_cor_Chain')->execute($context, array(
+        return $ioc->get('org_tubepress_spi_patterns_cor_Chain')->execute($context, array(
             'org_tubepress_impl_shortcode_commands_ThumbGalleryCommand'
         ));
     }

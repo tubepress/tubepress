@@ -25,7 +25,7 @@ class org_tubepress_impl_url_UrlBuilderChainTest extends TubePressUnitTest {
         $mockChainContext = new stdClass();
         $mockChainContext->returnValue = 'stuff';
 
-        $sm  = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $sm  = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
         $sm->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
         $sm->shouldReceive('execute')->once()->with($mockChainContext, array(
                 'org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand',
@@ -49,7 +49,7 @@ class org_tubepress_impl_url_UrlBuilderChainTest extends TubePressUnitTest {
         $mockChainContext = new stdClass();
         $mockChainContext->returnValue = 'stuff';
 
-        $sm  = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $sm  = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
         $sm->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
         $sm->shouldReceive('execute')->once()->with($mockChainContext, array(
                 'org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand',
@@ -73,7 +73,7 @@ class org_tubepress_impl_url_UrlBuilderChainTest extends TubePressUnitTest {
         $mockChainContext = new stdClass();
         $mockChainContext->returnValue = 'stuff';
 
-        $sm  = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $sm  = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
         $sm->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
         $sm->shouldReceive('execute')->once()->with($mockChainContext, array(
             'org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand',

@@ -21,7 +21,7 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_patterns_cor_Command',
+    'org_tubepress_spi_patterns_cor_Command',
     'org_tubepress_impl_http_clientimpl_Cookie',
 ));
 
@@ -30,7 +30,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  *
  * Base HTTP command.
  */
-abstract class org_tubepress_impl_http_clientimpl_commands_AbstractHttpCommand implements org_tubepress_api_patterns_cor_Command
+abstract class org_tubepress_impl_http_clientimpl_commands_AbstractHttpCommand implements org_tubepress_spi_patterns_cor_Command
 {
     private $_redirectCount;
 

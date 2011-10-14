@@ -22,9 +22,9 @@
 /**
  * Underlying HTTP transport.
  */
-interface org_tubepress_api_http_Transport
+interface org_tubepress_spi_http_Transport
 {
-    const _ = 'org_tubepress_api_http_Transport';
+    const _ = 'org_tubepress_spi_http_Transport';
 
     /**
      * Determines whether or not this transport is available on the system.

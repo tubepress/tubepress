@@ -21,7 +21,7 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_patterns_cor_Command',
+    'org_tubepress_spi_patterns_cor_Command',
     'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_url_Url',
     'org_tubepress_api_video_Video',

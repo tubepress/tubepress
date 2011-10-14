@@ -23,7 +23,7 @@ class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_options_names_Display',
-    'org_tubepress_api_patterns_cor_Command',
+    'org_tubepress_spi_patterns_cor_Command',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_video_Video',
     'org_tubepress_impl_log_Log',
@@ -33,7 +33,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 /**
  * Base class for factory commands.
  */
-abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implements org_tubepress_api_patterns_cor_Command
+abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implements org_tubepress_spi_patterns_cor_Command
 {
     const LOG_PREFIX = 'Abstract Factory Command';
 

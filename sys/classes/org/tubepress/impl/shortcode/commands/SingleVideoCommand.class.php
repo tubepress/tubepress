@@ -20,13 +20,13 @@
  */
 
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_patterns_cor_Command'
+    'org_tubepress_spi_patterns_cor_Command'
 ));
 
 /**
  * HTML generation command that generates HTML for a single video + meta info.
  */
-class org_tubepress_impl_shortcode_commands_SingleVideoCommand implements org_tubepress_api_patterns_cor_Command
+class org_tubepress_impl_shortcode_commands_SingleVideoCommand implements org_tubepress_spi_patterns_cor_Command
 {
     const LOG_PREFIX = 'Single Video Command';
 

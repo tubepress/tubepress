@@ -22,7 +22,7 @@ class org_tubepress_impl_feed_FeedInspectorChainTest extends TubePressUnitTest {
         $mockChainContext = \Mockery::mock('stdClass');
         $mockChainContext->returnValue = 'foobar';
 
-        $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $chain = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
         $chain->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
         $chain->shouldReceive('execute')->once()->with($mockChainContext, array(
     			'org_tubepress_impl_feed_commands_YouTubeFeedInspectionCommand',
@@ -42,7 +42,7 @@ class org_tubepress_impl_feed_FeedInspectorChainTest extends TubePressUnitTest {
         $mockChainContext = \Mockery::mock('stdClass');
         $mockChainContext->returnValue = 'foobar';
 
-        $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $chain = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
         $chain->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
         $chain->shouldReceive('execute')->once()->with($mockChainContext, array(
 			'org_tubepress_impl_feed_commands_YouTubeFeedInspectionCommand',

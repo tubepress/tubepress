@@ -20,26 +20,29 @@
  */
 
 /**
- * Chain in the chain-of-responsibility pattern.
+ * Builds HTTP requests.
  */
-interface org_tubepress_api_patterns_cor_Chain
+interface org_tubepress_spi_http_HttpRequestBuilder
 {
     /**
-     * Executes the given commands with the given context.
+     * Builds a request for a list of videos
      *
-     * @param array $context          An array of context elements (may be empty).
-     * @param array $commandInstances An array of org_tubepress_api_patterns_cor_Command class names to execute.
+     * @param int $currentPage The current page number of the gallery.
      *
-     * @throws Exception If none of the commands can handle execution.
+     * @throws Exception If there was a problem.
      *
-     * @return void
+     * @return org_tubepress_api_http_HttpRequest The HTTP request for this gallery
      */
-    function execute($context, $commandInstances);
+    function buildGalleryRequest($currentPage);
 
     /**
-     * Create a context object for the chain to work with.
+     * Builds a request for a single video
      *
-     * @return object An instance of stdClass for the commands to work with.
+     * @param string $id The video ID to search for
+     *
+     * @throws Exception If there was a problem.
+     *
+     * @return org_tubepress_api_http_HttpRequest The HTTP request for the single video given.
      */
-    function createContextInstance();
+    function buildSingleVideoRequest($id);
 }

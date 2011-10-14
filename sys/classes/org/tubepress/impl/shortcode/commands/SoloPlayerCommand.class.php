@@ -23,8 +23,8 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_const_options_names_Output',
     'org_tubepress_api_const_options_values_PlayerValue',
-    'org_tubepress_api_patterns_cor_Chain',
-    'org_tubepress_api_patterns_cor_Command',
+    'org_tubepress_spi_patterns_cor_Chain',
+    'org_tubepress_spi_patterns_cor_Command',
     'org_tubepress_impl_shortcode_commands_SingleVideoCommand',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_log_Log',
@@ -33,7 +33,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 /**
  * HTML-generation command that implements the "solo" player command.
  */
-class org_tubepress_impl_shortcode_commands_SoloPlayerCommand implements org_tubepress_api_patterns_cor_Command
+class org_tubepress_impl_shortcode_commands_SoloPlayerCommand implements org_tubepress_spi_patterns_cor_Command
 {
     const LOG_PREFIX = 'Solo Player Command';
 
@@ -69,7 +69,7 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommand implements org_tub
         $execContext->set(org_tubepress_api_const_options_names_Output::VIDEO, $videoId);
 
         /* display the results as a thumb gallery */
-        $ioc->get('org_tubepress_api_patterns_cor_Chain')->execute($context, array(
+        $ioc->get('org_tubepress_spi_patterns_cor_Chain')->execute($context, array(
             'org_tubepress_impl_shortcode_commands_SingleVideoCommand'
         ));
 

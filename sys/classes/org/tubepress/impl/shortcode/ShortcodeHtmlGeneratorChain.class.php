@@ -22,7 +22,7 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_plugin_FilterPoint',
-    'org_tubepress_api_patterns_cor_Chain',
+    'org_tubepress_spi_patterns_cor_Chain',
     'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_api_shortcode_ShortcodeHtmlGenerator',
@@ -47,7 +47,7 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements org_tu
         global $tubepress_base_url;
 
         $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $chain = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
         $pm    = $ioc->get('org_tubepress_api_plugin_PluginManager');
 
         /* do a bit of logging */
@@ -97,7 +97,7 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements org_tu
         );
     }
 
-    private function _runChain(org_tubepress_api_patterns_cor_Chain $chain)
+    private function _runChain(org_tubepress_spi_patterns_cor_Chain $chain)
     {
         $context = $chain->createContextInstance();
         $status  = $chain->execute($context, $this->getShortcodeCommands());
