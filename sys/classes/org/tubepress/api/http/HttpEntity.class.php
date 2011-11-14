@@ -30,11 +30,9 @@ class org_tubepress_api_http_HttpEntity
 
     private $_contentLength = 0;
 
-    private $_contentEncoding;
+    private $_contentType;
 
-    private $_chunked = false;
 
-    
     /**
      * Get the content of this entity.
      *
@@ -79,68 +77,46 @@ class org_tubepress_api_http_HttpEntity
     public function setContentLength($length)
     {
         if (! is_numeric($length)) {
-            
-            throw new Exception('Content-Length must be an integer');
+
+            throw new Exception("Content-Length must be an integer ($length)");
         }
 
         $length = intval($length);
 
         if ($length < 0) {
 
-            throw new Exception('Content-Length cannot be neegative');
+            throw new Exception("Content-Length cannot be negative ($length)");
         }
 
         return $this->_contentLength = $length;
     }
 
     /**
-     * Gets the Content-Encoding of this entity.
+     * Get the Contenty-Type of this entity.
      *
-     * @return string The Content-Encoding. May be null.
+     * @return string The Content-Type of this entity. May be null.
      */
-    public function getContentEncoding()
+    public function getContentType()
     {
-        return $this->_contentEncoding;
+        return $this->_contentType;
     }
 
     /**
-     * Sets the Content-Encoding of this entity.
+     * Sets the Contenty-Type of this entity
      *
-     * @param string $encoding The Content-Encoding.
+     * @param string $type The Contenty-Type of this entity.
      *
-     * @throws Exception If the given encodiding is not a string.
+     * @throws Exception If the given type is not a string.
      *
      * @return void
      */
-    public function setContentEncoding($encoding)
+    public function setContentType($type)
     {
-        if (! is_string($encoding)) {
+        if (! is_string($type)) {
 
-            throw new Exception('Content-Encoding must be a string');
+            throw new Exception("Content-Type must be a string ($type)");
         }
 
-        $this->_contentEncoding = $encoding;
-    }
-
-    /**
-     * Determines if this entity is part of a chunked transfer.
-     *
-     * @return boolean True if this entity is part of a chunked transfer, false otherwise.
-     */
-    public function isChunked()
-    {
-        return $this->_chunked;
-    }
-
-    /**
-     * Sets whether this entity is part of a chunked transfer.
-     *
-     * @param bool $chunked Whether this entity is part of a chunked transfer.
-     *
-     * @return void
-     */
-    public function setChunked($chunked)
-    {
-        $this->_chunked = (bool) $chunked;
+        $this->_contentType = $type;
     }
 }

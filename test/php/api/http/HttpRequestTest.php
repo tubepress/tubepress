@@ -10,6 +10,13 @@ class org_tubepress_api_http_HttpRequestTest extends org_tubepress_api_http_Abst
         return new org_tubepress_api_http_HttpRequest(org_tubepress_api_http_HttpRequest::HTTP_METHOD_GET, 'http://tubepress.org/foo.html');
     }
 
+    function testToString()
+    {
+        $expected = 'GET to http://tubepress.org/foo.html';
+        $this->assertEquals($expected, $this->getSut()->toString());
+        $this->assertEquals($expected, $this->getSut()->__toString());
+    }
+    
     function testSetUrlUrl()
     {
         $url = new org_tubepress_api_http_Url('http://tubepress.org/foo.html');

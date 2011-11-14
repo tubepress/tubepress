@@ -31,33 +31,11 @@ class org_tubepress_api_http_HttpResponse extends org_tubepress_api_http_HttpMes
 {
     const _ = 'org_tubepress_api_http_HttpResponse';
 
-    private $_statusMessage;
+    const HTTP_STATUS_CODE_OK = 200;
+
+    const HTTP_HEADER_TRANSFER_ENCODING = 'Transfer-Encoding';
 
     private $_statusCode;
-
-    /**
-     * Gets the HTTP status message.
-     *
-     * @return string The HTTP status message. May be null.
-     */
-    function getStatusMessage()
-    {
-        return $this->_statusMessage;
-    }
-
-    /**
-     * Sets the HTTP status message.
-     *
-     * @param string $message The HTTP status message.
-     *
-     * @return void
-     */
-    function setStatusMessage($message)
-    {
-        $this->checkString($message);
-
-        $this->_statusMessage = $message;
-    }
 
     /**
      * Gets the HTTP status code.

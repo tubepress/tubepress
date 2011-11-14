@@ -29,10 +29,12 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 abstract class org_tubepress_api_http_HttpMessage
 {
-    const HTTP_HEADER_ACCEPT_ENCODING = 'Accept-Encoding';
-    const HTTP_HEADER_CONTENT_LENGTH  = 'Content-Length';
-    const HTTP_HEADER_CONTENT_TYPE    = 'Content-Type';
-    const HTTP_HEADER_USER_AGENT      = 'User-Agent';
+    const HTTP_HEADER_HTTP_VERSION     = 'HTTP-Version';
+    const HTTP_HEADER_CONTENT_LENGTH   = 'Content-Length';
+    const HTTP_HEADER_CONTENT_ENCODING = 'Content-Encoding';
+    const HTTP_HEADER_CONTENT_TYPE     = 'Content-Type';
+
+    const _ = 'org_tubepress_api_http_HttpMessage';
 
     private $_headers = array();
 
@@ -88,9 +90,12 @@ abstract class org_tubepress_api_http_HttpMessage
     {
         self::checkString($name);
 
-        if (isset($this->_headers[$name])) {
+        foreach ($this->_headers as $headerName => $headerValue) {
 
-            return $this->_headers[$name];
+            if (strcasecmp($name, $headerName) === 0) {
+
+                return $headerValue;
+            }
         }
 
         return null;
@@ -122,9 +127,7 @@ abstract class org_tubepress_api_http_HttpMessage
      */
     public function containsHeader($name)
     {
-        self::checkString($name);
-
-        return array_key_exists($name, $this->_headers);
+        return $this->getHeaderValue($name) !== null;
     }
 
     /**
@@ -138,7 +141,13 @@ abstract class org_tubepress_api_http_HttpMessage
     {
         self::checkString($name);
 
-        unset($this->_headers[$name]);
+        foreach ($this->_headers as $headerName => $headerValue) {
+
+            if (strcasecmp($name, $headerName) === 0) {
+
+                unset($this->_headers[$headerName]);
+            }
+        }
     }
 
     /**
@@ -152,9 +161,9 @@ abstract class org_tubepress_api_http_HttpMessage
      */
     protected static function checkString($candidate)
     {
-        if ($candidate == '' || ! is_string($candidate)) {
+        if ($candidate != '' && ! is_string($candidate)) {
 
-            throw new Exception('All HTTP headers must be strings');
+            throw new Exception("All HTTP headers must be strings ($candidate)");
         }
     }
 }

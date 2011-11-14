@@ -69,4 +69,9 @@ class org_tubepress_impl_log_Log
             self::$_birthDate = microtime(true);
         }
     }
+    
+    public static function isEnabled()
+    {
+        return self::$_enabled;
+    }
 }

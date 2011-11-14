@@ -22,9 +22,9 @@
 /**
  * Underlying HTTP transport.
  */
-interface org_tubepress_spi_http_Transport
+interface org_tubepress_spi_http_HttpTransport
 {
-    const _ = 'org_tubepress_spi_http_Transport';
+    const _ = 'org_tubepress_spi_http_HttpTransport';
 
     /**
      * Determines whether or not this transport is available on the system.
@@ -49,5 +49,5 @@ interface org_tubepress_spi_http_Transport
      *
      * @return org_tubepress_api_http_HttpResponse The HTTP response.
      */
-    function execute(org_tubepress_api_http_HttpRequest $request);
+    function handle(org_tubepress_api_http_HttpRequest $request);
 }

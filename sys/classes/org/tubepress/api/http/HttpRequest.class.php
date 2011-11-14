@@ -32,6 +32,9 @@ class org_tubepress_api_http_HttpRequest extends org_tubepress_api_http_HttpMess
 {
     const _ = 'org_tubepress_api_http_HttpRequest';
 
+    const HTTP_HEADER_USER_AGENT      = 'User-Agent';
+    const HTTP_HEADER_ACCEPT_ENCODING = 'Accept-Encoding';
+
     const HTTP_METHOD_GET  = 'GET';
     const HTTP_METHOD_POST = 'POST';
     const HTTP_METHOD_PUT  = 'PUT';
@@ -114,5 +117,25 @@ class org_tubepress_api_http_HttpRequest extends org_tubepress_api_http_HttpMess
         }
 
         $this->_url = $url;
+    }
+
+    /**
+     * Generate string representation of this request.
+     *
+     * @return string A string representation of this request.
+     */
+    public function toString()
+    {
+        return sprintf('%s to %s', $this->getMethod(), $this->getUrl());
+    }
+
+    /**
+     * Delegates to toString();
+     *
+     * @return string A string representation of this request.
+     */
+    public function __toString()
+    {
+        return $this->toString();
     }
 }

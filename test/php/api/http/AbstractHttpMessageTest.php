@@ -58,7 +58,7 @@ abstract class org_tubepress_api_http_AbstractHttpMessageTest extends TubePressU
 
         $this->_sut->setHeader('foo', 'bar');
         $this->_sut->removeHeaders('something');
-        $this->assertEquals(array('foo' => 'bar'), $this->_sut->getAllHeaders());
+        $this->assertEquals(array('foo' => 'bar'), $this->_sut->getAllHeaders(), 'Header "something" did not get removed');
     }
 
     function testGetHeaderNotExist()
