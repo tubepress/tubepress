@@ -25,13 +25,13 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePress
         $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
         $mockTemplate->shouldReceive('toString')->once()->andReturn('foobarr');
 
-        $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $themeHandler->shouldReceive('getTemplateInstance')->once()->with('players/current-player-name.tpl.php')->andReturn($mockTemplate);
 
-        $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $pc            = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
         $pc->shouldReceive('calculateProviderOfVideoId')->once()->with('video-id')->andReturn('video-provider');
 
-        $pm            = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm            = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $pm->shouldReceive('runFilters')->once()->with(
         org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_PLAYER,
         $mockTemplate, $this->_video, 'video-provider', 'current-player-name'

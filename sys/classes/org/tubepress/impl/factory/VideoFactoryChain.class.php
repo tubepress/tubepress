@@ -69,9 +69,9 @@ class org_tubepress_impl_factory_VideoFactoryChain implements org_tubepress_api_
     private function _wrappedFeedToVideoArray($feed)
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $chain        = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
-        $pm           = $ioc->get('org_tubepress_api_plugin_PluginManager');
-        $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $chain        = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
+        $pm           = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+        $pc           = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
         $providerName = $pc->calculateCurrentVideoProvider();
         $context      = $chain->createContextInstance();
 

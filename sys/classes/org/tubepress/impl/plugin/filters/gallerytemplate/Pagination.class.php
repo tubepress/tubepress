@@ -41,7 +41,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
     {
         $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
         $context       = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $pm            = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm            = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $pagination    = $this->_getHtml($providerResult->getEffectiveTotalResultCount());
         $pagination    = $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_PAGINATION, $pagination);
         
@@ -66,7 +66,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
     {
         $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
         $context        = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $messageService = $ioc->get('org_tubepress_api_message_MessageService');
+        $messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
         $qss            = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         
         $currentPage = $qss->getPageNum($_GET);

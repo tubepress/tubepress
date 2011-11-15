@@ -57,8 +57,8 @@ class org_tubepress_impl_feed_FeedInspectorChain implements org_tubepress_api_fe
     private function _wrappedCount($rawFeed)
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-        $chain        = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
+        $pc           = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
+        $chain        = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
         $providerName = $pc->calculateCurrentVideoProvider();
         $context      = $chain->createContextInstance();
 

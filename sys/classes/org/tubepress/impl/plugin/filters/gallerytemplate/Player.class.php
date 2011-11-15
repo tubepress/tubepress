@@ -44,7 +44,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Player
     {
         $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
         $context       = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $htmlGenerator = $ioc->get('org_tubepress_api_player_PlayerHtmlGenerator');
+        $htmlGenerator = $ioc->get(org_tubepress_api_player_PlayerHtmlGenerator::_);
         $playerName    = $context->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
         $videos        = $providerResult->getVideoArray();
         $galleryId     = $context->get(org_tubepress_api_const_options_names_Advanced::GALLERY_ID);

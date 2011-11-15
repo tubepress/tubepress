@@ -41,7 +41,7 @@ class org_tubepress_impl_embedded_commands_YouTubeIframeCommandTest extends Tube
         $mockChainContext->providerName = org_tubepress_api_provider_Provider::YOUTUBE;
         $mockChainContext->videoId      = 'video_id';
 
-        $theme = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $theme = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $theme->shouldReceive('getTemplateInstance')->once()->with('embedded_flash/youtube.tpl.php')->andReturn($mockTemplate);
 
         $this->assertTrue($this->_sut->execute($mockChainContext));

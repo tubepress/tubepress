@@ -46,9 +46,9 @@ class org_tubepress_impl_env_wordpress_Main
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
         /* do as little work as possible here 'cause we might not even run */
-        $wpsm    = $ioc->get('org_tubepress_api_options_StorageManager');
+        $wpsm    = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $trigger = $wpsm->get(org_tubepress_api_const_options_names_Advanced::KEYWORD);
-        $parser  = $ioc->get('org_tubepress_api_shortcode_ShortcodeParser');
+        $parser  = $ioc->get(org_tubepress_api_shortcode_ShortcodeParser::_);
 
         /* no shortcode? get out */
         if (!$parser->somethingToParse($content, $trigger)) {
@@ -68,7 +68,7 @@ class org_tubepress_impl_env_wordpress_Main
      */
     private static function _getHtml($content, $trigger, $parser, $ioc)
     {
-        $ms      = $ioc->get('org_tubepress_api_message_MessageService');
+        $ms      = $ioc->get(org_tubepress_api_message_MessageService::_);
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $gallery = $ioc->get('org_tubepress_api_shortcode_ShortcodeHtmlGenerator');
 
@@ -109,7 +109,7 @@ class org_tubepress_impl_env_wordpress_Main
         }
 
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $hh  = $ioc->get('org_tubepress_api_html_HeadHtmlGenerator');
+        $hh  = $ioc->get(org_tubepress_api_html_HeadHtmlGenerator::_);
 
         /* this inline JS helps initialize TubePress */
         $inlineJs = $hh->getHeadInlineJs();
@@ -136,7 +136,7 @@ EOT;
         }
 
 	$ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $fse      = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fse      = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $baseName = $fse->getTubePressInstallationDirectoryBaseName();
 
         wp_register_script('tubepress', plugins_url("$baseName/sys/ui/static/js/tubepress.js", $baseName));

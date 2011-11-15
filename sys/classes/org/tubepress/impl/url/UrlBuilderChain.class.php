@@ -63,8 +63,8 @@ class org_tubepress_impl_url_UrlBuilderChain implements org_tubepress_api_url_Ur
     private static function _build($arg, $single)
     {
         $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $pc    = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-        $chain = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
+        $pc    = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
+        $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
 
         if ($single) {
             $providerName = $pc->calculateProviderOfVideoId($arg);

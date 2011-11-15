@@ -26,7 +26,7 @@ class org_tubepress_impl_plugin_filters_providerresult_VideoPrependerTest extend
         $providerResult->shouldReceive('getVideoArray')->once()->andReturn(array($video));
         $providerResult->shouldReceive('setVideoArray')->once()->andReturn(array('x', $video));
 
-        $provider = $ioc->get('org_tubepress_api_provider_Provider');
+        $provider = $ioc->get(org_tubepress_api_provider_Provider::_);
         $provider->shouldReceive('getSingleVideo')->once()->with('custom-video')->andReturn('x');
 
         $this->assertEquals($providerResult, $this->_sut->alter_providerResult($providerResult, 'provider-name'));

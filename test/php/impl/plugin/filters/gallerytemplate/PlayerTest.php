@@ -59,7 +59,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PlayerTest extends TubeP
         $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::PLAYER_HTML, 'player-html');
         $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::PLAYER_NAME, $name);
 
-        $htmlGenerator = $ioc->get('org_tubepress_api_player_PlayerHtmlGenerator');
+        $htmlGenerator = $ioc->get(org_tubepress_api_player_PlayerHtmlGenerator::_);
         $htmlGenerator->shouldReceive('getHtml')->once()->with($fakeVideo, 'gallery-id')->andReturn('player-html');
 
         $this->assertEquals($mockTemplate, $this->_sut->alter_galleryTemplate($mockTemplate, $providerResult, 1, org_tubepress_api_provider_Provider::YOUTUBE));

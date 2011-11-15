@@ -44,7 +44,7 @@ class org_tubepress_impl_env_wordpress_OptionsPage
         global $tubepress_base_url;
 
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $fs           = $iocContainer->get('org_tubepress_api_filesystem_Explorer');
+        $fs           = $iocContainer->get(org_tubepress_api_filesystem_Explorer::_);
         $baseName     = $fs->getTubePressInstallationDirectoryBaseName();
 
         wp_register_style('jquery-ui-flick', plugins_url("$baseName/sys/ui/static/css/jquery-ui-flick/jquery-ui-1.7.2.custom.css", $baseName));
@@ -73,7 +73,7 @@ class org_tubepress_impl_env_wordpress_OptionsPage
     {
         /* grab the storage manager */
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $wpsm         = $iocContainer->get('org_tubepress_api_options_StorageManager');
+        $wpsm         = $iocContainer->get(org_tubepress_api_options_StorageManager::_);
 
         /* initialize our options in case we need to */
         $wpsm->init();

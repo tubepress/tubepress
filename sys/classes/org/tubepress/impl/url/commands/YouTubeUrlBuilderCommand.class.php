@@ -146,7 +146,7 @@ class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand extends org_tubep
     protected function buildSingleVideoUrl($id)
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $pc           = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
         $providerName = $pc->calculateProviderOfVideoId($id);
 
         if ($providerName !== org_tubepress_api_provider_Provider::YOUTUBE) {

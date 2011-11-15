@@ -53,8 +53,8 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
         $qss     = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $pc      = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-        $pm      = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pc      = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
+        $pm      = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
 
         /* figure out which page we're on */
         $currentPage = $qss->getPageNum($_GET);
@@ -68,12 +68,12 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'URL to fetch is <a href="%s">%s</a>', $url, $url);
 
         /* make the request */
-        $feedRetrievalService = $ioc->get('org_tubepress_api_feed_FeedFetcher');
+        $feedRetrievalService = $ioc->get(org_tubepress_api_feed_FeedFetcher::_);
         $useCache             = $context->get(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED);
         $rawFeed              = $feedRetrievalService->fetch($url, $useCache);
 
         /* get the count */
-        $feedInspectionService = $ioc->get('org_tubepress_api_feed_FeedInspector');
+        $feedInspectionService = $ioc->get(org_tubepress_api_feed_FeedInspector::_);
         $totalCount            = $feedInspectionService->getTotalResultCount($rawFeed);
 
         if ($totalCount == 0) {
@@ -83,7 +83,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Reported total result count is %d video(s)', $totalCount);
 
         /* convert the XML to objects */
-        $factory = $ioc->get('org_tubepress_api_factory_VideoFactory');
+        $factory = $ioc->get(org_tubepress_api_factory_VideoFactory::_);
         $videos  = $factory->feedToVideoArray($rawFeed);
 
         if (count($videos) == 0) {
@@ -113,13 +113,13 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'URL to fetch is %s', $videoUrl);
 
-        $feedRetrievalService = $ioc->get('org_tubepress_api_feed_FeedFetcher');
+        $feedRetrievalService = $ioc->get(org_tubepress_api_feed_FeedFetcher::_);
         $context              = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $results              = $feedRetrievalService->fetch($videoUrl, $context->get(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED));
-        $factory              = $ioc->get('org_tubepress_api_factory_VideoFactory');
+        $factory              = $ioc->get(org_tubepress_api_factory_VideoFactory::_);
         $videoArray           = $factory->feedToVideoArray($results);
-        $pm                   = $ioc->get('org_tubepress_api_plugin_PluginManager');
-        $pc                   = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $pm                   = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+        $pc                   = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
 
         if (empty($videoArray)) {
             throw new Exception("Could not find video with ID $customVideoId");

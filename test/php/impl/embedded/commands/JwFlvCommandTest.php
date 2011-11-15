@@ -47,7 +47,7 @@ class org_tubepress_impl_embedded_commands_JwFlvCommandTest extends TubePressUni
         $mockChainContext->providerName = org_tubepress_api_provider_Provider::YOUTUBE;
         $mockChainContext->videoId = 'video_id';
 
-        $theme = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $theme = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $theme->shouldReceive('getTemplateInstance')->once()->with('embedded_flash/longtail.tpl.php')->andReturn($mockTemplate);
 
         $this->assertTrue($this->_sut->execute($mockChainContext));

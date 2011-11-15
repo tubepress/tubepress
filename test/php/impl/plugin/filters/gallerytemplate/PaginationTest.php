@@ -40,12 +40,12 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PaginationTest extends T
         $this->_qss = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $this->_qss->shouldReceive('getFullUrl')->once()->andReturn('http://tubepress.org');
 
-        $messageService = $ioc->get('org_tubepress_api_message_MessageService');
+        $messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
         $messageService->shouldReceive('_')->atLeast()->once()->andReturnUsing(function ($msg) {
            return "##$msg##";
         });
 
-        $this->_pluginManager = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $this->_pluginManager = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
     }
 
     public function testAjax()

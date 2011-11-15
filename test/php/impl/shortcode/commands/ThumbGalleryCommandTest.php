@@ -24,10 +24,10 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 	    $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
 	    $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');
 
-	    $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+	    $themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
 	    $themeHandler->shouldReceive('getTemplateInstance')->once()->with('gallery.tpl.php')->andReturn($mockTemplate);
 
-	    $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+	    $pc            = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
 	    $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('provider-name');
 
 	    $execContext   = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
@@ -37,10 +37,10 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 	    $mockFeedResult = \Mockery::mock('org_tubepress_api_provider_ProviderResult');
 	    $mockFeedResult->shouldReceive('getVideoArray')->once()->andReturn(array('x', 'y'));
 
-	    $provider      = $ioc->get('org_tubepress_api_provider_Provider');
+	    $provider      = $ioc->get(org_tubepress_api_provider_Provider::_);
 	    $provider->shouldReceive('getMultipleVideos')->once()->andReturn($mockFeedResult);
 
-	    $pluginManager = $ioc->get('org_tubepress_api_plugin_PluginManager');
+	    $pluginManager = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
 	    $pluginManager->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $mockTemplate, $mockFeedResult, 'page-num', 'provider-name')->andReturn($mockTemplate);
 	    $pluginManager->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_GALLERY, 'template-string', $mockFeedResult, 'page-num', 'provider-name')->andReturn('filtered-html');
 
@@ -59,10 +59,10 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 
 	    $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
 
-	    $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+	    $themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
 	    $themeHandler->shouldReceive('getTemplateInstance')->once()->with('gallery.tpl.php')->andReturn($mockTemplate);
 
-	    $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+	    $pc            = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
 	    $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('provider-name');
 
 	    $execContext   = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
@@ -71,10 +71,10 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 	    $mockFeedResult = \Mockery::mock('org_tubepress_api_provider_ProviderResult');
 	    $mockFeedResult->shouldReceive('getVideoArray')->once()->andReturn(array());
 
-	    $provider      = $ioc->get('org_tubepress_api_provider_Provider');
+	    $provider      = $ioc->get(org_tubepress_api_provider_Provider::_);
 	    $provider->shouldReceive('getMultipleVideos')->once()->andReturn($mockFeedResult);
 
-	    $ms = $ioc->get('org_tubepress_api_message_MessageService');
+	    $ms = $ioc->get(org_tubepress_api_message_MessageService::_);
 	    $ms->shouldReceive('_')->once()->andReturnUsing(function ($key) {
 	          return "<<$key>>";
 	    });
@@ -95,10 +95,10 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 	    $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
 	    $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');
 
-	    $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+	    $themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
 	    $themeHandler->shouldReceive('getTemplateInstance')->once()->with('gallery.tpl.php')->andReturn($mockTemplate);
 
-	    $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+	    $pc            = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
 	    $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('provider-name');
 
 	    $execContext   = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
@@ -107,10 +107,10 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 	    $mockFeedResult = \Mockery::mock('org_tubepress_api_provider_ProviderResult');
 	    $mockFeedResult->shouldReceive('getVideoArray')->once()->andReturn(array('x', 'y'));
 
-	    $provider      = $ioc->get('org_tubepress_api_provider_Provider');
+	    $provider      = $ioc->get(org_tubepress_api_provider_Provider::_);
 	    $provider->shouldReceive('getMultipleVideos')->once()->andReturn($mockFeedResult);
 
-	    $pluginManager = $ioc->get('org_tubepress_api_plugin_PluginManager');
+	    $pluginManager = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
 	    $pluginManager->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $mockTemplate, $mockFeedResult, 'page-num', 'provider-name')->andReturn($mockTemplate);
 	    $pluginManager->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_GALLERY, 'template-string', $mockFeedResult, 'page-num', 'provider-name')->andReturn('filtered-html');
 

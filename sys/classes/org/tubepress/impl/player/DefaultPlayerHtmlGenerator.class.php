@@ -44,9 +44,9 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGenerator implements org_tubepr
     {
         $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
         $context       = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $pm            = $ioc->get('org_tubepress_api_plugin_PluginManager');
-        $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
-        $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $pm            = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+        $themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
+        $pc            = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
         $playerName    = $context->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
         $template      = $themeHandler->getTemplateInstance("players/$playerName.tpl.php");
         $providerName  = $pc->calculateProviderOfVideoId($vid->getId());

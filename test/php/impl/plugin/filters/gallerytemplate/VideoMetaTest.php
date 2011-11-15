@@ -16,7 +16,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_VideoMetaTest extends Tu
 	{
 	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-	    $messageService = $ioc->get('org_tubepress_api_message_MessageService');
+	    $messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
 	    $messageService->shouldReceive('_')->atLeast()->once()->andReturnUsing(function ($msg) {
 	          return "##$msg##";
 	    });

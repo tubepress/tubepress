@@ -8,10 +8,10 @@ class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
     {
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $wpsm    = $ioc->get('org_tubepress_api_options_StorageManager');
+        $wpsm    = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $wpsm->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('trigger word');
 
-        $parser = $ioc->get('org_tubepress_api_shortcode_ShortcodeParser');
+        $parser = $ioc->get(org_tubepress_api_shortcode_ShortcodeParser::_);
         $parser->shouldReceive('somethingToParse')->times(2)->with('the content', 'trigger word')->andReturn(true);
         $parser->shouldReceive('somethingToParse')->times(2)->with('html for shortcode', 'trigger word')->andReturn(true, false);
 
@@ -23,7 +23,7 @@ class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
         $context->shouldReceive('getActualShortcodeUsed')->times(4)->andReturn('<current shortcode>');
         $context->shouldReceive('reset')->twice();
 
-        $ms      = $ioc->get('org_tubepress_api_message_MessageService');
+        $ms      = $ioc->get(org_tubepress_api_message_MessageService::_);
 
         $this->assertEquals('html for shortcode', org_tubepress_impl_env_wordpress_Main::contentFilter('the content'));
     }
@@ -34,7 +34,7 @@ class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
         $is_admin->expects($this->once())->will($this->returnValue(false));
 
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $hh  = $ioc->get('org_tubepress_api_html_HeadHtmlGenerator');
+        $hh  = $ioc->get(org_tubepress_api_html_HeadHtmlGenerator::_);
 
         $hh->shouldReceive('getHeadInlineJs')->once()->andReturn('inline js');
         $hh->shouldReceive('getHeadHtmlMeta')->once()->andReturn('html meta');
@@ -51,7 +51,7 @@ html meta', $contents);
     function testInitAction()
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fs = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fs->shouldReceive('getTubePressInstallationDirectoryBaseName')->once()->andReturn('base_name');
 
 	$plugins_url = new PHPUnit_Extensions_MockFunction('plugins_url');

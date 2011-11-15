@@ -28,7 +28,7 @@ class org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMeta
     {
         $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
         $context        = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $messageService = $ioc->get('org_tubepress_api_message_MessageService');
+        $messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
 
         $metaNames  = org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::META);
         $shouldShow = array();

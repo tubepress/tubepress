@@ -47,15 +47,15 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements org_tu
         global $tubepress_base_url;
 
         $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $chain = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
-        $pm    = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
+        $pm    = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
 
         /* do a bit of logging */
         org_tubepress_impl_log_Log::log($this->getName(), 'Type of IOC container is %s', get_class($ioc));
 
         /* parse the shortcode if we need to */
         if ($shortCodeContent != '') {
-            $shortcodeParser = $ioc->get('org_tubepress_api_shortcode_ShortcodeParser');
+            $shortcodeParser = $ioc->get(org_tubepress_api_shortcode_ShortcodeParser::_);
             $shortcodeParser->parse($shortCodeContent);
         }
 

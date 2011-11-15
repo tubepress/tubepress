@@ -15,7 +15,7 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
 
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $wpsm = $ioc->get('org_tubepress_api_options_StorageManager');
+        $wpsm = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $wpsm->shouldReceive('init')->once();
 
         $formHandler = $ioc->get('org_tubepress_impl_options_FormHandler');
@@ -40,7 +40,7 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
     function testInit()
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fs = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fs->shouldReceive('getTubePressInstallationDirectoryBaseName')->once()->andReturn('base_name');
 
 	$plugins_url = new PHPUnit_Extensions_MockFunction('plugins_url');

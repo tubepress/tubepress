@@ -16,22 +16,22 @@ class org_tubepress_impl_options_FormHandlerTest extends TubePressUnitTest {
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $messageService = $ioc->get('org_tubepress_api_message_MessageService');
+        $messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
         $messageService->shouldReceive('_')->atLeast()->once()->andReturnUsing( function ($key) {
             return "[[$key]]";
         });
 
-        $storageManager = $ioc->get('org_tubepress_api_options_StorageManager');
+        $storageManager = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $storageManager->shouldReceive('get')->atLeast()->once()->andReturnUsing( function ($key) {
             return "<value of $key>";
         });
 
-        $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fs = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fs->shouldReceive('getTubePressBaseInstallationPath')->atLeast()->once()->andReturn('basePath');
         $fs->shouldReceive('getDirectoriesInDirectory')->atLeast()->once()->with('basePath/sys/ui/themes', 'Options Reference')->andReturn(array());
         $fs->shouldReceive('getDirectoriesInDirectory')->atLeast()->once()->with('user-content-dir/themes', 'Options Reference')->andReturn(array());
 
-        $th = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $th = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $th->shouldReceive('getUserContentDirectory')->atLeast()->once()->andReturn('user-content-dir');
         
         $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
@@ -53,7 +53,7 @@ class org_tubepress_impl_options_FormHandlerTest extends TubePressUnitTest {
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $storageManager = $ioc->get('org_tubepress_api_options_StorageManager');
+        $storageManager = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $storageManager->shouldReceive('exists')->atLeast()->once()->andReturn(true);
         $storageManager->shouldReceive('set')->atLeast()->once();
 

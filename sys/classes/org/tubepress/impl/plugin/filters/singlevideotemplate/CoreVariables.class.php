@@ -28,7 +28,7 @@ class org_tubepress_impl_plugin_filters_singlevideotemplate_CoreVariables
     {
         $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
         $context        = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $embedded       = $ioc->get('org_tubepress_api_embedded_EmbeddedHtmlGenerator');
+        $embedded       = $ioc->get(org_tubepress_api_embedded_EmbeddedHtmlGenerator::_);
         $embeddedString = $embedded->getHtml($video->getId());
         $width          = $context->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
 

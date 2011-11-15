@@ -95,7 +95,7 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_t
         }
 
         /* display the results as a thumb gallery */
-        return $ioc->get('org_tubepress_spi_patterns_cor_Chain')->execute($context, array(
+        return $ioc->get(org_tubepress_spi_patterns_cor_Chain::_)->execute($context, array(
             'org_tubepress_impl_shortcode_commands_ThumbGalleryCommand'
         ));
     }

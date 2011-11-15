@@ -81,9 +81,9 @@ EOT;
     private function _getThemeName($ioc)
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $themeHandler = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $themeHandler = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $currentTheme = $themeHandler->calculateCurrentThemeName();
-        $fe           = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fe           = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $basePath     = $fe->getTubePressBaseInstallationPath();
 
         if ($currentTheme === 'default') {

@@ -85,7 +85,7 @@ class org_tubepress_impl_plugin_filters_providerresult_VideoPrepender
             return $providerResult;
         }
 
-        $provider = $ioc->get('org_tubepress_api_provider_Provider');
+        $provider = $ioc->get(org_tubepress_api_provider_Provider::_);
         try {
             $video = $provider->getSingleVideo($id);
             array_unshift($videos, $video);

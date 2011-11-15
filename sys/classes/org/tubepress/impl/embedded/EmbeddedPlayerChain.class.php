@@ -44,9 +44,9 @@ class org_tubepress_impl_embedded_EmbeddedPlayerChain implements org_tubepress_a
     public function getHtml($videoId)
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-        $chain        = $ioc->get('org_tubepress_spi_patterns_cor_Chain');
-        $pm           = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pc           = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
+        $chain        = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
+        $pm           = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $providerName = $pc->calculateProviderOfVideoId($videoId);
         $context      = $chain->createContextInstance();
 

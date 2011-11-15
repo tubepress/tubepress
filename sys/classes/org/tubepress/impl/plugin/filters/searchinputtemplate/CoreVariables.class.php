@@ -41,7 +41,7 @@ class org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariables
         $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
         $context    = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $qss        = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
-        $ms         = $ioc->get('org_tubepress_api_message_MessageService');
+        $ms         = $ioc->get(org_tubepress_api_message_MessageService::_);
         $resultsUrl = $context->get(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL);
         
         /* if the user didn't request a certain page, just send the search results right back here */

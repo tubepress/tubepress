@@ -16,7 +16,7 @@ class org_tubepress_impl_url_commands_VimeoUrlBuilderCommandTest extends TubePre
 
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $pc           = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
         $pc->shouldReceive('calculateProviderOfVideoId')->zeroOrMoreTimes()->andReturn(org_tubepress_api_provider_Provider::VIMEO);
 
         $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);

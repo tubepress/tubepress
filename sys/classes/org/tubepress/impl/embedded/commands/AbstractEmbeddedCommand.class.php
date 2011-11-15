@@ -54,7 +54,7 @@ abstract class org_tubepress_impl_embedded_commands_AbstractEmbeddedCommand impl
             return false;
         }
 
-        $theme    = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $theme    = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $template = $theme->getTemplateInstance($this->_getTemplatePath($providerName, $videoId, $ioc, $execContext));
 
         $context->template                   = $template;

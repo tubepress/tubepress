@@ -50,10 +50,10 @@ class org_tubepress_impl_options_FormHandler
         global $tubepress_base_url;
 
         $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $messageService = $ioc->get('org_tubepress_api_message_MessageService');
+        $messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
         $templateBldr   = $ioc->get('org_tubepress_api_template_TemplateBuilder');
-        $storageManager = $ioc->get('org_tubepress_api_options_StorageManager');
-        $fse            = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $storageManager = $ioc->get(org_tubepress_api_options_StorageManager::_);
+        $fse            = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $basePath       = $fse->getTubePressBaseInstallationPath();
         $template       = $templateBldr->getNewTemplateInstance("$basePath/sys/ui/templates/wordpress/options_page.tpl.php");
 
@@ -91,7 +91,7 @@ class org_tubepress_impl_options_FormHandler
     public function collect($postVars)
     {
         $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $storageManager = $ioc->get('org_tubepress_api_options_StorageManager');
+        $storageManager = $ioc->get(org_tubepress_api_options_StorageManager::_);
 
         /* this loop will collect everything except checkboxes */
         foreach ($postVars as $name => $value) {
@@ -150,8 +150,8 @@ class org_tubepress_impl_options_FormHandler
             if ($optionName == org_tubepress_api_const_options_names_Display::THEME) {
 
                 $ioc                  = org_tubepress_impl_ioc_IocContainer::getInstance();
-                $themeHandler         = $ioc->get('org_tubepress_api_theme_ThemeHandler');
-                $fs                   = $ioc->get('org_tubepress_api_filesystem_Explorer');
+                $themeHandler         = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
+                $fs                   = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
                 $userContentDir       = $themeHandler->getUserContentDirectory();
                 $baseInstallationPath = $fs->getTubePressBaseInstallationPath();
 

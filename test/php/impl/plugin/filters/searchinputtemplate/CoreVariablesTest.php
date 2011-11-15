@@ -23,7 +23,7 @@ class org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariablesTest ex
         $qss->shouldReceive('getFullUrl')->once()->andReturn('http://tubepress.org?foo=bar&something=else');
         $qss->shouldReceive('getSearchTerms')->once()->andReturn('search for something');
 
-        $ms         = $ioc->get('org_tubepress_api_message_MessageService');
+        $ms         = $ioc->get(org_tubepress_api_message_MessageService::_);
         $ms->shouldReceive('_')->once()->andReturnUsing(function ($msg) {
             return "##$msg##";
         });
