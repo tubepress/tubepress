@@ -22,7 +22,30 @@ class org_tubepress_impl_feed_commands_VimeoFeedInspectionCommandTest extends Tu
         $this->assertFalse($this->_sut->execute($context));
     }
 
-    function testCanHandle()
+    /**
+     * @expectedException Exception
+     */
+    function testVimeoError()
+    {
+        $wrapper = new stdClass;
+        $error   = new stdClass;
+
+        $wrapper->stat = 'fail';
+        $wrapper->err  = $error;
+        $error->msg    = 'You failed';
+
+        $context = new stdClass();
+
+        $context->providerName = org_tubepress_api_provider_Provider::VIMEO;
+        $context->rawFeed      = serialize($wrapper);
+
+        $this->assertTrue($this->_sut->execute($context));
+    }
+
+    /**
+     * @expectedException Exception
+     */
+    function testCannotUnserializeHandle()
     {
         $context = new stdClass();
 

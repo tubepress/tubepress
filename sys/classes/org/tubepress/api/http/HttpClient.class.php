@@ -19,6 +19,12 @@
  *
  */
 
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../impl/classloader/ClassLoader.class.php';
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_http_HttpRequest',
+    'org_tubepress_api_http_HttpResponseHandler',
+));
+
 /**
  * Handles HTTP client functionality.
  */
