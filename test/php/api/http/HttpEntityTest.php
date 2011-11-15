@@ -25,29 +25,6 @@ class org_tubepress_api_http_HttpEntityTest extends TubePressUnitTest {
         $this->_sut->setContentType(4);
     }
 
-    function testSetGetChunked()
-    {
-        $this->_sut->setChunked(true);
-        $this->assertTrue($this->_sut->isChunked());
-
-        $this->_sut->setChunked(false);
-        $this->assertFalse($this->_sut->isChunked());
-    }
-
-    /**
-    * @expectedException Exception
-    */
-    function testSetNonStringContentEncoding()
-    {
-        $this->_sut->setContentEncoding(array());
-    }
-
-    function testSetContentEncoding()
-    {
-        $this->_sut->setContentEncoding('bla bla');
-        $this->assertEquals('bla bla', $this->_sut->getContentEncoding());
-    }
-
     /**
     * @expectedException Exception
     */

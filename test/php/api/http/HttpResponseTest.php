@@ -20,20 +20,6 @@ class org_tubepress_api_http_HttpResponseTest extends org_tubepress_api_http_Abs
         $this->assertEquals(432, $this->getSut()->getStatusCode());
     }
 
-    function testSetStatusMessage()
-    {
-        $this->getSut()->setStatusMessage('hello');
-        $this->assertEquals('hello', $this->getSut()->getStatusMessage());
-    }
-
-    /**
-    * @expectedException Exception
-    */
-    function testNonStringStatusMessage()
-    {
-        $this->getSut()->setStatusMessage(4);
-    }
-
     /**
     * @expectedException Exception
     */

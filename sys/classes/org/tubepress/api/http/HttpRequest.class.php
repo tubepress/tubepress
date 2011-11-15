@@ -87,7 +87,7 @@ class org_tubepress_api_http_HttpRequest extends org_tubepress_api_http_HttpMess
     /**
      * Get the URL of this request.
      *
-     * @return org_tubepress_api_url_Url The URL of this request.
+     * @return org_tubepress_api_http_Url The URL of this request.
      */
     public function getUrl()
     {
@@ -99,7 +99,7 @@ class org_tubepress_api_http_HttpRequest extends org_tubepress_api_http_HttpMess
      *
      * @param unknown_type $url The URL of this request.
      *
-     * @throws Exception If the given URL is not a valid string URL or instance of org_tubepress_api_url_Url
+     * @throws Exception If the given URL is not a valid string URL or instance of org_tubepress_api_http_Url
      *
      * @return void
      */

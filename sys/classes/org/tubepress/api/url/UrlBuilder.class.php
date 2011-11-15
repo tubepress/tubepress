@@ -23,9 +23,9 @@
  * Builds URLs to send out to a remote provider
  *
  */
-interface org_tubepress_api_url_UrlBuilder
+interface org_tubepress_api_http_UrlBuilder
 {
-    const _ = 'org_tubepress_api_url_UrlBuilder';
+    const _ = 'org_tubepress_api_http_UrlBuilder';
 
     /**
      * Builds a URL for a list of videos
