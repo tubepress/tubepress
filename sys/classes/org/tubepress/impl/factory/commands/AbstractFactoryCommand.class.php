@@ -59,7 +59,7 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
         $this->_preExecute($feed);
 
         $ioc             = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $this->_context  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $this->_context  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
         $results = array();
         $index   = 0;

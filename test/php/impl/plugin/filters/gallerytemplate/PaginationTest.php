@@ -25,7 +25,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PaginationTest extends T
 
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $this->_execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $this->_execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $this->_execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::PAGINATE_ABOVE)->andReturn(true);
         $this->_execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::PAGINATE_BELOW)->andReturn(true);
         $this->_execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE)->andReturn(4);
@@ -37,7 +37,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PaginationTest extends T
         $this->_mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::PAGINATION_TOP, 'pagination-html');
         $this->_mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::PAGINATION_BOTTOM, 'pagination-html');
 
-        $this->_qss = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+        $this->_qss = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $this->_qss->shouldReceive('getFullUrl')->once()->andReturn('http://tubepress.org');
 
         $messageService = $ioc->get('org_tubepress_api_message_MessageService');

@@ -16,7 +16,7 @@ class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommandTest extends TubeP
         $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
         $pc->shouldReceive('calculateProviderOfVideoId')->zeroOrMoreTimes()->andReturn(org_tubepress_api_provider_Provider::YOUTUBE);
 
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->zeroOrMoreTimes()->with(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE)->andReturn(20);
         $execContext->shouldReceive('get')->zeroOrMoreTimes()->with(org_tubepress_api_const_options_names_Display::ORDER_BY)->andReturn('viewCount');
         $execContext->shouldReceive('get')->zeroOrMoreTimes()->with(org_tubepress_api_const_options_names_Feed::FILTER)->andReturn('moderate');
@@ -197,7 +197,7 @@ class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommandTest extends TubeP
     private function _expectOptions($opts)
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
         foreach ($opts as $name => $value) {
             $execContext->shouldReceive('get')->zeroOrMoreTimes()->with($name)->andReturn($value);

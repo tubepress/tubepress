@@ -35,10 +35,10 @@ require dirname(__FILE__) . '/../wordpress/loader.php';
 $booter = $ioc->get('org_tubepress_api_bootstrap_Bootstrapper');
 $booter->boot();
 
-$context  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+$context  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 $player   = $ioc->get('org_tubepress_api_player_PlayerHtmlGenerator');
 $provider = $ioc->get('org_tubepress_api_provider_Provider');
-$qss      = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+$qss      = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
 $sp       = $ioc->get('org_tubepress_api_shortcode_ShortcodeParser');
 
 $shortcode = rawurldecode($qss->getShortcode($_GET));

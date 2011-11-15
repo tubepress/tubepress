@@ -39,7 +39,7 @@ class org_tubepress_impl_plugin_filters_providerresult_ResultCountCapper
     {
         $totalResults = $providerResult->getEffectiveTotalResultCount();
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context      = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context      = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $limit        = $context->get(org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP);
         $firstCut     = $limit == 0 ? $totalResults : min($limit, $totalResults);
         $secondCut    = min($firstCut, self::_calculateRealMax($context, $firstCut));

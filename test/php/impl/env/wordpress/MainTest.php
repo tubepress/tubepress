@@ -19,7 +19,7 @@ class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
         $gallery->shouldReceive('getHtmlForShortcode')->once()->with('the content')->andReturn('html for shortcode');
         $gallery->shouldReceive('getHtmlForShortcode')->once()->with('html for shortcode')->andReturn('html for shortcode');
 
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('getActualShortcodeUsed')->times(4)->andReturn('<current shortcode>');
         $context->shouldReceive('reset')->twice();
 

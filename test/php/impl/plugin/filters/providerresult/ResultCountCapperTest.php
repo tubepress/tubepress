@@ -16,7 +16,7 @@ class org_tubepress_impl_plugin_filters_providerresult_ResultCountCapperTest ext
 	{
 	    $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $context      = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context      = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP)->andReturn(888);
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::MODE)->andReturn(org_tubepress_api_const_options_values_ModeValue::FAVORITES);
 

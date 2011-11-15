@@ -16,7 +16,7 @@ class org_tubepress_impl_plugin_filters_singlevideotemplate_CoreVariablesTest ex
 	{
 	    $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $context      = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context      = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH)->andReturn(889);
 
         $video = \Mockery::mock('org_tubepress_api_video_Video');

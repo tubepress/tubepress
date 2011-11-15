@@ -47,7 +47,7 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommand implements org_tub
     public function execute($context)
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $playerName  = $execContext->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
 
         if ($playerName !== org_tubepress_api_const_options_values_PlayerValue::SOLO) {
@@ -57,7 +57,7 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommand implements org_tub
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Solo player detected. Checking query string for video ID.');
 
         /* see if we have a custom video ID set */
-        $qss     = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+        $qss     = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $videoId = $qss->getCustomVideo($_GET);
 
         if ($videoId == '') {

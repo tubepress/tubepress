@@ -44,7 +44,7 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_t
     public function execute($context)
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $galleryId   = $execContext->get(org_tubepress_api_const_options_names_Advanced::GALLERY_ID);
 
         if ($galleryId == '') {
@@ -59,7 +59,7 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_t
         $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
         $ms            = $ioc->get('org_tubepress_api_message_MessageService');
         $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-        $qss           = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+        $qss           = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $template      = $themeHandler->getTemplateInstance('gallery.tpl.php');
         $page          = $qss->getPageNum($_GET);
         $providerName  = $pc->calculateCurrentVideoProvider();

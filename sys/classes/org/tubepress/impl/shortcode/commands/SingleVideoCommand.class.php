@@ -40,7 +40,7 @@ class org_tubepress_impl_shortcode_commands_SingleVideoCommand implements org_tu
     public function execute($context)
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $videoId     = $execContext->get(org_tubepress_api_const_options_names_Output::VIDEO);
 
         if ($videoId == '') {

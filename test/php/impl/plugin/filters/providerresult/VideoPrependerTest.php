@@ -16,7 +16,7 @@ class org_tubepress_impl_plugin_filters_providerresult_VideoPrependerTest extend
 	{
 	    $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $qss = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+        $qss = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $qss->shouldReceive('getCustomVideo')->once()->andReturn('custom-video');
 
         $video = \Mockery::mock('org_tubepress_api_video_Video');
@@ -36,7 +36,7 @@ class org_tubepress_impl_plugin_filters_providerresult_VideoPrependerTest extend
 	{
 	    $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $qss = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+        $qss = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $qss->shouldReceive('getCustomVideo')->once()->andReturn('');
 
         $providerResult = \Mockery::mock('org_tubepress_api_provider_ProviderResult');

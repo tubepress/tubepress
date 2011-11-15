@@ -13,7 +13,7 @@ class org_tubepress_impl_plugin_filters_galleryhtml_GalleryJsTest extends TubePr
 
 		$ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION)->andReturn(true);
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME)->andReturn('current-player-name');
         $context->shouldReceive('toShortcode')->once()->andReturn('shortcode');

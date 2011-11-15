@@ -58,7 +58,7 @@ class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand extends org_tubep
     {
         $url         = '';
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
         switch ($execContext->get(org_tubepress_api_const_options_names_Output::MODE)) {
 
@@ -154,7 +154,7 @@ class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand extends org_tubep
         }
 
         $requestURL = new org_tubepress_api_url_Url("http://gdata.youtube.com/feeds/api/videos/$id");
-        $this->_commonUrlPostProcessing($ioc->get('org_tubepress_api_exec_ExecutionContext'), $requestURL);
+        $this->_commonUrlPostProcessing($ioc->get(org_tubepress_api_exec_ExecutionContext::_), $requestURL);
 
         return $requestURL->toString();
     }

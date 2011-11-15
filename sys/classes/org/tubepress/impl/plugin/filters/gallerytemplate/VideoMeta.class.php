@@ -40,7 +40,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_VideoMeta
     public function alter_galleryTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_provider_ProviderResult $providerResult, $page, $providerName)
     {
         $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context        = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context        = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $messageService = $ioc->get('org_tubepress_api_message_MessageService');
 
         $metaNames  = org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::META);

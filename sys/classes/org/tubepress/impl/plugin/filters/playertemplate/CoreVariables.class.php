@@ -39,7 +39,7 @@ class org_tubepress_impl_plugin_filters_playertemplate_CoreVariables
     {
         $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
         $embedded  = $ioc->get('org_tubepress_api_embedded_EmbeddedHtmlGenerator');
-        $context   = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context   = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $galleryId = $context->get(org_tubepress_api_const_options_names_Advanced::GALLERY_ID);
         
         $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_SOURCE, $embedded->getHtml($video->getId()));

@@ -62,7 +62,7 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
     private function _wrappedGet($id)
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context     = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context     = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $life        = $context->get(org_tubepress_api_const_options_names_Advanced::CACHE_LIFETIME_SECONDS);
         $data        = false;
         $refreshTime = $this->_getRefreshTime($life);
@@ -108,7 +108,7 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
         }
 
         $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context        = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context        = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $life           = $context->get(org_tubepress_api_const_options_names_Advanced::CACHE_LIFETIME_SECONDS);
         $cleaningFactor = $context->get(org_tubepress_api_const_options_names_Advanced::CACHE_CLEAN_FACTOR);
         $file           = $this->_getFileWithPath($id, $ioc);
@@ -344,7 +344,7 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
 
     private function _getCacheDir($ioc)
     {
-        $context  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $cacheDir = $context->get(org_tubepress_api_const_options_names_Advanced::CACHE_DIR);
 
         if ($cacheDir != '') {

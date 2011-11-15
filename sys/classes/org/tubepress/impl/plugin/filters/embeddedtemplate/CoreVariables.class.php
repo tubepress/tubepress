@@ -41,7 +41,7 @@ class org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariables
         global $tubepress_base_url;
 
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
         $fullscreen      = $context->get(org_tubepress_api_const_options_names_Embedded::FULLSCREEN);
         $playerColor     = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($context->get(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR), '999999');

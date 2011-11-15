@@ -16,7 +16,7 @@ class org_tubepress_impl_plugin_filters_providerresult_VideoBlacklistTest extend
 	{
 	    $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $context      = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context      = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::VIDEO_BLACKLIST)->andReturn('xxx');
 
         $mockVideo1 = \Mockery::mock('org_tubepress_api_video_Video');

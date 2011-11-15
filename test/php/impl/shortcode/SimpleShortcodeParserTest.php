@@ -23,7 +23,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('butters');
 
         $validator = $ioc->get('org_tubepress_api_options_OptionValidator');
@@ -36,7 +36,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
         $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
             org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE => 'foobar',
@@ -54,7 +54,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
         $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
             org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE => 'foobar',
@@ -72,7 +72,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
         $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
             org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE => 'foobar',
@@ -90,7 +90,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
         $context->shouldReceive('setCustomOptions')->never();
 
@@ -103,7 +103,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
         $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
             org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE => 'foobar'
@@ -118,7 +118,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
         $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
             org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE => 'foobar'
@@ -133,7 +133,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
         $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST));
 
@@ -145,7 +145,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
         $shortcode = '[butters mode=\'playlist\']';
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
         $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST));
 
@@ -157,7 +157,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
         $shortcode = '[butters mode="playlist"]';
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
         $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST));
 
@@ -186,7 +186,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
         $shortcode = "[butters mode='playlist']";
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
         $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST));
 
@@ -198,7 +198,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
         $shortcode = "sddf	 [butters mode='playlist']	sdsdfsdf";
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with("[butters mode='playlist']");
         $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST));
 
@@ -210,7 +210,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
         $shortcode = "sddf[butters mode='playlist']sdsdfsdf";
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with("[butters mode='playlist']");
         $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST));
 

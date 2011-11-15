@@ -16,10 +16,10 @@ class org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariablesTest ex
 	{
 	    $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $context      = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context      = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL)->andReturn('');
 
-        $qss = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+        $qss = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $qss->shouldReceive('getFullUrl')->once()->andReturn('http://tubepress.org?foo=bar&something=else');
         $qss->shouldReceive('getSearchTerms')->once()->andReturn('search for something');
 

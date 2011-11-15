@@ -47,7 +47,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUn
         $envD = $ioc->get('org_tubepress_api_environment_Detector');
         $envD->shouldReceive('isWordPress')->once()->andReturn(false);
 
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('get')->with(org_tubepress_api_const_options_names_Advanced::DEBUG_ON)->andReturn(false);
 
         $fe = $ioc->get('org_tubepress_api_filesystem_Explorer');

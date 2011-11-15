@@ -44,7 +44,7 @@ class org_tubepress_impl_shortcode_commands_SearchInputCommand implements org_tu
     public function execute($context)
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
         if ($execContext->get(org_tubepress_api_const_options_names_Output::OUTPUT) !== org_tubepress_api_const_options_values_OutputValue::SEARCH_INPUT) {
             return false;

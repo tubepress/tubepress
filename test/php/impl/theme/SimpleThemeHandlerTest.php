@@ -29,7 +29,7 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
     public function testCalculateCurrentThemeNameNoCustomTheme()
     {
         $ioc                       = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::THEME)->andReturn('');
 
         $result = $this->_sut->calculateCurrentThemeName();
@@ -39,7 +39,7 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
     public function testCalculateCurrentThemeNameCustomTheme()
     {
         $ioc                       = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::THEME)->andReturn('foo');
 
         $result = $this->_sut->calculateCurrentThemeName();
@@ -52,7 +52,7 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
     public function testGetTemplateInstanceNoSuchTemplate()
     {
         $ioc                       = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->zeroOrMoreTimes()->with(org_tubepress_api_const_options_names_Display::THEME)->andReturn('');
 
         $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
@@ -93,7 +93,7 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $execContext  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->zeroOrMoreTimes()->with(org_tubepress_api_const_options_names_Display::THEME)->andReturn('foo');
 
         $fs                        = $ioc->get('org_tubepress_api_filesystem_Explorer');

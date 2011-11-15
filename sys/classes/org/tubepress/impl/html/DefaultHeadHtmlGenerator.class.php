@@ -65,7 +65,7 @@ class org_tubepress_impl_html_DefaultHeadHtmlGenerator implements org_tubepress_
     public function getHeadHtmlMeta()
     {
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $qss  = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+        $qss  = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $page = $qss->getPageNum($_GET);
 
         return $page > 1 ? "<meta name=\"robots\" content=\"noindex, nofollow\" />" : '';
