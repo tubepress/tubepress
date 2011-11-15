@@ -20,18 +20,32 @@
  */
 
 /**
- * Examines the feed results.
+ * Builds URLs to send out to a remote provider
+ *
  */
-interface org_tubepress_api_feed_FeedInspector
+interface org_tubepress_api_url_UrlBuilder
 {
-    const _ = 'org_tubepress_api_feed_FeedInspector';
+    const _ = 'org_tubepress_api_url_UrlBuilder';
 
     /**
-     * Count the total videos in this feed result.
+     * Builds a URL for a list of videos
      *
-     * @param unknown $rawFeed The raw video feed (varies depending on provider)
+     * @param int $currentPage The current page number of the gallery.
      *
-     * @return int The total result count of this query, or 0 if there was a problem.
+     * @throws Exception If there was a problem.
+     *
+     * @return string The request URL for this gallery
      */
-    function getTotalResultCount($rawFeed);
+    function buildGalleryUrl($currentPage);
+
+    /**
+     * Builds a request url for a single video
+     *
+     * @param string $id The video ID to search for
+     *
+     * @throws Exception If there was a problem.
+     *
+     * @return string The URL for the single video given.
+     */
+    function buildSingleVideoUrl($id);
 }
