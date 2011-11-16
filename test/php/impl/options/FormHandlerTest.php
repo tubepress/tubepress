@@ -43,7 +43,7 @@ class org_tubepress_impl_options_FormHandlerTest extends TubePressUnitTest {
         $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::OPTIONS_PAGE_CATEGORIES, \Mockery::any());
         $mockTemplate->shouldReceive('toString')->once()->andReturn('fooey');
 
-        $templateBldr   = $ioc->get('org_tubepress_api_template_TemplateBuilder');
+        $templateBldr   = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
         $templateBldr->shouldReceive('getNewTemplateInstance')->once()->with('basePath/sys/ui/templates/wordpress/options_page.tpl.php')->andReturn($mockTemplate);
 
         $this->assertEquals('fooey', $this->_stpom->getHtml());

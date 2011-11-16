@@ -26,7 +26,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('butters');
 
-        $validator = $ioc->get('org_tubepress_api_options_OptionValidator');
+        $validator = $ioc->get(org_tubepress_api_options_OptionValidator::_);
         $validator->shouldReceive('validate')->zeroOrMoreTimes();
     }
 

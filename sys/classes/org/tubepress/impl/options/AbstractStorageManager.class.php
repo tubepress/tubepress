@@ -109,7 +109,7 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
         }
 
         $ioc               = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $validationService = $ioc->get('org_tubepress_api_options_OptionValidator');
+        $validationService = $ioc->get(org_tubepress_api_options_OptionValidator::_);
 
         $validationService->validate($optionName, $optionValue);
         $this->setOption($optionName, $optionValue);

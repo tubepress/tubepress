@@ -24,6 +24,8 @@
  */
 interface org_tubepress_api_template_TemplateBuilder
 {
+    const _ = 'org_tubepress_api_template_TemplateBuilder';
+
     /**
      * Get a new template instance.
      *

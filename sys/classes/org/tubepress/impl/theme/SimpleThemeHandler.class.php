@@ -61,7 +61,7 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Successfully loaded template from %s', $filePath);
 
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tb  = $ioc->get('org_tubepress_api_template_TemplateBuilder');
+        $tb  = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
 
         return $tb->getNewTemplateInstance($filePath);
     }

@@ -52,7 +52,7 @@ class org_tubepress_impl_options_FormHandler
 
         $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
         $messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
-        $templateBldr   = $ioc->get('org_tubepress_api_template_TemplateBuilder');
+        $templateBldr   = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
         $storageManager = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $fse            = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $basePath       = $fse->getTubePressBaseInstallationPath();

@@ -70,7 +70,7 @@ class org_tubepress_impl_env_wordpress_Main
     {
         $ms      = $ioc->get(org_tubepress_api_message_MessageService::_);
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $gallery = $ioc->get('org_tubepress_api_shortcode_ShortcodeHtmlGenerator');
+        $gallery = $ioc->get(org_tubepress_api_shortcode_ShortcodeHtmlGenerator::_);
 
         /* Parse each shortcode one at a time */
         while ($parser->somethingToParse($content, $trigger)) {

@@ -15,7 +15,7 @@ class org_tubepress_impl_env_wordpress_MainTest extends TubePressUnitTest {
         $parser->shouldReceive('somethingToParse')->times(2)->with('the content', 'trigger word')->andReturn(true);
         $parser->shouldReceive('somethingToParse')->times(2)->with('html for shortcode', 'trigger word')->andReturn(true, false);
 
-        $gallery = $ioc->get('org_tubepress_api_shortcode_ShortcodeHtmlGenerator');
+        $gallery = $ioc->get(org_tubepress_api_shortcode_ShortcodeHtmlGenerator::_);
         $gallery->shouldReceive('getHtmlForShortcode')->once()->with('the content')->andReturn('html for shortcode');
         $gallery->shouldReceive('getHtmlForShortcode')->once()->with('html for shortcode')->andReturn('html for shortcode');
 
