@@ -209,7 +209,7 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
         if ($this->_context->get(org_tubepress_api_const_options_names_Display::RELATIVE_DATES)) {
             return org_tubepress_impl_util_TimeUtils::getRelativeTime($unixTime);
         }
-        return date($this->_context->get(org_tubepress_api_const_options_names_Advanced::DATEFORMAT), $unixTime);
+        return @date($this->_context->get(org_tubepress_api_const_options_names_Advanced::DATEFORMAT), $unixTime);
     }
 
     private function _trimDescription($description)

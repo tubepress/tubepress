@@ -81,7 +81,7 @@ abstract class org_tubepress_impl_http_transports_AbstractHttpTransportTest exte
         $this->assertTrue($response instanceof org_tubepress_api_http_HttpResponse, 'Reponse is not of type HttpResponse');
 
         $actualContentType = $response->getHeaderValue(org_tubepress_api_http_HttpMessage::HTTP_HEADER_CONTENT_TYPE);
-        $this->assertEquals($type, $actualContentType, "Expected Content-Type $type but got $actualContentType");
+        $this->assertTrue($actualContentType === $type || $actualContentType === "$type; charset=utf-8", "Expected Content-Type $type but got $actualContentType");
 
         $encoded = $response->getHeaderValue(org_tubepress_api_http_HttpMessage::HTTP_HEADER_CONTENT_ENCODING);
         $this->assertEquals($encoding, $encoded, "Expected encoding $encoding but got $encoded");

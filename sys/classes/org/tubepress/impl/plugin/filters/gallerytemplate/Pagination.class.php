@@ -26,7 +26,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_template_Variable',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_plugin_PluginManager',
-    'org_tubepress_api_url_Url',
+    'org_tubepress_api_http_Url',
     'org_tubepress_impl_ioc_IocContainer',
 ));
 
@@ -72,7 +72,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
         $currentPage = $qss->getPageNum($_GET);
         $vidsPerPage = $context->get(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE);
 
-        $newurl = new org_tubepress_api_url_Url($qss->getFullUrl($_SERVER));
+        $newurl = new org_tubepress_api_http_Url($qss->getFullUrl($_SERVER));
         $newurl->unsetQueryVariable('tubepress_page');
 
         $result = $this->_diggStyle($vidCount, $messageService, $currentPage, $vidsPerPage, 1, $newurl->toString(), 'tubepress_page');
@@ -105,7 +105,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
         $lpm1       = $lastpage - 1;
         $pagination = '';
 
-        $url = new org_tubepress_api_url_Url($targetpage);
+        $url = new org_tubepress_api_http_Url($targetpage);
 
         if ($lastpage > 1) {
             $pagination .= '<div class="pagination">';

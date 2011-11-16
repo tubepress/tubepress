@@ -26,7 +26,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_api_template_Template',
-    'org_tubepress_api_url_Url',
+    'org_tubepress_api_http_Url',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_util_StringUtils',
 ));
@@ -43,32 +43,31 @@ class org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariables
         $qss        = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $ms         = $ioc->get(org_tubepress_api_message_MessageService::_);
         $resultsUrl = $context->get(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL);
-        
+
         /* if the user didn't request a certain page, just send the search results right back here */
         if ($resultsUrl == '') {
             $resultsUrl = $qss->getFullUrl($_SERVER);
         }
-        
+
         /* clean up the search terms a bit */
         $searchTerms = urldecode($qss->getSearchTerms($_GET));
         $searchTerms = org_tubepress_impl_util_StringUtils::cleanForSearch($searchTerms);
-        
-        /* 
+
+        /*
          * read http://stackoverflow.com/questions/1116019/submitting-a-get-form-with-query-string-params-and-hidden-params-disappear
          * if you're curious as to what's going on here
          */
-        $url    = new org_tubepress_api_url_Url($resultsUrl);
+        $url    = new org_tubepress_api_http_Url($resultsUrl);
         $params = $url->getQueryVariables();
-        
+
         unset($params[org_tubepress_api_const_querystring_QueryParamName::PAGE]);
         unset($params[org_tubepress_api_const_querystring_QueryParamName::SEARCH_TERMS]);
-
         /* apply the template variables */
         $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_HANDLER_URL, $resultsUrl);
         $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_HIDDEN_INPUTS, $params);
         $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_TERMS, $searchTerms);
         $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_BUTTON, $ms->_('search-input-button'));
-        
+
         return $template;
     }
 }

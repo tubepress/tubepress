@@ -29,6 +29,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_filesystem_Explorer',
     'org_tubepress_api_options_StorageManager',
     'org_tubepress_api_message_MessageService',
+    'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_impl_options_OptionsReference',
 ));
 

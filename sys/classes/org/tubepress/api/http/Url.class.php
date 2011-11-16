@@ -273,6 +273,11 @@ class org_tubepress_api_http_Url
 
     public function setPath($path)
     {
+        if ($path == '') {
+
+            return;
+        }
+
         if (! is_string($path)) {
 
             throw new Exception("Path must be a string ($path)");

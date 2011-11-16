@@ -25,7 +25,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_provider_Provider',
-    'org_tubepress_api_url_Url',
+    'org_tubepress_api_http_Url',
     'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
     'org_tubepress_impl_embedded_commands_AbstractEmbeddedCommand',
 ));
@@ -61,7 +61,7 @@ class org_tubepress_impl_embedded_commands_VimeoCommand extends org_tubepress_im
         $loop     = $context->get(org_tubepress_api_const_options_names_Embedded::LOOP);
 
         /* build the data URL based on these options */
-        $link = new org_tubepress_api_url_Url(self::VIMEO_EMBEDDED_PLAYER_URL . "video/$videoId");
+        $link = new org_tubepress_api_http_Url(self::VIMEO_EMBEDDED_PLAYER_URL . "video/$videoId");
         $link->setQueryVariable(self::VIMEO_QUERYPARAM_AUTOPLAY, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($autoPlay));
         $link->setQueryVariable(self::VIMEO_QUERYPARAM_COLOR, $color);
         $link->setQueryVariable(self::VIMEO_QUERYPARAM_LOOP, org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($loop));

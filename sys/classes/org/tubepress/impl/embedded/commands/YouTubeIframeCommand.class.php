@@ -44,7 +44,7 @@ class org_tubepress_impl_embedded_commands_YouTubeIframeCommand extends org_tube
     
     protected function _getEmbeddedDataUrl($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_exec_ExecutionContext $context)
     {    
-        $link  = new org_tubepress_api_url_Url('http://www.youtube.com/embed/' . $videoId);
+        $link  = new org_tubepress_api_http_Url('http://www.youtube.com/embed/' . $videoId);
 
         $showRelated     = $context->get(org_tubepress_api_const_options_names_Embedded::SHOW_RELATED);
         $autoPlay        = $context->get(org_tubepress_api_const_options_names_Embedded::AUTOPLAY);

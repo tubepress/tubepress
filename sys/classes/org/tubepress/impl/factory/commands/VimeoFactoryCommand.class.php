@@ -146,7 +146,7 @@ class org_tubepress_impl_factory_commands_VimeoFactoryCommand extends org_tubepr
 
     protected function _getTimePublishedInUnixTime($index)
     {
-        return strtotime($this->_videoArray[$index]->upload_date);
+        return @strtotime($this->_videoArray[$index]->upload_date);
     }
 
     protected function _getTitle($index)
