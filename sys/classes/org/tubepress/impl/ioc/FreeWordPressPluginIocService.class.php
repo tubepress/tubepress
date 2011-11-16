@@ -52,7 +52,7 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocService extends org_tubepress
         $this->bind('org_tubepress_api_options_OptionValidator')         ->to('org_tubepress_impl_options_SimpleOptionValidator');
         $this->bind('org_tubepress_api_options_StorageManager')          ->to('org_tubepress_impl_options_WordPressStorageManager');
         $this->bind('org_tubepress_api_plugin_PluginManager')            ->to('org_tubepress_impl_plugin_PluginManagerImpl');
-        $this->bind('org_tubepress_api_patterns_cor_Chain')              ->to('org_tubepress_impl_patterns_cor_ChainGang');
+        $this->bind('org_tubepress_spi_patterns_cor_Chain')              ->to('org_tubepress_impl_patterns_cor_ChainGang');
         $this->bind('org_tubepress_api_player_PlayerHtmlGenerator')      ->to('org_tubepress_impl_player_DefaultPlayerHtmlGenerator');
         $this->bind('org_tubepress_api_provider_Provider')               ->to('org_tubepress_impl_provider_SimpleProvider');
         $this->bind('org_tubepress_api_provider_ProviderCalculator')     ->to('org_tubepress_impl_provider_SimpleProviderCalculator');
@@ -61,6 +61,6 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocService extends org_tubepress
         $this->bind('org_tubepress_api_shortcode_ShortcodeParser')       ->to('org_tubepress_impl_shortcode_SimpleShortcodeParser');
         $this->bind('org_tubepress_api_template_TemplateBuilder')        ->to('org_tubepress_impl_template_SimpleTemplateBuilder');
         $this->bind('org_tubepress_api_theme_ThemeHandler')              ->to('org_tubepress_impl_theme_SimpleThemeHandler');
-        $this->bind('org_tubepress_api_url_UrlBuilder')                  ->to('org_tubepress_impl_url_UrlBuilderChain');
+        $this->bind('org_tubepress_api_feed_UrlBuilder')                  ->to('org_tubepress_impl_feed_UrlBuilderChain');
     }
 }

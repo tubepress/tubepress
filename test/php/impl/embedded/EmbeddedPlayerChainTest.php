@@ -25,10 +25,10 @@ class org_tubepress_impl_embedded_EmbeddedPlayerChainTest extends TubePressUnitT
 
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $pc  = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $pc  = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
         $pc->shouldReceive('calculateProviderOfVideoId')->with('videoid')->once()->andReturn('video_provider');
 
-        $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
         $chain->shouldReceive('execute')->once()->with(anInstanceOf('stdClass'), array(
              'org_tubepress_impl_embedded_commands_JwFlvCommand',
              'org_tubepress_impl_embedded_commands_EmbedPlusCommand',
@@ -37,7 +37,7 @@ class org_tubepress_impl_embedded_EmbeddedPlayerChainTest extends TubePressUnitT
         ))->andReturn(true);
         $chain->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
 
-        $pm = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_EMBEDDED,
             $mockTemplate, 'videoid', 'video_provider', 'dataurl', 'implname')->andReturn($mockTemplate);
         $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_EMBEDDED,

@@ -20,10 +20,10 @@ class org_tubepress_impl_plugin_listeners_SkeletonExistsListenerTest extends Tub
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $ed  = $ioc->get('org_tubepress_api_environment_Detector');
+        $ed  = $ioc->get(org_tubepress_api_environment_Detector::_);
         $ed->shouldReceive('isWordPress')->once()->andReturn(true);
 
-        $fse  = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fse  = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fse->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath>>');
 		$fse->shouldReceive('copyDirectory')->once()->with('<<basepath>>/sys/skel/tubepress-content', '/value-of-abspath/wp-content');
         
@@ -34,10 +34,10 @@ class org_tubepress_impl_plugin_listeners_SkeletonExistsListenerTest extends Tub
     {
     	$ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
     
-    	$ed  = $ioc->get('org_tubepress_api_environment_Detector');
+    	$ed  = $ioc->get(org_tubepress_api_environment_Detector::_);
     	$ed->shouldReceive('isWordPress')->once()->andReturn(false);
     
-    	$fse  = $ioc->get('org_tubepress_api_filesystem_Explorer');
+    	$fse  = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
     	$fse->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath>>');
     	$fse->shouldReceive('copyDirectory')->once()->with('<<basepath>>/sys/skel/tubepress-content', '<<basepath>>');
     

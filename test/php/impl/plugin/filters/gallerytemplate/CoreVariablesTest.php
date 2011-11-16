@@ -17,7 +17,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_CoreVariablesTest extend
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::THUMB_WIDTH)->andReturn(556);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::THUMB_HEIGHT)->andReturn(984);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn(47);

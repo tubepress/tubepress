@@ -2,3 +2,4 @@
 test/test.properties
 .settings
 .buildpath
+test/test.config

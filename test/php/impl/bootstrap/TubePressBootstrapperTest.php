@@ -17,7 +17,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUn
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $pm                    = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm                    = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $expectedSystemFilters = array(
             array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_EMBEDDED    , 'org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariables'),
             array(org_tubepress_api_const_plugin_FilterPoint::HTML_GALLERY         , 'org_tubepress_impl_plugin_filters_galleryhtml_GalleryJs'),
@@ -44,17 +44,17 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUn
         
         $pm->shouldReceive('notifyListeners')->with(org_tubepress_api_const_plugin_EventName::BOOT)->once();
 
-        $envD = $ioc->get('org_tubepress_api_environment_Detector');
+        $envD = $ioc->get(org_tubepress_api_environment_Detector::_);
         $envD->shouldReceive('isWordPress')->once()->andReturn(false);
 
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('get')->with(org_tubepress_api_const_options_names_Advanced::DEBUG_ON)->andReturn(false);
 
-        $fe = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fe = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fe->shouldReceive('getDirectoriesInDirectory')->once()->with('<<user-content-dir>>/plugins', anything())->andReturn(array('fakedirectory'));
         $fe->shouldReceive('getFilenamesInDirectory')->once()->with('fakedirectory', anything())->andReturn(array(dirname(__FILE__) . '/../../../resources/simplePhpFile.php'));
 
-        $th         = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $th         = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $th->shouldReceive('getUserContentDirectory')->once()->andReturn('<<user-content-dir>>');
         
         $this->_sut->boot();

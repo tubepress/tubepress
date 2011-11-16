@@ -44,7 +44,7 @@ class org_tubepress_impl_options_SimpleOptionValidator implements org_tubepress_
     public function validate($optionName, $candidate)
     {
 	$ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $messageService = $ioc->get('org_tubepress_api_message_MessageService');
+        $messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
         
         /* does this option name even exist? */
         self::_checkExistence($optionName, $messageService);

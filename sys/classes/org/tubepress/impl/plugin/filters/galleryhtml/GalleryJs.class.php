@@ -52,7 +52,7 @@ class org_tubepress_impl_plugin_filters_galleryhtml_GalleryJs
         }
 
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
         $ajaxPagination   = $context->get(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION) ? 'true' : 'false';
         $playerName       = $context->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
@@ -81,9 +81,9 @@ EOT;
     private function _getThemeName($ioc)
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $themeHandler = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $themeHandler = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $currentTheme = $themeHandler->calculateCurrentThemeName();
-        $fe           = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fe           = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $basePath     = $fe->getTubePressBaseInstallationPath();
 
         if ($currentTheme === 'default') {

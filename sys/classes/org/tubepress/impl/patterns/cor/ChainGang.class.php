@@ -21,15 +21,15 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_patterns_cor_Command',
-    'org_tubepress_api_patterns_cor_Chain',
+    'org_tubepress_spi_patterns_cor_Command',
+    'org_tubepress_spi_patterns_cor_Chain',
     'org_tubepress_impl_log_Log',
 ));
 
 /**
  * Implementation of the "chain" in the chain-of-responsbility pattern.
  */
-class org_tubepress_impl_patterns_cor_ChainGang implements org_tubepress_api_patterns_cor_Chain
+class org_tubepress_impl_patterns_cor_ChainGang implements org_tubepress_spi_patterns_cor_Chain
 {
     const LOG_PREFIX = 'Chain Gang';
 
@@ -37,7 +37,7 @@ class org_tubepress_impl_patterns_cor_ChainGang implements org_tubepress_api_pat
      * Executes the given commands with the given context.
      *
      * @param array $context  An array of context elements (may be empty).
-     * @param array $commands An array of org_tubepress_api_patterns_cor_Command class names to execute.
+     * @param array $commands An array of org_tubepress_spi_patterns_cor_Command class names to execute.
      *
      * @return unknown The result of the command execution.
      */
@@ -61,8 +61,8 @@ class org_tubepress_impl_patterns_cor_ChainGang implements org_tubepress_api_pat
 
             $command = $ioc->get($commandName);
 
-            if (!is_a($command, 'org_tubepress_api_patterns_cor_Command')) {
-                throw new Exception("$commandName does not implement org_tubepress_api_patterns_cor_Command");
+            if (!is_a($command, 'org_tubepress_spi_patterns_cor_Command')) {
+                throw new Exception("$commandName does not implement org_tubepress_spi_patterns_cor_Command");
             }
 
             $ableToHandle = call_user_func_array(array($command, 'execute'), array($context));

@@ -21,7 +21,7 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommandTest extends Tube
 
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::DESC_LIMIT)->andReturn(0);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::RANDOM_THUMBS)->andReturn(false);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::RELATIVE_DATES)->andReturn(false);
@@ -39,7 +39,7 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommandTest extends Tube
         $this->assertEquals('N/A', $video->getCommentCount());
         $this->assertEquals("Information about shared spaces proposals in the Auckland CBD area.", $video->getDescription());
         $this->assertEquals('4:04', $video->getDuration());
-        $this->assertEquals('http://www.youtube.com/watch?v=BRKWi5beywQ&amp;feature=youtube_gdata', $video->getHomeUrl());
+        $this->assertEquals('http://www.youtube.com/watch?v=BRKWi5beywQ&feature=youtube_gdata', $video->getHomeUrl());
         $this->assertEquals('BRKWi5beywQ', $video->getId());
         $this->assertEquals(array('Shared', 'Spaces', 'Upload'), $video->getKeywords());
         $this->assertEquals('N/A', $video->getLikesCount());
@@ -58,7 +58,7 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommandTest extends Tube
 
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::DESC_LIMIT)->andReturn(0);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::RANDOM_THUMBS)->andReturn(false);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::RELATIVE_DATES)->andReturn(false);

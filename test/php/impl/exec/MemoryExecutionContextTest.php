@@ -29,7 +29,7 @@ class org_tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTe
 
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $sm  = $ioc->get('org_tubepress_api_options_StorageManager');
+        $sm  = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $sm->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('trigger');
 
         $this->_sut->setCustomOptions($customOptions);
@@ -67,7 +67,7 @@ class org_tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTe
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $sm  = $ioc->get('org_tubepress_api_options_StorageManager');
+        $sm  = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $sm->shouldReceive('get')->once()->with('nonexistent');
 
         $this->_sut->get("nonexistent");

@@ -24,7 +24,7 @@ class org_tubepress_impl_options_WordPressStorageManagerTest extends TubePressUn
     function testSet()
     {
         $ioc               = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $validationService = $ioc->get('org_tubepress_api_options_OptionValidator');
+        $validationService = $ioc->get(org_tubepress_api_options_OptionValidator::_);
 
         $validationService->shouldReceive('validate')->with(org_tubepress_api_const_options_names_Advanced::DEBUG_ON, true)->once();
 

@@ -17,7 +17,7 @@ class org_tubepress_impl_feed_CacheAwareFeedFetcherTest extends TubePressUnitTes
 	{
 	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-	    $cache = $ioc->get('org_tubepress_api_cache_Cache');
+	    $cache = $ioc->get(org_tubepress_api_cache_Cache::_);
 	    $cache->shouldReceive('get')->once()->with("http://www.ietf.org/css/ietf.css")->andReturn('someValue');
 
 	    $this->assertEquals('someValue', $this->_sut->fetch("http://www.ietf.org/css/ietf.css", true));
@@ -27,12 +27,12 @@ class org_tubepress_impl_feed_CacheAwareFeedFetcherTest extends TubePressUnitTes
 	{
 	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-	    $cache = $ioc->get('org_tubepress_api_cache_Cache');
+	    $cache = $ioc->get(org_tubepress_api_cache_Cache::_);
 	    $cache->shouldReceive('get')->once()->with("http://www.ietf.org/css/ietf.css")->andReturn(false);
 	    $cache->shouldReceive('save')->once()->with("http://www.ietf.org/css/ietf.css", "someValue");
 
-	    $httpClient = $ioc->get('org_tubepress_api_http_HttpClient');
-	    $httpClient->shouldReceive('get')->once()->with("http://www.ietf.org/css/ietf.css")->andReturn('someValue');
+	    $httpClient = $ioc->get(org_tubepress_api_http_HttpClient::_);
+	    $httpClient->shouldReceive('execute')->once()->andReturn('someValue');
 
 	    $this->assertEquals('someValue', $this->_sut->fetch("http://www.ietf.org/css/ietf.css", true));
 	}
@@ -41,20 +41,9 @@ class org_tubepress_impl_feed_CacheAwareFeedFetcherTest extends TubePressUnitTes
 	{
 	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-	    $httpClient = $ioc->get('org_tubepress_api_http_HttpClient');
-	    $httpClient->shouldReceive('get')->once()->with("http://www.ietf.org/css/ietf.css")->andReturn('someValue');
+	    $httpClient = $ioc->get(org_tubepress_api_http_HttpClient::_);
+	    $httpClient->shouldReceive('execute')->once()->andReturn('someValue');
 
 		$this->assertEquals('someValue', $this->_sut->fetch("http://www.ietf.org/css/ietf.css", false));
-	}
-
-	/**
-     * @expectedException Exception
-     */
-	function getExpectedNetworkOutput($url)
-	{
-		$ch = curl_init($url);
-        $output = curl_exec($ch);
-        curl_close($ch);
-        return $output;
 	}
 }

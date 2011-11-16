@@ -56,7 +56,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
     private function _wrappedParse($content)
     {
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         
 	/* what trigger word are we using? */
         $keyword = $context->get(org_tubepress_api_const_options_names_Advanced::KEYWORD);
@@ -122,7 +122,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
      */
     private static function _parseCustomOption($customOptions, $match, org_tubepress_api_ioc_IocService $ioc)
     {
-        $inputValidationService = $ioc->get('org_tubepress_api_options_OptionValidator');
+        $inputValidationService = $ioc->get(org_tubepress_api_options_OptionValidator::_);
 
         foreach ($match as $m) {
 

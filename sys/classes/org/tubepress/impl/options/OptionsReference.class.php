@@ -312,8 +312,8 @@ class org_tubepress_impl_options_OptionsReference
             case org_tubepress_api_const_options_Type::THEME:
 
             $ioc                           = org_tubepress_impl_ioc_IocContainer::getInstance();
-            $fs                            = $ioc->get('org_tubepress_api_filesystem_Explorer');
-            $themeHandler                  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+            $fs                            = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
+            $themeHandler                  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
             $tubepressBaseInstallationPath = $fs->getTubePressBaseInstallationPath();
             $sysdir                        = "$tubepressBaseInstallationPath/sys/ui/themes";
             $userdir                       = $themeHandler->getUserContentDirectory() . '/themes';

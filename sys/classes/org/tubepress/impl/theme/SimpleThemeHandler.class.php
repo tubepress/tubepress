@@ -61,7 +61,7 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Successfully loaded template from %s', $filePath);
 
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tb  = $ioc->get('org_tubepress_api_template_TemplateBuilder');
+        $tb  = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
 
         return $tb->getNewTemplateInstance($filePath);
     }
@@ -87,7 +87,7 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
     public function calculateCurrentThemeName()
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $currentTheme = $execContext->get(org_tubepress_api_const_options_names_Display::THEME);
         
         if ($currentTheme == '') {
@@ -109,7 +109,7 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
     function getUserContentDirectory()
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $envDetector = $ioc->get('org_tubepress_api_environment_Detector');
+        $envDetector = $ioc->get(org_tubepress_api_environment_Detector::_);
     
         if ($envDetector->isWordPress()) {
     
@@ -117,7 +117,7 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
     
         } else {
     
-            $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
+            $fs = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
             
             return $fs->getTubePressBaseInstallationPath() . '/tubepress-content';
         }
@@ -126,7 +126,7 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
     private function _getFilePath($currentTheme, $pathToTemplate)
     {
         $ioc                       = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $fs                        = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fs                        = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $tubepressInstallationPath = $fs->getTubePressBaseInstallationPath();
         
         /* first try to load the theme from sys/ui */

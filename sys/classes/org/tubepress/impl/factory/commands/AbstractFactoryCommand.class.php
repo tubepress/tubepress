@@ -23,7 +23,7 @@ class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_options_names_Display',
-    'org_tubepress_api_patterns_cor_Command',
+    'org_tubepress_spi_patterns_cor_Command',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_video_Video',
     'org_tubepress_impl_log_Log',
@@ -33,7 +33,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 /**
  * Base class for factory commands.
  */
-abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implements org_tubepress_api_patterns_cor_Command
+abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implements org_tubepress_spi_patterns_cor_Command
 {
     const LOG_PREFIX = 'Abstract Factory Command';
 
@@ -59,7 +59,7 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
         $this->_preExecute($feed);
 
         $ioc             = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $this->_context  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $this->_context  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
         $results = array();
         $index   = 0;
@@ -209,7 +209,7 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
         if ($this->_context->get(org_tubepress_api_const_options_names_Display::RELATIVE_DATES)) {
             return org_tubepress_impl_util_TimeUtils::getRelativeTime($unixTime);
         }
-        return date($this->_context->get(org_tubepress_api_const_options_names_Advanced::DATEFORMAT), $unixTime);
+        return @date($this->_context->get(org_tubepress_api_const_options_names_Advanced::DATEFORMAT), $unixTime);
     }
 
     private function _trimDescription($description)

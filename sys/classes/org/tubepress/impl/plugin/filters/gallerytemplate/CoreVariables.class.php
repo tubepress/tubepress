@@ -38,7 +38,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_CoreVariables
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
         
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         
         $videoArray  = $providerResult->getVideoArray();
         $thumbWidth  = $context->get(org_tubepress_api_const_options_names_Display::THUMB_WIDTH);

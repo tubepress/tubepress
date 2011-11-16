@@ -13,7 +13,7 @@ class org_tubepress_impl_plugin_filters_galleryhtml_GalleryJsTest extends TubePr
 
 		$ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION)->andReturn(true);
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME)->andReturn('current-player-name');
         $context->shouldReceive('toShortcode')->once()->andReturn('shortcode');
@@ -22,11 +22,11 @@ class org_tubepress_impl_plugin_filters_galleryhtml_GalleryJsTest extends TubePr
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH)->andReturn(800);
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('gallery-id');
 
-        $themeHandler = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $themeHandler = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $themeHandler->shouldReceive('calculateCurrentThemeName')->once()->andReturn('current-theme-name');
         $themeHandler->shouldReceive('getCssPath')->once()->with('current-theme-name')->andReturn('css-path');
 
-        $fe           = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fe           = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fe->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('baseInstallPath');
 	}
 

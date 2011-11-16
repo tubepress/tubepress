@@ -25,7 +25,7 @@ class org_tubepress_impl_embedded_commands_VimeoCommandTest extends TubePressUni
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::AUTOPLAY)->andReturn(false);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR)->andReturn('123456');
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::SHOW_INFO)->andReturn(true);
@@ -37,7 +37,7 @@ class org_tubepress_impl_embedded_commands_VimeoCommandTest extends TubePressUni
         $mockChainContext->providerName = org_tubepress_api_provider_Provider::VIMEO;
         $mockChainContext->videoId      = 'video_id';
 
-        $theme = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $theme = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $theme->shouldReceive('getTemplateInstance')->once()->with('embedded_flash/vimeo.tpl.php')->andReturn($mockTemplate);
 
         $this->assertTrue($this->_sut->execute($mockChainContext));

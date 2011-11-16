@@ -26,11 +26,13 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_factory_VideoFactory',
     'org_tubepress_api_feed_FeedFetcher',
     'org_tubepress_api_feed_FeedInspector',
+    'org_tubepress_api_feed_FeedInspector',
+    'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_api_provider_Provider',
     'org_tubepress_api_provider_ProviderCalculator',
     'org_tubepress_api_provider_ProviderResult',
     'org_tubepress_api_querystring_QueryStringService',
-    'org_tubepress_api_url_UrlBuilder',
+    'org_tubepress_api_feed_UrlBuilder',
     'org_tubepress_impl_log_Log'
 ));
 
@@ -39,7 +41,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_provider_Provider
 {
-    const LOG_PREFIX = 'Video Provider';
+    private static $_logPrefix = 'Simple Video Provider';
 
     /**
      * Get the video feed result.
@@ -51,39 +53,40 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         $result = new org_tubepress_api_provider_ProviderResult();
 
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $qss     = $ioc->get('org_tubepress_api_querystring_QueryStringService');
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
-        $pc      = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-        $pm      = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $qss     = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+        $pc      = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
+        $pm      = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
 
         /* figure out which page we're on */
         $currentPage = $qss->getPageNum($_GET);
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Current page number is %d', $currentPage);
+        org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Current page number is %d', $currentPage);
 
         $provider = $pc->calculateCurrentVideoProvider();
 
         /* build the request URL */
-        $urlBuilder = $ioc->get('org_tubepress_api_url_UrlBuilder');
+        $urlBuilder = $ioc->get(org_tubepress_api_feed_UrlBuilder::_);
         $url        = $urlBuilder->buildGalleryUrl($currentPage);
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'URL to fetch is <a href="%s">%s</a>', $url, $url);
+
+        org_tubepress_impl_log_Log::log(self::$_logPrefix, 'URL to fetch is <a href="%s">this</a>', $url);
 
         /* make the request */
-        $feedRetrievalService = $ioc->get('org_tubepress_api_feed_FeedFetcher');
+        $feedRetrievalService = $ioc->get(org_tubepress_api_feed_FeedFetcher::_);
         $useCache             = $context->get(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED);
         $rawFeed              = $feedRetrievalService->fetch($url, $useCache);
 
         /* get the count */
-        $feedInspectionService = $ioc->get('org_tubepress_api_feed_FeedInspector');
+        $feedInspectionService = $ioc->get(org_tubepress_api_feed_FeedInspector::_);
         $totalCount            = $feedInspectionService->getTotalResultCount($rawFeed);
 
         if ($totalCount == 0) {
             throw new Exception('Zero videos found');
         }
 
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Reported total result count is %d video(s)', $totalCount);
+        org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Reported total result count is %d video(s)', $totalCount);
 
         /* convert the XML to objects */
-        $factory = $ioc->get('org_tubepress_api_factory_VideoFactory');
+        $factory = $ioc->get(org_tubepress_api_factory_VideoFactory::_);
         $videos  = $factory->feedToVideoArray($rawFeed);
 
         if (count($videos) == 0) {
@@ -105,21 +108,21 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
      */
     public function getSingleVideo($customVideoId)
     {
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Fetching video with ID <tt>%s</tt>', $customVideoId);
+        org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Fetching video with ID <tt>%s</tt>', $customVideoId);
 
         $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $urlBuilder = $ioc->get('org_tubepress_api_url_UrlBuilder');
+        $urlBuilder = $ioc->get(org_tubepress_api_feed_UrlBuilder::_);
         $videoUrl   = $urlBuilder->buildSingleVideoUrl($customVideoId);
 
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'URL to fetch is %s', $videoUrl);
+        org_tubepress_impl_log_Log::log(self::$_logPrefix, 'URL to fetch is <a href="%s">this</a>', $videoUrl);
 
-        $feedRetrievalService = $ioc->get('org_tubepress_api_feed_FeedFetcher');
-        $context              = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $feedRetrievalService = $ioc->get(org_tubepress_api_feed_FeedFetcher::_);
+        $context              = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $results              = $feedRetrievalService->fetch($videoUrl, $context->get(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED));
-        $factory              = $ioc->get('org_tubepress_api_factory_VideoFactory');
+        $factory              = $ioc->get(org_tubepress_api_factory_VideoFactory::_);
         $videoArray           = $factory->feedToVideoArray($results);
-        $pm                   = $ioc->get('org_tubepress_api_plugin_PluginManager');
-        $pc                   = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $pm                   = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+        $pc                   = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
 
         if (empty($videoArray)) {
             throw new Exception("Could not find video with ID $customVideoId");
@@ -128,9 +131,9 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         $result = new org_tubepress_api_provider_ProviderResult();
         $result->setEffectiveTotalResultCount(1);
         $result->setVideoArray($videoArray);
-        
+
         $provider = $pc->calculateProviderOfVideoId($customVideoId);
-        
+
         $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $result, $provider);
 
         return $videoArray[0];

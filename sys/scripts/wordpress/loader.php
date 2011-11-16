@@ -26,10 +26,10 @@
  */
 
 $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-$env = $ioc->get('org_tubepress_api_environment_Detector');
+$env = $ioc->get(org_tubepress_api_environment_Detector::_);
 
 if ($env->isWordPress()) {
     
-    $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
+    $fs = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
     include $fs->getTubePressBaseInstallationPath() . '/../../../wp-blog-header.php';
 }

@@ -16,17 +16,17 @@ class org_tubepress_impl_feed_FeedInspectorChainTest extends TubePressUnitTest {
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $pc           = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
         $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('videoProvider');
 
         $mockChainContext = \Mockery::mock('stdClass');
         $mockChainContext->returnValue = 'foobar';
 
-        $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
         $chain->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
         $chain->shouldReceive('execute')->once()->with($mockChainContext, array(
-    			'org_tubepress_impl_feed_commands_YouTubeFeedInspectionCommand',
-    			'org_tubepress_impl_feed_commands_VimeoFeedInspectionCommand'
+    			'org_tubepress_impl_feed_inspection_YouTubeFeedInspectionCommand',
+    			'org_tubepress_impl_feed_inspection_VimeoFeedInspectionCommand'
         ))->andReturn(false);
 
         $this->assertEquals(0, $this->_sut->getTotalResultCount('rawfeed'));
@@ -36,17 +36,17 @@ class org_tubepress_impl_feed_FeedInspectorChainTest extends TubePressUnitTest {
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $pc           = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
         $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('videoProvider');
 
         $mockChainContext = \Mockery::mock('stdClass');
         $mockChainContext->returnValue = 'foobar';
 
-        $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
         $chain->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
         $chain->shouldReceive('execute')->once()->with($mockChainContext, array(
-			'org_tubepress_impl_feed_commands_YouTubeFeedInspectionCommand',
-			'org_tubepress_impl_feed_commands_VimeoFeedInspectionCommand'
+			'org_tubepress_impl_feed_inspection_YouTubeFeedInspectionCommand',
+			'org_tubepress_impl_feed_inspection_VimeoFeedInspectionCommand'
 		))->andReturn(true);
 
         $this->assertEquals('foobar', $this->_sut->getTotalResultCount('rawfeed'));

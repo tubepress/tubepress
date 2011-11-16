@@ -23,7 +23,7 @@ class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_template_Variable',
     'org_tubepress_api_exec_ExecutionContext',
-    'org_tubepress_api_patterns_cor_Command',
+    'org_tubepress_spi_patterns_cor_Command',
     'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
     'org_tubepress_impl_ioc_IocContainer',
@@ -32,7 +32,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 /**
  * Base class for embedded commands.
  */
-abstract class org_tubepress_impl_embedded_commands_AbstractEmbeddedCommand implements org_tubepress_api_patterns_cor_Command
+abstract class org_tubepress_impl_embedded_commands_AbstractEmbeddedCommand implements org_tubepress_spi_patterns_cor_Command
 {
     /**
      * Execute the command.
@@ -48,13 +48,13 @@ abstract class org_tubepress_impl_embedded_commands_AbstractEmbeddedCommand impl
         $providerName = $context->providerName;
         $videoId      = $context->videoId;
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
         if (!$this->_canHandle($providerName, $videoId, $ioc, $execContext)) {
             return false;
         }
 
-        $theme    = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $theme    = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $template = $theme->getTemplateInstance($this->_getTemplatePath($providerName, $videoId, $ioc, $execContext));
 
         $context->template                   = $template;

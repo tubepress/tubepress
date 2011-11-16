@@ -40,9 +40,9 @@ class org_tubepress_impl_provider_SimpleProviderCalculator implements org_tubepr
     public function calculateCurrentVideoProvider()
     {
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $video   = $context->get(org_tubepress_api_const_options_names_Output::VIDEO);
-        $pc      = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $pc      = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
 
         /* requested a single video, and it's not vimeo or directory, so must be youtube */
         if ($video != '') {
