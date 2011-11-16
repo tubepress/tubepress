@@ -25,8 +25,21 @@
 interface org_tubepress_api_options_OptionDescriptorReference
 {
     const _ = 'org_tubepress_api_options_OptionDescriptorReference';
-    
+
+    /**
+     * Returns all of the option descriptors.
+     *
+     * @return array All of the registered option descriptors.
+     */
     function findAll();
 
+    /**
+     * Finds a single option descriptor by name, or null if no such option.
+     *
+     * @param string $name The option descriptor to look up.
+     *
+     * @return org_tubepress_api_options_OptionDescriptor The option descriptor with the
+     *                                                    given name, or null if not found.
+     */
     function findOneByName($name);
 }

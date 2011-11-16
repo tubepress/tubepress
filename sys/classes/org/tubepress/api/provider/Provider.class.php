@@ -35,8 +35,6 @@ interface org_tubepress_api_provider_Provider
     const YOUTUBE   = 'youtube';
     const VIMEO     = 'vimeo';
 
-    const _ = 'org_tubepress_api_provider_Provider';
-
     /**
      * Get the video feed result.
      *
