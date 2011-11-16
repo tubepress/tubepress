@@ -1,15 +1,15 @@
 <?php
 
-require_once BASE . '/sys/classes/org/tubepress/impl/url/commands/YouTubeUrlBuilderCommand.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/feed/urlbuilding/YouTubeUrlBuilderCommand.class.php';
 
-class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommandTest extends TubePressUnitTest {
+class org_tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends TubePressUnitTest {
 
     private $_sut;
 
     function setUp()
     {
         parent::setUp();
-        $this->_sut = new org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand();
+        $this->_sut = new org_tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommand();
 
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
 

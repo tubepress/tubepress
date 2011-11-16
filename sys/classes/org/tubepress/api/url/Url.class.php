@@ -27,9 +27,9 @@
  *     |        |        |           |             |           |        |
  *  scheme    user      pass      authority       path        query   fragment
  */
-class org_tubepress_api_http_Url
+class org_tubepress_api_url_Url
 {
-    const _ = 'org_tubepress_api_http_Url';
+    const _ = 'org_tubepress_api_url_Url';
 
     //unreserved = '\w0-9\-\.\~';
     //pct_encoded = '%[A-Fa-f0-9]{2}';

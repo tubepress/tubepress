@@ -22,7 +22,7 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_http_HttpMessage',
-    'org_tubepress_api_http_Url',
+    'org_tubepress_api_url_Url',
 ));
 
 /**
@@ -87,7 +87,7 @@ class org_tubepress_api_http_HttpRequest extends org_tubepress_api_http_HttpMess
     /**
      * Get the URL of this request.
      *
-     * @return org_tubepress_api_http_Url The URL of this request.
+     * @return org_tubepress_api_url_Url The URL of this request.
      */
     public function getUrl()
     {
@@ -99,7 +99,7 @@ class org_tubepress_api_http_HttpRequest extends org_tubepress_api_http_HttpMess
      *
      * @param unknown_type $url The URL of this request.
      *
-     * @throws Exception If the given URL is not a valid string URL or instance of org_tubepress_api_http_Url
+     * @throws Exception If the given URL is not a valid string URL or instance of org_tubepress_api_url_Url
      *
      * @return void
      */
@@ -107,11 +107,11 @@ class org_tubepress_api_http_HttpRequest extends org_tubepress_api_http_HttpMess
     {
         if (is_string($url)) {
 
-            $this->_url = new org_tubepress_api_http_Url($url);
+            $this->_url = new org_tubepress_api_url_Url($url);
             return;
         }
 
-        if (! $url instanceof org_tubepress_api_http_Url) {
+        if (! $url instanceof org_tubepress_api_url_Url) {
 
             throw new Exception('setUrl() only takes a string or a URL');
         }

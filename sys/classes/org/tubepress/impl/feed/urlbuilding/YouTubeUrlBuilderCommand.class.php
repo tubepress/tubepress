@@ -28,16 +28,16 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Meta',
     'org_tubepress_api_const_options_values_ModeValue',
     'org_tubepress_api_const_options_values_OrderValue',
-    'org_tubepress_api_http_Url',
+    'org_tubepress_api_url_Url',
     'org_tubepress_api_exec_ExecutionContext',
-    'org_tubepress_impl_url_commands_AbstractUrlBuilderCommand',
+    'org_tubepress_impl_feed_urlbuilding_AbstractUrlBuilderCommand',
 ));
 
 /**
  * Builds URLs to send out to YouTube for gdata
  *
  */
-class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand extends org_tubepress_impl_url_commands_AbstractUrlBuilderCommand
+class org_tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommand extends org_tubepress_impl_feed_urlbuilding_AbstractUrlBuilderCommand
 {
     const PARAM_FORMAT      = 'format';
     const PARAM_KEY         = 'key';
@@ -115,7 +115,7 @@ class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand extends org_tubep
             break;
         }
 
-        $request = new org_tubepress_api_http_Url("http://gdata.youtube.com/feeds/api/$url");
+        $request = new org_tubepress_api_url_Url("http://gdata.youtube.com/feeds/api/$url");
         $this->_commonUrlPostProcessing($execContext, $request);
         $this->_galleryUrlPostProcessing($execContext, $request, $currentPage);
         return $request->toString();
@@ -153,19 +153,19 @@ class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand extends org_tubep
             throw new Exception("Unable to build YouTube URL for video with ID $id");
         }
 
-        $requestURL = new org_tubepress_api_http_Url("http://gdata.youtube.com/feeds/api/videos/$id");
+        $requestURL = new org_tubepress_api_url_Url("http://gdata.youtube.com/feeds/api/videos/$id");
         $this->_commonUrlPostProcessing($ioc->get(org_tubepress_api_exec_ExecutionContext::_), $requestURL);
 
         return $requestURL->toString();
     }
 
-    private function _commonUrlPostProcessing(org_tubepress_api_exec_ExecutionContext $execContext, org_tubepress_api_http_Url $url)
+    private function _commonUrlPostProcessing(org_tubepress_api_exec_ExecutionContext $execContext, org_tubepress_api_url_Url $url)
     {
         $url->setQueryVariable(self::PARAM_VERSION, 2);
         $url->setQueryVariable(self::PARAM_KEY, $execContext->get(org_tubepress_api_const_options_names_Feed::DEV_KEY));
     }
 
-    private function _galleryUrlPostProcessing(org_tubepress_api_exec_ExecutionContext $execContext, org_tubepress_api_http_Url $url, $currentPage)
+    private function _galleryUrlPostProcessing(org_tubepress_api_exec_ExecutionContext $execContext, org_tubepress_api_url_Url $url, $currentPage)
     {
         $perPage = $execContext->get(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE);
 
@@ -184,7 +184,7 @@ class org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand extends org_tubep
         }
     }
 
-    private function _setOrderBy(org_tubepress_api_exec_ExecutionContext $execContext, org_tubepress_api_http_Url $url)
+    private function _setOrderBy(org_tubepress_api_exec_ExecutionContext $execContext, org_tubepress_api_url_Url $url)
     {
         $order = $execContext->get(org_tubepress_api_const_options_names_Display::ORDER_BY);
         $mode  = $execContext->get(org_tubepress_api_const_options_names_Output::MODE);

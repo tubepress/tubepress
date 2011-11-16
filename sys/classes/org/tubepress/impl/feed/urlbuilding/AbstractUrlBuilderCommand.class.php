@@ -30,14 +30,14 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_values_ModeValue',
     'org_tubepress_spi_patterns_cor_Command',
     'org_tubepress_api_provider_Provider',
-    'org_tubepress_api_http_Url',
+    'org_tubepress_api_url_Url',
     'org_tubepress_api_exec_ExecutionContext',
 ));
 
 /**
  * Base URL builder functionality.
  */
-abstract class org_tubepress_impl_url_commands_AbstractUrlBuilderCommand implements org_tubepress_spi_patterns_cor_Command
+abstract class org_tubepress_impl_feed_urlbuilding_AbstractUrlBuilderCommand implements org_tubepress_spi_patterns_cor_Command
 {
     /**
      * Execute the command.

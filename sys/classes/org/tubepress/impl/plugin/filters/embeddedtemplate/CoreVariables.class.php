@@ -25,7 +25,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_template_Variable',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_template_Template',
-    'org_tubepress_api_http_Url',
+    'org_tubepress_api_url_Url',
     'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
     'org_tubepress_impl_ioc_IocContainer',
 ));
@@ -36,7 +36,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 class org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariables
 {
     public function alter_embeddedTemplate(org_tubepress_api_template_Template $template, $videoId, $videoProviderName,
-                                           org_tubepress_api_http_Url $dataUrl, $embeddedImplName)
+                                           org_tubepress_api_url_Url $dataUrl, $embeddedImplName)
     {
         global $tubepress_base_url;
 

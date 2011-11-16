@@ -21,7 +21,7 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_url_UrlBuilder',
+    'org_tubepress_api_feed_UrlBuilder',
     'org_tubepress_api_provider_ProviderCalculator',
     'org_tubepress_spi_patterns_cor_Chain',
     'org_tubepress_impl_ioc_IocContainer',
@@ -30,7 +30,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 /**
  * Builds URLs based on the current provider
  */
-class org_tubepress_impl_url_UrlBuilderChain implements org_tubepress_api_url_UrlBuilder
+class org_tubepress_impl_feed_UrlBuilderChain implements org_tubepress_api_feed_UrlBuilder
 {
     /**
      * Builds a URL for a list of videos
@@ -79,8 +79,8 @@ class org_tubepress_impl_url_UrlBuilderChain implements org_tubepress_api_url_Ur
 
         /* let the commands do the heavy lifting */
         $status = $chain->execute($context, array(
-            'org_tubepress_impl_url_commands_YouTubeUrlBuilderCommand',
-            'org_tubepress_impl_url_commands_VimeoUrlBuilderCommand'
+            'org_tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommand',
+            'org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommand'
         ));
 
         if ($status === false) {

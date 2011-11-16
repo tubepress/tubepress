@@ -21,14 +21,14 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../impl/classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_impl_feed_commands_AbstractFeedInspectionCommand'
+    'org_tubepress_impl_feed_inspection_AbstractFeedInspectionCommand'
 ));
 
 /**
  * Examines the feed from YouTube
  *
  */
-class org_tubepress_impl_feed_commands_YouTubeFeedInspectionCommand extends org_tubepress_impl_feed_commands_AbstractFeedInspectionCommand
+class org_tubepress_impl_feed_inspection_YouTubeFeedInspectionCommand extends org_tubepress_impl_feed_inspection_AbstractFeedInspectionCommand
 {
     const NS_OPENSEARCH = 'http://a9.com/-/spec/opensearch/1.1/';
 

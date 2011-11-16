@@ -1,15 +1,15 @@
 <?php
 
 require_once BASE . '/sys/classes/org/tubepress/api/provider/Provider.class.php';
-require_once BASE . '/sys/classes/org/tubepress/impl/feed/commands/VimeoFeedInspectionCommand.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/feed/inspection/VimeoFeedInspectionCommand.class.php';
 
-class org_tubepress_impl_feed_commands_VimeoFeedInspectionCommandTest extends TubePressUnitTest {
+class org_tubepress_impl_feed_inspection_VimeoFeedInspectionCommandTest extends TubePressUnitTest {
 
     private $_sut;
 
     function setUp()
     {
-        $this->_sut = new org_tubepress_impl_feed_commands_VimeoFeedInspectionCommand();
+        $this->_sut = new org_tubepress_impl_feed_inspection_VimeoFeedInspectionCommand();
     }
 
     function testCannotHandle()

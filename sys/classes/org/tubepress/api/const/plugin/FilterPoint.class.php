@@ -150,13 +150,13 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * @param org_tubepress_api_template_Template $template          The template to modify.
      * @param string                              $videoId           The video ID currently being loaded into the embedded player.
      * @param string                              $videoProviderName The name of the video provider ("vimeo" or "youtube")
-     * @param org_tubepress_api_http_Url           $dataUrl           The embedded data URL.
+     * @param org_tubepress_api_url_Url           $dataUrl           The embedded data URL.
      * @param string                              $embeddedImplName  The name of the embedded implementation ("youtube", "longtail", or "vimeo")
      *
      * @return org_tubepress_api_template_Template The (possibly modified) template. Never null.
      *
      * function alter_embeddedTemplate(org_tubepress_api_template_Template $template, $videoId, $videoProviderName, 
-     * 								   org_tubepress_api_http_Url $dataUrl, $embeddedImplName)
+     * 								   org_tubepress_api_url_Url $dataUrl, $embeddedImplName)
      */
     const TEMPLATE_EMBEDDED = 'embeddedTemplate';
 

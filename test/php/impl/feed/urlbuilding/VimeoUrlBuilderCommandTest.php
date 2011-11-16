@@ -1,8 +1,8 @@
 <?php
 
-require_once BASE . '/sys/classes/org/tubepress/impl/url/commands/VimeoUrlBuilderCommand.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/feed/urlbuilding/VimeoUrlBuilderCommand.class.php';
 
-class org_tubepress_impl_url_commands_VimeoUrlBuilderCommandTest extends TubePressUnitTest {
+class org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommandTest extends TubePressUnitTest {
 
     const PRE = "/http:\/\/vimeo.com\/api\/rest\/v2\?";
     const POST = "&format=php&oauth_consumer_key=vimeokey&oauth_nonce=[a-zA-Z0-9]+&oauth_signature_method=HMAC-SHA1&oauth_timestamp=[0-9]+&oauth_version=1.0&oauth_signature=[a-zA-Z0-9%]+/";
@@ -12,7 +12,7 @@ class org_tubepress_impl_url_commands_VimeoUrlBuilderCommandTest extends TubePre
     function setUp()
     {
         parent::setUp();
-        $this->_sut = new org_tubepress_impl_url_commands_VimeoUrlBuilderCommand();
+        $this->_sut = new org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommand();
 
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
 

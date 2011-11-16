@@ -29,15 +29,15 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Meta',
     'org_tubepress_api_const_options_names_Feed',
     'org_tubepress_api_exec_ExecutionContext',
-    'org_tubepress_impl_url_commands_AbstractUrlBuilderCommand',
-    'org_tubepress_impl_url_UrlBuilderChainContext',
+    'org_tubepress_impl_feed_urlbuilding_AbstractUrlBuilderCommand',
+    'org_tubepress_impl_feed_UrlBuilderChainContext',
 ));
 
 /**
  * Builds URLs to send out to Vimeo
  *
  */
-class org_tubepress_impl_url_commands_VimeoUrlBuilderCommand extends org_tubepress_impl_url_commands_AbstractUrlBuilderCommand
+class org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommand extends org_tubepress_impl_feed_urlbuilding_AbstractUrlBuilderCommand
 {
     const PARAM_ALBUM_ID      = 'album_id';
     const PARAM_CHANNEL_ID    = 'channel_id';

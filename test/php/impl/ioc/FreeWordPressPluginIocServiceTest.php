@@ -36,7 +36,7 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
         'org_tubepress_api_shortcode_ShortcodeParser'=>'org_tubepress_impl_shortcode_SimpleShortcodeParser',
         'org_tubepress_api_template_TemplateBuilder' => 'org_tubepress_impl_template_SimpleTemplateBuilder',
         'org_tubepress_api_theme_ThemeHandler'=>'org_tubepress_impl_theme_SimpleThemeHandler',
-        'org_tubepress_api_url_UrlBuilder'=>'org_tubepress_impl_url_UrlBuilderChain',
+        'org_tubepress_api_feed_UrlBuilder'=>'org_tubepress_impl_feed_UrlBuilderChain',
         );
     }
 

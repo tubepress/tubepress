@@ -26,7 +26,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_api_template_Template',
-    'org_tubepress_api_http_Url',
+    'org_tubepress_api_url_Url',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_util_StringUtils',
 ));
@@ -57,7 +57,7 @@ class org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariables
          * read http://stackoverflow.com/questions/1116019/submitting-a-get-form-with-query-string-params-and-hidden-params-disappear
          * if you're curious as to what's going on here
          */
-        $url    = new org_tubepress_api_http_Url($resultsUrl);
+        $url    = new org_tubepress_api_url_Url($resultsUrl);
         $params = $url->getQueryVariables();
 
         unset($params[org_tubepress_api_const_querystring_QueryParamName::PAGE]);

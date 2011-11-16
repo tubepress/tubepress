@@ -27,7 +27,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 /**
  * Base functionality for feed inspection.
  */
-abstract class org_tubepress_impl_feed_commands_AbstractFeedInspectionCommand implements org_tubepress_spi_patterns_cor_Command
+abstract class org_tubepress_impl_feed_inspection_AbstractFeedInspectionCommand implements org_tubepress_spi_patterns_cor_Command
 {
     /**
      * Execute the command.

@@ -31,7 +31,7 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
         $pc      = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
         $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('current-video-provider');
 
-        $urlBuilder = $ioc->get(org_tubepress_api_url_UrlBuilder::_);
+        $urlBuilder = $ioc->get(org_tubepress_api_feed_UrlBuilder::_);
         $urlBuilder->shouldReceive('buildGalleryUrl')->once()->with(1)->andReturn('gallery-url');
 
         $feedRetrievalService = $ioc->get(org_tubepress_api_feed_FeedFetcher::_);
@@ -62,7 +62,7 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
         $pc      = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
         $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('current-video-provider');
 
-        $urlBuilder = $ioc->get(org_tubepress_api_url_UrlBuilder::_);
+        $urlBuilder = $ioc->get(org_tubepress_api_feed_UrlBuilder::_);
         $urlBuilder->shouldReceive('buildGalleryUrl')->once()->with(1)->andReturn('gallery-url');
 
         $feedRetrievalService = $ioc->get(org_tubepress_api_feed_FeedFetcher::_);
@@ -87,7 +87,7 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
         $pc      = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
         $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('current-video-provider');
 
-        $urlBuilder = $ioc->get(org_tubepress_api_url_UrlBuilder::_);
+        $urlBuilder = $ioc->get(org_tubepress_api_feed_UrlBuilder::_);
         $urlBuilder->shouldReceive('buildGalleryUrl')->once()->with(1)->andReturn('gallery-url');
 
         $feedRetrievalService = $ioc->get(org_tubepress_api_feed_FeedFetcher::_);
@@ -140,7 +140,7 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
     {
         $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $urlBuilder = $ioc->get(org_tubepress_api_url_UrlBuilder::_);
+        $urlBuilder = $ioc->get(org_tubepress_api_feed_UrlBuilder::_);
         $urlBuilder->shouldReceive('buildSingleVideoUrl')->once()->with('video-id')->andReturn('video-url');
 
         $context              = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);

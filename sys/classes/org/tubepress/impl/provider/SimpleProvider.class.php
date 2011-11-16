@@ -32,7 +32,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_provider_ProviderCalculator',
     'org_tubepress_api_provider_ProviderResult',
     'org_tubepress_api_querystring_QueryStringService',
-    'org_tubepress_api_url_UrlBuilder',
+    'org_tubepress_api_feed_UrlBuilder',
     'org_tubepress_impl_log_Log'
 ));
 
@@ -65,7 +65,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         $provider = $pc->calculateCurrentVideoProvider();
 
         /* build the request URL */
-        $urlBuilder = $ioc->get(org_tubepress_api_url_UrlBuilder::_);
+        $urlBuilder = $ioc->get(org_tubepress_api_feed_UrlBuilder::_);
         $url        = $urlBuilder->buildGalleryUrl($currentPage);
 
         org_tubepress_impl_log_Log::log(self::$_logPrefix, 'URL to fetch is <a href="%s">this</a>', $url);
@@ -111,7 +111,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Fetching video with ID <tt>%s</tt>', $customVideoId);
 
         $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $urlBuilder = $ioc->get(org_tubepress_api_url_UrlBuilder::_);
+        $urlBuilder = $ioc->get(org_tubepress_api_feed_UrlBuilder::_);
         $videoUrl   = $urlBuilder->buildSingleVideoUrl($customVideoId);
 
         org_tubepress_impl_log_Log::log(self::$_logPrefix, 'URL to fetch is <a href="%s">this</a>', $videoUrl);

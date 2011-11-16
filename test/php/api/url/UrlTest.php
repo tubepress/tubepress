@@ -1,14 +1,14 @@
 <?php
 
-require_once BASE . '/sys/classes/org/tubepress/api/http/Url.class.php';
+require_once BASE . '/sys/classes/org/tubepress/api/url/Url.class.php';
 
-class org_tubepress_api_http_UrlTest extends TubePressUnitTest {
+class org_tubepress_api_url_UrlTest extends TubePressUnitTest {
 
 	private $_sut;
 
 	function setup()
 	{
-	    $this->_sut = new org_tubepress_api_http_Url('http://user@tubepress.org:994/something/index.php?one=two+four&three=four#fragment/one/three?poo');
+	    $this->_sut = new org_tubepress_api_url_Url('http://user@tubepress.org:994/something/index.php?one=two+four&three=four#fragment/one/three?poo');
 	}
 
 	function testSetHostIpv4()
@@ -20,8 +20,8 @@ class org_tubepress_api_http_UrlTest extends TubePressUnitTest {
 
 	function testVariousUrls()
 	{
-	    $this->_sut = new org_tubepress_api_http_Url('http://www.ehough.com/watch');
-	    $this->_sut = new org_tubepress_api_http_Url('http://tubepress.org?foo=bar&something=else');
+	    $this->_sut = new org_tubepress_api_url_Url('http://www.ehough.com/watch');
+	    $this->_sut = new org_tubepress_api_url_Url('http://tubepress.org?foo=bar&something=else');
 	}
 
 	/**
@@ -66,7 +66,7 @@ class org_tubepress_api_http_UrlTest extends TubePressUnitTest {
 
 	function testGetQueryVariablesSimple()
 	{
-	    $this->_sut = new org_tubepress_api_http_Url('http://user@tubepress.org:994/something/index.php?one&three=four#fragment/one/three?poo');
+	    $this->_sut = new org_tubepress_api_url_Url('http://user@tubepress.org:994/something/index.php?one&three=four#fragment/one/three?poo');
 	    $this->assertEquals(array('one' => null, 'three' => 'four'), $this->_sut->getQueryVariables());
 	}
 
@@ -248,7 +248,7 @@ class org_tubepress_api_http_UrlTest extends TubePressUnitTest {
 
 	function testIpv6Setter()
 	{
-	    $url = new org_tubepress_api_http_Url("http://[123::]:997/foo/bar?something#nine/two");
+	    $url = new org_tubepress_api_url_Url("http://[123::]:997/foo/bar?something#nine/two");
 	    $this->assertEquals('123::', $url->getHost());
 
 	    $ipv6 = $this->_getIpv6Cases();
@@ -295,7 +295,7 @@ class org_tubepress_api_http_UrlTest extends TubePressUnitTest {
 
 	private function _testConstructValidIpv6($ip)
 	{
-        $url = new org_tubepress_api_http_Url("http://[$ip]:89/foo/bar?fickle#niner/eight");
+        $url = new org_tubepress_api_url_Url("http://[$ip]:89/foo/bar?fickle#niner/eight");
 
         $this->assertEquals(strtolower(trim($ip)), $url->getHost());
         $this->assertEquals('niner/eight', $url->getFragment());
@@ -311,7 +311,7 @@ class org_tubepress_api_http_UrlTest extends TubePressUnitTest {
 
 	    try {
 
-	        $url = new org_tubepress_api_http_Url("http://[$ip]:89/foo/bar?fickle#niner/eight");
+	        $url = new org_tubepress_api_url_Url("http://[$ip]:89/foo/bar?fickle#niner/eight");
 
 	    } catch (Exception $e) {
 

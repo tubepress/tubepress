@@ -20,7 +20,7 @@ class org_tubepress_impl_http_HttpClientChainTest extends TubePressUnitTest {
 
         $this->_request  = \Mockery::mock(org_tubepress_api_http_HttpRequest::_);
         $this->_response = \Mockery::mock(org_tubepress_api_http_HttpResponse::_);
-        $this->_url      = \Mockery::mock(org_tubepress_api_http_Url::_);
+        $this->_url      = \Mockery::mock(org_tubepress_api_url_Url::_);
         $this->_context  = new stdClass;
         $this->_actualCommands = array(
 

@@ -1,15 +1,15 @@
 <?php
 
 require_once BASE . '/sys/classes/org/tubepress/api/provider/Provider.class.php';
-require_once BASE . '/sys/classes/org/tubepress/impl/feed/commands/YouTubeFeedInspectionCommand.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/feed/inspection/YouTubeFeedInspectionCommand.class.php';
 
-class org_tubepress_impl_feed_commands_YouTubeFeedInspectionCommandTest extends TubePressUnitTest {
+class org_tubepress_impl_feed_inspection_YouTubeFeedInspectionCommandTest extends TubePressUnitTest {
 
     private $_sut;
 
     function setUp()
     {
-        $this->_sut = new org_tubepress_impl_feed_commands_YouTubeFeedInspectionCommand();
+        $this->_sut = new org_tubepress_impl_feed_inspection_YouTubeFeedInspectionCommand();
     }
 
     function testCannotHandle()

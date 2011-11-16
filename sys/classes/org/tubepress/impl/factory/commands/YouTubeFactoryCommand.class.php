@@ -23,7 +23,7 @@ class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_spi_patterns_cor_Command',
     'org_tubepress_api_const_plugin_FilterPoint',
-    'org_tubepress_api_http_Url',
+    'org_tubepress_api_url_Url',
     'org_tubepress_api_video_Video',
     'org_tubepress_impl_factory_commands_AbstractFactoryCommand',
 ));
@@ -115,7 +115,7 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommand extends org_tube
     protected function _getHomeUrl($index)
     {
         $rawUrl = $this->_relativeQuery($index, "atom:link[@rel='alternate']")->item(0)->getAttribute('href');
-        $url    = new org_tubepress_api_http_Url($rawUrl);
+        $url    = new org_tubepress_api_url_Url($rawUrl);
 
         return $url->toString(true);
     }

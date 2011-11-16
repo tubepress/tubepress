@@ -25,7 +25,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_feed_FeedFetcher',
     'org_tubepress_api_http_HttpClient',
     'org_tubepress_api_http_HttpRequest',
-    'org_tubepress_api_http_Url',
+    'org_tubepress_api_url_Url',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_log_Log',
 ));
@@ -85,7 +85,7 @@ class org_tubepress_impl_feed_CacheAwareFeedFetcher implements org_tubepress_api
 
     private function _getFromNetwork($url, $ioc)
     {
-        $u       = new org_tubepress_api_http_Url($url);
+        $u       = new org_tubepress_api_url_Url($url);
         $request = new org_tubepress_api_http_HttpRequest(org_tubepress_api_http_HttpRequest::HTTP_METHOD_GET, $u);
         $client  = $ioc->get(org_tubepress_api_http_HttpClient::_);
 
