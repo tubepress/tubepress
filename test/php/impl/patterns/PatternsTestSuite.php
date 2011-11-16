@@ -1,5 +1,7 @@
 <?php
-require_once dirname(__FILE__) . '/../../../../test/includes/TubePressUnitTest.php';
+
+require_once dirname(__FILE__) . '/../../../includes/TubePressUnitTest.php';
+
 require_once 'cor/ChainGangTest.php';
 
 class org_tubepress_impl_patterns_PatternsTestSuite

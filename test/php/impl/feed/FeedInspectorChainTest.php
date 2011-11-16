@@ -25,8 +25,8 @@ class org_tubepress_impl_feed_FeedInspectorChainTest extends TubePressUnitTest {
         $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
         $chain->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
         $chain->shouldReceive('execute')->once()->with($mockChainContext, array(
-    			'org_tubepress_impl_feed_commands_YouTubeFeedInspectionCommand',
-    			'org_tubepress_impl_feed_commands_VimeoFeedInspectionCommand'
+    			'org_tubepress_impl_feed_inspection_YouTubeFeedInspectionCommand',
+    			'org_tubepress_impl_feed_inspection_VimeoFeedInspectionCommand'
         ))->andReturn(false);
 
         $this->assertEquals(0, $this->_sut->getTotalResultCount('rawfeed'));
@@ -45,8 +45,8 @@ class org_tubepress_impl_feed_FeedInspectorChainTest extends TubePressUnitTest {
         $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
         $chain->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
         $chain->shouldReceive('execute')->once()->with($mockChainContext, array(
-			'org_tubepress_impl_feed_commands_YouTubeFeedInspectionCommand',
-			'org_tubepress_impl_feed_commands_VimeoFeedInspectionCommand'
+			'org_tubepress_impl_feed_inspection_YouTubeFeedInspectionCommand',
+			'org_tubepress_impl_feed_inspection_VimeoFeedInspectionCommand'
 		))->andReturn(true);
 
         $this->assertEquals('foobar', $this->_sut->getTotalResultCount('rawfeed'));

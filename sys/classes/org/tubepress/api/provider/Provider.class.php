@@ -29,6 +29,8 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 interface org_tubepress_api_provider_Provider
 {
+    const _ = 'org_tubepress_api_provider_Provider';
+
     const DIRECTORY = 'directory';
     const YOUTUBE   = 'youtube';
     const VIMEO     = 'vimeo';

@@ -15,7 +15,7 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 
 	function testPoCompiles()
 	{
-		$testOpts = parse_ini_file(dirname(__FILE__) . '/../../../test.config');
+		$testOpts = parse_ini_file(dirname(__FILE__) . '/../../../config/test.config');
 		$files = $this->getPoFiles();
 		foreach ($files as $file) {
 			$realPath = BASE . '/sys/i18n/' . $file;

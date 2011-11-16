@@ -23,7 +23,6 @@ require_once 'querystring/QueryStringTestSuite.php';
 require_once 'shortcode/ShortcodeTestSuite.php';
 require_once 'template/TemplateTestSuite.php';
 require_once 'theme/ThemeTestSuite.php';
-require_once 'url/UrlTestSuite.php';
 require_once 'util/UtilsTestSuite.php';
 
 class org_tubepress_impl_ImplTestSuite
@@ -55,7 +54,6 @@ class org_tubepress_impl_ImplTestSuite
 		$suite->addTest(org_tubepress_impl_shortcode_ShortcodeTestSuite::suite());
 		$suite->addTest(org_tubepress_impl_template_TemplateTestSuite::suite());
 		$suite->addTest(org_tubepress_impl_theme_ThemeTestSuite::suite());
-		$suite->addTest(org_tubepress_impl_url_UrlTestSuite::suite());
 		$suite->addTest(org_tubepress_impl_util_UtilsTestSuite::suite());
 
 		return $suite;

@@ -18,7 +18,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
     function setup()
     {
         parent::setUp();
-        
+
         $this->_sut = new org_tubepress_impl_shortcode_SimpleShortcodeParser();
 
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
@@ -30,7 +30,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
     function testMixedCommasWithAllSortsOfQuotes()
     {
         $this->_setAllValid();
-        
+
         $shortcode = '[butters mode=&#8216playlist&#8217  , playlistValue=&#8242;foobar&#8242; ,author="false", resultCountCap=\'200\' resultsPerPage=3]';
 
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
@@ -50,7 +50,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
     function testNoCommasWithAllSortsOfQuotes()
     {
         $this->_setAllValid();
-        
+
         $shortcode = '[butters mode=&#8216playlist&#8217 playlistValue=&#8242;foobar&#8242; author="true" resultCountCap=\'200\' resultsPerPage=3]';
 
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
@@ -70,7 +70,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
     function testCommasWithAllSortsOfQuotes()
     {
         $this->_setAllValid();
-        
+
         $shortcode = '[butters mode=&#8216playlist&#8217, playlistValue=&#8242;foobar&#8242;, author="true", resultCountCap=\'200\', resultsPerPage=3]';
 
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
@@ -90,7 +90,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
     function testNoCustomOptions()
     {
         $this->_setAllValid();
-        
+
         $shortcode = '[butters]';
 
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
@@ -105,7 +105,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
     function testWeirdSingleQuotes()
     {
         $this->_setAllValid();
-        
+
         $shortcode = '[butters mode=&#8216playlist&#8217 playlistValue=&#8242;foobar&#8242;]';
 
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
@@ -122,7 +122,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
     function testWeirdDoubleQuotes()
     {
         $this->_setAllValid();
-        
+
         $shortcode = '[butters mode=&#34playlist&#8220; playlistValue=&#8221;foobar&#8243;]';
 
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
@@ -139,7 +139,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
     function testNoQuotes()
     {
         $this->_setAllValid();
-        
+
         $shortcode = '[butters mode=playlist	]';
 
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
@@ -154,7 +154,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
     function testSingleQuotes()
     {
         $this->_setAllValid();
-        
+
         $shortcode = '[butters mode=\'playlist\']';
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
@@ -168,7 +168,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
     function testDoubleQuotes()
     {
         $this->_setAllValid();
-        
+
         $shortcode = '[butters mode="playlist"]';
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
@@ -182,21 +182,21 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
     function testMismatchedStartEndQuotes()
     {
         $this->_setAllValid();
-        
+
         $this->_sut->parse('[butters mode=\'playlist"]');
     }
 
     function testNoClosingBracket()
     {
         $this->_setAllValid();
-        
+
         $this->_sut->parse('[butters mode=\'playlist\'');
     }
 
     function testNoOpeningBracket()
     {
         $this->_setAllValid();
-        
+
         $content = "butters mode='playlist']";
 
         $this->_sut->parse($content);
@@ -205,7 +205,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
     function testSpaceAroundAttributes()
     {
         $this->_setAllValid();
-        
+
         $shortcode = "[butters mode='playlist']";
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
@@ -219,7 +219,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
     function testSpaceAroundShortcode()
     {
         $this->_setAllValid();
-        
+
         $shortcode = "sddf	 [butters mode='playlist']	sdsdfsdf";
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
@@ -233,7 +233,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
     function testNoSpaceAroundShortcode()
     {
         $this->_setAllValid();
-        
+
         $shortcode = "sddf[butters mode='playlist']sdsdfsdf";
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
@@ -243,7 +243,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         $this->_sut->parse($shortcode);
     }
-    
+
     private function _setAllValid()
     {
         $ioc             = org_tubepress_impl_ioc_IocContainer::getInstance();

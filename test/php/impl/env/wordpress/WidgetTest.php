@@ -46,6 +46,7 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest {
         $context      = $iocContainer->get(org_tubepress_api_exec_ExecutionContext::_);
         $parser       = $iocContainer->get(org_tubepress_api_shortcode_ShortcodeParser::_);
         $gallery      = $iocContainer->get(org_tubepress_api_shortcode_ShortcodeHtmlGenerator::_);
+
         $ms           = $iocContainer->get(org_tubepress_api_message_MessageService::_);
 
         $ms->shouldReceive('_')->atLeast(1)->andReturnUsing( function ($key) {

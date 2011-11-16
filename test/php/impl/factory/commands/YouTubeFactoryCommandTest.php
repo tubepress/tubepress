@@ -39,7 +39,7 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommandTest extends Tube
         $this->assertEquals('N/A', $video->getCommentCount());
         $this->assertEquals("Information about shared spaces proposals in the Auckland CBD area.", $video->getDescription());
         $this->assertEquals('4:04', $video->getDuration());
-        $this->assertEquals('http://www.youtube.com/watch?v=BRKWi5beywQ&amp;feature=youtube_gdata', $video->getHomeUrl());
+        $this->assertEquals('http://www.youtube.com/watch?v=BRKWi5beywQ&feature=youtube_gdata', $video->getHomeUrl());
         $this->assertEquals('BRKWi5beywQ', $video->getId());
         $this->assertEquals(array('Shared', 'Spaces', 'Upload'), $video->getKeywords());
         $this->assertEquals('N/A', $video->getLikesCount());

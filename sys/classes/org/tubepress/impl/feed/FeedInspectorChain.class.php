@@ -67,8 +67,8 @@ class org_tubepress_impl_feed_FeedInspectorChain implements org_tubepress_api_fe
 
         /* let the commands do the heavy lifting */
         $status = $chain->execute($context, array(
-            'org_tubepress_impl_feed_commands_YouTubeFeedInspectionCommand',
-            'org_tubepress_impl_feed_commands_VimeoFeedInspectionCommand'
+            'org_tubepress_impl_feed_inspection_YouTubeFeedInspectionCommand',
+            'org_tubepress_impl_feed_inspection_VimeoFeedInspectionCommand'
         ));
 
         if ($status === false) {
