@@ -11,11 +11,18 @@ class org_tubepress_api_http_UrlTest extends TubePressUnitTest {
 	    $this->_sut = new org_tubepress_api_http_Url('http://user@tubepress.org:994/something/index.php?one=two+four&three=four#fragment/one/three?poo');
 	}
 
+
+
 	function testSetHostIpv4()
 	{
 	    $this->_sut->setHostIpv4('123.123.123.123');
 	    $this->assertEquals('123.123.123.123', $this->_sut->getHost());
 	    $this->assertEquals('http://user@123.123.123.123:994/something/index.php?one=two+four&three=four#fragment/one/three?poo', $this->_sut->toString());
+	}
+
+	function testYouTubeUrl()
+	{
+	    $this->_sut = new org_tubepress_api_http_Url('http://www.ehough.com/watch');
 	}
 
 	/**
