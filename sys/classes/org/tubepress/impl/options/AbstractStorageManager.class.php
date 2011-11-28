@@ -91,7 +91,7 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
             $this->create($name, $value);
         }
 
-        $this->setOption($name, $value);
+//         $this->setOption($name, $value);
     }
 
     /**

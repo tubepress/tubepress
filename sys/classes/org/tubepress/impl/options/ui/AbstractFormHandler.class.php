@@ -32,7 +32,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_template_Template',
     'org_tubepress_impl_options_ui_AbstractDelegatingFormHandler',
     'org_tubepress_impl_options_ui_DefaultTabsHandler',
-    'org_tubepress_impl_options_ui_widgets_FilterMultiSelectInput',
+    'org_tubepress_impl_options_ui_fields_FilterMultiSelectField',
 ));
 
 /**
@@ -60,13 +60,13 @@ abstract class org_tubepress_impl_options_ui_AbstractFormHandler extends org_tub
         $templateBldr   = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
         $fse            = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $tabs           = $ioc->get(org_tubepress_impl_options_ui_DefaultTabsHandler::_);
-        $filter         = $ioc->get(org_tubepress_impl_options_ui_widgets_FilterMultiSelectInput::_);
+        $filter         = $ioc->get(org_tubepress_impl_options_ui_fields_FilterMultiSelectField::_);
         $basePath       = $fse->getTubePressBaseInstallationPath();
         $template       = $templateBldr->getNewTemplateInstance($basePath . '/' . $this->getRelativeTemplatePath());
 
-        $template->setVariable(self::TEMPLATE_VAR_TITLE, $messageService->_('TubePress Options'));
-        $template->setVariable(self::TEMPLATE_VAR_INTRO, $messageService->_('Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="http://tubepress.org/documentation">documentation</a> for more info. An asterisk (*) next to an option indicates it\'s only available with <a href="http://tubepress.org/features">TubePress Pro</a>.'));
-        $template->setVariable(self::TEMPLATE_VAR_SAVE_TEXT, $messageService->_('Save'));
+        $template->setVariable(self::TEMPLATE_VAR_TITLE, $messageService->_('TubePress Options'));                                                                                                                                                                                                                                                                                                                                 //>(translatable)<
+        $template->setVariable(self::TEMPLATE_VAR_INTRO, $messageService->_('Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="http://tubepress.org/documentation">documentation</a> for more info. An asterisk (*) next to an option indicates it\'s only available with <a href="http://tubepress.org/features">TubePress Pro</a>.')); //>(translatable)<
+        $template->setVariable(self::TEMPLATE_VAR_SAVE_TEXT, $messageService->_('Save'));                                                                                                                                                                                                                                                                                                                                          //>(translatable)<
         $template->setVariable(self::TEMPLATE_VAR_SAVE_ID, 'tubepress_save');
         $template->setVariable(self::TEMPLATE_VAR_TABS, $tabs->getHtml());
         $template->setVariable(self::TEMPLATE_VAR_FILTER, $filter->getHtml());
@@ -78,7 +78,7 @@ abstract class org_tubepress_impl_options_ui_AbstractFormHandler extends org_tub
     {
         $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tabs   = $ioc->get(org_tubepress_impl_options_ui_DefaultTabsHandler::_);
-        $filter = $ioc->get(org_tubepress_impl_options_ui_widgets_FilterMultiSelectInput::_);
+        $filter = $ioc->get(org_tubepress_impl_options_ui_fields_FilterMultiSelectField::_);
 
         return array($tabs, $filter);
     }

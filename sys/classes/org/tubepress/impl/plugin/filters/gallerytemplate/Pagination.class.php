@@ -1,19 +1,19 @@
 <?php
 /**
  * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
- * 
+ *
  * This file is part of TubePress (http://tubepress.org)
- * 
+ *
  * TubePress is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * TubePress is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -36,7 +36,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
 {
     const DOTS = '<span class="tubepress_pagination_dots">...</span>';
-    
+
     public function alter_galleryTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_provider_ProviderResult $providerResult, $page, $providerName)
     {
         $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
@@ -44,17 +44,17 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
         $pm            = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $pagination    = $this->_getHtml($providerResult->getEffectiveTotalResultCount());
         $pagination    = $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_PAGINATION, $pagination);
-        
-        if ($context->get(org_tubepress_api_const_options_names_Display::PAGINATE_ABOVE)) {
+
+        if ($context->get(org_tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE)) {
             $template->setVariable(org_tubepress_api_const_template_Variable::PAGINATION_TOP, $pagination);
         }
-        if ($context->get(org_tubepress_api_const_options_names_Display::PAGINATE_BELOW)) {
+        if ($context->get(org_tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW)) {
             $template->setVariable(org_tubepress_api_const_template_Variable::PAGINATION_BOTTOM, $pagination);
         }
 
         return $template;
     }
-    
+
     /**
      * Get the HTML for pagination.
      *
@@ -68,9 +68,9 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
         $context        = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
         $qss            = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
-        
+
         $currentPage = $qss->getPageNum($_GET);
-        $vidsPerPage = $context->get(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE);
+        $vidsPerPage = $context->get(org_tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE);
 
         $newurl = new org_tubepress_api_url_Url($qss->getFullUrl($_SERVER));
         $newurl->unsetQueryVariable('tubepress_page');
@@ -78,7 +78,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
         $result = $this->_diggStyle($vidCount, $messageService, $currentPage, $vidsPerPage, 1, $newurl->toString(), 'tubepress_page');
 
         /* if we're using Ajax for pagination, remove all the hrefs */
-        if ($context->get(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION)) {
+        if ($context->get(org_tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION)) {
             $result = preg_replace('/rel="nofollow" href="[^"]*tubepress_page=([0-9]+)[^"]*"/', 'rel="page=${1}"', $result);
         }
 
@@ -112,7 +112,9 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
             if ($page > 1) {
                 $url->setQueryVariable($pagestring, $prev);
                 $newurl      = $url->toString();
-                $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">&laquo; " . $messageService->_("prev") . '</a>';
+                $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">&laquo; " .
+                    $messageService->_('prev') .                                     //>(translatable)<
+                	'</a>';
             }
 
             if ($lastpage < 7 + ($adjacents * 2)) {
@@ -194,9 +196,13 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
             if ($page < $counter - 1) {
                 $url->setQueryVariable($pagestring, $next);
                 $newurl      = $url->toString();
-                $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">" . $messageService->_('next') . ' &raquo;</a>';
+                $pagination .= "<a rel=\"nofollow\" href=\"$newurl\">" .
+                    $messageService->_('next') .             //>(translatable)<
+                	' &raquo;</a>';
             } else {
-                $pagination .= '<span class="disabled">' . $messageService->_('next') . ' &raquo;</span>';
+                $pagination .= '<span class="disabled">' .
+                    $messageService->_('next') .             //>(translatable)<
+                	' &raquo;</span>';
             }
             $pagination .= "</div>\n";
         }

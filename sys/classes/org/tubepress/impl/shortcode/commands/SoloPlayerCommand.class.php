@@ -20,9 +20,9 @@
  */
 
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_options_names_Display',
+    'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_const_options_names_Output',
-    'org_tubepress_api_const_options_values_PlayerValue',
+    'org_tubepress_api_const_options_values_PlayerLocationValue',
     'org_tubepress_spi_patterns_cor_Chain',
     'org_tubepress_spi_patterns_cor_Command',
     'org_tubepress_impl_shortcode_commands_SingleVideoCommand',
@@ -48,9 +48,9 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommand implements org_tub
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
         $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $playerName  = $execContext->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
+        $playerName  = $execContext->get(org_tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
 
-        if ($playerName !== org_tubepress_api_const_options_values_PlayerValue::SOLO) {
+        if ($playerName !== org_tubepress_api_const_options_values_PlayerLocationValue::SOLO) {
             return false;
         }
 

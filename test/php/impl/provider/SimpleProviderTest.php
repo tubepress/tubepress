@@ -39,7 +39,7 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
         $feedRetrievalService->shouldReceive('fetch')->once()->with('gallery-url', false)->andReturn('fetch-result');
 
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED)->andReturn(false);
+        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
 
         $feedInspectionService = $ioc->get(org_tubepress_api_feed_FeedInspector::_);
         $feedInspectionService->shouldReceive('getTotalResultCount')->once()->with('fetch-result')->andReturn(596);
@@ -71,7 +71,7 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
         $feedRetrievalService->shouldReceive('fetch')->once()->with('gallery-url', false)->andReturn('fetch-result');
 
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED)->andReturn(false);
+        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
 
         $feedInspectionService = $ioc->get(org_tubepress_api_feed_FeedInspector::_);
         $feedInspectionService->shouldReceive('getTotalResultCount')->once()->with('fetch-result')->andReturn(0);
@@ -97,7 +97,7 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
         $feedRetrievalService->shouldReceive('fetch')->once()->with('gallery-url', false)->andReturn('fetch-result');
 
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED)->andReturn(false);
+        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
 
         $feedInspectionService = $ioc->get(org_tubepress_api_feed_FeedInspector::_);
         $feedInspectionService->shouldReceive('getTotalResultCount')->once()->with('fetch-result')->andReturn(596);
@@ -148,7 +148,7 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
         $urlBuilder->shouldReceive('buildSingleVideoUrl')->once()->with('video-id')->andReturn('video-url');
 
         $context              = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED)->andReturn(false);
+        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
 
         $feedRetrievalService = $ioc->get(org_tubepress_api_feed_FeedFetcher::_);
         $feedRetrievalService->shouldReceive('fetch')->once()->with('video-url', false)->andReturn('fake-feed');

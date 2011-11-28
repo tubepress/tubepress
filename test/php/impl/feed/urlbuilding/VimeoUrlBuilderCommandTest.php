@@ -20,7 +20,7 @@ class org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommandTest extends Tub
         $pc->shouldReceive('calculateProviderOfVideoId')->zeroOrMoreTimes()->andReturn(org_tubepress_api_provider_Provider::VIMEO);
 
         $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $execContext->shouldReceive('get')->zeroOrMoreTimes()->with(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE)->andReturn(20);
+        $execContext->shouldReceive('get')->zeroOrMoreTimes()->with(org_tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE)->andReturn(20);
     }
 
     /**
@@ -98,9 +98,9 @@ class org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommandTest extends Tub
     function testexecuteGroup()
     {
         $this->_expectOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::VIMEO_GROUP,
-           org_tubepress_api_const_options_names_Output::VIMEO_GROUP_VALUE => 'eric',
-           org_tubepress_api_const_options_names_Display::ORDER_BY => 'random',
+           org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_GROUP,
+           org_tubepress_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE => 'eric',
+           org_tubepress_api_const_options_names_Feed::ORDER_BY => 'random',
            org_tubepress_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
            org_tubepress_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
@@ -113,10 +113,10 @@ class org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommandTest extends Tub
     function testExecuteCreditedTo()
     {
         $this->_expectOptions(array(
-        org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::VIMEO_CREDITED,
-        org_tubepress_api_const_options_names_Output::VIMEO_CREDITED_VALUE => 'eric',
+        org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_CREDITED,
+        org_tubepress_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE => 'eric',
         org_tubepress_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
-        org_tubepress_api_const_options_names_Display::ORDER_BY => 'random',
+        org_tubepress_api_const_options_names_Feed::ORDER_BY => 'random',
         org_tubepress_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
 
@@ -128,8 +128,8 @@ class org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommandTest extends Tub
     function testexecuteAlbum()
     {
         $this->_expectOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::VIMEO_ALBUM,
-           org_tubepress_api_const_options_names_Output::VIMEO_ALBUM_VALUE => 'eric',
+           org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_ALBUM,
+           org_tubepress_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE => 'eric',
            org_tubepress_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
            org_tubepress_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
@@ -142,8 +142,8 @@ class org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommandTest extends Tub
     function testexecuteChannel()
     {
         $this->_expectOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::VIMEO_CHANNEL,
-           org_tubepress_api_const_options_names_Output::VIMEO_CHANNEL_VALUE => 'eric',
+           org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL,
+           org_tubepress_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE => 'eric',
            org_tubepress_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
            org_tubepress_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
@@ -157,9 +157,9 @@ class org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommandTest extends Tub
     function testexecuteSearch()
     {
         $this->_expectOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::VIMEO_SEARCH,
-           org_tubepress_api_const_options_names_Output::VIMEO_SEARCH_VALUE => 'eric hough',
-           org_tubepress_api_const_options_names_Display::ORDER_BY => 'relevance',
+           org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_SEARCH,
+           org_tubepress_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE => 'eric hough',
+           org_tubepress_api_const_options_names_Feed::ORDER_BY => 'relevance',
            org_tubepress_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
            org_tubepress_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret',
            org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => '',
@@ -173,9 +173,9 @@ class org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommandTest extends Tub
     function testexecuteSearchWithUser()
     {
         $this->_expectOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::VIMEO_SEARCH,
-           org_tubepress_api_const_options_names_Output::VIMEO_SEARCH_VALUE => 'eric hough',
-           org_tubepress_api_const_options_names_Display::ORDER_BY => 'relevance',
+           org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_SEARCH,
+           org_tubepress_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE => 'eric hough',
+           org_tubepress_api_const_options_names_Feed::ORDER_BY => 'relevance',
            org_tubepress_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
            org_tubepress_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret',
            org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => 'ehough'
@@ -189,9 +189,9 @@ class org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommandTest extends Tub
     function testexecuteAppearsIn()
     {
         $this->_expectOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::VIMEO_APPEARS_IN,
-           org_tubepress_api_const_options_names_Output::VIMEO_APPEARS_IN_VALUE => 'eric',
-           org_tubepress_api_const_options_names_Display::ORDER_BY => 'oldest',
+           org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN,
+           org_tubepress_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE => 'eric',
+           org_tubepress_api_const_options_names_Feed::ORDER_BY => 'oldest',
            org_tubepress_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
            org_tubepress_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
@@ -204,9 +204,9 @@ class org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommandTest extends Tub
     function testexecuteLikes()
     {
         $this->_expectOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::VIMEO_LIKES,
-           org_tubepress_api_const_options_names_Output::VIMEO_LIKES_VALUE => 'eric',
-           org_tubepress_api_const_options_names_Display::ORDER_BY => 'rating',
+           org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_LIKES,
+           org_tubepress_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE => 'eric',
+           org_tubepress_api_const_options_names_Feed::ORDER_BY => 'rating',
            org_tubepress_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
            org_tubepress_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));
@@ -219,9 +219,9 @@ class org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommandTest extends Tub
     function testexecuteUploadedBy()
     {
         $this->_expectOptions(array(
-           org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::VIMEO_UPLOADEDBY,
-           org_tubepress_api_const_options_names_Output::VIMEO_UPLOADEDBY_VALUE => 'eric',
-           org_tubepress_api_const_options_names_Display::ORDER_BY => 'commentCount',
+           org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY,
+           org_tubepress_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE => 'eric',
+           org_tubepress_api_const_options_names_Feed::ORDER_BY => 'commentCount',
            org_tubepress_api_const_options_names_Feed::VIMEO_KEY => 'vimeokey',
            org_tubepress_api_const_options_names_Feed::VIMEO_SECRET => 'vimeosecret'
         ));

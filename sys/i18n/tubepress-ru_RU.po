@@ -35,9 +35,6 @@ msgstr "\"Избранное\" этого пользователя YouTube"
 msgid "The latest \"featured\" videos on YouTube's homepage"
 msgstr "Последние самые популярные видео на главной странице YouTube"
 
-msgid "Videos for mobile phones"
-msgstr "Видео для мобильных телефонов"
-
 msgid "This playlist"
 msgstr "Этот плейлист"
 
@@ -97,9 +94,6 @@ msgstr "Использовать относительные даты"
 
 msgid "e.g. \"yesterday\" instead of \"November 3, 1980\""
 msgstr "Например, \"вчера\" вместо \"3 ноября 1980\""
-
-msgid "Videos per Page"
-msgstr "Видео на страницу"
 
 msgid "Default is 20. Maximum is 50"
 msgstr "По умолчанию 20. Максимум 50"
@@ -164,12 +158,6 @@ msgstr "Показывать похожие видео"
 msgid "Toggles the display of related videos after a video finishes"
 msgstr "Показывать похожие видео после окончания воспроизведения исходного видео"
 
-msgid "Show videos in high definition when available"
-msgstr "Показать видео в высоком качестве, когда оно доступно"
-
-msgid "Provider Feed"
-msgstr ""
-
 msgid "Meta Display"
 msgstr "Показ метаданных"
 
@@ -184,9 +172,6 @@ msgstr "Описание"
 
 msgid "ID"
 msgstr "ID"
-
-msgid "Length"
-msgstr "Продолжительность"
 
 msgid "Rating"
 msgstr "Рейтинг"
@@ -236,9 +221,6 @@ msgstr "Ключевое слово для вставки TubePress"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "Ключевое слово (в квадратных скобках) для вставки галереи TubePress в свои заметки/страницы."
 
-msgid "Randomize thumbnails"
-msgstr "Перемешать миниатюры"
-
 msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized. Note: this option cannot be used with the \"high quality thumbnails\" feature"
 msgstr "Большинство видео сопровождаются несколькими эскизами. При выборе этой опции, при каждом новом просмотре галереи, миниатюры для таких видео будут выбираться случайным образом из списка."
 
@@ -257,17 +239,11 @@ msgstr "Извлекать только встраиваемое видео"
 msgid "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries."
 msgstr "Некоторые видео нельзя встраивать на других сайтах. При включении этой опции, эти видео будут исключены из галереи."
 
-msgid "Store network responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
-msgstr "Сохранять локально ответы YouTube на 1 час. Каждый ответ сервера составляет порядка нескольких сотен КБ, т.о. оставляя кэш включенным, можно значительно сократить время загрузки вашей галереи, правда информация будет немного устаревшей."
-
 msgid "Maximum total videos to retrieve"
 msgstr "Максимальное кол-во клипов для скачивания"
 
 msgid "This can help to reduce the number of pages in your gallery. Set to \"0\" to remove any limit."
 msgstr "Это может помочь уменьшить количество страниц в вашей галерее. Установите \"0\" для снятия каких-либо ограничений."
-
-msgid "Appearance"
-msgstr "Внешний вид"
 
 msgid "normally (at the top of your gallery)"
 msgstr "стандартно (в верхней части галереи)"
@@ -325,9 +301,6 @@ msgstr "след."
 
 msgid "prev"
 msgstr "пред."
-
-msgid "Displays YouTube videos in your sidebar using TubePress"
-msgstr "Отображать видео YouTube на боковой панели, используя TubePress"
 
 msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>."
 msgstr "Специальные команды TubePress для виджета. Смотрите <a href=\"http://tubepress.org/documentation\"> документацию </a>."
@@ -407,24 +380,6 @@ msgstr ""
 msgid "Provider default"
 msgstr ""
 
-msgid "%s can only take on integer values. You supplied %s."
-msgstr "%s может принимать только целые значения. Вы ввели %s."
-
-msgid "%s must be a string. You supplied %s."
-msgstr "%s должно быть строкой.  Вы ввели %s."
-
-msgid "\"%s\" is not a valid option name."
-msgstr "\"%s\" не является правильным параметром."
-
-msgid "\"%s\" must be either true or false. You supplied \"%s\"."
-msgstr "\"%s\" должно быть либо true, либо false.  Вы ввели \"%s\"."
-
-msgid "\"%s\" must be one of \"%s\". You supplied \"%s\"."
-msgstr "\"%s\" должно принимать одно из следующих значений: \"%s\". Вы ввели \"%s\"."
-
-msgid "\"%s\" must be between \"%d\" and \"%d\". You supplied \"%d\"."
-msgstr "\"%s\" должно быть между \"%d\" и \"%d\". Вы ввели \"%d\"."
-
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
 msgstr ""
 
@@ -435,24 +390,6 @@ msgid "oldest"
 msgstr ""
 
 msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature"
-msgstr ""
-
-msgid "%s is not executable or does not exist."
-msgstr ""
-
-msgid "Thumbs per video"
-msgstr ""
-
-msgid "How many thumbnails to generate for each video. TubePress can randomly display the thumbs each time someone visits the gallery. See the \"Randomize thumbnails\" option under the \"Appearance\" tab."
-msgstr ""
-
-msgid "This option cannot contain two consecutive periods"
-msgstr ""
-
-msgid "%s is not a directory"
-msgstr ""
-
-msgid "%s is not readable"
 msgstr ""
 
 msgid "Theme"
@@ -506,9 +443,6 @@ msgstr ""
 msgid "Cache directory"
 msgstr ""
 
-msgid "Leave blank to attempt to use system temp directory. Otherwise enter the absolute path of a writeable directory."
-msgstr ""
-
 msgid "Cache expiration time (seconds)"
 msgstr ""
 
@@ -546,4 +480,40 @@ msgid "Auto-play each video after thumbnail click"
 msgstr ""
 
 msgid "\"Lazy\" play videos"
+msgstr ""
+
+msgid "Thumbnails"
+msgstr ""
+
+msgid "Video Feed"
+msgstr ""
+
+msgid "Cache"
+msgstr ""
+
+msgid "in a \"detached\" location (see the documentation)"
+msgstr ""
+
+msgid "Displays YouTube or Vimeo videos with TubePress"
+msgstr ""
+
+msgid "No viewable videos"
+msgstr ""
+
+msgid "Could not find video with ID %s"
+msgstr ""
+
+msgid "Leave blank to attempt to use your system's temp directory. Otherwise enter the absolute path of a writeable directory."
+msgstr ""
+
+msgid "Store network responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness."
+msgstr ""
+
+msgid "Allow high definition playback"
+msgstr ""
+
+msgid "Randomize thumbnail images"
+msgstr ""
+
+msgid "Thumbnails per page"
 msgstr ""

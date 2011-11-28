@@ -22,7 +22,7 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Feed',
-    'org_tubepress_api_const_options_values_ModeValue',
+    'org_tubepress_api_const_options_values_GallerySourceValue',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_provider_ProviderResult',
     'org_tubepress_impl_ioc_IocContainer',
@@ -59,16 +59,16 @@ class org_tubepress_impl_plugin_filters_providerresult_ResultCountCapper
 
     private static function _calculateRealMax($context, $reported)
     {
-        $mode = $context->get(org_tubepress_api_const_options_names_Output::MODE);
+        $mode = $context->get(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE);
 
         switch ($mode) {
-            case org_tubepress_api_const_options_values_ModeValue::TAG:
+            case org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH:
                 //http://code.google.com/apis/youtube/2.0/reference.html#Videos_feed
                 return 999;
-            case org_tubepress_api_const_options_values_ModeValue::FAVORITES:
+            case org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES:
                 //http://code.google.com/apis/youtube/2.0/reference.html#User_favorites_feed
                 return 50;
-            case org_tubepress_api_const_options_values_ModeValue::PLAYLIST:
+            case org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST:
                 //http://code.google.com/apis/youtube/2.0/reference.html#Playlist_feed
                 return 200;
         }

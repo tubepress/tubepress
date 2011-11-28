@@ -21,7 +21,9 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_options_names_Advanced',
+    'org_tubepress_api_const_options_names_GallerySource',
+	'org_tubepress_api_const_options_names_Thumbs',
+	'org_tubepress_api_const_options_names_InteractiveSearch',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_options_OptionValidator',

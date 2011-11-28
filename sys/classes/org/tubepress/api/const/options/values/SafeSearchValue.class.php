@@ -25,6 +25,6 @@
 class org_tubepress_api_const_options_values_SafeSearchValue
 {
     const NONE     = 'none';
-    const MODERATE = 'moderate';
+    const GALLERY_SOURCERATE = 'moderate';
     const STRICT   = 'strict';    
 }

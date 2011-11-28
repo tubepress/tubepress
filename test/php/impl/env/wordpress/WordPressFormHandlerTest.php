@@ -25,7 +25,7 @@ class org_tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePres
     {
         $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tabs   = $ioc->get(org_tubepress_impl_options_ui_DefaultTabsHandler::_);
-        $filter = $ioc->get(org_tubepress_impl_options_ui_widgets_FilterMultiSelectInput::_);
+        $filter = $ioc->get(org_tubepress_impl_options_ui_fields_FilterMultiSelectField::_);
 
         $postVars = array('post');
 
@@ -39,7 +39,7 @@ class org_tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePres
     {
         $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
         $tabs   = $ioc->get(org_tubepress_impl_options_ui_DefaultTabsHandler::_);
-        $filter = $ioc->get(org_tubepress_impl_options_ui_widgets_FilterMultiSelectInput::_);
+        $filter = $ioc->get(org_tubepress_impl_options_ui_fields_FilterMultiSelectField::_);
 
         $postVars = array('post');
 
@@ -56,7 +56,7 @@ class org_tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePres
         $templateBldr   = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
         $fse            = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $tabs           = $ioc->get(org_tubepress_impl_options_ui_DefaultTabsHandler::_);
-        $filter         = $ioc->get(org_tubepress_impl_options_ui_widgets_FilterMultiSelectInput::_);
+        $filter         = $ioc->get(org_tubepress_impl_options_ui_fields_FilterMultiSelectField::_);
         $template       = \Mockery::mock(org_tubepress_api_template_Template::_);
 
         $fse->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath>>');

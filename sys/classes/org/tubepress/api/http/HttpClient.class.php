@@ -32,8 +32,6 @@ interface org_tubepress_api_http_HttpClient
 {
     const _ = 'org_tubepress_api_http_HttpClient';
 
-    const _ = 'org_tubepress_api_http_HttpClient';
-
     /**
      * Execute a given HTTP request.
      *

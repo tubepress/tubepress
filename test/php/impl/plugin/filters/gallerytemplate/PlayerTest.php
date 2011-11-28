@@ -17,7 +17,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PlayerTest extends TubeP
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
         $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME)->andReturn('player-name');
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('player-name');
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('gallery-id');
 
         $fakeVideo = \Mockery::mock('org_tubepress_api_video_Video');
@@ -34,12 +34,12 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PlayerTest extends TubeP
 
     function testAlterTemplateStaticPlayer()
     {
-        $this->_testPlayerLoadOnPage(org_tubepress_api_const_options_values_PlayerValue::STATICC);
+        $this->_testPlayerLoadOnPage(org_tubepress_api_const_options_values_PlayerLocationValue::STATICC);
     }
 
     function testAlterTemplateNormalPlayer()
     {
-        $this->_testPlayerLoadOnPage(org_tubepress_api_const_options_values_PlayerValue::NORMAL);
+        $this->_testPlayerLoadOnPage(org_tubepress_api_const_options_values_PlayerLocationValue::NORMAL);
     }
 
     private function _testPlayerLoadOnPage($name)
@@ -47,7 +47,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PlayerTest extends TubeP
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
         $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME)->andReturn($name);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn($name);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('gallery-id');
 
         $fakeVideo = \Mockery::mock('org_tubepress_api_video_Video');

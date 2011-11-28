@@ -21,10 +21,9 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_options_values_ModeValue',
-    'org_tubepress_api_const_options_values_OrderValue',
-    'org_tubepress_api_const_options_names_Advanced',
-    'org_tubepress_api_const_options_names_Display',
+    'org_tubepress_api_const_options_values_GallerySourceValue',
+    'org_tubepress_api_const_options_values_OrderByValue',
+    'org_tubepress_api_const_options_names_GallerySource',
     'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_const_options_names_Meta',
     'org_tubepress_api_const_options_names_Feed',
@@ -75,9 +74,9 @@ class org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommand extends org_tub
     const SORT_RELEVANT      = 'relevant';
 
     const INI_ARG_SEPARATOR = 'arg_separator.input';
-    
+
     const LOG_PREFIX = 'Vimeo URL Builder';
-    
+
     const URL_BASE = 'http://vimeo.com/api/rest/v2';
 
     /**
@@ -92,36 +91,36 @@ class org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommand extends org_tub
         $params       = array();
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
         $execContext  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $mode         = $execContext->get(org_tubepress_api_const_options_names_Output::MODE);
-        
+        $mode         = $execContext->get(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE);
+
         $this->_verifyKeyAndSecretExists($execContext);
 
         self::_setIniArgSeparator();
 
         switch ($mode) {
 
-        case org_tubepress_api_const_options_values_ModeValue::VIMEO_UPLOADEDBY:
+        case org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY:
 
             $params[self::PARAM_METHOD]  = self::METHOD_VIDEOS_GETUPLOADED;
-            $params[self::PARAM_USER_ID] = $execContext->get(org_tubepress_api_const_options_names_Output::VIMEO_UPLOADEDBY_VALUE);
+            $params[self::PARAM_USER_ID] = $execContext->get(org_tubepress_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE);
             break;
 
-        case org_tubepress_api_const_options_values_ModeValue::VIMEO_LIKES:
+        case org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_LIKES:
 
             $params[self::PARAM_METHOD]  = self::METHOD_VIDEOS_GETLIKES;
-            $params[self::PARAM_USER_ID] = $execContext->get(org_tubepress_api_const_options_names_Output::VIMEO_LIKES_VALUE);
+            $params[self::PARAM_USER_ID] = $execContext->get(org_tubepress_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE);
             break;
 
-        case org_tubepress_api_const_options_values_ModeValue::VIMEO_APPEARS_IN:
+        case org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN:
 
             $params[self::PARAM_METHOD]  = self::METHOD_VIDEOS_APPEARSIN;
-            $params[self::PARAM_USER_ID] = $execContext->get(org_tubepress_api_const_options_names_Output::VIMEO_APPEARS_IN_VALUE);
+            $params[self::PARAM_USER_ID] = $execContext->get(org_tubepress_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE);
             break;
 
-        case org_tubepress_api_const_options_values_ModeValue::VIMEO_SEARCH:
+        case org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_SEARCH:
 
             $params[self::PARAM_METHOD] = self::METHOD_VIDEOS_SEARCH;
-            $params[self::PARAM_QUERY]  = $execContext->get(org_tubepress_api_const_options_names_Output::VIMEO_SEARCH_VALUE);
+            $params[self::PARAM_QUERY]  = $execContext->get(org_tubepress_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE);
 
             $filter = $execContext->get(org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER);
             if ($filter != '') {
@@ -130,33 +129,33 @@ class org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommand extends org_tub
 
             break;
 
-        case org_tubepress_api_const_options_values_ModeValue::VIMEO_CREDITED:
+        case org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_CREDITED:
 
             $params[self::PARAM_METHOD]  = self::METHOD_VIDEOS_GETALL;
-            $params[self::PARAM_USER_ID] = $execContext->get(org_tubepress_api_const_options_names_Output::VIMEO_CREDITED_VALUE);
+            $params[self::PARAM_USER_ID] = $execContext->get(org_tubepress_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE);
             break;
 
-        case org_tubepress_api_const_options_values_ModeValue::VIMEO_CHANNEL:
+        case org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL:
 
             $params[self::PARAM_METHOD]     = self::METHOD_CHANNEL_GETVIDEOS;
-            $params[self::PARAM_CHANNEL_ID] = $execContext->get(org_tubepress_api_const_options_names_Output::VIMEO_CHANNEL_VALUE);
+            $params[self::PARAM_CHANNEL_ID] = $execContext->get(org_tubepress_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE);
             break;
 
-        case org_tubepress_api_const_options_values_ModeValue::VIMEO_ALBUM:
+        case org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_ALBUM:
 
             $params[self::PARAM_METHOD]   = self::METHOD_ALBUM_GETVIDEOS;
-            $params[self::PARAM_ALBUM_ID] = $execContext->get(org_tubepress_api_const_options_names_Output::VIMEO_ALBUM_VALUE);
+            $params[self::PARAM_ALBUM_ID] = $execContext->get(org_tubepress_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE);
             break;
 
-        case org_tubepress_api_const_options_values_ModeValue::VIMEO_GROUP:
+        case org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_GROUP:
 
             $params[self::PARAM_METHOD]   = self::METHOD_GROUP_GETVIDEOS;
-            $params[self::PARAM_GROUP_ID] = $execContext->get(org_tubepress_api_const_options_names_Output::VIMEO_GROUP_VALUE);
+            $params[self::PARAM_GROUP_ID] = $execContext->get(org_tubepress_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE);
         }
 
         $params[self::PARAM_FULL_RESPONSE] = 'true';
         $params[self::PARAM_PAGE]          = $currentPage;
-        $params[self::PARAM_PER_PAGE]      = $execContext->get(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE);
+        $params[self::PARAM_PER_PAGE]      = $execContext->get(org_tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE);
         $sort                              = $this->_getSort($mode, $execContext);
 
         if ($sort != '') {
@@ -164,9 +163,9 @@ class org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommand extends org_tub
         }
 
         $finalUrl = $this->_buildUrl($params, $execContext);
-        
+
         self::_restoreIniArgSeparator();
-        
+
         return $finalUrl;
     }
 
@@ -192,15 +191,15 @@ class org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommand extends org_tub
         $this->_verifyKeyAndSecretExists($execContext);
 
         self::_setIniArgSeparator();
-        
+
         $params                       = array();
         $params[self::PARAM_METHOD]   = self::METHOD_VIDEOS_GETINFO;
         $params[self::PARAM_VIDEO_ID] = $id;
 
         $finalUrl = $this->_buildUrl($params, $execContext);
-        
+
         self::_restoreIniArgSeparator();
-        
+
         return $finalUrl;
     }
 
@@ -217,37 +216,37 @@ class org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommand extends org_tub
     private function _getSort($mode, org_tubepress_api_exec_ExecutionContext $execContext)
     {
         /* these two modes can't be sorted */
-        if ($mode == org_tubepress_api_const_options_values_ModeValue::VIMEO_CHANNEL
-            || $mode == org_tubepress_api_const_options_values_ModeValue::VIMEO_ALBUM) {
+        if ($mode == org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL
+            || $mode == org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_ALBUM) {
             return '';
         }
 
-        $order = $execContext->get(org_tubepress_api_const_options_names_Display::ORDER_BY);
+        $order = $execContext->get(org_tubepress_api_const_options_names_Feed::ORDER_BY);
 
-        if ($mode == org_tubepress_api_const_options_values_ModeValue::VIMEO_SEARCH
-            && $order == org_tubepress_api_const_options_values_OrderValue::RELEVANCE) {
+        if ($mode == org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_SEARCH
+            && $order == org_tubepress_api_const_options_values_OrderByValue::RELEVANCE) {
                return self::SORT_RELEVANT;
         }
 
-        if ($mode == org_tubepress_api_const_options_values_ModeValue::VIMEO_GROUP
-            && $order == org_tubepress_api_const_options_values_OrderValue::RANDOM) {
+        if ($mode == org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_GROUP
+            && $order == org_tubepress_api_const_options_values_OrderByValue::RANDOM) {
             return $order;
         }
 
-        if ($order == org_tubepress_api_const_options_values_OrderValue::VIEW_COUNT) {
+        if ($order == org_tubepress_api_const_options_values_OrderByValue::VIEW_COUNT) {
             return self::SORT_MOST_PLAYED;
         }
 
-        if ($order == org_tubepress_api_const_options_values_OrderValue::COMMENT_COUNT) {
+        if ($order == org_tubepress_api_const_options_values_OrderByValue::COMMENT_COUNT) {
             return self::SORT_MOST_COMMENTS;
         }
 
-        if ($order == org_tubepress_api_const_options_values_OrderValue::RATING) {
+        if ($order == org_tubepress_api_const_options_values_OrderByValue::RATING) {
             return self::SORT_MOST_LIKED;
         }
 
-        if ($order == org_tubepress_api_const_options_values_OrderValue::NEWEST
-            || $order == org_tubepress_api_const_options_values_OrderValue::OLDEST) {
+        if ($order == org_tubepress_api_const_options_values_OrderByValue::NEWEST
+            || $order == org_tubepress_api_const_options_values_OrderByValue::OLDEST) {
             return $order;
         }
 
@@ -317,17 +316,17 @@ class org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommand extends org_tub
             return '';
         }
     }
-    
+
     private static function _setIniArgSeparator()
     {
     	/* Vimeo is sensitive to URL argument separators, so we have to set it to just '&' */
     	if (ini_get(self::INI_ARG_SEPARATOR) !== '&') {
-    	
+
     		org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Setting arg_separator.input');
     		ini_set(self::INI_ARG_SEPARATOR, '&');
     	}
     }
-    
+
     private static function _restoreIniArgSeparator()
     {
     	ini_restore(self::INI_ARG_SEPARATOR);

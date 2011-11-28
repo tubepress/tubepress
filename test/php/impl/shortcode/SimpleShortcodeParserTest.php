@@ -5,7 +5,7 @@ require_once BASE . '/sys/classes/org/tubepress/impl/shortcode/SimpleShortcodePa
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require BASE . '/sys/classes/org/tubepress/impl/classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Output',
-    'org_tubepress_api_const_options_values_ModeValue',
+    'org_tubepress_api_const_options_values_GallerySourceValue',
     'org_tubepress_api_const_options_names_Meta',
     'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_const_options_names_Feed'
@@ -37,11 +37,11 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
-            org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE => 'foobar',
+        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
             org_tubepress_api_const_options_names_Meta::AUTHOR => false,
             org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => 200,
-            org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE => 3
+            org_tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => 3
         ));
 
         $this->_sut->parse($shortcode);
@@ -57,11 +57,11 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
-            org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE => 'foobar',
+        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
             org_tubepress_api_const_options_names_Meta::AUTHOR => true,
             org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => 200,
-            org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE => 3
+            org_tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => 3
         ));
 
         $this->_sut->parse($shortcode);
@@ -77,11 +77,11 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
-            org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE => 'foobar',
+        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
             org_tubepress_api_const_options_names_Meta::AUTHOR => true,
             org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => 200,
-            org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE => 3
+            org_tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => 3
         ));
 
         $this->_sut->parse($shortcode);
@@ -112,8 +112,8 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
-            org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE => 'foobar'
+        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar'
         ));
 
         $this->_sut->parse($shortcode);
@@ -129,8 +129,8 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST,
-            org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE => 'foobar'
+        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar'
         ));
 
         $this->_sut->parse($shortcode);
@@ -146,7 +146,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST));
+        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST));
 
         $this->_sut->parse($shortcode);
     }
@@ -160,7 +160,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST));
+        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST));
 
         $this->_sut->parse($shortcode);
     }
@@ -174,7 +174,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST));
+        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST));
 
         $this->_sut->parse($shortcode);
     }
@@ -211,7 +211,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST));
+        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST));
 
         $this->_sut->parse($shortcode);
     }
@@ -225,7 +225,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with("[butters mode='playlist']");
-        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST));
+        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST));
 
         $this->_sut->parse($shortcode);
     }
@@ -239,7 +239,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('setActualShortcodeUsed')->once()->with("[butters mode='playlist']");
-        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::MODE => org_tubepress_api_const_options_values_ModeValue::PLAYLIST));
+        $context->shouldReceive('setCustomOptions')->once()->with(array(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST));
 
         $this->_sut->parse($shortcode);
     }

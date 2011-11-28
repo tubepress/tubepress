@@ -22,7 +22,7 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Advanced',
-    'org_tubepress_api_const_options_values_ModeValue',
+    'org_tubepress_api_const_options_values_GallerySourceValue',
     'org_tubepress_api_html_HeadHtmlGenerator',
     'org_tubepress_api_shortcode_ShortcodeHtmlGenerator',
     'org_tubepress_api_shortcode_ShortcodeParser',
@@ -79,7 +79,7 @@ class org_tubepress_impl_env_wordpress_Main
             try {
                 $generatedHtml = $gallery->getHtmlForShortcode($content);
             } catch (Exception $e) {
-                $generatedHtml = $ms->_('No matching videos');
+                $e->getMessage();
             }
 
             /* remove any leading/trailing <p> tags from the content */

@@ -39,17 +39,18 @@ abstract class org_tubepress_impl_options_ui_AbstractDelegatingFormHandler imple
     */
     public function onSubmit($postVars)
     {
-        $formHandlerInstances = $this->getDelegateFormHandlers();
+        if (! is_array($postVars)) {
 
+            throw new Exception('POST variables must be an array');
+        }
+
+        $formHandlerInstances = $this->getDelegateFormHandlers();
+        
         if (! is_array($formHandlerInstances)) {
 
             throw new Exception('Must pass an array of form handler instances');
         }
 
-        if (! is_array($postVars)) {
-
-            throw new Exception('POST variables must be an array');
-        }
 
         $failures = array();
 

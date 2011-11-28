@@ -50,9 +50,6 @@ msgstr "Os favoritos deste usuário do Youtube"
 msgid "The latest \"featured\" videos on YouTube's homepage"
 msgstr "Os vídeos mais recentes \"destacados\" na página inicial do YouTube"
 
-msgid "Videos for mobile phones"
-msgstr "Vídeos para celulares"
-
 msgid "This playlist"
 msgstr "Esta playlist"
 
@@ -109,9 +106,6 @@ msgstr "Usar datas relativas"
 
 msgid "e.g. \"yesterday\" instead of \"November 3, 1980\""
 msgstr "por ex.: \"ontem\" ao invés de \"3 de Novembro de 1980\""
-
-msgid "Videos per Page"
-msgstr "Vídeos por página"
 
 msgid "Default is 20. Maximum is 50"
 msgstr "O padrão é 20. O máximo é 50"
@@ -176,9 +170,6 @@ msgstr "Mostra vídeos relacionados"
 msgid "Toggles the display of related videos after a video finishes"
 msgstr "Alterna a exibição de vídeos relacionados, após terminar um vídeo"
 
-msgid "Show videos in high definition when available"
-msgstr "Mostrar os vídeos em alta definição quando estiver disponível"
-
 msgid "Meta Display"
 msgstr "Exibição de meta-dados"
 
@@ -193,9 +184,6 @@ msgstr "Descrição"
 
 msgid "ID"
 msgstr "ID"
-
-msgid "Length"
-msgstr "Duração"
 
 msgid "Rating"
 msgstr "Votação"
@@ -242,9 +230,6 @@ msgstr "Palavra-chave do \"shortcode\""
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "A palavra que você insere (em texto simples, entre colchetes) em seus posts/páginas para exibir uma galeria."
 
-msgid "Randomize thumbnails"
-msgstr "Mostrar miniaturas aleatoriamente"
-
 msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized. Note: this option cannot be used with the \"high quality thumbnails\" feature"
 msgstr "A maioria dos vídeos vêm com várias miniaturas. Ao selecionar esta opção, cada vez que alguém vir sua galeria verá os mesmos vídeos com cada miniatura aleatória"
 
@@ -262,9 +247,6 @@ msgstr "Recupera apenas vídeos que podem ser incorporados"
 
 msgid "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries."
 msgstr "Alguns vídeos têm incorporação desativada. Ao marcar esta opção esses vídeos de suas galerias serão excluídos."
-
-msgid "Store network responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
-msgstr "Armazenar respostas do YouTube localmente por 1 hora. Cada resposta possui algumas centenas de KB, portanto deixar o cache ativado reduzirá significativamente as vezes que suas galerias são carregadas, isto irá custar um pouco da atualização."
 
 msgid "Maximum total videos to retrieve"
 msgstr "Número máximo de vídeos a recuperar"
@@ -329,9 +311,6 @@ msgstr "próximo"
 msgid "prev"
 msgstr "anterior"
 
-msgid "Displays YouTube videos in your sidebar using TubePress"
-msgstr "Mostra vídeos Youtube em sua barra lateral usando TubePress"
-
 msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>."
 msgstr "TubePress shortcode para widget. Veja a <a href=\"http://tubepress.org/documentation\"> documentação</a>."
 
@@ -395,12 +374,6 @@ msgstr ""
 msgid "Likes"
 msgstr ""
 
-msgid "Appearance"
-msgstr ""
-
-msgid "Provider Feed"
-msgstr ""
-
 msgid "Max width (px)"
 msgstr ""
 
@@ -422,24 +395,6 @@ msgstr ""
 msgid "Provider default"
 msgstr ""
 
-msgid "%s can only take on integer values. You supplied %s."
-msgstr "%s só pode assumir valores inteiros. Você forneceu %s."
-
-msgid "%s must be a string. You supplied %s."
-msgstr "%s deve ser uma string. Você forneceu %s."
-
-msgid "\"%s\" is not a valid option name."
-msgstr "\"%s\" não é um nome de opção válido."
-
-msgid "\"%s\" must be either true or false. You supplied \"%s\"."
-msgstr "\"%s\" deve ser verdadeiro ou falso. Você forneceu \"%s\"."
-
-msgid "\"%s\" must be one of \"%s\". You supplied \"%s\"."
-msgstr "\"%s\" deve ser um de \"%s\". Você forneceu \"%s\"."
-
-msgid "\"%s\" must be between \"%d\" and \"%d\". You supplied \"%d\"."
-msgstr "\"%s\" deve estar entre \"%d\" e \"%d\". Você forneceu \"%d\"."
-
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
 msgstr ""
 
@@ -450,24 +405,6 @@ msgid "oldest"
 msgstr ""
 
 msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature"
-msgstr ""
-
-msgid "%s is not executable or does not exist."
-msgstr ""
-
-msgid "Thumbs per video"
-msgstr ""
-
-msgid "How many thumbnails to generate for each video. TubePress can randomly display the thumbs each time someone visits the gallery. See the \"Randomize thumbnails\" option under the \"Appearance\" tab."
-msgstr ""
-
-msgid "This option cannot contain two consecutive periods"
-msgstr ""
-
-msgid "%s is not a directory"
-msgstr ""
-
-msgid "%s is not readable"
 msgstr ""
 
 msgid "Theme"
@@ -521,9 +458,6 @@ msgstr ""
 msgid "Cache directory"
 msgstr ""
 
-msgid "Leave blank to attempt to use system temp directory. Otherwise enter the absolute path of a writeable directory."
-msgstr ""
-
 msgid "Cache expiration time (seconds)"
 msgstr ""
 
@@ -561,4 +495,40 @@ msgid "Auto-play each video after thumbnail click"
 msgstr ""
 
 msgid "\"Lazy\" play videos"
+msgstr ""
+
+msgid "Thumbnails"
+msgstr ""
+
+msgid "Video Feed"
+msgstr ""
+
+msgid "Cache"
+msgstr ""
+
+msgid "in a \"detached\" location (see the documentation)"
+msgstr ""
+
+msgid "Displays YouTube or Vimeo videos with TubePress"
+msgstr ""
+
+msgid "No viewable videos"
+msgstr ""
+
+msgid "Could not find video with ID %s"
+msgstr ""
+
+msgid "Leave blank to attempt to use your system's temp directory. Otherwise enter the absolute path of a writeable directory."
+msgstr ""
+
+msgid "Store network responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness."
+msgstr ""
+
+msgid "Allow high definition playback"
+msgstr ""
+
+msgid "Randomize thumbnail images"
+msgstr ""
+
+msgid "Thumbnails per page"
 msgstr ""

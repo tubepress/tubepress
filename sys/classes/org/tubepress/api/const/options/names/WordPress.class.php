@@ -24,6 +24,9 @@
  */
 class org_tubepress_api_const_options_names_WordPress
 {
+    const WIDGET_SHORTCODE = 'widget-tagstring';
+    const WIDGET_TITLE     = 'widget-title';
+
     const SHOW_VIMEO_OPTIONS   = 'showVimeoOptions';
     const SHOW_YOUTUBE_OPTIONS = 'showYouTubeOptions';
 }

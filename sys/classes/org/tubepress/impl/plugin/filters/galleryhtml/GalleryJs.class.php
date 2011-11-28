@@ -54,10 +54,10 @@ class org_tubepress_impl_plugin_filters_galleryhtml_GalleryJs
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
-        $ajaxPagination   = $context->get(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION) ? 'true' : 'false';
-        $playerName       = $context->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
+        $ajaxPagination   = $context->get(org_tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION) ? 'true' : 'false';
+        $playerName       = $context->get(org_tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
         $shortcode        = rawurlencode($context->toShortcode());
-        $fluidThumbs      = $context->get(org_tubepress_api_const_options_names_Display::FLUID_THUMBS) ? 'true' : 'false';
+        $fluidThumbs      = $context->get(org_tubepress_api_const_options_names_Thumbs::FLUID_THUMBS) ? 'true' : 'false';
         $height           = $context->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT);
         $width            = $context->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
         $theme            = rawurlencode($this->_getThemeName($ioc));

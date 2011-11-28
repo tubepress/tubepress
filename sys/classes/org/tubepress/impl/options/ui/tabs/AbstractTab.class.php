@@ -28,7 +28,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_template_TemplateBuilder',
     'org_tubepress_impl_options_ui_AbstractDelegatingFormHandler',
     'org_tubepress_spi_options_ui_Tab',
-	'org_tubepress_spi_options_ui_WidgetBuilder'
+	'org_tubepress_spi_options_ui_FieldBuilder'
 ));
 
 /**

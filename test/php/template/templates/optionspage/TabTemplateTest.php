@@ -1,20 +1,20 @@
 <?php
 
-require_once BASE . '/sys/classes/org/tubepress/spi/options/ui/Widget.class.php';
+require_once BASE . '/sys/classes/org/tubepress/spi/options/ui/Field.class.php';
 require_once BASE . '/sys/classes/org/tubepress/impl/options/ui/tabs/AbstractTab.class.php';
 
 class org_tubepress_impl_template_templates_optionspage_TabTemplateTest extends TubePressUnitTest {
 
     public function test()
     {
-        $one = \Mockery::mock(org_tubepress_spi_options_ui_Widget::_);
+        $one = \Mockery::mock(org_tubepress_spi_options_ui_Field::_);
         $one->shouldReceive('getHtml')->once()->andReturn('one-html');
         $one->shouldReceive('getTitle')->once()->andReturn('one-title');
         $one->shouldReceive('getDescription')->once()->andReturn('one-description');
         $one->shouldReceive('isProOnly')->once()->andReturn(true);
         $one->shouldReceive('getArrayOfApplicableProviderNames')->once()->andReturn(array('foo', 'bar'));
 
-        $two = \Mockery::mock(org_tubepress_spi_options_ui_Widget::_);
+        $two = \Mockery::mock(org_tubepress_spi_options_ui_Field::_);
         $two->shouldReceive('getHtml')->once()->andReturn('two-html');
         $two->shouldReceive('getTitle')->once()->andReturn('two-title');
         $two->shouldReceive('getDescription')->once()->andReturn('two-description');

@@ -42,6 +42,8 @@ class org_tubepress_impl_template_SimpleTemplateBuilder implements org_tubepress
     */
     public function getNewTemplateInstance($path)
     {
-        return new org_tubepress_impl_template_SimpleTemplate($path);
+        $template = new org_tubepress_impl_template_SimpleTemplate();
+        $template->setPath($path);
+        return $template;
     }
 }

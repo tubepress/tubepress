@@ -22,6 +22,7 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Feed',
+	'org_tubepress_api_const_options_names_Cache',
     'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_factory_VideoFactory',
     'org_tubepress_api_feed_FeedFetcher',
@@ -72,7 +73,7 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
 
         /* make the request */
         $feedRetrievalService = $ioc->get(org_tubepress_api_feed_FeedFetcher::_);
-        $useCache             = $context->get(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED);
+        $useCache             = $context->get(org_tubepress_api_const_options_names_Cache::CACHE_ENABLED);
         $rawFeed              = $feedRetrievalService->fetch($url, $useCache);
 
         /* get the count */
@@ -80,7 +81,8 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         $totalCount            = $feedInspectionService->getTotalResultCount($rawFeed);
 
         if ($totalCount == 0) {
-            throw new Exception('Zero videos found');
+
+            throw new Exception('No matching videos');    //>(translatable)<
         }
 
         org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Reported total result count is %d video(s)', $totalCount);
@@ -90,7 +92,8 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
         $videos  = $factory->feedToVideoArray($rawFeed);
 
         if (count($videos) == 0) {
-            throw new Exception('Zero videos built from factory');
+
+            throw new Exception('No viewable videos');    //>(translatable)<
         }
 
         $result->setEffectiveTotalResultCount($totalCount);
@@ -118,14 +121,15 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
 
         $feedRetrievalService = $ioc->get(org_tubepress_api_feed_FeedFetcher::_);
         $context              = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $results              = $feedRetrievalService->fetch($videoUrl, $context->get(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED));
+        $results              = $feedRetrievalService->fetch($videoUrl, $context->get(org_tubepress_api_const_options_names_Cache::CACHE_ENABLED));
         $factory              = $ioc->get(org_tubepress_api_factory_VideoFactory::_);
         $videoArray           = $factory->feedToVideoArray($results);
         $pm                   = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $pc                   = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
 
         if (empty($videoArray)) {
-            throw new Exception("Could not find video with ID $customVideoId");
+
+            throw new Exception(sprintf('Could not find video with ID %s', $customVideoId));    //>(translatable)<
         }
 
         $result = new org_tubepress_api_provider_ProviderResult();

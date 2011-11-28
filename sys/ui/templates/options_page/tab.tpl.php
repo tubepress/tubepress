@@ -21,16 +21,16 @@
 ?>
 <table class="tubepress-tab">
 
-	<?php foreach (${org_tubepress_impl_options_ui_tabs_AbstractTab::TEMPLATE_VAR_WIDGETARRAY} as $widget): ?>
+	<?php foreach (${org_tubepress_impl_options_ui_tabs_AbstractTab::TEMPLATE_VAR_WIDGETARRAY} as $field): ?>
 
-    <tr class="<?php foreach ($widget->getArrayOfApplicableProviderNames() as $provider): echo "tubepress-$provider-option "; endforeach; if ($widget->isProOnly()) { echo 'tubepress-pro-option'; } ?>">
+    <tr class="<?php foreach ($field->getArrayOfApplicableProviderNames() as $provider): echo "tubepress-$provider-option "; endforeach; if ($field->isProOnly()) { echo 'tubepress-pro-option'; } ?>">
 
-		<th><?php echo $widget->getTitle(); ?></th>
+		<th><?php echo $field->getTitle(); ?></th>
 
 		<td>
-		    <?php echo $widget->getHtml(); ?>
+		    <?php echo $field->getHtml(); ?>
 			<br />
-			<?php echo $widget->getDescription(); ?>
+			<?php echo $field->getDescription(); ?>
 		</td>
 	</tr>
 
