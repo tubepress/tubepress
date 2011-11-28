@@ -23,6 +23,7 @@ class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_impl_options_ui_tabs_AbstractTab',
     'org_tubepress_impl_options_ui_fields_DropdownField',
+    'org_tubepress_impl_options_ui_fields_ColorField',
 ));
 
 /**
@@ -46,17 +47,17 @@ class org_tubepress_impl_options_ui_tabs_EmbeddedTab extends org_tubepress_impl_
 
             $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::PLAYER_LOCATION,  org_tubepress_impl_options_ui_fields_DropdownField::_),
             $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL,      org_tubepress_impl_options_ui_fields_DropdownField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT,  org_tubepress_impl_options_ui_fields_TextField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH,   org_tubepress_impl_options_ui_fields_TextField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::LAZYPLAY,         org_tubepress_impl_options_ui_fields_BooleanField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR,     org_tubepress_impl_options_ui_fields_ColorField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT, org_tubepress_impl_options_ui_fields_ColorField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::SHOW_INFO,        org_tubepress_impl_options_ui_fields_BooleanField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::FULLSCREEN,       org_tubepress_impl_options_ui_fields_BooleanField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::HIGH_QUALITY,     org_tubepress_impl_options_ui_fields_BooleanField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::AUTOPLAY,         org_tubepress_impl_options_ui_fields_BooleanField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::LOOP,             org_tubepress_impl_options_ui_fields_BooleanField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::SHOW_RELATED,     org_tubepress_impl_options_ui_fields_BooleanField::_),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT,  org_tubepress_impl_options_ui_fields_TextField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH,   org_tubepress_impl_options_ui_fields_TextField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::LAZYPLAY,         org_tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR,     org_tubepress_impl_options_ui_fields_ColorField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT, org_tubepress_impl_options_ui_fields_ColorField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::SHOW_INFO,        org_tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::FULLSCREEN,       org_tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::HIGH_QUALITY,     org_tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::AUTOPLAY,         org_tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::LOOP,             org_tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::SHOW_RELATED,     org_tubepress_impl_options_ui_fields_BooleanField::__),
         );
     }
 }

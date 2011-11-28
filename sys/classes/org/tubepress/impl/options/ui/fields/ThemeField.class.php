@@ -31,6 +31,8 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_options_ui_fields_ThemeField extends org_tubepress_impl_options_ui_fields_DropdownField
 {
+    const __ = 'org_tubepress_impl_options_ui_fields_ThemeField';
+    
     public function getDescription()
     {
         $ioc               = org_tubepress_impl_ioc_IocContainer::getInstance();

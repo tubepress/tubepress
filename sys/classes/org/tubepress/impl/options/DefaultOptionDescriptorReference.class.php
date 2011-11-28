@@ -705,6 +705,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Thumbs::THEME);
         $option->setLabel('Theme');                                                                                                                                       //>(translatable)<
         $option->setDescription('The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>.'); //>(translatable)<
+        $option->setAcceptableValues($this->_getThemeValues());
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT);
@@ -728,5 +729,20 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
         $option->setDefaultValue('[tubepress thumbHeight=\'105\' thumbWidth=\'135\']');
         $this->register($option);
+        
+        $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS);
+        $option->setDefaultValue(true);
+        $option->setBoolean();
+        $this->register($option);
+        
+        $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS);
+        $option->setDefaultValue(true);
+        $option->setBoolean();
+        $this->register($option);
+    }
+    
+    private function _getThemeValues()
+    {
+        return array('one' => 'two');
     }
 }

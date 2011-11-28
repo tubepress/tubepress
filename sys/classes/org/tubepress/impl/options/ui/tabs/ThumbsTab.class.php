@@ -22,7 +22,9 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php');
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_impl_options_ui_tabs_AbstractTab',
+    'org_tubepress_impl_options_ui_fields_BooleanField',
     'org_tubepress_impl_options_ui_fields_DropdownField',
+    'org_tubepress_impl_options_ui_fields_ThemeField',
 ));
 
 /**
@@ -44,16 +46,16 @@ class org_tubepress_impl_options_ui_tabs_ThumbsTab extends org_tubepress_impl_op
 
         return array(
 
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::THEME,            org_tubepress_impl_options_ui_fields_ThemeField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT,     org_tubepress_impl_options_ui_fields_TextField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::THUMB_WIDTH,      org_tubepress_impl_options_ui_fields_TextField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION,  org_tubepress_impl_options_ui_fields_BooleanField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::FLUID_THUMBS,     org_tubepress_impl_options_ui_fields_BooleanField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE,   org_tubepress_impl_options_ui_fields_BooleanField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW,   org_tubepress_impl_options_ui_fields_BooleanField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::HQ_THUMBS,        org_tubepress_impl_options_ui_fields_BooleanField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS,    org_tubepress_impl_options_ui_fields_BooleanField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE, org_tubepress_impl_options_ui_fields_TextField::_),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::THEME,            org_tubepress_impl_options_ui_fields_ThemeField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT,     org_tubepress_impl_options_ui_fields_TextField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::THUMB_WIDTH,      org_tubepress_impl_options_ui_fields_TextField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION,  org_tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::FLUID_THUMBS,     org_tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE,   org_tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW,   org_tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::HQ_THUMBS,        org_tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS,    org_tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE, org_tubepress_impl_options_ui_fields_TextField::__),
         );
     }
 }

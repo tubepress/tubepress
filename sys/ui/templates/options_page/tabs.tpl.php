@@ -43,3 +43,9 @@
         <?php endforeach; ?>
 
 </div>
+
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery("#tubepress_tabs").tabs();
+	});
+</script>

@@ -29,6 +29,8 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_options_ui_fields_TextField extends org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
 {
+    const __ = 'org_tubepress_impl_options_ui_fields_TextField';
+    
     protected function getTemplatePath()
     {
         return 'sys/ui/templates/options_page/fields/text.tpl.php';

@@ -8,9 +8,9 @@ class org_tubepress_impl_options_ui_tabs_MetaTabTest extends org_tubepress_impl_
 	{
 	    return array(
 
-    	    org_tubepress_api_const_options_names_Meta::DATEFORMAT     => org_tubepress_impl_options_ui_fields_TextField::_,
-    	    org_tubepress_api_const_options_names_Meta::RELATIVE_DATES => org_tubepress_impl_options_ui_fields_BooleanField::_,
-    	    org_tubepress_api_const_options_names_Meta::DESC_LIMIT     => org_tubepress_impl_options_ui_fields_TextField::_,
+    	    org_tubepress_api_const_options_names_Meta::DATEFORMAT     => org_tubepress_impl_options_ui_fields_TextField::__,
+    	    org_tubepress_api_const_options_names_Meta::RELATIVE_DATES => org_tubepress_impl_options_ui_fields_BooleanField::__,
+    	    org_tubepress_api_const_options_names_Meta::DESC_LIMIT     => org_tubepress_impl_options_ui_fields_TextField::__,
 
         );
 	}

@@ -59,11 +59,11 @@ abstract class org_tubepress_impl_options_ui_AbstractFormHandler extends org_tub
         $messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
         $templateBldr   = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
         $fse            = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-        $tabs           = $ioc->get(org_tubepress_impl_options_ui_DefaultTabsHandler::_);
-        $filter         = $ioc->get(org_tubepress_impl_options_ui_fields_FilterMultiSelectField::_);
+        $tabs           = $ioc->get(org_tubepress_impl_options_ui_DefaultTabsHandler::__);
+        $filter         = $ioc->get(org_tubepress_impl_options_ui_fields_FilterMultiSelectField::__);
         $basePath       = $fse->getTubePressBaseInstallationPath();
         $template       = $templateBldr->getNewTemplateInstance($basePath . '/' . $this->getRelativeTemplatePath());
-
+        
         $template->setVariable(self::TEMPLATE_VAR_TITLE, $messageService->_('TubePress Options'));                                                                                                                                                                                                                                                                                                                                 //>(translatable)<
         $template->setVariable(self::TEMPLATE_VAR_INTRO, $messageService->_('Set default options for the plugin. Each option here can be overridden on a per page/post basis with TubePress shortcodes. See the <a href="http://tubepress.org/documentation">documentation</a> for more info. An asterisk (*) next to an option indicates it\'s only available with <a href="http://tubepress.org/features">TubePress Pro</a>.')); //>(translatable)<
         $template->setVariable(self::TEMPLATE_VAR_SAVE_TEXT, $messageService->_('Save'));                                                                                                                                                                                                                                                                                                                                          //>(translatable)<

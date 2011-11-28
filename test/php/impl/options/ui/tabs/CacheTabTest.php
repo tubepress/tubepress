@@ -8,10 +8,10 @@ class org_tubepress_impl_options_ui_tabs_CacheTabTest extends org_tubepress_impl
 	{
 	    return array(
 
-    	    org_tubepress_api_const_options_names_Cache::CACHE_ENABLED          => org_tubepress_impl_options_ui_fields_BooleanField::_,
-    	    org_tubepress_api_const_options_names_Cache::CACHE_DIR              => org_tubepress_impl_options_ui_fields_TextField::_,
-    	    org_tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS => org_tubepress_impl_options_ui_fields_TextField::_,
-    	    org_tubepress_api_const_options_names_Cache::CACHE_CLEAN_FACTOR     => org_tubepress_impl_options_ui_fields_TextField::_,
+    	    org_tubepress_api_const_options_names_Cache::CACHE_ENABLED          => org_tubepress_impl_options_ui_fields_BooleanField::__,
+    	    org_tubepress_api_const_options_names_Cache::CACHE_DIR              => org_tubepress_impl_options_ui_fields_TextField::__,
+    	    org_tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS => org_tubepress_impl_options_ui_fields_TextField::__,
+    	    org_tubepress_api_const_options_names_Cache::CACHE_CLEAN_FACTOR     => org_tubepress_impl_options_ui_fields_TextField::__,
 
         );
 	}

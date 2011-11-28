@@ -9,14 +9,14 @@ class org_tubepress_impl_options_ui_tabs_FeedTabTest extends org_tubepress_impl_
 	    return array(
 
     	    org_tubepress_api_const_options_names_Feed::ORDER_BY         => org_tubepress_impl_options_ui_fields_DropdownField::_,
-    	    org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => org_tubepress_impl_options_ui_fields_TextField::_,
-    	    org_tubepress_api_const_options_names_Feed::DEV_KEY          => org_tubepress_impl_options_ui_fields_TextField::_,
-    	    org_tubepress_api_const_options_names_Feed::VIMEO_KEY        => org_tubepress_impl_options_ui_fields_TextField::_,
-    	    org_tubepress_api_const_options_names_Feed::VIMEO_SECRET     => org_tubepress_impl_options_ui_fields_TextField::_,
-    	    org_tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST  => org_tubepress_impl_options_ui_fields_TextField::_,
-    	    org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => org_tubepress_impl_options_ui_fields_TextField::_,
-    	    org_tubepress_api_const_options_names_Feed::FILTER           => org_tubepress_impl_options_ui_fields_BooleanField::_,
-    	    org_tubepress_api_const_options_names_Feed::EMBEDDABLE_ONLY  => org_tubepress_impl_options_ui_fields_BooleanField::_,
+    	    org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => org_tubepress_impl_options_ui_fields_TextField::__,
+    	    org_tubepress_api_const_options_names_Feed::DEV_KEY          => org_tubepress_impl_options_ui_fields_TextField::__,
+    	    org_tubepress_api_const_options_names_Feed::VIMEO_KEY        => org_tubepress_impl_options_ui_fields_TextField::__,
+    	    org_tubepress_api_const_options_names_Feed::VIMEO_SECRET     => org_tubepress_impl_options_ui_fields_TextField::__,
+    	    org_tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST  => org_tubepress_impl_options_ui_fields_TextField::__,
+    	    org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => org_tubepress_impl_options_ui_fields_TextField::__,
+    	    org_tubepress_api_const_options_names_Feed::FILTER           => org_tubepress_impl_options_ui_fields_BooleanField::__,
+    	    org_tubepress_api_const_options_names_Feed::EMBEDDABLE_ONLY  => org_tubepress_impl_options_ui_fields_BooleanField::__,
 
         );
 	}

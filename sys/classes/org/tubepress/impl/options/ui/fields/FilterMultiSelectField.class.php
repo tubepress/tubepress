@@ -30,6 +30,8 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_options_ui_fields_FilterMultiSelectField extends org_tubepress_impl_options_ui_fields_AbstractMultiSelectField
 {
+    const __ = 'org_tubepress_impl_options_ui_fields_FilterMultiSelectField';
+    
     public function __construct()
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();

@@ -32,4 +32,4 @@ class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array('org_tubepress_impl_ioc_IocContainer'));
 
 /* Perform boot process. */    
-org_tubepress_impl_ioc_IocContainer::getInstance()->get(org_tubepress_api_bootstrap_Bootstrapper::_)->boot();
+org_tubepress_impl_ioc_IocContainer::getInstance()->get('org_tubepress_api_bootstrap_Bootstrapper')->boot();
