@@ -59,6 +59,11 @@ class org_tubepress_impl_template_templates_optionspage_TabsTemplateTest extends
 
 
 </div>
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery("#tubepress_tabs").tabs();
+	});
+</script>
 
 EOT;
     }

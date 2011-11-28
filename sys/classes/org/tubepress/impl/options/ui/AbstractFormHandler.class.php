@@ -77,8 +77,8 @@ abstract class org_tubepress_impl_options_ui_AbstractFormHandler extends org_tub
     protected function getDelegateFormHandlers()
     {
         $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $tabs   = $ioc->get(org_tubepress_impl_options_ui_DefaultTabsHandler::_);
-        $filter = $ioc->get(org_tubepress_impl_options_ui_fields_FilterMultiSelectField::_);
+        $tabs   = $ioc->get(org_tubepress_impl_options_ui_DefaultTabsHandler::__);
+        $filter = $ioc->get(org_tubepress_impl_options_ui_fields_FilterMultiSelectField::__);
 
         return array($tabs, $filter);
     }

@@ -16,7 +16,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 	{
 	    $all = $this->_sut->findAll();
 
-	    $this->assertTrue(count($all) === 87, "Expected 87 options but got " . count($all));
+	    $this->assertTrue(count($all) === 89, "Expected 89 options but got " . count($all));
 	}
 
 	/**
@@ -557,6 +557,9 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE);
 
+    	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS);
+    	
+    	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS);
 	}
 }
 
