@@ -65,6 +65,8 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
     );
     private static $_providerArrayYouTube = array(org_tubepress_api_provider_Provider::YOUTUBE);
     private static $_providerArrayVimeo = array(org_tubepress_api_provider_Provider::VIMEO);
+    
+    private static $_logPrefix = 'Default Option Descriptor Reference';
 
     /**
      * Constructor.
@@ -743,6 +745,35 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
     
     private function _getThemeValues()
     {
-        return array('one' => 'two');
+        $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
+        $explorer      = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
+
+        $systemThemeDirectory = $explorer->getTubePressBaseInstallationPath() . '/sys/ui/themes';
+        $userContentDirectory = $themeHandler->getUserContentDirectory() . '/themes';
+
+        $systemThemes = $explorer->getDirectoriesInDirectory($systemThemeDirectory, self::$_logPrefix);
+        $userThemes   = $explorer->getDirectoriesInDirectory($userContentDirectory, self::$_logPrefix);
+        
+        sort($systemThemes);
+        sort($userThemes);
+        
+        $systemThemesAssoc = array();
+        foreach ($systemThemes as $systemTheme) {
+            
+            $name = basename($systemTheme);
+            
+            $systemThemesAssoc[$name] = $name;
+        }
+        
+        $userThemesAssoc = array();
+        foreach ($userThemes as $userTheme) {
+        
+            $name = basename($userTheme);
+            
+            $userThemesAssoc[$name] = $name;
+        }
+
+        return array_merge($systemThemesAssoc, $userThemesAssoc);
     }
 }

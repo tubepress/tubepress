@@ -31,7 +31,7 @@
 		<th><?php echo $field->getTitle(); ?></th>
 
 		<td>
-			<input type="radio" name="mode" id="<?php echo $name; ?>" value="<?php echo $name; ?>">&nbsp;
+			<input type="radio" name="mode" id="<?php echo $name; ?>" value="<?php echo $name; ?>" <?php if (${org_tubepress_impl_options_ui_tabs_GallerySourceTab::TEMPLATE_VAR_CURRENT_MODE} === $name) { echo 'CHECKED'; } ?>>&nbsp;
 		    <?php echo $field->getHtml(); ?>
 			<br />
 			<?php echo $field->getDescription(); ?>

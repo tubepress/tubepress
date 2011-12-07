@@ -9,6 +9,16 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 	public function setup()
 	{
 		parent::setUp();
+		
+		$ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
+		$themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
+		$explorer      = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
+		
+		$themeHandler->shouldReceive('getUserContentDirectory')->once()->andReturn('user-content-dir');
+		$explorer->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('base-install-path');
+		$explorer->shouldReceive('getDirectoriesInDirectory')->once()->with('base-install-path/sys/ui/themes', 'Default Option Descriptor Reference')->andReturn(array('boo'));
+		$explorer->shouldReceive('getDirectoriesInDirectory')->once()->with('user-content-dir/themes', 'Default Option Descriptor Reference')->andReturn(array('bob'));
+		
 		$this->_sut = new org_tubepress_impl_options_DefaultOptionDescriptorReference();
 	}
 

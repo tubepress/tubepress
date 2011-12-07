@@ -84,9 +84,10 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 
    	private static function _getAllTranslatableStrings()
    	{
-   	    exec('grep -r ">(translatable)<" ' . BASE . '/sys', $results, $return);
+   	    $command = 'grep -r ">(translatable)<" ' . BASE . '/sys';
+   	    exec($command, $results, $return);
 
-   	    self::assertTrue($return === 0, 'grep failed');
+   	    self::assertTrue($return === 0, "$command failed");
    	    self::assertTrue(count($results) > 0, 'grep didn\'t find any strings to translate');
 
    	    $strings = array();
@@ -112,7 +113,7 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 
    	    $outputfile = str_replace(array('.pot', '.po'), '.mo', $realPath);
 
-   	    exec($exec . " -o $outputfile $realPath", $results, $return);
+   	    exec("msgfmt -o $outputfile $realPath", $results, $return);
    	    return $return === 0;
    	}
 

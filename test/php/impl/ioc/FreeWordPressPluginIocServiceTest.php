@@ -61,6 +61,8 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
 
     function testEveryInterfaceIsBound()
     {
+        $this->_setupEveryInterfaceIsBound();
+        
         $get_option = new PHPUnit_Extensions_MockFunction('get_option');
         $get_option->expects($this->any())->with('tubepress-version')->will($this->returnValue(226));
         
@@ -116,6 +118,20 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
             }
             $this->assertTrue($test);
         }
+    }
+    
+    private function _setupEveryInterfaceIsBound()
+    {
+        $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
+        $explorer      = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
+        
+        $themeHandler->shouldReceive('getUserContentDirectory')->once()->andReturn('user-content-dir');
+        $explorer->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('base-install-path');
+        $explorer->shouldReceive('getDirectoriesInDirectory')->once()->with('base-install-path/sys/ui/themes', 'Default Option Descriptor Reference')->andReturn(array('boo'));
+        $explorer->shouldReceive('getDirectoriesInDirectory')->once()->with('user-content-dir/themes', 'Default Option Descriptor Reference')->andReturn(array('bob'));
+        
+        
     }
     
     private static function _collectInterfaces()

@@ -33,6 +33,8 @@ class org_tubepress_impl_options_ui_tabs_GallerySourceTab extends org_tubepress_
 {
     const _ = 'org_tubepress_impl_options_ui_tabs_GallerySourceTab';
 
+    const TEMPLATE_VAR_CURRENT_MODE = 'org_tubepress_impl_options_ui_tabs_GallerySourceTab__mode';
+    
     protected function doGetTitle()
     {
         return 'Which videos?';  //>(translatable)<
@@ -96,5 +98,19 @@ class org_tubepress_impl_options_ui_tabs_GallerySourceTab extends org_tubepress_
             org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_CREDITED =>
                 $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE, org_tubepress_impl_options_ui_fields_TextField::__),
         );
+    }
+    
+    protected function addToTemplate(org_tubepress_api_template_Template $template)
+    {
+        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+        $currentMode = $execContext->get(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE);
+        
+        $template->setVariable(self::TEMPLATE_VAR_CURRENT_MODE, $currentMode);
+    }
+    
+    protected function getTemplatePath()
+    {
+        return '/sys/ui/templates/options_page/gallery_source_tab.tpl.php';
     }
 }

@@ -53,13 +53,25 @@ abstract class org_tubepress_impl_options_ui_tabs_AbstractTab extends org_tubepr
         $templateBldr   = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
         $fse            = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $basePath       = $fse->getTubePressBaseInstallationPath();
-        $template       = $templateBldr->getNewTemplateInstance($basePath . '/sys/ui/templates/options_page/tab.tpl.php');
+        $template       = $templateBldr->getNewTemplateInstance($basePath . $this->getTemplatePath());
 
         $template->setVariable(self::TEMPLATE_VAR_WIDGETARRAY, $this->getDelegateFormHandlers());
 
+        $this->addToTemplate($template);
+        
         return $template->toString();
     }
 
     protected abstract function doGetTitle();
+    
+    protected function addToTemplate(org_tubepress_api_template_Template $template)
+    {
+        
+    }
+    
+    protected function getTemplatePath()
+    {
+        return '/sys/ui/templates/options_page/tab.tpl.php';
+    }
 
 }
