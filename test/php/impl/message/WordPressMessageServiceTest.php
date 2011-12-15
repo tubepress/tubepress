@@ -52,11 +52,9 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 
 	function testPoCompiles()
 	{
-		$testOpts = parse_ini_file(dirname(__FILE__) . '/../../../config/test.config');
-
 		foreach (self::$_poFiles as $poFile) {
 
-		    $this->assertTrue(self::_poFileCompiles($poFile, $testOpts['msgfmt_path']), "$poFile does not compile correctly");
+		    $this->assertTrue(self::_poFileCompiles($poFile, 'msgfmt', "$poFile does not compile correctly"));
 		}
 	}
 
