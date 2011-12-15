@@ -25,6 +25,7 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 
 	function testAllStringsPresent()
 	{
+
         foreach (self::$_poFiles as $poFile) {
 
             $stringsInPoFile = self::_getStringsFromPoFile($poFile);

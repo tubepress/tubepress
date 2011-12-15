@@ -74,6 +74,6 @@ class org_tubepress_impl_util_StringUtils
         $result = substr($string, 0, 100);
 
         /* only allow alphanumerics, pipe, plus, quotes, and minus */
-        return preg_replace('/[^a-zA-Z0-9"\'\+\|\- ]/', '', $result);
+        return htmlspecialchars($result);
     }
 }
