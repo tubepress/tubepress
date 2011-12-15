@@ -229,13 +229,12 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 
 	function testPoCompiles()
 	{
-		$testOpts = parse_ini_file(dirname(__FILE__) . '/../../../config/test.config');
 		$files = $this->getPoFiles();
 		foreach ($files as $file) {
 			$realPath = BASE . '/sys/i18n/' . $file;
 			$outputfile = str_replace(array('.pot', '.po'), '.mo', $realPath);
-			exec($testOpts['msgfmt_path'] . " -o $outputfile $realPath", $results, $return);
-			$this->assertTrue($return === 0);
+			exec("msgfmt -o $outputfile $realPath", $results, $return);
+			$this->assertTrue($return === 0, "msgfmt -o $outputfile $realPath did not complete normally");
 		}
 		dirname(__FILE__) . '/../../../../i18n/tubepress.mo';
 	}
