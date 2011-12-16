@@ -530,3 +530,6 @@ msgstr ""
 
 msgid "Restrict search results to videos from author"
 msgstr ""
+
+msgid "Show each video's ..."
+msgstr ""

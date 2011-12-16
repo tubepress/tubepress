@@ -532,3 +532,6 @@ msgstr ""
 
 msgid "Thumbnails per page"
 msgstr ""
+
+msgid "Show each video's ..."
+msgstr ""

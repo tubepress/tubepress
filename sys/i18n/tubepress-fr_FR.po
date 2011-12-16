@@ -516,3 +516,6 @@ msgstr ""
 
 msgid "A YouTube or Vimeo user name. Only applies to search-based galleries."
 msgstr ""
+
+msgid "Show each video's ..."
+msgstr ""

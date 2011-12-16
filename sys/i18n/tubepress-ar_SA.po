@@ -530,3 +530,6 @@ msgstr ""
 
 msgid "Meta"
 msgstr ""
+
+msgid "Show each video's ..."
+msgstr ""
