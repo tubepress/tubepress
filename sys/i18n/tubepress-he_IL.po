@@ -26,28 +26,28 @@ msgstr "הגדר אפשרויות ברירת מחדל עבור התוסף. כל 
 msgid "Which videos?"
 msgstr "איזה וידאו?"
 
-msgid "Top rated videos from..."
-msgstr "קטעי וידאו מדורגים מ ..."
+msgid "Top-rated YouTube videos from"
+msgstr "קטעי וידאו מדורגים מ"
 
 msgid "This YouTube user's \"favorites\""
 msgstr "\"מועדפים\" של משתמש YouTube זה"
 
-msgid "The latest \"featured\" videos on YouTube's homepage"
+msgid "The latest \"featured\" videos on YouTube's homepage from"
 msgstr "קטעי וידאו אחרונים מ \"featured\" בדף הבית של YouTube"
 
-msgid "This playlist"
+msgid "This YouTube playlist"
 msgstr "playlist רשימת השמעה זאת"
 
 msgid "Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35"
 msgstr "מוגבל ל -200 קטעי וידאו לכל רשימת השמעה. בדרך כלל נראה משהו כזה:D2B04665B213AE35. העתק את מזהה רשימת ההשמעה מסוף כתובת האתר בשורת הכתובת של הדפדפן שלך (בעודך מסתכל ברשימת ההשמעה v YouTube). זה בא מיד אחרי \"p=\". למשל: http://youtube.com/my_playlists?p=D2B04665B213AE35"
 
-msgid "Most-viewed videos from"
+msgid "Most-viewed YouTube videos from"
 msgstr "קטעי וידאו הנצפים ביותר מ"
 
-msgid "Most-recently added videos"
+msgid "Most-recently added YouTube videos"
 msgstr "קטעי וידאו שנוספו לאחרונה"
 
-msgid "Most-discussed videos"
+msgid "Most-discussed YouTube videos from"
 msgstr "קטעי וידאו הכי מדוברים"
 
 msgid "Most-responded to videos"
@@ -56,14 +56,14 @@ msgstr "קטעי וידאו הכי מוגבים"
 msgid "Views"
 msgstr "צפיות "
 
-msgid "YouTube search for..."
-msgstr "חיפוש YouTube עבור ..."
+msgid "YouTube search for"
+msgstr "חיפוש YouTube עבור"
 
 msgid "Videos from this YouTube user"
 msgstr "וידאו ממשתמש YouTube זה"
 
-msgid "YouTube limits this mode to 1,000 results"
-msgstr "YouTube מגביל מצב זה ל -1,000 תוצאות"
+msgid "YouTube limits this to 1,000 results."
+msgstr "YouTube מגביל מצב זה ל -1,000 תוצאות."
 
 msgid "Play each video"
 msgstr " נגן כל קטע וידאו"
@@ -80,23 +80,23 @@ msgstr "מספר התווים המרבי להציג בתיאור וידאו.הג
 msgid "Height (px) of thumbs"
 msgstr "גובה (px פיקסלים) של תמונות תצוגה מקדימה"
 
-msgid "Default is 90"
-msgstr "ברירת המחדל הוא 90"
+msgid "Default is 90."
+msgstr ".ברירת המחדל הוא 90"
 
 msgid "Width (px) of thumbs"
 msgstr "רוחב (px פיקסלים) של תמונות תצוגה מקדימה"
 
-msgid "Default is 120"
-msgstr "ברירת המחדל הוא 120"
+msgid "Default is 120."
+msgstr ".ברירת המחדל הוא 120"
 
 msgid "Use relative dates"
 msgstr "שימוש בתאריך יחסי"
 
-msgid "e.g. \"yesterday\" instead of \"November 3, 1980\""
-msgstr "תוצאה \"yesterday\"במקום \"November 3, 1980\""
+msgid "e.g. \"yesterday\" instead of \"November 3, 1980\"."
+msgstr "תוצאה \"yesterday\"במקום \"November 3, 1980\"."
 
-msgid "Default is 20. Maximum is 50"
-msgstr "ברירת המחדל 30 גודל מרבי 50"
+msgid "Default is 20. Maximum is 50."
+msgstr ".ברירת המחדל 30 גודל מרבי 50"
 
 msgid "Show pagination above thumbnails"
 msgstr "הצג מעבר עמודים מעל תמונות ממוזערות"
@@ -107,40 +107,40 @@ msgstr "הצג מעבר עמודים מתחת תמונות ממוזערות"
 msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-enabled pagination"
 msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</ a> במעבר בין עמודים"
 
-msgid "Only applies to galleries that span multiple pages"
+msgid "Only applies to galleries that span multiple pages."
 msgstr "חל רק על הגלריות עם עמודים מרובים"
 
 msgid "Order videos by"
 msgstr "סדר קטעי וידאו לפי"
 
-msgid "Embedded Player"
+msgid "Player"
 msgstr "נגן משובץ"
 
 msgid "Auto-play all videos"
 msgstr "נגן אוטומטית קטעי וידאו"
 
-msgid "Allow fullscreen playback"
+msgid "Allow fullscreen playback."
 msgstr "אפשר תצוגה במסך מלא"
 
 msgid "Max height (px)"
 msgstr "גובה מקסמלי (px פקסלים)"
 
-msgid "Default is 350"
-msgstr "ברירת המחדל היא 350"
+msgid "Default is 350."
+msgstr ".ברירת המחדל היא 350"
 
-msgid "Default is 425"
-msgstr "ברירת המחדל היא 425"
+msgid "Default is 425."
+msgstr "ברירת המחדל היא .425"
 
-msgid "Default is 999999"
-msgstr "ברירת המחדל היא 999999"
+msgid "Default is 999999."
+msgstr ".ברירת המחדל היא 999999"
 
-msgid "Default is FFFFFF"
-msgstr "ברירת המחדל היא FFFFFF"
+msgid "Default is FFFFFF."
+msgstr "ברירת המחדל היא FFFFFF."
 
 msgid "Loop"
 msgstr "לולאה"
 
-msgid "Continue playing the video until the user stops it"
+msgid "Continue playing the video until the user stops it."
 msgstr "המשך לנגן ווידאו עד שהמשתמש מפסיק"
 
 msgid "Show title and rating before video starts"
@@ -155,10 +155,10 @@ msgstr "צבע הדגשה"
 msgid "Show related videos"
 msgstr "הצג קטעי וידאו בנושא"
 
-msgid "Toggles the display of related videos after a video finishes"
+msgid "Toggles the display of related videos after a video finishes."
 msgstr "תצוגה של קטעי וידאו בנושא אחרי סיום הוידאו"
 
-msgid "Meta Display"
+msgid "Meta"
 msgstr "תצוגה של תגי מטא"
 
 msgid "Author"
@@ -221,7 +221,7 @@ msgstr "מילות מפתח Shortcode"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "המילה שהזנת (בטקסט, בין סוגריים מרובעים) לתוך הפוסטים  / דפים שלך כדי להציג גלריה."
 
-msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized. Note: this option cannot be used with the \"high quality thumbnails\" feature"
+msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized. Note: this option cannot be used with the \"high quality thumbnails\" feature."
 msgstr "רוב קטעי הוידאו מגיעים עם כמה תמונות ממוזערות. ידי בחירה באפשרות זו, בכל פעם שמישהו צופה גלריית הם יראו את אותו קטעי וידאו עם כל התמונות שלך באקראי"
 
 msgid "YouTube API Developer Key"
@@ -230,7 +230,7 @@ msgstr "מפתח API למפתחים ב YouTube "
 msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing."
 msgstr "YouTube ישתמשו במפתח המפתחים לרישום באגים אם אתה נתקל בבעיה. אתה יכול להרשם עם מזהה לקוח חדש <a  href=\"http://code.google.com/apis/youtube/dashboard/\">כאן</ a>. אל תשנה את זה אלא אם כן אתה יודע מה אתה עושה."
 
-msgid "Enable request cache"
+msgid "Enable API cache"
 msgstr "אפשר בקשת מטמון"
 
 msgid "Only retrieve embeddable videos"
@@ -320,7 +320,7 @@ msgstr "JW FLV Media Player (by Longtail Video)"
 msgid "Implementation"
 msgstr "יישום "
 
-msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)"
+msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr ""
 
 msgid "Videos uploaded by this Vimeo user"
@@ -332,7 +332,7 @@ msgstr ""
 msgid "Videos this Vimeo user appears in"
 msgstr ""
 
-msgid "Vimeo search for..."
+msgid "Vimeo search for"
 msgstr ""
 
 msgid "Videos credited to this Vimeo user (either appears in or uploaded by)"
@@ -350,10 +350,10 @@ msgstr ""
 msgid "Use high-quality thumbnails"
 msgstr ""
 
-msgid "Videos blacklist"
+msgid "Video blacklist"
 msgstr ""
 
-msgid "List of video IDs that should never be displayed"
+msgid "A list of video IDs that should never be displayed."
 msgstr ""
 
 msgid "in a new window on its own"
@@ -389,7 +389,7 @@ msgstr ""
 msgid "oldest"
 msgstr ""
 
-msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature"
+msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature."
 msgstr ""
 
 msgid "Theme"
@@ -398,7 +398,7 @@ msgstr ""
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>."
 msgstr ""
 
-msgid "Videos most frequently flagged as favorites from..."
+msgid "Most-favorited YouTube videos from"
 msgstr ""
 
 msgid "Vimeo API \"Consumer Key\""
@@ -458,10 +458,10 @@ msgstr ""
 msgid "Only show options applicable to..."
 msgstr ""
 
-msgid "Restrict search results to videos from this user"
+msgid "A YouTube or Vimeo user name. Only applies to search-based galleries."
 msgstr ""
 
-msgid "Only applies to search-based galleries"
+msgid "Restrict search results to videos from author"
 msgstr ""
 
 msgid "No matching videos"
@@ -476,7 +476,7 @@ msgstr ""
 msgid "Dynamically set thumbnail spacing based on the width of their container."
 msgstr ""
 
-msgid "Auto-play each video after thumbnail click"
+msgid "Auto-play each video after thumbnail click."
 msgstr ""
 
 msgid "\"Lazy\" play videos"
@@ -485,7 +485,7 @@ msgstr ""
 msgid "Thumbnails"
 msgstr ""
 
-msgid "Video Feed"
+msgid "Feed"
 msgstr ""
 
 msgid "Cache"
@@ -506,7 +506,7 @@ msgstr ""
 msgid "Leave blank to attempt to use your system's temp directory. Otherwise enter the absolute path of a writeable directory."
 msgstr ""
 
-msgid "Store network responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness."
+msgid "Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness."
 msgstr ""
 
 msgid "Allow high definition playback"

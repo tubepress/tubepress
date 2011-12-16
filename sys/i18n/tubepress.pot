@@ -38,31 +38,31 @@ msgstr ""
 msgid "Which videos?"
 msgstr ""
 
-msgid "Top rated videos from..."
+msgid "Top-rated YouTube videos from"
 msgstr ""
 
 msgid "This YouTube user's \"favorites\""
 msgstr ""
 
-msgid "The latest \"featured\" videos on YouTube's homepage"
+msgid "The latest \"featured\" videos on YouTube's homepage from"
 msgstr ""
 
-msgid "This playlist"
+msgid "This YouTube playlist"
 msgstr ""
 
 msgid "Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35"
 msgstr ""
 
-msgid "Most-viewed videos from"
+msgid "Most-viewed YouTube videos from"
 msgstr ""
 
-msgid "Videos most frequently flagged as favorites from..."
+msgid "Most-favorited YouTube videos from"
 msgstr ""
 
-msgid "Most-recently added videos"
+msgid "Most-recently added YouTube videos"
 msgstr ""
 
-msgid "Most-discussed videos"
+msgid "Most-discussed YouTube videos from"
 msgstr ""
 
 msgid "Most-responded to videos"
@@ -77,7 +77,7 @@ msgstr ""
 msgid "Videos this Vimeo user appears in"
 msgstr ""
 
-msgid "Vimeo search for..."
+msgid "Vimeo search for"
 msgstr ""
 
 msgid "Videos credited to this Vimeo user (either appears in or uploaded by)"
@@ -95,13 +95,13 @@ msgstr ""
 msgid "Views"
 msgstr ""
 
-msgid "YouTube search for..."
+msgid "YouTube search for"
 msgstr ""
 
 msgid "Videos from this YouTube user"
 msgstr ""
 
-msgid "YouTube limits this mode to 1,000 results"
+msgid "YouTube limits this to 1,000 results."
 msgstr ""
 
 msgid "Play each video"
@@ -119,22 +119,22 @@ msgstr ""
 msgid "Height (px) of thumbs"
 msgstr ""
 
-msgid "Default is 90"
+msgid "Default is 90."
 msgstr ""
 
 msgid "Width (px) of thumbs"
 msgstr ""
 
-msgid "Default is 120"
+msgid "Default is 120."
 msgstr ""
 
 msgid "Use relative dates"
 msgstr ""
 
-msgid "e.g. \"yesterday\" instead of \"November 3, 1980\""
+msgid "e.g. \"yesterday\" instead of \"November 3, 1980\"."
 msgstr ""
 
-msgid "Default is 20. Maximum is 50"
+msgid "Default is 20. Maximum is 50."
 msgstr ""
 
 msgid "Show pagination above thumbnails"
@@ -149,40 +149,40 @@ msgstr ""
 msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-enabled pagination"
 msgstr ""
 
-msgid "Only applies to galleries that span multiple pages"
+msgid "Only applies to galleries that span multiple pages."
 msgstr ""
 
 msgid "Order videos by"
 msgstr ""
 
-msgid "Embedded Player"
+msgid "Player"
 msgstr ""
 
 msgid "Auto-play all videos"
 msgstr ""
 
-msgid "Allow fullscreen playback"
+msgid "Allow fullscreen playback."
 msgstr ""
 
 msgid "Max height (px)"
 msgstr ""
 
-msgid "Default is 350"
+msgid "Default is 350."
 msgstr ""
 
-msgid "Default is 425"
+msgid "Default is 425."
 msgstr ""
 
-msgid "Default is 999999"
+msgid "Default is 999999."
 msgstr ""
 
-msgid "Default is FFFFFF"
+msgid "Default is FFFFFF."
 msgstr ""
 
 msgid "Loop"
 msgstr ""
 
-msgid "Continue playing the video until the user stops it"
+msgid "Continue playing the video until the user stops it."
 msgstr ""
 
 msgid "Show title and rating before video starts"
@@ -197,10 +197,10 @@ msgstr ""
 msgid "Show related videos"
 msgstr ""
 
-msgid "Toggles the display of related videos after a video finishes"
+msgid "Toggles the display of related videos after a video finishes."
 msgstr ""
 
-msgid "Meta Display"
+msgid "Meta"
 msgstr ""
 
 msgid "Author"
@@ -248,10 +248,10 @@ msgstr ""
 msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\">date</a> for examples."
 msgstr ""
 
-msgid "Videos blacklist"
+msgid "Video blacklist"
 msgstr ""
 
-msgid "List of video IDs that should never be displayed"
+msgid "A list of video IDs that should never be displayed."
 msgstr ""
 
 msgid "Enable debugging"
@@ -272,7 +272,7 @@ msgstr ""
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr ""
 
-msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized. Note: this option cannot be used with the \"high quality thumbnails\" feature"
+msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized. Note: this option cannot be used with the \"high quality thumbnails\" feature."
 msgstr ""
 
 msgid "YouTube API Developer Key"
@@ -281,7 +281,7 @@ msgstr ""
 msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing."
 msgstr ""
 
-msgid "Enable request cache"
+msgid "Enable API cache"
 msgstr ""
 
 msgid "Only retrieve embeddable videos"
@@ -392,7 +392,7 @@ msgstr ""
 msgid "Implementation"
 msgstr ""
 
-msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)"
+msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr ""
 
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
@@ -404,7 +404,7 @@ msgstr ""
 msgid "oldest"
 msgstr ""
 
-msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature"
+msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature."
 msgstr ""
 
 msgid "Theme"
@@ -470,10 +470,10 @@ msgstr ""
 msgid "Only show options applicable to..."
 msgstr ""
 
-msgid "Restrict search results to videos from this user"
+msgid "Restrict search results to videos from author"
 msgstr ""
 
-msgid "Only applies to search-based galleries"
+msgid "A YouTube or Vimeo user name. Only applies to search-based galleries."
 msgstr ""
 
 msgid "No matching videos"
@@ -491,13 +491,13 @@ msgstr ""
 msgid "\"Lazy\" play videos"
 msgstr ""
 
-msgid "Auto-play each video after thumbnail click"
+msgid "Auto-play each video after thumbnail click."
 msgstr ""
 
 msgid "Thumbnails"
 msgstr ""
 
-msgid "Video Feed"
+msgid "Feed"
 msgstr ""
 
 msgid "Cache"
@@ -518,7 +518,7 @@ msgstr ""
 msgid "Leave blank to attempt to use your system's temp directory. Otherwise enter the absolute path of a writeable directory."
 msgstr ""
 
-msgid "Store network responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness."
+msgid "Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness."
 msgstr ""
 
 msgid "Allow high definition playback"

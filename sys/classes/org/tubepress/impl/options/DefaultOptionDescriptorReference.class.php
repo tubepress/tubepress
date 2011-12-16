@@ -190,8 +190,8 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Cache::CACHE_ENABLED);
         $option->setDefaultValue(false);
-        $option->setLabel('Enable request cache');                                                                                                                    //>(translatable)<
-        $option->setDescription('Store network responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness.'); //>(translatable)<
+        $option->setLabel('Enable API cache');                                                                                                                    //>(translatable)<
+        $option->setDescription('Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness.'); //>(translatable)<
         $option->setBoolean();
         $this->register($option);
 
@@ -229,17 +229,17 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT);
         $option->setDefaultValue(350);
         $option->setLabel('Max height (px)');      //>(translatable)<
-        $option->setDescription('Default is 350'); //>(translatable)<
+        $option->setDescription('Default is 350.'); //>(translatable)<
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
         $option->setDefaultValue(425);
         $option->setLabel('Max width (px)');       //>(translatable)<
-        $option->setDescription('Default is 425'); //>(translatable)<
+        $option->setDescription('Default is 425.'); //>(translatable)<
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::FULLSCREEN);
-        $option->setLabel('Allow fullscreen playback');  //>(translatable)<
+        $option->setLabel('Allow fullscreen playback.');  //>(translatable)<
         $option->setDefaultValue(true);
         $option->setBoolean();
         $this->register($option);
@@ -254,28 +254,28 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::LAZYPLAY);
         $option->setDefaultValue(true);
         $option->setLabel('"Lazy" play videos');                               //>(translatable)<
-        $option->setDescription('Auto-play each video after thumbnail click'); //>(translatable)<
+        $option->setDescription('Auto-play each video after thumbnail click.'); //>(translatable)<
         $option->setBoolean();
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::LOOP);
         $option->setDefaultValue(false);
         $option->setLabel('Loop');                                                     //>(translatable)<
-        $option->setDescription('Continue playing the video until the user stops it'); //>(translatable)<
+        $option->setDescription('Continue playing the video until the user stops it.'); //>(translatable)<
         $option->setBoolean();
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR);
         $option->setDefaultValue('999999');
         $option->setLabel('Main color');              //>(translatable)<
-        $option->setDescription('Default is 999999'); //>(translatable)<
+        $option->setDescription('Default is 999999.'); //>(translatable)<
         $option->setValidValueRegex(self::$_regexColor);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT);
         $option->setDefaultValue('FFFFFF');
         $option->setLabel('Highlight color');         //>(translatable)<
-        $option->setDescription('Default is FFFFFF'); //>(translatable)<
+        $option->setDescription('Default is FFFFFF.'); //>(translatable)<
         $option->setValidValueRegex(self::$_regexColor);
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $this->register($option);
@@ -283,7 +283,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
         $option->setDefaultValue(org_tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED);
         $option->setLabel('Implementation');                                                                                  //>(translatable)<
-        $option->setDescription('The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc)'); //>(translatable)<
+        $option->setDescription('The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).'); //>(translatable)<
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $option->setAcceptableValues(array(
             org_tubepress_api_const_options_values_PlayerImplementationValue::EMBEDPLUS      => 'EmbedPlus',
@@ -301,14 +301,14 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::SHOW_RELATED);
         $option->setDefaultValue(true);
         $option->setLabel('Show related videos');                                                //>(translatable)<
-        $option->setDescription('Toggles the display of related videos after a video finishes'); //>(translatable)<
+        $option->setDescription('Toggles the display of related videos after a video finishes.'); //>(translatable)<
         $option->setBoolean();
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST);
-        $option->setLabel('Videos blacklist');                                        //>(translatable)<
-        $option->setDescription('List of video IDs that should never be displayed');  //>(translatable)<
+        $option->setLabel('Video blacklist');                                        //>(translatable)<
+        $option->setDescription('A list of video IDs that should never be displayed.');  //>(translatable)<
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Feed::ORDER_BY);
@@ -365,8 +365,8 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER);
-        $option->setLabel('Restrict search results to videos from this user');  //>(translatable)<
-        $option->setDescription('Only applies to search-based galleries');      //>(translatable)<
+        $option->setLabel('Restrict search results to videos from author');  //>(translatable)<
+        $option->setDescription('A YouTube or Vimeo user name. Only applies to search-based galleries.');      //>(translatable)<
         $option->setValidValueRegex('/\w+/');
         $this->register($option);
 
@@ -384,8 +384,8 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE);
         $option->setDefaultValue('pittsburgh steelers');
-        $option->setDescription('YouTube limits this mode to 1,000 results');  //>(translatable)<
-        $option->setLabel('YouTube search for...');                            //>(translatable)<
+        $option->setDescription('YouTube limits this to 1,000 results.');  //>(translatable)<
+        $option->setLabel('YouTube search for');                            //>(translatable)<
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $this->register($option);
 
@@ -393,14 +393,14 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option->setDefaultValue(org_tubepress_api_const_options_values_TimeFrameValue::TODAY);
         $option->setAcceptableValues(self::$_valueMapTime);
         $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setLabel('Top rated videos from...');  //>(translatable)<
+        $option->setLabel('Top-rated YouTube videos from');  //>(translatable)<
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TOP_FAVORITES_VALUE);
         $option->setDefaultValue(org_tubepress_api_const_options_values_TimeFrameValue::TODAY);
         $option->setAcceptableValues(self::$_valueMapTime);
         $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setLabel('Videos most frequently flagged as favorites from...');  //>(translatable)<
+        $option->setLabel('Most-favorited YouTube videos from');  //>(translatable)<
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE);
@@ -430,7 +430,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE);
         $option->setDefaultValue('cats playing piano');
         $option->setExcludedProviders(self::$_providerArrayYouTube);
-        $option->setLabel('Vimeo search for...');  //>(translatable)<
+        $option->setLabel('Vimeo search for');  //>(translatable)<
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE);
@@ -468,32 +468,32 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option->setDefaultValue(org_tubepress_api_const_options_values_TimeFrameValue::TODAY);
         $option->setAcceptableValues(self::$_valueMapTime);
         $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setLabel('Most-viewed videos from');  //>(translatable)<
+        $option->setLabel('Most-viewed YouTube videos from');  //>(translatable)<
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
         $option->setDefaultValue('D2B04665B213AE35');
         $option->setDescription('Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser\'s address bar (while looking at a YouTube playlist). It comes right after the "p=". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35');  //>(translatable)<
-        $option->setLabel('This playlist');                                                                                                                                                                                                                                                                                                          //>(translatable)<
+        $option->setLabel('This YouTube playlist');                                                                                                                                                                                                                                                                                                          //>(translatable)<
         $option->setValidValueRegex(self::$_regexWordChars);
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_FEATURED);
         $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setLabel('The latest "featured" videos on YouTube\'s homepage');    //>(translatable)<
+        $option->setLabel('The latest "featured" videos on YouTube\'s homepage from');    //>(translatable)<
         $option->setAcceptableValues(self::$_valueMapTime);
         $this->register($option);
         
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE);
         $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setLabel('Most-discussed videos');    //>(translatable)<
+        $option->setLabel('Most-discussed YouTube videos from');    //>(translatable)<
         $option->setAcceptableValues(self::$_valueMapTime);
         $this->register($option);
         
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE);
         $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setLabel('Most-recently added videos');    //>(translatable)<
+        $option->setLabel('Most-recently added YouTube videos');    //>(translatable)<
         $option->setAcceptableValues(self::$_valueMapTime);
         $this->register($option);
         
@@ -538,7 +538,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Meta::RELATIVE_DATES);
         $option->setDefaultValue(false);
         $option->setLabel('Use relative dates');                                    //>(translatable)<
-        $option->setDescription('e.g. "yesterday" instead of "November 3, 1980"');  //>(translatable)<
+        $option->setDescription('e.g. "yesterday" instead of "November 3, 1980".');  //>(translatable)<
         $option->setBoolean();
         $this->register($option);
 
@@ -670,7 +670,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Thumbs::HQ_THUMBS);
         $option->setDefaultValue(false);
         $option->setLabel('Use high-quality thumbnails');                                                    //>(translatable)<
-        $option->setDescription('Note: this option cannot be used with the "randomize thumbnails" feature'); //>(translatable)<
+        $option->setDescription('Note: this option cannot be used with the "randomize thumbnails" feature.'); //>(translatable)<
         $option->setProOnly();
         $option->setBoolean();
         $this->register($option);
@@ -678,21 +678,21 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE);
         $option->setDefaultValue(true);
         $option->setLabel('Show pagination above thumbnails');                         //>(translatable)<
-        $option->setDescription('Only applies to galleries that span multiple pages'); //>(translatable)<
+        $option->setDescription('Only applies to galleries that span multiple pages.'); //>(translatable)<
         $option->setBoolean();
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW);
         $option->setDefaultValue(true);
         $option->setLabel('Show pagination below thumbnails');                         //>(translatable)<
-        $option->setDescription('Only applies to galleries that span multiple pages'); //>(translatable)<
+        $option->setDescription('Only applies to galleries that span multiple pages.'); //>(translatable)<
         $option->setBoolean();
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS);
         $option->setDefaultValue(true);
         $option->setLabel('Randomize thumbnail images');                                                                                                                                                                                                                                              //>(translatable)<
-        $option->setDescription('Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature'); //>(translatable)<
+        $option->setDescription('Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature.'); //>(translatable)<
         $option->setBoolean();
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $this->register($option);
@@ -700,7 +700,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE);
         $option->setDefaultValue(20);
         $option->setLabel('Thumbnails per page');                    //>(translatable)<
-        $option->setDescription('Default is 20. Maximum is 50');     //>(translatable)<
+        $option->setDescription('Default is 20. Maximum is 50.');     //>(translatable)<
         $option->setValidValueRegex(self::$_regexPositiveInteger);
         $this->register($option);
 
@@ -713,14 +713,14 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT);
         $option->setDefaultValue(90);
         $option->setLabel('Height (px) of thumbs'); //>(translatable)<
-        $option->setDescription('Default is 90');   //>(translatable)<
+        $option->setDescription('Default is 90.');   //>(translatable)<
         $option->setValidValueRegex(self::$_regexPositiveInteger);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Thumbs::THUMB_WIDTH);
         $option->setDefaultValue(120);
         $option->setLabel('Width (px) of thumbs');  //>(translatable)<
-        $option->setDescription('Default is 120');  //>(translatable)<
+        $option->setDescription('Default is 120.');  //>(translatable)<
         $option->setValidValueRegex(self::$_regexPositiveInteger);
         $this->register($option);
 
