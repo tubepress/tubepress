@@ -32,6 +32,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 	'org_tubepress_impl_options_ui_tabs_AdvancedTab',
 	'org_tubepress_impl_options_ui_tabs_EmbeddedTab',
 	'org_tubepress_impl_options_ui_tabs_FeedTab',
+    'org_tubepress_impl_options_ui_tabs_ThemeTab',
 	'org_tubepress_impl_options_ui_tabs_MetaTab',
 ));
 
@@ -73,6 +74,7 @@ class org_tubepress_impl_options_ui_DefaultTabsHandler extends org_tubepress_imp
             $ioc->get(org_tubepress_impl_options_ui_tabs_ThumbsTab::_),
             $ioc->get(org_tubepress_impl_options_ui_tabs_EmbeddedTab::_),
             $ioc->get(org_tubepress_impl_options_ui_tabs_MetaTab::_),
+            $ioc->get(org_tubepress_impl_options_ui_tabs_ThemeTab::_),
             $ioc->get(org_tubepress_impl_options_ui_tabs_FeedTab::_),
             $ioc->get(org_tubepress_impl_options_ui_tabs_CacheTab::_),
             $ioc->get(org_tubepress_impl_options_ui_tabs_AdvancedTab::_), 

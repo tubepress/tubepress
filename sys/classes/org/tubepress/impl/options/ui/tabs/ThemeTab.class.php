@@ -21,33 +21,32 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php');
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_options_names_Thumbs',
+    'org_tubepress_spi_options_ui_FieldBuilder',
+    'org_tubepress_impl_options_ui_fields_ThemeField',
     'org_tubepress_impl_options_ui_tabs_AbstractTab',
-    'org_tubepress_impl_options_ui_fields_DropdownField',
 ));
 
 /**
- * Displays the meta tab.
+ * Displays the theme tab.
  */
-class org_tubepress_impl_options_ui_tabs_MetaTab extends org_tubepress_impl_options_ui_tabs_AbstractTab
+class org_tubepress_impl_options_ui_tabs_ThemeTab extends org_tubepress_impl_options_ui_tabs_AbstractTab
 {
-    const _ = 'org_tubepress_impl_options_ui_tabs_MetaTab';
+    const _ = 'org_tubepress_impl_options_ui_tabs_ThemeTab';
 
     protected function doGetTitle()
     {
-        return 'Meta';  //>(translatable)<
+        return 'Theme';  //>(translatable)<
     }
 
-    protected function getDelegateFormHandlers()
+    protected function getDelegateFormHandlers()    
     {
         $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
         $fieldBuilder = $ioc->get(org_tubepress_spi_options_ui_FieldBuilder::_);
 
         return array(
 
-            $fieldBuilder->buildMetaDisplayMultiSelectField(),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Meta::DATEFORMAT,     org_tubepress_impl_options_ui_fields_TextField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Meta::RELATIVE_DATES, org_tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Meta::DESC_LIMIT,     org_tubepress_impl_options_ui_fields_TextField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::THEME, org_tubepress_impl_options_ui_fields_ThemeField::__)
         );
     }
 }

@@ -17,7 +17,7 @@ class org_tubepress_impl_options_ui_tabs_MetaTabTest extends org_tubepress_impl_
 
 	protected function _getRawTitle()
 	{
-	    return 'Meta Display';
+	    return 'Meta';
 	}
 
 	protected function _buildSut()

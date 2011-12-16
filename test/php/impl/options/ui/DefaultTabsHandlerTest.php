@@ -18,11 +18,12 @@ class org_tubepress_impl_options_ui_DefaultTabsHandlerTest extends TubePressUnit
 		$tab = $ioc->get('org_tubepress_impl_options_ui_tabs_ThumbsTab');
 		$emb = $ioc->get(org_tubepress_impl_options_ui_tabs_EmbeddedTab::_);
 		$met = $ioc->get(org_tubepress_impl_options_ui_tabs_MetaTab::_);
+		$thm = $ioc->get(org_tubepress_impl_options_ui_tabs_ThemeTab::_);
 		$fee = $ioc->get(org_tubepress_impl_options_ui_tabs_FeedTab::_);
 		$cah = $ioc->get(org_tubepress_impl_options_ui_tabs_CacheTab::_);
 		$adv = $ioc->get('org_tubepress_impl_options_ui_tabs_AdvancedTab');
 		
-		$this->_expectedTabs = array($gal, $tab, $adv, $cah, $emb, $fee, $met);
+		$this->_expectedTabs = array($gal, $tab, $adv, $cah, $emb, $thm, $fee, $met);
 	}
 
 	public function testSubmitWithErrors()
@@ -37,7 +38,7 @@ class org_tubepress_impl_options_ui_DefaultTabsHandlerTest extends TubePressUnit
 	     
 	    $result = $this->_sut->onSubmit($vals);
 	    
-	    $this->assertEquals(array(1, 2, 5, 7, 6, 4, 3), $result);
+	    $this->assertEquals(array(1, 2, 5, 8, 6, 7, 4, 3), $result);
 	}
 	
 	public function testSubmit()
@@ -69,6 +70,7 @@ class org_tubepress_impl_options_ui_DefaultTabsHandlerTest extends TubePressUnit
             $ioc->get('org_tubepress_impl_options_ui_tabs_ThumbsTab'),
             $ioc->get(org_tubepress_impl_options_ui_tabs_EmbeddedTab::_),
             $ioc->get(org_tubepress_impl_options_ui_tabs_MetaTab::_),
+            $ioc->get(org_tubepress_impl_options_ui_tabs_ThemeTab::_),
             $ioc->get(org_tubepress_impl_options_ui_tabs_FeedTab::_),
             $ioc->get(org_tubepress_impl_options_ui_tabs_CacheTab::_),
             $ioc->get('org_tubepress_impl_options_ui_tabs_AdvancedTab'),

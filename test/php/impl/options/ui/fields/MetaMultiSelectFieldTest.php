@@ -20,12 +20,12 @@ class org_tubepress_impl_options_ui_fields_MetaMultiSelectFieldTest extends org_
 
     public function testGetTitle()
     {
-        $this->assertEquals('<<message: Meta display>>', $this->_sut->getTitle());
+        $this->assertEquals('<<message: Show each video\'s ...>>', $this->_sut->getTitle());
     }
 
     public function testGetDesc()
     {
-        $this->assertEquals('<<message: Meta-information to display with each video>>', $this->_sut->getDescription());
+        $this->assertEquals('', $this->_sut->getDescription());
     }
 
     public function testIsProOnly()

@@ -35,7 +35,7 @@ class org_tubepress_impl_options_ui_tabs_EmbeddedTab extends org_tubepress_impl_
 
     protected function doGetTitle()
     {
-        return 'Embedded Player';  //>(translatable)<
+        return 'Player';  //>(translatable)<
     }
 
     protected function getDelegateFormHandlers()

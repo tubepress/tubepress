@@ -115,8 +115,8 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST);
-    	$this->assertTrue($option->getLabel() === 'Videos blacklist', $option->getName());
-    	$this->assertTrue($option->getDescription() === 'List of video IDs that should never be displayed', $option->getName());
+    	$this->assertTrue($option->getLabel() === 'Video blacklist', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'A list of video IDs that should never be displayed.', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION);
@@ -157,7 +157,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Thumbs::HQ_THUMBS);
     	$this->assertTrue($option->getLabel() === 'Use high-quality thumbnails', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === false, $option->getName());
-    	$this->assertTrue($option->getDescription() === 'Note: this option cannot be used with the "randomize thumbnails" feature', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'Note: this option cannot be used with the "randomize thumbnails" feature.', $option->getName());
     	$this->assertTrue($option->isProOnly() === true, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Feed::ORDER_BY);
@@ -182,32 +182,32 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE);
     	$this->assertTrue($option->getLabel() === 'Show pagination above thumbnails', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === true, $option->getName());
-    	$this->assertTrue($option->getDescription() === 'Only applies to galleries that span multiple pages', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'Only applies to galleries that span multiple pages.', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW);
     	$this->assertTrue($option->getLabel() === 'Show pagination below thumbnails', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === true, $option->getName());
-    	$this->assertTrue($option->getDescription() === 'Only applies to galleries that span multiple pages', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'Only applies to galleries that span multiple pages.', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS);
     	$this->assertTrue($option->getLabel() === 'Randomize thumbnail images', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === true, $option->getName());
-    	$this->assertTrue($option->getDescription() === 'Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature.', $option->getName());
     	$this->assertTrue($option->isApplicableToVimeo() === false, $option->getName() . ' should not be applicable to vimeo');
     	$this->assertTrue($option->isProOnly() === false, $option->getName() . ' should be set to pro only');
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Meta::RELATIVE_DATES);
     	$this->assertTrue($option->getLabel() === 'Use relative dates', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === false, $option->getName());
-    	$this->assertTrue($option->getDescription() === 'e.g. "yesterday" instead of "November 3, 1980"', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'e.g. "yesterday" instead of "November 3, 1980".', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE);
     	$this->assertTrue($option->getLabel() === 'Thumbnails per page', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === 20, $option->getName());
-    	$this->assertTrue($option->getDescription() === 'Default is 20. Maximum is 50', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'Default is 20. Maximum is 50.', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Thumbs::THEME);
@@ -218,13 +218,13 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT);
     	$this->assertTrue($option->getLabel() === 'Height (px) of thumbs', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === 90, $option->getName());
-    	$this->assertTrue($option->getDescription() === 'Default is 90', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'Default is 90.', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Thumbs::THUMB_WIDTH);
     	$this->assertTrue($option->getLabel() === 'Width (px) of thumbs', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === 120, $option->getName());
-    	$this->assertTrue($option->getDescription() === 'Default is 120', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'Default is 120.', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::AUTOPLAY);
@@ -235,17 +235,17 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT);
     	$this->assertTrue($option->getLabel() === 'Max height (px)', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === 350, $option->getName());
-    	$this->assertTrue($option->getDescription() === 'Default is 350', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'Default is 350.', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
     	$this->assertTrue($option->getLabel() === 'Max width (px)', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === 425, $option->getName());
-    	$this->assertTrue($option->getDescription() === 'Default is 425', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'Default is 425.', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::FULLSCREEN);
-    	$this->assertTrue($option->getLabel() === 'Allow fullscreen playback', $option->getName());
+    	$this->assertTrue($option->getLabel() === 'Allow fullscreen playback.', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === true, $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
@@ -258,26 +258,26 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::LAZYPLAY);
     	$this->assertTrue($option->getLabel() === '"Lazy" play videos', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === true, $option->getName());
-    	$this->assertTrue($option->getDescription() === 'Auto-play each video after thumbnail click', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'Auto-play each video after thumbnail click.', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::LOOP);
     	$this->assertTrue($option->getLabel() === 'Loop', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === false, $option->getName());
-    	$this->assertTrue($option->getDescription() === 'Continue playing the video until the user stops it', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'Continue playing the video until the user stops it.', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR);
     	$this->assertTrue($option->getLabel() === 'Main color', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === '999999', $option->getName());
-    	$this->assertTrue($option->getDescription() === 'Default is 999999', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'Default is 999999.', $option->getName());
     	$this->assertTrue($option->getValidValueRegex() === '/^([0-9a-f]{1,2}){3}$/i', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT);
     	$this->assertTrue($option->getLabel() === 'Highlight color', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === 'FFFFFF', $option->getName());
-    	$this->assertTrue($option->getDescription() === 'Default is FFFFFF', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'Default is FFFFFF.', $option->getName());
     	$this->assertTrue($option->getValidValueRegex() === '/^([0-9a-f]{1,2}){3}$/i', $option->getName());
     	$this->assertTrue($option->isApplicableToVimeo() === false, $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
@@ -285,7 +285,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
     	$this->assertTrue($option->getLabel() === 'Implementation', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === org_tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED, $option->getName());
-    	$this->assertTrue($option->getDescription() === 'The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc)', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).', $option->getName());
     	$this->assertTrue($option->isApplicableToVimeo() === false, $option->getName());
     	$this->assertTrue($option->getAcceptableValues() === array(
     	org_tubepress_api_const_options_values_PlayerImplementationValue::EMBEDPLUS      => 'EmbedPlus',
@@ -302,14 +302,14 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::SHOW_RELATED);
     	$this->assertTrue($option->getLabel() === 'Show related videos', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === true, $option->getName());
-    	$this->assertTrue($option->getDescription() === 'Toggles the display of related videos after a video finishes', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'Toggles the display of related videos after a video finishes.', $option->getName());
     	$this->assertTrue($option->isApplicableToVimeo() === false, $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Cache::CACHE_ENABLED);
-    	$this->assertTrue($option->getLabel() === 'Enable request cache', $option->getName());
+    	$this->assertTrue($option->getLabel() === 'Enable API cache', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === false, $option->getName());
-    	$this->assertTrue($option->getDescription() === 'Store network responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness.', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness.', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Feed::DEV_KEY);
@@ -344,8 +344,8 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER);
-    	$this->assertTrue($option->getLabel() === 'Restrict search results to videos from this user', $option->getName());
-    	$this->assertTrue($option->getDescription() === 'Only applies to search-based galleries', $option->getName());
+    	$this->assertTrue($option->getLabel() === 'Restrict search results to videos from author', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'A YouTube or Vimeo user name. Only applies to search-based galleries.', $option->getName());
     	$this->assertTrue($option->getValidValueRegex() === '/\w+/', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
@@ -492,7 +492,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE);
     	$this->assertTrue($option->getDefaultValue() === 'pittsburgh steelers', $option->getName());
-    	$this->assertTrue($option->getDescription() === 'YouTube limits this mode to 1,000 results', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'YouTube limits this to 1,000 results.', $option->getName());
     	$this->assertTrue($option->isApplicableToVimeo() === false, $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 

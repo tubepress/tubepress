@@ -34,7 +34,7 @@ class org_tubepress_impl_options_ui_tabs_FeedTab extends org_tubepress_impl_opti
 
     protected function doGetTitle()
     {
-        return 'Video Feed';  //>(translatable)<
+        return 'Feed';  //>(translatable)<
     }
 
     protected function getDelegateFormHandlers()

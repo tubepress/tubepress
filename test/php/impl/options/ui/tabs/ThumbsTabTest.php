@@ -8,7 +8,6 @@ class org_tubepress_impl_options_ui_tabs_ThumbsTabTest extends org_tubepress_imp
 	{
 	    return array(
 
-            org_tubepress_api_const_options_names_Thumbs::THEME            => org_tubepress_impl_options_ui_fields_ThemeField::__,
             org_tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT     => org_tubepress_impl_options_ui_fields_TextField::__,
             org_tubepress_api_const_options_names_Thumbs::THUMB_WIDTH      => org_tubepress_impl_options_ui_fields_TextField::__,
             org_tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION  => org_tubepress_impl_options_ui_fields_BooleanField::__,

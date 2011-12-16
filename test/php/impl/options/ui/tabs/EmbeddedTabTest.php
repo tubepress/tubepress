@@ -27,7 +27,7 @@ class org_tubepress_impl_options_ui_tabs_EmbeddedTabTest extends org_tubepress_i
 
 	protected function _getRawTitle()
 	{
-	    return 'Embedded Player';
+	    return 'Player';
 	}
 
 	protected function _buildSut()

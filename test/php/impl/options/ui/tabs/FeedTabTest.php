@@ -23,7 +23,7 @@ class org_tubepress_impl_options_ui_tabs_FeedTabTest extends org_tubepress_impl_
 
 	protected function _getRawTitle()
 	{
-	    return 'Video Feed';
+	    return 'Feed';
 	}
 
 	protected function _buildSut()
