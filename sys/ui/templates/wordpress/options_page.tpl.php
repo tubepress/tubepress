@@ -51,9 +51,73 @@
 		var opts = {
 
 				selectedText : 'choose...'
+		},
+
+		normalizeProviderName = function (raw) {
+
+			var normal = raw.replace('show', '').replace('Options', '');
+
+			return 'tubepress-' + normal.toLowerCase() + '-option';
+		},
+
+		doShowAndHide = function (arrayOfSelected, arrayOfPossible) {
+
+			var selector = '';
+
+			for (var i = 0; i < arrayOfPossible.length; i++) {
+
+				if (i != 0) {
+
+					selector += ', ';
+				}
+				
+				selector += '.' + arrayOfPossible[i];
+			}
+
+			jQuery(selector).each(function () {
+
+				var element = jQuery(this);
+				
+				for (var x = 0; x < arrayOfSelected.length; x++) {
+
+					if (element.hasClass(arrayOfSelected[x])) {
+
+						element.show();
+						return;
+					}
+				}
+
+				element.hide();
+				
+			});
+		},
+
+		filterHandler = function () {
+
+			//get the selected classes
+			var selected = jQuery('#multiselect-filterdropdown option:selected').map(function (e) {
+
+				return normalizeProviderName(jQuery(this).val());
+			}),
+
+			//get all the classes
+			allPossible = jQuery('#multiselect-filterdropdown option').map(function (e) {
+
+				return normalizeProviderName(jQuery(this).val());
+			});
+
+			//run it, yo
+			doShowAndHide(selected, allPossible);			
 		};
-		
+
+		//make the multi-selects
 		jQuery('#multiselect-filterdropdown').multiselect(opts);
 		jQuery('#multiselect-metadropdown').multiselect(opts);
+
+		//bind to value changes on the filter drop-down
+		jQuery('#multiselect-filterdropdown').change(filterHandler);
+
+		//filter based on what's in the drop-down
+		filterHandler();
 	});
 </script>

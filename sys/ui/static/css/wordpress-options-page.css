@@ -17,6 +17,10 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+#tubepress_tabs {
+	
+	min-height: 300px;
+} 
  
 .tubepress-tab {
     border-collapse: collapse;
@@ -45,5 +49,10 @@
 }
 .tubepress-tab th.th-full {
     width: auto;
+}
+
+ul.ui-multiselect-checkboxes label span {
+	
+	margin-left: 3px;
 }
 

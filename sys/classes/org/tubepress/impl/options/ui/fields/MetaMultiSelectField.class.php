@@ -40,16 +40,16 @@ class org_tubepress_impl_options_ui_fields_MetaMultiSelectField extends org_tube
         parent::__construct(array(
 
             $odr->findOneByName(org_tubepress_api_const_options_names_Meta::AUTHOR),
+            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::RATING),
             $odr->findOneByName(org_tubepress_api_const_options_names_Meta::CATEGORY),
+            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::UPLOADED),
             $odr->findOneByName(org_tubepress_api_const_options_names_Meta::DESCRIPTION),
             $odr->findOneByName(org_tubepress_api_const_options_names_Meta::ID),
-            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::LENGTH),
-            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::LIKES),
-            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::RATING),
-            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::RATINGS),
             $odr->findOneByName(org_tubepress_api_const_options_names_Meta::KEYWORDS),
+            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::LIKES),
+            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::RATINGS),
+            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::LENGTH),
             $odr->findOneByName(org_tubepress_api_const_options_names_Meta::TITLE),
-            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::UPLOADED),
             $odr->findOneByName(org_tubepress_api_const_options_names_Meta::URL),
             $odr->findOneByName(org_tubepress_api_const_options_names_Meta::VIEWS),
 
