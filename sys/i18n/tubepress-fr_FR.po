@@ -43,13 +43,13 @@ msgstr "Limité à 200 vidéos par liste de lecture. Cela ressemblera à ceci D2
 msgid "Most-viewed YouTube videos from"
 msgstr "Les vidéos les plus vues de"
 
-msgid "Most-recently added YouTube videos"
+msgid "Most-recently added YouTube videos from"
 msgstr "Les vidéos les plus récentes"
 
 msgid "Most-discussed YouTube videos from"
 msgstr "Les vidéos les plus commentées"
 
-msgid "Most-responded to videos"
+msgid "Most-responded to videos from"
 msgstr "Les vidéos les plus répondues"
 
 msgid "View count"

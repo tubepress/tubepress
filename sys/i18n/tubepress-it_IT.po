@@ -60,13 +60,13 @@ msgstr "i video più visti di"
 msgid "Most-favorited YouTube videos from"
 msgstr "I video maggiormente segnalati come preferiti"
 
-msgid "Most-recently added YouTube videos"
+msgid "Most-recently added YouTube videos from"
 msgstr "i video più recenti"
 
 msgid "Most-discussed YouTube videos from"
 msgstr "i video più commentati"
 
-msgid "Most-responded to videos"
+msgid "Most-responded to videos from"
 msgstr "i video più commentati "
 
 msgid "Videos uploaded by this Vimeo user"

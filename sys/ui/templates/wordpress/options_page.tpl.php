@@ -122,5 +122,8 @@
 
 		//filter based on what's in the drop-down
 		filterHandler();
+
+		//add the asterisk to Pro options
+		jQuery('.tubepress-pro-option th').append(' *');
 	});
 </script>

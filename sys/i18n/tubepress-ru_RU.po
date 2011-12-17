@@ -44,13 +44,13 @@ msgstr "Ограничено 200 клипами для плейлиста. Ка�
 msgid "Most-viewed YouTube videos from"
 msgstr "Лидеры просмотров  (Самое просматриваемое видео)"
 
-msgid "Most-recently added YouTube videos"
+msgid "Most-recently added YouTube videos from"
 msgstr "Недавно добавленные видео"
 
 msgid "Most-discussed YouTube videos from"
 msgstr "Лидеры обсуждений (Самое обсуждаемое видео)"
 
-msgid "Most-responded to videos"
+msgid "Most-responded to videos from"
 msgstr "Лидеры по ответам"
 
 msgid "View count"

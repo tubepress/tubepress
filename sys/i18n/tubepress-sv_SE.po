@@ -42,13 +42,13 @@ msgstr "Begränsad till 200 videos per spellista. Denna ser vanligtvis ut ungef�
 msgid "Most-viewed YouTube videos from"
 msgstr "MesVideos med flest spelningar från"
 
-msgid "Most-recently added YouTube videos"
+msgid "Most-recently added YouTube videos from"
 msgstr "Senast tillagda videos"
 
 msgid "Most-discussed YouTube videos from"
 msgstr "Videos med flest inlägg"
 
-msgid "Most-responded to videos"
+msgid "Most-responded to videos from"
 msgstr "Videos med flest svar"
 
 msgid "View count"

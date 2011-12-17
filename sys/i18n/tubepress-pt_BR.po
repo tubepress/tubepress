@@ -59,13 +59,13 @@ msgstr "Limitado a 200 vídeos por lista. Normalmente algo parecido com isto: D2
 msgid "Most-viewed YouTube videos from"
 msgstr "Os vídeos mais vistos de"
 
-msgid "Most-recently added YouTube videos"
+msgid "Most-recently added YouTube videos from"
 msgstr "Os vídeos adicionados mais recentemente"
 
 msgid "Most-discussed YouTube videos from"
 msgstr "Os vídeos mais comentados"
 
-msgid "Most-responded to videos"
+msgid "Most-responded to videos from"
 msgstr "Os vídeos com mais respostas"
 
 msgid "View count"

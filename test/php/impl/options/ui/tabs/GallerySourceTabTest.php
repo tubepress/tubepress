@@ -85,6 +85,15 @@ class org_tubepress_impl_options_ui_tabs_GallerySourceTabTest extends TubePressU
             org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES =>
                 array(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TOP_FAVORITES_VALUE => org_tubepress_impl_options_ui_fields_DropdownField::_),
                 
+            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED =>
+                array(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE => org_tubepress_impl_options_ui_fields_DropdownField::_),
+            
+            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT =>
+                array(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE => org_tubepress_impl_options_ui_fields_DropdownField::_),
+            
+            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED =>
+                array(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE => org_tubepress_impl_options_ui_fields_DropdownField::_),
+                
             org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_ALBUM =>
                 array(org_tubepress_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE => org_tubepress_impl_options_ui_fields_TextField::__),
                 

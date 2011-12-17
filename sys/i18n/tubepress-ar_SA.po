@@ -56,13 +56,13 @@ msgstr "الحد هو ٢٠٠ لكل قائمة ‫-‬ انسخ الرقم في 
 msgid "Most-viewed YouTube videos from"
 msgstr "أكثر الفيديوهات مشاهدة من"
 
-msgid "Most-recently added YouTube videos"
+msgid "Most-recently added YouTube videos from"
 msgstr "أحدث الفيديوهات"
 
 msgid "Most-discussed YouTube videos from"
 msgstr "أكثر الفيديوهات جدلاً"
 
-msgid "Most-responded to videos"
+msgid "Most-responded to videos from"
 msgstr "أكثر الفيديوهات ردوداً"
 
 msgid "Videos uploaded by this Vimeo user"

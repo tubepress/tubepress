@@ -74,6 +74,15 @@ class org_tubepress_impl_options_ui_tabs_GallerySourceTab extends org_tubepress_
             org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES =>
                 $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TOP_FAVORITES_VALUE, org_tubepress_impl_options_ui_fields_DropdownField::_),
                 
+            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED =>
+                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE, org_tubepress_impl_options_ui_fields_DropdownField::_),
+                
+            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT =>
+                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE, org_tubepress_impl_options_ui_fields_DropdownField::_),
+        
+            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED =>
+                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE, org_tubepress_impl_options_ui_fields_DropdownField::_),
+                
             org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_ALBUM =>
                 $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE, org_tubepress_impl_options_ui_fields_TextField::__),
                 

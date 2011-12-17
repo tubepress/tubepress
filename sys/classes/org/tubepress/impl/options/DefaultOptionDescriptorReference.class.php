@@ -492,13 +492,13 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE);
         $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setLabel('Most-recently added YouTube videos');    //>(translatable)<
+        $option->setLabel('Most-recently added YouTube videos from');    //>(translatable)<
         $option->setAcceptableValues(self::$_valueMapTime);
         $this->register($option);
         
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE);
         $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setLabel('Most-responded to videos');    //>(translatable)<
+        $option->setLabel('Most-responded to videos from');    //>(translatable)<
         $option->setAcceptableValues(self::$_valueMapTime);
         $this->register($option);
         

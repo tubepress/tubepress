@@ -56,13 +56,13 @@ msgstr "Limitado a 200 videos por lista de reproducción. Generalmente se asemej
 msgid "Most-viewed YouTube videos from"
 msgstr "Videos más vistos de"
 
-msgid "Most-recently added YouTube videos"
+msgid "Most-recently added YouTube videos from"
 msgstr "Videos más recientes"
 
 msgid "Most-discussed YouTube videos from"
 msgstr "Videos más discutidos"
 
-msgid "Most-responded to videos"
+msgid "Most-responded to videos from"
 msgstr "Videos con más respuestas"
 
 msgid "View count"

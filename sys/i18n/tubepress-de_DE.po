@@ -56,13 +56,13 @@ msgstr "Limitert auf 200 Videos pro Wiedergabeliste. Ist normalerweise in diesem
 msgid "Most-viewed YouTube videos from"
 msgstr "Am h&auml;ufigsten betrachtete Videos von"
 
-msgid "Most-recently added YouTube videos"
+msgid "Most-recently added YouTube videos from"
 msgstr "Neuste Videos"
 
 msgid "Most-discussed YouTube videos from"
 msgstr "Am meisten diskutierte Videos"
 
-msgid "Most-responded to videos"
+msgid "Most-responded to videos from"
 msgstr "Am meisten beantworteten Videos"
 
 msgid "View count"
