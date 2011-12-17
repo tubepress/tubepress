@@ -316,17 +316,16 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option->setLabel('Order videos by');                                                                                                                                      //>(translatable)<
         $option->setDescription('Not all sort orders can be applied to all gallery types. See the <a href="http://tubepress.org/documentation">documentation</a> for more info.'); //>(translatable)<
         $option->setAcceptableValues(array(
-            org_tubepress_api_const_options_values_OrderByValue::RELEVANCE      => 'relevance',                //>(translatable)<
-            org_tubepress_api_const_options_values_OrderByValue::VIEW_COUNT     => 'view count',               //>(translatable)<
-            org_tubepress_api_const_options_values_OrderByValue::RATING         => 'rating',                   //>(translatable)<
-            org_tubepress_api_const_options_values_OrderByValue::DATE_PUBLISHED => 'date published',           //>(translatable)<
-            org_tubepress_api_const_options_values_OrderByValue::RANDOM         => 'randomly',                 //>(translatable)<
-            org_tubepress_api_const_options_values_OrderByValue::POSITION       => 'position in a playlist',   //>(translatable)<
             org_tubepress_api_const_options_values_OrderByValue::COMMENT_COUNT  => 'comment count',            //>(translatable)<
+            org_tubepress_api_const_options_values_OrderByValue::NEWEST         => 'date published (newest first)',                   //>(translatable)<
+            org_tubepress_api_const_options_values_OrderByValue::OLDEST         => 'date published (oldest first)',                   //>(translatable)<
             org_tubepress_api_const_options_values_OrderByValue::DURATION       => 'length',                   //>(translatable)<
+            org_tubepress_api_const_options_values_OrderByValue::POSITION       => 'position in a playlist',   //>(translatable)<
+            org_tubepress_api_const_options_values_OrderByValue::RANDOM         => 'randomly',                 //>(translatable)<
+            org_tubepress_api_const_options_values_OrderByValue::RATING         => 'rating',                   //>(translatable)<
+            org_tubepress_api_const_options_values_OrderByValue::RELEVANCE      => 'relevance',                //>(translatable)<
             org_tubepress_api_const_options_values_OrderByValue::TITLE          => 'title',                    //>(translatable)<
-            org_tubepress_api_const_options_values_OrderByValue::NEWEST         => 'newest',                   //>(translatable)<
-            org_tubepress_api_const_options_values_OrderByValue::OLDEST         => 'oldest',                   //>(translatable)<
+            org_tubepress_api_const_options_values_OrderByValue::VIEW_COUNT     => 'view count',               //>(translatable)<
         ));
         $this->register($option);
 
@@ -367,7 +366,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER);
         $option->setLabel('Restrict search results to videos from author');  //>(translatable)<
         $option->setDescription('A YouTube or Vimeo user name. Only applies to search-based galleries.');      //>(translatable)<
-        $option->setValidValueRegex('/\w+/');
+        $option->setValidValueRegex('/(?:\w+)?/');
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Feed::VIMEO_KEY);

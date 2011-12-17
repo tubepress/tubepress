@@ -95,16 +95,16 @@ class org_tubepress_impl_options_ui_fields_MetaMultiSelectFieldTest extends org_
         return array(
 
             org_tubepress_api_const_options_names_Meta::AUTHOR,
+            org_tubepress_api_const_options_names_Meta::RATING,
             org_tubepress_api_const_options_names_Meta::CATEGORY,
+            org_tubepress_api_const_options_names_Meta::UPLOADED,
             org_tubepress_api_const_options_names_Meta::DESCRIPTION,
             org_tubepress_api_const_options_names_Meta::ID,
-            org_tubepress_api_const_options_names_Meta::LENGTH,
-            org_tubepress_api_const_options_names_Meta::LIKES,
-            org_tubepress_api_const_options_names_Meta::RATING,
-            org_tubepress_api_const_options_names_Meta::RATINGS,
             org_tubepress_api_const_options_names_Meta::KEYWORDS,
+            org_tubepress_api_const_options_names_Meta::LIKES,
+            org_tubepress_api_const_options_names_Meta::RATINGS,
+            org_tubepress_api_const_options_names_Meta::LENGTH,
             org_tubepress_api_const_options_names_Meta::TITLE,
-            org_tubepress_api_const_options_names_Meta::UPLOADED,
             org_tubepress_api_const_options_names_Meta::URL,
             org_tubepress_api_const_options_names_Meta::VIEWS,
         );

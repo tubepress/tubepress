@@ -78,7 +78,7 @@ class org_tubepress_impl_options_DefaultOptionValidator implements org_tubepress
 
         if ($descriptor->hasDiscreteAcceptableValues()) {
 
-            $values = array_values($descriptor->getAcceptableValues());
+            $values = array_keys($descriptor->getAcceptableValues());
 
             if (in_array($candidate, $values)) {
 

@@ -34,7 +34,7 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBase
 	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 	    $validator = $ioc->get(org_tubepress_api_options_OptionValidator::_);
 	    $validator->shouldReceive('isValid')->once()->with('name', 'some-value')->andReturn(false);
-        $validator->shouldReceive('getFailureMessage')->once()->with('name', 'some-value')->andReturn('you suck');
+        $validator->shouldReceive('getProblemMessage')->once()->with('name', 'some-value')->andReturn('you suck');
 
 	    $this->assertEquals(array('you suck'), $this->_sut->onSubmit($postVars));
 	}

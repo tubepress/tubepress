@@ -35,7 +35,7 @@ class org_tubepress_impl_template_templates_optionspage_fields_MultiSelectTempla
     private function _expected()
     {
         return <<<EOT
-<select name="some-name[]">
+<select id="multiselect-some-name" name="some-name[]" multiple="multiple">
 	<option value="name-one" selected="selected">label-one</option>
 	<option value="name-two" >label-two</option>
 	<option value="name-three" selected="selected">label-three</option>

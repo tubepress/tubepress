@@ -43,7 +43,7 @@ class org_tubepress_api_const_ConstantsTest extends TubePressUnitTest {
             'org_tubepress_api_const_options_names_Thumbs'						=> array('theme', 'ajaxPagination', 'resultsPerPage', 'hqThumbs', 'thumbHeight', 'thumbWidth', 'fluidThumbs', 'paginationAbove', 'paginationBelow', 'randomize_thumbnails'),
             'org_tubepress_api_const_options_names_WordPress'			        => array('widget-tagstring', 'widget-title', 'showVimeoOptions', 'showYouTubeOptions'),
             'org_tubepress_api_const_options_values_GallerySourceValue'		    => array('favorites', 'most_discussed', 'most_recent', 'most_responded', 'most_viewed', 'playlist', 'recently_featured', 'tag', 'top_rated', 'user', 'vimeoAlbum', 'vimeoAppearsIn', 'vimeoChannel', 'vimeoCreditedTo', 'vimeoGroup', 'vimeoLikes', 'vimeoSearch', 'vimeoUploadedBy', 'youtubeTopFavorites'),
-            'org_tubepress_api_const_options_values_OrderByValue'				=> array('commentCount', 'duration', 'newest', 'oldest', 'position', 'published', 'random', 'rating', 'relevance', 'title', 'viewCount'),
+            'org_tubepress_api_const_options_values_OrderByValue'				=> array('commentCount', 'duration', 'newest', 'oldest', 'position', 'random', 'rating', 'relevance', 'title', 'viewCount'),
             'org_tubepress_api_const_options_values_OutputValue'				=> array('ajaxSearchInput', 'searchInput', 'searchResults', 'player'),
             'org_tubepress_api_const_options_values_PlayerImplementationValue'	=> array('embedplus', 'longtail', 'provider_based'),
             'org_tubepress_api_const_options_values_PlayerLocationValue'		=> array('fancybox', 'jqmodal', 'normal', 'popup', 'shadowbox', 'solo', 'static', 'tinybox', 'vimeo', 'youtube', 'detached'),

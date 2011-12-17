@@ -279,9 +279,6 @@ msgstr "عدد المشاهدات"
 msgid "rating"
 msgstr "التقييم"
 
-msgid "date published"
-msgstr "تاريخ النشر"
-
 msgid "randomly"
 msgstr "عشوائي"
 
@@ -339,10 +336,10 @@ msgstr "التطبيق"
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
 msgstr "ليس كل أنواع الترتيب متاحة لجميع أنواع العروض"
 
-msgid "newest"
+msgid "date published (newest first)"
 msgstr "الأحدث"
 
-msgid "oldest"
+msgid "date published (oldest first)"
 msgstr "الأقدم"
 
 msgid "Theme"

@@ -194,8 +194,14 @@ class org_tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommand extends org_t
         }
 
         /* any feed can take these */
-        if ($order == org_tubepress_api_const_options_values_OrderByValue::VIEW_COUNT || $order == org_tubepress_api_const_options_values_OrderByValue::DATE_PUBLISHED) {
+        if ($order == org_tubepress_api_const_options_values_OrderByValue::VIEW_COUNT) {
             $url->setQueryVariable(self::PARAM_ORDER, $order);
+            return;
+        }
+        
+        if ($order == org_tubepress_api_const_options_values_OrderByValue::NEWEST) {
+            
+            $url->setQueryVariable(self::PARAM_ORDER, 'published');
             return;
         }
 

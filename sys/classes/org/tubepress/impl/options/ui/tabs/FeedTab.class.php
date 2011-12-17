@@ -51,7 +51,7 @@ class org_tubepress_impl_options_ui_tabs_FeedTab extends org_tubepress_impl_opti
             $fieldBuilder->build(org_tubepress_api_const_options_names_Feed::VIMEO_SECRET,     org_tubepress_impl_options_ui_fields_TextField::__),
             $fieldBuilder->build(org_tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST,  org_tubepress_impl_options_ui_fields_TextField::__),
             $fieldBuilder->build(org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER, org_tubepress_impl_options_ui_fields_TextField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Feed::FILTER,           org_tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Feed::FILTER,           org_tubepress_impl_options_ui_fields_DropDownField::_),
             $fieldBuilder->build(org_tubepress_api_const_options_names_Feed::EMBEDDABLE_ONLY,  org_tubepress_impl_options_ui_fields_BooleanField::__),
         );
     }

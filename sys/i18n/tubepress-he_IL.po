@@ -278,9 +278,6 @@ msgstr "מספר צפיות "
 msgid "rating"
 msgstr "דירוג "
 
-msgid "date published"
-msgstr "תאריך הפרסום "
-
 msgid "randomly"
 msgstr "אקראי "
 
@@ -383,10 +380,10 @@ msgstr ""
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
 msgstr ""
 
-msgid "newest"
+msgid "date published (newest first)"
 msgstr ""
 
-msgid "oldest"
+msgid "date published (oldest first)"
 msgstr ""
 
 msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature."

@@ -165,17 +165,16 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$this->assertTrue($option->getDefaultValue() === org_tubepress_api_const_options_values_OrderByValue::VIEW_COUNT, $option->getName());
     	$this->assertTrue($option->getDescription() === 'Not all sort orders can be applied to all gallery types. See the <a href="http://tubepress.org/documentation">documentation</a> for more info.', $option->getName());
     	$this->assertTrue($option->getAcceptableValues() === array(
-        	org_tubepress_api_const_options_values_OrderByValue::RELEVANCE      => 'relevance',
-        	org_tubepress_api_const_options_values_OrderByValue::VIEW_COUNT     => 'view count',
-        	org_tubepress_api_const_options_values_OrderByValue::RATING         => 'rating',
-        	org_tubepress_api_const_options_values_OrderByValue::DATE_PUBLISHED => 'date published',
-        	org_tubepress_api_const_options_values_OrderByValue::RANDOM         => 'randomly',
-        	org_tubepress_api_const_options_values_OrderByValue::POSITION       => 'position in a playlist',
         	org_tubepress_api_const_options_values_OrderByValue::COMMENT_COUNT  => 'comment count',
+        	org_tubepress_api_const_options_values_OrderByValue::NEWEST         => 'date published (newest first)',
+        	org_tubepress_api_const_options_values_OrderByValue::OLDEST         => 'date published (oldest first)',
         	org_tubepress_api_const_options_values_OrderByValue::DURATION       => 'length',
+        	org_tubepress_api_const_options_values_OrderByValue::POSITION       => 'position in a playlist',
+        	org_tubepress_api_const_options_values_OrderByValue::RANDOM         => 'randomly',
+        	org_tubepress_api_const_options_values_OrderByValue::RATING         => 'rating',
+        	org_tubepress_api_const_options_values_OrderByValue::RELEVANCE      => 'relevance',
         	org_tubepress_api_const_options_values_OrderByValue::TITLE          => 'title',
-        	org_tubepress_api_const_options_values_OrderByValue::NEWEST         => 'newest',
-        	org_tubepress_api_const_options_values_OrderByValue::OLDEST         => 'oldest',
+        	org_tubepress_api_const_options_values_OrderByValue::VIEW_COUNT     => 'view count',
     	), $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
@@ -346,7 +345,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER);
     	$this->assertTrue($option->getLabel() === 'Restrict search results to videos from author', $option->getName());
     	$this->assertTrue($option->getDescription() === 'A YouTube or Vimeo user name. Only applies to search-based galleries.', $option->getName());
-    	$this->assertTrue($option->getValidValueRegex() === '/\w+/', $option->getName());
+    	$this->assertTrue($option->getValidValueRegex() === '/(?:\w+)?/', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Feed::VIMEO_KEY);
@@ -387,19 +386,19 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Meta::LIKES);
-    	$this->assertTrue($option->getLabel() === 'Likes', $option->getName());
+    	$this->assertTrue($option->getLabel() === 'Number of "likes"', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === false, $option->getName());
     	$this->assertTrue($option->isApplicableToYouTube() === false, $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Meta::RATING);
-    	$this->assertTrue($option->getLabel() === 'Rating', $option->getName());
+    	$this->assertTrue($option->getLabel() === 'Average rating', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === false, $option->getName());
     	$this->assertTrue($option->isApplicableToVimeo() === false, $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Meta::RATINGS);
-    	$this->assertTrue($option->getLabel() === 'Ratings', $option->getName());
+    	$this->assertTrue($option->getLabel() === 'Number of ratings', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === false, $option->getName());
     	$this->assertTrue($option->isApplicableToVimeo() === false, $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
@@ -415,7 +414,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Meta::UPLOADED);
-    	$this->assertTrue($option->getLabel() === 'Posted', $option->getName());
+    	$this->assertTrue($option->getLabel() === 'Date posted', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === false, $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
@@ -425,7 +424,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Meta::VIEWS);
-    	$this->assertTrue($option->getLabel() === 'Views', $option->getName());
+    	$this->assertTrue($option->getLabel() === 'View count', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === true, $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 

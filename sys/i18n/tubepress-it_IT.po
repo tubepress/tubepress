@@ -336,9 +336,6 @@ msgstr "più visti"
 msgid "rating"
 msgstr "più votati"
 
-msgid "date published"
-msgstr "recenti"
-
 msgid "randomly"
 msgstr "casualmente"
 
@@ -399,10 +396,10 @@ msgstr "Il marchio del player. Predefinito al player del provider (YouTube, Vime
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
 msgstr "Non tutti gli ordini di disposizione possono essere applicati a tutti i tipi di gallerie. Leggi la <a href=\"http://tubepress.org/documentation\">documentazione</a> per ulteriori informazioni."
 
-msgid "newest"
+msgid "date published (newest first)"
 msgstr "recente"
 
-msgid "oldest"
+msgid "date published (oldest first)"
 msgstr "precedente"
 
 msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature."

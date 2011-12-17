@@ -291,9 +291,6 @@ msgstr "conteo de vistas"
 msgid "rating"
 msgstr "rating"
 
-msgid "date published"
-msgstr "fecha publicado"
-
 msgid "randomly"
 msgstr "al azar"
 
@@ -396,10 +393,10 @@ msgstr "Le gusta"
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
 msgstr "No todas las formas de ordenamiento se pueden aplicar a todos los tipos de galerías. Para mas detalles, revise la <a href=\"http://tubepress.org/documentation\">documentación </a>"
 
-msgid "newest"
+msgid "date published (newest first)"
 msgstr "más recientes"
 
-msgid "oldest"
+msgid "date published (oldest first)"
 msgstr "más antiguos"
 
 msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature."

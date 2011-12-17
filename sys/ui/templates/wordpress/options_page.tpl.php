@@ -48,12 +48,7 @@
 
 	jQuery(document).ready(function () {
 
-		var opts = {
-
-				selectedText : 'choose...'
-		},
-
-		normalizeProviderName = function (raw) {
+		var normalizeProviderName = function (raw) {
 
 			var normal = raw.replace('show', '').replace('Options', '');
 
@@ -111,8 +106,16 @@
 		};
 
 		//make the multi-selects
-		jQuery('#multiselect-filterdropdown').multiselect(opts);
-		jQuery('#multiselect-metadropdown').multiselect(opts);
+		jQuery('#multiselect-filterdropdown').multiselect({
+
+			selectedText : 'choose...'
+		});
+		
+		jQuery('#multiselect-metadropdown').multiselect({
+
+			selectedText : 'choose...',
+			height: 350
+		});
 
 		//bind to value changes on the filter drop-down
 		jQuery('#multiselect-filterdropdown').change(filterHandler);

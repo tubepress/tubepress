@@ -55,13 +55,13 @@ class org_tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUni
 	    $od = \Mockery::mock(org_tubepress_api_options_OptionDescriptor::_);
 	    $od->shouldReceive('hasValidValueRegex')->atLeast()->once()->andReturn(false);
 	    $od->shouldReceive('hasDiscreteAcceptableValues')->atLeast()->once()->andReturn(true);
-	    $od->shouldReceive('getAcceptableValues')->atLeast()->once()->andReturn(array('bar', 'two'));
+	    $od->shouldReceive('getAcceptableValues')->atLeast()->once()->andReturn(array('biz' => 'bar', 'butt' => 'two'));
 
 	    $odr->shouldReceive('findOneByName')->atLeast()->once()->with('name')->andReturn($od);
 
 	    $this->assertTrue($this->_sut->isValid('name', 'foo') === false);
-	    $this->assertEquals('"name" must be one of {bar, two}. You supplied "foo".', $this->_sut->getProblemMessage('name', 'foo'));
-	    $this->assertTrue($this->_sut->isValid('name', 'bar') === true);
+	    $this->assertEquals('"name" must be one of {biz, butt}. You supplied "foo".', $this->_sut->getProblemMessage('name', 'foo'));
+	    $this->assertTrue($this->_sut->isValid('name', 'biz') === true);
 	}
 
 	public function testBadRegex()

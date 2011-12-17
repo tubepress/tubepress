@@ -135,7 +135,7 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBase
         /* run it through validation. */
         if (! $validator->isValid($name, $value)) {
 
-            return array($validator->getFailureMessage($name, $value));
+            return array($validator->getProblemMessage($name, $value));
         }
 
         $storageManager->set($name, $value);

@@ -25,7 +25,6 @@
 class org_tubepress_api_const_options_values_OrderByValue
 {
     const COMMENT_COUNT  = 'commentCount';
-    const DATE_PUBLISHED = 'published';
     const DURATION       = 'duration';
     const NEWEST         = 'newest';
     const OLDEST         = 'oldest';
