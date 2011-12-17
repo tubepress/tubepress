@@ -50,7 +50,7 @@ msgstr "Недавно добавленные видео"
 msgid "Most-discussed YouTube videos from"
 msgstr "Лидеры обсуждений (Самое обсуждаемое видео)"
 
-msgid "Most-responded to videos from"
+msgid "Most-responded to YouTube videos from"
 msgstr "Лидеры по ответам"
 
 msgid "View count"
@@ -515,7 +515,7 @@ msgstr ""
 msgid "Thumbnails per page"
 msgstr ""
 
-msgid "Show each video's ..."
+msgid "Show each video's..."
 msgstr ""
 
 msgid "YouTube"

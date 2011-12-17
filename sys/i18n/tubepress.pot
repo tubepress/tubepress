@@ -65,7 +65,7 @@ msgstr ""
 msgid "Most-discussed YouTube videos from"
 msgstr ""
 
-msgid "Most-responded to videos from"
+msgid "Most-responded to YouTube videos from"
 msgstr ""
 
 msgid "Videos uploaded by this Vimeo user"
@@ -527,7 +527,7 @@ msgstr ""
 msgid "Thumbnails per page"
 msgstr ""
 
-msgid "Show each video's ..."
+msgid "Show each video's..."
 msgstr ""
 
 msgid "YouTube"

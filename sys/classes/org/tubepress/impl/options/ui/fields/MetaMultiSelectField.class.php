@@ -58,7 +58,7 @@ class org_tubepress_impl_options_ui_fields_MetaMultiSelectField extends org_tube
 
     protected function getRawTitle()
     {
-        return 'Show each video\'s ...';   //>(translatable)<
+        return 'Show each video\'s...';   //>(translatable)<
     }
 
     protected function getRawDescription()

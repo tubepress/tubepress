@@ -65,7 +65,7 @@ msgstr "Os vídeos adicionados mais recentemente"
 msgid "Most-discussed YouTube videos from"
 msgstr "Os vídeos mais comentados"
 
-msgid "Most-responded to videos from"
+msgid "Most-responded to YouTube videos from"
 msgstr "Os vídeos com mais respostas"
 
 msgid "View count"
@@ -530,7 +530,7 @@ msgstr ""
 msgid "Thumbnails per page"
 msgstr ""
 
-msgid "Show each video's ..."
+msgid "Show each video's..."
 msgstr ""
 
 msgid "YouTube"

@@ -49,7 +49,7 @@ msgstr "Les vidéos les plus récentes"
 msgid "Most-discussed YouTube videos from"
 msgstr "Les vidéos les plus commentées"
 
-msgid "Most-responded to videos from"
+msgid "Most-responded to YouTube videos from"
 msgstr "Les vidéos les plus répondues"
 
 msgid "View count"
@@ -514,7 +514,7 @@ msgstr ""
 msgid "A YouTube or Vimeo user name. Only applies to search-based galleries."
 msgstr ""
 
-msgid "Show each video's ..."
+msgid "Show each video's..."
 msgstr ""
 
 msgid "YouTube"

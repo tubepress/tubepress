@@ -25,37 +25,34 @@ msgstr "Muokkaa lisäosan oletusasetuksia. Asetukset voi ohittaa sivu/artikkelik
 msgid "Which videos?"
 msgstr "Mitkä videot?"
 
-msgid "Top rated videos from..."
+msgid "Top-rated YouTube videos from"
 msgstr "Parhaat videot"
 
 msgid "This YouTube user's \"favorites\""
 msgstr "Tämän YouTube-käyttäjän \"suosikit\""
 
-msgid "The latest \"featured\" videos on YouTube's homepage"
+msgid "The latest \"featured\" videos on YouTube's homepage from"
 msgstr "Uusimmat YouTuben etusivun videot"
 
-msgid "Videos for mobile phones"
-msgstr "Mobiililaitteille sovitetut videot"
-
-msgid "This playlist"
+msgid "This YouTube playlist"
 msgstr "Soittolista"
 
 msgid "Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35"
 msgstr "Max 200 videota per soittolista. Näyttää yleensä tältä: D2B04665B213AE35. Kopioi soittolistan ID web-osoitteen lopusta. Esim: http://youtube.com/my_playlists?p=D2B04665B213AE35"
 
-msgid "Most-viewed videos from"
+msgid "Most-viewed YouTube videos from"
 msgstr "Katsotuimmat videot"
 
-msgid "Videos most frequently flagged as favorites from..."
-msgstr "Useimmin suosikkeihin päätyneet videot..."
+msgid "Most-favorited YouTube videos from"
+msgstr "Useimmin suosikkeihin päätyneet videot"
 
-msgid "Most-recently added videos"
+msgid "Most-recently added YouTube videos from"
 msgstr "Uusimmat videot"
 
-msgid "Most-discussed videos"
+msgid "Most-discussed YouTube videos from"
 msgstr "Eniten keskustelua herättäneet videot"
 
-msgid "Most-responded to videos"
+msgid "Most-responded to YouTube videos from"
 msgstr "Eniten vastauksia saaneet videot"
 
 msgid "Videos uploaded by this Vimeo user"
@@ -67,7 +64,7 @@ msgstr "Tämän Vimeo-käyttäjän suosikit"
 msgid "Videos this Vimeo user appears in"
 msgstr "Videot, joissa tämä Vimeo-käyttäjä esiintyy"
 
-msgid "Vimeo search for..."
+msgid "Vimeo search for"
 msgstr "Vimeo-haku"
 
 msgid "Videos credited to this Vimeo user (either appears in or uploaded by)"
@@ -82,17 +79,17 @@ msgstr "Videot tästä Vimeo-albumista"
 msgid "Videos from this Vimeo group"
 msgstr "Videot tästä Vimeo-ryhmästä"
 
-msgid "Views"
+msgid "View count"
 msgstr "Katsottu"
 
-msgid "YouTube search for..."
+msgid "YouTube search for"
 msgstr "YouTube-haku"
 
 msgid "Videos from this YouTube user"
 msgstr "Videot tältä YouTube-käyttäjältä"
 
-msgid "YouTube limits this mode to 1,000 results"
-msgstr "YouTuben rajoitus: 1000 videota"
+msgid "YouTube limits this to 1,000 results."
+msgstr "YouTuben rajoitus: 1000 videota."
 
 msgid "Play each video"
 msgstr "Käytä videoiden "
@@ -109,25 +106,25 @@ msgstr "Maksimimäärä merkkejä, joita näytetään videoiden kuvauksissa. 0 n
 msgid "Height (px) of thumbs"
 msgstr "Esikatselukuvien korkeus pikseleinä"
 
-msgid "Default is 90"
-msgstr "Oletus on 90"
+msgid "Default is 90."
+msgstr "Oletus on 90."
 
 msgid "Width (px) of thumbs"
 msgstr "Esikatselukuvien leveys pikseleinä"
 
-msgid "Default is 120"
-msgstr "Oletus on 120"
+msgid "Default is 120."
+msgstr "Oletus on 120."
 
 msgid "Use relative dates"
 msgstr "Käytä suhteellisia päivämääriä"
 
-msgid "e.g. \"yesterday\" instead of \"November 3, 1980\""
-msgstr "esim. \"eilen\" tämän sijaan: \"marraskuun 3, 1980\""
+msgid "e.g. \"yesterday\" instead of \"November 3, 1980\"."
+msgstr "esim. \"eilen\" tämän sijaan: \"marraskuun 3, 1980\"."
 
-msgid "Videos per Page"
+msgid "Thumbnails per page"
 msgstr "Videoita sivulla"
 
-msgid "Default is 20. Maximum is 50"
+msgid "Default is 20. Maximum is 50."
 msgstr "Oletus on 20, maksimi 50."
 
 msgid "Show pagination above thumbnails"
@@ -142,40 +139,40 @@ msgstr "Käytä korkeatasoisia esikatselukuvia"
 msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-enabled pagination"
 msgstr "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-sivutus"
 
-msgid "Only applies to galleries that span multiple pages"
+msgid "Only applies to galleries that span multiple pages."
 msgstr "Vaikuttaa vain gallerioihin, jotka on jaettu useammalle sivulle"
 
 msgid "Order videos by"
 msgstr "Videoiden järjestys"
 
-msgid "Embedded Player"
+msgid "Player"
 msgstr "Upotettu soitin"
 
 msgid "Auto-play all videos"
 msgstr "Soita kaikki videot automaattisesti"
 
-msgid "Allow fullscreen playback"
-msgstr "Salli kokoruudun katselu"
+msgid "Allow fullscreen playback."
+msgstr "Salli kokoruudun katselu."
 
 msgid "Max height (px)"
 msgstr "Maksimikorkeus (px)"
 
-msgid "Default is 350"
-msgstr "Oletus on 350"
+msgid "Default is 350."
+msgstr "Oletus on 350."
 
-msgid "Default is 425"
-msgstr "Oletus on 425"
+msgid "Default is 425."
+msgstr "Oletus on 425."
 
-msgid "Default is 999999"
-msgstr "Oletus on 999999"
+msgid "Default is 999999."
+msgstr "Oletus on 999999."
 
-msgid "Default is FFFFFF"
-msgstr "Oletus on FFFFFF"
+msgid "Default is FFFFFF."
+msgstr "Oletus on FFFFFF."
 
 msgid "Loop"
 msgstr "Toista"
 
-msgid "Continue playing the video until the user stops it"
+msgid "Continue playing the video until the user stops it."
 msgstr "Anna videon pyöriä ennen kuin käyttäjä pysäyttää sen"
 
 msgid "Show title and rating before video starts"
@@ -190,16 +187,16 @@ msgstr "Korostusväri"
 msgid "Show related videos"
 msgstr "Näytä videoita samasta aiheesta"
 
-msgid "Toggles the display of related videos after a video finishes"
+msgid "Toggles the display of related videos after a video finishes."
 msgstr "Valitse, näytetäänkö videon loputtua lista aiheeseen liittyvistä videoista"
 
-msgid "Show videos in high definition when available"
+msgid "Allow high definition playback"
 msgstr "Näytä video HD-laatuisena, jos mahdollista"
 
-msgid "Provider Feed"
+msgid "Feed"
 msgstr "Syötteen asetukset"
 
-msgid "Meta Display"
+msgid "Meta"
 msgstr "Metatiedot"
 
 msgid "Author"
@@ -214,16 +211,13 @@ msgstr "Kuvaus"
 msgid "ID"
 msgstr "ID"
 
-msgid "Length"
-msgstr "Pituus"
-
-msgid "Likes"
+msgid "Number of \"likes\""
 msgstr "Tykkäyksiä"
 
-msgid "Rating"
+msgid "Average rating"
 msgstr "Arvio"
 
-msgid "Ratings"
+msgid "Number of ratings"
 msgstr "Arviot"
 
 msgid "Keywords"
@@ -232,7 +226,7 @@ msgstr "Avainsanat"
 msgid "Title"
 msgstr "Otsikko"
 
-msgid "Posted"
+msgid "Date posted"
 msgstr "Julkaistu"
 
 msgid "Runtime"
@@ -250,10 +244,10 @@ msgstr "Päivämäärän esitysmuoto"
 msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\">date</a> for examples."
 msgstr "Videoiden päivämäärätiedon esitystapa. Katso <a href=\"http://us.php.net/date\">date</a>."
 
-msgid "Videos blacklist"
+msgid "Video blacklist"
 msgstr "Videoiden musta lista"
 
-msgid "List of video IDs that should never be displayed"
+msgid "A list of video IDs that should never be displayed."
 msgstr "Lista videoiden ID:istä, joita et halua näyttää"
 
 msgid "Enable debugging"
@@ -274,10 +268,10 @@ msgstr "Lyhytkoodin avainsana"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "Gallerian generoimiseen käytettävä avainsana (sijoitetaan hakasulkeisiin artikkeleihin/sivuihin)."
 
-msgid "Randomize thumbnails"
+msgid "Randomize thumbnail images"
 msgstr "Näytä satunnainen esikatselukuva"
 
-msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized. Note: this option cannot be used with the \"high quality thumbnails\" feature"
+msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized. Note: this option cannot be used with the \"high quality thumbnails\" feature."
 msgstr "Useimmissa videoissa on monta pikkukuvaa. Tämä asetus valitsee aina yhden niistä sattumanvaraisesti. HUOM. Tätä asetusta ei voi käyttää yhdessä \"Käytä korkeatasoisia esikatselukuvia\" -asetuksen kanssa."
 
 msgid "YouTube API Developer Key"
@@ -286,7 +280,7 @@ msgstr "YouTube API Developer Key"
 msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing."
 msgstr "YouTube käyttää tätä developer keytä tilastointi ja debuggaustarkoituksiin jos palvelun käytössä on ongelmia heidän päässään. Voit rekisteröidä uuden asiakas-ID:n <a href=\"http://code.google.com/apis/youtube/dashboard/\">täällä</a>. Älä muuta tätä ellet tiedä mitä olet tekemässä."
 
-msgid "Enable request cache"
+msgid "Enable API cache"
 msgstr "Käytä välimuistia"
 
 msgid "Only retrieve embeddable videos"
@@ -295,7 +289,7 @@ msgstr "Hae vain upotettavat videot"
 msgid "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries."
 msgstr "Joissakin videoissa upottaminen on estetty. Tällä asetuksella voit jättää kyseiset videot galleriasta pois."
 
-msgid "Store network responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
+msgid "Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness."
 msgstr "Tallenna verkkohaut paikallisesti 1 tunniksi. Jokainen haku on kooltaan muutama 100 KB, joten tämän asetuksen käyttöönotto vähentää huomattavasti gallerioiden latausaikoja, tuoreuden kustannuksella."
 
 msgid "Maximum total videos to retrieve"
@@ -303,9 +297,6 @@ msgstr "Maksimimäärä haettavia videoita"
 
 msgid "This can help to reduce the number of pages in your gallery. Set to \"0\" to remove any limit."
 msgstr "Tällä voit vähentää galleriassa olevien sivujen määrää. Jos et halua rajoittaa videoiden määrää, aseta arvoksi \"0\"."
-
-msgid "Appearance"
-msgstr "Ulkoasu"
 
 msgid "normally (at the top of your gallery)"
 msgstr "normaali (gallerian yläosassa)"
@@ -346,9 +337,6 @@ msgstr "katselukerrat"
 msgid "rating"
 msgstr "tähtiluokitus"
 
-msgid "date published"
-msgstr "julkaisupäivämäärä"
-
 msgid "randomly"
 msgstr "satunnaisesti"
 
@@ -382,7 +370,7 @@ msgstr "seuraava"
 msgid "prev"
 msgstr "edellinen"
 
-msgid "Displays YouTube videos in your sidebar using TubePress"
+msgid "Displays YouTube or Vimeo videos with TubePress"
 msgstr "Näyttää YouTube-videot sivupalkissa"
 
 msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>."
@@ -406,56 +394,20 @@ msgstr "JW FLV Media Player (by Longtail Video)"
 msgid "Implementation"
 msgstr "Toteutus"
 
-msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)"
-msgstr "Upotetun soittimen tyyppi. Oletus on tarjoajan oma (YouTube, Vimeo, jne)"
-
-msgid "%s can only take on integer values. You supplied %s."
-msgstr "%s hyväksyy vain numeroarvoja. Sinä kirjoitit: %s."
-
-msgid "%s must be a string. You supplied %s."
-msgstr "%s on oltava merkkijono. Sinä kirjoitit: %s."
-
-msgid "\"%s\" is not a valid option name."
-msgstr "\"%s\" ei ole hyväksyttävä asetus."
-
-msgid "\"%s\" must be either true or false. You supplied \"%s\"."
-msgstr "\"%s\" on oltava joko true tai false. Sinä kirjoitit: \"%s\"."
-
-msgid "\"%s\" must be one of \"%s\". You supplied \"%s\"."
-msgstr "\"%s\" kelpuuttaa vain vaihtoehdot \"%s\". Sinä kirjoitit: \"%s\"."
-
-msgid "\"%s\" must be between \"%d\" and \"%d\". You supplied \"%d\"."
-msgstr "\"%s\" hyväksyy vain arvot välillä \"%d\" ja \"%d\". Sinä kirjoitit: \"%d\"."
+msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
+msgstr "Upotetun soittimen tyyppi. Oletus on tarjoajan oma (YouTube, Vimeo, jne)."
 
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
 msgstr "Kaikkia järjestämistapoja ei voi käyttää kaikissa galleriatyypeissä. Katso <a href=\"http://tubepress.org/documentation\">dokumentaatio</a>."
 
-msgid "newest"
+msgid "date published (newest first)"
 msgstr "uusimmat"
 
-msgid "oldest"
+msgid "date published (oldest first)"
 msgstr "vanhimmat"
 
-msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature"
+msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature."
 msgstr "Huom: tätä asetusta ei voi käyttää \"Näytä satunnainen esikatselukuva\" -asetuksen kanssa"
-
-msgid "%s is not executable or does not exist."
-msgstr "%s ei ole suoritettava tiedosto, tai sitä ei ole olemassa."
-
-msgid "Thumbs per video"
-msgstr "Näytettävien esikatselukuvien määrä / video"
-
-msgid "How many thumbnails to generate for each video. TubePress can randomly display the thumbs each time someone visits the gallery. See the \"Randomize thumbnails\" option under the \"Appearance\" tab."
-msgstr "Montako esikatselukuvaa generoidaan kullekin videolle."
-
-msgid "This option cannot contain two consecutive periods"
-msgstr "Tämä asetus ei voi sisältää kahta peräkkäistä pistettä"
-
-msgid "%s is not a directory"
-msgstr "%s ei ole hakemisto"
-
-msgid "%s is not readable"
-msgstr "Kohdetta %s ei pystytä lukemaan"
 
 msgid "Theme"
 msgstr "Teema"
@@ -505,7 +457,7 @@ msgstr "Poista käytöstä <a href=\"http://php.net/manual/en/intro.stream.php\"
 msgid "Cache directory"
 msgstr "Välimuistihakemisto"
 
-msgid "Leave blank to attempt to use system temp directory. Otherwise enter the absolute path of a writeable directory."
+msgid "Leave blank to attempt to use your system's temp directory. Otherwise enter the absolute path of a writeable directory."
 msgstr "Jätä tyhjäksi käyttääksesi järjestelmän oletushakemistoa, tai syötä absoluuttinen hakemistopolku hakemistoon, johon web-palvelimella on kirjoitusoikeudet."
 
 msgid "Cache expiration time (seconds)"
@@ -523,11 +475,11 @@ msgstr "Jos syötät arvoksi X, koko välimuisti tyhjennetään 1/X välimuistii
 msgid "Only show options applicable to..."
 msgstr "Näytä ainoastaan näiden palveluiden asetukset..."
 
-msgid "Restrict search results to videos from this user"
+msgid "Restrict search results to videos from author"
 msgstr "Rajoita haku tämän käyttäjän videoihin"
 
-msgid "Only applies to search-based galleries"
-msgstr "Pätee vain hakupohjaisiin gallerioihin"
+msgid "A YouTube or Vimeo user name. Only applies to search-based galleries."
+msgstr "Pätee vain hakupohjaisiin gallerioihin."
 
 msgid "No matching videos"
 msgstr "Ei hakutuloksia"
@@ -544,6 +496,29 @@ msgstr "Aseta esikatselukuvien välit ympäröivän elementin leveyden perusteel
 msgid "\"Lazy\" play videos"
 msgstr "Videoiden soittaminen"
 
-msgid "Auto-play each video after thumbnail click"
-msgstr "Video alkaa pyöriä heti esikatselukuvan painamisen jälkeen"
+msgid "Auto-play each video after thumbnail click."
+msgstr "Video alkaa pyöriä heti esikatselukuvan painamisen jälkeen."
 
+msgid "in a \"detached\" location (see the documentation)"
+msgstr ""
+
+msgid "Vimeo"
+msgstr ""
+
+msgid "YouTube"
+msgstr ""
+
+msgid "Show each video's..."
+msgstr ""
+
+msgid "Cache"
+msgstr ""
+
+msgid "Thumbnails"
+msgstr ""
+
+msgid "No viewable videos"
+msgstr ""
+
+msgid "Could not find video with ID %s"
+msgstr ""

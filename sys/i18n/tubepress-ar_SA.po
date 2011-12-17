@@ -62,7 +62,7 @@ msgstr "أحدث الفيديوهات"
 msgid "Most-discussed YouTube videos from"
 msgstr "أكثر الفيديوهات جدلاً"
 
-msgid "Most-responded to videos from"
+msgid "Most-responded to YouTube videos from"
 msgstr "أكثر الفيديوهات ردوداً"
 
 msgid "Videos uploaded by this Vimeo user"
@@ -528,7 +528,7 @@ msgstr ""
 msgid "Meta"
 msgstr ""
 
-msgid "Show each video's ..."
+msgid "Show each video's..."
 msgstr ""
 
 msgid "YouTube"

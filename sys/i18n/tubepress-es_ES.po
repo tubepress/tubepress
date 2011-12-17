@@ -62,7 +62,7 @@ msgstr "Videos más recientes"
 msgid "Most-discussed YouTube videos from"
 msgstr "Videos más discutidos"
 
-msgid "Most-responded to videos from"
+msgid "Most-responded to YouTube videos from"
 msgstr "Videos con más respuestas"
 
 msgid "View count"
@@ -528,7 +528,7 @@ msgstr ""
 msgid "Restrict search results to videos from author"
 msgstr ""
 
-msgid "Show each video's ..."
+msgid "Show each video's..."
 msgstr ""
 
 msgid "YouTube"
