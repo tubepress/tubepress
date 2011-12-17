@@ -76,7 +76,7 @@ class org_tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePres
         $template->shouldReceive('setVariable')->once()->with(org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_TEXT, '<<save>>');
         $template->shouldReceive('setVariable')->once()->with(org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_ID, 'tubepress_save');
         $template->shouldReceive('setVariable')->once()->with(org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TABS, '<<tabhtml>>');
-        $template->shouldReceive('setVariable')->once()->with(org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER, '<<filterhtml>>');
+        $template->shouldReceive('setVariable')->once()->with(org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER, $filter);
         $template->shouldReceive('toString')->once()->andReturn('foo');
 
         $this->assertEquals('foo', $this->_sut->getHtml());

@@ -6,8 +6,12 @@ class org_tubepress_impl_template_templates_wordpress_OptionsPageTemplateTest ex
 
     public function test()
     {
+        $filter = \Mockery::mock(org_tubepress_spi_options_ui_Field::__);
+        $filter->shouldReceive('getTitle')->once()->andReturn('filter-title');
+        $filter->shouldReceive('getHtml')->once()->andReturn('filter-html');
+        
         ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TITLE}    = '<<template-var-title>>';
-        ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER}    = '<<template-var-filter>>';
+        ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER}    = $filter;
         ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_INTRO}    = '<<template-var-intro>>';
         ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_ID}    = '<<template-var-saveid>>';
         ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_TEXT}    = '<<template-var-savetext>>';
@@ -30,23 +34,22 @@ class org_tubepress_impl_template_templates_wordpress_OptionsPageTemplateTest ex
     private function _expected()
     {
         return <<<EOT
-<div class="wrap">
-
-	<form method="post">
-
-    	<h2><<template-var-title>></h2>
-
-    	<div style="margin-bottom: 1em; width: 60%; float: left">
-    	    <<template-var-intro>>    	</div>
-
-    	<<template-var-filter>>
-    	<<template-var-tabs>>
-    	<br />
-    	<input type="submit" name="<<template-var-saveid>>" class="button-primary" value="<<template-var-savetext>>" />
-    	<br /><br />
-
-	</form>
-</div>
+<div class="wrap">	
+<form method="post">    	
+<h2><<template-var-title>></h2>    	
+<div style="margin-bottom: 1em; width: 100%; float: left">    	    
+<div style="float: left; width: 59%">    	        
+<<template-var-intro>>    	    
+</div>    	    
+<div style="float: right">	    				
+filter-title filter-html    	    
+</div>    	
+</div>    	
+<<template-var-tabs>>    	
+<br />    	
+<input type="submit" name="<<template-var-saveid>>" class="button-primary" value="<<template-var-savetext>>" />    	
+<br /><br />	
+</form></div>
 
 EOT;
     }

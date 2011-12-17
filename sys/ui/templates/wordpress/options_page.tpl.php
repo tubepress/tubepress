@@ -25,11 +25,15 @@
 
     	<h2><?php echo ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TITLE}; ?></h2>
 
-    	<div style="margin-bottom: 1em; width: 60%; float: left">
-    	    <?php echo ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_INTRO}; ?>
+    	<div style="margin-bottom: 1em; width: 100%; float: left">
+    	    <div style="float: left; width: 59%">
+    	        <?php echo ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_INTRO}; ?>
+    	    </div>
+    	    <div style="float: right">	    
+				<?php echo ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER}->getTitle() ?> <?php echo ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER}->getHtml(); ?>
+    	    </div>
     	</div>
 
-    	<?php echo ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER}; ?>
 
     	<?php echo ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TABS}; ?>
 

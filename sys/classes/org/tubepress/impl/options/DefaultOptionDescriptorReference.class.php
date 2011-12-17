@@ -734,11 +734,13 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS);
         $option->setDefaultValue(true);
+        $option->setLabel('Vimeo');    //>(translatable)<
         $option->setBoolean();
         $this->register($option);
         
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS);
         $option->setDefaultValue(true);
+        $option->setLabel('YouTube');    //>(translatable)<
         $option->setBoolean();
         $this->register($option);
     }

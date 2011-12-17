@@ -532,3 +532,9 @@ msgstr ""
 
 msgid "Show each video's ..."
 msgstr ""
+
+msgid "YouTube"
+msgstr ""
+
+msgid "Vimeo"
+msgstr ""

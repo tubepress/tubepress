@@ -69,7 +69,7 @@ abstract class org_tubepress_impl_options_ui_AbstractFormHandler extends org_tub
         $template->setVariable(self::TEMPLATE_VAR_SAVE_TEXT, $messageService->_('Save'));                                                                                                                                                                                                                                                                                                                                          //>(translatable)<
         $template->setVariable(self::TEMPLATE_VAR_SAVE_ID, 'tubepress_save');
         $template->setVariable(self::TEMPLATE_VAR_TABS, $tabs->getHtml());
-        $template->setVariable(self::TEMPLATE_VAR_FILTER, $filter->getHtml());
+        $template->setVariable(self::TEMPLATE_VAR_FILTER, $filter);
 
         return $template->toString();
     }

@@ -47,8 +47,10 @@ class org_tubepress_impl_env_wordpress_OptionsPage
         $baseName     = $fs->getTubePressInstallationDirectoryBaseName();
 
         wp_register_style('jquery-ui-flick', plugins_url("$baseName/sys/ui/static/css/jquery-ui-flick/jquery-ui-1.8.16.custom.css", $baseName));
+        wp_register_style('tubepress-options-page', plugins_url("$baseName/sys/ui/static/css/wordpress-options-page.css", $baseName));
         wp_register_script('jscolor-tubepress', plugins_url("$baseName/sys/ui/static/js/jscolor/jscolor.js", $baseName));
         wp_enqueue_style('jquery-ui-flick');
+        wp_enqueue_style('tubepress-options-page');
         wp_enqueue_script('jquery-ui-tabs');
         wp_enqueue_script('jscolor-tubepress');
     }
