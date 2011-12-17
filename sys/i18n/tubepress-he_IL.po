@@ -53,7 +53,7 @@ msgstr "קטעי וידאו הכי מדוברים"
 msgid "Most-responded to videos"
 msgstr "קטעי וידאו הכי מוגבים"
 
-msgid "Views"
+msgid "View count"
 msgstr "צפיות "
 
 msgid "YouTube search for"
@@ -173,10 +173,10 @@ msgstr "תיאור "
 msgid "ID"
 msgstr "מק\"ט"
 
-msgid "Rating"
+msgid "Average rating"
 msgstr "דירוג"
 
-msgid "Ratings"
+msgid "Number of ratings"
 msgstr "דירוגים"
 
 msgid "Keywords"
@@ -185,7 +185,7 @@ msgstr "מילות מפתח "
 msgid "Title"
 msgstr "כותרת"
 
-msgid "Posted"
+msgid "Date posted"
 msgstr "פורסם"
 
 msgid "Runtime"
@@ -374,7 +374,7 @@ msgstr ""
 msgid "title"
 msgstr ""
 
-msgid "Likes"
+msgid "Number of \"likes\""
 msgstr ""
 
 msgid "Provider default"

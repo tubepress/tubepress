@@ -65,7 +65,7 @@ msgstr "Am meisten diskutierte Videos"
 msgid "Most-responded to videos"
 msgstr "Am meisten beantworteten Videos"
 
-msgid "Views"
+msgid "View count"
 msgstr "Aufrufe"
 
 msgid "YouTube search for"
@@ -161,13 +161,13 @@ msgstr "Beschreibung"
 msgid "ID"
 msgstr "ID"
 
-msgid "Likes"
+msgid "Number of \"likes\""
 msgstr ""
 
-msgid "Rating"
+msgid "Average rating"
 msgstr "Bewertung"
 
-msgid "Ratings"
+msgid "Number of ratings"
 msgstr "Bewertungen"
 
 msgid "Keywords"
@@ -176,7 +176,7 @@ msgstr "Keywords"
 msgid "Title"
 msgstr "Titel"
 
-msgid "Posted"
+msgid "Date posted"
 msgstr "Hinzugef&uuml;gt am"
 
 msgid "URL"

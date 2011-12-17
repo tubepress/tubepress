@@ -89,7 +89,7 @@ msgstr "الفيديوهات في ألبوم فيميو هذا"
 msgid "Videos from this Vimeo group"
 msgstr "الفيديوهات في مجموعة فيميو هذه"
 
-msgid "Views"
+msgid "View count"
 msgstr "عدد المشاهدات"
 
 msgid "YouTube search for"
@@ -167,13 +167,13 @@ msgstr "الوصف"
 msgid "ID"
 msgstr "رقم التعريف"
 
-msgid "Likes"
+msgid "Number of \"likes\""
 msgstr "عدد المعجبين"
 
-msgid "Rating"
+msgid "Average rating"
 msgstr "تقييم"
 
-msgid "Ratings"
+msgid "Number of ratings"
 msgstr "التقييمات"
 
 msgid "Keywords"
@@ -182,7 +182,7 @@ msgstr "كلمات مفتاحية"
 msgid "Title"
 msgstr "العنوان"
 
-msgid "Posted"
+msgid "Date posted"
 msgstr "منشور"
 
 msgid "Runtime"

@@ -92,7 +92,7 @@ msgstr ""
 msgid "Videos from this Vimeo group"
 msgstr ""
 
-msgid "Views"
+msgid "View count"
 msgstr ""
 
 msgid "YouTube search for"
@@ -215,13 +215,13 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-msgid "Likes"
+msgid "Number of \"likes\""
 msgstr ""
 
-msgid "Rating"
+msgid "Average rating"
 msgstr ""
 
-msgid "Ratings"
+msgid "Number of ratings"
 msgstr ""
 
 msgid "Keywords"
@@ -230,7 +230,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-msgid "Posted"
+msgid "Date posted"
 msgstr ""
 
 msgid "Runtime"

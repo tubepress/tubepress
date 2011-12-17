@@ -51,7 +51,7 @@ msgstr "Videos med flest inlägg"
 msgid "Most-responded to videos"
 msgstr "Videos med flest svar"
 
-msgid "Views"
+msgid "View count"
 msgstr "Spelningar"
 
 msgid "YouTube search for"
@@ -135,10 +135,10 @@ msgstr "Beskrivning"
 msgid "ID"
 msgstr "ID"
 
-msgid "Rating"
+msgid "Average rating"
 msgstr "Betyg"
 
-msgid "Ratings"
+msgid "Number of ratings"
 msgstr "Betyg"
 
 msgid "Keywords"
@@ -147,7 +147,7 @@ msgstr "Taggar"
 msgid "Title"
 msgstr "Titel"
 
-msgid "Posted"
+msgid "Date posted"
 msgstr "Inlagd"
 
 msgid "URL"
@@ -264,7 +264,7 @@ msgstr ""
 msgid "from the video's original Vimeo page"
 msgstr ""
 
-msgid "Likes"
+msgid "Number of \"likes\""
 msgstr ""
 
 msgid "Use relative dates"

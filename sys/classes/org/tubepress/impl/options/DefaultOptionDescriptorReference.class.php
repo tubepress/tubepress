@@ -573,21 +573,21 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Meta::LIKES);
-        $option->setLabel('Likes');  //>(translatable)<
+        $option->setLabel('Number of "likes"');  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
         $option->setExcludedProviders(self::$_providerArrayYouTube);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Meta::RATING);
-        $option->setLabel('Rating');  //>(translatable)<
+        $option->setLabel('Average rating');  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Meta::RATINGS);
-        $option->setLabel('Ratings');  //>(translatable)<
+        $option->setLabel('Number of ratings');  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
         $option->setExcludedProviders(self::$_providerArrayVimeo);
@@ -606,7 +606,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Meta::UPLOADED);
-        $option->setLabel('Posted');  //>(translatable)<
+        $option->setLabel('Date posted');  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
         $this->register($option);
@@ -618,7 +618,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Meta::VIEWS);
-        $option->setLabel('Views');  //>(translatable)<
+        $option->setLabel('View count');  //>(translatable)<
         $option->setDefaultValue(true);
         $option->setBoolean();
         $this->register($option);

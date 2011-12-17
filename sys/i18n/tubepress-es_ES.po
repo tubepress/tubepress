@@ -65,7 +65,7 @@ msgstr "Videos más discutidos"
 msgid "Most-responded to videos"
 msgstr "Videos con más respuestas"
 
-msgid "Views"
+msgid "View count"
 msgstr "Vistas"
 
 msgid "YouTube search for"
@@ -186,10 +186,10 @@ msgstr "Descripción"
 msgid "ID"
 msgstr "ID"
 
-msgid "Rating"
-msgstr "Rating"
+msgid "Average rating"
+msgstr ""
 
-msgid "Ratings"
+msgid "Number of ratings"
 msgstr "no. de votos"
 
 msgid "Keywords"
@@ -198,7 +198,7 @@ msgstr "Palabras claves"
 msgid "Title"
 msgstr "Titulo"
 
-msgid "Posted"
+msgid "Date posted"
 msgstr "Fecha de inclusión"
 
 msgid "Runtime"
@@ -390,7 +390,7 @@ msgstr "en una ventana por si misma"
 msgid "from the video's original Vimeo page"
 msgstr "de la pagina del video original en Vimeo"
 
-msgid "Likes"
+msgid "Number of \"likes\""
 msgstr "Le gusta"
 
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."

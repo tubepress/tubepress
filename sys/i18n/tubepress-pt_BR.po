@@ -68,7 +68,7 @@ msgstr "Os vídeos mais comentados"
 msgid "Most-responded to videos"
 msgstr "Os vídeos com mais respostas"
 
-msgid "Views"
+msgid "View count"
 msgstr "Visualizações"
 
 msgid "YouTube search for"
@@ -185,10 +185,10 @@ msgstr "Descrição"
 msgid "ID"
 msgstr "ID"
 
-msgid "Rating"
+msgid "Average rating"
 msgstr "Votação"
 
-msgid "Ratings"
+msgid "Number of ratings"
 msgstr "Votos"
 
 msgid "Keywords"
@@ -197,7 +197,7 @@ msgstr "Palavras-chave"
 msgid "Title"
 msgstr "Título"
 
-msgid "Posted"
+msgid "Date posted"
 msgstr "Publicado"
 
 msgid "URL"
@@ -371,7 +371,7 @@ msgstr ""
 msgid "from the video's original Vimeo page"
 msgstr ""
 
-msgid "Likes"
+msgid "Number of \"likes\""
 msgstr ""
 
 msgid "Max width (px)"

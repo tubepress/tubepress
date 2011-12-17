@@ -53,7 +53,7 @@ msgstr "Лидеры обсуждений (Самое обсуждаемое в�
 msgid "Most-responded to videos"
 msgstr "Лидеры по ответам"
 
-msgid "Views"
+msgid "View count"
 msgstr "Просмотров"
 
 msgid "YouTube search for"
@@ -173,10 +173,10 @@ msgstr "Описание"
 msgid "ID"
 msgstr "ID"
 
-msgid "Rating"
+msgid "Average rating"
 msgstr "Рейтинг"
 
-msgid "Ratings"
+msgid "Number of ratings"
 msgstr "Рейтинги"
 
 msgid "Keywords"
@@ -185,7 +185,7 @@ msgstr "Ключевые слова"
 msgid "Title"
 msgstr "Заголовок"
 
-msgid "Posted"
+msgid "Date posted"
 msgstr "Добавлен"
 
 msgid "Runtime"
@@ -362,7 +362,7 @@ msgstr ""
 msgid "from the video's original Vimeo page"
 msgstr ""
 
-msgid "Likes"
+msgid "Number of \"likes\""
 msgstr ""
 
 msgid "position in a playlist"
