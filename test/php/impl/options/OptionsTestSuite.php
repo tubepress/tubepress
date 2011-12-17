@@ -19,6 +19,7 @@ require_once 'ui/tabs/EmbeddedTabTest.php';
 require_once 'ui/tabs/FeedTabTest.php';
 require_once 'ui/tabs/MetaTabTest.php';
 require_once 'ui/tabs/ThemeTabTest.php';
+require_once 'ui/tabs/GallerySourceTabTest.php';
 
 class org_tubepress_impl_options_OptionsTestSuite
 {
@@ -44,6 +45,7 @@ class org_tubepress_impl_options_OptionsTestSuite
     		'org_tubepress_impl_options_ui_tabs_FeedTabTest',
     		'org_tubepress_impl_options_ui_tabs_MetaTabTest',
     		'org_tubepress_impl_options_ui_tabs_ThemeTabTest',
+    		'org_tubepress_impl_options_ui_tabs_GallerySourceTabTest',
 		));
 	}
 }
