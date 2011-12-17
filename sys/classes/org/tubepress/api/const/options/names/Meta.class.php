@@ -25,6 +25,8 @@
  */
 class org_tubepress_api_const_options_names_Meta
 {
+    const _ = 'org_tubepress_api_const_options_names_Meta';
+
     const AUTHOR      = 'author';
     const CATEGORY    = 'category';
     const DESCRIPTION = 'description';
@@ -33,9 +35,13 @@ class org_tubepress_api_const_options_names_Meta
     const LIKES       = 'likes';
     const RATING      = 'rating';
     const RATINGS     = 'ratings';
-    const TAGS        = 'tags';
+    const KEYWORDS    = 'tags';
     const TITLE       = 'title';
     const UPLOADED    = 'uploaded';
     const URL         = 'url';
     const VIEWS       = 'views';
+
+    const DATEFORMAT     = 'dateFormat';
+    const DESC_LIMIT     = 'descriptionLimit';
+    const RELATIVE_DATES = 'relativeDates';
 }

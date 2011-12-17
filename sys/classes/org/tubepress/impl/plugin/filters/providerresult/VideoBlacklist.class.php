@@ -29,7 +29,7 @@ class org_tubepress_impl_plugin_filters_providerresult_VideoBlacklist
 		$videos         = $providerResult->getVideoArray();
 		$ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
 		$context        = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-		$blacklist      = $context->get(org_tubepress_api_const_options_names_Advanced::VIDEO_BLACKLIST);
+		$blacklist      = $context->get(org_tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST);
 		$videosToKeep   = array();
 		$blacklistCount = 0;
 

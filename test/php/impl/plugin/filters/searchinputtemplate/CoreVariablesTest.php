@@ -17,7 +17,7 @@ class org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariablesTest ex
 	    $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
 
         $context      = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL)->andReturn('');
+        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_URL)->andReturn('');
 
         $qss = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $qss->shouldReceive('getFullUrl')->once()->andReturn('http://tubepress.org?foo=bar&something=else');
@@ -34,7 +34,7 @@ class org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariablesTest ex
         $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::SEARCH_HANDLER_URL, 'http://tubepress.org?foo=bar&something=else');
         $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::SEARCH_HIDDEN_INPUTS, array('foo' => 'bar', 'something' => 'else'));
         $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::SEARCH_TERMS, 'search for something');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::SEARCH_BUTTON, '##search-input-button##');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::SEARCH_BUTTON, '##Search##');
 
         $this->assertEquals($mockTemplate, $this->_sut->alter_searchInputTemplate($mockTemplate));
 	}

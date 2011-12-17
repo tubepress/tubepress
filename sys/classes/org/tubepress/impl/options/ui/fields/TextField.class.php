@@ -19,30 +19,20 @@
  *
  */
 
-/**
- * Builds HTTP requests.
- */
-interface org_tubepress_spi_http_HttpRequestBuilder
-{
-    /**
-     * Builds a request for a list of videos
-     *
-     * @param int $currentPage The current page number of the gallery.
-     *
-     * @throws Exception If there was a problem.
-     *
-     * @return org_tubepress_api_http_HttpRequest The HTTP request for this gallery
-     */
-    function buildGalleryRequest($currentPage);
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php');
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField',
+));
 
-    /**
-     * Builds a request for a single video
-     *
-     * @param string $id The video ID to search for
-     *
-     * @throws Exception If there was a problem.
-     *
-     * @return org_tubepress_api_http_HttpRequest The HTTP request for the single video given.
-     */
-    function buildSingleVideoRequest($id);
+/**
+ * Displays a standard text input.
+ */
+class org_tubepress_impl_options_ui_fields_TextField extends org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
+{
+    const __ = 'org_tubepress_impl_options_ui_fields_TextField';
+    
+    protected function getTemplatePath()
+    {
+        return 'sys/ui/templates/options_page/fields/text.tpl.php';
+    }
 }

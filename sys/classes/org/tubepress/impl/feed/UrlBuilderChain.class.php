@@ -21,6 +21,7 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_spi_patterns_cor_Chain',
     'org_tubepress_api_feed_UrlBuilder',
     'org_tubepress_api_provider_ProviderCalculator',
     'org_tubepress_spi_patterns_cor_Chain',

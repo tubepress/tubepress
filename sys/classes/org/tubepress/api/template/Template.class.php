@@ -24,6 +24,8 @@
  */
 interface org_tubepress_api_template_Template
 {
+    const _ = 'org_tubepress_api_template_Template';
+
     /**
      * Converts this template to a string
      *

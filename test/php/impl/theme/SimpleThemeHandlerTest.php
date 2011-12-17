@@ -30,7 +30,7 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
     {
         $ioc                       = org_tubepress_impl_ioc_IocContainer::getInstance();
         $execContext  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::THEME)->andReturn('');
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Thumbs::THEME)->andReturn('');
 
         $result = $this->_sut->calculateCurrentThemeName();
         $this->assertEquals('default', $result);
@@ -40,7 +40,7 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
     {
         $ioc                       = org_tubepress_impl_ioc_IocContainer::getInstance();
         $execContext  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::THEME)->andReturn('foo');
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Thumbs::THEME)->andReturn('foo');
 
         $result = $this->_sut->calculateCurrentThemeName();
         $this->assertEquals('foo', $result);
@@ -53,7 +53,7 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
     {
         $ioc                       = org_tubepress_impl_ioc_IocContainer::getInstance();
         $execContext  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $execContext->shouldReceive('get')->zeroOrMoreTimes()->with(org_tubepress_api_const_options_names_Display::THEME)->andReturn('');
+        $execContext->shouldReceive('get')->zeroOrMoreTimes()->with(org_tubepress_api_const_options_names_Thumbs::THEME)->andReturn('');
 
         $fs = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fs->shouldReceive('getTubePressBaseInstallationPath')->zeroOrMoreTimes()->andReturn('basePath');
@@ -94,7 +94,7 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
         $execContext  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $execContext->shouldReceive('get')->zeroOrMoreTimes()->with(org_tubepress_api_const_options_names_Display::THEME)->andReturn('foo');
+        $execContext->shouldReceive('get')->zeroOrMoreTimes()->with(org_tubepress_api_const_options_names_Thumbs::THEME)->andReturn('foo');
 
         $fs                        = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fs->shouldReceive('getTubePressBaseInstallationPath')->zeroOrMoreTimes()->andReturn(realpath(dirname(__FILE__) . '/../../../../'));

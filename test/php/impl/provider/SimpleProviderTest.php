@@ -32,13 +32,14 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
         $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('current-video-provider');
 
         $urlBuilder = $ioc->get(org_tubepress_api_feed_UrlBuilder::_);
+
         $urlBuilder->shouldReceive('buildGalleryUrl')->once()->with(1)->andReturn('gallery-url');
 
         $feedRetrievalService = $ioc->get(org_tubepress_api_feed_FeedFetcher::_);
         $feedRetrievalService->shouldReceive('fetch')->once()->with('gallery-url', false)->andReturn('fetch-result');
 
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED)->andReturn(false);
+        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
 
         $feedInspectionService = $ioc->get(org_tubepress_api_feed_FeedInspector::_);
         $feedInspectionService->shouldReceive('getTotalResultCount')->once()->with('fetch-result')->andReturn(596);
@@ -63,13 +64,14 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
         $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('current-video-provider');
 
         $urlBuilder = $ioc->get(org_tubepress_api_feed_UrlBuilder::_);
+
         $urlBuilder->shouldReceive('buildGalleryUrl')->once()->with(1)->andReturn('gallery-url');
 
         $feedRetrievalService = $ioc->get(org_tubepress_api_feed_FeedFetcher::_);
         $feedRetrievalService->shouldReceive('fetch')->once()->with('gallery-url', false)->andReturn('fetch-result');
 
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED)->andReturn(false);
+        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
 
         $feedInspectionService = $ioc->get(org_tubepress_api_feed_FeedInspector::_);
         $feedInspectionService->shouldReceive('getTotalResultCount')->once()->with('fetch-result')->andReturn(0);
@@ -88,13 +90,14 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
         $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('current-video-provider');
 
         $urlBuilder = $ioc->get(org_tubepress_api_feed_UrlBuilder::_);
+
         $urlBuilder->shouldReceive('buildGalleryUrl')->once()->with(1)->andReturn('gallery-url');
 
         $feedRetrievalService = $ioc->get(org_tubepress_api_feed_FeedFetcher::_);
         $feedRetrievalService->shouldReceive('fetch')->once()->with('gallery-url', false)->andReturn('fetch-result');
 
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED)->andReturn(false);
+        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
 
         $feedInspectionService = $ioc->get(org_tubepress_api_feed_FeedInspector::_);
         $feedInspectionService->shouldReceive('getTotalResultCount')->once()->with('fetch-result')->andReturn(596);
@@ -141,10 +144,11 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
         $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
 
         $urlBuilder = $ioc->get(org_tubepress_api_feed_UrlBuilder::_);
+
         $urlBuilder->shouldReceive('buildSingleVideoUrl')->once()->with('video-id')->andReturn('video-url');
 
         $context              = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Feed::CACHE_ENABLED)->andReturn(false);
+        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
 
         $feedRetrievalService = $ioc->get(org_tubepress_api_feed_FeedFetcher::_);
         $feedRetrievalService->shouldReceive('fetch')->once()->with('video-url', false)->andReturn('fake-feed');

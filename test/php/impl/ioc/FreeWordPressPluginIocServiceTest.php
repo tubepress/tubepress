@@ -6,7 +6,24 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
 
     private $_sut;
     private $_expectedMapping;
+    
+    private static $_knownInterfaces;
+    
+    private static $_interfacesToIgnore;
 
+    public static function setUpBeforeClass()
+    {
+        self::$_knownInterfaces = self::_collectInterfaces();
+        self::$_interfacesToIgnore = array(
+        
+            'org_tubepress_api_ioc_IocService',
+            'org_tubepress_spi_http_HttpTransport',
+            'org_tubepress_spi_options_ui_Field',
+            'org_tubepress_spi_options_ui_Tab',
+            'org_tubepress_spi_patterns_cor_Command'
+        );
+    }
+    
     function setUp()
     {
         $this->_sut = new org_tubepress_impl_ioc_FreeWordPressPluginIocService();
@@ -38,8 +55,29 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
         'org_tubepress_api_theme_ThemeHandler'=>'org_tubepress_impl_theme_SimpleThemeHandler',
         'org_tubepress_api_feed_UrlBuilder'=>'org_tubepress_impl_feed_UrlBuilderChain',
         );
+        
+        
     }
 
+    function testEveryInterfaceIsBound()
+    {
+        $this->_setupEveryInterfaceIsBound();
+        
+        $get_option = new PHPUnit_Extensions_MockFunction('get_option');
+        $get_option->expects($this->any())->with('tubepress-version')->will($this->returnValue(226));
+        
+        foreach (self::$_knownInterfaces as $interface) {
+            
+            if (in_array($interface, self::$_interfacesToIgnore)) {
+                
+                continue;
+            }
+            
+            $result = $this->_sut->get($interface);
+            $this->assertTrue($result instanceof $interface, "$interface was never bound properly");
+        }
+    }
+    
     /**
      * @expectedException Exception
      */
@@ -69,10 +107,9 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
         $this->assertNotNull($this->_sut->get('org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest'));
     }
 
-    function testMapping()
+    function _testMapping()
     {
-        $get_option = new PHPUnit_Extensions_MockFunction('get_option');
-        $get_option->expects($this->any())->with('tubepress-version')->will($this->returnValue(226));
+        
 
         foreach ($this->_expectedMapping as $key => $value) {
             $test = is_a($this->_sut->get($key), $value);
@@ -81,6 +118,44 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
             }
             $this->assertTrue($test);
         }
+    }
+    
+    private function _setupEveryInterfaceIsBound()
+    {
+        $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
+        $explorer      = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
+        
+        $themeHandler->shouldReceive('getUserContentDirectory')->once()->andReturn('user-content-dir');
+        $explorer->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('base-install-path');
+        $explorer->shouldReceive('getDirectoriesInDirectory')->once()->with('base-install-path/sys/ui/themes', 'Default Option Descriptor Reference')->andReturn(array('boo'));
+        $explorer->shouldReceive('getDirectoriesInDirectory')->once()->with('user-content-dir/themes', 'Default Option Descriptor Reference')->andReturn(array('bob'));
+        
+        
+    }
+    
+    private static function _collectInterfaces()
+    {
+        exec('grep -r "interface " ' . BASE . '/sys | egrep "org_tubepress_" | egrep -v "org_tubepress_api_const" ', $results, $return);
+        
+        self::assertTrue($return === 0, 'grep failed');
+        self::assertTrue(count($results) > 0, 'grep didn\'t find any interfaces');
+        
+        $strings = array();
+        foreach ($results as $grepLine) {
+        
+            $result = preg_match_all("/^.*interface\s+([^\s]+).*$/", $grepLine, $matches);
+        
+            if (!$result || count($matches) !== 2) {
+        
+                echo 'Found more than on match on ' . $grepLine . '. ' . var_export($matches, true);
+                exit;
+            }
+        
+            $strings[] = str_replace("\'", "'", $matches[1][0]);
+        }
+        
+        return $strings;
     }
 }
 

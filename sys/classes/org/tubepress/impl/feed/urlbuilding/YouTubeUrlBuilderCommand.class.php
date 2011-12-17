@@ -22,12 +22,12 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Advanced',
-    'org_tubepress_api_const_options_names_Display',
+    'org_tubepress_api_const_options_names_GallerySource',
     'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_const_options_names_Feed',
     'org_tubepress_api_const_options_names_Meta',
-    'org_tubepress_api_const_options_values_ModeValue',
-    'org_tubepress_api_const_options_values_OrderValue',
+    'org_tubepress_api_const_options_values_GallerySourceValue',
+    'org_tubepress_api_const_options_values_OrderByValue',
     'org_tubepress_api_url_Url',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_impl_feed_urlbuilding_AbstractUrlBuilderCommand',
@@ -60,46 +60,46 @@ class org_tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommand extends org_t
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
         $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
-        switch ($execContext->get(org_tubepress_api_const_options_names_Output::MODE)) {
+        switch ($execContext->get(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE)) {
 
-        case org_tubepress_api_const_options_values_ModeValue::USER:
-            $url = 'users/' . $execContext->get(org_tubepress_api_const_options_names_Output::USER_VALUE) . '/uploads';
+        case org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_USER:
+            $url = 'users/' . $execContext->get(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE) . '/uploads';
             break;
 
-        case org_tubepress_api_const_options_values_ModeValue::TOP_RATED:
-            $url = 'standardfeeds/top_rated?time=' . $execContext->get(org_tubepress_api_const_options_names_Output::TOP_RATED_VALUE);
+        case org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED:
+            $url = 'standardfeeds/top_rated?time=' . $execContext->get(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE);
             break;
 
-        case org_tubepress_api_const_options_values_ModeValue::POPULAR:
-            $url = 'standardfeeds/most_viewed?time=' . $execContext->get(org_tubepress_api_const_options_names_Output::MOST_VIEWED_VALUE);
+        case org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_VIEWED:
+            $url = 'standardfeeds/most_viewed?time=' . $execContext->get(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_VIEWED_VALUE);
             break;
 
-        case org_tubepress_api_const_options_values_ModeValue::PLAYLIST:
-            $url = 'playlists/' . $execContext->get(org_tubepress_api_const_options_names_Output::PLAYLIST_VALUE);
+        case org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST:
+            $url = 'playlists/' . $execContext->get(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
             break;
 
-        case org_tubepress_api_const_options_values_ModeValue::MOST_RESPONDED:
+        case org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED:
             $url = 'standardfeeds/most_responded';
             break;
 
-        case org_tubepress_api_const_options_values_ModeValue::MOST_RECENT:
+        case org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT:
             $url = 'standardfeeds/most_recent';
             break;
 
-        case org_tubepress_api_const_options_values_ModeValue::TOP_FAVORITES:
+        case org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES:
             $url = 'standardfeeds/top_favorites';
             break;
 
-        case org_tubepress_api_const_options_values_ModeValue::MOST_DISCUSSED:
+        case org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED:
             $url = 'standardfeeds/most_discussed';
             break;
 
-        case org_tubepress_api_const_options_values_ModeValue::FAVORITES:
-            $url = 'users/' . $execContext->get(org_tubepress_api_const_options_names_Output::FAVORITES_VALUE) . '/favorites';
+        case org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES:
+            $url = 'users/' . $execContext->get(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE) . '/favorites';
             break;
 
-        case org_tubepress_api_const_options_values_ModeValue::TAG:
-            $tags = $execContext->get(org_tubepress_api_const_options_names_Output::TAG_VALUE);
+        case org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH:
+            $tags = $execContext->get(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE);
             $tags = str_replace(' ', '+', self::_replaceQuotes($tags));
             $tags = rawurlencode($tags);
             $url  = "videos?q=$tags";
@@ -167,7 +167,7 @@ class org_tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommand extends org_t
 
     private function _galleryUrlPostProcessing(org_tubepress_api_exec_ExecutionContext $execContext, org_tubepress_api_url_Url $url, $currentPage)
     {
-        $perPage = $execContext->get(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE);
+        $perPage = $execContext->get(org_tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE);
 
         /* start index of the videos */
         $start = ($currentPage * $perPage) - $perPage + 1;
@@ -186,32 +186,38 @@ class org_tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommand extends org_t
 
     private function _setOrderBy(org_tubepress_api_exec_ExecutionContext $execContext, org_tubepress_api_url_Url $url)
     {
-        $order = $execContext->get(org_tubepress_api_const_options_names_Display::ORDER_BY);
-        $mode  = $execContext->get(org_tubepress_api_const_options_names_Output::MODE);
+        $order = $execContext->get(org_tubepress_api_const_options_names_Feed::ORDER_BY);
+        $mode  = $execContext->get(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE);
 
-        if ($order == org_tubepress_api_const_options_values_OrderValue::RANDOM) {
+        if ($order == org_tubepress_api_const_options_values_OrderByValue::RANDOM) {
             return;
         }
 
         /* any feed can take these */
-        if ($order == org_tubepress_api_const_options_values_OrderValue::VIEW_COUNT || $order == org_tubepress_api_const_options_values_OrderValue::DATE_PUBLISHED) {
+        if ($order == org_tubepress_api_const_options_values_OrderByValue::VIEW_COUNT) {
             $url->setQueryVariable(self::PARAM_ORDER, $order);
+            return;
+        }
+        
+        if ($order == org_tubepress_api_const_options_values_OrderByValue::NEWEST) {
+            
+            $url->setQueryVariable(self::PARAM_ORDER, 'published');
             return;
         }
 
         /* playlist specific stuff */
-        if ($mode == org_tubepress_api_const_options_values_ModeValue::PLAYLIST) {
+        if ($mode == org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST) {
             if (in_array($order, array(
-                org_tubepress_api_const_options_values_OrderValue::POSITION,
-                org_tubepress_api_const_options_values_OrderValue::COMMENT_COUNT,
-                org_tubepress_api_const_options_values_OrderValue::DURATION,
-                org_tubepress_api_const_options_values_OrderValue::TITLE))) {
+                org_tubepress_api_const_options_values_OrderByValue::POSITION,
+                org_tubepress_api_const_options_values_OrderByValue::COMMENT_COUNT,
+                org_tubepress_api_const_options_values_OrderByValue::DURATION,
+                org_tubepress_api_const_options_values_OrderByValue::TITLE))) {
                 $url->setQueryVariable(self::PARAM_ORDER, $order);
             }
             return;
         }
 
-        if (in_array($order, array(org_tubepress_api_const_options_values_OrderValue::RELEVANCE, org_tubepress_api_const_options_values_OrderValue::RATING))) {
+        if (in_array($order, array(org_tubepress_api_const_options_values_OrderByValue::RELEVANCE, org_tubepress_api_const_options_values_OrderByValue::RATING))) {
             $url->setQueryVariable(self::PARAM_ORDER, $order);
         }
     }

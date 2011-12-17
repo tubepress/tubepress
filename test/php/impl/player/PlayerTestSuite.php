@@ -1,4 +1,5 @@
 <?php
+
 require_once dirname(__FILE__) . '/../../../includes/TubePressUnitTest.php';
 require_once 'DefaultPlayerHtmlGeneratorTest.php';
 

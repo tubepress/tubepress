@@ -27,13 +27,22 @@ interface org_tubepress_api_options_OptionValidator
     const _ = 'org_tubepress_api_options_OptionValidator';
 
     /**
-     * Validates an option value. Will throw an Exception if validation
-     * fails.
+     * Validates an option value.
      *
      * @param string       $optionName The option name
      * @param unknown_type $candidate  The candidate option value
      *
-     * @return void
+     * @return boolean True if the option name exists and the value supplied is valid. False otherwise.
     */
-    function validate($optionName, $candidate);
+    function isValid($optionName, $candidate);
+
+   /**
+    * Gets the failure message of a name/value pair that has failed validation.
+    *
+    * @param string       $optionName The option name
+    * @param unknown_type $candidate  The candidate option value
+    *
+    * @return unknown Null if the option passes validation, otherwise a string failure message.
+    */
+    function getProblemMessage($optionName, $candidate);
 }

@@ -23,7 +23,7 @@ class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_const_options_names_Embedded',
-    'org_tubepress_api_const_options_values_PlayerValue',
+    'org_tubepress_api_const_options_values_PlayerLocationValue',
     'org_tubepress_api_const_template_Variable',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_player_PlayerHtmlGenerator',
@@ -45,7 +45,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Player
         $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
         $context       = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $htmlGenerator = $ioc->get(org_tubepress_api_player_PlayerHtmlGenerator::_);
-        $playerName    = $context->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
+        $playerName    = $context->get(org_tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
         $videos        = $providerResult->getVideoArray();
         $galleryId     = $context->get(org_tubepress_api_const_options_names_Advanced::GALLERY_ID);
         $playerHtml    = $playerHtml = $this->_showPlayerHtmlOnPageLoad($ioc, $playerName) ?
@@ -59,8 +59,8 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Player
 
     private function _showPlayerHtmlOnPageLoad($ioc, $playerName)
     {
-        if ($playerName === org_tubepress_api_const_options_values_PlayerValue::NORMAL
-            || $playerName === org_tubepress_api_const_options_values_PlayerValue::STATICC) {
+        if ($playerName === org_tubepress_api_const_options_values_PlayerLocationValue::NORMAL
+            || $playerName === org_tubepress_api_const_options_values_PlayerLocationValue::STATICC) {
             return true;
         }
 

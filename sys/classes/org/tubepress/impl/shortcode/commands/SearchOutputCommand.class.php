@@ -56,7 +56,7 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_t
         $rawSearchTerms = $qss->getSearchTerms($_GET);
 
         /* are we set up for a gallery fallback? */
-        $mustShowSearchResults = $execContext->get(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY);
+        $mustShowSearchResults = $execContext->get(org_tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_ONLY);
         $hasSearchTerms        = $rawSearchTerms != '';
 
         /* the user is not searching and we don't have to show results */
@@ -79,18 +79,18 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_t
         $searchTerms = org_tubepress_impl_util_StringUtils::cleanForSearch($rawSearchTerms);
 
         /* who are we searching? */
-        switch ($execContext->get(org_tubepress_api_const_options_names_Output::SEARCH_PROVIDER)) {
+        switch ($execContext->get(org_tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER)) {
 
         case org_tubepress_api_provider_Provider::VIMEO:
 
-            $execContext->set(org_tubepress_api_const_options_names_Output::MODE, org_tubepress_api_const_options_values_ModeValue::VIMEO_SEARCH);
-            $execContext->set(org_tubepress_api_const_options_names_Output::VIMEO_SEARCH_VALUE, $searchTerms);
+            $execContext->set(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE, org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_SEARCH);
+            $execContext->set(org_tubepress_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE, $searchTerms);
             break;
 
         default:
 
-            $execContext->set(org_tubepress_api_const_options_names_Output::MODE, org_tubepress_api_const_options_values_ModeValue::TAG);
-            $execContext->set(org_tubepress_api_const_options_names_Output::TAG_VALUE, $searchTerms);
+            $execContext->set(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE, org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH);
+            $execContext->set(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE, $searchTerms);
             break;
         }
 

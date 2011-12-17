@@ -50,7 +50,7 @@ class org_tubepress_impl_provider_SimpleProviderCalculator implements org_tubepr
         }
 
         /* calculate based on gallery content */
-        $currentMode = $context->get(org_tubepress_api_const_options_names_Output::MODE);
+        $currentMode = $context->get(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE);
         if (strpos($currentMode, 'vimeo') === 0) {
             return org_tubepress_api_provider_Provider::VIMEO;
         }

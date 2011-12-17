@@ -22,7 +22,8 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Advanced',
-    'org_tubepress_api_const_options_names_Display',
+    'org_tubepress_api_const_options_names_Meta',
+	'org_tubepress_api_const_options_names_Thumbs',
     'org_tubepress_spi_patterns_cor_Command',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_video_Video',
@@ -139,7 +140,7 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
             return '';
         }
 
-        $random = $this->_context->get(org_tubepress_api_const_options_names_Display::RANDOM_THUMBS);
+        $random = $this->_context->get(org_tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS);
         if ($random) {
             return $urls[array_rand($urls)];
         } else {
@@ -206,15 +207,15 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
             return '';
         }
 
-        if ($this->_context->get(org_tubepress_api_const_options_names_Display::RELATIVE_DATES)) {
+        if ($this->_context->get(org_tubepress_api_const_options_names_Meta::RELATIVE_DATES)) {
             return org_tubepress_impl_util_TimeUtils::getRelativeTime($unixTime);
         }
-        return @date($this->_context->get(org_tubepress_api_const_options_names_Advanced::DATEFORMAT), $unixTime);
+        return @date($this->_context->get(org_tubepress_api_const_options_names_Meta::DATEFORMAT), $unixTime);
     }
 
     private function _trimDescription($description)
     {
-        $limit = $this->_context->get(org_tubepress_api_const_options_names_Display::DESC_LIMIT);
+        $limit = $this->_context->get(org_tubepress_api_const_options_names_Meta::DESC_LIMIT);
 
         if ($limit > 0 && strlen($description) > $limit) {
             $description = substr($description, 0, $limit) . '...';

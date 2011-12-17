@@ -51,6 +51,7 @@ class org_tubepress_impl_patterns_cor_ChainGangTest extends TubePressUnitTest {
         $context = new stdClass();
 
         $mockCommand = $ioc->get('org_tubepress_spi_patterns_cor_Command');
+
         $mockCommand->shouldReceive('execute')->once()->with($context)->andReturn(true);
 
         $this->assertTrue($this->_sut->execute($context, array('org_tubepress_spi_patterns_cor_Command')));
@@ -63,6 +64,7 @@ class org_tubepress_impl_patterns_cor_ChainGangTest extends TubePressUnitTest {
         $context = new stdClass();
 
         $mockCommand = $ioc->get('org_tubepress_spi_patterns_cor_Command');
+
         $mockCommand->shouldReceive('execute')->once()->with($context)->andReturn(false);
 
         $this->assertFalse($this->_sut->execute($context, array('org_tubepress_spi_patterns_cor_Command')));

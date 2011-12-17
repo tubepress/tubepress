@@ -21,10 +21,11 @@ along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Advanced',
-    'org_tubepress_api_const_options_names_Display',
+    'org_tubepress_api_const_options_names_Thumbs',
+	'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_const_options_names_Meta',
-    'org_tubepress_api_const_options_names_Widget',
-    'org_tubepress_api_const_options_values_PlayerValue',
+    'org_tubepress_api_const_options_names_WordPress',
+    'org_tubepress_api_const_options_values_PlayerLocationValue',
     'org_tubepress_api_const_template_Variable',
     'org_tubepress_api_filesystem_Explorer',
     'org_tubepress_api_ioc_IocService',
@@ -34,6 +35,12 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 
 class org_tubepress_impl_env_wordpress_Widget
 {
+    const WIDGET_CONTROL_SHORTCODE = 'widgetControlShortcode';
+    const WIDGET_CONTROL_TITLE     = 'widgetControlTitle';
+    const WIDGET_SHORTCODE         = 'widgetShortcode';
+    const WIDGET_TITLE             = 'widgetTitle';
+    const WIDGET_SUBMIT_TAG        = 'tubepress-widget-submit';
+
     /**
      * Registers the TubePress widget with WordPress.
      *
@@ -43,7 +50,8 @@ class org_tubepress_impl_env_wordpress_Widget
     {
         $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
         $msg       = $ioc->get(org_tubepress_api_message_MessageService::_);
-        $widgetOps = array('classname' => 'widget_tubepress', 'description' => $msg->_('widget-description'));
+        $widgetOps = array('classname' => 'widget_tubepress', 'description' =>
+            $msg->_('Displays YouTube or Vimeo videos with TubePress'));  //>(translatable)<
 
         wp_register_sidebar_widget('tubepress', 'TubePress', array('org_tubepress_impl_env_wordpress_Widget', 'printWidget'), $widgetOps);
         wp_register_widget_control('tubepress', 'TubePress', array('org_tubepress_impl_env_wordpress_Widget', 'printControlPanel'));
@@ -61,9 +69,9 @@ class org_tubepress_impl_env_wordpress_Widget
         extract($opts);
 
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context      = $iocContainer->get('org_tubepress_api_exec_ExecutionContext');
+        $context      = $iocContainer->get(org_tubepress_api_exec_ExecutionContext::_);
         $parser       = $iocContainer->get(org_tubepress_api_shortcode_ShortcodeParser::_);
-        $gallery      = $iocContainer->get('org_tubepress_api_shortcode_ShortcodeHtmlGenerator');
+        $gallery      = $iocContainer->get(org_tubepress_api_shortcode_ShortcodeHtmlGenerator::_);
         $ms           = $iocContainer->get(org_tubepress_api_message_MessageService::_);
 
         /* Turn on logging if we need to */
@@ -71,21 +79,21 @@ class org_tubepress_impl_env_wordpress_Widget
 
         /* default widget options */
         $defaultWidgetOptions = array(
-            org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE    => 3,
-            org_tubepress_api_const_options_names_Meta::VIEWS                  => false,
-            org_tubepress_api_const_options_names_Meta::DESCRIPTION            => true,
-            org_tubepress_api_const_options_names_Display::DESC_LIMIT          => 50,
-            org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME => org_tubepress_api_const_options_values_PlayerValue::POPUP,
-            org_tubepress_api_const_options_names_Display::THUMB_HEIGHT        => 105,
-            org_tubepress_api_const_options_names_Display::THUMB_WIDTH         => 135,
-            org_tubepress_api_const_options_names_Display::PAGINATE_ABOVE      => false,
-            org_tubepress_api_const_options_names_Display::PAGINATE_BELOW      => false,
-            org_tubepress_api_const_options_names_Display::THEME               => 'sidebar',
-            org_tubepress_api_const_options_names_Display::FLUID_THUMBS        => false
+            org_tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE  => 3,
+            org_tubepress_api_const_options_names_Meta::VIEWS               => false,
+            org_tubepress_api_const_options_names_Meta::DESCRIPTION         => true,
+            org_tubepress_api_const_options_names_Meta::DESC_LIMIT          => 50,
+            org_tubepress_api_const_options_names_Embedded::PLAYER_LOCATION => org_tubepress_api_const_options_values_PlayerLocationValue::POPUP,
+            org_tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT      => 105,
+            org_tubepress_api_const_options_names_Thumbs::THUMB_WIDTH       => 135,
+            org_tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE    => false,
+            org_tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW    => false,
+            org_tubepress_api_const_options_names_Thumbs::THEME             => 'sidebar',
+            org_tubepress_api_const_options_names_Thumbs::FLUID_THUMBS      => false
         );
 
         /* now apply the user's options */
-        $rawTag    = $context->get(org_tubepress_api_const_options_names_Widget::TAGSTRING);
+        $rawTag    = $context->get(org_tubepress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
         $widgetTag = org_tubepress_impl_util_StringUtils::removeNewLines($rawTag);
         $parser->parse($widgetTag);
 
@@ -93,19 +101,22 @@ class org_tubepress_impl_env_wordpress_Widget
         $finalOptions = array_merge($defaultWidgetOptions, $context->getCustomOptions());
         $context->setCustomOptions($finalOptions);
 
-        if ($context->get(org_tubepress_api_const_options_names_Display::THEME) === '') {
-            $context->set(org_tubepress_api_const_options_names_Display::THEME, 'sidebar');
+        if ($context->get(org_tubepress_api_const_options_names_Thumbs::THEME) === '') {
+            $context->set(org_tubepress_api_const_options_names_Thumbs::THEME, 'sidebar');
         }
 
         try {
+
             $out = $gallery->getHtmlForShortcode('');
+
         } catch (Exception $e) {
-            $out = $ms->_('no-videos-found');
+
+            $out = $e->getMessage();
         }
 
         /* do the standard WordPress widget dance */
         echo $before_widget . $before_title .
-            $context->get(org_tubepress_api_const_options_names_Widget::TITLE) .
+            $context->get(org_tubepress_api_const_options_names_WordPress::WIDGET_TITLE) .
             $after_title . $out . $after_widget;
 
         /* reset the context for the next shortcode */
@@ -123,12 +134,13 @@ class org_tubepress_impl_env_wordpress_Widget
         $wpsm         = $iocContainer->get(org_tubepress_api_options_StorageManager::_);
         $msg          = $iocContainer->get(org_tubepress_api_message_MessageService::_);
         $explorer     = $iocContainer->get(org_tubepress_api_filesystem_Explorer::_);
-        $tplBuilder   = $iocContainer->get('org_tubepress_api_template_TemplateBuilder');
+        $tplBuilder   = $iocContainer->get(org_tubepress_api_template_TemplateBuilder::_);
 
         /* are we saving? */
-        if (isset($_POST['tubepress-widget-submit'])) {
-            $wpsm->set(org_tubepress_api_const_options_names_Widget::TAGSTRING, strip_tags(stripslashes($_POST['tubepress-widget-tagstring'])));
-            $wpsm->set(org_tubepress_api_const_options_names_Widget::TITLE, strip_tags(stripslashes($_POST['tubepress-widget-title'])));
+        if (isset($_POST[self::WIDGET_SUBMIT_TAG])) {
+
+            $wpsm->set(org_tubepress_api_const_options_names_WordPress::WIDGET_SHORTCODE, strip_tags(stripslashes($_POST['tubepress-widget-tagstring'])));
+            $wpsm->set(org_tubepress_api_const_options_names_WordPress::WIDGET_TITLE, strip_tags(stripslashes($_POST['tubepress-widget-title'])));
         }
 
         /* load up the gallery template */
@@ -136,10 +148,11 @@ class org_tubepress_impl_env_wordpress_Widget
         $tpl          = $tplBuilder->getNewTemplateInstance($templatePath);
 
         /* set up the template */
-        $tpl->setVariable(org_tubepress_api_const_template_Variable::WIDGET_CONTROL_TITLE, $msg->_('options-meta-title-title'));
-        $tpl->setVariable(org_tubepress_api_const_template_Variable::WIDGET_TITLE, $wpsm->get(org_tubepress_api_const_options_names_Widget::TITLE));
-        $tpl->setVariable(org_tubepress_api_const_template_Variable::WIDGET_CONTROL_SHORTCODE, $msg->_('widget-tagstring-description'));
-        $tpl->setVariable(org_tubepress_api_const_template_Variable::WIDGET_SHORTCODE, $wpsm->get(org_tubepress_api_const_options_names_Widget::TAGSTRING));
+        $tpl->setVariable(self::WIDGET_TITLE, $wpsm->get(org_tubepress_api_const_options_names_WordPress::WIDGET_TITLE));
+        $tpl->setVariable(self::WIDGET_CONTROL_TITLE, $msg->_('Title'));                                                                                                            //>(translatable)<
+        $tpl->setVariable(self::WIDGET_CONTROL_SHORTCODE, $msg->_('TubePress shortcode for the widget. See the <a href="http://tubepress.org/documentation"> documentation</a>.')); //>(translatable)<
+        $tpl->setVariable(self::WIDGET_SHORTCODE, $wpsm->get(org_tubepress_api_const_options_names_WordPress::WIDGET_SHORTCODE));
+        $tpl->setVariable(self::WIDGET_SUBMIT_TAG, self::WIDGET_SUBMIT_TAG);
 
         /* get the template's output */
         echo $tpl->toString();

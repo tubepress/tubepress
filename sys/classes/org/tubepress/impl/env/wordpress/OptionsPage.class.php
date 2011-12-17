@@ -21,10 +21,9 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_ioc_IocService',
     'org_tubepress_api_filesystem_Explorer',
-    'org_tubepress_impl_ioc_FreeWordPressPluginIocService',
-    'org_tubepress_impl_options_FormHandler',
+    'org_tubepress_api_options_ui_FormHandler',
+    'org_tubepress_api_options_StorageManager'
 ));
 
 class org_tubepress_impl_env_wordpress_OptionsPage
@@ -47,10 +46,20 @@ class org_tubepress_impl_env_wordpress_OptionsPage
         $fs           = $iocContainer->get(org_tubepress_api_filesystem_Explorer::_);
         $baseName     = $fs->getTubePressInstallationDirectoryBaseName();
 
-        wp_register_style('jquery-ui-flick', plugins_url("$baseName/sys/ui/static/css/jquery-ui-flick/jquery-ui-1.7.2.custom.css", $baseName));
-        wp_register_script('jscolor-tubepress', plugins_url("$baseName/sys/ui/static/js/jscolor/jscolor.js", $baseName));
+        wp_register_style('jquery-ui-flick', plugins_url("$baseName/sys/ui/static/css/jquery-ui-flick/jquery-ui-1.8.16.custom.css", $baseName));
+        wp_register_style('tubepress-options-page', plugins_url("$baseName/sys/ui/static/css/wordpress-options-page.css", $baseName));
+        wp_register_style('jquery-ui-multiselect-widget', plugins_url("$baseName/sys/ui/static/css/jquery-ui-multiselect-widget/jquery.multiselect.css", $baseName));
+        
         wp_enqueue_style('jquery-ui-flick');
-        wp_enqueue_script('jquery-ui-tabs');
+        wp_enqueue_style('tubepress-options-page');
+        wp_enqueue_style('jquery-ui-multiselect-widget');
+        
+        wp_register_script('jscolor-tubepress', plugins_url("$baseName/sys/ui/static/js/jscolor/jscolor.js", $baseName));
+        wp_register_script('jquery-ui-tubepress', plugins_url("$baseName/sys/ui/static/js/jquery-ui/jquery-ui-1.8.16.custom.min.js", $baseName));
+        wp_register_script('jquery-ui-multiselect-widget', plugins_url("$baseName/sys/ui/static/js/jquery-ui-multiselect-widget/jquery.multiselect.min.js", $baseName));
+
+        wp_enqueue_script('jquery-ui-tubepress');
+        wp_enqueue_script('jquery-ui-multiselect-widget');
         wp_enqueue_script('jscolor-tubepress');
     }
 
@@ -79,18 +88,41 @@ class org_tubepress_impl_env_wordpress_OptionsPage
         $wpsm->init();
 
         /* get the form handler */
-        $optionsForm = $iocContainer->get('org_tubepress_impl_options_FormHandler');
+        $optionsForm = $iocContainer->get(org_tubepress_api_options_ui_FormHandler::_);
 
         /* are we updating? */
         if (isset($_POST['tubepress_save'])) {
+
             try {
-                $optionsForm->collect($_POST);
-                echo '<div id="message" class="updated fade"><p><strong>Options updated</strong></p></div>';
+
+                $result = $optionsForm->onSubmit($_POST);
+
+                if ($result === null) {
+
+                    echo '<div id="message" class="updated fade"><p><strong>Options updated</strong></p></div>';
+
+                } else {
+
+                    self::_error($result);
+                }
+
             } catch (Exception $error) {
-                echo '<div id="message" class="error fade"><p><strong>' . $error->getMessage() . '</strong></p></div>';
+
+                self::_error($error->getMessage());
             }
         }
+
         print $optionsForm->getHtml();
+    }
+
+    private static function _error($message)
+    {
+        if (is_array($message)) {
+
+            $message = implode($message, '<br />');
+        }
+
+        echo '<div id="message" class="error fade"><p><strong>' . $message . '</strong></p></div>';
     }
 }
 

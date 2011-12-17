@@ -3,7 +3,7 @@ require_once dirname(__FILE__) . '/../../../../test/includes/TubePressUnitTest.p
 require_once 'SimpleTemplateTest.php';
 require_once 'SimpleTemplateBuilderTest.php';
 
-class org_tubepress_impl_template_TemplateTestSuite
+class org_tubepress_impl_template_TemplateClassTestSuite
 {
     public static function suite()
     {

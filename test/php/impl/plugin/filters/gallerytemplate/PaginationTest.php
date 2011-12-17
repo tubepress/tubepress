@@ -26,9 +26,9 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PaginationTest extends T
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
         $this->_execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $this->_execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::PAGINATE_ABOVE)->andReturn(true);
-        $this->_execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::PAGINATE_BELOW)->andReturn(true);
-        $this->_execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE)->andReturn(4);
+        $this->_execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE)->andReturn(true);
+        $this->_execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW)->andReturn(true);
+        $this->_execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE)->andReturn(4);
 
         $this->_providerResult = \Mockery::mock('org_tubepress_api_provider_ProviderResult');
         $this->_providerResult->shouldReceive('getEffectiveTotalResultCount')->once()->andReturn(500);
@@ -54,7 +54,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PaginationTest extends T
 ';
 
         $this->_pluginManager->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_PAGINATION, $expectedHtml)->andReturn('pagination-html');
-        $this->_execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION)->andReturn(true);
+        $this->_execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION)->andReturn(true);
         $this->_qss->shouldReceive('getPageNum')->once()->andReturn(1);
 
         $this->_test();
@@ -67,7 +67,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PaginationTest extends T
 ';
 
         $this->_pluginManager->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_PAGINATION, $expectedHtml)->andReturn('pagination-html');
-        $this->_execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION)->andReturn(false);
+        $this->_execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION)->andReturn(false);
         $this->_qss->shouldReceive('getPageNum')->once()->andReturn(25);
 
         $this->_test();
@@ -79,7 +79,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PaginationTest extends T
 ';
 
         $this->_pluginManager->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_PAGINATION, $expectedHtml)->andReturn('pagination-html');
-        $this->_execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION)->andReturn(false);
+        $this->_execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION)->andReturn(false);
         $this->_qss->shouldReceive('getPageNum')->once()->andReturn(12);
 
         $this->_test();
@@ -91,7 +91,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_PaginationTest extends T
 ';
 
         $this->_pluginManager->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_PAGINATION, $expectedHtml)->andReturn('pagination-html');
-        $this->_execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION)->andReturn(false);
+        $this->_execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION)->andReturn(false);
         $this->_qss->shouldReceive('getPageNum')->once()->andReturn(1);
 
         $this->_test();

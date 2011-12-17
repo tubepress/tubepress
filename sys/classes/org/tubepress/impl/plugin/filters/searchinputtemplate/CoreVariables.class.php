@@ -21,6 +21,7 @@
 
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Output',
+    'org_tubepress_api_const_options_names_InteractiveSearch',
     'org_tubepress_api_const_querystring_QueryParamName',
     'org_tubepress_api_const_template_Variable',
     'org_tubepress_api_exec_ExecutionContext',
@@ -42,7 +43,7 @@ class org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariables
         $context    = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $qss        = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $ms         = $ioc->get(org_tubepress_api_message_MessageService::_);
-        $resultsUrl = $context->get(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_URL);
+        $resultsUrl = $context->get(org_tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_URL);
 
         /* if the user didn't request a certain page, just send the search results right back here */
         if ($resultsUrl == '') {
@@ -62,12 +63,13 @@ class org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariables
 
         unset($params[org_tubepress_api_const_querystring_QueryParamName::PAGE]);
         unset($params[org_tubepress_api_const_querystring_QueryParamName::SEARCH_TERMS]);
+        
         /* apply the template variables */
         $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_HANDLER_URL, $resultsUrl);
         $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_HIDDEN_INPUTS, $params);
         $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_TERMS, $searchTerms);
-        $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_BUTTON, $ms->_('search-input-button'));
 
+        $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_BUTTON, $ms->_('Search'));    //>(translatable)<
         return $template;
     }
 }

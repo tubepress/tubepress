@@ -21,7 +21,9 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_options_names_Advanced',
+    'org_tubepress_api_const_options_names_GallerySource',
+	'org_tubepress_api_const_options_names_Thumbs',
+	'org_tubepress_api_const_options_names_InteractiveSearch',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_options_OptionValidator',
@@ -47,21 +49,22 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
     public function parse($content)
     {
         try {
+
             $this->_wrappedParse($content);
+
         } catch (Exception $e) {
+
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception when parsing shortcode: ' . $e->getMessage());
         }
     }
 
     private function _wrappedParse($content)
     {
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        
-	/* what trigger word are we using? */
-        $keyword = $context->get(org_tubepress_api_const_options_names_Advanced::KEYWORD);
-        
-	if (!$this->somethingToParse($content, $keyword)) {
+        $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $context  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+        $keyword  = $context->get(org_tubepress_api_const_options_names_Advanced::KEYWORD);
+
+	    if (!$this->somethingToParse($content, $keyword)) {
             return;
         }
 
@@ -70,6 +73,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
         preg_match("/\[$keyword\b(.*)\]/", $content, $matches);
 
         if (sizeof($matches) === 0) {
+
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'No shortcodes detected in content');
             return;
         }
@@ -93,7 +97,9 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
 
                 $context->setCustomOptions($toReturn);
             }
+
         } else {
+
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'No custom options detected in shortcode: %s', $matches[0]);
         }
     }
@@ -142,18 +148,20 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
                 $value = self::_normalizeValue($m[6]);
             }
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Valid shortcode option detected: %s = %s', $name, (string)$value);
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Shortcode option detected: %s = %s', $name, (string)$value);
 
-            try {
+            $valid = $inputValidationService->isValid($name, $value);
 
-                $inputValidationService->validate($name, $value);
+            if ($valid) {
+
                 $customOptions[$name] = $value;
 
-            } catch (Exception $e) {
+            } else {
 
-                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Ignoring invalid value for "%s" option: %s', $name, $e->getMessage());
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Ignoring invalid value for "%s"');
             }
         }
+
         return $customOptions;
     }
 

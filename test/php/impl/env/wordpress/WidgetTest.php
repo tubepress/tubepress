@@ -15,20 +15,21 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest {
         });
 
         $wpsm         = $iocContainer->get(org_tubepress_api_options_StorageManager::_);
-        $wpsm->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Widget::TITLE)->andReturn('value of widget title');
-        $wpsm->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Widget::TAGSTRING)->andReturn('value of widget shortcode');
+        $wpsm->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_WordPress::WIDGET_TITLE)->andReturn('value of widget title');
+        $wpsm->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_WordPress::WIDGET_SHORTCODE)->andReturn('value of widget shortcode');
 
         $explorer     = $iocContainer->get(org_tubepress_api_filesystem_Explorer::_);
         $explorer->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('fakepath');
 
         $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::WIDGET_CONTROL_TITLE, '<<options-meta-title-title>>');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::WIDGET_TITLE, 'value of widget title');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::WIDGET_CONTROL_SHORTCODE, '<<widget-tagstring-description>>');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::WIDGET_SHORTCODE, 'value of widget shortcode');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_impl_env_wordpress_Widget::WIDGET_CONTROL_TITLE, '<<Title>>');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_impl_env_wordpress_Widget::WIDGET_TITLE, 'value of widget title');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_impl_env_wordpress_Widget::WIDGET_CONTROL_SHORTCODE, '<<TubePress shortcode for the widget. See the <a href="http://tubepress.org/documentation"> documentation</a>.>>');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_impl_env_wordpress_Widget::WIDGET_SHORTCODE, 'value of widget shortcode');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_impl_env_wordpress_Widget::WIDGET_SUBMIT_TAG, org_tubepress_impl_env_wordpress_Widget::WIDGET_SUBMIT_TAG);
         $mockTemplate->shouldReceive('toString')->once()->andReturn('final result');
 
-        $tplBuilder   = $iocContainer->get('org_tubepress_api_template_TemplateBuilder');
+        $tplBuilder   = $iocContainer->get(org_tubepress_api_template_TemplateBuilder::_);
         $tplBuilder->shouldReceive('getNewTemplateInstance')->once()->with('fakepath/sys/ui/templates/wordpress/widget_controls.tpl.php')->andReturn($mockTemplate);
 
         ob_start();
@@ -42,32 +43,33 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest {
     function testPrintWidget()
     {
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context      = $iocContainer->get('org_tubepress_api_exec_ExecutionContext');
+        $context      = $iocContainer->get(org_tubepress_api_exec_ExecutionContext::_);
         $parser       = $iocContainer->get(org_tubepress_api_shortcode_ShortcodeParser::_);
-        $gallery      = $iocContainer->get('org_tubepress_api_shortcode_ShortcodeHtmlGenerator');
+        $gallery      = $iocContainer->get(org_tubepress_api_shortcode_ShortcodeHtmlGenerator::_);
+
         $ms           = $iocContainer->get(org_tubepress_api_message_MessageService::_);
 
         $ms->shouldReceive('_')->atLeast(1)->andReturnUsing( function ($key) {
             return "<<$key>>";
         });
 
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Widget::TAGSTRING)->andReturn('shortcode string');
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::THEME)->andReturn('theme');
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Widget::TITLE)->andReturn('widget title');
+        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_WordPress::WIDGET_SHORTCODE)->andReturn('shortcode string');
+        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Thumbs::THEME)->andReturn('theme');
+        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_WordPress::WIDGET_TITLE)->andReturn('widget title');
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::DEBUG_ON)->andReturn(false);
-        $context->shouldReceive('getCustomOptions')->once()->andReturn(array(org_tubepress_api_const_options_names_Display::THUMB_WIDTH => 22135));
+        $context->shouldReceive('getCustomOptions')->once()->andReturn(array(org_tubepress_api_const_options_names_Thumbs::THUMB_WIDTH => 22135));
         $context->shouldReceive('setCustomOptions')->once()->with(array(
-            org_tubepress_api_const_options_names_Display::RESULTS_PER_PAGE    => 3,
+            org_tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE    => 3,
             org_tubepress_api_const_options_names_Meta::VIEWS                  => false,
             org_tubepress_api_const_options_names_Meta::DESCRIPTION            => true,
-            org_tubepress_api_const_options_names_Display::DESC_LIMIT          => 50,
-            org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME => org_tubepress_api_const_options_values_PlayerValue::POPUP,
-            org_tubepress_api_const_options_names_Display::THUMB_HEIGHT        => 105,
-            org_tubepress_api_const_options_names_Display::THUMB_WIDTH         => 22135,
-            org_tubepress_api_const_options_names_Display::PAGINATE_ABOVE      => false,
-            org_tubepress_api_const_options_names_Display::PAGINATE_BELOW      => false,
-            org_tubepress_api_const_options_names_Display::THEME               => 'sidebar',
-            org_tubepress_api_const_options_names_Display::FLUID_THUMBS        => false
+            org_tubepress_api_const_options_names_Meta::DESC_LIMIT          => 50,
+            org_tubepress_api_const_options_names_Embedded::PLAYER_LOCATION => org_tubepress_api_const_options_values_PlayerLocationValue::POPUP,
+            org_tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT        => 105,
+            org_tubepress_api_const_options_names_Thumbs::THUMB_WIDTH         => 22135,
+            org_tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE      => false,
+            org_tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW      => false,
+            org_tubepress_api_const_options_names_Thumbs::THEME               => 'sidebar',
+            org_tubepress_api_const_options_names_Thumbs::FLUID_THUMBS        => false
         ));
         $context->shouldReceive('reset')->once();
 
@@ -92,7 +94,7 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest {
     {
         $iocContainer = org_tubepress_impl_ioc_IocContainer::getInstance();
         $ms           = $iocContainer->get(org_tubepress_api_message_MessageService::_);
-        $widgetOps = array('classname' => 'widget_tubepress', 'description' => '<<widget-description>>');
+        $widgetOps = array('classname' => 'widget_tubepress', 'description' => '<<Displays YouTube or Vimeo videos with TubePress>>');
 
         $ms->shouldReceive('_')->atLeast(1)->andReturnUsing( function ($key) {
             return "<<$key>>";

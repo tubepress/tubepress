@@ -30,10 +30,10 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommandTest extends Tube
 
         $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::OUTPUT)->andReturn(org_tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY)->andReturn(true);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::SEARCH_PROVIDER)->andReturn(org_tubepress_api_provider_Provider::VIMEO);
-        $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_Output::MODE, org_tubepress_api_const_options_values_ModeValue::VIMEO_SEARCH);
-        $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_Output::VIMEO_SEARCH_VALUE, "(#@@!!search (())(())((terms*$$#");
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_ONLY)->andReturn(true);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER)->andReturn(org_tubepress_api_provider_Provider::VIMEO);
+        $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE, org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_SEARCH);
+        $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE, "(#@@!!search (())(())((terms*$$#");
 
         $qss            = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $qss->shouldReceive('getSearchTerms')->once()->andReturn("(#@@!!search (())(())((terms*$$#");
@@ -52,10 +52,10 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommandTest extends Tube
 
         $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::OUTPUT)->andReturn(org_tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY)->andReturn(true);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::SEARCH_PROVIDER)->andReturn(org_tubepress_api_provider_Provider::YOUTUBE);
-        $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_Output::MODE, org_tubepress_api_const_options_values_ModeValue::TAG);
-        $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_Output::TAG_VALUE, "(#@@!!search (())(())((terms*$$#");
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_ONLY)->andReturn(true);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER)->andReturn(org_tubepress_api_provider_Provider::YOUTUBE);
+        $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE, org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH);
+        $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE, "(#@@!!search (())(())((terms*$$#");
 
         $qss            = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $qss->shouldReceive('getSearchTerms')->once()->andReturn("(#@@!!search (())(())((terms*$$#");
@@ -74,7 +74,7 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommandTest extends Tube
 
         $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::OUTPUT)->andReturn(org_tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY)->andReturn(true);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_ONLY)->andReturn(true);
 
         $qss            = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $qss->shouldReceive('getSearchTerms')->once()->andReturn("");
@@ -91,7 +91,7 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommandTest extends Tube
 
         $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::OUTPUT)->andReturn(org_tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY)->andReturn(false);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_ONLY)->andReturn(false);
 
         $qss            = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $qss->shouldReceive('getSearchTerms')->once()->andReturn("");

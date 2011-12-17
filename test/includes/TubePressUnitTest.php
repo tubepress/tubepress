@@ -1,5 +1,6 @@
 <?php
 require_once 'testBootStrap.php';
+require_once dirname(__FILE__) . '/../../sys/classes/org/tubepress/impl/util/LangUtils.class.php';
 
 abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
 {
@@ -44,8 +45,7 @@ abstract class TubePressUnitTest extends PHPUnit_Framework_TestCase
 
     public static function assertClassHasConstants($className, array $expected)
     {
-        $ref    = new ReflectionClass($className);
-        $actual = $ref->getConstants();
+        $actual = org_tubepress_impl_util_LangUtils::getDefinedConstants($className);
 
         TubePressUnitTest::assertArrayEquality($expected, $actual);
     }

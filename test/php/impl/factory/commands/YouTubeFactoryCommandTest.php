@@ -22,10 +22,10 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommandTest extends Tube
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
         $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::DESC_LIMIT)->andReturn(0);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::RANDOM_THUMBS)->andReturn(false);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::RELATIVE_DATES)->andReturn(false);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::DATEFORMAT)->andReturn('M j, Y');
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Meta::DESC_LIMIT)->andReturn(0);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS)->andReturn(false);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Meta::RELATIVE_DATES)->andReturn(false);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Meta::DATEFORMAT)->andReturn('M j, Y');
 
         $this->_sut->execute($context);
         $result = $context->returnValue;
@@ -59,10 +59,10 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommandTest extends Tube
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
         $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::DESC_LIMIT)->andReturn(0);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::RANDOM_THUMBS)->andReturn(false);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::RELATIVE_DATES)->andReturn(false);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::DATEFORMAT)->andReturn('M j, Y');
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Meta::DESC_LIMIT)->andReturn(0);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS)->andReturn(false);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Meta::RELATIVE_DATES)->andReturn(false);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Meta::DATEFORMAT)->andReturn('M j, Y');
 
         $this->assertTrue($this->_sut->execute($context));
     }

@@ -33,7 +33,7 @@ interface org_tubepress_api_plugin_PluginManager
      *
      * @return boolean True if there are filters registered for the given point. False otherwise.
      */
-    public function hasFilters($filterPoint);
+    function hasFilters($filterPoint);
 
     /**
      * Run all filters for the given filter point.
@@ -43,7 +43,7 @@ interface org_tubepress_api_plugin_PluginManager
      *
      * @return unknown_type The modified value, or void.
      */
-    public function runFilters($filterPoint, $value);
+    function runFilters($filterPoint, $value);
 
     /**
      * Registers a filter.
@@ -62,7 +62,7 @@ interface org_tubepress_api_plugin_PluginManager
      *
      * @return boolean True if there are listeners registered for the given event. False otherwise.
      */
-    public function hasListeners($eventName);
+    function hasListeners($eventName);
 
     /**
      * Run all listeners for the given event.
@@ -71,7 +71,7 @@ interface org_tubepress_api_plugin_PluginManager
      *
      * @return void
      */
-    public function notifyListeners($eventName);
+     function notifyListeners($eventName);
 
     /**
      * Registers a listener.

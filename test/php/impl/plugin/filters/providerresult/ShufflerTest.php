@@ -17,7 +17,7 @@ class org_tubepress_impl_plugin_filters_providerresult_ShufflerTest extends Tube
 	    $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
 
         $context      = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::ORDER_BY)->andReturn(org_tubepress_api_const_options_values_OrderValue::RANDOM);
+        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn(org_tubepress_api_const_options_values_OrderByValue::RANDOM);
 
         $videoArray = array('x', 'y');
 

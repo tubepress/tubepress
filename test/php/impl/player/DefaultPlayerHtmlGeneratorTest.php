@@ -20,7 +20,7 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePress
         $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
 
         $context       = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME)->andReturn('current-player-name');
+        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('current-player-name');
 
         $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
         $mockTemplate->shouldReceive('toString')->once()->andReturn('foobarr');

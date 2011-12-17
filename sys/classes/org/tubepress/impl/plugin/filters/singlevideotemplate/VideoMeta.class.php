@@ -30,7 +30,7 @@ class org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMeta
         $context        = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
 
-        $metaNames  = org_tubepress_impl_options_OptionsReference::getOptionNamesForCategory(org_tubepress_api_const_options_CategoryName::META);
+        $metaNames  = org_tubepress_impl_util_LangUtils::getDefinedConstants(org_tubepress_api_const_options_names_Meta::_);
         $shouldShow = array();
         $labels     = array();
 
@@ -38,7 +38,7 @@ class org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMeta
             $shouldShow[$metaName] = $context->get($metaName);
             $labels[$metaName]     = $messageService->_('video-' . $metaName);
         }
-        
+
         $template->setVariable(org_tubepress_api_const_template_Variable::META_SHOULD_SHOW, $shouldShow);
         $template->setVariable(org_tubepress_api_const_template_Variable::META_LABELS, $labels);
 
