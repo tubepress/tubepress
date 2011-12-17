@@ -43,3 +43,17 @@
 
 	</form>
 </div>
+
+<script type="text/javascript">
+
+	jQuery(document).ready(function () {
+
+		var opts = {
+
+				selectedText : 'choose...'
+		};
+		
+		jQuery('#multiselect-filterdropdown').multiselect(opts);
+		jQuery('#multiselect-metadropdown').multiselect(opts);
+	});
+</script>

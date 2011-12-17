@@ -33,7 +33,7 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractMultiSelectField ext
     const TEMPLATE_VAR_DESCRIPTORS = 'org_tubepress_impl_options_ui_fields_AbstractMultiSelectField__descriptors';
 
     const TEMPLATE_VAR_CURRENTVALUES = 'org_tubepress_impl_options_ui_fields_AbstractMultiSelectField__currentValues';
-
+    
     /** Array of option descriptors. */
     private $_optionDescriptors;
 

@@ -19,7 +19,7 @@
  *
  */
 ?>
-<select name="<?php echo ${org_tubepress_impl_options_ui_fields_AbstractMultiSelectField::TEMPLATE_VAR_NAME}; ?>[]">
+<select id="multiselect-<?php echo ${org_tubepress_impl_options_ui_fields_AbstractMultiSelectField::TEMPLATE_VAR_NAME}; ?>" name="<?php echo ${org_tubepress_impl_options_ui_fields_AbstractMultiSelectField::TEMPLATE_VAR_NAME}; ?>[]" multiple="multiple">
 
 	<?php foreach (${org_tubepress_impl_options_ui_fields_AbstractMultiSelectField::TEMPLATE_VAR_DESCRIPTORS} as $descriptor): ?>
 

@@ -115,19 +115,19 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
         $fs->shouldReceive('getTubePressInstallationDirectoryBaseName')->once()->andReturn('base_name');
 
 	    $plugins_url = new PHPUnit_Extensions_MockFunction('plugins_url');
-	    $plugins_url->expects($this->exactly(3))->will($this->_getPluginsUrlReturnMap());
+	    $plugins_url->expects($this->exactly(6))->will($this->_getPluginsUrlReturnMap());
 
         $wp_register_style = new PHPUnit_Extensions_MockFunction('wp_register_style');
-        $wp_register_style->expects($this->exactly(2))->will($this->_getRegisterStyleReturnMap());
+        $wp_register_style->expects($this->exactly(3))->will($this->_getRegisterStyleReturnMap());
 
         $wp_register_script = new PHPUnit_Extensions_MockFunction('wp_register_script');
-        $wp_register_script->expects($this->once())->with('jscolor-tubepress', 'fooey');
+        $wp_register_script->expects($this->exactly(3))->will($this->_getRegisterScriptReturnMap());
 
         $wp_enqueue_style = new PHPUnit_Extensions_MockFunction('wp_enqueue_style');
-        $wp_enqueue_style->expects($this->exactly(2))->will($this->_getEnqueueStyleReturnMap());
+        $wp_enqueue_style->expects($this->exactly(3))->will($this->_getEnqueueStyleReturnMap());
 
         $wp_enqueue_script = new PHPUnit_Extensions_MockFunction('wp_enqueue_script');
-        $wp_enqueue_script->expects($this->exactly(2))->will($this->_getEnqueueScriptReturnMap());
+        $wp_enqueue_script->expects($this->exactly(3))->will($this->_getEnqueueScriptReturnMap());
 
         org_tubepress_impl_env_wordpress_OptionsPage::initAction('settings_page_tubepress');
     }
@@ -138,6 +138,18 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
     
         $returnMapBuilder->addEntry()->with(array('jquery-ui-flick'));
         $returnMapBuilder->addEntry()->with(array('tubepress-options-page'));
+        $returnMapBuilder->addEntry()->with(array('jquery-ui-multiselect-widget'));
+    
+        return $returnMapBuilder->build();
+    }
+    
+    private function _getEnqueueScriptReturnMap()
+    {
+        $returnMapBuilder = new PHPUnit_Extensions_MockObject_Stub_ReturnMapping_Builder();
+    
+        $returnMapBuilder->addEntry()->with(array('jquery-ui-tubepress'));
+        $returnMapBuilder->addEntry()->with(array('jquery-ui-multiselect-widget'));
+        $returnMapBuilder->addEntry()->with(array('jscolor-tubepress'));
     
         return $returnMapBuilder->build();
     }
@@ -146,8 +158,9 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
     {
         $returnMapBuilder = new PHPUnit_Extensions_MockObject_Stub_ReturnMapping_Builder();
         
-        $returnMapBuilder->addEntry()->with(array('jquery-ui-flick'))->will($this->returnValue('foobar'));
-        $returnMapBuilder->addEntry()->with(array('tubepress-options-page'))->will($this->returnValue('foobar2'));
+        $returnMapBuilder->addEntry()->with(array('jquery-ui-flick', 'foobar'));
+        $returnMapBuilder->addEntry()->with(array('tubepress-options-page', 'foobar2'));
+        $returnMapBuilder->addEntry()->with(array('jquery-ui-multiselect-widget', 'foobar3'));
         
         return $returnMapBuilder->build();
     }
@@ -158,18 +171,24 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
 
          $returnMapBuilder->addEntry()->with(array('base_name/sys/ui/static/css/jquery-ui-flick/jquery-ui-1.8.16.custom.css', 'base_name'))->will($this->returnValue('foobar'));
          $returnMapBuilder->addEntry()->with(array('base_name/sys/ui/static/css/wordpress-options-page.css', 'base_name'))->will($this->returnValue('foobar2'));
+         $returnMapBuilder->addEntry()->with(array('base_name/sys/ui/static/css/jquery-ui-multiselect-widget/jquery.multiselect.css', 'base_name'))->will($this->returnValue('foobar3'));
          $returnMapBuilder->addEntry()->with(array('base_name/sys/ui/static/js/jscolor/jscolor.js', 'base_name'))->will($this->returnValue('fooey'));
+         $returnMapBuilder->addEntry()->with(array('base_name/sys/ui/static/js/jquery-ui/jquery-ui-1.8.16.custom.min.js', 'base_name'))->will($this->returnValue('fooey2'));
+         $returnMapBuilder->addEntry()->with(array('base_name/sys/ui/static/js/jquery-ui-multiselect-widget/jquery.multiselect.min.js', 'base_name'))->will($this->returnValue('fooey3'));
 
          return $returnMapBuilder->build();
     }
 
-    private function _getEnqueueScriptReturnMap()
+    private function _getRegisterScriptReturnMap()
     {
-         $returnMapBuilder = new PHPUnit_Extensions_MockObject_Stub_ReturnMapping_Builder();
-
-         $returnMapBuilder->addEntry()->with(array('jquery-ui-tabs'));
-         $returnMapBuilder->addEntry()->with(array('jscolor-tubepress'));
-
-         return $returnMapBuilder->build();
+        $returnMapBuilder = new PHPUnit_Extensions_MockObject_Stub_ReturnMapping_Builder();
+    
+        $returnMapBuilder->addEntry()->with(array('jscolor-tubepress', 'fooey'));
+        $returnMapBuilder->addEntry()->with(array('jquery-ui-tubepress', 'fooey2'));
+        $returnMapBuilder->addEntry()->with(array('jquery-ui-multiselect-widget', 'fooey3'));
+    
+        return $returnMapBuilder->build();
     }
+    
+
 }
