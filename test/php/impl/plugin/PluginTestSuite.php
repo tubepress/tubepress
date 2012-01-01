@@ -26,7 +26,7 @@ class org_tubepress_impl_plugin_PluginTestSuite
 		return new TubePressUnitTestSuite(array(
             'org_tubepress_impl_plugin_PluginManagerImplTest',
 		    'org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariablesTest',
-		    'org_tubepress_impl_plugin_filters_galleryhtml_GalleryJsTest',
+		    'org_tubepress_impl_plugin_filters_galleryhtml_GalleryInitJsTest',
 		    'org_tubepress_impl_plugin_filters_gallerytemplate_PaginationTest',
 		    'org_tubepress_impl_plugin_filters_gallerytemplate_CoreVariablesTest',
 		    'org_tubepress_impl_plugin_filters_gallerytemplate_EmbeddedPlayerNameTest',
