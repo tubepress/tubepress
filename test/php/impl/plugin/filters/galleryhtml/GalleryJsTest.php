@@ -6,49 +6,46 @@ class org_tubepress_impl_plugin_filters_galleryhtml_GalleryInitJsTest extends Tu
 {
 	private $_sut;
 
+	private $_providerResult;
+
 	function setup()
 	{
 		parent::setUp();
-		$this->_sut = new org_tubepress_impl_plugin_filters_galleryhtml_GalleryInitJs();
 
+		$this->_sut = new org_tubepress_impl_plugin_filters_galleryhtml_GalleryInitJs();
+		$this->_providerResult = \Mockery::mock('org_tubepress_api_provider_ProviderResult');
+	}
+
+	function testAlterNonString()
+	{
+	    $result = $this->_sut->alter_galleryHtml(array('hello'), $this->_providerResult, 1, 'something');
+	    $this->assertEquals(array('hello'), $result);
+	}
+
+	function testAlterHtml()
+	{
 		$ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION)->andReturn(true);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('current-player-name');
-        $context->shouldReceive('toShortcode')->once()->andReturn('shortcode');
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Thumbs::FLUID_THUMBS)->andReturn(false);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT)->andReturn(500);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH)->andReturn(800);
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('gallery-id');
 
-        $themeHandler = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
-        $themeHandler->shouldReceive('calculateCurrentThemeName')->once()->andReturn('current-theme-name');
-        $themeHandler->shouldReceive('getCssPath')->once()->with('current-theme-name')->andReturn('css-path');
+        $filterManager = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+        $filterManager->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::JAVASCRIPT_GALLERYINIT, array())->andReturn(array('yo' => 'mamma', 'is' => '"so fat"'));
 
-        $fe           = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-        $fe->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('baseInstallPath');
-	}
+	    $result = $this->_sut->alter_galleryHtml('hello', $this->_providerResult, 1, 'something');
 
-	function testAlter()
-	{
-	    $result = $this->_sut->alter_galleryHtml('hello', new org_tubepress_api_provider_ProviderResult(), 1, 'provider-name');
 	    $this->assertEquals($this->expectedAjax(), $result);
 	}
 
 	function expectedAjax()
 	{
 	    return <<<EOT
-hello<script type="text/javascript">
+hello
+<script type="text/javascript">
 	TubePressGallery.init(gallery-id, {
-		ajaxPagination: true,
-		fluidThumbs: false,
-		shortcode: "shortcode",
-		playerLocationName: "current-player-name",
-		embeddedHeight: "500",
-		embeddedWidth: "800",
-		themeCSS: ""
-    });
+		yo : mamma,
+		is : "so fat"
+	});
 </script>
 EOT;
 	}
