@@ -24,6 +24,8 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_http_HttpClient',
     'org_tubepress_api_http_HttpRequest',
+    'org_tubepress_spi_http_HttpContentDecoder',
+    'org_tubepress_spi_http_HttpTransferDecoder',
     'org_tubepress_api_http_HttpResponseHandler',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_spi_patterns_cor_Chain',
@@ -209,11 +211,11 @@ class org_tubepress_impl_http_HttpClientChain implements org_tubepress_api_http_
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $map     = array(
 
-            org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_EXTHTTP   => 'org_tubepress_impl_http_clientimpl_commands_ExtHttpCommand',
-            org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_CURL      => 'org_tubepress_impl_http_clientimpl_commands_CurlCommand',
-			org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_STREAMS   => 'org_tubepress_impl_http_clientimpl_commands_StreamsCommand',
-            org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FSOCKOPEN => 'org_tubepress_impl_http_clientimpl_commands_FsockOpenCommand',
-            org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FOPEN     => 'org_tubepress_impl_http_clientimpl_commands_FopenCommand',
+            org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_EXTHTTP   => 'org_tubepress_impl_http_transports_ExtHttpTransport',
+            org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_CURL      => 'org_tubepress_impl_http_transports_CurlTransport',
+			org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_STREAMS   => 'org_tubepress_impl_http_transports_StreamsTransport',
+            org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FSOCKOPEN => 'org_tubepress_impl_http_transports_FsockOpenTransport',
+            org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FOPEN     => 'org_tubepress_impl_http_transports_FopenTransport',
         );
 
         foreach ($map as $optionName => $transport) {

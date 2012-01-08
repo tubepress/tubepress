@@ -77,9 +77,12 @@ class org_tubepress_impl_env_wordpress_Main
 
             /* Get the HTML for this particular shortcode. Could be a single video or a gallery. */
             try {
+
                 $generatedHtml = $gallery->getHtmlForShortcode($content);
+
             } catch (Exception $e) {
-                $e->getMessage();
+
+                $generatedHtml = $e->getMessage();
             }
 
             /* remove any leading/trailing <p> tags from the content */
@@ -93,6 +96,7 @@ class org_tubepress_impl_env_wordpress_Main
             /* reset the context for the next shortcode */
             $context->reset();
         }
+
         return $content;
     }
 

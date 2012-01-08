@@ -32,7 +32,7 @@ class org_tubepress_impl_feed_CacheAwareFeedFetcherTest extends TubePressUnitTes
 	    $cache->shouldReceive('save')->once()->with("http://www.ietf.org/css/ietf.css", "someValue");
 
 	    $httpClient = $ioc->get(org_tubepress_api_http_HttpClient::_);
-	    $httpClient->shouldReceive('execute')->once()->andReturn('someValue');
+	    $httpClient->shouldReceive('execute')->once()->andReturn($this->_response('someValue'));
 
 	    $this->assertEquals('someValue', $this->_sut->fetch("http://www.ietf.org/css/ietf.css", true));
 	}
@@ -42,8 +42,19 @@ class org_tubepress_impl_feed_CacheAwareFeedFetcherTest extends TubePressUnitTes
 	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
 	    $httpClient = $ioc->get(org_tubepress_api_http_HttpClient::_);
-	    $httpClient->shouldReceive('execute')->once()->andReturn('someValue');
+	    $httpClient->shouldReceive('execute')->once()->andReturn($this->_response('someValue'));
 
 		$this->assertEquals('someValue', $this->_sut->fetch("http://www.ietf.org/css/ietf.css", false));
+	}
+
+	function _response($string)
+	{
+	    $response = \Mockery::mock(org_tubepress_api_http_HttpResponse::_);
+	    $entity   = \Mockery::mock(org_tubepress_api_http_HttpEntity::_);
+
+	    $response->shouldReceive('getEntity')->once()->andReturn($entity);
+	    $entity->shouldReceive('getContent')->once()->andReturn($string);
+
+	    return $response;
 	}
 }

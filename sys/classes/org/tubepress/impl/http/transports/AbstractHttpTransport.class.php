@@ -21,6 +21,7 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_spi_http_HttpMessageParser',
     'org_tubepress_api_http_HttpRequest',
     'org_tubepress_api_http_HttpResponse',
     'org_tubepress_spi_patterns_cor_Command',
@@ -182,7 +183,11 @@ abstract class org_tubepress_impl_http_transports_AbstractHttpTransport implemen
 
     private function _assignStatusToResponse(org_tubepress_api_http_HttpResponse $response, org_tubepress_api_http_HttpRequest $request)
     {
-        $response->setStatusCode($this->getResponseCode());
+        $code = $this->getResponseCode();
+
+        org_tubepress_impl_log_Log::log($this->logPrefix(), '%s returned HTTP %s', $request, $code);
+
+        $response->setStatusCode($code);
     }
 
     private function _assignHeadersToResponse($headerArray, org_tubepress_api_http_HttpResponse $response, org_tubepress_api_http_HttpRequest $request)

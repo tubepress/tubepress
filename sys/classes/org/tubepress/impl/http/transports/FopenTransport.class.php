@@ -21,7 +21,7 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../impl/classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_impl_http_transports_AbstractHttpCommand',
+    'org_tubepress_impl_http_transports_AbstractHttpTransport',
     'org_tubepress_impl_http_HttpClientChain',
 ));
 
@@ -35,7 +35,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  * 'allow_url_fopen' to be enabled.
  *
  */
-class org_tubepress_impl_http_transports_FopenTransport  extends org_tubepress_impl_http_transports_AbstractHttpTransport
+class org_tubepress_impl_http_transports_FopenTransport extends org_tubepress_impl_http_transports_AbstractHttpTransport
 {
     private static $_fopen_readonly = 'r';
 
