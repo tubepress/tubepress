@@ -44,4 +44,7 @@ class org_tubepress_api_const_options_names_Meta
     const DATEFORMAT     = 'dateFormat';
     const DESC_LIMIT     = 'descriptionLimit';
     const RELATIVE_DATES = 'relativeDates';
+
+    //DEPRECATED:
+    const TAGS    = self::KEYWORDS;
 }
