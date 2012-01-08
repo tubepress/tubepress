@@ -33,7 +33,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 /**
  * Injects Ajax pagination code into the gallery's HTML.
  */
-class org_tubepress_impl_plugin_filters_galleryhtml_GalleryInitJs
+class org_tubepress_impl_plugin_filters_galleryhtml_GalleryJs
 {
     private static $_logPrefix = 'Gallery JS Filter';
 

@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/plugin/filters/galleryhtml/GalleryJs.class.php';
 
-class org_tubepress_impl_plugin_filters_galleryhtml_GalleryInitJsTest extends TubePressUnitTest
+class org_tubepress_impl_plugin_filters_galleryhtml_GalleryJsTest extends TubePressUnitTest
 {
 	private $_sut;
 
@@ -12,7 +12,7 @@ class org_tubepress_impl_plugin_filters_galleryhtml_GalleryInitJsTest extends Tu
 	{
 		parent::setUp();
 
-		$this->_sut = new org_tubepress_impl_plugin_filters_galleryhtml_GalleryInitJs();
+		$this->_sut = new org_tubepress_impl_plugin_filters_galleryhtml_GalleryJs();
 		$this->_providerResult = \Mockery::mock('org_tubepress_api_provider_ProviderResult');
 	}
 

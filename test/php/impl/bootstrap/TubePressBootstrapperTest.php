@@ -20,7 +20,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUn
         $pm                    = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $expectedSystemFilters = array(
             array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_EMBEDDED     , 'org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariables'),
-            array(org_tubepress_api_const_plugin_FilterPoint::HTML_GALLERY          , 'org_tubepress_impl_plugin_filters_galleryhtml_GalleryInitJs'),
+            array(org_tubepress_api_const_plugin_FilterPoint::HTML_GALLERY          , 'org_tubepress_impl_plugin_filters_galleryhtml_GalleryJs'),
             array(org_tubepress_api_const_plugin_FilterPoint::JAVASCRIPT_GALLERYINIT, 'org_tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParams'),
             array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY      , 'org_tubepress_impl_plugin_filters_gallerytemplate_CoreVariables'),
             array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY      , 'org_tubepress_impl_plugin_filters_gallerytemplate_EmbeddedPlayerName'),

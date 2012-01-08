@@ -132,7 +132,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_EMBEDDED, $ioc->get('org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariables'));
 
         /* gallery HTML filters */
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::HTML_GALLERY, $ioc->get('org_tubepress_impl_plugin_filters_galleryhtml_GalleryInitJs'));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::HTML_GALLERY, $ioc->get('org_tubepress_impl_plugin_filters_galleryhtml_GalleryJs'));
 
         /* gallery init js */
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::JAVASCRIPT_GALLERYINIT, $ioc->get('org_tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParams'));
