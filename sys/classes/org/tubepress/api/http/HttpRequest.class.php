@@ -126,7 +126,7 @@ class org_tubepress_api_http_HttpRequest extends org_tubepress_api_http_HttpMess
      */
     public function toString()
     {
-        return sprintf('%s to %s', $this->getMethod(), $this->getUrl());
+        return sprintf('%s to <a href="%s">URL</a>', $this->getMethod(), $this->getUrl());
     }
 
     /**

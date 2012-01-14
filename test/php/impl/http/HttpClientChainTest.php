@@ -195,6 +195,8 @@ class org_tubepress_impl_http_HttpClientChainTest extends TubePressUnitTest {
             $this->_request->shouldReceive('setHeader')->once()->with($headerName, $headerValue);
         }
 
+        $this->_request->shouldReceive('getAllHeaders')->once()->andReturn(array('foo' => 'bar'));
+
         $this->_request->shouldReceive('setHeader')->once()->with(org_tubepress_api_http_HttpRequest::HTTP_HEADER_ACCEPT_ENCODING, 'encoding header problem');
     }
 

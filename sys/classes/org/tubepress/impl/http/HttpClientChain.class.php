@@ -37,7 +37,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_http_HttpClientChain implements org_tubepress_api_http_HttpClient
 {
-    const LOG_PREFIX = 'HTTP Client';
+    private static $_logPrefix = 'HTTP Client';
 
     /**
     * Execute a given HTTP request.
@@ -53,7 +53,9 @@ class org_tubepress_impl_http_HttpClientChain implements org_tubepress_api_http_
         self::_checkRequest($request);
         self::_setDefaultHeaders($request);
 
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Will attempt %s', $request);
+        org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Will attempt %s', $request);
+
+        $this->_logRequest($request);
 
         $ioc      = org_tubepress_impl_ioc_IocContainer::getInstance();
         $commands = self::_getTransportCommands($ioc);
@@ -71,7 +73,7 @@ class org_tubepress_impl_http_HttpClientChain implements org_tubepress_api_http_
 
         $response = $context->response;
 
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Now decoding response (if required)');
+        org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Now decoding response (if required)');
         $transferDecoder = $ioc->get(org_tubepress_spi_http_HttpTransferDecoder::_);
         $contentDecoder  = $ioc->get(org_tubepress_spi_http_HttpContentDecoder::_);
 
@@ -91,7 +93,7 @@ class org_tubepress_impl_http_HttpClientChain implements org_tubepress_api_http_
      *
      * @return string The raw entity data in the response. May be empty or null.
      */
-    function executeAndHandleResponse(org_tubepress_api_http_HttpRequest $request, org_tubepress_api_http_HttpResponseHandler $handler)
+    public function executeAndHandleResponse(org_tubepress_api_http_HttpRequest $request, org_tubepress_api_http_HttpResponseHandler $handler)
     {
         $response = $this->execute($request);
 
@@ -124,7 +126,7 @@ class org_tubepress_impl_http_HttpClientChain implements org_tubepress_api_http_
 
         if ($entity === null) {
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'No HTTP entity in request');
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'No HTTP entity in request');
             return;
         }
 
@@ -145,28 +147,28 @@ class org_tubepress_impl_http_HttpClientChain implements org_tubepress_api_http_
 
         if ($contentLength === null) {
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'HTTP entity in request, but no content length set. Ignoring this entity!');
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'HTTP entity in request, but no content length set. Ignoring this entity!');
         }
 
         if ($contentEncoding === null) {
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'HTTP entity in request, but no content encoding set. Ignoring this entity!');
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'HTTP entity in request, but no content encoding set. Ignoring this entity!');
         }
 
         if ($content === null) {
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'HTTP entity in request, but no content set. Ignoring this entity!');
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'HTTP entity in request, but no content set. Ignoring this entity!');
         }
 
         if ($type === null) {
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'HTTP entity in request, but no content type set. Ignoring this entity!');
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'HTTP entity in request, but no content type set. Ignoring this entity!');
         }
     }
 
     private static function _setDefaultHeadersCompression(org_tubepress_api_http_HttpRequest $request)
     {
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Determining if HTTP compression is available...');
+        org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Determining if HTTP compression is available...');
 
         $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
         $decomp = $ioc->get(org_tubepress_spi_http_HttpContentDecoder::_);
@@ -174,13 +176,13 @@ class org_tubepress_impl_http_HttpClientChain implements org_tubepress_api_http_
 
         if ($header !== null) {
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'HTTP decompression is available. Yeah!');
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'HTTP decompression is available. Yeah!');
 
             $request->setHeader(org_tubepress_api_http_HttpRequest::HTTP_HEADER_ACCEPT_ENCODING, $header);
 
         } else {
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'HTTP decompression is NOT available. Boo.');
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'HTTP decompression is NOT available. Boo.');
         }
     }
 
@@ -227,7 +229,7 @@ class org_tubepress_impl_http_HttpClientChain implements org_tubepress_api_http_
 
             } else {
 
-                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, '%s has been selected', $optionName);
+                org_tubepress_impl_log_Log::log(self::$_logPrefix, '%s has been selected', $optionName);
             }
         }
 
@@ -238,13 +240,29 @@ class org_tubepress_impl_http_HttpClientChain implements org_tubepress_api_http_
     {
         if ($decoder->needsToBeDecoded($response)) {
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Response is %s-Encoded. Attempting decode.', $name);
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Response is %s-Encoded. Attempting decode.', $name);
             $decoder->decode($response);
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Successfully decoded %s-Encoded response.', $name);
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Successfully decoded %s-Encoded response.', $name);
 
         } else {
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Response is not %s-Encoded.', $name);
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Response is not %s-Encoded.', $name);
+        }
+    }
+
+    private function _logRequest(org_tubepress_api_http_HttpRequest $request)
+    {
+        $headerArray = $request->getAllHeaders();
+
+        /* do some logging */
+        if (org_tubepress_impl_log_Log::isEnabled()) {
+
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Here are the ' . count($headerArray) . ' headers in the request for %s', $request);
+
+            foreach($headerArray as $name => $value) {
+
+                org_tubepress_impl_log_Log::log(self::$_logPrefix, "<tt>$name: $value</tt>");
+            }
         }
     }
 }

@@ -24,8 +24,14 @@
  */
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classes/org/tubepress/impl/classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_bootstrap_Bootstrapper',
     'org_tubepress_api_const_options_names_Advanced',
+    'org_tubepress_api_const_options_names_Embedded',
+    'org_tubepress_api_player_PlayerHtmlGenerator',
+    'org_tubepress_api_provider_Provider',
 	'org_tubepress_api_querystring_QueryStringService',
+	'org_tubepress_api_shortcode_ShortcodeParser',
+
     'org_tubepress_impl_ioc_IocContainer'
 ));
 
