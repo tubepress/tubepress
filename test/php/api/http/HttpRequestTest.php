@@ -12,11 +12,11 @@ class org_tubepress_api_http_HttpRequestTest extends org_tubepress_api_http_Abst
 
     function testToString()
     {
-        $expected = 'GET to http://tubepress.org/foo.html';
+        $expected = 'GET to <a href="http://tubepress.org/foo.html">URL</a>';
         $this->assertEquals($expected, $this->getSut()->toString());
         $this->assertEquals($expected, $this->getSut()->__toString());
     }
-    
+
     function testSetUrlUrl()
     {
         $url = new org_tubepress_api_url_Url('http://tubepress.org/foo.html');
