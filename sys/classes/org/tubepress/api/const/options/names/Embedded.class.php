@@ -24,6 +24,7 @@
  */
 class org_tubepress_api_const_options_names_Embedded
 {
+    const AUTONEXT         = 'autoNext';
     const AUTOPLAY         = 'autoplay';
     const EMBEDDED_HEIGHT  = 'embeddedHeight';
     const EMBEDDED_WIDTH   = 'embeddedWidth';
@@ -35,6 +36,7 @@ class org_tubepress_api_const_options_names_Embedded
     const PLAYER_HIGHLIGHT = 'playerHighlight';
     const PLAYER_IMPL      = 'playerImplementation';
     const PLAYER_LOCATION  = 'playerLocation';
+    const SEQUENCE         = 'sequence';
     const SHOW_INFO        = 'showInfo';
     const SHOW_RELATED     = 'showRelated';
 }

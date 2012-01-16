@@ -29,11 +29,13 @@ class org_tubepress_api_const_js_TubePressGalleryInit
     const NAME_INIT_FUNCTION = 'init';
 
     const NAME_PARAM_AJAXPAGINATION = 'ajaxPagination';
+    const NAME_PARAM_AUTONEXT       = 'autoNext';
     const NAME_PARAM_EMBEDDEDHEIGHT = 'embeddedHeight';
     const NAME_PARAM_EMBEDDEDWIDTH  = 'embeddedWidth';
     const NAME_PARAM_FLUIDTHUMBS    = 'fluidThumbs';
     const NAME_PARAM_PLAYERLOC      = 'playerLocationName';
     const NAME_PARAM_PLAYSEQUENCE   = 'playSequence';
+    const NAME_PARAM_SEQUENCE       = 'sequence';
     const NAME_PARAM_SHORTCODE      = 'shortcode';
     const NAME_PARAM_THEME          = 'themeCSS';
 }
