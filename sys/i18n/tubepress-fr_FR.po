@@ -522,3 +522,9 @@ msgstr ""
 
 msgid "Vimeo"
 msgstr ""
+
+msgid "Enable JavaScript API"
+msgstr ""
+
+msgid "Allow TubePress to communicate with the embedded video player via JavaScript. This incurs a very small performance overhead, but is required for some features."
+msgstr ""

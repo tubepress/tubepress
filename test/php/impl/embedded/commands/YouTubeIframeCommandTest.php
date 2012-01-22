@@ -33,6 +33,7 @@ class org_tubepress_impl_embedded_commands_YouTubeIframeCommandTest extends Tube
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::LOOP)->andReturn(false);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::SHOW_RELATED)->andReturn(true);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::FULLSCREEN)->andReturn(false);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::ENABLE_JS_API)->andReturn(false);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::HIGH_QUALITY)->andReturn(true);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('some-gallery-id');
 
@@ -48,7 +49,7 @@ class org_tubepress_impl_embedded_commands_YouTubeIframeCommandTest extends Tube
         $this->assertTrue($this->_sut->execute($mockChainContext));
 
         $this->assertEquals($mockTemplate, $mockChainContext->template);
-        $this->assertEquals('http://www.youtube.com/embed/video_id?color2=0x123456&color1=0x654321&rel=1&autoplay=0&loop=0&fs=0&showinfo=1&wmode=transparent&enablejsapi=1&hd=1',
+        $this->assertEquals('http://www.youtube.com/embed/video_id?color2=0x123456&color1=0x654321&rel=1&autoplay=0&loop=0&fs=0&showinfo=1&wmode=transparent&enablejsapi=0&hd=1',
             $mockChainContext->dataUrl->toString());
         $this->assertEquals('youtube', $mockChainContext->embeddedImplementationName);
     }

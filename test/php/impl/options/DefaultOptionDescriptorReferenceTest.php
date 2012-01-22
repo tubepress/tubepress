@@ -9,16 +9,16 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 	public function setup()
 	{
 		parent::setUp();
-		
+
 		$ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
 		$themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
 		$explorer      = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-		
+
 		$themeHandler->shouldReceive('getUserContentDirectory')->once()->andReturn('user-content-dir');
 		$explorer->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('base-install-path');
 		$explorer->shouldReceive('getDirectoriesInDirectory')->once()->with('base-install-path/sys/ui/themes', 'Default Option Descriptor Reference')->andReturn(array('boo'));
 		$explorer->shouldReceive('getDirectoriesInDirectory')->once()->with('user-content-dir/themes', 'Default Option Descriptor Reference')->andReturn(array('bob'));
-		
+
 		$this->_sut = new org_tubepress_impl_options_DefaultOptionDescriptorReference();
 	}
 
@@ -26,7 +26,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 	{
 	    $all = $this->_sut->findAll();
 
-	    $this->assertTrue(count($all) === 89, "Expected 89 options but got " . count($all));
+	    $this->assertTrue(count($all) === 90, "Expected 90 options but got " . count($all));
 	}
 
 	/**
@@ -298,6 +298,11 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$this->assertTrue($option->getDefaultValue() === false, $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
+    	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::ENABLE_JS_API);
+    	$this->assertTrue($option->getDefaultValue() === true, $option->getName());
+    	$this->assertTrue($option->getLabel() === 'Enable JavaScript API', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'Allow TubePress to communicate with the embedded video player via JavaScript. This incurs a very small performance overhead, but is required for some features.', $option->getName());
+
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::SHOW_RELATED);
     	$this->assertTrue($option->getLabel() === 'Show related videos', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === true, $option->getName());
@@ -557,17 +562,17 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
     	$this->assertTrue($option->getDefaultValue() === '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
-    	
+
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE);
 
-    	
+
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE);
 
-    	
+
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE);
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS);
-    	
+
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS);
 	}
 }

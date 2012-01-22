@@ -51,6 +51,7 @@ class org_tubepress_impl_embedded_commands_YouTubeIframeCommand extends org_tube
         $autoPlay        = $context->get(org_tubepress_api_const_options_names_Embedded::AUTOPLAY);
         $loop            = $context->get(org_tubepress_api_const_options_names_Embedded::LOOP);
         $fullscreen      = $context->get(org_tubepress_api_const_options_names_Embedded::FULLSCREEN);
+        $enableJsApi     = $context->get(org_tubepress_api_const_options_names_Embedded::ENABLE_JS_API);
         $galleryId       = $context->get(org_tubepress_api_const_options_names_Advanced::GALLERY_ID);
         $playerColor     = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($context->get(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR), '999999');
         $playerHighlight = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($context->get(org_tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT), 'FFFFFF');
@@ -68,7 +69,7 @@ class org_tubepress_impl_embedded_commands_YouTubeIframeCommand extends org_tube
         $link->setQueryVariable('fs', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($fullscreen));
         $link->setQueryVariable('showinfo', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
         $link->setQueryVariable('wmode', 'transparent');
-        $link->setQueryVariable('enablejsapi', '1');
+        $link->setQueryVariable('enablejsapi', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($enableJsApi));
 
         if ($context->get(org_tubepress_api_const_options_names_Embedded::HIGH_QUALITY)) {
             $link->setQueryVariable('hd', '1');

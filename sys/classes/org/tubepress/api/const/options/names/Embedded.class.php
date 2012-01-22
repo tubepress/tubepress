@@ -28,6 +28,7 @@ class org_tubepress_api_const_options_names_Embedded
     const AUTOPLAY         = 'autoplay';
     const EMBEDDED_HEIGHT  = 'embeddedHeight';
     const EMBEDDED_WIDTH   = 'embeddedWidth';
+    const ENABLE_JS_API    = 'enableJsApi';
     const FULLSCREEN       = 'fullscreen';
     const HIGH_QUALITY     = 'hd';
     const LAZYPLAY         = 'lazyPlay';
