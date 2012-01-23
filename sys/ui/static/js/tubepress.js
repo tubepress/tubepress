@@ -250,20 +250,6 @@ var TubePressGallery = (function () {
 	};
 }());
 
-var TubePressEmbedded = (function () {
-	
-	var init = function (videoId, params) {
-		
-		
-	};
-	
-	return {
-		
-		init	:	init
-	};
-	
-}());
-
 /* handles player-related functionality (popup, Shadowbox, etc) */
 var TubePressPlayers = (function () {
 	
@@ -530,65 +516,101 @@ var TubePressCompat = (function () {
  */
 var TubePressPlayerApi = (function () {
 	
-	var jquery					= jQuery,
+	var 
+	
+		/** These variable declarations aide in compression. */
+		jquery					= jQuery,
 		documentElement			= jquery(document),
-		loadingYouTubeApi		= false,
-		loadingVimeoApi			= false,
 		events					= TubePressEvents,
+		getscript				= jquery.getScript,
+		undef					= 'undefined',
+
+		/** YouTube variables. */
+		loadingYouTubeApi		= false,
 		youTubePrefix			= 'tubepress-youtube-player-',
 		youTubePlayers			= {},
 		youTubeIdPattern		= /[a-z0-9\-_]{11}/i,
+
+		/** Vimeo variables. */
+		loadingVimeoApi			= false,
 		vimeoPrefix				= 'tubepress-vimeo-player-',
 		vimeoPlayers			= {},
 		vimeoIdPattern			= /[0-9]+/,
 
+		/**
+		 * Is the given video ID from YouTube?
+		 */
 		isYouTubeVideoId = function (videoId) {
 			
 			return youTubeIdPattern.test(videoId);
 		},
 		
+		/**
+		 * Is the given video ID from Vimeo?
+		 */
 		isVimeoVideoId = function (videoId) {
 			
 			return vimeoIdPattern.test(videoId);
 		},
 	
+		/**
+		 * Helper method to trigger events on jQuery(document).
+		 */
 		triggerEvent = function (eventName, videoId) {
 		
 			documentElement.trigger(eventName, videoId);
 		},
 		
+		/**
+		 * A video has started.
+		 */
 		fireVideoStartedEvent = function (videoId) {
 
 			triggerEvent(events.PLAYBACK_STARTED, videoId);
 		},
 		
+		/**
+		 * A video has stopped.
+		 */
 		fireVideoStoppedEvent = function (videoId) {
 
 			triggerEvent(events.PLAYBACK_STOPPED, videoId);
 		},
 	
+		/**
+		 * A video is buffering.
+		 */
 		fireVideoBufferingEvent = function (videoId) {
 			
 			triggerEvent(events.PLAYBACK_BUFFERING, videoId);
 		},
 		
+		/**
+		 * A video has paused.
+		 */
 		fireVideoPausedEvent = function (videoId) {
 
 			triggerEvent(events.PLAYBACK_PAUSED, videoId);
 		},
 		
+		/**
+		 * A video has encountered an error.
+		 */
 		fireVideoErrorEvent = function (videoId) {
 			
 			triggerEvent(events.PLAYBACK_ERROR, videoId);
 		},
 		
+		/**
+		 * Pulls out the video ID from a YouTube event.
+		 */
 		getVideoIdFromYouTubeEvent = function (event) {
 			
 			var domId	= event.target.a.id,
 				vId		= domId.replace(youTubePrefix, ''),
 				player	= youTubePlayers[vId];
 			
-			if (typeof player.getVideoData === 'undefined') {
+			if (typeof player.getVideoData === undef) {
 				
 				return null;
 			}
@@ -596,12 +618,17 @@ var TubePressPlayerApi = (function () {
 			return player.getVideoData().video_id;
 		},
 		
+		/**
+		 * Pulls out the video ID from a Vimeo event.
+		 */
 		getVideoIdFromVimeoEvent = function (event) {
 			
 			return event.replace(vimeoPrefix, '');
 		},
 		
-		/** Utility to wait for test() to be true, then call callback() */
+		/**
+		 * Utility to wait for test() to be true, then call callback()
+		 */
 		callWhenTrue = function (callback, test, delay) {
 		
 			/** It's ready... */
@@ -611,6 +638,7 @@ var TubePressPlayerApi = (function () {
 				return;
 			}
 			
+			/** Set up a timeout callback. */
 			var func = function () {
 				
 				callWhenTrue(callback, test, delay);
@@ -620,101 +648,96 @@ var TubePressPlayerApi = (function () {
 			setTimeout(func, delay);
 		},
 		
+		/**
+		 * Is the YouTube API available yet?
+		 */
 		isYouTubeApiAvailable = function () {
 			
-			return typeof YT !== 'undefined' && typeof YT.Player !== 'undefined';
+			return typeof YT !== undef && typeof YT.Player !== undef;
 		},
 		
+		/**
+		 * Is the Vimeo API available yet?
+		 */
 		isVimeoApiAvailable = function () {
 			
-			return typeof Froogaloop !== 'undefined';
+			return typeof Froogaloop !== undef;
 		},
 		
+		/**
+		 * Load the YouTube API, if necessary.
+		 */
 		loadYouTubeApi = function () {
 	
 			if (! loadingYouTubeApi && ! isYouTubeApiAvailable()) {
 				
 				loadingYouTubeApi = true;
-				jquery.getScript('http://www.youtube.com/player_api');
+				getscript('http://www.youtube.com/player_api');
 			}
 		},
 		
+		/**
+		 * Load the Vimeo API, if necessary.
+		 */
 		loadVimeoApi = function () {
 			
 			if (! loadingVimeoApi && ! isVimeoApiAvailable()) {
 				
 				loadingVimeoApi = true;
-				jquery.getScript('http://a.vimeocdn.com/js/froogaloop2.min.js');
+				getscript('http://a.vimeocdn.com/js/froogaloop2.min.js');
 			}
 		},
 		
+		/**
+		 * The YouTube player will call this method when a player event
+		 * fires.
+		 */
 		onYouTubeStateChange = function (event) {
 			
 			var videoId		= getVideoIdFromYouTubeEvent(event),
 				eventData	= event.data,
 				playerState	= YT.PlayerState;
 			
+			/**
+			 * If we can't parse the event, just bail.
+			 */
 			if (videoId === null) {
 				
 				return;
 			}
 			
-			if (eventData === playerState.PLAYING) {
-
-				fireVideoStartedEvent(videoId);
-				return;
+			switch (eventData) {
+			
+				case playerState.PLAYING:
+					
+					fireVideoStartedEvent(videoId);
+					break;
+					
+				case playerState.PAUSED:
+					
+					fireVideoPausedEvent(videoId);
+					break;
+					
+				case playerState.ENDED:
+					
+					fireVideoStoppedEvent(videoId);
+					break;
+					
+				case playerState.BUFFERING:
+					
+					fireVideoBufferingEvent(videoId);
+					break;
+					
+				default:
+					
+					//unknown event
+					break;
 			}
-			
-			if (eventData === playerState.PAUSED) {
-
-				fireVideoPausedEvent(videoId);
-				return;
-			}
-			
-			if (eventData === playerState.ENDED) {
-
-				fireVideoStoppedEvent(videoId);
-				return;
-			}
-			
-			if (eventData === playerState.BUFFERING) {
-
-				fireVideoBufferingEvent(videoId);
-				return;
-			}
 		},
 		
-		onVimeoPlay = function (event) {
-			
-			var videoId = getVideoIdFromVimeoEvent(event);
-			
-			fireVideoStartedEvent(videoId);
-		},
-		
-		onVimeoPause = function (event) {
-			
-			var videoId = getVideoIdFromVimeoEvent(event);
-			
-			fireVideoPausedEvent(videoId);
-		},
-		
-		onVimeoFinish = function (event) {
-			
-			var videoId = getVideoIdFromVimeoEvent(event);
-			
-			fireVideoStoppedEvent(videoId);
-		},
-		
-		/** A Vimeo player is ready for action. */
-		onVimeoReady = function (playerId) {
-			
-			var froog = vimeoPlayers[playerId];
-			
-			froog.addEvent('play', onVimeoPlay);
-			froog.addEvent('pause', onVimeoPause);
-			froog.addEvent('finish', onVimeoFinish);
-		},
-		
+		/**
+		 * YouTube will call this when a player hits an error.
+		 */
 		onYouTubeError = function (event) {
 			
 			var videoId = getVideoIdFromYouTubeEvent(event);
@@ -727,6 +750,51 @@ var TubePressPlayerApi = (function () {
 			fireVideoErrorEvent(videoId);
 		},
 		
+		/**
+		 * Vimeo will call then when a video starts.
+		 */
+		onVimeoPlay = function (event) {
+			
+			var videoId = getVideoIdFromVimeoEvent(event);
+			
+			fireVideoStartedEvent(videoId);
+		},
+		
+		/**
+		 * Vimeo will call then when a video pauses.
+		 */
+		onVimeoPause = function (event) {
+			
+			var videoId = getVideoIdFromVimeoEvent(event);
+			
+			fireVideoPausedEvent(videoId);
+		},
+		
+		/**
+		 * Vimeo will call then when a video ends.
+		 */
+		onVimeoFinish = function (event) {
+			
+			var videoId = getVideoIdFromVimeoEvent(event);
+			
+			fireVideoStoppedEvent(videoId);
+		},
+		
+		/**
+		 * A Vimeo player is ready for action.
+		 */
+		onVimeoReady = function (playerId) {
+			
+			var froog = vimeoPlayers[playerId];
+			
+			froog.addEvent('play', onVimeoPlay);
+			froog.addEvent('pause', onVimeoPause);
+			froog.addEvent('finish', onVimeoFinish);
+		},
+
+		/**
+		 * Registers a YouTube player for use with the TubePress API.
+		 */
 		registerYouTubeVideo = function (videoId) {
 			
 			/** Load 'er up. */
@@ -749,6 +817,9 @@ var TubePressPlayerApi = (function () {
 			callWhenTrue(callback, isYouTubeApiAvailable, 300);
 		},
 		
+		/**
+		 * Registers a Vimeo player for use with the TubePress API.
+		 */
 		registerVimeoVideo = function (videoId) {
 			
 			/** Load up the API. */
@@ -762,9 +833,14 @@ var TubePressPlayerApi = (function () {
 					vimeoPlayers[playerId] = Froogaloop(iframe).addEvent('ready', onVimeoReady);
 			};
 			
+			/** Execute it when Vimeo is ready. */
 			callWhenTrue(callback, isVimeoApiAvailable, 800);
 		},
 		
+		/**
+		 * Registers a play for use with the TubePress API, but only
+		 * when jQuery(document).ready() has been called.
+		 */
 		docReadyRegister = function (videoId) {
 			
 			if (isYouTubeVideoId(videoId)) {
@@ -780,6 +856,9 @@ var TubePressPlayerApi = (function () {
 			triggerEvent(events.EMBEDDED_LOAD, videoId);
 		},
 		
+		/**
+		 * Registers an arbitrary video for use with the TubePress API.
+		 */
 		register = function (videoId) {
 			
 			documentElement.ready(function () {
@@ -811,7 +890,11 @@ var TubePressDepCheck = (function () {
 
 		if (/1\.6|7|8|9\.[0-9]+/.test(version) === false) {
 
-			console.log("TubePress requires jQuery 1.6 or higher. This page is running version " + version);
+			/** Try to log it... */
+			if (typeof console !== 'undefined') {
+				
+				console.log("TubePress requires jQuery 1.6 or higher. This page is running version " + version);
+			}
 		}
 	};
 	
@@ -840,7 +923,11 @@ if (!jQuery.browser.msie) {
 		
 		} catch (e) {
 			
-			console.log("Caught exception when booting TubePress: " + e);
+			/** Try to log it. */
+			if (typeof console !== 'undefined') {
+			
+				console.log("Caught exception when booting TubePress: " + e);
+			}
 		}
 		
 		tubePressBoot();
