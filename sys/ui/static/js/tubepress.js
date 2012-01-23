@@ -7,7 +7,7 @@
  * Shrink your JS: http://developer.yahoo.com/yui/compressor/
  */
 
-/*global jQuery, getTubePressBaseUrl, alert */
+/*global jQuery, getTubePressBaseUrl, alert, YT, Froogaloop */
 /*jslint sloppy: true, white: true, vars: false, undef: true, newcap: true, nomen: true, regexp: true, plusplus: true, bitwise: true, continue: true, browser: true, maxerr: 50, indent: 4 */
 
 var TubePressAjax = (function () {
@@ -140,6 +140,9 @@ var TubePressEvents = (function () {
 		/** Playback of a video has errored out. */
 		PLAYBACK_ERROR		: 'tubepressPlaybackError',
 		
+		/** An embedded video has been loaded. */
+		EMBEDDED_LOAD		: 'tubepressEmbeddedLoad',
+		
 		/** A new set of thumbnails has entered the DOM. */
 		NEW_THUMBS_LOADED	: 'tubepressNewThumbnailsLoaded',
 		
@@ -159,9 +162,9 @@ var TubePressEvents = (function () {
 
 var TubePressGallery = (function () {
 
-	var galleries = {},
-	
-		cssLoaded = {},
+	var galleries	= {},
+		docElement	= jQuery(document),
+		cssLoaded	= {},
 	
 		isAjaxPagination = function (galleryId) {
 			
@@ -178,11 +181,6 @@ var TubePressGallery = (function () {
 			return galleries[galleryId].fluidThumbs;
 		},
 		
-		isJsApiEnabled = function (galleryId) {
-			
-			return galleries[galleryId].jsApiEnabled;
-		},
-	
 		getShortcode = function (galleryId) {
 			
 			return galleries[galleryId].shortcode;
@@ -213,19 +211,8 @@ var TubePressGallery = (function () {
 			return galleries[galleryId].themeCSS;
 		},
 		
-		delayedTrigger = function (galleryId) {
+		docReadyInit = function (galleryId, params) {
 			
-			/** Trigger callback. */
-			var callback = function () {
-				
-				jQuery(document).trigger(TubePressEvents.NEW_GALLERY_LOADED, galleryId);
-			};
-			
-			TubePressBoot.runAfterBoot(callback);
-		},
-		
-		init = function (galleryId, params) {
-
 			/* save the params */
 			galleries[galleryId] = params;
 			
@@ -238,7 +225,15 @@ var TubePressGallery = (function () {
 			}
 			
 			/** Trigger an event after we've booted. */
-			delayedTrigger(galleryId);
+			docElement.trigger(TubePressEvents.NEW_GALLERY_LOADED, galleryId);
+		},
+		
+		init = function (galleryId, params) {
+			
+			docElement.ready(function () {
+				
+				docReadyInit(galleryId, params);
+			});
 		};
 
 	return {
@@ -246,7 +241,6 @@ var TubePressGallery = (function () {
 		isAjaxPagination		: isAjaxPagination,
 		isAutoNext				: isAutoNext,
 		isFluidThumbs			: isFluidThumbs,
-		isJsApiEnabled			: isJsApiEnabled,
 		getShortcode			: getShortcode,
 		getPlayerLocationName	: getPlayerLocationName,
 		getEmbeddedHeight		: getEmbeddedHeight,
@@ -254,6 +248,20 @@ var TubePressGallery = (function () {
 		getSequence				: getSequence,
 		init					: init
 	};
+}());
+
+var TubePressEmbedded = (function () {
+	
+	var init = function (videoId, params) {
+		
+		
+	};
+	
+	return {
+		
+		init	:	init
+	};
+	
 }());
 
 /* handles player-related functionality (popup, Shadowbox, etc) */
@@ -301,7 +309,7 @@ var TubePressPlayers = (function () {
 				shortcode			= tubepressGallery.getShortcode(galleryId),
 				callback			= function (data) { 
 				
-					var result = jQuery.parseJSON(data.responseText),
+					var result = jquery.parseJSON(data.responseText),
 						title  = decodeURIComponent(result.title),
 						html   = decodeURIComponent(result.html);
 
@@ -332,7 +340,8 @@ var TubePressPlayers = (function () {
  */
 var TubePressThumbs = (function () {
 
-	var jquery = jQuery,
+	var jquery	= jQuery,
+		events	= TubePressEvents,
 	
 		getThumbAreaSelector = function (galleryId) {
 		
@@ -367,7 +376,7 @@ var TubePressThumbs = (function () {
 				galleryId	= getGalleryIdFromRelSplit(rel_split),
 				videoId		= getVideoIdFromIdAttr(jquery(this).attr('id'));
 		
-			jquery(document).trigger(TubePressEvents.THUMBNAIL_CLICKED, [ videoId, galleryId ]);
+			jquery(document).trigger(events.THUMBNAIL_CLICKED, [ videoId, galleryId ]);
 		},
 
 		/* http://www.sohtanaka.com/web-design/smart-columns-w-css-jquery/ */
@@ -415,7 +424,7 @@ var TubePressThumbs = (function () {
 			}
 		},
 		
-		eventsToBindTo = TubePressEvents.NEW_THUMBS_LOADED + ' ' + TubePressEvents.NEW_GALLERY_LOADED;
+		eventsToBindTo = events.NEW_THUMBS_LOADED + ' ' + events.NEW_GALLERY_LOADED;
 	
 	jquery(document).bind(eventsToBindTo, thumbBinder);
 
@@ -523,61 +532,73 @@ var TubePressPlayerApi = (function () {
 	
 	var jquery					= jQuery,
 		documentElement			= jquery(document),
-		tubepressEvents			= TubePressEvents,
 		loadingYouTubeApi		= false,
+		loadingVimeoApi			= false,
 		events					= TubePressEvents,
-		players					= {},
 		youTubePrefix			= 'tubepress-youtube-player-',
+		youTubePlayers			= {},
+		youTubeIdPattern		= /[a-z0-9\-_]{11}/i,
+		vimeoPrefix				= 'tubepress-vimeo-player-',
+		vimeoPlayers			= {},
+		vimeoIdPattern			= /[0-9]+/,
+
+		isYouTubeVideoId = function (videoId) {
+			
+			return youTubeIdPattern.test(videoId);
+		},
+		
+		isVimeoVideoId = function (videoId) {
+			
+			return vimeoIdPattern.test(videoId);
+		},
 	
-		triggerEvent = function (eventName, galleryId, videoId) {
+		triggerEvent = function (eventName, videoId) {
 		
-			documentElement.trigger(eventName, galleryId, videoId);
+			documentElement.trigger(eventName, videoId);
 		},
 		
-		fireVideoStartedEvent = function (galleryId, videoId) {
-		
-			triggerEvent(events.PLAYBACK_STARTED, galleryId, videoId);
+		fireVideoStartedEvent = function (videoId) {
+
+			triggerEvent(events.PLAYBACK_STARTED, videoId);
 		},
 		
-		fireVideoStoppedEvent = function (galleryId, videoId) {
-			
-			triggerEvent(events.PLAYBACK_STOPPED, galleryId, videoId);
+		fireVideoStoppedEvent = function (videoId) {
+
+			triggerEvent(events.PLAYBACK_STOPPED, videoId);
 		},
 	
-		fireVideoBufferingEvent = function (galleryId, videoId) {
+		fireVideoBufferingEvent = function (videoId) {
 			
-			triggerEvent(events.PLAYBACK_BUFFERING, galleryId, videoId);
+			triggerEvent(events.PLAYBACK_BUFFERING, videoId);
 		},
 		
-		fireVideoPausedEvent = function (galleryId, videoId) {
-			
-			triggerEvent(events.PLAYBACK_PAUSED, galleryId, videoId);
+		fireVideoPausedEvent = function (videoId) {
+
+			triggerEvent(events.PLAYBACK_PAUSED, videoId);
 		},
 		
-		fireVideoErrorEvent = function (galleryId, videoId) {
+		fireVideoErrorEvent = function (videoId) {
 			
-			triggerEvent(events.PLAYBACK_ERROR, galleryId, videoId);
+			triggerEvent(events.PLAYBACK_ERROR, videoId);
 		},
 		
-		parseYouTubeEvent = function (event) {
+		getVideoIdFromYouTubeEvent = function (event) {
 			
 			var domId	= event.target.a.id,
-				gId		= domId.replace(youTubePrefix, ''),
-				player	= players[gId],
-				videoId	= '';
+				vId		= domId.replace(youTubePrefix, ''),
+				player	= youTubePlayers[vId];
 			
 			if (typeof player.getVideoData === 'undefined') {
 				
 				return null;
 			}
 			
-			videoId = player.getVideoData().video_id;
+			return player.getVideoData().video_id;
+		},
+		
+		getVideoIdFromVimeoEvent = function (event) {
 			
-			return {
-				
-				'vId'	:	videoId,
-				'gId'	:	gId
-			};
+			return event.replace(vimeoPrefix, '');
 		},
 		
 		/** Utility to wait for test() to be true, then call callback() */
@@ -604,6 +625,11 @@ var TubePressPlayerApi = (function () {
 			return typeof YT !== 'undefined' && typeof YT.Player !== 'undefined';
 		},
 		
+		isVimeoApiAvailable = function () {
+			
+			return typeof Froogaloop !== 'undefined';
+		},
+		
 		loadYouTubeApi = function () {
 	
 			if (! loadingYouTubeApi && ! isYouTubeApiAvailable()) {
@@ -613,59 +639,95 @@ var TubePressPlayerApi = (function () {
 			}
 		},
 		
+		loadVimeoApi = function () {
+			
+			if (! loadingVimeoApi && ! isVimeoApiAvailable()) {
+				
+				loadingVimeoApi = true;
+				jquery.getScript('http://a.vimeocdn.com/js/froogaloop2.min.js');
+			}
+		},
+		
 		onYouTubeStateChange = function (event) {
 			
-			var eventData = parseYouTubeEvent(event);
+			var videoId		= getVideoIdFromYouTubeEvent(event),
+				eventData	= event.data,
+				playerState	= YT.PlayerState;
 			
-			if (eventData === null) {
+			if (videoId === null) {
 				
 				return;
 			}
 			
-			if (event.data === YT.PlayerState.PLAYING) {
-				
-				fireVideoStartedEvent(eventData.gId, eventData.vId);
+			if (eventData === playerState.PLAYING) {
+
+				fireVideoStartedEvent(videoId);
 				return;
 			}
 			
-			if (event.data === YT.PlayerState.PAUSED) {
-				
-				fireVideoPausedEvent(eventData.gId, eventData.vId);
+			if (eventData === playerState.PAUSED) {
+
+				fireVideoPausedEvent(videoId);
 				return;
 			}
 			
-			if (event.data === YT.PlayerState.ENDED) {
-				
-				fireVideoStoppedEvent(eventData.gId, eventData.vId);
+			if (eventData === playerState.ENDED) {
+
+				fireVideoStoppedEvent(videoId);
 				return;
 			}
 			
-			if (event.data === YT.PlayerState.BUFFERING) {
-				
-				fireVideoBufferingEvent(eventData.gId, eventData.vId);
+			if (eventData === playerState.BUFFERING) {
+
+				fireVideoBufferingEvent(videoId);
 				return;
 			}
+		},
+		
+		onVimeoPlay = function (event) {
+			
+			var videoId = getVideoIdFromVimeoEvent(event);
+			
+			fireVideoStartedEvent(videoId);
+		},
+		
+		onVimeoPause = function (event) {
+			
+			var videoId = getVideoIdFromVimeoEvent(event);
+			
+			fireVideoPausedEvent(videoId);
+		},
+		
+		onVimeoFinish = function (event) {
+			
+			var videoId = getVideoIdFromVimeoEvent(event);
+			
+			fireVideoStoppedEvent(videoId);
+		},
+		
+		/** A Vimeo player is ready for action. */
+		onVimeoReady = function (playerId) {
+			
+			var froog = vimeoPlayers[playerId];
+			
+			froog.addEvent('play', onVimeoPlay);
+			froog.addEvent('pause', onVimeoPause);
+			froog.addEvent('finish', onVimeoFinish);
 		},
 		
 		onYouTubeError = function (event) {
 			
-			var eventData = parseYouTubeEvent(event);
+			var videoId = getVideoIdFromYouTubeEvent(event);
 			
-			if (eventData === null) {
+			if (videoId === null) {
 				
 				return;
 			}
 			
-			fireVideoErrorEvent(eventData.gId, eventData.vId);
+			fireVideoErrorEvent(videoId);
 		},
 		
-		newGalleryBindYouTube = function (galleryId) {
-			
-			/** Only load the YouTube API if the gallery has requested it. */
-			if (! TubePressGallery.isJsApiEnabled(galleryId)) {
-				
-				return;
-			}
+		registerYouTubeVideo = function (videoId) {
 			
 			/** Load 'er up. */
 			loadYouTubeApi();
@@ -673,9 +735,10 @@ var TubePressPlayerApi = (function () {
 			/** This stuff will execute once the TubePress API is loaded. */
 			var callback = function () {
 				
-				players[galleryId] = new YT.Player(youTubePrefix + galleryId, {
+				youTubePlayers[videoId] = new YT.Player(youTubePrefix + videoId, {
 					
 					events: {
+						
 					      'onError'			: onYouTubeError,
 					      'onStateChange'	: onYouTubeStateChange
 					}
@@ -686,27 +749,56 @@ var TubePressPlayerApi = (function () {
 			callWhenTrue(callback, isYouTubeApiAvailable, 300);
 		},
 		
-		newGalleryBind = function (e, galleryId) {
+		registerVimeoVideo = function (videoId) {
 			
-			newGalleryBindYouTube(galleryId);
+			/** Load up the API. */
+			loadVimeoApi();
+			
+			var playerId	= vimeoPrefix + videoId,
+				iframe		= document.getElementById(playerId),
+				callback	= function () {
+				
+					/** Create and save the player. */
+					vimeoPlayers[playerId] = Froogaloop(iframe).addEvent('ready', onVimeoReady);
+			};
+			
+			callWhenTrue(callback, isVimeoApiAvailable, 800);
 		},
 		
-		playerPopulateBind = function () {
+		docReadyRegister = function (videoId) {
 			
-			//find the iframe and bind to it
+			if (isYouTubeVideoId(videoId)) {
+				
+				registerYouTubeVideo(videoId);
+				
+			} else if (isVimeoVideoId(videoId)) {
+				
+				registerVimeoVideo(videoId);
+			}
+			
+			/** Notify anyone that's interested. */
+			triggerEvent(events.EMBEDDED_LOAD, videoId);
 		},
 		
-		init = function () {
+		register = function (videoId) {
 			
-			documentElement.bind(tubepressEvents.NEW_GALLERY_LOADED, newGalleryBind);
-			documentElement.bind(tubepressEvents.PLAYER_POPULATE, playerPopulateBind);
+			documentElement.ready(function () {
+				
+				docReadyRegister(videoId);
+			});
 		};
-	
+		
 	return {
 	
-		init					:	init,
+		register				:	register,
+		isYouTubeVideoId		:	isYouTubeVideoId,
+		isVimeoVideoId			:	isVimeoVideoId,
 		onYouTubeStateChange	:	onYouTubeStateChange,
-		onYouTubeError			:	onYouTubeError
+		onYouTubeError			:	onYouTubeError,
+		onVimeoPlay				:	onVimeoPlay,
+		onVimeoPause			:	onVimeoPause,
+		onVimeoFinish			:	onVimeoFinish,
+		onVimeoReady			:	onVimeoReady
 	};
 	
 }());
@@ -727,64 +819,11 @@ var TubePressDepCheck = (function () {
 	
 }());
 
-var TubePressBoot = (function () {
-	
-	var isBooted = false,
-	
-		/** A list of callbacks to run after we've booted. */
-		queuedCallbacks = [],
-	
-		/** Runs all the queued callbacks. */
-		runQueuedCallbacks = function () {
-		
-			var i = 0,
-				func = queuedCallbacks[0];
-		
-			for (i; i < queuedCallbacks.length; i++) {
-				
-				func = queuedCallbacks[i];
-				
-				func();
-			}
-		},
-		
-		/** Boot up. */
-		boot = function () {
-		
-			TubePressCompat.init();
-			TubePressDepCheck.init();
-			TubePressPlayerApi.init();
-			
-			isBooted = true;
-			
-			runQueuedCallbacks();
-		},
-		
-		runAfterBoot = function (callback) {
-			
-			if (isBooted) {
-				
-				/** Just call it! */
-				callback();
-			
-			} else {
-				
-				/** Queue it up for later. */
-				queuedCallbacks.push(callback);
-			}
-		};
-	
-	return {
-		
-		boot			:	boot,
-		runAfterBoot	:	runAfterBoot
-	};
-	
-}());
 
 var tubePressBoot = function () {
 	
-	TubePressBoot.boot();
+	TubePressCompat.init();
+	TubePressDepCheck.init();
 };
 
 /* append our init method to after all the other (potentially full of errors) ready blocks have 
