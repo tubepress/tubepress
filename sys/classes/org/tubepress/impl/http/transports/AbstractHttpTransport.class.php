@@ -199,11 +199,18 @@ abstract class org_tubepress_impl_http_transports_AbstractHttpTransport implemen
 
         foreach ($headerArray as $name => $value) {
 
+            if (is_array($value)) {
+
+                $value = implode(', ', $value);
+            }
+
             $response->setHeader($name, $value);
         }
 
         /* do some logging */
         if (org_tubepress_impl_log_Log::isEnabled()) {
+
+            $headerArray = $response->getAllHeaders();
 
             org_tubepress_impl_log_Log::log($this->logPrefix(), 'Here are the ' . count($headerArray) . ' headers in the response for %s', $request);
 
