@@ -7,84 +7,112 @@
  * Shrink your JS: http://developer.yahoo.com/yui/compressor/
  */
 
-/*global jQuery, getTubePressBaseUrl, alert, YT, Froogaloop */
-/*jslint sloppy: true, white: true, vars: false, undef: true, newcap: true, nomen: true, regexp: true, plusplus: true, bitwise: true, continue: true, browser: true, maxerr: 50, indent: 4 */
+/*global jQuery, getTubePressBaseUrl, alert, YT, Froogaloop, console */
+/*jslint devel: true, browser: true, sloppy: false, white: true, maxerr: 50, indent: 4 */
 
+/**
+ * Various Ajax utilities.
+ */
 var TubePressAjax = (function () {
 
-	/*
-	 * Similar to jQuery's "load" but tolerates non-200 status codes.
-	 * https://github.com/jquery/jquery/blob/master/src/ajax.js#L168.
-	 */
-	var load = function (url, targetDiv, selector, preLoadFunction, postLoadFunction) {
-		
-		/* did the user supply a pre-load function? */
-		if (typeof preLoadFunction === 'function') {
-			preLoadFunction();
-		}
-		
-		jQuery.ajax({
-			url	: url,
-			type	: 'GET',
-			dataType: 'html',
-			complete: function (res) {
+	/** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
+	'use strict';
+
+	var
+		/** These variable declarations aide in compression. */
+		jquery	= jQuery,
+		getText	= 'GET',
+
+		/**
+		 * Similar to jQuery's "load" but tolerates non-200 status codes.
+		 * https://github.com/jquery/jquery/blob/master/src/ajax.js#L168.
+		 */
+		load = function (url, targetDiv, selector, preLoadFunction, postLoadFunction) {
+
+			var completeCallback = function (res) {
 
 				var html = selector ? jQuery('<div>').append(res.responseText).find(selector) : res.responseText;
 
-				jQuery(targetDiv).html(html);
+				jquery(targetDiv).html(html);
 
 				/* did the user supply a post-load function? */
 				if (typeof postLoadFunction === 'function') {
+
 					postLoadFunction();
 				}
+			};
+
+			/** did the user supply a pre-load function? */
+			if (typeof preLoadFunction === 'function') {
+
+				preLoadFunction();
 			}
-		});
-	},
-	
-		/* Similar to jQuery's "get" but ignores response code. */
+
+			jquery.ajax({
+				
+				url			: url,
+				type		: getText,
+				dataType	: 'html',
+				complete	: completeCallback
+			});
+		},
+
+		/**
+		 *  Similar to jQuery's "get" but ignores response code.
+		 */
 		get = function (url, data, success, dataType) {
-		
-			jQuery.ajax({
-				url: url,
-				type: 'GET',
-				data: data,
-				dataType: dataType,
-				complete: success
+
+			jquery.ajax({
+				
+				url			: url,
+				type		: getText,
+				data		: data,
+				dataType	: dataType,
+				complete	: success
 			});
 		
 		},
 	
-		/* fade to "white" */
+		/**
+		 * Fade to "white".
+		 */
 		applyLoadingStyle = function (targetDiv) {
 		
-			jQuery(targetDiv).fadeTo(0, 0.3);
+			jquery(targetDiv).fadeTo(0, 0.3);
 		},
 		
-		/* fade to full opacity */
+		/**
+		 * Fade back to full opacity.
+		 */
 		removeLoadingStyle = function (targetDiv) {
 			
-			jQuery(targetDiv).fadeTo(0, 1);
+			jquery(targetDiv).fadeTo(0, 1);
 		},
 	
-		/*
+		/**
 		 * Calls "load", but does some additional styling on the target element while it's processing.
 		 */
 		loadAndStyle = function (url, targetDiv, selector, preLoadFunction, postLoadFunction) {
 		
 			applyLoadingStyle(targetDiv);
 	
-			/* one way or another, we're removing the loading style when we're done... */
-			var post = function () { removeLoadingStyle(targetDiv); };
+			/** one way or another, we're removing the loading style when we're done... */
+			var post = function () {
+				
+				removeLoadingStyle(targetDiv);
+			};
 	
-			/* ... but maybe we want to do something else too */
+			/** ... but maybe we want to do something else too */
 			if (typeof postLoadFunction === 'function') {
+				
 				post = function () {
+				
 					removeLoadingStyle(targetDiv);
 					postLoadFunction();
 				};
 			}
 	
-			/* do the load. do it! */
+			/** do the load. do it! */
 			load(url, targetDiv, selector, preLoadFunction, post);
 		};
 		
@@ -99,10 +127,13 @@ var TubePressAjax = (function () {
 }());
 
 /**
- * Handles dynamic loading of CSS.
+ * Handles dynamic loading of CSS. To be removed...
  */
 var TubePressCss = (function () {
 
+	/** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
+	'use strict';
+	
 	/*
 	 * Dynamically load CSS into the DOM.
 	 */
@@ -121,7 +152,13 @@ var TubePressCss = (function () {
 	};
 }());
 
+/**
+ * Events that TubePress fires.
+ */
 var TubePressEvents = (function () {
+	
+	/** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
+	'use strict';
 	
 	return {
 		
@@ -162,72 +199,129 @@ var TubePressEvents = (function () {
 
 var TubePressGallery = (function () {
 
+	/** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
+	'use strict';
+	
 	var galleries	= {},
 		docElement	= jQuery(document),
 		cssLoaded	= {},
 	
+		/**
+		 * Does the gallery use Ajax pagination?
+		 */
 		isAjaxPagination = function (galleryId) {
 			
 			return galleries[galleryId].ajaxPagination;
 		},
 		
+		/**
+		 * Does the gallery use auto-next?
+		 */
 		isAutoNext = function (galleryId) {
 		
 			return galleries[galleryId].autoNext;
 		},
 		
+		/**
+		 * Does the gallery use fluid thumbs?
+		 */
 		isFluidThumbs = function (galleryId) {
 			
 			return galleries[galleryId].fluidThumbs;
 		},
 		
-		getShortcode = function (galleryId) {
+		/**
+		 * Does the gallery use the TubePress JS API?
+		 */
+		isJsApiEnabled = function (galleryId) {
 			
-			return galleries[galleryId].shortcode;
+			return galleries[galleryId].jsApiEnabled;
 		},
-	
-		getPlayerLocationName = function (galleryId) {
+		
+		getCurrentVideoId = function (galleryId) {
 			
-			return galleries[galleryId].playerLocationName;
+			return galleries[galleryId].currentVideoId;
 		},
-	
+		
+		/**
+		 * What's the embedded height for the video player of this gallery?
+		 */
 		getEmbeddedHeight = function (galleryId) {
 			
 			return galleries[galleryId].embeddedHeight;
 		},
 	
+		/**
+		 * What's the embedded width for the video player of this gallery?
+		 */
 		getEmbeddedWidth = function (galleryId) {
 			
 			return galleries[galleryId].embeddedWidth;
 		},
 		
+		/**
+		 * What's the gallery's player location name?
+		 */
+		getPlayerLocationName = function (galleryId) {
+			
+			return galleries[galleryId].playerLocationName;
+		},
+		
+		/**
+		 * What's the sequence of videos for this gallery?
+		 */
 		getSequence = function (galleryId) {
 			
 			return galleries[galleryId].sequence;
 		},
 		
+		/**
+		 * What's the shortcode for this gallery?
+		 */
+		getShortcode = function (galleryId) {
+			
+			return galleries[galleryId].shortcode;
+		},
+		
+		/**
+		 * Deprecated. To be removed...
+		 */
 		getThemeCss = function (galleryId) {
 			
 			return galleries[galleryId].themeCSS;
 		},
 		
+		/**
+		 * Performs gallery initialization on jQuery(document).ready().
+		 */
 		docReadyInit = function (galleryId, params) {
 			
-			/* save the params */
+			/** Save the params. */
 			galleries[galleryId] = params;
-			
+
+			/** Deprecated theme handling stuff. To be removed... */
 			var theme = decodeURIComponent(getThemeCss(galleryId));
-			
 			if (theme !== '' && cssLoaded[theme] !== true) {
-			
 				TubePressCss.load(getTubePressBaseUrl() + theme);
 				cssLoaded[theme] = true;
+			}
+			
+			/**
+			 * If this gallery has a sequence, and the JS api is enabled,
+			 * save the first video as the "current" video.
+			 */
+			if (isJsApiEnabled(galleryId) && getSequence(galleryId)) {
+				
+				galleries[galleryId].currentVideoId = getSequence(galleryId)[0];
 			}
 			
 			/** Trigger an event after we've booted. */
 			docElement.trigger(TubePressEvents.NEW_GALLERY_LOADED, galleryId);
 		},
 		
+		/**
+		 * Register a TubePress gallery.
+		 */
 		init = function (galleryId, params) {
 			
 			docElement.ready(function () {
@@ -241,52 +335,64 @@ var TubePressGallery = (function () {
 		isAjaxPagination		: isAjaxPagination,
 		isAutoNext				: isAutoNext,
 		isFluidThumbs			: isFluidThumbs,
-		getShortcode			: getShortcode,
-		getPlayerLocationName	: getPlayerLocationName,
+		isJsApiEnabled			: isJsApiEnabled,
+		getCurrentVideoId		: getCurrentVideoId,
 		getEmbeddedHeight		: getEmbeddedHeight,
 		getEmbeddedWidth		: getEmbeddedWidth,
+		getPlayerLocationName	: getPlayerLocationName,
 		getSequence				: getSequence,
+		getShortcode			: getShortcode,
 		init					: init
 	};
 }());
 
-/* handles player-related functionality (popup, Shadowbox, etc) */
+/**
+ * Handles player-related functionality (popup, Shadowbox, etc)
+ */
 var TubePressPlayers = (function () {
 	
-	/* record of the players we've already loaded */
-	var loadedPlayers = {},
+	/** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
+	'use strict';
 	
-		/* helps YUI compressor */
-		jquery           = jQuery,
-		documentElement  = jquery(document),
-		tubepressGallery = TubePressGallery,
-		tubepressEvents  = TubePressEvents,
-	
-		/* find the player required for a gallery and load the JS. */
+	var 
+		/** These variable declarations help compression. */
+		jquery				= jQuery,
+		documentElement		= jquery(document),
+		tubepressGallery	= TubePressGallery,
+		tubepressEvents		= TubePressEvents,
+		decodeUri			= decodeURIComponent,
+
+		/** Keep track of the players we've loaded. */
+		loadedPlayers = {},
+		
+		/**
+		 * Find the player required for a gallery and load the JS.
+		 */
 		bootPlayer = function (e, galleryId) {
 			
 			var baseUrl		= getTubePressBaseUrl(),
 				playerName	= tubepressGallery.getPlayerLocationName(galleryId),
 				path		= baseUrl + '/sys/ui/static/players/' + playerName + '/' + playerName + '.js';
 	
-			/* don't load a player twice */
-			if (loadedPlayers[playerName] === true) {
+			/** don't load a player twice... */
+			if (loadedPlayers[playerName] !== true) {
 				
-				return;
-			
-			} else {
-			
 				loadedPlayers[playerName] = true;
+				jquery.getScript(path);
 			}
-	
-			jquery.getScript(path);
 		},
 		
+		/**
+		 * Does this player require population by TubePress?
+		 */
 		requiresPopulation = function (playerName) {
 			
 			return playerName !== 'vimeo' && playerName !== 'youtube' && playerName !== 'solo' && playerName !== 'static';
 		},
 	
+		/**
+		 * Load up a TubePress player with the given video ID.
+		 */
 		invokePlayer = function (e, videoId, galleryId) {
 			
 			var playerName			= tubepressGallery.getPlayerLocationName(galleryId),
@@ -296,17 +402,18 @@ var TubePressPlayers = (function () {
 				callback			= function (data) { 
 				
 					var result = jquery.parseJSON(data.responseText),
-						title  = decodeURIComponent(result.title),
-						html   = decodeURIComponent(result.html);
+						title  = decodeUri(result.title),
+						html   = decodeUri(result.html);
 
 					documentElement.trigger(tubepressEvents.PLAYER_POPULATE + playerName, [ title, html, height, width, videoId, galleryId ]); 
 				},
 				dataToSend			= { tubepress_video : videoId, tubepress_shortcode : shortcode },
 				url					= getTubePressBaseUrl() + '/sys/scripts/ajax/playerHtml.php';
 		
-			/* announce we're gonna invoke the player... */
+			/** Announce we're gonna invoke the player... */
 			documentElement.trigger(tubepressEvents.PLAYER_INVOKE + playerName, [ videoId, galleryId, width, height ]);
 			
+			/** If this player requires population, go fetch the HTML for it. */
 			if (requiresPopulation(playerName)) {
 				
 				/* ... and fetch the HTML for it */
@@ -314,36 +421,59 @@ var TubePressPlayers = (function () {
 			}
 		};
 	
-	/* when we see a new gallery... */
+	/** When we see a new gallery... */
 	documentElement.bind(tubepressEvents.NEW_GALLERY_LOADED, bootPlayer);
 	
-	/* when a user clicks a thumbnail... */
+	/** When a user clicks a thumbnail... */
 	documentElement.bind(tubepressEvents.THUMBNAIL_CLICKED, invokePlayer);
 }());
 
 /**
- * Main TubePress gallery module.
+ * Handles basic thumbnail tasks.
  */
 var TubePressThumbs = (function () {
 
-	var jquery	= jQuery,
-		events	= TubePressEvents,
+	/** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
+	'use strict';
 	
+	var
+		/** These variables aide in compression. */
+		jquery		= jQuery,
+		events		= TubePressEvents,
+		docElement	= jquery(document),
+		math		= Math,
+	
+		/** Events we're interested in. */
+		eventsToBindTo = events.NEW_THUMBS_LOADED + ' ' + events.NEW_GALLERY_LOADED,
+		
+		/**
+		 * Get the jQuery selector where the thumbs live.
+		 */
+		//TODO: this is hard-coded - need to get rid of that.
 		getThumbAreaSelector = function (galleryId) {
 		
 			return "#tubepress_gallery_" + galleryId + "_thumbnail_area";
 		},
 		
+		/**
+		 * Get the jQuery reference to where the thumbnails live.
+		 */
 		getThumbArea = function (galleryId) {
 			
 			return jquery(getThumbAreaSelector(galleryId));
 		},
 	
+		/**
+		 * Parse the gallery ID from the "rel" attribute.
+		 */
 		getGalleryIdFromRelSplit = function (relSplit) {
 			
 			return relSplit[3];
 		},
 		
+		/**
+		 * Parse the video ID from the "rel" attribute.
+		 */
 		getVideoIdFromIdAttr = function (id) {
 			
 			var end = id.lastIndexOf('_');
@@ -351,21 +481,27 @@ var TubePressThumbs = (function () {
 			return id.substring(16, end);
 		},
 		
+		/**
+		 * Get the thumbnail width.
+		 */
 		getThumbWidth = function (galleryId) {
 			
 			return getThumbArea(galleryId).find('img:first').width();
 		},
 		
+		/**
+		 * Click listener callback.
+		 */
 		clickListener = function () {
 			
 			var rel_split	= jquery(this).attr('rel').split('_'),
 				galleryId	= getGalleryIdFromRelSplit(rel_split),
 				videoId		= getVideoIdFromIdAttr(jquery(this).attr('id'));
 		
-			jquery(document).trigger(events.THUMBNAIL_CLICKED, [ videoId, galleryId ]);
+			docElement.trigger(events.THUMBNAIL_CLICKED, [ videoId, galleryId ]);
 		},
 
-		/* http://www.sohtanaka.com/web-design/smart-columns-w-css-jquery/ */
+		/** http://www.sohtanaka.com/web-design/smart-columns-w-css-jquery/ */
 		makeThumbsFluid = function (galleryId) {
 			
 			getThumbArea(galleryId).css({ 'width' : '100%' });
@@ -374,8 +510,8 @@ var TubePressThumbs = (function () {
 				columnWidth		= getThumbWidth(galleryId),
 				gallery			= jquery(gallerySelector),
 				colWrap			= gallery.width(), 
-				colNum			= Math.floor(colWrap / columnWidth), 
-				colFixed		= Math.floor(colWrap / colNum),
+				colNum			= math.floor(colWrap / columnWidth), 
+				colFixed		= math.floor(colWrap / colNum),
 				thumbs			= jquery(gallerySelector + ' div.tubepress_thumb');
 			
 			gallery.css({ 'width' : '100%'});
@@ -383,6 +519,10 @@ var TubePressThumbs = (function () {
 			thumbs.css({ 'width' : colFixed});
 		},
 		
+		/**
+		 * What page is the gallery on?
+		 */
+		//TODO: this is way too fragile.
 		getCurrentPageNumber = function (galleryId) {
 			
 			var page = 1, 
@@ -398,6 +538,9 @@ var TubePressThumbs = (function () {
 			return page;
 		},
 		
+		/**
+		 * Callback for thumbnail loads.
+		 */
 		thumbBinder = function (e, galleryId) {
 
 			/* add a click handler to each link in this gallery */
@@ -408,11 +551,9 @@ var TubePressThumbs = (function () {
 				
 				makeThumbsFluid(galleryId);
 			}
-		},
-		
-		eventsToBindTo = events.NEW_THUMBS_LOADED + ' ' + events.NEW_GALLERY_LOADED;
+		};
 	
-	jquery(document).bind(eventsToBindTo, thumbBinder);
+		docElement.bind(eventsToBindTo, thumbBinder);
 
 	/* return only public functions */
 	return {
@@ -429,19 +570,32 @@ var TubePressThumbs = (function () {
  */
 var TubePressAjaxPagination = (function () {
 	
-	/* post thumbnail load setup */
-	var jquery = jQuery,
+	/** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
+	'use strict';
 	
+	var
+		/** These variable declarations aide in compression. */
+		jquery		= jQuery,
+		docElement	= jquery(document),
+		events		= TubePressEvents,
+		gallery		= TubePressGallery,
+		
+		/** Events we're interested in. */
+		eventsToBindTo = events.NEW_THUMBS_LOADED + ' ' + events.NEW_GALLERY_LOADED,
+	
+		/**
+		 * After we've loaded a new set of thumbs.
+		 */
 		postLoad = function (galleryId) {
 		
-			jquery(document).trigger(TubePressEvents.NEW_THUMBS_LOADED, galleryId);
+			docElement.trigger(TubePressEvents.NEW_THUMBS_LOADED, galleryId);
 		},
 		
-		/* Handles an ajax pagination click. */
+		/** Handles an ajax pagination click. */
 		processClick = function (anchor, galleryId) {
 			
 			var baseUrl				= getTubePressBaseUrl(), 
-				shortcode			= TubePressGallery.getShortcode(galleryId),
+				shortcode			= gallery.getShortcode(galleryId),
 				page				= anchor.attr('rel'),
 				thumbnailArea		= TubePressThumbs.getThumbAreaSelector(galleryId),
 				postLoadCallback	= function () { postLoad(galleryId); },
@@ -451,7 +605,7 @@ var TubePressAjaxPagination = (function () {
 			TubePressAjax.loadAndStyle(pageToLoad, thumbnailArea, remotePageSelector, '', postLoadCallback);
 		},
 		
-		/* initializes pagination HTML for Ajax. */
+		/** Initializes pagination HTML for Ajax. */
 		addClickHandlers = function (galleryId) {
 			
 			var clickCallback = function () {
@@ -461,17 +615,20 @@ var TubePressAjaxPagination = (function () {
 			jquery('#tubepress_gallery_' + galleryId + ' div.pagination a').click(clickCallback);
 		},
 
+		/**
+		 * Adds click handlers to galleries with Ajax pagination.
+		 */
 		paginationBinder = function (e, galleryId) {
 			
-			if (TubePressGallery.isAjaxPagination(galleryId)) {
+			if (gallery.isAjaxPagination(galleryId)) {
 				
 				addClickHandlers(galleryId);
 			}
 		};
 
-	/* sets up new thumbnails for ajax pagination */
-	jquery(document).bind(TubePressEvents.NEW_THUMBS_LOADED, paginationBinder);
-	jquery(document).bind(TubePressEvents.NEW_GALLERY_LOADED, paginationBinder);
+	/** Sets up new thumbnails for ajax pagination */
+	docElement.bind(eventsToBindTo, paginationBinder);
+	
 }());
 
 /**
@@ -479,6 +636,9 @@ var TubePressAjaxPagination = (function () {
  */
 var TubePressCompat = (function () {
 
+	/** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
+	'use strict';
+	
 	var jquery = jQuery,
 	
 		init = function () {
@@ -515,6 +675,9 @@ var TubePressCompat = (function () {
  * Provides auto-sequencing capability for TubePress.
  */
 var TubePressPlayerApi = (function () {
+	
+	/** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
+	'use strict';
 	
 	var 
 	
@@ -830,7 +993,7 @@ var TubePressPlayerApi = (function () {
 				callback	= function () {
 				
 					/** Create and save the player. */
-					vimeoPlayers[playerId] = Froogaloop(iframe).addEvent('ready', onVimeoReady);
+					vimeoPlayers[playerId] = new Froogaloop(iframe).addEvent('ready', onVimeoReady);
 			};
 			
 			/** Execute it when Vimeo is ready. */
@@ -882,7 +1045,13 @@ var TubePressPlayerApi = (function () {
 	
 }());
 
+/**
+ * Dependency checks for TubePress.
+ */
 var TubePressDepCheck = (function () {
+	
+	/** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
+	'use strict';
 	
 	var init = function () {
 		
@@ -902,21 +1071,31 @@ var TubePressDepCheck = (function () {
 	
 }());
 
-
+/**
+ * Primary TubePress boot function.
+ */
 var tubePressBoot = function () {
+	
+	/** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
+	'use strict';
 	
 	TubePressCompat.init();
 	TubePressDepCheck.init();
 };
 
-/* append our init method to after all the other (potentially full of errors) ready blocks have 
- * run. http://stackoverflow.com/questions/1890512/handling-errors-in-jquerydocument-ready */
+/**
+ * Append our init method to after all the other (potentially full of errors) ready blocks have 
+ * run. http://stackoverflow.com/questions/1890512/handling-errors-in-jquerydocument-ready
+ */
 if (!jQuery.browser.msie) {
 	
 	var oldReady = jQuery.ready;
 
 	jQuery.ready = function () {
 	
+		/** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
+		'use strict';
+		
 		try {
 			
 			oldReady.apply(this, arguments);
@@ -936,6 +1115,9 @@ if (!jQuery.browser.msie) {
 } else {
 	
 	jQuery(document).ready(function () {
+		
+		/** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
+		'use strict';
 		
 		tubePressBoot();
 	});
