@@ -26,6 +26,8 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
         $formHandler->shouldReceive('getHtml')->once()->andReturn('yo');
         $formHandler->shouldReceive('onSubmit')->once()->with($_POST)->andThrow(new Exception('something!'));
 
+        $this->_setupWorkingNonce();
+        
         ob_start();
         org_tubepress_impl_env_wordpress_OptionsPage::executeOptionsPage();
         $contents = ob_get_contents();
@@ -190,5 +192,11 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
         return $returnMapBuilder->build();
     }
     
+    private function _setupWorkingNonce()
+    {
+    	$adminCheck = new PHPUnit_Extensions_MockFunction('check_admin_referrer');
+    	
+    	$adminCheck->expects($this->once())->with('tubepress-save', 'tubepress-nonce')->will($this->returnValue(true));
+    }
 
 }

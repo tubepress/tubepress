@@ -93,6 +93,8 @@ class org_tubepress_impl_env_wordpress_OptionsPage
         /* are we updating? */
         if (isset($_POST['tubepress_save'])) {
 
+        	self::_verifyNonce($_POST);
+        	
             try {
 
                 $result = $optionsForm->onSubmit($_POST);
@@ -115,6 +117,11 @@ class org_tubepress_impl_env_wordpress_OptionsPage
         print $optionsForm->getHtml();
     }
 
+    private static function _verifyNonce($postVars) {
+    	
+    	check_admin_referrer('tubepress-save', 'tubepress-nonce');
+    }
+    
     private static function _error($message)
     {
         if (is_array($message)) {
