@@ -46,5 +46,5 @@ class org_tubepress_api_const_options_names_Meta
     const RELATIVE_DATES = 'relativeDates';
 
     //DEPRECATED:
-    const TAGS    = self::KEYWORDS;
+    const TAGS    = 'tags';
 }
