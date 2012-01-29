@@ -119,7 +119,7 @@ class org_tubepress_impl_env_wordpress_OptionsPage
 
     private static function _verifyNonce($postVars) {
     	
-    	check_admin_referrer('tubepress-save', 'tubepress-nonce');
+    	check_admin_referer('tubepress-save', 'tubepress-nonce');
     }
     
     private static function _error($message)
