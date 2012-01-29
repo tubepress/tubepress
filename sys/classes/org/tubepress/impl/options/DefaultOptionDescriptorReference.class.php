@@ -220,6 +220,14 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         ));
         $this->register($option);
 
+        $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::AUTONEXT);
+        $option->setLabel('Play videos sequentially without user intervention');  //>(translatable)<
+        $option->setDescription('When a video finishes, this will start playing the next video in the gallery.');  //>(translatable)<
+        $option->setDefaultValue(true);
+        $option->setBoolean();
+        $option->setProOnly();
+        $this->register($option);
+        
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::AUTOPLAY);
         $option->setLabel('Auto-play all videos');  //>(translatable)<
         $option->setDefaultValue(false);

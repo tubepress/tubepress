@@ -26,7 +26,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 	{
 	    $all = $this->_sut->findAll();
 
-	    $this->assertTrue(count($all) === 90, "Expected 90 options but got " . count($all));
+	    $this->assertTrue(count($all) === 91, "Expected 91 options but got " . count($all));
 	}
 
 	/**
@@ -226,6 +226,13 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$this->assertTrue($option->getDescription() === 'Default is 120.', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
+    	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::AUTONEXT);
+    	$this->assertTrue($option->getLabel() === 'Play videos sequentially without user intervention', $option->getName());  
+    	$this->assertTrue($option->getDescription() === 'When a video finishes, this will start playing the next video in the gallery.', $option->getName()); 
+    	$this->assertTrue($option->getDefaultValue() === true, $option->getName());
+    	$this->assertTrue($option->isBoolean() === true, $option->getName());
+    	$this->assertTrue($option->isProOnly() === true, $option->getName());
+    	
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::AUTOPLAY);
     	$this->assertTrue($option->getLabel() === 'Auto-play all videos', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === false, $option->getName());

@@ -18,6 +18,7 @@ class org_tubepress_impl_options_ui_tabs_EmbeddedTabTest extends org_tubepress_i
     	    org_tubepress_api_const_options_names_Embedded::SHOW_INFO        => org_tubepress_impl_options_ui_fields_BooleanField::__,
     	    org_tubepress_api_const_options_names_Embedded::FULLSCREEN       => org_tubepress_impl_options_ui_fields_BooleanField::__,
     	    org_tubepress_api_const_options_names_Embedded::HIGH_QUALITY     => org_tubepress_impl_options_ui_fields_BooleanField::__,
+		    org_tubepress_api_const_options_names_Embedded::AUTONEXT         => org_tubepress_impl_options_ui_fields_BooleanField::__,
     	    org_tubepress_api_const_options_names_Embedded::AUTOPLAY         => org_tubepress_impl_options_ui_fields_BooleanField::__,
     	    org_tubepress_api_const_options_names_Embedded::LOOP             => org_tubepress_impl_options_ui_fields_BooleanField::__,
     	    org_tubepress_api_const_options_names_Embedded::SHOW_RELATED     => org_tubepress_impl_options_ui_fields_BooleanField::__,
