@@ -54,12 +54,16 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
     {
         /* don't boot twice! */
         if (self::$_alreadyBooted) {
+        	
             return;
         }
 
         try {
+        	
             $this->_doBoot();
+            
         } catch (Exception $e) {
+        	
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception while booting: '.  $e->getMessage());
         }
     }
@@ -70,9 +74,14 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
         $context     = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $envDetector = $ioc->get(org_tubepress_api_environment_Detector::_);
         $pm          = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
-
+        $sm  		 = $ioc->get(org_tubepress_api_options_StorageManager::_);
+     
+        /** Init the storage manager. */
+        $sm->init();
+        
         /* WordPress likes to keep control of the output */
         if ($envDetector->isWordPress()) {
+        	
             ob_start();
         }
 

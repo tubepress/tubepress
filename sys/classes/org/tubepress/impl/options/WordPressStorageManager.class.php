@@ -44,7 +44,7 @@ class org_tubepress_impl_options_WordPressStorageManager extends org_tubepress_i
      * Constructor. Until I can come up with a better way to validate options, this is gonna be how we
      * check to make sure that the db is initialized.
      */
-    public function __construct()
+    public function init()
     {
         $needToInit = false;
 
@@ -66,7 +66,7 @@ class org_tubepress_impl_options_WordPressStorageManager extends org_tubepress_i
 
         if ($needToInit) {
             
-        	$this->init();
+        	parent::init();
             
         	$this->setOption(self::$_dbVersionOptionName, self::$_dbVersion);
         }

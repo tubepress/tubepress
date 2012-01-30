@@ -194,7 +194,7 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
     
     private function _setupWorkingNonce()
     {
-    	$adminCheck = new PHPUnit_Extensions_MockFunction('check_admin_referrer');
+    	$adminCheck = new PHPUnit_Extensions_MockFunction('check_admin_referer');
     	
     	$adminCheck->expects($this->once())->with('tubepress-save', 'tubepress-nonce')->will($this->returnValue(true));
     }

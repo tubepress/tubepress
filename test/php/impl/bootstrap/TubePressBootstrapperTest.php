@@ -20,6 +20,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUn
         $pm                    = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $expectedSystemFilters = array(
             array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_EMBEDDED     , 'org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariables'),
+        	array(org_tubepress_api_const_plugin_FilterPoint::HTML_EMBEDDED		    , 'org_tubepress_impl_plugin_filters_embeddedhtml_PlayerJavaScriptApi'),
             array(org_tubepress_api_const_plugin_FilterPoint::HTML_GALLERY          , 'org_tubepress_impl_plugin_filters_galleryhtml_GalleryJs'),
             array(org_tubepress_api_const_plugin_FilterPoint::JAVASCRIPT_GALLERYINIT, 'org_tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParams'),
             array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY      , 'org_tubepress_impl_plugin_filters_gallerytemplate_CoreVariables'),
@@ -40,6 +41,8 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUn
 
             $pm->shouldReceive('registerFilter')->with($filter[0], anInstanceOf($filter[1]))->once();
         }
+        
+        $pm->shouldReceive('registerListener')->with(org_tubepress_api_const_plugin_EventName::BOOT, anInstanceOf('org_tubepress_impl_plugin_listeners_StorageManagerInitListener'));
         $pm->shouldReceive('registerListener')->with(org_tubepress_api_const_plugin_EventName::BOOT, anInstanceOf('org_tubepress_impl_plugin_listeners_WordPressBoot'));
         $pm->shouldReceive('registerListener')->with(org_tubepress_api_const_plugin_EventName::BOOT, anInstanceOf('org_tubepress_impl_plugin_listeners_SkeletonExistsListener'));
 
@@ -57,6 +60,9 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUn
 
         $th         = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $th->shouldReceive('getUserContentDirectory')->once()->andReturn('<<user-content-dir>>');
+        
+        $sm  		 = $ioc->get(org_tubepress_api_options_StorageManager::_);
+        $sm->shouldReceive('init')->once();
 
         $this->_sut->boot();
     }
