@@ -58,50 +58,47 @@ class org_tubepress_impl_http_transferencoding_ChunkedTransferDecoder implements
     {
         /* http://tools.ietf.org/html/rfc2616#section-19.4.6 */
 
-        $body = str_replace(array("\r\n", "\r"), "\n", $body);
-
         /* first grab the initial chunk length */
-        $result = preg_match('/^\s*([0-9a-fA-F]+)[^\n]*\n/m', $body, $matches);
+        $chunkLengthPregMatchResult = preg_match('/^\s*([0-9a-fA-F]+)(?:(?!\r\n).)*\r\n/sm', $body, $chunkLengthMatches);
 
-        if ($result === false || count($matches) !== 2) {
+        if ($chunkLengthPregMatchResult === false || count($chunkLengthMatches) !== 2) {
 
             throw new Exception('Data does not appear to be chunked (missing initial chunk length)');
         }
 
         /* set initial values */
-        $offset      = strlen($matches[0]);
-        $chunkLength = hexdec($matches[1]);
-        $decoded     = '';
-        $bodyLength  = strlen($body);
+        $currentOffsetIntoBody = strlen($chunkLengthMatches[0]);
+        $currentChunkLength    = hexdec($chunkLengthMatches[1]);
+        $decoded               = '';
+        $bodyLength            = strlen($body);
 
-        while ($chunkLength > 0) {
+        while ($currentChunkLength > 0) {
 
             /* read in the first chunk data */
-            $decoded .= substr($body, $offset, $chunkLength);
+            $decoded .= substr($body, $currentOffsetIntoBody, $currentChunkLength);
 
             /* increment the offset to what we just read */
-            $offset += $chunkLength;
+            $currentOffsetIntoBody += $currentChunkLength;
 
             /* whoa nelly, we've hit the end of the road. */
-            if ($offset >= $bodyLength) {
+            if ($currentOffsetIntoBody >= $bodyLength) {
 
                 return $decoded;
             }
 
             /* grab the next chunk length */
-            $result = preg_match('/\n\s*([0-9a-fA-F]+)[^\n]*\n/m', $body, $matches, null, $offset);
+            $chunkLengthPregMatchResult = preg_match('/\r\n\s*([0-9a-fA-F]+)(?:(?!\r\n).)*\r\n/sm', $body, $chunkLengthMatches, null, $currentOffsetIntoBody);
 
-            if ($result === false || count($matches) !== 2) {
+            if ($chunkLengthPregMatchResult === false || count($chunkLengthMatches) !== 2) {
 
                 return $decoded;
-                //throw new Exception('Data does not appear to be chunked (missing chunk length)');
             }
 
             /* increment the offset to start of next data */
-            $offset += strlen($matches[0]);
+            $currentOffsetIntoBody += strlen($chunkLengthMatches[0]);
 
             /* set up how much data we want to read */
-            $chunkLength = hexdec($matches[1]);
+            $currentChunkLength = hexdec($chunkLengthMatches[1]);
         }
 
         return $decoded;

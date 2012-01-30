@@ -60,7 +60,7 @@ class org_tubepress_impl_http_transferencoding_ChunkedTransferDecoderTest extend
             $result = $this->_sut->execute($context);
 
             $this->assertTrue($result);
-            $this->assertEquals($decoded, $context->decoded);
+            $this->assertEquals($decoded, $context->decoded, var_export($context->decoded, true) . " does not match expected " . var_export($decoded, true));
         }
     }
 
@@ -77,7 +77,7 @@ EOT
 abra
 cadabra
 EOT
-        => "02\nab\n04\nra\nc\n06\nadabra\n0\nhidden\n",
+        => "02\r\nab\r\n04\r\nra\nc\r\n06\r\nadabra\n0\nhidden\n",
       <<<EOT
 abra
 cadabra
@@ -89,12 +89,12 @@ EOT
 this string is chunked encoded
 
 EOT
-       => "05\r\nthis \r\n07\r\nstring \r\n12\r\nis chunked encoded\r\n01\n\r\n00",
+       => "05\r\nthis \r\n07\r\nstring \r\n12\r\nis chunked encoded\r\n01\r\n\n\r\n00",
         <<<EOT
-this string is chunked encoded
+this string is chunked encoder
 
 EOT
-        => "005   \r\nthis \r\n     07\r\nstring \r\n12     \r\nis chunked encoded\r\n   000001     \n\r\n00"
+        => "005   \r\nthis \r\n     07\r\nstring \r\n12     \r\nis chunked encoder\r\n   000001     \r\n\n\r\n00"
        );
     }
 }
