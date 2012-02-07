@@ -250,6 +250,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option->setDefaultValue(true);
         $option->setLabel('Enable JavaScript API');       //>(translatable)<
         $option->setDescription('Allow TubePress to communicate with the embedded video player via JavaScript. This incurs a very small performance overhead, but is required for some features.'); //>(translatable)<
+        $option->setBoolean();
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::FULLSCREEN);
