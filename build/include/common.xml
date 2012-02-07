@@ -29,52 +29,52 @@
 	<property name="stagingdir"        value="${build.directory.stage}/${build.directory.stage.basename}" />
 	<property name="jscompresslist"    value="config/js-to-compress.txt" />
 	
-    <target name="clean" description="Cleans build environment">
+	<target name="clean" description="Cleans build environment">
     
-        <echo message="Deleting ${build.directory.dist} and ${build.directory.stage}" />
-        
-        <delete dir="${build.directory.dist}" />
-        <delete dir="${build.directory.stage}" />
-    </target>
+		<echo message="Deleting ${build.directory.dist} and ${build.directory.stage}" />
+		
+		<delete dir="${build.directory.dist}" />
+		<delete dir="${build.directory.stage}" />
+	</target>
     
-    <target name="init" description="Cleans and preps the build directory for a new build">
+	<target name="init" description="Cleans and preps the build directory for a new build">
     
-        <antcall target="clean" />
+		<antcall target="clean" />
+	    
+		<echo message="Creating empty directories at ${build.directory.dist} and ${build.directory.stage}" />
+	    
+		<mkdir dir="${build.directory.dist}" />
+		<mkdir dir="${build.directory.stage}" />
+	</target>
     
-        <echo message="Creating empty directories at ${build.directory.dist} and ${build.directory.stage}" />
-    
-        <mkdir dir="${build.directory.dist}" />
-        <mkdir dir="${build.directory.stage}" />
-    </target>
-    
-    <target name="compress-js" description="Compresses JS files">
+	<target name="compress-js" description="Compresses JS files">
 
-        <copy todir="${stagingdir}">
-            <fileset dir="${stagingdir}/" includesfile="${jscompresslist}"/>
-            <mapper type="glob" from="*.js" to="*-dev.js" />
-        </copy>
+		<copy todir="${stagingdir}">
+			<fileset dir="${stagingdir}/" includesfile="${jscompresslist}"/>
+			<mapper type="glob" from="*.js" to="*-dev.js" />
+		</copy>
 
-        <echo message="Compressing JS. This may take a moment..." />
+		<echo message="Compressing JS. This may take a moment..." />
 
-        <apply executable="java" parallel="false" dir="${stagingdir}" relative="true">
-            <fileset dir="${stagingdir}/" includesfile="${jscompresslist}"/>
-            <arg line="-jar"/>
-            <arg path="${tubepress-build-common.basedir}/../${bin.yuicompressor}"/>
-            <srcfile />
-            <arg line="-o" />
-            <mapper type="identity" />
-            <targetfile />
-        </apply>
+		<apply executable="java" parallel="false" dir="${stagingdir}" relative="true">
+			<fileset dir="${stagingdir}/" includesfile="${jscompresslist}"/>
+			<arg line="-jar"/>
+			<arg path="${tubepress-build-common.basedir}/../${bin.yuicompressor}"/>
+			<srcfile />
+			<arg line="-o" />
+			<mapper type="identity" />
+			<targetfile />
+		</apply>
 
-    </target>
+	</target>
 	
-    <target name="stage-self" description="Copies over TubePress into the staging directory for processing">
+	<target name="stage-self" description="Copies over TubePress into the staging directory for processing">
 
-        <echo message="Copying self into ${stagingdir}" />
-        <copy todir="${stagingdir}">
-            <fileset dir=".." excludesfile="${tubepress-build-common.basedir}/../config/distribution-exclusions.txt" />
-        </copy>
-    </target>
+		<echo message="Copying self into ${stagingdir}" />
+		<copy todir="${stagingdir}">
+	    	<fileset dir=".." excludesfile="${tubepress-build-common.basedir}/../config/distribution-exclusions.txt" />
+		</copy>
+	</target>
 	
 	<target name="add-distribution-resources" description="Copies distribution resources into TubePress">
 	
@@ -83,17 +83,17 @@
 		</copy>
 	</target>
 	
-    <target name="package">
+	<target name="package">
 
-        <zip destfile="${build.directory.dist}/${build.directory.stage.basename}_${version.major}_${version.minor}_${version.micro}.zip" basedir="${build.directory.stage}" />
+		<zip destfile="${build.directory.dist}/${build.directory.stage.basename}_${version.major}_${version.minor}_${version.micro}.zip" basedir="${build.directory.stage}" />
 
-    </target>
+	</target>
 	
-    <target name="modify-wordpress-info">
+	<target name="modify-wordpress-info">
         
-        <replace file="${stagingdir}/tubepress.php" token="git-bleeding" value="${version.major}.${version.minor}.${version.micro}" />
-        <replace file="${stagingdir}/tubepress.php" token="@description@" value="${wordpress.free.desc}" />
+		<replace file="${stagingdir}/tubepress.php" token="git-bleeding" value="${version.major}.${version.minor}.${version.micro}" />
+		<replace file="${stagingdir}/tubepress.php" token="@description@" value="${wordpress.free.desc}" />
 
-    </target>
+	</target>
     
 </project>
