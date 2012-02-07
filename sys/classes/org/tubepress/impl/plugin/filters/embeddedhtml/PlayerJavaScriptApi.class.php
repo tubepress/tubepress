@@ -32,6 +32,8 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_plugin_filters_embeddedhtml_PlayerJavaScriptApi
 {
+	private static $_logPrefix = 'Player API Embedded HTML Filter';
+	
     public function alter_embeddedHtml($html, $videoId, $videoProviderName, $embeddedImplName)
     {
         $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
@@ -39,6 +41,8 @@ class org_tubepress_impl_plugin_filters_embeddedhtml_PlayerJavaScriptApi
 
         if (! $context->get(org_tubepress_api_const_options_names_Embedded::ENABLE_JS_API)) {
 
+        	org_tubepress_impl_log_Log::log(self::$_logPrefix, 'JS API is disabled');
+        	
             return $html;
         }
 
