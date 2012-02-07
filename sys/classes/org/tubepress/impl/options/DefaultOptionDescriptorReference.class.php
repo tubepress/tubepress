@@ -307,6 +307,10 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         ));
         $this->register($option);
 
+        $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::SEQUENCE);
+        $option->setDoNotPersist();
+        $this->register($option);
+        
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::SHOW_INFO);
         $option->setLabel('Show title and rating before video starts');  //>(translatable)<
         $option->setDefaultValue(false);

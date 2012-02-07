@@ -665,7 +665,7 @@ var TubePressSequencer = (function () {
 				logger.log('Playback of ' + videoId + ' stopped for gallery ' + matchingGalleryId);
 			}
 			
-			if (tubepressGallery.isAutoNext(matchingGalleryId)) {
+			if (tubepressGallery.isAutoNext(matchingGalleryId) && tubepressGallery.getSequence(matchingGalleryId)) {
 				
 				if (logger.on()) {
 					
