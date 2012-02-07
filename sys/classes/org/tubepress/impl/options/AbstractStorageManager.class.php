@@ -90,8 +90,6 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
             $this->delete($name);
             $this->create($name, $value);
         }
-
-//         $this->setOption($name, $value);
     }
 
     /**
@@ -119,7 +117,10 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
             return;
         }
 
-        $this->setOption($optionName, $optionValue);
+        /** Just in case. */
+        $sanitized = htmlspecialchars($optionValue);
+        
+        $this->setOption($optionName, $sanitized);
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 require_once dirname(__FILE__) . '/../../../includes/TubePressUnitTestSuite.php';
 require_once 'filters/embeddedtemplate/CoreVariablesTest.php';
+require_once 'filters/galleryinitjs/GalleryInitJsBaseParamsTest.php';
 require_once 'filters/galleryhtml/GalleryJsTest.php';
 require_once 'filters/gallerytemplate/PaginationTest.php';
 require_once 'filters/gallerytemplate/CoreVariablesTest.php';
@@ -41,7 +42,8 @@ class org_tubepress_impl_plugin_PluginTestSuite
 		    'org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariablesTest',
 		    'org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMetaTest',
 		    'org_tubepress_impl_plugin_listeners_WordPressBootTest',
-		    'org_tubepress_impl_plugin_listeners_SkeletonExistsListenerTest'
+		    'org_tubepress_impl_plugin_listeners_SkeletonExistsListenerTest',
+		    'org_tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTest',
         ));
 	}
 }

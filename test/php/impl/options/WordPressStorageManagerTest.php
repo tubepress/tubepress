@@ -18,6 +18,8 @@ class org_tubepress_impl_options_WordPressStorageManagerTest extends TubePressUn
         $this->setupInit();
 
         $this->_sut = new org_tubepress_impl_options_WordPressStorageManager();
+        
+        $this->_sut->init();
     }
 
     function setupInit()

@@ -28,7 +28,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_VideoMetaTest extends Tu
         $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
         $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
-        $odr->shouldReceive('findOneByName')->times(13)->andReturnUsing(function ($m) {
+        $odr->shouldReceive('findOneByName')->times(17)->andReturnUsing(function ($m) {
 
              $mock = \Mockery::mock(org_tubepress_api_options_OptionDescriptor::_);
              $mock->shouldReceive('getLabel')->once()->andReturn('video-' . $m);

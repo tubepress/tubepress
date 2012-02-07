@@ -24,10 +24,10 @@ class org_tubepress_impl_http_HttpClientChainTest extends TubePressUnitTest {
         $this->_context  = new stdClass;
         $this->_actualCommands = array(
 
-            'org_tubepress_impl_http_clientimpl_commands_ExtHttpCommand',
-            'org_tubepress_impl_http_clientimpl_commands_CurlCommand',
-			'org_tubepress_impl_http_clientimpl_commands_StreamsCommand',
-            'org_tubepress_impl_http_clientimpl_commands_FsockOpenCommand',
+            'org_tubepress_impl_http_transports_ExtHttpTransport',
+            'org_tubepress_impl_http_transports_CurlTransport',
+			'org_tubepress_impl_http_transports_StreamsTransport',
+            'org_tubepress_impl_http_transports_FsockOpenTransport',
         );
         $this->_chain = null;
     }
@@ -165,11 +165,11 @@ class org_tubepress_impl_http_HttpClientChainTest extends TubePressUnitTest {
 
         $commands = array(
 
-            org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_EXTHTTP   => 'org_tubepress_impl_http_clientimpl_commands_ExtHttpCommand',
-            org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_CURL      => 'org_tubepress_impl_http_clientimpl_commands_CurlCommand',
-            org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_STREAMS   => 'org_tubepress_impl_http_clientimpl_commands_StreamsCommand',
-            org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FOPEN     => 'org_tubepress_impl_http_clientimpl_commands_FopenCommand',
-            org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FSOCKOPEN => 'org_tubepress_impl_http_clientimpl_commands_FsockOpenCommand',
+            org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_EXTHTTP   => 'org_tubepress_impl_http_transports_ExtHttpTransport',
+            org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_CURL      => 'org_tubepress_impl_http_transports_CurlTransport',
+            org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_STREAMS   => 'org_tubepress_impl_http_transports_StreamsTransport',
+            org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FOPEN     => 'org_tubepress_impl_http_transports_FopenTransport',
+            org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FSOCKOPEN => 'org_tubepress_impl_http_transports_FsockOpenTransport',
         );
 
         foreach ($commands as $name => $class) {
@@ -194,6 +194,8 @@ class org_tubepress_impl_http_HttpClientChainTest extends TubePressUnitTest {
             $this->_request->shouldReceive('containsHeader')->once()->with($headerName)->andReturn(false);
             $this->_request->shouldReceive('setHeader')->once()->with($headerName, $headerValue);
         }
+
+        $this->_request->shouldReceive('getAllHeaders')->once()->andReturn(array('foo' => 'bar'));
 
         $this->_request->shouldReceive('setHeader')->once()->with(org_tubepress_api_http_HttpRequest::HTTP_HEADER_ACCEPT_ENCODING, 'encoding header problem');
     }

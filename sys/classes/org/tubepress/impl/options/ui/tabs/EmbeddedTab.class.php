@@ -55,9 +55,11 @@ class org_tubepress_impl_options_ui_tabs_EmbeddedTab extends org_tubepress_impl_
             $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::SHOW_INFO,        org_tubepress_impl_options_ui_fields_BooleanField::__),
             $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::FULLSCREEN,       org_tubepress_impl_options_ui_fields_BooleanField::__),
             $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::HIGH_QUALITY,     org_tubepress_impl_options_ui_fields_BooleanField::__),
+        	$fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::AUTONEXT,         org_tubepress_impl_options_ui_fields_BooleanField::__),
             $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::AUTOPLAY,         org_tubepress_impl_options_ui_fields_BooleanField::__),
             $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::LOOP,             org_tubepress_impl_options_ui_fields_BooleanField::__),
             $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::SHOW_RELATED,     org_tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::ENABLE_JS_API,    org_tubepress_impl_options_ui_fields_BooleanField::__),
         );
     }
 }

@@ -65,7 +65,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
     );
     private static $_providerArrayYouTube = array(org_tubepress_api_provider_Provider::YOUTUBE);
     private static $_providerArrayVimeo = array(org_tubepress_api_provider_Provider::VIMEO);
-    
+
     private static $_logPrefix = 'Default Option Descriptor Reference';
 
     /**
@@ -220,6 +220,14 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         ));
         $this->register($option);
 
+        $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::AUTONEXT);
+        $option->setLabel('Play videos sequentially without user intervention');  //>(translatable)<
+        $option->setDescription('When a video finishes, this will start playing the next video in the gallery.');  //>(translatable)<
+        $option->setDefaultValue(true);
+        $option->setBoolean();
+        $option->setProOnly();
+        $this->register($option);
+        
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::AUTOPLAY);
         $option->setLabel('Auto-play all videos');  //>(translatable)<
         $option->setDefaultValue(false);
@@ -236,6 +244,13 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option->setDefaultValue(425);
         $option->setLabel('Max width (px)');       //>(translatable)<
         $option->setDescription('Default is 425.'); //>(translatable)<
+        $this->register($option);
+
+        $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::ENABLE_JS_API);
+        $option->setDefaultValue(true);
+        $option->setLabel('Enable JavaScript API');       //>(translatable)<
+        $option->setDescription('Allow TubePress to communicate with the embedded video player via JavaScript. This incurs a very small performance overhead, but is required for some features.'); //>(translatable)<
+        $option->setBoolean();
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::FULLSCREEN);
@@ -292,6 +307,10 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         ));
         $this->register($option);
 
+        $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::SEQUENCE);
+        $option->setDoNotPersist();
+        $this->register($option);
+        
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::SHOW_INFO);
         $option->setLabel('Show title and rating before video starts');  //>(translatable)<
         $option->setDefaultValue(false);
@@ -483,26 +502,26 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option->setLabel('The latest "featured" videos on YouTube\'s homepage from');    //>(translatable)<
         $option->setAcceptableValues(self::$_valueMapTime);
         $this->register($option);
-        
+
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE);
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $option->setLabel('Most-discussed YouTube videos from');    //>(translatable)<
         $option->setAcceptableValues(self::$_valueMapTime);
         $this->register($option);
-        
+
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE);
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $option->setLabel('Most-recently added YouTube videos from');    //>(translatable)<
         $option->setAcceptableValues(self::$_valueMapTime);
         $this->register($option);
-        
+
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE);
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $option->setLabel('Most-responded to YouTube videos from');    //>(translatable)<
         $option->setAcceptableValues(self::$_valueMapTime);
         $this->register($option);
-        
-        
+
+
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER);
         $option->setAcceptableValues(array(
             org_tubepress_api_provider_Provider::YOUTUBE,
@@ -730,20 +749,20 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
         $option->setDefaultValue('[tubepress thumbHeight=\'105\' thumbWidth=\'135\']');
         $this->register($option);
-        
+
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS);
         $option->setDefaultValue(true);
         $option->setLabel('Vimeo');    //>(translatable)<
         $option->setBoolean();
         $this->register($option);
-        
+
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS);
         $option->setDefaultValue(true);
         $option->setLabel('YouTube');    //>(translatable)<
         $option->setBoolean();
         $this->register($option);
     }
-    
+
     private function _getThemeValues()
     {
         $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
@@ -755,23 +774,23 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
 
         $systemThemes = $explorer->getDirectoriesInDirectory($systemThemeDirectory, self::$_logPrefix);
         $userThemes   = $explorer->getDirectoriesInDirectory($userContentDirectory, self::$_logPrefix);
-        
+
         sort($systemThemes);
         sort($userThemes);
-        
+
         $systemThemesAssoc = array();
         foreach ($systemThemes as $systemTheme) {
-            
+
             $name = basename($systemTheme);
-            
+
             $systemThemesAssoc[$name] = $name;
         }
-        
+
         $userThemesAssoc = array();
         foreach ($userThemes as $userTheme) {
-        
+
             $name = basename($userTheme);
-            
+
             $userThemesAssoc[$name] = $name;
         }
 

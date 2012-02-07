@@ -85,7 +85,9 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
      */
     public function set($optionName, $optionValue)
     {
-        $this->_customOptions[$optionName] = $optionValue;
+    	$sanitized = htmlspecialchars($optionValue);
+    	
+        $this->_customOptions[$optionName] = $sanitized;
     }
 
     /**
@@ -97,7 +99,17 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
      */
     public function setCustomOptions($customOpts)
     {
-        $this->_customOptions = $customOpts;
+    	if (! is_array($customOpts)) {
+    		
+    		return;
+    	}
+    	
+    	$this->_customOptions = array();
+    	
+    	foreach ($customOpts as $key => $value) {
+    		
+			$this->set($key, $value);    		
+    	}
     }
 
     /**

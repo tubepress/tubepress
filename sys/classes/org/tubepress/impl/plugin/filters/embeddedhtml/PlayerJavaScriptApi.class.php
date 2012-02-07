@@ -21,32 +21,36 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_const_template_Variable',
-    'org_tubepress_api_embedded_EmbeddedHtmlGenerator',
-    'org_tubepress_api_template_Template',
     'org_tubepress_api_video_Video',
     'org_tubepress_impl_ioc_IocContainer',
 ));
 
 /**
- * Applies core player template variables.
+ * Registers videos with the JS player API.
  */
-class org_tubepress_impl_plugin_filters_playertemplate_CoreVariables
+class org_tubepress_impl_plugin_filters_embeddedhtml_PlayerJavaScriptApi
 {
-    public function alter_playerTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_video_Video $video, $videoProviderName, $playerName)
+	private static $_logPrefix = 'Player API Embedded HTML Filter';
+	
+    public function alter_embeddedHtml($html, $videoId, $videoProviderName, $embeddedImplName)
     {
         $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $embedded  = $ioc->get(org_tubepress_api_embedded_EmbeddedHtmlGenerator::_);
         $context   = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $galleryId = $context->get(org_tubepress_api_const_options_names_Advanced::GALLERY_ID);
 
-        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_SOURCE, $embedded->getHtml($video->getId()));
-        $template->setVariable(org_tubepress_api_const_template_Variable::GALLERY_ID, $galleryId);
-        $template->setVariable(org_tubepress_api_const_template_Variable::VIDEO, $video);
-        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_WIDTH, $context->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH));
+        if (! $context->get(org_tubepress_api_const_options_names_Embedded::ENABLE_JS_API)) {
 
-        return $template;
+        	org_tubepress_impl_log_Log::log(self::$_logPrefix, 'JS API is disabled');
+        	
+            return $html;
+        }
+
+        return $html . $this->_getPlayerRegistryJs($videoId);
+    }
+
+    private function _getPlayerRegistryJs($videoId)
+    {
+        return "<script type=\"text/javascript\">TubePressPlayerApi.register('$videoId');</script>";
     }
 }

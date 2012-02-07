@@ -23,7 +23,7 @@
 
 	<?php foreach (${org_tubepress_impl_options_ui_fields_DropdownField::TEMPLATE_VAR_ACCEPTABLE_VALUES} as $name => $value): ?>
 
-	<option value="<?php echo $name; ?>" <?php if (${org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_VALUE} === $value) { echo 'SELECTED'; } ?>><?php echo $value; ?></option>
+	<option value="<?php echo $name; ?>" <?php if (${org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_VALUE} === $name) { echo 'SELECTED'; } ?>><?php echo $value; ?></option>
 
 <?php endforeach; ?>
 

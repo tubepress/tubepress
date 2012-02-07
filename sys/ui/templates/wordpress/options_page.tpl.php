@@ -41,6 +41,12 @@
     	<input type="submit" name="<?php echo ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_ID}; ?>" class="button-primary" value="<?php echo ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_TEXT}; ?>" />
     	<br /><br />
 
+		<?php
+			
+			//http://codex.wordpress.org/Function_Reference/wp_nonce_field
+			wp_nonce_field('tubepress-save', 'tubepress-nonce');
+		?>
+
 	</form>
 </div>
 

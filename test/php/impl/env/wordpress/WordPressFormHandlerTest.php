@@ -69,8 +69,6 @@ class org_tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePres
 
         $tabs->shouldReceive('getHtml')->once()->andReturn('<<tabhtml>>');
 
-        $filter->shouldReceive('getHtml')->once()->andReturn('<<filterhtml>>');
-
         $template->shouldReceive('setVariable')->once()->with(org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TITLE, '<<title>>');
         $template->shouldReceive('setVariable')->once()->with(org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_INTRO, '<<blurb>>');
         $template->shouldReceive('setVariable')->once()->with(org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_TEXT, '<<save>>');

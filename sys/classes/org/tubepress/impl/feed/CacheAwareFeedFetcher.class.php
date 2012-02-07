@@ -78,7 +78,9 @@ class org_tubepress_impl_feed_CacheAwareFeedFetcher implements org_tubepress_api
             $result = $this->_getFromNetwork($url, $ioc);
         }
 
-        org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Raw result for <a href="%s">URL</a> is in the HTML source for this page. <span style="display:none">%s</span>', $url, htmlspecialchars($result));
+        org_tubepress_impl_log_Log::log(self::$_logPrefix,
+        	'Raw result for <a href="%s">URL</a> is in the HTML source for this page. <span style="display:none">%s</span>',
+            $url, htmlspecialchars($result));
 
         return $result;
     }
@@ -89,6 +91,8 @@ class org_tubepress_impl_feed_CacheAwareFeedFetcher implements org_tubepress_api
         $request = new org_tubepress_api_http_HttpRequest(org_tubepress_api_http_HttpRequest::HTTP_METHOD_GET, $u);
         $client  = $ioc->get(org_tubepress_api_http_HttpClient::_);
 
-        return $client->execute($request);
+        $httpResponse = $client->execute($request);
+
+        return $httpResponse->getEntity()->getContent();
     }
 }
