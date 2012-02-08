@@ -1,4 +1,4 @@
-# Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+# Copyright 2006 - 2010 Eric D. Hough (http://ehough.com)
 #
 # This file is part of TubePress (http://tubepress.org)
 #
@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: TubePress pt_BR\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: Cátia Kitahara <contato@wordpress-br.com>\n"
-"Language-Team: Tecsite Estúdio Digital e Comunidade WordPress-BR <tecsite@gmail.com>\n"
+"Last-Translator: Miriam de Paula <miriamdepaula@wpmidia.com.br>\n"
+"Language-Team: Miriam de Paula (wpmidia lab) <wpmidia@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -48,7 +48,7 @@ msgid "This YouTube user's \"favorites\""
 msgstr "Os favoritos deste usuário do Youtube"
 
 msgid "The latest \"featured\" videos on YouTube's homepage from"
-msgstr "Os vídeos mais recentes \"destacados\" na página inicial do YouTube"
+msgstr "Os vídeos mais recentes \"destacados\" na página inicial do YouTube de"
 
 msgid "This YouTube playlist"
 msgstr "Esta playlist"
@@ -59,6 +59,9 @@ msgstr "Limitado a 200 vídeos por lista. Normalmente algo parecido com isto: D2
 msgid "Most-viewed YouTube videos from"
 msgstr "Os vídeos mais vistos de"
 
+msgid "Most-favorited YouTube videos from"
+msgstr "Vídeos mais freqüentemente marcados como favoritos a partir de ..."
+
 msgid "Most-recently added YouTube videos from"
 msgstr "Os vídeos adicionados mais recentemente"
 
@@ -67,6 +70,30 @@ msgstr "Os vídeos mais comentados"
 
 msgid "Most-responded to YouTube videos from"
 msgstr "Os vídeos com mais respostas"
+
+msgid "Videos uploaded by this Vimeo user"
+msgstr "Vídeos enviados deste usuário Vimeo"
+
+msgid "Videos this Vimeo user likes"
+msgstr "Vídeos que este usuário Vimeo gosta"
+
+msgid "Videos this Vimeo user appears in"
+msgstr "Os videos desse usuário Vimeo aparecem no"
+
+msgid "Vimeo search for"
+msgstr "Pesquisa Vimeo por"
+
+msgid "Videos credited to this Vimeo user (either appears in or uploaded by)"
+msgstr "Os vídeos creditados a este usuário Vimeo (ou aparecem em ou enviados por)"
+
+msgid "Videos in this Vimeo channel"
+msgstr "Vídeos neste canal Vimeo"
+
+msgid "Videos from this Vimeo album"
+msgstr "Vídeos deste álbum Vimeo"
+
+msgid "Videos from this Vimeo group"
+msgstr "Vídeos deste grupo Vimeo"
 
 msgid "View count"
 msgstr "Visualizações"
@@ -78,13 +105,16 @@ msgid "Videos from this YouTube user"
 msgstr "Vídeos deste usuário do Youtube"
 
 msgid "YouTube limits this to 1,000 results."
-msgstr "O Youtube limita este modo a 1.000 resultados."
+msgstr "O Youtube limita este a 1.000 resultados."
 
 msgid "Play each video"
 msgstr "Reproduzir cada vídeo"
 
 msgid "Maximum description length"
 msgstr "Tamanho máximo para a descrição"
+
+msgid "Max width (px)"
+msgstr "Largura máxima (px)"
 
 msgid "Maximum number of characters to display in video descriptions. Set to 0 for no limit."
 msgstr "Número máximo de caracteres a serem mostrados nas descrições do vídeo. Configure 0 para ilimitado."
@@ -105,7 +135,10 @@ msgid "Use relative dates"
 msgstr "Usar datas relativas"
 
 msgid "e.g. \"yesterday\" instead of \"November 3, 1980\"."
-msgstr "por ex.: \"ontem\" ao invés de \"3 de Novembro de 1980\"."
+msgstr "por ex.: \"ontem\" ao invés de \"3 de Novembro de 1980\""
+
+msgid "Thumbnails per page"
+msgstr "Vídeos por página"
 
 msgid "Default is 20. Maximum is 50."
 msgstr "O padrão é 20. O máximo é 50."
@@ -115,6 +148,9 @@ msgstr "Mostrar a paginação acima das miniaturas"
 
 msgid "Show pagination below thumbnails"
 msgstr "Mostrar a paginação abaixo das miniaturas"
+
+msgid "Use high-quality thumbnails"
+msgstr "Usar miniaturas de alta qualidade"
 
 msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-enabled pagination"
 msgstr "Paginação com suporte a <a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a> "
@@ -129,7 +165,7 @@ msgid "Player"
 msgstr "Player"
 
 msgid "Auto-play all videos"
-msgstr "Auto-reproduzir vídeos"
+msgstr "Iniciar automaticamente todos os vídeos"
 
 msgid "Allow fullscreen playback."
 msgstr "Permitir a reprodução em tela cheia."
@@ -170,6 +206,12 @@ msgstr "Mostra vídeos relacionados"
 msgid "Toggles the display of related videos after a video finishes."
 msgstr "Alterna a exibição de vídeos relacionados, após terminar um vídeo."
 
+msgid "Allow high definition playback"
+msgstr ""
+
+msgid "Feed"
+msgstr "Feed"
+
 msgid "Meta"
 msgstr "Meta-dados"
 
@@ -185,6 +227,9 @@ msgstr "Descrição"
 msgid "ID"
 msgstr "ID"
 
+msgid "Number of \"likes\""
+msgstr "Preferidos"
+
 msgid "Average rating"
 msgstr "Votação"
 
@@ -197,8 +242,8 @@ msgstr "Palavras-chave"
 msgid "Title"
 msgstr "Título"
 
-msgid "Date posted"
-msgstr "Publicado"
+msgid "Runtime"
+msgstr "Tempo de execução"
 
 msgid "URL"
 msgstr "URL"
@@ -211,6 +256,12 @@ msgstr "Formato da data"
 
 msgid "Set the textual formatting of date information for videos. See <a href=\"http://us.php.net/date\">date</a> for examples."
 msgstr "Configurar a formatação textual para as datas dos vídeos. Veja <a href=\"http://us.php.net/date\">data</ a> para obter exemplos."
+
+msgid "Video blacklist"
+msgstr "Lista negra de vídeos"
+
+msgid "A list of video IDs that should never be displayed."
+msgstr "Lista de IDs de vídeos que nunca devem ser exibidos."
 
 msgid "Enable debugging"
 msgstr "Ativar depuração"
@@ -230,8 +281,11 @@ msgstr "Palavra-chave do \"shortcode\""
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "A palavra que você insere (em texto simples, entre colchetes) em seus posts/páginas para exibir uma galeria."
 
+msgid "Randomize thumbnail images"
+msgstr "Mostrar miniaturas aleatoriamente"
+
 msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized. Note: this option cannot be used with the \"high quality thumbnails\" feature."
-msgstr "A maioria dos vídeos vêm com várias miniaturas. Ao selecionar esta opção, cada vez que alguém vir sua galeria verá os mesmos vídeos com cada miniatura aleatória"
+msgstr "A maioria dos vídeos vêm com várias miniaturas. Ao selecionar esta opção, cada vez que alguém vir a sua galeria, vai ver os mesmos vídeos com miniaturas aleatórias. Nota: esta opção não pode ser usada com o recurso \"miniaturas de alta qualidade\"."
 
 msgid "YouTube API Developer Key"
 msgstr "Chave de desenvolvedor de API do YouTube"
@@ -240,7 +294,7 @@ msgid "YouTube will use this developer key for logging and debugging purposes if
 msgstr "O YouTube usará esta chave de desenvolvedor para login e depuração se você tiver algum problema com o serviço deles. Você pode registrar uma nova ID e chave de desenvolvedor <a href=\"http://code.google.com/apis/youtube/dashboard/\">aqui</a>. Não mude isto a menos que você saiba o que está fazendo."
 
 msgid "Enable API cache"
-msgstr "Ativar cache solicitado"
+msgstr "Ativar cache API"
 
 msgid "Only retrieve embeddable videos"
 msgstr "Recupera apenas vídeos que podem ser incorporados"
@@ -248,11 +302,17 @@ msgstr "Recupera apenas vídeos que podem ser incorporados"
 msgid "Some videos have embedding disabled. Checking this option will exclude these videos from your galleries."
 msgstr "Alguns vídeos têm incorporação desativada. Ao marcar esta opção esses vídeos de suas galerias serão excluídos."
 
+msgid "Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness."
+msgstr ""
+
 msgid "Maximum total videos to retrieve"
 msgstr "Número máximo de vídeos a recuperar"
 
 msgid "This can help to reduce the number of pages in your gallery. Set to \"0\" to remove any limit."
 msgstr "Isto pode ajudar a reduzir o número de páginas em sua galeria. Configure \"0 \" para remover qualquer limite."
+
+msgid "Thumbnails"
+msgstr ""
 
 msgid "normally (at the top of your gallery)"
 msgstr "normalmente (no topo da sua galeria)"
@@ -261,7 +321,10 @@ msgid "in a popup window"
 msgstr "em uma janela popup"
 
 msgid "from the video's original YouTube page"
-msgstr "da página original do Youtube"
+msgstr "da página original de vídeos do Youtube"
+
+msgid "from the video's original Vimeo page"
+msgstr "da página original de vídeos do Vimeo"
 
 msgid "with FancyBox"
 msgstr "com FancyBox"
@@ -269,14 +332,17 @@ msgstr "com FancyBox"
 msgid "with TinyBox"
 msgstr "com TinyBox"
 
-msgid "with Shadowbox"
-msgstr "com Shadowbox"
-
 msgid "with jqModal"
 msgstr "com jqModal"
 
+msgid "with Shadowbox"
+msgstr "com Shadowbox"
+
 msgid "statically (page refreshes on each thumbnail click)"
 msgstr "estaticamente (a página é atualizada a cada clique em miniatura)"
+
+msgid "in a new window on its own"
+msgstr "em uma nova janela por conta própria"
 
 msgid "relevance"
 msgstr "relevância"
@@ -287,8 +353,23 @@ msgstr "popularidade"
 msgid "rating"
 msgstr "votação"
 
+msgid "Date posted"
+msgstr "Data de publicação"
+
 msgid "randomly"
 msgstr "aleatoriamente"
+
+msgid "position in a playlist"
+msgstr "posição na lista de reprodução"
+
+msgid "comment count"
+msgstr "quantidade de comentários"
+
+msgid "length"
+msgstr "Duração"
+
+msgid "title"
+msgstr "Título"
 
 msgid "today"
 msgstr "hoje"
@@ -320,6 +401,9 @@ msgstr "moderar"
 msgid "strict"
 msgstr "estrito"
 
+msgid "Provider default"
+msgstr "Provedor padrão"
+
 msgid "JW FLV Media Player (by Longtail Video)"
 msgstr "JW FLV Media Player (by Longtail Video)"
 
@@ -327,186 +411,114 @@ msgid "Implementation"
 msgstr "Implementação"
 
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
-msgstr ""
-
-msgid "Videos uploaded by this Vimeo user"
-msgstr ""
-
-msgid "Videos this Vimeo user likes"
-msgstr ""
-
-msgid "Videos this Vimeo user appears in"
-msgstr ""
-
-msgid "Vimeo search for"
-msgstr ""
-
-msgid "Videos credited to this Vimeo user (either appears in or uploaded by)"
-msgstr ""
-
-msgid "Videos in this Vimeo channel"
-msgstr ""
-
-msgid "Videos from this Vimeo album"
-msgstr ""
-
-msgid "Videos from this Vimeo group"
-msgstr ""
-
-msgid "Use high-quality thumbnails"
-msgstr ""
-
-msgid "Video blacklist"
-msgstr ""
-
-msgid "A list of video IDs that should never be displayed."
-msgstr ""
-
-msgid "in a new window on its own"
-msgstr ""
-
-msgid "from the video's original Vimeo page"
-msgstr ""
-
-msgid "Number of \"likes\""
-msgstr ""
-
-msgid "Max width (px)"
-msgstr ""
-
-msgid "position in a playlist"
-msgstr ""
-
-msgid "comment count"
-msgstr ""
-
-msgid "length"
-msgstr ""
-
-msgid "title"
-msgstr ""
-
-msgid "Runtime"
-msgstr ""
-
-msgid "Provider default"
-msgstr ""
+msgstr "A marca do player incorporado. O padrão é o player provedor (Youtube, Vimeo, etc)"
 
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
-msgstr ""
+msgstr "Nem todas as ordens de classificação podem ser aplicadas a todos os tipos de galeria. Veja a <a href=\"http://tubepress.org/documentation\">documentação</a> para mais informações."
 
 msgid "date published (newest first)"
-msgstr ""
+msgstr "mais recente"
 
 msgid "date published (oldest first)"
-msgstr ""
+msgstr "mais antigo"
 
 msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature."
-msgstr ""
+msgstr "Nota: esta opção não pode ser usada com o recurso \"Randomizar Miniaturas\""
 
 msgid "Theme"
-msgstr ""
+msgstr "Tema"
 
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>."
-msgstr ""
-
-msgid "Most-favorited YouTube videos from"
-msgstr ""
+msgstr "O tema TubePress a ser utilizado por esta galeria. Seus temas podem ser encontrados em <tt>% s </ tt>, e os temas padrão podem ser encontradas em <tt>% s </ tt>."
 
 msgid "Vimeo API \"Consumer Key\""
-msgstr ""
+msgstr "API Vimeo \"Consumer Key\""
 
 msgid "<a href=\"http://vimeo.com/api/applications/new\">Click here</a> to register for a consumer key and secret."
-msgstr ""
+msgstr "<a href=\"http://vimeo.com/api/applications/new\">Clique aqui</a> para registrar sua \"consumer key\" e \"secret key\""
 
 msgid "Vimeo API \"Consumer Secret\""
-msgstr ""
+msgstr "API Vimeo \"Consumer Secret\""
 
 msgid "Do not attempt to use cURL to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr ""
+msgstr "Não tente usar cURL para obter feeds remotos. Deixe ativado a menos que você saiba o que está fazendo."
 
 msgid "Do not attempt to use the PHP HTTP extension to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr ""
+msgstr "Não tente usar a extensão PHP HTTP para obter feeds remotos. Deixe ativado a menos que você saiba o que está fazendo."
 
 msgid "Do not attempt to use fopen to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr ""
+msgstr "Não tente usar fopen para obter feeds remotos. Deixe ativado a menos que você saiba o que está fazendo."
 
 msgid "Do not attempt to use fsockopen to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr ""
+msgstr "Não tente usar fsockopen para obter feeds remotos. Deixe ativado a menos que você saiba o que está fazendo."
 
 msgid "Do not attempt to use PHP streams to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr ""
+msgstr "Não tente usar PHP streams para obter feeds remotos. Deixe ativado a menos que você saiba o que está fazendo."
 
 msgid "Disable <a href=\"http://php.net/manual/en/function.curl-exec.php\">cURL</a> HTTP transport"
-msgstr ""
+msgstr "Desativar<a href=\"http://php.net/manual/en/function.curl-exec.php\">cURL</a> HTTP transport"
 
 msgid "Disable <a href=\"http://php.net/http_request\">HTTP extension</a> transport"
-msgstr ""
+msgstr "Desativar <a href=\"http://php.net/http_request\">HTTP extension</a> transport"
 
 msgid "Disable <a href=\"http://php.net/manual/en/function.fopen.php\">fopen</a> HTTP transport"
-msgstr ""
+msgstr "Desativar <a href=\"http://php.net/manual/en/function.fopen.php\">fopen</a> HTTP transport"
 
 msgid "Disable <a href=\"http://php.net/fsockopen\">fsockopen</a> HTTP transport"
-msgstr ""
+msgstr "Desativar <a href=\"http://php.net/fsockopen\">fsockopen</a> HTTP transport"
 
 msgid "Disable <a href=\"http://php.net/manual/en/intro.stream.php\">PHP streams</a> HTTP transport"
-msgstr ""
+msgstr "Desativar <a href=\"http://php.net/manual/en/intro.stream.php\">PHP streams</a> HTTP transport"
 
 msgid "Cache directory"
-msgstr ""
+msgstr "Diretório de cache"
+
+msgid "Leave blank to attempt to use your system's temp directory. Otherwise enter the absolute path of a writeable directory."
+msgstr "Deixe em branco para tentar usar o diretório temporário do sistema. Caso contrário, informe o caminho absoluto de um diretório gravável."
 
 msgid "Cache expiration time (seconds)"
-msgstr ""
+msgstr "Tempo de expiração do cache (em segundos)"
 
 msgid "Cache entries will be considered stale after the specified number of seconds. Default is 3600 (one hour)."
-msgstr ""
+msgstr "Entradas de cache serão consideradas obsoletas após o número especificado de segundos. O padrão é 3600 (uma hora)."
 
 msgid "Cache cleaning factor"
-msgstr ""
+msgstr "Fator de limpeza de cache"
 
 msgid "If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning."
-msgstr ""
+msgstr "If you enter X, the entire cache will be cleaned every 1/X cache writes. Enter 0 to disable cache cleaning."
 
 msgid "Only show options applicable to..."
-msgstr ""
+msgstr "Apenas mostrar opções aplicáveis a..."
 
 msgid "Restrict search results to videos from author"
-msgstr ""
+msgstr "Resultados de busca restrita por vídeos deste usuário"
 
 msgid "A YouTube or Vimeo user name. Only applies to search-based galleries."
-msgstr ""
+msgstr "Só se aplica a galerias baseadas em pesquisa"
 
 msgid "No matching videos"
-msgstr ""
+msgstr "Nenhum vídeo correspondente"
 
 msgid "Search"
-msgstr ""
+msgstr "Busca"
 
 msgid "Use \"fluid\" thumbnails"
-msgstr ""
+msgstr "Use miniaturas \"fluídas\""
 
 msgid "Dynamically set thumbnail spacing based on the width of their container."
-msgstr ""
-
-msgid "Auto-play each video after thumbnail click."
-msgstr ""
+msgstr "Definir dinamicamente o espaçamento de miniaturas com base na largura de seu recipiente."
 
 msgid "\"Lazy\" play videos"
+msgstr "\"Lazy\" play videos"
+
+msgid "Auto-play each video after thumbnail click."
+msgstr "Iniciar automaticamente cada vídeo depois de um clique na miniatura"
+
+msgid "YouTube"
 msgstr ""
 
-msgid "Thumbnails"
-msgstr ""
-
-msgid "Feed"
-msgstr ""
-
-msgid "Cache"
-msgstr ""
-
-msgid "in a \"detached\" location (see the documentation)"
-msgstr ""
-
-msgid "Displays YouTube or Vimeo videos with TubePress"
+msgid "Vimeo"
 msgstr ""
 
 msgid "No viewable videos"
@@ -515,28 +527,19 @@ msgstr ""
 msgid "Could not find video with ID %s"
 msgstr ""
 
-msgid "Leave blank to attempt to use your system's temp directory. Otherwise enter the absolute path of a writeable directory."
-msgstr ""
-
-msgid "Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness."
-msgstr ""
-
-msgid "Allow high definition playback"
-msgstr ""
-
-msgid "Randomize thumbnail images"
-msgstr ""
-
-msgid "Thumbnails per page"
-msgstr ""
-
 msgid "Show each video's..."
 msgstr ""
 
-msgid "YouTube"
+msgid "Cache"
 msgstr ""
 
-msgid "Vimeo"
+msgid "in a \"detached\" location (see the documentation)"
+msgstr ""
+
+msgid "Play videos sequentially without user intervention"
+msgstr ""
+
+msgid "When a video finishes, this will start playing the next video in the gallery."
 msgstr ""
 
 msgid "Enable JavaScript API"
@@ -545,8 +548,5 @@ msgstr ""
 msgid "Allow TubePress to communicate with the embedded video player via JavaScript. This incurs a very small performance overhead, but is required for some features."
 msgstr ""
 
-msgid "Play videos sequentially without user intervention"
-msgstr ""
-
-msgid "When a video finishes, this will start playing the next video in the gallery."
+msgid "Displays YouTube or Vimeo videos with TubePress"
 msgstr ""
