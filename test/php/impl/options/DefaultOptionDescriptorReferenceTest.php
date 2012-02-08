@@ -26,7 +26,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 	{
 	    $all = $this->_sut->findAll();
 
-	    $this->assertTrue(count($all) === 91, "Expected 91 options but got " . count($all));
+	    $this->assertTrue(count($all) === 92, "Expected 92 options but got " . count($all));
 	}
 
 	/**
@@ -310,6 +310,10 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$this->assertTrue($option->getLabel() === 'Enable JavaScript API', $option->getName());
     	$this->assertTrue($option->getDescription() === 'Allow TubePress to communicate with the embedded video player via JavaScript. This incurs a very small performance overhead, but is required for some features.', $option->getName());
 
+    	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::SEQUENCE);
+    	$this->assertTrue($option->getDefaultValue() === null, $option->getName());
+    	$this->assertTrue($option->isMeantToBePersisted() === false, $option->getName());
+    	
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::SHOW_RELATED);
     	$this->assertTrue($option->getLabel() === 'Show related videos', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === true, $option->getName());

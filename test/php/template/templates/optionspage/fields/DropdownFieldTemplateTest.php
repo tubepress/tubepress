@@ -8,7 +8,7 @@ class org_tubepress_impl_template_templates_optionspage_fields_DropdownFieldTemp
     public function test()
     {
         ${org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_NAME} = 'some-name';
-        ${org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_VALUE} = 'some-value';
+        ${org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_VALUE} = 'poo';
         ${org_tubepress_impl_options_ui_fields_DropdownField::TEMPLATE_VAR_ACCEPTABLE_VALUES} = array('crack' => 'rock', 'poo' => 'some-value', 'pretzels' => 'jets');
 
         ob_start();
