@@ -550,3 +550,9 @@ msgstr ""
 
 msgid "Displays YouTube or Vimeo videos with TubePress"
 msgstr ""
+
+msgid "Enable HTTPS"
+msgstr ""
+
+msgid "Serve thumbnails and embedded video player over a secure connection."
+msgstr ""

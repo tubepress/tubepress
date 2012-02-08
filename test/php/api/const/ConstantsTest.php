@@ -32,7 +32,7 @@ class org_tubepress_api_const_ConstantsTest extends TubePressUnitTest {
     {
         $toTest = array(
 
-            'org_tubepress_api_const_options_names_Advanced'                    => array('debugging_enabled', 'disableHttpTransportCurl', 'disableHttpTransportExtHttp', 'disableHttpTransportFopen', 'disableHttpTransportFsockOpen', 'disableHttpTransportStreams', 'keyword', 'galleryId'),
+            'org_tubepress_api_const_options_names_Advanced'                    => array('debugging_enabled', 'disableHttpTransportCurl', 'disableHttpTransportExtHttp', 'disableHttpTransportFopen', 'disableHttpTransportFsockOpen', 'disableHttpTransportStreams', 'keyword', 'galleryId', 'https'),
         	'org_tubepress_api_const_options_names_Cache'                       => array('cacheEnabled', 'cacheCleaningFactor', 'cacheDirectory', 'cacheLifetimeSeconds'),
             'org_tubepress_api_const_options_names_Embedded' 					=> array('playerImplementation', 'embeddedHeight', 'embeddedWidth', 'lazyPlay', 'autoplay', 'fullscreen', 'hd', 'loop', 'playerColor', 'playerHighlight', 'showInfo', 'showRelated', 'playerLocation', 'autoNext', 'sequence', 'enableJsApi'),
             'org_tubepress_api_const_options_names_Feed'						=> array('orderBy', 'videoBlacklist', 'developerKey', 'embeddableOnly', 'filter_racy', 'resultCountCap', 'searchResultsRestrictedToUser', 'vimeoKey', 'vimeoSecret'),
