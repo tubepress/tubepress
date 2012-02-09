@@ -7,3 +7,8 @@
 </label>
 </p>
 <input type="hidden" id="<?php echo ${org_tubepress_impl_env_wordpress_Widget::WIDGET_SUBMIT_TAG}; ?>" name="<?php echo ${org_tubepress_impl_env_wordpress_Widget::WIDGET_SUBMIT_TAG}; ?>" value="1" />
+<?php
+
+	//http://codex.wordpress.org/Function_Reference/wp_nonce_field
+	wp_nonce_field('tubepress-widget-nonce-save', 'tubepress-widget-nonce');
+?>

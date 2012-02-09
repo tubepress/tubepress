@@ -13,6 +13,8 @@ class org_tubepress_impl_template_templates_wordpress_WidgetControlsTemplateTest
         ${org_tubepress_impl_env_wordpress_Widget::WIDGET_SUBMIT_TAG}    = '<<widget-submit-tag>>';
         ${org_tubepress_impl_env_wordpress_Widget::WIDGET_CONTROL_SHORTCODE} = '<<widget-control-shortcode>>';
 
+        $nonceMock = new PHPUnit_Extensions_MockFunction('wp_nonce_field');
+        $nonceMock->expects($this->once())->will($this->returnCallback(array($this, 'doNonce')));
 
         ob_start();
         include BASE . '/sys/ui/templates/wordpress/widget_controls.tpl.php';
@@ -20,6 +22,11 @@ class org_tubepress_impl_template_templates_wordpress_WidgetControlsTemplateTest
         ob_end_clean();
 
         $this->assertEquals($this->_expected(), $result);
+    }
+
+    public function doNonce()
+    {
+        echo 'nonce';
     }
 
     private function _expected()
@@ -33,7 +40,7 @@ class org_tubepress_impl_template_templates_wordpress_WidgetControlsTemplateTest
 </label>
 </p>
 <input type="hidden" id="<<widget-submit-tag>>" name="<<widget-submit-tag>>" value="1" />
-
+nonce
 EOT;
     }
 

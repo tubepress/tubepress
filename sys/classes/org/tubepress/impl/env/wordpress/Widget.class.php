@@ -139,6 +139,8 @@ class org_tubepress_impl_env_wordpress_Widget
         /* are we saving? */
         if (isset($_POST[self::WIDGET_SUBMIT_TAG])) {
 
+            self::_verifyNonce($_POST);
+
             $wpsm->set(org_tubepress_api_const_options_names_WordPress::WIDGET_SHORTCODE, strip_tags(stripslashes($_POST['tubepress-widget-tagstring'])));
             $wpsm->set(org_tubepress_api_const_options_names_WordPress::WIDGET_TITLE, strip_tags(stripslashes($_POST['tubepress-widget-title'])));
         }
@@ -156,6 +158,11 @@ class org_tubepress_impl_env_wordpress_Widget
 
         /* get the template's output */
         echo $tpl->toString();
+    }
+
+    private static function _verifyNonce($postVars) {
+
+        check_admin_referer('tubepress-widget-nonce-save', 'tubepress-widget-nonce');
     }
 }
 
