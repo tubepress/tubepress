@@ -80,6 +80,8 @@ class org_tubepress_impl_http_HttpClientChain implements org_tubepress_api_http_
         $this->_decode($transferDecoder, $response, 'Transfer');
         $this->_decode($contentDecoder, $response, 'Content');
 
+        self::_logEntityContent($request, $response);
+
         return $response;
     }
 
@@ -98,6 +100,12 @@ class org_tubepress_impl_http_HttpClientChain implements org_tubepress_api_http_
         $response = $this->execute($request);
 
         return $handler->handle($response);
+    }
+
+    private static function _logEntityContent(org_tubepress_api_http_HttpRequest $request, org_tubepress_api_http_HttpResponse $response)
+    {
+    	org_tubepress_impl_log_Log::log(self::$_logPrefix, 'The raw result for %s is in the HTML source for this page <span style="display:none">%s</span>',
+    		$request, htmlspecialchars(var_export($response, true)));
     }
 
     private static function _checkRequest(org_tubepress_api_http_HttpRequest $request)

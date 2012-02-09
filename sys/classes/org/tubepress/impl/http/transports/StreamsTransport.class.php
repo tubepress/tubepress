@@ -37,8 +37,6 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_http_transports_StreamsTransport extends org_tubepress_impl_http_transports_AbstractHttpTransport
 {
-    private static $_log_prefix = 'Streams HTTP Transport';
-
     private static $_stream_http_transport        = 'http';
     private static $_stream_metadata_timedout     = 'timed_out';
     private static $_stream_metadata_data_wrapper = 'wrapper_data';
@@ -139,7 +137,7 @@ class org_tubepress_impl_http_transports_StreamsTransport extends org_tubepress_
      */
     protected function getTransportName()
     {
-        return 'fopen()';
+        return 'Streams';
     }
 
     /**

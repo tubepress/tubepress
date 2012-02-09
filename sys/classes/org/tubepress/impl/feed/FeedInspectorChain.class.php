@@ -49,8 +49,8 @@ class org_tubepress_impl_feed_FeedInspectorChain implements org_tubepress_api_fe
 
         } catch (Exception $e) {
 
-            org_tubepress_impl_log_Log::log('Delegating Feed Inspector', 'Caught exception while counting: ' . $e->getMessage());
-            return 0;
+            org_tubepress_impl_log_Log::log('Feed inspector chain', 'Caught exception while counting: ' . $e->getMessage());
+            throw $e;
         }
     }
 

@@ -12,6 +12,9 @@ class org_tubepress_impl_feed_FeedInspectorChainTest extends TubePressUnitTest {
         $this->_sut = new org_tubepress_impl_feed_FeedInspectorChain();
     }
 
+    /**
+     * @expectedException Exception
+     */
     function testCountCouldNotHandle()
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
@@ -29,7 +32,7 @@ class org_tubepress_impl_feed_FeedInspectorChainTest extends TubePressUnitTest {
     			'org_tubepress_impl_feed_inspection_VimeoFeedInspectionCommand'
         ))->andReturn(false);
 
-        $this->assertEquals(0, $this->_sut->getTotalResultCount('rawfeed'));
+        $this->_sut->getTotalResultCount('rawfeed');
     }
 
     function testCount()
