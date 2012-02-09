@@ -535,3 +535,9 @@ msgstr ""
 
 msgid "When a video finishes, this will start playing the next video in the gallery."
 msgstr ""
+
+msgid "Enable HTTPS"
+msgstr ""
+
+msgid "Serve thumbnails and embedded video player over a secure connection."
+msgstr ""

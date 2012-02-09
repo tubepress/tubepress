@@ -45,6 +45,7 @@ class org_tubepress_impl_options_ui_tabs_AdvancedTab extends org_tubepress_impl_
 
             $fieldBuilder->build(org_tubepress_api_const_options_names_Advanced::DEBUG_ON,               org_tubepress_impl_options_ui_fields_BooleanField::__),
             $fieldBuilder->build(org_tubepress_api_const_options_names_Advanced::KEYWORD,                org_tubepress_impl_options_ui_fields_TextField::__),
+            $fieldBuilder->build(org_tubepress_api_const_options_names_Advanced::HTTPS,                  org_tubepress_impl_options_ui_fields_BooleanField::__),
             $fieldBuilder->build(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_CURL,      org_tubepress_impl_options_ui_fields_BooleanField::__),
             $fieldBuilder->build(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_EXTHTTP,   org_tubepress_impl_options_ui_fields_BooleanField::__),
             $fieldBuilder->build(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FOPEN,     org_tubepress_impl_options_ui_fields_BooleanField::__),

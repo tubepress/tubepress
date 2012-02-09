@@ -163,6 +163,14 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option->setBoolean();
         $this->register($option);
 
+        $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Advanced::HTTPS);
+        $option->setDefaultValue(false);
+        $option->setLabel('Enable HTTPS');                                                                //>(translatable)<
+        $option->setDescription('Serve thumbnails and embedded video player over a secure connection.');  //>(translatable)<
+        $option->setBoolean();
+        $option->setProOnly();
+        $this->register($option);
+
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Advanced::GALLERY_ID);
         $option->setValidValueRegex('/\w+/');
         $option->setDoNotPersist();
@@ -227,7 +235,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option->setBoolean();
         $option->setProOnly();
         $this->register($option);
-        
+
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::AUTOPLAY);
         $option->setLabel('Auto-play all videos');  //>(translatable)<
         $option->setDefaultValue(false);
@@ -310,7 +318,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::SEQUENCE);
         $option->setDoNotPersist();
         $this->register($option);
-        
+
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::SHOW_INFO);
         $option->setLabel('Show title and rating before video starts');  //>(translatable)<
         $option->setDefaultValue(false);

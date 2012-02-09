@@ -26,7 +26,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 	{
 	    $all = $this->_sut->findAll();
 
-	    $this->assertTrue(count($all) === 92, "Expected 92 options but got " . count($all));
+	    $this->assertTrue(count($all) === 93, "Expected 93 options but got " . count($all));
 	}
 
 	/**
@@ -106,6 +106,13 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$this->assertTrue($option->getValidValueRegex() === '/\w+/', $option->getName());
     	$this->assertTrue($option->isMeantToBePersisted() === false, $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
+
+    	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Advanced::HTTPS);
+    	$this->assertTrue($option->isBoolean() === true, $option->getName());
+    	$this->assertTrue($option->isProOnly() === true, $option->getName());
+    	$this->assertTrue($option->getDefaultValue() === false, $option->getName());
+        $this->assertTrue($option->getLabel() === 'Enable HTTPS', $option->getName());
+        $this->assertTrue($option->getDescription() === 'Serve thumbnails and embedded video player over a secure connection.', $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Advanced::KEYWORD);
     	$this->assertTrue($option->getLabel() === 'Shortcode keyword', $option->getName());
@@ -227,12 +234,12 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::AUTONEXT);
-    	$this->assertTrue($option->getLabel() === 'Play videos sequentially without user intervention', $option->getName());  
-    	$this->assertTrue($option->getDescription() === 'When a video finishes, this will start playing the next video in the gallery.', $option->getName()); 
+    	$this->assertTrue($option->getLabel() === 'Play videos sequentially without user intervention', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'When a video finishes, this will start playing the next video in the gallery.', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === true, $option->getName());
     	$this->assertTrue($option->isBoolean() === true, $option->getName());
     	$this->assertTrue($option->isProOnly() === true, $option->getName());
-    	
+
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::AUTOPLAY);
     	$this->assertTrue($option->getLabel() === 'Auto-play all videos', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === false, $option->getName());
@@ -313,7 +320,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::SEQUENCE);
     	$this->assertTrue($option->getDefaultValue() === null, $option->getName());
     	$this->assertTrue($option->isMeantToBePersisted() === false, $option->getName());
-    	
+
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::SHOW_RELATED);
     	$this->assertTrue($option->getLabel() === 'Show related videos', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === true, $option->getName());
