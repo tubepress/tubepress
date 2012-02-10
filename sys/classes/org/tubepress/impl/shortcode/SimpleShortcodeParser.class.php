@@ -37,7 +37,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepress_api_shortcode_ShortcodeParser
 {
-    const LOG_PREFIX = 'Shortcode parser';
+    private static $_logPrefix = 'Shortcode parser';
 
     /**
      * This function is used to parse a shortcode into options that TubePress can use.
@@ -54,7 +54,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
 
         } catch (Exception $e) {
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception when parsing shortcode: ' . $e->getMessage());
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Caught exception when parsing shortcode: ' . $e->getMessage());
         }
     }
 
@@ -74,11 +74,11 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
 
         if (sizeof($matches) === 0) {
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'No shortcodes detected in content');
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'No shortcodes detected in content');
             return;
         }
 
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Found a shortcode: %s', $matches[0]);
+        org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Found a shortcode: %s', $matches[0]);
 
         $context->setActualShortcodeUsed($matches[0]);
 
@@ -91,7 +91,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
 
             if ( preg_match_all($pattern, $text, $match, PREG_SET_ORDER) ) {
 
-                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Custom options detected in shortcode: %s', $matches[0]);
+                org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Custom options detected in shortcode: %s', $matches[0]);
 
                 $toReturn = self::_parseCustomOption($toReturn, $match, $ioc);
 
@@ -100,7 +100,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
 
         } else {
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'No custom options detected in shortcode: %s', $matches[0]);
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'No custom options detected in shortcode: %s', $matches[0]);
         }
     }
 
@@ -148,17 +148,19 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
                 $value = self::_normalizeValue($m[6]);
             }
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Shortcode option detected: %s = %s', $name, (string)$value);
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Shortcode option detected: %s = %s', $name, (string)$value);
 
             $valid = $inputValidationService->isValid($name, $value);
 
             if ($valid) {
 
+            	org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Accepted valid value: %s = %s', $name, (string)$value);
+
                 $customOptions[$name] = $value;
 
             } else {
 
-                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Ignoring invalid value for "%s"');
+                org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Ignoring invalid value for "%s" (%s)', $name, $inputValidationService->getProblemMessage($name, $value));
             }
         }
 

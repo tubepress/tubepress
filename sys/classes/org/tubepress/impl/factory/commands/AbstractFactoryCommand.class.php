@@ -165,7 +165,8 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
         $ratingCount       = self::_fancyNumber($this->_getRawRatingCount($index));
         $thumbUrl          = $this->_pickThumbnailUrl($this->_getThumbnailUrlsArray($index));
         $timeLastUpdated   = $this->_fancyTime($this->_getTimeLastUpdatedInUnixTime($index));
-        $timePublished     = $this->_fancyTime($this->_getTimePublishedInUnixTime($index));
+        $timePublishedUnixTime = $this->_getTimePublishedInUnixTime($index);
+        $timePublished     = $this->_fancyTime($timePublishedUnixTime);
         $title             = $this->_getTitle($index);
         $viewCount         = self::_fancyNumber($this->_getRawViewCount($index));
 
@@ -189,6 +190,9 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
         $vid->setTimePublished($timePublished);
         $vid->setTitle($title);
         $vid->setViewCount($viewCount);
+
+        //TODO: refactor this
+        $vid->timePublishedInUnixTime = $timePublishedUnixTime;
 
         return $vid;
     }

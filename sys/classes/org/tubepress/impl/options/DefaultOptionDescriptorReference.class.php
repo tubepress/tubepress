@@ -246,12 +246,14 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option->setDefaultValue(350);
         $option->setLabel('Max height (px)');      //>(translatable)<
         $option->setDescription('Default is 350.'); //>(translatable)<
+        $option->setValidValueRegex(self::$_regexNonNegativeInteger);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
         $option->setDefaultValue(425);
         $option->setLabel('Max width (px)');       //>(translatable)<
         $option->setDescription('Default is 425.'); //>(translatable)<
+        $option->setValidValueRegex(self::$_regexNonNegativeInteger);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::ENABLE_JS_API);
@@ -433,61 +435,70 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option->setDefaultValue('3hough');
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $option->setLabel('Videos from this YouTube user');  //>(translatable)<
+        $option->setValidValueRegex(self::$_regexWordChars);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE);
         $option->setDefaultValue('mattkaar');
         $option->setExcludedProviders(self::$_providerArrayYouTube);
         $option->setLabel('Videos uploaded by this Vimeo user');  //>(translatable)<
+        $option->setValidValueRegex(self::$_regexWordChars);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE);
         $option->setDefaultValue('coiffier');
         $option->setExcludedProviders(self::$_providerArrayYouTube);
         $option->setLabel('Videos this Vimeo user likes');  //>(translatable)<
+        $option->setValidValueRegex(self::$_regexWordChars);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE);
         $option->setDefaultValue('royksopp');
         $option->setExcludedProviders(self::$_providerArrayYouTube);
         $option->setLabel('Videos this Vimeo user appears in');  //>(translatable)<
+        $option->setValidValueRegex(self::$_regexWordChars);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE);
         $option->setDefaultValue('cats playing piano');
         $option->setExcludedProviders(self::$_providerArrayYouTube);
         $option->setLabel('Vimeo search for');  //>(translatable)<
+        $option->setValidValueRegex(self::$_regexWordChars);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE);
         $option->setDefaultValue('patricklawler');
         $option->setExcludedProviders(self::$_providerArrayYouTube);
         $option->setLabel('Videos credited to this Vimeo user (either appears in or uploaded by)');  //>(translatable)<
+        $option->setValidValueRegex(self::$_regexWordChars);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE);
         $option->setDefaultValue('splitscreenstuff');
         $option->setExcludedProviders(self::$_providerArrayYouTube);
         $option->setLabel('Videos in this Vimeo channel');  //>(translatable)<
+        $option->setValidValueRegex(self::$_regexWordChars);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE);
         $option->setDefaultValue('hdxs');
         $option->setExcludedProviders(self::$_providerArrayYouTube);
         $option->setLabel('Videos from this Vimeo group');  //>(translatable)<
+        $option->setValidValueRegex(self::$_regexWordChars);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE);
         $option->setDefaultValue('140484');
         $option->setExcludedProviders(self::$_providerArrayYouTube);
         $option->setLabel('Videos from this Vimeo album');  //>(translatable)<
+        $option->setValidValueRegex(self::$_regexWordChars);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE);
         $option->setDefaultValue('mrdeathgod');
-        $option->setValidValueRegex(self::$_regexWordChars);
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $option->setLabel('This YouTube user\'s "favorites"');  //>(translatable)<
+        $option->setValidValueRegex(self::$_regexWordChars);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_VIEWED_VALUE);
@@ -501,8 +512,8 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option->setDefaultValue('D2B04665B213AE35');
         $option->setDescription('Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser\'s address bar (while looking at a YouTube playlist). It comes right after the "p=". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35');  //>(translatable)<
         $option->setLabel('This YouTube playlist');                                                                                                                                                                                                                                                                                                          //>(translatable)<
-        $option->setValidValueRegex(self::$_regexWordChars);
         $option->setExcludedProviders(self::$_providerArrayVimeo);
+        $option->setValidValueRegex(self::$_regexWordChars);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_FEATURED);
