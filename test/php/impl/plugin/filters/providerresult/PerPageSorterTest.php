@@ -17,9 +17,11 @@ class org_tubepress_impl_plugin_filters_providerresult_PerPageSorterTest extends
 	    $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
 
         $context      = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+        $videoOne = new org_tubepress_api_video_Video();
+        $videoTwo = new org_tubepress_api_video_Video();
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Feed::ORDER_BY)->andReturn(org_tubepress_api_const_options_values_OrderByValue::RANDOM);
 
-        $videoArray = array('x', 'y');
+        $videoArray = array($videoOne, $videoTwo);
 
         $providerResult = \Mockery::mock('org_tubepress_api_provider_ProviderResult');
         $providerResult->shouldReceive('getVideoArray')->once()->andReturn($videoArray);

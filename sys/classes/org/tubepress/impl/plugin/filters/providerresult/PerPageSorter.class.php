@@ -34,21 +34,101 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_plugin_filters_providerresult_PerPageSorter
 {
+    private static $_logPrefix = 'Per Page Sorter';
+
 	public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult)
 	{
-		$videos  = $providerResult->getVideoArray();
-		$ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-		$context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+		$ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
+		$context   = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+		$sortOrder = $context->get(org_tubepress_api_const_options_names_Feed::ORDER_BY);
 
-	    /* shuffle if we need to */
-        if ($context->get(org_tubepress_api_const_options_names_Feed::ORDER_BY) == org_tubepress_api_const_options_values_OrderByValue::RANDOM) {
-            org_tubepress_impl_log_Log::log('Shuffler', 'Shuffling videos');
-            shuffle($videos);
-        }
+		/** Grab a handle to the videos. */
+		$videos = $providerResult->getVideoArray();
 
-		/* modify the feed result */
+		/** Determine the sort method name. */
+		$sortCallback = '_' . $sortOrder . '_compare';
+
+		if ($sortOrder === org_tubepress_api_const_options_values_OrderByValue::RANDOM) {
+
+		    org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Shuffling videos');
+
+		    shuffle($videos);
+
+		} else {
+
+		    /** If we have a sorter, use it. */
+		    if (method_exists($this, $sortCallback)) {
+
+		        org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Now sorting videos on page (%s)', $sortOrder);
+
+		        uasort($videos, array($this, $sortCallback));
+
+		    } else {
+
+		        org_tubepress_impl_log_Log::log(self::$_logPrefix, 'No sort available for this page (%s)', $sortOrder);
+
+		        uasort($videos, array($this, '_newest_compare'));
+		    }
+		}
+
+		/** Modify the feed result. */
 		$providerResult->setVideoArray($videos);
 
 		return $providerResult;
+	}
+
+	private function _commentCount_compare($one, $two)
+	{
+	    return $this->_compareGreatestToLeast($one->getCommentCount(), $two->getCommentCount());
+	}
+
+	private function _duration_compare($one, $two)
+	{
+	    return $this->_compareGreatestToLeast($one->durationInSeconds, $two->durationInSeconds);
+	}
+
+	private function _newest_compare($one, $two)
+	{
+	    return $this->_compareGreatestToLeast($one->timePublishedInUnixTime, $two->timePublishedInUnixTime);
+	}
+
+	private function _oldest_compare($one, $two)
+	{
+	    return $this->_compareLeastToGreatest($one->timePublishedInUnixTime, $two->timePublishedInUnixTime);
+	}
+
+	private function _rating_compare($one, $two)
+	{
+	    return $this->_compareGreatestToLeast($one->getRatingAverage(), $two->getRatingAverage());
+	}
+
+	private function _title_compare($one, $two)
+	{
+	    return strcmp($one->getTitle(), $two->getTitle());
+	}
+
+	private function _viewCount_compare($one, $two)
+	{
+	    return $this->_compareGreatestToLeast($one->getCommentCount(), $two->getCommentCount());
+	}
+
+	private function _compareLeastToGreatest($one, $two)
+	{
+	    if ($one == $two) {
+
+	        return 0;
+	    }
+
+	    return $one < $two ? -1 : 1;
+	}
+
+	private function _compareGreatestToLeast($one, $two)
+	{
+	    if ($one == $two) {
+
+	        return 0;
+	    }
+
+	    return $one > $two ? -1 : 1;
 	}
 }
