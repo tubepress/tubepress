@@ -48,13 +48,13 @@ class org_tubepress_impl_options_DefaultOptionValidator implements org_tubepress
     }
 
     /**
-    * Gets the failure message of a name/value pair that has failed validation.
-    *
-    * @param string       $optionName The option name
-    * @param unknown_type $candidate  The candidate option value
-    *
-    * @return unknown Null if the option passes validation, otherwise a string failure message.
-    */
+     * Gets the failure message of a name/value pair that has failed validation.
+     *
+     * @param string       $optionName The option name
+     * @param unknown_type $candidate  The candidate option value
+     *
+     * @return unknown Null if the option passes validation, otherwise a string failure message.
+     */
     function getProblemMessage($optionName, $candidate)
     {
         $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
