@@ -98,7 +98,7 @@
     
     <?php if (${org_tubepress_api_const_template_Variable::META_SHOULD_SHOW}[org_tubepress_api_const_options_names_Meta::DESCRIPTION]): ?>
     
-    <dt class="tubepress_meta tubepress_meta_description"><?php echo ${org_tubepress_api_const_template_Variable::META_LABELS}[org_tubepress_api_const_options_names_Meta::DESCRIPTION]; ?></dt><dd class="tubepress_meta tubepress_meta_description"><?php echo htmlspecialchars($video->getDescription(), ENT_QUOTES, "UTF-8"); ?></dd>
+    <dt class="tubepress_meta tubepress_meta_description"><?php echo ${org_tubepress_api_const_template_Variable::META_LABELS}[org_tubepress_api_const_options_names_Meta::DESCRIPTION]; ?></dt><dd class="tubepress_meta tubepress_meta_description"><?php echo $video->getDescription(); ?></dd>
     <?php endif; ?>
     
 </dl>
