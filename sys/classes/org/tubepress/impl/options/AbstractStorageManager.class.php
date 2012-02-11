@@ -118,8 +118,8 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
         }
 
         /** Just in case. */
-        $sanitized = htmlspecialchars($optionValue);
-        
+        $sanitized = htmlspecialchars($optionValue, ENT_NOQUOTES);
+
         $this->setOption($optionName, $sanitized);
     }
 

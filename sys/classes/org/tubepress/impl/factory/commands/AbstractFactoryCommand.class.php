@@ -156,7 +156,8 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
         $category          = $this->_getCategory($index);
         $commentCount      = self::_fancyNumber($this->_getRawCommentCount($index));
         $description       = $this->_trimDescription($this->_getDescription($index));
-        $duration          = org_tubepress_impl_util_TimeUtils::secondsToHumanTime($this->_getDurationInSeconds($index));
+        $durationInSeconds = $this->_getDurationInSeconds($index);
+        $duration          = org_tubepress_impl_util_TimeUtils::secondsToHumanTime($durationInSeconds);
         $homeUrl           = $this->_getHomeUrl($index);
         $id                = $this->_getId($index);
         $keywordsArray     = $this->_getKeywordsArray($index);
@@ -193,6 +194,7 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
 
         //TODO: refactor this
         $vid->timePublishedInUnixTime = $timePublishedUnixTime;
+        $vid->durationInSeconds       = $durationInSeconds;
 
         return $vid;
     }

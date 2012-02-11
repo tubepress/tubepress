@@ -463,7 +463,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option->setDefaultValue('cats playing piano');
         $option->setExcludedProviders(self::$_providerArrayYouTube);
         $option->setLabel('Vimeo search for');  //>(translatable)<
-        $option->setValidValueRegex(self::$_regexWordChars);
+        $option->setValidValueRegex('/[\w" ]+/');
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE);
