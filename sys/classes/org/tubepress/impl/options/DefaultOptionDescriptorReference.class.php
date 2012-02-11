@@ -689,6 +689,9 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option->setDoNotPersist();
         $this->register($option);
 
+        $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Output::VIDEO);
+        $option->setDoNotPersist();
+        $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION);
         $option->setLabel('<a href="http://wikipedia.org/wiki/Ajax_(programming)">Ajax</a>-enabled pagination'); //>(translatable)<

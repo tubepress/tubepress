@@ -26,7 +26,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 	{
 	    $all = $this->_sut->findAll();
 
-	    $this->assertTrue(count($all) === 93, "Expected 93 options but got " . count($all));
+	    $this->assertTrue(count($all) === 94, "Expected 94 options but got " . count($all));
 	}
 
 	/**
@@ -487,6 +487,10 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Output::OUTPUT);
+    	$this->assertTrue($option->isMeantToBePersisted() === false, $option->getName());
+    	$this->assertTrue($option->isProOnly() === false, $option->getName());
+
+    	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Output::VIDEO);
     	$this->assertTrue($option->isMeantToBePersisted() === false, $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
