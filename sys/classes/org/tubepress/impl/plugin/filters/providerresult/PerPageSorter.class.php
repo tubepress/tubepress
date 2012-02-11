@@ -71,6 +71,8 @@ class org_tubepress_impl_plugin_filters_providerresult_PerPageSorter
 		    }
 		}
 
+		$videos = array_values($videos);
+
 		/** Modify the feed result. */
 		$providerResult->setVideoArray($videos);
 
