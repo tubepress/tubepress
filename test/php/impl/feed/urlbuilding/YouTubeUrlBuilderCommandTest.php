@@ -124,7 +124,7 @@ class org_tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends T
            org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE => '"stewart daily" -show',
         org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => '',
         ));
-        self::assertEquals("http://gdata.youtube.com/feeds/api/videos?q=%22stewart%2Bdaily%22%2B-show&" . $this->_standardPostProcessingStuff(),
+        self::assertEquals("http://gdata.youtube.com/feeds/api/videos?q=%22stewart+daily%22+-show&" . $this->_standardPostProcessingStuff(),
             $this->exec(self::_buildContext(org_tubepress_api_provider_Provider::YOUTUBE, false, 1)));
     }
 
@@ -135,7 +135,7 @@ class org_tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends T
            org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE => 'stewart daily -show',
         org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => '',
         ));
-        self::assertEquals("http://gdata.youtube.com/feeds/api/videos?q=stewart%2Bdaily%2B-show&" . $this->_standardPostProcessingStuff(),
+        self::assertEquals("http://gdata.youtube.com/feeds/api/videos?q=stewart+daily+-show&" . $this->_standardPostProcessingStuff(),
             $this->exec(self::_buildContext(org_tubepress_api_provider_Provider::YOUTUBE, false, 1)));
     }
 
@@ -157,7 +157,7 @@ class org_tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends T
            'tagValue' => 'stewart daily show',
         org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => '',
         ));
-        self::assertEquals("http://gdata.youtube.com/feeds/api/videos?q=stewart%2Bdaily%2Bshow&" . $this->_standardPostProcessingStuff(),
+        self::assertEquals("http://gdata.youtube.com/feeds/api/videos?q=stewart+daily+show&" . $this->_standardPostProcessingStuff(),
             $this->exec(self::_buildContext(org_tubepress_api_provider_Provider::YOUTUBE, false, 1)));
     }
 
@@ -168,7 +168,7 @@ class org_tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommandTest extends T
             org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER => '3hough',
             'tagValue' => 'stewart daily show'
         ));
-        self::assertEquals("http://gdata.youtube.com/feeds/api/videos?q=stewart%2Bdaily%2Bshow&author=3hough&" . $this->_standardPostProcessingStuff(),
+        self::assertEquals("http://gdata.youtube.com/feeds/api/videos?q=stewart+daily+show&author=3hough&" . $this->_standardPostProcessingStuff(),
             $this->exec(self::_buildContext(org_tubepress_api_provider_Provider::YOUTUBE, false, 1)));
     }
 

@@ -100,8 +100,8 @@ class org_tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommand extends org_t
 
         case org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH:
             $tags = $execContext->get(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE);
-            $tags = str_replace(' ', '+', self::_replaceQuotes($tags));
-            $tags = rawurlencode($tags);
+            $tags = self::_replaceQuotes($tags);
+            $tags = urlencode($tags);
             $url  = "videos?q=$tags";
 
             $filter = $execContext->get(org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER);
@@ -198,9 +198,9 @@ class org_tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommand extends org_t
             $url->setQueryVariable(self::PARAM_ORDER, $order);
             return;
         }
-        
+
         if ($order == org_tubepress_api_const_options_values_OrderByValue::NEWEST) {
-            
+
             $url->setQueryVariable(self::PARAM_ORDER, 'published');
             return;
         }
