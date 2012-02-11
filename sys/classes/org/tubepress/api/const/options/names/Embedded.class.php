@@ -24,6 +24,7 @@
  */
 class org_tubepress_api_const_options_names_Embedded
 {
+    const AUTOHIDE         = 'autoHide';
     const AUTONEXT         = 'autoNext';
     const AUTOPLAY         = 'autoplay';
     const EMBEDDED_HEIGHT  = 'embeddedHeight';
@@ -33,6 +34,7 @@ class org_tubepress_api_const_options_names_Embedded
     const HIGH_QUALITY     = 'hd';
     const LAZYPLAY         = 'lazyPlay';
     const LOOP             = 'loop';
+    const MODEST_BRANDING  = 'modestBranding';
     const PLAYER_COLOR     = 'playerColor';
     const PLAYER_HIGHLIGHT = 'playerHighlight';
     const PLAYER_IMPL      = 'playerImplementation';

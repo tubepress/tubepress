@@ -28,7 +28,9 @@
 $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 $env = $ioc->get(org_tubepress_api_environment_Detector::_);
 
-if ($env->isWordPress()) {
+//if ($env->isWordPress()) {
 
     $fs = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-}
+    include '/Users/ehough/Sites/tubepress_testing_ground/wordpress/wp-blog-header.php';
+    //include '/var/www/tubepress_testing_ground/wordpress/wp-blog-header.php';
+//}
