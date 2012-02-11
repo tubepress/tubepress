@@ -56,6 +56,8 @@ class org_tubepress_impl_embedded_commands_YouTubeIframeCommand extends org_tube
         $playerColor     = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($context->get(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR), '999999');
         $playerHighlight = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($context->get(org_tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT), 'FFFFFF');
         $showInfo        = $context->get(org_tubepress_api_const_options_names_Embedded::SHOW_INFO);
+        $autoHide        = $context->get(org_tubepress_api_const_options_names_Embedded::AUTOHIDE);
+        $modestBranding  = $context->get(org_tubepress_api_const_options_names_Embedded::MODEST_BRANDING);
 
         if (!($playerColor == '999999' && $playerHighlight == 'FFFFFF')) {
 
@@ -70,8 +72,11 @@ class org_tubepress_impl_embedded_commands_YouTubeIframeCommand extends org_tube
         $link->setQueryVariable('showinfo', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showInfo));
         $link->setQueryVariable('wmode', 'transparent');
         $link->setQueryVariable('enablejsapi', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($enableJsApi));
+        $link->setQueryVariable('autohide', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($autoHide));
+        $link->setQueryVariable('modestbranding', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($modestBranding));
 
         if ($context->get(org_tubepress_api_const_options_names_Embedded::HIGH_QUALITY)) {
+
             $link->setQueryVariable('hd', '1');
         }
 

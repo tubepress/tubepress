@@ -541,3 +541,16 @@ msgstr ""
 
 msgid "Serve thumbnails and embedded video player over a secure connection."
 msgstr ""
+
+msgid "Auto-hide video controls"
+msgstr ""
+
+msgid "A few seconds after playback begins, fade out the video controls."
+msgstr ""
+
+msgid "\"Modest\" branding"
+msgstr ""
+
+msgid "Hide the YouTube logo from the control area."
+msgstr ""
+

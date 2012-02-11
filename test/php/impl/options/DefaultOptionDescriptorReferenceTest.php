@@ -26,7 +26,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 	{
 	    $all = $this->_sut->findAll();
 
-	    $this->assertTrue(count($all) === 94, "Expected 94 options but got " . count($all));
+	    $this->assertTrue(count($all) === 96, "Expected 96 options but got " . count($all));
 	}
 
 	/**
@@ -244,6 +244,20 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$this->assertTrue($option->getLabel() === 'Auto-play all videos', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === false, $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
+
+    	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::AUTOHIDE);
+    	$this->assertTrue($option->getLabel() === 'Auto-hide video controls', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'A few seconds after playback begins, fade out the video controls.', $option->getName());
+    	$this->assertTrue($option->getDefaultValue() === false, $option->getName());
+    	$this->assertTrue($option->isBoolean() === true, $option->getName());
+    	$this->assertTrue($option->isApplicableToVimeo() === false, $option->getName());
+
+    	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::MODEST_BRANDING);
+    	$this->assertTrue($option->getLabel() === '"Modest" branding', $option->getName());
+    	$this->assertTrue($option->getDescription() === 'Hide the YouTube logo from the control area.', $option->getName());
+    	$this->assertTrue($option->getDefaultValue() === true, $option->getName());
+    	$this->assertTrue($option->isBoolean() === true, $option->getName());
+    	$this->assertTrue($option->isApplicableToVimeo() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT);
     	$this->assertTrue($option->getLabel() === 'Max height (px)', $option->getName());

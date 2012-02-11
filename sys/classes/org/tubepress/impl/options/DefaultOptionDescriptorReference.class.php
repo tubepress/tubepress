@@ -97,6 +97,11 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
      */
     public function findOneByName($name)
     {
+        if (! array_key_exists($name, $this->_nameToOptionDescriptorMap)) {
+
+            return null;
+        }
+
         return $this->_nameToOptionDescriptorMap[$name];
     }
 
@@ -228,6 +233,14 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         ));
         $this->register($option);
 
+        $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::AUTOHIDE);
+        $option->setLabel('Auto-hide video controls');                                                  //>(translatable)<
+        $option->setDescription('A few seconds after playback begins, fade out the video controls.');   //>(translatable)<
+        $option->setDefaultValue(false);
+        $option->setBoolean();
+        $option->setExcludedProviders(self::$_providerArrayVimeo);
+        $this->register($option);
+
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::AUTONEXT);
         $option->setLabel('Play videos sequentially without user intervention');  //>(translatable)<
         $option->setDescription('When a video finishes, this will start playing the next video in the gallery.');  //>(translatable)<
@@ -288,6 +301,14 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option->setLabel('Loop');                                                     //>(translatable)<
         $option->setDescription('Continue playing the video until the user stops it.'); //>(translatable)<
         $option->setBoolean();
+        $this->register($option);
+
+        $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::MODEST_BRANDING);
+        $option->setDefaultValue(true);
+        $option->setLabel('"Modest" branding');                          //>(translatable)<
+        $option->setDescription('Hide the YouTube logo from the control area.'); //>(translatable)<
+        $option->setBoolean();
+        $option->setExcludedProviders(self::$_providerArrayVimeo);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR);
