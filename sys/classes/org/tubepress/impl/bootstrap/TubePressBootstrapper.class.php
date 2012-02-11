@@ -162,7 +162,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
         /* provider result filters */
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_filters_providerresult_ResultCountCapper'));
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_filters_providerresult_VideoBlacklist'));
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_filters_providerresult_Shuffler'));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_filters_providerresult_PerPageSorter'));
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_filters_providerresult_VideoPrepender'));
 
         /* search input template filter */

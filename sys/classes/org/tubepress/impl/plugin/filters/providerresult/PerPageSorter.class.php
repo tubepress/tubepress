@@ -32,7 +32,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 /**
  * Shuffles videos on request.
  */
-class org_tubepress_impl_plugin_filters_providerresult_Shuffler
+class org_tubepress_impl_plugin_filters_providerresult_PerPageSorter
 {
 	public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult)
 	{

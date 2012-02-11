@@ -31,7 +31,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUn
             array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_PLAYER       , 'org_tubepress_impl_plugin_filters_playertemplate_CoreVariables'),
             array(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT       , 'org_tubepress_impl_plugin_filters_providerresult_ResultCountCapper'),
             array(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT       , 'org_tubepress_impl_plugin_filters_providerresult_VideoBlacklist'),
-            array(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT       , 'org_tubepress_impl_plugin_filters_providerresult_Shuffler'),
+            array(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT       , 'org_tubepress_impl_plugin_filters_providerresult_PerPageSorter'),
             array(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT       , 'org_tubepress_impl_plugin_filters_providerresult_VideoPrepender'),
             array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SEARCHINPUT  , 'org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariables'),
             array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO  , 'org_tubepress_impl_plugin_filters_singlevideotemplate_CoreVariables'),

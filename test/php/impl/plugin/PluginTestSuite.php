@@ -10,7 +10,7 @@ require_once 'filters/gallerytemplate/PlayerTest.php';
 require_once 'filters/gallerytemplate/VideoMetaTest.php';
 require_once 'filters/playertemplate/CoreVariablesTest.php';
 require_once 'filters/providerresult/ResultCountCapperTest.php';
-require_once 'filters/providerresult/ShufflerTest.php';
+require_once 'filters/providerresult/PerPageSorterTest.php';
 require_once 'filters/providerresult/VideoBlacklistTest.php';
 require_once 'filters/providerresult/VideoPrependerTest.php';
 require_once 'filters/searchinputtemplate/CoreVariablesTest.php';
@@ -35,7 +35,7 @@ class org_tubepress_impl_plugin_PluginTestSuite
 		    'org_tubepress_impl_plugin_filters_gallerytemplate_VideoMetaTest',
 		    'org_tubepress_impl_plugin_filters_playertemplate_CoreVariablesTest',
 		    'org_tubepress_impl_plugin_filters_providerresult_ResultCountCapperTest',
-		    'org_tubepress_impl_plugin_filters_providerresult_ShufflerTest',
+		    'org_tubepress_impl_plugin_filters_providerresult_PerPageSorterTest',
     		'org_tubepress_impl_plugin_filters_providerresult_VideoBlacklistTest',
 		    'org_tubepress_impl_plugin_filters_providerresult_VideoPrependerTest',
 		    'org_tubepress_impl_plugin_filters_singlevideotemplate_CoreVariablesTest',

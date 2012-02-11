@@ -1,15 +1,15 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/plugin/filters/providerresult/Shuffler.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/plugin/filters/providerresult/PerPageSorter.class.php';
 
-class org_tubepress_impl_plugin_filters_providerresult_ShufflerTest extends TubePressUnitTest
+class org_tubepress_impl_plugin_filters_providerresult_PerPageSorterTest extends TubePressUnitTest
 {
 	private $_sut;
 
 	function setup()
 	{
 		parent::setUp();
-		$this->_sut = new org_tubepress_impl_plugin_filters_providerresult_Shuffler();
+		$this->_sut = new org_tubepress_impl_plugin_filters_providerresult_PerPageSorter();
 	}
 
 	function testYouTubeFavorites()
