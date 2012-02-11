@@ -35,7 +35,7 @@ class org_tubepress_impl_plugin_filters_providerresult_ResultCountCapper
 {
     const LOG_PREFIX = 'Result Count Capper';
 
-    public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $providerName)
+    public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult)
     {
         $totalResults = $providerResult->getEffectiveTotalResultCount();
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();

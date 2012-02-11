@@ -34,7 +34,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_plugin_filters_providerresult_Shuffler
 {
-	public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $providerName)
+	public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult)
 	{
 		$videos  = $providerResult->getVideoArray();
 		$ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
