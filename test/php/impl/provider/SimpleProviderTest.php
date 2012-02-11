@@ -109,7 +109,7 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
 
         $pm      = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT,
-            anInstanceOf('org_tubepress_api_provider_ProviderResult'), 'current-video-provider')->andReturn('final-result');
+            anInstanceOf('org_tubepress_api_provider_ProviderResult'))->andReturn('final-result');
 
         $this->assertEquals('final-result', $this->_sut->getMultipleVideos());
     }

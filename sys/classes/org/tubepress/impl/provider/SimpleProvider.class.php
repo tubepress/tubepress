@@ -51,55 +51,64 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
      */
     public function getMultipleVideos()
     {
-        $result = new org_tubepress_api_provider_ProviderResult();
+    	$ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+    	$pm  = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
 
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $qss     = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
-        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $pc      = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
-        $pm      = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+    	$result = $this->collectMultipleVideos();
 
-        /* figure out which page we're on */
-        $currentPage = $qss->getPageNum($_GET);
-        org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Current page number is %d', $currentPage);
+        return $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $result);
+    }
 
-        $provider = $pc->calculateCurrentVideoProvider();
+    protected function collectMultipleVideos()
+    {
+    	$result = new org_tubepress_api_provider_ProviderResult();
 
-        /* build the request URL */
-        $urlBuilder = $ioc->get(org_tubepress_api_feed_UrlBuilder::_);
-        $url        = $urlBuilder->buildGalleryUrl($currentPage);
+    	$ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
+    	$qss     = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
+    	$context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+    	$pc      = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
 
-        org_tubepress_impl_log_Log::log(self::$_logPrefix, 'URL to fetch is <tt>%s</tt>', $url);
+    	/* figure out which page we're on */
+    	$currentPage = $qss->getPageNum($_GET);
+    	org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Current page number is %d', $currentPage);
 
-        /* make the request */
-        $feedRetrievalService = $ioc->get(org_tubepress_api_feed_FeedFetcher::_);
-        $useCache             = $context->get(org_tubepress_api_const_options_names_Cache::CACHE_ENABLED);
-        $rawFeed              = $feedRetrievalService->fetch($url, $useCache);
+    	$provider = $pc->calculateCurrentVideoProvider();
 
-        /* get the count */
-        $feedInspectionService = $ioc->get(org_tubepress_api_feed_FeedInspector::_);
-        $totalCount            = $feedInspectionService->getTotalResultCount($rawFeed);
+    	/* build the request URL */
+    	$urlBuilder = $ioc->get(org_tubepress_api_feed_UrlBuilder::_);
+    	$url        = $urlBuilder->buildGalleryUrl($currentPage);
 
-        if ($totalCount == 0) {
+    	org_tubepress_impl_log_Log::log(self::$_logPrefix, 'URL to fetch is <tt>%s</tt>', $url);
 
-            throw new Exception('No matching videos');    //>(translatable)<
-        }
+    	/* make the request */
+    	$feedRetrievalService = $ioc->get(org_tubepress_api_feed_FeedFetcher::_);
+    	$useCache             = $context->get(org_tubepress_api_const_options_names_Cache::CACHE_ENABLED);
+    	$rawFeed              = $feedRetrievalService->fetch($url, $useCache);
 
-        org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Reported total result count is %d video(s)', $totalCount);
+    	/* get the count */
+    	$feedInspectionService = $ioc->get(org_tubepress_api_feed_FeedInspector::_);
+    	$totalCount            = $feedInspectionService->getTotalResultCount($rawFeed);
 
-        /* convert the XML to objects */
-        $factory = $ioc->get(org_tubepress_api_factory_VideoFactory::_);
-        $videos  = $factory->feedToVideoArray($rawFeed);
+    	if ($totalCount == 0) {
 
-        if (count($videos) == 0) {
+    		throw new Exception('No matching videos');    //>(translatable)<
+    	}
 
-            throw new Exception('No viewable videos');    //>(translatable)<
-        }
+    	org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Reported total result count is %d video(s)', $totalCount);
 
-        $result->setEffectiveTotalResultCount($totalCount);
-        $result->setVideoArray($videos);
+    	/* convert the XML to objects */
+    	$factory = $ioc->get(org_tubepress_api_factory_VideoFactory::_);
+    	$videos  = $factory->feedToVideoArray($rawFeed);
 
-        return $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $result, $provider);
+    	if (count($videos) == 0) {
+
+    		throw new Exception('No viewable videos');    //>(translatable)<
+    	}
+
+    	$result->setEffectiveTotalResultCount($totalCount);
+    	$result->setVideoArray($videos);
+
+    	return $result;
     }
 
     /**
