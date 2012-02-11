@@ -19,7 +19,7 @@ class org_tubepress_impl_util_StringUtilsTest extends TubePressUnitTest
 	function testCleanForSearch()
 	{
 		$val = "!@#$%^&*(){}[]abcdefghijk|\"\\':;?/>.<,~`lmnopqrstuvwxyz!@#$%^&*(){}[]abcdefghijk|\"\\':;?/>.<,~`lmnopqrstuvwxyz";
-		$expected = "!@#$%^&amp;*(){}[]abcdefghijk|&quot;\':;?/&gt;.&lt;,~`lmnopqrstuvwxyz!@#$%^&amp;*(){}[]abcdefghijk|&quot;\':;?/&gt;.&lt;,~`lmnopqr";
+		$expected = "!@#$%^&amp;*(){}[]abcdefghijk|\"\':;?/&gt;.&lt;,~`lmnopqrstuvwxyz!@#$%^&amp;*(){}[]abcdefghijk|\"\':;?/&gt;.&lt;,~`lmnopqr";
 
 		$this->assertEquals($expected, org_tubepress_impl_util_StringUtils::cleanForSearch($val));
 	}
