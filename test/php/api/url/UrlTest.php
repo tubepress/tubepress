@@ -24,6 +24,14 @@ class org_tubepress_api_url_UrlTest extends TubePressUnitTest {
 	    $this->_sut = new org_tubepress_api_url_Url('http://tubepress.org?foo=bar&something=else');
 	}
 
+	function testDomainStartsWithNumber()
+	{
+	    $this->_sut = new org_tubepress_api_url_Url('http://press.3hough/watch?foo=bar#one');
+
+	    $this->assertEquals('press.3hough', $this->_sut->getAuthority());
+	    $this->assertEquals('http://press.3hough/watch?foo=bar#one', $this->_sut->toString());
+	}
+
 	/**
 	* @expectedException Exception
 	*/
