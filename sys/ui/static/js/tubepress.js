@@ -183,12 +183,11 @@ var TubePressCss = (function () {
 	 */
 	var load = function (path) {
 			
-		var	fileref = document.createElement('link'),
-			setAttr = fileref.setAttribute;
+		var	fileref = document.createElement('link');
 			
-		setAttr('rel', 'stylesheet');
-		setAttr('type', 'text/css');
-		setAttr('href', path);
+		fileref.setAttribute('rel', 'stylesheet');
+		fileref.setAttribute('type', 'text/css');
+		fileref.setAttribute('href', path);
 		document.getElementsByTagName('head')[0].appendChild(fileref);
 	};
 	
@@ -442,7 +441,7 @@ var TubePressPlayers = (function () {
 			
 			/** If this player requires population, go fetch the HTML for it. */
 			if (requiresPopulation(playerName)) {
-				
+
 				/* ... and fetch the HTML for it */
 				TubePressAjax.get(url, dataToSend, callback, 'json');
 			}
