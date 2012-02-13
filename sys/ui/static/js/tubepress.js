@@ -779,11 +779,10 @@ var TubePressThumbs = (function () {
 				colWrap			= gallery.width(), 
 				colNum			= math.floor(colWrap / columnWidth), 
 				colFixed		= math.floor(colWrap / colNum),
-				thumbs			= jquery(gallerySelector + ' div.tubepress_thumb'),
-				galleryCss		= gallery.css;
+				thumbs			= jquery(gallerySelector + ' div.tubepress_thumb');
 			
-			galleryCss({ 'width' : '100%'});
-			galleryCss({ 'width' : colWrap });
+			gallery.css({ 'width' : '100%'});
+			gallery.css({ 'width' : colWrap });
 			thumbs.css({ 'width' : colFixed});
 		},
 		

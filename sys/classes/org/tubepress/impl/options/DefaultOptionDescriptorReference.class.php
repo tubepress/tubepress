@@ -37,7 +37,8 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_values_PlayerLocationValue',
     'org_tubepress_api_const_options_values_OrderByValue',
     'org_tubepress_api_const_options_values_SafeSearchValue',
-    'org_tubepress_api_const_options_values_TimeFrameValue'
+    'org_tubepress_api_const_options_values_TimeFrameValue',
+    'org_tubepress_api_theme_ThemeHandler'
 ));
 
 /**
