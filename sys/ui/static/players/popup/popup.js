@@ -29,10 +29,11 @@ var TubePressPopupPlayer = (function () {
 		populate = function (e, title, html, height, width, videoId, galleryId) {
 			
 			var preamble	= '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html;charset=utf-8" /><title>' + title + '</title></head><body style="margin: 0pt; background-color: black;">',
+				js			= '<script type="text/javascript">var TubePressPlayerApi = window.opener.TubePressPlayerApi;</script>',
 				postAmble	= '</body></html>',
 				wind		= windows[galleryId + videoId].document;
 
-			wind.write(preamble + html + postAmble);
+			wind.write(preamble + js + html + postAmble);
 			wind.close();
 
 		};
