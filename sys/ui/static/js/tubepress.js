@@ -27,7 +27,7 @@ var TubePressLogger = (function () {
 	 * The log is on if it's been enabled and requested.
 	 */
 	isLoggingOn = function () {
-		
+
 		return isLoggingRequested && isLoggingAvailable;
 	},
 	
@@ -1341,6 +1341,38 @@ var TubePressPlayerApi = (function () {
 		onVimeoFinish			:	onVimeoFinish,
 		onVimeoReady			:	onVimeoReady
 	};
+	
+}());
+
+/**
+ * Handles Ajax interactive searching.
+ */
+var TubePressAjaxSearch = (function () {
+	
+	var performSearch = function (urlEncodedShortcode, urlEncodedSearchTerms, targetDomSelector, galleryId) {
+		
+		var jquery = jQuery,
+		
+			resultSelector = '#tubepress_gallery_' + galleryId,
+			callback;
+		
+		/** If the gallery is already on the page... */
+		if (jquery(resultSelector).length > 0) {
+			
+			/** ... the we just want the thumbs. */
+			resultSelector = TubePressThumbs.getThumbAreaSelector(galleryId) + ' > *';
+			
+			callback = function () {
+				
+				//jquery(document).trigger(TubePressEvents.NEW_THUMBS_LOADED, galleryId);
+			};	
+		}
+		
+		TubePressAjax.loadAndStyle(getTubePressBaseUrl() + '/sys/scripts/ajax/shortcode_printer.php?shortcode=' 
+				+ urlEncodedShortcode + '&tubepress_search=' + urlEncodedSearchTerms, targetDomSelector, resultSelector, null, callback);
+	};
+	
+	return { performSearch : performSearch };
 	
 }());
 

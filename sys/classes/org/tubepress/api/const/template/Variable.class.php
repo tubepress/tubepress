@@ -47,6 +47,7 @@ class org_tubepress_api_const_template_Variable
     const SEARCH_BUTTON            = 'searchButton';
     const SEARCH_TARGET_DOM_ID     = 'searchTargetDomId';
     const SEARCH_TERMS             = 'searchTerms';
+    const SHORTCODE                = 'shortcode';
     const THUMBNAIL_HEIGHT         = 'thumbHeight';
     const THUMBNAIL_WIDTH          = 'thumbWidth';
     const TUBEPRESS_BASE_URL       = 'tubepressBaseUrl';
