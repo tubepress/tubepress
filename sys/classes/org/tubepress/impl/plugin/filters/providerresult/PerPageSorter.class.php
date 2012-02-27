@@ -59,7 +59,7 @@ class org_tubepress_impl_plugin_filters_providerresult_PerPageSorter
 		    /** If we have a sorter, use it. */
 		    if (method_exists($this, $sortCallback)) {
 
-		        org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Now sorting videos on page (%s)', $sortOrder);
+		        org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Now sorting %s videos on page (%s)', count($videos), $sortOrder);
 
 		        uasort($videos, array($this, $sortCallback));
 
@@ -81,7 +81,7 @@ class org_tubepress_impl_plugin_filters_providerresult_PerPageSorter
 
 	private function _commentCount_compare($one, $two)
 	{
-	    return $this->_compareGreatestToLeast($one->getCommentCount(), $two->getCommentCount());
+	    return $this->_compareGreatestToLeast($this->_safeIntVal($one->getCommentCount()), $this->_safeIntVal($two->getCommentCount()));
 	}
 
 	private function _duration_compare($one, $two)
@@ -101,7 +101,7 @@ class org_tubepress_impl_plugin_filters_providerresult_PerPageSorter
 
 	private function _rating_compare($one, $two)
 	{
-	    return $this->_compareGreatestToLeast($one->getRatingAverage(), $two->getRatingAverage());
+	    return $this->_compareGreatestToLeast(floatval($one->getRatingAverage()), floatval($two->getRatingAverage()));
 	}
 
 	private function _title_compare($one, $two)
@@ -111,7 +111,21 @@ class org_tubepress_impl_plugin_filters_providerresult_PerPageSorter
 
 	private function _viewCount_compare($one, $two)
 	{
-	    return $this->_compareGreatestToLeast($one->getCommentCount(), $two->getCommentCount());
+	    return $this->_compareGreatestToLeast($this->_safeIntVal($one->getViewCount()), $this->_safeIntVal($two->getViewCount()));
+	}
+
+	private function _safeIntVal($val)
+	{
+	    if (is_string($val)) {
+
+	        $x = str_replace(',', '', $val);
+
+	    } else {
+
+	        $x = $val;
+	    }
+
+	    return intval($x);
 	}
 
 	private function _compareLeastToGreatest($one, $two)
