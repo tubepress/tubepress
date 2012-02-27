@@ -27,7 +27,16 @@ class org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMetaTest extend
 
         $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
+	    $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
+        $odr->shouldReceive('findOneByName')->times(17)->andReturnUsing(function ($m) {
+
+             $mock = \Mockery::mock(org_tubepress_api_options_OptionDescriptor::_);
+             $mock->shouldReceive('getLabel')->once()->andReturn('video-' . $m);
+             return $mock;
+        });
+
         foreach ($metaNames as $metaName) {
+
             $shouldShow[$metaName] = "<<value of $metaName>>";
             $labels[$metaName]     = '##video-' . $metaName . '##';
 

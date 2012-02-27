@@ -281,10 +281,11 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option->setLabel('Allow fullscreen playback.');  //>(translatable)<
         $option->setDefaultValue(true);
         $option->setBoolean();
+        $option->setExcludedProviders(self::$_providerArrayVimeo);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Embedded::HIGH_QUALITY);
-        $option->setLabel('Allow high definition playback');  //>(translatable)<
+        $option->setLabel('Play videos in high definition by default');  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
         $option->setExcludedProviders(self::$_providerArrayVimeo);

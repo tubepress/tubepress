@@ -75,7 +75,7 @@ class org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariables
         unset($params[org_tubepress_api_const_querystring_QueryParamName::SEARCH_TERMS]);
 
         /* apply the template variables */
-        $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_HANDLER_URL, $resultsUrl);
+        $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_HANDLER_URL, $url->toString());
         $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_HIDDEN_INPUTS, $params);
         $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_TERMS, $searchTerms);
 

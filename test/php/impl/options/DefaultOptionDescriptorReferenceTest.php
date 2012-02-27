@@ -277,7 +277,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Embedded::HIGH_QUALITY);
-    	$this->assertTrue($option->getLabel() === 'Allow high definition playback', $option->getName());
+    	$this->assertTrue($option->getLabel() === 'Play videos in high definition by default', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === false, $option->getName());
     	$this->assertTrue($option->isApplicableToVimeo() === false, $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());

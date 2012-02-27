@@ -190,7 +190,7 @@ msgstr "Näytä videoita samasta aiheesta"
 msgid "Toggles the display of related videos after a video finishes."
 msgstr "Valitse, näytetäänkö videon loputtua lista aiheeseen liittyvistä videoista"
 
-msgid "Allow high definition playback"
+msgid "Play videos in high definition by default"
 msgstr "Näytä video HD-laatuisena, jos mahdollista"
 
 msgid "Feed"

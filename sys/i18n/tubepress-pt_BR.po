@@ -206,7 +206,7 @@ msgstr "Mostra vídeos relacionados"
 msgid "Toggles the display of related videos after a video finishes."
 msgstr "Alterna a exibição de vídeos relacionados, após terminar um vídeo."
 
-msgid "Allow high definition playback"
+msgid "Play videos in high definition by default"
 msgstr ""
 
 msgid "Feed"

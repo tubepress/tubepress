@@ -502,7 +502,7 @@ msgstr ""
 msgid "Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness."
 msgstr ""
 
-msgid "Allow high definition playback"
+msgid "Play videos in high definition by default"
 msgstr ""
 
 msgid "Randomize thumbnail images"

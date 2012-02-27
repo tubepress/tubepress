@@ -51,7 +51,7 @@ class org_tubepress_impl_embedded_commands_YouTubeIframeCommandTest extends Tube
         $this->assertTrue($this->_sut->execute($mockChainContext));
 
         $this->assertEquals($mockTemplate, $mockChainContext->template);
-        $this->assertEquals('http://www.youtube.com/embed/video_id?color2=0x123456&color1=0x654321&rel=1&autoplay=0&loop=0&fs=0&showinfo=1&wmode=transparent&enablejsapi=0&autohide=1&modestbranding=0&hd=1',
+        $this->assertEquals('http://www.youtube.com/embed/video_id?color1=654321&color2=123456&rel=1&autoplay=0&loop=0&fs=0&showinfo=1&wmode=transparent&enablejsapi=0&autohide=1&modestbranding=0&hd=1',
             $mockChainContext->dataUrl->toString());
         $this->assertEquals('youtube', $mockChainContext->embeddedImplementationName);
     }
