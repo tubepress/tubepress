@@ -61,8 +61,8 @@ class org_tubepress_impl_embedded_commands_YouTubeIframeCommand extends org_tube
 
         if (!($playerColor == '999999' && $playerHighlight == 'FFFFFF')) {
 
-            $link->setQueryVariable('color2', '0x' . $playerColor);
-            $link->setQueryVariable('color1', '0x' . $playerHighlight);
+            $link->setQueryVariable('color1', $playerHighlight);
+            $link->setQueryVariable('color2', $playerColor);
         }
 
         $link->setQueryVariable('rel', org_tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToOneOrZero($showRelated));
