@@ -52,12 +52,12 @@ class org_tubepress_impl_factory_commands_VimeoFactoryCommand extends org_tubepr
         $unserialized = org_tubepress_impl_factory_commands_AbstractFactoryCommand::_unserializePhpFeed($feed);
 
         if (isset($unserialized->video)) {
-            $this->_videoArray = $unserialized->video;
+            $this->_videoArray = (array) $unserialized->video;
             return;
         }
 
         if (isset($unserialized->videos) && isset($unserialized->videos->video)) {
-            $this->_videoArray = $unserialized->videos->video;
+            $this->_videoArray = (array) $unserialized->videos->video;
             return;
         }
         $this->_videoArray = array();
