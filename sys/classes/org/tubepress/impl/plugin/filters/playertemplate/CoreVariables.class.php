@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -38,15 +38,15 @@ class org_tubepress_impl_plugin_filters_playertemplate_CoreVariables
     public function alter_playerTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_video_Video $video, $videoProviderName, $playerName)
     {
         $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $embedded  = $ioc->get('org_tubepress_api_embedded_EmbeddedHtmlGenerator');
-        $context   = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $embedded  = $ioc->get(org_tubepress_api_embedded_EmbeddedHtmlGenerator::_);
+        $context   = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $galleryId = $context->get(org_tubepress_api_const_options_names_Advanced::GALLERY_ID);
-        
+
         $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_SOURCE, $embedded->getHtml($video->getId()));
         $template->setVariable(org_tubepress_api_const_template_Variable::GALLERY_ID, $galleryId);
         $template->setVariable(org_tubepress_api_const_template_Variable::VIDEO, $video);
         $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_WIDTH, $context->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH));
-        
+
         return $template;
     }
 }

@@ -1,57 +1,58 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
- * 
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
  * This file is part of TubePress (http://tubepress.org)
- * 
+ *
  * TubePress is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * TubePress is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../impl/classloader/ClassLoader.class.php';
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_http_HttpRequest',
+    'org_tubepress_api_http_HttpResponseHandler',
+));
 
 /**
  * Handles HTTP client functionality.
  */
 interface org_tubepress_api_http_HttpClient
 {
-    const HTTP_METHOD_GET  = 'GET';
-    const HTTP_METHOD_POST = 'POST';
-    const HTTP_METHOD_PUT = 'PUT';
-
-    const HTTP_HEADER_ACCEPT_ENCODING = 'Accept-Encoding';
-    const HTTP_HEADER_CONTENT_LENGTH  = 'Content-Length';
-    const HTTP_HEADER_CONTENT_TYPE    = 'Content-Type';
-    const HTTP_HEADER_USER_AGENT      = 'User-Agent';
+    const _ = 'org_tubepress_api_http_HttpClient';
 
     /**
-     * Get.
+     * Execute a given HTTP request.
      *
-     * @param string $url URI resource.
+     * @param org_tubepress_api_http_HttpRequest $request The HTTP request.
      *
      * @throws Exception If something goes wrong.
      *
-     * @return string Resulting body as a string (could be null)
+     * @return org_tubepress_api_http_HttpResponse The HTTP response.
      */
-    function get($url);
+    function execute(org_tubepress_api_http_HttpRequest $request);
 
     /**
-     * Post.
+     * Execute a given HTTP request.
      *
-     * @param string $url   URI resource.
-     * @param unknown $body The HTTP body.
+     * @param org_tubepress_api_http_HttpRequest         $request The HTTP request.
+     * @param org_tubepress_api_http_HttpResponseHandler $handler The HTTP response handler.
      *
-     * @return string Resulting body as a string (could be null)
+     * @throws Exception If something goes wrong.
+     *
+     * @return string The raw entity data in the response. May be empty or null.
      */
-    function post($url, $body);
+    function executeAndHandleResponse(org_tubepress_api_http_HttpRequest $request, org_tubepress_api_http_HttpResponseHandler $handler);
 }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -22,8 +22,9 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Advanced',
-    'org_tubepress_api_const_options_names_Display',
-    'org_tubepress_api_patterns_cor_Command',
+    'org_tubepress_api_const_options_names_Meta',
+	'org_tubepress_api_const_options_names_Thumbs',
+    'org_tubepress_spi_patterns_cor_Command',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_video_Video',
     'org_tubepress_impl_log_Log',
@@ -33,7 +34,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 /**
  * Base class for factory commands.
  */
-abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implements org_tubepress_api_patterns_cor_Command
+abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implements org_tubepress_spi_patterns_cor_Command
 {
     const LOG_PREFIX = 'Abstract Factory Command';
 
@@ -59,7 +60,7 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
         $this->_preExecute($feed);
 
         $ioc             = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $this->_context  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $this->_context  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
         $results = array();
         $index   = 0;
@@ -139,7 +140,7 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
             return '';
         }
 
-        $random = $this->_context->get(org_tubepress_api_const_options_names_Display::RANDOM_THUMBS);
+        $random = $this->_context->get(org_tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS);
         if ($random) {
             return $urls[array_rand($urls)];
         } else {
@@ -155,7 +156,8 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
         $category          = $this->_getCategory($index);
         $commentCount      = self::_fancyNumber($this->_getRawCommentCount($index));
         $description       = $this->_trimDescription($this->_getDescription($index));
-        $duration          = org_tubepress_impl_util_TimeUtils::secondsToHumanTime($this->_getDurationInSeconds($index));
+        $durationInSeconds = $this->_getDurationInSeconds($index);
+        $duration          = org_tubepress_impl_util_TimeUtils::secondsToHumanTime($durationInSeconds);
         $homeUrl           = $this->_getHomeUrl($index);
         $id                = $this->_getId($index);
         $keywordsArray     = $this->_getKeywordsArray($index);
@@ -164,7 +166,8 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
         $ratingCount       = self::_fancyNumber($this->_getRawRatingCount($index));
         $thumbUrl          = $this->_pickThumbnailUrl($this->_getThumbnailUrlsArray($index));
         $timeLastUpdated   = $this->_fancyTime($this->_getTimeLastUpdatedInUnixTime($index));
-        $timePublished     = $this->_fancyTime($this->_getTimePublishedInUnixTime($index));
+        $timePublishedUnixTime = $this->_getTimePublishedInUnixTime($index);
+        $timePublished     = $this->_fancyTime($timePublishedUnixTime);
         $title             = $this->_getTitle($index);
         $viewCount         = self::_fancyNumber($this->_getRawViewCount($index));
 
@@ -189,6 +192,10 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
         $vid->setTitle($title);
         $vid->setViewCount($viewCount);
 
+        //TODO: refactor this
+        $vid->timePublishedInUnixTime = $timePublishedUnixTime;
+        $vid->durationInSeconds       = $durationInSeconds;
+
         return $vid;
     }
 
@@ -206,15 +213,15 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
             return '';
         }
 
-        if ($this->_context->get(org_tubepress_api_const_options_names_Display::RELATIVE_DATES)) {
+        if ($this->_context->get(org_tubepress_api_const_options_names_Meta::RELATIVE_DATES)) {
             return org_tubepress_impl_util_TimeUtils::getRelativeTime($unixTime);
         }
-        return date($this->_context->get(org_tubepress_api_const_options_names_Advanced::DATEFORMAT), $unixTime);
+        return @date($this->_context->get(org_tubepress_api_const_options_names_Meta::DATEFORMAT), $unixTime);
     }
 
     private function _trimDescription($description)
     {
-        $limit = $this->_context->get(org_tubepress_api_const_options_names_Display::DESC_LIMIT);
+        $limit = $this->_context->get(org_tubepress_api_const_options_names_Meta::DESC_LIMIT);
 
         if ($limit > 0 && strlen($description) > $limit) {
             $description = substr($description, 0, $limit) . '...';

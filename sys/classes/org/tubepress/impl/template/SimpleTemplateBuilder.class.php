@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -42,6 +42,8 @@ class org_tubepress_impl_template_SimpleTemplateBuilder implements org_tubepress
     */
     public function getNewTemplateInstance($path)
     {
-        return new org_tubepress_impl_template_SimpleTemplate($path);
+        $template = new org_tubepress_impl_template_SimpleTemplate();
+        $template->setPath($path);
+        return $template;
     }
 }

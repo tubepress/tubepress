@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -45,7 +45,7 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
     public function __construct()
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $this->_tpsm = $ioc->get('org_tubepress_api_options_StorageManager');
+        $this->_tpsm = $ioc->get(org_tubepress_api_options_StorageManager::_);
     }
 
     /**
@@ -85,7 +85,9 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
      */
     public function set($optionName, $optionValue)
     {
-        $this->_customOptions[$optionName] = $optionValue;
+    	$sanitized = htmlspecialchars($optionValue, ENT_NOQUOTES);
+
+        $this->_customOptions[$optionName] = $sanitized;
     }
 
     /**
@@ -97,7 +99,17 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
      */
     public function setCustomOptions($customOpts)
     {
-        $this->_customOptions = $customOpts;
+    	if (! is_array($customOpts)) {
+
+    		return;
+    	}
+
+    	$this->_customOptions = array();
+
+    	foreach ($customOpts as $key => $value) {
+
+			$this->set($key, $value);
+    	}
     }
 
     /**

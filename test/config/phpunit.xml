@@ -1,0 +1,20 @@
+<phpunit colors="true"
+         stopOnError="true"
+         stopOnFailure="true"
+         stopOnIncomplete="true"
+         stopOnSkipped="true">
+
+	<filter>
+		<blacklist>
+			<directory>~/Dropbox/git/tubepress/test</directory>
+			<directory>/home/hough/Dropbox/git/tubepress/test</directory>
+			<directory>/usr/share/php</directory>
+		</blacklist>
+		<whitelist addUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">~/Dropbox/git/tubepress/sys</directory>
+		</whitelist>
+	</filter>
+	<listeners>
+		<listener class="\Mockery\Adapter\Phpunit\TestListener" file="Mockery/Adapter/Phpunit/TestListener.php"></listener>
+	</listeners>
+</phpunit>

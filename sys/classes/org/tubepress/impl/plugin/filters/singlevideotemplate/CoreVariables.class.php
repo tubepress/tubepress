@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -27,8 +27,8 @@ class org_tubepress_impl_plugin_filters_singlevideotemplate_CoreVariables
     public function alter_singleVideoTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_video_Video $video, $providerName)
     {
         $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context        = $ioc->get('org_tubepress_api_exec_ExecutionContext');
-        $embedded       = $ioc->get('org_tubepress_api_embedded_EmbeddedHtmlGenerator');
+        $context        = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+        $embedded       = $ioc->get(org_tubepress_api_embedded_EmbeddedHtmlGenerator::_);
         $embeddedString = $embedded->getHtml($video->getId());
         $width          = $context->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
 

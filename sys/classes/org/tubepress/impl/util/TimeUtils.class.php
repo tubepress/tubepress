@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  * 
  * This file is part of TubePress (http://tubepress.org)
  * 
@@ -85,12 +85,12 @@ class org_tubepress_impl_util_TimeUtils
      */
     public static function rfc3339toUnixTime($rfcTime)
     {
-        $tmp      = str_replace("T", " ", $rfcTime);
+        $tmp      = str_replace('T', ' ', $rfcTime);
         $tmp      = preg_replace('/(\.[0-9]{1,})?/', '', $tmp);
         $datetime = substr($tmp, 0, 19);
-        $timezone = str_replace(":", "", substr($tmp, 19, 6));
+        $timezone = str_replace(':', '', substr($tmp, 19, 6));
 
-        return strtotime($datetime . " " . $timezone);
+        return @strtotime($datetime . ' ' . $timezone);
     }
 }
 

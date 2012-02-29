@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  * 
  * This file is part of TubePress (http://tubepress.org)
  * 
@@ -21,13 +21,13 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_impl_message_AbstractMessageService'
+    'org_tubepress_api_message_MessageService'
 ));
 
 /**
  * Message service that uses gettext (via WordPress)
  */
-class org_tubepress_impl_message_WordPressMessageService extends org_tubepress_impl_message_AbstractMessageService
+class org_tubepress_impl_message_WordPressMessageService implements org_tubepress_api_message_MessageService
 {
     /**
      * Retrieves a message for TubePress
@@ -36,10 +36,8 @@ class org_tubepress_impl_message_WordPressMessageService extends org_tubepress_i
      *
      * @return string The corresponding message, or "" if not found
      */
-    public function _($msgId)
+    public function _($message)
     {
-        $message = $this->_keyToMessage($msgId);
-        return $message == '' ? '' :
-            __($message, 'tubepress');
+        return $message == '' ? '' : __($message, 'tubepress');
     }
 }

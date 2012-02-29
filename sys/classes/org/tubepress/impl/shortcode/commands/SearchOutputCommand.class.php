@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -21,14 +21,14 @@
 
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Output',
-    'org_tubepress_api_patterns_cor_Command',
+    'org_tubepress_spi_patterns_cor_Command',
     'org_tubepress_impl_util_StringUtils',
 ));
 
 /**
  * HTML generation command that generates HTML for a single video + meta info.
  */
-class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_tubepress_api_patterns_cor_Command
+class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_tubepress_spi_patterns_cor_Command
 {
     const LOG_PREFIX = 'Search Output Command';
 
@@ -42,7 +42,7 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_t
     public function execute($context)
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
         /* not configured at all for search results */
         if ($execContext->get(org_tubepress_api_const_options_names_Output::OUTPUT) !== org_tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS) {
@@ -52,11 +52,11 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_t
         }
 
         /* do we have search terms? */
-        $qss            = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+        $qss            = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $rawSearchTerms = $qss->getSearchTerms($_GET);
 
         /* are we set up for a gallery fallback? */
-        $mustShowSearchResults = $execContext->get(org_tubepress_api_const_options_names_Output::SEARCH_RESULTS_ONLY);
+        $mustShowSearchResults = $execContext->get(org_tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_ONLY);
         $hasSearchTerms        = $rawSearchTerms != '';
 
         /* the user is not searching and we don't have to show results */
@@ -79,23 +79,23 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_t
         $searchTerms = org_tubepress_impl_util_StringUtils::cleanForSearch($rawSearchTerms);
 
         /* who are we searching? */
-        switch ($execContext->get(org_tubepress_api_const_options_names_Output::SEARCH_PROVIDER)) {
+        switch ($execContext->get(org_tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER)) {
 
         case org_tubepress_api_provider_Provider::VIMEO:
 
-            $execContext->set(org_tubepress_api_const_options_names_Output::MODE, org_tubepress_api_const_options_values_ModeValue::VIMEO_SEARCH);
-            $execContext->set(org_tubepress_api_const_options_names_Output::VIMEO_SEARCH_VALUE, $searchTerms);
+            $execContext->set(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE, org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_SEARCH);
+            $execContext->set(org_tubepress_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE, $searchTerms);
             break;
 
         default:
 
-            $execContext->set(org_tubepress_api_const_options_names_Output::MODE, org_tubepress_api_const_options_values_ModeValue::TAG);
-            $execContext->set(org_tubepress_api_const_options_names_Output::TAG_VALUE, $searchTerms);
+            $execContext->set(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE, org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH);
+            $execContext->set(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE, $searchTerms);
             break;
         }
 
         /* display the results as a thumb gallery */
-        return $ioc->get('org_tubepress_api_patterns_cor_Chain')->execute($context, array(
+        return $ioc->get(org_tubepress_spi_patterns_cor_Chain::_)->execute($context, array(
             'org_tubepress_impl_shortcode_commands_ThumbGalleryCommand'
         ));
     }

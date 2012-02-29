@@ -1,45 +1,81 @@
 <?php
 
 require_once BASE . '/sys/classes/org/tubepress/impl/ioc/FreeWordPressPluginIocService.class.php';
+require_once BASE . '/sys/classes/org/tubepress/api/theme/ThemeHandler.class.php';
+require_once BASE . '/sys/classes/org/tubepress/api/filesystem/Explorer.class.php';
 
 class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePressUnitTest {
 
     private $_sut;
     private $_expectedMapping;
+    
+    private static $_knownInterfaces;
+    
+    private static $_interfacesToIgnore;
 
+    public static function setUpBeforeClass()
+    {
+        self::$_knownInterfaces = self::_collectInterfaces();
+        self::$_interfacesToIgnore = array(
+        
+            'org_tubepress_api_ioc_IocService',
+            'org_tubepress_spi_http_HttpTransport',
+            'org_tubepress_spi_options_ui_Field',
+            'org_tubepress_spi_options_ui_Tab',
+            'org_tubepress_spi_patterns_cor_Command'
+        );
+    }
+    
     function setUp()
     {
         $this->_sut = new org_tubepress_impl_ioc_FreeWordPressPluginIocService();
-        $this->_expectedMapping = array(
 
-        'org_tubepress_api_bootstrap_Bootstrapper'=>'org_tubepress_impl_bootstrap_TubePressBootstrapper',
-        'org_tubepress_api_cache_Cache'=>'org_tubepress_impl_cache_PearCacheLiteCacheService',
-        'org_tubepress_api_embedded_EmbeddedHtmlGenerator'=>'org_tubepress_impl_embedded_EmbeddedPlayerChain',
-        'org_tubepress_api_environment_Detector'=>'org_tubepress_impl_environment_SimpleEnvironmentDetector',
-        'org_tubepress_api_factory_VideoFactory'=>'org_tubepress_impl_factory_VideoFactoryChain',
-        'org_tubepress_api_feed_FeedFetcher'=>'org_tubepress_impl_feed_CacheAwareFeedFetcher',
-        'org_tubepress_api_feed_FeedInspector'=>'org_tubepress_impl_feed_FeedInspectorChain',
-        'org_tubepress_api_filesystem_Explorer'=>'org_tubepress_impl_filesystem_FsExplorer',
-        'org_tubepress_api_html_HeadHtmlGenerator'=>'org_tubepress_impl_html_DefaultHeadHtmlGenerator',
-        'org_tubepress_api_http_HttpClient'=>'org_tubepress_impl_http_HttpClientChain',
-        'org_tubepress_api_message_MessageService'=>'org_tubepress_impl_message_WordPressMessageService',
-        'org_tubepress_api_exec_ExecutionContext'=>'org_tubepress_impl_exec_MemoryExecutionContext',
-        'org_tubepress_api_options_OptionValidator'=>'org_tubepress_impl_options_SimpleOptionValidator',
-        'org_tubepress_api_options_StorageManager'=>'org_tubepress_impl_options_WordPressStorageManager',
-        'org_tubepress_api_plugin_PluginManager'=>'org_tubepress_impl_plugin_PluginManagerImpl',
-        'org_tubepress_api_patterns_cor_Chain'=>'org_tubepress_impl_patterns_cor_ChainGang',
-        'org_tubepress_api_player_PlayerHtmlGenerator'=>'org_tubepress_impl_player_DefaultPlayerHtmlGenerator',
-        'org_tubepress_api_provider_Provider'=>'org_tubepress_impl_provider_SimpleProvider',
-        'org_tubepress_api_provider_ProviderCalculator'=>'org_tubepress_impl_provider_SimpleProviderCalculator',
-        'org_tubepress_api_querystring_QueryStringService'=>'org_tubepress_impl_querystring_SimpleQueryStringService',
-        'org_tubepress_api_shortcode_ShortcodeHtmlGenerator'=>'org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain',
-        'org_tubepress_api_shortcode_ShortcodeParser'=>'org_tubepress_impl_shortcode_SimpleShortcodeParser',
-        'org_tubepress_api_template_TemplateBuilder' => 'org_tubepress_impl_template_SimpleTemplateBuilder',
-        'org_tubepress_api_theme_ThemeHandler'=>'org_tubepress_impl_theme_SimpleThemeHandler',
-        'org_tubepress_api_url_UrlBuilder'=>'org_tubepress_impl_url_UrlBuilderChain',
+        $this->_setupEveryInterfaceIsBound();
+        
+        $this->_expectedMapping = array(
+	
+	        'org_tubepress_api_bootstrap_Bootstrapper'=>'org_tubepress_impl_bootstrap_TubePressBootstrapper',
+	        'org_tubepress_api_cache_Cache'=>'org_tubepress_impl_cache_PearCacheLiteCacheService',
+	        'org_tubepress_api_embedded_EmbeddedHtmlGenerator'=>'org_tubepress_impl_embedded_EmbeddedPlayerChain',
+	        'org_tubepress_api_environment_Detector'=>'org_tubepress_impl_environment_SimpleEnvironmentDetector',
+	        'org_tubepress_api_factory_VideoFactory'=>'org_tubepress_impl_factory_VideoFactoryChain',
+	        'org_tubepress_api_feed_FeedFetcher'=>'org_tubepress_impl_feed_CacheAwareFeedFetcher',
+	        'org_tubepress_api_feed_FeedInspector'=>'org_tubepress_impl_feed_FeedInspectorChain',
+	        'org_tubepress_api_filesystem_Explorer'=>'org_tubepress_impl_filesystem_FsExplorer',
+	        'org_tubepress_api_html_HeadHtmlGenerator'=>'org_tubepress_impl_html_DefaultHeadHtmlGenerator',
+	        'org_tubepress_api_http_HttpClient'=>'org_tubepress_impl_http_HttpClientChain',
+	        'org_tubepress_api_message_MessageService'=>'org_tubepress_impl_message_WordPressMessageService',
+	        'org_tubepress_api_exec_ExecutionContext'=>'org_tubepress_impl_exec_MemoryExecutionContext',
+	        'org_tubepress_api_options_OptionValidator'=>'org_tubepress_impl_options_SimpleOptionValidator',
+	        'org_tubepress_api_options_StorageManager'=>'org_tubepress_impl_options_WordPressStorageManager',
+	        'org_tubepress_api_plugin_PluginManager'=>'org_tubepress_impl_plugin_PluginManagerImpl',
+	        'org_tubepress_spi_patterns_cor_Chain'=>'org_tubepress_impl_patterns_cor_ChainGang',
+	        'org_tubepress_api_player_PlayerHtmlGenerator'=>'org_tubepress_impl_player_DefaultPlayerHtmlGenerator',
+	        'org_tubepress_api_provider_Provider'=>'org_tubepress_impl_provider_SimpleProvider',
+	        'org_tubepress_api_provider_ProviderCalculator'=>'org_tubepress_impl_provider_SimpleProviderCalculator',
+	        'org_tubepress_api_querystring_QueryStringService'=>'org_tubepress_impl_querystring_SimpleQueryStringService',
+	        'org_tubepress_api_shortcode_ShortcodeHtmlGenerator'=>'org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain',
+	        'org_tubepress_api_shortcode_ShortcodeParser'=>'org_tubepress_impl_shortcode_SimpleShortcodeParser',
+	        'org_tubepress_api_template_TemplateBuilder' => 'org_tubepress_impl_template_SimpleTemplateBuilder',
+	        'org_tubepress_api_theme_ThemeHandler'=>'org_tubepress_impl_theme_SimpleThemeHandler',
+	        'org_tubepress_api_feed_UrlBuilder'=>'org_tubepress_impl_feed_UrlBuilderChain',
         );
     }
 
+    function testEveryInterfaceIsBound()
+    {   
+         foreach (self::$_knownInterfaces as $interface) {
+            
+             if (in_array($interface, self::$_interfacesToIgnore)) {
+                
+                 continue;
+             }
+            
+             $result = $this->_sut->get($interface);
+             $this->assertTrue($result instanceof $interface, "$interface was never bound properly");
+         }
+    }
+    
     /**
      * @expectedException Exception
      */
@@ -69,10 +105,9 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
         $this->assertNotNull($this->_sut->get('org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest'));
     }
 
-    function testMapping()
+    function _testMapping()
     {
-        $get_option = new PHPUnit_Extensions_MockFunction('get_option');
-        $get_option->expects($this->any())->with('tubepress-version')->will($this->returnValue(226));
+        
 
         foreach ($this->_expectedMapping as $key => $value) {
             $test = is_a($this->_sut->get($key), $value);
@@ -81,6 +116,42 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
             }
             $this->assertTrue($test);
         }
+    }
+    
+    private function _setupEveryInterfaceIsBound()
+    {
+    	$ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
+    	$themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
+    	$explorer      = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
+
+    	$themeHandler->shouldReceive('getUserContentDirectory')->once()->andReturn('user-content-dir');
+    	$explorer->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('base-install-path');
+    	$explorer->shouldReceive('getDirectoriesInDirectory')->once()->with('base-install-path/sys/ui/themes', 'Default Option Descriptor Reference')->andReturn(array('boo'));
+    	$explorer->shouldReceive('getDirectoriesInDirectory')->once()->with('user-content-dir/themes', 'Default Option Descriptor Reference')->andReturn(array('bob'));
+    }
+    
+    private static function _collectInterfaces()
+    {
+        exec('grep -r "interface " ' . BASE . '/sys | egrep "org_tubepress_" | egrep -v "org_tubepress_api_const" ', $results, $return);
+        
+        self::assertTrue($return === 0, 'grep failed');
+        self::assertTrue(count($results) > 0, 'grep didn\'t find any interfaces');
+        
+        $strings = array();
+        foreach ($results as $grepLine) {
+        
+            $result = preg_match_all("/^.*interface\s+([^\s]+).*$/", $grepLine, $matches);
+        
+            if (!$result || count($matches) !== 2) {
+        
+                echo 'Found more than on match on ' . $grepLine . '. ' . var_export($matches, true);
+                exit;
+            }
+        
+            $strings[] = str_replace("\'", "'", $matches[1][0]);
+        }
+        
+        return $strings;
     }
 }
 

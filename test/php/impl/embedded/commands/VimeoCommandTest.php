@@ -25,11 +25,12 @@ class org_tubepress_impl_embedded_commands_VimeoCommandTest extends TubePressUni
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::AUTOPLAY)->andReturn(false);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR)->andReturn('123456');
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::SHOW_INFO)->andReturn(true);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::LOOP)->andReturn(false);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::ENABLE_JS_API)->andReturn(true);
 
         $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
 
@@ -37,13 +38,13 @@ class org_tubepress_impl_embedded_commands_VimeoCommandTest extends TubePressUni
         $mockChainContext->providerName = org_tubepress_api_provider_Provider::VIMEO;
         $mockChainContext->videoId      = 'video_id';
 
-        $theme = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $theme = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $theme->shouldReceive('getTemplateInstance')->once()->with('embedded_flash/vimeo.tpl.php')->andReturn($mockTemplate);
 
         $this->assertTrue($this->_sut->execute($mockChainContext));
 
         $this->assertEquals($mockTemplate, $mockChainContext->template);
-        $this->assertEquals('http://player.vimeo.com/video/video_id?autoplay=0&color=123456&loop=0&title=1&byline=1&portrait=1', $mockChainContext->dataUrl->toString());
+        $this->assertEquals('http://player.vimeo.com/video/video_id?autoplay=0&color=123456&loop=0&title=1&byline=1&portrait=1&api=1&player_id=tubepress-vimeo-player-video_id', $mockChainContext->dataUrl->toString());
         $this->assertEquals('vimeo', $mockChainContext->embeddedImplementationName);
     }
 

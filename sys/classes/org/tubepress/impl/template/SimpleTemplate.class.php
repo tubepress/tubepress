@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -27,46 +27,42 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 
 class org_tubepress_impl_template_SimpleTemplate implements org_tubepress_api_template_Template
 {
-    private $_source;
+    private $_source = array();
     private $_path;
 
     /**
-     * Constructor.
+     * Sets the template path.
+     */
+    public function setPath($path)
+    {
+        if (! is_readable($path)) {
+            
+            throw new Exception("Cannot read template at $path");
+        }
+        
+        $this->_path   = $path;
+    }
+    
+    /**
+     * Set a template variable.
      *
-     * @param string $path Absolute path to the template file.
+     * @param string  $name  The name of the template variable to set.
+     * @param unknown $value The value of the template variable.
      *
      * @return void
      */
-    public function __construct($path)
-    {
-        if (!is_readable($path)) {
-            throw new Exception("Cannot read template at $path");
-        }
-
-        $this->_path   = $path;
-        $this->_source = array();
-    }
-
-    /**
-    * Set a template variable.
-    *
-    * @param string  $name  The name of the template variable to set.
-    * @param unknown $value The value of the template variable.
-    *
-    * @return void
-    */
     public function setVariable($name, $value)
     {
         $this->_source[$name] = $value;
     }
 
     /**
-    * Converts this template to a string
-    *
-    *@throws Exception If there was a problem.
-    *
-    * @return string The string representation of this template.
-    */
+     * Converts this template to a string
+     *
+     * @throws Exception If there was a problem.
+     *
+     * @return string The string representation of this template.
+     */
     public function toString()
     {
         ob_start();
@@ -79,10 +75,10 @@ class org_tubepress_impl_template_SimpleTemplate implements org_tubepress_api_te
     }
 
     /**
-    * Resets this template for use. Clears out any set variables.
-    *
-    * @return void
-    */
+     * Resets this template for use. Clears out any set variables.
+     *
+     * @return void
+     */
     public function reset()
     {
         $this->_source = array();

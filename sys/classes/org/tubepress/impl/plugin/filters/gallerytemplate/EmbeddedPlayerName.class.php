@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -46,7 +46,7 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_EmbeddedPlayerName
     private static function _getEmbeddedServiceName($providerName)
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context      = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context      = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $stored       = $context->get(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
 
         $longTailWithYouTube = $stored === org_tubepress_api_const_options_values_PlayerImplementationValue::LONGTAIL

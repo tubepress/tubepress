@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -52,12 +52,12 @@ class org_tubepress_impl_factory_commands_VimeoFactoryCommand extends org_tubepr
         $unserialized = org_tubepress_impl_factory_commands_AbstractFactoryCommand::_unserializePhpFeed($feed);
 
         if (isset($unserialized->video)) {
-            $this->_videoArray = $unserialized->video;
+            $this->_videoArray = (array) $unserialized->video;
             return;
         }
 
         if (isset($unserialized->videos) && isset($unserialized->videos->video)) {
-            $this->_videoArray = $unserialized->videos->video;
+            $this->_videoArray = (array) $unserialized->videos->video;
             return;
         }
         $this->_videoArray = array();
@@ -146,7 +146,7 @@ class org_tubepress_impl_factory_commands_VimeoFactoryCommand extends org_tubepr
 
     protected function _getTimePublishedInUnixTime($index)
     {
-        return strtotime($this->_videoArray[$index]->upload_date);
+        return @strtotime($this->_videoArray[$index]->upload_date);
     }
 
     protected function _getTitle($index)

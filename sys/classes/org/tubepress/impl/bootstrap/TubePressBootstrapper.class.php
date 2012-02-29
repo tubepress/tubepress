@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -30,6 +30,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_filesystem_Explorer',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_api_plugin_PluginManager',
+    'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_log_Log',
     'TubePress'
@@ -53,12 +54,16 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
     {
         /* don't boot twice! */
         if (self::$_alreadyBooted) {
+        	
             return;
         }
 
         try {
+        	
             $this->_doBoot();
+            
         } catch (Exception $e) {
+        	
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception while booting: '.  $e->getMessage());
         }
     }
@@ -66,12 +71,17 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
     private function _doBoot()
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context     = $ioc->get('org_tubepress_api_exec_ExecutionContext');
-        $envDetector = $ioc->get('org_tubepress_api_environment_Detector');
-        $pm          = $ioc->get('org_tubepress_api_plugin_PluginManager');
-
+        $context     = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+        $envDetector = $ioc->get(org_tubepress_api_environment_Detector::_);
+        $pm          = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+        $sm  		 = $ioc->get(org_tubepress_api_options_StorageManager::_);
+     
+        /** Init the storage manager. */
+        $sm->init();
+        
         /* WordPress likes to keep control of the output */
         if ($envDetector->isWordPress()) {
+        	
             ob_start();
         }
 
@@ -92,9 +102,9 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
 
     private function _loadUserPlugins(org_tubepress_api_ioc_IocService $ioc)
     {
-        $pm         = $ioc->get('org_tubepress_api_plugin_PluginManager');
-        $fe         = $ioc->get('org_tubepress_api_filesystem_Explorer');
-        $th         = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $pm         = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+        $fe         = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
+        $th         = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $pluginPath = $th->getUserContentDirectory() . '/plugins';
         $pluginDirs = $fe->getDirectoriesInDirectory($pluginPath, self::LOG_PREFIX);
 
@@ -125,13 +135,19 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
      */
     protected function loadSystemPlugins(org_tubepress_api_ioc_IocService $ioc)
     {
-        $pm = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
 
         /* embedded template filters */
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_EMBEDDED, $ioc->get('org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariables'));
 
+        /* embedded HTML filters */
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::HTML_EMBEDDED, $ioc->get('org_tubepress_impl_plugin_filters_embeddedhtml_PlayerJavaScriptApi'));
+
         /* gallery HTML filters */
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::HTML_GALLERY, $ioc->get('org_tubepress_impl_plugin_filters_galleryhtml_GalleryJs'));
+
+        /* gallery init js */
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::JAVASCRIPT_GALLERYINIT, $ioc->get('org_tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParams'));
 
         /* gallery template filters */
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_filters_gallerytemplate_CoreVariables'));
@@ -146,7 +162,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
         /* provider result filters */
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_filters_providerresult_ResultCountCapper'));
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_filters_providerresult_VideoBlacklist'));
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_filters_providerresult_Shuffler'));
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_filters_providerresult_PerPageSorter'));
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_filters_providerresult_VideoPrepender'));
 
         /* search input template filter */

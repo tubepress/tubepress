@@ -16,10 +16,10 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
         
-        $envDetector = $ioc->get('org_tubepress_api_environment_Detector');
+        $envDetector = $ioc->get(org_tubepress_api_environment_Detector::_);
         $envDetector->shouldReceive('isWordPress')->once()->andReturn(false);
         
-        $fs  = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fs  = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fs->shouldReceive('getTubePressBaseInstallationPath')->twice()->andReturn('basePath');
 
         $result = $this->_sut->getCssPath('foo');
@@ -29,8 +29,8 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
     public function testCalculateCurrentThemeNameNoCustomTheme()
     {
         $ioc                       = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::THEME)->andReturn('');
+        $execContext  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Thumbs::THEME)->andReturn('');
 
         $result = $this->_sut->calculateCurrentThemeName();
         $this->assertEquals('default', $result);
@@ -39,8 +39,8 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
     public function testCalculateCurrentThemeNameCustomTheme()
     {
         $ioc                       = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Display::THEME)->andReturn('foo');
+        $execContext  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Thumbs::THEME)->andReturn('foo');
 
         $result = $this->_sut->calculateCurrentThemeName();
         $this->assertEquals('foo', $result);
@@ -52,10 +52,10 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
     public function testGetTemplateInstanceNoSuchTemplate()
     {
         $ioc                       = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
-        $execContext->shouldReceive('get')->zeroOrMoreTimes()->with(org_tubepress_api_const_options_names_Display::THEME)->andReturn('');
+        $execContext  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+        $execContext->shouldReceive('get')->zeroOrMoreTimes()->with(org_tubepress_api_const_options_names_Thumbs::THEME)->andReturn('');
 
-        $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fs = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fs->shouldReceive('getTubePressBaseInstallationPath')->zeroOrMoreTimes()->andReturn('basePath');
 
         $this->_sut->getTemplateInstance('foo');
@@ -65,7 +65,7 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
     
-        $execContext = $ioc->get('org_tubepress_api_environment_Detector');
+        $execContext = $ioc->get(org_tubepress_api_environment_Detector::_);
         $execContext->shouldReceive('isWordPress')->once()->andReturn(true);
     
         if (!defined('ABSPATH')) {
@@ -80,10 +80,10 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
     
-        $execContext = $ioc->get('org_tubepress_api_environment_Detector');
+        $execContext = $ioc->get(org_tubepress_api_environment_Detector::_);
         $execContext->shouldReceive('isWordPress')->once()->andReturn(false);
 
-        $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fs = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fs->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('foobar');
         
         $this->assertEquals('foobar/tubepress-content', $this->_sut->getUserContentDirectory());
@@ -93,16 +93,16 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $execContext  = $ioc->get('org_tubepress_api_exec_ExecutionContext');
-        $execContext->shouldReceive('get')->zeroOrMoreTimes()->with(org_tubepress_api_const_options_names_Display::THEME)->andReturn('foo');
+        $execContext  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+        $execContext->shouldReceive('get')->zeroOrMoreTimes()->with(org_tubepress_api_const_options_names_Thumbs::THEME)->andReturn('foo');
 
-        $fs                        = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $fs                        = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fs->shouldReceive('getTubePressBaseInstallationPath')->zeroOrMoreTimes()->andReturn(realpath(dirname(__FILE__) . '/../../../../'));
         
-        $envDetector = $ioc->get('org_tubepress_api_environment_Detector');
+        $envDetector = $ioc->get(org_tubepress_api_environment_Detector::_);
         $envDetector->shouldReceive('isWordPress')->once()->andReturn(false);
 
-        $tb = $ioc->get('org_tubepress_api_template_TemplateBuilder');
+        $tb = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
         $tb->shouldReceive('getNewTemplateInstance')->zeroOrMoreTimes()->andReturn('result');
 
         $this->assertEquals('result', $this->_sut->getTemplateInstance('gallery.tpl.php'));

@@ -24,50 +24,44 @@ msgstr ""
 msgid "Which videos?"
 msgstr "Vilka videos?"
 
-msgid "Top rated videos from..."
-msgstr "Högst betygsatta från..."
+msgid "Top-rated YouTube videos from"
+msgstr "Högst betygsatta från"
 
 msgid "This YouTube user's \"favorites\""
 msgstr "Denna YouTube-användares \"favoriter\""
 
-msgid "The latest \"featured\" videos on YouTube's homepage"
+msgid "The latest \"featured\" videos on YouTube's homepage from"
 msgstr "Senaste videos under \"featured\" på YouTubes hemsida"
 
-msgid "Videos for mobile phones"
-msgstr "Videos för mobila enheter"
-
-msgid "This playlist"
+msgid "This YouTube playlist"
 msgstr "Denna spellista"
 
 msgid "Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser's address bar (while looking at a YouTube playlist). It comes right after the \"p=\". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35"
 msgstr "Begränsad till 200 videos per spellista. Denna ser vanligtvis ut ungefär: D2B04665B213AE35. Kopiera spellistans ID från slutet av dess webbadress (syns när du bläddrar i spellistan). Syns direkt efter 'p=', till exempel http://youtube.com/my_playlists?p=D2B04665B213AE35"
 
-msgid "Most-viewed videos from"
+msgid "Most-viewed YouTube videos from"
 msgstr "MesVideos med flest spelningar från"
 
-msgid "Most-recently added videos"
+msgid "Most-recently added YouTube videos from"
 msgstr "Senast tillagda videos"
 
-msgid "Most-discussed videos"
+msgid "Most-discussed YouTube videos from"
 msgstr "Videos med flest inlägg"
 
-msgid "Most-responded to videos"
+msgid "Most-responded to YouTube videos from"
 msgstr "Videos med flest svar"
 
-msgid "Views"
+msgid "View count"
 msgstr "Spelningar"
 
-msgid "YouTube search for..."
-msgstr "Sökning på YouTube efter..."
+msgid "YouTube search for"
+msgstr "Sökning på YouTube efter"
 
 msgid "Videos from this YouTube user"
 msgstr "Videos från denna YouTube-användare"
 
-msgid "YouTube limits this mode to 1,000 results"
-msgstr "YouTube begränsar detta till 1000 resultat"
-
-msgid "Appearance"
-msgstr "Visningsalternativ"
+msgid "YouTube limits this to 1,000 results."
+msgstr "YouTube begränsar detta till 1000 resultat."
 
 msgid "Play each video"
 msgstr "Spela varje video"
@@ -81,25 +75,22 @@ msgstr "Det maximala antalet tecken som visas i en videobeskrivning. Sätt detta
 msgid "Height (px) of thumbs"
 msgstr "Höjd (px) på tumnagel"
 
-msgid "Default is 90"
-msgstr "Standard är 90"
+msgid "Default is 90."
+msgstr "Standard är 90."
 
 msgid "Width (px) of thumbs"
 msgstr "Bredd (px) på tumnagel"
 
-msgid "Default is 120"
-msgstr "Standard är 120"
+msgid "Default is 120."
+msgstr "Standard är 120."
 
-msgid "Videos per Page"
-msgstr "Videos per sida"
-
-msgid "Default is 20. Maximum is 50"
-msgstr "Standard är 20. Maximalt 50"
+msgid "Default is 20. Maximum is 50."
+msgstr "Standard är 20. Maximalt 50."
 
 msgid "Order videos by"
 msgstr "Sortera videos efter"
 
-msgid "Embedded Player"
+msgid "Player"
 msgstr "Inbäddad spelare"
 
 msgid "Auto-play all videos"
@@ -108,17 +99,17 @@ msgstr "Börja spela automatiskt"
 msgid "Max height (px)"
 msgstr "Maximal höjd (px)"
 
-msgid "Default is 350"
-msgstr "Standard är 350"
+msgid "Default is 350."
+msgstr "Standard är 350."
 
-msgid "Default is 425"
-msgstr "Standard är 425"
+msgid "Default is 425."
+msgstr "Standard är 425."
 
 msgid "Loop"
 msgstr "Loop"
 
-msgid "Continue playing the video until the user stops it"
-msgstr "Fortsätt spela videon tills användare stoppar den"
+msgid "Continue playing the video until the user stops it."
+msgstr "Fortsätt spela videon tills användare stoppar den."
 
 msgid "Main color"
 msgstr "Färg"
@@ -126,10 +117,10 @@ msgstr "Färg"
 msgid "Show related videos"
 msgstr "Visa relaterade videos"
 
-msgid "Toggles the display of related videos after a video finishes"
-msgstr "Anger om relaterade videos ska visas efter att videon slutat spela"
+msgid "Toggles the display of related videos after a video finishes."
+msgstr "Anger om relaterade videos ska visas efter att videon slutat spela."
 
-msgid "Meta Display"
+msgid "Meta"
 msgstr "Metavisning"
 
 msgid "Author"
@@ -144,13 +135,10 @@ msgstr "Beskrivning"
 msgid "ID"
 msgstr "ID"
 
-msgid "Length"
-msgstr "Längd"
-
-msgid "Rating"
+msgid "Average rating"
 msgstr "Betyg"
 
-msgid "Ratings"
+msgid "Number of ratings"
 msgstr "Betyg"
 
 msgid "Keywords"
@@ -159,7 +147,7 @@ msgstr "Taggar"
 msgid "Title"
 msgstr "Titel"
 
-msgid "Posted"
+msgid "Date posted"
 msgstr "Inlagd"
 
 msgid "URL"
@@ -192,10 +180,7 @@ msgstr "Nyckelord"
 msgid "The word you insert (in plaintext, between square brackets) into your posts/pages to display a gallery."
 msgstr "Ordet som du använder (i vanlig text eller inom klammer) där du vill visa ett galleri på dina sidor och inlägg."
 
-msgid "Randomize thumbnails"
-msgstr "Slumpmässiga tumnaglar"
-
-msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized. Note: this option cannot be used with the \"high quality thumbnails\" feature"
+msgid "Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video's thumbnail randomized. Note: this option cannot be used with the \"high quality thumbnails\" feature."
 msgstr "De flesta videos har flera tumnaglar. Genom att välja detta väljs tumnaglarna för dina videos slumpmässigt då ett galleri visas"
 
 msgid "normally (at the top of your gallery)"
@@ -219,9 +204,6 @@ msgstr "antal spelningar"
 msgid "rating"
 msgstr "betyg"
 
-msgid "date published"
-msgstr "senast uppdaterad"
-
 msgid "today"
 msgstr "idag"
 
@@ -240,9 +222,6 @@ msgstr "nästa"
 msgid "prev"
 msgstr "föregående"
 
-msgid "Displays YouTube videos in your sidebar using TubePress"
-msgstr "Visa YouTube-videos i din sidospalt med TubePress."
-
 msgid "Videos uploaded by this Vimeo user"
 msgstr ""
 
@@ -252,7 +231,7 @@ msgstr ""
 msgid "Videos this Vimeo user appears in"
 msgstr ""
 
-msgid "Vimeo search for..."
+msgid "Vimeo search for"
 msgstr ""
 
 msgid "Videos credited to this Vimeo user (either appears in or uploaded by)"
@@ -270,10 +249,10 @@ msgstr ""
 msgid "Use high-quality thumbnails"
 msgstr ""
 
-msgid "Videos blacklist"
+msgid "Video blacklist"
 msgstr ""
 
-msgid "List of video IDs that should never be displayed"
+msgid "A list of video IDs that should never be displayed."
 msgstr ""
 
 msgid "in a new window on its own"
@@ -282,16 +261,13 @@ msgstr ""
 msgid "from the video's original Vimeo page"
 msgstr ""
 
-msgid "Likes"
-msgstr ""
-
-msgid "Provider Feed"
+msgid "Number of \"likes\""
 msgstr ""
 
 msgid "Use relative dates"
 msgstr ""
 
-msgid "e.g. \"yesterday\" instead of \"November 3, 1980\""
+msgid "e.g. \"yesterday\" instead of \"November 3, 1980\"."
 msgstr ""
 
 msgid "Show pagination above thumbnails"
@@ -300,7 +276,7 @@ msgstr ""
 msgid "Show pagination below thumbnails"
 msgstr ""
 
-msgid "Only applies to galleries that span multiple pages"
+msgid "Only applies to galleries that span multiple pages."
 msgstr ""
 
 msgid "<a href=\"http://wikipedia.org/wiki/Ajax_(programming)\">Ajax</a>-enabled pagination"
@@ -309,28 +285,25 @@ msgstr ""
 msgid "Max width (px)"
 msgstr ""
 
-msgid "Allow fullscreen playback"
+msgid "Allow fullscreen playback."
 msgstr ""
 
-msgid "Default is 999999"
+msgid "Default is 999999."
 msgstr ""
 
 msgid "Highlight color"
 msgstr ""
 
-msgid "Default is FFFFFF"
+msgid "Default is FFFFFF."
 msgstr ""
 
 msgid "Show title and rating before video starts"
 msgstr ""
 
-msgid "Show videos in high definition when available"
-msgstr ""
-
 msgid "Implementation"
 msgstr ""
 
-msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)"
+msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
 msgstr ""
 
 msgid "YouTube API Developer Key"
@@ -339,10 +312,7 @@ msgstr ""
 msgid "YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href=\"http://code.google.com/apis/youtube/dashboard/\">here</a>. Don't change this unless you know what you're doing."
 msgstr ""
 
-msgid "Enable request cache"
-msgstr ""
-
-msgid "Store network responses locally for 1 hour. Each response is on the order of a few hundred KB, so leaving the cache enabled will significantly reduce load times for your galleries at the slight expense of freshness."
+msgid "Enable API cache"
 msgstr ""
 
 msgid "Only retrieve embeddable videos"
@@ -387,15 +357,6 @@ msgstr ""
 msgid "Runtime"
 msgstr ""
 
-msgid "\"%s\" is not a valid option name."
-msgstr ""
-
-msgid "\"%s\" must be either true or false. You supplied \"%s\"."
-msgstr ""
-
-msgid "\"%s\" must be one of \"%s\". You supplied \"%s\"."
-msgstr ""
-
 msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.org/documentation\"> documentation</a>."
 msgstr ""
 
@@ -414,43 +375,16 @@ msgstr ""
 msgid "JW FLV Media Player (by Longtail Video)"
 msgstr ""
 
-msgid "%s can only take on integer values. You supplied %s."
-msgstr "%s kan bara ta emot heltal. Du skickade %s."
-
-msgid "\"%s\" must be between \"%d\" and \"%d\". You supplied \"%d\"."
-msgstr "%s måste vara mellan %d och %d. Du skickade %d."
-
-msgid "%s must be a string. You supplied %s."
-msgstr "%s måste vara en textsträng. Du skickade %s."
-
 msgid "Not all sort orders can be applied to all gallery types. See the <a href=\"http://tubepress.org/documentation\">documentation</a> for more info."
 msgstr ""
 
-msgid "newest"
+msgid "date published (newest first)"
 msgstr ""
 
-msgid "oldest"
+msgid "date published (oldest first)"
 msgstr ""
 
-msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature"
-msgstr ""
-
-msgid "%s is not executable or does not exist."
-msgstr ""
-
-msgid "Thumbs per video"
-msgstr ""
-
-msgid "How many thumbnails to generate for each video. TubePress can randomly display the thumbs each time someone visits the gallery. See the \"Randomize thumbnails\" option under the \"Appearance\" tab."
-msgstr ""
-
-msgid "This option cannot contain two consecutive periods"
-msgstr ""
-
-msgid "%s is not a directory"
-msgstr ""
-
-msgid "%s is not readable"
+msgid "Note: this option cannot be used with the \"randomize thumbnails\" feature."
 msgstr ""
 
 msgid "Theme"
@@ -459,7 +393,7 @@ msgstr ""
 msgid "The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>."
 msgstr ""
 
-msgid "Videos most frequently flagged as favorites from..."
+msgid "Most-favorited YouTube videos from"
 msgstr ""
 
 msgid "Vimeo API \"Consumer Key\""
@@ -504,9 +438,6 @@ msgstr ""
 msgid "Cache directory"
 msgstr ""
 
-msgid "Leave blank to attempt to use system temp directory. Otherwise enter the absolute path of a writeable directory."
-msgstr ""
-
 msgid "Cache expiration time (seconds)"
 msgstr ""
 
@@ -522,10 +453,10 @@ msgstr ""
 msgid "Only show options applicable to..."
 msgstr ""
 
-msgid "Restrict search results to videos from this user"
+msgid "Restrict search results to videos from author"
 msgstr ""
 
-msgid "Only applies to search-based galleries"
+msgid "A YouTube or Vimeo user name. Only applies to search-based galleries."
 msgstr ""
 
 msgid "No matching videos"
@@ -540,8 +471,84 @@ msgstr ""
 msgid "Dynamically set thumbnail spacing based on the width of their container."
 msgstr ""
 
-msgid "Auto-play each video after thumbnail click"
+msgid "Auto-play each video after thumbnail click."
 msgstr ""
 
 msgid "\"Lazy\" play videos"
 msgstr ""
+
+msgid "Thumbnails"
+msgstr ""
+
+msgid "Feed"
+msgstr ""
+
+msgid "Cache"
+msgstr ""
+
+msgid "in a \"detached\" location (see the documentation)"
+msgstr ""
+
+msgid "Displays YouTube or Vimeo videos with TubePress"
+msgstr ""
+
+msgid "No viewable videos"
+msgstr ""
+
+msgid "Could not find video with ID %s"
+msgstr ""
+
+msgid "Leave blank to attempt to use your system's temp directory. Otherwise enter the absolute path of a writeable directory."
+msgstr ""
+
+msgid "Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness."
+msgstr ""
+
+msgid "Play videos in high definition by default"
+msgstr ""
+
+msgid "Randomize thumbnail images"
+msgstr ""
+
+msgid "Thumbnails per page"
+msgstr ""
+
+msgid "Show each video's..."
+msgstr ""
+
+msgid "YouTube"
+msgstr ""
+
+msgid "Vimeo"
+msgstr ""
+
+msgid "Enable JavaScript API"
+msgstr ""
+
+msgid "Allow TubePress to communicate with the embedded video player via JavaScript. This incurs a very small performance overhead, but is required for some features."
+msgstr ""
+
+msgid "Play videos sequentially without user intervention"
+msgstr ""
+
+msgid "When a video finishes, this will start playing the next video in the gallery."
+msgstr ""
+
+msgid "Enable HTTPS"
+msgstr ""
+
+msgid "Serve thumbnails and embedded video player over a secure connection."
+msgstr ""
+
+msgid "Auto-hide video controls"
+msgstr ""
+
+msgid "A few seconds after playback begins, fade out the video controls."
+msgstr ""
+
+msgid "\"Modest\" branding"
+msgstr ""
+
+msgid "Hide the YouTube logo from the control area."
+msgstr ""
+

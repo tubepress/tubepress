@@ -14,7 +14,7 @@ class org_tubepress_impl_html_DefaultHeadHtmlGeneratorTest extends TubePressUnit
 
     function testJqueryInclude()
     {
-        $this->assertEquals('<script type="text/javascript" src="<tubepress_base_url>/sys/ui/static/js/jquery-1.6.1.min.js"></script>', $this->_sut->getHeadJqueryInclusion());
+        $this->assertEquals('<script type="text/javascript" src="<tubepress_base_url>/sys/ui/static/js/jquery-1.7.1.min.js"></script>', $this->_sut->getHeadJqueryInclusion());
     }
 
     function testJsInclude()
@@ -36,7 +36,7 @@ class org_tubepress_impl_html_DefaultHeadHtmlGeneratorTest extends TubePressUnit
 	{
 	    $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-	    $qss  = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+	    $qss  = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $qss->shouldReceive('getPageNum')->once()->andReturn(1);
 
 	    $this->assertEquals('', $this->_sut->getHeadHtmlMeta());
@@ -46,7 +46,7 @@ class org_tubepress_impl_html_DefaultHeadHtmlGeneratorTest extends TubePressUnit
 	{
 	    $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-	    $qss  = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+	    $qss  = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $qss->shouldReceive('getPageNum')->once()->andReturn(2);
 
 	    $this->assertEquals('<meta name="robots" content="noindex, nofollow" />', $this->_sut->getHeadHtmlMeta());

@@ -18,7 +18,7 @@ class org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariablesTest exten
 
 	    $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-	    $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+	    $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::FULLSCREEN)->andReturn(true);
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR)->andReturn('999999');
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT)->andReturn('FFFFFF');
@@ -35,6 +35,7 @@ class org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariablesTest exten
         $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::EMBEDDED_COLOR_HIGHLIGHT, 'FFFFFF');
         $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::EMBEDDED_FULLSCREEN, 'true');
         $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::VIDEO_ID, 'video-id');
+
 
 	    $result = $this->_sut->alter_embeddedTemplate($mockTemplate, 'video-id', 'video-provider-name', new org_tubepress_api_url_Url('http://tubepress.org'), 'embedded-impl-name');
 

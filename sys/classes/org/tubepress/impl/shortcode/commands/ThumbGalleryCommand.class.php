@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -23,14 +23,14 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_const_template_Variable',
-    'org_tubepress_api_patterns_cor_Command',
+    'org_tubepress_spi_patterns_cor_Command',
     'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_api_provider_Provider',
     'org_tubepress_api_provider_ProviderResult',
     'org_tubepress_impl_log_Log',
 ));
 
-class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_tubepress_api_patterns_cor_Command
+class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_tubepress_spi_patterns_cor_Command
 {
     const LOG_PREFIX = 'Thumb Gallery Command';
 
@@ -44,7 +44,7 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_t
     public function execute($context)
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $galleryId   = $execContext->get(org_tubepress_api_const_options_names_Advanced::GALLERY_ID);
 
         if ($galleryId == '') {
@@ -54,12 +54,12 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_t
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Starting to build thumbnail gallery %s', $galleryId);
 
-        $provider      = $ioc->get('org_tubepress_api_provider_Provider');
-        $pluginManager = $ioc->get('org_tubepress_api_plugin_PluginManager');
-        $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
-        $ms            = $ioc->get('org_tubepress_api_message_MessageService');
-        $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-        $qss           = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+        $provider      = $ioc->get(org_tubepress_api_provider_Provider::_);
+        $pluginManager = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+        $themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
+        $ms            = $ioc->get(org_tubepress_api_message_MessageService::_);
+        $pc            = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
+        $qss           = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $template      = $themeHandler->getTemplateInstance('gallery.tpl.php');
         $page          = $qss->getPageNum($_GET);
         $providerName  = $pc->calculateCurrentVideoProvider();

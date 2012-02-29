@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -28,8 +28,8 @@ class org_tubepress_impl_plugin_filters_providerresult_VideoBlacklist
 	{
 		$videos         = $providerResult->getVideoArray();
 		$ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-		$context        = $ioc->get('org_tubepress_api_exec_ExecutionContext');
-		$blacklist      = $context->get(org_tubepress_api_const_options_names_Advanced::VIDEO_BLACKLIST);
+		$context        = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+		$blacklist      = $context->get(org_tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST);
 		$videosToKeep   = array();
 		$blacklistCount = 0;
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -25,6 +25,8 @@
  */
 class org_tubepress_api_const_options_names_Meta
 {
+    const _ = 'org_tubepress_api_const_options_names_Meta';
+
     const AUTHOR      = 'author';
     const CATEGORY    = 'category';
     const DESCRIPTION = 'description';
@@ -33,9 +35,16 @@ class org_tubepress_api_const_options_names_Meta
     const LIKES       = 'likes';
     const RATING      = 'rating';
     const RATINGS     = 'ratings';
-    const TAGS        = 'tags';
+    const KEYWORDS    = 'tags';
     const TITLE       = 'title';
     const UPLOADED    = 'uploaded';
     const URL         = 'url';
     const VIEWS       = 'views';
+
+    const DATEFORMAT     = 'dateFormat';
+    const DESC_LIMIT     = 'descriptionLimit';
+    const RELATIVE_DATES = 'relativeDates';
+
+    //DEPRECATED:
+    const TAGS    = 'tags';
 }

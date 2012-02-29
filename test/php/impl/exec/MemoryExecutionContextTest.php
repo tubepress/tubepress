@@ -1,6 +1,8 @@
 <?php
 
 require_once BASE . '/sys/classes/org/tubepress/impl/exec/MemoryExecutionContext.class.php';
+require_once BASE . '/sys/classes/org/tubepress/api/const/options/names/Thumbs.class.php';
+require_once BASE . '/sys/classes/org/tubepress/api/const/options/names/Advanced.class.php';
 
 class org_tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTest {
 
@@ -16,20 +18,20 @@ class org_tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTe
 
     public function testSetGet()
     {
-        $this->_sut->set(org_tubepress_api_const_options_names_Display::THEME, 'crazytheme');
-        $this->assertEquals('crazytheme', $this->_sut->get(org_tubepress_api_const_options_names_Display::THEME));
+        $this->_sut->set(org_tubepress_api_const_options_names_Thumbs::THEME, 'crazytheme');
+        $this->assertEquals('crazytheme', $this->_sut->get(org_tubepress_api_const_options_names_Thumbs::THEME));
     }
 
     public function testToShortcode()
     {
         $customOptions = array(
-            org_tubepress_api_const_options_names_Display::THEME => 'fakeoptionvalue',
-            org_tubepress_api_const_options_names_Display::AJAX_PAGINATION => 'true',
+            org_tubepress_api_const_options_names_Thumbs::THEME => 'fakeoptionvalue',
+            org_tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION => 'true',
         );
 
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $sm  = $ioc->get('org_tubepress_api_options_StorageManager');
+        $sm  = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $sm->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('trigger');
 
         $this->_sut->setCustomOptions($customOptions);
@@ -39,7 +41,7 @@ class org_tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTe
 
     public function testReset()
     {
-        $customOptions = array(org_tubepress_api_const_options_names_Display::THEME => 'fakeoptionvalue');
+        $customOptions = array(org_tubepress_api_const_options_names_Thumbs::THEME => 'fakeoptionvalue');
         $this->_sut->setCustomOptions($customOptions);
 
         $this->assertEquals($customOptions, $this->_sut->getCustomOptions());
@@ -57,9 +59,9 @@ class org_tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTe
 
     public function testGetCustomOption()
     {
-        $customOptions = array(org_tubepress_api_const_options_names_Display::THEME => 'fakeoptionvalue');
+        $customOptions = array(org_tubepress_api_const_options_names_Thumbs::THEME => 'fakeoptionvalue');
         $this->_sut->setCustomOptions($customOptions);
-        $this->assertEquals('fakeoptionvalue', $this->_sut->get(org_tubepress_api_const_options_names_Display::THEME));
+        $this->assertEquals('fakeoptionvalue', $this->_sut->get(org_tubepress_api_const_options_names_Thumbs::THEME));
         $this->assertEquals(1, sizeof(array_intersect($customOptions, $this->_sut->getCustomOptions())));
     }
 
@@ -67,7 +69,7 @@ class org_tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTe
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $sm  = $ioc->get('org_tubepress_api_options_StorageManager');
+        $sm  = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $sm->shouldReceive('get')->once()->with('nonexistent');
 
         $this->_sut->get("nonexistent");

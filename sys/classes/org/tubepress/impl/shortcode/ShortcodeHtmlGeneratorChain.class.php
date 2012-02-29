@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -22,7 +22,7 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_plugin_FilterPoint',
-    'org_tubepress_api_patterns_cor_Chain',
+    'org_tubepress_spi_patterns_cor_Chain',
     'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_api_shortcode_ShortcodeHtmlGenerator',
@@ -47,15 +47,15 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements org_tu
         global $tubepress_base_url;
 
         $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
-        $pm    = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
+        $pm    = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
 
         /* do a bit of logging */
         org_tubepress_impl_log_Log::log($this->getName(), 'Type of IOC container is %s', get_class($ioc));
 
         /* parse the shortcode if we need to */
         if ($shortCodeContent != '') {
-            $shortcodeParser = $ioc->get('org_tubepress_api_shortcode_ShortcodeParser');
+            $shortcodeParser = $ioc->get(org_tubepress_api_shortcode_ShortcodeParser::_);
             $shortcodeParser->parse($shortCodeContent);
         }
 
@@ -97,7 +97,7 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements org_tu
         );
     }
 
-    private function _runChain(org_tubepress_api_patterns_cor_Chain $chain)
+    private function _runChain(org_tubepress_spi_patterns_cor_Chain $chain)
     {
         $context = $chain->createContextInstance();
         $status  = $chain->execute($context, $this->getShortcodeCommands());

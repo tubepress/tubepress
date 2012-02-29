@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -34,10 +34,10 @@ class org_tubepress_impl_plugin_filters_providerresult_VideoPrepender
 {
     const LOG_PREFIX = 'Video Prepender';
 
-    public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $galleryId)
+    public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult)
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $qss = $ioc->get('org_tubepress_api_querystring_QueryStringService');
+        $qss = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
 
         $customVideoId = $qss->getCustomVideo($_GET);
 
@@ -85,7 +85,7 @@ class org_tubepress_impl_plugin_filters_providerresult_VideoPrepender
             return $providerResult;
         }
 
-        $provider = $ioc->get('org_tubepress_api_provider_Provider');
+        $provider = $ioc->get(org_tubepress_api_provider_Provider::_);
         try {
             $video = $provider->getSingleVideo($id);
             array_unshift($videos, $video);

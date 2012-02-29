@@ -1,6 +1,6 @@
 <?php
 require_once BASE . '/sys/classes/org/tubepress/impl/patterns/cor/ChainGang.class.php';
-require_once BASE . '/sys/classes/org/tubepress/api/patterns/cor/Command.class.php';
+require_once BASE . '/sys/classes/org/tubepress/spi/patterns/cor/Command.class.php';
 
 class org_tubepress_impl_patterns_cor_ChainGangTest extends TubePressUnitTest {
 
@@ -50,10 +50,11 @@ class org_tubepress_impl_patterns_cor_ChainGangTest extends TubePressUnitTest {
 
         $context = new stdClass();
 
-        $mockCommand = $ioc->get('org_tubepress_api_patterns_cor_Command');
+        $mockCommand = $ioc->get('org_tubepress_spi_patterns_cor_Command');
+
         $mockCommand->shouldReceive('execute')->once()->with($context)->andReturn(true);
 
-        $this->assertTrue($this->_sut->execute($context, array('org_tubepress_api_patterns_cor_Command')));
+        $this->assertTrue($this->_sut->execute($context, array('org_tubepress_spi_patterns_cor_Command')));
     }
 
     function testNobodyCanHandle()
@@ -62,10 +63,11 @@ class org_tubepress_impl_patterns_cor_ChainGangTest extends TubePressUnitTest {
 
         $context = new stdClass();
 
-        $mockCommand = $ioc->get('org_tubepress_api_patterns_cor_Command');
+        $mockCommand = $ioc->get('org_tubepress_spi_patterns_cor_Command');
+
         $mockCommand->shouldReceive('execute')->once()->with($context)->andReturn(false);
 
-        $this->assertFalse($this->_sut->execute($context, array('org_tubepress_api_patterns_cor_Command')));
+        $this->assertFalse($this->_sut->execute($context, array('org_tubepress_spi_patterns_cor_Command')));
     }
 }
 

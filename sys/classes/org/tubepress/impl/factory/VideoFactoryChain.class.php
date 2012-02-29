@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -23,8 +23,9 @@ class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_factory_VideoFactory',
-    'org_tubepress_api_patterns_cor_Chain',
     'org_tubepress_api_plugin_PluginManager',
+    'org_tubepress_api_provider_ProviderCalculator',
+    'org_tubepress_spi_patterns_cor_Chain',
     'org_tubepress_impl_ioc_IocContainer',
 ));
 
@@ -69,9 +70,9 @@ class org_tubepress_impl_factory_VideoFactoryChain implements org_tubepress_api_
     private function _wrappedFeedToVideoArray($feed)
     {
         $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $chain        = $ioc->get('org_tubepress_api_patterns_cor_Chain');
-        $pm           = $ioc->get('org_tubepress_api_plugin_PluginManager');
-        $pc           = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $chain        = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
+        $pm           = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+        $pc           = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
         $providerName = $pc->calculateCurrentVideoProvider();
         $context      = $chain->createContextInstance();
 

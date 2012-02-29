@@ -1,6 +1,6 @@
 <?php 
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  * 
  * This file is part of TubePress (http://tubepress.org)
  * 
@@ -43,9 +43,9 @@
     <dt class="tubepress_meta tubepress_meta_author"><?php echo ${org_tubepress_api_const_template_Variable::META_LABELS}[org_tubepress_api_const_options_names_Meta::AUTHOR]; ?></dt><dd class="tubepress_meta tubepress_meta_author"><?php echo $video->getAuthorDisplayName(); ?></dd>
     <?php endif; ?>
     
-    <?php if (${org_tubepress_api_const_template_Variable::META_SHOULD_SHOW}[org_tubepress_api_const_options_names_Meta::TAGS]): ?>
+    <?php if (${org_tubepress_api_const_template_Variable::META_SHOULD_SHOW}[org_tubepress_api_const_options_names_Meta::KEYWORDS]): ?>
     
-    <dt class="tubepress_meta tubepress_meta_keywords"><?php echo ${org_tubepress_api_const_template_Variable::META_LABELS}[org_tubepress_api_const_options_names_Meta::TAGS]; ?></dt><dd class="tubepress_meta tubepress_meta_keywords"><?php echo $raw = htmlspecialchars(implode(" ", $video->getKeywords()), ENT_QUOTES, "UTF-8"); ?></dd>
+    <dt class="tubepress_meta tubepress_meta_keywords"><?php echo ${org_tubepress_api_const_template_Variable::META_LABELS}[org_tubepress_api_const_options_names_Meta::KEYWORDS]; ?></dt><dd class="tubepress_meta tubepress_meta_keywords"><?php echo $raw = htmlspecialchars(implode(" ", $video->getKeywords()), ENT_QUOTES, "UTF-8"); ?></dd>
     <?php endif; ?>
     
     <?php if (${org_tubepress_api_const_template_Variable::META_SHOULD_SHOW}[org_tubepress_api_const_options_names_Meta::URL]): ?>
@@ -98,7 +98,7 @@
     
     <?php if (${org_tubepress_api_const_template_Variable::META_SHOULD_SHOW}[org_tubepress_api_const_options_names_Meta::DESCRIPTION]): ?>
     
-    <dt class="tubepress_meta tubepress_meta_description"><?php echo ${org_tubepress_api_const_template_Variable::META_LABELS}[org_tubepress_api_const_options_names_Meta::DESCRIPTION]; ?></dt><dd class="tubepress_meta tubepress_meta_description"><?php echo htmlspecialchars($video->getDescription(), ENT_QUOTES, "UTF-8"); ?></dd>
+    <dt class="tubepress_meta tubepress_meta_description"><?php echo ${org_tubepress_api_const_template_Variable::META_LABELS}[org_tubepress_api_const_options_names_Meta::DESCRIPTION]; ?></dt><dd class="tubepress_meta tubepress_meta_description"><?php echo $video->getDescription(); ?></dd>
     <?php endif; ?>
     
 </dl>

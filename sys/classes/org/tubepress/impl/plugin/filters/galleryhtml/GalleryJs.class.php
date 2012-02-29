@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -21,6 +21,7 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_js_TubePressGalleryInit',
     'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_const_options_names_Embedded',
@@ -30,11 +31,11 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 ));
 
 /**
- * Injects Ajax pagination code into the gallery's HTML, if necessary.
+ * Injects Ajax pagination code into the gallery's HTML.
  */
 class org_tubepress_impl_plugin_filters_galleryhtml_GalleryJs
 {
-    const LOG_PREFIX = 'Gallery JS Filter';
+    private static $_logPrefix = 'Gallery JS Filter';
 
     /**
      * Filters the HTML for the gallery.
@@ -47,59 +48,40 @@ class org_tubepress_impl_plugin_filters_galleryhtml_GalleryJs
     public function alter_galleryHtml($html, org_tubepress_api_provider_ProviderResult $providerResult, $page, $providerName)
     {
         if (!is_string($html)) {
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Filter invoked with a non-string argument :(');
+
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Filter invoked with a non-string argument :(');
             return $html;
         }
 
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $context       = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+        $filterManager = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+        $galleryId     = $context->get(org_tubepress_api_const_options_names_Advanced::GALLERY_ID);
+        $args          = $filterManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::JAVASCRIPT_GALLERYINIT, array());
+        $argCount      = count($args);
 
-        $ajaxPagination   = $context->get(org_tubepress_api_const_options_names_Display::AJAX_PAGINATION) ? 'true' : 'false';
-        $playerName       = $context->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
-        $shortcode        = rawurlencode($context->toShortcode());
-        $fluidThumbs      = $context->get(org_tubepress_api_const_options_names_Display::FLUID_THUMBS) ? 'true' : 'false';
-        $height           = $context->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT);
-        $width            = $context->get(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
-        $theme            = rawurlencode($this->_getThemeName($ioc));
-        $galleryId        = $context->get(org_tubepress_api_const_options_names_Advanced::GALLERY_ID);
+        $toReturn = $html
+            . "\n"
+            . '<script type="text/javascript">'
+            . "\n\t"
+            . org_tubepress_api_const_js_TubePressGalleryInit::NAME_CLASS
+            . '.'
+            . org_tubepress_api_const_js_TubePressGalleryInit::NAME_INIT_FUNCTION
+            . "($galleryId, {\n";
 
-        return $html . <<<EOT
-<script type="text/javascript">
-	TubePressGallery.init($galleryId, {
-		ajaxPagination: $ajaxPagination,
-		fluidThumbs: $fluidThumbs,
-		shortcode: "$shortcode",
-		playerLocationName: "$playerName",
-		embeddedHeight: "$height",
-		embeddedWidth: "$width",
-		themeCSS: "$theme"
-    });
-</script>
-EOT;
-    }
+        $x = 0;
+        foreach ($args as $name => $value) {
 
-    private function _getThemeName($ioc)
-    {
-        $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $themeHandler = $ioc->get('org_tubepress_api_theme_ThemeHandler');
-        $currentTheme = $themeHandler->calculateCurrentThemeName();
-        $fe           = $ioc->get('org_tubepress_api_filesystem_Explorer');
-        $basePath     = $fe->getTubePressBaseInstallationPath();
+            $toReturn .= "\t\t$name : $value";
 
-        if ($currentTheme === 'default') {
-            return '';
+            if (($x + 1) < $argCount) {
+
+                $toReturn .= ",\n";
+            }
+            $x++;
         }
 
-        /* get the CSS file's path on the filesystem */
-        $cssPath = $themeHandler->getCssPath($currentTheme);
+        return $toReturn . "\n\t});\n</script>";
 
-        if (!is_readable($cssPath) || strpos($cssPath, 'themes' . DIRECTORY_SEPARATOR . 'default') !== false) {
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'No theme CSS found.');
-            return '';
-        } else {
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Theme CSS found at <tt>%s</tt>', $cssPath);
-        }
-
-        return str_replace($basePath, '', $cssPath);
     }
 }

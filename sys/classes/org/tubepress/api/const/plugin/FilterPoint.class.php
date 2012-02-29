@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -28,7 +28,7 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * Modify any HTML that TubePress generates.
      *
      * To use this filter point, create a class that includes a function with the method signature defined below.
-     * Then in your plugin file (tubepress/content/plugins/yourplugin/yourplugin.php), register the class with:
+     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
      *
      *     TubePress::registerFilter('html', $yourClassInstance);
      *
@@ -45,7 +45,7 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * Modify the HTML for the embedded video player.
      *
      * To use this filter point, create a class that includes a function with the method signature defined below.
-     * Then in your plugin file (tubepress/content/plugins/yourplugin/yourplugin.php), register the class with:
+     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
      *
      *     TubePress::registerFilter('embeddedHtml', $yourClassInstance);
      *
@@ -65,7 +65,7 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * Modify the HTML for a thumbnail gallery.
      *
      * To use this filter point, create a class that includes a function with the method signature defined below.
-     * Then in your plugin file (tubepress/content/plugins/yourplugin/yourplugin.php), register the class with:
+     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
      *
      *     TubePress::registerFilter('galleryHtml', $yourClassInstance);
      *
@@ -76,7 +76,7 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * @param string                                    $videoProviderName The name of the video provider ("vimeo" or "youtube")
      *
      * @return string The (possibly modified) html. Never null.
-     * 
+     *
      * function alter_galleryHtml($html, org_tubepress_api_provider_ProviderResult $providerResult, $page, $providerName);
      */
     const HTML_GALLERY = 'galleryHtml';
@@ -90,7 +90,7 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * Modify the HTML for the TubePress "player"
      *
      * To use this filter point, create a class that includes a function with the method signature defined below.
-     * Then in your plugin file (tubepress/content/plugins/yourplugin/yourplugin.php), register the class with:
+     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
      *
      *     TubePress::registerFilter('playerHtml', $yourClassInstance);
      *
@@ -101,7 +101,7 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * @param string                              $playerName        The TubePress "player" name (e.g. "shadowbox", "normal", "youtube", etc)
      *
      * @return string The (possibly modified) player HTML. Never null.
-     * 
+     *
      * function alter_playerHtml($html, org_tubepress_api_video_Video $video, $providerName, $playerName);
      */
     const HTML_PLAYER = 'playerHtml';
@@ -115,7 +115,7 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * Modify the HTML for a single video embed.
      *
      * To use this filter point, create a class that includes a function with the method signature defined below.
-     * Then in your plugin file (tubepress/content/plugins/yourplugin/yourplugin.php), register the class with:
+     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
      *
      *     TubePress::registerFilter('singleVideoHtml', $yourClassInstance);
      *
@@ -125,11 +125,29 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * @param string                        $videoProviderName The name of the video provider ("vimeo" or "youtube")
      *
      * @return org_tubepress_api_template_Template The (possibly modified) html. Never null.
-     * 
-     * 
+     *
+     *
      * function alter_singleVideoHtml($rawHtml, org_tubepress_api_video_Video $video, $providerName);
      */
     const HTML_SINGLEVIDEO = 'singleVideoHtml';
+
+    /**
+     * Modify the name-value pairs sent to TubePressGallery.init().
+     *
+     * To use this filter point, create a class that includes a function with the method signature defined below.
+     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
+     *
+     *     TubePress::registerFilter('galleryInitJavaScript', $yourClassInstance);
+     *
+     *
+     * @param array $args An associative array (name => value) of args to send to TubePressGallery.init();
+     *
+     * @return array The (possibly modified) array. Never null.
+     *
+     *
+     * function alter_galleryInitJavaScript($args);
+     */
+    const JAVASCRIPT_GALLERYINIT = 'galleryInitJavaScript';
 
     /**
      * Filters the TubePress provider result.
@@ -142,7 +160,7 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * Modify the embedded player template.
      *
      * To use this filter point, create a class that includes a function with the method signature defined below.
-     * Then in your plugin file (tubepress/content/plugins/yourplugin/yourplugin.php), register the class with:
+     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
      *
      *     TubePress::registerFilter('embeddedTemplate', $yourClassInstance);
      *
@@ -155,7 +173,7 @@ interface org_tubepress_api_const_plugin_FilterPoint
      *
      * @return org_tubepress_api_template_Template The (possibly modified) template. Never null.
      *
-     * function alter_embeddedTemplate(org_tubepress_api_template_Template $template, $videoId, $videoProviderName, 
+     * function alter_embeddedTemplate(org_tubepress_api_template_Template $template, $videoId, $videoProviderName,
      * 								   org_tubepress_api_url_Url $dataUrl, $embeddedImplName)
      */
     const TEMPLATE_EMBEDDED = 'embeddedTemplate';
@@ -164,7 +182,7 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * Modify the template for a thumbnail gallery.
      *
      * To use this filter point, create a class that includes a function with the method signature defined below.
-     * Then in your plugin file (tubepress/content/plugins/yourplugin/yourplugin.php), register the class with:
+     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
      *
      *     TubePress::registerFilter('galleryTemplate', $yourClassInstance);
      *
@@ -175,8 +193,8 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * @param string                                    $videoProviderName The name of the video provider ("vimeo" or "youtube")
      *
      * @return org_tubepress_api_template_Template The (possibly modified) template. Never null.
-     * 
-     * 
+     *
+     *
      * function alter_galleryTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_provider_ProviderResult $providerResult, $page, $providerName);
      */
     const TEMPLATE_GALLERY = 'galleryTemplate';
@@ -185,7 +203,7 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * Modify the template for the TubePress "player"
      *
      * To use this filter point, create a class that includes a function with the method signature defined below.
-     * Then in your plugin file (tubepress/content/plugins/yourplugin/yourplugin.php), register the class with:
+     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
      *
      *     TubePress::registerFilter('playerTemplate', $yourClassInstance);
      *
@@ -205,7 +223,7 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * Modify the template for a single video embed.
      *
      * To use this filter point, create a class that includes a function with the method signature defined below.
-     * Then in your plugin file (tubepress/content/plugins/yourplugin/yourplugin.php), register the class with:
+     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
      *
      *     TubePress::registerFilter('singleVideoTemplate', $yourClassInstance);
      *
@@ -216,7 +234,7 @@ interface org_tubepress_api_const_plugin_FilterPoint
      *
      * @return org_tubepress_api_template_Template The (possibly modified) template. Never null.
      *
-     * 
+     *
      * function alter_singleVideoTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_video_Video $video, $providerName);
      */
     const TEMPLATE_SINGLEVIDEO = 'singleVideoTemplate';
@@ -225,7 +243,7 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * Modify the template for the interactive search input.
      *
      * To use this filter point, create a class that includes a function with the method signature defined below.
-     * Then in your plugin file (tubepress/content/plugins/yourplugin/yourplugin.php), register the class with:
+     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
      *
      *     TubePress::registerFilter('searchInputTemplate', $yourClassInstance);
      *
@@ -243,7 +261,7 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * Modify an invididual TubePress video (YouTube or Vimeo).
      *
      * To use this filter point, create a class that includes a function with the method signature defined below.
-     * Then in your plugin file (tubepress/content/plugins/yourplugin/yourplugin.php), register the class with:
+     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
      *
      *     TubePress::registerFilter('video', $yourClassInstance);
      *

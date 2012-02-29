@@ -25,7 +25,7 @@ class org_tubepress_impl_embedded_commands_YouTubeIframeCommandTest extends Tube
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::AUTOPLAY)->andReturn(false);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR)->andReturn('123456');
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT)->andReturn('654321');
@@ -33,7 +33,11 @@ class org_tubepress_impl_embedded_commands_YouTubeIframeCommandTest extends Tube
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::LOOP)->andReturn(false);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::SHOW_RELATED)->andReturn(true);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::FULLSCREEN)->andReturn(false);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::ENABLE_JS_API)->andReturn(false);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::HIGH_QUALITY)->andReturn(true);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('some-gallery-id');
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::AUTOHIDE)->andReturn(true);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::MODEST_BRANDING)->andReturn(false);
 
         $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
 
@@ -41,13 +45,13 @@ class org_tubepress_impl_embedded_commands_YouTubeIframeCommandTest extends Tube
         $mockChainContext->providerName = org_tubepress_api_provider_Provider::YOUTUBE;
         $mockChainContext->videoId      = 'video_id';
 
-        $theme = $ioc->get('org_tubepress_api_theme_ThemeHandler');
+        $theme = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $theme->shouldReceive('getTemplateInstance')->once()->with('embedded_flash/youtube.tpl.php')->andReturn($mockTemplate);
 
         $this->assertTrue($this->_sut->execute($mockChainContext));
 
         $this->assertEquals($mockTemplate, $mockChainContext->template);
-        $this->assertEquals('http://www.youtube.com/embed/video_id?color2=0x123456&color1=0x654321&rel=1&autoplay=0&loop=0&fs=0&showinfo=1&wmode=transparent&hd=1',
+        $this->assertEquals('http://www.youtube.com/embed/video_id?color1=654321&color2=123456&rel=1&autoplay=0&loop=0&fs=0&showinfo=1&wmode=transparent&enablejsapi=0&autohide=1&modestbranding=0&hd=1',
             $mockChainContext->dataUrl->toString());
         $this->assertEquals('youtube', $mockChainContext->embeddedImplementationName);
     }

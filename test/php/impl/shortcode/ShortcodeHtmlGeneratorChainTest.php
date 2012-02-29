@@ -14,7 +14,7 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChainTest extends TubeP
 
         $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $shortcodeParser = $ioc->get('org_tubepress_api_shortcode_ShortcodeParser');
+        $shortcodeParser = $ioc->get(org_tubepress_api_shortcode_ShortcodeParser::_);
         $shortcodeParser->shouldReceive('parse')->once()->with('shortcode');
     }
 
@@ -28,7 +28,7 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChainTest extends TubeP
         $mockChainContext = new stdClass();
         $mockChainContext->returnValue = 'chain-return-value';
 
-        $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
         $chain->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
         $chain->shouldReceive('execute')->once()->with($mockChainContext, array(
             	'org_tubepress_impl_shortcode_commands_SearchInputCommand',
@@ -48,7 +48,7 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChainTest extends TubeP
         $mockChainContext = new stdClass();
         $mockChainContext->returnValue = 'chain-return-value';
 
-        $chain = $ioc->get('org_tubepress_api_patterns_cor_Chain');
+        $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
         $chain->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
         $chain->shouldReceive('execute')->once()->with($mockChainContext, array(
         	'org_tubepress_impl_shortcode_commands_SearchInputCommand',
@@ -58,7 +58,7 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChainTest extends TubeP
             'org_tubepress_impl_shortcode_commands_ThumbGalleryCommand',
         ))->andReturn(true);
 
-        $pm    = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $pm    = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $pm->shouldReceive('hasFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_ANY)->andReturn(true);
         $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_ANY, 'chain-return-value')->andReturn('final-value');
 

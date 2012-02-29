@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  * 
  * This file is part of TubePress (http://tubepress.org)
  * 
@@ -25,6 +25,6 @@
 class org_tubepress_api_const_options_values_SafeSearchValue
 {
     const NONE     = 'none';
-    const MODERATE = 'moderate';
+    const GALLERY_SOURCERATE = 'moderate';
     const STRICT   = 'strict';    
 }

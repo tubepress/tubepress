@@ -5,7 +5,20 @@ Tags: video, youtube, gallery, videos, vimeo
 Requires at least: 2.2
 Stable tag: trunk
 
-Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and/or sidebar. Please visit http://tubepress.org for more info!
+Displays gorgeous YouTube and Vimeo videos and galleries in your blog. Includes a [dizzying set of features](http://tubepress.org/features/). Please visit http://tubepress.org for more info!
+
+**Demos**
+
+* [Simple gallery](http://tubepress.org/demo/)
+* [Feature showcase](http://tubepress.org/showcase/)
+* [Standalone PHP](http://tubepress.org/standalone_php_demo/)
+
+**Support**
+
+* [Documentation](http://tubepress.org/documentation/)
+* [Support forum](http://tubepress.org/forum/)
+* [Bugs / Feature Requests](http://code.google.com/p/tubepress/issues/list)
+* [Source code](http://github.com/ehough/tubepress)
 
 == Installation ==
 
@@ -15,6 +28,38 @@ Displays gorgeous YouTube and Vimeo galleries in your posts, pages, and/or sideb
 1. Type `[tubepress]` in a post or a page where you'd like to insert your first gallery
 
 == Changelog ==
+
+= 2.4.0 =
+* Support for sequential auto-play of videos in a gallery (TubePress Pro only) (closes issue 173)
+* Improved video sorting for multi-source galleries (closes issue 284)
+* Refactored HTTP client which improves network performance and explains "No matching videos" errors in plain English
+* Option to use HTTPS thumbnails (closes issue 426)
+* Option to use "modest" YouTube branding
+* Option to auto-hide YouTube controls after playback starts
+* Fixed Possible fatal error when handling Vimeo galleries (closes issue 471)
+* Fixed negated keyword handling in search-based galleries (closes issue 413)
+* Improved compatibility with jQuery effects (closes issue 415)
+* Fixed interactive searching results in certain situations (closes issue 448)
+* Reorganized WordPress admin page
+* Updated Portuguese translation thanks to Míriam de Paula (closes issue 425)
+* Version bump JW FLV Player to 5.9
+
+= 2.2.9 =
+* Allow for loading of user themes (regression fix)
+* Multiple shortcodes on a single page WordPress page work again (regression fix)
+* Graceful handling of "No videos found" error when using TubePress Pro in a standalone environment
+
+= 2.2.8 =
+* IE9 support (closes issue 263 )
+* Auto-upgrade in WordPress no longer wipes out custom themes (closes issue 349)
+* Vimeo galleries are no longer affected by value of arg_separator.input INI setting (closes issue 307)
+* JS and CSS now load correctly under HTTPS (closes issue 371)
+* Options page in WordPress now loads correctly on web servers with mod_security and ASL ruleset loaded (closes issue 184)
+* Improved reliability of YouTube feed result count (closes issue 379)
+* Fatal error in PHP 5.3.7 or higher (closes issue 386)
+* Improved reliability of shortcode parsing in WordPress widget
+* Ajax pagination now works correctly when using multiple video sources in a single gallery (TubePress Pro only)
+* Improved reliability of Ajax search input (TubePress Pro only)
 
 = 2.2.7 =
 * Fixed bug that prevented Shadowbox from working in certain situations

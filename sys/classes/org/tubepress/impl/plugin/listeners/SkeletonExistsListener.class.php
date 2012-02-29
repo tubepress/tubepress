@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -39,8 +39,8 @@ class org_tubepress_impl_plugin_listeners_SkeletonExistsListener
     public function on_boot()
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $ed  = $ioc->get('org_tubepress_api_environment_Detector');
-        $fse = $ioc->get('org_tubepress_api_filesystem_Explorer');
+        $ed  = $ioc->get(org_tubepress_api_environment_Detector::_);
+        $fse = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
 
         if ($ed->isWordPress()) {
         	

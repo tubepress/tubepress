@@ -7,7 +7,7 @@ class org_tubepress_api_url_UrlApiTestSuite
 	public static function suite()
 	{
 		return new TubePressUnitTestSuite(array(
-			'org_tubepress_api_url_UrlTest'
+			'org_tubepress_api_url_UrlTest',
 		));
 	}
 }

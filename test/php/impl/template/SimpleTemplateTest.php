@@ -4,8 +4,12 @@ require_once BASE . '/sys/classes/org/tubepress/impl/template/SimpleTemplate.cla
 
 class org_tubepress_impl_template_SimpleTemplateTest extends TubePressUnitTest
 {
+    private $_sut;
+    
     public function setUp()
     {
+        $this->_sut = new org_tubepress_impl_template_SimpleTemplate();
+        
         ob_start();
     }
 
@@ -19,7 +23,7 @@ class org_tubepress_impl_template_SimpleTemplateTest extends TubePressUnitTest
      */
     public function testSetPathNoSuchFile()
     {
-        new org_tubepress_impl_template_SimpleTemplate(dirname(__FILE__) . '/nosuchfile.php');
+        $this->_sut->setPath(dirname(__FILE__) . '/nosuchfile.php');
     }
 
     /**
@@ -27,15 +31,15 @@ class org_tubepress_impl_template_SimpleTemplateTest extends TubePressUnitTest
      */
     public function testMissingVariable()
     {
-        $template = new org_tubepress_impl_template_SimpleTemplate(dirname(__FILE__) . '/fake_template.php');
-        $template->toString();
+        $this->_sut->setPath(dirname(__FILE__) . '/fake_template.php');
+        $this->_sut->toString();
     }
 
     public function testSetVariable()
     {
-        $template = new org_tubepress_impl_template_SimpleTemplate(dirname(__FILE__) . '/fake_template.php');
-        $template->setVariable('world', 'World!');
-        $this->assertEquals('Hello World!', $template->toString());
+        $this->_sut->setPath(dirname(__FILE__) . '/fake_template.php');
+        $this->_sut->setVariable('world', 'World!');
+        $this->assertEquals('Hello World!', $this->_sut->toString());
     }
 
     /**
@@ -43,11 +47,11 @@ class org_tubepress_impl_template_SimpleTemplateTest extends TubePressUnitTest
     */
     public function testReset()
     {
-        $template = new org_tubepress_impl_template_SimpleTemplate(dirname(__FILE__) . '/fake_template.php');
-        $template->setVariable('world', 'World!');
-        $this->assertEquals('Hello World!', $template->toString());
+        $this->_sut->setPath(dirname(__FILE__) . '/fake_template.php');
+        $this->_sut->setVariable('world', 'World!');
+        $this->assertEquals('Hello World!', $this->_sut->toString());
 
-        $template->reset();
-        $template->toString();
+        $this->_sut->reset();
+        $this->_sut->toString();
     }
 }

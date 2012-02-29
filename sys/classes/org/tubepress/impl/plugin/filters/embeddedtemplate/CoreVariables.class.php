@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -21,6 +21,7 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_const_template_Variable',
     'org_tubepress_api_exec_ExecutionContext',
@@ -41,7 +42,7 @@ class org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariables
         global $tubepress_base_url;
 
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
         $fullscreen      = $context->get(org_tubepress_api_const_options_names_Embedded::FULLSCREEN);
         $playerColor     = org_tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($context->get(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR), '999999');

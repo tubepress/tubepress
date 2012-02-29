@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -23,7 +23,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Output',
     'org_tubepress_api_const_options_values_OutputValue',
     'org_tubepress_api_const_plugin_FilterPoint',
-    'org_tubepress_api_patterns_cor_Command',
+    'org_tubepress_spi_patterns_cor_Command',
     'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_impl_ioc_IocContainer',
@@ -32,7 +32,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 /**
  * HTML generation command that generates HTML for a single video + meta info.
  */
-class org_tubepress_impl_shortcode_commands_SearchInputCommand implements org_tubepress_api_patterns_cor_Command
+class org_tubepress_impl_shortcode_commands_SearchInputCommand implements org_tubepress_spi_patterns_cor_Command
 {
     const LOG_PREFIX = 'Search Input Command';
 
@@ -44,14 +44,14 @@ class org_tubepress_impl_shortcode_commands_SearchInputCommand implements org_tu
     public function execute($context)
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 
         if ($execContext->get(org_tubepress_api_const_options_names_Output::OUTPUT) !== org_tubepress_api_const_options_values_OutputValue::SEARCH_INPUT) {
             return false;
         }
 
-        $th       = $ioc->get('org_tubepress_api_theme_ThemeHandler');
-        $pm       = $ioc->get('org_tubepress_api_plugin_PluginManager');
+        $th       = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
+        $pm       = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $template = $th->getTemplateInstance($this->getTemplatePath());
 
         $template = $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SEARCHINPUT, $template);

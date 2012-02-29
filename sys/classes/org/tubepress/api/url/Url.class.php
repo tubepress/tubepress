@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -20,92 +20,386 @@
  */
 
 /**
- * URL class. Lifted mostly from PEAR's Net_URL2 class.
+ * URL class. http://www.ietf.org/rfc/rfc3986.txt.
+ *
+ *    foo://username:password@example.com:8042/over/there?name=ferret#nose
+ *    \_/   \______/ \______/ \______________/\_________/ \_________/ \__/
+ *     |        |        |           |             |           |        |
+ *  scheme    user      pass      authority       path        query   fragment
  */
 class org_tubepress_api_url_Url
 {
-    /**
-     * @var  string|bool
-     */
-    private $_scheme = false;
+    const _ = 'org_tubepress_api_url_Url';
 
-    /**
-     * @var  string|bool
-     */
-    private $_userinfo = false;
+    //unreserved = '\w0-9\-\.\~';
+    //pct_encoded = '%[A-Fa-f0-9]{2}';
+    //sub_delims = '!\$&\'\(\)\*\+,;=';
+    //gen_delims = ':\/\?#\[\]@';
+    //pchar = '(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)';
 
-    /**
-     * @var  string|bool
-     */
-    private $_host = false;
+    /** scheme        = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." ) */
+    private static $_regexScheme = '[a-z][a-z0-9\+\-\.]*';
 
-    /**
-     * @var  string|bool
-     */
-    private $_port = false;
+    /** userinfo      = *( unreserved / pct-encoded / sub-delims ) */
+    private static $_regexUser = '(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*)';
 
-    /**
-     * @var  string
-     */
-    private $_path = '';
+    /** http://forums.intermapper.com/viewtopic.php?t=452 */
+    private static $_regexIpv6Dartware = '\s*(?:(?:(?:[0-9A-Fa-f]{1,4}:){7}(?:[0-9A-Fa-f]{1,4}|:))|(?:(?:[0-9A-Fa-f]{1,4}:){6}(?::[0-9A-Fa-f]{1,4}|(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(?:(?:[0-9A-Fa-f]{1,4}:){5}(?:(?:(?::[0-9A-Fa-f]{1,4}){1,2})|:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(?:(?:[0-9A-Fa-f]{1,4}:){4}(?:(?:(?::[0-9A-Fa-f]{1,4}){1,3})|(?:(?::[0-9A-Fa-f]{1,4})?:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9A-Fa-f]{1,4}:){3}(?:(?:(?::[0-9A-Fa-f]{1,4}){1,4})|(?:(?::[0-9A-Fa-f]{1,4}){0,2}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9A-Fa-f]{1,4}:){2}(?:(?:(?::[0-9A-Fa-f]{1,4}){1,5})|(?:(?::[0-9A-Fa-f]{1,4}){0,3}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9A-Fa-f]{1,4}:){1}(?:(?:(?::[0-9A-Fa-f]{1,4}){1,6})|(?:(?::[0-9A-Fa-f]{1,4}){0,4}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?::(?:(?:(?::[0-9A-Fa-f]{1,4}){1,7})|(?:(?::[0-9A-Fa-f]{1,4}){0,5}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(?:%.+)?\s*';
 
-    /**
-     * @var  string|bool
-     */
-    private $_query = false;
+    /** http://stackoverflow.com/questions/5284147/validating-ipv4-addresses-with-regexp/5284410#5284410 */
+    private static $_regexIpv4 = '(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])';
 
-    /**
-     * @var  string|bool
-     */
-    private $_fragment = false;
+    /** http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address */
+    private static $_regexHostname = '(?:(?:[a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*(?:[A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])+';
+
+    private static $_regexPathSegment = '(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)+';
+
+    private static $_regexPathCharacter = '(?:[a-z0-9-._~!$&\'()*+,;=:@\/]|%[0-9a-f]{2})';
+
+    /** begins with "/" but not "//" */
+    private static $_regexPathAbsolute = '\/(?:(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)+(?:\/(?:(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)*))*)*';
+
+    /** query         = *( pchar / "/" / "?" ) */
+    private static $_regexQueryOrFragment = '(?:(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)*\/*\?*)*';
+
+    private $_scheme;
+
+    private $_user;
+
+    private $_host;
+
+    private $_port;
+
+    private $_path;
+
+    private $_encodedQuery;
+
+    private $_fragment;
 
     /**
      * Constructor.
      *
-     * @param string $url     an absolute or relative URL
+     * @param string $url An absolute URL.
      */
     public function __construct($url)
     {
-        // The regular expression is copied verbatim from RFC 3986, appendix B.
-        // The expression does not validate the URL but matches any string.
-        preg_match('!^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?!', $url, $matches);
+        /* http://www.php.net/manual/en/function.parse-url.php#90365 */
 
-        // "path" is always present (possibly as an empty string); the rest
-        // are optional.
-        $this->_scheme = !empty($matches[1]) ? $matches[2] : false;
-        $this->setAuthority(!empty($matches[3]) ? $matches[4] : false);
-        $this->_path = $matches[5];
-        $this->_query = !empty($matches[6]) ? $matches[7] : false;
-        $this->_fragment = !empty($matches[8]) ? $matches[9] : false;
+        $regex  = '(?:(' . self::$_regexScheme . ')://)?';                                  //scheme
+        $regex .= '(?:';
+        $regex .=   '(?:(' . self::$_regexUser . ')@)?';                                    //user
+        $regex .=   "(?:\[(" . self::$_regexIpv6Dartware . ")\])?";                        //IPv6
+        $regex .=   "((?:" . self::$_regexHostname . ")|(?:" . self::$_regexIpv4 . "))?";  //IPv4
+        $regex .=   '(?::(\d*))?';                                                           //port
+        $regex .=   '(' . self::$_regexPathAbsolute . ')?|(/?' . self::$_regexPathSegment . self::$_regexPathCharacter . "*)?";
+        $regex .= ")";
+        $regex .= "(?:\?(" . self::$_regexQueryOrFragment . "))?";
+        $regex .= "(?:#(" . self::$_regexQueryOrFragment . "))?";
+
+        preg_match("`$regex`i", $url, $match);
+
+        $matchLength = count($match);
+
+        if ($matchLength < 4) {
+
+            throw new Exception("Invalid URL ($url)");
+        }
+
+        switch ($matchLength) {
+
+        case 10:
+
+            $this->setFragment($match[9]);
+
+        case 9:
+
+            $this->setQuery($match[8]);
+
+        case 8:
+
+            if ($match[7]) {
+
+                $this->setPath($match[7]);
+            }
+
+        case 7:
+
+            $this->setPath($match[6] . $this->getPath());
+
+        case 6:
+
+            if ($match[5]) {
+
+                $this->setPort($match[5]);
+            }
+
+        case 5:
+
+            $this->setHost($match[3] ? $match[3] : $match[4]);
+
+        case 4:
+
+            $this->setUser($match[2]);
+
+        case 3:
+
+            $this->setScheme($match[1]);
+        }
     }
 
     /**
-     * Sets the query string to the specified variable in the query string.
+     * Set the scheme for this URL (e.g. HTTP, HTTPS, FTP, etc)
+     *
+     * @param string $scheme The scheme for this URL.
+     *
+     * @throws Exception If the provided scheme is not a string or is malformed.
+     *
+     * @return void
+     */
+    public function setScheme($scheme)
+    {
+        if (! is_string($scheme)) {
+
+            throw new Exception("Scheme must be a string ($scheme)");
+        }
+
+        $scheme = strtolower($scheme);
+
+        if (preg_match_all('/^' . self::$_regexScheme . '$/', $scheme, $matches) !== 1) {
+
+            throw new Exception('Scheme names consist of a sequence of characters beginning with a'
+               . ' letter and followed by any combination of letters, digits, plus ("+"), period (".")'
+               . ', or hyphen ("-")');
+        }
+
+        $this->_scheme = $scheme;
+    }
+
+    /**
+     * Set the user for this URL.
+     *
+     * @param string $user The user name to send.
+     *
+     * @throws Exception If the supplied username is in invalid syntax.
+     *
+     * @return void
+     */
+    public function setUser($user)
+    {
+        $regex = '/^' . self::$_regexUser . '$/';
+
+        if (preg_match_all($regex, $user, $matches) !== 1) {
+
+            throw new Exception('User must match ' . $regex);
+        }
+
+        $this->_user = $user;
+    }
+
+    /**
+     * Sets the host for this URL.
+     *
+     * @param string $host The hostname or IP address for this URL.
+     *
+     * @throws Exception If the given host is not an IP address or hostname.
+     *
+     * @return void
+     */
+    public function setHost($host)
+    {
+        if (! (self::_isHostname($host) || self::_isIpAddress($host))) {
+
+            throw new Exception("Invalid host ($host)");
+        }
+
+        $this->_host = strtolower(trim($host));
+    }
+
+    /**
+     * Sets the host name.
+     *
+     * @param string $host The hostname.
+     *
+     * @throws Exception If the supplied hostname is invalid.
+     *
+     * @return void
+     */
+    public function setHostName($host)
+    {
+        if (! self::_isHostname($host)) {
+
+            throw new Exception("Invalid host name ($host)");
+        }
+
+        $this->setHost($host);
+    }
+
+    public function setHostIpv4($host)
+    {
+        if (! self::_isIpv4Address($host)) {
+
+            throw new Exception("Invalid IPv4 ($host)");
+        }
+
+        $this->setHost($host);
+    }
+
+    public function setHostIpv6($host)
+    {
+        if (! self::_isIpv6Address($host)) {
+
+            throw new Exception("Invalid IPv6 ($host)");
+        }
+
+        $this->setHost($host);
+    }
+
+    public function setPort($port)
+    {
+        if (! is_numeric($port)) {
+
+            throw new Exception("Port must be numeric ($port)");
+        }
+
+        $port = intval($port);
+
+        if (! is_int($port) || $port < 1) {
+
+            throw new Exception("Port must be a positive integer ($port)");
+        }
+
+        $this->_port = $port;
+    }
+
+    public function setPath($path)
+    {
+        if ($path == '') {
+
+            return;
+        }
+
+        if (! is_string($path)) {
+
+            throw new Exception("Path must be a string ($path)");
+        }
+
+        if (preg_match_all('/^' . self::$_regexPathAbsolute . '$/', $path, $matches) !== 1) {
+
+            throw new Exception("Invalid path ($path)");
+        }
+
+        $this->_path = $path;
+    }
+
+    public function setQuery($query)
+    {
+        if (! is_string($query)) {
+
+            throw new Exception("Query must be a string ($query)");
+        }
+
+        if (preg_match_all('/^' . self::$_regexQueryOrFragment . '$/', $query, $matches) !== 1) {
+
+            throw new Exception("Invalid query ($query)");
+        }
+
+        $this->_encodedQuery = $query;
+    }
+
+    public function setFragment($fragment)
+    {
+        if (! is_string($fragment)) {
+
+            throw new Exception("Fragment must be a string ($fragment)");
+        }
+
+        if (preg_match_all('/^' . self::$_regexQueryOrFragment . '$/', $fragment, $matches) !== 1) {
+
+            throw new Exception("Invalid fragment ($fragment)");
+        }
+
+        $this->_fragment = $fragment;
+    }
+
+    /**
+     * Get this URL's authority.
+     * user@host:22
+     * user:pass@foo
+     * host.com:34
+     *
+     * @return string The authority of this URL.
+     */
+    public function getAuthority()
+    {
+        return ( $this->_user ? $this->_user . '@' : '') . $this->_host . (isset($this->_port) ? ':' . $this->_port : '');
+    }
+
+    public function getScheme()
+    {
+        return $this->_scheme;
+    }
+
+    public function getUser()
+    {
+        return $this->_user;
+    }
+
+    public function getHost()
+    {
+        return $this->_host;
+    }
+
+    public function getPort()
+    {
+        return $this->_port;
+    }
+
+    public function getPath()
+    {
+        return $this->_path;
+    }
+
+    public function getQuery()
+    {
+        return $this->_encodedQuery;
+    }
+
+    public function getFragment()
+    {
+        return $this->_fragment;
+    }
+
+    /**
+     * Sets the query string to the specified variable in the query stsring.
      *
      * @param array $array (name => value) array
      *
      * @return void
      */
-    public function setQueryVariables(array $array)
+    public function setQueryVariables($array)
     {
-        if (!$array) {
-            $this->_query = false;
-        } else {
-            foreach ($array as $name => $value) {
-                $name = self::urlencode($name);
+        if (! is_array($array)) {
 
-                if (is_array($value)) {
-                    foreach ($value as $k => $v) {
-                        $parts[] = sprintf('%s[%s]=%s', $name, $k, $v);
-                    }
-                } elseif (!is_null($value)) {
-                    $parts[] = $name . '=' . self::urlencode($value);
-                } else {
-                    $parts[] = $name;
-                }
-            }
-            $this->_query = implode('&', $parts);
+            throw new Exception('Must pass an array to setQueryVariables()');
         }
+
+        $parts = array();
+
+        foreach ($array as $name => $value) {
+
+            $name = urlencode($name);
+
+            if (! is_null($value)) {
+
+                $parts[] = $name . '=' . urlencode($value);
+
+            } else {
+
+                $parts[] = $name;
+            }
+        }
+
+        $this->setQuery(implode('&', $parts));
     }
 
     /**
@@ -119,7 +413,9 @@ class org_tubepress_api_url_Url
     public function setQueryVariable($name, $value)
     {
         $array = $this->getQueryVariables();
+
         $array[$name] = $value;
+
         $this->setQueryVariables($array);
     }
 
@@ -133,114 +429,10 @@ class org_tubepress_api_url_Url
     public function unsetQueryVariable($name)
     {
         $array = $this->getQueryVariables();
+
         unset($array[$name]);
+
         $this->setQueryVariables($array);
-    }
-
-    /**
-     * Returns a string representation of this URL.
-     *
-     * @return  string
-     */
-    public function toString($encodeAmpersands = false)
-    {
-        // See RFC 3986, section 5.3
-        $url = "";
-
-        if ($this->_scheme !== false) {
-            $url .= $this->_scheme . ':';
-        }
-
-        $authority = $this->getAuthority();
-        if ($authority !== false) {
-            $url .= '//' . $authority;
-        }
-        $url .= $this->_path;
-
-        if ($this->_query !== false) {
-            $url .= '?' . $this->_query;
-        }
-
-        if ($this->_fragment !== false) {
-            $url .= '#' . $this->_fragment;
-        }
-        
-        if ($encodeAmpersands) {
-            return str_replace("&", "&amp;", $url);
-        }
-
-        return $url;
-    }
-
-    /**
-     * Percent-encodes all non-alphanumeric characters except these: _ . - ~
-     * Similar to PHP's rawurlencode(), except that it also encodes ~ in PHP
-     * 5.2.x and earlier.
-     *
-     * @param  $raw the string to encode
-     * @return string
-     */
-    public static function urlencode($string)
-    {
-        $encoded = rawurlencode($string);
-
-        // This is only necessary in PHP < 5.3.
-        $encoded = str_replace('%7E', '~', $encoded);
-        return $encoded;
-    }
-
-    /**
-     * Sets the authority part, i.e. [ userinfo "@" ] host [ ":" port ]. Specify
-     * false if there is no authority.
-     *
-     * @param string|false $authority a hostname or an IP addresse, possibly
-     *                                with userinfo prefixed and port number
-     *                                appended, e.g. "foo:bar@example.org:81".
-     *
-     * @return void
-     */
-    public function setAuthority($authority)
-    {
-        $this->_userinfo = false;
-        $this->_host     = false;
-        $this->_port     = false;
-        if (preg_match('@^(([^\@]*)\@)?([^:]+)(:(\d*))?$@', $authority, $reg)) {
-            if ($reg[1]) {
-                $this->_userinfo = $reg[2];
-            }
-
-            $this->_host = $reg[3];
-            if (isset($reg[5])) {
-                $this->_port = $reg[5];
-            }
-        }
-    }
-
-    /**
-     * Returns the authority part, i.e. [ userinfo "@" ] host [ ":" port ], or
-     * false if there is no authority.
-     *
-     * @return string|bool
-     */
-    public function getAuthority()
-    {
-        if (!$this->_host) {
-            return false;
-        }
-
-        $authority = '';
-
-        if ($this->_userinfo !== false) {
-            $authority .= $this->_userinfo . '@';
-        }
-
-        $authority .= $this->_host;
-
-        if ($this->_port !== false) {
-            $authority .= ':' . $this->_port;
-        }
-
-        return $authority;
     }
 
     /**
@@ -253,42 +445,70 @@ class org_tubepress_api_url_Url
     public function getQueryVariables()
     {
         $pattern = '/[' . preg_quote('&', '/') . ']/';
-        $parts   = preg_split($pattern, $this->_query, -1, PREG_SPLIT_NO_EMPTY);
+        $parts   = preg_split($pattern, $this->_encodedQuery, -1, PREG_SPLIT_NO_EMPTY);
         $return  = array();
 
         foreach ($parts as $part) {
+
             if (strpos($part, '=') !== false) {
+
                 list($key, $value) = explode('=', $part, 2);
+
             } else {
+
                 $key   = $part;
                 $value = null;
             }
 
-            $key = rawurldecode($key);
-            $value = rawurldecode($value);
-
-            if (preg_match('#^(.*)\[([0-9a-z_-]*)\]#i', $key, $matches)) {
-
-                $key = $matches[1];
-                $idx = $matches[2];
-
-                // Ensure is an array
-                if (empty($return[$key]) || !is_array($return[$key])) {
-                    $return[$key] = array();
-                }
-
-                // Add data
-                if ($idx === '') {
-                    $return[$key][] = $value;
-                } else {
-                    $return[$key][$idx] = $value;
-                }
-            } else {
-                $return[$key] = $value;
-            }
+            $key          = urldecode($key);
+            $value        = urldecode($value);
+            $return[$key] = $value;
         }
 
         return $return;
+    }
+
+    public function toString()
+    {
+        $toReturn = $this->getScheme() . '://' . $this->getAuthority() . $this->getPath();
+
+        if ($this->getQuery()) {
+
+            $toReturn .= '?' . $this->getQuery();
+        }
+
+        if ($this->getFragment()) {
+
+            $toReturn .= '#' . $this->getFragment();
+        }
+
+        return $toReturn;
+    }
+
+    public function __toString()
+    {
+        return $this->toString();
+    }
+
+    private static function _isHostname($name)
+    {
+        return is_string($name) && preg_match_all('/^' . self::$_regexHostname . '$/', strtolower(trim($name)), $matches) === 1;
+    }
+
+    private static function _isIpv4Address($ip)
+    {
+        return is_string($ip) && preg_match_all('/^' . self::$_regexIpv4 . '$/', strtolower(trim($ip)), $matches) === 1;
+    }
+
+    private static function _isIpv6Address($ip)
+    {
+        return is_string($ip) && preg_match_all('/^[:\.0-9a-f]+$/i', strtolower(trim($ip)), $matches) === 1
+            && preg_match_all('/^' . self::$_regexIpv6Dartware . '$/', strtolower(trim($ip)), $matches) === 1;
+    }
+
+    private static function _isIpAddress($ip)
+    {
+        return self::_isIpv4Address($ip) || self::_isIpv6Address($ip);
     }
 
 }

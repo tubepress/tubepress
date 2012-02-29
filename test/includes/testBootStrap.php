@@ -3,7 +3,7 @@
 define('BASE', realpath(dirname(__FILE__) . '/../../'));
 
 /** Load up PHPUnit */
-require_once 'PHPUnit/Framework.php';
+#require_once 'PHPUnit/Framework.php';
 
 /** Load up PHPMockery */
 require_once 'Mockery/Loader.php';

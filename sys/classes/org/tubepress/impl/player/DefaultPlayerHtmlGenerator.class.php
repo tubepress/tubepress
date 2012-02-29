@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -21,7 +21,7 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_options_names_Display',
+    'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_const_template_Variable',
     'org_tubepress_api_exec_ExecutionContext',
@@ -43,11 +43,11 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGenerator implements org_tubepr
     public function getHtml(org_tubepress_api_video_Video $vid)
     {
         $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context       = $ioc->get('org_tubepress_api_exec_ExecutionContext');
-        $pm            = $ioc->get('org_tubepress_api_plugin_PluginManager');
-        $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
-        $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
-        $playerName    = $context->get(org_tubepress_api_const_options_names_Display::CURRENT_PLAYER_NAME);
+        $context       = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+        $pm            = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+        $themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
+        $pc            = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
+        $playerName    = $context->get(org_tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
         $template      = $themeHandler->getTemplateInstance("players/$playerName.tpl.php");
         $providerName  = $pc->calculateProviderOfVideoId($vid->getId());
 

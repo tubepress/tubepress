@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006 - 2011 Eric D. Hough (http://ehough.com)
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
  *
  * This file is part of TubePress (http://tubepress.org)
  *
@@ -20,13 +20,15 @@
  */
 
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_patterns_cor_Command'
+    'org_tubepress_spi_patterns_cor_Command',
+    'org_tubepress_api_provider_ProviderCalculator',
+    'org_tubepress_api_message_MessageService',
 ));
 
 /**
  * HTML generation command that generates HTML for a single video + meta info.
  */
-class org_tubepress_impl_shortcode_commands_SingleVideoCommand implements org_tubepress_api_patterns_cor_Command
+class org_tubepress_impl_shortcode_commands_SingleVideoCommand implements org_tubepress_spi_patterns_cor_Command
 {
     const LOG_PREFIX = 'Single Video Command';
 
@@ -40,7 +42,7 @@ class org_tubepress_impl_shortcode_commands_SingleVideoCommand implements org_tu
     public function execute($context)
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext = $ioc->get('org_tubepress_api_exec_ExecutionContext');
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $videoId     = $execContext->get(org_tubepress_api_const_options_names_Output::VIDEO);
 
         if ($videoId == '') {
@@ -56,11 +58,11 @@ class org_tubepress_impl_shortcode_commands_SingleVideoCommand implements org_tu
 
     private function _getSingleVideoHtml($videoId, $ioc)
     {
-        $ms            = $ioc->get('org_tubepress_api_message_MessageService');
-        $pluginManager = $ioc->get('org_tubepress_api_plugin_PluginManager');
-        $provider      = $ioc->get('org_tubepress_api_provider_Provider');
-        $themeHandler  = $ioc->get('org_tubepress_api_theme_ThemeHandler');
-        $pc            = $ioc->get('org_tubepress_api_provider_ProviderCalculator');
+        $ms            = $ioc->get(org_tubepress_api_message_MessageService::_);
+        $pluginManager = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+        $provider      = $ioc->get(org_tubepress_api_provider_Provider::_);
+        $themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
+        $pc            = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
         $template      = $themeHandler->getTemplateInstance('single_video.tpl.php');
         $providerName  = $pc->calculateProviderOfVideoId($videoId);
 
