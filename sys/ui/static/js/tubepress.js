@@ -1349,27 +1349,76 @@ var TubePressPlayerApi = (function () {
  */
 var TubePressAjaxSearch = (function () {
 	
+	/** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
+	'use strict';
+	
 	var performSearch = function (urlEncodedShortcode, urlEncodedSearchTerms, targetDomSelector, galleryId) {
 		
-		var jquery = jQuery,
-		
-			resultSelector = '#tubepress_gallery_' + galleryId,
-			callback;
-		
-		/** If the gallery is already on the page... */
-		if (jquery(resultSelector).length > 0) {
+		/** These variable declarations aide in compression. */
+		var jquery	= jQuery,
+			logger	= TubePressLogger,
 			
-			/** ... the we just want the thumbs. */
-			resultSelector = TubePressThumbs.getThumbAreaSelector(galleryId) + ' > *';
+			/** Some vars we'll need later. */
+			callback,
+			ajaxResultSelector,
+			finalAjaxContentDestination,
+		
+			/** The Ajax response results that we're interested in. */
+			gallerySelector = '#tubepress_gallery_' + galleryId,
 			
+			/** Does a gallery with this ID already exist? */
+			galleryExists = jquery(gallerySelector).length > 0,
+			
+			/** Does the target DOM exist? */
+			targetDomExists = targetDomSelector && targetDomSelector !== '' && jquery(targetDomSelector).length > 0;
+			
+		/** We have three cases to handle... */
+		if (galleryExists) {
+			
+			//CASE 1: gallery already exists
+
+			/** Stick the thumbs into the existing thumb area. */
+			finalAjaxContentDestination = TubePressThumbs.getThumbAreaSelector(galleryId);
+			
+			/** We want just the new thumbnails. */
+			ajaxResultSelector = finalAjaxContentDestination + ' > *';
+			
+			/** Announce the new thumbs */
 			callback = function () {
 				
-				//jquery(document).trigger(TubePressEvents.NEW_THUMBS_LOADED, galleryId);
-			};	
+				jquery(document).trigger(TubePressEvents.NEW_THUMBS_LOADED, galleryId);
+			};
+			
+		} else {
+			
+			if (targetDomExists) {
+				
+				//CASE 2: TARGET SELECTOR EXISTS AND GALLERY DOES NOT EXIST
+				
+				/** Stick the gallery into the target DOM. */
+				finalAjaxContentDestination = targetDomSelector;
+				
+			} else {
+				
+				//CASE 3: TARGET SELECTOR DOES NOT EXIST AND GALLERY DOES NOT EXIST
+				
+				if (logger.on()) {
+					
+					logger.log('Bad target selector and missing gallery');
+				}
+				
+				return;
+			}
+		}
+		
+		if (logger.on()) {
+			
+			logger.log('Final dest: ' + finalAjaxContentDestination);
+			logger.log('Ajax selector: ' + ajaxResultSelector);
 		}
 		
 		TubePressAjax.loadAndStyle(getTubePressBaseUrl() + '/sys/scripts/ajax/shortcode_printer.php?shortcode=' 
-				+ urlEncodedShortcode + '&tubepress_search=' + urlEncodedSearchTerms, targetDomSelector, resultSelector, null, callback);
+				+ urlEncodedShortcode + '&tubepress_search=' + urlEncodedSearchTerms, finalAjaxContentDestination, ajaxResultSelector, null, callback);
 	};
 	
 	return { performSearch : performSearch };
