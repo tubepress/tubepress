@@ -22,7 +22,9 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Display',
+    'org_tubepress_api_const_options_names_Output',
     'org_tubepress_api_const_options_values_OrderByValue',
+    'org_tubepress_api_const_options_values_GallerySourceValue',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_provider_ProviderResult',
     'org_tubepress_impl_ioc_IocContainer',
@@ -38,9 +40,10 @@ class org_tubepress_impl_plugin_filters_providerresult_PerPageSorter
 
 	public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult)
 	{
-		$ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
-		$context   = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-		$sortOrder = $context->get(org_tubepress_api_const_options_names_Feed::ORDER_BY);
+		$ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
+		$context       = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+		$sortOrder     = $context->get(org_tubepress_api_const_options_names_Feed::ORDER_BY);
+		$currentSource = $context->get(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE);
 
 		/** Grab a handle to the videos. */
 		$videos = $providerResult->getVideoArray();
@@ -67,7 +70,12 @@ class org_tubepress_impl_plugin_filters_providerresult_PerPageSorter
 
 		        org_tubepress_impl_log_Log::log(self::$_logPrefix, 'No sort available for this page (%s)', $sortOrder);
 
-		        uasort($videos, array($this, '_newest_compare'));
+                if ($currentSource !== org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST) {
+
+                    org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Sorting videos by newest first', $sortOrder);
+
+		            uasort($videos, array($this, '_newest_compare'));
+                }
 		    }
 		}
 
