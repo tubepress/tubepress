@@ -5,7 +5,9 @@ Tags: video, youtube, gallery, videos, vimeo
 Requires at least: 2.2
 Stable tag: trunk
 
-Displays gorgeous YouTube and Vimeo videos and galleries in your blog. Includes a [dizzying set of features](http://tubepress.org/features/). Please visit http://tubepress.org for more info!
+Displays gorgeous YouTube and Vimeo videos and galleries in your blog. Please visit http://tubepress.org for more info!
+
+== Description ==
 
 **Demos**
 
