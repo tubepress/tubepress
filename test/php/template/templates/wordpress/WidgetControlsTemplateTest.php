@@ -39,7 +39,7 @@ class org_tubepress_impl_template_templates_wordpress_WidgetControlsTemplateTest
 <label for="tubepress-widget-tagstring"><<widget-control-shortcode>><textarea class="widefat" rows="9" cols="12" id="tubepress-widget-tagstring" name="tubepress-widget-tagstring"><<widget-shortcode>></textarea>
 </label>
 </p>
-<input type="hidden" id="<<widget-submit-tag>>" name="<<widget-submit-tag>>" value="1" />
+<input type="hidden" id="tubepress-widget-submit" name="tubepress-widget-submit" value="1" />
 nonce
 EOT;
     }
