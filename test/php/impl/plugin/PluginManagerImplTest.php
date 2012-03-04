@@ -18,7 +18,7 @@ class PluginWithNoCallbacks
 
 class PrefixedFilter
 {
-    public function alter_executionContextSetOption_title($value)
+    public function alter_executionContextSetValue_title($value)
     {
         return "$value is cool";
     }
@@ -63,7 +63,7 @@ class org_tubepress_impl_plugin_PluginManagerImplTest extends TubePressUnitTest
 
     function testRegisterFilterWithPrefix()
     {
-        $this->_sut->registerFilter('executionContextSetOption_title', new PrefixedFilter());
+        $this->_sut->registerFilter('executionContextSetValue_title', new PrefixedFilter());
     }
 
     function testRegisterListenerNoCallback()

@@ -34,16 +34,15 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * To use this filter point, create a class that includes a function with the method signature defined below.
      * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
      *
-     *     TubePress::registerFilter('executionContextSet_<optionname>', $yourClassInstance);
+     *     TubePress::registerFilter('executionContextSetValue_<optionname>', $yourClassInstance);
      *
-     * @param string $name  The option name being set.
      * @param string $value The option value being set.
      *
      * @return unknown_type The (possibly modified) option value. May be null.
      *
-     * function executionContextSet_<optionname>($name, $value);
+     * function alter_executionContextSetValue_<optionname>($value);
      */
-    const EXEC_CONTEXT_SET_OPTION_ = 'executionContextSetOption_';
+    const EXEC_CONTEXT_SET_VALUE_ = 'executionContextSetValue_';
 
     /**
      * Modify any HTML that TubePress generates.

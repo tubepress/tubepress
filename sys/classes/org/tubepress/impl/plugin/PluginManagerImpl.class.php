@@ -41,7 +41,7 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
      */
     private static $_validFilterPointPrefixes = array(
 
-        org_tubepress_api_const_plugin_FilterPoint::EXEC_CONTEXT_SET_OPTION_
+        org_tubepress_api_const_plugin_FilterPoint::EXEC_CONTEXT_SET_VALUE_
     );
 
     /**
