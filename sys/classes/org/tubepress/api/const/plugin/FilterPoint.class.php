@@ -25,6 +25,26 @@
 interface org_tubepress_api_const_plugin_FilterPoint
 {
     /**
+     * Applied to a single option name/value pair before it is set to the execution context. This
+     * could either be from a parsed shortcode, an explicit setCustomOptions() call, or from
+     * a UI form. The actual filter point used is named 'executionContextSet_<optionname>', e.g.
+     *
+     * executionContextSetOption_ajaxPagination
+     *
+     * To use this filter point, create a class that includes a function with the method signature defined below.
+     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
+     *
+     *     TubePress::registerFilter('executionContextSetValue_<optionname>', $yourClassInstance);
+     *
+     * @param string $value The option value being set.
+     *
+     * @return unknown_type The (possibly modified) option value. May be null.
+     *
+     * function alter_executionContextSetValue_<optionname>($value);
+     */
+    const EXEC_CONTEXT_SET_VALUE_ = 'executionContextSetValue_';
+
+    /**
      * Modify any HTML that TubePress generates.
      *
      * To use this filter point, create a class that includes a function with the method signature defined below.

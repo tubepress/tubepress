@@ -43,6 +43,13 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 
 	public function testOptions()
 	{
+	    $option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Advanced::DEBUG_ON);
+	    $this->assertTrue($option->getDefaultValue() === true, $option->getName());
+	    $this->assertTrue($option->getLabel() === 'Enable debugging', $option->getName());
+	    $this->assertTrue($option->getDescription() === 'If checked, anyone will be able to view your debugging information. This is a rather small privacy risk. If you\'re not having problems with TubePress, or you\'re worried about revealing any details of your TubePress pages, feel free to disable the feature.', $option->getName());
+	    $this->assertTrue($option->isBoolean(), $option->getName());
+	    $this->assertTrue($option->isProOnly() === false, $option->getName());
+
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Cache::CACHE_CLEAN_FACTOR);
     	$this->assertTrue($option->getDefaultValue() === 20, $option->getName() . ' should have default value of 20');
     	$this->assertTrue($option->getLabel() === 'Cache cleaning factor', $option->getName());
@@ -64,12 +71,6 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$this->assertTrue($option->getDefaultValue() === 'M j, Y', $option->getName());
     	$this->assertTrue($option->getLabel() === 'Date format', $option->getName());
     	$this->assertTrue($option->getDescription() === 'Set the textual formatting of date information for videos. See <a href="http://us.php.net/date">date</a> for examples.', $option->getName());
-    	$this->assertTrue($option->isProOnly() === false, $option->getName());
-
-    	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Advanced::DEBUG_ON);
-    	$this->assertTrue($option->getDefaultValue() === true, $option->getName());
-    	$this->assertTrue($option->getLabel() === 'Enable debugging', $option->getName());
-    	$this->assertTrue($option->getDescription() === 'If checked, anyone will be able to view your debugging information. This is a rather small privacy risk. If you\'re not having problems with TubePress, or you\'re worried about revealing any details of your TubePress pages, feel free to disable the feature.', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_CURL);
