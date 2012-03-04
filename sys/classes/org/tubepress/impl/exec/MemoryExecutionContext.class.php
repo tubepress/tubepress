@@ -21,9 +21,11 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_options_OptionValidator',
     'org_tubepress_api_options_StorageManager',
+    'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_options_OptionsReference',
 ));
@@ -35,17 +37,34 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_api_exec_ExecutionContext
 {
+    /**
+     * The user's "custom" options that differ from what's in storage.
+     */
     private $_customOptions = array();
+
+    /**
+     * The actual shortcode used.
+     */
     private $_shortcode;
-    private $_tpsm;
+
+    /**
+     * The storage manager backing us.
+     */
+    private $_storageManager;
+
+    /**
+     * A handle to the plugin manager.
+     */
+    private $_pluginManager;
 
     /**
      * Constructor.
      */
     public function __construct()
     {
-        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $this->_tpsm = $ioc->get(org_tubepress_api_options_StorageManager::_);
+        $ioc                   = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_storageManager = $ioc->get(org_tubepress_api_options_StorageManager::_);
+        $this->_pluginManager  = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
     }
 
     /**
@@ -70,9 +89,11 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
     {
         /* get the value, either from the shortcode or the db */
         if (array_key_exists($optionName, $this->_customOptions)) {
+
             return $this->_customOptions[$optionName];
         }
-        return $this->_tpsm->get($optionName);
+
+        return $this->_storageManager->get($optionName);
     }
 
     /**
@@ -85,7 +106,17 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
      */
     public function set($optionName, $optionValue)
     {
-    	$sanitized = htmlspecialchars($optionValue, ENT_NOQUOTES);
+        if (is_string($optionValue)) {
+
+            $sanitized = htmlspecialchars($optionValue, ENT_NOQUOTES);
+
+        } else {
+
+            $sanitized = $optionValue;
+        }
+
+        /** Run it through the filters, if any. */
+        $sanitized = $this->_pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::EXEC_CONTEXT_SET_VALUE_ . $optionName, $optionValue);
 
         $this->_customOptions[$optionName] = $sanitized;
     }
@@ -155,6 +186,7 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
         $optPairs = array();
 
         foreach ($this->_customOptions as $name => $value) {
+
             $optPairs[] = $name . '="' . $value . '"';
         }
 
