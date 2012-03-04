@@ -30,7 +30,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_plugin_filters_execcontextsetvalue_YouTubePlaylistPlPrefixRemover
 {
-    private static $_logPrefix = 'YouTubePlaylistPlPrefixRemover';
+    private static $_logPrefix = 'YouTube Playlist PL Prefix Remover';
 
     /**
      * Filters the HTML for the gallery.

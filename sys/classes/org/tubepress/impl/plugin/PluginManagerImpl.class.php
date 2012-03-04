@@ -108,7 +108,6 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
         /** See if this filter point has any filters registered. */
         if (! $this->hasFilters($filterPoint)) {
 
-            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'No filters registered for "%s".', $filterPoint);
             return $value;
         }
 
@@ -224,7 +223,6 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
     {
         if (! $this->hasListeners($eventName)) {
 
-            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'No listeners registered for "%s".', $eventName);
             return;
         }
 
