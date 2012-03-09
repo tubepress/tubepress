@@ -24,6 +24,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_bootstrap_Bootstrapper',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_const_options_names_Advanced',
+    'org_tubepress_api_const_options_names_GallerySource',
     'org_tubepress_api_const_plugin_EventName',
     'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_environment_Detector',
@@ -54,16 +55,16 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
     {
         /* don't boot twice! */
         if (self::$_alreadyBooted) {
-        	
+
             return;
         }
 
         try {
-        	
+
             $this->_doBoot();
-            
+
         } catch (Exception $e) {
-        	
+
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception while booting: '.  $e->getMessage());
         }
     }
@@ -75,13 +76,13 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
         $envDetector = $ioc->get(org_tubepress_api_environment_Detector::_);
         $pm          = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $sm  		 = $ioc->get(org_tubepress_api_options_StorageManager::_);
-     
+
         /** Init the storage manager. */
         $sm->init();
-        
+
         /* WordPress likes to keep control of the output */
         if ($envDetector->isWordPress()) {
-        	
+
             ob_start();
         }
 
@@ -136,6 +137,10 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
     protected function loadSystemPlugins(org_tubepress_api_ioc_IocService $ioc)
     {
         $pm = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+
+        /* exec context set value filters */
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::EXEC_CONTEXT_SET_VALUE_ . org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE,
+            $ioc->get('org_tubepress_impl_plugin_filters_execcontextsetvalue_YouTubePlaylistPlPrefixRemover'));
 
         /* embedded template filters */
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_EMBEDDED, $ioc->get('org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariables'));

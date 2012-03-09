@@ -5,16 +5,16 @@ Tags: video, youtube, gallery, videos, vimeo
 Requires at least: 2.2
 Stable tag: trunk
 
-Displays gorgeous YouTube and Vimeo videos and galleries in your blog. Includes a [dizzying set of features](http://tubepress.org/features/). Please visit http://tubepress.org for more info!
+Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please visit tubepress.org for more info!
+
+== Description ==
 
 **Demos**
-
 * [Simple gallery](http://tubepress.org/demo/)
 * [Feature showcase](http://tubepress.org/showcase/)
 * [Standalone PHP](http://tubepress.org/standalone_php_demo/)
 
 **Support**
-
 * [Documentation](http://tubepress.org/documentation/)
 * [Support forum](http://tubepress.org/forum/)
 * [Bugs / Feature Requests](http://code.google.com/p/tubepress/issues/list)
@@ -29,9 +29,14 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your blog. Includes 
 
 == Changelog ==
 
+= 2.4.1 =
+* Fixes "Invalid request URI" when using YouTube galleries on PHP installations built with PCRE <= 7.0 (closes issue 475)
+* Smarter handling of YouTube playlists that begin with "PL" (closes issue 417)
+* Improved validation of options stored in database. Prevents a warning message in certain situations.
+
 = 2.4.0 =
 * Support for sequential auto-play of videos in a gallery (TubePress Pro only) (closes issue 173)
-* Improved video sorting for multi-source galleries (closes issue 284)
+* Improved video sorting for multi-source galleries (closes issue 284)  
 * Refactored HTTP client which improves network performance and explains "No matching videos" errors in plain English
 * Option to use HTTPS thumbnails (closes issue 426)
 * Option to use "modest" YouTube branding
@@ -457,3 +462,4 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your blog. Includes 
 == Screenshots ==
 
 1. Sample TubePress gallery
+2. Sample options tab

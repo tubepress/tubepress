@@ -36,7 +36,7 @@ class org_tubepress_impl_options_WordPressStorageManager extends org_tubepress_i
      */
     private static $_optionPrefix = "tubepress-";
 
-    private static $_dbVersion = 240;
+    private static $_dbVersion = 241;
 
     private static $_dbVersionOptionName = 'version';
 
@@ -49,25 +49,25 @@ class org_tubepress_impl_options_WordPressStorageManager extends org_tubepress_i
         $needToInit = false;
 
         if ($this->exists(self::$_dbVersionOptionName)) {
-        	
+
             $version = $this->get(self::$_dbVersionOptionName);
-            
-            if (! is_numeric($version) || $version < self::$_dbVersion) {
+
+            if (! is_numeric($version) || intval($version) < self::$_dbVersion) {
 
             	$needToInit = true;
             }
-            
+
         } else {
-            
+
         	$this->create(self::$_dbVersionOptionName, self::$_dbVersion);
-            
+
         	$needToInit = true;
         }
 
         if ($needToInit) {
-            
+
         	parent::init();
-            
+
         	$this->setOption(self::$_dbVersionOptionName, self::$_dbVersion);
         }
     }

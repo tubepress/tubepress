@@ -76,4 +76,31 @@ class org_tubepress_impl_util_StringUtils
         /* only allow alphanumerics, pipe, plus, quotes, and minus */
         return htmlspecialchars($result, ENT_NOQUOTES);
     }
+
+    //http://stackoverflow.com/questions/834303/php-startswith-and-endswith-functions
+    public static function startsWith($haystack, $needle)
+    {
+        if (! is_string($haystack) || ! is_string($needle)) {
+
+            return false;
+        }
+
+        $length = strlen($needle);
+
+        return (substr($haystack, 0, $length) === $needle);
+    }
+
+    //http://stackoverflow.com/questions/834303/php-startswith-and-endswith-functions
+    public static function endsWith($haystack, $needle)
+    {
+        if (! is_string($haystack) || ! is_string($needle)) {
+
+            return false;
+        }
+
+        $length = strlen($needle);
+        $start  = $length * -1; //negative
+
+        return (substr($haystack, $start) === $needle);
+    }
 }

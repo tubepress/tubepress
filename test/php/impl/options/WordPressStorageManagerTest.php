@@ -18,7 +18,11 @@ class org_tubepress_impl_options_WordPressStorageManagerTest extends TubePressUn
         $this->setupInit();
 
         $this->_sut = new org_tubepress_impl_options_WordPressStorageManager();
-        
+
+        $ioc               = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $validator = $ioc->get(org_tubepress_api_options_OptionValidator::_);
+        $validator->shouldReceive('isValid')->andReturn(true);
+
         $this->_sut->init();
     }
 
@@ -44,8 +48,10 @@ class org_tubepress_impl_options_WordPressStorageManagerTest extends TubePressUn
     {
         $ioc               = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
+        $odr       = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
+
         $odr->shouldReceive('findOneByName')->once()->with('optionname')->andReturn($this->_persist);
+
 
         $this->_sut->set('optionname', 'optionvalue');
     }

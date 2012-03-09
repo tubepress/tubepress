@@ -60,9 +60,10 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
      */
     public function init()
     {
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $odr     = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
-        $options = $odr->findAll();
+        $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $odr       = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
+        $validator = $ioc->get(org_tubepress_api_options_OptionValidator::_);
+        $options   = $odr->findAll();
 
         foreach ($options as $option) {
 
@@ -71,24 +72,29 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
                 continue;
             }
 
-            $this->_init($option->getName(), $option->getDefaultValue());
+            $this->_init($option->getName(), $option->getDefaultValue(), $validator);
         }
     }
 
     /**
      * Initializes a single option.
      *
-     * @param string $name  The option name.
-     * @param string $value The option value.
+     * @param string $name         The option name.
+     * @param string $defaultValue The option value.
      *
      * @return void
      */
-    private function _init($name, $value)
+    private function _init($name, $defaultValue, org_tubepress_api_options_OptionValidator $validator)
     {
         if (! $this->exists($name)) {
 
             $this->delete($name);
-            $this->create($name, $value);
+            $this->create($name, $defaultValue);
+        }
+
+        if (!$validator->isValid($name, $this->get($name))) {
+
+            $this->setOption($name, $defaultValue);
         }
     }
 

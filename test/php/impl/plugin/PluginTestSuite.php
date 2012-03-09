@@ -1,6 +1,7 @@
 <?php
 require_once dirname(__FILE__) . '/../../../includes/TubePressUnitTestSuite.php';
 require_once 'filters/embeddedtemplate/CoreVariablesTest.php';
+require_once 'filters/execcontextsetvalue/YouTubePlaylistPlPrefixRemoverTest.php';
 require_once 'filters/galleryinitjs/GalleryInitJsBaseParamsTest.php';
 require_once 'filters/galleryhtml/GalleryJsTest.php';
 require_once 'filters/gallerytemplate/PaginationTest.php';
@@ -27,6 +28,7 @@ class org_tubepress_impl_plugin_PluginTestSuite
 		return new TubePressUnitTestSuite(array(
             'org_tubepress_impl_plugin_PluginManagerImplTest',
 		    'org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariablesTest',
+		    'org_tubepress_impl_plugin_filters_execcontextsetvalue_YouTubePlaylistPlPrefixRemoverTest',
 		    'org_tubepress_impl_plugin_filters_galleryhtml_GalleryJsTest',
 		    'org_tubepress_impl_plugin_filters_gallerytemplate_PaginationTest',
 		    'org_tubepress_impl_plugin_filters_gallerytemplate_CoreVariablesTest',
