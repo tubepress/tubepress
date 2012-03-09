@@ -10,11 +10,13 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 == Description ==
 
 **Demos**
+
 * [Simple gallery](http://tubepress.org/demo/)
 * [Feature showcase](http://tubepress.org/showcase/)
 * [Standalone PHP](http://tubepress.org/standalone_php_demo/)
 
 **Support**
+
 * [Documentation](http://tubepress.org/documentation/)
 * [Support forum](http://tubepress.org/forum/)
 * [Bugs / Feature Requests](http://code.google.com/p/tubepress/issues/list)
