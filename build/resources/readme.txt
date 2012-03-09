@@ -5,11 +5,9 @@ Tags: video, youtube, gallery, videos, vimeo
 Requires at least: 2.2
 Stable tag: trunk
 
-Displays gorgeous YouTube and Vimeo videos and galleries in your site.
+Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please visit tubepress.org for more info!
 
 == Description ==
-
-The most powerful video integration solution for your site. Please visit [http://tubepress.org](tubepress.org) for more info!
 
 **Demos**
 * [Simple gallery](http://tubepress.org/demo/)
@@ -38,7 +36,7 @@ The most powerful video integration solution for your site. Please visit [http:/
 
 = 2.4.0 =
 * Support for sequential auto-play of videos in a gallery (TubePress Pro only) (closes issue 173)
-* Improved video sorting for multi-source galleries (closes issue 284)
+* Improved video sorting for multi-source galleries (closes issue 284)  
 * Refactored HTTP client which improves network performance and explains "No matching videos" errors in plain English
 * Option to use HTTPS thumbnails (closes issue 426)
 * Option to use "modest" YouTube branding
