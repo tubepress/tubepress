@@ -25,6 +25,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_Type',
     'org_tubepress_api_options_OptionDescriptorReference',
     'org_tubepress_impl_ioc_IocContainer',
+	'org_tubepress_impl_util_LangUtils',
 ));
 
 /**
