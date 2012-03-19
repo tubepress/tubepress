@@ -51,7 +51,7 @@ class org_tubepress_impl_options_ui_fields_DropdownField extends org_tubepress_i
 
         foreach ($map as $key => $value) {
 
-            $values[$this->getMessageService()->_($key)] = $value;
+            $values[$key] = $this->getMessageService()->_($value);
         }
 
         $template->setVariable(self::TEMPLATE_VAR_ACCEPTABLE_VALUES, $values);
