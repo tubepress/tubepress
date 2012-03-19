@@ -418,7 +418,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER);
         $option->setLabel('Restrict search results to videos from author');  //>(translatable)<
         $option->setDescription('A YouTube or Vimeo user name. Only applies to search-based galleries.');      //>(translatable)<
-        $option->setValidValueRegex('/(?:\w+)?/');
+        $option->setValidValueRegex(self::$_regexWordChars);
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Feed::VIMEO_KEY);
