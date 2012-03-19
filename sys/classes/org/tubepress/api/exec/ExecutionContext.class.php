@@ -43,7 +43,7 @@ interface org_tubepress_api_exec_ExecutionContext
      * @param string  $optionName  The name of the option
      * @param unknown $optionValue The option value
      *
-     * @return void
+     * @return True on success, otherwise a string error message.
      */
     function set($optionName, $optionValue);
 
