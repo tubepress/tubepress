@@ -25,26 +25,6 @@
 interface org_tubepress_api_const_plugin_FilterPoint
 {
     /**
-     * Applied to a single option name/value pair before it is set to the execution context. This
-     * could either be from a parsed shortcode, an explicit setCustomOptions() call, or from
-     * a UI form. The actual filter point used is named 'executionContextSet_<optionname>', e.g.
-     *
-     * executionContextSetOption_ajaxPagination
-     *
-     * To use this filter point, create a class that includes a function with the method signature defined below.
-     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
-     *
-     *     TubePress::registerFilter('executionContextSetValue_<optionname>', $yourClassInstance);
-     *
-     * @param string $value The option value being set.
-     *
-     * @return unknown_type The (possibly modified) option value. May be null.
-     *
-     * function alter_executionContextSetValue_<optionname>($value);
-     */
-    const EXEC_CONTEXT_SET_VALUE_ = 'executionContextSetValue_';
-
-    /**
      * Modify any HTML that TubePress generates.
      *
      * To use this filter point, create a class that includes a function with the method signature defined below.
@@ -168,6 +148,41 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * function alter_galleryInitJavaScript($args);
      */
     const JAVASCRIPT_GALLERYINIT = 'galleryInitJavaScript';
+
+    /**
+     * Applied to a single option name/value pair before it is set to the execution context. This is nearly
+     * always performed via shortcode parsing.
+     *
+     * To use this filter point, create a class that includes a function with the method signature defined below.
+     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
+     *
+     *     TubePress::registerFilter('optionValueSetInExecutionContext', $yourClassInstance);
+     *
+     * @param string $name  The name of the option being set.
+     * @param string $value The option value being set.
+     *
+     * @return unknown_type The (possibly modified) option value. May be null.
+     *
+     * function alter_optionValueSetInExecutionContext($name, $value);
+     */
+    const OPTION_VALUE_SET_IN_EXEC_CONTEXT = 'optionValueSetInExecutionContext';
+
+    /**
+     * Applied to a single option name/value pair before it is set to persistent storage.
+     *
+     * To use this filter point, create a class that includes a function with the method signature defined below.
+     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
+     *
+     *     TubePress::registerFilter('optionValueSetInPersistentStorage', $yourClassInstance);
+     *
+     * @param string $name  The name of the option being set.
+     * @param string $value The option value being set.
+     *
+     * @return unknown_type The (possibly modified) option value. May be null.
+     *
+     * function alter_optionValueSetInPersistentStorage($name, $value);
+     */
+    const OPTION_VALUE_SET_IN_PERSISTENT_STORAGE = 'optionValueSetInPersistentStorage';
 
     /**
      * Filters the TubePress provider result.
