@@ -33,7 +33,7 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractMultiSelectField ext
     const TEMPLATE_VAR_DESCRIPTORS = 'org_tubepress_impl_options_ui_fields_AbstractMultiSelectField__descriptors';
 
     const TEMPLATE_VAR_CURRENTVALUES = 'org_tubepress_impl_options_ui_fields_AbstractMultiSelectField__currentValues';
-    
+
     /** Array of option descriptors. */
     private $_optionDescriptors;
 
@@ -73,9 +73,17 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractMultiSelectField ext
 
     function onSubmit($postVars)
     {
+        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $sm   = $ioc->get(org_tubepress_api_options_StorageManager::_);
+
         if (! array_key_exists($this->_name, $postVars)) {
 
             /* not submitted. */
+            foreach ($this->_optionDescriptors as $optionDescriptor) {
+
+                $sm->set($optionDescriptor->getName(), false);
+            }
+
             return;
         }
 
@@ -86,9 +94,6 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractMultiSelectField ext
             /* this should never happen. */
             return;
         }
-
-        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $sm   = $ioc->get(org_tubepress_api_options_StorageManager::_);
 
         foreach ($this->_optionDescriptors as $optionDescriptor) {
 
