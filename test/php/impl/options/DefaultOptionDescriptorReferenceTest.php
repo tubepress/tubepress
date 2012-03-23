@@ -383,7 +383,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER);
     	$this->assertTrue($option->getLabel() === 'Restrict search results to videos from author', $option->getName());
     	$this->assertTrue($option->getDescription() === 'A YouTube or Vimeo user name. Only applies to search-based galleries.', $option->getName());
-    	$this->assertTrue($option->getValidValueRegex() === '/\w+/', $option->getName());
+    	$this->assertTrue($option->getValidValueRegex() === '/\w*/', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Feed::VIMEO_KEY);
