@@ -112,6 +112,6 @@ class org_tubepress_impl_querystring_SimpleQueryStringService implements org_tub
      */
     private static function _getQueryVar($getVars, $key)
     {
-        return isset($getVars[$key]) ? $getVars[$key] : '';
+        return isset($getVars[$key]) ? stripslashes($getVars[$key]) : '';
     }
 }

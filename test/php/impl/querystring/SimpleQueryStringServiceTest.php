@@ -25,7 +25,7 @@ class org_tubepress_impl_querystring_SimpleQueryStringServiceTest extends TubePr
 
     public function testSearchTerms()
     {
-        $this->assertEquals('kkjjhh', $this->_sut->getSearchTerms(array("tubepress_search" => "kkjjhh")));
+        $this->assertEquals('"this is a test" I\'m testing <this />', $this->_sut->getSearchTerms(array("tubepress_search" => "\"this is a test\" I'm testing <this />")));
     }
 
     public function testGetCustomVideo()
