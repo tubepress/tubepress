@@ -150,41 +150,6 @@ interface org_tubepress_api_const_plugin_FilterPoint
     const JAVASCRIPT_GALLERYINIT = 'galleryInitJavaScript';
 
     /**
-     * Applied to a single option name/value pair before it is set to the execution context. This is nearly
-     * always performed via shortcode parsing.
-     *
-     * To use this filter point, create a class that includes a function with the method signature defined below.
-     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
-     *
-     *     TubePress::registerFilter('optionValueSetInExecutionContext', $yourClassInstance);
-     *
-     * @param string $name  The name of the option being set.
-     * @param string $value The option value being set.
-     *
-     * @return unknown_type The (possibly modified) option value. May be null.
-     *
-     * function alter_optionValueSetInExecutionContext($name, $value);
-     */
-    const OPTION_VALUE_SET_IN_EXEC_CONTEXT = 'optionValueSetInExecutionContext';
-
-    /**
-     * Applied to a single option name/value pair before it is set to persistent storage.
-     *
-     * To use this filter point, create a class that includes a function with the method signature defined below.
-     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
-     *
-     *     TubePress::registerFilter('optionValueSetInPersistentStorage', $yourClassInstance);
-     *
-     * @param string $name  The name of the option being set.
-     * @param string $value The option value being set.
-     *
-     * @return unknown_type The (possibly modified) option value. May be null.
-     *
-     * function alter_optionValueSetInPersistentStorage($name, $value);
-     */
-    const OPTION_VALUE_SET_IN_PERSISTENT_STORAGE = 'optionValueSetInPersistentStorage';
-
-    /**
      * Filters the TubePress provider result.
      *
      * function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $providerName);
@@ -291,6 +256,23 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * function alter_searchInputTemplate(org_tubepress_api_template_Template $template);
      */
     const TEMPLATE_SEARCHINPUT = 'searchInputTemplate';
+
+    /**
+     * Applied to a single option name/value pair as it is read from external input.
+     *
+     * To use this filter point, create a class that includes a function with the method signature defined below.
+     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
+     *
+     *     TubePress::registerFilter('variableReadFromExternalInput', $yourClassInstance);
+     *
+     * @param string $name  The name of the option being set.
+     * @param string $value The option value being set.
+     *
+     * @return unknown_type The (possibly modified) option value. May be null.
+     *
+     * function alter_variableReadFromExternalInput($name, $value);
+     */
+    const VARIABLE_READ_FROM_EXTERNAL_INPUT = 'variableReadFromExternalInput';
 
     /**
      * Modify an invididual TubePress video (YouTube or Vimeo).

@@ -4,6 +4,7 @@ require_once 'HttpTransferDecoderChainTest.php';
 require_once 'HttpContentDecoderChainTest.php';
 require_once 'HttpClientChainTest.php';
 require_once 'DefaultHttpMessageParserTest.php';
+require_once 'DefaultHttpRequestParameterServiceTest.php';
 require_once 'transferencoding/ChunkedTransferDecoderTest.php';
 require_once 'contentencoding/SimulatedGzipDecompressorTest.php';
 require_once 'contentencoding/NativeDeflateRfc1951DecompressorTest.php';
@@ -27,6 +28,7 @@ class org_tubepress_impl_http_HttpTestSuite
             'org_tubepress_impl_http_HttpContentDecoderChainTest',
             'org_tubepress_impl_http_HttpClientChainTest',
             'org_tubepress_impl_http_DefaultHttpMessageParserTest',
+            'org_tubepress_impl_http_DefaultHttpRequestParameterServiceTest',
             'org_tubepress_impl_http_transferencoding_ChunkedTransferDecoderTest',
             'org_tubepress_impl_http_contentencoding_SimulatedGzipDecompressorTest',
             'org_tubepress_impl_http_contentencoding_NativeDeflateRfc1951DecompressorTest',

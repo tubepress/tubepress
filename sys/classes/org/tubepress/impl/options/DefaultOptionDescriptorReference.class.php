@@ -23,6 +23,7 @@ class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_options_OptionDescriptorReference',
     'org_tubepress_api_options_OptionDescriptor',
+    'org_tubepress_api_const_options_names_Advanced',
 	'org_tubepress_api_const_options_names_Cache',
     'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_const_options_names_Feed',
