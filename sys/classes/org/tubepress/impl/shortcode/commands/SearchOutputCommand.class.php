@@ -21,8 +21,7 @@
 
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Output',
-    'org_tubepress_spi_patterns_cor_Command',
-    'org_tubepress_impl_util_StringUtils',
+    'org_tubepress_spi_patterns_cor_Command'
 ));
 
 /**
@@ -75,22 +74,35 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_t
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'User is searching. We\'ll handle this.');
 
-        /* clean up the search terms */
-        $searchTerms = org_tubepress_impl_util_StringUtils::cleanForSearch($rawSearchTerms);
-
         /* who are we searching? */
         switch ($execContext->get(org_tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER)) {
 
         case org_tubepress_api_provider_Provider::VIMEO:
 
             $execContext->set(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE, org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_SEARCH);
-            $execContext->set(org_tubepress_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE, $searchTerms);
+
+            $result = $execContext->set(org_tubepress_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE, $rawSearchTerms);
+
+            if ($result !== true) {
+
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Unable to set search terms, so we will not handle request');
+                return false;
+            }
+
             break;
 
         default:
 
             $execContext->set(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE, org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH);
-            $execContext->set(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE, $searchTerms);
+
+            $result = $execContext->set(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE, $rawSearchTerms);
+
+            if ($result !== true) {
+
+                org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Unable to set search terms, so we will not handle request');
+                return false;
+            }
+
             break;
         }
 
@@ -99,5 +111,4 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_t
             'org_tubepress_impl_shortcode_commands_ThumbGalleryCommand'
         ));
     }
-
 }

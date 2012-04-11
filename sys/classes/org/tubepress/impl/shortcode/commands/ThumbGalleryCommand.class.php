@@ -48,8 +48,15 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_t
         $galleryId   = $execContext->get(org_tubepress_api_const_options_names_Advanced::GALLERY_ID);
 
         if ($galleryId == '') {
+
             $galleryId = mt_rand();
-            $execContext->set(org_tubepress_api_const_options_names_Advanced::GALLERY_ID, $galleryId);
+
+            $result = $execContext->set(org_tubepress_api_const_options_names_Advanced::GALLERY_ID, $galleryId);
+
+            if ($result !== true) {
+
+                return false;
+            }
         }
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Starting to build thumbnail gallery %s', $galleryId);

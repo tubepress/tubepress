@@ -66,7 +66,14 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommand implements org_tub
         }
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
-        $execContext->set(org_tubepress_api_const_options_names_Output::VIDEO, $videoId);
+
+        $result = $execContext->set(org_tubepress_api_const_options_names_Output::VIDEO, $videoId);
+
+        if ($result !== true) {
+
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Could not verify video ID.');
+            return false;
+        }
 
         /* display the results as a thumb gallery */
         $ioc->get(org_tubepress_spi_patterns_cor_Chain::_)->execute($context, array(
