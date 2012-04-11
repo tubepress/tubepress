@@ -108,25 +108,40 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
      */
     public function set($optionName, $optionValue)
     {
-        $ioc               = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $odr               = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
-        $descriptor        = $odr->findOneByName($optionName);
+        $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $odr        = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
+        $validator  = $ioc->get(org_tubepress_api_options_OptionValidator::_);
+        $descriptor = $odr->findOneByName($optionName);
+        $logPrefix  = 'Abstract storage manager';
 
+        /** Do we even know about this option? */
         if ($descriptor === null) {
 
-            org_tubepress_impl_log_Log::log('Abstract storage manager', 'Could not find descriptor for option with name %s', $name);
+            org_tubepress_impl_log_Log::log($logPrefix, 'Could not find descriptor for option with name %s', $name);
             return;
         }
 
+        /** Ignore any options that aren't meant to be persisted. */
         if (! $descriptor->isMeantToBePersisted()) {
 
             return;
         }
 
-        /** Just in case. */
-        $sanitized = htmlspecialchars($optionValue, ENT_NOQUOTES);
+        /** OK, let's see if it's valid. */
+        if ($validator->isValid($optionName, $optionValue)) {
 
-        $this->setOption($optionName, $sanitized);
+            org_tubepress_impl_log_Log::log($logPrefix, 'Accepted valid value: %s = %s', $optionName, $optionValue);
+
+            $this->setOption($optionName, $optionValue);
+
+            return true;
+        }
+
+        $problemMessage = $validator->getProblemMessage($optionName, $optionValue);
+
+        org_tubepress_impl_log_Log::log($logPrefix, 'Ignoring invalid value for "%s" (%s)', $optionName, $optionValue);
+
+        return $problemMessage;
     }
 
     /**

@@ -59,7 +59,7 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBase
 	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
 	    $sm = $ioc->get(org_tubepress_api_options_StorageManager::_);
-	    $sm->shouldReceive('set')->once()->with('name', true);
+	    $sm->shouldReceive('set')->once()->with('name', true)->andReturn(true);
 
 	    $this->assertNull($this->_sut->onSubmit($postVars));
 	}
@@ -76,7 +76,7 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBase
 	    $validator->shouldReceive('isValid')->once()->with('name', 'some-value')->andReturn(true);
 
 	    $sm = $ioc->get(org_tubepress_api_options_StorageManager::_);
-	    $sm->shouldReceive('set')->once()->with('name', 'some-value');
+	    $sm->shouldReceive('set')->once()->with('name', 'some-value')->andReturn(true);
 
 	    $this->assertNull($this->_sut->onSubmit($postVars));
 	}

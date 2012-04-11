@@ -33,7 +33,7 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractMultiSelectField ext
     const TEMPLATE_VAR_DESCRIPTORS = 'org_tubepress_impl_options_ui_fields_AbstractMultiSelectField__descriptors';
 
     const TEMPLATE_VAR_CURRENTVALUES = 'org_tubepress_impl_options_ui_fields_AbstractMultiSelectField__currentValues';
-    
+
     /** Array of option descriptors. */
     private $_optionDescriptors;
 
@@ -71,12 +71,19 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractMultiSelectField ext
         $this->_name              = $name;
     }
 
+    /**
+     * Handles form submission.
+     *
+     * @param array $postVars The $_POST array.
+     *
+     * @return An array of failure messages if there's a problem, otherwise null.
+     */
     function onSubmit($postVars)
     {
         if (! array_key_exists($this->_name, $postVars)) {
 
             /* not submitted. */
-            return;
+            return null;
         }
 
         $vals = $postVars[$this->_name];
@@ -84,16 +91,29 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractMultiSelectField ext
         if (! is_array($vals)) {
 
             /* this should never happen. */
-            return;
+            return null;
         }
 
-        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $sm   = $ioc->get(org_tubepress_api_options_StorageManager::_);
+        $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $sm     = $ioc->get(org_tubepress_api_options_StorageManager::_);
+        $errors = array();
 
         foreach ($this->_optionDescriptors as $optionDescriptor) {
 
-            $sm->set($optionDescriptor->getName(), in_array($optionDescriptor->getName(), $vals));
+            $result = $sm->set($optionDescriptor->getName(), in_array($optionDescriptor->getName(), $vals));
+
+            if ($result !== true) {
+
+                $errors[] = $result;
+            }
         }
+
+        if (count($errors) === 0) {
+
+            return null;
+        }
+
+        return $errors;
     }
 
     function getHtml()
