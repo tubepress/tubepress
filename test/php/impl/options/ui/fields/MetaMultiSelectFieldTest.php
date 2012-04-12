@@ -43,8 +43,11 @@ class org_tubepress_impl_options_ui_fields_MetaMultiSelectFieldTest extends org_
 
     public function testOnSubmit()
     {
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $sm  = $ioc->get(org_tubepress_api_options_StorageManager::_);
+        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $sm   = $ioc->get(org_tubepress_api_options_StorageManager::_);
+        $hrps = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+
+
 
         $odNames      = $this->_getOdNames();
         $indexOfFalse = array_rand($odNames);
@@ -61,6 +64,9 @@ class org_tubepress_impl_options_ui_fields_MetaMultiSelectFieldTest extends org_
                 $postVars[] = $odNames[$x];
             }
         }
+
+        $hrps->shouldReceive('hasParam')->once()->with('metadropdown')->andReturn(true);
+        $hrps->shouldReceive('getParamValue')->once()->with('metadropdown')->andReturn($postVars);
 
         $this->_sut->onSubmit(array('metadropdown' => $postVars));
     }

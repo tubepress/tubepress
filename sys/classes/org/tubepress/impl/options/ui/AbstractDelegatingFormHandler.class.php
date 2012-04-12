@@ -32,20 +32,13 @@ abstract class org_tubepress_impl_options_ui_AbstractDelegatingFormHandler imple
     /**
     * Updates options from a keyed array
     *
-    * @param array $postVars The POST variables
-    *
     * @return unknown Null if there was no problem handling the submission, otherwise an array
     * of string failure messages.
     */
-    public function onSubmit($postVars)
+    public function onSubmit()
     {
-        if (! is_array($postVars)) {
-
-            throw new Exception('POST variables must be an array');
-        }
-
         $formHandlerInstances = $this->getDelegateFormHandlers();
-        
+
         if (! is_array($formHandlerInstances)) {
 
             throw new Exception('Must pass an array of form handler instances');
@@ -56,7 +49,7 @@ abstract class org_tubepress_impl_options_ui_AbstractDelegatingFormHandler imple
 
         foreach ($formHandlerInstances as $formHandlerInstance) {
 
-            $result = $formHandlerInstance->onSubmit($postVars);
+            $result = $formHandlerInstance->onSubmit();
 
             if (is_array($result) && ! empty($result)) {
 

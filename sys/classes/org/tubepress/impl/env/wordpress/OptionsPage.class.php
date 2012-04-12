@@ -22,6 +22,7 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_filesystem_Explorer',
+    'org_tubepress_api_http_HttpRequestParameterService',
     'org_tubepress_api_options_ui_FormHandler',
     'org_tubepress_api_options_StorageManager'
 ));
@@ -49,11 +50,11 @@ class org_tubepress_impl_env_wordpress_OptionsPage
         wp_register_style('jquery-ui-flick', plugins_url("$baseName/sys/ui/static/css/jquery-ui-flick/jquery-ui-1.8.16.custom.css", $baseName));
         wp_register_style('tubepress-options-page', plugins_url("$baseName/sys/ui/static/css/wordpress-options-page.css", $baseName));
         wp_register_style('jquery-ui-multiselect-widget', plugins_url("$baseName/sys/ui/static/css/jquery-ui-multiselect-widget/jquery.multiselect.css", $baseName));
-        
+
         wp_enqueue_style('jquery-ui-flick');
         wp_enqueue_style('tubepress-options-page');
         wp_enqueue_style('jquery-ui-multiselect-widget');
-        
+
         wp_register_script('jscolor-tubepress', plugins_url("$baseName/sys/ui/static/js/jscolor/jscolor.js", $baseName));
         wp_register_script('jquery-ui-tubepress', plugins_url("$baseName/sys/ui/static/js/jquery-ui/jquery-ui-1.8.16.custom.min.js", $baseName));
         wp_register_script('jquery-ui-multiselect-widget', plugins_url("$baseName/sys/ui/static/js/jquery-ui-multiselect-widget/jquery.multiselect.min.js", $baseName));
@@ -89,15 +90,16 @@ class org_tubepress_impl_env_wordpress_OptionsPage
 
         /* get the form handler */
         $optionsForm = $iocContainer->get(org_tubepress_api_options_ui_FormHandler::_);
+        $hrps        = $iocContainer->get(org_tubepress_api_http_HttpRequestParameterService::_);
 
         /* are we updating? */
-        if (isset($_POST['tubepress_save'])) {
+        if ($hrps->hasParam('tubepress_save')) {
 
-        	self::_verifyNonce($_POST);
-        	
+        	self::_verifyNonce();
+
             try {
 
-                $result = $optionsForm->onSubmit($_POST);
+                $result = $optionsForm->onSubmit();
 
                 if ($result === null) {
 
@@ -117,11 +119,11 @@ class org_tubepress_impl_env_wordpress_OptionsPage
         print $optionsForm->getHtml();
     }
 
-    private static function _verifyNonce($postVars) {
-    	
+    private static function _verifyNonce() {
+
     	check_admin_referer('tubepress-save', 'tubepress-nonce');
     }
-    
+
     private static function _error($message)
     {
         if (is_array($message)) {

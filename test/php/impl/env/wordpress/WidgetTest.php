@@ -32,6 +32,9 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest {
         $tplBuilder   = $iocContainer->get(org_tubepress_api_template_TemplateBuilder::_);
         $tplBuilder->shouldReceive('getNewTemplateInstance')->once()->with('fakepath/sys/ui/templates/wordpress/widget_controls.tpl.php')->andReturn($mockTemplate);
 
+        $hrps         = $iocContainer->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $hrps->shouldReceive('hasParam')->once()->with('tubepress-widget-submit')->andReturn(false);
+
         ob_start();
         org_tubepress_impl_env_wordpress_Widget::printControlPanel();
         $contents = ob_get_contents();

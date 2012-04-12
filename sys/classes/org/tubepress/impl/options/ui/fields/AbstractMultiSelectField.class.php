@@ -21,6 +21,7 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php');
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_http_HttpRequestParameterService',
     'org_tubepress_spi_options_ui_Field',
     'org_tubepress_impl_options_ui_fields_AbstractField',
 ));
@@ -74,19 +75,20 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractMultiSelectField ext
     /**
      * Handles form submission.
      *
-     * @param array $postVars The $_POST array.
-     *
      * @return An array of failure messages if there's a problem, otherwise null.
      */
-    function onSubmit($postVars)
+    function onSubmit()
     {
-        if (! array_key_exists($this->_name, $postVars)) {
+        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $hrps = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+
+        if (! $hrps->hasParam($this->_name)) {
 
             /* not submitted. */
             return null;
         }
 
-        $vals = $postVars[$this->_name];
+        $vals = $hrps->getParamValue($this->_name);
 
         if (! is_array($vals)) {
 
