@@ -1,19 +1,19 @@
 <?php
 /**
  * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
- * 
+ *
  * This file is part of TubePress (http://tubepress.org)
- * 
+ *
  * TubePress is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * TubePress is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -91,7 +91,7 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommand extends org_tube
     {
         return $this->_relativeQuery($index, 'atom:author/atom:name')->item(0)->nodeValue;
     }
-    
+
     protected function _getCategory($index)
     {
         return trim($this->_relativeQuery($index, 'media:group/media:category')->item(0)->getAttribute('label'));
@@ -136,7 +136,7 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommand extends org_tube
 
         return explode(", ", $raw);
     }
-    
+
     protected function _getRawLikeCount($index)
     {
         return '';
@@ -164,36 +164,40 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommand extends org_tube
     {
         $thumbs = $this->_relativeQuery($index, 'media:group/media:thumbnail');
         $result = array();
-        
+
         foreach ($thumbs as $thumb) {
-            if (strpos($thumb->getAttribute('url'), 'hqdefault') === false) {
-                $result[] = $thumb->getAttribute('url');
+
+            $url = $thumb->getAttribute('url');
+
+            if (strpos($url, 'hqdefault') === false && strpos($url, 'mqdefault') === false) {
+
+                $result[] = $url;
             }
         }
 
         return $result;
     }
-    
+
     protected function _getTimeLastUpdatedInUnixTime($index)
     {
         return '';
     }
-    
+
     protected function _getTimePublishedInUnixTime($index)
     {
-        $publishedNode = $this->_relativeQuery($index, 'atom:published');
+        $publishedNode = $this->_relativeQuery($index, 'media:group/yt:uploaded');
         if ($publishedNode->length == 0) {
             return '';
         }
         $rawTime = $publishedNode->item(0)->nodeValue;
         return org_tubepress_impl_util_TimeUtils::rfc3339toUnixTime($rawTime);
     }
-    
+
     protected function _getTitle($index)
     {
         return $this->_relativeQuery($index, 'atom:title')->item(0)->nodeValue;
     }
-    
+
     protected function _getRawViewCount($index)
     {
         $stats = $this->_relativeQuery($index, 'yt:statistics')->item(0);
@@ -202,12 +206,12 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommand extends org_tube
         }
         return '';
     }
-    
+
     protected function _relativeQuery($index, $query)
     {
         return $this->_xpath->query('//atom:entry[' . ($index + 1) . "]/$query");
     }
-    
+
     private function _createXPath(DOMDocument $doc)
     {
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Building xpath to parse XML');

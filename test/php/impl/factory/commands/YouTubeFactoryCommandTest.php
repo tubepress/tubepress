@@ -23,7 +23,7 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommandTest extends Tube
 
         $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Meta::DESC_LIMIT)->andReturn(0);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS)->andReturn(false);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS)->andReturn(true);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Meta::RELATIVE_DATES)->andReturn(false);
         $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Meta::DATEFORMAT)->andReturn('M j, Y');
 
@@ -33,22 +33,28 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommandTest extends Tube
         $this->assertTrue(is_array($result));
         $this->assertEquals(1, count($result));
         $video = $result[0];
-        $this->assertEquals('TheAkcitycouncil', $video->getAuthorDisplayName());
-        $this->assertEquals('TheAkcitycouncil', $video->getAuthorUid());
-        $this->assertEquals('People & Blogs', $video->getCategory());
+        $this->assertEquals('3hough', $video->getAuthorDisplayName());
+        $this->assertEquals('3hough', $video->getAuthorUid());
+        $this->assertEquals('Music', $video->getCategory());
         $this->assertEquals('N/A', $video->getCommentCount());
-        $this->assertEquals("Information about shared spaces proposals in the Auckland CBD area.", $video->getDescription());
-        $this->assertEquals('4:04', $video->getDuration());
-        $this->assertEquals('http://www.youtube.com/watch?v=BRKWi5beywQ&feature=youtube_gdata', $video->getHomeUrl());
-        $this->assertEquals('BRKWi5beywQ', $video->getId());
-        $this->assertEquals(array('Shared', 'Spaces', 'Upload'), $video->getKeywords());
+        $this->assertEquals(<<<EOT
+A mashup song by ComaR, of The Jackson 5's "I Want You Back" and Justice's "D.A.N.C.E." I just made the video.
+
+-FAIR USE-
+"Copyright Disclaimer Under Section 107 of the Copyright Act 1976, allowance is made for "fair use" for purposes such as criticism, comment, news reporting, teaching, scholarship, and research. Fair use is a use permitted by copyright statute that might otherwise be infringing. Non-profit, educational or personal use tips the balance in favor of fair use."
+EOT
+        , $video->getDescription());
+        $this->assertEquals('2:43', $video->getDuration());
+        $this->assertEquals('http://www.youtube.com/watch?v=zfaMzjDAGuA&feature=youtube_gdata', $video->getHomeUrl());
+        $this->assertEquals('zfaMzjDAGuA', $video->getId());
+        $this->assertEquals(array('Jackson 5', 'Justice', 'Michael Jackson'), $video->getKeywords());
         $this->assertEquals('N/A', $video->getLikesCount());
-        $this->assertEquals('3.83', $video->getRatingAverage());
-        $this->assertEquals('6', $video->getRatingCount());
-        $this->assertTrue(preg_match('/http:\/\/i\.ytimg\.com\/vi\/BRKWi5beywQ\/[0123]\.jpg/', $video->getThumbnailUrl()) === 1, $video->getThumbnailUrl());
+        $this->assertEquals('5.00', $video->getRatingAverage());
+        $this->assertEquals('30', $video->getRatingCount());
+        $this->assertTrue(preg_match('/http:\/\/i\.ytimg\.com\/vi\/zfaMzjDAGuA\/(?:[0123]|default)\.jpg/', $video->getThumbnailUrl()) === 1, $video->getThumbnailUrl());
         $this->assertEquals('', $video->getTimeLastUpdated());
-        $this->assertEquals('Aug 17, 2009', $video->getTimePublished());
-        $this->assertEquals('1,775', $video->getViewCount());
+        $this->assertEquals('Sep 17, 2009', $video->getTimePublished());
+        $this->assertEquals('10,778', $video->getViewCount());
     }
 
     function testCanHandleMultiple()
