@@ -21,10 +21,12 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_options_OptionValidator',
     'org_tubepress_api_options_StorageManager',
     'org_tubepress_api_options_OptionValidator',
+    'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_log_Log',
     'org_tubepress_impl_options_OptionsReference',
@@ -60,6 +62,11 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
     private $_validationService;
 
     /**
+     * A handle to the plugin manager.
+     */
+    private $_pluginManager;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -67,6 +74,7 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
         $ioc                      = org_tubepress_impl_ioc_IocContainer::getInstance();
         $this->_storageManager    = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $this->_validationService = $ioc->get(org_tubepress_api_options_OptionValidator::_);
+        $this->_pluginManager     = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
     }
 
     /**
@@ -108,16 +116,19 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
      */
     public function set($optionName, $optionValue)
     {
-        if ($this->_validationService->isValid($optionName, $optionValue)) {
+        /** First run it through the filters. */
+        $filtered = $this->_pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION, $optionName, $optionValue);
 
-            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Accepted valid value: %s = %s', $optionName, $optionValue);
+        if ($this->_validationService->isValid($optionName, $filtered)) {
 
-            $this->_customOptions[$optionName] = $optionValue;
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Accepted valid value: %s = %s', $optionName, $filtered);
+
+            $this->_customOptions[$optionName] = $filtered;
 
             return true;
         }
 
-        $problemMessage = $this->_validationService->getProblemMessage($optionName, $optionValue);
+        $problemMessage = $this->_validationService->getProblemMessage($optionName, $filtered);
 
         org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Ignoring invalid value for "%s" (%s)', $optionName, $problemMessage);
 

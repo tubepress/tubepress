@@ -18,6 +18,8 @@ class org_tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTe
 
     private $_validationService;
 
+    private $_pluginManager;
+
     public function setup()
     {
         parent::setUp();
@@ -26,25 +28,28 @@ class org_tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTe
 
         $ioc                      = org_tubepress_impl_ioc_IocContainer::getInstance();
         $this->_validationService = $ioc->get(org_tubepress_api_options_OptionValidator::_);
+        $this->_pluginManager = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
     }
 
     public function testSetGet()
     {
-        $this->_setupValidationServiceToPass(org_tubepress_api_const_options_names_Thumbs::THEME, 'crazytheme');
+        $this->_setupFilters(org_tubepress_api_const_options_names_Thumbs::THEME, 'crazytheme');
+        $this->_setupValidationServiceToPass(org_tubepress_api_const_options_names_Thumbs::THEME, '<<crazytheme>>');
 
         $result = $this->_sut->set(org_tubepress_api_const_options_names_Thumbs::THEME, 'crazytheme');
 
         $this->assertTrue($result === true);
-        $this->assertEquals('crazytheme', $this->_sut->get(org_tubepress_api_const_options_names_Thumbs::THEME));
+        $this->assertEquals('<<crazytheme>>', $this->_sut->get(org_tubepress_api_const_options_names_Thumbs::THEME));
     }
 
     public function testSetWithInvalidValue()
     {
-        $this->_setupValidationServiceToFail(org_tubepress_api_const_options_names_Thumbs::THEME, 'crazytheme');
+        $this->_setupFilters(org_tubepress_api_const_options_names_Thumbs::THEME, 'crazytheme');
+        $this->_setupValidationServiceToFail(org_tubepress_api_const_options_names_Thumbs::THEME, '<<crazytheme>>');
 
         $result = $this->_sut->set(org_tubepress_api_const_options_names_Thumbs::THEME, 'crazytheme');
 
-        $this->assertTrue($result === 'crazytheme was a bad value', var_export($result, true));
+        $this->assertTrue($result === '<<crazytheme>> was a bad value', var_export($result, true));
     }
 
     public function testToShortcode()
@@ -59,22 +64,25 @@ class org_tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTe
         $sm  = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $sm->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('trigger');
 
-        $this->_setupValidationServiceToPass(org_tubepress_api_const_options_names_Thumbs::THEME, 'some "option" with double quotes');
-        $this->_setupValidationServiceToPass(org_tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION, 'true');
+        $this->_setupFilters(org_tubepress_api_const_options_names_Thumbs::THEME, 'some "option" with double quotes');
+        $this->_setupFilters(org_tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION, 'true');
+        $this->_setupValidationServiceToPass(org_tubepress_api_const_options_names_Thumbs::THEME, '<<some "option" with double quotes>>');
+        $this->_setupValidationServiceToPass(org_tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION, '<<true>>');
 
         $this->_sut->setCustomOptions($customOptions);
 
-        $this->assertEquals('[trigger theme="some \"option\" with double quotes", ajaxPagination="true"]', $this->_sut->toShortcode());
+        $this->assertEquals('[trigger theme="<<some \"option\" with double quotes>>", ajaxPagination="<<true>>"]', $this->_sut->toShortcode());
     }
 
     public function testReset()
     {
-        $this->_setupValidationServiceToPass(org_tubepress_api_const_options_names_Thumbs::THEME, 'fakeoptionvalue');
+        $this->_setupFilters(org_tubepress_api_const_options_names_Thumbs::THEME, 'fakeoptionvalue');
+        $this->_setupValidationServiceToPass(org_tubepress_api_const_options_names_Thumbs::THEME, '<<fakeoptionvalue>>');
 
         $customOptions = array(org_tubepress_api_const_options_names_Thumbs::THEME => 'fakeoptionvalue');
         $this->_sut->setCustomOptions($customOptions);
 
-        $this->assertEquals(array('theme' => 'fakeoptionvalue'), $this->_sut->getCustomOptions());
+        $this->assertEquals(array('theme' => '<<fakeoptionvalue>>'), $this->_sut->getCustomOptions());
 
         $this->_sut->reset();
 
@@ -94,7 +102,8 @@ class org_tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTe
 
     public function testGetCustomOption()
     {
-        $this->_setupValidationServiceToPass(org_tubepress_api_const_options_names_Thumbs::THEME, 'fakeoptionvalue');
+        $this->_setupFilters(org_tubepress_api_const_options_names_Thumbs::THEME, 'fakeoptionvalue');
+        $this->_setupValidationServiceToPass(org_tubepress_api_const_options_names_Thumbs::THEME, '<<fakeoptionvalue>>');
 
         $customOptions = array(org_tubepress_api_const_options_names_Thumbs::THEME => 'fakeoptionvalue');
 
@@ -102,13 +111,14 @@ class org_tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTe
 
         $this->assertTrue(is_array($result));
         $this->assertTrue(count($result) === 0);
-        $this->assertEquals('fakeoptionvalue', $this->_sut->get(org_tubepress_api_const_options_names_Thumbs::THEME));
-        $this->assertEquals(1, sizeof(array_intersect(array('theme' => 'fakeoptionvalue'), $this->_sut->getCustomOptions())));
+        $this->assertEquals('<<fakeoptionvalue>>', $this->_sut->get(org_tubepress_api_const_options_names_Thumbs::THEME));
+        $this->assertEquals(1, sizeof(array_intersect(array('theme' => '<<fakeoptionvalue>>'), $this->_sut->getCustomOptions())));
     }
 
     public function testGetCustomOptionWithBadValue()
     {
-        $this->_setupValidationServiceToFail(org_tubepress_api_const_options_names_Thumbs::THEME, 'fakeoptionvalue');
+        $this->_setupFilters(org_tubepress_api_const_options_names_Thumbs::THEME, 'fakeoptionvalue');
+        $this->_setupValidationServiceToFail(org_tubepress_api_const_options_names_Thumbs::THEME, '<<fakeoptionvalue>>');
 
         $customOptions = array(org_tubepress_api_const_options_names_Thumbs::THEME => 'fakeoptionvalue');
 
@@ -116,7 +126,7 @@ class org_tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTe
 
         $this->assertTrue(is_array($result));
         $this->assertTrue(count($result) === 1);
-        $this->assertTrue($result[0] === 'fakeoptionvalue was a bad value');
+        $this->assertTrue($result[0] === '<<fakeoptionvalue>> was a bad value');
     }
 
     public function testGetCustomOptionFallback()
@@ -144,6 +154,14 @@ class org_tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTe
     private function _setupValidationServiceToPass($name, $value)
     {
         $this->_validationService->shouldReceive('isValid')->once()->with($name, $value)->andReturn(true);
+    }
+
+    private function _setupFilters($name, $value)
+    {
+        $this->_pluginManager->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION, $name, $value)
+            ->andReturnUsing(function ($a, $b, $c) {
+            return "<<$c>>";
+        });
     }
 }
 

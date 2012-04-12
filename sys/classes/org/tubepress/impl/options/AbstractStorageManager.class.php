@@ -22,10 +22,12 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_Type',
+    'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_options_OptionDescriptor',
     'org_tubepress_api_options_OptionDescriptorReference',
     'org_tubepress_api_options_OptionValidator',
     'org_tubepress_api_options_StorageManager',
+    'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_impl_ioc_IocContainer',
 ));
 
@@ -108,11 +110,12 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
      */
     public function set($optionName, $optionValue)
     {
-        $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $odr        = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
-        $validator  = $ioc->get(org_tubepress_api_options_OptionValidator::_);
-        $descriptor = $odr->findOneByName($optionName);
-        $logPrefix  = 'Abstract storage manager';
+        $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $odr           = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
+        $validator     = $ioc->get(org_tubepress_api_options_OptionValidator::_);
+        $pluginManager = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+        $descriptor    = $odr->findOneByName($optionName);
+        $logPrefix     = 'Abstract storage manager';
 
         /** Do we even know about this option? */
         if ($descriptor === null) {
@@ -127,19 +130,22 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
             return;
         }
 
+        /** First run it through the filters. */
+        $filtered = $pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION, $optionName, $optionValue);
+
         /** OK, let's see if it's valid. */
         if ($validator->isValid($optionName, $optionValue)) {
 
-            org_tubepress_impl_log_Log::log($logPrefix, 'Accepted valid value: %s = %s', $optionName, $optionValue);
+            org_tubepress_impl_log_Log::log($logPrefix, 'Accepted valid value: %s = %s', $optionName, $filtered);
 
-            $this->setOption($optionName, $optionValue);
+            $this->setOption($optionName, $filtered);
 
             return true;
         }
 
-        $problemMessage = $validator->getProblemMessage($optionName, $optionValue);
+        $problemMessage = $validator->getProblemMessage($optionName, $filtered);
 
-        org_tubepress_impl_log_Log::log($logPrefix, 'Ignoring invalid value for "%s" (%s)', $optionName, $optionValue);
+        org_tubepress_impl_log_Log::log($logPrefix, 'Ignoring invalid value for "%s" (%s)', $optionName, $filtered);
 
         return $problemMessage;
     }
