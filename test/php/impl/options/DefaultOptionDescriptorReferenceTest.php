@@ -26,7 +26,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 	{
 	    $all = $this->_sut->findAll();
 
-	    $this->assertTrue(count($all) === 96, "Expected 96 options but got " . count($all));
+	    $this->assertTrue(count($all) === 97, "Expected 97 options but got " . count($all));
 	}
 
 	/**
@@ -167,6 +167,23 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$this->assertTrue($option->getDefaultValue() === false, $option->getName());
     	$this->assertTrue($option->getDescription() === 'Note: this option cannot be used with the "randomize thumbnails" feature.', $option->getName());
     	$this->assertTrue($option->isProOnly() === true, $option->getName());
+
+    	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Feed::PER_PAGE_SORT);
+    	$this->assertTrue($option->getLabel() === 'Per-page sort', $option->getName());
+    	$this->assertTrue($option->getDefaultValue() === org_tubepress_api_const_options_values_PerPageSortValue::NONE, $option->getName());
+    	$this->assertTrue($option->getDescription() === 'Additional sort order applied to each individual page of a gallery', $option->getName());
+    	$this->assertTrue($option->getAcceptableValues() === array(
+                org_tubepress_api_const_options_values_PerPageSortValue::COMMENT_COUNT  => 'comment count',
+                org_tubepress_api_const_options_values_PerPageSortValue::NEWEST         => 'date published (newest first)',
+                org_tubepress_api_const_options_values_PerPageSortValue::OLDEST         => 'date published (oldest first)',
+                org_tubepress_api_const_options_values_PerPageSortValue::DURATION       => 'length',
+                org_tubepress_api_const_options_values_PerPageSortValue::NONE           => 'none',
+                org_tubepress_api_const_options_values_PerPageSortValue::RANDOM         => 'random',
+                org_tubepress_api_const_options_values_PerPageSortValue::RATING         => 'rating',
+                org_tubepress_api_const_options_values_PerPageSortValue::TITLE          => 'title',
+                org_tubepress_api_const_options_values_PerPageSortValue::VIEW_COUNT     => 'view count',
+    	), $option->getName());
+    	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Feed::ORDER_BY);
     	$this->assertTrue($option->getLabel() === 'Order videos by', $option->getName());

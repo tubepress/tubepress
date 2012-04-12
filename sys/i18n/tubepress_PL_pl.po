@@ -565,3 +565,12 @@ msgstr "\"Skromny\" branding"
 msgid "Hide the YouTube logo from the control area."
 msgstr "Ukryj logo YouTube w obszarze sterowania."
 
+msgid "Per-page sort"
+msgstr ""
+
+msgid "Additional sort order applied to each individual page of a gallery"
+msgstr ""
+
+msgid "random"
+msgstr ""
+

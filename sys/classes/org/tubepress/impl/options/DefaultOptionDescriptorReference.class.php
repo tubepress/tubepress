@@ -34,6 +34,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 	'org_tubepress_api_const_options_names_Meta',
     'org_tubepress_api_const_options_names_WordPress',
     'org_tubepress_api_const_options_values_GallerySourceValue',
+    'org_tubepress_api_const_options_values_PerPageSortValue',
     'org_tubepress_api_const_options_values_PlayerImplementationValue',
     'org_tubepress_api_const_options_values_PlayerLocationValue',
     'org_tubepress_api_const_options_values_OrderByValue',
@@ -362,6 +363,23 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST);
         $option->setLabel('Video blacklist');                                        //>(translatable)<
         $option->setDescription('A list of video IDs that should never be displayed.');  //>(translatable)<
+        $this->register($option);
+
+        $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Feed::PER_PAGE_SORT);
+        $option->setDefaultValue(org_tubepress_api_const_options_values_PerPageSortValue::NONE);
+        $option->setLabel('Per-page sort');                                            //>(translatable)<
+        $option->setDescription('Additional sort order applied to each individual page of a gallery');  //>(translatable)<
+        $option->setAcceptableValues(array(
+                org_tubepress_api_const_options_values_PerPageSortValue::COMMENT_COUNT  => 'comment count',                 //>(translatable)<
+                org_tubepress_api_const_options_values_PerPageSortValue::NEWEST         => 'date published (newest first)', //>(translatable)<
+                org_tubepress_api_const_options_values_PerPageSortValue::OLDEST         => 'date published (oldest first)', //>(translatable)<
+                org_tubepress_api_const_options_values_PerPageSortValue::DURATION       => 'length',                        //>(translatable)<
+                org_tubepress_api_const_options_values_PerPageSortValue::NONE           => 'none',                          //>(translatable)<
+                org_tubepress_api_const_options_values_PerPageSortValue::RANDOM         => 'random',                        //>(translatable)<
+                org_tubepress_api_const_options_values_PerPageSortValue::RATING         => 'rating',                        //>(translatable)<
+                org_tubepress_api_const_options_values_PerPageSortValue::TITLE          => 'title',                         //>(translatable)<
+                org_tubepress_api_const_options_values_PerPageSortValue::VIEW_COUNT     => 'view count',                    //>(translatable)<
+        ));
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Feed::ORDER_BY);

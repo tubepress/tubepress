@@ -20,18 +20,17 @@
  */
 
 /**
- * Video feed options.
+ * Per-page sorting values.
  */
-class org_tubepress_api_const_options_names_Feed
+class org_tubepress_api_const_options_values_PerPageSortValue
 {
-    const DEV_KEY          = 'developerKey';
-    const EMBEDDABLE_ONLY  = 'embeddableOnly';
-    const FILTER           = 'filter_racy';
-    const ORDER_BY         = 'orderBy';
-    const PER_PAGE_SORT    = 'perPageSort';
-    const RESULT_COUNT_CAP = 'resultCountCap';
-    const SEARCH_ONLY_USER = 'searchResultsRestrictedToUser';
-    const VIMEO_KEY        = 'vimeoKey';
-    const VIMEO_SECRET     = 'vimeoSecret';
-    const VIDEO_BLACKLIST  = 'videoBlacklist';
+    const COMMENT_COUNT  = 'commentCount';
+    const DURATION       = 'duration';
+    const NEWEST         = 'newest';
+    const NONE           = 'none';
+    const OLDEST         = 'oldest';
+    const RANDOM         = 'random';
+    const RATING         = 'rating';
+    const TITLE          = 'title';
+    const VIEW_COUNT     = 'viewCount';
 }
