@@ -63,7 +63,6 @@ class org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariables
 
         /* clean up the search terms a bit */
         $searchTerms = urldecode($qss->getSearchTerms($_GET));
-        $searchTerms = org_tubepress_impl_util_StringUtils::cleanForSearch($searchTerms);
 
         /*
          * read http://stackoverflow.com/questions/1116019/submitting-a-get-form-with-query-string-params-and-hidden-params-disappear
