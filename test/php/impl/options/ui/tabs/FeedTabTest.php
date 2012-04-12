@@ -9,6 +9,7 @@ class org_tubepress_impl_options_ui_tabs_FeedTabTest extends org_tubepress_impl_
 	    return array(
 
     	    org_tubepress_api_const_options_names_Feed::ORDER_BY         => org_tubepress_impl_options_ui_fields_DropdownField::_,
+	        org_tubepress_api_const_options_names_Feed::PER_PAGE_SORT    => org_tubepress_impl_options_ui_fields_DropdownField::_,
     	    org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => org_tubepress_impl_options_ui_fields_TextField::__,
     	    org_tubepress_api_const_options_names_Feed::DEV_KEY          => org_tubepress_impl_options_ui_fields_TextField::__,
     	    org_tubepress_api_const_options_names_Feed::VIMEO_KEY        => org_tubepress_impl_options_ui_fields_TextField::__,

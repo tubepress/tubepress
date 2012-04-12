@@ -552,3 +552,12 @@ msgstr ""
 msgid "Hide the YouTube logo from the control area."
 msgstr ""
 
+msgid "Per-page sort"
+msgstr ""
+
+msgid "Additional sort order applied to each individual page of a gallery"
+msgstr ""
+
+msgid "random"
+msgstr ""
+
