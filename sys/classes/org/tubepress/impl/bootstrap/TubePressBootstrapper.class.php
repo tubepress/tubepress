@@ -139,7 +139,9 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
     {
         $pm = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
 
-        /* exec context set value filters */
+        /* pre validation option setting */
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION,
+                $ioc->get('org_tubepress_impl_plugin_filters_prevalidationoptionset_StringMagic'));
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION,
             $ioc->get('org_tubepress_impl_plugin_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover'));
 
@@ -177,6 +179,9 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
         /* single video template filters */
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $ioc->get('org_tubepress_impl_plugin_filters_singlevideotemplate_CoreVariables'));
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $ioc->get('org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMeta'));
+
+        /* external input filters */
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, $ioc->get('org_tubepress_impl_plugin_filters_variablereadfromexternalinput_StringMagic'));
 
         $pm->registerListener(org_tubepress_api_const_plugin_EventName::BOOT, $ioc->get('org_tubepress_impl_plugin_listeners_WordPressBoot'));
         $pm->registerListener(org_tubepress_api_const_plugin_EventName::BOOT, $ioc->get('org_tubepress_impl_plugin_listeners_SkeletonExistsListener'));

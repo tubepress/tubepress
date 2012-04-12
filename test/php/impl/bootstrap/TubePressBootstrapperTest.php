@@ -21,6 +21,8 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUn
         $expectedSystemFilters = array(
             array(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION,
                 'org_tubepress_impl_plugin_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover'),
+            array(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION,
+                'org_tubepress_impl_plugin_filters_prevalidationoptionset_StringMagic'),
 
             array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_EMBEDDED     , 'org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariables'),
         	array(org_tubepress_api_const_plugin_FilterPoint::HTML_EMBEDDED		    , 'org_tubepress_impl_plugin_filters_embeddedhtml_PlayerJavaScriptApi'),
@@ -39,6 +41,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUn
             array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SEARCHINPUT  , 'org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariables'),
             array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO  , 'org_tubepress_impl_plugin_filters_singlevideotemplate_CoreVariables'),
             array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO  , 'org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMeta'),
+            array(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, 'org_tubepress_impl_plugin_filters_variablereadfromexternalinput_StringMagic'),
         );
         foreach ($expectedSystemFilters as $filter) {
 
