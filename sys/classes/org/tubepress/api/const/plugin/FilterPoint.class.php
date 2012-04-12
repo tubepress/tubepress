@@ -150,6 +150,24 @@ interface org_tubepress_api_const_plugin_FilterPoint
     const JAVASCRIPT_GALLERYINIT = 'galleryInitJavaScript';
 
     /**
+     * Applied to a single option name/value pair before it is applied to TubePress's execution context
+     *  or persistence storage. This filter is invoked *before* the option name or value is validated!
+     *
+     * To use this filter point, create a class that includes a function with the method signature defined below.
+     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
+     *
+     *     TubePress::registerFilter('preValidationOptionSet', $yourClassInstance);
+     *
+     * @param string $name  The name of the option being set.
+     * @param string $value The option value being set.
+     *
+     * @return unknown_type The (possibly modified) option value. May be null.
+     *
+     * function alter_preValidationOptionSet($name, $value);
+     */
+    const OPTION_SET_PRE_VALIDATION = 'preValidationOptionSet';
+
+    /**
      * Filters the TubePress provider result.
      *
      * function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $providerName);
