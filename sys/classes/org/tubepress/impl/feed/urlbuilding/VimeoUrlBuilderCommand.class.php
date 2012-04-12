@@ -323,12 +323,12 @@ class org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommand extends org_tub
     	if (ini_get(self::INI_ARG_SEPARATOR) !== '&') {
 
     		org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Setting arg_separator.input');
-    		ini_set(self::INI_ARG_SEPARATOR, '&');
+    		@ini_set(self::INI_ARG_SEPARATOR, '&');
     	}
     }
 
     private static function _restoreIniArgSeparator()
     {
-    	ini_restore(self::INI_ARG_SEPARATOR);
+    	@ini_restore(self::INI_ARG_SEPARATOR);
     }
 }
