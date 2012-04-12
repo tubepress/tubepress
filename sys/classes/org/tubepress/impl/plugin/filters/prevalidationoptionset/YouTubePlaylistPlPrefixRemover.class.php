@@ -29,17 +29,20 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 /**
  * Removes "PL" from the start of playlist values.
  */
-class org_tubepress_impl_plugin_filters_execcontextsetvalue_YouTubePlaylistPlPrefixRemover
+class org_tubepress_impl_plugin_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover
 {
     private static $_logPrefix = 'YouTube Playlist PL Prefix Remover';
 
     /**
-     * Filters the HTML for the gallery.
+     * Applied to a single option name/value pair before it is applied to TubePress's execution context
+     *  or persistence storage. This filter is invoked *before* the option name or value is validated!
      *
-     * @param string $html      The gallery HTML.
-     * @param string $galleryId The current gallery ID
+     * @param string $name  The name of the option being set.
+     * @param string $value The option value being set.
      *
-     * @return string The modified HTML
+     * @return unknown_type The (possibly modified) option value. May be null.
+     *
+     * function alter_preValidationOptionSet($name, $value);
      */
     public function alter_preValidationOptionSet($name, $value)
     {

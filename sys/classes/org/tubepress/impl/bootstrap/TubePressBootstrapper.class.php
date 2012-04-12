@@ -141,7 +141,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
 
         /* exec context set value filters */
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION,
-            $ioc->get('org_tubepress_impl_plugin_filters_execcontextsetvalue_YouTubePlaylistPlPrefixRemover'));
+            $ioc->get('org_tubepress_impl_plugin_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover'));
 
         /* embedded template filters */
         $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_EMBEDDED, $ioc->get('org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariables'));

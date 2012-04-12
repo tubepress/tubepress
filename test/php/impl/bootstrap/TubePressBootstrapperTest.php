@@ -20,7 +20,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUn
         $pm                    = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $expectedSystemFilters = array(
             array(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION,
-                'org_tubepress_impl_plugin_filters_execcontextsetvalue_YouTubePlaylistPlPrefixRemover'),
+                'org_tubepress_impl_plugin_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover'),
 
             array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_EMBEDDED     , 'org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariables'),
         	array(org_tubepress_api_const_plugin_FilterPoint::HTML_EMBEDDED		    , 'org_tubepress_impl_plugin_filters_embeddedhtml_PlayerJavaScriptApi'),

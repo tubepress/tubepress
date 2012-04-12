@@ -1,8 +1,8 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/plugin/filters/execcontextsetvalue/YouTubePlaylistPlPrefixRemover.class.php';
+require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/plugin/filters/prevalidationoptionset/YouTubePlaylistPlPrefixRemover.class.php';
 
-class org_tubepress_impl_plugin_filters_execcontextsetvalue_YouTubePlaylistPlPrefixRemoverTest extends TubePressUnitTest
+class org_tubepress_impl_plugin_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemoverTest extends TubePressUnitTest
 {
 	private $_sut;
 
@@ -10,7 +10,7 @@ class org_tubepress_impl_plugin_filters_execcontextsetvalue_YouTubePlaylistPlPre
 	{
 		parent::setUp();
 
-		$this->_sut = new org_tubepress_impl_plugin_filters_execcontextsetvalue_YouTubePlaylistPlPrefixRemover();
+		$this->_sut = new org_tubepress_impl_plugin_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover();
 	}
 
 	function testAlterNonString()
