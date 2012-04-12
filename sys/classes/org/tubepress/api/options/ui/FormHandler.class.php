@@ -36,9 +36,7 @@ interface org_tubepress_api_options_ui_FormHandler
     /**
      * Handles form submission.
      *
-     * @param array $postVars The $_POST array.
-     *
      * @return An array of failure messages if there's a problem, otherwise null.
      */
-    function onSubmit($postVars);
+    function onSubmit();
 }

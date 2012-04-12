@@ -21,6 +21,7 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_options_names_GallerySource',
     'org_tubepress_impl_util_StringUtils',
     'org_tubepress_impl_log_Log'
 ));
@@ -28,20 +29,29 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 /**
  * Removes "PL" from the start of playlist values.
  */
-class org_tubepress_impl_plugin_filters_execcontextsetvalue_YouTubePlaylistPlPrefixRemover
+class org_tubepress_impl_plugin_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover
 {
     private static $_logPrefix = 'YouTube Playlist PL Prefix Remover';
 
     /**
-     * Filters the HTML for the gallery.
+     * Applied to a single option name/value pair before it is applied to TubePress's execution context
+     *  or persistence storage. This filter is invoked *before* the option name or value is validated!
      *
-     * @param string $html      The gallery HTML.
-     * @param string $galleryId The current gallery ID
+     * @param string $name  The name of the option being set.
+     * @param string $value The option value being set.
      *
-     * @return string The modified HTML
+     * @return unknown_type The (possibly modified) option value. May be null.
+     *
+     * function alter_preValidationOptionSet($name, $value);
      */
-    public function alter_executionContextSetValue_playlistValue($value)
+    public function alter_preValidationOptionSet($name, $value)
     {
+        /** We only care about playlistValue. */
+        if ($name !== org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE) {
+
+            return;
+        }
+
         if (org_tubepress_impl_util_StringUtils::startsWith($value, 'PL')) {
 
             org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Removing \'PL\' prefix from playlist value of %s', $value);

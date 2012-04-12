@@ -25,8 +25,8 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
     {
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $qss     = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
-        $qss->shouldReceive('getPageNum')->once()->andReturn(1);
+        $qss     = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $qss->shouldReceive('getParamValueAsInt')->once()->with(org_tubepress_api_const_http_ParamName::PAGE, 1)->andReturn(1);
 
         $pc      = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
         $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('current-video-provider');
@@ -57,8 +57,8 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
     {
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $qss     = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
-        $qss->shouldReceive('getPageNum')->once()->andReturn(1);
+        $qss     = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $qss->shouldReceive('getParamValueAsInt')->once()->with(org_tubepress_api_const_http_ParamName::PAGE, 1)->andReturn(1);
 
         $pc      = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
         $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('current-video-provider');
@@ -83,8 +83,8 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
     {
         $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $qss     = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
-        $qss->shouldReceive('getPageNum')->once()->andReturn(1);
+        $qss     = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $qss->shouldReceive('getParamValueAsInt')->once()->with(org_tubepress_api_const_http_ParamName::PAGE, 1)->andReturn(1);
 
         $pc      = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
         $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('current-video-provider');

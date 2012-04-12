@@ -20,18 +20,13 @@
  */
 
 /**
- * Handles some tasks related to the query string
+ * HTTP request parameter names.
  */
-interface org_tubepress_api_querystring_QueryStringService
+class org_tubepress_api_const_http_ParamName
 {
-    const _ = 'org_tubepress_api_querystring_QueryStringService';
-
-    /**
-     * Returns what's in the address bar
-     *
-     * @param array $serverVars The PHP $_SERVER array
-     *
-     * @return string What's in the address bar
-     */
-    function getFullUrl($serverVars);
+    const DEBUG        = 'tubepress_debug';
+    const PAGE         = 'tubepress_page';
+    const SEARCH_TERMS = 'tubepress_search';
+    const SHORTCODE    = 'tubepress_shortcode';
+    const VIDEO        = 'tubepress_video';
 }

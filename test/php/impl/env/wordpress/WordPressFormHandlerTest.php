@@ -27,12 +27,10 @@ class org_tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePres
         $tabs   = $ioc->get(org_tubepress_impl_options_ui_DefaultTabsHandler::__);
         $filter = $ioc->get(org_tubepress_impl_options_ui_fields_FilterMultiSelectField::__);
 
-        $postVars = array('post');
+        $tabs->shouldReceive('onSubmit')->once()->andReturn(array('holy smokes!'));
+        $filter->shouldReceive('onSubmit')->once()->andReturn(null);
 
-        $tabs->shouldReceive('onSubmit')->once()->with($postVars)->andReturn(array('holy smokes!'));
-        $filter->shouldReceive('onSubmit')->once()->with($postVars)->andReturn(null);
-
-        $this->assertEquals(array('holy smokes!'), $this->_sut->onSubmit($postVars));
+        $this->assertEquals(array('holy smokes!'), $this->_sut->onSubmit());
     }
 
     function testOnSubmit()
@@ -41,12 +39,10 @@ class org_tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePres
         $tabs   = $ioc->get(org_tubepress_impl_options_ui_DefaultTabsHandler::__);
         $filter = $ioc->get(org_tubepress_impl_options_ui_fields_FilterMultiSelectField::__);
 
-        $postVars = array('post');
+        $tabs->shouldReceive('onSubmit')->once()->andReturn(null);
+        $filter->shouldReceive('onSubmit')->once()->andReturn(null);
 
-        $tabs->shouldReceive('onSubmit')->once()->with($postVars)->andReturn(null);
-        $filter->shouldReceive('onSubmit')->once()->with($postVars)->andReturn(null);
-
-        $this->assertNull($this->_sut->onSubmit($postVars));
+        $this->assertNull($this->_sut->onSubmit());
     }
 
     function testGetHtml()

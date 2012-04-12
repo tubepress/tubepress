@@ -20,8 +20,7 @@
  */
 
 /**
- * Some string utilities
- *
+ * Handy string utilities.
  */
 class org_tubepress_impl_util_StringUtils
 {
@@ -61,22 +60,6 @@ class org_tubepress_impl_util_StringUtils
         return preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $string);
     }
 
-    /**
-     * Cleans up potentially malicious user input.
-     *
-     * @param string $string The raw user input string.
-     *
-     * @return string The cleaned up user input string.
-     */
-    public static function cleanForSearch($string)
-    {
-        /* chop it off at 100 chars */
-        $result = substr($string, 0, 100);
-
-        /* only allow alphanumerics, pipe, plus, quotes, and minus */
-        return htmlspecialchars($result, ENT_NOQUOTES);
-    }
-
     //http://stackoverflow.com/questions/834303/php-startswith-and-endswith-functions
     public static function startsWith($haystack, $needle)
     {
@@ -102,5 +85,20 @@ class org_tubepress_impl_util_StringUtils
         $start  = $length * -1; //negative
 
         return (substr($haystack, $start) === $needle);
+    }
+
+    //http://us2.php.net/manual/en/function.stripslashes.php#92524
+    public static function stripslashes_deep($text, $times = 2) {
+
+        $i = 0;
+
+        // loop will execute $times times.
+        while (strstr($text, '\\') && $i != $times) {
+
+            $text = stripslashes($text);
+            $i++;
+        }
+
+        return $text;
     }
 }

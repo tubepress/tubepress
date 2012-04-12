@@ -3,6 +3,7 @@
 require_once BASE . '/test/includes/TubePressUnitTest.php';
 
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_http_ParamName',
     'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_options_names_Cache',
     'org_tubepress_api_const_options_names_Embedded',
@@ -22,7 +23,6 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_values_TimeFrameValue',
     'org_tubepress_api_const_plugin_EventName',
     'org_tubepress_api_const_plugin_FilterPoint',
-    'org_tubepress_api_const_querystring_QueryParamName',
     'org_tubepress_api_const_template_Variable'
 ));
 
@@ -32,6 +32,7 @@ class org_tubepress_api_const_ConstantsTest extends TubePressUnitTest {
     {
         $toTest = array(
 
+            'org_tubepress_api_const_http_ParamName'				            => array('tubepress_debug', 'tubepress_page', 'tubepress_search', 'tubepress_shortcode', 'tubepress_video'),
             'org_tubepress_api_const_options_names_Advanced'                    => array('debugging_enabled', 'disableHttpTransportCurl', 'disableHttpTransportExtHttp', 'disableHttpTransportFopen', 'disableHttpTransportFsockOpen', 'disableHttpTransportStreams', 'keyword', 'galleryId', 'https'),
         	'org_tubepress_api_const_options_names_Cache'                       => array('cacheEnabled', 'cacheCleaningFactor', 'cacheDirectory', 'cacheLifetimeSeconds'),
             'org_tubepress_api_const_options_names_Embedded' 					=> array('playerImplementation', 'embeddedHeight', 'embeddedWidth', 'lazyPlay', 'autoplay', 'fullscreen', 'hd', 'loop', 'playerColor', 'playerHighlight', 'showInfo', 'showRelated', 'playerLocation', 'autoNext', 'sequence', 'enableJsApi', 'autoHide', 'modestBranding'),
@@ -50,8 +51,7 @@ class org_tubepress_api_const_ConstantsTest extends TubePressUnitTest {
             'org_tubepress_api_const_options_values_SafeSearchValue'			=> array('moderate', 'none', 'strict'),
             'org_tubepress_api_const_options_values_TimeFrameValue'				=> array('all_time', 'this_month', 'this_week', 'today'),
             'org_tubepress_api_const_plugin_EventName'							=> array('boot'),
-            'org_tubepress_api_const_plugin_FilterPoint'						=> array('embeddedHtml', 'embeddedTemplate', 'galleryHtml', 'galleryTemplate', 'html', 'galleryInitJavaScript', 'paginationHtml', 'playerHtml', 'playerTemplate', 'providerResult', 'searchInputHtml', 'searchInputTemplate', 'singleVideoHtml', 'singleVideoTemplate', 'video', 'executionContextSetValue_'),
-            'org_tubepress_api_const_querystring_QueryParamName'				=> array('tubepress_debug', 'tubepress_page', 'tubepress_search', 'tubepress_shortcode', 'tubepress_video'),
+            'org_tubepress_api_const_plugin_FilterPoint'						=> array('embeddedHtml', 'embeddedTemplate', 'galleryHtml', 'galleryTemplate', 'html', 'galleryInitJavaScript', 'paginationHtml', 'playerHtml', 'playerTemplate', 'providerResult', 'searchInputHtml', 'searchInputTemplate', 'singleVideoHtml', 'singleVideoTemplate', 'video', 'preValidationOptionSet', 'variableReadFromExternalInput'),
             'org_tubepress_api_const_template_Variable'                         => array('autostart', 'bottomPagination', 'embeddedColorHightlight', 'embeddedColorPrimary', 'embeddedFullscreen', 'embeddedHeight', 'embeddedImplementationName', 'embeddedSource', 'embeddedWidth', 'galleryId', 'homeURL', 'metaLabels', 'playerName', 'preGallery', 'searchButton', 'searchHandlerUrl', 'searchHiddenInputs', 'searchTargetDomId', 'searchTerms', 'shouldShow', 'thumbHeight', 'thumbWidth', 'topPagination', 'tubepressBaseUrl', 'video', 'videoArray', 'videoId', 'shortcode')
 
         );

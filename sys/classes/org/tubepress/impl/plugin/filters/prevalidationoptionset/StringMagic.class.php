@@ -19,19 +19,15 @@
  *
  */
 
-/**
- * Handles some tasks related to the query string
- */
-interface org_tubepress_api_querystring_QueryStringService
-{
-    const _ = 'org_tubepress_api_querystring_QueryStringService';
+class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php';
+org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_impl_plugin_filters_AbstractStringMagicFilter'
+));
 
-    /**
-     * Returns what's in the address bar
-     *
-     * @param array $serverVars The PHP $_SERVER array
-     *
-     * @return string What's in the address bar
-     */
-    function getFullUrl($serverVars);
+/**
+ * Performs filtering on potentially malicious or typo'd string input.
+ */
+class org_tubepress_impl_plugin_filters_prevalidationoptionset_StringMagic extends org_tubepress_impl_plugin_filters_AbstractStringMagicFilter
+{
+
 }

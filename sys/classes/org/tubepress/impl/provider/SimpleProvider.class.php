@@ -21,6 +21,7 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_http_ParamName',
     'org_tubepress_api_const_options_names_Feed',
 	'org_tubepress_api_const_options_names_Cache',
     'org_tubepress_api_const_plugin_FilterPoint',
@@ -32,7 +33,6 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_provider_Provider',
     'org_tubepress_api_provider_ProviderCalculator',
     'org_tubepress_api_provider_ProviderResult',
-    'org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_api_feed_UrlBuilder',
     'org_tubepress_impl_log_Log'
 ));
@@ -64,12 +64,12 @@ class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_pr
     	$result = new org_tubepress_api_provider_ProviderResult();
 
     	$ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-    	$qss     = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
+    	$qss     = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
     	$context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
     	$pc      = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
 
     	/* figure out which page we're on */
-    	$currentPage = $qss->getPageNum($_GET);
+    	$currentPage = $qss->getParamValueAsInt(org_tubepress_api_const_http_ParamName::PAGE, 1);
     	org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Current page number is %d', $currentPage);
 
     	$provider = $pc->calculateCurrentVideoProvider();

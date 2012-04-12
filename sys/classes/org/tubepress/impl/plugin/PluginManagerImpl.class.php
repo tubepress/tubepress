@@ -25,7 +25,6 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_impl_log_Log',
-    'org_tubepress_impl_util_LangUtils'
 ));
 
 class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_plugin_PluginManager
@@ -36,21 +35,12 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
     private static $_logPrefix = 'Plugin Manager';
 
     /**
-     * List of filter points that are intended to act as a filter point prefix. Used to validate filter
-     * registrations.
+     * Cached list of valid filter points. Used to validate filter registrations.
      */
-    private static $_validFilterPointPrefixes = array(
-
-        org_tubepress_api_const_plugin_FilterPoint::EXEC_CONTEXT_SET_VALUE_
-    );
+    private $_validFilterPoints;
 
     /**
-     * Cached list of valid concrete filter points. Used to validate filter registrations.
-     */
-    private $_validConcreteFilterPoints;
-
-    /**
-     * Internal two-dimensional array of all registered filters, first keyed by filter point name.
+     * Internal two-dimensional array of all filters, first keyed by filter point name.
      */
     private $_filters;
 
@@ -76,22 +66,25 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
         $this->_listeners = array();
 
         /** Initialize the valid filter points. */
-        $filterPointNames = org_tubepress_impl_util_LangUtils::getDefinedConstants('org_tubepress_api_const_plugin_FilterPoint');
+        $ref              = new ReflectionClass('org_tubepress_api_const_plugin_FilterPoint');
+        $filterPointNames = $ref->getConstants();
+        $filterPointFuncs = array();
+
+        /** Initialize the valid event names. */
+        $ref            = new ReflectionClass('org_tubepress_api_const_plugin_EventName');
+        $eventNames     = $ref->getConstants();
+        $eventNameFuncs = array();
 
         foreach ($filterPointNames as $filterPointName) {
 
-            if (! in_array($filterPointName, self::$_validFilterPointPrefixes)) {
-
-                $this->_validConcreteFilterPoints[$filterPointName] = self::_getFilterMethodName($filterPointName);
-            }
+            $this->_validFilterPoints[$filterPointName] = self::_getFilterMethodName($filterPointName);
+            $this->_filters[$filterPointName]           = array();
         }
-
-        /** Initialize the valid event names. */
-        $eventNames = org_tubepress_impl_util_LangUtils::getDefinedConstants('org_tubepress_api_const_plugin_EventName');
 
         foreach ($eventNames as $eventName) {
 
             $this->_validEventNames[$eventName] = self::_getListenerMethodName($eventName);
+            $this->_listeners[$eventName]       = array();
         }
     }
 
@@ -108,6 +101,7 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
         /** See if this filter point has any filters registered. */
         if (! $this->hasFilters($filterPoint)) {
 
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'No filters registered for "%s".', $filterPoint);
             return $value;
         }
 
@@ -162,13 +156,13 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
         }
 
         /** Sanity check 2/3. */
-        if (! $this->_isValidFilterPoint($filterPoint)) {
+        if (! array_key_exists($filterPoint, $this->_validFilterPoints)) {
 
             org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Invalid filter point: "%s". Ignoring filter registration for "%s".', $filterPoint, get_class($plugin));
             return;
         }
 
-        $methodName = self::_getFilterMethodName($filterPoint);
+        $methodName = $this->_validFilterPoints[$filterPoint];
 
         /** Sanity check 3/3. */
         if (! method_exists($plugin, $methodName) || ! is_callable(array($plugin, $methodName))) {
@@ -179,10 +173,6 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
         }
 
         /** Looks good, let's register it. */
-        if (! isset($this->_filters[$filterPoint])) {
-
-            $this->_filters[$filterPoint] = array();
-        }
         array_push($this->_filters[$filterPoint], $plugin);
 
         org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Registered "%s" as a filter for "%s"', get_class($plugin), $filterPoint);
@@ -197,7 +187,14 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
      */
     public function hasFilters($filterPoint)
     {
-        return isset($this->_filters[$filterPoint]) && ! empty($this->_filters[$filterPoint]);
+        /** Make sure this is a valid hook. */
+        if (! array_key_exists($filterPoint, $this->_validFilterPoints)) {
+
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Invalid filter point: "%s". Ignoring.', $filterPoint);
+            return false;
+        }
+
+        return ! empty($this->_filters[$filterPoint]);
     }
 
     /**
@@ -209,7 +206,14 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
      */
     public function hasListeners($eventName)
     {
-        return isset($this->_listeners[$eventName]) && ! empty($this->_listeners[$eventName]);
+        /** Make sure this is a valid hook. */
+        if (! array_key_exists($eventName, $this->_validEventNames)) {
+
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Invalid event name: "%s". Ignoring.', $eventName);
+            return false;
+        }
+
+        return ! empty($this->_listeners[$eventName]);
     }
 
     /**
@@ -282,7 +286,7 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
             return;
         }
 
-        $methodName = self::_getListenerMethodName($eventName);
+        $methodName = $this->_validEventNames[$eventName];
 
         /* sanity check 3/3 */
         if (!method_exists($plugin, $methodName) || !is_callable(array($plugin, $methodName))) {
@@ -293,31 +297,9 @@ class org_tubepress_impl_plugin_PluginManagerImpl implements org_tubepress_api_p
         }
 
         /* looks good, let's register it */
-        if (! isset($this->_listeners[$eventName])) {
-
-            $this->_listeners[$eventName] = array();
-        }
         array_push($this->_listeners[$eventName], $plugin);
 
         org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Registered "%s" as a listener for "%s"', get_class($plugin), $eventName);
-    }
-
-    private function _isValidFilterPoint($pointName)
-    {
-        if (array_key_exists($pointName, $this->_validConcreteFilterPoints)) {
-
-            return true;
-        }
-
-        foreach (self::$_validFilterPointPrefixes as $validFilterPointPrefix) {
-
-            if (org_tubepress_impl_util_StringUtils::startsWith($pointName, $validFilterPointPrefix)) {
-
-                return true;
-            }
-        }
-
-        return false;
     }
 
     private static function _getListenerMethodName($eventName)

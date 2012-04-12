@@ -36,8 +36,8 @@ class org_tubepress_impl_html_DefaultHeadHtmlGeneratorTest extends TubePressUnit
 	{
 	    $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-	    $qss  = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
-        $qss->shouldReceive('getPageNum')->once()->andReturn(1);
+	    $qss  = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $qss->shouldReceive('getParamValueAsInt')->once()->with(org_tubepress_api_const_http_ParamName::PAGE, 1)->andReturn(1);
 
 	    $this->assertEquals('', $this->_sut->getHeadHtmlMeta());
 	}
@@ -46,8 +46,8 @@ class org_tubepress_impl_html_DefaultHeadHtmlGeneratorTest extends TubePressUnit
 	{
 	    $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-	    $qss  = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
-        $qss->shouldReceive('getPageNum')->once()->andReturn(2);
+	    $qss  = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $qss->shouldReceive('getParamValueAsInt')->once()->with(org_tubepress_api_const_http_ParamName::PAGE, 1)->andReturn(2);
 
 	    $this->assertEquals('<meta name="robots" content="noindex, nofollow" />', $this->_sut->getHeadHtmlMeta());
 	}

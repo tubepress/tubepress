@@ -12,42 +12,6 @@ class org_tubepress_impl_querystring_SimpleQueryStringServiceTest extends TubePr
         $this->_sut = new org_tubepress_impl_querystring_SimpleQueryStringService();
     }
 
-    public function testGetPageNumNothingSet()
-    {
-        $result = $this->_sut->getPageNum(array());
-        $this->assertEquals(1, $result);
-    }
-
-    public function testGetPageNumLessThanOne()
-    {
-        $this->assertEquals(1, $this->_sut->getPageNum(array("tubepress_page" => -1)));
-    }
-
-    public function testSearchTerms()
-    {
-        $this->assertEquals('"this is a test" I\'m testing <this />', $this->_sut->getSearchTerms(array("tubepress_search" => "\"this is a test\" I'm testing <this />")));
-    }
-
-    public function testGetCustomVideo()
-    {
-        $this->assertEquals('word', $this->_sut->getCustomVideo(array("tubepress_video" => "word")));
-    }
-
-    public function testGetShortcode()
-    {
-        $this->assertEquals('fake', $this->_sut->getShortcode(array("tubepress_shortcode" => "fake")));
-    }
-
-    public function testGetShortcodeNoShortcode()
-    {
-        $this->assertEquals('', $this->_sut->getShortcode(array()));
-    }
-
-    public function testGetPageNumNonNumeric()
-    {
-        $this->assertEquals(1, $this->_sut->getPageNum(array("tubepress_page" => "fake")));
-    }
-
     public function testGetFullUrlHttpsOn()
     {
         $serverVars = array("HTTPS" => "on",

@@ -105,32 +105,38 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBase
         return $template->toString();
     }
 
-    public function onSubmit($postVars)
+    /**
+     * Handles form submission.
+     *
+     * @return An array of failure messages if there's a problem, otherwise null.
+     */
+    public function onSubmit()
     {
         $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
         $storageManager = $ioc->get(org_tubepress_api_options_StorageManager::_);
+        $hrps           = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
 
         if ($this->_optionDescriptor->isBoolean()) {
 
-            return $this->_onSubmitBoolean($storageManager, $postVars);
+            return $this->_onSubmitBoolean($storageManager, $hrps);
         }
 
-        return $this->_onSubmitSimple($storageManager, $postVars);
+        return $this->_onSubmitSimple($storageManager, $hrps);
     }
 
-    private function _onSubmitSimple(org_tubepress_api_options_StorageManager $storageManager, $postVars)
+    private function _onSubmitSimple(org_tubepress_api_options_StorageManager $storageManager, org_tubepress_api_http_HttpRequestParameterService $hrps)
     {
         $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
         $validator = $ioc->get(org_tubepress_api_options_OptionValidator::_);
         $name      = $this->_optionDescriptor->getName();
 
-        if (! array_key_exists($name, $postVars)) {
+        if (! $hrps->hasParam($name)) {
 
             /* not submitted. */
             return null;
         }
 
-        $value = $postVars[$name];
+        $value = $hrps->getParamValue($name);
 
         /* run it through validation. */
         if (! $validator->isValid($name, $value)) {
@@ -138,19 +144,15 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBase
             return array($validator->getProblemMessage($name, $value));
         }
 
-        $storageManager->set($name, $value);
-
-        return null;
+        return $this->_setToStorage($storageManager, $name, $value);
     }
 
-    private function _onSubmitBoolean(org_tubepress_api_options_StorageManager $storageManager, $postVars)
+    private function _onSubmitBoolean(org_tubepress_api_options_StorageManager $storageManager, org_tubepress_api_http_HttpRequestParameterService $hrps)
     {
         $name = $this->_optionDescriptor->getName();
 
         /* if the user checked the box, the option name will appear in the POST vars */
-        $storageManager->set($name, array_key_exists($name, $postVars));
-
-        return null;
+        return $this->_setToStorage($storageManager, $name, $hrps->hasParam($name));
     }
 
     protected abstract function getTemplatePath();
@@ -163,5 +165,17 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBase
     protected function getOptionDescriptor()
     {
         return $this->_optionDescriptor;
+    }
+
+    private function _setToStorage(org_tubepress_api_options_StorageManager $storageManager, $name, $value)
+    {
+        $result = $storageManager->set($name, $value);
+
+        if ($result === true) {
+
+            return null;
+        }
+
+        return array($result);
     }
 }

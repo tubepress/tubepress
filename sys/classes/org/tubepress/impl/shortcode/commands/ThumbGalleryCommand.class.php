@@ -20,9 +20,11 @@
  */
 
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_http_ParamName',
     'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_const_template_Variable',
+    'org_tubepress_api_http_HttpRequestParameterService',
     'org_tubepress_spi_patterns_cor_Command',
     'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_api_provider_Provider',
@@ -48,8 +50,15 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_t
         $galleryId   = $execContext->get(org_tubepress_api_const_options_names_Advanced::GALLERY_ID);
 
         if ($galleryId == '') {
+
             $galleryId = mt_rand();
-            $execContext->set(org_tubepress_api_const_options_names_Advanced::GALLERY_ID, $galleryId);
+
+            $result = $execContext->set(org_tubepress_api_const_options_names_Advanced::GALLERY_ID, $galleryId);
+
+            if ($result !== true) {
+
+                return false;
+            }
         }
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Starting to build thumbnail gallery %s', $galleryId);
@@ -59,9 +68,9 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommand implements org_t
         $themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
         $ms            = $ioc->get(org_tubepress_api_message_MessageService::_);
         $pc            = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
-        $qss           = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
+        $qss           = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
         $template      = $themeHandler->getTemplateInstance('gallery.tpl.php');
-        $page          = $qss->getPageNum($_GET);
+        $page          = $qss->getParamValueAsInt(org_tubepress_api_const_http_ParamName::PAGE, 1);
         $providerName  = $pc->calculateCurrentVideoProvider();
 
         /* first grab the videos */
