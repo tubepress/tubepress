@@ -21,6 +21,7 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_options_names_GallerySource',
     'org_tubepress_impl_util_StringUtils',
     'org_tubepress_impl_log_Log'
 ));
@@ -40,8 +41,14 @@ class org_tubepress_impl_plugin_filters_execcontextsetvalue_YouTubePlaylistPlPre
      *
      * @return string The modified HTML
      */
-    public function alter_executionContextSetValue_playlistValue($value)
+    public function alter_preValidationOptionSet($name, $value)
     {
+        /** We only care about playlistValue. */
+        if ($name !== org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE) {
+
+            return;
+        }
+
         if (org_tubepress_impl_util_StringUtils::startsWith($value, 'PL')) {
 
             org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Removing \'PL\' prefix from playlist value of %s', $value);

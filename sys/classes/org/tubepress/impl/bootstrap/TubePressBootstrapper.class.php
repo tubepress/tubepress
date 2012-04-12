@@ -30,6 +30,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_environment_Detector',
     'org_tubepress_api_filesystem_Explorer',
     'org_tubepress_api_ioc_IocService',
+    'org_tubepress_api_options_StorageManager',
     'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_impl_ioc_IocContainer',
@@ -139,7 +140,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
         $pm = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
 
         /* exec context set value filters */
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::EXEC_CONTEXT_SET_VALUE_ . org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE,
+        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION,
             $ioc->get('org_tubepress_impl_plugin_filters_execcontextsetvalue_YouTubePlaylistPlPrefixRemover'));
 
         /* embedded template filters */

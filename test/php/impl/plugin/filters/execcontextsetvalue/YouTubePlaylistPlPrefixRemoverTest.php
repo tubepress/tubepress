@@ -15,19 +15,19 @@ class org_tubepress_impl_plugin_filters_execcontextsetvalue_YouTubePlaylistPlPre
 
 	function testAlterNonString()
 	{
-	    $result = $this->_sut->alter_executionContextSetValue_playlistValue(array('hello'));
+	    $result = $this->_sut->alter_preValidationOptionSet(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE, array('hello'));
 	    $this->assertEquals(array('hello'), $result);
 	}
 
 	function testAlterHtmlNonPrefix()
 	{
-	    $result = $this->_sut->alter_executionContextSetValue_playlistValue('hello');
+	    $result = $this->_sut->alter_preValidationOptionSet(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE, 'hello');
 	    $this->assertEquals('hello', $result);
 	}
 
 	function testAlterPrefix()
 	{
-	    $result = $this->_sut->alter_executionContextSetValue_playlistValue('PLhelloPL');
+	    $result = $this->_sut->alter_preValidationOptionSet(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE, 'PLhelloPL');
 	    $this->assertEquals('helloPL', $result);
 	}
 }
