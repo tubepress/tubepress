@@ -20,11 +20,13 @@
  */
 
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_http_ParamName',
     'org_tubepress_api_const_options_names_Output',
     'org_tubepress_api_const_options_names_InteractiveSearch',
     'org_tubepress_api_const_querystring_QueryParamName',
     'org_tubepress_api_const_template_Variable',
     'org_tubepress_api_exec_ExecutionContext',
+    'org_tubepress_api_http_HttpRequestParameterService',
     'org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_api_template_Template',
     'org_tubepress_api_url_Url',
@@ -42,6 +44,7 @@ class org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariables
         $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
         $context    = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $qss        = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
+        $hrps       = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
         $ms         = $ioc->get(org_tubepress_api_message_MessageService::_);
         $resultsUrl = $context->get(org_tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_URL);
         $url        = '';
@@ -62,7 +65,8 @@ class org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariables
         }
 
         /* clean up the search terms a bit */
-        $searchTerms = urldecode($qss->getSearchTerms($_GET));
+        $searchTerms = $hrps->getParamValue(org_tubepress_api_const_http_ParamName::SEARCH_TERMS);
+        $searchTerms = urldecode($searchTerms);    //TODO: get rid of this once we move to POST?
 
         /*
          * read http://stackoverflow.com/questions/1116019/submitting-a-get-form-with-query-string-params-and-hidden-params-disappear
@@ -70,8 +74,8 @@ class org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariables
          */
         $params = $url->getQueryVariables();
 
-        unset($params[org_tubepress_api_const_querystring_QueryParamName::PAGE]);
-        unset($params[org_tubepress_api_const_querystring_QueryParamName::SEARCH_TERMS]);
+        unset($params[org_tubepress_api_const_http_ParamName::PAGE]);
+        unset($params[org_tubepress_api_const_http_ParamName::SEARCH_TERMS]);
 
         /* apply the template variables */
         $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_HANDLER_URL, $url->toString());

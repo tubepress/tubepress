@@ -21,8 +21,9 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_http_ParamName',
+    'org_tubepress_api_http_HttpRequestParameterService',
     'org_tubepress_api_provider_ProviderResult',
-    'org_tubepress_api_querystring_QueryStringService',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_log_Log',
 ));
@@ -36,13 +37,14 @@ class org_tubepress_impl_plugin_filters_providerresult_VideoPrepender
 
     public function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult)
     {
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $qss = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
+        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $hrps = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
 
-        $customVideoId = $qss->getCustomVideo($_GET);
+        $customVideoId = $hrps->getParamValue(org_tubepress_api_const_http_ParamName::VIDEO);
 
         /* they didn't set a custom video id */
         if ($customVideoId == '') {
+
             return $providerResult;
         }
 

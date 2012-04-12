@@ -20,7 +20,9 @@
  */
 
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_http_ParamName',
     'org_tubepress_api_const_options_names_Output',
+    'org_tubepress_api_http_HttpRequestParameterService',
     'org_tubepress_spi_patterns_cor_Command'
 ));
 
@@ -51,8 +53,8 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommand implements org_t
         }
 
         /* do we have search terms? */
-        $qss            = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
-        $rawSearchTerms = $qss->getSearchTerms($_GET);
+        $qss            = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $rawSearchTerms = $qss->getParamValue(org_tubepress_api_const_http_ParamName::SEARCH_TERMS);
 
         /* are we set up for a gallery fallback? */
         $mustShowSearchResults = $execContext->get(org_tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_ONLY);

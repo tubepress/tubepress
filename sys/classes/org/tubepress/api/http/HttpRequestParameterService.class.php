@@ -43,6 +43,20 @@ interface org_tubepress_api_http_HttpRequestParameterService
     function getParamValue($name);
 
     /**
+     * Gets the parameter value from PHP's $_REQUEST array. If the hasParam($name) returs false, this
+     *  behaves just like getParamvalue($name). Otherwise, if the raw parameter value is numeric, a conversion
+     *  will be attempted.
+     *
+     * @param string $name    The name of the parameter.
+     * @param int    $default The default value is the raw value is not integral.
+     *
+     * @return unknown_type The raw value of the parameter. Can be anything that would
+     *                       otherwise be found in PHP's $_REQUEST array. Returns null
+     *                       if the parameter is not set on this request.
+     */
+    function getParamValueAsInt($name, $default);
+
+    /**
      * Determines if the parameter is set in PHP's $_REQUEST array.
      *
      * @param string $name The name of the parameter.

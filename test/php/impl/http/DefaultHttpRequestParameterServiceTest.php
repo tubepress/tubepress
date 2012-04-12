@@ -39,5 +39,33 @@ class org_tubepress_impl_http_DefaultHttpRequestParameterServiceTest extends Tub
 
         $this->assertTrue($result === 'yo');
     }
+
+    function testGetParamAsIntActuallyInt()
+    {
+        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $pm  = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+
+        $_REQUEST['something'] = array(1, 2, 3);
+
+        $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, 'something', array(1, 2, 3))->andReturn('44');
+
+        $result = $this->_sut->getParamValueAsInt('something', 1);
+
+        $this->assertTrue($result === 44);
+    }
+
+    function testGetParamAsIntNotActuallyInt()
+    {
+        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $pm  = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+
+        $_REQUEST['something'] = array(1, 2, 3);
+
+        $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, 'something', array(1, 2, 3))->andReturn('44vb');
+
+        $result = $this->_sut->getParamValueAsInt('something', 33);
+
+        $this->assertTrue($result === 33);
+    }
 }
 
