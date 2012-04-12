@@ -11,32 +11,6 @@ class FakePlugin
     public function on_boot() {}
 }
 
-class PluginWithNoCallbacks
-{
-
-}
-
-class PrefixedFilter
-{
-    public function alter_executionContextSetValue_title($value)
-    {
-        return "$value is cool";
-    }
-}
-
-class BailingPlugin
-{
-    public function alter_galleryHtml($one, $two)
-    {
-        throw new Exception('Fake problem');
-    }
-
-    public function on_boot()
-    {
-        throw new Exception('Fake problem');
-    }
-}
-
 class org_tubepress_impl_plugin_PluginManagerImplTest extends TubePressUnitTest
 {
 
@@ -46,39 +20,6 @@ class org_tubepress_impl_plugin_PluginManagerImplTest extends TubePressUnitTest
     {
         parent::setUp();
         $this->_sut = new org_tubepress_impl_plugin_PluginManagerImpl();
-    }
-
-    function testBailingListener()
-    {
-        $this->_sut->registerListener('boot', new BailingPlugin());
-        $this->_sut->notifyListeners('boot');
-    }
-
-    function testBailingFilter()
-    {
-        $this->_sut->registerFilter('galleryHtml', new BailingPlugin());
-        $result = $this->_sut->runFilters('galleryHtml', 'some value', 56);
-        $this->assertEquals('some value', $result);
-    }
-
-    function testRegisterFilterWithPrefix()
-    {
-        $this->_sut->registerFilter('executionContextSetValue_title', new PrefixedFilter());
-    }
-
-    function testRegisterListenerNoCallback()
-    {
-        $this->_sut->registerListener('boot', new PluginWithNoCallbacks());
-    }
-
-    function testRegisterListenerNonEvent()
-    {
-        $this->_sut->registerListener('booty', new FakePlugin());
-    }
-
-    function testRegisterListenerNonObject()
-    {
-        $this->_sut->registerListener('boot', 'stuff');
     }
 
     function testRunFilters()
@@ -137,4 +78,3 @@ class org_tubepress_impl_plugin_PluginManagerImplTest extends TubePressUnitTest
         $this->_sut->registerFilter(1,  new FakePlugin());
     }
 }
-

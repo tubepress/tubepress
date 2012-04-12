@@ -13,6 +13,8 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
 
     private static $_interfacesToIgnore;
 
+    private static $_booted = false;
+
     public static function setUpBeforeClass()
     {
         self::$_knownInterfaces = self::_collectInterfaces();
@@ -32,7 +34,11 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
 
         $this->_sut = new org_tubepress_impl_ioc_FreeWordPressPluginIocService();
 
-        $this->_setupEveryInterfaceIsBound();
+        if (!self::$_booted) {
+
+            self::$_booted = true;
+            $this->_setupEveryInterfaceIsBound();
+        }
 
         $this->_expectedMapping = array(
 
@@ -79,6 +85,19 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
          }
     }
 
+    function testGetTwice()
+    {
+        $result = $this->_sut->get('org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest');
+        $this->assertNotNull($result);
+        $result2 = $this->_sut->get('org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest');
+        $this->assertEquals($result, $result2);
+    }
+
+    function testSingleton()
+    {
+        $this->assertNotNull($this->_sut->get('org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest'));
+    }
+
     /**
      * @expectedException Exception
      */
@@ -93,19 +112,6 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
     function testNeverBound()
     {
         $this->_sut->get('something');
-    }
-
-    function testGetTwice()
-    {
-        $result = $this->_sut->get('org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest');
-        $this->assertNotNull($result);
-        $result2 = $this->_sut->get('org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest');
-        $this->assertEquals($result, $result2);
-    }
-
-    function testSingleton()
-    {
-        $this->assertNotNull($this->_sut->get('org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest'));
     }
 
     function _testMapping()
