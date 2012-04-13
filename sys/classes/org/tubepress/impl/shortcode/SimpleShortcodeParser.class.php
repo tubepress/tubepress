@@ -151,7 +151,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
 
             org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Name-value pair detected: %s = "%s" (unfiltered)', $name, $value);
 
-            $filtered = $pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, $name, $value);
+            $filtered = $pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, $value, $name);
 
             org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Name-value pair detected: %s = "%s" (filtered)', $name, $filtered);
 

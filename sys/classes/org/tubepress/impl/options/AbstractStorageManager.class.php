@@ -120,7 +120,7 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
         /** Do we even know about this option? */
         if ($descriptor === null) {
 
-            org_tubepress_impl_log_Log::log($logPrefix, 'Could not find descriptor for option with name %s', $name);
+            org_tubepress_impl_log_Log::log($logPrefix, 'Could not find descriptor for option with name %s', $optionName);
             return;
         }
 
@@ -131,10 +131,10 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
         }
 
         /** First run it through the filters. */
-        $filtered = $pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION, $optionName, $optionValue);
+        $filtered = $pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION, $optionValue, $optionName);
 
         /** OK, let's see if it's valid. */
-        if ($validator->isValid($optionName, $optionValue)) {
+        if ($validator->isValid($optionName, $filtered)) {
 
             org_tubepress_impl_log_Log::log($logPrefix, 'Accepted valid value: %s = %s', $optionName, $filtered);
 

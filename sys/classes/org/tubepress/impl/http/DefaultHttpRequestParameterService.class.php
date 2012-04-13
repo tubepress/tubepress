@@ -67,7 +67,7 @@ class org_tubepress_impl_http_DefaultHttpRequestParameterService implements org_
         $rawValue = $_REQUEST[$name];
 
         /** Run it through the filters, if any. */
-        return $this->_pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, $name, $rawValue);
+        return $this->_pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, $rawValue, $name);
     }
 
     /**

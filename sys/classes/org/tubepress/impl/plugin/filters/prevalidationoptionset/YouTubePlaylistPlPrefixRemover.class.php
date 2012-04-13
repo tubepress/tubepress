@@ -37,14 +37,14 @@ class org_tubepress_impl_plugin_filters_prevalidationoptionset_YouTubePlaylistPl
      * Applied to a single option name/value pair before it is applied to TubePress's execution context
      *  or persistence storage. This filter is invoked *before* the option name or value is validated!
      *
-     * @param string $name  The name of the option being set.
      * @param string $value The option value being set.
+     * @param string $name  The name of the option being set.
      *
      * @return unknown_type The (possibly modified) option value. May be null.
      *
-     * function alter_preValidationOptionSet($name, $value);
+     * function alter_preValidationOptionSet($value, $name);
      */
-    public function alter_preValidationOptionSet($name, $value)
+    public function alter_preValidationOptionSet($value, $name)
     {
         /** We only care about playlistValue. */
         if ($name !== org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE) {

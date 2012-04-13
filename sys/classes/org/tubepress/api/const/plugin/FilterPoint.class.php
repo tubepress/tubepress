@@ -158,12 +158,12 @@ interface org_tubepress_api_const_plugin_FilterPoint
      *
      *     TubePress::registerFilter('preValidationOptionSet', $yourClassInstance);
      *
-     * @param string $name  The name of the option being set.
      * @param string $value The option value being set.
+     * @param string $name  The name of the option being set.
      *
      * @return unknown_type The (possibly modified) option value. May be null.
      *
-     * function alter_preValidationOptionSet($name, $value);
+     * function alter_preValidationOptionSet($value, $name);
      */
     const OPTION_SET_PRE_VALIDATION = 'preValidationOptionSet';
 
@@ -283,12 +283,12 @@ interface org_tubepress_api_const_plugin_FilterPoint
      *
      *     TubePress::registerFilter('variableReadFromExternalInput', $yourClassInstance);
      *
-     * @param string $name  The name of the option being set.
      * @param string $value The option value being set.
+     * @param string $name  The name of the option being set.
      *
      * @return unknown_type The (possibly modified) option value. May be null.
      *
-     * function alter_variableReadFromExternalInput($name, $value);
+     * function alter_variableReadFromExternalInput($value, $name);
      */
     const VARIABLE_READ_FROM_EXTERNAL_INPUT = 'variableReadFromExternalInput';
 

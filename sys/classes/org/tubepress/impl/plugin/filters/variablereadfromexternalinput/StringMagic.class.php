@@ -30,4 +30,18 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 class org_tubepress_impl_plugin_filters_variablereadfromexternalinput_StringMagic extends org_tubepress_impl_plugin_filters_AbstractStringMagicFilter
 {
 
+    /**
+     * Applied to a single option name/value pair as it is read from external input.
+     *
+     * @param string $value The option value being set.
+     * @param string $name  The name of the option being set.
+     *
+     * @return unknown_type The (possibly modified) option value. May be null.
+     *
+     * function alter_variableReadFromExternalInput($value, $name);
+     */
+    function alter_variableReadFromExternalInput($value, $name)
+    {
+        return $this->_magic($name, $value);
+    }
 }

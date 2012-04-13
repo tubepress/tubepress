@@ -117,7 +117,7 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
     public function set($optionName, $optionValue)
     {
         /** First run it through the filters. */
-        $filtered = $this->_pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION, $optionName, $optionValue);
+        $filtered = $this->_pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION, $optionValue, $optionName);
 
         if ($this->_validationService->isValid($optionName, $filtered)) {
 

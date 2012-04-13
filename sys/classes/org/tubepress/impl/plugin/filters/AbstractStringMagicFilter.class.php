@@ -29,25 +29,14 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 abstract class org_tubepress_impl_plugin_filters_AbstractStringMagicFilter
 {
-    /**
-     * Applied to a single option name/value pair before it is applied to TubePress's execution context
-     *  or persistence storage. This filter is invoked *before* the option name or value is validated!
-     *
-     * @param string $name  The name of the option being set.
-     * @param string $value The option value being set.
-     *
-     * @return unknown_type The (possibly modified) option value. May be null.
-     *
-     * function alter_preValidationOptionSet($name, $value);
-     */
-    public function alter_preValidationOptionSet($name, $value)
+    protected function _magic($name, $value)
     {
         /** If it's an array, send each element through the filter. */
         if (is_array($value)) {
 
             foreach ($value as $key => $subValue) {
 
-                $value[$key] = $this->alter_preValidationOptionSet($key, $subValue);
+                $value[$key] = $this->_magic($key, $subValue);
             }
 
             return $value;
