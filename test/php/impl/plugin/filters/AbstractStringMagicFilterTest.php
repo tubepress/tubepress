@@ -26,7 +26,7 @@ abstract class org_tubepress_impl_plugin_filters_AbstractStringMagicFilterTest e
 
     function testInt()
     {
-        $result = $this->_sut->alter_preValidationOptionSet('name', 5);
+        $result = $this->_performAltering($this->_sut, 5, 'name');
 
         $this->assertTrue($result === 5);
     }
@@ -49,16 +49,18 @@ abstract class org_tubepress_impl_plugin_filters_AbstractStringMagicFilterTest e
                 )
         );
 
-        $result = $this->_sut->alter_preValidationOptionSet('otherName', $val);
+        $result = $this->_performAltering($this->_sut, $val, 'otherName');
 
         $this->assertArrayEquality($expected, $result, var_export($result, true));
     }
 
     protected abstract function _buildSut();
 
+    protected abstract function _performAltering($sut, $value, $name);
+
     private function _booleanConversion($expected, $val)
     {
-        $result = $this->_sut->alter_preValidationOptionSet('name', $val);
+        $result = $this->_performAltering($this->_sut, $val, 'name');
 
         return $this->assertTrue($result === $expected);
     }

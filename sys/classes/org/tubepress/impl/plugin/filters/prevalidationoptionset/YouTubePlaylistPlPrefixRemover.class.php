@@ -49,7 +49,7 @@ class org_tubepress_impl_plugin_filters_prevalidationoptionset_YouTubePlaylistPl
         /** We only care about playlistValue. */
         if ($name !== org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE) {
 
-            return;
+            return $value;
         }
 
         if (org_tubepress_impl_util_StringUtils::startsWith($value, 'PL')) {

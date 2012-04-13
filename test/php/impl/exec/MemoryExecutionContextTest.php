@@ -158,9 +158,9 @@ class org_tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTe
 
     private function _setupFilters($name, $value)
     {
-        $this->_pluginManager->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION, $name, $value)
+        $this->_pluginManager->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION, $value, $name)
             ->andReturnUsing(function ($a, $b, $c) {
-            return "<<$c>>";
+            return "<<$b>>";
         });
     }
 }

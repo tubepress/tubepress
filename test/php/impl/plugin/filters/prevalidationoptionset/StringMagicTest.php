@@ -10,4 +10,9 @@ class org_tubepress_impl_plugin_filters_prevalidationoptionset_StringMagicTest e
     {
         return new org_tubepress_impl_plugin_filters_prevalidationoptionset_StringMagic();
     }
+
+    protected function _performAltering($sut, $value, $name)
+    {
+        return $sut->alter_preValidationOptionSet($value, $name);
+    }
 }

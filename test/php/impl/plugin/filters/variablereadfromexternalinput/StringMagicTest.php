@@ -10,4 +10,9 @@ class org_tubepress_impl_plugin_filters_variablereadfromexternalinput_StringMagi
     {
         return new org_tubepress_impl_plugin_filters_variablereadfromexternalinput_StringMagic();
     }
+
+    protected function _performAltering($sut, $value, $name)
+    {
+        return $sut->alter_variableReadFromExternalInput($value, $name);
+    }
 }

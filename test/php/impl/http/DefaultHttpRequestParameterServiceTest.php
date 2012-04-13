@@ -33,7 +33,7 @@ class org_tubepress_impl_http_DefaultHttpRequestParameterServiceTest extends Tub
 
         $_REQUEST['something'] = array(1, 2, 3);
 
-        $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, 'something', array(1, 2, 3))->andReturn('yo');
+        $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, array(1, 2, 3), 'something')->andReturn('yo');
 
         $result = $this->_sut->getParamValue('something');
 
@@ -47,7 +47,7 @@ class org_tubepress_impl_http_DefaultHttpRequestParameterServiceTest extends Tub
 
         $_REQUEST['something'] = array(1, 2, 3);
 
-        $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, 'something', array(1, 2, 3))->andReturn('44');
+        $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, array(1, 2, 3), 'something')->andReturn('44');
 
         $result = $this->_sut->getParamValueAsInt('something', 1);
 
@@ -61,7 +61,7 @@ class org_tubepress_impl_http_DefaultHttpRequestParameterServiceTest extends Tub
 
         $_REQUEST['something'] = array(1, 2, 3);
 
-        $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, 'something', array(1, 2, 3))->andReturn('44vb');
+        $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, array(1, 2, 3), 'something')->andReturn('44vb');
 
         $result = $this->_sut->getParamValueAsInt('something', 33);
 

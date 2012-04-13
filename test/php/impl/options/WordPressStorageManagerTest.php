@@ -66,9 +66,9 @@ class org_tubepress_impl_options_WordPressStorageManagerTest extends TubePressUn
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
         $pm  = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
 
-        $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION, $name, $value)
+        $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION, $value, $name)
         ->andReturnUsing(function ($a, $b, $c) {
-            return "<<$c>>";
+            return "<<$b>>";
         });
         }
 }

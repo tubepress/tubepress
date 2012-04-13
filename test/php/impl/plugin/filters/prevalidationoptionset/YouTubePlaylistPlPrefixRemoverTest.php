@@ -13,21 +13,27 @@ class org_tubepress_impl_plugin_filters_prevalidationoptionset_YouTubePlaylistPl
 		$this->_sut = new org_tubepress_impl_plugin_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover();
 	}
 
+	function testAlterDifferentVariable()
+	{
+	    $result = $this->_sut->alter_preValidationOptionSet('PLsomething', org_tubepress_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE);
+	    $this->assertEquals('PLsomething', $result);
+	}
+
 	function testAlterNonString()
 	{
-	    $result = $this->_sut->alter_preValidationOptionSet(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE, array('hello'));
+	    $result = $this->_sut->alter_preValidationOptionSet(array('hello'), org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
 	    $this->assertEquals(array('hello'), $result);
 	}
 
 	function testAlterHtmlNonPrefix()
 	{
-	    $result = $this->_sut->alter_preValidationOptionSet(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE, 'hello');
+	    $result = $this->_sut->alter_preValidationOptionSet('hello', org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
 	    $this->assertEquals('hello', $result);
 	}
 
 	function testAlterPrefix()
 	{
-	    $result = $this->_sut->alter_preValidationOptionSet(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE, 'PLhelloPL');
+	    $result = $this->_sut->alter_preValidationOptionSet('PLhelloPL', org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
 	    $this->assertEquals('helloPL', $result);
 	}
 }
