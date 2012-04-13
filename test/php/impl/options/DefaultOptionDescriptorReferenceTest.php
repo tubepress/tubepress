@@ -169,7 +169,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$this->assertTrue($option->isProOnly() === true, $option->getName());
 
     	$option = $this->_sut->findOneByName(org_tubepress_api_const_options_names_Feed::PER_PAGE_SORT);
-    	$this->assertTrue($option->getLabel() === 'Per-page sort', $option->getName());
+    	$this->assertTrue($option->getLabel() === 'Per-page sort order', $option->getName());
     	$this->assertTrue($option->getDefaultValue() === org_tubepress_api_const_options_values_PerPageSortValue::NONE, $option->getName());
     	$this->assertTrue($option->getDescription() === 'Additional sort order applied to each individual page of a gallery', $option->getName());
     	$this->assertTrue($option->getAcceptableValues() === array(

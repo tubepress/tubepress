@@ -367,7 +367,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Feed::PER_PAGE_SORT);
         $option->setDefaultValue(org_tubepress_api_const_options_values_PerPageSortValue::NONE);
-        $option->setLabel('Per-page sort');                                            //>(translatable)<
+        $option->setLabel('Per-page sort order');                                            //>(translatable)<
         $option->setDescription('Additional sort order applied to each individual page of a gallery');  //>(translatable)<
         $option->setAcceptableValues(array(
                 org_tubepress_api_const_options_values_PerPageSortValue::COMMENT_COUNT  => 'comment count',                 //>(translatable)<
