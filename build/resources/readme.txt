@@ -31,6 +31,19 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 
 == Changelog ==
 
+= 2.4.2 =
+* Split up per-page and feed sorting options to provide finer control of gallery sort order
+* Added Polish translation
+* Broken calculation of upload date for YouTube videos
+* Broken display and handling of drop-down menus in any language besides English (closes issue 487)
+* Broken ability to save "searchResultsRestrictedToUser" option value
+* Some PHP installations result in error: "Class 'org_tubepress_impl_util_LangUtils' not found"
+* Trim Vimeo API key/secret to avoid "The oauth_signature passed was not valid" error (closes issue 491)
+* Options in a multi-select form input fail to save when all items are unchecked (closes issue 486)
+* Broken handling of double quotes during interactive search
+* Potential warning message with ini_set() (closes issue 497)
+* Broken domain calculation in WordPress MU installations (closes issue 495)
+
 = 2.4.1 =
 * Fixes "Invalid request URI" when using YouTube galleries on PHP installations built with PCRE <= 7.0 (closes issue 475)
 * Smarter handling of YouTube playlists that begin with "PL" (closes issue 417)
