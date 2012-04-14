@@ -16,12 +16,10 @@ abstract class org_tubepress_impl_plugin_filters_AbstractStringMagicFilterTest e
 	    $this->_booleanConversion(true, 'true');
 	    $this->_booleanConversion(true, 'TRUE');
 	    $this->_booleanConversion(true, ' TRuE  ');
-	    $this->_booleanConversion(true, ' 1');
 
 	    $this->_booleanConversion(false, 'false  ');
 	    $this->_booleanConversion(false, 'FALSE');
 	    $this->_booleanConversion(false, ' faLSe  ');
-	    $this->_booleanConversion(false, ' 0');
 	}
 
     function testInt()

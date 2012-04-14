@@ -64,9 +64,9 @@ abstract class org_tubepress_impl_plugin_filters_AbstractStringMagicFilter
             return false;
         }
 
-        if (preg_match('/^(?:0|1|true)$/i', $value)) {
+        if (strcasecmp($value, 'true') === 0) {
 
-            return (bool) $value;
+            return true;
         }
 
         return $value;
