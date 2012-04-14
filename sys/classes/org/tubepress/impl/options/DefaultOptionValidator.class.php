@@ -69,7 +69,7 @@ class org_tubepress_impl_options_DefaultOptionValidator implements org_tubepress
 
         if ($descriptor->hasValidValueRegex()) {
 
-            if (preg_match_all($descriptor->getValidValueRegex(), $candidate, $matches) >= 1 && $matches[0][0] === (string) $candidate) {
+            if (preg_match_all($descriptor->getValidValueRegex(), (string) $candidate, $matches) >= 1 && $matches[0][0] === (string) $candidate) {
 
                 return null;
             }

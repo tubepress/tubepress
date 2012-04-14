@@ -79,7 +79,8 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractMultiSelectField ext
      */
     function onSubmit()
     {
-        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $sm  = $ioc->get(org_tubepress_api_options_StorageManager::_);
 
         $hrps = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
 
@@ -102,8 +103,6 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractMultiSelectField ext
             return null;
         }
 
-        $ioc    = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $sm     = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $errors = array();
 
         foreach ($this->_optionDescriptors as $optionDescriptor) {
