@@ -135,14 +135,15 @@ class org_tubepress_impl_env_wordpress_Widget
         $msg          = $iocContainer->get(org_tubepress_api_message_MessageService::_);
         $explorer     = $iocContainer->get(org_tubepress_api_filesystem_Explorer::_);
         $tplBuilder   = $iocContainer->get(org_tubepress_api_template_TemplateBuilder::_);
+        $hrps         = $iocContainer->get(org_tubepress_api_http_HttpRequestParameterService::_);
 
         /* are we saving? */
-        if (isset($_POST[self::WIDGET_SUBMIT_TAG])) {
+        if ($hrps->hasParam(self::WIDGET_SUBMIT_TAG)) {
 
-            self::_verifyNonce($_POST);
+            self::_verifyNonce();
 
-            $wpsm->set(org_tubepress_api_const_options_names_WordPress::WIDGET_SHORTCODE, strip_tags(stripslashes($_POST['tubepress-widget-tagstring'])));
-            $wpsm->set(org_tubepress_api_const_options_names_WordPress::WIDGET_TITLE, strip_tags(stripslashes($_POST['tubepress-widget-title'])));
+            $wpsm->set(org_tubepress_api_const_options_names_WordPress::WIDGET_SHORTCODE, $hrps->getParamValue('tubepress-widget-tagstring'));
+            $wpsm->set(org_tubepress_api_const_options_names_WordPress::WIDGET_TITLE, $hrps->getParamValue('tubepress-widget-title'));
         }
 
         /* load up the gallery template */
@@ -160,7 +161,7 @@ class org_tubepress_impl_env_wordpress_Widget
         echo $tpl->toString();
     }
 
-    private static function _verifyNonce($postVars) {
+    private static function _verifyNonce() {
 
         check_admin_referer('tubepress-widget-nonce-save', 'tubepress-widget-nonce');
     }

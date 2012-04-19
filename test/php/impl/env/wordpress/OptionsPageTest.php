@@ -7,27 +7,26 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
     function setUp()
     {
         parent::setUp();
-
-        $_POST = array();
     }
 
     function testSubmitThrowsException()
     {
-        $_POST['tubepress_save'] = true;
-
         $addOptionsPageFunctionMock = new PHPUnit_Extensions_MockFunction('add_options_page');
 
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
+
+        $hrps = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $hrps->shouldReceive('hasParam')->once()->with('tubepress_save')->andReturn(true);
 
         $wpsm = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $wpsm->shouldReceive('init')->once();
 
         $formHandler = $ioc->get(org_tubepress_api_options_ui_FormHandler::_);
         $formHandler->shouldReceive('getHtml')->once()->andReturn('yo');
-        $formHandler->shouldReceive('onSubmit')->once()->with($_POST)->andThrow(new Exception('something!'));
+        $formHandler->shouldReceive('onSubmit')->once()->andThrow(new Exception('something!'));
 
         $this->_setupWorkingNonce();
-        
+
         ob_start();
         org_tubepress_impl_env_wordpress_OptionsPage::executeOptionsPage();
         $contents = ob_get_contents();
@@ -38,18 +37,19 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
 
     function testSubmitValidValue()
     {
-        $_POST['tubepress_save'] = true;
-
         $addOptionsPageFunctionMock = new PHPUnit_Extensions_MockFunction('add_options_page');
 
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
+
+        $hrps = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $hrps->shouldReceive('hasParam')->once()->with('tubepress_save')->andReturn(true);
 
         $wpsm = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $wpsm->shouldReceive('init')->once();
 
         $formHandler = $ioc->get(org_tubepress_api_options_ui_FormHandler::_);
         $formHandler->shouldReceive('getHtml')->once()->andReturn('yo');
-        $formHandler->shouldReceive('onSubmit')->once()->with($_POST)->andReturn(null);
+        $formHandler->shouldReceive('onSubmit')->once()->andReturn(null);
 
         ob_start();
         org_tubepress_impl_env_wordpress_OptionsPage::executeOptionsPage();
@@ -61,18 +61,19 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
 
     function testSubmitInvalidValue()
     {
-        $_POST['tubepress_save'] = true;
-
         $addOptionsPageFunctionMock = new PHPUnit_Extensions_MockFunction('add_options_page');
 
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
+
+        $hrps = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $hrps->shouldReceive('hasParam')->once()->with('tubepress_save')->andReturn(true);
 
         $wpsm = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $wpsm->shouldReceive('init')->once();
 
         $formHandler = $ioc->get(org_tubepress_api_options_ui_FormHandler::_);
         $formHandler->shouldReceive('getHtml')->once()->andReturn('yo');
-        $formHandler->shouldReceive('onSubmit')->once()->with($_POST)->andReturn(array('bad value!', 'another bad value!'));
+        $formHandler->shouldReceive('onSubmit')->once()->andReturn(array('bad value!', 'another bad value!'));
 
         ob_start();
         org_tubepress_impl_env_wordpress_OptionsPage::executeOptionsPage();
@@ -87,6 +88,9 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
         $addOptionsPageFunctionMock = new PHPUnit_Extensions_MockFunction('add_options_page');
 
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
+
+        $hrps = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $hrps->shouldReceive('hasParam')->once()->with('tubepress_save')->andReturn(false);
 
         $wpsm = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $wpsm->shouldReceive('init')->once();
@@ -137,36 +141,36 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
     private function _getEnqueueStyleReturnMap()
     {
         $returnMapBuilder = new PHPUnit_Extensions_MockObject_Stub_ReturnMapping_Builder();
-    
+
         $returnMapBuilder->addEntry()->with(array('jquery-ui-flick'));
         $returnMapBuilder->addEntry()->with(array('tubepress-options-page'));
         $returnMapBuilder->addEntry()->with(array('jquery-ui-multiselect-widget'));
-    
+
         return $returnMapBuilder->build();
     }
-    
+
     private function _getEnqueueScriptReturnMap()
     {
         $returnMapBuilder = new PHPUnit_Extensions_MockObject_Stub_ReturnMapping_Builder();
-    
+
         $returnMapBuilder->addEntry()->with(array('jquery-ui-tubepress'));
         $returnMapBuilder->addEntry()->with(array('jquery-ui-multiselect-widget'));
         $returnMapBuilder->addEntry()->with(array('jscolor-tubepress'));
-    
+
         return $returnMapBuilder->build();
     }
-    
+
     private function _getRegisterStyleReturnMap()
     {
         $returnMapBuilder = new PHPUnit_Extensions_MockObject_Stub_ReturnMapping_Builder();
-        
+
         $returnMapBuilder->addEntry()->with(array('jquery-ui-flick', 'foobar'));
         $returnMapBuilder->addEntry()->with(array('tubepress-options-page', 'foobar2'));
         $returnMapBuilder->addEntry()->with(array('jquery-ui-multiselect-widget', 'foobar3'));
-        
+
         return $returnMapBuilder->build();
     }
-    
+
     private function _getPluginsUrlReturnMap()
     {
          $returnMapBuilder = new PHPUnit_Extensions_MockObject_Stub_ReturnMapping_Builder();
@@ -184,18 +188,18 @@ class org_tubepress_impl_env_wordpress_OptionsPageTest extends TubePressUnitTest
     private function _getRegisterScriptReturnMap()
     {
         $returnMapBuilder = new PHPUnit_Extensions_MockObject_Stub_ReturnMapping_Builder();
-    
+
         $returnMapBuilder->addEntry()->with(array('jscolor-tubepress', 'fooey'));
         $returnMapBuilder->addEntry()->with(array('jquery-ui-tubepress', 'fooey2'));
         $returnMapBuilder->addEntry()->with(array('jquery-ui-multiselect-widget', 'fooey3'));
-    
+
         return $returnMapBuilder->build();
     }
-    
+
     private function _setupWorkingNonce()
     {
     	$adminCheck = new PHPUnit_Extensions_MockFunction('check_admin_referer');
-    	
+
     	$adminCheck->expects($this->once())->with('tubepress-save', 'tubepress-nonce')->will($this->returnValue(true));
     }
 

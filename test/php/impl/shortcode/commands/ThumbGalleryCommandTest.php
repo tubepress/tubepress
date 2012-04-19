@@ -18,8 +18,8 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 
 	    $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-	    $qss = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
-	    $qss->shouldReceive('getPageNum')->once()->andReturn('page-num');
+        $qss     = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $qss->shouldReceive('getParamValueAsInt')->once()->with(org_tubepress_api_const_http_ParamName::PAGE, 1)->andReturn('page-num');
 
 	    $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
 	    $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');
@@ -54,8 +54,8 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 
 	    $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-	    $qss = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
-	    $qss->shouldReceive('getPageNum')->once()->andReturn('page-num');
+        $qss     = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $qss->shouldReceive('getParamValueAsInt')->once()->with(org_tubepress_api_const_http_ParamName::PAGE, 1)->andReturn('page-num');
 
 	    $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
 
@@ -89,8 +89,8 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 
 	    $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-	    $qss = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
-	    $qss->shouldReceive('getPageNum')->once()->andReturn('page-num');
+        $qss     = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $qss->shouldReceive('getParamValueAsInt')->once()->with(org_tubepress_api_const_http_ParamName::PAGE, 1)->andReturn('page-num');
 
 	    $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
 	    $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');

@@ -24,9 +24,10 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_GallerySource',
 	'org_tubepress_api_const_options_names_Thumbs',
 	'org_tubepress_api_const_options_names_InteractiveSearch',
+    'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_api_exec_ExecutionContext',
-    'org_tubepress_api_options_OptionValidator',
+    'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_api_shortcode_ShortcodeParser',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_log_Log',
@@ -65,10 +66,9 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
         $keyword  = $context->get(org_tubepress_api_const_options_names_Advanced::KEYWORD);
 
 	    if (!$this->somethingToParse($content, $keyword)) {
+
             return;
         }
-
-        $toReturn = array();
 
         preg_match("/\[$keyword\b(.*)\]/", $content, $matches);
 
@@ -91,9 +91,9 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
 
             if ( preg_match_all($pattern, $text, $match, PREG_SET_ORDER) ) {
 
-                org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Custom options detected in shortcode: %s', $matches[0]);
+                org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Candidate options detected in shortcode: %s', $matches[0]);
 
-                $toReturn = self::_parseCustomOption($toReturn, $match, $ioc);
+                $toReturn = self::_buildNameValuePairArray($match, $ioc);
 
                 $context->setCustomOptions($toReturn);
             }
@@ -126,45 +126,39 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
      *
      * @return void
      */
-    private static function _parseCustomOption($customOptions, $match, org_tubepress_api_ioc_IocService $ioc)
+    private static function _buildNameValuePairArray($match, org_tubepress_api_ioc_IocService $ioc)
     {
-        $inputValidationService = $ioc->get(org_tubepress_api_options_OptionValidator::_);
+        $toReturn      = array();
+        $pluginManager = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
 
         foreach ($match as $m) {
 
-            if (!empty($m[1])) {
+            if (! empty($m[1])) {
 
                 $name  = $m[1];
-                $value = self::_normalizeValue($m[2]);
+                $value = $m[2];
 
-            } elseif (!empty($m[3])) {
+            } elseif (! empty($m[3])) {
 
                 $name  = $m[3];
-                $value = self::_normalizeValue($m[4]);
+                $value = $m[4];
 
-            } elseif (!empty($m[5])) {
+            } elseif (! empty($m[5])) {
 
                 $name  = $m[5];
-                $value = self::_normalizeValue($m[6]);
+                $value = $m[6];
             }
 
-            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Shortcode option detected: %s = %s', $name, (string)$value);
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Name-value pair detected: %s = "%s" (unfiltered)', $name, $value);
 
-            $valid = $inputValidationService->isValid($name, $value);
+            $filtered = $pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, $value, $name);
 
-            if ($valid) {
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Name-value pair detected: %s = "%s" (filtered)', $name, $filtered);
 
-            	org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Accepted valid value: %s = %s', $name, (string)$value);
-
-                $customOptions[$name] = $value;
-
-            } else {
-
-                org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Ignoring invalid value for "%s" (%s)', $name, $inputValidationService->getProblemMessage($name, $value));
-            }
+            $toReturn[$name] = $filtered;
         }
 
-        return $customOptions;
+        return $toReturn;
     }
 
     /**
@@ -178,29 +172,5 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
     {
         $converted = str_replace(array('&#8216', '&#8217', '&#8242;'), '\'', $text);
         return str_replace(array('&#34', '&#8220;', '&#8221;', '&#8243;'), '"', $converted);
-    }
-
-    /**
-     * Strips out ugly slashes and converts boolean
-     *
-     * @param string $value The raw option name or value
-     *
-     * @return string The cleaned up option name or value
-     */
-    private static function _normalizeValue($value)
-    {
-        $cleanValue = trim(stripcslashes($value));
-
-        if ($cleanValue == 'true') {
-
-            return true;
-        }
-
-        if ($cleanValue == 'false') {
-
-            return false;
-        }
-
-        return $cleanValue;
     }
 }

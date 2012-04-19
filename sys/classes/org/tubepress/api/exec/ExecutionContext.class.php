@@ -43,7 +43,7 @@ interface org_tubepress_api_exec_ExecutionContext
      * @param string  $optionName  The name of the option
      * @param unknown $optionValue The option value
      *
-     * @return void
+     * @return True if the option was set normally, otherwise a string error message.
      */
     function set($optionName, $optionValue);
 
@@ -52,7 +52,7 @@ interface org_tubepress_api_exec_ExecutionContext
      *
      * @param array $customOpts The custom options.
      *
-     * @return void
+     * @return An array of error messages. May be empty, never null.
      */
     function setCustomOptions($customOpts);
 

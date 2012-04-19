@@ -21,8 +21,9 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_http_ParamName',
     'org_tubepress_api_html_HeadHtmlGenerator',
-    'org_tubepress_api_querystring_QueryStringService',
+    'org_tubepress_api_http_HttpRequestParameterService',
     'org_tubepress_impl_ioc_IocContainer',
 ));
 
@@ -66,8 +67,8 @@ class org_tubepress_impl_html_DefaultHeadHtmlGenerator implements org_tubepress_
     public function getHeadHtmlMeta()
     {
         $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $qss  = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
-        $page = $qss->getPageNum($_GET);
+        $qss  = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $page = $qss->getParamValueAsInt(org_tubepress_api_const_http_ParamName::PAGE, 1);
 
         return $page > 1 ? "<meta name=\"robots\" content=\"noindex, nofollow\" />" : '';
     }

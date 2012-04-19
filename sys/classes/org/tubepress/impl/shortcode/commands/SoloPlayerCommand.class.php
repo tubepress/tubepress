@@ -20,9 +20,11 @@
  */
 
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_http_ParamName',
     'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_const_options_names_Output',
     'org_tubepress_api_const_options_values_PlayerLocationValue',
+    'org_tubepress_api_http_HttpRequestParameterService',
     'org_tubepress_spi_patterns_cor_Chain',
     'org_tubepress_spi_patterns_cor_Command',
     'org_tubepress_impl_shortcode_commands_SingleVideoCommand',
@@ -57,8 +59,8 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommand implements org_tub
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Solo player detected. Checking query string for video ID.');
 
         /* see if we have a custom video ID set */
-        $qss     = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
-        $videoId = $qss->getCustomVideo($_GET);
+        $qss     = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $videoId = $qss->getParamValue(org_tubepress_api_const_http_ParamName::VIDEO);;
 
         if ($videoId == '') {
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Solo player in use, but no video ID set in URL.');
@@ -66,7 +68,14 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommand implements org_tub
         }
 
         org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Building single video with ID %s', $videoId);
-        $execContext->set(org_tubepress_api_const_options_names_Output::VIDEO, $videoId);
+
+        $result = $execContext->set(org_tubepress_api_const_options_names_Output::VIDEO, $videoId);
+
+        if ($result !== true) {
+
+            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Could not verify video ID.');
+            return false;
+        }
 
         /* display the results as a thumb gallery */
         $ioc->get(org_tubepress_spi_patterns_cor_Chain::_)->execute($context, array(

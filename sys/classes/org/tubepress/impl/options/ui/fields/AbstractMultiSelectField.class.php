@@ -21,6 +21,7 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php');
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_http_HttpRequestParameterService',
     'org_tubepress_spi_options_ui_Field',
     'org_tubepress_impl_options_ui_fields_AbstractField',
 ));
@@ -33,7 +34,7 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractMultiSelectField ext
     const TEMPLATE_VAR_DESCRIPTORS = 'org_tubepress_impl_options_ui_fields_AbstractMultiSelectField__descriptors';
 
     const TEMPLATE_VAR_CURRENTVALUES = 'org_tubepress_impl_options_ui_fields_AbstractMultiSelectField__currentValues';
-    
+
     /** Array of option descriptors. */
     private $_optionDescriptors;
 
@@ -71,29 +72,55 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractMultiSelectField ext
         $this->_name              = $name;
     }
 
-    function onSubmit($postVars)
+    /**
+     * Handles form submission.
+     *
+     * @return An array of failure messages if there's a problem, otherwise null.
+     */
+    function onSubmit()
     {
-        if (! array_key_exists($this->_name, $postVars)) {
+        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $sm  = $ioc->get(org_tubepress_api_options_StorageManager::_);
+
+        $hrps = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+
+        if (! $hrps->hasParam($this->_name)) {
 
             /* not submitted. */
-            return;
+            foreach ($this->_optionDescriptors as $optionDescriptor) {
+
+                $sm->set($optionDescriptor->getName(), false);
+            }
+
+            return null;
         }
 
-        $vals = $postVars[$this->_name];
+        $vals = $hrps->getParamValue($this->_name);
 
         if (! is_array($vals)) {
 
             /* this should never happen. */
-            return;
+            return null;
         }
 
-        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $sm   = $ioc->get(org_tubepress_api_options_StorageManager::_);
+        $errors = array();
 
         foreach ($this->_optionDescriptors as $optionDescriptor) {
 
-            $sm->set($optionDescriptor->getName(), in_array($optionDescriptor->getName(), $vals));
+            $result = $sm->set($optionDescriptor->getName(), in_array($optionDescriptor->getName(), $vals));
+
+            if ($result !== true) {
+
+                $errors[] = $result;
+            }
         }
+
+        if (count($errors) === 0) {
+
+            return null;
+        }
+
+        return $errors;
     }
 
     function getHtml()

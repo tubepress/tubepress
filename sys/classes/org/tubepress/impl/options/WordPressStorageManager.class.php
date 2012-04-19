@@ -36,7 +36,7 @@ class org_tubepress_impl_options_WordPressStorageManager extends org_tubepress_i
      */
     private static $_optionPrefix = "tubepress-";
 
-    private static $_dbVersion = 241;
+    private static $_dbVersion = 242;
 
     private static $_dbVersionOptionName = 'version';
 

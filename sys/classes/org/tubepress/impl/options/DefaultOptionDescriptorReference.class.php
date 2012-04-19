@@ -23,6 +23,7 @@ class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_options_OptionDescriptorReference',
     'org_tubepress_api_options_OptionDescriptor',
+    'org_tubepress_api_const_options_names_Advanced',
 	'org_tubepress_api_const_options_names_Cache',
     'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_const_options_names_Feed',
@@ -33,6 +34,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 	'org_tubepress_api_const_options_names_Meta',
     'org_tubepress_api_const_options_names_WordPress',
     'org_tubepress_api_const_options_values_GallerySourceValue',
+    'org_tubepress_api_const_options_values_PerPageSortValue',
     'org_tubepress_api_const_options_values_PlayerImplementationValue',
     'org_tubepress_api_const_options_values_PlayerLocationValue',
     'org_tubepress_api_const_options_values_OrderByValue',
@@ -363,6 +365,23 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option->setDescription('A list of video IDs that should never be displayed.');  //>(translatable)<
         $this->register($option);
 
+        $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Feed::PER_PAGE_SORT);
+        $option->setDefaultValue(org_tubepress_api_const_options_values_PerPageSortValue::NONE);
+        $option->setLabel('Per-page sort order');                                            //>(translatable)<
+        $option->setDescription('Additional sort order applied to each individual page of a gallery');  //>(translatable)<
+        $option->setAcceptableValues(array(
+                org_tubepress_api_const_options_values_PerPageSortValue::COMMENT_COUNT  => 'comment count',                 //>(translatable)<
+                org_tubepress_api_const_options_values_PerPageSortValue::NEWEST         => 'date published (newest first)', //>(translatable)<
+                org_tubepress_api_const_options_values_PerPageSortValue::OLDEST         => 'date published (oldest first)', //>(translatable)<
+                org_tubepress_api_const_options_values_PerPageSortValue::DURATION       => 'length',                        //>(translatable)<
+                org_tubepress_api_const_options_values_PerPageSortValue::NONE           => 'none',                          //>(translatable)<
+                org_tubepress_api_const_options_values_PerPageSortValue::RANDOM         => 'random',                        //>(translatable)<
+                org_tubepress_api_const_options_values_PerPageSortValue::RATING         => 'rating',                        //>(translatable)<
+                org_tubepress_api_const_options_values_PerPageSortValue::TITLE          => 'title',                         //>(translatable)<
+                org_tubepress_api_const_options_values_PerPageSortValue::VIEW_COUNT     => 'view count',                    //>(translatable)<
+        ));
+        $this->register($option);
+
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Feed::ORDER_BY);
         $option->setDefaultValue(org_tubepress_api_const_options_values_OrderByValue::VIEW_COUNT);
         $option->setLabel('Order videos by');                                                                                                                                      //>(translatable)<
@@ -418,7 +437,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Feed::SEARCH_ONLY_USER);
         $option->setLabel('Restrict search results to videos from author');  //>(translatable)<
         $option->setDescription('A YouTube or Vimeo user name. Only applies to search-based galleries.');      //>(translatable)<
-        $option->setValidValueRegex('/(?:\w+)?/');
+        $option->setValidValueRegex('/\w*/');
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_Feed::VIMEO_KEY);

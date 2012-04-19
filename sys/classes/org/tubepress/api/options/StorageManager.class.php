@@ -58,7 +58,7 @@ interface org_tubepress_api_options_StorageManager
      * @param string       $optionName  The option name
      * @param unknown_type $optionValue The option value
      *
-     * @return void
+     * @return True on success, otherwise a string error message.
      */
     function set($optionName, $optionValue);
 }
