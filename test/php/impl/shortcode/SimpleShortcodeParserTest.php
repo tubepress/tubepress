@@ -28,6 +28,13 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
         $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('butters');
     }
 
+    function testNothingToParse()
+    {
+        $shortcode = '[bu mode=&#8216playlist&#8217  , playlistValue=&#8242;foobar&#8242; ,author="false", resultCountCap=\'200\' resultsPerPage=3]';
+
+        $this->_sut->parse($shortcode);
+    }
+
     function testMixedCommasWithAllSortsOfQuotes()
     {
         $shortcode = '[butters mode=&#8216playlist&#8217  , playlistValue=&#8242;foobar&#8242; ,author="false", resultCountCap=\'200\' resultsPerPage=3]';
@@ -35,11 +42,11 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
         $expected = array(
-            org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            org_tubepress_api_const_options_names_Output::GALLERY_SOURCE                => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
             org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
-            org_tubepress_api_const_options_names_Meta::AUTHOR => 'false',
-            org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => 200,
-            org_tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => 3
+            org_tubepress_api_const_options_names_Meta::AUTHOR                          => 'false',
+            org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP                => 200,
+            org_tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE              => 3
         );
 
         $this->_setupExpectedFilters($ioc, $expected);
@@ -268,7 +275,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUn
 
         foreach ($expected as $name => $value) {
 
-            $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, $name, $value)->andReturn($value);
+            $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, $value, $name)->andReturn($value);
         }
     }
 }

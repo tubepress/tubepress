@@ -44,6 +44,44 @@ class org_tubepress_impl_shortcode_commands_SearchOutputCommandTest extends Tube
         $this->assertTrue($this->_sut->execute($mockChainContext));
     }
 
+    function testExecuteVimeoExecContextSetFails()
+    {
+        $mockChainContext = new stdClass();
+
+        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
+
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::OUTPUT)->andReturn(org_tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_ONLY)->andReturn(true);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER)->andReturn(org_tubepress_api_provider_Provider::VIMEO);
+        $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE, org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_SEARCH);
+        $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE, "(#@@!!search (())(())((terms*$$#")->andReturn(false);
+
+        $qss            = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $qss->shouldReceive('getParamValue')->once()->with(org_tubepress_api_const_http_ParamName::SEARCH_TERMS)->andReturn("(#@@!!search (())(())((terms*$$#");
+
+        $this->assertFalse($this->_sut->execute($mockChainContext));
+    }
+
+    function testExecuteYouTubeExecContextSetFails()
+    {
+        $mockChainContext = new stdClass();
+
+        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
+
+        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::OUTPUT)->andReturn(org_tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_InteractiveSearch::SEARCH_RESULTS_ONLY)->andReturn(true);
+        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER)->andReturn(org_tubepress_api_provider_Provider::YOUTUBE);
+        $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE, org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH);
+        $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE, "(#@@!!search (())(())((terms*$$#")->andReturn(false);
+
+        $qss            = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $qss->shouldReceive('getParamValue')->once()->with(org_tubepress_api_const_http_ParamName::SEARCH_TERMS)->andReturn("(#@@!!search (())(())((terms*$$#");
+
+        $this->assertFalse($this->_sut->execute($mockChainContext));
+    }
+
     function testExecuteYouTube()
     {
         $mockChainContext = new stdClass();

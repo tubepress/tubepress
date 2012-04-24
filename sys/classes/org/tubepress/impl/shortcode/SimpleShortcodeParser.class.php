@@ -72,12 +72,6 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
 
         preg_match("/\[$keyword\b(.*)\]/", $content, $matches);
 
-        if (sizeof($matches) === 0) {
-
-            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'No shortcodes detected in content');
-            return;
-        }
-
         org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Found a shortcode: %s', $matches[0]);
 
         $context->setActualShortcodeUsed($matches[0]);

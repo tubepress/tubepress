@@ -13,13 +13,13 @@ class org_tubepress_impl_shortcode_ShortcodeTestSuite
 	public static function suite()
 	{
 		return new TubePressUnitTestSuite(array(
-//             'org_tubepress_impl_shortcode_SimpleShortcodeParserTest',
-//             'org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChainTest',
-//             'org_tubepress_impl_shortcode_commands_SearchInputCommandTest',
+            'org_tubepress_impl_shortcode_SimpleShortcodeParserTest',
+            'org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChainTest',
+            'org_tubepress_impl_shortcode_commands_SearchInputCommandTest',
             'org_tubepress_impl_shortcode_commands_SearchOutputCommandTest',
-//             'org_tubepress_impl_shortcode_commands_SingleVideoCommandTest',
-//             'org_tubepress_impl_shortcode_commands_SoloPlayerCommandTest',
-//             'org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest',
+            'org_tubepress_impl_shortcode_commands_SingleVideoCommandTest',
+            'org_tubepress_impl_shortcode_commands_SoloPlayerCommandTest',
+            'org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest',
         ));
 	}
 }
