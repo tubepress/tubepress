@@ -25,8 +25,10 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_options_OptionValidator',
     'org_tubepress_api_options_StorageManager',
+    'org_tubepress_api_options_OptionValidator',
     'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_impl_ioc_IocContainer',
+    'org_tubepress_impl_log_Log',
     'org_tubepress_impl_options_OptionsReference',
 ));
 
@@ -37,6 +39,8 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
  */
 class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_api_exec_ExecutionContext
 {
+    private static $_logPrefix = 'Memory Execution Context';
+
     /**
      * The user's "custom" options that differ from what's in storage.
      */
@@ -53,6 +57,11 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
     private $_storageManager;
 
     /**
+     * A handle to the validation service.
+     */
+    private $_validationService;
+
+    /**
      * A handle to the plugin manager.
      */
     private $_pluginManager;
@@ -62,9 +71,10 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
      */
     public function __construct()
     {
-        $ioc                   = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $this->_storageManager = $ioc->get(org_tubepress_api_options_StorageManager::_);
-        $this->_pluginManager  = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+        $ioc                      = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_storageManager    = $ioc->get(org_tubepress_api_options_StorageManager::_);
+        $this->_validationService = $ioc->get(org_tubepress_api_options_OptionValidator::_);
+        $this->_pluginManager     = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
     }
 
     /**
@@ -102,23 +112,27 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
      * @param string  $optionName  The name of the option
      * @param unknown $optionValue The option value
      *
-     * @return void
+     * @return True if the option was set normally, otherwise a string error message.
      */
     public function set($optionName, $optionValue)
     {
-        if (is_string($optionValue)) {
+        /** First run it through the filters. */
+        $filtered = $this->_pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION, $optionValue, $optionName);
 
-            $sanitized = htmlspecialchars($optionValue, ENT_NOQUOTES);
+        if ($this->_validationService->isValid($optionName, $filtered)) {
 
-        } else {
+            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Accepted valid value: %s = %s', $optionName, $filtered);
 
-            $sanitized = $optionValue;
+            $this->_customOptions[$optionName] = $filtered;
+
+            return true;
         }
 
-        /** Run it through the filters, if any. */
-        $sanitized = $this->_pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::EXEC_CONTEXT_SET_VALUE_ . $optionName, $optionValue);
+        $problemMessage = $this->_validationService->getProblemMessage($optionName, $filtered);
 
-        $this->_customOptions[$optionName] = $sanitized;
+        org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Ignoring invalid value for "%s" (%s)', $optionName, $problemMessage);
+
+        return $problemMessage;
     }
 
     /**
@@ -126,21 +140,32 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
      *
      * @param array $customOpts The custom options.
      *
-     * @return void
+     * @return An array of error messages. May be empty, never null.
      */
     public function setCustomOptions($customOpts)
     {
     	if (! is_array($customOpts)) {
 
+    	    //TODO: this should throw an exception or something...
     		return;
     	}
 
     	$this->_customOptions = array();
+    	$problemMessages      = array();
 
     	foreach ($customOpts as $key => $value) {
 
-			$this->set($key, $value);
+            $result = $this->set($key, $value);
+
+            if ($result === true) {
+
+                continue;
+            }
+
+            $problemMessages[] = $result;
     	}
+
+    	return $problemMessages;
     }
 
     /**
@@ -187,7 +212,7 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_ap
 
         foreach ($this->_customOptions as $name => $value) {
 
-            $optPairs[] = $name . '="' . $value . '"';
+            $optPairs[] = $name . '="' . str_replace('"', '\"', $value) . '"';
         }
 
         $optString = implode($optPairs, ', ');

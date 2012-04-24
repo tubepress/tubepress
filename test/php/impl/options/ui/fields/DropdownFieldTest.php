@@ -20,7 +20,7 @@ class org_tubepress_impl_options_ui_fields_DropdownFieldTest extends org_tubepre
         $od = $this->getOptionDescriptor();
         $od->shouldReceive('getAcceptableValues')->once()->andReturn(array('foo' => 'bar', 'smack' => 'rock'));
         $template->shouldReceive('setVariable')->once()->with(org_tubepress_impl_options_ui_fields_DropdownField::TEMPLATE_VAR_ACCEPTABLE_VALUES,
-            array('<<message: foo>>' => 'bar', '<<message: smack>>' => 'rock'));
+            array('foo' => '<<message: bar>>', 'smack' => '<<message: rock>>'));
     }
 }
 

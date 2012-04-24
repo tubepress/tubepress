@@ -27,15 +27,6 @@ interface org_tubepress_api_querystring_QueryStringService
     const _ = 'org_tubepress_api_querystring_QueryStringService';
 
     /**
-     * Try to get the custom video ID from the query string
-     *
-     * @param array $getVars The PHP $_GET array
-     *
-     * @return string The custom video ID, or '' if not set or if there was a problem.
-    */
-    function getCustomVideo($getVars);
-
-    /**
      * Returns what's in the address bar
      *
      * @param array $serverVars The PHP $_SERVER array
@@ -43,25 +34,4 @@ interface org_tubepress_api_querystring_QueryStringService
      * @return string What's in the address bar
      */
     function getFullUrl($serverVars);
-
-    /**
-     * Try to figure out what page we're on by looking at the query string
-     * Defaults to '1' if there's any doubt
-     *
-     * @param array $getVars The PHP $_GET array
-     *
-     * @return int The page number, or 1 if there was a problem.
-     */
-    function getPageNum($getVars);
-
-    /**
-     * Try to get the shortcode from the query string
-     *
-     * @param array $getVars The PHP $_GET array
-     *
-     * @return string The shortcode, or '' if not set or if there was a problem.
-     */
-    function getShortcode($getVars);
-
-    function getSearchTerms($getVars);
 }

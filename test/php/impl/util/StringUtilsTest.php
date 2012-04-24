@@ -32,14 +32,6 @@ class org_tubepress_impl_util_StringUtilsTest extends TubePressUnitTest
 	    $this->assertEquals('thisisatest', org_tubepress_impl_util_StringUtils::removeNewLines($string));
 	}
 
-	function testCleanForSearch()
-	{
-		$val = "!@#$%^&*(){}[]abcdefghijk|\"\\':;?/>.<,~`lmnopqrstuvwxyz!@#$%^&*(){}[]abcdefghijk|\"\\':;?/>.<,~`lmnopqrstuvwxyz";
-		$expected = "!@#$%^&amp;*(){}[]abcdefghijk|\"\':;?/&gt;.&lt;,~`lmnopqrstuvwxyz!@#$%^&amp;*(){}[]abcdefghijk|\"\':;?/&gt;.&lt;,~`lmnopqr";
-
-		$this->assertEquals($expected, org_tubepress_impl_util_StringUtils::cleanForSearch($val));
-	}
-
 	function testRemoveEmptyLines()
 	{
 		$val = "
@@ -52,6 +44,24 @@ class org_tubepress_impl_util_StringUtilsTest extends TubePressUnitTest
 		";
 
 		$this->assertEquals("\n		test\n		two\n		three\n		", org_tubepress_impl_util_StringUtils::removeEmptyLines($val));
+	}
+
+	function testStripSlashesDeep()
+	{
+	    $testPatterns = array(
+
+            '\"Hello\"' => '"Hello"',
+	        '\\"Hi\\"'  => '"Hi"',
+	        "\\\\\\x"    => 'x',
+	        "\'you\\'"   => "'you'"
+	    );
+
+	    foreach ($testPatterns as $input => $expected) {
+
+	        $actual = org_tubepress_impl_util_StringUtils::stripslashes_deep($input);
+
+            $this->assertTrue($actual === $expected, "$actual did not equal expected $expected");
+	    }
 	}
 }
 

@@ -8,11 +8,15 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBase
 
 	private $_optionDescriptor;
 
+	private $_hrps;
+
 	public function setup()
 	{
 		parent::setUp();
 
 		$ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+
+		$this->_hrps = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
 
 		$this->_optionDescriptor = \Mockery::mock(org_tubepress_api_options_OptionDescriptor::_);
 		$this->_optionDescriptor->shouldReceive('isApplicableToVimeo')->once()->andReturn(true);
@@ -29,14 +33,15 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBase
 	    $this->_optionDescriptor->shouldReceive('isBoolean')->once()->andReturn(false);
 	    $this->_optionDescriptor->shouldReceive('getName')->once()->andReturn('name');
 
-	    $postVars = array('name' => 'some-value');
+	    $this->_hrps->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
+	    $this->_hrps->shouldReceive('getParamValue')->once()->with('name')->andReturn('some-value');
 
 	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 	    $validator = $ioc->get(org_tubepress_api_options_OptionValidator::_);
 	    $validator->shouldReceive('isValid')->once()->with('name', 'some-value')->andReturn(false);
         $validator->shouldReceive('getProblemMessage')->once()->with('name', 'some-value')->andReturn('you suck');
 
-	    $this->assertEquals(array('you suck'), $this->_sut->onSubmit($postVars));
+	    $this->assertEquals(array('you suck'), $this->_sut->onSubmit());
 	}
 
 	public function testSubmitNoExist()
@@ -44,9 +49,9 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBase
 	    $this->_optionDescriptor->shouldReceive('isBoolean')->once()->andReturn(false);
 	    $this->_optionDescriptor->shouldReceive('getName')->once()->andReturn('name');
 
-	    $postVars = array('name2' => 'some-value');
+	    $this->_hrps->shouldReceive('hasParam')->once()->with('name')->andReturn(false);
 
-	    $this->assertNull($this->_sut->onSubmit($postVars));
+	    $this->assertNull($this->_sut->onSubmit());
 	}
 
 	public function testSubmitBoolean()
@@ -54,14 +59,14 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBase
 	    $this->_optionDescriptor->shouldReceive('isBoolean')->once()->andReturn(true);
 	    $this->_optionDescriptor->shouldReceive('getName')->once()->andReturn('name');
 
-	    $postVars = array('name' => 'some-value');
+	    $this->_hrps->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
 
 	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 
 	    $sm = $ioc->get(org_tubepress_api_options_StorageManager::_);
-	    $sm->shouldReceive('set')->once()->with('name', true);
+	    $sm->shouldReceive('set')->once()->with('name', true)->andReturn(true);
 
-	    $this->assertNull($this->_sut->onSubmit($postVars));
+	    $this->assertNull($this->_sut->onSubmit());
 	}
 
 	public function testSubmitSimple()
@@ -69,16 +74,17 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBase
 	    $this->_optionDescriptor->shouldReceive('isBoolean')->once()->andReturn(false);
 	    $this->_optionDescriptor->shouldReceive('getName')->once()->andReturn('name');
 
-	    $postVars = array('name' => 'some-value');
+	    $this->_hrps->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
+	    $this->_hrps->shouldReceive('getParamValue')->once()->with('name')->andReturn('some-value');
 
 	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 	    $validator = $ioc->get(org_tubepress_api_options_OptionValidator::_);
 	    $validator->shouldReceive('isValid')->once()->with('name', 'some-value')->andReturn(true);
 
 	    $sm = $ioc->get(org_tubepress_api_options_StorageManager::_);
-	    $sm->shouldReceive('set')->once()->with('name', 'some-value');
+	    $sm->shouldReceive('set')->once()->with('name', 'some-value')->andReturn(true);
 
-	    $this->assertNull($this->_sut->onSubmit($postVars));
+	    $this->assertNull($this->_sut->onSubmit());
 	}
 
 	protected function getSut()

@@ -50,6 +50,7 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocService extends org_tubepress
         $this->bind('org_tubepress_api_http_HttpClient')                  ->to('org_tubepress_impl_http_HttpClientChain');
         $this->bind('org_tubepress_spi_http_HttpContentDecoder')          ->to('org_tubepress_impl_http_HttpContentDecoderChain');
         $this->bind('org_tubepress_spi_http_HttpMessageParser')           ->to('org_tubepress_impl_http_DefaultHttpMessageParser');
+        $this->bind('org_tubepress_api_http_HttpRequestParameterService') ->to('org_tubepress_impl_http_DefaultHttpRequestParameterService');
         $this->bind('org_tubepress_api_http_HttpResponseHandler')         ->to('org_tubepress_impl_http_HttpResponseHandlerChain');
         $this->bind('org_tubepress_spi_http_HttpTransferDecoder')         ->to('org_tubepress_impl_http_HttpTransferDecoderChain');
         $this->bind('org_tubepress_api_message_MessageService')           ->to('org_tubepress_impl_message_WordPressMessageService');

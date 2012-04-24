@@ -25,13 +25,14 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classes/org/tubepress/impl/classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_bootstrap_Bootstrapper',
+    'org_tubepress_api_const_http_ParamName',
     'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_options_names_Embedded',
     'org_tubepress_api_environment_Detector',
     'org_tubepress_api_filesystem_Explorer',
+	'org_tubepress_api_http_HttpRequestParameterService',
     'org_tubepress_api_player_PlayerHtmlGenerator',
     'org_tubepress_api_provider_Provider',
-	'org_tubepress_api_querystring_QueryStringService',
 	'org_tubepress_api_shortcode_ShortcodeParser',
     'org_tubepress_impl_ioc_IocContainer'
 ));
@@ -45,11 +46,11 @@ $booter->boot();
 $context  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 $player   = $ioc->get(org_tubepress_api_player_PlayerHtmlGenerator::_);
 $provider = $ioc->get(org_tubepress_api_provider_Provider::_);
-$qss      = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
+$qss      = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
 $sp       = $ioc->get(org_tubepress_api_shortcode_ShortcodeParser::_);
 
-$shortcode = rawurldecode($qss->getShortcode($_GET));
-$videoId   = $qss->getCustomVideo($_GET);
+$shortcode = rawurldecode($qss->getParamValue(org_tubepress_api_const_http_ParamName::SHORTCODE));
+$videoId   = $qss->getParamValue(org_tubepress_api_const_http_ParamName::VIDEO);
 
 /* gather up the options */
 $sp->parse($shortcode);

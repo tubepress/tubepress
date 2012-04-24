@@ -21,7 +21,9 @@ class org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariablesTest ex
 
         $qss = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
         $qss->shouldReceive('getFullUrl')->once()->andReturn('http://tubepress.org?foo=bar&something=else');
-        $qss->shouldReceive('getSearchTerms')->once()->andReturn('search for something');
+
+        $hrps            = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $hrps->shouldReceive('getParamValue')->once()->with(org_tubepress_api_const_http_ParamName::SEARCH_TERMS)->andReturn("search for something");
 
         $ms         = $ioc->get(org_tubepress_api_message_MessageService::_);
         $ms->shouldReceive('_')->once()->andReturnUsing(function ($msg) {

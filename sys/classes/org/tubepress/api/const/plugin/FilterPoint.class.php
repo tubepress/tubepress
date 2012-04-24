@@ -25,26 +25,6 @@
 interface org_tubepress_api_const_plugin_FilterPoint
 {
     /**
-     * Applied to a single option name/value pair before it is set to the execution context. This
-     * could either be from a parsed shortcode, an explicit setCustomOptions() call, or from
-     * a UI form. The actual filter point used is named 'executionContextSet_<optionname>', e.g.
-     *
-     * executionContextSetOption_ajaxPagination
-     *
-     * To use this filter point, create a class that includes a function with the method signature defined below.
-     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
-     *
-     *     TubePress::registerFilter('executionContextSetValue_<optionname>', $yourClassInstance);
-     *
-     * @param string $value The option value being set.
-     *
-     * @return unknown_type The (possibly modified) option value. May be null.
-     *
-     * function alter_executionContextSetValue_<optionname>($value);
-     */
-    const EXEC_CONTEXT_SET_VALUE_ = 'executionContextSetValue_';
-
-    /**
      * Modify any HTML that TubePress generates.
      *
      * To use this filter point, create a class that includes a function with the method signature defined below.
@@ -170,6 +150,24 @@ interface org_tubepress_api_const_plugin_FilterPoint
     const JAVASCRIPT_GALLERYINIT = 'galleryInitJavaScript';
 
     /**
+     * Applied to a single option name/value pair before it is applied to TubePress's execution context
+     *  or persistence storage. This filter is invoked *before* the option name or value is validated!
+     *
+     * To use this filter point, create a class that includes a function with the method signature defined below.
+     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
+     *
+     *     TubePress::registerFilter('preValidationOptionSet', $yourClassInstance);
+     *
+     * @param string $value The option value being set.
+     * @param string $name  The name of the option being set.
+     *
+     * @return unknown_type The (possibly modified) option value. May be null.
+     *
+     * function alter_preValidationOptionSet($value, $name);
+     */
+    const OPTION_SET_PRE_VALIDATION = 'preValidationOptionSet';
+
+    /**
      * Filters the TubePress provider result.
      *
      * function alter_providerResult(org_tubepress_api_provider_ProviderResult $providerResult, $providerName);
@@ -276,6 +274,23 @@ interface org_tubepress_api_const_plugin_FilterPoint
      * function alter_searchInputTemplate(org_tubepress_api_template_Template $template);
      */
     const TEMPLATE_SEARCHINPUT = 'searchInputTemplate';
+
+    /**
+     * Applied to a single option name/value pair as it is read from external input.
+     *
+     * To use this filter point, create a class that includes a function with the method signature defined below.
+     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
+     *
+     *     TubePress::registerFilter('variableReadFromExternalInput', $yourClassInstance);
+     *
+     * @param string $value The option value being set.
+     * @param string $name  The name of the option being set.
+     *
+     * @return unknown_type The (possibly modified) option value. May be null.
+     *
+     * function alter_variableReadFromExternalInput($value, $name);
+     */
+    const VARIABLE_READ_FROM_EXTERNAL_INPUT = 'variableReadFromExternalInput';
 
     /**
      * Modify an invididual TubePress video (YouTube or Vimeo).

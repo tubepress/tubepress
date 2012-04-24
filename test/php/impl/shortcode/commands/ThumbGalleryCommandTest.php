@@ -12,14 +12,27 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 		$this->_sut = new org_tubepress_impl_shortcode_commands_ThumbGalleryCommand();
 	}
 
+	function testExecuteGenerateGalleryIdExecContextSetFails()
+	{
+	    $mockChainContext = new stdClass();
+
+	    $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
+
+	    $execContext   = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+	    $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('');
+	    $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID, integerValue())->andReturn(false);
+
+	    $this->assertFalse($this->_sut->execute($mockChainContext));
+	}
+
 	function testExecuteGenerateGalleryId()
 	{
 	    $mockChainContext = new stdClass();
 
 	    $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-	    $qss = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
-	    $qss->shouldReceive('getPageNum')->once()->andReturn('page-num');
+        $qss     = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $qss->shouldReceive('getParamValueAsInt')->once()->with(org_tubepress_api_const_http_ParamName::PAGE, 1)->andReturn('page-num');
 
 	    $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
 	    $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');
@@ -32,7 +45,7 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 
 	    $execContext   = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 	    $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('');
-	    $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID, integerValue());
+	    $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_Advanced::GALLERY_ID, integerValue())->andReturn(true);
 
 	    $mockFeedResult = \Mockery::mock('org_tubepress_api_provider_ProviderResult');
 	    $mockFeedResult->shouldReceive('getVideoArray')->once()->andReturn(array('x', 'y'));
@@ -54,8 +67,8 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 
 	    $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-	    $qss = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
-	    $qss->shouldReceive('getPageNum')->once()->andReturn('page-num');
+        $qss     = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $qss->shouldReceive('getParamValueAsInt')->once()->with(org_tubepress_api_const_http_ParamName::PAGE, 1)->andReturn('page-num');
 
 	    $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
 
@@ -89,8 +102,8 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 
 	    $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-	    $qss = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
-	    $qss->shouldReceive('getPageNum')->once()->andReturn('page-num');
+        $qss     = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+        $qss->shouldReceive('getParamValueAsInt')->once()->with(org_tubepress_api_const_http_ParamName::PAGE, 1)->andReturn('page-num');
 
 	    $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
 	    $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');

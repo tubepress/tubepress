@@ -8,16 +8,18 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
 
     private $_sut;
     private $_expectedMapping;
-    
+
     private static $_knownInterfaces;
-    
+
     private static $_interfacesToIgnore;
+
+    private static $_booted = false;
 
     public static function setUpBeforeClass()
     {
         self::$_knownInterfaces = self::_collectInterfaces();
         self::$_interfacesToIgnore = array(
-        
+
             'org_tubepress_api_ioc_IocService',
             'org_tubepress_spi_http_HttpTransport',
             'org_tubepress_spi_options_ui_Field',
@@ -25,15 +27,21 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
             'org_tubepress_spi_patterns_cor_Command'
         );
     }
-    
+
     function setUp()
     {
+        parent::setUp();
+
         $this->_sut = new org_tubepress_impl_ioc_FreeWordPressPluginIocService();
 
-        $this->_setupEveryInterfaceIsBound();
-        
+        if (!self::$_booted) {
+
+            self::$_booted = true;
+            $this->_setupEveryInterfaceIsBound();
+        }
+
         $this->_expectedMapping = array(
-	
+
 	        'org_tubepress_api_bootstrap_Bootstrapper'=>'org_tubepress_impl_bootstrap_TubePressBootstrapper',
 	        'org_tubepress_api_cache_Cache'=>'org_tubepress_impl_cache_PearCacheLiteCacheService',
 	        'org_tubepress_api_embedded_EmbeddedHtmlGenerator'=>'org_tubepress_impl_embedded_EmbeddedPlayerChain',
@@ -44,6 +52,7 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
 	        'org_tubepress_api_filesystem_Explorer'=>'org_tubepress_impl_filesystem_FsExplorer',
 	        'org_tubepress_api_html_HeadHtmlGenerator'=>'org_tubepress_impl_html_DefaultHeadHtmlGenerator',
 	        'org_tubepress_api_http_HttpClient'=>'org_tubepress_impl_http_HttpClientChain',
+            'org_tubepress_api_http_HttpRequestParameterService'=>'org_tubepress_impl_http_DefaultHttpRequestParameterService',
 	        'org_tubepress_api_message_MessageService'=>'org_tubepress_impl_message_WordPressMessageService',
 	        'org_tubepress_api_exec_ExecutionContext'=>'org_tubepress_impl_exec_MemoryExecutionContext',
 	        'org_tubepress_api_options_OptionValidator'=>'org_tubepress_impl_options_SimpleOptionValidator',
@@ -63,19 +72,32 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
     }
 
     function testEveryInterfaceIsBound()
-    {   
+    {
          foreach (self::$_knownInterfaces as $interface) {
-            
+
              if (in_array($interface, self::$_interfacesToIgnore)) {
-                
+
                  continue;
              }
-            
+
              $result = $this->_sut->get($interface);
              $this->assertTrue($result instanceof $interface, "$interface was never bound properly");
          }
     }
-    
+
+    function testGetTwice()
+    {
+        $result = $this->_sut->get('org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest');
+        $this->assertNotNull($result);
+        $result2 = $this->_sut->get('org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest');
+        $this->assertEquals($result, $result2);
+    }
+
+    function testSingleton()
+    {
+        $this->assertNotNull($this->_sut->get('org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest'));
+    }
+
     /**
      * @expectedException Exception
      */
@@ -92,22 +114,9 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
         $this->_sut->get('something');
     }
 
-    function testGetTwice()
-    {
-        $result = $this->_sut->get('org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest');
-        $this->assertNotNull($result);
-        $result2 = $this->_sut->get('org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest');
-        $this->assertEquals($result, $result2);
-    }
-
-    function testSingleton()
-    {
-        $this->assertNotNull($this->_sut->get('org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest'));
-    }
-
     function _testMapping()
     {
-        
+
 
         foreach ($this->_expectedMapping as $key => $value) {
             $test = is_a($this->_sut->get($key), $value);
@@ -117,7 +126,7 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
             $this->assertTrue($test);
         }
     }
-    
+
     private function _setupEveryInterfaceIsBound()
     {
     	$ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
@@ -129,28 +138,28 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
     	$explorer->shouldReceive('getDirectoriesInDirectory')->once()->with('base-install-path/sys/ui/themes', 'Default Option Descriptor Reference')->andReturn(array('boo'));
     	$explorer->shouldReceive('getDirectoriesInDirectory')->once()->with('user-content-dir/themes', 'Default Option Descriptor Reference')->andReturn(array('bob'));
     }
-    
+
     private static function _collectInterfaces()
     {
         exec('grep -r "interface " ' . BASE . '/sys | egrep "org_tubepress_" | egrep -v "org_tubepress_api_const" ', $results, $return);
-        
+
         self::assertTrue($return === 0, 'grep failed');
         self::assertTrue(count($results) > 0, 'grep didn\'t find any interfaces');
-        
+
         $strings = array();
         foreach ($results as $grepLine) {
-        
+
             $result = preg_match_all("/^.*interface\s+([^\s]+).*$/", $grepLine, $matches);
-        
+
             if (!$result || count($matches) !== 2) {
-        
+
                 echo 'Found more than on match on ' . $grepLine . '. ' . var_export($matches, true);
                 exit;
             }
-        
+
             $strings[] = str_replace("\'", "'", $matches[1][0]);
         }
-        
+
         return $strings;
     }
 }

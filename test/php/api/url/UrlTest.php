@@ -8,28 +8,34 @@ class org_tubepress_api_url_UrlTest extends TubePressUnitTest {
 
 	function setup()
 	{
-	    $this->_sut = new org_tubepress_api_url_Url('http://user@tubepress.org:994/something/index.php?one=two+four&three=four#fragment/one/three?poo');
+	    $this->_sut = $this->_build('http://user@tubepress.org:994/something/index.php?one=two+four&three=four#fragment/one/three?poo');
 	}
+
+        function testLongPath()
+        {
+            $id = 'gETP14z515Q';
+            $this->_sut = $this->_build("http://gdata.youtube.com/x/y/z/a/b/c/1/2/3/feeds/api/videos/$id");
+            $this->assertEquals('/x/y/z/a/b/c/1/2/3/feeds/api/videos/gETP14z515Q', $this->_sut->getPath());
+        }
 
 	function testSetHostIpv4()
 	{
 	    $this->_sut->setHostIpv4('123.123.123.123');
 	    $this->assertEquals('123.123.123.123', $this->_sut->getHost());
-	    $this->assertEquals('http://user@123.123.123.123:994/something/index.php?one=two+four&three=four#fragment/one/three?poo', $this->_sut->toString());
 	}
 
 	function testVariousUrls()
 	{
-	    $this->_sut = new org_tubepress_api_url_Url('http://www.ehough.com/watch');
-	    $this->_sut = new org_tubepress_api_url_Url('http://tubepress.org?foo=bar&something=else');
+	    $this->_sut = $this->_build('http://www.ehough.com/watch');
+	    $this->_sut = $this->_build('http://tubepress.org?foo=bar&something=else');
+            $this->_sut = $this->_build('http://gdata.youtube.com/feeds/api/playlists/D2B04665B213AE35?v=2&key=AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg&start-index=1&max-results=20&orderby=viewCount&safeSearch=moderate&format=5');
 	}
 
 	function testDomainStartsWithNumber()
 	{
-	    $this->_sut = new org_tubepress_api_url_Url('http://press.3hough/watch?foo=bar#one');
+	    $this->_sut = $this->_build('http://press.3hough/watch?foo=bar#one');
 
 	    $this->assertEquals('press.3hough', $this->_sut->getAuthority());
-	    $this->assertEquals('http://press.3hough/watch?foo=bar#one', $this->_sut->toString());
 	}
 
 	/**
@@ -74,7 +80,7 @@ class org_tubepress_api_url_UrlTest extends TubePressUnitTest {
 
 	function testGetQueryVariablesSimple()
 	{
-	    $this->_sut = new org_tubepress_api_url_Url('http://user@tubepress.org:994/something/index.php?one&three=four#fragment/one/three?poo');
+	    $this->_sut = $this->_build('http://user@tubepress.org:994/something/index.php?one&three=four#fragment/one/three?poo');
 	    $this->assertEquals(array('one' => null, 'three' => 'four'), $this->_sut->getQueryVariables());
 	}
 
@@ -256,7 +262,7 @@ class org_tubepress_api_url_UrlTest extends TubePressUnitTest {
 
 	function testIpv6Setter()
 	{
-	    $url = new org_tubepress_api_url_Url("http://[123::]:997/foo/bar?something#nine/two");
+	    $url = $this->_build("http://[123::]:997/foo/bar?something#nine/two");
 	    $this->assertEquals('123::', $url->getHost());
 
 	    $ipv6 = $this->_getIpv6Cases();
@@ -303,6 +309,8 @@ class org_tubepress_api_url_UrlTest extends TubePressUnitTest {
 
 	private function _testConstructValidIpv6($ip)
 	{
+        $this->_build("http://[" . strtolower(trim($ip)) . "]:89/foo/bar?fickle#niner/eight");
+
         $url = new org_tubepress_api_url_Url("http://[$ip]:89/foo/bar?fickle#niner/eight");
 
         $this->assertEquals(strtolower(trim($ip)), $url->getHost());
@@ -319,7 +327,7 @@ class org_tubepress_api_url_UrlTest extends TubePressUnitTest {
 
 	    try {
 
-	        $url = new org_tubepress_api_url_Url("http://[$ip]:89/foo/bar?fickle#niner/eight");
+	        $url = $this->_build("http://[$ip]:89/foo/bar?fickle#niner/eight");
 
 	    } catch (Exception $e) {
 
@@ -348,6 +356,13 @@ class org_tubepress_api_url_UrlTest extends TubePressUnitTest {
 
 //         $this->assertEquals('http://user@tubepress.org:994/something/index.php?one=two+four&nine=ten#fragment/one/three?poo', $this->_sut->toString());
 //     }
+
+    private function _build($url)
+    {
+        $u = new org_tubepress_api_url_Url($url);
+        $this->assertEquals($url, $u->toString());
+        return $u;
+    }
 
     private function _getIpv6Cases()
     {

@@ -40,7 +40,7 @@ class org_tubepress_impl_factory_commands_VimeoFactoryCommandTest extends TubePr
         $this->assertTrue(is_array($result));
         $this->assertEquals(8, count($result));
         $video = $result[5];
-        $this->assertEquals('2 years ago', $video->getTimePublished());
+        $this->assertEquals('3 years ago', $video->getTimePublished());
     }
 
     function dtestGetMultiple()

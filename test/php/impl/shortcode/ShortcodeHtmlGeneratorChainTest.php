@@ -41,6 +41,29 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChainTest extends TubeP
         $this->_sut->getHtmlForShortcode('shortcode');
     }
 
+    function testGetHtmlNoFilters()
+    {
+        $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
+
+        $mockChainContext = new stdClass();
+        $mockChainContext->returnValue = 'chain-return-value';
+
+        $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
+        $chain->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
+        $chain->shouldReceive('execute')->once()->with($mockChainContext, array(
+                'org_tubepress_impl_shortcode_commands_SearchInputCommand',
+                'org_tubepress_impl_shortcode_commands_SearchOutputCommand',
+                'org_tubepress_impl_shortcode_commands_SingleVideoCommand',
+                'org_tubepress_impl_shortcode_commands_SoloPlayerCommand',
+                'org_tubepress_impl_shortcode_commands_ThumbGalleryCommand',
+        ))->andReturn(true);
+
+        $pm    = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+        $pm->shouldReceive('hasFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_ANY)->andReturn(false);
+
+        $this->assertEquals('chain-return-value', $this->_sut->getHtmlForShortcode('shortcode'));
+    }
+
     function testGetHtml()
     {
         $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();

@@ -21,10 +21,12 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
+    'org_tubepress_api_const_http_ParamName',
     'org_tubepress_api_const_plugin_FilterPoint',
     'org_tubepress_api_const_options_names_Display',
     'org_tubepress_api_const_template_Variable',
     'org_tubepress_api_exec_ExecutionContext',
+    'org_tubepress_api_http_HttpRequestParameterService',
     'org_tubepress_api_plugin_PluginManager',
     'org_tubepress_api_url_Url',
     'org_tubepress_impl_ioc_IocContainer',
@@ -68,8 +70,9 @@ class org_tubepress_impl_plugin_filters_gallerytemplate_Pagination
         $context        = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
         $qss            = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
+        $hrps           = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
 
-        $currentPage = $qss->getPageNum($_GET);
+        $currentPage = $hrps->getParamValueAsInt(org_tubepress_api_const_http_ParamName::PAGE, 1);
         $vidsPerPage = $context->get(org_tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE);
 
         $newurl = new org_tubepress_api_url_Url($qss->getFullUrl($_SERVER));

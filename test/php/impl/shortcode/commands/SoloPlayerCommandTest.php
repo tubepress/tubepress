@@ -31,8 +31,24 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommandTest extends TubePr
 	    $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 	    $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn(org_tubepress_api_const_options_values_PlayerLocationValue::SOLO);
 
-	    $qss     = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
-	    $qss->shouldReceive('getCustomVideo')->once()->andReturn('');
+	    $qss     = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+	    $qss->shouldReceive('getParamValue')->once()->with(org_tubepress_api_const_http_ParamName::VIDEO)->andReturn('');
+
+	    $this->assertFalse($this->_sut->execute($mockChainContext));
+	}
+
+	function testExecuteSetExecContextFails()
+	{
+	    $mockChainContext = new stdClass();
+
+	    $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
+
+	    $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+	    $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn(org_tubepress_api_const_options_values_PlayerLocationValue::SOLO);
+	    $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_Output::VIDEO, 'video-id')->andReturn(false);
+
+	    $qss     = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+	    $qss->shouldReceive('getParamValue')->once()->with(org_tubepress_api_const_http_ParamName::VIDEO)->andReturn('video-id');
 
 	    $this->assertFalse($this->_sut->execute($mockChainContext));
 	}
@@ -45,10 +61,10 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommandTest extends TubePr
 
 	    $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
 	    $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn(org_tubepress_api_const_options_values_PlayerLocationValue::SOLO);
-        $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_Output::VIDEO, 'video-id');
+        $execContext->shouldReceive('set')->once()->with(org_tubepress_api_const_options_names_Output::VIDEO, 'video-id')->andReturn(true);
 
-	    $qss     = $ioc->get(org_tubepress_api_querystring_QueryStringService::_);
-	    $qss->shouldReceive('getCustomVideo')->once()->andReturn('video-id');
+	    $qss     = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+	    $qss->shouldReceive('getParamValue')->once()->with(org_tubepress_api_const_http_ParamName::VIDEO)->andReturn('video-id');
 
 	    $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
 	    $chain->shouldReceive('execute')->once()->with($mockChainContext, array(

@@ -38,7 +38,7 @@ class org_tubepress_api_url_Url
     //pchar = '(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)';
 
     /** scheme        = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." ) */
-    private static $_regexScheme = '[a-z][a-z0-9\+\-\.]*';
+    private static $_regexScheme = '[a-z][a-z0-9\+-\.]*';
 
     /** userinfo      = *( unreserved / pct-encoded / sub-delims ) */
     private static $_regexUser = '(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*)';
@@ -52,12 +52,14 @@ class org_tubepress_api_url_Url
     /** http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address */
     private static $_regexHostname = '(?:(?:[a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*(?:[A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])+';
 
-    private static $_regexPathSegment = '(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)+';
+    /** http://www.php.net/manual/en/function.parse-url.php#90365 */
+    private static $_regexPathSegment = '(?:[a-z0-9-._~!$&\'()*+,;=:@]|%[0-9a-f]{2})+';
 
+    /** http://www.php.net/manual/en/function.parse-url.php#90365 */
     private static $_regexPathCharacter = '(?:[a-z0-9-._~!$&\'()*+,;=:@\/]|%[0-9a-f]{2})';
 
     /** begins with "/" but not "//" */
-    private static $_regexPathAbsolute = '\/(?:(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)+(?:\/(?:(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)*))*)*';
+    private static $_regexPathAbsolute = '/(?:[a-z0-9-._~!$&\'()*+,;=:@/]|%[0-9a-f]{2})*';
 
     /** query         = *( pchar / "/" / "?" ) */
     private static $_regexQueryOrFragment = '(?:(?:[\w0-9\-\.\~]*(?:%[A-Fa-f0-9]{2})*[!\$&\'\(\)\*\+,;=]*:*@*)*\/*\?*)*';
@@ -165,7 +167,7 @@ class org_tubepress_api_url_Url
 
         $scheme = strtolower($scheme);
 
-        if (preg_match_all('/^' . self::$_regexScheme . '$/', $scheme, $matches) !== 1) {
+        if (preg_match_all('`^' . self::$_regexScheme . '$`', $scheme, $matches) !== 1) {
 
             throw new Exception('Scheme names consist of a sequence of characters beginning with a'
                . ' letter and followed by any combination of letters, digits, plus ("+"), period (".")'
@@ -186,7 +188,7 @@ class org_tubepress_api_url_Url
      */
     public function setUser($user)
     {
-        $regex = '/^' . self::$_regexUser . '$/';
+        $regex = '`^' . self::$_regexUser . '$`i';
 
         if (preg_match_all($regex, $user, $matches) !== 1) {
 
@@ -261,14 +263,14 @@ class org_tubepress_api_url_Url
             throw new Exception("Port must be numeric ($port)");
         }
 
-        $port = intval($port);
+        $intPort = intval($port);
 
-        if (! is_int($port) || $port < 1) {
+        if (! is_int($intPort) || $intPort < 1) {
 
             throw new Exception("Port must be a positive integer ($port)");
         }
 
-        $this->_port = $port;
+        $this->_port = $intPort;
     }
 
     public function setPath($path)
@@ -283,7 +285,7 @@ class org_tubepress_api_url_Url
             throw new Exception("Path must be a string ($path)");
         }
 
-        if (preg_match_all('/^' . self::$_regexPathAbsolute . '$/', $path, $matches) !== 1) {
+        if (preg_match_all('`^' . self::$_regexPathAbsolute . '|/?' . self::$_regexPathSegment . self::$_regexPathCharacter . '*$`i', $path, $matches) !== 1) {
 
             throw new Exception("Invalid path ($path)");
         }
@@ -298,7 +300,7 @@ class org_tubepress_api_url_Url
             throw new Exception("Query must be a string ($query)");
         }
 
-        if (preg_match_all('/^' . self::$_regexQueryOrFragment . '$/', $query, $matches) !== 1) {
+        if (preg_match_all('`^' . self::$_regexQueryOrFragment . '$`i', $query, $matches) !== 1) {
 
             throw new Exception("Invalid query ($query)");
         }
@@ -313,7 +315,7 @@ class org_tubepress_api_url_Url
             throw new Exception("Fragment must be a string ($fragment)");
         }
 
-        if (preg_match_all('/^' . self::$_regexQueryOrFragment . '$/', $fragment, $matches) !== 1) {
+        if (preg_match_all('`^' . self::$_regexQueryOrFragment . '$`i', $fragment, $matches) !== 1) {
 
             throw new Exception("Invalid fragment ($fragment)");
         }
@@ -444,7 +446,7 @@ class org_tubepress_api_url_Url
      */
     public function getQueryVariables()
     {
-        $pattern = '/[' . preg_quote('&', '/') . ']/';
+        $pattern = '`[' . preg_quote('&', '/') . ']`';
         $parts   = preg_split($pattern, $this->_encodedQuery, -1, PREG_SPLIT_NO_EMPTY);
         $return  = array();
 
@@ -470,7 +472,7 @@ class org_tubepress_api_url_Url
 
     public function toString()
     {
-        $toReturn = $this->getScheme() . '://' . $this->getAuthority() . $this->getPath();
+        $toReturn = $this->getScheme() . '://' . $this->_getAuthorityAsString() . $this->getPath();
 
         if ($this->getQuery()) {
 
@@ -490,20 +492,34 @@ class org_tubepress_api_url_Url
         return $this->toString();
     }
 
+    private function _getAuthorityAsString()
+    {
+        if (self::_isIpv6Address($this->_host)) {
+
+            $host = '[' . $this->_host . ']';
+
+        } else {
+
+            $host = $this->_host;
+        }
+
+        return ( $this->_user ? $this->_user . '@' : '') . $host . (isset($this->_port) ? ':' . $this->_port : '');
+    }
+
     private static function _isHostname($name)
     {
-        return is_string($name) && preg_match_all('/^' . self::$_regexHostname . '$/', strtolower(trim($name)), $matches) === 1;
+        return is_string($name) && preg_match_all('`^' . self::$_regexHostname . '$`i', strtolower(trim($name)), $matches) === 1;
     }
 
     private static function _isIpv4Address($ip)
     {
-        return is_string($ip) && preg_match_all('/^' . self::$_regexIpv4 . '$/', strtolower(trim($ip)), $matches) === 1;
+        return is_string($ip) && preg_match_all('`^' . self::$_regexIpv4 . '$`', strtolower(trim($ip)), $matches) === 1;
     }
 
     private static function _isIpv6Address($ip)
     {
-        return is_string($ip) && preg_match_all('/^[:\.0-9a-f]+$/i', strtolower(trim($ip)), $matches) === 1
-            && preg_match_all('/^' . self::$_regexIpv6Dartware . '$/', strtolower(trim($ip)), $matches) === 1;
+        return is_string($ip) && preg_match_all('`^[:\.0-9a-f]+$`i', strtolower(trim($ip)), $matches) === 1
+            && preg_match_all('`^' . self::$_regexIpv6Dartware . '$`i', strtolower(trim($ip)), $matches) === 1;
     }
 
     private static function _isIpAddress($ip)

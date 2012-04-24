@@ -5,14 +5,14 @@ require_once BASE . '/sys/classes/org/tubepress/impl/options/ui/DefaultTabsHandl
 class org_tubepress_impl_options_ui_DefaultTabsHandlerTest extends TubePressUnitTest {
 
 	private $_sut;
-	
+
 	private $_expectedTabs;
 
 	public function setup()
 	{
 		parent::setUp();
 		$this->_sut = new org_tubepress_impl_options_ui_DefaultTabsHandler();
-		
+
 		$ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
 		$gal = $ioc->get(org_tubepress_impl_options_ui_tabs_GallerySourceTab::_);
 		$tab = $ioc->get('org_tubepress_impl_options_ui_tabs_ThumbsTab');
@@ -22,45 +22,37 @@ class org_tubepress_impl_options_ui_DefaultTabsHandlerTest extends TubePressUnit
 		$fee = $ioc->get(org_tubepress_impl_options_ui_tabs_FeedTab::_);
 		$cah = $ioc->get(org_tubepress_impl_options_ui_tabs_CacheTab::_);
 		$adv = $ioc->get('org_tubepress_impl_options_ui_tabs_AdvancedTab');
-		
+
 		$this->_expectedTabs = array($gal, $tab, $adv, $cah, $emb, $thm, $fee, $met);
 	}
 
 	public function testSubmitWithErrors()
 	{
 	    $vals = array('one' => 'two');
-	     
+
 	    $x = 1;
 	    foreach ($this->_expectedTabs as $tab) {
-	         
-	        $tab->shouldReceive('onSubmit')->once()->with($vals)->andReturn(array($x++));
+
+	        $tab->shouldReceive('onSubmit')->once()->andReturn(array($x++));
 	    }
-	     
-	    $result = $this->_sut->onSubmit($vals);
-	    
+
+	    $result = $this->_sut->onSubmit();
+
 	    $this->assertEquals(array(1, 2, 5, 8, 6, 7, 4, 3), $result);
 	}
-	
+
 	public function testSubmit()
 	{
 	    $vals = array('one' => 'two');
-	    
+
 	    foreach ($this->_expectedTabs as $tab) {
-	    
-	        $tab->shouldReceive('onSubmit')->once()->with($vals);
+
+	        $tab->shouldReceive('onSubmit')->once();
 	    }
-	    
-	    $this->assertNull($this->_sut->onSubmit($vals));
+
+	    $this->assertNull($this->_sut->onSubmit());
 	}
-	
-	/**
-	 * @expectedException Exception
-	 */
-	public function testSubmitNonArray()
-	{
-	    $this->_sut->onSubmit(3);
-	}
-	
+
 	public function testGetHtml()
 	{
 	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();

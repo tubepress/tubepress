@@ -18,7 +18,11 @@ class org_tubepress_impl_options_WordPressStorageManagerTest extends TubePressUn
         $this->setupInit();
 
         $this->_sut = new org_tubepress_impl_options_WordPressStorageManager();
-        
+
+        $ioc               = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $validator = $ioc->get(org_tubepress_api_options_OptionValidator::_);
+        $validator->shouldReceive('isValid')->andReturn(true);
+
         $this->_sut->init();
     }
 
@@ -42,10 +46,12 @@ class org_tubepress_impl_options_WordPressStorageManagerTest extends TubePressUn
 
     function testSet()
     {
-        $ioc               = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
 
         $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
+
         $odr->shouldReceive('findOneByName')->once()->with('optionname')->andReturn($this->_persist);
+        $this->_setupFilters('optionname', 'optionvalue');
 
         $this->_sut->set('optionname', 'optionvalue');
     }
@@ -54,5 +60,16 @@ class org_tubepress_impl_options_WordPressStorageManagerTest extends TubePressUn
     {
         return $name === 'version' ? 1 : "<value of $name>";
     }
+
+    private function _setupFilters($name, $value)
+    {
+        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $pm  = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+
+        $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION, $value, $name)
+        ->andReturnUsing(function ($a, $b, $c) {
+            return "<<$b>>";
+        });
+        }
 }
 

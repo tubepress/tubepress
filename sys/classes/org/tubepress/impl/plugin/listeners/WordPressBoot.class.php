@@ -43,7 +43,7 @@ class org_tubepress_impl_plugin_listeners_WordPressBoot
         $fse = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
 
         if (!$ed->isWordPress()) {
-        	
+
             return;
         }
 
@@ -51,8 +51,17 @@ class org_tubepress_impl_plugin_listeners_WordPressBoot
 
         $baseName = $fse->getTubePressInstallationDirectoryBaseName();
 
-        /* set the tubepress_base_url global */
-        $tubepress_base_url = site_url()  . "/wp-content/plugins/$baseName";
+        /** http://code.google.com/p/tubepress/issues/detail?id=495#c2 */
+        if ($this->_isWordPressMuDomainMapped()) {
+
+            $prefix = $this->_getScheme() . constant('COOKIE_DOMAIN');
+
+        } else {
+
+            $prefix = site_url();
+        }
+
+        $tubepress_base_url = $prefix . "/wp-content/plugins/$baseName";
 
         /* register the plugin's message bundles */
         load_plugin_textdomain('tubepress', false, "$baseName/sys/i18n");
@@ -65,5 +74,20 @@ class org_tubepress_impl_plugin_listeners_WordPressBoot
         add_action('admin_enqueue_scripts', array('org_tubepress_impl_env_wordpress_OptionsPage', 'initAction'));
 
         add_action('widgets_init', array('org_tubepress_impl_env_wordpress_Widget', 'initAction'));
+    }
+
+    private function _getScheme()
+    {
+        if (is_ssl()) {
+
+            return 'https://';
+        }
+
+        return 'http://';
+    }
+
+    private function _isWordPressMuDomainMapped()
+    {
+        return defined('DOMAIN_MAPPING') && constant('DOMAIN_MAPPING') && defined('COOKIE_DOMAIN');
     }
 }

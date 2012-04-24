@@ -303,13 +303,13 @@ msgid "TubePress shortcode for the widget. See the <a href=\"http://tubepress.or
 msgstr "Специальные команды TubePress для виджета. Смотрите <a href=\"http://tubepress.org/documentation\"> документацию </a>."
 
 msgid "none"
-msgstr "отсутствует"
+msgstr "none"
 
 msgid "moderate"
-msgstr "умеренный"
+msgstr "moderate"
 
 msgid "strict"
-msgstr "строгий"
+msgstr "strict"
 
 msgid "JW FLV Media Player (by Longtail Video)"
 msgstr "JW FLV Media Player (от Longtail Video)"
@@ -552,5 +552,14 @@ msgid "\"Modest\" branding"
 msgstr ""
 
 msgid "Hide the YouTube logo from the control area."
+msgstr ""
+
+msgid "Per-page sort order"
+msgstr ""
+
+msgid "Additional sort order applied to each individual page of a gallery"
+msgstr ""
+
+msgid "random"
 msgstr ""
 
