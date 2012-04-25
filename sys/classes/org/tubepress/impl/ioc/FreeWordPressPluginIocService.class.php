@@ -40,7 +40,7 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocService extends org_tubepress
         $this->bind('org_tubepress_api_bootstrap_Bootstrapper')           ->to('org_tubepress_impl_bootstrap_TubePressBootstrapper');
         $this->bind('org_tubepress_api_cache_Cache')                      ->to('org_tubepress_impl_cache_PearCacheLiteCacheService');
         $this->bind('org_tubepress_api_embedded_EmbeddedHtmlGenerator')   ->to('org_tubepress_impl_embedded_EmbeddedPlayerChain');
-        $this->bind('org_tubepress_api_environment_Detector')             ->to('org_tubepress_impl_environment_SimpleEnvironmentDetector');
+        $this->bind('org_tubepress_api_environment_EnvironmentDetector')  ->to('org_tubepress_impl_environment_SimpleEnvironmentDetector');
         $this->bind('org_tubepress_api_exec_ExecutionContext')            ->to('org_tubepress_impl_exec_MemoryExecutionContext');
         $this->bind('org_tubepress_api_factory_VideoFactory')             ->to('org_tubepress_impl_factory_VideoFactoryChain');
         $this->bind('org_tubepress_api_feed_FeedFetcher')                 ->to('org_tubepress_impl_feed_CacheAwareFeedFetcher');

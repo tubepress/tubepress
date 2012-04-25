@@ -27,7 +27,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_GallerySource',
     'org_tubepress_api_const_plugin_EventName',
     'org_tubepress_api_const_plugin_FilterPoint',
-    'org_tubepress_api_environment_Detector',
+    'org_tubepress_api_environment_EnvironmentDetector',
     'org_tubepress_api_filesystem_Explorer',
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_api_options_StorageManager',
@@ -74,7 +74,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
         $context     = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $envDetector = $ioc->get(org_tubepress_api_environment_Detector::_);
+        $envDetector = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
         $pm          = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $sm  		 = $ioc->get(org_tubepress_api_options_StorageManager::_);
 

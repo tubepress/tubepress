@@ -16,7 +16,7 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
         
-        $envDetector = $ioc->get(org_tubepress_api_environment_Detector::_);
+        $envDetector = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
         $envDetector->shouldReceive('isWordPress')->once()->andReturn(false);
         
         $fs  = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
@@ -65,7 +65,7 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
     
-        $execContext = $ioc->get(org_tubepress_api_environment_Detector::_);
+        $execContext = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
         $execContext->shouldReceive('isWordPress')->once()->andReturn(true);
     
         if (!defined('ABSPATH')) {
@@ -80,7 +80,7 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
     
-        $execContext = $ioc->get(org_tubepress_api_environment_Detector::_);
+        $execContext = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
         $execContext->shouldReceive('isWordPress')->once()->andReturn(false);
 
         $fs = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
@@ -99,7 +99,7 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
         $fs                        = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fs->shouldReceive('getTubePressBaseInstallationPath')->zeroOrMoreTimes()->andReturn(realpath(dirname(__FILE__) . '/../../../../'));
         
-        $envDetector = $ioc->get(org_tubepress_api_environment_Detector::_);
+        $envDetector = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
         $envDetector->shouldReceive('isWordPress')->once()->andReturn(false);
 
         $tb = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);

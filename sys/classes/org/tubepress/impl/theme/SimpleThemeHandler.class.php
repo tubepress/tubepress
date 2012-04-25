@@ -110,7 +110,7 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
     function getUserContentDirectory()
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $envDetector = $ioc->get(org_tubepress_api_environment_Detector::_);
+        $envDetector = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
 
         if ($envDetector->isWordPress()) {
 

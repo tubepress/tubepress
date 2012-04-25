@@ -22,9 +22,9 @@
 /**
  * Detects TubePress's environment
  */
-interface org_tubepress_api_environment_Detector
+interface org_tubepress_api_environment_EnvironmentDetector
 {
-    const _ = 'org_tubepress_api_environment_Detector';
+    const _ = 'org_tubepress_api_environment_EnvironmentDetector';
 
     /**
      * Detects if the user is running TubePress Pro.

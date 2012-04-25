@@ -21,13 +21,13 @@
 
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_environment_Detector'
+    'org_tubepress_api_environment_EnvironmentDetector'
 ));
 
 /**
  * Detects TubePress's environment
  */
-class org_tubepress_impl_environment_SimpleEnvironmentDetector implements org_tubepress_api_environment_Detector
+class org_tubepress_impl_environment_SimpleEnvironmentDetector implements org_tubepress_api_environment_EnvironmentDetector
 {
     /**
      * Detects if the user is running TubePress Pro.

@@ -45,7 +45,7 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
 	        'org_tubepress_api_bootstrap_Bootstrapper'=>'org_tubepress_impl_bootstrap_TubePressBootstrapper',
 	        'org_tubepress_api_cache_Cache'=>'org_tubepress_impl_cache_PearCacheLiteCacheService',
 	        'org_tubepress_api_embedded_EmbeddedHtmlGenerator'=>'org_tubepress_impl_embedded_EmbeddedPlayerChain',
-	        'org_tubepress_api_environment_Detector'=>'org_tubepress_impl_environment_SimpleEnvironmentDetector',
+	        'org_tubepress_api_environment_EnvironmentDetector'=>'org_tubepress_impl_environment_SimpleEnvironmentDetector',
 	        'org_tubepress_api_factory_VideoFactory'=>'org_tubepress_impl_factory_VideoFactoryChain',
 	        'org_tubepress_api_feed_FeedFetcher'=>'org_tubepress_impl_feed_CacheAwareFeedFetcher',
 	        'org_tubepress_api_feed_FeedInspector'=>'org_tubepress_impl_feed_FeedInspectorChain',
