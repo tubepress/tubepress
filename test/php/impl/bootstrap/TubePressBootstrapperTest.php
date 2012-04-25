@@ -56,6 +56,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUn
 
         $envD = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
         $envD->shouldReceive('isWordPress')->once()->andReturn(false);
+        $envD->shouldReceive('getUserContentDirectory')->once()->andReturn('<<user-content-dir>>');
 
         $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
         $context->shouldReceive('get')->with(org_tubepress_api_const_options_names_Advanced::DEBUG_ON)->andReturn(false);
@@ -63,9 +64,6 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUn
         $fe = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $fe->shouldReceive('getDirectoriesInDirectory')->once()->with('<<user-content-dir>>/plugins', anything())->andReturn(array('fakedirectory'));
         $fe->shouldReceive('getFilenamesInDirectory')->once()->with('fakedirectory', anything())->andReturn(array(dirname(__FILE__) . '/../../../resources/simplePhpFile.php'));
-
-        $th         = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
-        $th->shouldReceive('getUserContentDirectory')->once()->andReturn('<<user-content-dir>>');
 
         $sm  		 = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $sm->shouldReceive('init')->once();

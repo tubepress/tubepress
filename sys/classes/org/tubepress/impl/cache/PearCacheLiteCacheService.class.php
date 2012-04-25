@@ -30,6 +30,7 @@ class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_cache_Cache',
     'org_tubepress_api_const_options_names_Cache',
+    'org_tubepress_api_environment_EnvironmentDetector',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_impl_filesystem_FsExplorer',
     'org_tubepress_impl_log_Log',
@@ -351,7 +352,7 @@ class org_tubepress_impl_cache_PearCacheLiteCacheService implements org_tubepres
             return $cacheDir;
         }
 
-        $fs = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
+        $fs = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
         $tempDir = $fs->getSystemTempDirectory();
 
         if (!is_dir($tempDir)) {

@@ -47,7 +47,7 @@ class org_tubepress_impl_cache_PearCacheLiteCacheServiceTest extends TubePressUn
         $context->shouldReceive('get')->with(org_tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS)->twice()->andReturn(1);
         $context->shouldReceive('get')->with(org_tubepress_api_const_options_names_Cache::CACHE_CLEAN_FACTOR)->once()->andReturn(1);
 
-        $fs = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
+        $fs = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
         $fs->shouldReceive('getSystemTempDirectory')->times(6)->andReturnUsing( function () {
             return dirname(__FILE__) . '/tmp';
         });

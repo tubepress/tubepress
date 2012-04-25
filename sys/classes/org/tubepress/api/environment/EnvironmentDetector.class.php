@@ -39,4 +39,33 @@ interface org_tubepress_api_environment_EnvironmentDetector
      * @return boolean True is the user is running within WordPress (or if there is a problem detecting the environment). False otherwise.
      */
     function isWordPress();
+
+    /**
+     * Find the absolute path of the user's content directory. In WordPress, this will be
+     * wp-content/tubepress-content. In standalone PHP, this will be tubepress/tubepress-content. Confusing, I know.
+     *
+     * @return string The absolute path of the user's content directory.
+     */
+    function getUserContentDirectory();
+
+    /**
+     * Attempt to get temporary directory.
+     *
+     * @return string The absolute path of a temporary directory, preferably the system directory.
+     */
+    function getSystemTempDirectory();
+
+    /**
+     * Finds the absolute path of the TubePress installation on the filesystem.
+     *
+     * @return string The absolute filesystem path of this TubePress installation.
+     */
+    function getTubePressBaseInstallationPath();
+
+    /**
+     * Find the directory name of the TubePress base installation.
+     *
+     * @return string The base name of the TubePress installation directory.
+     */
+    function getTubePressInstallationDirectoryBaseName();
 }

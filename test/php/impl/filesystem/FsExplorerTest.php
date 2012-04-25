@@ -13,7 +13,7 @@ class org_tubepress_impl_filesystem_FsExplorerTest extends TubePressUnitTest
         $this->_sut = new org_tubepress_impl_filesystem_FsExplorer();
         @mkdir('/tmp/tubepress-fs-test');
     }
-    
+
     function tearDown()
     {
         exec('rm -rf /tmp/tubepress-fs-test');
@@ -23,19 +23,19 @@ class org_tubepress_impl_filesystem_FsExplorerTest extends TubePressUnitTest
     {
         $source = '/tmp/tubepress-fs-test/source/one/two';
         mkdir($source, 0755, true);
-        
+
         $this->assertTrue(is_dir('/tmp/tubepress-fs-test/source/one/two'));
-        
+
         file_put_contents("$source/one.txt", mt_rand());
-    
+
         mkdir('/tmp/tubepress-fs-test/dest/');
         $this->assertTrue(is_dir('/tmp/tubepress-fs-test/dest'));
-        
+
         $this->_sut->copyDirectory('/tmp/tubepress-fs-test/source', '/tmp/tubepress-fs-test/dest/');
 
         $this->assertTrue(md5(file_get_contents('/tmp/tubepress-fs-test/source/one/two/one.txt')) === md5(file_get_contents('/tmp/tubepress-fs-test/dest/source/one/two/one.txt')));
     }
-    
+
 	function testLsDirs()
 	{
 	    $dir = realpath(BASE . '/sys/ui');
@@ -74,19 +74,6 @@ class org_tubepress_impl_filesystem_FsExplorerTest extends TubePressUnitTest
 		$result = $this->_sut->getFilenamesInDirectory($dir, 'log prefix');
 		$difference = array_diff($expected, $result);
 		$this->assertTrue(empty($difference));
-	}
-
-	function testGetBaseInstallationPath()
-	{
-		$result = $this->_sut->getTubePressBaseInstallationPath();
-		$dirname = basename($result);
-		$this->assertEquals('tubepress', $dirname);
-	}
-	
-	function testGetBaseInstallationBasename()
-	{
-	    $result = $this->_sut->getTubePressInstallationDirectoryBaseName();
-	    $this->assertEquals('tubepress', $result);
 	}
 
 	/**

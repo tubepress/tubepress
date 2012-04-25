@@ -32,7 +32,6 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_ioc_IocService',
     'org_tubepress_api_options_StorageManager',
     'org_tubepress_api_plugin_PluginManager',
-    'org_tubepress_api_theme_ThemeHandler',
     'org_tubepress_impl_ioc_IocContainer',
     'org_tubepress_impl_log_Log',
     'TubePress'
@@ -106,7 +105,7 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
     {
         $pm         = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
         $fe         = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-        $th         = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
+        $th         = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
         $pluginPath = $th->getUserContentDirectory() . '/plugins';
         $pluginDirs = $fe->getDirectoriesInDirectory($pluginPath, self::LOG_PREFIX);
 

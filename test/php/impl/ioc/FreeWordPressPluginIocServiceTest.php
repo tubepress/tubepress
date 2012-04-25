@@ -130,7 +130,7 @@ class org_tubepress_impl_ioc_FreeWordPressPluginIocServiceTest extends TubePress
     private function _setupEveryInterfaceIsBound()
     {
     	$ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
-    	$themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
+    	$themeHandler  = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
     	$explorer      = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
 
     	$themeHandler->shouldReceive('getUserContentDirectory')->once()->andReturn('user-content-dir');

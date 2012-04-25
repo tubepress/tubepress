@@ -22,7 +22,7 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php');
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_impl_options_ui_fields_DropdownField',
-    'org_tubepress_api_theme_ThemeHandler',
+    'org_tubepress_api_environment_EnvironmentDetector',
     'org_tubepress_api_filesystem_Explorer',
 ));
 
@@ -32,11 +32,11 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
 class org_tubepress_impl_options_ui_fields_ThemeField extends org_tubepress_impl_options_ui_fields_DropdownField
 {
     const __ = 'org_tubepress_impl_options_ui_fields_ThemeField';
-    
+
     public function getDescription()
     {
         $ioc               = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $themeHandler      = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
+        $themeHandler      = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
         $filesystem        = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
         $defaultThemesPath = $filesystem->getTubePressBaseInstallationPath() . '/sys/ui/themes';
         $userThemesPath    = $themeHandler->getUserContentDirectory() . '/themes';
