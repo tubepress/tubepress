@@ -60,7 +60,12 @@ class org_tubepress_impl_environment_SimpleEnvironmentDetector implements org_tu
     {
         if ($this->isWordPress()) {
 
-            return ABSPATH . 'wp-content/tubepress-content';
+            if (! defined('WP_CONTENT_DIR' )) {
+
+                define('WP_CONTENT_DIR', ABSPATH . 'wp-content');
+            }
+
+            return WP_CONTENT_DIR . '/tubepress-content';
 
         } else {
 
