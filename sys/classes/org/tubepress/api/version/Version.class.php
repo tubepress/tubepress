@@ -30,7 +30,7 @@
 class org_tubepress_api_version_Version
 {
     /** Version separator. */
-    private static final $_separator = '.';
+    private static $_SEPARATOR = '.';
 
     /** Major version. */
     private $_major = 0;
@@ -44,11 +44,14 @@ class org_tubepress_api_version_Version
     /** Qualifier. */
     private $_qualifier = null;
 
-    public function __construct($major, $minor = 0, $micro = 0, $qualifier = null)
+    /** Cached string representation. */
+    private $_asString = null;
+
+    public function __construct($major, $minor = 0, $micro = 0, $qualifier = '')
     {
-        $this->_major = $major;
-        $this->_minor = $minor;
-        $this->_micro = $micro;
+        $this->_major = intval($major);
+        $this->_minor = intval($minor);
+        $this->_micro = intval($micro);
 
         if ($qualifier == '') {
 
@@ -60,6 +63,8 @@ class org_tubepress_api_version_Version
         }
 
         $this->_validate();
+
+        $this->_asString = $this->_generateAsString();
     }
 
     public function compareTo($otherVersion)
@@ -104,7 +109,7 @@ class org_tubepress_api_version_Version
             return $empty;
         }
 
-        $pieces = explode(self::$_separator, $version);
+        $pieces = explode(self::$_SEPARATOR, $version);
         $pieceCount = count($pieces);
 
         switch ($pieceCount) {
@@ -121,7 +126,7 @@ class org_tubepress_api_version_Version
 
                 return new org_tubepress_api_version_Version(intval($pieces[0]), intval($pieces[1]), intval($pieces[2]));
 
-            case 3:
+            case 4:
 
                 return new org_tubepress_api_version_Version(intval($pieces[0]), intval($pieces[1]), intval($pieces[2]), $pieces[3]);
 
@@ -130,6 +135,11 @@ class org_tubepress_api_version_Version
                 throw new Exception("Invalid version: $version");
         }
 
+    }
+
+    public function __toString()
+    {
+        return $this->_asString;
     }
 
     public function getMajor()
@@ -152,28 +162,35 @@ class org_tubepress_api_version_Version
         return $this->_qualifier;
     }
 
+    private function _generateAsString()
+    {
+        $toReturn = $this->_major . self::$_SEPARATOR . $this->_minor . self::$_SEPARATOR . $this->_micro;
+
+        if ($this->_qualifier !== null) {
+
+            $toReturn = $toReturn . self::$_SEPARATOR . $this->_qualifier;
+        }
+
+        return $toReturn;
+    }
+
     private function _validate()
     {
         self::_checkNonNegativeInteger($this->_major, 'Major');
         self::_checkNonNegativeInteger($this->_minor, 'Minor');
         self::_checkNonNegativeInteger($this->_micro, 'Micro');
 
-        if ($this->_qualifier !== null && preg_match_all('/[0-9a-zA-Z_\-]/', $this->_qualifier, $matches) !== 1) {
+        if ($this->_qualifier !== null && preg_match_all('/^(?:[0-9a-zA-Z_\-]+)$/', $this->_qualifier, $matches) !== 1) {
 
-            throw new Exception("Version qualifier must only consist of alphanumerics plus hyphen and underscore");
+            throw new Exception("Version qualifier must only consist of alphanumerics plus hyphen and underscore (" . $this->_qualifier . ")");
         }
     }
 
     private static function _checkNonNegativeInteger($candidate, $name)
     {
-        if (! is_int($candidate)) {
-
-            throw new Exception("$name version must be an integer ($candidate)");
-        }
-
         if ($candidate < 0) {
 
-            throw new Exception("$name version must be non-negative");
+            throw new Exception("$name version must be non-negative ($candidate)");
         }
     }
 }
