@@ -13,7 +13,7 @@ class org_tubepress_impl_util_TimeUtilsTest extends TubePressUnitTest
 	function testGetRelativeTimePast5Years()
 	{
 	    $result = org_tubepress_impl_util_TimeUtils::getRelativeTime(1288760400);
-	    $this->assertEquals('1 year ago', $result);
+	    $this->assertEquals('2 years ago', $result);
 	}
 
 	function testSeconds2HumanTime()
