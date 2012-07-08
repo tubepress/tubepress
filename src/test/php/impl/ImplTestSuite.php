@@ -15,7 +15,6 @@ require_once 'ioc/IocTestSuite.php';
 require_once 'log/LogTestSuite.php';
 require_once 'message/MessageTestSuite.php';
 require_once 'options/OptionsTestSuite.php';
-require_once 'patterns/PatternsTestSuite.php';
 require_once 'player/PlayerTestSuite.php';
 require_once 'plugin/PluginTestSuite.php';
 require_once 'provider/ProviderTestSuite.php';
@@ -46,7 +45,6 @@ class org_tubepress_impl_ImplTestSuite
 		$suite->addTest(org_tubepress_impl_log_LogTestSuite::suite());
 		$suite->addTest(org_tubepress_impl_message_MessageTestSuite::suite());
 		$suite->addTest(org_tubepress_impl_options_OptionsTestSuite::suite());
-		$suite->addTest(org_tubepress_impl_patterns_PatternsTestSuite::suite());
 		$suite->addTest(org_tubepress_impl_player_PlayerTestSuite::suite());
 		$suite->addTest(org_tubepress_impl_plugin_PluginTestSuite::suite());
 		$suite->addTest(org_tubepress_impl_provider_ProviderTestSuite::suite());
