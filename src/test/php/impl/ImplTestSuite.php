@@ -1,14 +1,12 @@
 <?php
 
 require_once 'bootstrap/BootstrapTestSuite.php';
-require_once 'cache/CacheTestSuite.php';
 require_once 'embedded/EmbeddedPlayerTestSuite.php';
 require_once 'env/EnvTestSuite.php';
 require_once 'environment/EnvironmentTestSuite.php';
 require_once 'exec/ExecutionTestSuite.php';
 require_once 'factory/FactoryTestSuite.php';
 require_once 'feed/FeedTestSuite.php';
-require_once 'filesystem/FilesystemTestSuite.php';
 require_once 'html/HtmlTestSuite.php';
 require_once 'http/HttpTestSuite.php';
 require_once 'ioc/IocTestSuite.php';
@@ -31,14 +29,12 @@ class org_tubepress_impl_ImplTestSuite
 		$suite = new PHPUnit_Framework_TestSuite();
 
 		$suite->addTest(org_tubepress_impl_bootstrap_BootstrapTestSuite::suite());
-		$suite->addTest(org_tubepress_impl_cache_CacheTestSuite::suite());
 		$suite->addTest(org_tubepress_impl_embedded_EmbeddedPlayerTestSuite::suite());
 		$suite->addTest(org_tubepress_impl_env_EnvTestSuite::suite());
 		$suite->addTest(org_tubepress_impl_environment_EnvironmentTestSuite::suite());
 		$suite->addTest(org_tubepress_impl_exec_ExecutionTestSuite::suite());
 		$suite->addTest(org_tubepress_impl_factory_FactoryTestSuite::suite());
 		$suite->addTest(org_tubepress_impl_feed_FeedTestSuite::suite());
-		$suite->addTest(org_tubepress_impl_filesystem_FilesystemTestSuite::suite());
 		$suite->addTest(org_tubepress_impl_html_HtmlTestSuite::suite());
 		$suite->addTest(org_tubepress_impl_http_HttpTestSuite::suite());
 		$suite->addTest(org_tubepress_impl_ioc_IocTestSuite::suite());
