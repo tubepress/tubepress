@@ -21,14 +21,12 @@ require_once 'filters/singlevideotemplate/VideoMetaTest.php';
 require_once 'filters/variablereadfromexternalinput/StringMagicTest.php';
 require_once 'listeners/WordPressBootTest.php';
 require_once 'listeners/SkeletonExistsListenerTest.php';
-require_once 'PluginManagerImplTest.php';
 
 class org_tubepress_impl_plugin_PluginTestSuite
 {
 	public static function suite()
 	{
 		return new TubePressUnitTestSuite(array(
-            'org_tubepress_impl_plugin_PluginManagerImplTest',
 		    'org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariablesTest',
 		    'org_tubepress_impl_plugin_filters_galleryhtml_GalleryJsTest',
 		    'org_tubepress_impl_plugin_filters_gallerytemplate_PaginationTest',
