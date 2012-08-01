@@ -57,7 +57,7 @@ class org_tubepress_impl_plugin_filters_providerresult_PerPageSorter
 		/** Grab a handle to the videos. */
 		$videos = $providerResult->getVideoArray();
 
-		if ($feedSortOrder === org_tubepress_api_const_options_values_OrderByValue::RANDOM &&
+		if ($feedSortOrder === org_tubepress_api_const_options_values_OrderByValue::RANDOM ||
 		        $perPageSortOrder === org_tubepress_api_const_options_values_PerPageSortValue::RANDOM) {
 
 		    org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Shuffling videos');
