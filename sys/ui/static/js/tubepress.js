@@ -1025,14 +1025,17 @@ var TubePressPlayerApi = (function () {
 			
 			var domId	= event.target.a.id,
 				vId		= domId.replace(youTubePrefix, ''),
-				player	= youTubePlayers[vId];
-			
-			if (typeof player.getVideoData === undef) {
-				
-				return null;
+				player	= youTubePlayers[vId],
+				url     = player.getVideoUrl(),
+				loadedId = url.split('v=')[1],
+				ampersandPosition = loadedId.indexOf('&');
+		
+			if (ampersandPosition != -1) {
+
+				loadedId = loadedId.substring(0, ampersandPosition);
 			}
-			
-			return player.getVideoData().video_id;
+
+			return loadedId;	
 		},
 		
 		/**

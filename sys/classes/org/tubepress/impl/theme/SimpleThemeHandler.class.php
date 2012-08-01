@@ -114,7 +114,12 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
 
         if ($envDetector->isWordPress()) {
 
-            return ABSPATH . 'wp-content/tubepress-content';
+            if (! defined('WP_CONTENT_DIR')) {
+
+                define('WP_CONTENT_DIR', ABSPATH . 'wp-content');
+            }
+
+            return WP_CONTENT_DIR . '/tubepress-content';
 
         } else {
 
