@@ -31,6 +31,11 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 
 == Changelog ==
 
+= 2.4.3 =
+* Fixed bug that prevented sequential playback in YouTube galleries
+* Inconsistent detection of filesystem paths in WordPress environments (closes issue 499)
+* perPageSort="random" is unreliable (closes issue 514)
+
 = 2.4.2 =
 * Split up per-page and feed sorting options to provide finer control of gallery sort order
 * Added Polish translation
