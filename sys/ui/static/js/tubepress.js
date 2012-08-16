@@ -1503,6 +1503,8 @@ if (!jQuery.browser.msie) {
 		
 		tubePressBoot();
 	};
+
+    jQuery.ready.promise = oldReady.promise;
 	
 } else {
 	
