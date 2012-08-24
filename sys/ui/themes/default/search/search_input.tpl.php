@@ -22,7 +22,7 @@
  * Sure, maybe your templating system of choice looks prettier but I'll bet it's not faster :)
  */
 ?>
-<form method="get" action="<?php echo ${org_tubepress_api_const_template_Variable::SEARCH_HANDLER_URL}; ?>">
+<form accept-charset="utf-8" method="get" action="<?php echo ${org_tubepress_api_const_template_Variable::SEARCH_HANDLER_URL}; ?>">
 	<fieldset class="tubepress_search">
 		<?php 
 		/* 

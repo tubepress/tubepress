@@ -72,12 +72,6 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
 
         preg_match("/\[$keyword\b(.*)\]/", $content, $matches);
 
-        if (sizeof($matches) === 0) {
-
-            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'No shortcodes detected in content');
-            return;
-        }
-
         org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Found a shortcode: %s', $matches[0]);
 
         $context->setActualShortcodeUsed($matches[0]);
@@ -85,7 +79,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
         /* Anything matched? */
         if (isset($matches[1]) && $matches[1] != '') {
 
-            $text    = preg_replace('/[\x{00a0}\x{200b}]+/u', ' ', $matches[1]);
+            $text    = preg_replace('/[\x{00a0}\x{200b}]+/u', ' ', utf8_encode($matches[1]));
             $text    = self::_convertQuotes($text);
             $pattern = '/(\w+)\s*=\s*"([^"]*)"(?:\s*,)?(?:\s|$)|(\w+)\s*=\s*\'([^\']*)\'(?:\s*,)?(?:\s|$)|(\w+)\s*=\s*([^\s\'"]+)(?:\s*,)?(?:\s|$)/';
 

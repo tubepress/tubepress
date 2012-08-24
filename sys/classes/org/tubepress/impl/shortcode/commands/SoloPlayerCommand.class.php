@@ -53,6 +53,7 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommand implements org_tub
         $playerName  = $execContext->get(org_tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
 
         if ($playerName !== org_tubepress_api_const_options_values_PlayerLocationValue::SOLO) {
+
             return false;
         }
 
@@ -63,6 +64,7 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommand implements org_tub
         $videoId = $qss->getParamValue(org_tubepress_api_const_http_ParamName::VIDEO);;
 
         if ($videoId == '') {
+
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Solo player in use, but no video ID set in URL.');
             return false;
         }
@@ -79,6 +81,7 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommand implements org_tub
 
         /* display the results as a thumb gallery */
         $ioc->get(org_tubepress_spi_patterns_cor_Chain::_)->execute($context, array(
+
             'org_tubepress_impl_shortcode_commands_SingleVideoCommand'
         ));
 
