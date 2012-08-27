@@ -19,21 +19,19 @@
  *
  */
 
-/**
- * Message service that uses gettext (via WordPress)
- */
-class org_tubepress_impl_message_WordPressMessageService implements org_tubepress_api_message_MessageService
+class tubepress_impl_wordpress_SimpleWordPressFunctionWrapper implements tubepress_spi_wordpress_WordPressFunctionWrapper
 {
     /**
-     * Retrieves a message for TubePress
+     * Retrieves the translated string from WordPress's translate().
      *
-     * @param string $message The message ID
+     * @param string $message Text to translate.
+     * @param string $domain  Domain to retrieve the translated text.
      *
-     * @return string The corresponding message, or "" if not found
+     * @return string Translated text.
      */
-    public function _($message)
+    public function __($message, $domain)
     {
         /** @noinspection PhpUndefinedFunctionInspection */
-        return $message == '' ? '' : __($message, 'tubepress');
+        return $message == '' ? '' : __($message, $domain);
     }
 }

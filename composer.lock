@@ -1,0 +1,23 @@
+{
+    "hash": "9feef22eff5daa901b37a4db76270a6a",
+    "packages": [
+
+    ],
+    "packages-dev": [
+        {
+            "package": "ehough/pulsar",
+            "version": "1.1.0"
+        },
+        {
+            "package": "mockery/mockery",
+            "version": "0.7.2"
+        }
+    ],
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": [
+
+    ]
+}

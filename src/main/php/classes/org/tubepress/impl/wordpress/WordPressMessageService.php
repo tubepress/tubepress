@@ -1,37 +1,47 @@
 <?php
 /**
  * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
- *
+ * 
  * This file is part of TubePress (http://tubepress.org)
- *
+ * 
  * TubePress is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * 
  * TubePress is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
 /**
- * General purpose message abstraction for TubePress
+ * Message service that uses gettext (via WordPress)
  */
-interface org_tubepress_api_message_MessageService
+class tubepress_impl_wordpress_WordPressMessageService implements tubepress_spi_message_MessageService
 {
-    const _ = 'org_tubepress_api_message_MessageService';
+    /** WordPress function wrapper. */
+    private $_wordPressFunctionWrapper;
+
+    public function __construct(tubepress_spi_wordpress_WordPressFunctionWrapper $wpFunctionWrapper)
+    {
+        $this->_wordPressFunctionWrapper = $wpFunctionWrapper;
+    }
 
     /**
-     * Get the message corresponding to the given key.
+     * Retrieves a message for TubePress
      *
-     * @param string $messageKey The message key.
+     * @param string $message The message ID
      *
-     * @return string The corresponding message.
+     * @return string The corresponding message, or "" if not found
      */
-    function _($messageKey);
+    public function _($message)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return $message == '' ? '' : $this->_wordPressFunctionWrapper->__($message, 'tubepress');
+    }
 }

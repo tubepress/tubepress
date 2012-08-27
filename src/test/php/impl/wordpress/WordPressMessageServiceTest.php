@@ -1,9 +1,29 @@
 <?php
-require_once BASE . '/sys/classes/org/tubepress/impl/message/WordPressMessageService.class.php';
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
-class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTest {
-
+class tubepress_impl_wordpress_WordPressMessageServiceTest extends PHPUnit_Framework_TestCase
+{
 	private $_sut;
+
+    private static $_i18nDirectoryPath;
 
 	private static $_poFiles;
 
@@ -11,16 +31,22 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 
 	public static function setUpBeforeClass()
 	{
+        self::$_i18nDirectoryPath = realpath(dirname(__FILE__) . '/../../../../main/resources/i18n');
+
 	    self::$_poFiles = self::_getPoFiles();
+
 	    self::$_allTranslatableStrings = self::_getAllTranslatableStrings();
 	}
 
 	function setUp()
 	{
-		$this->_sut = new org_tubepress_impl_message_WordPressMessageService();
+        $wrapper = \Mockery::mock(tubepress_spi_wordpress_WordPressFunctionWrapper::_);
+        $wrapper->shouldReceive('__')->andReturnUsing(function ($key) {
 
-		$__ = new PHPUnit_Extensions_MockFunction('__');
-        $__->expects($this->any())->will($this->returnCallback(array($this, 'echoCallback')));
+            return "[[$key]]";
+        });
+
+		$this->_sut = new tubepress_impl_wordpress_WordPressMessageService($wrapper);
 	}
 
 	function testAllStringsPresent()
@@ -70,20 +96,15 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 
 	    if (!$result) {
 
-	        print "$key did not resolve to $value";
+	        print "foo did not resolve to [[foo]]";
 	    }
 
 	    $this->assertTrue($result);
 	}
 
-   	function echoCallback($key)
-   	{
-   	    return "[[$key]]";
-   	}
-
    	private static function _getAllTranslatableStrings()
    	{
-   	    $command = 'grep -r ">(translatable)<" ' . BASE . '/sys';
+   	    $command = 'grep -r ">(translatable)<" ' . dirname(__FILE__) . '/../../../../main/php';
    	    exec($command, $results, $return);
 
    	    self::assertTrue($return === 0, "$command failed");
@@ -108,11 +129,11 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
 
    	private static function _poFileCompiles($file, $exec)
    	{
-   	    $realPath = BASE . '/sys/i18n/' . $file;
+   	    $realPath = self::$_i18nDirectoryPath . '/' . $file;
 
    	    $outputfile = str_replace(array('.pot', '.po'), '.mo', $realPath);
 
-   	    exec("msgfmt -o $outputfile $realPath", $results, $return);
+   	    exec("/opt/local/bin/msgfmt -o $outputfile $realPath", $results, $return);
    	    return $return === 0;
    	}
 
@@ -120,7 +141,7 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
    	{
    	    $files = array();
 
-   	    $handle = opendir(BASE . '/sys/i18n/');
+   	    $handle = opendir(self::$_i18nDirectoryPath);
 
    	    while (false !== ($file = readdir($handle))) {
 
@@ -144,7 +165,7 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
    	{
    	    $rawMatches = array();
 
-   	    $potContents = file_get_contents(BASE . '/sys/i18n/' . $file);
+   	    $potContents = file_get_contents(self::$_i18nDirectoryPath . '/' . $file);
 
    	    preg_match_all("/msgid\b.*/", $potContents, $rawMatches, PREG_SET_ORDER);
 
@@ -165,9 +186,11 @@ class org_tubepress_message_WordPressMessageServiceTest extends TubePressUnitTes
    	    return $matches;
    	}
 
-   	private static function _rstrpos ($haystack, $needle){
-   	    $index        = strpos(strrev($haystack), strrev($needle));
-   	    $index        = strlen($haystack) - strlen($index) - $index;
+   	private static function _rstrpos ($haystack, $needle)
+    {
+   	    $index = strpos(strrev($haystack), strrev($needle));
+   	    $index = strlen($haystack) - strlen($index) - $index;
+
    	    return $index;
    	}
 }
