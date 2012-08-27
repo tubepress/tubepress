@@ -22,5 +22,5 @@
 require_once __DIR__ . '/../../../vendor/ehough/pulsar/src/main/php/ehough/pulsar/ComposerClassLoader.php';
 
 $loader = new ehough_pulsar_ComposerClassLoader(__DIR__ . '/../../../vendor/');
-$loader->registerFallbackDirectory(__DIR__ . '/../../main/php/classes/org');
+$loader->registerFallbackDirectory(__DIR__ . '/../../main/php/classes');
 $loader->register();
