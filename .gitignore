@@ -1,3 +1,4 @@
 .DS_Store
 src/main/assembly/stage
 src/main/assembly/dist
+.idea/workspace.xml
