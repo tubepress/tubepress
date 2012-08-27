@@ -38,7 +38,7 @@ interface tubepress_spi_options_OptionDescriptorReference
      *
      * @param string $name The option descriptor to look up.
      *
-     * @return tubepress_api_options_OptionDescriptor The option descriptor with the
+     * @return tubepress_spi_options_OptionDescriptor The option descriptor with the
      *                                                    given name, or null if not found.
      */
     function findOneByName($name);

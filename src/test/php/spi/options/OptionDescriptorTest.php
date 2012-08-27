@@ -1,14 +1,31 @@
 <?php
-
-require_once BASE . '/sys/classes/org/tubepress/api/options/OptionDescriptor.class.php';
-
-class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+class tubepress_spi_options_OptionDescriptorTest extends PHPUnit_Framework_TestCase
+{
 
     private $_sut;
 
     function setUp()
     {
-        $this->_sut = new org_tubepress_api_options_OptionDescriptor('name');
+        $this->_sut = new tubepress_spi_options_OptionDescriptor('name');
     }
 
     function testSetAcceptableValues()
@@ -47,7 +64,7 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     }
 
     /**
-    * @expectedException Exception
+    * @expectedException InvalidArgumentException
     */
     function testNonStringRegex()
     {
@@ -55,7 +72,7 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     }
 
     /**
-    * @expectedException Exception
+    * @expectedException InvalidArgumentException
     */
     function testNullRegex()
     {
@@ -63,7 +80,7 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     }
 
     /**
-    * @expectedException Exception
+    * @expectedException InvalidArgumentException
     */
     function testNonArrayExcludedProviders()
     {
@@ -71,7 +88,7 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException InvalidArgumentException
      */
     function testNullExcludedProviders()
     {
@@ -79,7 +96,7 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     }
 
     /**
-    * @expectedException Exception
+    * @expectedException InvalidArgumentException
     */
     function testNonArrayAliases()
     {
@@ -87,7 +104,7 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException InvalidArgumentException
      */
     function testNullAliases()
     {
@@ -104,7 +121,7 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     }
 
     /**
-    * @expectedException Exception
+    * @expectedException InvalidArgumentException
     */
     function testNonStringDesc()
     {
@@ -112,7 +129,7 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     }
 
     /**
-    * @expectedException Exception
+    * @expectedException InvalidArgumentException
     */
     function testNullDesc()
     {
@@ -120,7 +137,7 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     }
 
     /**
-    * @expectedException Exception
+    * @expectedException InvalidArgumentException
     */
     function testNonStringLabel()
     {
@@ -128,7 +145,7 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     }
 
     /**
-    * @expectedException Exception
+    * @expectedException InvalidArgumentException
     */
     function testNullLabel()
     {
@@ -136,23 +153,23 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     }
 
     /**
-    * @expectedException Exception
+    * @expectedException InvalidArgumentException
     */
     function testNonStringName()
     {
-        new org_tubepress_api_options_OptionDescriptor(88);
+        new tubepress_spi_options_OptionDescriptor(88);
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException InvalidArgumentException
      */
     function testNullName()
     {
-        new org_tubepress_api_options_OptionDescriptor(null);
+        new tubepress_spi_options_OptionDescriptor(null);
     }
 
     /**
-    * @expectedException Exception
+    * @expectedException InvalidArgumentException
     */
     function testSetRegexAlreadyBoolean()
     {
@@ -161,7 +178,7 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     }
 
     /**
-    * @expectedException Exception
+    * @expectedException InvalidArgumentException
     */
     function testSetRegexAlreadyDiscrete()
     {
@@ -170,7 +187,7 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     }
 
     /**
-    * @expectedException Exception
+    * @expectedException InvalidArgumentException
     */
     function testSetDiscreteAlreadyBoolean()
     {
@@ -179,7 +196,7 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException InvalidArgumentException
      */
     function testSetDiscreteAlreadyRegex()
     {
@@ -189,7 +206,7 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
 
 
     /**
-    * @expectedException Exception
+    * @expectedException InvalidArgumentException
      */
     function testSetBooleanAlreadyDiscrete()
     {
@@ -198,7 +215,7 @@ class org_tubepress_api_options_OptionDescriptorTest extends TubePressUnitTest {
     }
 
     /**
-    * @expectedException Exception
+    * @expectedException InvalidArgumentException
     */
     function testSetBooleanAlreadyRegex()
     {

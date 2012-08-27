@@ -67,13 +67,13 @@ class tubepress_spi_options_OptionDescriptor
      *
      * @param string $name
      *
-     * @throws Exception If the name is null or empty.
+     * @throws InvalidArgumentException If the name is null or empty.
      */
     public function __construct($name)
     {
         if (! is_string($name) || ! isset($name)) {
 
-            throw new Exception('Must supply an option name');
+            throw new InvalidArgumentException('Must supply an option name');
         }
 
         $this->_name = $name;
@@ -141,12 +141,12 @@ class tubepress_spi_options_OptionDescriptor
 
     public function isApplicableToVimeo()
     {
-        return ! in_array(org_tubepress_api_provider_Provider::VIMEO, $this->_excludedProviders);
+        return ! in_array(tubepress_spi_provider_Provider::VIMEO, $this->_excludedProviders);
     }
 
     public function isApplicableToYouTube()
     {
-        return ! in_array(org_tubepress_api_provider_Provider::YOUTUBE, $this->_excludedProviders);
+        return ! in_array(tubepress_spi_provider_Provider::YOUTUBE, $this->_excludedProviders);
     }
 
     public function isBoolean()
@@ -181,7 +181,7 @@ class tubepress_spi_options_OptionDescriptor
     {
         if (! is_array($aliases)) {
 
-            throw new Exception('Aliases must be an array for ' . $this->getName());
+            throw new InvalidArgumentException('Aliases must be an array for ' . $this->getName());
         }
 
         $this->_aliases = $aliases;
@@ -209,7 +209,7 @@ class tubepress_spi_options_OptionDescriptor
     {
         if (! is_string($description)) {
 
-            throw new Exception('Description must be a string for ' . $this->getName());
+            throw new InvalidArgumentException('Description must be a string for ' . $this->getName());
         }
 
         $this->_description = $description;
@@ -224,7 +224,7 @@ class tubepress_spi_options_OptionDescriptor
     {
         if (! is_array($excludedProviders)) {
 
-            throw new Exception('Excluded providers must be an array for ' . $this->getName());
+            throw new InvalidArgumentException('Excluded providers must be an array for ' . $this->getName());
         }
 
         $this->_excludedProviders = $excludedProviders;
@@ -234,7 +234,7 @@ class tubepress_spi_options_OptionDescriptor
     {
         if (! is_string($label)) {
 
-            throw new Exception('Label must be a string for ' . $this->getName());
+            throw new InvalidArgumentException('Label must be a string for ' . $this->getName());
         }
 
         $this->_label = $label;
@@ -249,7 +249,7 @@ class tubepress_spi_options_OptionDescriptor
     {
         if (! is_string($validValueRegex)) {
 
-            throw new Exception('Regex must be a string for ' . $this->getName());
+            throw new InvalidArgumentException('Regex must be a string for ' . $this->getName());
         }
 
         $this->_checkAcceptableValuesNotSet();
@@ -262,7 +262,7 @@ class tubepress_spi_options_OptionDescriptor
     {
         if (isset($this->_validValueRegex)) {
 
-            throw new Exception($this->getName() . ' already has a regex set');
+            throw new InvalidArgumentException($this->getName() . ' already has a regex set');
         }
     }
 
@@ -270,7 +270,7 @@ class tubepress_spi_options_OptionDescriptor
     {
         if (! empty($this->_acceptableValues)) {
 
-            throw new Exception($this->getName() . ' already has acceptable values set');
+            throw new InvalidArgumentException($this->getName() . ' already has acceptable values set');
         }
     }
 
@@ -278,7 +278,7 @@ class tubepress_spi_options_OptionDescriptor
     {
         if ($this->_isBoolean === true) {
 
-            throw new Exception($this->getName() . ' is set to be a boolean');
+            throw new InvalidArgumentException($this->getName() . ' is set to be a boolean');
         }
     }
 }

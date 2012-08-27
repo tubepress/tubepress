@@ -19,17 +19,12 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_exec_ExecutionContext'
-));
-
 /**
  * Interface to a remove video provider
  */
-interface org_tubepress_api_provider_Provider
+interface tubepress_spi_provider_Provider
 {
-    const _ = 'org_tubepress_api_provider_Provider';
+    const _ = 'tubepress_spi_provider_Provider';
 
     const DIRECTORY = 'directory';
     const YOUTUBE   = 'youtube';
