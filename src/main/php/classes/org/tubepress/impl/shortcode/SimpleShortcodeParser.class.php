@@ -79,7 +79,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepres
         /* Anything matched? */
         if (isset($matches[1]) && $matches[1] != '') {
 
-            $text    = preg_replace('/[\x{00a0}\x{200b}]+/u', ' ', $matches[1]);
+            $text    = preg_replace('/[\x{00a0}\x{200b}]+/u', ' ', utf8_encode($matches[1]));
             $text    = self::_convertQuotes($text);
             $pattern = '/(\w+)\s*=\s*"([^"]*)"(?:\s*,)?(?:\s|$)|(\w+)\s*=\s*\'([^\']*)\'(?:\s*,)?(?:\s|$)|(\w+)\s*=\s*([^\s\'"]+)(?:\s*,)?(?:\s|$)/';
 

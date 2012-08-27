@@ -1025,14 +1025,25 @@ var TubePressPlayerApi = (function () {
 			
 			var domId	= event.target.a.id,
 				vId		= domId.replace(youTubePrefix, ''),
-				player	= youTubePlayers[vId];
-			
-			if (typeof player.getVideoData === undef) {
-				
+				player	= youTubePlayers[vId],
+				url, loadedId, ampersandPosition;
+
+			if (typeof player.getVideoUrl !== 'function') {
+
 				return null;
 			}
-			
-			return player.getVideoData().video_id;
+
+			//noinspection JSUnresolvedFunction
+			url                 = player.getVideoUrl();
+			loadedId            = url.split('v=')[1];
+			ampersandPosition   = loadedId.indexOf('&');
+		
+			if (ampersandPosition !== -1) {
+
+				loadedId = loadedId.substring(0, ampersandPosition);
+			}
+
+			return loadedId;	
 		},
 		
 		/**
@@ -1492,6 +1503,8 @@ if (!jQuery.browser.msie) {
 		
 		tubePressBoot();
 	};
+
+    jQuery.ready.promise = oldReady.promise;
 	
 } else {
 	

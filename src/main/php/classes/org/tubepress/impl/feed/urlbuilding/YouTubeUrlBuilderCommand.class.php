@@ -71,7 +71,7 @@ class org_tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommand extends org_t
             break;
 
         case org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_VIEWED:
-            $url = 'standardfeeds/most_viewed?time=' . $execContext->get(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_VIEWED_VALUE);
+            $url = 'standardfeeds/most_popular?time=' . $execContext->get(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_VIEWED_VALUE);
             break;
 
         case org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST:
