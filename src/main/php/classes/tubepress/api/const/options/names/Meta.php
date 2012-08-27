@@ -23,7 +23,7 @@
  * Option names that control which meta info is displayed below video
  * thumbnails
  */
-class org_tubepress_api_const_options_names_Meta
+class tubepress_api_const_options_names_Meta
 {
     const _ = 'org_tubepress_api_const_options_names_Meta';
 

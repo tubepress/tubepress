@@ -22,17 +22,17 @@
 /**
  * TubePress gallery content modes.
  */
-class org_tubepress_api_const_options_values_PlayerLocationValue
+class tubepress_api_const_options_values_OrderByValue
 {
-    const NORMAL    = 'normal';
-    const POPUP     = 'popup';
-    const SHADOWBOX = 'shadowbox';
-    const JQMODAL   = 'jqmodal';
-    const VIMEO     = 'vimeo';
-    const YOUTUBE   = 'youtube';
-    const STATICC   = 'static';
-    const SOLO      = 'solo';
-    const FANCYBOX  = 'fancybox';
-    const TINYBOX   = 'tinybox';
-    const DETACHED  = 'detached';
+    const COMMENT_COUNT  = 'commentCount';
+    const DURATION       = 'duration';
+    const NEWEST         = 'newest';
+    const OLDEST         = 'oldest';
+    const POSITION       = 'position';
+    const RANDOM         = 'random';
+    const RATING         = 'rating';
+    const RELEVANCE      = 'relevance';
+    const TITLE          = 'title';
+    const VIEW_COUNT     = 'viewCount';
+    
 }

@@ -22,7 +22,7 @@
 /**
  * Cache option names for the plugin.
  */
-class org_tubepress_api_const_options_names_Cache
+class tubepress_api_const_options_names_Cache
 {
     const CACHE_CLEAN_FACTOR     = 'cacheCleaningFactor';
     const CACHE_DIR              = 'cacheDirectory';

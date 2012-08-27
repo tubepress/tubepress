@@ -22,7 +22,7 @@
 /**
  * Option names for the embedded player.
  */
-class org_tubepress_api_const_options_names_Embedded
+class tubepress_api_const_options_names_Embedded
 {
     const AUTOHIDE         = 'autoHide';
     const AUTONEXT         = 'autoNext';

@@ -22,11 +22,9 @@
 /**
  * TubePress gallery content modes.
  */
-class org_tubepress_api_const_options_values_TimeFrameValue
+class tubepress_api_const_options_values_SafeSearchValue
 {
-    const TODAY      = 'today';
-    const THIS_WEEK  = 'this_week';
-    const THIS_MONTH = 'this_month';
-    const ALL_TIME   = 'all_time';
-    
+    const NONE     = 'none';
+    const GALLERY_SOURCERATE = 'moderate';
+    const STRICT   = 'strict';    
 }

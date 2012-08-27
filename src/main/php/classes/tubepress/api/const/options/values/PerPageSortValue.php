@@ -20,18 +20,17 @@
  */
 
 /**
- * Thumbnail option names.
+ * Per-page sorting values.
  */
-class org_tubepress_api_const_options_names_Thumbs
+class tubepress_api_const_options_values_PerPageSortValue
 {
-    const AJAX_PAGINATION  = 'ajaxPagination';
-    const FLUID_THUMBS     = 'fluidThumbs';
-    const HQ_THUMBS        = 'hqThumbs';
-    const PAGINATE_ABOVE   = 'paginationAbove';
-    const PAGINATE_BELOW   = 'paginationBelow';
-    const RANDOM_THUMBS    = 'randomize_thumbnails';
-    const RESULTS_PER_PAGE = 'resultsPerPage';
-    const THEME            = 'theme';
-    const THUMB_HEIGHT     = 'thumbHeight';
-    const THUMB_WIDTH      = 'thumbWidth';
+    const COMMENT_COUNT  = 'commentCount';
+    const DURATION       = 'duration';
+    const NEWEST         = 'newest';
+    const NONE           = 'none';
+    const OLDEST         = 'oldest';
+    const RANDOM         = 'random';
+    const RATING         = 'rating';
+    const TITLE          = 'title';
+    const VIEW_COUNT     = 'viewCount';
 }

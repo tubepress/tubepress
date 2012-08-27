@@ -20,17 +20,18 @@
  */
 
 /**
- * Advanced option names for the plugin.
+ * Video feed options.
  */
-class org_tubepress_api_const_options_names_Advanced
+class tubepress_api_const_options_names_Feed
 {
-    const DEBUG_ON               = 'debugging_enabled';
-    const DISABLE_HTTP_CURL      = 'disableHttpTransportCurl';
-    const DISABLE_HTTP_EXTHTTP   = 'disableHttpTransportExtHttp';
-    const DISABLE_HTTP_FOPEN     = 'disableHttpTransportFopen';
-    const DISABLE_HTTP_FSOCKOPEN = 'disableHttpTransportFsockOpen';
-    const DISABLE_HTTP_STREAMS   = 'disableHttpTransportStreams';
-    const GALLERY_ID             = 'galleryId';
-    const HTTPS                  = 'https';
-    const KEYWORD                = 'keyword';
+    const DEV_KEY          = 'developerKey';
+    const EMBEDDABLE_ONLY  = 'embeddableOnly';
+    const FILTER           = 'filter_racy';
+    const ORDER_BY         = 'orderBy';
+    const PER_PAGE_SORT    = 'perPageSort';
+    const RESULT_COUNT_CAP = 'resultCountCap';
+    const SEARCH_ONLY_USER = 'searchResultsRestrictedToUser';
+    const VIMEO_KEY        = 'vimeoKey';
+    const VIMEO_SECRET     = 'vimeoSecret';
+    const VIDEO_BLACKLIST  = 'videoBlacklist';
 }

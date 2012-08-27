@@ -20,18 +20,12 @@
  */
 
 /**
- * Video feed options.
+ * Option names related to interactive searching.
  */
-class org_tubepress_api_const_options_names_Feed
+class tubepress_api_const_options_names_InteractiveSearch
 {
-    const DEV_KEY          = 'developerKey';
-    const EMBEDDABLE_ONLY  = 'embeddableOnly';
-    const FILTER           = 'filter_racy';
-    const ORDER_BY         = 'orderBy';
-    const PER_PAGE_SORT    = 'perPageSort';
-    const RESULT_COUNT_CAP = 'resultCountCap';
-    const SEARCH_ONLY_USER = 'searchResultsRestrictedToUser';
-    const VIMEO_KEY        = 'vimeoKey';
-    const VIMEO_SECRET     = 'vimeoSecret';
-    const VIDEO_BLACKLIST  = 'videoBlacklist';
+    const SEARCH_PROVIDER       = 'searchProvider';
+    const SEARCH_RESULTS_DOM_ID = 'searchResultsDomId';
+    const SEARCH_RESULTS_ONLY   = 'searchResultsOnly';
+    const SEARCH_RESULTS_URL    = 'searchResultsUrl';
 }

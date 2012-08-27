@@ -20,12 +20,13 @@
  */
 
 /**
- * Output options.
+ * TubePress gallery content modes.
  */
-class org_tubepress_api_const_options_values_OutputValue
+class tubepress_api_const_options_values_TimeFrameValue
 {
-    const AJAX_SEARCH_INPUT = 'ajaxSearchInput';
-    const SEARCH_INPUT      = 'searchInput';
-    const SEARCH_RESULTS    = 'searchResults';
-    const PLAYER            = 'player';
+    const TODAY      = 'today';
+    const THIS_WEEK  = 'this_week';
+    const THIS_MONTH = 'this_month';
+    const ALL_TIME   = 'all_time';
+    
 }

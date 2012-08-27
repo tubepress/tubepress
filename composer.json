@@ -18,7 +18,8 @@
     "require": {
 
         "ehough/chaingang": "*",
-        "ehough/epilog": "*"
+        "ehough/epilog": "*",
+        "ehough/fimble": "*"
     },
 
     "require-dev": {

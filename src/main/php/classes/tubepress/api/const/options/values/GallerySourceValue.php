@@ -22,7 +22,7 @@
 /**
  * TubePress gallery content modes.
  */
-class org_tubepress_api_const_options_values_GallerySourceValue
+class tubepress_api_const_options_values_GallerySourceValue
 {
     const YOUTUBE_FAVORITES      = 'favorites';
     const YOUTUBE_FEATURED       = 'recently_featured';

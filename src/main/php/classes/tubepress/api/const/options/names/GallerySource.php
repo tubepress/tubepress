@@ -22,7 +22,7 @@
 /**
  * Option names related to video sources.
  */
-class org_tubepress_api_const_options_names_GallerySource
+class tubepress_api_const_options_names_GallerySource
 {
     const YOUTUBE_MOST_DISCUSSED_VALUE = 'most_discussedValue';
     const YOUTUBE_MOST_RECENT_VALUE    = 'most_recentValue';

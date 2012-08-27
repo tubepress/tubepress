@@ -19,28 +19,16 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_options_Type',
-    'org_tubepress_api_const_plugin_FilterPoint',
-    'org_tubepress_api_options_OptionDescriptor',
-    'org_tubepress_api_options_OptionDescriptorReference',
-    'org_tubepress_api_options_OptionValidator',
-    'org_tubepress_api_options_StorageManager',
-    'org_tubepress_api_plugin_PluginManager',
-    'org_tubepress_impl_ioc_IocContainer',
-));
-
 /**
  * Handles persistent storage of TubePress options
  */
-abstract class org_tubepress_impl_options_AbstractStorageManager implements org_tubepress_api_options_StorageManager
+abstract class tubepress_impl_options_AbstractStorageManager implements tubepress_spi_options_StorageManager
 {
     /**
      * Creates an option in storage
      *
-     * @param unknown_type $optionName  The name of the option to create
-     * @param unknown_type $optionValue The default value of the new option
+     * @param mixed $optionName  The name of the option to create
+     * @param mixed $optionValue The default value of the new option
      *
      * @return void
      */
@@ -49,7 +37,7 @@ abstract class org_tubepress_impl_options_AbstractStorageManager implements org_
     /**
      * Deletes an option from storage
      *
-     * @param unknown_type $optionName The name of the option to delete
+     * @param mixed $optionName The name of the option to delete
      *
      * @return void
      */
