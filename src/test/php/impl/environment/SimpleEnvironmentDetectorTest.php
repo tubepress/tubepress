@@ -1,13 +1,32 @@
 <?php
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
-class org_tubepress_impl_environment_SimpleEnvironmentDetectorTest extends TubePressUnitTest {
-
+class org_tubepress_impl_environment_SimpleEnvironmentDetectorTest extends PHPUnit_Framework_TestCase
+{
     private $_sut;
 
     function setUp()
     {
         parent::setUp();
-        $this->_sut = new org_tubepress_impl_environment_SimpleEnvironmentDetector();
+        $this->_sut = new tubepress_impl_environment_SimpleEnvironmentDetector();
     }
 
     function testIsPro()
@@ -22,14 +41,17 @@ class org_tubepress_impl_environment_SimpleEnvironmentDetectorTest extends TubeP
 
     public function testGetUserContentDirNonWordPress()
     {
-        $dir = realpath(dirname(__FILE__) . '/../../../../');
+        $dir = realpath(dirname(__FILE__) . '/../../../../../');
+
         $this->assertEquals("$dir/tubepress-content", $this->_sut->getUserContentDirectory());
     }
 
     function testGetBaseInstallationPath()
     {
         $result = $this->_sut->getTubePressBaseInstallationPath();
+
         $dirname = basename($result);
+
         $this->assertEquals('tubepress', $dirname);
     }
 

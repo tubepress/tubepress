@@ -22,9 +22,9 @@
 /**
  * Detects TubePress's environment
  */
-interface org_tubepress_api_environment_EnvironmentDetector
+interface tubepress_spi_environment_EnvironmentDetector
 {
-    const _ = 'org_tubepress_api_environment_EnvironmentDetector';
+    const _ = 'tubepress_spi_environment_EnvironmentDetector';
 
     /**
      * Detects if the user is running TubePress Pro.
@@ -47,13 +47,6 @@ interface org_tubepress_api_environment_EnvironmentDetector
      * @return string The absolute path of the user's content directory.
      */
     function getUserContentDirectory();
-
-    /**
-     * Attempt to get temporary directory.
-     *
-     * @return string The absolute path of a temporary directory, preferably the system directory.
-     */
-    function getSystemTempDirectory();
 
     /**
      * Finds the absolute path of the TubePress installation on the filesystem.

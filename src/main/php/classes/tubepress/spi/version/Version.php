@@ -27,7 +27,7 @@
  * http://trac.i2p2.de/browser/src/main/java/org/osgi/framework/Version.java?rev=c113cdcdaa29451f600437c9275762580386dbcf
  *
  */
-class org_tubepress_api_version_Version
+class tubepress_spi_version_Version
 {
     /** Version separator. */
     private static $_SEPARATOR = '.';
@@ -69,7 +69,7 @@ class org_tubepress_api_version_Version
 
     public function compareTo($otherVersion)
     {
-        if (!($otherVersion instanceof org_tubepress_api_version_Version)) {
+        if (!($otherVersion instanceof tubepress_spi_version_Version)) {
 
             return $this->compareTo(self::parse($otherVersion));
         }
@@ -99,10 +99,10 @@ class org_tubepress_api_version_Version
     {
         if (! is_string($version)) {
 
-            throw new Exception('Can only parse strings to generate version');
+            throw new InvalidArgumentException('Can only parse strings to generate version');
         }
 
-        $empty = new org_tubepress_api_version_Version(0, 0, 0);
+        $empty = new tubepress_spi_version_Version(0, 0, 0);
 
         if ($version == '' || trim($version) == '') {
 
@@ -116,23 +116,23 @@ class org_tubepress_api_version_Version
 
             case 1:
 
-                return new org_tubepress_api_version_Version(intval($version));
+                return new tubepress_spi_version_Version(intval($version));
 
             case 2:
 
-                return new org_tubepress_api_version_Version(intval($pieces[0]), intval($pieces[1]));
+                return new tubepress_spi_version_Version(intval($pieces[0]), intval($pieces[1]));
 
             case 3:
 
-                return new org_tubepress_api_version_Version(intval($pieces[0]), intval($pieces[1]), intval($pieces[2]));
+                return new tubepress_spi_version_Version(intval($pieces[0]), intval($pieces[1]), intval($pieces[2]));
 
             case 4:
 
-                return new org_tubepress_api_version_Version(intval($pieces[0]), intval($pieces[1]), intval($pieces[2]), $pieces[3]);
+                return new tubepress_spi_version_Version(intval($pieces[0]), intval($pieces[1]), intval($pieces[2]), $pieces[3]);
 
             default:
 
-                throw new Exception("Invalid version: $version");
+                throw new InvalidArgumentException("Invalid version: $version");
         }
 
     }
@@ -182,7 +182,7 @@ class org_tubepress_api_version_Version
 
         if ($this->_qualifier !== null && preg_match_all('/^(?:[0-9a-zA-Z_\-]+)$/', $this->_qualifier, $matches) !== 1) {
 
-            throw new Exception("Version qualifier must only consist of alphanumerics plus hyphen and underscore (" . $this->_qualifier . ")");
+            throw new InvalidArgumentException("Version qualifier must only consist of alphanumerics plus hyphen and underscore (" . $this->_qualifier . ")");
         }
     }
 
@@ -190,7 +190,7 @@ class org_tubepress_api_version_Version
     {
         if ($candidate < 0) {
 
-            throw new Exception("$name version must be non-negative ($candidate)");
+            throw new InvalidArgumentException("$name version must be non-negative ($candidate)");
         }
     }
 }
