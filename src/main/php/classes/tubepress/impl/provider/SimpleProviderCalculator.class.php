@@ -19,15 +19,6 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_options_names_Output',
-    'org_tubepress_api_exec_ExecutionContext',
-    'org_tubepress_api_provider_Provider',
-    'org_tubepress_api_provider_ProviderCalculator',
-    'org_tubepress_impl_ioc_IocContainer',
-));
-
 /**
  * Calculates video provider in use.
  */

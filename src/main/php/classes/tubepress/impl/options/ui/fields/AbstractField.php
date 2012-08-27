@@ -19,17 +19,10 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php');
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_ioc_IocService',
-    'org_tubepress_api_message_MessageService',
-    'org_tubepress_spi_options_ui_Field'
-));
-
 /**
  * Base class for HTML fields.
  */
-abstract class org_tubepress_impl_options_ui_fields_AbstractField implements org_tubepress_spi_options_ui_Field
+abstract class org_tubepress_impl_options_ui_fields_AbstractField implements tubepress_spi_options_ui_Field
 {
     const TEMPLATE_VAR_NAME  = 'org_tubepress_impl_options_ui_fields_AbstractField__name';
 

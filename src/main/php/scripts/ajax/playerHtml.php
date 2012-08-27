@@ -22,53 +22,38 @@
  * paramters: embedName (the string name of the embedded player implementation),
  * video (the video ID to load), meta (true/false whether or not to include video meta info)
  */
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classes/org/tubepress/impl/classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_bootstrap_Bootstrapper',
-    'org_tubepress_api_const_http_ParamName',
-    'org_tubepress_api_const_options_names_Advanced',
-    'org_tubepress_api_const_options_names_Embedded',
-    'org_tubepress_api_environment_EnvironmentDetector',
-    'org_tubepress_api_filesystem_Explorer',
-	'org_tubepress_api_http_HttpRequestParameterService',
-    'org_tubepress_api_player_PlayerHtmlGenerator',
-    'org_tubepress_api_provider_Provider',
-	'org_tubepress_api_shortcode_ShortcodeParser',
-    'org_tubepress_impl_ioc_IocContainer'
-));
-
-require dirname(__FILE__) . '/../wordpress/loader.php';
-
-/* boot TubePress */
-$booter = $ioc->get(org_tubepress_api_bootstrap_Bootstrapper::_);
-$booter->boot();
-
-$context  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-$player   = $ioc->get(org_tubepress_api_player_PlayerHtmlGenerator::_);
-$provider = $ioc->get(org_tubepress_api_provider_Provider::_);
-$qss      = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
-$sp       = $ioc->get(org_tubepress_api_shortcode_ShortcodeParser::_);
-
-$shortcode = rawurldecode($qss->getParamValue(org_tubepress_api_const_http_ParamName::SHORTCODE));
-$videoId   = $qss->getParamValue(org_tubepress_api_const_http_ParamName::VIDEO);
-
-/* gather up the options */
-$sp->parse($shortcode);
-if ($context->get(org_tubepress_api_const_options_names_Embedded::LAZYPLAY)) {
-    $context->set(org_tubepress_api_const_options_names_Embedded::AUTOPLAY, true);
-}
-
-/* grab the video! */
-try {
-    $video = $provider->getSingleVideo($videoId);
-} catch (Exception $e) {
-    org_tubepress_impl_log_Log::log('Player HTML', $e->getMessage());
-    header("Status: 404 Not Found");
-    exit;
-}
-
-$title = rawurlencode($video->getTitle());
-$html  = rawurlencode($player->getHtml($video));
-
-header('HTTP/1.1 200 OK');
-echo "{ \"title\" : \"$title\", \"html\" : \"$html\" }";
+//require dirname(__FILE__) . '/../wordpress/loader.php';
+//
+///* boot TubePress */
+//$booter = $ioc->get(org_tubepress_api_bootstrap_Bootstrapper::_);
+//$booter->boot();
+//
+//$context  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+//$player   = $ioc->get(org_tubepress_api_player_PlayerHtmlGenerator::_);
+//$provider = $ioc->get(org_tubepress_api_provider_Provider::_);
+//$qss      = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+//$sp       = $ioc->get(org_tubepress_api_shortcode_ShortcodeParser::_);
+//
+//$shortcode = rawurldecode($qss->getParamValue(org_tubepress_api_const_http_ParamName::SHORTCODE));
+//$videoId   = $qss->getParamValue(org_tubepress_api_const_http_ParamName::VIDEO);
+//
+///* gather up the options */
+//$sp->parse($shortcode);
+//if ($context->get(org_tubepress_api_const_options_names_Embedded::LAZYPLAY)) {
+//    $context->set(org_tubepress_api_const_options_names_Embedded::AUTOPLAY, true);
+//}
+//
+///* grab the video! */
+//try {
+//    $video = $provider->getSingleVideo($videoId);
+//} catch (Exception $e) {
+//    org_tubepress_impl_log_Log::log('Player HTML', $e->getMessage());
+//    header("Status: 404 Not Found");
+//    exit;
+//}
+//
+//$title = rawurlencode($video->getTitle());
+//$html  = rawurlencode($player->getHtml($video));
+//
+//header('HTTP/1.1 200 OK');
+//echo "{ \"title\" : \"$title\", \"html\" : \"$html\" }";

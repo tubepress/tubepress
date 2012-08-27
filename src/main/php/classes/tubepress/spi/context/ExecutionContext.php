@@ -24,7 +24,7 @@
  * usually in persistent storage somewhere, and custom options parsed
  * from a shortcode.
  */
-interface tubepress_spi_exec_ExecutionContext
+interface tubepress_spi_context_ExecutionContext
 {
     const _ = 'tubepress_spi_exec_ExecutionContext';
 

@@ -19,25 +19,12 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_plugin_FilterPoint',
-    'org_tubepress_api_exec_ExecutionContext',
-    'org_tubepress_api_options_OptionValidator',
-    'org_tubepress_api_options_StorageManager',
-    'org_tubepress_api_options_OptionValidator',
-    'org_tubepress_api_plugin_PluginManager',
-    'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_impl_log_Log',
-    'org_tubepress_impl_options_OptionsReference',
-));
-
 /**
  * Holds the current options for TubePress. This is the default options,
  * usually in persistent storage somewhere, and custom options parsed
  * from a shortcode
  */
-class org_tubepress_impl_exec_MemoryExecutionContext implements org_tubepress_api_exec_ExecutionContext
+class org_tubepress_impl_exec_MemoryExecutionContext implements tubepress_spi_context_ExecutionContext
 {
     private static $_logPrefix = 'Memory Execution Context';
 

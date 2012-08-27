@@ -19,18 +19,6 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_options_names_Advanced',
-    'org_tubepress_api_const_options_names_Embedded',
-    'org_tubepress_api_const_template_Variable',
-    'org_tubepress_api_exec_ExecutionContext',
-    'org_tubepress_api_template_Template',
-    'org_tubepress_api_url_Url',
-    'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
-    'org_tubepress_impl_ioc_IocContainer',
-));
-
 /**
  * Core variables for the embedded template.
  */

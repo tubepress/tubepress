@@ -68,11 +68,162 @@ class org_tubepress_impl_options_WordPressStorageManagerTest extends PHPUnit_Fra
         $this->assertTrue($result === false);
     }
 
-
-    function testSet()
+    function testSetNotExists()
     {
+        $this->_mockOptionsReference->shouldReceive('findOneByName')->with('something')->andReturn(null);
 
+        $result = $this->_sut->set('something', 'value');
+
+        $this->assertTrue($result);
     }
 
+    function testSetDoNotPersist()
+    {
+        $od = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
+        $od->shouldReceive('isMeantToBePersisted')->once()->andReturn(false);
+
+        $this->_mockOptionsReference->shouldReceive('findOneByName')->with('something')->andReturn($od);
+
+        $result = $this->_sut->set('something', 'value');
+
+        $this->assertTrue($result);
+    }
+
+    function testSetFailsValidation()
+    {
+        $od = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
+        $od->shouldReceive('isMeantToBePersisted')->once()->andReturn(true);
+
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_PreValidationOptionSet::EVENT_NAME, \Mockery::type('tubepress_api_event_PreValidationOptionSet'));
+        $this->_mockOptionsReference->shouldReceive('findOneByName')->with('something')->andReturn($od);
+        $this->_mockOptionValidator->shouldReceive('isValid')->once()->with('something', 'value')->andReturn(false);
+        $this->_mockOptionValidator->shouldReceive('getProblemMessage')->once()->with('something', 'value')->andReturn('xyz');
+
+        $result = $this->_sut->set('something', 'value');
+
+        $this->assertEquals('xyz', $result);
+    }
+
+    function testSetPassesValidation()
+    {
+        $od = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
+        $od->shouldReceive('isMeantToBePersisted')->once()->andReturn(true);
+
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_PreValidationOptionSet::EVENT_NAME, \Mockery::type('tubepress_api_event_PreValidationOptionSet'));
+        $this->_mockOptionsReference->shouldReceive('findOneByName')->with('something')->andReturn($od);
+        $this->_mockOptionValidator->shouldReceive('isValid')->once()->with('something', 'value')->andReturn(true);
+        $this->_mockWordPressFunctionWrapper->shouldReceive('update_option')->once()->with('tubepress-something', 'value');
+
+        $result = $this->_sut->set('something', 'value');
+
+        $this->assertTrue($result);
+    }
+
+    function testInitBadStored()
+    {
+        $this->_mockWordPressFunctionWrapper->shouldReceive('get_option')->once()->with('tubepress-version')->andReturn('xxx.xxxx');
+
+        $this->_setupInit();
+
+        $this->_sut->init();
+
+        $this->assertTrue(true);
+    }
+
+    function testInitMissingStored()
+    {
+
+        $this->_mockWordPressFunctionWrapper->shouldReceive('get_option')->once()->with('tubepress-version')->andReturn(false);
+
+        $this->_setupInit();
+
+        $this->_sut->init();
+
+        $this->assertTrue(true);
+    }
+
+    function testInitOldStored()
+    {
+        $this->_mockWordPressFunctionWrapper->shouldReceive('get_option')->once()->with('tubepress-version')->andReturn('142');
+
+        $this->_setupInit();
+
+        $this->_sut->init();
+
+        $this->assertTrue(true);
+    }
+
+    function testInitLowerStored()
+    {
+        $this->_mockWordPressFunctionWrapper->shouldReceive('get_option')->once()->with('tubepress-version')->andReturn('1.4.9');
+
+        $this->_setupInit();
+
+        $this->_sut->init();
+
+        $this->assertTrue(true);
+    }
+
+    function testInitBadCurrentValue()
+    {
+        $this->_mockWordPressFunctionWrapper->shouldReceive('get_option')->once()->with('tubepress-version')->andReturn('1.4.9');
+
+        $this->_setupBaseInit();
+
+        $this->_mockWordPressFunctionWrapper->shouldReceive('get_option')->once()->with('tubepress-name2')->andReturn('abc');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('update_option')->once()->with('tubepress-name2', 'value2');
+
+        $this->_mockOptionValidator->shouldReceive('isValid')->once()->with('name2', 'abc')->andReturn(false);
+
+        $this->_sut->init();
+
+        $this->assertTrue(true);
+    }
+
+    function testInitMissingCurrentValue()
+    {
+        $this->_mockWordPressFunctionWrapper->shouldReceive('get_option')->once()->with('tubepress-version')->andReturn('1.4.9');
+
+        $this->_setupBaseInit();
+
+        $this->_mockWordPressFunctionWrapper->shouldReceive('get_option')->once()->with('tubepress-name2')->andReturn(false);
+        $this->_mockWordPressFunctionWrapper->shouldReceive('add_option')->once()->with('tubepress-name2', 'value2');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('delete_option')->once()->with('tubepress-name2');
+
+        $this->_mockOptionValidator->shouldReceive('isValid')->once()->with('name2', '')->andReturn(true);
+
+        $this->_sut->init();
+
+        $this->assertTrue(true);
+    }
+
+    private function _setupInit()
+    {
+        $this->_setupBaseInit();
+
+        $this->_mockWordPressFunctionWrapper->shouldReceive('get_option')->once()->with('tubepress-name2')->andReturn('abc');
+
+        $this->_mockOptionValidator->shouldReceive('isValid')->once()->with('name2', 'abc')->andReturn(true);
+    }
+
+    private function _setupBaseInit()
+    {
+        $version = tubepress_spi_version_Version::parse('1.5.0');
+        $this->_mockEnvironmentDetector->shouldReceive('getVersion')->once()->andReturn($version);
+
+        $od1 = Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
+        $od2 = Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
+
+        $this->_mockWordPressFunctionWrapper->shouldReceive('add_option')->once()->with('tubepress-version', '1.5.0');
+        $this->_mockWordPressFunctionWrapper->shouldReceive('update_option')->once()->with('tubepress-version', '1.5.0');
+
+        $this->_mockOptionsReference->shouldReceive('findAll')->once()->andReturn(array($od1, $od2));
+
+        $od1->shouldReceive('isMeantToBePersisted')->once()->andReturn(false);
+
+        $od2->shouldReceive('isMeantToBePersisted')->once()->andReturn(true);
+        $od2->shouldReceive('getName')->once()->andReturn('name2');
+        $od2->shouldReceive('getDefaultValue')->once()->andReturn('value2');
+    }
 }
 

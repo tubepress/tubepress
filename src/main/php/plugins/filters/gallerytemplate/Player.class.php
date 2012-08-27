@@ -19,22 +19,6 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_options_names_Display',
-    'org_tubepress_api_const_options_names_Embedded',
-    'org_tubepress_api_const_options_values_PlayerLocationValue',
-    'org_tubepress_api_const_template_Variable',
-    'org_tubepress_api_exec_ExecutionContext',
-    'org_tubepress_api_player_PlayerHtmlGenerator',
-    'org_tubepress_api_provider_Provider',
-    'org_tubepress_api_provider_ProviderCalculator',
-    'org_tubepress_api_provider_ProviderResult',
-    'org_tubepress_api_shortcode_ShortcodeHtmlGenerator',
-    'org_tubepress_api_template_Template',
-    'org_tubepress_impl_ioc_IocContainer',
-));
-
 /**
  * Handles applying the player HTML to the gallery template.
  */

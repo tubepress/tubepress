@@ -19,16 +19,11 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../classloader/ClassLoader.class.php');
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_impl_options_ui_AbstractFormHandler'
-));
-
 /**
  * Displays a WordPress-specific options form for TubePress
  *
  */
-class org_tubepress_impl_env_wordpress_WordPressFormHandler extends org_tubepress_impl_options_ui_AbstractFormHandler
+class org_tubepress_impl_env_wordpress_WordPressFormHandler extends tubepress_impl_options_ui_AbstractFormHandler
 {
 
     protected function getRelativeTemplatePath()

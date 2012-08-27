@@ -19,22 +19,10 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php');
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_ioc_IocService',
-    'org_tubepress_api_filesystem_Explorer',
-    'org_tubepress_api_options_StorageManager',
-    'org_tubepress_api_message_MessageService',
-    'org_tubepress_api_template_TemplateBuilder',
-    'org_tubepress_impl_options_ui_AbstractDelegatingFormHandler',
-    'org_tubepress_spi_options_ui_Tab',
-	'org_tubepress_spi_options_ui_FieldBuilder'
-));
-
 /**
  * Displays a tab on the options page.
  */
-abstract class org_tubepress_impl_options_ui_tabs_AbstractTab extends org_tubepress_impl_options_ui_AbstractDelegatingFormHandler implements org_tubepress_spi_options_ui_Tab
+abstract class org_tubepress_impl_options_ui_tabs_AbstractTab extends tubepress_impl_options_ui_AbstractDelegatingFormHandler implements tubepress_spi_options_ui_Tab
 {
     const TEMPLATE_VAR_WIDGETARRAY = 'org_tubepress_impl_options_ui_tabs_AbstractTab__widgetArray';
 

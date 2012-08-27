@@ -19,20 +19,10 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_template_Variable',
-    'org_tubepress_api_exec_ExecutionContext',
-    'org_tubepress_spi_patterns_cor_Command',
-    'org_tubepress_api_theme_ThemeHandler',
-    'org_tubepress_impl_embedded_EmbeddedPlayerUtils',
-    'org_tubepress_impl_ioc_IocContainer',
-));
-
 /**
  * Base class for embedded commands.
  */
-abstract class org_tubepress_impl_embedded_commands_AbstractEmbeddedCommand implements org_tubepress_spi_patterns_cor_Command
+abstract class org_tubepress_impl_embedded_commands_AbstractEmbeddedCommand implements ehough_chaingang_api_Command
 {
     /**
      * Execute the command.
@@ -41,7 +31,7 @@ abstract class org_tubepress_impl_embedded_commands_AbstractEmbeddedCommand impl
      *
      * @return boolean True if this command was able to handle the execution. False otherwise.
      */
-    public function execute($context)
+    public function execute(ehough_chaingang_api_Context $context)
     {
         global $tubepress_base_url;
 

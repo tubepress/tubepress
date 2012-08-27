@@ -19,11 +19,6 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_impl_plugin_filters_AbstractStringMagicFilter'
-));
-
 /**
  * Performs filtering on potentially malicious or typo'd string input.
  */

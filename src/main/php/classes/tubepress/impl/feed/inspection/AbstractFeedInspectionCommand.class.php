@@ -19,15 +19,10 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../impl/classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_spi_patterns_cor_Command'
-));
-
 /**
  * Base functionality for feed inspection.
  */
-abstract class org_tubepress_impl_feed_inspection_AbstractFeedInspectionCommand implements org_tubepress_spi_patterns_cor_Command
+abstract class org_tubepress_impl_feed_inspection_AbstractFeedInspectionCommand implements ehough_chaingang_api_Command
 {
     /**
      * Execute the command.
@@ -36,7 +31,7 @@ abstract class org_tubepress_impl_feed_inspection_AbstractFeedInspectionCommand 
      *
      * @return boolean True if this command was able to handle the execution. False otherwise.
      */
-    public function execute($context)
+    public function execute(ehough_chaingang_api_Context $context)
     {
         if ($context->providerName !== $this->_getNameOfHandledProvider()) {
             return false;

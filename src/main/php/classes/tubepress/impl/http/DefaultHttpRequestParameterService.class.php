@@ -19,17 +19,10 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_plugin_FilterPoint',
-    'org_tubepress_api_http_HttpRequestParameterService',
-    'org_tubepress_api_plugin_PluginManager',
-));
-
 /**
  * Class for managing HTTP Transports and making HTTP requests.
  */
-class org_tubepress_impl_http_DefaultHttpRequestParameterService implements org_tubepress_api_http_HttpRequestParameterService
+class org_tubepress_impl_http_DefaultHttpRequestParameterService implements tubepress_api_http_HttpRequestParameterService
 {
     private static $_logPrefix = 'Default HTTP Request Param Service';
 

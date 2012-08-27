@@ -19,24 +19,10 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_options_names_GallerySource',
-	'org_tubepress_api_const_options_names_Thumbs',
-	'org_tubepress_api_const_options_names_InteractiveSearch',
-    'org_tubepress_api_const_plugin_FilterPoint',
-    'org_tubepress_api_ioc_IocService',
-    'org_tubepress_api_exec_ExecutionContext',
-    'org_tubepress_api_plugin_PluginManager',
-    'org_tubepress_api_shortcode_ShortcodeParser',
-    'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_impl_log_Log',
-));
-
 /**
  * Parses shortcodes.
  */
-class org_tubepress_impl_shortcode_SimpleShortcodeParser implements org_tubepress_api_shortcode_ShortcodeParser
+class org_tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_shortcode_ShortcodeParser
 {
     private static $_logPrefix = 'Shortcode parser';
 

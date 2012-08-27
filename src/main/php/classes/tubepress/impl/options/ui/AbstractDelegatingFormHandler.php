@@ -19,15 +19,10 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../classloader/ClassLoader.class.php');
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_options_ui_FormHandler'
-));
-
 /**
  * Handles nested submit handlers.
  */
-abstract class org_tubepress_impl_options_ui_AbstractDelegatingFormHandler implements org_tubepress_api_options_ui_FormHandler
+abstract class tubepress_impl_options_ui_AbstractDelegatingFormHandler implements tubepress_spi_options_ui_FormHandler
 {
     /**
     * Updates options from a keyed array

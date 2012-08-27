@@ -19,21 +19,6 @@
  *
  */
 
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_http_ParamName',
-    'org_tubepress_api_const_options_names_Output',
-    'org_tubepress_api_const_options_names_InteractiveSearch',
-    'org_tubepress_api_const_querystring_QueryParamName',
-    'org_tubepress_api_const_template_Variable',
-    'org_tubepress_api_exec_ExecutionContext',
-    'org_tubepress_api_http_HttpRequestParameterService',
-    'org_tubepress_api_querystring_QueryStringService',
-    'org_tubepress_api_template_Template',
-    'org_tubepress_api_url_Url',
-    'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_impl_util_StringUtils',
-));
-
 /**
  * Adds some core variables to the search input template.
  */

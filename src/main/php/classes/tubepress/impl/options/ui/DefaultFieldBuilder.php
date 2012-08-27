@@ -19,16 +19,10 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../classloader/ClassLoader.class.php');
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_spi_options_ui_FieldBuilder',
-    'org_tubepress_impl_options_ui_fields_MetaMultiSelectField',
-));
-
 /**
  * Builds fields with reflection.
  */
-class org_tubepress_impl_options_ui_DefaultFieldBuilder implements org_tubepress_spi_options_ui_FieldBuilder
+class org_tubepress_impl_options_ui_DefaultFieldBuilder implements tubepress_spi_options_ui_FieldBuilder
 {
     /**
      * Build a single field with the given name and type.

@@ -19,11 +19,6 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../impl/classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_video_Video'
-));
-
 /**
  * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */

@@ -20,21 +20,18 @@
  */
 
 /**
- * Handles HTTP responses.
+ * Handles shortcode HTML generation.
  */
-interface org_tubepress_api_http_HttpResponseHandler
+interface tubepress_spi_shortcode_ShortcodeHtmlGenerator
 {
-    const _ = 'org_tubepress_api_http_HttpResponseHandler';
+    const _ = 'tubepress_spi_shortcode_ShortcodeHtmlGenerator';
 
     /**
-     * Handles an HTTP response.
+     * Generates the HTML for the given shortcode.
      *
-     * @param org_tubepress_api_http_HttpResponse $response The HTTP response.
+     * @param string $shortCodeContent The shortcode content.
      *
-     * @throws Exception If something goes wrong.
-     *
-     * @return string The raw entity body of the response. May be empty or null.
+     * @return The HTML for the given shortcode, or the error message if there was a problem.
      */
-    function handle(org_tubepress_api_http_HttpResponse $response);
+    function getHtmlForShortcode($shortCodeContent);
 }
-

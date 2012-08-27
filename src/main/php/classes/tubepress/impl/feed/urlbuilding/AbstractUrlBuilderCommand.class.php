@@ -19,25 +19,10 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_options_names_Advanced',
-    'org_tubepress_api_const_options_names_Thumbs',
-    'org_tubepress_api_const_options_names_Embedded',
-    'org_tubepress_api_const_options_names_Feed',
-    'org_tubepress_api_const_options_names_Meta',
-    'org_tubepress_api_const_options_names_Output',
-    'org_tubepress_api_const_options_values_GallerySourceValue',
-    'org_tubepress_spi_patterns_cor_Command',
-    'org_tubepress_api_provider_Provider',
-    'org_tubepress_api_url_Url',
-    'org_tubepress_api_exec_ExecutionContext',
-));
-
 /**
  * Base URL builder functionality.
  */
-abstract class org_tubepress_impl_feed_urlbuilding_AbstractUrlBuilderCommand implements org_tubepress_spi_patterns_cor_Command
+abstract class org_tubepress_impl_feed_urlbuilding_AbstractUrlBuilderCommand implements ehough_chaingang_api_Command
 {
     /**
      * Execute the command.
@@ -46,7 +31,7 @@ abstract class org_tubepress_impl_feed_urlbuilding_AbstractUrlBuilderCommand imp
      *
      * @return boolean True if this command was able to handle the execution. False otherwise.
      */
-    public function execute($context)
+    public function execute(ehough_chaingang_api_Context $context)
     {
         if ($context->providerName !== $this->getHandledProviderName()) {
             return false;

@@ -22,9 +22,9 @@
 /**
  * Parses shortcodes.
  */
-interface org_tubepress_api_shortcode_ShortcodeParser
+interface tubepress_spi_shortcode_ShortcodeParser
 {
-    const _ = 'org_tubepress_api_shortcode_ShortcodeParser';
+    const _ = 'tubepress_spi_shortcode_ShortcodeParser';
 
     /**
      * This function is used to parse a shortcode into options that TubePress can use.

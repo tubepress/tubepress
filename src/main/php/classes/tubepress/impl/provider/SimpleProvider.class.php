@@ -19,29 +19,10 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_http_ParamName',
-    'org_tubepress_api_const_options_names_Feed',
-	'org_tubepress_api_const_options_names_Cache',
-    'org_tubepress_api_const_plugin_FilterPoint',
-    'org_tubepress_api_factory_VideoFactory',
-    'org_tubepress_api_feed_FeedFetcher',
-    'org_tubepress_api_feed_FeedInspector',
-    'org_tubepress_api_feed_FeedInspector',
-    'org_tubepress_api_http_HttpRequestParameterService',
-    'org_tubepress_api_plugin_PluginManager',
-    'org_tubepress_api_provider_Provider',
-    'org_tubepress_api_provider_ProviderCalculator',
-    'org_tubepress_api_provider_ProviderResult',
-    'org_tubepress_api_feed_UrlBuilder',
-    'org_tubepress_impl_log_Log'
-));
-
 /**
  * Interface to a remove video provider
  */
-class org_tubepress_impl_provider_SimpleProvider implements org_tubepress_api_provider_Provider
+class org_tubepress_impl_provider_SimpleProvider implements tubepress_spi_provider_Provider
 {
     private static $_logPrefix = 'Simple Video Provider';
 

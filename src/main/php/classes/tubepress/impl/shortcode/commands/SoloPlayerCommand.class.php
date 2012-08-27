@@ -19,23 +19,10 @@
  *
  */
 
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_http_ParamName',
-    'org_tubepress_api_const_options_names_Embedded',
-    'org_tubepress_api_const_options_names_Output',
-    'org_tubepress_api_const_options_values_PlayerLocationValue',
-    'org_tubepress_api_http_HttpRequestParameterService',
-    'org_tubepress_spi_patterns_cor_Chain',
-    'org_tubepress_spi_patterns_cor_Command',
-    'org_tubepress_impl_shortcode_commands_SingleVideoCommand',
-    'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_impl_log_Log',
-));
-
 /**
  * HTML-generation command that implements the "solo" player command.
  */
-class org_tubepress_impl_shortcode_commands_SoloPlayerCommand implements org_tubepress_spi_patterns_cor_Command
+class org_tubepress_impl_shortcode_commands_SoloPlayerCommand implements ehough_chaingang_api_Command
 {
     const LOG_PREFIX = 'Solo Player Command';
 
@@ -46,7 +33,7 @@ class org_tubepress_impl_shortcode_commands_SoloPlayerCommand implements org_tub
      *
      * @return boolean True if this command was able to handle the execution. False otherwise.
      */
-    public function execute($context)
+    public function execute(ehough_chaingang_api_Context $context)
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
         $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);

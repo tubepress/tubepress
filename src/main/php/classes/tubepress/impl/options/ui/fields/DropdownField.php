@@ -19,12 +19,6 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php');
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField',
-    'org_tubepress_impl_util_LangUtils',
-));
-
 /**
  * Displays a drop-down input.
  */

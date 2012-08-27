@@ -25,12 +25,12 @@
  * code *cannot* be put inside of a class.
  */
 
-$ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-$env = $ioc->get('org_tubepress_api_environment_EnvironmentDetector');
-
-if ($env->isWordPress()) {
-
-    $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
-    include $fs->getTubePressBaseInstallationPath() . '/../../../wp-blog-header.php';
-}
-
+//$ioc = new stdClass;
+//$env = $ioc->get('org_tubepress_api_environment_EnvironmentDetector');
+//
+//if ($env->isWordPress()) {
+//
+//    $fs = $ioc->get('org_tubepress_api_filesystem_Explorer');
+//    include $fs->getTubePressBaseInstallationPath() . '/../../../wp-blog-header.php';
+//}
+//

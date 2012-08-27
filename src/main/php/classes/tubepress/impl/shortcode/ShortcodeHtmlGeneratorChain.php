@@ -19,21 +19,10 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_plugin_FilterPoint',
-    'org_tubepress_spi_patterns_cor_Chain',
-    'org_tubepress_api_plugin_PluginManager',
-    'org_tubepress_api_querystring_QueryStringService',
-    'org_tubepress_api_shortcode_ShortcodeHtmlGenerator',
-    'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_impl_log_Log',
-));
-
 /**
  * HTML handler implementation.
  */
-class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements org_tubepress_api_shortcode_ShortcodeHtmlGenerator
+class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements tubepress_spi_shortcode_ShortcodeHtmlGenerator
 {
     /**
      * Generates the HTML for TubePress. Could be a gallery or single video.

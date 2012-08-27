@@ -19,14 +19,6 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_http_ParamName',
-    'org_tubepress_api_html_HeadHtmlGenerator',
-    'org_tubepress_api_http_HttpRequestParameterService',
-    'org_tubepress_impl_ioc_IocContainer',
-));
-
 /**
  * Generates HTML for use in the <head>.
  */

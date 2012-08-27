@@ -19,16 +19,10 @@
  *
  */
 
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_spi_patterns_cor_Command',
-    'org_tubepress_api_provider_ProviderCalculator',
-    'org_tubepress_api_message_MessageService',
-));
-
 /**
  * HTML generation command that generates HTML for a single video + meta info.
  */
-class org_tubepress_impl_shortcode_commands_SingleVideoCommand implements org_tubepress_spi_patterns_cor_Command
+class org_tubepress_impl_shortcode_commands_SingleVideoCommand implements ehough_chaingang_api_Command
 {
     const LOG_PREFIX = 'Single Video Command';
 
@@ -39,7 +33,7 @@ class org_tubepress_impl_shortcode_commands_SingleVideoCommand implements org_tu
      *
      * @return boolean True if this command was able to handle the execution. False otherwise.
      */
-    public function execute($context)
+    public function execute(ehough_chaingang_api_Context $context)
     {
         $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
         $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);

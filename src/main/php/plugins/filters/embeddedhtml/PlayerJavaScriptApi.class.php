@@ -19,14 +19,6 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_options_names_Embedded',
-    'org_tubepress_api_const_template_Variable',
-    'org_tubepress_api_video_Video',
-    'org_tubepress_impl_ioc_IocContainer',
-));
-
 /**
  * Registers videos with the JS player API.
  */

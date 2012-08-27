@@ -19,27 +19,11 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../classloader/ClassLoader.class.php');
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_options_CategoryName',
-    'org_tubepress_api_const_options_Type',
-    'org_tubepress_api_const_template_Variable',
-    'org_tubepress_api_filesystem_Explorer',
-    'org_tubepress_api_ioc_IocService',
-    'org_tubepress_api_filesystem_Explorer',
-    'org_tubepress_api_options_StorageManager',
-    'org_tubepress_api_message_MessageService',
-    'org_tubepress_api_template_Template',
-    'org_tubepress_impl_options_ui_AbstractDelegatingFormHandler',
-    'org_tubepress_impl_options_ui_DefaultTabsHandler',
-    'org_tubepress_impl_options_ui_fields_FilterMultiSelectField',
-));
-
 /**
  * Displays a generic options form for TubePress
  *
  */
-abstract class org_tubepress_impl_options_ui_AbstractFormHandler extends org_tubepress_impl_options_ui_AbstractDelegatingFormHandler
+abstract class tubepress_impl_options_ui_AbstractFormHandler extends tubepress_impl_options_ui_AbstractDelegatingFormHandler
 {
     const TEMPLATE_VAR_TITLE     = 'optionsPageTitle';
     const TEMPLATE_VAR_INTRO     = 'optionsPageIntro';

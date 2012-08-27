@@ -19,17 +19,6 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_cache_Cache',
-    'org_tubepress_api_feed_FeedFetcher',
-    'org_tubepress_api_http_HttpClient',
-    'org_tubepress_api_http_HttpRequest',
-    'org_tubepress_api_url_Url',
-    'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_impl_log_Log',
-));
-
 /**
  * Base functionality for feed retrieval services.
  */

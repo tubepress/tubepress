@@ -19,20 +19,6 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_options_values_GallerySourceValue',
-    'org_tubepress_api_const_options_values_OrderByValue',
-    'org_tubepress_api_const_options_names_GallerySource',
-    'org_tubepress_api_const_options_names_Embedded',
-    'org_tubepress_api_const_options_names_Meta',
-    'org_tubepress_api_const_options_names_Output',
-    'org_tubepress_api_const_options_names_Feed',
-    'org_tubepress_api_exec_ExecutionContext',
-    'org_tubepress_impl_feed_urlbuilding_AbstractUrlBuilderCommand',
-    'org_tubepress_impl_feed_UrlBuilderChainContext',
-));
-
 /**
  * Builds URLs to send out to Vimeo
  *

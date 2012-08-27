@@ -116,19 +116,19 @@ class tubepress_spi_version_Version
 
             case 1:
 
-                return new tubepress_spi_version_Version(intval($version));
+                return new tubepress_spi_version_Version(self::_validateNumbersOnly($version));
 
             case 2:
 
-                return new tubepress_spi_version_Version(intval($pieces[0]), intval($pieces[1]));
+                return new tubepress_spi_version_Version(self::_validateNumbersOnly($pieces[0]), self::_validateNumbersOnly($pieces[1]));
 
             case 3:
 
-                return new tubepress_spi_version_Version(intval($pieces[0]), intval($pieces[1]), intval($pieces[2]));
+                return new tubepress_spi_version_Version(self::_validateNumbersOnly($pieces[0]), self::_validateNumbersOnly($pieces[1]), self::_validateNumbersOnly($pieces[2]));
 
             case 4:
 
-                return new tubepress_spi_version_Version(intval($pieces[0]), intval($pieces[1]), intval($pieces[2]), $pieces[3]);
+                return new tubepress_spi_version_Version(self::_validateNumbersOnly($pieces[0]), self::_validateNumbersOnly($pieces[1]), self::_validateNumbersOnly($pieces[2]), $pieces[3]);
 
             default:
 
@@ -192,5 +192,15 @@ class tubepress_spi_version_Version
 
             throw new InvalidArgumentException("$name version must be non-negative ($candidate)");
         }
+    }
+
+    private static function _validateNumbersOnly($candidate)
+    {
+        if (preg_match_all('/^[0-9]+$/', $candidate, $matches) !== 1) {
+
+            throw new InvalidArgumentException("$candidate is not a number");
+        }
+
+        return $candidate;
     }
 }

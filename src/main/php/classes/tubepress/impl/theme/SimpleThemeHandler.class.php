@@ -19,19 +19,6 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_options_names_Thumbs',
-    'org_tubepress_api_environment_EnvironmentDetector',
-    'org_tubepress_api_filesystem_Explorer',
-    'org_tubepress_api_exec_ExecutionContext',
-    'org_tubepress_api_template_TemplateBuilder',
-    'org_tubepress_api_theme_ThemeHandler',
-    'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_impl_log_Log',
-    'org_tubepress_impl_template_SimpleTemplate',
-));
-
 /**
  * A TubePress theme handler
  */

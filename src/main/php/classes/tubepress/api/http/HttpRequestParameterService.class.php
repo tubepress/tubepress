@@ -19,17 +19,12 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../impl/classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_http_HttpMessage',
-));
-
 /**
  * Pulls out info from $_REQUEST.
  */
-interface org_tubepress_api_http_HttpRequestParameterService
+interface tubepress_api_http_HttpRequestParameterService
 {
-    const _ = 'org_tubepress_api_http_HttpRequestParameterService';
+    const _ = 'tubepress_api_http_HttpRequestParameterService';
 
     /**
      * Gets the parameter value from PHP's $_REQUEST array.

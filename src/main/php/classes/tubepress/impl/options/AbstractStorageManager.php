@@ -66,15 +66,21 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
 
             $storedVersionString = $this->get(self::$_dbVersionOptionName);
 
-            try {
-
-                $storedVersion = tubepress_spi_version_Version::parse($storedVersionString);
-
-            } catch (Exception $e) {
+            if (strpos($storedVersionString, ".") === false) {
 
                 $needToInit = true;
-            }
 
+            } else {
+
+                try {
+
+                    $storedVersion = tubepress_spi_version_Version::parse($storedVersionString);
+
+                } catch (Exception $e) {
+
+                    $needToInit = true;
+                }
+            }
         } else {
 
             $this->create(self::$_dbVersionOptionName, (string) $currentVersion);

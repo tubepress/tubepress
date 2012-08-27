@@ -19,13 +19,6 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_impl_env_wordpress_OptionsPage',
-    'org_tubepress_impl_env_wordpress_Main',
-    'org_tubepress_impl_env_wordpress_Widget',
-));
-
 /**
  * Loads up a skeleton "content" directory if it doesn't already exist.
  */

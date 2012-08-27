@@ -19,22 +19,10 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_options_names_Advanced',
-    'org_tubepress_api_const_options_names_Meta',
-	'org_tubepress_api_const_options_names_Thumbs',
-    'org_tubepress_spi_patterns_cor_Command',
-    'org_tubepress_api_exec_ExecutionContext',
-    'org_tubepress_api_video_Video',
-    'org_tubepress_impl_log_Log',
-    'org_tubepress_impl_util_TimeUtils'
-));
-
 /**
  * Base class for factory commands.
  */
-abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implements org_tubepress_spi_patterns_cor_Command
+abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implements ehough_chaingang_api_Command
 {
     const LOG_PREFIX = 'Abstract Factory Command';
 
@@ -47,7 +35,7 @@ abstract class org_tubepress_impl_factory_commands_AbstractFactoryCommand implem
      *
      * @return boolean True if this command was able to handle the execution. False otherwise.
      */
-    function execute($context)
+    function execute(ehough_chaingang_api_Context $context)
     {
         /* grab the arguments */
         $feed = $context->feed;

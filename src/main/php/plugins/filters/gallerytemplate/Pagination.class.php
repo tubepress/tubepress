@@ -19,19 +19,6 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_http_ParamName',
-    'org_tubepress_api_const_plugin_FilterPoint',
-    'org_tubepress_api_const_options_names_Display',
-    'org_tubepress_api_const_template_Variable',
-    'org_tubepress_api_exec_ExecutionContext',
-    'org_tubepress_api_http_HttpRequestParameterService',
-    'org_tubepress_api_plugin_PluginManager',
-    'org_tubepress_api_url_Url',
-    'org_tubepress_impl_ioc_IocContainer',
-));
-
 /**
  * Handles applying pagination to the gallery template.
  */

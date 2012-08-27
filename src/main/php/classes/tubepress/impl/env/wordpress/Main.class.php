@@ -19,18 +19,6 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_options_names_Advanced',
-    'org_tubepress_api_const_options_values_GallerySourceValue',
-    'org_tubepress_api_html_HeadHtmlGenerator',
-    'org_tubepress_api_shortcode_ShortcodeHtmlGenerator',
-    'org_tubepress_api_shortcode_ShortcodeParser',
-    'org_tubepress_impl_ioc_IocContainer',
-    'org_tubepress_impl_options_WordPressStorageManager',
-    'org_tubepress_impl_util_StringUtils',
-));
-
 class org_tubepress_impl_env_wordpress_Main
 {
     /**
