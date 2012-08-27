@@ -22,7 +22,7 @@
 /**
  * PHP language utilities.
  */
-class org_tubepress_impl_util_LangUtils
+class tubepress_impl_util_LangUtils
 {
     public static function isAssociativeArray($candidate)
     {

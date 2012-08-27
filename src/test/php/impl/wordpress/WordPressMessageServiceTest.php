@@ -104,7 +104,7 @@ class tubepress_impl_wordpress_WordPressMessageServiceTest extends PHPUnit_Frame
 
    	private static function _getAllTranslatableStrings()
    	{
-   	    $command = 'grep -r ">(translatable)<" ' . dirname(__FILE__) . '/../../../../main/php';
+   	    $command = 'grep -r ">(translatable)<" ' . dirname(__FILE__) . '/../../../../main';
    	    exec($command, $results, $return);
 
    	    self::assertTrue($return === 0, "$command failed");

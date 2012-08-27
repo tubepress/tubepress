@@ -22,7 +22,7 @@
 /**
  * Handy string utilities.
  */
-class org_tubepress_impl_util_StringUtils
+class tubepress_impl_util_StringUtils
 {
     /**
      * Replaces the first occurence of a string by another string
