@@ -22,6 +22,7 @@
 class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
 org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_names_Thumbs',
+    'org_tubepress_api_environment_EnvironmentDetector',
     'org_tubepress_api_filesystem_Explorer',
     'org_tubepress_api_exec_ExecutionContext',
     'org_tubepress_api_template_TemplateBuilder',
@@ -101,39 +102,11 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
         return $currentTheme;
     }
 
-    /**
-    * Find the absolute path of the user's content directory. In WordPress, this will be
-    * wp-content/tubepress. In standalone PHP, this will be tubepress/content. Confusing, I know.
-    *
-    * @return string The absolute path of the user's content directory.
-    */
-    function getUserContentDirectory()
-    {
-        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $envDetector = $ioc->get(org_tubepress_api_environment_Detector::_);
-
-        if ($envDetector->isWordPress()) {
-
-            if (! defined('WP_CONTENT_DIR')) {
-
-                define('WP_CONTENT_DIR', ABSPATH . 'wp-content');
-            }
-
-            return WP_CONTENT_DIR . '/tubepress-content';
-
-        } else {
-
-            $fs = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-
-            return $fs->getTubePressBaseInstallationPath() . '/tubepress-content';
-        }
-    }
-
     private function _getFilePath($currentTheme, $pathToTemplate)
     {
         $ioc                       = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $fs                        = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-        $tubepressInstallationPath = $fs->getTubePressBaseInstallationPath();
+        $environmentDetector       = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
+        $tubepressInstallationPath = $environmentDetector->getTubePressBaseInstallationPath();
 
         /* first try to load the theme from sys/ui */
         $filePath = "$tubepressInstallationPath/sys/ui/themes/$currentTheme/$pathToTemplate";
@@ -143,7 +116,7 @@ class org_tubepress_impl_theme_SimpleThemeHandler implements org_tubepress_api_t
 
             org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Could not read file at %s', $filePath);
 
-            $filePath = $this->getUserContentDirectory() . "/themes/$currentTheme/$pathToTemplate";
+            $filePath = $environmentDetector->getUserContentDirectory() . "/themes/$currentTheme/$pathToTemplate";
 
             /* finally, just fall back to the default theme. */
             if (!is_readable($filePath)) {

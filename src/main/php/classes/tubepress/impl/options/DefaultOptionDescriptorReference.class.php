@@ -40,7 +40,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_options_values_OrderByValue',
     'org_tubepress_api_const_options_values_SafeSearchValue',
     'org_tubepress_api_const_options_values_TimeFrameValue',
-    'org_tubepress_api_theme_ThemeHandler'
+    'org_tubepress_api_environment_EnvironmentDetector'
 ));
 
 /**
@@ -830,7 +830,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
     private function _getThemeValues()
     {
         $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $themeHandler  = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
+        $themeHandler  = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
         $explorer      = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
 
         $systemThemeDirectory = $explorer->getTubePressBaseInstallationPath() . '/sys/ui/themes';

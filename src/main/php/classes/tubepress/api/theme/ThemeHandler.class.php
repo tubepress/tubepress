@@ -52,12 +52,4 @@ interface org_tubepress_api_theme_ThemeHandler
      * @return string The current theme name, or 'default' if the default theme is in use or if there was a problem.
      */
     function calculateCurrentThemeName();
-
-    /**
-    * Find the absolute path of the user's content directory. In WordPress, this will be
-    * wp-content/tubepress-content. In standalone PHP, this will be tubepress/tubepress-content. Confusing, I know.
-    *
-    * @return string The absolute path of the user's content directory.
-    */
-    function getUserContentDirectory();
 }

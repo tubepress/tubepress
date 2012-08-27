@@ -39,7 +39,7 @@ class org_tubepress_impl_plugin_listeners_SkeletonExistsListener
     public function on_boot()
     {
         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $ed  = $ioc->get(org_tubepress_api_environment_Detector::_);
+        $ed  = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
         $fse = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
 
         if ($ed->isWordPress()) {

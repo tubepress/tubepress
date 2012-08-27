@@ -28,7 +28,7 @@ org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
     'org_tubepress_api_const_http_ParamName',
     'org_tubepress_api_const_options_names_Advanced',
     'org_tubepress_api_const_options_names_Embedded',
-    'org_tubepress_api_environment_Detector',
+    'org_tubepress_api_environment_EnvironmentDetector',
     'org_tubepress_api_filesystem_Explorer',
 	'org_tubepress_api_http_HttpRequestParameterService',
     'org_tubepress_api_player_PlayerHtmlGenerator',

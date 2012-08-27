@@ -13,7 +13,7 @@ class org_tubepress_impl_options_ui_fields_ThemeFieldTest extends org_tubepress_
     protected function _performAdditionGetDescriptionSetup()
     {
         $ioc               = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $themeHandler      = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
+        $themeHandler      = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
         $filesystem        = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
 
         $filesystem->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath>>');
