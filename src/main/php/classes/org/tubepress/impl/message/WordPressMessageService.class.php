@@ -19,11 +19,6 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_message_MessageService'
-));
-
 /**
  * Message service that uses gettext (via WordPress)
  */
@@ -32,12 +27,13 @@ class org_tubepress_impl_message_WordPressMessageService implements org_tubepres
     /**
      * Retrieves a message for TubePress
      *
-     * @param string $msgId The message ID
+     * @param string $message The message ID
      *
      * @return string The corresponding message, or "" if not found
      */
     public function _($message)
     {
+        /** @noinspection PhpUndefinedFunctionInspection */
         return $message == '' ? '' : __($message, 'tubepress');
     }
 }
