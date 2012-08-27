@@ -24,6 +24,164 @@
  */
 abstract class tubepress_impl_options_AbstractStorageManager implements tubepress_spi_options_StorageManager
 {
+    private static $_dbVersionOptionName = 'version';
+
+    private $_optionDescriptorReference;
+
+    private $_optionValidator;
+
+    private $_eventDispatcher;
+
+    private $_environmentDetector;
+
+    private $_logger;
+
+    public function __construct(
+
+        tubepress_spi_options_OptionDescriptorReference $reference,
+        tubepress_spi_options_OptionValidator $validator,
+        tubepress_spi_environment_EnvironmentDetector $environmentDetector,
+        ehough_tickertape_api_IEventDispatcher $dispatcher
+        )
+    {
+        $this->_optionDescriptorReference = $reference;
+        $this->_optionValidator           = $validator;
+        $this->_eventDispatcher           = $dispatcher;
+        $this->_environmentDetector       = $environmentDetector;
+        $this->_logger                    = ehough_epilog_api_LoggerFactory::getLogger('Abstract Storage Manager');
+    }
+
+    /**
+     * Initialize the persistent storage
+     *
+     * @return void
+     */
+    public function init()
+    {
+        $currentVersion = $this->_environmentDetector->getVersion();
+        $storedVersion  = tubepress_spi_version_Version::parse('0.0.0');
+        $needToInit     = false;
+
+        if ($this->exists(self::$_dbVersionOptionName)) {
+
+            $storedVersionString = $this->get(self::$_dbVersionOptionName);
+
+            try {
+
+                $storedVersion = tubepress_spi_version_Version::parse($storedVersionString);
+
+            } catch (Exception $e) {
+
+                $needToInit = true;
+            }
+
+        } else {
+
+            $this->create(self::$_dbVersionOptionName, (string) $currentVersion);
+
+            $needToInit = true;
+        }
+
+        if ($needToInit || $currentVersion->compareTo($storedVersion) !== 0) {
+
+            $this->setOption(self::$_dbVersionOptionName, (string) $currentVersion);
+        }
+
+        $options = $this->_optionDescriptorReference->findAll();
+
+        foreach ($options as $option) {
+
+            /** @noinspection PhpUndefinedMethodInspection */
+            if (! $option->isMeantToBePersisted()) {
+
+                continue;
+            }
+
+            /** @noinspection PhpUndefinedMethodInspection */
+            $this->_init($option->getName(), $option->getDefaultValue());
+        }
+    }
+
+    /**
+     * Initializes a single option.
+     *
+     * @param string $name         The option name.
+     * @param string $defaultValue The option value.
+     *
+     * @return void
+     */
+    private function _init($name, $defaultValue)
+    {
+        if (! $this->exists($name)) {
+
+            $this->delete($name);
+            $this->create($name, $defaultValue);
+        }
+
+        if (! $this->_optionValidator->isValid($name, $this->get($name))) {
+
+            $this->setOption($name, $defaultValue);
+        }
+    }
+
+    /**
+     * Sets an option value
+     *
+     * @param string $optionName  The option name
+     * @param mixed  $optionValue The option value
+     *
+     * @return boolean True on success, otherwise a string error message.
+     */
+    public function set($optionName, $optionValue)
+    {
+        $descriptor = $this->_optionDescriptorReference->findOneByName($optionName);
+
+        /** Do we even know about this option? */
+        if ($descriptor === null) {
+
+            $this->_logger->warn("Could not find descriptor for option with name '$optionName''");
+
+            return true;
+        }
+
+        /** Ignore any options that aren't meant to be persisted. */
+        if (! $descriptor->isMeantToBePersisted()) {
+
+            return true;
+        }
+
+        /** Run it through the filters. */
+        $event = new tubepress_api_event_PreValidationOptionSet($optionName, $optionValue);
+        $this->_eventDispatcher->dispatch(tubepress_api_event_PreValidationOptionSet::EVENT_NAME, $event);
+        $filteredValue = $event->optionValue;
+
+        /** OK, let's see if it's valid. */
+        if ($this->_optionValidator->isValid($optionName, $filteredValue)) {
+
+            $this->_logger->info(sprintf("Accepted valid value: '%s' = '%s'", $optionName, $filteredValue));
+
+            $this->setOption($optionName, $filteredValue);
+
+            return true;
+        }
+
+        $problemMessage = $this->_optionValidator->getProblemMessage($optionName, $filteredValue);
+
+        $this->_logger->info(sprintf("Ignoring invalid value: '%s' = '%s'", $optionName, $filteredValue));
+
+        return $problemMessage;
+    }
+
+    /**
+     * Sets an option to a new value, without validation
+     *
+     * @param string $optionName  The name of the option to update
+     * @param mixed  $optionValue The new option value
+     *
+     * @return void
+     */
+    protected abstract function setOption($optionName, $optionValue);
+
     /**
      * Creates an option in storage
      *
@@ -42,109 +200,4 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
      * @return void
      */
     protected abstract function delete($optionName);
-
-    /**
-     * Initialize the persistent storage
-     *
-     * @return void
-     */
-    public function init()
-    {
-        $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $odr       = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
-        $validator = $ioc->get(org_tubepress_api_options_OptionValidator::_);
-        $options   = $odr->findAll();
-
-        foreach ($options as $option) {
-
-            if (! $option->isMeantToBePersisted()) {
-
-                continue;
-            }
-
-            $this->_init($option->getName(), $option->getDefaultValue(), $validator);
-        }
-    }
-
-    /**
-     * Initializes a single option.
-     *
-     * @param string $name         The option name.
-     * @param string $defaultValue The option value.
-     *
-     * @return void
-     */
-    private function _init($name, $defaultValue, org_tubepress_api_options_OptionValidator $validator)
-    {
-        if (! $this->exists($name)) {
-
-            $this->delete($name);
-            $this->create($name, $defaultValue);
-        }
-
-        if (!$validator->isValid($name, $this->get($name))) {
-
-            $this->setOption($name, $defaultValue);
-        }
-    }
-
-    /**
-     * Sets an option value
-     *
-     * @param string       $optionName  The option name
-     * @param unknown_type $optionValue The option value
-     *
-     * @return void
-     */
-    public function set($optionName, $optionValue)
-    {
-        $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $odr           = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
-        $validator     = $ioc->get(org_tubepress_api_options_OptionValidator::_);
-        $pluginManager = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
-        $descriptor    = $odr->findOneByName($optionName);
-        $logPrefix     = 'Abstract storage manager';
-
-        /** Do we even know about this option? */
-        if ($descriptor === null) {
-
-            org_tubepress_impl_log_Log::log($logPrefix, 'Could not find descriptor for option with name %s', $optionName);
-            return;
-        }
-
-        /** Ignore any options that aren't meant to be persisted. */
-        if (! $descriptor->isMeantToBePersisted()) {
-
-            return;
-        }
-
-        /** First run it through the filters. */
-        $filtered = $pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION, $optionValue, $optionName);
-
-        /** OK, let's see if it's valid. */
-        if ($validator->isValid($optionName, $filtered)) {
-
-            org_tubepress_impl_log_Log::log($logPrefix, 'Accepted valid value: %s = %s', $optionName, $filtered);
-
-            $this->setOption($optionName, $filtered);
-
-            return true;
-        }
-
-        $problemMessage = $validator->getProblemMessage($optionName, $filtered);
-
-        org_tubepress_impl_log_Log::log($logPrefix, 'Ignoring invalid value for "%s" (%s)', $optionName, $filtered);
-
-        return $problemMessage;
-    }
-
-    /**
-     * Sets an option to a new value, without validation
-     *
-     * @param string       $optionName  The name of the option to update
-     * @param unknown_type $optionValue The new option value
-     *
-     * @return void
-     */
-    protected abstract function setOption($optionName, $optionValue);
 }

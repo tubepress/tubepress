@@ -1,30 +1,47 @@
 <?php
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
-require_once BASE . '/sys/classes/org/tubepress/impl/options/DefaultOptionValidator.class.php';
-require_once BASE . '/sys/classes/org/tubepress/api/const/options/names/Meta.class.php';
-require_once BASE . '/sys/classes/org/tubepress/api/const/options/names/Advanced.class.php';
-
-class org_tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUnitTest {
-
+class org_tubepress_impl_options_DefaultOptionValidatorTest extends PHPUnit_Framework_TestCase
+{
 	private $_sut;
+
+    private $_mockOptionsDescriptorReference;
 
 	public function setup()
 	{
-		parent::setUp();
-		$this->_sut = new org_tubepress_impl_options_DefaultOptionValidator();
+        $this->_mockOptionsDescriptorReference = \Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
+
+		$this->_sut = new tubepress_impl_options_DefaultOptionValidator($this->_mockOptionsDescriptorReference);
 	}
 
 	public function testNoConstraints()
 	{
-	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-	    $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
 
-	    $od = \Mockery::mock(org_tubepress_api_options_OptionDescriptor::_);
+
+	    $od = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
 	    $od->shouldReceive('hasValidValueRegex')->twice()->andReturn(false);
 	    $od->shouldReceive('hasDiscreteAcceptableValues')->twice()->andReturn(false);
 	    $od->shouldReceive('isBoolean')->twice()->andReturn(false);
 
-	    $odr->shouldReceive('findOneByName')->twice()->with('name')->andReturn($od);
+	    $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->twice()->with('name')->andReturn($od);
 
 	    $this->assertTrue($this->_sut->isValid('name', 'poo') === true);
 	    $this->assertEquals(null, $this->_sut->getProblemMessage('name', 'poo'));
@@ -32,15 +49,12 @@ class org_tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUni
 
 	public function testBoolean()
 	{
-	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-	    $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
-
-	    $od = \Mockery::mock(org_tubepress_api_options_OptionDescriptor::_);
+	    $od = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
 	    $od->shouldReceive('hasValidValueRegex')->atLeast()->once()->andReturn(false);
 	    $od->shouldReceive('hasDiscreteAcceptableValues')->atLeast()->once()->andReturn(false);
 	    $od->shouldReceive('isBoolean')->atLeast()->once()->andReturn(true);
 
-	    $odr->shouldReceive('findOneByName')->atLeast()->once()->with('name')->andReturn($od);
+        $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->atLeast()->once()->with('name')->andReturn($od);
 
 	    $this->assertTrue($this->_sut->isValid('name', 'poo') === false);
 	    $this->assertEquals('"name" can only accept true/false values. You supplied "poo".', $this->_sut->getProblemMessage('name', 'poo'));
@@ -49,15 +63,12 @@ class org_tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUni
 
 	public function testDiscreteValues()
 	{
-	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-	    $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
-
-	    $od = \Mockery::mock(org_tubepress_api_options_OptionDescriptor::_);
+	    $od = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
 	    $od->shouldReceive('hasValidValueRegex')->atLeast()->once()->andReturn(false);
 	    $od->shouldReceive('hasDiscreteAcceptableValues')->atLeast()->once()->andReturn(true);
 	    $od->shouldReceive('getAcceptableValues')->atLeast()->once()->andReturn(array('biz' => 'bar', 'butt' => 'two'));
 
-	    $odr->shouldReceive('findOneByName')->atLeast()->once()->with('name')->andReturn($od);
+        $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->atLeast()->once()->with('name')->andReturn($od);
 
 	    $this->assertTrue($this->_sut->isValid('name', 'foo') === false);
 	    $this->assertEquals('"name" must be one of {biz, butt}. You supplied "foo".', $this->_sut->getProblemMessage('name', 'foo'));
@@ -65,15 +76,12 @@ class org_tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUni
 	}
 
 	public function testBadRegex()
-	{
-	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-	    $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
-
-	    $od = \Mockery::mock(org_tubepress_api_options_OptionDescriptor::_);
+    {
+	    $od = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
 	    $od->shouldReceive('hasValidValueRegex')->atLeast()->once()->andReturn(true);
 	    $od->shouldReceive('getValidValueRegex')->atLeast()->once()->andReturn('/t{5}/i');
 
-	    $odr->shouldReceive('findOneByName')->atLeast()->once()->with('name')->andReturn($od);
+        $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->atLeast()->once()->with('name')->andReturn($od);
 
 		$this->assertTrue($this->_sut->isValid('name', 90) === false);
 		$this->assertEquals('"name" must match the regular expression /t{5}/i. You supplied "90".', $this->_sut->getProblemMessage('name', 90));
@@ -83,10 +91,7 @@ class org_tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUni
 
 	public function testNotExists()
 	{
-	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-	    $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
-
-	    $odr->shouldReceive('findOneByName')->once()->with('name')->andReturn(null);
+        $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->once()->with('name')->andReturn(null);
 
 		$this->assertTrue($this->_sut->isValid('name', 120) === false);
 	}

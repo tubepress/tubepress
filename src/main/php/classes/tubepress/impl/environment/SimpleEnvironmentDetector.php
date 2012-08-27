@@ -24,6 +24,13 @@
  */
 class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_spi_environment_EnvironmentDetector
 {
+    private $_version;
+
+    public function __construct()
+    {
+        $this->_version = tubepress_spi_version_Version::parse('2.5.0');
+    }
+
     /**
      * Detects if the user is running TubePress Pro.
      *
@@ -86,5 +93,15 @@ class tubepress_impl_environment_SimpleEnvironmentDetector implements tubepress_
     function getTubePressInstallationDirectoryBaseName()
     {
         return basename($this->getTubePressBaseInstallationPath());
+    }
+
+    /**
+     * Get the current TubePress version.
+     *
+     * @return tubepress_spi_version_Version The current version.
+     */
+    public function getVersion()
+    {
+        return $this->_version;
     }
 }

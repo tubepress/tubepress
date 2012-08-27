@@ -19,30 +19,26 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../classloader/ClassLoader.class.php');
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_options_names_Display',
-    'org_tubepress_api_const_options_Type',
-    'org_tubepress_api_options_OptionDescriptorReference',
-    'org_tubepress_impl_ioc_IocContainer',
-	'org_tubepress_impl_util_LangUtils',
-));
-
 /**
  * Performs validation on option values
  */
-class org_tubepress_impl_options_DefaultOptionValidator implements org_tubepress_api_options_OptionValidator
+class tubepress_impl_options_DefaultOptionValidator implements tubepress_spi_options_OptionValidator
 {
-    const LOG_PREFIX = 'Option Validator';
+    private $_optionDescriptorReference;
+
+    public function __construct(tubepress_spi_options_OptionDescriptorReference $reference)
+    {
+        $this->_optionDescriptorReference = $reference;
+    }
 
     /**
      * Validates an option value.
      *
-     * @param string       $optionName The option name
-     * @param unknown_type $candidate  The candidate option value
+     * @param string $optionName The option name
+     * @param mixed  $candidate  The candidate option value
      *
      * @return boolean True if the option name exists and the value supplied is valid. False otherwise.
-    */
+     */
     public function isValid($optionName, $candidate)
     {
         return $this->getProblemMessage($optionName, $candidate) === null;
@@ -51,16 +47,14 @@ class org_tubepress_impl_options_DefaultOptionValidator implements org_tubepress
     /**
      * Gets the failure message of a name/value pair that has failed validation.
      *
-     * @param string       $optionName The option name
-     * @param unknown_type $candidate  The candidate option value
+     * @param string $optionName The option name
+     * @param mixed  $candidate  The candidate option value
      *
-     * @return unknown Null if the option passes validation, otherwise a string failure message.
+     * @return mixed Null if the option passes validation, otherwise a string failure message.
      */
     function getProblemMessage($optionName, $candidate)
     {
-        $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $odr        = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
-        $descriptor = $odr->findOneByName($optionName);
+        $descriptor = $this->_optionDescriptorReference->findOneByName($optionName);
 
         if ($descriptor === null) {
 
@@ -81,7 +75,7 @@ class org_tubepress_impl_options_DefaultOptionValidator implements org_tubepress
 
             $acceptableValues = $descriptor->getAcceptableValues();
 
-            if (org_tubepress_impl_util_LangUtils::isAssociativeArray($acceptableValues)) {
+            if (tubepress_impl_util_LangUtils::isAssociativeArray($acceptableValues)) {
 
                 $values = array_keys($descriptor->getAcceptableValues());
 

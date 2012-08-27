@@ -34,4 +34,61 @@ class tubepress_impl_wordpress_SimpleWordPressFunctionWrapper implements tubepre
         /** @noinspection PhpUndefinedFunctionInspection */
         return $message == '' ? '' : __($message, $domain);
     }
+
+    /**
+     * Use the function update_option() to update a named option/value pair to the options database table.
+     * The option_name value is escaped with $wpdb->escape before the INSERT statement.
+     *
+     * @param string $name  Name of the option to update.
+     * @param string $value The NEW value for this option name. This value can be a string, an array,
+     *                      an object or a serialized value.
+     *
+     * @return boolean True if option value has changed, false if not or if update failed.
+     */
+    function update_option($name, $value)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return update_option($name, $value);
+    }
+
+    /**
+     * A safe way of getting values for a named option from the options database table.
+     *
+     * @param string $name Name of the option to retrieve.
+     *
+     * @return mixed Mixed values for the option.
+     */
+    function get_option($name)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return get_option($name);
+    }
+
+    /**
+     * A safe way of adding a named option/value pair to the options database table. It does nothing if the option already exists.
+     *
+     * @param string $name  Name of the option to be added. Use underscores to separate words, and do not
+     *                      use uppercase—this is going to be placed into the database.
+     * @param string $value Value for this option name.
+     *
+     * @return void
+     */
+    function add_option($name, $value)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        add_option($name, $value);
+    }
+
+    /**
+     * A safe way of removing a named option/value pair from the options database table.
+     *
+     * @param string $name Name of the option to be deleted.
+     *
+     * @return boolean TRUE if the option has been successfully deleted, otherwise FALSE.
+     */
+    function delete_option($name)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        delete_option($name);
+    }
 }

@@ -133,8 +133,14 @@ class tubepress_impl_wordpress_WordPressMessageServiceTest extends PHPUnit_Frame
 
    	    $outputfile = str_replace(array('.pot', '.po'), '.mo', $realPath);
 
-   	    exec("/opt/local/bin/msgfmt -o $outputfile $realPath", $results, $return);
-   	    return $return === 0;
+        $msgFmt = `which msgfmt`;
+        $msgFmt = tubepress_impl_util_StringUtils::removeNewLines($msgFmt);
+
+        $toRun = "$msgFmt -o $outputfile $realPath";
+
+   	    exec($toRun, $output, $return);
+
+        return $return === 0;
    	}
 
    	private static function _getPoFiles()

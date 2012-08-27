@@ -29,6 +29,17 @@ class org_tubepress_impl_environment_SimpleEnvironmentDetectorTest extends PHPUn
         $this->_sut = new tubepress_impl_environment_SimpleEnvironmentDetector();
     }
 
+    function testVersion()
+    {
+        $latest = tubepress_spi_version_Version::parse('2.5.0');
+
+        $current = $this->_sut->getVersion();
+
+        $this->assertTrue($current instanceof tubepress_spi_version_Version);
+
+        $this->assertTrue($latest->compareTo($current) === 0, "Expected $latest but got $current");
+    }
+
     function testIsPro()
     {
         $this->assertFalse($this->_sut->isPro());

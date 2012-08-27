@@ -61,4 +61,11 @@ interface tubepress_spi_environment_EnvironmentDetector
      * @return string The base name of the TubePress installation directory.
      */
     function getTubePressInstallationDirectoryBaseName();
+
+    /**
+     * Get the current TubePress version.
+     *
+     * @return tubepress_spi_version_Version The current version.
+     */
+    function getVersion();
 }
