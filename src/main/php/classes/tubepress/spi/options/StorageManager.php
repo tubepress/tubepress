@@ -23,9 +23,9 @@
  * Handles persistent storage of TubePress options
  *
  */
-interface org_tubepress_api_options_StorageManager
+interface tubepress_spi_options_StorageManager
 {
-    const _ = 'org_tubepress_api_options_StorageManager';
+    const _ = 'tubepress_spi_options_StorageManager';
 
     /**
      * Determines if an option exists
@@ -48,17 +48,17 @@ interface org_tubepress_api_options_StorageManager
      *
      * @param string $optionName The name of the option
      *
-     * @return unknown_type The option's value
+     * @return mixed The option's value
      */
     function get($optionName);
 
     /**
      * Sets an option value
      *
-     * @param string       $optionName  The option name
-     * @param unknown_type $optionValue The option value
+     * @param string $optionName  The option name
+     * @param mixed  $optionValue The option value
      *
-     * @return True on success, otherwise a string error message.
+     * @return boolean True on success, otherwise a string error message.
      */
     function set($optionName, $optionValue);
 }

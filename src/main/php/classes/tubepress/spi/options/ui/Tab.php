@@ -20,27 +20,14 @@
  */
 
 /**
- * Builds fields!
+ * An individual option tab.
  */
-interface org_tubepress_spi_options_ui_FieldBuilder
+interface tubepress_spi_options_ui_Tab extends tubepress_spi_options_ui_FormHandler
 {
-    const _ = 'org_tubepress_spi_options_ui_FieldBuilder';
+    const __ = 'tubepress_spi_options_ui_Tab';
 
     /**
-     * Build a single field with the given name and type.
      *
-     * @param string $name The name of the field to build.
-     * @param string $type The name of the class to construct to represent this field.
-     *
-     * @return org_tubepress_spi_options_ui_Field The constructed field.
      */
-    function build($name, $type);
-
-
-    /**
-     * Builds the multi-select dropdown for meta display.
-     *
-     * @return org_tubepress_impl_options_ui_fields_MetaMultiSelectField The constructed field.
-     */
-    function buildMetaDisplayMultiSelectField();
+    function getTitle();
 }

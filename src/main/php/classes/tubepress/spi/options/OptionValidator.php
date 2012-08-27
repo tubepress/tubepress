@@ -22,15 +22,15 @@
 /**
  * Performs validation on option values
  */
-interface org_tubepress_api_options_OptionValidator
+interface tubepress_spi_options_OptionValidator
 {
-    const _ = 'org_tubepress_api_options_OptionValidator';
+    const _ = 'tubepress_spi_options_OptionValidator';
 
     /**
      * Validates an option value.
      *
-     * @param string       $optionName The option name
-     * @param unknown_type $candidate  The candidate option value
+     * @param string $optionName The option name
+     * @param mixed  $candidate  The candidate option value
      *
      * @return boolean True if the option name exists and the value supplied is valid. False otherwise.
     */
@@ -39,10 +39,10 @@ interface org_tubepress_api_options_OptionValidator
    /**
     * Gets the failure message of a name/value pair that has failed validation.
     *
-    * @param string       $optionName The option name
-    * @param unknown_type $candidate  The candidate option value
+    * @param string $optionName The option name
+    * @param mixed  $candidate  The candidate option value
     *
-    * @return unknown Null if the option passes validation, otherwise a string failure message.
+    * @return mixed Null if the option passes validation, otherwise a string failure message.
     */
     function getProblemMessage($optionName, $candidate);
 }

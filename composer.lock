@@ -1,18 +1,16 @@
 {
-    "hash": "9feef22eff5daa901b37a4db76270a6a",
+    "hash": "5d4c74dad5b02be259b3f73c4f5342ad",
     "packages": [
-
-    ],
-    "packages-dev": [
         {
-            "package": "ehough/pulsar",
-            "version": "1.1.0"
+            "package": "ehough/chaingang",
+            "version": "1.0.1"
         },
         {
-            "package": "mockery/mockery",
-            "version": "0.7.2"
+            "package": "ehough/epilog",
+            "version": "1.5.1"
         }
     ],
+    "packages-dev": null,
     "aliases": [
 
     ],

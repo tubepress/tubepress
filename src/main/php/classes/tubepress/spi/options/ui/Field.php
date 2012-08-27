@@ -19,11 +19,6 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../../impl/classloader/ClassLoader.class.php');
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_options_ui_FormHandler'
-));
-
 /**
  * An HTML input field or some sort.
  */

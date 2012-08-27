@@ -15,6 +15,12 @@
         }
     ],
 
+    "require": {
+
+        "ehough/chaingang": "*",
+        "ehough/epilog": "*"
+    },
+
     "require-dev": {
         
 	    "ehough/pulsar": "1.*",

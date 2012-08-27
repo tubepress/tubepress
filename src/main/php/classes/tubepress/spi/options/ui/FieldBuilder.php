@@ -20,23 +20,27 @@
  */
 
 /**
- * Generates HTML for the options form and handles form submission.
+ * Builds fields!
  */
-interface org_tubepress_api_options_ui_FormHandler
+interface tubepress_spi_options_ui_FieldBuilder
 {
-	const _ = 'org_tubepress_api_options_ui_FormHandler';
+    const _ = 'tubepress_spi_options_ui_FieldBuilder';
 
     /**
-     * Generates the HTML for the options form.
+     * Build a single field with the given name and type.
      *
-     * @return string The HTML for the options form.
-    */
-    function getHtml();
-
-    /**
-     * Handles form submission.
+     * @param string $name The name of the field to build.
+     * @param string $type The name of the class to construct to represent this field.
      *
-     * @return An array of failure messages if there's a problem, otherwise null.
+     * @return org_tubepress_spi_options_ui_Field The constructed field.
      */
-    function onSubmit();
+    function build($name, $type);
+
+
+    /**
+     * Builds the multi-select dropdown for meta display.
+     *
+     * @return org_tubepress_impl_options_ui_fields_MetaMultiSelectField The constructed field.
+     */
+    function buildMetaDisplayMultiSelectField();
 }

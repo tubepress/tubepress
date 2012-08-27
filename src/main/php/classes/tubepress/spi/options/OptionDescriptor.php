@@ -19,17 +19,12 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require dirname(__FILE__) . '/../../impl/classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_provider_Provider'
-));
-
 /**
  * TubePress option descriptor.
  */
-class org_tubepress_api_options_OptionDescriptor
+class tubepress_spi_options_OptionDescriptor
 {
-    const _ = 'org_tubepress_api_options_OptionDescriptor';
+    const _ = 'tubepress_spi_options_OptionDescriptor';
 
     /** What's the name, y'all? */
     private $_name;

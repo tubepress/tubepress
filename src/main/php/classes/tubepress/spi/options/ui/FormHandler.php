@@ -20,26 +20,23 @@
  */
 
 /**
- * Holds all the option descriptors for TubePress.
+ * Generates HTML for the options form and handles form submission.
  */
-interface org_tubepress_api_options_OptionDescriptorReference
+interface tubepress_spi_options_ui_FormHandler
 {
-    const _ = 'org_tubepress_api_options_OptionDescriptorReference';
+	const _ = 'tubepress_spi_options_ui_FormHandler';
 
     /**
-     * Returns all of the option descriptors.
+     * Generates the HTML for the options form.
      *
-     * @return array All of the registered option descriptors.
-     */
-    function findAll();
+     * @return string The HTML for the options form.
+    */
+    function getHtml();
 
     /**
-     * Finds a single option descriptor by name, or null if no such option.
+     * Handles form submission.
      *
-     * @param string $name The option descriptor to look up.
-     *
-     * @return org_tubepress_api_options_OptionDescriptor The option descriptor with the
-     *                                                    given name, or null if not found.
+     * @return array An array of failure messages if there's a problem, otherwise null.
      */
-    function findOneByName($name);
+    function onSubmit();
 }

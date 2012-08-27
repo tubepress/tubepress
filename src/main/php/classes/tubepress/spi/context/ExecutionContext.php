@@ -24,26 +24,26 @@
  * usually in persistent storage somewhere, and custom options parsed
  * from a shortcode.
  */
-interface org_tubepress_api_exec_ExecutionContext
+interface tubepress_spi_exec_ExecutionContext
 {
-    const _ = 'org_tubepress_api_exec_ExecutionContext';
+    const _ = 'tubepress_spi_exec_ExecutionContext';
 
     /**
      * Gets the value of an option
      *
      * @param string $optionName The name of the option
      *
-     * @return unknown The option value
+     * @return mixed The option value
      */
     function get($optionName);
 
     /**
      * Sets the value of an option
      *
-     * @param string  $optionName  The name of the option
-     * @param unknown $optionValue The option value
+     * @param string $optionName  The name of the option
+     * @param mixed  $optionValue The option value
      *
-     * @return True if the option was set normally, otherwise a string error message.
+     * @return boolean True if the option was set normally, otherwise a string error message.
      */
     function set($optionName, $optionValue);
 
@@ -52,7 +52,7 @@ interface org_tubepress_api_exec_ExecutionContext
      *
      * @param array $customOpts The custom options.
      *
-     * @return An array of error messages. May be empty, never null.
+     * @return array An array of error messages. May be empty, never null.
      */
     function setCustomOptions($customOpts);
 

@@ -19,20 +19,27 @@
  *
  */
 
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require(dirname(__FILE__) . '/../../../impl/classloader/ClassLoader.class.php');
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_options_ui_FormHandler'
-));
-
 /**
- * An individual option tab.
+ * Holds all the option descriptors for TubePress.
  */
-interface org_tubepress_spi_options_ui_Tab extends org_tubepress_api_options_ui_FormHandler
+interface tubepress_spi_options_OptionDescriptorReference
 {
-    const __ = 'org_tubepress_spi_options_ui_Tab';
+    const _ = 'tubepress_spi_options_OptionDescriptorReference';
 
     /**
+     * Returns all of the option descriptors.
      *
+     * @return array All of the registered option descriptors.
      */
-    function getTitle();
+    function findAll();
+
+    /**
+     * Finds a single option descriptor by name, or null if no such option.
+     *
+     * @param string $name The option descriptor to look up.
+     *
+     * @return tubepress_api_options_OptionDescriptor The option descriptor with the
+     *                                                    given name, or null if not found.
+     */
+    function findOneByName($name);
 }
