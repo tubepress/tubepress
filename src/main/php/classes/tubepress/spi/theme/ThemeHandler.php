@@ -22,9 +22,9 @@
 /**
  * TubePress theme handler.
  */
-interface org_tubepress_api_theme_ThemeHandler
+interface tubepress_spi_theme_ThemeHandler
 {
-    const _ = 'org_tubepress_api_theme_ThemeHandler';
+    const _ = 'tubepress_spi_theme_ThemeHandler';
 
     /**
      * Gets an instance of a template appropriate for the current theme.
@@ -33,18 +33,9 @@ interface org_tubepress_api_theme_ThemeHandler
      *
      * @throws Exception If there was a problem.
      *
-     * @return org_tubepress_api_template_Template The template instance.
+     * @return ehough_contemplate_api_Template The template instance.
      */
     function getTemplateInstance($pathToTemplate);
-
-    /**
-     * Returns the URL of the CSS stylesheet for the given theme.
-     *
-     * @param string  $currentTheme The name of the theme.
-     *
-     * @return string The URl of the CSS stylesheet.
-     */
-    function getCssPath($currentTheme);
 
     /**
      * Returns the name of the current TubePress theme in use.

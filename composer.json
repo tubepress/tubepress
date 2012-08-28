@@ -18,6 +18,7 @@
     "require": {
 
         "ehough/chaingang": "*",
+        "ehough/contemplate": "*",
         "ehough/epilog": "*",
         "ehough/fimble": "*",
         "ehough/tickertape": "*"

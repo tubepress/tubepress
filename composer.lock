@@ -1,9 +1,13 @@
 {
-    "hash": "705f59688b422e68d15960c38ffbc170",
+    "hash": "d68b85893fcdd6dcd3565fd1f1ba0c62",
     "packages": [
         {
             "package": "ehough/chaingang",
             "version": "1.0.1"
+        },
+        {
+            "package": "ehough/contemplate",
+            "version": "1.0.0"
         },
         {
             "package": "ehough/epilog",
