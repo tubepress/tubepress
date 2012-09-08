@@ -555,7 +555,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReference implements org
         $option->setDescription('Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser\'s address bar (while looking at a YouTube playlist). It comes right after the "p=". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35');  //>(translatable)<
         $option->setLabel('This YouTube playlist');                                                                                                                                                                                                                                                                                                          //>(translatable)<
         $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setValidValueRegex(self::$_regexWordChars);
+        $option->setValidValueRegex('/[\w-]+/');
         $this->register($option);
 
         $option = new org_tubepress_api_options_OptionDescriptor(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_FEATURED);
