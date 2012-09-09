@@ -22,9 +22,14 @@
 /**
  * Parses shortcodes.
  */
-class org_tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_shortcode_ShortcodeParser
+class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_shortcode_ShortcodeParser
 {
-    private static $_logPrefix = 'Shortcode parser';
+    private $_logger;
+
+    public function __construct()
+    {
+        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Shortcode Parser');
+    }
 
     /**
      * This function is used to parse a shortcode into options that TubePress can use.
@@ -41,7 +46,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_sp
 
         } catch (Exception $e) {
 
-            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Caught exception when parsing shortcode: ' . $e->getMessage());
+            $this->_logger->error('Caught exception when parsing shortcode: ' . $e->getMessage());
         }
     }
 
@@ -151,6 +156,7 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_sp
     private static function _convertQuotes($text)
     {
         $converted = str_replace(array('&#8216', '&#8217', '&#8242;'), '\'', $text);
+
         return str_replace(array('&#34', '&#8220;', '&#8221;', '&#8243;'), '"', $converted);
     }
 }

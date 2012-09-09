@@ -1,17 +1,25 @@
 <?php
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
-require_once BASE . '/sys/classes/org/tubepress/impl/shortcode/SimpleShortcodeParser.class.php';
-
-class_exists('org_tubepress_impl_classloader_ClassLoader') || require BASE . '/sys/classes/org/tubepress/impl/classloader/ClassLoader.class.php';
-org_tubepress_impl_classloader_ClassLoader::loadClasses(array(
-    'org_tubepress_api_const_options_names_Output',
-    'org_tubepress_api_const_options_values_GallerySourceValue',
-    'org_tubepress_api_const_options_names_Meta',
-    'org_tubepress_api_const_options_names_Display',
-    'org_tubepress_api_const_options_names_Feed'
-));
-
-class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTest
+class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends PHPUnit_Framework_TestCase
 {
     private $_sut;
 

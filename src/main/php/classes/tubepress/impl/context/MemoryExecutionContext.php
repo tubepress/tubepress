@@ -24,7 +24,7 @@
  * usually in persistent storage somewhere, and custom options parsed
  * from a shortcode
  */
-class org_tubepress_impl_exec_MemoryExecutionContext implements tubepress_spi_context_ExecutionContext
+class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_context_ExecutionContext
 {
     private static $_logPrefix = 'Memory Execution Context';
 
@@ -56,9 +56,11 @@ class org_tubepress_impl_exec_MemoryExecutionContext implements tubepress_spi_co
     /**
      * Constructor.
      */
-    public function __construct()
+    public function __construct(
+
+
+    )
     {
-        $ioc                      = org_tubepress_impl_ioc_IocContainer::getInstance();
         $this->_storageManager    = $ioc->get(org_tubepress_api_options_StorageManager::_);
         $this->_validationService = $ioc->get(org_tubepress_api_options_OptionValidator::_);
         $this->_pluginManager     = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
