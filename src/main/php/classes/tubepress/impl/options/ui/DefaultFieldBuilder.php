@@ -22,17 +22,51 @@
 /**
  * Builds fields with reflection.
  */
-class org_tubepress_impl_options_ui_DefaultFieldBuilder implements tubepress_spi_options_ui_FieldBuilder
+class tubepress_impl_options_ui_DefaultFieldBuilder implements tubepress_spi_options_ui_FieldBuilder
 {
+    private $_optionsReference;
+
+    /** Message service. */
+    private $_messageService;
+
+    /** Option storage manager. */
+    private $_storageManager;
+
+    /** HTTP request param service. */
+    private $_httpRequestParameterService;
+
+    /** Template builder. */
+    private $_templateBuilder;
+
+    /** Environment detector. */
+    private $_environmentDetector;
+
+    public function __construct(
+
+        tubepress_spi_message_MessageService            $messageService,
+        tubepress_spi_http_HttpRequestParameterService  $hrps,
+        tubepress_spi_environment_EnvironmentDetector   $environmentDetector,
+        ehough_contemplate_api_TemplateBuilder          $templateBuilder,
+        tubepress_spi_options_StorageManager            $storageManager,
+        tubepress_spi_options_OptionDescriptorReference $reference)
+    {
+        $this->_messageService              = $messageService;
+        $this->_storageManager              = $storageManager;
+        $this->_httpRequestParameterService = $hrps;
+        $this->_environmentDetector         = $environmentDetector;
+        $this->_templateBuilder             = $templateBuilder;
+        $this->_optionsReference            = $reference;
+    }
+
     /**
      * Build a single field with the given name and type.
      *
      * @param string $name The name of the field to build.
      * @param string $type The name of the class to construct to represent this field.
      *
-     * @return org_tubepress_spi_options_ui_Field The constructed field.
+     * @return tubepress_spi_options_ui_Field The constructed field.
      */
-    public function build($name, $type)
+    public final function build($name, $type)
     {
         $ref = new ReflectionClass($type);
 
@@ -42,10 +76,18 @@ class org_tubepress_impl_options_ui_DefaultFieldBuilder implements tubepress_spi
     /**
      * Builds the multi-select dropdown for meta display.
      *
-     * @return org_tubepress_impl_options_ui_fields_MetaMultiSelectField The constructed field.
+     * @return tubepress_impl_options_ui_fields_MetaMultiSelectField The constructed field.
      */
-    public function buildMetaDisplayMultiSelectField()
+    public final function buildMetaDisplayMultiSelectField()
     {
-        return new org_tubepress_impl_options_ui_fields_MetaMultiSelectField();
+        return new tubepress_impl_options_ui_fields_MetaMultiSelectField(
+
+            $this->_messageService,
+            $this->_httpRequestParameterService,
+            $this->_environmentDetector,
+            $this->_templateBuilder,
+            $this->_storageManager,
+            $this->_optionsReference
+        );
     }
 }

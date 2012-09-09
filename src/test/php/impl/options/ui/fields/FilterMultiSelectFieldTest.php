@@ -1,28 +1,70 @@
 <?php
-
-require_once 'AbstractFieldTest.php';
-require_once BASE . '/sys/classes/org/tubepress/impl/options/ui/fields/FilterMultiSelectField.class.php';
-
-class org_tubepress_impl_options_ui_fields_FilterMultiSelectFieldTest extends org_tubepress_impl_options_ui_fields_AbstractFieldTest {
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+class tubepress_impl_options_ui_fields_FilterMultiSelectFieldTest extends tubepress_impl_options_ui_fields_AbstractFieldTest
+{
 
     private $_sut;
+
+    private $_mockOptionDescriptorReference;
+
+    private $_mockMessageService;
+
+    private $_mockStorageManager;
+
+    private $_mockHttpRequestParameterService;
+
+    private $_mockTemplateBuilder;
+
+    private $_mockEnvironmentDetector;
     
     public function setUp()
     {
-        parent::setUp();
-        
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
-        
-        $mockYouTubeOptions = \Mockery::mock(org_tubepress_api_options_OptionDescriptor::_);
+        $this->_mockOptionDescriptorReference   = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
+        $this->_mockMessageService              = Mockery::mock(tubepress_spi_message_MessageService::_);
+        $this->_mockStorageManager              = Mockery::mock(tubepress_spi_options_StorageManager::_);
+        $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
+        $this->_mockTemplateBuilder             = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
+        $this->_mockEnvironmentDetector         = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
+
+        $mockOptionDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
+
+        $mockYouTubeOptions = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
         $mockYouTubeOptions->shouldReceive('isBoolean')->once()->andReturn(true);
-        $mockVimeoOptions = \Mockery::mock(org_tubepress_api_options_OptionDescriptor::_);
+
+        $mockVimeoOptions = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
         $mockVimeoOptions->shouldReceive('isBoolean')->once()->andReturn(true);
         
-        $odr->shouldReceive('findOneByName')->once()->with(org_tubepress_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS)->andReturn($mockVimeoOptions);
-        $odr->shouldReceive('findOneByName')->once()->with(org_tubepress_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS)->andReturn($mockYouTubeOptions);
-        
-        $this->_sut = new org_tubepress_impl_options_ui_fields_FilterMultiSelectField();
+        $mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS)->andReturn($mockVimeoOptions);
+        $mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS)->andReturn($mockYouTubeOptions);
+
+        parent::doSetup($this->_mockMessageService);
+
+        $this->_sut = new tubepress_impl_options_ui_fields_FilterMultiSelectField(
+
+            $this->_mockMessageService,
+            $this->_mockHttpRequestParameterService,
+            $this->_mockEnvironmentDetector,
+            $this->_mockTemplateBuilder,
+            $this->_mockStorageManager,
+            $mockOptionDescriptorReference);
     }
     
     public function testGetTitle()

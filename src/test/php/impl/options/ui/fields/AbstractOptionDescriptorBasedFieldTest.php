@@ -1,88 +1,113 @@
 <?php
-
-require_once 'AbstractFieldTest.php';
-
-abstract class org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFieldTest extends org_tubepress_impl_options_ui_fields_AbstractFieldTest {
-
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFieldTest extends tubepress_impl_options_ui_fields_AbstractFieldTest
+{
 	private $_sut;
 
-	private $_optionDescriptor;
+	private $_mockOptionDescriptor;
 
-	private $_hrps;
+	private $_mockHttpRequestParameterService;
+
+    private $_mockOptionsValidator;
+
+    private $_mockStorageManager;
+
+    private $_mockOptionDescriptorReference;
+
+    private $_mockMessageService;
+
+    private $_mockEnvironmentDetector;
+
+    private $_mockTemplateBuilder;
 
 	public function setup()
 	{
-		parent::setUp();
+		$this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
+		$this->_mockOptionDescriptor            = Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
 
-		$ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+		$this->_mockOptionDescriptor->shouldReceive('isApplicableToVimeo')->once()->andReturn(true);
+		$this->_mockOptionDescriptor->shouldReceive('isApplicableToYouTube')->once()->andReturn(true);
 
-		$this->_hrps = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
+		$this->_mockOptionDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
+		$this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with('name')->andReturn($this->_mockOptionDescriptor);
 
-		$this->_optionDescriptor = \Mockery::mock(org_tubepress_api_options_OptionDescriptor::_);
-		$this->_optionDescriptor->shouldReceive('isApplicableToVimeo')->once()->andReturn(true);
-		$this->_optionDescriptor->shouldReceive('isApplicableToYouTube')->once()->andReturn(true);
+        $this->_mockStorageManager      = Mockery::mock(tubepress_spi_options_StorageManager::_);
+        $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockOptionsValidator    = Mockery::mock(tubepress_spi_options_OptionValidator::_);
+        $this->_mockTemplateBuilder     = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
+        $this->_mockMessageService      = Mockery::mock(tubepress_spi_message_MessageService::_);
 
-		$odr                     = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
-		$odr->shouldReceive('findOneByName')->once()->with('name')->andReturn($this->_optionDescriptor);
+        parent::doSetup($this->_mockMessageService);
 
-		$this->_sut = $this->_buildSut('name');
+		$this->_sut = $this->_buildSut($this->_mockMessageService, $this->_mockOptionDescriptorReference,
+            $this->_mockStorageManager, $this->_mockOptionsValidator, $this->_mockHttpRequestParameterService,
+            $this->_mockEnvironmentDetector, $this->_mockTemplateBuilder, 'name');
 	}
 
 	public function testSubmitSimpleInvalid()
 	{
-	    $this->_optionDescriptor->shouldReceive('isBoolean')->once()->andReturn(false);
-	    $this->_optionDescriptor->shouldReceive('getName')->once()->andReturn('name');
+	    $this->_mockOptionDescriptor->shouldReceive('isBoolean')->once()->andReturn(false);
+	    $this->_mockOptionDescriptor->shouldReceive('getName')->once()->andReturn('name');
 
-	    $this->_hrps->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
-	    $this->_hrps->shouldReceive('getParamValue')->once()->with('name')->andReturn('some-value');
+	    $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
+	    $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('name')->andReturn('some-value');
 
-	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-	    $validator = $ioc->get(org_tubepress_api_options_OptionValidator::_);
-	    $validator->shouldReceive('isValid')->once()->with('name', 'some-value')->andReturn(false);
-        $validator->shouldReceive('getProblemMessage')->once()->with('name', 'some-value')->andReturn('you suck');
+	    $this->_mockOptionsValidator->shouldReceive('isValid')->once()->with('name', 'some-value')->andReturn(false);
+        $this->_mockOptionsValidator->shouldReceive('getProblemMessage')->once()->with('name', 'some-value')->andReturn('you suck');
 
 	    $this->assertEquals(array('you suck'), $this->_sut->onSubmit());
 	}
 
 	public function testSubmitNoExist()
 	{
-	    $this->_optionDescriptor->shouldReceive('isBoolean')->once()->andReturn(false);
-	    $this->_optionDescriptor->shouldReceive('getName')->once()->andReturn('name');
+	    $this->_mockOptionDescriptor->shouldReceive('isBoolean')->once()->andReturn(false);
+	    $this->_mockOptionDescriptor->shouldReceive('getName')->once()->andReturn('name');
 
-	    $this->_hrps->shouldReceive('hasParam')->once()->with('name')->andReturn(false);
+	    $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('name')->andReturn(false);
 
 	    $this->assertNull($this->_sut->onSubmit());
 	}
 
 	public function testSubmitBoolean()
 	{
-	    $this->_optionDescriptor->shouldReceive('isBoolean')->once()->andReturn(true);
-	    $this->_optionDescriptor->shouldReceive('getName')->once()->andReturn('name');
+	    $this->_mockOptionDescriptor->shouldReceive('isBoolean')->once()->andReturn(true);
+	    $this->_mockOptionDescriptor->shouldReceive('getName')->once()->andReturn('name');
 
-	    $this->_hrps->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
+	    $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
 
-	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-
-	    $sm = $ioc->get(org_tubepress_api_options_StorageManager::_);
-	    $sm->shouldReceive('set')->once()->with('name', true)->andReturn(true);
+	    $this->_mockStorageManager->shouldReceive('set')->once()->with('name', true)->andReturn(true);
 
 	    $this->assertNull($this->_sut->onSubmit());
 	}
 
 	public function testSubmitSimple()
 	{
-	    $this->_optionDescriptor->shouldReceive('isBoolean')->once()->andReturn(false);
-	    $this->_optionDescriptor->shouldReceive('getName')->once()->andReturn('name');
+	    $this->_mockOptionDescriptor->shouldReceive('isBoolean')->once()->andReturn(false);
+	    $this->_mockOptionDescriptor->shouldReceive('getName')->once()->andReturn('name');
 
-	    $this->_hrps->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
-	    $this->_hrps->shouldReceive('getParamValue')->once()->with('name')->andReturn('some-value');
+	    $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
+	    $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('name')->andReturn('some-value');
 
-	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-	    $validator = $ioc->get(org_tubepress_api_options_OptionValidator::_);
-	    $validator->shouldReceive('isValid')->once()->with('name', 'some-value')->andReturn(true);
-
-	    $sm = $ioc->get(org_tubepress_api_options_StorageManager::_);
-	    $sm->shouldReceive('set')->once()->with('name', 'some-value')->andReturn(true);
+	    $this->_mockOptionsValidator->shouldReceive('isValid')->once()->with('name', 'some-value')->andReturn(true);
+	    $this->_mockStorageManager->shouldReceive('set')->once()->with('name', 'some-value')->andReturn(true);
 
 	    $this->assertNull($this->_sut->onSubmit());
 	}
@@ -92,43 +117,42 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBase
 	    return $this->_sut;
 	}
 
-	protected function getOptionDescriptor()
+	protected function getMockOptionDescriptor()
 	{
-	    return $this->_optionDescriptor;
+	    return $this->_mockOptionDescriptor;
 	}
 
+    protected function getMockEnvironmentDetector()
+    {
+        return $this->_mockEnvironmentDetector;
+    }
+
 	/**
-	 * @expectedException Exception
+	 * @expectedException InvalidArgumentException
 	 */
 	public function testBadOptionName()
 	{
-	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+		$this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with('name')->andReturn(null);
 
-	    $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
-		$odr->shouldReceive('findOneByName')->once()->with('name')->andReturn(null);
-
-		$this->_sut = new org_tubepress_impl_options_ui_fields_TextField('name');
+		$this->_sut = new tubepress_impl_options_ui_fields_TextField($this->_mockMessageService, $this->_mockOptionDescriptorReference,
+            $this->_mockStorageManager, $this->_mockOptionsValidator, $this->_mockHttpRequestParameterService,
+            $this->_mockEnvironmentDetector, $this->_mockTemplateBuilder, 'name');
 	}
 
 	public function testGetInputHtml()
 	{
-	    $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-	    $templateBldr = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
-	    $fse          = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-	    $sm           = $ioc->get(org_tubepress_api_options_StorageManager::_);
-
-	    $template = \Mockery::mock(org_tubepress_api_template_Template::_);
-	    $template->shouldReceive('setVariable')->once()->with(org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_NAME, 'name');
-	    $template->shouldReceive('setVariable')->once()->with(org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_VALUE, '<<currentvalue>>');
+	    $template = \Mockery::mock('ehough_contemplate_api_Template');
+	    $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_NAME, 'name');
+	    $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_VALUE, '<<currentvalue>>');
         $template->shouldReceive('toString')->once()->andReturn('boogity');
 
-	    $fse->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath>>');
+	    $this->_mockEnvironmentDetector->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath>>');
 
-	    $templateBldr->shouldReceive('getNewTemplateInstance')->once()->with('<<basepath>>/' . $this->getTemplatePath())->andReturn($template);
+	    $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with('<<basepath>>/' . $this->getTemplatePath())->andReturn($template);
 
-	    $sm->shouldReceive('get')->once()->with('name')->andReturn('<<currentvalue>>');
+	    $this->_mockStorageManager->shouldReceive('get')->once()->with('name')->andReturn('<<currentvalue>>');
 
-	    $this->_optionDescriptor->shouldReceive('getName')->twice()->andReturn('name');
+	    $this->_mockOptionDescriptor->shouldReceive('getName')->twice()->andReturn('name');
 
 	    $this->_performAdditionToStringTestSetup($template);
 
@@ -147,26 +171,26 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBase
 
 	public function testProviders()
 	{
-        $this->assertTrue($this->_sut->getArrayOfApplicableProviderNames() === array(org_tubepress_api_provider_Provider::VIMEO, org_tubepress_api_provider_Provider::YOUTUBE));
+        $this->assertTrue($this->_sut->getArrayOfApplicableProviderNames() === array(tubepress_spi_provider_Provider::VIMEO, tubepress_spi_provider_Provider::YOUTUBE));
 	}
 
 	public function testGetProOnlyNo()
 	{
-	    $this->_optionDescriptor->shouldReceive('isProOnly')->once()->andReturn(false);
+	    $this->_mockOptionDescriptor->shouldReceive('isProOnly')->once()->andReturn(false);
 
 	    $this->assertTrue($this->_sut->isProOnly() === false);
 	}
 
 	public function testGetProOnlyYes()
 	{
-	    $this->_optionDescriptor->shouldReceive('isProOnly')->once()->andReturn(true);
+	    $this->_mockOptionDescriptor->shouldReceive('isProOnly')->once()->andReturn(true);
 
 	    $this->assertTrue($this->_sut->isProOnly() === true);
 	}
 
 	public function testGetDescription()
 	{
-	    $this->_optionDescriptor->shouldReceive('getDescription')->once()->andReturn('some-desc');
+	    $this->_mockOptionDescriptor->shouldReceive('getDescription')->once()->andReturn('some-desc');
 
 	    $this->_performAdditionGetDescriptionSetup();
 
@@ -175,13 +199,19 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBase
 
 	public function testGetTitle()
 	{
-	    $this->_optionDescriptor->shouldReceive('getLabel')->once()->andReturn('some-label');
+	    $this->_mockOptionDescriptor->shouldReceive('getLabel')->once()->andReturn('some-label');
 
 	    $this->assertTrue($this->_sut->getTitle() === '<<message: some-label>>');
 	}
 
 	protected abstract function getTemplatePath();
 
-	protected abstract function _buildSut($name);
+	protected abstract function _buildSut(tubepress_spi_message_MessageService $messageService,
+                                          tubepress_spi_options_OptionDescriptorReference $optionDescriptorReference,
+                                          tubepress_spi_options_StorageManager $storageManager,
+                                          tubepress_spi_options_OptionValidator $optionValidator,
+                                          tubepress_spi_http_HttpRequestParameterService $hrps,
+                                          tubepress_spi_environment_EnvironmentDetector $environmentDetector,
+                                          ehough_contemplate_api_TemplateBuilder $templateBuilder, $name);
 }
 

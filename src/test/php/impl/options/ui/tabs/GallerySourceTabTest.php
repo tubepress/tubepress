@@ -1,19 +1,54 @@
 <?php
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+class tubepress_impl_options_ui_tabs_GallerySourceTabTest extends PHPUnit_Framework_TestCase
+{
+    private $_mockFieldBuilder;
 
-class org_tubepress_impl_options_ui_tabs_GallerySourceTabTest extends TubePressUnitTest {
+    private $_mockTemplateBuilder;
+
+    private $_mockEnvironmentDetector;
+
+    private $_mockExecutionContext;
 
     public function setup()
     {
-        parent::setUp();
-    
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $ms = $ioc->get(org_tubepress_api_message_MessageService::_);
-    
+        $ms                             = Mockery::mock(tubepress_spi_message_MessageService::_);
+        $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockTemplateBuilder     = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
+        $this->_mockFieldBuilder        = Mockery::mock(tubepress_spi_options_ui_FieldBuilder::_);
+        $this->_mockExecutionContext    = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
+
         $ms->shouldReceive('_')->andReturnUsing( function ($key) {
+
             return "<<message: $key>>";
         });
-    
-        $this->_sut = new org_tubepress_impl_options_ui_tabs_GallerySourceTab();
+
+        $this->_sut = new tubepress_impl_options_ui_tabs_GallerySourceTab(
+
+            $ms,
+            $this->_mockTemplateBuilder,
+            $this->_mockEnvironmentDetector,
+            $this->_mockFieldBuilder,
+            $this->_mockExecutionContext
+        );
     }
     
     public function testGetName()
@@ -22,35 +57,28 @@ class org_tubepress_impl_options_ui_tabs_GallerySourceTabTest extends TubePressU
     }
     
     public function testGetHtml()
-        {
-        $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $templateBldr  = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
-        $fse           = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-        $fieldBuilder = $ioc->get(org_tubepress_spi_options_ui_FieldBuilder::_);
-    
-        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE)->andReturn('some mode');
-        
-        
-        
+    {
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Output::GALLERY_SOURCE)->andReturn('some mode');
+
         $expected = $this->getFieldArray();
         $expectedFieldArray = array();
         
         foreach ($expected as $key => $arr) {
 
             foreach ($arr as $name => $type) {
-                $fieldBuilder->shouldReceive('build')->once()->with($name, $type)->andReturn("$name-$type");
+
+                $this->_mockFieldBuilder->shouldReceive('build')->once()->with($name, $type)->andReturn("$name-$type");
                 $expectedFieldArray[$key] = "$name-$type";
             }
         }
          
-        $template = \Mockery::mock(org_tubepress_api_template_Template::_);
-        $template->shouldReceive('setVariable')->once()->with(org_tubepress_impl_options_ui_tabs_GallerySourceTab::TEMPLATE_VAR_CURRENT_MODE, 'some mode');
-        $template->shouldReceive('setVariable')->once()->with(org_tubepress_impl_options_ui_tabs_AbstractTab::TEMPLATE_VAR_WIDGETARRAY, $expectedFieldArray);
+        $template = \Mockery::mock('ehough_contemplate_api_Template');
+        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_tabs_GallerySourceTab::TEMPLATE_VAR_CURRENT_MODE, 'some mode');
+        $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_tabs_AbstractTab::TEMPLATE_VAR_WIDGETARRAY, $expectedFieldArray);
         $template->shouldReceive('toString')->once()->andReturn('final result');
     
-        $fse->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath!>>');
-        $templateBldr->shouldReceive('getNewTemplateInstance')->once()->with('<<basepath!>>/sys/ui/templates/options_page/gallery_source_tab.tpl.php')->andReturn($template);
+        $this->_mockEnvironmentDetector->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath!>>');
+        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with('<<basepath!>>src/main/resources/system-templates/options_page/gallery_source_tab.tpl.php')->andReturn($template);
          
         $this->assertEquals('final result', $this->_sut->getHtml());
     }
@@ -58,65 +86,66 @@ class org_tubepress_impl_options_ui_tabs_GallerySourceTabTest extends TubePressU
     private function getFieldArray()
     {
         return array(
-            org_tubepress_api_const_options_names_Output::GALLERY_SOURCE =>
-                array(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_impl_options_ui_fields_TextField::__),
+
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE =>
+                array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_impl_options_ui_fields_TextField::__),
             
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES =>
-                array(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE => org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES =>
+                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE => tubepress_impl_options_ui_fields_TextField::__),
         
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED =>
-                array(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_FEATURED => org_tubepress_impl_options_ui_fields_DropdownField::_),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED =>
+                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_FEATURED => tubepress_impl_options_ui_fields_DropdownField::_),
             
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_USER =>
-                array(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE => org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_USER =>
+                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE => tubepress_impl_options_ui_fields_TextField::__),
                 
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST =>
-                array(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST =>
+                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => tubepress_impl_options_ui_fields_TextField::__),
                 
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH =>
-                array(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE => org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH =>
+                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE => tubepress_impl_options_ui_fields_TextField::__),
                 
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_VIEWED =>
-                array(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_VIEWED_VALUE => org_tubepress_impl_options_ui_fields_DropdownField::_),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_VIEWED =>
+                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_VIEWED_VALUE => tubepress_impl_options_ui_fields_DropdownField::_),
                 
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED =>
-                array(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE => org_tubepress_impl_options_ui_fields_DropdownField::_),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED =>
+                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE => tubepress_impl_options_ui_fields_DropdownField::_),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES =>
-                array(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TOP_FAVORITES_VALUE => org_tubepress_impl_options_ui_fields_DropdownField::_),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES =>
+                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_TOP_FAVORITES_VALUE => tubepress_impl_options_ui_fields_DropdownField::_),
                 
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED =>
-                array(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE => org_tubepress_impl_options_ui_fields_DropdownField::_),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED =>
+                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE => tubepress_impl_options_ui_fields_DropdownField::_),
             
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT =>
-                array(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE => org_tubepress_impl_options_ui_fields_DropdownField::_),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT =>
+                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE => tubepress_impl_options_ui_fields_DropdownField::_),
             
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED =>
-                array(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE => org_tubepress_impl_options_ui_fields_DropdownField::_),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED =>
+                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE => tubepress_impl_options_ui_fields_DropdownField::_),
                 
-            org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_ALBUM =>
-                array(org_tubepress_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE => org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::VIMEO_ALBUM =>
+                array(tubepress_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE => tubepress_impl_options_ui_fields_TextField::__),
                 
-            org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY =>
-                array(org_tubepress_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE => org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY =>
+                array(tubepress_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE => tubepress_impl_options_ui_fields_TextField::__),
                 
-            org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL =>
-                array(org_tubepress_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE => org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL =>
+                array(tubepress_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE => tubepress_impl_options_ui_fields_TextField::__),
                 
-            org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_GROUP =>
-                array(org_tubepress_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE => org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::VIMEO_GROUP =>
+                array(tubepress_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE => tubepress_impl_options_ui_fields_TextField::__),
                 
-            org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_SEARCH =>
-                array(org_tubepress_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE => org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::VIMEO_SEARCH =>
+                array(tubepress_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE => tubepress_impl_options_ui_fields_TextField::__),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_LIKES =>
-                array(org_tubepress_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE => org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::VIMEO_LIKES =>
+                array(tubepress_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE => tubepress_impl_options_ui_fields_TextField::__),
                 
-            org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN =>
-                array(org_tubepress_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE => org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN =>
+                array(tubepress_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE => tubepress_impl_options_ui_fields_TextField::__),
                 
-            org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_CREDITED =>
-                array(org_tubepress_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE => org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::VIMEO_CREDITED =>
+                array(tubepress_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE => tubepress_impl_options_ui_fields_TextField::__),
         );
     }
 }

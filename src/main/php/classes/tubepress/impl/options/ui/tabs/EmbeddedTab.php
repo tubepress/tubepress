@@ -22,39 +22,48 @@
 /**
  * Displays the embedded tab.
  */
-class org_tubepress_impl_options_ui_tabs_EmbeddedTab extends org_tubepress_impl_options_ui_tabs_AbstractTab
+class tubepress_impl_options_ui_tabs_EmbeddedTab extends tubepress_impl_options_ui_tabs_AbstractTab
 {
-    const _ = 'org_tubepress_impl_options_ui_tabs_EmbeddedTab';
+    const _ = 'tubepress_impl_options_ui_tabs_EmbeddedTab';
 
-    protected function doGetTitle()
+    /**
+     * Get the untranslated title of this tab.
+     *
+     * @return string The untranslated title of this tab.
+     */
+    protected final function getRawTitle()
     {
         return 'Player';  //>(translatable)<
     }
 
-    protected function getDelegateFormHandlers()
+    /**
+     * Get the delegate form handlers.
+     *
+     * @return array An array of tubepress_spi_options_ui_FormHandler.
+     */
+    protected final function getDelegateFormHandlers()
     {
-        $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $fieldBuilder = $ioc->get(org_tubepress_spi_options_ui_FieldBuilder::_);
+        $fieldBuilder = $this->getFieldBuilder();
 
         return array(
 
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::PLAYER_LOCATION,  org_tubepress_impl_options_ui_fields_DropdownField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL,      org_tubepress_impl_options_ui_fields_DropdownField::_),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT,  org_tubepress_impl_options_ui_fields_TextField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH,   org_tubepress_impl_options_ui_fields_TextField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::LAZYPLAY,         org_tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::PLAYER_COLOR,     org_tubepress_impl_options_ui_fields_ColorField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT, org_tubepress_impl_options_ui_fields_ColorField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::SHOW_INFO,        org_tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::FULLSCREEN,       org_tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::HIGH_QUALITY,     org_tubepress_impl_options_ui_fields_BooleanField::__),
-        	$fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::AUTONEXT,         org_tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::AUTOPLAY,         org_tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::LOOP,             org_tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::SHOW_RELATED,     org_tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::AUTOHIDE,         org_tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::MODEST_BRANDING,  org_tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Embedded::ENABLE_JS_API,    org_tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION,  tubepress_impl_options_ui_fields_DropdownField::_),
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::PLAYER_IMPL,      tubepress_impl_options_ui_fields_DropdownField::_),
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT,  tubepress_impl_options_ui_fields_TextField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH,   tubepress_impl_options_ui_fields_TextField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::LAZYPLAY,         tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::PLAYER_COLOR,     tubepress_impl_options_ui_fields_ColorField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT, tubepress_impl_options_ui_fields_ColorField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::SHOW_INFO,        tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::FULLSCREEN,       tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::HIGH_QUALITY,     tubepress_impl_options_ui_fields_BooleanField::__),
+        	$fieldBuilder->build(tubepress_api_const_options_names_Embedded::AUTONEXT,         tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::AUTOPLAY,         tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::LOOP,             tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::SHOW_RELATED,     tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::AUTOHIDE,         tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::MODEST_BRANDING,  tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::ENABLE_JS_API,    tubepress_impl_options_ui_fields_BooleanField::__),
         );
     }
 }

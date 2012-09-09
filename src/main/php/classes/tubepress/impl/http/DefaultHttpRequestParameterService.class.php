@@ -22,7 +22,7 @@
 /**
  * Class for managing HTTP Transports and making HTTP requests.
  */
-class org_tubepress_impl_http_DefaultHttpRequestParameterService implements tubepress_api_http_HttpRequestParameterService
+class org_tubepress_impl_http_DefaultHttpRequestParameterService implements tubepress_spi_http_HttpRequestParameterService
 {
     private static $_logPrefix = 'Default HTTP Request Param Service';
 
@@ -45,11 +45,11 @@ class org_tubepress_impl_http_DefaultHttpRequestParameterService implements tube
      *
      * @param string $name The name of the parameter.
      *
-     * @return unknown_type The raw value of the parameter. Can be anything that would
-     *                       otherwise be found in PHP's $_REQUEST array. Returns null
-     *                       if the parameter is not set on this request.
+     * @return mixed The raw value of the parameter. Can be anything that would
+     *               otherwise be found in PHP's $_REQUEST array. Returns null
+     *               if the parameter is not set on this request.
      */
-    function getParamValue($name)
+    public function getParamValue($name)
     {
         /** Are we sure we have it? */
         if (!($this->hasParam($name))) {
@@ -71,11 +71,11 @@ class org_tubepress_impl_http_DefaultHttpRequestParameterService implements tube
      * @param string $name    The name of the parameter.
      * @param int    $default The default value is the raw value is not integral.
      *
-     * @return unknown_type The raw value of the parameter. Can be anything that would
+     * @return mixed The raw value of the parameter. Can be anything that would
      *                       otherwise be found in PHP's $_REQUEST array. Returns null
      *                       if the parameter is not set on this request.
      */
-    function getParamValueAsInt($name, $default)
+    public function getParamValueAsInt($name, $default)
     {
         $raw = $this->getParamValue($name);
 
@@ -93,9 +93,9 @@ class org_tubepress_impl_http_DefaultHttpRequestParameterService implements tube
      *
      * @param string $name The name of the parameter.
      *
-     * @return unknown_type True if the parameter is found in PHP's $_REQUEST array, false otherwise.
+     * @return mixed True if the parameter is found in PHP's $_REQUEST array, false otherwise.
      */
-    function hasParam($name)
+    public function hasParam($name)
     {
         return array_key_exists($name, $_REQUEST);
     }

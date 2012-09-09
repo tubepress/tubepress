@@ -22,25 +22,45 @@
 /**
  * Displays a drop-down input.
  */
-class org_tubepress_impl_options_ui_fields_DropdownField extends org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
+class tubepress_impl_options_ui_fields_DropdownField extends tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
 {
-    const _ = 'org_tubepress_impl_options_ui_fields_DropdownField';
+    const _ = 'tubepress_impl_options_ui_fields_DropdownField';
 
     const TEMPLATE_VAR_ACCEPTABLE_VALUES = 'org_tubepress_impl_options_ui_fields_DropdownField__options';
 
-    protected function getTemplatePath()
+    /**
+     * Get the path to the template for this field, relative
+     * to TubePress's root.
+     *
+     * @return string The path to the template for this field, relative
+     *                to TubePress's root.
+     */
+    protected final function getTemplatePath()
     {
-        return 'sys/ui/templates/options_page/fields/dropdown.tpl.php';
+        return 'src/main/resources/system-templates/options_page/fields/dropdown.tpl.php';
     }
 
-    protected function populateTemplate($template, $currentValue)
+    /**
+     * Override point.
+     *
+     * Allows subclasses to perform additional modifications to this
+     * field's template.
+     *
+     * @param ehough_contemplate_api_Template $template     The field's template.
+     * @param string                          $currentValue The current value of this field.
+     *
+     * @throws InvalidArgumentException If a non-associative array is set for its value map.
+     *
+     * @return void
+     */
+    protected final function populateTemplate($template, $currentValue)
     {
         $values = array();
         $map    = $this->getOptionDescriptor()->getAcceptableValues();
 
-        if (! org_tubepress_impl_util_LangUtils::isAssociativeArray($map)) {
+        if (! tubepress_impl_util_LangUtils::isAssociativeArray($map)) {
 
-            throw new Exception(sprintf('"%s" has a non-associative array set for its value map', $this->getOptionDescriptor()->getName()));
+            throw new InvalidArgumentException(sprintf('"%s" has a non-associative array set for its value map', $this->getOptionDescriptor()->getName()));
         }
 
         foreach ($map as $key => $value) {

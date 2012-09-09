@@ -1,35 +1,53 @@
 <?php
-
-require_once BASE . '/sys/classes/org/tubepress/impl/options/ui/DefaultTabsHandler.class.php';
-
-class org_tubepress_impl_options_ui_DefaultTabsHandlerTest extends TubePressUnitTest {
-
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+class tubepress_impl_options_ui_DefaultTabsHandlerTest extends PHPUnit_Framework_TestCase
+{
 	private $_sut;
 
-	private $_expectedTabs;
+    private $_mockTemplateBuilder;
+
+    private $_mockEnvironmentDetector;
+
+	private $_expectedTabs = array();
 
 	public function setup()
 	{
-		parent::setUp();
-		$this->_sut = new org_tubepress_impl_options_ui_DefaultTabsHandler();
+        $this->_mockTemplateBuilder     = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
+        $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
 
-		$ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-		$gal = $ioc->get(org_tubepress_impl_options_ui_tabs_GallerySourceTab::_);
-		$tab = $ioc->get('org_tubepress_impl_options_ui_tabs_ThumbsTab');
-		$emb = $ioc->get(org_tubepress_impl_options_ui_tabs_EmbeddedTab::_);
-		$met = $ioc->get(org_tubepress_impl_options_ui_tabs_MetaTab::_);
-		$thm = $ioc->get(org_tubepress_impl_options_ui_tabs_ThemeTab::_);
-		$fee = $ioc->get(org_tubepress_impl_options_ui_tabs_FeedTab::_);
-		$cah = $ioc->get(org_tubepress_impl_options_ui_tabs_CacheTab::_);
-		$adv = $ioc->get('org_tubepress_impl_options_ui_tabs_AdvancedTab');
+        for ($x = 0; $x < 8; $x++) {
 
-		$this->_expectedTabs = array($gal, $tab, $adv, $cah, $emb, $thm, $fee, $met);
+            $this->_expectedTabs[] = Mockery::mock(tubepress_spi_options_ui_FormHandler::_);
+        }
+
+		$this->_sut = new tubepress_impl_options_ui_DefaultTabsHandler(
+
+            $this->_mockTemplateBuilder,
+            $this->_mockEnvironmentDetector,
+            $this->_expectedTabs
+        );
 	}
 
 	public function testSubmitWithErrors()
 	{
-	    $vals = array('one' => 'two');
-
 	    $x = 1;
 	    foreach ($this->_expectedTabs as $tab) {
 
@@ -38,7 +56,7 @@ class org_tubepress_impl_options_ui_DefaultTabsHandlerTest extends TubePressUnit
 
 	    $result = $this->_sut->onSubmit();
 
-	    $this->assertEquals(array(1, 2, 5, 8, 6, 7, 4, 3), $result);
+	    $this->assertEquals(array(1, 2, 3, 4, 5, 6, 7, 8), $result);
 	}
 
 	public function testSubmit()
@@ -55,28 +73,13 @@ class org_tubepress_impl_options_ui_DefaultTabsHandlerTest extends TubePressUnit
 
 	public function testGetHtml()
 	{
-	    $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-
-        $tabs           = array(
-            $ioc->get(org_tubepress_impl_options_ui_tabs_GallerySourceTab::_),
-            $ioc->get('org_tubepress_impl_options_ui_tabs_ThumbsTab'),
-            $ioc->get(org_tubepress_impl_options_ui_tabs_EmbeddedTab::_),
-            $ioc->get(org_tubepress_impl_options_ui_tabs_MetaTab::_),
-            $ioc->get(org_tubepress_impl_options_ui_tabs_ThemeTab::_),
-            $ioc->get(org_tubepress_impl_options_ui_tabs_FeedTab::_),
-            $ioc->get(org_tubepress_impl_options_ui_tabs_CacheTab::_),
-            $ioc->get('org_tubepress_impl_options_ui_tabs_AdvancedTab'),
-        );
-
-	    $template = \Mockery::mock(org_tubepress_api_template_Template::_);
-	    $template->shouldReceive('setVariable')->once()->with(org_tubepress_impl_options_ui_DefaultTabsHandler::TEMPLATE_VAR_TABS, $tabs);
+	    $template = \Mockery::mock('ehough_contemplate_api_Template');
+	    $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_DefaultTabsHandler::TEMPLATE_VAR_TABS, $this->_expectedTabs);
 	    $template->shouldReceive('toString')->once()->andReturn('foobar');
 
-	    $fse            = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-	    $fse->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath>>');
+	    $this->_mockEnvironmentDetector->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath>>');
 
-	    $tb = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
-	    $tb->shouldReceive('getNewTemplateInstance')->once()->with('<<basepath>>/sys/ui/templates/options_page/tabs.tpl.php')->andReturn($template);
+	    $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with('<<basepath>>/src/main/resources/system-templates/options_page/tabs.tpl.php')->andReturn($template);
 
 	    $this->assertEquals('foobar', $this->_sut->getHtml());
 	}

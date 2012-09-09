@@ -22,24 +22,40 @@
 /**
  * Generates the "meat" of the options form (in the form of tabs).
  */
-class org_tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_options_ui_AbstractDelegatingFormHandler implements tubepress_spi_options_ui_FormHandler
+class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_options_ui_AbstractDelegatingFormHandler implements tubepress_spi_options_ui_FormHandler
 {
-    const __ = 'org_tubepress_impl_options_ui_DefaultTabsHandler';
+    const __ = 'tubepress_impl_options_ui_DefaultTabsHandler';
 
     const TEMPLATE_VAR_TABS = 'org_tubepress_impl_options_ui_DefaultTabsHandler__tabs';
+
+    private $_templateBuilder;
+
+    private $_environmentDetector;
+
+    private $_tabs;
+
+    public function __construct(
+
+        ehough_contemplate_api_TemplateBuilder $templateBuilder,
+        tubepress_spi_environment_EnvironmentDetector $environmentDetector,
+        array $tabs
+
+        ) {
+
+        $this->_environmentDetector = $environmentDetector;
+        $this->_templateBuilder     = $templateBuilder;
+        $this->_tabs                = $tabs;
+    }
 
     /**
      * Generates the HTML for the "meat" of the options form.
      *
      * @return string The HTML for the options form.
      */
-    public function getHtml()
+    public final function getHtml()
     {
-        $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $templateBldr   = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
-        $fse            = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-        $basePath       = $fse->getTubePressBaseInstallationPath();
-        $template       = $templateBldr->getNewTemplateInstance("$basePath/sys/ui/templates/options_page/tabs.tpl.php");
+        $basePath       = $this->_environmentDetector->getTubePressBaseInstallationPath();
+        $template       = $this->_templateBuilder->getNewTemplateInstance("$basePath/src/main/resources/system-templates/options_page/tabs.tpl.php");
         $tabs           = $this->getDelegateFormHandlers();
 
         $template->setVariable(self::TEMPLATE_VAR_TABS, $tabs);
@@ -47,20 +63,13 @@ class org_tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_op
         return $template->toString();
     }
 
-    protected function getDelegateFormHandlers()
+    /**
+     * Get the delegate form handlers.
+     *
+     * @return array An array of tubepress_spi_options_ui_FormHandler.
+     */
+    protected final function getDelegateFormHandlers()
     {
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-
-        return array(
-
-            $ioc->get(org_tubepress_impl_options_ui_tabs_GallerySourceTab::_),
-            $ioc->get(org_tubepress_impl_options_ui_tabs_ThumbsTab::_),
-            $ioc->get(org_tubepress_impl_options_ui_tabs_EmbeddedTab::_),
-            $ioc->get(org_tubepress_impl_options_ui_tabs_MetaTab::_),
-            $ioc->get(org_tubepress_impl_options_ui_tabs_ThemeTab::_),
-            $ioc->get(org_tubepress_impl_options_ui_tabs_FeedTab::_),
-            $ioc->get(org_tubepress_impl_options_ui_tabs_CacheTab::_),
-            $ioc->get(org_tubepress_impl_options_ui_tabs_AdvancedTab::_), 
-        );
+        return $this->_tabs;
     }
 }

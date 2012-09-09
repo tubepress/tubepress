@@ -27,7 +27,9 @@ interface tubepress_spi_options_ui_Tab extends tubepress_spi_options_ui_FormHand
     const __ = 'tubepress_spi_options_ui_Tab';
 
     /**
+     * Get the title of this tab.
      *
+     * @return string The title of this tab.
      */
     function getTitle();
 }

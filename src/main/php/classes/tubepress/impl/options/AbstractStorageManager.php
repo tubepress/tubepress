@@ -41,8 +41,7 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
         tubepress_spi_options_OptionDescriptorReference $reference,
         tubepress_spi_options_OptionValidator $validator,
         tubepress_spi_environment_EnvironmentDetector $environmentDetector,
-        ehough_tickertape_api_IEventDispatcher $dispatcher
-        )
+        ehough_tickertape_api_IEventDispatcher $dispatcher)
     {
         $this->_optionDescriptorReference = $reference;
         $this->_optionValidator           = $validator;
@@ -56,7 +55,7 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
      *
      * @return void
      */
-    public function init()
+    public final function init()
     {
         $currentVersion = $this->_environmentDetector->getVersion();
         $storedVersion  = tubepress_spi_version_Version::parse('0.0.0');
@@ -109,28 +108,6 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
     }
 
     /**
-     * Initializes a single option.
-     *
-     * @param string $name         The option name.
-     * @param string $defaultValue The option value.
-     *
-     * @return void
-     */
-    private function _init($name, $defaultValue)
-    {
-        if (! $this->exists($name)) {
-
-            $this->delete($name);
-            $this->create($name, $defaultValue);
-        }
-
-        if (! $this->_optionValidator->isValid($name, $this->get($name))) {
-
-            $this->setOption($name, $defaultValue);
-        }
-    }
-
-    /**
      * Sets an option value
      *
      * @param string $optionName  The option name
@@ -138,7 +115,7 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
      *
      * @return boolean True on success, otherwise a string error message.
      */
-    public function set($optionName, $optionValue)
+    public final function set($optionName, $optionValue)
     {
         $descriptor = $this->_optionDescriptorReference->findOneByName($optionName);
 
@@ -206,4 +183,26 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
      * @return void
      */
     protected abstract function delete($optionName);
+
+    /**
+     * Initializes a single option.
+     *
+     * @param string $name         The option name.
+     * @param string $defaultValue The option value.
+     *
+     * @return void
+     */
+    private function _init($name, $defaultValue)
+    {
+        if (! $this->exists($name)) {
+
+            $this->delete($name);
+            $this->create($name, $defaultValue);
+        }
+
+        if (! $this->_optionValidator->isValid($name, $this->get($name))) {
+
+            $this->setOption($name, $defaultValue);
+        }
+    }
 }

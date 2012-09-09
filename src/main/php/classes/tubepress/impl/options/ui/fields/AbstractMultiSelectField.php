@@ -22,7 +22,7 @@
 /**
  * Displays a multi-select drop-down input.
  */
-abstract class org_tubepress_impl_options_ui_fields_AbstractMultiSelectField extends org_tubepress_impl_options_ui_fields_AbstractField
+abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends tubepress_impl_options_ui_fields_AbstractField
 {
     const TEMPLATE_VAR_DESCRIPTORS = 'org_tubepress_impl_options_ui_fields_AbstractMultiSelectField__descriptors';
 
@@ -34,31 +34,42 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractMultiSelectField ext
     /** Name. */
     private $_name;
 
-    public function __construct($optionDescriptors, $name, $description = '')
+    public function __construct(
+
+        tubepress_spi_message_MessageService           $messageService,
+        tubepress_spi_http_HttpRequestParameterService $hrps,
+        tubepress_spi_environment_EnvironmentDetector  $environmentDetector,
+        ehough_contemplate_api_TemplateBuilder         $templateBuilder,
+        tubepress_spi_options_StorageManager           $storageManager,
+        array $optionDescriptors,
+        $name,
+        $description = '')
     {
-        parent::__construct();
+        parent::__construct(
 
-        if (! is_array($optionDescriptors)) {
-
-            throw new Exception('Option descriptors must be an array');
-        }
+            $messageService,
+            $hrps,
+            $environmentDetector,
+            $templateBuilder,
+            $storageManager);
 
         foreach ($optionDescriptors as $optionDescriptor) {
 
-            if (! $optionDescriptor instanceof org_tubepress_api_options_OptionDescriptor) {
+            if (! $optionDescriptor instanceof tubepress_spi_options_OptionDescriptor) {
 
-                throw new Exception('Non option descriptor detected');
+                throw new InvalidArgumentException('Non option descriptor detected');
             }
 
+            /** @noinspection PhpUndefinedMethodInspection */
             if (! $optionDescriptor->isBoolean()) {
 
-                throw new Exception('Non-boolean option descriptor detected');
+                throw new InvalidArgumentException('Non-boolean option descriptor detected');
             }
         }
 
         if (! is_string($name)) {
 
-            throw new Exception('Label must be a string');
+            throw new InvalidArgumentException('Label must be a string');
         }
 
         $this->_optionDescriptors = $optionDescriptors;
@@ -68,27 +79,23 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractMultiSelectField ext
     /**
      * Handles form submission.
      *
-     * @return An array of failure messages if there's a problem, otherwise null.
+     * @return array An array of failure messages if there's a problem, otherwise null.
      */
-    function onSubmit()
+    public final function onSubmit()
     {
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $sm  = $ioc->get(org_tubepress_api_options_StorageManager::_);
-
-        $hrps = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
-
-        if (! $hrps->hasParam($this->_name)) {
+        if (! $this->getHttpRequestParameterService()->hasParam($this->_name)) {
 
             /* not submitted. */
             foreach ($this->_optionDescriptors as $optionDescriptor) {
 
-                $sm->set($optionDescriptor->getName(), false);
+                /** @noinspection PhpUndefinedMethodInspection */
+                $this->getStorageManager()->set($optionDescriptor->getName(), false);
             }
 
             return null;
         }
 
-        $vals = $hrps->getParamValue($this->_name);
+        $vals = $this->getHttpRequestParameterService()->getParamValue($this->_name);
 
         if (! is_array($vals)) {
 
@@ -100,7 +107,8 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractMultiSelectField ext
 
         foreach ($this->_optionDescriptors as $optionDescriptor) {
 
-            $result = $sm->set($optionDescriptor->getName(), in_array($optionDescriptor->getName(), $vals));
+            /** @noinspection PhpUndefinedMethodInspection */
+            $result = $this->getStorageManager()->set($optionDescriptor->getName(), in_array($optionDescriptor->getName(), $vals));
 
             if ($result !== true) {
 
@@ -116,41 +124,55 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractMultiSelectField ext
         return $errors;
     }
 
-    function getHtml()
+    /**
+     * Generates the HTML for the options form.
+     *
+     * @return string The HTML for the options form.
+     */
+    public final function getHtml()
     {
-        $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $templateBldr  = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
-        $fse           = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-        $basePath      = $fse->getTubePressBaseInstallationPath();
-        $template      = $templateBldr->getNewTemplateInstance($basePath . '/sys/ui/templates/options_page/fields/multiselect.tpl.php');
-        $sm            = $ioc->get(org_tubepress_api_options_StorageManager::_);
+        $basePath      = $this->getEnvironmentDetector()->getTubePressBaseInstallationPath();
+        $template      = $this->getTemplateBuilder()->getNewTemplateInstance($basePath . '/src/main/resources/system-templates/options_page/fields/multiselect.tpl.php');
         $currentValues = array();
 
         foreach ($this->_optionDescriptors as $optionDescriptor) {
 
-            if ($sm->get($optionDescriptor->getName())) {
+            /** @noinspection PhpUndefinedMethodInspection */
+            if ($this->getStorageManager()->get($optionDescriptor->getName())) {
 
+                /** @noinspection PhpUndefinedMethodInspection */
                 $currentValues[] = $optionDescriptor->getName();
             }
         }
-        $template->setVariable(self::TEMPLATE_VAR_NAME, $this->_name);
-        $template->setVariable(self::TEMPLATE_VAR_DESCRIPTORS, $this->_optionDescriptors);
+
+        $template->setVariable(self::TEMPLATE_VAR_NAME,          $this->_name);
+        $template->setVariable(self::TEMPLATE_VAR_DESCRIPTORS,   $this->_optionDescriptors);
         $template->setVariable(self::TEMPLATE_VAR_CURRENTVALUES, $currentValues);
 
         return $template->toString();
     }
 
-    function isProOnly()
+    /**
+     * Gets whether or not this field is TubePress Pro only.
+     *
+     * @return boolean True if this field is TubePress Pro only. False otherwise.
+     */
+    public final function isProOnly()
     {
         return false;
     }
 
-    function getArrayOfApplicableProviderNames()
+    /**
+     * Gets the providers to which this field applies.
+     *
+     * @return array An array of provider names to which this field applies. May be empty. Never null.
+     */
+    public final function getArrayOfApplicableProviderNames()
     {
         return array(
 
-            org_tubepress_api_provider_Provider::YOUTUBE,
-            org_tubepress_api_provider_Provider::VIMEO,
+            tubepress_spi_provider_Provider::YOUTUBE,
+            tubepress_spi_provider_Provider::VIMEO,
         );
     }
 }

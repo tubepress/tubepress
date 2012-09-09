@@ -26,7 +26,7 @@
  */
 interface tubepress_spi_context_ExecutionContext
 {
-    const _ = 'tubepress_spi_exec_ExecutionContext';
+    const _ = 'tubepress_spi_context_ExecutionContext';
 
     /**
      * Gets the value of an option

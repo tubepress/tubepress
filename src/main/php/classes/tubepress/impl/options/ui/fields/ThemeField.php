@@ -22,19 +22,23 @@
 /**
  * Displays a drop-down input for the TubePress theme.
  */
-class org_tubepress_impl_options_ui_fields_ThemeField extends org_tubepress_impl_options_ui_fields_DropdownField
+class tubepress_impl_options_ui_fields_ThemeField extends tubepress_impl_options_ui_fields_DropdownField
 {
-    const __ = 'org_tubepress_impl_options_ui_fields_ThemeField';
+    const __ = 'tubepress_impl_options_ui_fields_ThemeField';
 
-    public function getDescription()
+    /**
+     * Override point.
+     *
+     * Allows subclasses to further modify the description for this field.
+     *
+     * @param $originalDescription string The original description as calculated by AbstractField.php.
+     *
+     * @return string The (possibly) modified description for this field.
+     */
+    protected final function getModifiedDescription($originalDescription)
     {
-        $ioc               = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $themeHandler      = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
-        $filesystem        = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-        $defaultThemesPath = $filesystem->getTubePressBaseInstallationPath() . '/sys/ui/themes';
-        $userThemesPath    = $themeHandler->getUserContentDirectory() . '/themes';
-
-        $originalDescription = parent::getDescription();
+        $defaultThemesPath = $this->getEnvironmentDetector()->getTubePressBaseInstallationPath() . '/sys/ui/themes';
+        $userThemesPath    = $this->getEnvironmentDetector()->getUserContentDirectory() . '/themes';
 
         return sprintf($originalDescription, $userThemesPath, $defaultThemesPath);
     }

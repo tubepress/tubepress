@@ -22,36 +22,114 @@
 /**
  * Base class for HTML fields.
  */
-abstract class org_tubepress_impl_options_ui_fields_AbstractField implements tubepress_spi_options_ui_Field
+abstract class tubepress_impl_options_ui_fields_AbstractField implements tubepress_spi_options_ui_Field
 {
     const TEMPLATE_VAR_NAME  = 'org_tubepress_impl_options_ui_fields_AbstractField__name';
 
     /** Message service. */
     private $_messageService;
 
-    public function __construct()
+    /** Option storage manager. */
+    private $_storageManager;
+
+    /** HTTP request param service. */
+    private $_httpRequestParameterService;
+
+    /** Template builder. */
+    private $_templateBuilder;
+
+    /** Environment detector. */
+    private $_environmentDetector;
+
+    public function __construct(
+
+        tubepress_spi_message_MessageService           $messageService,
+        tubepress_spi_http_HttpRequestParameterService $hrps,
+        tubepress_spi_environment_EnvironmentDetector  $environmentDetector,
+        ehough_contemplate_api_TemplateBuilder         $templateBuilder,
+        tubepress_spi_options_StorageManager           $storageManager)
     {
-        $ioc                   = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $this->_messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
+        $this->_messageService              = $messageService;
+        $this->_storageManager              = $storageManager;
+        $this->_httpRequestParameterService = $hrps;
+        $this->_environmentDetector         = $environmentDetector;
+        $this->_templateBuilder             = $templateBuilder;
     }
 
-    public function getTitle()
+    /**
+     * Gets the title of this field, usually consumed by humans.
+     *
+     * @return string The title of this field. May be empty or null.
+     */
+    public final function getTitle()
     {
         return $this->_getMessage($this->getRawTitle());
     }
 
-    public function getDescription()
+    /**
+     * Gets the description of this field, usually consumed by humans.
+     *
+     * @return string The description of this field. May be empty or null.
+     */
+    public final function getDescription()
     {
-        return $this->_getMessage($this->getRawDescription());
+        $originalDescription = $this->_getMessage($this->getRawDescription());
+
+        return $this->getModifiedDescription($originalDescription);
     }
 
-    protected function getMessageService()
+    protected final function getMessageService()
     {
         return $this->_messageService;
     }
 
+    protected final function getStorageManager()
+    {
+        return $this->_storageManager;
+    }
+
+    protected final function getHttpRequestParameterService()
+    {
+        return $this->_httpRequestParameterService;
+    }
+
+    protected final function getEnvironmentDetector()
+    {
+        return $this->_environmentDetector;
+    }
+
+    protected final function getTemplateBuilder()
+    {
+        return $this->_templateBuilder;
+    }
+
+    /**
+     * Override point.
+     *
+     * Allows subclasses to further modify the description for this field.
+     *
+     * @param $originalDescription string The original description as calculated by AbstractField.php.
+     *
+     * @return string The (possibly) modified description for this field.
+     */
+    protected function getModifiedDescription($originalDescription)
+    {
+        //override point
+        return $originalDescription;
+    }
+
+    /**
+     * Get the untranslated title of this field.
+     *
+     * @return string The untranslated title of this field.
+     */
     protected abstract function getRawTitle();
 
+    /**
+     * Get the untranslated description of this field.
+     *
+     * @return string The untranslated description of this field.
+     */
     protected abstract function getRawDescription();
 
     private function _getMessage($raw)

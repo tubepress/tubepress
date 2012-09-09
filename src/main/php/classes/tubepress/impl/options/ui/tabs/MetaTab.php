@@ -22,26 +22,35 @@
 /**
  * Displays the meta tab.
  */
-class org_tubepress_impl_options_ui_tabs_MetaTab extends org_tubepress_impl_options_ui_tabs_AbstractTab
+class tubepress_impl_options_ui_tabs_MetaTab extends tubepress_impl_options_ui_tabs_AbstractTab
 {
-    const _ = 'org_tubepress_impl_options_ui_tabs_MetaTab';
+    const _ = 'tubepress_impl_options_ui_tabs_MetaTab';
 
-    protected function doGetTitle()
+    /**
+     * Get the untranslated title of this tab.
+     *
+     * @return string The untranslated title of this tab.
+     */
+    protected final function getRawTitle()
     {
         return 'Meta';  //>(translatable)<
     }
 
-    protected function getDelegateFormHandlers()
+    /**
+     * Get the delegate form handlers.
+     *
+     * @return array An array of tubepress_spi_options_ui_FormHandler.
+     */
+    protected final function getDelegateFormHandlers()
     {
-        $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $fieldBuilder = $ioc->get(org_tubepress_spi_options_ui_FieldBuilder::_);
+        $fieldBuilder = $this->getFieldBuilder();
 
         return array(
 
             $fieldBuilder->buildMetaDisplayMultiSelectField(),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Meta::DATEFORMAT,     org_tubepress_impl_options_ui_fields_TextField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Meta::RELATIVE_DATES, org_tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Meta::DESC_LIMIT,     org_tubepress_impl_options_ui_fields_TextField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Meta::DATEFORMAT,     tubepress_impl_options_ui_fields_TextField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Meta::RELATIVE_DATES, tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Meta::DESC_LIMIT,     tubepress_impl_options_ui_fields_TextField::__),
         );
     }
 }

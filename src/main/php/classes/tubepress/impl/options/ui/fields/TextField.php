@@ -22,12 +22,19 @@
 /**
  * Displays a standard text input.
  */
-class org_tubepress_impl_options_ui_fields_TextField extends org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
+class tubepress_impl_options_ui_fields_TextField extends tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
 {
-    const __ = 'org_tubepress_impl_options_ui_fields_TextField';
-    
-    protected function getTemplatePath()
+    const __ = 'tubepress_impl_options_ui_fields_TextField';
+
+    /**
+     * Get the path to the template for this field, relative
+     * to TubePress's root.
+     *
+     * @return string The path to the template for this field, relative
+     *                to TubePress's root.
+     */
+    protected final function getTemplatePath()
     {
-        return 'sys/ui/templates/options_page/fields/text.tpl.php';
+        return 'src/main/resources/system-templates/options_page/fields/text.tpl.php';
     }
 }

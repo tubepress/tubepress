@@ -25,20 +25,21 @@
 abstract class tubepress_impl_options_ui_AbstractDelegatingFormHandler implements tubepress_spi_options_ui_FormHandler
 {
     /**
-    * Updates options from a keyed array
-    *
-    * @return unknown Null if there was no problem handling the submission, otherwise an array
-    * of string failure messages.
-    */
-    public function onSubmit()
+     * Updates options from a keyed array.
+     *
+     * @throws InvalidArgumentException If the subclass returns non-tubepress_spi_options_ui_FormHandler instances.
+     *
+     * @return mixed Null if there was no problem handling the submission, otherwise an array
+     *               of string failure messages.
+     */
+    public final function onSubmit()
     {
         $formHandlerInstances = $this->getDelegateFormHandlers();
 
         if (! is_array($formHandlerInstances)) {
 
-            throw new Exception('Must pass an array of form handler instances');
+            throw new InvalidArgumentException('Must pass an array of form handler instances');
         }
-
 
         $failures = array();
 
@@ -60,5 +61,10 @@ abstract class tubepress_impl_options_ui_AbstractDelegatingFormHandler implement
         return $failures;
     }
 
+    /**
+     * Get the delegate form handlers.
+     *
+     * @return array An array of tubepress_spi_options_ui_FormHandler.
+     */
     protected abstract function getDelegateFormHandlers();
 }

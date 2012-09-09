@@ -22,97 +22,142 @@
 /**
  * Displays the video source tab.
  */
-class org_tubepress_impl_options_ui_tabs_GallerySourceTab extends org_tubepress_impl_options_ui_tabs_AbstractTab
+class tubepress_impl_options_ui_tabs_GallerySourceTab extends tubepress_impl_options_ui_tabs_AbstractTab
 {
-    const _ = 'org_tubepress_impl_options_ui_tabs_GallerySourceTab';
+    const _ = 'tubepress_impl_options_ui_tabs_GallerySourceTab';
 
     const TEMPLATE_VAR_CURRENT_MODE = 'org_tubepress_impl_options_ui_tabs_GallerySourceTab__mode';
 
-    protected function doGetTitle()
+    private $_executionContext;
+
+    public function __construct(
+
+        tubepress_spi_message_MessageService          $messageService,
+        ehough_contemplate_api_TemplateBuilder        $templateBuilder,
+        tubepress_spi_environment_EnvironmentDetector $environmentDetector,
+        tubepress_spi_options_ui_FieldBuilder         $fieldBuilder,
+        tubepress_spi_context_ExecutionContext        $executionContext
+        ) {
+
+        parent::__construct(
+
+            $messageService,
+            $templateBuilder,
+            $environmentDetector,
+            $fieldBuilder
+        );
+
+        $this->_executionContext = $executionContext;
+    }
+
+    /**
+     * Get the untranslated title of this tab.
+     *
+     * @return string The untranslated title of this tab.
+     */
+    protected final function getRawTitle()
     {
         return 'Which videos?';  //>(translatable)<
     }
 
-    protected function getDelegateFormHandlers()
+    /**
+     * Get the delegate form handlers.
+     *
+     * @return array An array of tubepress_spi_options_ui_FormHandler.
+     */
+    protected final function getDelegateFormHandlers()
     {
-        $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $fieldBuilder = $ioc->get(org_tubepress_spi_options_ui_FieldBuilder::_);
+        $fieldBuilder = $this->getFieldBuilder();
 
         return array(
 
-            org_tubepress_api_const_options_names_Output::GALLERY_SOURCE =>
-                $fieldBuilder->build(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE, org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE =>
+                $fieldBuilder->build(tubepress_api_const_options_names_Output::GALLERY_SOURCE, tubepress_impl_options_ui_fields_TextField::__),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES =>
-                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE, org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES =>
+                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE, tubepress_impl_options_ui_fields_TextField::__),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED =>
-                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_FEATURED, org_tubepress_impl_options_ui_fields_DropdownField::_),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED =>
+                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::YOUTUBE_FEATURED, tubepress_impl_options_ui_fields_DropdownField::_),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_USER =>
-                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE, org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_USER =>
+                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE, tubepress_impl_options_ui_fields_TextField::__),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST =>
-                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE, org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST =>
+                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE, tubepress_impl_options_ui_fields_TextField::__),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH =>
-                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE, org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH =>
+                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE, tubepress_impl_options_ui_fields_TextField::__),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_VIEWED =>
-                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_VIEWED_VALUE, org_tubepress_impl_options_ui_fields_DropdownField::_),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_VIEWED =>
+                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_VIEWED_VALUE, tubepress_impl_options_ui_fields_DropdownField::_),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED =>
-                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE, org_tubepress_impl_options_ui_fields_DropdownField::_),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED =>
+                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE, tubepress_impl_options_ui_fields_DropdownField::_),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES =>
-                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_TOP_FAVORITES_VALUE, org_tubepress_impl_options_ui_fields_DropdownField::_),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES =>
+                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::YOUTUBE_TOP_FAVORITES_VALUE, tubepress_impl_options_ui_fields_DropdownField::_),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED =>
-                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE, org_tubepress_impl_options_ui_fields_DropdownField::_),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED =>
+                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE, tubepress_impl_options_ui_fields_DropdownField::_),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT =>
-                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE, org_tubepress_impl_options_ui_fields_DropdownField::_),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT =>
+                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE, tubepress_impl_options_ui_fields_DropdownField::_),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED =>
-                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE, org_tubepress_impl_options_ui_fields_DropdownField::_),
+            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED =>
+                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE, tubepress_impl_options_ui_fields_DropdownField::_),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_ALBUM =>
-                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE, org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::VIMEO_ALBUM =>
+                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE, tubepress_impl_options_ui_fields_TextField::__),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY =>
-                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE, org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY =>
+                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE, tubepress_impl_options_ui_fields_TextField::__),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL =>
-                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE, org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL =>
+                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE, tubepress_impl_options_ui_fields_TextField::__),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_GROUP =>
-                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE, org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::VIMEO_GROUP =>
+                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE, tubepress_impl_options_ui_fields_TextField::__),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_SEARCH =>
-                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE, org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::VIMEO_SEARCH =>
+                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE, tubepress_impl_options_ui_fields_TextField::__),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_LIKES =>
-                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE, org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::VIMEO_LIKES =>
+                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE, tubepress_impl_options_ui_fields_TextField::__),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN =>
-                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE, org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN =>
+                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE, tubepress_impl_options_ui_fields_TextField::__),
 
-            org_tubepress_api_const_options_values_GallerySourceValue::VIMEO_CREDITED =>
-                $fieldBuilder->build(org_tubepress_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE, org_tubepress_impl_options_ui_fields_TextField::__),
+            tubepress_api_const_options_values_GallerySourceValue::VIMEO_CREDITED =>
+                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE, tubepress_impl_options_ui_fields_TextField::__),
         );
     }
 
-    protected function addToTemplate(org_tubepress_api_template_Template $template)
+    /**
+     * Override point.
+     *
+     * Allows subclasses to perform additional modifications to the template.
+     *
+     * @param ehough_contemplate_api_Template $template The template for this tab.
+     */
+    protected final function addToTemplate(ehough_contemplate_api_Template $template)
     {
-        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $currentMode = $execContext->get(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE);
+        $currentMode = $this->_executionContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
 
         $template->setVariable(self::TEMPLATE_VAR_CURRENT_MODE, $currentMode);
     }
 
-    protected function getTemplatePath()
+    /**
+     * Override point.
+     *
+     * Allows subclasses to change the template path.
+     *
+     * @param $originaltemplatePath string The original template path.
+     *
+     * @return string The (possibly) modified template path.
+     */
+    protected final function getModifiedTemplatePath($originaltemplatePath)
     {
-        return '/sys/ui/templates/options_page/gallery_source_tab.tpl.php';
+        return 'src/main/resources/system-templates/options_page/gallery_source_tab.tpl.php';
     }
 }

@@ -22,9 +22,9 @@
 /**
  * Base class for HTML fields.
  */
-abstract class org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField extends org_tubepress_impl_options_ui_fields_AbstractField
+abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField extends tubepress_impl_options_ui_fields_AbstractField
 {
-    const TEMPLATE_VAR_VALUE = 'org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField__value';
+    const TEMPLATE_VAR_VALUE = 'tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField__value';
 
     /** Applicable providers. */
     private $_providerArray = array();
@@ -32,59 +32,97 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBase
     /** Option descriptor. */
     private $_optionDescriptor;
 
-    public function __construct($name)
-    {
-        parent::__construct();
+    /** Options validator. */
+    private $_optionsValidator;
 
-        $ioc                     = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $odr                     = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
-        $this->_optionDescriptor = $odr->findOneByName($name);
+    public function __construct(
+
+        tubepress_spi_message_MessageService            $messageService,
+        tubepress_spi_options_OptionDescriptorReference $optionDescriptorReference,
+        tubepress_spi_options_StorageManager            $storageManager,
+        tubepress_spi_options_OptionValidator           $optionValidator,
+        tubepress_spi_http_HttpRequestParameterService  $hrps,
+        tubepress_spi_environment_EnvironmentDetector   $environmentDetector,
+        ehough_contemplate_api_TemplateBuilder          $templateBuilder,
+        $name)
+    {
+        parent::__construct(
+
+            $messageService,
+            $hrps,
+            $environmentDetector,
+            $templateBuilder,
+            $storageManager);
+
+        $this->_optionsValidator = $optionValidator;
+        $this->_optionDescriptor = $optionDescriptorReference->findOneByName($name);
 
         if ($this->_optionDescriptor === null) {
 
-            throw new Exception('Could not find option with name "%s"');
+            throw new InvalidArgumentException(sprintf('Could not find option with name "%s"', $name));
         }
 
         if ($this->_optionDescriptor->isApplicableToVimeo()) {
 
-            array_push($this->_providerArray, org_tubepress_api_provider_Provider::VIMEO);
+            array_push($this->_providerArray, tubepress_spi_provider_Provider::VIMEO);
         }
 
         if ($this->_optionDescriptor->isApplicableToYouTube()) {
 
-            array_push($this->_providerArray, org_tubepress_api_provider_Provider::YOUTUBE);
+            array_push($this->_providerArray, tubepress_spi_provider_Provider::YOUTUBE);
         }
     }
 
-    public function getArrayOfApplicableProviderNames()
+    /**
+     * Gets the providers to which this field applies.
+     *
+     * @return array An array of provider names to which this field applies. May be empty. Never null.
+     */
+    public final function getArrayOfApplicableProviderNames()
     {
         return $this->_providerArray;
     }
 
-    public function getRawTitle()
+    /**
+     * Get the untranslated title of this field.
+     *
+     * @return string The untranslated title of this field.
+     */
+    public final function getRawTitle()
     {
         return $this->_optionDescriptor->getLabel();
     }
 
-    public function getRawDescription()
+    /**
+     * Get the untranslated description of this field.
+     *
+     * @return string The untranslated description of this field.
+     */
+    public final function getRawDescription()
     {
         return $this->_optionDescriptor->getDescription();
     }
 
-    public function isProOnly()
+    /**
+     * Gets whether or not this field is TubePress Pro only.
+     *
+     * @return boolean True if this field is TubePress Pro only. False otherwise.
+     */
+    public final function isProOnly()
     {
         return $this->_optionDescriptor->isProOnly();
     }
 
-    public function getHtml()
+    /**
+     * Generates the HTML for the options form.
+     *
+     * @return string The HTML for the options form.
+     */
+    public final function getHtml()
     {
-        $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $templateBldr = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
-        $fse          = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-        $basePath     = $fse->getTubePressBaseInstallationPath();
-        $template     = $templateBldr->getNewTemplateInstance($basePath . '/' . $this->getTemplatePath());
-        $sm           = $ioc->get(org_tubepress_api_options_StorageManager::_);
-        $currentValue = $sm->get($this->_optionDescriptor->getName());
+        $basePath     = $this->getEnvironmentDetector()->getTubePressBaseInstallationPath();
+        $template     = $this->getTemplateBuilder()->getNewTemplateInstance($basePath . '/' . $this->getTemplatePath());
+        $currentValue = $this->getStorageManager()->get($this->_optionDescriptor->getName());
 
         $template->setVariable(self::TEMPLATE_VAR_NAME, $this->_optionDescriptor->getName());
         $template->setVariable(self::TEMPLATE_VAR_VALUE, $currentValue);
@@ -97,68 +135,80 @@ abstract class org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBase
     /**
      * Handles form submission.
      *
-     * @return An array of failure messages if there's a problem, otherwise null.
+     * @return array An array of failure messages if there's a problem, otherwise null.
      */
-    public function onSubmit()
+    public final function onSubmit()
     {
-        $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $storageManager = $ioc->get(org_tubepress_api_options_StorageManager::_);
-        $hrps           = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
-
         if ($this->_optionDescriptor->isBoolean()) {
 
-            return $this->_onSubmitBoolean($storageManager, $hrps);
+            return $this->_onSubmitBoolean();
         }
 
-        return $this->_onSubmitSimple($storageManager, $hrps);
+        return $this->_onSubmitSimple();
     }
 
-    private function _onSubmitSimple(org_tubepress_api_options_StorageManager $storageManager, org_tubepress_api_http_HttpRequestParameterService $hrps)
-    {
-        $ioc       = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $validator = $ioc->get(org_tubepress_api_options_OptionValidator::_);
-        $name      = $this->_optionDescriptor->getName();
-
-        if (! $hrps->hasParam($name)) {
-
-            /* not submitted. */
-            return null;
-        }
-
-        $value = $hrps->getParamValue($name);
-
-        /* run it through validation. */
-        if (! $validator->isValid($name, $value)) {
-
-            return array($validator->getProblemMessage($name, $value));
-        }
-
-        return $this->_setToStorage($storageManager, $name, $value);
-    }
-
-    private function _onSubmitBoolean(org_tubepress_api_options_StorageManager $storageManager, org_tubepress_api_http_HttpRequestParameterService $hrps)
-    {
-        $name = $this->_optionDescriptor->getName();
-
-        /* if the user checked the box, the option name will appear in the POST vars */
-        return $this->_setToStorage($storageManager, $name, $hrps->hasParam($name));
-    }
-
+    /**
+     * Get the path to the template for this field, relative
+     * to TubePress's root.
+     *
+     * @return string The path to the template for this field, relative
+     *                to TubePress's root.
+     */
     protected abstract function getTemplatePath();
 
+    /**
+     * Override point.
+     *
+     * Allows subclasses to perform additional modifications to this
+     * field's template.
+     *
+     * @param ehough_contemplate_api_Template $template     The field's template.
+     * @param string                          $currentValue The current value of this field.
+     *
+     * @return void
+     */
     protected function populateTemplate($template, $currentValue)
     {
          //override point
     }
 
-    protected function getOptionDescriptor()
+    protected final function getOptionDescriptor()
     {
         return $this->_optionDescriptor;
     }
 
-    private function _setToStorage(org_tubepress_api_options_StorageManager $storageManager, $name, $value)
+    private function _onSubmitSimple()
     {
-        $result = $storageManager->set($name, $value);
+        $name = $this->_optionDescriptor->getName();
+
+        if (! $this->getHttpRequestParameterService()->hasParam($name)) {
+
+            /* not submitted. */
+            return null;
+        }
+
+        $value = $this->getHttpRequestParameterService()->getParamValue($name);
+
+        /* run it through validation. */
+        if (! $this->_optionsValidator->isValid($name, $value)) {
+
+            return array($this->_optionsValidator->getProblemMessage($name, $value));
+        }
+
+        return $this->_setToStorage($name, $value);
+    }
+
+    private function _onSubmitBoolean()
+    {
+        $name = $this->_optionDescriptor->getName();
+
+        /* if the user checked the box, the option name will appear in the POST vars */
+        return $this->_setToStorage($name, $this->getHttpRequestParameterService()->hasParam($name));
+    }
+
+    private function _setToStorage($name, $value)
+    {
+        $result = $this->getStorageManager()->set($name, $value);
 
         if ($result === true) {
 

@@ -22,30 +22,39 @@
 /**
  * Displays the advanced options tab.
  */
-class org_tubepress_impl_options_ui_tabs_AdvancedTab extends org_tubepress_impl_options_ui_tabs_AbstractTab
+class tubepress_impl_options_ui_tabs_AdvancedTab extends tubepress_impl_options_ui_tabs_AbstractTab
 {
-    const _ = 'org_tubepress_impl_options_ui_tabs_AdvancedTab';
+    const _ = 'tubepress_impl_options_ui_tabs_AdvancedTab';
 
-    protected function doGetTitle()
+    /**
+     * Get the untranslated title of this tab.
+     *
+     * @return string The untranslated title of this tab.
+     */
+    protected final function getRawTitle()
     {
         return 'Advanced';  //>(translatable)<
     }
 
-    protected function getDelegateFormHandlers()
+    /**
+     * Get the delegate form handlers.
+     *
+     * @return array An array of tubepress_spi_options_ui_FormHandler.
+     */
+    protected final function getDelegateFormHandlers()
     {
-        $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $fieldBuilder = $ioc->get(org_tubepress_spi_options_ui_FieldBuilder::_);
+        $fieldBuilder = $this->getFieldBuilder();
 
         return array(
 
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Advanced::DEBUG_ON,               org_tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Advanced::KEYWORD,                org_tubepress_impl_options_ui_fields_TextField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Advanced::HTTPS,                  org_tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_CURL,      org_tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_EXTHTTP,   org_tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FOPEN,     org_tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FSOCKOPEN, org_tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Advanced::DISABLE_HTTP_STREAMS,   org_tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DEBUG_ON,               tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::KEYWORD,                tubepress_impl_options_ui_fields_TextField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::HTTPS,                  tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DISABLE_HTTP_CURL,      tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DISABLE_HTTP_EXTHTTP,   tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FOPEN,     tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FSOCKOPEN, tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DISABLE_HTTP_STREAMS,   tubepress_impl_options_ui_fields_BooleanField::__),
         );
     }
 }

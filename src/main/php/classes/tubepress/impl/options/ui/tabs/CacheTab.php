@@ -22,26 +22,35 @@
 /**
  * Displays the appearance tab.
  */
-class org_tubepress_impl_options_ui_tabs_CacheTab extends org_tubepress_impl_options_ui_tabs_AbstractTab
+class tubepress_impl_options_ui_tabs_CacheTab extends tubepress_impl_options_ui_tabs_AbstractTab
 {
-    const _ = 'org_tubepress_impl_options_ui_tabs_CacheTab';
+    const _ = 'tubepress_impl_options_ui_tabs_CacheTab';
 
-    protected function doGetTitle()
+    /**
+     * Get the untranslated title of this tab.
+     *
+     * @return string The untranslated title of this tab.
+     */
+    protected final function getRawTitle()
     {
         return 'Cache';  //>(translatable)<
     }
 
-    protected function getDelegateFormHandlers()
+    /**
+     * Get the delegate form handlers.
+     *
+     * @return array An array of tubepress_spi_options_ui_FormHandler.
+     */
+    protected final function getDelegateFormHandlers()
     {
-        $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $fieldBuilder = $ioc->get(org_tubepress_spi_options_ui_FieldBuilder::_);
+        $fieldBuilder = $this->getFieldBuilder();
 
         return array(
 
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Cache::CACHE_ENABLED,          org_tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Cache::CACHE_DIR,              org_tubepress_impl_options_ui_fields_TextField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS, org_tubepress_impl_options_ui_fields_TextField::__),
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Cache::CACHE_CLEAN_FACTOR,     org_tubepress_impl_options_ui_fields_TextField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Cache::CACHE_ENABLED,          tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Cache::CACHE_DIR,              tubepress_impl_options_ui_fields_TextField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS, tubepress_impl_options_ui_fields_TextField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Cache::CACHE_CLEAN_FACTOR,     tubepress_impl_options_ui_fields_TextField::__),
         );
     }
 }

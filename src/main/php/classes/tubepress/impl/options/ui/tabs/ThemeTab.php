@@ -22,23 +22,32 @@
 /**
  * Displays the theme tab.
  */
-class org_tubepress_impl_options_ui_tabs_ThemeTab extends org_tubepress_impl_options_ui_tabs_AbstractTab
+class tubepress_impl_options_ui_tabs_ThemeTab extends tubepress_impl_options_ui_tabs_AbstractTab
 {
-    const _ = 'org_tubepress_impl_options_ui_tabs_ThemeTab';
+    const _ = 'tubepress_impl_options_ui_tabs_ThemeTab';
 
-    protected function doGetTitle()
+    /**
+     * Get the untranslated title of this tab.
+     *
+     * @return string The untranslated title of this tab.
+     */
+    protected final function getRawTitle()
     {
         return 'Theme';  //>(translatable)<
     }
 
-    protected function getDelegateFormHandlers()    
+    /**
+     * Get the delegate form handlers.
+     *
+     * @return array An array of tubepress_spi_options_ui_FormHandler.
+     */
+    protected final function getDelegateFormHandlers()
     {
-        $ioc           = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $fieldBuilder = $ioc->get(org_tubepress_spi_options_ui_FieldBuilder::_);
+        $fieldBuilder = $this->getFieldBuilder();
 
         return array(
 
-            $fieldBuilder->build(org_tubepress_api_const_options_names_Thumbs::THEME, org_tubepress_impl_options_ui_fields_ThemeField::__)
+            $fieldBuilder->build(tubepress_api_const_options_names_Thumbs::THEME, tubepress_impl_options_ui_fields_ThemeField::__)
         );
     }
 }

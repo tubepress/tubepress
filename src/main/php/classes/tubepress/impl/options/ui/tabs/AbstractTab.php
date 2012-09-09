@@ -22,26 +22,50 @@
 /**
  * Displays a tab on the options page.
  */
-abstract class org_tubepress_impl_options_ui_tabs_AbstractTab extends tubepress_impl_options_ui_AbstractDelegatingFormHandler implements tubepress_spi_options_ui_Tab
+abstract class tubepress_impl_options_ui_tabs_AbstractTab extends tubepress_impl_options_ui_AbstractDelegatingFormHandler implements tubepress_spi_options_ui_Tab
 {
     const TEMPLATE_VAR_WIDGETARRAY = 'org_tubepress_impl_options_ui_tabs_AbstractTab__widgetArray';
 
-    public function getTitle()
-    {
-        $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
+    private $_messageService;
 
-        return $messageService->_($this->doGetTitle());
+    private $_templateBuilder;
+
+    private $_environmentDetector;
+
+    private $_fieldBuilder;
+
+    public function __construct(
+
+        tubepress_spi_message_MessageService          $messageService,
+        ehough_contemplate_api_TemplateBuilder        $templateBuilder,
+        tubepress_spi_environment_EnvironmentDetector $environmentDetector,
+        tubepress_spi_options_ui_FieldBuilder         $fieldBuilder) {
+
+        $this->_messageService      = $messageService;
+        $this->_templateBuilder     = $templateBuilder;
+        $this->_environmentDetector = $environmentDetector;
+        $this->_fieldBuilder        = $fieldBuilder;
     }
 
-    public function getHtml()
+    /**
+     * Get the title of this tab.
+     *
+     * @return string The title of this tab.
+     */
+    public final function getTitle()
     {
-        $ioc            = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
-        $templateBldr   = $ioc->get(org_tubepress_api_template_TemplateBuilder::_);
-        $fse            = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-        $basePath       = $fse->getTubePressBaseInstallationPath();
-        $template       = $templateBldr->getNewTemplateInstance($basePath . $this->getTemplatePath());
+        return $this->_messageService->_($this->getRawTitle());
+    }
+
+    /**
+     * Generates the HTML for the options form.
+     *
+     * @return string The HTML for the options form.
+     */
+    public final function getHtml()
+    {
+        $basePath       = $this->_environmentDetector->getTubePressBaseInstallationPath();
+        $template       = $this->_templateBuilder->getNewTemplateInstance($basePath . $this->getTemplatePath());
 
         $template->setVariable(self::TEMPLATE_VAR_WIDGETARRAY, $this->getDelegateFormHandlers());
 
@@ -50,16 +74,56 @@ abstract class org_tubepress_impl_options_ui_tabs_AbstractTab extends tubepress_
         return $template->toString();
     }
 
-    protected abstract function doGetTitle();
-    
-    protected function addToTemplate(org_tubepress_api_template_Template $template)
+    /**
+     * Get the untranslated title of this tab.
+     *
+     * @return string The untranslated title of this tab.
+     */
+    protected abstract function getRawTitle();
+
+    /**
+     * Override point.
+     *
+     * Allows subclasses to perform additional modifications to the template.
+     *
+     * @param ehough_contemplate_api_Template $template The template for this tab.
+     */
+    protected function addToTemplate(ehough_contemplate_api_Template $template)
     {
         
     }
-    
-    protected function getTemplatePath()
+
+    /**
+     * Override point.
+     *
+     * Allows subclasses to change the template path.
+     *
+     * @param $originaltemplatePath string The original template path.
+     *
+     * @return string The (possibly) modified template path.
+     */
+    protected function getModifiedTemplatePath($originaltemplatePath)
     {
-        return '/sys/ui/templates/options_page/tab.tpl.php';
+        return $originaltemplatePath;
+    }
+
+    protected final function getFieldBuilder()
+    {
+        return $this->_fieldBuilder;
+    }
+
+    /**
+     * Get the path to the template for this field, relative
+     * to TubePress's root.
+     *
+     * @return string The path to the template for this field, relative
+     *                to TubePress's root.
+     */
+    protected final function getTemplatePath()
+    {
+        $original = 'src/main/resources/system-templates/options_page/tab.tpl.php';
+
+        return $this->getModifiedTemplatePath($original);
     }
 
 }

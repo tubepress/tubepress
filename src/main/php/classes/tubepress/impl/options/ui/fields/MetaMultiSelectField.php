@@ -22,38 +22,56 @@
 /**
  * Displays a multi-select drop-down input for video meta.
  */
-class org_tubepress_impl_options_ui_fields_MetaMultiSelectField extends org_tubepress_impl_options_ui_fields_AbstractMultiSelectField
+class tubepress_impl_options_ui_fields_MetaMultiSelectField extends tubepress_impl_options_ui_fields_AbstractMultiSelectField
 {
-    public function __construct()
+    public function __construct(
+
+        tubepress_spi_message_MessageService            $messageService,
+        tubepress_spi_http_HttpRequestParameterService  $hrps,
+        tubepress_spi_environment_EnvironmentDetector   $environmentDetector,
+        ehough_contemplate_api_TemplateBuilder          $templateBuilder,
+        tubepress_spi_options_StorageManager            $storageManager,
+        tubepress_spi_options_OptionDescriptorReference $reference)
     {
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
+        parent::__construct($messageService,
+            $hrps,
+            $environmentDetector,
+            $templateBuilder,
+            $storageManager, array(
 
-        parent::__construct(array(
-
-            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::AUTHOR),
-            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::RATING),
-            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::CATEGORY),
-            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::UPLOADED),
-            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::DESCRIPTION),
-            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::ID),
-            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::KEYWORDS),
-            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::LIKES),
-            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::RATINGS),
-            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::LENGTH),
-            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::TITLE),
-            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::URL),
-            $odr->findOneByName(org_tubepress_api_const_options_names_Meta::VIEWS),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::AUTHOR),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::RATING),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::CATEGORY),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::UPLOADED),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::DESCRIPTION),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::ID),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::KEYWORDS),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::LIKES),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::RATINGS),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::LENGTH),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::TITLE),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::URL),
+            $reference->findOneByName(tubepress_api_const_options_names_Meta::VIEWS),
 
         ), 'metadropdown');
     }
 
-    protected function getRawTitle()
+    /**
+     * Get the untranslated title of this field.
+     *
+     * @return string The untranslated title of this field.
+     */
+    protected final function getRawTitle()
     {
         return 'Show each video\'s...';   //>(translatable)<
     }
 
-    protected function getRawDescription()
+    /**
+     * Get the untranslated description of this field.
+     *
+     * @return string The untranslated description of this field.
+     */
+    protected final function getRawDescription()
     {
         return '';
     }

@@ -39,7 +39,7 @@ class tubepress_impl_options_DefaultOptionValidator implements tubepress_spi_opt
      *
      * @return boolean True if the option name exists and the value supplied is valid. False otherwise.
      */
-    public function isValid($optionName, $candidate)
+    public final function isValid($optionName, $candidate)
     {
         return $this->getProblemMessage($optionName, $candidate) === null;
     }
@@ -52,7 +52,7 @@ class tubepress_impl_options_DefaultOptionValidator implements tubepress_spi_opt
      *
      * @return mixed Null if the option passes validation, otherwise a string failure message.
      */
-    function getProblemMessage($optionName, $candidate)
+    public final function getProblemMessage($optionName, $candidate)
     {
         $descriptor = $this->_optionDescriptorReference->findOneByName($optionName);
 

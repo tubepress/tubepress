@@ -22,30 +22,50 @@
 /**
  * Displays a multi-select drop-down input for video meta.
  */
-class org_tubepress_impl_options_ui_fields_FilterMultiSelectField extends org_tubepress_impl_options_ui_fields_AbstractMultiSelectField
+class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_impl_options_ui_fields_AbstractMultiSelectField
 {
-    const __ = 'org_tubepress_impl_options_ui_fields_FilterMultiSelectField';
+    const __ = 'tubepress_impl_options_ui_fields_FilterMultiSelectField';
     
-    public function __construct()
+    public function __construct(
+
+        tubepress_spi_message_MessageService            $messageService,
+        tubepress_spi_http_HttpRequestParameterService  $hrps,
+        tubepress_spi_environment_EnvironmentDetector   $environmentDetector,
+        ehough_contemplate_api_TemplateBuilder          $templateBuilder,
+        tubepress_spi_options_StorageManager            $storageManager,
+        tubepress_spi_options_OptionDescriptorReference $optionsDescriptorReference)
     {
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
+        parent::__construct(
 
-        parent::__construct(array(
+            $messageService,
+            $hrps,
+            $environmentDetector,
+            $templateBuilder,
+            $storageManager,
+            array(
 
-            $odr->findOneByName(org_tubepress_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS),
-            $odr->findOneByName(org_tubepress_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS),
-
+                $optionsDescriptorReference->findOneByName(tubepress_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS),
+                $optionsDescriptorReference->findOneByName(tubepress_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS),
 
         ), 'filterdropdown');
     }
 
-    protected function getRawTitle()
+    /**
+     * Get the untranslated title of this field.
+     *
+     * @return string The untranslated title of this field.
+     */
+    protected final function getRawTitle()
     {
         return 'Only show options applicable to...';    //>(translatable)<
     }
 
-    protected function getRawDescription()
+    /**
+     * Get the untranslated description of this field.
+     *
+     * @return string The untranslated description of this field.
+     */
+    protected final function getRawDescription()
     {
         return '';
     }

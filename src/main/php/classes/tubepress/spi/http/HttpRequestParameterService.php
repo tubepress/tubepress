@@ -22,18 +22,18 @@
 /**
  * Pulls out info from $_REQUEST.
  */
-interface tubepress_api_http_HttpRequestParameterService
+interface tubepress_spi_http_HttpRequestParameterService
 {
-    const _ = 'tubepress_api_http_HttpRequestParameterService';
+    const _ = 'tubepress_spi_http_HttpRequestParameterService';
 
     /**
      * Gets the parameter value from PHP's $_REQUEST array.
      *
      * @param string $name The name of the parameter.
      *
-     * @return unknown_type The raw value of the parameter. Can be anything that would
-     *                       otherwise be found in PHP's $_REQUEST array. Returns null
-     *                       if the parameter is not set on this request.
+     * @return mixed The raw value of the parameter. Can be anything that would
+     *               otherwise be found in PHP's $_REQUEST array. Returns null
+     *               if the parameter is not set on this request.
      */
     function getParamValue($name);
 
@@ -45,9 +45,9 @@ interface tubepress_api_http_HttpRequestParameterService
      * @param string $name    The name of the parameter.
      * @param int    $default The default value is the raw value is not integral.
      *
-     * @return unknown_type The raw value of the parameter. Can be anything that would
-     *                       otherwise be found in PHP's $_REQUEST array. Returns null
-     *                       if the parameter is not set on this request.
+     * @return mixed The raw value of the parameter. Can be anything that would
+     *               otherwise be found in PHP's $_REQUEST array. Returns null
+     *               if the parameter is not set on this request.
      */
     function getParamValueAsInt($name, $default);
 
@@ -56,7 +56,7 @@ interface tubepress_api_http_HttpRequestParameterService
      *
      * @param string $name The name of the parameter.
      *
-     * @return unknown_type True if the parameter is found in PHP's $_REQUEST array, false otherwise.
+     * @return mixed True if the parameter is found in PHP's $_REQUEST array, false otherwise.
      */
     function hasParam($name);
 }

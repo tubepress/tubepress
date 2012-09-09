@@ -74,7 +74,7 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
      *
      * @return array All of the registered option descriptors.
      */
-    public function findAll()
+    public final function findAll()
     {
         return $this->_optionDescriptors;
     }
@@ -87,7 +87,7 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
      * @return tubepress_spi_options_OptionDescriptor The option descriptor with the
      *                                                    given name, or null if not found.
      */
-    public function findOneByName($name)
+    public final function findOneByName($name)
     {
         if (! array_key_exists($name, $this->_nameToOptionDescriptorMap)) {
 
@@ -104,7 +104,7 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
      *
      * @throws InvalidArgumentException If this option descriptor already exists.
      */
-    public function register(tubepress_spi_options_OptionDescriptor $descriptor)
+    public final function register(tubepress_spi_options_OptionDescriptor $descriptor)
     {
         if (array_key_exists($descriptor->getName(), $this->_nameToOptionDescriptorMap)) {
 
