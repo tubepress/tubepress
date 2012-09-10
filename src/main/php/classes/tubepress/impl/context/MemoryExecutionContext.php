@@ -26,8 +26,6 @@
  */
 class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_context_ExecutionContext
 {
-    private static $_logPrefix = 'Memory Execution Context';
-
     /**
      * The user's "custom" options that differ from what's in storage.
      */
@@ -36,7 +34,7 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
     /**
      * The actual shortcode used.
      */
-    private $_shortcode;
+    private $_actualShortcodeUsed;
 
     /**
      * The storage manager backing us.
@@ -51,19 +49,25 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
     /**
      * A handle to the plugin manager.
      */
-    private $_pluginManager;
+    private $_eventDispatcher;
+
+    /** Logger. */
+    private $_logger;
 
     /**
      * Constructor.
      */
     public function __construct(
 
-
+        tubepress_spi_options_StorageManager   $storageManager,
+        tubepress_spi_options_OptionValidator  $validator,
+        ehough_tickertape_api_IEventDispatcher $eventDispatcher
     )
     {
-        $this->_storageManager    = $ioc->get(org_tubepress_api_options_StorageManager::_);
-        $this->_validationService = $ioc->get(org_tubepress_api_options_OptionValidator::_);
-        $this->_pluginManager     = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+        $this->_storageManager    = $storageManager;
+        $this->_validationService = $validator;
+        $this->_eventDispatcher   = $eventDispatcher;
+        $this->_logger            = ehough_epilog_api_LoggerFactory::getLogger('Memory Execution Context');
     }
 
     /**
@@ -71,10 +75,10 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
      *
      * @return void
      */
-    public function reset()
+    public final function reset()
     {
-        $this->_customOptions = array();
-        $this->_shortcode     = '';
+        $this->_customOptions       = array();
+        $this->_actualShortcodeUsed = '';
     }
 
     /**
@@ -82,9 +86,9 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
      *
      * @param string $optionName The name of the option
      *
-     * @return unknown The option value
+     * @return mixed The option value
      */
-    public function get($optionName)
+    public final function get($optionName)
     {
         /* get the value, either from the shortcode or the db */
         if (array_key_exists($optionName, $this->_customOptions)) {
@@ -98,28 +102,37 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
     /**
      * Sets the value of an option
      *
-     * @param string  $optionName  The name of the option
-     * @param unknown $optionValue The option value
+     * @param string $optionName  The name of the option
+     * @param mixed  $optionValue The option value
      *
-     * @return True if the option was set normally, otherwise a string error message.
+     * @return mixed True if the option was set normally, otherwise a string error message.
      */
-    public function set($optionName, $optionValue)
+    public final function set($optionName, $optionValue)
     {
         /** First run it through the filters. */
-        $filtered = $this->_pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION, $optionValue, $optionName);
+        /** Run it through the filters. */
+        $event = new tubepress_api_event_PreValidationOptionSet($optionName, $optionValue);
+        $this->_eventDispatcher->dispatch(tubepress_api_event_PreValidationOptionSet::EVENT_NAME, $event);
+        $filteredValue = $event->optionValue;
 
-        if ($this->_validationService->isValid($optionName, $filtered)) {
+        if ($this->_validationService->isValid($optionName, $filteredValue)) {
 
-            org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Accepted valid value: %s = %s', $optionName, $filtered);
+            if ($this->_logger->isDebugEnabled()) {
 
-            $this->_customOptions[$optionName] = $filtered;
+                $this->_logger->debug(sprintf('Accepted valid value: %s = %s', $optionName, $filteredValue));
+            }
+
+            $this->_customOptions[$optionName] = $filteredValue;
 
             return true;
         }
 
-        $problemMessage = $this->_validationService->getProblemMessage($optionName, $filtered);
+        $problemMessage = $this->_validationService->getProblemMessage($optionName, $filteredValue);
 
-        org_tubepress_impl_log_Log::log(self::$_logPrefix, 'Ignoring invalid value for "%s" (%s)', $optionName, $problemMessage);
+        if ($this->_logger->isDebugEnabled()) {
+
+            $this->_logger->debug(sprintf('Ignoring invalid value for "%s" (%s)', $optionName, $problemMessage));
+        }
 
         return $problemMessage;
     }
@@ -129,16 +142,10 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
      *
      * @param array $customOpts The custom options.
      *
-     * @return An array of error messages. May be empty, never null.
+     * @return array An array of error messages. May be empty, never null.
      */
-    public function setCustomOptions($customOpts)
+    public final function setCustomOptions(array $customOpts)
     {
-    	if (! is_array($customOpts)) {
-
-    	    //TODO: this should throw an exception or something...
-    		return;
-    	}
-
     	$this->_customOptions = array();
     	$problemMessages      = array();
 
@@ -162,7 +169,7 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
      *
      * @return array The options that differ from the default options.
      */
-    public function getCustomOptions()
+    public final function getCustomOptions()
     {
         return $this->_customOptions;
     }
@@ -174,9 +181,9 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
      *
      * @return void
      */
-    public function setActualShortcodeUsed($newTagString)
+    public final function setActualShortcodeUsed($newTagString)
     {
-        $this->_shortcode = $newTagString;
+        $this->_actualShortcodeUsed = $newTagString;
     }
 
     /**
@@ -184,9 +191,9 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
      *
      * @return string The current shortcode
      */
-    public function getActualShortcodeUsed()
+    public final function getActualShortcodeUsed()
     {
-        return $this->_shortcode;
+        return $this->_actualShortcodeUsed;
     }
 
     /**
@@ -194,9 +201,9 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
      *
      * @return string This context as a shortcode string.
      */
-    public function toShortcode()
+    public final function toShortcode()
     {
-        $trigger  = $this->get(org_tubepress_api_const_options_names_Advanced::KEYWORD);
+        $trigger  = $this->get(tubepress_api_const_options_names_Advanced::KEYWORD);
         $optPairs = array();
 
         foreach ($this->_customOptions as $name => $value) {
