@@ -22,7 +22,7 @@
 /**
  * A video object that TubePress processes
  */
-class org_tubepress_api_video_Video
+class tubepress_api_video_Video
 {
     private $_authorDisplayName;
     private $_authorUid;

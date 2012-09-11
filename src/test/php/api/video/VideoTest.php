@@ -1,6 +1,6 @@
 <?php
 
-require_once BASE . '/sys/classes/org/tubepress/api/video/Video.class.php';
+require_once BASE . '/sys/classes/org/tubepress/api/video/Video.php';
 
 class org_tubepress_api_video_VideoTest extends TubePressUnitTest {
 

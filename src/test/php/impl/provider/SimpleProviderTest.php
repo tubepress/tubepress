@@ -1,7 +1,7 @@
 <?php
 
 require_once BASE . '/sys/classes/org/tubepress/impl/provider/SimpleProvider.class.php';
-require_once BASE . '/sys/classes/org/tubepress/api/video/Video.class.php';
+require_once BASE . '/sys/classes/org/tubepress/api/video/Video.php';
 
 class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
 {

@@ -217,25 +217,7 @@ interface org_tubepress_api_const_plugin_FilterPoint
      */
     const TEMPLATE_GALLERY = 'galleryTemplate';
 
-    /**
-     * Modify the template for the TubePress "player"
-     *
-     * To use this filter point, create a class that includes a function with the method signature defined below.
-     * Then in your plugin file (tubepress-content/plugins/yourplugin/yourplugin.php), register the class with:
-     *
-     *     TubePress::registerFilter('playerTemplate', $yourClassInstance);
-     *
-     *
-     * @param org_tubepress_api_template_Template $template          The template to modify.
-     * @param org_tubepress_api_video_Video       $video             The video to modify.
-     * @param string                              $videoProviderName The name of the video provider ("vimeo" or "youtube")
-     * @param string                              $playerName        The TubePress "player" name (e.g. "shadowbox", "normal", "youtube", etc)
-     *
-     * @return org_tubepress_api_template_Template The (possibly modified) template. Never null.
-     *
-     * function alter_playerTemplate(org_tubepress_api_template_Template $template, org_tubepress_api_video_Video $video, $videoProviderName, $playerName);
-     */
-    const TEMPLATE_PLAYER = 'playerTemplate';
+
 
     /**
      * Modify the template for a single video embed.

@@ -19,21 +19,27 @@
  *
  */
 
+
 /**
- * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
+ * Calculates video provider in use.
  */
-interface org_tubepress_api_player_PlayerHtmlGenerator
+interface tubepress_spi_provider_ProviderCalculator
 {
-    const _ = 'org_tubepress_api_player_PlayerHtmlGenerator';
+    const _ = 'tubepress_spi_provider_ProviderCalculator';
 
     /**
-     * Get's the HTML for the TubePress "player"
+     * Determine the current video provider.
      *
-     * @param org_tubepress_api_video_Video $vid The video to display in the player.
-     *
-     * @throws Exception If something goes wrong.
-     *
-     * @return string The HTML for this player with the given video.
+     * @return string 'youtube', 'vimeo', or 'directory'
      */
-    function getHtml(org_tubepress_api_video_Video $vid);
+    function calculateCurrentVideoProvider();
+
+    /**
+     * Determine the provider of the given video ID.
+     *
+     * @param string $videoId The ID of the video to examine.
+     *
+     * @return string 'youtube', 'vimeo', or 'directory'
+     */
+    function calculateProviderOfVideoId($videoId);
 }

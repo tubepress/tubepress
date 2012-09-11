@@ -22,7 +22,7 @@
 /**
  * Calculates video provider in use.
  */
-class org_tubepress_impl_provider_SimpleProviderCalculator implements org_tubepress_api_provider_ProviderCalculator
+class org_tubepress_impl_provider_SimpleProviderCalculator implements tubepress_spi_provider_ProviderCalculator
 {
     /**
      * Determine the current video provider.

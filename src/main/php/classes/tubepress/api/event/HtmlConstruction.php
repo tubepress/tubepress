@@ -19,27 +19,21 @@
  *
  */
 
-
 /**
- * Calculates video provider in use.
+ * This event is fired when a TubePress builds *any* HTML. It is fired *after* any other
+ * HTML-based events.
  */
-interface org_tubepress_api_provider_ProviderCalculator
+class tubepress_api_event_HtmlConstruction extends ehough_tickertape_api_Event
 {
-    const _ = 'org_tubepress_api_provider_ProviderCalculator';
+    const EVENT_NAME = 'tubepress.api.event.HtmlConstruction';
 
     /**
-     * Determine the current video provider.
-     *
-     * @return string 'youtube', 'vimeo', or 'directory'
+     * @var string The HTML.
      */
-    function calculateCurrentVideoProvider();
+    public $html;
 
-    /**
-     * Determine the provider of the given video ID.
-     *
-     * @param string $videoId The ID of the video to examine.
-     *
-     * @return string 'youtube', 'vimeo', or 'directory'
-     */
-    function calculateProviderOfVideoId($videoId);
+    public function __construct($html)
+    {
+        $this->html = $html;
+    }
 }

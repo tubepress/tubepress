@@ -20,27 +20,20 @@
  */
 
 /**
- * This event is fired when a TubePress option (a name-value pair) is being set. It is fired
- * *before* any validation takes place, so use caution when handling these values.
+ * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
-class tubepress_api_event_PreValidationOptionSet extends ehough_tickertape_api_Event
+interface tubepress_spi_player_PlayerHtmlGenerator
 {
-    const EVENT_NAME = 'tubepress.api.event.PreValidationOptionSet';
+    const _ = 'tubepress_spi_player_PlayerHtmlGenerator';
 
     /**
-     * @var string The name of the option.
+     * Get's the HTML for the TubePress "player"
+     *
+     * @param tubepress_api_video_Video $vid The video to display in the player.
+     *
+     * @throws Exception If something goes wrong.
+     *
+     * @return string The HTML for this player with the given video.
      */
-    public $optionName;
-
-    /**
-     * @var mixed The incoming option value.
-     */
-    public $optionValue;
-
-    public function __construct($optionName, $candidateValue)
-    {
-        $this->optionName  = $optionName;
-        $this->optionValue = $candidateValue;
-    }
-
+    function getHtml(tubepress_api_video_Video $vid);
 }
