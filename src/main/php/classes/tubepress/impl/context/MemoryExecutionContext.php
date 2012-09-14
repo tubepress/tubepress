@@ -36,38 +36,15 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
      */
     private $_actualShortcodeUsed;
 
-    /**
-     * The storage manager backing us.
-     */
-    private $_storageManager;
-
-    /**
-     * A handle to the validation service.
-     */
-    private $_validationService;
-
-    /**
-     * A handle to the plugin manager.
-     */
-    private $_eventDispatcher;
-
     /** Logger. */
     private $_logger;
 
     /**
      * Constructor.
      */
-    public function __construct(
-
-        tubepress_spi_options_StorageManager   $storageManager,
-        tubepress_spi_options_OptionValidator  $validator,
-        ehough_tickertape_api_IEventDispatcher $eventDispatcher
-    )
+    public function __construct()
     {
-        $this->_storageManager    = $storageManager;
-        $this->_validationService = $validator;
-        $this->_eventDispatcher   = $eventDispatcher;
-        $this->_logger            = ehough_epilog_api_LoggerFactory::getLogger('Memory Execution Context');
+        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Memory Execution Context');
     }
 
     /**
@@ -96,7 +73,9 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
             return $this->_customOptions[$optionName];
         }
 
-        return $this->_storageManager->get($optionName);
+        $optionStorageManagerService = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
+
+        return $optionStorageManagerService->get($optionName);
     }
 
     /**
@@ -109,13 +88,16 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
      */
     public final function set($optionName, $optionValue)
     {
+        $eventDispatcherService = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        $optionValidatorService = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionValidator();
+
         /** First run it through the filters. */
         /** Run it through the filters. */
         $event = new tubepress_api_event_PreValidationOptionSet($optionName, $optionValue);
-        $this->_eventDispatcher->dispatch(tubepress_api_event_PreValidationOptionSet::EVENT_NAME, $event);
+        $eventDispatcherService->dispatch(tubepress_api_event_PreValidationOptionSet::EVENT_NAME, $event);
         $filteredValue = $event->optionValue;
 
-        if ($this->_validationService->isValid($optionName, $filteredValue)) {
+        if ($optionValidatorService->isValid($optionName, $filteredValue)) {
 
             if ($this->_logger->isDebugEnabled()) {
 
@@ -127,7 +109,7 @@ class tubepress_impl_context_MemoryExecutionContext implements tubepress_spi_con
             return true;
         }
 
-        $problemMessage = $this->_validationService->getProblemMessage($optionName, $filteredValue);
+        $problemMessage = $optionValidatorService->getProblemMessage($optionName, $filteredValue);
 
         if ($this->_logger->isDebugEnabled()) {
 

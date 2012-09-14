@@ -20,21 +20,30 @@
  */
 
 /**
- * Generates the HTML for an embeddable Flash/HTML5 video player
- *
+ * This event is fired when a TubePress builds the PHP/HTML template for a TubePress embedded
+ * video player.
  */
-interface org_tubepress_api_embedded_EmbeddedHtmlGenerator
+class tubepress_api_event_EmbeddedTemplateConstruction extends ehough_tickertape_impl_GenericEvent
 {
-    const _ = 'org_tubepress_api_embedded_EmbeddedHtmlGenerator';
+    const EVENT_NAME = 'tubepress.api.event.EmbeddedTemplateConstruction';
 
     /**
-     * Spits back the text for this embedded player
-     *
-     * @param string $videoId The video ID to display
-     *
-     * @throws Exception If something goes wrong.
-     *
-     * @return string The text for this embedded player
+     * The ID of the video to be played.
      */
-    function getHtml($videoId);
+    const ARGUMENT_VIDEO_ID = 'videoId';
+
+    /**
+     * The name of the video provider (e.g. "vimeo" or "youtube").
+     */
+    const ARGUMENT_PROVIDER_NAME = 'providerName';
+
+    /**
+     * The embedded data URL.
+     */
+    const ARGUMENT_DATA_URL = 'dataUrl';
+
+    /**
+     * The embedded implementation name.
+     */
+    const ARGUMENT_EMBEDDED_IMPLEMENTATION_NAME = 'embeddedImplementationName';
 }

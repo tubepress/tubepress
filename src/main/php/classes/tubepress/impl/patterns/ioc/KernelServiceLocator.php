@@ -40,6 +40,16 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     private static $_executionContext;
 
     /**
+     * @var ehough_fimble_api_FileSystem
+     */
+    private static $_fileSystem;
+
+    /**
+     * @var ehough_fimble_api_FinderFactory
+     */
+    private static $_fileSystemFinderFactory;
+
+    /**
      * @var tubepress_spi_http_HttpRequestParameterService
      */
     private static $_httpRequestParameterService;
@@ -131,6 +141,22 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function getExecutionContext()
     {
         return self::$_executionContext;
+    }
+
+    /**
+     * @return ehough_fimble_api_FileSystem The filesystem service.
+     */
+    public static function getFileSystem()
+    {
+        return self::$_fileSystem;
+    }
+
+    /**
+     * @return ehough_fimble_api_FinderFactory The finder factory.
+     */
+    public static function getFileSystemFinderFactory()
+    {
+        return self::$_fileSystemFinderFactory;
     }
 
     /**
@@ -267,6 +293,22 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function setExecutionContext(tubepress_spi_context_ExecutionContext $executionContext)
     {
         self::$_executionContext = $executionContext;
+    }
+
+    /**
+     * @param ehough_fimble_api_Filesystem $fileSystem The filesystem.
+     */
+    public static function setFileSystem(ehough_fimble_api_Filesystem $fileSystem)
+    {
+        self::$_fileSystem = $fileSystem;
+    }
+
+    /**
+     * @param ehough_fimble_api_FinderFactory $finderFactory The finder factory.
+     */
+    public static function setFileSystemFinderFactory(ehough_fimble_api_FinderFactory $finderFactory)
+    {
+        self::$_fileSystemFinderFactory = $finderFactory;
     }
 
     /**

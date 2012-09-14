@@ -34,12 +34,11 @@ class org_tubepress_impl_exec_MemoryExecutionContextTest extends PHPUnit_Framewo
         $this->_mockStorageManager    = Mockery::mock(tubepress_spi_options_StorageManager::_);
         $this->_mockValidationService = Mockery::mock(tubepress_spi_options_OptionValidator::_);
 
-        $this->_sut = new tubepress_impl_context_MemoryExecutionContext(
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionStorageManager($this->_mockStorageManager);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionValidator($this->_mockValidationService);
 
-            $this->_mockStorageManager,
-            $this->_mockValidationService,
-            $this->_mockEventDispatcher
-        );
+        $this->_sut = new tubepress_impl_context_MemoryExecutionContext();
     }
 
     public function testSetGet()

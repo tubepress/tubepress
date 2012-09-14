@@ -1,5 +1,5 @@
 {
-    "hash": "d68b85893fcdd6dcd3565fd1f1ba0c62",
+    "hash": "0f7175f273cbbf54e1c35dc8c199ef1d",
     "packages": [
         {
             "package": "ehough/chaingang",
@@ -8,6 +8,10 @@
         {
             "package": "ehough/contemplate",
             "version": "1.0.0"
+        },
+        {
+            "package": "ehough/curly",
+            "version": "1.0.1"
         },
         {
             "package": "ehough/epilog",

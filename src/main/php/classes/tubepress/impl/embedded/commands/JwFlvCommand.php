@@ -22,22 +22,22 @@
 /**
  * Embedded player command for the JW FLV player
  */
-class org_tubepress_impl_embedded_commands_JwFlvCommand extends org_tubepress_impl_embedded_commands_AbstractEmbeddedCommand
+class tubepress_impl_embedded_commands_JwFlvCommand extends tubepress_impl_embedded_commands_AbstractEmbeddedCommand
 {
-    protected function _canHandle($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_exec_ExecutionContext $context)
+    protected function _canHandle($providerName, $videoId, tubepress_spi_context_ExecutionContext $context)
     {
-        return $providerName === org_tubepress_api_provider_Provider::YOUTUBE
-            && $context->get(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL) === org_tubepress_api_const_options_values_PlayerImplementationValue::LONGTAIL;
+        return $providerName === tubepress_spi_provider_Provider::YOUTUBE
+            && $context->get(tubepress_api_const_options_names_Embedded::PLAYER_IMPL) === tubepress_api_const_options_values_PlayerImplementationValue::LONGTAIL;
     }
 
-    protected function _getTemplatePath($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_exec_ExecutionContext $context)
+    protected function _getTemplatePath($providerName, $videoId, tubepress_spi_context_ExecutionContext $context)
     {
         return 'embedded_flash/longtail.tpl.php';
     }
 
-    protected function _getEmbeddedDataUrl($providerName, $videoId, org_tubepress_api_ioc_IocService $ioc, org_tubepress_api_exec_ExecutionContext $context)
+    protected function _getEmbeddedDataUrl($providerName, $videoId, tubepress_spi_context_ExecutionContext $context)
     {
-        return new org_tubepress_api_url_Url(sprintf('http://www.youtube.com/watch?v=%s', $videoId));
+        return new ehough_curly_Url(sprintf('http://www.youtube.com/watch?v=%s', $videoId));
     }
 
     protected function _getEmbeddedImplName()

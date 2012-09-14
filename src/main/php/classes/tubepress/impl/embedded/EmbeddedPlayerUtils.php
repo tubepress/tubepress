@@ -23,7 +23,7 @@
  * Embedded player utilities
  *
  */
-class org_tubepress_impl_embedded_EmbeddedPlayerUtils
+class tubepress_impl_embedded_EmbeddedPlayerUtils
 {
     /**
      * Returns a valid HTML color.
@@ -36,9 +36,12 @@ class org_tubepress_impl_embedded_EmbeddedPlayerUtils
     public static function getSafeColorValue($candidate, $default)
     {
         $pattern = '/^[0-9a-fA-F]{6}$/';
+
         if (preg_match($pattern, $candidate) === 1) {
+
             return $candidate;
         }
+
         return $default;
     }
 
@@ -52,8 +55,10 @@ class org_tubepress_impl_embedded_EmbeddedPlayerUtils
     public static function booleanToOneOrZero($bool)
     {
         if ($bool === '1' || $bool === '0') {
+
             return $bool;
         }
+
         return $bool ? '1' : '0';
     }
 
