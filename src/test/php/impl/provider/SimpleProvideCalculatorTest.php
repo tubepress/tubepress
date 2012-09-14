@@ -40,12 +40,13 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends PHPUnit_F
         $this->_mockProviderCalculator = Mockery::mock(tubepress_spi_provider_ProviderCalculator::_);
         $this->_mockThemeHandler       = Mockery::mock(tubepress_spi_theme_ThemeHandler::_);
 
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setVideoProviderCalculator($this->_mockProviderCalculator);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setThemeHandler($this->_mockThemeHandler);
+        $this->_sut = new tubepress_impl_player_DefaultPlayerHtmlGenerator(
 
-        $this->_sut = new tubepress_impl_player_DefaultPlayerHtmlGenerator();
+            $this->_mockExecutionContext,
+            $this->_mockThemeHandler,
+            $this->_mockProviderCalculator,
+            $this->_mockEventDispatcher
+        );
 
         $this->_mockVideo->shouldReceive('getId')->once()->andReturn('video-id');
     }

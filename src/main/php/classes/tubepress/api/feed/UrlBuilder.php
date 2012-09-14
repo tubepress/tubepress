@@ -23,18 +23,16 @@
  * Builds URLs to send out to a remote provider
  *
  */
-interface org_tubepress_api_feed_UrlBuilder
+interface tubepress_spi_feed_UrlBuilder
 {
-    const _ = 'org_tubepress_api_feed_UrlBuilder';
+    const _ = 'tubepress_spi_feed_UrlBuilder';
 
     /**
      * Builds a URL for a list of videos
      *
      * @param int $currentPage The current page number of the gallery.
      *
-     * @throws Exception If there was a problem.
-     *
-     * @return string The request URL for this gallery
+     * @return string The request URL for this gallery.
      */
     function buildGalleryUrl($currentPage);
 
@@ -43,7 +41,7 @@ interface org_tubepress_api_feed_UrlBuilder
      *
      * @param string $id The video ID to search for
      *
-     * @throws Exception If there was a problem.
+     * @throws InvalidArgumentException If unable to build a URL for the given video.
      *
      * @return string The URL for the single video given.
      */

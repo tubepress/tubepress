@@ -24,27 +24,6 @@
  */
 class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_player_PlayerHtmlGenerator
 {
-    private $_executionContext;
-
-    private $_themeHandler;
-
-    private $_providerCalculator;
-
-    private $_eventDispatcher;
-
-    public function __construct(
-
-        tubepress_spi_context_ExecutionContext    $executionContext,
-        tubepress_spi_theme_ThemeHandler          $themeHandler,
-        tubepress_spi_provider_ProviderCalculator $providerCalculator,
-        ehough_tickertape_api_IEventDispatcher    $eventDispatcher)
-    {
-        $this->_executionContext   = $executionContext;
-        $this->_themeHandler       = $themeHandler;
-        $this->_providerCalculator = $providerCalculator;
-        $this->_eventDispatcher    = $eventDispatcher;
-    }
-
     /**
      * Get's the HTML for the TubePress "player"
      *
@@ -54,15 +33,20 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
      */
     public final function getHtml(tubepress_api_video_Video $vid)
     {
-        $playerName   = $this->_executionContext->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
-        $template     = $this->_themeHandler->getTemplateInstance("players/$playerName.tpl.php");
-        $providerName = $this->_providerCalculator->calculateProviderOfVideoId($vid->getId());
+        $executionContextService   = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $themeHandlerService       = tubepress_impl_patterns_ioc_KernelServiceLocator::getThemeHandler();
+        $providerCalculatorService = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoProviderCalculator();
+        $eventDispatcherService    = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+
+        $playerName   = $executionContextService->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
+        $template     = $themeHandlerService->getTemplateInstance("players/$playerName.tpl.php");
+        $providerName = $providerCalculatorService->calculateProviderOfVideoId($vid->getId());
 
         /*
          * Run filters for the player template construction.
          */
         $playerTemplateEvent = new tubepress_api_event_PlayerTemplateConstruction($template, $vid, $providerName, $playerName);
-        $this->_eventDispatcher->dispatch(
+        $eventDispatcherService->dispatch(
 
             tubepress_api_event_PlayerTemplateConstruction::EVENT_NAME,
             $playerTemplateEvent
@@ -73,7 +57,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
          */
         $html            = $playerTemplateEvent->template->toString();
         $playerHtmlEvent = new tubepress_api_event_PlayerHtmlConstruction($html, $vid, $providerName, $playerName);
-        $this->_eventDispatcher->dispatch(
+        $eventDispatcherService->dispatch(
 
             tubepress_api_event_PlayerHtmlConstruction::EVENT_NAME,
             $playerHtmlEvent
@@ -84,7 +68,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
          */
         $html      = $playerHtmlEvent->playerHtml;
         $htmlEvent = new tubepress_api_event_HtmlConstruction($html);
-        $this->_eventDispatcher->dispatch(
+        $eventDispatcherService->dispatch(
 
             tubepress_api_event_HtmlConstruction::EVENT_NAME,
             $htmlEvent
