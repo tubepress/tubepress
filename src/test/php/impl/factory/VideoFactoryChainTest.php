@@ -1,59 +1,74 @@
 <?php
-
-require_once BASE . '/sys/classes/org/tubepress/impl/factory/VideoFactoryChain.class.php';
-
-class org_tubepress_impl_factory_VideoFactoryChainTest extends TubePressUnitTest {
-
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+class org_tubepress_impl_factory_VideoFactoryChainTest extends PHPUnit_Framework_TestCase
+{
+    /** @var tubepress_impl_factory_VideoFactoryChain */
     private $_sut;
 
-    function setUp()
+    private $_mockChain;
+
+    private $_mockProviderCalculator;
+
+    private $_mockEventDispatcher;
+
+    public function setUp()
     {
-        parent::setUp();
-        $this->_sut = new org_tubepress_impl_factory_VideoFactoryChain();
+        $this->_mockChain              = Mockery::mock('ehough_chaingang_api_Chain');
+        $this->_mockProviderCalculator = Mockery::mock(tubepress_spi_provider_ProviderCalculator::_);
+        $this->_mockEventDispatcher    = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
+
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setVideoProviderCalculator($this->_mockProviderCalculator);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
+
+        $this->_sut = new tubepress_impl_factory_VideoFactoryChain($this->_mockChain);
     }
 
-    function testNobodyCanHandle()
+    public function testNobodyCanHandle()
     {
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockProviderCalculator->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('providerrr');
 
-        $pc = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
-        $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('providerrr');
-
-        $mockChainContext = \Mockery::mock('stdClass');
-        $mockChainContext->returnValue = array('one', 'two');
-
-        $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
-        $chain->shouldReceive('execute')->once()->with(anInstanceOf('stdClass'), array(
-                'org_tubepress_impl_factory_commands_YouTubeFactoryCommand',
-                'org_tubepress_impl_factory_commands_VimeoFactoryCommand'
-        ))->andReturn(false);
-        $chain->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
+        $this->_mockChain->shouldReceive('execute')->once()->with(Mockery::type('ehough_chaingang_api_Context'))->andReturn(false);
 
         $this->assertEquals(array(), $this->_sut->feedToVideoArray('bla'));
     }
 
-    function testConvert()
+    public function testConvert()
     {
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockProviderCalculator->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('providerrr');
 
-        $pm  = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
-        $pm->shouldReceive('hasFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::VIDEO)->andReturn(true);
-        $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::VIDEO, 'one', 'providerrr')->andReturn('modified one');
-        $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::VIDEO, 'two', 'providerrr')->andReturn('modified two');
+        $this->_mockChain->shouldReceive('execute')->once()->with(Mockery::on(function ($arg) {
 
-        $pc = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
-        $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('providerrr');
+            $arg->put(tubepress_impl_factory_VideoFactoryChain::CHAIN_KEY_VIDEO_ARRAY, array('a', 'b', 'c'));
 
-        $mockChainContext = \Mockery::mock('stdClass');
-        $mockChainContext->returnValue = array('one', 'two');
+            return $arg instanceof ehough_chaingang_api_Context && $arg->get(tubepress_impl_factory_VideoFactoryChain::CHAIN_KEY_RAW_FEED) === 'bla';
 
-        $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
-        $chain->shouldReceive('execute')->once()->with(anInstanceOf('stdClass'), array(
-            'org_tubepress_impl_factory_commands_YouTubeFactoryCommand',
-            'org_tubepress_impl_factory_commands_VimeoFactoryCommand'
-        ))->andReturn(true);
-        $chain->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
+        }))->andReturn(true);
 
-        $this->assertEquals(array('modified one', 'modified two'), $this->_sut->feedToVideoArray('bla'));
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
+            tubepress_api_event_VideoConstruction::EVENT_NAME, Mockery::on(function ($arg) {
+
+            return $arg instanceof tubepress_api_event_VideoConstruction && ($arg->getSubject() === 'a' ||
+                $arg->getSubject() === 'b' || $arg->getSubject() === 'c') && $arg->getArgument(tubepress_api_event_VideoConstruction::ARGUMENT_PROVIDER_NAME) === 'providerrr';
+        }));
+
+        $this->assertEquals(array('a', 'b', 'c'), $this->_sut->feedToVideoArray('bla'));
     }
 }

@@ -22,46 +22,81 @@
 /**
  * Video factory for Vimeo
  */
-class org_tubepress_impl_factory_commands_VimeoFactoryCommand extends org_tubepress_impl_factory_commands_AbstractFactoryCommand
+class tubepress_impl_factory_commands_VimeoFactoryCommand extends tubepress_impl_factory_commands_AbstractFactoryCommand
 {
-    const LOG_PREFIX = 'Vimeo Factory Command';
+    private $_videoArray;
 
-    protected $_videoArray;
+    private $_unserialized;
 
-    protected function _canHandleFeed($feed)
+    private $_logger;
+
+    /**
+     * Determine if we can handle this feed.
+     *
+     * @param mixed $feed The feed to handle.
+     *
+     * @return boolean True if this command can handle the feed, false otherwise.
+     */
+    protected final function _canHandleFeed($feed)
     {
-        try {
+        $this->_unserialized = @unserialize($feed);
 
-            $unserialized = org_tubepress_impl_factory_commands_AbstractFactoryCommand::_unserializePhpFeed($feed);
-
-        } catch (Exception $e) {
-            return false;
-        }
-
-        return $unserialized->stat === 'ok';
+        return $this->_unserialized !== false && $this->_unserialized->stat === 'ok';
     }
 
-    protected function _preExecute($feed)
+    /**
+     * Perform pre-construction activites for the feed.
+     *
+     * @param mixed $feed The feed to construct.
+     *
+     * @return void
+     */
+    protected final function _preExecute($feed)
     {
-        $unserialized = org_tubepress_impl_factory_commands_AbstractFactoryCommand::_unserializePhpFeed($feed);
+        $unserialized = $this->_unserialized;
 
         if (isset($unserialized->video)) {
+
             $this->_videoArray = (array) $unserialized->video;
+
+            unset($this->_unserialized);
+
             return;
         }
 
         if (isset($unserialized->videos) && isset($unserialized->videos->video)) {
+
             $this->_videoArray = (array) $unserialized->videos->video;
+
+            unset($this->_unserialized);
+
             return;
         }
+
+        unset($this->_unserialized);
+
         $this->_videoArray = array();
     }
 
-    protected function _postExecute($feed)
+    /**
+     * Perform post-construction activites for the feed.
+     *
+     * @param mixed $feed The feed we used.
+     *
+     * @return void
+     */
+    protected final function _postExecute($feed)
     {
         unset($this->_videoArray);
     }
 
+    /**
+     * Count the number of videos that we think are in this feed.
+     *
+     * @param mixed $feed The feed.
+     *
+     * @return integer An estimated count of videos in this feed.
+     */
     protected function _countVideosInFeed($feed)
     {
         return sizeof($this->_videoArray);
@@ -130,6 +165,7 @@ class org_tubepress_impl_factory_commands_VimeoFactoryCommand extends org_tubepr
     protected function _getThumbnailUrlsArray($index)
     {
         $raw = self::_gatherArrayOfContent($this->_videoArray[$index], 'thumbnails', 'thumbnail');
+
         return array($raw[0]);
     }
 
@@ -163,11 +199,26 @@ class org_tubepress_impl_factory_commands_VimeoFactoryCommand extends org_tubepr
         $results = array();
 
         if (isset($node->$firstDimension) && is_array($node->$firstDimension->$secondDimension)) {
+
             foreach ($node->$firstDimension->$secondDimension as $item) {
+
                 $results[] = $item->_content;
             }
         }
 
         return $results;
+    }
+
+    /**
+     * @return ehough_epilog_api_ILogger Get the logger for this command.
+     */
+    protected function getLogger()
+    {
+       if (! isset($this->_logger)) {
+
+           $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Vimeo Video Factory');
+       }
+
+       return $this->_logger;
     }
 }

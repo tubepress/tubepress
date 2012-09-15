@@ -1,64 +1,86 @@
 <?php
-
-require_once BASE . '/sys/classes/org/tubepress/impl/factory/commands/VimeoFactoryCommand.class.php';
-
-class org_tubepress_impl_factory_commands_VimeoFactoryCommandTest extends TubePressUnitTest {
-
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+class tubepress_impl_factory_commands_VimeoFactoryCommandTest extends PHPUnit_Framework_TestCase
+{
+    /** @var tubepress_impl_factory_commands_VimeoFactoryCommand */
     private $_sut;
+
     private $_multipleFeed;
 
-    function setUp()
+    private $_mockExecutionContext;
+
+    public function setUp()
     {
-        parent::setUp();
-        $this->_sut          = new org_tubepress_impl_factory_commands_VimeoFactoryCommand();
-        $this->_multipleFeed = file_get_contents(dirname(__FILE__) . '/../feeds/vimeo.txt');
+        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
+
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
+
+        $this->_sut          = new tubepress_impl_factory_commands_VimeoFactoryCommand();
+        $this->_multipleFeed = file_get_contents(dirname(__FILE__) . '/../../../../resources/feeds/vimeo.txt');
     }
 
-    /**
-     * @expectedException Exception
-     */
-    function testExecNoArgs()
+    public function testRelativeDates()
     {
-        $this->_sut->execute();
-    }
+        $this->_mockExecutionContext->shouldReceive('get')->times(8)->with(tubepress_api_const_options_names_Meta::DESC_LIMIT)->andReturn(0);
+        $this->_mockExecutionContext->shouldReceive('get')->times(8)->with(tubepress_api_const_options_names_Meta::RELATIVE_DATES)->andReturn(true);
+        $this->_mockExecutionContext->shouldReceive('get')->times(8)->with(tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS)->andReturn(false);
 
-    function testRelativeDates()
-    {
-        $mockChainContext = \Mockery::mock('stdClass');
-        $mockChainContext->feed = $this->_multipleFeed;
+        $context = new ehough_chaingang_impl_StandardContext();
+        $context->put(tubepress_impl_factory_VideoFactoryChain::CHAIN_KEY_RAW_FEED, $this->_multipleFeed);
 
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $result = $this->_sut->execute($context);
 
-        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        //$execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Meta::DATEFORMAT)->andReturn('M j, Y');
-        $execContext->shouldReceive('get')->times(8)->with(org_tubepress_api_const_options_names_Meta::DESC_LIMIT)->andReturn(0);
-        $execContext->shouldReceive('get')->times(8)->with(org_tubepress_api_const_options_names_Meta::RELATIVE_DATES)->andReturn(true);
-        $execContext->shouldReceive('get')->times(8)->with(org_tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS)->andReturn(false);
+        $this->assertTrue($result);
 
-        $this->_sut->execute($mockChainContext);
-        $result = $mockChainContext->returnValue;
-        $this->assertTrue(is_array($result));
-        $this->assertEquals(8, count($result));
-        $video = $result[5];
+        $videos = $context->get(tubepress_impl_factory_VideoFactoryChain::CHAIN_KEY_VIDEO_ARRAY);
+
+        $this->assertTrue(is_array($videos));
+        $this->assertEquals(8, count($videos));
+        $video = $videos[5];
         $this->assertEquals('3 years ago', $video->getTimePublished());
     }
 
-    function dtestGetMultiple()
+    public function testGetMultiple()
     {
-        $mockChainContext = \Mockery::mock('stdClass');
-        $mockChainContext->feed = $this->_multipleFeed;
+        $this->_mockExecutionContext->shouldReceive('get')->times(8)->with(tubepress_api_const_options_names_Meta::DESC_LIMIT)->andReturn(0);
+        $this->_mockExecutionContext->shouldReceive('get')->times(8)->with(tubepress_api_const_options_names_Meta::RELATIVE_DATES)->andReturn(true);
+        $this->_mockExecutionContext->shouldReceive('get')->times(8)->with(tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS)->andReturn(false);
 
-        $this->_sut->execute($mockChainContext);
-        $result = $mockChainContext->returnValue;
+        $context = new ehough_chaingang_impl_StandardContext();
+        $context->put(tubepress_impl_factory_VideoFactoryChain::CHAIN_KEY_RAW_FEED, $this->_multipleFeed);
 
-        $this->assertTrue(is_array($result));
-        $this->assertEquals(8, count($result));
-        $video = $result[5];
+        $result = $this->_sut->execute($context);
+
+        $this->assertTrue($result);
+
+        $videos = $context->get(tubepress_impl_factory_VideoFactoryChain::CHAIN_KEY_VIDEO_ARRAY);
+
+        $this->assertTrue(is_array($videos));
+        $this->assertEquals(8, count($videos));
+        $video = $videos[5];
         $this->assertEquals('makimono', $video->getAuthorDisplayName());
         $this->assertEquals('tagtool', $video->getAuthorUid());
         $this->assertEquals('', $video->getCategory());
         $this->assertEquals('N/A', $video->getCommentCount());
-        $this->assertEquals('Tagtool performance by Austrian artist Die.Puntigam at Illuminating York, 30th o...', $video->getDescription());
+        $this->assertEquals('Tagtool performance by Austrian artist Die.Puntigam at Illuminating York, 30th of October 2009', $video->getDescription());
         $this->assertEquals('6:52', $video->getDuration());
         $this->assertEquals('http://vimeo.com/7416172', $video->getHomeUrl());
         $this->assertEquals('7416172', $video->getId());
@@ -68,7 +90,7 @@ class org_tubepress_impl_factory_commands_VimeoFactoryCommandTest extends TubePr
         $this->assertEquals('N/A', $video->getRatingCount());
         $this->assertEquals('http://b.vimeocdn.com/ts/317/800/31780003_100.jpg', $video->getThumbnailUrl());
         $this->assertEquals('', $video->getTimeLastUpdated());
-        $this->assertEquals('Nov 3, 2009', $video->getTimePublished());
+        $this->assertEquals('3 years ago', $video->getTimePublished());
         $this->assertEquals('747', $video->getViewCount());
     }
 }

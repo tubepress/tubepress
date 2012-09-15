@@ -22,7 +22,7 @@
 /**
  * Video factory for YouTube
  */
-class org_tubepress_impl_factory_commands_YouTubeFactoryCommand extends org_tubepress_impl_factory_commands_AbstractFactoryCommand
+class tubepress_impl_factory_commands_YouTubeFactoryCommand extends tubepress_impl_factory_commands_AbstractFactoryCommand
 {
     /* shorthands for the namespaces */
     const NS_APP   = 'http://www.w3.org/2007/app';
@@ -31,41 +31,82 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommand extends org_tube
     const NS_YT    = 'http://gdata.youtube.com/schemas/2007';
     const NS_GD    = 'http://schemas.google.com/g/2005';
 
-    const LOG_PREFIX = 'YouTube Video Factory';
-
+    /** @var DOMXPath */
     private $_xpath;
 
-    protected function _canHandleFeed($feed)
+    /** @var ehough_epilog_api_ILogger */
+    private $_logger;
+
+    /**
+     * Determine if we can handle this feed.
+     *
+     * @param mixed $feed The feed to handle.
+     *
+     * @return boolean True if this command can handle the feed, false otherwise.
+     */
+    protected final function _canHandleFeed($feed)
     {
         return is_string($feed) && strpos($feed, "http://gdata.youtube.com/schemas/2007") !== false;
     }
 
-    protected function getXpath()
+    /**
+     * @return DOMXPath XPath.
+     */
+    protected final function getXpath()
     {
         return $this->_xpath;
     }
 
-    protected function _preExecute($feed)
+    /**
+     * Perform pre-construction activites for the feed.
+     *
+     * @param mixed $feed The feed to construct.
+     *
+     * @return void
+     */
+    protected final function _preExecute($feed)
     {
         $this->_xpath = $this->_createXPath($this->_createDomDocument($feed));
     }
 
-    protected function _postExecute($feed)
+    /**
+     * Perform post-construction activites for the feed.
+     *
+     * @param mixed $feed The feed we used.
+     *
+     * @return void
+     */
+    protected final function _postExecute($feed)
     {
         unset($this->_xpath);
     }
 
-    protected function _countVideosInFeed($feed)
+    /**
+     * Count the number of videos that we think are in this feed.
+     *
+     * @param mixed $feed The feed.
+     *
+     * @return integer An estimated count of videos in this feed.
+     */
+    protected final function _countVideosInFeed($feed)
     {
         return $this->_xpath->query('//atom:entry')->length;
     }
 
-    protected function _canHandleVideo($index)
+    /**
+     * Determine if we can build a video from this element of the feed.
+     *
+     * @param integer $index The index into the feed.
+     *
+     * @return boolean True if we can build a video from this element, false otherwise.
+     */
+    protected final function _canHandleVideo($index)
     {
         $states = $this->_relativeQuery($index, 'app:control/yt:state');
 
         /* no state applied? we're good to go */
         if ($states->length == 0) {
+
             return true;
         }
 
@@ -85,6 +126,7 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommand extends org_tube
 
     protected function _getCategory($index)
     {
+        /** @noinspection PhpUndefinedMethodInspection */
         return trim($this->_relativeQuery($index, 'media:group/media:category')->item(0)->getAttribute('label'));
     }
 
@@ -100,13 +142,15 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommand extends org_tube
 
     protected function _getDurationInSeconds($index)
     {
+        /** @noinspection PhpUndefinedMethodInspection */
         return $this->_relativeQuery($index, 'media:group/yt:duration')->item(0)->getAttribute('seconds');
     }
 
     protected function _getHomeUrl($index)
     {
+        /** @noinspection PhpUndefinedMethodInspection */
         $rawUrl = $this->_relativeQuery($index, "atom:link[@rel='alternate']")->item(0)->getAttribute('href');
-        $url    = new org_tubepress_api_url_Url($rawUrl);
+        $url    = new ehough_curly_Url($rawUrl);
 
         return $url->toString(true);
     }
@@ -114,7 +158,8 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommand extends org_tube
     protected function _getId($index)
     {
         $link    = $this->_relativeQuery($index, "atom:link[@type='text/html']")->item(0);
-        $matches = array();
+
+        /** @noinspection PhpUndefinedMethodInspection */
         preg_match('/.*v=(.{11}).*/', $link->getAttribute('href'), $matches);
 
         return $matches[1];
@@ -125,7 +170,7 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommand extends org_tube
         $rawKeywords = $this->_relativeQuery($index, 'media:group/media:keywords')->item(0);
         $raw         = trim($rawKeywords->nodeValue);
 
-        return explode(", ", $raw);
+        return explode(', ', $raw);
     }
 
     protected function _getRawLikeCount($index)
@@ -136,18 +181,26 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommand extends org_tube
     protected function _getRatingAverage($index)
     {
         $count = $this->_relativeQuery($index, 'gd:rating')->item(0);
+
         if ($count != null) {
+
+            /** @noinspection PhpUndefinedMethodInspection */
             return number_format($count->getAttribute('average'), 2);
         }
+
         return '';
     }
 
     protected function _getRawRatingCount($index)
     {
         $count = $this->_relativeQuery($index, 'gd:rating')->item(0);
+
         if ($count != null) {
+
+            /** @noinspection PhpUndefinedMethodInspection */
             return $count->getAttribute('numRaters');
         }
+
         return '';
     }
 
@@ -158,6 +211,7 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommand extends org_tube
 
         foreach ($thumbs as $thumb) {
 
+            /** @noinspection PhpUndefinedMethodInspection */
             $url = $thumb->getAttribute('url');
 
             if (strpos($url, 'hqdefault') === false && strpos($url, 'mqdefault') === false) {
@@ -177,11 +231,15 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommand extends org_tube
     protected function _getTimePublishedInUnixTime($index)
     {
         $publishedNode = $this->_relativeQuery($index, 'media:group/yt:uploaded');
+
         if ($publishedNode->length == 0) {
+
             return '';
         }
+
         $rawTime = $publishedNode->item(0)->nodeValue;
-        return org_tubepress_impl_util_TimeUtils::rfc3339toUnixTime($rawTime);
+
+        return tubepress_impl_util_TimeUtils::rfc3339toUnixTime($rawTime);
     }
 
     protected function _getTitle($index)
@@ -192,12 +250,22 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommand extends org_tube
     protected function _getRawViewCount($index)
     {
         $stats = $this->_relativeQuery($index, 'yt:statistics')->item(0);
+
         if ($stats != null) {
+
+            /** @noinspection PhpUndefinedMethodInspection */
             return $stats->getAttribute('viewCount');
         }
+
         return '';
     }
 
+    /**
+     * @param $index
+     * @param $query
+     *
+     * @return DOMNodeList DOM node list.
+     */
     protected function _relativeQuery($index, $query)
     {
         return $this->_xpath->query('//atom:entry[' . ($index + 1) . "]/$query");
@@ -205,10 +273,14 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommand extends org_tube
 
     private function _createXPath(DOMDocument $doc)
     {
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Building xpath to parse XML');
+        if ($this->_logger->isDebugEnabled()) {
 
-        if (!class_exists('DOMXPath')) {
-            throw new Exception('Class DOMXPath not found');
+            $this->_logger->debug('Building xpath to parse XML');
+        }
+
+        if (! class_exists('DOMXPath')) {
+
+            throw new RuntimeException('Class DOMXPath not found');
         }
 
         $xpath = new DOMXPath($doc);
@@ -222,17 +294,41 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommand extends org_tube
 
     private function _createDomDocument($feed)
     {
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Attempting to load XML from YouTube');
+        if ($this->_logger->isDebugEnabled()) {
 
-        if (!class_exists('DOMDocument')) {
-            throw new Exception('DOMDocument class not found');
+            $this->_logger->debug('Attempting to load XML from YouTube');
+        }
+
+        if (! class_exists('DOMDocument')) {
+
+            throw new RuntimeException('DOMDocument class not found');
         }
 
         $doc = new DOMDocument();
+
         if ($doc->loadXML($feed) === false) {
-            throw new Exception('Could not parse XML from YouTube');
+
+            throw new RuntimeException('Could not parse XML from YouTube');
         }
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Successfully loaded XML from YouTube');
+
+        if ($this->_logger->isDebugEnabled()) {
+
+            $this->_logger->debug('Successfully loaded XML from YouTube');
+        }
+
         return $doc;
+    }
+
+    /**
+     * @return ehough_epilog_api_ILogger Get the logger for this command.
+     */
+    protected final function getLogger()
+    {
+        if (! isset($this->_logger)) {
+
+            $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('YouTube Video Factory');
+        }
+
+        return $this->_logger;
     }
 }
