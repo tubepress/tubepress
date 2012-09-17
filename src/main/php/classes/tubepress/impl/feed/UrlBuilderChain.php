@@ -22,20 +22,48 @@
 /**
  * Builds URLs based on the current provider
  */
-class org_tubepress_impl_feed_UrlBuilderChain implements org_tubepress_api_feed_UrlBuilder
+class tubepress_impl_feed_UrlBuilderChain implements tubepress_spi_feed_UrlBuilder
 {
+    /**
+     * Provider name key.
+     */
+    const CHAIN_KEY_PROVIDER_NAME = 'providerName';
+
+    /**
+     * Is single key.
+     */
+    const CHAIN_KEY_IS_SINGLE = 'isSingle';
+
+    /**
+     * Argument key.
+     */
+    const CHAIN_KEY_ARGUMENT = 'arg';
+
+    /**
+     * URL key.
+     */
+    const CHAIN_KEY_URL = 'url';
+
+    /**
+     * @var ehough_chaingang_api_Chain
+     */
+    private $_chain;
+
+    public function __construct(ehough_chaingang_api_Chain $chain)
+    {
+        $this->_chain = $chain;
+    }
+
     /**
      * Builds a URL for a list of videos
      *
      * @param int $currentPage The current page number of the gallery.
      *
-     * @throws Exception If there was a problem.
-     *
-     * @return string The request URL for this gallery
+     * @return string The request URL for this gallery.
      */
-    public function buildGalleryUrl($currentPage)
+    public final function buildGalleryUrl($currentPage)
     {
-        return self::_build($currentPage, false);
+        return $this->_build($currentPage, false);
     }
 
     /**
@@ -43,42 +71,44 @@ class org_tubepress_impl_feed_UrlBuilderChain implements org_tubepress_api_feed_
      *
      * @param string $id The video ID to search for
      *
-     * @throws Exception If there was a problem.
+     * @throws InvalidArgumentException If unable to build a URL for the given video.
      *
      * @return string The URL for the single video given.
      */
-    public function buildSingleVideoUrl($id)
+    public final function buildSingleVideoUrl($id)
     {
-        return self::_build($id, true);
+        return $this->_build($id, true);
     }
 
-    private static function _build($arg, $single)
+    private function _build($arg, $single)
     {
-        $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $pc    = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
-        $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
+        $providerCalculatorService = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoProviderCalculator();
 
         if ($single) {
-            $providerName = $pc->calculateProviderOfVideoId($arg);
+
+            $providerName = $providerCalculatorService->calculateProviderOfVideoId($arg);
+
         } else {
-            $providerName = $pc->calculateCurrentVideoProvider();
+
+            $providerName = $providerCalculatorService->calculateCurrentVideoProvider();
         }
 
-        $context               = $chain->createContextInstance();
-        $context->providerName = $providerName;
-        $context->single       = $single;
-        $context->arg          = $arg;
+        $context = new ehough_chaingang_impl_StandardContext();
+        $context->putAll(array(
 
-        /* let the commands do the heavy lifting */
-        $status = $chain->execute($context, array(
-            'org_tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommand',
-            'org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommand'
+            self::CHAIN_KEY_PROVIDER_NAME => $providerName,
+            self::CHAIN_KEY_IS_SINGLE     => $single,
+            self::CHAIN_KEY_ARGUMENT      => $arg
         ));
 
+        /* let the commands do the heavy lifting */
+        $status = $this->_chain->execute($context);
+
         if ($status === false) {
-            throw new Exception('No commands could build a URL');
+
+            throw new InvalidArgumentException('No commands could build a URL for ' . $arg);
         }
 
-        return $context->returnValue;
+        return $context->get(self::CHAIN_KEY_URL);
     }
 }

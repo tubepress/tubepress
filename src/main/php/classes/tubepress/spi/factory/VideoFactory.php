@@ -22,14 +22,14 @@
 /**
  * Converts raw video feeds to TubePress videos
  */
-interface org_tubepress_api_factory_VideoFactory
+interface tubepress_spi_factory_VideoFactory
 {
-    const _ = 'org_tubepress_api_factory_VideoFactory';
+    const _ = 'tubepress_spi_factory_VideoFactory';
 
     /**
      * Converts raw video feeds to TubePress videos
      *
-     * @param unknown $feed  The raw feed result from the video provider
+     * @param mixed $feed The raw feed result from the video provider
      *
      * @return array an array of TubePress videos generated from the feed (may be empty).
      */

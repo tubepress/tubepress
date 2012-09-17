@@ -1,5 +1,5 @@
 {
-    "hash": "0f7175f273cbbf54e1c35dc8c199ef1d",
+    "hash": "664775ad292a04d1ef47ba37a2eeaf92",
     "packages": [
         {
             "package": "ehough/chaingang",
@@ -20,6 +20,14 @@
         {
             "package": "ehough/fimble",
             "version": "1.1.0"
+        },
+        {
+            "package": "ehough/shortstop",
+            "version": "1.0.1"
+        },
+        {
+            "package": "ehough/stash",
+            "version": "1.0.0"
         },
         {
             "package": "ehough/tickertape",

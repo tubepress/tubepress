@@ -22,29 +22,41 @@
 /**
  * Base URL builder functionality.
  */
-abstract class org_tubepress_impl_feed_urlbuilding_AbstractUrlBuilderCommand implements ehough_chaingang_api_Command
+abstract class tubepress_impl_feed_urlbuilding_AbstractUrlBuilderCommand implements ehough_chaingang_api_Command
 {
     /**
-     * Execute the command.
+     * Execute a unit of processing work to be performed.
      *
-     * @param array $context An array of context elements (may be empty).
+     * This Command may either complete the required processing and return true,
+     * or delegate remaining processing to the next Command in a Chain containing
+     * this Command by returning false.
      *
-     * @return boolean True if this command was able to handle the execution. False otherwise.
+     * @param ehough_chaingang_api_Context $context The Context to be processed by this Command.
+     *
+     * @return boolean True if the processing of this Context has been completed, or false if the
+     *                 processing of this Context should be delegated to a subsequent Command
+     *                 in an enclosing Chain.
      */
-    public function execute(ehough_chaingang_api_Context $context)
+    public final function execute(ehough_chaingang_api_Context $context)
     {
-        if ($context->providerName !== $this->getHandledProviderName()) {
+        if ($context->get(tubepress_impl_feed_UrlBuilderChain::CHAIN_KEY_PROVIDER_NAME) !== $this->getHandledProviderName()) {
+
             return false;
         }
 
-        /* single video */
-        if ($context->single) {
+        $argument = $context->get(tubepress_impl_feed_UrlBuilderChain::CHAIN_KEY_ARGUMENT);
 
-            $context->returnValue = $this->buildSingleVideoUrl($context->arg);
+        /* single video */
+        if ($context->get(tubepress_impl_feed_UrlBuilderChain::CHAIN_KEY_IS_SINGLE)) {
+
+            $url = $this->buildSingleVideoUrl($argument);
+
         } else {
 
-            $context->returnValue = $this->buildGalleryUrl($context->arg);
+            $url = $this->buildGalleryUrl($argument);
         }
+
+        $context->put(tubepress_impl_feed_UrlBuilderChain::CHAIN_KEY_URL, $url);
 
         return true;
     }

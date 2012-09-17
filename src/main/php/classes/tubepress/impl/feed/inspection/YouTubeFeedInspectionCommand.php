@@ -23,7 +23,7 @@
  * Examines the feed from YouTube
  *
  */
-class org_tubepress_impl_feed_inspection_YouTubeFeedInspectionCommand extends org_tubepress_impl_feed_inspection_AbstractFeedInspectionCommand
+class tubepress_impl_feed_inspection_YouTubeFeedInspectionCommand extends tubepress_impl_feed_inspection_AbstractFeedInspectionCommand
 {
     const NS_OPENSEARCH = 'http://a9.com/-/spec/opensearch/1.1/';
 
@@ -39,25 +39,31 @@ class org_tubepress_impl_feed_inspection_YouTubeFeedInspectionCommand extends or
 
     protected function _getNameOfHandledProvider()
     {
-        return org_tubepress_api_provider_Provider::YOUTUBE;
+        return tubepress_spi_provider_Provider::YOUTUBE;
     }
 
     private function _getDom($rawFeed)
     {
         if (!class_exists('DOMDocument')) {
-            throw new Exception('DOMDocument class not found');
+
+            throw new RuntimeException('DOMDocument class not found');
         }
+
         $dom = new DOMDocument();
+
         if ($dom->loadXML($rawFeed) === false) {
-                throw new Exception('Problem parsing XML from YouTube');
+
+                throw new RuntimeException('Problem parsing XML from YouTube');
         }
+
         return $dom;
     }
 
     private static function _makeSureNumeric($result)
     {
         if (is_numeric($result) === false) {
-            throw new Exception("YouTube returned a non-numeric result count: $result");
+
+            throw new RuntimeException("YouTube returned a non-numeric result count: $result");
         }
     }
 }

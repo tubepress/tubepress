@@ -20,29 +20,32 @@
  */
 
 /**
- * Base functionality for feed inspection.
+ * Examines the feed from Vimeo
  */
-abstract class org_tubepress_impl_feed_inspection_AbstractFeedInspectionCommand implements ehough_chaingang_api_Command
+class tubepress_impl_feed_inspection_VimeoFeedInspectionCommand extends tubepress_impl_feed_inspection_AbstractFeedInspectionCommand
 {
-    /**
-     * Execute the command.
-     *
-     * @param array $context An array of context elements (may be empty).
-     *
-     * @return boolean True if this command was able to handle the execution. False otherwise.
-     */
-    public function execute(ehough_chaingang_api_Context $context)
+    protected function _getNameOfHandledProvider()
     {
-        if ($context->providerName !== $this->_getNameOfHandledProvider()) {
-            return false;
-        }
-
-        $context->returnValue = $this->_count($context->rawFeed);
-
-        return true;
+        return tubepress_spi_provider_Provider::VIMEO;
     }
 
-    protected abstract function _getNameOfHandledProvider();
+    protected function _count($rawFeed)
+    {
+        $feed = @unserialize($rawFeed);
 
-    protected abstract function _count($rawFeed);
+        if ($feed === false) {
+
+            throw new InvalidArgumentException('Could not unserialize data from Vimeo');
+        }
+
+        if (isset($feed->stat) && $feed->stat === 'fail') {
+
+            $message = isset($feed->err->expl) ? $feed->err->expl : $feed->err->msg;
+
+            throw new RuntimeException('Problem communicating with Vimeo: ' . $message);
+        }
+
+        return isset($feed->videos->total) ? $feed->videos->total : 0;
+    }
+
 }

@@ -21,11 +21,10 @@
 
 /**
  * TubePress's feed retrieval mechanism
- *
  */
-interface org_tubepress_api_feed_FeedFetcher
+interface tubepress_spi_feed_FeedFetcher
 {
-    const _ = 'org_tubepress_api_feed_FeedFetcher';
+    const _ = 'tubepress_spi_feed_FeedFetcher';
 
     /**
      * Fetches the feed from the remote provider
@@ -33,7 +32,7 @@ interface org_tubepress_api_feed_FeedFetcher
      * @param string  $url      The URL to fetch.
      * @param boolean $useCache Whether or not to use the network cache.
      *
-     * @return unknown The raw feed from the provider
+     * @return mixed The raw feed from the provider, or null if there was a problem.
      */
     function fetch($url, $useCache);
 }

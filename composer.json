@@ -22,6 +22,8 @@
         "ehough/curly": "*",
         "ehough/epilog": "*",
         "ehough/fimble": "*",
+        "ehough/shortstop": "*",
+        "ehough/stash": "*",
         "ehough/tickertape": "*"
     },
 

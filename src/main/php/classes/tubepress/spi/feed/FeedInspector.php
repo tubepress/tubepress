@@ -22,14 +22,14 @@
 /**
  * Examines the feed results.
  */
-interface org_tubepress_api_feed_FeedInspector
+interface tubepress_spi_feed_FeedInspector
 {
-    const _ = 'org_tubepress_api_feed_FeedInspector';
+    const _ = 'tubepress_spi_feed_FeedInspector';
 
     /**
      * Count the total videos in this feed result.
      *
-     * @param unknown $rawFeed The raw video feed (varies depending on provider)
+     * @param mixed $rawFeed The raw video feed (varies depending on provider)
      *
      * @return int The total result count of this query, or 0 if there was a problem.
      */

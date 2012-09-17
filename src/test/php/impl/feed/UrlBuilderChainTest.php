@@ -1,89 +1,90 @@
 <?php
-
-require_once BASE . '/sys/classes/org/tubepress/impl/feed/UrlBuilderChain.class.php';
-
-class org_tubepress_impl_feed_UrlBuilderChainTest extends TubePressUnitTest {
-
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+class tubepress_impl_feed_UrlBuilderChainTest extends PHPUnit_Framework_TestCase
+{
     private $_sut;
+
+    private $_mockProviderCalculator;
+
+    private $_mockChain;
 
     function setUp()
     {
-        parent::setUp();
-        $this->_sut = new org_tubepress_impl_feed_UrlBuilderChain();
+        $this->_mockChain              = Mockery::mock('ehough_chaingang_api_Chain');
+        $this->_mockProviderCalculator = Mockery::mock(tubepress_spi_provider_ProviderCalculator::_);
+
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setVideoProviderCalculator($this->_mockProviderCalculator);
+
+        $this->_sut                    = new tubepress_impl_feed_UrlBuilderChain($this->_mockChain);
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException InvalidArgumentException
      */
     function testBuildGalleryUrlNoCommandsCanHandle()
     {
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockProviderCalculator->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('providerName');
 
-        $pc  = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
-        $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('providerName');
+        $this->_mockChain->shouldReceive('execute')->once()->with(Mockery::on(function ($context) {
 
-        $mockChainContext = new stdClass();
-        $mockChainContext->returnValue = 'stuff';
-
-        $sm  = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
-        $sm->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
-        $sm->shouldReceive('execute')->once()->with($mockChainContext, array(
-                'org_tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommand',
-                'org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommand'
+                return $context->get(tubepress_impl_feed_UrlBuilderChain::CHAIN_KEY_PROVIDER_NAME) === 'providerName'
+                    && $context->get(tubepress_impl_feed_UrlBuilderChain::CHAIN_KEY_ARGUMENT) === 1
+                    && $context->get(tubepress_impl_feed_UrlBuilderChain::CHAIN_KEY_IS_SINGLE) === false;
+            }
         ))->andReturn(false);
 
-        $this->assertEquals('stuff', $this->_sut->buildGalleryUrl(1));
-        $this->assertEquals(1, $mockChainContext->arg);
-        $this->assertEquals('providerName', $mockChainContext->providerName);
-        $this->assertEquals(false, $mockChainContext->single);
-
+        $this->_sut->buildGalleryUrl(1);
     }
 
     function testBuildSingleVideoUrl()
     {
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockProviderCalculator->shouldReceive('calculateProviderOfVideoId')->once()->with('video-id')->andReturn('providerName');
 
-        $pc  = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
-        $pc->shouldReceive('calculateProviderOfVideoId')->once()->with('video-id')->andReturn('providerName');
+        $this->_mockChain->shouldReceive('execute')->once()->with(Mockery::on(function ($context) {
 
-        $mockChainContext = new stdClass();
-        $mockChainContext->returnValue = 'stuff';
+                $context->put(tubepress_impl_feed_UrlBuilderChain::CHAIN_KEY_URL, 'stuff');
 
-        $sm  = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
-        $sm->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
-        $sm->shouldReceive('execute')->once()->with($mockChainContext, array(
-                'org_tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommand',
-                'org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommand'
+                return $context->get(tubepress_impl_feed_UrlBuilderChain::CHAIN_KEY_PROVIDER_NAME) === 'providerName'
+                    && $context->get(tubepress_impl_feed_UrlBuilderChain::CHAIN_KEY_ARGUMENT) === 'video-id'
+                    && $context->get(tubepress_impl_feed_UrlBuilderChain::CHAIN_KEY_IS_SINGLE) === true;
+            }
         ))->andReturn(true);
 
         $this->assertEquals('stuff', $this->_sut->buildSingleVideoUrl('video-id'));
-        $this->assertEquals('video-id', $mockChainContext->arg);
-        $this->assertEquals('providerName', $mockChainContext->providerName);
-        $this->assertEquals(true, $mockChainContext->single);
-
     }
 
     function testBuildGalleryUrl()
     {
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockProviderCalculator->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('providerName');
 
-        $pc  = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
-        $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('providerName');
+        $this->_mockChain->shouldReceive('execute')->once()->with(Mockery::on(function ($context) {
 
-        $mockChainContext = new stdClass();
-        $mockChainContext->returnValue = 'stuff';
+                $context->put(tubepress_impl_feed_UrlBuilderChain::CHAIN_KEY_URL, 'stuff');
 
-        $sm  = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
-        $sm->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
-        $sm->shouldReceive('execute')->once()->with($mockChainContext, array(
-            'org_tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommand',
-            'org_tubepress_impl_feed_urlbuilding_VimeoUrlBuilderCommand'
+                return $context->get(tubepress_impl_feed_UrlBuilderChain::CHAIN_KEY_PROVIDER_NAME) === 'providerName'
+                    && $context->get(tubepress_impl_feed_UrlBuilderChain::CHAIN_KEY_ARGUMENT) === 2
+                    && $context->get(tubepress_impl_feed_UrlBuilderChain::CHAIN_KEY_IS_SINGLE) === false;
+            }
         ))->andReturn(true);
 
-        $this->assertEquals('stuff', $this->_sut->buildGalleryUrl(1));
-        $this->assertEquals(1, $mockChainContext->arg);
-        $this->assertEquals('providerName', $mockChainContext->providerName);
-        $this->assertEquals(false, $mockChainContext->single);
-
+        $this->assertEquals('stuff', $this->_sut->buildGalleryUrl(2));
     }
 }
