@@ -29,6 +29,8 @@ class org_tubepress_impl_options_DefaultOptionValidatorTest extends PHPUnit_Fram
 	{
         $this->_mockOptionsDescriptorReference = \Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
 
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionsDescriptorReference);
+
 		$this->_sut = new tubepress_impl_options_DefaultOptionValidator($this->_mockOptionsDescriptorReference);
 	}
 

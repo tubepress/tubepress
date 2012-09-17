@@ -24,13 +24,6 @@
  */
 class tubepress_impl_options_DefaultOptionValidator implements tubepress_spi_options_OptionValidator
 {
-    private $_optionDescriptorReference;
-
-    public function __construct(tubepress_spi_options_OptionDescriptorReference $reference)
-    {
-        $this->_optionDescriptorReference = $reference;
-    }
-
     /**
      * Validates an option value.
      *
@@ -54,7 +47,9 @@ class tubepress_impl_options_DefaultOptionValidator implements tubepress_spi_opt
      */
     public final function getProblemMessage($optionName, $candidate)
     {
-        $descriptor = $this->_optionDescriptorReference->findOneByName($optionName);
+        $optionDescriptorReferenceService = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
+
+        $descriptor = $optionDescriptorReferenceService->findOneByName($optionName);
 
         if ($descriptor === null) {
 

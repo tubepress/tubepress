@@ -42,6 +42,10 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends PH
 
         $fakeThemeDir->shouldReceive('getBasename')->once()->andReturn('xyz');
 
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($environmentDetector);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setFileSystem($filesystem);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setFileSystemFinderFactory($finderFactory);
+
 		$this->_sut = new tubepress_impl_options_DefaultOptionDescriptorReference($filesystem, $environmentDetector, $finderFactory);
 	}
 

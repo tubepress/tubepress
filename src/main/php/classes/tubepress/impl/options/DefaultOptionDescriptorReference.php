@@ -44,30 +44,8 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
     /** All option descriptors. */
     private $_optionDescriptors = array();
 
-    /** @var \ehough_fimble_api_Filesystem Filesystem handle. */
-    private $_fileSystem;
-
-    /** @var \tubepress_spi_environment_EnvironmentDetector Environment detector. */
-    private $_environmentDetector;
-
-    /** @var \ehough_fimble_api_Finder Filesystem finder. */
-    private $_finderFactory;
-
-    /**
-     * Constructor.
-     */
-    public function __construct(
-        ehough_fimble_api_Filesystem $fs,
-        tubepress_spi_environment_EnvironmentDetector $env,
-        ehough_fimble_api_FinderFactory $finderFactory)
-    {
-        $this->_fileSystem          = $fs;
-        $this->_environmentDetector = $env;
-        $this->_finderFactory       = $finderFactory;
-
-        /* build all the option descriptors. */
-        $this->_buildAllOptionDescriptors();
-    }
+    /** @var bool Initialization flag. */
+    private $_isInitialized = false;
 
     /**
      * Returns all of the option descriptors.
@@ -76,6 +54,8 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
      */
     public final function findAll()
     {
+        $this->_checkInitialized();
+
         return $this->_optionDescriptors;
     }
 
@@ -89,6 +69,8 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
      */
     public final function findOneByName($name)
     {
+        $this->_checkInitialized();
+
         if (! array_key_exists($name, $this->_nameToOptionDescriptorMap)) {
 
             return null;
@@ -818,25 +800,29 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
 
     private function _getThemeValues()
     {
+        $environmentDetectorService     = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
+        $fileSystemService              = tubepress_impl_patterns_ioc_KernelServiceLocator::getFileSystem();
+        $fileSystemFinderFactoryService = tubepress_impl_patterns_ioc_KernelServiceLocator::getFileSystemFinderFactory();
+
         $systemThemesDirectory =
-            $this->_environmentDetector->getTubePressBaseInstallationPath() . '/main/resources/default-themes';
+            $environmentDetectorService->getTubePressBaseInstallationPath() . '/main/resources/default-themes';
 
         $userThemesDirectory =
-            $this->_environmentDetector->getUserContentDirectory() . '/themes';
+            $environmentDetectorService->getUserContentDirectory() . '/themes';
 
         $directoriesToSearch = array();
 
-        if ($this->_fileSystem->exists($systemThemesDirectory)) {
+        if ($fileSystemService->exists($systemThemesDirectory)) {
 
             $directoriesToSearch[] = $systemThemesDirectory;
         }
 
-        if ($this->_fileSystem->exists($userThemesDirectory)) {
+        if ($fileSystemService->exists($userThemesDirectory)) {
 
             $directoriesToSearch[] = $userThemesDirectory;
         }
 
-        $finder = $this->_finderFactory->createFinder();
+        $finder = $fileSystemFinderFactoryService->createFinder();
 
         $themeDirectories = $finder->directories()->in($directoriesToSearch);
 
@@ -851,5 +837,15 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
         sort($themeNames);
 
         return $themeNames;
+    }
+
+    private function _checkInitialized()
+    {
+        if (! $this->_isInitialized) {
+
+            $this->_buildAllOptionDescriptors();
+
+            $this->_isInitialized = true;
+        }
     }
 }

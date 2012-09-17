@@ -26,28 +26,11 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
 {
     private static $_dbVersionOptionName = 'version';
 
-    private $_optionDescriptorReference;
-
-    private $_optionValidator;
-
-    private $_eventDispatcher;
-
-    private $_environmentDetector;
-
     private $_logger;
 
-    public function __construct(
-
-        tubepress_spi_options_OptionDescriptorReference $reference,
-        tubepress_spi_options_OptionValidator $validator,
-        tubepress_spi_environment_EnvironmentDetector $environmentDetector,
-        ehough_tickertape_api_IEventDispatcher $dispatcher)
+    public function __construct()
     {
-        $this->_optionDescriptorReference = $reference;
-        $this->_optionValidator           = $validator;
-        $this->_eventDispatcher           = $dispatcher;
-        $this->_environmentDetector       = $environmentDetector;
-        $this->_logger                    = ehough_epilog_api_LoggerFactory::getLogger('Abstract Storage Manager');
+        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Abstract Storage Manager');
     }
 
     /**
@@ -57,7 +40,10 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
      */
     public final function init()
     {
-        $currentVersion = $this->_environmentDetector->getVersion();
+        $environmentDetectorService       = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
+        $optionDescriptorReferenceService = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
+
+        $currentVersion = $environmentDetectorService->getVersion();
         $storedVersion  = tubepress_spi_version_Version::parse('0.0.0');
         $needToInit     = false;
 
@@ -92,7 +78,9 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
             $this->setOption(self::$_dbVersionOptionName, (string) $currentVersion);
         }
 
-        $options = $this->_optionDescriptorReference->findAll();
+        $options = $optionDescriptorReferenceService->findAll();
+
+        $optionValidatorService = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionValidator();
 
         foreach ($options as $option) {
 
@@ -103,7 +91,7 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
             }
 
             /** @noinspection PhpUndefinedMethodInspection */
-            $this->_init($option->getName(), $option->getDefaultValue());
+            $this->_init($option->getName(), $option->getDefaultValue(), $optionValidatorService);
         }
     }
 
@@ -117,7 +105,9 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
      */
     public final function set($optionName, $optionValue)
     {
-        $descriptor = $this->_optionDescriptorReference->findOneByName($optionName);
+        $optionDescriptorReferenceService = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
+
+        $descriptor = $optionDescriptorReferenceService->findOneByName($optionName);
 
         /** Do we even know about this option? */
         if ($descriptor === null) {
@@ -133,13 +123,16 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
             return true;
         }
 
+        $eventDispatcherService = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        $optionValidatorService = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionValidator();
+
         /** Run it through the filters. */
         $event = new tubepress_api_event_PreValidationOptionSet($optionName, $optionValue);
-        $this->_eventDispatcher->dispatch(tubepress_api_event_PreValidationOptionSet::EVENT_NAME, $event);
+        $eventDispatcherService->dispatch(tubepress_api_event_PreValidationOptionSet::EVENT_NAME, $event);
         $filteredValue = $event->optionValue;
 
         /** OK, let's see if it's valid. */
-        if ($this->_optionValidator->isValid($optionName, $filteredValue)) {
+        if ($optionValidatorService->isValid($optionName, $filteredValue)) {
 
             $this->_logger->info(sprintf("Accepted valid value: '%s' = '%s'", $optionName, $filteredValue));
 
@@ -148,7 +141,7 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
             return true;
         }
 
-        $problemMessage = $this->_optionValidator->getProblemMessage($optionName, $filteredValue);
+        $problemMessage = $optionValidatorService->getProblemMessage($optionName, $filteredValue);
 
         $this->_logger->info(sprintf("Ignoring invalid value: '%s' = '%s'", $optionName, $filteredValue));
 
@@ -187,12 +180,13 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
     /**
      * Initializes a single option.
      *
-     * @param string $name         The option name.
-     * @param string $defaultValue The option value.
+     * @param string                                $name                   The option name.
+     * @param string                                $defaultValue           The option value.
+     * @param tubepress_spi_options_OptionValidator $optionValidatorService The option validator.
      *
      * @return void
      */
-    private function _init($name, $defaultValue)
+    private function _init($name, $defaultValue, tubepress_spi_options_OptionValidator $optionValidatorService)
     {
         if (! $this->exists($name)) {
 
@@ -200,7 +194,7 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
             $this->create($name, $defaultValue);
         }
 
-        if (! $this->_optionValidator->isValid($name, $this->get($name))) {
+        if (! $optionValidatorService->isValid($name, $this->get($name))) {
 
             $this->setOption($name, $defaultValue);
         }
