@@ -22,7 +22,7 @@
 /**
  * Handles some tasks related to the query string
  */
-class org_tubepress_impl_querystring_SimpleQueryStringService implements org_tubepress_api_querystring_QueryStringService
+class tubepress_impl_querystring_SimpleQueryStringService implements tubepress_spi_querystring_QueryStringService
 {
     /**
      * Returns what's in the address bar

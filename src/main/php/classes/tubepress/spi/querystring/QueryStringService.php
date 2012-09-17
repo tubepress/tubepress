@@ -22,9 +22,9 @@
 /**
  * Handles some tasks related to the query string
  */
-interface org_tubepress_api_querystring_QueryStringService
+interface tubepress_spi_querystring_QueryStringService
 {
-    const _ = 'org_tubepress_api_querystring_QueryStringService';
+    const _ = 'tubepress_spi_querystring_QueryStringService';
 
     /**
      * Returns what's in the address bar
