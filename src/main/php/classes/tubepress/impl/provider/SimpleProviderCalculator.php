@@ -22,44 +22,43 @@
 /**
  * Calculates video provider in use.
  */
-class org_tubepress_impl_provider_SimpleProviderCalculator implements tubepress_spi_provider_ProviderCalculator
+class tubepress_impl_provider_SimpleProviderCalculator implements tubepress_spi_provider_ProviderCalculator
 {
     /**
      * Determine the current video provider.
      *
      * @return string 'youtube', 'vimeo', or 'directory'
      */
-    public function calculateCurrentVideoProvider()
+    public final function calculateCurrentVideoProvider()
     {
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $video   = $context->get(org_tubepress_api_const_options_names_Output::VIDEO);
-        $pc      = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
+        $executionContext = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
 
-        /* requested a single video, and it's not vimeo or directory, so must be youtube */
+        $video = $executionContext->get(tubepress_api_const_options_names_Output::VIDEO);
+
+        /* requested a single video... */
         if ($video != '') {
-            return $pc->calculateProviderOfVideoId($video);
+
+            return $this->calculateProviderOfVideoId($video);
         }
 
         /* calculate based on gallery content */
-        $currentMode = $context->get(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE);
+        $currentMode = $executionContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
+
         if (strpos($currentMode, 'vimeo') === 0) {
-            return org_tubepress_api_provider_Provider::VIMEO;
+
+            return tubepress_spi_provider_Provider::VIMEO;
         }
-        if (strpos($currentMode, 'directory') === 0) {
-            return org_tubepress_api_provider_Provider::DIRECTORY;
-        }
-        return org_tubepress_api_provider_Provider::YOUTUBE;
+
+        return tubepress_spi_provider_Provider::YOUTUBE;
     }
 
-    public function calculateProviderOfVideoId($videoId)
+    public final function calculateProviderOfVideoId($videoId)
     {
         if (is_numeric($videoId) === true) {
-            return org_tubepress_api_provider_Provider::VIMEO;
+
+            return tubepress_spi_provider_Provider::VIMEO;
         }
-        if (preg_match_all('/^.*\.[A-Za-z]{3}$/', $videoId, $arr, PREG_PATTERN_ORDER) === 1) {
-            return org_tubepress_api_provider_Provider::DIRECTORY;
-        }
-        return org_tubepress_api_provider_Provider::YOUTUBE;
+
+        return tubepress_spi_provider_Provider::YOUTUBE;
     }
 }

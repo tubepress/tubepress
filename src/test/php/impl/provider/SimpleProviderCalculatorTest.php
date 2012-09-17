@@ -18,31 +18,23 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
-/**
- * Interface to a remove video provider
- */
-interface tubepress_spi_provider_Provider
+class tubepress_impl_player_SimpleProviderCalculatorTest extends PHPUnit_Framework_TestCase
 {
-    const _ = 'tubepress_spi_provider_Provider';
+    private $_sut;
 
-    const DIRECTORY = 'directory';
-    const YOUTUBE   = 'youtube';
-    const VIMEO     = 'vimeo';
+    private $_mockExecutionContext;
 
-    /**
-     * Get the video feed result.
-     *
-     * @return tubepress_api_video_VideoGalleryPage The feed result, never null.
-     */
-    function getMultipleVideos();
+    function setUp()
+    {
+        $this->_mockExecutionContext   = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
 
-    /**
-     * Fetch a single video.
-     *
-     * @param string $customVideoId The video ID to fetch.
-     *
-     * @return tubepress_api_video_Video The video, or null if there's a problem.
-     */
-    function getSingleVideo($customVideoId);
+        $this->_sut = new tubepress_impl_provider_SimpleProviderCalculator();
+    }
+
+    public function testCalcVideoVimeo()
+    {
+        $this->assertTrue($this->_sut->calculateProviderOfVideoId('3994857') === tubepress_spi_provider_Provider::VIMEO);
+        $this->assertFalse($this->_sut->calculateProviderOfVideoId('3994857X') === tubepress_spi_provider_Provider::VIMEO);
+    }
 }

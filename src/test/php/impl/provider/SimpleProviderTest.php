@@ -1,126 +1,140 @@
 <?php
-
-require_once BASE . '/sys/classes/org/tubepress/impl/provider/SimpleProvider.class.php';
-require_once BASE . '/sys/classes/org/tubepress/api/video/Video.php';
-
-class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+class org_tubepress_impl_provider_SimpleProviderTest extends PHPUnit_Framework_TestCase
 {
     private $_sut;
     private $_fakeVideo;
-
+    private $_mockHttpRequestParameterService;
+    private $_mockProviderCalculator;
+    private $_mockUrlBuilder;
+    private $_mockFeedFetcher;
+    private $_mockExecutionContext;
+    private $_mockFeedInspector;
+    private $_mockFactory;
+    private $_mockEventDispatcher;
+    
     function setup()
     {
-        parent::setUp();
+        $this->_sut       = new tubepress_impl_provider_SimpleProvider();
+        $this->_fakeVideo = new tubepress_api_video_Video();
+        $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
+        $this->_mockProviderCalculator = Mockery::mock(tubepress_spi_provider_ProviderCalculator::_);
+        $this->_mockUrlBuilder = Mockery::mock(tubepress_spi_feed_UrlBuilder::_);
+        $this->_mockFeedFetcher = Mockery::mock(tubepress_spi_feed_FeedFetcher::_);
+        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockFeedInspector = Mockery::mock(tubepress_spi_feed_FeedInspector::_);
+        $this->_mockFactory = Mockery::mock(tubepress_spi_factory_VideoFactory::_);
+        $this->_mockEventDispatcher = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
 
-        $this->_sut       = new org_tubepress_impl_provider_SimpleProvider();
-        $this->_fakeVideo = \Mockery::mock('org_tubepress_api_video_Video');
-
-        org_tubepress_impl_log_Log::setEnabled(false, array());
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setVideoProviderCalculator($this->_mockProviderCalculator);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setUrlBuilder($this->_mockUrlBuilder);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setFeedFetcher($this->_mockFeedFetcher);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setFeedInspector($this->_mockFeedInspector);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setVideoFactory($this->_mockFactory);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException RuntimeException
      */
     public function testGetMultipleVideosFactoryBuildsNone()
     {
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(1);
+        $this->_mockProviderCalculator->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('current-video-provider');
 
-        $qss     = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
-        $qss->shouldReceive('getParamValueAsInt')->once()->with(org_tubepress_api_const_http_ParamName::PAGE, 1)->andReturn(1);
+        $this->_mockUrlBuilder->shouldReceive('buildGalleryUrl')->once()->with(1)->andReturn('gallery-url');
 
-        $pc      = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
-        $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('current-video-provider');
+        $this->_mockFeedFetcher->shouldReceive('fetch')->once()->with('gallery-url', false)->andReturn('fetch-result');
 
-        $urlBuilder = $ioc->get(org_tubepress_api_feed_UrlBuilder::_);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
 
-        $urlBuilder->shouldReceive('buildGalleryUrl')->once()->with(1)->andReturn('gallery-url');
+        $this->_mockFeedInspector->shouldReceive('getTotalResultCount')->once()->with('fetch-result')->andReturn(596);
 
-        $feedRetrievalService = $ioc->get(org_tubepress_api_feed_FeedFetcher::_);
-        $feedRetrievalService->shouldReceive('fetch')->once()->with('gallery-url', false)->andReturn('fetch-result');
-
-        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
-
-        $feedInspectionService = $ioc->get(org_tubepress_api_feed_FeedInspector::_);
-        $feedInspectionService->shouldReceive('getTotalResultCount')->once()->with('fetch-result')->andReturn(596);
-
-        $factory = $ioc->get(org_tubepress_api_factory_VideoFactory::_);
-        $factory->shouldReceive('feedToVideoArray')->once()->with('fetch-result')->andReturn(array());
+        
+        $this->_mockFactory->shouldReceive('feedToVideoArray')->once()->with('fetch-result')->andReturn(array());
 
         $this->assertEquals('final-result', $this->_sut->getMultipleVideos());
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException RuntimeException
      */
     public function testGetMultipleVideosNoVids()
     {
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(1);
 
-        $qss     = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
-        $qss->shouldReceive('getParamValueAsInt')->once()->with(org_tubepress_api_const_http_ParamName::PAGE, 1)->andReturn(1);
+        $this->_mockProviderCalculator->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('current-video-provider');
 
-        $pc      = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
-        $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('current-video-provider');
+        $this->_mockUrlBuilder->shouldReceive('buildGalleryUrl')->once()->with(1)->andReturn('gallery-url');
 
-        $urlBuilder = $ioc->get(org_tubepress_api_feed_UrlBuilder::_);
+        $this->_mockFeedFetcher->shouldReceive('fetch')->once()->with('gallery-url', false)->andReturn('fetch-result');
 
-        $urlBuilder->shouldReceive('buildGalleryUrl')->once()->with(1)->andReturn('gallery-url');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
 
-        $feedRetrievalService = $ioc->get(org_tubepress_api_feed_FeedFetcher::_);
-        $feedRetrievalService->shouldReceive('fetch')->once()->with('gallery-url', false)->andReturn('fetch-result');
-
-        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
-
-        $feedInspectionService = $ioc->get(org_tubepress_api_feed_FeedInspector::_);
-        $feedInspectionService->shouldReceive('getTotalResultCount')->once()->with('fetch-result')->andReturn(0);
+        $this->_mockFeedInspector->shouldReceive('getTotalResultCount')->once()->with('fetch-result')->andReturn(0);
 
         $this->assertEquals('final-result', $this->_sut->getMultipleVideos());
     }
 
     public function testGetMultipleVideos()
     {
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(1);
 
-        $qss     = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
-        $qss->shouldReceive('getParamValueAsInt')->once()->with(org_tubepress_api_const_http_ParamName::PAGE, 1)->andReturn(1);
+        $this->_mockProviderCalculator->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('current-video-provider');
 
-        $pc      = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
-        $pc->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('current-video-provider');
+        $this->_mockUrlBuilder->shouldReceive('buildGalleryUrl')->once()->with(1)->andReturn('gallery-url');
 
-        $urlBuilder = $ioc->get(org_tubepress_api_feed_UrlBuilder::_);
+        $this->_mockFeedFetcher->shouldReceive('fetch')->once()->with('gallery-url', false)->andReturn('fetch-result');
 
-        $urlBuilder->shouldReceive('buildGalleryUrl')->once()->with(1)->andReturn('gallery-url');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
 
-        $feedRetrievalService = $ioc->get(org_tubepress_api_feed_FeedFetcher::_);
-        $feedRetrievalService->shouldReceive('fetch')->once()->with('gallery-url', false)->andReturn('fetch-result');
-
-        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
-
-        $feedInspectionService = $ioc->get(org_tubepress_api_feed_FeedInspector::_);
-        $feedInspectionService->shouldReceive('getTotalResultCount')->once()->with('fetch-result')->andReturn(596);
+        $this->_mockFeedInspector->shouldReceive('getTotalResultCount')->once()->with('fetch-result')->andReturn(596);
 
         $fakeVideoArray = array(5, 4, 3, 1);
 
-        $factory = $ioc->get(org_tubepress_api_factory_VideoFactory::_);
-        $factory->shouldReceive('feedToVideoArray')->once()->with('fetch-result')->andReturn($fakeVideoArray);
+        $this->_mockFactory->shouldReceive('feedToVideoArray')->once()->with('fetch-result')->andReturn($fakeVideoArray);
 
-        $pm      = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
-        $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT,
-            anInstanceOf('org_tubepress_api_provider_ProviderResult'))->andReturn('final-result');
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_VideoGalleryPageConstruction::EVENT_NAME, Mockery::on(function ($arg) {
 
-        $this->assertEquals('final-result', $this->_sut->getMultipleVideos());
+            $good = $arg instanceof tubepress_api_event_VideoGalleryPageConstruction && $arg->getArgument(tubepress_api_event_VideoGalleryPageConstruction::ARGUMENT_PROVIDER_NAME) === 'current-video-provider';
+
+            $arg->getSubject()->setTotalResultCount(999);
+            $arg->getSubject()->setVideos(array(1, 2, 4));
+
+            return $good;
+        }));
+
+        $videoGalleryPage = $this->_sut->getMultipleVideos();
+
+        $this->assertTrue($videoGalleryPage instanceof tubepress_api_video_VideoGalleryPage);
+        $this->assertTrue($videoGalleryPage->getTotalResultCount() === 999);
+        $this->assertEquals(array(1, 2, 4), $videoGalleryPage->getVideos());
     }
 
-    /**
-     * @expectedException Exception
-     */
     public function testGetSingleVideoNotFound()
     {
         $this->_setupSingleVideoMocks(array());
-        $this->_sut->getSingleVideo('video-id');
+        $this->assertNull($this->_sut->getSingleVideo('video-id'));
     }
 
     public function testGetSingleVideo()
@@ -128,32 +142,31 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
         $val = array($this->_fakeVideo);
         $this->_setupSingleVideoMocks($val);
 
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockProviderCalculator->shouldReceive('calculateProviderOfVideoId')->with('video-id')->andReturn('video-provider');
 
-        $pc                   = $ioc->get(org_tubepress_api_provider_ProviderCalculator::_);
-        $pc->shouldReceive('calculateProviderOfVideoId')->with('video-id')->andReturn('video-provider');
+        $video = $this->_fakeVideo;
 
-        $pm                   = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
-        $pm->shouldReceive('runFilters')->with(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, anInstanceOf('org_tubepress_api_provider_ProviderResult'), 'video-provider')->once();
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_VideoGalleryPageConstruction::EVENT_NAME, Mockery::on(function ($arg) use ($video) {
 
-        $this->assertEquals($this->_fakeVideo, $this->_sut->getSingleVideo('video-id'));
+            $good = $arg instanceof tubepress_api_event_VideoGalleryPageConstruction && $arg->getArgument(tubepress_api_event_VideoGalleryPageConstruction::ARGUMENT_PROVIDER_NAME) === 'video-provider';
+
+            $arg->getSubject()->setTotalResultCount(1);
+            $arg->getSubject()->setVideos(array($video));
+
+            return $good;
+        }));
+
+        $this->assertSame($this->_fakeVideo, $this->_sut->getSingleVideo('video-id'));
     }
 
     private function _setupSingleVideoMocks($factoryResult)
     {
-        $ioc        = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockUrlBuilder->shouldReceive('buildSingleVideoUrl')->once()->with('video-id')->andReturn('video-url');
 
-        $urlBuilder = $ioc->get(org_tubepress_api_feed_UrlBuilder::_);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
 
-        $urlBuilder->shouldReceive('buildSingleVideoUrl')->once()->with('video-id')->andReturn('video-url');
+        $this->_mockFeedFetcher->shouldReceive('fetch')->once()->with('video-url', false)->andReturn('fake-feed');
 
-        $context              = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Cache::CACHE_ENABLED)->andReturn(false);
-
-        $feedRetrievalService = $ioc->get(org_tubepress_api_feed_FeedFetcher::_);
-        $feedRetrievalService->shouldReceive('fetch')->once()->with('video-url', false)->andReturn('fake-feed');
-
-        $factory              = $ioc->get(org_tubepress_api_factory_VideoFactory::_);
-        $factory->shouldReceive('feedToVideoArray')->once()->with('fake-feed')->andReturn($factoryResult);
+        $this->_mockFactory->shouldReceive('feedToVideoArray')->once()->with('fake-feed')->andReturn($factoryResult);
     }
 }

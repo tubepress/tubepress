@@ -20,21 +20,13 @@
  */
 
 /**
- * Simple class to abstract the response from a video provider
+ * Represents a set of videos.
  */
-class org_tubepress_api_provider_ProviderResult
+class tubepress_api_video_VideoGalleryPage
 {
-    private $_effectiveDisplayCount;
-    private $_effectiveTotalResultCount;
-    private $_videoArray;
+    private $_totalResultCount = 0;
+    private $_videoArray       = array();
 
-    public function __construct()
-    {
-        $this->_effectiveDisplayCount = 0;
-        $this->_effectiveTotalResultCount = 0;
-        $this->_videoArray = array();
-    }
-    
     /**
      * Set the video array
      *
@@ -42,28 +34,9 @@ class org_tubepress_api_provider_ProviderResult
      *
      * @return void
      */
-    public function setVideoArray($videos)
+    public final function setVideos(array $videos)
     {
-        if (!is_array($videos)) {
-            throw new Exception('setVideoArray can only take on an array. You supplied ' . var_export($videos, true));
-        }
         $this->_videoArray = $videos;
-    }
-
-    /**
-     * Set the effective total result count
-     *
-     * @param integer $count The effective total result count.
-     *
-     * @return void
-     */
-    public function setEffectiveTotalResultCount($count)
-    {
-        if (!is_numeric($count) || intval($count) < 0) {
-            throw new Exception('setEffectiveTotalResultCount must take on a positive integer. You supplied ' . $count);
-        }
-        
-        $this->_effectiveTotalResultCount = intval($count);
     }
 
     /**
@@ -71,9 +44,28 @@ class org_tubepress_api_provider_ProviderResult
      *
      * @return array The video array.
      */
-    public function getVideoArray()
+    public final function getVideos()
     {
         return $this->_videoArray;
+    }
+
+    /**
+     * Set the effective total result count
+     *
+     * @param integer $count The effective total result count.
+     *
+     * @throws InvalidArgumentException If you pass a non-integral or non-positive integer.
+     *
+     * @return void
+     */
+    public final function setTotalResultCount($count)
+    {
+        if (!is_numeric($count) || intval($count) < 0) {
+
+            throw new InvalidArgumentException('setTotalResultCount must take on a positive integer. You supplied ' . $count);
+        }
+        
+        $this->_totalResultCount = intval($count);
     }
 
     /**
@@ -81,8 +73,8 @@ class org_tubepress_api_provider_ProviderResult
      *
      * @return integer The effective total result count.
      */
-    public function getEffectiveTotalResultCount()
+    public final function getTotalResultCount()
     {
-        return $this->_effectiveTotalResultCount;
+        return $this->_totalResultCount;
     }
 }

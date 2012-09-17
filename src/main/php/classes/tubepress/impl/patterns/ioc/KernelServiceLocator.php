@@ -25,6 +25,11 @@
 class tubepress_impl_patterns_ioc_KernelServiceLocator
 {
     /**
+     * @var ehough_stash_api_Cache
+     */
+    private static $_cacheService;
+
+    /**
      * @var tubepress_spi_environment_EnvironmentDetector
      */
     private static $_environmentDetector;
@@ -40,6 +45,16 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     private static $_executionContext;
 
     /**
+     * tubepress_spi_feed_FeedFetcher
+     */
+    private static $_feedFetcher;
+
+    /**
+     * tubepress_spi_feed_FeedInspector
+     */
+    private static $_feedInspector;
+
+    /**
      * @var ehough_fimble_api_FileSystem
      */
     private static $_fileSystem;
@@ -48,6 +63,16 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      * @var ehough_fimble_api_FinderFactory
      */
     private static $_fileSystemFinderFactory;
+
+    /**
+     * @var ehough_shortstop_api_HttpClient
+     */
+    private static $_httpClient;
+
+    /**
+     * @var ehough_shortstop_api_HttpResponseHandler
+     */
+    private static $_httpResponseHandler;
 
     /**
      * @var tubepress_spi_http_HttpRequestParameterService
@@ -105,6 +130,16 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     private static $_themeHandler;
 
     /**
+     * @var tubepress_spi_feed_UrlBuilder
+     */
+    private static $_urlBuilder;
+
+    /**
+     * @var tubepress_spi_factory_VideoFactory
+     */
+    private static $_videoFactory;
+
+    /**
      * @var tubepress_spi_provider_Provider
      */
     private static $_videoProvider;
@@ -118,6 +153,14 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      * @var tubepress_spi_wordpress_WordPressFunctionWrapper
      */
     private static $_wordPressFunctionWrapper;
+
+    /**
+     * @return ehough_stash_api_Cache The cache service.
+     */
+    public static function getCacheService()
+    {
+        return self::$_cacheService;
+    }
 
     /**
      * @return tubepress_spi_environment_EnvironmentDetector The environment detector.
@@ -144,6 +187,22 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     }
 
     /**
+     * @return tubepress_spi_feed_FeedFetcher The feed fetcher.
+     */
+    public static function getFeedFetcher()
+    {
+        return self::$_feedFetcher;
+    }
+
+    /**
+     * @return tubepress_spi_feed_FeedInspector The feed inspector.
+     */
+    public static function getFeedInspector()
+    {
+        return self::$_feedInspector;
+    }
+
+    /**
      * @return ehough_fimble_api_FileSystem The filesystem service.
      */
     public static function getFileSystem()
@@ -157,6 +216,22 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function getFileSystemFinderFactory()
     {
         return self::$_fileSystemFinderFactory;
+    }
+
+    /**
+     * @return ehough_shortstop_api_HttpClient The HTTP client.
+     */
+    public static function getHttpClient()
+    {
+        return self::$_httpClient;
+    }
+
+    /**
+     * @return ehough_shortstop_api_HttpResponseHandler The HTTP response handler.
+     */
+    public static function getHttpResponseHandler()
+    {
+        return self::$_httpResponseHandler;
     }
 
     /**
@@ -184,7 +259,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     }
 
     /**
-     * @return tubepress_spi_options_ui_FormHandler
+     * @return tubepress_spi_options_ui_FormHandler The UI form handler.
      */
     public static function getOptionsUiFormHandler()
     {
@@ -248,6 +323,22 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     }
 
     /**
+     * @return tubepress_spi_feed_UrlBuilder The feed URL builder.
+     */
+    public static function getUrlBuilder()
+    {
+        return self::$_urlBuilder;
+    }
+
+    /**
+     * @return tubepress_spi_factory_VideoFactory The video factory.
+     */
+    public static function getVideoFactory()
+    {
+        return self::$_videoFactory;
+    }
+
+    /**
      * @return tubepress_spi_provider_Provider The video provider.
      */
     public static function getVideoProvider()
@@ -269,6 +360,14 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function getWordPressFunctionWrapper()
     {
         return self::$_wordPressFunctionWrapper;
+    }
+
+    /**
+     * @param ehough_stash_api_Cache $cache The cache.
+     */
+    public static function setCacheService(ehough_stash_api_Cache $cache)
+    {
+        self::$_cacheService = $cache;
     }
 
     /**
@@ -296,6 +395,22 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     }
 
     /**
+     * @param tubepress_spi_feed_FeedFetcher $feedFetcher The feed fetcher.
+     */
+    public static function setFeedFetcher(tubepress_spi_feed_FeedFetcher $feedFetcher)
+    {
+        self::$_feedFetcher = $feedFetcher;
+    }
+
+    /**
+     * @param tubepress_spi_feed_FeedInspector $feedInspector The feed inspector.
+     */
+    public static function setFeedInspector(tubepress_spi_feed_FeedInspector $feedInspector)
+    {
+        self::$_feedInspector = $feedInspector;
+    }
+
+    /**
      * @param ehough_fimble_api_Filesystem $fileSystem The filesystem.
      */
     public static function setFileSystem(ehough_fimble_api_Filesystem $fileSystem)
@@ -309,6 +424,22 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function setFileSystemFinderFactory(ehough_fimble_api_FinderFactory $finderFactory)
     {
         self::$_fileSystemFinderFactory = $finderFactory;
+    }
+
+    /**
+     * @param ehough_shortstop_api_HttpClient $client The HTTP client.
+     */
+    public static function setHttpClient(ehough_shortstop_api_HttpClient $client)
+    {
+        self::$_httpClient = $client;
+    }
+
+    /**
+     * @param ehough_shortstop_api_HttpResponseHandler $handler The HTTP response handler.
+     */
+    public static function setHttpResponseHandler(ehough_shortstop_api_HttpResponseHandler $handler)
+    {
+        self::$_httpResponseHandler = $handler;
     }
 
     /**
@@ -397,6 +528,22 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function setThemeHandler(tubepress_spi_theme_ThemeHandler $themeHandler)
     {
         self::$_themeHandler = $themeHandler;
+    }
+
+    /**
+     * @param tubepress_spi_feed_UrlBuilder $urlBuilder The URL builder.
+     */
+    public static function setUrlBuilder(tubepress_spi_feed_UrlBuilder $urlBuilder)
+    {
+        self::$_urlBuilder = $urlBuilder;
+    }
+
+    /**
+     * @param tubepress_spi_factory_VideoFactory $videoFactory The video factory.
+     */
+    public static function setVideoFactory(tubepress_spi_factory_VideoFactory $videoFactory)
+    {
+        self::$_videoFactory = $videoFactory;
     }
 
     /**

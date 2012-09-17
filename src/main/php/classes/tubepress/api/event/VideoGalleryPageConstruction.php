@@ -20,29 +20,14 @@
  */
 
 /**
- * Interface to a remove video provider
+ * This event is fired when a TubePress builds a tubepress_api_video_VideoGalleryPage.
  */
-interface tubepress_spi_provider_Provider
+class tubepress_api_event_VideoGalleryPageConstruction extends ehough_tickertape_impl_GenericEvent
 {
-    const _ = 'tubepress_spi_provider_Provider';
-
-    const DIRECTORY = 'directory';
-    const YOUTUBE   = 'youtube';
-    const VIMEO     = 'vimeo';
+    const EVENT_NAME = 'core.VideoGalleryPageConstruction';
 
     /**
-     * Get the video feed result.
-     *
-     * @return tubepress_api_video_VideoGalleryPage The feed result, never null.
+     * The name of the video provider (e.g. "vimeo" or "youtube").
      */
-    function getMultipleVideos();
-
-    /**
-     * Fetch a single video.
-     *
-     * @param string $customVideoId The video ID to fetch.
-     *
-     * @return tubepress_api_video_Video The video, or null if there's a problem.
-     */
-    function getSingleVideo($customVideoId);
+    const ARGUMENT_PROVIDER_NAME = 'providerName';
 }
