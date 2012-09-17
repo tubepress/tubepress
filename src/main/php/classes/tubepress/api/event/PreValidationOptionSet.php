@@ -23,24 +23,45 @@
  * This event is fired when a TubePress option (a name-value pair) is being set. It is fired
  * *before* any validation takes place, so use caution when handling these values.
  */
-class tubepress_api_event_PreValidationOptionSet extends ehough_tickertape_api_Event
+class tubepress_api_event_PreValidationOptionSet extends ehough_tickertape_impl_GenericEvent
 {
-    const EVENT_NAME = 'tubepress.api.event.PreValidationOptionSet';
+    const EVENT_NAME = 'core.PreValidationOptionSet';
 
     /**
-     * @var string The name of the option.
+     * The name of the option.
      */
-    public $optionName;
+    const ARGUMENT_OPTION_NAME = 'optionName';
 
     /**
-     * @var mixed The incoming option value.
+     * @var string The modifiable option value.
      */
-    public $optionValue;
+    private $_optionValue;
 
-    public function __construct($optionName, $candidateValue)
+    /**
+     * Encapsulate an event with $subject, $args, and $data.
+     *
+     * @param mixed $optionValue The subject of the event, usually an object.
+     * @param array $arguments   Arguments to store in the event.
+     */
+    public function __construct($optionValue = null, array $arguments = array())
     {
-        $this->optionName  = $optionName;
-        $this->optionValue = $candidateValue;
+        $this->_optionValue = $optionValue;
+
+        $this->setArguments($arguments);
     }
 
+    public function getSubject()
+    {
+        return $this->_optionValue;
+    }
+
+    public function getOptionValue()
+    {
+        return $this->_optionValue;
+    }
+
+    public function setOptionValue($newValue)
+    {
+        $this->_optionValue = $newValue;
+    }
 }

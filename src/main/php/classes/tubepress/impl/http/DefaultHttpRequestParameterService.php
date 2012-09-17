@@ -22,24 +22,8 @@
 /**
  * Class for managing HTTP Transports and making HTTP requests.
  */
-class org_tubepress_impl_http_DefaultHttpRequestParameterService implements tubepress_spi_http_HttpRequestParameterService
+class tubepress_impl_http_DefaultHttpRequestParameterService implements tubepress_spi_http_HttpRequestParameterService
 {
-    private static $_logPrefix = 'Default HTTP Request Param Service';
-
-    /**
-     * A handle to the plugin manager.
-     */
-    private $_pluginManager;
-
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        $ioc                  = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $this->_pluginManager = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
-    }
-
     /**
      * Gets the parameter value from PHP's $_REQUEST array.
      *
@@ -59,8 +43,21 @@ class org_tubepress_impl_http_DefaultHttpRequestParameterService implements tube
 
         $rawValue = $_REQUEST[$name];
 
-        /** Run it through the filters, if any. */
-        return $this->_pluginManager->runFilters(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, $rawValue, $name);
+        $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+
+        $event = new tubepress_api_event_VariableReadFromExternalinput(
+
+            $rawValue,
+            array(tubepress_api_event_VariableReadFromExternalinput::ARGUMENT_OPTION_NAME => $name)
+        );
+
+        $eventDispatcher->dispatch(
+
+            tubepress_api_event_VariableReadFromExternalinput::EVENT_NAME,
+            $event
+        );
+
+        return $event->getSubject();
     }
 
     /**

@@ -1,0 +1,92 @@
+<?php
+/**
+ * Copyright 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of shortstop (https://github.com/ehough/shortstop)
+ *
+ * shortstop is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * shortstop is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with shortstop.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+/**
+ * Handles errors from YouTube and Vimeo.
+ */
+abstract class tubepress_impl_http_responsehandling_AbstractHttpErrorResponseHandler implements ehough_chaingang_api_Command
+{
+    /**
+     * Execute a unit of processing work to be performed.
+     *
+     * This Command may either complete the required processing and return true,
+     * or delegate remaining processing to the next Command in a Chain containing
+     * this Command by returning false.
+     *
+     * @param ehough_chaingang_api_Context $context The Context to be processed by this Command.
+     *
+     * @return boolean True if the processing of this Context has been completed, or false if the
+     *                 processing of this Context should be delegated to a subsequent Command
+     *                 in an enclosing Chain.
+     */
+    public final function execute(ehough_chaingang_api_Context $context)
+    {
+        $pc              = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoProviderCalculator();
+        $currentProvider = $pc->calculateCurrentVideoProvider();
+
+        if ($currentProvider !== $this->getProviderName()) {
+
+            if ($this->getLogger()->isDebugEnabled()) {
+
+                $this->getLogger()->debug(sprintf('Not a %s response', $this->getProviderName()));
+            }
+
+            return false;
+        }
+
+        $response        = $context->get(ehough_shortstop_impl_HttpResponseHandlerChain::CHAIN_KEY_RESPONSE);
+        $messageToReturn = $this->getMessageForResponse($response);
+
+        $context->put(ehough_shortstop_impl_HttpResponseHandlerChain::CHAIN_KEY_ERROR_MESSAGE, $messageToReturn);
+
+        return true;
+    }
+
+    /**
+     * Get a user-friendly response message for this HTTP response.
+     *
+     * @param ehough_shortstop_api_HttpResponse $response The HTTP response.
+     *
+     * @return string A user-friendly response message for this HTTP response.
+     */
+    protected abstract function getMessageForResponse(ehough_shortstop_api_HttpResponse $response);
+
+    /**
+     * Get the name of the provider that this command handles.
+     *
+     * @return string youtube|vimeo
+     */
+    protected abstract function getProviderName();
+
+    /**
+     * Get a logging friendly name for this handler.
+     *
+     * @return string A logging friendly name for this handler.
+     */
+    protected abstract function getFriendlyProviderName();
+
+    /**
+     * Gets the logger.
+     *
+     * @return mixed ehough_epilog_api_ILogger
+     */
+    protected abstract function getLogger();
+}
