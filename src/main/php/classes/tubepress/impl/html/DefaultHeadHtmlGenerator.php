@@ -22,7 +22,7 @@
 /**
  * Generates HTML for use in the <head>.
  */
-class org_tubepress_impl_html_DefaultHeadHtmlGenerator implements org_tubepress_api_html_HeadHtmlGenerator
+class tubepress_impl_html_DefaultHeadHtmlGenerator implements tubepress_spi_html_HeadHtmlGenerator
 {
     private $_tubepressBaseUrl;
 
@@ -58,9 +58,8 @@ class org_tubepress_impl_html_DefaultHeadHtmlGenerator implements org_tubepress_
 
     public function getHeadHtmlMeta()
     {
-        $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $qss  = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
-        $page = $qss->getParamValueAsInt(org_tubepress_api_const_http_ParamName::PAGE, 1);
+        $qss  = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
+        $page = $qss->getParamValueAsInt(tubepress_spi_const_http_ParamName::PAGE, 1);
 
         return $page > 1 ? "<meta name=\"robots\" content=\"noindex, nofollow\" />" : '';
     }

@@ -1,15 +1,49 @@
 <?php
-
-require_once BASE . '/sys/classes/org/tubepress/impl/html/DefaultHeadHtmlGenerator.class.php';
-
-class org_tubepress_impl_html_DefaultHeadHtmlGeneratorTest extends TubePressUnitTest
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+class org_tubepress_impl_html_DefaultHeadHtmlGeneratorTest extends PHPUnit_Framework_TestCase
 {
     private $_sut;
 
+    private $_mockHttpRequestParameterService;
+
     function setUp()
     {
-        parent::setUp();
-        $this->_sut = new org_tubepress_impl_html_DefaultHeadHtmlGenerator();
+        global $tubepress_base_url;
+
+        $tubepress_base_url = '<tubepress_base_url>';
+
+        $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
+
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
+
+        $this->_sut = new tubepress_impl_html_DefaultHeadHtmlGenerator();
+
+
+    }
+
+    function tearDown()
+    {
+        global $tubepress_base_url;
+
+        unset($tubepress_base_url);
     }
 
     function testJqueryInclude()
@@ -34,20 +68,14 @@ class org_tubepress_impl_html_DefaultHeadHtmlGeneratorTest extends TubePressUnit
 
 	function testHeadMetaPageOne()
 	{
-	    $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-
-	    $qss  = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
-        $qss->shouldReceive('getParamValueAsInt')->once()->with(org_tubepress_api_const_http_ParamName::PAGE, 1)->andReturn(1);
+        $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(1);
 
 	    $this->assertEquals('', $this->_sut->getHeadHtmlMeta());
 	}
 
     function testHeadMetaPageTwo()
 	{
-	    $ioc  = org_tubepress_impl_ioc_IocContainer::getInstance();
-
-	    $qss  = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
-        $qss->shouldReceive('getParamValueAsInt')->once()->with(org_tubepress_api_const_http_ParamName::PAGE, 1)->andReturn(2);
+        $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(2);
 
 	    $this->assertEquals('<meta name="robots" content="noindex, nofollow" />', $this->_sut->getHeadHtmlMeta());
 	}

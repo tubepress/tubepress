@@ -20,13 +20,19 @@
  */
 
 /**
- * HTTP request parameter names.
+ * Generates HTML for use in the <head>.
  */
-class org_tubepress_api_const_http_ParamName
+interface tubepress_spi_html_HeadHtmlGenerator
 {
-    const DEBUG        = 'tubepress_debug';
-    const PAGE         = 'tubepress_page';
-    const SEARCH_TERMS = 'tubepress_search';
-    const SHORTCODE    = 'tubepress_shortcode';
-    const VIDEO        = 'tubepress_video';
+    const _ = 'tubepress_spi_html_HeadHtmlGenerator';
+
+    function getHeadJqueryInclusion();
+
+    function getHeadInlineJs();
+
+    function getHeadJsIncludeString();
+
+    function getHeadCssIncludeString();
+
+    function getHeadHtmlMeta();
 }
