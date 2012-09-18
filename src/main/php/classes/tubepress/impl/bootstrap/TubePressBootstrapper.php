@@ -53,11 +53,10 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
 
     private function _doBoot()
     {
-        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $context     = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $envDetector = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
-        $pm          = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
-        $sm  		 = $ioc->get(org_tubepress_api_options_StorageManager::_);
+        $context     = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $envDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
+        $pm          = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+        $sm  		 = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
 
         /** Init the storage manager. */
         $sm->init();
