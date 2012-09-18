@@ -18,36 +18,29 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
-/**
- * A TubePress plugin.
- */
-interface tubepress_spi_plugin_Plugin
+class org_tubepress_impl_player_DefaultPluginRegistryTest extends PHPUnit_Framework_TestCase
 {
-    const _ = 'tubepress_spi_plugin_Plugin';
+    private $_sut;
 
-    /**
-     * @return string The friendly name of this plugin.
-     */
-    function getName();
+    public function setUp()
+    {
+        $this->_sut = new tubepress_impl_plugin_DefaultPluginRegistry();
+    }
 
-    /**
-     * @return string The short (255 chars or less) description of this plugin.
-     */
-    function getDescription();
+    public function testLoadGoodPlugin()
+    {
+        $plugin = new tubepress_impl_plugin_PluginBase(
 
-    /**
-     * @return tubepress_spi_version_Version The version of this plugin.
-     */
-    function getVersion();
+            'something',
+            'hello',
+            '1.2.3',
+            'b',
+            __DIR__ . '/../../../resources/plugins/good_plugin'
+        );
 
-    /**
-     * @return string The absolute path to the plugin's directory.
-     */
-    function getAbsolutePathOfDirectory();
+        $this->_sut->load($plugin);
 
-    /**
-     * @return string The filename without the .info extension.
-     */
-    function getFileNameWithoutExtension();
+        $this->assertTrue(defined('GOOD_PLUGIN_LOADED'));
+        $this->assertTrue(GOOD_PLUGIN_LOADED === true);
+    }
 }

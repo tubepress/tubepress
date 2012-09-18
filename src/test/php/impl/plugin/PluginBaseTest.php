@@ -27,6 +27,7 @@ class org_tubepress_impl_player_PluginBaseTest extends PHPUnit_Framework_TestCas
             'name',
             'description',
             '1.0.0',
+            'short',
             'absPath'
         );
         
@@ -34,6 +35,7 @@ class org_tubepress_impl_player_PluginBaseTest extends PHPUnit_Framework_TestCas
         $this->assertEquals('description', $sut->getDescription());
         $this->assertEquals('1.0.0', (string) $sut->getVersion());
         $this->assertEquals('absPath', $sut->getAbsolutePathOfDirectory());
+        $this->assertEquals('short', $sut->getFileNameWithoutExtension());
     }
 
     /**
@@ -46,6 +48,7 @@ class org_tubepress_impl_player_PluginBaseTest extends PHPUnit_Framework_TestCas
             'name',
             'description',
             'x.y.z',
+            'short',
             'absPath'
         );
 
@@ -53,6 +56,7 @@ class org_tubepress_impl_player_PluginBaseTest extends PHPUnit_Framework_TestCas
         $this->assertEquals('description', $sut->getDescription());
         $this->assertEquals('1.0.0', (string) $sut->getVersion());
         $this->assertEquals('absPath', $sut->getAbsolutePathOfDirectory());
+        $this->assertEquals('short', $sut->getFileNameWithoutExtension());
     }
 
     public function testBuildsCorrectly3()
@@ -62,6 +66,7 @@ class org_tubepress_impl_player_PluginBaseTest extends PHPUnit_Framework_TestCas
             'name',
             'description',
             tubepress_spi_version_Version::parse('5.6.4'),
+            'short',
             'absPath'
         );
 
@@ -69,5 +74,6 @@ class org_tubepress_impl_player_PluginBaseTest extends PHPUnit_Framework_TestCas
         $this->assertEquals('description', $sut->getDescription());
         $this->assertEquals('5.6.4', (string) $sut->getVersion());
         $this->assertEquals('absPath', $sut->getAbsolutePathOfDirectory());
+        $this->assertEquals('short', $sut->getFileNameWithoutExtension());
     }
 }

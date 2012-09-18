@@ -42,6 +42,11 @@ class tubepress_impl_plugin_PluginBase implements tubepress_spi_plugin_Plugin
     /**
      * @var string
      */
+    private $_fileNameWithoutExtension;
+
+    /**
+     * @var string
+     */
     private $_absPath;
 
     public function __construct(
@@ -49,11 +54,13 @@ class tubepress_impl_plugin_PluginBase implements tubepress_spi_plugin_Plugin
         $name,
         $description,
         $version,
+        $fileNameWithoutExtension,
         $absolutePath) {
 
-        $this->_name        = $name;
-        $this->_description = $description;
-        $this->_absPath     = $absolutePath;
+        $this->_name                      = $name;
+        $this->_description               = $description;
+        $this->_absPath                   = $absolutePath;
+        $this->_fileNameWithoutExtension = $fileNameWithoutExtension;
 
         if ($version instanceof tubepress_spi_version_Version) {
 
@@ -95,5 +102,13 @@ class tubepress_impl_plugin_PluginBase implements tubepress_spi_plugin_Plugin
     public final function getAbsolutePathOfDirectory()
     {
         return $this->_absPath;
+    }
+
+    /**
+     * @return string The filename without the .info extension.
+     */
+    public final function getFileNameWithoutExtension()
+    {
+        return $this->_fileNameWithoutExtension;
     }
 }

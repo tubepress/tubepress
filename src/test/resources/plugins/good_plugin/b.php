@@ -18,3 +18,4 @@
  * along with <project>.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+define('GOOD_PLUGIN_LOADED', true);

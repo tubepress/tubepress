@@ -136,6 +136,7 @@ class tubepress_impl_plugin_FilesystemPluginDiscoverer implements tubepress_spi_
                 $infoFileContents['name'],
                 $infoFileContents['description'],
                 $infoFileContents['version'],
+                str_replace('.info', '', basename($infoFile->getRealpath())),
                 dirname($infoFile->getRealpath())
             );
 
