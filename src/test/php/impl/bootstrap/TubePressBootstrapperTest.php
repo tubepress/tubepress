@@ -1,73 +1,79 @@
 <?php
-require_once BASE . '/sys/classes/org/tubepress/impl/bootstrap/TubePressBootstrapper.class.php';
-
-use \Mockery as m;
-
-class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUnitTest {
-
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends PHPUnit_Framework_TestCase
+{
     private $_sut;
+
+    private $_mockEnvironmentDetector;
+
+    private $_mockStorageManager;
+
+    private $_mockPluginDiscoverer;
+
+    private $_mockPluginRegistry;
+
+    private $_mockEventDispatcher;
 
     function setUp()
     {
-        parent::setUp();
-        $this->_sut = new org_tubepress_impl_bootstrap_TubePressBootstrapper();
+        $this->_sut = new tubepress_impl_bootstrap_TubePressBootstrapper();
+
+        $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockStorageManager      = Mockery::mock(tubepress_spi_options_StorageManager::_);
+        $this->_mockPluginDiscoverer    = Mockery::mock(tubepress_spi_plugin_PluginDiscoverer::_);
+        $this->_mockPluginRegistry      = Mockery::mock(tubepress_spi_plugin_PluginRegistry::_);
+        $this->_mockEventDispatcher     = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
+
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionStorageManager($this->_mockStorageManager);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setPluginDiscoverer($this->_mockPluginDiscoverer);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setPluginRegistry($this->_mockPluginRegistry);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
     }
 
     function testBoot()
     {
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $mockPlugin1 = Mockery::mock(tubepress_spi_plugin_Plugin::_);
+        $mockPlugin2 = Mockery::mock(tubepress_spi_plugin_Plugin::_);
 
-        $pm                    = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
-        $expectedSystemFilters = array(
-            array(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION,
-                'org_tubepress_impl_plugin_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover'),
-            array(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION,
-                'org_tubepress_impl_plugin_filters_prevalidationoptionset_StringMagic'),
+        $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(false);
+        $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn('<<user-content-dir>>');
+        $this->_mockPluginDiscoverer->shouldReceive('findPluginsNonRecursivelyInDirectory')->once()
+            ->with(realpath(__DIR__ . '/../../../../main/php/plugins/core'))->andReturn(array($mockPlugin1));
+        $this->_mockPluginDiscoverer->shouldReceive('findPluginsNonRecursivelyInDirectory')->once()
+            ->with(realpath('<<user-content-dir>>/plugins'))->andReturn(array($mockPlugin2));
+        $this->_mockPluginRegistry->shouldReceive('load')->once()->with($mockPlugin1);
+        $this->_mockPluginRegistry->shouldReceive('load')->once()->with($mockPlugin2);
 
-            array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_EMBEDDED     , 'org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariables'),
-        	array(org_tubepress_api_const_plugin_FilterPoint::HTML_EMBEDDED		    , 'org_tubepress_impl_plugin_filters_embeddedhtml_PlayerJavaScriptApi'),
-            array(org_tubepress_api_const_plugin_FilterPoint::HTML_GALLERY          , 'org_tubepress_impl_plugin_filters_galleryhtml_GalleryJs'),
-            array(org_tubepress_api_const_plugin_FilterPoint::JAVASCRIPT_GALLERYINIT, 'org_tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParams'),
-            array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY      , 'org_tubepress_impl_plugin_filters_gallerytemplate_CoreVariables'),
-            array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY      , 'org_tubepress_impl_plugin_filters_gallerytemplate_EmbeddedPlayerName'),
-            array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY      , 'org_tubepress_impl_plugin_filters_gallerytemplate_Pagination'),
-            array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY      , 'org_tubepress_impl_plugin_filters_gallerytemplate_Player'),
-            array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY      , 'org_tubepress_impl_plugin_filters_gallerytemplate_VideoMeta'),
-            array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_PLAYER       , 'org_tubepress_impl_plugin_filters_playertemplate_CoreVariables'),
-            array(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT       , 'org_tubepress_impl_plugin_filters_providerresult_ResultCountCapper'),
-            array(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT       , 'org_tubepress_impl_plugin_filters_providerresult_VideoBlacklist'),
-            array(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT       , 'org_tubepress_impl_plugin_filters_providerresult_PerPageSorter'),
-            array(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT       , 'org_tubepress_impl_plugin_filters_providerresult_VideoPrepender'),
-            array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SEARCHINPUT  , 'org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariables'),
-            array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO  , 'org_tubepress_impl_plugin_filters_singlevideotemplate_CoreVariables'),
-            array(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO  , 'org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMeta'),
-            array(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, 'org_tubepress_impl_plugin_filters_variablereadfromexternalinput_StringMagic'),
-        );
-        foreach ($expectedSystemFilters as $filter) {
+        $this->_mockStorageManager->shouldReceive('init')->once();
 
-            $pm->shouldReceive('registerFilter')->with($filter[0], anInstanceOf($filter[1]))->once();
-        }
-
-        $pm->shouldReceive('registerListener')->with(org_tubepress_api_const_plugin_EventName::BOOT, anInstanceOf('org_tubepress_impl_plugin_listeners_StorageManagerInitListener'));
-        $pm->shouldReceive('registerListener')->with(org_tubepress_api_const_plugin_EventName::BOOT, anInstanceOf('org_tubepress_impl_plugin_listeners_WordPressBoot'));
-        $pm->shouldReceive('registerListener')->with(org_tubepress_api_const_plugin_EventName::BOOT, anInstanceOf('org_tubepress_impl_plugin_listeners_SkeletonExistsListener'));
-
-        $pm->shouldReceive('notifyListeners')->with(org_tubepress_api_const_plugin_EventName::BOOT)->once();
-
-        $envD = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
-        $envD->shouldReceive('isWordPress')->once()->andReturn(false);
-        $envD->shouldReceive('getUserContentDirectory')->once()->andReturn('<<user-content-dir>>');
-
-        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('get')->with(org_tubepress_api_const_options_names_Advanced::DEBUG_ON)->andReturn(false);
-
-        $fe = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-        $fe->shouldReceive('getDirectoriesInDirectory')->once()->with('<<user-content-dir>>/plugins', anything())->andReturn(array('fakedirectory'));
-        $fe->shouldReceive('getFilenamesInDirectory')->once()->with('fakedirectory', anything())->andReturn(array(dirname(__FILE__) . '/../../../resources/simplePhpFile.php'));
-
-        $sm  		 = $ioc->get(org_tubepress_api_options_StorageManager::_);
-        $sm->shouldReceive('init')->once();
+        $this->_mockEventDispatcher->shouldReceive('dispatchWithoutEventInstance')->once()->with(tubepress_api_event_Boot::EVENT_NAME);
 
         $this->_sut->boot();
+
+        $this->assertTrue(true);
+    }
+
+    public function tearDown()
+    {
+        Mockery::close();
     }
 }

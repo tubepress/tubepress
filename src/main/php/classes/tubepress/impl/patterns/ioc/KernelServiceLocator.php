@@ -25,6 +25,11 @@
 class tubepress_impl_patterns_ioc_KernelServiceLocator
 {
     /**
+     * @var tubepress_spi_bootstrap_Bootstrapper
+     */
+    private static $_bootStrapper;
+
+    /**
      * @var ehough_stash_api_Cache
      */
     private static $_cacheService;
@@ -115,6 +120,16 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     private static $_playerHtmlGenerator;
 
     /**
+     * @var tubepress_spi_plugin_PluginDiscoverer
+     */
+    private static $_pluginDiscoverer;
+
+    /**
+     * @var tubepress_spi_plugin_PluginRegistry
+     */
+    private static $_pluginRegistry;
+
+    /**
      * @var tubepress_spi_shortcode_ShortcodeHtmlGenerator
      */
     private static $_shortcodeHtmlGenerator;
@@ -123,6 +138,11 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      * @var tubepress_spi_shortcode_ShortcodeParser
      */
     private static $_shortcodeParser;
+
+    /**
+     * @var ehough_contemplate_api_TemplateBuilder
+     */
+    private static $_templateBuilder;
 
     /**
      * @var tubepress_spi_theme_ThemeHandler
@@ -153,6 +173,14 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      * @var tubepress_spi_wordpress_WordPressFunctionWrapper
      */
     private static $_wordPressFunctionWrapper;
+
+    /**
+     * @return tubepress_spi_bootstrap_Bootstrapper The bootstrapper.
+     */
+    public static function getBootstrapper()
+    {
+        return self::$_bootStrapper;
+    }
 
     /**
      * @return ehough_stash_api_Cache The cache service.
@@ -299,6 +327,22 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     }
 
     /**
+     * @return tubepress_spi_plugin_PluginDiscoverer The plugin discoverer.
+     */
+    public static function getPluginDiscoverer()
+    {
+        return self::$_pluginDiscoverer;
+    }
+
+    /**
+     * @return tubepress_spi_plugin_PluginRegistry The plugin registry.
+     */
+    public static function getPluginRegistry()
+    {
+        return self::$_pluginRegistry;
+    }
+
+    /**
      * @return tubepress_spi_shortcode_ShortcodeHtmlGenerator The shortcode HTML generator.
      */
     public static function getShortcodeHtmlGenerator()
@@ -312,6 +356,14 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function getShortcodeParser()
     {
         return self::$_shortcodeParser;
+    }
+
+    /**
+     * @return ehough_contemplate_api_TemplateBuilder The template builder.
+     */
+    public static function getTemplateBuilder()
+    {
+        return self::$_templateBuilder;
     }
 
     /**
@@ -360,6 +412,14 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function getWordPressFunctionWrapper()
     {
         return self::$_wordPressFunctionWrapper;
+    }
+
+    /**
+     * @param tubepress_spi_bootstrap_Bootstrapper $bootStrapper The bootstrapper.
+     */
+    public static function setBootstrapper(tubepress_spi_bootstrap_Bootstrapper $bootStrapper)
+    {
+        self::$_bootStrapper = $bootStrapper;
     }
 
     /**
@@ -507,6 +567,22 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     }
 
     /**
+     * @param tubepress_spi_plugin_PluginDiscoverer $pluginDiscoverer Plugin discoverer.
+     */
+    public static function setPluginDiscoverer(tubepress_spi_plugin_PluginDiscoverer $pluginDiscoverer)
+    {
+        self::$_pluginDiscoverer = $pluginDiscoverer;
+    }
+
+    /**
+     * @param tubepress_spi_plugin_PluginRegistry $pluginRegistry Plugin registry.
+     */
+    public static function setPluginRegistry(tubepress_spi_plugin_PluginRegistry $pluginRegistry)
+    {
+        self::$_pluginRegistry = $pluginRegistry;
+    }
+
+    /**
      * @param tubepress_spi_shortcode_ShortcodeHtmlGenerator $shortcodeHtmlGenerator The shortcode HTML generator.
      */
     public static function setShortcodeHtmlGenerator(tubepress_spi_shortcode_ShortcodeHtmlGenerator $shortcodeHtmlGenerator)
@@ -520,6 +596,14 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function setShortcodeHtmlParser(tubepress_spi_shortcode_ShortcodeParser $shortcodeParser)
     {
         self::$_shortcodeParser = $shortcodeParser;
+    }
+
+    /**
+     * @param ehough_contemplate_api_TemplateBuilder $templateBuilder Template builder.
+     */
+    public static function setTemplateBuilder(ehough_contemplate_api_TemplateBuilder $templateBuilder)
+    {
+        self::$_templateBuilder = $templateBuilder;
     }
 
     /**

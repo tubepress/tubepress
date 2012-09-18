@@ -22,18 +22,23 @@
 /**
  * Performs TubePress-wide initialization.
  */
-class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepress_api_bootstrap_Bootstrapper
+class tubepress_impl_bootstrap_TubePressBootstrapper implements tubepress_spi_bootstrap_Bootstrapper
 {
-    const LOG_PREFIX = 'TubePress Bootstrapper';
-
     private static $_alreadyBooted = false;
+
+    private $_logger;
+
+    public function __construct()
+    {
+        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('TubePress Bootstrapper');
+    }
 
     /**
      * Performs TubePress-wide initialization.
      *
      * @return null
      */
-    public function boot()
+    public final function boot()
     {
         /* don't boot twice! */
         if (self::$_alreadyBooted) {
@@ -47,15 +52,13 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
 
         } catch (Exception $e) {
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Caught exception while booting: '.  $e->getMessage());
+            $this->_logger->debug('Caught exception while booting: '.  $e->getMessage());
         }
     }
 
     private function _doBoot()
     {
-        $context     = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
         $envDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
-        $pm          = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
         $sm  		 = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
 
         /** Init the storage manager. */
@@ -67,103 +70,56 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapper implements org_tubepres
             ob_start();
         }
 
-        /* Turn on logging if we need to */
-        org_tubepress_impl_log_Log::setEnabled($context->get(org_tubepress_api_const_options_names_Advanced::DEBUG_ON), $_GET);
-        org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Booting!');
+        if ($this->_logger->isDebugEnabled()) {
+
+            $this->_logger->debug('Booting!');
+        }
+
+        $pluginDiscoverer = tubepress_impl_patterns_ioc_KernelServiceLocator::getPluginDiscoverer();
+        $pluginLoader     = tubepress_impl_patterns_ioc_KernelServiceLocator::getPluginRegistry();
 
         /* load plugins */
-        $this->loadSystemPlugins($ioc);
-        $this->_loadUserPlugins($ioc);
+        $this->loadSystemPlugins($pluginDiscoverer, $pluginLoader);
+        $this->loadUserPlugins($pluginDiscoverer, $pluginLoader);
+
+        $pm = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
 
         /* tell everyone we're booting */
-        $pm->notifyListeners(org_tubepress_api_const_plugin_EventName::BOOT);
+        $pm->dispatchWithoutEventInstance(tubepress_api_event_Boot::EVENT_NAME);
 
         /* remember that we booted. */
         self::$_alreadyBooted = true;
     }
 
-    private function _loadUserPlugins(org_tubepress_api_ioc_IocService $ioc)
+    private function loadUserPlugins(tubepress_spi_plugin_PluginDiscoverer $discoverer,
+                                     tubepress_spi_plugin_PluginRegistry $registry)
     {
-        $pm         = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
-        $fe         = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-        $th         = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
-        $pluginPath = $th->getUserContentDirectory() . '/plugins';
-        $pluginDirs = $fe->getDirectoriesInDirectory($pluginPath, self::LOG_PREFIX);
+        $environmentDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
 
-        foreach ($pluginDirs as $pluginDir) {
+        $userContentDir = $environmentDetector->getUserContentDirectory();
+        $userPluginsDir = $userContentDir . '/plugins';
 
-            org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Examining potential plugin directory at %s', $pluginDir);
-
-            $files = $fe->getFilenamesInDirectory($pluginDir, self::LOG_PREFIX);
-
-            foreach ($files as $file) {
-
-                if ('.php' == substr($file, -4) && is_readable($file)) {
-
-                    org_tubepress_impl_log_Log::log(self::LOG_PREFIX, 'Loading PHP file at <tt>%s</tt>', $file);
-
-                    include_once $file;
-                }
-            }
-        }
+        $this->loadPluginsFromDirectory($userPluginsDir,
+            $discoverer, $registry);
     }
 
-    /**
-     * Load system-defined plugins.
-     *
-     * @param org_tubepress_api_ioc_IocService $ioc The IOC container.
-     *
-     * @return void
-     */
-    protected function loadSystemPlugins(org_tubepress_api_ioc_IocService $ioc)
+    private function loadSystemPlugins(tubepress_spi_plugin_PluginDiscoverer $discoverer,
+                                       tubepress_spi_plugin_PluginRegistry $registry)
     {
-        $pm = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+        $this->loadPluginsFromDirectory(__DIR__ . '/../../../../plugins/core',
+            $discoverer, $registry);
+    }
 
-        /* pre validation option setting */
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION,
-                $ioc->get('org_tubepress_impl_plugin_filters_prevalidationoptionset_StringMagic'));
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::OPTION_SET_PRE_VALIDATION,
-            $ioc->get('org_tubepress_impl_plugin_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover'));
+    private function loadPluginsFromDirectory(
+                                              $directory,
+        tubepress_spi_plugin_PluginDiscoverer $discoverer,
+        tubepress_spi_plugin_PluginRegistry   $registry)
+    {
+        $plugins = $discoverer->findPluginsNonRecursivelyInDirectory(realpath($directory));
 
-        /* embedded template filters */
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_EMBEDDED, $ioc->get('org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariables'));
+        foreach ($plugins as $plugin) {
 
-        /* embedded HTML filters */
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::HTML_EMBEDDED, $ioc->get('org_tubepress_impl_plugin_filters_embeddedhtml_PlayerJavaScriptApi'));
-
-        /* gallery HTML filters */
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::HTML_GALLERY, $ioc->get('org_tubepress_impl_plugin_filters_galleryhtml_GalleryJs'));
-
-        /* gallery init js */
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::JAVASCRIPT_GALLERYINIT, $ioc->get('org_tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParams'));
-
-        /* gallery template filters */
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_filters_gallerytemplate_CoreVariables'));
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_filters_gallerytemplate_EmbeddedPlayerName'));
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_filters_gallerytemplate_Pagination'));
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_filters_gallerytemplate_Player'));
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_GALLERY, $ioc->get('org_tubepress_impl_plugin_filters_gallerytemplate_VideoMeta'));
-
-        /* player template filters */
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_PLAYER, $ioc->get('org_tubepress_impl_plugin_filters_playertemplate_CoreVariables'));
-
-        /* provider result filters */
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_filters_providerresult_ResultCountCapper'));
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_filters_providerresult_VideoBlacklist'));
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_filters_providerresult_PerPageSorter'));
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::PROVIDER_RESULT, $ioc->get('org_tubepress_impl_plugin_filters_providerresult_VideoPrepender'));
-
-        /* search input template filter */
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SEARCHINPUT, $ioc->get('org_tubepress_impl_plugin_filters_searchinputtemplate_CoreVariables'));
-
-        /* single video template filters */
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $ioc->get('org_tubepress_impl_plugin_filters_singlevideotemplate_CoreVariables'));
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SINGLEVIDEO, $ioc->get('org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMeta'));
-
-        /* external input filters */
-        $pm->registerFilter(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, $ioc->get('org_tubepress_impl_plugin_filters_variablereadfromexternalinput_StringMagic'));
-
-        $pm->registerListener(org_tubepress_api_const_plugin_EventName::BOOT, $ioc->get('org_tubepress_impl_plugin_listeners_WordPressBoot'));
-        $pm->registerListener(org_tubepress_api_const_plugin_EventName::BOOT, $ioc->get('org_tubepress_impl_plugin_listeners_SkeletonExistsListener'));
+            $result = $registry->load($plugin);
+        }
     }
 }

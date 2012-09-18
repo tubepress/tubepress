@@ -22,9 +22,9 @@
 /**
  * Performs TubePress-wide preflight checks and initialization.
  */
-interface org_tubepress_api_bootstrap_Bootstrapper
+interface tubepress_spi_bootstrap_Bootstrapper
 {
-    const _ = 'org_tubepress_api_bootstrap_Bootstrapper';
+    const _ = 'tubepress_spi_bootstrap_Bootstrapper';
 
     /**
      * Performs TubePress-wide initialization.
