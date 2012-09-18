@@ -26,23 +26,9 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
 {
     private $_logger;
 
-    private $_templateBuilder;
-
-    private $_context;
-
-    private $_environmentDetector;
-
-    public function __construct(
-        ehough_contemplate_api_TemplateBuilder $builder,
-        tubepress_spi_context_ExecutionContext $context,
-        tubepress_spi_environment_EnvironmentDetector $environmentDetector
-    )
+    public function __construct()
     {
         $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Theme Handler');
-
-        $this->_templateBuilder     = $builder;
-        $this->_context             = $context;
-        $this->_environmentDetector = $environmentDetector;
     }
 
     /**
@@ -68,8 +54,9 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
             $this->_logger->debug("Requested theme is '$currentTheme'");
         }
 
-        $filePath     = $this->_getFilePath($currentTheme, $pathToTemplate, $debugEnabled);
-        $template     = $this->_templateBuilder->getNewTemplateInstance($filePath);
+        $templateBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
+        $filePath        = $this->_getFilePath($currentTheme, $pathToTemplate, $debugEnabled);
+        $template        = $templateBuilder->getNewTemplateInstance($filePath);
 
         if ($debugEnabled) {
 
@@ -86,7 +73,8 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
     */
     public function calculateCurrentThemeName()
     {
-        $currentTheme = $this->_context->get(tubepress_api_const_options_names_Thumbs::THEME);
+        $executionContext = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $currentTheme     = $executionContext->get(tubepress_api_const_options_names_Thumbs::THEME);
 
         if ($currentTheme == '') {
 
@@ -98,7 +86,9 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
 
     private function _getFilePath($currentTheme, $pathToTemplate, $debugEnabled)
     {
-        $tubepressInstallationPath = $this->_environmentDetector->getTubePressBaseInstallationPath();
+        $environmentDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
+
+        $tubepressInstallationPath = $environmentDetector->getTubePressBaseInstallationPath();
 
         /* first try to load the theme from sys/ui */
         $filePath = "$tubepressInstallationPath/src/main/resources/default-themes/$currentTheme/$pathToTemplate";
@@ -111,7 +101,7 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
                 $this->_logger->debug("Could not read file at $filePath");
             }
 
-            $filePath = $this->_environmentDetector->getUserContentDirectory() . "/themes/$currentTheme/$pathToTemplate";
+            $filePath = $environmentDetector->getUserContentDirectory() . "/themes/$currentTheme/$pathToTemplate";
 
             /* finally, just fall back to the default theme. */
             if (! is_readable($filePath)) {

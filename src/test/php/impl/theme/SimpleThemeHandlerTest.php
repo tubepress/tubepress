@@ -35,8 +35,11 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends PHPUnit_Framework_
         $this->_mockContext             = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
         $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
 
-        $this->_sut = new tubepress_impl_theme_SimpleThemeHandler($this->_mockTemplateBuilder,
-            $this->_mockContext, $this->_mockEnvironmentDetector);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockContext);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
+
+        $this->_sut = new tubepress_impl_theme_SimpleThemeHandler();
     }
 
     public function testCalculateCurrentThemeNameNoCustomTheme()
