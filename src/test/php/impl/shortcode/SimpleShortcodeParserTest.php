@@ -18,22 +18,27 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
-class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends PHPUnit_Framework_TestCase
+class tubepress_impl_shortcode_SimpleShortcodeParserTest extends PHPUnit_Framework_TestCase
 {
     private $_sut;
+    private $_mockExecutionContext;
+    private $_mockEventDispatcher;
 
     function setup()
     {
-        parent::setUp();
+        $this->_sut = new tubepress_impl_shortcode_SimpleShortcodeParser();
+        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockEventDispatcher = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
 
-        $this->_sut = new org_tubepress_impl_shortcode_SimpleShortcodeParser();
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
 
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('butters');
+    }
 
-        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('butters');
+    public function tearDown()
+    {
+        Mockery::close();
     }
 
     function testNothingToParse()
@@ -41,185 +46,187 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends PHPUnit_Fra
         $shortcode = '[bu mode=&#8216playlist&#8217  , playlistValue=&#8242;foobar&#8242; ,author="false", resultCountCap=\'200\' resultsPerPage=3]';
 
         $this->_sut->parse($shortcode);
+
+        $this->assertTrue(true);
     }
 
     function testMixedCommasWithAllSortsOfQuotes()
     {
         $shortcode = '[butters mode=&#8216playlist&#8217  , playlistValue=&#8242;foobar&#8242; ,author="false", resultCountCap=\'200\' resultsPerPage=3]';
 
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
-
         $expected = array(
-            org_tubepress_api_const_options_names_Output::GALLERY_SOURCE                => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
-            org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
-            org_tubepress_api_const_options_names_Meta::AUTHOR                          => 'false',
-            org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP                => 200,
-            org_tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE              => 3
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE                => tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
+            tubepress_api_const_options_names_Meta::AUTHOR                          => 'false',
+            tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP                => 200,
+            tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE              => 3
         );
 
-        $this->_setupExpectedFilters($ioc, $expected);
+        $this->_setupExpectedFilters( $expected);
 
-        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $context->shouldReceive('setCustomOptions')->once()->with($expected);
+        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
+        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+
+        $this->assertTrue(true);
     }
 
     function testNoCommasWithAllSortsOfQuotes()
     {
         $shortcode = '[butters mode=&#8216playlist&#8217 playlistValue=&#8242;foobar&#8242; author="true" resultCountCap=\'200\' resultsPerPage=3]';
 
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-
-        $expected = array(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
-            org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
-            org_tubepress_api_const_options_names_Meta::AUTHOR => 'true',
-            org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => 200,
-            org_tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => 3
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
+            tubepress_api_const_options_names_Meta::AUTHOR => 'true',
+            tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => 200,
+            tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => 3
         );
 
-        $this->_setupExpectedFilters($ioc, $expected);
+        $this->_setupExpectedFilters( $expected);
 
-        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $context->shouldReceive('setCustomOptions')->once()->with($expected);
+        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
+        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+
+        $this->assertTrue(true);
     }
 
     function testCommasWithAllSortsOfQuotes()
     {
         $shortcode = '[butters mode=&#8216playlist&#8217, playlistValue=&#8242;foobar&#8242;, author="true", resultCountCap=\'200\', resultsPerPage=3]';
 
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
         $expected = array(
-            org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
-            org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
-            org_tubepress_api_const_options_names_Meta::AUTHOR => 'true',
-            org_tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => 200,
-            org_tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => 3
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar',
+            tubepress_api_const_options_names_Meta::AUTHOR => 'true',
+            tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP => 200,
+            tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE => 3
         );
 
-        $this->_setupExpectedFilters($ioc, $expected);
+        $this->_setupExpectedFilters($expected);
 
-        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $context->shouldReceive('setCustomOptions')->once()->with($expected);
+
+        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
+        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+
+        $this->assertTrue(true);
     }
 
     function testNoCustomOptions()
     {
         $shortcode = '[butters]';
 
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-
-        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $context->shouldReceive('setCustomOptions')->never();
+        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
+        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->never();
 
         $this->_sut->parse($shortcode);
+
+        $this->assertTrue(true);
     }
 
     function testWeirdSingleQuotes()
     {
         $shortcode = '[butters mode=&#8216playlist&#8217 playlistValue=&#8242;foobar&#8242;]';
 
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-
         $expected = array(
-            org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
-            org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar'
+            tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar'
         );
 
-        $this->_setupExpectedFilters($ioc, $expected);
+        $this->_setupExpectedFilters($expected);
 
-        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $context->shouldReceive('setCustomOptions')->once()->with($expected);
+
+        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
+        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+
+        $this->assertTrue(true);
     }
 
     function testWeirdDoubleQuotes()
     {
         $shortcode = '[butters mode=&#34playlist&#8220; playlistValue=&#8221;foobar&#8243;]';
 
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
-
-        $expected = array(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
-            org_tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar'
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => 'foobar'
         );
 
-        $this->_setupExpectedFilters($ioc, $expected);
+        $this->_setupExpectedFilters($expected);
 
-        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $context->shouldReceive('setCustomOptions')->once()->with($expected);
+        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
+        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+
+        $this->assertTrue(true);
     }
 
     function testNoQuotes()
     {
         $shortcode = '[butters mode=playlist	]';
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_setupExpectedFilters($expected);
 
-        $expected = array(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 
-        $this->_setupExpectedFilters($ioc, $expected);
-
-        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $context->shouldReceive('setCustomOptions')->once()->with($expected);
+        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
+        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+
+        $this->assertTrue(true);
     }
 
     function testSingleQuotes()
     {
         $shortcode = '[butters mode=\'playlist\']';
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $expected = array(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 
-        $this->_setupExpectedFilters($ioc, $expected);
+        $this->_setupExpectedFilters($expected);
 
-        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $context->shouldReceive('setCustomOptions')->once()->with($expected);
+        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
+        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+
+        $this->assertTrue(true);
     }
 
     function testDoubleQuotes()
     {
         $shortcode = '[butters mode="playlist"]';
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $expected = array(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 
-        $this->_setupExpectedFilters($ioc, $expected);
+        $this->_setupExpectedFilters( $expected);
 
-        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $context->shouldReceive('setCustomOptions')->once()->with($expected);
+        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
+        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+
+        $this->assertTrue(true);
     }
 
     function testMismatchedStartEndQuotes()
     {
         $this->_sut->parse('[butters mode=\'playlist"]');
+
+        $this->assertTrue(true);
     }
 
     function testNoClosingBracket()
     {
         $this->_sut->parse('[butters mode=\'playlist\'');
+
+        $this->assertTrue(true);
     }
 
     function testNoOpeningBracket()
@@ -227,63 +234,68 @@ class org_tubepress_impl_shortcode_SimpleShortcodeParserTest extends PHPUnit_Fra
         $content = "butters mode='playlist']";
 
         $this->_sut->parse($content);
+
+        $this->assertTrue(true);
     }
 
     function testSpaceAroundAttributes()
     {
         $shortcode = "[butters mode='playlist']";
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $expected = array(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 
-        $this->_setupExpectedFilters($ioc, $expected);
+        $this->_setupExpectedFilters( $expected);
 
-        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
-        $context->shouldReceive('setCustomOptions')->once()->with($expected);
+        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with($shortcode);
+        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+
+        $this->assertTrue(true);
     }
 
     function testSpaceAroundShortcode()
     {
         $shortcode = "sddf	 [butters mode='playlist']	sdsdfsdf";
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $expected = array(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 
-        $this->_setupExpectedFilters($ioc, $expected);
+        $this->_setupExpectedFilters($expected);
 
-        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('setActualShortcodeUsed')->once()->with("[butters mode='playlist']");
-        $context->shouldReceive('setCustomOptions')->once()->with($expected);
+        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with("[butters mode='playlist']");
+        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+
+        $this->assertTrue(true);
     }
 
     function testNoSpaceAroundShortcode()
     {
         $shortcode = "sddf[butters mode='playlist']sdsdfsdf";
-        $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
 
-        $expected = array(org_tubepress_api_const_options_names_Output::GALLERY_SOURCE => org_tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
+        $expected = array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST);
 
-        $this->_setupExpectedFilters($ioc, $expected);
+        $this->_setupExpectedFilters($expected);
 
-        $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('setActualShortcodeUsed')->once()->with("[butters mode='playlist']");
-        $context->shouldReceive('setCustomOptions')->once()->with($expected);
+        $this->_mockExecutionContext->shouldReceive('setActualShortcodeUsed')->once()->with("[butters mode='playlist']");
+        $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with($expected);
 
         $this->_sut->parse($shortcode);
+
+        $this->assertTrue(true);
     }
 
-    private function _setupExpectedFilters($ioc, $expected)
+    private function _setupExpectedFilters($expected)
     {
-        $pm = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
+        $pm = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
 
         foreach ($expected as $name => $value) {
 
-            $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::VARIABLE_READ_FROM_EXTERNAL_INPUT, $value, $name)->andReturn($value);
+            $pm->shouldReceive('dispatch')->once()->with(tubepress_api_event_VariableReadFromExternalInput::EVENT_NAME, Mockery::on(function ($arg) use ($name) {
+
+                return $arg instanceof tubepress_api_event_VariableReadFromExternalInput  && $arg->getArgument(tubepress_api_event_VariableReadFromExternalInput::ARGUMENT_OPTION_NAME) === $name;
+            }));
         }
     }
 }

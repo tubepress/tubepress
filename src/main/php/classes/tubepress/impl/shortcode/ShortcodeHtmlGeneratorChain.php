@@ -22,79 +22,74 @@
 /**
  * HTML handler implementation.
  */
-class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements tubepress_spi_shortcode_ShortcodeHtmlGenerator
+class tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements tubepress_spi_shortcode_ShortcodeHtmlGenerator
 {
+    /**
+     * Generated HTML chain key.
+     */
+    const CHAIN_KEY_GENERATED_HTML = 'generatedHtml';
+
+    private $_chain;
+
+    private $_logger;
+
+    public function __construct(ehough_chaingang_api_Chain $chain)
+    {
+        $this->_chain  = $chain;
+        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Shortcode HTML Generator Chain');
+    }
+
     /**
      * Generates the HTML for TubePress. Could be a gallery or single video.
      *
      * @param string $shortCodeContent The shortcode content.
      *
-     * @return The HTML for the given shortcode, or the error message if there was a problem.
+     * @return string The HTML for the given shortcode, or the error message if there was a problem.
      */
     public function getHtmlForShortcode($shortCodeContent)
     {
-        global $tubepress_base_url;
-
-        $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
-        $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
-        $pm    = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
-
-        /* do a bit of logging */
-        org_tubepress_impl_log_Log::log($this->getName(), 'Type of IOC container is %s', get_class($ioc));
-
         /* parse the shortcode if we need to */
         if ($shortCodeContent != '') {
-            $shortcodeParser = $ioc->get(org_tubepress_api_shortcode_ShortcodeParser::_);
+
+            $shortcodeParser = tubepress_impl_patterns_ioc_KernelServiceLocator::getShortcodeParser();
             $shortcodeParser->parse($shortCodeContent);
         }
 
         /* use the chain to get the HTML */
-        org_tubepress_impl_log_Log::log($this->getName(), 'Running the shortcode HTML chain');
-        $rawHtml = $this->_runChain($chain);
+        if ($this->_logger->isDebugEnabled()) {
+
+            $this->_logger->debug('Running the shortcode HTML chain');
+        }
+
+        $rawHtml = $this->_runChain();
+
+        $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+
+        $event = new tubepress_api_event_HtmlConstruction($rawHtml);
 
         /* send it through the filters */
-        if ($pm->hasFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_ANY)) {
-            return $pm->runFilters(org_tubepress_api_const_plugin_FilterPoint::HTML_ANY, $rawHtml);
+        if ($eventDispatcher->hasListeners(tubepress_api_event_HtmlConstruction::EVENT_NAME)) {
+
+            $eventDispatcher->dispatch(
+
+                tubepress_api_event_HtmlConstruction::EVENT_NAME,
+                $event
+            );
         }
 
-        return $rawHtml;
+        return $event->getHtml();
     }
 
-    /**
-     * Get the name of this class. May be overriden.
-     *
-     * @return string The name of this class.
-     */
-    protected function getName()
+    private function _runChain()
     {
-        return 'Shortcode HTML Generator Chain';
-    }
-
-    /**
-     * Get an array of the names of the commands to run.
-     *
-     * @return array An array of the names of the commands to run.
-     */
-    protected function getShortcodeCommands()
-    {
-        return array(
-            'org_tubepress_impl_shortcode_commands_SearchInputCommand',
-            'org_tubepress_impl_shortcode_commands_SearchOutputCommand',
-            'org_tubepress_impl_shortcode_commands_SingleVideoCommand',
-            'org_tubepress_impl_shortcode_commands_SoloPlayerCommand',
-            'org_tubepress_impl_shortcode_commands_ThumbGalleryCommand'
-        );
-    }
-
-    private function _runChain(org_tubepress_spi_patterns_cor_Chain $chain)
-    {
-        $context = $chain->createContextInstance();
-        $status  = $chain->execute($context, $this->getShortcodeCommands());
+        $context = new ehough_chaingang_impl_StandardContext();
+        $status  = $this->_chain->execute($context);
 
         if ($status === false) {
-            throw new Exception('No commands could generate the shortcode HTML.');
+
+            throw new RuntimeException('No commands could generate the shortcode HTML.');
         }
 
-        return $context->returnValue;
+        return $context->get(self::CHAIN_KEY_GENERATED_HTML);
     }
 }

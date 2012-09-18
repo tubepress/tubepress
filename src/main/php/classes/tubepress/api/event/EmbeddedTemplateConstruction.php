@@ -25,7 +25,7 @@
  */
 class tubepress_api_event_EmbeddedTemplateConstruction extends ehough_tickertape_impl_GenericEvent
 {
-    const EVENT_NAME = 'tubepress.api.event.EmbeddedTemplateConstruction';
+    const EVENT_NAME = 'core.EmbeddedTemplateConstruction';
 
     /**
      * The ID of the video to be played.

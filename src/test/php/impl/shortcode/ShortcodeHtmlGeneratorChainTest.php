@@ -1,89 +1,97 @@
 <?php
-require_once BASE . '/sys/classes/org/tubepress/impl/shortcode/ShortcodeHtmlGeneratorChain.class.php';
-
-class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChainTest extends TubePressUnitTest {
-
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChainTest extends PHPUnit_Framework_TestCase
+{
     private $_sut;
     private $_page;
+    private $_mockChain;
+    private $_mockShortcodeParser;
+    private $_mockEventDispatcher;
 
     function setup()
     {
         $this->_page = 1;
-        parent::setUp();
-        $this->_sut = new org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain();
 
-        $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockChain = Mockery::mock('ehough_chaingang_api_Chain');
 
-        $shortcodeParser = $ioc->get(org_tubepress_api_shortcode_ShortcodeParser::_);
-        $shortcodeParser->shouldReceive('parse')->once()->with('shortcode');
+        $this->_sut = new tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain($this->_mockChain);
+
+        $this->_mockShortcodeParser = Mockery::mock(tubepress_spi_shortcode_ShortcodeParser::_);
+        $this->_mockEventDispatcher = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
+
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setShortcodeHtmlParser($this->_mockShortcodeParser);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
+
+        $this->_mockShortcodeParser->shouldReceive('parse')->once()->with('shortcode');
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException RuntimeException
      */
     function testGetHtmlNoCommandHandled()
     {
-        $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockChain->shouldReceive('execute')->once()->with(Mockery::on(function ($arg) {
 
-        $mockChainContext = new stdClass();
-        $mockChainContext->returnValue = 'chain-return-value';
+            return $arg instanceof ehough_chaingang_api_Context;
 
-        $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
-        $chain->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
-        $chain->shouldReceive('execute')->once()->with($mockChainContext, array(
-            	'org_tubepress_impl_shortcode_commands_SearchInputCommand',
-                'org_tubepress_impl_shortcode_commands_SearchOutputCommand',
-                'org_tubepress_impl_shortcode_commands_SingleVideoCommand',
-                'org_tubepress_impl_shortcode_commands_SoloPlayerCommand',
-                'org_tubepress_impl_shortcode_commands_ThumbGalleryCommand',
-        ))->andReturn(false);
+        }))->andReturn(false);
 
         $this->_sut->getHtmlForShortcode('shortcode');
     }
 
     function testGetHtmlNoFilters()
     {
-        $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockChain->shouldReceive('execute')->once()->with(Mockery::on(function ($arg) {
 
-        $mockChainContext = new stdClass();
-        $mockChainContext->returnValue = 'chain-return-value';
+            $arg->put(tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain::CHAIN_KEY_GENERATED_HTML, 'chain-return-value');
 
-        $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
-        $chain->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
-        $chain->shouldReceive('execute')->once()->with($mockChainContext, array(
-                'org_tubepress_impl_shortcode_commands_SearchInputCommand',
-                'org_tubepress_impl_shortcode_commands_SearchOutputCommand',
-                'org_tubepress_impl_shortcode_commands_SingleVideoCommand',
-                'org_tubepress_impl_shortcode_commands_SoloPlayerCommand',
-                'org_tubepress_impl_shortcode_commands_ThumbGalleryCommand',
-        ))->andReturn(true);
+            return $arg instanceof ehough_chaingang_api_Context;
 
-        $pm    = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
-        $pm->shouldReceive('hasFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_ANY)->andReturn(false);
+        }))->andReturn(true);
+
+        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_event_HtmlConstruction::EVENT_NAME)->andReturn(false);
 
         $this->assertEquals('chain-return-value', $this->_sut->getHtmlForShortcode('shortcode'));
     }
 
     function testGetHtml()
     {
-        $ioc   = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockChain->shouldReceive('execute')->once()->with(Mockery::on(function ($arg) {
 
-        $mockChainContext = new stdClass();
-        $mockChainContext->returnValue = 'chain-return-value';
+            $arg->put(tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain::CHAIN_KEY_GENERATED_HTML, 'chain-return-value');
 
-        $chain = $ioc->get(org_tubepress_spi_patterns_cor_Chain::_);
-        $chain->shouldReceive('createContextInstance')->once()->andReturn($mockChainContext);
-        $chain->shouldReceive('execute')->once()->with($mockChainContext, array(
-        	'org_tubepress_impl_shortcode_commands_SearchInputCommand',
-            'org_tubepress_impl_shortcode_commands_SearchOutputCommand',
-            'org_tubepress_impl_shortcode_commands_SingleVideoCommand',
-            'org_tubepress_impl_shortcode_commands_SoloPlayerCommand',
-            'org_tubepress_impl_shortcode_commands_ThumbGalleryCommand',
-        ))->andReturn(true);
+            return $arg instanceof ehough_chaingang_api_Context;
 
-        $pm    = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
-        $pm->shouldReceive('hasFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_ANY)->andReturn(true);
-        $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_ANY, 'chain-return-value')->andReturn('final-value');
+        }))->andReturn(true);
+
+
+        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_event_HtmlConstruction::EVENT_NAME)->andReturn(true);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_HtmlConstruction::EVENT_NAME, Mockery::on(function ($arg) {
+
+            $good = $arg instanceof tubepress_api_event_HtmlConstruction && $arg->getHtml() === 'chain-return-value';
+
+            $arg->setHtml('final-value');
+
+            return $good;
+        }));
 
         $this->assertEquals('final-value', $this->_sut->getHtmlForShortcode('shortcode'));
     }

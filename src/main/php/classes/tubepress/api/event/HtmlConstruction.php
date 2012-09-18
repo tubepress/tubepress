@@ -23,17 +23,40 @@
  * This event is fired when a TubePress builds *any* HTML. It is fired *after* any other
  * HTML-based events.
  */
-class tubepress_api_event_HtmlConstruction extends ehough_tickertape_api_Event
+class tubepress_api_event_HtmlConstruction extends ehough_tickertape_impl_GenericEvent
 {
-    const EVENT_NAME = 'tubepress.api.event.HtmlConstruction';
+    const EVENT_NAME = 'core.HtmlConstruction';
 
     /**
      * @var string The HTML.
      */
-    public $html;
+    private $_html;
 
-    public function __construct($html)
+    /**
+     * Encapsulate an event with $subject, $args, and $data.
+     *
+     * @param mixed $html      The subject of the event, usually an object.
+     * @param array $arguments Arguments to store in the event.
+     */
+    public function __construct($html = null, array $arguments = array())
     {
-        $this->html = $html;
+        $this->_html = $html;
+
+        $this->setArguments($arguments);
+    }
+
+    public function getSubject()
+    {
+        return $this->_html;
+    }
+
+    public function getHtml()
+    {
+        return $this->_html;
+    }
+
+    public function setHtml($newValue)
+    {
+        $this->_html = $newValue;
     }
 }

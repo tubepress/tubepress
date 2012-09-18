@@ -20,18 +20,9 @@
  */
 
 /**
- * Handles shortcode HTML generation.
+ * This event is fired when a TubePress builds HTML for a standard (non-Ajax) search input form.
  */
-interface tubepress_spi_shortcode_ShortcodeHtmlGenerator
+class tubepress_api_event_SingleVideoHtmlConstruction extends tubepress_api_event_HtmlConstruction
 {
-    const _ = 'tubepress_spi_shortcode_ShortcodeHtmlGenerator';
-
-    /**
-     * Generates the HTML for the given shortcode.
-     *
-     * @param string $shortCodeContent The shortcode content.
-     *
-     * @return string The HTML for the given shortcode, or the error message if there was a problem.
-     */
-    function getHtmlForShortcode($shortCodeContent);
+    const EVENT_NAME = 'core.SingleVideoHtmlConstruction';
 }

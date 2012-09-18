@@ -20,18 +20,9 @@
  */
 
 /**
- * Handles shortcode HTML generation.
+ * This event is fired when a TubePress builds the PHP/HTML template for a standard (non-Ajax) search input form.
  */
-interface tubepress_spi_shortcode_ShortcodeHtmlGenerator
+class tubepress_api_event_SearchInputTemplateConstruction extends ehough_tickertape_impl_GenericEvent
 {
-    const _ = 'tubepress_spi_shortcode_ShortcodeHtmlGenerator';
-
-    /**
-     * Generates the HTML for the given shortcode.
-     *
-     * @param string $shortCodeContent The shortcode content.
-     *
-     * @return string The HTML for the given shortcode, or the error message if there was a problem.
-     */
-    function getHtmlForShortcode($shortCodeContent);
+    const EVENT_NAME = 'core.SearchInputTemplateConstruction';
 }

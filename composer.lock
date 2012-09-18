@@ -1,5 +1,5 @@
 {
-    "hash": "664775ad292a04d1ef47ba37a2eeaf92",
+    "hash": "2ddc4953ea7abcc1517fd17cf851bc04",
     "packages": [
         {
             "package": "ehough/chaingang",
@@ -20,6 +20,10 @@
         {
             "package": "ehough/fimble",
             "version": "1.1.0"
+        },
+        {
+            "package": "ehough/iconic",
+            "version": "1.0.1"
         },
         {
             "package": "ehough/shortstop",

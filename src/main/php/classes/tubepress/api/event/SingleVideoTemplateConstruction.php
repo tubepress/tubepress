@@ -20,18 +20,19 @@
  */
 
 /**
- * Handles shortcode HTML generation.
+ * This event is fired when a TubePress builds the PHP/HTML template for a standard (non-Ajax) search input form.
  */
-interface tubepress_spi_shortcode_ShortcodeHtmlGenerator
+class tubepress_api_event_SingleVideoTemplateConstruction extends ehough_tickertape_impl_GenericEvent
 {
-    const _ = 'tubepress_spi_shortcode_ShortcodeHtmlGenerator';
+    const EVENT_NAME = 'core.SingleVideoTemplateConstruction';
 
     /**
-     * Generates the HTML for the given shortcode.
-     *
-     * @param string $shortCodeContent The shortcode content.
-     *
-     * @return string The HTML for the given shortcode, or the error message if there was a problem.
+     * The name of the video provider (e.g. "vimeo" or "youtube").
      */
-    function getHtmlForShortcode($shortCodeContent);
+    const ARGUMENT_PROVIDER_NAME = 'providerName';
+
+    /**
+     * The backing tubepress_api_video_Video
+     */
+    const ARGUMENT_VIDEO = 'video';
 }

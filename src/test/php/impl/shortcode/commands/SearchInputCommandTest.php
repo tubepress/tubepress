@@ -1,48 +1,83 @@
 <?php
-
-require_once BASE . '/sys/classes/org/tubepress/impl/shortcode/commands/SearchInputCommand.class.php';
-
-class org_tubepress_impl_shortcode_commands_SearchInputCommandTest extends TubePressUnitTest
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+class org_tubepress_impl_shortcode_commands_SearchInputCommandTest extends PHPUnit_Framework_TestCase
 {
     private $_sut;
 
+    private $_mockExecutionContext;
+
+    private $_mockThemeHandler;
+
+    private $_mockEventDispatcher;
+
     function setup()
     {
-        parent::setUp();
-        $this->_sut = new org_tubepress_impl_shortcode_commands_SearchInputCommand();
+        $this->_sut = new tubepress_impl_shortcode_commands_SearchInputCommand();
+
+        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
+        $this->_mockEventDispatcher  = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
+        $this->_mockThemeHandler     = Mockery::mock(tubepress_spi_theme_ThemeHandler::_);
+
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setThemeHandler($this->_mockThemeHandler);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
+    }
+
+    function tearDown()
+    {
+        Mockery::close();
     }
 
     function testCantExecute()
     {
-        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Output::OUTPUT)->andReturn(tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS);
 
-        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::OUTPUT)->andReturn(org_tubepress_api_const_options_values_OutputValue::SEARCH_RESULTS);
-
-        $this->assertFalse($this->_sut->execute(new stdClass()));
+        $this->assertFalse($this->_sut->execute(new ehough_chaingang_impl_StandardContext()));
     }
 
     function testExecute()
     {
-        $mockChainContext = new stdClass();
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Output::OUTPUT)->andReturn(tubepress_api_const_options_values_OutputValue::SEARCH_INPUT);
 
-        $ioc         = org_tubepress_impl_ioc_IocContainer::getInstance();
-
-        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Output::OUTPUT)->andReturn(org_tubepress_api_const_options_values_OutputValue::SEARCH_INPUT);
-
-        $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
+        $mockTemplate = Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');
 
-        $th       = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
-        $th->shouldReceive('getTemplateInstance')->once()->with('search/search_input.tpl.php')->andReturn($mockTemplate);
+        $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with('search/search_input.tpl.php')->andReturn($mockTemplate);
 
-        $pm       = $ioc->get(org_tubepress_api_plugin_PluginManager::_);
-        $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::TEMPLATE_SEARCHINPUT, $mockTemplate)->andReturn($mockTemplate);
-        $pm->shouldReceive('runFilters')->once()->with(org_tubepress_api_const_plugin_FilterPoint::HTML_SEARCHINPUT, 'template-string')->andReturn('final-value');
+        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_event_SearchInputTemplateConstruction::EVENT_NAME)->andReturn(true);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_SearchInputTemplateConstruction::EVENT_NAME, Mockery::on(function ($arg) use ($mockTemplate) {
 
-        $this->assertTrue($this->_sut->execute($mockChainContext));
-        $this->assertEquals('final-value', $mockChainContext->returnValue);
+            return $arg instanceof tubepress_api_event_SearchInputTemplateConstruction && $arg->getSubject() === $mockTemplate;
+        }));
+
+        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_event_SearchInputHtmlConstruction::EVENT_NAME)->andReturn(true);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_SearchInputHtmlConstruction::EVENT_NAME, Mockery::on(function ($arg) {
+
+            return $arg instanceof tubepress_api_event_SearchInputHtmlConstruction && $arg->getSubject() === 'template-string';
+        }));
+
+        $context = new ehough_chaingang_impl_StandardContext();
+
+        $this->assertTrue($this->_sut->execute($context));
+        $this->assertEquals('template-string', $context->get(tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain::CHAIN_KEY_GENERATED_HTML));
 
     }
 }
