@@ -21,7 +21,7 @@
 ?>
 <table class="tubepress-tab">
 
-	<?php foreach (${org_tubepress_impl_options_ui_tabs_AbstractTab::TEMPLATE_VAR_WIDGETARRAY} as $field): ?>
+	<?php foreach (${tubepress_impl_options_ui_tabs_AbstractTab::TEMPLATE_VAR_WIDGETARRAY} as $field): ?>
 
     <tr class="<?php foreach ($field->getArrayOfApplicableProviderNames() as $provider): echo "tubepress-$provider-option "; endforeach; if ($field->isProOnly()) { echo 'tubepress-pro-option'; } ?>">
 

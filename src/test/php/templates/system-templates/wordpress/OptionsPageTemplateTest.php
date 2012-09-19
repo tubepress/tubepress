@@ -1,27 +1,46 @@
 <?php
-require_once BASE . '/sys/classes/org/tubepress/impl/bootstrap/TubePressBootstrapper.php';
-require_once BASE . '/sys/classes/org/tubepress/impl/options/ui/AbstractFormHandler.class.php';
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
-class org_tubepress_impl_template_templates_wordpress_OptionsPageTemplateTest extends TubePressUnitTest {
+if (! function_exists('wp_nonce_field')) {
 
+    function wp_nonce_field() { echo 'nonce'; }
+}
+
+class org_tubepress_impl_template_templates_wordpress_OptionsPageTemplateTest extends PHPUnit_Framework_TestCase
+{
     public function test()
     {
-        $filter = \Mockery::mock(org_tubepress_spi_options_ui_Field::__);
+        $filter = \Mockery::mock(tubepress_spi_options_ui_Field::__);
         $filter->shouldReceive('getTitle')->once()->andReturn('filter-title');
         $filter->shouldReceive('getHtml')->once()->andReturn('filter-html');
         
-        ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TITLE}    = '<<template-var-title>>';
-        ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER}    = $filter;
-        ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_INTRO}    = '<<template-var-intro>>';
-        ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_ID}    = '<<template-var-saveid>>';
-        ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_TEXT}    = '<<template-var-savetext>>';
-        ${org_tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TABS}    = '<<template-var-tabs>>';
-
-        $nonceMock = new PHPUnit_Extensions_MockFunction('wp_nonce_field');
-		$nonceMock->expects($this->once())->will($this->returnCallback(array($this, 'doNonce')));
+        ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TITLE}    = '<<template-var-title>>';
+        ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_FILTER}    = $filter;
+        ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_INTRO}    = '<<template-var-intro>>';
+        ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_ID}    = '<<template-var-saveid>>';
+        ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_SAVE_TEXT}    = '<<template-var-savetext>>';
+        ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TABS}    = '<<template-var-tabs>>';
         
         ob_start();
-        include BASE . '/sys/ui/templates/wordpress/options_page.tpl.php';
+        include __DIR__ . '/../../../../../main/resources/system-templates/wordpress/options_page.tpl.php';
         $result = ob_get_contents();
         ob_end_clean();
 

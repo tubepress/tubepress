@@ -23,7 +23,7 @@
 
 	<ul>
 
-	<?php foreach (${org_tubepress_impl_options_ui_DefaultTabsHandler::TEMPLATE_VAR_TABS} as $tab): ?>
+	<?php foreach (${tubepress_impl_options_ui_DefaultTabsHandler::TEMPLATE_VAR_TABS} as $tab): ?>
 		<li>
 			<a href="#<?php echo 'tubepress_' . md5($tab->getTitle()); ?>">
 				<span><?php echo $tab->getTitle(); ?></span>
@@ -33,7 +33,7 @@
 
 	</ul>
 
-	    <?php foreach (${org_tubepress_impl_options_ui_DefaultTabsHandler::TEMPLATE_VAR_TABS} as $tab): ?>
+	    <?php foreach (${tubepress_impl_options_ui_DefaultTabsHandler::TEMPLATE_VAR_TABS} as $tab): ?>
 
 		<div id="<?php echo 'tubepress_' . md5($tab->getTitle()); ?>">
 

@@ -19,4 +19,4 @@
  *
  */
 ?>
-<input type="checkbox" name="<?php echo ${org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_NAME}; ?>" value="<?php echo ${org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_NAME}; ?>" <?php if (${org_tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_VALUE}) { echo 'CHECKED'; } ?> />
+<input type="checkbox" name="<?php echo ${tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_NAME}; ?>" value="<?php echo ${tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_NAME}; ?>" <?php if (${tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField::TEMPLATE_VAR_VALUE}) { echo 'CHECKED'; } ?> />

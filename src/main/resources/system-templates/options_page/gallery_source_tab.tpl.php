@@ -21,9 +21,9 @@
 ?>
 <table class="tubepress-tab">
 
-	<?php foreach (${org_tubepress_impl_options_ui_tabs_AbstractTab::TEMPLATE_VAR_WIDGETARRAY} as $name => $field): 
+	<?php foreach (${tubepress_impl_options_ui_tabs_AbstractTab::TEMPLATE_VAR_WIDGETARRAY} as $name => $field):
 	
-	    if ($name === org_tubepress_api_const_options_names_Output::GALLERY_SOURCE) { continue; }
+	    if ($name === tubepress_api_const_options_names_Output::GALLERY_SOURCE) { continue; }
 	?>
 
     <tr class="<?php foreach ($field->getArrayOfApplicableProviderNames() as $provider): echo "tubepress-$provider-option "; endforeach; if ($field->isProOnly()) { echo 'tubepress-pro-option'; } ?>">
@@ -31,7 +31,7 @@
 		<th><?php echo $field->getTitle(); ?></th>
 
 		<td>
-			<input type="radio" name="mode" id="<?php echo $name; ?>" value="<?php echo $name; ?>" <?php if (${org_tubepress_impl_options_ui_tabs_GallerySourceTab::TEMPLATE_VAR_CURRENT_MODE} === $name) { echo 'CHECKED'; } ?>>&nbsp;
+			<input type="radio" name="mode" id="<?php echo $name; ?>" value="<?php echo $name; ?>" <?php if (${tubepress_impl_options_ui_tabs_GallerySourceTab::TEMPLATE_VAR_CURRENT_MODE} === $name) { echo 'CHECKED'; } ?>>&nbsp;
 		    <?php echo $field->getHtml(); ?>
 			<br />
 			<?php echo $field->getDescription(); ?>

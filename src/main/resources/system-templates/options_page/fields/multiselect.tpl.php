@@ -19,11 +19,11 @@
  *
  */
 ?>
-<select id="multiselect-<?php echo ${org_tubepress_impl_options_ui_fields_AbstractMultiSelectField::TEMPLATE_VAR_NAME}; ?>" name="<?php echo ${org_tubepress_impl_options_ui_fields_AbstractMultiSelectField::TEMPLATE_VAR_NAME}; ?>[]" multiple="multiple">
+<select id="multiselect-<?php echo ${tubepress_impl_options_ui_fields_AbstractMultiSelectField::TEMPLATE_VAR_NAME}; ?>" name="<?php echo ${tubepress_impl_options_ui_fields_AbstractMultiSelectField::TEMPLATE_VAR_NAME}; ?>[]" multiple="multiple">
 
-	<?php foreach (${org_tubepress_impl_options_ui_fields_AbstractMultiSelectField::TEMPLATE_VAR_DESCRIPTORS} as $descriptor): ?>
+	<?php foreach (${tubepress_impl_options_ui_fields_AbstractMultiSelectField::TEMPLATE_VAR_DESCRIPTORS} as $descriptor): ?>
 
-	<option value="<?php echo $descriptor->getName(); ?>" <?php if (in_array($descriptor->getName(), ${org_tubepress_impl_options_ui_fields_AbstractMultiSelectField::TEMPLATE_VAR_CURRENTVALUES})): ?>selected="selected"<?php endif; ?>><?php echo $descriptor->getLabel(); ?></option>
+	<option value="<?php echo $descriptor->getName(); ?>" <?php if (in_array($descriptor->getName(), ${tubepress_impl_options_ui_fields_AbstractMultiSelectField::TEMPLATE_VAR_CURRENTVALUES})): ?>selected="selected"<?php endif; ?>><?php echo $descriptor->getLabel(); ?></option>
 
 	<?php endforeach; ?>
 </select>
