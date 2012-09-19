@@ -234,4 +234,72 @@ class tubepress_impl_wordpress_DefaultWordPressFunctionWrapper implements tubepr
         /** @noinspection PhpUndefinedFunctionInspection */
         wp_register_widget_control($id, $name, $callback);
     }
+
+    /**
+     * Hooks a function on to a specific action.
+     *
+     * @param string $tag      The name of the action to which $function_to_add is hooked.
+     * @param mixed  $function The name of the function you wish to be called.
+     *
+     * @return void
+     */
+    public final function add_action($tag, $function)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        add_action($tag, $function);
+    }
+
+    /**
+     * Hooks a function to a specific filter action.
+     *
+     * @param string $tag      The name of the filter to hook the $function_to_add to.
+     * @param mixed  $function A callback for the function to be called when the filter is applied.
+     *
+     * @return void
+     */
+    public final function add_filter($tag, $function)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        add_filter($tag, $function);
+    }
+
+    /**
+     * Checks if SSL is being used.
+     *
+     * @return boolean True if SSL, false otherwise.
+     */
+    public final function is_ssl()
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return is_ssl();
+    }
+
+    /**
+     * Loads the plugin's translated strings.
+     *
+     * @param string $domain  Unique identifier for retrieving translated strings.
+     * @param string $absPath Relative path to ABSPATH of a folder, where the .mo file resides. Deprecated, but still functional until 2.7.
+     * @param string $relPath Relative path to WP_PLUGIN_DIR, with a trailing slash. This is the preferred argument to use.
+     *                        It takes precendence over $abs_rel_path
+     *
+     * @return void
+     */
+    public final function load_plugin_textdomain($domain, $absPath, $relPath)
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        load_plugin_textdomain($domain, $absPath, $relPath);
+    }
+
+    /**
+     * The site_url template tag retrieves the site url for the current site (where the WordPress core files reside)
+     * with the appropriate protocol, 'https' if is_ssl() and 'http' otherwise.
+     * If scheme is 'http' or 'https', is_ssl() is overridden.
+     *
+     * @return string The site URL link.
+     */
+    public final function site_url()
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return site_url();
+    }
 }

@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_template_templates_wordpress_WidgetControlsTemplateTest extends PHPUnit_Framework_TestCase
+class org_tubepress_impl_template_templates_wordpress_WidgetControlsTemplateTest extends TubePressUnitTest
 {
     public function test()
     {

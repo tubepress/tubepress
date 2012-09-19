@@ -24,7 +24,7 @@
  */
 class tubepress_plugins_core_filters_variablereadfromexternalinput_StringMagic extends tubepress_plugins_core_filters_AbstractStringMagicFilter
 {
-    function onIncomingInput(tubepress_api_event_VariableReadFromExternalInput $event)
+    function onIncomingInput(tubepress_api_event_PreValidationOptionSet $event)
     {
         return $this->_magic($event);
     }

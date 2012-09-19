@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariablesTest extends PHPUnit_Framework_TestCase
+class org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariablesTest extends TubePressUnitTest
 {
 	private $_sut;
 
@@ -70,12 +70,10 @@ class org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariablesTest exten
 	    $this->assertEquals($mockTemplate, $event->getSubject());
 	}
 
-    function tearDown()
+    function onTearDown()
     {
         global $tubepress_base_url;
 
         unset($tubepress_base_url);
-
-        Mockery::close();
     }
 }

@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_plugins_core_filters_gallerytemplate_EmbeddedPlayerNameTest extends PHPUnit_Framework_TestCase
+class tubepress_plugins_core_filters_gallerytemplate_EmbeddedPlayerNameTest extends TubePressUnitTest
 {
 	private $_sut;
 
@@ -31,11 +31,6 @@ class tubepress_plugins_core_filters_gallerytemplate_EmbeddedPlayerNameTest exte
         $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
 	}
-
-    function tearDown()
-    {
-        Mockery::close();
-    }
 
     function testAlterTemplateLongtailYouTube()
     {

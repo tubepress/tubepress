@@ -24,7 +24,7 @@ if (! function_exists('wp_nonce_field')) {
     function wp_nonce_field() { echo 'nonce'; }
 }
 
-class org_tubepress_impl_template_templates_wordpress_OptionsPageTemplateTest extends PHPUnit_Framework_TestCase
+class org_tubepress_impl_template_templates_wordpress_OptionsPageTemplateTest extends TubePressUnitTest
 {
     public function test()
     {

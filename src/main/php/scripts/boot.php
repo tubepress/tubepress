@@ -144,5 +144,5 @@ function bootTubePress()
  */
 if (!defined('TUBEPRESS_ROOT')) {
 
-    bootTubePress();
+    //bootTubePress();
 }

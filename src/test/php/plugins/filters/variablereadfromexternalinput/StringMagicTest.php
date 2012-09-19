@@ -28,7 +28,7 @@ class tubepress_plugins_core_filters_variablereadfromexternalinput_StringMagicTe
         return new tubepress_plugins_core_filters_variablereadfromexternalinput_StringMagic();
     }
 
-    protected function _performAltering($sut, tubepress_api_event_VariableReadFromExternalInput $event)
+    protected function _performAltering($sut, tubepress_api_event_PreValidationOptionSet $event)
     {
         $sut->onIncomingInput($event);
     }

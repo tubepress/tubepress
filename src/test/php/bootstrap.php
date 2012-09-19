@@ -24,6 +24,7 @@ require_once __DIR__ . '/../../../vendor/ehough/pulsar/src/main/php/ehough/pulsa
 $loader = new ehough_pulsar_ComposerClassLoader(__DIR__ . '/../../../vendor/');
 $loader->registerFallbackDirectory(__DIR__ . '/../../main/php/classes');
 $loader->registerFallbackDirectory(__DIR__ . '/../../main/php/plugins');
+$loader->registerFallbackDirectory(__DIR__);
 $loader->register();
 
 //TODO: remove this later.

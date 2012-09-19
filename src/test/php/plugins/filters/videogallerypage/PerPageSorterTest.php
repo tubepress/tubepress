@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_plugins_core_filters_videogallerypage_PerPageSorterTest extends PHPUnit_Framework_TestCase
+class tubepress_plugins_core_filters_videogallerypage_PerPageSorterTest extends TubePressUnitTest
 {
 	private $_sut;
 
@@ -34,11 +34,6 @@ class tubepress_plugins_core_filters_videogallerypage_PerPageSorterTest extends 
 		$this->_sut = new tubepress_plugins_core_filters_videogallerypage_PerPageSorter();
 		$this->_buildVideos();
 	}
-
-    function tearDown()
-    {
-        Mockery::close();
-    }
 
 	function testSortOrderNone()
 	{

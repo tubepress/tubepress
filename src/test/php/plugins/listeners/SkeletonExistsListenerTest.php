@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_plugins_core_listeners_SkeletonExistsListenerTest extends PHPUnit_Framework_TestCase
+class tubepress_plugins_core_listeners_SkeletonExistsListenerTest extends TubePressUnitTest
 {
     private $_sut;
 
@@ -40,11 +40,6 @@ class tubepress_plugins_core_listeners_SkeletonExistsListenerTest extends PHPUni
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setFileSystem($this->_mockFileSystem);
-    }
-
-    function tearDown()
-    {
-        Mockery::close();
     }
 
     function testWordPress()

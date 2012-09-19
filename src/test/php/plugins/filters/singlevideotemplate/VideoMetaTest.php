@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_plugins_core_filters_singlevideotemplate_VideoMetaTest extends PHPUnit_Framework_TestCase
+class tubepress_plugins_core_filters_singlevideotemplate_VideoMetaTest extends TubePressUnitTest
 {
 	private $_sut;
 

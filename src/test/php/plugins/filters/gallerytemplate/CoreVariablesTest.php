@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_plugins_core_filters_gallerytemplate_CoreVariablesTest extends PHPUnit_Framework_TestCase
+class tubepress_plugins_core_filters_gallerytemplate_CoreVariablesTest extends TubePressUnitTest
 {
     private $_sut;
 
@@ -30,11 +30,6 @@ class tubepress_plugins_core_filters_gallerytemplate_CoreVariablesTest extends P
 
         $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
-    }
-
-    public function tearDown()
-    {
-        Mockery::close();
     }
 
     function testAlterTemplate()

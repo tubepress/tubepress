@@ -15,6 +15,11 @@
     <filter>
         <whitelist>
            <directory suffix=".php">../../main/php</directory>
+            <exclude>
+                <file>../../main/php/plugins/tubepress/plugins/core/core.php</file>
+                <file>../../main/php/classes/tubepress/impl/patterns/ioc/CoreIocContainer.php</file>
+            </exclude>
         </whitelist>
+
     </filter>
 </phpunit>

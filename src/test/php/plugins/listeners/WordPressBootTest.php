@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_plugins_listeners_WordPressBootTest extends PHPUnit_Framework_TestCase
+class tubepress_plugins_listeners_WordPressBootTest extends TubePressUnitTest
 {
     private $_sut;
 
@@ -82,11 +82,6 @@ class tubepress_plugins_listeners_WordPressBootTest extends PHPUnit_Framework_Te
         $this->_sut->onBoot(new ehough_tickertape_impl_GenericEvent());
 
         $this->assertTrue(true);
-    }
-
-    function tearDown()
-    {
-        Mockery::close();
     }
 }
 

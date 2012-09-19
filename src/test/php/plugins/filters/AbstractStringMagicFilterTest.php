@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-abstract class tubepress_plugins_core_filters_AbstractStringMagicFilterTest extends PHPUnit_Framework_TestCase
+abstract class tubepress_plugins_core_filters_AbstractStringMagicFilterTest extends TubePressUnitTest
 {
 	private $_sut;
 

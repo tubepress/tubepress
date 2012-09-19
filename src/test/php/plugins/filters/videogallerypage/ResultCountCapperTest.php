@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_plugins_core_filters_videogallerypage_ResultCountCapperTest extends PHPUnit_Framework_TestCase
+class tubepress_plugins_core_filters_videogallerypage_ResultCountCapperTest extends TubePressUnitTest
 {
 	private $_sut;
 

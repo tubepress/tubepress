@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_plugins_core_filters_gallerytemplate_VideoMetaTest extends PHPUnit_Framework_TestCase
+class tubepress_plugins_core_filters_gallerytemplate_VideoMetaTest extends TubePressUnitTest
 {
 	private $_sut;
 
@@ -82,10 +82,5 @@ class tubepress_plugins_core_filters_gallerytemplate_VideoMetaTest extends PHPUn
 
         $this->assertEquals($mockTemplate, $event->getSubject());
 	}
-
-    function tearDown()
-    {
-        Mockery::close();
-    }
 }
 

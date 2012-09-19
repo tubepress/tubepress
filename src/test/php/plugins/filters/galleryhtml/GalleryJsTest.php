@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_plugins_core_filters_galleryhtml_GalleryJsTest extends PHPUnit_Framework_TestCase
+class tubepress_plugins_core_filters_galleryhtml_GalleryJsTest extends TubePressUnitTest
 {
 	private $_sut;
 
@@ -79,9 +79,4 @@ hello
 </script>
 EOT;
 	}
-
-    function tearDown()
-    {
-        Mockery::close();
-    }
 }

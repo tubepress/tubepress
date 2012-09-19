@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_plugins_core_filters_gallerytemplate_PaginationTest extends PHPUnit_Framework_TestCase
+class tubepress_plugins_core_filters_gallerytemplate_PaginationTest extends TubePressUnitTest
 {
     private $_prefix = '<div class="pagination"><span class="current">1</span><a rel=';
 
@@ -166,8 +166,4 @@ class tubepress_plugins_core_filters_gallerytemplate_PaginationTest extends PHPU
         $this->assertEquals($this->_mockTemplate, $event->getSubject());
     }
 
-    function tearDown()
-    {
-        Mockery::close();
-    }
 }
