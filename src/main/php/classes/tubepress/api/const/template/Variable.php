@@ -24,7 +24,7 @@
  * safe for use by anyone, so don't mess with this list without serious
  * consideration!
  */
-class org_tubepress_api_const_template_Variable
+class tubepress_api_const_template_Variable
 {
     const EMBEDDED_AUTOSTART       = 'autostart';
     const EMBEDDED_COLOR_HIGHLIGHT = 'embeddedColorHightlight';
@@ -54,8 +54,4 @@ class org_tubepress_api_const_template_Variable
     const VIDEO_ARRAY              = 'videoArray';
     const VIDEO                    = 'video';
     const VIDEO_ID                 = 'videoId';
-}
-
-class org_tubepress_template_Template extends org_tubepress_api_const_template_Variable {
-	//the only purpose of this class is for backwards compatibility with user HTML templates :(
 }
