@@ -132,9 +132,6 @@ function bootTubePress()
     tubepress_impl_patterns_ioc_KernelServiceLocator::setVideoProviderCalculator(
         $coreIocContainer->get(tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_VIDEO_PROVIDER_CALCULATOR)
     );
-    tubepress_impl_patterns_ioc_KernelServiceLocator::setWordPressFunctionWrapper(
-        $coreIocContainer->get(tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_WORDPRESS_FUNCTION_WRAPPER)
-    );
 
     /*
      * Finally, hand off control to the TubePress bootstrapper.
@@ -145,9 +142,7 @@ function bootTubePress()
 /*
  * Don't boot twice.
  */
-if (!defined('TUBEPRESS_BOOTED')) {
+if (!defined('TUBEPRESS_ROOT')) {
 
     bootTubePress();
-
-    define('TUBEPRESS_BOOTED', true);
 }

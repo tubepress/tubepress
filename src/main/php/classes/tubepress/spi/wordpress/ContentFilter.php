@@ -21,6 +21,8 @@
 
 interface tubepress_spi_wordpress_ContentFilter
 {
+    const _ = 'tubepress_spi_wordpress_ContentFilter';
+
     /**
      * Filter the content (which may be empty).
      */

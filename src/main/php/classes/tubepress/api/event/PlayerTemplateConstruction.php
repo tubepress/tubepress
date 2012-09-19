@@ -23,40 +23,22 @@
  * This event is fired when a TubePress builds the PHP/HTML template for a TubePress
  * "player".
  */
-class tubepress_api_event_PlayerTemplateConstruction extends ehough_tickertape_api_Event
+class tubepress_api_event_PlayerTemplateConstruction extends ehough_tickertape_impl_GenericEvent
 {
-    const EVENT_NAME = 'tubepress.api.event.PlayerTemplateConstruction';
-
-    /**
-     * @var ehough_contemplate_api_Template The template used to display the player's HTML.
-     */
-    public $template;
+    const EVENT_NAME = 'core.PlayerTemplateConstruction';
 
     /**
      * @var tubepress_api_video_Video The video to be played.
      */
-    public $video;
+    const ARGUMENT_VIDEO = 'video';
 
     /**
      * @var string The name of the video provider (e.g. "vimeo" or "youtube")
      */
-    public $providerName;
+    const ARGUMENT_PROVIDER_NAME = 'providerName';
 
     /**
      * @var string The name of the TubePress player (e.g. "shadowbox", "normal", "youtube", etc)
      */
-    public $playerName;
-
-    public function __construct(
-
-        ehough_contemplate_api_Template $template,
-        tubepress_api_video_Video       $video,
-                                        $providerName,
-                                        $playerName)
-    {
-        $this->template     = $template;
-        $this->video        = $video;
-        $this->providerName = $providerName;
-        $this->playerName   = $playerName;
-    }
+    const ARGUMENT_PLAYER_NAME = 'playerName';
 }

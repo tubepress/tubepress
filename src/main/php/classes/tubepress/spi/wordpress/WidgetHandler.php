@@ -21,6 +21,8 @@
 
 interface tubepress_spi_wordpress_WidgetHandler
 {
+    const _ = 'tubepress_spi_wordpress_WidgetHandler';
+
     /**
      * Filter the content (which may be empty).
      */

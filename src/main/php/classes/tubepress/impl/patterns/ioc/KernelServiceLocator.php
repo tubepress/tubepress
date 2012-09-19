@@ -35,6 +35,11 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     private static $_cacheService;
 
     /**
+     * @var tubepress_spi_embedded_EmbeddedHtmlGenerator
+     */
+    private static $_embeddedHtmlGenerator;
+
+    /**
      * @var tubepress_spi_environment_EnvironmentDetector
      */
     private static $_environmentDetector;
@@ -135,6 +140,11 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     private static $_pluginRegistry;
 
     /**
+     * @var tubepress_spi_querystring_QueryStringService
+     */
+    private static $_queryStringService;
+
+    /**
      * @var tubepress_spi_shortcode_ShortcodeHtmlGenerator
      */
     private static $_shortcodeHtmlGenerator;
@@ -188,6 +198,14 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function getCacheService()
     {
         return self::$_cacheService;
+    }
+
+    /**
+     * @return tubepress_spi_embedded_EmbeddedHtmlGenerator The embedded HTML generator.
+     */
+    public static function getEmbeddedHtmlGenerator()
+    {
+        return self::$_embeddedHtmlGenerator;
     }
 
     /**
@@ -351,6 +369,14 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     }
 
     /**
+     * @return tubepress_spi_querystring_QueryStringService The query string service.
+     */
+    public static function getQueryStringService()
+    {
+        return self::$_queryStringService;
+    }
+
+    /**
      * @return tubepress_spi_shortcode_ShortcodeHtmlGenerator The shortcode HTML generator.
      */
     public static function getShortcodeHtmlGenerator()
@@ -428,6 +454,14 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function setCacheService(ehough_stash_api_Cache $cache)
     {
         self::$_cacheService = $cache;
+    }
+
+    /**
+     * @param tubepress_spi_embedded_EmbeddedHtmlGenerator $embeddedGenerator The embedded HTML generator.
+     */
+    public static function setEmbeddedHtmlGenerator(tubepress_spi_embedded_EmbeddedHtmlGenerator $embeddedGenerator)
+    {
+        self::$_embeddedHtmlGenerator = $embeddedGenerator;
     }
 
     /**
@@ -588,6 +622,14 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function setPluginRegistry(tubepress_spi_plugin_PluginRegistry $pluginRegistry)
     {
         self::$_pluginRegistry = $pluginRegistry;
+    }
+
+    /**
+     * @param tubepress_spi_querystring_QueryStringService $queryStringService The query string service.
+     */
+    public static function setQueryStringService(tubepress_spi_querystring_QueryStringService $queryStringService)
+    {
+        self::$_queryStringService = $queryStringService;
     }
 
     /**

@@ -23,7 +23,27 @@
  * This event is fired when a TubePress builds the HTML for a TubePress embedded
  * video player.
  */
-class tubepress_api_event_EmbeddedHtmlConstruction extends tubepress_api_event_EmbeddedTemplateConstruction
+class tubepress_api_event_EmbeddedHtmlConstruction extends tubepress_api_event_HtmlConstruction
 {
-    const EVENT_NAME = 'tubepress.api.event.EmbeddedHtmlConstruction';
+    const EVENT_NAME = 'core.EmbeddedHtmlConstruction';
+
+    /**
+     * The ID of the video to be played.
+     */
+    const ARGUMENT_VIDEO_ID = 'videoId';
+
+    /**
+     * The name of the video provider (e.g. "vimeo" or "youtube").
+     */
+    const ARGUMENT_PROVIDER_NAME = 'providerName';
+
+    /**
+     * The embedded data URL.
+     */
+    const ARGUMENT_DATA_URL = 'dataUrl';
+
+    /**
+     * The embedded implementation name.
+     */
+    const ARGUMENT_EMBEDDED_IMPLEMENTATION_NAME = 'embeddedImplementationName';
 }

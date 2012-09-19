@@ -21,6 +21,8 @@
 
 interface tubepress_spi_wordpress_FrontEndCssAndJsInjector
 {
+    const _ = 'tubepress_spi_wordpress_FrontEndCssAndJsInjector';
+
     /**
      * Prints out HTML and CSS into the HTML <head>.
      *

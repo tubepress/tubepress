@@ -25,7 +25,7 @@
  */
 class tubepress_api_const_options_names_Meta
 {
-    const _ = 'org_tubepress_api_const_options_names_Meta';
+    const _ = 'tubepress_api_const_options_names_Meta';
 
     const AUTHOR      = 'author';
     const CATEGORY    = 'category';

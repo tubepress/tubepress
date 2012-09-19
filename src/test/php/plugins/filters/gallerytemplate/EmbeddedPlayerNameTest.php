@@ -1,56 +1,95 @@
 <?php
-
-require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/plugin/filters/gallerytemplate/EmbeddedPlayerName.class.php';
-
-class org_tubepress_impl_plugin_filters_gallerytemplate_EmbeddedPlayerNameTest extends TubePressUnitTest
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+class tubepress_plugins_core_filters_gallerytemplate_EmbeddedPlayerNameTest extends PHPUnit_Framework_TestCase
 {
 	private $_sut;
 
+    private $_mockExecutionContext;
+
 	function setup()
 	{
-		parent::setUp();
-		$this->_sut = new org_tubepress_impl_plugin_filters_gallerytemplate_EmbeddedPlayerName();
+		$this->_sut = new tubepress_plugins_core_filters_gallerytemplate_EmbeddedPlayerName();
 
+        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
 	}
+
+    function tearDown()
+    {
+        Mockery::close();
+    }
 
     function testAlterTemplateLongtailYouTube()
     {
-        $this->_testCustomYouTube(org_tubepress_api_const_options_values_PlayerImplementationValue::LONGTAIL);
+        $this->_testCustomYouTube(tubepress_api_const_options_values_PlayerImplementationValue::LONGTAIL);
     }
 
     function testAlterTemplateEmbedPlusYouTube()
     {
-        $this->_testCustomYouTube(org_tubepress_api_const_options_values_PlayerImplementationValue::EMBEDPLUS);
+        $this->_testCustomYouTube(tubepress_api_const_options_values_PlayerImplementationValue::EMBEDPLUS);
     }
 
     function testAlterTemplateProviderDefault()
     {
-        $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_IMPL)->andReturn('player-impl');
 
-        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL)->andReturn('player-impl');
+        $providerResult = new tubepress_api_video_VideoGalleryPage();
 
-        $providerResult = \Mockery::mock('org_tubepress_api_provider_ProviderResult');
-
-        $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
+        $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, 'provider-name');
 
-        $this->assertEquals($mockTemplate, $this->_sut->alter_galleryTemplate($mockTemplate, $providerResult, 1, 'provider-name'));
+        $event = new tubepress_api_event_ThumbnailGalleryTemplateConstruction($mockTemplate);
+        $event->setArguments(array(
+
+            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_PAGE => 1,
+            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_VIDEO_GALLERY_PAGE => $providerResult,
+            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_PROVIDER_NAME => 'provider-name'
+        ));
+
+        $this->_sut->onGalleryTemplate($event);
+
+        $this->assertEquals($mockTemplate, $event->getSubject());
     }
 
     private function _testCustomYouTube($name)
     {
-         $ioc = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_IMPL)->andReturn($name);
 
-        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $execContext->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::PLAYER_IMPL)->andReturn($name);
+        $providerResult = new tubepress_api_video_VideoGalleryPage();
 
-        $providerResult = \Mockery::mock('org_tubepress_api_provider_ProviderResult');
-
-        $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
+        $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, $name);
 
-        $this->assertEquals($mockTemplate, $this->_sut->alter_galleryTemplate($mockTemplate, $providerResult, 1, org_tubepress_api_provider_Provider::YOUTUBE));
+        $event = new tubepress_api_event_ThumbnailGalleryTemplateConstruction($mockTemplate);
+        $event->setArguments(array(
+
+            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_PAGE => 1,
+            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_VIDEO_GALLERY_PAGE => $providerResult,
+            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_PROVIDER_NAME => tubepress_spi_provider_Provider::YOUTUBE
+        ));
+
+        $this->_sut->onGalleryTemplate($event);
+
+        $this->assertEquals($mockTemplate, $event->getSubject());
+
 
     }
 }

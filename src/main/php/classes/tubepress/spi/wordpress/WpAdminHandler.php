@@ -21,6 +21,8 @@
 
 interface tubepress_spi_wordpress_WpAdminHandler
 {
+    const _ = 'tubepress_spi_wordpress_WpAdminHandler';
+
     /**
      * Filter the content (which may be empty).
      */

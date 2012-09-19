@@ -1,40 +1,75 @@
 <?php
-
-require_once BASE . '/sys/classes/org/tubepress/impl/plugin/listeners/WordPressBoot.class.php';
-
-class org_tubepress_impl_plugin_listeners_WordPressBootTest extends TubePressUnitTest
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+class tubepress_plugins_listeners_WordPressBootTest extends PHPUnit_Framework_TestCase
 {
     private $_sut;
 
+    private $_mockEnvironmentDetector;
+
+    private $_mockWpFunctionWrapper;
+
+    private $_mockContentFilter;
+
+    private $_mockJsAndCssInjector;
+
+    private $_mockWpAdminHandler;
+
+    private $_mockWidgetHandler;
+
     function setup()
     {
-        parent::setUp();
-        $this->_sut = new org_tubepress_impl_plugin_listeners_WordPressBoot();
+        $this->_sut = new tubepress_plugins_core_listeners_WordPressBoot();
+
+        $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
+        $this->_mockWpFunctionWrapper   = Mockery::mock(tubepress_spi_wordpress_WordPressFunctionWrapper::_);
+        $this->_mockContentFilter       = Mockery::mock(tubepress_spi_wordpress_ContentFilter::_);
+        $this->_mockJsAndCssInjector    = Mockery::mock(tubepress_spi_wordpress_FrontEndCssAndJsInjector::_);
+        $this->_mockWpAdminHandler      = Mockery::mock(tubepress_spi_wordpress_WpAdminHandler::_);
+        $this->_mockWidgetHandler       = Mockery::mock(tubepress_spi_wordpress_WidgetHandler::_);
+
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
+        tubepress_impl_wordpress_WordPressServiceLocator::setWordPressFunctionWrapper($this->_mockWpFunctionWrapper);
+        tubepress_impl_wordpress_WordPressServiceLocator::setContentFilter($this->_mockContentFilter);
+        tubepress_impl_wordpress_WordPressServiceLocator::setFrontEndCssAndJsInjector($this->_mockJsAndCssInjector);
+        tubepress_impl_wordpress_WordPressServiceLocator::setWpAdminHandler($this->_mockWpAdminHandler);
+        tubepress_impl_wordpress_WordPressServiceLocator::setWidgetHandler($this->_mockWidgetHandler);
     }
 
     function testWordPress()
     {
-        $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockWpFunctionWrapper->shouldReceive('site_url')->once()->andReturn('valueofsiteurl');
 
-        $ed  = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
-        $ed->shouldReceive('isWordPress')->once()->andReturn(true);
+        $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(true);
+        $this->_mockEnvironmentDetector->shouldReceive('getTubePressInstallationDirectoryBaseName')->once()->andReturn('path');
 
-        $fse  = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-        $fse->shouldReceive('getTubePressInstallationDirectoryBaseName')->once()->andReturn('path');
+        $this->_mockWpFunctionWrapper->shouldReceive('load_plugin_textdomain')->once()->with('tubepress', false, 'path/src/main/resources/i18n');
 
-        $get_option = new PHPUnit_Extensions_MockFunction('site_url');
-        $get_option->expects($this->once())->will($this->returnValue('valueofsiteurl'));
+        $this->_mockWpFunctionWrapper->shouldReceive('add_filter')->once()->with('the_content', array($this->_mockContentFilter, 'filterContent'));
+        $this->_mockWpFunctionWrapper->shouldReceive('add_action')->once()->with('wp_head', array($this->_mockJsAndCssInjector, 'printInHtmlHead'));
+        $this->_mockWpFunctionWrapper->shouldReceive('add_action')->once()->with('init', array($this->_mockJsAndCssInjector, 'registerStylesAndScripts'));
+        $this->_mockWpFunctionWrapper->shouldReceive('add_action')->once()->with('admin_menu', array($this->_mockWpAdminHandler, 'registerAdminMenuItem'));
+        $this->_mockWpFunctionWrapper->shouldReceive('add_action')->once()->with('admin_enqueue_scripts', array($this->_mockWpAdminHandler, 'registerStylesAndScripts'));
+        $this->_mockWpFunctionWrapper->shouldReceive('add_action')->once()->with('widgets_init', array($this->_mockWidgetHandler, 'registerWidget'));
 
-        $loadPluginTextDomain = new PHPUnit_Extensions_MockFunction('load_plugin_textdomain');
-        $loadPluginTextDomain->expects($this->once())->with('tubepress', false, 'path/sys/i18n');
-
-        $add_filter = new PHPUnit_Extensions_MockFunction('add_filter');
-        $add_filter->expects($this->once())->with('the_content', array('org_tubepress_impl_env_wordpress_Main', 'contentFilter'));
-
-        $add_action = new PHPUnit_Extensions_MockFunction('add_action');
-        $add_action->expects($this->exactly(5))->will($this->_getAddActionReturnMap());
-
-        $this->_sut->on_boot();
+        $this->_sut->onBoot(new ehough_tickertape_impl_GenericEvent());
 
         global $tubepress_base_url;
         $this->assertEquals('valueofsiteurl/wp-content/plugins/path', $tubepress_base_url);
@@ -42,27 +77,16 @@ class org_tubepress_impl_plugin_listeners_WordPressBootTest extends TubePressUni
 
     function testNonWordPress()
     {
-        $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(false);
 
-        $ed  = $ioc->get(org_tubepress_api_environment_EnvironmentDetector::_);
-        $ed->shouldReceive('isWordPress')->once()->andReturn(false);
+        $this->_sut->onBoot(new ehough_tickertape_impl_GenericEvent());
 
-        $this->_sut->on_boot();
+        $this->assertTrue(true);
     }
 
-    private function _getAddActionReturnMap()
+    function tearDown()
     {
-        $returnMapBuilder = new PHPUnit_Extensions_MockObject_Stub_ReturnMapping_Builder();
-
-        $returnMapBuilder->addEntry()->with(array('wp_head',     array('org_tubepress_impl_env_wordpress_Main', 'headAction')));
-        $returnMapBuilder->addEntry()->with(array('init',        array('org_tubepress_impl_env_wordpress_Main', 'initAction')));
-        $returnMapBuilder->addEntry()->with(array('admin_menu',            array('org_tubepress_impl_env_wordpress_OptionsPage', 'menuAction')));
-        $returnMapBuilder->addEntry()->with(array('admin_enqueue_scripts', array('org_tubepress_impl_env_wordpress_OptionsPage', 'initAction')));
-        $returnMapBuilder->addEntry()->with(array('widgets_init', array('org_tubepress_impl_env_wordpress_Widget', 'initAction')));
-
-        return $returnMapBuilder->build();
+        Mockery::close();
     }
-
-
 }
 

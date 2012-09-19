@@ -1,37 +1,51 @@
 <?php
-
-require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/plugin/filters/galleryinitjs/GalleryInitJsBaseParams.class.php';
-
-class org_tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTest extends TubePressUnitTest
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+class org_tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTest extends PHPUnit_Framework_TestCase
 {
 	private $_sut;
 
+    private $_mockExecutionContext;
+
 	function setup()
 	{
-		parent::setUp();
+		$this->_sut = new tubepress_plugins_core_filters_galleryinitjs_GalleryInitJsBaseParams();
 
-		$this->_sut = new org_tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParams();
+        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
 	}
 
 	function testAlter()
 	{
-	    $ioc     = org_tubepress_impl_ioc_IocContainer::getInstance();
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION)->andReturn(true);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT)->andReturn(999);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH)->andReturn(888);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::FLUID_THUMBS)->andReturn(false);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('player-loc');
+        $this->_mockExecutionContext->shouldReceive('toShortcode')->once()->andReturn(' + "&');
 
-	    $context = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION)->andReturn(true);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT)->andReturn(999);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH)->andReturn(888);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Thumbs::FLUID_THUMBS)->andReturn(false);
-        $context->shouldReceive('get')->once()->with(org_tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('player-loc');
-        $context->shouldReceive('toShortcode')->once()->andReturn(' + "&');
+        $event = new tubepress_api_event_GalleryInitJsConstruction(array('yo' => 'mamma'));
 
-        $themeHandler = $ioc->get(org_tubepress_api_theme_ThemeHandler::_);
-        $themeHandler->shouldReceive('calculateCurrentThemeName')->once()->andReturn('default');
+        $this->_sut->onGalleryInitJs($event);
 
-        $fe           = $ioc->get(org_tubepress_api_filesystem_Explorer::_);
-        $fe->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('base-path');
-
-	    $result = $this->_sut->alter_galleryInitJavaScript(array('yo' => 'mamma'));
+	    $result = $event->getSubject();
 
 	    $this->assertEquals(array(
 
@@ -41,16 +55,8 @@ class org_tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTes
 	        'fluidThumbs' => 'false',
 	        'playerLocationName' => '"player-loc"',
             'shortcode' => '"%20%2B%20%22%26"',
-            'themeCSS' => '""',
             'yo' => 'mamma'
 
 	    ), $result);
-	}
-
-	function testAlterNonArray()
-	{
-	    $result = $this->_sut->alter_galleryInitJavaScript('yo');
-
-	    $this->assertEquals('yo', $result);
 	}
 }

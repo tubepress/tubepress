@@ -45,7 +45,15 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
         /*
          * Run filters for the player template construction.
          */
-        $playerTemplateEvent = new tubepress_api_event_PlayerTemplateConstruction($template, $vid, $providerName, $playerName);
+        $playerTemplateEvent = new tubepress_api_event_PlayerTemplateConstruction(
+
+            $template, array(
+
+                tubepress_api_event_PlayerTemplateConstruction::ARGUMENT_VIDEO => $vid,
+                tubepress_api_event_PlayerTemplateConstruction::ARGUMENT_PROVIDER_NAME => $providerName,
+                tubepress_api_event_PlayerTemplateConstruction::ARGUMENT_PLAYER_NAME => $playerName)
+        );
+
         $eventDispatcherService->dispatch(
 
             tubepress_api_event_PlayerTemplateConstruction::EVENT_NAME,
@@ -55,7 +63,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
         /*
          * Run filters for the player HTML construction.
          */
-        $html            = $playerTemplateEvent->template->toString();
+        $html            = $playerTemplateEvent->getSubject()->toString();
         $playerHtmlEvent = new tubepress_api_event_PlayerHtmlConstruction($html, $vid, $providerName, $playerName);
         $eventDispatcherService->dispatch(
 

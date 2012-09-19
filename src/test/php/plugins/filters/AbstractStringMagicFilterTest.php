@@ -1,13 +1,29 @@
 <?php
-
-abstract class org_tubepress_impl_plugin_filters_AbstractStringMagicFilterTest extends TubePressUnitTest
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+abstract class tubepress_plugins_core_filters_AbstractStringMagicFilterTest extends PHPUnit_Framework_TestCase
 {
 	private $_sut;
 
 	function setup()
 	{
-		parent::setUp();
-
 		$this->_sut = $this->_buildSut();
 	}
 
@@ -24,42 +40,43 @@ abstract class org_tubepress_impl_plugin_filters_AbstractStringMagicFilterTest e
 
     function testInt()
     {
-        $result = $this->_performAltering($this->_sut, 5, 'name');
+        $event = $this->buildEvent('name', 5);
 
-        $this->assertTrue($result === 5);
+        $result = $this->_performAltering($this->_sut, $event);
+
+        $this->assertEquals(5, $event->getOptionValue());
     }
 
     function testDeepArray()
     {
-        $val = array(
+        $val = array(array(array('name' => '  some <value> \\\\" ')));
 
-            array(
+        $expected = array(array(array('name' => 'some &lt;value&gt; "')));
 
-                array('name' => '  some <value> \\\\" ')
-            )
-        );
+        $event = $this->buildEvent('otherName', $val);
 
-        $expected = array(
+        $this->_performAltering($this->_sut, $event);
 
-                array(
-
-                        array('name' => 'some &lt;value&gt; "')
-                )
-        );
-
-        $result = $this->_performAltering($this->_sut, $val, 'otherName');
-
-        $this->assertArrayEquality($expected, $result, var_export($result, true));
+        $this->assertEquals($expected, $event->getOptionValue(), var_export($event->getOptionValue(), true));
     }
 
     protected abstract function _buildSut();
 
-    protected abstract function _performAltering($sut, $value, $name);
+    protected abstract function _performAltering($sut, tubepress_api_event_PreValidationOptionSet $event);
 
     private function _booleanConversion($expected, $val)
     {
-        $result = $this->_performAltering($this->_sut, $val, 'name');
+        $event = $this->buildEvent('name', $val);
 
-        return $this->assertTrue($result === $expected);
+        $this->_performAltering($this->_sut, $event);
+
+        return $this->assertEquals($expected, $event->getOptionValue());
+    }
+
+    private function buildEvent($name, $value)
+    {
+        $event = new tubepress_api_event_PreValidationOptionSet($value);
+        $event->setArgument(tubepress_api_event_PreValidationOptionSet::ARGUMENT_OPTION_NAME, $name);
+        return $event;
     }
 }

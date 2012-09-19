@@ -1,36 +1,60 @@
 <?php
-
-require_once dirname(__FILE__) . '/../../../../../../sys/classes/org/tubepress/impl/plugin/filters/singlevideotemplate/VideoMeta.class.php';
-
-class org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMetaTest extends TubePressUnitTest
+/**
+ * Copyright 2006 - 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of TubePress (http://tubepress.org)
+ *
+ * TubePress is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TubePress is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+class tubepress_plugins_core_filters_singlevideotemplate_VideoMetaTest extends PHPUnit_Framework_TestCase
 {
 	private $_sut;
 
+    private $_mockMessageService;
+
+    private $_mockExecutionContext;
+
+    private $_mockOptionDescriptorReference;
+
 	function setup()
 	{
-		parent::setUp();
-		$this->_sut = new org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMeta();
+        $this->_mockMessageService = Mockery::mock(tubepress_spi_message_MessageService::_);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($this->_mockMessageService);
+
+        $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
+
+        $this->_mockOptionDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionDescriptorReference);
+
+		$this->_sut = new tubepress_plugins_core_filters_singlevideotemplate_VideoMeta();
 	}
 
 	function testYouTubeFavorites()
 	{
-	    $ioc          = org_tubepress_impl_ioc_IocContainer::getInstance();
-
-	    $messageService = $ioc->get(org_tubepress_api_message_MessageService::_);
-	    $messageService->shouldReceive('_')->atLeast()->once()->andReturnUsing(function ($msg) {
+	    $this->_mockMessageService->shouldReceive('_')->atLeast()->once()->andReturnUsing(function ($msg) {
 	          return "##$msg##";
 	    });
 
-	    $metaNames  = org_tubepress_impl_util_LangUtils::getDefinedConstants(org_tubepress_api_const_options_names_Meta::_);
+	    $metaNames  = tubepress_impl_util_LangUtils::getDefinedConstants(tubepress_api_const_options_names_Meta::_);
         $shouldShow = array();
         $labels     = array();
 
-        $execContext = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->times(17)->andReturnUsing(function ($m) {
 
-	    $odr = $ioc->get(org_tubepress_api_options_OptionDescriptorReference::_);
-        $odr->shouldReceive('findOneByName')->times(17)->andReturnUsing(function ($m) {
-
-             $mock = \Mockery::mock(org_tubepress_api_options_OptionDescriptor::_);
+             $mock = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
              $mock->shouldReceive('getLabel')->once()->andReturn('video-' . $m);
              return $mock;
         });
@@ -40,18 +64,24 @@ class org_tubepress_impl_plugin_filters_singlevideotemplate_VideoMetaTest extend
             $shouldShow[$metaName] = "<<value of $metaName>>";
             $labels[$metaName]     = '##video-' . $metaName . '##';
 
-            $execContext->shouldReceive('get')->once()->with($metaName)->andReturnUsing(function ($m) {
+            $this->_mockExecutionContext->shouldReceive('get')->once()->with($metaName)->andReturnUsing(function ($m) {
                    return "<<value of $m>>";
             });
         }
 
-        $video = \Mockery::mock('org_tubepress_api_video_Video');
+        $video = new tubepress_api_video_Video();
 
-        $mockTemplate = \Mockery::mock('org_tubepress_api_template_Template');
+        $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::META_SHOULD_SHOW, $shouldShow);
         $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::META_LABELS, $labels);
 
-        $this->assertEquals($mockTemplate, $this->_sut->alter_singleVideoTemplate($mockTemplate, $video, 'provider-name'));
+        $event = new tubepress_api_event_SingleVideoTemplateConstruction($mockTemplate);
+
+        $event->setArgument(tubepress_api_event_SingleVideoTemplateConstruction::ARGUMENT_VIDEO, $video);
+
+        $this->_sut->onSingleVideoTemplate($event);
+
+        $this->assertEquals($mockTemplate, $event->getSubject());
 	}
 
 }
