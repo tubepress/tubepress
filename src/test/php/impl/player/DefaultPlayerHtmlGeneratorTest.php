@@ -34,7 +34,8 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends PHPUnit_F
 
     function setUp()
     {
-        $this->_mockVideo              = Mockery::mock('tubepress_api_video_Video');
+        $this->_mockVideo              = new tubepress_api_video_Video();
+        $this->_mockVideo->setAttribute(tubepress_api_video_Video::ATTRIBUTE_ID, 'video-id');
         $this->_mockEventDispatcher    = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
         $this->_mockExecutionContext   = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
         $this->_mockProviderCalculator = Mockery::mock(tubepress_spi_provider_ProviderCalculator::_);
@@ -46,8 +47,11 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends PHPUnit_F
         tubepress_impl_patterns_ioc_KernelServiceLocator::setThemeHandler($this->_mockThemeHandler);
 
         $this->_sut = new tubepress_impl_player_DefaultPlayerHtmlGenerator();
+    }
 
-        $this->_mockVideo->shouldReceive('getId')->once()->andReturn('video-id');
+    public function tearDown()
+    {
+        Mockery::close();
     }
 
     public function testGetHtml()
@@ -96,7 +100,7 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends PHPUnit_F
             tubepress_api_event_HtmlConstruction::EVENT_NAME,
             Mockery::on(function ($arg) {
 
-                return $arg->html === 'foobarr';
+                return $arg->getHtml() === 'foobarr';
             })
         )->andReturn($mockHtmlEvent);
 

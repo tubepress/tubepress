@@ -33,18 +33,21 @@ class tubepress_impl_options_ui_DefaultTabsHandlerTest extends PHPUnit_Framework
         $this->_mockTemplateBuilder     = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
         $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
 
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
+
         for ($x = 0; $x < 8; $x++) {
 
             $this->_expectedTabs[] = Mockery::mock(tubepress_spi_options_ui_FormHandler::_);
         }
 
-		$this->_sut = new tubepress_impl_options_ui_DefaultTabsHandler(
-
-            $this->_mockTemplateBuilder,
-            $this->_mockEnvironmentDetector,
-            $this->_expectedTabs
-        );
+		$this->_sut = new tubepress_impl_options_ui_DefaultTabsHandler($this->_expectedTabs);
 	}
+
+    public function tearDown()
+    {
+        Mockery::close();
+    }
 
 	public function testSubmitWithErrors()
 	{

@@ -37,6 +37,11 @@ abstract class tubepress_impl_embedded_commands_AbstractEmbeddedCommandTest exte
         tubepress_impl_patterns_ioc_KernelServiceLocator::setThemeHandler($this->_mockThemeHandler);
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     protected function getMockThemeHandler()
     {
         return $this->_mockThemeHandler;

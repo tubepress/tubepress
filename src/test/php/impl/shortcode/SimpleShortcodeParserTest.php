@@ -24,7 +24,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends PHPUnit_Framewo
     private $_mockExecutionContext;
     private $_mockEventDispatcher;
 
-    function setup()
+    public function setup()
     {
         $this->_sut = new tubepress_impl_shortcode_SimpleShortcodeParser();
         $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
@@ -41,7 +41,7 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends PHPUnit_Framewo
         Mockery::close();
     }
 
-    function testNothingToParse()
+    public function testNothingToParse()
     {
         $shortcode = '[bu mode=&#8216playlist&#8217  , playlistValue=&#8242;foobar&#8242; ,author="false", resultCountCap=\'200\' resultsPerPage=3]';
 

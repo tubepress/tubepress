@@ -44,27 +44,29 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectFieldTest extends tubepr
         $this->_mockTemplateBuilder             = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
         $this->_mockEnvironmentDetector         = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
 
-        $mockOptionDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
-
         $mockYouTubeOptions = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
         $mockYouTubeOptions->shouldReceive('isBoolean')->once()->andReturn(true);
 
         $mockVimeoOptions = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
         $mockVimeoOptions->shouldReceive('isBoolean')->once()->andReturn(true);
-        
-        $mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS)->andReturn($mockVimeoOptions);
-        $mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS)->andReturn($mockYouTubeOptions);
+
+        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS)->andReturn($mockVimeoOptions);
+        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS)->andReturn($mockYouTubeOptions);
+
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionDescriptorReference);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($this->_mockMessageService);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionStorageManager($this->_mockStorageManager);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
 
         parent::doSetup($this->_mockMessageService);
 
-        $this->_sut = new tubepress_impl_options_ui_fields_FilterMultiSelectField(
+        $this->_sut = new tubepress_impl_options_ui_fields_FilterMultiSelectField();
+    }
 
-            $this->_mockMessageService,
-            $this->_mockHttpRequestParameterService,
-            $this->_mockEnvironmentDetector,
-            $this->_mockTemplateBuilder,
-            $this->_mockStorageManager,
-            $mockOptionDescriptorReference);
+    public function tearDown()
+    {
+        Mockery::close();
     }
     
     public function testGetTitle()

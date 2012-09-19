@@ -32,6 +32,11 @@ class tubepress_impl_player_SimpleProviderCalculatorTest extends PHPUnit_Framewo
         $this->_sut = new tubepress_impl_provider_SimpleProviderCalculator();
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     public function testCalcVideoVimeo()
     {
         $this->assertTrue($this->_sut->calculateProviderOfVideoId('3994857') === tubepress_spi_provider_Provider::VIMEO);

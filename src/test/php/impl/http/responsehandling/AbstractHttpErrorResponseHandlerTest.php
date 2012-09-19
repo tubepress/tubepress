@@ -41,6 +41,11 @@ abstract class tubepress_impl_http_responsehandling_AbstractHttpErrorResponseHan
         tubepress_impl_patterns_ioc_KernelServiceLocator::setVideoProviderCalculator($this->_mockProviderCalculator);
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     /**
      * @expectedException RuntimeException
      */

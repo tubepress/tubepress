@@ -35,18 +35,23 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTabTest extends PHPUnit_Fr
         $this->_mockTemplateBuilder     = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
         $this->_mockFieldBuilder        = Mockery::mock(tubepress_spi_options_ui_FieldBuilder::_);
 
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($ms);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionsUiFieldBuilder($this->_mockFieldBuilder);
+
 		$ms->shouldReceive('_')->andReturnUsing( function ($key) {
 
 		    return "<<message: $key>>";
 		});
 
-		$this->_sut = $this->_buildSut(
-
-            $ms,
-            $this->_mockTemplateBuilder,
-            $this->_mockEnvironmentDetector,
-            $this->_mockFieldBuilder);
+		$this->_sut = $this->_buildSut();
 	}
+
+    public function tearDown()
+    {
+        Mockery::close();
+    }
 
 	public function testGetName()
 	{
@@ -78,16 +83,15 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTabTest extends PHPUnit_Fr
 	{
 	    return array();
 	}
+
+    protected function getFieldBuilder()
+    {
+        return $this->_mockFieldBuilder;
+    }
 	
 	protected abstract function _getFieldArray();
 
 	protected abstract function _getRawTitle();
 
-	protected abstract function _buildSut(
-
-        tubepress_spi_message_MessageService          $messageService,
-        ehough_contemplate_api_TemplateBuilder        $templateBuilder,
-        tubepress_spi_environment_EnvironmentDetector $environmentDetector,
-        tubepress_spi_options_ui_FieldBuilder         $fieldBuilder
-    );
+	protected abstract function _buildSut();
 }

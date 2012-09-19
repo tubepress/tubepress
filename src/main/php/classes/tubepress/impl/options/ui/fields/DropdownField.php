@@ -24,8 +24,6 @@
  */
 class tubepress_impl_options_ui_fields_DropdownField extends tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
 {
-    const _ = 'tubepress_impl_options_ui_fields_DropdownField';
-
     const TEMPLATE_VAR_ACCEPTABLE_VALUES = 'org_tubepress_impl_options_ui_fields_DropdownField__options';
 
     /**
@@ -63,9 +61,11 @@ class tubepress_impl_options_ui_fields_DropdownField extends tubepress_impl_opti
             throw new InvalidArgumentException(sprintf('"%s" has a non-associative array set for its value map', $this->getOptionDescriptor()->getName()));
         }
 
+        $messageService = tubepress_impl_patterns_ioc_KernelServiceLocator::getMessageService();
+
         foreach ($map as $key => $value) {
 
-            $values[$key] = $this->getMessageService()->_($value);
+            $values[$key] = $messageService->_($value);
         }
 
         $template->setVariable(self::TEMPLATE_VAR_ACCEPTABLE_VALUES, $values);

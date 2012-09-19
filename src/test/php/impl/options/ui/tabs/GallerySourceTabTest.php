@@ -41,14 +41,18 @@ class tubepress_impl_options_ui_tabs_GallerySourceTabTest extends PHPUnit_Framew
             return "<<message: $key>>";
         });
 
-        $this->_sut = new tubepress_impl_options_ui_tabs_GallerySourceTab(
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($ms);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionsUiFieldBuilder($this->_mockFieldBuilder);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
 
-            $ms,
-            $this->_mockTemplateBuilder,
-            $this->_mockEnvironmentDetector,
-            $this->_mockFieldBuilder,
-            $this->_mockExecutionContext
-        );
+        $this->_sut = new tubepress_impl_options_ui_tabs_GallerySourceTab();
+    }
+
+    public function tearDown()
+    {
+        Mockery::close();
     }
     
     public function testGetName()

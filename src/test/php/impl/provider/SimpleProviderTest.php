@@ -54,6 +54,11 @@ class org_tubepress_impl_provider_SimpleProviderTest extends PHPUnit_Framework_T
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     /**
      * @expectedException RuntimeException
      */
@@ -100,7 +105,7 @@ class org_tubepress_impl_provider_SimpleProviderTest extends PHPUnit_Framework_T
     {
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn(1);
 
-        $this->_mockProviderCalculator->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('current-video-provider');
+        $this->_mockProviderCalculator->shouldReceive('calculateCurrentVideoProvider')->twice()->andReturn('current-video-provider');
 
         $this->_mockUrlBuilder->shouldReceive('buildGalleryUrl')->once()->with(1)->andReturn('gallery-url');
 

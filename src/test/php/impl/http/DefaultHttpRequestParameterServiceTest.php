@@ -33,6 +33,11 @@ class org_tubepress_impl_http_DefaultHttpRequestParameterServiceTest extends PHP
         $this->_sut = new tubepress_impl_http_DefaultHttpRequestParameterService();
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     function testParamExists()
     {
         $this->assertTrue($this->_sut->hasParam('something') === false);

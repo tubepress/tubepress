@@ -74,7 +74,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
             $htmlEvent
         );
 
-        $html = $htmlEvent->html;
+        $html = $htmlEvent->getHtml();
 
         return $html;
     }

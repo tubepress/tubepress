@@ -28,23 +28,11 @@ class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_option
 
     const TEMPLATE_VAR_TABS = 'org_tubepress_impl_options_ui_DefaultTabsHandler__tabs';
 
-    private $_templateBuilder;
-
-    private $_environmentDetector;
-
     private $_tabs;
 
-    public function __construct(
-
-        ehough_contemplate_api_TemplateBuilder $templateBuilder,
-        tubepress_spi_environment_EnvironmentDetector $environmentDetector,
-        array $tabs
-
-        ) {
-
-        $this->_environmentDetector = $environmentDetector;
-        $this->_templateBuilder     = $templateBuilder;
-        $this->_tabs                = $tabs;
+    public function __construct(array $tabs)
+    {
+        $this->_tabs = $tabs;
     }
 
     /**
@@ -54,8 +42,11 @@ class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_option
      */
     public final function getHtml()
     {
-        $basePath       = $this->_environmentDetector->getTubePressBaseInstallationPath();
-        $template       = $this->_templateBuilder->getNewTemplateInstance("$basePath/src/main/resources/system-templates/options_page/tabs.tpl.php");
+        $environmentDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
+        $templateBuilder     = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
+
+        $basePath       = $environmentDetector->getTubePressBaseInstallationPath();
+        $template       = $templateBuilder->getNewTemplateInstance("$basePath/src/main/resources/system-templates/options_page/tabs.tpl.php");
         $tabs           = $this->getDelegateFormHandlers();
 
         $template->setVariable(self::TEMPLATE_VAR_TABS, $tabs);

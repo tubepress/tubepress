@@ -28,6 +28,11 @@ class org_tubepress_impl_querystring_SimpleQueryStringServiceTest extends PHPUni
         $this->_sut = new tubepress_impl_querystring_SimpleQueryStringService();
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     public function testGetFullUrlHttpsOn()
     {
         $serverVars = array("HTTPS" => "on",

@@ -53,15 +53,20 @@ class org_tubepress_impl_options_ui_DefaultFieldBuilderTest extends PHPUnit_Fram
         $this->_mockTemplateBuilder             = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
         $this->_mockEnvironmentDetector         = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
 
-        $this->_sut = new tubepress_impl_options_ui_DefaultFieldBuilder(
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionDescriptorReference);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($this->_mockMessageService);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionStorageManager($this->_mockStorageManager);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
 
-            $this->_mockMessageService,
-            $this->_mockHttpRequestParameterService,
-            $this->_mockEnvironmentDetector,
-            $this->_mockTemplateBuilder,
-            $this->_mockStorageManager,
-            $this->_mockOptionDescriptorReference);
+        $this->_sut = new tubepress_impl_options_ui_DefaultFieldBuilder();
 	}
+
+    public function tearDown()
+    {
+        Mockery::close();
+    }
 
 	public function testBuild()
 	{

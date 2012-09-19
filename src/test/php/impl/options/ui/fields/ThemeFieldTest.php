@@ -20,25 +20,9 @@
  */
 class tubepress_impl_options_ui_fields_ThemeFieldTest extends tubepress_impl_options_ui_fields_DropdownFieldTest
 {
-    protected function _buildSut(tubepress_spi_message_MessageService            $messageService,
-                                 tubepress_spi_options_OptionDescriptorReference $optionDescriptorReference,
-                                 tubepress_spi_options_StorageManager            $storageManager,
-                                 tubepress_spi_options_OptionValidator           $optionValidator,
-                                 tubepress_spi_http_HttpRequestParameterService  $hrps,
-                                 tubepress_spi_environment_EnvironmentDetector   $environmentDetector,
-                                 ehough_contemplate_api_TemplateBuilder          $templateBuilder,
-                                 $name)
+    protected function _buildSut($name)
     {
-        return new tubepress_impl_options_ui_fields_ThemeField(
-
-            $messageService,
-            $optionDescriptorReference,
-            $storageManager,
-            $optionValidator,
-            $hrps,
-            $environmentDetector,
-            $templateBuilder,
-            $name);
+        return new tubepress_impl_options_ui_fields_ThemeField($name);
     }
 
     protected function _performAdditionGetDescriptionSetup()

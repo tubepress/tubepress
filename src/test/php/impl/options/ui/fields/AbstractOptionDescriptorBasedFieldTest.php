@@ -55,12 +55,23 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
         $this->_mockTemplateBuilder     = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
         $this->_mockMessageService      = Mockery::mock(tubepress_spi_message_MessageService::_);
 
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionStorageManager($this->_mockStorageManager);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionDescriptorReference);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionValidator($this->_mockOptionsValidator);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($this->_mockMessageService);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
+
         parent::doSetup($this->_mockMessageService);
 
-		$this->_sut = $this->_buildSut($this->_mockMessageService, $this->_mockOptionDescriptorReference,
-            $this->_mockStorageManager, $this->_mockOptionsValidator, $this->_mockHttpRequestParameterService,
-            $this->_mockEnvironmentDetector, $this->_mockTemplateBuilder, 'name');
+		$this->_sut = $this->_buildSut('name');
 	}
+
+    public function tearDown()
+    {
+        Mockery::close();
+    }
 
 	public function testSubmitSimpleInvalid()
 	{
@@ -134,9 +145,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 	{
 		$this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with('name')->andReturn(null);
 
-		$this->_sut = new tubepress_impl_options_ui_fields_TextField($this->_mockMessageService, $this->_mockOptionDescriptorReference,
-            $this->_mockStorageManager, $this->_mockOptionsValidator, $this->_mockHttpRequestParameterService,
-            $this->_mockEnvironmentDetector, $this->_mockTemplateBuilder, 'name');
+		$this->_sut = new tubepress_impl_options_ui_fields_TextField('name');
 	}
 
 	public function testGetInputHtml()
@@ -206,12 +215,6 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 
 	protected abstract function getTemplatePath();
 
-	protected abstract function _buildSut(tubepress_spi_message_MessageService $messageService,
-                                          tubepress_spi_options_OptionDescriptorReference $optionDescriptorReference,
-                                          tubepress_spi_options_StorageManager $storageManager,
-                                          tubepress_spi_options_OptionValidator $optionValidator,
-                                          tubepress_spi_http_HttpRequestParameterService $hrps,
-                                          tubepress_spi_environment_EnvironmentDetector $environmentDetector,
-                                          ehough_contemplate_api_TemplateBuilder $templateBuilder, $name);
+	protected abstract function _buildSut($name);
 }
 

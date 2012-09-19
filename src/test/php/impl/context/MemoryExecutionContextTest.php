@@ -41,6 +41,11 @@ class org_tubepress_impl_exec_MemoryExecutionContextTest extends PHPUnit_Framewo
         $this->_sut = new tubepress_impl_context_MemoryExecutionContext();
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     public function testSetGet()
     {
         $this->_setupFilters(tubepress_api_const_options_names_Thumbs::THEME, 'crazytheme');

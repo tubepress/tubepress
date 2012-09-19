@@ -37,28 +37,14 @@ class tubepress_impl_options_ui_tabs_MetaTabTest extends tubepress_impl_options_
 	    return 'Meta';
 	}
 
-	protected function _buildSut(
-
-        tubepress_spi_message_MessageService          $messageService,
-        ehough_contemplate_api_TemplateBuilder        $templateBuilder,
-        tubepress_spi_environment_EnvironmentDetector $environmentDetector,
-        tubepress_spi_options_ui_FieldBuilder         $fieldBuilder
-    )
+	protected function _buildSut()
 	{
-        $this->_mockFieldBuilder = $fieldBuilder;
-
-	    return new tubepress_impl_options_ui_tabs_MetaTab(
-
-            $messageService,
-            $templateBuilder,
-            $environmentDetector,
-            $fieldBuilder
-        );
+	    return new tubepress_impl_options_ui_tabs_MetaTab();
 	}
 	
 	protected function getAdditionalFields()
 	{
-	    $this->_mockFieldBuilder->shouldReceive('buildMetaDisplayMultiSelectField')->once()->andReturn('foobar');
+	    $this->getFieldBuilder()->shouldReceive('buildMetaDisplayMultiSelectField')->once()->andReturn('foobar');
 	    
 	    return array('foobar');
 	}

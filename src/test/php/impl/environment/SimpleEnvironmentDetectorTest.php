@@ -29,6 +29,11 @@ class org_tubepress_impl_environment_SimpleEnvironmentDetectorTest extends PHPUn
         $this->_sut = new tubepress_impl_environment_SimpleEnvironmentDetector();
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     function testVersion()
     {
         $latest = tubepress_spi_version_Version::parse('2.5.0');

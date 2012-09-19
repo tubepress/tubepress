@@ -520,9 +520,6 @@ msgstr ""
 msgid "No viewable videos"
 msgstr ""
 
-msgid "Could not find video with ID %s"
-msgstr ""
-
 msgid "Enable JavaScript API"
 msgstr ""
 

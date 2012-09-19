@@ -34,27 +34,6 @@ interface tubepress_spi_wordpress_WordPressFunctionWrapper
     function __($message, $domain);
 
     /**
-     * Use the function update_option() to update a named option/value pair to the options database table.
-     * The option_name value is escaped with $wpdb->escape before the INSERT statement.
-     *
-     * @param string $name  Name of the option to update.
-     * @param string $value The NEW value for this option name. This value can be a string, an array,
-     *                      an object or a serialized value.
-     *
-     * @return boolean True if option value has changed, false if not or if update failed.
-     */
-    function update_option($name, $value);
-
-    /**
-     * A safe way of getting values for a named option from the options database table.
-     *
-     * @param string $name Name of the option to retrieve.
-     *
-     * @return mixed Mixed values for the option.
-     */
-    function get_option($name);
-
-    /**
      * A safe way of adding a named option/value pair to the options database table. It does nothing if the option already exists.
      *
      * @param string $name  Name of the option to be added. Use underscores to separate words, and do not
@@ -66,6 +45,31 @@ interface tubepress_spi_wordpress_WordPressFunctionWrapper
     function add_option($name, $value);
 
     /**
+     * Add sub menu page to the Settings menu.
+     *
+     * @param string $pageTitle  The text to be displayed in the title tags of the page when the menu is selected.
+     * @param string $menuTitle  The text to be used for the menu
+     * @param string $capability The capability required for this menu to be displayed to the user.
+     * @param string $menu_slug  The slug name to refer to this menu by (should be unique for this menu).
+     * @param mixed  $callback   The function to be called to output the content for this page.
+     *
+     * @return mixed
+     */
+    function add_options_page($pageTitle, $menuTitle, $capability, $menu_slug, $callback);
+
+    /**
+     * Tests if the current request was referred from an admin page, or (given $action parameter)
+     * if the current request carries a valid nonce. Used to avoid security exploits.
+     *
+     * @param string $action   Action nonce.
+     * @param string $queryArg Where to look for nonce in $_REQUEST
+     *
+     * @return mixed Function dies with an appropriate message ("Are you sure you want to do this?" is the default)
+     *               if not referred from admin page, returns boolean true if the admin referer was was successfully validated.
+     */
+    function check_admin_referer($action, $queryArg);
+
+    /**
      * A safe way of removing a named option/value pair from the options database table.
      *
      * @param string $name Name of the option to be deleted.
@@ -73,4 +77,102 @@ interface tubepress_spi_wordpress_WordPressFunctionWrapper
      * @return boolean TRUE if the option has been successfully deleted, otherwise FALSE.
      */
     function delete_option($name);
+
+    /**
+     * A safe way of getting values for a named option from the options database table.
+     *
+     * @param string $name Name of the option to retrieve.
+     *
+     * @return mixed Mixed values for the option.
+     */
+    function get_option($name);
+
+    /**
+     * This Conditional Tag checks if the Dashboard or the administration panel is being displayed.
+     *
+     * @return boolean True on success, otherwise false.
+     */
+    function is_admin();
+
+    /**
+     * The plugins_url template tag retrieves the url to the plugins directory or to a specific file within that directory.
+     *
+     * @param string $path   Path relative to the plugins URL.
+     * @param string $plugin The plugin file that you want to be relative to.
+     *
+     * @return string Plugins url link with optional path appended.
+     */
+    function plugins_url($path, $path);
+
+    /**
+     * The safe and recommended method of adding JavaScript to a WordPress generated page.
+     *
+     * @param string $handle Name of the script.
+     *
+     * @return void
+     */
+    function wp_enqueue_script($handle);
+
+    /**
+     * A safe way to add/enqueue a CSS style file to the wordpress generated page.
+     *
+     * @param string $handle Name of the stylesheet.
+     *
+     * @return void
+     */
+    function wp_enqueue_style($handle);
+
+    /**
+     * A safe way of regisetring javascripts in WordPress for later use with wp_enqueue_script().
+     *
+     * @param string $handle Name of the script.
+     * @param string $src    URL to the script.
+     *
+     * @return void
+     */
+    function wp_register_script($handle, $src);
+
+    /**
+     * Register WordPress Widgets for use in your themes sidebars.
+     *
+     * @param string $id       Widget ID.
+     * @param string $name     Widget display title.
+     * @param mixed  $callback Run when widget is called.
+     * @param array  $options  Widget options.
+     *
+     * @return void
+     */
+    function wp_register_sidebar_widget($id, $name, $callback, $options);
+
+    /**
+     * A safe way to register a CSS style file for later use with wp_enqueue_style().
+     *
+     * @param string $handle Name of the stylesheet (which should be unique as it is used to identify the script in the whole system.
+     * @param string $src    URL to the stylesheet.     *
+     * @return void
+     */
+    function wp_register_style($handle, $src);
+
+    /**
+     * Registers widget control callback for customizing options.
+     *
+     * @param string $id       Sidebar ID.
+     * @param string $name     Sidebar display name.
+     * @param mixed  $callback Runs when the sidebar is displayed.
+     *
+     * @return void
+     */
+    function wp_register_widget_control($id, $name, $callback);
+
+    /**
+     * Use the function update_option() to update a named option/value pair to the options database table.
+     * The option_name value is escaped with $wpdb->escape before the INSERT statement.
+     *
+     * @param string $name  Name of the option to update.
+     * @param string $value The NEW value for this option name. This value can be a string, an array,
+     *                      an object or a serialized value.
+     *
+     * @return boolean True if option value has changed, false if not or if update failed.
+     */
+    function update_option($name, $value);
 }

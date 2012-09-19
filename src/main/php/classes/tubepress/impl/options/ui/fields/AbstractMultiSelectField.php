@@ -24,9 +24,9 @@
  */
 abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends tubepress_impl_options_ui_fields_AbstractField
 {
-    const TEMPLATE_VAR_DESCRIPTORS = 'org_tubepress_impl_options_ui_fields_AbstractMultiSelectField__descriptors';
+    const TEMPLATE_VAR_DESCRIPTORS = 'tubepress_impl_options_ui_fields_AbstractMultiSelectField__descriptors';
 
-    const TEMPLATE_VAR_CURRENTVALUES = 'org_tubepress_impl_options_ui_fields_AbstractMultiSelectField__currentValues';
+    const TEMPLATE_VAR_CURRENTVALUES = 'tubepress_impl_options_ui_fields_AbstractMultiSelectField__currentValues';
 
     /** Array of option descriptors. */
     private $_optionDescriptors;
@@ -34,25 +34,8 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
     /** Name. */
     private $_name;
 
-    public function __construct(
-
-        tubepress_spi_message_MessageService           $messageService,
-        tubepress_spi_http_HttpRequestParameterService $hrps,
-        tubepress_spi_environment_EnvironmentDetector  $environmentDetector,
-        ehough_contemplate_api_TemplateBuilder         $templateBuilder,
-        tubepress_spi_options_StorageManager           $storageManager,
-        array $optionDescriptors,
-        $name,
-        $description = '')
+    public function __construct(array $optionDescriptors, $name)
     {
-        parent::__construct(
-
-            $messageService,
-            $hrps,
-            $environmentDetector,
-            $templateBuilder,
-            $storageManager);
-
         foreach ($optionDescriptors as $optionDescriptor) {
 
             if (! $optionDescriptor instanceof tubepress_spi_options_OptionDescriptor) {
@@ -83,7 +66,9 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
      */
     public final function onSubmit()
     {
-        if (! $this->getHttpRequestParameterService()->hasParam($this->_name)) {
+        $hrps = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
+
+        if (! $hrps->hasParam($this->_name)) {
 
             /* not submitted. */
             foreach ($this->_optionDescriptors as $optionDescriptor) {
@@ -95,7 +80,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
             return null;
         }
 
-        $vals = $this->getHttpRequestParameterService()->getParamValue($this->_name);
+        $vals = $hrps->getParamValue($this->_name);
 
         if (! is_array($vals)) {
 
@@ -103,12 +88,13 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
             return null;
         }
 
-        $errors = array();
+        $errors         = array();
+        $storageManager = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
 
         foreach ($this->_optionDescriptors as $optionDescriptor) {
 
             /** @noinspection PhpUndefinedMethodInspection */
-            $result = $this->getStorageManager()->set($optionDescriptor->getName(), in_array($optionDescriptor->getName(), $vals));
+            $result = $storageManager->set($optionDescriptor->getName(), in_array($optionDescriptor->getName(), $vals));
 
             if ($result !== true) {
 
@@ -131,14 +117,17 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
      */
     public final function getHtml()
     {
-        $basePath      = $this->getEnvironmentDetector()->getTubePressBaseInstallationPath();
-        $template      = $this->getTemplateBuilder()->getNewTemplateInstance($basePath . '/src/main/resources/system-templates/options_page/fields/multiselect.tpl.php');
-        $currentValues = array();
+        $envDetector     = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
+        $templateBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
+        $basePath        = $envDetector->getTubePressBaseInstallationPath();
+        $template        = $templateBuilder->getNewTemplateInstance($basePath . '/src/main/resources/system-templates/options_page/fields/multiselect.tpl.php');
+        $currentValues   = array();
+        $storageManager  = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
 
         foreach ($this->_optionDescriptors as $optionDescriptor) {
 
             /** @noinspection PhpUndefinedMethodInspection */
-            if ($this->getStorageManager()->get($optionDescriptor->getName())) {
+            if ($storageManager->get($optionDescriptor->getName())) {
 
                 /** @noinspection PhpUndefinedMethodInspection */
                 $currentValues[] = $optionDescriptor->getName();

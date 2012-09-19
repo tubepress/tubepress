@@ -32,30 +32,11 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
     /** Option descriptor. */
     private $_optionDescriptor;
 
-    /** Options validator. */
-    private $_optionsValidator;
-
-    public function __construct(
-
-        tubepress_spi_message_MessageService            $messageService,
-        tubepress_spi_options_OptionDescriptorReference $optionDescriptorReference,
-        tubepress_spi_options_StorageManager            $storageManager,
-        tubepress_spi_options_OptionValidator           $optionValidator,
-        tubepress_spi_http_HttpRequestParameterService  $hrps,
-        tubepress_spi_environment_EnvironmentDetector   $environmentDetector,
-        ehough_contemplate_api_TemplateBuilder          $templateBuilder,
-        $name)
+    public function __construct($name)
     {
-        parent::__construct(
+        $odr = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
 
-            $messageService,
-            $hrps,
-            $environmentDetector,
-            $templateBuilder,
-            $storageManager);
-
-        $this->_optionsValidator = $optionValidator;
-        $this->_optionDescriptor = $optionDescriptorReference->findOneByName($name);
+        $this->_optionDescriptor = $odr->findOneByName($name);
 
         if ($this->_optionDescriptor === null) {
 
@@ -120,9 +101,13 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
      */
     public final function getHtml()
     {
-        $basePath     = $this->getEnvironmentDetector()->getTubePressBaseInstallationPath();
-        $template     = $this->getTemplateBuilder()->getNewTemplateInstance($basePath . '/' . $this->getTemplatePath());
-        $currentValue = $this->getStorageManager()->get($this->_optionDescriptor->getName());
+        $environmentDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
+        $templateBuilder     = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
+        $storageManager      = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
+
+        $basePath     = $environmentDetector->getTubePressBaseInstallationPath();
+        $template     = $templateBuilder->getNewTemplateInstance($basePath . '/' . $this->getTemplatePath());
+        $currentValue = $storageManager->get($this->_optionDescriptor->getName());
 
         $template->setVariable(self::TEMPLATE_VAR_NAME, $this->_optionDescriptor->getName());
         $template->setVariable(self::TEMPLATE_VAR_VALUE, $currentValue);
@@ -179,20 +164,22 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 
     private function _onSubmitSimple()
     {
-        $name = $this->_optionDescriptor->getName();
+        $name            = $this->_optionDescriptor->getName();
+        $hrps            = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
+        $optionValidator = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionValidator();
 
-        if (! $this->getHttpRequestParameterService()->hasParam($name)) {
+        if (! $hrps->hasParam($name)) {
 
             /* not submitted. */
             return null;
         }
 
-        $value = $this->getHttpRequestParameterService()->getParamValue($name);
+        $value = $hrps->getParamValue($name);
 
         /* run it through validation. */
-        if (! $this->_optionsValidator->isValid($name, $value)) {
+        if (! $optionValidator->isValid($name, $value)) {
 
-            return array($this->_optionsValidator->getProblemMessage($name, $value));
+            return array($optionValidator->getProblemMessage($name, $value));
         }
 
         return $this->_setToStorage($name, $value);
@@ -201,14 +188,17 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
     private function _onSubmitBoolean()
     {
         $name = $this->_optionDescriptor->getName();
+        $hrps = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
 
         /* if the user checked the box, the option name will appear in the POST vars */
-        return $this->_setToStorage($name, $this->getHttpRequestParameterService()->hasParam($name));
+        return $this->_setToStorage($name, $hrps->hasParam($name));
     }
 
     private function _setToStorage($name, $value)
     {
-        $result = $this->getStorageManager()->set($name, $value);
+        $storageManager = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
+
+        $result = $storageManager->set($name, $value);
 
         if ($result === true) {
 

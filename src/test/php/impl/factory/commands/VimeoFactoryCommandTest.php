@@ -37,6 +37,11 @@ class tubepress_impl_factory_commands_VimeoFactoryCommandTest extends PHPUnit_Fr
         $this->_multipleFeed = file_get_contents(dirname(__FILE__) . '/../../../../resources/feeds/vimeo.txt');
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     public function testRelativeDates()
     {
         $this->_mockExecutionContext->shouldReceive('get')->times(8)->with(tubepress_api_const_options_names_Meta::DESC_LIMIT)->andReturn(0);

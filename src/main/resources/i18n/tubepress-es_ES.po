@@ -507,9 +507,6 @@ msgstr ""
 msgid "No viewable videos"
 msgstr ""
 
-msgid "Could not find video with ID %s"
-msgstr ""
-
 msgid "Leave blank to attempt to use your system's temp directory. Otherwise enter the absolute path of a writeable directory."
 msgstr ""
 

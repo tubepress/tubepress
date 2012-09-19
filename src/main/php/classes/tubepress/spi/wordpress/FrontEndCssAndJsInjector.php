@@ -19,15 +19,20 @@
  *
  */
 
-/**
- * Displays a WordPress-specific options form for TubePress
- *
- */
-class org_tubepress_impl_env_wordpress_WordPressFormHandler extends tubepress_impl_options_ui_AbstractFormHandler
+interface tubepress_spi_wordpress_FrontEndCssAndJsInjector
 {
+    /**
+     * Prints out HTML and CSS into the HTML <head>.
+     *
+     * @return void
+     */
+    function printInHtmlHead();
 
-    protected function getRelativeTemplatePath()
-    {
-        return 'sys/ui/templates/wordpress/options_page.tpl.php';
-    }
+    /**
+     * Registers all the styles and scripts for the front end.
+     *
+     * @return void
+     */
+    function registerStylesAndScripts();
 }
+

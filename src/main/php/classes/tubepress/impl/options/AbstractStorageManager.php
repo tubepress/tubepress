@@ -127,9 +127,12 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
         $optionValidatorService = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionValidator();
 
         /** Run it through the filters. */
-        $event = new tubepress_api_event_PreValidationOptionSet($optionName, $optionValue);
+        $event = new tubepress_api_event_PreValidationOptionSet($optionValue, array(
+
+            tubepress_api_event_PreValidationOptionSet::ARGUMENT_OPTION_NAME => $optionName
+        ));
         $eventDispatcherService->dispatch(tubepress_api_event_PreValidationOptionSet::EVENT_NAME, $event);
-        $filteredValue = $event->optionValue;
+        $filteredValue = $event->getSubject();
 
         /** OK, let's see if it's valid. */
         if ($optionValidatorService->isValid($optionName, $filteredValue)) {

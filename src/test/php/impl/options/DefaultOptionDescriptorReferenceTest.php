@@ -24,33 +24,18 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends PH
 
 	public function setup()
 	{
-		$environmentDetector = \Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
-		$filesystem          = \Mockery::mock('ehough_fimble_api_Filesystem');
-        $finderFactory       = \Mockery::mock('ehough_fimble_api_FinderFactory');
-        $finder              = \Mockery::mock('ehough_fimble_api_Finder');
-        $fakeThemeDir        = \Mockery::mock();
-
-        $environmentDetector->shouldReceive('getTubePressBaseInstallationPath')->andReturn('base-install-path');
-        $environmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn('user-content-dir');
-
-        $filesystem->shouldReceive('exists')->once()->with('base-install-path/main/resources/default-themes')->andReturn(false);
-        $filesystem->shouldReceive('exists')->once()->with('user-content-dir/themes')->andReturn(true);
-
-        $finderFactory->shouldReceive('createFinder')->once()->andReturn($finder);
-        $finder->shouldReceive('directories')->once()->andReturn($finder);
-        $finder->shouldReceive('in')->once()->with(array('user-content-dir/themes'))->andReturn(array($fakeThemeDir));
-
-        $fakeThemeDir->shouldReceive('getBasename')->once()->andReturn('xyz');
-
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($environmentDetector);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setFileSystem($filesystem);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setFileSystemFinderFactory($finderFactory);
-
-		$this->_sut = new tubepress_impl_options_DefaultOptionDescriptorReference($filesystem, $environmentDetector, $finderFactory);
+		$this->_sut = new tubepress_impl_options_DefaultOptionDescriptorReference();
 	}
+
+    public function tearDown()
+    {
+        Mockery::close();
+    }
 
 	public function testFindAll()
 	{
+        $this->setupMocks();
+
 	    $all = $this->_sut->findAll();
 
 	    $this->assertTrue(count($all) === 97, "Expected 97 options but got " . count($all));
@@ -656,5 +641,30 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends PH
 
     	$option = $this->_sut->findOneByName(tubepress_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS);
 	}
+
+    private function setupMocks()
+    {
+        $environmentDetector = \Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
+        $filesystem          = \Mockery::mock('ehough_fimble_api_Filesystem');
+        $finderFactory       = \Mockery::mock('ehough_fimble_api_FinderFactory');
+        $finder              = \Mockery::mock('ehough_fimble_api_Finder');
+        $fakeThemeDir        = \Mockery::mock();
+
+        $environmentDetector->shouldReceive('getTubePressBaseInstallationPath')->andReturn('base-install-path');
+        $environmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn('user-content-dir');
+
+        $filesystem->shouldReceive('exists')->once()->with('base-install-path/main/resources/default-themes')->andReturn(false);
+        $filesystem->shouldReceive('exists')->once()->with('user-content-dir/themes')->andReturn(true);
+
+        $finderFactory->shouldReceive('createFinder')->once()->andReturn($finder);
+        $finder->shouldReceive('directories')->once()->andReturn($finder);
+        $finder->shouldReceive('in')->once()->with(array('user-content-dir/themes'))->andReturn(array($fakeThemeDir));
+
+        $fakeThemeDir->shouldReceive('getBasename')->once()->andReturn('xyz');
+
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($environmentDetector);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setFileSystem($filesystem);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setFileSystemFinderFactory($finderFactory);
+    }
 }
 

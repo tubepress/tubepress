@@ -26,6 +26,11 @@ class org_tubepress_impl_player_DefaultPluginRegistryTest extends PHPUnit_Framew
     {
         $this->_sut = new tubepress_impl_plugin_DefaultPluginRegistry();
     }
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
 
     public function testLoadGoodPlugin()
     {

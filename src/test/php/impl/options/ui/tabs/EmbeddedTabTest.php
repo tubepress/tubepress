@@ -50,20 +50,8 @@ class tubepress_impl_options_ui_tabs_EmbeddedTabTest extends tubepress_impl_opti
 	    return 'Player';
 	}
 
-	protected function _buildSut(
-
-        tubepress_spi_message_MessageService          $messageService,
-        ehough_contemplate_api_TemplateBuilder        $templateBuilder,
-        tubepress_spi_environment_EnvironmentDetector $environmentDetector,
-        tubepress_spi_options_ui_FieldBuilder         $fieldBuilder
-    )
+	protected function _buildSut()
 	{
-	    return new tubepress_impl_options_ui_tabs_EmbeddedTab(
-
-            $messageService,
-            $templateBuilder,
-            $environmentDetector,
-            $fieldBuilder
-        );
+	    return new tubepress_impl_options_ui_tabs_EmbeddedTab();
 	}
 }

@@ -49,6 +49,11 @@ class org_tubepress_impl_player_FilesystemPluginDiscovererTest extends PHPUnit_F
         tubepress_impl_patterns_ioc_KernelServiceLocator::setFileSystemFinderFactory($this->_mockFilesystemFinderFactory);
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     public function testBadInfoFile2()
     {
         $this->_splInfoArray[] = new SplFileInfo($this->_fakePluginRoot . '/bad_info_file2/b.info');

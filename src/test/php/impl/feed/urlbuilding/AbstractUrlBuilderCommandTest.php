@@ -37,6 +37,11 @@ abstract class tubepress_impl_feed_urlbuilding_AbstractUrlBuilderCommandTest ext
         tubepress_impl_patterns_ioc_KernelServiceLocator::setVideoProviderCalculator($this->_mockProviderCalculator);
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     protected function expectOptions($opts)
     {
         foreach ($opts as $name => $value) {

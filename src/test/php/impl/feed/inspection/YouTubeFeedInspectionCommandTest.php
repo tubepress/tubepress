@@ -27,6 +27,11 @@ class tubepress_impl_feed_inspection_YouTubeFeedInspectionCommandTest extends PH
         $this->_sut = new tubepress_impl_feed_inspection_YouTubeFeedInspectionCommand();
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     function testCannotHandle()
     {
         $context = new ehough_chaingang_impl_StandardContext();

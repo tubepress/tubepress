@@ -31,22 +31,6 @@ class tubepress_impl_wordpress_WordPressStorageManager extends tubepress_impl_op
      */
     private static $_optionPrefix = "tubepress-";
 
-    private $_wordPressFunctionWrapper;
-
-    public function __construct(
-
-        tubepress_spi_options_OptionDescriptorReference $reference,
-        tubepress_spi_options_OptionValidator $validator,
-        tubepress_spi_wordpress_WordPressFunctionWrapper $wrapper,
-        tubepress_spi_environment_EnvironmentDetector $environmentDetector,
-        ehough_tickertape_api_IEventDispatcher $dispatcher
-    )
-    {
-        parent::__construct($reference, $validator, $environmentDetector, $dispatcher);
-
-        $this->_wordPressFunctionWrapper = $wrapper;
-    }
-
     /**
      * Creates an option in storage
      *
@@ -57,7 +41,9 @@ class tubepress_impl_wordpress_WordPressStorageManager extends tubepress_impl_op
      */
     protected function create($optionName, $optionValue)
     {
-        $this->_wordPressFunctionWrapper->add_option(self::$_optionPrefix . $optionName, $optionValue);
+        $wordPressFunctionWrapperService = tubepress_impl_wordpress_WordPressServiceLocator::getWordPressFunctionWrapper();
+        
+        $wordPressFunctionWrapperService->add_option(self::$_optionPrefix . $optionName, $optionValue);
     }
 
     /**
@@ -69,7 +55,9 @@ class tubepress_impl_wordpress_WordPressStorageManager extends tubepress_impl_op
      */
     protected function delete($optionName)
     {
-        $this->_wordPressFunctionWrapper->delete_option(self::$_optionPrefix . $optionName);
+        $wordPressFunctionWrapperService = tubepress_impl_wordpress_WordPressServiceLocator::getWordPressFunctionWrapper();
+        
+        $wordPressFunctionWrapperService->delete_option(self::$_optionPrefix . $optionName);
     }
 
     /**
@@ -81,7 +69,9 @@ class tubepress_impl_wordpress_WordPressStorageManager extends tubepress_impl_op
      */
     public function exists($optionName)
     {
-        return $this->_wordPressFunctionWrapper->get_option(self::$_optionPrefix . $optionName) !== false;
+        $wordPressFunctionWrapperService = tubepress_impl_wordpress_WordPressServiceLocator::getWordPressFunctionWrapper();
+        
+        return $wordPressFunctionWrapperService->get_option(self::$_optionPrefix . $optionName) !== false;
     }
 
     /**
@@ -93,7 +83,9 @@ class tubepress_impl_wordpress_WordPressStorageManager extends tubepress_impl_op
      */
     public function get($optionName)
     {
-        return $this->_wordPressFunctionWrapper->get_option(self::$_optionPrefix . $optionName);
+        $wordPressFunctionWrapperService = tubepress_impl_wordpress_WordPressServiceLocator::getWordPressFunctionWrapper();
+        
+        return $wordPressFunctionWrapperService->get_option(self::$_optionPrefix . $optionName);
     }
 
     /**
@@ -106,6 +98,8 @@ class tubepress_impl_wordpress_WordPressStorageManager extends tubepress_impl_op
      */
     protected function setOption($optionName, $optionValue)
     {
-        $this->_wordPressFunctionWrapper->update_option(self::$_optionPrefix . $optionName, $optionValue);
+        $wordPressFunctionWrapperService = tubepress_impl_wordpress_WordPressServiceLocator::getWordPressFunctionWrapper();
+        
+        $wordPressFunctionWrapperService->update_option(self::$_optionPrefix . $optionName, $optionValue);
     }
 }

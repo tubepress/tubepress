@@ -24,31 +24,7 @@
  */
 class tubepress_impl_options_ui_tabs_GallerySourceTab extends tubepress_impl_options_ui_tabs_AbstractTab
 {
-    const _ = 'tubepress_impl_options_ui_tabs_GallerySourceTab';
-
     const TEMPLATE_VAR_CURRENT_MODE = 'org_tubepress_impl_options_ui_tabs_GallerySourceTab__mode';
-
-    private $_executionContext;
-
-    public function __construct(
-
-        tubepress_spi_message_MessageService          $messageService,
-        ehough_contemplate_api_TemplateBuilder        $templateBuilder,
-        tubepress_spi_environment_EnvironmentDetector $environmentDetector,
-        tubepress_spi_options_ui_FieldBuilder         $fieldBuilder,
-        tubepress_spi_context_ExecutionContext        $executionContext
-        ) {
-
-        parent::__construct(
-
-            $messageService,
-            $templateBuilder,
-            $environmentDetector,
-            $fieldBuilder
-        );
-
-        $this->_executionContext = $executionContext;
-    }
 
     /**
      * Get the untranslated title of this tab.
@@ -67,7 +43,7 @@ class tubepress_impl_options_ui_tabs_GallerySourceTab extends tubepress_impl_opt
      */
     protected final function getDelegateFormHandlers()
     {
-        $fieldBuilder = $this->getFieldBuilder();
+        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
 
         return array(
 
@@ -142,7 +118,9 @@ class tubepress_impl_options_ui_tabs_GallerySourceTab extends tubepress_impl_opt
      */
     protected final function addToTemplate(ehough_contemplate_api_Template $template)
     {
-        $currentMode = $this->_executionContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
+        $executionContext = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+
+        $currentMode = $executionContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
 
         $template->setVariable(self::TEMPLATE_VAR_CURRENT_MODE, $currentMode);
     }

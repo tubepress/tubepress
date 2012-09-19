@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_options_WordPressStorageManagerTest extends PHPUnit_Framework_TestCase
+class tubepress_impl_options_WordPressStorageManagerTest extends PHPUnit_Framework_TestCase
 {
     private $_sut;
 
@@ -40,14 +40,13 @@ class org_tubepress_impl_options_WordPressStorageManagerTest extends PHPUnit_Fra
         $this->_mockOptionsReference         = \Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
         $this->_mockWordPressFunctionWrapper = \Mockery::mock(tubepress_spi_wordpress_WordPressFunctionWrapper::_);
 
-        $this->_sut = new tubepress_impl_wordpress_WordPressStorageManager(
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionValidator($this->_mockOptionValidator);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionsReference);
+        tubepress_impl_wordpress_WordPressServiceLocator::setWordPressFunctionWrapper($this->_mockWordPressFunctionWrapper);
 
-            $this->_mockOptionsReference,
-            $this->_mockOptionValidator,
-            $this->_mockWordPressFunctionWrapper,
-            $this->_mockEnvironmentDetector,
-            $this->_mockEventDispatcher
-        );
+        $this->_sut = new tubepress_impl_wordpress_WordPressStorageManager();
     }
 
 

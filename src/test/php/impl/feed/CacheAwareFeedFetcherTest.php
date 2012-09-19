@@ -41,6 +41,11 @@ class tubepress_impl_feed_CacheAwareFeedFetcherTest extends PHPUnit_Framework_Te
 		$this->_sut            = new tubepress_impl_feed_CacheAwareFeedFetcher();
 	}
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
 	function testFetchGoodXmlCacheHit()
 	{
 	    $this->_mockCache->shouldReceive('get')->once()->with("http://www.ietf.org/css/ietf.css")->andReturn('someValue');

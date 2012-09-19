@@ -38,6 +38,11 @@ class org_tubepress_impl_player_PluginBaseTest extends PHPUnit_Framework_TestCas
         $this->assertEquals('short', $sut->getFileNameWithoutExtension());
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     /**
      * @expectedException InvalidArgumentException
      */

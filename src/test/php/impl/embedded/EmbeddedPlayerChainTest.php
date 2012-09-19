@@ -43,6 +43,11 @@ class org_tubepress_impl_embedded_EmbeddedPlayerChainTest extends PHPUnit_Framew
         $this->_sut = new tubepress_impl_embedded_EmbeddedPlayerChain($this->_mockChain);
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     function testGetHtml()
     {
         $this->_mockProviderCalculator->shouldReceive('calculateProviderOfVideoId')->with('videoid')->once()->andReturn('video_provider');

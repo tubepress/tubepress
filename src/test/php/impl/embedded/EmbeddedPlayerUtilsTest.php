@@ -20,6 +20,11 @@
  */
 class tubepress_impl_embedded_EmbeddedPlayerUtilsTest extends PHPUnit_Framework_TestCase
 {
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     function testBadColor()
     {
         $this->assertEquals('ff88dd', tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue('badcolor', 'ff88dd'));

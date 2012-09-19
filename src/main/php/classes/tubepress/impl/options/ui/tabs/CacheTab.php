@@ -24,8 +24,6 @@
  */
 class tubepress_impl_options_ui_tabs_CacheTab extends tubepress_impl_options_ui_tabs_AbstractTab
 {
-    const _ = 'tubepress_impl_options_ui_tabs_CacheTab';
-
     /**
      * Get the untranslated title of this tab.
      *
@@ -43,7 +41,7 @@ class tubepress_impl_options_ui_tabs_CacheTab extends tubepress_impl_options_ui_
      */
     protected final function getDelegateFormHandlers()
     {
-        $fieldBuilder = $this->getFieldBuilder();
+        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
 
         return array(
 

@@ -24,37 +24,7 @@
  */
 abstract class tubepress_impl_options_ui_fields_AbstractField implements tubepress_spi_options_ui_Field
 {
-    const TEMPLATE_VAR_NAME  = 'org_tubepress_impl_options_ui_fields_AbstractField__name';
-
-    /** Message service. */
-    private $_messageService;
-
-    /** Option storage manager. */
-    private $_storageManager;
-
-    /** HTTP request param service. */
-    private $_httpRequestParameterService;
-
-    /** Template builder. */
-    private $_templateBuilder;
-
-    /** Environment detector. */
-    private $_environmentDetector;
-
-    public function __construct(
-
-        tubepress_spi_message_MessageService           $messageService,
-        tubepress_spi_http_HttpRequestParameterService $hrps,
-        tubepress_spi_environment_EnvironmentDetector  $environmentDetector,
-        ehough_contemplate_api_TemplateBuilder         $templateBuilder,
-        tubepress_spi_options_StorageManager           $storageManager)
-    {
-        $this->_messageService              = $messageService;
-        $this->_storageManager              = $storageManager;
-        $this->_httpRequestParameterService = $hrps;
-        $this->_environmentDetector         = $environmentDetector;
-        $this->_templateBuilder             = $templateBuilder;
-    }
+    const TEMPLATE_VAR_NAME  = 'tubepress_impl_options_ui_fields_AbstractField__name';
 
     /**
      * Gets the title of this field, usually consumed by humans.
@@ -76,31 +46,6 @@ abstract class tubepress_impl_options_ui_fields_AbstractField implements tubepre
         $originalDescription = $this->_getMessage($this->getRawDescription());
 
         return $this->getModifiedDescription($originalDescription);
-    }
-
-    protected final function getMessageService()
-    {
-        return $this->_messageService;
-    }
-
-    protected final function getStorageManager()
-    {
-        return $this->_storageManager;
-    }
-
-    protected final function getHttpRequestParameterService()
-    {
-        return $this->_httpRequestParameterService;
-    }
-
-    protected final function getEnvironmentDetector()
-    {
-        return $this->_environmentDetector;
-    }
-
-    protected final function getTemplateBuilder()
-    {
-        return $this->_templateBuilder;
     }
 
     /**
@@ -139,6 +84,8 @@ abstract class tubepress_impl_options_ui_fields_AbstractField implements tubepre
             return '';
         }
 
-        return $this->_messageService->_($raw);
+        $messageService = tubepress_impl_patterns_ioc_KernelServiceLocator::getMessageService();
+
+        return $messageService->_($raw);
     }
 }

@@ -41,6 +41,11 @@ class org_tubepress_impl_factory_VideoFactoryChainTest extends PHPUnit_Framework
         $this->_sut = new tubepress_impl_factory_VideoFactoryChain($this->_mockChain);
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     public function testNobodyCanHandle()
     {
         $this->_mockProviderCalculator->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('providerrr');
@@ -62,7 +67,7 @@ class org_tubepress_impl_factory_VideoFactoryChainTest extends PHPUnit_Framework
 
         }))->andReturn(true);
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->times(3)->with(
             tubepress_api_event_VideoConstruction::EVENT_NAME, Mockery::on(function ($arg) {
 
             return $arg instanceof tubepress_api_event_VideoConstruction && ($arg->getSubject() === 'a' ||

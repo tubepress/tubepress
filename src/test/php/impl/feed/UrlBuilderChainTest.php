@@ -36,6 +36,11 @@ class tubepress_impl_feed_UrlBuilderChainTest extends PHPUnit_Framework_TestCase
         $this->_sut                    = new tubepress_impl_feed_UrlBuilderChain($this->_mockChain);
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     /**
      * @expectedException InvalidArgumentException
      */

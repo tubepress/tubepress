@@ -26,27 +26,6 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTab extends tubepress_impl
 {
     const TEMPLATE_VAR_WIDGETARRAY = 'org_tubepress_impl_options_ui_tabs_AbstractTab__widgetArray';
 
-    private $_messageService;
-
-    private $_templateBuilder;
-
-    private $_environmentDetector;
-
-    private $_fieldBuilder;
-
-    public function __construct(
-
-        tubepress_spi_message_MessageService          $messageService,
-        ehough_contemplate_api_TemplateBuilder        $templateBuilder,
-        tubepress_spi_environment_EnvironmentDetector $environmentDetector,
-        tubepress_spi_options_ui_FieldBuilder         $fieldBuilder) {
-
-        $this->_messageService      = $messageService;
-        $this->_templateBuilder     = $templateBuilder;
-        $this->_environmentDetector = $environmentDetector;
-        $this->_fieldBuilder        = $fieldBuilder;
-    }
-
     /**
      * Get the title of this tab.
      *
@@ -54,7 +33,9 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTab extends tubepress_impl
      */
     public final function getTitle()
     {
-        return $this->_messageService->_($this->getRawTitle());
+        $messageService = tubepress_impl_patterns_ioc_KernelServiceLocator::getMessageService();
+
+        return $messageService->_($this->getRawTitle());
     }
 
     /**
@@ -64,8 +45,10 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTab extends tubepress_impl
      */
     public final function getHtml()
     {
-        $basePath       = $this->_environmentDetector->getTubePressBaseInstallationPath();
-        $template       = $this->_templateBuilder->getNewTemplateInstance($basePath . $this->getTemplatePath());
+        $environmentDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
+        $templateBuilder     = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
+        $basePath            = $environmentDetector->getTubePressBaseInstallationPath();
+        $template            = $templateBuilder->getNewTemplateInstance($basePath . $this->getTemplatePath());
 
         $template->setVariable(self::TEMPLATE_VAR_WIDGETARRAY, $this->getDelegateFormHandlers());
 
@@ -105,11 +88,6 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTab extends tubepress_impl
     protected function getModifiedTemplatePath($originaltemplatePath)
     {
         return $originaltemplatePath;
-    }
-
-    protected final function getFieldBuilder()
-    {
-        return $this->_fieldBuilder;
     }
 
     /**

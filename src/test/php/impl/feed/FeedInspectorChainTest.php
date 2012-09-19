@@ -36,6 +36,11 @@ class tubepress_impl_feed_FeedInspectorChainTest extends PHPUnit_Framework_TestC
         $this->_sut                    = new tubepress_impl_feed_FeedInspectorChain($this->_mockChain);
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     function testCountCouldNotHandle()
     {
         $this->_mockProviderCalculator->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('videoProvider');

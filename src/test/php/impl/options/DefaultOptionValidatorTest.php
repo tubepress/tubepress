@@ -34,10 +34,13 @@ class org_tubepress_impl_options_DefaultOptionValidatorTest extends PHPUnit_Fram
 		$this->_sut = new tubepress_impl_options_DefaultOptionValidator($this->_mockOptionsDescriptorReference);
 	}
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
 	public function testNoConstraints()
 	{
-
-
 	    $od = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
 	    $od->shouldReceive('hasValidValueRegex')->twice()->andReturn(false);
 	    $od->shouldReceive('hasDiscreteAcceptableValues')->twice()->andReturn(false);

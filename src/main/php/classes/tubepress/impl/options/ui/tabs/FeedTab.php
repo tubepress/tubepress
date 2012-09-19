@@ -24,8 +24,6 @@
  */
 class tubepress_impl_options_ui_tabs_FeedTab extends tubepress_impl_options_ui_tabs_AbstractTab
 {
-    const _ = 'tubepress_impl_options_ui_tabs_FeedTab';
-
     /**
      * Get the untranslated title of this tab.
      *
@@ -43,7 +41,7 @@ class tubepress_impl_options_ui_tabs_FeedTab extends tubepress_impl_options_ui_t
      */
     protected final function getDelegateFormHandlers()
     {
-        $fieldBuilder = $this->getFieldBuilder();
+        $fieldBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionsUiFieldBuilder();
 
         return array(
 

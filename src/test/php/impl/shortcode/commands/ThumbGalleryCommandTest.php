@@ -57,6 +57,11 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends PHPU
 		$this->_sut = new tubepress_impl_shortcode_commands_ThumbGalleryCommand();
 	}
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
 	function testExecuteGenerateGalleryIdExecContextSetFails()
 	{
 	    $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('');
@@ -106,7 +111,6 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends PHPU
         $this->_mockHttpRequestParameterService->shouldReceive('getParamValueAsInt')->once()->with(tubepress_spi_const_http_ParamName::PAGE, 1)->andReturn('page-num');
 
 	    $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
-        $mockTemplate->shouldReceive('toString')->once()->andReturn('template-string');
 
         $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with('gallery.tpl.php')->andReturn($mockTemplate);
         $this->_mockProviderCalculator->shouldReceive('calculateCurrentVideoProvider')->once()->andReturn('provider-name');
@@ -121,17 +125,7 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends PHPU
 	          return "<<$key>>";
 	    });
 
-        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_event_ThumbnailGalleryTemplateConstruction::EVENT_NAME)->andReturn(true);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_ThumbnailGalleryTemplateConstruction::EVENT_NAME, Mockery::on(function ($arg) use ($mockTemplate) {
 
-            return $arg instanceof tubepress_api_event_ThumbnailGalleryTemplateConstruction && $arg->getSubject() === $mockTemplate;
-        }));
-
-        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_event_ThumbnailGalleryHtmlConstruction::EVENT_NAME)->andReturn(true);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_ThumbnailGalleryHtmlConstruction::EVENT_NAME, Mockery::on(function ($arg) use ($mockTemplate) {
-
-            return $arg instanceof tubepress_api_event_ThumbnailGalleryHtmlConstruction && $arg->getSubject() === 'template-string';
-        }));
 
         $mockContext = new ehough_chaingang_impl_StandardContext();
 

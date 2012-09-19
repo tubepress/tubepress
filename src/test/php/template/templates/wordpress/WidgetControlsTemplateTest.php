@@ -1,6 +1,6 @@
 <?php
-require_once BASE . '/sys/classes/org/tubepress/impl/bootstrap/TubePressBootstrapper.class.php';
-require_once BASE . '/sys/classes/org/tubepress/impl/env/wordpress/Widget.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/bootstrap/TubePressBootstrapper.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/env/wordpress/DefaultWidgetHandler.php';
 
 class org_tubepress_impl_template_templates_wordpress_WidgetControlsTemplateTest extends TubePressUnitTest {
 

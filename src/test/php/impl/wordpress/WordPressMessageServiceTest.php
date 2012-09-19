@@ -46,6 +46,8 @@ class tubepress_impl_wordpress_WordPressMessageServiceTest extends PHPUnit_Frame
             return "[[$key]]";
         });
 
+        tubepress_impl_wordpress_WordPressServiceLocator::setWordPressFunctionWrapper($wrapper);
+
 		$this->_sut = new tubepress_impl_wordpress_WordPressMessageService($wrapper);
 	}
 

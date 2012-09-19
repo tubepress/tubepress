@@ -45,6 +45,7 @@ abstract class tubepress_impl_options_ui_AbstractDelegatingFormHandler implement
 
         foreach ($formHandlerInstances as $formHandlerInstance) {
 
+            /** @noinspection PhpUndefinedMethodInspection */
             $result = $formHandlerInstance->onSubmit();
 
             if (is_array($result) && ! empty($result)) {

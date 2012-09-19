@@ -43,6 +43,11 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChainTest extends PHPUn
         $this->_mockShortcodeParser->shouldReceive('parse')->once()->with('shortcode');
     }
 
+    function tearDown()
+    {
+        Mockery::close();
+    }
+
     /**
      * @expectedException RuntimeException
      */

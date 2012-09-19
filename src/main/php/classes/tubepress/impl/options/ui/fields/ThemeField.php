@@ -24,8 +24,6 @@
  */
 class tubepress_impl_options_ui_fields_ThemeField extends tubepress_impl_options_ui_fields_DropdownField
 {
-    const __ = 'tubepress_impl_options_ui_fields_ThemeField';
-
     /**
      * Override point.
      *
@@ -37,8 +35,10 @@ class tubepress_impl_options_ui_fields_ThemeField extends tubepress_impl_options
      */
     protected final function getModifiedDescription($originalDescription)
     {
-        $defaultThemesPath = $this->getEnvironmentDetector()->getTubePressBaseInstallationPath() . '/sys/ui/themes';
-        $userThemesPath    = $this->getEnvironmentDetector()->getUserContentDirectory() . '/themes';
+        $environmentDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
+
+        $defaultThemesPath = $environmentDetector->getTubePressBaseInstallationPath() . '/src/main/resources/default-themes';
+        $userThemesPath    = $environmentDetector->getUserContentDirectory() . '/themes';
 
         return sprintf($originalDescription, $userThemesPath, $defaultThemesPath);
     }

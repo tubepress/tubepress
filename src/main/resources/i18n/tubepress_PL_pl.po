@@ -508,9 +508,6 @@ msgstr "Odtwarzaj filmy YouTube lub Vimeo przez TubePress"
 msgid "No viewable videos"
 msgstr "Brak oglądalnych filmów"
 
-msgid "Could not find video with ID %s"
-msgstr "Nie można znaleźć filmów z ID %s"
-
 msgid "Leave blank to attempt to use your system's temp directory. Otherwise enter the absolute path of a writeable directory."
 msgstr "Zostaw puste pole, aby użyć folderu tymczasowego Twojego systemu. W innym przypadku podaj ściężkę absolutną do zapisywalnego folderu."
 

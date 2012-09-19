@@ -1,5 +1,5 @@
 <?php
-require_once BASE . '/sys/classes/org/tubepress/impl/bootstrap/TubePressBootstrapper.class.php';
+require_once BASE . '/sys/classes/org/tubepress/impl/bootstrap/TubePressBootstrapper.php';
 require_once BASE . '/sys/classes/org/tubepress/impl/options/ui/AbstractFormHandler.class.php';
 
 class org_tubepress_impl_template_templates_wordpress_OptionsPageTemplateTest extends TubePressUnitTest {

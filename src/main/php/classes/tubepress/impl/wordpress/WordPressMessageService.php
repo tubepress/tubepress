@@ -24,14 +24,6 @@
  */
 class tubepress_impl_wordpress_WordPressMessageService implements tubepress_spi_message_MessageService
 {
-    /** WordPress function wrapper. */
-    private $_wordPressFunctionWrapper;
-
-    public function __construct(tubepress_spi_wordpress_WordPressFunctionWrapper $wpFunctionWrapper)
-    {
-        $this->_wordPressFunctionWrapper = $wpFunctionWrapper;
-    }
-
     /**
      * Retrieves a message for TubePress
      *
@@ -41,7 +33,9 @@ class tubepress_impl_wordpress_WordPressMessageService implements tubepress_spi_
      */
     public function _($message)
     {
+        $wordPressFunctionWrapperService = tubepress_impl_wordpress_WordPressServiceLocator::getWordPressFunctionWrapper();
+
         /** @noinspection PhpUndefinedFunctionInspection */
-        return $message == '' ? '' : $this->_wordPressFunctionWrapper->__($message, 'tubepress');
+        return $message == '' ? '' : $wordPressFunctionWrapperService->__($message, 'tubepress');
     }
 }

@@ -70,6 +70,11 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     private static $_fileSystemFinderFactory;
 
     /**
+     * @var tubepress_spi_html_HeadHtmlGenerator
+     */
+    private static $_headHtmlGenerator;
+
+    /**
      * @var ehough_shortstop_api_HttpClient
      */
     private static $_httpClient;
@@ -170,11 +175,6 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     private static $_videoProviderCalculator;
 
     /**
-     * @var tubepress_spi_wordpress_WordPressFunctionWrapper
-     */
-    private static $_wordPressFunctionWrapper;
-
-    /**
      * @return tubepress_spi_bootstrap_Bootstrapper The bootstrapper.
      */
     public static function getBootstrapper()
@@ -244,6 +244,14 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function getFileSystemFinderFactory()
     {
         return self::$_fileSystemFinderFactory;
+    }
+
+    /**
+     * @return tubepress_spi_html_HeadHtmlGenerator The head HTML generator.
+     */
+    public static function getHeadHtmlGenerator()
+    {
+        return self::$_headHtmlGenerator;
     }
 
     /**
@@ -407,14 +415,6 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     }
 
     /**
-     * @return tubepress_spi_wordpress_WordPressFunctionWrapper The WP function wrapper.
-     */
-    public static function getWordPressFunctionWrapper()
-    {
-        return self::$_wordPressFunctionWrapper;
-    }
-
-    /**
      * @param tubepress_spi_bootstrap_Bootstrapper $bootStrapper The bootstrapper.
      */
     public static function setBootstrapper(tubepress_spi_bootstrap_Bootstrapper $bootStrapper)
@@ -484,6 +484,14 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function setFileSystemFinderFactory(ehough_fimble_api_FinderFactory $finderFactory)
     {
         self::$_fileSystemFinderFactory = $finderFactory;
+    }
+
+    /**
+     * @param tubepress_spi_html_HeadHtmlGenerator $headHtmlGenerator The head HTML generator.
+     */
+    public static function setHeadHtmlGenerator(tubepress_spi_html_HeadHtmlGenerator $headHtmlGenerator)
+    {
+        self::$_headHtmlGenerator = $headHtmlGenerator;
     }
 
     /**
@@ -644,13 +652,5 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function setVideoProviderCalculator(tubepress_spi_provider_ProviderCalculator $videoProviderCalculator)
     {
         self::$_videoProviderCalculator = $videoProviderCalculator;
-    }
-
-    /**
-     * @param tubepress_spi_wordpress_WordPressFunctionWrapper $wordPressFunctionWrapper The WP function wrapper.
-     */
-    public static function setWordPressFunctionWrapper(tubepress_spi_wordpress_WordPressFunctionWrapper $wordPressFunctionWrapper)
-    {
-        self::$_wordPressFunctionWrapper = $wordPressFunctionWrapper;
     }
 }

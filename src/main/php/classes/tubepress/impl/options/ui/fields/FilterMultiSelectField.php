@@ -24,28 +24,16 @@
  */
 class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_impl_options_ui_fields_AbstractMultiSelectField
 {
-    const __ = 'tubepress_impl_options_ui_fields_FilterMultiSelectField';
-    
-    public function __construct(
-
-        tubepress_spi_message_MessageService            $messageService,
-        tubepress_spi_http_HttpRequestParameterService  $hrps,
-        tubepress_spi_environment_EnvironmentDetector   $environmentDetector,
-        ehough_contemplate_api_TemplateBuilder          $templateBuilder,
-        tubepress_spi_options_StorageManager            $storageManager,
-        tubepress_spi_options_OptionDescriptorReference $optionsDescriptorReference)
+    public function __construct()
     {
+        $odr = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
+
         parent::__construct(
 
-            $messageService,
-            $hrps,
-            $environmentDetector,
-            $templateBuilder,
-            $storageManager,
             array(
 
-                $optionsDescriptorReference->findOneByName(tubepress_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS),
-                $optionsDescriptorReference->findOneByName(tubepress_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS),
+                $odr->findOneByName(tubepress_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS),
+                $odr->findOneByName(tubepress_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS),
 
         ), 'filterdropdown');
     }

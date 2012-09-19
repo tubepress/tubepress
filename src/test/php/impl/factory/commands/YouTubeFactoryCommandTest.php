@@ -39,6 +39,11 @@ class org_tubepress_impl_factory_commands_YouTubeFactoryCommandTest extends PHPU
         $this->_sut          = new tubepress_impl_factory_commands_YouTubeFactoryCommand();
     }
 
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
     public function testGetMultiple()
     {
 
@@ -79,7 +84,7 @@ EOT
         $this->assertEquals('30', $video->getRatingCount());
         $this->assertTrue(preg_match('/http:\/\/i\.ytimg\.com\/vi\/zfaMzjDAGuA\/(?:[0123]|default)\.jpg/', $video->getThumbnailUrl()) === 1, $video->getThumbnailUrl());
         $this->assertEquals('', $video->getTimeLastUpdated());
-        $this->assertEquals('Sep 17, 2009', $video->getTimePublished());
+        $this->assertEquals('Sep 18, 2009', $video->getTimePublished());
         $this->assertEquals('10,778', $video->getViewCount());
     }
 
