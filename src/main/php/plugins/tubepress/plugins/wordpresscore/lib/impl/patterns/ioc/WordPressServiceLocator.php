@@ -61,7 +61,7 @@ class tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLoca
      */
     public static function getContentFilter()
     {
-        return self::$_contentFilter;
+        return self::_lazyGet('_contentFilter', tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressIocContainer::SERVICE_CONTENT_FILTER);
     }
 
     /**
@@ -69,7 +69,7 @@ class tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLoca
      */
     public static function getFrontEndCssAndJsInjector()
     {
-        return self::$_frontEndCssAndJsInjector;
+        return self::_lazyGet('_frontEndCssAndJsInjector', tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressIocContainer::SERVICE_CSS_AND_JS_INJECTOR);
     }
 
     /**
@@ -77,7 +77,7 @@ class tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLoca
      */
     public static function getWidgetHandler()
     {
-        return self::$_widgetHandler;
+        return self::_lazyGet('_widgetHandler', tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressIocContainer::SERVICE_WIDGET_HANDLER);
     }
 
     /**
@@ -85,7 +85,7 @@ class tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLoca
      */
     public static function getWordPressFunctionWrapper()
     {
-        return self::$_wordPressFunctionWrapper;
+        return self::_lazyGet('_wordPressFunctionWrapper', tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressIocContainer::SERVICE_WP_FUNCTION_WRAPPER);
     }
 
     /**
@@ -93,7 +93,7 @@ class tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLoca
      */
     public static function getWpAdminHandler()
     {
-        return self::$_wpAdminHandler;
+        return self::_lazyGet('_wpAdminHandler', tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressIocContainer::SERVICE_WP_ADMIN_HANDLER);
     }
 
     /**

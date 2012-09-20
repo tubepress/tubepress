@@ -44,10 +44,15 @@ class tubepress_plugins_core_wordpresscore_WordPressCore
 
 if (tubepress_plugins_core_wordpresscore_WordPressCore::registerWordPressListeners()) {
 
-    /*
-    * This is a little ugly, but it's the only way I know to
-    * properly load WordPress if required. Please remember that this
-    * code *cannot* be put inside of a class.
-    */
-    include TUBEPRESS_ROOT . '/../../../wp-blog-header.php';
+    if (! function_exists('wp_cron')) {
+
+        /*
+        * This is a little ugly, but it's the only way I know to
+        * properly load WordPress if required. Please remember that this
+        * code *cannot* be put inside of a class.
+        */
+        include '/var/www/gshd/wordpress/wp-blog-header.php';
+//    include TUBEPRESS_ROOT . '/../../../wp-blog-header.php';
+    }
+
 }

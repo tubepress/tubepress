@@ -26,8 +26,15 @@ class tubepress_plugins_wordpresscore_listeners_WordPressIocContainerBuilder
 {
     public function onBoot(ehough_tickertape_api_Event $bootEvent)
     {
-        $iocContainer = new tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressIocContainer();
+        $iocContainer   = new tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressIocContainer();
+        $messageService = $iocContainer->get(tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressIocContainer::SERVICE_MESSAGE);
+        $storageManager = $iocContainer->get(tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressIocContainer::SERVICE_OPTIONS_STORAGE);
+        $uiFormHandler  = $iocContainer->get(tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressIocContainer::SERVICE_OPTIONS_UI_FORMHANDLER);
 
         tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::setCoreIocContainer($iocContainer);
+
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($messageService);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionStorageManager($storageManager);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionsUiFormHandler($uiFormHandler);
     }
 }

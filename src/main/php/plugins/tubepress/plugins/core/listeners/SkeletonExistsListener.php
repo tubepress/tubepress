@@ -27,18 +27,16 @@ class tubepress_plugins_core_listeners_SkeletonExistsListener
     public function onBoot(ehough_tickertape_api_Event $bootEvent)
     {
         $ed = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
-        $fs = tubepress_impl_patterns_ioc_KernelServiceLocator::getFileSystem();
+
 
         if ($ed->isWordPress()) {
         	
 	        /* add the content directory if it's not already there */
 	        if (!is_dir(ABSPATH . 'wp-content/tubepress-content')) {
 	        	
-	        	$fs->mirrorDirectoryPreventFileOverwrite(
-
-                    $ed->getTubePressBaseInstallationPath() . '/sys/skel/tubepress-content',
-                    ABSPATH . 'wp-content'
-                );
+	        	$this->_tryToMirror(
+                    $ed->getTubePressBaseInstallationPath() . '/src/main/resources/user-content-skeleton/tubepress-content',
+                    ABSPATH . 'wp-content');
 	        }
 	        
         } else {
@@ -47,13 +45,28 @@ class tubepress_plugins_core_listeners_SkeletonExistsListener
         	
         	/* add the content directory if it's not already there */
         	if (!is_dir($basePath . '/tubepress-content')) {
-        		
-        		$fs->mirrorDirectoryPreventFileOverwrite(
+
+                $this->_tryToMirror(
 
                     $basePath . '/sys/skel/tubepress-content',
                     $basePath
                 );
         	}
         }
+    }
+
+    private function _tryToMirror($source, $dest)
+    {
+        $fs = tubepress_impl_patterns_ioc_KernelServiceLocator::getFileSystem();
+
+        try {
+
+            $fs->mirrorDirectoryPreventFileOverwrite($source, $dest);
+
+        } catch (Exception $e) {
+
+            //ignore
+        }
+
     }
 }

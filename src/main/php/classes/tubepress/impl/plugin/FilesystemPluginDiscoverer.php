@@ -68,7 +68,7 @@ class tubepress_impl_plugin_FilesystemPluginDiscoverer implements tubepress_spi_
 
         if ($doNotRecurse) {
 
-            $finder->depth(1);
+            $finder->depth(0);
         }
 
         $toReturn = array();
