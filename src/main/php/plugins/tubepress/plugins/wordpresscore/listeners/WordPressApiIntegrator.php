@@ -22,16 +22,11 @@
 /**
  * Performs WordPress initialization.
  */
-class tubepress_plugins_core_listeners_WordPressBoot
+class tubepress_plugins_wordpresscore_listeners_WordPressApiIntegrator
 {
     public function onBoot(ehough_tickertape_api_Event $bootEvent)
     {
         $ed = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
-
-        if (!$ed->isWordPress()) {
-
-            return;
-        }
 
         global $tubepress_base_url;
 

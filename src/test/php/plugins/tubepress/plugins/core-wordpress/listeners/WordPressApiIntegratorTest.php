@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_plugins_listeners_WordPressBootTest extends TubePressUnitTest
+class tubepress_plugins_corewordpress_listeners_WordPressBootTest extends TubePressUnitTest
 {
     private $_sut;
 
@@ -36,7 +36,7 @@ class tubepress_plugins_listeners_WordPressBootTest extends TubePressUnitTest
 
     function setup()
     {
-        $this->_sut = new tubepress_plugins_core_listeners_WordPressBoot();
+        $this->_sut = new tubepress_plugins_wordpresscore_listeners_WordPressApiIntegrator();
 
         $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
         $this->_mockWpFunctionWrapper   = Mockery::mock(tubepress_spi_wordpress_WordPressFunctionWrapper::_);
@@ -56,8 +56,6 @@ class tubepress_plugins_listeners_WordPressBootTest extends TubePressUnitTest
     function testWordPress()
     {
         $this->_mockWpFunctionWrapper->shouldReceive('site_url')->once()->andReturn('valueofsiteurl');
-
-        $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(true);
         $this->_mockEnvironmentDetector->shouldReceive('getTubePressInstallationDirectoryBaseName')->once()->andReturn('path');
 
         $this->_mockWpFunctionWrapper->shouldReceive('load_plugin_textdomain')->once()->with('tubepress', false, 'path/src/main/resources/i18n');
@@ -75,13 +73,5 @@ class tubepress_plugins_listeners_WordPressBootTest extends TubePressUnitTest
         $this->assertEquals('valueofsiteurl/wp-content/plugins/path', $tubepress_base_url);
     }
 
-    function testNonWordPress()
-    {
-        $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(false);
-
-        $this->_sut->onBoot(new ehough_tickertape_impl_GenericEvent());
-
-        $this->assertTrue(true);
-    }
 }
 

@@ -18,14 +18,11 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_plugins_core
+class tubepress_plugins_core_core
 {
     public static function registerListeners()
     {
         $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
-
-        $eventDispatcher->addListener(tubepress_api_event_Boot::EVENT_NAME,
-            array(new tubepress_plugins_core_listeners_WordPressBoot(), 'onBoot'));
 
         $eventDispatcher->addListener(tubepress_api_event_Boot::EVENT_NAME,
             array(new tubepress_plugins_core_listeners_SkeletonExistsListener(), 'onBoot'));
@@ -92,4 +89,4 @@ class tubepress_plugins_core
     }
 }
 
-tubepress_plugins_core::registerListeners();
+tubepress_plugins_core_core::registerListeners();

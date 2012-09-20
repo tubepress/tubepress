@@ -25,6 +25,13 @@
 class tubepress_impl_wordpress_WordPressServiceLocator
 {
     /**
+     * @var mixed This is a special member that is a reference to the core IOC service.
+     *            It lets us perform lazy lookups for core services.
+     */
+    private static $_coreIocContainer;
+
+
+    /**
      * @var tubepress_spi_wordpress_ContentFilter
      */
     private static $_contentFilter;
@@ -127,5 +134,23 @@ class tubepress_impl_wordpress_WordPressServiceLocator
     public static function setWpAdminHandler(tubepress_spi_wordpress_WpAdminHandler $wpAdminHandler)
     {
         self::$_wpAdminHandler = $wpAdminHandler;
+    }
+
+    /**
+     * @param ehough_iconic_api_IContainer $container The core IOC container.
+     */
+    public static function setCoreIocContainer(ehough_iconic_api_IContainer $container)
+    {
+        self::$_coreIocContainer = $container;
+    }
+
+    private static function _lazyGet($propertyName, $iocServiceKey)
+    {
+        if (! isset(self::${$propertyName}) && isset(self::$_coreIocContainer)) {
+
+            self::${$propertyName} = self::$_coreIocContainer->get($iocServiceKey);
+        }
+
+        return self::${$propertyName};
     }
 }

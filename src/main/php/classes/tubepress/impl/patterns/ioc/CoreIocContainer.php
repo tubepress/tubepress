@@ -23,7 +23,7 @@
  * Core services IOC container. The job of this class is to ensure that each kernel service (see the constants
  * of this class) is wired up.
  */
-final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconic_api_IContainer
+final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_patterns_ioc_AbstractReadOnlyIocContainer
 {
     const SERVICE_BOOTSTRAPPER                = 'bootStrapper';
     const SERVICE_CACHE                       = 'cacheService';
@@ -584,20 +584,6 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
     }
 
     /**
-     * Sets a service.
-     *
-     * @param string $id      The service identifier
-     * @param object $service The service instance
-     * @param string $scope   The scope of the service
-     *
-     * @return void
-     */
-    public final function set($id, $service, $scope = self::SCOPE_CONTAINER)
-    {
-        //ignore - this is read only!
-    }
-
-    /**
      * Gets a service.
      *
      * @param string $id              The service identifier
@@ -648,19 +634,6 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer implements ehough_iconi
     public final function hasParameter($name)
     {
         return $this->_delegate->hasParameter($name);
-    }
-
-    /**
-     * Sets a parameter.
-     *
-     * @param string $name  The parameter name
-     * @param mixed  $value The parameter value
-     *
-     * @return void
-     */
-    public final function setParameter($name, $value)
-    {
-        //ignore - this is read only!
     }
 
     private function _registerChainDefinitionByClassNames($chainName, array $classNames)
