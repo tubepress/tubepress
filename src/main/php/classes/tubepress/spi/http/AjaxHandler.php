@@ -20,10 +20,16 @@
  */
 
 /**
- * These classes are here for backwards compatability only.
+ * Handles and responds to incoming Ajax requests.
  */
-class org_tubepress_api_const_template_Variable extends tubepress_api_const_template_Variable {}
+interface tubepress_spi_http_AjaxHandler
+{
+    const _ = 'tubepress_spi_http_AjaxHandler';
 
-class org_tubepress_template_Template extends org_tubepress_api_const_template_Variable {}
-
-trigger_error('The "org_tubepress_ ..." prefixed classes are deprecated. Please update your template.', E_NOTICE);
+    /**
+     * Handles incoming requests.
+     *
+     * @return void Handle the request and output a response.
+     */
+    function handle();
+}
