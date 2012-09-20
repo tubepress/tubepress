@@ -31,7 +31,7 @@ class tubepress_plugins_wordpresscore_listeners_WordPressApiIntegrator
         global $tubepress_base_url;
 
         $baseName          = $ed->getTubePressInstallationDirectoryBaseName();
-        $wpFunctionWrapper = tubepress_impl_wordpress_WordPressServiceLocator::getWordPressFunctionWrapper();
+        $wpFunctionWrapper = tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
 
         /** http://code.google.com/p/tubepress/issues/detail?id=495#c2 */
         if ($this->_isWordPressMuDomainMapped()) {
@@ -48,10 +48,10 @@ class tubepress_plugins_wordpresscore_listeners_WordPressApiIntegrator
         /* register the plugin's message bundles */
         $wpFunctionWrapper->load_plugin_textdomain('tubepress', false, "$baseName/src/main/resources/i18n");
 
-        $contentFilter    = tubepress_impl_wordpress_WordPressServiceLocator::getContentFilter();
-        $jsAndCssInjector = tubepress_impl_wordpress_WordPressServiceLocator::getFrontEndCssAndJsInjector();
-        $wpAdminHandler   = tubepress_impl_wordpress_WordPressServiceLocator::getWpAdminHandler();
-        $widgetHandler    = tubepress_impl_wordpress_WordPressServiceLocator::getWidgetHandler();
+        $contentFilter    = tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::getContentFilter();
+        $jsAndCssInjector = tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::getFrontEndCssAndJsInjector();
+        $wpAdminHandler   = tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::getWpAdminHandler();
+        $widgetHandler    = tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::getWidgetHandler();
 
         $wpFunctionWrapper->add_filter('the_content', array($contentFilter, 'filterContent'));
         $wpFunctionWrapper->add_action('wp_head', array($jsAndCssInjector, 'printInHtmlHead'));
@@ -63,7 +63,7 @@ class tubepress_plugins_wordpresscore_listeners_WordPressApiIntegrator
         $wpFunctionWrapper->add_action('widgets_init', array($widgetHandler, 'registerWidget'));
     }
 
-    private function _getScheme(tubepress_spi_wordpress_WordPressFunctionWrapper $wpFunctionWrapper)
+    private function _getScheme(tubepress_plugins_wordpresscore_lib_spi_WordPressFunctionWrapper $wpFunctionWrapper)
     {
         if ($wpFunctionWrapper->is_ssl()) {
 

@@ -22,12 +22,12 @@ class org_tubepress_impl_template_templates_wordpress_WidgetControlsTemplateTest
 {
     public function test()
     {
-        ${tubepress_impl_wordpress_DefaultWidgetHandler::WIDGET_SUBMIT_TAG}    = '<<widget-submit-tag>>';
-        ${tubepress_impl_wordpress_DefaultWidgetHandler::WIDGET_CONTROL_TITLE} = '<<widget-control-title>>';
-        ${tubepress_impl_wordpress_DefaultWidgetHandler::WIDGET_TITLE}         = '<<widget-title>>';
-        ${tubepress_impl_wordpress_DefaultWidgetHandler::WIDGET_SHORTCODE}     = '<<widget-shortcode>>';
-        ${tubepress_impl_wordpress_DefaultWidgetHandler::WIDGET_SUBMIT_TAG}    = '<<widget-submit-tag>>';
-        ${tubepress_impl_wordpress_DefaultWidgetHandler::WIDGET_CONTROL_SHORTCODE} = '<<widget-control-shortcode>>';
+        ${tubepress_plugins_wordpresscore_lib_impl_DefaultWidgetHandler::WIDGET_SUBMIT_TAG}    = '<<widget-submit-tag>>';
+        ${tubepress_plugins_wordpresscore_lib_impl_DefaultWidgetHandler::WIDGET_CONTROL_TITLE} = '<<widget-control-title>>';
+        ${tubepress_plugins_wordpresscore_lib_impl_DefaultWidgetHandler::WIDGET_TITLE}         = '<<widget-title>>';
+        ${tubepress_plugins_wordpresscore_lib_impl_DefaultWidgetHandler::WIDGET_SHORTCODE}     = '<<widget-shortcode>>';
+        ${tubepress_plugins_wordpresscore_lib_impl_DefaultWidgetHandler::WIDGET_SUBMIT_TAG}    = '<<widget-submit-tag>>';
+        ${tubepress_plugins_wordpresscore_lib_impl_DefaultWidgetHandler::WIDGET_CONTROL_SHORTCODE} = '<<widget-control-shortcode>>';
 
         ob_start();
         include __DIR__ . '/../../../../../main/resources/system-templates/wordpress/widget_controls.tpl.php';

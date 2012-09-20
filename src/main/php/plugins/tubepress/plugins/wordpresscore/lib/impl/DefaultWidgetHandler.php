@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-class tubepress_impl_wordpress_DefaultWidgetHandler implements tubepress_spi_wordpress_WidgetHandler
+class tubepress_plugins_wordpresscore_lib_impl_DefaultWidgetHandler implements tubepress_plugins_wordpresscore_lib_spi_WidgetHandler
 {
     const WIDGET_CONTROL_SHORTCODE = 'widgetControlShortcode';
     const WIDGET_CONTROL_TITLE     = 'widgetControlTitle';
@@ -34,7 +34,7 @@ class tubepress_impl_wordpress_DefaultWidgetHandler implements tubepress_spi_wor
     public final function registerWidget()
     {
         $msg               = tubepress_impl_patterns_ioc_KernelServiceLocator::getMessageService();
-        $wpFunctionWrapper = tubepress_impl_wordpress_WordPressServiceLocator::getWordPressFunctionWrapper();
+        $wpFunctionWrapper = tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
 
         $widgetOps = array('classname' => 'widget_tubepress', 'description' =>
             $msg->_('Displays YouTube or Vimeo videos with TubePress'));  //>(translatable)<
@@ -142,7 +142,7 @@ class tubepress_impl_wordpress_DefaultWidgetHandler implements tubepress_spi_wor
 
     private static function _verifyNonce() {
 
-        $wpFunctionWrapper = tubepress_impl_wordpress_WordPressServiceLocator::getWordPressFunctionWrapper();
+        $wpFunctionWrapper = tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
 
         $wpFunctionWrapper->check_admin_referer('tubepress-widget-nonce-save', 'tubepress-widget-nonce');
     }

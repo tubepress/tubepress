@@ -19,22 +19,29 @@
  *
  */
 
-interface tubepress_spi_wordpress_FrontEndCssAndJsInjector
+interface tubepress_plugins_wordpresscore_lib_spi_WidgetHandler
 {
-    const _ = 'tubepress_spi_wordpress_FrontEndCssAndJsInjector';
+    const _ = 'tubepress_plugins_wordpresscore_lib_spi_WidgetHandler';
 
     /**
-     * Prints out HTML and CSS into the HTML <head>.
-     *
-     * @return void
+     * Filter the content (which may be empty).
      */
-    function printInHtmlHead();
+    function printControlHtml();
 
     /**
      * Registers all the styles and scripts for the front end.
      *
+     * @param array $opts The options.
+     *
      * @return void
      */
-    function registerStylesAndScripts();
+    function printWidgetHtml($opts);
+
+    /**
+     * Registers ourselves as an admin menu.
+     *
+     * @return void
+     */
+    function registerWidget();
 }
 

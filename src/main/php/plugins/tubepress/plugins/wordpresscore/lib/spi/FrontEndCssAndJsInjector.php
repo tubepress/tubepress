@@ -19,13 +19,22 @@
  *
  */
 
-interface tubepress_spi_wordpress_ContentFilter
+interface tubepress_plugins_wordpresscore_lib_spi_FrontEndCssAndJsInjector
 {
-    const _ = 'tubepress_spi_wordpress_ContentFilter';
+    const _ = 'tubepress_plugins_wordpresscore_lib_spi_FrontEndCssAndJsInjector';
 
     /**
-     * Filter the content (which may be empty).
+     * Prints out HTML and CSS into the HTML <head>.
+     *
+     * @return void
      */
-    function filterContent();
+    function printInHtmlHead();
+
+    /**
+     * Registers all the styles and scripts for the front end.
+     *
+     * @return void
+     */
+    function registerStylesAndScripts();
 }
 

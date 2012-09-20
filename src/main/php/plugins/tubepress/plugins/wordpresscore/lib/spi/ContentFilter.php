@@ -19,15 +19,13 @@
  *
  */
 
-/**
- * Displays a WordPress-specific options form for TubePress
- *
- */
-class tubepress_impl_wordpress_WordPressOptionsFormHandler extends tubepress_impl_options_ui_AbstractFormHandler
+interface tubepress_plugins_wordpresscore_lib_spi_ContentFilter
 {
+    const _ = 'tubepress_plugins_wordpresscore_lib_spi_ContentFilter';
 
-    protected function getRelativeTemplatePath()
-    {
-        return 'src/main/resources/system-templates/wordpress/options_page.tpl.php';
-    }
+    /**
+     * Filter the content (which may be empty).
+     */
+    function filterContent();
 }
+

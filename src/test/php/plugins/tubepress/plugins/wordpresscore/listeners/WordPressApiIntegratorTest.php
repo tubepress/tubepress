@@ -39,18 +39,18 @@ class tubepress_plugins_corewordpress_listeners_WordPressBootTest extends TubePr
         $this->_sut = new tubepress_plugins_wordpresscore_listeners_WordPressApiIntegrator();
 
         $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
-        $this->_mockWpFunctionWrapper   = Mockery::mock(tubepress_spi_wordpress_WordPressFunctionWrapper::_);
-        $this->_mockContentFilter       = Mockery::mock(tubepress_spi_wordpress_ContentFilter::_);
-        $this->_mockJsAndCssInjector    = Mockery::mock(tubepress_spi_wordpress_FrontEndCssAndJsInjector::_);
-        $this->_mockWpAdminHandler      = Mockery::mock(tubepress_spi_wordpress_WpAdminHandler::_);
-        $this->_mockWidgetHandler       = Mockery::mock(tubepress_spi_wordpress_WidgetHandler::_);
+        $this->_mockWpFunctionWrapper   = Mockery::mock(tubepress_plugins_wordpresscore_lib_spi_WordPressFunctionWrapper::_);
+        $this->_mockContentFilter       = Mockery::mock(tubepress_plugins_wordpresscore_lib_spi_ContentFilter::_);
+        $this->_mockJsAndCssInjector    = Mockery::mock(tubepress_plugins_wordpresscore_lib_spi_FrontEndCssAndJsInjector::_);
+        $this->_mockWpAdminHandler      = Mockery::mock(tubepress_plugins_wordpresscore_lib_spi_WpAdminHandler::_);
+        $this->_mockWidgetHandler       = Mockery::mock(tubepress_plugins_wordpresscore_lib_spi_WidgetHandler::_);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
-        tubepress_impl_wordpress_WordPressServiceLocator::setWordPressFunctionWrapper($this->_mockWpFunctionWrapper);
-        tubepress_impl_wordpress_WordPressServiceLocator::setContentFilter($this->_mockContentFilter);
-        tubepress_impl_wordpress_WordPressServiceLocator::setFrontEndCssAndJsInjector($this->_mockJsAndCssInjector);
-        tubepress_impl_wordpress_WordPressServiceLocator::setWpAdminHandler($this->_mockWpAdminHandler);
-        tubepress_impl_wordpress_WordPressServiceLocator::setWidgetHandler($this->_mockWidgetHandler);
+        tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::setWordPressFunctionWrapper($this->_mockWpFunctionWrapper);
+        tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::setContentFilter($this->_mockContentFilter);
+        tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::setFrontEndCssAndJsInjector($this->_mockJsAndCssInjector);
+        tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::setWpAdminHandler($this->_mockWpAdminHandler);
+        tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::setWidgetHandler($this->_mockWidgetHandler);
     }
 
     function testWordPress()

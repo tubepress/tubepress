@@ -19,7 +19,7 @@
  *
  */
 
-class tubepress_impl_wordpress_DefaultContentFilter implements tubepress_spi_wordpress_ContentFilter
+class tubepress_plugins_wordpresscore_lib_impl_DefaultContentFilter implements tubepress_plugins_wordpresscore_lib_spi_ContentFilter
 {
     /**
      * Filter the content (which may be empty).

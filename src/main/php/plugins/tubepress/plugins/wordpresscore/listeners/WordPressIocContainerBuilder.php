@@ -19,29 +19,15 @@
  *
  */
 
-interface tubepress_spi_wordpress_WidgetHandler
+/**
+ * Builds the WP IOC container and assigns it to the service locator.
+ */
+class tubepress_plugins_wordpresscore_listeners_WordPressIocContainerBuilder
 {
-    const _ = 'tubepress_spi_wordpress_WidgetHandler';
+    public function onBoot(ehough_tickertape_api_Event $bootEvent)
+    {
+        $iocContainer = new tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressIocContainer();
 
-    /**
-     * Filter the content (which may be empty).
-     */
-    function printControlHtml();
-
-    /**
-     * Registers all the styles and scripts for the front end.
-     *
-     * @param array $opts The options.
-     *
-     * @return void
-     */
-    function printWidgetHtml($opts);
-
-    /**
-     * Registers ourselves as an admin menu.
-     *
-     * @return void
-     */
-    function registerWidget();
+        tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::setCoreIocContainer($iocContainer);
+    }
 }
-

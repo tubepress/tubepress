@@ -19,7 +19,7 @@
  *
  */
 
-class tubepress_impl_wordpress_DefaultWordPressFunctionWrapper implements tubepress_spi_wordpress_WordPressFunctionWrapper
+class tubepress_plugins_wordpresscore_lib_impl_DefaultWordPressFunctionWrapper implements tubepress_plugins_wordpresscore_lib_spi_WordPressFunctionWrapper
 {
     /**
      * Retrieves the translated string from WordPress's translate().

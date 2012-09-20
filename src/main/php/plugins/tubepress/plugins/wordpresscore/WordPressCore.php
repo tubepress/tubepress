@@ -33,7 +33,7 @@ class tubepress_plugins_core_wordpresscore_WordPressCore
         $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
 
         $eventDispatcher->addListener(tubepress_api_event_Boot::EVENT_NAME,
-            array(new tubepress_plugins_wordpresscore_listeners_WordPressServiceRegistrar(), 'onBoot'));
+            array(new tubepress_plugins_wordpresscore_listeners_WordPressIocContainerBuilder(), 'onBoot'));
 
         $eventDispatcher->addListener(tubepress_api_event_Boot::EVENT_NAME,
             array(new tubepress_plugins_wordpresscore_listeners_WordPressApiIntegrator(), 'onBoot'));

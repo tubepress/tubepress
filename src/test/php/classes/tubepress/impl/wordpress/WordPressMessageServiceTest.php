@@ -19,7 +19,7 @@
  *
  */
 
-class tubepress_impl_wordpress_WordPressMessageServiceTest extends TubePressUnitTest
+class tubepress_plugins_wordpresscore_lib_impl_message_WordPressMessageServiceTest extends TubePressUnitTest
 {
 	private $_sut;
 
@@ -40,15 +40,15 @@ class tubepress_impl_wordpress_WordPressMessageServiceTest extends TubePressUnit
 
 	function setUp()
 	{
-        $wrapper = \Mockery::mock(tubepress_spi_wordpress_WordPressFunctionWrapper::_);
+        $wrapper = \Mockery::mock(tubepress_plugins_wordpresscore_lib_spi_WordPressFunctionWrapper::_);
         $wrapper->shouldReceive('__')->andReturnUsing(function ($key) {
 
             return "[[$key]]";
         });
 
-        tubepress_impl_wordpress_WordPressServiceLocator::setWordPressFunctionWrapper($wrapper);
+        tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::setWordPressFunctionWrapper($wrapper);
 
-		$this->_sut = new tubepress_impl_wordpress_WordPressMessageService($wrapper);
+		$this->_sut = new tubepress_plugins_wordpresscore_lib_impl_message_WordPressMessageService($wrapper);
 	}
 
 	function testAllStringsPresent()

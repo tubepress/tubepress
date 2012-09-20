@@ -19,7 +19,7 @@
  *
  */
 
-class tubepress_impl_wordpress_DefaultFrontEndCssAndJsInjector implements tubepress_spi_wordpress_FrontEndCssAndJsInjector
+class tubepress_plugins_wordpresscore_lib_impl_DefaultFrontEndCssAndJsInjector implements tubepress_plugins_wordpresscore_lib_spi_FrontEndCssAndJsInjector
 {
     /**
      * Prints out HTML and CSS into the HTML <head>.
@@ -28,7 +28,7 @@ class tubepress_impl_wordpress_DefaultFrontEndCssAndJsInjector implements tubepr
      */
     public final function printInHtmlHead()
     {
-        $wordPressFunctionWrapper = tubepress_impl_wordpress_WordPressServiceLocator::getWordPressFunctionWrapper();
+        $wordPressFunctionWrapper = tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
 
         /* no need to print anything in the head of the admin section */
         if ($wordPressFunctionWrapper->is_admin()) {
@@ -57,7 +57,7 @@ EOT;
      */
     public final function registerStylesAndScripts()
     {
-        $wordPressFunctionWrapper = tubepress_impl_wordpress_WordPressServiceLocator::getWordPressFunctionWrapper();
+        $wordPressFunctionWrapper = tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
 
         /* no need to queue any of this stuff up in the admin section or login page */
         if ($wordPressFunctionWrapper->is_admin() || __FILE__ === 'wp-login.php') {

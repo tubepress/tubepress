@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_impl_wordpress_DefaultWpAdminHandlerTest extends TubePressUnitTest
+class tubepress_plugins_wordpresscore_lib_impl_DefaultWpAdminHandlerTest extends TubePressUnitTest
 {
     private $_sut;
 
@@ -34,15 +34,15 @@ class tubepress_impl_wordpress_DefaultWpAdminHandlerTest extends TubePressUnitTe
 
     function setUp()
     {
-        $this->_sut = new tubepress_impl_wordpress_DefaultWpAdminHandler();
+        $this->_sut = new tubepress_plugins_wordpresscore_lib_impl_DefaultWpAdminHandler();
 
-        $this->_mockWpFunctionWrapper = Mockery::mock(tubepress_spi_wordpress_WordPressFunctionWrapper::_);
+        $this->_mockWpFunctionWrapper = Mockery::mock(tubepress_plugins_wordpresscore_lib_spi_WordPressFunctionWrapper::_);
         $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
         $this->_mockStorageManager  = Mockery::mock(tubepress_spi_options_StorageManager::_);
         $this->_mockFormHandler = Mockery::mock(tubepress_spi_options_ui_FormHandler::_);
         $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
 
-        tubepress_impl_wordpress_WordPressServiceLocator::setWordPressFunctionWrapper($this->_mockWpFunctionWrapper);
+        tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::setWordPressFunctionWrapper($this->_mockWpFunctionWrapper);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionStorageManager($this->_mockStorageManager);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionsUiFormHandler($this->_mockFormHandler);

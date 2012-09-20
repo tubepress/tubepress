@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_wordpress_DefaultFrontEndCssAndJsInjectorTest extends TubePressUnitTest
+class org_tubepress_plugins_wordpresscore_lib_impl_DefaultFrontEndCssAndJsInjectorTest extends TubePressUnitTest
 {
     private $_mockWpFunctionWrapper;
 
@@ -30,14 +30,14 @@ class org_tubepress_impl_wordpress_DefaultFrontEndCssAndJsInjectorTest extends T
 
     public function setUp()
     {
-        $this->_sut = new tubepress_impl_wordpress_DefaultFrontEndCssAndJsInjector();
+        $this->_sut = new tubepress_plugins_wordpresscore_lib_impl_DefaultFrontEndCssAndJsInjector();
 
-        $this->_mockWpFunctionWrapper = Mockery::mock(tubepress_spi_wordpress_WordPressFunctionWrapper::_);
+        $this->_mockWpFunctionWrapper = Mockery::mock(tubepress_plugins_wordpresscore_lib_spi_WordPressFunctionWrapper::_);
         $this->_mockHeadHtmlGenerator = Mockery::mock(tubepress_spi_html_HeadHtmlGenerator::_);
         $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setHeadHtmlGenerator($this->_mockHeadHtmlGenerator);
-        tubepress_impl_wordpress_WordPressServiceLocator::setWordPressFunctionWrapper($this->_mockWpFunctionWrapper);
+        tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::setWordPressFunctionWrapper($this->_mockWpFunctionWrapper);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
     }
 

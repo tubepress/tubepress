@@ -23,7 +23,7 @@
  * Core services IOC container. The job of this class is to ensure that each kernel service (see the constants
  * of this class) is wired up.
  */
-final class tubepress_plugins_core_wordpresscore_lib_WordPressIocContainer extends tubepress_impl_patterns_ioc_AbstractReadOnlyIocContainer
+final class tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressIocContainer extends tubepress_impl_patterns_ioc_AbstractReadOnlyIocContainer
 {
     const SERVICE_CONTENT_FILTER         = 'contentFilter';
     const SERVICE_CSS_AND_JS_INJECTOR    = 'cssAndJsInjector';
@@ -58,7 +58,7 @@ final class tubepress_plugins_core_wordpresscore_lib_WordPressIocContainer exten
         $this->_delegate->register(
 
             self::SERVICE_CONTENT_FILTER,
-            'tubepress_impl_wordpress_DefaultContentFilter'
+            'tubepress_plugins_wordpresscore_lib_impl_DefaultContentFilter'
         );
     }
 
@@ -68,7 +68,7 @@ final class tubepress_plugins_core_wordpresscore_lib_WordPressIocContainer exten
         $this->_delegate->register(
 
             self::SERVICE_CSS_AND_JS_INJECTOR,
-            'tubepress_impl_wordpress_DefaultFrontEndCssAndJsInjector'
+            'tubepress_plugins_wordpresscore_lib_impl_DefaultFrontEndCssAndJsInjector'
 
         );
     }
@@ -78,7 +78,7 @@ final class tubepress_plugins_core_wordpresscore_lib_WordPressIocContainer exten
         $this->_delegate->register(
 
             self::SERVICE_MESSAGE,
-            'tubepress_impl_wordpress_WordPressMessageService'
+            'tubepress_plugins_wordpresscore_lib_impl_message_WordPressMessageService'
         );
     }
 
@@ -87,7 +87,7 @@ final class tubepress_plugins_core_wordpresscore_lib_WordPressIocContainer exten
         $this->_delegate->register(
 
             self::SERVICE_OPTIONS_STORAGE,
-            'tubepress_impl_wordpress_WordPressStorageManager'
+            'tubepress_plugins_wordpresscore_lib_impl_options_WordPressStorageManager'
         );
     }
 
@@ -96,7 +96,7 @@ final class tubepress_plugins_core_wordpresscore_lib_WordPressIocContainer exten
         $this->_delegate->register(
 
             self::SERVICE_OPTIONS_UI_FORMHANDLER,
-            'tubepress_impl_wordpress_WordPressOptionsFormHandler'
+            'tubepress_plugins_wordpresscore_lib_impl_options_ui_WordPressOptionsFormHandler'
         );
     }
 
@@ -105,7 +105,7 @@ final class tubepress_plugins_core_wordpresscore_lib_WordPressIocContainer exten
         $this->_delegate->register(
 
             self::SERVICE_WIDGET_HANDLER,
-            'tubepress_impl_wordpress_DefaultWidgetHandler'
+            'tubepress_plugins_wordpresscore_lib_impl_DefaultWidgetHandler'
         );
     }
 
@@ -114,7 +114,7 @@ final class tubepress_plugins_core_wordpresscore_lib_WordPressIocContainer exten
         $this->_delegate->register(
 
             self::SERVICE_WP_ADMIN_HANDLER,
-            'tubepress_impl_wordpress_DefaultWpAdminHandler'
+            'tubepress_plugins_wordpresscore_lib_impl_DefaultWpAdminHandler'
         );
     }
 
@@ -123,7 +123,7 @@ final class tubepress_plugins_core_wordpresscore_lib_WordPressIocContainer exten
         $this->_delegate->register(
 
             self::SERVICE_WP_FUNCTION_WRAPPER,
-            'tubepress_impl_wordpress_DefaultWordPressFunctionWrapper'
+            'tubepress_plugins_wordpresscore_lib_impl_DefaultWordPressFunctionWrapper'
         );
     }
 

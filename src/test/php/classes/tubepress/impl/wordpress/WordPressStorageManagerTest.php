@@ -38,15 +38,15 @@ class tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTe
         $this->_mockEventDispatcher          = \Mockery::mock('ehough_tickertape_api_IEventDispatcher');
         $this->_mockOptionValidator          = \Mockery::mock(tubepress_spi_options_OptionValidator::_);
         $this->_mockOptionsReference         = \Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
-        $this->_mockWordPressFunctionWrapper = \Mockery::mock(tubepress_spi_wordpress_WordPressFunctionWrapper::_);
+        $this->_mockWordPressFunctionWrapper = \Mockery::mock(tubepress_plugins_wordpresscore_lib_spi_WordPressFunctionWrapper::_);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionValidator($this->_mockOptionValidator);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionsReference);
-        tubepress_impl_wordpress_WordPressServiceLocator::setWordPressFunctionWrapper($this->_mockWordPressFunctionWrapper);
+        tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::setWordPressFunctionWrapper($this->_mockWordPressFunctionWrapper);
 
-        $this->_sut = new tubepress_impl_wordpress_WordPressStorageManager();
+        $this->_sut = new tubepress_plugins_wordpresscore_lib_impl_options_WordPressStorageManager();
     }
 
 

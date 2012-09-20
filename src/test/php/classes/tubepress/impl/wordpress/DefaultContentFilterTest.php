@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_impl_wordpress_DefaultContentFilterTest extends TubePressUnitTest
+class tubepress_plugins_wordpresscore_lib_impl_DefaultContentFilterTest extends TubePressUnitTest
 {
     private $_sut;
 
@@ -34,7 +34,7 @@ class tubepress_impl_wordpress_DefaultContentFilterTest extends TubePressUnitTes
 
     public function setUp()
     {
-        $this->_sut = new tubepress_impl_wordpress_DefaultContentFilter();
+        $this->_sut = new tubepress_plugins_wordpresscore_lib_impl_DefaultContentFilter();
 
         $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
         $this->_mockMessageService   = Mockery::mock(tubepress_spi_message_MessageService::_);

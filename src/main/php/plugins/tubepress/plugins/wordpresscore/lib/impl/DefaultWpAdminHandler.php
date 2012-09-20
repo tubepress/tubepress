@@ -19,7 +19,7 @@
  *
  */
 
-class tubepress_impl_wordpress_DefaultWpAdminHandler implements tubepress_spi_wordpress_WpAdminHandler
+class tubepress_plugins_wordpresscore_lib_impl_DefaultWpAdminHandler implements tubepress_plugins_wordpresscore_lib_spi_WpAdminHandler
 {
     /**
      * Registers all the styles and scripts for the front end.
@@ -37,7 +37,7 @@ class tubepress_impl_wordpress_DefaultWpAdminHandler implements tubepress_spi_wo
         }
 
         $fs                   = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
-        $wpFunctionWrapper    = tubepress_impl_wordpress_WordPressServiceLocator::getWordPressFunctionWrapper();
+        $wpFunctionWrapper    = tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
         $baseName             = $fs->getTubePressInstallationDirectoryBaseName();
         $jqueryUiCssUrl       = $wpFunctionWrapper->plugins_url("$baseName/sys/ui/static/css/jquery-ui-flick/jquery-ui-1.8.16.custom.css", $baseName);
         $wpOptionsPageCss     = $wpFunctionWrapper->plugins_url("$baseName/sys/ui/static/css/wordpress-options-page.css", $baseName);
@@ -70,7 +70,7 @@ class tubepress_impl_wordpress_DefaultWpAdminHandler implements tubepress_spi_wo
      */
     public final function registerAdminMenuItem()
     {
-        $wpFunctionWrapper = tubepress_impl_wordpress_WordPressServiceLocator::getWordPressFunctionWrapper();
+        $wpFunctionWrapper = tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
 
         $wpFunctionWrapper->add_options_page('TubePress Options', 'TubePress', 'manage_options',
             'tubepress', array($this, 'printOptionsPageHtml'));
@@ -120,7 +120,7 @@ class tubepress_impl_wordpress_DefaultWpAdminHandler implements tubepress_spi_wo
 
     private static function _verifyNonce()
     {
-        $wpFunctionWrapper = tubepress_impl_wordpress_WordPressServiceLocator::getWordPressFunctionWrapper();
+        $wpFunctionWrapper = tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
 
     	$wpFunctionWrapper->check_admin_referer('tubepress-save', 'tubepress-nonce');
     }

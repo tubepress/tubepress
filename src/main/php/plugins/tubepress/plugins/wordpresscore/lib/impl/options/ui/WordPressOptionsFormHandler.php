@@ -20,14 +20,14 @@
  */
 
 /**
- * Sets up the WordPress services.
+ * Displays a WordPress-specific options form for TubePress
+ *
  */
-class tubepress_plugins_wordpresscore_listeners_WordPressServiceRegistrar
+class tubepress_plugins_wordpresscore_lib_impl_options_ui_WordPressOptionsFormHandler extends tubepress_impl_options_ui_AbstractFormHandler
 {
-    public function onBoot(ehough_tickertape_api_Event $bootEvent)
-    {
-        $iocContainer = new tubepress_plugins_core_wordpresscore_lib_WordPressIocContainer();
 
-        tubepress_impl_wordpress_WordPressServiceLocator::setCoreIocContainer($iocContainer);
+    protected function getRelativeTemplatePath()
+    {
+        return 'src/main/resources/system-templates/wordpress/options_page.tpl.php';
     }
 }

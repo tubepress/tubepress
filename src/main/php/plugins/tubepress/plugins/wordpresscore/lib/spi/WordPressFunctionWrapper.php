@@ -19,9 +19,9 @@
  *
  */
 
-interface tubepress_spi_wordpress_WordPressFunctionWrapper
+interface tubepress_plugins_wordpresscore_lib_spi_WordPressFunctionWrapper
 {
-    const _ = 'tubepress_spi_wordpress_WordPressFunctionWrapper';
+    const _ = 'tubepress_plugins_wordpresscore_lib_spi_WordPressFunctionWrapper';
 
     /**
      * Retrieves the translated string from WordPress's translate().

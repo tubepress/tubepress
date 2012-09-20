@@ -45,7 +45,7 @@ class tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePressUni
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
 
-        $this->_sut = new tubepress_impl_wordpress_WordPressOptionsFormHandler($this->_mockTabs, $this->_mockFilter);
+        $this->_sut = new tubepress_plugins_wordpresscore_lib_impl_options_ui_WordPressOptionsFormHandler($this->_mockTabs, $this->_mockFilter);
     }
 
 

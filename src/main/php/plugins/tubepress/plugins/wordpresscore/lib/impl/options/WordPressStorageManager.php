@@ -23,7 +23,7 @@
  * Implementation of org_tubepress_api_options_StorageManager that uses the
  * regular WordPress options API
  */
-class tubepress_impl_wordpress_WordPressStorageManager extends tubepress_impl_options_AbstractStorageManager
+class tubepress_plugins_wordpresscore_lib_impl_options_WordPressStorageManager extends tubepress_impl_options_AbstractStorageManager
 {
     /*
      * Prefix all our option names in the WordPress DB
@@ -41,7 +41,7 @@ class tubepress_impl_wordpress_WordPressStorageManager extends tubepress_impl_op
      */
     protected function create($optionName, $optionValue)
     {
-        $wordPressFunctionWrapperService = tubepress_impl_wordpress_WordPressServiceLocator::getWordPressFunctionWrapper();
+        $wordPressFunctionWrapperService = tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
         
         $wordPressFunctionWrapperService->add_option(self::$_optionPrefix . $optionName, $optionValue);
     }
@@ -55,7 +55,7 @@ class tubepress_impl_wordpress_WordPressStorageManager extends tubepress_impl_op
      */
     protected function delete($optionName)
     {
-        $wordPressFunctionWrapperService = tubepress_impl_wordpress_WordPressServiceLocator::getWordPressFunctionWrapper();
+        $wordPressFunctionWrapperService = tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
         
         $wordPressFunctionWrapperService->delete_option(self::$_optionPrefix . $optionName);
     }
@@ -69,7 +69,7 @@ class tubepress_impl_wordpress_WordPressStorageManager extends tubepress_impl_op
      */
     public function exists($optionName)
     {
-        $wordPressFunctionWrapperService = tubepress_impl_wordpress_WordPressServiceLocator::getWordPressFunctionWrapper();
+        $wordPressFunctionWrapperService = tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
         
         return $wordPressFunctionWrapperService->get_option(self::$_optionPrefix . $optionName) !== false;
     }
@@ -83,7 +83,7 @@ class tubepress_impl_wordpress_WordPressStorageManager extends tubepress_impl_op
      */
     public function get($optionName)
     {
-        $wordPressFunctionWrapperService = tubepress_impl_wordpress_WordPressServiceLocator::getWordPressFunctionWrapper();
+        $wordPressFunctionWrapperService = tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
         
         return $wordPressFunctionWrapperService->get_option(self::$_optionPrefix . $optionName);
     }
@@ -98,7 +98,7 @@ class tubepress_impl_wordpress_WordPressStorageManager extends tubepress_impl_op
      */
     protected function setOption($optionName, $optionValue)
     {
-        $wordPressFunctionWrapperService = tubepress_impl_wordpress_WordPressServiceLocator::getWordPressFunctionWrapper();
+        $wordPressFunctionWrapperService = tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
         
         $wordPressFunctionWrapperService->update_option(self::$_optionPrefix . $optionName, $optionValue);
     }
