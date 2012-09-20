@@ -59,10 +59,6 @@ class tubepress_impl_bootstrap_TubePressBootstrapper implements tubepress_spi_bo
     private function _doBoot()
     {
         $envDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
-        $sm  		 = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionStorageManager();
-
-        /** Init the storage manager. */
-        $sm->init();
 
         /* WordPress likes to keep control of the output */
         if ($envDetector->isWordPress()) {

@@ -50,6 +50,8 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 
 	public function testOptions()
 	{
+        $this->setupMocks();
+
 	    $option = $this->_sut->findOneByName(tubepress_api_const_options_names_Advanced::DEBUG_ON);
 	    $this->assertTrue($option->getDefaultValue() === true, $option->getName());
 	    $this->assertTrue($option->getLabel() === 'Enable debugging', $option->getName());

@@ -63,7 +63,6 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUn
         $this->_mockPluginRegistry->shouldReceive('load')->once()->with($mockPlugin1);
         $this->_mockPluginRegistry->shouldReceive('load')->once()->with($mockPlugin2);
 
-        $this->_mockStorageManager->shouldReceive('init')->once();
 
         $this->_mockEventDispatcher->shouldReceive('dispatchWithoutEventInstance')->once()->with(tubepress_api_event_Boot::EVENT_NAME);
 
