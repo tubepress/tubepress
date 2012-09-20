@@ -33,7 +33,7 @@ class tubepress_impl_http_ajaxhandling_PlayerHtmlCommand
      */
     public final function handle()
     {
-        $context  = $ioc->get(org_tubepress_api_exec_ExecutionContext::_);
+        $context  = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
         $player   = $ioc->get(org_tubepress_api_player_PlayerHtmlGenerator::_);
         $provider = $ioc->get(org_tubepress_api_provider_Provider::_);
         $qss      = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
