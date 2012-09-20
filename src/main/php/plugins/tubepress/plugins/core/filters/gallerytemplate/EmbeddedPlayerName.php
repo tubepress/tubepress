@@ -29,7 +29,7 @@ class tubepress_plugins_core_filters_gallerytemplate_EmbeddedPlayerName
         $template     = $event->getSubject();
         $providerName = $event->getArgument(tubepress_api_event_PlayerTemplateConstruction::ARGUMENT_PROVIDER_NAME);
 
-        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, self::_getEmbeddedServiceName($providerName));
+        $template->setVariable(tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, self::_getEmbeddedServiceName($providerName));
     }
 
     private static function _getEmbeddedServiceName($providerName)

@@ -47,12 +47,12 @@ class tubepress_plugins_core_filters_gallerytemplate_Pagination
 
         if ($context->get(tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE)) {
 
-            $template->setVariable(org_tubepress_api_const_template_Variable::PAGINATION_TOP, $pagination);
+            $template->setVariable(tubepress_api_const_template_Variable::PAGINATION_TOP, $pagination);
         }
 
         if ($context->get(tubepress_api_const_options_names_Thumbs::PAGINATE_BELOW)) {
 
-            $template->setVariable(org_tubepress_api_const_template_Variable::PAGINATION_BOTTOM, $pagination);
+            $template->setVariable(tubepress_api_const_template_Variable::PAGINATION_BOTTOM, $pagination);
         }
     }
 

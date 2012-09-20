@@ -65,8 +65,8 @@ class tubepress_plugins_core_filters_gallerytemplate_VideoMetaTest extends TubeP
         }
 
         $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
-	    $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::META_SHOULD_SHOW, $shouldShow);
-        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::META_LABELS, $labels);
+	    $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::META_SHOULD_SHOW, $shouldShow);
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::META_LABELS, $labels);
 
         $providerResult = new tubepress_api_video_VideoGalleryPage();
 

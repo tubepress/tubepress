@@ -42,7 +42,7 @@ class tubepress_plugins_core_filters_singlevideotemplate_VideoMeta
             $labels[$metaName]     = $messageService->_($optionDescriptor->getLabel());
         }
 
-        $template->setVariable(org_tubepress_api_const_template_Variable::META_SHOULD_SHOW, $shouldShow);
-        $template->setVariable(org_tubepress_api_const_template_Variable::META_LABELS, $labels);
+        $template->setVariable(tubepress_api_const_template_Variable::META_SHOULD_SHOW, $shouldShow);
+        $template->setVariable(tubepress_api_const_template_Variable::META_LABELS, $labels);
     }
 }

@@ -63,10 +63,10 @@ class tubepress_plugins_core_filters_searchinputtemplate_CoreVariables
         unset($params[tubepress_spi_const_http_ParamName::SEARCH_TERMS]);
 
         /* apply the template variables */
-        $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_HANDLER_URL, $url->toString());
-        $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_HIDDEN_INPUTS, $params);
-        $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_TERMS, $searchTerms);
+        $template->setVariable(tubepress_api_const_template_Variable::SEARCH_HANDLER_URL, $url->toString());
+        $template->setVariable(tubepress_api_const_template_Variable::SEARCH_HIDDEN_INPUTS, $params);
+        $template->setVariable(tubepress_api_const_template_Variable::SEARCH_TERMS, $searchTerms);
 
-        $template->setVariable(org_tubepress_api_const_template_Variable::SEARCH_BUTTON, $ms->_('Search'));    //>(translatable)<
+        $template->setVariable(tubepress_api_const_template_Variable::SEARCH_BUTTON, $ms->_('Search'));    //>(translatable)<
     }
 }

@@ -27,7 +27,7 @@ class tubepress_plugins_core_wordpresscore_WordPressCore
         if (! $environmentDetector->isWordPress()) {
 
             //short circuit
-            return;
+            return false;
         }
 
         $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
@@ -37,7 +37,17 @@ class tubepress_plugins_core_wordpresscore_WordPressCore
 
         $eventDispatcher->addListener(tubepress_api_event_Boot::EVENT_NAME,
             array(new tubepress_plugins_wordpresscore_listeners_WordPressApiIntegrator(), 'onBoot'));
+
+        return true;
     }
 }
 
-tubepress_plugins_core_wordpresscore_WordPressCore::registerWordPressListeners();
+if (tubepress_plugins_core_wordpresscore_WordPressCore::registerWordPressListeners()) {
+
+    /*
+    * This is a little ugly, but it's the only way I know to
+    * properly load WordPress if required. Please remember that this
+    * code *cannot* be put inside of a class.
+    */
+    include TUBEPRESS_ROOT . '/../../../wp-blog-header.php';
+}

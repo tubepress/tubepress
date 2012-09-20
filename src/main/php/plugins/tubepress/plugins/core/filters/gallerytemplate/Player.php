@@ -36,8 +36,8 @@ class tubepress_plugins_core_filters_gallerytemplate_Player
         $playerHtml     = $playerHtml = $this->_showPlayerHtmlOnPageLoad($playerName) ?
             $htmlGenerator->getHtml($videos[0], $galleryId) : '';
 
-        $template->setVariable(org_tubepress_api_const_template_Variable::PLAYER_HTML, $playerHtml);
-        $template->setVariable(org_tubepress_api_const_template_Variable::PLAYER_NAME, $playerName);
+        $template->setVariable(tubepress_api_const_template_Variable::PLAYER_HTML, $playerHtml);
+        $template->setVariable(tubepress_api_const_template_Variable::PLAYER_NAME, $playerName);
     }
 
     private function _showPlayerHtmlOnPageLoad($playerName)

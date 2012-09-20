@@ -36,9 +36,9 @@ class tubepress_plugins_core_filters_gallerytemplate_CoreVariables
         $galleryId   = $context->get(tubepress_api_const_options_names_Advanced::GALLERY_ID);
 
         /* add some core template variables */
-        $template->setVariable(org_tubepress_api_const_template_Variable::VIDEO_ARRAY, $videoArray);
-        $template->setVariable(org_tubepress_api_const_template_Variable::GALLERY_ID, $galleryId);
-        $template->setVariable(org_tubepress_api_const_template_Variable::THUMBNAIL_WIDTH, $thumbWidth);
-        $template->setVariable(org_tubepress_api_const_template_Variable::THUMBNAIL_HEIGHT, $thumbHeight);
+        $template->setVariable(tubepress_api_const_template_Variable::VIDEO_ARRAY, $videoArray);
+        $template->setVariable(tubepress_api_const_template_Variable::GALLERY_ID, $galleryId);
+        $template->setVariable(tubepress_api_const_template_Variable::THUMBNAIL_WIDTH, $thumbWidth);
+        $template->setVariable(tubepress_api_const_template_Variable::THUMBNAIL_HEIGHT, $thumbHeight);
     }
 }

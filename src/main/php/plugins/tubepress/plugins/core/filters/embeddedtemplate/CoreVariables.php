@@ -40,15 +40,15 @@ class tubepress_plugins_core_filters_embeddedtemplate_CoreVariables
         $embedWidth      = $context->get(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
         $embedHeight     = $context->get(tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT);
 
-        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_DATA_URL, $dataUrl->toString(true));
-        $template->setVariable(org_tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL, $tubepress_base_url);
-        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_AUTOSTART, tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToString($autoPlay));
-        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_WIDTH, $embedWidth);
-        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_HEIGHT, $embedHeight);
-        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_COLOR_PRIMARY, $playerColor);
-        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_COLOR_HIGHLIGHT, $playerHighlight);
-        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_FULLSCREEN, tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToString($fullscreen));
-        $template->setVariable(org_tubepress_api_const_template_Variable::VIDEO_ID, $videoId);
+        $template->setVariable(tubepress_api_const_template_Variable::EMBEDDED_DATA_URL, $dataUrl->toString(true));
+        $template->setVariable(tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL, $tubepress_base_url);
+        $template->setVariable(tubepress_api_const_template_Variable::EMBEDDED_AUTOSTART, tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToString($autoPlay));
+        $template->setVariable(tubepress_api_const_template_Variable::EMBEDDED_WIDTH, $embedWidth);
+        $template->setVariable(tubepress_api_const_template_Variable::EMBEDDED_HEIGHT, $embedHeight);
+        $template->setVariable(tubepress_api_const_template_Variable::EMBEDDED_COLOR_PRIMARY, $playerColor);
+        $template->setVariable(tubepress_api_const_template_Variable::EMBEDDED_COLOR_HIGHLIGHT, $playerHighlight);
+        $template->setVariable(tubepress_api_const_template_Variable::EMBEDDED_FULLSCREEN, tubepress_impl_embedded_EmbeddedPlayerUtils::booleanToString($fullscreen));
+        $template->setVariable(tubepress_api_const_template_Variable::VIDEO_ID, $videoId);
 
         return $template;
     }

@@ -30,6 +30,10 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      */
     private static $_coreIocContainer;
 
+    /**
+     * @var tubepress_spi_http_AjaxHandler
+     */
+    private static $_ajaxHandler;
 
     /**
      * @var tubepress_spi_bootstrap_Bootstrapper
@@ -190,6 +194,14 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
      * @var tubepress_spi_provider_ProviderCalculator
      */
     private static $_videoProviderCalculator;
+
+    /**
+     * @return tubepress_spi_http_AjaxHandler
+     */
+    public static function getAjaxHandler()
+    {
+        return self::_lazyGet('_ajaxHandler', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_AJAX_HANDLER);
+    }
 
     /**
      * @return tubepress_spi_bootstrap_Bootstrapper The bootstrapper.
@@ -454,6 +466,14 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function getVideoProviderCalculator()
     {
         return self::_lazyGet('_videoProviderCalculator', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_VIDEO_PROVIDER_CALCULATOR);
+    }
+
+    /**
+     * @param tubepress_spi_http_AjaxHandler $ajaxHandler The Ajax handler.
+     */
+    public static function setAjaxHandler(tubepress_spi_http_AjaxHandler $ajaxHandler)
+    {
+        self::$_ajaxHandler = $ajaxHandler;
     }
 
     /**
@@ -727,6 +747,8 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function reset()
     {
         self::$_coreIocContainer = null;
+
+        self::$_ajaxHandler = null;
         self::$_bootStrapper = null;
         self::$_cacheService = null;
         self::$_embeddedHtmlGenerator = null;

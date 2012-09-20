@@ -19,14 +19,19 @@
  *
  */
 
-/*
- * This is a little ugly, but it's the only way I know to
- * properly load WordPress if required. Please remember that this
- * code *cannot* be put inside of a class.
+/**
+ * Class for managing HTTP Transports and making HTTP requests.
  */
-
-if (tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector()->isWordPress()) {
-
-    include TUBEPRESS_ROOT . '/../../../wp-blog-header.php';
+class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxHandler
+{
+    /**
+     * Handles incoming requests.
+     *
+     * @return void Handle the request and output a response.
+     */
+    public final function handle()
+    {
+        echo 'hi';
+    }
 }
 

@@ -25,6 +25,7 @@
  */
 final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_patterns_ioc_AbstractReadOnlyIocContainer
 {
+    const SERVICE_AJAX_HANDLER                = 'ajaxHandler';
     const SERVICE_BOOTSTRAPPER                = 'bootStrapper';
     const SERVICE_CACHE                       = 'cacheService';
     const SERVICE_EMBEDDED_HTML_GENERATOR     = 'embeddedHtmlGenerator';
@@ -64,6 +65,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_
     {
         $this->_delegate = new ehough_iconic_impl_ContainerBuilder();
 
+        $this->_registerAjaxHandler();
         $this->_registerBootstrapper();
         $this->_registerCacheService();
         $this->_registerEmbeddedHtmlGenerator();
@@ -93,6 +95,15 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_
         $this->_registerVideoFactory();
         $this->_registerVideoProvider();
         $this->_registerVideoProviderCalculator();
+    }
+
+    private function _registerAjaxHandler()
+    {
+        $this->_delegate->register(
+
+            self::SERVICE_AJAX_HANDLER,
+            'tubepress_impl_http_DefaultAjaxHandler'
+        );
     }
 
     private function _registerBootstrapper()

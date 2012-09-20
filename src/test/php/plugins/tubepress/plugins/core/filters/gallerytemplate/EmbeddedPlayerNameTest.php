@@ -49,7 +49,7 @@ class tubepress_plugins_core_filters_gallerytemplate_EmbeddedPlayerNameTest exte
         $providerResult = new tubepress_api_video_VideoGalleryPage();
 
         $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, 'provider-name');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, 'provider-name');
 
         $event = new tubepress_api_event_ThumbnailGalleryTemplateConstruction($mockTemplate);
         $event->setArguments(array(
@@ -71,7 +71,7 @@ class tubepress_plugins_core_filters_gallerytemplate_EmbeddedPlayerNameTest exte
         $providerResult = new tubepress_api_video_VideoGalleryPage();
 
         $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, $name);
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, $name);
 
         $event = new tubepress_api_event_ThumbnailGalleryTemplateConstruction($mockTemplate);
         $event->setArguments(array(

@@ -54,8 +54,8 @@ class tubepress_plugins_core_filters_gallerytemplate_PaginationTest extends Tube
         $this->_providerResult->setTotalResultCount(500);
 
         $this->_mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
-        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::PAGINATION_TOP, 'pagination-html');
-        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::PAGINATION_BOTTOM, 'pagination-html');
+        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::PAGINATION_TOP, 'pagination-html');
+        $this->_mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::PAGINATION_BOTTOM, 'pagination-html');
 
         $this->_mockQueryStringService = Mockery::mock(tubepress_spi_querystring_QueryStringService::_);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setQueryStringService($this->_mockQueryStringService);

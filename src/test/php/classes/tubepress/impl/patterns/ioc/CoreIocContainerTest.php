@@ -36,6 +36,7 @@ class org_tubepress_impl_patterns_ioc_CoreIocContainerTest extends TubePressUnit
     {
         $toTest = array(
 
+            tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_AJAX_HANDLER                => tubepress_spi_http_AjaxHandler::_,
             tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_BOOTSTRAPPER                => tubepress_spi_bootstrap_Bootstrapper::_,
             tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_CACHE                       => 'ehough_stash_api_Cache',
             tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_EMBEDDED_HTML_GENERATOR     => tubepress_spi_embedded_EmbeddedHtmlGenerator::_,

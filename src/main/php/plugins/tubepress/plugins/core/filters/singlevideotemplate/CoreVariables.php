@@ -35,9 +35,9 @@ class tubepress_plugins_core_filters_singlevideotemplate_CoreVariables
         $width          = $context->get(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH);
 
         /* apply it to the template */
-        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_SOURCE, $embeddedString);
-        $template->setVariable(org_tubepress_api_const_template_Variable::EMBEDDED_WIDTH, $width);
+        $template->setVariable(tubepress_api_const_template_Variable::EMBEDDED_SOURCE, $embeddedString);
+        $template->setVariable(tubepress_api_const_template_Variable::EMBEDDED_WIDTH, $width);
         
-        $template->setVariable(org_tubepress_api_const_template_Variable::VIDEO, $video);
+        $template->setVariable(tubepress_api_const_template_Variable::VIDEO, $video);
     }
 }

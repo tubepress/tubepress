@@ -46,6 +46,7 @@ class org_tubepress_impl_patterns_ioc_KernelServiceLocatorTest extends TubePress
 
     function testAllServicesNullByDefault()
     {
+        $this->assertNull(tubepress_impl_patterns_ioc_KernelServiceLocator::getAjaxHandler());
         $this->assertNull(tubepress_impl_patterns_ioc_KernelServiceLocator::getBootstrapper());
         $this->assertNull(tubepress_impl_patterns_ioc_KernelServiceLocator::getCacheService());
         $this->assertNull(tubepress_impl_patterns_ioc_KernelServiceLocator::getEmbeddedHtmlGenerator());
@@ -81,6 +82,7 @@ class org_tubepress_impl_patterns_ioc_KernelServiceLocatorTest extends TubePress
     {
         return array(
 
+            tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_AJAX_HANDLER                => tubepress_spi_http_AjaxHandler::_,
             tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_BOOTSTRAPPER                => tubepress_spi_bootstrap_Bootstrapper::_,
             tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_CACHE                       => 'ehough_stash_api_Cache',
             tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_EMBEDDED_HTML_GENERATOR     => tubepress_spi_embedded_EmbeddedHtmlGenerator::_,
@@ -117,6 +119,7 @@ class org_tubepress_impl_patterns_ioc_KernelServiceLocatorTest extends TubePress
     {
         return array(
 
+            'AjaxHandler',
             'Bootstrapper',
             'CacheService',
             'EmbeddedHtmlGenerator',

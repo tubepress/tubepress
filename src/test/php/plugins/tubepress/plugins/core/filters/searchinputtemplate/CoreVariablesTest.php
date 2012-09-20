@@ -60,10 +60,10 @@ class tubepress_plugins_core_filters_searchinputtemplate_CoreVariablesTest exten
         });
 
         $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::SEARCH_HANDLER_URL, 'http://tubepress.org?foo=bar&something=else');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::SEARCH_HIDDEN_INPUTS, array('foo' => 'bar', 'something' => 'else'));
-        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::SEARCH_TERMS, 'search for something');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::SEARCH_BUTTON, '##Search##');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::SEARCH_HANDLER_URL, 'http://tubepress.org?foo=bar&something=else');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::SEARCH_HIDDEN_INPUTS, array('foo' => 'bar', 'something' => 'else'));
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::SEARCH_TERMS, 'search for something');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::SEARCH_BUTTON, '##Search##');
 
         $event = new tubepress_api_event_SearchInputTemplateConstruction($mockTemplate);
 

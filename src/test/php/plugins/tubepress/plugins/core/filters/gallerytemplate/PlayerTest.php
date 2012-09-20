@@ -48,8 +48,8 @@ class tubepress_plugins_core_filters_gallerytemplate_PlayerTest extends TubePres
         $providerResult->setVideos(array($fakeVideo));
 
         $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::PLAYER_HTML, '');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::PLAYER_NAME, 'player-name');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::PLAYER_HTML, '');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::PLAYER_NAME, 'player-name');
 
         $event = new tubepress_api_event_ThumbnailGalleryTemplateConstruction($mockTemplate);
         $event->setArguments(array(
@@ -85,8 +85,8 @@ class tubepress_plugins_core_filters_gallerytemplate_PlayerTest extends TubePres
         $providerResult->setVideos(array($fakeVideo));
 
         $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::PLAYER_HTML, 'player-html');
-        $mockTemplate->shouldReceive('setVariable')->once()->with(org_tubepress_api_const_template_Variable::PLAYER_NAME, $name);
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::PLAYER_HTML, 'player-html');
+        $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::PLAYER_NAME, $name);
 
         $this->_mockPlayerHtmlGenerator->shouldReceive('getHtml')->once()->with($fakeVideo, 'gallery-id')->andReturn('player-html');
 
