@@ -41,7 +41,7 @@ class org_tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTes
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('player-loc');
         $this->_mockExecutionContext->shouldReceive('toShortcode')->once()->andReturn(' + "&');
 
-        $event = new tubepress_api_event_GalleryInitJsConstruction(array('yo' => 'mamma'));
+        $event = new tubepress_api_event_TubePressEvent(array('yo' => 'mamma'));
 
         $this->_sut->onGalleryInitJs($event);
 

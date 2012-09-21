@@ -30,12 +30,12 @@ class tubepress_plugins_core_filters_galleryhtml_GalleryJs
         $filterManager = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
         $galleryId     = $context->get(tubepress_api_const_options_names_Advanced::GALLERY_ID);
 
-        $jsEvent = new tubepress_api_event_GalleryInitJsConstruction(array());
+        $jsEvent = new tubepress_api_event_TubePressEvent(array());
 
-        $filterManager->dispatch(tubepress_api_event_GalleryInitJsConstruction::EVENT_NAME, $jsEvent);
+        $filterManager->dispatch(tubepress_api_const_event_CoreEventNames::GALLERY_INIT_JS_CONSTRUCTION, $jsEvent);
 
-        $args          = $jsEvent->getSubject();
-        $argCount      = count($args);
+        $args     = $jsEvent->getSubject();
+        $argCount = count($args);
         $html     = $event->getSubject();
 
         $toReturn = $html

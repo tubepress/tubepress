@@ -44,11 +44,11 @@ class tubepress_plugins_core_filters_galleryhtml_GalleryJsTest extends TubePress
 	{
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::GALLERY_ID)->andReturn('gallery-id');
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_GalleryInitJsConstruction::EVENT_NAME, Mockery::on(function ($arg) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::GALLERY_INIT_JS_CONSTRUCTION, Mockery::on(function ($arg) {
 
-            $good = $arg instanceof tubepress_api_event_GalleryInitJsConstruction && $arg->getSubject() === array();
+            $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === array();
 
-            $arg->setParams(array('yo' => 'mamma', 'is' => '"so fat"'));
+            $arg->setSubject(array('yo' => 'mamma', 'is' => '"so fat"'));
 
             return $good;
         }));

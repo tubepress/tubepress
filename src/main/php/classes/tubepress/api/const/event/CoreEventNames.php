@@ -56,4 +56,14 @@ class tubepress_api_const_event_CoreEventNames
      * @arg string           'embeddedImplementationName' The name of the embedded implementation.
      */
     const EMBEDDED_TEMPLATE_CONSTRUCTION = 'embeddedTemplateConstruction';
+
+    /**
+     * This event is fired when a TubePress builds the gallery initialization JS code.
+     *
+     * @subject array An associative array of name => values that will be converted into JSON and applied as
+     *                init code for the gallery in JavaScript.
+     *
+     * @arg None
+     */
+    const GALLERY_INIT_JS_CONSTRUCTION = 'galleryInitJs';
 }

@@ -24,7 +24,7 @@
  */
 class tubepress_plugins_core_filters_galleryinitjs_GalleryInitJsBaseParams
 {
-    public function onGalleryInitJs(tubepress_api_event_GalleryInitJsConstruction $event)
+    public function onGalleryInitJs(tubepress_api_event_TubePressEvent $event)
     {
         $context = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
 
@@ -48,6 +48,6 @@ class tubepress_plugins_core_filters_galleryinitjs_GalleryInitJsBaseParams
         $args[tubepress_spi_const_js_TubePressGalleryInit::NAME_PARAM_SHORTCODE] =
             '"' . rawurlencode($context->toShortcode()) . '"';
 
-        $event->setParams($args);
+        $event->setSubject($args);
     }
 }
