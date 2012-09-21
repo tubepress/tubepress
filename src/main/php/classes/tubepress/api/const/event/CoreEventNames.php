@@ -28,37 +28,21 @@ class tubepress_api_const_event_CoreEventNames
      * This event is fired after TubePress has completed its initialization.
      *
      * @subject None
-     * @args    None
+     * @arg     None
      */
     const BOOT = 'boot';
 
+    /**
+     * This event is fired when TubePress builds the HTML for an embedded video player.
+     *
+     * @subject string The HTML for the embedded video player.
+     *
+     * @arg string           'videoId'                    The ID of the video to be played.
+     * @arg string           'providerName'               The name of the video provider (e.g. "vimeo" or "youtube").
+     * @arg ehough_curly_Url 'dataUrl'                    The embedded data URL.
+     * @arg string           'embeddedImplementationName' The name of the embedded implementation.
+     */
+    const EMBEDDED_HTML_CONSTRUCTION = 'embeddedHtmlConstruction';
 
 
-    const EMBEDDED_COLOR_HIGHLIGHT = 'embeddedColorHightlight';
-    const EMBEDDED_COLOR_PRIMARY   = 'embeddedColorPrimary';
-    const EMBEDDED_DATA_URL        = 'homeURL';
-    const EMBEDDED_FULLSCREEN      = 'embeddedFullscreen';
-    const EMBEDDED_HEIGHT          = 'embeddedHeight';
-    const EMBEDDED_IMPL_NAME       = 'embeddedImplementationName';
-    const EMBEDDED_SOURCE          = 'embeddedSource';
-    const EMBEDDED_WIDTH           = 'embeddedWidth';
-    const GALLERY_ID               = 'galleryId';
-    const META_LABELS              = 'metaLabels';
-    const META_SHOULD_SHOW         = 'shouldShow';
-    const PAGINATION_BOTTOM        = 'bottomPagination';
-    const PAGINATION_TOP           = 'topPagination';
-    const PLAYER_HTML              = 'preGallery';
-    const PLAYER_NAME              = 'playerName';
-    const SEARCH_HANDLER_URL       = 'searchHandlerUrl';
-    const SEARCH_HIDDEN_INPUTS     = 'searchHiddenInputs';
-    const SEARCH_BUTTON            = 'searchButton';
-    const SEARCH_TARGET_DOM_ID     = 'searchTargetDomId';
-    const SEARCH_TERMS             = 'searchTerms';
-    const SHORTCODE                = 'shortcode';
-    const THUMBNAIL_HEIGHT         = 'thumbHeight';
-    const THUMBNAIL_WIDTH          = 'thumbWidth';
-    const TUBEPRESS_BASE_URL       = 'tubepressBaseUrl';
-    const VIDEO_ARRAY              = 'videoArray';
-    const VIDEO                    = 'video';
-    const VIDEO_ID                 = 'videoId';
 }

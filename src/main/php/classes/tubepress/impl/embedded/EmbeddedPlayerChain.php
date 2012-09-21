@@ -132,14 +132,14 @@ class tubepress_impl_embedded_EmbeddedPlayerChain implements tubepress_spi_embed
         /**
          * Build the embedded HTML event.
          */
-        $embeddedHtmlEvent = new tubepress_api_event_EmbeddedHtmlConstruction(
+        $embeddedHtmlEvent = new tubepress_api_event_TubePressEvent(
 
             $template->toString(),
             array(
-                tubepress_api_event_EmbeddedHtmlConstruction::ARGUMENT_VIDEO_ID                     => $videoId,
-                tubepress_api_event_EmbeddedHtmlConstruction::ARGUMENT_PROVIDER_NAME                => $providerName,
-                tubepress_api_event_EmbeddedHtmlConstruction::ARGUMENT_DATA_URL                     => $dataUrl,
-                tubepress_api_event_EmbeddedHtmlConstruction::ARGUMENT_EMBEDDED_IMPLEMENTATION_NAME => $implName)
+                'videoId'                    => $videoId,
+                'providerName'               => $providerName,
+                'dataUrl'                    => $dataUrl,
+                'embeddedImplementationName' => $implName)
         );
 
         /**
@@ -147,7 +147,7 @@ class tubepress_impl_embedded_EmbeddedPlayerChain implements tubepress_spi_embed
          */
         $eventDispatcherService->dispatch(
 
-            tubepress_api_event_EmbeddedHtmlConstruction::EVENT_NAME,
+            tubepress_api_const_event_CoreEventNames::EMBEDDED_HTML_CONSTRUCTION,
             $embeddedHtmlEvent
         );
 
