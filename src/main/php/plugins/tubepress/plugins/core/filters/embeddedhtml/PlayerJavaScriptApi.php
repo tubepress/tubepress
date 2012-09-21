@@ -24,7 +24,7 @@
  */
 class tubepress_plugins_core_filters_embeddedhtml_PlayerJavaScriptApi
 {
-    public function onEmbeddedHtml(tubepress_api_event_EmbeddedHtmlConstruction $event)
+    public function onEmbeddedHtml(tubepress_api_event_TubePressEvent $event)
     {
         $context   = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
 
@@ -34,11 +34,11 @@ class tubepress_plugins_core_filters_embeddedhtml_PlayerJavaScriptApi
         }
 
         $html = $event->getSubject();
-        $videoId = $event->getArgument(tubepress_api_event_EmbeddedHtmlConstruction::ARGUMENT_VIDEO_ID);
+        $videoId = $event->getArgument('videoId');
 
         $final = $html . $this->_getPlayerRegistryJs($videoId);
 
-        $event->setHtml($final);
+        $event->setSubject($final);
     }
 
     private function _getPlayerRegistryJs($videoId)

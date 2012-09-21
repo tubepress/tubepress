@@ -57,7 +57,7 @@ class tubepress_plugins_core_core
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET,
             array(new tubepress_plugins_core_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover(), 'onPreValidationOptionSet'));
 
-        $eventDispatcher->addListener(tubepress_api_event_PlayerTemplateConstruction::EVENT_NAME,
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::PLAYER_TEMPLATE_CONSTRUCTION,
             array(new tubepress_plugins_core_filters_playertemplate_CoreVariables(), 'onPlayerTemplate'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION,
@@ -75,16 +75,16 @@ class tubepress_plugins_core_core
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION,
             array(new tubepress_plugins_core_filters_gallerytemplate_VideoMeta(), 'onGalleryTemplate'));
 
-        $eventDispatcher->addListener(tubepress_api_event_GalleryInitJsConstruction::EVENT_NAME,
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::GALLERY_INIT_JS_CONSTRUCTION,
             array(new tubepress_plugins_core_filters_galleryinitjs_GalleryInitJsBaseParams(), 'onGalleryInitJs'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_HTML_CONSTRUCTION,
             array(new tubepress_plugins_core_filters_galleryhtml_GalleryJs(), 'onGalleryHtml'));
 
-        $eventDispatcher->addListener(tubepress_api_event_EmbeddedTemplateConstruction::EVENT_NAME,
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
             array(new tubepress_plugins_core_filters_embeddedtemplate_CoreVariables(), 'onEmbeddedTemplate'));
 
-        $eventDispatcher->addListener(tubepress_api_event_EmbeddedHtmlConstruction::EVENT_NAME,
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::EMBEDDED_HTML_CONSTRUCTION,
             array(new tubepress_plugins_core_filters_embeddedhtml_PlayerJavaScriptApi(), 'onEmbeddedHtml'));
     }
 }
