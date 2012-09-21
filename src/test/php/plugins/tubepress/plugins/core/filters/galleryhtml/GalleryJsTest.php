@@ -53,13 +53,13 @@ class tubepress_plugins_core_filters_galleryhtml_GalleryJsTest extends TubePress
             return $good;
         }));
 
-        $event = new tubepress_api_event_ThumbnailGalleryHtmlConstruction('hello');
+        $event = new tubepress_api_event_TubePressEvent('hello');
 
         $event->setArguments(array(
 
-            tubepress_api_event_ThumbnailGalleryHtmlConstruction::ARGUMENT_PAGE => 1,
-            tubepress_api_event_ThumbnailGalleryHtmlConstruction::ARGUMENT_PROVIDER_NAME => 'something',
-            tubepress_api_event_ThumbnailGalleryHtmlConstruction::ARGUMENT_VIDEO_GALLERY_PAGE => $this->_providerResult
+            'page' => 1,
+            'providerName' => 'something',
+            'videoGalleryPage' => $this->_providerResult
         ));
 
         $this->_sut->onGalleryHtml($event);

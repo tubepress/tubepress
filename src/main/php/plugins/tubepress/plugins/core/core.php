@@ -78,7 +78,7 @@ class tubepress_plugins_core_core
         $eventDispatcher->addListener(tubepress_api_event_GalleryInitJsConstruction::EVENT_NAME,
             array(new tubepress_plugins_core_filters_galleryinitjs_GalleryInitJsBaseParams(), 'onGalleryInitJs'));
 
-        $eventDispatcher->addListener(tubepress_api_event_ThumbnailGalleryHtmlConstruction::EVENT_NAME,
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_HTML_CONSTRUCTION,
             array(new tubepress_plugins_core_filters_galleryhtml_GalleryJs(), 'onGalleryHtml'));
 
         $eventDispatcher->addListener(tubepress_api_event_EmbeddedTemplateConstruction::EVENT_NAME,

@@ -78,10 +78,10 @@ class org_tubepress_impl_shortcode_commands_SingleVideoCommandTest extends TubeP
             return $arg instanceof tubepress_api_event_SingleVideoTemplateConstruction && $arg->getSubject() === $mockTemplate;
         }));
 
-        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_event_SingleVideoHtmlConstruction::EVENT_NAME)->andReturn(true);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_SingleVideoHtmlConstruction::EVENT_NAME, Mockery::on(function ($arg) use ($mockTemplate) {
+        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_HTML_CONSTRUCTION)->andReturn(true);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_HTML_CONSTRUCTION, Mockery::on(function ($arg) use ($mockTemplate) {
 
-            return $arg instanceof tubepress_api_event_SingleVideoHtmlConstruction && $arg->getSubject() === 'template-string';
+            return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === 'template-string';
         }));
 
         $mockChainContext = new ehough_chaingang_impl_StandardContext();

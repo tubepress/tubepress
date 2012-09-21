@@ -63,10 +63,10 @@ class org_tubepress_impl_shortcode_commands_SearchInputCommandTest extends TubeP
             return $arg instanceof tubepress_api_event_SearchInputTemplateConstruction && $arg->getSubject() === $mockTemplate;
         }));
 
-        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_event_SearchInputHtmlConstruction::EVENT_NAME)->andReturn(true);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_SearchInputHtmlConstruction::EVENT_NAME, Mockery::on(function ($arg) {
+        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_const_event_CoreEventNames::SEARCH_INPUT_HTML_CONSTRUCTION)->andReturn(true);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::SEARCH_INPUT_HTML_CONSTRUCTION, Mockery::on(function ($arg) {
 
-            return $arg instanceof tubepress_api_event_SearchInputHtmlConstruction && $arg->getSubject() === 'template-string';
+            return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === 'template-string';
         }));
 
         $context = new ehough_chaingang_impl_StandardContext();

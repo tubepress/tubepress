@@ -67,7 +67,7 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChainTest extends TubeP
 
         }))->andReturn(true);
 
-        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_event_HtmlConstruction::EVENT_NAME)->andReturn(false);
+        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_const_event_CoreEventNames::HTML_CONSTRUCTION)->andReturn(false);
 
         $this->assertEquals('chain-return-value', $this->_sut->getHtmlForShortcode('shortcode'));
     }
@@ -83,12 +83,12 @@ class org_tubepress_impl_shortcode_ShortcodeHtmlGeneratorChainTest extends TubeP
         }))->andReturn(true);
 
 
-        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_event_HtmlConstruction::EVENT_NAME)->andReturn(true);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_HtmlConstruction::EVENT_NAME, Mockery::on(function ($arg) {
+        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_const_event_CoreEventNames::HTML_CONSTRUCTION)->andReturn(true);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::HTML_CONSTRUCTION, Mockery::on(function ($arg) {
 
-            $good = $arg instanceof tubepress_api_event_HtmlConstruction && $arg->getHtml() === 'chain-return-value';
+            $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === 'chain-return-value';
 
-            $arg->setHtml('final-value');
+            $arg->setSubject('final-value');
 
             return $good;
         }));

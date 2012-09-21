@@ -77,11 +77,11 @@ class tubepress_plugins_core_filters_gallerytemplate_PaginationTest extends Tube
         $expectedHtml = $this->_prefix . '"page=2">2</a><a rel="page=3">3</a><a rel="page=4">4</a><a rel="page=5">5</a><span class="tubepress_pagination_dots">...</span> <a rel="page=124">124</a><a rel="page=125">125</a><a rel="page=2">##next## &raquo;</a></div>
 ';
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_PaginationHtmlConstruction::EVENT_NAME, Mockery::on(function ($arg) use ($expectedHtml) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::PAGINATION_HTML_CONSTRUCTION, Mockery::on(function ($arg) use ($expectedHtml) {
 
-            $good = $arg instanceof tubepress_api_event_PaginationHtmlConstruction && $arg->getSubject() === $expectedHtml;
+            $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === $expectedHtml;
 
-            $arg->setHtml('pagination-html');
+            $arg->setSubject('pagination-html');
 
             return $good;
         }));
@@ -99,11 +99,11 @@ class tubepress_plugins_core_filters_gallerytemplate_PaginationTest extends Tube
         $expectedHtml = '<div class="pagination"><a rel="nofollow" href="http://tubepress.org?tubepress_page=24">&laquo; ##prev##</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=1">1</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=2">2</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=24">24</a><span class="current">25</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=26">26</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=124">124</a> <a rel="nofollow" href="http://tubepress.org?tubepress_page=125">125</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=26">##next## &raquo;</a></div>
 ';
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_PaginationHtmlConstruction::EVENT_NAME, Mockery::on(function ($arg) use ($expectedHtml) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::PAGINATION_HTML_CONSTRUCTION, Mockery::on(function ($arg) use ($expectedHtml) {
 
-            $good = $arg instanceof tubepress_api_event_PaginationHtmlConstruction && $arg->getSubject() === $expectedHtml;
+            $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === $expectedHtml;
 
-            $arg->setHtml('pagination-html');
+            $arg->setSubject('pagination-html');
 
             return $good;
         }));
@@ -118,11 +118,11 @@ class tubepress_plugins_core_filters_gallerytemplate_PaginationTest extends Tube
         $expectedHtml = '<div class="pagination"><a rel="nofollow" href="http://tubepress.org?tubepress_page=11">&laquo; ##prev##</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=1">1</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=2">2</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=11">11</a><span class="current">12</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=13">13</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=124">124</a> <a rel="nofollow" href="http://tubepress.org?tubepress_page=125">125</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=13">##next## &raquo;</a></div>
 ';
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_PaginationHtmlConstruction::EVENT_NAME, Mockery::on(function ($arg) use ($expectedHtml) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::PAGINATION_HTML_CONSTRUCTION, Mockery::on(function ($arg) use ($expectedHtml) {
 
-            $good = $arg instanceof tubepress_api_event_PaginationHtmlConstruction && $arg->getSubject() === $expectedHtml;
+            $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === $expectedHtml;
 
-            $arg->setHtml('pagination-html');
+            $arg->setSubject('pagination-html');
 
             return $good;
         }));
@@ -137,11 +137,11 @@ class tubepress_plugins_core_filters_gallerytemplate_PaginationTest extends Tube
         $expectedHtml = '<div class="pagination"><span class="current">1</span><a rel="nofollow" href="http://tubepress.org?tubepress_page=2">2</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=3">3</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=4">4</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=5">5</a><span class="tubepress_pagination_dots">...</span> <a rel="nofollow" href="http://tubepress.org?tubepress_page=124">124</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=125">125</a><a rel="nofollow" href="http://tubepress.org?tubepress_page=2">##next## &raquo;</a></div>
 ';
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_PaginationHtmlConstruction::EVENT_NAME, Mockery::on(function ($arg) use ($expectedHtml) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::PAGINATION_HTML_CONSTRUCTION, Mockery::on(function ($arg) use ($expectedHtml) {
 
-            $good = $arg instanceof tubepress_api_event_PaginationHtmlConstruction && $arg->getSubject() === $expectedHtml;
+            $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === $expectedHtml;
 
-            $arg->setHtml('pagination-html');
+            $arg->setSubject('pagination-html');
 
             return $good;
         }));

@@ -35,15 +35,15 @@ class tubepress_plugins_core_filters_gallerytemplate_Pagination
 
         $pagination    = $this->_getHtml($providerResult->getTotalResultCount());
 
-        $event = new tubepress_api_event_PaginationHtmlConstruction($pagination);
+        $event = new tubepress_api_event_TubePressEvent($pagination);
 
         $pm->dispatch(
 
-            tubepress_api_event_PaginationHtmlConstruction::EVENT_NAME,
+            tubepress_api_const_event_CoreEventNames::PAGINATION_HTML_CONSTRUCTION,
             $event
         );
 
-        $pagination = $event->getHtml();
+        $pagination = $event->getSubject();
 
         if ($context->get(tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE)) {
 

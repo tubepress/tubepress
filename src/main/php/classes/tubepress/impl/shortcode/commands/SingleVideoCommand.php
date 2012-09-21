@@ -104,17 +104,17 @@ class tubepress_impl_shortcode_commands_SingleVideoCommand implements ehough_cha
 
         $html = $template->toString();
 
-        if ($pluginManager->hasListeners(tubepress_api_event_SingleVideoHtmlConstruction::EVENT_NAME)) {
+        if ($pluginManager->hasListeners(tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_HTML_CONSTRUCTION)) {
 
-            $event = new tubepress_api_event_SingleVideoHtmlConstruction($html);
+            $event = new tubepress_api_event_TubePressEvent($html);
 
             $pluginManager->dispatch(
 
-                tubepress_api_event_SingleVideoHtmlConstruction::EVENT_NAME,
+                tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_HTML_CONSTRUCTION,
                 $event
             );
 
-            $html = $event->getHtml();
+            $html = $event->getSubject();
         }
 
         return $html;

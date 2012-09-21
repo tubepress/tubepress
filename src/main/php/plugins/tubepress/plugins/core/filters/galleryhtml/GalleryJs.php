@@ -24,7 +24,7 @@
  */
 class tubepress_plugins_core_filters_galleryhtml_GalleryJs
 {
-    public function onGalleryHtml(tubepress_api_event_ThumbnailGalleryHtmlConstruction $event)
+    public function onGalleryHtml(tubepress_api_event_TubePressEvent $event)
     {
         $context       = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
         $filterManager = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
@@ -61,6 +61,6 @@ class tubepress_plugins_core_filters_galleryhtml_GalleryJs
 
         $final = $toReturn . "\n\t});\n</script>";
 
-        $event->setHtml($final);
+        $event->setSubject($final);
     }
 }

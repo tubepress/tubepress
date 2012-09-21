@@ -93,14 +93,14 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePress
             })
         )->andReturn($mockPlayerHtmlEvent);
 
-        $mockHtmlEvent = new tubepress_api_event_HtmlConstruction('foobarr');
+        $mockHtmlEvent = new tubepress_api_event_TubePressEvent('foobarr');
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
 
-            tubepress_api_event_HtmlConstruction::EVENT_NAME,
+            tubepress_api_const_event_CoreEventNames::HTML_CONSTRUCTION,
             Mockery::on(function ($arg) {
 
-                return $arg->getHtml() === 'foobarr';
+                return $arg->getSubject() === 'foobarr';
             })
         )->andReturn($mockHtmlEvent);
 

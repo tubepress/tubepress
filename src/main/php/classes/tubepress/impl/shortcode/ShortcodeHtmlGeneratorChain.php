@@ -65,19 +65,19 @@ class tubepress_impl_shortcode_ShortcodeHtmlGeneratorChain implements tubepress_
 
         $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
 
-        $event = new tubepress_api_event_HtmlConstruction($rawHtml);
+        $event = new tubepress_api_event_TubePressEvent($rawHtml);
 
         /* send it through the filters */
-        if ($eventDispatcher->hasListeners(tubepress_api_event_HtmlConstruction::EVENT_NAME)) {
+        if ($eventDispatcher->hasListeners(tubepress_api_const_event_CoreEventNames::HTML_CONSTRUCTION)) {
 
             $eventDispatcher->dispatch(
 
-                tubepress_api_event_HtmlConstruction::EVENT_NAME,
+                tubepress_api_const_event_CoreEventNames::HTML_CONSTRUCTION,
                 $event
             );
         }
 
-        return $event->getHtml();
+        return $event->getSubject();
     }
 
     private function _runChain()
