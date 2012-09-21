@@ -33,7 +33,6 @@ class tubepress_api_const_ConstantsTest extends TubePressUnitTest
             'tubepress_api_const_options_names_Meta'						=> array('author', 'category', 'description', 'id', 'length', 'likes', 'rating', 'ratings', 'tags', 'title', 'uploaded', 'url', 'views', 'dateFormat', 'descriptionLimit', 'relativeDates'),
             'tubepress_api_const_options_names_Output'						=> array('mode', 'output', 'video'),
             'tubepress_api_const_options_names_Thumbs'						=> array('theme', 'ajaxPagination', 'resultsPerPage', 'hqThumbs', 'thumbHeight', 'thumbWidth', 'fluidThumbs', 'paginationAbove', 'paginationBelow', 'randomize_thumbnails'),
-            'tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress'			        => array('widget-tagstring', 'widget-title', 'showVimeoOptions', 'showYouTubeOptions'),
             'tubepress_api_const_options_values_GallerySourceValue'		    => array('favorites', 'most_discussed', 'most_recent', 'most_responded', 'most_viewed', 'playlist', 'recently_featured', 'tag', 'top_rated', 'user', 'vimeoAlbum', 'vimeoAppearsIn', 'vimeoChannel', 'vimeoCreditedTo', 'vimeoGroup', 'vimeoLikes', 'vimeoSearch', 'vimeoUploadedBy', 'youtubeTopFavorites'),
             'tubepress_api_const_options_values_OrderByValue'				=> array('commentCount', 'duration', 'newest', 'oldest', 'position', 'random', 'rating', 'relevance', 'title', 'viewCount'),
             'tubepress_api_const_options_values_OutputValue'				=> array('ajaxSearchInput', 'searchInput', 'searchResults', 'player'),

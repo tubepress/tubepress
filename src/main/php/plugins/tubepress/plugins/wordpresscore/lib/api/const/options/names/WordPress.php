@@ -29,4 +29,7 @@ class tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress
 
     const SHOW_VIMEO_OPTIONS   = 'showVimeoOptions';
     const SHOW_YOUTUBE_OPTIONS = 'showYouTubeOptions';
+
+    const WP_PAGE_WHITELIST = 'wpPageWhitelist';
+    const WP_PAGE_BLACKLIST = 'wpPageBlacklist';
 }
