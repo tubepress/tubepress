@@ -50,13 +50,13 @@ class tubepress_impl_shortcode_commands_SearchInputCommand implements ehough_cha
         $pm       = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
         $template = $th->getTemplateInstance($this->getTemplatePath());
 
-        if ($pm->hasListeners(tubepress_api_event_SearchInputTemplateConstruction::EVENT_NAME)) {
+        if ($pm->hasListeners(tubepress_api_const_event_CoreEventNames::SEARCH_INPUT_TEMPLATE_CONSTRUCTION)) {
 
-            $event = new tubepress_api_event_SearchInputTemplateConstruction($template);
+            $event = new tubepress_api_event_TubePressEvent($template);
 
             $pm->dispatch(
 
-                tubepress_api_event_SearchInputTemplateConstruction::EVENT_NAME,
+                tubepress_api_const_event_CoreEventNames::SEARCH_INPUT_TEMPLATE_CONSTRUCTION,
                 $event
             );
 

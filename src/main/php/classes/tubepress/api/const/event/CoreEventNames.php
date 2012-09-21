@@ -130,6 +130,15 @@ class tubepress_api_const_event_CoreEventNames
     const SEARCH_INPUT_HTML_CONSTRUCTION = 'searchInputHtmlConstruction';
 
     /**
+     * This event is fired when TubePress builds the template for a standard (non-Ajax) search input form.
+     *
+     * @subject ehough_contemplate_api_Template The template for the search input.
+     *
+     * @arg None
+     */
+    const SEARCH_INPUT_TEMPLATE_CONSTRUCTION = 'searchInputTemplateConstruction';
+
+    /**
      * This event is fired when TubePress builds HTML for a single video (not inside a gallery).
      *
      * @subject string The HTML for the single video.

@@ -57,10 +57,10 @@ class org_tubepress_impl_shortcode_commands_SearchInputCommandTest extends TubeP
 
         $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with('search/search_input.tpl.php')->andReturn($mockTemplate);
 
-        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_event_SearchInputTemplateConstruction::EVENT_NAME)->andReturn(true);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_SearchInputTemplateConstruction::EVENT_NAME, Mockery::on(function ($arg) use ($mockTemplate) {
+        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_const_event_CoreEventNames::SEARCH_INPUT_TEMPLATE_CONSTRUCTION)->andReturn(true);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::SEARCH_INPUT_TEMPLATE_CONSTRUCTION, Mockery::on(function ($arg) use ($mockTemplate) {
 
-            return $arg instanceof tubepress_api_event_SearchInputTemplateConstruction && $arg->getSubject() === $mockTemplate;
+            return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === $mockTemplate;
         }));
 
         $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_const_event_CoreEventNames::SEARCH_INPUT_HTML_CONSTRUCTION)->andReturn(true);

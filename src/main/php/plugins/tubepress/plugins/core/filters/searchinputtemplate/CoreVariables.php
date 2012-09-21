@@ -24,7 +24,7 @@
  */
 class tubepress_plugins_core_filters_searchinputtemplate_CoreVariables
 {
-    public function onSearchInputTemplate(tubepress_api_event_SearchInputTemplateConstruction $event)
+    public function onSearchInputTemplate(tubepress_api_event_TubePressEvent $event)
     {
         $template   = $event->getSubject();
         $context    = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();

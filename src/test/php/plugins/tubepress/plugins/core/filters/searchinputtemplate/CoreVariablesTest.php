@@ -65,7 +65,7 @@ class tubepress_plugins_core_filters_searchinputtemplate_CoreVariablesTest exten
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::SEARCH_TERMS, 'search for something');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::SEARCH_BUTTON, '##Search##');
 
-        $event = new tubepress_api_event_SearchInputTemplateConstruction($mockTemplate);
+        $event = new tubepress_api_event_TubePressEvent($mockTemplate);
 
         $this->_sut->onSearchInputTemplate($event);
 

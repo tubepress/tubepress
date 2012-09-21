@@ -36,7 +36,7 @@ class tubepress_plugins_core_core
         $eventDispatcher->addListener(tubepress_api_event_SingleVideoTemplateConstruction::EVENT_NAME,
             array(new tubepress_plugins_core_filters_singlevideotemplate_CoreVariables(), 'onSingleVideoTemplate'));
 
-        $eventDispatcher->addListener(tubepress_api_event_SearchInputTemplateConstruction::EVENT_NAME,
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::SEARCH_INPUT_TEMPLATE_CONSTRUCTION,
             array(new tubepress_plugins_core_filters_searchinputtemplate_CoreVariables(), 'onSearchInputTemplate'));
 
         $eventDispatcher->addListener(tubepress_api_event_VideoGalleryPageConstruction::EVENT_NAME,
