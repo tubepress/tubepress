@@ -20,10 +20,35 @@
  */
 
 /**
- * This event is fired when a TubePress builds the HTML for a TubePress embedded
- * video player.
+ * A base class for events thrown around in TubePress.
  */
-class tubepress_api_event_Boot extends ehough_tickertape_api_Event
+class tubepress_api_event_TubePressEvent extends ehough_tickertape_impl_GenericEvent
 {
-    const EVENT_NAME = 'core.Boot';
+    /**
+     * @var string The modifiable subject.
+     */
+    private $_subject;
+
+    /**
+     * Encapsulate an event with $subject, $args, and $data.
+     *
+     * @param mixed $subject   The subject of the event, usually an object.
+     * @param array $arguments Arguments to store in the event.
+     */
+    public function __construct($subject = null, array $arguments = array())
+    {
+        $this->_subject = $subject;
+
+        $this->setArguments($arguments);
+    }
+
+    public function getSubject()
+    {
+        return $this->_subject;
+    }
+
+    public function setSubject($newSubject)
+    {
+        $this->_subject = $newSubject;
+    }
 }

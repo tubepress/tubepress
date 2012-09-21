@@ -81,7 +81,7 @@ class tubepress_impl_bootstrap_TubePressBootstrapper implements tubepress_spi_bo
         $pm = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
 
         /* tell everyone we're booting */
-        $pm->dispatchWithoutEventInstance(tubepress_api_event_Boot::EVENT_NAME);
+        $pm->dispatchWithoutEventInstance(tubepress_api_const_event_CoreEventNames::BOOT);
 
         /* remember that we booted. */
         self::$_alreadyBooted = true;
