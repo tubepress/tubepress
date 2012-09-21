@@ -618,11 +618,11 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
     	$this->assertTrue($option->isApplicableToYouTube() === false, $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
-    	$option = $this->_sut->findOneByName(tubepress_api_const_options_names_WordPress::WIDGET_TITLE);
+    	$option = $this->_sut->findOneByName(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::WIDGET_TITLE);
     	$this->assertTrue($option->getDefaultValue() === 'TubePress', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
-    	$option = $this->_sut->findOneByName(tubepress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
+    	$option = $this->_sut->findOneByName(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::WIDGET_SHORTCODE);
     	$this->assertTrue($option->getDefaultValue() === '[tubepress thumbHeight=\'105\' thumbWidth=\'135\']', $option->getName());
     	$this->assertTrue($option->isProOnly() === false, $option->getName());
 
@@ -634,9 +634,9 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 
     	$option = $this->_sut->findOneByName(tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE);
 
-    	$option = $this->_sut->findOneByName(tubepress_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS);
+    	$option = $this->_sut->findOneByName(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS);
 
-    	$option = $this->_sut->findOneByName(tubepress_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS);
+    	$option = $this->_sut->findOneByName(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS);
 	}
 
     private function setupMocks()

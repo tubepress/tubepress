@@ -777,21 +777,21 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
         $option->setValidValueRegex(self::$_regexPositiveInteger);
         $this->register($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_WordPress::WIDGET_TITLE);
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::WIDGET_TITLE);
         $option->setDefaultValue('TubePress');
         $this->register($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::WIDGET_SHORTCODE);
         $option->setDefaultValue('[tubepress thumbHeight=\'105\' thumbWidth=\'135\']');
         $this->register($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS);
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS);
         $option->setDefaultValue(true);
         $option->setLabel('Vimeo');    //>(translatable)<
         $option->setBoolean();
         $this->register($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS);
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS);
         $option->setDefaultValue(true);
         $option->setLabel('YouTube');    //>(translatable)<
         $option->setBoolean();

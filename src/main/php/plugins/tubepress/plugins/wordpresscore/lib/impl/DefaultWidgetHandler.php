@@ -74,7 +74,7 @@ class tubepress_plugins_wordpresscore_lib_impl_DefaultWidgetHandler implements t
         );
 
         /* now apply the user's options */
-        $rawTag    = $context->get(tubepress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
+        $rawTag    = $context->get(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::WIDGET_SHORTCODE);
         $widgetTag = tubepress_impl_util_StringUtils::removeNewLines($rawTag);
         $parser->parse($widgetTag);
 
@@ -98,7 +98,7 @@ class tubepress_plugins_wordpresscore_lib_impl_DefaultWidgetHandler implements t
         /* do the standard WordPress widget dance */
         /** @noinspection PhpUndefinedVariableInspection */
         echo $before_widget . $before_title .
-            $context->get(tubepress_api_const_options_names_WordPress::WIDGET_TITLE) .
+            $context->get(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::WIDGET_TITLE) .
             $after_title . $out . $after_widget;
 
         /* reset the context for the next shortcode */
@@ -121,8 +121,8 @@ class tubepress_plugins_wordpresscore_lib_impl_DefaultWidgetHandler implements t
 
             self::_verifyNonce();
 
-            $wpsm->set(tubepress_api_const_options_names_WordPress::WIDGET_SHORTCODE, $hrps->getParamValue('tubepress-widget-tagstring'));
-            $wpsm->set(tubepress_api_const_options_names_WordPress::WIDGET_TITLE, $hrps->getParamValue('tubepress-widget-title'));
+            $wpsm->set(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::WIDGET_SHORTCODE, $hrps->getParamValue('tubepress-widget-tagstring'));
+            $wpsm->set(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::WIDGET_TITLE, $hrps->getParamValue('tubepress-widget-title'));
         }
 
         /* load up the gallery template */
@@ -130,10 +130,10 @@ class tubepress_plugins_wordpresscore_lib_impl_DefaultWidgetHandler implements t
         $tpl          = $tplBuilder->getNewTemplateInstance($templatePath);
 
         /* set up the template */
-        $tpl->setVariable(self::WIDGET_TITLE, $wpsm->get(tubepress_api_const_options_names_WordPress::WIDGET_TITLE));
+        $tpl->setVariable(self::WIDGET_TITLE, $wpsm->get(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::WIDGET_TITLE));
         $tpl->setVariable(self::WIDGET_CONTROL_TITLE, $msg->_('Title'));                                                                                                            //>(translatable)<
         $tpl->setVariable(self::WIDGET_CONTROL_SHORTCODE, $msg->_('TubePress shortcode for the widget. See the <a href="http://tubepress.org/documentation"> documentation</a>.')); //>(translatable)<
-        $tpl->setVariable(self::WIDGET_SHORTCODE, $wpsm->get(tubepress_api_const_options_names_WordPress::WIDGET_SHORTCODE));
+        $tpl->setVariable(self::WIDGET_SHORTCODE, $wpsm->get(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::WIDGET_SHORTCODE));
         $tpl->setVariable(self::WIDGET_SUBMIT_TAG, self::WIDGET_SUBMIT_TAG);
 
         /* get the template's output */

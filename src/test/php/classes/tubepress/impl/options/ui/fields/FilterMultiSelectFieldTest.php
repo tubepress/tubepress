@@ -50,8 +50,8 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectFieldTest extends tubepr
         $mockVimeoOptions = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
         $mockVimeoOptions->shouldReceive('isBoolean')->once()->andReturn(true);
 
-        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS)->andReturn($mockVimeoOptions);
-        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS)->andReturn($mockYouTubeOptions);
+        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS)->andReturn($mockVimeoOptions);
+        $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS)->andReturn($mockYouTubeOptions);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionDescriptorReference);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($this->_mockMessageService);

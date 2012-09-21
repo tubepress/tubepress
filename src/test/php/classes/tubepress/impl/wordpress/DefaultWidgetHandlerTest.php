@@ -79,8 +79,8 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_plugins_wordpresscore_lib_impl_DefaultWidgetHandler::WIDGET_SUBMIT_TAG, tubepress_plugins_wordpresscore_lib_impl_DefaultWidgetHandler::WIDGET_SUBMIT_TAG);
         $mockTemplate->shouldReceive('toString')->once()->andReturn('final result');
 
-        $this->_mockStorageManager->shouldReceive('get')->once()->with(tubepress_api_const_options_names_WordPress::WIDGET_TITLE)->andReturn('value of widget title');
-        $this->_mockStorageManager->shouldReceive('get')->once()->with(tubepress_api_const_options_names_WordPress::WIDGET_SHORTCODE)->andReturn('value of widget shortcode');
+        $this->_mockStorageManager->shouldReceive('get')->once()->with(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::WIDGET_TITLE)->andReturn('value of widget title');
+        $this->_mockStorageManager->shouldReceive('get')->once()->with(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::WIDGET_SHORTCODE)->andReturn('value of widget shortcode');
         $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('tubepress-widget-submit')->andReturn(false);
         $this->_mockEnvironmentDetector->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('fakepath');
         $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with('fakepath/sys/ui/templates/wordpress/widget_controls.tpl.php')->andReturn($mockTemplate);
@@ -97,9 +97,9 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest
 
     function testPrintWidget()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_WordPress::WIDGET_SHORTCODE)->andReturn('shortcode string');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::WIDGET_SHORTCODE)->andReturn('shortcode string');
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::THEME)->andReturn('theme');
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_WordPress::WIDGET_TITLE)->andReturn('widget title');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::WIDGET_TITLE)->andReturn('widget title');
         $this->_mockExecutionContext->shouldReceive('getCustomOptions')->once()->andReturn(array(tubepress_api_const_options_names_Thumbs::THUMB_WIDTH => 22135));
         $this->_mockExecutionContext->shouldReceive('setCustomOptions')->once()->with(array(
             tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE    => 3,

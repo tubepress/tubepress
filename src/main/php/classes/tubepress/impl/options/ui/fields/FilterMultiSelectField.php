@@ -32,8 +32,8 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectField extends tubepress_
 
             array(
 
-                $odr->findOneByName(tubepress_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS),
-                $odr->findOneByName(tubepress_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS),
+                $odr->findOneByName(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS),
+                $odr->findOneByName(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS),
 
         ), 'filterdropdown');
     }
