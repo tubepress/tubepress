@@ -43,7 +43,7 @@ class tubepress_plugins_core_filters_videogallerypage_ResultCountCapperTest exte
         $providerResult->setTotalResultCount(999);
         $providerResult->setVideos($videoArray);
 
-        $event = new tubepress_api_event_VideoGalleryPageConstruction($providerResult);
+        $event = new tubepress_api_event_TubePressEvent($providerResult);
 
         $this->_sut->onVideoGalleryPage($event);
 

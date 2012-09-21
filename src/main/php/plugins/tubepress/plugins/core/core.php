@@ -39,16 +39,16 @@ class tubepress_plugins_core_core
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::SEARCH_INPUT_TEMPLATE_CONSTRUCTION,
             array(new tubepress_plugins_core_filters_searchinputtemplate_CoreVariables(), 'onSearchInputTemplate'));
 
-        $eventDispatcher->addListener(tubepress_api_event_VideoGalleryPageConstruction::EVENT_NAME,
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION,
             array(new tubepress_plugins_core_filters_videogallerypage_PerPageSorter(), 'onVideoGalleryPage'));
 
-        $eventDispatcher->addListener(tubepress_api_event_VideoGalleryPageConstruction::EVENT_NAME,
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION,
             array(new tubepress_plugins_core_filters_videogallerypage_ResultCountCapper(), 'onVideoGalleryPage'));
 
-        $eventDispatcher->addListener(tubepress_api_event_VideoGalleryPageConstruction::EVENT_NAME,
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION,
             array(new tubepress_plugins_core_filters_videogallerypage_VideoBlacklist(), 'onVideoGalleryPage'));
 
-        $eventDispatcher->addListener(tubepress_api_event_VideoGalleryPageConstruction::EVENT_NAME,
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION,
             array(new tubepress_plugins_core_filters_videogallerypage_VideoPrepender(), 'onVideoGalleryPage'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET,

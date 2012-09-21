@@ -31,7 +31,7 @@ class tubepress_plugins_core_filters_videogallerypage_VideoBlacklist
         $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Video Blacklister');
     }
 
-	public function onVideoGalleryPage(tubepress_api_event_VideoGalleryPageConstruction $event)
+	public function onVideoGalleryPage(tubepress_api_event_TubePressEvent $event)
 	{
 		$videos         = $event->getSubject()->getVideos();
 		$context        = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();

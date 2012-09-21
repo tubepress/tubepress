@@ -44,12 +44,12 @@ class tubepress_impl_provider_SimpleProvider implements tubepress_spi_provider_P
         $pc              = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoProviderCalculator();
         $provider        = $pc->calculateCurrentVideoProvider();
 
-        $event = new tubepress_api_event_VideoGalleryPageConstruction($result);
-        $event->setArgument(tubepress_api_event_VideoGalleryPageConstruction::ARGUMENT_PROVIDER_NAME, $provider);
+        $event = new tubepress_api_event_TubePressEvent($result);
+        $event->setArgument('providerName', $provider);
 
         $eventDispatcher->dispatch(
 
-            tubepress_api_event_VideoGalleryPageConstruction::EVENT_NAME,
+            tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION,
             $event
         );
 
@@ -159,12 +159,12 @@ class tubepress_impl_provider_SimpleProvider implements tubepress_spi_provider_P
 
         $provider = $pc->calculateProviderOfVideoId($customVideoId);
 
-        $event = new tubepress_api_event_VideoGalleryPageConstruction($result);
-        $event->setArgument(tubepress_api_event_VideoGalleryPageConstruction::ARGUMENT_PROVIDER_NAME, $provider);
+        $event = new tubepress_api_event_TubePressEvent($result);
+        $event->setArgument('providerName', $provider);
 
         $eventDispatcher->dispatch(
 
-            tubepress_api_event_VideoGalleryPageConstruction::EVENT_NAME,
+            tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION,
             $event
         );
 

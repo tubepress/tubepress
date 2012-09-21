@@ -114,9 +114,9 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
 
         $this->_mockFactory->shouldReceive('feedToVideoArray')->once()->with('fetch-result')->andReturn($fakeVideoArray);
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_VideoGalleryPageConstruction::EVENT_NAME, Mockery::on(function ($arg) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION, Mockery::on(function ($arg) {
 
-            $good = $arg instanceof tubepress_api_event_VideoGalleryPageConstruction && $arg->getArgument(tubepress_api_event_VideoGalleryPageConstruction::ARGUMENT_PROVIDER_NAME) === 'current-video-provider';
+            $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getArgument('providerName') === 'current-video-provider';
 
             $arg->getSubject()->setTotalResultCount(999);
             $arg->getSubject()->setVideos(array(1, 2, 4));
@@ -146,9 +146,9 @@ class org_tubepress_impl_provider_SimpleProviderTest extends TubePressUnitTest
 
         $video = $this->_fakeVideo;
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_VideoGalleryPageConstruction::EVENT_NAME, Mockery::on(function ($arg) use ($video) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION, Mockery::on(function ($arg) use ($video) {
 
-            $good = $arg instanceof tubepress_api_event_VideoGalleryPageConstruction && $arg->getArgument(tubepress_api_event_VideoGalleryPageConstruction::ARGUMENT_PROVIDER_NAME) === 'video-provider';
+            $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getArgument('providerName') === 'video-provider';
 
             $arg->getSubject()->setTotalResultCount(1);
             $arg->getSubject()->setVideos(array($video));

@@ -54,7 +54,7 @@ class tubepress_plugins_core_filters_videogallerypage_VideoBlacklistTest extends
         $providerResult = new tubepress_api_video_VideoGalleryPage();
         $providerResult->setVideos($videoArray);
 
-        $event = new tubepress_api_event_VideoGalleryPageConstruction($providerResult);
+        $event = new tubepress_api_event_TubePressEvent($providerResult);
 
         $this->_sut->onVideoGalleryPage($event);
 

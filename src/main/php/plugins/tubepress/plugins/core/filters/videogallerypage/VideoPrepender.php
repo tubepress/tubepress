@@ -31,7 +31,7 @@ class tubepress_plugins_core_filters_videogallerypage_VideoPrepender
         $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Video Prepender');
     }
 
-    public function onVideoGalleryPage(tubepress_api_event_VideoGalleryPageConstruction $event)
+    public function onVideoGalleryPage(tubepress_api_event_TubePressEvent $event)
     {
         $hrps = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
 
@@ -83,7 +83,7 @@ class tubepress_plugins_core_filters_videogallerypage_VideoPrepender
         return false;
     }
 
-    private function _prependVideo($id, tubepress_api_event_VideoGalleryPageConstruction $event)
+    private function _prependVideo($id, tubepress_api_event_TubePressEvent $event)
     {
         $videos = $event->getSubject()->getVideos();
 

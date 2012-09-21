@@ -196,4 +196,13 @@ class tubepress_api_const_event_CoreEventNames
      * @arg string 'providerName' The name of the video provider (e.g. "vimeo" or "youtube").
      */
     const VIDEO_CONSTRUCTION = 'core.videoConstruction';
+
+    /**
+     * This event is fired when a TubePress builds a tubepress_api_video_VideoGalleryPage.
+     *
+     * @subject tubepress_api_video_VideoGalleryPage The video gallery page being built.
+     *
+     * @arg string 'providerName' The name of the video provider (e.g. "vimeo" or "youtube").
+     */
+    const VIDEO_GALLERY_PAGE_CONSTRUCTION = 'core.videoGalleryPageConstruction';
 }
