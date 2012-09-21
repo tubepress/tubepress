@@ -27,7 +27,7 @@ class tubepress_plugins_core_filters_gallerytemplate_EmbeddedPlayerName
     public function onGalleryTemplate(tubepress_api_event_ThumbnailGalleryTemplateConstruction $event)
     {
         $template     = $event->getSubject();
-        $providerName = $event->getArgument(tubepress_api_event_PlayerTemplateConstruction::ARGUMENT_PROVIDER_NAME);
+        $providerName = $event->getArgument('providerName');
 
         $template->setVariable(tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, self::_getEmbeddedServiceName($providerName));
     }

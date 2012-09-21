@@ -61,23 +61,23 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePress
         $this->_mockProviderCalculator->shouldReceive('calculateProviderOfVideoId')->once()->with('video-id')->andReturn('video-provider');
 
         $mockVideo = $this->_mockVideo;
-        $mockPlayerTemplateEvent = new tubepress_api_event_PlayerTemplateConstruction(
+        $mockPlayerTemplateEvent = new tubepress_api_event_TubePressEvent(
 
             $mockTemplate, array(
-            tubepress_api_event_PlayerTemplateConstruction::ARGUMENT_VIDEO => $mockVideo,
-            tubepress_api_event_PlayerTemplateConstruction::ARGUMENT_PROVIDER_NAME => 'video-provider',
-            tubepress_api_event_PlayerTemplateConstruction::ARGUMENT_PLAYER_NAME => 'current-player-name'
+            'video' => $mockVideo,
+            'providerName' => 'video-provider',
+            'playerName' => 'current-player-name'
             )
         );
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
 
-            tubepress_api_event_PlayerTemplateConstruction::EVENT_NAME,
+            tubepress_api_const_event_CoreEventNames::PLAYER_TEMPLATE_CONSTRUCTION,
             Mockery::on(function ($arg) use ($mockTemplate, $mockVideo) {
 
-                return $arg->getSubject() == $mockTemplate && $arg->getArgument(tubepress_api_event_PlayerTemplateConstruction::ARGUMENT_VIDEO) == $mockVideo
-                    && $arg->getArgument(tubepress_api_event_PlayerTemplateConstruction::ARGUMENT_PROVIDER_NAME) === 'video-provider'
-                    && $arg->getArgument(tubepress_api_event_PlayerTemplateConstruction::ARGUMENT_PLAYER_NAME) === 'current-player-name';
+                return $arg->getSubject() == $mockTemplate && $arg->getArgument('video') == $mockVideo
+                    && $arg->getArgument('providerName') === 'video-provider'
+                    && $arg->getArgument('playerName') === 'current-player-name';
             })
         )->andReturn($mockPlayerTemplateEvent);
 

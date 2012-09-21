@@ -53,12 +53,12 @@ class tubepress_plugins_core_filters_playertemplate_CoreVariablesTest extends Tu
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::VIDEO, $video);
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_WIDTH, 668);
 
-        $event = new tubepress_api_event_PlayerTemplateConstruction($mockTemplate);
+        $event = new tubepress_api_event_TubePressEvent($mockTemplate);
         $event->setArguments(array(
 
-            tubepress_api_event_PlayerTemplateConstruction::ARGUMENT_PLAYER_NAME => 'player-name',
-            tubepress_api_event_PlayerTemplateConstruction::ARGUMENT_PROVIDER_NAME => 'provider-name',
-            tubepress_api_event_PlayerTemplateConstruction::ARGUMENT_VIDEO => $video
+            'playerName' => 'player-name',
+            'providerName' => 'provider-name',
+            'video' => $video
         ));
 
         $this->_sut->onPlayerTemplate($event);
