@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_template_templates_wordpress_WidgetControlsTemplateTest extends TubePressUnitTest
+class tubepress_plugins_wordpresscore_resources_templates_WidgetControlsTemplateTest extends TubePressUnitTest
 {
     public function test()
     {
@@ -30,7 +30,7 @@ class org_tubepress_impl_template_templates_wordpress_WidgetControlsTemplateTest
         ${tubepress_plugins_wordpresscore_lib_impl_DefaultWidgetHandler::WIDGET_CONTROL_SHORTCODE} = '<<widget-control-shortcode>>';
 
         ob_start();
-        include __DIR__ . '/../../../../../main/resources/system-templates/wordpress/widget_controls.tpl.php';
+        include __DIR__ . '/../../../../../../../../main/php/plugins/tubepress/plugins/wordpresscore/resources/templates/widget_controls.tpl.php';
         $result = ob_get_contents();
         ob_end_clean();
 

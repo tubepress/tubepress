@@ -24,7 +24,7 @@ if (! function_exists('wp_nonce_field')) {
     function wp_nonce_field() { echo 'nonce'; }
 }
 
-class org_tubepress_impl_template_templates_wordpress_OptionsPageTemplateTest extends TubePressUnitTest
+class tubepress_plugins_wordpresscore_resources_templates_OptionsPageTemplateTest extends TubePressUnitTest
 {
     public function test()
     {
@@ -40,7 +40,7 @@ class org_tubepress_impl_template_templates_wordpress_OptionsPageTemplateTest ex
         ${tubepress_impl_options_ui_AbstractFormHandler::TEMPLATE_VAR_TABS}    = '<<template-var-tabs>>';
         
         ob_start();
-        include __DIR__ . '/../../../../../main/resources/system-templates/wordpress/options_page.tpl.php';
+        include __DIR__ . '/../../../../../../../../main/php/plugins/tubepress/plugins/wordpresscore/resources/templates/options_page.tpl.php';
         $result = ob_get_contents();
         ob_end_clean();
 

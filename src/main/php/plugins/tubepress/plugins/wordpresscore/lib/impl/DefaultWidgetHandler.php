@@ -126,7 +126,7 @@ class tubepress_plugins_wordpresscore_lib_impl_DefaultWidgetHandler implements t
         }
 
         /* load up the gallery template */
-        $templatePath = $explorer->getTubePressBaseInstallationPath() . '/sys/ui/templates/wordpress/widget_controls.tpl.php';
+        $templatePath = $explorer->getTubePressBaseInstallationPath() . '/src/main/php/plugins/tubepress/plugins/wordpresscore/resources/templates/widget_controls.tpl.php';
         $tpl          = $tplBuilder->getNewTemplateInstance($templatePath);
 
         /* set up the template */

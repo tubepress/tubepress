@@ -28,6 +28,6 @@ class tubepress_plugins_wordpresscore_lib_impl_options_ui_WordPressOptionsFormHa
 
     protected function getRelativeTemplatePath()
     {
-        return 'src/main/resources/system-templates/wordpress/options_page.tpl.php';
+        return 'src/main/php/plugins/tubepress/plugins/wordpresscore/resources/templates/options_page.tpl.php';
     }
 }

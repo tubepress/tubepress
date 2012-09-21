@@ -23,6 +23,7 @@
         "ehough/epilog": "*",
         "ehough/fimble": "*",
         "ehough/iconic": "*",
+        "ehough/pulsar": "1.*",
         "ehough/shortstop": "*",
         "ehough/stash": "*",
         "ehough/tickertape": "*"
@@ -30,7 +31,6 @@
 
     "require-dev": {
         
-	    "ehough/pulsar": "1.*",
         "mockery/mockery": ">=0.7.2"
     },
 
