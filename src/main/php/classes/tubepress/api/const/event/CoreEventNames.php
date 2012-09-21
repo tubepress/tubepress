@@ -87,6 +87,18 @@ class tubepress_api_const_event_CoreEventNames
     const PAGINATION_HTML_CONSTRUCTION = 'paginationHtmlConstruction';
 
     /**
+     * This event is fired when a TubePress builds the HTML for a TubePress
+     * "player".
+     *
+     * @subject string The player HTML.
+     *
+     * @arg tubepress_api_video_Video 'video'        The video to be played.
+     * @arg string                    'providerName' The name of the video provider (e.g. "vimeo" or "youtube").
+     * @arg string                    'playerName'   The name of the TubePress player (e.g. "shadowbox", "normal", "youtube", etc)
+     */
+    const PLAYER_HTML_CONSTRUCTION = 'playerHtmlConstruction';
+
+    /**
      * This event is fired when TubePress builds HTML for a standard (non-Ajax) search input form.
      *
      * @subject string The HTML for the search input.

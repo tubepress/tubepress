@@ -81,15 +81,20 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePress
             })
         )->andReturn($mockPlayerTemplateEvent);
 
-        $mockPlayerHtmlEvent = new tubepress_api_event_PlayerHtmlConstruction('foobarr', $mockVideo, 'video-provider', 'current-player-name');
+        $mockPlayerHtmlEvent = new tubepress_api_event_TubePressEvent('foobarr', array(
+
+            'video' => $mockVideo,
+            'providerName' => 'video-provider',
+            'playerName' => 'current-player-name'
+        ));
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
 
-            tubepress_api_event_PlayerHtmlConstruction::EVENT_NAME,
+            tubepress_api_const_event_CoreEventNames::PLAYER_HTML_CONSTRUCTION,
             Mockery::on(function ($arg) use ($mockVideo) {
 
-                return $arg->playerHtml == 'foobarr' && $arg->video == $mockVideo
-                    && $arg->providerName === 'video-provider' && $arg->playerName === 'current-player-name';
+                return $arg->getSubject() == 'foobarr' && $arg->getArgument('video') == $mockVideo
+                    && $arg->getArgument('providerName') === 'video-provider' && $arg->getArgument('playerName') === 'current-player-name';
             })
         )->andReturn($mockPlayerHtmlEvent);
 

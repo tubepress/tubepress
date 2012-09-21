@@ -64,17 +64,23 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
          * Run filters for the player HTML construction.
          */
         $html            = $playerTemplateEvent->getSubject()->toString();
-        $playerHtmlEvent = new tubepress_api_event_PlayerHtmlConstruction($html, $vid, $providerName, $playerName);
+        $playerHtmlEvent = new tubepress_api_event_TubePressEvent($html, array(
+
+            'video'        => $vid,
+            'providerName' => $providerName,
+            'playerName'   => $playerName
+        ));
+
         $eventDispatcherService->dispatch(
 
-            tubepress_api_event_PlayerHtmlConstruction::EVENT_NAME,
+            tubepress_api_const_event_CoreEventNames::PLAYER_HTML_CONSTRUCTION,
             $playerHtmlEvent
         );
 
         /*
          * Run filters for the HTML construction.
          */
-        $html      = $playerHtmlEvent->playerHtml;
+        $html      = $playerHtmlEvent->getSubject();
         $htmlEvent = new tubepress_api_event_TubePressEvent($html);
         $eventDispatcherService->dispatch(
 
