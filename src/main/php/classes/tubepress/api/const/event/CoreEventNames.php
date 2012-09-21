@@ -44,5 +44,16 @@ class tubepress_api_const_event_CoreEventNames
      */
     const EMBEDDED_HTML_CONSTRUCTION = 'embeddedHtmlConstruction';
 
-
+    /**
+     * This event is fired when a TubePress builds the PHP/HTML template for an embedded
+     * video player.
+     *
+     * @subject ehough_contemplate_api_Template The embedded video player template.
+     *
+     * @arg string           'videoId'                    The ID of the video to be played.
+     * @arg string           'providerName'               The name of the video provider (e.g. "vimeo" or "youtube").
+     * @arg ehough_curly_Url 'dataUrl'                    The embedded data URL.
+     * @arg string           'embeddedImplementationName' The name of the embedded implementation.
+     */
+    const EMBEDDED_TEMPLATE_CONSTRUCTION = 'embeddedTemplateConstruction';
 }

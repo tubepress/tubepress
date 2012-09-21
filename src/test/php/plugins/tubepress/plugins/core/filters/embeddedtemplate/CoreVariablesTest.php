@@ -57,13 +57,13 @@ class org_tubepress_impl_plugin_filters_embeddedtemplate_CoreVariablesTest exten
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_FULLSCREEN, 'true');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::VIDEO_ID, 'video-id');
 
-        $event = new tubepress_api_event_EmbeddedTemplateConstruction($mockTemplate);
+        $event = new tubepress_api_event_TubePressEvent($mockTemplate);
         $event->setArguments(array(
 
-            tubepress_api_event_EmbeddedTemplateConstruction::ARGUMENT_DATA_URL => new ehough_curly_Url('http://tubepress.org'),
-            tubepress_api_event_EmbeddedTemplateConstruction::ARGUMENT_VIDEO_ID => 'video-id',
-            tubepress_api_event_EmbeddedTemplateConstruction::ARGUMENT_PROVIDER_NAME => 'video-provider-name',
-            tubepress_api_event_EmbeddedTemplateConstruction::ARGUMENT_EMBEDDED_IMPLEMENTATION_NAME => 'embedded-impl-name'
+            'dataUrl' => new ehough_curly_Url('http://tubepress.org'),
+            'videoId' => 'video-id',
+            'providerName' => 'video-provider-name',
+            'embeddedImplementationName' => 'embedded-impl-name'
         ));
 
         $this->_sut->onEmbeddedTemplate($event);

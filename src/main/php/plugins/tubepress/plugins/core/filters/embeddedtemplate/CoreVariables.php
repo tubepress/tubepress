@@ -24,14 +24,14 @@
  */
 class tubepress_plugins_core_filters_embeddedtemplate_CoreVariables
 {
-    public function onEmbeddedTemplate(tubepress_api_event_EmbeddedTemplateConstruction $event)
+    public function onEmbeddedTemplate(tubepress_api_event_TubePressEvent $event)
     {
         global $tubepress_base_url;
 
         $context = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
         $template = $event->getSubject();
-        $dataUrl = $event->getArgument(tubepress_api_event_EmbeddedTemplateConstruction::ARGUMENT_DATA_URL);
-        $videoId = $event->getArgument(tubepress_api_event_EmbeddedTemplateConstruction::ARGUMENT_VIDEO_ID);
+        $dataUrl = $event->getArgument('dataUrl');
+        $videoId = $event->getArgument('videoId');
 
         $fullscreen      = $context->get(tubepress_api_const_options_names_Embedded::FULLSCREEN);
         $playerColor     = tubepress_impl_embedded_EmbeddedPlayerUtils::getSafeColorValue($context->get(tubepress_api_const_options_names_Embedded::PLAYER_COLOR), '999999');

@@ -59,14 +59,14 @@ class org_tubepress_impl_embedded_EmbeddedPlayerChainTest extends TubePressUnitT
 
         }))->andReturn(true);
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_EmbeddedTemplateConstruction::EVENT_NAME,
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
             Mockery::on(function ($arg) use ($mockTemplate) {
 
-            return $arg instanceof tubepress_api_event_EmbeddedTemplateConstruction && $arg->getSubject() === $mockTemplate
-                && $arg->getArgument(tubepress_api_event_EmbeddedTemplateConstruction::ARGUMENT_VIDEO_ID) === 'videoid'
-                && $arg->getArgument(tubepress_api_event_EmbeddedTemplateConstruction::ARGUMENT_PROVIDER_NAME) === 'video_provider'
-                && $arg->getArgument(tubepress_api_event_EmbeddedTemplateConstruction::ARGUMENT_DATA_URL) === 'data-url'
-                && $arg->getArgument(tubepress_api_event_EmbeddedTemplateConstruction::ARGUMENT_EMBEDDED_IMPLEMENTATION_NAME) === 'impl-name';
+            return $arg instanceof ehough_tickertape_api_Event && $arg->getSubject() === $mockTemplate
+                && $arg->getArgument('videoId') === 'videoid'
+                && $arg->getArgument('providerName') === 'video_provider'
+                && $arg->getArgument('dataUrl') === 'data-url'
+                && $arg->getArgument('embeddedImplementationName') === 'impl-name';
         }));
 
         $mockTemplate->shouldReceive('toString')->once()->andReturn('templateAsString');
