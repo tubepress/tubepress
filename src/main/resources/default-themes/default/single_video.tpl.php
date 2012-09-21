@@ -25,80 +25,80 @@
 
 <div class="tubepress_single_video">
     
-    <?php if (${org_tubepress_api_const_template_Variable::META_SHOULD_SHOW}[org_tubepress_api_const_options_names_Meta::TITLE]): ?>     
+    <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::TITLE]): ?>
         <div class="tubepress_embedded_title"><?php echo htmlspecialchars($video->getTitle(), ENT_QUOTES, "UTF-8"); ?></div>
     <?php endif; ?>
     
-    <?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_SOURCE}; ?>
+    <?php echo ${tubepress_api_const_template_Variable::EMBEDDED_SOURCE}; ?>
 
-    <dl class="tubepress_meta_group" style="width: <?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>px">
+    <dl class="tubepress_meta_group" style="width: <?php echo ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>px">
       
-    <?php if (${org_tubepress_api_const_template_Variable::META_SHOULD_SHOW}[org_tubepress_api_const_options_names_Meta::LENGTH]): ?>
+    <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::LENGTH]): ?>
     
-    <dt class="tubepress_meta tubepress_meta_runtime"><?php echo ${org_tubepress_api_const_template_Variable::META_LABELS}[org_tubepress_api_const_options_names_Meta::LENGTH]; ?></dt><dd class="tubepress_meta tubepress_meta_runtime"><?php echo $video->getDuration(); ?></dd>
+    <dt class="tubepress_meta tubepress_meta_runtime"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::LENGTH]; ?></dt><dd class="tubepress_meta tubepress_meta_runtime"><?php echo $video->getDuration(); ?></dd>
     <?php endif; ?>
         
-    <?php if (${org_tubepress_api_const_template_Variable::META_SHOULD_SHOW}[org_tubepress_api_const_options_names_Meta::AUTHOR]): ?>
+    <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::AUTHOR]): ?>
     
-    <dt class="tubepress_meta tubepress_meta_author"><?php echo ${org_tubepress_api_const_template_Variable::META_LABELS}[org_tubepress_api_const_options_names_Meta::AUTHOR]; ?></dt><dd class="tubepress_meta tubepress_meta_author"><?php echo $video->getAuthorDisplayName(); ?></dd>
+    <dt class="tubepress_meta tubepress_meta_author"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::AUTHOR]; ?></dt><dd class="tubepress_meta tubepress_meta_author"><?php echo $video->getAuthorDisplayName(); ?></dd>
     <?php endif; ?>
     
-    <?php if (${org_tubepress_api_const_template_Variable::META_SHOULD_SHOW}[org_tubepress_api_const_options_names_Meta::KEYWORDS]): ?>
+    <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::KEYWORDS]): ?>
     
-    <dt class="tubepress_meta tubepress_meta_keywords"><?php echo ${org_tubepress_api_const_template_Variable::META_LABELS}[org_tubepress_api_const_options_names_Meta::KEYWORDS]; ?></dt><dd class="tubepress_meta tubepress_meta_keywords"><?php echo $raw = htmlspecialchars(implode(" ", $video->getKeywords()), ENT_QUOTES, "UTF-8"); ?></dd>
+    <dt class="tubepress_meta tubepress_meta_keywords"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::KEYWORDS]; ?></dt><dd class="tubepress_meta tubepress_meta_keywords"><?php echo $raw = htmlspecialchars(implode(" ", $video->getKeywords()), ENT_QUOTES, "UTF-8"); ?></dd>
     <?php endif; ?>
     
-    <?php if (${org_tubepress_api_const_template_Variable::META_SHOULD_SHOW}[org_tubepress_api_const_options_names_Meta::URL]): ?>
+    <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::URL]): ?>
     
-    <dt class="tubepress_meta tubepress_meta_url"><?php echo ${org_tubepress_api_const_template_Variable::META_LABELS}[org_tubepress_api_const_options_names_Meta::URL]; ?></dt><dd class="tubepress_meta tubepress_meta_url"><a rel="external nofollow" href="<?php echo $video->getHomeUrl(); ?>"><?php echo ${org_tubepress_api_const_template_Variable::META_LABELS}[org_tubepress_api_const_options_names_Meta::URL]; ?></a></dd>
+    <dt class="tubepress_meta tubepress_meta_url"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::URL]; ?></dt><dd class="tubepress_meta tubepress_meta_url"><a rel="external nofollow" href="<?php echo $video->getHomeUrl(); ?>"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::URL]; ?></a></dd>
     <?php endif; ?>
     
-    <?php if (${org_tubepress_api_const_template_Variable::META_SHOULD_SHOW}[org_tubepress_api_const_options_names_Meta::CATEGORY] &&
+    <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::CATEGORY] &&
         $video->getCategory() != ""):
     ?>
     
-    <dt class="tubepress_meta tubepress_meta_category"><?php echo ${org_tubepress_api_const_template_Variable::META_LABELS}[org_tubepress_api_const_options_names_Meta::CATEGORY]; ?></dt><dd class="tubepress_meta tubepress_meta_category"><?php echo htmlspecialchars($video->getCategory(), ENT_QUOTES, "UTF-8"); ?></dd>
+    <dt class="tubepress_meta tubepress_meta_category"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::CATEGORY]; ?></dt><dd class="tubepress_meta tubepress_meta_category"><?php echo htmlspecialchars($video->getCategory(), ENT_QUOTES, "UTF-8"); ?></dd>
     <?php endif; ?>
         
-    <?php if (${org_tubepress_api_const_template_Variable::META_SHOULD_SHOW}[org_tubepress_api_const_options_names_Meta::RATINGS] &&
+    <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::RATINGS] &&
         $video->getRatingCount() != ""):
     ?>
      
-    <dt class="tubepress_meta tubepress_meta_ratings"><?php echo ${org_tubepress_api_const_template_Variable::META_LABELS}[org_tubepress_api_const_options_names_Meta::RATINGS]; ?></dt><dd class="tubepress_meta tubepress_meta_ratings"><?php echo $video->getRatingCount(); ?></dd>
+    <dt class="tubepress_meta tubepress_meta_ratings"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::RATINGS]; ?></dt><dd class="tubepress_meta tubepress_meta_ratings"><?php echo $video->getRatingCount(); ?></dd>
     <?php endif; ?>
     
-    <?php if (${org_tubepress_api_const_template_Variable::META_SHOULD_SHOW}[org_tubepress_api_const_options_names_Meta::LIKES] &&
+    <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::LIKES] &&
               $video->getLikesCount() != ""):
           ?>
            
-          <dt class="tubepress_meta tubepress_meta_likes"><?php echo ${org_tubepress_api_const_template_Variable::META_LABELS}[org_tubepress_api_const_options_names_Meta::LIKES]; ?></dt><dd class="tubepress_meta tubepress_meta_likes"><?php echo $video->getLikesCount(); ?></dd>
+          <dt class="tubepress_meta tubepress_meta_likes"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::LIKES]; ?></dt><dd class="tubepress_meta tubepress_meta_likes"><?php echo $video->getLikesCount(); ?></dd>
           <?php endif; ?>
         
-    <?php if (${org_tubepress_api_const_template_Variable::META_SHOULD_SHOW}[org_tubepress_api_const_options_names_Meta::RATING] &&
+    <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::RATING] &&
          $video->getRatingAverage() != ""):
      ?>
     
-    <dt class="tubepress_meta tubepress_meta_rating"><?php echo ${org_tubepress_api_const_template_Variable::META_LABELS}[org_tubepress_api_const_options_names_Meta::RATING]; ?></dt><dd class="tubepress_meta tubepress_meta_rating"><?php echo $video->getRatingAverage(); ?></dd>
+    <dt class="tubepress_meta tubepress_meta_rating"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::RATING]; ?></dt><dd class="tubepress_meta tubepress_meta_rating"><?php echo $video->getRatingAverage(); ?></dd>
     <?php endif; ?>
         
-    <?php if (${org_tubepress_api_const_template_Variable::META_SHOULD_SHOW}[org_tubepress_api_const_options_names_Meta::ID]): ?>
+    <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::ID]): ?>
     
-    <dt class="tubepress_meta tubepress_meta_id"><?php echo ${org_tubepress_api_const_template_Variable::META_LABELS}[org_tubepress_api_const_options_names_Meta::ID]; ?></dt><dd class="tubepress_meta tubepress_meta_id"><?php echo $video->getId(); ?></dd>
+    <dt class="tubepress_meta tubepress_meta_id"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::ID]; ?></dt><dd class="tubepress_meta tubepress_meta_id"><?php echo $video->getId(); ?></dd>
     <?php endif; ?>
         
-    <?php if (${org_tubepress_api_const_template_Variable::META_SHOULD_SHOW}[org_tubepress_api_const_options_names_Meta::VIEWS]): ?>
+    <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::VIEWS]): ?>
     
-    <dt class="tubepress_meta tubepress_meta_views"><?php echo ${org_tubepress_api_const_template_Variable::META_LABELS}[org_tubepress_api_const_options_names_Meta::VIEWS]; ?></dt><dd class="tubepress_meta tubepress_meta_views"><?php echo $video->getViewCount(); ?></dd>
+    <dt class="tubepress_meta tubepress_meta_views"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::VIEWS]; ?></dt><dd class="tubepress_meta tubepress_meta_views"><?php echo $video->getViewCount(); ?></dd>
     <?php endif; ?>
         
-    <?php if (${org_tubepress_api_const_template_Variable::META_SHOULD_SHOW}[org_tubepress_api_const_options_names_Meta::UPLOADED]): ?>
+    <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::UPLOADED]): ?>
     
-    <dt class="tubepress_meta tubepress_meta_uploaddate"><?php echo ${org_tubepress_api_const_template_Variable::META_LABELS}[org_tubepress_api_const_options_names_Meta::UPLOADED]; ?></dt><dd class="tubepress_meta tubepress_meta_uploaddate"><?php echo $video->getTimePublished(); ?></dd>
+    <dt class="tubepress_meta tubepress_meta_uploaddate"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::UPLOADED]; ?></dt><dd class="tubepress_meta tubepress_meta_uploaddate"><?php echo $video->getTimePublished(); ?></dd>
     <?php endif; ?>
     
-    <?php if (${org_tubepress_api_const_template_Variable::META_SHOULD_SHOW}[org_tubepress_api_const_options_names_Meta::DESCRIPTION]): ?>
+    <?php if (${tubepress_api_const_template_Variable::META_SHOULD_SHOW}[tubepress_api_const_options_names_Meta::DESCRIPTION]): ?>
     
-    <dt class="tubepress_meta tubepress_meta_description"><?php echo ${org_tubepress_api_const_template_Variable::META_LABELS}[org_tubepress_api_const_options_names_Meta::DESCRIPTION]; ?></dt><dd class="tubepress_meta tubepress_meta_description"><?php echo $video->getDescription(); ?></dd>
+    <dt class="tubepress_meta tubepress_meta_description"><?php echo ${tubepress_api_const_template_Variable::META_LABELS}[tubepress_api_const_options_names_Meta::DESCRIPTION]; ?></dt><dd class="tubepress_meta tubepress_meta_description"><?php echo $video->getDescription(); ?></dd>
     <?php endif; ?>
     
 </dl>

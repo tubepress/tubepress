@@ -19,4 +19,4 @@
  *
  */
 ?>
-<iframe id="tubepress-youtube-player-<?php echo ${org_tubepress_api_const_template_Variable::VIDEO_ID}; ?>" class="youtube-player" type="text/html" width="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>" height="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}; ?>" src="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_DATA_URL}; ?>" frameborder="0"></iframe>
+<iframe id="tubepress-youtube-player-<?php echo ${tubepress_api_const_template_Variable::VIDEO_ID}; ?>" class="youtube-player" type="text/html" width="<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>" height="<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}; ?>" src="<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_DATA_URL}; ?>" frameborder="0"></iframe>

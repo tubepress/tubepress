@@ -19,14 +19,14 @@
  *
  */
 ?>
-<embed	src="<?php echo ${org_tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL}; ?>/sys/ui/static/flash/longtail/player.swf"
-		width="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>"
-		height="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}; ?>"
+<embed	src="<?php echo ${tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL}; ?>/sys/ui/static/flash/longtail/player.swf"
+		width="<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>"
+		height="<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}; ?>"
         allowscriptaccess="never"
         wmode="opaque"
-        movie="<?php echo ${org_tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL}; ?>/sys/ui/static/flash/longtail/player.swf"
-        bgcolor="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_COLOR_PRIMARY}; ?>"
-        frontcolor="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_COLOR_HIGHLIGHT}; ?>"
+        movie="<?php echo ${tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL}; ?>/sys/ui/static/flash/longtail/player.swf"
+        bgcolor="<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_COLOR_PRIMARY}; ?>"
+        frontcolor="<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_COLOR_HIGHLIGHT}; ?>"
         quality="high"
-        flashvars="file=<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_DATA_URL}; ?>&amp;autostart=<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_AUTOSTART}; ?>&amp;height=<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}; ?>&amp;width=<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>&amp;frontcolor=<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_COLOR_HIGHLIGHT}; ?>"
+        flashvars="file=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_DATA_URL}; ?>&amp;autostart=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_AUTOSTART}; ?>&amp;height=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}; ?>&amp;width=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>&amp;frontcolor=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_COLOR_HIGHLIGHT}; ?>"
 </embed>

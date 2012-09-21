@@ -19,4 +19,4 @@
  *
  */
 ?>
-<iframe id="tubepress-vimeo-player-<?php echo ${org_tubepress_api_const_template_Variable::VIDEO_ID}; ?>" src="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_DATA_URL}; ?>" width="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>" height="<?php echo ${org_tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}; ?>" frameborder="0"></iframe>
+<iframe id="tubepress-vimeo-player-<?php echo ${tubepress_api_const_template_Variable::VIDEO_ID}; ?>" src="<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_DATA_URL}; ?>" width="<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>" height="<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}; ?>" frameborder="0"></iframe>

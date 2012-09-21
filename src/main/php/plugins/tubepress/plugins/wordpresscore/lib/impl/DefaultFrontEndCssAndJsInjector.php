@@ -68,8 +68,8 @@ EOT;
         $fse      = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
         $baseName = $fse->getTubePressInstallationDirectoryBaseName();
 
-        $jsUrl  = $wordPressFunctionWrapper->plugins_url("$baseName/sys/ui/static/js/tubepress.js", $baseName);
-        $cssUrl = $wordPressFunctionWrapper->plugins_url("$baseName/sys/ui/themes/default/style.css", $baseName);
+        $jsUrl  = $wordPressFunctionWrapper->plugins_url("$baseName/src/main/web/js/tubepress.js", $baseName);
+        $cssUrl = $wordPressFunctionWrapper->plugins_url("$baseName/src/main/resources/default-themes/default/style.css", $baseName);
 
         $wordPressFunctionWrapper->wp_register_script('tubepress', $jsUrl);
         $wordPressFunctionWrapper->wp_register_style('tubepress', $cssUrl);

@@ -18,4 +18,4 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-echo ${org_tubepress_api_const_template_Variable::EMBEDDED_SOURCE};
+echo ${tubepress_api_const_template_Variable::EMBEDDED_SOURCE};

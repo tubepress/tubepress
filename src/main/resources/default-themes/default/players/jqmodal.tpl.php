@@ -19,4 +19,4 @@
  *
  */
 
-echo ${org_tubepress_api_const_template_Variable::EMBEDDED_SOURCE};
+echo ${tubepress_api_const_template_Variable::EMBEDDED_SOURCE};

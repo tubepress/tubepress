@@ -65,6 +65,7 @@ class tubepress_plugins_wordpresscore_lib_impl_DefaultContentFilter implements t
             /* replace the shortcode with our new content */
             $currentShortcode = $context->getActualShortcodeUsed();
             $content          = tubepress_impl_util_StringUtils::replaceFirst($currentShortcode, $generatedHtml, $content);
+            $content          = tubepress_impl_util_StringUtils::removeEmptyLines($content);
 
             /* reset the context for the next shortcode */
             $context->reset();

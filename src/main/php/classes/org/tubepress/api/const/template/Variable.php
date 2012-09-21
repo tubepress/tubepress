@@ -24,6 +24,5 @@
  */
 class org_tubepress_api_const_template_Variable extends tubepress_api_const_template_Variable {}
 
-class org_tubepress_template_Template extends org_tubepress_api_const_template_Variable {}
-
-trigger_error('The "org_tubepress_ ..." prefixed classes are deprecated. Please update your template.', E_NOTICE);
+trigger_error('The "org_tubepress_ ..." prefixed classes are deprecated. Please update your code and replace all instances of '
+    . '"org_tubepress_api_const_template_Variable" with "tubepress_api_const_template_Variable".', E_USER_NOTICE);
