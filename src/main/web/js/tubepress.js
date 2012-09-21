@@ -102,19 +102,19 @@ var TubePressAjax = (function () {
 		},
 
 		/**
-		 *  Similar to jQuery's "get" but ignores response code.
+		 * Similar to jQuery's "get" but ignores response code.
 		 */
 		get = function (url, data, success, dataType) {
 
 			jquery.ajax({
 				
-				url		: url,
+				url			: url,
 				type		: getText,
 				data		: data,
 				dataType	: dataType,
 				complete	: success
 			});
-		
+
 		},
 	
 		/**
@@ -171,32 +171,6 @@ var TubePressAjax = (function () {
 }());
 
 /**
- * Handles dynamic loading of CSS. To be removed...
- */
-var TubePressCss = (function () {
-
-	/** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
-	'use strict';
-	
-	/*
-	 * Dynamically load CSS into the DOM.
-	 */
-	var load = function (path) {
-			
-		var	fileref = document.createElement('link');
-			
-		fileref.setAttribute('rel', 'stylesheet');
-		fileref.setAttribute('type', 'text/css');
-		fileref.setAttribute('href', path);
-		document.getElementsByTagName('head')[0].appendChild(fileref);
-	};
-	
-	return { 
-		load	: load
-	};
-}());
-
-/**
  * Events that TubePress fires.
  */
 var TubePressEvents = (function () {
@@ -248,7 +222,6 @@ var TubePressGallery = (function () {
 	
 	var galleries	= {},
 		docElement	= jQuery(document),
-		cssLoaded	= {},
 		events		= TubePressEvents,
 		
 		/**
@@ -314,15 +287,7 @@ var TubePressGallery = (function () {
 			
 			return galleries[galleryId].shortcode;
 		},
-		
-		/**
-		 * Deprecated. To be removed...
-		 */
-		getThemeCss = function (galleryId) {
-			
-			return galleries[galleryId].themeCSS;
-		},
-		
+
 		/**
 		 * Performs gallery initialization on jQuery(document).ready().
 		 */
@@ -331,13 +296,6 @@ var TubePressGallery = (function () {
 			/** Save the params. */
 			galleries[galleryId] = params;
 
-			/** Deprecated theme handling stuff. To be removed... */
-			var theme = decodeURIComponent(getThemeCss(galleryId));
-			if (theme !== '' && cssLoaded[theme] !== true) {
-				TubePressCss.load(getTubePressBaseUrl() + theme);
-				cssLoaded[theme] = true;
-			}
-			
 			/** Trigger an event after we've booted. */
 			docElement.trigger(events.NEW_GALLERY_LOADED, galleryId);
 		},
@@ -392,7 +350,7 @@ var TubePressPlayers = (function () {
 		bootPlayer = function (e, galleryId) {
 			
 			var playerName	= tubepressGallery.getPlayerLocationName(galleryId),
-				path		= getTubePressBaseUrl() + '/sys/ui/static/players/' + playerName + '/' + playerName + '.js';
+				path		= getTubePressBaseUrl() + '/src/main/web/players/' + playerName + '/' + playerName + '.js';
 	
 			/** don't load a player twice... */
 			if (loadedPlayers[playerName] !== true) {
@@ -421,20 +379,21 @@ var TubePressPlayers = (function () {
 				shortcode	= tubepressGallery.getShortcode(galleryId),
 				callback	= function (data) { 
 				
-					var result = jquery.parseJSON(data.responseText),
-						title  = decodeUri(result.title),
-						html   = decodeUri(result.html);
+					var result	= jquery.parseJSON(data.responseText),
+						title	= decodeUri(result.title),
+						html	= decodeUri(result.html);
 
 					documentElement.trigger(tubepressEvents.PLAYER_POPULATE + playerName, [ title, html, height, width, videoId, galleryId ]); 
 				},
 				
 				dataToSend = {
-						
-						tubepress_video		: videoId,
-						tubepress_shortcode	: shortcode
+
+						'action'				: 'playerHtml',
+						'tubepress_video'		: videoId,
+						'tubepress_shortcode'	: shortcode
 				},
 				
-				url = getTubePressBaseUrl() + '/sys/scripts/ajax/playerHtml.php';
+				url = getTubePressBaseUrl() + '/src/main/php/scripts/ajaxEndpoint.php';
 		
 			/** Announce we're gonna invoke the player... */
 			documentElement.trigger(tubepressEvents.PLAYER_INVOKE + playerName, [ videoId, galleryId, width, height ]);
@@ -864,8 +823,11 @@ var TubePressAjaxPagination = (function () {
 				shortcode			= gallery.getShortcode(galleryId),
 				page				= anchor.attr('rel'),
 				thumbnailArea		= TubePressThumbs.getThumbAreaSelector(galleryId),
-				postLoadCallback	= function () { postLoad(galleryId); },
-				pageToLoad			= baseUrl + '/sys/scripts/ajax/shortcode_printer.php?shortcode=' + shortcode + '&tubepress_' + page + '&tubepress_galleryId=' + galleryId,
+				postLoadCallback	= function () {
+
+					postLoad(galleryId);
+				},
+				pageToLoad			= baseUrl + '/src/main/php/scripts/ajaxEndpoint?shortcode=' + shortcode + '&tubepress_' + page + '&tubepress_galleryId=' + galleryId,
 				remotePageSelector	= thumbnailArea + ' > *';
 				
 			TubePressAjax.loadAndStyle(pageToLoad, thumbnailArea, remotePageSelector, '', postLoadCallback);
@@ -1034,9 +996,9 @@ var TubePressPlayerApi = (function () {
 			}
 
 			//noinspection JSUnresolvedFunction
-			url                 = player.getVideoUrl();
-			loadedId            = url.split('v=')[1];
-			ampersandPosition   = loadedId.indexOf('&');
+			url					= player.getVideoUrl();
+			loadedId			= url.split('v=')[1];
+			ampersandPosition	= loadedId.indexOf('&');
 		
 			if (ampersandPosition !== -1) {
 
@@ -1262,8 +1224,8 @@ var TubePressPlayerApi = (function () {
 					
 					events: {
 						
-					      'onError'			: onYouTubeError,
-					      'onStateChange'	: onYouTubeStateChange
+						'onError'		: onYouTubeError,
+						'onStateChange'	: onYouTubeStateChange
 					}
 				});
 			};
@@ -1428,7 +1390,7 @@ var TubePressAjaxSearch = (function () {
 			logger.log('Ajax selector: ' + ajaxResultSelector);
 		}
 		
-		TubePressAjax.loadAndStyle(getTubePressBaseUrl() + '/sys/scripts/ajax/shortcode_printer.php?shortcode=' 
+		TubePressAjax.loadAndStyle(getTubePressBaseUrl() + '/src/main/php/scripts/ajaxEndpoint.php?shortcode='
 				+ urlEncodedShortcode + '&tubepress_search=' + urlEncodedSearchTerms, finalAjaxContentDestination, ajaxResultSelector, null, callback);
 	};
 	
@@ -1504,7 +1466,7 @@ if (!jQuery.browser.msie) {
 		tubePressBoot();
 	};
 
-    jQuery.ready.promise = oldReady.promise;
+	jQuery.ready.promise = oldReady.promise;
 	
 } else {
 	

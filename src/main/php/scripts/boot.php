@@ -19,52 +19,54 @@
  *
  */
 
-/**
- * Primary bootstrapping for TubePress.
- */
-function bootTubePress()
-{
-    /**
-     * First, record the root path.
-     */
-    define('TUBEPRESS_ROOT', realpath(dirname(__FILE__) . '/../../../../'));
+if (! function_exists('bootTubePress')) {
 
     /**
-     * Second, we add our classloader.
+     * Primary bootstrapping for TubePress.
      */
-    require_once TUBEPRESS_ROOT . '/vendor/ehough/pulsar/src/main/php/ehough/pulsar/ComposerClassLoader.php';
+    function bootTubePress()
+    {
+        /**
+         * First, record the root path.
+         */
+        define('TUBEPRESS_ROOT', realpath(dirname(__FILE__) . '/../../../../'));
 
-    $loader = new ehough_pulsar_ComposerClassLoader(TUBEPRESS_ROOT . '/vendor/');
-    $loader->registerFallbackDirectory(TUBEPRESS_ROOT . '/src/main/php/classes');
-    $loader->registerFallbackDirectory(TUBEPRESS_ROOT . '/src/main/php/plugins');
-    $loader->register();
+        /**
+         * Second, we add our classloader.
+         */
+        require_once TUBEPRESS_ROOT . '/vendor/ehough/pulsar/src/main/php/ehough/pulsar/ComposerClassLoader.php';
 
-    /**
-     * Next, set up logging.
-     */
-    if (isset($_GET['tubepress_debug']) && strcasecmp($_GET['tubepress_debug'], 'true') === 0) {
+        $loader = new ehough_pulsar_ComposerClassLoader(TUBEPRESS_ROOT . '/vendor/');
+        $loader->registerFallbackDirectory(TUBEPRESS_ROOT . '/src/main/php/classes');
+        $loader->registerFallbackDirectory(TUBEPRESS_ROOT . '/src/main/php/plugins');
+        $loader->register();
 
-        $handler = new ehough_epilog_impl_handler_PrintHandler();
+        /**
+         * Next, set up logging.
+         */
+        if (isset($_GET['tubepress_debug']) && strcasecmp($_GET['tubepress_debug'], 'true') === 0) {
 
-        $handler->setLevel(ehough_epilog_api_ILogger::DEBUG);
+            $handler = new ehough_epilog_impl_handler_PrintHandler();
 
-        ehough_epilog_api_LoggerFactory::setHandlerStack(array($handler));
+            $handler->setLevel(ehough_epilog_api_ILogger::DEBUG);
+
+            ehough_epilog_api_LoggerFactory::setHandlerStack(array($handler));
+        }
+
+        /*
+         * Now build the core IOC container and assign it to the kernel service locator.
+         * That should be enough to get everything else off the ground.
+         */
+        $coreIocContainer = new tubepress_impl_patterns_ioc_CoreIocContainer();
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setCoreIocContainer($coreIocContainer);
+
+        /*
+         * Finally, hand off control to the TubePress bootstrapper. This will load plugins
+         * and send out a "boot" notification.
+         */
+        tubepress_impl_patterns_ioc_KernelServiceLocator::getBootStrapper()->boot();
     }
-
-    /*
-     * Now build the core IOC container and assign it to the kernel service locator.
-     * That should be enough to get everything else off the ground.
-     */
-    $coreIocContainer = new tubepress_impl_patterns_ioc_CoreIocContainer();
-    tubepress_impl_patterns_ioc_KernelServiceLocator::setCoreIocContainer($coreIocContainer);
-
-    /*
-     * Finally, hand off control to the TubePress bootstrapper. This will load plugins
-     * and send out a "boot" notification.
-     */
-    tubepress_impl_patterns_ioc_KernelServiceLocator::getBootStrapper()->boot();
 }
-
 /*
  * Don't boot twice.
  */

@@ -99,11 +99,21 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_
 
     private function _registerAjaxHandler()
     {
+        $chainName = '_tubepress_impl_http_DefaultAjaxHandler__chain';
+        $commands = array(
+
+            'tubepress_impl_http_ajaxhandling_PlayerHtmlCommand'
+        );
+
+        $this->_registerChainDefinitionByClassNames($chainName, $commands);
+
+        /** @noinspection PhpUndefinedMethodInspection */
         $this->_delegate->register(
 
             self::SERVICE_AJAX_HANDLER,
             'tubepress_impl_http_DefaultAjaxHandler'
-        );
+
+        )->addArgument(new ehough_iconic_impl_Reference($chainName));
     }
 
     private function _registerBootstrapper()

@@ -24,6 +24,7 @@
  */
 class tubepress_spi_const_http_ParamName
 {
+    const ACTION       = 'action';
     const DEBUG        = 'tubepress_debug';
     const PAGE         = 'tubepress_page';
     const SEARCH_TERMS = 'tubepress_search';

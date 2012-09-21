@@ -24,44 +24,49 @@
  * paramters: embedName (the string name of the embedded player implementation),
  * video (the video ID to load), meta (true/false whether or not to include video meta info)
  */
-class tubepress_impl_http_ajaxhandling_PlayerHtmlCommand
+class tubepress_impl_http_ajaxhandling_PlayerHtmlCommand extends tubepress_impl_http_ajaxhandling_AbstractAjaxCommand
 {
-    /**
-     * Handles incoming requests.
-     *
-     * @return void Handle the request and output a response.
-     */
-    public final function handle()
-    {
-        $context  = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
-        $player   = $ioc->get(org_tubepress_api_player_PlayerHtmlGenerator::_);
-        $provider = $ioc->get(org_tubepress_api_provider_Provider::_);
-        $qss      = $ioc->get(org_tubepress_api_http_HttpRequestParameterService::_);
-        $sp       = $ioc->get(org_tubepress_api_shortcode_ShortcodeParser::_);
 
-        $shortcode = rawurldecode($qss->getParamValue(org_tubepress_api_const_http_ParamName::SHORTCODE));
-        $videoId   = $qss->getParamValue(org_tubepress_api_const_http_ParamName::VIDEO);
+    protected function _doExecute(ehough_chaingang_api_Context $context)
+    {
+        $executionContext = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $player           = tubepress_impl_patterns_ioc_KernelServiceLocator::getPlayerHtmlGenerator();
+        $provider         = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoProvider();
+        $qss              = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
+        $sp               = tubepress_impl_patterns_ioc_KernelServiceLocator::getShortcodeParser();
+
+        $shortcode = rawurldecode($qss->getParamValue(tubepress_spi_const_http_ParamName::SHORTCODE));
+        $videoId   = $qss->getParamValue(tubepress_spi_const_http_ParamName::VIDEO);
 
         /* gather up the options */
         $sp->parse($shortcode);
-        if ($context->get(org_tubepress_api_const_options_names_Embedded::LAZYPLAY)) {
-            $context->set(org_tubepress_api_const_options_names_Embedded::AUTOPLAY, true);
+
+        if ($executionContext->get(tubepress_api_const_options_names_Embedded::LAZYPLAY)) {
+
+            $executionContext->set(tubepress_api_const_options_names_Embedded::AUTOPLAY, true);
         }
 
         /* grab the video! */
-        try {
-            $video = $provider->getSingleVideo($videoId);
-        } catch (Exception $e) {
-            org_tubepress_impl_log_Log::log('Player HTML', $e->getMessage());
-            header("Status: 404 Not Found");
-            exit;
+        $video = $provider->getSingleVideo($videoId);
+
+        if ($video === null) {
+
+            $context->put(tubepress_impl_http_DefaultAjaxHandler::CHAIN_KEY_STATUS_CODE, 400);
+            $context->put(tubepress_impl_http_DefaultAjaxHandler::CHAIN_KEY_OUTPUT, "Video $videoId not found");
+
+            return;
         }
 
         $title = rawurlencode($video->getTitle());
         $html  = rawurlencode($player->getHtml($video));
 
-        header('HTTP/1.1 200 OK');
-        echo "{ \"title\" : \"$title\", \"html\" : \"$html\" }";
+        $context->put(tubepress_impl_http_DefaultAjaxHandler::CHAIN_KEY_STATUS_CODE, 200);
+        $context->put(tubepress_impl_http_DefaultAjaxHandler::CHAIN_KEY_OUTPUT, "{ \"title\" : \"$title\", \"html\" : \"$html\" }");
+    }
+
+    protected function getActionName()
+    {
+        return 'playerHtml';
     }
 }
 

@@ -19,6 +19,14 @@
  *
  */
 
+/*
+ * WordPress stubbornly will not load except from the global scope.
+ */
+if (strpos(realpath(__FILE__), 'wp-content' . DIRECTORY_SEPARATOR . 'plugins') !== false) {
+
+    include dirname(__FILE__) . '/../../../../../../../wp-blog-header.php';
+}
+
 /**
  * Boot tubepress.
  */
