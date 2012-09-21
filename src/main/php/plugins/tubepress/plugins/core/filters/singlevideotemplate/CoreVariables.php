@@ -24,9 +24,9 @@
  */
 class tubepress_plugins_core_filters_singlevideotemplate_CoreVariables
 {
-    public function onSingleVideoTemplate(tubepress_api_event_SingleVideoTemplateConstruction $event)
+    public function onSingleVideoTemplate(tubepress_api_event_TubePressEvent $event)
     {
-        $video    = $event->getArgument(tubepress_api_event_SingleVideoTemplateConstruction::ARGUMENT_VIDEO);
+        $video    = $event->getArgument('video');
         $template = $event->getSubject();
 
         $context        = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();

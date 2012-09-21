@@ -24,7 +24,7 @@
  */
 class tubepress_plugins_core_filters_singlevideotemplate_VideoMeta
 {
-    public function onSingleVideoTemplate(tubepress_api_event_SingleVideoTemplateConstruction $event)
+    public function onSingleVideoTemplate(tubepress_api_event_TubePressEvent $event)
     {
         $template                  = $event->getSubject();
         $context                   = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();

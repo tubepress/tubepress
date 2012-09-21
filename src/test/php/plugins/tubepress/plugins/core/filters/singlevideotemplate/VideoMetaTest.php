@@ -75,9 +75,9 @@ class tubepress_plugins_core_filters_singlevideotemplate_VideoMetaTest extends T
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::META_SHOULD_SHOW, $shouldShow);
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::META_LABELS, $labels);
 
-        $event = new tubepress_api_event_SingleVideoTemplateConstruction($mockTemplate);
+        $event = new tubepress_api_event_TubePressEvent($mockTemplate);
 
-        $event->setArgument(tubepress_api_event_SingleVideoTemplateConstruction::ARGUMENT_VIDEO, $video);
+        $event->setArgument('video', $video);
 
         $this->_sut->onSingleVideoTemplate($event);
 

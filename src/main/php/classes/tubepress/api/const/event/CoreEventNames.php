@@ -148,6 +148,16 @@ class tubepress_api_const_event_CoreEventNames
     const SINGLE_VIDEO_HTML_CONSTRUCTION = 'searchInputHtmlConstruction';
 
     /**
+     * This event is fired when TubePress builds the PHP/HTML template for a single video (not inside a gallery)
+     *
+     * @subject ehough_contemplate_api_Template The template.
+     *
+     * @arg string                    'providerName' The name of the video provider (e.g. "vimeo" or "youtube").
+     * @arg tubepress_api_video_Video 'video'        The video to be played.
+     */
+    const SINGLE_VIDEO_TEMPLATE_CONSTRUCTION = 'singleVideoTemplateConstruction';
+
+    /**
      * This event is fired when TubePress builds the HTML for a thumbnail gallery.
      *
      * @subject string The HTML for the thumbnail gallery.

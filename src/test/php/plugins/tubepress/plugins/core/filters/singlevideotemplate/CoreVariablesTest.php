@@ -51,9 +51,9 @@ class tubepress_plugins_core_filters_singlevideotemplate_CoreVariablesTest exten
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_WIDTH, 889);
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::VIDEO, $video);
 
-        $event = new tubepress_api_event_SingleVideoTemplateConstruction($mockTemplate);
+        $event = new tubepress_api_event_TubePressEvent($mockTemplate);
 
-        $event->setArgument(tubepress_api_event_SingleVideoTemplateConstruction::ARGUMENT_VIDEO, $video);
+        $event->setArgument('video', $video);
 
         $this->_sut->onSingleVideoTemplate($event);
 

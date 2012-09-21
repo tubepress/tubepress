@@ -30,10 +30,10 @@ class tubepress_plugins_core_core
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT,
             array(new tubepress_plugins_core_filters_variablereadfromexternalinput_StringMagic(), 'onIncomingInput'));
 
-        $eventDispatcher->addListener(tubepress_api_event_SingleVideoTemplateConstruction::EVENT_NAME,
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION,
             array(new tubepress_plugins_core_filters_singlevideotemplate_VideoMeta(), 'onSingleVideoTemplate'));
 
-        $eventDispatcher->addListener(tubepress_api_event_SingleVideoTemplateConstruction::EVENT_NAME,
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION,
             array(new tubepress_plugins_core_filters_singlevideotemplate_CoreVariables(), 'onSingleVideoTemplate'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::SEARCH_INPUT_TEMPLATE_CONSTRUCTION,
