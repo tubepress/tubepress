@@ -63,10 +63,10 @@ class org_tubepress_impl_factory_VideoFactoryChainTest extends TubePressUnitTest
         }))->andReturn(true);
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->times(3)->with(
-            tubepress_api_event_VideoConstruction::EVENT_NAME, Mockery::on(function ($arg) {
+            tubepress_api_const_event_CoreEventNames::VIDEO_CONSTRUCTION, Mockery::on(function ($arg) {
 
-            return $arg instanceof tubepress_api_event_VideoConstruction && ($arg->getSubject() === 'a' ||
-                $arg->getSubject() === 'b' || $arg->getSubject() === 'c') && $arg->getArgument(tubepress_api_event_VideoConstruction::ARGUMENT_PROVIDER_NAME) === 'providerrr';
+            return $arg instanceof tubepress_api_event_TubePressEvent && ($arg->getSubject() === 'a' ||
+                $arg->getSubject() === 'b' || $arg->getSubject() === 'c') && $arg->getArgument('providerName') === 'providerrr';
         }));
 
         $this->assertEquals(array('a', 'b', 'c'), $this->_sut->feedToVideoArray('bla'));

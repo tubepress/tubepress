@@ -78,17 +78,17 @@ class tubepress_impl_factory_VideoFactoryChain implements tubepress_spi_factory_
          */
         for ($x = 0; $x < count($videos); $x++) {
 
-            $videoConstructionEvent = new tubepress_api_event_VideoConstruction(
+            $videoConstructionEvent = new tubepress_api_event_TubePressEvent(
 
                 $videos[$x], array(
 
-                    tubepress_api_event_VideoConstruction::ARGUMENT_PROVIDER_NAME => $providerName
+                    'providerName' => $providerName
                 )
             );
 
             $eventDispatcherService->dispatch(
 
-                tubepress_api_event_VideoConstruction::EVENT_NAME,
+                tubepress_api_const_event_CoreEventNames::VIDEO_CONSTRUCTION,
                 $videoConstructionEvent
             );
 

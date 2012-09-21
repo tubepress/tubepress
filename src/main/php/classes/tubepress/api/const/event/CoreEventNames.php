@@ -114,4 +114,13 @@ class tubepress_api_const_event_CoreEventNames
      * @arg integer                              'page'             The page number.
      */
     const THUMBNAIL_GALLERY_HTML_CONSTRUCTION = 'thumbnailGalleryHtmlConstruction';
+
+    /**
+     * This event is fired when a TubePress builds a TubePress video.
+     *
+     * @subject tubepress_api_video_Video The TubePress video.
+     *
+     * @arg string 'providerName' The name of the video provider (e.g. "vimeo" or "youtube").
+     */
+    const VIDEO_CONSTRUCTION = 'core.videoConstruction';
 }
