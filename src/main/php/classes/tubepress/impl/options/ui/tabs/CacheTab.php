@@ -45,10 +45,10 @@ class tubepress_impl_options_ui_tabs_CacheTab extends tubepress_impl_options_ui_
 
         return array(
 
-            $fieldBuilder->build(tubepress_api_const_options_names_Cache::CACHE_ENABLED,          tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(tubepress_api_const_options_names_Cache::CACHE_DIR,              tubepress_impl_options_ui_fields_TextField::__),
-            $fieldBuilder->build(tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS, tubepress_impl_options_ui_fields_TextField::__),
-            $fieldBuilder->build(tubepress_api_const_options_names_Cache::CACHE_CLEAN_FACTOR,     tubepress_impl_options_ui_fields_TextField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Cache::CACHE_ENABLED,          tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
+            $fieldBuilder->build(tubepress_api_const_options_names_Cache::CACHE_DIR,              tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
+            $fieldBuilder->build(tubepress_api_const_options_names_Cache::CACHE_LIFETIME_SECONDS, tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
+            $fieldBuilder->build(tubepress_api_const_options_names_Cache::CACHE_CLEAN_FACTOR,     tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
         );
     }
 }

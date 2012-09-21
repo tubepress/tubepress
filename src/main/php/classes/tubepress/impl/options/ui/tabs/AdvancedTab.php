@@ -45,14 +45,14 @@ class tubepress_impl_options_ui_tabs_AdvancedTab extends tubepress_impl_options_
 
         return array(
 
-            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DEBUG_ON,               tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::KEYWORD,                tubepress_impl_options_ui_fields_TextField::__),
-            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::HTTPS,                  tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DISABLE_HTTP_CURL,      tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DISABLE_HTTP_EXTHTTP,   tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FOPEN,     tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FSOCKOPEN, tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DISABLE_HTTP_STREAMS,   tubepress_impl_options_ui_fields_BooleanField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DEBUG_ON,               tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
+            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::KEYWORD,                tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
+            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::HTTPS,                  tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
+            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DISABLE_HTTP_CURL,      tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
+            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DISABLE_HTTP_EXTHTTP,   tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
+            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FOPEN,     tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
+            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FSOCKOPEN, tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
+            $fieldBuilder->build(tubepress_api_const_options_names_Advanced::DISABLE_HTTP_STREAMS,   tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
         );
     }
 }

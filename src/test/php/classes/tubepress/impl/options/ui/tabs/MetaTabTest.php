@@ -26,9 +26,9 @@ class tubepress_impl_options_ui_tabs_MetaTabTest extends tubepress_impl_options_
 	{
 	    return array(
 
-    	    tubepress_api_const_options_names_Meta::DATEFORMAT     => tubepress_impl_options_ui_fields_TextField::__,
-    	    tubepress_api_const_options_names_Meta::RELATIVE_DATES => tubepress_impl_options_ui_fields_BooleanField::__,
-    	    tubepress_api_const_options_names_Meta::DESC_LIMIT     => tubepress_impl_options_ui_fields_TextField::__,
+    	    tubepress_api_const_options_names_Meta::DATEFORMAT     => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
+    	    tubepress_api_const_options_names_Meta::RELATIVE_DATES => tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME,
+    	    tubepress_api_const_options_names_Meta::DESC_LIMIT     => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME,
         );
 	}
 

@@ -805,7 +805,7 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
         $fileSystemFinderFactoryService = tubepress_impl_patterns_ioc_KernelServiceLocator::getFileSystemFinderFactory();
 
         $systemThemesDirectory =
-            $environmentDetectorService->getTubePressBaseInstallationPath() . '/main/resources/default-themes';
+            $environmentDetectorService->getTubePressBaseInstallationPath() . '/src/main/resources/default-themes';
 
         $userThemesDirectory =
             $environmentDetectorService->getUserContentDirectory() . '/themes';
@@ -824,11 +824,11 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
 
         $finder = $fileSystemFinderFactoryService->createFinder();
 
-        $themeDirectories = $finder->directories()->in($directoriesToSearch);
+        $finder->directories()->in($directoriesToSearch)->depth(0);
 
         $themeNames = array();
 
-        foreach ($themeDirectories as $themeDirectory) {
+        foreach ($finder as $themeDirectory) {
 
             /** @noinspection PhpUndefinedMethodInspection */
             $themeNames[] = basename($themeDirectory->getBasename());
@@ -836,7 +836,14 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
 
         sort($themeNames);
 
-        return $themeNames;
+        $toReturn = array();
+
+        foreach ($themeNames as $themeName) {
+
+            $toReturn[$themeName] = $themeName;
+        }
+
+        return $toReturn;
     }
 
     private function _checkInitialized()

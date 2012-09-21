@@ -69,7 +69,7 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTabTest extends TubePressU
 	    $template->shouldReceive('toString')->once()->andReturn('final result');
 
 	    $this->_mockEnvironmentDetector->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath!>>');
-	    $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with('<<basepath!>>src/main/resources/system-templates/options_page/tab.tpl.php')->andReturn($template);
+	    $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with('<<basepath!>>/src/main/resources/system-templates/options_page/tab.tpl.php')->andReturn($template);
 	    
 	    $this->assertEquals('final result', $this->_sut->getHtml());
 	}

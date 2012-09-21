@@ -24,6 +24,8 @@
  */
 class tubepress_impl_options_ui_fields_ThemeField extends tubepress_impl_options_ui_fields_DropdownField
 {
+    const FIELD_CLASS_NAME = 'tubepress_impl_options_ui_fields_ThemeField';
+
     /**
      * Override point.
      *

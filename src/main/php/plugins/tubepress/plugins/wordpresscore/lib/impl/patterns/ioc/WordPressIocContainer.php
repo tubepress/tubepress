@@ -93,11 +93,48 @@ final class tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressIocCo
 
     private function _registerOptionsUiFormHandler()
     {
+        $tabClassNames = array(
+
+            'tubepress_impl_options_ui_tabs_GallerySourceTab',
+            'tubepress_impl_options_ui_tabs_ThumbsTab',
+            'tubepress_impl_options_ui_tabs_EmbeddedTab',
+            'tubepress_impl_options_ui_tabs_MetaTab',
+            'tubepress_impl_options_ui_tabs_ThemeTab',
+            'tubepress_impl_options_ui_tabs_FeedTab',
+            'tubepress_impl_options_ui_tabs_CacheTab',
+            'tubepress_impl_options_ui_tabs_AdvancedTab',
+        );
+
+        $tabReferences = array();
+
+        foreach ($tabClassNames as $tabClassName) {
+
+            $this->_delegate->register($tabClassName, $tabClassName);
+
+            array_push($tabReferences, new ehough_iconic_impl_Reference($tabClassName));
+        }
+
+        $tabsId = 'tubepress_impl_options_ui_DefaultTabsHandler';
+
+        /** @noinspection PhpUndefinedMethodInspection */
+        $this->_delegate->register(
+
+            $tabsId, $tabsId
+
+        )->addArgument($tabReferences);
+
+        $filterId = 'tubepress_impl_options_ui_fields_FilterMultiSelectField';
+
+        $this->_delegate->register($filterId, $filterId);
+
+        /** @noinspection PhpUndefinedMethodInspection */
         $this->_delegate->register(
 
             self::SERVICE_OPTIONS_UI_FORMHANDLER,
             'tubepress_plugins_wordpresscore_lib_impl_options_ui_WordPressOptionsFormHandler'
-        );
+
+        )->addArgument(new ehough_iconic_impl_Reference($tabsId))
+         ->addArgument(new ehough_iconic_impl_Reference($filterId));
     }
 
     private function _registerWidgetHandler()

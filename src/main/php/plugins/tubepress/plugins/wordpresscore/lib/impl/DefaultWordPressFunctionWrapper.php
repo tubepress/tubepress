@@ -144,10 +144,10 @@ class tubepress_plugins_wordpresscore_lib_impl_DefaultWordPressFunctionWrapper i
      *
      * @return string Plugins url link with optional path appended.
      */
-    public final function plugins_url($path, $path)
+    public final function plugins_url($path, $plugin)
     {
         /** @noinspection PhpUndefinedFunctionInspection */
-        return plugins_url($path, $path);
+        return plugins_url($path, $plugin);
     }
 
     /**

@@ -35,7 +35,7 @@ class tubepress_impl_env_wordpress_WordPressFormHandlerTest extends TubePressUni
     function setUp()
     {
         $this->_mockTabs = Mockery::mock(tubepress_spi_options_ui_FormHandler::_);
-        $this->_mockFilter = Mockery::mock(tubepress_spi_options_ui_Field::__);
+        $this->_mockFilter = Mockery::mock('tubepress_spi_options_ui_Field');
 
         $this->_mockMessageService   = Mockery::mock(tubepress_spi_message_MessageService::_);
         $this->_mockEnvironmentDetector = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);

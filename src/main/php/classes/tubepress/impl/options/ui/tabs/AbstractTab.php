@@ -48,7 +48,7 @@ abstract class tubepress_impl_options_ui_tabs_AbstractTab extends tubepress_impl
         $environmentDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
         $templateBuilder     = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
         $basePath            = $environmentDetector->getTubePressBaseInstallationPath();
-        $template            = $templateBuilder->getNewTemplateInstance($basePath . $this->getTemplatePath());
+        $template            = $templateBuilder->getNewTemplateInstance($basePath . DIRECTORY_SEPARATOR . $this->getTemplatePath());
 
         $template->setVariable(self::TEMPLATE_VAR_WIDGETARRAY, $this->getDelegateFormHandlers());
 

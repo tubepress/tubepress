@@ -24,8 +24,6 @@
  */
 interface tubepress_spi_options_ui_Field extends tubepress_spi_options_ui_FormHandler
 {
-    const __ = 'tubepress_spi_options_ui_Field';
-
     /**
      * Gets the title of this field, usually consumed by humans.
      *

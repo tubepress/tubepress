@@ -46,9 +46,9 @@ class tubepress_impl_options_ui_tabs_MetaTab extends tubepress_impl_options_ui_t
         return array(
 
             $fieldBuilder->buildMetaDisplayMultiSelectField(),
-            $fieldBuilder->build(tubepress_api_const_options_names_Meta::DATEFORMAT,     tubepress_impl_options_ui_fields_TextField::__),
-            $fieldBuilder->build(tubepress_api_const_options_names_Meta::RELATIVE_DATES, tubepress_impl_options_ui_fields_BooleanField::__),
-            $fieldBuilder->build(tubepress_api_const_options_names_Meta::DESC_LIMIT,     tubepress_impl_options_ui_fields_TextField::__),
+            $fieldBuilder->build(tubepress_api_const_options_names_Meta::DATEFORMAT,     tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
+            $fieldBuilder->build(tubepress_api_const_options_names_Meta::RELATIVE_DATES, tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
+            $fieldBuilder->build(tubepress_api_const_options_names_Meta::DESC_LIMIT,     tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
         );
     }
 }

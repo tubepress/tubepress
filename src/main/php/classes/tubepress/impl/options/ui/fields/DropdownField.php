@@ -24,6 +24,8 @@
  */
 class tubepress_impl_options_ui_fields_DropdownField extends tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
 {
+    const FIELD_CLASS_NAME = 'tubepress_impl_options_ui_fields_DropdownField';
+
     const TEMPLATE_VAR_ACCEPTABLE_VALUES = 'org_tubepress_impl_options_ui_fields_DropdownField__options';
 
     /**

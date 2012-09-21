@@ -650,12 +650,15 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
         $environmentDetector->shouldReceive('getTubePressBaseInstallationPath')->andReturn('base-install-path');
         $environmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn('user-content-dir');
 
-        $filesystem->shouldReceive('exists')->once()->with('base-install-path/main/resources/default-themes')->andReturn(false);
+        $filesystem->shouldReceive('exists')->once()->with('base-install-path/src/main/resources/default-themes')->andReturn(false);
         $filesystem->shouldReceive('exists')->once()->with('user-content-dir/themes')->andReturn(true);
 
         $finderFactory->shouldReceive('createFinder')->once()->andReturn($finder);
         $finder->shouldReceive('directories')->once()->andReturn($finder);
-        $finder->shouldReceive('in')->once()->with(array('user-content-dir/themes'))->andReturn(array($fakeThemeDir));
+        $finder->shouldReceive('in')->once()->with(array('user-content-dir/themes'))->andReturn($finder);
+        $finder->shouldReceive('depth')->once()->with(0);
+
+        $finder->shouldReceive('getIterator')->andReturn(new ArrayIterator(array($fakeThemeDir)));
 
         $fakeThemeDir->shouldReceive('getBasename')->once()->andReturn('xyz');
 

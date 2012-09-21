@@ -24,6 +24,8 @@
  */
 class tubepress_impl_options_ui_fields_BooleanField extends tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedField
 {
+    const FIELD_CLASS_NAME = 'tubepress_impl_options_ui_fields_BooleanField';
+
     /**
      * Get the path to the template for this field, relative
      * to TubePress's root.

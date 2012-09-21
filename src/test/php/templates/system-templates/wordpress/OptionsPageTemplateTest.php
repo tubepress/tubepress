@@ -28,7 +28,7 @@ class org_tubepress_impl_template_templates_wordpress_OptionsPageTemplateTest ex
 {
     public function test()
     {
-        $filter = \Mockery::mock(tubepress_spi_options_ui_Field::__);
+        $filter = \Mockery::mock('tubepress_spi_options_ui_Field');
         $filter->shouldReceive('getTitle')->once()->andReturn('filter-title');
         $filter->shouldReceive('getHtml')->once()->andReturn('filter-html');
         

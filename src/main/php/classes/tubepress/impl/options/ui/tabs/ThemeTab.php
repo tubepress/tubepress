@@ -45,7 +45,7 @@ class tubepress_impl_options_ui_tabs_ThemeTab extends tubepress_impl_options_ui_
 
         return array(
 
-            $fieldBuilder->build(tubepress_api_const_options_names_Thumbs::THEME, tubepress_impl_options_ui_fields_ThemeField::__)
+            $fieldBuilder->build(tubepress_api_const_options_names_Thumbs::THEME, tubepress_impl_options_ui_fields_ThemeField::FIELD_CLASS_NAME)
         );
     }
 }
