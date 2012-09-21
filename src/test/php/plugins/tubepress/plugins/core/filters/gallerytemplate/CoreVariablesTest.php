@@ -47,12 +47,12 @@ class tubepress_plugins_core_filters_gallerytemplate_CoreVariablesTest extends T
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::THUMBNAIL_WIDTH, 556);
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::THUMBNAIL_HEIGHT, 984);
 
-        $event = new tubepress_api_event_ThumbnailGalleryTemplateConstruction($mockTemplate);
+        $event = new tubepress_api_event_TubePressEvent($mockTemplate);
         $event->setArguments(array(
 
-            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_PAGE => 1,
-            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_VIDEO_GALLERY_PAGE => $providerResult,
-            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_PROVIDER_NAME => 'provider-name'
+            'page' => 1,
+            'videoGalleryPage' => $providerResult,
+            'providerName' => 'provider-name'
         ));
 
         $this->_sut->onGalleryTemplate($event);

@@ -70,12 +70,12 @@ class tubepress_plugins_core_filters_gallerytemplate_VideoMetaTest extends TubeP
 
         $providerResult = new tubepress_api_video_VideoGalleryPage();
 
-        $event = new tubepress_api_event_ThumbnailGalleryTemplateConstruction($mockTemplate);
+        $event = new tubepress_api_event_TubePressEvent($mockTemplate);
         $event->setArguments(array(
 
-            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_PAGE => 1,
-            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_PROVIDER_NAME => tubepress_spi_provider_Provider::YOUTUBE,
-            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_VIDEO_GALLERY_PAGE => $providerResult
+            'page' => 1,
+            'providerName' => tubepress_spi_provider_Provider::YOUTUBE,
+            'videoGalleryPage' => $providerResult
         ));
 
         $this->_sut->onGalleryTemplate($event);

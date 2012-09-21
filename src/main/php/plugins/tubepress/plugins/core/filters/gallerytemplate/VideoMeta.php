@@ -24,7 +24,7 @@
  */
 class tubepress_plugins_core_filters_gallerytemplate_VideoMeta
 {
-    public function onGalleryTemplate(tubepress_api_event_ThumbnailGalleryTemplateConstruction $event)
+    public function onGalleryTemplate(tubepress_api_event_TubePressEvent $event)
     {
         $context                   = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
         $messageService            = tubepress_impl_patterns_ioc_KernelServiceLocator::getMessageService();

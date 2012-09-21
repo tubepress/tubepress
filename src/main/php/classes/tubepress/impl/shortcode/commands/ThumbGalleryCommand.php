@@ -96,18 +96,18 @@ class tubepress_impl_shortcode_commands_ThumbGalleryCommand implements ehough_ch
         }
 
         /* send the template through the plugins */
-        if ($pluginManager->hasListeners(tubepress_api_event_ThumbnailGalleryTemplateConstruction::EVENT_NAME)) {
+        if ($pluginManager->hasListeners(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION)) {
 
-            $event = new tubepress_api_event_ThumbnailGalleryTemplateConstruction($template, array(
+            $event = new tubepress_api_event_TubePressEvent($template, array(
 
-                tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_PAGE               => $page,
-                tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_PROVIDER_NAME      => $providerName,
-                tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_VIDEO_GALLERY_PAGE => $feedResult
+                'page'               => $page,
+                'providerName'      => $providerName,
+                'videoGalleryPage' => $feedResult
             ));
 
             $pluginManager->dispatch(
 
-                tubepress_api_event_ThumbnailGalleryTemplateConstruction::EVENT_NAME,
+                tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION,
                 $event
             );
 

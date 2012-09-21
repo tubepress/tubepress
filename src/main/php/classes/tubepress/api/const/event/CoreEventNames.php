@@ -169,6 +169,17 @@ class tubepress_api_const_event_CoreEventNames
     const THUMBNAIL_GALLERY_HTML_CONSTRUCTION = 'thumbnailGalleryHtmlConstruction';
 
     /**
+     * This event is fired when TubePress builds the PHP/HTML template for a thumbnail gallery.
+     *
+     * @subject ehough_contemplate_api_Template The template.
+     *
+     * @arg string                               'providerName'     The name of the video provider (e.g. "vimeo" or "youtube").
+     * @arg tubepress_api_video_VideoGalleryPage 'videoGalleryPage' The backing tubepress_api_video_VideoGalleryPage
+     * @arg integer                              'page'             The page number.
+     */
+    const THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION = 'thumbnailGalleryTemplateConstruction';
+
+    /**
      * This event is fired when a TubePress option (a name-value pair) is being read from external input.
      *
      * @subject mixed The incoming option value.

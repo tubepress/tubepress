@@ -60,19 +60,19 @@ class tubepress_plugins_core_core
         $eventDispatcher->addListener(tubepress_api_event_PlayerTemplateConstruction::EVENT_NAME,
             array(new tubepress_plugins_core_filters_playertemplate_CoreVariables(), 'onPlayerTemplate'));
 
-        $eventDispatcher->addListener(tubepress_api_event_ThumbnailGalleryTemplateConstruction::EVENT_NAME,
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION,
             array(new tubepress_plugins_core_filters_gallerytemplate_CoreVariables(), 'onGalleryTemplate'));
 
-        $eventDispatcher->addListener(tubepress_api_event_ThumbnailGalleryTemplateConstruction::EVENT_NAME,
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION,
             array(new tubepress_plugins_core_filters_gallerytemplate_EmbeddedPlayerName(), 'onGalleryTemplate'));
 
-        $eventDispatcher->addListener(tubepress_api_event_ThumbnailGalleryTemplateConstruction::EVENT_NAME,
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION,
             array(new tubepress_plugins_core_filters_gallerytemplate_Pagination(), 'onGalleryTemplate'));
 
-        $eventDispatcher->addListener(tubepress_api_event_ThumbnailGalleryTemplateConstruction::EVENT_NAME,
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION,
             array(new tubepress_plugins_core_filters_gallerytemplate_Player(), 'onGalleryTemplate'));
 
-        $eventDispatcher->addListener(tubepress_api_event_ThumbnailGalleryTemplateConstruction::EVENT_NAME,
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION,
             array(new tubepress_plugins_core_filters_gallerytemplate_VideoMeta(), 'onGalleryTemplate'));
 
         $eventDispatcher->addListener(tubepress_api_event_GalleryInitJsConstruction::EVENT_NAME,

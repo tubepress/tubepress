@@ -51,12 +51,12 @@ class tubepress_plugins_core_filters_gallerytemplate_EmbeddedPlayerNameTest exte
         $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, 'provider-name');
 
-        $event = new tubepress_api_event_ThumbnailGalleryTemplateConstruction($mockTemplate);
+        $event = new tubepress_api_event_TubePressEvent($mockTemplate);
         $event->setArguments(array(
 
-            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_PAGE => 1,
-            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_VIDEO_GALLERY_PAGE => $providerResult,
-            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_PROVIDER_NAME => 'provider-name'
+            'page' => 1,
+            'videoGalleryPage' => $providerResult,
+            'providerName' => 'provider-name'
         ));
 
         $this->_sut->onGalleryTemplate($event);
@@ -73,12 +73,12 @@ class tubepress_plugins_core_filters_gallerytemplate_EmbeddedPlayerNameTest exte
         $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, $name);
 
-        $event = new tubepress_api_event_ThumbnailGalleryTemplateConstruction($mockTemplate);
+        $event = new tubepress_api_event_TubePressEvent($mockTemplate);
         $event->setArguments(array(
 
-            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_PAGE => 1,
-            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_VIDEO_GALLERY_PAGE => $providerResult,
-            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_PROVIDER_NAME => tubepress_spi_provider_Provider::YOUTUBE
+            'page' => 1,
+            'videoGalleryPage' => $providerResult,
+            'providerName' => tubepress_spi_provider_Provider::YOUTUBE
         ));
 
         $this->_sut->onGalleryTemplate($event);

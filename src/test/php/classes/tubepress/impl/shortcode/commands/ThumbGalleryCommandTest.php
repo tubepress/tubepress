@@ -85,10 +85,10 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 
 	    $this->_mockProvider->shouldReceive('getMultipleVideos')->once()->andReturn($mockFeedResult);
 
-        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_event_ThumbnailGalleryTemplateConstruction::EVENT_NAME)->andReturn(true);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_ThumbnailGalleryTemplateConstruction::EVENT_NAME, Mockery::on(function ($arg) use ($mockTemplate) {
+        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION)->andReturn(true);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION, Mockery::on(function ($arg) use ($mockTemplate) {
 
-            return $arg instanceof tubepress_api_event_ThumbnailGalleryTemplateConstruction && $arg->getSubject() === $mockTemplate;
+            return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === $mockTemplate;
         }));
 
         $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_HTML_CONSTRUCTION)->andReturn(true);
@@ -147,10 +147,10 @@ class org_tubepress_impl_shortcode_commands_ThumbGalleryCommandTest extends Tube
 
         $this->_mockProvider->shouldReceive('getMultipleVideos')->once()->andReturn($mockFeedResult);
 
-        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_event_ThumbnailGalleryTemplateConstruction::EVENT_NAME)->andReturn(true);
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_ThumbnailGalleryTemplateConstruction::EVENT_NAME, Mockery::on(function ($arg) use ($mockTemplate) {
+        $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION)->andReturn(true);
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_TEMPLATE_CONSTRUCTION, Mockery::on(function ($arg) use ($mockTemplate) {
 
-            return $arg instanceof tubepress_api_event_ThumbnailGalleryTemplateConstruction && $arg->getSubject() === $mockTemplate;
+            return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === $mockTemplate;
         }));
 
         $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->with(tubepress_api_const_event_CoreEventNames::THUMBNAIL_GALLERY_HTML_CONSTRUCTION)->andReturn(true);

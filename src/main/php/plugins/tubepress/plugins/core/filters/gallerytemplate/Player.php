@@ -24,12 +24,12 @@
  */
 class tubepress_plugins_core_filters_gallerytemplate_Player
 {
-    public function onGalleryTemplate(tubepress_api_event_ThumbnailGalleryTemplateConstruction $event)
+    public function onGalleryTemplate(tubepress_api_event_TubePressEvent $event)
     {
         $context        = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
         $htmlGenerator  = tubepress_impl_patterns_ioc_KernelServiceLocator::getPlayerHtmlGenerator();
         $playerName     = $context->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
-        $providerResult = $event->getArgument(tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_VIDEO_GALLERY_PAGE);
+        $providerResult = $event->getArgument('videoGalleryPage');
         $videos         = $providerResult->getVideos();
         $template       = $event->getSubject();
         $galleryId      = $context->get(tubepress_api_const_options_names_Advanced::GALLERY_ID);

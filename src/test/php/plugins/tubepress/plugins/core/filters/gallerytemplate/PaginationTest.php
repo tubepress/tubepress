@@ -153,12 +153,12 @@ class tubepress_plugins_core_filters_gallerytemplate_PaginationTest extends Tube
 
     private function _test()
     {
-        $event = new tubepress_api_event_ThumbnailGalleryTemplateConstruction($this->_mockTemplate);
+        $event = new tubepress_api_event_TubePressEvent($this->_mockTemplate);
         $event->setArguments(array(
 
-            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_PAGE => 1,
-            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_PROVIDER_NAME => 'provider-name',
-            tubepress_api_event_ThumbnailGalleryTemplateConstruction::ARGUMENT_VIDEO_GALLERY_PAGE => $this->_providerResult
+            'page' => 1,
+            'providerName' => 'provider-name',
+            'videoGalleryPage' => $this->_providerResult
         ));
 
         $this->_sut->onGalleryTemplate($event);
