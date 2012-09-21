@@ -51,13 +51,13 @@ class org_tubepress_impl_http_DefaultHttpRequestParameterServiceTest extends Tub
     {
         $_REQUEST['something'] = array(1, 2, 3);
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_VariableReadFromExternalInput::EVENT_NAME, Mockery::on(function ($arg) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT, Mockery::on(function ($arg) {
 
 
-            $good = $arg instanceof tubepress_api_event_VariableReadFromExternalinput && $arg->getSubject() === array(1, 2, 3)
-                && $arg->getArgument(tubepress_api_event_VariableReadFromExternalinput::ARGUMENT_OPTION_NAME) === 'something';
+            $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === array(1, 2, 3)
+                && $arg->getArgument('optionName') === 'something';
 
-            $arg->setOptionValue('yo');
+            $arg->setSubject('yo');
 
             return $good;
         }));
@@ -71,13 +71,13 @@ class org_tubepress_impl_http_DefaultHttpRequestParameterServiceTest extends Tub
     {
         $_REQUEST['something'] = array(1, 2, 3);
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_VariableReadFromExternalInput::EVENT_NAME, Mockery::on(function ($arg) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT, Mockery::on(function ($arg) {
 
 
-            $good = $arg instanceof tubepress_api_event_VariableReadFromExternalinput && $arg->getSubject() === array(1, 2, 3)
-                && $arg->getArgument(tubepress_api_event_VariableReadFromExternalinput::ARGUMENT_OPTION_NAME) === 'something';
+            $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === array(1, 2, 3)
+                && $arg->getArgument('optionName') === 'something';
 
-            $arg->setOptionValue('44');
+            $arg->setSubject('44');
 
             return $good;
         }));
@@ -91,13 +91,13 @@ class org_tubepress_impl_http_DefaultHttpRequestParameterServiceTest extends Tub
     {
         $_REQUEST['something'] = array(1, 2, 3);
 
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_VariableReadFromExternalInput::EVENT_NAME, Mockery::on(function ($arg) {
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT, Mockery::on(function ($arg) {
 
 
-            $good = $arg instanceof tubepress_api_event_VariableReadFromExternalinput && $arg->getSubject() === array(1, 2, 3)
-                && $arg->getArgument(tubepress_api_event_VariableReadFromExternalinput::ARGUMENT_OPTION_NAME) === 'something';
+            $good = $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === array(1, 2, 3)
+                && $arg->getArgument('optionName') === 'something';
 
-            $arg->setOptionValue('44vb');
+            $arg->setSubject('44vb');
 
             return $good;
         }));

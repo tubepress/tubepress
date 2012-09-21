@@ -31,8 +31,8 @@ class tubepress_plugins_core_filters_prevalidationoptionset_YouTubePlaylistPlPre
 
 	function testAlterDifferentVariable()
 	{
-        $event = new tubepress_api_event_PreValidationOptionSet('PLsomething');
-        $event->setArgument(tubepress_api_event_PreValidationOptionSet::ARGUMENT_OPTION_NAME, tubepress_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE);
+        $event = new tubepress_api_event_TubePressEvent('PLsomething');
+        $event->setArgument('optionName', tubepress_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE);
 
         $this->_sut->onPreValidationOptionSet($event);
 
@@ -41,8 +41,8 @@ class tubepress_plugins_core_filters_prevalidationoptionset_YouTubePlaylistPlPre
 
 	function testAlterNonString()
 	{
-        $event = new tubepress_api_event_PreValidationOptionSet(array('hello'));
-        $event->setArgument(tubepress_api_event_PreValidationOptionSet::ARGUMENT_OPTION_NAME, tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
+        $event = new tubepress_api_event_TubePressEvent(array('hello'));
+        $event->setArgument('optionName', tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
 
 	    $this->_sut->onPreValidationOptionSet($event);
 
@@ -51,8 +51,8 @@ class tubepress_plugins_core_filters_prevalidationoptionset_YouTubePlaylistPlPre
 
 	function testAlterHtmlNonPrefix()
 	{
-        $event = new tubepress_api_event_PreValidationOptionSet('hello');
-        $event->setArgument(tubepress_api_event_PreValidationOptionSet::ARGUMENT_OPTION_NAME, tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
+        $event = new tubepress_api_event_TubePressEvent('hello');
+        $event->setArgument('optionName', tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
 
         $this->_sut->onPreValidationOptionSet($event);
 
@@ -61,8 +61,8 @@ class tubepress_plugins_core_filters_prevalidationoptionset_YouTubePlaylistPlPre
 
 	function testAlterPrefix()
 	{
-        $event = new tubepress_api_event_PreValidationOptionSet('PLhelloPL');
-        $event->setArgument(tubepress_api_event_PreValidationOptionSet::ARGUMENT_OPTION_NAME, tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
+        $event = new tubepress_api_event_TubePressEvent('PLhelloPL');
+        $event->setArgument('optionName', tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
 
         $this->_sut->onPreValidationOptionSet($event);
 

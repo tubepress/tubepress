@@ -45,15 +45,15 @@ class tubepress_impl_http_DefaultHttpRequestParameterService implements tubepres
 
         $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
 
-        $event = new tubepress_api_event_VariableReadFromExternalinput(
+        $event = new tubepress_api_event_TubePressEvent(
 
             $rawValue,
-            array(tubepress_api_event_VariableReadFromExternalinput::ARGUMENT_OPTION_NAME => $name)
+            array('optionName' => $name)
         );
 
         $eventDispatcher->dispatch(
 
-            tubepress_api_event_VariableReadFromExternalinput::EVENT_NAME,
+            tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT,
             $event
         );
 

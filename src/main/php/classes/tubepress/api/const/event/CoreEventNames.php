@@ -111,6 +111,16 @@ class tubepress_api_const_event_CoreEventNames
     const PLAYER_TEMPLATE_CONSTRUCTION = 'playerTemplateConstruction';
 
     /**
+     * This event is fired when a TubePress option (a name-value pair) is being set. It is fired
+     * *before* any validation takes place, so use caution when handling these values.
+     *
+     * @subject mixed The incoming option value.
+     *
+     * @arg string 'optionName' The name of the option being set.
+     */
+    const PRE_VALIDATION_OPTION_SET = 'preValidationOptionSet';
+
+    /**
      * This event is fired when TubePress builds HTML for a standard (non-Ajax) search input form.
      *
      * @subject string The HTML for the search input.
@@ -138,6 +148,15 @@ class tubepress_api_const_event_CoreEventNames
      * @arg integer                              'page'             The page number.
      */
     const THUMBNAIL_GALLERY_HTML_CONSTRUCTION = 'thumbnailGalleryHtmlConstruction';
+
+    /**
+     * This event is fired when a TubePress option (a name-value pair) is being read from external input.
+     *
+     * @subject mixed The incoming option value.
+     *
+     * @arg string 'optionName' The name of the option being set.
+     */
+    const VARIABLE_READ_FROM_EXTERNAL_INPUT = 'variableReadFromExternalInput';
 
     /**
      * This event is fired when a TubePress builds a TubePress video.

@@ -24,7 +24,7 @@
  */
 class tubepress_plugins_core_filters_prevalidationoptionset_StringMagic extends tubepress_plugins_core_filters_AbstractStringMagicFilter
 {
-    public function onPreValidationOptionSet(tubepress_api_event_PreValidationOptionSet $event) {
+    public function onPreValidationOptionSet(tubepress_api_event_TubePressEvent $event) {
 
         $this->_magic($event);
     }

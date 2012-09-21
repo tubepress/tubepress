@@ -32,9 +32,9 @@ class tubepress_plugins_core_filters_prevalidationoptionset_YouTubePlaylistPlPre
     }
 
 
-    public function onPreValidationOptionSet(tubepress_api_event_PreValidationOptionSet $event)
+    public function onPreValidationOptionSet(tubepress_api_event_TubePressEvent $event)
     {
-        $name = $event->getArgument(tubepress_api_event_PreValidationOptionSet::ARGUMENT_OPTION_NAME);
+        $name = $event->getArgument('optionName');
 
         /** We only care about playlistValue. */
         if ($name !== tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE) {
@@ -58,7 +58,7 @@ class tubepress_plugins_core_filters_prevalidationoptionset_YouTubePlaylistPlPre
 
             $newValue = tubepress_impl_util_StringUtils::replaceFirst('PL', '', $value);
 
-            $event->setOptionValue($newValue);
+            $event->setSubject($newValue);
         }
 
         if ($this->_logger->isDebugEnabled()) {

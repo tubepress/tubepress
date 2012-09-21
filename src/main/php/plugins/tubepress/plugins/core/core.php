@@ -27,7 +27,7 @@ class tubepress_plugins_core_core
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
             array(new tubepress_plugins_core_listeners_SkeletonExistsListener(), 'onBoot'));
 
-        $eventDispatcher->addListener(tubepress_api_event_VariableReadFromExternalInput::EVENT_NAME,
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT,
             array(new tubepress_plugins_core_filters_variablereadfromexternalinput_StringMagic(), 'onIncomingInput'));
 
         $eventDispatcher->addListener(tubepress_api_event_SingleVideoTemplateConstruction::EVENT_NAME,
@@ -51,10 +51,10 @@ class tubepress_plugins_core_core
         $eventDispatcher->addListener(tubepress_api_event_VideoGalleryPageConstruction::EVENT_NAME,
             array(new tubepress_plugins_core_filters_videogallerypage_VideoPrepender(), 'onVideoGalleryPage'));
 
-        $eventDispatcher->addListener(tubepress_api_event_PreValidationOptionSet::EVENT_NAME,
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET,
             array(new tubepress_plugins_core_filters_prevalidationoptionset_StringMagic(), 'onPreValidationOptionSet'));
 
-        $eventDispatcher->addListener(tubepress_api_event_PreValidationOptionSet::EVENT_NAME,
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET,
             array(new tubepress_plugins_core_filters_prevalidationoptionset_YouTubePlaylistPlPrefixRemover(), 'onPreValidationOptionSet'));
 
         $eventDispatcher->addListener(tubepress_api_event_PlayerTemplateConstruction::EVENT_NAME,

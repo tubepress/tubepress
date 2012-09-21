@@ -28,7 +28,7 @@ class tubepress_plugins_core_filters_prevalidationoptionset_StringMagicTest exte
         return new tubepress_plugins_core_filters_prevalidationoptionset_StringMagic();
     }
 
-    protected function _performAltering($sut, tubepress_api_event_PreValidationOptionSet $event)
+    protected function _performAltering($sut, tubepress_api_event_TubePressEvent $event)
     {
         $sut->onPreValidationOptionSet($event);
     }

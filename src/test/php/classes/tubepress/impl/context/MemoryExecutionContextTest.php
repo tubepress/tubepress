@@ -157,7 +157,7 @@ class org_tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTe
 
     private function _setupFilters($name, $value)
     {
-        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_event_PreValidationOptionSet::EVENT_NAME, \Mockery::type('tubepress_api_event_PreValidationOptionSet'));
+        $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET, \Mockery::type('tubepress_api_event_TubePressEvent'));
     }
 }
 

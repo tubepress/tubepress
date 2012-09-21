@@ -44,7 +44,7 @@ abstract class tubepress_plugins_core_filters_AbstractStringMagicFilterTest exte
 
         $result = $this->_performAltering($this->_sut, $event);
 
-        $this->assertEquals(5, $event->getOptionValue());
+        $this->assertEquals(5, $event->getSubject());
     }
 
     function testDeepArray()
@@ -57,12 +57,12 @@ abstract class tubepress_plugins_core_filters_AbstractStringMagicFilterTest exte
 
         $this->_performAltering($this->_sut, $event);
 
-        $this->assertEquals($expected, $event->getOptionValue(), var_export($event->getOptionValue(), true));
+        $this->assertEquals($expected, $event->getSubject(), var_export($event->getSubject(), true));
     }
 
     protected abstract function _buildSut();
 
-    protected abstract function _performAltering($sut, tubepress_api_event_PreValidationOptionSet $event);
+    protected abstract function _performAltering($sut, tubepress_api_event_TubePressEvent $event);
 
     private function _booleanConversion($expected, $val)
     {
@@ -70,13 +70,13 @@ abstract class tubepress_plugins_core_filters_AbstractStringMagicFilterTest exte
 
         $this->_performAltering($this->_sut, $event);
 
-        return $this->assertEquals($expected, $event->getOptionValue());
+        return $this->assertEquals($expected, $event->getSubject());
     }
 
     private function buildEvent($name, $value)
     {
-        $event = new tubepress_api_event_PreValidationOptionSet($value);
-        $event->setArgument(tubepress_api_event_PreValidationOptionSet::ARGUMENT_OPTION_NAME, $name);
+        $event = new tubepress_api_event_TubePressEvent($value);
+        $event->setArgument('optionName', $name);
         return $event;
     }
 }

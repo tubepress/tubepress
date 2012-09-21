@@ -288,9 +288,9 @@ class tubepress_impl_shortcode_SimpleShortcodeParserTest extends TubePressUnitTe
 
         foreach ($expected as $name => $value) {
 
-            $pm->shouldReceive('dispatch')->once()->with(tubepress_api_event_VariableReadFromExternalInput::EVENT_NAME, Mockery::on(function ($arg) use ($name) {
+            $pm->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT, Mockery::on(function ($arg) use ($name) {
 
-                return $arg instanceof tubepress_api_event_VariableReadFromExternalInput  && $arg->getArgument(tubepress_api_event_VariableReadFromExternalInput::ARGUMENT_OPTION_NAME) === $name;
+                return $arg instanceof tubepress_api_event_TubePressEvent  && $arg->getArgument('optionName') === $name;
             }));
         }
     }

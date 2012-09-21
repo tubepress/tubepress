@@ -152,19 +152,19 @@ class tubepress_impl_shortcode_SimpleShortcodeParser implements tubepress_spi_sh
             }
 
             /** @noinspection PhpUndefinedVariableInspection */
-            $event = new tubepress_api_event_VariableReadFromExternalInput(
+            $event = new tubepress_api_event_TubePressEvent(
 
                 $value,
-                array(tubepress_api_event_VariableReadFromExternalInput::ARGUMENT_OPTION_NAME => $name)
+                array('optionName' => $name)
             );
 
             $pluginManager->dispatch(
 
-                tubepress_api_event_VariableReadFromExternalInput::EVENT_NAME,
+                tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT,
                 $event
             );
 
-            $filtered = $event->getOptionValue();
+            $filtered = $event->getSubject();
 
             if ($this->_logger->isDebugEnabled()) {
 

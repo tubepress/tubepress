@@ -24,7 +24,7 @@
  */
 abstract class tubepress_plugins_core_filters_AbstractStringMagicFilter
 {
-    protected function _magic(tubepress_api_event_PreValidationOptionSet $event)
+    protected function _magic(tubepress_api_event_TubePressEvent $event)
     {
         $value = $event->getSubject();
 
@@ -33,15 +33,15 @@ abstract class tubepress_plugins_core_filters_AbstractStringMagicFilter
 
             foreach ($value as $key => $subValue) {
 
-                $subEvent = new tubepress_api_event_VariableReadFromExternalInput($subValue);
-                $subEvent->setArgument(tubepress_api_event_VariableReadFromExternalInput::ARGUMENT_OPTION_NAME, $key);
+                $subEvent = new tubepress_api_event_TubePressEvent($subValue);
+                $subEvent->setArgument('optionName', $key);
 
                 $this->_magic($subEvent);
 
-                $value[$key] = $subEvent->getOptionValue();
+                $value[$key] = $subEvent->getSubject();
             }
 
-            $event->setOptionValue($value);
+            $event->setSubject($value);
 
             return;
         }
@@ -57,7 +57,7 @@ abstract class tubepress_plugins_core_filters_AbstractStringMagicFilter
         $toReturn = tubepress_impl_util_StringUtils::stripslashes_deep($toReturn);
         $toReturn = $this->_booleanMagic($toReturn);
 
-        $event->setOptionValue($toReturn);
+        $event->setSubject($toReturn);
     }
 
     //http://php.net/manual/en/language.types.boolean.php
