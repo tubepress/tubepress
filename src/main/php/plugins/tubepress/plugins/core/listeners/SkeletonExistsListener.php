@@ -48,7 +48,7 @@ class tubepress_plugins_core_listeners_SkeletonExistsListener
 
                 $this->_tryToMirror(
 
-                    $basePath . '/sys/skel/tubepress-content',
+                    $basePath . '/src/main/resources/user-content-skeleton/tubepress-content',
                     $basePath
                 );
         	}

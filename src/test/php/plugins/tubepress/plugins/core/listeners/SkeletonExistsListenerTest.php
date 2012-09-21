@@ -47,7 +47,7 @@ class tubepress_plugins_core_listeners_SkeletonExistsListenerTest extends TubePr
         $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(true);
         $this->_mockEnvironmentDetector->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath>>');
 
-		$this->_mockFileSystem->shouldReceive('mirrorDirectoryPreventFileOverwrite')->once()->with('<<basepath>>/sys/skel/tubepress-content', '/value-of-abspath/wp-content');
+		$this->_mockFileSystem->shouldReceive('mirrorDirectoryPreventFileOverwrite')->once()->with('<<basepath>>/src/main/resources/user-content-skeleton/tubepress-content', '/value-of-abspath/wp-content');
         
         $this->_sut->onBoot(new ehough_tickertape_impl_GenericEvent());
 
@@ -59,7 +59,7 @@ class tubepress_plugins_core_listeners_SkeletonExistsListenerTest extends TubePr
         $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(false);
         $this->_mockEnvironmentDetector->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('<<basepath>>');
 
-        $this->_mockFileSystem->shouldReceive('mirrorDirectoryPreventFileOverwrite')->once()->with('<<basepath>>/sys/skel/tubepress-content', '<<basepath>>');
+        $this->_mockFileSystem->shouldReceive('mirrorDirectoryPreventFileOverwrite')->once()->with('<<basepath>>/src/main/resources/user-content-skeleton/tubepress-content', '<<basepath>>');
     
     	$this->_sut->onBoot(new ehough_tickertape_impl_GenericEvent());
 

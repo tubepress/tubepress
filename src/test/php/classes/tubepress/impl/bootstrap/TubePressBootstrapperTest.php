@@ -57,7 +57,9 @@ class org_tubepress_impl_bootstrap_TubePressBootstrapperTest extends TubePressUn
         $this->_mockEnvironmentDetector->shouldReceive('isWordPress')->once()->andReturn(false);
         $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn('<<user-content-dir>>');
         $this->_mockPluginDiscoverer->shouldReceive('findPluginsNonRecursivelyInDirectory')->once()
-            ->with(realpath(__DIR__ . '/../../../../main/php/plugins/core'))->andReturn(array($mockPlugin1));
+            ->with(realpath(__DIR__ . '/../../../../../../main/php/plugins/tubepress/plugins/core'))->andReturn(array($mockPlugin1));
+        $this->_mockPluginDiscoverer->shouldReceive('findPluginsNonRecursivelyInDirectory')->once()
+            ->with(realpath(__DIR__ . '/../../../../../../main/php/plugins/tubepress/plugins/wordpresscore'))->andReturn(array());
         $this->_mockPluginDiscoverer->shouldReceive('findPluginsNonRecursivelyInDirectory')->once()
             ->with(realpath('<<user-content-dir>>/plugins'))->andReturn(array($mockPlugin2));
         $this->_mockPluginRegistry->shouldReceive('load')->once()->with($mockPlugin1);
