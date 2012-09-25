@@ -100,7 +100,7 @@ class tubepress_impl_plugin_FilesystemPluginDiscoverer implements tubepress_spi_
 
         if ($this->_logger->isDebugEnabled()) {
 
-            $this->_logger->debug('Found %d valid plugin(s) from ' . $directory);
+            $this->_logger->debug(sprintf('Found %d valid plugin(s) from %s' , count($toReturn), $directory));
         }
 
         return $toReturn;

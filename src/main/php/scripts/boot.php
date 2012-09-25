@@ -46,7 +46,10 @@ if (! function_exists('bootTubePress')) {
          */
         if (isset($_GET['tubepress_debug']) && strcasecmp($_GET['tubepress_debug'], 'true') === 0) {
 
+            $formatter = new ehough_epilog_impl_formatter_LineFormatter("[%time%] %channel%: %message% <br />\n");
+
             $handler = new ehough_epilog_impl_handler_PrintHandler();
+            $handler->setFormatter($formatter);
 
             $handler->setLevel(ehough_epilog_api_ILogger::DEBUG);
 
