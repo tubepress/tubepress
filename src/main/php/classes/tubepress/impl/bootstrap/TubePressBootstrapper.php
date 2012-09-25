@@ -102,10 +102,10 @@ class tubepress_impl_bootstrap_TubePressBootstrapper implements tubepress_spi_bo
     private function loadSystemPlugins(tubepress_spi_plugin_PluginDiscoverer $discoverer,
                                        tubepress_spi_plugin_PluginRegistry $registry)
     {
-        $this->loadPluginsFromDirectory(__DIR__ . '/../../../../plugins/tubepress/plugins/core',
+        $this->loadPluginsFromDirectory(TUBEPRESS_ROOT . '/src/main/php/plugins/tubepress/plugins/core',
             $discoverer, $registry);
 
-        $this->loadPluginsFromDirectory(__DIR__ . '/../../../../plugins/tubepress/plugins/wordpresscore',
+        $this->loadPluginsFromDirectory(TUBEPRESS_ROOT . '/src/main/php/plugins/tubepress/plugins/wordpresscore',
             $discoverer, $registry);
     }
 
