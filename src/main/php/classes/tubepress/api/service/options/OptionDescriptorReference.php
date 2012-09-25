@@ -22,14 +22,14 @@
 /**
  * Holds all the option descriptors for TubePress.
  */
-interface tubepress_spi_options_OptionDescriptorReference
+interface tubepress_api_service_options_OptionDescriptorReference
 {
-    const _ = 'tubepress_spi_options_OptionDescriptorReference';
+    const _ = 'tubepress_api_service_options_OptionDescriptorReference';
 
     /**
-     * Returns all of the option descriptors.
+     * Returns all of the option descriptors currently registered in the system.
      *
-     * @return array All of the registered option descriptors.
+     * @return array All of the registered option descriptors. May be empty, never null.
      */
     function findAll();
 
@@ -38,8 +38,19 @@ interface tubepress_spi_options_OptionDescriptorReference
      *
      * @param string $name The option descriptor to look up.
      *
-     * @return tubepress_spi_options_OptionDescriptor The option descriptor with the
-     *                                                    given name, or null if not found.
+     * @return tubepress_api_model_options_OptionDescriptor The option descriptor with the
+     *                                                      given name, or null if not found.
      */
     function findOneByName($name);
+
+    /**
+     * Register a new option descriptor for use by TubePress.
+     *
+     * @param tubepress_api_model_options_OptionDescriptor $optionDescriptor The new option descriptor.
+     *
+     * @throws InvalidArgumentException If the descriptor could not be registered.
+     *
+     * @return void
+     */
+    function registerOptionDescriptor(tubepress_api_model_options_OptionDescriptor $optionDescriptor);
 }

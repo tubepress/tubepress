@@ -18,14 +18,14 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_spi_options_OptionDescriptorTest extends TubePressUnitTest
+class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
 {
 
     private $_sut;
 
     function setUp()
     {
-        $this->_sut = new tubepress_spi_options_OptionDescriptor('name');
+        $this->_sut = new tubepress_api_model_options_OptionDescriptor('name');
     }
 
     function testSetAcceptableValues()
@@ -79,37 +79,6 @@ class tubepress_spi_options_OptionDescriptorTest extends TubePressUnitTest
         $this->_sut->setValidValueRegex(null);
     }
 
-    /**
-    * @expectedException InvalidArgumentException
-    */
-    function testNonArrayExcludedProviders()
-    {
-        $this->_sut->setExcludedProviders(1);
-    }
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    function testNullExcludedProviders()
-    {
-        $this->_sut->setExcludedProviders(null);
-    }
-
-    /**
-    * @expectedException InvalidArgumentException
-    */
-    function testNonArrayAliases()
-    {
-        $this->_sut->setAliases(1);
-    }
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    function testNullAliases()
-    {
-        $this->_sut->setAliases(null);
-    }
 
     function testNonBoolProOnly()
     {
@@ -157,7 +126,7 @@ class tubepress_spi_options_OptionDescriptorTest extends TubePressUnitTest
     */
     function testNonStringName()
     {
-        new tubepress_spi_options_OptionDescriptor(88);
+        new tubepress_api_model_options_OptionDescriptor(88);
     }
 
     /**
@@ -165,7 +134,7 @@ class tubepress_spi_options_OptionDescriptorTest extends TubePressUnitTest
      */
     function testNullName()
     {
-        new tubepress_spi_options_OptionDescriptor(null);
+        new tubepress_api_model_options_OptionDescriptor(null);
     }
 
     /**

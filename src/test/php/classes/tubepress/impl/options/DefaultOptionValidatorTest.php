@@ -27,7 +27,7 @@ class org_tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUni
 
 	public function setup()
 	{
-        $this->_mockOptionsDescriptorReference = \Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
+        $this->_mockOptionsDescriptorReference = \Mockery::mock(tubepress_api_service_options_OptionDescriptorReference::_);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionsDescriptorReference);
 
@@ -36,10 +36,7 @@ class org_tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUni
 
 	public function testNoConstraints()
 	{
-	    $od = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
-	    $od->shouldReceive('hasValidValueRegex')->twice()->andReturn(false);
-	    $od->shouldReceive('hasDiscreteAcceptableValues')->twice()->andReturn(false);
-	    $od->shouldReceive('isBoolean')->twice()->andReturn(false);
+	    $od = new tubepress_api_model_options_OptionDescriptor('name');
 
 	    $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->twice()->with('name')->andReturn($od);
 
@@ -49,10 +46,8 @@ class org_tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUni
 
 	public function testBoolean()
 	{
-	    $od = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
-	    $od->shouldReceive('hasValidValueRegex')->atLeast()->once()->andReturn(false);
-	    $od->shouldReceive('hasDiscreteAcceptableValues')->atLeast()->once()->andReturn(false);
-	    $od->shouldReceive('isBoolean')->atLeast()->once()->andReturn(true);
+        $od = new tubepress_api_model_options_OptionDescriptor('name');
+        $od->setBoolean();
 
         $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->atLeast()->once()->with('name')->andReturn($od);
 
@@ -63,10 +58,9 @@ class org_tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUni
 
 	public function testDiscreteValues()
 	{
-	    $od = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
-	    $od->shouldReceive('hasValidValueRegex')->atLeast()->once()->andReturn(false);
-	    $od->shouldReceive('hasDiscreteAcceptableValues')->atLeast()->once()->andReturn(true);
-	    $od->shouldReceive('getAcceptableValues')->atLeast()->once()->andReturn(array('biz' => 'bar', 'butt' => 'two'));
+        $od = new tubepress_api_model_options_OptionDescriptor('name');
+
+	    $od->setAcceptableValues(array('biz' => 'bar', 'butt' => 'two'));
 
         $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->atLeast()->once()->with('name')->andReturn($od);
 
@@ -77,9 +71,8 @@ class org_tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUni
 
 	public function testBadRegex()
     {
-	    $od = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
-	    $od->shouldReceive('hasValidValueRegex')->atLeast()->once()->andReturn(true);
-	    $od->shouldReceive('getValidValueRegex')->atLeast()->once()->andReturn('/t{5}/i');
+        $od = new tubepress_api_model_options_OptionDescriptor('name');
+        $od->setValidValueRegex('/t{5}/i');
 
         $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->atLeast()->once()->with('name')->andReturn($od);
 

@@ -44,13 +44,13 @@ class tubepress_plugins_core_filters_gallerytemplate_VideoMetaTest extends TubeP
         $shouldShow = array();
         $labels     = array();
 
-        $mockOdr = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
+        $mockOdr = Mockery::mock(tubepress_api_service_options_OptionDescriptorReference::_);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($mockOdr);
 
         $mockOdr->shouldReceive('findOneByName')->times(17)->andReturnUsing(function ($m) {
 
-             $mock = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
-             $mock->shouldReceive('getLabel')->once()->andReturn('video-' . $m);
+             $mock = new tubepress_api_model_options_OptionDescriptor($m);
+             $mock->setLabel('video-' . $m);
              return $mock;
         });
 

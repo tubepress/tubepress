@@ -36,7 +36,7 @@ class tubepress_plugins_core_filters_singlevideotemplate_VideoMetaTest extends T
         $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
 
-        $this->_mockOptionDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
+        $this->_mockOptionDescriptorReference = Mockery::mock(tubepress_api_service_options_OptionDescriptorReference::_);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionDescriptorReference);
 
 		$this->_sut = new tubepress_plugins_core_filters_singlevideotemplate_VideoMeta();
@@ -54,8 +54,8 @@ class tubepress_plugins_core_filters_singlevideotemplate_VideoMetaTest extends T
 
         $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->times(17)->andReturnUsing(function ($m) {
 
-             $mock = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
-             $mock->shouldReceive('getLabel')->once()->andReturn('video-' . $m);
+             $mock = new tubepress_api_model_options_OptionDescriptor($m);
+             $mock->setLabel('video-' . $m);
              return $mock;
         });
 

@@ -41,11 +41,10 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 	 */
 	public function testRegisterDuplicate()
 	{
-	    $od = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
-	    $od->shouldReceive('getName')->atLeast()->once()->andReturn('name');
+	    $od = new tubepress_api_model_options_OptionDescriptor('name');
 
-	    $this->_sut->register($od);
-	    $this->_sut->register($od);
+	    $this->_sut->registerOptionDescriptor($od);
+	    $this->_sut->registerOptionDescriptor($od);
 	}
 
 	public function testOptions()

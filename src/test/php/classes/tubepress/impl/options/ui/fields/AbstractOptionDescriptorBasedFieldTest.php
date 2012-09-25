@@ -41,12 +41,9 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 	public function setup()
 	{
 		$this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
-		$this->_mockOptionDescriptor            = Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
+		$this->_mockOptionDescriptor            = new tubepress_api_model_options_OptionDescriptor('name');
 
-		$this->_mockOptionDescriptor->shouldReceive('isApplicableToVimeo')->once()->andReturn(true);
-		$this->_mockOptionDescriptor->shouldReceive('isApplicableToYouTube')->once()->andReturn(true);
-
-		$this->_mockOptionDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
+		$this->_mockOptionDescriptorReference = Mockery::mock(tubepress_api_service_options_OptionDescriptorReference::_);
 		$this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with('name')->andReturn($this->_mockOptionDescriptor);
 
         $this->_mockStorageManager      = Mockery::mock(tubepress_spi_options_StorageManager::_);
@@ -70,9 +67,6 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 
 	public function testSubmitSimpleInvalid()
 	{
-	    $this->_mockOptionDescriptor->shouldReceive('isBoolean')->once()->andReturn(false);
-	    $this->_mockOptionDescriptor->shouldReceive('getName')->once()->andReturn('name');
-
 	    $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
 	    $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('name')->andReturn('some-value');
 
@@ -84,9 +78,6 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 
 	public function testSubmitNoExist()
 	{
-	    $this->_mockOptionDescriptor->shouldReceive('isBoolean')->once()->andReturn(false);
-	    $this->_mockOptionDescriptor->shouldReceive('getName')->once()->andReturn('name');
-
 	    $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('name')->andReturn(false);
 
 	    $this->assertNull($this->_sut->onSubmit());
@@ -94,8 +85,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 
 	public function testSubmitBoolean()
 	{
-	    $this->_mockOptionDescriptor->shouldReceive('isBoolean')->once()->andReturn(true);
-	    $this->_mockOptionDescriptor->shouldReceive('getName')->once()->andReturn('name');
+	    $this->_mockOptionDescriptor->setBoolean();
 
 	    $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
 
@@ -106,8 +96,6 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 
 	public function testSubmitSimple()
 	{
-	    $this->_mockOptionDescriptor->shouldReceive('isBoolean')->once()->andReturn(false);
-	    $this->_mockOptionDescriptor->shouldReceive('getName')->once()->andReturn('name');
 
 	    $this->_mockHttpRequestParameterService->shouldReceive('hasParam')->once()->with('name')->andReturn(true);
 	    $this->_mockHttpRequestParameterService->shouldReceive('getParamValue')->once()->with('name')->andReturn('some-value');
@@ -156,8 +144,6 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 
 	    $this->_mockStorageManager->shouldReceive('get')->once()->with('name')->andReturn('<<currentvalue>>');
 
-	    $this->_mockOptionDescriptor->shouldReceive('getName')->twice()->andReturn('name');
-
 	    $this->_performAdditionToStringTestSetup($template);
 
 	    $this->assertEquals('boogity', $this->_sut->getHtml());
@@ -180,21 +166,20 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 
 	public function testGetProOnlyNo()
 	{
-	    $this->_mockOptionDescriptor->shouldReceive('isProOnly')->once()->andReturn(false);
 
 	    $this->assertTrue($this->_sut->isProOnly() === false);
 	}
 
 	public function testGetProOnlyYes()
 	{
-	    $this->_mockOptionDescriptor->shouldReceive('isProOnly')->once()->andReturn(true);
+	    $this->_mockOptionDescriptor->setProOnly();
 
 	    $this->assertTrue($this->_sut->isProOnly() === true);
 	}
 
 	public function testGetDescription()
 	{
-	    $this->_mockOptionDescriptor->shouldReceive('getDescription')->once()->andReturn('some-desc');
+	    $this->_mockOptionDescriptor->setDescription('some-desc');
 
 	    $this->_performAdditionGetDescriptionSetup();
 
@@ -203,7 +188,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 
 	public function testGetTitle()
 	{
-	    $this->_mockOptionDescriptor->shouldReceive('getLabel')->once()->andReturn('some-label');
+	    $this->_mockOptionDescriptor->setLabel('some-label');
 
 	    $this->assertTrue($this->_sut->getTitle() === '<<message: some-label>>');
 	}

@@ -22,16 +22,13 @@ class org_tubepress_impl_template_templates_optionspage_fields_MultiSelectTempla
 {
     public function test()
     {
-        $one   = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
-        $two   = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
-        $three = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
+        $one   = new tubepress_api_model_options_OptionDescriptor('name-one');
+        $two   = new tubepress_api_model_options_OptionDescriptor('name-two');
+        $three = new tubepress_api_model_options_OptionDescriptor('name-three');
 
-        $one->shouldReceive('getName')->atLeast()->once()->andReturn('name-one');
-        $two->shouldReceive('getName')->atLeast()->once()->andReturn('name-two');
-        $one->shouldReceive('getLabel')->atLeast()->once()->andReturn('label-one');
-        $two->shouldReceive('getLabel')->atLeast()->once()->andReturn('label-two');
-        $three->shouldReceive('getName')->atLeast()->once()->andReturn('name-three');
-        $three->shouldReceive('getLabel')->atLeast()->once()->andReturn('label-three');
+        $one->setLabel('label-one');
+        $two->setLabel('label-two');
+        $three->setLabel('label-three');
 
         $descriptors = array($one, $two, $three);
 

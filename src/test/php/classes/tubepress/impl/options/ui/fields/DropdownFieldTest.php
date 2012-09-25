@@ -34,7 +34,7 @@ class tubepress_impl_options_ui_fields_DropdownFieldTest extends tubepress_impl_
     {
         $od = $this->getMockOptionDescriptor();
 
-        $od->shouldReceive('getAcceptableValues')->once()->andReturn(array('foo' => 'bar', 'smack' => 'rock'));
+        $od->setAcceptableValues(array('foo' => 'bar', 'smack' => 'rock'));
 
         $template->shouldReceive('setVariable')->once()->with(tubepress_impl_options_ui_fields_DropdownField::TEMPLATE_VAR_ACCEPTABLE_VALUES,
             array('foo' => '<<message: bar>>', 'smack' => '<<message: rock>>'));

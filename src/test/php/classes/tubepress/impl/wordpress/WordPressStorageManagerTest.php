@@ -37,7 +37,7 @@ class tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTe
         $this->_mockEnvironmentDetector      = \Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
         $this->_mockEventDispatcher          = \Mockery::mock('ehough_tickertape_api_IEventDispatcher');
         $this->_mockOptionValidator          = \Mockery::mock(tubepress_spi_options_OptionValidator::_);
-        $this->_mockOptionsReference         = \Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
+        $this->_mockOptionsReference         = \Mockery::mock(tubepress_api_service_options_OptionDescriptorReference::_);
         $this->_mockWordPressFunctionWrapper = \Mockery::mock(tubepress_plugins_wordpresscore_lib_spi_WordPressFunctionWrapper::_);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
@@ -79,8 +79,8 @@ class tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTe
 
     function testSetDoNotPersist()
     {
-        $od = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
-        $od->shouldReceive('isMeantToBePersisted')->once()->andReturn(false);
+        $od = new tubepress_api_model_options_OptionDescriptor('something');
+        $od->setDoNotPersist();
 
         $this->_mockOptionsReference->shouldReceive('findOneByName')->with('something')->andReturn($od);
 
@@ -91,8 +91,7 @@ class tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTe
 
     function testSetFailsValidation()
     {
-        $od = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
-        $od->shouldReceive('isMeantToBePersisted')->once()->andReturn(true);
+        $od = new tubepress_api_model_options_OptionDescriptor('something');
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET, \Mockery::type('tubepress_api_event_TubePressEvent'));
         $this->_mockOptionsReference->shouldReceive('findOneByName')->with('something')->andReturn($od);
@@ -106,8 +105,7 @@ class tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTe
 
     function testSetPassesValidation()
     {
-        $od = \Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
-        $od->shouldReceive('isMeantToBePersisted')->once()->andReturn(true);
+        $od = new tubepress_api_model_options_OptionDescriptor('something');
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET, \Mockery::type('tubepress_api_event_TubePressEvent'));
         $this->_mockOptionsReference->shouldReceive('findOneByName')->with('something')->andReturn($od);
@@ -148,19 +146,17 @@ class tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTe
         $version = tubepress_spi_version_Version::parse('1.5.0');
         $this->_mockEnvironmentDetector->shouldReceive('getVersion')->once()->andReturn($version);
 
-        $od1 = Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
-        $od2 = Mockery::mock(tubepress_spi_options_OptionDescriptor::_);
+        $od1 = new tubepress_api_model_options_OptionDescriptor('name1');
+        $od2 = new tubepress_api_model_options_OptionDescriptor('name2');
 
         $this->_mockWordPressFunctionWrapper->shouldReceive('add_option')->once()->with('tubepress-version', '1.5.0');
         $this->_mockWordPressFunctionWrapper->shouldReceive('update_option')->once()->with('tubepress-version', '1.5.0');
 
         $this->_mockOptionsReference->shouldReceive('findAll')->once()->andReturn(array($od1, $od2));
 
-        $od1->shouldReceive('isMeantToBePersisted')->once()->andReturn(false);
+        $od1->setDoNotPersist();
 
-        $od2->shouldReceive('isMeantToBePersisted')->once()->andReturn(true);
-        $od2->shouldReceive('getName')->once()->andReturn('name2');
-        $od2->shouldReceive('getDefaultValue')->once()->andReturn('value2');
+        $od2->setDefaultValue('value2');
     }
 }
 

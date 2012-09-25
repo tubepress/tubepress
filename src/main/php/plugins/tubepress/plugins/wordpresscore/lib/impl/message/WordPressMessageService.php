@@ -35,7 +35,6 @@ class tubepress_plugins_wordpresscore_lib_impl_message_WordPressMessageService i
     {
         $wordPressFunctionWrapperService = tubepress_plugins_wordpresscore_lib_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
 
-        /** @noinspection PhpUndefinedFunctionInspection */
         return $message == '' ? '' : $wordPressFunctionWrapperService->__($message, 'tubepress');
     }
 }
