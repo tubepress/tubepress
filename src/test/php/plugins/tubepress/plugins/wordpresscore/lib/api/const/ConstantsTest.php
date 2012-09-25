@@ -24,7 +24,7 @@ class tubepress_plugins_wordpresscore_lib_api_const_ConstantsTest extends TubePr
     {
         $toTest = array(
 
-            'tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress'	=> array('widget-tagstring', 'widget-title', 'showVimeoOptions', 'showYouTubeOptions', 'wpPageWhitelist', 'wpPageBlacklist'),
+            'tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress'	=> array('widget-tagstring', 'widget-title', 'wpPageWhitelist', 'wpPageBlacklist'),
         );
 
         foreach ($toTest as $className => $expected) {

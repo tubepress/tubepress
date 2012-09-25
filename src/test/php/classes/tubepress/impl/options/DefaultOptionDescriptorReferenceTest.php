@@ -634,9 +634,9 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 
     	$option = $this->_sut->findOneByName(tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE);
 
-    	$option = $this->_sut->findOneByName(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::SHOW_VIMEO_OPTIONS);
+    	$option = $this->_sut->findOneByName(tubepress_api_const_options_names_OptionsUi::SHOW_VIMEO_OPTIONS);
 
-    	$option = $this->_sut->findOneByName(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::SHOW_YOUTUBE_OPTIONS);
+    	$option = $this->_sut->findOneByName(tubepress_api_const_options_names_OptionsUi::SHOW_YOUTUBE_OPTIONS);
 	}
 
     private function setupMocks()

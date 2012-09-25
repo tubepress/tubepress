@@ -18,6 +18,10 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
+/**
+ * Registers a few extensions to allow TubePress to work inside WordPress.
+ */
 class tubepress_plugins_core_wordpresscore_WordPressCore
 {
     public static function registerWordPressListeners()

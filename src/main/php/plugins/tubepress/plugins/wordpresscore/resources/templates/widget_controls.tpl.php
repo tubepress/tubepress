@@ -30,5 +30,5 @@
 <input type="hidden" id="<?php echo tubepress_plugins_wordpresscore_lib_impl_DefaultWidgetHandler::WIDGET_SUBMIT_TAG; ?>" name="<?php echo tubepress_plugins_wordpresscore_lib_impl_DefaultWidgetHandler::WIDGET_SUBMIT_TAG; ?>" value="1" />
 <?php
 
-	//http://codex.wordpress.org/Function_Reference/wp_nonce_field
-	wp_nonce_field('tubepress-widget-nonce-save', 'tubepress-widget-nonce');
+//http://codex.wordpress.org/Function_Reference/wp_nonce_field
+wp_nonce_field('tubepress-widget-nonce-save', 'tubepress-widget-nonce');

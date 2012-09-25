@@ -20,13 +20,10 @@
  */
 
 /**
- * WordPress option names for the plugin.
+ * Options related to the options UI.
  */
-class tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress
+class tubepress_api_const_options_names_OptionsUi
 {
-    const WIDGET_SHORTCODE = 'widget-tagstring';
-    const WIDGET_TITLE     = 'widget-title';
-
-    const WP_PAGE_WHITELIST = 'wpPageWhitelist';
-    const WP_PAGE_BLACKLIST = 'wpPageBlacklist';
+    const SHOW_VIMEO_OPTIONS   = 'showVimeoOptions';
+    const SHOW_YOUTUBE_OPTIONS = 'showYouTubeOptions';
 }
