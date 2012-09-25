@@ -25,6 +25,9 @@ class tubepress_plugins_core_core
         $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
+            array(new tubepress_plugins_core_listeners_CoreOptionsRegistrar(), 'onBoot'));
+
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
             array(new tubepress_plugins_core_listeners_SkeletonExistsListener(), 'onBoot'));
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT,
