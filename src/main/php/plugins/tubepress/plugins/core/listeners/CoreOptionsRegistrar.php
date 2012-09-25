@@ -719,14 +719,6 @@ class tubepress_plugins_core_listeners_CoreOptionsRegistrar
         $option->setValidValueRegex(self::$_regexPositiveInteger);
         $odr->registerOptionDescriptor($option);
 
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::WIDGET_TITLE);
-        $option->setDefaultValue('TubePress');
-        $odr->registerOptionDescriptor($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::WIDGET_SHORTCODE);
-        $option->setDefaultValue('[tubepress thumbHeight=\'105\' thumbWidth=\'135\']');
-        $odr->registerOptionDescriptor($option);
-
         $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::SHOW_VIMEO_OPTIONS);
         $option->setDefaultValue(true);
         $option->setLabel('Vimeo');    //>(translatable)<

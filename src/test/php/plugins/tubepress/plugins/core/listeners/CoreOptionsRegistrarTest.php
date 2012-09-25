@@ -51,7 +51,7 @@ class tubepress_plugins_core_listeners_CoreOptionsRegistrarTest extends TubePres
     {
         $this->setupMocks();
 
-        $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->times(97);
+        $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->times(95);
 
         $this->_sut->onBoot(new tubepress_api_event_TubePressEvent());
 
@@ -737,14 +737,6 @@ class tubepress_plugins_core_listeners_CoreOptionsRegistrarTest extends TubePres
         $option->setLabel('Width (px) of thumbs');  //>(translatable)<
         $option->setDescription('Default is 120.');  //>(translatable)<
         $option->setValidValueRegex(self::$_regexPositiveInteger);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::WIDGET_TITLE);
-        $option->setDefaultValue('TubePress');
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_plugins_wordpresscore_lib_api_const_options_names_WordPress::WIDGET_SHORTCODE);
-        $option->setDefaultValue('[tubepress thumbHeight=\'105\' thumbWidth=\'135\']');
         $this->_verifyOption($option);
 
         $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::SHOW_VIMEO_OPTIONS);
