@@ -30,6 +30,8 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 1. Type `[tubepress]` in a post or a page where you'd like to insert your first gallery
 
 == Changelog ==
+= 2.4.5 =
+* Now accepts new format of YouTube playlist IDs
 
 = 2.4.4 =
 * Error message with jQuery 1.8.0: Uncaught TypeError: Object has no method 'promise'
