@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_plugins_core_core
+class tubepress_plugins_core_Core
 {
     public static function registerListeners()
     {
@@ -92,4 +92,4 @@ class tubepress_plugins_core_core
     }
 }
 
-tubepress_plugins_core_core::registerListeners();
+tubepress_plugins_core_Core::registerListeners();

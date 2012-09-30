@@ -133,7 +133,7 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
                 }));
         }
 
-        require __DIR__ . '/../../../../../../main/php/plugins/tubepress/plugins/core/core.php';
+        require __DIR__ . '/../../../../../../main/php/plugins/tubepress/plugins/core/Core.php';
 
         $this->assertTrue(true);
     }
