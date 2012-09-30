@@ -23,6 +23,3 @@
  * These classes are here for backwards compatability only.
  */
 class org_tubepress_template_Template extends tubepress_api_const_template_Variable {}
-
-trigger_error('The "org_tubepress_ ..." prefixed classes are deprecated. Please update your code and replace all instances of '
-    . '"org_tubepress_template_Template" with "tubepress_api_const_template_Variable".', E_USER_NOTICE);

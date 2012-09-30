@@ -38,7 +38,7 @@ if (! function_exists('bootTubePress')) {
 
         $loader = new ehough_pulsar_ComposerClassLoader(TUBEPRESS_ROOT . '/vendor/');
         $loader->registerFallbackDirectory(TUBEPRESS_ROOT . '/src/main/php/classes');
-        $loader->registerFallbackDirectory(TUBEPRESS_ROOT . '/src/main/php/plugins');
+        $loader->registerFallbackDirectory(TUBEPRESS_ROOT . '/src/main/php/deprecated_code/classes');
         $loader->register();
 
         /**

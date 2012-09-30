@@ -23,6 +23,3 @@
  * These classes are here for backwards compatability only.
  */
 class org_tubepress_api_const_options_names_Meta extends tubepress_api_const_options_names_Meta {}
-
-trigger_error('The "org_tubepress_ ..." prefixed classes are deprecated. Please update your code and replace all instances of '
-    . '"org_tubepress_api_const_options_names_Meta" with "tubepress_api_const_options_names_Meta".', E_USER_NOTICE);
