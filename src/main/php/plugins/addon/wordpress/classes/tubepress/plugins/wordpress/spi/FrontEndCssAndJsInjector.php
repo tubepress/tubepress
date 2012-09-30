@@ -19,28 +19,22 @@
  *
  */
 
-/**
- * Discovers plugins in directories.
- */
-interface tubepress_spi_plugin_PluginDiscoverer
+interface tubepress_plugins_wordpress_spi_FrontEndCssAndJsInjector
 {
-    const _ = 'tubepress_spi_plugin_PluginDiscoverer';
+    const _ = 'tubepress_plugins_wordpress_spi_FrontEndCssAndJsInjector';
 
     /**
-     * Recursively searches a directory (up to 2 levels) for valid TubePress plugins.
+     * Prints out HTML and CSS into the HTML <head>.
      *
-     * @param string $directory The path of the directory in which to search.
-     *
-     * @return array An array of TubePress plugins, which may be empty. Never null.
+     * @return void
      */
-    function findPluginsRecursivelyInDirectory($directory);
+    function printInHtmlHead();
 
     /**
-     * Shallowly searches a directory for valid TubePress plugins.
+     * Registers all the styles and scripts for the front end.
      *
-     * @param string $directory The path of the directory in which to search.
-     *
-     * @return array An array of TubePress plugins, which may be empty. Never null.
+     * @return void
      */
-    function findPluginsNonRecursivelyInDirectory($directory);
+    function registerStylesAndScripts();
 }
+

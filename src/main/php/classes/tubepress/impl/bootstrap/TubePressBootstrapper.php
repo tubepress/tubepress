@@ -96,25 +96,33 @@ class tubepress_impl_bootstrap_TubePressBootstrapper implements tubepress_spi_bo
         $userPluginsDir = $userContentDir . '/plugins';
 
         $this->loadPluginsFromDirectory($userPluginsDir,
-            $discoverer, $registry);
+            $discoverer, $registry, true);
     }
 
     private function loadSystemPlugins(tubepress_spi_plugin_PluginDiscoverer $discoverer,
                                        tubepress_spi_plugin_PluginRegistry $registry)
     {
-        $this->loadPluginsFromDirectory(TUBEPRESS_ROOT . '/src/main/php/plugins/tubepress/plugins/core',
-            $discoverer, $registry);
+        $this->loadPluginsFromDirectory(TUBEPRESS_ROOT . '/src/main/php/plugins/core',
+            $discoverer, $registry, false);
 
-        $this->loadPluginsFromDirectory(TUBEPRESS_ROOT . '/src/main/php/plugins/tubepress/plugins/wordpresscore',
-            $discoverer, $registry);
+        $this->loadPluginsFromDirectory(TUBEPRESS_ROOT . '/src/main/php/plugins/addon',
+            $discoverer, $registry, true);
     }
 
     private function loadPluginsFromDirectory(
                                               $directory,
         tubepress_spi_plugin_PluginDiscoverer $discoverer,
-        tubepress_spi_plugin_PluginRegistry   $registry)
+        tubepress_spi_plugin_PluginRegistry   $registry,
+        $recursive)
     {
-        $plugins = $discoverer->findPluginsNonRecursivelyInDirectory(realpath($directory));
+        if ($recursive) {
+
+            $plugins = $discoverer->findPluginsRecursivelyInDirectory(realpath($directory));
+
+        } else {
+
+            $plugins = $discoverer->findPluginsNonRecursivelyInDirectory(realpath($directory));
+        }
 
         foreach ($plugins as $plugin) {
 

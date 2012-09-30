@@ -19,28 +19,29 @@
  *
  */
 
-/**
- * Discovers plugins in directories.
- */
-interface tubepress_spi_plugin_PluginDiscoverer
+interface tubepress_plugins_wordpress_spi_WidgetHandler
 {
-    const _ = 'tubepress_spi_plugin_PluginDiscoverer';
+    const _ = 'tubepress_plugins_wordpress_spi_WidgetHandler';
 
     /**
-     * Recursively searches a directory (up to 2 levels) for valid TubePress plugins.
-     *
-     * @param string $directory The path of the directory in which to search.
-     *
-     * @return array An array of TubePress plugins, which may be empty. Never null.
+     * Filter the content (which may be empty).
      */
-    function findPluginsRecursivelyInDirectory($directory);
+    function printControlHtml();
 
     /**
-     * Shallowly searches a directory for valid TubePress plugins.
+     * Registers all the styles and scripts for the front end.
      *
-     * @param string $directory The path of the directory in which to search.
+     * @param array $opts The options.
      *
-     * @return array An array of TubePress plugins, which may be empty. Never null.
+     * @return void
      */
-    function findPluginsNonRecursivelyInDirectory($directory);
+    function printWidgetHtml($opts);
+
+    /**
+     * Registers ourselves as an admin menu.
+     *
+     * @return void
+     */
+    function registerWidget();
 }
+
