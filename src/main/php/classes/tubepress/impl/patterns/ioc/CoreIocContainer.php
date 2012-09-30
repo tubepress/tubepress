@@ -55,6 +55,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_
     const SERVICE_VIDEO_FACTORY               = 'videoFactory';
     const SERVICE_VIDEO_PROVIDER              = 'videoProvider';
     const SERVICE_VIDEO_PROVIDER_CALCULATOR   = 'videoProviderCalculator';
+    const SERVICE_VIDEO_PROVIDER_REGISTRY     = 'videoProviderRegistry';
 
     /**
      * @var ehough_iconic_api_IContainer
@@ -95,6 +96,7 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_
         $this->_registerVideoFactory();
         $this->_registerVideoProvider();
         $this->_registerVideoProviderCalculator();
+        $this->_registerVideoProviderRegistry();
     }
 
     private function _registerAjaxHandler()
@@ -601,6 +603,15 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_
 
             self::SERVICE_VIDEO_PROVIDER_CALCULATOR,
             'tubepress_impl_provider_SimpleProviderCalculator'
+        );
+    }
+
+    private function _registerVideoProviderRegistry()
+    {
+        $this->_delegate->register(
+
+            self::SERVICE_VIDEO_PROVIDER_REGISTRY,
+            'tubepress_impl_provider_DefaultVideoProviderRegistry'
         );
     }
 

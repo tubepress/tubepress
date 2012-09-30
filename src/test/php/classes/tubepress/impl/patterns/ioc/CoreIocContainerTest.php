@@ -65,7 +65,8 @@ class org_tubepress_impl_patterns_ioc_CoreIocContainerTest extends TubePressUnit
             tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_URL_BUILDER                 => tubepress_spi_feed_UrlBuilder::_,
             tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_VIDEO_FACTORY               => tubepress_spi_factory_VideoFactory::_,
             tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_VIDEO_PROVIDER              => tubepress_spi_provider_Provider::_,
-            tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_VIDEO_PROVIDER_CALCULATOR   => tubepress_spi_provider_ProviderCalculator::_
+            tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_VIDEO_PROVIDER_CALCULATOR   => tubepress_spi_provider_ProviderCalculator::_,
+            tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_VIDEO_PROVIDER_REGISTRY     => tubepress_spi_provider_VideoProviderRegistry::_
         );
 
         foreach ($toTest as $key => $value) {

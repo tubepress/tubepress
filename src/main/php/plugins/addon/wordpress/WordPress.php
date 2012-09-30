@@ -22,7 +22,7 @@
 /**
  * Registers a few extensions to allow TubePress to work inside WordPress.
  */
-class tubepress_plugins_core_wordpress_WordPress
+class tubepress_plugins_wordpress_WordPress
 {
     public static function registerWordPressListeners()
     {
@@ -51,4 +51,4 @@ class tubepress_plugins_core_wordpress_WordPress
     }
 }
 
-tubepress_plugins_core_wordpress_WordPress::registerWordPressListeners();
+tubepress_plugins_wordpress_WordPress::registerWordPressListeners();

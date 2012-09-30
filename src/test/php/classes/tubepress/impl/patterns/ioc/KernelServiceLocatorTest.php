@@ -76,6 +76,7 @@ class org_tubepress_impl_patterns_ioc_KernelServiceLocatorTest extends TubePress
         $this->assertNull(tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoFactory());
         $this->assertNull(tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoProvider());
         $this->assertNull(tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoProviderCalculator());
+        $this->assertNull(tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoProviderRegistry());
     }
 
     private function getTestMap()
@@ -111,7 +112,8 @@ class org_tubepress_impl_patterns_ioc_KernelServiceLocatorTest extends TubePress
             tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_URL_BUILDER                 => tubepress_spi_feed_UrlBuilder::_,
             tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_VIDEO_FACTORY               => tubepress_spi_factory_VideoFactory::_,
             tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_VIDEO_PROVIDER              => tubepress_spi_provider_Provider::_,
-            tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_VIDEO_PROVIDER_CALCULATOR   => tubepress_spi_provider_ProviderCalculator::_
+            tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_VIDEO_PROVIDER_CALCULATOR   => tubepress_spi_provider_ProviderCalculator::_,
+            tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_VIDEO_PROVIDER_REGISTRY     => tubepress_spi_provider_VideoProviderRegistry::_
         );
     }
 
@@ -148,7 +150,8 @@ class org_tubepress_impl_patterns_ioc_KernelServiceLocatorTest extends TubePress
             'UrlBuilder',
             'VideoFactory',
             'VideoProvider',
-            'VideoProviderCalculator'
+            'VideoProviderCalculator',
+            'VideoProviderRegistry'
         );
     }
 }

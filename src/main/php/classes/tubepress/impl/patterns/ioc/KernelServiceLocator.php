@@ -196,6 +196,11 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     private static $_videoProviderCalculator;
 
     /**
+     * @var tubepress_spi_provider_VideoProviderRegistry
+     */
+    private static $_videoProviderRegistry;
+
+    /**
      * @return tubepress_spi_http_AjaxHandler
      */
     public static function getAjaxHandler()
@@ -469,6 +474,14 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     }
 
     /**
+     * @return tubepress_spi_provider_VideoProviderRegistry The video provider registry.
+     */
+    public static function getVideoProviderRegistry()
+    {
+        return self::_lazyGet('_videoProviderRegistry', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_VIDEO_PROVIDER_REGISTRY);
+    }
+
+    /**
      * @param tubepress_spi_http_AjaxHandler $ajaxHandler The Ajax handler.
      */
     public static function setAjaxHandler(tubepress_spi_http_AjaxHandler $ajaxHandler)
@@ -732,6 +745,14 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
         self::$_videoProviderCalculator = $videoProviderCalculator;
     }
 
+    /**
+     * @param tubepress_spi_provider_VideoProviderRegistry $videoProviderRegistry The video provider registry.
+     */
+    public static function setVideoProviderRegistry(tubepress_spi_provider_VideoProviderRegistry $videoProviderRegistry)
+    {
+        self::$_videoProviderRegistry = $videoProviderRegistry;
+    }
+
 
     /**
      * @param ehough_iconic_api_IContainer $container The core IOC container.
@@ -781,6 +802,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
         self::$_videoFactory = null;
         self::$_videoProvider = null;
         self::$_videoProviderCalculator = null;
+        self::$_videoProviderRegistry = null;
     }
 
 
