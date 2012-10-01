@@ -24,17 +24,6 @@
  */
 class tubepress_api_const_options_names_GallerySource
 {
-    const YOUTUBE_MOST_DISCUSSED_VALUE = 'most_discussedValue';
-    const YOUTUBE_MOST_RECENT_VALUE    = 'most_recentValue';
-    const YOUTUBE_MOST_RESPONDED_VALUE = 'most_respondedValue';
-    const YOUTUBE_FAVORITES_VALUE      = 'favoritesValue';
-    const YOUTUBE_MOST_VIEWED_VALUE    = 'most_viewedValue';
-    const YOUTUBE_PLAYLIST_VALUE       = 'playlistValue';
-    const YOUTUBE_TAG_VALUE            = 'tagValue';
-    const YOUTUBE_TOP_FAVORITES_VALUE  = 'youtubeTopFavoritesValue';
-    const YOUTUBE_TOP_RATED_VALUE      = 'top_ratedValue';
-    const YOUTUBE_USER_VALUE           = 'userValue';
-    const YOUTUBE_FEATURED             = 'recently_featured';
     const VIMEO_ALBUM_VALUE            = 'vimeoAlbumValue';
     const VIMEO_APPEARS_IN_VALUE       = 'vimeoAppearsInValue';
     const VIMEO_CHANNEL_VALUE          = 'vimeoChannelValue';

@@ -42,7 +42,7 @@ class tubepress_plugins_core_filters_prevalidationoptionset_YouTubePlaylistPlPre
 	function testAlterNonString()
 	{
         $event = new tubepress_api_event_TubePressEvent(array('hello'));
-        $event->setArgument('optionName', tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
+        $event->setArgument('optionName', tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
 
 	    $this->_sut->onPreValidationOptionSet($event);
 
@@ -52,7 +52,7 @@ class tubepress_plugins_core_filters_prevalidationoptionset_YouTubePlaylistPlPre
 	function testAlterHtmlNonPrefix()
 	{
         $event = new tubepress_api_event_TubePressEvent('hello');
-        $event->setArgument('optionName', tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
+        $event->setArgument('optionName', tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
 
         $this->_sut->onPreValidationOptionSet($event);
 
@@ -62,7 +62,7 @@ class tubepress_plugins_core_filters_prevalidationoptionset_YouTubePlaylistPlPre
 	function testAlterPrefix()
 	{
         $event = new tubepress_api_event_TubePressEvent('PLhelloPL');
-        $event->setArgument('optionName', tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
+        $event->setArgument('optionName', tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
 
         $this->_sut->onPreValidationOptionSet($event);
 

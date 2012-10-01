@@ -35,7 +35,7 @@ class tubepress_plugins_core_filters_videogallerypage_ResultCountCapperTest exte
 	function testYouTubeFavorites()
 	{
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP)->andReturn(888);
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Output::GALLERY_SOURCE)->andReturn(tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES);
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Output::GALLERY_SOURCE)->andReturn(tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES);
 
         $videoArray = array('x', 'y');
 

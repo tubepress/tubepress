@@ -23,7 +23,7 @@
         "ehough/epilog": "*",
         "ehough/fimble": "*",
         "ehough/iconic": "*",
-        "ehough/pulsar": "1.*",
+        "ehough/pulsar": "*",
         "ehough/shortstop": "*",
         "ehough/stash": "*",
         "ehough/tickertape": "*"

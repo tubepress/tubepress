@@ -64,13 +64,13 @@ class tubepress_plugins_core_filters_videogallerypage_ResultCountCapper
         $mode = $context->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
 
         switch ($mode) {
-            case tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH:
+            case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH:
                 //http://code.google.com/apis/youtube/2.0/reference.html#Videos_feed
                 return 999;
-            case tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES:
+            case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES:
                 //http://code.google.com/apis/youtube/2.0/reference.html#User_favorites_feed
                 return 50;
-            case tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST:
+            case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST:
                 //http://code.google.com/apis/youtube/2.0/reference.html#Playlist_feed
                 return 200;
         }

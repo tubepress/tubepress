@@ -26,13 +26,12 @@ class tubepress_plugins_core_listeners_CoreOptionsRegistrarTest extends TubePres
     private static $_regexWordChars          = '/\w+/';
     private static $_valueMapTime = array(
 
-        tubepress_api_const_options_values_TimeFrameValue::ALL_TIME   => 'all time',        //>(translatable)<
-        tubepress_api_const_options_values_TimeFrameValue::THIS_MONTH => 'this month',      //>(translatable)<
-        tubepress_api_const_options_values_TimeFrameValue::THIS_WEEK  => 'this week',       //>(translatable)<
-        tubepress_api_const_options_values_TimeFrameValue::TODAY      => 'today',           //>(translatable)<
+        tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::ALL_TIME   => 'all time',        //>(translatable)<
+        tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::THIS_MONTH => 'this month',      //>(translatable)<
+        tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::THIS_WEEK  => 'this week',       //>(translatable)<
+        tubepress_plugins_youtube_api_const_options_values_TimeFrameValue::TODAY      => 'today',           //>(translatable)<
     );
     private static $_providerArrayYouTube = array(tubepress_spi_provider_Provider::YOUTUBE);
-    private static $_providerArrayVimeo = array(tubepress_spi_provider_Provider::VIMEO);
 
     private $_sut;
 
@@ -51,7 +50,7 @@ class tubepress_plugins_core_listeners_CoreOptionsRegistrarTest extends TubePres
     {
         $this->setupMocks();
 
-        $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->times(95);
+        $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->times(60);
 
         $this->_sut->onBoot(new tubepress_api_event_TubePressEvent());
 
@@ -169,14 +168,6 @@ class tubepress_plugins_core_listeners_CoreOptionsRegistrarTest extends TubePres
         ));
         $this->_verifyOption($option);
 
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::AUTOHIDE);
-        $option->setLabel('Auto-hide video controls');                                                  //>(translatable)<
-        $option->setDescription('A few seconds after playback begins, fade out the video controls.');   //>(translatable)<
-        $option->setDefaultValue(false);
-        $option->setBoolean();
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $this->_verifyOption($option);
-
         $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::AUTONEXT);
         $option->setLabel('Play videos sequentially without user intervention');  //>(translatable)<
         $option->setDescription('When a video finishes, this will start playing the next video in the gallery.');  //>(translatable)<
@@ -212,19 +203,7 @@ class tubepress_plugins_core_listeners_CoreOptionsRegistrarTest extends TubePres
         $option->setBoolean();
         $this->_verifyOption($option);
 
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::FULLSCREEN);
-        $option->setLabel('Allow fullscreen playback.');  //>(translatable)<
-        $option->setDefaultValue(true);
-        $option->setBoolean();
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $this->_verifyOption($option);
 
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::HIGH_QUALITY);
-        $option->setLabel('Play videos in high definition by default');  //>(translatable)<
-        $option->setDefaultValue(false);
-        $option->setBoolean();
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $this->_verifyOption($option);
 
         $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::LAZYPLAY);
         $option->setDefaultValue(true);
@@ -240,39 +219,11 @@ class tubepress_plugins_core_listeners_CoreOptionsRegistrarTest extends TubePres
         $option->setBoolean();
         $this->_verifyOption($option);
 
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::MODEST_BRANDING);
-        $option->setDefaultValue(true);
-        $option->setLabel('"Modest" branding');                          //>(translatable)<
-        $option->setDescription('Hide the YouTube logo from the control area.'); //>(translatable)<
-        $option->setBoolean();
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $this->_verifyOption($option);
-
         $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::PLAYER_COLOR);
         $option->setDefaultValue('999999');
         $option->setLabel('Main color');              //>(translatable)<
         $option->setDescription('Default is 999999.'); //>(translatable)<
         $option->setValidValueRegex(self::$_regexColor);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT);
-        $option->setDefaultValue('FFFFFF');
-        $option->setLabel('Highlight color');         //>(translatable)<
-        $option->setDescription('Default is FFFFFF.'); //>(translatable)<
-        $option->setValidValueRegex(self::$_regexColor);
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
-        $option->setDefaultValue(tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED);
-        $option->setLabel('Implementation');                                                                                  //>(translatable)<
-        $option->setDescription('The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).'); //>(translatable)<
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setAcceptableValues(array(
-            tubepress_api_const_options_values_PlayerImplementationValue::EMBEDPLUS      => 'EmbedPlus',
-            tubepress_api_const_options_values_PlayerImplementationValue::LONGTAIL       => 'JW FLV Media Player (by Longtail Video)',  //>(translatable)<
-            tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED => 'Provider default',                         //>(translatable)<
-        ));
         $this->_verifyOption($option);
 
         $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::SEQUENCE);
@@ -283,14 +234,6 @@ class tubepress_plugins_core_listeners_CoreOptionsRegistrarTest extends TubePres
         $option->setLabel('Show title and rating before video starts');  //>(translatable)<
         $option->setDefaultValue(false);
         $option->setBoolean();
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::SHOW_RELATED);
-        $option->setDefaultValue(true);
-        $option->setLabel('Show related videos');                                                //>(translatable)<
-        $option->setDescription('Toggles the display of related videos after a video finishes.'); //>(translatable)<
-        $option->setBoolean();
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
         $this->_verifyOption($option);
 
         $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Feed::VIDEO_BLACKLIST);
@@ -333,32 +276,7 @@ class tubepress_plugins_core_listeners_CoreOptionsRegistrarTest extends TubePres
         ));
         $this->_verifyOption($option);
 
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Feed::DEV_KEY);
-        $option->setDefaultValue('AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg');
-        $option->setLabel('YouTube API Developer Key');                                                                                                                                                                                                                                                                                   //>(translatable)<
-        $option->setDescription('YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href="http://code.google.com/apis/youtube/dashboard/">here</a>. Don\'t change this unless you know what you\'re doing.'); //>(translatable)<
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $this->_verifyOption($option);
 
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Feed::EMBEDDABLE_ONLY);
-        $option->setDefaultValue(true);
-        $option->setLabel('Only retrieve embeddable videos');                                                                                //>(translatable)<
-        $option->setDescription('Some videos have embedding disabled. Checking this option will exclude these videos from your galleries.'); //>(translatable)<
-        $option->setBoolean();
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Feed::FILTER);
-        $option->setLabel('Filter "racy" content');                                                    //>(translatable)<
-        $option->setDescription('Don\'t show videos that may not be suitable for minors.');            //>(translatable)<
-        $option->setDefaultValue(tubepress_api_const_options_values_SafeSearchValue::GALLERY_SOURCERATE);
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setAcceptableValues(array(
-            tubepress_api_const_options_values_SafeSearchValue::NONE     => 'none',     //>(translatable)<
-            tubepress_api_const_options_values_SafeSearchValue::GALLERY_SOURCERATE => 'moderate', //>(translatable)<
-            tubepress_api_const_options_values_SafeSearchValue::STRICT   => 'strict',   //>(translatable)<
-        ));
-        $this->_verifyOption($option);
 
         $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Feed::RESULT_COUNT_CAP);
         $option->setDefaultValue(300);
@@ -373,147 +291,6 @@ class tubepress_plugins_core_listeners_CoreOptionsRegistrarTest extends TubePres
         $option->setValidValueRegex('/\w*/');
         $this->_verifyOption($option);
 
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Feed::VIMEO_KEY);
-        $option->setLabel('Vimeo API "Consumer Key"');                                                                                        //>(translatable)<
-        $option->setDescription('<a href="http://vimeo.com/api/applications/new">Click here</a> to register for a consumer key and secret.'); //>(translatable)<
-        $option->setExcludedProviders(self::$_providerArrayYouTube);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Feed::VIMEO_SECRET);
-        $option->setLabel('Vimeo API "Consumer Secret"');                                                                                     //>(translatable)<
-        $option->setDescription('<a href="http://vimeo.com/api/applications/new">Click here</a> to register for a consumer key and secret.'); //>(translatable)<
-        $option->setExcludedProviders(self::$_providerArrayYouTube);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE);
-        $option->setDefaultValue('pittsburgh steelers');
-        $option->setDescription('YouTube limits this to 1,000 results.');  //>(translatable)<
-        $option->setLabel('YouTube search for');                            //>(translatable)<
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE);
-        $option->setDefaultValue(tubepress_api_const_options_values_TimeFrameValue::TODAY);
-        $option->setAcceptableValues(self::$_valueMapTime);
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setLabel('Top-rated YouTube videos from');  //>(translatable)<
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_GallerySource::YOUTUBE_TOP_FAVORITES_VALUE);
-        $option->setDefaultValue(tubepress_api_const_options_values_TimeFrameValue::TODAY);
-        $option->setAcceptableValues(self::$_valueMapTime);
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setLabel('Most-favorited YouTube videos from');  //>(translatable)<
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE);
-        $option->setDefaultValue('3hough');
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setLabel('Videos from this YouTube user');  //>(translatable)<
-        $option->setValidValueRegex(self::$_regexWordChars);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE);
-        $option->setDefaultValue('mattkaar');
-        $option->setExcludedProviders(self::$_providerArrayYouTube);
-        $option->setLabel('Videos uploaded by this Vimeo user');  //>(translatable)<
-        $option->setValidValueRegex(self::$_regexWordChars);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE);
-        $option->setDefaultValue('coiffier');
-        $option->setExcludedProviders(self::$_providerArrayYouTube);
-        $option->setLabel('Videos this Vimeo user likes');  //>(translatable)<
-        $option->setValidValueRegex(self::$_regexWordChars);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE);
-        $option->setDefaultValue('royksopp');
-        $option->setExcludedProviders(self::$_providerArrayYouTube);
-        $option->setLabel('Videos this Vimeo user appears in');  //>(translatable)<
-        $option->setValidValueRegex(self::$_regexWordChars);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE);
-        $option->setDefaultValue('cats playing piano');
-        $option->setExcludedProviders(self::$_providerArrayYouTube);
-        $option->setLabel('Vimeo search for');  //>(translatable)<
-        $option->setValidValueRegex('/[\w" ]+/');
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE);
-        $option->setDefaultValue('patricklawler');
-        $option->setExcludedProviders(self::$_providerArrayYouTube);
-        $option->setLabel('Videos credited to this Vimeo user (either appears in or uploaded by)');  //>(translatable)<
-        $option->setValidValueRegex(self::$_regexWordChars);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE);
-        $option->setDefaultValue('splitscreenstuff');
-        $option->setExcludedProviders(self::$_providerArrayYouTube);
-        $option->setLabel('Videos in this Vimeo channel');  //>(translatable)<
-        $option->setValidValueRegex(self::$_regexWordChars);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE);
-        $option->setDefaultValue('hdxs');
-        $option->setExcludedProviders(self::$_providerArrayYouTube);
-        $option->setLabel('Videos from this Vimeo group');  //>(translatable)<
-        $option->setValidValueRegex(self::$_regexWordChars);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE);
-        $option->setDefaultValue('140484');
-        $option->setExcludedProviders(self::$_providerArrayYouTube);
-        $option->setLabel('Videos from this Vimeo album');  //>(translatable)<
-        $option->setValidValueRegex(self::$_regexWordChars);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE);
-        $option->setDefaultValue('mrdeathgod');
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setLabel('This YouTube user\'s "favorites"');  //>(translatable)<
-        $option->setValidValueRegex(self::$_regexWordChars);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_VIEWED_VALUE);
-        $option->setDefaultValue(tubepress_api_const_options_values_TimeFrameValue::TODAY);
-        $option->setAcceptableValues(self::$_valueMapTime);
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setLabel('Most-viewed YouTube videos from');  //>(translatable)<
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
-        $option->setDefaultValue('D2B04665B213AE35');
-        $option->setDescription('Limited to 200 videos per playlist. Will usually look something like this: D2B04665B213AE35. Copy the playlist id from the end of the URL in your browser\'s address bar (while looking at a YouTube playlist). It comes right after the "p=". For instance: http://youtube.com/my_playlists?p=D2B04665B213AE35');  //>(translatable)<
-        $option->setLabel('This YouTube playlist');                                                                                                                                                                                                                                                                                                          //>(translatable)<
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setValidValueRegex('/[\w-]+/');
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_GallerySource::YOUTUBE_FEATURED);
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setLabel('The latest "featured" videos on YouTube\'s homepage from');    //>(translatable)<
-        $option->setAcceptableValues(self::$_valueMapTime);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE);
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setLabel('Most-discussed YouTube videos from');    //>(translatable)<
-        $option->setAcceptableValues(self::$_valueMapTime);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE);
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setLabel('Most-recently added YouTube videos from');    //>(translatable)<
-        $option->setAcceptableValues(self::$_valueMapTime);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE);
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $option->setLabel('Most-responded to YouTube videos from');    //>(translatable)<
-        $option->setAcceptableValues(self::$_valueMapTime);
-        $this->_verifyOption($option);
 
 
         $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_InteractiveSearch::SEARCH_PROVIDER);
@@ -584,26 +361,6 @@ class tubepress_plugins_core_listeners_CoreOptionsRegistrarTest extends TubePres
         $option->setBoolean();
         $this->_verifyOption($option);
 
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Meta::LIKES);
-        $option->setLabel('Number of "likes"');  //>(translatable)<
-        $option->setDefaultValue(false);
-        $option->setBoolean();
-        $option->setExcludedProviders(self::$_providerArrayYouTube);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Meta::RATING);
-        $option->setLabel('Average rating');  //>(translatable)<
-        $option->setDefaultValue(false);
-        $option->setBoolean();
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Meta::RATINGS);
-        $option->setLabel('Number of ratings');  //>(translatable)<
-        $option->setDefaultValue(false);
-        $option->setBoolean();
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $this->_verifyOption($option);
 
         $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Meta::KEYWORDS);
         $option->setLabel('Keywords');  //>(translatable)<
@@ -636,19 +393,19 @@ class tubepress_plugins_core_listeners_CoreOptionsRegistrarTest extends TubePres
         $this->_verifyOption($option);
 
         $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
-        $option->setDefaultValue(tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED);
+        $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED);
         $option->setAcceptableValues(array(
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES,
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED,
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT,
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED,
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_VIEWED,
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH,
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES,
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED,
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES,
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED,
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT,
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED,
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR,
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH,
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES,
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED,
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
             tubepress_api_const_options_values_GallerySourceValue::VIMEO_ALBUM,
             tubepress_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN,
             tubepress_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL,
@@ -704,13 +461,7 @@ class tubepress_plugins_core_listeners_CoreOptionsRegistrarTest extends TubePres
         $option->setBoolean();
         $this->_verifyOption($option);
 
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS);
-        $option->setDefaultValue(true);
-        $option->setLabel('Randomize thumbnail images');                                                                                                                                                                                                                                              //>(translatable)<
-        $option->setDescription('Most videos come with several thumbnails. By selecting this option, each time someone views your gallery they will see the same videos with each video\'s thumbnail randomized. Note: this option cannot be used with the "high quality thumbnails" feature.'); //>(translatable)<
-        $option->setBoolean();
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $this->_verifyOption($option);
+
 
         $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::RESULTS_PER_PAGE);
         $option->setDefaultValue(20);

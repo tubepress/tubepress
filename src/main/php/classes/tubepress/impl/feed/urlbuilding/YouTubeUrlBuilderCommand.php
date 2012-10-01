@@ -47,54 +47,54 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommand extends tubepress
 
         switch ($execContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE)) {
 
-        case tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_USER:
+        case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER:
 
-            $url = 'users/' . $execContext->get(tubepress_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE) . '/uploads';
+            $url = 'users/' . $execContext->get(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE) . '/uploads';
             break;
 
-        case tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED:
+        case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED:
 
-            $url = 'standardfeeds/top_rated?time=' . $execContext->get(tubepress_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE);
+            $url = 'standardfeeds/top_rated?time=' . $execContext->get(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE);
             break;
 
-        case tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_VIEWED:
+        case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR:
 
-            $url = 'standardfeeds/most_popular?time=' . $execContext->get(tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_VIEWED_VALUE);
+            $url = 'standardfeeds/most_popular?time=' . $execContext->get(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_POPULAR_VALUE);
             break;
 
-        case tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST:
+        case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST:
 
-            $url = 'playlists/' . $execContext->get(tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
+            $url = 'playlists/' . $execContext->get(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE);
             break;
 
-        case tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED:
+        case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED:
 
             $url = 'standardfeeds/most_responded';
             break;
 
-        case tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT:
+        case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT:
 
             $url = 'standardfeeds/most_recent';
             break;
 
-        case tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES:
+        case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES:
 
             $url = 'standardfeeds/top_favorites';
             break;
 
-        case tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED:
+        case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED:
 
             $url = 'standardfeeds/most_discussed';
             break;
 
-        case tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES:
+        case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES:
 
-            $url = 'users/' . $execContext->get(tubepress_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE) . '/favorites';
+            $url = 'users/' . $execContext->get(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE) . '/favorites';
             break;
 
-        case tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH:
+        case tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH:
 
-            $tags = $execContext->get(tubepress_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE);
+            $tags = $execContext->get(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE);
             $tags = self::_replaceQuotes($tags);
             $tags = urlencode($tags);
             $url  = "videos?q=$tags";
@@ -208,7 +208,7 @@ class tubepress_impl_feed_urlbuilding_YouTubeUrlBuilderCommand extends tubepress
         }
 
         /* playlist specific stuff */
-        if ($mode == tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST) {
+        if ($mode == tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST) {
 
             if (in_array($order, array(
 

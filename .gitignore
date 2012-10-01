@@ -4,3 +4,4 @@ src/main/assembly/dist
 .idea/workspace.xml
 vendor
 composer.lock
+tubepress.php

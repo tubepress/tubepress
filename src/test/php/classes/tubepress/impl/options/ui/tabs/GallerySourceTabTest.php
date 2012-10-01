@@ -89,38 +89,38 @@ class tubepress_impl_options_ui_tabs_GallerySourceTabTest extends TubePressUnitT
             tubepress_api_const_options_names_Output::GALLERY_SOURCE =>
                 array(tubepress_api_const_options_names_Output::GALLERY_SOURCE => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
             
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES =>
-                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES =>
+                array(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
         
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED =>
-                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_FEATURED => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED =>
+                array(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_FEATURED_VALUE => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
             
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_USER =>
-                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER =>
+                array(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
                 
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST =>
-                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST =>
+                array(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
                 
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH =>
-                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH =>
+                array(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
                 
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_VIEWED =>
-                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_VIEWED_VALUE => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR =>
+                array(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_POPULAR_VALUE => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
                 
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED =>
-                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED =>
+                array(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
 
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES =>
-                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_TOP_FAVORITES_VALUE => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES =>
+                array(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_FAVORITES_VALUE => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
                 
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED =>
-                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED =>
+                array(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
             
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT =>
-                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT =>
+                array(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
             
-            tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED =>
-                array(tubepress_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
+            tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED =>
+                array(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE => tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
                 
             tubepress_api_const_options_values_GallerySourceValue::VIMEO_ALBUM =>
                 array(tubepress_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE => tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),

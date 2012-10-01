@@ -64,11 +64,9 @@ interface tubepress_spi_provider_VideoProvider
     function fetchSingleVideo($videoId);
 
     /**
-     * @param string $optionName The TubePress option name.
-     *
-     * @return boolean True if this option is applicable to the provider. False otherwise.
+     * @return array An array of strings, each representing an option name provided by this provider.
      */
-    function optionIsApplicable($optionName);
+    function getProvidedOptionNames();
 
     /**
      * @param string $playerImplementationName The player implementation name.

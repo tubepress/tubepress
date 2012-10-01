@@ -37,7 +37,7 @@ class tubepress_plugins_core_filters_prevalidationoptionset_YouTubePlaylistPlPre
         $name = $event->getArgument('optionName');
 
         /** We only care about playlistValue. */
-        if ($name !== tubepress_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE) {
+        if ($name !== tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE) {
 
             return;
         }

@@ -128,9 +128,9 @@ class tubepress_impl_shortcode_commands_SearchOutputCommand implements ehough_ch
 
             default:
 
-                $execContext->set(tubepress_api_const_options_names_Output::GALLERY_SOURCE, tubepress_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH);
+                $execContext->set(tubepress_api_const_options_names_Output::GALLERY_SOURCE, tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH);
 
-                $result = $execContext->set(tubepress_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE, $rawSearchTerms);
+                $result = $execContext->set(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE, $rawSearchTerms);
 
                 if ($result !== true) {
 

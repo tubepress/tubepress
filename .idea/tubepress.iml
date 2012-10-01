@@ -11,13 +11,9 @@
     <orderEntry type="module-library">
       <library name="PHP">
         <CLASSES>
-          <root url="file:///var/www/gshd/wordpress/wp-includes" />
-          <root url="file:///var/www/gshd/wordpress/wp-admin" />
           <root url="file:///usr/share/php" />
         </CLASSES>
         <SOURCES>
-          <root url="file:///var/www/gshd/wordpress/wp-includes" />
-          <root url="file:///var/www/gshd/wordpress/wp-admin" />
           <root url="file:///usr/share/php" />
         </SOURCES>
       </library>
