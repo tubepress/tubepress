@@ -59,9 +59,6 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
 
                 /** @noinspection PhpUndefinedMethodInspection */
                 $result = $videoProvider->fetchVideoGalleryPage($currentPage);
-
-                /** @noinspection PhpUndefinedMethodInspection */
-                $providerName = $videoProvider->getName();
             }
         }
 
@@ -71,7 +68,6 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
         }
 
         $event = new tubepress_api_event_TubePressEvent($result);
-        $event->setArgument('providerName', $providerName);
 
         $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
 

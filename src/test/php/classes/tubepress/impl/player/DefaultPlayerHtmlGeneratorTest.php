@@ -88,7 +88,6 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePress
         $mockPlayerHtmlEvent = new tubepress_api_event_TubePressEvent('foobarr', array(
 
             'video' => $mockVideo,
-            'providerName' => 'video-provider',
             'playerName' => 'current-player-name'
         ));
 

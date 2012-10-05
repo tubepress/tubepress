@@ -38,7 +38,6 @@ abstract class tubepress_impl_provider_AbstractDispatchingPluggableVideoProvider
         $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
 
         $event = new tubepress_api_event_TubePressEvent($result);
-        $event->setArgument('providerName', $this->getName());
 
         $eventDispatcher->dispatch(
 

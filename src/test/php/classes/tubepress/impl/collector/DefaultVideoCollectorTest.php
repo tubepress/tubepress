@@ -95,7 +95,6 @@ class org_tubepress_impl_collector_DefaultVideoCollectorTest extends TubePressUn
         $mockProvider = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
 
         $mockProvider->shouldReceive('getGallerySourceNamesToSortOptionsMap')->andReturn(array('x' => 'z'));
-        $mockProvider->shouldReceive('getName')->once()->andReturn('abc');
         $mockProvider->shouldReceive('fetchVideoGalleryPage')->once()->with(97)->andReturn($mockPage);
 
         $mockProviders = array($mockProvider);
@@ -108,7 +107,7 @@ class org_tubepress_impl_collector_DefaultVideoCollectorTest extends TubePressUn
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION, Mockery::on(function ($arg) use ($mockPage) {
 
-            return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getArgument('providerName') === 'abc' && $arg->getSubject() === $mockPage;
+            return $arg instanceof tubepress_api_event_TubePressEvent && $arg->getSubject() === $mockPage;
         }));
 
         $result = $this->_sut->collectVideoGalleryPage();

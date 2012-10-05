@@ -369,10 +369,7 @@ abstract class tubepress_impl_provider_AbstractFetchingAndBuildingPluggableVideo
 
             $videoConstructionEvent = new tubepress_api_event_TubePressEvent(
 
-                $videos[$x], array(
-
-                    'providerName' => $this->getName()
-                )
+                $videos[$x]
             );
 
             $eventDispatcherService->dispatch(
