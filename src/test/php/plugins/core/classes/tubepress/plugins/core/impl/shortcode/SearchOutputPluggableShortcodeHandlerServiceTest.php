@@ -18,10 +18,10 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_plugins_core_impl_shortcode_SearchOutputShortcodeHandlerTest extends TubePressUnitTest
+class tubepress_plugins_core_impl_shortcode_SearchOutputPluggableShortcodeHandlerServiceTest extends TubePressUnitTest
 {
     /**
-     * @var tubepress_plugins_core_impl_shortcode_SearchOutputShortcodeHandler
+     * @var tubepress_plugins_core_impl_shortcode_SearchOutputPluggableShortcodeHandlerService
      */
     private $_sut;
 
@@ -35,10 +35,10 @@ class tubepress_plugins_core_impl_shortcode_SearchOutputShortcodeHandlerTest ext
     {
 
         $this->_mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockThumbGalleryShortcodeHandler = Mockery::mock(tubepress_spi_shortcode_ShortcodeHandler::_);
+        $this->_mockThumbGalleryShortcodeHandler = Mockery::mock(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
         $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
 
-        $this->_sut = new tubepress_plugins_core_impl_shortcode_SearchOutputShortcodeHandler($this->_mockThumbGalleryShortcodeHandler);
+        $this->_sut = new tubepress_plugins_core_impl_shortcode_SearchOutputPluggableShortcodeHandlerService($this->_mockThumbGalleryShortcodeHandler);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);

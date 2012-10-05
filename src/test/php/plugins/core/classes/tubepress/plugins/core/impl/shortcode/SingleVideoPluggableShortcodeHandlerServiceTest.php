@@ -18,10 +18,10 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_shortcode_commands_SingleVideoCommandTest extends TubePressUnitTest
+class org_tubepress_impl_shortcode_commands_SingleVideoPluggableShortcodeHandlerServiceTest extends TubePressUnitTest
 {
     /**
-     * @var tubepress_plugins_core_impl_shortcode_SingleVideoShortcodeHandler
+     * @var tubepress_plugins_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService
      */
     private $_sut;
 
@@ -45,7 +45,7 @@ class org_tubepress_impl_shortcode_commands_SingleVideoCommandTest extends TubeP
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setVideoProvider($this->_mockProvider);
         
-		$this->_sut = new tubepress_plugins_core_impl_shortcode_SingleVideoShortcodeHandler();
+		$this->_sut = new tubepress_plugins_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService();
 	}
 
 	function testExecuteNoVideo()

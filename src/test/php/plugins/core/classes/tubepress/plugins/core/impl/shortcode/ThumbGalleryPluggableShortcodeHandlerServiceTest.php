@@ -18,10 +18,10 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_plugins_core_impl_shortcode_ThumbGalleryShortcodeHandlerTest extends TubePressUnitTest
+class tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerServiceTest extends TubePressUnitTest
 {
     /**
-     * @var tubepress_plugins_core_impl_shortcode_ThumbGalleryShortcodeHandler
+     * @var tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService
      */
     private $_sut;
 
@@ -53,7 +53,7 @@ class tubepress_plugins_core_impl_shortcode_ThumbGalleryShortcodeHandlerTest ext
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setMessageService($this->_messageService);
 
-		$this->_sut = new tubepress_plugins_core_impl_shortcode_ThumbGalleryShortcodeHandler();
+		$this->_sut = new tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService();
 	}
 
 

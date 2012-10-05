@@ -22,7 +22,7 @@
 /**
  * HTML-generation command that implements the "solo" player command.
  */
-class tubepress_plugins_core_impl_shortcode_SoloPlayerShortcodeHandler implements tubepress_spi_shortcode_ShortcodeHandler
+class tubepress_plugins_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService implements tubepress_spi_shortcode_PluggableShortcodeHandlerService
 {
     /**
      * @var ehough_epilog_api_ILogger
@@ -30,11 +30,11 @@ class tubepress_plugins_core_impl_shortcode_SoloPlayerShortcodeHandler implement
     private $_logger;
 
     /**
-     * @var tubepress_spi_shortcode_ShortcodeHandler
+     * @var tubepress_spi_shortcode_PluggableShortcodeHandlerService
      */
     private $_singleVideoShortcodeHandler;
 
-    public function __construct(tubepress_spi_shortcode_ShortcodeHandler $singleVideoShortcodeHandler)
+    public function __construct(tubepress_spi_shortcode_PluggableShortcodeHandlerService $singleVideoShortcodeHandler)
     {
         $this->_logger                      = ehough_epilog_api_LoggerFactory::getLogger('Solo Player Command');
         $this->_singleVideoShortcodeHandler = $singleVideoShortcodeHandler;

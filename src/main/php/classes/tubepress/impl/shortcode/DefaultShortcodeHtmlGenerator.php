@@ -48,7 +48,7 @@ class tubepress_impl_shortcode_DefaultShortcodeHtmlGenerator implements tubepres
         }
 
         $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-        $handlers                   = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_shortcode_ShortcodeHandler::_);
+        $handlers                   = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
         $html                       = null;
 
         foreach ($handlers as $handler) {

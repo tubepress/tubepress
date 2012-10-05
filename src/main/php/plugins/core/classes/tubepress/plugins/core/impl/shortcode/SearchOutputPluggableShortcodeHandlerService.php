@@ -22,7 +22,7 @@
 /**
  * HTML generation command that generates HTML for a single video + meta info.
  */
-class tubepress_plugins_core_impl_shortcode_SearchOutputShortcodeHandler implements tubepress_spi_shortcode_ShortcodeHandler
+class tubepress_plugins_core_impl_shortcode_SearchOutputPluggableShortcodeHandlerService implements tubepress_spi_shortcode_PluggableShortcodeHandlerService
 {
     /**
      * @var ehough_epilog_api_ILogger
@@ -31,7 +31,7 @@ class tubepress_plugins_core_impl_shortcode_SearchOutputShortcodeHandler impleme
 
     private $_thumbGalleryShortcodeHandler;
 
-    public function __construct(tubepress_spi_shortcode_ShortcodeHandler $thumbGalleryShortcodeHandler)
+    public function __construct(tubepress_spi_shortcode_PluggableShortcodeHandlerService $thumbGalleryShortcodeHandler)
     {
         $this->_logger                       = ehough_epilog_api_LoggerFactory::getLogger('Search Output Command');
         $this->_thumbGalleryShortcodeHandler = $thumbGalleryShortcodeHandler;

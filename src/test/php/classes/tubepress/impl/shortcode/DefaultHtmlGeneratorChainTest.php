@@ -43,13 +43,13 @@ class org_tubepress_impl_shortcode_DefaultHtmlGeneratorChainTest extends TubePre
 
     function testOneHandlerCouldHandle()
     {
-        $mockHandler = Mockery::mock(tubepress_spi_shortcode_ShortcodeHandler::_);
+        $mockHandler = Mockery::mock(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
         $mockHandler->shouldReceive('shouldExecute')->once()->andReturn(true);
         $mockHandler->shouldReceive('getHtml')->once()->andReturn('foobar');
 
         $mockHandlers = array($mockHandler);
 
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_shortcode_ShortcodeHandler::_)->andReturn($mockHandlers);
+        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_)->andReturn($mockHandlers);
 
         $this->_mockEventDispatcher->shouldReceive('hasListeners')->once()->andReturn(true);
 
@@ -65,12 +65,12 @@ class org_tubepress_impl_shortcode_DefaultHtmlGeneratorChainTest extends TubePre
 
     function testNoHandlersCouldHandle()
     {
-        $mockHandler = Mockery::mock(tubepress_spi_shortcode_ShortcodeHandler::_);
+        $mockHandler = Mockery::mock(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
         $mockHandler->shouldReceive('shouldExecute')->once()->andReturn(false);
 
         $mockHandlers = array($mockHandler);
 
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_shortcode_ShortcodeHandler::_)->andReturn($mockHandlers);
+        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_)->andReturn($mockHandlers);
 
         $result = $this->_sut->getHtmlForShortcode('shortcode');
 
@@ -79,7 +79,7 @@ class org_tubepress_impl_shortcode_DefaultHtmlGeneratorChainTest extends TubePre
 
     function testNoHandlers()
     {
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_shortcode_ShortcodeHandler::_)->andReturn(array());
+        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_)->andReturn(array());
 
         $result = $this->_sut->getHtmlForShortcode('shortcode');
 

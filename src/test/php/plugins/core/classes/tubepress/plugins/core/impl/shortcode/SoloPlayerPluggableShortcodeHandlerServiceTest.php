@@ -18,10 +18,10 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_plugins_core_impl_shortcode_SoloPlayerShortcodeHandlerTest extends TubePressUnitTest
+class tubepress_plugins_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerServiceTest extends TubePressUnitTest
 {
     /**
-     * @var tubepress_plugins_core_impl_shortcode_SoloPlayerShortcodeHandler
+     * @var tubepress_plugins_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService
      */
     private $_sut;
 
@@ -40,9 +40,9 @@ class tubepress_plugins_core_impl_shortcode_SoloPlayerShortcodeHandlerTest exten
         tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
 
-        $this->_mockSingleVideoShortcodeHandler = Mockery::mock(tubepress_spi_shortcode_ShortcodeHandler::_);
+        $this->_mockSingleVideoShortcodeHandler = Mockery::mock(tubepress_spi_shortcode_PluggableShortcodeHandlerService::_);
 
-		$this->_sut = new tubepress_plugins_core_impl_shortcode_SoloPlayerShortcodeHandler($this->_mockSingleVideoShortcodeHandler);
+		$this->_sut = new tubepress_plugins_core_impl_shortcode_SoloPlayerPluggableShortcodeHandlerService($this->_mockSingleVideoShortcodeHandler);
 	}
 
 	function testExecuteWrongPlayer()

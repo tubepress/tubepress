@@ -22,7 +22,7 @@
 /**
  * HTML generation command that generates HTML for a single video + meta info.
  */
-class tubepress_plugins_core_impl_shortcode_SearchInputShortcodeHandler implements tubepress_spi_shortcode_ShortcodeHandler
+class tubepress_plugins_core_impl_shortcode_SearchInputPluggableShortcodeHandlerService implements tubepress_spi_shortcode_PluggableShortcodeHandlerService
 {
     /**
      * @return string The name of this video provider. Never empty or null. All lowercase alphanumerics and dashes.

@@ -19,7 +19,7 @@
  *
  */
 
-class tubepress_plugins_core_impl_shortcode_ThumbGalleryShortcodeHandler implements tubepress_spi_shortcode_ShortcodeHandler
+class tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandlerService implements tubepress_spi_shortcode_PluggableShortcodeHandlerService
 {
     private $_logger;
 

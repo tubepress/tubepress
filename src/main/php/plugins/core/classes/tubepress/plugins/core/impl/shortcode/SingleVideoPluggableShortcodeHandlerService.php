@@ -22,7 +22,7 @@
 /**
  * HTML generation command that generates HTML for a single video + meta info.
  */
-class tubepress_plugins_core_impl_shortcode_SingleVideoShortcodeHandler implements tubepress_spi_shortcode_ShortcodeHandler
+class tubepress_plugins_core_impl_shortcode_SingleVideoPluggableShortcodeHandlerService implements tubepress_spi_shortcode_PluggableShortcodeHandlerService
 {
     private $_logger;
 

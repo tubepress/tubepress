@@ -22,9 +22,9 @@
 /**
  * Can handle a shortcode.
  */
-interface tubepress_spi_shortcode_ShortcodeHandler
+interface tubepress_spi_shortcode_PluggableShortcodeHandlerService
 {
-    const _ = 'tubepress_spi_shortcode_ShortcodeHandler';
+    const _ = 'tubepress_spi_shortcode_PluggableShortcodeHandlerService';
 
     /**
      * @return string The name of this shortcode handler. Never empty or null. All lowercase alphanumerics and dashes.
