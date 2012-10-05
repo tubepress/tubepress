@@ -39,6 +39,9 @@ class tubepress_plugins_core_CoreTest extends TubePressUnitTest
             array(tubepress_api_const_event_CoreEventNames::BOOT =>
                 array('tubepress_plugins_core_impl_listeners_SkeletonExistsListener', 'onBoot')),
 
+            array(tubepress_api_const_event_CoreEventNames::BOOT =>
+                array('tubepress_plugins_core_impl_listeners_ShortcodeHandlersRegistrar', 'onBoot')),
+
             array(tubepress_api_const_event_CoreEventNames::VARIABLE_READ_FROM_EXTERNAL_INPUT =>
                 array('tubepress_plugins_core_impl_filters_variablereadfromexternalinput_StringMagic', 'onIncomingInput')),
 

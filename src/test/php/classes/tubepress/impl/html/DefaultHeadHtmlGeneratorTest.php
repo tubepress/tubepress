@@ -63,7 +63,7 @@ class org_tubepress_impl_html_DefaultHeadHtmlGeneratorTest extends TubePressUnit
 
         $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::HTTPS)->andReturn(false);
 
-        $this->assertEquals('<script type="text/javascript">var TubePress = { baseUrl : "<tubepress_base_url>", https : false };</script>', $this->_sut->getHeadInlineJs());
+        $this->assertEquals('<script type="text/javascript">TubePressGlobalJsConfig = { baseUrl : "<tubepress_base_url>", https : false };</script>', $this->_sut->getHeadInlineJs());
     }
 
     function testCss()

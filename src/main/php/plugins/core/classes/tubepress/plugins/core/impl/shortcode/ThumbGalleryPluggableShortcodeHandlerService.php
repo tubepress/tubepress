@@ -25,7 +25,7 @@ class tubepress_plugins_core_impl_shortcode_ThumbGalleryPluggableShortcodeHandle
 
     public function __construct()
     {
-        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Thumb Gallery Command');
+        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Thumb Gallery Shortcode Handler');
     }
 
     /**

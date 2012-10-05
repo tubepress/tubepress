@@ -46,7 +46,11 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_EmbeddedPlayerNameTest
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_IMPL)->andReturn('player-impl');
 
+        $video = new tubepress_api_video_Video();
+        $video->setAttribute(tubepress_api_video_Video::ATTRIBUTE_PROVIDER_NAME, 'provider-name');
+
         $providerResult = new tubepress_api_video_VideoGalleryPage();
+        $providerResult->setVideos(array($video));
 
         $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, 'provider-name');
@@ -68,7 +72,11 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_EmbeddedPlayerNameTest
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_IMPL)->andReturn($name);
 
+        $video = new tubepress_api_video_Video();
+        $video->setAttribute(tubepress_api_video_Video::ATTRIBUTE_PROVIDER_NAME, $name);
+
         $providerResult = new tubepress_api_video_VideoGalleryPage();
+        $providerResult->setVideos(array($video));
 
         $mockTemplate = \Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('setVariable')->once()->with(tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, $name);

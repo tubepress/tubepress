@@ -94,7 +94,7 @@ class org_tubepress_impl_collector_DefaultVideoCollectorTest extends TubePressUn
 
         $mockProvider = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
 
-        $mockProvider->shouldReceive('getGallerySourceNamesToSortOptionsMap')->andReturn(array('x' => 'z'));
+        $mockProvider->shouldReceive('getGallerySourceNames')->andReturn(array('x'));
         $mockProvider->shouldReceive('fetchVideoGalleryPage')->once()->with(97)->andReturn($mockPage);
 
         $mockProviders = array($mockProvider);
@@ -122,7 +122,7 @@ class org_tubepress_impl_collector_DefaultVideoCollectorTest extends TubePressUn
     {
         $mockProvider = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
 
-        $mockProvider->shouldReceive('getGallerySourceNamesToSortOptionsMap')->andReturn(array());
+        $mockProvider->shouldReceive('getGallerySourceNames')->andReturn(array());
 
         $mockProviders = array($mockProvider);
 

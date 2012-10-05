@@ -26,28 +26,29 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_EmbeddedPlayerName
 {
     public function onGalleryTemplate(tubepress_api_event_TubePressEvent $event)
     {
-        $template     = $event->getSubject();
-        $providerName = $event->getArgument('providerName');
+        $template = $event->getSubject();
+        $page     = $event->getArgument('videoGalleryPage');
 
-        $template->setVariable(tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, self::_getEmbeddedServiceName($providerName));
+        $template->setVariable(tubepress_api_const_template_Variable::EMBEDDED_IMPL_NAME, self::_getEmbeddedServiceName($page));
     }
 
-    private static function _getEmbeddedServiceName($providerName)
+    private static function _getEmbeddedServiceName(tubepress_api_video_VideoGalleryPage $page)
     {
-        $context = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
-        $stored  = $context->get(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
+        $context     = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $stored      = $context->get(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
+        $videoArray  = $page->getVideos();
+        $randomVideo = $videoArray[array_rand($videoArray)];
+        $provider    = $randomVideo->getAttribute(tubepress_api_video_Video::ATTRIBUTE_PROVIDER_NAME);
 
-        $longTailWithYouTube = $stored === 'longtail'
-            && $providerName === 'youtube';
+        $longTailWithYouTube = $stored === 'longtail' && $provider === 'youtube';
 
-        $embedPlusWithYouTube = $stored === 'embedplus'
-            && $providerName === 'youtube';
+        $embedPlusWithYouTube = $stored === 'embedplus' && $provider === 'youtube';
 
         if ($longTailWithYouTube || $embedPlusWithYouTube) {
 
             return $stored;
         }
 
-        return $providerName;
+        return $provider;
     }
 }

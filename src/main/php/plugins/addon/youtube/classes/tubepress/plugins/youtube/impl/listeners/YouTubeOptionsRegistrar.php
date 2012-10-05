@@ -75,7 +75,7 @@ class tubepress_plugins_youtube_impl_listeners_YouTubeOptionsRegistrar
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $odr->registerOptionDescriptor($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::CLOSED_CAPTIONS);
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::THEME);
         $option->setLabel('YouTube player theme');                                                  //>(translatable)<
         $option->setAcceptableValues(array(
 

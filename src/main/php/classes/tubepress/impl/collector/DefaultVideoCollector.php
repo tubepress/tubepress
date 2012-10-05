@@ -52,8 +52,7 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
         foreach ($providers as $videoProvider) {
 
             /** @noinspection PhpUndefinedMethodInspection */
-            $sourceMap = $videoProvider->getGallerySourceNamesToSortOptionsMap();
-            $sources   = array_keys($sourceMap);
+            $sources = $videoProvider->getGallerySourceNames();
 
             if (in_array($videoSource, $sources)) {
 

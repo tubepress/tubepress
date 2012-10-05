@@ -46,7 +46,7 @@ class tubepress_impl_html_DefaultHeadHtmlGenerator implements tubepress_spi_html
         $https            = $executionContext->get(tubepress_api_const_options_names_Advanced::HTTPS) ? 'true' : 'false';
 
         return <<<EOT
-<script type="text/javascript">var TubePress = { baseUrl : "$url", https : $https };</script>
+<script type="text/javascript">TubePressGlobalJsConfig = { baseUrl : "$url", https : $https };</script>
 EOT;
     }
 
