@@ -6,7 +6,7 @@
  *
  */
 
-/*global jQuery, getTubePressBaseUrl, alert, YT, Froogaloop, console */
+/*global jQuery, TubePress, YT, Froogaloop, console */
 /*jslint devel: true, browser: true, sloppy: false, white: true, maxerr: 50, indent: 4 */
 
 /**
@@ -271,6 +271,14 @@ var TubePressGallery = (function () {
 			
 			return galleries[galleryId].playerLocationName;
 		},
+
+		/**
+		 * Where is the
+		 */
+		getPlayerJsUrl = function (galleryId) {
+
+			return galleries[galleryId].playerJsUrl;
+		},
 		
 		/**
 		 * What's the sequence of videos for this gallery?
@@ -319,6 +327,7 @@ var TubePressGallery = (function () {
 		getEmbeddedHeight		: getEmbeddedHeight,
 		getEmbeddedWidth		: getEmbeddedWidth,
 		getPlayerLocationName	: getPlayerLocationName,
+		getPlayerJsUrl          : getPlayerJsUrl,
 		getSequence				: getSequence,
 		getShortcode			: getShortcode,
 		init					: init
@@ -350,7 +359,7 @@ var TubePressPlayers = (function () {
 		bootPlayer = function (e, galleryId) {
 			
 			var playerName	= tubepressGallery.getPlayerLocationName(galleryId),
-				path		= getTubePressBaseUrl() + '/src/main/web/players/' + playerName + '/' + playerName + '.js';
+				path		= tubepressGallery.getPlayerJsUrl(galleryId);
 	
 			/** don't load a player twice... */
 			if (loadedPlayers[playerName] !== true) {
@@ -373,6 +382,7 @@ var TubePressPlayers = (function () {
 		 */
 		invokePlayer = function (e, galleryId, videoId) {
 			
+
 			var playerName	= tubepressGallery.getPlayerLocationName(galleryId),
 				height		= tubepressGallery.getEmbeddedHeight(galleryId),
 				width		= tubepressGallery.getEmbeddedWidth(galleryId),
@@ -392,8 +402,8 @@ var TubePressPlayers = (function () {
 						'tubepress_video'		: videoId,
 						'tubepress_shortcode'	: shortcode
 				},
-				
-				url = getTubePressBaseUrl() + '/src/main/php/scripts/ajaxEndpoint.php';
+
+				url = TubePress.baseUrl + '/src/main/php/scripts/ajaxEndpoint.php';
 		
 			/** Announce we're gonna invoke the player... */
 			documentElement.trigger(tubepressEvents.PLAYER_INVOKE + playerName, [ videoId, galleryId, width, height ]);
@@ -485,6 +495,8 @@ var TubePressSequencer = (function () {
 					
 					return galleryId;
 				}
+
+				return false;
 			};
 			
 			return findGalleryThatMatchesTest(test);
@@ -539,7 +551,6 @@ var TubePressSequencer = (function () {
 			var sequence	= tubepressGallery.getSequence(galleryId),
 				vidId		= galleries[galleryId][currentVideoId],
 				index		= jquery.inArray(vidId, sequence),
-				i			= index,
 				lastIndex	= sequence ? sequence.length - 1 : index;
 			
 			/** Sorry, we don't know anything about this video id, or we've reached the end of the gallery. */
@@ -549,7 +560,7 @@ var TubePressSequencer = (function () {
 			}
 			
 			/** Start the next video in line. */
-			changeToVideo(galleryId, sequence[i + 1]);
+			changeToVideo(galleryId, sequence[index + 1]);
 		},
 		
 		/** Play the previous video in the gallery. */
@@ -558,8 +569,7 @@ var TubePressSequencer = (function () {
 			/** Get the gallery's sequence. This is an array of video ids. */
 			var sequence	= tubepressGallery.getSequence(galleryId),
 				vidId		= galleries[galleryId][currentVideoId],
-				index		= jquery.inArray(vidId, sequence),
-				i			= index;
+				index		= jquery.inArray(vidId, sequence);
 			
 			/** Sorry, we don't know anything about this video id, or we're at the start of the gallery. */
 			if (index === -1 || index === 0) {
@@ -568,7 +578,7 @@ var TubePressSequencer = (function () {
 			}
 			
 			/** Start the previous video in line. */
-			changeToVideo(galleryId, sequence[i + 1]);
+			changeToVideo(galleryId, sequence[index + 1]);
 		},
 		
 		/**
@@ -819,7 +829,7 @@ var TubePressAjaxPagination = (function () {
 		/** Handles an ajax pagination click. */
 		processClick = function (anchor, galleryId) {
 			
-			var baseUrl				= getTubePressBaseUrl(), 
+			var baseUrl				= TubePress.baseUrl,
 				shortcode			= gallery.getShortcode(galleryId),
 				page				= anchor.attr('rel'),
 				thumbnailArea		= TubePressThumbs.getThumbAreaSelector(galleryId),
@@ -1390,7 +1400,7 @@ var TubePressAjaxSearch = (function () {
 			logger.log('Ajax selector: ' + ajaxResultSelector);
 		}
 		
-		TubePressAjax.loadAndStyle(getTubePressBaseUrl() + '/src/main/php/scripts/ajaxEndpoint.php?shortcode='
+		TubePressAjax.loadAndStyle(TubePress.baseUrl + '/src/main/php/scripts/ajaxEndpoint.php?shortcode='
 				+ urlEncodedShortcode + '&tubepress_search=' + urlEncodedSearchTerms, finalAjaxContentDestination, ajaxResultSelector, null, callback);
 	};
 	
