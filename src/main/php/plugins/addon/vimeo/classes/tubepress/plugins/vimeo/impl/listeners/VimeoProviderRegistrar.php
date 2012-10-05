@@ -30,8 +30,8 @@ class tubepress_plugins_vimeo_impl_listeners_VimeoProviderRegistrar
 
         $serviceCollectionsRegistry->registerService(
 
-            tubepress_spi_provider_VideoProvider::_,
-            new tubepress_plugins_vimeo_impl_provider_VimeoProvider(
+            tubepress_spi_provider_PluggableVideoProviderService::_,
+            new tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService(
 
                 new tubepress_plugins_vimeo_impl_provider_VimeoUrlBuilder()
             )

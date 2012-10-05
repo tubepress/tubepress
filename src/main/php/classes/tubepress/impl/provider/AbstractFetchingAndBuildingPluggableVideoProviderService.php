@@ -22,7 +22,7 @@
 /**
  * Abstract feed-fetcher-based video provider.
  */
-abstract class tubepress_impl_provider_AbstractFetchingAndBuildingVideoProvider extends tubepress_impl_provider_AbstractDispatchingVideoProvider
+abstract class tubepress_impl_provider_AbstractFetchingAndBuildingPluggableVideoProviderService extends tubepress_impl_provider_AbstractDispatchingPluggableVideoProviderService
 {
     /**
      * @var ehough_epilog_api_ILogger

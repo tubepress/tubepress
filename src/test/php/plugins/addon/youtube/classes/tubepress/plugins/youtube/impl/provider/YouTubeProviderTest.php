@@ -21,7 +21,7 @@
 class tubepress_plugins_youtube_impl_provider_YouTubeProviderTest extends TubePressUnitTest
 {
     /**
-     * @var tubepress_plugins_youtube_impl_provider_YouTubeProvider
+     * @var tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderService
      */
     private $_sut;
 
@@ -48,7 +48,7 @@ class tubepress_plugins_youtube_impl_provider_YouTubeProviderTest extends TubePr
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
 
-        $this->_sut = new tubepress_plugins_youtube_impl_provider_YouTubeProvider($this->_mockUrlBuilder);
+        $this->_sut = new tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderService($this->_mockUrlBuilder);
     }
 
     public function testGetName()

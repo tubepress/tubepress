@@ -44,7 +44,7 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
         $executionContext           = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
 
         $videoSource  = $executionContext->get(tubepress_api_const_options_names_Output::GALLERY_SOURCE);
-        $providers    = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_provider_VideoProvider::_);
+        $providers    = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_provider_PluggableVideoProviderService::_);
         $result       = null;
         $providerName = null;
         $currentPage  = $this->_getCurrentPage();
@@ -100,7 +100,7 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
 
         $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
 
-        $providers = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_provider_VideoProvider::_);
+        $providers = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_provider_PluggableVideoProviderService::_);
 
         foreach ($providers as $videoProvider) {
 

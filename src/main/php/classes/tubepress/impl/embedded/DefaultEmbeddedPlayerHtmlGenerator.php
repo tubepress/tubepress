@@ -126,7 +126,7 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
         if ($requestedEmbeddedPlayerName === tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED) {
 
             $calculatedProviderName = null;
-            $videoProviders         = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_provider_VideoProvider::_);
+            $videoProviders         = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_provider_PluggableVideoProviderService::_);
 
             foreach ($videoProviders as $videoProvider) {
 

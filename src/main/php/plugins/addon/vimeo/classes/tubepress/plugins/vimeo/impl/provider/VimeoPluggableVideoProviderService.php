@@ -22,7 +22,7 @@
 /**
  * Handles the heavy lifting for Vimeo.
  */
-class tubepress_plugins_vimeo_impl_provider_VimeoProvider extends tubepress_impl_provider_AbstractFetchingAndBuildingVideoProvider
+class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService extends tubepress_impl_provider_AbstractFetchingAndBuildingPluggableVideoProviderService
 {
     private static $_sources = array(
 

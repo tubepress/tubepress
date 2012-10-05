@@ -21,7 +21,7 @@
 class tubepress_plugins_vimeo_impl_provider_VimeoProviderTest extends TubePressUnitTest
 {
     /**
-     * @var tubepress_plugins_vimeo_impl_provider_VimeoProvider
+     * @var tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService
      */
     private $_sut;
 
@@ -48,7 +48,7 @@ class tubepress_plugins_vimeo_impl_provider_VimeoProviderTest extends TubePressU
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setHttpRequestParameterService($this->_mockHttpRequestParameterService);
 
-        $this->_sut = new tubepress_plugins_vimeo_impl_provider_VimeoProvider($this->_mockUrlBuilder);
+        $this->_sut = new tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService($this->_mockUrlBuilder);
     }
 
     public function testGetName()

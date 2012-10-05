@@ -36,8 +36,8 @@ class tubepress_plugins_youtube_impl_listeners_YouTubeProviderRegistrarTest exte
     public function testBoot()
     {
         $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
-            tubepress_spi_provider_VideoProvider::_,
-            Mockery::type('tubepress_plugins_youtube_impl_provider_YouTubeProvider'));
+            tubepress_spi_provider_PluggableVideoProviderService::_,
+            Mockery::type('tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderService'));
 
         $this->_sut->onBoot(new tubepress_api_event_TubePressEvent());
 

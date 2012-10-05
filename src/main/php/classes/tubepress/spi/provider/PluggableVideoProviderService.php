@@ -20,34 +20,20 @@
  */
 
 /**
- * A video provider that dispatches its results.
+ * Video provider interface.
  */
-abstract class tubepress_impl_provider_AbstractDispatchingVideoProvider implements tubepress_spi_provider_VideoProvider
+interface tubepress_spi_provider_PluggableVideoProviderService
 {
+    const _ = 'tubepress_spi_provider_PluggableVideoProviderService';
+
     /**
-     * Fetch a video gallery page.
+     * Ask this video provider if it recognizes the given video ID.
      *
-     * @param int $currentPage The requested page number of the gallery.
+     * @param string $videoId The globally unique video identifier.
      *
-     * @return tubepress_api_video_VideoGalleryPage The video gallery page for this page. May be empty, never null.
+     * @return boolean True if this provider recognizes the given video ID, false otherwise.
      */
-    public final function fetchVideoGalleryPage($currentPage)
-    {
-        $result = $this->fetchVideoGalleryPageNoDispatch($currentPage);
-
-        $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
-
-        $event = new tubepress_api_event_TubePressEvent($result);
-        $event->setArgument('providerName', $this->getName());
-
-        $eventDispatcher->dispatch(
-
-            tubepress_api_const_event_CoreEventNames::VIDEO_GALLERY_PAGE_CONSTRUCTION,
-            $event
-        );
-
-        return $event->getSubject();
-    }
+    function recognizesVideoId($videoId);
 
     /**
      * Fetch a video gallery page.
@@ -56,5 +42,24 @@ abstract class tubepress_impl_provider_AbstractDispatchingVideoProvider implemen
      *
      * @return tubepress_api_video_VideoGalleryPage The video gallery page for this page. May be empty, never null.
      */
-    protected abstract function fetchVideoGalleryPageNoDispatch($currentPage);
+    function fetchVideoGalleryPage($currentPage);
+
+    /**
+     * Fetch a single video.
+     *
+     * @param string $videoId The video ID to fetch.
+     *
+     * @return tubepress_api_video_Video The video, or null if unable to retrive.
+     */
+    function fetchSingleVideo($videoId);
+
+    /**
+     * @return array An array of the valid option values for the "mode" option.
+     */
+    function getGallerySourceNames();
+
+    /**
+     * @return string The name of this video provider. Never empty or null. All lowercase alphanumerics and dashes.
+     */
+    function getName();
 }
