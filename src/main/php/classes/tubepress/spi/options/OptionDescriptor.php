@@ -22,9 +22,9 @@
 /**
  * Describes an option that TubePress can work with.
  */
-class tubepress_api_model_options_OptionDescriptor
+class tubepress_spi_options_OptionDescriptor
 {
-    const _ = 'tubepress_api_model_options_OptionDescriptor';
+    const _ = 'tubepress_spi_options_OptionDescriptor';
 
     /**
      * @var string The globally unique name of this option.

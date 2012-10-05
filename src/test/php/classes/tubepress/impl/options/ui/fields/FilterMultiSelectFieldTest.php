@@ -44,10 +44,10 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectFieldTest extends tubepr
         $this->_mockTemplateBuilder             = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
         $this->_mockEnvironmentDetector         = Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
 
-        $mockYouTubeOptions = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::SHOW_YOUTUBE_OPTIONS);
+        $mockYouTubeOptions = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::SHOW_YOUTUBE_OPTIONS);
         $mockYouTubeOptions->setBoolean();
 
-        $mockVimeoOptions = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::SHOW_VIMEO_OPTIONS);
+        $mockVimeoOptions = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_OptionsUi::SHOW_VIMEO_OPTIONS);
         $mockVimeoOptions->setBoolean();
 
         $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_api_const_options_names_OptionsUi::SHOW_VIMEO_OPTIONS)->andReturn($mockVimeoOptions);

@@ -79,7 +79,7 @@ class tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTe
 
     function testSetDoNotPersist()
     {
-        $od = new tubepress_api_model_options_OptionDescriptor('something');
+        $od = new tubepress_spi_options_OptionDescriptor('something');
         $od->setDoNotPersist();
 
         $this->_mockOptionsReference->shouldReceive('findOneByName')->with('something')->andReturn($od);
@@ -91,7 +91,7 @@ class tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTe
 
     function testSetFailsValidation()
     {
-        $od = new tubepress_api_model_options_OptionDescriptor('something');
+        $od = new tubepress_spi_options_OptionDescriptor('something');
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET, \Mockery::type('tubepress_api_event_TubePressEvent'));
         $this->_mockOptionsReference->shouldReceive('findOneByName')->with('something')->andReturn($od);
@@ -105,7 +105,7 @@ class tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTe
 
     function testSetPassesValidation()
     {
-        $od = new tubepress_api_model_options_OptionDescriptor('something');
+        $od = new tubepress_spi_options_OptionDescriptor('something');
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::PRE_VALIDATION_OPTION_SET, \Mockery::type('tubepress_api_event_TubePressEvent'));
         $this->_mockOptionsReference->shouldReceive('findOneByName')->with('something')->andReturn($od);
@@ -146,8 +146,8 @@ class tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTe
         $version = tubepress_spi_version_Version::parse('1.5.0');
         $this->_mockEnvironmentDetector->shouldReceive('getVersion')->once()->andReturn($version);
 
-        $od1 = new tubepress_api_model_options_OptionDescriptor('name1');
-        $od2 = new tubepress_api_model_options_OptionDescriptor('name2');
+        $od1 = new tubepress_spi_options_OptionDescriptor('name1');
+        $od2 = new tubepress_spi_options_OptionDescriptor('name2');
 
         $this->_mockWordPressFunctionWrapper->shouldReceive('add_option')->once()->with('tubepress-version', '1.5.0');
         $this->_mockWordPressFunctionWrapper->shouldReceive('update_option')->once()->with('tubepress-version', '1.5.0');

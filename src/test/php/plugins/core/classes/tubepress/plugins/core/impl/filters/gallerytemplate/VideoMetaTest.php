@@ -49,7 +49,7 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_VideoMetaTest extends 
 
         $mockOdr->shouldReceive('findOneByName')->times(17)->andReturnUsing(function ($m) {
 
-             $mock = new tubepress_api_model_options_OptionDescriptor($m);
+             $mock = new tubepress_spi_options_OptionDescriptor($m);
              $mock->setLabel('video-' . $m);
              return $mock;
         });

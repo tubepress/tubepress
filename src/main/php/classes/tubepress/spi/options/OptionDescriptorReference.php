@@ -38,7 +38,7 @@ interface tubepress_spi_options_OptionDescriptorReference
      *
      * @param string $name The option descriptor to look up.
      *
-     * @return tubepress_api_model_options_OptionDescriptor The option descriptor with the
+     * @return tubepress_spi_options_OptionDescriptor The option descriptor with the
      *                                                      given name, or null if not found.
      */
     function findOneByName($name);
@@ -46,11 +46,11 @@ interface tubepress_spi_options_OptionDescriptorReference
     /**
      * Register a new option descriptor for use by TubePress.
      *
-     * @param tubepress_api_model_options_OptionDescriptor $optionDescriptor The new option descriptor.
+     * @param tubepress_spi_options_OptionDescriptor $optionDescriptor The new option descriptor.
      *
      * @throws InvalidArgumentException If the descriptor could not be registered.
      *
      * @return void
      */
-    function registerOptionDescriptor(tubepress_api_model_options_OptionDescriptor $optionDescriptor);
+    function registerOptionDescriptor(tubepress_spi_options_OptionDescriptor $optionDescriptor);
 }

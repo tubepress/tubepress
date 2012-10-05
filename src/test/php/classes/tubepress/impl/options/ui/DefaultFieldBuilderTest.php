@@ -108,7 +108,7 @@ class org_tubepress_impl_options_ui_DefaultFieldBuilderTest extends TubePressUni
     
         foreach ($names as $name) {
     
-            $od = new tubepress_api_model_options_OptionDescriptor($name);
+            $od = new tubepress_spi_options_OptionDescriptor($name);
             $od->setBoolean();
     
             $ods[] = $od;

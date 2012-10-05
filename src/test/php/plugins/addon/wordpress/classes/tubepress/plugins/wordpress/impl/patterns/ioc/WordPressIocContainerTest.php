@@ -40,9 +40,9 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainerTest ex
 
     function testServiceConstructions()
     {
-        $mock1 = new tubepress_api_model_options_OptionDescriptor('mock1');
+        $mock1 = new tubepress_spi_options_OptionDescriptor('mock1');
         $mock1->setBoolean();
-        $mock2 = new tubepress_api_model_options_OptionDescriptor('mock2');
+        $mock2 = new tubepress_spi_options_OptionDescriptor('mock2');
         $mock2->setBoolean();
 
         $this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with(tubepress_api_const_options_names_OptionsUi::SHOW_VIMEO_OPTIONS)->andReturn($mock1);

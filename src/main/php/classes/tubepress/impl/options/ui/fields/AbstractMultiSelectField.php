@@ -38,7 +38,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
     {
         foreach ($optionDescriptors as $optionDescriptor) {
 
-            if (! $optionDescriptor instanceof tubepress_api_model_options_OptionDescriptor) {
+            if (! $optionDescriptor instanceof tubepress_spi_options_OptionDescriptor) {
 
                 throw new InvalidArgumentException('Non option descriptor detected');
             }

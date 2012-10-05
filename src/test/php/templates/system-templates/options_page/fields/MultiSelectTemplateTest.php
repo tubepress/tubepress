@@ -22,9 +22,9 @@ class org_tubepress_impl_template_templates_optionspage_fields_MultiSelectTempla
 {
     public function test()
     {
-        $one   = new tubepress_api_model_options_OptionDescriptor('name-one');
-        $two   = new tubepress_api_model_options_OptionDescriptor('name-two');
-        $three = new tubepress_api_model_options_OptionDescriptor('name-three');
+        $one   = new tubepress_spi_options_OptionDescriptor('name-one');
+        $two   = new tubepress_spi_options_OptionDescriptor('name-two');
+        $three = new tubepress_spi_options_OptionDescriptor('name-three');
 
         $one->setLabel('label-one');
         $two->setLabel('label-two');

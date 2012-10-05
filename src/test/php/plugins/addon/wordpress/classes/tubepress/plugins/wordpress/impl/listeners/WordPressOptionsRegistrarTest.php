@@ -35,11 +35,11 @@ class tubepress_plugins_wordpress_impl_listeners_WordPressOptionsRegistrarTest e
 
     public function testOptions()
     {
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_TITLE);
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_TITLE);
         $option->setDefaultValue('TubePress');
         $this->_verifyOption($option);
 
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
+        $option = new tubepress_spi_options_OptionDescriptor(tubepress_plugins_wordpress_api_const_options_names_WordPress::WIDGET_SHORTCODE);
         $option->setDefaultValue('[tubepress thumbHeight=\'105\' thumbWidth=\'135\']');
         $this->_verifyOption($option);
 
@@ -50,11 +50,11 @@ class tubepress_plugins_wordpress_impl_listeners_WordPressOptionsRegistrarTest e
         $this->assertTrue(true);
     }
 
-    private function _verifyOption(tubepress_api_model_options_OptionDescriptor $expectedOption)
+    private function _verifyOption(tubepress_spi_options_OptionDescriptor $expectedOption)
     {
         $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->once()->with(Mockery::on(function ($registeredOption) use ($expectedOption) {
 
-               return $registeredOption instanceof tubepress_api_model_options_OptionDescriptor
+               return $registeredOption instanceof tubepress_spi_options_OptionDescriptor
                    && $registeredOption->getAcceptableValues() === $expectedOption->getAcceptableValues()
                    && $registeredOption->getAliases() === $expectedOption->getAliases()
                    && $registeredOption->getDefaultValue() === $expectedOption->getDefaultValue()

@@ -41,7 +41,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 	public function setup()
 	{
 		$this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);
-		$this->_mockOptionDescriptor            = new tubepress_api_model_options_OptionDescriptor('name');
+		$this->_mockOptionDescriptor            = new tubepress_spi_options_OptionDescriptor('name');
 
 		$this->_mockOptionDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
 		$this->_mockOptionDescriptorReference->shouldReceive('findOneByName')->once()->with('name')->andReturn($this->_mockOptionDescriptor);

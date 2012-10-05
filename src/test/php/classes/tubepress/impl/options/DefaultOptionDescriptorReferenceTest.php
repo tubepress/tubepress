@@ -32,7 +32,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 	 */
 	public function testRegisterDuplicate()
 	{
-	    $od = new tubepress_api_model_options_OptionDescriptor('name');
+	    $od = new tubepress_spi_options_OptionDescriptor('name');
 
 	    $this->_sut->registerOptionDescriptor($od);
 	    $this->_sut->registerOptionDescriptor($od);
@@ -40,7 +40,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 
     public function testGetAll()
     {
-        $od = new tubepress_api_model_options_OptionDescriptor('name');
+        $od = new tubepress_spi_options_OptionDescriptor('name');
 
         $this->_sut->registerOptionDescriptor($od);
 
@@ -56,7 +56,7 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 
         $this->assertNull($result);
 
-        $od = new tubepress_api_model_options_OptionDescriptor('name');
+        $od = new tubepress_spi_options_OptionDescriptor('name');
 
         $this->_sut->registerOptionDescriptor($od);
 

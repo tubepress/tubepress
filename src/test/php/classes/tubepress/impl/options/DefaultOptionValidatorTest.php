@@ -36,7 +36,7 @@ class org_tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUni
 
 	public function testNoConstraints()
 	{
-	    $od = new tubepress_api_model_options_OptionDescriptor('name');
+	    $od = new tubepress_spi_options_OptionDescriptor('name');
 
 	    $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->twice()->with('name')->andReturn($od);
 
@@ -46,7 +46,7 @@ class org_tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUni
 
 	public function testBoolean()
 	{
-        $od = new tubepress_api_model_options_OptionDescriptor('name');
+        $od = new tubepress_spi_options_OptionDescriptor('name');
         $od->setBoolean();
 
         $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->atLeast()->once()->with('name')->andReturn($od);
@@ -58,7 +58,7 @@ class org_tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUni
 
 	public function testDiscreteValues()
 	{
-        $od = new tubepress_api_model_options_OptionDescriptor('name');
+        $od = new tubepress_spi_options_OptionDescriptor('name');
 
 	    $od->setAcceptableValues(array('biz' => 'bar', 'butt' => 'two'));
 
@@ -71,7 +71,7 @@ class org_tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUni
 
 	public function testBadRegex()
     {
-        $od = new tubepress_api_model_options_OptionDescriptor('name');
+        $od = new tubepress_spi_options_OptionDescriptor('name');
         $od->setValidValueRegex('/t{5}/i');
 
         $this->_mockOptionsDescriptorReference->shouldReceive('findOneByName')->atLeast()->once()->with('name')->andReturn($od);
