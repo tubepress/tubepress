@@ -20,35 +20,20 @@
  */
 
 /**
- * Base class for AjaxCommandHandler.
+ * Handles and responds to incoming Ajax commands.
  */
-abstract class tubepress_impl_http_AbstractAjaxCommandHandler implements tubepress_spi_http_AjaxCommandHandler
+interface tubepress_spi_http_PluggableAjaxCommandService
 {
-    private $_httpStatusCode = 200;
+    const _ = 'tubepress_spi_http_PluggableAjaxCommandService';
 
-    private $_output = null;
+    /**
+     * @return string The command name that this handler responds to.
+     */
+    function getCommandName();
 
-    public final function handle()
-    {
-        $result = $this->getStatusCodeToHtmlMap();
+    function handle();
 
-        foreach ($result as $httpStatusCode => $html) {
+    function getHttpStatusCode();
 
-            $this->_httpStatusCode = $httpStatusCode;
-            $this->_output         = $html;
-        }
-    }
-
-    public final function getHttpStatusCode()
-    {
-        return $this->_httpStatusCode;
-    }
-
-    public final function getOutput()
-    {
-        return $this->_output;
-    }
-
-    protected abstract function getStatusCodeToHtmlMap();
+    function getOutput();
 }
-

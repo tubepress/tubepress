@@ -24,7 +24,7 @@
  * paramters: embedName (the string name of the embedded player implementation),
  * video (the video ID to load), meta (true/false whether or not to include video meta info)
  */
-class tubepress_plugins_core_impl_http_PlayerAjaxCommandHandler extends tubepress_impl_http_AbstractAjaxCommandHandler
+class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandService extends tubepress_impl_http_AbstractPluggableAjaxCommandService
 {
     /**
      * @return string The command name that this handler responds to.

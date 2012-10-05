@@ -42,7 +42,7 @@ class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxH
         }
 
         $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
-        $commandHandlers            = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_http_AjaxCommandHandler::_);
+        $commandHandlers            = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_http_PluggableAjaxCommandService::_);
         $chosenCommandHandler       = null;
 
         foreach ($commandHandlers as $commandHandler) {
