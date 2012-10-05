@@ -35,7 +35,7 @@ class tubepress_impl_html_DefaultHeadHtmlGenerator implements tubepress_spi_html
     public function getHeadJqueryInclusion()
     {
         $url = $this->_tubepressBaseUrl;
-        return "<script type=\"text/javascript\" src=\"$url/sys/ui/static/js/jquery-1.8.2.min.js\"></script>";
+        return "<script type=\"text/javascript\" src=\"$url/src/main/web/js/jquery-1.8.2.min.js\"></script>";
     }
 
     public function getHeadInlineJs()
@@ -53,13 +53,13 @@ EOT;
     public function getHeadJsIncludeString()
     {
         $url = $this->_tubepressBaseUrl;
-        return "<script type=\"text/javascript\" src=\"$url/sys/ui/static/js/tubepress.js\"></script>";
+        return "<script type=\"text/javascript\" src=\"$url/src/main/web/js/tubepress.js\"></script>";
     }
 
     public function getHeadCssIncludeString()
     {
         $url = $this->_tubepressBaseUrl;
-        return "<link rel=\"stylesheet\" href=\"$url/sys/ui/themes/default/style.css\" type=\"text/css\" />";
+        return "<link rel=\"stylesheet\" href=\"$url/src/main/web/css/tubepress.css\" type=\"text/css\" />";
     }
 
     public function getHeadHtmlMeta()

@@ -66,7 +66,7 @@ html meta', $contents);
 
         $this->_mockWpFunctionWrapper->shouldReceive('is_admin')->once()->andReturn(false);
         $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with('base_name/src/main/web/js/tubepress.js', 'base_name')->andReturn('<tubepressjs>');
-        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with('base_name/src/main/resources/default-themes/default/style.css', 'base_name')->andReturn('<tubepresscss>');
+        $this->_mockWpFunctionWrapper->shouldReceive('plugins_url')->once()->with('base_name/src/main/web/css/tubepress.css', 'base_name')->andReturn('<tubepresscss>');
 
         $this->_mockWpFunctionWrapper->shouldReceive('wp_register_script')->once()->with('tubepress', '<tubepressjs>');
         $this->_mockWpFunctionWrapper->shouldReceive('wp_register_style')->once()->with('tubepress', '<tubepresscss>');

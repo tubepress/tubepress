@@ -48,12 +48,12 @@ class org_tubepress_impl_html_DefaultHeadHtmlGeneratorTest extends TubePressUnit
 
     function testJqueryInclude()
     {
-        $this->assertEquals('<script type="text/javascript" src="<tubepress_base_url>/sys/ui/static/js/jquery-1.8.2.min.js"></script>', $this->_sut->getHeadJqueryInclusion());
+        $this->assertEquals('<script type="text/javascript" src="<tubepress_base_url>/src/main/web/js/jquery-1.8.2.min.js"></script>', $this->_sut->getHeadJqueryInclusion());
     }
 
     function testJsInclude()
     {
-        $this->assertEquals('<script type="text/javascript" src="<tubepress_base_url>/sys/ui/static/js/tubepress.js"></script>', $this->_sut->getHeadJsIncludeString());
+        $this->assertEquals('<script type="text/javascript" src="<tubepress_base_url>/src/main/web/js/tubepress.js"></script>', $this->_sut->getHeadJsIncludeString());
     }
 
     function testInlineJs()
@@ -68,7 +68,7 @@ class org_tubepress_impl_html_DefaultHeadHtmlGeneratorTest extends TubePressUnit
 
     function testCss()
     {
-        $this->assertEquals('<link rel="stylesheet" href="<tubepress_base_url>/sys/ui/themes/default/style.css" type="text/css" />', $this->_sut->getHeadCssIncludeString());
+        $this->assertEquals('<link rel="stylesheet" href="<tubepress_base_url>/src/main/web/css/tubepress.css" type="text/css" />', $this->_sut->getHeadCssIncludeString());
     }
 
 	function testHeadMetaPageOne()
