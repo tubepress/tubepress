@@ -40,7 +40,7 @@ class tubepress_plugins_wordpress_impl_DefaultWpAdminHandler implements tubepres
         $wpFunctionWrapper    = tubepress_plugins_wordpress_impl_patterns_ioc_WordPressServiceLocator::getWordPressFunctionWrapper();
         $baseName             = $fs->getTubePressInstallationDirectoryBaseName();
         $jqueryUiCssUrl       = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/css/jquery-ui-flick/jquery-ui-1.8.16.custom.css", $baseName);
-        $wpOptionsPageCss     = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/css/wordpress-options-page.css", $baseName);
+        $wpOptionsPageCss     = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/css/options-page.css", $baseName);
         $jqueryMultiSelectCss = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/css/jquery-ui-multiselect-widget/jquery.multiselect.css", $baseName);
         $jsColorUrl           = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/js/jscolor/jscolor.js", $baseName);
         $jqueryUiJsUrl        = $wpFunctionWrapper->plugins_url("$baseName/src/main/web/js/jquery-ui/jquery-ui-1.8.16.custom.min.js", $baseName);
