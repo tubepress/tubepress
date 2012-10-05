@@ -44,7 +44,7 @@ class tubepress_plugins_core_impl_filters_gallerytemplate_VideoMetaTest extends 
         $shouldShow = array();
         $labels     = array();
 
-        $mockOdr = Mockery::mock(tubepress_api_service_options_OptionDescriptorReference::_);
+        $mockOdr = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($mockOdr);
 
         $mockOdr->shouldReceive('findOneByName')->times(17)->andReturnUsing(function ($m) {

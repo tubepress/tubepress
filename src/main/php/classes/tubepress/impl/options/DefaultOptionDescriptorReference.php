@@ -22,7 +22,7 @@
 /**
  * Holds all the option descriptors for TubePress. This implementation just holds them in memory.
  */
-class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepress_api_service_options_OptionDescriptorReference
+class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepress_spi_options_OptionDescriptorReference
 {
     /** Provides fast lookup by name. */
     private $_nameToOptionDescriptorMap = array();

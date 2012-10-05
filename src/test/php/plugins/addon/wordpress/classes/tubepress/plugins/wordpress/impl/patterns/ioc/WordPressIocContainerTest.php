@@ -28,7 +28,7 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainerTest ex
     {
         $this->_sut = new tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer();
 
-        $this->_mockOptionDescriptorReference = Mockery::mock(tubepress_api_service_options_OptionDescriptorReference::_);
+        $this->_mockOptionDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionDescriptorReference);
     }

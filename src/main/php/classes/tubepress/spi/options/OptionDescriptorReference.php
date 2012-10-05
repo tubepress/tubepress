@@ -22,9 +22,9 @@
 /**
  * Holds all the option descriptors for TubePress.
  */
-interface tubepress_api_service_options_OptionDescriptorReference
+interface tubepress_spi_options_OptionDescriptorReference
 {
-    const _ = 'tubepress_api_service_options_OptionDescriptorReference';
+    const _ = 'tubepress_spi_options_OptionDescriptorReference';
 
     /**
      * Returns all of the option descriptors currently registered in the system.

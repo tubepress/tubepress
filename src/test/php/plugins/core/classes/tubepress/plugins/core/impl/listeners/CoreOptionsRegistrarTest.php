@@ -41,7 +41,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
     {
         $this->_sut = new tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar();
 
-        $this->_mockOptionsDescriptorReference = Mockery::mock(tubepress_api_service_options_OptionDescriptorReference::_);
+        $this->_mockOptionsDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionsDescriptorReference);
     }

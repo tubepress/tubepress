@@ -37,7 +37,7 @@ class tubepress_impl_options_ui_fields_FilterMultiSelectFieldTest extends tubepr
     
     public function setUp()
     {
-        $this->_mockOptionDescriptorReference   = Mockery::mock(tubepress_api_service_options_OptionDescriptorReference::_);
+        $this->_mockOptionDescriptorReference   = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
         $this->_mockMessageService              = Mockery::mock(tubepress_spi_message_MessageService::_);
         $this->_mockStorageManager              = Mockery::mock(tubepress_spi_options_StorageManager::_);
         $this->_mockHttpRequestParameterService = Mockery::mock(tubepress_spi_http_HttpRequestParameterService::_);

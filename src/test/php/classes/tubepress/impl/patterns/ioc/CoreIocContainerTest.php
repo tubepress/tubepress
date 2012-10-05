@@ -50,7 +50,7 @@ class org_tubepress_impl_patterns_ioc_CoreIocContainerTest extends TubePressUnit
             tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_HTTP_CLIENT                  => 'ehough_shortstop_api_HttpClient',
             tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_HTTP_RESPONSE_HANDLER        => 'ehough_shortstop_api_HttpResponseHandler',
             tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_HTTP_REQUEST_PARAMS          => tubepress_spi_http_HttpRequestParameterService::_,
-            tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_OPTION_DESCRIPTOR_REFERENCE  => tubepress_api_service_options_OptionDescriptorReference::_,
+            tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_OPTION_DESCRIPTOR_REFERENCE  => tubepress_spi_options_OptionDescriptorReference::_,
             tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_OPTION_VALIDATOR             => tubepress_spi_options_OptionValidator::_,
             tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_OPTIONS_UI_FIELDBUILDER      => tubepress_spi_options_ui_FieldBuilder::_,
             tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_PLAYER_HTML_GENERATOR        => tubepress_spi_player_PlayerHtmlGenerator::_,

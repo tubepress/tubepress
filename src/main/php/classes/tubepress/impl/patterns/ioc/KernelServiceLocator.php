@@ -116,7 +116,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     private static $_optionsUiFormHandler;
 
     /**
-     * @var tubepress_api_service_options_OptionDescriptorReference
+     * @var tubepress_spi_options_OptionDescriptorReference
      */
     private static $_optionDescriptorReference;
 
@@ -323,7 +323,7 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     }
 
     /**
-     * @return tubepress_api_service_options_OptionDescriptorReference The option descriptor reference.
+     * @return tubepress_spi_options_OptionDescriptorReference The option descriptor reference.
      */
     public static function getOptionDescriptorReference()
     {
@@ -566,9 +566,9 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     }
 
     /**
-     * @param tubepress_api_service_options_OptionDescriptorReference $optionDescriptorReference The option descriptor reference.
+     * @param tubepress_spi_options_OptionDescriptorReference $optionDescriptorReference The option descriptor reference.
      */
-    public static function setOptionDescriptorReference(tubepress_api_service_options_OptionDescriptorReference $optionDescriptorReference)
+    public static function setOptionDescriptorReference(tubepress_spi_options_OptionDescriptorReference $optionDescriptorReference)
     {
         self::$_optionDescriptorReference = $optionDescriptorReference;
     }

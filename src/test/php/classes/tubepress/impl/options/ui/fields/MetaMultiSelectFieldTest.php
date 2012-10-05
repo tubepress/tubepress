@@ -38,7 +38,7 @@ class tubepress_impl_options_ui_fields_MetaMultiSelectFieldTest extends tubepres
 
     public function setUp()
     {
-        $this->_mockOptionDescriptorReference = Mockery::mock(tubepress_api_service_options_OptionDescriptorReference::_);
+        $this->_mockOptionDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
         $this->_mockOptionDescriptorArrary    = $this->_buildMockOptionDescriptorArray();
         $this->_mockMessageService            = Mockery::mock(tubepress_spi_message_MessageService::_);
 

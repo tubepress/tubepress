@@ -39,7 +39,7 @@ class tubepress_plugins_youtube_impl_listeners_YouTubesOptionsRegistrarTest exte
     {
         $this->_sut = new tubepress_plugins_youtube_impl_listeners_YouTubeOptionsRegistrar();
 
-        $this->_mockOptionsDescriptorReference = Mockery::mock(tubepress_api_service_options_OptionDescriptorReference::_);
+        $this->_mockOptionsDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($this->_mockOptionsDescriptorReference);
     }

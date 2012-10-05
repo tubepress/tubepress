@@ -37,7 +37,7 @@ class tubepress_impl_options_WordPressStorageManagerTest extends TubePressUnitTe
         $this->_mockEnvironmentDetector      = \Mockery::mock(tubepress_spi_environment_EnvironmentDetector::_);
         $this->_mockEventDispatcher          = \Mockery::mock('ehough_tickertape_api_IEventDispatcher');
         $this->_mockOptionValidator          = \Mockery::mock(tubepress_spi_options_OptionValidator::_);
-        $this->_mockOptionsReference         = \Mockery::mock(tubepress_api_service_options_OptionDescriptorReference::_);
+        $this->_mockOptionsReference         = \Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
         $this->_mockWordPressFunctionWrapper = \Mockery::mock(tubepress_plugins_wordpress_spi_WordPressFunctionWrapper::_);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($this->_mockEnvironmentDetector);
