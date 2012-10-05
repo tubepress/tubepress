@@ -49,11 +49,10 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
             return null;
         }
 
-        $templateBuilder        = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
+        $themeHandler           = tubepress_impl_patterns_ioc_KernelServiceLocator::getThemeHandler();
         $eventDispatcherService = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
 
-        $templatePath = TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . $embeddedPlayer->getRelativePathToTemplate();
-        $template     = $templateBuilder->getNewTemplateInstance($templatePath);
+        $template = $embeddedPlayer->getTemplate($themeHandler);
 
         $dataUrl            = $embeddedPlayer->getDataUrlForVideo($videoId);
         $embeddedPlayerName = $embeddedPlayer->getName();

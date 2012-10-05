@@ -31,7 +31,7 @@ class org_tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extends
 
     private $_mockEventDispatcher;
 
-    private $_mockTemplateBuilder;
+    private $_mockThemeHandler;
 
     public function setUp()
     {
@@ -39,12 +39,12 @@ class org_tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extends
 
         $this->_mockExecutionContext       = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
         $this->_mockEventDispatcher        = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
-        $this->_mockTemplateBuilder        = Mockery::mock('ehough_contemplate_api_TemplateBuilder');
+        $this->_mockThemeHandler        = Mockery::mock(tubepress_spi_theme_ThemeHandler::_);
         $this->_mockServiceCollectionsRegistry = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setTemplateBuilder($this->_mockTemplateBuilder);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setThemeHandler($this->_mockThemeHandler);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($this->_mockServiceCollectionsRegistry);
     }
 
@@ -52,7 +52,6 @@ class org_tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extends
     {
         $mockEmbeddedPlayer = Mockery::mock(tubepress_spi_embedded_PluggableEmbeddedPlayer::_);
         $mockEmbeddedPlayer->shouldReceive('getName')->twice()->andReturn('z');
-        $mockEmbeddedPlayer->shouldReceive('getRelativePathToTemplate')->once()->andReturn('some-path');
         $mockEmbeddedPlayer->shouldReceive('getDataUrlForVideo')->once()->with('video-id')->andReturn('data-url');
         $mockEmbeddedPlayer->shouldReceive('getHandledProviderName')->once()->andReturn('some-provider');
 
@@ -63,12 +62,7 @@ class org_tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extends
         $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_embedded_PluggableEmbeddedPlayer::_)->andReturn($mockEmbeddedPlayers);
 
         $mockTemplate = Mockery::mock('ehough_contemplate_api_Template');
-
-        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(
-
-            TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . 'some-path'
-
-        )->andReturn($mockTemplate);
+        $mockEmbeddedPlayer->shouldReceive('getTemplate')->once()->with($this->_mockThemeHandler)->andReturn($mockTemplate);
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
             Mockery::on(function ($arg) use ($mockTemplate) {
@@ -101,7 +95,6 @@ class org_tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extends
     {
         $mockEmbeddedPlayer = Mockery::mock(tubepress_spi_embedded_PluggableEmbeddedPlayer::_);
         $mockEmbeddedPlayer->shouldReceive('getHandledProviderName')->twice()->andReturn('xyz');
-        $mockEmbeddedPlayer->shouldReceive('getRelativePathToTemplate')->once()->andReturn('some-path');
         $mockEmbeddedPlayer->shouldReceive('getDataUrlForVideo')->once()->with('video-id')->andReturn('data-url');
         $mockEmbeddedPlayer->shouldReceive('getName')->once()->andReturn('z');
 
@@ -120,12 +113,7 @@ class org_tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extends
         $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_provider_VideoProvider::_)->andReturn($mockVideoProviders);
 
         $mockTemplate = Mockery::mock('ehough_contemplate_api_Template');
-
-        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(
-
-            TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . 'some-path'
-
-        )->andReturn($mockTemplate);
+        $mockEmbeddedPlayer->shouldReceive('getTemplate')->once()->with($this->_mockThemeHandler)->andReturn($mockTemplate);
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(tubepress_api_const_event_CoreEventNames::EMBEDDED_TEMPLATE_CONSTRUCTION,
             Mockery::on(function ($arg) use ($mockTemplate) {

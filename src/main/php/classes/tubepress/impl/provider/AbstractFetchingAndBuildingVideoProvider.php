@@ -281,6 +281,7 @@ abstract class tubepress_impl_provider_AbstractFetchingAndBuildingVideoProvider 
 
         $vid->setAttribute(tubepress_api_video_Video::ATTRIBUTE_TIME_PUBLISHED_UNIXTIME, $timePublishedUnixTime);
         $vid->setAttribute(tubepress_api_video_Video::ATTRIBUTE_DURATION_SECONDS, $durationInSeconds);
+        $vid->setAttribute(tubepress_api_video_Video::ATTRIBUTE_PROVIDER_NAME, $this->getName());
 
         return $vid;
     }
