@@ -110,14 +110,10 @@ class tubepress_plugins_youtube_impl_provider_YouTubePluggableVideoProviderServi
     /**
      * Count the total videos in this feed result.
      *
-     * @param mixed $rawFeed The raw video feed (varies depending on provider)
-     *
      * @return int The total result count of this query, or 0 if there was a problem.
      */
-    protected final function getTotalResultCount($rawFeed)
+    protected final function getTotalResultCount()
     {
-        $this->_createDomDocument($rawFeed);
-
         $total        = $this->_domDocument->getElementsByTagNameNS(self::$_NAMESPACE_OPENSEARCH, '*');
         $node         = $total->item(0);
         $totalResults = $node->nodeValue;

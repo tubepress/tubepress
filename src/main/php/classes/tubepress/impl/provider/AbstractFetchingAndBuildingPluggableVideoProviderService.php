@@ -67,8 +67,11 @@ abstract class tubepress_impl_provider_AbstractFetchingAndBuildingPluggableVideo
         $useCache = $this->_executionContext->get(tubepress_api_const_options_names_Cache::CACHE_ENABLED);
         $rawFeed  = $feedFetcher->fetch($url, $useCache);
 
+        /* give the command a chance to do some initial processing */
+        $this->_preFactoryExecution($rawFeed);
+
         /* get the count */
-        $totalCount = $this->getTotalResultCount($rawFeed);
+        $totalCount = $this->getTotalResultCount();
 
         if ($totalCount == 0) {
 
@@ -127,6 +130,10 @@ abstract class tubepress_impl_provider_AbstractFetchingAndBuildingPluggableVideo
         }
 
         $results    = $feedFetcher->fetch($videoUrl, $this->_executionContext->get(tubepress_api_const_options_names_Cache::CACHE_ENABLED));
+
+        /* give the command a chance to do some initial processing */
+        $this->_preFactoryExecution($results);
+
         $videoArray = $this->_feedToVideoArray($results);
 
         if (empty($videoArray)) {
@@ -160,11 +167,9 @@ abstract class tubepress_impl_provider_AbstractFetchingAndBuildingPluggableVideo
     /**
      * Count the total videos in this feed result.
      *
-     * @param mixed $rawFeed The raw video feed (varies depending on provider)
-     *
      * @return int The total result count of this query, or 0 if there was a problem.
      */
-    protected abstract function getTotalResultCount($rawFeed);
+    protected abstract function getTotalResultCount();
 
     protected abstract function getLogger();
 
@@ -393,9 +398,6 @@ abstract class tubepress_impl_provider_AbstractFetchingAndBuildingPluggableVideo
      */
     private function _buildVideoArrayFromFeed($feed)
     {
-        /* give the command a chance to do some initial processing */
-        $this->_preFactoryExecution($feed);
-
         $results        = array();
         $total          = $this->_countVideosInFeed($feed);
 

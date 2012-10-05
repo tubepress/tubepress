@@ -48,6 +48,8 @@ class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService e
 
     private $_unserialized;
 
+    private $_videoArray;
+
     public function __construct(
 
         tubepress_spi_provider_UrlBuilder $urlBuilder
@@ -88,27 +90,11 @@ class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService e
     /**
      * Count the total videos in this feed result.
      *
-     * @param mixed $rawFeed The raw video feed (varies depending on provider)
-     *
      * @return int The total result count of this query, or 0 if there was a problem.
      */
-    protected final function getTotalResultCount($rawFeed)
+    protected final function getTotalResultCount()
     {
-        $feed = @unserialize($rawFeed);
-
-        if ($feed === false) {
-
-            return 0;
-        }
-
-        if (isset($feed->stat) && $feed->stat === 'fail') {
-
-            return 0;
-        }
-
-        $this->_unserialized = $feed;
-
-        return isset($feed->videos->total) ? $feed->videos->total : 0;
+        return isset($this->_unserialized->videos->total) ? $this->_unserialized->videos->total : 0;
     }
 
     protected final function getLogger()
@@ -229,18 +215,13 @@ class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService e
 
     protected function _preFactoryExecution($feed)
     {
-        if (! isset($this->_unserialized)) {
-
-            $this->getTotalResultCount($feed);
-        }
+        $this->_unserialized = @unserialize($feed);
 
         $unserialized = $this->_unserialized;
 
         if (isset($unserialized->video)) {
 
             $this->_videoArray = (array) $unserialized->video;
-
-            unset($this->_unserialized);
 
             return;
         }
@@ -249,12 +230,8 @@ class tubepress_plugins_vimeo_impl_provider_VimeoPluggableVideoProviderService e
 
             $this->_videoArray = (array) $unserialized->videos->video;
 
-            unset($this->_unserialized);
-
             return;
         }
-
-        unset($this->_unserialized);
 
         $this->_videoArray = array();
     }
