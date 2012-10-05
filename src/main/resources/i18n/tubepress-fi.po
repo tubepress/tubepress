@@ -166,9 +166,6 @@ msgstr "Oletus on 425."
 msgid "Default is 999999."
 msgstr "Oletus on 999999."
 
-msgid "Default is FFFFFF."
-msgstr "Oletus on FFFFFF."
-
 msgid "Loop"
 msgstr "Toista"
 
@@ -181,17 +178,11 @@ msgstr "Näytä otsikko ja tähtiluokitus ennen videon alkua"
 msgid "Main color"
 msgstr "Pääväri"
 
-msgid "Highlight color"
-msgstr "Korostusväri"
-
 msgid "Show related videos"
 msgstr "Näytä videoita samasta aiheesta"
 
 msgid "Toggles the display of related videos after a video finishes."
 msgstr "Valitse, näytetäänkö videon loputtua lista aiheeseen liittyvistä videoista"
-
-msgid "Play videos in high definition by default"
-msgstr "Näytä video HD-laatuisena, jos mahdollista"
 
 msgid "Feed"
 msgstr "Syötteen asetukset"
@@ -388,9 +379,6 @@ msgstr "tiukka"
 msgid "Provider default"
 msgstr "Tarjoajan oletus"
 
-msgid "JW FLV Media Player (by Longtail Video)"
-msgstr "JW FLV Media Player (by Longtail Video)"
-
 msgid "Implementation"
 msgstr "Toteutus"
 
@@ -517,9 +505,6 @@ msgstr ""
 msgid "Thumbnails"
 msgstr ""
 
-msgid "No viewable videos"
-msgstr ""
-
 msgid "Enable JavaScript API"
 msgstr ""
 
@@ -557,4 +542,25 @@ msgid "Additional sort order applied to each individual page of a gallery"
 msgstr ""
 
 msgid "random"
+msgstr ""
+
+msgid "Show closed captions by default"
+msgstr ""
+
+msgid "Disable keyboard controls"
+msgstr ""
+
+msgid "Show video annotations by default"
+msgstr ""
+
+msgid "Show video controls"
+msgstr ""
+
+msgid "YouTube player theme"
+msgstr ""
+
+msgid "Dark"
+msgstr ""
+
+msgid "Light"
 msgstr ""

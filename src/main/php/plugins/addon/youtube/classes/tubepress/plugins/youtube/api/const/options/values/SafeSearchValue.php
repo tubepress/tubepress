@@ -20,7 +20,7 @@
  */
 
 /**
- * TubePress gallery content modes.
+ * YouTube "racy" filter modes.
  */
 class tubepress_plugins_youtube_api_const_options_values_SafeSearchValue
 {

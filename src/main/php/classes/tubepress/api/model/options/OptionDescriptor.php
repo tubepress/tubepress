@@ -204,7 +204,7 @@ class tubepress_api_model_options_OptionDescriptor
      */
     public final function isApplicableToVimeo()
     {
-        return ! in_array(tubepress_spi_provider_Provider::VIMEO, $this->_excludedProviders);
+        return ! in_array('vimeo', $this->_excludedProviders);
     }
 
     /**
@@ -212,7 +212,7 @@ class tubepress_api_model_options_OptionDescriptor
      */
     public final function isApplicableToYouTube()
     {
-        return ! in_array(tubepress_spi_provider_Provider::YOUTUBE, $this->_excludedProviders);
+        return ! in_array('youtube', $this->_excludedProviders);
     }
 
     /**

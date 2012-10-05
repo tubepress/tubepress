@@ -106,7 +106,7 @@ class tubepress_plugins_wordpress_impl_message_WordPressMessageServiceTest exten
 
    	private static function _getAllTranslatableStrings()
    	{
-   	    $command = 'grep -r ">(translatable)<" ' . dirname(__FILE__) . '/../../../../../../../../../../../main';
+   	    $command = 'grep -r ">(translatable)<" ' . TUBEPRESS_ROOT . '/src/main/php';
    	    exec($command, $results, $return);
 
    	    self::assertTrue($return === 0, "$command failed");

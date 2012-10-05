@@ -160,8 +160,8 @@ abstract class tubepress_impl_options_ui_fields_AbstractMultiSelectField extends
     {
         return array(
 
-            tubepress_spi_provider_Provider::YOUTUBE,
-            tubepress_spi_provider_Provider::VIMEO,
+            'youtube',
+            'vimeo',
         );
     }
 }

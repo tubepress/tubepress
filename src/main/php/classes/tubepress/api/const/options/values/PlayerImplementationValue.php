@@ -20,11 +20,9 @@
  */
 
 /**
- * TubePress gallery content modes.
+ * TubePress player implementation names.
  */
 class tubepress_api_const_options_values_PlayerImplementationValue
 {
     const PROVIDER_BASED = 'provider_based';
-    const LONGTAIL       = 'longtail';
-    const EMBEDPLUS      = 'embedplus';
 }

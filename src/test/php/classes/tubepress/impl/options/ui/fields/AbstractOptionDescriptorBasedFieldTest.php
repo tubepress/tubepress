@@ -161,7 +161,7 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 
 	public function testProviders()
 	{
-        $this->assertTrue($this->_sut->getArrayOfApplicableProviderNames() === array(tubepress_spi_provider_Provider::VIMEO, tubepress_spi_provider_Provider::YOUTUBE));
+        $this->assertTrue($this->_sut->getArrayOfApplicableProviderNames() === array('vimeo', 'youtube'));
 	}
 
 	public function testGetProOnlyNo()

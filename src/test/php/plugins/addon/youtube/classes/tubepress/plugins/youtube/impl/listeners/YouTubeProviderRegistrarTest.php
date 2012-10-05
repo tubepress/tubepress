@@ -28,14 +28,16 @@ class tubepress_plugins_youtube_impl_listeners_YouTubeProviderRegistrarTest exte
     {
         $this->_sut = new tubepress_plugins_youtube_impl_listeners_YouTubeProviderRegistrar();
 
-        $this->_mockVideoProviderRegistry = Mockery::mock(tubepress_spi_provider_VideoProviderRegistry::_);
+        $this->_mockVideoProviderRegistry = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
 
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setVideoProviderRegistry($this->_mockVideoProviderRegistry);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($this->_mockVideoProviderRegistry);
     }
 
     public function testBoot()
     {
-        $this->_mockVideoProviderRegistry->shouldReceive('registerProvider')->once()->with(Mockery::type('tubepress_plugins_youtube_impl_provider_YouTubeProvider'));
+        $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
+            tubepress_spi_provider_VideoProvider::_,
+            Mockery::type('tubepress_plugins_youtube_impl_provider_YouTubeProvider'));
 
         $this->_sut->onBoot(new tubepress_api_event_TubePressEvent());
 

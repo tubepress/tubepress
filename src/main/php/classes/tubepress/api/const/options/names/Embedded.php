@@ -24,22 +24,15 @@
  */
 class tubepress_api_const_options_names_Embedded
 {
-    const AUTOHIDE         = 'autoHide';
     const AUTONEXT         = 'autoNext';
     const AUTOPLAY         = 'autoplay';
     const EMBEDDED_HEIGHT  = 'embeddedHeight';
     const EMBEDDED_WIDTH   = 'embeddedWidth';
     const ENABLE_JS_API    = 'enableJsApi';
-    const FULLSCREEN       = 'fullscreen';
-    const HIGH_QUALITY     = 'hd';
     const LAZYPLAY         = 'lazyPlay';
     const LOOP             = 'loop';
-    const MODEST_BRANDING  = 'modestBranding';
-    const PLAYER_COLOR     = 'playerColor';
-    const PLAYER_HIGHLIGHT = 'playerHighlight';
     const PLAYER_IMPL      = 'playerImplementation';
     const PLAYER_LOCATION  = 'playerLocation';
     const SEQUENCE         = 'sequence';
     const SHOW_INFO        = 'showInfo';
-    const SHOW_RELATED     = 'showRelated';
 }

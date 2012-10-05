@@ -42,7 +42,6 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
         $this->_sut = new tubepress_impl_theme_SimpleThemeHandler();
     }
 
-
     public function testCalculateCurrentThemeNameNoCustomTheme()
     {
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::THEME)->andReturn('');
@@ -66,11 +65,10 @@ class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
         $template = Mockery::mock('ehough_contemplate_api_Template');
 
         $this->_mockContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::THEME)->andReturn('something');
-        $this->_mockEnvironmentDetector->shouldReceive('getTubePressBaseInstallationPath')->once()->andReturn('base-path');
         $this->_mockEnvironmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn('user-content-dir');
-        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with('base-path/src/main/resources/default-themes/default/foo.txt')->andReturn(null);
+        $this->_mockTemplateBuilder->shouldReceive('getNewTemplateInstance')->once()->with(TUBEPRESS_ROOT . '/src/main/resources/default-themes/default/foo.txt')->andReturn(null);
 
-        $result = $this->_sut->getTemplateInstance('foo.txt');
+        $result = $this->_sut->getTemplateInstance('foo.txt', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default');
 
         $this->assertNull($result);
     }

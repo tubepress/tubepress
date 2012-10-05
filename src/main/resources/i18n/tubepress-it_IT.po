@@ -177,9 +177,6 @@ msgstr "Predefinita a 425."
 msgid "Default is 999999."
 msgstr "Predefinita a 999999."
 
-msgid "Default is FFFFFF."
-msgstr "Predefinita a FFFFFF."
-
 msgid "Loop"
 msgstr "Loop"
 
@@ -191,9 +188,6 @@ msgstr "Mostra titolo e votazione prima dell'avvio del video"
 
 msgid "Main color"
 msgstr "Colore principale"
-
-msgid "Highlight color"
-msgstr "Colore evidenziatore"
 
 msgid "Show related videos"
 msgstr "Mostra video correlati"
@@ -384,9 +378,6 @@ msgstr "rigoroso"
 msgid "Provider default"
 msgstr "Provider predefinito"
 
-msgid "JW FLV Media Player (by Longtail Video)"
-msgstr "JW FLV Media Player (by Longtail Video)"
-
 msgid "Implementation"
 msgstr "Implementazione"
 
@@ -507,16 +498,10 @@ msgstr ""
 msgid "Displays YouTube or Vimeo videos with TubePress"
 msgstr ""
 
-msgid "No viewable videos"
-msgstr ""
-
 msgid "Leave blank to attempt to use your system's temp directory. Otherwise enter the absolute path of a writeable directory."
 msgstr ""
 
 msgid "Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness."
-msgstr ""
-
-msgid "Play videos in high definition by default"
 msgstr ""
 
 msgid "Randomize thumbnail images"
@@ -573,3 +558,23 @@ msgstr ""
 msgid "random"
 msgstr ""
 
+msgid "Show closed captions by default"
+msgstr ""
+
+msgid "Disable keyboard controls"
+msgstr ""
+
+msgid "Show video annotations by default"
+msgstr ""
+
+msgid "Show video controls"
+msgstr ""
+
+msgid "YouTube player theme"
+msgstr ""
+
+msgid "Dark"
+msgstr ""
+
+msgid "Light"
+msgstr ""

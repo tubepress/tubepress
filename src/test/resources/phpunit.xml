@@ -17,7 +17,6 @@
            <directory suffix=".php">../../main/php</directory>
             <exclude>
                 <file>../../main/php/scripts/ajaxEndpoint.php</file>
-                <file>../../main/php/classes/tubepress/impl/patterns/ioc/CoreIocContainer.php</file>
             </exclude>
         </whitelist>
 

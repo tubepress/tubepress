@@ -149,9 +149,6 @@ msgstr "أظهر العنوان و التقييم قبل اظهار الفيدي
 msgid "Main color"
 msgstr "اللون الأساسي"
 
-msgid "Highlight color"
-msgstr "لون التسليط"
-
 msgid "Show related videos"
 msgstr "اظهر الفيديوهات المشابهة"
 
@@ -327,9 +324,6 @@ msgstr "متشدد"
 msgid "Provider default"
 msgstr "الافتراضية من المقدم"
 
-msgid "JW FLV Media Player (by Longtail Video)"
-msgstr "JW FLV Media Player"
-
 msgid "Implementation"
 msgstr "التطبيق"
 
@@ -432,16 +426,10 @@ msgstr ""
 msgid "Displays YouTube or Vimeo videos with TubePress"
 msgstr ""
 
-msgid "No viewable videos"
-msgstr ""
-
 msgid "Leave blank to attempt to use your system's temp directory. Otherwise enter the absolute path of a writeable directory."
 msgstr ""
 
 msgid "Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness."
-msgstr ""
-
-msgid "Play videos in high definition by default"
 msgstr ""
 
 msgid "Randomize thumbnail images"
@@ -466,9 +454,6 @@ msgid "Continue playing the video until the user stops it."
 msgstr ""
 
 msgid "Default is 999999."
-msgstr ""
-
-msgid "Default is FFFFFF."
 msgstr ""
 
 msgid "The brand of the embedded player. Default is the provider's player (YouTube, Vimeo, etc)."
@@ -571,5 +556,26 @@ msgid "Additional sort order applied to each individual page of a gallery"
 msgstr ""
 
 msgid "random"
+msgstr ""
+
+msgid "Show closed captions by default"
+msgstr ""
+
+msgid "Disable keyboard controls"
+msgstr ""
+
+msgid "Show video annotations by default"
+msgstr ""
+
+msgid "Show video controls"
+msgstr ""
+
+msgid "YouTube player theme"
+msgstr ""
+
+msgid "Dark"
+msgstr ""
+
+msgid "Light"
 msgstr ""
 

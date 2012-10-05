@@ -20,7 +20,7 @@
  */
 
 /**
- * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
+ * Generates the HTML for a TubePress player location.
  */
 interface tubepress_spi_player_PlayerHtmlGenerator
 {

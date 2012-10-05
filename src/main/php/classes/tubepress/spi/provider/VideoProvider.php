@@ -27,16 +27,6 @@ interface tubepress_spi_provider_VideoProvider
     const _ = 'tubepress_spi_provider_VideoProvider';
 
     /**
-     * @return string The human-friendly name of this video provider.
-     */
-    function getFriendlyName();
-
-    /**
-     * @return string The name of this video provider. Never empty or null. All lowercase alphanumerics and dashes.
-     */
-    function getName();
-
-    /**
      * Ask this video provider if it recognizes the given video ID.
      *
      * @param string $videoId The globally unique video identifier.
@@ -64,20 +54,12 @@ interface tubepress_spi_provider_VideoProvider
     function fetchSingleVideo($videoId);
 
     /**
-     * @return array An array of strings, each representing an option name provided by this provider.
+     * @return array An array of the valid option values for the "mode" option.
      */
-    function getProvidedOptionNames();
+    function getGallerySourceNames();
 
     /**
-     * @param string $playerImplementationName The player implementation name.
-     *
-     * @return boolean True if this provider can play videos with the given player implementation, false otherwise.
+     * @return string The name of this video provider. Never empty or null. All lowercase alphanumerics and dashes.
      */
-    function canPlayVideosWithPlayerImplementation($playerImplementationName);
-
-    /**
-     * @return array An associative array where the keys are valid option values for the "mode" option, and the
-     *               values are arrays representing the valid options for "orderBy" for the given source value.
-     */
-    function getGallerySourceNamesToSortOptionsMap();
+    function getName();
 }

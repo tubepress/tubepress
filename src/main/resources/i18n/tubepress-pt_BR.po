@@ -182,9 +182,6 @@ msgstr "O padrão é 425."
 msgid "Default is 999999."
 msgstr "O padrão é 999999."
 
-msgid "Default is FFFFFF."
-msgstr "O padrão é FFFFFF."
-
 msgid "Loop"
 msgstr "Loop"
 
@@ -197,17 +194,11 @@ msgstr "Mostrar título e votação antes de iniciar o vídeo"
 msgid "Main color"
 msgstr "Cor principal"
 
-msgid "Highlight color"
-msgstr "Cor de destaque"
-
 msgid "Show related videos"
 msgstr "Mostra vídeos relacionados"
 
 msgid "Toggles the display of related videos after a video finishes."
 msgstr "Alterna a exibição de vídeos relacionados, após terminar um vídeo."
-
-msgid "Play videos in high definition by default"
-msgstr ""
 
 msgid "Feed"
 msgstr "Feed"
@@ -404,9 +395,6 @@ msgstr "estrito"
 msgid "Provider default"
 msgstr "Provedor padrão"
 
-msgid "JW FLV Media Player (by Longtail Video)"
-msgstr "JW FLV Media Player (by Longtail Video)"
-
 msgid "Implementation"
 msgstr "Implementação"
 
@@ -521,9 +509,6 @@ msgstr ""
 msgid "Vimeo"
 msgstr ""
 
-msgid "No viewable videos"
-msgstr ""
-
 msgid "Show each video's..."
 msgstr ""
 
@@ -573,5 +558,26 @@ msgid "Additional sort order applied to each individual page of a gallery"
 msgstr ""
 
 msgid "random"
+msgstr ""
+
+msgid "Show closed captions by default"
+msgstr ""
+
+msgid "Disable keyboard controls"
+msgstr ""
+
+msgid "Show video annotations by default"
+msgstr ""
+
+msgid "Show video controls"
+msgstr ""
+
+msgid "YouTube player theme"
+msgstr ""
+
+msgid "Dark"
+msgstr ""
+
+msgid "Light"
 msgstr ""
 

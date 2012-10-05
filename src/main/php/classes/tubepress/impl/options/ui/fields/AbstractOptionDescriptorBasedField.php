@@ -45,12 +45,12 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
 
         if ($this->_optionDescriptor->isApplicableToVimeo()) {
 
-            array_push($this->_providerArray, tubepress_spi_provider_Provider::VIMEO);
+            array_push($this->_providerArray, 'vimeo');
         }
 
         if ($this->_optionDescriptor->isApplicableToYouTube()) {
 
-            array_push($this->_providerArray, tubepress_spi_provider_Provider::YOUTUBE);
+            array_push($this->_providerArray, 'youtube');
         }
     }
 

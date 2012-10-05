@@ -1,3 +1,3 @@
-name = Core YouTube integration
+name = Basic Vimeo integration
 version = 1.0.0
-description = Provides TubePress with the ability to work with YouTube
+description = Provides TubePress with the ability to work with Vimeo

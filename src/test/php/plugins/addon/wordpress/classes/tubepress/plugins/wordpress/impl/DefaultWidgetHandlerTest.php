@@ -106,7 +106,7 @@ class org_tubepress_impl_env_wordpress_WidgetTest extends TubePressUnitTest
             tubepress_api_const_options_names_Meta::VIEWS                  => false,
             tubepress_api_const_options_names_Meta::DESCRIPTION            => true,
             tubepress_api_const_options_names_Meta::DESC_LIMIT          => 50,
-            tubepress_api_const_options_names_Embedded::PLAYER_LOCATION => tubepress_api_const_options_values_PlayerLocationValue::POPUP,
+            tubepress_api_const_options_names_Embedded::PLAYER_LOCATION => 'popup',
             tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT        => 105,
             tubepress_api_const_options_names_Thumbs::THUMB_WIDTH         => 22135,
             tubepress_api_const_options_names_Thumbs::PAGINATE_ABOVE      => false,

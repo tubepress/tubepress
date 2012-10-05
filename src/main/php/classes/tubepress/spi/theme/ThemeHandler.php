@@ -29,13 +29,17 @@ interface tubepress_spi_theme_ThemeHandler
     /**
      * Gets an instance of a template appropriate for the current theme.
      *
-     * @param string $pathToTemplate The relative path (from the root of the theme directory) to the template.
+     * @param string $pathToTemplate    The relative path (from the root of the user's theme directory,
+     *                                  or the fallback directory) to the template.
+     * @param string $fallBackDirectory The absolute path to a directory where this template (defined by the relative
+     *                                  path, can be found). You should make sure that the template will *always* exist
+     *                                  here.
      *
-     * @throws Exception If there was a problem.
+     * @throws RuntimeException If the template could not be found.
      *
      * @return ehough_contemplate_api_Template The template instance.
      */
-    function getTemplateInstance($pathToTemplate);
+    function getTemplateInstance($pathToTemplate, $fallBackDirectory);
 
     /**
      * Returns the name of the current TubePress theme in use.

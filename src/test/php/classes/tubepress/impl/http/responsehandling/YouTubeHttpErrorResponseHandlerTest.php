@@ -27,12 +27,7 @@ class tubepress_impl_http_responsehandling_YouTubeHttpErrorResponseHandlerTest e
 
     protected function getProviderName()
     {
-        return tubepress_spi_provider_Provider::YOUTUBE;
-    }
-
-    function testBadSyntax()
-    {
-        $this->assertEquals('YouTube rejected the request due to malformed syntax.', $this->_getMessageFromBody('some stuff <InTernALReAsONfoobar</inTERNalREasoN> hello'));
+        return 'youtube';
     }
 
     function testErrorInternalReason()
@@ -59,6 +54,8 @@ class tubepress_impl_http_responsehandling_YouTubeHttpErrorResponseHandlerTest e
 
     function test503()
     {
+        $this->_setMessageBody('<internalReason>something</internalReason>');
+
         $this->getResponse()->setStatusCode(503);
 
         $this->assertEquals('YouTube\'s API cannot be reached at this time (likely due to overload or maintenance). Please try again later.', $this->getMessage());
@@ -66,6 +63,8 @@ class tubepress_impl_http_responsehandling_YouTubeHttpErrorResponseHandlerTest e
 
     function test403()
     {
+        $this->_setMessageBody('<internalReason>something</internalReason>');
+
         $this->getResponse()->setStatusCode(403);
 
         $this->assertEquals('YouTube determined that the request did not contain proper authentication.', $this->getMessage());
@@ -73,6 +72,8 @@ class tubepress_impl_http_responsehandling_YouTubeHttpErrorResponseHandlerTest e
 
     function test500()
     {
+        $this->_setMessageBody('<internalReason>something</internalReason>');
+
         $this->getResponse()->setStatusCode(500);
 
         $this->assertEquals('YouTube experienced an internal error while handling this request. Please try again later.', $this->getMessage());
@@ -80,6 +81,8 @@ class tubepress_impl_http_responsehandling_YouTubeHttpErrorResponseHandlerTest e
 
     function test501()
     {
+        $this->_setMessageBody('<internalReason>something</internalReason>');
+
         $this->getResponse()->setStatusCode(501);
 
         $this->assertEquals('The YouTube API does not implement the requested operation.', $this->getMessage());
@@ -87,9 +90,18 @@ class tubepress_impl_http_responsehandling_YouTubeHttpErrorResponseHandlerTest e
 
     function test401()
     {
+        $this->_setMessageBody('<internalReason>something</internalReason>');
+
         $this->getResponse()->setStatusCode(401);
 
         $this->assertEquals('YouTube didn\'t authorize this request due to a missing or invalid Authorization header.', $this->getMessage());
+    }
+
+    function testNoEntity()
+    {
+        $this->getResponse()->setStatusCode(200);
+
+        $this->assertFalse($this->getSut()->execute($this->getContext()));
     }
 }
 

@@ -20,7 +20,7 @@
  */
 
 /**
- * TubePress gallery content modes.
+ * Option values for YouTube video sources.
  */
 class tubepress_plugins_youtube_api_const_options_values_GallerySourceValue
 {
@@ -39,9 +39,15 @@ class tubepress_plugins_youtube_api_const_options_values_GallerySourceValue
     const YOUTUBE_FEATURED       = 'recently_featured';
     const YOUTUBE_TRENDING       = 'youtubeTrending';
 
+    /**
+     * Related/responses.
+     */
     const YOUTUBE_RELATED   = 'youtubeRelated';
     const YOUTUBE_RESPONSES = 'youtubeResponses';
 
+    /**
+     * Users/playlist/search/favorites etc.
+     */
     const YOUTUBE_PLAYLIST  = 'playlist';
     const YOUTUBE_FAVORITES = 'favorites';
     const YOUTUBE_SEARCH    = 'tag';

@@ -37,5 +37,32 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 	    $this->_sut->registerOptionDescriptor($od);
 	    $this->_sut->registerOptionDescriptor($od);
 	}
+
+    public function testGetAll()
+    {
+        $od = new tubepress_api_model_options_OptionDescriptor('name');
+
+        $this->_sut->registerOptionDescriptor($od);
+
+        $result = $this->_sut->findAll();
+
+        $this->assertTrue(is_array($result));
+        $this->assertSame($od, $result[0]);
+    }
+
+    public function testFindOne()
+    {
+        $result = $this->_sut->findOneByName('x');
+
+        $this->assertNull($result);
+
+        $od = new tubepress_api_model_options_OptionDescriptor('name');
+
+        $this->_sut->registerOptionDescriptor($od);
+
+        $result = $this->_sut->findOneByName('name');
+
+        $this->assertSame($od, $result);
+    }
 }
 

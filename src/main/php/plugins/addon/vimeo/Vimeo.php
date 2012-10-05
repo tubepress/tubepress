@@ -22,7 +22,7 @@
 /**
  * Registers a few extensions to allow TubePress to work with Vimeo.
  */
-class tubepress_plugins_vimeo_YouTube
+class tubepress_plugins_vimeo_Vimeo
 {
     public static function registerVimeoListeners()
     {
@@ -35,7 +35,12 @@ class tubepress_plugins_vimeo_YouTube
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
             array(new tubepress_plugins_vimeo_impl_listeners_VimeoOptionsRegistrar(), 'onBoot'));
 
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
+            array(new tubepress_plugins_vimeo_impl_listeners_VimeoProviderRegistrar, 'onBoot'));
+
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
+            array(new tubepress_plugins_vimeo_impl_listeners_VimeoEmbeddedPlayerRegistrar(), 'onBoot'));
     }
 }
 
-tubepress_plugins_vimeo_YouTube::registerVimeoListeners();
+tubepress_plugins_vimeo_Vimeo::registerVimeoListeners();

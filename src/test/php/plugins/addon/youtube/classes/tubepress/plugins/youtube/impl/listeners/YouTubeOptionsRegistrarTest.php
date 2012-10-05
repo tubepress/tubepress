@@ -24,7 +24,7 @@ class tubepress_plugins_youtube_impl_listeners_YouTubesOptionsRegistrarTest exte
 
     private $_mockOptionsDescriptorReference;
 
-    private static $_providerArrayVimeo = array(tubepress_spi_provider_Provider::VIMEO);
+    private static $_providerArrayVimeo = array('vimeo');
     private static $_regexColor              = '/^([0-9a-f]{1,2}){3}$/i';
     private static $_valueMapTime = array(
 
@@ -46,7 +46,7 @@ class tubepress_plugins_youtube_impl_listeners_YouTubesOptionsRegistrarTest exte
 
     public function testOptions()
     {
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::AUTOHIDE);
+        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::AUTOHIDE);
         $option->setLabel('Auto-hide video controls');                                                  //>(translatable)<
         $option->setDescription('A few seconds after playback begins, fade out the video controls.');   //>(translatable)<
         $option->setDefaultValue(false);
@@ -54,21 +54,53 @@ class tubepress_plugins_youtube_impl_listeners_YouTubesOptionsRegistrarTest exte
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $this->_verifyOption($option);
 
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::FULLSCREEN);
+        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::CLOSED_CAPTIONS);
+        $option->setLabel('Show closed captions by default');                                                  //>(translatable)<
+        $option->setDefaultValue(false);
+        $option->setBoolean();
+        $option->setExcludedProviders(self::$_providerArrayVimeo);
+        $this->_verifyOption($option);
+
+        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::DISABLE_KEYBOARD);
+        $option->setLabel('Disable keyboard controls');                                                  //>(translatable)<
+        $option->setDefaultValue(false);
+        $option->setBoolean();
+        $option->setExcludedProviders(self::$_providerArrayVimeo);
+        $this->_verifyOption($option);
+
+        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_ANNOTATIONS);
+        $option->setLabel('Show video annotations by default');                                                  //>(translatable)<
+        $option->setDefaultValue(false);
+        $option->setBoolean();
+        $option->setExcludedProviders(self::$_providerArrayVimeo);
+        $this->_verifyOption($option);
+
+        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_CONTROLS);
+        $option->setLabel('Show video controls');                                                  //>(translatable)<
+        $option->setDefaultValue(true);
+        $option->setBoolean();
+        $option->setExcludedProviders(self::$_providerArrayVimeo);
+        $this->_verifyOption($option);
+
+        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::CLOSED_CAPTIONS);
+        $option->setLabel('YouTube player theme');                                                  //>(translatable)<
+        $option->setAcceptableValues(array(
+
+            tubepress_plugins_youtube_api_const_options_values_ThemeValue::DARK  => 'Dark',     //>(translatable)<
+            tubepress_plugins_youtube_api_const_options_values_ThemeValue::LIGHT => 'Light'    //>(translatable)<
+        ));
+        $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_ThemeValue::DARK);
+        $option->setExcludedProviders(self::$_providerArrayVimeo);
+        $this->_verifyOption($option);
+        
+        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::FULLSCREEN);
         $option->setLabel('Allow fullscreen playback.');  //>(translatable)<
         $option->setDefaultValue(true);
         $option->setBoolean();
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $this->_verifyOption($option);
 
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::HIGH_QUALITY);
-        $option->setLabel('Play videos in high definition by default');  //>(translatable)<
-        $option->setDefaultValue(false);
-        $option->setBoolean();
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::MODEST_BRANDING);
+        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::MODEST_BRANDING);
         $option->setDefaultValue(true);
         $option->setLabel('"Modest" branding');                          //>(translatable)<
         $option->setDescription('Hide the YouTube logo from the control area.'); //>(translatable)<
@@ -76,15 +108,7 @@ class tubepress_plugins_youtube_impl_listeners_YouTubesOptionsRegistrarTest exte
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $this->_verifyOption($option);
 
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT);
-        $option->setDefaultValue('FFFFFF');
-        $option->setLabel('Highlight color');         //>(translatable)<
-        $option->setDescription('Default is FFFFFF.'); //>(translatable)<
-        $option->setValidValueRegex(self::$_regexColor);
-        $option->setExcludedProviders(self::$_providerArrayVimeo);
-        $this->_verifyOption($option);
-
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::SHOW_RELATED);
+        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Embedded::SHOW_RELATED);
         $option->setDefaultValue(true);
         $option->setLabel('Show related videos');                                                //>(translatable)<
         $option->setDescription('Toggles the display of related videos after a video finishes.'); //>(translatable)<
@@ -92,14 +116,14 @@ class tubepress_plugins_youtube_impl_listeners_YouTubesOptionsRegistrarTest exte
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $this->_verifyOption($option);
 
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Feed::DEV_KEY);
+        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Feed::DEV_KEY);
         $option->setDefaultValue('AI39si5uUzupiQW9bpzGqZRrhvqF3vBgRqL-I_28G1zWozmdNJlskzMDQEhpZ-l2RqGf_6CNWooL96oJZRrqKo-eJ9QO_QppMg');
         $option->setLabel('YouTube API Developer Key');                                                                                                                                                                                                                                                                                   //>(translatable)<
         $option->setDescription('YouTube will use this developer key for logging and debugging purposes if you experience a service problem on their end. You can register a new client ID and developer key <a href="http://code.google.com/apis/youtube/dashboard/">here</a>. Don\'t change this unless you know what you\'re doing.'); //>(translatable)<
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $this->_verifyOption($option);
 
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Feed::EMBEDDABLE_ONLY);
+        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Feed::EMBEDDABLE_ONLY);
         $option->setDefaultValue(true);
         $option->setLabel('Only retrieve embeddable videos');                                                                                //>(translatable)<
         $option->setDescription('Some videos have embedding disabled. Checking this option will exclude these videos from your galleries.'); //>(translatable)<
@@ -107,7 +131,7 @@ class tubepress_plugins_youtube_impl_listeners_YouTubesOptionsRegistrarTest exte
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $this->_verifyOption($option);
 
-        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_api_const_options_names_Feed::FILTER);
+        $option = new tubepress_api_model_options_OptionDescriptor(tubepress_plugins_youtube_api_const_options_names_Feed::FILTER);
         $option->setLabel('Filter "racy" content');                                                    //>(translatable)<
         $option->setDescription('Don\'t show videos that may not be suitable for minors.');            //>(translatable)<
         $option->setDefaultValue(tubepress_plugins_youtube_api_const_options_values_SafeSearchValue::MODERATE);
@@ -221,8 +245,6 @@ class tubepress_plugins_youtube_impl_listeners_YouTubesOptionsRegistrarTest exte
         $option->setDescription('The brand of the embedded player. Default is the provider\'s player (YouTube, Vimeo, etc).'); //>(translatable)<
         $option->setExcludedProviders(self::$_providerArrayVimeo);
         $option->setAcceptableValues(array(
-            tubepress_api_const_options_values_PlayerImplementationValue::EMBEDPLUS      => 'EmbedPlus',
-            tubepress_api_const_options_values_PlayerImplementationValue::LONGTAIL       => 'JW FLV Media Player (by Longtail Video)',  //>(translatable)<
             tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED => 'Provider default',                         //>(translatable)<
         ));
         $this->_verifyOption($option);

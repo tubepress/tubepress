@@ -22,179 +22,61 @@
 /**
  * Handles the heavy lifting for YouTube.
  */
-class tubepress_plugins_youtube_impl_provider_YouTubeProvider implements tubepress_spi_provider_VideoProvider
+class tubepress_plugins_youtube_impl_provider_YouTubeProvider extends tubepress_impl_provider_AbstractFetchingAndBuildingVideoProvider
 {
-    /**
-     * @var array Options that this provider provided.
-     */
-    private static $_selfSuppliedOptions = array(
+    private static $_NAMESPACE_OPENSEARCH = 'http://a9.com/-/spec/opensearch/1.1/';
+    private static $_NAMESPACE_APP        = 'http://www.w3.org/2007/app';
+    private static $_NAMESPACE_ATOM       = 'http://www.w3.org/2005/Atom';
+    private static $_NAMESPACE_MEDIA      = 'http://search.yahoo.com/mrss/';
+    private static $_NAMESPACE_YT         = 'http://gdata.youtube.com/schemas/2007';
+    private static $_NAMESPACE_GD         = 'http://schemas.google.com/g/2005';
 
-        tubepress_api_const_options_names_Embedded::AUTOHIDE,
-        tubepress_api_const_options_names_Embedded::FULLSCREEN,
-        tubepress_api_const_options_names_Embedded::HIGH_QUALITY,
-        tubepress_api_const_options_names_Embedded::MODEST_BRANDING,
-        tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT,
-        tubepress_api_const_options_names_Embedded::PLAYER_IMPL,
-        tubepress_api_const_options_names_Embedded::SHOW_RELATED,
-        tubepress_api_const_options_names_Feed::DEV_KEY,
-        tubepress_api_const_options_names_Feed::EMBEDDABLE_ONLY,
-        tubepress_api_const_options_names_Feed::FILTER,
-        tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_FAVORITES_VALUE,
-        tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_FEATURED_VALUE,
-        tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_DISCUSSED_VALUE,
-        tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RECENT_VALUE,
-        tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE,
-        tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_POPULAR_VALUE,
-        tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_PLAYLIST_VALUE,
-        tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TAG_VALUE,
-        tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_FAVORITES_VALUE,
-        tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_TOP_RATED_VALUE,
-        tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_USER_VALUE,
-        tubepress_api_const_options_names_Meta::RATING,
-        tubepress_api_const_options_names_Meta::RATINGS,
-        tubepress_api_const_options_names_Thumbs::RANDOM_THUMBS,
-    );
+    private static $_sources = array(
 
-    private static $_sourceToSortMap = array(
-
-        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED => array(
-
-            tubepress_api_const_options_values_OrderByValue::RELEVANCE,
-            tubepress_api_const_options_values_OrderByValue::NEWEST,
-            tubepress_api_const_options_values_OrderByValue::VIEW_COUNT,
-            tubepress_api_const_options_values_OrderByValue::RATING
-        ),
-
-        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES => array(
-
-            tubepress_api_const_options_values_OrderByValue::RELEVANCE,
-            tubepress_api_const_options_values_OrderByValue::NEWEST,
-            tubepress_api_const_options_values_OrderByValue::VIEW_COUNT,
-            tubepress_api_const_options_values_OrderByValue::RATING
-        ),
-
-        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_SHARED => array(
-
-            tubepress_api_const_options_values_OrderByValue::RELEVANCE,
-            tubepress_api_const_options_values_OrderByValue::NEWEST,
-            tubepress_api_const_options_values_OrderByValue::VIEW_COUNT,
-            tubepress_api_const_options_values_OrderByValue::RATING
-        ),
-
-        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR => array(
-
-            tubepress_api_const_options_values_OrderByValue::RELEVANCE,
-            tubepress_api_const_options_values_OrderByValue::NEWEST,
-            tubepress_api_const_options_values_OrderByValue::VIEW_COUNT,
-            tubepress_api_const_options_values_OrderByValue::RATING
-        ),
-
-        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT => array(
-
-            tubepress_api_const_options_values_OrderByValue::RELEVANCE,
-            tubepress_api_const_options_values_OrderByValue::NEWEST,
-            tubepress_api_const_options_values_OrderByValue::VIEW_COUNT,
-            tubepress_api_const_options_values_OrderByValue::RATING
-        ),
-
-        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED => array(
-
-            tubepress_api_const_options_values_OrderByValue::RELEVANCE,
-            tubepress_api_const_options_values_OrderByValue::NEWEST,
-            tubepress_api_const_options_values_OrderByValue::VIEW_COUNT,
-            tubepress_api_const_options_values_OrderByValue::RATING
-        ),
-
-        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED => array(
-
-            tubepress_api_const_options_values_OrderByValue::RELEVANCE,
-            tubepress_api_const_options_values_OrderByValue::NEWEST,
-            tubepress_api_const_options_values_OrderByValue::VIEW_COUNT,
-            tubepress_api_const_options_values_OrderByValue::RATING
-        ),
-
-        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED => array(
-
-            tubepress_api_const_options_values_OrderByValue::RELEVANCE,
-            tubepress_api_const_options_values_OrderByValue::NEWEST,
-            tubepress_api_const_options_values_OrderByValue::VIEW_COUNT,
-            tubepress_api_const_options_values_OrderByValue::RATING
-        ),
-
-        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TRENDING => array(
-
-            tubepress_api_const_options_values_OrderByValue::RELEVANCE,
-            tubepress_api_const_options_values_OrderByValue::NEWEST,
-            tubepress_api_const_options_values_OrderByValue::VIEW_COUNT,
-            tubepress_api_const_options_values_OrderByValue::RATING
-        ),
-
-        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RELATED => array(
-
-            tubepress_api_const_options_values_OrderByValue::RELEVANCE,
-            tubepress_api_const_options_values_OrderByValue::NEWEST,
-            tubepress_api_const_options_values_OrderByValue::VIEW_COUNT,
-            tubepress_api_const_options_values_OrderByValue::RATING
-        ),
-
-        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RESPONSES => array(
-
-            tubepress_api_const_options_values_OrderByValue::RELEVANCE,
-            tubepress_api_const_options_values_OrderByValue::NEWEST,
-            tubepress_api_const_options_values_OrderByValue::VIEW_COUNT,
-            tubepress_api_const_options_values_OrderByValue::RATING
-        ),
-
-        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST => array(
-
-            tubepress_api_const_options_values_OrderByValue::POSITION,
-            tubepress_api_const_options_values_OrderByValue::COMMENT_COUNT,
-            tubepress_api_const_options_values_OrderByValue::DURATION,
-            tubepress_api_const_options_values_OrderByValue::NEWEST,
-            tubepress_api_const_options_values_OrderByValue::OLDEST,
-            tubepress_api_const_options_values_OrderByValue::TITLE,
-            tubepress_api_const_options_values_OrderByValue::VIEW_COUNT
-        ),
-
-        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES => array(
-
-            tubepress_api_const_options_values_OrderByValue::RELEVANCE,
-            tubepress_api_const_options_values_OrderByValue::NEWEST,
-            tubepress_api_const_options_values_OrderByValue::VIEW_COUNT,
-            tubepress_api_const_options_values_OrderByValue::RATING
-        ),
-
-        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH => array(
-
-            tubepress_api_const_options_values_OrderByValue::RELEVANCE,
-            tubepress_api_const_options_values_OrderByValue::NEWEST,
-            tubepress_api_const_options_values_OrderByValue::VIEW_COUNT,
-            tubepress_api_const_options_values_OrderByValue::RATING
-        ),
-
-        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER => array(
-
-            tubepress_api_const_options_values_OrderByValue::RELEVANCE,
-            tubepress_api_const_options_values_OrderByValue::NEWEST,
-            tubepress_api_const_options_values_OrderByValue::VIEW_COUNT,
-            tubepress_api_const_options_values_OrderByValue::RATING
-        ),
+        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_RATED,
+        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TOP_FAVORITES,
+        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_SHARED,
+        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_POPULAR,
+        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RECENT,
+        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_DISCUSSED,
+        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED,
+        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FEATURED,
+        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_TRENDING,
+        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RELATED,
+        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_RESPONSES,
+        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_PLAYLIST,
+        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_FAVORITES,
+        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_SEARCH,
+        tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_USER,
     );
 
     /**
-     * @return string The human-friendly name of this video provider.
+     * @var DOMDocument DOM Document.
      */
-    public final function getFriendlyName()
-    {
-        return 'YouTube';
-    }
+    private $_domDocument;
 
     /**
-     * @return string The name of this video provider. Never empty or null. All lowercase alphanumerics and dashes.
+     * @var DOMXPath XPath.
      */
-    public final function getName()
+    private $_xpath;
+
+    /**
+     * @var ehough_epilog_api_ILogger Logger.
+     */
+    private $_logger;
+
+    /**
+     * @var tubepress_spi_provider_UrlBuilder URL builder.
+     */
+    private $_urlBuilder;
+
+    public function __construct(
+
+        tubepress_spi_provider_UrlBuilder $urlBuilder
+    )
     {
-        return 'youtube';
+        $this->_logger     = ehough_epilog_api_LoggerFactory::getLogger('YouTube Video Provider');
+        $this->_urlBuilder = $urlBuilder;
     }
 
     /**
@@ -210,70 +92,327 @@ class tubepress_plugins_youtube_impl_provider_YouTubeProvider implements tubepre
     }
 
     /**
-     * Fetch a video gallery page.
-     *
-     * @param int $currentPage The requested page number of the gallery.
-     *
-     * @return tubepress_api_video_VideoGalleryPage The video gallery page for this page. May be empty, never null.
+     * @return array An array of the valid option values for the "mode" option.
      */
-    public final function fetchVideoGalleryPage($currentPage)
+    public final function getGallerySourceNames()
     {
-        // TODO: Implement fetchVideoGalleryPage() method.
+        return self::$_sources;
     }
 
     /**
-     * Fetch a single video.
-     *
-     * @param string $videoId The video ID to fetch.
-     *
-     * @return tubepress_api_video_Video The video, or null if unable to retrive.
+     * @return string The name of this video provider. Never empty or null. All lowercase alphanumerics and dashes.
      */
-    public final function fetchSingleVideo($videoId)
+    public final function getName()
     {
-        // TODO: Implement fetchSingleVideo() method.
+        return 'youtube';
     }
 
     /**
-     * @param string $optionName The TubePress option name.
+     * Count the total videos in this feed result.
      *
-     * @return boolean True if this option is applicable to the provider. False otherwise.
+     * @param mixed $rawFeed The raw video feed (varies depending on provider)
+     *
+     * @return int The total result count of this query, or 0 if there was a problem.
      */
-    public final function optionIsApplicable($optionName)
+    protected final function getTotalResultCount($rawFeed)
     {
-        /**
-         * If this plugin provided the option, then yes we support it.
-         */
-        if (in_array($optionName, self::$_selfSuppliedOptions)) {
+        $this->_createDomDocument($rawFeed);
+
+        $total        = $this->_domDocument->getElementsByTagNameNS(self::$_NAMESPACE_OPENSEARCH, '*');
+        $node         = $total->item(0);
+        $totalResults = $node->nodeValue;
+
+        self::_makeSureNumeric($totalResults);
+
+        return $totalResults;
+    }
+
+    protected final function getLogger()
+    {
+        return $this->_logger;
+    }
+
+    /**
+     * Determine if we can build a video from this element of the feed.
+     *
+     * @param integer $index The index into the feed.
+     *
+     * @return boolean True if we can build a video from this element, false otherwise.
+     */
+    protected final function _canHandleVideo($index)
+    {
+        $states = $this->_relativeQuery($index, 'app:control/yt:state');
+
+        /* no state applied? we're good to go */
+        if ($states->length == 0) {
 
             return true;
         }
+
+        /* if state is other than limitedSyndication, it's not available */
+        return $this->_relativeQuery($index, "app:control/yt:state[@reasonCode='limitedSyndication']")->length !== 0;
     }
 
     /**
-     * @param string $playerImplementationName The player implementation name.
+     * Count the number of videos that we think are in this feed.
      *
-     * @return boolean True if this provider can play videos with the given player implementation, false otherwise.
+     * @param mixed $feed The feed.
+     *
+     * @return integer An estimated count of videos in this feed.
      */
-    public final function canPlayVideosWithPlayerImplementation($playerImplementationName)
+    protected final function _countVideosInFeed($feed)
     {
-        //currently YouTube can handle any of the providers
-        return true;
+        return $this->_xpath->query('//atom:entry')->length;
+    }
+
+    protected final function _getAuthorDisplayName($index)
+    {
+        return $this->_getAuthorUid($index);
+    }
+
+    protected final function _getAuthorUid($index)
+    {
+        return $this->_relativeQuery($index, 'atom:author/atom:name')->item(0)->nodeValue;
+    }
+
+    protected final function _getCategory($index)
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        return trim($this->_relativeQuery($index, 'media:group/media:category')->item(0)->getAttribute('label'));
+    }
+
+    protected final function _getRawCommentCount($index)
+    {
+        return '';
+    }
+
+    protected final function _getDescription($index)
+    {
+        return $this->_relativeQuery($index, 'media:group/media:description')->item(0)->nodeValue;
+    }
+
+    protected final function _getDurationInSeconds($index)
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        return $this->_relativeQuery($index, 'media:group/yt:duration')->item(0)->getAttribute('seconds');
+    }
+
+    protected final function _getHomeUrl($index)
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        $rawUrl = $this->_relativeQuery($index, "atom:link[@rel='alternate']")->item(0)->getAttribute('href');
+        $url    = new ehough_curly_Url($rawUrl);
+
+        return $url->toString(true);
+    }
+
+    protected final function _getId($index)
+    {
+        $link    = $this->_relativeQuery($index, "atom:link[@type='text/html']")->item(0);
+
+        /** @noinspection PhpUndefinedMethodInspection */
+        preg_match('/.*v=(.{11}).*/', $link->getAttribute('href'), $matches);
+
+        return $matches[1];
+    }
+
+    protected final function _getKeywordsArray($index)
+    {
+        $rawKeywords = $this->_relativeQuery($index, 'media:group/media:keywords')->item(0);
+        $raw         = trim($rawKeywords->nodeValue);
+
+        return explode(', ', $raw);
+    }
+
+    protected final function _getRawLikeCount($index)
+    {
+        return '';
+    }
+
+    protected final function _getRatingAverage($index)
+    {
+        $count = $this->_relativeQuery($index, 'gd:rating')->item(0);
+
+        if ($count != null) {
+
+            /** @noinspection PhpUndefinedMethodInspection */
+            return number_format($count->getAttribute('average'), 2);
+        }
+
+        return '';
+    }
+
+    protected final function _getRawRatingCount($index)
+    {
+        $count = $this->_relativeQuery($index, 'gd:rating')->item(0);
+
+        if ($count != null) {
+
+            /** @noinspection PhpUndefinedMethodInspection */
+            return $count->getAttribute('numRaters');
+        }
+
+        return '';
+    }
+
+    protected final function _getThumbnailUrlsArray($index)
+    {
+        $thumbs = $this->_relativeQuery($index, 'media:group/media:thumbnail');
+        $result = array();
+
+        foreach ($thumbs as $thumb) {
+
+            /** @noinspection PhpUndefinedMethodInspection */
+            $url = $thumb->getAttribute('url');
+
+            if (strpos($url, 'hqdefault') === false && strpos($url, 'mqdefault') === false) {
+
+                $result[] = $url;
+            }
+        }
+
+        return $result;
+    }
+
+    protected final function _getTimeLastUpdatedInUnixTime($index)
+    {
+        return '';
+    }
+
+    protected final function _getTimePublishedInUnixTime($index)
+    {
+        $publishedNode = $this->_relativeQuery($index, 'media:group/yt:uploaded');
+
+        if ($publishedNode->length == 0) {
+
+            return '';
+        }
+
+        $rawTime = $publishedNode->item(0)->nodeValue;
+
+        return tubepress_impl_util_TimeUtils::rfc3339toUnixTime($rawTime);
+    }
+
+    protected final function _getTitle($index)
+    {
+        return $this->_relativeQuery($index, 'atom:title')->item(0)->nodeValue;
+    }
+
+    protected final function _getRawViewCount($index)
+    {
+        $stats = $this->_relativeQuery($index, 'yt:statistics')->item(0);
+
+        if ($stats != null) {
+
+            /** @noinspection PhpUndefinedMethodInspection */
+            return $stats->getAttribute('viewCount');
+        }
+
+        return '';
+    }
+
+    protected function _preFactoryExecution($feed)
+    {
+        $this->_createDomDocument($feed);
+        $this->_xpath = $this->_createXPath($this->_domDocument);
+    }
+
+    protected function _postFactoryExecution($feed)
+    {
+        unset($this->_domDocument);
+        unset($this->_xpath);
+    }
+
+    private static function _makeSureNumeric($result)
+    {
+        if (is_numeric($result) === false) {
+
+            throw new RuntimeException("YouTube returned a non-numeric result count: $result");
+        }
+    }
+
+    private function _createXPath(DOMDocument $doc)
+    {
+        if ($this->_logger->isDebugEnabled()) {
+
+            $this->_logger->debug('Building xpath to parse XML');
+        }
+
+        if (! class_exists('DOMXPath')) {
+
+            throw new RuntimeException('Class DOMXPath not found');
+        }
+
+        $xpath = new DOMXPath($doc);
+        $xpath->registerNamespace('atom', self::$_NAMESPACE_ATOM);
+        $xpath->registerNamespace('yt', self::$_NAMESPACE_YT);
+        $xpath->registerNamespace('gd', self::$_NAMESPACE_GD);
+        $xpath->registerNamespace('media', self::$_NAMESPACE_MEDIA);
+        $xpath->registerNamespace('app', self::$_NAMESPACE_APP);
+
+        return $xpath;
+    }
+
+    private function _createDomDocument($feed)
+    {
+        if ($this->_logger->isDebugEnabled()) {
+
+            $this->_logger->debug('Attempting to load XML from YouTube');
+        }
+
+        if (! class_exists('DOMDocument')) {
+
+            throw new RuntimeException('DOMDocument class not found');
+        }
+
+        $doc = new DOMDocument();
+
+        if ($doc->loadXML($feed) === false) {
+
+            throw new RuntimeException('Could not parse XML from YouTube');
+        }
+
+        if ($this->_logger->isDebugEnabled()) {
+
+            $this->_logger->debug('Successfully loaded XML from YouTube');
+        }
+
+        $this->_domDocument = $doc;
+    }
+
+    private function _relativeQuery($index, $query)
+    {
+        return $this->_xpath->query('//atom:entry[' . ($index + 1) . "]/$query");
     }
 
     /**
-     * @return array An associative array where the keys are valid option values for the "mode" option, and the
-     *               values are arrays representing the valid options for "orderBy" for the given source value.
+     * Builds a URL for a list of videos
+     *
+     * @param int $currentPage The current page number of the gallery.
+     *
+     * @return string The request URL for this gallery.
      */
-    public final function getGallerySourceNamesToSortOptionsMap()
+    protected function buildGalleryUrl($currentPage)
     {
-        return self::$_sourceToSortMap;
+        return $this->_urlBuilder->buildGalleryUrl($currentPage);
     }
 
     /**
-     * @return array An array of strings, each representing an option name provided by this provider.
+     * Builds a request url for a single video
+     *
+     * @param string $id The video ID to search for
+     *
+     * @throws InvalidArgumentException If unable to build a URL for the given video.
+     *
+     * @return string The URL for the single video given.
      */
-    public final function getProvidedOptionNames()
+    protected function buildSingleVideoUrl($id)
     {
-        return self::$_selfSuppliedOptions;
+        if (! $this->recognizesVideoId($id)) {
+
+            throw new InvalidArgumentException("Unable to build YouTube URL for video with ID $id");
+        }
+
+        return $this->_urlBuilder->buildSingleVideoUrl($id);
     }
 }

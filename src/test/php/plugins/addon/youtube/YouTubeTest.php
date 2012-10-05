@@ -29,12 +29,18 @@ class tubepress_plugins_youtube_YouTubeTest extends TubePressUnitTest
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
 	}
 
-	function testVimeo()
+	function testLoad()
     {
         $expected = array(
 
             array(tubepress_api_const_event_CoreEventNames::BOOT =>
-                array(new tubepress_plugins_youtube_impl_listeners_YouTubeOptionsRegistrar(), 'onBoot'))
+                array(new tubepress_plugins_youtube_impl_listeners_YouTubeOptionsRegistrar(), 'onBoot')),
+
+            array(tubepress_api_const_event_CoreEventNames::BOOT =>
+                array(new tubepress_plugins_youtube_impl_listeners_YouTubeEmbeddedPlayerRegistrar(), 'onBoot')),
+
+            array(tubepress_api_const_event_CoreEventNames::BOOT =>
+                array(new tubepress_plugins_youtube_impl_listeners_YouTubeProviderRegistrar(), 'onBoot'))
         );
 
         $eventArray = array();

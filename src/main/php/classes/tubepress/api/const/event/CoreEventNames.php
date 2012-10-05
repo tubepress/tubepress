@@ -152,7 +152,6 @@ class tubepress_api_const_event_CoreEventNames
      *
      * @subject ehough_contemplate_api_Template The template.
      *
-     * @arg string                    'providerName' The name of the video provider (e.g. "vimeo" or "youtube").
      * @arg tubepress_api_video_Video 'video'        The video to be played.
      */
     const SINGLE_VIDEO_TEMPLATE_CONSTRUCTION = 'singleVideoTemplateConstruction';
@@ -162,7 +161,6 @@ class tubepress_api_const_event_CoreEventNames
      *
      * @subject string The HTML for the thumbnail gallery.
      *
-     * @arg string                               'providerName'     The name of the video provider (e.g. "vimeo" or "youtube").
      * @arg tubepress_api_video_VideoGalleryPage 'videoGalleryPage' The backing tubepress_api_video_VideoGalleryPage
      * @arg integer                              'page'             The page number.
      */
@@ -173,7 +171,6 @@ class tubepress_api_const_event_CoreEventNames
      *
      * @subject ehough_contemplate_api_Template The template.
      *
-     * @arg string                               'providerName'     The name of the video provider (e.g. "vimeo" or "youtube").
      * @arg tubepress_api_video_VideoGalleryPage 'videoGalleryPage' The backing tubepress_api_video_VideoGalleryPage
      * @arg integer                              'page'             The page number.
      */

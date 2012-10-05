@@ -39,10 +39,9 @@ abstract class tubepress_impl_http_responsehandling_AbstractHttpErrorResponseHan
      */
     public final function execute(ehough_chaingang_api_Context $context)
     {
-        $pc              = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoProviderCalculator();
-        $currentProvider = $pc->calculateCurrentVideoProvider();
+        $response = $context->get(ehough_shortstop_impl_HttpResponseHandlerChain::CHAIN_KEY_RESPONSE);
 
-        if ($currentProvider !== $this->getProviderName()) {
+        if (! $this->canHandleResponse($response)) {
 
             if ($this->getLogger()->isDebugEnabled()) {
 
@@ -52,13 +51,14 @@ abstract class tubepress_impl_http_responsehandling_AbstractHttpErrorResponseHan
             return false;
         }
 
-        $response        = $context->get(ehough_shortstop_impl_HttpResponseHandlerChain::CHAIN_KEY_RESPONSE);
         $messageToReturn = $this->getMessageForResponse($response);
 
         $context->put(ehough_shortstop_impl_HttpResponseHandlerChain::CHAIN_KEY_ERROR_MESSAGE, $messageToReturn);
 
         return true;
     }
+
+    protected abstract function canHandleResponse(ehough_shortstop_api_HttpResponse $response);
 
     /**
      * Get a user-friendly response message for this HTTP response.

@@ -134,9 +134,6 @@ msgstr "ברירת המחדל היא .425"
 msgid "Default is 999999."
 msgstr ".ברירת המחדל היא 999999"
 
-msgid "Default is FFFFFF."
-msgstr "ברירת המחדל היא FFFFFF."
-
 msgid "Loop"
 msgstr "לולאה"
 
@@ -148,9 +145,6 @@ msgstr "הצג כותרת ודירוג לפני שהוידאו מתחיל"
 
 msgid "Main color"
 msgstr "צבע ראשי"
-
-msgid "Highlight color"
-msgstr "צבע הדגשה"
 
 msgid "Show related videos"
 msgstr "הצג קטעי וידאו בנושא"
@@ -310,9 +304,6 @@ msgstr "מתון"
 
 msgid "strict"
 msgstr "קפדן"
-
-msgid "JW FLV Media Player (by Longtail Video)"
-msgstr "JW FLV Media Player (by Longtail Video)"
 
 msgid "Implementation"
 msgstr "יישום "
@@ -494,16 +485,10 @@ msgstr ""
 msgid "Displays YouTube or Vimeo videos with TubePress"
 msgstr ""
 
-msgid "No viewable videos"
-msgstr ""
-
 msgid "Leave blank to attempt to use your system's temp directory. Otherwise enter the absolute path of a writeable directory."
 msgstr ""
 
 msgid "Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness."
-msgstr ""
-
-msgid "Play videos in high definition by default"
 msgstr ""
 
 msgid "Randomize thumbnail images"
@@ -558,4 +543,25 @@ msgid "Additional sort order applied to each individual page of a gallery"
 msgstr ""
 
 msgid "random"
+msgstr ""
+
+msgid "Show closed captions by default"
+msgstr ""
+
+msgid "Disable keyboard controls"
+msgstr ""
+
+msgid "Show video annotations by default"
+msgstr ""
+
+msgid "Show video controls"
+msgstr ""
+
+msgid "YouTube player theme"
+msgstr ""
+
+msgid "Dark"
+msgstr ""
+
+msgid "Light"
 msgstr ""

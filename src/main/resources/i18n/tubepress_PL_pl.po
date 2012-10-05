@@ -175,9 +175,6 @@ msgstr "Standardowo 425."
 msgid "Default is 999999."
 msgstr "Standardowo 999999."
 
-msgid "Default is FFFFFF."
-msgstr "Standardowo FFFFFF."
-
 msgid "Loop"
 msgstr "Pętla"
 
@@ -189,9 +186,6 @@ msgstr "Pokaż tytuł oraz ocenę przed uruchomieniem filmu."
 
 msgid "Main color"
 msgstr "Główny kolor"
-
-msgid "Highlight color"
-msgstr "Podświetl kolor"
 
 msgid "Show related videos"
 msgstr "Pokaż związane filmy"
@@ -382,9 +376,6 @@ msgstr "ścisły"
 msgid "Provider default"
 msgstr "Domyślny dostawcy"
 
-msgid "JW FLV Media Player (by Longtail Video)"
-msgstr "JW FLV Media Player (by Longtail Video)"
-
 msgid "Implementation"
 msgstr "Implementacja"
 
@@ -505,17 +496,11 @@ msgstr "w \"odłączonej\" lokacji (zobacz dokumentację)"
 msgid "Displays YouTube or Vimeo videos with TubePress"
 msgstr "Odtwarzaj filmy YouTube lub Vimeo przez TubePress"
 
-msgid "No viewable videos"
-msgstr "Brak oglądalnych filmów"
-
 msgid "Leave blank to attempt to use your system's temp directory. Otherwise enter the absolute path of a writeable directory."
 msgstr "Zostaw puste pole, aby użyć folderu tymczasowego Twojego systemu. W innym przypadku podaj ściężkę absolutną do zapisywalnego folderu."
 
 msgid "Store API responses in a cache file to significantly reduce load times for your galleries at the slight expense of freshness."
 msgstr "Przechowuj odpowiedzi API w pliku pamięci podręcznej, aby znacznie zminimalizować czasy ładowania Twoich galerii kosztem małego opóźnienia w świeżości treści."
-
-msgid "Play videos in high definition by default"
-msgstr "Domyślnie odtwarzaj filmy w wysokiej jakości"
 
 msgid "Randomize thumbnail images"
 msgstr "Losuj miniaturki filmów"
@@ -569,5 +554,26 @@ msgid "Additional sort order applied to each individual page of a gallery"
 msgstr ""
 
 msgid "random"
+msgstr ""
+
+msgid "Show closed captions by default"
+msgstr ""
+
+msgid "Disable keyboard controls"
+msgstr ""
+
+msgid "Show video annotations by default"
+msgstr ""
+
+msgid "Show video controls"
+msgstr ""
+
+msgid "YouTube player theme"
+msgstr ""
+
+msgid "Dark"
+msgstr ""
+
+msgid "Light"
 msgstr ""
 

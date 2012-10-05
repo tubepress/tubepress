@@ -28,9 +28,9 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePress
 
     private $_mockThemeHandler;
 
-    private $_mockProviderCalculator;
-
     private $_mockEventDispatcher;
+
+    private $_mockServiceCollectionsRegistry;
 
     function setUp()
     {
@@ -38,37 +38,42 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePress
         $this->_mockVideo->setAttribute(tubepress_api_video_Video::ATTRIBUTE_ID, 'video-id');
         $this->_mockEventDispatcher    = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
         $this->_mockExecutionContext   = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
-        $this->_mockProviderCalculator = Mockery::mock(tubepress_spi_provider_ProviderCalculator::_);
-        $this->_mockThemeHandler       = Mockery::mock(tubepress_spi_theme_ThemeHandler::_);
+        $this->_mockThemeHandler     = Mockery::mock(tubepress_spi_theme_ThemeHandler::_);
+        $this->_mockServiceCollectionsRegistry = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
-        tubepress_impl_patterns_ioc_KernelServiceLocator::setVideoProviderCalculator($this->_mockProviderCalculator);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setThemeHandler($this->_mockThemeHandler);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($this->_mockServiceCollectionsRegistry);
 
         $this->_sut = new tubepress_impl_player_DefaultPlayerHtmlGenerator();
     }
 
-    public function testGetHtml()
+    function testGetHtmlSuitablePlayerLocations()
     {
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('current-player-name');
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('x');
+
+        $mockPlayerLocation = Mockery::mock(tubepress_spi_player_PlayerLocation::_);
+        $mockPlayerLocation->shouldReceive('getName')->andReturn('x');
+
+        $mockPlayerLocations = array($mockPlayerLocation);
+
+        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_player_PlayerLocation::_)->andReturn($mockPlayerLocations);
 
         $mockTemplate = Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('toString')->once()->andReturn('foobarr');
 
-        $this->_mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with('players/current-player-name.tpl.php')->andReturn($mockTemplate);
+        $mockPlayerLocation->shouldReceive('getTemplate')->once()->with($this->_mockThemeHandler)->andReturn($mockTemplate);
 
-        $this->_mockProviderCalculator->shouldReceive('calculateProviderOfVideoId')->once()->with('video-id')->andReturn('video-provider');
-
-        $mockVideo = $this->_mockVideo;
         $mockPlayerTemplateEvent = new tubepress_api_event_TubePressEvent(
 
             $mockTemplate, array(
-            'video' => $mockVideo,
-            'providerName' => 'video-provider',
-            'playerName' => 'current-player-name'
+                'video' => $this->_mockVideo,
+                'playerName' => 'x'
             )
         );
+
+        $mockVideo = $this->_mockVideo;
 
         $this->_mockEventDispatcher->shouldReceive('dispatch')->once()->with(
 
@@ -76,8 +81,7 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePress
             Mockery::on(function ($arg) use ($mockTemplate, $mockVideo) {
 
                 return $arg->getSubject() == $mockTemplate && $arg->getArgument('video') == $mockVideo
-                    && $arg->getArgument('providerName') === 'video-provider'
-                    && $arg->getArgument('playerName') === 'current-player-name';
+                    && $arg->getArgument('playerName') === 'x';
             })
         )->andReturn($mockPlayerTemplateEvent);
 
@@ -94,7 +98,7 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePress
             Mockery::on(function ($arg) use ($mockVideo) {
 
                 return $arg->getSubject() == 'foobarr' && $arg->getArgument('video') == $mockVideo
-                    && $arg->getArgument('providerName') === 'video-provider' && $arg->getArgument('playerName') === 'current-player-name';
+                    && $arg->getArgument('playerName') === 'x';
             })
         )->andReturn($mockPlayerHtmlEvent);
 
@@ -110,5 +114,31 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePress
         )->andReturn($mockHtmlEvent);
 
         $this->assertEquals('foobarr', $this->_sut->getHtml($this->_mockVideo));
+    }
+
+    function testGetHtmlNoSuitablePlayerLocations()
+    {
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('x');
+
+        $mockPlayerLocation = Mockery::mock(tubepress_spi_player_PlayerLocation::_);
+        $mockPlayerLocation->shouldReceive('getName')->andReturn('z');
+        $mockPlayerLocations = array($mockPlayerLocation);
+
+        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_player_PlayerLocation::_)->andReturn($mockPlayerLocations);
+
+        $html = $this->_sut->getHtml($this->_mockVideo);
+
+        $this->assertNull($html);
+    }
+
+    function testGetHtmlNoPlayerLocations()
+    {
+        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('x');
+
+        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_player_PlayerLocation::_)->andReturn(array());
+
+        $html = $this->_sut->getHtml($this->_mockVideo);
+
+        $this->assertNull($html);
     }
 }

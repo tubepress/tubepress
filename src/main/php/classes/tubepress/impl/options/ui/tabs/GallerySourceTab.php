@@ -83,29 +83,6 @@ class tubepress_impl_options_ui_tabs_GallerySourceTab extends tubepress_impl_opt
             tubepress_plugins_youtube_api_const_options_values_GallerySourceValue::YOUTUBE_MOST_RESPONDED =>
                 $fieldBuilder->build(tubepress_plugins_youtube_api_const_options_names_GallerySource::YOUTUBE_MOST_RESPONDED_VALUE, tubepress_impl_options_ui_fields_DropdownField::FIELD_CLASS_NAME),
 
-            tubepress_api_const_options_values_GallerySourceValue::VIMEO_ALBUM =>
-                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::VIMEO_ALBUM_VALUE, tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-
-            tubepress_api_const_options_values_GallerySourceValue::VIMEO_UPLOADEDBY =>
-                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::VIMEO_UPLOADEDBY_VALUE, tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-
-            tubepress_api_const_options_values_GallerySourceValue::VIMEO_CHANNEL =>
-                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::VIMEO_CHANNEL_VALUE, tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-
-            tubepress_api_const_options_values_GallerySourceValue::VIMEO_GROUP =>
-                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::VIMEO_GROUP_VALUE, tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-
-            tubepress_api_const_options_values_GallerySourceValue::VIMEO_SEARCH =>
-                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::VIMEO_SEARCH_VALUE, tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-
-            tubepress_api_const_options_values_GallerySourceValue::VIMEO_LIKES =>
-                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::VIMEO_LIKES_VALUE, tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-
-            tubepress_api_const_options_values_GallerySourceValue::VIMEO_APPEARS_IN =>
-                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::VIMEO_APPEARS_IN_VALUE, tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
-
-            tubepress_api_const_options_values_GallerySourceValue::VIMEO_CREDITED =>
-                $fieldBuilder->build(tubepress_api_const_options_names_GallerySource::VIMEO_CREDITED_VALUE, tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
         );
     }
 

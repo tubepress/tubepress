@@ -35,6 +35,7 @@ class tubepress_api_video_Video
     const ATTRIBUTE_ID                       = 'id';
     const ATTRIBUTE_KEYWORD_ARRAY            = 'keywords';
     const ATTRIBUTE_LIKES_COUNT              = 'likesCount';
+    const ATTRIBUTE_PROVIDER_NAME            = 'providerName';
     const ATTRIBUTE_RATING_AVERAGE           = 'ratingAverage';
     const ATTRIBUTE_RATING_COUNT             = 'ratingCount';
     const ATTRIBUTE_THUMBNAIL_URL            = 'thumbnailUrl';

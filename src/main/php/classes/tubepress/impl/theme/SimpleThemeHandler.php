@@ -34,17 +34,24 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
     /**
      * Gets an instance of a template appropriate for the current theme.
      *
-     * @param string $pathToTemplate The relative path (from the root of the theme directory) to the template.
+     * @param string $pathToTemplate    The relative path (from the root of the user's theme directory,
+     *                                  or the fallback directory) to the template.
+     * @param string $fallBackDirectory The absolute path to a directory where this template (defined by the relative
+     *                                  path, can be found). You should make sure that the template will *always* exist
+     *                                  here.
+     *
+     * @throws RuntimeException If the template could not be found.
      *
      * @return ehough_contemplate_api_Template The template instance.
      */
-    public function getTemplateInstance($pathToTemplate)
+    function getTemplateInstance($pathToTemplate, $fallBackDirectory)
     {
         $debugEnabled = $this->_logger->isDebugEnabled();
 
         if ($debugEnabled) {
 
-            $this->_logger->debug("Attempting to load template instance from $pathToTemplate");
+            $this->_logger->debug("Attempting to load template instance from $pathToTemplate with fallback directory "
+                . " at $fallBackDirectory");
         }
 
         $currentTheme = $this->calculateCurrentThemeName();
@@ -55,7 +62,7 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
         }
 
         $templateBuilder = tubepress_impl_patterns_ioc_KernelServiceLocator::getTemplateBuilder();
-        $filePath        = $this->_getFilePath($currentTheme, $pathToTemplate, $debugEnabled);
+        $filePath        = $this->_getFilePath($currentTheme, $pathToTemplate, $fallBackDirectory, $debugEnabled);
         $template        = $templateBuilder->getNewTemplateInstance($filePath);
 
         if ($debugEnabled) {
@@ -84,37 +91,54 @@ class tubepress_impl_theme_SimpleThemeHandler implements tubepress_spi_theme_The
         return $currentTheme;
     }
 
-    private function _getFilePath($currentTheme, $pathToTemplate, $debugEnabled)
+    private function _getFilePath($currentTheme, $pathToTemplate, $fallBackDirectory, $debugEnabled)
     {
-        $environmentDetector = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
+        $environmentDetector  = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
+        $userContentDirectory = $environmentDetector->getUserContentDirectory();
 
-        $tubepressInstallationPath = $environmentDetector->getTubePressBaseInstallationPath();
+        /**
+         * First try to load the template from system themes.
+         */
+        $filePath = TUBEPRESS_ROOT . "/src/main/resources/default-themes/$currentTheme/$pathToTemplate";
 
-        /* first try to load the theme from sys/ui */
-        $filePath = "$tubepressInstallationPath/src/main/resources/default-themes/$currentTheme/$pathToTemplate";
-
-        /* if that fails, try to load it from the user's theme directory */
-        if (! is_readable($filePath)) {
+        if (is_readable($filePath)) {
 
             if ($debugEnabled) {
 
-                $this->_logger->debug("Could not read file at $filePath");
+                $this->_logger->debug("Found $pathToTemplate first try at $filePath");
             }
 
-            $filePath = $environmentDetector->getUserContentDirectory() . "/themes/$currentTheme/$pathToTemplate";
-
-            /* finally, just fall back to the default theme. */
-            if (! is_readable($filePath)) {
-
-                if ($debugEnabled) {
-
-                    $this->_logger->debug("Could not read file at $filePath. Falling back to default.");
-                }
-
-                $filePath = "$tubepressInstallationPath/src/main/resources/default-themes/default/$pathToTemplate";
-            }
+            return $filePath;
         }
 
-        return $filePath;
+        if ($debugEnabled) {
+
+            $this->_logger->debug("Didn't find $pathToTemplate at $filePath. Trying user theme directory next.");
+        }
+
+        /**
+         * Next try to load the template from the user's theme directory.
+         */
+        $filePath = "$userContentDirectory/themes/$currentTheme/$pathToTemplate";
+
+        if (is_readable($filePath)) {
+
+            if ($debugEnabled) {
+
+                $this->_logger->debug("Found $pathToTemplate in user's theme directory at $filePath");
+            }
+
+            return $filePath;
+        }
+
+        if ($debugEnabled) {
+
+            $this->_logger->debug("Didn't find $pathToTemplate in system or user's theme directories. Falling back to $fallBackDirectory");
+        }
+
+        /**
+         * Finally, load the template from the fallback directory.
+         */
+        return "$fallBackDirectory/$pathToTemplate";
     }
 }

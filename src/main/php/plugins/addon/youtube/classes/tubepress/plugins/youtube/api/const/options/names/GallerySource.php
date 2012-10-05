@@ -20,10 +20,15 @@
  */
 
 /**
- * Option names related to video sources.
+ * Option names related to YouTube video sources.
  */
 class tubepress_plugins_youtube_api_const_options_names_GallerySource
 {
+    /**
+     * Standard feeds.
+     *
+     * https://developers.google.com/youtube/2.0/reference#Standard_feeds
+     */
     const YOUTUBE_TOP_RATED_VALUE      = 'top_ratedValue';
     const YOUTUBE_TOP_FAVORITES_VALUE  = 'youtubeTopFavoritesValue';
     const YOUTUBE_MOST_SHARED_VALUE    = 'youtubeMostSharedValue';
@@ -34,9 +39,15 @@ class tubepress_plugins_youtube_api_const_options_names_GallerySource
     const YOUTUBE_FEATURED_VALUE       = 'youtubeFeaturedValue';
     const YOUTUBE_TRENDING_VALUE       = 'youtubeTrendingValue';
 
+    /**
+     * Related/responses.
+     */
     const YOUTUBE_RELATED_VALUE        = 'youtubeRelatedValue';
     const YOUTUBE_RESPONSES_VALUE      = 'youtubeResponsesValue';
 
+    /**
+     * Users/playlist/search/favorites etc.
+     */
     const YOUTUBE_PLAYLIST_VALUE       = 'playlistValue';
     const YOUTUBE_FAVORITES_VALUE      = 'favoritesValue';
     const YOUTUBE_TAG_VALUE            = 'tagValue';

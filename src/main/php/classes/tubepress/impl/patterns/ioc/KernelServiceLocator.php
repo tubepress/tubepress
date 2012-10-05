@@ -71,11 +71,6 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     private static $_feedFetcher;
 
     /**
-     * tubepress_spi_feed_FeedInspector
-     */
-    private static $_feedInspector;
-
-    /**
      * @var ehough_fimble_api_FileSystem
      */
     private static $_fileSystem;
@@ -156,6 +151,11 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     private static $_queryStringService;
 
     /**
+     * @var tubepress_spi_patterns_sl_ServiceCollectionsRegistry
+     */
+    private static $_serviceCollectionsRegistry;
+
+    /**
      * @var tubepress_spi_shortcode_ShortcodeHtmlGenerator
      */
     private static $_shortcodeHtmlGenerator;
@@ -176,29 +176,9 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     private static $_themeHandler;
 
     /**
-     * @var tubepress_spi_feed_UrlBuilder
+     * @var tubepress_spi_collector_VideoCollector
      */
-    private static $_urlBuilder;
-
-    /**
-     * @var tubepress_spi_factory_VideoFactory
-     */
-    private static $_videoFactory;
-
-    /**
-     * @var tubepress_spi_provider_Provider
-     */
-    private static $_videoProvider;
-
-    /**
-     * @var tubepress_spi_provider_ProviderCalculator
-     */
-    private static $_videoProviderCalculator;
-
-    /**
-     * @var tubepress_spi_provider_VideoProviderRegistry
-     */
-    private static $_videoProviderRegistry;
+    private static $_videoCollector;
 
     /**
      * @return tubepress_spi_http_AjaxHandler
@@ -262,14 +242,6 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function getFeedFetcher()
     {
         return self::_lazyGet('_feedFetcher', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_FEED_FETCHER);
-    }
-
-    /**
-     * @return tubepress_spi_feed_FeedInspector The feed inspector.
-     */
-    public static function getFeedInspector()
-    {
-        return self::_lazyGet('_feedInspector', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_FEED_INSPECTOR);
     }
 
     /**
@@ -410,6 +382,14 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     }
 
     /**
+     * @return tubepress_spi_patterns_sl_ServiceCollectionsRegistry The service collections registry.
+     */
+    public static function getServiceCollectionsRegistry()
+    {
+        return self::_lazyGet('_serviceCollectionsRegistry', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_SERVICE_COLLECTIONS_REGISTRY);
+    }
+
+    /**
      * @return tubepress_spi_shortcode_ShortcodeHtmlGenerator The shortcode HTML generator.
      */
     public static function getShortcodeHtmlGenerator()
@@ -442,43 +422,11 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     }
 
     /**
-     * @return tubepress_spi_feed_UrlBuilder The feed URL builder.
+     * @return tubepress_spi_collector_VideoCollector The video collector.
      */
-    public static function getUrlBuilder()
+    public static function getVideoCollector()
     {
-        return self::_lazyGet('_urlBuilder', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_URL_BUILDER);
-    }
-
-    /**
-     * @return tubepress_spi_factory_VideoFactory The video factory.
-     */
-    public static function getVideoFactory()
-    {
-        return self::_lazyGet('_videoFactory', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_VIDEO_FACTORY);
-    }
-
-    /**
-     * @return tubepress_spi_provider_Provider The video provider.
-     */
-    public static function getVideoProvider()
-    {
-        return self::_lazyGet('_videoProvider', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_VIDEO_PROVIDER);
-    }
-
-    /**
-     * @return tubepress_spi_provider_ProviderCalculator The video provider calculator.
-     */
-    public static function getVideoProviderCalculator()
-    {
-        return self::_lazyGet('_videoProviderCalculator', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_VIDEO_PROVIDER_CALCULATOR);
-    }
-
-    /**
-     * @return tubepress_spi_provider_VideoProviderRegistry The video provider registry.
-     */
-    public static function getVideoProviderRegistry()
-    {
-        return self::_lazyGet('_videoProviderRegistry', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_VIDEO_PROVIDER_REGISTRY);
+        return self::_lazyGet('_videoCollector', tubepress_impl_patterns_ioc_CoreIocContainer::SERVICE_VIDEO_COLLECTOR);
     }
 
     /**
@@ -543,14 +491,6 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     public static function setFeedFetcher(tubepress_spi_feed_FeedFetcher $feedFetcher)
     {
         self::$_feedFetcher = $feedFetcher;
-    }
-
-    /**
-     * @param tubepress_spi_feed_FeedInspector $feedInspector The feed inspector.
-     */
-    public static function setFeedInspector(tubepress_spi_feed_FeedInspector $feedInspector)
-    {
-        self::$_feedInspector = $feedInspector;
     }
 
     /**
@@ -682,6 +622,14 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     }
 
     /**
+     * @param tubepress_spi_patterns_sl_ServiceCollectionsRegistry $serviceCollectionsRegistry The service collections registry.
+     */
+    public static function setServiceCollectionsRegistry(tubepress_spi_patterns_sl_ServiceCollectionsRegistry $serviceCollectionsRegistry)
+    {
+        self::$_serviceCollectionsRegistry = $serviceCollectionsRegistry;
+    }
+
+    /**
      * @param tubepress_spi_shortcode_ShortcodeHtmlGenerator $shortcodeHtmlGenerator The shortcode HTML generator.
      */
     public static function setShortcodeHtmlGenerator(tubepress_spi_shortcode_ShortcodeHtmlGenerator $shortcodeHtmlGenerator)
@@ -714,43 +662,11 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
     }
 
     /**
-     * @param tubepress_spi_feed_UrlBuilder $urlBuilder The URL builder.
+     * @param tubepress_spi_collector_VideoCollector $videoCollector The video collector.
      */
-    public static function setUrlBuilder(tubepress_spi_feed_UrlBuilder $urlBuilder)
+    public static function setVideoProvider(tubepress_spi_collector_VideoCollector $videoCollector)
     {
-        self::$_urlBuilder = $urlBuilder;
-    }
-
-    /**
-     * @param tubepress_spi_factory_VideoFactory $videoFactory The video factory.
-     */
-    public static function setVideoFactory(tubepress_spi_factory_VideoFactory $videoFactory)
-    {
-        self::$_videoFactory = $videoFactory;
-    }
-
-    /**
-     * @param tubepress_spi_provider_Provider $videoProvider The video provider.
-     */
-    public static function setVideoProvider(tubepress_spi_provider_Provider $videoProvider)
-    {
-        self::$_videoProvider = $videoProvider;
-    }
-
-    /**
-     * @param tubepress_spi_provider_ProviderCalculator $videoProviderCalculator The video provider calculator.
-     */
-    public static function setVideoProviderCalculator(tubepress_spi_provider_ProviderCalculator $videoProviderCalculator)
-    {
-        self::$_videoProviderCalculator = $videoProviderCalculator;
-    }
-
-    /**
-     * @param tubepress_spi_provider_VideoProviderRegistry $videoProviderRegistry The video provider registry.
-     */
-    public static function setVideoProviderRegistry(tubepress_spi_provider_VideoProviderRegistry $videoProviderRegistry)
-    {
-        self::$_videoProviderRegistry = $videoProviderRegistry;
+        self::$_videoCollector = $videoCollector;
     }
 
 
@@ -777,7 +693,6 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
         self::$_eventDispatcher = null;
         self::$_executionContext = null;
         self::$_feedFetcher = null;
-        self::$_feedInspector = null;
         self::$_fileSystem = null;
         self::$_fileSystemFinderFactory = null;
         self::$_headHtmlGenerator = null;
@@ -794,15 +709,12 @@ class tubepress_impl_patterns_ioc_KernelServiceLocator
         self::$_pluginDiscoverer = null;
         self::$_pluginRegistry = null;
         self::$_queryStringService = null;
+        self::$_serviceCollectionsRegistry = null;
         self::$_shortcodeHtmlGenerator = null;
         self::$_shortcodeParser = null;
         self::$_templateBuilder = null;
         self::$_themeHandler = null;
-        self::$_urlBuilder = null;
-        self::$_videoFactory = null;
-        self::$_videoProvider = null;
-        self::$_videoProviderCalculator = null;
-        self::$_videoProviderRegistry = null;
+        self::$_videoCollector = null;
     }
 
 

@@ -26,8 +26,15 @@ class tubepress_plugins_youtube_impl_listeners_YouTubeProviderRegistrar
 {
     public function onBoot(ehough_tickertape_api_Event $bootEvent)
     {
-        $videoProviderRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getVideoProviderRegistry();
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
 
-        $videoProviderRegistry->registerProvider(new tubepress_plugins_youtube_impl_provider_YouTubeProvider());
+        $serviceCollectionsRegistry->registerService(
+
+            tubepress_spi_provider_VideoProvider::_,
+            new tubepress_plugins_youtube_impl_provider_YouTubeProvider(
+
+                new tubepress_plugins_youtube_impl_provider_YouTubeUrlBuilder()
+            )
+        );
     }
 }

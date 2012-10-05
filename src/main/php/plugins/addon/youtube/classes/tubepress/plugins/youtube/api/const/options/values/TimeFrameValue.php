@@ -20,7 +20,7 @@
  */
 
 /**
- * TubePress gallery content modes.
+ * YouTube standard feed time values.
  */
 class tubepress_plugins_youtube_api_const_options_values_TimeFrameValue
 {

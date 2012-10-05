@@ -50,17 +50,11 @@ class tubepress_impl_options_ui_tabs_EmbeddedTab extends tubepress_impl_options_
             $fieldBuilder->build(tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT,  tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
             $fieldBuilder->build(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH,   tubepress_impl_options_ui_fields_TextField::FIELD_CLASS_NAME),
             $fieldBuilder->build(tubepress_api_const_options_names_Embedded::LAZYPLAY,         tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::PLAYER_COLOR,     tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::PLAYER_HIGHLIGHT, tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME),
+            $fieldBuilder->build(tubepress_plugins_vimeo_api_const_options_names_Embedded::PLAYER_COLOR,            tubepress_impl_options_ui_fields_ColorField::FIELD_CLASS_NAME),
             $fieldBuilder->build(tubepress_api_const_options_names_Embedded::SHOW_INFO,        tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::FULLSCREEN,       tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::HIGH_QUALITY,     tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
         	$fieldBuilder->build(tubepress_api_const_options_names_Embedded::AUTONEXT,         tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
             $fieldBuilder->build(tubepress_api_const_options_names_Embedded::AUTOPLAY,         tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
             $fieldBuilder->build(tubepress_api_const_options_names_Embedded::LOOP,             tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::SHOW_RELATED,     tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::AUTOHIDE,         tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
-            $fieldBuilder->build(tubepress_api_const_options_names_Embedded::MODEST_BRANDING,  tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
             $fieldBuilder->build(tubepress_api_const_options_names_Embedded::ENABLE_JS_API,    tubepress_impl_options_ui_fields_BooleanField::FIELD_CLASS_NAME),
         );
     }

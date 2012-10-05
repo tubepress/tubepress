@@ -25,28 +25,6 @@
 class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxHandler
 {
     /**
-     * The requested Ajax action.
-     */
-    const CHAIN_KEY_ACTION = 'action';
-
-    /**
-     * The HTTP response code.
-     */
-    const CHAIN_KEY_STATUS_CODE = 'responseStatusCode';
-
-    /**
-     * The output to return.
-     */
-    const CHAIN_KEY_OUTPUT = 'output';
-
-    private $_chain;
-
-    public function __construct(ehough_chaingang_api_Chain $chain)
-    {
-        $this->_chain = $chain;
-    }
-
-    /**
      * Handles incoming requests.
      *
      * @return void Handle the request and output a response.
@@ -63,36 +41,38 @@ class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxH
             return;
         }
 
-        $context = new ehough_chaingang_impl_StandardContext();
-        $context->put(self::CHAIN_KEY_ACTION, $actionName);
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
+        $commandHandlers            = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_http_AjaxCommandHandler::_);
+        $chosenCommandHandler       = null;
 
-        try {
+        foreach ($commandHandlers as $commandHandler) {
 
-            $handled = $this->_chain->execute($context);
+            /** @noinspection PhpUndefinedMethodInspection */
+            if ($commandHandler->getName() === $actionName) {
 
-        } catch (Exception $e) {
+                $chosenCommandHandler = $commandHandler;
+                break;
+            }
+        }
+
+        if ($chosenCommandHandler === null) {
 
             http_response_code(500);
-            echo $e->getMessage();
             return;
         }
 
+        /** @noinspection PhpUndefinedMethodInspection */
+        $chosenCommandHandler->handle();
 
-        if (! $handled) {
+        /** @noinspection PhpUndefinedMethodInspection */
+        http_response_code($chosenCommandHandler->getHttpStatusCode());
 
-            http_response_code(501);
-            echo 'Unabled to handle "' . $actionName . '" action';
-            return;
-        }
-
-        http_response_code($context->get(self::CHAIN_KEY_STATUS_CODE));
-        echo $context->get(self::CHAIN_KEY_OUTPUT);
+        /** @noinspection PhpUndefinedMethodInspection */
+        echo $chosenCommandHandler->getOutput();
     }
-}
 
-if (!function_exists('http_response_code')) {
-    function http_response_code($code = NULL) {
-
+    public static function simulatedHttpResponseCode($code = null)
+    {
         if ($code !== NULL) {
 
             switch ($code) {
@@ -133,6 +113,7 @@ if (!function_exists('http_response_code')) {
                 case 503: $text = 'Service Unavailable'; break;
                 case 504: $text = 'Gateway Time-out'; break;
                 case 505: $text = 'HTTP Version not supported'; break;
+
                 default:
                     exit('Unknown http status code "' . htmlentities($code) . '"');
                     break;
@@ -151,6 +132,13 @@ if (!function_exists('http_response_code')) {
         }
 
         return $code;
+    }
+}
 
+if (!function_exists('http_response_code')) {
+
+    function http_response_code($code = null)
+    {
+        tubepress_impl_http_DefaultAjaxHandler::simulatedHttpResponseCode($code);
     }
 }

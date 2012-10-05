@@ -35,8 +35,11 @@ class tubepress_plugins_youtube_YouTube
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
             array(new tubepress_plugins_youtube_impl_listeners_YouTubeOptionsRegistrar(), 'onBoot'));
 
-        //$eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
-        //    array(new tubepress_plugins_wordpress_impl_listeners_YouTubeProviderRegistrar, 'onBoot'));
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
+            array(new tubepress_plugins_youtube_impl_listeners_YouTubeProviderRegistrar, 'onBoot'));
+
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
+            array(new tubepress_plugins_youtube_impl_listeners_YouTubeEmbeddedPlayerRegistrar(), 'onBoot'));
     }
 }
 

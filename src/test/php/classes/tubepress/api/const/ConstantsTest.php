@@ -25,21 +25,17 @@ class tubepress_api_const_ConstantsTest extends TubePressUnitTest
         $toTest = array(
 
             'tubepress_api_const_options_names_Advanced'                    => array('debugging_enabled', 'disableHttpTransportCurl', 'disableHttpTransportExtHttp', 'disableHttpTransportFopen', 'disableHttpTransportFsockOpen', 'disableHttpTransportStreams', 'keyword', 'galleryId', 'https'),
-        	'tubepress_api_const_options_names_Cache'                       => array('cacheEnabled', 'cacheCleaningFactor', 'cacheDirectory', 'cacheLifetimeSeconds'),
-            'tubepress_api_const_options_names_Embedded' 					=> array('playerImplementation', 'embeddedHeight', 'embeddedWidth', 'lazyPlay', 'autoplay', 'fullscreen', 'hd', 'loop', 'playerColor', 'playerHighlight', 'showInfo', 'showRelated', 'playerLocation', 'autoNext', 'sequence', 'enableJsApi', 'autoHide', 'modestBranding'),
-            'tubepress_api_const_options_names_Feed'						=> array('orderBy', 'videoBlacklist', 'developerKey', 'embeddableOnly', 'filter_racy', 'resultCountCap', 'searchResultsRestrictedToUser', 'vimeoKey', 'vimeoSecret', 'perPageSort'),
-            'tubepress_api_const_options_names_GallerySource'				=> array('vimeoAlbumValue', 'vimeoAppearsInValue', 'vimeoChannelValue', 'vimeoCreditedToValue', 'vimeoGroupValue', 'vimeoLikesValue', 'vimeoSearchValue', 'vimeoUploadedByValue'),
+            'tubepress_api_const_options_names_Cache'                       => array('cacheEnabled', 'cacheCleaningFactor', 'cacheDirectory', 'cacheLifetimeSeconds'),
+            'tubepress_api_const_options_names_Embedded' 					=> array('playerImplementation', 'embeddedHeight', 'embeddedWidth', 'lazyPlay', 'autoplay', 'loop', 'showInfo', 'playerLocation', 'autoNext', 'sequence', 'enableJsApi'),
+            'tubepress_api_const_options_names_Feed'						=> array('orderBy', 'videoBlacklist', 'resultCountCap', 'searchResultsRestrictedToUser',  'perPageSort'),
             'tubepress_api_const_options_names_InteractiveSearch'			=> array('searchProvider', 'searchResultsDomId', 'searchResultsOnly', 'searchResultsUrl'),
             'tubepress_api_const_options_names_Meta'						=> array('author', 'category', 'description', 'id', 'length', 'likes', 'rating', 'ratings', 'tags', 'title', 'uploaded', 'url', 'views', 'dateFormat', 'descriptionLimit', 'relativeDates'),
             'tubepress_api_const_options_names_OptionsUi'					=> array('showVimeoOptions', 'showYouTubeOptions'),
             'tubepress_api_const_options_names_Output'						=> array('mode', 'output', 'video'),
             'tubepress_api_const_options_names_Thumbs'						=> array('theme', 'ajaxPagination', 'resultsPerPage', 'hqThumbs', 'thumbHeight', 'thumbWidth', 'fluidThumbs', 'paginationAbove', 'paginationBelow', 'randomize_thumbnails'),
-            'tubepress_api_const_options_values_GallerySourceValue'		    => array( 'vimeoAlbum', 'vimeoAppearsIn', 'vimeoChannel', 'vimeoCreditedTo', 'vimeoGroup', 'vimeoLikes', 'vimeoSearch', 'vimeoUploadedBy'),
             'tubepress_api_const_options_values_OrderByValue'				=> array('commentCount', 'duration', 'newest', 'oldest', 'position', 'random', 'rating', 'relevance', 'title', 'viewCount'),
-            'tubepress_api_const_options_values_OutputValue'				=> array('ajaxSearchInput', 'searchInput', 'searchResults', 'player'),
             'tubepress_api_const_options_values_PerPageSortValue'           => array('commentCount', 'duration', 'newest', 'oldest', 'random', 'rating', 'none', 'title', 'viewCount'),
-            'tubepress_api_const_options_values_PlayerImplementationValue'	=> array('embedplus', 'longtail', 'provider_based'),
-            'tubepress_api_const_options_values_PlayerLocationValue'		=> array('fancybox', 'jqmodal', 'normal', 'popup', 'shadowbox', 'solo', 'static', 'tinybox', 'vimeo', 'youtube', 'detached'),
+            'tubepress_api_const_options_values_PlayerImplementationValue'	=> array('provider_based'),
             'tubepress_api_const_template_Variable'                         => array('autostart', 'bottomPagination', 'embeddedColorHightlight', 'embeddedColorPrimary', 'embeddedFullscreen', 'embeddedHeight', 'embeddedImplementationName', 'embeddedSource', 'embeddedWidth', 'galleryId', 'homeURL', 'metaLabels', 'playerName', 'preGallery', 'searchButton', 'searchHandlerUrl', 'searchHiddenInputs', 'searchTargetDomId', 'searchTerms', 'shouldShow', 'thumbHeight', 'thumbWidth', 'topPagination', 'tubepressBaseUrl', 'video', 'videoArray', 'videoId', 'shortcode')
 
         );
