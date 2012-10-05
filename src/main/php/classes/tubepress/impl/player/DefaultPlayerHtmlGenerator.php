@@ -39,7 +39,7 @@ class tubepress_impl_player_DefaultPlayerHtmlGenerator implements tubepress_spi_
 
         $requestedPlayerLocation   = $executionContextService->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
         $playerLocation            = null;
-        $registeredPlayerLocations = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_player_PlayerLocation::_);
+        $registeredPlayerLocations = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_player_PluggablePlayerLocationService::_);
 
         foreach ($registeredPlayerLocations as $registeredPlayerLocation) {
 

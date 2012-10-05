@@ -20,25 +20,25 @@
  */
 
 /**
- * Plays videos with jqmodal.
+ * Plays videos above the thumbnails.
  */
-class tubepress_plugins_core_impl_normal_PopupPlayerLocation implements tubepress_spi_player_PlayerLocation
+class tubepress_plugins_core_impl_normal_NormalPluggablePlayerLocationService implements tubepress_spi_player_PluggablePlayerLocationService
 {
     /**
      * @param tubepress_spi_theme_ThemeHandler $themeHandler The theme handler.
      *
      * @return ehough_contemplate_api_Template The player's template.
      */
-    function getTemplate(tubepress_spi_theme_ThemeHandler $themeHandler)
+    public final function getTemplate(tubepress_spi_theme_ThemeHandler $themeHandler)
     {
-        return $themeHandler->getTemplateInstance('players/popup.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default');
+        return $themeHandler->getTemplateInstance('players/normal.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default');
     }
 
     /**
      * @return string The name of this playerLocation. Never empty or null. All alphanumerics and dashes.
      */
-    function getName()
+    public final function getName()
     {
-        return 'popup';
+        return 'normal';
     }
 }

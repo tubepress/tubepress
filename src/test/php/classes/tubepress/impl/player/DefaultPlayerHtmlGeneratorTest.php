@@ -53,12 +53,12 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePress
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('x');
 
-        $mockPlayerLocation = Mockery::mock(tubepress_spi_player_PlayerLocation::_);
+        $mockPlayerLocation = Mockery::mock(tubepress_spi_player_PluggablePlayerLocationService::_);
         $mockPlayerLocation->shouldReceive('getName')->andReturn('x');
 
         $mockPlayerLocations = array($mockPlayerLocation);
 
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_player_PlayerLocation::_)->andReturn($mockPlayerLocations);
+        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_player_PluggablePlayerLocationService::_)->andReturn($mockPlayerLocations);
 
         $mockTemplate = Mockery::mock('ehough_contemplate_api_Template');
         $mockTemplate->shouldReceive('toString')->once()->andReturn('foobarr');
@@ -120,11 +120,11 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePress
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('x');
 
-        $mockPlayerLocation = Mockery::mock(tubepress_spi_player_PlayerLocation::_);
+        $mockPlayerLocation = Mockery::mock(tubepress_spi_player_PluggablePlayerLocationService::_);
         $mockPlayerLocation->shouldReceive('getName')->andReturn('z');
         $mockPlayerLocations = array($mockPlayerLocation);
 
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_player_PlayerLocation::_)->andReturn($mockPlayerLocations);
+        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_player_PluggablePlayerLocationService::_)->andReturn($mockPlayerLocations);
 
         $html = $this->_sut->getHtml($this->_mockVideo);
 
@@ -135,7 +135,7 @@ class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePress
     {
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('x');
 
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_player_PlayerLocation::_)->andReturn(array());
+        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_player_PluggablePlayerLocationService::_)->andReturn(array());
 
         $html = $this->_sut->getHtml($this->_mockVideo);
 

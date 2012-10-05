@@ -20,21 +20,25 @@
  */
 
 /**
- * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
+ * Plays videos with jqmodal.
  */
-interface tubepress_spi_player_PlayerLocation
+class tubepress_plugins_core_impl_normal_PopupPluggablePlayerLocationService implements tubepress_spi_player_PluggablePlayerLocationService
 {
-    const _ = 'tubepress_spi_player_PlayerLocation';
-
     /**
      * @param tubepress_spi_theme_ThemeHandler $themeHandler The theme handler.
      *
      * @return ehough_contemplate_api_Template The player's template.
      */
-    function getTemplate(tubepress_spi_theme_ThemeHandler $themeHandler);
+    public final function getTemplate(tubepress_spi_theme_ThemeHandler $themeHandler)
+    {
+        return $themeHandler->getTemplateInstance('players/popup.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default');
+    }
 
     /**
      * @return string The name of this playerLocation. Never empty or null. All alphanumerics and dashes.
      */
-    function getName();
+    public final function getName()
+    {
+        return 'popup';
+    }
 }

@@ -20,25 +20,21 @@
  */
 
 /**
- * Plays videos above the thumbnails.
+ * A TubePress "player", such as lightWindow, GreyBox, popup window, etc
  */
-class tubepress_plugins_core_impl_normal_NormalPlayerLocation implements tubepress_spi_player_PlayerLocation
+interface tubepress_spi_player_PluggablePlayerLocationService
 {
+    const _ = 'tubepress_spi_player_PluggablePlayerLocationService';
+
     /**
      * @param tubepress_spi_theme_ThemeHandler $themeHandler The theme handler.
      *
      * @return ehough_contemplate_api_Template The player's template.
      */
-    function getTemplate(tubepress_spi_theme_ThemeHandler $themeHandler)
-    {
-        return $themeHandler->getTemplateInstance('players/normal.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default');
-    }
+    function getTemplate(tubepress_spi_theme_ThemeHandler $themeHandler);
 
     /**
      * @return string The name of this playerLocation. Never empty or null. All alphanumerics and dashes.
      */
-    function getName()
-    {
-        return 'normal';
-    }
+    function getName();
 }
