@@ -26,8 +26,11 @@ class tubepress_plugins_jwflvplayer_impl_listeners_JwFlvPlayerRegistrar
 {
     public function onBoot(ehough_tickertape_api_Event $bootEvent)
     {
-        $embeddedPlayerRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getEmbeddedPlayerRegistry();
+        $embeddedPlayerRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
 
-        $embeddedPlayerRegistry->registerEmbeddedPlayer(new tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPluggableEmbeddedPlayer());
+        $embeddedPlayerRegistry->registerService(
+
+            tubepress_spi_embedded_PluggableEmbeddedPlayer::_,
+            new tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPluggableEmbeddedPlayer());
     }
 }

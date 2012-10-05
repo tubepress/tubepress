@@ -57,6 +57,6 @@ class tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPluggableEmbeddedPlayer i
      */
     public final function getTemplate(tubepress_spi_theme_ThemeHandler $themeHandler)
     {
-        // TODO: Implement getTemplate() method.
+        return $themeHandler->getTemplateInstance('embedded/longtail.tpl.php', TUBEPRESS_ROOT . '/src/main/php/plugins/addon/jwflvplayer/resources/templates');
     }
 }

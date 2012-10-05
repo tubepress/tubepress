@@ -18,18 +18,18 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPlayerEmbeddedPlayerTest extends TubePressUnitTest
+class tubepress_plugins_embedplus_impl_embedded_EmbedPlusEmbeddedPlayerTest extends TubePressUnitTest
 {
     private $_sut;
 
     public function setUp() {
 
-        $this->_sut = new tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPluggableEmbeddedPlayer();
+        $this->_sut = new tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayer();
     }
 
     public function testGetName()
     {
-        $this->assertEquals('longtail', $this->_sut->getName());
+        $this->assertEquals('embedplus', $this->_sut->getName());
     }
 
     public function testGetProviderName()
@@ -43,8 +43,8 @@ class tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPlayerEmbeddedPlayerTest 
 
         $mockThemeHandler->shouldReceive('getTemplateInstance')->once()->with(
 
-            'embedded/longtail.tpl.php',
-            TUBEPRESS_ROOT . '/src/main/php/plugins/addon/jwflvplayer/resources/templates'
+            'embedded/embedplus.tpl.php',
+            TUBEPRESS_ROOT . '/src/main/php/plugins/addon/embedplus/resources/templates'
         )->andReturn('abc');
 
         $result = $this->_sut->getTemplate($mockThemeHandler);
@@ -62,7 +62,7 @@ class tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPlayerEmbeddedPlayerTest 
         $result = $this->_sut->getDataUrlForVideo('xx');
 
         $this->assertTrue($result instanceof ehough_curly_Url);
-        $this->assertEquals('http://www.youtube.com/watch?v=xx', $result->toString());
+        $this->assertEquals('http://www.youtube.com/embed/xx', $result->toString());
     }
 
 }

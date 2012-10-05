@@ -26,7 +26,7 @@
         wmode="opaque"
         movie="<?php echo ${tubepress_api_const_template_Variable::TUBEPRESS_BASE_URL}; ?>/sys/ui/static/flash/longtail/player.swf"
         bgcolor="<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_COLOR_PRIMARY}; ?>"
-        frontcolor="<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_COLOR_HIGHLIGHT}; ?>"
+        frontcolor="<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_COLOR_PRIMARY}; ?>"
         quality="high"
-        flashvars="file=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_DATA_URL}; ?>&amp;autostart=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_AUTOSTART}; ?>&amp;height=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}; ?>&amp;width=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>&amp;frontcolor=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_COLOR_HIGHLIGHT}; ?>"
+        flashvars="file=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_DATA_URL}; ?>&amp;autostart=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_AUTOSTART}; ?>&amp;height=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_HEIGHT}; ?>&amp;width=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_WIDTH}; ?>&amp;frontcolor=<?php echo ${tubepress_api_const_template_Variable::EMBEDDED_COLOR_PRIMARY}; ?>"
 </embed>

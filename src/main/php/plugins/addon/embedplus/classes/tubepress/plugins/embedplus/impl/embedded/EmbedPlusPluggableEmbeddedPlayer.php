@@ -20,7 +20,7 @@
  */
 
 /**
- * Plays videos with JW FLV Player.
+ * Plays videos with EmbedPlus.
  */
 class tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayer implements tubepress_spi_embedded_PluggableEmbeddedPlayer
 {
@@ -33,11 +33,13 @@ class tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayer
     }
 
     /**
-     * @return string The path, relative to TubePress's install root, of the template for this embedded player.
+     * @param tubepress_spi_theme_ThemeHandler $themeHandler The theme handler.
+     *
+     * @return ehough_contemplate_api_Template The template for this embedded player.
      */
-    public final function getRelativePathToTemplate()
+    public final function getTemplate(tubepress_spi_theme_ThemeHandler $themeHandler)
     {
-        return TUBEPRESS_ROOT . DIRECTORY_SEPARATOR . 'src/main/php/plugins/addon/embedplus/resources/templates/embedded.tpl.php';
+        return $themeHandler->getTemplateInstance('embedded/embedplus.tpl.php', TUBEPRESS_ROOT . '/src/main/php/plugins/addon/embedplus/resources/templates');
     }
 
     /**
