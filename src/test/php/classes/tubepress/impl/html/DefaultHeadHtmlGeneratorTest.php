@@ -48,7 +48,7 @@ class org_tubepress_impl_html_DefaultHeadHtmlGeneratorTest extends TubePressUnit
 
     function testJqueryInclude()
     {
-        $this->assertEquals('<script type="text/javascript" src="<tubepress_base_url>/sys/ui/static/js/jquery-1.7.1.min.js"></script>', $this->_sut->getHeadJqueryInclusion());
+        $this->assertEquals('<script type="text/javascript" src="<tubepress_base_url>/sys/ui/static/js/jquery-1.8.2.min.js"></script>', $this->_sut->getHeadJqueryInclusion());
     }
 
     function testJsInclude()
@@ -58,7 +58,12 @@ class org_tubepress_impl_html_DefaultHeadHtmlGeneratorTest extends TubePressUnit
 
     function testInlineJs()
     {
-        $this->assertEquals('<script type="text/javascript">function getTubePressBaseUrl(){return "<tubepress_base_url>";}</script>', $this->_sut->getHeadInlineJs());
+        $mockExecutionContext = Mockery::mock(tubepress_spi_context_ExecutionContext::_);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($mockExecutionContext);
+
+        $mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::HTTPS)->andReturn(false);
+
+        $this->assertEquals('<script type="text/javascript">var TubePress = { baseUrl : "<tubepress_base_url>", https : false };</script>', $this->_sut->getHeadInlineJs());
     }
 
     function testCss()

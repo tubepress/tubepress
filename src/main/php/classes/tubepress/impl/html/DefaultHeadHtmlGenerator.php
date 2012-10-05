@@ -35,13 +35,19 @@ class tubepress_impl_html_DefaultHeadHtmlGenerator implements tubepress_spi_html
     public function getHeadJqueryInclusion()
     {
         $url = $this->_tubepressBaseUrl;
-        return "<script type=\"text/javascript\" src=\"$url/sys/ui/static/js/jquery-1.7.1.min.js\"></script>";
+        return "<script type=\"text/javascript\" src=\"$url/sys/ui/static/js/jquery-1.8.2.min.js\"></script>";
     }
 
     public function getHeadInlineJs()
     {
         $url = $this->_tubepressBaseUrl;
-        return "<script type=\"text/javascript\">function getTubePressBaseUrl(){return \"$url\";}</script>";
+
+        $executionContext = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
+        $https            = $executionContext->get(tubepress_api_const_options_names_Advanced::HTTPS) ? 'true' : 'false';
+
+        return <<<EOT
+<script type="text/javascript">var TubePress = { baseUrl : "$url", https : $https };</script>
+EOT;
     }
 
     public function getHeadJsIncludeString()
