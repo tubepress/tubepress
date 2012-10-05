@@ -37,8 +37,8 @@ class tubepress_plugins_vimeo_impl_listeners_VimeoEmbeddedPlayerRegistrarTest ex
     {
         $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
 
-            tubepress_spi_embedded_PluggableEmbeddedPlayer::_,
-            Mockery::type('tubepress_plugins_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayer'));
+            tubepress_spi_embedded_PluggableEmbeddedPlayerService::_,
+            Mockery::type('tubepress_plugins_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService'));
 
         $this->_sut->onBoot(new tubepress_api_event_TubePressEvent());
 

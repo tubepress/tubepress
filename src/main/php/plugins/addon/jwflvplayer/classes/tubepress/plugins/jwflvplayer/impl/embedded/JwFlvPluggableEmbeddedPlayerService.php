@@ -20,26 +20,16 @@
  */
 
 /**
- * Plays videos with EmbedPlus.
+ * Plays videos with JW FLV Player.
  */
-class tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayer implements tubepress_spi_embedded_PluggableEmbeddedPlayer
+class tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPluggableEmbeddedPlayerService implements tubepress_spi_embedded_PluggableEmbeddedPlayerService
 {
     /**
      * @return string The name of this embedded player. Never empty or null. All lowercase alphanumerics and dashes.
      */
     public final function getName()
     {
-        return 'embedplus';
-    }
-
-    /**
-     * @param tubepress_spi_theme_ThemeHandler $themeHandler The theme handler.
-     *
-     * @return ehough_contemplate_api_Template The template for this embedded player.
-     */
-    public final function getTemplate(tubepress_spi_theme_ThemeHandler $themeHandler)
-    {
-        return $themeHandler->getTemplateInstance('embedded/embedplus.tpl.php', TUBEPRESS_ROOT . '/src/main/php/plugins/addon/embedplus/resources/templates');
+        return 'longtail';
     }
 
     /**
@@ -49,7 +39,7 @@ class tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayer
      */
     public final function getDataUrlForVideo($videoId)
     {
-        return new ehough_curly_Url(sprintf('http://www.youtube.com/embed/%s', $videoId));
+        return new ehough_curly_Url(sprintf('http://www.youtube.com/watch?v=%s', $videoId));
     }
 
     /**
@@ -58,5 +48,15 @@ class tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayer
     public final function getHandledProviderName()
     {
         return 'youtube';
+    }
+
+    /**
+     * @param tubepress_spi_theme_ThemeHandler $themeHandler The theme handler.
+     *
+     * @return ehough_contemplate_api_Template The template for this embedded player.
+     */
+    public final function getTemplate(tubepress_spi_theme_ThemeHandler $themeHandler)
+    {
+        return $themeHandler->getTemplateInstance('embedded/longtail.tpl.php', TUBEPRESS_ROOT . '/src/main/php/plugins/addon/jwflvplayer/resources/templates');
     }
 }

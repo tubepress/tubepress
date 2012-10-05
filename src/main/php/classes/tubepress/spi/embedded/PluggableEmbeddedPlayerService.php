@@ -22,9 +22,9 @@
 /**
  * An embedded video player.
  */
-interface tubepress_spi_embedded_PluggableEmbeddedPlayer
+interface tubepress_spi_embedded_PluggableEmbeddedPlayerService
 {
-    const _ = 'tubepress_spi_embedded_PluggableEmbeddedPlayer';
+    const _ = 'tubepress_spi_embedded_PluggableEmbeddedPlayerService';
 
     /**
      * @return string The name of this embedded player. Never empty or null. All lowercase alphanumerics and dashes.

@@ -24,7 +24,7 @@ class tubepress_plugins_vimeo_impl_embedded_VimeoEmbeddedPlayerTest extends Tube
 
     public function setUp() {
 
-        $this->_sut = new tubepress_plugins_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayer();
+        $this->_sut = new tubepress_plugins_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService();
     }
 
     public function testGetName()

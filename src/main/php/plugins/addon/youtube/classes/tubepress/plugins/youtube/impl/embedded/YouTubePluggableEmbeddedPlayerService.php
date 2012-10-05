@@ -22,7 +22,7 @@
 /**
  * Handles the heavy lifting for YouTube.
  */
-class tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayer implements tubepress_spi_embedded_PluggableEmbeddedPlayer
+class tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService implements tubepress_spi_embedded_PluggableEmbeddedPlayerService
 {
     /**
      * @return string The name of this embedded player. Never empty or null. All lowercase alphanumerics and dashes.

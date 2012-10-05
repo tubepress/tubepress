@@ -37,8 +37,8 @@ class tubepress_plugins_jwflvplayer_impl_listeners_JwFlvPlayerEmbeddedPlayerRegi
     {
         $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
 
-            tubepress_spi_embedded_PluggableEmbeddedPlayer::_,
-            Mockery::type('tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPluggableEmbeddedPlayer'));
+            tubepress_spi_embedded_PluggableEmbeddedPlayerService::_,
+            Mockery::type('tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPluggableEmbeddedPlayerService'));
 
         $this->_sut->onBoot(new tubepress_api_event_TubePressEvent());
 

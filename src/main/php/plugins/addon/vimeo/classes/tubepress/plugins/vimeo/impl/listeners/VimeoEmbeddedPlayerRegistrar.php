@@ -30,8 +30,8 @@ class tubepress_plugins_vimeo_impl_listeners_VimeoEmbeddedPlayerRegistrar
 
         $serviceCollectionsRegistry->registerService(
 
-            tubepress_spi_embedded_PluggableEmbeddedPlayer::_,
-            new tubepress_plugins_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayer()
+            tubepress_spi_embedded_PluggableEmbeddedPlayerService::_,
+            new tubepress_plugins_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService()
         );
     }
 }

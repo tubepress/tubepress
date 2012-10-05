@@ -22,7 +22,7 @@
 /**
  * Embedded player command for native Vimeo
  */
-class tubepress_plugins_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayer implements tubepress_spi_embedded_PluggableEmbeddedPlayer
+class tubepress_plugins_vimeo_impl_embedded_VimeoPluggableEmbeddedPlayerService implements tubepress_spi_embedded_PluggableEmbeddedPlayerService
 {
     private static $_URL_PARAM_AUTOPLAY  = 'autoplay';
     private static $_URL_PARAM_TITLE     = 'title';

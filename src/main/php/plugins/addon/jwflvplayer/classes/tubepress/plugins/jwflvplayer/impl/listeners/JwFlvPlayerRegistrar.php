@@ -30,7 +30,7 @@ class tubepress_plugins_jwflvplayer_impl_listeners_JwFlvPlayerRegistrar
 
         $embeddedPlayerRegistry->registerService(
 
-            tubepress_spi_embedded_PluggableEmbeddedPlayer::_,
-            new tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPluggableEmbeddedPlayer());
+            tubepress_spi_embedded_PluggableEmbeddedPlayerService::_,
+            new tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPluggableEmbeddedPlayerService());
     }
 }

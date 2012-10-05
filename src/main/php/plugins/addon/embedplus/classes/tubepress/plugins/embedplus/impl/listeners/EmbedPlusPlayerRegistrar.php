@@ -30,7 +30,7 @@ class tubepress_plugins_embedplus_impl_listeners_EmbedPlusPlayerRegistrar
 
         $embeddedPlayerRegistry->registerService(
 
-            tubepress_spi_embedded_PluggableEmbeddedPlayer::_,
-            new tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayer());
+            tubepress_spi_embedded_PluggableEmbeddedPlayerService::_,
+            new tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService());
     }
 }

@@ -24,7 +24,7 @@ class tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPlayerEmbeddedPlayerTest 
 
     public function setUp() {
 
-        $this->_sut = new tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPluggableEmbeddedPlayer();
+        $this->_sut = new tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPluggableEmbeddedPlayerService();
     }
 
     public function testGetName()

@@ -30,8 +30,8 @@ class tubepress_plugins_youtube_impl_listeners_YouTubeEmbeddedPlayerRegistrar
 
         $serviceCollectionsRegistry->registerService(
 
-            tubepress_spi_embedded_PluggableEmbeddedPlayer::_,
-            new tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayer()
+            tubepress_spi_embedded_PluggableEmbeddedPlayerService::_,
+            new tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService()
         );
     }
 }

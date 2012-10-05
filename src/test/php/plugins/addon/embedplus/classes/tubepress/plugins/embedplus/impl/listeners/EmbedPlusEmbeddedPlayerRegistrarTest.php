@@ -37,8 +37,8 @@ class tubepress_plugins_embedplus_impl_listeners_EmbedPlusEmbeddedPlayerRegistra
     {
         $this->_mockVideoProviderRegistry->shouldReceive('registerService')->once()->with(
 
-            tubepress_spi_embedded_PluggableEmbeddedPlayer::_,
-            Mockery::type('tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayer'));
+            tubepress_spi_embedded_PluggableEmbeddedPlayerService::_,
+            Mockery::type('tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService'));
 
         $this->_sut->onBoot(new tubepress_api_event_TubePressEvent());
 

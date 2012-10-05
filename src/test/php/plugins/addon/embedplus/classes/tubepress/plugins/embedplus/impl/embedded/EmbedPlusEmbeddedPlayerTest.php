@@ -24,7 +24,7 @@ class tubepress_plugins_embedplus_impl_embedded_EmbedPlusEmbeddedPlayerTest exte
 
     public function setUp() {
 
-        $this->_sut = new tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayer();
+        $this->_sut = new tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService();
     }
 
     public function testGetName()

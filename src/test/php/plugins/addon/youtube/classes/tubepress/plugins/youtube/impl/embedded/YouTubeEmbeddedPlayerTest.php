@@ -21,13 +21,13 @@
 class tubepress_plugins_youtube_impl_embedded_YouTubeEmbeddedPlayerTest extends TubePressUnitTest
 {
     /**
-     * @var tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayer
+     * @var tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService
      */
     private $_sut;
 
     public function setUp()
     {
-        $this->_sut = new tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayer();
+        $this->_sut = new tubepress_plugins_youtube_impl_embedded_YouTubePluggableEmbeddedPlayerService();
     }
 
     public function testGetName()

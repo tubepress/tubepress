@@ -20,34 +20,16 @@
  */
 
 /**
- * Plays videos with JW FLV Player.
+ * Plays videos with EmbedPlus.
  */
-class tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPluggableEmbeddedPlayer implements tubepress_spi_embedded_PluggableEmbeddedPlayer
+class tubepress_plugins_embedplus_impl_embedded_EmbedPlusPluggableEmbeddedPlayerService implements tubepress_spi_embedded_PluggableEmbeddedPlayerService
 {
     /**
      * @return string The name of this embedded player. Never empty or null. All lowercase alphanumerics and dashes.
      */
     public final function getName()
     {
-        return 'longtail';
-    }
-
-    /**
-     * @param string $videoId The video ID to play.
-     *
-     * @return ehough_curly_Url The URL of the data for this video.
-     */
-    public final function getDataUrlForVideo($videoId)
-    {
-        return new ehough_curly_Url(sprintf('http://www.youtube.com/watch?v=%s', $videoId));
-    }
-
-    /**
-     * @return string The name of the video provider whose videos this player handles.
-     */
-    public final function getHandledProviderName()
-    {
-        return 'youtube';
+        return 'embedplus';
     }
 
     /**
@@ -57,6 +39,24 @@ class tubepress_plugins_jwflvplayer_impl_embedded_JwFlvPluggableEmbeddedPlayer i
      */
     public final function getTemplate(tubepress_spi_theme_ThemeHandler $themeHandler)
     {
-        return $themeHandler->getTemplateInstance('embedded/longtail.tpl.php', TUBEPRESS_ROOT . '/src/main/php/plugins/addon/jwflvplayer/resources/templates');
+        return $themeHandler->getTemplateInstance('embedded/embedplus.tpl.php', TUBEPRESS_ROOT . '/src/main/php/plugins/addon/embedplus/resources/templates');
+    }
+
+    /**
+     * @param string $videoId The video ID to play.
+     *
+     * @return ehough_curly_Url The URL of the data for this video.
+     */
+    public final function getDataUrlForVideo($videoId)
+    {
+        return new ehough_curly_Url(sprintf('http://www.youtube.com/embed/%s', $videoId));
+    }
+
+    /**
+     * @return string The name of the video provider whose videos this player handles.
+     */
+    public final function getHandledProviderName()
+    {
+        return 'youtube';
     }
 }

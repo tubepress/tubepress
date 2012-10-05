@@ -113,7 +113,7 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
     /**
      * @param $videoId
      *
-     * @return tubepress_spi_embedded_PluggableEmbeddedPlayer
+     * @return tubepress_spi_embedded_PluggableEmbeddedPlayerService
      */
     private function _getEmbeddedPlayer($videoId)
     {
@@ -121,7 +121,7 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
         $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
 
         $requestedEmbeddedPlayerName = $executionContext->get(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
-        $embeddedPlayers             = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_embedded_PluggableEmbeddedPlayer::_);
+        $embeddedPlayers             = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
 
         if ($requestedEmbeddedPlayerName === tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED) {
 
