@@ -122,8 +122,8 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
-        $option->setLabel('Play each video');                                                                                                 //>(translatable)<
-//        $option->setDefaultValue(tubepress_api_const_options_values_PlayerLocationValue::NORMAL);
+        $option->setLabel('Play each video');                                                                                              //>(translatable)<
+        $option->setDefaultValue('normal');
 //        $option->setAcceptableValues(array(
 //            tubepress_api_const_options_values_PlayerLocationValue::NORMAL    => 'normally (at the top of your gallery)',                 //>(translatable)<
 //            tubepress_api_const_options_values_PlayerLocationValue::POPUP     => 'in a popup window',                                     //>(translatable)<
