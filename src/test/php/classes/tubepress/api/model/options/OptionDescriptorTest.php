@@ -221,8 +221,8 @@ class tubepress_api_model_options_OptionDescriptorTest extends TubePressUnitTest
     {
         $this->assertTrue($this->_sut->isApplicableToAllProviders());
         $this->_sut->setExcludedProviders(array('youtube'));
-        $this->assertTrue($this->_sut->isApplicableToVimeo());
-        $this->assertFalse($this->_sut->isApplicableToYouTube());
+        $this->assertTrue($this->_sut->isApplicableToProvider('vimeo'));
+        $this->assertFalse($this->_sut->isApplicableToProvider('youtube'));
         $this->assertFalse($this->_sut->isApplicableToAllProviders());
     }
 

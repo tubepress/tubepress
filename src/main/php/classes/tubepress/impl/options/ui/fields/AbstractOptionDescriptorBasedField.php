@@ -43,12 +43,12 @@ abstract class tubepress_impl_options_ui_fields_AbstractOptionDescriptorBasedFie
             throw new InvalidArgumentException(sprintf('Could not find option with name "%s"', $name));
         }
 
-        if ($this->_optionDescriptor->isApplicableToVimeo()) {
+        if ($this->_optionDescriptor->isApplicableToProvider('vimeo')) {
 
             array_push($this->_providerArray, 'vimeo');
         }
 
-        if ($this->_optionDescriptor->isApplicableToYouTube()) {
+        if ($this->_optionDescriptor->isApplicableToProvider('youtube')) {
 
             array_push($this->_providerArray, 'youtube');
         }

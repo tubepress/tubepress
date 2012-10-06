@@ -37,6 +37,11 @@ class tubepress_spi_options_OptionDescriptor
     private $_acceptableValues;
 
     /**
+     * @var callable A callback that produces a set of acceptable values.
+     */
+    private $_acceptableValuesCallback;
+
+    /**
      * @var array Aliases. Currently not used.
      */
     private $_aliases = array();
@@ -52,7 +57,7 @@ class tubepress_spi_options_OptionDescriptor
     private $_description;
 
     /**
-     * @var array Providers for which this option does not work.
+     * @var array Providers for which this option is known to not work.
      */
     private $_excludedProviders = array();
 
@@ -108,6 +113,11 @@ class tubepress_spi_options_OptionDescriptor
      */
     public final function getAcceptableValues()
     {
+        if (isset($this->_acceptableValuesCallback)) {
+
+            return call_user_func(array($this->_acceptableValuesCallback, 'getAcceptableValues'), $this->getName());
+        }
+
         return $this->_acceptableValues;
     }
 
@@ -172,7 +182,7 @@ class tubepress_spi_options_OptionDescriptor
      */
     public final function hasDiscreteAcceptableValues()
     {
-        return ! empty($this->_acceptableValues);
+        return isset($this->_acceptableValuesCallback) || (! empty($this->_acceptableValues));
     }
 
     /**
@@ -200,19 +210,13 @@ class tubepress_spi_options_OptionDescriptor
     }
 
     /**
-     * @return bool True if this option is applicable to Vimeo, false otherwise.
+     * @param string $providerName The name of the provider.
+     *
+     * @return bool True if this option is applicable to the given provider, false otherwise.
      */
-    public final function isApplicableToVimeo()
+    public final function isApplicableToProvider($providerName)
     {
-        return ! in_array('vimeo', $this->_excludedProviders);
-    }
-
-    /**
-     * @return bool True if this option is applicable to YouTube, false otherwise.
-     */
-    public final function isApplicableToYouTube()
-    {
-        return ! in_array('youtube', $this->_excludedProviders);
+        return ! in_array($providerName, $this->_excludedProviders);
     }
 
     /**
@@ -258,8 +262,30 @@ class tubepress_spi_options_OptionDescriptor
     {
         $this->_checkNotBoolean();
         $this->_checkRegexNotSet();
+        $this->_checkAcceptableValuesCallbackNotSet();
 
         $this->_acceptableValues = $values;
+    }
+
+    /**
+     * @param callable $callback The acceptable values callback.
+     *
+     * @throws InvalidArgumentException If the callback doesn't implement the right function.
+     *
+     * @return void
+     */
+    public final function setAcceptableValuesCallback($callback)
+    {
+        $this->_checkNotBoolean();
+        $this->_checkRegexNotSet();
+        $this->_checkAcceptableValuesNotSet();
+
+        if (! is_callable(array($callback, 'getAcceptableValues'))) {
+
+            throw new InvalidArgumentException('Acceptable values callback must implement getAcceptableValues()');
+        }
+
+        $this->_acceptableValuesCallback = $callback;
     }
 
     /**
@@ -282,6 +308,7 @@ class tubepress_spi_options_OptionDescriptor
      */
     public final function setBoolean()
     {
+        $this->_checkAcceptableValuesCallbackNotSet();
         $this->_checkAcceptableValuesNotSet();
         $this->_checkRegexNotSet();
 
@@ -386,6 +413,7 @@ class tubepress_spi_options_OptionDescriptor
             throw new InvalidArgumentException('Regex must be a string for ' . $this->getName());
         }
 
+        $this->_checkAcceptableValuesCallbackNotSet();
         $this->_checkAcceptableValuesNotSet();
         $this->_checkNotBoolean();
 
@@ -413,6 +441,14 @@ class tubepress_spi_options_OptionDescriptor
         if ($this->_isBoolean === true) {
 
             throw new InvalidArgumentException($this->getName() . ' is set to be a boolean');
+        }
+    }
+
+    private function _checkAcceptableValuesCallbackNotSet()
+    {
+        if (isset($this->_acceptableValuesCallback)) {
+
+            throw new InvalidArgumentException($this->getName() . ' already has an acceptable values callback set');
         }
     }
 }
