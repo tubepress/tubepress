@@ -24,7 +24,7 @@
  */
 class tubepress_impl_options_ui_tabs_GallerySourceTab extends tubepress_impl_options_ui_tabs_AbstractTab
 {
-    const TEMPLATE_VAR_CURRENT_MODE = 'org_tubepress_impl_options_ui_tabs_GallerySourceTab__mode';
+    const TEMPLATE_VAR_CURRENT_MODE = 'tubepress_impl_options_ui_tabs_GallerySourceTab__mode';
 
     /**
      * Get the untranslated title of this tab.

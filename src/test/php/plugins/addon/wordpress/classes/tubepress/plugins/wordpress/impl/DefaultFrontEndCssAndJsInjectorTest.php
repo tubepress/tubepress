@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_plugins_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest extends TubePressUnitTest
+class tubepress_plugins_wordpress_impl_DefaultFrontEndCssAndJsInjectorTest extends TubePressUnitTest
 {
     private $_mockWpFunctionWrapper;
 

@@ -19,7 +19,7 @@
  *
  */
 
-class org_tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
+class tubepress_impl_theme_SimpleThemeHandlerTest extends TubePressUnitTest
 {
     private $_sut;
 

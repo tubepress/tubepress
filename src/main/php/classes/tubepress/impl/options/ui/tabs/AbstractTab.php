@@ -24,7 +24,7 @@
  */
 abstract class tubepress_impl_options_ui_tabs_AbstractTab extends tubepress_impl_options_ui_AbstractDelegatingFormHandler implements tubepress_spi_options_ui_Tab
 {
-    const TEMPLATE_VAR_WIDGETARRAY = 'org_tubepress_impl_options_ui_tabs_AbstractTab__widgetArray';
+    const TEMPLATE_VAR_WIDGETARRAY = 'tubepress_impl_options_ui_tabs_AbstractTab__widgetArray';
 
     /**
      * Get the title of this tab.

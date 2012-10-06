@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTest
+class tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTest
 {
     private $_sut;
 

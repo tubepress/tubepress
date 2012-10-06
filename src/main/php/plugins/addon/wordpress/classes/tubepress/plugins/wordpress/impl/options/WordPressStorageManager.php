@@ -20,7 +20,7 @@
  */
 
 /**
- * Implementation of org_tubepress_api_options_StorageManager that uses the
+ * Implementation of tubepress_spi_options_StorageManager that uses the
  * regular WordPress options API
  */
 class tubepress_plugins_wordpress_impl_options_WordPressStorageManager extends tubepress_impl_options_AbstractStorageManager

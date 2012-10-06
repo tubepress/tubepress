@@ -26,7 +26,7 @@ class tubepress_impl_options_ui_DefaultTabsHandler extends tubepress_impl_option
 {
     const __ = 'tubepress_impl_options_ui_DefaultTabsHandler';
 
-    const TEMPLATE_VAR_TABS = 'org_tubepress_impl_options_ui_DefaultTabsHandler__tabs';
+    const TEMPLATE_VAR_TABS = 'tubepress_impl_options_ui_DefaultTabsHandler__tabs';
 
     private $_tabs;
 

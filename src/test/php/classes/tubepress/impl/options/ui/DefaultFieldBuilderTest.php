@@ -28,7 +28,7 @@ class FakeThingy
     }
 }
 
-class org_tubepress_impl_options_ui_DefaultFieldBuilderTest extends TubePressUnitTest
+class tubepress_impl_options_ui_DefaultFieldBuilderTest extends TubePressUnitTest
 {
 	private $_sut;
 

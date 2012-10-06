@@ -40,7 +40,7 @@ interface tubepress_spi_options_ui_FieldBuilder
     /**
      * Builds the multi-select dropdown for meta display.
      *
-     * @return org_tubepress_impl_options_ui_fields_MetaMultiSelectField The constructed field.
+     * @return tubepress_impl_options_ui_fields_MetaMultiSelectField The constructed field.
      */
     function buildMetaDisplayMultiSelectField();
 }

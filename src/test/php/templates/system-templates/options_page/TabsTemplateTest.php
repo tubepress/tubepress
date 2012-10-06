@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_template_templates_optionspage_TabsTemplateTest extends TubePressUnitTest
+class tubepress_impl_template_templates_optionspage_TabsTemplateTest extends TubePressUnitTest
 {
     public function test()
     {

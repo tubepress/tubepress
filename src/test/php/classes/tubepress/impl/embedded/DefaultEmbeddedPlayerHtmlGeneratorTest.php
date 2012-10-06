@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extends TubePressUnitTest
+class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extends TubePressUnitTest
 {
     /**
      * @var tubepress_spi_embedded_EmbeddedHtmlGenerator

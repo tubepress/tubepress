@@ -26,7 +26,7 @@ class tubepress_impl_options_ui_fields_DropdownField extends tubepress_impl_opti
 {
     const FIELD_CLASS_NAME = 'tubepress_impl_options_ui_fields_DropdownField';
 
-    const TEMPLATE_VAR_ACCEPTABLE_VALUES = 'org_tubepress_impl_options_ui_fields_DropdownField__options';
+    const TEMPLATE_VAR_ACCEPTABLE_VALUES = 'tubepress_impl_options_ui_fields_DropdownField__options';
 
     /**
      * Get the path to the template for this field, relative

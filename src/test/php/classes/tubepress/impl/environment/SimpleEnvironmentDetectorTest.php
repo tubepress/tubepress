@@ -19,7 +19,7 @@
  *
  */
 
-class org_tubepress_impl_environment_SimpleEnvironmentDetectorTest extends TubePressUnitTest
+class tubepress_impl_environment_SimpleEnvironmentDetectorTest extends TubePressUnitTest
 {
     private $_sut;
 

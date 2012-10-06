@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_patterns_ioc_CoreIocContainerTest extends TubePressUnitTest
+class tubepress_impl_patterns_ioc_CoreIocContainerTest extends TubePressUnitTest
 {
     private $_sut;
 

@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_http_DefaultHttpRequestParameterServiceTest extends TubePressUnitTest
+class tubepress_impl_http_DefaultHttpRequestParameterServiceTest extends TubePressUnitTest
 {
     private $_sut;
 

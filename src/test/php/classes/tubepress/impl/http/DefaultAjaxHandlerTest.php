@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_http_DefaultAjaxHandlerTest extends TubePressUnitTest
+class tubepress_impl_http_DefaultAjaxHandlerTest extends TubePressUnitTest
 {
     /**
      * @var tubepress_impl_http_DefaultAjaxHandler

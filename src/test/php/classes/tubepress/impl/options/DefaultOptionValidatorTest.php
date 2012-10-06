@@ -19,7 +19,7 @@
  *
  */
 
-class org_tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUnitTest
+class tubepress_impl_options_DefaultOptionValidatorTest extends TubePressUnitTest
 {
 	private $_sut;
 

@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_plugin_filters_embeddedhtml_PlayerJavaScriptApitTest extends TubePressUnitTest
+class tubepress_impl_plugin_filters_embeddedhtml_PlayerJavaScriptApitTest extends TubePressUnitTest
 {
     /**
      * @var tubepress_plugins_core_impl_filters_embeddedhtml_PlayerJavaScriptApi

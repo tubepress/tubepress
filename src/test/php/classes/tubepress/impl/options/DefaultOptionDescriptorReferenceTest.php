@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends TubePressUnitTest
+class tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends TubePressUnitTest
 {
 	private $_sut;
 

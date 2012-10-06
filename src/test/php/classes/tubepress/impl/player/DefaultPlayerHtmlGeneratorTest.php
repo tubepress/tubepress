@@ -18,7 +18,7 @@
  * along with TubePress.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class org_tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePressUnitTest
+class tubepress_impl_player_DefaultPlayerHtmlGeneratorTest extends TubePressUnitTest
 {
     private $_sut;
 
