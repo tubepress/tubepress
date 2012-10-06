@@ -24,8 +24,8 @@
  */
 class tubepress_api_const_options_names_Advanced
 {
-    const DEBUG_ON               = 'debugging_enabled';
-    const GALLERY_ID             = 'galleryId';
-    const HTTPS                  = 'https';
-    const KEYWORD                = 'keyword';
+    const DEBUG_ON   = 'debugging_enabled';
+    const GALLERY_ID = 'galleryId';
+    const HTTPS      = 'https';
+    const KEYWORD    = 'keyword';
 }
