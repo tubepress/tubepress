@@ -20,20 +20,19 @@
  */
 
 /**
- * Handles and responds to incoming Ajax commands.
+ * Adds shortcode handlers to TubePress.
  */
-interface tubepress_spi_http_PluggableAjaxCommandService
+class tubepress_plugins_core_impl_listeners_AjaxCommandsRegistrar
 {
-    const _ = 'tubepress_spi_http_PluggableAjaxCommandService';
+    public function onBoot(ehough_tickertape_api_Event $bootEvent)
+    {
+        $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
 
-    /**
-     * @return string The command name that this handler responds to.
-     */
-    function getName();
+        $serviceCollectionsRegistry->registerService(
 
-    function handle();
+            tubepress_spi_http_PluggableAjaxCommandService::_,
+            new tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandService()
+        );
 
-    function getHttpStatusCode();
-
-    function getOutput();
+    }
 }

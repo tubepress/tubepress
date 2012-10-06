@@ -24,6 +24,15 @@
  */
 class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxHandler
 {
+    private $_logger;
+
+    private $_isDebugEnabled;
+
+    public function __construct()
+    {
+        $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Default Ajax Handler');
+    }
+
     /**
      * Handles incoming requests.
      *
@@ -31,6 +40,8 @@ class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxH
      */
     public final function handle()
     {
+        $this->_isDebugEnabled = $this->_logger->isDebugEnabled();
+
         $httpRequestParameterService = tubepress_impl_patterns_ioc_KernelServiceLocator::getHttpRequestParameterService();
         $actionName                  = $httpRequestParameterService->getParamValue(tubepress_spi_const_http_ParamName::ACTION);
 
@@ -45,6 +56,11 @@ class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxH
         $commandHandlers            = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_http_PluggableAjaxCommandService::_);
         $chosenCommandHandler       = null;
 
+        if ($this->_isDebugEnabled) {
+
+            $this->_logger->debug('There are ' . count($commandHandlers) . ' pluggable Ajax command service(s) registered');
+        }
+
         foreach ($commandHandlers as $commandHandler) {
 
             /** @noinspection PhpUndefinedMethodInspection */
@@ -53,12 +69,27 @@ class tubepress_impl_http_DefaultAjaxHandler implements tubepress_spi_http_AjaxH
                 $chosenCommandHandler = $commandHandler;
                 break;
             }
+
+            if ($this->_isDebugEnabled) {
+
+                $this->_logger->debug($commandHandler->getName() . ' could not handle action ' . $actionName);
+            }
         }
 
         if ($chosenCommandHandler === null) {
 
+            if ($this->_isDebugEnabled) {
+
+                $this->_logger->debug('No pluggable Ajax command services could handle action ' . $actionName);
+            }
+
             http_response_code(500);
             return;
+        }
+
+        if ($this->_isDebugEnabled) {
+
+            $this->_logger->debug($chosenCommandHandler->getName() . ' chose to handle action ' . $actionName);
         }
 
         /** @noinspection PhpUndefinedMethodInspection */

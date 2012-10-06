@@ -52,6 +52,7 @@ class org_tubepress_impl_collector_DefaultVideoCollectorTest extends TubePressUn
     {
         $mockProvider = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
 
+        $mockProvider->shouldReceive('getName')->andReturn('provider-name');
         $mockProvider->shouldReceive('recognizesVideoId')->once()->with('xyz')->andReturn(true);
         $mockProvider->shouldReceive('fetchSingleVideo')->once()->with('xyz')->andReturn('123');
 
@@ -67,6 +68,7 @@ class org_tubepress_impl_collector_DefaultVideoCollectorTest extends TubePressUn
     public function testGetSingleNoProvidersRecognize()
     {
         $mockProvider = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $mockProvider->shouldReceive('getName')->andReturn('provider-name');
 
         $mockProvider->shouldReceive('recognizesVideoId')->once()->with('xyz')->andReturn(false);
 
@@ -96,6 +98,7 @@ class org_tubepress_impl_collector_DefaultVideoCollectorTest extends TubePressUn
 
         $mockProvider->shouldReceive('getGallerySourceNames')->andReturn(array('x'));
         $mockProvider->shouldReceive('fetchVideoGalleryPage')->once()->with(97)->andReturn($mockPage);
+        $mockProvider->shouldReceive('getName')->andReturn('provider-name');
 
         $mockProviders = array($mockProvider);
 
@@ -121,6 +124,7 @@ class org_tubepress_impl_collector_DefaultVideoCollectorTest extends TubePressUn
     public function testMultipleNoProvidersCouldHandle()
     {
         $mockProvider = Mockery::mock(tubepress_spi_provider_PluggableVideoProviderService::_);
+        $mockProvider->shouldReceive('getName')->andReturn('provider-name');
 
         $mockProvider->shouldReceive('getGallerySourceNames')->andReturn(array());
 

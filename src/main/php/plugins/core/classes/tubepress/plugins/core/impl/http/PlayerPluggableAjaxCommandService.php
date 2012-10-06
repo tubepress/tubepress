@@ -29,7 +29,7 @@ class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandService extends
     /**
      * @return string The command name that this handler responds to.
      */
-    public final function getCommandName()
+    public final function getName()
     {
         return 'playerHtml';
     }

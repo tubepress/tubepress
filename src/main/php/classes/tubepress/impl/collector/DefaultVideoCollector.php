@@ -24,7 +24,15 @@
  */
 class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_collector_VideoCollector
 {
+    /**
+     * @var ehough_epilog_api_ILogger Logger.
+     */
     private $_logger;
+
+    /**
+     * @var boolean Is debug enabled?
+     */
+    private $_isDebugEnabled;
 
     public function __construct()
     {
@@ -40,6 +48,8 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
      */
     public final function collectVideoGalleryPage()
     {
+        $this->_isDebugEnabled = $this->_logger->isDebugEnabled();
+
         $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
         $executionContext           = tubepress_impl_patterns_ioc_KernelServiceLocator::getExecutionContext();
 
@@ -49,6 +59,13 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
         $providerName = null;
         $currentPage  = $this->_getCurrentPage();
 
+        if ($this->_isDebugEnabled) {
+
+            $this->_logger->debug('There are ' . count($providers) . ' pluggable video provider service(s) registered');
+
+            $this->_logger->debug('Asking to see who wants to handle page ' . $currentPage . ' for gallery source "' . $videoSource . '"');
+        }
+
         foreach ($providers as $videoProvider) {
 
             /** @noinspection PhpUndefinedMethodInspection */
@@ -56,8 +73,22 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
 
             if (in_array($videoSource, $sources)) {
 
+                if ($this->_isDebugEnabled) {
+
+                    /** @noinspection PhpUndefinedMethodInspection */
+                    $this->_logger->debug($videoProvider->getName() . ' chosen to handle page ' . $currentPage
+                        . ' for gallery source "' . $videoSource . '"');
+                }
+
                 /** @noinspection PhpUndefinedMethodInspection */
                 $result = $videoProvider->fetchVideoGalleryPage($currentPage);
+            }
+
+            if ($this->_isDebugEnabled) {
+
+                /** @noinspection PhpUndefinedMethodInspection */
+                $this->_logger->debug($videoProvider->getName() . ' cannot handle ' . $currentPage
+                    . ' for gallery source "' . $videoSource . '"');
             }
         }
 
@@ -88,7 +119,9 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
      */
     public final function collectSingleVideo($customVideoId)
     {
-        if ($this->_logger->isDebugEnabled()) {
+        $this->_isDebugEnabled = $this->_logger->isDebugEnabled();
+
+        if ($this->_isDebugEnabled) {
 
             $this->_logger->debug(sprintf('Fetching video with ID <tt>%s</tt>', $customVideoId));
         }
@@ -102,8 +135,20 @@ class tubepress_impl_collector_DefaultVideoCollector implements tubepress_spi_co
             /** @noinspection PhpUndefinedMethodInspection */
             if ($videoProvider->recognizesVideoId($customVideoId)) {
 
+                if ($this->_isDebugEnabled) {
+
+                    /** @noinspection PhpUndefinedMethodInspection */
+                    $this->_logger->debug($videoProvider->getName() . ' recognizes video ID ' . $customVideoId);
+                }
+
                 /** @noinspection PhpUndefinedMethodInspection */
                 return $videoProvider->fetchSingleVideo($customVideoId);
+            }
+
+            if ($this->_isDebugEnabled) {
+
+                /** @noinspection PhpUndefinedMethodInspection */
+                $this->_logger->debug($videoProvider->getName() . ' does not recognize video ID ' . $customVideoId);
             }
         }
 

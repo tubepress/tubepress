@@ -33,7 +33,7 @@ class tubepress_plugins_core_impl_shortcode_SearchOutputPluggableShortcodeHandle
 
     public function __construct(tubepress_spi_shortcode_PluggableShortcodeHandlerService $thumbGalleryShortcodeHandler)
     {
-        $this->_logger                       = ehough_epilog_api_LoggerFactory::getLogger('Search Output Command');
+        $this->_logger                       = ehough_epilog_api_LoggerFactory::getLogger('Search Output Shortcode Handler');
         $this->_thumbGalleryShortcodeHandler = $thumbGalleryShortcodeHandler;
     }
 

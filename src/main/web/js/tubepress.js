@@ -22,7 +22,7 @@ var TubePressLogger = (function () {
 	var isLoggingRequested		= location.search.indexOf('tubepress_debug=true') !== -1,
 		windowConsole			= window.console,
 		isLoggingAvailable		= typeof windowConsole !== 'undefined',
-	
+
 	/**
 	 * The log is on if it's been enabled and requested.
 	 */
@@ -403,7 +403,7 @@ var TubePressPlayers = (function () {
 						'tubepress_shortcode'	: shortcode
 				},
 
-				url = TubePress.baseUrl + '/src/main/php/scripts/ajaxEndpoint.php';
+				url = TubePressGlobalJsConfig.baseUrl + '/src/main/php/scripts/ajaxEndpoint.php';
 		
 			/** Announce we're gonna invoke the player... */
 			documentElement.trigger(tubepressEvents.PLAYER_INVOKE + playerName, [ videoId, galleryId, width, height ]);

@@ -42,6 +42,9 @@ class tubepress_plugins_core_Core
 
         $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
             array(new tubepress_plugins_core_impl_listeners_ShortcodeHandlersRegistrar(), 'onBoot'));
+
+        $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::BOOT,
+            array(new tubepress_plugins_core_impl_listeners_AjaxCommandsRegistrar(), 'onBoot'));
     }
 
     private static function _registerFilters(ehough_tickertape_api_IEventDispatcher $eventDispatcher)

@@ -24,7 +24,7 @@
  */
 if (strpos(realpath(__FILE__), 'wp-content' . DIRECTORY_SEPARATOR . 'plugins') !== false ||true) {
 
-	require '/Users/ehough/Sites/tubepress_testing_ground/wordpress/wp-blog-header.php';
+	require '/var/www/tubepress_testing_ground/wp-blog-header.php';
     //require '/var/www/gshd/wordpress/wp-blog-header.php';
     //include dirname(__FILE__) . '/../../../../../../../wp-blog-header.php';
 }

@@ -236,7 +236,6 @@ final class tubepress_impl_patterns_ioc_CoreIocContainer extends tubepress_impl_
 
         $this->_registerChainDefinitionByReferences($transportChainId, $transportReferences);
 
-
         /**
          * Register the content decoding commands and chain.
          */

@@ -54,7 +54,7 @@ class org_tubepress_impl_http_DefaultAjaxHandlerTest extends TubePressUnitTest
     function testFoundSuitableCommand()
     {
         $mockHandler = Mockery::mock(tubepress_spi_http_PluggableAjaxCommandService::_);
-        $mockHandler->shouldReceive('getName')->once()->andReturn('action');
+        $mockHandler->shouldReceive('getName')->andReturn('action');
         $mockHandler->shouldReceive('handle')->once();
         $mockHandler->shouldReceive('getHttpStatusCode')->once()->andReturn(300);
         $mockHandler->shouldReceive('getOutput')->once()->andReturn('hi');
@@ -76,7 +76,7 @@ class org_tubepress_impl_http_DefaultAjaxHandlerTest extends TubePressUnitTest
     function testHandleNoSuitableCommandHandler()
     {
         $mockHandler = Mockery::mock(tubepress_spi_http_PluggableAjaxCommandService::_);
-        $mockHandler->shouldReceive('getName')->once()->andReturn('x');
+        $mockHandler->shouldReceive('getName')->andReturn('x');
 
         $mockHandlers = array($mockHandler);
 

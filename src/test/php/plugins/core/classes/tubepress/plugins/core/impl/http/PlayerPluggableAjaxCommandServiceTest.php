@@ -111,7 +111,7 @@ class tubepress_plugins_core_impl_http_PlayerPluggableAjaxCommandServiceTest ext
 
     public function testGetCommandName()
     {
-        $this->assertEquals('playerHtml', $this->_sut->getCommandName());
+        $this->assertEquals('playerHtml', $this->_sut->getName());
     }
 
 }
