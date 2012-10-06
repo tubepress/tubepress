@@ -171,6 +171,32 @@ var TubePressAjax = (function () {
 }());
 
 /**
+ * Handles dynamic loading of CSS. To be removed...
+ */
+var TubePressCss = (function () {
+
+	/** http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/ */
+	'use strict';
+
+	/*
+	 * Dynamically load CSS into the DOM.
+	 */
+	var load = function (path) {
+
+		var	fileref = document.createElement('link');
+
+		fileref.setAttribute('rel', 'stylesheet');
+		fileref.setAttribute('type', 'text/css');
+		fileref.setAttribute('href', path);
+		document.getElementsByTagName('head')[0].appendChild(fileref);
+	};
+
+	return {
+		load	: load
+	};
+}());
+
+/**
  * Events that TubePress fires.
  */
 var TubePressEvents = (function () {

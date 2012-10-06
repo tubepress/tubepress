@@ -32,16 +32,36 @@ class org_tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTes
         tubepress_impl_patterns_ioc_KernelServiceLocator::setExecutionContext($this->_mockExecutionContext);
 	}
 
+    function onTearDown()
+    {
+        global $tubepress_base_url;
+
+        unset($tubepress_base_url);
+    }
+
 	function testAlter()
 	{
+        global $tubepress_base_url;
+
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION)->andReturn(true);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::EMBEDDED_HEIGHT)->andReturn(999);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::EMBEDDED_WIDTH)->andReturn(888);
         $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Thumbs::FLUID_THUMBS)->andReturn(false);
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('player-loc');
+        $this->_mockExecutionContext->shouldReceive('get')->twice()->with(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION)->andReturn('player-loc');
         $this->_mockExecutionContext->shouldReceive('toShortcode')->once()->andReturn(' + "&');
 
         $event = new tubepress_api_event_TubePressEvent(array('yo' => 'mamma'));
+
+        $mockPlayer = Mockery::mock(tubepress_spi_player_PluggablePlayerLocationService::_);
+        $mockPlayer->shouldReceive('getName')->andReturn('player-loc');
+        $mockPlayer->shouldReceive('getRelativePlayerJsUrl')->andReturn('abc');
+        $mockPlayers = array($mockPlayer);
+
+        $tubepress_base_url = 'xyz';
+
+        $mockServiceCollectionsRegistry = Mockery::mock(tubepress_spi_patterns_sl_ServiceCollectionsRegistry::_);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setServiceCollectionsRegistry($mockServiceCollectionsRegistry);
+        $mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_player_PluggablePlayerLocationService::_)->andReturn($mockPlayers);
 
         $this->_sut->onGalleryInitJs($event);
 
@@ -55,6 +75,7 @@ class org_tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTes
 	        'fluidThumbs' => 'false',
 	        'playerLocationName' => '"player-loc"',
             'shortcode' => '"%20%2B%20%22%26"',
+            'playerJsUrl' => '"xyz/abc"',
             'yo' => 'mamma'
 
 	    ), $result);

@@ -29,7 +29,7 @@ var TubePressShadowboxPlayer = (function () {
 		name	= 'shadowbox',
 		jquery	= jQuery,
 		doc		= jquery(document),
-		url		= getTubePressBaseUrl() + '/sys/ui/static/players/shadowbox/',
+		url		= TubePressGlobalJsConfig.baseUrl + '/src/main/web/players/shadowbox/',
 
 		boot	= function () {
 

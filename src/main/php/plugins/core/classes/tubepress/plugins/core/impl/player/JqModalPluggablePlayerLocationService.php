@@ -41,4 +41,12 @@ class tubepress_plugins_core_impl_player_JqModalPluggablePlayerLocationService i
     {
         return 'jqmodal';
     }
+
+    /**
+     * @return string Gets the relative path to this player location's JS init script.
+     */
+    public final function getRelativePlayerJsUrl()
+    {
+        return '/src/main/web/players/jqmodal/jqmodal.js';
+    }
 }

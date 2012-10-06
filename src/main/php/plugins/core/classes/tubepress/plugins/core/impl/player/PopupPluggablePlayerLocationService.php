@@ -41,4 +41,12 @@ class tubepress_plugins_core_impl_player_PopupPluggablePlayerLocationService imp
     {
         return 'popup';
     }
+
+    /**
+     * @return string Gets the relative path to this player location's JS init script.
+     */
+    public final function getRelativePlayerJsUrl()
+    {
+        return '/src/main/web/players/popup/popup.js';
+    }
 }
