@@ -78,6 +78,13 @@ class tubepress_api_const_event_CoreEventNames
     const HTML_CONSTRUCTION = 'core.htmlConstruction';
 
     /**
+     * This event is fired when TubePress's option storage manager is alive and ready.
+     *
+     * @subject tubepress_spi_options_StorageManager The storage manager that is alive.
+     */
+    const OPTION_STORAGE_MANAGER_READY = 'core.optionStorageManagerReady';
+
+    /**
      * This event is fired when a TubePress builds the HTML for pagination.
      *
      * @subject string The pagination HTML.

@@ -69,6 +69,15 @@ class org_tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTe
             tubepress_api_const_options_names_Thumbs::AJAX_PAGINATION => 'true',
         );
 
+        $mockOdr = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setOptionDescriptorReference($mockOdr);
+
+        $themeOd = new tubepress_spi_options_OptionDescriptor('theme');
+        $ajaxOd  = new tubepress_spi_options_OptionDescriptor('ajaxPagination');
+
+        $mockOdr->shouldReceive('findOneByName')->once()->with('theme')->andReturn($themeOd);
+        $mockOdr->shouldReceive('findOneByName')->once()->with('ajaxPagination')->andReturn($ajaxOd);
+
         $this->_mockStorageManager->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Advanced::KEYWORD)->andReturn('trigger');
 
         $this->_setupFilters(tubepress_api_const_options_names_Thumbs::THEME, 'some "option" with double quotes');
@@ -78,7 +87,7 @@ class org_tubepress_impl_exec_MemoryExecutionContextTest extends TubePressUnitTe
 
         $this->_sut->setCustomOptions($customOptions);
 
-        $this->assertEquals('[trigger theme="some \"option\" with double quotes", ajaxPagination="true"]', $this->_sut->toShortcode());
+        $this->assertEquals('[trigger theme="some \"option\" with double quotes" ajaxPagination="true"]', $this->_sut->toShortcode());
     }
 
     public function testReset()

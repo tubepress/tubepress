@@ -96,7 +96,7 @@ class org_tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extends
         $mockEmbeddedPlayer = Mockery::mock(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
         $mockEmbeddedPlayer->shouldReceive('getHandledProviderName')->twice()->andReturn('xyz');
         $mockEmbeddedPlayer->shouldReceive('getDataUrlForVideo')->once()->with('video-id')->andReturn('data-url');
-        $mockEmbeddedPlayer->shouldReceive('getName')->once()->andReturn('z');
+        $mockEmbeddedPlayer->shouldReceive('getName')->twice()->andReturn('z');
 
         $mockEmbeddedPlayers = array($mockEmbeddedPlayer);
 
@@ -146,6 +146,7 @@ class org_tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extends
     {
         $mockEmbeddedPlayer = Mockery::mock(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
         $mockEmbeddedPlayer->shouldReceive('getHandledProviderName')->once()->andReturn('xyz');
+        $mockEmbeddedPlayer->shouldReceive('getName')->once()->andReturn('tex');
 
         $mockEmbeddedPlayers = array($mockEmbeddedPlayer);
 
@@ -196,31 +197,6 @@ class org_tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGeneratorTest extends
         $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_)->andReturn($mockEmbeddedPlayers);
 
         $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_provider_PluggableVideoProviderService::_)->andReturn(array());
-
-        $html = $this->_sut->getHtml('video-id');
-
-        $this->assertNull($html);
-    }
-
-    public function testNoMatchingPlayers()
-    {
-        $mockEmbeddedPlayer = Mockery::mock(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
-        $mockEmbeddedPlayer->shouldReceive('getName')->once()->andReturn('z');
-
-        $mockEmbeddedPlayers = array($mockEmbeddedPlayer);
-
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_IMPL)->andReturn('x');
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_)->andReturn($mockEmbeddedPlayers);
-
-        $html = $this->_sut->getHtml('video-id');
-
-        $this->assertNull($html);
-    }
-
-    public function testGetHtmlNoRegisteredPlayers()
-    {
-        $this->_mockExecutionContext->shouldReceive('get')->once()->with(tubepress_api_const_options_names_Embedded::PLAYER_IMPL)->andReturn('x');
-        $this->_mockServiceCollectionsRegistry->shouldReceive('getAllServicesOfType')->once()->with(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_)->andReturn(array());
 
         $html = $this->_sut->getHtml('video-id');
 

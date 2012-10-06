@@ -123,53 +123,56 @@ class tubepress_impl_embedded_DefaultEmbeddedPlayerHtmlGenerator implements tube
         $requestedEmbeddedPlayerName = $executionContext->get(tubepress_api_const_options_names_Embedded::PLAYER_IMPL);
         $embeddedPlayers             = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_embedded_PluggableEmbeddedPlayerService::_);
 
-        if ($requestedEmbeddedPlayerName === tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED) {
-
-            $calculatedProviderName = null;
-            $videoProviders         = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_provider_PluggableVideoProviderService::_);
-
-            foreach ($videoProviders as $videoProvider) {
-
-                if ($videoProvider->recognizesVideoId($videoId)) {
-
-                    $calculatedProviderName = $videoProvider->getName();
-                    break;
-                }
-            }
-
-            /**
-             * None of the registered video providers recognize this video ID.
-             */
-            if ($calculatedProviderName === null) {
-
-                return null;
-            }
+        if ($requestedEmbeddedPlayerName !== tubepress_api_const_options_values_PlayerImplementationValue::PROVIDER_BASED) {
 
             foreach ($embeddedPlayers as $embeddedPlayer) {
 
-                if ($embeddedPlayer->getHandledProviderName() === $calculatedProviderName) {
+                /** @noinspection PhpUndefinedMethodInspection */
+                if ($embeddedPlayer->getName() === $requestedEmbeddedPlayerName) {
 
                     return $embeddedPlayer;
                 }
             }
+        }
 
-            /**
-             * None of the registered embedded players support the calculated provider.
-             */
+        $calculatedProviderName = null;
+        $videoProviders         = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_provider_PluggableVideoProviderService::_);
+
+        foreach ($videoProviders as $videoProvider) {
+
+            if ($videoProvider->recognizesVideoId($videoId)) {
+
+                $calculatedProviderName = $videoProvider->getName();
+                break;
+            }
+        }
+
+        /**
+         * None of the registered video providers recognize this video ID.
+         */
+        if ($calculatedProviderName === null) {
+
             return null;
         }
 
         foreach ($embeddedPlayers as $embeddedPlayer) {
 
-            /** @noinspection PhpUndefinedMethodInspection */
-            if ($embeddedPlayer->getName() === $requestedEmbeddedPlayerName) {
+            if ($embeddedPlayer->getName() === $calculatedProviderName) {
+
+                 return $embeddedPlayer;
+            }
+        }
+
+        foreach ($embeddedPlayers as $embeddedPlayer) {
+
+            if ($embeddedPlayer->getHandledProviderName() === $calculatedProviderName) {
 
                 return $embeddedPlayer;
             }
         }
 
         /**
-         * No matching embedded player.
+         * None of the registered embedded players support the calculated provider.
          */
         return null;
     }

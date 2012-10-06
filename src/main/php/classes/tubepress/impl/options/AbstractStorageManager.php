@@ -24,75 +24,15 @@
  */
 abstract class tubepress_impl_options_AbstractStorageManager implements tubepress_spi_options_StorageManager
 {
-    private static $_dbVersionOptionName = 'version';
-
     private $_logger;
+
+    private $_knownOptionNames = array();
 
     public function __construct()
     {
         $this->_logger = ehough_epilog_api_LoggerFactory::getLogger('Abstract Storage Manager');
-    }
 
-    /**
-     * Initialize the persistent storage
-     *
-     * @return void
-     */
-    public final function init()
-    {
-        $environmentDetectorService       = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
-        $optionDescriptorReferenceService = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionDescriptorReference();
-
-        $currentVersion = $environmentDetectorService->getVersion();
-        $storedVersion  = tubepress_spi_version_Version::parse('0.0.0');
-        $needToInit     = false;
-
-        if ($this->exists(self::$_dbVersionOptionName)) {
-
-            $storedVersionString = $this->get(self::$_dbVersionOptionName);
-
-            if (strpos($storedVersionString, ".") === false) {
-
-                $needToInit = true;
-
-            } else {
-
-                try {
-
-                    $storedVersion = tubepress_spi_version_Version::parse($storedVersionString);
-
-                } catch (Exception $e) {
-
-                    $needToInit = true;
-                }
-            }
-        } else {
-
-            $this->create(self::$_dbVersionOptionName, (string) $currentVersion);
-
-            $needToInit = true;
-        }
-
-        if ($needToInit || $currentVersion->compareTo($storedVersion) !== 0) {
-
-            $this->setOption(self::$_dbVersionOptionName, (string) $currentVersion);
-        }
-
-        $options = $optionDescriptorReferenceService->findAll();
-
-        $optionValidatorService = tubepress_impl_patterns_ioc_KernelServiceLocator::getOptionValidator();
-
-        foreach ($options as $option) {
-
-            /** @noinspection PhpUndefinedMethodInspection */
-            if (! $option->isMeantToBePersisted()) {
-
-                continue;
-            }
-
-            /** @noinspection PhpUndefinedMethodInspection */
-            $this->_init($option->getName(), $option->getDefaultValue(), $optionValidatorService);
-        }
+        $this->_knownOptionNames = $this->getAllOptionNames();
     }
 
     /**
@@ -162,6 +102,13 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
     protected abstract function setOption($optionName, $optionValue);
 
     /**
+     * @return array All the option names currently in this storage manager.
+     */
+    protected abstract function getAllOptionNames();
+
+    protected abstract function create($optionName, $optionValue);
+
+    /**
      * Creates an option in storage
      *
      * @param mixed $optionName  The name of the option to create
@@ -169,37 +116,15 @@ abstract class tubepress_impl_options_AbstractStorageManager implements tubepres
      *
      * @return void
      */
-    protected abstract function create($optionName, $optionValue);
-
-    /**
-     * Deletes an option from storage
-     *
-     * @param mixed $optionName The name of the option to delete
-     *
-     * @return void
-     */
-    protected abstract function delete($optionName);
-
-    /**
-     * Initializes a single option.
-     *
-     * @param string                                $name                   The option name.
-     * @param string                                $defaultValue           The option value.
-     * @param tubepress_spi_options_OptionValidator $optionValidatorService The option validator.
-     *
-     * @return void
-     */
-    private function _init($name, $defaultValue, tubepress_spi_options_OptionValidator $optionValidatorService)
+    public final function createIfNotExists($optionName, $optionValue)
     {
-        if (! $this->exists($name)) {
+        if (in_array($optionName, $this->_knownOptionNames)) {
 
-            $this->delete($name);
-            $this->create($name, $defaultValue);
+            return;
         }
 
-        if (! $optionValidatorService->isValid($name, $this->get($name))) {
+        $this->create($optionName, $optionValue);
 
-            $this->setOption($name, $defaultValue);
-        }
+        $this->_knownOptionNames[] = $optionName;
     }
 }

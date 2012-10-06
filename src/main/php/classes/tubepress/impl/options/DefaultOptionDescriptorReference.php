@@ -27,8 +27,21 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
     /** Provides fast lookup by name. */
     private $_nameToOptionDescriptorMap = array();
 
-    /** All option descriptors. */
-    private $_optionDescriptors = array();
+    /**
+     * @var tubepress_spi_options_StorageManager
+     */
+    private $_optionStorageManager;
+
+    /**
+     * @var array An array of option descriptors that were registered before the storage manager
+     *            was alive.
+     */
+    private $_preStorageManagerOptionDescriptorBuffer = array();
+
+    /**
+     * @var bool True if we already registered ourselves as a listener, false otherwise.
+     */
+    private $_didRegisterSelfAsListener = false;
 
     /**
      * Returns all of the option descriptors.
@@ -37,7 +50,7 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
      */
     public final function findAll()
     {
-        return $this->_optionDescriptors;
+        return array_values($this->_nameToOptionDescriptorMap);
     }
 
     /**
@@ -74,8 +87,43 @@ class tubepress_impl_options_DefaultOptionDescriptorReference implements tubepre
             throw new InvalidArgumentException($optionDescriptor->getName() . ' is already registered as an option descriptor');
         }
 
-        array_push($this->_optionDescriptors, $optionDescriptor);
+        if (! $this->_didRegisterSelfAsListener) {
+
+            $eventDispatcher = tubepress_impl_patterns_ioc_KernelServiceLocator::getEventDispatcher();
+
+            $eventDispatcher->addListener(tubepress_api_const_event_CoreEventNames::OPTION_STORAGE_MANAGER_READY,
+                array($this, 'onOptionStorageManagerReady'));
+
+            $this->_didRegisterSelfAsListener = true;
+        }
 
         $this->_nameToOptionDescriptorMap[$optionDescriptor->getName()] = $optionDescriptor;
+
+        if (! isset($this->_optionStorageManager)) {
+
+            $this->_preStorageManagerOptionDescriptorBuffer[] = $optionDescriptor;
+
+            return;
+        }
+
+        $this->_quickRegister($optionDescriptor);
+    }
+
+    public final function onOptionStorageManagerReady(tubepress_api_event_TubePressEvent $event)
+    {
+        $this->_optionStorageManager        = $event->getSubject();
+
+        foreach ($this->_preStorageManagerOptionDescriptorBuffer as $optionDescriptor) {
+
+            $this->_quickRegister($optionDescriptor);
+        }
+    }
+
+    private function _quickRegister(tubepress_spi_options_OptionDescriptor $optionDescriptor)
+    {
+        if ($optionDescriptor->isMeantToBePersisted()) {
+
+            $this->_optionStorageManager->createIfNotExists($optionDescriptor->getName(), $optionDescriptor->getDefaultValue());
+        }
     }
 }

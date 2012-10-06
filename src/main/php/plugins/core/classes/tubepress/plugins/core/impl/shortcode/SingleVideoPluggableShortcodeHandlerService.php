@@ -81,6 +81,11 @@ class tubepress_plugins_core_impl_shortcode_SingleVideoPluggableShortcodeHandler
 
         $video = $provider->collectSingleVideo($videoId);
 
+        if ($video === null) {
+
+            return "Video $videoId not found";
+        }
+
         if ($pluginManager->hasListeners(tubepress_api_const_event_CoreEventNames::SINGLE_VIDEO_TEMPLATE_CONSTRUCTION)) {
 
             $event = new tubepress_api_event_TubePressEvent(

@@ -24,8 +24,19 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainerTest ex
 
     private $_mockOptionDescriptorReference;
 
+    private $_mockEventDispatcher;
+
+    public $options = 'xyz';
+
     function setUp()
     {
+        global $wpdb;
+
+        $wpdb = $this;
+
+        $this->_mockEventDispatcher = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
+
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
         $this->_sut = new tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainer();
 
         $this->_mockOptionDescriptorReference = Mockery::mock(tubepress_spi_options_OptionDescriptorReference::_);
@@ -71,6 +82,24 @@ class tubepress_plugins_wordpress_impl_patterns_ioc_WordPressIocContainerTest ex
         $obj = $this->_sut->get($id);
 
         $this->assertTrue($obj instanceof $class, "Failed to build $id of type $class. Instead got " . gettype($obj) . var_export($obj, true));
+    }
+
+    function onTearDown()
+    {
+        global $wpdb;
+
+        unset($wpdb);
+    }
+
+    public function get_results($query)
+    {
+        $this->assertEquals("SELECT option_name FROM xyz WHERE option_name LIKE 'tubepress-%'", $query);
+
+        $fake = new stdClass();
+
+        $fake->option_name = 'abc123';
+
+        return array($fake);
     }
 
 

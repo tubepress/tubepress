@@ -22,8 +22,22 @@ class org_tubepress_impl_options_DefaultOptionDescriptorReferenceTest extends Tu
 {
 	private $_sut;
 
+    private $_mockEventDispatcher;
+
 	public function setup()
 	{
+        $this->_mockEventDispatcher = Mockery::mock('ehough_tickertape_api_IEventDispatcher');
+
+        tubepress_impl_patterns_ioc_KernelServiceLocator::setEventDispatcher($this->_mockEventDispatcher);
+
+        $this->_mockEventDispatcher->shouldReceive('addListener')->once()->with(tubepress_api_const_event_CoreEventNames::OPTION_STORAGE_MANAGER_READY,
+
+            Mockery::on(function ($arg) {
+
+                return $arg[0] instanceof tubepress_impl_options_DefaultOptionDescriptorReference;
+            })
+        );
+
 		$this->_sut = new tubepress_impl_options_DefaultOptionDescriptorReference();
 	}
 
