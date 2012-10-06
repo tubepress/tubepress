@@ -30,6 +30,24 @@ Displays gorgeous YouTube and Vimeo videos and galleries in your site. Please vi
 1. Type `[tubepress]` in a post or a page where you'd like to insert your first gallery
 
 == Changelog ==
+= 3.0.0 =
+* Official support for plugin API
+* Fixed HTTPS bug
+* Significant performance improvements in parsing raw feeds from remote video APIs
+* Major reorganization of code to support pluggability
+* Switched to PSR-0 classloading and Composer for dependency control
+* Improved performance due to "lazy loading" services
+* YouTube added option to remove all player controls
+* YouTube added option to use light/dark theme
+* YouTube added option to control closed captions
+* YouTube added option to control annotations
+* YouTube removed obsolete player paremeters such as HD, color
+* Upgrade JW FLV Player to 5.10
+* Upgrade jQuery core to 1.8.2
+* Upgrade jQuery UI to 1.8.24
+* Upgrade jQuery MultiSelect UI Widget to 1.13
+* Upgrade jscolor to 1.4.0
+
 = 2.4.5 =
 * Now accepts new format of YouTube playlist IDs
 

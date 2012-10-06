@@ -409,36 +409,6 @@ msgstr "<a href=\"http://vimeo.com/api/applications/new\">Kliknij tutaj</a>, aby
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "Vimeo API \"Consumer Secret\""
 
-msgid "Do not attempt to use cURL to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr "Nie używaj cURL do pobierania zewnętrznych danych typu \"feed\". Zostaw włączone, chyba, że wiesz co robisz."
-
-msgid "Do not attempt to use the PHP HTTP extension to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr "Nie używaj rozszerzenia PHP HTTP do pobrania zewnętrznych źródeł danych (\"feed\"). Pozostaw włączone, chyba, że wiesz co robisz."
-
-msgid "Do not attempt to use fopen to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr "Nie próbuj używać fopen do pobierania zewnętrznych wątków (\"feeds\"). Pozostaw włączone chyba, że wiesz co robisz."
-
-msgid "Do not attempt to use fsockopen to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr "Nie próbuj użyć fsockopen do pobrania zewnętrznych wątków (\"feeds\"). Pozostaw włączone chyba, że wiesz co robisz."
-
-msgid "Do not attempt to use PHP streams to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr "Nie próbuj używać strumieni PHP, aby pobierać zewnętrzne wątki (\"feeds\"). Pozostaw włączone chyba, że wiesz co robisz."
-
-msgid "Disable <a href=\"http://php.net/manual/en/function.curl-exec.php\">cURL</a> HTTP transport"
-msgstr "Wyłącz transport HTTP przez <a href=\"http://php.net/manual/en/function.curl-exec.php\">cURL</a>"
-
-msgid "Disable <a href=\"http://php.net/http_request\">HTTP extension</a> transport"
-msgstr "Wyłącz rozszerzenie transportu przez <a href=\"http://php.net/http_request\">HTTP</a>"
-
-msgid "Disable <a href=\"http://php.net/manual/en/function.fopen.php\">fopen</a> HTTP transport"
-msgstr "Wyłącz transport HTTP przez <a href=\"http://php.net/manual/en/function.fopen.php\">fopen</a>"
-
-msgid "Disable <a href=\"http://php.net/fsockopen\">fsockopen</a> HTTP transport"
-msgstr "Wyłącz transport HTTP przez <a href=\"http://php.net/fsockopen\">fsockopen</a>"
-
-msgid "Disable <a href=\"http://php.net/manual/en/intro.stream.php\">PHP streams</a> HTTP transport"
-msgstr "Wyłącz transport HTTP przez <a href=\"http://php.net/manual/en/intro.stream.php\">strumienie PHP</a>"
-
 msgid "Cache directory"
 msgstr "Katalog pamięci podręcznej (\"Cache\")"
 

@@ -24,7 +24,7 @@ class tubepress_api_const_ConstantsTest extends TubePressUnitTest
     {
         $toTest = array(
 
-            'tubepress_api_const_options_names_Advanced'                    => array('debugging_enabled', 'disableHttpTransportCurl', 'disableHttpTransportExtHttp', 'disableHttpTransportFopen', 'disableHttpTransportFsockOpen', 'disableHttpTransportStreams', 'keyword', 'galleryId', 'https'),
+            'tubepress_api_const_options_names_Advanced'                    => array('debugging_enabled', 'keyword', 'galleryId', 'https'),
             'tubepress_api_const_options_names_Cache'                       => array('cacheEnabled', 'cacheCleaningFactor', 'cacheDirectory', 'cacheLifetimeSeconds'),
             'tubepress_api_const_options_names_Embedded' 					=> array('playerImplementation', 'embeddedHeight', 'embeddedWidth', 'lazyPlay', 'autoplay', 'loop', 'showInfo', 'playerLocation', 'autoNext', 'sequence', 'enableJsApi'),
             'tubepress_api_const_options_names_Feed'						=> array('orderBy', 'videoBlacklist', 'resultCountCap', 'searchResultsRestrictedToUser',  'perPageSort'),

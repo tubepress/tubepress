@@ -412,36 +412,6 @@ msgstr "<a href=\"http://vimeo.com/api/applications/new\">Rekisteröi uusi consu
 msgid "Vimeo API \"Consumer Secret\""
 msgstr "Vimeo API \"Consumer Secret\""
 
-msgid "Do not attempt to use cURL to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr "Älä käytä cURLia syötteiden hakemiseen. Jätä aktiiviseksi, jos et tiedä mitä olet tekemässä."
-
-msgid "Do not attempt to use the PHP HTTP extension to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr "Älä käytä PHP HTTP -laajennosta syötteiden hakemiseen. Jätä aktiiviseksi, jos et tiedä mitä olet tekemässä."
-
-msgid "Do not attempt to use fopen to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr "Älä käytä fopen-komentoa syötteiden hakemiseen. Jätä aktiiviseksi, jos et tiedä mitä olet tekemässä."
-
-msgid "Do not attempt to use fsockopen to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr "Älä käytä fsockopen-komentoa syötteiden hakemiseen. Jätä aktiiviseksi, jos et tiedä mitä olet tekemässä."
-
-msgid "Do not attempt to use PHP streams to fetch remote feeds. Leave enabled unless you know what you are doing."
-msgstr "Älä käytä PHP-striimausta syötteiden hakemiseen. Jätä aktiiviseksi, jos et tiedä mitä olet tekemässä."
-
-msgid "Disable <a href=\"http://php.net/manual/en/function.curl-exec.php\">cURL</a> HTTP transport"
-msgstr "Poista käytöstä <a href=\"http://php.net/manual/en/function.curl-exec.php\">cURL</a> HTTP transport"
-
-msgid "Disable <a href=\"http://php.net/http_request\">HTTP extension</a> transport"
-msgstr "Poista käytöstä <a href=\"http://php.net/http_request\">HTTP extension</a> transport"
-
-msgid "Disable <a href=\"http://php.net/manual/en/function.fopen.php\">fopen</a> HTTP transport"
-msgstr "Poista käytöstä <a href=\"http://php.net/manual/en/function.fopen.php\">fopen</a> HTTP transport"
-
-msgid "Disable <a href=\"http://php.net/fsockopen\">fsockopen</a> HTTP transport"
-msgstr "Poista käytöstä <a href=\"http://php.net/fsockopen\">fsockopen</a> HTTP transport"
-
-msgid "Disable <a href=\"http://php.net/manual/en/intro.stream.php\">PHP streams</a> HTTP transport"
-msgstr "Poista käytöstä <a href=\"http://php.net/manual/en/intro.stream.php\">PHP streams</a> HTTP transport"
-
 msgid "Cache directory"
 msgstr "Välimuistihakemisto"
 

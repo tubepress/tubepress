@@ -25,11 +25,6 @@
 class tubepress_api_const_options_names_Advanced
 {
     const DEBUG_ON               = 'debugging_enabled';
-    const DISABLE_HTTP_CURL      = 'disableHttpTransportCurl';
-    const DISABLE_HTTP_EXTHTTP   = 'disableHttpTransportExtHttp';
-    const DISABLE_HTTP_FOPEN     = 'disableHttpTransportFopen';
-    const DISABLE_HTTP_FSOCKOPEN = 'disableHttpTransportFsockOpen';
-    const DISABLE_HTTP_STREAMS   = 'disableHttpTransportStreams';
     const GALLERY_ID             = 'galleryId';
     const HTTPS                  = 'https';
     const KEYWORD                = 'keyword';

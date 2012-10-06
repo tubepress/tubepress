@@ -50,7 +50,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
     {
         $this->setupMocks();
 
-        $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->times(59);
+        $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->times(54);
 
         $this->_sut->onBoot(new tubepress_api_event_TubePressEvent());
 
@@ -68,40 +68,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
         $option->setBoolean();
         $this->_verifyOption($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Advanced::DISABLE_HTTP_CURL);
-        $option->setDefaultValue(false);
-        $option->setLabel('Disable <a href="http://php.net/manual/en/function.curl-exec.php">cURL</a> HTTP transport');                    //>(translatable)<
-        $option->setDescription('Do not attempt to use cURL to fetch remote feeds. Leave enabled unless you know what you are doing.');    //>(translatable)<
-        $option->setBoolean();
-        $this->_verifyOption($option);
 
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Advanced::DISABLE_HTTP_EXTHTTP);
-        $option->setDefaultValue(false);
-        $option->setLabel('Disable <a href="http://php.net/http_request">HTTP extension</a> transport');                                                  //>(translatable)<
-        $option->setDescription('Do not attempt to use the PHP HTTP extension to fetch remote feeds. Leave enabled unless you know what you are doing.'); //>(translatable)<
-        $option->setBoolean();
-        $this->_verifyOption($option);
-
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FOPEN);
-        $option->setDefaultValue(false);
-        $option->setLabel('Disable <a href="http://php.net/manual/en/function.fopen.php">fopen</a> HTTP transport');                     //>(translatable)<
-        $option->setDescription('Do not attempt to use fopen to fetch remote feeds. Leave enabled unless you know what you are doing.'); //>(translatable)<
-        $option->setBoolean();
-        $this->_verifyOption($option);
-
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Advanced::DISABLE_HTTP_FSOCKOPEN);
-        $option->setDefaultValue(false);
-        $option->setLabel('Disable <a href="http://php.net/fsockopen">fsockopen</a> HTTP transport');                                        //>(translatable)<
-        $option->setDescription('Do not attempt to use fsockopen to fetch remote feeds. Leave enabled unless you know what you are doing.'); //>(translatable)<
-        $option->setBoolean();
-        $this->_verifyOption($option);
-
-        $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Advanced::DISABLE_HTTP_STREAMS);
-        $option->setDefaultValue(false);
-        $option->setLabel('Disable <a href="http://php.net/manual/en/intro.stream.php">PHP streams</a> HTTP transport');                        //>(translatable)<
-        $option->setDescription('Do not attempt to use PHP streams to fetch remote feeds. Leave enabled unless you know what you are doing.');  //>(translatable)<
-        $option->setBoolean();
-        $this->_verifyOption($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Advanced::HTTPS);
         $option->setDefaultValue(false);
