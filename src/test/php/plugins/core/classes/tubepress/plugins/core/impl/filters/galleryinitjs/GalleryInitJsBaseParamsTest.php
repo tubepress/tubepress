@@ -55,6 +55,7 @@ class org_tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTes
         $mockPlayer = Mockery::mock(tubepress_spi_player_PluggablePlayerLocationService::_);
         $mockPlayer->shouldReceive('getName')->andReturn('player-loc');
         $mockPlayer->shouldReceive('getRelativePlayerJsUrl')->andReturn('abc');
+        $mockPlayer->shouldReceive('producesHtml')->once()->andReturn(true);
         $mockPlayers = array($mockPlayer);
 
         $tubepress_base_url = 'xyz';
@@ -76,6 +77,7 @@ class org_tubepress_impl_plugin_filters_galleryinitjs_GalleryInitJsBaseParamsTes
 	        'playerLocationName' => '"player-loc"',
             'shortcode' => '"%20%2B%20%22%26"',
             'playerJsUrl' => '"xyz/abc"',
+            'playerLocationProducesHtml' => 'true',
             'yo' => 'mamma'
 
 	    ), $result);

@@ -49,4 +49,12 @@ class tubepress_plugins_core_impl_player_JqModalPluggablePlayerLocationService i
     {
         return '/src/main/web/players/jqmodal/jqmodal.js';
     }
+
+    /**
+     * @return boolean True if this player location produces HTML, false otherwise.
+     */
+    public final function producesHtml()
+    {
+        return true;
+    }
 }

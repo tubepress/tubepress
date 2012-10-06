@@ -37,7 +37,7 @@ var TubePressSoloPlayer = (function () {
 			});
 		};
 
-	jquery.getScript(getTubePressBaseUrl() + '/sys/ui/static/players/solo/lib/jQuery.query.js', scanAndModifyThumbs, true);	
+	jquery.getScript(TubePressGlobalJsConfig.baseUrl + '/src/main/web/players/solo/lib/jQuery.query.js', scanAndModifyThumbs, true);
 	doc.bind(events.NEW_THUMBS_LOADED, scanAndModifyThumbs);
 	
 }());

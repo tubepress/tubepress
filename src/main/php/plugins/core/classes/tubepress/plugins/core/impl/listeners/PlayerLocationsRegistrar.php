@@ -32,7 +32,10 @@ class tubepress_plugins_core_impl_listeners_PlayerLocationsRegistrar
             new tubepress_plugins_core_impl_player_NormalPluggablePlayerLocationService(),
             new tubepress_plugins_core_impl_player_PopupPluggablePlayerLocationService(),
             new tubepress_plugins_core_impl_player_ShadowboxPluggablePlayerLocationService(),
-            new tubepress_plugins_core_impl_player_StaticPluggablePlayerLocationService()
+            new tubepress_plugins_core_impl_player_StaticPluggablePlayerLocationService(),
+            new tubepress_plugins_core_impl_player_VimeoPluggablePlayerLocationService(),
+            new tubepress_plugins_core_impl_player_SoloPluggablePlayerLocationService(),
+            new tubepress_plugins_core_impl_player_YouTubePluggablePlayerLocationService()
         );
 
         $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();

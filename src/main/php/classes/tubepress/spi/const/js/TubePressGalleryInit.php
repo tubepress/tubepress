@@ -36,6 +36,7 @@ class tubepress_spi_const_js_TubePressGalleryInit
     const NAME_PARAM_FLUIDTHUMBS    = 'fluidThumbs';
     const NAME_PARAM_PLAYERLOC      = 'playerLocationName';
     const NAME_PARAM_PLAYERJSURL    = 'playerJsUrl';
+    const NAME_PARAM_PLAYER_PRODUCES_HTML = 'playerLocationProducesHtml';
     const NAME_PARAM_PLAYSEQUENCE   = 'playSequence';
     const NAME_PARAM_SEQUENCE       = 'sequence';
     const NAME_PARAM_SHORTCODE      = 'shortcode';

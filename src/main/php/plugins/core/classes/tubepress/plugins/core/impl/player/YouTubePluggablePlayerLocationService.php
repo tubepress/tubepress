@@ -22,7 +22,7 @@
 /**
  * Plays videos with jqmodal.
  */
-class tubepress_plugins_core_impl_player_PopupPluggablePlayerLocationService implements tubepress_spi_player_PluggablePlayerLocationService
+class tubepress_plugins_core_impl_player_YouTubePluggablePlayerLocationService implements tubepress_spi_player_PluggablePlayerLocationService
 {
     /**
      * @param tubepress_spi_theme_ThemeHandler $themeHandler The theme handler.
@@ -31,7 +31,7 @@ class tubepress_plugins_core_impl_player_PopupPluggablePlayerLocationService imp
      */
     public final function getTemplate(tubepress_spi_theme_ThemeHandler $themeHandler)
     {
-        return $themeHandler->getTemplateInstance('players/popup.tpl.php', TUBEPRESS_ROOT . '/src/main/resources/default-themes/default');
+        return null;
     }
 
     /**
@@ -39,7 +39,7 @@ class tubepress_plugins_core_impl_player_PopupPluggablePlayerLocationService imp
      */
     public final function getName()
     {
-        return 'popup';
+        return 'youtube';
     }
 
     /**
@@ -47,7 +47,7 @@ class tubepress_plugins_core_impl_player_PopupPluggablePlayerLocationService imp
      */
     public final function getRelativePlayerJsUrl()
     {
-        return '/src/main/web/players/popup/popup.js';
+        return '/src/main/web/players/youtube/youtube.js';
     }
 
     /**
@@ -55,6 +55,6 @@ class tubepress_plugins_core_impl_player_PopupPluggablePlayerLocationService imp
      */
     public final function producesHtml()
     {
-        return true;
+        return false;
     }
 }

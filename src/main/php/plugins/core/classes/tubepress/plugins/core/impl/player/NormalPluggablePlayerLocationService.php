@@ -49,4 +49,12 @@ class tubepress_plugins_core_impl_player_NormalPluggablePlayerLocationService im
     {
         return '/src/main/web/players/normal/normal.js';
     }
+
+    /**
+     * @return boolean True if this player location produces HTML, false otherwise.
+     */
+    public final function producesHtml()
+    {
+        return true;
+    }
 }

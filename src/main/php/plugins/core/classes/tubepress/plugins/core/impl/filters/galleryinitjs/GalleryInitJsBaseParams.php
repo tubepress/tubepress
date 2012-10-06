@@ -48,16 +48,24 @@ class tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams
         $args[tubepress_spi_const_js_TubePressGalleryInit::NAME_PARAM_SHORTCODE] =
             '"' . rawurlencode($context->toShortcode()) . '"';
 
-        $args[tubepress_spi_const_js_TubePressGalleryInit::NAME_PARAM_PLAYERJSURL] =
-            '"' . $this->_getPlayerJsUrl($context) . '"';
+        $playerLocation = $this->_findPlayerLocation($context);
+
+        if ($playerLocation !== null) {
+
+            $args[tubepress_spi_const_js_TubePressGalleryInit::NAME_PARAM_PLAYERJSURL] =
+                '"' . $this->_getPlayerJsUrl($playerLocation) . '"';
+
+            $args[tubepress_spi_const_js_TubePressGalleryInit::NAME_PARAM_PLAYER_PRODUCES_HTML] =
+                $playerLocation->producesHtml() ? 'true' : 'false';
+        }
+
+
 
         $event->setSubject($args);
     }
 
-    private function _getPlayerJsUrl(tubepress_spi_context_ExecutionContext $context)
+    private function _findPlayerLocation($context)
     {
-        global $tubepress_base_url;
-
         $serviceCollectionsRegistry = tubepress_impl_patterns_ioc_KernelServiceLocator::getServiceCollectionsRegistry();
         $playerLocations            = $serviceCollectionsRegistry->getAllServicesOfType(tubepress_spi_player_PluggablePlayerLocationService::_);
         $requestedPlayerName        = $context->get(tubepress_api_const_options_names_Embedded::PLAYER_LOCATION);
@@ -66,10 +74,17 @@ class tubepress_plugins_core_impl_filters_galleryinitjs_GalleryInitJsBaseParams
 
             if ($playerLocation->getName() === $requestedPlayerName) {
 
-                return $tubepress_base_url . '/' . $playerLocation->getRelativePlayerJsUrl();
+                return $playerLocation;
             }
         }
 
-        return '';
+        return null;
+    }
+
+    private function _getPlayerJsUrl(tubepress_spi_player_PluggablePlayerLocationService $player)
+    {
+        global $tubepress_base_url;
+
+        return $tubepress_base_url . '/' . $player->getRelativePlayerJsUrl();
     }
 }

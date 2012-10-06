@@ -35,7 +35,7 @@ class tubepress_plugins_core_impl_listeners_PlayerLocationsRegistrarTest extends
 
     public function testBoot()
     {
-        $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->times(5)->with(
+        $this->_mockServiceCollectionsRegistry->shouldReceive('registerService')->times(8)->with(
 
             tubepress_spi_player_PluggablePlayerLocationService::_,
             Mockery::on(function ($arg) {
@@ -44,7 +44,10 @@ class tubepress_plugins_core_impl_listeners_PlayerLocationsRegistrarTest extends
                     || $arg instanceof tubepress_plugins_core_impl_player_NormalPluggablePlayerLocationService
                     || $arg instanceof tubepress_plugins_core_impl_player_PopupPluggablePlayerLocationService
                     || $arg instanceof tubepress_plugins_core_impl_player_ShadowboxPluggablePlayerLocationService
-                    || $arg instanceof tubepress_plugins_core_impl_player_StaticPluggablePlayerLocationService;
+                    || $arg instanceof tubepress_plugins_core_impl_player_StaticPluggablePlayerLocationService
+                    || $arg instanceof tubepress_plugins_core_impl_player_SoloPluggablePlayerLocationService
+                    || $arg instanceof tubepress_plugins_core_impl_player_VimeoPluggablePlayerLocationService
+                    || $arg instanceof tubepress_plugins_core_impl_player_YouTubePluggablePlayerLocationService;
             })
         );
 

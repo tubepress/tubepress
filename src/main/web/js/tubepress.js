@@ -299,11 +299,19 @@ var TubePressGallery = (function () {
 		},
 
 		/**
-		 * Where is the
+		 * Where is the JS init code for this player?
 		 */
 		getPlayerJsUrl = function (galleryId) {
 
 			return galleries[galleryId].playerJsUrl;
+		},
+
+		/**
+		 * Does this player produce HTML?
+		 */
+		getPlayerProducesHtml = function (galleryId) {
+
+			return galleries[galleryId].playerLocationProducesHtml;
 		},
 		
 		/**
@@ -353,6 +361,7 @@ var TubePressGallery = (function () {
 		getEmbeddedHeight		: getEmbeddedHeight,
 		getEmbeddedWidth		: getEmbeddedWidth,
 		getPlayerLocationName	: getPlayerLocationName,
+		getPlayerLocationProducesHtml : getPlayerProducesHtml,
 		getPlayerJsUrl          : getPlayerJsUrl,
 		getSequence				: getSequence,
 		getShortcode			: getShortcode,
@@ -394,14 +403,6 @@ var TubePressPlayers = (function () {
 				jquery.getScript(path);
 			}
 		},
-		
-		/**
-		 * Does this player require population by TubePress?
-		 */
-		requiresPopulation = function (playerName) {
-			
-			return playerName !== 'vimeo' && playerName !== 'youtube' && playerName !== 'solo' && playerName !== 'static';
-		},
 	
 		/**
 		 * Load up a TubePress player with the given video ID.
@@ -435,7 +436,7 @@ var TubePressPlayers = (function () {
 			documentElement.trigger(tubepressEvents.PLAYER_INVOKE + playerName, [ videoId, galleryId, width, height ]);
 			
 			/** If this player requires population, go fetch the HTML for it. */
-			if (requiresPopulation(playerName)) {
+			if (tubepressGallery.getPlayerLocationProducesHtml(galleryId)) {
 
 				/* ... and fetch the HTML for it */
 				TubePressAjax.get(url, dataToSend, callback, 'json');

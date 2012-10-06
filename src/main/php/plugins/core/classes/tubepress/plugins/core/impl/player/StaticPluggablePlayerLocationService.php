@@ -49,4 +49,12 @@ class tubepress_plugins_core_impl_player_StaticPluggablePlayerLocationService im
     {
         return '/src/main/web/players/static/static.js';
     }
+
+    /**
+     * @return boolean True if this player location produces HTML, false otherwise.
+     */
+    public final function producesHtml()
+    {
+        return true;
+    }
 }
