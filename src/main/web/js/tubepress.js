@@ -1095,7 +1095,9 @@ var TubePressPlayerApi = (function () {
 		 * Load the YouTube API, if necessary.
 		 */
 		loadYouTubeApi = function () {
-	
+
+			var scheme = TubePressGlobalJsConfig.https ? 'https' : 'http';
+
 			if (! loadingYouTubeApi && ! isYouTubeApiAvailable()) {
 				
 				if (logger.on()) {
@@ -1104,7 +1106,7 @@ var TubePressPlayerApi = (function () {
 				}
 				
 				loadingYouTubeApi = true;
-				jquery.getScript('http://www.youtube.com/player_api');
+				jquery.getScript(scheme + '://www.youtube.com/player_api');
 			}
 		},
 		
