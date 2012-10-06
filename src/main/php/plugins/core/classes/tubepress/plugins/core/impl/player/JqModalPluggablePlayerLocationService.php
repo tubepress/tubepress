@@ -22,7 +22,7 @@
 /**
  * Plays videos with jqmodal.
  */
-class tubepress_plugins_core_impl_normal_JqModalPluggablePlayerLocationService implements tubepress_spi_player_PluggablePlayerLocationService
+class tubepress_plugins_core_impl_player_JqModalPluggablePlayerLocationService implements tubepress_spi_player_PluggablePlayerLocationService
 {
     /**
      * @param tubepress_spi_theme_ThemeHandler $themeHandler The theme handler.
