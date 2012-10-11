@@ -48,8 +48,6 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
 
     public function testFindAll()
     {
-        $this->setupMocks();
-
         $this->_mockOptionsDescriptorReference->shouldReceive('registerOptionDescriptor')->times(55);
 
         $this->_sut->onBoot(new tubepress_api_event_TubePressEvent());
@@ -511,19 +509,19 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrarTest extends Tub
         $fakeThemeDir        = \Mockery::mock();
 
 
-        $environmentDetector->shouldReceive('getUserContentDirectory')->once()->andReturn('user-content-dir');
+        $environmentDetector->shouldReceive('getUserContentDirectory')->times(50)->andReturn('user-content-dir');
 
-        $filesystem->shouldReceive('exists')->once()->with(TUBEPRESS_ROOT . '/src/main/resources/default-themes')->andReturn(false);
-        $filesystem->shouldReceive('exists')->once()->with('user-content-dir/themes')->andReturn(true);
+        $filesystem->shouldReceive('exists')->times(50)->with(TUBEPRESS_ROOT . '/src/main/resources/default-themes')->andReturn(false);
+        $filesystem->shouldReceive('exists')->times(50)->with('user-content-dir/themes')->andReturn(true);
 
-        $finderFactory->shouldReceive('createFinder')->once()->andReturn($finder);
-        $finder->shouldReceive('directories')->once()->andReturn($finder);
-        $finder->shouldReceive('in')->once()->with(array('user-content-dir/themes'))->andReturn($finder);
-        $finder->shouldReceive('depth')->once()->with(0);
+        $finderFactory->shouldReceive('createFinder')->times(50)->andReturn($finder);
+        $finder->shouldReceive('directories')->times(50)->andReturn($finder);
+        $finder->shouldReceive('in')->times(50)->with(array('user-content-dir/themes'))->andReturn($finder);
+        $finder->shouldReceive('depth')->times(50)->with(0);
 
         $finder->shouldReceive('getIterator')->andReturn(new ArrayIterator(array($fakeThemeDir)));
 
-        $fakeThemeDir->shouldReceive('getBasename')->once()->andReturn('xyz');
+        $fakeThemeDir->shouldReceive('getBasename')->times(50)->andReturn('xyz');
 
         tubepress_impl_patterns_ioc_KernelServiceLocator::setEnvironmentDetector($environmentDetector);
         tubepress_impl_patterns_ioc_KernelServiceLocator::setFileSystem($filesystem);

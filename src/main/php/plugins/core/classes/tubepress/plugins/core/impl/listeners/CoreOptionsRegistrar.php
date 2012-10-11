@@ -410,7 +410,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::THEME);
         $option->setLabel('Theme');                                                                                                                                       //>(translatable)<
         $option->setDescription('The TubePress theme to use for this gallery. Your themes can be found at <tt>%s</tt>, and default themes can be found at <tt>%s</tt>.'); //>(translatable)<
-        $option->setAcceptableValues($this->_getThemeValues());
+        $option->setAcceptableValuesCallback(array($this, 'getValidThemeOptions'));
         $odr->registerOptionDescriptor($option);
 
         $option = new tubepress_spi_options_OptionDescriptor(tubepress_api_const_options_names_Thumbs::THUMB_HEIGHT);
@@ -443,7 +443,7 @@ class tubepress_plugins_core_impl_listeners_CoreOptionsRegistrar
         $odr->registerOptionDescriptor($option);
     }
 
-    private function _getThemeValues()
+    public final function getValidThemeOptions()
     {
         $environmentDetectorService     = tubepress_impl_patterns_ioc_KernelServiceLocator::getEnvironmentDetector();
         $fileSystemService              = tubepress_impl_patterns_ioc_KernelServiceLocator::getFileSystem();
